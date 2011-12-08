@@ -1,0 +1,10 @@
+StateSingle
+StateDouble
+StateWindow
+StateWallExt
+StateZone
+StateWallInt
+StateWallGround
+StateBuilding
+Material
+Glazing
