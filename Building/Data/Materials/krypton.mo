@@ -1,3 +1,0 @@
-within IDEAS.Building.Data.Materials;
-record Krypton =
-             IDEAS.Building.Elements.Material(k=0.0086,c=245,rho=3.56,epsSw=0,epsLw=0,nState=1,gas=true, mhu=23.0*10e-6);

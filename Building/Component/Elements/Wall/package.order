@@ -1,9 +1,0 @@
-HeatCapacity
-HeatResistor
-SingleLayerOpaque
-MultipleLayerOpaque
-InteriorConvection
-ExteriorConvection
-ExteriorSwRadiation
-ExteriorLwRadidation
-SummaryWall
