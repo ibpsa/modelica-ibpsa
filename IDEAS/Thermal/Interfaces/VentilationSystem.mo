@@ -1,41 +1,19 @@
 within IDEAS.Thermal.Interfaces;
 partial model VentilationSystem
 
-  outer IDEAS.Climate.SimInfoManager  sim
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-
   parameter Integer nZones(min=1) "number of conditioned thermal zones";
   parameter Integer nLoads(min=1) "number of electric loads";
-
-  parameter EmissionType emissionType = EmissionType.RadiatorsAndFloorHeating
-    "Type of the heat emission system";
-
-// Interfaces ////////////////////////////////////////////////////////////////////////////////////////
-
-// General parameters for the design (nominal) conditions /////////////////////////////////////////////
-
-  parameter Modelica.SIunits.Power[nZones] QNom(each min=0)
-    "Nominal power, can be seen as the max power of the EMISSION system";
-
-// parameters DHW ///////////////////////////////////////////////////////////////////////////////////////
-  parameter Integer nOcc = 2
-    "number of occupants for determination of DHW consumption";
-
-// Building parameters /////////////////////////////////////////////////////////////////////////////////
   parameter Real[nZones] VZones "conditioned (C) volumes (V) of the zones";
   parameter Modelica.SIunits.HeatCapacity[nZones] C = 1012*1.204*VZones*5
     "Heat capacity of the conditioned zones";
 
-// Other parameters//////////////////////////////////////////////////////////////////////////////////////
-
-// Variables ///////////////////////////////////////////////////////////////////////////////////////////
-
-// General outputs
-
+  outer IDEAS.Climate.SimInfoManager  sim
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] conv
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[nLoads] plug
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
   annotation(Icon(graphics={
         Polygon(
           points={{6,62},{32,48},{32,18},{34,18},{44,26},{44,-26},{10,-24},{42,-42},

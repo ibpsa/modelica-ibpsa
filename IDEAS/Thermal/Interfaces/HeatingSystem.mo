@@ -1,48 +1,21 @@
 within IDEAS.Thermal.Interfaces;
 partial model HeatingSystem
 
-  outer IDEAS.Climate.SimInfoManager  sim
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Integer nZones(min=1) "number of conditioned thermal zones";
   parameter Integer nLoads(min=1) "number of electric loads";
 
   parameter EmissionType emissionType = EmissionType.RadiatorsAndFloorHeating
     "Type of the heat emission system";
 
-// Interfaces ////////////////////////////////////////////////////////////////////////////////////////
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[n_C] port_emb if
-      (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
-    "Port to the core of a floor heating/concrete activation"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-  Modelica.Blocks.Interfaces.RealInput[n_C] TSensor
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-96,-60})));
-  Modelica.Blocks.Interfaces.RealInput[n_C] TAsked
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={0,-90})));
-
-// General parameters for the design (nominal) conditions /////////////////////////////////////////////
-
   parameter Modelica.SIunits.Power[nZones] QNom(each min=0)
     "Nominal power, can be seen as the max power of the EMISSION system";
 
-// parameters DHW ///////////////////////////////////////////////////////////////////////////////////////
-  parameter Integer nOcc = 2
-    "number of occupants for determination of DHW consumption";
-
-// Building parameters /////////////////////////////////////////////////////////////////////////////////
   parameter Real[nZones] VZones "conditioned (C) volumes (V) of the zones";
   parameter Modelica.SIunits.HeatCapacity[nZones] C = 1012*1.204*VZones*5
     "Heat capacity of the conditioned zones";
 
-// Other parameters//////////////////////////////////////////////////////////////////////////////////////
-
-// Variables ///////////////////////////////////////////////////////////////////////////////////////////
-
-// General outputs
-
+  outer IDEAS.Climate.SimInfoManager  sim
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] port_con
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] port_rad
@@ -50,6 +23,18 @@ partial model HeatingSystem
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[nLoads]
     plug
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] port_emb if
+      (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
+    "Port to the core of a floor heating/concrete activation"
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+  Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-96,-60})));
+  Modelica.Blocks.Interfaces.RealInput[nZones] TAsked
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={0,-90})));
   annotation(Icon(graphics={
         Polygon(
           points={{-46,-8},{-46,-20},{-44,-22},{-24,-10},{-24,2},{-26,4},{-46,-8}},
