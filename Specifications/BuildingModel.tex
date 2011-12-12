@@ -1,0 +1,247 @@
+
+\title{Transient building response model}
+% Use \titlerunning{Short Title} for an abbreviated version of your contribution title if the original one is too long
+\author{Ruben Baetens and Dirk Saelens}
+\authorrunning{R. Baetens, D. Saelens}
+\institute{Ruben Baetens \at K.U.Leuven, Kasteelpark Arenberg 40 bus 2447, BE-3001 Leuven (Heverlee) \email{ruben.baetens@bwk.kuleuven.be}
+\and Dirk Saelens \at K.U.Leuven, Kasteelpark Arenberg 40 bus 2447, BE-3001 Leuven (Heverlee) \email{dirk.saelens@bwk.kuleuven.be}}
+\maketitle
+
+\abstract{A numeric building model is developed in Modelica for integrated energy simulation.}
+
+\vspace{\baselineskip}
+
+In this section, we describe in detail the dynamic building model and its possibilities that are implemented in Modelica as part of the IDEAS platform. The building model allows simulation of the energy demand for heating and cooling of a multi-zone building, energy flows in the building envelope and interconnection with dynamic models of thermal and electrical building energy systems within the IDEAS platform for comfort measures. 
+
+The description is divided into the description of the \index{wall} model and the \index{zone} model. The window model and the model for ground losses are described more in detail as extend to the wall model.
+
+The relevant material properties of the surfaces are complex functions of the surface temperature, angle and wavelength for each participating surface. The assumptions used frequently in engineering applications~\cite{Walton1983} are that $(i)$ each surface emits or reflects diffusely, that $(ii)$ each surface is at a uniform temperature, that $(iii)$ the energy flux leaving a surface is evenly distributed across the surface and $(iv)$ is one-dimensional.
+
+\section{Wall response model}
+
+The description of the thermal response of a \index{wall} (or a structure of parallel opaque layers in general) is structured as in the 3 different occurring processes, i.e. the heat balance of the exterior surface, heat  conduction between both surfaces and the heat balance of the interior surface.
+
+\subsection{Exterior surface heat balance}
+
+The heat balance of the exterior surface is determined as 
+
+\begin{equation}
+Q_{net}(t,x) = Q_{c}(t,x) + Q_{SW}(t,x) + Q_{LW,e}(t,x) + Q_{LW,sky}(t,x)
+\end{equation}
+
+where $Q_{net}(t,x)$ denotes the heat flow into the wall, $Q_{c}(t,x)$ denotes heat transfer by convection, $Q_{SW}(t,x)$ denotes short-wave absorption of direct and diffuse solar light, $Q_{LW,e}(t,x)$ denotes long-wave heat exchange with the environment and $Q_{LW,sky}(t,x)$ denotes long-wave heat exchange with the sky.
+
+\runinhead{Convection.} The exterior convective heat flow $Q_{c}(t,x)$ is computed as
+
+\begin{equation}
+Q_{c}(t,x) = 5.01\ v_{10}(t)^{0.85} A(x) \left[T_{db}(t) - T_{s}(t,x)\right]
+\end{equation}
+
+where $A(x)$ is the surface area, $T_{db(t)}$ is the dry-bulb exterior air temperature, $T_{s}(t,x)$ is the surface temperature and $v_{10}(t)$ is the wind speed in the undisturbed flow at 10 meter above the ground and where the stated correlation is valid for a $v_{10}$ range of $\left[0.15,7.5\right]$ meter per second~\cite{Defraeye2011}. The $v_{10}(t)$-dependent term denoting the exterior convective heat transfer coefficient $h_{ce}(t)$ is determined as $\max\{f(v_{10}),5.6\}$ in order to take into account buoyancy effects at low wind speeds~\cite{Jurges1924}.
+
+\runinhead{Longwave radiation.} Longwave radiation between the surface and environment $Q_{LW,e}(x)$ is determined as 
+
+\begin{equation}
+Q_{LW,e}(t,x)=\sigma \epsilon_{LW}(x) A(x)  \left[T_{s}(t,x)^{4} - F_{sky}(x)T_{sky}(t)^{4} - (1-F_{sky}(x))T_{db}(t)^{4}\right]
+\end{equation}
+
+as derived from the Stefan-Boltzmann law~\cite{Stefan1879,Boltzmann1884} wherefore $\sigma$ the Stefan-Boltzmann constant~\cite{Mohr2008}, $\epsilon_{LW}(x)$ the longwave emissivity of the exterior surface, $A(x)$ is the surface area, $F_{sky}(x)$ the radiant-interchange configuration factor between the surface and sky~\cite{Hamilton1952} as defined on page \pageref{chap:climsol}, and the surface and the environment respectively and $T_{s}(t,x)$ and $T_{sky}(t)$ are the exterior surface and sky temperature respectively.
+
+\runinhead{Shortwave radiation.} Shortwave solar irradiation absorbed by the exterior surface $Q_{SW}(t,x)$ is determined as $\epsilon_{SW}(x) A(x) E_{S}(t,x)$ where $\epsilon_{SW}(x)$ is the shortwave absorption of the surface, $A(x)$ the surface area and $E_{S}(t,x)$ the total irradiation on the depicted surface. The calculation method for solar irradiation $E_{S}(t,x)$ depending on latitude, time, weather conditions, inclination and orientation is described in detail on page \pageref{chap:climsol}. 
+
+\subsection{Wall conduction process}
+
+%add here also the posibility of transfer functions
+
+For the purpose of dynamic building simulation, the partial differential equation of the continuous time and space model of heat transport through a solid is most often simplified into ordinary differential equations with a finite number of parameters representing only one-dimensional heat transport through a construction layer. Within this context, the wall is modeled with lumped elements, i.e. a model where temperatures and heat fluxes are determined from a system composed of a sequence of discrete resistances and capacitances $R_{n+1}$, $C_{n}$. The number of capacitive elements $n$ used in modeling the transient thermal response of the \index{wall} denotes the order of the lumped capacitance model. 
+
+\begin{equation}
+Q_{net}(t,w) = \frac{\partial T_{c}(t,w)}{\partial t}C(x) = \sum_{i}^{n} Q_{res,i}(t,x) + Q_{source}(t,x)
+\end{equation}
+
+where $dQ_{net}(t,x)$ is the added energy to the lumped capacity, $T_{c}(t,x)$ is the temperature of the lumped capacity, $C_{c}(x)$ is the thermal capacity of the lumped capacity equal to $\rho(x)c(x,t)d_{c}A(x)$ for which $\rho(x)$ denotes the density and $c(x)$ is the specific heat capacity of the material, $d_{c}$ the equivalent thickness of the lumped element and $A(x)$ the surface of the modeled layer, where $Q_{res}(t,x)$ the heat flux through the lumped resistance and $R_{r}(x)$ is the total thermal resistance of the lumped resistance equal to $d_{r}\left(\lambda(x,t)A(x)\right)^{-1}$ for which $d_{r}$ denotes the equivalent thickness of the lumped element and where $Q_{source}$ are internal thermal source, e.g. from embedded systems.
+
+%RC-model makes it easy to implement / easy for adding solar gains and radiation / easy for including local sources, floor heating, ... though might result in longer simulation times.
+
+Studies on the optimal order reduction for lumped construction elements in thermal building models can be found in literature~\cite{Tindale1993,Gouda2000,Gouda2002,Wang2006,Xu2007}, where optimization towards reduction is performed through comparison of zone air temperatures or comparison of Bode plots~\cite{Bode1945} on magnitude and phase for the low-order and a high-order lumped element. The general conclusion found towards model accuracy and computational efficiency depict that 1st-order lumped elements do not seem to be able to deal with radiation on the surfaces whereas 2nd-order lumped elements, i.e. based on two capacities and three resistances, give minimal loss of accuracy compared to high-order reference models for a limited computational effort. Both light and medium constructions~\cite{ASHRAE2009} show high accuracy if a 2nd-order lumped element is used and little improvements can be achieved through optimization on nodal placement~\cite{Tindale1993,Gouda2002,Wang2006,Xu2007} whereas a higher order thermal network should be used for heavy constructions~\cite{ASHRAE2009} when the dynamics of the system are of concern as significant errors remain for simplified models at low frequency~\cite{Wang2006,Xu2007,Masy2008}.
+
+The model has a provision for including a temperature coefficient $f_{\lambda,c}$ to modify the thermal conductivity. The general description for the temperature dependency of the material thermal conductivity $\lambda$ is $\lambda_{0} + f_{\lambda,c}\left[T_{C}-T_{0}\right]$ where $T_{0}$ is the temperature for which the standard input thermal conductivity is defined at standard temperature and pressure (STP) conditions. If $f_{\lambda,c}$ is not defined, no temperature dependence is taken into account and set to unity.
+
+% The model has a provision for including a temperature coefficient to modify the thermal capacity to take into account phase change materials.
+
+%The Detailed version determines the number of nodes in each layer of the surface based on the Fourier stability criteria. The node thicknesses are normally selected so that the time step is near the explicit solution limit in spite of the fact that the solution is implicit. For very thin, high conductivity layers, a minimum of two nodes is used. This means two half thickness nodes with the node temperatures representing the inner and outer faces of the layer. All thicker layers also have two half thickness nodes at their inner and outer faces. These nodes produce layer interface temperatures. ====>>> This can not be done here as the solver has a variable step size solver, no ?!
+
+\subsection{Interior surface heat balance}
+\label{sec:int}
+
+The heat balance of the interior surface is determined as 
+
+\begin{equation} \label{eq:intersurf}
+Q_{net}(t,x) = Q_{c}(t,x) + \sum_{i}^{N} Q_{SW,i}(t,x) + \sum_{i}^{N} Q_{LW,i}(t,x)
+\end{equation}
+
+
+where $Q_{net}(t,x)$ denotes the heat flow into the wall, $Q_{c}(t,x)$ denotes heat transfer by convection, $Q_{SW}(t,x)$ denotes short-wave absorption of direct and diffuse solar light netering the interior zone through windows and  $Q_{LW,i}(t,x)$ denotes long-wave heat exchange with the surounding interior surfaces.
+
+\runinhead{Convection.} The surface heat resistances $R_{s}(t,x)$ for the exterior and interior surface respectively are determined as $R_{s}(t,x)^{-1}=A(x)h_{c}(t,x)$ where $A(x)$ is the surface area and where $h_{c}(t,x)$ is the exterior and interior convective heat transfer coefficient. The interior natural convective heat transfer coefficient $h_{ci}(t,x)$ is computed for each interior surface as
+
+\begin{equation}
+h_{ci}(t,x) = n_{1}(t,x) D(x)^{n_{2}(t,x)} \left|T_{a}(t,x)-T_{s}(t,x)\right|^{n_{3}(t,x)}
+\end{equation}
+
+where $D(x)$ is the characteristic length of the surface, $T_{a}(t,x)$ is the indoor air temperature $T_{s}(t,x)$, and $n_{i}(t,x)$ are correlation coefficients. These parameters $\{n_{1},n_{2},n_{3}\}$ are identical to $\{1.823,-0.121,0.293\}$ for vertical surfaces~\cite{Khalifa2001}, $\{2.175,-0.076,0.308\}$ for horizontal surfaces wherefore the heat flux is in the same direction as the buoyancy force~\cite{Khalifa2001}, and $\{2.72,-,0.13\}$ for horizontal surfaces wherefore the heat flux is in the opposite direction as the buoyancy force~\cite{Awbi1999}. The interior natural convective heat transfer coefficient is only described as function of the temperature difference. An overview of a more detailed correlation including the possible higher wind velocities due to mechanical ventilation can be found in literature~\cite{Beausoleil-Morrison2000} but are not implemented.
+
+\runinhead{Longwave radiation.} Similar to the thermal model for heat transfer through a wall, a thermal circuit formulation for the direct radiant exchange between surfaces can be derived~\cite{Buchberg1954,Buchberg1955,Oppenheim1956}. The resulting heat exchange by longwave radiation between two surface $s_{i}$ and $s_{j}$ can be described as
+
+\begin{equation}
+Q_{s_{i},s_{j}}(t)=\sigma \left[\frac{1-\epsilon_{s_{i}}}{\epsilon_{s_{i}}} + \frac{1}{F_{s_{i},s_{j}}} + \frac{A_{s_{i}}}{\sum_{i} A_{s_{i}}}\right]^{-1} A_{s_{i}}\left[T_{s_{i}}(t)^{4}-T_{s_{j}}(t)^{4}\right]
+\end{equation}
+
+\begin{equation}
+F_{s_{i},s_{j}} = \int_{s_{j}} \cos \theta_{p} \cos \theta_{s} \pi^{-1} S_{s_{i},s_{j}}^{-2} ds_{j}
+\end{equation}
+
+as derived from the Stefan-Boltzmann law~\cite{Stefan1879,Boltzmann1884} wherefore $\epsilon_{s_{i}}$ and $\epsilon_{s_{j}}$ are the emissivity of surfaces $s_{i}$ and $s_{j}$ respectively, $F_{s_{i},s_{j}}$ is radiant-interchange configuration factor~\cite{Hamilton1952} between surfaces $s_{i}$ and $s_{j}$, $A_{s_{i}}$ and $A_{s_{j}}$ are the areas of surfaces $s_{i}$ and $s_{j}$ respectively, $\sigma$ is the Stefan-Boltzmann constant~\cite{Mohr2008} and $T_{s_{i}}$ and $T_{s_{j}}$ are the surface temperature of surfaces $s_{i}$ and $s_{j}$ respectively. 
+
+The above description of longwave radiation as mentioned above for a room or thermal zone results in the necessity of a very detailed input, i.e. the configuration between all needs to be described by their shape, position and orientation in order to define $F_{s_{i},s_{j}}$, and difficulties to introduce windows and internal gains in the zone of interest. Simplification is achieved by means of a $\Delta Y$ or \emph{delta-star transformation}~\cite{Kenelly1899} and by definition of a (fictive) radiant star node in the zone model. Literature~\cite{Liesen1997} shows that the overall model is not significantly sensitive to this assumption. The heat exchange by longwave radiation between surface $s_{i}$ and the radiant star node in the zone model can be described as
+
+\begin{equation}
+Q_{s_{i},rs}(t)=\sigma \left[\frac{1-\epsilon_{s_{i}}}{\epsilon_{s_{i}}} + \frac{A_{s_{i}}}{\sum_{i} A_{s_{i}}}\right]^{-1} A_{s_{i}}\left[T_{s_{i}}(t)^{4}-T_{rs}(t)^{4}\right]
+\end{equation}
+
+where $\epsilon_{s_{i}}$ is the emissivity of surface $s_{i}$, $A_{s_{i}}$ is the area of surface $s_{i}$, $\sum_{i}A_{s_{i}}$ is the sum of areas for all surfaces $s_{i}$ of the thermal zone, $\sigma$ is the Stefan-Boltzmann constant~\cite{Mohr2008} and $T_{s_{i}}$ and $T_{rs}$ are the temperatures of surfaces $s_{1}$ and the radiant star node  respectively. 
+
+\runinhead{Shortwave radiation.} Absorption of shortwave solar radiation on the interior surface is handled equally as for the outside surface. Determination of the receiving solar radiation on the interior surface after passing through windows is dealt with in the zone model.
+
+\subsection{Model extension for windows}
+
+The thermal model of a \index{window} is similar to the model of an exterior wall but includes the absorption of solar irradiation by the different glass panes, the presence of gas gaps between different glass panes and the transmission of solar irradiation to the adjacent indoor zone.
+
+\runinhead{Gap heat transfer.} The total convective and longwave heat transfer through thin gas gaps as present in modern glazing systems is described as
+
+\begin{dmath}
+Q_{net}(t,x) = A \lambda(x) d(x)^{-1} Nu(t,x) \left[T_{s_{1}}(t)-T_{s_{2}}(t)\right] + A \sigma \epsilon_{s_{1}} \epsilon_{s_{2}} \left[1-(1-\epsilon_{s_{1}})(1-\epsilon_{s_{2}})\right]^{-1} \left[T_{s_{1}}^{4}(t)-T_{s_{2}}^{4}(t)\right]
+\end{dmath}
+
+where $A$ is the glazing surface, $d(x)$ is the gap width, $Nu(t,x)$ is the Nusselt number of the gas, $\epsilon_{s_{i}}$ is the longwave emissivity of the surfaces and $T_{s_{i}}$ is the surface temperature.
+
+The Nusselt number of the present gas in the gap describing the ratio of convective to conductive heat transfer is generally described is
+
+\begin{equation}
+Nu(t,x) = n_{1}(t,x) Gr(t,x)^{n_{2}(t,x)}
+\end{equation}
+\begin{equation}
+Gr(t,x) = g \beta \rho^{2} d(x)^{3} \mu^{-2} \left[T_{s_{1}}(t)-T_{s_{2}}(t)\right]
+\end{equation}
+
+where $Gr(t,x)$ is the Grashof number approximating the ratio of buoyancy to viscous force acting on the window gap gas, $g$ is the gravitational acceleration, $\beta$ is the coefficient of thermal expansion, $\rho$ is the gas density, $\mu$ is the gas viscosity and $n_{i}(t,x)$ are correlation coefficients. These parameters $\{n_{1},n_{2}\}$ are identical to $\{1.0,0\}$ for all $Gr(t,x)$ below $7.10^{3}$, $\{0.0384,0.37\}$ for all $Gr(t,x)$ between $10^{4}$ and $8.10^{4}$, $\{0.41,0.16\}$ for all $Gr(t,x)$ between $8.10^{4}$ and $2.10^{5}$ and $\{0.0317,0.37\}$ for all $Gr(t,x)$ above $2.10^{5}$. 
+
+\runinhead{Shortwave optical properties.} The properties for absorption by and transmission through the glazing are taken into account depending on the angle of incidence of solar irradiation and are based on the output of the WINDOW 4.0 software~\cite{Lawrence1993,Finlayson1993} as validated by Arasteh~\cite{Arasteh1986} and Furler~\cite{Furler1988}. Within this software, the angular dependence of the optical properties is determined based on the model of Furler~\cite{Furler1991}. The reflectivity $r$ and  transmissivity $t=1-r$ are determined with the Fresnel equations~\cite{Fresnel1926} and Snell's Law of refraction~\cite{Snellius1627},  based on the relative refractive index n as follows 
+
+\begin{dmath}
+r(t,x) = 0.5\sin^{2}\left(\xi(t,x)-\xi'(t,x)\right)\sin^{-2}\left(\xi(t,x)+\xi'(t,x)\right)+0.5\tan^{2}\left(\xi(t,x)-\xi'(t,x)\right)\tan^{-2}\left(\xi(t,x)+\xi'(t,x)\right)
+\end{dmath}
+
+where $\sin \xi(t,x) = n\sin \xi'(t,x)$. The resulting transmittance $T(t,x)$ and reflectance $R(t,x)$ for a single glass pane after multiple reflections is obtained from
+
+\begin{equation}
+T(t,x) = t_{0}^{2}e^{-\alpha(x) d(x)/\cos \xi(t,x)}\left[1-r(t,x)^{2}e^{-\alpha d(x)/\cos \xi(t,x)}\right]^{-1}
+\end{equation}
+\begin{equation}
+R(t,x) = r(t,x) \left[1+T(t,x) e^{-\alpha(x) d(x)/\cos \xi(t,x)}\right]
+\end{equation}
+
+where $d(x)$ is the thickness of the pane and $\alpha(x)$ is absorption coefficient. The total transmittance $T(t,x)$ and the absorptances $A_{n}(t,x)$ for multipane windows are retrieved using iterative equations taking into account the multiple internal reflections within the glazing system.
+
+The resulting output from WINDOW 4.0 ~\cite{Lawrence1993} depicts an array of the transmittances $T$ through the window and the absorptances $A_{n}$ for each glass pane $n$ for $\xi_s\in\left\{\left(k/18\right\}\right)$ with $k\in\left\{0,1,\ldots,9\right\}$. The same array input is used in other dynamic building simulation tools, e.g. in TRNSYS~\cite{Solar2009} where values for different angles are retrieved by means of linear interpolation. 
+
+\subsection{Model extension for ground slabs}
+
+The heat flow through building envelope constructions in contact with a \index{ground slab} is the same for the interior surface and the \index{wall} conduction process, but differs at the exterior surface in contact with the ground. As the heat transfer through the ground is 3-dimensional and defined by a large time lag, the exterior surface heat balance is generally approximated based on ISO 13370.
+
+The total heat flow through the ground is given by
+
+\begin{dmath}
+Q_{net}(t,x) = L_{S}(x) \left[ \bar{T}_{i} - \bar{T}_{e} \right] - L_{pi}(x) \hat{T}_{i} \cos \gamma_{i}(t) + L_{pe}(x) \hat{T}_{e} \cos \gamma_{e}(t)
+\end{dmath}
+
+where $L_{S}$ is the steady-state thermal coupling coefficient, $L_{pi}$ and $L_{pe}$ are the internal and external periodic thermal coupling coefficients respectively, $\bar{T}$ is the annual average temperature, $\hat{T}$ is the annual average temperature amplitude, and $\gamma_{i}$ and $\gamma_{e}$ determine the time lag of the heat flow cycle compared with that of the internal and external temperature respectively.
+
+The steady-state and periodic thermal coupling coefficient area is determined as 
+
+\begin{dmath}
+L_{S}(x) = A(x) \frac{\lambda_{g}(x)}{0.457 B_{t}(x) + d_{t}(x) + 0.5 z} + z P(x) \frac{2 \lambda_{g}}{\pi z} \left[1+\frac{0.5 d_{t}(x)}{d_{t}(x)+z}\right] \ln \left[\frac{z}{d_{t}}+1\right] 
+\end{dmath}
+
+\begin{dmath}
+L_{pi}(x) = A(x) \frac{\lambda_{g}(x)}{d_{t}(x)} \sqrt{\frac{2}{\left[ 1 + \frac{\delta}{d_{t}(x)}\right]^{2} +1}} $ ; $ L_{pe}(x) = 0.37 P(x) \lambda_{g}(x) \ln{\left[\frac{\delta}{d_{t}(x)} + 1\right]}
+\end{dmath}
+
+where $A(x)$ is the wall area, $\lambda_{g}$ is the thermal ocnductivity of the unfrozen ground, $B_{t}(x)$ is the characteristic dimension of the floor, $d_{t}(x)$ is the equivalent thickness of the wall construction, $z$ is the depth of the wall (i.e. floor) below ground level, $\delta$ is periodic penetration depth (i.e. the depth in the ground at which the temperature amplitude is reduced to $e^{-1}$ of that at the surface) and $P(x)$ is the exposed perimeter of the wall. The angle $\gamma_{e}(t)$ is determined as $2 \pi t / t_{yr} + \pi / 12 - \arctan{d_{t}(x) / \left( d_{t}(x) + \delta \right)}$ and $\gamma_{e}(t)$ is determined as $2 \pi t / t_{yr} + \pi / 12 + 0.22 \arctan{\delta / \left( d_{t}(x) + 1 \right)}$.
+
+\section{Zone model}
+
+Consisting of both the convective as radiative calculation for determination of thermal comfort.
+
+\subsection{Thermal response model}
+
+Also the thermal response of a \index{zone} can be divided into a convective, longwave radiative and shortwave radiative process influencing both thermal comfort in the depicted zone as well as the response of adjacent wall structures.
+
+\runinhead{Convective.} The air within the zone is modeled based on the assumption that it is well-stirred, i.e. it is characterized by a single uniform air temperature. This is practically accomplished with the mixing caused by the air distribution system. The convective gains and the resulting change in air temperature $T_{a}$ of a single thermal zone can be modeled as a thermal circuit. The resulting heat balance for the air node can be described as
+
+\begin{dmath}
+\frac{\partial T_{a}}{\partial t} c_{a} V_{a} = \sum_{i}^{N} Q_{i,a}(t) + \sum_{i}^{n_{s}}R_{s,ci}^{-1}A_{s,i}\left[T_{a}(t)-T_{s,i}(t)\right]+\sum_{i}^{n_{z}}\dot{m}_{a,z}(t)\left[h_{a}-h_{a,z}\right]+\dot{m}_{a,e}\left[h_{a}(t)-h_{a,e}(t)\right]+\dot{m}_{a,sys}(t)\left[h_{a}(t)-h_{a,sys}(t)\right]
+\end{dmath}
+
+wherefore the specific air enthalpy $h_{a}$ is determined as $c_{a}\vartheta_{a}+\chi_{a} c_{w}\vartheta_{a} + \chi_{a} h_{w,ev}$ and where $T_{a}$ is the air temperature of the zone, $c_{a}$ is the specific heat capacity of air at constant pressure, $V_{a}$ is the zone air volume, $Q_{a}$ is a convective internal load, $R_{s,i}$ is the convective surface resistance of surface $s_{i}$, $A_{s,i}$ is the area of surface $s_{i}$, $T_{s,i}$ the surface temperature of surface $s_{i}$, $\dot{m}_{a,z}$ is the mass flow rate between zones, $\dot{m}_{a,e}$ is the mass flow rate between the exterior by natural infiltration, $\dot{m}_{a,sys}$ is the mass flow rate provided by the ventilation system, $\vartheta_{a}$ is the air temperature in degrees Celsius, $\chi_{a}$ is the air humidity ratio, $c_{w}$ is specific heat of water vapor at constant pressure and $h_{w,ev}$ is evaporation heat of water at 0 degrees Celsius. 
+
+Infiltration and ventilation systems provide air to the zones, undesirably or to meet heating or cooling loads. The thermal energy provided to the zone by this air change rate can be formulated from the difference between the supply air enthalpy and the enthalpy of the air leaving the zone $h_{a}$. It is assumed that the zone supply air mass flow rate is exactly equal to the sum of the air flow rates leaving the zone, and all air streams exit the zone at the zone mean air temperature. The moisture dependence of the air enthalpy is neglected in most cases.
+
+A multiplier for the zone capacitance $f_{c,a}$ is included. A $f_{c,a}$ equaling unity represents just the capacitance of the air volume in the specified zone. This multiplier can be greater than unity if the zone air capacitance needs to be increased for stability of the simulation. This multiplier increases the capacitance of the air volume by increasing the zone volume and can be done for numerical reasons or to account for the additional capacitances in the zone to see the effect on the dynamics of the simulation. This multiplier is constant throughout the
+simulation and is set to 5.0 if the value is not defined. %add a source here, look in the PhD of Gabrielle Masy
+
+\runinhead{Longwave radiation.} The exchange of longwave radiation in a zone has been previously described in Sect.~\ref{sec:int} by Eq.~\ref{eq:intersurf} and further considering the heat balance of the interior surface. Here, an expression based on \emph{radiant interchange configuration factors} of \emph{view factors} is avoided based on a delta-star transformation and by definition of a \emph{radiant star temperature} $T_{rs}$. Literature~\cite{Liesen1997} shows that the overall model is not significantly sensitive to this assumption. This $T_{rs}$ can be derived from the law of energy conservation in the radiant star node as $\sum_{i}Q_{s_{i}-rs}$ must equal zero. Long wave radiation from internal sources are dealt with by including them in the heat balance of the radiant star node resulting in a diffuse distribution of the radiative source\footnote{Note that, as a result, the radiant star temperature $T_{rs}$ is not equal to the radiative temperature of the zone as will be perceived by occupants.}.
+
+\runinhead{Shortwave radiation.} Transmitted shortwave solar radiation is distributed over all surfaces in the zone in a prescribed scale. This scale is an input value which may be dependent on the shape of the zone and the location of the windows, but literature~\cite{Liesen1997} shows that the overall model is not significantly sensitive to this assumption.
+
+\subsection{Thermal comfort}
+
+For thermal \index{comfort} measures, both the determination of an \emph{operationally} or \emph{dry resultant temperature} $\vartheta_{c}$ as well as the \emph{predicted mean vote} (PMV) and \emph{predicted percentage of dissatisfied} (PPD) are implemented.
+
+\runinhead{Operationally temperature.} A \emph{dry resultant temperature} $\vartheta_{c}$ can be defined based on the previous assumptions for convective heat exchange, radiation and internal gains as
+
+\begin{equation}
+\vartheta_{c}(t) = \left[\vartheta_{mrt}(t)+\vartheta_{a}(t)\sqrt{10v_{a}(t)}\right] \left[1+\sqrt{10v_{a}(t)}\right]^{-1}
+\end{equation}
+
+which can be approximated by $0.5\left[\vartheta_{mrt}+\vartheta_{a}\right],\forall v_{a}\leq0.1 m/s$ where $\vartheta_{mrt}$ and $\vartheta_{a}$ depict the mean radiative and air temperature respectively and $v_{a}$ is the air velocity. Here, $\vartheta_{mrt}$ is determined as the area weighted surface temperature of the zone surfaces.
+
+\runinhead{Comfort indicators.} Most meaningful for expression the thermal environment is to state what percentage of persons can be expected to be decidedly dissatisfied. The \emph{predicted percentage of dissatisfied} (PPD)~\cite{ISO77302005} can be expressed as 
+
+\begin{equation}
+PPD = 100 - 95\ e^{-0.003353 PMV^{4} - 0.2179 PMV^{2}}
+\end{equation}
+
+as function the \emph{predicted mean vote} (PMV)~\cite{Fanger1970} which expresses the thermal person of persons in the commonly used psycho-physical ASHRAE scale between -3 and +3~\cite{ASHRAE55_2004}. The expression for PMV can be defined~\cite{ISO77302005,ASHRAE2009a} as
+
+\begin{dmath} \label{eq:pmv}
+PMV = \left[0.303\ e^{-0.036\ M_{A}}+0.028\right] \left[ M_{A} - 3.96 \cdot 10^{-8} f_{c} \left[ T_{cl}^{4} - T_{mrt}^{4} \right] - f_{cl} h_{c} \left[ T_{cl} - T_{a} \right] - 3.05\ \left[ 5.73-0.007\ M_{A} - p_{vp} \right] - 0.42\ \left[ M_{A} - M_{eq} \right] - 0.0173\  M_{A} \left[ 5.87 - p_{vp} \right] - 0.0014\  M_{A} \left[ 34 - \vartheta_{a} \right] \right]
+\end{dmath}
+
+where $M_{A}$ is the specific metabolic rate per body surface area of the human body, $M_{eq}$ is the metabolic equivalent task equal to 58.15 \watt\rpsquare\metre, $p_{vp}$ is the partial water vapor pressure, $T_{a}$ is the air temperature, $T_{cl}$ is the surface temperature of clothing, $f_{cl}$ is the clothing area factor, $T_{cl}$ is the mean radiant temperature and $h_{c}$ is the convective heat transfer. The required clothing temperature $T_{cl}$ can be determined as
+
+\begin{dmath}
+T_{cl} = T_{b} - 0.0028\ M_{A} - R_{cl} \left[ 3.96\ 10^{-8} f_{cl} \left[ T_{cl}^{4} - T_{mrt}^{4} \right] + f_{cl} h_{c} \left[ T_{cl} - T_{a} \right] \right]
+\end{dmath}
+
+where $T_{b}$ is the body temperature equal to 308.95 \kelvin, $R_{cl}$ depicts the thermal resistance from the skin to the outer surface of the clothed body and is equal to $0.155\ I_{cl}$ where $I_{cl}$ is teh so-called the \emph{clo-value}, and where $f_{cl}$ is determined as $1.05\ + 0.1\ I_{cl}$ if $I_{cl} > 0.5$ or $1.00\ + 0.2\ I_{cl}$ elsewhere.
+
+\section{Initial value problem}
+
+{\bibliography{library}{}}
+\bibliographystyle{ieeetr}
+
+
+
+
+

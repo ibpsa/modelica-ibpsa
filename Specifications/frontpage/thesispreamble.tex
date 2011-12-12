@@ -1,0 +1,65 @@
+\usepackage{amssymb}
+
+
+\usepackage[squaren]{SIunits}
+\usepackage{breqn} %you need to load "breqn" after "SIunits", else i got problems on a decimal point in equations which disappear.
+
+\usepackage{color} % defines colors to be used for highlighting
+\usepackage{dtsyntax} % recognizes modelica code
+\usepackage{cite} % to order references properly
+\usepackage[table]{xcolor}
+
+%for postprocessing matplotlib figures with the appropriate font
+\usepackage{pgf}
+\usepackage{pgfplots}
+
+%COLORS
+\definecolor{KulBlue}{RGB}{16,67,122}
+
+
+%net
+\textheight 19.3cm %19.3cm	% vele andere: slechts 17.5 
+\textwidth 13cm %12.3cm  	%lode zelfs 12.5
+\oddsidemargin 1.5cm
+\evensidemargin 1.5cm
+
+%figures 
+\usepackage{graphicx}
+
+% listings
+\usepackage{listings}
+\renewcommand\lstlistlistingname{List of Listings} % default is Listings
+\lstset{language=JAVA}
+
+% programming code listings
+\usepackage{listings}
+
+% boxedverbatim
+\usepackage{moreverb}
+
+\usepackage[xetex, bookmarks, colorlinks, breaklinks, pdftitle={Ruben Baetens - vita},pdfauthor={My name}]{hyperref}  
+\hypersetup{linkcolor=KulBlue,citecolor=KulBlue,filecolor=black,urlcolor=KulBlue} 
+
+\usepackage{mathptmx}
+\usepackage{helvet}
+\usepackage{courier}
+%
+\usepackage{type1cm}         
+
+\usepackage{makeidx}         % allows index generation
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+\usepackage{multicol}        % used for the two-column index
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+
+% see the list of further useful packages
+% in the Reference Guide
+
+\makeindex             % used for the subject index
+                       % please use the style svind.ist with
+                       % your makeindex program
+
+\usepackage{subfigure}
+
+\newcounter{tmpc}
+

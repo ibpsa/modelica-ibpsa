@@ -1,0 +1,807 @@
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0,0,0}
+
+\begin{axis}[
+ylabel={Annual heating loads, MWh},
+xmin=0.000000e+00, xmax=1.300000e+01,
+ymin=0.000000e+00, ymax=8.000000e+00,
+axis on top,
+width=\figurewidth,
+height=\figureheight,
+xtick={5.000000e-01,1.500000e+00,2.500000e+00,3.500000e+00,4.500000e+00,5.500000e+00,6.500000e+00,7.500000e+00,8.500000e+00,9.500000e+00,1.050000e+01,1.150000e+01,1.250000e+01},
+xticklabels={600,610,620,630,640,650,900,910,920,930,940,950,960}
+]
+\addplot [color0, dashed]
+coordinates {
+(3.000000e-01,4.847250e+00) (3.000000e-01,4.296000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(3.000000e-01,5.420500e+00) (3.000000e-01,5.709000e+00) 
+};
+\addplot [black]
+coordinates {
+(2.000000e-01,5.709000e+00) (4.000000e-01,5.709000e+00) 
+};
+\addplot [black]
+coordinates {
+(2.000000e-01,4.296000e+00) (4.000000e-01,4.296000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.000000e-01,5.054000e+00) (5.000000e-01,5.054000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(1.300000e+00,4.929000e+00) (1.300000e+00,4.355000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(1.300000e+00,5.442250e+00) (1.300000e+00,5.786000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.200000e+00,5.786000e+00) (1.400000e+00,5.786000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.200000e+00,4.355000e+00) (1.400000e+00,4.355000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.100000e+00,5.125500e+00) (1.500000e+00,5.125500e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(2.300000e+00,5.067000e+00) (2.300000e+00,4.613000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(2.300000e+00,5.729500e+00) (2.300000e+00,5.944000e+00) 
+};
+\addplot [black]
+coordinates {
+(2.200000e+00,5.944000e+00) (2.400000e+00,5.944000e+00) 
+};
+\addplot [black]
+coordinates {
+(2.200000e+00,4.613000e+00) (2.400000e+00,4.613000e+00) 
+};
+\addplot [black]
+coordinates {
+(2.100000e+00,5.559000e+00) (2.500000e+00,5.559000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(3.300000e+00,5.557750e+00) (3.300000e+00,5.050000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(3.300000e+00,6.188500e+00) (3.300000e+00,7.018000e+00) 
+};
+\addplot [black]
+coordinates {
+(3.200000e+00,7.018000e+00) (3.400000e+00,7.018000e+00) 
+};
+\addplot [black]
+coordinates {
+(3.200000e+00,5.050000e+00) (3.400000e+00,5.050000e+00) 
+};
+\addplot [black]
+coordinates {
+(3.100000e+00,5.942000e+00) (3.500000e+00,5.942000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(4.300000e+00,3.004250e+00) (4.300000e+00,2.751000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(4.300000e+00,3.367500e+00) (4.300000e+00,3.803000e+00) 
+};
+\addplot [black]
+coordinates {
+(4.200000e+00,3.803000e+00) (4.400000e+00,3.803000e+00) 
+};
+\addplot [black]
+coordinates {
+(4.200000e+00,2.751000e+00) (4.400000e+00,2.751000e+00) 
+};
+\addplot [black]
+coordinates {
+(4.100000e+00,3.160000e+00) (4.500000e+00,3.160000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(5.300000e+00,0.000000e+00) (5.300000e+00,0.000000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(5.300000e+00,0.000000e+00) (5.300000e+00,0.000000e+00) 
+};
+\addplot [black]
+coordinates {
+(5.200000e+00,0.000000e+00) (5.400000e+00,0.000000e+00) 
+};
+\addplot [black]
+coordinates {
+(5.200000e+00,0.000000e+00) (5.400000e+00,0.000000e+00) 
+};
+\addplot [black]
+coordinates {
+(5.100000e+00,0.000000e+00) (5.500000e+00,0.000000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(6.300000e+00,1.643750e+00) (6.300000e+00,1.610000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(6.300000e+00,1.919750e+00) (6.300000e+00,2.041000e+00) 
+};
+\addplot [black]
+coordinates {
+(6.200000e+00,2.041000e+00) (6.400000e+00,2.041000e+00) 
+};
+\addplot [black]
+coordinates {
+(6.200000e+00,1.610000e+00) (6.400000e+00,1.610000e+00) 
+};
+\addplot [black]
+coordinates {
+(6.100000e+00,1.801000e+00) (6.500000e+00,1.801000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(6.300000e+00,1.170000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(7.300000e+00,2.012750e+00) (7.300000e+00,1.862000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(7.300000e+00,2.228500e+00) (7.300000e+00,2.282000e+00) 
+};
+\addplot [black]
+coordinates {
+(7.200000e+00,2.282000e+00) (7.400000e+00,2.282000e+00) 
+};
+\addplot [black]
+coordinates {
+(7.200000e+00,1.862000e+00) (7.400000e+00,1.862000e+00) 
+};
+\addplot [black]
+coordinates {
+(7.100000e+00,2.135500e+00) (7.500000e+00,2.135500e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(7.300000e+00,1.575000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(8.300000e+00,3.770000e+00) (8.300000e+00,3.313000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(8.300000e+00,4.240000e+00) (8.300000e+00,4.300000e+00) 
+};
+\addplot [black]
+coordinates {
+(8.200000e+00,4.300000e+00) (8.400000e+00,4.300000e+00) 
+};
+\addplot [black]
+coordinates {
+(8.200000e+00,3.313000e+00) (8.400000e+00,3.313000e+00) 
+};
+\addplot [black]
+coordinates {
+(8.100000e+00,4.075500e+00) (8.500000e+00,4.075500e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(9.300000e+00,4.632750e+00) (9.300000e+00,4.143000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(9.300000e+00,5.209750e+00) (9.300000e+00,5.335000e+00) 
+};
+\addplot [black]
+coordinates {
+(9.200000e+00,5.335000e+00) (9.400000e+00,5.335000e+00) 
+};
+\addplot [black]
+coordinates {
+(9.200000e+00,4.143000e+00) (9.400000e+00,4.143000e+00) 
+};
+\addplot [black]
+coordinates {
+(9.100000e+00,4.747500e+00) (9.500000e+00,4.747500e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(9.300000e+00,6.306000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(1.030000e+01,1.065250e+00) (1.030000e+01,7.930000e-01) 
+};
+\addplot [color0, dashed]
+coordinates {
+(1.030000e+01,1.260000e+00) (1.030000e+01,1.411000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.020000e+01,1.411000e+00) (1.040000e+01,1.411000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.020000e+01,7.930000e-01) (1.040000e+01,7.930000e-01) 
+};
+\addplot [black]
+coordinates {
+(1.010000e+01,1.205000e+00) (1.050000e+01,1.205000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(1.130000e+01,0.000000e+00) (1.130000e+01,0.000000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(1.130000e+01,0.000000e+00) (1.130000e+01,0.000000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.120000e+01,0.000000e+00) (1.140000e+01,0.000000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.120000e+01,0.000000e+00) (1.140000e+01,0.000000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.110000e+01,0.000000e+00) (1.150000e+01,0.000000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(1.230000e+01,2.778000e+00) (1.230000e+01,2.664000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(1.230000e+01,2.939250e+00) (1.230000e+01,2.943000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.220000e+01,2.943000e+00) (1.240000e+01,2.943000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.220000e+01,2.664000e+00) (1.240000e+01,2.664000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.210000e+01,2.867500e+00) (1.250000e+01,2.867500e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(1.230000e+01,3.373000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(1.230000e+01,2.311000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(1.000000e+00,0.000000e+00) (1.000000e+00,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(2.000000e+00,0.000000e+00) (2.000000e+00,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(3.000000e+00,0.000000e+00) (3.000000e+00,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(4.000000e+00,0.000000e+00) (4.000000e+00,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(5.000000e+00,0.000000e+00) (5.000000e+00,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(6.000000e+00,0.000000e+00) (6.000000e+00,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(7.000000e+00,0.000000e+00) (7.000000e+00,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(8.000000e+00,0.000000e+00) (8.000000e+00,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(9.000000e+00,0.000000e+00) (9.000000e+00,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(1.000000e+01,0.000000e+00) (1.000000e+01,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(1.100000e+01,0.000000e+00) (1.100000e+01,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(1.200000e+01,0.000000e+00) (1.200000e+01,8.000000e+00) 
+};
+\addplot [black, dotted]
+coordinates {
+(1.300000e+01,0.000000e+00) (1.300000e+01,8.000000e+00) 
+};
+\end{axis}
+
+\begin{axis}[
+ylabel={Sensitivity, MWh},
+xmin=0.000000e+00, xmax=1.300000e+01,
+ymin=-4.000000e+00, ymax=4.000000e+00,
+axis on top,
+width=\figurewidth,
+height=\figureheight
+]
+\addplot [color0, dashed]
+coordinates {
+(7.000000e-01,0.000000e+00) (7.000000e-01,0.000000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(7.000000e-01,0.000000e+00) (7.000000e-01,0.000000e+00) 
+};
+\addplot [black]
+coordinates {
+(6.000000e-01,0.000000e+00) (8.000000e-01,0.000000e+00) 
+};
+\addplot [black]
+coordinates {
+(6.000000e-01,0.000000e+00) (8.000000e-01,0.000000e+00) 
+};
+\addplot [black]
+coordinates {
+(5.000000e-01,0.000000e+00) (9.000000e-01,0.000000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(1.700000e+00,3.075000e-02) (1.700000e+00,2.100000e-02) 
+};
+\addplot [color0, dashed]
+coordinates {
+(1.700000e+00,8.000000e-02) (1.700000e+00,9.800000e-02) 
+};
+\addplot [black]
+coordinates {
+(1.600000e+00,9.800000e-02) (1.800000e+00,9.800000e-02) 
+};
+\addplot [black]
+coordinates {
+(1.600000e+00,2.100000e-02) (1.800000e+00,2.100000e-02) 
+};
+\addplot [black]
+coordinates {
+(1.500000e+00,5.650000e-02) (1.900000e+00,5.650000e-02) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(2.700000e+00,2.265000e-01) (2.700000e+00,1.380000e-01) 
+};
+\addplot [color0, dashed]
+coordinates {
+(2.700000e+00,3.375000e-01) (2.700000e+00,3.660000e-01) 
+};
+\addplot [black]
+coordinates {
+(2.600000e+00,3.660000e-01) (2.800000e+00,3.660000e-01) 
+};
+\addplot [black]
+coordinates {
+(2.600000e+00,1.380000e-01) (2.800000e+00,1.380000e-01) 
+};
+\addplot [black]
+coordinates {
+(2.500000e+00,2.965000e-01) (2.900000e+00,2.965000e-01) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(2.700000e+00,6.820000e-01) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(3.700000e+00,3.242500e-01) (3.700000e+00,2.670000e-01) 
+};
+\addplot [color0, dashed]
+coordinates {
+(3.700000e+00,5.360000e-01) (3.700000e+00,5.510000e-01) 
+};
+\addplot [black]
+coordinates {
+(3.600000e+00,5.510000e-01) (3.800000e+00,5.510000e-01) 
+};
+\addplot [black]
+coordinates {
+(3.600000e+00,2.670000e-01) (3.800000e+00,2.670000e-01) 
+};
+\addplot [black]
+coordinates {
+(3.500000e+00,4.810000e-01) (3.900000e+00,4.810000e-01) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(3.700000e+00,1.290000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(4.700000e+00,-1.991500e+00) (4.700000e+00,-2.166000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(4.700000e+00,-1.811000e+00) (4.700000e+00,-1.545000e+00) 
+};
+\addplot [black]
+coordinates {
+(4.600000e+00,-1.545000e+00) (4.800000e+00,-1.545000e+00) 
+};
+\addplot [black]
+coordinates {
+(4.600000e+00,-2.166000e+00) (4.800000e+00,-2.166000e+00) 
+};
+\addplot [black]
+coordinates {
+(4.500000e+00,-1.857000e+00) (4.900000e+00,-1.857000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(5.700000e+00,-5.420500e+00) (5.700000e+00,-5.709000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(5.700000e+00,-4.847250e+00) (5.700000e+00,-4.296000e+00) 
+};
+\addplot [black]
+coordinates {
+(5.600000e+00,-4.296000e+00) (5.800000e+00,-4.296000e+00) 
+};
+\addplot [black]
+coordinates {
+(5.600000e+00,-5.709000e+00) (5.800000e+00,-5.709000e+00) 
+};
+\addplot [black]
+coordinates {
+(5.500000e+00,-5.054000e+00) (5.900000e+00,-5.054000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(6.700000e+00,-3.398750e+00) (6.700000e+00,-3.608000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(6.700000e+00,-3.160250e+00) (6.700000e+00,-3.126000e+00) 
+};
+\addplot [black]
+coordinates {
+(6.600000e+00,-3.126000e+00) (6.800000e+00,-3.126000e+00) 
+};
+\addplot [black]
+coordinates {
+(6.600000e+00,-3.608000e+00) (6.800000e+00,-3.608000e+00) 
+};
+\addplot [black]
+coordinates {
+(6.500000e+00,-3.269000e+00) (6.900000e+00,-3.269000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(6.700000e+00,-3.837000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(7.700000e+00,2.707500e-01) (7.700000e+00,1.790000e-01) 
+};
+\addplot [color0, dashed]
+coordinates {
+(7.700000e+00,3.877500e-01) (7.700000e+00,4.420000e-01) 
+};
+\addplot [black]
+coordinates {
+(7.600000e+00,4.420000e-01) (7.800000e+00,4.420000e-01) 
+};
+\addplot [black]
+coordinates {
+(7.600000e+00,1.790000e-01) (7.800000e+00,1.790000e-01) 
+};
+\addplot [black]
+coordinates {
+(7.500000e+00,3.135000e-01) (7.900000e+00,3.135000e-01) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(8.700000e+00,2.136750e+00) (8.700000e+00,2.070000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(8.700000e+00,2.290000e+00) (8.700000e+00,2.505000e+00) 
+};
+\addplot [black]
+coordinates {
+(8.600000e+00,2.505000e+00) (8.800000e+00,2.505000e+00) 
+};
+\addplot [black]
+coordinates {
+(8.600000e+00,2.070000e+00) (8.800000e+00,2.070000e+00) 
+};
+\addplot [black]
+coordinates {
+(8.500000e+00,2.169500e+00) (8.900000e+00,2.169500e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(9.700000e+00,6.680000e-01) (9.700000e+00,5.950000e-01) 
+};
+\addplot [color0, dashed]
+coordinates {
+(9.700000e+00,9.930000e-01) (9.700000e+00,1.080000e+00) 
+};
+\addplot [black]
+coordinates {
+(9.600000e+00,1.080000e+00) (9.800000e+00,1.080000e+00) 
+};
+\addplot [black]
+coordinates {
+(9.600000e+00,5.950000e-01) (9.800000e+00,5.950000e-01) 
+};
+\addplot [black]
+coordinates {
+(9.500000e+00,8.815000e-01) (9.900000e+00,8.815000e-01) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(9.700000e+00,2.006000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(1.070000e+01,-6.412500e-01) (1.070000e+01,-7.180000e-01) 
+};
+\addplot [color0, dashed]
+coordinates {
+(1.070000e+01,-5.690000e-01) (1.070000e+01,-5.510000e-01) 
+};
+\addplot [black]
+coordinates {
+(1.060000e+01,-5.510000e-01) (1.080000e+01,-5.510000e-01) 
+};
+\addplot [black]
+coordinates {
+(1.060000e+01,-7.180000e-01) (1.080000e+01,-7.180000e-01) 
+};
+\addplot [black]
+coordinates {
+(1.050000e+01,-5.830000e-01) (1.090000e+01,-5.830000e-01) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(1.070000e+01,-3.770000e-01) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(1.170000e+01,-1.919750e+00) (1.170000e+01,-2.041000e+00) 
+};
+\addplot [color0, dashed]
+coordinates {
+(1.170000e+01,-1.643750e+00) (1.170000e+01,-1.610000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.160000e+01,-1.610000e+00) (1.180000e+01,-1.610000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.160000e+01,-2.041000e+00) (1.180000e+01,-2.041000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.150000e+01,-1.801000e+00) (1.190000e+01,-1.801000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(1.170000e+01,-1.170000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\addplot [color0, dashed]
+coordinates {
+(1.270000e+01,9.560000e-01) (1.270000e+01,7.750000e-01) 
+};
+\addplot [color0, dashed]
+coordinates {
+(1.270000e+01,1.159000e+00) (1.270000e+01,1.213000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.260000e+01,1.213000e+00) (1.280000e+01,1.213000e+00) 
+};
+\addplot [black]
+coordinates {
+(1.260000e+01,7.750000e-01) (1.280000e+01,7.750000e-01) 
+};
+\addplot [black]
+coordinates {
+(1.250000e+01,1.060000e+00) (1.290000e+01,1.060000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+(1.270000e+01,1.718000e+00) 
+};
+\addplot [color0, mark=diamond*, mark options={fill=color0,draw=black}, only marks]
+coordinates {
+
+};
+\end{axis}
+
+\end{tikzpicture}

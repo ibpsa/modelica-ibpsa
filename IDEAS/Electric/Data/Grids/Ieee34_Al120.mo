@@ -1,0 +1,43 @@
+within IDEAS.Electric.Data.Grids;
+record Ieee34_Al120
+  "IEEE 34-bus grid district with Al 120,70,35 mm2 cable sections"
+
+   extends IDEAS.Electric.Data.Interfaces.Grid(
+    nPhases=1,
+    layout = IDEAS.Electric.Data.Layouts.Ieee34(),
+     cableLengths={0,48,16,16,40,32,16,16,16,16,16,16,32,32,16,32,32,32,48,48,32,32,16,16,16,16,16,32,32,16,32,16,16,16},
+     cableTypes={IDEAS.Electric.Data.Cables.PvcAl120(),
+                                 IDEAS.Electric.Data.Cables.PvcAl120(),
+                                                     IDEAS.Electric.Data.Cables.PvcAl120(),
+              IDEAS.Electric.Data.Cables.PvcAl120(),
+                                  IDEAS.Electric.Data.Cables.PvcAl120(),
+                                                      IDEAS.Electric.Data.Cables.PvcAl120(),
+              IDEAS.Electric.Data.Cables.PvcAl120(),
+                                  IDEAS.Electric.Data.Cables.PvcAl120(),
+                                                      IDEAS.Electric.Data.Cables.PvcAl120(),
+              IDEAS.Electric.Data.Cables.PvcAl120(),
+                                  IDEAS.Electric.Data.Cables.PvcAl120(),
+                                                      IDEAS.Electric.Data.Cables.PvcAl120(),
+              IDEAS.Electric.Data.Cables.PvcAl120(),
+                                  IDEAS.Electric.Data.Cables.PvcAl120(),
+                                                      IDEAS.Electric.Data.Cables.PvcAl120(),
+              IDEAS.Electric.Data.Cables.PvcAl120(),
+                                  IDEAS.Electric.Data.Cables.PvcAl70(),
+                                                     IDEAS.Electric.Data.Cables.PvcAl70(),
+              IDEAS.Electric.Data.Cables.PvcAl35(),
+                                 IDEAS.Electric.Data.Cables.PvcAl35(),
+                                                    IDEAS.Electric.Data.Cables.PvcAl35(),
+              IDEAS.Electric.Data.Cables.PvcAl35(),
+                                 IDEAS.Electric.Data.Cables.PvcAl35(),
+                                                    IDEAS.Electric.Data.Cables.PvcAl35(),
+              IDEAS.Electric.Data.Cables.PvcAl35(),
+                                 IDEAS.Electric.Data.Cables.PvcAl35(),
+                                                     IDEAS.Electric.Data.Cables.PvcAl35(),
+              IDEAS.Electric.Data.Cables.PvcAl35(),
+                                 IDEAS.Electric.Data.Cables.PvcAl35(),
+                                                    IDEAS.Electric.Data.Cables.PvcAl35(),
+              IDEAS.Electric.Data.Cables.PvcAl35(),
+                                 IDEAS.Electric.Data.Cables.PvcAl35(),
+                                                    IDEAS.Electric.Data.Cables.PvcAl35(),
+              IDEAS.Electric.Data.Cables.PvcAl70()});
+end Ieee34_Al120;

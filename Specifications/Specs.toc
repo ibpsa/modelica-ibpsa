@@ -1,0 +1,59 @@
+\contentsline {part}{Part\ I\hspace {\betweenumberspace }Specifications}{1}{part.1}
+\contentsline {titlech}{\numberline {1}Climate}{3}{section*.4}
+\authcount {1}
+\contentsline {authorch}{Ruben Baetens and Dirk Saelens}{3}{section*.4}
+\contentsline {section}{\numberline {1.1}Weather data}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Solar radiation}{4}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Solar geometry}{5}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Shortwave radiation on a tilted surface}{6}{subsection.1.2.2}
+\contentsline {titlech}{\numberline {2}Transient building response model}{9}{section*.5}
+\authcount {1}
+\contentsline {authorch}{Ruben Baetens and Dirk Saelens}{9}{section*.5}
+\contentsline {section}{\numberline {2.1}Wall response model}{9}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Exterior surface heat balance}{10}{subsection.2.1.1}
+\contentsline {paragraph}{Convection.}{10}{section*.6}
+\contentsline {paragraph}{Longwave radiation.}{10}{section*.7}
+\contentsline {paragraph}{Shortwave radiation.}{10}{section*.8}
+\contentsline {subsection}{\numberline {2.1.2}Wall conduction process}{10}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Interior surface heat balance}{11}{subsection.2.1.3}
+\contentsline {paragraph}{Convection.}{12}{section*.9}
+\contentsline {paragraph}{Longwave radiation.}{12}{section*.10}
+\contentsline {paragraph}{Shortwave radiation.}{13}{section*.11}
+\contentsline {subsection}{\numberline {2.1.4}Model extension for windows}{13}{subsection.2.1.4}
+\contentsline {paragraph}{Gap heat transfer.}{13}{section*.12}
+\contentsline {paragraph}{Shortwave optical properties.}{13}{section*.13}
+\contentsline {subsection}{\numberline {2.1.5}Model extension for ground slabs}{14}{subsection.2.1.5}
+\contentsline {section}{\numberline {2.2}Zone model}{15}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Thermal response model}{15}{subsection.2.2.1}
+\contentsline {paragraph}{Convective.}{15}{section*.14}
+\contentsline {paragraph}{Longwave radiation.}{16}{section*.15}
+\contentsline {paragraph}{Shortwave radiation.}{16}{section*.16}
+\contentsline {subsection}{\numberline {2.2.2}Thermal comfort}{16}{subsection.2.2.2}
+\contentsline {paragraph}{Operationally temperature.}{16}{section*.17}
+\contentsline {paragraph}{Comfort indicators.}{16}{section*.18}
+\contentsline {section}{\numberline {2.3}Initial value problem}{17}{section.2.3}
+\contentsline {titlech}{\numberline {3}Thermal building system}{19}{section*.19}
+\authcount {1}
+\contentsline {authorch}{Roel De Coninck and Lieve Helsen}{19}{section*.19}
+\contentsline {titlech}{\numberline {4}Electricity system}{21}{section*.20}
+\authcount {1}
+\contentsline {authorch}{Juan Van Roy, Bart Verbruggen and Johan Driesen}{21}{section*.20}
+\contentsline {part}{Part\ II\hspace {\betweenumberspace }Validation or verification}{23}{part.2}
+\contentsline {titlech}{\numberline {5}Building energy simulation test - BESTEST}{25}{section*.21}
+\authcount {1}
+\contentsline {authorch}{Ruben Baetens and Dirk Saelens}{25}{section*.21}
+\contentsline {section}{\numberline {5.1}Introduction}{25}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Building energy simulation test cases}{25}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Test results}{26}{subsection.5.1.2}
+\contentsline {subsubsection}{\numberline {5.1.2.1}Annual heating and cooling loads}{26}{subsubsection.5.1.2.1}
+\contentsline {subsubsection}{\numberline {5.1.2.2}Peak heating and cooling loads}{27}{subsubsection.5.1.2.2}
+\contentsline {subsubsection}{\numberline {5.1.2.3}Indoor air temperatures}{27}{subsubsection.5.1.2.3}
+\contentsline {titlech}{\numberline {6}Thermal building energy system test - BESTEST}{29}{section*.22}
+\authcount {1}
+\contentsline {authorch}{Roel De Coninck and Lieve Helsen}{29}{section*.22}
+\contentsline {titlech}{\numberline {7}IEEE Distribution system analysis for radial test feeders }{31}{section*.23}
+\authcount {1}
+\contentsline {authorch}{Juan Van Roy, Bart Verbruggen and Johan Driesen}{31}{section*.23}
+\contentsline {part}{Part\ III\hspace {\betweenumberspace }Literature}{33}{part.3}
+\contentsline {chapter}{Bibliography}{35}{chapter*.24}
+\contentsline {chapter}{Index}{37}{chapter*.25}
