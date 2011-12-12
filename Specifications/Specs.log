@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.1415926-2.2-0.9997.4 (MiKTeX 2.9) (preloaded format=xelatex 2011.10.11)  3 DEC 2011 15:20
+This is XeTeX, Version 3.1415926-2.2-0.9997.4 (MiKTeX 2.9) (preloaded format=xelatex 2011.10.11)  12 DEC 2011 10:12
 entering extended mode
-**E:/3*PhD*-*Optimized*Buildings*for*Smart*Grids/2*Publications/99_PhD/IDEAS*Sp
-ecifications/Specs.tex
+**E:/3*PhD*-*Optimized*Buildings*for*Smart*Grids/3*Modelica/IDEAS/Specification
+s/Specs.tex
 
-("E:/3 PhD - Optimized Buildings for Smart Grids/2 Publications/99_PhD/IDEAS Sp
-ecifications/Specs.tex"
+("E:/3 PhD - Optimized Buildings for Smart Grids/3 Modelica/IDEAS/Specification
+s/Specs.tex"
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -17,8 +17,12 @@ romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
 sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
 senglishmax, welsh, loaded.
 
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\svmult.cls"
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Structure/Preamble/svmult.cls"
+
+LaTeX Warning: You have requested document class `Structure/Preamble/svmult',
+               but the document class provides `svmult'.
+
 Document Class: svmult 2007/06/25 v5.4 
 Springer Verlag global LaTeX document class for multi authored books
 Class Springer-SVMult Info: extra/valid Springer sub-package 
@@ -127,8 +131,8 @@ Package: framed 2007/10/04 v 0.95: framed or shaded text with page breaks
 \FrameRule=\dimen129
 \FrameSep=\dimen130
 )
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\preamble.tex"
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Structure/Preamble/preamble.tex"
 ("C:\Program Files\MiKTeX\tex\latex\amsfonts\amssymb.sty"
 Package: amssymb 2009/06/22 v3.00
 
@@ -459,8 +463,8 @@ Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \cur@col=\count199
 \conditionsep=\skip60
 )
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\dtsyntax.sty.tex"
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\dtsyntax.sty.tex"
 Package: `dtsyntax' 1.01 <2009/09/24>
 Package: dtsyntax 2009/09/24 1.01
 dtsyntax: settings optimized for display!
@@ -1316,51 +1320,53 @@ Package: subfigure 2002/07/30 v2.1.4 subfigure package
 )
 \c@tmpc=\count340
 )
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\Specs.aux"
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\preface.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\cblist.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\Climate.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\BuildingModel.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ThermalSystemModel.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ElectricSystemModel.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\BuildingModelValidation.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ThermalSystemModelValidation.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ElectricSystemModelValidation.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\biblio.aux"))
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 10.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 10.
- ("C:\Program Files\MiKTeX\tex\latex\base\ts1cmr.fd"
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Specs.aux"
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Structure/Preface/preface.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Structure/Preamble/cblist.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Climate/Climate.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Buildings/BuildingModel.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Thermal/ThermalSystemModel.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Electric/ElectricSystemModel.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Buildings/BuildingModelValidation.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Thermal/ThermalSystemModelValidation.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Electric/ElectricSystemModelValidation.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Structure/Biblio/biblio.aux"))
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 8.
+
+("C:\Program Files\MiKTeX\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 10.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 8.
+
 ("C:\Program Files\MiKTeX\tex\latex\psnfss\ot1ptm.fd"
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
@@ -1373,7 +1379,7 @@ Option `squaren' provided!
 \c@lstlisting=\count341
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box75
-Package hyperref Info: Link coloring ON on input line 10.
+Package hyperref Info: Link coloring ON on input line 8.
 
 ("C:\Program Files\MiKTeX\tex\latex\hyperref\nameref.sty"
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
@@ -1386,19 +1392,19 @@ Package: gettitlestring 2009/12/18 v1.3 Cleanup title references (HO)
 )
 \c@section@level=\count342
 )
-LaTeX Info: Redefining \ref on input line 10.
-LaTeX Info: Redefining \pageref on input line 10.
-LaTeX Info: Redefining \nameref on input line 10.
+LaTeX Info: Redefining \ref on input line 8.
+LaTeX Info: Redefining \pageref on input line 8.
+LaTeX Info: Redefining \nameref on input line 8.
 
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\Specs.out")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\Specs.out")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Specs.out")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Specs.out")
 \@outlinefile=\write6
 \big@size=\dimen299
 
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\preface.tex"
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Structure/Preface/preface.tex"
 Requested font "ptmr7t" at 16.0pt
  -> ptmr7t
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <16> not available
@@ -1507,14 +1513,15 @@ Requested font "ptmr7t" at 8.5pt
 
 
 ]
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\Specs.toc" [7])
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Specs.toc" [7])
 \tf@toc=\write7
  [8]
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\cblist.tex"
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Structure/Preamble/cblist.tex"
 LaTeX Font Info:    Try loading font information for OT1+pcr on input line 11.
- ("C:\Program Files\MiKTeX\tex\latex\psnfss\ot1pcr.fd"
+
+("C:\Program Files\MiKTeX\tex\latex\psnfss\ot1pcr.fd"
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
 Requested font "pcrr7t" at 10.0pt
@@ -1529,15 +1536,15 @@ Requested font "pcrr7t" at 10.0pt
 
 ]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <18> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 21.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 19.
 Requested font "ptmb7t" at 18.0pt
  -> ptmb7t
  [1
 
 
 ] [2]
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\Climate.tex"
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Climate/Climate.tex"
 Requested font "ptmr7t" at 14.0pt
  -> ptmr7t
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14> not available
@@ -1748,10 +1755,9 @@ LaTeX Warning: Citation `Duffie1980' on page 7 undefined on input line 137.
 
 LaTeX Warning: Citation `Darula2005' on page 7 undefined on input line 143.
 
-No file Specs.bbl.
 ) [7]
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\BuildingModel.tex" [8
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Buildings/BuildingModel.tex" [8
 
 
 
@@ -1930,15 +1936,15 @@ LaTeX Warning: Citation `ASHRAE2009a' on page 17 undefined on input line 225.
 
 No file Specs.bbl.
 ) [17]
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ThermalSystemModel.tex" [18
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Thermal/ThermalSystemModel.tex" [18
 
 
 
 
 ]) [19]
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ElectricSystemModel.tex" [20
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Electric/ElectricSystemModel.tex" [20
 
 
 
@@ -1948,8 +1954,8 @@ ecifications\ElectricSystemModel.tex" [20
 
 
 ] [23] [24]
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\BuildingModelValidation.tex"
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Buildings/BuildingModelValidation.tex"
 
 LaTeX Warning: Citation `Judkoff1995' on page 25 undefined on input line 11.
 
@@ -1972,27 +1978,29 @@ Missing character: There is no ^^94 in font ptmr7t!
 
 
 ]
-File: figures/AH_BESTEST.png Graphic file (type QTm)
- <use  "figures/AH_BESTEST.png" >
-File: figures/AC_BESTEST.png Graphic file (type QTm)
- <use  "figures/AC_BESTEST.png" > [26]
-File: figures/PH_BESTEST.png Graphic file (type QTm)
+File: Buildings/MyGraphics/AH_BESTEST.png Graphic file (type QTm)
+ <use  "Buildings/MyGraphics/AH_BESTEST.png" >
+File: Buildings/MyGraphics/AC_BESTEST.png Graphic file (type QTm)
 
-<use  "figures/PH_BESTEST.png" >
-File: figures/PC_BESTEST.png Graphic file (type QTm)
- <use  "figures/PC_BESTEST.png" >
-File: figures/Temp_BESTEST.pdf Graphic file (type QTm)
+<use  "Buildings/MyGraphics/AC_BESTEST.png" > [26]
+File: Buildings/MyGraphics/PH_BESTEST.png Graphic file (type QTm)
 
-<use  "figures/Temp_BESTEST.pdf" >) [27] [28]
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ThermalSystemModelValidation.tex") [29
+<use  "Buildings/MyGraphics/PH_BESTEST.png" >
+File: Buildings/MyGraphics/PC_BESTEST.png Graphic file (type QTm)
+
+<use  "Buildings/MyGraphics/PC_BESTEST.png" >
+File: Buildings/MyGraphics/Temp_BESTEST.pdf Graphic file (type QTm)
+
+<use  "Buildings/MyGraphics/Temp_BESTEST.pdf" >) [27] [28]
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Thermal/ThermalSystemModelValidation.tex") [29
 
 
 
 
 ]
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ElectricSystemModelValidation.tex" [30
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Electric/ElectricSystemModelValidation.tex" [30
 
 
 
@@ -2002,8 +2010,8 @@ ecifications\ElectricSystemModelValidation.tex" [30
 
 
 ] [33] [34]
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\biblio.tex"
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Structure/Biblio/biblio.tex"
 No file Specs.bbl.
 ) [35
 
@@ -2014,33 +2022,33 @@ No file Specs.bbl.
 
 
 ]
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\Specs.ind" [37
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Specs.ind" [37
 
 
 ])
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\Specs.aux"
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\preface.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\cblist.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\Climate.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\BuildingModel.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ThermalSystemModel.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ElectricSystemModel.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\BuildingModelValidation.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ThermalSystemModelValidation.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\ElectricSystemModelValidation.aux")
-("E:\3 PhD - Optimized Buildings for Smart Grids\2 Publications\99_PhD\IDEAS Sp
-ecifications\biblio.aux"))
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Specs.aux"
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Structure/Preface/preface.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Structure/Preamble/cblist.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Climate/Climate.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Buildings/BuildingModel.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Thermal/ThermalSystemModel.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Electric/ElectricSystemModel.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Buildings/BuildingModelValidation.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Thermal/ThermalSystemModelValidation.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Electric/ElectricSystemModelValidation.aux")
+("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
+s\Structure/Biblio/biblio.aux"))
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.5pt have occurred.
@@ -2050,12 +2058,12 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 28825 strings out of 429293
- 563338 string characters out of 3171079
- 666604 words of memory out of 3000000
+ 28832 strings out of 429293
+ 563988 string characters out of 3171079
+ 666681 words of memory out of 3000000
  31453 multiletter control sequences out of 15000+200000
  30353 words of font info for 81 fonts, out of 3000000 for 9000
  669 hyphenation exceptions out of 8191
- 52i,9n,74p,1389b,1112s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 52i,9n,74p,1388b,1112s stack positions out of 5000i,500n,10000p,200000b,50000s
 
 Output written on Specs.pdf (43 pages).

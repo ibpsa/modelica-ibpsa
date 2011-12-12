@@ -1,19 +1,17 @@
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[graybox, envcountchap]{svmult}
-\input{preamble}
-%\usepackage[T1]{fontenc}
-%\usepackage[light,condensed,math]{kurier}
+\documentclass[graybox, envcountchap]{Structure/Preamble/svmult}
+\input{Structure/Preamble/preamble}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
 \frontmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{preface}
+\include{Structure/Preface/preface}
 
 \tableofcontents
-\include{cblist}
+\include{Structure/Preamble/cblist}
 
 \mainmatter
 
@@ -22,31 +20,31 @@
 \noindent spec-i-fi-ca-tion (n.) 1. the act of specifying. 2. a. specifications, A detailed, exact statement of particulars, especially a statement prescribing materials, dimensions, and quality of work for something to be built, installed, or manufactured. b. A single item or article that has been specified. 3. An exact written description of an invention by an applicant for a patent.
 \end{partbacktext}
 
-\include{Climate}
+\include{Climate/Climate}
 
-\include{BuildingModel}
+\include{Buildings/BuildingModel}
 
-\include{ThermalSystemModel}
+\include{Thermal/ThermalSystemModel}
 
-\include{ElectricSystemModel}
+\include{Electric/ElectricSystemModel}
 
 \begin{partbacktext}
 \part{Validation or verification}
 \noindent val-i-dation (n.) 1. To declare or make legally valid. 2. To mark with an indication of official sanction. 3. To establish the soundness of; corroborate.
 \end{partbacktext}
 
-\include{BuildingModelValidation}
+\include{Buildings/BuildingModelValidation}
 
-\include{ThermalSystemModelValidation}
+\include{Thermal/ThermalSystemModelValidation}
 
-\include{ElectricSystemModelValidation}
+\include{Electric/ElectricSystemModelValidation}
 
 \begin{partbacktext}
 \part{Literature}
 \noindent lit-er-a-ture (n.) 1. The body of written works of a language, period, or culture. 2. Imaginative or creative writing, especially of recognized artistic value: "Literature must be an analysis of experience and a synthesis of the findings into a unity" (Rebecca West). 3. The art or occupation of a literary writer. 4. The body of written work produced by scholars or researchers in a given field: medical literature. 5. Printed material: collected all the available literature on the subject. 6. Music All the compositions of a certain kind or for a specific instrument or ensemble: the symphonic literature.
 \end{partbacktext}
 
-\include{biblio}
+\include{Structure/Biblio/biblio}
 
 \backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\appendix
