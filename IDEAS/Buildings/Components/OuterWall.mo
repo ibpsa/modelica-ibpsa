@@ -19,8 +19,8 @@ parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0° denotes South";
 
 public
-  IDEAS.Buildings.Components.BaseClasses.SummaryWall summary(Qloss=-surfCon.Q_flow
-         - surfRad.Q_flow, QSolIrr=radSol.solDir/AWall + radSol.solDif/AWall)
+  IDEAS.Buildings.Components.BaseClasses.SummaryWall summary(Qloss=-surfCon_a.Q_flow
+         - surfRad_a.Q_flow, QSolIrr=radSol.solDir/AWall + radSol.solDif/AWall)
     "Summary of the thermal response";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
@@ -118,6 +118,41 @@ equation
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
             {50,100}}),
-                   graphics),    Diagram(coordinateSystem(preserveAspectRatio=true,
+                   graphics={
+        Line(
+          points={{-50,60},{-38,60},{-38,88},{50,88}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,60},{-50,66},{-50,100},{50,100}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,-20},{-50,-100},{50,-100}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,-20},{-38,-20},{-38,-88},{-36,-88},{50,-88}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Rectangle(
+          extent={{-38,-20},{-50,-88}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-38,60},{-50,100}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-38,88},{50,100}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-46,60},{-46,-20}},
+          color={95,95,95},
+          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-50,-100},{50,100}}), graphics));
 end OuterWall;

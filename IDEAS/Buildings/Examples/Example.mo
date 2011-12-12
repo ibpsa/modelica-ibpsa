@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Examples;
 model Example "Example detailed building model"
 
-  extends IDEAS.Buildings.Interfaces.Building(nZones=3);
+  extends IDEAS.Buildings.Interfaces.Building(nZones=3,ATrans=1,VZones={gF.V,fF.V,sF.V});
 
 //Definition of the exterior wall orientations where "0" is South and "-90" is East
 final parameter Modelica.SIunits.Angle front = IDEAS.Climate.Meteo.Orientations.Azimuth.East;
@@ -11,269 +11,504 @@ final parameter Modelica.SIunits.Angle floor = IDEAS.Climate.Meteo.Orientations.
 final parameter Modelica.SIunits.Angle ceiling = IDEAS.Climate.Meteo.Orientations.Inclination.Ceiling;
 final parameter Modelica.SIunits.Angle wall = IDEAS.Climate.Meteo.Orientations.Inclination.Wall;
 
-//Definition of the used construction materials in the dwelling
-
-//The thermal zones of the modeled dwelling
-  Components.Zone gF_zone(
+  Components.Zone sF(
     V=216.0,
-    height=3.0,
-    nSurf=6,
-    ACH=0.5,
-    weightFactor={0.2,0.3,0.1,0.1,0.1,0.2},
-    Tset=293.15) "ground floor (gF) with living area"
-    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
-  Components.Zone fF_zone(
+    weightFactor={0.2,0.3,0.05,0.05,0.1,0.2,0.05,0.05},
+    nSurf=8) "second floor (sF) with sleeping area"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+  Components.OuterWall[3] sF_ext(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
+    redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType(d=sF_ext.insulationTickness),
+    AWall={10,21,10},
+    azi={front,side,back},
+    insulationTickness={0.16,0.16,0.16},
+    inc={wall,wall,wall})
+    annotation (Placement(transformation(extent={{-5.5,-10.5},{5.5,10.5}},
+        rotation=90,
+        origin={-17.5,44.5})));
+  Components.Window[3] sF_win(
+    A={5.5,1,5.5},
+    azi={front,side,back},
+    redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,
+    inc={wall,wall,wall})     annotation (Placement(transformation(
+        extent={{-5.5,-10.5},{5.5,10.5}},
+        rotation=90,
+        origin={10.5,44.5})));
+  Components.Zone fF(
     V=216.0,
-    height=3.0,
-    nSurf=6,
-    ACH=0.5,
-    weightFactor={0.2,0.3,0.1,0.1,0.1,0.2},
-    Tset=291.15) "first floor (fF) with sleeping area"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
-  Components.Zone sF_zone(
+    weightFactor={0.2,0.3,0.05,0.05,0.1,0.2,0.05,0.05},
+    nSurf=8) "second floor (sF) with sleeping area"
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+  Components.OuterWall[3] fF_ext(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
+    redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType(d=fF_ext.insulationTickness),
+    AWall={10,21,10},
+    azi={front,side,back},
+    insulationTickness={0.16,0.16,0.16},
+    inc={wall,wall,wall})
+    annotation (Placement(transformation(extent={{-5.5,-10.5},{5.5,10.5}},
+        rotation=90,
+        origin={-17.5,-15.5})));
+  Components.Window[3] fF_win(
+    A={5.5,1,5.5},
+    azi={front,side,back},
+    redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,
+    inc={wall,wall,wall})     annotation (Placement(transformation(
+        extent={{-5.5,-10.5},{5.5,10.5}},
+        rotation=90,
+        origin={10.5,-15.5})));
+  Components.Zone gF(
     V=216.0,
-    height=3.0,
-    nSurf=6,
-    ACH=0.5,
-    weightFactor={0.2,0.3,0.1,0.1,0.1,0.2},
-    Tset=291.15) "second floor (sF) with sleeping area"
-    annotation (Placement(transformation(extent={{80,50},{100,70}})));
-
-//The vertical exterior walls gathered as a single wall per floor
-IDEAS.Buildings.Components.OuterWall gF_wallExt(
-    A=38.5,
-    inc=wall,
-    azi=side,
-    nLay=4,
-    mats={bricke,mw,bricki,gypsum});
-IDEAS.Buildings.Components.OuterWall fF_wallExt(
-    A=41.0,
-    inc=wall,
-    azi=side,
-    nLay=4,
-    mats={bricke,mw,bricki,gypsum});
-IDEAS.Buildings.Components.OuterWall sF_wallExt(
-    A=41.0,
-    inc=wall,
-    azi=side,
-    nLay=4,
-    mats={bricke,mw,bricki,gypsum});
-
-//The internal floor slabs
-IDEAS.Buildings.Components.SlabOnGround gF_floor(
-    A=72.0,
-    P=26,
+    weightFactor={0.2,0.3,0.05,0.05,0.1,0.2,0.05,0.05},
+    nSurf=8) "second floor (sF) with sleeping area"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+  Components.OuterWall[3] gF_ext(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
+    redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType(d=gF_ext.insulationTickness),
+    AWall={10,21,10},
+    azi={front,side,back},
+    insulationTickness={0.16,0.16,0.16},
+    inc={wall,wall,wall})
+    annotation (Placement(transformation(extent={{-5.5,-10.5},{5.5,10.5}},
+        rotation=90,
+        origin={-17.5,-75.5})));
+  Components.Window[3] gF_win(
+    A={5.5,1,5.5},
+    azi={front,side,back},
+    redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,
+    inc={wall,wall,wall})     annotation (Placement(transformation(
+        extent={{-5.5,-10.5},{5.5,10.5}},
+        rotation=90,
+        origin={10.5,-75.5})));
+  Components.InternalWall sF_floor(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
+    redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType(d=sF_floor.insulationTickness),
+    insulationTickness=0.04,
+    AWall=74,
     inc=floor,
-    azi=side,
-    nLay=5,
-    mats={concrete,screed,pur,screed,tile},
-    locGain=4);
-IDEAS.Buildings.Components.InternalWall fF_floor(
-    A=72.0,
+    azi=side) annotation (Placement(transformation(
+        extent={{-5,-10},{5,10}},
+        rotation=90,
+        origin={-47,44})));
+  Components.InternalWall fF_floor(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
+    redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType(d=sF_floor.insulationTickness),
+    insulationTickness=0.04,
+    AWall=74,
     inc=floor,
-    nLay=6,
-    mats={tile,screed,pur,screed,concrete,gypsum},
-    locGain=2);
-IDEAS.Buildings.Components.InternalWall sF_floor(
-    A=72.0,
+    azi=side) annotation (Placement(transformation(
+        extent={{-5,-10},{5,10}},
+        rotation=90,
+        origin={-47,-16})));
+  Components.SlabOnGround gF_floor(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
+    redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType(d=gF_floor.insulationTickness),
+    insulationTickness=0.14,
+    AWall=72,
+    PWall=26,
     inc=floor,
-    nLay=6,
-    mats={tile,screed,pur,screed,concrete,gypsum},
-    locGain=2);
-//The exterior roofs gathered as a single wall per floor
-IDEAS.Buildings.Components.OuterWall sF_roof(
-    A=72.0,
+    azi=side) annotation (Placement(transformation(
+        extent={{-5,-10},{5,10}},
+        rotation=90,
+        origin={-47,-76})));
+  Components.OuterWall outerWall(
+    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
+    redeclare IDEAS.Buildings.Data.Insulation.Xps insulationType(d=outerWall.insulationTickness),
+    insulationTickness=0.32,
+    AWall=74,
     inc=ceiling,
-    azi=side,
-    nLay=3,
-    mats={xps,concrete,gypsum});
-
-//The external windows gathered per floor per orientation
-//i.e. three orientations for the ground floor
-IDEAS.Buildings.Components.Window gF_frontWin(
-    A=3.0,
-    azi=front,
-    inc=wall,
-    glazing=gla,
-    shading=true);
-IDEAS.Buildings.Components.Window gF_backWin(
-    A=5.0,
-    azi=back,
-    inc=wall,
-    glazing=gla,
-    shading=true);
-//three orientations for the first floor
-IDEAS.Buildings.Components.Window fF_frontWin(
-    A=3.0,
-    azi=front,
-    inc=wall,
-    glazing=gla,
-    shading=true);
-IDEAS.Buildings.Components.Window fF_backWin(
-    A=5.5,
-    azi=back,
-    inc=wall,
-    glazing=gla,
-    shading=true);
-//and three orientations for the second floor
-IDEAS.Buildings.Components.Window sF_frontWin(
-    A=3.0,
-    azi=front,
-    inc=wall,
-    glazing=gla,
-    shading=true);
-IDEAS.Buildings.Components.Window sF_backWin(
-    A=5.5,
-    azi=back,
-    inc=wall,
-    glazing=gla,
-    shading=true);
-//The vertical common walls with the neighbors gathered as a single wall per floor
-IDEAS.Buildings.Components.CommonWall gF_wallNei(
-    A=54.0,
-    inc=wall,
-    azi=side,
-    nLay=5,
-    mats={gypsum,bricki,mw,bricki,gypsum});
-IDEAS.Buildings.Components.CommonWall fF_wallNei(
-    A=54.0,
-    inc=wall,
-    azi=side,
-    nLay=5,
-    mats={gypsum,bricki,mw,bricki,gypsum});
-IDEAS.Buildings.Components.CommonWall sF_wallNei(
-    A=54.0,
-    inc=wall,
-    azi=side,
-    nLay=5,
-    mats={gypsum,bricki,mw,bricki,gypsum});
-
+    azi=side) annotation (Placement(transformation(
+        extent={{-5,-10},{5,10}},
+        rotation=90,
+        origin={-77,44})));
 equation
-//First we build up the complete ground floor (gF)
-//i.e. the exterior walls of gF
-connect(gF_wallExt.port_b, gF_zone.surfCon[1]);
-connect(gF_wallExt.port_bRad, gF_zone.surfRad[1]);
-connect(gF_wallExt.iEpsLw, gF_zone.epsLw[1]);
-connect(gF_wallExt.iEpsSw, gF_zone.epsSw[1]);
-connect(gF_wallExt.area, gF_zone.area[1]);
-//i.e. the floor of gF
-connect(gF_floor.port_b, gF_zone.surfCon[2]);
-connect(gF_floor.port_bRad, gF_zone.surfRad[2]);
-connect(gF_floor.iEpsLw, gF_zone.epsLw[2]);
-connect(gF_floor.iEpsSw, gF_zone.epsSw[2]);
-connect(gF_floor.area, gF_zone.area[2]);
-//i.e. the front window of gF
-connect(gF_frontWin.port_b, gF_zone.surfCon[3]);
-connect(gF_frontWin.port_bRad, gF_zone.surfRad[3]);
-connect(gF_frontWin.port_bSolDir, gF_zone.iSolDir);
-connect(gF_frontWin.port_bSolDif, gF_zone.iSolDif);
-connect(gF_frontWin.iEpsLw, gF_zone.epsLw[3]);
-connect(gF_frontWin.iEpsSw, gF_zone.epsSw[3]);
-connect(gF_frontWin.area, gF_zone.area[3]);
-//i.e. the back window of gF
-connect(gF_backWin.port_b, gF_zone.surfCon[4]);
-connect(gF_backWin.port_bRad, gF_zone.surfRad[4]);
-connect(gF_backWin.port_bSolDir, gF_zone.iSolDir);
-connect(gF_backWin.port_bSolDif, gF_zone.iSolDif);
-connect(gF_backWin.iEpsLw, gF_zone.epsLw[4]);
-connect(gF_backWin.iEpsSw, gF_zone.epsSw[4]);
-connect(gF_backWin.area, gF_zone.area[4]);
-//i.e. the floor of fF
-connect(fF_floor.port_b, gF_zone.surfCon[5]);
-connect(fF_floor.port_bRad, gF_zone.surfRad[5]);
-connect(fF_floor.iEpsLwb, gF_zone.epsLw[5]);
-connect(fF_floor.iEpsSwb, gF_zone.epsSw[5]);
-connect(fF_floor.area, gF_zone.area[5]);
-//i.e. the neighbor wall of gF
-connect(gF_wallNei.port_b, gF_zone.surfCon[6]);
-connect(gF_wallNei.port_bRad, gF_zone.surfRad[6]);
-connect(gF_wallNei.iEpsLw, gF_zone.epsLw[6]);
-connect(gF_wallNei.iEpsSw, gF_zone.epsSw[6]);
-connect(gF_wallNei.area, gF_zone.area[6]);
-//then we build up the complete first floor (fF)
-//i.e. the exterior walls of fF
-connect(fF_wallExt.port_b, fF_zone.surfCon[1]);
-connect(fF_wallExt.port_bRad, fF_zone.surfRad[1]);
-connect(fF_wallExt.iEpsLw, fF_zone.epsLw[1]);
-connect(fF_wallExt.iEpsSw, fF_zone.epsSw[1]);
-connect(fF_wallExt.area, fF_zone.area[1]);
-//i.e. the floor of fF
-connect(fF_floor.port_a, fF_zone.surfCon[2]);
-connect(fF_floor.port_aRad, fF_zone.surfRad[2]);
-connect(fF_floor.iEpsLwa, fF_zone.epsLw[2]);
-connect(fF_floor.iEpsSwa, fF_zone.epsSw[2]);
-connect(fF_floor.area, fF_zone.area[2]);
-//i.e. the front window of fF
-connect(fF_frontWin.port_b, fF_zone.surfCon[3]);
-connect(fF_frontWin.port_bRad, fF_zone.surfRad[3]);
-connect(fF_frontWin.port_bSolDir, fF_zone.iSolDir);
-connect(fF_frontWin.port_bSolDif, fF_zone.iSolDif);
-connect(fF_frontWin.iEpsLw, fF_zone.epsLw[3]);
-connect(fF_frontWin.iEpsSw, fF_zone.epsSw[3]);
-connect(fF_frontWin.area, fF_zone.area[3]);
-//i.e. the back window of f
-connect(fF_backWin.port_b, fF_zone.surfCon[4]);
-connect(fF_backWin.port_bRad, fF_zone.surfRad[4]);
-connect(fF_backWin.port_bSolDir, fF_zone.iSolDir);
-connect(fF_backWin.port_bSolDif, fF_zone.iSolDif);
-connect(fF_backWin.iEpsLw, fF_zone.epsLw[4]);
-connect(fF_backWin.iEpsSw, fF_zone.epsSw[4]);
-connect(fF_backWin.area, fF_zone.area[4]);
-//i.e. the floor of sF
-connect(sF_floor.port_b, fF_zone.surfCon[5]);
-connect(sF_floor.port_bRad, fF_zone.surfRad[5]);
-connect(sF_floor.iEpsLwb, fF_zone.epsLw[5]);
-connect(sF_floor.iEpsSwb, fF_zone.epsSw[5]);
-connect(sF_floor.area, fF_zone.area[5]);
-//i.e. the neighbor wall of fF
-connect(fF_wallNei.port_b, fF_zone.surfCon[6]);
-connect(fF_wallNei.port_bRad, fF_zone.surfRad[6]);
-connect(fF_wallNei.iEpsLw, fF_zone.epsLw[6]);
-connect(fF_wallNei.iEpsSw, fF_zone.epsSw[6]);
-connect(fF_wallNei.area, fF_zone.area[6]);
-//then we build up the complete second floor (sF)
-//i.e. the exterior walls of sF
-connect(sF_wallExt.port_b, sF_zone.surfCon[1]);
-connect(sF_wallExt.port_bRad, sF_zone.surfRad[1]);
-connect(sF_wallExt.iEpsLw, sF_zone.epsLw[1]);
-connect(sF_wallExt.iEpsSw, sF_zone.epsSw[1]);
-connect(sF_wallExt.area, sF_zone.area[1]);
-//i.e. the floor of sF
-connect(sF_floor.port_a, sF_zone.surfCon[2]);
-connect(sF_floor.port_aRad, sF_zone.surfRad[2]);
-connect(sF_floor.iEpsLwa, sF_zone.epsLw[2]);
-connect(sF_floor.iEpsSwa, sF_zone.epsSw[2]);
-connect(sF_floor.area, sF_zone.area[2]);
-//i.e. the roof of sF
-connect(sF_roof.port_b, sF_zone.surfCon[3]);
-connect(sF_roof.port_bRad, sF_zone.surfRad[3]);
-connect(sF_roof.iEpsLw, sF_zone.epsLw[3]);
-connect(sF_roof.iEpsSw, sF_zone.epsSw[3]);
-connect(sF_roof.area, sF_zone.area[3]);
-//i.e. the front window of gF
-connect(sF_frontWin.port_b, sF_zone.surfCon[4]);
-connect(sF_frontWin.port_bRad, sF_zone.surfRad[4]);
-connect(sF_frontWin.port_bSolDir, sF_zone.iSolDir);
-connect(sF_frontWin.port_bSolDif, sF_zone.iSolDif);
-connect(sF_frontWin.iEpsLw, sF_zone.epsLw[4]);
-connect(sF_frontWin.iEpsSw, sF_zone.epsSw[4]);
-connect(sF_frontWin.area, sF_zone.area[4]);
-//i.e. the back window of sF
-connect(sF_backWin.port_b, sF_zone.surfCon[5]);
-connect(sF_backWin.port_bRad, sF_zone.surfRad[5]);
-connect(sF_backWin.port_bSolDir, sF_zone.iSolDir);
-connect(sF_backWin.port_bSolDif, sF_zone.iSolDif);
-connect(sF_backWin.iEpsLw, sF_zone.epsLw[5]);
-connect(sF_backWin.iEpsSw, sF_zone.epsSw[5]);
-connect(sF_backWin.area, sF_zone.area[5]);
-//i.e. the neighbor wall of sF
-connect(sF_wallNei.port_b, sF_zone.surfCon[6]);
-connect(sF_wallNei.port_bRad, sF_zone.surfRad[6]);
-connect(sF_wallNei.iEpsLw, sF_zone.epsLw[6]);
-connect(sF_wallNei.iEpsSw, sF_zone.epsSw[6]);
-connect(sF_wallNei.area, sF_zone.area[6]);
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,
-            -100},{150,100}}),
+//Connection to the connections of the partial type
+  connect(gF.gainCon, gainCon[1]) annotation (Line(
+      points={{60,-53},{118,-53},{118,20},{150,20},{150,13.3333},{150,13.3333}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF.gainRad, gainRad[1]) annotation (Line(
+      points={{60,-56},{120,-56},{120,-26.6667},{150,-26.6667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF.TSensor, TSensor[1]) annotation (Line(
+      points={{60.6,-50},{120,-50},{120,-60},{150,-60},{150,-66.6667},{156,
+          -66.6667}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF.TSensor, TSensor[2]) annotation (Line(
+      points={{60.6,10},{122,10},{122,-60},{156,-60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF.gainCon, gainCon[2]) annotation (Line(
+      points={{60,7},{118,7},{118,20},{150,20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF.gainRad, gainRad[2]) annotation (Line(
+      points={{60,4},{120,4},{120,-20},{150,-20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF.gainCon, gainCon[3]) annotation (Line(
+      points={{60,67},{118,67},{118,20},{150,20},{150,26.6667},{150,26.6667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF.gainRad, gainRad[3]) annotation (Line(
+      points={{60,64},{120,64},{120,-20},{150,-20},{150,-13.3333},{150,-13.3333}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF.TSensor, TSensor[3]) annotation (Line(
+      points={{60.6,70},{122,70},{122,-60},{150,-60},{150,-53.3333},{156,
+          -53.3333}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gF_floor.port_emb, genEmb[1]) annotation (Line(
+      points={{-37,-76},{-32,-76},{-32,-88},{116,-88},{116,60},{150,60},{150,
+          53.3333},{150,53.3333}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_floor.port_emb, genEmb[2]) annotation (Line(
+      points={{-37,-16},{-32,-16},{-32,-30},{116,-30},{116,60},{150,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_floor.port_emb, genEmb[3]) annotation (Line(
+      points={{-37,44},{-32,44},{-32,26},{116,26},{116,60},{150,60},{150,
+          66.6667},{150,66.6667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+//Connection of the sF floor
+  connect(sF_win[1].iSolDir, sF.iSolDir) annotation (Line(
+      points={{21,42.96},{48,42.96},{48,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_win[1].iSolDif, sF.iSolDif) annotation (Line(
+      points={{21,46.04},{52,46.04},{52,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_win[2].iSolDir, sF.iSolDir) annotation (Line(
+      points={{21,42.96},{48,42.96},{48,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_win[2].iSolDif, sF.iSolDif) annotation (Line(
+      points={{21,46.04},{52,46.04},{52,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_win[3].iSolDir, sF.iSolDir) annotation (Line(
+      points={{21,42.96},{48,42.96},{48,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_win[3].iSolDif, sF.iSolDif) annotation (Line(
+      points={{21,46.04},{52,46.04},{52,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_ext.area_a, sF.area[1:3]) annotation (Line(
+      points={{-23.8,50.66},{-23.8,75.125},{39.6,75.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sF_ext.iEpsLw_a, sF.epsLw[1:3]) annotation (Line(
+      points={{-20.65,50.66},{-20.65,72.125},{39.6,72.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sF_ext.iEpsSw_a, sF.epsSw[1:3]) annotation (Line(
+      points={{-17.5,50.66},{-17.5,69.125},{39.6,69.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sF_win.area_a, sF.area[4:6]) annotation (Line(
+      points={{4.2,50.66},{4.2,75.875},{39.6,75.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sF_win.iEpsLw_a, sF.epsLw[4:6]) annotation (Line(
+      points={{7.35,50.66},{7.35,72.875},{39.6,72.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sF_win.iEpsSw_a, sF.epsSw[4:6]) annotation (Line(
+      points={{10.5,50.66},{10.5,69.875},{39.6,69.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sF_ext.surfCon_a, sF.surfCon[1:3]) annotation (Line(
+      points={{-14.35,50},{-14,50},{-14,66},{14,66},{14,66.125},{40,66.125}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_ext.surfRad_a, sF.surfRad[1:3]) annotation (Line(
+      points={{-11.2,50},{-10,50},{-10,64},{16,64},{16,64},{40,63.125}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_win.surfCon_a, sF.surfCon[4:6]) annotation (Line(
+      points={{13.65,50},{14,50},{14,66.875},{40,66.875}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_win.surfRad_a, sF.surfRad[4:6]) annotation (Line(
+      points={{16.8,50},{16,50},{16,63.875},{40,63.875}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_floor.surfRad_a, sF.surfRad[7]) annotation (Line(
+      points={{-41,49},{-41,64.625},{40,64.625}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_floor.surfCon_a, sF.surfCon[7]) annotation (Line(
+      points={{-44,49},{-44,67.625},{40,67.625}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_floor.iEpsSw_a, sF.epsSw[7]) annotation (Line(
+      points={{-47,49.6},{-47,70.625},{39.6,70.625}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sF_floor.iEpsLw_a, sF.epsLw[7]) annotation (Line(
+      points={{-50,49.6},{-50,73.625},{39.6,73.625}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sF_floor.area_a, sF.area[7]) annotation (Line(
+      points={{-53,49.6},{-53,76.625},{39.6,76.625}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(outerWall.surfCon_a, sF.surfCon[8]) annotation (Line(
+      points={{-74,49},{-74,67.875},{40,67.875}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(outerWall.iEpsSw_a, sF.epsSw[8]) annotation (Line(
+      points={{-77,49.6},{-77,70.875},{39.6,70.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(outerWall.iEpsLw_a, sF.epsLw[8]) annotation (Line(
+      points={{-80,49.6},{-80,73.875},{39.6,73.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(outerWall.area_a, sF.area[8]) annotation (Line(
+      points={{-83,49.6},{-83,76.875},{39.6,76.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(outerWall.surfRad_a, sF.surfRad[8]) annotation (Line(
+      points={{-71,49},{-71,64.875},{40,64.875}},
+      color={191,0,0},
+      smooth=Smooth.None));
+//Connection of the fF floor
+  connect(fF_ext.area_a, fF.area[1:3]) annotation (Line(
+      points={{-23.8,-9.34},{-23.8,15.125},{39.6,15.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_ext.iEpsLw_a, fF.epsLw[1:3]) annotation (Line(
+      points={{-20.65,-9.34},{-20.65,12.125},{39.6,12.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_ext.iEpsSw_a, fF.epsSw[1:3]) annotation (Line(
+      points={{-17.5,-9.34},{-17.5,9.125},{39.6,9.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_win[1].area_a, fF.area[4]) annotation (Line(
+      points={{4.2,-9.34},{4.2,15.875},{39.6,15.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_win[2].area_a, fF.area[5]) annotation (Line(
+      points={{4.2,-9.34},{4.2,16.125},{39.6,16.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_win[3].area_a, fF.area[6]) annotation (Line(
+      points={{4.2,-9.34},{4.2,16.375},{39.6,16.375}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_win.iEpsLw_a, fF.epsLw[4:6]) annotation (Line(
+      points={{7.35,-9.34},{7.35,12.875},{39.6,12.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_win.iEpsSw_a, fF.epsSw[4:6]) annotation (Line(
+      points={{10.5,-9.34},{10.5,9.875},{39.6,9.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_ext.surfCon_a, fF.surfCon[1:3]) annotation (Line(
+      points={{-14.35,-10},{-14,-10},{-14,6},{14,6},{14,6.125},{40,6.125}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_ext.surfRad_a, fF.surfRad[1:3]) annotation (Line(
+      points={{-11.2,-10},{-12,-10},{-12,4},{14,4},{14,3.125},{40,3.125}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_win.surfCon_a, fF.surfCon[4:6]) annotation (Line(
+      points={{13.65,-10},{12,-10},{12,6},{26,6},{26,6.875},{40,6.875}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_win.surfRad_a, fF.surfRad[4:6]) annotation (Line(
+      points={{16.8,-10},{16,-10},{16,4},{28,4},{28,3.875},{40,3.875}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_win[1].iSolDif, fF.iSolDif) annotation (Line(
+      points={{21,-13.96},{52,-13.96},{52,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_win[1].iSolDir, fF.iSolDir) annotation (Line(
+      points={{21,-17.04},{48,-17.04},{48,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_win[2].iSolDif, fF.iSolDif) annotation (Line(
+      points={{21,-13.96},{52,-13.96},{52,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_win[2].iSolDir, fF.iSolDir) annotation (Line(
+      points={{21,-17.04},{48,-17.04},{48,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_win[3].iSolDif, fF.iSolDif) annotation (Line(
+      points={{21,-13.96},{52,-13.96},{52,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_win[3].iSolDir, fF.iSolDir) annotation (Line(
+      points={{21,-17.04},{48,-17.04},{48,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_floor.surfRad_a, fF.surfRad[7]) annotation (Line(
+      points={{-41,-11},{-41,4.625},{40,4.625}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_floor.surfRad_b, fF.surfRad[8]) annotation (Line(
+      points={{-41,39},{-41,4.875},{40,4.875}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_floor.surfCon_a, fF.surfCon[7]) annotation (Line(
+      points={{-44,-11},{-44,7.625},{40,7.625}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(sF_floor.surfCon_b, fF.surfCon[8]) annotation (Line(
+      points={{-44,39},{-44,7.875},{40,7.875}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_floor.iEpsSw_a, fF.epsSw[7]) annotation (Line(
+      points={{-47,-10.4},{-47,10.625},{39.6,10.625}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_floor.iEpsLw_a, fF.epsLw[7]) annotation (Line(
+      points={{-50,-10.4},{-50,13.625},{39.6,13.625}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_floor.area_a, fF.area[7]) annotation (Line(
+      points={{-53,-10.4},{-53,16.625},{39.6,16.625}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sF_floor.area_b, fF.area[8]) annotation (Line(
+      points={{-53,38.4},{-53,16.875},{39.6,16.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sF_floor.iEpsLw_b, fF.epsLw[8]) annotation (Line(
+      points={{-50,38.4},{-50,13.875},{39.6,13.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sF_floor.iEpsSw_b, fF.epsSw[8]) annotation (Line(
+      points={{-47,38.4},{-47,10.875},{39.6,10.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+//Connection of the gF floor
+  connect(gF_ext[1].area_a, gF.area[1]) annotation (Line(
+      points={{-23.8,-69.34},{-23.8,-44.875},{39.6,-44.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gF_ext[2].area_a, gF.area[2]) annotation (Line(
+      points={{-23.8,-69.34},{-23.8,-44.625},{39.6,-44.625}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gF_ext[3].area_a, gF.area[3]) annotation (Line(
+      points={{-23.8,-69.34},{-23.8,-44.375},{39.6,-44.375}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gF_ext.iEpsLw_a, gF.epsLw[1:3]) annotation (Line(
+      points={{-20.65,-69.34},{-20.65,-47.875},{39.6,-47.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gF_ext.iEpsSw_a, gF.epsSw[1:3]) annotation (Line(
+      points={{-17.5,-69.34},{-17.5,-50.875},{39.6,-50.875}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gF_win.area_a, gF.area[4:6]) annotation (Line(
+      points={{4.2,-69.34},{4.2,-44.125},{39.6,-44.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gF_win.iEpsLw_a, gF.epsLw[4:6]) annotation (Line(
+      points={{7.35,-69.34},{7.35,-47.125},{39.6,-47.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gF_win.iEpsSw_a, gF.epsSw[4:6]) annotation (Line(
+      points={{10.5,-69.34},{10.5,-50.125},{39.6,-50.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gF_ext.surfCon_a, gF.surfCon[1:3]) annotation (Line(
+      points={{-14.35,-70},{-14,-70},{-14,-54},{14,-54},{14,-53.875},{40,-53.875}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_ext.surfRad_a, gF.surfRad[1:3]) annotation (Line(
+      points={{-11.2,-70},{-12,-70},{-12,-56},{16,-56},{16,-56.875},{40,-56.875}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_win.surfCon_a, gF.surfCon[4:6]) annotation (Line(
+      points={{13.65,-70},{14,-70},{14,-54},{28,-54},{28,-53.125},{40,-53.125}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_win.surfRad_a, gF.surfRad[4:6]) annotation (Line(
+      points={{16.8,-70},{16,-70},{16,-56},{28,-56},{28,-56.125},{40,-56.125}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_win[1].iSolDif, gF.iSolDif) annotation (Line(
+      points={{21,-73.96},{52,-73.96},{52,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_win[1].iSolDir, gF.iSolDir) annotation (Line(
+      points={{21,-77.04},{48,-77.04},{48,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_win[2].iSolDif, gF.iSolDif) annotation (Line(
+      points={{21,-73.96},{52,-73.96},{52,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_win[2].iSolDir, gF.iSolDir) annotation (Line(
+      points={{21,-77.04},{48,-77.04},{48,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_win[3].iSolDif, gF.iSolDif) annotation (Line(
+      points={{21,-73.96},{52,-73.96},{52,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_win[3].iSolDir, gF.iSolDir) annotation (Line(
+      points={{21,-77.04},{48,-77.04},{48,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_floor.surfRad_a, gF.surfRad[7]) annotation (Line(
+      points={{-41,-71},{-41,-55.375},{40,-55.375}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_floor.surfCon_a, gF.surfCon[7]) annotation (Line(
+      points={{-44,-71},{-44,-52.375},{40,-52.375}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(gF_floor.iEpsSw_a, gF.epsSw[7]) annotation (Line(
+      points={{-47,-70.4},{-47,-49.375},{39.6,-49.375}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gF_floor.iEpsLw_a, gF.epsLw[7]) annotation (Line(
+      points={{-50,-70.4},{-50,-46.375},{39.6,-46.375}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gF_floor.area_a, gF.area[7]) annotation (Line(
+      points={{-53,-70.4},{-53,-43.375},{39.6,-43.375}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_floor.surfRad_b, gF.surfRad[8]) annotation (Line(
+      points={{-41,-21},{-41,-55.125},{40,-55.125}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_floor.surfCon_b, gF.surfCon[8]) annotation (Line(
+      points={{-44,-21},{-44,-52.125},{40,-52.125}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fF_floor.area_b, gF.area[8]) annotation (Line(
+      points={{-53,-21.6},{-53,-43.125},{39.6,-43.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_floor.iEpsLw_b, gF.epsLw[8]) annotation (Line(
+      points={{-50,-21.6},{-50,-46.125},{39.6,-46.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(fF_floor.iEpsSw_b, gF.epsSw[8]) annotation (Line(
+      points={{-47,-21.6},{-47,-49.125},{39.6,-49.125}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,-100},
+            {150,100}}),
                       graphics));
 end Example;

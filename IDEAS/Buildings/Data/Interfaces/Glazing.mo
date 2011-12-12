@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data.Interfaces;
-partial record Glazing
+record Glazing
 
 extends Modelica.Icons.MaterialProperty;
 

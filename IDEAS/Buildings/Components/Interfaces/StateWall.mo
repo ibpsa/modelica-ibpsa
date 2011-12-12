@@ -25,6 +25,5 @@ outer Climate.SimInfoManager
                       graphics),
               Diagram(graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-50,-100},{50,100}}),
-                                      graphics={Rectangle(extent={{-50,100},{50,
-              -100}}, lineColor={127,0,0})}));
+                                      graphics));
 end StateWall;

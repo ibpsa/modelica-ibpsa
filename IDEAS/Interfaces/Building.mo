@@ -40,15 +40,15 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(building.genEmb, heatingSystem.port_emb) annotation (Line(
-      points={{-41,6},{-20,6}},
+      points={{-36,6},{-20,6}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.gainCon, heatingSystem.port_con) annotation (Line(
-      points={{-41,2},{-20,2}},
+      points={{-36,2},{-20,2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.gainRad, heatingSystem.port_rad) annotation (Line(
-      points={{-41,-2},{-20,-2}},
+      points={{-36,-2},{-20,-2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.TSensor, heatingSystem.TSensor) annotation (Line(
@@ -56,15 +56,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(building.gainCon, ventilationSystem.conv) annotation (Line(
-      points={{-41,2},{-26,2},{-26,30},{-20,30}},
+      points={{-36,2},{-26,2},{-26,30},{-20,30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.gainCon, occupant.port_con) annotation (Line(
-      points={{-41,2},{-26,2},{-26,-30},{-20,-30}},
+      points={{-36,2},{-26,2},{-26,-30},{-20,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.gainRad, occupant.port_rad) annotation (Line(
-      points={{-41,-2},{-28,-2},{-28,-34},{-20,-34}},
+      points={{-36,-2},{-28,-2},{-28,-34},{-20,-34}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation(Icon(graphics={Line(

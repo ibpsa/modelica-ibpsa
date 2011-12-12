@@ -114,7 +114,28 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
-            {50,100}}), graphics),
-                                 Diagram(coordinateSystem(preserveAspectRatio=true,
+            {50,100}}), graphics={
+        Rectangle(
+          extent={{-6,88},{6,-88}},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Line(
+          points={{-50,88},{50,88}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,-88},{50,-88}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,-100},{50,-100}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,100},{50,100}},
+          color={95,95,95},
+          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-50,-100},{50,100}}), graphics));
 end InternalWall;

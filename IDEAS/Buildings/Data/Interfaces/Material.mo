@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data.Interfaces;
-partial record Material "Properties of building materials"
+record Material "Properties of building materials"
 
 extends Modelica.Icons.MaterialProperty;
 

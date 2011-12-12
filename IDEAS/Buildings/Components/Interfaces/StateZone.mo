@@ -35,6 +35,5 @@ parameter Integer nSurf(min=1) "Number of surfaces adjacent to the zone";
         rotation=0,
         origin={-104,60})));
   annotation (Diagram(graphics),
-              Diagram(graphics), Icon(graphics={Rectangle(extent={{-100,100},{100,
-              -100}}, lineColor={127,0,0})}));
+              Diagram(graphics), Icon(graphics));
 end StateZone;

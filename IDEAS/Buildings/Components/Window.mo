@@ -14,8 +14,8 @@ extends IDEAS.Buildings.Components.Interfaces.StateWall;
     "glazing type" annotation (choicesAllMatching = true);
 
 public
-  IDEAS.Buildings.Components.BaseClasses.SummaryWall summary(Qloss=-port_b.Q_flow
-         - port_bRad.Q_flow, QSolIrr=radSol.solDir/A + radSol.solDif/A)
+  IDEAS.Buildings.Components.BaseClasses.SummaryWall summary(Qloss=-surfCon_a.Q_flow
+         - surfRad_a.Q_flow, QSolIrr=radSol.solDir/A + radSol.solDif/A)
     "Summary of the thermal response";
 Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDir
     "direct solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{-24,-110},{-4,-90}})));
@@ -53,9 +53,13 @@ protected
     SwTrans=glazing.SwTrans)
     annotation (Placement(transformation(extent={{-6,-68},{10,-52}})));
 
+public
+  Modelica.Blocks.Sources.Constant const(k=A)
+                                         annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={2,0})));
 equation
-  area = A;
-
   connect(eCon.port_a, layMul.port_a)            annotation (Line(
       points={{-30,-30},{-8,-30}},
       color={191,0,0},
@@ -110,7 +114,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsLw_b, iEpsLw_a) annotation (Line(
-      points={{12,-22},{12,30},{56,30}},
+      points={{12,-22},{12,-22},{14,-22},{14,30},{56,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(layMul.port_b, iCon.port_a) annotation (Line(
@@ -121,6 +125,38 @@ equation
       points={{-30,-63.2},{-30,-64.8},{-26,-64.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(graphics),               Diagram(coordinateSystem(
+  connect(layMul.iEpsSw_b, iEpsSw_a) annotation (Line(
+      points={{12,-26},{18,-26},{18,0},{56,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(const.y, area_a) annotation (Line(
+      points={{2,11},{2,60},{56,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
+            {50,100}}),
+                   graphics={
+        Rectangle(
+          extent={{-50,60},{-38,-20}},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Line(
+          points={{-50,60},{-38,60},{-38,88},{50,88}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,-20},{-38,-20},{-38,-88},{-36,-88},{50,-88}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,60},{-50,66},{-50,100},{50,100}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,-20},{-50,-100},{50,-100}},
+          color={95,95,95},
+          smooth=Smooth.None)}),            Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-50,-100},{50,100}}), graphics));
 end Window;

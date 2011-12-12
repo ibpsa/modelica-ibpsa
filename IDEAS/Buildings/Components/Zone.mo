@@ -13,12 +13,12 @@ protected
 parameter Boolean recuperation = false;
 parameter Modelica.SIunits.Efficiency RecupEff = 0.84
     "efficientie on heat recuperation of ventilation air";
-parameter Real ACH "ventilation rate";
 
 //not necessary ?
 protected
 parameter Modelica.SIunits.Length height = 2.7 "zone height";
 parameter Modelica.SIunits.Temperature Tset = 294.15 "setpoint temperature";
+parameter Real ACH = 0.5 "ventilation rate";
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(nSurf=
@@ -55,7 +55,7 @@ IDEAS.Buildings.Components.BaseClasses.SummaryZone summary(
     PPD=0,
     PMV=0);
 
-  Modelica.Blocks.Math.Sum sum(nin=2, k={0.5})
+  Modelica.Blocks.Math.Sum sum(nin=2, k={0.5,0.5})
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
 equation
   connect(surfRad, radDistr.radSurfTot) annotation (Line(
@@ -128,5 +128,33 @@ equation
       points={{-64,-40},{-78,-40},{-78,60},{-104,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(graphics),               Diagram(graphics));
+  annotation (Icon(graphics={
+        Text(
+          extent={{-60,60},{60,-60}},
+          lineColor={95,95,95},
+          fontName="Calibri",
+          textStyle={TextStyle.Italic},
+          fillPattern=FillPattern.Solid,
+          fillColor={95,95,95},
+          textString="%name"),
+        Rectangle(
+          extent={{-100,100},{100,88}},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,-100},{100,-88}},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,88},{-88,-88}},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{100,88},{88,-88}},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid)}), Diagram(graphics));
 end Zone;

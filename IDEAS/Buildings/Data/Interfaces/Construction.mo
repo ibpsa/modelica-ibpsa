@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data.Interfaces;
-partial model Construction
+model Construction
 
 extends Modelica.Icons.MaterialProperty;
 

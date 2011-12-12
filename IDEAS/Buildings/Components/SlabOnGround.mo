@@ -125,6 +125,31 @@ TGro.T = sim.Tground;
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
             {50,100}}),
-                   graphics),    Diagram(coordinateSystem(preserveAspectRatio=true,
+                   graphics={
+        Rectangle(
+          extent={{-50,-100},{50,-88}},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Line(
+          points={{-50,60},{-38,60},{-38,88},{50,88}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,-20},{-38,-20},{-38,-88},{-36,-88},{50,-88}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,-20},{-50,-88}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,60},{-50,62},{-50,100},{50,100}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-46,60},{-46,-20}},
+          color={95,95,95},
+          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-50,-100},{50,100}}), graphics));
 end SlabOnGround;
