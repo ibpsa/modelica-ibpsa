@@ -55,5 +55,4 @@
 \authcount {1}
 \contentsline {authorch}{Juan Van Roy, Bart Verbruggen and Johan Driesen}{31}{section*.23}
 \contentsline {part}{Part\ III\hspace {\betweenumberspace }Literature}{33}{part.3}
-\contentsline {chapter}{Bibliography}{35}{chapter*.24}
-\contentsline {chapter}{Index}{37}{chapter*.25}
+\contentsline {chapter}{Index}{35}{chapter*.24}
