@@ -9,7 +9,6 @@ replaceable Data.Interfaces.Construction constructionType(insulationType=insulat
 replaceable Data.Interfaces.Insulation insulationType(d=insulationThickness)
     "Type of thermal insulation" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,84},
             {-34,88}})));
-
 parameter Modelica.SIunits.Length insulationThickness
     "Thermal insulation thickness";
 parameter Modelica.SIunits.Area AWall "Total wall area";
