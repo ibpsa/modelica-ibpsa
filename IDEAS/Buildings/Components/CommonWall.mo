@@ -3,14 +3,14 @@ model CommonWall "common opaque wall with neighbors"
 
 extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-replaceable Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationTickness)
+replaceable Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationThickness)
     "Type of building construction" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,72},
             {-34,76}})));
-replaceable Data.Interfaces.Insulation insulationType
+replaceable Data.Interfaces.Insulation insulationType(d=insulationThickness)
     "Type of thermal insulation" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,84},
             {-34,88}})));
 
-parameter Modelica.SIunits.Length insulationTickness
+parameter Modelica.SIunits.Length insulationThickness
     "Thermal insulation thickness";
 parameter Modelica.SIunits.Area AWall "Total wall area";
 parameter Modelica.SIunits.Angle inc
@@ -44,8 +44,8 @@ protected
   Modelica.Blocks.Sources.Constant const(k=AWall)
                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,0})));
+        rotation=0,
+        origin={26,60})));
 equation
   connect(layMul.port_b, intCon_b.port_a)
                                       annotation (Line(
@@ -73,7 +73,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(const.y, area_a) annotation (Line(
-      points={{6.73556e-016,11},{6.73556e-016,60},{56,60}},
+      points={{37,60},{56,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(layMul.iEpsLw_b, iEpsLw_a) annotation (Line(
@@ -84,30 +84,38 @@ equation
       points={{10,-26},{18,-26},{18,0},{56,0}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-50,
-            -100},{50,100}}),
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
                         graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-50,-100},{50,100}}),graphics={
         Line(
-          points={{-50,88},{50,88}},
+          points={{-50,80},{50,80}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,-70},{50,-70}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,-90},{50,-90}},
           color={95,95,95},
           smooth=Smooth.None),
         Line(
           points={{-50,100},{50,100}},
           color={95,95,95},
           smooth=Smooth.None),
-        Line(
-          points={{-50,-88},{50,-88}},
-          color={95,95,95},
-          smooth=Smooth.None),
-        Line(
-          points={{-50,-100},{50,-100}},
-          color={95,95,95},
-          smooth=Smooth.None),
         Rectangle(
-          extent={{-6,100},{6,-100}},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0})}));
+          extent={{-10,100},{10,-90}},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Backward,
+          pattern=LinePattern.None),
+        Line(
+          points={{-10,80},{-10,-70}},
+          smooth=Smooth.None,
+          color={175,175,175}),
+        Line(
+          points={{10,80},{10,-70}},
+          smooth=Smooth.None,
+          color={0,0,0},
+          thickness=0.5)}));
 end CommonWall;

@@ -1,17 +1,16 @@
 within IDEAS.Buildings.Interfaces;
 partial model Building
 
-  outer IDEAS.Climate.SimInfoManager  sim
-    annotation (Placement(transformation(extent={{130,-100},{150,-80}})));
-
-parameter Integer nZones(min=1) "number of conditioned zones for simulation";
+parameter Integer nZones(min=1) "Number of conditioned thermal zones";
 parameter Modelica.SIunits.Area ATrans
-    "transmission heat loss area of the residential unit";
+    "Transmission heat loss area of the residential unit";
 parameter Modelica.SIunits.Volume[nZones] VZones
-    "conditioned volume of the building based on external dimensions";
+    "Conditioned volume of the building based on external dimensions";
 
 final parameter Modelica.SIunits.Length C = sum(VZones)/ATrans;
 
+  outer IDEAS.Climate.SimInfoManager  sim
+    annotation (Placement(transformation(extent={{130,-100},{150,-80}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] gainCon
     annotation (Placement(transformation(extent={{140,10},{160,30}}),
         iconTransformation(extent={{140,10},{160,30}})));

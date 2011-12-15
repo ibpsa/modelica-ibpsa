@@ -1,10 +1,7 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model SwWindowResponse "shortwave window respones"
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
-
   parameter Integer nLay(min=1) "number of layers of the wall";
-
   parameter Real[:,nLay+1] SwAbs
     "absorbed solar radiation for each layer for look-up table as function of angle of incidence";
   parameter Real[:,2] SwTrans

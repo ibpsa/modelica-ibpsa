@@ -1,8 +1,7 @@
 within IDEAS.Buildings.Components.Interfaces;
 partial model StateZone
 
-outer IDEAS.Climate.SimInfoManager
-                           sim "Simulation information manager"
+outer IDEAS.Climate.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 parameter Integer nSurf(min=1) "Number of surfaces adjacent to the zone";
@@ -35,5 +34,36 @@ parameter Integer nSurf(min=1) "Number of surfaces adjacent to the zone";
         rotation=0,
         origin={-104,60})));
   annotation (Diagram(graphics),
-              Diagram(graphics), Icon(graphics));
+              Diagram(graphics), Icon(graphics={
+        Rectangle(
+          extent={{-90,90},{90,-90}},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Backward,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{68,70},{-68,-70}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0},
+          lineThickness=0.5),
+        Line(
+          points={{-68,70},{68,70}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{68,70},{68,-70},{-68,-70},{-68,70}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Text(
+          extent={{-39,40},{39,-40}},
+          lineColor={0,0,0},
+          fontName="Calibri",
+          origin={-2,3},
+          rotation=0,
+          textString="%name")}));
+
 end StateZone;

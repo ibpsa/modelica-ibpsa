@@ -1,8 +1,6 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model SolarShading "solar shading"
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
-
   parameter Real shaCorr = 0.24
     "shortwave transmittance of shortwave radiation";
   parameter Boolean enable = false;

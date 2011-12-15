@@ -2,111 +2,157 @@ within IDEAS.Buildings.GreyboxModels;
 model TiTeThTsAe
   "Selected linear low-order building model by P.Bacher, H.Madsen (2011) Procedure for identifying models for the heat dynamics of buildings "
 
-  extends IDEAS.Buildings.Interfaces.Building;
+  extends IDEAS.Buildings.Interfaces.Building(nZones=1);
 
+//Window data
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
-    "glazing type"                                                              annotation(AllMatching=true);
-  parameter Modelica.SIunits.Area windowArea;
-  parameter Modelica.SIunits.Angle windowInc "inclination of the window";
-  parameter Modelica.SIunits.Angle windowAzi "azimuth of teh window";
-
+    "Glazing type"                                                              annotation(choicesAllMatching=true);
+  parameter Modelica.SIunits.Area windowArea "total window area";
+  parameter Modelica.SIunits.Angle windowInc "IInclination of the window";
+  parameter Modelica.SIunits.Angle windowAzi "Azimuth of teh window";
+//Resistor data
   parameter Modelica.SIunits.HeatCapacity Cs
-    "total thermal capacity for the temperature sensor";
+    "Total thermal capacity for the temperature sensor";
   parameter Modelica.SIunits.HeatCapacity Ci
-    "total thermal capacity for teh indoor air";
+    "Total thermal capacity for the indoor air";
   parameter Modelica.SIunits.HeatCapacity Ch
-    "total thermal capacity for the heating system";
+    "Total thermal capacity for the heating system";
   parameter Modelica.SIunits.HeatCapacity Ce
-    "total thermal capacity for the building envelope";
-
+    "Total thermal capacity for the building envelope";
+//Capacitor data
   parameter Modelica.SIunits.ThermalResistance Ris
-    "thermal resistance between the indoor air and the sensor";
+    "Thermal resistance between the indoor air and the sensor";
   parameter Modelica.SIunits.ThermalResistance Rih
-    "thermal resistance between the indoor air and the heating system";
+    "Thermal resistance between the indoor air and the heating system";
   parameter Modelica.SIunits.ThermalResistance Rie
-    "thermal resistance between the indoor air and the building envelope";
+    "Thermal resistance between the indoor air and the building envelope";
   parameter Modelica.SIunits.ThermalResistance Rea
-    "thermal resistance between the building envelope and the ambient environment";
-
-protected
-  IDEAS.Buildings.Components.BaseClasses.HeatResistor resS(R=Ris)
-    annotation (Placement(transformation(extent={{20,-10},{0,10}})));
-  IDEAS.Buildings.Components.BaseClasses.HeatResistor resIE(R=Rie)
+    "Thermal resistance between the building envelope and the ambient environment";
+//Model elements
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resS(G=1/Ris)
+    annotation (Placement(transformation(extent={{60,-20},{40,0}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIE(G=1/Rie)
                                                 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,10})));
-  IDEAS.Buildings.Components.BaseClasses.HeatResistor resAE(R=Rea)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resAE(G=1/Rea)
                                                 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,30})));
-  IDEAS.Buildings.Components.BaseClasses.HeatResistor resH(R=Rih)
+        origin={0,50})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resH(G=1/Rih)
                                                     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,-10})));
+        origin={0,-30})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TiSensor
-    annotation (Placement(transformation(extent={{40,-6},{52,6}})));
-
+    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TaSource(T=sim.Te)
     annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
+        extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={0,66})));
+        origin={0,78})));
   IDEAS.Buildings.GreyboxModels.BaseClasses.Window window(
     glazing=glazing,
     A=windowArea,
     inc=windowInc,
     azi=windowAzi)                                                                                  annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-14,66})));
-  IDEAS.Buildings.Components.BaseClasses.HeatCapacity capS(C=Cs)
+        origin={-22,78})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capS(C=Cs)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={20,-10})));
-  IDEAS.Buildings.Components.BaseClasses.HeatCapacity capH(C=Ch)
+        rotation=180,
+        origin={70,-30})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capH(C=Ch)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={0,-56})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capE(C=Ce)
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={0,-30})));
-  IDEAS.Buildings.Components.BaseClasses.HeatCapacity capE(C=Ce)
-    annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  IDEAS.Buildings.Components.BaseClasses.HeatCapacity capI(C=Ci)
-    annotation (Placement(transformation(extent={{0,10},{-20,-10}})));
+        origin={-42,30})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capI(C=Ci)
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+        rotation=-90,
+        origin={-40,-10})));
 equation
   connect(TaSource.port, resAE.port_b)         annotation (Line(
-      points={{-1.10218e-015,60},{0,60},{0,40},{6.12323e-016,40}},
+      points={{-1.83697e-015,68},{0,68},{0,60},{6.12323e-016,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(window.solGain, resS.port_b)          annotation (Line(
-      points={{-14,60},{-14,4},{0,4},{0,0}},
+  connect(resIE.port_a, resS.port_b) annotation (Line(
+      points={{-6.12323e-016,0},{0,0},{0,-10},{40,-10}},
       color={191,0,0},
+      pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(resS.port_b, capI.port_a)                   annotation (Line(
-      points={{0,0},{0,0}},
+  connect(resH.port_b, resS.port_b) annotation (Line(
+      points={{6.12323e-016,-20},{0,-20},{0,-10},{40,-10}},
       color={191,0,0},
+      pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(capS.port_a, resS.port_a)                  annotation (Line(
-      points={{20,0},{20,0}},
+  connect(resIE.port_b, capE.port) annotation (Line(
+      points={{6.12323e-016,20},{0,20},{0,30},{-32,30}},
       color={191,0,0},
+      pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(resIE.port_b, capE.port_a)                  annotation (Line(
-      points={{6.12323e-016,20},{0,20}},
+  connect(capE.port, resAE.port_a) annotation (Line(
+      points={{-32,30},{-6.12323e-016,30},{-6.12323e-016,40}},
       color={191,0,0},
+      pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(resH.port_a, capH.port_a)                   annotation (Line(
-      points={{-6.12323e-016,-20},{1.83697e-015,-20}},
+  connect(resH.port_a, capH.port) annotation (Line(
+      points={{-6.12323e-016,-40},{1.22465e-015,-40},{1.22465e-015,-46}},
       color={191,0,0},
+      pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(resS.port_a, TiSensor.port)      annotation (Line(
-      points={{20,0},{40,0}},
+  connect(resS.port_a, capS.port) annotation (Line(
+      points={{60,-10},{70,-10},{70,-20}},
       color={191,0,0},
+      pattern=LinePattern.None,
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  connect(capS.port, TiSensor.port) annotation (Line(
+      points={{70,-20},{70,-10},{80,-10}},
+      color={191,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(TiSensor.T, TSensor[1]) annotation (Line(
+      points={{100,-10},{128,-10},{128,-60},{156,-60}},
+      color={0,0,127},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(window.solGain, capI.port) annotation (Line(
+      points={{-22,68},{-22,-10},{-30,-10}},
+      color={191,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(capI.port, resS.port_b) annotation (Line(
+      points={{-30,-10},{5,-10},{5,-10},{40,-10}},
+      color={191,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(capI.port, gainCon[1]) annotation (Line(
+      points={{-30,-10},{20,-10},{20,20},{150,20}},
+      color={191,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(capI.port, gainRad[1]) annotation (Line(
+      points={{-30,-10},{22,-10},{22,18},{130,18},{130,-20},{150,-20}},
+      color={191,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(capE.port, genEmb[1]) annotation (Line(
+      points={{-32,30},{130,30},{130,60},{150,60}},
+      color={191,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,-100},
+            {150,100}}),
+                      graphics), Icon(graphics={
                                           Text(
           extent={{-48,-6},{30,-58}},
           lineColor={127,0,0},

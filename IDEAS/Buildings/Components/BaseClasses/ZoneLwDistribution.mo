@@ -1,13 +1,7 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model ZoneLwDistribution "internal longwave radiative heat exchange"
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
-
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
-
-  Real[nSurf] F = A ./ (ones(nSurf)*sum(A)-A) "view factor per surface";
-  Real[nSurf] R = (ones(nSurf)-epsLw)./(A.*epsLw) + (ones(nSurf)-F)./A
-    "heat resistance for logwave radiative heat exchange";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] port_a
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -22,6 +16,12 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,100})));
+
+protected
+  Real[nSurf] F = A ./ (ones(nSurf)*sum(A)-A) "view factor per surface";
+  Real[nSurf] R = (ones(nSurf)-epsLw)./(A.*epsLw) + (ones(nSurf)-F)./A
+    "heat resistance for logwave radiative heat exchange";
+
 equation
 for i in 1:nSurf loop
   connect(radRes[i].port_b,port_a[i]);
@@ -33,24 +33,38 @@ for i in 1:nSurf-1 loop
 
   annotation (Diagram(graphics), Icon(graphics={
         Rectangle(
-          extent={{-76.5,5.5},{76.5,-5.5}},
-          lineColor={127,0,0},
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          origin={72.5,-0.5},
-          rotation=90),
-        Line(
-          points={{-52,0},{100,0}},
-          color={127,0,0},
-          smooth=Smooth.None),
-        Ellipse(
-          extent={{-60,8},{-46,-6}},
-          lineColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={127,0,0}),
+          extent={{-90,80},{90,-80}},
+          pattern=LinePattern.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Backward,
+          lineColor={0,0,0}),
         Rectangle(
-          extent={{-8,10},{32,-8}},
-          lineColor={127,0,0},
+          extent={{68,60},{-68,-60}},
+          pattern=LinePattern.None,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0},
+          lineThickness=0.5),
+        Line(points={{-40,10},{40,10}}, color={191,0,0}),
+        Line(points={{-40,10},{-30,16}}, color={191,0,0}),
+        Line(points={{-40,10},{-30,4}}, color={191,0,0}),
+        Line(points={{-40,-10},{40,-10}}, color={191,0,0}),
+        Line(points={{30,-16},{40,-10}}, color={191,0,0}),
+        Line(points={{30,-4},{40,-10}}, color={191,0,0}),
+        Line(points={{-40,-30},{40,-30}}, color={191,0,0}),
+        Line(points={{-40,-30},{-30,-24}}, color={191,0,0}),
+        Line(points={{-40,-30},{-30,-36}}, color={191,0,0}),
+        Line(points={{-40,30},{40,30}}, color={191,0,0}),
+        Line(points={{30,24},{40,30}}, color={191,0,0}),
+        Line(points={{30,36},{40,30}}, color={191,0,0}),
+        Line(
+          points={{-68,60},{68,60}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{68,60},{68,-60},{-68,-60},{-68,60}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None)}));
 end ZoneLwDistribution;

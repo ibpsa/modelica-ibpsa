@@ -2,11 +2,10 @@ within IDEAS.Buildings.Components.BaseClasses;
 model ExteriorSolarAbsorption
   "shortwave radiation absorption on an exterior surface"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateSingle;
-  extends Modelica.Blocks.Interfaces.BlockIcon;
-
   parameter Modelica.SIunits.Area A "surface area";
 
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Blocks.Interfaces.RealInput solDir
     "direct solar illuminance on surface se"
     annotation (Placement(transformation(extent={{120,40},{80,80}})));
@@ -21,24 +20,25 @@ port_a.Q_flow = - (solDir + solDif) * epsSw;
 
   annotation (Icon(graphics={
         Rectangle(
-          extent={{-76.5,5.5},{76.5,-5.5}},
-          lineColor={127,0,0},
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          origin={-65.5,-0.5},
-          rotation=90),
+          extent={{-90,80},{-60,-80}},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward,
+          pattern=LinePattern.None),
         Line(
-          points={{-100,0},{52,0}},
-          color={127,0,0},
-          smooth=Smooth.None),
-        Ellipse(
-          extent={{44,8},{58,-6}},
-          lineColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={127,0,0}),
-        Rectangle(
-          extent={{-30,10},{10,-8}},
-          lineColor={127,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          points={{-60,80},{-60,-80}},
+          color={0,0,0},
+          thickness=0.5),
+        Line(points={{-40,10},{40,10}}, color={191,0,0}),
+        Line(points={{-40,10},{-30,16}}, color={191,0,0}),
+        Line(points={{-40,10},{-30,4}}, color={191,0,0}),
+        Line(points={{-40,-10},{40,-10}}, color={191,0,0}),
+        Line(points={{-40,-30},{40,-30}}, color={191,0,0}),
+        Line(points={{-40,-30},{-30,-24}}, color={191,0,0}),
+        Line(points={{-40,-30},{-30,-36}}, color={191,0,0}),
+        Line(points={{-40,30},{40,30}}, color={191,0,0}),
+        Line(points={{-40,30},{-30,36}}, color={191,0,0}),
+        Line(points={{-40,30},{-30,24}},color={191,0,0}),
+        Line(points={{-40,-10},{-30,-4}},color={191,0,0}),
+        Line(points={{-40,-10},{-30,-16}},
+                                        color={191,0,0})}));
 end ExteriorSolarAbsorption;

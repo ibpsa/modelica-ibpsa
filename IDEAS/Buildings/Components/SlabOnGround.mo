@@ -3,14 +3,14 @@ model SlabOnGround "opaque floor on ground slab"
 
 extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-replaceable Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationTickness)
+replaceable Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationThickness)
     "Type of building construction" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,72},
             {-34,76}})));
-replaceable Data.Interfaces.Insulation insulationType
+replaceable Data.Interfaces.Insulation insulationType(d=insulationThickness)
     "Type of thermal insulation" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,84},
             {-34,88}})));
 
-parameter Modelica.SIunits.Length insulationTickness
+parameter Modelica.SIunits.Length insulationThickness
     "Thermal insulation thickness";
 parameter Modelica.SIunits.Area AWall "Total wall area";
 parameter Modelica.SIunits.Area PWall "Total wall perimeter";
@@ -19,12 +19,10 @@ parameter Modelica.SIunits.Angle inc
 parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0° denotes South";
 
-public
-IDEAS.Buildings.Components.BaseClasses.SummaryWall summary(Qloss = -surfCon_a.Q_flow -
-        surfRad_a.Q_flow, QSolIrr=0) "Summary of the thermal response";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
   annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+
 protected
 final parameter IDEAS.Buildings.Data.Materials.Ground ground1(d=0.50);
 final parameter IDEAS.Buildings.Data.Materials.Ground ground2(d=0.33);
@@ -61,7 +59,7 @@ protected
     nLay=3,
     mats={ground1,ground2,ground3})
     "declaration of array of resistances and capacitances for ground simulation"
-    annotation (Placement(transformation(extent={{-38,-40},{-18,-20}})));
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
 public
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=
@@ -71,7 +69,7 @@ public
         rotation=180,
         origin={-30,-8})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TGro
-    annotation (Placement(transformation(extent={{-62,-40},{-42,-20}})));
+    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
 public
   Modelica.Blocks.Sources.Constant const(k=AWall)
                                          annotation (Placement(transformation(
@@ -87,11 +85,11 @@ TGro.T = sim.Tground;
       color={191,0,0},
       smooth=Smooth.None));
   connect(layGro.port_b, layMul.port_a)             annotation (Line(
-      points={{-18,-30},{-10,-30}},
+      points={{-20,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TGro.port, layGro.port_a)                  annotation (Line(
-      points={{-42,-30},{-38,-30}},
+      points={{-50,-30},{-40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -127,29 +125,36 @@ TGro.T = sim.Tground;
             {50,100}}),
                    graphics={
         Rectangle(
-          extent={{-50,-100},{50,-88}},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
+          extent={{-50,-90},{50,-70}},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Backward,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
         Line(
-          points={{-50,60},{-38,60},{-38,88},{50,88}},
-          color={95,95,95},
+          points={{-50,-20},{-30,-20},{-30,-70},{-30,-70},{-30,-70}},
+          color={175,175,175},
           smooth=Smooth.None),
         Line(
-          points={{-50,-20},{-38,-20},{-38,-88},{-36,-88},{50,-88}},
-          color={95,95,95},
+          points={{-50,-20},{-50,-90},{-50,-90}},
+          color={175,175,175},
           smooth=Smooth.None),
         Line(
-          points={{-50,-20},{-50,-88}},
-          color={95,95,95},
+          points={{-50,60},{-30,60},{-30,80},{50,80}},
+          color={175,175,175},
           smooth=Smooth.None),
         Line(
-          points={{-50,60},{-50,62},{-50,100},{50,100}},
-          color={95,95,95},
+          points={{-50,60},{-50,66},{-50,100},{50,100}},
+          color={175,175,175},
           smooth=Smooth.None),
         Line(
-          points={{-46,60},{-46,-20}},
-          color={95,95,95},
+          points={{-44,60},{-44,-20}},
+          color={175,175,175},
+          smooth=Smooth.None),
+        Line(
+          points={{-50,-70},{50,-70}},
+          color={0,0,0},
+          thickness=0.5,
           smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-50,-100},{50,100}}), graphics));
+          extent={{-100,-100},{100,100}}),
+                                         graphics));
 end SlabOnGround;

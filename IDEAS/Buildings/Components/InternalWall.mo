@@ -3,14 +3,14 @@ model InternalWall "interior opaque wall between two zones"
 
 extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-replaceable Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationTickness)
+replaceable Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationThickness)
     "Type of building construction" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,72},
             {-34,76}})));
-replaceable Data.Interfaces.Insulation insulationType
+replaceable Data.Interfaces.Insulation insulationType(d=insulationThickness)
     "Type of thermal insulation" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,84},
             {-34,88}})));
 
-parameter Modelica.SIunits.Length insulationTickness
+parameter Modelica.SIunits.Length insulationThickness
     "Thermal insulation thickness";
 parameter Modelica.SIunits.Area AWall "Total wall area";
 parameter Modelica.SIunits.Angle inc
@@ -41,11 +41,11 @@ protected
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(A=AWall, inc=
         inc)
     "convective surface heat transimission on the interior side of the wall"
-    annotation (Placement(transformation(extent={{-18,-40},{-38,-20}})));
+    annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(A=AWall, inc=
         inc + Modelica.Constants.pi)
     "convective surface heat transimission on the interior side of the wall"
-    annotation (Placement(transformation(extent={{18,-40},{38,-20}})));
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     A=AWall,
     inc=inc,
@@ -59,7 +59,7 @@ public
                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,-2})));
+        origin={0,10})));
 equation
   connect(layMul.port_a, surfRad_a) annotation (Line(
       points={{10,-30},{14,-30},{14,-60},{50,-60}},
@@ -70,11 +70,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(surfCon_b, intCon_b.port_b) annotation (Line(
-      points={{-50,-30},{-38,-30}},
+      points={{-50,-30},{-40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(surfCon_a, intCon_a.port_b) annotation (Line(
-      points={{50,-30},{38,-30}},
+      points={{50,-30},{40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_gain[constructionType.locGain], port_emb) annotation (Line(
@@ -82,15 +82,15 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(intCon_b.port_a, layMul.port_b) annotation (Line(
-      points={{-18,-30},{-10,-30}},
+      points={{-20,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_a, intCon_a.port_a) annotation (Line(
-      points={{10,-30},{18,-30}},
+      points={{10,-30},{20,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsLw_a, iEpsLw_a) annotation (Line(
-      points={{10,-22},{12,-22},{12,30},{56,30}},
+      points={{10,-22},{14,-22},{14,30},{56,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(layMul.iEpsSw_a, iEpsSw_a) annotation (Line(
@@ -106,36 +106,45 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, area_a) annotation (Line(
-      points={{6.73556e-016,9},{6.73556e-016,60},{56,60}},
+      points={{6.73556e-016,21},{6.73556e-016,60},{56,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, area_b) annotation (Line(
-      points={{6.73556e-016,9},{6.73556e-016,60},{-56,60}},
+      points={{6.73556e-016,21},{6.73556e-016,60},{-56,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
             {50,100}}), graphics={
         Rectangle(
-          extent={{-6,88},{6,-88}},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0}),
+          extent={{-10,80},{10,-70}},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Backward,
+          pattern=LinePattern.None),
         Line(
-          points={{-50,88},{50,88}},
+          points={{-50,80},{50,80}},
           color={95,95,95},
           smooth=Smooth.None),
         Line(
-          points={{-50,-88},{50,-88}},
+          points={{-50,-70},{50,-70}},
           color={95,95,95},
           smooth=Smooth.None),
         Line(
-          points={{-50,-100},{50,-100}},
+          points={{-50,-90},{50,-90}},
           color={95,95,95},
           smooth=Smooth.None),
         Line(
           points={{-50,100},{50,100}},
           color={95,95,95},
-          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=true,
+          smooth=Smooth.None),
+        Line(
+          points={{-10,80},{-10,-70}},
+          smooth=Smooth.None,
+          color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{10,80},{10,-70}},
+          smooth=Smooth.None,
+          color={0,0,0},
+          thickness=0.5)}),      Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-50,-100},{50,100}}), graphics));
 end InternalWall;

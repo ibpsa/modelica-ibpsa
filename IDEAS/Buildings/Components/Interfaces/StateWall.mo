@@ -20,10 +20,11 @@ partial model StateWall
 outer Climate.SimInfoManager
                            sim "Simulation information manager"
     annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-50,
-            -100},{50,100}}),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+            {100,100}}),
                       graphics),
               Diagram(graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-50,-100},{50,100}}),
                                       graphics));
+
 end StateWall;

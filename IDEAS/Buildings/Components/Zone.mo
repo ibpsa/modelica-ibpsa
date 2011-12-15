@@ -3,7 +3,6 @@ model Zone "thermal building zone"
 
 extends IDEAS.Buildings.Components.Interfaces.StateZone;
 
-parameter Real[nSurf] weightFactor "Aolar radiation weight factor per are";
 parameter Modelica.SIunits.Volume V "Total air volume";
 parameter Real n50 = 0.0 "n50 value of airtightness";
 parameter Real corrCV = 5 "Multiplication factor for the zone air capacity";
@@ -21,8 +20,7 @@ parameter Modelica.SIunits.Temperature Tset = 294.15 "setpoint temperature";
 parameter Real ACH = 0.5 "ventilation rate";
 
 protected
-  IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(nSurf=
-        nSurf, weightFactor=weightFactor)
+  IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(nSurf=nSurf)
     "distribution of radiative internal gains"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
         rotation=-90,
@@ -45,15 +43,7 @@ protected
         nSurf) "internal longwave radiative heat exchange"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-54,4})));
-
-public
-IDEAS.Buildings.Components.BaseClasses.SummaryZone summary(
-    Top=conDistr.TCon/2 + radDistr.TRad/2,
-    Tair=conDistr.TCon,
-    Tstar=radDistr.TRad,
-    PPD=0,
-    PMV=0);
+        origin={-54,-10})));
 
   Modelica.Blocks.Math.Sum sum(nin=2, k={0.5,0.5})
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
@@ -87,7 +77,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(surfRad, radDistrLw.port_a) annotation (Line(
-      points={{-100,-60},{-74,-60},{-74,-26},{-54,-26},{-54,-6}},
+      points={{-100,-60},{-74,-60},{-74,-26},{-54,-26},{-54,-20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(epsLw, radDistr.epsLw) annotation (Line(
@@ -102,7 +92,7 @@ equation
       smooth=Smooth.None));
 
   connect(epsLw, radDistrLw.epsLw) annotation (Line(
-      points={{-104,30},{-104,30},{-82,30},{-82,4},{-64,4}},
+      points={{-104,30},{-82,30},{-82,-10},{-64,-10}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -120,41 +110,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(radDistrLw.A, area) annotation (Line(
-      points={{-64,4.44089e-016},{-72,4.44089e-016},{-72,0},{-78,0},{-78,60},{
-          -104,60}},
+      points={{-64,-14},{-72,-14},{-72,-14},{-78,-14},{-78,60},{-104,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radDistr.area, area) annotation (Line(
       points={{-64,-40},{-78,-40},{-78,60},{-104,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(graphics={
-        Text(
-          extent={{-60,60},{60,-60}},
-          lineColor={95,95,95},
-          fontName="Calibri",
-          textStyle={TextStyle.Italic},
-          fillPattern=FillPattern.Solid,
-          fillColor={95,95,95},
-          textString="%name"),
-        Rectangle(
-          extent={{-100,100},{100,88}},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,-100},{100,-88}},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,88},{-88,-88}},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{100,88},{88,-88}},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid)}), Diagram(graphics));
+
+  annotation (Icon(graphics));
 end Zone;

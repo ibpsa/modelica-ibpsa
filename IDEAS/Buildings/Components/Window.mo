@@ -13,10 +13,6 @@ extends IDEAS.Buildings.Components.Interfaces.StateWall;
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
     "glazing type" annotation (choicesAllMatching = true);
 
-public
-  IDEAS.Buildings.Components.BaseClasses.SummaryWall summary(Qloss=-surfCon_a.Q_flow
-         - surfRad_a.Q_flow, QSolIrr=radSol.solDir/A + radSol.solDif/A)
-    "Summary of the thermal response";
 Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDir
     "direct solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{-24,-110},{-4,-90}})));
 Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif
@@ -136,18 +132,19 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
             {50,100}}),
                    graphics={
-        Rectangle(
-          extent={{-50,60},{-38,-20}},
+        Polygon(
+          points={{-46,60},{50,24},{50,-50},{-30,-20},{-46,-20},{-46,60}},
+          smooth=Smooth.None,
+          pattern=LinePattern.None,
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
           lineColor={0,0,0}),
         Line(
-          points={{-50,60},{-38,60},{-38,88},{50,88}},
+          points={{-50,60},{-30,60},{-30,80},{50,80}},
           color={95,95,95},
           smooth=Smooth.None),
         Line(
-          points={{-50,-20},{-38,-20},{-38,-88},{-36,-88},{50,-88}},
+          points={{-50,-20},{-30,-20},{-30,-70},{-30,-70},{52,-70}},
           color={95,95,95},
           smooth=Smooth.None),
         Line(
@@ -155,8 +152,14 @@ equation
           color={95,95,95},
           smooth=Smooth.None),
         Line(
-          points={{-50,-20},{-50,-100},{50,-100}},
+          points={{-50,-20},{-50,-90},{50,-90}},
           color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-46,60},{-46,-20}},
+          color={0,0,0},
+          thickness=0.5,
           smooth=Smooth.None)}),            Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-50,-100},{50,100}}), graphics));
+          preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
+                                                                   graphics));
 end Window;

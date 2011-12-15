@@ -45,19 +45,17 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
     annotation (Placement(transformation(extent={{-8,-8},{8,8}},
         rotation=-90,
         origin={-20,-78})));
-  GreyboxModelica.Blocks.Math.Product SwTransDirProd
-                                              annotation (Placement(
+  Modelica.Blocks.Math.Product SwTransDirProd annotation (Placement(
         transformation(
         extent={{-7,-7},{7,7}},
         rotation=90,
         origin={-7,19})));
-  GreyboxModelica.Blocks.Math.Product SwTransDifProd
-                                              annotation (Placement(
+  Modelica.Blocks.Math.Product SwTransDifProd annotation (Placement(
         transformation(
         extent={{-7,-7},{7,7}},
         rotation=90,
         origin={45,17})));
-  GreyboxModelica.Blocks.Math.Add add
+  Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{56,30},{76,50}})));
 equation
   connect(angDir.angIncDeg, SwTransDir.u) annotation (Line(
