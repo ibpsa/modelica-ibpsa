@@ -69,12 +69,6 @@ public
         origin={-30,-8})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TGro
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
-public
-  Modelica.Blocks.Sources.Constant const(k=AWall)
-                                         annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-2})));
 equation
 periodicFlow.Q_flow = Qm;
 TGro.T = sim.Tground;
@@ -116,8 +110,8 @@ TGro.T = sim.Tground;
       points={{-10,-30},{-14,-30},{-14,-8},{-20,-8}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(const.y, area_a) annotation (Line(
-      points={{6.73556e-016,9},{6.73556e-016,60},{56,60}},
+  connect(layMul.area, area_a) annotation (Line(
+      points={{0,-20},{0,60},{56,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},

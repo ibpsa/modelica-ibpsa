@@ -33,7 +33,11 @@ model MultiLayerOpaque "multiple material layers in series"
   Modelica.Blocks.Interfaces.RealOutput iEpsSw_a
     "output of the interior emissivity for radiative heat losses"
     annotation (Placement(transformation(extent={{-90,30},{-110,50}})));
-
+  Modelica.Blocks.Interfaces.RealOutput area = A
+    "output of the interior emissivity for radiative heat losses"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={0,100})));
 equation
 connect(port_a,nMat[1].port_a);
 

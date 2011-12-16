@@ -12,13 +12,11 @@ partial model StateWall
   Modelica.Blocks.Interfaces.RealOutput iEpsSw_a
     "output of the interior emissivity for radiative heat losses"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));
-
   Modelica.Blocks.Interfaces.RealOutput area_a "output of the area"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={56,60})));
-outer Climate.SimInfoManager
-                           sim "Simulation information manager"
+  outer Climate.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),

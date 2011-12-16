@@ -51,12 +51,6 @@ protected
     SwTrans=glazing.SwTrans)
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
-public
-  Modelica.Blocks.Sources.Constant const(k=A)
-                                         annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={2,0})));
 equation
   connect(eCon.port_a, layMul.port_a)            annotation (Line(
       points={{-20,-30},{-10,-30}},
@@ -127,8 +121,8 @@ equation
       points={{10,-26},{18,-26},{18,0},{56,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const.y, area_a) annotation (Line(
-      points={{2,11},{2,60},{56,60}},
+  connect(layMul.area, area_a) annotation (Line(
+      points={{0,-20},{0,60},{56,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},

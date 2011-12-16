@@ -53,12 +53,6 @@ protected
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{10,-40},{-10,-20}})));
 
-public
-  Modelica.Blocks.Sources.Constant const(k=AWall)
-                                         annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,10})));
 equation
   connect(layMul.port_a, surfRad_a) annotation (Line(
       points={{10,-30},{14,-30},{14,-60},{50,-60}},
@@ -104,12 +98,12 @@ equation
       points={{-10,-26},{-16,-26},{-16,0},{-56,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const.y, area_a) annotation (Line(
-      points={{6.73556e-016,21},{6.73556e-016,60},{56,60}},
+  connect(layMul.area, area_b) annotation (Line(
+      points={{0,-20},{0,60},{-56,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const.y, area_b) annotation (Line(
-      points={{6.73556e-016,21},{6.73556e-016,60},{-56,60}},
+  connect(layMul.area, area_a) annotation (Line(
+      points={{0,-20},{0,60},{56,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},

@@ -1,11 +1,10 @@
 within IDEAS.Buildings.Components.Interfaces;
 partial model StateZone
 
-outer IDEAS.Climate.SimInfoManager sim "Simulation information manager"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-
 parameter Integer nSurf(min=1) "Number of surfaces adjacent to the zone";
 
+  outer IDEAS.Climate.SimInfoManager sim "Simulation information manager"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b gainRad
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a gainCon
