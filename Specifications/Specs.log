@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.2-0.9997.4 (MiKTeX 2.9) (preloaded format=xelatex 2011.10.11)  16 DEC 2011 11:37
+This is XeTeX, Version 3.1415926-2.2-0.9997.4 (MiKTeX 2.9) (preloaded format=xelatex 2011.10.11)  17 DEC 2011 17:00
 entering extended mode
 **E:/3*PhD*-*Optimized*Buildings*for*Smart*Grids/3*Modelica/IDEAS/Specification
 s/Specs.tex
@@ -1413,7 +1413,9 @@ Requested font "ptmb7t" at 16.0pt
 
 Package mathptmx Warning: There are no bold math fonts on input line 9.
 
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 15
+Requested font "ptmri7t" at 10.0pt
+ -> ptmri7t
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 13
 .
 ("C:\Program Files\MiKTeX\tex\latex\psnfss\ot1ztmcm.fd"
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
@@ -1424,7 +1426,7 @@ Requested font "zptmcm7t" at 7.4pt
  -> zptmcm7t
 Requested font "zptmcm7t" at 6.0pt
  -> zptmcm7t
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 15
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 13
 .
 
 ("C:\Program Files\MiKTeX\tex\latex\psnfss\omlztmcm.fd"
@@ -1436,7 +1438,7 @@ Requested font "zptmcm7m" at 7.4pt
  -> zptmcm7m
 Requested font "zptmcm7m" at 6.0pt
  -> zptmcm7m
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 15
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 13
 .
 
 ("C:\Program Files\MiKTeX\tex\latex\psnfss\omsztmcm.fd"
@@ -1448,7 +1450,7 @@ Requested font "zptmcm7y" at 7.4pt
  -> zptmcm7y
 Requested font "zptmcm7y" at 6.0pt
  -> zptmcm7y
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 15
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 13
 .
 
 ("C:\Program Files\MiKTeX\tex\latex\psnfss\omxztmcm.fd"
@@ -1479,19 +1481,17 @@ Requested font "eurm7" at 7.0pt
 Requested font "eurm6" at 6.0pt
  -> eurm6
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 15.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 13.
 Requested font "ptmb7t" at 10.0pt
  -> ptmb7t
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 15.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 13.
 Requested font "ptmb7t" at 7.4pt
  -> ptmb7t
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 15.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 13.
 Requested font "ptmb7t" at 6.0pt
  -> ptmb7t
-Requested font "ptmri7t" at 10.0pt
- -> ptmri7t
 Requested font "ptmri7t" at 7.4pt
  -> ptmri7t
 Requested font "ptmri7t" at 6.0pt
