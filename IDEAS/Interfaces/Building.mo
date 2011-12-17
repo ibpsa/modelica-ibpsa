@@ -1,23 +1,22 @@
 within IDEAS.Interfaces;
-partial model Building
+model Building
 
   outer IDEAS.Climate.SimInfoManager
                        sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  replaceable IDEAS.Thermal.Interfaces.HeatingSystem heatingSystem(nZones=building.nZones)
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  replaceable IDEAS.Occupants.Interfaces.Occupant occupant(nZones=building.nZones)
-    annotation (Placement(transformation(extent={{-20,-42},{0,-22}})));
-  replaceable IDEAS.Electric.Interfaces.InhomeFeeder inhomeGrid(nLoads=heatingSystem.nLoads+occupant.nLoads+ventilationSystem.nLoads)
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  replaceable IDEAS.Thermal.Interfaces.VentilationSystem ventilationSystem(nZones=building.nZones)
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+  replaceable parameter IDEAS.Thermal.Interfaces.HeatingSystem heatingSystem(nZones=building.nZones)
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})),choicesAllMatching = true);
+  replaceable parameter IDEAS.Occupants.Interfaces.Occupant occupant(nZones=building.nZones)
+    annotation (Placement(transformation(extent={{-20,-42},{0,-22}})),choicesAllMatching = true);
+  replaceable parameter IDEAS.Electric.Interfaces.InhomeFeeder inhomeGrid(nLoads=heatingSystem.nLoads+occupant.nLoads+ventilationSystem.nLoads)
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})),choicesAllMatching = true);
+  replaceable parameter IDEAS.Thermal.Interfaces.VentilationSystem ventilationSystem(nZones=building.nZones)
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})),choicesAllMatching = true);
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug Plug
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
-  replaceable Buildings.Interfaces.Building building
-    annotation (Placement(transformation(extent={{-66,-10},{-36,10}})));
+  replaceable parameter Buildings.Interfaces.Building building
+    annotation (Placement(transformation(extent={{-66,-10},{-36,10}})),choicesAllMatching = true);
 equation
   connect(inhomeGrid.PlugFeeder, Plug) annotation (Line(
       points={{40,0},{100,0}},

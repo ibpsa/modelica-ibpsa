@@ -11,7 +11,8 @@ partial model VentilationSystem
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] conv
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[nLoads] plug
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads]
+    pin
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   annotation(Icon(graphics={
