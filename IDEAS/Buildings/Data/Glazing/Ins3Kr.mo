@@ -11,4 +11,4 @@ record Ins3Kr=IDEAS.Buildings.Data.Interfaces.Glazing (
         70,0.380,0.0,0.064,0.0,0.082; 80,0.313,0.0,0.051,0.0,0.041; 90,0.000,
         0.0,0.000,0.0,0.000],
     U_value=0.7,
-    g_value=0.407) "Double pane window (U = 0.7 W/m2K, g = 0.407)";
+    g_value=0.407) "Triple pane window (U = 0.7 W/m2K, g = 0.407)";

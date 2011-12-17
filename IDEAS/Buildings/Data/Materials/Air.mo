@@ -7,4 +7,4 @@ record Air = IDEAS.Buildings.Data.Interfaces.Material (
     epsLw=0,
     nState=1,
     gas=true,
-    mhu=18.3*10e-6);
+    mhu=18.3*10e-6) "Air";

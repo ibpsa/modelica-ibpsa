@@ -3,11 +3,13 @@ model Zone "thermal building zone"
 
 extends IDEAS.Buildings.Components.Interfaces.StateZone;
 
-parameter Modelica.SIunits.Volume V "Total air volume";
-parameter Real n50 = 0.0 "n50 value of airtightness";
-parameter Real corrCV = 5 "Multiplication factor for the zone air capacity";
+parameter Modelica.SIunits.Volume V "Total zone air volume";
+parameter Real n50(unit="-") = 0.6
+    "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
+parameter Real corrCV(unit="-") = 5
+    "Multiplication factor for the zone air capacity";
 
-//to be moved from the zone definition to ventilation models
+//to be moved from the zone definition to ventilation models ?
 protected
 parameter Boolean recuperation = false;
 parameter Modelica.SIunits.Efficiency RecupEff = 0.84
@@ -17,7 +19,7 @@ parameter Modelica.SIunits.Efficiency RecupEff = 0.84
 protected
 parameter Modelica.SIunits.Length height = 2.7 "zone height";
 parameter Modelica.SIunits.Temperature Tset = 294.15 "setpoint temperature";
-parameter Real ACH = 0.5 "ventilation rate";
+parameter Real ACH = 0.0 "ventilation rate";
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(nSurf=nSurf)

@@ -17,7 +17,6 @@ parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90° denotes vertical";
 parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0° denotes South";
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
   annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
@@ -30,9 +29,9 @@ final parameter IDEAS.Buildings.Data.Materials.Ground ground3(d=0.17);
 Modelica.SIunits.HeatFlowRate Qm = U*AWall*(22-9)-Lpi*4*cos(2*3.1415/12*(m-1+alfa))+Lpe*9*cos(2*3.1415/12*(m-1-beta));
 
 Modelica.SIunits.Length B = AWall/(0.5*PWall)
-    "characteristic dimension of the slab on ground";
+    "Characteristic dimension of the slab on ground";
 Modelica.SIunits.Length dt = sum(constructionType.mats.d)+ground1.k*layMul.R
-    "equivalent thickness";
+    "Equivalent thickness";
 Real U = ground1.k/(0.457*B+dt);
 Real alfa = 1.5-12/(2*3.14)*atan(dt/(dt+delta));
 Real beta = 1.5-0.42*log(delta/(dt+1));
@@ -47,17 +46,17 @@ protected
     inc=inc,
     nLay=constructionType.nLay,
     mats=constructionType.mats)
-    "declaration of array of resistances and capacitances for wall simulation"
+    "Declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(A=AWall, inc=inc)
-    "convective surface heat transimission on the interior side of the wall"
+    "Convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layGro(
     A=AWall,
     inc=inc,
     nLay=3,
     mats={ground1,ground2,ground3})
-    "declaration of array of resistances and capacitances for ground simulation"
+    "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
 public

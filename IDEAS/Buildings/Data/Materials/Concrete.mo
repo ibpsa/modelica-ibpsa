@@ -4,4 +4,4 @@ record Concrete = IDEAS.Buildings.Data.Interfaces.Material (
     c=840,
     rho=2100,
     epsLw=0.88,
-    epsSw=0.55) "dense cast concrete, also for finishing";
+    epsSw=0.55) "Dense cast concrete, also for finishing";

@@ -8,4 +8,4 @@ record Krypton =
     epsLw=0,
     nState=1,
     gas=true,
-    mhu=23.0*10e-6);
+    mhu=23.0*10e-6) "Krypton gass";

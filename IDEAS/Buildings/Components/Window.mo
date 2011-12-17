@@ -3,7 +3,7 @@ model Window "multipane window"
 
 extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-  parameter Modelica.SIunits.Area A "Total Window area";
+  parameter Modelica.SIunits.Area A "Total window area";
   parameter Modelica.SIunits.Angle inc
     "Inclination of the window, i.e. 90° denotes vertical";
   parameter Modelica.SIunits.Angle azi

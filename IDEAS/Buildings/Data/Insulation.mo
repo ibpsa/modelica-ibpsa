@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data;
-package Insulation
+package Insulation "Library of thermal insulation materials"
 
   extends Modelica.Icons.MaterialPropertiesPackage;
 
@@ -22,7 +22,7 @@ package Insulation
       c=1470,
       rho=26,
       epsLw=0.8,
-      epsSw=0.8) "Expanded polystrenem EPS";
+      epsSw=0.8) "Expanded polystrenem, EPS";
   record Xps = IDEAS.Buildings.Data.Interfaces.Insulation (
       k=0.024,
       c=1470,

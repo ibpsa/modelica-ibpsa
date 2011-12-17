@@ -7,4 +7,4 @@ record Argon = IDEAS.Buildings.Data.Interfaces.Material (
     epsLw=0,
     nState=1,
     gas=true,
-    mhu=22.9*10e-6);
+    mhu=22.9*10e-6) "Argon gass";

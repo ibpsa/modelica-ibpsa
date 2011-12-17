@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Components;
-package Interfaces 
+package Interfaces "Building component interfaces"
 
 
 extends Modelica.Icons.InterfacesPackage;
+
 
 end Interfaces;

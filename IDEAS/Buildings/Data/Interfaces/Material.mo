@@ -3,16 +3,17 @@ record Material "Properties of building materials"
 
 extends Modelica.Icons.MaterialProperty;
 
-parameter Modelica.SIunits.Length d;
-parameter Modelica.SIunits.ThermalConductivity k;
-parameter Modelica.SIunits.SpecificHeatCapacity c;
-parameter Modelica.SIunits.Density rho;
-parameter Modelica.SIunits.Emissivity epsLw "long wave emisivity";
-parameter Modelica.SIunits.Emissivity epsSw "short wave emissivity";
-parameter Integer nState(min=1)=1 "number of states for thermal calculation";
-parameter Boolean gas = false;
-parameter Real mhu = 0;
+parameter Modelica.SIunits.Length d "Layer thickness";
+parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
+parameter Modelica.SIunits.SpecificHeatCapacity c "Specific thermal capacity";
+parameter Modelica.SIunits.Density rho "Density";
+parameter Modelica.SIunits.Emissivity epsLw "Longwave emisivity";
+parameter Modelica.SIunits.Emissivity epsSw "Shortwave emissivity";
+parameter Integer nState(min=1)=1 "Number of states for thermal calculation";
+parameter Boolean gas = false "Boolean wether the material is a gas";
+parameter Real mhu(unit="m2/s") = 0
+    "Viscosity, i.e. if the material is a fluid";
 
-final parameter Real R(unit="m2.K/W")=d/k;
+final parameter Real R(unit="m2K/W") = d/k;
 
 end Material;

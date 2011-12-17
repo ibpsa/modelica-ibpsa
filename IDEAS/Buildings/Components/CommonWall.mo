@@ -16,9 +16,8 @@ parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90° denotes vertical";
 parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0° denotes South";
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
-    "port for gains by embedded active layers"
+    "Port for gains by embedded active layers"
   annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
 protected

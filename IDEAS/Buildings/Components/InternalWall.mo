@@ -16,7 +16,6 @@ parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90° denotes vertical";
 parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0° denotes South";
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surfCon_b
     "convective nod on the inside"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));

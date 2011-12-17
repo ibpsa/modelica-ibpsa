@@ -16,4 +16,3 @@ record GlaBesTest = IDEAS.Buildings.Data.Interfaces.Glazing (
         0.0,0.0043; 89.5,0.304,0.0,0.0004; 89.99,0.001,0.0,0.0; 90,0.00,0.0,0.0],
     U_value=2.8,
     g_value=0.87) "Double pane 4/16/4 mm window(U=2.8,g=0.87)";
-
