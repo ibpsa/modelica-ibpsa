@@ -8,12 +8,9 @@ extends IDEAS.Buildings.Components.Interfaces.StateWall;
     "Inclination of the window, i.e. 90° denotes vertical";
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0° denotes South";
-  parameter Boolean shading = false "Shading presence, i.e. true if present";
-  parameter Modelica.SIunits.Efficiency shaCorr = 0.2
-    "Total shading transmittance";
 
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
-    "Glazing type" annotation (choicesAllMatching = true);
+    "Glazing type" annotation (choicesAllMatching = true,Dialog(group="Construction details"));
 
 Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDir
     "direct solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{-24,-110},{-4,-90}})));
@@ -21,6 +18,10 @@ Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif
     "diffuse solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{4,-110},{24,-90}})));
 
 protected
+  parameter Boolean shading = false "Shading presence, i.e. true if present";
+  parameter Modelica.SIunits.Efficiency shaCorr = 0.2
+    "Total shading transmittance";
+
   IDEAS.Buildings.Components.BaseClasses.SolarShading solSha(enable=shading,
       shaCorr=shaCorr)
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));

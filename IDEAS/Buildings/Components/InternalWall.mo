@@ -5,12 +5,12 @@ extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
 replaceable Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationThickness)
     "Type of building construction" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,72},
-            {-34,76}})));
+            {-34,76}})),Dialog(group="Construction details"));
 replaceable Data.Interfaces.Insulation insulationType(d=insulationThickness)
     "Type of thermal insulation" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,84},
-            {-34,88}})));
+            {-34,88}})),Dialog(group="Construction details"));
 parameter Modelica.SIunits.Length insulationThickness
-    "Thermal insulation thickness";
+    "Thermal insulation thickness" annotation(Dialog(group="Construction details"));
 parameter Modelica.SIunits.Area AWall "Total wall area";
 parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90° denotes vertical";
