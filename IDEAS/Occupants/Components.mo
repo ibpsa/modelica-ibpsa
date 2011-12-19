@@ -233,8 +233,6 @@ package Components
             fillPattern=FillPattern.Solid)}));
   end Schedule;
 
-
-
   model userInfoMan
 
   replaceable BWFlib.Residential.Users.userOnFile userDetail annotation (choicesAllMatching = true);
