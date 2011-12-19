@@ -43,5 +43,7 @@ port_a.Q_flow = Modelica.Constants.sigma/R*dT*(port_a.T+port_b.T)*(port_a.T^2+po
         Line(
           points={{60,80},{60,-80}},
           color={0,0,0},
-          thickness=0.5)}));
+          thickness=0.5)}), Documentation(info="<html>
+<p>Basic implementation of Stefan Boltzmanns law for radiation.</p>
+</html>"));
 end HeatRadiation;
