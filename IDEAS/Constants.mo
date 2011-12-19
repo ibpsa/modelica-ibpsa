@@ -1,5 +1,5 @@
 within IDEAS;
-package Constants
+package Constants "Constants for IDEAS"
 
   extends Modelica.Icons.BasesPackage;
 

@@ -4,13 +4,6 @@ package UsersGuide "User's Guide"
 
 
 annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>
-<p>The UsersGuide of each package should consist of the following classes</p>
-<ol>
-<li> <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.Contact\">Contact</a> information of
-     the library officer and the co-authors </li>
-<li> Optional <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.Implementation\">Implementation Notes</a> to give general information about the implementation
-<li> <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.References\">References</a> for summarizing the literature of the package</li>
-<li> <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.RevisionHistory\">Revision history </a> to summarize the most important changes and improvements of the package</li>
-</ol>
+<p>An <i><b>Integrated District Energy Assessment by Simulation</b></i> (<code>IDEAS</code>) tool is developed and allows integrated transient simulation of thermal and electrical processes at neighborhood level. The <code>IDEAS</code> tool differs from existing building physics and systems based and electrical energy system based models by integrating the dynamics of the hydronic, thermal as well as electrical energy networks at both the building and aggregated level within a single model and solver.</p>
 </html>"));
 end UsersGuide;
