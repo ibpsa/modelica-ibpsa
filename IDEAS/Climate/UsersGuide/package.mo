@@ -4,13 +4,6 @@ package UsersGuide "User's Guide"
 
 
 annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>
-<p>The UsersGuide of each package should consist of the following classes</p>
-<ol>
-<li> <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.Contact\">Contact</a> information of
-     the library officer and the co-authors </li>
-<li> Optional <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.Implementation\">Implementation Notes</a> to give general information about the implementation
-<li> <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.References\">References</a> for summarizing the literature of the package</li>
-<li> <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.RevisionHistory\">Revision history </a> to summarize the most important changes and improvements of the package</li>
-</ol>
+<p>In this section, we describe in detail the climate model and its possibilities that are implemented in Modelica as part of the <code>IDEAS</code> platform. Four external factors are to be known, i.e. external temperature and ground temperature for transient heat losses by conduction, sky temperature for long-wave radiation losses and short-wave gains on surfaces by solar irradiation.</p>
 </html>"));
 end UsersGuide;
