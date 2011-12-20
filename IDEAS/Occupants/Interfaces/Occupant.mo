@@ -7,22 +7,29 @@ partial model Occupant
 parameter Integer nZones(min=1) "number of conditioned thermal zones";
 parameter Integer nLoads(min=1) "number of electric loads";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] port_con
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
     annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
         iconTransformation(extent={{-110,10},{-90,30}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] port_rad
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
         iconTransformation(extent={{-110,-30},{-90,-10}})));
-  Modelica.Blocks.Interfaces.RealOutput[nZones] TAsked
+  Modelica.Blocks.Interfaces.RealOutput[nZones] TSet
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,100}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,100})));
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[nLoads]
-    plug
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads]
+    pin
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Electric.BaseClasses.OhmsLaw[nLoads] ohmsLaw
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+equation
+  connect(ohmsLaw.pin, pin) annotation (Line(
+      points={{80,0},{100,0}},
+      color={85,170,255},
+      smooth=Smooth.None));
   annotation(Icon(graphics={
         Ellipse(extent={{-12,74},{12,48}}, lineColor={127,0,0}),
         Polygon(

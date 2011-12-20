@@ -3,136 +3,41 @@ package Standards
 
   extends Modelica.Icons.Package;
 
-  model ISO13790_Day
+model ISO13790
+  extends IDEAS.Occupants.Interfaces.Occupant(nZones=2,nLoads=2);
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a GainOccAir;
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a GainOccRad;
-  parameter Modelica.SIunits.Area A;
+parameter Modelica.SIunits.Area[nZones] AFloor;
 
-  Real occ;
-  Real power = GainOccAir.Q_flow/0.5;
+  protected
+final parameter Modelica.SIunits.Time interval = 3600;
+final parameter Modelica.SIunits.Time period = 86400/interval;
+Integer t;
 
-  parameter Real interval=3600;
-  parameter Real period=86400/interval;
-  Integer t;
+final parameter Real[3] QDay(unit="W/m2") = {8,20,2};
+final parameter Real[3] QNight(unit="W/m2") = {1,1,6};
 
-  parameter Real[3] Qday={8,20,2};
-  parameter Real[3] Qnigtht={1,1,6};
+algorithm
+when sample(0,interval) then
+  t :=if pre(t) + 1 <= period then pre(t) + 1 else 1;
+end when;
 
-  equation
-  when sample(0,interval) then
-    t = if pre(t)+1 <= period then pre(t) + 1 else 1;
-  end when;
+equation
+heatPortRad.Q_flow = heatPortCon.Q_flow;
+ohmsLaw.P = heatPortCon.Q_flow + heatPortRad.Q_flow;
+ohmsLaw.Q = {0,0};
 
-  if noEvent(t <= 7 or t >= 23) then
-    GainOccAir.Q_flow = -A*Qday[3]*0.5;
-    GainOccRad.Q_flow = -A*Qday[3]*0.5;
-    occ=0;
-  elseif noEvent(t > 7 and t <=17) then
-    GainOccAir.Q_flow = -A*Qday[1]*0.5;
-    GainOccRad.Q_flow = -A*Qday[1]*0.5;
-    occ=0;
-  else
-    GainOccAir.Q_flow = -A*Qday[2]*0.5;
-    GainOccRad.Q_flow = -A*Qday[2]*0.5;
-    occ=1;
-  end if;
+if noEvent(t <= 7 or t >= 23) then
+  heatPortCon.Q_flow = -AFloor.*{QDay[3],QNight[3]}*0.5;
+  TSet={16,18};
+elseif noEvent(t > 7 and t <=17) then
+  heatPortCon.Q_flow = -AFloor.*{QDay[1],QNight[1]}*0.5;
+  TSet={16,16};
+else
+  heatPortCon.Q_flow = -AFloor.*{QDay[2],QNight[2]}*0.5;
+  TSet={21,16};
+end if;
 
-    annotation (Icon(graphics={
-          Ellipse(
-            extent={{-70,70},{70,-70}},
-            lineColor={127,0,0},
-            fillPattern=FillPattern.Solid,
-            fillColor={127,0,0}),
-          Ellipse(
-            extent={{-60,60},{60,-60}},
-            lineColor={127,0,0},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),
-          Polygon(
-            points={{2,0},{2,58},{14,56},{24,52},{32,48},{42,40},{48,32},{54,22},
-                {58,10},{58,-4},{56,-16},{50,-28},{44,-38},{42,-40},{2,0}},
-            smooth=Smooth.None,
-            pattern=LinePattern.None,
-            lineColor={0,0,0},
-            fillColor={175,175,175},
-            fillPattern=FillPattern.Solid),
-          Rectangle(
-            extent={{-4,50},{2,-2}},
-            lineColor={127,0,0},
-            fillColor={127,0,0},
-            fillPattern=FillPattern.Solid),
-          Polygon(
-            points={{2,0},{18,-16},{14,-20},{-4,-2},{2,0}},
-            lineColor={127,0,0},
-            smooth=Smooth.None,
-            fillColor={127,0,0},
-            fillPattern=FillPattern.Solid)}));
-  end ISO13790_Day;
+end ISO13790;
 
-  model ISO13790_Night
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a GainOccAir;
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a GainOccRad;
-  parameter Modelica.SIunits.Area A;
-
-  parameter Real interval=3600;
-  parameter Real period=86400/interval;
-  Integer t;
-  Real occ;
-  Real power = GainOccAir.Q_flow/0.5;
-
-  parameter Real[3] Qday={8,20,2};
-  parameter Real[3] Qnight={1,1,6};
-
-  equation
-  when noEvent(rem(time,interval)) < 0.1 then
-    t = if pre(t)+1 <= period then pre(t) + 1 else 1;
-  end when;
-
-  if noEvent(t <= 7 or t >= 23) then
-    GainOccAir.Q_flow = -A*Qnight[3]/2;
-    GainOccRad.Q_flow = -A*Qnight[3]/2;
-    occ=1;
-  elseif noEvent(t > 7 and t <=17) then
-    GainOccAir.Q_flow = -A*Qnight[1]/2;
-    GainOccRad.Q_flow = -A*Qnight[1]/2;
-    occ=0;
-  else
-    GainOccAir.Q_flow = -A*Qnight[2]/2;
-    GainOccRad.Q_flow = -A*Qnight[2]/2;
-    occ=0;
-    end if;
-
-    annotation (Icon(graphics={
-          Ellipse(
-            extent={{-70,70},{70,-70}},
-            lineColor={127,0,0},
-            fillPattern=FillPattern.Solid,
-            fillColor={127,0,0}),
-          Ellipse(
-            extent={{-60,60},{60,-60}},
-            lineColor={127,0,0},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),
-          Polygon(
-            points={{2,0},{2,58},{14,56},{24,52},{32,48},{42,40},{48,32},{54,22},
-                {58,10},{58,-4},{56,-16},{50,-28},{44,-38},{42,-40},{2,0}},
-            smooth=Smooth.None,
-            pattern=LinePattern.None,
-            lineColor={0,0,0},
-            fillColor={175,175,175},
-            fillPattern=FillPattern.Solid),
-          Rectangle(
-            extent={{-4,50},{2,-2}},
-            lineColor={127,0,0},
-            fillColor={127,0,0},
-            fillPattern=FillPattern.Solid),
-          Polygon(
-            points={{2,0},{18,-16},{14,-20},{-4,-2},{2,0}},
-            lineColor={127,0,0},
-            smooth=Smooth.None,
-            fillColor={127,0,0},
-            fillPattern=FillPattern.Solid)}));
-  end ISO13790_Night;
 end Standards;
