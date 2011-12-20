@@ -46,5 +46,4 @@ equation
           color={127,0,0},
           smooth=Smooth.None)}),                                    Diagram(
         graphics));
-
 end Occupant;

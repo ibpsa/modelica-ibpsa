@@ -3,42 +3,120 @@ package Stochastic
 
   extends Modelica.Icons.UnderConstruction;
 
-    model Occupancy
+model General
 
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a GainOccAir;
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a GainOccRad;
+  extends IDEAS.Occupants.Interfaces.Occupant(nLoads=appliances.nLoads+lighting.nLoads);
+  Occupancy occupancy
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+  Appliances appliances
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  Lighting lighting
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+equation
+  connect(occupancy.TSet, TSet) annotation (Line(
+      points={{0,40},{0,100}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heatPortCon, occupancy.heatPortCon) annotation (Line(
+      points={{-100,20},{-60,20},{-60,32},{-10,32}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heatPortCon, appliances.heatPortCon) annotation (Line(
+      points={{-100,20},{-60,20},{-60,2},{-20,2}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heatPortCon, lighting.heatPortCon) annotation (Line(
+      points={{-100,20},{-60,20},{-60,-28},{0,-28}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heatPortRad, occupancy.heatPortRad) annotation (Line(
+      points={{-100,-20},{-54,-20},{-54,28},{-10,28}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heatPortRad, appliances.heatPortRad) annotation (Line(
+      points={{-100,-20},{-54,-20},{-54,-2},{-20,-2}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heatPortRad, lighting.heatPortRad) annotation (Line(
+      points={{-100,-20},{-54,-20},{-54,-32},{0,-32}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(appliances.P, ohmsLaw[1:appliances.nLoads].P) annotation (Line(
+      points={{0,2},{30,2},{30,2.4},{60,2.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(appliances.Q, ohmsLaw[1:appliances.nLoads].Q) annotation (Line(
+      points={{0,-2},{30,-2},{30,-2.4},{60,-2.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(lighting.P, ohmsLaw[appliances.nLoads+1:nLoads].P) annotation (Line(
+      points={{20,-28},{40,-28},{40,2.4},{60,2.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(lighting.Q, ohmsLaw[appliances.nLoads+1:nLoads].Q) annotation (Line(
+      points={{20,-32},{44,-32},{44,-2.4},{60,-2.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(occupancy.Occ, appliances.Occ) annotation (Line(
+        points={{0,20},{0,14},{-10,14},{-10,10}},
+        color={255,127,0},
+        smooth=Smooth.None));
+    connect(occupancy.Occ, lighting.Occ) annotation (Line(
+        points={{0,20},{0,14},{10,14},{10,-20}},
+        color={255,127,0},
+        smooth=Smooth.None));
+  annotation (Diagram(graphics));
+end General;
 
-    IDEAS.Occupants.Stochastic.BaseClasses.RandomChain randomChain(seed=100*
+model Occupancy
+
+  parameter Integer nZones(min=1);
+
+  IDEAS.Occupants.Stochastic.BaseClasses.RandomChain randomChain(seed=100*
           seed,
         interval=interval);
 
-    parameter IDEAS.Occupants.Stochastic.Data.BaseClasses.Occupance
+  replaceable parameter IDEAS.Occupants.Stochastic.Data.BaseClasses.Occupance
                                 occChain annotation (choicesAllMatching=true);
-    parameter Real power;
-
-    discrete Integer occ(start=0);
-
-    parameter Real[3] seed "random initialisation";
+  parameter Real power;
+  parameter Real[3] seed "random initialisation";
+  discrete Integer occ(start=0);
 
   protected
-    parameter Real interval=occChain.period/occChain.s "Markov Chain interval";
-    Real[occChain.s,occChain.n + 1,occChain.n + 1] occChainReal;
-    discrete Integer t(start=1) "#interval in the period";
-    discrete Integer occBefore;
-    discrete Real[occChain.n + 1,occChain.n + 2] transMatrixCumul;
+  parameter Real interval=occChain.period/occChain.s "Markov Chain interval";
+  Real[occChain.s,occChain.n + 1,occChain.n + 1] occChainReal;
+  discrete Integer t(start=1) "#interval in the period";
+  discrete Integer occBefore;
+  discrete Real[occChain.n + 1,occChain.n + 2] transMatrixCumul;
 
-    parameter Integer yr = 2010;
-    parameter Real DSTstart = 86400*(31+28+31-rem(5*yr/4+4,7))+2*3600;
-    parameter Real DSTend = 86400*(31+28+31+30+31+30+31+31+30+31-rem(5*yr/4+1,7))+2*3600;
+  parameter Integer yr = 2010;
+  parameter Real DSTstart = 86400*(31+28+31-rem(5*yr/4+4,7))+2*3600;
+  parameter Real DSTend = 86400*(31+28+31+30+31+30+31+31+30+31-rem(5*yr/4+1,7))+2*3600;
 
   public
-    outer Commons.SimInfoManager   sim
-      annotation (Placement(transformation(extent={{-78,60},{-58,80}})));
-    initial equation
+  outer IDEAS.Climate.SimInfoManager   sim
+      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
+        annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
+            iconTransformation(extent={{-110,10},{-90,30}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
+        annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
+            iconTransformation(extent={{-110,-30},{-90,-10}})));
+  Modelica.Blocks.Interfaces.RealOutput[nZones] TSet annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,100})));
+    Modelica.Blocks.Interfaces.IntegerOutput Occ annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={0,-100})));
+initial equation
     t=0;
     occBefore=0;
 
-    equation
+equation
 
     if sim.workday >= 0.5 then
       occChainReal = occChain.Twd;
@@ -77,8 +155,14 @@ package Stochastic
       occBefore=pre(occ);
     end when;
 
-    GainOccAir.Q_flow = -0.60*occ*power;
-    GainOccRad.Q_flow = -0.40*occ*power;
+    if Occ >=1 then
+      TSet = ones(nZones)*294.15;
+    else
+      TSet = ones(nZones)*289.15;
+    end if;
+
+    heatPortCon.Q_flow = -ones(nZones)*0.60*occ*power/nZones;
+    heatPortRad.Q_flow = -ones(nZones)*0.40*occ*power/nZones;
 
     annotation (Icon(graphics={
             Ellipse(
@@ -109,40 +193,44 @@ package Stochastic
               lineColor={127,0,0},
               smooth=Smooth.None,
               fillColor={127,0,0},
-              fillPattern=FillPattern.Solid)}));
-    end Occupancy;
+              fillPattern=FillPattern.Solid)}), Diagram(graphics));
+end Occupancy;
 
-  model Appliances
+model Appliances
 
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a GainAppAir;
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a GainAppRad;
-    Modelica.Blocks.Interfaces.IntegerInput occ;
-    Real[n] appPower;
-
-    parameter Real[4] seed;
-
-    parameter Integer n(min=1);
-    parameter IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance[
-                                n] appData;
+parameter Real[4] seed;
+parameter Integer nLoads(min=1);
+parameter IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance[n] appData;
 
   protected
-    IDEAS.Occupants.Stochastic.BaseClasses.ActivityProb actProb;
-    IDEAS.Occupants.Stochastic.BaseClasses.RandomChainVector
+IDEAS.Occupants.Stochastic.BaseClasses.ActivityProb actProb;
+IDEAS.Occupants.Stochastic.BaseClasses.RandomChainVector
                                                    randomVector(seed = 10000*seed, n=3*n,interval=interval);
-    parameter Integer interval = 60;
+parameter Integer interval = 60;
 
-    Real[n] delay;
-    Real[n] minLeft;
-    Integer[n] state;
-    Real[n] appPowerRad;
-    Real[n] appPowerConv;
-    Boolean[n] action;
+Real[nLoads] delay;
+Real[nLoads] minLeft;
+Integer[nLoads] state;
+Real[nLoads] appPowerRad;
+Real[nLoads] appPowerConv;
+Boolean[nLoads] action;
+
   public
-    outer Commons.SimInfoManager   sim
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  initial equation
+outer IDEAS.Climate.SimInfoManager sim annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
+          iconTransformation(extent={{-110,10},{-90,30}})));
+Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
+          iconTransformation(extent={{-110,-30},{-90,-10}})));
+Modelica.Blocks.Interfaces.RealOutput[nLoads] P annotation (Placement(transformation(extent={{90,10},{110,30}})));
+Modelica.Blocks.Interfaces.RealOutput[nLoads] Q annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
+Modelica.Blocks.Interfaces.IntegerInput Occ annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={0,100})));
 
-    for i in 1:n loop
+initial equation
+
+    for i in 1:nLoads loop
       delay[i]=0;
       state[i]=0;
       minLeft[i]=0;
@@ -151,18 +239,18 @@ package Stochastic
       appPowerConv[i] = appData[i].powerStandby*appData[i].fconv;
     end for;
 
-  equation
+equation
 
-    actProb.occ = occ;
+    actProb.occ = Occ;
 
     when time < 0.1 then
-      for i in 1:n loop
+      for i in 1:nLoads loop
         delay[i]=randomVector.r[i]*appData[i].delay*2;
       end for;
     end when;
 
     when sample(0,interval) then
-      for i in 1:n loop
+      for i in 1:nLoads loop
         if appData[i].profile < 1 then
           action[i] = IDEAS.Occupants.Stochastic.BaseClasses.AppAction(
               P=1,
@@ -183,7 +271,7 @@ package Stochastic
     end when;
 
     when sample(0,interval) then
-      for i in 1:n loop
+      for i in 1:nLoads loop
         (state[i],minLeft[i]) =
           IDEAS.Occupants.Stochastic.BaseClasses.StateChange(
             stateBefore=pre(state[i]),
@@ -199,21 +287,22 @@ package Stochastic
     end when;
 
     when sample(0,interval) then
-      for i in 1:n loop
+      for i in 1:nLoads loop
         if state[i] > 0 then
-          appPower[i] = state[i]*appData[i].powerCycle;
+          P[i] = state[i]*appData[i].powerCycle;
           appPowerRad[i] = state[i]*appData[i].powerCycle*appData[i].frad;
           appPowerConv[i] = state[i]*appData[i].powerCycle*appData[i].fconv;
         else
-          appPower[i] = state[i]*appData[i].powerStandby;
+          P[i] = state[i]*appData[i].powerStandby;
           appPowerRad[i] = state[i]*appData[i].powerStandby*appData[i].frad;
           appPowerConv[i] = state[i]*appData[i].powerStandby*appData[i].fconv;
         end if;
       end for;
     end when;
 
-    GainAppAir.Q_flow = -sum(appPowerConv);
-    GainAppRad.Q_flow = -sum(appPowerRad);
+    heatPortCon.Q_flow = -ones(nZones)*sum(appPowerConv)/nZones;
+    heatPortCon.Q_flow = -ones(nZones)*sum(appPowerRad)/nZones;
+    Q = ones(nLoads)*0;
 
     annotation (Icon(graphics={
           Ellipse(
@@ -244,50 +333,65 @@ package Stochastic
             lineColor={127,0,0},
             smooth=Smooth.None,
             fillColor={127,0,0},
-            fillPattern=FillPattern.Solid)}));
-  end Appliances;
+            fillPattern=FillPattern.Solid)}), Diagram(graphics));
+end Appliances;
 
-  model Lighting
+model Lighting
 
-    Integer[lightData.n] lightPowers;
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a GainLightAir;
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a GainLightRad;
-    parameter IDEAS.Occupants.Stochastic.Data.BaseClasses.Lighting
-                               lightData;
+  parameter Integer nZones(min=1);
+  parameter Integer nLoads = lightData.n;
 
-    Modelica.Blocks.Interfaces.RealInput irr;
-    Modelica.Blocks.Interfaces.IntegerInput occ;
+  Integer[nLoads] lightPowers;
+  replaceable parameter IDEAS.Occupants.Stochastic.Data.BaseClasses.Lighting
+                               lightData  annotation (choicesAllMatching=true);
 
-    parameter Real[3] seed={7,12,3} "random initialisation";
-    parameter Integer interval = 60;
-    constant Real cal=0.0081537 "calibration scalar";
+  parameter Real[3] seed={7,12,3} "random initialisation";
+  parameter Integer interval = 60;
+  constant Real cal=0.0081537 "calibration scalar";
 
   protected
     IDEAS.Occupants.Stochastic.BaseClasses.RandomChainVector
                                                    randomVector(n=3*lightData.n,interval=interval);
-
     Real effOcc;
     Real irrTreshold;
-    Real[lightData.n] rating;
-    Real[lightData.n] relUse;
-    Real[lightData.n] minLeft;
-    Integer[lightData.n] state;
-    Boolean[lightData.n] action;
+    Real[nLoads] rating;
+    Real[nLoads] relUse;
+    Real[nLoads] minLeft;
+    Integer[nLoads] state;
+    Boolean[nLoads] action;
 
-  initial equation
+  public
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
+      annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
+          iconTransformation(extent={{-110,10},{-90,30}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
+      annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
+          iconTransformation(extent={{-110,-30},{-90,-10}})));
+  Modelica.Blocks.Interfaces.RealOutput[nLoads] P
+      annotation (Placement(transformation(extent={{90,10},{110,30}})));
+  Modelica.Blocks.Interfaces.RealOutput[nLoads] Q
+      annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
+  Modelica.Blocks.Interfaces.IntegerInput Occ annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={0,100})));
+  outer Climate.SimInfoManager sim
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-    for i in 1:lightData.n loop
-      rating[i]=0;
-      relUse[i]=0;
-      action[i]=false;
-      state[i]=0;
-      minLeft[i]=0;
-      lightPowers[i] = 0;
-    end for;
+initial equation
 
-  equation
+  for i in 1:lightData.n loop
+    rating[i]=0;
+    relUse[i]=0;
+    action[i]=false;
+    state[i]=0;
+    minLeft[i]=0;
+    P[i] = 0;
+  end for;
 
-    effOcc = -0.0087*occ^4 + 0.1138*occ^3 - 0.5654*occ^2 + 1.4871*occ - 0.045;
+equation
+
+    effOcc = -0.0087*Occ^4 + 0.1138*Occ^3 - 0.5654*Occ^2 + 1.4871*Occ - 0.045;
 
     irrTreshold = IDEAS.Occupants.Stochastic.BaseClasses.NormalVariate(
                                                              mu=60,sigma=10,si=seed);
@@ -302,7 +406,7 @@ package Stochastic
     when sample(0,interval) then
       for i in 1:lightData.n loop
         action[i] = IDEAS.Occupants.Stochastic.BaseClasses.LightAction(
-            irr=irr,
+            irr=sim.irr,
             irrTreshold=irrTreshold,
             r=randomVector.r[i]);
       end for;
@@ -324,12 +428,13 @@ package Stochastic
 
     when sample(0,interval) then
       for i in 1:lightData.n loop
-        lightPowers[i] = state[i]*lightData.power[i];
+        P[i] = state[i]*lightData.power[i];
       end for;
     end when;
 
-    GainLightAir.Q_flow = -0.2*sum(lightPowers);
-    GainLightRad.Q_flow = -0.8*sum(lightPowers);
+    heatPortCon.Q_flow = -0.2*ones(nZones)*sum(lightPowers)/nZones;
+    heatPortRad.Q_flow = -0.8*ones(nZones)*sum(lightPowers)/nZones;
+    Q = ones(nLoads)*0;
 
     annotation (Icon(graphics={
           Ellipse(
@@ -360,8 +465,8 @@ package Stochastic
             lineColor={127,0,0},
             smooth=Smooth.None,
             fillColor={127,0,0},
-            fillPattern=FillPattern.Solid)}));
-  end Lighting;
+            fillPattern=FillPattern.Solid)}), Diagram(graphics));
+end Lighting;
 
 package Data
 
