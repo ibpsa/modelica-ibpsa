@@ -2,14 +2,13 @@ within IDEAS.Buildings.Components.BaseClasses;
 model ExteriorHeatRadidation
   "longwave radiative heat exchange of an exterior surface with the environment"
 
-extends IDEAS.Buildings.Components.Interfaces.StateSingle;
-extends Modelica.Blocks.Interfaces.BlockIcon;
-
-  outer IDEAS.Climate.SimInfoManager
-                             sim "simulation information manager";
-
   parameter Modelica.SIunits.Area A "surface area";
   parameter Modelica.SIunits.Angle inc "inclination";
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+outer IDEAS.Climate.SimInfoManager sim "Simulation information manager"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 protected
   Real Fse = (1-cos(inc))/2
@@ -29,45 +28,40 @@ Tenv = (Fssky*sim.Tsky^4+(1-Fssky)*sim.Te^4)^0.25;
 port_a.Q_flow = A*Modelica.Constants.sigma*epsLw*(port_a.T^4-Tenv^4);
 
   annotation (Icon(graphics={
+        Line(points={{-40,10},{40,10}}, color={191,0,0}),
+        Line(points={{-40,10},{-30,16}}, color={191,0,0}),
+        Line(points={{-40,10},{-30,4}}, color={191,0,0}),
+        Line(points={{-40,-10},{40,-10}}, color={191,0,0}),
+        Line(points={{30,-16},{40,-10}}, color={191,0,0}),
+        Line(points={{30,-4},{40,-10}}, color={191,0,0}),
+        Line(points={{-40,-30},{40,-30}}, color={191,0,0}),
+        Line(points={{-40,-30},{-30,-24}}, color={191,0,0}),
+        Line(points={{-40,-30},{-30,-36}}, color={191,0,0}),
+        Line(points={{-40,30},{40,30}}, color={191,0,0}),
+        Line(points={{30,24},{40,30}}, color={191,0,0}),
+        Line(points={{30,36},{40,30}}, color={191,0,0}),
         Rectangle(
-          extent={{-76.5,5.5},{76.5,-5.5}},
-          lineColor={0,0,0},
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          origin={-65.5,-0.5},
-          rotation=90),
+          extent={{-90,80},{-60,-80}},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward,
+          pattern=LinePattern.None),
         Line(
-          points={{-58,-42},{64,-42}},
-          color={127,0,0},
-          smooth=Smooth.None),
-        Ellipse(
-          extent={{48,42},{62,28}},
-          lineColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={127,0,0}),
+          points={{-60,80},{-60,-80}},
+          color={0,0,0},
+          thickness=0.5),
         Rectangle(
-          extent={{-24,-32},{16,-50}},
-          lineColor={127,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{52,-34},{66,-48}},
-          lineColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          startAngle=0,
-          endAngle=360,
-          fillColor={127,0,0}),
+          extent={{90,80},{60,-80}},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward,
+          pattern=LinePattern.None),
         Line(
-          points={{-60,36},{60,36}},
-          color={127,0,0},
-          smooth=Smooth.None),
-        Rectangle(
-          extent={{-26,46},{14,28}},
-          lineColor={127,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-64,0},{-98,0}},
-          color={127,0,0},
-          smooth=Smooth.None)}));
+          points={{60,80},{60,-80}},
+          color={0,0,0},
+          thickness=0.5)}), Documentation(info="<html>
+<p>Longwave radiation between the surface and environment <img src=\"modelica://IDEAS/Images/equations/equation-AMjoTx5S.png\"/> is determined as</p>
+<p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-nt0agyic.png\"/></p>
+<p>as derived from the Stefan-Boltzmann law wherefore <img src=\"modelica://IDEAS/Images/equations/equation-C6ZFvd5P.png\"/> the Stefan-Boltzmann constant <a href=\"IDEAS.Buildings.UsersGuide.References\">[Mohr 2008]</a>, <img src=\"modelica://IDEAS/Images/equations/equation-sLNH0zgx.png\"/> the longwave emissivity of the exterior surface, <img src=\"modelica://IDEAS/Images/equations/equation-Q5X4Yht9.png\"/> the radiant-interchange configuration factor between the surface and sky <a href=\"IDEAS.Buildings.UsersGuide.References\">[Hamilton 1952]</a>, and the surface and the environment respectively and <img src=\"modelica://IDEAS/Images/equations/equation-k2V39u5g.png\"/> and <img src=\"modelica://IDEAS/Images/equations/equation-GuSnzLxW.png\"/> are the exterior surface and sky temperature respectively. Shortwave solar irradiation absorbed by the exterior surface is determined as </p>
+<p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-cISf3Itz.png\"/></p>
+<p>where <img src=\"modelica://IDEAS/Images/equations/equation-IKuIUMef.png\"/> is the shortwave absorption of the surface and <img src=\"modelica://IDEAS/Images/equations/equation-Vuo4fgcb.png\"/> the total irradiation on the depicted surface. </p>
+</html>"));
 end ExteriorHeatRadidation;

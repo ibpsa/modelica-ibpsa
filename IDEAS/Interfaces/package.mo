@@ -1,5 +1,5 @@
 within IDEAS;
-package Interfaces 
+package Interfaces "Partials"
 
 
   extends Modelica.Icons.InterfacesPackage;

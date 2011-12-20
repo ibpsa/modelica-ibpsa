@@ -3,7 +3,7 @@ package Components
 
   extends Modelica.Icons.Package;
 
-  block Fanger "fanger model"
+  block Fanger "Fanger model"
 
     outer IDEAS.Climate.SimInfoManager
                                sim
@@ -11,17 +11,17 @@ package Components
 
     parameter Boolean Linear = true;
 
-    Modelica.Blocks.Interfaces.RealOutput PMV "predicted mean vote" annotation (Placement(transformation(extent={{90,30},
-              {110,50}})));
+    Modelica.Blocks.Interfaces.RealOutput PMV "predicted mean vote" annotation (Placement(transformation(extent={{90,18},
+              {110,38}})));
 
     Modelica.Blocks.Interfaces.RealOutput PPD
-      "predicted percentage dissatisfied"                                          annotation (Placement(transformation(extent={{90,-10},
-              {110,10}})));
+      "predicted percentage dissatisfied"                                          annotation (Placement(transformation(extent={{90,-30},
+              {110,-10}})));
 
     Modelica.Blocks.Interfaces.RealInput Tair "zone air temperature"
       annotation (Placement(transformation(extent={{20,-20},{-20,20}},
             rotation=180,
-            origin={-100,20})));
+            origin={-100,30})));
     Modelica.Blocks.Interfaces.RealInput Trad "zone radiative temperature"
       annotation (Placement(transformation(extent={{-20,-20},{20,20}},
             rotation=0,
@@ -30,7 +30,7 @@ package Components
   protected
     IDEAS.Occupants.BaseClasses.PredictedPercentageDissatisfied ppd
       "PPD calculated"
-      annotation (Placement(transformation(extent={{60,-16},{80,4}})));
+      annotation (Placement(transformation(extent={{60,-36},{80,-16}})));
     IDEAS.Occupants.BaseClasses.CloValue cloValue "clothing calculation"
       annotation (Placement(transformation(extent={{-54,60},{-34,80}})));
     IDEAS.Occupants.BaseClasses.CloTemperature cloTemperature(Linear=Linear)
@@ -41,7 +41,7 @@ package Components
         annotation (Placement(transformation(extent={{8,26},{28,46}})));
   equation
     connect(ppd.PPD, PPD) annotation (Line(
-        points={{80,0},{100,0}},
+        points={{80,-20},{100,-20}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(cloTemperature.Tclo, pmv.Tclo)
@@ -60,20 +60,20 @@ package Components
           color={0,0,127},
           smooth=Smooth.None));
     connect(pmv.PMV, ppd.PMV)   annotation (Line(
-          points={{28,40},{40,40},{40,0},{60,0}},
+          points={{28,40},{40,40},{40,-20},{60,-20}},
           color={0,0,127},
           smooth=Smooth.None));
     connect(pmv.PMV, PMV)   annotation (Line(
-          points={{28,40},{100,40}},
+          points={{28,40},{64,40},{64,28},{100,28}},
           color={0,0,127},
           smooth=Smooth.None));
     connect(Tair, cloTemperature.Tair)
                                annotation (Line(
-          points={{-100,20},{-40,20},{-40,-2},{-20,-2},{-20,26}},
+          points={{-100,30},{-40,30},{-40,-2},{-20,-2},{-20,26}},
           color={0,0,127},
           smooth=Smooth.None));
     connect(Tair, pmv.Tair)   annotation (Line(
-          points={{-100,20},{-40,20},{-40,-2},{14,-2},{14,26}},
+          points={{-100,30},{-40,30},{-40,-2},{14,-2},{14,26}},
           color={0,0,127},
           smooth=Smooth.None));
     connect(Trad, cloTemperature.Trad)
@@ -201,6 +201,77 @@ package Components
    tNexOcc    := tOcc-sim.timLoc;
    tNexNonOcc := tNonOcc-sim.timLoc;
 
+    annotation (Icon(graphics={
+          Ellipse(
+            extent={{-70,70},{70,-70}},
+            lineColor={127,0,0},
+            fillPattern=FillPattern.Solid,
+            fillColor={127,0,0}),
+          Ellipse(
+            extent={{-60,60},{60,-60}},
+            lineColor={127,0,0},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{2,0},{2,58},{14,56},{24,52},{32,48},{42,40},{48,32},{54,22},
+                {58,10},{58,-4},{56,-16},{50,-28},{44,-38},{42,-40},{2,0}},
+            smooth=Smooth.None,
+            pattern=LinePattern.None,
+            lineColor={0,0,0},
+            fillColor={175,175,175},
+            fillPattern=FillPattern.Solid),
+          Rectangle(
+            extent={{-4,50},{2,-2}},
+            lineColor={127,0,0},
+            fillColor={127,0,0},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{2,0},{18,-16},{14,-20},{-4,-2},{2,0}},
+            lineColor={127,0,0},
+            smooth=Smooth.None,
+            fillColor={127,0,0},
+            fillPattern=FillPattern.Solid)}));
   end Schedule;
 
+  model userInfoMan
+
+  replaceable BWFlib.Residential.Users.userOnFile userDetail annotation (choicesAllMatching = true);
+
+  parameter Integer n_B = 33 "number of buildings to be considered";
+  final parameter Integer[n_B] columns = {i+1 for i in 1:n_B};
+
+  Modelica.Blocks.Tables.CombiTable1Ds Pow(
+      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
+      tableOnFile = true,
+      tableName = "data",
+      fileName = userDetail.filNamPow,
+      columns = columns);
+  Modelica.Blocks.Tables.CombiTable1Ds PowCon(
+      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
+      tableOnFile = true,
+      tableName = "data",
+      fileName = userDetail.filNamPowCon,
+      columns = columns);
+  Modelica.Blocks.Tables.CombiTable1Ds PowRad(
+      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
+      tableOnFile = true,
+      tableName = "data",
+      fileName = userDetail.filNamPowRad,
+      columns = columns);
+  Modelica.Blocks.Tables.CombiTable1Ds TopAsk(
+      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
+      tableName = "data",
+      tableOnFile = true,
+      fileName = userDetail.filNamTopAsk,
+      columns = columns);
+
+  equation
+  time = Pow.u;
+  time = PowCon.u;
+  time = PowRad.u;
+  time = TopAsk.u;
+
+    annotation (defaultComponentName="user", defaultComponentPrefixes="inner",  missingInnerMessage="Your model is using an outer \"user\" component. An inner \"user\" component is not defined. For simulation drag BWF.BuiUser.userInfoMan into your model.",
+          Icon(graphics));
+  end userInfoMan;
 end Components;

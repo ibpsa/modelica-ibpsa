@@ -1,5 +1,5 @@
 within IDEAS;
-package Buildings 
+package Buildings "Transient building models and model components"
 
 
   extends Modelica.Icons.Package;

@@ -4,4 +4,4 @@ record BrickMi =  IDEAS.Buildings.Data.Interfaces.Material (
     c=840,
     rho=1400,
     epsLw=0.88,
-    epsSw=0.55) "Medium masonry (l) for exterior applications (i)";
+    epsSw=0.55) "Medium masonry for interior applications ";

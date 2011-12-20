@@ -1,9 +1,9 @@
 within IDEAS.Buildings.Data;
-package Constructions
+package Constructions "Library of building envelope constructions"
 
   extends Modelica.Icons.MaterialPropertiesPackage;
 
-  model CavityWall
+  model CavityWall "Classic cavity wall construction with fully-filled cavity"
 
     extends IDEAS.Buildings.Data.Interfaces.Construction(
       nLay=4,

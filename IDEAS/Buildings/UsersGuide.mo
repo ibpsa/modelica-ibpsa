@@ -6,14 +6,13 @@ package UsersGuide "User's Guide"
     extends Modelica.Icons.Information;
 
     annotation (Documentation(info="<html>
-<p>
-This class summarizes general information about the implementation which is not stated elsewhere.
-</p>
-<ol>
-<li>The <code>&lt;caption&gt;</code> tag is currently not supported in some tools.</li>
-<li>The <code>&amp;sim;</code> symbol (i.e., '&sim;' ) is currently not supported in some tools.</li>
-<li>The <code>&amp;prop;</code> symbol (i.e., '&prop;' ) is currently not supported in some tools.</li>
-</ol>
+<p>The relevant material properties of the surfaces are complex functions of the surface temperature, angle and wavelength for each participating surface. The assumptions used frequently in engineering applications <a href=\"IDEAS.Buildings.UsersGuide.References\">[Walton 1983]</a> are that </p>
+<p><ol>
+<li>each surface emits or reflects diffusely, that </li>
+<li>each surface is at a uniform temperature, that </li>
+<li>the energy flux leaving a surface is evenly distributed across the surface and</li>
+<li>the energy flux leaving a surface is one-dimensional.</li>
+</ol></p>
 </html>"));
   end Implementation;
 
@@ -21,113 +20,64 @@ This class summarizes general information about the implementation which is not 
     extends Modelica.Icons.References;
 
     annotation (Documentation(info="<html>
-
-<ol>
-<li> Citation formats should be unified according to IEEE Transactions style.</li>
-<li> Reference should be formated as tables with two columns.</li>
-</ol>
-
-<p>In the following the reference formats will be explained based on five examples:</p>
-
-<ul>
-<li> Journal (or conference) [Gao2008] </li>
-<li> Book [Andronov1973]</li>
-<li> Master's thesis [Woehrnschimmel1998]</li>
-<li> PhD thesis [Farnleitner1999]</li>
-<li> Technical report [Marlino2005]</li>
-</ul>
-
-<p>The <a href=\"modelica://Modelica.UsersGuide.Conventions.Documentation.Format.References\">citation</a> is also explained.</p>
-
-<h4>Example</h4>
-
-<pre>
-&lt;table border=\"0\" cellspacing=\"0\" cellpadding=\"2\"&gt;
-    &lt;tr&gt;
-      &lt;td valign=\"top\"&gt;[Gao2008]&lt;/td&gt;
-      &lt;td valign=\"top\"&gt;Z. Gao, T. G. Habetler, R. G. Harley, and R. S. Colby,
-        &quot;A sensorless  rotor temperature estimator for induction
-                 machines based on a current harmonic spectral
-                 estimation scheme,&quot;
-        &lt;i&gt;IEEE Transactions on Industrial Electronics&lt;/i&gt;,
-        vol. 55, no. 1, pp. 407-416, Jan. 2008.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=\"top\"&gt;[Andronov1973]&lt;/td&gt;
-      &lt;td valign=\"top\"&gt;A. Andronov, E. Leontovich, I. Gordon, and A. Maier,
-        &lt;i&gt;Theory of  Bifurcations of Dynamic Systems on a plane&lt;/i&gt;,
-        1st ed. New York: J. Wiley &amp; Sons, 1973.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=\"top\"&gt;[Woehrnschimmel1998]&lt;/td&gt;
-      &lt;td valign=\"top\"&gt;R. W&ouml;hrnschimmel,
-        &quot;Simulation, modeling and fault detection for vector
-              controlled induction machines,&quot;
-        Master&#39;;s thesis, Vienna University of Technology,
-        Vienna, Austria, 1998.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=\"top\"&gt;[Farnleitner1999]&lt;/td&gt;
-      &lt;td valign=\"top\"&gt;E. Farnleitner,
-        &quot;Computational ?uid dynamics analysis for rotating
-              electrical machinery,&quot;
-        Ph.D. dissertation, University of Leoben,
-        Department  of Applied Mathematics, Leoben, Austria, 1999.&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td valign=\"top\"&gt;[Marlino2005]&lt;/td&gt;
-      &lt;td valign=\"top\"&gt;L. D. Marlino,
-        &quot;Oak ridge national laboratory annual progress report for the
-              power electronics and electric machinery program,&quot;
-      Oak Ridge National Laboratory, prepared for the U.S. Department of Energy,
-      Tennessee, USA, Tech. Rep. FY2004 Progress Report, January 2005.&lt;/td&gt;
-    &lt;/tr&gt;
-&lt;/table&gt;</pre>
-
-<p>appears as</p>
-
-<table border=\"0\" cellspacing=\"0\" cellpadding=\"2\">
-    <tr>
-      <td valign=\"top\">[Gao08]</td>
-      <td valign=\"top\">Z. Gao, T. G. Habetler, R. G. Harley, and R. S. Colby,
-        &quot;A sensorless  rotor temperature estimator for induction
-                 machines based on a current harmonic spectral
-                 estimation scheme,&quot;
-        <i>IEEE Transactions on Industrial Electronics</i>,
-        vol. 55, no. 1, pp. 407-416, Jan. 2008.</td>
-    </tr>
-    <tr>
-      <td valign=\"top\">[Andronov1973]</td>
-      <td valign=\"top\">A. Andronov, E. Leontovich, I. Gordon, and A. Maier,
-        <i>Theory of  Bifurcations of Dynamic Systems on a plane</i>,
-        1st ed. New York: J. Wiley &amp; Sons, 1973.</td>
-    </tr>
-    <tr>
-      <td valign=\"top\">[Woehrnschimmel1998]</td>
-      <td valign=\"top\">R. W&ouml;hrnschimmel,
-        &quot;Simulation, modeling and fault detection for vector
-              controlled induction machines,&quot;
-        Master&#39;;s thesis, Vienna University of Technology,
-        Vienna, Austria, 1998.</td>
-    </tr>
-    <tr>
-      <td valign=\"top\">[Farnleitner1999]</td>
-      <td valign=\"top\">E. Farnleitner,
-        &quot;Computational Fluid dynamics analysis for rotating
-              electrical machinery,&quot;
-        Ph.D. dissertation, University of Leoben,
-        Department  of Applied Mathematics, Leoben, Austria, 1999.</td>
-    </tr>
-    <tr>
-      <td valign=\"top\">[Marlino2005]</td>
-      <td valign=\"top\">L. D. Marlino,
-        &quot;Oak ridge national laboratory annual progress report for the
-              power electronics and electric machinery program,&quot;
-      Oak Ridge National Laboratory, prepared for the U.S. Department of Energy,
-      Tennessee, USA, Tech. Rep. FY2004 Progress Report, January 2005.</td>
-    </tr>
+<table cellspacing=\"0\" cellpadding=\"2\" border=\"0\">
+<tr>
+<td valign=\"top\"><p>[Awbi 1999]</p></td>
+<td valign=\"top\"><p>H. B. Awbi, and A. Hatton, &QUOT;<a href=\"http://www.sciencedirect.com/science/article/pii/S0378778899000043\">Natural convection from heated room surfaces</a>,&QUOT; <i>Energy and Buildings</i>, vol. 30, no. 3, pp. 233-244, 1999.</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[Buchberg 1955]</p></td>
+<td valign=\"top\"><p>H. Buchberg, &QUOT;Electric analogue prediction of thermal behavior of an inhabitable enclosure,&QUOT; <i>ASHRAE Transactions</i>, vol. 61, pp. 339-386, 1955.</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[Defraye 2011]</p></td>
+<td valign=\"top\"><p>T. Defraeye, B. Blocken, and J. Carmeliet, &QUOT;<a href=\"http://www.sciencedirect.com/science/article/pii/S019689041000333X\">Convective heat transfer coefficient for exterior building surfaces: Existing correlations and CFD modelling</a>,&QUOT; <i>Energy COnversion and Management</i>, vol. 52, no. 1, pp. 512-522, 2011.</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[Hamilton 1952]</p></td>
+<td valign=\"top\"><p>D. C. Hamilton, and W. R. Morgan, &QUOT;<a href=\"http://naca.central.cranfield.ac.uk/reports/1952/naca-tn-2836.pdf\">Radiant-interchange configuration factors</a>,&QUOT; <i>Technical report National Advisory Comittee for Aeronautics</i>, Washington, 1952.</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[ISO 13370]</p></td>
+<td valign=\"top\"><p>ISO/CD 133770, <a href=\"http://wiki.pato.metid.polimi.it/@api/deki/files/637/=ISO_13370-2007.pdf\">Thermal performance of buildings - Heat transfer via the ground - Calculation methods</a>.</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[Jurges 1924]</p></td>
+<td valign=\"top\"><p>W. Jurges, &QUOT;Der W&auml;rme&uuml;bergang an einer ebenen Wand,&QUOT; <i>Beiheft zum Gesunheits-Ingenieur</i>, vol. 1, no. 19, 1924.</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[Kenelly 1899]</p></td>
+<td valign=\"top\"><p>A. E. Kenelly, &QUOT;Equivalence of triangles and stars in conducting networks,&QUOT; <i>Electrical World and Engineer</i>, vol. 34, pp. 413-414, 1899.</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[Khalifa 2011]</p></td>
+<td valign=\"top\"><p>A. J. N. Khalifa, &QUOT;<a href=\"http://www.sciencedirect.com/science/article/pii/S0196890400000431\">Natural convective heat transfer coefficient - a review : Surfaces in two- and three-dimensional enclosures</a>,&QUOT; <i>Energy Conversion and Management</i>, vol. 42, no. 4, pp. 505-517, 2011.</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[Liesen 1997]</p></td>
+<td valign=\"top\"><p>R. J. LIesen, and C. O. Pedersen, &QUOT;<a href=\"http://www.hvac.okstate.edu/research/Documents/ASHRAE/CH-03-9-4.pdf\">An evaluation of inside surface heat balance models for cooling load calculations</a>,&QUOT; <i>ASHRAE Transactions</i>, vol. 103, no. 2, pp. 485-502, 1997.</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[Mohr 2008]</p></td>
+<td valign=\"top\"><p>P. J. Mohr, B. N. Taylor, and D. B. Newell, &QUOT;CODATA Tecommended values of the fundamental physical constants: 2006,&QUOT; <i>Review of Modern Physics</i>, vol. 80, pp. 633-730, 2008.</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[Oppenheim 1956]</p></td>
+<td valign=\"top\"><p>A. K. Oppenheim, &QUOT;<a href=\"http://www.me.berkeley.edu/faculty/oppenheim/oppenheim1.pdf\">Radiation analysis by the network method</a>,&QUOT; <i>Transaction of American Society of Mechanical Engineers</i>, vol. 78, pp. 725-735, 1956.</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[Waldon 1953]</p></td>
+<td valign=\"top\"><p>G. N. Waldon, Thermal analysis research program refeence manual, Washington: U.S. Department of Commerce, National Bureau of Standards, 1993</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p>[WINDOW 6.3]</p></td>
+<td valign=\"top\"><p><a href=\"http://windows.lbl.gov/software/window/6/index.html\">WINDOW 6.3</a>, Lawrence Berkeley Laboratory, 1993</p></td>
+</tr>
+<tr>
+<td valign=\"top\"></td>
+<td valign=\"top\"><p><br/><br/><br/>....</p></td>
+</tr>
 </table>
-
 </html>"));
   end References;
 
@@ -158,31 +108,19 @@ This class summarizes general information about the implementation which is not 
   class RevisionHistory "Revision History"
     extends Modelica.Icons.ReleaseNotes;
 
-    annotation (Documentation(info="<HTML>
-<h4>Version 1.0, 2011-12-11</h4>
-<p>
-This is the first version integrated in the IDEAS tool and made available for the public.
-</p>
-<h4>Previous Releases</h4>
-<ul>
-<li><i>Nov., 2011</i><br>
-       by Ruben Baetens: Buildings package set available as <i>BWF.mo</i> at the KU Leuven Blackboard for MSc and PhD students.</li>
-<li><i>Nov., 2010</i><br>
-       by Ruben Baetens: First implementation.</li>
-<br>
-</ul>
-</HTML>
-"));
+    annotation (Documentation(info="<html>
+<p><h4>Version 1.0, 2011-12-11</h4></p>
+<p>This is the first version integrated in the IDEAS tool and made available for the public. </p>
+<p><h4>Previous Releases</h4></p>
+<p><ul>
+<li>Nov., 2011<br/>by Ruben Baetens: Buildings package set available as <code>BWF.mo</code> at the <code>KU Leuven Blackboard</code> for MSc and PhD students.</li>
+<li>Nov., 2010<br/>by Ruben Baetens: First implementation.</li>
+</ul></p>
+</html>"));
   end RevisionHistory;
 
 annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>
-<p>The UsersGuide of each package should consist of the following classes</p>
-<ol>
-<li> <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.Contact\">Contact</a> information of
-     the library officer and the co-authors </li>
-<li> Optional <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.Implementation\">Implementation Notes</a> to give general information about the implementation
-<li> <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.References\">References</a> for summarizing the literature of the package</li>
-<li> <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.RevisionHistory\">Revision history </a> to summarize the most important changes and improvements of the package</li>
-</ol>
+<p>In this section, we describe in detail the dynamic building model and its possibilities that are implemented in <code>Modelica</code> as part of the <code>IDEAS</code> platform. The building model allows simulation of the energy demand for heating and cooling of a multi-zone building, energy flows in the building envelope and interconnection with dynamic models of thermal and electrical building energy systems within the <code>IDEAS</code> platform for comfort measures. </p>
+<p>The description is divided into the description of the <i>building envelope</i> model and the <i>thermal zone</i> model. The window model and the model for ground losses are described more in detail as extend to the wall model.</p>
 </html>"));
 end UsersGuide;

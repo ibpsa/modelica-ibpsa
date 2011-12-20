@@ -1,10 +1,7 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model SwWindowResponse "shortwave window respones"
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
-
   parameter Integer nLay(min=1) "number of layers of the wall";
-
   parameter Real[:,nLay+1] SwAbs
     "absorbed solar radiation for each layer for look-up table as function of angle of incidence";
   parameter Real[:,2] SwTrans
@@ -188,5 +185,66 @@ end for;
       points={{-32,56.8},{-32,62},{-4.89859e-016,62},{-4.89859e-016,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Icon(graphics={
+        Rectangle(
+          extent={{-80,90},{80,70}},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward,
+          pattern=LinePattern.None),
+        Line(
+          points={{-80,70},{80,70}},
+          pattern=LinePattern.None,
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{44,40},{44,-50}},
+          smooth=Smooth.None,
+          color={127,0,0}),
+        Line(
+          points={{44,40},{38,30}},
+          smooth=Smooth.None,
+          color={127,0,0}),
+        Line(
+          points={{44,40},{50,30}},
+          smooth=Smooth.None,
+          color={127,0,0}),
+        Line(
+          points={{14,40},{14,-50}},
+          smooth=Smooth.None,
+          color={127,0,0}),
+        Line(
+          points={{14,40},{8,30}},
+          smooth=Smooth.None,
+          color={127,0,0}),
+        Line(
+          points={{14,40},{20,30}},
+          smooth=Smooth.None,
+          color={127,0,0}),
+        Line(
+          points={{-16,40},{-16,-50}},
+          smooth=Smooth.None,
+          color={127,0,0}),
+        Line(
+          points={{-16,40},{-22,30}},
+          smooth=Smooth.None,
+          color={127,0,0}),
+        Line(
+          points={{-16,40},{-10,30}},
+          smooth=Smooth.None,
+          color={127,0,0}),
+        Line(
+          points={{-46,40},{-46,-50}},
+          smooth=Smooth.None,
+          color={127,0,0}),
+        Line(
+          points={{-46,40},{-52,30}},
+          smooth=Smooth.None,
+          color={127,0,0}),
+        Line(
+          points={{-46,40},{-40,30}},
+          smooth=Smooth.None,
+          color={127,0,0})}),
+    Documentation(info="<html>
+<p>he properties for absorption by and transmission through the glazingare taken into account depending on the angle of incidence of solar irradiation and are based on the output of the <a href=\"IDEAS.Buildings.UsersGuide.References\">[WINDOW 6.3]</a> software, i.e. the shortwave properties itselves based on the layers in the window are not calculated in the model but are input parameters. </p>
+</html>"));
 end SwWindowResponse;

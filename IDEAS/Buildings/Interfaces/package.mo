@@ -1,5 +1,5 @@
 within IDEAS.Buildings;
-package Interfaces 
+package Interfaces "Building interface"
 
 
   extends Modelica.Icons.InterfacesPackage;

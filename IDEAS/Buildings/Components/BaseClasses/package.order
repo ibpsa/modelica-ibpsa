@@ -1,6 +1,4 @@
-HeatCapacity
 HeatRadiation
-HeatResistor
 MixedAir
 ZoneLwGainDistribution
 ZoneLwDistribution
@@ -17,5 +15,3 @@ InteriorConvection
 ExteriorConvection
 ExteriorSolarAbsorption
 ExteriorHeatRadidation
-SummaryWall
-SummaryZone

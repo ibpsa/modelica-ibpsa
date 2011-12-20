@@ -1,5 +1,5 @@
 within IDEAS.Buildings;
-package Data 
+package Data "Data for transient thermal building simulation"
 
 
   extends Modelica.Icons.MaterialPropertiesPackage;

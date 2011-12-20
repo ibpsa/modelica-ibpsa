@@ -1,3 +1,13 @@
+*.bak-mo
+*.log
+*.aux
+*.idx
+*.ilg
+*.ind
+*.out
+*.gz
+*.toc
+/dsin.txt
 
 /IDEAS/buildlog.txt
 /IDEAS/dslog.txt

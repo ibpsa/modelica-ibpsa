@@ -1,9 +1,6 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model MultiLayerOpaque "multiple material layers in series"
 
-extends IDEAS.Buildings.Components.Interfaces.StateDouble;
-extends Modelica.Blocks.Interfaces.BlockIcon;
-
   parameter Modelica.SIunits.Area A "total multilayer area";
   parameter Modelica.SIunits.Angle inc "inclination";
   parameter Integer nLay(min=1) "number of layers";
@@ -20,7 +17,10 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nLay] port_gain
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=289.15))
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealOutput iEpsLw_b
     "output of the interior emissivity for radiative heat losses"
     annotation (Placement(transformation(extent={{90,70},{110,90}})));
@@ -33,7 +33,11 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
   Modelica.Blocks.Interfaces.RealOutput iEpsSw_a
     "output of the interior emissivity for radiative heat losses"
     annotation (Placement(transformation(extent={{-90,30},{-110,50}})));
-
+  Modelica.Blocks.Interfaces.RealOutput area = A
+    "output of the interior emissivity for radiative heat losses"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={0,100})));
 equation
 connect(port_a,nMat[1].port_a);
 
@@ -48,37 +52,51 @@ iEpsLw_a = mats[1].epsLw;
 iEpsSw_a = mats[1].epsSw;
 iEpsLw_b = mats[nLay].epsLw;
 iEpsSw_b = mats[nLay].epsSw;
+
   annotation (Diagram(graphics), Icon(graphics={
-        Line(
-          points={{-100,0},{100,0}},
-          color={127,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{0,0},{0,-20}},
-          color={0,0,0},
-          smooth=Smooth.None),
         Rectangle(
-          extent={{-68,10},{-28,-8}},
+          extent={{-90,80},{20,-80}},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward,
+          pattern=LinePattern.None),
+        Text(
+          extent={{-150,113},{150,73}},
+          textString="%name",
+          lineColor={0,0,255}),
+        Rectangle(
+          extent={{20,80},{40,-80}},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Forward,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{40,80},{80,-80}},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward,
+          pattern=LinePattern.None),
+        Line(
+          points={{20,80},{20,-80}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None),
+        Line(
+          points={{40,80},{40,-80}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None),
+        Ellipse(
+          extent={{-40,-42},{40,38}},
           lineColor={127,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{26,10},{66,-8}},
+        Text(
+          extent={{-39,40},{39,-40}},
           lineColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={255,255,255}),
-        Rectangle(
-          extent={{-20,-20},{20,-30}},
-          lineColor={127,0,0},
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-20,-34},{20,-44}},
-          lineColor={127,0,0},
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{0,-40},{0,-100}},
-          color={127,0,0},
-          smooth=Smooth.None)}));
+          fontName="Calibri",
+          origin={0,-1},
+          rotation=90,
+          textString="S")}),
+    Documentation(info="<html>
+<p>For the purpose of dynamic building simulation, the partial differential equation of the continuous time and space model of heat transport through a solid is most often simplified into ordinary differential equations with a finite number of parameters representing only one-dimensional heat transport through a construction layer. Within this context, the wall is modeled with lumped elements, i.e. a model where temperatures and heat fluxes are determined from a system composed of a sequence of discrete resistances and capacitances R_{n+1}, C_{n}. The number of capacitive elements $n$ used in modeling the transient thermal response of the wall denotes the order of the lumped capacitance model.</p>
+<p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-pqp0E04K.png\"/></p>
+<p>where <img src=\"modelica://IDEAS/Images/equations/equation-I7KXJhSH.png\"/> is the added energy to the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-B0HPmGTu.png\"/> is the temperature of the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-t7aqbnLB.png\"/> is the thermal capacity of the lumped capacity equal to<img src=\"modelica://IDEAS/Images/equations/equation-JieDs0oi.png\"/> for which rho denotes the density and <img src=\"modelica://IDEAS/Images/equations/equation-ml5CM4zK.png\"/> is the specific heat capacity of the material and <img src=\"modelica://IDEAS/Images/equations/equation-hOGNA6h5.png\"/> the equivalent thickness of the lumped element, where <img src=\"modelica://IDEAS/Images/equations/equation-1pDREAb7.png\"/> the heat flux through the lumped resistance and <img src=\"modelica://IDEAS/Images/equations/equation-XYf3O3hw.png\"/> is the total thermal resistance of the lumped resistance and where <img src=\"modelica://IDEAS/Images/equations/equation-dgS5sGAN.png\"/> are internal thermal source.</p>
+</html>"));
 end MultiLayerOpaque;

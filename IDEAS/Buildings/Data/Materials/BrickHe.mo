@@ -4,4 +4,4 @@ record BrickHe =  IDEAS.Buildings.Data.Interfaces.Material (
     c=840,
     rho=1850,
     epsLw=0.88,
-    epsSw=0.55) "Heavy masonry (l) for exterior applications (e)";
+    epsSw=0.55) "Heavy masonry for exterior applications";

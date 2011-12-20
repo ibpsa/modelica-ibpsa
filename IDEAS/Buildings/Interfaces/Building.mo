@@ -1,28 +1,28 @@
 within IDEAS.Buildings.Interfaces;
-partial model Building
+partial model Building "Partial model for building models"
 
-  outer IDEAS.Climate.SimInfoManager  sim
-    annotation (Placement(transformation(extent={{130,-100},{150,-80}})));
-
-parameter Integer nZones(min=1) "number of conditioned zones for simulation";
+parameter Integer nZones(min=1)
+    "Number of conditioned thermal zones in the building";
 parameter Modelica.SIunits.Area ATrans
-    "transmission heat loss area of the residential unit";
+    "Transmission heat loss area of the residential unit";
 parameter Modelica.SIunits.Volume[nZones] VZones
-    "conditioned volume of the building based on external dimensions";
+    "Conditioned volume of the building based on external dimensions";
+final parameter Modelica.SIunits.Length C = sum(VZones)/ATrans
+    "Building compactness";
 
-final parameter Modelica.SIunits.Length C = sum(VZones)/ATrans;
-
+  outer IDEAS.Climate.SimInfoManager sim
+    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{130,-100},{150,-80}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] gainCon
-    annotation (Placement(transformation(extent={{140,10},{160,30}}),
+    "Internal zone nodes for convective heat gains" annotation (Placement(transformation(extent={{140,10},{160,30}}),
         iconTransformation(extent={{140,10},{160,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] gainRad
-    annotation (Placement(transformation(extent={{140,-30},{160,-10}}),
+    "Internal zones node for radiative heat gains" annotation (Placement(transformation(extent={{140,-30},{160,-10}}),
         iconTransformation(extent={{140,-30},{160,-10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] genEmb
-    annotation (Placement(transformation(extent={{140,50},{160,70}}),
+    "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{140,50},{160,70}}),
         iconTransformation(extent={{140,50},{160,70}})));
   Modelica.Blocks.Interfaces.RealOutput[nZones] TSensor
-    annotation (Placement(transformation(extent={{146,-70},{166,-50}})));
+    "Sensor temperature of the zones" annotation (Placement(transformation(extent={{146,-70},{166,-50}})));
   annotation(Icon(coordinateSystem(preserveAspectRatio=true, extent={{-150,-100},
             {150,100}}),
                   graphics={Line(

@@ -1,8 +1,6 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model SolarShading "solar shading"
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
-
   parameter Real shaCorr = 0.24
     "shortwave transmittance of shortwave radiation";
   parameter Boolean enable = false;
@@ -55,5 +53,33 @@ end if;
       points={{-39,42},{-28,42}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Icon(graphics={
+        Line(points={{-16,16},{-66,16}},color={191,0,0}),
+        Line(points={{-16,16},{-26,22}}, color={191,0,0}),
+        Line(points={{-16,16},{-26,10}},color={191,0,0}),
+        Line(points={{-16,-14},{-64,-14}},color={191,0,0}),
+        Line(points={{-16,-44},{-64,-44}},color={191,0,0}),
+        Line(points={{-16,-44},{-26,-38}}, color={191,0,0}),
+        Line(points={{-16,-44},{-26,-50}}, color={191,0,0}),
+        Line(points={{-16,46},{-66,46}},color={191,0,0}),
+        Line(points={{-16,46},{-26,52}}, color={191,0,0}),
+        Line(points={{-16,46},{-26,40}},color={191,0,0}),
+        Line(points={{-16,-14},{-26,-8}},color={191,0,0}),
+        Line(points={{-16,-14},{-26,-20}},
+                                        color={191,0,0}),
+        Line(points={{68,-30},{16,-30}},  color={191,0,0}),
+        Line(points={{68,-30},{58,-24}},   color={191,0,0}),
+        Line(points={{68,-30},{58,-36}},   color={191,0,0}),
+        Line(points={{68,30},{16,30}},  color={191,0,0}),
+        Line(points={{68,30},{58,36}},   color={191,0,0}),
+        Line(points={{68,30},{58,24}},  color={191,0,0}),
+        Line(
+          points={{0,80},{0,-80}},
+          color={0,0,0},
+          smooth=Smooth.None,
+          thickness=0.5,
+          pattern=LinePattern.Dash),
+        Line(points={{68,0},{16,0}},      color={191,0,0}),
+        Line(points={{68,0},{58,6}},       color={191,0,0}),
+        Line(points={{68,0},{58,-6}},      color={191,0,0})}));
 end SolarShading;

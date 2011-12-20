@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data;
-package Materials 
+package Materials "Library of construction materials"
 
 
     extends Modelica.Icons.MaterialPropertiesPackage;

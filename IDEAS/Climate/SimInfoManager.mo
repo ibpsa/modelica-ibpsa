@@ -151,5 +151,7 @@ equation
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
-    Diagram(graphics));
+    Diagram(graphics),
+    Documentation(info="<html>
+</html>"));
 end SimInfoManager;

@@ -1,12 +1,6 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model Ventilation "zone ventilation"
 
-extends IDEAS.Buildings.Components.Interfaces.StateSingle;
-extends Modelica.Blocks.Interfaces.BlockIcon;
-
-  outer IDEAS.Climate.SimInfoManager
-                             sim "Simulation information manager";
-
   parameter Modelica.SIunits.Volume V "zone air volume";
   parameter Real ACH = 0.5 "ventilation rate";
   parameter Real n50 = 0 "n50-value of airtightness";
@@ -14,6 +8,11 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
     "efficientie on heat recuperation of ventilation air";
 
   parameter Boolean recuperation = false "true if recuperation is present";
+
+Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+outer IDEAS.Climate.SimInfoManager sim "Simulation information manager"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 equation
 if noEvent(time > 8E6) and noEvent(time <2.6E7) and recuperation then
@@ -23,25 +22,20 @@ else
 end if;
 
   annotation (Icon(graphics={
-        Rectangle(
-          extent={{-76.5,5.5},{76.5,-5.5}},
-          lineColor={127,0,0},
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          origin={-63.5,-0.5},
-          rotation=90),
-        Line(
-          points={{-98,0},{54,0}},
-          color={127,0,0},
-          smooth=Smooth.None),
-        Ellipse(
-          extent={{46,8},{60,-6}},
-          lineColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={127,0,0}),
-        Rectangle(
-          extent={{-28,10},{12,-8}},
-          lineColor={127,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+        Line(points={{-30,80},{-30,-80}}, color={0,127,255}),
+        Line(points={{-30,-80},{-40,-60}}, color={0,127,255}),
+        Line(points={{-30,-80},{-20,-60}}, color={0,127,255}),
+        Line(points={{10,-80},{0,-60}}, color={0,127,255}),
+        Line(points={{10,80},{10,-80}},
+                                      color={0,127,255}),
+        Line(points={{10,-80},{20,-60}},color={0,127,255}),
+        Line(points={{44,-80},{34,-60}}, color={0,127,255}),
+        Line(points={{44,80},{44,-80}}, color={0,127,255}),
+        Line(points={{44,-80},{54,-60}}, color={0,127,255}),
+        Line(points={{80,-80},{70,-60}}, color={0,127,255}),
+        Line(points={{80,80},{80,-80}}, color={0,127,255}),
+        Line(points={{80,-80},{90,-60}}, color={0,127,255}),
+        Line(points={{-60,-80},{-70,-60}}, color={0,127,255}),
+        Line(points={{-60,80},{-60,-80}}, color={0,127,255}),
+        Line(points={{-60,-80},{-50,-60}}, color={0,127,255})}));
 end Ventilation;

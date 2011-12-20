@@ -2,6 +2,7 @@
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass[graybox, envcountchap]{Structure/Preamble/svmult}
 \input{Structure/Preamble/preamble}
+\bibliographystyle{ieeetr}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -40,11 +41,11 @@
 \include{Electric/ElectricSystemModelValidation}
 
 \begin{partbacktext}
-\part{Literature}
-\noindent lit-er-a-ture (n.) 1. The body of written works of a language, period, or culture. 2. Imaginative or creative writing, especially of recognized artistic value: "Literature must be an analysis of experience and a synthesis of the findings into a unity" (Rebecca West). 3. The art or occupation of a literary writer. 4. The body of written work produced by scholars or researchers in a given field: medical literature. 5. Printed material: collected all the available literature on the subject. 6. Music All the compositions of a certain kind or for a specific instrument or ensemble: the symphonic literature.
+\part{Bibliography}
+\noindent bib·li·og·ra·phy (n.) 1. A list of the works of a specific author or publisher. 2. a. A list of writings relating to a given subject: a bibliography of Latin American history. b. A list of writings used or considered by an author in preparing a particular work. 3. a. The description and identification of the editions, dates of issue, authorship, and typography of books or other written material. b. A compilation of such information.
 \end{partbacktext}
 
-\include{Structure/Biblio/biblio}
+\bibliography{Climate/MyBibTexLibrary,Buildings/MyBibTexLibrary,Electric/MyBibTexLibrary,Thermal/MyBibTexLibrary} 
 
 \backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\appendix
@@ -53,6 +54,8 @@
 \printindex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 \end{document}
 

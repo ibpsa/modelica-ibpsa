@@ -1,8 +1,6 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model AngleOfIncidence "angle of incidence"
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
-
   Modelica.Blocks.Interfaces.RealInput angInc "angle of incidence in radians"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
   Modelica.Blocks.Interfaces.RealOutput angIncDeg

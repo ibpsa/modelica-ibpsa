@@ -31,7 +31,6 @@
 \contentsline {subsection}{\numberline {2.2.2}Thermal comfort}{16}{subsection.2.2.2}
 \contentsline {paragraph}{Operationally temperature.}{16}{section*.17}
 \contentsline {paragraph}{Comfort indicators.}{16}{section*.18}
-\contentsline {section}{\numberline {2.3}Initial value problem}{17}{section.2.3}
 \contentsline {titlech}{\numberline {3}Thermal building system}{19}{section*.19}
 \authcount {1}
 \contentsline {authorch}{Roel De Coninck and Lieve Helsen}{19}{section*.19}
@@ -54,6 +53,6 @@
 \contentsline {titlech}{\numberline {7}IEEE Distribution system analysis for radial test feeders }{31}{section*.23}
 \authcount {1}
 \contentsline {authorch}{Juan Van Roy, Bart Verbruggen and Johan Driesen}{31}{section*.23}
-\contentsline {part}{Part\ III\hspace {\betweenumberspace }Literature}{33}{part.3}
-\contentsline {chapter}{Bibliography}{35}{chapter*.24}
-\contentsline {chapter}{Index}{37}{chapter*.25}
+\contentsline {part}{Part\ III\hspace {\betweenumberspace }Bibliography}{33}{part.3}
+\contentsline {section}{References}{35}{section*.24}
+\contentsline {chapter}{Index}{39}{chapter*.25}
