@@ -3,7 +3,7 @@ model HeatRadiation "radiative heat exchange between two temperatures"
 
 extends IDEAS.Buildings.Components.Interfaces.StateDouble;
 
-input Real R "heat resistance for logwave radiative heat exchange";
+input Real R "heat resistance for longwave radiative heat exchange";
 
 equation
 port_a.Q_flow = -port_b.Q_flow;
