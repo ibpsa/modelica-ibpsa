@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model HeatRadiation "radiative heat exchange between two temperatures"
 
-input Real R "heat resistance for logwave radiative heat exchange";
+input Real R "heat resistance for longwave radiative heat exchange";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
