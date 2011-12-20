@@ -12,13 +12,13 @@ final parameter Modelica.SIunits.Length C = sum(VZones)/ATrans
 
   outer IDEAS.Climate.SimInfoManager sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{130,-100},{150,-80}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] gainCon
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
     "Internal zone nodes for convective heat gains" annotation (Placement(transformation(extent={{140,10},{160,30}}),
         iconTransformation(extent={{140,10},{160,30}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] gainRad
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
     "Internal zones node for radiative heat gains" annotation (Placement(transformation(extent={{140,-30},{160,-10}}),
         iconTransformation(extent={{140,-30},{160,-10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] genEmb
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortEmb
     "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{140,50},{160,70}}),
         iconTransformation(extent={{140,50},{160,70}})));
   Modelica.Blocks.Interfaces.RealOutput[nZones] TSensor

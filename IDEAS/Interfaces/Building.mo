@@ -18,35 +18,35 @@ model Building
   replaceable parameter Buildings.Interfaces.Building building
     annotation (Placement(transformation(extent={{-66,-10},{-36,10}})),choicesAllMatching = true);
 equation
-  connect(inhomeGrid.PlugFeeder, Plug) annotation (Line(
+  connect(inhomeGrid.plug_feeder, Plug) annotation (Line(
       points={{40,0},{100,0}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(heatingSystem.TAsked, occupant.TAsked) annotation (Line(
+  connect(heatingSystem.TAsked, occupant.TSet) annotation (Line(
       points={{-10,-9},{-10,-22}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ventilationSystem.plug, inhomeGrid.plug_loads) annotation (Line(
+  connect(ventilationSystem.pin, inhomeGrid.plug_loads) annotation (Line(
       points={{0,30},{8,30},{8,0},{20,0}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(heatingSystem.plug, inhomeGrid.plug_loads) annotation (Line(
+  connect(heatingSystem.pin, inhomeGrid.plug_loads) annotation (Line(
       points={{0,0},{20,0}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(occupant.plug, inhomeGrid.plug_loads) annotation (Line(
+  connect(occupant.pin, inhomeGrid.plug_loads) annotation (Line(
       points={{0,-32},{8,-32},{8,0},{20,0}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(building.genEmb, heatingSystem.port_emb) annotation (Line(
+  connect(building.heatPortEmb, heatingSystem.port_emb) annotation (Line(
       points={{-36,6},{-20,6}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(building.gainCon, heatingSystem.port_con) annotation (Line(
+  connect(building.heatPortCon, heatingSystem.port_con) annotation (Line(
       points={{-36,2},{-20,2}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(building.gainRad, heatingSystem.port_rad) annotation (Line(
+  connect(building.heatPortRad, heatingSystem.port_rad) annotation (Line(
       points={{-36,-2},{-20,-2}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -54,15 +54,15 @@ equation
       points={{-35.4,-6},{-30,-6},{-30,-6},{-19.6,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(building.gainCon, ventilationSystem.conv) annotation (Line(
+  connect(building.heatPortCon, ventilationSystem.conv) annotation (Line(
       points={{-36,2},{-26,2},{-26,30},{-20,30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(building.gainCon, occupant.port_con) annotation (Line(
+  connect(building.heatPortCon, occupant.heatPortCon) annotation (Line(
       points={{-36,2},{-26,2},{-26,-30},{-20,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(building.gainRad, occupant.port_rad) annotation (Line(
+  connect(building.heatPortRad, occupant.heatPortRad) annotation (Line(
       points={{-36,-2},{-28,-2},{-28,-34},{-20,-34}},
       color={191,0,0},
       smooth=Smooth.None));
