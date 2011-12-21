@@ -5,13 +5,11 @@ model Test_HeatingSystem
 parameter Integer n_C = 2 "Number of zones";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature[n_C] TAmb
     annotation (Placement(transformation(extent={{52,-22},{32,-2}})));
-  IDEAS.Thermal.HeatingSystems.Heating_DHW_TES_Radiators
-                                                   heating(
+  Thermal.HeatingSystems.Heating_DHW_TES_Radiators heating(
     n_C=n_C,
     V_C={75*2.7 for i in 1:n_C},
     QNom={100000 for i in 1:n_C},
-    redeclare IDEAS.Thermal.Components.HeatProduction.HP_AWMod_Losses
-                                                                heater)
+    redeclare IDEAS.Thermal.Components.HeatProduction.HP_AWMod_Losses heater)
     annotation (Placement(transformation(extent={{52,-92},{72,-72}})));
   inner Commons.SimInfoManager       sim(redeclare Commons.Meteo.Files.min15
                                 detail, redeclare Commons.Meteo.Locations.Uccle

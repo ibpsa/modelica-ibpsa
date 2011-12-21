@@ -1,7 +1,7 @@
 within IDEAS.Thermal.HeatingSystems.Examples;
 model NakedHeatingCheck
-  IDEAS.Thermal.HeatingSystems.Heating_DHW_TES_Radiators
-                       heating_DHW_TES(
+
+  Thermal.HeatingSystems.Heating_DHW_TES_Radiators heating_DHW_TES(
     n_C=1,
     V_C={5},
     QNom={5000},

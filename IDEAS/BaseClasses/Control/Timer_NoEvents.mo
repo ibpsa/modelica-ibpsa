@@ -45,7 +45,8 @@ block Timer_NoEvents "Min-on OR min-off timer that does not generate events"
   parameter Modelica.SIunits.HeatCapacity C=1e6;
   parameter Modelica.SIunits.Temperature TEnd=TStart + TStep*(1 - exp(-1));
 
-  TME.VariableThermalConductor RVar
+  IDEAS.Thermal.Components.BaseClasses.VariableThermalConductor
+                               RVar
     annotation (Placement(transformation(extent={{-36,18},{-16,38}})));
    Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAmb
     annotation (Placement(transformation(extent={{-84,18},{-64,38}})));

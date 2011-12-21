@@ -2,7 +2,7 @@ within IDEAS.Thermal.HeatingSystems;
 model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
   import IDEAS.Thermal.Components.HeatEmission.Auxiliaries.EmissionType;
 
-  extends IDEAS.Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(final
+  extends Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(final
       emissionType=EmissionType.Radiators);
 
   parameter Modelica.SIunits.Volume volumeTank=0.25;
@@ -10,8 +10,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
   parameter Integer posTBot(max=nbrNodes) = nbrNodes-1
     "Position of the bottom temperature sensor";
 
-  IDEAS.Thermal.Components.BaseClasses.Pump[
-                      n_C] pumpRad(
+  Thermal.Components.BaseClasses.Pump[n_C] pumpRad(
     each medium=medium,
     each useInput=true,
     m_flowNom=m_flowNom,
@@ -28,8 +27,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     each powerFactor=3.37)
     annotation (Placement(transformation(extent={{70,-6},{90,14}})));
 
-  IDEAS.Thermal.Components.Storage.StorageTank
-                             tesTank(
+  Thermal.Components.Storage.StorageTank tesTank(
     flowPort_a(m_flow(start=-0.1)),
     medium=medium,
     heightTank=1.8,
@@ -39,8 +37,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,-14})));
-  IDEAS.Thermal.Components.BaseClasses.Pump
-                      pumpHeater(
+  Thermal.Components.BaseClasses.Pump pumpHeater(
     medium=medium,
     useInput=true,
     m_flowNom=sum(m_flowNom),
@@ -48,7 +45,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     annotation (Placement(transformation(extent={{-44,-84},{-60,-68}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-90,26},{-78,38}})));
-  replaceable IDEAS.Thermal.Control.HPControl_HeatingCurve HPControl(
+  replaceable Thermal.Control.HPControl_HeatingCurve HPControl(
     heatingCurve(timeFilter=timeFilter),
     TTankTop=tesTank.nodes[1].T,
     TTankBot=tesTank.nodes[posTBot].T,
@@ -57,8 +54,8 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     TColdWaterNom=TDHWCold,
     dTSupRetNom=dTSupRetNom)
       annotation (Placement(transformation(extent={{-144,-14},{-124,6}})));
-  IDEAS.Thermal.Components.BaseClasses.DomesticHotWater
-      dHW(medium=medium,
+  Thermal.Components.BaseClasses.DomesticHotWater dHW(
+    medium=medium,
     TDHWSet=TDHWSet,
     TCold=TDHWCold,
     VDayAvg=nOcc*0.045,
@@ -70,14 +67,11 @@ protected
                                n_C] heatingControl
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{30,28},{50,48}})));
-  IDEAS.Thermal.Components.BaseClasses.IdealMixer
-                            idealMixer(mFlowMin=0.01)
+  Thermal.Components.BaseClasses.IdealMixer idealMixer(mFlowMin=0.01)
     annotation (Placement(transformation(extent={{-4,-6},{16,16}})));
-  IDEAS.Thermal.Components.BaseClasses.IsolatedPipe
-                              pipeDHW(medium=medium, m=1)
+  Thermal.Components.BaseClasses.IsolatedPipe pipeDHW(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-34,-40},{-22,-28}})));
-  IDEAS.Thermal.Components.BaseClasses.IsolatedPipe
-                              pipeMixer(medium=medium, m=1)
+  Thermal.Components.BaseClasses.IsolatedPipe pipeMixer(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-12,-50},{0,-38}})));
 
   // Result variables

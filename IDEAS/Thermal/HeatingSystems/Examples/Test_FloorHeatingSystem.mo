@@ -5,13 +5,12 @@ model Test_FloorHeatingSystem
 parameter Integer n_C = 2 "Number of zones";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature[n_C] TAmb
     annotation (Placement(transformation(extent={{52,-22},{32,-2}})));
-  IDEAS.Thermal.HeatingSystems.Heating_FH_TESandSTSforDHWonly
-                                                            heating(
+  Thermal.HeatingSystems.Heating_FH_TESandSTSforDHWonly heating(
     n_C=n_C,
     V_C={75*2.7 for i in 1:n_C},
     timeFilter=43200,
     QNom={1000 for i in 1:n_C},
-    redeclare FHF.Components.HeatProduction.HP_AWMod_Losses    heater,
+    redeclare FHF.Components.HeatProduction.HP_AWMod_Losses heater,
     nOcc=4,
     volumeTank=0.3,
     AColTot=0.001,

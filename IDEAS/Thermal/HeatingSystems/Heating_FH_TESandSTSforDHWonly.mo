@@ -3,7 +3,7 @@ model Heating_FH_TESandSTSforDHWonly
   "Hydraulic heating with FH, TES and STS only for DHW"
   import IDEAS.Thermal.Components.HeatEmission.Auxiliaries.EmissionType;
 
-  extends IDEAS.Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(final
+  extends Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(final
       emissionType=EmissionType.FloorHeating);
 
   parameter Modelica.SIunits.Volume volumeTank=0.25;
@@ -20,8 +20,7 @@ model Heating_FH_TESandSTSforDHWonly
   parameter Boolean solSys(fixed=true) = false;
 
 protected
-  IDEAS.Thermal.Components.BaseClasses.Pump[
-                      n_C] pumpRad(
+  Thermal.Components.BaseClasses.Pump[n_C] pumpRad(
     each medium=medium,
     each useInput=true,
     m_flowNom=m_flowNom,
@@ -38,8 +37,7 @@ protected
     m_flowMin = m_flowNom)
     annotation (Placement(transformation(extent={{142,-14},{158,4}})));
 
-  IDEAS.Thermal.Components.BaseClasses.Pump
-                      pumpSto(
+  Thermal.Components.BaseClasses.Pump pumpSto(
     medium=medium,
     useInput=true,
     m_flowNom=sum(m_flowNom),
@@ -49,7 +47,7 @@ protected
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-134,34},{-122,46}})));
 public
-  replaceable IDEAS.Thermal.Control.HPControl_SepDHW_Emission HPControl(
+  replaceable Thermal.Control.HPControl_SepDHW_Emission HPControl(
     heatingCurve(timeFilter=timeFilter),
     TTankTop=TSto[posTTop],
     TTankBot=TSto[posTBot],
@@ -57,7 +55,7 @@ public
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
     dTSupRetNom=dTSupRetNom) constrainedby
-    IDEAS.Thermal.Control.HPControl_HeatingCurve_Strat(
+    Thermal.Control.HPControl_HeatingCurve_Strat(
     heatingCurve(timeFilter=timeFilter),
     TTankTop=TSto[posTTop],
     TTankBot=TSto[posTBot],
@@ -67,10 +65,9 @@ public
     dTSupRetNom=dTSupRetNom)
       annotation (Placement(transformation(extent={{-144,-14},{-124,6}})));
 
-  IDEAS.Thermal.Components.Storage.StorageTank
-                             tesTank(
+  Thermal.Components.Storage.StorageTank tesTank(
     flowPort_a(m_flow(start=0)),
-    nbrNodes = nbrNodes,
+    nbrNodes=nbrNodes,
     medium=medium,
     heightTank=1.8,
     volumeTank=volumeTank,
@@ -81,8 +78,8 @@ public
         origin={-11,-23})));
 
 protected
-  IDEAS.Thermal.Components.BaseClasses.DomesticHotWater
-      dHW(medium=medium,
+  Thermal.Components.BaseClasses.DomesticHotWater dHW(
+    medium=medium,
     TDHWSet=TDHWSet,
     TCold=TDHWCold,
     VDayAvg=nOcc*0.045,
@@ -93,17 +90,15 @@ protected
                                n_C] heatingControl
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{94,22},{114,42}})));
-  IDEAS.Thermal.Components.BaseClasses.IdealMixer
-                            idealMixer(mFlowMin=0.01, pumpCold(m=5))
+  Thermal.Components.BaseClasses.IdealMixer idealMixer(mFlowMin=0.01, pumpCold(
+        m=5))
     annotation (Placement(transformation(extent={{88,-18},{108,4}})));
-  IDEAS.Thermal.Components.BaseClasses.IsolatedPipe
-                              pipeDHW(medium=medium, m=1)
+  Thermal.Components.BaseClasses.IsolatedPipe pipeDHW(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-36,-48},{-48,-36}})));
-  IDEAS.Thermal.Components.BaseClasses.IsolatedPipe
-                              pipeMixer(medium=medium, m=1)
+  Thermal.Components.BaseClasses.IsolatedPipe pipeMixer(medium=medium, m=1)
     annotation (Placement(transformation(extent={{50,-80},{62,-68}})));
-  IDEAS.Thermal.Components.BaseClasses.IsolatedPipe[
-                              n_C] pipeEmission(each medium=medium, each m=1)
+  Thermal.Components.BaseClasses.IsolatedPipe[n_C] pipeEmission(each medium=
+        medium, each m=1)
     annotation (Placement(transformation(extent={{166,-10},{178,2}})));
   // Result variables
 public
@@ -114,12 +109,11 @@ public
   output Modelica.SIunits.Power QDHW;
   output Real SOCTank;
 
-  IDEAS.Thermal.Components.Production.SolarThermalSystem_Simple
-             solarThermal(
+  Thermal.Components.Production.SolarThermalSystem_Simple solarThermal(
     medium=medium,
     pump(dpFix=100000, etaTot=0.6),
-    ACol = AColTot,
-    nCol = 1) if solSys
+    ACol=AColTot,
+    nCol=1) if solSys
     annotation (Placement(transformation(extent={{52,-22},{32,-2}})));
   Modelica.Blocks.Interfaces.RealOutput TTop "TES top temperature"              annotation (Placement(transformation(
         extent={{-4,-4},{4,4}},

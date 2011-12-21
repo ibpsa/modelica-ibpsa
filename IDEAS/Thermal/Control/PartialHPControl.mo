@@ -28,8 +28,8 @@ partial model PartialHPControl "Basis of the heat Pump control algorithm"
     "Nominal difference between supply and return water temperatures";
   parameter Modelica.SIunits.TemperatureDifference dTSafetyTop=3
     "Safety margin on top temperature setpoint" annotation(Evaluate=false);
-  parameter Modelica.SIunits.TemperatureDifference dTSafetyBot=dTSafetyTop
-    "Safety margin on bottom temperature setpoint";
+  parameter Modelica.SIunits.TemperatureDifference dTSafetyBot=
+      dTSafetyTop "Safety margin on bottom temperature setpoint";
   parameter Modelica.SIunits.TemperatureDifference dTHPTankSet(min=0)=2
     "Difference between tank setpoint and heat pump setpoint";
 
