@@ -117,11 +117,11 @@ extends IDEAS.Buildings.Interfaces.Building(nZones=3,ATrans=1,VZones={gF.V,fF.V,
 
 equation
 //Connection to the connectors of the partial type
-  connect(gF.gainCon, gainCon[1]) annotation (Line(
+  connect(gF.gainCon, heatPortCon[1]) annotation (Line(
       points={{60,-53},{118,-53},{118,20},{150,20},{150,13.3333},{150,13.3333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(gF.gainRad, gainRad[1]) annotation (Line(
+  connect(gF.gainRad, heatPortRad[1]) annotation (Line(
       points={{60,-56},{120,-56},{120,-26.6667},{150,-26.6667}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -134,19 +134,19 @@ equation
       points={{60.6,10},{122,10},{122,-60},{156,-60}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(fF.gainCon, gainCon[2]) annotation (Line(
+  connect(fF.gainCon, heatPortCon[2]) annotation (Line(
       points={{60,7},{118,7},{118,20},{150,20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(fF.gainRad, gainRad[2]) annotation (Line(
+  connect(fF.gainRad, heatPortRad[2]) annotation (Line(
       points={{60,4},{120,4},{120,-20},{150,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(sF.gainCon, gainCon[3]) annotation (Line(
+  connect(sF.gainCon, heatPortCon[3]) annotation (Line(
       points={{60,67},{118,67},{118,20},{150,20},{150,26.6667}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(sF.gainRad, gainRad[3]) annotation (Line(
+  connect(sF.gainRad, heatPortRad[3]) annotation (Line(
       points={{60,64},{120,64},{120,-20},{150,-20},{150,-13.3333}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -155,16 +155,16 @@ equation
           -53.3333}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gF_floor.port_emb, genEmb[1]) annotation (Line(
+  connect(gF_floor.port_emb, heatPortEmb[1]) annotation (Line(
       points={{-37,-76},{-32,-76},{-32,-88},{116,-88},{116,60},{150,60},{150,
           53.3333},{150,53.3333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(fF_floor.port_emb, genEmb[2]) annotation (Line(
+  connect(fF_floor.port_emb, heatPortEmb[2]) annotation (Line(
       points={{-37,-16},{-32,-16},{-32,-30},{116,-30},{116,60},{150,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(sF_floor.port_emb, genEmb[3]) annotation (Line(
+  connect(sF_floor.port_emb, heatPortEmb[3]) annotation (Line(
       points={{-37,44},{-32,44},{-32,26},{116,26},{116,60},{150,60},{150,
           66.6667},{150,66.6667}},
       color={191,0,0},
