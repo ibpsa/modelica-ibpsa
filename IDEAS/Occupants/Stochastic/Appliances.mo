@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic;
 model Appliances
+  "I.Richardson et al. (2010), Domestic electricity use: A high-resolution energy demand model, Energy and Buildings 42, 1878-1887"
 
 parameter Real[4] seed;
 parameter Integer nLoads(min=1);

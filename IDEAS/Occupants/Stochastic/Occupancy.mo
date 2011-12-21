@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic;
 model Occupancy
+  "I.Richardson et al. (2008), A high-resolution domestic building occupancy model for energy demand simulations, Energy and Buildings 40, 1560-1566"
 
   parameter Integer nZones(min=1);
 

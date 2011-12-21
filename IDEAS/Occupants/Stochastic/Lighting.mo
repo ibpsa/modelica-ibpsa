@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic;
 model Lighting
+  "I.Richardson et al. (2009), Domestic lighting: A high-resolution energy demand model"
 
   parameter Integer nZones(min=1);
   parameter Integer nLoads = lightData.n;
