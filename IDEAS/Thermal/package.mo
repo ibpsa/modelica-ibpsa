@@ -1,7 +1,9 @@
 within IDEAS;
-package Thermal 
+package Thermal "Thermal systems, HVAC and thermal renewable energy"
 
 
   extends Modelica.Icons.Package;
 
+
+annotation ();
 end Thermal;
