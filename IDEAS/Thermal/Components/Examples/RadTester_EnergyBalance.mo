@@ -19,7 +19,7 @@ model RadTester_EnergyBalance "Test for energy balance of the radiator model"
     medium=Data.Media.Water(),
     m=5,
     TInitial=293.15) annotation (Placement(transformation(extent={{12,-16},{32,4}})));
-  IDEAS.Thermal.Components.HeatEmission.Radiator_Old
+  IDEAS.Thermal.Components.Emission.Radiator_Old
                       radiator(
     medium=Data.Media.Water(),
                           QNom=3000,

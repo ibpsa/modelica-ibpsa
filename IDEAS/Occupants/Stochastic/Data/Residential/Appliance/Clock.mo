@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic.Data.Residential.Appliance;
-record Clock = IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
+record Clock =
+    IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
     frad=0.50,
     fconv=0.50,
     nCycle=0.00001,

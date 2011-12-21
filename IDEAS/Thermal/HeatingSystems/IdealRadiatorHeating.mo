@@ -1,7 +1,7 @@
 within IDEAS.Thermal.HeatingSystems;
 model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
 
-  import IDEAS.Thermal.Components.HeatEmission.Auxiliaries.EmissionType;
+  import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
   extends Partial_HeatingSystem(emissionType = EmissionType.Radiators);
 
 parameter Real fractionRad[n_C] = {0.3 for i in 1:n_C}

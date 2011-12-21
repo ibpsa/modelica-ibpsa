@@ -1,7 +1,7 @@
 within IDEAS.Thermal.HeatingSystems;
 model IdealFloorHeating "Ideal heating, no DHW, with floor heating"
 
-  import IDEAS.Thermal.Components.HeatEmission.Auxiliaries.EmissionType;
+  import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
   extends Partial_HeatingSystem(emissionType = EmissionType.FloorHeating);
 
 parameter Real COP = 3 "virtual COP to get a PEl as output";

@@ -17,7 +17,7 @@ model StorageTank "Thermal storage tank tester"
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{-54,-16},{-34,
             4}})));
-  IDEAS.Thermal.Components.HeatEmission.Radiator_Old
+  IDEAS.Thermal.Components.Emission.Radiator_Old
                       radiator(
     medium=Data.Media.Water()) "Hydraulic radiator model"
                annotation (Placement(transformation(extent={{52,-16},{72,4}})));

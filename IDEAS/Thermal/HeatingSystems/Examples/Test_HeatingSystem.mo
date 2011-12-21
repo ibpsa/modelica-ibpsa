@@ -9,7 +9,7 @@ parameter Integer n_C = 2 "Number of zones";
     n_C=n_C,
     V_C={75*2.7 for i in 1:n_C},
     QNom={100000 for i in 1:n_C},
-    redeclare IDEAS.Thermal.Components.HeatProduction.HP_AWMod_Losses heater)
+    redeclare IDEAS.Thermal.Components.Production.HP_AWMod_Losses heater)
     annotation (Placement(transformation(extent={{52,-92},{72,-72}})));
   inner Commons.SimInfoManager       sim(redeclare Commons.Meteo.Files.min15
                                 detail, redeclare Commons.Meteo.Locations.Uccle
@@ -53,19 +53,19 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heating.TOpAsked, TOpSet.y) annotation (Line(
-      points={{68.8,-72.4},{68.8,60},{-37,60}},
+      points={{64,-72.4},{64,60},{-37,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heating.TOp, temperatureSensor.T) annotation (Line(
-      points={{65.6,-72.4},{65.6,-52},{20,-52}},
+      points={{61.7143,-72.4},{61.7143,-52},{20,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heating.heatPortRad, heatCapacitor.port) annotation (Line(
-      points={{62.4,-72},{62.4,-26},{-46,-26},{-46,-4}},
+      points={{59.4286,-72},{59.4286,-26},{-46,-26},{-46,-4}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heating.heatPortConv, heatCapacitor.port) annotation (Line(
-      points={{59.84,-72},{60,-72},{60,-30},{-46,-30},{-46,-4}},
+      points={{57.6,-72},{60,-72},{60,-30},{-46,-30},{-46,-4}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),

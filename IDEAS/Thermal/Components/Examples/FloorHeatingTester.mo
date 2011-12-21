@@ -26,15 +26,14 @@ model FloorHeatingTester "Simple floorheating tester"
     m=0,
     TInitial=293.15)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  replaceable IDEAS.Thermal.Components.HeatEmission.Tabs
+  replaceable IDEAS.Thermal.Components.Emission.Tabs
                                                    tabs(
     medium=medium,
     m_flowMin=15*20/3600,
     A_Floor=A_Floor,
-    redeclare IDEAS.Thermal.Components.HeatEmission.FH_Standard2
+    redeclare IDEAS.Thermal.Components.Emission.FH_Standard2
                                                            FHChars)
-     constrainedby
-    IDEAS.Thermal.Components.HeatEmission.Auxiliaries.Partial_Tabs(
+     constrainedby IDEAS.Thermal.Components.Emission.Auxiliaries.Partial_Tabs(
        medium=medium,
        m_flowMin=15*20/3600,
        A_Floor=A_Floor,

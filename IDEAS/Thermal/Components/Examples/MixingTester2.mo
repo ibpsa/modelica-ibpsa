@@ -13,7 +13,7 @@ model MixingTester2 "Simple mixing tester"
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{-26,-16},{-6,
             4}})));
-  IDEAS.Thermal.Components.HeatEmission.Radiator_Old
+  IDEAS.Thermal.Components.Emission.Radiator_Old
                       radiator(
     medium=Data.Media.Water(),
                           QNom=3000) "Hydraulic radiator model"

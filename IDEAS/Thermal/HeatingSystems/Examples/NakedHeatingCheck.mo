@@ -4,8 +4,7 @@ model NakedHeatingCheck
   Thermal.HeatingSystems.Heating_DHW_TES_Radiators heating_DHW_TES(
     n_C=1,
     V_C={5},
-    QNom={5000},
-    emissionType=IDEAS.Thermal.Components.HeatEmission.Auxiliaries.EmissionType.Radiators)
+    QNom={5000})
     annotation (Placement(transformation(extent={{-36,10},{-12,30}})));
   inner Commons.SimInfoManager sim(redeclare Commons.Meteo.Files.min5 detail,
       redeclare Commons.Meteo.Locations.Uccle city)

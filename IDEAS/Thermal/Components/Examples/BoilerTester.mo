@@ -15,7 +15,7 @@ model BoilerTester "Identical as the one in FluidHeatFlow_NoPressure"
     medium=Data.Media.Water(),
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{12,-16},{32,4}})));
-  IDEAS.Thermal.Components.HeatProduction.Boiler
+  IDEAS.Thermal.Components.Production.Boiler
                     boiler(
     medium=Data.Media.Water(),
     QNom=5000,

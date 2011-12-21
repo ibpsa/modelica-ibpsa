@@ -11,7 +11,7 @@ model HeatingSystem
     m_flowNom=0.048,
     m=0)
     annotation (Placement(transformation(extent={{-8,8},{12,28}})));
-  IDEAS.Thermal.Components.HeatProduction.HP_AWMod
+  IDEAS.Thermal.Components.Production.HP_AWMod
                       HP(
    medium=Data.Media.Water(),
    TSet = 45+273.15,
@@ -25,10 +25,10 @@ model HeatingSystem
     m_flowNom=0.048,
     m=0)
     annotation (Placement(transformation(extent={{-6,-52},{14,-32}})));
-  IDEAS.Thermal.Components.HeatEmission.Radiator_Old
+  IDEAS.Thermal.Components.Emission.Radiator_Old
                       radiator(medium=Data.Media.Water())
     annotation (Placement(transformation(extent={{34,8},{54,28}})));
-  IDEAS.Thermal.Components.HeatEmission.Radiator_Old
+  IDEAS.Thermal.Components.Emission.Radiator_Old
                       radiator1(
     medium=Data.Media.Water(),
     QNom=2000)

@@ -7,6 +7,4 @@ package Residential
 
 
 
-
-
 end Residential;

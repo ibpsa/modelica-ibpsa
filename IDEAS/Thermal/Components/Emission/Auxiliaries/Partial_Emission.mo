@@ -27,8 +27,7 @@ partial model Partial_Emission
   parameter Modelica.SIunits.Temperature TInitial=293.15
     "Initial temperature of all state variables";
   replaceable parameter Thermal.Components.Emission.FH_Characteristics FHChars if (
-    emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
-                                                                                                        annotation (choicesAllMatching=true);
+    emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating) annotation (choicesAllMatching=true);
 
 // Variables ///////////////////////////////////////////////////////////////////////////////////////////
   Modelica.SIunits.Temperature TMean(start=TInitial, fixed=false)

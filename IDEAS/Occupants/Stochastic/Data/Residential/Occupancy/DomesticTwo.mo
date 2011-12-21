@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic.Data.Residential.Occupancy;
-record DomesticTwo = IDEAS.Occupants.Stochastic.Data.BaseClasses.Occupance (
+record DomesticTwo =
+    IDEAS.Occupants.Stochastic.Data.BaseClasses.Occupance (
     n=2,
     period=86400,
     s=144,

@@ -1,6 +1,6 @@
 within IDEAS.Thermal.HeatingSystems;
 model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
-  import IDEAS.Thermal.Components.HeatEmission.Auxiliaries.EmissionType;
+  import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
 
   extends Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(final
       emissionType=EmissionType.Radiators);
@@ -17,7 +17,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     each m=5)
     annotation (Placement(transformation(extent={{30,-6},{50,14}})));
 
-  IDEAS.Thermal.Components.HeatEmission.Radiator[
+  IDEAS.Thermal.Components.Emission.Radiator[
                                            n_C] emission(
     each medium = medium,
     each TInNom=TSupNom,

@@ -3,7 +3,7 @@ model TestCollector
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
-  IDEAS.Thermal.Components.HeatProduction.CollectorG
+  IDEAS.Thermal.Components.Production.CollectorG
                                        collectorG(
     medium=medium,
     h_g=2,

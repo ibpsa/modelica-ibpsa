@@ -15,11 +15,11 @@ model FloorHeatingValidation2
     TInitial=303.15,
     m_flowNom=15*24/3600)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  IDEAS.Thermal.Components.HeatEmission.Tabs
+  IDEAS.Thermal.Components.Emission.Tabs
                   tabs(
     medium=medium,
     S_1=0.1,
-    redeclare IDEAS.Thermal.Components.HeatEmission.FH_Standard2
+    redeclare IDEAS.Thermal.Components.Emission.FH_Standard2
                                               FHChars,
     S_2=0.2,
     A_Floor=24,

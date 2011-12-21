@@ -13,7 +13,7 @@ model SolarThermalSystem_Simple
   output Modelica.SIunits.Power QSTS
     "Net power delivered by the primary circuit";
 
-  IDEAS.Thermal.Components.HeatProduction.CollectorG
+  IDEAS.Thermal.Components.Production.CollectorG
                                            collectorG(
     medium=medium,
     h_g=2,

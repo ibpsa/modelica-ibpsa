@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic.Data.Residential.Appliance;
-record TVReceiver = IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
+record TVReceiver =
+    IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
     frad=0.92,
     fconv=0.08,
     nCycle=1464.26653737683,
