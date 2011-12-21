@@ -1,0 +1,12 @@
+HeatingCurve
+PartialHPControl
+PartialHPControl_SepDHW
+HPControl_HeatingCurve
+HPControl_HeatingCurve_SepDHW
+HPControl_HeatingCurve_DT
+HPControl_HeatingCurve_DT_MinOff
+HPControl_HeatingCurve_Strat
+Partial_SolarThermalControl
+SolarThermalControl_DT
+HPControl_SepDHW_Emission
+testControlMarijke
