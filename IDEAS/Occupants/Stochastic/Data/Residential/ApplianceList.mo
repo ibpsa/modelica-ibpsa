@@ -3,7 +3,7 @@ package ApplianceList
 
   extends Modelica.Icons.MaterialPropertiesPackage;
 
-model U01 "List 1, 2570 kWh"
+model Example "IDEAS Example for applaince list"
 
 extends IDEAS.Occupants.Stochastic.Data.BaseClasses.ApplianceList(nLoads=19,appData = {fridgefreezer, uprightfreezer, answermachine, clock, cordlessphone, hifi, iron, vacuum, fax, pc, tv1, tv2,
 tv3, tvreceiver, microwave, kettle, smallcookinggroup, tumbledryer, washingmachine});
@@ -30,6 +30,6 @@ parameter
 parameter IDEAS.Occupants.Stochastic.Data.Residential.Appliance.TumbleDryer tumbledryer;
 parameter IDEAS.Occupants.Stochastic.Data.Residential.Appliance.WashingMachine washingmachine;
 
-end U01;
+end Example;
 
 end ApplianceList;

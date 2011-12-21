@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components;
 package BaseClasses "Basic components for thermal fluid flow"
-  extends Modelica.Icons.Package;
+
+
+  extends Modelica.Icons.BasesPackage;
 
 
 
@@ -57,16 +59,5 @@ Copyright &copy; 1998-2010, Modelica Association, Anton Haumer and Austrian Inst
 </HTML>
 "),
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={
-        Polygon(
-          points={{-56,10},{-56,-90},{-6,-40},{44,10},{44,-90},{-56,10}},
-          lineColor={0,0,255},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-16,10},{4,10},{-6,-10},{-16,10}},
-          lineColor={0,0,127},
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-6,-10},{-6,-40},{-6,-38}}, color={0,0,127})}));
+            100}}), graphics));
 end BaseClasses;
