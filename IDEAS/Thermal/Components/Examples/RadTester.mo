@@ -16,7 +16,7 @@ model RadTester "Simple radiator tester"
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{-26,-16},{-6,
             4}})));
-  IDEAS.Thermal.Components.HeatEmission.Radiator
+  IDEAS.Thermal.Components.Emission.Radiator
                       radiator(
     medium=Data.Media.Water(),
                           QNom=3000) "Hydraulic radiator model"

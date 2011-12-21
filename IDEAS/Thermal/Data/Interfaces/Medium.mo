@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Data.Interfaces;
-partial record Medium "Record containing media properties"
+record Medium "Record containing media properties"
 
   extends Modelica.Icons.MaterialProperty;
 

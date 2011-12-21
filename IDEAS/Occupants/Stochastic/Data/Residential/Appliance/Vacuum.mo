@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic.Data.Residential.Appliance;
-record Vacuum = IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
+record Vacuum =
+    IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
     frad=0.50,
     fconv=0.50,
     nCycle=110.367597918536,

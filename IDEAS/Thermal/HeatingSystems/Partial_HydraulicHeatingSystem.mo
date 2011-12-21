@@ -3,8 +3,8 @@ partial model Partial_HydraulicHeatingSystem
   "Partial heating system for hydraulic heating systems"
   extends Partial_HeatingSystem;
 
-  import IDEAS.Thermal.Components.HeatEmission.Auxiliaries.EmissionType;
-  import IDEAS.Thermal.Components.HeatProduction.Auxiliaries.HeaterType;
+  import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
+  import IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType;
   parameter HeaterType heaterType = heater.heaterType;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
@@ -33,8 +33,8 @@ partial model Partial_HydraulicHeatingSystem
   parameter Modelica.SIunits.Time timeFilter=86400;
   parameter Modelica.SIunits.Temperature TInitial=293.15
     "Initial temperature of all state variables";
-  replaceable parameter
-    IDEAS.Thermal.Components.HeatEmission.FH_Characteristics[              n_C] FHChars if
+  replaceable parameter IDEAS.Thermal.Components.Emission.FH_Characteristics[
+                                                                       n_C] FHChars if
     (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating) annotation (choicesAllMatching=true);
 
 // Variables ///////////////////////////////////////////////////////////////////////////////////////////
@@ -42,13 +42,11 @@ partial model Partial_HydraulicHeatingSystem
 
 // General outputs
   output Real COP = heater.COP if (
-    heater.heaterType ==IDEAS.Thermal.Components.HeatProduction.Auxiliaries.HeaterType.HP_AW
-                                                                                        or
-    heater.heaterType ==IDEAS.Thermal.Components.HeatProduction.Auxiliaries.HeaterType.HP_BW
-                                                                                        or
-    heater.heaterType ==IDEAS.Thermal.Components.HeatProduction.Auxiliaries.HeaterType.HP_BW_Collective);
-  output Real eta = heater.eta if heater.heaterType ==IDEAS.Thermal.Components.HeatProduction.Auxiliaries.HeaterType.Boiler;
-  output Modelica.SIunits.Power PFuel=if (heater.heaterType == IDEAS.Thermal.Components.HeatProduction.Auxiliaries.HeaterType.Boiler)
+    heater.heaterType ==IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType.HP_AW or
+    heater.heaterType ==IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType.HP_BW or
+    heater.heaterType ==IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType.HP_BW_Collective);
+  output Real eta = heater.eta if heater.heaterType ==IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType.Boiler;
+  output Modelica.SIunits.Power PFuel=if (heater.heaterType == IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType.Boiler)
        then heater.PFuel else 0;
   output Modelica.SIunits.Temperature THeaterOut=heater.heatedFluid.T;
   output Modelica.SIunits.Temperature THeaterIn=heater.flowPort_a.h/
@@ -66,18 +64,18 @@ partial model Partial_HydraulicHeatingSystem
   // not possible since conditional objects can only be used in connections
   //output SI.Power[n_C] QHeaEmiOut = if emissionType == EmissionType.FloorHeating then -heatPortFH.Q_flow else -heatPortConv.Q_flow - heatPortRad.Q_flow;
 
-  replaceable IDEAS.Thermal.Components.HeatProduction.Boiler
+  replaceable IDEAS.Thermal.Components.Production.Boiler
                                                        heater(
     TInitial=TInitial,
     QNom=sum(QNom),
     medium=medium) constrainedby
-    IDEAS.Thermal.Components.HeatProduction.Auxiliaries.PartialDynamicHeaterWithLosses(
+    IDEAS.Thermal.Components.Production.Auxiliaries.PartialDynamicHeaterWithLosses(
     TInitial=TInitial,
     QNom=sum(QNom),
     medium=medium)
     annotation (choicesAllMatching = true, Placement(transformation(extent={{-92,-12},
             {-72,8}})));
 
-  annotation(Icon(Bitmap(extent=[-90,90; 90,-90], name="HeatIdeal.tif")),
+  annotation(Icon,
       Diagram(graphics));
 end Partial_HydraulicHeatingSystem;

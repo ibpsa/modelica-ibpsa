@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic.Data.Residential.Appliance;
-record Microwave = IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
+record Microwave =
+    IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
     frad=0,
     fconv=0,
     nCycle=94.619322407248,

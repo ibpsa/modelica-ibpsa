@@ -10,7 +10,7 @@ parameter Integer n_C = 2 "Number of zones";
     V_C={75*2.7 for i in 1:n_C},
     timeFilter=43200,
     QNom={1000 for i in 1:n_C},
-    redeclare FHF.Components.HeatProduction.HP_AWMod_Losses heater,
+    redeclare Thermal.Components.Production.HP_AWMod_Losses heater,
     nOcc=4,
     volumeTank=0.3,
     AColTot=0.001,
@@ -36,7 +36,7 @@ parameter Integer n_C = 2 "Number of zones";
     each offset=289,
     startTime={3600*7,3600*9})
     annotation (Placement(transformation(extent={{-58,50},{-38,70}})));
-  IDEAS.Thermal.Components.HeatEmission.NakedTabs[
+  IDEAS.Thermal.Components.Emission.NakedTabs[
                                         n_C] nakedTabs(
     FHChars(
     each A_Floor =         50),

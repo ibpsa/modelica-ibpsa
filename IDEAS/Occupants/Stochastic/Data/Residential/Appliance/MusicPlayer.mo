@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic.Data.Residential.Appliance;
-record MusicPlayer = IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
+record MusicPlayer =
+    IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
     frad=0.50,
     fconv=0.50,
     nCycle=1212.76285809679,

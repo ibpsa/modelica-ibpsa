@@ -96,5 +96,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(graphics),
     experiment(StopTime=10000),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Commands(file="Scripts/Example_ThermalExamplesPumpPipeTester.mos"
+        "RunTester"));
 end PumpePipeTester;

@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic.Data.Residential.Appliance;
-record DishWasher = IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
+record DishWasher =
+    IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
     frad=0.0,
     fconv=0.25,
     nCycle=241.476395726831,

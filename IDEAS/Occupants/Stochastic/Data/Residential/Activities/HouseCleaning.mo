@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic.Data.Residential.Activities;
-record HouseCleaning = IDEAS.Occupants.Stochastic.Data.BaseClasses.Activity (
+record HouseCleaning =
+    IDEAS.Occupants.Stochastic.Data.BaseClasses.Activity (
     act="ActHouseClean",
     n=5,
     period=86400,

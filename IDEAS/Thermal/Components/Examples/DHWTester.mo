@@ -16,16 +16,16 @@ model DHWTester "Test the DHW component"
     VDayAvg=0.2,
     TDHWSet=273.15 + 45,
     profileType=3)
-    annotation (Placement(transformation(extent={{46,-30},{66,-10}})));
-  IDEAS.Thermal.Components.HeatProduction.HP_AWMod
+    annotation (Placement(transformation(extent={{62,-46},{82,-26}})));
+  Production.HP_AWMod_Losses
                       hP_AWMod(TSet = HPControl.THPSet, QNom=10000, medium=medium)
-    annotation (Placement(transformation(extent={{-72,-6},{-52,14}})));
+    annotation (Placement(transformation(extent={{-90,2},{-70,22}})));
   Thermal.Components.BaseClasses.Pump pump(
     medium=medium,
     m=1,
     m_flowNom=0.5,
     useInput=true)
-    annotation (Placement(transformation(extent={{-36,-74},{-56,-54}})));
+    annotation (Placement(transformation(extent={{-24,-74},{-44,-54}})));
   inner Commons.SimInfoManager sim(redeclare Commons.Meteo.Files.min15
       detail, redeclare Commons.Meteo.Locations.Uccle city)
               annotation (Placement(transformation(extent={{8,62},{28,82}})));
@@ -38,28 +38,28 @@ model DHWTester "Test the DHW component"
     TDHWSet=318.15)
     annotation (Placement(transformation(extent={{-48,34},{-28,54}})));
   Modelica.Blocks.Sources.Pulse pulse(period=3600)
-    annotation (Placement(transformation(extent={{-72,-34},{-52,-14}})));
+    annotation (Placement(transformation(extent={{-60,-26},{-40,-6}})));
 equation
   //pump.m_flowSet = HPControl.onOff;
   pump.m_flowSet = HPControl.onOff;
   connect(dHW.flowPortCold, storageTank.flowPort_b) annotation (Line(
-      points={{56,-30},{58,-30},{58,-64},{6,-64}},
+      points={{72,-46},{58,-46},{58,-64},{6,-64}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(dHW.flowPortHot, storageTank.flowPort_a) annotation (Line(
-      points={{56,-10},{56,12},{6,12},{6,10}},
+      points={{72,-26},{72,12},{6,12},{6,10}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(storageTank.flowPort_b, pump.flowPort_a) annotation (Line(
-      points={{6,-64},{-36,-64}},
+      points={{6,-64},{-24,-64}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump.flowPort_b, hP_AWMod.flowPort_a) annotation (Line(
-      points={{-56,-64},{-78,-64},{-78,4},{-72,4}},
+      points={{-44,-64},{-64,-64},{-64,10},{-70,10}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(hP_AWMod.flowPort_b, storageTank.flowPort_a) annotation (Line(
-      points={{-52,4},{-24,4},{-24,10},{6,10}},
+      points={{-70,14},{-24,14},{-24,10},{6,10}},
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics));

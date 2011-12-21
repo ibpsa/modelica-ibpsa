@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic.Data.Residential.Appliance;
-record Printer = IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
+record Printer =
+    IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
     frad=0.67,
     fconv=0.33,
     nCycle=654.875958011369,

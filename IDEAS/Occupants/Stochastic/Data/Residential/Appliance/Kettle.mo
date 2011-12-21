@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic.Data.Residential.Appliance;
-record Kettle = IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
+record Kettle =
+    IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
     frad=0.17,
     fconv=0.83,
     nCycle=1519.82286616642,

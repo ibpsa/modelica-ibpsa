@@ -1,7 +1,7 @@
 within IDEAS.Thermal.HeatingSystems;
 partial model Partial_HeatingSystem "Most generic partial heating system"
 
-  import IDEAS.Thermal.Components.HeatEmission.Auxiliaries.EmissionType;
+  import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
   parameter EmissionType emissionType = EmissionType.RadiatorsAndFloorHeating
     "Type of the heat emission system";
 

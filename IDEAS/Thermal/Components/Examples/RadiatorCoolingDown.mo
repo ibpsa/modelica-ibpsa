@@ -1,13 +1,13 @@
 within IDEAS.Thermal.Components.Examples;
 model RadiatorCoolingDown
 
-  IDEAS.Thermal.Components.HeatEmission.Radiator_Old
+  IDEAS.Thermal.Components.Emission.Radiator_Old
                           radiator_new(
     medium=Data.Media.Water(),
     QNom=1000,
     TInitial=333.15)
     annotation (Placement(transformation(extent={{-64,76},{-44,56}})));
-  IDEAS.Thermal.Components.HeatEmission.Radiator_Old
+  IDEAS.Thermal.Components.Emission.Radiator_Old
                           radiator_new1(
     medium=Data.Media.Water(),
     QNom=2000,
@@ -38,7 +38,7 @@ model RadiatorCoolingDown
     constantAmbientPressure=300000,
     constantAmbientTemperature=283.15)
     annotation (Placement(transformation(extent={{48,14},{68,34}})));
-  IDEAS.Thermal.Components.HeatEmission.Radiator_Old
+  IDEAS.Thermal.Components.Emission.Radiator_Old
                           radiator_new2(
     medium=Data.Media.Water(),
     QNom=1000,

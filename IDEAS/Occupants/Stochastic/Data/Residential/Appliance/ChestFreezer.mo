@@ -1,5 +1,6 @@
 within IDEAS.Occupants.Stochastic.Data.Residential.Appliance;
-record ChestFreezer = IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
+record ChestFreezer =
+    IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance (
     frad=0.46,
     fconv=0.64,
     nCycle=6115.75932851014,

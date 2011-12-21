@@ -1,7 +1,7 @@
 within IDEAS.Thermal.HeatingSystems;
 model Heating_DHW_StratifiedTES_FH_STS
   "Hydraulic heating+DHW with TES, FH and STS"
-  import IDEAS.Thermal.Components.HeatEmission.Auxiliaries.EmissionType;
+  import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
 
   extends Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(final
       emissionType=EmissionType.FloorHeating);
@@ -27,7 +27,7 @@ protected
     etaTot=0.7)
     annotation (Placement(transformation(extent={{24,-4},{42,14}})));
 
-  IDEAS.Thermal.Components.HeatEmission.EmbeddedPipeDynTOut[
+  IDEAS.Thermal.Components.Emission.EmbeddedPipeDynTOut[
                                                   n_C] emission(
     each medium = medium,
     FHChars = FHChars,

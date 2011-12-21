@@ -15,7 +15,7 @@ model HPTester "Identical as the one in FluidHeatFlow_NoPressure"
     medium=Data.Media.Water(),
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{12,-16},{32,4}})));
-  IDEAS.Thermal.Components.HeatProduction.HP_AWMod_Losses
+  IDEAS.Thermal.Components.Production.HP_AWMod_Losses
                       HP(
    medium=Data.Media.Water(),
     QNom=5000,
@@ -47,7 +47,7 @@ model HPTester "Identical as the one in FluidHeatFlow_NoPressure"
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{16,-148},{36,
             -128}})));
-  IDEAS.Thermal.Components.HeatProduction.HP_AWMod
+  IDEAS.Thermal.Components.Production.HP_AWMod
                       HP_NoLosses(
     medium=Data.Media.Water(),
     QNom=5000,

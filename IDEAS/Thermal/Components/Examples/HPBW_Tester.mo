@@ -15,7 +15,7 @@ model HPBW_Tester "Identical as the one in FluidHeatFlow_NoPressure"
     medium=Data.Media.Water(),
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{12,-16},{32,4}})));
-  IDEAS.Thermal.Components.HeatProduction.HP_BW
+  IDEAS.Thermal.Components.Production.HP_BW
                       HP(
    medium=Data.Media.Water(),
    mediumEvap = Data.Media.Water(),

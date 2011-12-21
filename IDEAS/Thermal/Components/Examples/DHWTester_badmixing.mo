@@ -16,7 +16,7 @@ model DHWTester_badmixing "Test the DHW component"
     TDHWSet=273.15 + 35,
     VDayAvg=0.001)
     annotation (Placement(transformation(extent={{48,-30},{68,-10}})));
-  IDEAS.Thermal.Components.HeatProduction.HP_AWMod
+  IDEAS.Thermal.Components.Production.HP_AWMod
                       hP_AWMod(TSet = HPControl.THPSet, QNom=20000, medium=medium)
     annotation (Placement(transformation(extent={{-72,-6},{-52,14}})));
   Thermal.Components.BaseClasses.Pump pump(
