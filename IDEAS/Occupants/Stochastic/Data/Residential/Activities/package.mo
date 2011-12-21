@@ -4,5 +4,4 @@ package Activities
 
   extends Modelica.Icons.MaterialPropertiesPackage;
 
-
 end Activities;

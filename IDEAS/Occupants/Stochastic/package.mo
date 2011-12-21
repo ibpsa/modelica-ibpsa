@@ -2,7 +2,7 @@ within IDEAS.Occupants;
 package Stochastic 
 
 
-  extends Modelica.Icons.UnderConstruction;
+  extends Modelica.Icons.Package;
 
 
 
