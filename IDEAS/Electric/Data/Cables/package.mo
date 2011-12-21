@@ -1,5 +1,5 @@
 within IDEAS.Electric.Data;
-package Cables "Library of electricity cables"
+package Cables "Library of Low Voltage Electricity cables used in distribution grid"
 
 
   extends Modelica.Icons.MaterialPropertiesPackage;
