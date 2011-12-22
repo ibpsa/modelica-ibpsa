@@ -4,10 +4,12 @@ class PvArray
 parameter Real amount = 2;
 parameter Real inc = 34 "inclination";
 parameter Real azi = 0 "azimuth";
-
+replaceable parameter IDEAS.Electric.Data.Interfaces.PvPanel pvPanel
+    "Choose a Photovoltaic panel to be used"
+                                        annotation(choicesAllMatching = true);
 extends IDEAS.Electric.Photovoltaic.Components.DCgen;
 
-  Commons.Meteo.Solar.RadSol radSol(  azi=azi,inc=inc,A=1)
+  IDEAS.Climate.Meteo.Solar.RadSol radSol(  azi=azi,inc=inc,A=1)
     annotation (Placement(transformation(extent={{-100,44},{-80,64}})));
   IDEAS.Electric.Photovoltaic.Components.Elements.refraction refDir
     annotation (Placement(transformation(extent={{-8,20},{12,40}})));
@@ -18,11 +20,11 @@ extends IDEAS.Electric.Photovoltaic.Components.DCgen;
   IDEAS.Electric.Photovoltaic.Components.Elements.incdenceAngels incdenceAngels(azi=azi,
       inc=inc)
     annotation (Placement(transformation(extent={{-38,20},{-18,40}})));
-  outer Commons.SimInfoManager sim
-    annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
+  outer Climate.SimInfoManager sim
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   IDEAS.Electric.Photovoltaic.Components.Elements.absorbtion absorbtion
     annotation (Placement(transformation(extent={{22,20},{42,40}})));
-  IDEAS.Electric.Photovoltaic.Components.Elements.PV5 PV5
+  IDEAS.Electric.Photovoltaic.Components.Elements.PV5 PV5(pvPanel=pvPanel)
     annotation (Placement(transformation(extent={{48,20},{68,40}})));
   IDEAS.Electric.Photovoltaic.Components.Elements.PvSerie pvSerie(amount=amount)
     annotation (Placement(transformation(extent={{72,20},{92,40}})));

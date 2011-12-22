@@ -13,26 +13,33 @@ parameter Modelica.SIunits.Voltage VMax=248
 
 parameter Integer numPha=1;
 
+replaceable parameter IDEAS.Electric.Data.Interfaces.PvPanel pvPanel
+    "Choose a Photovoltaic panel to be used"
+                                        annotation(choicesAllMatching = true);
+
 IDEAS.Electric.BaseClasses.CNegPin
                                pin[numPha] annotation (Placement(transformation(extent={{92,30},{112,50}},rotation=0)));
 
-  outer Commons.SimInfoManager sim
+  outer Climate.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   IDEAS.Electric.Photovoltaic.Components.PvArray pvArray(
     amount=amount,
     azi=azi,
-    inc=inc)                                     annotation (Placement(transformation(
+    inc=inc,
+    pvPanel=pvPanel)                             annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-70,30})));
-  IDEAS.Electric.Photovoltaic.Components.SimpleDCAC invertor
+  IDEAS.Electric.Photovoltaic.Components.SimpleInverter
+                                                    invertor
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Electrical.Analog.Basic.Ground ground1
     annotation (Placement(transformation(extent={{-40,-24},{-20,-4}})));
   IDEAS.Electric.BaseClasses.OhmsLawGenSym
                                   ohmsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  IDEAS.Electric.Photovoltaic.Components.DCGrid dCGrid
+  IDEAS.Electric.Photovoltaic.Components.PvVoltageToPower
+                                                dCGrid
                 annotation (Placement(transformation(extent={{-6,20},{14,40}})));
 
   IDEAS.Electric.Photovoltaic.Components.PvVoltageCtrlGeneral pvVoltageCtrl(

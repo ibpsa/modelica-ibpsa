@@ -6,34 +6,39 @@ model PV5 "5-parameter model according to Duffie & Beckman (1991)"
 parameter Integer n_s=60 "number of cells on the PV panel";
 parameter Modelica.SIunits.Efficiency eff=0.166 "Solar cell efficiency";
 
+replaceable parameter IDEAS.Electric.Data.Interfaces.PvPanel pvPanel
+    "Choose a Photovoltaic panel to be used"
+                                        annotation(choicesAllMatching = true);
 //The 5 main parameters
-parameter Modelica.SIunits.ElectricCurrent I_phr=7.2206
+protected
+parameter Modelica.SIunits.ElectricCurrent I_phr=pvPanel.I_phr
     "Light current under reference conditions";
-parameter Modelica.SIunits.ElectricCurrent I_or=9.5489*10^(-9)
+parameter Modelica.SIunits.ElectricCurrent I_or=pvPanel.I_or
     "Diode reverse saturation current under reference conditions";
-parameter Modelica.SIunits.Resistance R_sr=0.3709
+parameter Modelica.SIunits.Resistance R_sr=pvPanel.R_sr
     "Series resistance under reference conditions";
-parameter Modelica.SIunits.Resistance R_shr=4694.1
+parameter Modelica.SIunits.Resistance R_shr=pvPanel.R_shr
     "Shunt resistance under reference conditions";
-parameter Modelica.SIunits.ElectricPotential V_tr=0.0345
+parameter Modelica.SIunits.ElectricPotential V_tr=pvPanel.V_tr
     "modified ideality factor under reference conditions";
 
 //Other parameters for Sanyo HIP-230HDE1
-parameter Modelica.SIunits.ElectricCurrent I_scr=7.22
+parameter Modelica.SIunits.ElectricCurrent I_scr=pvPanel.I_scr
     "Short circuit current under reference conditions";
-parameter Modelica.SIunits.ElectricPotential V_ocr=42.3
+parameter Modelica.SIunits.ElectricPotential V_ocr=pvPanel.V_ocr
     "Open circuit voltage under reference conditions";
-parameter Modelica.SIunits.ElectricCurrent I_mpr=6.71
+parameter Modelica.SIunits.ElectricCurrent I_mpr=pvPanel.I_mpr
     "Maximum power point current under reference conditions";
-parameter Modelica.SIunits.ElectricPotential V_mpr=34.3
+parameter Modelica.SIunits.ElectricPotential V_mpr=pvPanel.V_mpr
     "Maximum power point voltage under reference conditions";
-parameter Modelica.SIunits.LinearTemperatureCoefficient kV=-0.106
+parameter Modelica.SIunits.LinearTemperatureCoefficient kV=pvPanel.kV
     "Temperature coefficient for open circuit voltage";
-parameter Modelica.SIunits.LinearTemperatureCoefficient kI=0.00217
+parameter Modelica.SIunits.LinearTemperatureCoefficient kI=pvPanel.kI
     "Temperature coefficient for short circuit current";
-parameter Modelica.SIunits.Temperature T_ref=298.15
+parameter Modelica.SIunits.Temperature T_ref=pvPanel.T_ref
     "Reference temperature in Kelvin";
 
+public
 parameter Modelica.SIunits.Irradiance solRef = 1000
     "radiation under reference conditions";
 parameter Real K = 4 "glazing extinction coefficient, /m";
