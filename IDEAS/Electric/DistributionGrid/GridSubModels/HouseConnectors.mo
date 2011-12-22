@@ -17,7 +17,7 @@ parameter Integer[numNod] conPha={1 for i in 1:numNod}
 
 replaceable parameter IDEAS.Electric.Data.Interfaces.Cable
                                            typHouBran[numNod]=fill(IDEAS.Electric.Data.Cables.PvcAl16(),
-                                                                                                   numNod)
+                                                                                                  numNod)
     "An array of length '# Nodes' with the types of cables used for the house connections";
 
 parameter Modelica.SIunits.Length lenHouBran[numNod]=fill(10,numNod)
