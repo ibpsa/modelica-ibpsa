@@ -1,5 +1,5 @@
 within IDEAS.Electric.Photovoltaic.Components;
-class DCGrid
+class PvVoltageToPower
 
 extends Modelica.Blocks.Interfaces.BlockIcon;
 
@@ -13,4 +13,4 @@ equation
   P = pin.v*pin.i;
   Q = 0;
   annotation (Diagram(graphics));
-end DCGrid;
+end PvVoltageToPower;

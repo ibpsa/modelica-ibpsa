@@ -2,13 +2,15 @@ within IDEAS.Electric.Photovoltaic;
 model PVFromFilePQ
   "PV system that reads input from file. It has power (P and Q) output and a voltage pin for sensing overvoltages."
 parameter Real amount=30;
-parameter Real inc=34;
-parameter Real azi=0;
+parameter Real inc=34 "inclination";
+parameter Real azi=0 "azimuth";
+
 parameter Integer PVPha=4;
 parameter Integer numPha=(if PVPha==4 then 3 else 1);
 parameter Integer prod=1;
 parameter Integer timeOff=300;
 parameter Real VMax=248;
+
 protected
   IDEAS.Electric.Photovoltaic.Components.ForInputFiles.PvSystemGeneralPQ pvSystemGeneralPQ(
     amount=amount,
@@ -19,6 +21,7 @@ protected
     VMax=VMax,
     numPha=numPha)
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+
 public
 IDEAS.Electric.BaseClasses.CNegPin
                         pin[       3] annotation (Placement(transformation(extent={{88,30},

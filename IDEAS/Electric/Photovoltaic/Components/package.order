@@ -1,7 +1,7 @@
 Elements
 ForInputFiles
 PvArray
-SimpleDCAC
-DCGrid
+SimpleInverter
+PvVoltageToPower
 PvVoltageCtrlGeneral
 DCgen

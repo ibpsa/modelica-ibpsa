@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: Specs.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Specs.aux
 The style file: ieeetr.bst
 A level-1 auxiliary file: Structure/Preface/preface.aux
 A level-1 auxiliary file: Structure/Preamble/cblist.aux
@@ -563,6 +563,8 @@ Warning--empty publisher in Snellius1627
 Warning--empty publisher in ISO77302005
 Warning--empty publisher in ASHRAE55_2004
 Warning--empty publisher in ASHRAE2009a
+Warning--empty school in ehaesen
+Warning--empty publisher in willis
 Warning--empty publisher in Lomas1994
 Warning--empty publisher in Lomas1994a
 Warning--can't use both author and editor fields in ASHRAE140
