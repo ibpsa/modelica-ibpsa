@@ -290,6 +290,30 @@ P.~O. Fanger, {\em {Thermal comfort: Analysis and application in environmental
 ASHRAE, {\em {ASHRAE Handbook - Fundamentals (SI Edition)}}.
 \newblock 2009.
 
+\bibitem{desoto}
+W.~De~Soto, S.~Klein, and W.~Beckman, ``{Improvement and Validation of a Model
+  for Photovoltaic Array Performance},'' {\em Solar Energy}, vol.~80,
+  pp.~78--88, 2006.
+
+\bibitem{sera}
+D.~Sera, R.~Teodorescu, and P.~Rodriguez, ``{PV panel model based on datasheet
+  values},'' in {\em IEEE International Symposium on Industrial Electronics},
+  pp.~2392--2396, 2007.
+
+\bibitem{synergrid}
+Synergrid, ``{FAQ -- C10/11 Specifieke technische aanslui\-tingsvoorschriften
+  voor gedecentraliseerde productie-installaties die in parallel werken met het
+  distributienet}.''
+
+\bibitem{ehaesen}
+E.~Haesen, {\em {Multi-Objective Optimization of the Integration of Stochastic
+  Distributed Energy Resources in Electricity Grids}}.
+\newblock PhD thesis, 2009.
+
+\bibitem{willis}
+H.~Willis, {\em { Power Distribution Planning Reference Book}}.
+\newblock 2004.
+
 \bibitem{Judkoff1995}
 R.~Judkoff and J.~Neymark, ``{International energy agency building energy
   simulation test (BESTEST) and diagnostic method},'' tech. rep., National
