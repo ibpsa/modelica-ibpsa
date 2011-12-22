@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Examples;
 model Example "Example detailed building model"
 
-extends IDEAS.Buildings.Interfaces.Building(nZones=3,ATrans=1,VZones={gF.V,fF.V,sF.V});
+extends IDEAS.Interfaces.Structure(         nZones=3,ATrans=1,VZones={gF.V,fF.V,sF.V});
 
 //Definition of the thermal zones
   Components.Zone gF(

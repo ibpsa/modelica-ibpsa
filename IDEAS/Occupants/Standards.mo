@@ -4,7 +4,7 @@ package Standards
   extends Modelica.Icons.Package;
 
 model ISO13790
-  extends IDEAS.Occupants.Interfaces.Occupant(nZones=2,nLoads=2);
+  extends IDEAS.Interfaces.Occupant(          nZones=2,nLoads=2);
 
 parameter Modelica.SIunits.Area[nZones] AFloor;
 

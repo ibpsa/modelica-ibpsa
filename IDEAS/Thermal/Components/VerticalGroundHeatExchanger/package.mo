@@ -5,10 +5,5 @@ package VerticalGroundHeatExchanger "Vertical Ground/Brine heat exchanger result
   extends Modelica.Icons.Package;
 
 
-
-
-
-
-
   annotation ();
 end VerticalGroundHeatExchanger;

@@ -2,15 +2,6 @@ within ;
 package IDEAS "Integrated District Energy Assessment by Simulation"
 
 
-
-
-
-
-
-
-
-
-
   annotation (uses(Modelica(version="3.2"), TME(version="0.11")),
                                              Icon(graphics={Bitmap(
         extent={{-80,80},{80,-80}},

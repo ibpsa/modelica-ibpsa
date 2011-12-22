@@ -4,7 +4,4 @@ package Residential
 
   extends Modelica.Icons.MaterialPropertiesPackage;
 
-
-
-
 end Residential;

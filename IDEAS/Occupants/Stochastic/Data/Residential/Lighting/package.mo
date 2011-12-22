@@ -4,4 +4,5 @@ package Lighting
 
   extends Modelica.Icons.MaterialPropertiesPackage;
 
+
 end Lighting;

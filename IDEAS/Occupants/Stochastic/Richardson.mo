@@ -2,7 +2,7 @@ within IDEAS.Occupants.Stochastic;
 model Richardson
   "I.Richardson et al. (2010), Domestic electricity use: A high-resolution energy demand model, Energy and Buildings 42, 1878-1887"
 
-  extends IDEAS.Occupants.Interfaces.Occupant(nLoads=appliances.nLoads+lighting.nLoads);
+  extends IDEAS.Interfaces.Occupant(          nLoads=appliances.nLoads+lighting.nLoads);
 
   Occupancy occupancy(nZones=nZones,occChain = occupanceData)
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
@@ -11,11 +11,11 @@ model Richardson
   Lighting lighting(nZones=nZones,lightData=lightData)
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   replaceable parameter Data.BaseClasses.Occupance occupanceData
-    annotation (Placement(transformation(extent={{-76,90},{-72,94}})),choicesAllMatching=true);
+    annotation (Placement(transformation(extent={{-74,90},{-70,94}})),choicesAllMatching=true);
   replaceable parameter Data.BaseClasses.Lighting lightData
-    annotation (Placement(transformation(extent={{-64,90},{-60,94}})),choicesAllMatching=true);
+    annotation (Placement(transformation(extent={{-62,90},{-58,94}})),choicesAllMatching=true);
   replaceable parameter Data.BaseClasses.ApplianceList applianceData
-    annotation (Placement(transformation(extent={{-48,94},{-52,90}})),choicesAllMatching=true);
+    annotation (Placement(transformation(extent={{-46,94},{-50,90}})),choicesAllMatching=true);
 equation
   connect(occupancy.TSet, TSet) annotation (Line(
       points={{0,40},{0,100}},
