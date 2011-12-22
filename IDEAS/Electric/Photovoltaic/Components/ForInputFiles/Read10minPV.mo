@@ -2,7 +2,7 @@ within IDEAS.Electric.Photovoltaic.Components.ForInputFiles;
 model Read10minPV
 Real P_paneel;
 protected
-parameter String fileName= "Input/onePVpanel10min";
+parameter String fileName= "Inputs/onePVpanel10min";
 
 Modelica.Blocks.Tables.CombiTable1Ds P(
     final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
