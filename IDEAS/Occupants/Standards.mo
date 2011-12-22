@@ -4,17 +4,19 @@ package Standards
   extends Modelica.Icons.Package;
 
 model ISO13790
-  extends IDEAS.Interfaces.Occupant(          nZones=2,nLoads=2);
+  extends IDEAS.Interfaces.Occupant(nZones=2,nLoads=2);
 
-parameter Modelica.SIunits.Area[nZones] AFloor;
+parameter Modelica.SIunits.Area[nZones] AFloor "Floor area of different zones";
 
   protected
-final parameter Modelica.SIunits.Time interval = 3600;
-final parameter Modelica.SIunits.Time period = 86400/interval;
-Integer t;
-
-final parameter Real[3] QDay(unit="W/m2") = {8,20,2};
-final parameter Real[3] QNight(unit="W/m2") = {1,1,6};
+final parameter Modelica.SIunits.Time interval = 3600 "Time interval";
+final parameter Modelica.SIunits.Time period = 86400/interval
+      "Number of intervals per repetition";
+final parameter Real[3] QDay(unit="W/m2") = {8,20,2}
+      "Specific power for dayzone";
+final parameter Real[3] QNight(unit="W/m2") = {1,1,6}
+      "Specific power for dayzone";
+Integer t "Interval";
 
 algorithm
 when sample(0,interval) then
@@ -37,6 +39,7 @@ else
   TSet={21,16};
 end if;
 
+  annotation (Diagram(graphics));
 end ISO13790;
 
 end Standards;

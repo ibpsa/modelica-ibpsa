@@ -3,23 +3,26 @@ model Appliances
   "I.Richardson et al. (2010), Domestic electricity use: A high-resolution energy demand model, Energy and Buildings 42, 1878-1887"
 
 parameter Real[4] seed;
-parameter Integer nLoads(min=1);
-parameter Integer nZones(min=1);
+parameter Integer nLoads(min=1) "Number of electric appliances";
+parameter Integer nZones(min=1) "Number of thermal zones in the building";
 parameter IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance[nLoads] appData;
 
 protected
-IDEAS.Occupants.Stochastic.BaseClasses.ActivityProb actProb;
+IDEAS.Occupants.Stochastic.BaseClasses.ActivityProb actProb
+    "Activity probabilities based on occupancy";
 IDEAS.Occupants.Stochastic.BaseClasses.RandomChainVector randomVector(
     seed=10000*seed,
     n=3*nLoads,
-    interval=interval);
+    interval=interval) "Vector of random numbers through time";
 parameter Integer interval = 60;
 
 Real[nLoads] delay;
 Real[nLoads] minLeft;
-Integer[nLoads] state;
-Real[nLoads] appPowerRad;
-Real[nLoads] appPowerConv;
+Integer[nLoads] state "On/off state per appliance";
+Modelica.SIunits.Power[nLoads] appPowerRad
+    "Thermal radiative power per appliance";
+Modelica.SIunits.Power[nLoads] appPowerConv
+    "Thermal convective power per appliance";
 Boolean[nLoads] action;
 
 public
@@ -109,7 +112,7 @@ equation
 
     heatPortCon.Q_flow = -ones(nZones)*sum(appPowerConv)/nZones;
     heatPortCon.Q_flow = -ones(nZones)*sum(appPowerRad)/nZones;
-    Q = ones(nLoads)*0;
+    Q = ones(nZones)*0;
 
     annotation (Icon(graphics={
           Ellipse(

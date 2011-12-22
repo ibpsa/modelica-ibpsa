@@ -13,7 +13,7 @@ model RandomChain
 
 equation
   when sample(0,interval) then
-    (r,seed2) = IDEAS.Occupants.Stochastic.BaseClasses.Random(si=seed1);
+    (r,seed2) = IDEAS.BaseClasses.Math.Statistics.Random.random(si=seed1);
     seed1 = pre(seed2);
     //pre(.) breaks the algebraic loop by taking "the left-limit of seed2" instead of "seed2"
   end when;
