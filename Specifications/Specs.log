@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.2-0.9997.4 (MiKTeX 2.9) (preloaded format=xelatex 2011.10.11)  17 DEC 2011 17:00
+This is XeTeX, Version 3.1415926-2.2-0.9997.4 (MiKTeX 2.9) (preloaded format=xelatex 2011.10.11)  22 DEC 2011 19:49
 entering extended mode
 **E:/3*PhD*-*Optimized*Buildings*for*Smart*Grids/3*Modelica/IDEAS/Specification
 s/Specs.tex
@@ -1681,16 +1681,37 @@ s\Electric/ElectricSystemModel.tex" [20
 
 
 
-]) [21] [22
+]
+File: Electric/MyGraphics/5param_eq.png Graphic file (type QTm)
+
+<use  "Electric/MyGraphics/5param_eq.png" >
+
+LaTeX Warning: Reference `chap:climate' on page 21 undefined on input line 30.
+
+[21]
+
+LaTeX Warning: Reference `eq2' on page 22 undefined on input line 47.
+
+
+LaTeX Warning: Reference `eq3' on page 22 undefined on input line 47.
+
+
+LaTeX Warning: Reference `pmpp' on page 22 undefined on input line 59.
+
+[22]
+
+LaTeX Warning: Reference `eq2' on page 23 undefined on input line 75.
+
+[23] [24]) [25] [26
 
 
 
-] [23] [24]
+] [27] [28]
 ("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
 s\Buildings/BuildingModelValidation.tex"
 Missing character: There is no ^^93 in font ptmri7t!
 Missing character: There is no ^^94 in font ptmr7t!
- [25
+ [29
 
 
 
@@ -1700,7 +1721,7 @@ File: Buildings/MyGraphics/AH_BESTEST.png Graphic file (type QTm)
 <use  "Buildings/MyGraphics/AH_BESTEST.png" >
 File: Buildings/MyGraphics/AC_BESTEST.png Graphic file (type QTm)
 
-<use  "Buildings/MyGraphics/AC_BESTEST.png" > [26]
+<use  "Buildings/MyGraphics/AC_BESTEST.png" > [30]
 File: Buildings/MyGraphics/PH_BESTEST.png Graphic file (type QTm)
 
 <use  "Buildings/MyGraphics/PH_BESTEST.png" >
@@ -1709,30 +1730,30 @@ File: Buildings/MyGraphics/PC_BESTEST.png Graphic file (type QTm)
 <use  "Buildings/MyGraphics/PC_BESTEST.png" >
 File: Buildings/MyGraphics/Temp_BESTEST.pdf Graphic file (type QTm)
 
-<use  "Buildings/MyGraphics/Temp_BESTEST.pdf" >) [27] [28]
+<use  "Buildings/MyGraphics/Temp_BESTEST.pdf" >) [31] [32]
 ("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
-s\Thermal/ThermalSystemModelValidation.tex") [29
+s\Thermal/ThermalSystemModelValidation.tex") [33
 
 
 
 
 ]
 ("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
-s\Electric/ElectricSystemModelValidation.tex" [30
+s\Electric/ElectricSystemModelValidation.tex" [34
 
 
 
 
-]) [31] [32
+]) [35] [36
 
 
 
-] [33]
+] [37]
 Missing character: There is no · in font ptmr7t!
 Missing character: There is no · in font ptmr7t!
 Missing character: There is no · in font ptmr7t!
 Missing character: There is no · in font ptmr7t!
- [34]
+ [38]
 ("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
 s\Specs.bbl"
 
@@ -1746,12 +1767,12 @@ ata,'' in \OT1/ptm/m/it/8.5 CIE Day-light-ing con-fer-ence Vol.I\OT1/ptm/m/n/8.
 5 ,
  []
 
-[35] [36]) [37] [38
+[39] [40]) [41] [42
 
 
 ]
 ("E:\3 PhD - Optimized Buildings for Smart Grids\3 Modelica\IDEAS\Specification
-s\Specs.ind" [39
+s\Specs.ind" [43
 
 
 ])
@@ -1787,12 +1808,12 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 28830 strings out of 429293
- 563677 string characters out of 3171079
- 667951 words of memory out of 3000000
- 31457 multiletter control sequences out of 15000+200000
+ 28859 strings out of 429293
+ 563936 string characters out of 3171079
+ 670343 words of memory out of 3000000
+ 31484 multiletter control sequences out of 15000+200000
  30353 words of font info for 81 fonts, out of 3000000 for 9000
  669 hyphenation exceptions out of 8191
  52i,9n,74p,1391b,1112s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Specs.pdf (45 pages).
+Output written on Specs.pdf (49 pages).
