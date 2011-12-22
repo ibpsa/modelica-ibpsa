@@ -1,5 +1,5 @@
 within IDEAS.Electric.Photovoltaic.Components;
-class SimpleDCAC
+class SimpleInverter
 
 extends Modelica.Electrical.Analog.Interfaces.TwoPort;
                                    //v1,i1 =DC  <-> v2,i2 = AC
@@ -35,4 +35,4 @@ equation
           points={{-36,0},{36,0},{0,12},{0,-12},{36,0}},
           color={0,0,0},
           smooth=Smooth.None)}));
-end SimpleDCAC;
+end SimpleInverter;
