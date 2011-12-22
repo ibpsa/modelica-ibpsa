@@ -1,14 +1,16 @@
 within IDEAS.Electric.Data.Interfaces;
-partial record Cable
-
+record Cable "Low Voltage Cable Type"
 extends Modelica.Icons.MaterialProperty;
-
-parameter ELECTAPub.General.Units.CharacteristicResistance RCha
-    "Characteristic resistance of the cable";
-parameter ELECTAPub.General.Units.CharacteristicReactance XCha
-    "Characteristic reactance of the cable";
-parameter ELECTAPub.General.Units.ComplexCharacteristicImpedance ZCha(re=RCha,im=XCha)
-    "Characteristic impedance of the cable";
-parameter Modelica.SIunits.ElectricCurrent INom
-    "Nominal electrical current fused";
+parameter IDEAS.Electric.BaseClasses.Types.CharacteristicResistance
+                                                        RCha
+    "Characteristic Resistance of the Cable";
+parameter IDEAS.Electric.BaseClasses.Types.CharacteristicReactance
+                                                       XCha
+    "Characteristic Reactance of the Cable";
+parameter IDEAS.Electric.BaseClasses.Types.ComplexCharacteristicImpedance
+                                                              ZCha(
+                                                           re=RCha,im=XCha)
+    "Characteristic Impedance of the Cable";
+parameter Modelica.SIunits.ElectricCurrent In
+    "Nominal Electrical Current Fused";
 end Cable;
