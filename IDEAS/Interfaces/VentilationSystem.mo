@@ -8,13 +8,11 @@ partial model VentilationSystem
     "Heat capacity of the conditioned zones";
 
   outer IDEAS.Climate.SimInfoManager  sim
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads]
-    pinLoad
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
+    "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads] pinLoad
+    "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   annotation(Icon(graphics={
         Polygon(
           points={{6,62},{32,48},{32,18},{34,18},{44,26},{44,-26},{10,-24},{42,-42},

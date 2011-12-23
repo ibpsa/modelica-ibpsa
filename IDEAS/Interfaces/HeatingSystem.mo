@@ -1,34 +1,31 @@
 within IDEAS.Interfaces;
 partial model HeatingSystem
 
-  parameter Integer nZones(min=1) "number of conditioned thermal zones";
-  parameter Integer nLoads(min=1) "number of electric loads";
+  parameter Integer nZones(min=1) "Number of conditioned thermal zones";
+  parameter Integer nLoads(min=1) "Number of electric loads";
 
   parameter Modelica.SIunits.Power[nZones] QNom(each min=0)
-    "Nominal power, can be seen as the max power of the EMISSION system";
-
-  parameter Real[nZones] VZones "conditioned (C) volumes (V) of the zones";
-  parameter Modelica.SIunits.HeatCapacity[nZones] C = 1012*1.204*VZones*5
+    "Nominal power, can be seen as the max power of the emission system";
+  parameter Real[nZones] VZones "Conditioned volumes of the zones";
+  final parameter Modelica.SIunits.HeatCapacity[nZones] C = 1012*1.204*VZones*5
     "Heat capacity of the conditioned zones";
 
-  outer IDEAS.Climate.SimInfoManager  sim
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  outer IDEAS.Climate.SimInfoManager sim
+    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
-    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
+    "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
-    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads]
-    pinLoad
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+    "Nodes for radiative heat gains" annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads] pinLoad
+    "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortEmb
-    "Port to the core of a floor heating/concrete activation"
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+    "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    "Sensor temperature of the zones" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-96,-60})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSet
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    "Setpoint temperature for the zones" annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,-90})));
   annotation(Icon(graphics={
