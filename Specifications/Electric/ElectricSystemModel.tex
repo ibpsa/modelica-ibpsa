@@ -39,28 +39,17 @@ The electrical output from a PV system depends on the solar radiation, the ambie
 The general current-voltage ($i-v$) equation for the single diode equivalent circuit is given in Eq.~(\ref{eq1}). 
 
 \begin{equation}
-i = I_{ph} - I_{0} \biggl(e^{\frac{v + i R_{s}}{n_{s} V_{t}}} - 1 \biggr) - \frac{v + i R_{s}}{R_{sh}}
+i(t) = I_{ph} - I_{0} \left(e^{\frac{v(t) + i(t)R_{s}}{n_{s} V_{t}}} - 1 \right) - \frac{v(t) + i(t)R_{s}}{R_{sh}}
 \label{eq1}
 \end{equation}
-
 In this equation $V_{t}$ is the junction thermal voltage and $n_{s}$ the number of cells in the panel connected in series:
 \begin{equation}
-V_t = \frac{A k T_{stc}}{q}
+V_t = \frac{f_{A} k T_{stc}}{q}
 \label{eqVt}
 \end{equation}
+with $f_A$ the ideality factor, $k$ the Boltzmann's constant ($1.380663 \cdot 10^{-23}$ J/K), $q$ the charge of an electron ($1.600218 \cdot 10^{-19}$ C) and $T_{stc}$ the cell temperature under STC.
 
-with $A$ the ideality factor, $k$ the Boltzmann's constant ($1.380663 \cdot 10^{-23}$ J/K), $q$ the charge of an electron ($1.600218 \cdot 10^{-19}$ C) and $T_{stc}$ the cell temperature under STC.
-
-The voltage $V_{mpp}$ and current $I_{mpp}$ at maximum power point should satisfy this equation and according to Eq.~(\ref{eq2}), the derivative of the power with respect to the voltage should be zero at this point. Eq.~(\ref{eq3}) states that the derivative of the current with respect to the voltage at short circuit current should be the negative of the shunt conductance ($1/R_{sh}$). These equations lead to the calculation of the parameters $R_{s}$, $R_{sh}$ and $V_{t}$.
-
-\begin{equation}
-\frac{dP}{dV} \Bigr\vert_{\substack{V=V_{mpp},~I=I_{mpp}}} = 0
-\label{eq2}
-\end{equation}
-\begin{equation}
-\frac{dI}{dV} \Bigr\vert_{I = I_{sc}} = - R_{sh}^{-1}
-\label{eq3}
-\end{equation}
+The voltage $V_{mpp}$ and current $I_{mpp}$ at maximum power point should satisfy this equation. The derivative of the power with respect to the voltage ($dP/dV$) at $V_{mpp}$ and $I_{mpp}$ should be zero. The derivative of the current with respect to the voltage ($dI/dV$) at short circuit current should be the negative of the shunt conductance ($R_{sh}^{-1}$). These equations lead to the calculation of the parameters $R_{s}$, $R_{sh}$ and $V_{t}$.
 
 The maximum power point $P_{mpp}$ can be found with Eq.~(\ref{pmpp}):
 \begin{equation}
@@ -82,32 +71,30 @@ The five parameter model is implemented in a Modelica model to calculate the pow
 
 The PV parameters are adjusted to take into account the position of the sun, the direct and indirect radiation and the ambient temperature. The cell temperature has been adjusted to be the ambient temperature plus the losses of the panel.
 
-The tilt angle and orientation of the PV panels are parameters of the PV model. Together with the sun's position, the incidence angle of the direct beam radiation can be calculated which allows to obtain the amount of radiation that gets reflected by and passes through the PV panel cover. This is done using incidence angle modifiers that are derived from De Soto et al.~\cite{desoto}. The incidence angle modifier $K_{\tau \alpha}(\theta)$ can be found from the transmittance $\tau$ of the cover system with Eq.~(\ref{eq8}), which is approximated in Eq.~(\ref{eq7}). The angle of refraction, $\theta _{r}$, is determined in Eq.~(\ref{eq6}) by Snell's law, with $\theta$ the incidence angle and $n$ the effective index of refraction of the cell cover. In Eq.~(\ref{eq7}), $K$ is the glazing extinction coefficient and $L$ is the glazing thickness. In the model $K$ and $L$ can be adjusted. By default, $K$ is assumed to be $4~m^{-1}$ and $L$ is assumed to be $2~mm$.
+The tilt angle and orientation of the PV panels are parameters of the PV model. Together with the sun's position, the incidence angle of the direct beam radiation can be calculated which allows to obtain the amount of radiation that gets reflected by and passes through the PV panel cover. This is done using incidence angle modifiers that are derived from De Soto et al.~\cite{desoto}. The incidence angle modifier $K_{\tau \alpha}(\theta)$ can be found from the transmittance $\tau$ of the cover system with Eq.~(\ref{eq8}), which is approximated in Eq.~(\ref{eq7}). The angle of refraction, $\theta _{r}$, is determined in Eq.~(\ref{eq6}) by Snell's law, with $\theta$ the incidence angle and $n$ the effective index of refraction of the cell cover. In Eq.~(\ref{eq7}), $f_K$ is the glazing extinction coefficient and $f_L$ is the glazing thickness. In the model $f_K$ and $f_L$ can be adjusted. By default, $f_K$ is assumed to be $4~m^{-1}$ and $f_L$ is assumed to be $2~mm$.
 \begin{equation}
-\theta _{r} = arcsin(n \cdot sin \theta)
+\theta _{r} = \arcsin(n \sin \theta)
 \label{eq6}
 \end{equation}
-\begin{eqnarray*}
-\tau (\theta) & = & e^{-\frac{K~L}{cos \theta _{r}}} \biggl[1 - \frac{1}{2} \biggl(\frac{sin^{2}(\theta _{r} - \theta)}{sin^{2}(\theta _{r} + \theta)} + \frac{tan^{2}(\theta _{r} - \theta)}{tan^{2}(\theta _{r} + \theta)} \biggr) \biggr]
+\begin{equation}
+\tau (\theta) = e^{-\frac{f_K f_L}{\cos \theta _{r}}} \left[1 - \frac{1}{2} \left(\frac{\sin^{2}(\theta _{r} - \theta)}{\sin^{2}(\theta _{r} + \theta)} + \frac{\tan^{2}(\theta _{r} - \theta)}{\tan^{2}(\theta _{r} + \theta)} \right) \right]
 \label{eq7}
-\end{eqnarray}
+\end{equation}
 \begin{equation}
 K_{\tau \alpha}(\theta) = \frac{\tau (\theta)}{\tau (0)}
 \label{eq8}
 \end{equation}
 
 The incidence angle modifiers and the direct and diffuse radiation, which are inputs to the model, allow together with the reflected radiation to calculate the absorbed solar radiation $S$ in Eq.~(\ref{eq9}). In this equation $G_{b}$ is the direct, $G_{d}$ the diffuse and $G$ the total radiation. The slope of the PV panel is characterized by $\beta$.
-\begin{eqnarray*}
-\frac{S}{S_{ref}} & = & \frac{G_{b}}{G_{ref}} K_{\tau \alpha , b} + \frac{G_{d}}{G_{ref}} K_{\tau \alpha , d} \frac{1 + cos \beta}{2} + \frac{G}{G_{ref}} \rho K_{\tau \alpha , g} \frac{1 - cos \beta}{2}
+\begin{equation}
+\frac{S}{S_{ref}} = \frac{G_{b}}{G_{ref}} K_{\tau \alpha , b} + \frac{G_{d}}{G_{ref}} K_{\tau \alpha , d} \frac{1 + \cos \beta}{2} + \frac{G}{G_{ref}} \rho K_{\tau \alpha , g} \frac{1 - \cos \beta}{2}
 \label{eq9}
-\end{eqnarray}
-
+\end{equation}
 with
 \begin{equation}
-S_{ref} = G_{ref} e^{-K \cdot L}
+S_{ref} = G_{ref} e^{-f_K f_L}
 \label{eqSref}
 \end{equation}
-
 and $G_{ref}$ is the irradiance at STC (1000 W/m$^2$).
 
 The light current $I_{ph}$, reverse saturation current $I_{0}$ and thermal voltage $V_{t}$ at non-reference conditions can be calculated when the temperature, open circuit voltage and short circuit current are known~\cite{sera}. The open circuit voltage $V_{oc}$ can be calculated using Eqns.~(\ref{eq10}) and~(\ref{eq11}). The short circuit current $I_{sc}$ can be found using Eq.~(\ref{eq12}).
@@ -120,13 +107,13 @@ V_{oc}(T) = V_{oc} + k_{v} (T - T_{stc})
 \label{eq11}
 \end{equation}
 \begin{equation}
-I_{sc}(S,T) = I_{sc} \biggl(\frac{S}{S_{ref}} \biggr) \biggl(1 + \frac{k_{i}}{100} (T - T_{ref}) \biggr)
+I_{sc}(S,T) = I_{sc} \left(\frac{S}{S_{ref}} \right) \left(1 + \frac{k_{i}}{100} (T - T_{ref}) \right)
 \label{eq12}
 \end{equation}
 
 The reverse saturation current $I_{0}$ can be calculated with Eq.~(\ref{eq13}). The light current $I_{ph}$ is found using Eq.~(\ref{eq14}).
 \begin{equation}
-I_{0} = \biggl(I_{sc} - \frac{V_{oc} - I_{sc} R_{s}}{R_{sh}} \biggr) e^{-\frac{V_{oc}}{n_{s} V_{t}}}    
+I_{0} = \left(I_{sc} - \frac{V_{oc} - I_{sc} R_{s}}{R_{sh}} \right) e^{-\frac{V_{oc}}{n_{s} V_{t}}}    
 \label{eq13}
 \end{equation}
 \begin{equation}
@@ -154,21 +141,90 @@ Due to the lack of simultaneity of production and consumption, a bidirectional e
 According to the AREI\footnote{Algemeen Reglement voor Elektrische Installaties, Belgi\"e.}, Art.235, this limit is 6 \% above the nominal voltage (230 V in Belgium). A certain minimal off-time is given before reconnecting the inverter to the grid. Synergrid states that PV systems are curtailed when the average grid voltage at the connection point of the building (during 10 minutes) reaches a predefined voltage of 230 + 10 \% V)~\cite{synergrid}. An instant switch-off is required when the voltage reaches 230 + 15 \% V. In principle, the strictest rule has to be followed. In this case, there is an agreement that the values of Synergrid can be followed until the AREI is adapted.
 
 \section{Electrical distribution grid}
-An electrical distribution grid for low voltage (e.g. 230/400 V wye, or star connection) is modeled. Both a 1-phase en 3-phase grid can be simulated. The 1-phase grid can serve for fully balanced simulations.
+An electrical distribution grid for low voltage is modeled. E.g. a residential district is typically a radial feeder with a rated nominal voltage of 230/400V wye (or star) connection. Both a 1-phase en 3-phase grid can be simulated. The 1-phase grid can serve for fully balanced simulations.
 
 In the electrical grid system two types of grids exist, namely $(i)$ distribution and $(ii)$ transmission grids~\cite{ehaesen,willis}. However, in Belgium, distribution grids differ fundamentally from transmission grids:
 
 \begin{itemize}
 \item They are mostly radially: This means there is only one feeding transformer\footnote{Traditionally, there is only a unidirectional power flow.}. Due to the lack of a redundant supply, the reduced reliability is a major disadvantage. In case of a fault, all loads behind the fault will be switched off.
-\item The lower the voltage level, the higher the R/X ratio\footnote{R = resistance, X = reactance}. Thus, low voltage residential distribution grids are highly resistive.
+\item The lower the voltage level, the higher the R/X ratio. Thus, low voltage residential distribution grids are highly resistive.
 \end{itemize}
 
-First, the grid topology is described. As will be shown, any radial grid can be easily represented by two matrices, namely the incidence and impedance matrix. Second, the background for the power flow analysis will be described to determine the nodal currents, line currents and nodal voltages. Radial grids are generally more easy to analyze and because of the low cost, it is prefered for distribution grids~\cite{ehaesen}.
+First, the grid topology is described. As will be shown, any radial grid can be easily represented by two matrices, namely the incidence and impedance matrix. Second, the background for the power flow analysis will be described to determine the nodal currents, line currents and nodal voltages. Radial grids are generally more easy to analyze and because of the low cost, it is prefered for distribution grids~\cite{ehaesen}. Figure~\ref{figIEEE} gives an example of a radial grid. This figure shows an IEEE 34 node test feeder.
+
+\begin{figure}[ht]
+\centerline{\includegraphics[width=0.75\textwidth, angle=0]{Electric/MyGraphics/grid_ieee34.png}}
+\caption{Grid topology IEEE 34 node test feeder~\cite{IEEE_testfeeder}}
+\label{figIEEE}
+\end{figure}
 
 \subsection{Grid topology}
+Distribution grids for low-voltage are mostly radial grids. In this case, a residential 3-phase distribution grid is modeled. A residential district is typically a radial feeder with a rated nominal voltage of 230/400V wye (or star) connection. For distribution grids without distributed generation (uni-directional power flow), the voltage at the feeder typically has a higher value to ensure that the voltage in the whole feeder stays within the preset boundaries.\footnote{Distribution system operators are obliged to keep the voltages in the feeder in predefined boundaries \mbox{(230 V $\pm$ 10 \%)} during 95 \% of the time.} For fully balanced loads, the 1-phase equivalent grid can be used. Connections to loads (e.g. buildings) are represented by nodes.
 
+Any radial grid can be represented by an incidence matrix (or connection matrix) \textbf{T}. The columns correspond with the number of nodes. Each line in \textbf{T} represents a segment of the grid (branch) between two nodes. Each segment is represented by 1 and -1 at respectively the start and end node of that segment. The other row elements are zero. Since there are $n$ nodes, a radial grid consists of $n-1$ line segments. To attain a square matrix, an additional (first) row is introduced to represent the imaginary line segment between the transformer and the first node. This line segment has only an end node.
+
+Eq.~\ref{eqT} gives an example of the representation of an incidence matrix \textbf{T} in which the nodes are all next to each other, which means branches are between
+consecutive nodes.
+
+\begin{equation}
+\textbf{T} = \begin{bmatrix}
+-1 & 0 & 0 & \cdots & 0 & 0 & 0\\
+1 & -1 & 0 & \cdots & 0 & 0 & 0\\
+0 & 1 & -1 & \cdots & 0 & 0 & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+0 & 0 & 0 & \cdots & -1 & 0 & 0\\
+0 & 0 & 0 & \cdots & 1 & -1 & 0\\
+0 & 0 & 0 & \cdots & 0 & 1 & -1
+\end{bmatrix}
+\label{eqT}
+\end{equation}
+
+Cables for the line segments of an electrical grid are characterized by an impedance $Z = R + jX$, with $R$ the resistance and $X$ the reactance of the cable. The characteristics are represented by a characteristic resistance $r$ and reactance $x$ in $\Omega /m$. The length ($m$) of the cables is a parameter. This allows to represent the grid with an impedance matrix $\textbf{Z} = \textbf{R} + j \textbf{X}$.
+
+In a similar way, the houseconnectors are described. These are the connection lines between the in-home grid and the grid connection node of the building. The houseconnectors are characterized by a cable type, cable length and the type of connection with the grid (\mbox{1-phase} or 3-phase connection).
+
+\subsubsection{1-3 phase grid simulation}
 
 \subsection{Power flow analysis}
+A power flow analysis is required to characterize the impact of a load profile on each connection node in the grid. A power flow analysis is performed to determine the nodal currents $\textbf{I}_{node}$, line currents $\textbf{I}_{line}$ and nodal voltages $\textbf{V}_{node}$. The calculations are based on the Laws of Kirchhoff:
+\begin{description}
+\item[\textbf{Conservation of electric charge}] At any node, the sum of currents flowing into the node is equal to the sum of currents flowing out of the node (Eq.~(\ref{kirch1})).
+\item[\textbf{Conservation of energy}] The sum of the voltage drops around any closed circuit is zero (Eq.~(\ref{kirch2})).
+\end{description}
+
+\begin{equation}
+\sum_{k = 1}^{nodes} i_{k}(t) = 0
+\label{kirch1}
+\end{equation}
+\begin{equation}
+\sum_{k = 1}^{branches} \Delta v_{k}(t) = 0
+\label{kirch2}
+\end{equation}
+
+The voltage drop in a branch $k$ between nodes $n$ and $n+1$ is defined as:
+\begin{equation}
+\Delta v_k(t) = Z_k i_{line,k}(t) = v_n(t) - v_{n+1}(t).
+\end{equation}
+
+When the nodal currents $\textbf{I}_{node}$, line currents $\textbf{I}_{line}$ and nodal voltages $\textbf{V}_{node}$ are known, the total flow of apparent power $S$ can be calculated. $S$ consists of active power $P$ and reactive power $Q$:
+\begin{equation}
+S(t) = P(t) + j Q(t) = \sum_{f = 1}^{phases}U_{phase} I^*
+\end{equation}
+with $I^*$ the complex conjugate of $I$.
+
+The ohmic losses in a 1-phase grid are calculated as follows:
+\begin{equation}
+P_{grid~loss,~1-phase} = \sum_{k = 1}^{branches} P_{k,~loss} = \sum_{k = 1}^{branches} R_k I_{k,~line}^{2} 
+\label{Ploss}
+\end{equation}
+A 3-phase distribution grid consists of three phases and a neutral cable. Therefore, Eq.~(\ref{Ploss}) can be rewritten for 3-phase distribution grids as follows:
+\begin{equation}
+P_{grid~loss,~3-phase} = \sum_{f = 1}^{phases} P_{grid~loss,~f} + P_{neutral,~loss} 
+\label{3Ploss}
+\end{equation}
+
+\subsection{Transformer}
+A radial distribution grid has one feeding transformer
 
 \section{Electrical in-home grid}
 In progress.

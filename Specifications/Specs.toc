@@ -41,28 +41,30 @@
 \contentsline {subsection}{\numberline {4.1.1}Power output of PV panel}{22}{subsection.4.1.1}
 \contentsline {subsection}{\numberline {4.1.2}Power output of PV system}{24}{subsection.4.1.2}
 \contentsline {subsection}{\numberline {4.1.3}Orientation PV system}{24}{subsection.4.1.3}
-\contentsline {subsection}{\numberline {4.1.4}Inverter}{25}{subsection.4.1.4}
+\contentsline {subsection}{\numberline {4.1.4}Inverter}{24}{subsection.4.1.4}
 \contentsline {section}{\numberline {4.2}Electrical distribution grid}{25}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Grid topology}{26}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Power flow analysis}{26}{subsection.4.2.2}
-\contentsline {section}{\numberline {4.3}Electrical in-home grid}{26}{section.4.3}
-\contentsline {section}{\numberline {4.4}Electrical storage}{26}{section.4.4}
-\contentsline {part}{Part\ II\hspace {\betweenumberspace }Validation or verification}{27}{part.2}
-\contentsline {titlech}{\numberline {5}Building energy simulation test - BESTEST}{29}{section*.21}
+\contentsline {subsection}{\numberline {4.2.1}Grid topology}{25}{subsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.1.1}1-3 phase grid simulation}{27}{subsubsection.4.2.1.1}
+\contentsline {subsection}{\numberline {4.2.2}Transformer}{27}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Power flow analysis}{27}{subsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.3.1}losses}{28}{subsubsection.4.2.3.1}
+\contentsline {section}{\numberline {4.3}Electrical in-home grid}{28}{section.4.3}
+\contentsline {section}{\numberline {4.4}Electrical storage}{28}{section.4.4}
+\contentsline {part}{Part\ II\hspace {\betweenumberspace }Validation or verification}{29}{part.2}
+\contentsline {titlech}{\numberline {5}Building energy simulation test - BESTEST}{31}{section*.21}
 \authcount {1}
-\contentsline {authorch}{Ruben Baetens and Dirk Saelens}{29}{section*.21}
-\contentsline {section}{\numberline {5.1}Introduction}{29}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Building energy simulation test cases}{29}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Test results}{30}{subsection.5.1.2}
-\contentsline {subsubsection}{\numberline {5.1.2.1}Annual heating and cooling loads}{30}{subsubsection.5.1.2.1}
-\contentsline {subsubsection}{\numberline {5.1.2.2}Peak heating and cooling loads}{31}{subsubsection.5.1.2.2}
-\contentsline {subsubsection}{\numberline {5.1.2.3}Indoor air temperatures}{31}{subsubsection.5.1.2.3}
-\contentsline {titlech}{\numberline {6}Thermal building energy system test - BESTEST}{33}{section*.22}
+\contentsline {authorch}{Ruben Baetens and Dirk Saelens}{31}{section*.21}
+\contentsline {section}{\numberline {5.1}Introduction}{31}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Building energy simulation test cases}{31}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Test results}{32}{subsection.5.1.2}
+\contentsline {subsubsection}{\numberline {5.1.2.1}Annual heating and cooling loads}{32}{subsubsection.5.1.2.1}
+\contentsline {subsubsection}{\numberline {5.1.2.2}Peak heating and cooling loads}{33}{subsubsection.5.1.2.2}
+\contentsline {subsubsection}{\numberline {5.1.2.3}Indoor air temperatures}{33}{subsubsection.5.1.2.3}
+\contentsline {titlech}{\numberline {6}Thermal building energy system test - BESTEST}{35}{section*.22}
 \authcount {1}
-\contentsline {authorch}{Roel De Coninck and Lieve Helsen}{33}{section*.22}
-\contentsline {titlech}{\numberline {7}IEEE Distribution system analysis for radial test feeders }{35}{section*.23}
+\contentsline {authorch}{Roel De Coninck and Lieve Helsen}{35}{section*.22}
+\contentsline {titlech}{\numberline {7}IEEE Distribution system analysis for radial test feeders }{37}{section*.23}
 \authcount {1}
-\contentsline {authorch}{Juan Van Roy, Bart Verbruggen and Johan Driesen}{35}{section*.23}
-\contentsline {part}{Part\ III\hspace {\betweenumberspace }Bibliography}{37}{part.3}
-\contentsline {section}{References}{39}{section*.24}
-\contentsline {chapter}{Index}{43}{chapter*.25}
+\contentsline {authorch}{Juan Van Roy, Bart Verbruggen and Johan Driesen}{37}{section*.23}
+\contentsline {part}{Part\ III\hspace {\betweenumberspace }Bibliography}{39}{part.3}
+\contentsline {section}{References}{41}{section*.24}

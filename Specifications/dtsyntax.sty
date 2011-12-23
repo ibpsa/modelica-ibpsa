@@ -1,0 +1,282 @@
+%%
+%%   Syntax-Highlight-File `dtsyntax.sty' :: D.Töpel
+%%  _______________________________________________________________
+%% |    
+%% |    Aufrufmöglichkeiten im Dokument :
+%% |    
+%% |    \begin[language=mcode|modelica|pearl|vhdl]{lstlisting}
+%% |      Syntax - Code
+%% |    \end{lstlisting}
+%% |    
+%% |    ** oder **
+%% |
+%% |  	 \mcode|modelica|pearl|vhdl{Syntax - Code}
+%% |    
+%% |    ** oder **
+%% |
+%% |    \lstinputlisting[language=mcode|modelica|pearl|vhdl]{YOUR-FILE.*}
+%% |_______________________________________________________________
+%%
+%%   For your convenience, this package has the following options:
+%%
+%%   -  bw  			|> Ausgabe in Schwarz, dafür Highlight in Fett
+%%									 und Kursiv
+%%   
+%%   -  numbered  |> Angabe von Zeilennummern
+%%
+%%   -  framed  	|> Rahmen um den Code Block
+%%
+%%   -  final  		|> bitte selbst übersetzen ...
+%%					if you have ``gloablly'' set the draft option, the
+%%          listings package will not output the code at all.  to
+%%          force it to do so anyway, load this package with the
+%%          final option (passes the ``final'' on to listings).
+%%
+%%   Beispiel:  \usepackage[numbered,framed]{dtsyntax}
+%%   im Dokumentenkopf.
+%%  ________________________________________________________________
+%%
+%%	Grundlage dieses Style-Files ist die mcode.sty Datei, mit deren
+%%  Hilfe ein Syntax-Highlight für Matlab möglich ist.
+%%
+%%  http://www.mathworks.com/matlabcentral/fileexchange/loadFile.do?objectId=8015&objectType=File
+%%
+%%  http://www.mathworks.com/matlabcentral/files/8015/mcode.sty
+
+\def\fileversion{1.01}
+\def\filedate{2009/09/24}
+
+\typeout{Package: `dtsyntax' \fileversion\space <\filedate>}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{dtsyntax}[\filedate\space\fileversion]
+
+% for bw-option
+\newif\ifbw
+\DeclareOption{bw}{\bwtrue}
+\ifbw\typeout{dtsyntax: settings optimized for printing!}
+\else\typeout{dtsyntax: settings optimized for display!}\fi
+
+% numbered option
+\newif\ifnumbered
+\DeclareOption{numbered}{\numberedtrue}
+
+% final option
+\newif\iffinal
+\DeclareOption{final}{\finaltrue}
+
+% for framed option
+\newif\ifframed
+\DeclareOption{framed}{\framedtrue}
+
+\DeclareOption*{% default
+	\PackageWarning{dtsyntax}{Unknown option `\CurrentOption' !}%
+}
+\ProcessOptions
+
+% check if color command exists
+\ifx\color\undefined%
+	\RequirePackage{color}%
+\fi
+
+\definecolor{lightblue}{rgb}{.3,.5,1}
+\definecolor{orange}{rgb}{1,.7,0}
+\definecolor{darkorange}{rgb}{1,.4,0}
+\definecolor{darkgreen}{rgb}{0,.4,0}
+\definecolor{gray}{rgb}{.3,.3,.3}
+
+\definecolor{blue}{rgb}{0,0,1}
+\definecolor{red}{rgb}{1,0,0}
+\definecolor{pink}{rgb}{.933,0,.933}
+\definecolor{green}{rgb}{0.133,0.545,0.133}
+\definecolor{darkblue}{rgb}{0,0,.4}
+\definecolor{darkred}{rgb}{.56,0,0}
+\definecolor{darkgray}{rgb}{.2,.2,.2}
+\definecolor{shadecolor}{gray}{0.925}
+
+
+% check if listings has been loaded
+\ifx\lstset\undefined%
+	\iffinal
+		\RequirePackage[final]{listings}
+	\else
+		\RequirePackage{listings}
+	\fi
+\fi
+
+% check if textcomp has been loaded (this package is needed 
+% for upright quotes '' (instead of typographic ones `´)...
+\ifx\textasciigrave\undefined% 
+	\RequirePackage{textcomp}%
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%          C O N F I G S  ---  C U S T O M I Z E   H E R E                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% **********************************************************************************
+%	Syntax : Matlab   (mcode)                                                        *
+% **********************************************************************************
+\lstdefinelanguage{mcode}{%
+	otherkeywords={...},%alsoletter
+	morekeywords=[1]{%
+	break,case,catch,continue,elseif,else,end,for,function,global,%
+	if,otherwise,persistent,return,switch,try,while,...},%
+	comment=[l]\%,% 											% comments
+	morecomment=[l][{\color{green}\bfseries}]{\%\%},% % comments keywordstyle
+	morecomment=[l]...,% 									% comments
+	morestring=[m]',%   									% strings 
+}[keywords,comments,strings]%
+
+
+% **********************************************************************************
+%	Syntax : Modelica (modelica)                                                     *
+% **********************************************************************************
+\lstdefinelanguage{modelica}{%
+	alsoletter={...},%
+	otherkeywords={-, =, +, [, ], (, ), \{, \}, :, *, !},%
+	morekeywords=[1]{},%otherkeywords=
+	morekeywords=[2]{% 											% keywords
+		annotation,assert,block,class,connector,constant,discrete,%
+		else,elseif,elsewhen,end,exit,extends,external,final,flow,for,%
+		function,if,in,inner,input,import,loop,model,nondiscrete,outer,%
+		output,package,parameter,record,redeclare,replaceable,return,%
+		size,terminate,then,type,when,while,algorithm,equation,%
+		protected,public,and,false,not,or,true},%
+	morekeywords=[3]{% functions										% keywords
+		abs,acos,asin,atan,atan2,connect,cos,cosh,cross,der,edge,exp,%
+		initial,noEvent,pre,reinit,sample,sign,sin,sinh,tan,tanh,terminal,Real},%
+	comment=[l]//,% 											% comments
+	morecomment=[s]{/*}{*/},% 					% comments
+	morestring=[b]',%   								% strings 
+	morestring=[b]",%
+}[keywords,comments,strings]%
+
+
+% **********************************************************************************
+%	Syntax : Pearl    (pearl)                                                        *
+% **********************************************************************************
+\lstdefinelanguage{pearl}{%
+	alsoletter={...},%
+	morekeywords=[1]{% 											% keywords
+		ACTIVATE,AFTER,ALL,ALPHIC,ALT,AND,AT,BASIC,BEGIN,BIT,BOLT,BY,CALL,CASE,CHAR,%
+		CHARACTER,CLOCK,CLOSE,CONT,CONTINUE,CONTROL,CONVERT,CREATED,CYCLIC,DATION,DECLARE,DCL,%
+		DIM,DIRECT,DISABLE,DUR,DURATION,DURING,ELSE,ENABLE,END,ENTER,EXIT,FIN,FIXED,FLOAT,FOR,%
+		FORBACK,FORMAT,FORWARD,FREE,FROM,GET,GLOBAL,GOTO,HRS,IDENT,IDENTICAL,IF,IN,INDUCE,INIT,%
+		INITIAL,INOUT,INTERRUPT,INV,IRPT,LEAVE,LENGTH,MAIN,MAX,MIN,MODEND,MODULE,NIL,NOCYCL,NOSTREAM,% 
+		ON,OPEN,OPERATOR,OUT,PRECEDENCE,PRESET,PREVENT,PRIO,PRIORITY,PROBLEM,PROC,PROCEDURE,PUT,READ,%
+		REF,RELEASE,REPEAT,REQUEST,RESERVE,RESUME,RETURN,RETURNS,SEC,SEMA,SEND,SIGNAL,SPC,SPECIFY,%
+		STREAM,STRUCT,SUSPEND,SYSTEM,TAKE,TASK,TERMINATE,TFU,THEN,TO,TRIGGER,TYPE,UNTIL,WHEN,WHILE,WRITE,%
+		ABS,ADV,AND,ANY,ATAN,CAN,CAT,CONT,COS,CSHIFT,DATE,ENTIER,EQ,EXOR,EXP,FIT,GE,GT,IDF,IS,ISNT,%
+		LE,LINE,LIST,LN,LT,LWB,NE,NEW,NOT,NOW,OLD,OR,PAGE,POS,PRM,REM,ROUND,RST,SHIFT,SIGN,SIN,SIZEOF,%
+		SKIP,SOP,SQRT,TAN,TANH,TOBIT,TOCHAR,TOFIXED,TOFLOAT,TRY,UPB},%
+	comment=[l]!,% 											% comments
+	morecomment=[s]{/*}{*/},% 					% comments
+	morestring=[m]',%   								% strings 
+}[keywords,comments,strings]%
+
+
+% **********************************************************************************
+%	Syntax : VHDL     (vhdl)                                                         *
+% **********************************************************************************
+\lstdefinelanguage{vhdl}{%
+	morekeywords=[1]{% 											% keywords
+		abs,access,after,all,and,architecture,array,assert,attribute,begin,block,body,buffer,bus,
+		case,component,configuration,disconnect,downto,else,elsif,end,entity,exit,file,for,function,
+		generate,generic,group,guarded,if,impure,in,inertial,inout,is,label,library,linkage,literal,loop,
+		map,mod,nand,new,next,nor,not,null,of,on,open,or,others,out,package,port,postponed,procedure,
+		process,pure,range,record,register,reject,rem,report,return,rol,ror,select,severity,shared,sla,sll,
+		sra,srl,then,to,transport,unaffected,units,until,use,,wait,when,while,with,xnor,xor,ActivPullUp,
+		AndN,And2FF,AndNFF,Cnt1Bit,CntNBit,CntNBitDown,CntNBitMod,CntNBitOe,CntNBitSLd,CntNBitSR,
+		CntNBitUpDown,CompNBit,CompNBitFF,DiffH2LWithFF,DiffL2HWithFF,Dff1,Dff1NegClk,Dffn,Encode4to5,
+		Mux1of2,Mux1of8,Mux1Vof2V,Mux1Vof3V,Mux1Vof4V,PreScale1Bit,PreScale1BitAR,PreScale1BitARNegClk,
+		PreScaleNBit,PreScaleNBitAR,Reg1Bit,Reg1BitAR,Reg1BitR,RegNBit,RegNBitAR,RSFFAsync,RSFFsync,
+		RsSynchronizer,ShiftP2SRegNBitAR,ShiftRegNBitAR,ShiftS2SRegNBit,SRFFsync,SyncAndDiffL2HWithFF,
+		SyncAndDiffH2LWithFF,SyncAndDiffL2HWithFFAndFg,SyncAndDiffH2LWithFFAndFg,SyncAndDiffLL2HHWithFF,
+		SyncAndDiffHH2LLWithFF,SyncAndDiffLL2HHWithFFAndFg,SyncAndDiffHH2LLWithFFAndFg,ActivPullUp\_arch,
+		AndN\_arch,And2FF\_arch,AndNFF\_arch,Cnt1Bit\_arch,CntNBit\_arch,CntNBitDown\_arch,CntNBitMod\_arch,
+		CntNBitOe\_arch,CntNBitSLd\_arch,CntNBitSR\_arch,CntNBitUpDown\_arch,CompNBit\_arch,CompNBitFF\_arch,
+		DiffH2LWithFF\_arch,DiffL2HWithFF\_arch,Dff1\_arch,Dff1NegClk\_arch,Dffn\_arch,Encode4to5\_arch,
+		Mux1of2\_arch,Mux1of8\_arch,Mux1Vof2V\_arch,Mux1Vof3V\_arch,Mux1Vof4V\_arch,PreScale1Bit\_arch,
+		PreScale1BitAR\_arch,PreScale1BitARNegClk\_arch,PreScaleNBit\_arch,PreScaleNBitAR\_arch,Reg1Bit\_arch,
+		Reg1BitAR\_arch,Reg1BitR\_arch,RegNBit\_arch,RegNBitAR\_arch,RSFFAsync\_arch,RSFFsync\_arch,
+		RsSynchronizer\_arch,ShiftP2SRegNBitAR\_arch,ShiftRegNBitAR\_arch,ShiftS2SRegNBit\_arch,SRFFsync\_arch,
+		SyncAndDiffL2HWithFF\_arch,SyncAndDiffH2LWithFF\_arch,SyncAndDiffL2HWithFFAndFg\_arch,
+		SyncAndDiffH2LWithFFAndFg\_arch,SyncAndDiffLL2HHWithFF\_arch,SyncAndDiffHH2LLWithFF\_arch,
+		SyncAndDiffLL2HHWithFFAndFg\_arch,SyncAndDiffHH2LLWithFFAndFg\_arch,
+		%
+		alias,constant,type,variable,signal,subtype},%
+	morekeywords=[4]{% color -> pink
+		bit,bit\_vector,boolean,integer,real,std\_logic,std\_logic\_vector,time,character,string,
+		IEEE,std_logic_1164,std_logic_textio,numeric_bit,numeric_std,std_logic_unsigned,math_real,
+		std_logic_arith,std,textio,CONV\_INTEGER,CONV\_STD\_LOGIC\_VECTOR},%
+	morekeywords=[5]{event,value},%
+	comment=[l]{--},% 									% comments
+	morestring=[m][\color{darkred}]',%  % strings 
+	morestring=[m][\color{darkred}]",%
+	alsoother={.},%otherkeywords
+	sensitive=false
+}[keywords,comments,strings]%
+
+
+\ifbw % use font formating and gray 'colors'
+	\lstset{
+		keywordstyle=\bfseries, 								% keywords in bold
+		commentstyle=\color[gray]{0.6}\itshape,	% comments light gray and italic
+		stringstyle=\color[gray]{0.5} 					% strings darker gray
+	}
+\else% notbw => use colors : )
+	\lstset{
+		backgroundcolor=\color{shadecolor},
+		keywordstyle=[1]\color{blue},						% keywords
+		keywordstyle=[2]\color{blue}\bfseries,	% keywords
+		keywordstyle=[3]\color{red},						% keywords
+		keywordstyle=[4]\color{pink},						% keywords
+		keywordstyle=[5]\color{darkblue}\bfseries,	% keywords
+		commentstyle=\color{green},							% comments
+		stringstyle=\color{red}									% strings
+	}	
+\fi%bw
+
+\lstset{%
+	basicstyle={\ttfamily\footnotesize},  	% use font and smaller size \small \footnotesize
+	showstringspaces=false,									% do not emphasize spaces in strings
+	tabsize=4,															% number of spaces of a TAB
+	mathescape=false,%escapechar=§,					% escape to latex with §...§
+	upquote=true,														% upright quotes
+	aboveskip={1.5\baselineskip},						% a bit of space above
+	columns=fixed,													% nice spacing -> fixed / flexible
+	texcl=false%
+}
+
+\ifnumbered% numbered option
+	\lstset{%
+	numbersep=1mm, numbers=left, numberstyle=\tiny,	% number style
+	}
+\fi
+
+\ifframed%   framed option
+	\lstset{%
+	  %basicstyle={\ttfamily\footnotesize},
+		frame=leftline,% single,											% frame
+		framerule=3pt,
+		framexleftmargin=2pt,
+		%xleftmargin=1cm,
+	}
+	\ifnumbered%
+		\lstset{%
+			numbersep=-5mm,												% tweak margins
+		}
+	\fi
+\fi
+
+
+% with this command, you can typeset syntax highlighted code ``inline'',
+% for example when you talk about \pearl{for}--loops ...
+\newcommand{\mcode}[1]{\lstinline[basicstyle=\ttfamily,language=mcode]|#1|}
+\newcommand{\modelica}[1]{\lstinline[basicstyle=\ttfamily,language=modelica]|#1|}
+\newcommand{\pearl}[1]{\lstinline[basicstyle=\ttfamily,language=pearl]|#1|}
+\newcommand{\vhdl}[1]{\lstinline[basicstyle=\ttfamily,language=vhdl]|#1|}
+
+\endinput
+%% End of file `dtsyntax.sty'.
