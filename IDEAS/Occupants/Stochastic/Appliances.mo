@@ -2,38 +2,42 @@ within IDEAS.Occupants.Stochastic;
 model Appliances
   "I.Richardson et al. (2010), Domestic electricity use: A high-resolution energy demand model, Energy and Buildings 42, 1878-1887"
 
-parameter Real[4] seed;
-parameter Integer nLoads(min=1) "Number of electric appliances";
-parameter Integer nZones(min=1) "Number of thermal zones in the building";
-parameter IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance[nLoads] appData;
+  parameter Real[4] seed;
+  parameter Integer nLoads(min=1) "Number of electric appliances";
+  parameter Integer nZones(min=1) "Number of thermal zones in the building";
+  parameter IDEAS.Occupants.Stochastic.Data.BaseClasses.Appliance[nLoads] appData;
 
 protected
-IDEAS.Occupants.Stochastic.BaseClasses.ActivityProb actProb
+  IDEAS.Occupants.Stochastic.BaseClasses.ActivityProb actProb
     "Activity probabilities based on occupancy";
-IDEAS.Occupants.Stochastic.BaseClasses.RandomChainVector randomVector(
-    seed=10000*seed,
-    n=3*nLoads,
-    interval=interval) "Vector of random numbers through time";
-parameter Integer interval = 60;
+  IDEAS.Occupants.Stochastic.BaseClasses.RandomChainVector randomVector(seed=10000*seed,n=3*nLoads,interval=interval)
+    "Vector of random numbers through time";
+  final parameter Integer interval = 60;
 
-Real[nLoads] delay;
-Real[nLoads] minLeft;
-Integer[nLoads] state "On/off state per appliance";
-Modelica.SIunits.Power[nLoads] appPowerRad
+  Real[nLoads] delay "Delay at initialisation";
+  Real[nLoads] minLeft "Minutes left leaving on the appliance";
+  Integer[nLoads] state "On/off state per appliance";
+  Modelica.SIunits.Power[nLoads] appPowerRad
     "Thermal radiative power per appliance";
-Modelica.SIunits.Power[nLoads] appPowerConv
+  Modelica.SIunits.Power[nLoads] appPowerConv
     "Thermal convective power per appliance";
-Boolean[nLoads] action;
+  Boolean[nLoads] action "State change";
 
 public
-outer IDEAS.Climate.SimInfoManager sim annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
+  outer IDEAS.Climate.SimInfoManager sim
+    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
+    "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
           iconTransformation(extent={{-110,10},{-90,30}})));
-Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
+    "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
           iconTransformation(extent={{-110,-30},{-90,-10}})));
-Modelica.Blocks.Interfaces.RealOutput[nLoads] P annotation (Placement(transformation(extent={{90,10},{110,30}})));
-Modelica.Blocks.Interfaces.RealOutput[nLoads] Q annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
-Modelica.Blocks.Interfaces.IntegerInput Occ annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput[nLoads] P "
+    Active power of the domestic appliances" annotation (Placement(transformation(extent={{90,10},{110,30}})));
+  Modelica.Blocks.Interfaces.RealOutput[nLoads] Q
+    "Reactive power of appliances" annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
+  Modelica.Blocks.Interfaces.IntegerInput Occ
+    "Occupancy of the building inhabitants" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,100})));

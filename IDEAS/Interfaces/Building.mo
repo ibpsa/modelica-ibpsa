@@ -4,19 +4,24 @@ model Building
   outer IDEAS.Climate.SimInfoManager
                        sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-
+  replaceable IDEAS.Interfaces.Structure building "Building"
+    annotation (Placement(transformation(extent={{-66,-10},{-36,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.HeatingSystem heatingSystem(nZones=building.nZones)
+    "Thermal heating system"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.Occupant occupant(nZones=building.nZones)
+    "Building occupant"
     annotation (Placement(transformation(extent={{-20,-42},{0,-22}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.InhomeFeeder inhomeGrid(nHeatingLoads=heatingSystem.nLoads, nOccupantLoads=occupant.nLoads, nVentilationLoads=ventilationSystem.nLoads)
+    "Inhome electricity grid system"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.VentilationSystem ventilationSystem(nZones=building.nZones)
+    "Ventilation system"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})),choicesAllMatching = true);
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plugFeeder
+    "Electricity connection to the district feeder"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  replaceable IDEAS.Interfaces.Structure building
-    annotation (Placement(transformation(extent={{-66,-10},{-36,10}})),choicesAllMatching = true);
+
 equation
   connect(inhomeGrid.plugFeeder, plugFeeder)
                                         annotation (Line(

@@ -1,8 +1,6 @@
 within IDEAS.Interfaces;
 partial model InhomeFeeder
 
-  outer IDEAS.Climate.SimInfoManager  sim
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Integer nHeatingLoads(min=1)
     "number of electric loads for the heating system";
   parameter Integer nVentilationLoads(min=1)
@@ -10,17 +8,16 @@ partial model InhomeFeeder
   parameter Integer nOccupantLoads(min=1)
     "number of electric loads for the occupants";
 
+  outer IDEAS.Climate.SimInfoManager sim
+    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plugFeeder
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nVentilationLoads]
-    pinVentilationLoad
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nHeatingLoads]
-    pinHeatingLoad
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nOccupantLoads]
-    pinOccupantLoad
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
+    "Electricity connection to the district feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nVentilationLoads] pinVentilationLoad
+    "Electricity connection for the ventilaiton system" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nHeatingLoads] pinHeatingLoad
+    "Electricity connection for the heating system" annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nOccupantLoads] pinOccupantLoad
+    "Electricity connection for the occupants" annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   annotation(Icon(graphics={
         Rectangle(
           extent={{28,60},{70,20}},

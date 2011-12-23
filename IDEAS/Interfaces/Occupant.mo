@@ -1,28 +1,26 @@
 within IDEAS.Interfaces;
 partial model Occupant
 
-  outer IDEAS.Climate.SimInfoManager  sim
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-
 parameter Integer nZones(min=1) "number of conditioned thermal zones";
 parameter Integer nLoads(min=1) "number of electric loads";
 
+  outer IDEAS.Climate.SimInfoManager sim
+    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
-    annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
+    "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
         iconTransformation(extent={{-110,10},{-90,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
-    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
+    "Nodes for radiative heat gains" annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
         iconTransformation(extent={{-110,-30},{-90,-10}})));
   Modelica.Blocks.Interfaces.RealOutput[nZones] TSet
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    "Setpoint temperature for the zones" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,100}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,100})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads]
-    pinLoad
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads] pinLoad
+    "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   annotation(Icon(graphics={
         Ellipse(extent={{-12,74},{12,48}}, lineColor={127,0,0}),
         Polygon(
