@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2011.12.9)  23 DEC 2011 15:38
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2011.12.9)  23 DEC 2011 16:17
 entering extended mode
 **U:/MyOwn/Intelligente*gebouwen/Ideas/Specifications/Specs.tex
 ("U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Specs.tex"
@@ -1566,7 +1566,7 @@ del.tex" [20
 
 
 ]
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 22.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 21.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ts1ptm.fd"
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
@@ -1575,16 +1575,16 @@ File: Electric/MyGraphics/5param_eq.png Graphic file (type png)
 
 <use Electric/MyGraphics/5param_eq.png>
 Package pdftex.def Info: Electric/MyGraphics/5param_eq.png used on input line 3
-1.
+0.
 (pdftex.def)             Requested size: 184.9429pt x 76.5279pt.
 
 
-LaTeX Warning: Reference `chap:climate' on page 21 undefined on input line 37.
+LaTeX Warning: Reference `chap:climate' on page 21 undefined on input line 36.
 
 [21] [22 <U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Electric/MyGraphi
 cs/5param_eq.png>]
 
-LaTeX Warning: Reference `eq2' on page 23 undefined on input line 70.
+LaTeX Warning: Reference `eq2' on page 23 undefined on input line 69.
 
 [23] [24]
 <Electric/MyGraphics/grid_ieee34.png, id=629, 716.6775pt x 226.8475pt>
@@ -1592,7 +1592,7 @@ File: Electric/MyGraphics/grid_ieee34.png Graphic file (type png)
 
 <use Electric/MyGraphics/grid_ieee34.png>
 Package pdftex.def Info: Electric/MyGraphics/grid_ieee34.png used on input line
- 156.
+ 155.
 (pdftex.def)             Requested size: 277.41435pt x 87.80904pt.
  [25] [26 <U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Electric/MyGraph
 ics/grid_ieee34.png>] [27]) [28]
@@ -1612,7 +1612,7 @@ Missing character: There is no ” in font ptmr7t!
 
 
 ]
-<Buildings/MyGraphics/AH_BESTEST.png, id=701, 706.0779pt x 267.399pt>
+<Buildings/MyGraphics/AH_BESTEST.png, id=700, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/AH_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/AH_BESTEST.png>
@@ -1620,7 +1620,7 @@ Package pdftex.def Info: Buildings/MyGraphics/AH_BESTEST.png used on input line
  30.
 (pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
 
-<Buildings/MyGraphics/AC_BESTEST.png, id=702, 706.0779pt x 267.399pt>
+<Buildings/MyGraphics/AC_BESTEST.png, id=701, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/AC_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/AC_BESTEST.png>
@@ -1630,7 +1630,7 @@ Package pdftex.def Info: Buildings/MyGraphics/AC_BESTEST.png used on input line
  [32 <U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Buildings/MyGraphics/
 AH_BESTEST.png> <U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Buildings/
 MyGraphics/AC_BESTEST.png>]
-<Buildings/MyGraphics/PH_BESTEST.png, id=715, 706.0779pt x 267.399pt>
+<Buildings/MyGraphics/PH_BESTEST.png, id=714, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/PH_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/PH_BESTEST.png>
@@ -1638,7 +1638,7 @@ Package pdftex.def Info: Buildings/MyGraphics/PH_BESTEST.png used on input line
  38.
 (pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
 
-<Buildings/MyGraphics/PC_BESTEST.png, id=716, 706.0779pt x 267.399pt>
+<Buildings/MyGraphics/PC_BESTEST.png, id=715, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/PC_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/PC_BESTEST.png>
@@ -1646,7 +1646,7 @@ Package pdftex.def Info: Buildings/MyGraphics/PC_BESTEST.png used on input line
  39.
 (pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
 
-<Buildings/MyGraphics/Temp_BESTEST.pdf, id=717, 695.59875pt x 261.97874pt>
+<Buildings/MyGraphics/Temp_BESTEST.pdf, id=716, 695.59875pt x 261.97874pt>
 File: Buildings/MyGraphics/Temp_BESTEST.pdf Graphic file (type pdf)
 
 <use Buildings/MyGraphics/Temp_BESTEST.pdf>
@@ -1725,7 +1725,7 @@ delValidation.aux"))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 60.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 60.
 Package rerunfilecheck Info: File `Specs.out' has not changed.
-(rerunfilecheck)             Checksum: EFF52DD3B13A7DEB192A9F1B05A65F6F;3318.
+(rerunfilecheck)             Checksum: F8B9BA591CE7C2F70E9BEA05CD5DE0DA;3318.
 
 
 LaTeX Font Warning: Size substitutions with differences
@@ -1739,8 +1739,8 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 29325 strings out of 494045
- 586758 string characters out of 3148381
+ 29324 strings out of 494045
+ 586737 string characters out of 3148381
  700454 words of memory out of 3000000
  31671 multiletter control sequences out of 15000+200000
  58611 words of font info for 130 fonts, out of 3000000 for 9000
@@ -1771,9 +1771,9 @@ rogram Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
 /urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8
 a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Specs.pdf (50 pages, 451584 bytes).
+Output written on Specs.pdf (50 pages, 451515 bytes).
 PDF statistics:
- 910 PDF objects out of 1000 (max. 8388607)
- 257 named destinations out of 1000 (max. 500000)
+ 909 PDF objects out of 1000 (max. 8388607)
+ 256 named destinations out of 1000 (max. 500000)
  408 words of extra memory for PDF output out of 10000 (max. 10000000)
 
