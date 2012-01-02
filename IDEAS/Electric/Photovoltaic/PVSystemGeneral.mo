@@ -35,7 +35,7 @@ IDEAS.Electric.BaseClasses.CNegPin
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Electrical.Analog.Basic.Ground ground1
     annotation (Placement(transformation(extent={{-40,-24},{-20,-4}})));
-  IDEAS.Electric.BaseClasses.OhmsLawGenSym
+  IDEAS.Electric.BaseClasses.WattsLaw
                                   ohmsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   IDEAS.Electric.Photovoltaic.Components.PvVoltageToPower
