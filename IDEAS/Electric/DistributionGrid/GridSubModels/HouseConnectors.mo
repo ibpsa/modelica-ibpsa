@@ -32,10 +32,10 @@ IDEAS.Electric.DistributionGrid.Components.BranchLenTyp[numPha,numNod] branch(
     mulFac=mulFacZ);
 
 /**This creates the Nodes for the gridconnection and the houseconnection**/
-IDEAS.Electric.BaseClasses.CNegPin[
+Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin[
                 numPha,numNod] griCon
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-IDEAS.Electric.BaseClasses.CPosPin[
+Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[
                                numPha,numNod] houCon
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})),Icon(graphics), Diagram(graphics));
@@ -65,8 +65,8 @@ protected
 equation
   for p in 1:numPha loop
     for n in 1:numNod loop
-      connect(branch[p,n].p,griCon[p,n]);
-      connect(branch[p,n].n,houCon[p,n]);
+      connect(branch[p,n].pin_p,griCon[p,n]);
+      connect(branch[p,n].pin_n,houCon[p,n]);
     end for;
   end for;
 

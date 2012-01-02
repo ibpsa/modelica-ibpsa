@@ -10,11 +10,11 @@ replaceable parameter IDEAS.Electric.Data.Interfaces.GridType
   IDEAS.Electric.DistributionGrid.Components.Branch branch[Nodes](R=
         Modelica.ComplexMath.real(Z), X=Modelica.ComplexMath.imag(Z));
 
-  IDEAS.Electric.BaseClasses.CPosPin
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                   TraPin
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
 
-  IDEAS.Electric.BaseClasses.CPosPin[
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[
                                  Nodes] node
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
@@ -35,13 +35,13 @@ parameter Modelica.SIunits.ComplexImpedance[Nodes] Z = grid.Z;
 parameter Integer Nodes=grid.n;
 
 equation
-  connect(branch[1].p,TraPin);
+  connect(branch[1].pin_p,TraPin);
 for x in 1:Nodes loop
   for y in 1:Nodes loop
         if T_matrix[x,y]==1 then
-          connect(branch[x].p,node[y]);
+          connect(branch[x].pin_p,node[y]);
         elseif T_matrix[x,y]==-1 then
-          connect(branch[x].n,node[y]);
+          connect(branch[x].pin_n,node[y]);
         end if;
   end for;
 
@@ -58,7 +58,7 @@ end for;
   PGriLosTot = ones(Nodes)*PLosBra;
 //end if;
 
-  SGriTot = branch[1].p.v*Modelica.ComplexMath.conj(branch[1].p.i);
+  SGriTot = branch[1].pin_p.v*Modelica.ComplexMath.conj(branch[1].pin_p.i);
   PGriTot = Modelica.ComplexMath.real(SGriTot);
   QGriTot = Modelica.ComplexMath.imag(SGriTot);
   annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,

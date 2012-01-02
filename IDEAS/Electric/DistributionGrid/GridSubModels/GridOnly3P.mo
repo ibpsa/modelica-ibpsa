@@ -4,14 +4,15 @@ replaceable parameter IDEAS.Electric.Data.Interfaces.GridType
                                              grid(Pha=3)
     "Choose a grid Layout (with 3 phaze values)"
                                                 annotation(choicesAllMatching = true);
-IDEAS.Electric.BaseClasses.CPosPin[
+
+Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[
                                4,Nodes] node
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-IDEAS.Electric.BaseClasses.CPosPin
+Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                 TraPin[3](i(
                           im(  each start=0)))
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-IDEAS.Electric.BaseClasses.CNegPin
+Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
                 TraGnd
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
 
@@ -46,25 +47,25 @@ IDEAS.Electric.BaseClasses.CNegPin
  output Modelica.SIunits.Voltage Vabs[3,Nodes];
 equation
   /***Connecting all neutral connectors (=4th row of nodes)***/
-  connect(TraGnd,neutral[1].p);
+  connect(TraGnd,neutral[1].pin_p);
   for x in 1:Nodes loop
     for y in 1:Nodes loop
       if T_matrix[x,y]==1 then
-        connect(neutral[x].p,node[4,y]);
+        connect(neutral[x].pin_p,node[4,y]);
       elseif T_matrix[x,y]==-1 then
-        connect(neutral[x].n,node[4,y]);
+        connect(neutral[x].pin_n,node[4,y]);
       end if;
     end for;
   end for;
   /***Connecting all phases***/
   for z in 1:3 loop
-    connect(TraPin,branch[:,1].p);
+    connect(TraPin,branch[:,1].pin_p);
     for x in 1:Nodes loop
       for y in 1:Nodes loop
         if T_matrix[x,y]==1 then
-          connect(branch[z,x].p,node[z,y]);
+          connect(branch[z,x].pin_p,node[z,y]);
         elseif T_matrix[x,y]==-1 then
-          connect(branch[z,x].n,node[z,y]);
+          connect(branch[z,x].pin_n,node[z,y]);
         end if;
       end for;
     end for;
@@ -79,8 +80,8 @@ end for;
 
 /***Calculating all power phase powers***/
 for z in 1:3 loop
-    SGriTotPha[z] = (branch[z, 1].p.v - neutral[1].p.v)*
-      Modelica.ComplexMath.conj(branch[z, 1].p.i);
+    SGriTotPha[z] = (branch[z, 1].pin_p.v - neutral[1].pin_p.v)*
+      Modelica.ComplexMath.conj(branch[z, 1].pin_p.i);
     PGriTotPha[z] = Modelica.ComplexMath.real(SGriTotPha[z]);
     QGriTotPha[z] = Modelica.ComplexMath.imag(SGriTotPha[z]);
 end for;

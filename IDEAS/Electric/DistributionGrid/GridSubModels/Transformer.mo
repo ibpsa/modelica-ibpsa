@@ -1,6 +1,7 @@
 within IDEAS.Electric.DistributionGrid.GridSubModels;
 model Transformer
   "This transfomer can be used in a single phase equivalent circuit or 3 phase"
+
 parameter Modelica.SIunits.ApparentPower Sn=160000
  annotation(choices(
 choice=100000 "100 kVA",
@@ -33,20 +34,20 @@ __Dymola_radioButtons=true));
         extent={{-10,-3},{10,3}},
         rotation=270,
         origin={0,-11})));
-  IDEAS.Electric.BaseClasses.CPosPin
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                   HVpos[Phases](i(
                                 re(  each start=-230/Modelica.ComplexMath.real(
                                                               Zpar)), im(  each start=0)))
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-  IDEAS.Electric.BaseClasses.CNegPin
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
                   HVgnd
     "Connect this to the voltage source negative pin / ground"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
-  IDEAS.Electric.BaseClasses.CPosPin
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                   LVPos[Phases]
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
 
-  IDEAS.Electric.BaseClasses.CNegPin
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
                   LVgnd
     "This should NOT be connected for single phase equivalent circuits"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
@@ -67,15 +68,15 @@ protected
 parameter Modelica.SIunits.ComplexImpedance Zs=(Phases/3)*(((400*Vsc/100)^2)/3)/(Sn*(Vsc/100)/3)+0*Modelica.ComplexMath.j;
 parameter Modelica.SIunits.ComplexImpedance Zpar=(Phases/3)*(((400/sqrt(3))^2)/(P0/3))+0*Modelica.ComplexMath.j;
 protected
-  IDEAS.Electric.BaseClasses.CPosPin
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                   pin_p[Phases]
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  IDEAS.Electric.BaseClasses.CNegPin
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
                   pin_n
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
 for i in 1:Phases loop
-    connect(Zp[i].n, pin_n) annotation (Line(
+    connect(Zp[i].pin_n, pin_n) annotation (Line(
       points={{-1.83697e-015,-21},{-1.83697e-015,-29.5},{0,-29.5},{0,-40}},
       color={0,0,255},
       smooth=Smooth.None));
@@ -89,23 +90,23 @@ end for;
       color={0,0,255},
       smooth=Smooth.None));
 
-  connect(ZsHV.n, pin_p) annotation (Line(
+  connect(ZsHV.pin_n, pin_p) annotation (Line(
       points={{-40,40},{0,40}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(pin_p, ZsLV.p) annotation (Line(
+  connect(pin_p, ZsLV.pin_p) annotation (Line(
       points={{0,40},{40,40}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(HVpos, ZsHV.p) annotation (Line(
+  connect(HVpos, ZsHV.pin_p) annotation (Line(
       points={{-100,40},{-60,40}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(ZsLV.n, LVPos) annotation (Line(
+  connect(ZsLV.pin_n, LVPos) annotation (Line(
       points={{60,40},{100,40}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(pin_p, Zp.p) annotation (Line(
+  connect(pin_p, Zp.pin_p) annotation (Line(
       points={{0,40},{0,19.5},{0,-1},{1.83697e-015,-1}},
       color={0,0,255},
       smooth=Smooth.None));

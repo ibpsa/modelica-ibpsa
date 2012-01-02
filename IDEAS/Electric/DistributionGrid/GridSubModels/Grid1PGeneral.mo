@@ -2,29 +2,32 @@ within IDEAS.Electric.DistributionGrid.GridSubModels;
 model Grid1PGeneral
 
 protected
-  IDEAS.Electric.DistributionGrid.GridSubModels.GridOnly1P gridOnly1P(grid=grid)
+  GridOnly1P                                       gridOnly1P(grid=grid)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  IDEAS.Electric.DistributionGrid.GridSubModels.Transformer transformer(
+  Transformer                                       transformer(
     Phases=1,
     Vsc=Vsc,
     Sn=Sn) if traPre
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  IDEAS.Electric.DistributionGrid.GridSubModels.HouseConnectors houseConnectors(
+  HouseConnectors                                       houseConnectors(
     numPha=1,
     numNod=Nodes,
     typHouBran=typHouBran) if houCon
     annotation (Placement(transformation(extent={{56,12},{76,32}})));
 
-  IDEAS.Electric.DistributionGrid.Components.CVoltageSource cVoltageSource(Vsource=
+  /**ELECTA.DistributionGrid.Components.CVoltageSource cVoltageSource(Vsource=
         VSource)                                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-80,-30})));
-  IDEAS.Electric.DistributionGrid.Components.CGround cGround
+  ELECTA.DistributionGrid.Components.CGround cGround
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
+  **/
+  parameter Real gridFreq=50
+    "Grid frequency: should normally not be changed when simulating belgian grids!";
 public
-IDEAS.Electric.BaseClasses.CPosPin
+Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                 node[gridOnly1P.grid.n]
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   replaceable parameter IDEAS.Electric.Data.Interfaces.GridType
@@ -125,9 +128,19 @@ protected
   parameter Integer Nodes=grid.n;
   parameter IDEAS.Electric.Data.Interfaces.Cable
                                  typHouBran[Nodes]= (if not difConTyp then fill(typ1HouBran,Nodes) else typHouBranDif);
+public
+  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource voltageSource(V=Modelica.ComplexMath.'abs'(VSource),
+      phi=Modelica.ComplexMath.arg(VSource),
+    f=gridFreq)                              annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-70,-30})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
+    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 equation
-  connect(cVoltageSource.n, cGround.p) annotation (Line(
-      points={{-80,-40},{-80,-60}},
+  connect(voltageSource.pin_n, ground.pin) annotation (Line(
+      points={{-70,-40},{-70,-57},{0,-57},{0,-60}},
       color={0,0,255},
       smooth=Smooth.None));
 
@@ -136,17 +149,17 @@ equation
       points={{-20,4},{20,4}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(cVoltageSource.p, transformer.HVpos[1]) annotation (Line(
-      points={{-80,-20},{-80,4},{-40,4}},
+  connect(voltageSource.pin_p, transformer.HVpos[1]) annotation (Line(
+      points={{-70,-20},{-70,4},{-40,4}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(cGround.p, transformer.HVgnd) annotation (Line(
-      points={{-80,-60},{-50,-60},{-50,-4},{-40,-4}},
+  connect(ground.pin, transformer.HVgnd) annotation (Line(
+      points={{0,-60},{-2,-60},{-2,-50},{-50,-50},{-50,-4},{-40,-4}},
       color={0,0,255},
       smooth=Smooth.None));
   else
-  connect(cVoltageSource.p, gridOnly1P.TraPin) annotation (Line(
-      points={{-80,-20},{-92,-20},{-92,20},{20,20},{20,4}},
+  connect(voltageSource.pin_p, gridOnly1P.TraPin) annotation (Line(
+      points={{-70,-20},{-92,-20},{-92,20},{20,20},{20,4}},
       color={0,0,255},
       smooth=Smooth.None));
   end if;
