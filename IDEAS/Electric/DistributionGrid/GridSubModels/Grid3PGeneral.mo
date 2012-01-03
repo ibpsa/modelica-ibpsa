@@ -3,7 +3,7 @@ model Grid3PGeneral
 extends Modelica.Icons.UnderConstruction;
 protected
   IDEAS.Electric.DistributionGrid.GridSubModels.GridOnly3P gridOnly3P(grid=grid)
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   IDEAS.Electric.DistributionGrid.GridSubModels.Transformer transformer(
     Phases=3,
     Vsc=Vsc,
@@ -35,12 +35,12 @@ parameter Real gridFreq=50
     numNod=Nodes,
     typHouBran=typHouBran,
     conPha=conPha) if houCon
-    annotation (Placement(transformation(extent={{52,-30},{72,-10}})));
+    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
 
 public
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[4,gridOnly3P.grid.n]
-                  node
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[4,
+    gridOnly3P.grid.n] node4Lines
+    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 
 replaceable parameter IDEAS.Electric.Data.Interfaces.GridType
                                              grid(Pha=3) "Choose a grid Layout"
@@ -150,6 +150,13 @@ protected
   parameter IDEAS.Electric.Data.Interfaces.Cable
                                  typHouBran[Nodes]= (if not difConTyp then fill(typ1HouBran,Nodes) else typHouBranDif) if  houCon;
 
+  Components.Con3PlusNTo3 con3PlusNTo3_1[
+    gridOnly3P.grid.n]
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+public
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,
+    gridOnly3P.grid.n] nodes3Phase
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
 for i in 1:3 loop
   connect(voltageSource[i].pin_n,ground.pin) annotation (Line(
@@ -160,7 +167,7 @@ end for;
 
 if traPre then
   connect(transformer.LVPos, gridOnly3P.TraPin) annotation (Line(
-      points={{-20,4},{20,4}},
+      points={{-20,4},{0,4}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(voltageSource.pin_p,transformer.HVpos) annotation (Line(
@@ -172,16 +179,16 @@ if traPre then
       color={0,0,255},
       smooth=Smooth.None));
   connect(transformer.LVgnd, gridOnly3P.TraGnd) annotation (Line(
-      points={{-20,-4},{20,-4}},
+      points={{-20,-4},{0,-4}},
       color={0,0,255},
       smooth=Smooth.None));
 else
   connect(voltageSource.pin_p, gridOnly3P.TraPin) annotation (Line(
-      points={{-72,-30},{-92,-30},{-92,20},{20,20},{20,4}},
+      points={{-72,-30},{-92,-30},{-92,20},{0,20},{0,4}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(ground.pin, gridOnly3P.TraGnd) annotation (Line(
-      points={{-10,-70},{20,-70},{20,-4}},
+      points={{-10,-70},{0,-70},{0,-4}},
       color={0,0,255},
       smooth=Smooth.None));
 end if;
@@ -189,21 +196,32 @@ end if;
 if houCon then
     connect(gridOnly3P.node,houseConnectors. griCon)
     annotation (Line(
-      points={{40,0},{48,0},{48,-20},{52,-20}},
+      points={{20,0},{28,0},{28,-20},{30,-20}},
       color={0,0,255},
       smooth=Smooth.None));
-    connect(houseConnectors.houCon,node)
+    connect(houseConnectors.houCon, node4Lines)
       annotation (Line(
-      points={{72,-20},{88,-20},{88,0},{100,0}},
+      points={{50,-20},{50,0},{60,0}},
       color={0,0,255},
       smooth=Smooth.None));
 
 else
-    connect(gridOnly3P.node,node)  annotation (Line(
-      points={{40,0},{100,0}},
+    connect(gridOnly3P.node, node4Lines)
+                                   annotation (Line(
+      points={{20,0},{60,0}},
       color={0,0,255},
       smooth=Smooth.None));
 end if;
+for n in 1:gridOnly3P.grid.n loop
+  connect(node4Lines[:,n], con3PlusNTo3_1[n].fourWire) annotation (Line(
+      points={{60,0},{70,0}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(con3PlusNTo3_1[n].threeWire, nodes3Phase[:,n]) annotation (Line(
+      points={{90,0},{100,0}},
+      color={85,170,255},
+      smooth=Smooth.None));
+end for;
 
   annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
               -100}}, fileName=
