@@ -9,32 +9,15 @@ model Con3PlusNTo3
                   threeWire[3]
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VariableVoltageSource[3]
-    variableVoltageSource annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={40,-30})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
-    annotation (Placement(transformation(extent={{30,-74},{50,-54}})));
 equation
   for i in 1:3 loop
-    fourWire[i].v-fourWire[4].v=variableVoltageSource[i].V;
+    fourWire[i].v-fourWire[4].v=threeWire[i].v;
     threeWire[i].i=-fourWire[i].i;
-    variableVoltageSource[i].f=50;
- //   threeWire[i].reference=fourWire[i].reference;
-   connect(ground.pin, variableVoltageSource[i].pin_n) annotation (Line(
-      points={{40,-54},{40,-40}},
-      color={85,170,255},
-      thickness=0.5,
-      smooth=Smooth.None));
+    Connections.branch(threeWire[i].reference,fourWire[i].reference);
+    threeWire[i].reference.gamma=fourWire[i].reference.gamma;
   end for;
   -fourWire[4].i=fourWire[1].i+fourWire[2].i+fourWire[3].i;
 
-  connect(variableVoltageSource.pin_p, threeWire) annotation (Line(
-      points={{40,-20},{40,0},{100,0}},
-      color={85,170,255},
-      thickness=0.5,
-      smooth=Smooth.None));
   annotation (Icon(graphics={Line(
           points={{-80,30},{-20,30}},
           color={0,0,255},

@@ -17,8 +17,7 @@ replaceable parameter IDEAS.Electric.Data.Interfaces.PvPanel pvPanel
     "Choose a Photovoltaic panel to be used"
                                         annotation(choicesAllMatching = true);
 
-IDEAS.Electric.BaseClasses.CNegPin
-                               pin[numPha] annotation (Placement(transformation(extent={{92,30},{112,50}},rotation=0)));
+Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin         pin[numPha] annotation (Placement(transformation(extent={{92,30},{112,50}},rotation=0)));
 
   outer Climate.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));

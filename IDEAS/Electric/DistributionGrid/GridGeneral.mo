@@ -1,7 +1,7 @@
 within IDEAS.Electric.DistributionGrid;
 model GridGeneral
   "THE General grid to use, look at the documentation for naming etc."
-extends Modelica.Icons.UnderConstruction;
+
 parameter Integer Phases=1
     "Number of phases simulated, for now only single phase works with GridInfo, this will set Pha in grid Layout also"
  annotation(choices(
@@ -103,8 +103,8 @@ IDEAS.Electric.DistributionGrid.GridSubModels.Grid3PGeneral grid3PGeneral(
     annotation (Placement(transformation(extent={{-60,-22},{-40,-2}})));
 
 public
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
-                  gridNodes4[4,grid.n] if Phases==3
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin gridNodes3P[3,grid.n] if
+                                          Phases==3
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                   gridNodes[grid.n] if Phases==1
@@ -171,7 +171,8 @@ output Modelica.SIunits.Current Ibranch0Abs=Modelica.ComplexMath.'abs'(
                                                       Ibranch0) if  Phases==1;
 
 equation
-  connect(grid3PGeneral.node,gridNodes4)  annotation (Line(
+  connect(grid3PGeneral.nodes3Phase, gridNodes3P)
+                                          annotation (Line(
       points={{-40,-12},{30,-12},{30,0},{100,0}},
       color={0,0,255},
       smooth=Smooth.None));

@@ -23,10 +23,9 @@ protected
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
 public
-IDEAS.Electric.BaseClasses.CNegPin
-                        pin[       3] annotation (Placement(transformation(extent={{88,30},
+Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin    pin[       3] annotation (Placement(transformation(extent={{88,30},
             {108,50}},                                                                                    rotation=0)));
-  flow Modelica.Blocks.Interfaces.RealOutput PQ[2]
+ Modelica.Blocks.Interfaces.RealOutput PQ[2]
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
   IDEAS.Electric.Photovoltaic.Components.ForInputFiles.PVvoltagemeas pVvoltagemeas(PVPha=
         PVPha)                             annotation (Placement(transformation(

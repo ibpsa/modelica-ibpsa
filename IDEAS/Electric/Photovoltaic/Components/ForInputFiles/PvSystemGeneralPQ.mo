@@ -13,8 +13,7 @@ parameter Modelica.SIunits.Voltage VMax=248
 
 parameter Integer numPha=1;
 
-IDEAS.Electric.BaseClasses.CNegPin
-                               pin[numPha] annotation (Placement(transformation(extent={{92,30},{112,50}},rotation=0)));
+ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin     pin[numPha] annotation (Placement(transformation(extent={{92,30},{112,50}},rotation=0)));
 
   IDEAS.Electric.Photovoltaic.Components.ForInputFiles.SimpleDCAC_effP invertor(NPanelen=
         amount)
@@ -27,7 +26,7 @@ IDEAS.Electric.BaseClasses.CNegPin
     annotation (Placement(transformation(extent={{26,20},{46,40}})));
   outer IDEAS.Electric.Photovoltaic.Components.ForInputFiles.Read10minPV PV1
     annotation (Placement(transformation(extent={{-100,78},{-80,98}})));
-  flow Modelica.Blocks.Interfaces.RealOutput PQ[2]
+  Modelica.Blocks.Interfaces.RealOutput PQ[2]
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
 equation
 invertor.P_dc=PV1.P_paneel;

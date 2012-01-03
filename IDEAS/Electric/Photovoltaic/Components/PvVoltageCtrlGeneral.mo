@@ -19,8 +19,7 @@ Boolean switch( start = true) "if true, system is producing";
   Modelica.Blocks.Interfaces.RealOutput QFinal
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
 
-  IDEAS.Electric.BaseClasses.CPosPin
-                          pin[numPha]
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin    pin[numPha]
     annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
 
 protected
@@ -51,4 +50,5 @@ for i in 1:numPha loop
     pin[i].i = 0 + 0*Modelica.ComplexMath.j;
 end for;
 
+  annotation (Diagram(graphics));
 end PvVoltageCtrlGeneral;

@@ -4,7 +4,7 @@ package DistributionGrid "This gives an electrical distribution grid model for a
 
   extends Modelica.Icons.Package;
 
-extends Modelica.Icons.UnderConstruction;
+
 
 
 
