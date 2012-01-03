@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2011.12.9)  23 DEC 2011 16:17
+This is XeTeX, Version 3.1415926-2.3-0.9997.5 (MiKTeX 2.9 64-bit) (preloaded format=xelatex 2012.1.3)  3 JAN 2012 09:21
 entering extended mode
-**U:/MyOwn/Intelligente*gebouwen/Ideas/Specifications/Specs.tex
-("U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Specs.tex"
+**Specs.tex
+("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Specs.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -29,14 +29,14 @@ Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
-\c@part=\count79
-\c@section=\count80
-\c@subsection=\count81
-\c@subsubsection=\count82
-\c@paragraph=\count83
-\c@subparagraph=\count84
-\c@figure=\count85
-\c@table=\count86
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
@@ -46,8 +46,8 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \betweenumberspace=\dimen105
 \headlineindent=\dimen106
 \minitoc=\write3
-\c@minitocdepth=\count87
-\c@chapter=\count88
+\c@minitocdepth=\count88
+\c@chapter=\count89
 \mottowidth=\dimen107
 \svitemindent=\dimen108
 \verbatimindent=\dimen109
@@ -74,31 +74,31 @@ LaTeX Font Info:    Redeclaring math symbol \Omega on input line 973.
 \tocsubparanum=\dimen119
 \foot@parindent=\dimen120
 \spthmsep=\dimen121
-\c@theorem=\count89
-\c@case=\count90
-\c@conjecture=\count91
-\c@corollary=\count92
-\c@definition=\count93
-\c@example=\count94
-\c@exercise=\count95
-\c@lemma=\count96
-\c@note=\count97
-\c@problem=\count98
-\c@property=\count99
-\c@proposition=\count100
-\c@question=\count101
-\c@solution=\count102
-\c@remark=\count103
-\c@prob=\count104
+\c@theorem=\count90
+\c@case=\count91
+\c@conjecture=\count92
+\c@corollary=\count93
+\c@definition=\count94
+\c@example=\count95
+\c@exercise=\count96
+\c@lemma=\count97
+\c@note=\count98
+\c@problem=\count99
+\c@property=\count100
+\c@proposition=\count101
+\c@question=\count102
+\c@solution=\count103
+\c@remark=\count104
+\c@prob=\count105
 \instindent=\dimen122
 \figgap=\dimen123
 \bildb@x=\box26
 \figcapgap=\dimen124
 \tabcapgap=\dimen125
-\c@merk=\count105
-\c@@inst=\count106
-\c@@auth=\count107
-\c@auco=\count108
+\c@merk=\count106
+\c@@inst=\count107
+\c@@auth=\count108
+\c@auco=\count109
 \instindent=\dimen126
 \authrun=\box27
 \authorrunning=\toks14
@@ -106,7 +106,7 @@ LaTeX Font Info:    Redeclaring math symbol \Omega on input line 973.
 \titrun=\box28
 \titlerunning=\toks16
 \toctitle=\toks17
-\c@contribution=\count109
+\c@contribution=\count110
 LaTeX Info: Redefining \abstract on input line 2320.
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
@@ -115,18 +115,11 @@ Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 130.
+Package color Info: Driver file: xetex.def on input line 130.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+("C:\Program Files\MiKTeX 2.9\tex\xelatex\xetex-def\xetex.def"
+File: xetex.def 2009/11/22 v0.94 LaTeX color/graphics driver for XeTeX (RRM/JK)
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
-)
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
-Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
-)
-\Gread@gobject=\count110
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\framed\framed.sty"
 Package: framed 2007/10/04 v 0.95: framed or shaded text with page breaks
@@ -253,7 +246,7 @@ Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
-Package graphics Info: Driver file: pdftex.def on input line 91.
+Package graphics Info: Driver file: xetex.def on input line 91.
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\l3kernel\l3basics.sty"
 Package: l3basics 2011/10/15 v2915 L3 Experimental basic definitions
@@ -547,6 +540,13 @@ Normal \count register pool exhausted, switching to extended pool.
 \conditionsep=\skip63
 )
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\dtsyntax.sty"
+Invalid UTF-8 byte or sequence at line 2 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 5 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 22 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 29 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 40 replaced by U+FFFD.
+Invalid UTF-8 byte or sequence at line 40 replaced by U+FFFD.
+
 Package: `dtsyntax' 1.01 <2009/09/24>
 Package: dtsyntax 2009/09/24 1.01
 dtsyntax: settings optimized for display!
@@ -668,7 +668,7 @@ Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Driver file: xetex.def on input line 225.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\colortbl\colortbl.sty"
 Package: colortbl 2001/02/13 v0.1j Color table columns (DPC)
@@ -687,7 +687,6 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 LaTeX Info: Redefining \color on input line 702.
 \rownum=\count298
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
 Package xcolor Info: Model `RGB' extended on input line 1353.
 Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
 Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
@@ -747,14 +746,18 @@ x"
  ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\systemlayer\pgf.cfg"
 File: pgf.cfg 2008/05/14  (rcs-revision 1.7)
 )
-Package pgfsys Info: Driver file for pgf: pgfsys-pdftex.def on input line 900.
+Package pgfsys Info: Driver file for pgf: pgfsys-xetex.def on input line 900.
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\systemlayer\pgfsys-pdftex.def"
-File: pgfsys-pdftex.def 2009/05/22  (rcs-revision 1.26)
+("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\systemlayer\pgfsys-xetex.def"
+File: pgfsys-xetex.def 2010/02/16  (rcs-revision 1.3)
 
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\systemlayer\pgfsys-common-pdf.def
 "
 File: pgfsys-common-pdf.def 2008/05/19  (rcs-revision 1.10)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\systemlayer\pgfsys-common-pdf-via
+-dvi.def"
+File: pgfsys-common-pdf-via-dvi.def 2008/05/19  (rcs-revision 1.7)
 )))
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\systemlayer\pgfsyssoftpath.code.t
 ex"
@@ -1015,9 +1018,7 @@ tex")
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgfplots\libs\pgflibrarypgfplots.surf
 shading.code.tex"
 \c@pgfplotslibrarysurf@no=\count324
-
-("C:\Program Files\MiKTeX 2.9\tex\generic\pgfplots\sys\pgflibrarypgfplots.surfs
-hading.pgfsys-pdftex.def")))
+))
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgfplots\util\pgfplotscolormap.code.t
 ex")
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgfplots\pgfplotsstackedplots.code.te
@@ -1092,15 +1093,15 @@ Package: hobsub-hyperref 2011/04/23 v1.4 Bundle oberdiek, subset hyperref (HO)
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
 Package: hobsub-generic 2011/04/23 v1.4 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2011/04/23 v1.4 Subsetting bundle oberdiek (HO)
-Package hobsub Info: Skipping package `infwarerr' (already loaded).
-Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
 Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
 Package ifvtex Info: VTeX not detected.
 Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
+Package ifpdf Info: pdfTeX in PDF mode is not detected.
 Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
 Package etexcmds Info: Could not find \expanded.
 (etexcmds)             That can mean that you are not using pdfTeX 1.50 or
@@ -1110,9 +1111,10 @@ Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
 Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
 Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
 Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: pdfTeX >= 1.30 not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
+Package pdftexcmds Info: \pdfdraftmode not found.
 Package: pdfescape 2011/04/04 v1.12 Provides string conversions (HO)
 Package: bigintcalc 2011/01/30 v1.2 Expandable big integer calculations (HO)
 Package: bitset 2011/01/30 v1.1 Data type bit set (HO)
@@ -1145,22 +1147,18 @@ File: pd1enc.def 2011/12/04 v6.82m Hyperref: PDFDocEncoding definition (HO)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-
-! Package hyperref Error: Wrong driver option `xetex',
-(hyperref)                because XeTeX is not detected.
-
-See the hyperref package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.3925 \ProcessKeyvalOptions{Hyp}
-                                 
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
 Package hyperref Info: Option `bookmarks' set `true' on input line 3925.
 Package hyperref Info: Option `colorlinks' set `true' on input line 3925.
 Package hyperref Info: Option `breaklinks' set `true' on input line 3925.
+
+
+Package hyperref Warning: XeTeX driver only supports unicode.
+(hyperref)                Enabling option `unicode'.
+
+Package hyperref Info: Option `unicode' set `true' on input line 3925.
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\puenc.def"
+File: puenc.def 2011/12/04 v6.82m Hyperref: PDF Unicode definition (HO)
+)
 Package hyperref Info: Hyper figures OFF on input line 4046.
 Package hyperref Info: Link nesting OFF on input line 4051.
 Package hyperref Info: Hyper index ON on input line 4054.
@@ -1169,9 +1167,10 @@ Package hyperref Info: Backreferencing OFF on input line 4066.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4284.
 \c@Hy@tempcnt=\count333
-("C:\Program Files\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
+
+("C:\Program Files\MiKTeX 2.9\tex\xelatex\xetexurl\url.sty"
 \Urlmuskip=\muskip16
-Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+Package: url 2004/03/15  ver 3.1  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4637.
 \Fld@menulength=\count334
@@ -1191,17 +1190,28 @@ LaTeX Info: Redefining \pageref on input line 5831.
 \c@Hfootnote=\count337
 )
 
-Package hyperref Message: Driver (autodetected): hpdftex.
+Package hyperref Message: Driver: hxetex.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
-File: hpdftex.def 2011/12/04 v6.82m Hyperref driver for pdfTeX
-\Fld@listcount=\count338
-\c@bookmark@seq@number=\count339
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hxetex.def"
+File: hxetex.def 2011/12/04 v6.82m Hyperref driver for XeTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\stringenc.sty"
+Package: stringenc 2010/03/01 v1.8 Converts strings between encodings (HO)
+)
+\pdfm@box=\box58
+\c@Hy@AnnotLevel=\count338
+\HyField@AnnotCount=\count339
+\Fld@listcount=\count340
+\c@bookmark@seq@number=\count341
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
-82.
+Package rerunfilecheck Info: Feature \pdfmdfivesum is not available
+(rerunfilecheck)             (e.g. pdfTeX or LuaTeX with package `pdftexcmds').
+
+(rerunfilecheck)             Therefore file contents cannot be checked efficien
+tly
+(rerunfilecheck)             and the loading of the package is aborted.
 )
 \Hy@SectionHShift=\skip67
 )
@@ -1256,27 +1266,26 @@ Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\multicol.sty"
 Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
-\c@tracingmulticols=\count340
-\mult@box=\box58
+\c@tracingmulticols=\count342
+\mult@box=\box59
 \multicol@leftmargin=\dimen324
-\c@unbalance=\count341
-\c@collectmore=\count342
-\doublecol@number=\count343
-\multicoltolerance=\count344
-\multicolpretolerance=\count345
+\c@unbalance=\count343
+\c@collectmore=\count344
+\doublecol@number=\count345
+\multicoltolerance=\count346
+\multicolpretolerance=\count347
 \full@width=\dimen325
 \page@free=\dimen326
 \premulticols=\dimen327
 \postmulticols=\dimen328
 \multicolsep=\skip68
 \multicolbaselineskip=\skip69
-\partial@page=\box59
-\last@line=\box60
-\mult@rightbox=\box61
-\mult@grightbox=\box62
-\mult@gfirstbox=\box63
-\mult@firstbox=\box64
-\@tempa=\box65
+\partial@page=\box60
+\last@line=\box61
+\mult@rightbox=\box62
+\mult@grightbox=\box63
+\mult@gfirstbox=\box64
+\mult@firstbox=\box65
 \@tempa=\box66
 \@tempa=\box67
 \@tempa=\box68
@@ -1293,20 +1302,21 @@ Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
 \@tempa=\box79
 \@tempa=\box80
 \@tempa=\box81
-\c@columnbadness=\count346
-\c@finalcolumnbadness=\count347
+\@tempa=\box82
+\c@columnbadness=\count348
+\c@finalcolumnbadness=\count349
 \last@try=\dimen329
 \multicolovershoot=\dimen330
 \multicolundershoot=\dimen331
-\mult@nat@firstbox=\box82
-\colbreak@box=\box83
-\multicol@sort@counter=\count348
+\mult@nat@firstbox=\box83
+\colbreak@box=\box84
+\multicol@sort@counter=\count350
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\footmisc\footmisc.sty"
 Package: footmisc 2011/06/06 v5.5b a miscellany of footnote facilities
 \FN@temptoken=\toks49
 \footnotemargin=\dimen332
-\c@pp@next@reset=\count349
+\c@pp@next@reset=\count351
 Package footmisc Info: Declaring symbol style bringhurst on input line 855.
 Package footmisc Info: Declaring symbol style chicago on input line 863.
 Package footmisc Info: Declaring symbol style wiley on input line 872.
@@ -1327,10 +1337,10 @@ Package: subfigure 2002/07/30 v2.1.4 subfigure package
 \subfigbottomskip=\skip72
 \subfigcapmargin=\dimen334
 \subfiglabelskip=\skip73
-\c@subfigure=\count350
-\c@lofdepth=\count351
-\c@subtable=\count352
-\c@lotdepth=\count353
+\c@subfigure=\count352
+\c@lofdepth=\count353
+\c@subtable=\count354
+\c@lotdepth=\count355
 
 ****************************************
 * Local config file subfigure.cfg used *
@@ -1339,7 +1349,7 @@ Package: subfigure 2002/07/30 v2.1.4 subfigure package
 \subfig@top=\skip74
 \subfig@bottom=\skip75
 )
-\c@tmpc=\count354
+\c@tmpc=\count356
 )
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Specs.aux"
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Structure/Preface/preface
@@ -1352,7 +1362,14 @@ ux")
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Thermal/ThermalSystemMode
 l.aux")
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Electric/ElectricSystemMo
-del.aux")
+del.aux"
+
+LaTeX Warning: Label `3Ploss' multiply defined.
+
+
+LaTeX Warning: Label `3Ploss' multiply defined.
+
+)
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Buildings/BuildingModelVa
 lidation.aux")
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Thermal/ThermalSystemMode
@@ -1379,29 +1396,17 @@ File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 9.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1ptm.fd"
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
-("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count355
-\scratchdimen=\dimen335
-\scratchbox=\box84
-\nofMPsegments=\count356
-\nofMParguments=\count357
-\everyMPshowfont=\toks50
-\MPscratchCnt=\count358
-\MPscratchDim=\dimen336
-\MPnumerator=\count359
-\makeMPintoPDFobject=\count360
-\everyMPtoPDFconversion=\toks51
-)
 Option `squaren' provided! 
  Command \squaren defined by SIunits package!
 
-\c@lstlisting=\count361
+\c@lstlisting=\count357
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box85
 Package hyperref Info: Link coloring ON on input line 9.
@@ -1412,7 +1417,7 @@ Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count362
+\c@section@level=\count358
 )
 LaTeX Info: Redefining \ref on input line 9.
 LaTeX Info: Redefining \pageref on input line 9.
@@ -1421,6 +1426,10 @@ LaTeX Info: Redefining \nameref on input line 9.
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Specs.out")
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Specs.out")
 \@outlinefile=\write6
+
+
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
 
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Structure/Preface/preface
 .tex"
@@ -1466,7 +1475,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 
 
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [6
+] [6
 
 
 
@@ -1570,121 +1579,69 @@ LaTeX Font Info:    Try loading font information for TS1+ptm on input line 21.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ts1ptm.fd"
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-<Electric/MyGraphics/5param_eq.png, id=562, 465.74pt x 192.72pt>
-File: Electric/MyGraphics/5param_eq.png Graphic file (type png)
+File: Electric/MyGraphics/5param_eq.png Graphic file (type QTm)
 
-<use Electric/MyGraphics/5param_eq.png>
-Package pdftex.def Info: Electric/MyGraphics/5param_eq.png used on input line 3
-0.
-(pdftex.def)             Requested size: 184.9429pt x 76.5279pt.
-
+<use  "Electric/MyGraphics/5param_eq.png" >
 
 LaTeX Warning: Reference `chap:climate' on page 21 undefined on input line 36.
 
-[21] [22 <U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Electric/MyGraphi
-cs/5param_eq.png>]
-
-LaTeX Warning: Reference `eq2' on page 23 undefined on input line 69.
-
-[23] [24]
-<Electric/MyGraphics/grid_ieee34.png, id=629, 716.6775pt x 226.8475pt>
-File: Electric/MyGraphics/grid_ieee34.png Graphic file (type png)
-
-<use Electric/MyGraphics/grid_ieee34.png>
-Package pdftex.def Info: Electric/MyGraphics/grid_ieee34.png used on input line
- 155.
-(pdftex.def)             Requested size: 277.41435pt x 87.80904pt.
- [25] [26 <U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Electric/MyGraph
-ics/grid_ieee34.png>] [27]) [28]
-[29
-
-
-
-] [30]
-("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Buildings/BuildingModelVa
-lidation.tex"
-Missing character: There is no Â in font ptmri7t!
-Missing character: There is no “ in font ptmri7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no ” in font ptmr7t!
- [31
+[21] [22] [23] [24]
+File: Electric/MyGraphics/grid_ieee34.png Graphic file (type QTm)
+ <use  "Electric/MyGraphics/grid_ieee34.png" > [25] [26]
+[27]
+File: Electric/MyGraphics/trafo_equischeme.png Graphic file (type QTm)
+ <use  "Electric/MyGraphics/trafo_equischeme.png" > [28]) [29] [30
 
 
 
 ]
-<Buildings/MyGraphics/AH_BESTEST.png, id=700, 706.0779pt x 267.399pt>
-File: Buildings/MyGraphics/AH_BESTEST.png Graphic file (type png)
+[31] [32]
+("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Buildings/BuildingModelVa
+lidation.tex"
+Missing character: There is no ^^93 in font ptmri7t!
+Missing character: There is no ^^94 in font ptmr7t!
+ [33
 
-<use Buildings/MyGraphics/AH_BESTEST.png>
-Package pdftex.def Info: Buildings/MyGraphics/AH_BESTEST.png used on input line
- 30.
-(pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
 
-<Buildings/MyGraphics/AC_BESTEST.png, id=701, 706.0779pt x 267.399pt>
-File: Buildings/MyGraphics/AC_BESTEST.png Graphic file (type png)
 
-<use Buildings/MyGraphics/AC_BESTEST.png>
-Package pdftex.def Info: Buildings/MyGraphics/AC_BESTEST.png used on input line
- 31.
-(pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
- [32 <U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Buildings/MyGraphics/
-AH_BESTEST.png> <U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Buildings/
-MyGraphics/AC_BESTEST.png>]
-<Buildings/MyGraphics/PH_BESTEST.png, id=714, 706.0779pt x 267.399pt>
-File: Buildings/MyGraphics/PH_BESTEST.png Graphic file (type png)
+]
+File: Buildings/MyGraphics/AH_BESTEST.png Graphic file (type QTm)
+ <use  "Buildings/MyGraphics/AH_BESTEST.png" >
+File: Buildings/MyGraphics/AC_BESTEST.png Graphic file (type QTm)
 
-<use Buildings/MyGraphics/PH_BESTEST.png>
-Package pdftex.def Info: Buildings/MyGraphics/PH_BESTEST.png used on input line
- 38.
-(pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
+<use  "Buildings/MyGraphics/AC_BESTEST.png" > [34]
+File: Buildings/MyGraphics/PH_BESTEST.png Graphic file (type QTm)
 
-<Buildings/MyGraphics/PC_BESTEST.png, id=715, 706.0779pt x 267.399pt>
-File: Buildings/MyGraphics/PC_BESTEST.png Graphic file (type png)
+<use  "Buildings/MyGraphics/PH_BESTEST.png" >
+File: Buildings/MyGraphics/PC_BESTEST.png Graphic file (type QTm)
 
-<use Buildings/MyGraphics/PC_BESTEST.png>
-Package pdftex.def Info: Buildings/MyGraphics/PC_BESTEST.png used on input line
- 39.
-(pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
+<use  "Buildings/MyGraphics/PC_BESTEST.png" >
+File: Buildings/MyGraphics/Temp_BESTEST.pdf Graphic file (type QTm)
 
-<Buildings/MyGraphics/Temp_BESTEST.pdf, id=716, 695.59875pt x 261.97874pt>
-File: Buildings/MyGraphics/Temp_BESTEST.pdf Graphic file (type pdf)
-
-<use Buildings/MyGraphics/Temp_BESTEST.pdf>
-Package pdftex.def Info: Buildings/MyGraphics/Temp_BESTEST.pdf used on input li
-ne 46.
-(pdftex.def)             Requested size: 369.88582pt x 139.30777pt.
-) [33 <U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Buildings/MyGraphics
-/PH_BESTEST.png> <U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Buildings
-/MyGraphics/PC_BESTEST.png>]
-[34 <U:/MyOwn/Intelligente gebouwen/Ideas/Specifications/Buildings/MyGraphics/T
-emp_BESTEST.pdf>]
+<use  "Buildings/MyGraphics/Temp_BESTEST.pdf" >) [35] [36]
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Thermal/ThermalSystemMode
-lValidation.tex") [35
+lValidation.tex") [37
 
 
 
 
 ]
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Electric/ElectricSystemMo
-delValidation.tex" [36
+delValidation.tex" [38
 
 
 
 
-]) [37] [38
+]) [39] [40
 
 
 
-] [39]
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no · in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no · in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no · in font ptmr7t!
-Missing character: There is no Â in font ptmr7t!
-Missing character: There is no · in font ptmr7t!
- [40]
+] [41]
+Missing character: There is no Â· in font ptmr7t!
+Missing character: There is no Â· in font ptmr7t!
+Missing character: There is no Â· in font ptmr7t!
+Missing character: There is no Â· in font ptmr7t!
+ [42]
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Specs.bbl"
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
@@ -1697,7 +1654,7 @@ ata,'' in \OT1/ptm/m/it/8.5 CIE Day-light-ing con-fer-ence Vol.I\OT1/ptm/m/n/8.
 5 ,
  []
 
-[41] [42]) [43] [44
+[43] [44]) [45] [46
 
 
 ]
@@ -1722,10 +1679,8 @@ lidation.aux")
 lValidation.aux")
 ("U:\MyOwn\Intelligente gebouwen\Ideas\Specifications\Electric/ElectricSystemMo
 delValidation.aux"))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 60.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 60.
-Package rerunfilecheck Info: File `Specs.out' has not changed.
-(rerunfilecheck)             Checksum: F8B9BA591CE7C2F70E9BEA05CD5DE0DA;3318.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 60.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 60.
 
 
 LaTeX Font Warning: Size substitutions with differences
@@ -1735,45 +1690,16 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Warning: There were undefined references.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 29324 strings out of 494045
- 586737 string characters out of 3148381
- 700454 words of memory out of 3000000
- 31671 multiletter control sequences out of 15000+200000
- 58611 words of font info for 130 fonts, out of 3000000 for 9000
- 715 hyphenation exceptions out of 8191
- 52i,10n,74p,1364b,1106s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Hfootnote.5} has been referenced but does not exi
-st, replaced by a fixed one
+ 29935 strings out of 429156
+ 578143 string characters out of 3168944
+ 695482 words of memory out of 3000000
+ 32600 multiletter control sequences out of 15000+200000
+ 30667 words of font info for 82 fonts, out of 3000000 for 9000
+ 786 hyphenation exceptions out of 8191
+ 52i,10n,74p,1312b,1106s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
-, replaced by a fixed one
-
-pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
-, replaced by a fixed one
-
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courie
-r/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/P
-rogram Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
-/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8
-a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Specs.pdf (50 pages, 451515 bytes).
-PDF statistics:
- 909 PDF objects out of 1000 (max. 8388607)
- 256 named destinations out of 1000 (max. 500000)
- 408 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+Output written on Specs.pdf (52 pages).
