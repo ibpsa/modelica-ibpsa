@@ -17,8 +17,7 @@ equation
     P/numPha = Modelica.ComplexMath.real(vi[i].v*Modelica.ComplexMath.conj(vi[i].i));
     Q/numPha = Modelica.ComplexMath.imag(vi[i].v*Modelica.ComplexMath.conj(vi[i].i));
     end for;
-//   annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{100,-100}},
-//             fileName="modelica://ELECTA/OhmsLaw.png")}));
+
   annotation (Icon(graphics={
         Polygon(
           points={{0,80},{-80,-60},{80,-60},{0,80}},

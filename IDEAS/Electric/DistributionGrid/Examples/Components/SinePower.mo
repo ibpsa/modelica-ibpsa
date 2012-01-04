@@ -9,11 +9,10 @@ parameter Real period=1 "How many days is one period for the simulation?";
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
                           nodes
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-Real P=ohmsLaw.P;
+Real P=wattsLaw.P;
 
 protected
-IDEAS.Electric.BaseClasses.WattsLaw
-                          ohmsLaw(numPha=1)
+IDEAS.Electric.BaseClasses.WattsLaw wattsLaw(numPha=1)
                                   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -26,12 +25,14 @@ Modelica.Blocks.Sources.Sine sine(amplitude=amplitude, offset=offset,
 parameter Real freq=1/(86400*period);
 
 equation
-ohmsLaw.Q=0;
-  connect(ohmsLaw.vi[1], nodes) annotation (Line(
+wattsLaw.Q=0;
+  connect(wattsLaw.vi[1], nodes)
+                                annotation (Line(
       points={{-30,40},{-30,0},{-100,0}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sine.y, ohmsLaw.P) annotation (Line(
+  connect(sine.y, wattsLaw.P)
+                             annotation (Line(
       points={{-51,86},{-26,86},{-26,60}},
       color={0,0,127},
       smooth=Smooth.None));

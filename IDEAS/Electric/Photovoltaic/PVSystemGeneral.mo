@@ -34,8 +34,7 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin         p
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Electrical.Analog.Basic.Ground ground1
     annotation (Placement(transformation(extent={{-40,-24},{-20,-4}})));
-  IDEAS.Electric.BaseClasses.WattsLaw
-                                  ohmsLaw(numPha=numPha)
+  IDEAS.Electric.BaseClasses.WattsLaw wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   IDEAS.Electric.Photovoltaic.Components.PvVoltageToPower
                                                 dCGrid
@@ -64,7 +63,8 @@ equation
       points={{-80,30},{-84,30},{-84,6},{-30,6},{-30,-4}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(ohmsLaw.vi, pin) annotation (Line(
+  connect(wattsLaw.vi, pin)
+                           annotation (Line(
       points={{80,30},{92,30},{92,40},{102,40}},
       color={0,0,255},
       smooth=Smooth.None));
@@ -80,11 +80,13 @@ equation
       points={{14,32},{26,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pvVoltageCtrl.PFinal, ohmsLaw.P) annotation (Line(
+  connect(pvVoltageCtrl.PFinal, wattsLaw.P)
+                                           annotation (Line(
       points={{46,36},{53,36},{53,34},{60,34}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pvVoltageCtrl.QFinal, ohmsLaw.Q) annotation (Line(
+  connect(pvVoltageCtrl.QFinal, wattsLaw.Q)
+                                           annotation (Line(
       points={{46,32},{54,32},{54,28},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
