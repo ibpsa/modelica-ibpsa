@@ -1,7 +1,7 @@
 within IDEAS.Electric.BaseClasses;
 model WattsLaw
   "For use  with loads. Either symmetrically divided over 3 phases (numPha=3) or single phase (numPha=1)."
-  parameter Integer numPha=3 "Choose the number of phases" annotation(choices(choice=1
+  parameter Integer numPha=1 "Choose the number of phases" annotation(choices(choice=1
         "single phase",                                                                               choice=3
         "symmetrical 3 phase"));
  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin[

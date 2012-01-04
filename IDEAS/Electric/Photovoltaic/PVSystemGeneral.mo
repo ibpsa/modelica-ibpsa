@@ -13,7 +13,7 @@ parameter Modelica.SIunits.Voltage VMax=248
 
 parameter Integer numPha=1;
 
-replaceable parameter IDEAS.Electric.Data.Interfaces.PvPanel pvPanel
+replaceable parameter IDEAS.Electric.Data.Interfaces.PvPanel pvPanel= IDEAS.Electric.Data.PvPanels.SanyoHIP230HDE1()
     "Choose a Photovoltaic panel to be used"
                                         annotation(choicesAllMatching = true);
 
