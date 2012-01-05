@@ -1,6 +1,6 @@
 within IDEAS.Electric.DistributionGrid.GridSubModels;
 model Grid3PGeneral
-extends Modelica.Icons.UnderConstruction;
+
 protected
   IDEAS.Electric.DistributionGrid.GridSubModels.GridOnly3P gridOnly3P(grid=grid)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
