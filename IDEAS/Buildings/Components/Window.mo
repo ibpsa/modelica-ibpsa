@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components;
-model Window "multipane window"
+model Window "Multipane window"
 
 extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
