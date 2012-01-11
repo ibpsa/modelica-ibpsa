@@ -2,8 +2,7 @@ within IDEAS.Electric.DistributionGrid.GridSubModels;
 model GridOnly1P
 
 public
-replaceable parameter IDEAS.Electric.Data.Interfaces.GridType
-                                             grid( Pha=1)
+replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid( Pha=1)
     "Choose a grid Layout (with 3 phaze values)"
                                                 annotation(choicesAllMatching = true);
 
@@ -30,17 +29,17 @@ output Modelica.SIunits.ActivePower PGriLosTot;
 output Modelica.SIunits.Voltage Vabs[Nodes];
 
 protected
-parameter Integer T_matrix[Nodes,Nodes] = grid.T_matrix;
+parameter Integer nodeMatrix[Nodes,Nodes] = grid.nodeMatrix;
 parameter Modelica.SIunits.ComplexImpedance[Nodes] Z = grid.Z;
-parameter Integer Nodes=grid.n;
+parameter Integer Nodes=grid.nNodes;
 
 equation
   connect(branch[1].pin_p,TraPin);
 for x in 1:Nodes loop
   for y in 1:Nodes loop
-        if T_matrix[x,y]==1 then
+        if nodeMatrix[x,y]==1 then
           connect(branch[x].pin_p,node[y]);
-        elseif T_matrix[x,y]==-1 then
+        elseif nodeMatrix[x,y]==-1 then
           connect(branch[x].pin_n,node[y]);
         end if;
   end for;

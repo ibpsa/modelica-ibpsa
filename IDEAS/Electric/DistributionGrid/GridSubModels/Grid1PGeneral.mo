@@ -28,10 +28,9 @@ protected
     "Grid frequency: should normally not be changed when simulating belgian grids!";
 public
 Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
-                node[gridOnly1P.grid.n]
+                node[gridOnly1P.grid.nNodes]
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  replaceable parameter IDEAS.Electric.Data.Interfaces.GridType
-                                               grid(Pha=1)
+  replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=1)
     "Choose a grid Layout"                                                           annotation(choicesAllMatching = true);
   /*parameter Boolean Loss = true 
     "if true, PLosBra and PGriLosTot gives branch and Grid cable losses"
@@ -96,7 +95,7 @@ choice=IDEAS.Electric.Data.Cables.PvcAl16() "PVC Aluminum 16 mm^2",
 choice=IDEAS.Electric.Data.Cables.PvcAl25() "PVC Aluminum 25 mm^2"));
 replaceable parameter IDEAS.Electric.Data.Interfaces.Cable[
                                            Nodes] typHouBranDif={IDEAS.Electric.Data.Cables.PvcAl16()
-                                                                                                 for i in 1:Nodes}
+                                                                                                for i in 1:Nodes}
     "Give the array of cable connection types if different types of cables are used";
 
 /***Output the cable losses of the grid***/
@@ -125,7 +124,7 @@ output Modelica.SIunits.ActivePower PLosHouConTot=houseConnectors.PLosHouConTot 
   output Modelica.SIunits.Current Ibranch0Abs=Modelica.ComplexMath.'abs'(
                                                         Ibranch0);
 protected
-  parameter Integer Nodes=grid.n;
+  parameter Integer Nodes=grid.nNodes;
   parameter IDEAS.Electric.Data.Interfaces.Cable
                                  typHouBran[Nodes]= (if not difConTyp then fill(typ1HouBran,Nodes) else typHouBranDif);
 public
