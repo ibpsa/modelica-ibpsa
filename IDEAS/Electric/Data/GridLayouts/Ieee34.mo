@@ -1,7 +1,7 @@
 within IDEAS.Electric.Data.GridLayouts;
 record Ieee34 "IEEE 34-bus grid district"
 
-   extends IDEAS.Electric.Data.Interfaces.GridLayout(
+   extends ELECTA.Interfaces.GridLayout(
     nNodes=34,
     nodeMatrix={{-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0},{1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
