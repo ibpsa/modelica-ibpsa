@@ -5,10 +5,8 @@ record Ieee34_AL120
     This uses 1 phase for distribution (impedance is for 1 phase)... to make it the equivalent of a 3 phase,
     impedances could be divided by 3
   */
-//constant IDEAS.Electric.Data.Interfaces.GridLayout layout=IDEAS.Electric.Data.GridLayouts.Ieee34();
-
-extends IDEAS.Electric.Data.Interfaces.GridType(
-nNodes=34,
+   extends IDEAS.Electric.Data.Interfaces.GridType(
+  nNodes=34,
     nodeMatrix={{-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0},{1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0},{0,1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

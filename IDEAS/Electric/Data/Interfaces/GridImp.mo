@@ -5,7 +5,11 @@ extends Modelica.Icons.MaterialProperty;
 //parameter Integer n(min=1);
 //parameter Integer T_matrix[nNodes,nNodes];
 
-parameter Integer nNodes "number of nodes  in the grid layout";
+parameter Integer nNodes;
+parameter Integer nodeMatrix[size(nodeMatrix,1),:];
+parameter Modelica.SIunits.Resistance R[size(nodeMatrix,1)];
+parameter Modelica.SIunits.Reactance X[size(nodeMatrix,1)];
+parameter Modelica.SIunits.ComplexImpedance Z[size(nodeMatrix,1)](re=R,im=X);
 
 parameter Integer[nNodes,nNodes] nodeMatrix
     "Node-matrix describing the connection between the nodes";
