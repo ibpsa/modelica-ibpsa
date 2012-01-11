@@ -39,7 +39,7 @@ parameter Real gridFreq=50
 
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[4,
-    gridOnly3P.grid.n] node4Lines
+    gridOnly3P.grid.nNodes] node4Lines
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 
 replaceable parameter IDEAS.Electric.Data.Interfaces.GridType
@@ -106,7 +106,7 @@ choice=IDEAS.Electric.Data.Cables.PvcAl16() "PVC Aluminum 16 mm^2",
 choice=IDEAS.Electric.Data.Cables.PvcAl25() "PVC Aluminum 25 mm^2"));
 replaceable parameter IDEAS.Electric.Data.Interfaces.Cable[
                                            Nodes] typHouBranDif={IDEAS.Electric.Data.Cables.PvcAl16()
-                                                                                                 for i in 1:Nodes}
+                                                                                                for i in 1:Nodes}
     "Give the array of cable connection types if different types of cables are used";
 
 /***Output total power***/
@@ -146,16 +146,16 @@ output Modelica.SIunits.Current Ineutral0Abs=Modelica.ComplexMath.'abs'(
                                                        Ineutral0);
 
 protected
-  parameter Integer Nodes=grid.n;
+  parameter Integer Nodes=grid.nNodes;
   parameter IDEAS.Electric.Data.Interfaces.Cable
                                  typHouBran[Nodes]= (if not difConTyp then fill(typ1HouBran,Nodes) else typHouBranDif) if  houCon;
 
   Components.Con3PlusNTo3 con3PlusNTo3_1[
-    gridOnly3P.grid.n]
+    gridOnly3P.grid.nNodes]
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,
-    gridOnly3P.grid.n] nodes3Phase
+    gridOnly3P.grid.nNodes] nodes3Phase
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
 for i in 1:3 loop
@@ -212,7 +212,7 @@ else
       color={0,0,255},
       smooth=Smooth.None));
 end if;
-for n in 1:gridOnly3P.grid.n loop
+for n in 1:gridOnly3P.grid.nNodes loop
   connect(node4Lines[:,n], con3PlusNTo3_1[n].fourWire) annotation (Line(
       points={{60,0},{70,0}},
       color={85,170,255},

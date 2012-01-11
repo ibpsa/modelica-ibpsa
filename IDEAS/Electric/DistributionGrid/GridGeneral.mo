@@ -74,7 +74,7 @@ replaceable parameter IDEAS.Electric.Data.Interfaces.Cable[
     "Give the array of cable connection types if different types of cables are used";
 
 protected
-parameter Integer Nodes = grid.n;
+parameter Integer Nodes = grid.nNodes;
 
 protected
 IDEAS.Electric.DistributionGrid.GridSubModels.Grid1PGeneral grid1PGeneral(
@@ -103,11 +103,11 @@ IDEAS.Electric.DistributionGrid.GridSubModels.Grid3PGeneral grid3PGeneral(
     annotation (Placement(transformation(extent={{-60,-22},{-40,-2}})));
 
 public
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin gridNodes3P[3,grid.n] if
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin gridNodes3P[3,grid.nNodes] if
                                           Phases==3
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
-                  gridNodes[grid.n] if Phases==1
+                  gridNodes[grid.nNodes] if Phases==1
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 output Modelica.SIunits.ActivePower PLosBra[Nodes]=grid1PGeneral.PLosBra if Phases==1;

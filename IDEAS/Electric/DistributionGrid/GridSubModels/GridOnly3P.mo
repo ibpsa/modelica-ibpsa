@@ -36,8 +36,8 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
   output Modelica.SIunits.ActivePower PGriLosTot;
 
 //protected
-  parameter Integer Nodes=grid.n;
-  parameter Integer T_matrix[Nodes,Nodes] = grid.T_matrix;
+  parameter Integer Nodes=grid.nNodes;
+  parameter Integer nodeMatrix[Nodes,Nodes] = grid.nodeMatrix;
   parameter Modelica.SIunits.ComplexImpedance[Nodes] Z = grid.Z;
   parameter Modelica.SIunits.Resistance[3,Nodes] R3={Modelica.ComplexMath.real(Z) for i in 1:3};
   parameter Modelica.SIunits.Reactance[3,Nodes] X3={Modelica.ComplexMath.imag(Z) for i in 1:3};
@@ -50,9 +50,9 @@ equation
   connect(TraGnd,neutral[1].pin_p);
   for x in 1:Nodes loop
     for y in 1:Nodes loop
-      if T_matrix[x,y]==1 then
+      if nodeMatrix[x,y]==1 then
         connect(neutral[x].pin_p,node[4,y]);
-      elseif T_matrix[x,y]==-1 then
+      elseif nodeMatrix[x,y]==-1 then
         connect(neutral[x].pin_n,node[4,y]);
       end if;
     end for;
@@ -62,9 +62,9 @@ equation
     connect(TraPin,branch[:,1].pin_p);
     for x in 1:Nodes loop
       for y in 1:Nodes loop
-        if T_matrix[x,y]==1 then
+        if nodeMatrix[x,y]==1 then
           connect(branch[z,x].pin_p,node[z,y]);
-        elseif T_matrix[x,y]==-1 then
+        elseif nodeMatrix[x,y]==-1 then
           connect(branch[z,x].pin_n,node[z,y]);
         end if;
       end for;
