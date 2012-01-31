@@ -2,10 +2,9 @@ within IDEAS.Buildings.Components.BaseClasses;
 model SolarShading "solar shading"
 
   parameter Real shaCorr = 0.24
-    "shortwave transmittance of shortwave radiation";
-  parameter Boolean enable = false;
-
+    "Shortwave transmittance of shortwave radiation";
   final parameter Modelica.SIunits.Angle iAngDif = 60/180*Modelica.Constants.pi;
+  parameter Boolean enable = false;
 
   Modelica.Blocks.Interfaces.RealInput solDir
     "direct solar illuminance on surface se"
