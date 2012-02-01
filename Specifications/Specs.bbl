@@ -67,41 +67,6 @@ J.~A. Duffie and W.~A. Beckman, {\em {Solar engineering of thermal processes}}.
 M.~Iqbal, {\em {An introduction to solar radiation}}.
 \newblock New York - London: Academic Press Inc, 1983.
 
-\bibitem{Noorian2008}
-A.~M. Noorian, I.~Moradi, and G.~A. Kamali, ``{Evaluation of 12 models to
-  estimate hourly diffuse irradiation on inclined surfaces},'' {\em Renewable
-  Energy}, vol.~33, pp.~1406--1412, 2008.
-
-\bibitem{Liu1962}
-B.~Y.~H. Liu and R.~C. Jordan, ``{Daily insolation on surfaces tilted towards
-  the equator},'' {\em ASHRAE Transactions}, vol.~67, pp.~526--541, 1962.
-
-\bibitem{Tian2001}
-Y.~Q. Tian, R.~J. Davies-Colley, P.~Gong, and B.~W. Thorrold, ``{Estimatin
-  solar radiation on slopes of arbitrary aspect},'' {\em Agricultural and
-  Forest Meteorology}, vol.~109, pp.~67--74, 2001.
-
-\bibitem{Badescu2002}
-V.~Badescu, ``{3D isotropic approximation for solar diffuse irradiance on
-  tilted surfaces},'' {\em Renewable Energy}, vol.~26, pp.~221--223, 2002.
-
-\bibitem{Temps1977}
-R.~C. Temps and K.~L. Coulson, ``{Solar radiation incident upon slopes of
-  different orientations},'' {\em Solar Energy}, vol.~19, pp.~179--184, 1977.
-
-\bibitem{Klucher1979}
-T.~M. Klucher, ``{Evaluation of models to predict insolation on tilted
-  surfaces},'' {\em Solar Energy}, vol.~23, pp.~111--114, 1979.
-
-\bibitem{Hay1979}
-J.~E. Hay, ``{Calculation of monthly mean solar radiation for horizontal and
-  inclined surfaces},'' {\em Solar Energy}, vol.~23, pp.~301--30, 1979.
-
-\bibitem{Steven1980}
-M.~D. Steven, ``{The angular distribution and interception of diffuse solar
-  radiation below overcast skies},'' {\em Quarterly Journal of the Royal
-  Meteorological Society}, vol.~106, pp.~57--61, 1980.
-
 \bibitem{Perez1986}
 R.~Perez, R.~Stewart, C.~Arbogast, R.~Seals, and J.~Scott, ``{An isotropic
   hourly diffuse radiation model for sloping surfaces: Description, performance
@@ -112,27 +77,6 @@ R.~Perez, R.~Stewart, C.~Arbogast, R.~Seals, and J.~Scott, ``{An isotropic
 R.~Perez, R.~Seals, P.~Ineichen, R.~Stewart, and D.~Meniucci, ``{A new
   simplified version of the Perez diffuse irradiance model for tilted
   surfaces},'' {\em Solar Energy}, vol.~39, no.~3, pp.~221--231, 1987.
-
-\bibitem{Skartveit1986}
-A.~Skartveit and J.~A. Olseth, ``{Modelling slope irradiance at high
-  latitudes},'' {\em Solar Energy}, vol.~36, pp.~526--541, 1986.
-
-\bibitem{Skartveit1987}
-A.~Skartveit and J.~A. Olseth, ``{A model for the diffuse fraction of hourly
-  global radiation},'' {\em Solar Energy}, vol.~38, no.~4, pp.~271--274, 1987.
-
-\bibitem{Reindl1990}
-D.~T. Reindl, W.~A. Beckman, and J.~A. Duffie, ``{Evaluation of hourly tilted
-  surface radiation models},'' {\em Solar Energy}, vol.~45, pp.~9--17, 1990.
-
-\bibitem{Meteotest2010}
-Meteotest, ``{Meteonorm Version 6.0, Handbook part II: Theory Version 6.120},''
-  tech. rep., 2010.
-
-\bibitem{Darula2005}
-S.~Darula, R.~Kittler, and C.~Gueymard, ``{Reference luminous solar constant
-  and solar luminance for illuminance calculations},'' {\em Solar Energy},
-  vol.~79, pp.~559--565, Nov. 2005.
 
 \bibitem{Defraeye2011}
 T.~Defraeye, B.~Blocken, and J.~Carmeliet, ``{Convective heat transfer

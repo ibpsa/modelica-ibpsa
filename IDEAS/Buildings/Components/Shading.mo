@@ -60,8 +60,6 @@ extends IDEAS.Buildings.Components.Interfaces.StateShading(controled = true);
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,-60})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
-            {50,100}}), graphics), Diagram(graphics));
 
 equation
 iSolDir = solDir*(1-limiter.y);
@@ -72,6 +70,8 @@ angInc = iAngInc;
       points={{-10,-72},{-10,-90}},
       color={0,0,127},
       smooth=Smooth.None));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
+            {50,100}}), graphics), Diagram(graphics));
 end Screen;
 
 model ScreenOverhang "Roof overhangs with exterior screen"
