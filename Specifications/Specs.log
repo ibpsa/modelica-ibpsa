@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.2-0.9997.4 (MiKTeX 2.9) (preloaded format=xelatex 2011.10.11)  1 FEB 2012 17:06
+This is XeTeX, Version 3.1415926-2.2-0.9997.4 (MiKTeX 2.9) (preloaded format=xelatex 2011.10.11)  2 FEB 2012 14:37
 entering extended mode
 **E:/3_PhD/3_Modelica/IDEAS/Specifications/Specs.tex
 (E:/3_PhD/3_Modelica/IDEAS/Specifications/Specs.tex
@@ -1694,34 +1694,34 @@ Requested font "ptmr7t" at 7.4pt
  -> ptmr7t
 Requested font "ptmr7t" at 6.29004pt
  -> ptmr7t
-) [6]
-(E:\3_PhD\3_Modelica\IDEAS\Specifications\Buildings/BuildingModel.tex [7
+ [6]) [7]
+(E:\3_PhD\3_Modelica\IDEAS\Specifications\Buildings/BuildingModel.tex [8
 
 
 
 
 ]
-[8] [9] [10]
+[9] [10] [11] [12]
 
-LaTeX Warning: Citation `Lawrence1993' on page 11 undefined on input line 139.
+LaTeX Warning: Citation `Lawrence1993' on page 13 undefined on input line 139.
 
-[11]
+[13]
 
-LaTeX Warning: Citation `Lawrence1993' on page 12 undefined on input line 156.
+LaTeX Warning: Citation `Lawrence1993' on page 14 undefined on input line 156.
 
 
-LaTeX Warning: Citation `Solar2009' on page 12 undefined on input line 156.
+LaTeX Warning: Citation `Solar2009' on page 14 undefined on input line 156.
 
-[12] [13] [14]) [15]
+[14] [15] [16]) [17]
 (E:\3_PhD\3_Modelica\IDEAS\Specifications\Thermal/ThermalSystemModel.tex
-[16
-
-
-
-
-]) [17]
-(E:\3_PhD\3_Modelica\IDEAS\Specifications\Electric/ElectricSystemModel.tex
 [18
+
+
+
+
+]) [19]
+(E:\3_PhD\3_Modelica\IDEAS\Specifications\Electric/ElectricSystemModel.tex
+[20
 
 
 
@@ -1737,23 +1737,23 @@ File: Electric/MyGraphics/5param_eq.png Graphic file (type QTm)
 
 <use  "Electric/MyGraphics/5param_eq.png" >
 
-LaTeX Warning: Reference `chap:climate' on page 19 undefined on input line 36.
+LaTeX Warning: Reference `chap:climate' on page 21 undefined on input line 36.
 
-[19] [20] [21] [22]
+[21] [22] [23] [24]
 File: Electric/MyGraphics/grid_ieee34.png Graphic file (type QTm)
- <use  "Electric/MyGraphics/grid_ieee34.png" > [23] [24]
-[25]
+ <use  "Electric/MyGraphics/grid_ieee34.png" > [25] [26]
+[27]
 File: Electric/MyGraphics/trafo_equischeme.png Graphic file (type QTm)
- <use  "Electric/MyGraphics/trafo_equischeme.png" > [26]) [27] [28
+ <use  "Electric/MyGraphics/trafo_equischeme.png" > [28]) [29] [30
 
 
 
 ]
-[29] [30]
+[31] [32]
 (E:\3_PhD\3_Modelica\IDEAS\Specifications\Buildings/BuildingModelValidation.tex
 Missing character: There is no ^^93 in font ptmri7t!
 Missing character: There is no ^^94 in font ptmr7t!
-[31
+[33
 
 
 
@@ -1762,7 +1762,7 @@ File: Buildings/MyGraphics/AH_BESTEST.png Graphic file (type QTm)
  <use  "Buildings/MyGraphics/AH_BESTEST.png" >
 File: Buildings/MyGraphics/AC_BESTEST.png Graphic file (type QTm)
 
-<use  "Buildings/MyGraphics/AC_BESTEST.png" > [32]
+<use  "Buildings/MyGraphics/AC_BESTEST.png" > [34]
 File: Buildings/MyGraphics/PH_BESTEST.png Graphic file (type QTm)
 
 <use  "Buildings/MyGraphics/PH_BESTEST.png" >
@@ -1771,30 +1771,30 @@ File: Buildings/MyGraphics/PC_BESTEST.png Graphic file (type QTm)
 <use  "Buildings/MyGraphics/PC_BESTEST.png" >
 File: Buildings/MyGraphics/Temp_BESTEST.pdf Graphic file (type QTm)
 
-<use  "Buildings/MyGraphics/Temp_BESTEST.pdf" >) [33] [34]
+<use  "Buildings/MyGraphics/Temp_BESTEST.pdf" >) [35] [36]
 (E:\3_PhD\3_Modelica\IDEAS\Specifications\Thermal/ThermalSystemModelValidation.
-tex) [35
+tex) [37
 
 
 
 
 ]
 (E:\3_PhD\3_Modelica\IDEAS\Specifications\Electric/ElectricSystemModelValidatio
-n.tex [36
+n.tex [38
 
 
 
 
-]) [37] [38
+]) [39] [40
 
 
 
-] [39]
+] [41]
 Missing character: There is no · in font ptmr7t!
 Missing character: There is no · in font ptmr7t!
 Missing character: There is no · in font ptmr7t!
 Missing character: There is no · in font ptmr7t!
- [40]
+ [42]
 (E:\3_PhD\3_Modelica\IDEAS\Specifications\Specs.bbl
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
@@ -1807,11 +1807,11 @@ ata,'' in \OT1/ptm/m/it/8.5 CIE Day-light-ing con-fer-ence Vol.I\OT1/ptm/m/n/8.
 5 ,
  []
 
-[41] [42]) [43] [44
+[43] [44]) [45] [46
 
 
 ] (E:\3_PhD\3_Modelica\IDEAS\Specifications\Specs.ind
-[45
+[47
 
 
 ]) (E:\3_PhD\3_Modelica\IDEAS\Specifications\Specs.aux
@@ -1841,10 +1841,10 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  29351 strings out of 429293
  567769 string characters out of 3171079
- 680722 words of memory out of 3000000
+ 680863 words of memory out of 3000000
  31961 multiletter control sequences out of 15000+200000
  30667 words of font info for 82 fonts, out of 3000000 for 9000
  669 hyphenation exceptions out of 8191
  52i,10n,74p,1353b,1128s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Specs.pdf (51 pages).
+Output written on Specs.pdf (53 pages).

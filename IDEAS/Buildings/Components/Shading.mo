@@ -63,7 +63,7 @@ extends IDEAS.Buildings.Components.Interfaces.StateShading(controled = true);
 
 equation
 iSolDir = solDir*(1-limiter.y);
-iSolDif = solDif + solDir*limiter.y*shaCorr;
+iSolDif = solDif*(1-limiter.y) + solDif*limiter.y*shaCorr + solDir*limiter.y*shaCorr;
 angInc = iAngInc;
 
   connect(limiter.u, Ctrl) annotation (Line(

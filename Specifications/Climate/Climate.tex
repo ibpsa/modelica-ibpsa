@@ -102,10 +102,13 @@ For a known profile of direct solar irradiation on a random surface, all three f
 Different models for the determination of the diffuse radiation do exist based on an isotropic or anisotropic model of the sky dome. On account of the high importance of solar irradiation for the model\footnote{Solar radiation interacts e.g. with the building thermal response, heat generation by means of a thermal solar collector and power generation with a photovoltaic array}, a more detailed determination of diffuse radiation based on a anisotropic sky dome model is favorable. Herefore, the Perez model~\cite{Perez1986,Perez1987} is implemented.
 
 \begin{dmath}
-E_{d}(t,x) + E_{r}(t,x) = A E_{d,h} \left[ 0.5 \left(1+\cos(i)\right) \left(1-F_{1}\right) + F_{1} \cos\xi(t,x) \cos^{-1}\xi_{h}(t) + F_{2} \sin(i)\right] + 0.5 \rho A \left(E_{D,h} + E_{d,h}\right) \left(1 - \cos(i)\right)
+E_{d}(t,x) =  A(x) E_{d,h}(t) \left[ 0.5 \left(1+\cos i\right) \left(1-F_{1}\right) + F_{1} \cos\xi(t,x) \cos^{-1}\xi_{h}(t) + F_{2} \sin i\right]
+\end{dmath}
+\begin{dmath}
+E_{r}(t,x) = 0.5 \rho A(x) \left(E_{D,h}(t) + E_{d,h}(t)\right) \left(1 - \cos i\right)
 \end{dmath}
 
-wherefore $A$ is the surface area, $E_{d,h}$ is the diffuse horizonal radiation, $i$ is the surface inclination, $F_{1}$ is the circomsolar brightening coefficient, $F_{2}$, $\rho$ is the ground reflectance and $E_{D,h}$ is the direct horizonal radiation. The brightening coefficients $F_{1}$, $F_{2}$ are determined as
+wherefore $A(x)$ is the surface area, $E_{d,h}$ is the diffuse horizonal radiation, $i$ is the surface inclination, $F_{1}$ is the circomsolar brightening coefficient, $F_{2}$, $\rho$ is the ground reflectance and $E_{D,h}$ is the direct horizonal radiation. The brightening coefficients $F_{1}$, $F_{2}$ are determined as
 
 \begin{dmath}
 F_{n} = F_{n,1}(\epsilon) + F_{n,2}(\epsilon) \Delta + F_{n,3}(\epsilon) \xi_{h}(t)
@@ -114,10 +117,27 @@ F_{n} = F_{n,1}(\epsilon) + F_{n,2}(\epsilon) \Delta + F_{n,3}(\epsilon) \xi_{h}
 where $F_{n,i}$ are determined in the Perez model~\cite{Perez1987} based on measurements, $\epsilon$ is the sky clearness and $\Delta$ is the sky brightness. Here, the sky brightness $\Delta$ is determined as $E_{d,h} E_{sc}^{-1}$ while the sky clearness $\epsilon$ is determined as
 
 \begin{dmath}
-\epsilon = \left(E_{d,h} + E_{D,h}\right) E_{d,h}^{-1} + \kappa \xi_{h}^{3}(t) \left(1 + \kappa \xi_{h}^{3}(t)\right)^{-1}
+\epsilon = \left(E_{d,h}(t,x) + E_{D,h}(t,x)\right) E_{d,h}(t,x)^{-1} + \kappa \xi_{h}^{3}(t) \left(1 + \kappa \xi_{h}^{3}(t)\right)^{-1}
 \end{dmath}
 
 wherefore $E_{sc}$ is the solar constant and $\kappa$ equals 1.041.
+
+\subsection{Solar shading}
+
+So far, two types of structures which can shade a surface and thus reduce the shortwave radiation on a surface, i.e. an exterior screen in the pane of the surface and surface overhangs.
+
+\runinhead{Exterior solar screen.} The implementation of an exterior solar screen in the surface pane is stratightforward. The transmitted direct solar irradiation equals $E_{D}(t,x) \left(1 - f_{p}(t)\right)$ where $f_{p}(t)$ is the position of the screen between 0 and 1. The total transmitted diffuse and reflected solar irradiation equals $E_{d}(x,t) \left(1 - f_{p}\right) +f_{p}(t)  f_{s} E(x,t)$ where $f_{sha}$ is the shortwave transmittance of the exterior screen.
+
+\runinhead{Overhangs for vertical surfaces.} Horizontal and vertical projectionso above and besides windows are able to intercept the direct component of solar radiation depeneding on the geometry of the obstructing and receiving surface. The usnlit area $A_{SL}(x,t)$ of a surface with width $W$ and height $H$, and vertical and horizontal projections $P_{V}$ and $P_{H}$ at a distance $R_{W}$ and $R_{H}$ of the receiving surface edges is determiend as
+
+\begin{dmath}
+A_{SL}(x,t) = \left[W - P_{v}  \left|\tan \alpha(t,x) \right| + R_{W}\right] \left[H - P_{H} \tan \left(\pi - \xi_{h}(t)\right) \cos^{-1} \alpha(t,x) + R_{H}\right]
+\end{dmath}
+
+with $\alpha(t,x)$ the solar azimuth.
+
+
+
 
 
 
