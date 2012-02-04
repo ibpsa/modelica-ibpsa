@@ -5,11 +5,11 @@ package Shading "Shadeing devices for windows"
 
 model None "No solar shadeing"
 extends IDEAS.Buildings.Components.Interfaces.StateShading;
-equation
 
-solDir = iSolDir;
-solDif = iSolDif;
-angInc = iAngInc;
+algorithm
+iSolDir := solDir;
+iSolDif := solDif;
+iAngInc := angInc;
 
 end None;
 

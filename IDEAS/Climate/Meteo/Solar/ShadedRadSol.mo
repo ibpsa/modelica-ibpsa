@@ -36,7 +36,7 @@ parameter Modelica.SIunits.Area A;
   Modelica.Blocks.Interfaces.RealOutput angAzi "Azimuth angle"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
   Elements.AngleAzimuth angleAzimuth(
-                                   lat=lat)
+                                   lat=lat, azi=azi)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
   connect(declination.delta, angSolar.angDec) annotation (Line(

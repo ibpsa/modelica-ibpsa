@@ -11,8 +11,8 @@ extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
     "Glazing type" annotation (choicesAllMatching = true,Dialog(group="Construction details"));
-  replaceable parameter Interfaces.StateShading shaType
-    annotation (Placement(transformation(extent={{-36,-70},{-26,-50}})));
+  replaceable Interfaces.StateShading shaType
+    annotation (choicesAllMatching = true,Dialog(group="Construction details"),Placement(transformation(extent={{-36,-70},{-26,-50}})));
   Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controled
     "Control signal between 0 and 1, i.e. 1 is fully closed"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},

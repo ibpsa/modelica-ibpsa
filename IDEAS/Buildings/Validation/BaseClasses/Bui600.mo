@@ -38,7 +38,8 @@ extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
       A={6,6},
       redeclare Data.Glazing.GlaBesTest                         glazing,
       inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-      azi={IDEAS.Constants.South,IDEAS.Constants.South})
+      azi={IDEAS.Constants.South,IDEAS.Constants.South},
+    redeclare IDEAS.Buildings.Components.Shading.None shaType)
                                            annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
