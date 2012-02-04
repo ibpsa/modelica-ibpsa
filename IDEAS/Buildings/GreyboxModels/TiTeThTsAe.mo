@@ -135,17 +135,17 @@ equation
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(capI.port, gainCon[1]) annotation (Line(
+  connect(capI.port, heatPortCon[1]) annotation (Line(
       points={{-30,-10},{20,-10},{20,20},{150,20}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(capI.port, gainRad[1]) annotation (Line(
+  connect(capI.port, heatPortRad[1]) annotation (Line(
       points={{-30,-10},{22,-10},{22,18},{130,18},{130,-20},{150,-20}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(capE.port, genEmb[1]) annotation (Line(
+  connect(capE.port, heatPortEmb[1]) annotation (Line(
       points={{-32,30},{130,30},{130,60},{150,60}},
       color={191,0,0},
       pattern=LinePattern.None,

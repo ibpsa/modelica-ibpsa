@@ -2,6 +2,7 @@ within IDEAS.Buildings;
 package GreyboxModels "Low-order building models"
 
 
-  extends Modelica.Icons.UnderConstruction;
+  extends Modelica.Icons.Package;
+
 
 end GreyboxModels;
