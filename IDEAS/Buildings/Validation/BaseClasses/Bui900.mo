@@ -65,11 +65,11 @@ equation
       points={{80,7},{100,7},{100,-60},{120,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(gF.gainCon, gainCon[1]) annotation (Line(
+  connect(gF.gainCon, heatPortCon[1]) annotation (Line(
       points={{80,7},{120,7},{120,20},{150,20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(gF.gainRad, gainRad[1]) annotation (Line(
+  connect(gF.gainRad, heatPortRad[1]) annotation (Line(
       points={{80,4},{120,4},{120,-20},{150,-20}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -121,7 +121,7 @@ equation
       points={{21,-14},{72,-14},{72,0}},
       color={191,0,0},
       smooth=Smooth.None));
-    connect(floor.port_emb, genEmb[1]) annotation (Line(
+    connect(floor.port_emb, heatPortEmb[1]) annotation (Line(
         points={{-9,-14},{-4,-14},{-4,-40},{118,-40},{118,60},{150,60}},
         color={191,0,0},
         smooth=Smooth.None));
