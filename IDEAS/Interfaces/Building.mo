@@ -73,50 +73,54 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation(Icon(graphics={Line(
-          points={{60,8},{0,60},{-60,10},{-60,-60},{60,-60}},
+          points={{60,22},{0,74},{-60,24},{-60,-46},{60,-46}},
           color={127,0,0},
           smooth=Smooth.None), Polygon(
-          points={{60,8},{56,4},{0,50},{-54,6},{-54,-54},{60,-54},{60,-60},{-60,
-              -60},{-60,10},{0,60},{60,8}},
+          points={{60,22},{56,18},{0,64},{-54,20},{-54,-40},{60,-40},{60,-46},{
+              -60,-46},{-60,24},{0,74},{60,22}},
           lineColor={127,0,0},
           smooth=Smooth.None,
           fillColor={127,0,0},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-46,-8},{-46,-20},{-44,-22},{-24,-10},{-24,2},{-26,4},{-46,-8}},
+          points={{-46,6},{-46,-6},{-44,-8},{-24,4},{-24,16},{-26,18},{-46,6}},
           lineColor={127,0,0},
           smooth=Smooth.None,
           fillColor={127,0,0},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-46,-32},{-46,-44},{-44,-46},{-24,-34},{-24,-22},{-26,-20},{-46,
-              -32}},
+          points={{-46,-18},{-46,-30},{-44,-32},{-24,-20},{-24,-8},{-26,-6},{
+              -46,-18}},
           lineColor={127,0,0},
           smooth=Smooth.None,
           fillColor={127,0,0},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-44,-18},{-50,-22},{-50,-46},{-46,-50},{28,-50},{42,-40}},
+          points={{-44,-4},{-50,-8},{-50,-32},{-46,-36},{28,-36},{42,-26}},
           color={127,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-50,-46},{-44,-42}},
+          points={{-50,-32},{-44,-28}},
           color={127,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-24,0},{-20,2},{-20,-32},{-16,-36},{-16,-36},{40,-36}},
+          points={{-24,14},{-20,16},{-20,-18},{-16,-22},{-16,-22},{40,-22}},
           color={127,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-24,-24},{-20,-22}},
+          points={{-24,-10},{-20,-8}},
           color={127,0,0},
           smooth=Smooth.None),
         Polygon(
-          points={{40,-26},{40,-46},{50,-52},{58,-46},{58,-30},{54,-24},{48,-20},
-              {40,-26}},
+          points={{40,-12},{40,-32},{50,-38},{58,-32},{58,-16},{54,-10},{48,-6},
+              {40,-12}},
           lineColor={127,0,0},
           smooth=Smooth.None,
           fillColor={127,0,0},
-          fillPattern=FillPattern.Solid)}),                         Diagram(
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-100,-60},{100,-100}},
+          lineColor={85,0,0},
+          textString="%name")}),                                    Diagram(
         graphics));
 end Building;
