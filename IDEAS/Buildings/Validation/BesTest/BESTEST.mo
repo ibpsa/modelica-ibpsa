@@ -1,0 +1,44 @@
+within IDEAS.Buildings.Validation.BesTest;
+model BESTEST
+
+    inner IDEAS.Climate.SimInfoManager sim(redeclare
+      IDEAS.Climate.Meteo.Files.min60   detail, redeclare
+      IDEAS.Climate.Meteo.Locations.BesTest   city)
+      annotation (Placement(transformation(extent={{-98,88},{-88,98}})));
+  Interfaces.Building case600(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui600 building)
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Interfaces.Building case600FF(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui600 building)
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  Interfaces.Building case620(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui620 building)
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+  Interfaces.Building case640(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui600 building)
+    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+  Interfaces.Building case650(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui600 building)
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+  Interfaces.Building case650FF(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui600 building)
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  Interfaces.Building case900(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui900 building)
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  Interfaces.Building case900FF1(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui900 building)
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Interfaces.Building case920(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui620 building)
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Interfaces.Building case940(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui900 building)
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Interfaces.Building case950(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui900 building)
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+  Interfaces.Building case950FF(redeclare
+      IDEAS.Buildings.Validation.BaseClasses.Structures.Bui900 building)
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+end BESTEST;

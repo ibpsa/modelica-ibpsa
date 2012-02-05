@@ -1,5 +1,4 @@
 Structures
-Deadband
-ThermostatSetback
-NightVentilation
-Gain
+HeatingSystem
+VentilationSystem
+Occupants
