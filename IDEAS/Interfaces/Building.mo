@@ -4,7 +4,7 @@ model Building
   outer IDEAS.Climate.SimInfoManager
                        sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  replaceable IDEAS.Interfaces.Structure building "Building"
+  replaceable IDEAS.Interfaces.Structure building "Building structure"
     annotation (Placement(transformation(extent={{-66,-10},{-36,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.HeatingSystem heatingSystem(nZones=building.nZones)
     "Thermal heating system"
