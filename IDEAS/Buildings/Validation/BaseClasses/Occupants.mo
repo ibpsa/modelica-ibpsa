@@ -3,7 +3,7 @@ package Occupants
 
     extends Modelica.Icons.Package;
 
-  model Gain "BesTest nightventilation system"
+  model Gain "BESTEST internal gains by occupants"
     extends IDEAS.Interfaces.Occupant;
 
     parameter Modelica.SIunits.HeatFlowRate Q = 200 "Baseload internal gain";
