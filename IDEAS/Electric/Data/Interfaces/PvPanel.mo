@@ -2,6 +2,7 @@ within IDEAS.Electric.Data.Interfaces;
 record PvPanel
   "Describes a Photovoltaic panel by its 5 main parameters and some extra parameter"
 extends Modelica.Icons.MaterialProperty;
+
 //The 5 main parameters
 parameter Modelica.SIunits.ElectricCurrent I_phr
     "Light current under reference conditions";

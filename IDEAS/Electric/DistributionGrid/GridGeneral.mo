@@ -179,9 +179,7 @@ equation
       points={{-40,30},{30,30},{30,0},{100,0}},
       color={0,0,255},
       smooth=Smooth.None));
- annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
-              -100}}, fileName=
-              "modelica://ELECTA/icon-ssnav-08-electricity.jpg")}),
+ annotation (Diagram(graphics), Icon(graphics),
     Documentation(info="<html>
 <p>This is THE general grid to use!</p>
 <p>You can set these parameters (all possible graphically):</p>

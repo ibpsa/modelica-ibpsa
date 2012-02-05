@@ -11,6 +11,4 @@ parameter Modelica.SIunits.Resistance R[size(nodeMatrix,1)];
 parameter Modelica.SIunits.Reactance X[size(nodeMatrix,1)];
 parameter Modelica.SIunits.ComplexImpedance Z[size(nodeMatrix,1)](re=R,im=X);
 
-
-
 end GridImp;

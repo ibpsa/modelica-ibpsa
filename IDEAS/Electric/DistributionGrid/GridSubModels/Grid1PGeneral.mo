@@ -180,7 +180,5 @@ else
       smooth=Smooth.None));
 end if;
 
-annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
-              -100}}, fileName=
-              "modelica://ELECTA/icon-ssnav-08-electricity.jpg")}));
+annotation (Diagram(graphics), Icon(graphics));
 end Grid1PGeneral;

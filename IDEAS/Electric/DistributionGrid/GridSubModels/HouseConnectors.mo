@@ -75,6 +75,5 @@ for n in 1:numNod loop
 end for;
 PLosHouConTot=sum(PLosHouCon);
 
-  annotation (Diagram(graphics),Icon(graphics={Bitmap(extent={{-100,100},{100,-100}},
-            fileName="modelica://ELECTA/houseCon.jpg")}));
+  annotation (Diagram(graphics),Icon(graphics));
 end HouseConnectors;

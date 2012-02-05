@@ -222,7 +222,5 @@ for n in 1:gridOnly3P.grid.nNodes loop
       smooth=Smooth.None));
 end for;
 
-  annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
-              -100}}, fileName=
-              "modelica://ELECTA/icon-ssnav-08-electricity.jpg")}));
+  annotation (Diagram(graphics), Icon(graphics));
 end Grid3PGeneral;

@@ -60,7 +60,5 @@ end for;
   SGriTot = branch[1].pin_p.v*Modelica.ComplexMath.conj(branch[1].pin_p.i);
   PGriTot = Modelica.ComplexMath.real(SGriTot);
   QGriTot = Modelica.ComplexMath.imag(SGriTot);
-  annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
-              -100}}, fileName=
-              "modelica://ELECTA/icon-ssnav-08-electricity.jpg")}));
+  annotation (Diagram(graphics), Icon(graphics));
 end GridOnly1P;
