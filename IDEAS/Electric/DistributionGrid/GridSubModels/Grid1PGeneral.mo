@@ -158,7 +158,7 @@ equation
       smooth=Smooth.None));
   else
   connect(voltageSource.pin_p, gridOnly1P.TraPin) annotation (Line(
-      points={{-70,-20},{-92,-20},{-92,20},{20,20},{20,4}},
+      points={{-70,-20},{-92,-20},{-92,20},{12,20},{12,4},{20,4},{20,4}},
       color={0,0,255},
       smooth=Smooth.None));
   end if;

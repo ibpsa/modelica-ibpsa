@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.BaseClasses.Structure;
-model Bui620 "BESTEST Building model case 620"
+model Bui630 "BESTEST Building model case 630"
 
 extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
 
@@ -39,8 +39,13 @@ extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
       redeclare Data.Glazing.GlaBesTest                         glazing,
       inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
       azi={IDEAS.Constants.East,IDEAS.Constants.West},
-    redeclare IDEAS.Buildings.Components.Shading.None shaType)
-                                           annotation (Placement(transformation(
+    redeclare IDEAS.Buildings.Components.Shading.Overhang shaType(
+      H=2.0,
+      W=3.0,
+      PH=1.0,
+      RH=0.0,
+      PV=1.0,
+      RW=0.0))                             annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));
@@ -128,4 +133,4 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,-100},
               {150,100}}),
                          graphics));
-end Bui620;
+end Bui630;

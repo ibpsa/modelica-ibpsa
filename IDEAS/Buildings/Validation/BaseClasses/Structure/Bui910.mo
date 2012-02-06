@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.BaseClasses.Structure;
-model Bui620 "BESTEST Building model case 620"
+model Bui910 "BESTEST Building model case 910"
 
 extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
 
@@ -8,29 +8,30 @@ extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
-      redeclare Data.Constructions.LightWall
-        constructionType,
-      redeclare Data.Insulation.fiberglass
-        insulationType,
+      AWall={21.6,16.2,9.6,16.2},
       azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
           IDEAS.Constants.West},
-      insulationThickness={0.066,0.066,0.066,0.066},
       inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-      AWall={21.6,10.2,21.6,10.2})             annotation (Placement(transformation(
+      redeclare Data.Constructions.HeavyWall
+        constructionType,
+      redeclare Data.Insulation.foaminsulation
+        insulationType,
+      insulationThickness={0.0615,0.0615,0.0615,0.0615})
+                                               annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-49,-14})));
 
   IDEAS.Buildings.Components.SlabOnGround floor(
-      redeclare Data.Constructions.LightFloor
-        constructionType,
       redeclare Data.Insulation.insulation
         insulationType,
-      insulationThickness=1.003,
       AWall=48,
       PWall=0,
       inc=IDEAS.Constants.Floor,
-      azi=IDEAS.Constants.South)                annotation (Placement(transformation(
+      azi=IDEAS.Constants.South,
+      redeclare Data.Constructions.HeavyFloor
+        constructionType,
+      insulationThickness=1.007)                annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-19,-14})));
@@ -38,9 +39,14 @@ extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
       A={6,6},
       redeclare Data.Glazing.GlaBesTest                         glazing,
       inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-      azi={IDEAS.Constants.East,IDEAS.Constants.West},
-    redeclare IDEAS.Buildings.Components.Shading.None shaType)
-                                           annotation (Placement(transformation(
+      azi={IDEAS.Constants.South,IDEAS.Constants.South},
+    redeclare IDEAS.Buildings.Components.Shading.Overhang shaType(
+      H=2.0,
+      W=3.0,
+      PH=1.0,
+      RH=0.5,
+      PV=0.0,
+      RW=0.0))                             annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));
@@ -128,4 +134,4 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,-100},
               {150,100}}),
                          graphics));
-end Bui620;
+end Bui910;
