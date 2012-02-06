@@ -3,29 +3,18 @@ package HeatingSystem
 
     extends Modelica.Icons.Package;
 
-  model Freerun "Free-running indoor temperature without heating"
+  model None "None"
     extends IDEAS.Interfaces.HeatingSystem;
-
-    parameter Modelica.SIunits.Temperature Theat = 293.15
-      "Heating on below 20°C";
-    parameter Modelica.SIunits.Temperature Tcool = 300.15
-      "Cooling on above 27°C";
 
   algorithm
   for i in 1:nZones loop
-    if Theat > TSensor[i] then
-      heatPortCon[i].Q_flow := -10*C[i]*(Theat -  TSensor[i]);
-    elseif Tcool < TSensor[i] then
-      heatPortCon[i].Q_flow := -10*C[i]*(Tcool - TSensor[i]);
-    else
-      heatPortCon[i].Q_flow := 0;
-    end if;
+    heatPortCon[i].Q_flow := 0;
     heatPortRad[i].Q_flow := 0;
     heatPortEmb[i].Q_flow := 0;
   end for;
 
     annotation (Diagram(graphics));
-  end Freerun;
+  end None;
 
   model Deadband "BESTEST deadband heating system"
     extends IDEAS.Interfaces.HeatingSystem;

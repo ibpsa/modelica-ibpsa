@@ -3,7 +3,17 @@ package VentilationSystem
 
     extends Modelica.Icons.Package;
 
-  model NightVentilation "BesTest nightventilation system"
+  model None "None"
+    extends IDEAS.Interfaces.VentilationSystem;
+
+  algorithm
+  for i in 1:nZones loop
+    heatPortCon[i].Q_flow := 0;
+  end for;
+
+  end None;
+
+  model NightVentilation "BESTEST nightventilation system"
     extends IDEAS.Interfaces.VentilationSystem;
 
     IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7, 18},firstEntryOccupied=true)
