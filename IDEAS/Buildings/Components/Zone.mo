@@ -4,10 +4,9 @@ model Zone "thermal building zone"
 extends IDEAS.Buildings.Components.Interfaces.StateZone;
 
 parameter Modelica.SIunits.Volume V "Total zone air volume";
-parameter Real n50(unit="-") = 0.6
+parameter Real n50 = 0.6
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
-parameter Real corrCV(unit="-") = 5
-    "Multiplication factor for the zone air capacity";
+parameter Real corrCV = 5 "Multiplication factor for the zone air capacity";
 
 //to be moved from the zone definition to ventilation models ?
 protected

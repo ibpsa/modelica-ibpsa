@@ -1,5 +1,5 @@
 within IDEAS.Interfaces;
-partial model HeatingSystem
+model HeatingSystem
 
   parameter Integer nZones(min=1) "Number of conditioned thermal zones";
   parameter Integer nLoads(min=1) "Number of electric loads";
@@ -29,8 +29,6 @@ partial model HeatingSystem
     "Setpoint temperature for the zones" annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,-90})));
-  Electric.BaseClasses.WattsLaw wattsLaw
-    annotation (Placement(transformation(extent={{76,-6},{88,6}})));
   annotation(Icon(graphics={
         Polygon(
           points={{-46,-8},{-46,-20},{-44,-22},{-24,-10},{-24,2},{-26,4},{-46,-8}},

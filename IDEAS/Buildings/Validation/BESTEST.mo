@@ -46,7 +46,8 @@ model BESTEST
       IDEAS.Buildings.Validation.BaseClasses.Structure.Bui600  building,
       redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
     redeclare IDEAS.Buildings.Validation.BaseClasses.InhomeFeeder.None inhomeGrid,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
+    redeclare
+      IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
       ventilationSystem,
     redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
       heatingSystem)
@@ -56,7 +57,8 @@ model BESTEST
     redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui900 building,
     redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.None heatingSystem,
     redeclare IDEAS.Buildings.Validation.BaseClasses.InhomeFeeder.None inhomeGrid,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
+    redeclare
+      IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
       ventilationSystem)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Interfaces.Building case900(redeclare
@@ -102,7 +104,8 @@ model BESTEST
       IDEAS.Buildings.Validation.BaseClasses.Structure.Bui900  building,
       redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
     redeclare IDEAS.Buildings.Validation.BaseClasses.InhomeFeeder.None inhomeGrid,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
+    redeclare
+      IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
       ventilationSystem,
     redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
       heatingSystem)
@@ -112,7 +115,8 @@ model BESTEST
     redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui900 building,
     redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.None heatingSystem,
     redeclare IDEAS.Buildings.Validation.BaseClasses.InhomeFeeder.None inhomeGrid,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
+    redeclare
+      IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
       ventilationSystem)
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Interfaces.Building case610(

@@ -15,10 +15,10 @@ extends IDEAS.Buildings.Components.Interfaces.StateWall;
     annotation (choicesAllMatching = true,Dialog(group="Construction details"),Placement(transformation(extent={{-36,-70},{-26,-50}})));
   Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controled
     "Control signal between 0 and 1, i.e. 1 is fully closed"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+    annotation (Placement(transformation(extent={{20,-20},{-20,20}},
         rotation=-90,
-        origin={-30,-90}),
-        iconTransformation(extent={{-10,-10},{10,10}},
+        origin={-30,-110}),
+        iconTransformation(extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-30,-100})));
 
@@ -143,7 +143,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaType.Ctrl, Ctrl)  annotation (Line(
-      points={{-31,-70},{-30,-70},{-30,-90}},
+      points={{-31,-70},{-30,-70},{-30,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},

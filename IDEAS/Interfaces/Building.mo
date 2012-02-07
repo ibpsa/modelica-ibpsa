@@ -1,27 +1,34 @@
 within IDEAS.Interfaces;
 model Building
 
-  outer IDEAS.Climate.SimInfoManager
-                       sim
+  outer IDEAS.Climate.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  parameter Boolean standAlone = true;
+
   replaceable IDEAS.Interfaces.Structure building "Building structure"
     annotation (Placement(transformation(extent={{-66,-10},{-36,10}})),choicesAllMatching = true);
-  replaceable IDEAS.Interfaces.HeatingSystem heatingSystem(nZones=building.nZones)
-    "Thermal heating system"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})),choicesAllMatching = true);
+  replaceable IDEAS.Interfaces.HeatingSystem heatingSystem(nZones=building.nZones, VZones = building.VZones)
+    "Thermal heating system" annotation (Placement(transformation(extent={{-20,-10},{0,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.Occupant occupant(nZones=building.nZones)
-    "Building occupant"
-    annotation (Placement(transformation(extent={{-20,-42},{0,-22}})),choicesAllMatching = true);
+    "Building occupant" annotation (Placement(transformation(extent={{-20,-42},{0,-22}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.InhomeFeeder inhomeGrid(nHeatingLoads=heatingSystem.nLoads, nOccupantLoads=occupant.nLoads, nVentilationLoads=ventilationSystem.nLoads)
-    "Inhome electricity grid system"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})),choicesAllMatching = true);
-  replaceable IDEAS.Interfaces.VentilationSystem ventilationSystem(nZones=building.nZones)
-    "Ventilation system"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})),choicesAllMatching = true);
+    "Inhome electricity grid system" annotation (Placement(transformation(extent={{20,-10},{40,10}})),choicesAllMatching = true);
+  replaceable IDEAS.Interfaces.VentilationSystem ventilationSystem(nZones=building.nZones, VZones = building.VZones)
+    "Ventilation system" annotation (Placement(transformation(extent={{-20,20},{0,40}})),choicesAllMatching = true);
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plugFeeder
-    "Electricity connection to the district feeder"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
+    "Electricity connection to the district feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Modelica.Electrical.QuasiStationary.MultiPhase.Sources.VoltageSource
+    voltageSource(f=50, V={230,230,230}) if standAlone annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={70,-30})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground[3] ground if standAlone
+    annotation (Placement(transformation(extent={{60,-82},{80,-62}})));
+  Modelica.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPin_p[3] plugToPin_p if standAlone
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={70,-48})));
 equation
   connect(inhomeGrid.plugFeeder, plugFeeder)
                                         annotation (Line(
@@ -72,6 +79,32 @@ equation
       points={{-36,-2},{-28,-2},{-28,-34},{-20,-34}},
       color={191,0,0},
       smooth=Smooth.None));
+if standAlone then
+  connect(voltageSource.plug_n, plugFeeder) annotation (Line(
+      points={{70,-20},{70,0},{100,0}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(building.TSensor, ventilationSystem.TSensor) annotation (Line(
+      points={{-35.4,-6},{-32,-6},{-32,-6},{-30,-6},{-30,24},{-19.6,24}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(voltageSource.plug_p, plugToPin_p[1].plug_p) annotation (Line(
+      points={{70,-40},{70,-46}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(voltageSource.plug_p, plugToPin_p[2].plug_p) annotation (Line(
+      points={{70,-40},{70,-46}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(voltageSource.plug_p, plugToPin_p[3].plug_p) annotation (Line(
+      points={{70,-40},{70,-46}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(plugToPin_p.pin_p, ground.pin) annotation (Line(
+      points={{70,-50},{70,-62}},
+      color={85,170,255},
+      smooth=Smooth.None));
+end if;
   annotation(Icon(graphics={Line(
           points={{60,22},{0,74},{-60,24},{-60,-46},{60,-46}},
           color={127,0,0},
@@ -120,7 +153,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,-60},{100,-100}},
-          lineColor={85,0,0},
+          lineColor={127,0,0},
           textString="%name")}),                                    Diagram(
         graphics));
 end Building;

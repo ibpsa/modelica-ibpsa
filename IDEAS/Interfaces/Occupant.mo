@@ -1,5 +1,5 @@
 within IDEAS.Interfaces;
-partial model Occupant
+model Occupant
 
 parameter Integer nZones(min=1) "number of conditioned thermal zones";
 parameter Integer nLoads(min=1) "number of electric loads";

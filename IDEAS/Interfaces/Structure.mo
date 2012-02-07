@@ -1,5 +1,5 @@
 within IDEAS.Interfaces;
-partial model Structure "Partial model for building structure models"
+model Structure "Partial model for building structure models"
 
 parameter Integer nZones(min=1)
     "Number of conditioned thermal zones in the building";

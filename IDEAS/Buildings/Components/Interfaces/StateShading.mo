@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.Interfaces;
-partial model StateShading "Window shading"
+model StateShading "Window shading"
 
 parameter Boolean controled = true;
 
@@ -35,9 +35,9 @@ parameter Boolean controled = true;
         iconTransformation(extent={{-60,-90},{-40,-70}})));
   Modelica.Blocks.Interfaces.RealInput Ctrl if controled
     "Control signal between 0 and 1, i.e. 1 is fully closed"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+    annotation (Placement(transformation(extent={{20,-20},{-20,20}},
         rotation=-90,
-        origin={-10,-90}),
+        origin={-10,-110}),
         iconTransformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-100})));

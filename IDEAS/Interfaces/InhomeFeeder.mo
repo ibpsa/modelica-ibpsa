@@ -1,5 +1,5 @@
 within IDEAS.Interfaces;
-partial model InhomeFeeder
+model InhomeFeeder
 
   parameter Integer nHeatingLoads(min=1)
     "number of electric loads for the heating system";
