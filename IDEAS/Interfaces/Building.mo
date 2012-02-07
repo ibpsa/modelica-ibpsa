@@ -1,5 +1,5 @@
 within IDEAS.Interfaces;
-model Building
+partial model Building
 
   outer IDEAS.Climate.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -26,9 +26,9 @@ model Building
     annotation (Placement(transformation(extent={{60,-82},{80,-62}})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPin_p[3] plugToPin_p if standAlone
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-6,-6},{6,6}},
         rotation=-90,
-        origin={70,-48})));
+        origin={70,-50})));
 equation
   connect(inhomeGrid.plugFeeder, plugFeeder)
                                         annotation (Line(
@@ -89,19 +89,19 @@ if standAlone then
       color={0,0,127},
       smooth=Smooth.None));
   connect(voltageSource.plug_p, plugToPin_p[1].plug_p) annotation (Line(
-      points={{70,-40},{70,-46}},
+      points={{70,-40},{70,-48.8}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(voltageSource.plug_p, plugToPin_p[2].plug_p) annotation (Line(
-      points={{70,-40},{70,-46}},
+      points={{70,-40},{70,-48.8}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(voltageSource.plug_p, plugToPin_p[3].plug_p) annotation (Line(
-      points={{70,-40},{70,-46}},
+      points={{70,-40},{70,-48.8}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(plugToPin_p.pin_p, ground.pin) annotation (Line(
-      points={{70,-50},{70,-62}},
+      points={{70,-51.2},{70,-62}},
       color={85,170,255},
       smooth=Smooth.None));
 end if;

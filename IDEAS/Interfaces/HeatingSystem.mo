@@ -1,5 +1,5 @@
 within IDEAS.Interfaces;
-model HeatingSystem
+partial model HeatingSystem
 
   parameter Integer nZones(min=1) "Number of conditioned thermal zones";
   parameter Integer nLoads(min=1) "Number of electric loads";

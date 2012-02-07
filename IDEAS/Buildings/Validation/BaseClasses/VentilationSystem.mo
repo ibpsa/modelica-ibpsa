@@ -20,7 +20,6 @@ package VentilationSystem
     heatPortCon[i].Q_flow =  0;
   end for;
     annotation (Diagram(graphics));
-
   end None;
 
   model NightVentilation "BESTEST nightventilation system"
@@ -51,7 +50,6 @@ package VentilationSystem
   end for;
 
     annotation (Diagram(graphics));
-
   end NightVentilation;
 
 end VentilationSystem;
