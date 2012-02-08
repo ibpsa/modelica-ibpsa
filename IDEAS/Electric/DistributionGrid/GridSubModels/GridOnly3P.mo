@@ -106,5 +106,7 @@ QGriTot=ones(3)*QGriTotPha;
   PGriLosTot=PGriLosPhaTot+PGriLosNeu;
 //end if;
 
-  annotation (Diagram(graphics), Icon(graphics));
+  annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
+              -100}}, fileName=
+              "modelica://IDEAS/Electric/icon-ssnav-08-electricity.jpg")}));
 end GridOnly3P;

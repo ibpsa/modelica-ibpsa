@@ -45,33 +45,6 @@ parameter Real Vsc=4 if  traPre
       __Dymola_radioButtons=true));
  /***End of everything related to the transformer***/
 
-/***Everything related to the houseconnections***/
-parameter Boolean houCon=false
-    "Select if cables for houseconnection should be simulated or not"
-  annotation(choices(
-  choice=false "No houseconnections simulated",
-  choice=true "Houseconnections simulated",
-  __Dymola_radioButtons=true));
-parameter Integer[Nodes] conPha={4 for i in 1:Nodes}
-    "Gives an array of lenth '# Nodes' with in it to which phase the house is connected (1 to 3) or 4 in case of 3 phase connection";
-
-parameter Boolean difConTyp=false
-    "Select if different types of cable connections are used for the houseconnections"
-annotation(choices(
-  choice=false "Houseconnections use same cable type(typ1houBran)",
-  choice=true "Different types of cable are used (typHouBranDif)",
-  __Dymola_radioButtons=true));
-replaceable parameter IDEAS.Electric.Data.Interfaces.Cable
-                                           typ1HouBran=IDEAS.Electric.Data.Cables.PvcAl16()
-    "If only 1 type of cable is used in houseconnections, select it here"
-annotation(choices(
-choice=IDEAS.Electric.Data.Cables.PvcAl16() "PVC Aluminum 16 mm^2",
-choice=IDEAS.Electric.Data.Cables.PvcAl25() "PVC Aluminum 25 mm^2"));
-replaceable parameter IDEAS.Electric.Data.Interfaces.Cable[
-                                           Nodes] typHouBranDif={IDEAS.Electric.Data.Cables.PvcAl16()
-                                                                                                 for i in 1:Nodes}
-    "Give the array of cable connection types if different types of cables are used";
-
 protected
 parameter Integer Nodes = grid.nNodes;
 
@@ -81,11 +54,7 @@ IDEAS.Electric.DistributionGrid.GridSubModels.Grid1PGeneral grid1PGeneral(
     VSource=VSource,
     traPre=traPre,
     Sn=Sn,
-    Vsc=Vsc,
-    houCon=houCon,
-    difConTyp=difConTyp,
-    typ1HouBran=typ1HouBran,
-    typHouBranDif=typHouBranDif) if Phases == 1
+    Vsc=Vsc) if Phases == 1
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
 IDEAS.Electric.DistributionGrid.GridSubModels.Grid3PGeneral grid3PGeneral(
@@ -93,12 +62,7 @@ IDEAS.Electric.DistributionGrid.GridSubModels.Grid3PGeneral grid3PGeneral(
     VSource=VSource,
     traPre=traPre,
     Sn=Sn,
-    Vsc=Vsc,
-    houCon=houCon,
-    difConTyp=difConTyp,
-    typ1HouBran=typ1HouBran,
-    typHouBranDif=typHouBranDif,
-    conPha=conPha) if Phases == 3
+    Vsc=Vsc) if Phases == 3
     annotation (Placement(transformation(extent={{-60,-22},{-40,-2}})));
 
 public
@@ -115,11 +79,6 @@ output Modelica.SIunits.ActivePower PGriLosTot=grid1PGeneral.PGriLosTot if Phase
 output Modelica.SIunits.ActivePower PGriTot= grid1PGeneral.PGriTot if Phases==1;
 output Modelica.SIunits.ComplexPower SGriTot= grid1PGeneral.SGriTot if Phases==1;
 output Modelica.SIunits.ReactivePower QGriTot= grid1PGeneral.QGriTot if Phases==1;
-
-output Modelica.SIunits.ActivePower PLosHouCon[Nodes]=grid1PGeneral.PLosHouCon if
-       houCon and Phases == 1;
-output Modelica.SIunits.ActivePower PLosHouConTot=grid1PGeneral.PLosHouConTot if
-       houCon and Phases == 1;
 
 output Modelica.SIunits.ActivePower traLosP0=grid1PGeneral.traLosP0 if traPre
      and Phases == 1;
@@ -142,11 +101,6 @@ output Modelica.SIunits.ActivePower PGriLosPha[3]=grid3PGeneral.PGriLosPha if Ph
 output Modelica.SIunits.ActivePower PGriLosNeu=grid3PGeneral.PGriLosNeu if Phases==3;
 output Modelica.SIunits.ActivePower PGriLosPhaTot=grid3PGeneral.PGriLosPhaTot if Phases==3;
 output Modelica.SIunits.ActivePower PGriLosTot3=grid3PGeneral.PGriLosTot if Phases==3;
-
-output Modelica.SIunits.ActivePower PLosHouCon3[Nodes]=grid3PGeneral.PLosHouCon if
-       houCon and Phases == 3;
-output Modelica.SIunits.ActivePower PLosHouConTot3=grid3PGeneral.PLosHouConTot if
-       houCon and Phases == 3;
 
 output Modelica.SIunits.ActivePower traLosP03=grid3PGeneral.traLosP0 if traPre
      and Phases == 3;
@@ -179,7 +133,10 @@ equation
       points={{-40,30},{30,30},{30,0},{100,0}},
       color={0,0,255},
       smooth=Smooth.None));
- annotation (Diagram(graphics), Icon(graphics),
+
+ annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
+              -100}}, fileName=
+              "modelica://IDEAS/Electric/icon-ssnav-08-electricity.jpg")}),
     Documentation(info="<html>
 <p>This is THE general grid to use!</p>
 <p>You can set these parameters (all possible graphically):</p>
@@ -190,10 +147,6 @@ equation
 <li>Wether or not to implement a transformer using <b>traPre</b></li>
 <li>If transformer: The nominal Power <b>Sn</b></li>
 <li>If transformer: The percentage short circuit voltage <b>Vsc</b> (if needed to be changed)</li>
-<li>Wether or not to implement houseconnectors using <b>houseCon</b></li>
-<li>if houseconnectors: The phases to which the houses are connected as an array <b>conPha</b> (only usefull for 3 phase grid)</li>
-<li>if houseconnectors: If different types of cables are used with <b>difConTyp</b></li>
-<li>if houseconnectors: Which type of cable is used using <b>typ1HouBran</b> if only 1 type is used, otherwise the array <b>typHouBrandif</b> should be used.</li>
 </ul></p>
 <p>The connectors depend on the selection of single or 3 phase</p>
 <p><ul>

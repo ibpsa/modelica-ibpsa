@@ -1,4 +1,4 @@
-within IDEAS.Electric.DistributionGrid.GridSubModels;
+within IDEAS.Electric.Connections;
 model HouseConnectors
   "Makes the connections from the in-home connection to the grid, standard 16mm2 Alu."
 
@@ -75,5 +75,7 @@ for n in 1:numNod loop
 end for;
 PLosHouConTot=sum(PLosHouCon);
 
-  annotation (Diagram(graphics),Icon(graphics));
+  annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
+              -100}}, fileName=
+              "modelica://IDEAS/Electric/HouseCon.jpg")}));
 end HouseConnectors;
