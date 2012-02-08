@@ -67,10 +67,6 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
       __Dymola_radioButtons=true));
 /**End of everything related to the transformer**/
 
-annotation(choices(
-choice=IDEAS.Electric.Data.Cables.PvcAl16() "PVC Aluminum 16 mm^2",
-choice=IDEAS.Electric.Data.Cables.PvcAl25() "PVC Aluminum 25 mm^2"));
-
 /***Output the cable losses of the grid***/
 output Modelica.SIunits.ActivePower PLosBra[Nodes]=gridOnly1P.PLosBra;
 output Modelica.SIunits.ActivePower PGriLosTot=gridOnly1P.PGriLosTot;
@@ -92,8 +88,7 @@ output Modelica.SIunits.ActivePower traLosPtot=transformer.traLosPtot if traPre;
                                                         Ibranch0);
 protected
   parameter Integer Nodes=grid.nNodes;
-  parameter IDEAS.Electric.Data.Interfaces.Cable
-                                 typHouBran[Nodes]= (if not difConTyp then fill(typ1HouBran,Nodes) else typHouBranDif);
+
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource voltageSource(V=Modelica.ComplexMath.'abs'(VSource),
       phi=Modelica.ComplexMath.arg(VSource),
@@ -135,7 +130,10 @@ connect(gridOnly1P.node, node) annotation (Line(
       color={0,0,255},
       smooth=Smooth.None));
 
-annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
+annotation(choices(
+choice=IDEAS.Electric.Data.Cables.PvcAl16() "PVC Aluminum 16 mm^2",
+choice=IDEAS.Electric.Data.Cables.PvcAl25() "PVC Aluminum 25 mm^2"),
+            Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
               -100}}, fileName=
               "modelica://IDEAS/Electric/icon-ssnav-08-electricity.jpg")}));
 end Grid1PGeneral;
