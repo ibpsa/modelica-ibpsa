@@ -31,7 +31,8 @@ extends IDEAS.Interfaces.Structure(         nZones=3,ATrans=1,VZones={gF.V,fF.V,
     A={5.5,1,5.5},
     azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
     redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,
-    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})     annotation (Placement(transformation(
+    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
+    redeclare IDEAS.Buildings.Components.Shading.None shaType)                annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
         rotation=90,
         origin={10.5,-75.5})));
@@ -61,7 +62,8 @@ extends IDEAS.Interfaces.Structure(         nZones=3,ATrans=1,VZones={gF.V,fF.V,
     A={5.5,1,5.5},
     azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
     redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,
-    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})     annotation (Placement(transformation(
+    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
+    redeclare IDEAS.Buildings.Components.Shading.None shaType)                annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
         rotation=90,
         origin={10.5,-15.5})));
@@ -90,7 +92,8 @@ extends IDEAS.Interfaces.Structure(         nZones=3,ATrans=1,VZones={gF.V,fF.V,
     A={5.5,1,5.5},
     azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
     redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,
-    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})     annotation (Placement(transformation(
+    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
+    redeclare IDEAS.Buildings.Components.Shading.None shaType)                annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
         rotation=90,
         origin={10.5,44.5})));
@@ -219,27 +222,27 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(gF_win[1].iSolDif, gF.iSolDif) annotation (Line(
-      points={{21,-73.96},{52,-73.96},{52,-60}},
+      points={{21,-72.2},{52,-72.2},{52,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(gF_win[1].iSolDir, gF.iSolDir) annotation (Line(
-      points={{21,-77.04},{48,-77.04},{48,-60}},
+      points={{21,-75.5},{48,-75.5},{48,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(gF_win[2].iSolDif, gF.iSolDif) annotation (Line(
-      points={{21,-73.96},{52,-73.96},{52,-60}},
+      points={{21,-72.2},{52,-72.2},{52,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(gF_win[2].iSolDir, gF.iSolDir) annotation (Line(
-      points={{21,-77.04},{48,-77.04},{48,-60}},
+      points={{21,-75.5},{48,-75.5},{48,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(gF_win[3].iSolDif, gF.iSolDif) annotation (Line(
-      points={{21,-73.96},{52,-73.96},{52,-60}},
+      points={{21,-72.2},{52,-72.2},{52,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(gF_win[3].iSolDir, gF.iSolDir) annotation (Line(
-      points={{21,-77.04},{48,-77.04},{48,-60}},
+      points={{21,-75.5},{48,-75.5},{48,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(gF_floor.surfRad_a, gF.surfRad[7]) annotation (Line(
@@ -332,27 +335,27 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(fF_win[1].iSolDif, fF.iSolDif) annotation (Line(
-      points={{21,-13.96},{52,-13.96},{52,0}},
+      points={{21,-12.2},{52,-12.2},{52,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fF_win[1].iSolDir, fF.iSolDir) annotation (Line(
-      points={{21,-17.04},{48,-17.04},{48,0}},
+      points={{21,-15.5},{48,-15.5},{48,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fF_win[2].iSolDif, fF.iSolDif) annotation (Line(
-      points={{21,-13.96},{52,-13.96},{52,0}},
+      points={{21,-12.2},{52,-12.2},{52,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fF_win[2].iSolDir, fF.iSolDir) annotation (Line(
-      points={{21,-17.04},{48,-17.04},{48,0}},
+      points={{21,-15.5},{48,-15.5},{48,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fF_win[3].iSolDif, fF.iSolDif) annotation (Line(
-      points={{21,-13.96},{52,-13.96},{52,0}},
+      points={{21,-12.2},{52,-12.2},{52,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fF_win[3].iSolDir, fF.iSolDir) annotation (Line(
-      points={{21,-17.04},{48,-17.04},{48,0}},
+      points={{21,-15.5},{48,-15.5},{48,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fF_floor.surfRad_a, fF.surfRad[7]) annotation (Line(
@@ -397,27 +400,27 @@ equation
       smooth=Smooth.None));
 //Connection of the sF floor
   connect(sF_win[1].iSolDir, sF.iSolDir) annotation (Line(
-      points={{21,42.96},{48,42.96},{48,60}},
+      points={{21,44.5},{48,44.5},{48,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sF_win[1].iSolDif, sF.iSolDif) annotation (Line(
-      points={{21,46.04},{52,46.04},{52,60}},
+      points={{21,47.8},{52,47.8},{52,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sF_win[2].iSolDir, sF.iSolDir) annotation (Line(
-      points={{21,42.96},{48,42.96},{48,60}},
+      points={{21,44.5},{48,44.5},{48,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sF_win[2].iSolDif, sF.iSolDif) annotation (Line(
-      points={{21,46.04},{52,46.04},{52,60}},
+      points={{21,47.8},{52,47.8},{52,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sF_win[3].iSolDir, sF.iSolDir) annotation (Line(
-      points={{21,42.96},{48,42.96},{48,60}},
+      points={{21,44.5},{48,44.5},{48,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sF_win[3].iSolDif, sF.iSolDif) annotation (Line(
-      points={{21,46.04},{52,46.04},{52,60}},
+      points={{21,47.8},{52,47.8},{52,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sF_ext.area_a, sF.area[1:3]) annotation (Line(
