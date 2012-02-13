@@ -40,12 +40,12 @@ extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
       inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
       azi={IDEAS.Constants.East,IDEAS.Constants.West},
     redeclare IDEAS.Buildings.Components.Shading.Overhang shaType(
-      H=2.0,
-      W=3.0,
-      PH=1.0,
-      RH=0.0,
-      PV=1.0,
-      RW=0.0))                             annotation (Placement(transformation(
+      each H=2.0,
+      each W=3.0,
+      each PH=1.0,
+      each RH=0.0,
+      each PV=1.0,
+      each RW=0.0))                             annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));
