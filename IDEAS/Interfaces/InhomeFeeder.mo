@@ -10,7 +10,7 @@ partial model InhomeFeeder
 
   outer IDEAS.Climate.SimInfoManager sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plugFeeder
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin plugFeeder
     "Electricity connection to the district feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nVentilationLoads] pinVentilationLoad
     "Electricity connection for the ventilaiton system" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));

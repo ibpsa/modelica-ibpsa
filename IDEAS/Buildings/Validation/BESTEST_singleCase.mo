@@ -14,4 +14,5 @@ model BESTEST_singleCase
     redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
       ventilationSystem)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  annotation (Diagram(graphics));
 end BESTEST_singleCase;
