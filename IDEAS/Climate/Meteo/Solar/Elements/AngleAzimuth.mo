@@ -1,5 +1,5 @@
 within IDEAS.Climate.Meteo.Solar.Elements;
-model AngleAzimuth "azimuth angle to surface"
+model AngleAzimuth "Azimuth angle to surface"
 
 extends Modelica.Blocks.Interfaces.BlockIcon;
 
@@ -22,8 +22,16 @@ public
   Modelica.Blocks.Interfaces.RealInput angZen(quantity="Angle", unit="rad")
     "zenith angle"
     annotation (Placement(transformation(extent={{-120,-40},{-80,0}})));
+
+protected
+  Real cosDec = Modelica.Math.cos(angDec);
+  Real sinDec = Modelica.Math.sin(angDec);
+  Real cosHou = Modelica.Math.cos(angHou);
+  Real sinHou = Modelica.Math.sin(angHou);
+  Real cosAlt = Modelica.Math.cos(Modelica.Math.asin(cos(lat)*cosDec*cosHou+sin(lat)*sinDec));
+
 equation
-  angAzi = asin(sin(angHou)*cos(angDec)/cos(Modelica.Constants.pi/2 - angAzi))-azi;
+  angAzi = asin(sinHou*cosDec/cosAlt)-azi;
 
   annotation (Diagram(graphics), Icon(graphics={
         Polygon(

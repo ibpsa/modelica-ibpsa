@@ -36,21 +36,21 @@ parameter Modelica.SIunits.Length PV
 parameter Modelica.SIunits.Length RW
       "Width of vertical projections besides window";
 
-  protected
+//protected
 Modelica.SIunits.Length SW "Shadow width by the horizontal projections";
 Modelica.SIunits.Length SH "Shadow height by the vertical projections";
 Modelica.SIunits.Area ASL "Sunlit area";
 Modelica.SIunits.Area ASH "Shaded area";
-Modelica.SIunits.Angle angSha "Shadow angle";
+Real tanSha "Tangent of the shadow angle";
 
 equation
-  angSha = atan(tan(Modelica.Constants.pi-angZen)/cos(angAzi));
+  tanSha = tan(Modelica.Constants.pi-angZen)/cos(angAzi);
   SW = min(PV * abs(tan(angAzi)),W+RW);
-  SH = min(PH * tan(angSha),H+RH);
+  SH = min(PH * abs(tanSha),H+RH);
   ASL = (W-(SW-RW))*(H-(SH-RH));
   ASH = W*H-ASL;
 
-  iSolDir = solDir*ASL/W/H;
+  iSolDir = min(solDir,solDir*ASL/W/H);
 
   connect(solDif, iSolDif) annotation (Line(
       points={{-60,10},{40,10}},
