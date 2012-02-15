@@ -2,12 +2,12 @@ within IDEAS.Buildings.GreyboxModels;
 model TiTeThTsAe
   "Selected linear low-order building model by P.Bacher, H.Madsen (2011) Procedure for identifying models for the heat dynamics of buildings "
 
-  extends IDEAS.Interfaces.Structure(         nZones=1);
+  extends IDEAS.Interfaces.Structure(nZones=1);
 
 //Window data
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
     "Glazing type"                                                              annotation(choicesAllMatching=true);
-  parameter Modelica.SIunits.Area windowArea "total window area";
+  parameter Modelica.SIunits.Area windowArea "Total window area";
   parameter Modelica.SIunits.Angle windowInc "IInclination of the window";
   parameter Modelica.SIunits.Angle windowAzi "Azimuth of teh window";
 //Resistor data
@@ -61,9 +61,9 @@ model TiTeThTsAe
     A=windowArea,
     inc=windowInc,
     azi=windowAzi)                                                                                  annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=0,
-        origin={-22,78})));
+        origin={-22,-30})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capS(C=Cs)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
@@ -126,7 +126,7 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(window.solGain, capI.port) annotation (Line(
-      points={{-22,68},{-22,-10},{-30,-10}},
+      points={{-22,-20},{-22,-10},{-30,-10}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));

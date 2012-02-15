@@ -26,12 +26,12 @@ extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
       redeclare Data.Insulation.insulation
         insulationType,
       AWall=48,
-      PWall=0,
       inc=IDEAS.Constants.Floor,
       azi=IDEAS.Constants.South,
       redeclare Data.Constructions.HeavyFloor
         constructionType,
-      insulationThickness=1.007)                annotation (Placement(transformation(
+      insulationThickness=1.007,
+    PWall=28)                                   annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-19,-14})));

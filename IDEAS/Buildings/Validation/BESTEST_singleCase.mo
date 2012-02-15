@@ -6,13 +6,19 @@ model BESTEST_singleCase
       IDEAS.Climate.Meteo.Locations.BesTest   city,
     DST=false)
       annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
-  Interfaces.Building case600FF(redeclare
-      IDEAS.Buildings.Validation.BaseClasses.Structure.Bui600  building,
+  Interfaces.Building case610(
       redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.None heatingSystem,
     redeclare IDEAS.Buildings.Validation.BaseClasses.InhomeFeeder.None inhomeGrid,
+    redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui610 building,
     redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem)
+      ventilationSystem,
+    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
+      heatingSystem)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics),
+    experiment(
+      StopTime=3.1536e+007,
+      Interval=3600,
+      Tolerance=1e-007),
+    __Dymola_experimentSetupOutput);
 end BESTEST_singleCase;

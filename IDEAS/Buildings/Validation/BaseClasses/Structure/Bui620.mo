@@ -28,9 +28,9 @@ extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
         insulationType,
       insulationThickness=1.003,
       AWall=48,
-      PWall=0,
       inc=IDEAS.Constants.Floor,
-      azi=IDEAS.Constants.South)                annotation (Placement(transformation(
+      azi=IDEAS.Constants.South,
+    PWall=28)                                   annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-19,-14})));

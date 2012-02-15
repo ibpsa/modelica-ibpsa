@@ -157,6 +157,6 @@ model BESTEST
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   annotation (experiment(
       StopTime=3.1536e+007,
-      Interval=60,
+      Interval=3600,
       Tolerance=1e-007), __Dymola_experimentSetupOutput);
 end BESTEST;
