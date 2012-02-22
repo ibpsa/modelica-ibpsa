@@ -160,7 +160,7 @@ equation
       smooth=Smooth.None));
   connect(gF_floor.port_emb, heatPortEmb[1]) annotation (Line(
       points={{-37,-76},{-32,-76},{-32,-88},{116,-88},{116,60},{150,60},{150,
-          53.3333},{150,53.3333}},
+          53.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fF_floor.port_emb, heatPortEmb[2]) annotation (Line(
