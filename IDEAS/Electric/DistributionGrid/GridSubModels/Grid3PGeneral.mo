@@ -108,7 +108,8 @@ output Modelica.SIunits.Current Ineutral0Abs=Modelica.ComplexMath.'abs'(
 protected
   parameter Integer Nodes=grid.nNodes;
 
-  Components.Con3PlusNTo3 con3PlusNTo3_1[
+  IDEAS.Electric.BaseClasses.Con3PlusNTo3
+                          con3PlusNTo3_1[
     gridOnly3P.grid.nNodes]
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 public
