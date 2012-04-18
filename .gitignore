@@ -18,3 +18,7 @@
 *.exe
 *.exp
 
+
+/Specifications/Specs.synctex
+/Specifications/Specs.tcp
+/Specifications/Specs.tps
