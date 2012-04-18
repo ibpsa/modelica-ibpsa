@@ -19,7 +19,6 @@ model BoilerTester "Identical as the one in FluidHeatFlow_NoPressure"
                     boiler(
     medium=Data.Media.Water(),
     QNom=5000,
-    TSet=273.15+82,
     tauHeatLoss=3600,
     mWater=10,
     cDry=10000)
@@ -50,6 +49,7 @@ model BoilerTester "Identical as the one in FluidHeatFlow_NoPressure"
     startTime=20000)
     annotation (Placement(transformation(extent={{-66,-52},{-46,-32}})));
 equation
+   boiler.TSet=273.15+82;
    volumeFlow1.m_flowSet = pulse.y / 1300;
 //   der(PElLossesInt) = HP.PEl;
 //   der(PElNoLossesInt) = HP_NoLosses.PEl;
