@@ -132,7 +132,7 @@ package Components
     parameter Boolean firstEntryOccupied = true
       "Set to true if first entry in occupancy denotes a changed from unoccupied to occupied";
     parameter Modelica.SIunits.Time startTime = 0 "Start time of periodicity";
-    parameter Modelica.SIunits.Time endTime = 86400 "End time of periodicity";
+    parameter Modelica.SIunits.Time endTime =   86400 "End time of periodicity";
 
     Modelica.Blocks.Interfaces.RealOutput tNexNonOcc
       "Time until next non-occupancy"
@@ -147,16 +147,18 @@ package Components
     final parameter Modelica.SIunits.Time period = endTime-startTime;
     final parameter Integer nRow = size(occupancy,1);
 
-    Integer nexStaInd "Next index when occupancy starts";
-    Integer nexStoInd "Next index when occupancy stops";
+    output Integer nexStaInd "Next index when occupancy starts";
+    output Integer nexStoInd "Next index when occupancy stops";
 
-    Integer iPerSta "Counter for the period in which the next occupancy starts";
-    Integer iPerSto "Counter for the period in which the next occupancy stops";
-    Modelica.SIunits.Time schTim
+    output Integer iPerSta
+      "Counter for the period in which the next occupancy starts";
+    output Integer iPerSto
+      "Counter for the period in which the next occupancy stops";
+    output Modelica.SIunits.Time schTim
       "Time in schedule (not exceeding max. schedule time)";
-    Modelica.SIunits.Time tMax "Maximum time in schedule";
-    Modelica.SIunits.Time tOcc "Time when next occupancy starts";
-    Modelica.SIunits.Time tNonOcc "Time when next non-occupancy starts";
+    output Modelica.SIunits.Time tMax "Maximum time in schedule";
+    output Modelica.SIunits.Time tOcc "Time when next occupancy starts";
+    output Modelica.SIunits.Time tNonOcc "Time when next non-occupancy starts";
 
   initial algorithm
    tOcc    :=if firstEntryOccupied then occupancy[1] else sim.timLoc;
@@ -175,11 +177,11 @@ package Components
     schTim :=startTime + mod(sim.timLoc-startTime, period);
 
     // Changed the index that computes the time until the next occupancy
-    when noEvent(time >= pre(occupancy[nexStaInd])+ iPerSta*period) then
+    when time >= pre(occupancy[nexStaInd])+ iPerSta*period then
       nexStaInd :=nexStaInd + 2;
       occupied := not occupied;
       // Wrap index around
-      if noEvent(nexStaInd > nRow) then
+      if nexStaInd > nRow then
          nexStaInd := if firstEntryOccupied then 1 else 2;
          iPerSta := iPerSta + 1;
       end if;
@@ -187,11 +189,11 @@ package Components
     end when;
 
     // Changed the index that computes the time until the next non-occupancy
-    when noEvent(time >= pre(occupancy[nexStoInd])+ iPerSto*period) then
+    when time >= pre(occupancy[nexStoInd])+ iPerSto*period then
       nexStoInd :=nexStoInd + 2;
       occupied := not occupied;
       // Wrap index around
-      if noEvenet(nexStoInd > nRow) then
+      if nexStoInd > nRow then
          nexStoInd := if firstEntryOccupied then 2 else 1;
          iPerSto := iPerSto + 1;
       end if;

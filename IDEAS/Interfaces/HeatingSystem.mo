@@ -17,7 +17,8 @@ partial model HeatingSystem
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
     "Nodes for radiative heat gains" annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads] pinLoad
-    "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+    "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},
+            {110,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortEmb
     "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor

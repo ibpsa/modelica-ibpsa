@@ -108,5 +108,5 @@ QGriTot=ones(3)*QGriTotPha;
 
   annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
               -100}}, fileName=
-              "modelica://ELECTA/icon-ssnav-08-electricity.jpg")}));
+              "modelica://IDEAS/Electric/icon-ssnav-08-electricity.jpg")}));
 end GridOnly3P;

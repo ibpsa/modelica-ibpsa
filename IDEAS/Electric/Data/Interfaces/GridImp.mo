@@ -11,11 +11,4 @@ parameter Modelica.SIunits.Resistance R[size(nodeMatrix,1)];
 parameter Modelica.SIunits.Reactance X[size(nodeMatrix,1)];
 parameter Modelica.SIunits.ComplexImpedance Z[size(nodeMatrix,1)](re=R,im=X);
 
-parameter Integer[nNodes,nNodes] nodeMatrix
-    "Node-matrix describing the connection between the nodes";
-
-parameter Modelica.SIunits.Resistance R[nNodes];
-parameter Modelica.SIunits.Reactance X[nNodes];
-parameter Modelica.SIunits.ComplexImpedance Z[nNodes](re=R,im=X);
-
 end GridImp;

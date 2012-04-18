@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: C:\Workspace\Modelica\IDEAS_CorrectMeteo\Specifications\Specs.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: Specs.aux
 The style file: ieeetr.bst
 A level-1 auxiliary file: Structure/Preface/preface.aux
 A level-1 auxiliary file: Structure/Preamble/cblist.aux
@@ -11,16 +11,8 @@ A level-1 auxiliary file: Thermal/ThermalSystemModelValidation.aux
 A level-1 auxiliary file: Electric/ElectricSystemModelValidation.aux
 Database file #1: Climate/MyBibTexLibrary.bib
 Database file #2: Buildings/MyBibTexLibrary.bib
-Repeated entry---line 1 of file Buildings/MyBibTexLibrary.bib
- : @article{Badescu2002
- :                     ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 69 of file Buildings/MyBibTexLibrary.bib
  : @techreport{Furler1988
- :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 134 of file Buildings/MyBibTexLibrary.bib
- : @article{Skartveit1987
  :                       ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 279 of file Buildings/MyBibTexLibrary.bib
@@ -35,25 +27,13 @@ Repeated entry---line 321 of file Buildings/MyBibTexLibrary.bib
  : @book{Bode1945
  :               ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 395 of file Buildings/MyBibTexLibrary.bib
- : @article{Tian2001
- :                  ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 442 of file Buildings/MyBibTexLibrary.bib
  : @article{Mohr2008
  :                  ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 469 of file Buildings/MyBibTexLibrary.bib
- : @article{Darula2005
- :                    ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 582 of file Buildings/MyBibTexLibrary.bib
  : @article{Khalifa2001
  :                     ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 769 of file Buildings/MyBibTexLibrary.bib
- : @article{Liu1962
- :                 ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 783 of file Buildings/MyBibTexLibrary.bib
  : @article{Berdahl1982
@@ -83,10 +63,6 @@ Repeated entry---line 1134 of file Buildings/MyBibTexLibrary.bib
  : @article{Berdahl1984
  :                     ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1288 of file Buildings/MyBibTexLibrary.bib
- : @article{Klucher1979
- :                     ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 1434 of file Buildings/MyBibTexLibrary.bib
  : @article{Boltzmann1884
  :                       ,
@@ -102,10 +78,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 1567 of file Buildings/MyBibTexLibrary.bib
  : @article{Martin1984
  :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1658 of file Buildings/MyBibTexLibrary.bib
- : @article{Hay1979
- :                 ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 1674 of file Buildings/MyBibTexLibrary.bib
  : @article{Stefan1879
@@ -131,10 +103,6 @@ Repeated entry---line 2069 of file Buildings/MyBibTexLibrary.bib
  : @article{Liesen1997
  :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2097 of file Buildings/MyBibTexLibrary.bib
- : @article{Reindl1990
- :                    ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 2273 of file Buildings/MyBibTexLibrary.bib
  : @article{Jurges1924
  :                    ,
@@ -151,10 +119,6 @@ Repeated entry---line 2415 of file Buildings/MyBibTexLibrary.bib
  : @techreport{Hamilton1952
  :                         ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2469 of file Buildings/MyBibTexLibrary.bib
- : @article{Steven1980
- :                    ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 2542 of file Buildings/MyBibTexLibrary.bib
  : @techreport{Judkoff1995
  :                        ,
@@ -167,10 +131,6 @@ Repeated entry---line 2942 of file Buildings/MyBibTexLibrary.bib
  : @book{ISO77302005
  :                  ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2996 of file Buildings/MyBibTexLibrary.bib
- : @article{Temps1977
- :                   ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 3189 of file Buildings/MyBibTexLibrary.bib
  : @incollection{Lomas1994a
  :                         ,
@@ -178,10 +138,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 3547 of file Buildings/MyBibTexLibrary.bib
  : @article{Kasten1979
  :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3564 of file Buildings/MyBibTexLibrary.bib
- : @techreport{Meteotest2010
- :                          ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 3582 of file Buildings/MyBibTexLibrary.bib
  : @book{NCDC1976b
@@ -227,10 +183,6 @@ Repeated entry---line 4747 of file Buildings/MyBibTexLibrary.bib
  : @article{Spencer1971
  :                     ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 4807 of file Buildings/MyBibTexLibrary.bib
- : @article{Skartveit1986
- :                       ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 4838 of file Buildings/MyBibTexLibrary.bib
  : @book{Walton1983
  :                 ,
@@ -250,10 +202,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 5392 of file Buildings/MyBibTexLibrary.bib
  : @techreport{Finlayson1993
  :                          ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 5573 of file Buildings/MyBibTexLibrary.bib
- : @article{Noorian2008
- :                     ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 5615 of file Buildings/MyBibTexLibrary.bib
  : @article{Wang2006
@@ -281,16 +229,8 @@ Repeated entry---line 5927 of file Buildings/MyBibTexLibrary.bib
 I'm skipping whatever remains of this entry
 Database file #3: Electric/MyBibTexLibrary.bib
 Database file #4: Thermal/MyBibTexLibrary.bib
-Repeated entry---line 1 of file Thermal/MyBibTexLibrary.bib
- : @article{Badescu2002
- :                     ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 69 of file Thermal/MyBibTexLibrary.bib
  : @techreport{Furler1988
- :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 134 of file Thermal/MyBibTexLibrary.bib
- : @article{Skartveit1987
  :                       ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 279 of file Thermal/MyBibTexLibrary.bib
@@ -305,25 +245,13 @@ Repeated entry---line 321 of file Thermal/MyBibTexLibrary.bib
  : @book{Bode1945
  :               ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 395 of file Thermal/MyBibTexLibrary.bib
- : @article{Tian2001
- :                  ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 442 of file Thermal/MyBibTexLibrary.bib
  : @article{Mohr2008
  :                  ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 469 of file Thermal/MyBibTexLibrary.bib
- : @article{Darula2005
- :                    ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 582 of file Thermal/MyBibTexLibrary.bib
  : @article{Khalifa2001
  :                     ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 769 of file Thermal/MyBibTexLibrary.bib
- : @article{Liu1962
- :                 ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 783 of file Thermal/MyBibTexLibrary.bib
  : @article{Berdahl1982
@@ -353,10 +281,6 @@ Repeated entry---line 1134 of file Thermal/MyBibTexLibrary.bib
  : @article{Berdahl1984
  :                     ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1288 of file Thermal/MyBibTexLibrary.bib
- : @article{Klucher1979
- :                     ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 1434 of file Thermal/MyBibTexLibrary.bib
  : @article{Boltzmann1884
  :                       ,
@@ -372,10 +296,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 1567 of file Thermal/MyBibTexLibrary.bib
  : @article{Martin1984
  :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1658 of file Thermal/MyBibTexLibrary.bib
- : @article{Hay1979
- :                 ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 1674 of file Thermal/MyBibTexLibrary.bib
  : @article{Stefan1879
@@ -401,10 +321,6 @@ Repeated entry---line 2069 of file Thermal/MyBibTexLibrary.bib
  : @article{Liesen1997
  :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2097 of file Thermal/MyBibTexLibrary.bib
- : @article{Reindl1990
- :                    ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 2273 of file Thermal/MyBibTexLibrary.bib
  : @article{Jurges1924
  :                    ,
@@ -421,10 +337,6 @@ Repeated entry---line 2415 of file Thermal/MyBibTexLibrary.bib
  : @techreport{Hamilton1952
  :                         ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2469 of file Thermal/MyBibTexLibrary.bib
- : @article{Steven1980
- :                    ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 2542 of file Thermal/MyBibTexLibrary.bib
  : @techreport{Judkoff1995
  :                        ,
@@ -437,10 +349,6 @@ Repeated entry---line 2942 of file Thermal/MyBibTexLibrary.bib
  : @book{ISO77302005
  :                  ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2996 of file Thermal/MyBibTexLibrary.bib
- : @article{Temps1977
- :                   ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 3189 of file Thermal/MyBibTexLibrary.bib
  : @incollection{Lomas1994a
  :                         ,
@@ -448,10 +356,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 3547 of file Thermal/MyBibTexLibrary.bib
  : @article{Kasten1979
  :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3564 of file Thermal/MyBibTexLibrary.bib
- : @techreport{Meteotest2010
- :                          ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 3582 of file Thermal/MyBibTexLibrary.bib
  : @book{NCDC1976b
@@ -497,10 +401,6 @@ Repeated entry---line 4747 of file Thermal/MyBibTexLibrary.bib
  : @article{Spencer1971
  :                     ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 4807 of file Thermal/MyBibTexLibrary.bib
- : @article{Skartveit1986
- :                       ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 4838 of file Thermal/MyBibTexLibrary.bib
  : @book{Walton1983
  :                 ,
@@ -520,10 +420,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 5392 of file Thermal/MyBibTexLibrary.bib
  : @techreport{Finlayson1993
  :                          ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 5573 of file Thermal/MyBibTexLibrary.bib
- : @article{Noorian2008
- :                     ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 5615 of file Thermal/MyBibTexLibrary.bib
  : @article{Wang2006
@@ -552,7 +448,6 @@ I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "NREC1995"
 Warning--I didn't find a database entry for "Lawrence1993"
 Warning--I didn't find a database entry for "Solar2009"
-Warning--empty institution in Meteotest2010
 Warning--can't use both author and editor fields in ASHRAE2009
 Warning--empty school in Beausoleil-Morrison2000
 Warning--empty institution in Finlayson1993
@@ -566,4 +461,4 @@ Warning--empty publisher in willis
 Warning--empty publisher in Lomas1994
 Warning--empty publisher in Lomas1994a
 Warning--can't use both author and editor fields in ASHRAE140
-(There were 134 error messages)
+(There were 108 error messages)

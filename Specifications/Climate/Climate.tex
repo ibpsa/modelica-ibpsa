@@ -1,10 +1,10 @@
 
 \title{Climate}
-% Use \titlerunning{Short Title} for an abbreviated version of your contribution title if the original one is too long
+
 \author{Ruben Baetens and Dirk Saelens}
 \authorrunning{R. Baetens, D. Saelens}
-\institute{Ruben Baetens \at K.U.Leuven, Kasteelpark Arenberg 40 bus 2447, BE-3001 Leuven (Heverlee) \email{ruben.baetens@bwk.kuleuven.be}
-\and Dirk Saelens \at K.U.Leuven, Kasteelpark Arenberg 40 bus 2447, BE-3001 Leuven (Heverlee) \email{dirk.saelens@bwk.kuleuven.be}}
+\institute{Ruben Baetens \at KU Leuven, Kasteelpark Arenberg 40 bus 2447, BE-3001 Leuven (Heverlee) \email{ruben.baetens@bwk.kuleuven.be}
+\and Dirk Saelens \at KU Leuven, Kasteelpark Arenberg 40 bus 2447, BE-3001 Leuven (Heverlee) \email{dirk.saelens@bwk.kuleuven.be}}
 \maketitle
 
 \abstract{A numeric building model is developed in Modelica for integrated energy simulation.}
@@ -15,15 +15,6 @@ In this section, we describe in detail the climate model and its possibilities t
 
 \section{Weather data}
 \label{chap:climwea}
-
-Within the computational model, all weather data are handled in 
-
-%\begin{lstlisting}[language=modelica]
-%import "Commons.mo"
-%outer SimInfoManager (replaceable Meteo.location city, replaceable MeteoOnFile detail);
-%\end{lstlisting}
-
-determined by \modelica{city} depicting the location of the used climate determined by its latitude and longitude as well as design climate data for system design, and \modelica{detail} depicting the time resolution of the used data.
 
 The main weather parameters required for transient thermal building simulation are the ambient dry-bulb temperature $T_{db}(t)$, the outdoor relative humidity $\varphi_{e}(t)$, the wind speed $v_{10}(t)$, the diffuse horizontal solar radiation $E_{d,h}(t)$ and direct normal solar radiation$E_{D,\bot}(t)$. 
 
@@ -108,39 +99,47 @@ E(t,x)=E_{D}(t,x)+E_{d}(t,x)+E_{r}(t,x)
 
 For a known profile of direct solar irradiation on a random surface, all three factors can be determined for another arbitrary surface s. Herefore, a profile of direct solar irradiation $E_{D,\bot}(t,x)$ perpendicular on the beam radiation is retrieved from Meteonorm and used as only input parameter. The calculation of other configurations besides normal to the solar beam is performed in the model. 
 
-Different models~\cite{Noorian2008} for the determination of the diffuse radiation do exist based on an isotropic~\cite{Liu1962,Tian2001,Badescu2002} or anisotropic~\cite{Temps1977,Klucher1979,Hay1979,Steven1980,Perez1986,Perez1987,Skartveit1986,Skartveit1987,Reindl1990} model of the sky dome. On account of the high importance of solar irradiation for the model (i.e. for the building thermal response, heat generation by means of a thermal solar collector and power generation with a photovoltaic array), a more detailed determination of diffuse radiation based on a anisotropic sky dome model is favorable. Herefore, the model presented by Skartveit and Olseth~\cite{Skartveit1987} is implemented and choosen above the Perez model~\cite{Perez1986,Perez1987} as it is based on analytical expressions and does not resort to extensive look-up tables.
+Different models for the determination of the diffuse radiation do exist based on an isotropic or anisotropic model of the sky dome. On account of the high importance of solar irradiation for the model\footnote{Solar radiation interacts e.g. with the building thermal response, heat generation by means of a thermal solar collector and power generation with a photovoltaic array}, a more detailed determination of diffuse radiation based on a anisotropic sky dome model is favorable. Herefore, the Perez model~\cite{Perez1986,Perez1987} is implemented.
 
 \begin{dmath}
-E(t,x)=r_{D}(t,x)E_{D,h}(t)+r_{d}(t,x)E_{d,h}(t)+F_{r}(t,x)\rho(t)\left[E_{D,h}(t)+E_{d,h}(t)\right]
+E_{d}(t,x) =  A(x) E_{d,h}(t) \left[ 0.5 \left(1+\cos i\right) \left(1-F_{1}\right) + F_{1} \cos\xi(t,x) \cos^{-1}\xi_{h}(t) + F_{2} \sin i\right]
+\end{dmath}
+\begin{dmath}
+E_{r}(t,x) = 0.5 \rho A(x) \left(E_{D,h}(t) + E_{d,h}(t)\right) \left(1 - \cos i\right)
 \end{dmath}
 
-wherefore $r_{D}(t,x)$ and $r_{d}(t,x)$ are the ratios between direct and diffuse radiation respectively on a tilted surface to that on a horizontal surface, defined as
-
-\begin{equation}
-r_{D}(t,x)=\cos \xi(t,x)\cos^{-1} \xi_{h}(t)
-\end{equation}
+wherefore $A(x)$ is the surface area, $E_{d,h}$ is the diffuse horizonal radiation, $i$ is the surface inclination, $F_{1}$ is the circomsolar brightening coefficient, $F_{2}$, $\rho$ is the ground reflectance and $E_{D,h}$ is the direct horizonal radiation. The brightening coefficients $F_{1}$, $F_{2}$ are determined as
 
 \begin{dmath}
-r_{d}(t,x)=r_D(t,x) \frac{E_{D,h}(t)}{E_{oh}(t)}+\Omega(t)\cos i(x)+F_{d}(t,x)\left[1 - \frac{E_{D,h}(t)}{E_{oh}(t)}-\Omega(t)\right]
+F_{n} = F_{n,1}(\epsilon) + F_{n,2}(\epsilon) \Delta + F_{n,3}(\epsilon) \xi_{h}(t)
 \end{dmath}
 
-and wherefore $\xi(t,x)$ and $\xi_{h}(t)$ are the zenith angle for surface s and the horizontal surface respectively, i.e. the angle between the straight line joining the centers of the earth and the sun and the normal of surface s, $\rho$ is the albedo, i.e. the average reflectivity of the environment, $E_{oh}(t)$ is the total extraterrestrial solar irradiation, $i(x)$ is the surface inclination defined as $0$ for flat roofs and $\pi/2$ for vertical walls, $\Omega(t)$ equals $\max\left\{0,0.3-2 E_{D,h}(t)/E_{oh}(t)\right\}$, $F_{r}(t,x)$ is the isotropic reflected view factor defined as $\left[1-\cos \xi(t,x)\right]/2$ and $F_{d}(t,x)$ is the isotropic diffuse view factor defined as $\left[1+\cos \xi(t,x)\right]/2$.
+where $F_{n,i}$ are determined in the Perez model~\cite{Perez1987} based on measurements, $\epsilon$ is the sky clearness and $\Delta$ is the sky brightness. Here, the sky brightness $\Delta$ is determined as $E_{d,h} E_{sc}^{-1}$ while the sky clearness $\epsilon$ is determined as
 
-For calculation of the reflected solar irradiation $E_{r}(t,x)$, the albedo $\rho(t)$ is determined~\cite{Meteotest2010} as
+\begin{dmath}
+\epsilon = \left(E_{d,h}(t,x) + E_{D,h}(t,x)\right) E_{d,h}(t,x)^{-1} + \kappa \xi_{h}^{3}(t) \left(1 + \kappa \xi_{h}^{3}(t)\right)^{-1}
+\end{dmath}
 
-\begin{equation}
-\rho(t)=11.895 - 0.042\ T_{db}(t), \forall \rho(t) \in\left[ 0.2,0.8 \right]
-\end{equation}
+wherefore $E_{sc}$ is the solar constant and $\kappa$ equals 1.041.
 
-where $T_{db}(t)$ is the average outdoor dry-bulb temperature of the last two weeks.
+\subsection{Solar shading}
 
-The total extraterrestrial solar irradiation $E_{oh}(t)$ is defined as~\cite{Duffie1980}
+So far, two types of structures which can shade a surface and thus reduce the shortwave radiation on a surface, i.e. an exterior screen in the pane of the surface and surface overhangs.
 
-\begin{equation}
-E_{oh}(t)=S_{sol}+0.033412\ S_{sol} \cos d(t) 
-\end{equation}
+\runinhead{Exterior solar screen.} The implementation of an exterior solar screen in the surface pane is stratightforward. The transmitted direct solar irradiation equals $E_{D}(t,x) \left(1 - f_{p}(t)\right)$ where $f_{p}(t)$ is the position of the screen between 0 and 1. The total transmitted diffuse and reflected solar irradiation equals $E_{d}(x,t) \left(1 - f_{p}\right) +f_{p}(t)  f_{s} E(x,t)$ where $f_{sha}$ is the shortwave transmittance of the exterior screen.
 
-where $d(t)$ is day angle and $S_{sol}$ is the solar constant~\cite{Darula2005} equaling 1366.1 \watt\metre\rpsquared.
+\runinhead{Overhangs for vertical surfaces.} Horizontal and vertical projectionso above and besides windows are able to intercept the direct component of solar radiation depeneding on the geometry of the obstructing and receiving surface. The usnlit area $A_{SL}(x,t)$ of a surface with width $W$ and height $H$, and vertical and horizontal projections $P_{V}$ and $P_{H}$ at a distance $R_{W}$ and $R_{H}$ of the receiving surface edges is determiend as
+
+\begin{dmath}
+A_{SL}(x,t) = \left[W - P_{v}  \left|\tan \alpha(t,x) \right| + R_{W}\right] \left[H - P_{H} \tan \left(\pi - \xi_{h}(t)\right) \cos^{-1} \alpha(t,x) + R_{H}\right]
+\end{dmath}
+
+with $\alpha(t,x)$ the solar azimuth.
+
+
+
+
+
 
 
 

@@ -14,6 +14,6 @@ parameter Boolean gas = false "Boolean wether the material is a gas";
 parameter Real mhu(unit="m2/s") = 0
     "Viscosity, i.e. if the material is a fluid";
 
-final parameter Real R(unit="m2K/W") = d/k;
+final parameter Real R = d/k;
 
 end Material;

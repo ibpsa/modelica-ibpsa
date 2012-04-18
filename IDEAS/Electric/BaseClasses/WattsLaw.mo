@@ -19,39 +19,38 @@ equation
     end for;
 
   annotation (Icon(graphics={
-        Polygon(
-          points={{0,80},{-80,-60},{80,-60},{0,80}},
-          lineColor={0,0,255},
-          smooth=Smooth.None,
-          lineThickness=1),
         Text(
-          extent={{-20,40},{20,0}},
-          lineColor={0,0,255},
+          extent={{-20,30},{20,-10}},
+          lineColor={85,170,255},
           lineThickness=0.5,
           textString="P"),
         Text(
-          extent={{-60,-20},{-20,-60}},
-          lineColor={0,0,255},
+          extent={{-50,-30},{-10,-70}},
+          lineColor={85,170,255},
           lineThickness=0.5,
           textString="V"),
         Text(
-          extent={{20,-20},{60,-60}},
-          lineColor={0,0,255},
+          extent={{10,-30},{50,-70}},
+          lineColor={85,170,255},
           lineThickness=0.5,
           textString="I"),
         Line(
-          points={{-40,0},{40,0}},
-          color={0,0,0},
+          points={{-40,-20},{40,-20}},
+          color={95,95,95},
           thickness=0.5,
           smooth=Smooth.None),
         Line(
-          points={{-10,-50},{10,-30}},
-          color={0,0,0},
+          points={{-6,-56},{6,-44}},
+          color={95,95,95},
           thickness=0.5,
           smooth=Smooth.None),
         Line(
-          points={{-10,-30},{10,-50}},
-          color={0,0,0},
+          points={{-6,-44},{6,-56}},
+          color={95,95,95},
           thickness=0.5,
+          smooth=Smooth.None),           Polygon(
+          points={{-100,-90},{0,90},{100,-90},{-100,-90}},
+          lineColor={85,170,255},
+          lineThickness=0.5,
           smooth=Smooth.None)}));
 end WattsLaw;

@@ -19,7 +19,7 @@ public
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
 
 equation
-angZen = acos(cos(lat)*cos(angDec)*cos(angHou)+sin(lat)*sin(angDec));
+angZen = asin(cos(lat)*cos(angDec)*cos(angHou)+sin(lat)*sin(angDec));
 
   annotation (Diagram(graphics), Icon(graphics={
         Polygon(

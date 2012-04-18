@@ -11,22 +11,30 @@ extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
     "Glazing type" annotation (choicesAllMatching = true,Dialog(group="Construction details"));
+  replaceable Interfaces.StateShading shaType
+    annotation (choicesAllMatching = true,Dialog(group="Construction details"),Placement(transformation(extent={{-36,-70},{-26,-50}})));
+  Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controled
+    "Control signal between 0 and 1, i.e. 1 is fully closed"
+    annotation (Placement(transformation(extent={{20,-20},{-20,20}},
+        rotation=-90,
+        origin={-30,-110}),
+        iconTransformation(extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={-30,-100})));
 
 Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDir
-    "direct solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{-24,-110},{-4,-90}})));
+    "direct solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{-10,
+            -110},{10,-90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
 Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif
-    "diffuse solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{4,-110},{24,-90}})));
+    "diffuse solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{20,-110},
+            {40,-90}}), iconTransformation(extent={{20,-110},{40,-90}})));
 
 protected
   parameter Boolean shading = false "Shading presence, i.e. true if present";
   parameter Modelica.SIunits.Efficiency shaCorr = 0.2
     "Total shading transmittance";
 
-  IDEAS.Buildings.Components.BaseClasses.SolarShading solSha(enable=shading,
-      shaCorr=shaCorr)
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-
-  IDEAS.Climate.Meteo.Solar.RadSol  radSol(inc=inc,azi=azi,A=A)
+  IDEAS.Climate.Meteo.Solar.ShadedRadSol  radSol(inc=inc,azi=azi,A=A)
     "determination of incident solar radiation on wall based on inclination and azimuth"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerLucent layMul(
@@ -62,36 +70,16 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolDir, iSolDir)      annotation (Line(
-      points={{-2,-70},{-2,-70},{-2,-80},{-14,-80},{-14,-100}},
+      points={{-2,-70},{-2,-80},{0,-80},{0,-100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolDif, iSolDif)      annotation (Line(
-      points={{2,-70},{0,-70},{0,-80},{14,-80},{14,-100}},
+      points={{2,-70},{0,-70},{0,-80},{30,-80},{30,-100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolAbs, layMul.port_gain) annotation (Line(
       points={{0,-50},{0,-40}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(radSol.solDir, solSha.solDir) annotation (Line(
-      points={{-50,-54},{-40,-54}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSol.solDif, solSha.solDif) annotation (Line(
-      points={{-50,-58},{-40,-58}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solSha.iSolDir, solWin.solDir) annotation (Line(
-      points={{-20,-54},{-10,-54}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solSha.iSolDif, solWin.solDif) annotation (Line(
-      points={{-20,-58},{-10,-58}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solSha.iAngInc, solWin.angInc) annotation (Line(
-      points={{-20,-66},{-10,-66}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(layMul.iEpsLw_a, skyRad.epsLw) annotation (Line(
       points={{-10,-22},{-14,-22},{-14,-4},{-20,-4}},
@@ -114,16 +102,48 @@ equation
       points={{10,-30},{20,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(radSol.angInc, solSha.angInc) annotation (Line(
-      points={{-50,-64},{-50,-66},{-40,-66}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(layMul.iEpsSw_b, iEpsSw_a) annotation (Line(
       points={{10,-26},{18,-26},{18,0},{56,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(layMul.area, area_a) annotation (Line(
       points={{0,-20},{0,60},{56,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSol.solDir, shaType.solDir)  annotation (Line(
+      points={{-50,-54},{-36,-54}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSol.solDif, shaType.solDif)  annotation (Line(
+      points={{-50,-58},{-36,-58}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSol.angInc, shaType.angInc)  annotation (Line(
+      points={{-50,-64},{-36,-64}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSol.angZen, shaType.angZen)  annotation (Line(
+      points={{-50,-66},{-36,-66}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSol.angAzi, shaType.angAzi)  annotation (Line(
+      points={{-50,-68},{-36,-68}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaType.iSolDir, solWin.solDir)  annotation (Line(
+      points={{-26,-54},{-10,-54}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaType.iSolDif, solWin.solDif)  annotation (Line(
+      points={{-26,-58},{-10,-58}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaType.iAngInc, solWin.angInc)  annotation (Line(
+      points={{-26,-66},{-10,-66}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaType.Ctrl, Ctrl)  annotation (Line(
+      points={{-31,-70},{-30,-70},{-30,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},

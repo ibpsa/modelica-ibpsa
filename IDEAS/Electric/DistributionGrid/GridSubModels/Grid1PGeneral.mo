@@ -10,11 +10,6 @@ protected
     Vsc=Vsc,
     Sn=Sn) if traPre
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  HouseConnectors                                       houseConnectors(
-    numPha=1,
-    numNod=Nodes,
-    typHouBran=typHouBran) if houCon
-    annotation (Placement(transformation(extent={{56,12},{76,32}})));
 
   /**ELECTA.DistributionGrid.Components.CVoltageSource cVoltageSource(Vsource=
         VSource)                                         annotation (Placement(transformation(
@@ -72,32 +67,6 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
       __Dymola_radioButtons=true));
 /**End of everything related to the transformer**/
 
-parameter Boolean houCon=false
-    "Select if cables for houseconnection should be simulated or not"
-annotation(choices(
-  choice=false "No houseconnections simulated",
-  choice=true "Houseconnections simulated",
-  __Dymola_radioButtons=true));
-
-parameter Boolean difConTyp=false
-    "Select if different types of cable connections are used for the houseconnections"
-annotation(choices(
-  choice=false "Houseconnections use same cable type(typ1houBran)",
-  choice=true "Different types of cable are used (typHouBranDif)",
-  __Dymola_radioButtons=true));
-  //  choice=true "Different types",
-
-replaceable parameter IDEAS.Electric.Data.Interfaces.Cable
-                                           typ1HouBran=IDEAS.Electric.Data.Cables.PvcAl16()
-    "If only 1 type of cable is used in houseconnections, select it here"
-annotation(choices(
-choice=IDEAS.Electric.Data.Cables.PvcAl16() "PVC Aluminum 16 mm^2",
-choice=IDEAS.Electric.Data.Cables.PvcAl25() "PVC Aluminum 25 mm^2"));
-replaceable parameter IDEAS.Electric.Data.Interfaces.Cable[
-                                           Nodes] typHouBranDif={IDEAS.Electric.Data.Cables.PvcAl16()
-                                                                                                for i in 1:Nodes}
-    "Give the array of cable connection types if different types of cables are used";
-
 /***Output the cable losses of the grid***/
 output Modelica.SIunits.ActivePower PLosBra[Nodes]=gridOnly1P.PLosBra;
 output Modelica.SIunits.ActivePower PGriLosTot=gridOnly1P.PGriLosTot;
@@ -109,12 +78,6 @@ output Modelica.SIunits.ActivePower traLosP0=transformer.traLosP0 if traPre;
 output Modelica.SIunits.ActivePower traLosPs=transformer.traLosPs if traPre;
 output Modelica.SIunits.ActivePower traLosPtot=transformer.traLosPtot if traPre;
 
-/***And the losses in the houseconnections***/
-output Modelica.SIunits.ActivePower PLosHouCon[Nodes]=houseConnectors.PLosHouCon if
-       houCon;
-output Modelica.SIunits.ActivePower PLosHouConTot=houseConnectors.PLosHouConTot if
-       houCon;
-
 /***Output the total power exchange of the grid***/
   output Modelica.SIunits.ActivePower PGriTot=gridOnly1P.PGriTot;
   output Modelica.SIunits.ComplexPower SGriTot=gridOnly1P.SGriTot;
@@ -125,8 +88,7 @@ output Modelica.SIunits.ActivePower PLosHouConTot=houseConnectors.PLosHouConTot 
                                                         Ibranch0);
 protected
   parameter Integer Nodes=grid.nNodes;
-  parameter IDEAS.Electric.Data.Interfaces.Cable
-                                 typHouBran[Nodes]= (if not difConTyp then fill(typ1HouBran,Nodes) else typHouBranDif);
+
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource voltageSource(V=Modelica.ComplexMath.'abs'(VSource),
       phi=Modelica.ComplexMath.arg(VSource),
@@ -158,29 +120,20 @@ equation
       smooth=Smooth.None));
   else
   connect(voltageSource.pin_p, gridOnly1P.TraPin) annotation (Line(
-      points={{-70,-20},{-92,-20},{-92,20},{20,20},{20,4}},
+      points={{-70,-20},{-92,-20},{-92,20},{12,20},{12,4},{20,4},{20,4}},
       color={0,0,255},
       smooth=Smooth.None));
   end if;
 
-if houCon then
-  connect(gridOnly1P.node, houseConnectors.griCon[1, :]) annotation (Line(
-      points={{40,0},{48,0},{48,22},{56,22}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(houseConnectors.houCon[1, :], node)
-   annotation (Line(
-      points={{76,22},{88,22},{88,0},{100,0}},
-      color={0,0,255},
-      smooth=Smooth.None));
-else
-   connect(gridOnly1P.node, node) annotation (Line(
+connect(gridOnly1P.node, node) annotation (Line(
       points={{40,0},{100,0}},
       color={0,0,255},
       smooth=Smooth.None));
-end if;
 
-annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
+annotation(choices(
+choice=IDEAS.Electric.Data.Cables.PvcAl16() "PVC Aluminum 16 mm^2",
+choice=IDEAS.Electric.Data.Cables.PvcAl25() "PVC Aluminum 25 mm^2"),
+            Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
               -100}}, fileName=
-              "modelica://ELECTA/icon-ssnav-08-electricity.jpg")}));
+              "modelica://IDEAS/Electric/icon-ssnav-08-electricity.jpg")}));
 end Grid1PGeneral;

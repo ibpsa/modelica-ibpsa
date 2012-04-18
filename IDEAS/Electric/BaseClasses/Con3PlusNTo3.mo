@@ -1,4 +1,4 @@
-within IDEAS.Electric.DistributionGrid.Components;
+within IDEAS.Electric.BaseClasses;
 model Con3PlusNTo3
   "Converts the 3 phases plus Neutrol to 3 phases representation to wich powers can be connected"
 
@@ -13,7 +13,7 @@ equation
   for i in 1:3 loop
     fourWire[i].v-fourWire[4].v=threeWire[i].v;
     threeWire[i].i=-fourWire[i].i;
-    Connections.branch(threeWire[i].reference,fourWire[i].reference);
+    .Connections.branch(threeWire[i].reference,fourWire[i].reference);
     threeWire[i].reference.gamma=fourWire[i].reference.gamma;
   end for;
   -fourWire[4].i=fourWire[1].i+fourWire[2].i+fourWire[3].i;

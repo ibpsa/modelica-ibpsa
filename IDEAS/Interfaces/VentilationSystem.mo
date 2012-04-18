@@ -9,6 +9,10 @@ partial model VentilationSystem
 
   outer IDEAS.Climate.SimInfoManager  sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
+    "Sensor temperature of the zones" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-96,-60})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
     "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads] pinLoad
