@@ -36,7 +36,7 @@ partial model Partial_HeatingSystem "Most generic partial heating system"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={206,-20})));
-  outer Commons.SimInfoManager sim
+  outer IDEAS.Climate.SimInfoManager sim
     annotation (Placement(transformation(extent={{-138,64},{-118,84}})));
 Modelica.Blocks.Interfaces.RealOutput QHeatTotal
     "Total  thermal power (heating + DHW)"                                    annotation (Placement(transformation(

@@ -2,16 +2,25 @@ within IDEAS.Interfaces;
 partial model HeatingSystem "Partial heating system inclusif control"
 
   import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
+
+// Building characteristics  //////////////////////////////////////////////////////////////////////////
   parameter EmissionType emissionType = EmissionType.RadiatorsAndFloorHeating
     "Type of the heat emission system";
   parameter Integer nZones(min=1) "Number of conditioned thermal zones";
-  parameter Integer nLoads(min=1) "Number of electric loads";
-
   parameter Modelica.SIunits.Power[nZones] QNom(each min=0)
     "Nominal power, can be seen as the max power of the emission system";
   parameter Real[nZones] VZones "Conditioned volumes of the zones";
   final parameter Modelica.SIunits.HeatCapacity[nZones] C = 1012*1.204*VZones*5
     "Heat capacity of the conditioned zones";
+
+// Electricity consumption or production  //////////////////////////////////////////////////////////////
+  parameter Integer nLoads(min=1) "Number of electric loads";
+  SI.Power[nLoads] P "Active power for each of the loads";
+  SI.Power[nLoads] Q "Reactive power for each of the loads";
+
+// Parameters DHW ///////////////////////////////////////////////////////////////////////////////////////
+  parameter Integer nOcc = 2
+    "number of occupants for determination of DHW consumption";
 
   outer IDEAS.Climate.SimInfoManager sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -37,9 +46,6 @@ partial model HeatingSystem "Partial heating system inclusif control"
         rotation=90,
         origin={0,-90})));
 
-  SI.Power[nLoads] P "Active power for each of the loads";
-  SI.Power[nLoads] Q "Reactive power for each of the loads";
-
 protected
   Electric.BaseClasses.WattsLaw[nLoads] wattsLaw(each numPha=1)
     annotation (Placement(transformation(extent={{58,-10},{78,10}})));
@@ -47,7 +53,7 @@ equation
   P = wattsLaw.P;
   Q = wattsLaw.Q;
   for i in 1:nLoads loop
-    connect(wattsLaw[i].vi, pinLoad[1, i]);
+    connect(wattsLaw[i].vi, pinLoad[:, i]);
   end for;
   annotation(Icon(graphics={
         Polygon(
