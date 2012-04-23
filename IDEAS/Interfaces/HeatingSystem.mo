@@ -34,7 +34,7 @@ partial model HeatingSystem "Partial heating system inclusif control"
       (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
     "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
 
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[1, nLoads] pinLoad
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads] pinLoad
     "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},
             {110,10}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
@@ -94,5 +94,4 @@ equation
           fillPattern=FillPattern.Solid)}),                         Diagram(
         graphics),
     DymolaStoredErrors);
-
 end HeatingSystem;
