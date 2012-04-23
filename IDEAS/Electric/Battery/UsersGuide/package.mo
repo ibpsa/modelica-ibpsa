@@ -15,5 +15,12 @@ annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>
 <li>BatteryCtrlGeneral: Depending on the current SoC of the battery system, it may be required to limit the power exchange.</li>
 <li>BatterySystemGeneral: Total battery system with connection possibilities to the grid.</li>
 </ol></p>
+<p>The following battery parameters are included:</p>
+<p><ol>
+<li>Inverter efficienties: charging and discharging (grid <-> inverter)</li>
+<li>Battery efficiencies: charging and discharging (invertor <-> battery)</li>
+<li>Self-discharge: %/month</li>
+<li>Ratio of maximum (dis)charging powers vs. nominal battery capacity</li>
+</ol></p>
 </html>"));
 end UsersGuide;

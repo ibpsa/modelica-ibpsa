@@ -34,7 +34,7 @@ partial model HeatingSystem "Partial heating system inclusif control"
       (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
     "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
 
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads] pinLoad
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[nLoads] plugLoad( each m=1)
     "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},
             {110,10}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
@@ -45,16 +45,15 @@ partial model HeatingSystem "Partial heating system inclusif control"
     "Setpoint temperature for the zones" annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,-90})));
-
-protected
-  Electric.BaseClasses.WattsLaw[nLoads] wattsLaw(each numPha=1)
-    annotation (Placement(transformation(extent={{58,-10},{78,10}})));
+  Electric.BaseClasses.WattsLawPlug[nLoads] wattsLawPlug(each numPha=1)
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
-  P = wattsLaw.P;
-  Q = wattsLaw.Q;
-  for i in 1:nLoads loop
-    connect(wattsLaw[i].vi, pinLoad[:, i]);
-  end for;
+  connect(wattsLawPlug.vi, plugLoad) annotation (Line(
+      points={{60,0},{100,0}},
+        color={85,170,255},
+        smooth=Smooth.None));
+P = wattsLaw.P;
+Q = wattsLaw.Q;
   annotation(Icon(graphics={
         Polygon(
           points={{-46,-8},{-46,-20},{-44,-22},{-24,-10},{-24,2},{-26,4},{-46,-8}},
