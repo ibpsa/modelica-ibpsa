@@ -66,9 +66,10 @@ IDEAS.Electric.DistributionGrid.GridSubModels.Grid3PGeneral grid3PGeneral(
     annotation (Placement(transformation(extent={{-60,-22},{-40,-2}})));
 
 public
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin gridNodes3P[3,grid.nNodes] if
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin gridNodes4L[4,grid.nNodes] if
                                           Phases==3
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                   gridNodes[grid.nNodes] if Phases==1
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -124,7 +125,7 @@ output Modelica.SIunits.Current Ibranch0Abs=Modelica.ComplexMath.'abs'(
                                                       Ibranch0) if  Phases==1;
 
 equation
-  connect(grid3PGeneral.nodes3Phase, gridNodes3P)
+  connect(grid3PGeneral.node4Lines,gridNodes4L)
                                           annotation (Line(
       points={{-40,-12},{30,-12},{30,0},{100,0}},
       color={0,0,255},
