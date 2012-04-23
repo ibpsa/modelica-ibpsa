@@ -1,8 +1,8 @@
 within IDEAS.Thermal.HeatingSystems;
 partial model Partial_HydraulicHeatingSystem
   "Partial heating system for hydraulic heating systems"
-  extends Partial_HeatingSystem;
 
+  extends IDEAS.Interfaces.HeatingSystem;
   import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
   import IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType;
   parameter HeaterType heaterType = heater.heaterType;
@@ -10,7 +10,7 @@ partial model Partial_HydraulicHeatingSystem
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
 // Interfaces ////////////////////////////////////////////////////////////////////////////////////////
-// see Partial_HeatingSystem;
+// see IDEAS.Interfaces.HeatingSystem;
 // General parameters for the design (nominal) conditions /////////////////////////////////////////////
   parameter Modelica.SIunits.Temperature TSupNom=273.15 + 45
     "Nominal supply temperature";
