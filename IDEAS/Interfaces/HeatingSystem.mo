@@ -52,8 +52,8 @@ equation
       points={{60,0},{100,0}},
         color={85,170,255},
         smooth=Smooth.None));
-P = wattsLaw.P;
-Q = wattsLaw.Q;
+P = wattsLawPlug.P;
+Q = wattsLawPlug.Q;
   annotation(Icon(graphics={
         Polygon(
           points={{-46,-8},{-46,-20},{-44,-22},{-24,-10},{-24,2},{-26,4},{-46,-8}},

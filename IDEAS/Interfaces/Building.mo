@@ -11,8 +11,9 @@ model Building
     "Thermal heating system" annotation (Placement(transformation(extent={{-20,-10},{0,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.Occupant occupant(nZones=building.nZones)
     "Building occupant" annotation (Placement(transformation(extent={{-20,-42},{0,-22}})),choicesAllMatching = true);
-  replaceable IDEAS.Interfaces.InhomeFeeder inhomeGrid(nHeatingLoads=heatingSystem.nLoads, nOccupantLoads=occupant.nLoads, nVentilationLoads=ventilationSystem.nLoads)
-    "Inhome electricity grid system" annotation (Placement(transformation(extent={{20,-10},{40,10}})),choicesAllMatching = true);
+  replaceable DummyInHomeGrid                                inHomeGrid
+    "Inhome electricity grid system"
+       annotation (Placement(transformation(extent={{20,-10},{40,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.VentilationSystem ventilationSystem(nZones=building.nZones, VZones = building.VZones)
     "Ventilation system" annotation (Placement(transformation(extent={{-20,20},{0,40}})),choicesAllMatching = true);
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin plugFeeder if not standAlone
@@ -30,18 +31,6 @@ equation
   connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
       points={{-10,-9},{-10,-22}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(ventilationSystem.pinLoad, inhomeGrid.pinVentilationLoad) annotation (Line(
-      points={{0,30},{8,30},{8,0},{20,0}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(heatingSystem.pinLoad, inhomeGrid.pinHeatingLoad) annotation (Line(
-      points={{0,0},{6,0},{6,4},{20,4}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(occupant.pinLoad, inhomeGrid.pinOccupantLoad) annotation (Line(
-      points={{0,-32},{8,-32},{8,-4},{20,-4}},
-      color={85,170,255},
       smooth=Smooth.None));
   connect(building.heatPortEmb, heatingSystem.heatPortEmb) annotation (Line(
       points={{-36,6},{-20,6}},
@@ -76,17 +65,39 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+for i in 1:ventilationSystem.nLoads loop
+    connect(ventilationSystem.plugLoad[i],inHomeGrid.nodeSingle) annotation (Line(
+      points={{0,30},{10,30},{10,0},{20,0}},
+      color={85,170,255},
+      smooth=Smooth.None));
+end for;
+
+for i in 1:heatingSystem.nLoads loop
+  connect(heatingSystem.plugLoad[i],inHomeGrid.nodeSingle) annotation (Line(
+      points={{0,0},{20,0}},
+      color={85,170,255},
+      smooth=Smooth.None));
+end for;
+
+for i in 1:occupant.nLoads loop
+  connect(occupant.plugLoad[i],inHomeGrid.nodeSingle) annotation (Line(
+      points={{0,-32},{10,-32},{10,0},{20,0}},
+      color={85,170,255},
+      smooth=Smooth.None));
+end for;
+
 if standAlone then
-  connect(inhomeGrid.plugFeeder, voltageSource.pin_n) annotation (Line(
+  connect(voltageSource.pin_p, ground.pin) annotation (Line(
+      points={{70,-40},{70,-60}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(inHomeGrid.pinSingle, voltageSource.pin_n) annotation (Line(
       points={{40,0},{70,0},{70,-20}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(voltageSource.pin_n, plugFeeder) annotation (Line(
-      points={{70,-20},{70,0},{100,0}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(voltageSource.pin_p, ground.pin) annotation (Line(
-      points={{70,-40},{70,-60}},
+else
+  connect(inHomeGrid.pinSingle, plugFeeder) annotation (Line(
+      points={{40,0},{100,0}},
       color={85,170,255},
       smooth=Smooth.None));
 end if;
