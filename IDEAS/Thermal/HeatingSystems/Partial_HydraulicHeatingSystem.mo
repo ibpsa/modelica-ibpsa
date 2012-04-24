@@ -16,10 +16,10 @@ partial model Partial_HydraulicHeatingSystem
     "Nominal supply temperature";
   parameter Modelica.SIunits.TemperatureDifference dTSupRetNom=10
     "Nominal DT in the heating system";
-  final parameter Modelica.SIunits.MassFlowRate[n_C] m_flowNom=QNom/(
+  final parameter Modelica.SIunits.MassFlowRate[nZones] m_flowNom=QNom/(
       medium.cp*dTSupRetNom);
-  parameter Modelica.SIunits.Temperature[n_C] TRoomNom={294.15 for i in 1:
-      n_C} "Nominal room temperature";
+  parameter Modelica.SIunits.Temperature[nZones] TRoomNom={294.15 for i in 1:
+      nZones} "Nominal room temperature";
 
 // parameters DHW ///////////////////////////////////////////////////////////////////////////////////////
   parameter Modelica.SIunits.Temperature TDHWSet=273.15 + 45
@@ -34,7 +34,7 @@ partial model Partial_HydraulicHeatingSystem
   parameter Modelica.SIunits.Temperature TInitial=293.15
     "Initial temperature of all state variables";
   replaceable parameter IDEAS.Thermal.Components.Emission.FH_Characteristics[
-                                                                       n_C] FHChars if
+                                                                       nZones] FHChars if
     (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating) annotation (choicesAllMatching=true);
 
 // Variables ///////////////////////////////////////////////////////////////////////////////////////////
@@ -53,16 +53,16 @@ partial model Partial_HydraulicHeatingSystem
       medium.cp;
   output Modelica.SIunits.Temperature TDHW;
   output Modelica.SIunits.Temperature TEmissionIn;
-  output Modelica.SIunits.Temperature[n_C] TEmissionOut;
+  output Modelica.SIunits.Temperature[nZones] TEmissionOut;
   output Modelica.SIunits.MassFlowRate m_flowHeater=heater.flowPort_a.m_flow;
-  output Modelica.SIunits.MassFlowRate[n_C] m_flowEmission;
+  output Modelica.SIunits.MassFlowRate[nZones] m_flowEmission;
   output Real modulation = heater.heatSource.modulation;
   output Modelica.SIunits.Power QHeaterNet=medium.cp*m_flowHeater*(
       THeaterOut - THeaterIn);
-  output Modelica.SIunits.Power[n_C] QHeaEmiIn=m_flowEmission .* (medium.cp
+  output Modelica.SIunits.Power[nZones] QHeaEmiIn=m_flowEmission .* (medium.cp
        .* (TEmissionIn .- TEmissionOut));
   // not possible since conditional objects can only be used in connections
-  //output SI.Power[n_C] QHeaEmiOut = if emissionType == EmissionType.FloorHeating then -heatPortFH.Q_flow else -heatPortConv.Q_flow - heatPortRad.Q_flow;
+  //output SI.Power[nZones] QHeaEmiOut = if emissionType == EmissionType.FloorHeating then -heatPortFH.Q_flow else -heatPortConv.Q_flow - heatPortRad.Q_flow;
 
   replaceable IDEAS.Thermal.Components.Production.Boiler
                                                        heater(

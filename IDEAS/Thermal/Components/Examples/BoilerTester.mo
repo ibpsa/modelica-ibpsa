@@ -1,6 +1,5 @@
 within IDEAS.Thermal.Components.Examples;
 model BoilerTester "Identical as the one in FluidHeatFlow_NoPressure"
-  import Commons;
 
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         Data.Media.Water(), p=200000)
@@ -25,9 +24,9 @@ model BoilerTester "Identical as the one in FluidHeatFlow_NoPressure"
                annotation (Placement(transformation(extent={{54,-16},{74,4}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{46,-112},{66,-92}})));
-  inner Commons.SimInfoManager sim(
-              redeclare Commons.Meteo.Locations.Uccle city, redeclare
-      Commons.Meteo.Files.min5 detail)
+  inner IDEAS.Climate.SimInfoManager sim(
+              redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
+      IDEAS.Climate.Meteo.Files.min5 detail)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
   Modelica.Blocks.Sources.TimeTable
                                 pulse(offset=0, table=[0,0; 5000,100; 10000,400;

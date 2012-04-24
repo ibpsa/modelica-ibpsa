@@ -6,8 +6,9 @@ model NakedHeatingCheck
     V_C={5},
     QNom={5000})
     annotation (Placement(transformation(extent={{-36,10},{-12,30}})));
-  inner Commons.SimInfoManager sim(redeclare Commons.Meteo.Files.min5 detail,
-      redeclare Commons.Meteo.Locations.Uccle city)
+  inner IDEAS.Climate.SimInfoManager sim(redeclare
+      IDEAS.Climate.Meteo.Files.min5                                              detail,
+      redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-86,66},{-66,86}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature
     annotation (Placement(transformation(extent={{-52,66},{-32,86}})));

@@ -1,7 +1,6 @@
 within IDEAS.Thermal.Components.Examples;
 model FloorHeatingValidation
   "Testing the floorheating according to Koschenz, par. 4.5.1"
-  import Commons;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
@@ -23,8 +22,9 @@ model FloorHeatingValidation
                                                                 FHChars,
     m_flowMin=12*24/3600) "tabs model"
                annotation (Placement(transformation(extent={{68,2},{88,22}})));
-  inner Commons.SimInfoManager sim(redeclare Commons.Meteo.Files.min15
-      detail, redeclare Commons.Meteo.Locations.Uccle city)
+  inner IDEAS.Climate.SimInfoManager sim(redeclare
+      IDEAS.Climate.Meteo.Files.min15
+      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
     prescribedTemperature(T=293.15)

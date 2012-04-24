@@ -1,6 +1,5 @@
 within IDEAS.Thermal.Components.Examples;
 model RadTester_EnergyBalance "Test for energy balance of the radiator model"
-  import Commons;
 
   Real QBoiler( start = 0);
   Real QRadiator( start = 0);
@@ -27,8 +26,9 @@ model RadTester_EnergyBalance "Test for energy balance of the radiator model"
     TOutNom=308.15,
     powerFactor=3.37) "Hydraulic radiator model"
                annotation (Placement(transformation(extent={{52,-16},{72,4}})));
-  inner Commons.SimInfoManager sim(redeclare Commons.Meteo.Files.min15
-      detail, redeclare Commons.Meteo.Locations.Uccle city)
+  inner IDEAS.Climate.SimInfoManager sim(redeclare
+      IDEAS.Climate.Meteo.Files.min15
+      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
     prescribedTemperature(T=293.15)

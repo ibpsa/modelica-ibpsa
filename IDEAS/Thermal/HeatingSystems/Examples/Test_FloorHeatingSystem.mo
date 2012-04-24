@@ -17,9 +17,10 @@ parameter Integer n_C = 2 "Number of zones";
     solSys=true)
     annotation (Placement(transformation(extent={{52,-92},{72,-72}})));
 
-  inner Commons.SimInfoManager       sim(
-                                        redeclare Commons.Meteo.Locations.Uccle
-                                    city, redeclare Commons.Meteo.Files.min5
+  inner IDEAS.Climate.SimInfoManager       sim(
+                                        redeclare
+      IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
+      IDEAS.Climate.Meteo.Files.min5
       detail)
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[n_C] heatCapacitor(C={i*1e6 for i in 1:n_C}, T(each fixed=false, each start=292))

@@ -6,7 +6,7 @@ model CollectorG
 
  extends Modelica.Thermal.FluidHeatFlow.Interfaces.Partials.TwoPort(m=medium.rho
         *Vol);
-Commons.Meteo.Solar.Elements.AngleHour angleHour;
+IDEAS.Climate.Meteo.Solar.Elements.AngleHour angleHour;
 /*
 Model_Mark.Meteo.Solar.RadiationSolar radSol(
     TeAv=265,
@@ -82,9 +82,9 @@ Real nue = (5.8127*exp(-0.03*(T-273)))*1e-6;
   Real I=Idiff+Ibeam;
   Modelica.Blocks.Interfaces.RealOutput TCol
     annotation (Placement(transformation(extent={{94,-70},{114,-50}})));
-  outer Commons.SimInfoManager sim
+  outer IDEAS.Climate.SimInfoManager sim
     annotation (Placement(transformation(extent={{-86,60},{-66,80}})));
-  Commons.Meteo.Solar.RadSol radSol(inc=30 * pi/180, azi=0, A=1)
+  IDEAS.Climate.Meteo.Solar.RadSol radSol(inc=30 * pi/180, azi=0, A=1)
     annotation (Placement(transformation(extent={{-40,58},{-20,78}})));
 equation
   eta = if noEvent(S<1) then eta_0 - k1*(T_coll - T_amb) - k2*((T_coll -
