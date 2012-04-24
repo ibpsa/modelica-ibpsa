@@ -19,7 +19,7 @@ public
     TEnvironment=heatPort.T,
     UALoss=UALoss)
     annotation (Placement(transformation(extent={{-48,-46},{-28,-26}})));
-  outer Commons.SimInfoManager sim
+  outer IDEAS.Climate.SimInfoManager sim
     annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
 
 equation

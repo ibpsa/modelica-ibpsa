@@ -67,7 +67,7 @@ public
   replaceable Modelica.Blocks.Interfaces.SISO filter
     annotation (choices(
                   choice(redeclare Modelica.Blocks.Continuous.FirstOrder filter( T = timeFilter)),
-                  choice(redeclare Commons.Math.MovingAverage filter(period = timeFilter))),
+                  choice(redeclare IDEAS.BaseClasses.Math.MovingAverage filter(period = timeFilter))),
                 Placement(transformation(extent={{-42,50},{-22,70}})));
 equation
   connect(TRoo_in, TRoo_in_internal);

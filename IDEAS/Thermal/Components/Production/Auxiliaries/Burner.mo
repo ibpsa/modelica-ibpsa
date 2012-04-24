@@ -1,6 +1,7 @@
 within IDEAS.Thermal.Components.Production.Auxiliaries;
 model Burner
   "Burner for use in Boiler, based on interpolation data.  Takes into account losses of the boiler to the environment"
+  import IDEAS;
 
   /*
   This model is based on data from XXX (get source data ruben mailede me).
@@ -96,7 +97,8 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Commons.General.Hyst_NoEvent onOff(
+  IDEAS.BaseClasses.Control.Hyst_NoEvent
+                               onOff(
     uLow = modulationMin,
     uHigh = modulationStart,
     y(

@@ -13,7 +13,7 @@ model HPControl_HeatingCurve_DT_MinOff
     "Defines daytime, means period where storage tank can be charged"
     annotation (Placement(transformation(extent={{-64,-6},{-44,14}})));
   // this timer gives 0 during timing and 1 outside of timing
-  Commons.Time.Timer_NoEvents
+  IDEAS.BaseClasses.Control.Timer_NoEvents
                            timerOff(duration=timeOff)
     annotation (Placement(transformation(extent={{-62,-42},{-42,-22}})));
 equation

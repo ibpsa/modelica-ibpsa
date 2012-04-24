@@ -25,8 +25,9 @@ model DHWTester_badmixing "Test the DHW component"
     m_flowNom=0.5,
     useInput=true)
     annotation (Placement(transformation(extent={{-36,-74},{-56,-54}})));
-  inner Commons.SimInfoManager sim(redeclare Commons.Meteo.Files.min15
-      detail, redeclare Commons.Meteo.Locations.Uccle city)
+  inner IDEAS.Climate.SimInfoManager sim(redeclare
+      IDEAS.Climate.Meteo.Files.min15
+      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
               annotation (Placement(transformation(extent={{8,62},{28,82}})));
   Thermal.Control.HPControl_HeatingCurve HPControl(
     TTankTop=storageTank.nodes[1].T,

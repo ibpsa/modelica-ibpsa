@@ -3,6 +3,28 @@ package Examples "Examples that demonstrate the use of the models from IDEAS.The
   extends Modelica.Icons.ExamplesPackage;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 annotation (Documentation(info="<HTML>
 This package contains test examples:
 <ul>

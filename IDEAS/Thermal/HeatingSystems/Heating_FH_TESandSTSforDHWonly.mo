@@ -86,7 +86,7 @@ protected
     profileType=3)
     annotation (Placement(transformation(extent={{-56,-28},{-46,-12}})));
 
-  Commons.General.Hyst_NoEvent_Var_HEATING[
+  IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[
                                n_C] heatingControl
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{94,22},{114,42}})));

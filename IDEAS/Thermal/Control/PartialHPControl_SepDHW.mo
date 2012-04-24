@@ -65,7 +65,7 @@ partial model PartialHPControl_SepDHW
     "Difference between tank setpoint and heat pump setpoint";
 
   HeatingCurve heatingCurve(
-    redeclare Commons.Math.MovingAverage filter(period=heatingCurve.timeFilter),
+    redeclare IDEAS.BaseClasses.Math.MovingAverage filter(period=heatingCurve.timeFilter),
     timeFilter = 43200,
     dTOutHeaBal = 0,
     TSup_nominal = 273.15+45,
@@ -73,7 +73,7 @@ partial model PartialHPControl_SepDHW
     TRoo_nominal = 273.15+21,
     TOut_nominal = 273.15-8)
     annotation (Placement(transformation(extent={{-54,44},{-34,64}})));
-  outer Commons.SimInfoManager sim
+  outer IDEAS.Climate.SimInfoManager sim
     annotation (Placement(transformation(extent={{24,50},{44,70}})));
 initial equation
   der(onOffHeating) = 0;

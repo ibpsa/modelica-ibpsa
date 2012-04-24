@@ -33,8 +33,9 @@ model TestCollector
   Thermal.Control.SolarThermalControl_DT solarThermalControl_DT(TSafetyMax=
         363.15)
     annotation (Placement(transformation(extent={{54,44},{34,64}})));
-  inner Commons.SimInfoManager sim(redeclare Commons.Meteo.Files.min5 detail,
-      redeclare Commons.Meteo.Locations.Uccle city)
+  inner IDEAS.Climate.SimInfoManager sim(redeclare
+      IDEAS.Climate.Meteo.Files.min5                                              detail,
+      redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-92,76},{-72,96}})));
 equation
   solarThermalControl_DT.TTankBot = storageTank.nodes[5].T;

@@ -1,6 +1,5 @@
 within IDEAS.Thermal.Components.Examples;
 model MixingTester2 "Simple mixing tester"
-  import Commons;
 
   Thermal.Components.BaseClasses.Pump volumeFlow1(
     medium=Data.Media.Water(),
@@ -18,8 +17,9 @@ model MixingTester2 "Simple mixing tester"
     medium=Data.Media.Water(),
                           QNom=3000) "Hydraulic radiator model"
                annotation (Placement(transformation(extent={{52,-16},{72,4}})));
-  inner Commons.SimInfoManager sim(redeclare Commons.Meteo.Files.min15
-      detail, redeclare Commons.Meteo.Locations.Uccle city)
+  inner IDEAS.Climate.SimInfoManager sim(redeclare
+      IDEAS.Climate.Meteo.Files.min15
+      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature

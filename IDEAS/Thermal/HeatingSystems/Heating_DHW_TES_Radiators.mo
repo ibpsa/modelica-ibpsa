@@ -2,15 +2,16 @@ within IDEAS.Thermal.HeatingSystems;
 model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
   import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
 
-  extends Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(final
-      emissionType=EmissionType.Radiators);
+  extends Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(
+    final emissionType=EmissionType.Radiators,
+    nLoads=1);
 
   parameter Modelica.SIunits.Volume volumeTank=0.25;
   parameter Integer nbrNodes=5 "Number of nodes in the tank";
   parameter Integer posTBot(max=nbrNodes) = nbrNodes-1
     "Position of the bottom temperature sensor";
 
-  Thermal.Components.BaseClasses.Pump[n_C] pumpRad(
+  Thermal.Components.BaseClasses.Pump[nZones] pumpRad(
     each medium=medium,
     each useInput=true,
     m_flowNom=m_flowNom,
@@ -18,7 +19,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     annotation (Placement(transformation(extent={{30,-6},{50,14}})));
 
   IDEAS.Thermal.Components.Emission.Radiator[
-                                           n_C] emission(
+                                           nZones] emission(
     each medium = medium,
     each TInNom=TSupNom,
     each TOutNom=TSupNom - dTSupRetNom,
@@ -63,8 +64,8 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     annotation (Placement(transformation(extent={{-28,-24},{-8,-4}})));
 
 protected
-  Commons.General.Hyst_NoEvent_Var_HEATING[
-                               n_C] heatingControl
+  IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[
+                               nZones] heatingControl
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{30,28},{50,48}})));
   Thermal.Components.BaseClasses.IdealMixer idealMixer(mFlowMin=0.01)
@@ -86,10 +87,10 @@ equation
   QHeatTotal = -sum(emission.heatPortConv.Q_flow) -sum(emission.heatPortRad.Q_flow) + dHW.m_flowTotal * medium.cp * (dHW.TMixed - dHW.TCold);
   THeaterSet = HPControl.THPSet;
 
-  heatingControl.uHigh = TOpAsked + 0.5 * ones(n_C);
+  heatingControl.uHigh = TOpAsked + 0.5 * ones(nZones);
 
-  P = heater.PEl;
-  Q = 0;
+  P[1] = heater.PEl;
+  Q[1] = 0;
   TTankTop = HPControl.TTankTop;
   TTankBot = HPControl.TTankBot;
   TTankTopSet = HPControl.TTopSet;
@@ -102,7 +103,7 @@ equation
   SOCTank = HPControl.SOC;
 
 // connections that are function of the number of circuits
-for i in 1:n_C loop
+for i in 1:nZones loop
   connect(idealMixer.flowPortMixed, pumpRad[i].flowPort_a);
   connect(emission[i].flowPort_b, pipeMixer.flowPort_b);
 end for;
@@ -114,7 +115,7 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
     connect(emission.heatPortRad, heatPortRad) annotation (Line(
-      points={{86,14},{86,64},{-20,64},{-20,100}},
+      points={{86,14},{86,64},{-100,64},{-100,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 

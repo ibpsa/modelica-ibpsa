@@ -48,9 +48,9 @@ partial model PartialHPControl "Basis of the heat Pump control algorithm"
     TRet_nominal = 273.15+35,
     TRoo_nominal = 273.15+21,
     TOut_nominal = 273.15-8,
-    redeclare Commons.Math.MovingAverage filter(period=timeFilter))
+    redeclare IDEAS.BaseClasses.Math.MovingAverage filter(period=timeFilter))
     annotation (Placement(transformation(extent={{-54,44},{-34,64}})));
-  outer Commons.SimInfoManager sim
+  outer IDEAS.Climate.SimInfoManager sim
     annotation (Placement(transformation(extent={{24,50},{44,70}})));
   Modelica.Blocks.Interfaces.RealOutput THPSet(start = 283.15)
     "Heat pump set temperature"

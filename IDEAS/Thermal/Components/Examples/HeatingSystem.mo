@@ -1,6 +1,5 @@
 within IDEAS.Thermal.Components.Examples;
 model HeatingSystem
-  import Commons;
 
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         Data.Media.Water(), p=200000)
@@ -16,8 +15,9 @@ model HeatingSystem
    medium=Data.Media.Water(),
    TSet = 45+273.15,
     QNom=5000) annotation (Placement(transformation(extent={{-54,8},{-34,28}})));
-  inner Commons.SimInfoManager sim(redeclare Commons.Meteo.Files.min15
-      detail, redeclare Commons.Meteo.Locations.Uccle city)
+  inner IDEAS.Climate.SimInfoManager sim(redeclare
+      IDEAS.Climate.Meteo.Files.min15
+      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
   Thermal.Components.BaseClasses.Pump pump2(
     medium=Data.Media.Water(),
