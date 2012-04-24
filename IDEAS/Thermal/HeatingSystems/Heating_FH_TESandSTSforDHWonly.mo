@@ -3,8 +3,9 @@ model Heating_FH_TESandSTSforDHWonly
   "Hydraulic heating with FH, TES and STS only for DHW"
   import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
 
-  extends Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(final
-      emissionType=EmissionType.FloorHeating);
+  extends Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(
+    final emissionType=EmissionType.FloorHeating,
+    nLoads=1);
 
   parameter Modelica.SIunits.Volume volumeTank=0.25;
   parameter Modelica.SIunits.Area AColTot=1 "TOTAL collector area";
@@ -20,18 +21,18 @@ model Heating_FH_TESandSTSforDHWonly
   parameter Boolean solSys(fixed=true) = false;
 
 protected
-  Thermal.Components.BaseClasses.Pump[n_C] pumpRad(
+  Thermal.Components.BaseClasses.Pump[nZones] pumpRad(
     each medium=medium,
     each useInput=true,
     m_flowNom=m_flowNom,
     each m_flowSet(fixed=true, start=0),
     each m=0,
-    dpFix=30000,
-    etaTot=0.7)
+    each dpFix=30000,
+    each etaTot=0.7)
     annotation (Placement(transformation(extent={{118,-14},{134,2}})));
 
   IDEAS.Thermal.Components.Emission.EmbeddedPipeDynTOut[
-                                                  n_C] emission(
+                                                  nZones] emission(
     each medium = medium,
     FHChars = FHChars,
     m_flowMin = m_flowNom)
@@ -87,7 +88,7 @@ protected
     annotation (Placement(transformation(extent={{-56,-28},{-46,-12}})));
 
   IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[
-                               n_C] heatingControl
+                               nZones] heatingControl
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{94,22},{114,42}})));
   Thermal.Components.BaseClasses.IdealMixer idealMixer(mFlowMin=0.01, pumpCold(
@@ -97,7 +98,7 @@ protected
     annotation (Placement(transformation(extent={{-36,-48},{-48,-36}})));
   Thermal.Components.BaseClasses.IsolatedPipe pipeMixer(medium=medium, m=1)
     annotation (Placement(transformation(extent={{50,-80},{62,-68}})));
-  Thermal.Components.BaseClasses.IsolatedPipe[n_C] pipeEmission(each medium=
+  Thermal.Components.BaseClasses.IsolatedPipe[nZones] pipeEmission(each medium=
         medium, each m=1)
     annotation (Placement(transformation(extent={{166,-10},{178,2}})));
   // Result variables
@@ -124,13 +125,13 @@ public
         rotation=0,
         origin={22,-8})));
 equation
-  QHeatTotal = -sum(emission.heatPortFH.Q_flow) + dHW.m_flowTotal * medium.cp * (dHW.TMixed - dHW.TCold);
+  QHeatTotal = -sum(emission.heatPortEmb.Q_flow) + dHW.m_flowTotal * medium.cp * (dHW.TMixed - dHW.TCold);
   THeaterSet = HPControl.THPSet;
 
-  heatingControl.uHigh = TOpAsked + 0.5 * ones(n_C);
+  heatingControl.uHigh = TSet + 0.5 * ones(nZones);
 
-  P = heater.PEl + pumpSto.PEl + sum(pumpRad.PEl);
-  Q = 0;
+  P[1] = heater.PEl + pumpSto.PEl + sum(pumpRad.PEl);
+  Q[1] = 0;
   TTankTopSet = HPControl.TTopSet;
   TDHW = dHW.TMixed;
   TTankBotIn = tesTank.flowPort_b.h / medium.cp;
@@ -157,19 +158,19 @@ equation
       smooth=Smooth.Bezier));
 
 // connections that are function of the number of circuits
-for i in 1:n_C loop
+for i in 1:nZones loop
   connect(idealMixer.flowPortMixed, pumpRad[i].flowPort_a);
   connect(pipeEmission[i].flowPort_b, pipeMixer.flowPort_b);
 end for;
 
 // general connections for any configuration
 
-    connect(emission.heatPortConv, heatPortConv) annotation (Line(
-      points={{151.6,4},{151.6,80},{-52,80},{-52,100}},
+    connect(emission.heatPortCon, heatPortCon) annotation (Line(
+      points={{151.6,4},{151.6,80},{-100,80},{-100,20}},
       color={191,0,0},
       smooth=Smooth.None));
     connect(emission.heatPortRad, heatPortRad) annotation (Line(
-      points={{154.8,4},{154,44},{154,84},{-20,84},{-20,100}},
+      points={{154.8,4},{154,44},{154,84},{-100,84},{-100,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -190,16 +191,16 @@ end for;
       points={{-51,-12},{-51,-4},{-11,-4}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(TOp, heatingControl.u) annotation (Line(
-      points={{20,96},{20,26},{93,26}},
+  connect(TSensor, heatingControl.u) annotation (Line(
+      points={{-96,-60},{-96,26},{93,26}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
       points={{114.6,32},{126,32},{126,2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TOpAsked, heatingControl.uLow) annotation (Line(
-      points={{60,96},{60,72},{80,72},{80,40},{93.2,40}},
+  connect(TSet, heatingControl.uLow) annotation (Line(
+      points={{0,-90},{0,72},{80,72},{80,40},{93.2,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dHW.flowPortCold, pipeDHW.flowPort_b) annotation (Line(
@@ -224,8 +225,8 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
 
-    connect(emission.heatPortFH, heatPortFH) annotation (Line(
-      points={{143.12,4},{142,4},{142,76},{-86,76},{-86,100}},
+    connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
+      points={{143.12,4},{142,4},{142,76},{-100,76},{-100,60}},
       color={191,0,0},
       smooth=Smooth.None));
 

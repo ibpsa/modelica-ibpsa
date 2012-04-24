@@ -2,6 +2,8 @@ within IDEAS.Interfaces;
 partial model HeatingSystem "Partial heating system inclusif control"
 
   import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
+  outer IDEAS.Climate.SimInfoManager sim
+    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 // Building characteristics  //////////////////////////////////////////////////////////////////////////
   parameter EmissionType emissionType = EmissionType.RadiatorsAndFloorHeating
@@ -22,8 +24,7 @@ partial model HeatingSystem "Partial heating system inclusif control"
   parameter Integer nOcc = 2
     "number of occupants for determination of DHW consumption";
 
-  outer IDEAS.Climate.SimInfoManager sim
-    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+// Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon if
       (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
     "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
@@ -33,7 +34,6 @@ partial model HeatingSystem "Partial heating system inclusif control"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortEmb if
       (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
     "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[nLoads] plugLoad( each m=1)
     "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},
             {110,10}})));
@@ -47,6 +47,10 @@ partial model HeatingSystem "Partial heating system inclusif control"
         origin={0,-90})));
   Electric.BaseClasses.WattsLawPlug[nLoads] wattsLawPlug(each numPha=1)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
+// Total heat use ///////////////////////////////////////////////////////////////////////////////////////
+  SI.Power QHeatTotal "Total net heat use (space heating + DHW, if present)";
+
 equation
   connect(wattsLawPlug.vi, plugLoad) annotation (Line(
       points={{60,0},{100,0}},

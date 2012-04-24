@@ -84,10 +84,10 @@ protected
   Real SOCTank;
 
 equation
-  QHeatTotal = -sum(emission.heatPortConv.Q_flow) -sum(emission.heatPortRad.Q_flow) + dHW.m_flowTotal * medium.cp * (dHW.TMixed - dHW.TCold);
+  QHeatTotal = -sum(emission.heatPortCon.Q_flow) -sum(emission.heatPortRad.Q_flow) + dHW.m_flowTotal * medium.cp * (dHW.TMixed - dHW.TCold);
   THeaterSet = HPControl.THPSet;
 
-  heatingControl.uHigh = TOpAsked + 0.5 * ones(nZones);
+  heatingControl.uHigh = TSet + 0.5 * ones(nZones);
 
   P[1] = heater.PEl;
   Q[1] = 0;
@@ -110,8 +110,8 @@ end for;
 
 // general connections for any configuration
 
-    connect(emission.heatPortConv, heatPortConv) annotation (Line(
-      points={{82,14},{82,62},{-52,62},{-52,100}},
+    connect(emission.heatPortCon, heatPortCon) annotation (Line(
+      points={{82,14},{82,62},{-100,62},{-100,20}},
       color={191,0,0},
       smooth=Smooth.None));
     connect(emission.heatPortRad, heatPortRad) annotation (Line(
@@ -136,16 +136,16 @@ end for;
       points={{-18,-4},{-18,4},{-40,4},{-40,-4}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(TOp, heatingControl.u) annotation (Line(
-      points={{20,96},{20,32},{29,32}},
+  connect(TSensor, heatingControl.u) annotation (Line(
+      points={{-96,-60},{-96,32},{29,32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
       points={{50.6,38},{58,38},{58,22},{40,22},{40,14}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TOpAsked, heatingControl.uLow) annotation (Line(
-      points={{60,96},{60,68},{22,68},{22,46},{29.2,46}},
+  connect(TSet, heatingControl.uLow) annotation (Line(
+      points={{0,-90},{0,68},{22,68},{22,46},{29.2,46}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tesTank.flowPort_a, idealMixer.flowPortHot) annotation (Line(
@@ -182,8 +182,8 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
 
-    connect(emission.heatPortFH, heatPortFH) annotation (Line(
-      points={{71.4,14},{70,14},{70,58},{-66,58},{-66,86},{-86,86},{-86,100}},
+    connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
+      points={{71.4,14},{70,14},{70,58},{-66,58},{-66,86},{-100,86},{-100,60}},
       color={191,0,0},
       smooth=Smooth.None));
 

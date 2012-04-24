@@ -137,14 +137,14 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(resistance_z.port_b, resistance_w.port_a) annotation (Line(
-      points={{-22,-1.22465e-015},{-16,-1.22465e-015},{-16,1.22465e-015},
-          {-8,1.22465e-015}},
+      points={{-22,-1.22465e-015},{-16,-1.22465e-015},{-16,1.22465e-015},{-8,
+          1.22465e-015}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(resistance_x.port_b, heatPortFH) annotation (Line(
-      points={{78,-1.22465e-015},{82,-1.22465e-015},{82,0},{84,0},{84,52},
-          {-86,52},{-86,100}},
+  connect(resistance_x.port_b, heatPortEmb) annotation (Line(
+      points={{78,-1.22465e-015},{82,-1.22465e-015},{82,0},{84,0},{84,52},{-86,
+          52},{-86,100}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
