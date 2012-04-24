@@ -12,12 +12,15 @@ partial model InhomeFeeder
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin plugFeeder
     "Electricity connection to the district feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nVentilationLoads] pinVentilationLoad
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[
+    nVentilationLoads] plugVentilationLoad
     "Electricity connection for the ventilaiton system" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nHeatingLoads] pinHeatingLoad
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[
+    nHeatingLoads] plugHeatingLoad
     "Electricity connection for the heating system" annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nOccupantLoads] pinOccupantLoad
-    "Electricity connection for the occupants" annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[
+    nOccupantLoads] plugOccupantLoad "Electricity connection for the occupants"
+                                               annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   annotation(Icon(graphics={
         Rectangle(
           extent={{28,60},{70,20}},
