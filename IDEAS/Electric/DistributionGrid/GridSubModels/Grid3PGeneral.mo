@@ -33,7 +33,7 @@ parameter Real gridFreq=50
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[4,
     gridOnly3P.grid.nNodes] node4Lines
-    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=3)
     "Choose a grid Layout"                                                           annotation(choicesAllMatching = true);
@@ -110,12 +110,14 @@ protected
 
   IDEAS.Electric.BaseClasses.Con3PlusNTo3
                           con3PlusNTo3_1[
-    gridOnly3P.grid.nNodes]
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+    gridOnly3P.grid.nNodes] annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={60,-22})));
+
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,
-    gridOnly3P.grid.nNodes] nodes3Phase
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+    gridOnly3P.grid.nNodes] nodes3Phase;
+    /*annotation (Placement(transformation(extent={{90,-50},{110,-30}})))*/
 equation
 for i in 1:3 loop
   connect(voltageSource[i].pin_n,ground.pin) annotation (Line(
@@ -154,17 +156,17 @@ end if;
 
 connect(gridOnly3P.node, node4Lines)
                                    annotation (Line(
-      points={{20,0},{60,0}},
+      points={{20,0},{100,0}},
       color={0,0,255},
       smooth=Smooth.None));
 
 for n in 1:gridOnly3P.grid.nNodes loop
   connect(node4Lines[:,n], con3PlusNTo3_1[n].fourWire) annotation (Line(
-      points={{60,0},{70,0}},
+      points={{100,0},{60,0},{60,-12}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(con3PlusNTo3_1[n].threeWire, nodes3Phase[:,n]) annotation (Line(
-      points={{90,0},{100,0}},
+      points={{60,-32},{60,-40},{100,-40}},
       color={85,170,255},
       smooth=Smooth.None));
 end for;
