@@ -55,8 +55,7 @@ public
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
-    dTSupRetNom=dTSupRetNom) constrainedby
-    Thermal.Control.HPControl_HeatingCurve_Strat(
+    dTSupRetNom=dTSupRetNom) constrainedby Thermal.Control.PartialHPControl(
     heatingCurve(timeFilter=timeFilter),
     TTankTop=TSto[posTTop],
     TTankBot=TSto[posTBot],
@@ -78,7 +77,6 @@ public
         rotation=0,
         origin={-11,-23})));
 
-protected
   Thermal.Components.BaseClasses.DomesticHotWater dHW(
     medium=medium,
     TDHWSet=TDHWSet,
@@ -86,13 +84,12 @@ protected
     VDayAvg=nOcc*0.045,
     profileType=3)
     annotation (Placement(transformation(extent={{-56,-28},{-46,-12}})));
-
+protected
   IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[
                                nZones] heatingControl
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{64,30},{84,50}})));
-  Thermal.Components.BaseClasses.IdealMixer idealMixer(mFlowMin=0.01, pumpCold(
-        m=5))
+  Thermal.Components.BaseClasses.IdealMixer idealMixer
     annotation (Placement(transformation(extent={{66,-12},{86,10}})));
   Thermal.Components.BaseClasses.IsolatedPipe pipeDHW(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-36,-48},{-48,-36}})));
