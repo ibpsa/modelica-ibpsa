@@ -3,10 +3,6 @@ package Partials "Partial models"
   extends Modelica.Icons.Package;
 
 
-
-
-
-
 annotation (Documentation(info="<HTML>
 This package contains partial models, defining in a very compact way the basic thermodynamic equations used by the different components.<br>
 <dl>

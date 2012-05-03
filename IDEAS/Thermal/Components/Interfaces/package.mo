@@ -3,9 +3,6 @@ package Interfaces "Connectors and partial models"
   extends Modelica.Icons.InterfacesPackage;
 
 
-
-
-
 annotation (Documentation(info="<HTML>
 This package contains connectors and partial models:
 <ul>
