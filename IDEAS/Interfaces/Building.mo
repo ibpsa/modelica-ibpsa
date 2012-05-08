@@ -57,7 +57,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.TSensor, heatingSystem.TSensor) annotation (Line(
-      points={{-35.4,-6},{-30,-6},{-30,-6},{-19.6,-6}},
+      points={{-35.4,-6},{-30,-6},{-30,-6},{-19.8,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(building.TSensor, ventilationSystem.TSensor) annotation (Line(
