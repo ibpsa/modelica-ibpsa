@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-model HeavyFloor
+model HeavyFloor "BESTEST Heavy floor"
 
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     nLay=2,

@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-model LightWall
+model LightWall "BESTEST Light wall"
 
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     nLay=3,
