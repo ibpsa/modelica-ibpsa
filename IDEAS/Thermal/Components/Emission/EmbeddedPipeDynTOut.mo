@@ -140,7 +140,7 @@ equation
       points={{-44,0},{-38,0},{-38,1.22465e-015},{-30,1.22465e-015}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(resistance_x.port_b, heatPortFH) annotation (Line(
+  connect(resistance_x.port_b, heatPortEmb) annotation (Line(
       points={{56,-1.22465e-015},{62,-1.22465e-015},{62,62},{-86,62},{-86,100}},
       color={191,0,0},
       smooth=Smooth.None));

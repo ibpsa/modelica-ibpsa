@@ -20,7 +20,8 @@ for i in 1:nZones loop
   heatPortEmb[i].Q_flow = - QHeatZone[i];
 end for;
 
-P[1] = sum(QHeatZone)/COP;
+QHeatTotal = sum(QHeatZone); // useful output, QHeatTotal defined in partial
+P[1] = QHeatTotal/COP;
 Q[1] = 0;
 
 end IdealFloorHeating;

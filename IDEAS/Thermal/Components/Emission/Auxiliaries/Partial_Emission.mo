@@ -9,7 +9,7 @@ partial model Partial_Emission
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
 // Interfaces ////////////////////////////////////////////////////////////////////////////////////////
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortConv if
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon if
       (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
     "convective heat transfer from radiators"
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
@@ -17,7 +17,7 @@ partial model Partial_Emission
       (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
     "radiation heat transfer from radiators"
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortFH if
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortEmb if
       (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
     "Port to the core of a floor heating/concrete activation"
     annotation (Placement(transformation(extent={{-96,90},{-76,110}})));

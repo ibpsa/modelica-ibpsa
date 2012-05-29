@@ -4,13 +4,4 @@ package Fillingmaterial
 
   extends Modelica.Icons.Package;
 
-
-
-
-
-
-
-
-
-
 end Fillingmaterial;

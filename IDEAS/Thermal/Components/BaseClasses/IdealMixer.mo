@@ -8,7 +8,7 @@ model IdealMixer "Temperature based ideal mixer"
         rotation=90,
         origin={0,106})));
 
-  parameter Modelica.SIunits.MassFlowRate mFlowMin
+  parameter Modelica.SIunits.MassFlowRate mFlowMin = 0.01
     "Minimum outlet flowrate for mixing to start";
   Modelica.SIunits.Temperature TCold=pumpCold.T;
   Modelica.SIunits.Temperature THot=mixingVolumeHot.T

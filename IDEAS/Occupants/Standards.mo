@@ -25,8 +25,8 @@ end when;
 
 equation
 heatPortRad.Q_flow = heatPortCon.Q_flow;
-ohmsLaw.P = heatPortCon.Q_flow + heatPortRad.Q_flow;
-ohmsLaw.Q = {0,0};
+wattsLawPlug.P = heatPortCon.Q_flow + heatPortRad.Q_flow;
+wattsLawPlug.Q = {0,0};
 
 if noEvent(t <= 7 or t >= 23) then
   heatPortCon.Q_flow = -AFloor.*{QDay[3],QNight[3]}*0.5;

@@ -2,6 +2,9 @@ within IDEAS.Interfaces;
 partial model HeatingSystem "Partial heating system inclusif control"
 
   import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
+  outer IDEAS.Climate.SimInfoManager sim
+    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-200,80},
+            {-180,100}})));
 
 // Building characteristics  //////////////////////////////////////////////////////////////////////////
   parameter EmissionType emissionType = EmissionType.RadiatorsAndFloorHeating
@@ -22,39 +25,46 @@ partial model HeatingSystem "Partial heating system inclusif control"
   parameter Integer nOcc = 2
     "number of occupants for determination of DHW consumption";
 
-  outer IDEAS.Climate.SimInfoManager sim
-    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+// Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon if
       (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
-    "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
+    "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-210,10},
+            {-190,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad if
       (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
-    "Nodes for radiative heat gains" annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
+    "Nodes for radiative heat gains" annotation (Placement(transformation(extent={{-210,
+            -30},{-190,-10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortEmb if
       (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
-    "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-
+    "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-210,50},
+            {-190,70}})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[nLoads] plugLoad( each m=1)
-    "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},
-            {110,10}})));
+    "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{190,-10},
+            {210,10}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
     "Sensor temperature of the zones" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-96,-60})));
+        origin={-196,-60})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSet
     "Setpoint temperature for the zones" annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,-90})));
   Electric.BaseClasses.WattsLawPlug[nLoads] wattsLawPlug(each numPha=1)
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
+
+// Total heat use ///////////////////////////////////////////////////////////////////////////////////////
+  SI.Power QHeatTotal "Total net heat use (space heating + DHW, if present)";
+
 equation
   connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-      points={{60,0},{100,0}},
+      points={{190,0},{200,0}},
         color={85,170,255},
         smooth=Smooth.None));
 P = wattsLawPlug.P;
 Q = wattsLawPlug.Q;
-  annotation(Icon(graphics={
+  annotation(Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},
+            {200,100}}),
+                  graphics={
         Polygon(
           points={{-46,-8},{-46,-20},{-44,-22},{-24,-10},{-24,2},{-26,4},{-46,-8}},
           lineColor={127,0,0},
@@ -91,6 +101,7 @@ Q = wattsLawPlug.Q;
           smooth=Smooth.None,
           fillColor={127,0,0},
           fillPattern=FillPattern.Solid)}),                         Diagram(
+        coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,100}}),
         graphics),
     DymolaStoredErrors);
 end HeatingSystem;

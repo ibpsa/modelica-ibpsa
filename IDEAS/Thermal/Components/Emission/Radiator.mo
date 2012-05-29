@@ -54,7 +54,7 @@ protected
       TOutNom) "nominal mass flowrate";
 
 equation
-  dTRadRoo = max(0, TMean - heatPortConv.T);
+  dTRadRoo = max(0, TMean - heatPortCon.T);
   // mass balance
   flowPort_a.m_flow + flowPort_b.m_flow = 0;
 
@@ -65,7 +65,7 @@ equation
 algorithm
   if noEvent(flowPort_a.m_flow > mFlowNom/10) then
     TIn := flowPort_a.h/medium.cp;
-    TOut := max(heatPortConv.T, 2*TMean - TIn);
+    TOut := max(heatPortCon.T, 2*TMean - TIn);
   else
     TIn := TMean;
     TOut := TMean;
@@ -74,7 +74,7 @@ algorithm
 equation
   // radiator equation
   QTotal = - UA * (dTRadRoo)^n; // negative for heat emission!
-  heatPortConv.Q_flow = QTotal * (1-fraRad);
+  heatPortCon.Q_flow = QTotal * (1-fraRad);
   heatPortRad.Q_flow = QTotal * fraRad;
 
   // energy balance

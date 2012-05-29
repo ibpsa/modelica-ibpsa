@@ -5,14 +5,6 @@ package BaseClasses "Basic components for thermal fluid flow"
   extends Modelica.Icons.BasesPackage;
 
 
-
-
-
-
-
-
-
-
 annotation (Documentation(info="<HTML>
 This package contains components:
 <ul>

@@ -23,7 +23,8 @@ for i in 1:nZones loop
   heatPortCon[i].Q_flow = - (1-fractionRad[i]) * QHeatZone[i];
 end for;
 
-P[1] = sum(QHeatZone)/COP;
+QHeatTotal = sum(QHeatZone); // useful output, QHeatTotal defined in partial
+P[1] = QHeatTotal/COP;
 Q[1] = 0;
 
 end IdealRadiatorHeating;
