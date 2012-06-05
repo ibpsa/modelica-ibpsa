@@ -2,8 +2,7 @@ within IDEAS.Electric.DistributionGrid;
 model GridGeneral
   "THE General grid to use, look at the documentation for naming etc."
 
-parameter Integer Phases=1
-    "Number of phases simulated, for now only single phase works with GridInfo, this will set Pha in grid Layout also"
+parameter Integer Phases=1 "Number of phases simulated"
  annotation(choices(
 choice=1 "Single Phase",
 choice=3 "3 Phase",
