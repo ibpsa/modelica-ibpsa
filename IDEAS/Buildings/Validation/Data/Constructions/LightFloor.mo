@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-model LightFloor
+model LightFloor "BESTEST Light floor"
 
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     nLay=2,

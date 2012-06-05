@@ -19,7 +19,7 @@ public
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=289.15))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nRes] Res(each final G=A/mat.d*mat.k*nRes)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nRes] Res(each final G=A*mat.k/mat.d*nRes)
     "Resistors in the RC-network"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nCap] Cap(each final C=A*mat.rho*mat.c*mat.d/nCap)

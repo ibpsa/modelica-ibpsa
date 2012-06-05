@@ -84,7 +84,7 @@ iSolDif = solDif*(1-limiter.y) + solDif*limiter.y*shaCorr + solDir*limiter.y*sha
 angInc = iAngInc;
 
   connect(limiter.u, Ctrl) annotation (Line(
-      points={{-10,-72},{-10,-90}},
+      points={{-10,-72},{-10,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
@@ -173,5 +173,27 @@ equation
         smooth=Smooth.None));
   annotation (Diagram(graphics));
 end ScreenOverhang;
+
+model ShadingControl "shading control based on irradiation"
+
+  parameter Real uLow = 250 "upper limit above which shading goes down";
+  parameter Real uHigh = 150 "lower limit below which shading goes up again";
+  IDEAS.BaseClasses.Control.Hyst_NoEvent   hyst(uLow=uLow, uHigh=uHigh);
+  Modelica.Blocks.Interfaces.RealInput irr "irradiance on the depicted surface"
+    annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
+  Modelica.Blocks.Interfaces.RealOutput y "control signal"
+    annotation (Placement(transformation(extent={{90,50},{110,70}})));
+
+//  Modelica.Blocks.Interfaces.RealInput TSensor
+//    annotation (Placement(transformation(extent={{-120,0},{-80,40}})));
+equation
+hyst.u = irr;
+if noEvent(time > 8E6) and noEvent(time <2.6E7) then
+  hyst.y=y;
+else
+  y=0;
+end if;
+  annotation (Diagram(graphics));
+end ShadingControl;
 
 end Shading;
