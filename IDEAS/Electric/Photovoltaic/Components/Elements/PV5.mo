@@ -22,7 +22,7 @@ parameter Modelica.SIunits.Resistance R_shr=pvPanel.R_shr
 parameter Modelica.SIunits.ElectricPotential V_tr=pvPanel.V_tr
     "modified ideality factor under reference conditions";
 
-//Other parameters for Sanyo HIP-230HDE1
+//Other parameters
 parameter Modelica.SIunits.ElectricCurrent I_scr=pvPanel.I_scr
     "Short circuit current under reference conditions";
 parameter Modelica.SIunits.ElectricPotential V_ocr=pvPanel.V_ocr
@@ -101,7 +101,7 @@ I = I_ph - I_o*(exp((V + I*R_s)/(n_s*V_t)) - 1) - (V + I*R_s)/(R_sh);
 pin.v = V;
 pin.i = I;
 
-  annotation (Icon(graphics={
+  annotation (Diagram(graphics),Icon(graphics={
         Polygon(
           points={{-80,60},{-60,80},{60,80},{80,60},{80,-60},{60,-80},{-60,-80},
               {-80,-60},{-80,60}},

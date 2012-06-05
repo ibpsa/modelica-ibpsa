@@ -40,7 +40,8 @@ Real Lpi = AWall*ground1.k/dt*sqrt(1/((1+delta/dt)^2+1));
 Real Lpe = 0.37*PWall*ground1.k*log(delta/dt+1);
 Real m = 12*time/31536000;
 
-protected
+//protected
+public
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     A=AWall,
     inc=inc,
