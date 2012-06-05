@@ -1,5 +1,5 @@
 within IDEAS.Electric.Photovoltaic.Components.Elements;
-model incdenceAngels "incidence angle modifier (IAM)"
+model incidenceAngles "incidence angle modifier (IAM)"
 
 extends Modelica.Blocks.Interfaces.BlockIcon;
 
@@ -26,4 +26,4 @@ angIncDif = inc/2;
 angIncRef = {-cos(angHou)*sin(angZen),sin(-angHou)*sin(angZen),cos(angZen)}*{cos(-azi)*cos(inc),sin(-azi)*cos(inc),sin(inc)};
 
   annotation (Diagram(graphics), Icon(graphics));
-end incdenceAngels;
+end incidenceAngles;
