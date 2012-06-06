@@ -8,15 +8,13 @@ model TestGridGeneral
                        gridGeneral(
      redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
      Phases=1,
-     traPre=true,
-     houCon=true)
+     traPre=true)
      annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
    IDEAS.Electric.DistributionGrid.GridGeneral
                        gridGeneral1(
      redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
      Phases=3,
-     traPre=true,
-     houCon=true)
+     traPre=true)
      annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
    IDEAS.Electric.DistributionGrid.Examples.Components.SinePower
                                             risingflankSingle1[
