@@ -33,11 +33,10 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin         p
                                                     invertor
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Electrical.Analog.Basic.Ground ground1
-    annotation (Placement(transformation(extent={{-40,-24},{-20,-4}})));
+    annotation (Placement(transformation(extent={{-26,-14},{-6,6}})));
   IDEAS.Electric.BaseClasses.WattsLaw wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  IDEAS.Electric.Photovoltaic.Components.PvVoltageToPower
-                                                dCGrid
+  IDEAS.Electric.Photovoltaic.Components.PvVoltageToPower vi2PQ
                 annotation (Placement(transformation(extent={{-6,20},{14,40}})));
 
   IDEAS.Electric.Photovoltaic.Components.PvVoltageCtrlGeneral pvVoltageCtrl(
@@ -52,15 +51,15 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(invertor.n1, ground1.p) annotation (Line(
-      points={{-40,25},{-44,25},{-44,6},{-30,6},{-30,-4}},
+      points={{-40,25},{-44,25},{-44,6},{-16,6}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(invertor.n2, ground1.p) annotation (Line(
-      points={{-20,25},{-16,25},{-16,6},{-30,6},{-30,-4}},
+      points={{-20,25},{-16,25},{-16,6}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(pvArray.n, ground1.p) annotation (Line(
-      points={{-80,30},{-84,30},{-84,6},{-30,6},{-30,-4}},
+      points={{-80,30},{-84,30},{-84,6},{-16,6}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(wattsLaw.vi, pin)
@@ -68,15 +67,15 @@ equation
       points={{80,30},{92,30},{92,40},{102,40}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(invertor.p2, dCGrid.pin) annotation (Line(
+  connect(invertor.p2, vi2PQ.pin)  annotation (Line(
       points={{-20,35},{-10,35},{-10,36},{-6,36}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(dCGrid.P, pvVoltageCtrl.PInit) annotation (Line(
+  connect(vi2PQ.P, pvVoltageCtrl.PInit)  annotation (Line(
       points={{14,36},{26,36}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dCGrid.Q, pvVoltageCtrl.QInit) annotation (Line(
+  connect(vi2PQ.Q, pvVoltageCtrl.QInit)  annotation (Line(
       points={{14,32},{26,32}},
       color={0,0,127},
       smooth=Smooth.None));
