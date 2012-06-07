@@ -19,7 +19,7 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
   Modelica.Blocks.Interfaces.RealInput IamDif
     annotation (Placement(transformation(extent={{-120,0},{-80,40}})));
-  Modelica.Blocks.Interfaces.RealInput IamRefk
+  Modelica.Blocks.Interfaces.RealInput IamRef
     annotation (Placement(transformation(extent={{-120,-40},{-80,0}})));
   Modelica.Blocks.Interfaces.RealInput solDir annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
