@@ -9,7 +9,7 @@ parameter Integer PVPha=4;
 parameter Integer numPha=(if PVPha==4 then 3 else 1);
 parameter Integer prod=1;
 parameter Integer timeOff=300;
-parameter Real VMax=248;
+parameter Real VMax=253;
 
 protected
   IDEAS.Electric.Photovoltaic.Components.ForInputFiles.PvSystemGeneralPQ pvSystemGeneralPQ(
