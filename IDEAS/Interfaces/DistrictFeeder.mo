@@ -2,8 +2,9 @@ within IDEAS.Interfaces;
 partial model DistrictFeeder
 
   parameter Integer nLoads(min=1) "number of electric loads";
+  parameter Boolean backbone = false;
 
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin plugBackbone
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin plugBackbone if backbone
     "Electricity connection for the backbone grid" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[nLoads] plugFeeder
     "Electricity connection for the buildings" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
