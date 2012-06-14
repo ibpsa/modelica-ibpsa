@@ -29,38 +29,38 @@ partial model InhomeFeeder
   annotation(Icon(graphics={
         Rectangle(
           extent={{28,60},{70,20}},
-          lineColor={127,0,0},
-          fillColor={127,0,0},
+          lineColor={85,170,255},
+          fillColor={85,170,255},
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-26,54},{-26,20},{-6,20},{-6,28},{4,28},{4,32},{-6,32},{-6,44},
               {8,44},{8,50},{-6,50},{-6,54},{-26,54}},
-          lineColor={127,0,0},
+          lineColor={85,170,255},
           smooth=Smooth.None,
-          fillColor={127,0,0},
+          fillColor={85,170,255},
           fillPattern=FillPattern.Solid),
         Line(
           points={{-14,20},{-14,0},{-94,0}},
-          color={127,0,0},
+          color={85,170,255},
           smooth=Smooth.None),
         Rectangle(
           extent={{46,50},{50,42}},
-          lineColor={127,0,0},
+          lineColor={85,170,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{56,34},{60,26}},
-          lineColor={127,0,0},
+          lineColor={85,170,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{38,34},{42,26}},
-          lineColor={127,0,0},
+          lineColor={85,170,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
           points={{48,20},{48,0},{96,0}},
-          color={127,0,0},
+          color={85,170,255},
           smooth=Smooth.None)}),                                    Diagram(
         graphics));
 
