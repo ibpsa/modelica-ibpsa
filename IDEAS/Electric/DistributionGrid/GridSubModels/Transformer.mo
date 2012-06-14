@@ -129,14 +129,12 @@ annotation (Diagram(graphics), Documentation(info="<html>
     Icon(graphics={
         Line(
           points={{-10,80},{-10,-80},{-10,-80}},
-          color={85,170,255},
-          smooth=Smooth.None,
-          thickness=0.5),
+          color={95,95,95},
+          smooth=Smooth.None),
         Line(
           points={{10,80},{10,-80},{10,-80}},
-          color={85,170,255},
-          smooth=Smooth.None,
-          thickness=0.5),
+          color={95,95,95},
+          smooth=Smooth.None),
         Line(
           points={{-98,40},{-46,40},{-28,30},{-48,20},{-28,10},{-48,0},{-28,-10},
               {-48,-20},{-28,-30},{-48,-40},{-98,-40}},
