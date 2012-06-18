@@ -15,7 +15,7 @@ model Building
        annotation (Placement(transformation(extent={{20,-10},{40,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.VentilationSystem ventilationSystem(nZones=building.nZones, VZones = building.VZones)
     "Ventilation system" annotation (Placement(transformation(extent={{-20,20},{0,40}})),choicesAllMatching = true);
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin plugFeeder if not standAlone
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin plugFeeder(v(re(start=230),im(start=0))) if not standAlone
     "Electricity connection to the district feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource voltageSource(
     f=50,
