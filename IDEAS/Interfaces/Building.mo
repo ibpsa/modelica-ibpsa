@@ -11,8 +11,7 @@ model Building
     "Thermal heating system" annotation (Placement(transformation(extent={{-20,-10},{0,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.Occupant occupant(nZones=building.nZones)
     "Building occupant" annotation (Placement(transformation(extent={{-20,-42},{0,-22}})),choicesAllMatching = true);
-  replaceable DummyInHomeGrid                                inHomeGrid
-    "Inhome electricity grid system"
+  replaceable DummyInHomeGrid inHomeGrid "Inhome electricity grid system"
        annotation (Placement(transformation(extent={{20,-10},{40,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.VentilationSystem ventilationSystem(nZones=building.nZones, VZones = building.VZones)
     "Ventilation system" annotation (Placement(transformation(extent={{-20,20},{0,40}})),choicesAllMatching = true);

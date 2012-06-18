@@ -120,7 +120,7 @@ equation
       smooth=Smooth.None));
   else
   connect(voltageSource.pin_p, gridOnly1P.TraPin) annotation (Line(
-      points={{-70,-20},{-92,-20},{-92,20},{12,20},{12,4},{20,4},{20,4}},
+      points={{-70,-20},{-92,-20},{-92,20},{12,20},{12,4},{20,4}},
       color={0,0,255},
       smooth=Smooth.None));
   end if;
@@ -130,10 +130,28 @@ connect(gridOnly1P.node, node) annotation (Line(
       color={0,0,255},
       smooth=Smooth.None));
 
-annotation(choices(
-choice=IDEAS.Electric.Data.Cables.PvcAl16() "PVC Aluminum 16 mm^2",
-choice=IDEAS.Electric.Data.Cables.PvcAl25() "PVC Aluminum 25 mm^2"),
-            Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
-              -100}}, fileName=
-              "modelica://IDEAS/Electric/icon-ssnav-08-electricity.jpg")}));
+  annotation (Diagram(graphics), Icon(graphics={
+        Polygon(
+          points={{-32,40},{-32,34},{-4,34},{-4,-80},{4,-80},{4,34},{34,34},{34,
+              40},{4,40},{4,46},{-4,46},{-4,40},{-32,40}},
+          lineColor={127,0,0},
+          smooth=Smooth.None,
+          fillPattern=FillPattern.Solid,
+          fillColor={127,0,0}),
+        Line(
+          points={{-102,4},{-46,12},{-28,36}},
+          color={127,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-100,0},{-12,12},{30,36}},
+          color={127,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-22,36},{30,2},{100,0}},
+          color={127,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{30,36},{54,18},{100,4}},
+          color={127,0,0},
+          smooth=Smooth.Bezier)}));
 end Grid1PGeneral;

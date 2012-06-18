@@ -125,5 +125,24 @@ annotation (Diagram(graphics), Documentation(info="<html>
 <p>Connect the HVgnd to the ground and negative pin of the voltage source (which should be at LV, being 230V phase voltage). LVgnd is present for completeness, but should NOT be connected to the ground of the source!</p>
 <p>Connect the (3 if necessary) positive pin of the voltage source(s) to the HVpos pin(s).</p>
 <p>Connect the LVpos pin(s) to the grid&apos;s pin(s) 0.</p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Line(
+          points={{-10,80},{-10,-80},{-10,-80}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{10,80},{10,-80},{10,-80}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{-98,40},{-46,40},{-28,30},{-48,20},{-28,10},{-48,0},{-28,-10},
+              {-48,-20},{-28,-30},{-48,-40},{-98,-40}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Line(
+          points={{100,40},{48,40},{30,30},{50,20},{30,10},{50,0},{30,-10},{50,
+              -20},{30,-30},{50,-40},{100,-40}},
+          color={85,170,255},
+          smooth=Smooth.None)}));
 end Transformer;

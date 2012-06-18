@@ -169,7 +169,28 @@ for n in 1:gridOnly3P.grid.nNodes loop
       smooth=Smooth.None));
 end for;
 
-  annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-100,100},{102,
-              -100}}, fileName=
-              "modelica://IDEAS/Electric/icon-ssnav-08-electricity.jpg")}));
+  annotation (Diagram(graphics), Icon(graphics={
+        Polygon(
+          points={{-32,40},{-32,34},{-4,34},{-4,-80},{4,-80},{4,34},{34,34},{34,
+              40},{4,40},{4,46},{-4,46},{-4,40},{-32,40}},
+          lineColor={127,0,0},
+          smooth=Smooth.None,
+          fillPattern=FillPattern.Solid,
+          fillColor={127,0,0}),
+        Line(
+          points={{-102,4},{-46,12},{-28,36}},
+          color={127,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-100,0},{-12,12},{30,36}},
+          color={127,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-22,36},{30,2},{100,0}},
+          color={127,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{30,36},{54,18},{100,4}},
+          color={127,0,0},
+          smooth=Smooth.Bezier)}));
 end Grid3PGeneral;
