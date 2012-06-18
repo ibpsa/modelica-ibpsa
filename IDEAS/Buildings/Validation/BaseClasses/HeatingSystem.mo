@@ -25,27 +25,37 @@ package HeatingSystem
     parameter Modelica.SIunits.Temperature Tcool = 300.15
       "Cooling on above 27°C";
 
-    Electric.BaseClasses.WattsLaw wattsLaw
-      annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    Modelica.Blocks.Sources.RealExpression realP(y=QHeatTotal)
+      annotation (Placement(transformation(extent={{120,10},{140,30}})));
+    Modelica.Blocks.Sources.RealExpression realQ(y=0.0)
+      annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
 
   equation
-    connect(wattsLaw.vi, pinLoad) annotation (Line(
-        points={{80,0},{100,0}},
-        color={85,170,255},
-        smooth=Smooth.None));
   for i in 1:nZones loop
     if Theat > TSensor[i] then
-      heatPortCon[i].Q_flow =  -10*C[i]*(Theat -  TSensor[i]);
+      heatPortCon[i].Q_flow =-10*C[i]*(Theat - TSensor[i]);
     elseif Tcool < TSensor[i] then
-      heatPortCon[i].Q_flow =  -10*C[i]*(Tcool - TSensor[i]);
+      heatPortCon[i].Q_flow =-10*C[i]*(Tcool - TSensor[i]);
     else
-      heatPortCon[i].Q_flow =  0;
+      heatPortCon[i].Q_flow =0;
     end if;
-    heatPortRad[i].Q_flow =  0;
-    heatPortEmb[i].Q_flow =  0;
+
+    heatPortRad[i].Q_flow =0;
+    heatPortEmb[i].Q_flow =0;
   end for;
-  wattsLaw.P = -1*sum(heatPortCon.Q_flow);
-  wattsLaw.Q = 0;
+
+  QHeatTotal = sum(heatPortRad.Q_flow) + sum(heatPortCon.Q_flow) + sum(heatPortEmb.Q_flow);
+
+    connect(realP.y, wattsLawPlug[1].P) annotation (Line(
+        points={{141,20},{154,20},{154,4},{170,4}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(realQ.y, wattsLawPlug[1].Q) annotation (Line(
+        points={{141,-20},{154,-20},{154,-2},{170,-2}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},
+              {200,100}}), graphics));
   end Deadband;
 
   model ThermostatSetback "BESTEST thermostat setback heating system"

@@ -119,30 +119,30 @@ equation
         Icon(graphics={
         Ellipse(
           extent={{-70,70},{70,-70}},
-          lineColor={127,0,0},
+          lineColor={95,95,95},
           fillPattern=FillPattern.Solid,
-          fillColor={127,0,0}),
+          fillColor={95,95,95}),
         Ellipse(
           extent={{-60,60},{60,-60}},
-          lineColor={127,0,0},
+          lineColor={95,95,95},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-4,50},{2,-2}},
-          lineColor={127,0,0},
-          fillColor={127,0,0},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{2,0},{18,-16},{14,-20},{-4,-2},{2,0}},
-          lineColor={127,0,0},
+          lineColor={95,95,95},
           smooth=Smooth.None,
-          fillColor={127,0,0},
+          fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-70,0},{-84,0},{-64,-26},{-44,0},{-70,0}},
-          lineColor={127,0,0},
+          lineColor={95,95,95},
           smooth=Smooth.None,
-          fillColor={127,0,0},
+          fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-84,0},{-64,-26},{-44,0},{-34,-44},{-48,-60},{-80,-40},{-84,
@@ -150,7 +150,8 @@ equation
           lineColor={255,255,255},
           smooth=Smooth.None,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Bitmap(extent={{10,-10},{8,-10}}, fileName="")}),
     Diagram(graphics),
     Documentation(info="<html>
 </html>"));
