@@ -113,6 +113,8 @@ equation
       points={{-59.6,16},{-46,16},{-46,28},{-38,28}},
       color={0,0,127},
       smooth=Smooth.None));
+
+//Ground reflectantance is not used for now (see Absorption model => SolAbs equation!
       annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                          graphics={
@@ -137,6 +139,4 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="#")}),        Diagram(graphics));
-
-//Ground reflectantance is not used for now (see Absorption model => SolAbs equation!
 end PvArray;

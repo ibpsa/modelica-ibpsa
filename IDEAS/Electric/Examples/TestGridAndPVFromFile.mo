@@ -13,7 +13,7 @@ model TestGridAndPVFromFile
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-10,50})));
-  Photovoltaic.PVFromFilePQ pVFromFilePQ
+  ELECTA.PV.PVFromFilePQ    pVFromFilePQ
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   inner Photovoltaic.Components.ForInputFiles.Read10minPV PV1
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
