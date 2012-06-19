@@ -68,23 +68,23 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
 /**End of everything related to the transformer**/
 
 /***Output the cable losses of the grid***/
-output Modelica.SIunits.ActivePower PLosBra[Nodes]=gridOnly1P.PLosBra;
-output Modelica.SIunits.ActivePower PGriLosTot=gridOnly1P.PGriLosTot;
+ Modelica.SIunits.ActivePower PLosBra[Nodes]=gridOnly1P.PLosBra;
+ Modelica.SIunits.ActivePower PGriLosTot=gridOnly1P.PGriLosTot;
 
-output Modelica.SIunits.Voltage Vabs[Nodes]=gridOnly1P.Vabs;
+ Modelica.SIunits.Voltage Vabs[Nodes]=gridOnly1P.Vabs;
 
 /***Output the losses of the trafo if presen***/
-output Modelica.SIunits.ActivePower traLosP0=transformer.traLosP0 if traPre;
-output Modelica.SIunits.ActivePower traLosPs=transformer.traLosPs if traPre;
-output Modelica.SIunits.ActivePower traLosPtot=transformer.traLosPtot if traPre;
+ Modelica.SIunits.ActivePower traLosP0=transformer.traLosP0 if traPre;
+ Modelica.SIunits.ActivePower traLosPs=transformer.traLosPs if traPre;
+ Modelica.SIunits.ActivePower traLosPtot=transformer.traLosPtot if traPre;
 
 /***Output the total power exchange of the grid***/
-  output Modelica.SIunits.ActivePower PGriTot=gridOnly1P.PGriTot;
-  output Modelica.SIunits.ComplexPower SGriTot=gridOnly1P.SGriTot;
-  output Modelica.SIunits.ReactivePower QGriTot=gridOnly1P.QGriTot;
+   Modelica.SIunits.ActivePower PGriTot=gridOnly1P.PGriTot;
+   Modelica.SIunits.ComplexPower SGriTot=gridOnly1P.SGriTot;
+   Modelica.SIunits.ReactivePower QGriTot=gridOnly1P.QGriTot;
 
-  output Modelica.SIunits.ComplexCurrent Ibranch0=gridOnly1P.branch[1].i;
-  output Modelica.SIunits.Current Ibranch0Abs=Modelica.ComplexMath.'abs'(
+   Modelica.SIunits.ComplexCurrent Ibranch0=gridOnly1P.branch[1].i;
+   Modelica.SIunits.Current Ibranch0Abs=Modelica.ComplexMath.'abs'(
                                                         Ibranch0);
 protected
   parameter Integer Nodes=grid.nNodes;

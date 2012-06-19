@@ -4,9 +4,10 @@ package Standards
   extends Modelica.Icons.Package;
 
 model ISO13790
-  extends IDEAS.Interfaces.Occupant(nZones=2,nLoads=2);
+  extends IDEAS.Interfaces.Occupant(nZones=1,nLoads=1);
 
-parameter Modelica.SIunits.Area[nZones] AFloor "Floor area of different zones";
+parameter Modelica.SIunits.Area[nZones] AFloor = ones(nZones)*100
+      "Floor area of different zones";
 
   protected
 final parameter Modelica.SIunits.Time interval = 3600 "Time interval";
@@ -25,18 +26,18 @@ end when;
 
 equation
 heatPortRad.Q_flow = heatPortCon.Q_flow;
-wattsLawPlug.P = heatPortCon.Q_flow + heatPortRad.Q_flow;
-wattsLawPlug.Q = {0,0};
+wattsLawPlug.P = {heatPortCon[1].Q_flow + heatPortRad[1].Q_flow};
+wattsLawPlug.Q = {0};
 
 if noEvent(t <= 7 or t >= 23) then
-  heatPortCon.Q_flow = -AFloor.*{QDay[3],QNight[3]}*0.5;
-  TSet={16,18};
+  heatPortCon.Q_flow = -AFloor.*{QDay[3]}*0.5;
+  TSet={18};
 elseif noEvent(t > 7 and t <=17) then
-  heatPortCon.Q_flow = -AFloor.*{QDay[1],QNight[1]}*0.5;
-  TSet={16,16};
+  heatPortCon.Q_flow = -AFloor.*{QDay[1]}*0.5;
+  TSet={16};
 else
-  heatPortCon.Q_flow = -AFloor.*{QDay[2],QNight[2]}*0.5;
-  TSet={21,16};
+  heatPortCon.Q_flow = -AFloor.*{QDay[2]}*0.5;
+  TSet={21};
 end if;
 
   annotation (Diagram(graphics));
