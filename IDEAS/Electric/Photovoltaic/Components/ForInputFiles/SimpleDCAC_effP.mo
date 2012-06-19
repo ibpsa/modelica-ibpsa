@@ -3,7 +3,7 @@ class SimpleDCAC_effP
 
 extends Modelica.Blocks.Interfaces.BlockIcon;
 
-  Real eff;
+//  Real eff;
 //SI.ActivePower P;
 Modelica.SIunits.ApparentPower S;
 //SI.ReactivePower Q;
@@ -11,6 +11,7 @@ Modelica.SIunits.ApparentPower S;
 
   parameter Real NPanelen;                 // Number of PV-panels as input
   parameter Real P_dc_max=230;                 //MPP for one panel.
+  parameter Real eff=0.95;       //For now
 
   Modelica.Blocks.Interfaces.RealInput P_dc
     annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
@@ -23,14 +24,15 @@ equation
   P=S*cosphi;
   P=eff*P_dc*NPanelen;
 
-  // Define efficiency as a function of P_dc (production) against the mpp for the system
-  if noEvent(P_dc < (P_dc_max) * 0.05) then      //<5%
-    eff = (0.945 * (P_dc/(P_dc_max))) / 0.05;
-  elseif noEvent(P_dc < (P_dc_max) * 0.30) then  //5%-30%
-    eff = 2.9333 * ((P_dc/(P_dc_max))^3) - 2.16 * ((P_dc/(P_dc_max*NPanelen))^2) + 0.5327*(P_dc/(P_dc_max*NPanelen)) + 0.9234;
-  else                                         //>30%
-    eff = 0.968 + (0.01*((P_dc/(P_dc_max*NPanelen))-0.3) / 0.7);
-  end if;
+//
+//   // Define efficiency as a function of P_dc (production) against the mpp for the system
+//   if noEvent(P_dc < (P_dc_max) * 0.05) then      //<5%
+//     eff = (0.945 * (P_dc/(P_dc_max))) / 0.05;
+//   elseif noEvent(P_dc < (P_dc_max) * 0.30) then  //5%-30%
+//     eff = 2.9333 * ((P_dc/(P_dc_max))^3) - 2.16 * ((P_dc/(P_dc_max*NPanelen))^2) + 0.5327*(P_dc/(P_dc_max*NPanelen)) + 0.9234;
+//   else                                         //>30%
+//     eff = 0.968 + (0.01*((P_dc/(P_dc_max*NPanelen))-0.3) / 0.7);
+//   end if;
 
   annotation (Icon(graphics={Text(
           extent={{-100,20},{-40,-20}},
