@@ -12,7 +12,8 @@ parameter Modelica.SIunits.Voltage VMax=253
     "Max grid voltage for operation of the PV system";
 
 parameter Integer numPha=1;
-
+output Real PInit;
+output Real PFinal;
 replaceable parameter IDEAS.Electric.Data.Interfaces.PvPanel pvPanel= IDEAS.Electric.Data.PvPanels.SanyoHIP230HDE1()
     "Choose a Photovoltaic panel to be used"
                                         annotation(choicesAllMatching = true);
@@ -45,7 +46,8 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin         p
     numPha=numPha)
     annotation (Placement(transformation(extent={{26,20},{46,40}})));
 equation
-
+ PInit=pvVoltageCtrl.PInit;
+ PFinal=pvVoltageCtrl.PFinal;
   connect(pvArray.p, invertor.p1) annotation (Line(
       points={{-60,30},{-56,30},{-56,35},{-40,35}},
       color={0,0,255},
