@@ -116,7 +116,7 @@ equation
 
     heatPortCon.Q_flow = -ones(nZones)*sum(appPowerConv)/nZones;
     heatPortCon.Q_flow = -ones(nZones)*sum(appPowerRad)/nZones;
-    Q = ones(nZones)*0;
+    Q = ones(nLoads)*0;
 
     annotation (Icon(graphics={
           Ellipse(
