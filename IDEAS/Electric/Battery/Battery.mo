@@ -28,7 +28,7 @@ Modelica.SIunits.Efficiency SoC(start=SoC_start);  // State of Charge of battery
 Modelica.SIunits.Efficiency SoCdelta;              // Change in SOC in time interval
 
 equation
-P =  PIn;
+P = PIn;
 
 /* Efficiencies of battery */
 // Discharging batteries
@@ -39,10 +39,10 @@ else//if noEvent(P < 0) then
   EExch = P*(eta_in*eta_c)/3600000;
 end if;
 
-SoCdelta =  -EExch/EBat;
-der(SoC) =  SoCdelta - delta_sd;
+SoCdelta = -EExch/EBat;
+der(SoC) = SoCdelta - delta_sd;
 
-SoC_out =  SoC;
+SoC_out = SoC;
 
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}})),
              Diagram(graphics), Icon(graphics={Bitmap(extent={{-95,95},{95,-95}},

@@ -107,7 +107,7 @@ equation
 
   if traPre then
   connect(transformer.LVPos[1], gridOnly1P.TraPin) annotation (Line(
-      points={{-20,4},{20,4}},
+      points={{-20,4},{0,4},{0,0},{20,0}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(voltageSource.pin_p, transformer.HVpos[1]) annotation (Line(
@@ -120,7 +120,7 @@ equation
       smooth=Smooth.None));
   else
   connect(voltageSource.pin_p, gridOnly1P.TraPin) annotation (Line(
-      points={{-70,-20},{-92,-20},{-92,20},{12,20},{12,4},{20,4}},
+      points={{-70,-20},{-92,-20},{-92,26},{12,26},{12,0},{20,0}},
       color={0,0,255},
       smooth=Smooth.None));
   end if;

@@ -52,12 +52,12 @@ equation
 // Limiting powers when battery almost full/empty
 // Discharging batteries
 if noEvent(P >= 0) then
-  PBat = if noEvent(((SoC - (1 - DOD_max))*EBat) < (P/(eta_out*eta_d*3600000))) then
-    ((SoC - (1 - DOD_max))*EBat*3600000) else min(P,PDischarge);
+  PBat = if noEvent(((SoC - (1 - DOD_max))*EBat) < (P/(eta_out*eta_d*3600000)))
+       then ((SoC - (1 - DOD_max))*EBat*3600000) else min(P, PDischarge);
 // Charging batteries
 else//if noEvent(P < 0) then
-  PBat = if noEvent(((1 - SoC)*EBat) < (abs(P)*eta_in*eta_c/3600000)) then ((SoC -
-    1)*EBat*3600000) else max(P,-PCharge);
+  PBat = if noEvent(((1 - SoC)*EBat) < (abs(P)*eta_in*eta_c/3600000)) then ((
+      SoC - 1)*EBat*3600000) else max(P, -PCharge);
 end if;
 
 PFinal = -PBat;
