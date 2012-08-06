@@ -5,7 +5,11 @@ replaceable parameter IDEAS.Electric.Data.Interfaces.BatteryType
                                                                technology
     "Choose a battery type"                                       annotation(choicesAllMatching = true);
 
-parameter Integer numPha=1 "Number of phases: 1 or 3";
+parameter Integer numPha=1 "Number of phases simulated"
+ annotation(choices(
+choice=1 "Single Phase",
+choice=3 "Three Phase",
+__Dymola_radioButtons=true));
 
 // Individual parameters
 parameter Modelica.SIunits.Conversions.NonSIunits.Energy_kWh EBat=1
@@ -29,6 +33,6 @@ parameter Modelica.SIunits.Efficiency DOD_max=0.80 "Maximum discharge [%/100]";
   eta_d = technology.eta_d)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
-  annotation (Icon(Bitmap(extent=[-90,90; 90,-90], name="Battery.png")), Diagram(
+  annotation (Icon(Bitmap(extent=[-90,90; 90,-90], name="modelica://ELECTA/BatteryHome.png")), Diagram(
         graphics));
 end BatterySystem;

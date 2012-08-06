@@ -13,6 +13,7 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
 Modelica.SIunits.Power P;
 
 // Parameters
+protected
 parameter Modelica.SIunits.Efficiency eta_out=1;
 parameter Modelica.SIunits.Efficiency eta_in=1;
 parameter Modelica.SIunits.Efficiency eta_d=1;
@@ -22,6 +23,7 @@ parameter Modelica.SIunits.Efficiency SoC_start;
 parameter Modelica.SIunits.Conversions.NonSIunits.Energy_kWh EBat;
 
 // Variables
+public
 Modelica.SIunits.Conversions.NonSIunits.Energy_kWh EExch;
                                                    // Energy exchange vector [kW.h]
 Modelica.SIunits.Efficiency SoC(start=SoC_start);  // State of Charge of battery capacity in [%/100]
