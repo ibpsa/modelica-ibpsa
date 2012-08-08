@@ -8,7 +8,10 @@ How to use this script:
     - the .mat files do NOT need to have specific filenames
     - set the parameters below to correct values
 
-The script will create a simdex of all found .mat files.
+The script will create a simdex of all found .mat files and extract the 
+inclination, azimuth and nominal power from the parameters.
+
+The generated files are in W/Wp.
 Created on Thu Aug 02 16:46:00 2012
 
 @author: RDC
@@ -61,8 +64,8 @@ name_of_PVSystem = 'pVSystemGeneral'
 #  - name_of_PVSystem.pvPanel.V_mpr
 #  - name_of_PVSystem.amount
 
-mat_path = r'C:\Workspace\DSMSim\Work' # path to the .mat files.  All found .mat
-                                       # files will be used!!!
+# path to the .mat files.  ATTENTION: all found .mat files will be used!!!
+mat_path = r'C:\Workspace\DSMSim\pvsimulations' 
 result_path = r'c:/workspace/DSMSim/Inputs/' # where to put the generated profiles
 
 ################################################################################

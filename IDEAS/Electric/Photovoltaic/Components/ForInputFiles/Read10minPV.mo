@@ -1,7 +1,7 @@
 within IDEAS.Electric.Photovoltaic.Components.ForInputFiles;
-model Read10minPV
-Real P_paneel;
-protected
+model Read10minPV "External file with W/Wp production profile"
+Real P_ratio;
+
 parameter String fileName= "../Inputs/onePVpanel10min";
 
 Modelica.Blocks.Tables.CombiTable1Ds P(
@@ -13,7 +13,7 @@ Modelica.Blocks.Tables.CombiTable1Ds P(
 
 equation
 time=P.u;
-P_paneel=-1*P.y[1];
+P_ratio = -P.y[1];
 annotation (defaultComponentName="PV1", defaultComponentPrefixes="inner",  missingInnerMessage="Your model is using an outer \"PV1\" component. An inner \"PV1\" component is not defined. For simulation drag IDEAS.Electric.Photovoltaic.Components.ForInputFiles.Read10minPV into your model.",
         Icon(graphics={                                                                     Bitmap(
           extent={{-100,100},{100,-100}},
