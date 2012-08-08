@@ -24,7 +24,7 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin          
                        pvVoltageCtrl(
                               VMax=VMax,timeOff = timeOff,numPha=numPha)
     annotation (Placement(transformation(extent={{26,20},{46,40}})));
-  outer IDEAS.Electric.Photovoltaic.Components.ForInputFiles.Read10minPV
+  outer IDEAS.Electric.Photovoltaic.Components.ForInputFiles.PVProfileReader
                     PV1
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation

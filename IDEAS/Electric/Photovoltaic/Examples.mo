@@ -23,7 +23,8 @@ package Examples
                 redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
         IDEAS.Climate.Meteo.Files.min15 detail)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-    inner Components.ForInputFiles.Read10minPV PV1(fileName=
+    inner IDEAS.Electric.Photovoltaic.Components.ForInputFiles.PVProfileReader
+                                               PV1(fileName=
           "../Inputs/PV_Inc20_Azi0.txt")
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   equation
