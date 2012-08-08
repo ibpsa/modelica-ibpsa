@@ -1,5 +1,5 @@
 within IDEAS.Electric.Photovoltaic.Components.ForInputFiles;
-model Read10minPV "External file with W/Wp production profile"
+model PVProfileReader "External file with W/Wp production profile"
 Real P_ratio;
 
 parameter String fileName= "../Inputs/onePVpanel10min";
@@ -19,4 +19,4 @@ annotation (defaultComponentName="PV1", defaultComponentPrefixes="inner",  missi
           extent={{-100,100},{100,-100}},
           fileName="modelica://IDEAS/Electric/PV.png"),
           Bitmap(extent={{124,-106},{34,-32}}, fileName="modelica://BWF/../bluetooth.png")}));
-end Read10minPV;
+end PVProfileReader;
