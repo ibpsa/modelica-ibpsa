@@ -2,9 +2,10 @@ within IDEAS.Electric.Photovoltaic;
 package Examples
   extends Modelica.Icons.ExamplesPackage;
   model UsePVGeneral
-    PVSystemGeneral pVSystemGeneral(inc=20/180*3.1415, amount=30)
+
+    PVSystemGeneral pVSystemGeneral(inc=20/180*3.1415, amount=20)
       annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
-    PvSystemGeneralFromFile pvSystemGeneralFromFile(amount=30)
+    PvSystemGeneralFromFile pvSystemGeneralFromFile(PNom=20*230.153)
       annotation (Placement(transformation(extent={{-80,-14},{-60,6}})));
     Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
       voltageSource(f=50, V=230) annotation (Placement(transformation(
