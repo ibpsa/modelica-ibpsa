@@ -4,15 +4,6 @@ package IDEAS "Integrated District Energy Assessment by Simulation"
   import SI = Modelica.SIunits;
 
 
-
-
-
-
-
-
-
-
-
   annotation (uses(Modelica(version="3.2"),
     TME(version="0.12"),
     Buildings(version="1.1")),               Icon(graphics={Bitmap(

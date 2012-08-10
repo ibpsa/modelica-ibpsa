@@ -46,7 +46,7 @@ protected
         rotation=90,
         origin={-54,-10})));
 
-  Modelica.Blocks.Math.Sum sum(nin=2, k={0.5,0.5})
+  Modelica.Blocks.Math.Sum sum(nin=2, k={0.5,0.5}, y(start=297.15))
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
 equation
   connect(surfRad, radDistr.radSurfTot) annotation (Line(
