@@ -9,14 +9,14 @@ Modelica experiment file
 double experiment(7,1)
        0                   # StartTime    Time at which integration starts
                            #              (and linearization and trimming time)
-       0                   # StopTime     Time at which integration stops
-       0                   # Increment    Communication step size, if > 0
-     100                   # nInterval    Number of communication intervals, if > 0
- 1.0000000000000000E-004   # Tolerance    Relative precision of signals for
+  3.153600000000000E+007   # StopTime     Time at which integration stops
+     300                   # Increment    Communication step size, if > 0
+       0                   # nInterval    Number of communication intervals, if > 0
+  1.000000000000000E-004   # Tolerance    Relative precision of signals for
                            #              simulation, linearization and trimming
        0                   # MaxFixedStep Maximum step size of fixed step size
                            #              integrators, if > 0.0
-       1                   # Algorithm    Integration algorithm as integer (1...28)
+      17                   # Algorithm    Integration algorithm as integer (1...28)
                            #
                            #             | model|       |        | dense | state |
                            # Algorithm   | typ  | stiff | order  | output| event |
@@ -70,10 +70,10 @@ double method(27,1)
        0                   # hmax     Maximum absolute stepsize, if > 0
        0                   # hmin     Minimum absolute stepsize, if > 0 (use with care!)
        0                   # h0       Stepsize to be attempted on first step, if > 0
- 9.9999999999999998E-013   # teps     Bound to check, if 2 equal time instants
- 1.0000000000000000E-010   # eveps    Hysteresis epsilon at event points
+  2.000000000000000E-014   # teps     Bound to check, if 2 equal time instants
+  1.000000000000000E-010   # eveps    Hysteresis epsilon at event points
       20                   # eviter   Maximum number of event iterations
-       0                   # delaym   Minimum time increment in delay buffers
+  1.000000000000000E-006   # delaym   Minimum time increment in delay buffers
        1                   # fexcep   0/1 floating exception crashes/stops dymosim
        1                   # tscale   clock-time = tscale*simulation-time, if grid = 5
                            #          > 1: simulation too slow
@@ -87,7 +87,7 @@ double method(27,1)
 int settings(13,1)
  0                         # lprec    0/1 do not/store result data in double
  1                         # lx       0/1 do not/store x  (state variables)
- 0                         # lxd      0/1 do not/store xd (derivative of states)
+ 1                         # lxd      0/1 do not/store xd (derivative of states)
  1                         # lu       0/1 do not/store u  (input     signals)
  1                         # ly       0/1 do not/store y  (output    signals)
  0                         # lz       0/1 do not/store z  (indicator signals)
@@ -102,13 +102,1027 @@ int settings(13,1)
 
 
 #    Names of initial variables
-char initialName(2,9)
-_dummy
-_derdummy
+char initialName(509,73)
+sim.detail.timestep
+sim.city.lat
+sim.city.lon
+sim.city.Tdes
+sim.city.TdesGround
+sim.city.timZonSta
+sim.city.DST
+sim.city.yr
+sim.remWE.interval
+pVSystemGeneral.amount
+pVSystemGeneral.inc
+pVSystemGeneral.azi
+pVSystemGeneral.prod
+pVSystemGeneral.timeOff
+pVSystemGeneral.pvPanel.I_phr
+pVSystemGeneral.pvPanel.I_or
+pVSystemGeneral.pvPanel.R_sr
+pVSystemGeneral.pvPanel.R_shr
+pVSystemGeneral.pvPanel.V_tr
+pVSystemGeneral.pvPanel.I_scr
+pVSystemGeneral.pvPanel.V_ocr
+pVSystemGeneral.pvPanel.I_mpr
+pVSystemGeneral.pvPanel.V_mpr
+pVSystemGeneral.pvPanel.kV
+pVSystemGeneral.pvPanel.kI
+pVSystemGeneral.pvPanel.T_ref
+pVSystemGeneral.pvArray.radSol.A
+pVSystemGeneral.pvArray.radSol.solDifTil.perez.rho
+pVSystemGeneral.pvArray.refDir.K
+pVSystemGeneral.pvArray.refDir.d
+pVSystemGeneral.pvArray.refDir.n
+pVSystemGeneral.pvArray.refDif.K
+pVSystemGeneral.pvArray.refDif.d
+pVSystemGeneral.pvArray.refDif.n
+pVSystemGeneral.pvArray.refRef.K
+pVSystemGeneral.pvArray.refRef.d
+pVSystemGeneral.pvArray.refRef.n
+pVSystemGeneral.pvArray.absorbtion.solRef
+pVSystemGeneral.pvArray.absorbtion.K
+pVSystemGeneral.pvArray.absorbtion.d
+pVSystemGeneral.pvArray.absorbtion.eff
+pVSystemGeneral.pvArray.absorbtion.UA
+pVSystemGeneral.pvArray.PV5.n_s
+pVSystemGeneral.pvArray.PV5.eff
+pVSystemGeneral.pvArray.PV5.solRef
+pVSystemGeneral.pvArray.PV5.K
+pVSystemGeneral.pvArray.PV5.d
+pVSystemGeneral.invertor.eff
+pVSystemGeneral.invertor.cosphi
+gridGeneral.grid.LenVec[1]
+gridGeneral.grid.LenVec[2]
+gridGeneral.grid.CabTyp[1].RCha
+gridGeneral.grid.CabTyp[1].XCha
+gridGeneral.grid.CabTyp[1].ZCha.re
+gridGeneral.grid.CabTyp[1].ZCha.im
+gridGeneral.grid.CabTyp[1].In
+gridGeneral.grid.CabTyp[2].RCha
+gridGeneral.grid.CabTyp[2].XCha
+gridGeneral.grid.CabTyp[2].ZCha.re
+gridGeneral.grid.CabTyp[2].ZCha.im
+gridGeneral.grid.CabTyp[2].In
+gridGeneral.grid1PGeneral.gridFreq
+batterySystemGeneral.technology.eta_in
+batterySystemGeneral.technology.eta_out
+batterySystemGeneral.technology.eta_c
+batterySystemGeneral.technology.eta_d
+batterySystemGeneral.technology.alpha_sd
+batterySystemGeneral.technology.e_c
+batterySystemGeneral.technology.e_d
+batterySystemGeneral.EBat
+batterySystemGeneral.SoC_start
+batterySystemGeneral.DOD_max
+power5_1.loadprof
+power5_1.load_profile.smoothness
+power5_1.load_profile.extrapolation
+power5_1.load_profile.offset[1]
+power5_1.load_profile.startTime
+gridGeneral.grid1PGeneral.voltageSource.pin_p.reference.gamma
+batterySystemGeneral.battery.SoC
+gridGeneral.grid1PGeneral.voltageSource.pin_p.reference.der(gamma)
+batterySystemGeneral.battery.der(SoC)
+sim.lat
+sim.lon
+sim.Tdes
+sim.TdesGround
+sim.timZonSta
+sim.DST
+sim.yr
+sim.BesTest
+sim.solDirPer
+sim.solDirHor
+sim.solDifHor
+sim.solGloHor
+sim.Te
+sim.Tsky
+sim.Va
+sim.Fc
+sim.irr
+sim.summer
+sim.day
+sim.workday
+sim.weekend
+sim.timSol
+sim.calcWE.uLow
+sim.calcWE.uHigh
+sim.calcWE.enableRelease
+sim.calcWE.y
+sim.calcWE.error
+sim.calcWE.rel
+sim.remWE.u
+sim.remWE.y
+sim.timMan.lon
+sim.timMan.delay
+sim.timMan.timZonSta
+sim.timMan.DST
+sim.timMan.yr
+sim.timMan.ifSolCor
+sim.timMan.timCalSol
+sim.timMan.summer
+sim.timMan.localTime.lon
+sim.timMan.solarTime.timLoc
+sim.timMan.solarTime.timSim
+sim.timMan.solarTime.timSol
+sim.timMan.solarTime.Bt
+sim.timMan.solarTime.delta
+sim.timMan.solarTime.nDay
+sim.timMan.calendarTime.ifSolCor
+sim.timMan.simulationDelay.delay
+sim.timMan.timeZone.timZonSta
+sim.timMan.timeZone.DST
+sim.timMan.timeZone.yr
+sim.timMan.timeZone.DSTstart
+sim.timMan.timeZone.DSTend
+sim.timMan.timeZone.summer
+sim.climate_nonSolar.tableOnFile
+sim.climate_nonSolar.columns[1]
+sim.climate_nonSolar.columns[2]
+sim.climate_nonSolar.columns[3]
+sim.climate_nonSolar.columns[4]
+sim.climate_nonSolar.smoothness
+sim.climate_nonSolar.nout
+sim.climate_nonSolar.y[1]
+sim.climate_nonSolar.y[2]
+sim.climate_nonSolar.y[3]
+sim.climate_nonSolar.y[4]
+sim.climate_nonSolar.tableID
+sim.climate_solar.tableOnFile
+sim.climate_solar.columns[1]
+sim.climate_solar.columns[2]
+sim.climate_solar.columns[3]
+sim.climate_solar.smoothness
+sim.climate_solar.nout
+sim.climate_solar.tableID
+Pnet
+pVSystemGeneral.VMax
+pVSystemGeneral.numPha
+pVSystemGeneral.pin[1].v.re
+pVSystemGeneral.pin[1].v.im
+pVSystemGeneral.pin[1].i.re
+pVSystemGeneral.pin[1].i.im
+pVSystemGeneral.pvArray.amount
+pVSystemGeneral.pvArray.inc
+pVSystemGeneral.pvArray.azi
+pVSystemGeneral.pvArray.pvPanel.I_phr
+pVSystemGeneral.pvArray.pvPanel.I_or
+pVSystemGeneral.pvArray.pvPanel.R_sr
+pVSystemGeneral.pvArray.pvPanel.R_shr
+pVSystemGeneral.pvArray.pvPanel.V_tr
+pVSystemGeneral.pvArray.pvPanel.I_scr
+pVSystemGeneral.pvArray.pvPanel.V_ocr
+pVSystemGeneral.pvArray.pvPanel.I_mpr
+pVSystemGeneral.pvArray.pvPanel.V_mpr
+pVSystemGeneral.pvArray.pvPanel.kV
+pVSystemGeneral.pvArray.pvPanel.kI
+pVSystemGeneral.pvArray.pvPanel.T_ref
+pVSystemGeneral.pvArray.v
+pVSystemGeneral.pvArray.i
+pVSystemGeneral.pvArray.n.v
+pVSystemGeneral.pvArray.radSol.inc
+pVSystemGeneral.pvArray.radSol.azi
+pVSystemGeneral.pvArray.radSol.lat
+pVSystemGeneral.pvArray.radSol.declination.delta
+pVSystemGeneral.pvArray.radSol.angleHour.angHou
+pVSystemGeneral.pvArray.radSol.angSolar.inc
+pVSystemGeneral.pvArray.radSol.angSolar.azi
+pVSystemGeneral.pvArray.radSol.angSolar.lat
+pVSystemGeneral.pvArray.radSol.angSolar.cosDec
+pVSystemGeneral.pvArray.radSol.angSolar.sinDec
+pVSystemGeneral.pvArray.radSol.angSolar.cosHou
+pVSystemGeneral.pvArray.radSol.angSolar.sinHou
+pVSystemGeneral.pvArray.radSol.angSolar.cosLat
+pVSystemGeneral.pvArray.radSol.angSolar.sinLat
+pVSystemGeneral.pvArray.radSol.solDirTil.A
+pVSystemGeneral.pvArray.radSol.solDirTil.inc
+pVSystemGeneral.pvArray.radSol.solDirTil.angSol
+pVSystemGeneral.pvArray.radSol.solDirTil.solDirTil
+pVSystemGeneral.pvArray.radSol.solDifTil.A
+pVSystemGeneral.pvArray.radSol.solDifTil.inc
+pVSystemGeneral.pvArray.radSol.solDifTil.i
+pVSystemGeneral.pvArray.radSol.solDifTil.skyClearness.angZen
+pVSystemGeneral.pvArray.radSol.solDifTil.skyClearness.skyCle
+pVSystemGeneral.pvArray.radSol.solDifTil.skyClearness.kappa
+pVSystemGeneral.pvArray.radSol.solDifTil.skyClearness.solDifHor
+pVSystemGeneral.pvArray.radSol.solDifTil.relativeAirMass.angZen
+pVSystemGeneral.pvArray.radSol.solDifTil.relativeAirMass.relAirMas
+pVSystemGeneral.pvArray.radSol.solDifTil.relativeAirMass.angZenLim
+pVSystemGeneral.pvArray.radSol.solDifTil.relativeAirMass.angZenDeg
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightness.relAirMas
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightness.skyBri
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.skyCle
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.angZen
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.skyBri
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F1
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F2
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F11
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F12
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F13
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F21
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F22
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F23
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.d
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[1]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[2]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[3]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[4]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[5]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[6]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[7]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[8]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[1]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[2]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[3]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[4]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[5]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[6]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[7]
+pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[8]
+pVSystemGeneral.pvArray.radSol.solDifTil.perez.inc
+pVSystemGeneral.pvArray.radSol.solDifTil.perez.A
+pVSystemGeneral.pvArray.radSol.solDifTil.perez.F1
+pVSystemGeneral.pvArray.radSol.solDifTil.perez.F2
+pVSystemGeneral.pvArray.radSol.solDifTil.perez.angZen
+pVSystemGeneral.pvArray.radSol.solDifTil.perez.angInc
+pVSystemGeneral.pvArray.radSol.solDifTil.perez.solDifTil
+pVSystemGeneral.pvArray.radSol.solDifTil.perez.a
+pVSystemGeneral.pvArray.radSol.solDifTil.perez.b
+pVSystemGeneral.pvArray.radSol.extraTerra.angleDay.day
+pVSystemGeneral.pvArray.radSol.extraTerra.angleDay.t
+pVSystemGeneral.pvArray.radSol.extraTerra.angleDay.N
+pVSystemGeneral.pvArray.radSol.extraTerra.sol
+pVSystemGeneral.pvArray.radSol.angleZenith.lat
+pVSystemGeneral.pvArray.refDir.Tau_null
+pVSystemGeneral.pvArray.refDir.IncAngMod
+pVSystemGeneral.pvArray.refDir.angInc
+pVSystemGeneral.pvArray.refDir.angRef
+pVSystemGeneral.pvArray.refDir.Tau
+pVSystemGeneral.pvArray.refDif.Tau_null
+pVSystemGeneral.pvArray.refDif.IncAngMod
+pVSystemGeneral.pvArray.refDif.angInc
+pVSystemGeneral.pvArray.refDif.angRef
+pVSystemGeneral.pvArray.refDif.Tau
+pVSystemGeneral.pvArray.refRef.Tau_null
+pVSystemGeneral.pvArray.refRef.IncAngMod
+pVSystemGeneral.pvArray.refRef.angInc
+pVSystemGeneral.pvArray.refRef.angRef
+pVSystemGeneral.pvArray.refRef.Tau
+pVSystemGeneral.pvArray.incdenceAngels.inc
+pVSystemGeneral.pvArray.incdenceAngels.azi
+pVSystemGeneral.pvArray.incdenceAngels.angZen
+pVSystemGeneral.pvArray.incdenceAngels.angHou
+pVSystemGeneral.pvArray.absorbtion.solAbsRef
+pVSystemGeneral.pvArray.absorbtion.IamDir
+pVSystemGeneral.pvArray.absorbtion.IamDif
+pVSystemGeneral.pvArray.absorbtion.solDir
+pVSystemGeneral.pvArray.absorbtion.solDif
+pVSystemGeneral.pvArray.absorbtion.solAbs
+pVSystemGeneral.pvArray.absorbtion.T
+pVSystemGeneral.pvArray.absorbtion.solTot
+pVSystemGeneral.pvArray.absorbtion.albedo
+pVSystemGeneral.pvArray.PV5.pvPanel.I_phr
+pVSystemGeneral.pvArray.PV5.pvPanel.I_or
+pVSystemGeneral.pvArray.PV5.pvPanel.R_sr
+pVSystemGeneral.pvArray.PV5.pvPanel.R_shr
+pVSystemGeneral.pvArray.PV5.pvPanel.V_tr
+pVSystemGeneral.pvArray.PV5.pvPanel.I_scr
+pVSystemGeneral.pvArray.PV5.pvPanel.V_ocr
+pVSystemGeneral.pvArray.PV5.pvPanel.I_mpr
+pVSystemGeneral.pvArray.PV5.pvPanel.V_mpr
+pVSystemGeneral.pvArray.PV5.pvPanel.kV
+pVSystemGeneral.pvArray.PV5.pvPanel.kI
+pVSystemGeneral.pvArray.PV5.pvPanel.T_ref
+pVSystemGeneral.pvArray.PV5.I_phr
+pVSystemGeneral.pvArray.PV5.I_or
+pVSystemGeneral.pvArray.PV5.R_sr
+pVSystemGeneral.pvArray.PV5.R_shr
+pVSystemGeneral.pvArray.PV5.V_tr
+pVSystemGeneral.pvArray.PV5.I_scr
+pVSystemGeneral.pvArray.PV5.V_ocr
+pVSystemGeneral.pvArray.PV5.I_mpr
+pVSystemGeneral.pvArray.PV5.V_mpr
+pVSystemGeneral.pvArray.PV5.kV
+pVSystemGeneral.pvArray.PV5.kI
+pVSystemGeneral.pvArray.PV5.T_ref
+pVSystemGeneral.pvArray.PV5.solAbsRef
+pVSystemGeneral.pvArray.PV5.pin.v
+pVSystemGeneral.pvArray.PV5.I_ph
+pVSystemGeneral.pvArray.PV5.I_o
+pVSystemGeneral.pvArray.PV5.V_t
+pVSystemGeneral.pvArray.PV5.V_ocg
+pVSystemGeneral.pvArray.PV5.V_oc
+pVSystemGeneral.pvArray.PV5.I_sc
+pVSystemGeneral.pvArray.pvSerie.amount
+pVSystemGeneral.invertor.v2
+pVSystemGeneral.invertor.i2
+pVSystemGeneral.invertor.n1.v
+pVSystemGeneral.invertor.p2.v
+pVSystemGeneral.invertor.n2.v
+pVSystemGeneral.invertor.P_dc
+pVSystemGeneral.invertor.P
+pVSystemGeneral.invertor.S
+pVSystemGeneral.invertor.Q
+pVSystemGeneral.ground1.p.v
+pVSystemGeneral.ground1.p.i
+pVSystemGeneral.wattsLaw.numPha
+pVSystemGeneral.wattsLaw.P
+pVSystemGeneral.wattsLaw.Q
+pVSystemGeneral.dCGrid.pin.v
+pVSystemGeneral.dCGrid.P
+pVSystemGeneral.dCGrid.Q
+pVSystemGeneral.pvVoltageCtrl.VMax
+pVSystemGeneral.pvVoltageCtrl.timeOff
+pVSystemGeneral.pvVoltageCtrl.numPha
+pVSystemGeneral.pvVoltageCtrl.switch
+pVSystemGeneral.pvVoltageCtrl.QInit
+pVSystemGeneral.pvVoltageCtrl.QFinal
+pVSystemGeneral.pvVoltageCtrl.pin[1].i.re
+pVSystemGeneral.pvVoltageCtrl.pin[1].i.im
+pVSystemGeneral.pvVoltageCtrl.VGrid
+pVSystemGeneral.pvVoltageCtrl.restartTime
+gridGeneral.Phases
+gridGeneral.grid.nNodes
+gridGeneral.grid.nodeMatrix[1, 1]
+gridGeneral.grid.nodeMatrix[1, 2]
+gridGeneral.grid.nodeMatrix[2, 1]
+gridGeneral.grid.nodeMatrix[2, 2]
+gridGeneral.grid.R[1]
+gridGeneral.grid.R[2]
+gridGeneral.grid.X[1]
+gridGeneral.grid.X[2]
+gridGeneral.grid.Pha
+gridGeneral.VSource.re
+gridGeneral.VSource.im
+gridGeneral.traPre
+gridGeneral.Nodes
+gridGeneral.grid1PGeneral.gridOnly1P.grid.nNodes
+gridGeneral.grid1PGeneral.gridOnly1P.grid.nodeMatrix[1, 1]
+gridGeneral.grid1PGeneral.gridOnly1P.grid.nodeMatrix[1, 2]
+gridGeneral.grid1PGeneral.gridOnly1P.grid.nodeMatrix[2, 1]
+gridGeneral.grid1PGeneral.gridOnly1P.grid.nodeMatrix[2, 2]
+gridGeneral.grid1PGeneral.gridOnly1P.grid.R[1]
+gridGeneral.grid1PGeneral.gridOnly1P.grid.R[2]
+gridGeneral.grid1PGeneral.gridOnly1P.grid.X[1]
+gridGeneral.grid1PGeneral.gridOnly1P.grid.X[2]
+gridGeneral.grid1PGeneral.gridOnly1P.grid.Pha
+gridGeneral.grid1PGeneral.gridOnly1P.grid.LenVec[1]
+gridGeneral.grid1PGeneral.gridOnly1P.grid.LenVec[2]
+gridGeneral.grid1PGeneral.gridOnly1P.TraPin.v.re
+gridGeneral.grid1PGeneral.gridOnly1P.TraPin.v.im
+gridGeneral.grid1PGeneral.gridOnly1P.nodeMatrix[1, 1]
+gridGeneral.grid1PGeneral.gridOnly1P.nodeMatrix[1, 2]
+gridGeneral.grid1PGeneral.gridOnly1P.nodeMatrix[2, 1]
+gridGeneral.grid1PGeneral.gridOnly1P.nodeMatrix[2, 2]
+gridGeneral.grid1PGeneral.gridOnly1P.Nodes
+gridGeneral.grid1PGeneral.grid.nNodes
+gridGeneral.grid1PGeneral.grid.nodeMatrix[1, 1]
+gridGeneral.grid1PGeneral.grid.nodeMatrix[1, 2]
+gridGeneral.grid1PGeneral.grid.nodeMatrix[2, 1]
+gridGeneral.grid1PGeneral.grid.nodeMatrix[2, 2]
+gridGeneral.grid1PGeneral.grid.R[1]
+gridGeneral.grid1PGeneral.grid.R[2]
+gridGeneral.grid1PGeneral.grid.X[1]
+gridGeneral.grid1PGeneral.grid.X[2]
+gridGeneral.grid1PGeneral.grid.Pha
+gridGeneral.grid1PGeneral.grid.LenVec[1]
+gridGeneral.grid1PGeneral.grid.LenVec[2]
+gridGeneral.grid1PGeneral.VSource.re
+gridGeneral.grid1PGeneral.VSource.im
+gridGeneral.grid1PGeneral.traPre
+gridGeneral.grid1PGeneral.Ibranch0Abs
+gridGeneral.grid1PGeneral.Nodes
+gridGeneral.grid1PGeneral.voltageSource.v.re
+gridGeneral.grid1PGeneral.voltageSource.v.im
+gridGeneral.grid1PGeneral.voltageSource.pin_p.v.re
+gridGeneral.grid1PGeneral.voltageSource.pin_p.v.im
+gridGeneral.grid1PGeneral.voltageSource.pin_n.v.re
+gridGeneral.grid1PGeneral.voltageSource.pin_n.v.im
+gridGeneral.grid1PGeneral.voltageSource.f
+gridGeneral.grid1PGeneral.voltageSource.V
+gridGeneral.grid1PGeneral.voltageSource.phi
+gridGeneral.grid1PGeneral.ground.pin.v.re
+gridGeneral.grid1PGeneral.ground.pin.v.im
+gridGeneral.gridNodes[1].v.re
+gridGeneral.gridNodes[1].v.im
+gridGeneral.gridNodes[1].i.re
+gridGeneral.gridNodes[1].i.im
+gridGeneral.gridNodes[2].i.re
+gridGeneral.gridNodes[2].i.im
+gridGeneral.PLosBra[1]
+gridGeneral.PLosBra[2]
+gridGeneral.PGriLosTot
+gridGeneral.PGriTot
+gridGeneral.SGriTot.im
+gridGeneral.Vabs[1]
+gridGeneral.Vabs[2]
+gridGeneral.Ibranch0Abs
+batterySystemGeneral.technology.delta_sd
+batterySystemGeneral.numPha
+batterySystemGeneral.pin[1].i.re
+batterySystemGeneral.pin[1].i.im
+batterySystemGeneral.batteryCtrlGeneral.numPha
+batterySystemGeneral.batteryCtrlGeneral.PInit
+batterySystemGeneral.batteryCtrlGeneral.QFinal
+batterySystemGeneral.batteryCtrlGeneral.DOD_max
+batterySystemGeneral.batteryCtrlGeneral.EBat
+batterySystemGeneral.batteryCtrlGeneral.eta_out
+batterySystemGeneral.batteryCtrlGeneral.eta_in
+batterySystemGeneral.batteryCtrlGeneral.eta_d
+batterySystemGeneral.batteryCtrlGeneral.eta_c
+batterySystemGeneral.batteryCtrlGeneral.e_c
+batterySystemGeneral.batteryCtrlGeneral.e_d
+batterySystemGeneral.batteryCtrlGeneral.PMax
+batterySystemGeneral.batteryCtrlGeneral.PCharge
+batterySystemGeneral.batteryCtrlGeneral.PDischarge
+batterySystemGeneral.wattsLaw.numPha
+batterySystemGeneral.wattsLaw.Q
+batterySystemGeneral.battery.eta_out
+batterySystemGeneral.battery.eta_in
+batterySystemGeneral.battery.eta_d
+batterySystemGeneral.battery.eta_c
+batterySystemGeneral.battery.delta_sd
+batterySystemGeneral.battery.SoC_start
+batterySystemGeneral.battery.EBat
+batterySystemGeneral.battery.EExch
+batterySystemGeneral.battery.SoCdelta
+power5_1.numPha
+power5_1.load_profile.tableOnFile
+power5_1.load_profile.columns[1]
+power5_1.load_profile.nout
+power5_1.load_profile.t_min
+power5_1.load_profile.t_max
+power5_1.load_profile.p_offset[1]
+power5_1.load_profile.tableID
+power5_1.load
+power5_1.Watt.numPha
+power5_1.Watt.P
+power5_1.Watt.Q
+power5_1.pin[1].i.re
+power5_1.pin[1].i.im
+gridGeneral.grid.Z[1].re
+gridGeneral.grid.Z[1].im
+gridGeneral.grid.Z[2].re
+gridGeneral.grid.Z[2].im
+gridGeneral.grid1PGeneral.gridOnly1P.grid.Z[1].re
+gridGeneral.grid1PGeneral.gridOnly1P.grid.Z[1].im
+gridGeneral.grid1PGeneral.gridOnly1P.grid.Z[2].re
+gridGeneral.grid1PGeneral.gridOnly1P.grid.Z[2].im
+gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[1].RCha
+gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[1].XCha
+gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[1].ZCha.re
+gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[1].ZCha.im
+gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[1].In
+gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[2].RCha
+gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[2].XCha
+gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[2].ZCha.re
+gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[2].ZCha.im
+gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[2].In
+gridGeneral.grid1PGeneral.gridOnly1P.branch[1].v.re
+gridGeneral.grid1PGeneral.gridOnly1P.branch[1].pin_p.v.re
+gridGeneral.grid1PGeneral.gridOnly1P.branch[1].pin_p.v.im
+gridGeneral.grid1PGeneral.gridOnly1P.branch[1].R
+gridGeneral.grid1PGeneral.gridOnly1P.branch[1].X
+gridGeneral.grid1PGeneral.gridOnly1P.branch[1].Plos
+gridGeneral.grid1PGeneral.gridOnly1P.branch[2].v.re
+gridGeneral.grid1PGeneral.gridOnly1P.branch[2].v.im
+gridGeneral.grid1PGeneral.gridOnly1P.branch[2].R
+gridGeneral.grid1PGeneral.gridOnly1P.branch[2].X
+gridGeneral.grid1PGeneral.gridOnly1P.branch[2].Plos
+gridGeneral.grid1PGeneral.gridOnly1P.node[1].i.re
+gridGeneral.grid1PGeneral.gridOnly1P.node[1].i.im
+gridGeneral.grid1PGeneral.gridOnly1P.Z[1].re
+gridGeneral.grid1PGeneral.gridOnly1P.Z[1].im
+gridGeneral.grid1PGeneral.gridOnly1P.Z[2].re
+gridGeneral.grid1PGeneral.gridOnly1P.Z[2].im
+gridGeneral.grid1PGeneral.node[1].i.re
+gridGeneral.grid1PGeneral.node[1].i.im
+gridGeneral.grid1PGeneral.grid.Z[1].re
+gridGeneral.grid1PGeneral.grid.Z[1].im
+gridGeneral.grid1PGeneral.grid.Z[2].re
+gridGeneral.grid1PGeneral.grid.Z[2].im
+gridGeneral.grid1PGeneral.grid.CabTyp[1].RCha
+gridGeneral.grid1PGeneral.grid.CabTyp[1].XCha
+gridGeneral.grid1PGeneral.grid.CabTyp[1].ZCha.re
+gridGeneral.grid1PGeneral.grid.CabTyp[1].ZCha.im
+gridGeneral.grid1PGeneral.grid.CabTyp[1].In
+gridGeneral.grid1PGeneral.grid.CabTyp[2].RCha
+gridGeneral.grid1PGeneral.grid.CabTyp[2].XCha
+gridGeneral.grid1PGeneral.grid.CabTyp[2].ZCha.re
+gridGeneral.grid1PGeneral.grid.CabTyp[2].ZCha.im
+gridGeneral.grid1PGeneral.grid.CabTyp[2].In
 
-double initialValue(2,6)
- -1  1  0  0  2  0   # _dummy
-  0  0  0  0  3  0   # _derdummy
+double initialValue(509,6)
+ -1     900                  0       0                  1   280   # sim.detail.timestep
+ -1  8.866272600131190E-001  0       0                  1   280   # sim.city.lat
+ -1  7.534586380859520E-002  0       0                  1   280   # sim.city.lon
+ -1  2.651500000000000E+002  0  1.000000000000000E+100  1   280   # sim.city.Tdes
+ -1  2.841500000000000E+002  0  1.000000000000000E+100  1   280   # sim.city.TdesGround
+ -1    3600                  0       0                  1   280   # sim.city.timZonSta
+ -1       1                  0       0                  1   281   # sim.city.DST
+ -1    2010                  0       0                  1   282   # sim.city.yr
+ -1  6.048000000000000E+005  0       0                  1   280   # sim.remWE.interval
+ -1      15                  0       0                  1   280   # pVSystemGeneral.amount
+ -1  5.934119456780720E-001  0       0                  1   280   # pVSystemGeneral.inc
+ -1       0                  0       0                  1   280   # pVSystemGeneral.azi
+ -1       1                  0       0                  1   282   # pVSystemGeneral.prod
+ -1     300                  0       0                  1   280   # pVSystemGeneral.timeOff
+ -1  7.220600000000000E+000  0       0                  1   280   # pVSystemGeneral.pvPanel.I_phr
+ -1  9.548900000000000E-009  0       0                  1   280   # pVSystemGeneral.pvPanel.I_or
+ -1  3.709000000000000E-001  0       0                  1   280   # pVSystemGeneral.pvPanel.R_sr
+ -1  4.694100000000000E+003  0       0                  1   280   # pVSystemGeneral.pvPanel.R_shr
+ -1  3.450000000000000E-002  0       0                  1   280   # pVSystemGeneral.pvPanel.V_tr
+ -1  7.220000000000000E+000  0       0                  1   280   # pVSystemGeneral.pvPanel.I_scr
+ -1  4.230000000000000E+001  0       0                  1   280   # pVSystemGeneral.pvPanel.V_ocr
+ -1  6.710000000000000E+000  0       0                  1   280   # pVSystemGeneral.pvPanel.I_mpr
+ -1  3.430000000000000E+001  0       0                  1   280   # pVSystemGeneral.pvPanel.V_mpr
+ -1 -1.060000000000000E-001  0       0                  1   280   # pVSystemGeneral.pvPanel.kV
+ -1  2.170000000000000E-003  0       0                  1   280   # pVSystemGeneral.pvPanel.kI
+ -1  2.981500000000000E+002  0  1.000000000000000E+100  1   280   # pVSystemGeneral.pvPanel.T_ref
+ -1       1                  0       0                  1   280   # pVSystemGeneral.pvArray.radSol.A
+ -1  2.000000000000000E-001  0       0                  1   280   # pVSystemGeneral.pvArray.radSol.solDifTil.perez.rho
+ -1       4                  0       0                  1   280   # pVSystemGeneral.pvArray.refDir.K
+ -1  2.000000000000000E-003  0       0                  1   280   # pVSystemGeneral.pvArray.refDir.d
+ -1  1.526000000000000E+000  0       0                  1   280   # pVSystemGeneral.pvArray.refDir.n
+ -1       4                  0       0                  1   280   # pVSystemGeneral.pvArray.refDif.K
+ -1  2.000000000000000E-003  0       0                  1   280   # pVSystemGeneral.pvArray.refDif.d
+ -1  1.526000000000000E+000  0       0                  1   280   # pVSystemGeneral.pvArray.refDif.n
+ -1       4                  0       0                  1   280   # pVSystemGeneral.pvArray.refRef.K
+ -1  2.000000000000000E-003  0       0                  1   280   # pVSystemGeneral.pvArray.refRef.d
+ -1  1.526000000000000E+000  0       0                  1   280   # pVSystemGeneral.pvArray.refRef.n
+ -1    1000                  0       0                  1   280   # pVSystemGeneral.pvArray.absorbtion.solRef
+ -1       4                  0       0                  1   280   # pVSystemGeneral.pvArray.absorbtion.K
+ -1  2.000000000000000E-003  0       0                  1   280   # pVSystemGeneral.pvArray.absorbtion.d
+ -1  1.660000000000000E-001  0       0                  1   280   # pVSystemGeneral.pvArray.absorbtion.eff
+ -1  3.623250000000000E+001  0       0                  1   280   # pVSystemGeneral.pvArray.absorbtion.UA
+ -1      60                  0       0                  1   282   # pVSystemGeneral.pvArray.PV5.n_s
+ -1  1.660000000000000E-001  0  1.000000000000000E+100  1   280   # pVSystemGeneral.pvArray.PV5.eff
+ -1    1000                  0       0                  1   280   # pVSystemGeneral.pvArray.PV5.solRef
+ -1       4                  0       0                  1   280   # pVSystemGeneral.pvArray.PV5.K
+ -1  2.000000000000000E-003  0       0                  1   280   # pVSystemGeneral.pvArray.PV5.d
+ -1  9.500000000000000E-001  0       0                  1   280   # pVSystemGeneral.invertor.eff
+ -1       1                  0       0                  1   280   # pVSystemGeneral.invertor.cosphi
+ -1       0                  0       0                  1   280   # gridGeneral.grid.LenVec[1]
+ -1      48                  0       0                  1   280   # gridGeneral.grid.LenVec[2]
+ -1  9.560000000000000E-004  0       0                  1   280   # gridGeneral.grid.CabTyp[1].RCha
+ -1  7.400000000000000E-005  0       0                  1   280   # gridGeneral.grid.CabTyp[1].XCha
+ -1  9.560000000000000E-004  0       0                  1   280   # gridGeneral.grid.CabTyp[1].ZCha.re
+ -1  7.400000000000000E-005  0       0                  1   280   # gridGeneral.grid.CabTyp[1].ZCha.im
+ -1     110                  0       0                  1   280   # gridGeneral.grid.CabTyp[1].In
+ -1  9.560000000000000E-004  0       0                  1   280   # gridGeneral.grid.CabTyp[2].RCha
+ -1  7.400000000000000E-005  0       0                  1   280   # gridGeneral.grid.CabTyp[2].XCha
+ -1  9.560000000000000E-004  0       0                  1   280   # gridGeneral.grid.CabTyp[2].ZCha.re
+ -1  7.400000000000000E-005  0       0                  1   280   # gridGeneral.grid.CabTyp[2].ZCha.im
+ -1     110                  0       0                  1   280   # gridGeneral.grid.CabTyp[2].In
+ -1      50                  0       0                  1  1304   # gridGeneral.grid1PGeneral.gridFreq
+ -1  9.500000000000000E-001  0  1.000000000000000E+100  1   280   # batterySystemGeneral.technology.eta_in
+ -1  9.800000000000000E-001  0  1.000000000000000E+100  1   280   # batterySystemGeneral.technology.eta_out
+ -1  9.200000000000000E-001  0  1.000000000000000E+100  1   280   # batterySystemGeneral.technology.eta_c
+ -1       1                  0  1.000000000000000E+100  1   280   # batterySystemGeneral.technology.eta_d
+ -1  3.000000000000000E-002  0  1.000000000000000E+100  1   280   # batterySystemGeneral.technology.alpha_sd
+ -1      10                  0       0                  1   280   # batterySystemGeneral.technology.e_c
+ -1      20                  0       0                  1   280   # batterySystemGeneral.technology.e_d
+ -1      25                  0       0                  1   280   # batterySystemGeneral.EBat
+ -1  2.000000000000000E-001  0  1.000000000000000E+100  1   280   # batterySystemGeneral.SoC_start
+ -1  8.000000000000000E-001  0  1.000000000000000E+100  1   280   # batterySystemGeneral.DOD_max
+ -1       2                  0       0                  1   282   # power5_1.loadprof
+ -1       1                  1       2                  1   282   # power5_1.load_profile.smoothness
+ -1       2                  1       3                  1   282   # power5_1.load_profile.extrapolation
+ -1       0                  0       0                  1   280   # power5_1.load_profile.offset[1]
+ -1       0                  0       0                  1   280   # power5_1.load_profile.startTime
+ -1       0                  0       0                  2  1304   # gridGeneral.grid1PGeneral.voltageSource.pin_p.reference.gamma
+ -1       0                  0  1.000000000000000E+100  2   272   # batterySystemGeneral.battery.SoC
+  0       0                  0       0                  3  1280   # gridGeneral.grid1PGeneral.voltageSource.pin_p.reference.der(gamma)
+  0       0                  0       0                  3   256   # batterySystemGeneral.battery.der(SoC)
+  0       0                  0       0                  6   256   # sim.lat
+  0       0                  0       0                  6   256   # sim.lon
+  0  2.881500000000000E+002  0  1.000000000000000E+100  6   256   # sim.Tdes
+  0  2.881500000000000E+002  0  1.000000000000000E+100  6   256   # sim.TdesGround
+  0       0                  0       0                  6   256   # sim.timZonSta
+  0       0                  0       0                  6   257   # sim.DST
+  0       0                  0       0                  6   258   # sim.yr
+  0       0                  0       0                  6   257   # sim.BesTest
+  0       0                  0       0                  6   256   # sim.solDirPer
+  0       0                  0       0                  6   256   # sim.solDirHor
+  0       0                  0       0                  6   256   # sim.solDifHor
+  0       0                  0       0                  6   256   # sim.solGloHor
+  0  2.881500000000000E+002  0  1.000000000000000E+100  6   256   # sim.Te
+  0  2.881500000000000E+002  0  1.000000000000000E+100  6   256   # sim.Tsky
+  0  2.500000000000000E+000  0       0                  6   256   # sim.Va
+  0  2.000000000000000E-001  0       0                  6   256   # sim.Fc
+  0       0                  0       0                  6   256   # sim.irr
+  0       0                  0       0                  6   257   # sim.summer
+  0       1                  0       0                  6   257   # sim.day
+  0       0                  0       0                  6   256   # sim.workday
+  0       0                  0       0                  6   256   # sim.weekend
+  0       0                  0       0                  6   256   # sim.timSol
+  0  6.048000000000000E+005  0       0                  6   256   # sim.calcWE.uLow
+  0  4.320000000000000E+005  0       0                  6   256   # sim.calcWE.uHigh
+  0       0                  0       0                  6   257   # sim.calcWE.enableRelease
+  0       0                  0       0                  6   288   # sim.calcWE.y
+  0       0                  0       0                  6   256   # sim.calcWE.error
+  0       1                  0       0                  6  1280   # sim.calcWE.rel
+  0       0                  0       0                  6   256   # sim.remWE.u
+  0       0                  0       0                  6   256   # sim.remWE.y
+  0       0                  0       0                  6  1280   # sim.timMan.lon
+  0       0                  0       0                  6  1280   # sim.timMan.delay
+  0       0                  0       0                  6  1280   # sim.timMan.timZonSta
+  0       0                  0       0                  6  1281   # sim.timMan.DST
+  0    2010                  0       0                  6  1282   # sim.timMan.yr
+  0       1                  0       0                  6  1281   # sim.timMan.ifSolCor
+  0       0                  0       0                  6  1280   # sim.timMan.timCalSol
+  0       0                  0       0                  6  1281   # sim.timMan.summer
+  0       0                  0       0                  6  1280   # sim.timMan.localTime.lon
+  0       0                  0       0                  6  1280   # sim.timMan.solarTime.timLoc
+  0       0                  0       0                  6  1280   # sim.timMan.solarTime.timSim
+  0       0                  0       0                  6  1280   # sim.timMan.solarTime.timSol
+  0       0                  0       0                  6  1280   # sim.timMan.solarTime.Bt
+  0       0                  0       0                  6  1280   # sim.timMan.solarTime.delta
+  0       0                  0       0                  6  1280   # sim.timMan.solarTime.nDay
+  0       1                  0       0                  6  1281   # sim.timMan.calendarTime.ifSolCor
+  0       0                  0       0                  6  1280   # sim.timMan.simulationDelay.delay
+  0       0                  0       0                  6  1280   # sim.timMan.timeZone.timZonSta
+  0       0                  0       0                  6  1281   # sim.timMan.timeZone.DST
+  0    2010                  0       0                  6  1282   # sim.timMan.timeZone.yr
+  0  7.480800000000000E+006  0       0                  6  1280   # sim.timMan.timeZone.DSTstart
+  0  2.622960000000000E+007  0       0                  6  1280   # sim.timMan.timeZone.DSTend
+  0       0                  0       0                  6  1281   # sim.timMan.timeZone.summer
+  0       1                  0       0                  6  1281   # sim.climate_nonSolar.tableOnFile
+  0      15                  0       0                  6  1282   # sim.climate_nonSolar.columns[1]
+  0      16                  0       0                  6  1282   # sim.climate_nonSolar.columns[2]
+  0      12                  0       0                  6  1282   # sim.climate_nonSolar.columns[3]
+  0      10                  0       0                  6  1282   # sim.climate_nonSolar.columns[4]
+  0       2                  1       2                  6  1282   # sim.climate_nonSolar.smoothness
+  0       4                  0       0                  6  1282   # sim.climate_nonSolar.nout
+  0       0                  0       0                  6  1280   # sim.climate_nonSolar.y[1]
+  0       0                  0       0                  6  1280   # sim.climate_nonSolar.y[2]
+  0       0                  0       0                  6  1280   # sim.climate_nonSolar.y[3]
+  0       0                  0       0                  6  1280   # sim.climate_nonSolar.y[4]
+  0       0                  0       0                  6  1282   # sim.climate_nonSolar.tableID
+  0       1                  0       0                  6  1281   # sim.climate_solar.tableOnFile
+  0       7                  0       0                  6  1282   # sim.climate_solar.columns[1]
+  0      11                  0       0                  6  1282   # sim.climate_solar.columns[2]
+  0      14                  0       0                  6  1282   # sim.climate_solar.columns[3]
+  0       1                  1       2                  6  1282   # sim.climate_solar.smoothness
+  0       3                  0       0                  6  1282   # sim.climate_solar.nout
+  0       0                  0       0                  6  1282   # sim.climate_solar.tableID
+  0       0                  0       0                  6   256   # Pnet
+  0     248                  0       0                  6   256   # pVSystemGeneral.VMax
+  0       1                  0       0                  6   258   # pVSystemGeneral.numPha
+  0       0                  0       0                  6   256   # pVSystemGeneral.pin[1].v.re
+  0       0                  0       0                  6   256   # pVSystemGeneral.pin[1].v.im
+  0       0                  0       0                  6   416   # pVSystemGeneral.pin[1].i.re
+  0       0                  0       0                  6   416   # pVSystemGeneral.pin[1].i.im
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.amount
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.inc
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.azi
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvPanel.I_phr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvPanel.I_or
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvPanel.R_sr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvPanel.R_shr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvPanel.V_tr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvPanel.I_scr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvPanel.V_ocr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvPanel.I_mpr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvPanel.V_mpr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvPanel.kV
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvPanel.kI
+  0  2.881500000000000E+002  0  1.000000000000000E+100  6   256   # pVSystemGeneral.pvArray.pvPanel.T_ref
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.v
+  0       0                  0       0                  6   288   # pVSystemGeneral.pvArray.i
+  0       0                  0       0                  6   260   # pVSystemGeneral.pvArray.n.v
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.inc
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.azi
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.lat
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.declination.delta
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.angleHour.angHou
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.angSolar.inc
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.angSolar.azi
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.angSolar.lat
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.angSolar.cosDec
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.angSolar.sinDec
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.angSolar.cosHou
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.angSolar.sinHou
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.angSolar.cosLat
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.angSolar.sinLat
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDirTil.A
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDirTil.inc
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDirTil.angSol
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDirTil.solDirTil
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.A
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.inc
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.i
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.skyClearness.angZen
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.skyClearness.skyCle
+  0  1.041000000000000E+000  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyClearness.kappa
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyClearness.solDifHor
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.relativeAirMass.angZen
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.relativeAirMass.relAirMas
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.relativeAirMass.angZenLim
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.relativeAirMass.angZenDeg
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightness.relAirMas
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightness.skyBri
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.skyCle
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.angZen
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.skyBri
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F1
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F2
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F11
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F12
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F13
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F21
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F22
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.F23
+  0  1.000000000000000E-002  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.d
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[1]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[2]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[3]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[4]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[5]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[6]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[7]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.a[8]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[1]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[2]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[3]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[4]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[5]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[6]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[7]
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.skyBrightnessCoefficients.b[8]
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.perez.inc
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.perez.A
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.perez.F1
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.perez.F2
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.perez.angZen
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.perez.angInc
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.solDifTil.perez.solDifTil
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.perez.a
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.radSol.solDifTil.perez.b
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.extraTerra.angleDay.day
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.extraTerra.angleDay.t
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.extraTerra.angleDay.N
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.extraTerra.sol
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.radSol.angleZenith.lat
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.refDir.Tau_null
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.refDir.IncAngMod
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.refDir.angInc
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.refDir.angRef
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.refDir.Tau
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.refDif.Tau_null
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.refDif.IncAngMod
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.refDif.angInc
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.refDif.angRef
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.refDif.Tau
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.refRef.Tau_null
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.refRef.IncAngMod
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.refRef.angInc
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.refRef.angRef
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.refRef.Tau
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.incdenceAngels.inc
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.incdenceAngels.azi
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.incdenceAngels.angZen
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.incdenceAngels.angHou
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.absorbtion.solAbsRef
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.absorbtion.IamDir
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.absorbtion.IamDif
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.absorbtion.solDir
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.absorbtion.solDif
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.absorbtion.solAbs
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.absorbtion.T
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.absorbtion.solTot
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.absorbtion.albedo
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.I_phr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.I_or
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.R_sr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.R_shr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.V_tr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.I_scr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.V_ocr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.I_mpr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.V_mpr
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.kV
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.kI
+  0  2.881500000000000E+002  0  1.000000000000000E+100  6   256   # pVSystemGeneral.pvArray.PV5.pvPanel.T_ref
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.I_phr
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.I_or
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.R_sr
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.R_shr
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.V_tr
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.I_scr
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.V_ocr
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.I_mpr
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.V_mpr
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.kV
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.kI
+  0  2.881500000000000E+002  0  1.000000000000000E+100  6  1280   # pVSystemGeneral.pvArray.PV5.T_ref
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.PV5.solAbsRef
+  0       0                  0       0                  6   260   # pVSystemGeneral.pvArray.PV5.pin.v
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.I_ph
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.I_o
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.V_t
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.V_ocg
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.V_oc
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvArray.PV5.I_sc
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvArray.pvSerie.amount
+  0     230                  0       0                  6   256   # pVSystemGeneral.invertor.v2
+  0       0                  0       0                  6   256   # pVSystemGeneral.invertor.i2
+  0       0                  0       0                  6   260   # pVSystemGeneral.invertor.n1.v
+  0     230                  0       0                  6   260   # pVSystemGeneral.invertor.p2.v
+  0       0                  0       0                  6   260   # pVSystemGeneral.invertor.n2.v
+  0       0                  0       0                  6   384   # pVSystemGeneral.invertor.P_dc
+  0       0                  0       0                  6   384   # pVSystemGeneral.invertor.P
+  0       0                  0       0                  6   384   # pVSystemGeneral.invertor.S
+  0       0                  0       0                  6   384   # pVSystemGeneral.invertor.Q
+  0       0                  0       0                  6   260   # pVSystemGeneral.ground1.p.v
+  0       0                  0       0                  6   388   # pVSystemGeneral.ground1.p.i
+  0       1                  0       0                  6   258   # pVSystemGeneral.wattsLaw.numPha
+  0       0                  0       0                  6   256   # pVSystemGeneral.wattsLaw.P
+  0       0                  0       0                  6   256   # pVSystemGeneral.wattsLaw.Q
+  0     230                  0       0                  6   260   # pVSystemGeneral.dCGrid.pin.v
+  0       0                  0       0                  6   256   # pVSystemGeneral.dCGrid.P
+  0       0                  0       0                  6   256   # pVSystemGeneral.dCGrid.Q
+  0     248                  0       0                  6   256   # pVSystemGeneral.pvVoltageCtrl.VMax
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvVoltageCtrl.timeOff
+  0       1                  0       0                  6   258   # pVSystemGeneral.pvVoltageCtrl.numPha
+  0       1                  0       0                  6   329   # pVSystemGeneral.pvVoltageCtrl.switch
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvVoltageCtrl.QInit
+  0       0                  0       0                  6   256   # pVSystemGeneral.pvVoltageCtrl.QFinal
+  0       0                  0       0                  6   384   # pVSystemGeneral.pvVoltageCtrl.pin[1].i.re
+  0       0                  0       0                  6   384   # pVSystemGeneral.pvVoltageCtrl.pin[1].i.im
+  0       0                  0       0                  6  1280   # pVSystemGeneral.pvVoltageCtrl.VGrid
+  0      -1                  0       0                  6  1352   # pVSystemGeneral.pvVoltageCtrl.restartTime
+  0       1                  0       0                  6   258   # gridGeneral.Phases
+  0       2                  0       0                  6   258   # gridGeneral.grid.nNodes
+  0      -1                  0       0                  6   258   # gridGeneral.grid.nodeMatrix[1, 1]
+  0       0                  0       0                  6   258   # gridGeneral.grid.nodeMatrix[1, 2]
+  0       1                  0       0                  6   258   # gridGeneral.grid.nodeMatrix[2, 1]
+  0      -1                  0       0                  6   258   # gridGeneral.grid.nodeMatrix[2, 2]
+  0       0                  0       0                  6   256   # gridGeneral.grid.R[1]
+  0       0                  0       0                  6   256   # gridGeneral.grid.R[2]
+  0       0                  0       0                  6   256   # gridGeneral.grid.X[1]
+  0       0                  0       0                  6   256   # gridGeneral.grid.X[2]
+  0       1                  0       0                  6   258   # gridGeneral.grid.Pha
+  0     230                  0       0                  6   256   # gridGeneral.VSource.re
+  0       0                  0       0                  6   256   # gridGeneral.VSource.im
+  0       0                  0       0                  6   257   # gridGeneral.traPre
+  0       2                  0       0                  6  1282   # gridGeneral.Nodes
+  0       2                  0       0                  6  1282   # gridGeneral.grid1PGeneral.gridOnly1P.grid.nNodes
+  0      -1                  0       0                  6  1282   # gridGeneral.grid1PGeneral.gridOnly1P.grid.nodeMatrix[1, 1]
+  0       0                  0       0                  6  1282   # gridGeneral.grid1PGeneral.gridOnly1P.grid.nodeMatrix[1, 2]
+  0       1                  0       0                  6  1282   # gridGeneral.grid1PGeneral.gridOnly1P.grid.nodeMatrix[2, 1]
+  0      -1                  0       0                  6  1282   # gridGeneral.grid1PGeneral.gridOnly1P.grid.nodeMatrix[2, 2]
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.R[1]
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.R[2]
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.X[1]
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.X[2]
+  0       1                  0       0                  6  1282   # gridGeneral.grid1PGeneral.gridOnly1P.grid.Pha
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.LenVec[1]
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.LenVec[2]
+  0     230                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.TraPin.v.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.TraPin.v.im
+  0      -1                  0       0                  6  1282   # gridGeneral.grid1PGeneral.gridOnly1P.nodeMatrix[1, 1]
+  0       0                  0       0                  6  1282   # gridGeneral.grid1PGeneral.gridOnly1P.nodeMatrix[1, 2]
+  0       1                  0       0                  6  1282   # gridGeneral.grid1PGeneral.gridOnly1P.nodeMatrix[2, 1]
+  0      -1                  0       0                  6  1282   # gridGeneral.grid1PGeneral.gridOnly1P.nodeMatrix[2, 2]
+  0       2                  0       0                  6  1282   # gridGeneral.grid1PGeneral.gridOnly1P.Nodes
+  0       2                  0       0                  6  1282   # gridGeneral.grid1PGeneral.grid.nNodes
+  0      -1                  0       0                  6  1282   # gridGeneral.grid1PGeneral.grid.nodeMatrix[1, 1]
+  0       0                  0       0                  6  1282   # gridGeneral.grid1PGeneral.grid.nodeMatrix[1, 2]
+  0       1                  0       0                  6  1282   # gridGeneral.grid1PGeneral.grid.nodeMatrix[2, 1]
+  0      -1                  0       0                  6  1282   # gridGeneral.grid1PGeneral.grid.nodeMatrix[2, 2]
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.R[1]
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.R[2]
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.X[1]
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.X[2]
+  0       1                  0       0                  6  1282   # gridGeneral.grid1PGeneral.grid.Pha
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.LenVec[1]
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.LenVec[2]
+  0     230                  0       0                  6  1280   # gridGeneral.grid1PGeneral.VSource.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.VSource.im
+  0       0                  0       0                  6  1281   # gridGeneral.grid1PGeneral.traPre
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.Ibranch0Abs
+  0       2                  0       0                  6  1282   # gridGeneral.grid1PGeneral.Nodes
+  0     230                  0       0                  6  1280   # gridGeneral.grid1PGeneral.voltageSource.v.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.voltageSource.v.im
+  0     230                  0       0                  6  1280   # gridGeneral.grid1PGeneral.voltageSource.pin_p.v.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.voltageSource.pin_p.v.im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.voltageSource.pin_n.v.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.voltageSource.pin_n.v.im
+  0       1                  0       0                  6  1280   # gridGeneral.grid1PGeneral.voltageSource.f
+  0     230                  0       0                  6  1280   # gridGeneral.grid1PGeneral.voltageSource.V
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.voltageSource.phi
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.ground.pin.v.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.ground.pin.v.im
+  0       0                  0       0                  6   256   # gridGeneral.gridNodes[1].v.re
+  0       0                  0       0                  6   256   # gridGeneral.gridNodes[1].v.im
+  0       0                  0       0                  6   384   # gridGeneral.gridNodes[1].i.re
+  0       0                  0       0                  6   384   # gridGeneral.gridNodes[1].i.im
+  0       0                  0       0                  6   416   # gridGeneral.gridNodes[2].i.re
+  0       0                  0       0                  6   416   # gridGeneral.gridNodes[2].i.im
+  0       0                  0       0                  6   256   # gridGeneral.PLosBra[1]
+  0       0                  0       0                  6   256   # gridGeneral.PLosBra[2]
+  0       0                  0       0                  6   256   # gridGeneral.PGriLosTot
+  0       0                  0       0                  6   256   # gridGeneral.PGriTot
+  0       0                  0       0                  6   256   # gridGeneral.SGriTot.im
+  0       0                  0       0                  6   256   # gridGeneral.Vabs[1]
+  0       0                  0       0                  6   256   # gridGeneral.Vabs[2]
+  0       0                  0       0                  6   256   # gridGeneral.Ibranch0Abs
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.technology.delta_sd
+  0       1                  0       0                  6   258   # batterySystemGeneral.numPha
+  0       0                  0       0                  6   384   # batterySystemGeneral.pin[1].i.re
+  0       0                  0       0                  6   384   # batterySystemGeneral.pin[1].i.im
+  0       1                  0       0                  6   258   # batterySystemGeneral.batteryCtrlGeneral.numPha
+  0       0                  0       0                  6   256   # batterySystemGeneral.batteryCtrlGeneral.PInit
+  0       0                  0       0                  6   256   # batterySystemGeneral.batteryCtrlGeneral.QFinal
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.batteryCtrlGeneral.DOD_max
+  0       0                  0       0                  6   256   # batterySystemGeneral.batteryCtrlGeneral.EBat
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.batteryCtrlGeneral.eta_out
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.batteryCtrlGeneral.eta_in
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.batteryCtrlGeneral.eta_d
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.batteryCtrlGeneral.eta_c
+  0       0                  0       0                  6   256   # batterySystemGeneral.batteryCtrlGeneral.e_c
+  0       0                  0       0                  6   256   # batterySystemGeneral.batteryCtrlGeneral.e_d
+  0    4600                  0       0                  6   256   # batterySystemGeneral.batteryCtrlGeneral.PMax
+  0       0                  0       0                  6   256   # batterySystemGeneral.batteryCtrlGeneral.PCharge
+  0       0                  0       0                  6   256   # batterySystemGeneral.batteryCtrlGeneral.PDischarge
+  0       1                  0       0                  6   258   # batterySystemGeneral.wattsLaw.numPha
+  0       0                  0       0                  6   256   # batterySystemGeneral.wattsLaw.Q
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.battery.eta_out
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.battery.eta_in
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.battery.eta_d
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.battery.eta_c
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.battery.delta_sd
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.battery.SoC_start
+  0       0                  0       0                  6   256   # batterySystemGeneral.battery.EBat
+  0       0                  0       0                  6   256   # batterySystemGeneral.battery.EExch
+  0       0                  0  1.000000000000000E+100  6   256   # batterySystemGeneral.battery.SoCdelta
+  0       1                  0       0                  6   258   # power5_1.numPha
+  0       1                  0       0                  6   257   # power5_1.load_profile.tableOnFile
+  0       0                  0       0                  6   258   # power5_1.load_profile.columns[1]
+  0       1                  1  1.000000000000000E+100  6   258   # power5_1.load_profile.nout
+  0       0                  0       0                  6   256   # power5_1.load_profile.t_min
+  0       0                  0       0                  6   256   # power5_1.load_profile.t_max
+  0       0                  0       0                  6  1280   # power5_1.load_profile.p_offset[1]
+  0       0                  0       0                  6  1282   # power5_1.load_profile.tableID
+  0       0                  0       0                  6   256   # power5_1.load
+  0       1                  0       0                  6   258   # power5_1.Watt.numPha
+  0       0                  0       0                  6   256   # power5_1.Watt.P
+  0       0                  0       0                  6   256   # power5_1.Watt.Q
+  0       0                  0       0                  6   416   # power5_1.pin[1].i.re
+  0       0                  0       0                  6   416   # power5_1.pin[1].i.im
+  0       0                  0       0                  6   256   # gridGeneral.grid.Z[1].re
+  0       0                  0       0                  6   256   # gridGeneral.grid.Z[1].im
+  0       0                  0       0                  6   256   # gridGeneral.grid.Z[2].re
+  0       0                  0       0                  6   256   # gridGeneral.grid.Z[2].im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.Z[1].re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.Z[1].im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.Z[2].re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.Z[2].im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[1].RCha
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[1].XCha
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[1].ZCha.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[1].ZCha.im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[1].In
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[2].RCha
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[2].XCha
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[2].ZCha.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[2].ZCha.im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.grid.CabTyp[2].In
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.branch[1].v.re
+  0     230                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.branch[1].pin_p.v.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.branch[1].pin_p.v.im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.branch[1].R
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.branch[1].X
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.branch[1].Plos
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.branch[2].v.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.branch[2].v.im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.branch[2].R
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.branch[2].X
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.branch[2].Plos
+  0       0                  0       0                  6  1408   # gridGeneral.grid1PGeneral.gridOnly1P.node[1].i.re
+  0       0                  0       0                  6  1408   # gridGeneral.grid1PGeneral.gridOnly1P.node[1].i.im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.Z[1].re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.Z[1].im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.Z[2].re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.gridOnly1P.Z[2].im
+  0       0                  0       0                  6  1408   # gridGeneral.grid1PGeneral.node[1].i.re
+  0       0                  0       0                  6  1408   # gridGeneral.grid1PGeneral.node[1].i.im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.Z[1].re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.Z[1].im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.Z[2].re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.Z[2].im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.CabTyp[1].RCha
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.CabTyp[1].XCha
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.CabTyp[1].ZCha.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.CabTyp[1].ZCha.im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.CabTyp[1].In
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.CabTyp[2].RCha
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.CabTyp[2].XCha
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.CabTyp[2].ZCha.re
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.CabTyp[2].ZCha.im
+  0       0                  0       0                  6  1280   # gridGeneral.grid1PGeneral.grid.CabTyp[2].In
 
 
 # Matrix with 6 columns defining the initial value calculation
@@ -159,7 +1173,514 @@ double initialValue(2,6)
 #   nominal value (and maybe minimum and maximum values given in 
 #   column 3 and 4). If these values are zero, scale(i)=1 is used).
 #
-char initialDescription(2,8)
-dummy
-derdummy
+char initialDescription(509,112)
+[s]
+latitude of the locatioin [rad|degree]
+longitude of the locatioin [rad|degree]
+Design outdoor temperature [K|degC]
+Design ground temperature [K|degC]
+Standard (winter) time zone [s]
+Take into account daylight saving time or not
+Ddepcited year for DST only
+[s]
+
+inclination
+azimuth
+
+[s]
+Light current under reference conditions [A]
+Diode reverse saturation current under reference conditions [A]
+Series resistance under reference conditions [Ohm]
+Shunt resistance under reference conditions [Ohm]
+modified ideality factor under reference conditions [V]
+Short circuit current under reference conditions [A]
+Open circuit voltage under reference conditions [V]
+Maximum power point current under reference conditions [A]
+Maximum power point voltage under reference conditions [V]
+Temperature coefficient for open circuit voltage [1/K]
+Temperature coefficient for short circuit current [1/K]
+Reference temperature in Kelvin [K|degC]
+[m2]
+Ground reflectance
+glazing extinction coefficient, /m
+pane thickness, m [m]
+refractve index
+glazing extinction coefficient, /m
+pane thickness, m [m]
+refractve index
+glazing extinction coefficient, /m
+pane thickness, m [m]
+refractve index
+radiation under reference conditions [W/m2]
+glazing extinction coefficient, /m
+pane thickness, m [m]
+solar cell efficiency
+Loss coefficient describing convection and radiation losses
+number of cells on the PV panel
+Solar cell efficiency [1]
+radiation under reference conditions [W/m2]
+glazing extinction coefficient, /m
+pane thickness, m [m]
+
+
+Vector with the Length of each branch in the network, first value is 0 [m]
+Vector with the Length of each branch in the network, first value is 0 [m]
+Characteristic Resistance of the Cable [Ohm/m]
+Characteristic Reactance of the Cable [Ohm/m]
+[Ohm/m]
+[Ohm/m]
+Nominal Electrical Current Fused [A]
+Characteristic Resistance of the Cable [Ohm/m]
+Characteristic Reactance of the Cable [Ohm/m]
+[Ohm/m]
+[Ohm/m]
+Nominal Electrical Current Fused [A]
+Grid frequency: should normally not be changed when simulating belgian grids!
+Efficiency Grid --> Invertor [1]
+Efficiency Invertor --> Grid [1]
+Efficiency Invertor --> Battery [1]
+Efficiency Battery --> Invertor [1]
+Self-discharge (%/100) per month [1]
+Ratio: Maximum charge power to maximum battery capacity
+Ratio: Maximum discharge power to maximum battery capacity 
+Total battery capacity in [kW.h] [kW.h]
+How full is the battery at the start? [%/100] [1]
+Maximum discharge [%/100] [1]
+
+Smoothness of table interpolation
+Extrapolation of data outside the definition range
+Offsets of output signals
+Output = offset for time < startTime [s]
+[rad|deg]
+[1]
+[rad/s]
+[s-1]
+latitude of the locatioin [rad|deg]
+[rad|deg]
+design outdoor temperature [K|degC]
+design ground temperature [K|degC]
+standard time zone [s]
+take into account daylight saving time
+depcited year for DST only
+
+direct irradiation on normal to solar zenith [W/m2]
+direct irradiation on horizontal surface [W/m2]
+difuse irradiation on horizontal surface [W/m2]
+global irradiation on horizontal [W/m2]
+ambient outdoor temperature for determination of sky radiation exchange [K|degC]
+effective overall sky temperature [K|degC]
+air velocity [m/s]
+cloud factor
+[W/m2]
+
+
+
+
+[s]
+
+
+if true, an additional RealInput will be available for releasing the controller
+
+
+release, either 1 ,either from RealInput release if enableRelease is true
+Connector of Boolean input signal
+Connector of Real output signal
+longitude [rad|deg]
+delay for solar data [s|s]
+standard time zone [s]
+take into account daylight saving time
+depcited year for DST only
+
+calendar time for solar data
+
+longitude [rad|deg]
+[s]
+[s]
+[s]
+[rad|deg]
+difference of solar time to local time [s]
+Zero-based day number in seconds [s]
+
+[s]
+standard time zone [s]
+
+depcited year
+[s]
+[s]
+
+true, if table is defined on file or in function usertab
+columns of table to be interpolated
+columns of table to be interpolated
+columns of table to be interpolated
+columns of table to be interpolated
+smoothness of table interpolation
+Number of outputs
+Connector of Real output signals
+Connector of Real output signals
+Connector of Real output signals
+Connector of Real output signals
+
+true, if table is defined on file or in function usertab
+columns of table to be interpolated
+columns of table to be interpolated
+columns of table to be interpolated
+smoothness of table interpolation
+Number of outputs
+
+[W]
+Max grid voltage for operation of the PV system [V]
+
+[V]
+[V]
+[A]
+[A]
+
+inclination
+azimuth
+Light current under reference conditions [A]
+Diode reverse saturation current under reference conditions [A]
+Series resistance under reference conditions [Ohm]
+Shunt resistance under reference conditions [Ohm]
+modified ideality factor under reference conditions [V]
+Short circuit current under reference conditions [A]
+Open circuit voltage under reference conditions [V]
+Maximum power point current under reference conditions [A]
+Maximum power point voltage under reference conditions [V]
+Temperature coefficient for open circuit voltage [1/K]
+Temperature coefficient for short circuit current [1/K]
+Reference temperature in Kelvin [K|degC]
+Voltage drop between the two pins (= p.v - n.v) [V]
+Current flowing from pin p to pin n [A]
+Potential at the pin [V]
+inclination [rad|degree]
+azimuth [rad|degree]
+latitude [rad|degree]
+Declination angle [rad|deg]
+hour angle [rad|deg]
+inclination [rad|degree]
+azimuth [rad|degree]
+[rad|degree]
+
+
+
+
+
+
+[m2]
+inclination [rad|degree]
+
+
+[m2]
+inclination [rad|degree]
+[rad|deg]
+zenith angle [rad|degreeC]
+sky clearness
+original kappa of 1.014 but for degrees
+smoothed horizontal difuse radiation
+zenith angle [rad|degreeC]
+relative air mass
+limited zenith angle
+limited zenith angle in degrees
+relative air mass
+sky brightness
+
+
+
+circumsolar brightening coefficient
+horizon brightening coefficient
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+surface inclination [rad|degree]
+surface area [m2]
+Circomsolar brightening coefficient
+horizon brightening coefficient
+zenith angle [rad|degree]
+incedence angle [rad|degree]
+
+
+
+
+
+year
+
+[rad|degree]
+transmittance of the cover for incdence angle perpendicular to pane
+Incidence Angle Modifier
+Incedence angle
+refracted angle of the incedence beam [rad|deg]
+transmittance of the cover for incdence angle [1]
+transmittance of the cover for incdence angle perpendicular to pane
+Incidence Angle Modifier
+Incedence angle
+refracted angle of the incedence beam [rad|deg]
+transmittance of the cover for incdence angle [1]
+transmittance of the cover for incdence angle perpendicular to pane
+Incidence Angle Modifier
+Incedence angle
+refracted angle of the incedence beam [rad|deg]
+transmittance of the cover for incdence angle [1]
+inclination [rad|deg]
+azimuth [rad|deg]
+
+
+[W/m2]
+
+
+
+
+
+
+[W/m2]
+
+Light current under reference conditions [A]
+Diode reverse saturation current under reference conditions [A]
+Series resistance under reference conditions [Ohm]
+Shunt resistance under reference conditions [Ohm]
+modified ideality factor under reference conditions [V]
+Short circuit current under reference conditions [A]
+Open circuit voltage under reference conditions [V]
+Maximum power point current under reference conditions [A]
+Maximum power point voltage under reference conditions [V]
+Temperature coefficient for open circuit voltage [1/K]
+Temperature coefficient for short circuit current [1/K]
+Reference temperature in Kelvin [K|degC]
+Light current under reference conditions [A]
+Diode reverse saturation current under reference conditions [A]
+Series resistance under reference conditions [Ohm]
+Shunt resistance under reference conditions [Ohm]
+modified ideality factor under reference conditions [V]
+Short circuit current under reference conditions [A]
+Open circuit voltage under reference conditions [V]
+Maximum power point current under reference conditions [A]
+Maximum power point voltage under reference conditions [V]
+Temperature coefficient for open circuit voltage [1/K]
+Temperature coefficient for short circuit current [1/K]
+Reference temperature in Kelvin [K|degC]
+[W/m2]
+Potential at the pin [V]
+[A]
+[A]
+[V]
+[V]
+[V]
+[A]
+
+Voltage drop over the right port [V]
+Current flowing from pos. to neg. pin of the right port [A]
+Potential at the pin [V]
+Potential at the pin [V]
+Potential at the pin [V]
+[W]
+[W]
+[VA]
+[var]
+Potential at the pin [V]
+Current flowing into the pin [A]
+Choose the number of phases
+
+
+Potential at the pin [V]
+
+
+
+
+1 or 3, just indicates if it's a single or 3 phase PV system
+if true, system is producing
+
+
+[A]
+[A]
+
+system is off until time>restartTime
+Number of phases simulated, for now only single phase works with GridInfo, this will set Pha in grid Layout also
+
+
+
+
+
+[Ohm]
+[Ohm]
+[Ohm]
+[Ohm]
+
+[V]
+[V]
+Select if transformer is present or not
+
+
+
+
+
+
+[Ohm]
+[Ohm]
+[Ohm]
+[Ohm]
+
+Vector with the Length of each branch in the network, first value is 0 [m]
+Vector with the Length of each branch in the network, first value is 0 [m]
+[V]
+[V]
+
+
+
+
+
+
+
+
+
+
+[Ohm]
+[Ohm]
+[Ohm]
+[Ohm]
+
+Vector with the Length of each branch in the network, first value is 0 [m]
+Vector with the Length of each branch in the network, first value is 0 [m]
+[V]
+[V]
+Select if transformer is present or not
+[A]
+
+[V]
+[V]
+[V]
+[V]
+[V]
+[V]
+frequency of the source [Hz]
+RMS voltage of the source [V]
+phase shift of the source [rad|deg]
+[V]
+[V]
+[V]
+[V]
+[A]
+[A]
+[A]
+[A]
+[W]
+[W]
+[W]
+[W]
+[var]
+[V]
+[V]
+[A]
+Standby SOC-loss in time interval [1]
+Number of phases: 1 or 3
+[A]
+[A]
+1 or 3, just indicates if it's a single or 3 phase battery system
+
+
+[1]
+[kW.h]
+[1]
+[1]
+[1]
+[1]
+
+
+[W]
+[W]
+[W]
+Choose the number of phases
+
+[1]
+[1]
+[1]
+[1]
+[1]
+[1]
+[kW.h]
+[kW.h]
+[1]
+
+= true, if table is defined on file or in function usertab
+Columns of table to be interpolated
+Number of outputs
+Minimum abscissa value defined in table
+Maximum abscissa value defined in table
+
+
+
+Choose the number of phases
+
+
+[A]
+[A]
+[Ohm]
+[Ohm]
+[Ohm]
+[Ohm]
+[Ohm]
+[Ohm]
+[Ohm]
+[Ohm]
+Characteristic Resistance of the Cable [Ohm/m]
+Characteristic Reactance of the Cable [Ohm/m]
+[Ohm/m]
+[Ohm/m]
+Nominal Electrical Current Fused [A]
+Characteristic Resistance of the Cable [Ohm/m]
+Characteristic Reactance of the Cable [Ohm/m]
+[Ohm/m]
+[Ohm/m]
+Nominal Electrical Current Fused [A]
+[V]
+[V]
+[V]
+[Ohm]
+[Ohm]
+[W]
+[V]
+[V]
+[Ohm]
+[Ohm]
+[W]
+[A]
+[A]
+[Ohm]
+[Ohm]
+[Ohm]
+[Ohm]
+[A]
+[A]
+[Ohm]
+[Ohm]
+[Ohm]
+[Ohm]
+Characteristic Resistance of the Cable [Ohm/m]
+Characteristic Reactance of the Cable [Ohm/m]
+[Ohm/m]
+[Ohm/m]
+Nominal Electrical Current Fused [A]
+Characteristic Resistance of the Cable [Ohm/m]
+Characteristic Reactance of the Cable [Ohm/m]
+[Ohm/m]
+[Ohm/m]
+Nominal Electrical Current Fused [A]
 

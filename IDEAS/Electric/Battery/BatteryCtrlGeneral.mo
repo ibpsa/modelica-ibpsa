@@ -6,10 +6,12 @@ Surplus of PV-production to batteries, and discharging if the PV-production is n
 Remark: should be working; only 1 phase!*/
 extends Modelica.Blocks.Interfaces.BlockIcon;
 
+protected
 parameter Integer numPha=1
     "1 or 3, just indicates if it is a single or 3 phase battery system";
 
 // Inputs and outputs
+public
 Modelica.Blocks.Interfaces.RealOutput PInit
   annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=0,
