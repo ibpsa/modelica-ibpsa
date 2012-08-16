@@ -3,7 +3,7 @@ package Thermal "Thermal systems, HVAC and thermal renewable energy"
 
 
   extends Modelica.Icons.Package;
-  import SI = Modelica.SIunits;
+import SI = Modelica.SIunits;
 
 
 annotation ();

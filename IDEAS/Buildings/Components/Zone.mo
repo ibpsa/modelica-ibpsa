@@ -7,6 +7,7 @@ parameter Modelica.SIunits.Volume V "Total zone air volume";
 parameter Real n50 = 0.6
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
 parameter Real corrCV = 5 "Multiplication factor for the zone air capacity";
+parameter SI.Temperature TOpStart = 294.15;
 
 //to be moved from the zone definition to ventilation models ?
 protected
@@ -46,7 +47,7 @@ protected
         rotation=90,
         origin={-54,-10})));
 
-  Modelica.Blocks.Math.Sum sum(nin=2, k={0.5,0.5},y(start=293.15))
+  Modelica.Blocks.Math.Sum sum(nin=2, k={0.5,0.5}, y(start=TOpStart))
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
 equation
   connect(surfRad, radDistr.radSurfTot) annotation (Line(

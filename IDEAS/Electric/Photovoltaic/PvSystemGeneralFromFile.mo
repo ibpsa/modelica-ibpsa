@@ -1,10 +1,7 @@
 within IDEAS.Electric.Photovoltaic;
 model PvSystemGeneralFromFile "PV system with separate shut-down controller"
 
-parameter Real amount=30;
-parameter Real inc = 34 "inclination";
-parameter Real azi = 0 "azimuth";
-
+parameter Real PNom "Nominal power, in Wp";
 parameter Integer prod=1;
 
 parameter Modelica.SIunits.Time timeOff=300;
@@ -18,7 +15,7 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin          
 
   IDEAS.Electric.Photovoltaic.Components.ForInputFiles.SimpleDCAC_effP
                   invertor(
-                      NPanelen=amount)
+                      PNom=PNom)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   IDEAS.Electric.BaseClasses.WattsLaw wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -27,11 +24,11 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin          
                        pvVoltageCtrl(
                               VMax=VMax,timeOff = timeOff,numPha=numPha)
     annotation (Placement(transformation(extent={{26,20},{46,40}})));
-  outer IDEAS.Electric.Photovoltaic.Components.ForInputFiles.Read10minPV
+  outer IDEAS.Electric.Photovoltaic.Components.ForInputFiles.PVProfileReader
                     PV1
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
-invertor.P_dc=PV1.P_paneel;
+invertor.P_dc=PV1.P_ratio;
   connect(wattsLaw.vi, pin)
                            annotation (Line(
       points={{80,30},{92,30},{92,40},{102,40}},

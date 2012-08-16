@@ -11,7 +11,8 @@ model TestGridAndPVFromFile
   Photovoltaic.PvSystemGeneralFromFile
                             pVFromFilePQ(numPha=3)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  inner Photovoltaic.Components.ForInputFiles.Read10minPV PV1
+  inner IDEAS.Electric.Photovoltaic.Components.ForInputFiles.PVProfileReader
+                                                          PV1
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(pVFromFilePQ.pin, gridGeneral.gridNodes3P[:, 2]) annotation (Line(

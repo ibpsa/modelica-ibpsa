@@ -2,65 +2,69 @@ within IDEAS.Electric.Photovoltaic;
 package Examples
   extends Modelica.Icons.ExamplesPackage;
   model UsePVGeneral
-    PVSystemGeneral pVSystemGeneral
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-    PvSystemGeneralFromFile pvSystemGeneralFromFile
-      annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+
+    PVSystemGeneral pVSystemGeneral(inc=20/180*3.1415, amount=20)
+      annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
+    PvSystemGeneralFromFile pvSystemGeneralFromFile(PNom=20*230.153)
+      annotation (Placement(transformation(extent={{-80,-14},{-60,6}})));
     Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
       voltageSource(f=50, V=230) annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=270,
-          origin={30,-10})));
+          origin={30,-24})));
     Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
-      annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+      annotation (Placement(transformation(extent={{20,-74},{40,-54}})));
     Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.PowerSensor
       powerSensorPV
-      annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+      annotation (Placement(transformation(extent={{-20,46},{0,66}})));
     Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.PowerSensor
       powerSensorPVFile
-      annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-    inner Climate.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Files.min10
-        detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
+      annotation (Placement(transformation(extent={{-20,-14},{0,6}})));
+    inner Climate.SimInfoManager sim(
+                redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
+        IDEAS.Climate.Meteo.Files.min15 detail)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-    inner Components.ForInputFiles.Read10minPV PV1
+    inner IDEAS.Electric.Photovoltaic.Components.ForInputFiles.PVProfileReader
+                                               PV1(fileName=
+          "../Inputs/PV_Inc20_Azi0.txt")
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   equation
     connect(ground.pin, voltageSource.pin_n) annotation (Line(
-        points={{30,-40},{30,-20}},
+        points={{30,-54},{30,-44},{30,-34},{30,-34}},
         color={85,170,255},
         smooth=Smooth.None));
     connect(pVSystemGeneral.pin[1], powerSensorPV.currentP) annotation (Line(
-        points={{-59.8,74},{-40,74},{-40,70},{-20,70}},
+        points={{-59.8,60},{-40,60},{-40,56},{-20,56}},
         color={85,170,255},
         smooth=Smooth.None));
     connect(pvSystemGeneralFromFile.pin[1], powerSensorPVFile.currentP)
       annotation (Line(
-        points={{-59.8,14},{-40,14},{-40,10},{-20,10}},
+        points={{-59.8,0},{-40,0},{-40,-4},{-20,-4}},
         color={85,170,255},
         smooth=Smooth.None));
     connect(powerSensorPVFile.currentN, voltageSource.pin_p) annotation (Line(
-        points={{0,10},{30,10},{30,0}},
+        points={{0,-4},{30,-4},{30,-14}},
         color={85,170,255},
         smooth=Smooth.None));
     connect(powerSensorPV.currentN, voltageSource.pin_p) annotation (Line(
-        points={{0,70},{30,70},{30,0}},
+        points={{0,56},{30,56},{30,-14}},
         color={85,170,255},
         smooth=Smooth.None));
     connect(powerSensorPVFile.voltageP, powerSensorPVFile.currentP) annotation (
        Line(
-        points={{-10,20},{-20,20},{-20,10}},
+        points={{-10,6},{-20,6},{-20,-4}},
         color={85,170,255},
         smooth=Smooth.None));
     connect(powerSensorPV.voltageP, powerSensorPV.currentP) annotation (Line(
-        points={{-10,80},{-20,80},{-20,70}},
+        points={{-10,66},{-20,66},{-20,56}},
         color={85,170,255},
         smooth=Smooth.None));
     connect(powerSensorPV.voltageN, voltageSource.pin_n) annotation (Line(
-        points={{-10,60},{10,60},{10,-20},{30,-20}},
+        points={{-10,46},{10,46},{10,-34},{30,-34}},
         color={85,170,255},
         smooth=Smooth.None));
     connect(powerSensorPVFile.voltageN, voltageSource.pin_n) annotation (Line(
-        points={{-10,0},{-10,-20},{30,-20}},
+        points={{-10,-14},{-10,-34},{30,-34}},
         color={85,170,255},
         smooth=Smooth.None));
     annotation (
@@ -72,7 +76,13 @@ package Examples
   model PVSystem
     "Only a PV system, see python script for generating profiles from this model"
 
-    IDEAS.Electric.Photovoltaic.PVSystemGeneral pVSystemGeneral
+    parameter SI.Angle inc = 40/180*Modelica.Constants.pi annotation(evaluate=False);
+    parameter SI.Angle azi = 45/180*Modelica.Constants.pi annotation(evaluate=False);
+
+    IDEAS.Electric.Photovoltaic.PVSystemGeneral pVSystemGeneral(
+      amount=20,
+      inc=inc,
+      azi=azi)
       annotation (Placement(transformation(extent={{-38,4},{-18,24}})));
     Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
       annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
@@ -87,7 +97,7 @@ package Examples
       annotation (Placement(transformation(extent={{-98,78},{-78,98}})));
   equation
     connect(pVSystemGeneral.pin[1], voltageSource.pin_p) annotation (Line(
-        points={{-17.8,18},{40,10}},
+        points={{-17.8,18},{40,18},{40,10}},
         color={85,170,255},
         smooth=Smooth.None));
     connect(voltageSource.pin_n, ground.pin) annotation (Line(
