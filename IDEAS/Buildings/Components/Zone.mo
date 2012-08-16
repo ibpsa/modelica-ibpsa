@@ -46,7 +46,7 @@ protected
         rotation=90,
         origin={-54,-10})));
 
-  Modelica.Blocks.Math.Sum sum(nin=2, k={0.5,0.5})
+  Modelica.Blocks.Math.Sum sum(nin=2, k={0.5,0.5},y(start=293.15))
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
 equation
   connect(surfRad, radDistr.radSurfTot) annotation (Line(
@@ -82,7 +82,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(epsLw, radDistr.epsLw) annotation (Line(
-      points={{-104,30},{-104,30},{-82,30},{-82,-44},{-64,-44}},
+      points={{-104,30},{-82,30},{-82,-44},{-64,-44}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -111,7 +111,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(radDistrLw.A, area) annotation (Line(
-      points={{-64,-14},{-72,-14},{-72,-14},{-78,-14},{-78,60},{-104,60}},
+      points={{-64,-14},{-78,-14},{-78,60},{-104,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radDistr.area, area) annotation (Line(
