@@ -4,8 +4,8 @@ partial model Occupant
 parameter Integer nZones(min=1) "number of conditioned thermal zones";
 parameter Integer nLoads(min=1) "number of electric loads";
 
-  outer IDEAS.Climate.SimInfoManager sim
-    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  //outer IDEAS.Climate.SimInfoManager sim
+  //  "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
     "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
         iconTransformation(extent={{-110,10},{-90,30}})));
