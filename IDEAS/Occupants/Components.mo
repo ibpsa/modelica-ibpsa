@@ -295,32 +295,37 @@ package Components
       final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
       tableOnFile = true,
       tableName = "data",
-      fileName = fileNameQCon) annotation (Placement(transformation(extent={{-54,52},
+      fileName = fileNameQCon,
+      columns=2:34)            annotation (Placement(transformation(extent={{-54,52},
               {-34,72}})));
 
   Modelica.Blocks.Tables.CombiTable1Ds tabQRad(
       final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
       tableOnFile = true,
       tableName = "data",
-      fileName = fileNameQRad) annotation (Placement(transformation(extent={{-54,22},
+      fileName = fileNameQRad,
+      columns=2:34)            annotation (Placement(transformation(extent={{-54,22},
               {-34,42}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabPre(
       final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
       tableOnFile = true,
       tableName = "data",
-      fileName = fileNamePre) annotation (Placement(transformation(extent={{-54,-10},
+      fileName = fileNamePre,
+      columns=2:34)           annotation (Placement(transformation(extent={{-54,-10},
               {-34,10}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabP(
       final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
       tableOnFile = true,
       tableName = "data",
-      fileName = fileNameP) annotation (Placement(transformation(extent={{-54,-40},
+      fileName = fileNameP,
+      columns=2:34)         annotation (Placement(transformation(extent={{-54,-40},
               {-34,-20}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabQ(
       final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
       tableOnFile = true,
       tableName = "data",
-      fileName = fileNameQ) annotation (Placement(transformation(extent={{-54,-72},
+      fileName = fileNameQ,
+      columns=2:34)         annotation (Placement(transformation(extent={{-54,-72},
               {-34,-52}})));
   equation
   time=tabQCon.u;
