@@ -28,10 +28,10 @@ protected
   Real sinDec = Modelica.Math.sin(angDec);
   Real cosHou = Modelica.Math.cos(angHou);
   Real sinHou = Modelica.Math.sin(angHou);
-  Real cosAlt = Modelica.Math.cos(Modelica.Math.asin(cos(lat)*cosDec*cosHou+sin(lat)*sinDec));
+  Real sinZen = Modelica.Math.sin(angZen);
 
 equation
-  angAzi = asin(sinHou*cosDec/cosAlt)-azi;
+  angAzi = asin(sinHou*cosDec/sinZen)-azi;
 
   annotation (Diagram(graphics), Icon(graphics={
         Polygon(

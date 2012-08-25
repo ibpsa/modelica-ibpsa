@@ -17,7 +17,7 @@
 *.mat
 *.exe
 *.exp
-
+*.rar
 
 /Specifications/Specs.synctex
 /Specifications/Specs.tcp

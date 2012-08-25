@@ -9,7 +9,7 @@ Modelica.SIunits.ApparentPower S;
 //SI.ReactivePower Q;
   parameter Real cosphi=1;      //For now
 
-  parameter Real NPanelen;                 // Number of PV-panels as input
+  parameter Real PNom "Nominal power, in Wp";
   parameter Real P_dc_max=230;                 //MPP for one panel.
   parameter Real eff=0.95;       //For now
 
@@ -22,7 +22,7 @@ Modelica.SIunits.ApparentPower S;
 equation
   S^2=P^2+Q^2;
   P=S*cosphi;
-  P=eff*P_dc*NPanelen;
+  P=eff*P_dc*PNom;
 
 //
 //   // Define efficiency as a function of P_dc (production) against the mpp for the system
