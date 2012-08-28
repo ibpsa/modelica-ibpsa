@@ -24,6 +24,7 @@ package Examples
     TSet[1] = TSetNoOcc + (TSetOcc-TSetNoOcc) * userProfiles.tabPre.y[profileID];
     wattsLawPlug[1].P = userProfiles.tabP.y[profileID];
     wattsLawPlug[1].Q = userProfiles.tabQ.y[profileID];
+    mDHW60C = userProfiles.tabDHW.y[profileID];
 
   end Occupant_FromFiles;
 
