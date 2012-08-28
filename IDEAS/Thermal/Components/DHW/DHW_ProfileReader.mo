@@ -1,5 +1,5 @@
-within IDEAS.Thermal.Components.BaseClasses;
-model DomesticHotWater "DHW consumption to be coupled to a heat source"
+within IDEAS.Thermal.Components.DHW;
+model DHW_ProfileReader "DHW consumption with profile reader"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
   parameter Modelica.SIunits.Temperature TDHWSet=273.15 + 45
@@ -148,4 +148,4 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end DomesticHotWater;
+end DHW_ProfileReader;

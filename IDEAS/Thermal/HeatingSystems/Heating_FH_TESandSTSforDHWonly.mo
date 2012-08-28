@@ -77,7 +77,7 @@ public
         rotation=0,
         origin={-11,-23})));
 
-  Thermal.Components.BaseClasses.DomesticHotWater dHW(
+  IDEAS.Thermal.Components.DHW.DHW_ProfileReader  dHW(
     medium=medium,
     TDHWSet=TDHWSet,
     TCold=TDHWCold,

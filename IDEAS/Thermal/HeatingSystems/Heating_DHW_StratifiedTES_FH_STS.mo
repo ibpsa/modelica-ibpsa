@@ -69,7 +69,7 @@ public
         origin={-26,-14})));
 
 protected
-  Thermal.Components.BaseClasses.DomesticHotWater dHW(
+  IDEAS.Thermal.Components.DHW.DHW_ProfileReader  dHW(
     medium=medium,
     TDHWSet=TDHWSet,
     TCold=TDHWCold,

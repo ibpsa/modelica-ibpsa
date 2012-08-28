@@ -55,7 +55,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     TColdWaterNom=TDHWCold,
     dTSupRetNom=dTSupRetNom)
       annotation (Placement(transformation(extent={{-144,-14},{-124,6}})));
-  Thermal.Components.BaseClasses.DomesticHotWater dHW(
+  IDEAS.Thermal.Components.DHW.DHW_ProfileReader  dHW(
     medium=medium,
     TDHWSet=TDHWSet,
     TCold=TDHWCold,

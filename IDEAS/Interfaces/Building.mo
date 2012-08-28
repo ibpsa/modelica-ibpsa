@@ -11,7 +11,8 @@ model Building
     "Thermal heating system" annotation (Placement(transformation(extent={{-20,-10},{0,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.Occupant occupant(nZones=building.nZones)
     constrainedby IDEAS.Interfaces.Occupant( nZones=building.nZones)
-    "Building occupant" annotation (Placement(transformation(extent={{-20,-42},{0,-22}})),choicesAllMatching = true);
+    "Building occupant" annotation (Placement(transformation(extent={{-20,-40},
+            {0,-20}})),                                                                   choicesAllMatching = true);
   replaceable DummyInHomeGrid inHomeGrid "Inhome electricity grid system"
        annotation (Placement(transformation(extent={{20,-10},{40,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.VentilationSystem ventilationSystem(nZones=building.nZones, VZones = building.VZones)
@@ -35,7 +36,7 @@ initial equation
 
 equation
   connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
-      points={{-10,-9},{-10,-22}},
+      points={{-10,-9},{-10,-20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(building.heatPortEmb, heatingSystem.heatPortEmb) annotation (Line(
@@ -51,7 +52,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortCon, occupant.heatPortCon) annotation (Line(
-      points={{-36,2},{-26,2},{-26,-30},{-20,-30}},
+      points={{-36,2},{-26,2},{-26,-28},{-20,-28}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortRad, heatingSystem.heatPortRad) annotation (Line(
@@ -59,7 +60,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortRad, occupant.heatPortRad) annotation (Line(
-      points={{-36,-2},{-28,-2},{-28,-34},{-20,-34}},
+      points={{-36,-2},{-28,-2},{-28,-32},{-20,-32}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.TSensor, heatingSystem.TSensor) annotation (Line(
@@ -88,7 +89,7 @@ end for;
 
 for i in 1:occupant.nLoads loop
   connect(occupant.plugLoad[i],inHomeGrid.nodeSingle) annotation (Line(
-      points={{0,-32},{10,-32},{10,0},{20,0}},
+      points={{0,-30},{10,-30},{10,0},{20,0}},
       color={85,170,255},
       smooth=Smooth.None));
 end for;
