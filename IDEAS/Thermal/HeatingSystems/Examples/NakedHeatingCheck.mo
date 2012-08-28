@@ -1,37 +1,91 @@
 within IDEAS.Thermal.HeatingSystems.Examples;
 model NakedHeatingCheck
 
-  Thermal.HeatingSystems.Heating_DHW_TES_Radiators heating_DHW_TES(
-    n_C=1,
-    V_C={5},
-    QNom={5000})
-    annotation (Placement(transformation(extent={{-36,10},{-12,30}})));
-  inner IDEAS.Climate.SimInfoManager sim(redeclare
-      IDEAS.Climate.Meteo.Files.min5                                              detail,
-      redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
+  parameter Integer nZones = 1;
+  Heating_DHW_StratifiedTES_FH_STS                 heating_DHW_TES(
+    nZones=nZones,
+    QNom={5000},
+    VZones={100},
+    heaterType=IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType.Boiler)
+    annotation (Placement(transformation(extent={{-6,10},{18,30}})));
+  inner IDEAS.Climate.SimInfoManager sim(
+      redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
+      IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-86,66},{-66,86}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature
-    annotation (Placement(transformation(extent={{-52,66},{-32,86}})));
-  Modelica.Blocks.Sources.Constant const
-    annotation (Placement(transformation(extent={{-12,66},{8,86}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature[nZones]
+                                                         fixedTemperature
+    annotation (Placement(transformation(extent={{-54,8},{-34,28}})));
+  Modelica.Blocks.Sources.Constant[nZones] const(k=273.15 + 21)
+    annotation (Placement(transformation(extent={{-54,-32},{-34,-12}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource voltageSource(
+    f=50,
+    V=230,
+    phi=0) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={74,-8})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
+    annotation (Placement(transformation(extent={{64,-58},{84,-38}})));
+  Interfaces.DummyInHomeGrid dummyInHomeGrid
+    annotation (Placement(transformation(extent={{34,10},{54,30}})));
+  Modelica.Blocks.Sources.Sine sine(
+    amplitude=2,
+    freqHz=1/86400,
+    offset=294.20)
+    annotation (Placement(transformation(extent={{-90,8},{-70,28}})));
+  Modelica.Blocks.Sources.Pulse mDHW60C(
+    each amplitude=0.2,
+    each width=5,
+    each period=20000,
+    each offset=0,
+    startTime=0)
+    annotation (Placement(transformation(extent={{-54,-70},{-34,-50}})));
 equation
-  connect(const.y, heating_DHW_TES.TOp[1]) annotation (Line(
-      points={{9,76},{16,76},{16,40},{-24.3429,40},{-24.3429,29.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(const.y, heating_DHW_TES.TOpAsked[1]) annotation (Line(
-      points={{9,76},{16,76},{16,40},{-21.6,40},{-21.6,29.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(fixedTemperature.port, heating_DHW_TES.heatPortConv[1]) annotation (
+  connect(fixedTemperature.port, heating_DHW_TES.heatPortRad) annotation (
       Line(
-      points={{-32,76},{-29.28,76},{-29.28,30}},
+      points={{-34,18},{-9.42857,18}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(fixedTemperature.port, heating_DHW_TES.heatPortRad[1]) annotation (
+  connect(fixedTemperature.port, heating_DHW_TES.heatPortCon) annotation (
       Line(
-      points={{-32,76},{-27.0857,76},{-27.0857,30}},
+      points={{-34,18},{-24,18},{-24,22},{-9.42857,22}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  connect(fixedTemperature.port, heating_DHW_TES.heatPortEmb) annotation (
+      Line(
+      points={{-34,18},{-24,18},{-24,26},{-9.42857,26}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(const.y, heating_DHW_TES.TSet) annotation (Line(
+      points={{-33,-22},{4.28571,-22},{4.28571,11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(voltageSource.pin_p,ground. pin) annotation (Line(
+      points={{74,-18},{74,-38}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(heating_DHW_TES.plugLoad[1], dummyInHomeGrid.nodeSingle) annotation (
+      Line(
+      points={{18,20},{34,20}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(dummyInHomeGrid.pinSingle, voltageSource.pin_n) annotation (Line(
+      points={{54,20},{74,20},{74,2}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(sine.y, fixedTemperature[1].T) annotation (Line(
+      points={{-69,18},{-56,18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sine.y, heating_DHW_TES.TSensor[1]) annotation (Line(
+      points={{-69,18},{-62,18},{-62,-2},{-14,-2},{-14,14},{-9.15429,14}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(mDHW60C.y, heating_DHW_TES.mDHW60C) annotation (Line(
+      points={{-33,-60},{-14,-60},{-14,-56},{12.5143,-56},{12.5143,11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(graphics),
+    experiment(StopTime=200000, Interval=900),
+    __Dymola_experimentSetupOutput);
 end NakedHeatingCheck;
