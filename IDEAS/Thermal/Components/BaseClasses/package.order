@@ -5,5 +5,4 @@ AbsolutePressure
 Pump
 MixingVolume
 IdealMixer
-DomesticHotWater
 VariableThermalConductor

@@ -11,8 +11,8 @@ model Building
     "Thermal heating system" annotation (Placement(transformation(extent={{-20,-10},{0,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.Occupant occupant(nZones=building.nZones)
     constrainedby IDEAS.Interfaces.Occupant( nZones=building.nZones)
-    "Building occupant" annotation (Placement(transformation(extent={{-20,-40},
-            {0,-20}})),                                                                   choicesAllMatching = true);
+    "Building occupant" annotation (Placement(transformation(extent={{-20,-40},{
+            0,-20}})),                                                                    choicesAllMatching = true);
   replaceable DummyInHomeGrid inHomeGrid "Inhome electricity grid system"
        annotation (Placement(transformation(extent={{20,-10},{40,10}})),choicesAllMatching = true);
   replaceable IDEAS.Interfaces.VentilationSystem ventilationSystem(nZones=building.nZones, VZones = building.VZones)
@@ -71,7 +71,6 @@ equation
       points={{-35.4,-6},{-32,-6},{-32,-6},{-30,-6},{-30,24},{-19.6,24}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heatingSystem.mDHW60C, occupant.mDHW60C);
 
 for i in 1:ventilationSystem.nLoads loop
     connect(ventilationSystem.plugLoad[i],inHomeGrid.nodeSingle) annotation (Line(
@@ -110,6 +109,10 @@ else
       smooth=Smooth.None));
 end if;
 
+  connect(heatingSystem.mDHW60C, occupant.mDHW60C) annotation (Line(
+      points={{-4,-9},{-4,-20}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation(Icon(graphics={Line(
           points={{60,22},{0,74},{-60,24},{-60,-46},{60,-46}},
           color={127,0,0},
