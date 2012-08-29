@@ -5,7 +5,7 @@ parameter Real PNom "Nominal power, in Wp";
 parameter Integer prod=1;
 
 parameter Modelica.SIunits.Time timeOff=300;
-parameter Modelica.SIunits.Voltage VMax=248
+parameter Modelica.SIunits.Voltage VMax=253
     "Max grid voltage for operation of the PV system";
 
 parameter Integer numPha=1;
@@ -28,7 +28,7 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin          
                     PV1
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
-invertor.P_dc=PV1.P_ratio;
+invertor.P_dc=PV1.P_ratio*PNom;
   connect(wattsLaw.vi, pin)
                            annotation (Line(
       points={{80,30},{92,30},{92,40},{102,40}},
