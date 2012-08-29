@@ -7,7 +7,7 @@ equation
   m_flowInit = mDHW60C;
 
 algorithm
-  m_flowTotal := max(mDHW60C, m_minimum) * (273.15+60-TCold) / (TDHWSet - TCold);
+  m_flowTotal := onoff * max(mDHW60C, m_minimum) * (273.15+60-TCold) / (TDHWSet - TCold);
 
 equation
   connect(ambientCold.flowPort, pumpCold.flowPort_a)

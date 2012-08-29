@@ -59,7 +59,7 @@ equation
 
 algorithm
 
-  m_flowTotal := max(m_flowInit, m_minimum);
+  m_flowTotal := onoff * max(m_flowInit, m_minimum);
 
 equation
   connect(ambientCold.flowPort, pumpCold.flowPort_a)
