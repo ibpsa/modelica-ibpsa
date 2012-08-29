@@ -3,7 +3,8 @@ package Examples
 
   extends Modelica.Icons.ExamplesPackage;
 
-  model Occupant_FromFiles "Occupant model based on external files"
+  model Occupant_FromFiles
+    "Occupant model based on external files for a single zone building"
     extends Interfaces.Occupant(nZones=1, nLoads=1);
     parameter Integer profileID = 1
       "Profile ID: the column number in the external files";
@@ -21,7 +22,7 @@ package Examples
 
     heatPortCon[1].Q_flow = -userProfiles.tabQCon.y[profileID];
     heatPortRad[1].Q_flow = -userProfiles.tabQRad.y[profileID];
-    TSet[1] = TSetNoOcc + (TSetOcc-TSetNoOcc) * userProfiles.tabPre.y[profileID];
+    TSet[1] = noEvent(if userProfiles.tabPre.y[profileID] >0.5 then TSetOcc else TSetNoOcc);
     wattsLawPlug[1].P = userProfiles.tabP.y[profileID];
     wattsLawPlug[1].Q = userProfiles.tabQ.y[profileID];
     mDHW60C = userProfiles.tabDHW.y[profileID];
