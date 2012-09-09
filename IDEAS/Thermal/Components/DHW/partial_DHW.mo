@@ -95,8 +95,8 @@ equation
   */
 algorithm
 
-  if noEvent(m_flowInit > 0) then
-    m_minimum :=1e-6;
+  if m_flowInit > 0 then
+    m_minimum :=1e-3;
     onoff :=1;
   else
     m_minimum :=0;
