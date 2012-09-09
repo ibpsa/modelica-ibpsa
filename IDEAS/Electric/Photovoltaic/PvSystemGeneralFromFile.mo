@@ -5,7 +5,7 @@ parameter Real PNom "Nominal power, in Wp";
 parameter Integer prod=1;
 
 parameter Modelica.SIunits.Time timeOff=300;
-parameter Modelica.SIunits.Voltage VMax=248
+parameter Modelica.SIunits.Voltage VMax=253
     "Max grid voltage for operation of the PV system";
 
 parameter Integer numPha=1;
@@ -13,8 +13,8 @@ output Real PInit;
 output Real PFinal;
 Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin           pin[numPha] annotation (Placement(transformation(extent={{92,30},{112,50}},rotation=0)));
 
-  IDEAS.Electric.Photovoltaic.Components.ForInputFiles.SimpleDCAC_effP
-                  invertor(
+parameter IDEAS.Electric.Photovoltaic.Components.ForInputFiles.SimpleDCAC_effP
+                  inverter(
                       PNom=PNom)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   IDEAS.Electric.BaseClasses.WattsLaw wattsLaw(numPha=numPha)
@@ -28,7 +28,7 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin          
                     PV1
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
-invertor.P_dc=PV1.P_ratio;
+inverter.P_dc=PV1.P_ratio*PNom;
   connect(wattsLaw.vi, pin)
                            annotation (Line(
       points={{80,30},{92,30},{92,40},{102,40}},
@@ -48,11 +48,11 @@ invertor.P_dc=PV1.P_ratio;
       points={{102,40},{92,40},{92,4},{42,4},{42,20}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(invertor.P, pvVoltageCtrl.PInit) annotation (Line(
+  connect(inverter.P, pvVoltageCtrl.PInit) annotation (Line(
       points={{-19.4,34},{4,34},{4,36},{26,36}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(invertor.Q, pvVoltageCtrl.QInit)
+  connect(inverter.Q, pvVoltageCtrl.QInit)
    annotation (Line(
       points={{-19.4,26},{4,26},{4,32},{26,32}},
       color={0,0,127},
