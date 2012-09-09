@@ -95,8 +95,8 @@ equation
   */
 algorithm
 
-  if m_flowInit > 0.2*0.11 then // This is the threshold for the DHW profile: below this the flow will be zero
-    m_minimum :=0.2*0.1; // this is the correction for the interpolation. There will be no resulting flowrates below this value
+  if m_flowInit > 0 then
+    m_minimum :=1e-3;
     onoff :=1;
   else
     m_minimum :=0;
