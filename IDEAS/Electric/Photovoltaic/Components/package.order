@@ -5,3 +5,4 @@ SimpleInverter
 PvVoltageToPower
 PvVoltageCtrlGeneral
 DCgen
+PvVoltageCtrlGeneral_InputVGrid

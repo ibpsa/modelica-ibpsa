@@ -26,6 +26,25 @@ algorithm
 P := Modelica.ComplexMath.real(nodeSingle.pin[1].v*Modelica.ComplexMath.conj(nodeSingle.pin[1].i));
 Q := Modelica.ComplexMath.imag(nodeSingle.pin[1].v*Modelica.ComplexMath.conj(nodeSingle.pin[1].i));
 
+
+equation
+  connect(wattsLaw.vi[1], pinSingle) annotation (Line(
+      points={{28,0},{100,0}},
+      color={85,170,255},
+      smooth=Smooth.None));
+
+  connect(voltageSource.pin_p,ground. pin) annotation (Line(
+      points={{-50,-48},{-50,-68}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(nodeSingle, plugToPin_p.plug_p) annotation (Line(
+      points={{-100,0},{-78,0},{-78,-22}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(plugToPin_p.pin_p, voltageSource.pin_n) annotation (Line(
+      points={{-74,-22},{-50,-22},{-50,-28},{-50,-28}},
+      color={85,170,255},
+      smooth=Smooth.None));
   annotation(Icon(graphics={
         Rectangle(
           extent={{28,60},{70,20}},
@@ -66,23 +85,4 @@ Q := Modelica.ComplexMath.imag(nodeSingle.pin[1].v*Modelica.ComplexMath.conj(nod
     Documentation(info="<html>
 <p>This gives an in home grid with single phase plugs and single phase grid connection</p>
 </html>"));
-
-equation
-  connect(wattsLaw.vi[1], pinSingle) annotation (Line(
-      points={{28,0},{100,0}},
-      color={85,170,255},
-      smooth=Smooth.None));
-
-  connect(voltageSource.pin_p,ground. pin) annotation (Line(
-      points={{-50,-48},{-50,-68}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(nodeSingle, plugToPin_p.plug_p) annotation (Line(
-      points={{-100,0},{-78,0},{-78,-22}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(plugToPin_p.pin_p, voltageSource.pin_n) annotation (Line(
-      points={{-74,-22},{-50,-22},{-50,-28},{-50,-28}},
-      color={85,170,255},
-      smooth=Smooth.None));
 end CausalInHomeGrid;

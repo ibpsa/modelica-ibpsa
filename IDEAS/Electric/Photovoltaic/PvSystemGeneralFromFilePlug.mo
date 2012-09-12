@@ -12,8 +12,8 @@ parameter Modelica.SIunits.Voltage VMax=248
 parameter Integer numPha=1;
 output Real PInit;
 output Real PFinal;
-Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug           pin[numPha](m=numPha)
-                                                                                             annotation (Placement(transformation(extent={{92,30},{112,50}},rotation=0)));
+Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plug(m=
+       numPha)                                                                               annotation (Placement(transformation(extent={{92,30},{112,50}},rotation=0)));
 
   IDEAS.Electric.Photovoltaic.Components.ForInputFiles.SimpleDCAC_effP
                   invertor(
@@ -22,7 +22,7 @@ Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug          
   BaseClasses.WattsLawPlug            wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  IDEAS.Electric.Photovoltaic.Components.PvVoltageCtrlGeneral
+  Components.PvVoltageCtrlGeneral_InputVGrid
                        pvVoltageCtrl(
                               VMax=VMax,timeOff = timeOff,numPha=numPha)
     annotation (Placement(transformation(extent={{26,20},{46,40}})));
@@ -31,7 +31,12 @@ Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug          
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
 invertor.P_dc=PV1.P_ratio;
-  connect(wattsLaw.vi, pin)
+
+algorithm
+pvVoltageCtrl.VGrid := max(Modelica.ComplexMath.'abs'(plug.pin[1].v));
+
+equation
+  connect(wattsLaw.vi, plug)
                            annotation (Line(
       points={{80,30},{92,30},{92,40},{102,40}},
       color={0,0,255},
