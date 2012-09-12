@@ -8,7 +8,7 @@ parameter Real timeOff = 300;
 parameter Integer numPha=1
     "1 or 3, just indicates if it's a single or 3 phase PV system";
 
-Boolean switch( start = true) "if true, system is producing";
+Boolean switch( start = true, fixed=true) "if true, system is producing";
 
   Modelica.Blocks.Interfaces.RealInput PInit
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
