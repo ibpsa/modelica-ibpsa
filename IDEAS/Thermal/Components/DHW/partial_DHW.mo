@@ -9,13 +9,13 @@ partial model partial_DHW "partial DHW model"
   Modelica.SIunits.Temperature TMixed(start=TDHWSet)=pumpHot.flowPort_b.h
     /medium.cp "Temperature of the hot source";
 
-  Modelica.SIunits.MassFlowRate m_flowInit
+  Modelica.SIunits.MassFlowRate m_flowInit(start=0)
     "Initial mass flowrate of total DHW consumption";
-  Modelica.SIunits.MassFlowRate m_flowTotal
+  Modelica.SIunits.MassFlowRate m_flowTotal(start=0)
     "mass flowrate of total DHW consumption at TDHWSet, takes into account cut-off at very low flowrates";
-  Modelica.SIunits.MassFlowRate m_flowCold
+  Modelica.SIunits.MassFlowRate m_flowCold(start=0)
     "mass flowrate of cold water to the mixing point";
-  Modelica.SIunits.MassFlowRate m_flowHot
+  Modelica.SIunits.MassFlowRate m_flowHot(start=0)
     "mass flowrate of hot water to the mixing point";
 
   // we need to specify the flowrate in the pump and mixingValve as relative values between 0 and 1
