@@ -14,7 +14,7 @@ model Heating_FH_TESandSTSforDHWonly
     "Position of the top temperature sensor";
   parameter Integer posTBot(max=nbrNodes) = nbrNodes-1
     "Position of the bottom temperature sensor";
-  parameter Integer posOutHP(max=nbrNodes) = if solSys then nbrNodes-1 else nbrNodes
+  parameter Integer posOutHP(max=nbrNodes+1) = if solSys then nbrNodes-1 else nbrNodes+1
     "Position of extraction of TES to HP";
   parameter Integer posInSTS( max=nbrNodes) = nbrNodes-1
     "Position of injection of STS in TES";
