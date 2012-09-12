@@ -28,8 +28,6 @@ protected
   Real m_flowHotInput = m_flowHot/m_flowNom;
   Real m_flowColdInput = m_flowCold/m_flowNom;
   Real TSetVar;
-  Real m_minimum(start=0);
-  Real onoff;
 
   /*
   Slows down the simulation too much.  Should be in post processing
@@ -95,19 +93,9 @@ equation
   */
 algorithm
 
-  if m_flowInit > 0 then
-    m_minimum :=1e-3;
-    onoff :=1;
-  else
-    m_minimum :=0;
-    onoff :=0;
-  end if;
-
   THot := pumpHot.T;
   // put in the extended models: m_flowTotal := ...
   TSetVar := min(THot,TDHWSet);
-  m_flowCold := if noEvent(onoff > 0.5) then m_flowTotal* (THot - TSetVar)/(THot*onoff-TCold) else 0;
-  m_flowHot := if noEvent(onoff > 0.5) then m_flowTotal - m_flowCold else 0;
 
 equation
   connect(ambientCold.flowPort, pumpCold.flowPort_a)
