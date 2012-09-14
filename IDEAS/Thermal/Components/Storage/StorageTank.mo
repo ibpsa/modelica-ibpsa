@@ -15,6 +15,14 @@ model StorageTank "Simplified stratified storage tank"
     "Average heat loss coefficient per m² of tank surface";
   parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in
         1:nbrNodes} "Initial temperature of all Temperature states";
+  parameter Modelica.SIunits.Time tauBuo(min=0) = 60
+    "Time constant for mixing in case of temperature inversion.  See code for info";
+
+    /* 
+    A validation excercise has shown that with all other values kept to default, tau should be set to 
+    220s in case of 10 nodes, and 60s in case of 20 nodes.
+    */
+
   parameter Boolean preventNaturalDestratification = true
     "if true, this automatically increases the insulation of the top layer";
 
@@ -41,7 +49,7 @@ model StorageTank "Simplified stratified storage tank"
   Thermal.Components.Storage.Buoyancy buoancy(
     nbrNodes=nbrNodes,
     medium=medium,
-    tau=100,
+    tau=tauBuo,
     V=volumeTank)
     "Buoancy model to mix nodes in case of inversed temperature stratification";
 

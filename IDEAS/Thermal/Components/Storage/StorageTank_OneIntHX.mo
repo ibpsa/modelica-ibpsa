@@ -19,8 +19,13 @@ model StorageTank_OneIntHX
     "Average heat loss coefficient per m² of tank surface";
   parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in
         1:nbrNodes} "Initial temperature of all Temperature states";
-  parameter Modelica.SIunits.Time tauBuo(min=0)
-    "Time constant for mixing in case of temperature inversion";
+  parameter Modelica.SIunits.Time tauBuo(min=0) = 60
+    "Time constant for mixing in case of temperature inversion.  See code for info";
+
+    /* 
+    A validation excercise has shown that with all other values kept to default, tau should be set to 
+    220s in case of 10 nodes, and 60s in case of 20 nodes.
+    */
   parameter Boolean preventNaturalDestratification = true
     "if true, this automatically increases the insulation of the top layer";
 
@@ -178,5 +183,4 @@ equation
         Ellipse(extent={{-62,-46},{60,-70}}, lineColor={0,0,255}),
         Rectangle(extent={{-62,64},{60,-58}}, lineColor={0,0,255})}), Diagram(
         graphics));
-
 end StorageTank_OneIntHX;
