@@ -19,13 +19,15 @@ model StorageTank_OneIntHX
     "Average heat loss coefficient per m² of tank surface";
   parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in
         1:nbrNodes} "Initial temperature of all Temperature states";
+  parameter Modelica.SIunits.Time tauBuo(min=0)
+    "Time constant for mixing in case of temperature inversion";
   parameter Boolean preventNaturalDestratification = true
     "if true, this automatically increases the insulation of the top layer";
 
   // HX configuration
-  parameter Integer nodeHXUpper(min=1, max=nbrNodes) = 1
+  parameter Integer nodeHXUpper(min=1, max=nodeHXLower) = 1
     "Upper entry/exit tank node for the HX";
-  parameter Integer nodeHXLower(min=1, max=nbrNodes) = nbrNodes
+  parameter Integer nodeHXLower(min=nodeHXUpper, max=nbrNodes) = nbrNodes
     "Lower entry/exit tank node for the HX";
   final parameter Integer nbrNodesHX = nodeHXLower - nodeHXUpper + 1
     "number of HX nodes";
@@ -61,20 +63,20 @@ model StorageTank_OneIntHX
       Placement(transformation(extent={{52,-10},{72,10}}), iconTransformation(
           extent={{52,-10},{72,10}})));
 
+  BaseClasses.HeatedPipe HX[nbrNodesHX](
+     each m = mHX/nbrNodesHX,
+     each medium = mediumHX,
+     TInitial = TInitial[nodeHXUpper:nodeHXLower])
+   annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={0,-20})));
   Thermal.Components.Storage.Buoyancy buoancy(
     nbrNodes=nbrNodes,
     medium=medium,
-    tau=100,
+    tau=tauBuo,
     V=volumeTank)
     "Buoancy model to mix nodes in case of inversed temperature stratification";
-
-  BaseClasses.HeatedPipe HX[nbrNodesHX](
-     each m = mHX/nbrNodexHX,
-     each medium = mediumHX)
-   annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,0})));
 
 function areaCalculation
   input Modelica.SIunits.Volume volumeTank;
@@ -112,6 +114,16 @@ protected
     G = U * areaCalculation(volumeTank, heightTank, nbrNodes, preventNaturalDestratification))
     "Array of conduction loss components to the environment";
 
+public
+  Interfaces.FlowPort_b flowPortHXLower(medium=mediumHX)
+    "Lower connection to the HX"
+    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
+  Interfaces.FlowPort_a flowPortHXUpper(medium=mediumHX)
+    "Upper connection to the internal HX"
+    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor heaTraHX[nbrNodesHX](
+    each G = hHX * AHX/nbrNodesHX) "Heat transfer between HX and tank layers"
+    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
 equation
   // Connection of upper and lower node to external flowPorts
   connect(flowPort_a, nodes[1].flowPort_a);
@@ -136,9 +148,28 @@ equation
 
   // Connection of buoancy model
   connect(buoancy.heatPort, nodes.heatPort);
+
+  // Connections of the internal HX
+  for i in 1:nbrNodesHX -1 loop
+    connect(HX[i].flowPort_b, HX[i+1].flowPort_a);
+  end for;
+  connect(flowPortHXUpper, HX[1].flowPort_a) annotation (Line(
+      points={{-100,20},{1.83697e-015,20},{1.83697e-015,-10}},
+      color={255,0,0},
+      smooth=Smooth.None));
+  connect(flowPortHXLower, HX[nbrNodesHX].flowPort_b) annotation (Line(
+      points={{-100,-60},{-1.83697e-015,-60},{-1.83697e-015,-30}},
+      color={255,0,0},
+      smooth=Smooth.None));
+  connect(heaTraHX.port_b, HX.heatPort) annotation (Line(
+      points={{-30,-20},{-20,-20},{-20,-20},{-10,-20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heaTraHX.port_a, nodes[nodeHXUpper:nodeHXLower].heatPort);
   annotation (Icon(graphics={
         Ellipse(extent={{-62,76},{60,52}}, lineColor={0,0,255}),
         Ellipse(extent={{-62,-46},{60,-70}}, lineColor={0,0,255}),
         Rectangle(extent={{-62,64},{60,-58}}, lineColor={0,0,255})}), Diagram(
         graphics));
+
 end StorageTank_OneIntHX;

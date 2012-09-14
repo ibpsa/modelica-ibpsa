@@ -3,6 +3,7 @@ HPTester
 RadTester
 HeatingSystem
 StorageTank
+StorageTank_InternalHX
 AmbientTester
 TempMixingTester
 DHWTester
@@ -21,3 +22,4 @@ TankLosses
 FloorHeatingComparisonDiscrete
 NakedTabsTester
 TestCollector
+StorageTank_InternalHX_Validation
