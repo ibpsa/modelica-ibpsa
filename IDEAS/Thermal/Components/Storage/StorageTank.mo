@@ -81,6 +81,10 @@ protected
     G = U * areaCalculation(volumeTank, heightTank, nbrNodes, preventNaturalDestratification))
     "Array of conduction loss components to the environment";
 
+public
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes-1] conductionWater(each G = (volumeTank/heightTank) / (heightTank / nbrNodes) * medium.lamda)
+    "Conduction heat transfer between the layers"
+    annotation (Placement(transformation(extent={{-20,-4},{0,16}})));
 equation
   // Connection of upper and lower node to external flowPorts
   connect(flowPort_a, nodes[1].flowPort_a);
@@ -90,6 +94,8 @@ equation
   if nbrNodes > 1 then
     for i in 2:nbrNodes loop
       connect(nodes[i-1].flowPort_b, nodes[i].flowPort_a);
+      connect(nodes[i-1].heatPort, conductionWater[i-1].port_a);
+      connect(nodes[i].heatPort, conductionWater[i-1].port_b);
     end for;
   end if;
 
