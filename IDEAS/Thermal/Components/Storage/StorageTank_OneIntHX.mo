@@ -71,6 +71,11 @@ model StorageTank_OneIntHX
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,-20})));
+
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes-1] conductionWater(each G = (volumeTank/heightTank) / (heightTank / nbrNodes) * medium.lamda)
+    "Conduction heat transfer between the layers"
+    annotation (Placement(transformation(extent={{-20,-4},{0,16}})));
+
   Thermal.Components.Storage.Buoyancy buoancy(
     nbrNodes=nbrNodes,
     medium=medium,
@@ -133,6 +138,8 @@ equation
   if nbrNodes > 1 then
     for i in 2:nbrNodes loop
       connect(nodes[i-1].flowPort_b, nodes[i].flowPort_a);
+      connect(nodes[i-1].heatPort, conductionWater[i-1].port_a);
+      connect(nodes[i].heatPort, conductionWater[i-1].port_b);
     end for;
   end if;
 

@@ -28,10 +28,10 @@ model StorageTank_InternalHX_Validation
     volumeTank=0.39,
     heightTank=1.4,
     TInitial={283.15 for i in 1:tank.nbrNodes},
-    nbrNodes=50,
-    nodeHXUpper=30,
-    nodeHXLower=50,
-    tauBuo=1)                                             annotation (
+    nbrNodes=5,
+    nodeHXUpper=3,
+    nodeHXLower=5,
+    tauBuo=100)                                           annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
