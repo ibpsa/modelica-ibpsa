@@ -5,9 +5,9 @@ model StorageTank_InternalHX_Validation
   Thermal.Components.BaseClasses.Pump volumeFlow1(
     medium=Data.Media.Water(),
     m=4,
-    TInitial=328.15,
     useInput=false,
-    m_flowNom=1)
+    TInitial=328.15,
+    m_flowNom=0.75)
     annotation (Placement(transformation(extent={{-88,-16},{-68,4}})));
   Thermal.Components.BaseClasses.HeatedPipe boiler(
     medium=Data.Media.Water(),
@@ -29,9 +29,9 @@ model StorageTank_InternalHX_Validation
     heightTank=1.4,
     TInitial={283.15 for i in 1:tank.nbrNodes},
     nbrNodes=5,
-    nodeHXUpper=3,
     nodeHXLower=5,
-    tauBuo=100)                                           annotation (
+    tauBuo=100,
+    nodeHXUpper=2)                                        annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
