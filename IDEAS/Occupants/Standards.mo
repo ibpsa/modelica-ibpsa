@@ -30,14 +30,14 @@ wattsLawPlug.P = {heatPortCon[1].Q_flow + heatPortRad[1].Q_flow};
 wattsLawPlug.Q = {0};
 
 if noEvent(t <= 7 or t >= 23) then
-  heatPortCon.Q_flow = -AFloor.*{QDay[3]}*0.5;
-  TSet={18};
+  heatPortCon.Q_flow = -AFloor*QDay[3]*0.5;
+  TSet=ones(nZones)*(18+273.15);
 elseif noEvent(t > 7 and t <=17) then
-  heatPortCon.Q_flow = -AFloor.*{QDay[1]}*0.5;
-  TSet={16};
+  heatPortCon.Q_flow = -AFloor*QDay[1]*0.5;
+  TSet=ones(nZones)*(16+273.15);
 else
-  heatPortCon.Q_flow = -AFloor.*{QDay[2]}*0.5;
-  TSet={21};
+  heatPortCon.Q_flow = -AFloor*QDay[2]*0.5;
+  TSet=ones(nZones)*(21+273.15);
 end if;
 
   annotation (Diagram(graphics));
