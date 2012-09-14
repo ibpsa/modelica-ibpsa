@@ -22,7 +22,7 @@ Modelica.SIunits.ApparentPower S;
 equation
   S^2=P^2+Q^2;
   P=S*cosphi;
-  P=eff*P_dc*PNom;
+  P=eff*P_dc;
 
 //
 //   // Define efficiency as a function of P_dc (production) against the mpp for the system

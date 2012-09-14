@@ -63,7 +63,7 @@ public
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
     dTSupRetNom=dTSupRetNom)
-      annotation (Placement(transformation(extent={{-144,-14},{-124,6}})));
+      annotation (choicesAllMatching=true, Placement(transformation(extent={{-144,-14},{-124,6}})));
 
   Thermal.Components.Storage.StorageTank tesTank(
     flowPort_a(m_flow(start=0)),
@@ -77,13 +77,17 @@ public
         rotation=0,
         origin={-11,-23})));
 
-  Thermal.Components.BaseClasses.DomesticHotWater dHW(
+  replaceable IDEAS.Thermal.Components.DHW.DHW_ProfileReader  dHW(
     medium=medium,
     TDHWSet=TDHWSet,
     TCold=TDHWCold,
     VDayAvg=nOcc*0.045,
-    profileType=3)
-    annotation (Placement(transformation(extent={{-56,-28},{-46,-12}})));
+    profileType=3) constrainedby IDEAS.Thermal.Components.DHW.partial_DHW(
+      medium=medium,
+      TDHWSet=TDHWSet,
+      TCold=TDHWCold)
+    annotation (choicesAllMatching = true, Placement(transformation(extent={{-56,-28},{-46,-12}})));
+
 protected
   IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[
                                nZones] heatingControl
@@ -264,6 +268,10 @@ end for;
       points={{22,-8},{31.4,-8},{31.4,-8.6}},
       color={0,0,127},
       smooth=Smooth.Bezier));
+  connect(mDHW60C, dHW.mDHW60C) annotation (Line(
+      points={{120,-90},{120,-76},{-80,-76},{-80,-20},{-56.3,-20}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
             -100},{200,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,

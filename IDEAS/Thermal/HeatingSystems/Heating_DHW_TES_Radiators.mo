@@ -46,6 +46,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     annotation (Placement(transformation(extent={{-44,-84},{-60,-68}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-90,26},{-78,38}})));
+
   replaceable Thermal.Control.HPControl_HeatingCurve HPControl(
     heatingCurve(timeFilter=timeFilter),
     TTankTop=tesTank.nodes[1].T,
@@ -53,15 +54,25 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
+    dTSupRetNom=dTSupRetNom) constrainedby Thermal.Control.PartialHPControl(
+    heatingCurve(timeFilter=timeFilter),
+    TTankTop=TSto[posTTop],
+    TTankBot=TSto[posTBot],
+    DHW=true,
+    TDHWSet=TDHWSet,
+    TColdWaterNom=TDHWCold,
     dTSupRetNom=dTSupRetNom)
-      annotation (Placement(transformation(extent={{-144,-14},{-124,6}})));
-  Thermal.Components.BaseClasses.DomesticHotWater dHW(
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{-144,-14},{-124,6}})));
+  replaceable IDEAS.Thermal.Components.DHW.DHW_ProfileReader  dHW(
     medium=medium,
     TDHWSet=TDHWSet,
     TCold=TDHWCold,
     VDayAvg=nOcc*0.045,
-    profileType=3)
-    annotation (Placement(transformation(extent={{-28,-24},{-8,-4}})));
+    profileType=3)  constrainedby IDEAS.Thermal.Components.DHW.partial_DHW(
+      medium=medium,
+      TDHWSet=TDHWSet,
+      TCold=TDHWCold)
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{-18,-24},{-8,-4}})));
 
 protected
   IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[
@@ -111,11 +122,11 @@ end for;
 // general connections for any configuration
 
     connect(emission.heatPortCon, heatPortCon) annotation (Line(
-      points={{82,14},{82,62},{-100,62},{-100,20}},
+      points={{82,14},{82,62},{-200,62},{-200,20}},
       color={191,0,0},
       smooth=Smooth.None));
     connect(emission.heatPortRad, heatPortRad) annotation (Line(
-      points={{86,14},{86,64},{-100,64},{-100,-20}},
+      points={{86,14},{86,64},{-200,64},{-200,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -133,11 +144,11 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(dHW.flowPortHot, tesTank.flowPort_a) annotation (Line(
-      points={{-18,-4},{-18,4},{-40,4},{-40,-4}},
+      points={{-13,-4},{-13,4},{-40,4},{-40,-4}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(TSensor, heatingControl.u) annotation (Line(
-      points={{-96,-60},{-96,32},{29,32}},
+      points={{-196,-60},{-196,32},{29,32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
@@ -153,7 +164,7 @@ end for;
       color={255,0,0},
       smooth=Smooth.None));
   connect(dHW.flowPortCold, pipeDHW.flowPort_b) annotation (Line(
-      points={{-18,-24},{-18,-34},{-22,-34}},
+      points={{-13,-24},{-13,-34},{-22,-34}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pipeDHW.flowPort_a, tesTank.flowPort_b) annotation (Line(
@@ -183,7 +194,7 @@ end for;
       smooth=Smooth.None));
 
     connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
-      points={{71.4,14},{70,14},{70,58},{-66,58},{-66,86},{-100,86},{-100,60}},
+      points={{71.4,14},{70,14},{70,58},{-66,58},{-66,86},{-200,86},{-200,60}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -197,6 +208,10 @@ end for;
       smooth=Smooth.None));
   connect(HPControl.THPSet, heater.TSet) annotation (Line(
       points={{-123.4,2},{-104,2},{-104,-2},{-92.6,-2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(mDHW60C, dHW.mDHW60C) annotation (Line(
+      points={{120,-90},{120,-72},{-24,-72},{-24,-14},{-18.3,-14}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,

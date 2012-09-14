@@ -1,17 +1,18 @@
-within IDEAS.Thermal.Components.BaseClasses;
-model DomesticHotWater "DHW consumption to be coupled to a heat source"
+within IDEAS.Thermal.Components.DHW;
+partial model partial_DHW "partial DHW model"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
-  parameter Modelica.SIunits.Temperature TDHWSet=273.15 + 45
+  parameter Modelica.SIunits.Temperature TDHWSet(max=273.15+60) = 273.15 + 45
     "DHW temperature setpoint";
   parameter Modelica.SIunits.Temperature TCold=283.15;
   Modelica.SIunits.Temperature THot "Temperature of the hot source";
   Modelica.SIunits.Temperature TMixed(start=TDHWSet)=pumpHot.flowPort_b.h
     /medium.cp "Temperature of the hot source";
-  parameter Modelica.SIunits.Volume VDayAvg "Average daily water consumption";
 
+  Modelica.SIunits.MassFlowRate m_flowInit
+    "Initial mass flowrate of total DHW consumption";
   Modelica.SIunits.MassFlowRate m_flowTotal
-    "mass flowrate of total DHW consumption";
+    "mass flowrate of total DHW consumption at TDHWSet, takes into account cut-off at very low flowrates";
   Modelica.SIunits.MassFlowRate m_flowCold
     "mass flowrate of cold water to the mixing point";
   Modelica.SIunits.MassFlowRate m_flowHot
@@ -19,19 +20,10 @@ model DomesticHotWater "DHW consumption to be coupled to a heat source"
 
   // we need to specify the flowrate in the pump and mixingValve as relative values between 0 and 1
   // so we compute a maximum flowrate and use this as nominal flowrate for these components
-  // We suppose the daily consumption will always be consumed in MORE than 10s.
+  // We suppose the flowrate will always be lower than 1e3 kg/s.
 
-  parameter Integer profileType = 1 "Type of the DHW tap profile";
-  Modelica.Blocks.Tables.CombiTable1Ds table(
-    tableOnFile = true,
-    tableName = "data",
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName= "..\\Inputs\\" + "DHWProfile.txt",
-    columns=2:4)
-    annotation(Placement(visible = true, transformation(origin={-62,66.5},   extent={{-15,15},
-            {15,-15}},                                                                                     rotation = 0)));
 protected
-  parameter Modelica.SIunits.MassFlowRate m_flowNom=VDayAvg*medium.rho/100
+  parameter Modelica.SIunits.MassFlowRate m_flowNom=1e3
     "only used to set a reference";
   Real m_flowHotInput = m_flowHot/m_flowNom;
   Real m_flowColdInput = m_flowCold/m_flowNom;
@@ -85,18 +77,13 @@ public
         rotation=-90,
         origin={0,54})));
 
-  Modelica.Blocks.Sources.Sine  sine(
-    amplitude=0.1,
-    startTime=7*3600,
-    freqHz=1/86400,
-    offset=0)
-    annotation (Placement(transformation(extent={{-70,2},{-50,22}})));
+  Modelica.Blocks.Interfaces.RealInput mDHW60C
+    "Mass flowrate of DHW at 60 degC in kg/s"
+    annotation (Placement(transformation(extent={{-126,-20},{-86,20}})));
 equation
-  //m_flowTotal = table.y[profileType] * VDayAvg * medium.rho;
-  table.u =  time;
   pumpCold.m_flowSet = m_flowColdInput;
   pumpHot.m_flowSet = m_flowHotInput;
-  //pumpHot1.m_flowSet = m_flowHotInput;
+
   /*
   // computation of DHW discomfort: too slow here, ==> post processing
   der(m_flowIntegrated) =m_flowTotal;
@@ -108,8 +95,8 @@ equation
   */
 algorithm
 
-  if noEvent(table.y[profileType] > 0) then
-    m_minimum :=1e-6;
+  if m_flowInit > 0 then
+    m_minimum :=1e-3;
     onoff :=1;
   else
     m_minimum :=0;
@@ -117,7 +104,7 @@ algorithm
   end if;
 
   THot := pumpHot.T;
-  m_flowTotal := max(table.y[profileType], m_minimum)* VDayAvg * medium.rho;
+  // put in the extended models: m_flowTotal := ...
   TSetVar := min(THot,TDHWSet);
   m_flowCold := if noEvent(onoff > 0.5) then m_flowTotal* (THot - TSetVar)/(THot*onoff-TCold) else 0;
   m_flowHot := if noEvent(onoff > 0.5) then m_flowTotal - m_flowCold else 0;
@@ -148,4 +135,4 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end DomesticHotWater;
+end partial_DHW;

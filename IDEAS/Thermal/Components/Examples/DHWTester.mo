@@ -7,19 +7,17 @@ model DHWTester "Test the DHW component"
     TInitial={273.15 + 60 for i in 1:storageTank.nbrNodes},
     volumeTank=0.3,
     heightTank=1.6,
-    UA=0.4,
+    U=0.4,
     medium=medium)
     annotation (Placement(transformation(extent={{42,-64},{-30,10}})));
 
-  Thermal.Components.BaseClasses.DomesticHotWater dHW(
+  DHW.DHW_RealInput                               dHW(
     medium=medium,
-    VDayAvg=0.2,
-    TDHWSet=273.15 + 45,
-    profileType=3)
+    TDHWSet=273.15 + 45)
     annotation (Placement(transformation(extent={{62,-46},{82,-26}})));
   Production.HP_AWMod_Losses
                       hP_AWMod(TSet = HPControl.THPSet, QNom=10000, medium=medium)
-    annotation (Placement(transformation(extent={{-90,2},{-70,22}})));
+    annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
   Thermal.Components.BaseClasses.Pump pump(
     medium=medium,
     m=1,
@@ -38,10 +36,15 @@ model DHWTester "Test the DHW component"
     DHW=true,
     TDHWSet=318.15)
     annotation (Placement(transformation(extent={{-48,34},{-28,54}})));
-  Modelica.Blocks.Sources.Pulse pulse(period=3600)
+  Modelica.Blocks.Sources.Pulse pulse(period=3600, width=10)
     annotation (Placement(transformation(extent={{-60,-26},{-40,-6}})));
+  Modelica.Blocks.Sources.SawTooth sawTooth(
+    period=1000,
+    startTime=30000,
+    amplitude=0.15)
+    annotation (Placement(transformation(extent={{30,32},{50,52}})));
 equation
-  //pump.m_flowSet = HPControl.onOff;
+  dHW.mDHW60C = pulse.y * sawTooth.y;
   pump.m_flowSet = HPControl.onOff;
   connect(dHW.flowPortCold, storageTank.flowPort_b) annotation (Line(
       points={{72,-46},{58,-46},{58,-64},{6,-64}},
@@ -56,11 +59,11 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump.flowPort_b, hP_AWMod.flowPort_a) annotation (Line(
-      points={{-44,-64},{-64,-64},{-64,10},{-70,10}},
+      points={{-44,-64},{-64,-64},{-64,6},{-70,6}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(hP_AWMod.flowPort_b, storageTank.flowPort_a) annotation (Line(
-      points={{-70,14},{-24,14},{-24,10},{6,10}},
+      points={{-70,10},{6,10}},
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics));

@@ -5,7 +5,7 @@ model Test_FloorHeatingSystem
 parameter Integer nZones = 2 "Number of zones";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature[nZones] TAmb
     annotation (Placement(transformation(extent={{32,-22},{12,-2}})));
-  Thermal.HeatingSystems.Heating_FH_TESandSTSforDHWonly heating(
+  Heating_FH_TESandSTSforDHWonly                        heating(
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     timeFilter=43200,
@@ -15,7 +15,7 @@ parameter Integer nZones = 2 "Number of zones";
     volumeTank=0.3,
     AColTot=0.001,
     solSys=true)
-    annotation (Placement(transformation(extent={{0,-90},{50,-62}})));
+    annotation (Placement(transformation(extent={{0,-82},{50,-54}})));
 
   inner IDEAS.Climate.SimInfoManager       sim(
                                         redeclare
@@ -23,7 +23,7 @@ parameter Integer nZones = 2 "Number of zones";
       IDEAS.Climate.Meteo.Files.min5
       detail)
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nZones] heatCapacitor(C={i*1e6 for i in 1:nZones}, T(each fixed=false, each start=292))
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nZones] heatCapacitor(C={i*1e6 for i in 1:nZones}, each T(fixed=false, start=292))
     annotation (Placement(transformation(extent={{-56,-4},{-36,16}})));
   Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convection
     annotation (Placement(transformation(extent={{-24,-22},{-4,-2}})));
@@ -59,6 +59,13 @@ parameter Integer nZones = 2 "Number of zones";
     annotation (Placement(transformation(extent={{108,-102},{128,-82}})));
   Interfaces.DummyInHomeGrid dummyInHomeGrid
     annotation (Placement(transformation(extent={{70,-90},{90,-70}})));
+  Modelica.Blocks.Sources.Pulse mDHW60C(
+    each amplitude=0.2,
+    each width=5,
+    each period=20000,
+    each offset=0,
+    startTime=0)
+    annotation (Placement(transformation(extent={{-40,-108},{-20,-88}})));
 equation
   TAmb.T = sim.Te * ones(nZones);
   convection.Gc = heating.QNom/40;
@@ -84,15 +91,15 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heating.TSet, TOpSet.y) annotation (Line(
-      points={{21.4286,-88.6},{32,-88},{44,-88},{44,62},{-37,62},{-37,60}},
+      points={{25,-80.6},{26,-96},{44,-96},{44,62},{-37,62},{-37,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heating.TSensor, temperatureSensor.T) annotation (Line(
-      points={{7.71429,-84.4},{2,-84},{-2,-84},{-2,-54},{-10,-54},{-10,-52}},
+      points={{0.5,-76.4},{2,-84},{-2,-84},{-2,-54},{-10,-54},{-10,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heating.heatPortEmb, nakedTabs.portCore) annotation (Line(
-      points={{7.14286,-67.6},{-26,-67.6},{-26,-80},{-64,-80}},
+      points={{0,-59.6},{-26,-59.6},{-26,-80},{-64,-80}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(voltageSource.pin_p,ground. pin) annotation (Line(
@@ -104,8 +111,12 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(heating.plugLoad[1], dummyInHomeGrid.nodeSingle) annotation (Line(
-      points={{35.7143,-76},{48,-76},{48,-78},{70,-78},{70,-80}},
+      points={{50,-68},{48,-68},{48,-78},{70,-78},{70,-80}},
       color={85,170,255},
+      smooth=Smooth.None));
+  connect(mDHW60C.y, heating.mDHW60C) annotation (Line(
+      points={{-19,-98},{40,-98},{40,-80.6}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics),
     experiment(StopTime=300000, Interval=900),

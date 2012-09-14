@@ -53,8 +53,15 @@ public
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
+    dTSupRetNom=dTSupRetNom) constrainedby Thermal.Control.PartialHPControl(
+    heatingCurve(timeFilter=timeFilter),
+    TTankTop=TSto[posTTop],
+    TTankBot=TSto[posTBot],
+    DHW=true,
+    TDHWSet=TDHWSet,
+    TColdWaterNom=TDHWCold,
     dTSupRetNom=dTSupRetNom)
-      annotation (Placement(transformation(extent={{-144,-14},{-124,6}})));
+      annotation (choicesAllMatching=true, Placement(transformation(extent={{-144,-14},{-124,6}})));
 
   Thermal.Components.Storage.StorageTank tesTank(
     flowPort_a(m_flow(start=0)),
@@ -69,13 +76,16 @@ public
         origin={-26,-14})));
 
 protected
-  Thermal.Components.BaseClasses.DomesticHotWater dHW(
+  replaceable IDEAS.Thermal.Components.DHW.DHW_ProfileReader  dHW(
     medium=medium,
     TDHWSet=TDHWSet,
     TCold=TDHWCold,
     VDayAvg=nOcc*0.045,
-    profileType=3)
-    annotation (Placement(transformation(extent={{-56,-22},{-46,-6}})));
+    profileType=3) constrainedby IDEAS.Thermal.Components.DHW.partial_DHW(
+      medium=medium,
+      TDHWSet=TDHWSet,
+      TCold=TDHWCold)
+    annotation (choicesAllMatching=true, Placement(transformation(extent={{-56,-22},{-46,-6}})));
 
   IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[
                                nZones] heatingControl
@@ -156,11 +166,11 @@ end for;
 // general connections for any configuration
 
     connect(emission.heatPortCon, heatPortCon) annotation (Line(
-      points={{59.6,14},{59.6,62},{-100,62},{-100,20}},
+      points={{59.6,14},{59.6,62},{-200,62},{-200,20}},
       color={191,0,0},
       smooth=Smooth.None));
     connect(emission.heatPortRad, heatPortRad) annotation (Line(
-      points={{62.8,14},{62.8,64},{-100,64},{-100,-20}},
+      points={{62.8,14},{62.8,64},{-200,64},{-200,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -182,7 +192,7 @@ end for;
       color={255,0,0},
       smooth=Smooth.None));
   connect(TSensor, heatingControl.u) annotation (Line(
-      points={{-96,-60},{-96,32},{29,32}},
+      points={{-196,-60},{-196,32},{29,32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
@@ -220,7 +230,7 @@ end for;
       smooth=Smooth.None));
 
     connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
-      points={{51.12,14},{70,14},{70,58},{-66,58},{-66,86},{-100,86},{-100,60}},
+      points={{51.12,14},{70,14},{70,58},{-66,58},{-66,86},{-200,86},{-200,60}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -255,6 +265,10 @@ end for;
       smooth=Smooth.None));
   connect(TBot, solarThermal.TLow) annotation (Line(
       points={{41,-59},{18,-59},{18,-68.6},{6.6,-68.6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(mDHW60C, dHW.mDHW60C) annotation (Line(
+      points={{120,-90},{120,-36},{-64,-36},{-64,-14},{-56.3,-14}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,

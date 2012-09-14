@@ -51,6 +51,10 @@ partial model HeatingSystem "Partial heating system inclusif control"
         origin={0,-90})));
   Electric.BaseClasses.WattsLawPlug[nLoads] wattsLawPlug(each numPha=1)
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
+  Modelica.Blocks.Interfaces.RealInput mDHW60C
+    "mFlow for domestic hot water, at 60 degC"  annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={120,-90})));
 
 // Total heat use ///////////////////////////////////////////////////////////////////////////////////////
   SI.Power QHeatTotal "Total net heat use (space heating + DHW, if present)";

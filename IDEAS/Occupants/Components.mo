@@ -286,9 +286,11 @@ package Components
       "File with radiative heat gains, in W";
   parameter String fileNamePre = "../Inputs/User_Presence.txt"
       "File with presence (binary 0-1)";
+  parameter String fileNameDHW = "../Inputs/User_mDHW.txt"
+      "File with DHW consumption at 60 degC, in kg/s";
   parameter String fileNameP = "../Inputs/User_P.txt"
       "File with active power, in W";
-  parameter String fileNameQ = "../Inputs/User_Q.txt"
+  parameter String fileNameQ = "../Inputs/User_zeros.txt"
       "File with reactive power, in W";
 
   Modelica.Blocks.Tables.CombiTable1Ds tabQCon(
@@ -311,26 +313,35 @@ package Components
       tableOnFile = true,
       tableName = "data",
       fileName = fileNamePre,
-      columns=2:34)           annotation (Placement(transformation(extent={{-54,-10},
-              {-34,10}})));
+      columns=2:34)           annotation (Placement(transformation(extent={{18,52},
+              {38,72}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabP(
       final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
       tableOnFile = true,
       tableName = "data",
       fileName = fileNameP,
-      columns=2:34)         annotation (Placement(transformation(extent={{-54,-40},
-              {-34,-20}})));
+      columns=2:34)         annotation (Placement(transformation(extent={{-54,-60},
+              {-34,-40}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabQ(
       final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
       tableOnFile = true,
       tableName = "data",
       fileName = fileNameQ,
-      columns=2:34)         annotation (Placement(transformation(extent={{-54,-72},
-              {-34,-52}})));
+      columns=2:34)         annotation (Placement(transformation(extent={{-54,-30},
+              {-34,-10}})));
+  Modelica.Blocks.Tables.CombiTable1Ds tabDHW(
+      final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+      tableOnFile=true,
+      tableName="data",
+      fileName=fileNameDHW,
+      columns=2:34) "Domestic hot water in kg/s at 60 degC"
+                              annotation (Placement(transformation(extent={{18,22},
+              {38,42}})));
   equation
   time=tabQCon.u;
   time=tabQRad.u;
   time=tabPre.u;
+  time=tabDHW.u;
   time=tabP.u;
   time=tabQ.u;
 

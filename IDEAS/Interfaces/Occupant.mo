@@ -24,6 +24,14 @@ parameter Integer nLoads(min=1) "number of electric loads";
                                                   annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Electric.BaseClasses.WattsLawPlug[nLoads] wattsLawPlug(each numPha=1)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
+  Modelica.Blocks.Interfaces.RealOutput mDHW60C
+    "mFlow for domestic hot water, at 60 degC" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={60,100}),iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={60,100})));
 equation
   connect(wattsLawPlug.vi, plugLoad) annotation (Line(
       points={{60,0},{100,0}},
