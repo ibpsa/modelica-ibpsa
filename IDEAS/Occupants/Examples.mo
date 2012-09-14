@@ -99,8 +99,6 @@ package Examples
     parameter SI.Temperature TSetNoOcc = 288.15
       "(operative) Room set temperature during abscence";
     //Not used in this model, but for compatibility with other occupancy models the floor surface is added
-    parameter Modelica.SIunits.Area[nZones] AFloor
-      "Floor area of different zones";
 
     outer ThermalDSM.UserProfiles_timetableDHW
                                   userProfiles

@@ -104,12 +104,12 @@ protected
     annotation (Placement(transformation(extent={{146,-32},{158,-20}})));
   // Result variables
 public
-  output Modelica.SIunits.Temperature[nbrNodes] TSto=tesTank.nodes.heatPort.T;
-  output Modelica.SIunits.Temperature TTankTopSet;
-  output Modelica.SIunits.Temperature TTankBotIn;
-  output Modelica.SIunits.MassFlowRate m_flowDHW;
-  output Modelica.SIunits.Power QDHW;
-  output Real SOCTank;
+  Modelica.SIunits.Temperature[nbrNodes] TSto=tesTank.nodes.heatPort.T;
+  Modelica.SIunits.Temperature TTankTopSet;
+  Modelica.SIunits.Temperature TTankBotIn;
+  Modelica.SIunits.MassFlowRate m_flowDHW;
+  Modelica.SIunits.Power QDHW;
+  Real SOCTank;
 
   Thermal.Components.Production.SolarThermalSystem_Simple solarThermal(
     medium=medium,

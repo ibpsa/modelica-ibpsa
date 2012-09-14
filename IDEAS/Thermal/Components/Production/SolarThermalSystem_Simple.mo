@@ -8,10 +8,8 @@ model SolarThermalSystem_Simple
   parameter Integer nCol "Number of collectors in series";
   parameter Real m_flowSp = 30 "Specific mass flow rate, in liter/hm2";
 
-  output Modelica.SIunits.Power QCol
-    "Net power delivered by the solar collector";
-  output Modelica.SIunits.Power QSTS
-    "Net power delivered by the primary circuit";
+  Modelica.SIunits.Power QCol "Net power delivered by the solar collector";
+  Modelica.SIunits.Power QSTS "Net power delivered by the primary circuit";
 
   IDEAS.Thermal.Components.Production.CollectorG
                                            collectorG(
