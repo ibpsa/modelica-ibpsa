@@ -44,8 +44,8 @@ model StorageTank_OneIntHX
     "Coefficient of heat transfer between inside of the HX pipe and HX medium";
   final parameter SI.CoefficientOfHeatTransfer hHX = 1/(1/hOut + 1/hPip + 1/hIn)
     "Total coefficient of heat transfer of the HX";
-  parameter SI.Area AHX "Total HX area (outside pipe area)";
-  parameter SI.Mass mHX "HX water content";
+  parameter SI.Area AHX = 4.1 "Total HX area (outside pipe area)";
+  parameter SI.Mass mHX = 27 "HX water content";
 
   Thermal.Components.BaseClasses.HeatedPipe[nbrNodes] nodes(
     each medium=medium,

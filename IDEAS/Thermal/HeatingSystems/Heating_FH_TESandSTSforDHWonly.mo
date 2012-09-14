@@ -9,10 +9,10 @@ model Heating_FH_TESandSTSforDHWonly
 
   parameter Modelica.SIunits.Volume volumeTank=0.25;
   parameter Modelica.SIunits.Area AColTot=1 "TOTAL collector area";
-  parameter Integer nbrNodes=4 "Number of nodes in the tank";
+  parameter Integer nbrNodes=20 "Number of nodes in the tank";
   parameter Integer posTTop(max=nbrNodes) = 1
     "Position of the top temperature sensor";
-  parameter Integer posTBot(max=nbrNodes) = nbrNodes-1
+  parameter Integer posTBot(max=nbrNodes) = nbrNodes-2
     "Position of the bottom temperature sensor";
   parameter Integer posOutHP(max=nbrNodes+1) = if solSys then nbrNodes-1 else nbrNodes+1
     "Position of extraction of TES to HP";
@@ -65,10 +65,11 @@ public
     dTSupRetNom=dTSupRetNom)
       annotation (choicesAllMatching=true, Placement(transformation(extent={{-144,-14},{-124,6}})));
 
-  Thermal.Components.Storage.StorageTank tesTank(
+  Components.Storage.StorageTank_OneIntHX tesTank(
     flowPort_a(m_flow(start=0)),
     nbrNodes=nbrNodes,
     medium=medium,
+    mediumHX=medium,
     heightTank=1.8,
     volumeTank=volumeTank,
     TInitial={323.15 for i in 1:nbrNodes})                annotation (Placement(
@@ -116,7 +117,7 @@ public
     pump(dpFix=100000, etaTot=0.6),
     ACol=AColTot,
     nCol=1) if solSys
-    annotation (Placement(transformation(extent={{52,-22},{32,-2}})));
+    annotation (Placement(transformation(extent={{58,-22},{38,-2}})));
   Modelica.Blocks.Interfaces.RealOutput TTop "TES top temperature"              annotation (Placement(transformation(
         extent={{-4,-4},{4,4}},
         rotation=0,
@@ -125,6 +126,8 @@ public
         extent={{-4,4},{4,-4}},
         rotation=0,
         origin={22,-8})));
+  Components.BaseClasses.AbsolutePressure absolutePressure(medium=medium, p=300000)
+    annotation (Placement(transformation(extent={{122,-68},{138,-52}})));
 equation
   QHeatTotal = -sum(emission.heatPortEmb.Q_flow) + dHW.m_flowTotal * medium.cp * (dHW.TMixed - dHW.TCold);
   THeaterSet = HPControl.THPSet;
@@ -149,12 +152,12 @@ equation
 
   connect(solarThermal.flowPort_b, tesTank.flowPorts[posInSTS])
                                                        annotation (Line(
-      points={{32,-14},{30,-14},{16,-14},{16,-23},{6,-23}},
+      points={{38,-14},{38,-14},{16,-14},{16,-4.38},{6,-4.38}},
       color={255,0,0},
       smooth=Smooth.Bezier));
   connect(solarThermal.flowPort_a, tesTank.flowPorts[nbrNodes+1])
                                                        annotation (Line(
-      points={{32,-18},{32,-18},{24,-18},{24,-20},{18,-23},{6,-23}},
+      points={{38,-18},{38,-18},{24,-18},{24,-20},{18,-16},{6,-4.38}},
       color={255,0,0},
       smooth=Smooth.Bezier));
 
@@ -178,10 +181,6 @@ end for;
   connect(pumpRad.flowPort_b,emission. flowPort_a)
                                                 annotation (Line(
       points={{114,-28},{118,-28},{122,-27}},
-      color={255,0,0},
-      smooth=Smooth.None));
-  connect(tesTank.flowPorts[posOutHP], pumpSto.flowPort_a)    annotation (Line(
-      points={{6,-23},{6,-60},{-36,-60}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, tesTank.heatExchEnv) annotation (Line(
@@ -247,13 +246,9 @@ end for;
       points={{146,-26},{143,-26},{143,-27},{138,-27}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(heater.flowPort_b, tesTank.flowPorts[2]) annotation (Line(
-      points={{-72,0},{-62,0},{-62,10},{6,10},{6,-23}},
-      color={255,0,0},
-      smooth=Smooth.None));
 
   connect(heater.flowPort_b, idealMixer.flowPortHot) annotation (Line(
-      points={{-72,0},{-66,0},{-66,16},{58,16},{58,-2},{62,-2},{66,-1}},
+      points={{-72,0},{-66,0},{-66,16},{66,16},{66,2},{66,2},{66,-1}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pipeMixer.flowPort_a, heater.flowPort_a) annotation (Line(
@@ -261,19 +256,31 @@ end for;
       color={255,0,0},
       smooth=Smooth.None));
   connect(TTop, solarThermal.TSafety) annotation (Line(
-      points={{22,-4},{31.2,-4},{31.2,-4.2}},
+      points={{22,-4},{37.2,-4},{37.2,-4.2}},
       color={0,0,127},
       smooth=Smooth.Bezier));
   connect(TBot, solarThermal.TLow) annotation (Line(
-      points={{22,-8},{31.4,-8},{31.4,-8.6}},
+      points={{22,-8},{37.4,-8},{37.4,-8.6}},
       color={0,0,127},
       smooth=Smooth.Bezier));
   connect(mDHW60C, dHW.mDHW60C) annotation (Line(
       points={{120,-90},{120,-76},{-80,-76},{-80,-20},{-56.3,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -100},{200,100}}),
+  connect(heater.flowPort_b, tesTank.flowPortHXUpper) annotation (Line(
+      points={{-72,0},{14,0},{14,-19.2},{6,-19.2}},
+      color={255,0,0},
+      smooth=Smooth.None));
+  connect(tesTank.flowPortHXLower, pumpSto.flowPort_a) annotation (Line(
+      points={{6,-34.4},{12,-34.4},{12,-60},{-36,-60}},
+      color={255,0,0},
+      smooth=Smooth.None));
+  connect(absolutePressure.flowPort, pumpSto.flowPort_a) annotation (Line(
+      points={{122,-60},{-36,-60}},
+      color={255,0,0},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},
+            {200,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-200,-100},{200,100}})));
 end Heating_FH_TESandSTSforDHWonly;
