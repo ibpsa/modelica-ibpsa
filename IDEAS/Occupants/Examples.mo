@@ -21,7 +21,13 @@ package Examples
 
     heatPortCon[1].Q_flow = -userProfiles.tabQCon.y[profileID];
     heatPortRad[1].Q_flow = -userProfiles.tabQRad.y[profileID];
-    TSet[1] = TSetNoOcc + (TSetOcc-TSetNoOcc) * userProfiles.tabPre.y[profileID];
+
+    if userProfiles.tabPre.y[profileID] >= 0.5 then
+      TSet[1] = TSetOcc;
+    else
+      TSet[1] = TSetNoOcc;
+    end if;
+
     wattsLawPlug[1].P = userProfiles.tabP.y[profileID];
     wattsLawPlug[1].Q = userProfiles.tabQ.y[profileID];
 

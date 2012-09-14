@@ -7,7 +7,9 @@ parameter Modelica.SIunits.Volume V "Total zone air volume";
 parameter Real n50 = 0.6
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
 parameter Real corrCV = 5 "Multiplication factor for the zone air capacity";
-parameter SI.Temperature TOpStart = 294.15;
+parameter SI.Temperature TOpStart = 297.15;
+
+parameter Boolean linear = true;
 
 //to be moved from the zone definition to ventilation models ?
 protected
@@ -42,7 +44,7 @@ protected
         rotation=90,
         origin={10,42})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(nSurf=
-        nSurf) "internal longwave radiative heat exchange"
+        nSurf, linear=linear) "internal longwave radiative heat exchange"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-54,-10})));
