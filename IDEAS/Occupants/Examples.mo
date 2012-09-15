@@ -3,31 +3,6 @@ package Examples
 
   extends Modelica.Icons.ExamplesPackage;
 
-  model Occupant_FromFiles
-    "Occupant model based on external files for a single zone building"
-    extends Interfaces.Occupant(nZones=1, nLoads=1);
-    parameter Integer profileID = 1
-      "Profile ID: the column number in the external files";
-    parameter SI.Temperature TSetOcc = 294.15
-      "(operative) Room set temperature during occupancy";
-    parameter SI.Temperature TSetNoOcc = 288.15
-      "(operative) Room set temperature during abscence";
-    //Not used in this model, but for compatibility with other occupancy models the floor surface is added
-    parameter Modelica.SIunits.Area[nZones] AFloor
-      "Floor area of different zones";
-
-    outer Components.UserProfiles userProfiles
-      annotation (Placement(transformation(extent={{-58,-38},{22,42}})));
-  equation
-
-    heatPortCon[1].Q_flow = -userProfiles.tabQCon.y[profileID];
-    heatPortRad[1].Q_flow = -userProfiles.tabQRad.y[profileID];
-    TSet[1] = noEvent(if userProfiles.tabPre.y[profileID] >0.5 then TSetOcc else TSetNoOcc);
-    wattsLawPlug[1].P = userProfiles.tabP.y[profileID];
-    wattsLawPlug[1].Q = userProfiles.tabQ.y[profileID];
-    mDHW60C = userProfiles.tabDHW.y[profileID];
-
-  end Occupant_FromFiles;
 
   model Example_Occupant "Tester for occupant models"
 
@@ -90,7 +65,7 @@ package Examples
     annotation (Diagram(graphics));
   end Example_Occupant;
 
-  model Occupant_FromFiles_Timetable "Occupant model based on external files"
+  model Occupant_FromFiles "Occupant model based on external files"
     extends Interfaces.Occupant(nZones=1, nLoads=1);
     parameter Integer profileID = 1
       "Profile ID: the column number in the external files";
@@ -100,8 +75,7 @@ package Examples
       "(operative) Room set temperature during abscence";
     //Not used in this model, but for compatibility with other occupancy models the floor surface is added
 
-    outer ThermalDSM.UserProfiles_timetableDHW
-                                  userProfiles
+    outer IDEAS.Occupants.Components.UserProfiles userProfiles
       annotation (Placement(transformation(extent={{-58,-38},{22,42}})));
   equation
 
@@ -112,5 +86,5 @@ package Examples
     wattsLawPlug[1].Q = userProfiles.tabQ.y[profileID];
     mDHW60C = userProfiles.tabDHW.y[profileID];
 
-  end Occupant_FromFiles_Timetable;
+  end Occupant_FromFiles;
 end Examples;
