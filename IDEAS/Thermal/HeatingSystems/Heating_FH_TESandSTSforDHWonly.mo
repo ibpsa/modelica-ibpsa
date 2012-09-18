@@ -49,14 +49,14 @@ protected
     annotation (Placement(transformation(extent={{-134,34},{-122,46}})));
 public
   replaceable Thermal.Control.HPControl_SepDHW_Emission HPControl(
-    heatingCurve(timeFilter=timeFilter),
+    timeFilter=timeFilter,
     TTankTop=TSto[posTTop],
     TTankBot=TSto[posTBot],
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
     dTSupRetNom=dTSupRetNom) constrainedby Thermal.Control.PartialHPControl(
-    heatingCurve(timeFilter=timeFilter),
+    timeFilter=timeFilter,
     TTankTop=TSto[posTTop],
     TTankBot=TSto[posTBot],
     DHW=true,

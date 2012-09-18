@@ -38,7 +38,7 @@ partial model PartialHPControl "Basis of the heat Pump control algorithm"
     "Setpoint temperature for the DHW outlet";
   parameter Modelica.SIunits.Temperature TColdWaterNom=273.15 + 10
     "Nominal cold water temperature";
-  parameter Modelica.SIunits.Time timeFilter=86400
+  parameter Modelica.SIunits.Time timeFilter=43200
     "Time constant for filter on ambient temperature";
 
   HeatingCurve heatingCurve(

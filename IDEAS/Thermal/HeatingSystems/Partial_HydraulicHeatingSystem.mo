@@ -30,7 +30,7 @@ partial model Partial_HydraulicHeatingSystem
 // Building parameters /////////////////////////////////////////////////////////////////////////////////
 // see Partial_HeatingSystem;
 // Other parameters//////////////////////////////////////////////////////////////////////////////////////
-  parameter Modelica.SIunits.Time timeFilter=86400;
+  parameter Modelica.SIunits.Time timeFilter=43200;
   parameter Modelica.SIunits.Temperature TInitial=293.15
     "Initial temperature of all state variables";
   replaceable parameter IDEAS.Thermal.Components.Emission.FH_Characteristics[
