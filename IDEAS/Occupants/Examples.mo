@@ -3,7 +3,6 @@ package Examples
 
   extends Modelica.Icons.ExamplesPackage;
 
-
   model Example_Occupant "Tester for occupant models"
 
     Occupant_FromFiles occupant_FromFiles(AFloor={100}, profileID=2)
@@ -81,7 +80,8 @@ package Examples
 
     heatPortCon[1].Q_flow = -userProfiles.tabQCon.y[profileID];
     heatPortRad[1].Q_flow = -userProfiles.tabQRad.y[profileID];
-    TSet[1] = TSetNoOcc + (TSetOcc-TSetNoOcc) * userProfiles.tabPre.y[profileID];
+    TSet[1] = TSetOcc;
+    //TSet[1] = TSetNoOcc + (TSetOcc-TSetNoOcc) * userProfiles.tabPre.y[profileID];
     wattsLawPlug[1].P = userProfiles.tabP.y[profileID];
     wattsLawPlug[1].Q = userProfiles.tabQ.y[profileID];
     mDHW60C = userProfiles.tabDHW.y[profileID];
