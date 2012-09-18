@@ -29,13 +29,11 @@ Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plug(m=
   outer IDEAS.Electric.Photovoltaic.Components.ForInputFiles.PVProfileReader
                     PV1
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Modelica.Blocks.Interfaces.RealInput VGrid
+    annotation (Placement(transformation(extent={{74,-82},{114,-42}})));
 equation
-invertor.P_dc=PV1.P_ratio;
+invertor.P_dc=PV1.P_ratio*PNom;
 
-algorithm
-pvVoltageCtrl.VGrid := max(Modelica.ComplexMath.'abs'(plug.pin[1].v));
-
-equation
   connect(wattsLaw.vi, plug)
                            annotation (Line(
       points={{80,30},{92,30},{92,40},{102,40}},
@@ -62,6 +60,10 @@ equation
       smooth=Smooth.None));
  PInit=pvVoltageCtrl.PInit;
  PFinal=pvVoltageCtrl.PFinal;
+  connect(pvVoltageCtrl.VGrid, VGrid) annotation (Line(
+      points={{26,24},{26,-62},{94,-62}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Icon(Bitmap(extent=[-90,90; 90,-90], name="modelica://IDEAS/Electric/PV.png")), Diagram(
         graphics));
 end PvSystemGeneralFromFilePlug;

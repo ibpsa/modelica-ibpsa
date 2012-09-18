@@ -22,10 +22,12 @@ Real Q(start=0);
     annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin_p(
       m=1) annotation (Placement(transformation(extent={{-86,-32},{-66,-12}})));
+  Modelica.Blocks.Interfaces.RealOutput VGrid
+    annotation (Placement(transformation(extent={{96,30},{116,50}})));
 algorithm
 P := Modelica.ComplexMath.real(nodeSingle.pin[1].v*Modelica.ComplexMath.conj(nodeSingle.pin[1].i));
 Q := Modelica.ComplexMath.imag(nodeSingle.pin[1].v*Modelica.ComplexMath.conj(nodeSingle.pin[1].i));
-
+VGrid := max(Modelica.ComplexMath.'abs'(pinSingle.v));
 
 equation
   connect(wattsLaw.vi[1], pinSingle) annotation (Line(
