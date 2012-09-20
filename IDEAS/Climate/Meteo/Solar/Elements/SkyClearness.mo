@@ -20,7 +20,7 @@ algorithm
     sim.solDifHor,
     1e-4,
     1e-5);
-skyCle := smooth(1, if (sim.solGloHor < 1) then 1 else ((sim.solGloHor)/solDifHor + kappa*angZen^3) / (1 + kappa*angZen^3));
+skyCle := smooth(1, if noEvent(sim.solGloHor < 1) then 1 else ((sim.solGloHor)/solDifHor + kappa*angZen^3) / (1 + kappa*angZen^3));
 
     annotation (Diagram(graphics));
 end SkyClearness;
