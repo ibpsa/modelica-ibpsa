@@ -20,7 +20,6 @@ model Heating_FH_TESandSTSforDHWonly
     "Position of injection of STS in TES";
   parameter Boolean solSys(fixed=true) = false;
 
-protected
   Thermal.Components.BaseClasses.Pump[nZones] pumpRad(
     each medium=medium,
     each useInput=true,
