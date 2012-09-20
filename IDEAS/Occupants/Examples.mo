@@ -73,6 +73,7 @@ package Examples
     parameter SI.Temperature TSetNoOcc = 288.15
       "(operative) Room set temperature during abscence";
     //Not used in this model, but for compatibility with other occupancy models the floor surface is added
+    Real occ;
 
     outer IDEAS.Occupants.Components.UserProfiles userProfiles
       annotation (Placement(transformation(extent={{-58,-38},{22,42}})));
@@ -80,8 +81,9 @@ package Examples
 
     heatPortCon[1].Q_flow = -userProfiles.tabQCon.y[profileID];
     heatPortRad[1].Q_flow = -userProfiles.tabQRad.y[profileID];
-    TSet[1] = TSetOcc;
-    //TSet[1] = TSetNoOcc + (TSetOcc-TSetNoOcc) * userProfiles.tabPre.y[profileID];
+    //TSet[1] = TSetOcc;
+    occ= if noEvent(userProfiles.tabPre.y[profileID] > 0.1) then 1 else 0;
+    TSet[1] = TSetNoOcc + (TSetOcc-TSetNoOcc) * occ;
     wattsLawPlug[1].P = userProfiles.tabP.y[profileID];
     wattsLawPlug[1].Q = userProfiles.tabQ.y[profileID];
     mDHW60C = userProfiles.tabDHW.y[profileID];
