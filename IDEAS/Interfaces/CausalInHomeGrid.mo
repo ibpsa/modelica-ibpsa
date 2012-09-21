@@ -16,7 +16,7 @@ Real Q(start=0);
     V=230,
     phi=0)  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
+        rotation=270,
         origin={-50,-38})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
     annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
@@ -25,8 +25,8 @@ Real Q(start=0);
   Modelica.Blocks.Interfaces.RealOutput VGrid
     annotation (Placement(transformation(extent={{96,30},{116,50}})));
 algorithm
-P := Modelica.ComplexMath.real(nodeSingle.pin[1].v*Modelica.ComplexMath.conj(nodeSingle.pin[1].i));
-Q := Modelica.ComplexMath.imag(nodeSingle.pin[1].v*Modelica.ComplexMath.conj(nodeSingle.pin[1].i));
+P := - Modelica.ComplexMath.real(nodeSingle.pin[1].v*Modelica.ComplexMath.conj(nodeSingle.pin[1].i));
+Q := - Modelica.ComplexMath.imag(nodeSingle.pin[1].v*Modelica.ComplexMath.conj(nodeSingle.pin[1].i));
 VGrid := max(Modelica.ComplexMath.'abs'(pinSingle.v));
 
 equation
@@ -35,16 +35,16 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
 
-  connect(voltageSource.pin_p,ground. pin) annotation (Line(
-      points={{-50,-48},{-50,-68}},
-      color={85,170,255},
-      smooth=Smooth.None));
   connect(nodeSingle, plugToPin_p.plug_p) annotation (Line(
       points={{-100,0},{-78,0},{-78,-22}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(plugToPin_p.pin_p, voltageSource.pin_n) annotation (Line(
-      points={{-74,-22},{-50,-22},{-50,-28},{-50,-28}},
+  connect(voltageSource.pin_p, plugToPin_p.pin_p) annotation (Line(
+      points={{-50,-28},{-50,-22},{-74,-22}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(ground.pin, voltageSource.pin_n) annotation (Line(
+      points={{-50,-68},{-50,-48}},
       color={85,170,255},
       smooth=Smooth.None));
   annotation(Icon(graphics={
