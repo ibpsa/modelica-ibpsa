@@ -39,7 +39,7 @@ when {VGrid > VMax, time > pre(restartTime)} then
   end if;
 end when;
 
-if pre(switch) then
+if switch then
   PFinal = PInit;
 else
   PFinal = 0;
