@@ -22,7 +22,7 @@ Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plug(m=
   BaseClasses.WattsLawPlug            wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
-  Components.PvVoltageCtrlGeneral_InputVGrid
+replaceable Components.PvVoltageCtrlGeneral_InputVGrid
                        pvVoltageCtrl(
                               VMax=VMax,timeOff = timeOff,numPha=numPha)
     annotation (Placement(transformation(extent={{26,20},{46,40}})));
