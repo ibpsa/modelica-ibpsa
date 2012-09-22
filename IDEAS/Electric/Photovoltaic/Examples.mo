@@ -108,7 +108,8 @@ package Examples
   end PVSystem;
 
   model Test_PvVoltageCtrl "Tester for the PV voltage control model"
-    Components.PvVoltageCtrlGeneral_InputVGrid_2
+
+    Components.PvVoltageCtrlGeneral_InputVGrid
       pvVoltageCtrlGeneral_InputVGrid_2_1
       annotation (Placement(transformation(extent={{-16,8},{4,28}})));
     Modelica.Blocks.Sources.Sine sine(

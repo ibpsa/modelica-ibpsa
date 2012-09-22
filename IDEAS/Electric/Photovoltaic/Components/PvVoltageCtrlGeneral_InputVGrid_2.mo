@@ -9,7 +9,7 @@ parameter Real timeOff = 300;
 parameter Integer numPha=1
     "1 or 3, just indicates if it's a single or 3 phase PV system";
 
-Boolean switch(start = true, fixed=true) "if true, system is producing";
+discrete Real switch(start = 1, fixed=true) "if 1, system is producing";
 
   Modelica.Blocks.Interfaces.RealInput PInit
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
@@ -27,25 +27,21 @@ protected
 public
   Modelica.Blocks.Interfaces.RealInput VGrid
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
-equation
+algorithm
 
-when {VGrid > VMax, time > pre(restartTime)} then
-  if VGrid > VMax then
-    switch = false;
-    restartTime = time + timeOff;
-  else
-    switch = true;
-    restartTime = -1;
-  end if;
+when VGrid > VMax then
+  switch :=0;
+  restartTime :=time + timeOff;
+elsewhen  time < restartTime then
+  switch :=0;
+  restartTime :=pre(restartTime);
+elsewhen time >= restartTime and VGrid < VMax then
+  restartTime :=pre(restartTime);
+  switch :=1;
 end when;
 
-if switch then
-  PFinal = PInit;
-else
-  PFinal = 0;
-end if;
-
-QFinal = QInit;
+PFinal :=switch*PInit;
+QFinal :=QInit;
 
   annotation (Diagram(graphics));
 end PvVoltageCtrlGeneral_InputVGrid_2;
