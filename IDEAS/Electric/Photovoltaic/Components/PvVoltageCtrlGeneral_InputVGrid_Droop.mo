@@ -1,14 +1,15 @@
 within IDEAS.Electric.Photovoltaic.Components;
-model PvVoltageCtrlGeneral_InputVGrid_Droop "Basic droop controller"
+block PvVoltageCtrlGeneral_InputVGrid_Droop "Basic droop controller"
 
 extends Modelica.Blocks.Interfaces.BlockIcon;
 
 parameter Real VMax = 248 "Final voltage, from here eta=0";
-//parameter Real timeOff = 300;
-parameter Real VStart = 244 "Initial voltage for droop control";
+parameter Real timeOff = 300;
+parameter Real VStart = 243 "Initial voltage for droop control";
 parameter Integer numPha=1
     "1 or 3, just indicates if it's a single or 3 phase PV system";
-Real eta( start=1, fixed=true);
+output Real eta( start=1);
+output Boolean droop( start=false, fixed=true);
 
 //Boolean switch(start = true, fixed=true) "if true, system is producing";
 
@@ -27,10 +28,19 @@ Real eta( start=1, fixed=true);
 public
   Modelica.Blocks.Interfaces.RealInput VGrid
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
-equation
-  eta = smooth(0, if VGrid > VMax then 0 elseif VGrid < VStart then 1 else 1 - (VGrid-VStart)/(VMax-VStart));
-
 algorithm
+when VGrid > VStart then
+  droop := true;
+elsewhen VGrid <= VStart then
+  droop := false;
+end when;
+
+if droop then
+  eta := smooth(0, if VGrid > VMax then 0 else 1 - (VGrid - VStart)/(VMax - VStart));
+else
+  eta:=1;
+end if;
+
 PFinal :=PInit*eta;
 QFinal :=QInit;
 
