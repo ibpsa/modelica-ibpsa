@@ -28,21 +28,19 @@ output Boolean droop( start=false, fixed=true);
 public
   Modelica.Blocks.Interfaces.RealInput VGrid
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
-algorithm
+equation
 when VGrid > VStart then
-  droop := true;
-elsewhen VGrid <= VStart then
-  droop := false;
+  droop =  true;
 end when;
 
 if droop then
-  eta := smooth(0, if VGrid > VMax then 0 else 1 - (VGrid - VStart)/(VMax - VStart));
+  eta =  0.5;
 else
-  eta:=1;
+  eta= 1;
 end if;
 
-PFinal :=PInit*eta;
-QFinal :=QInit;
+PFinal = PInit*eta;
+QFinal = QInit;
 
   annotation (Diagram(graphics));
 end PvVoltageCtrlGeneral_InputVGrid_Droop;
