@@ -28,8 +28,10 @@ Boolean switch(start = true, fixed=true) "if true, system is producing";
 public
   Modelica.Blocks.Interfaces.RealInput VGrid
     annotation (Placement(transformation(extent={{-120,-80},{-80,-40}})));
-  IDEAS.BaseClasses.Math.MovingAverage VGrid600(period=600)
-    annotation (Placement(transformation(extent={{-24,-52},{-4,-32}})));
+ // IDEAS.BaseClasses.Math.MovingAverage VGrid600(period=600)
+ //   annotation (Placement(transformation(extent={{-24,-52},{-4,-32}})));
+ Modelica.Blocks.Continuous.FirstOrder VGrid600(T=600, y_start=230)
+   annotation (Placement(transformation(extent={{-24,-52},{-4,-32}})));
 equation
 
 when {VGrid > VMax, VGrid600.y > VMax600, time > pre(restartTime)} then

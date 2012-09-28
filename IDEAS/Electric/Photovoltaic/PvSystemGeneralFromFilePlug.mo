@@ -6,7 +6,7 @@ parameter Real PNom "Nominal power, in Wp";
 parameter Integer prod=1;
 
 parameter Modelica.SIunits.Time timeOff=300;
-parameter Modelica.SIunits.Voltage VMax=248
+parameter Modelica.SIunits.Voltage VMax=253
     "Max grid voltage for operation of the PV system";
 
 parameter Integer numPha=1;
