@@ -113,9 +113,9 @@ package Examples
       pvVoltageCtrlGeneral_InputVGrid_2_1
       annotation (Placement(transformation(extent={{-16,8},{4,28}})));
     Modelica.Blocks.Sources.Sine sine(
-      amplitude=20,
+      amplitude=36,
       offset=230,
-      freqHz=1e-4)
+      freqHz=0.85e-2)
       annotation (Placement(transformation(extent={{-80,-26},{-60,-6}})));
     Modelica.Blocks.Sources.Constant const(k=300)
       annotation (Placement(transformation(extent={{-88,48},{-68,68}})));

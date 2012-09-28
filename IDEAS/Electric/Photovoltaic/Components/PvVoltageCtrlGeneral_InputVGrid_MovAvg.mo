@@ -22,7 +22,6 @@ Boolean switch(start = true, fixed=true) "if true, system is producing";
   Modelica.Blocks.Interfaces.RealOutput QFinal
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
 
-protected
   discrete Real restartTime( start=-1, fixed=true)
     "system is off until time>restartTime";
 
@@ -34,9 +33,14 @@ public
 equation
 
 when {VGrid > VMax, VGrid600.y > VMax600, time > pre(restartTime)} then
-  if VGrid > VMax or VGrid600.y > VMax600 then
+  if (VGrid > VMax or VGrid600.y > VMax600) and time > pre(restartTime) then
+    // some voltage limit was crossed while system was on.  Switch off and set restarttime
     switch = false;
     restartTime = time + timeOff;
+  elseif (VGrid > VMax or VGrid600.y > VMax600) and time < pre(restartTime) then
+    // some voltage limit was crossed during an offtime: keep off but don't change the restarTime
+    switch = false;
+    restartTime = pre(restartTime);
   else
     switch = true;
     restartTime = -1;
