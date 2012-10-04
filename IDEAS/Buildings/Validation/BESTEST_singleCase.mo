@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation;
 model BESTEST_singleCase
 
-    inner IDEAS.Climate.SimInfoManager sim(redeclare
+    inner IDEAS.SimInfoManager         sim(redeclare
       IDEAS.Climate.Meteo.Files.min60   detail, redeclare
       IDEAS.Climate.Meteo.Locations.BesTest   city,
     DST=false)

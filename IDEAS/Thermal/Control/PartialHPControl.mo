@@ -50,7 +50,7 @@ partial model PartialHPControl "Basis of the heat Pump control algorithm"
     TOut_nominal = 273.15-8,
     redeclare IDEAS.BaseClasses.Math.MovingAverage filter(period=timeFilter))
     annotation (Placement(transformation(extent={{-54,44},{-34,64}})));
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{24,50},{44,70}})));
   Modelica.Blocks.Interfaces.RealOutput THPSet(start = 283.15)
     "Heat pump set temperature"

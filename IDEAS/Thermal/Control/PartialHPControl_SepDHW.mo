@@ -73,7 +73,7 @@ partial model PartialHPControl_SepDHW
     TRoo_nominal = 273.15+21,
     TOut_nominal = 273.15-8)
     annotation (Placement(transformation(extent={{-54,44},{-34,64}})));
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{24,50},{44,70}})));
 initial equation
   der(onOffHeating) = 0;

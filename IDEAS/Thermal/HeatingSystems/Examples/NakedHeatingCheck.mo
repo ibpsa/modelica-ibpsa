@@ -8,7 +8,7 @@ model NakedHeatingCheck
     VZones={100},
     heaterType=IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType.Boiler)
     annotation (Placement(transformation(extent={{-6,10},{18,30}})));
-  inner IDEAS.Climate.SimInfoManager sim(
+  inner IDEAS.SimInfoManager         sim(
       redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
       IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-86,66},{-66,86}})));

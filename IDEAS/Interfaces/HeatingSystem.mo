@@ -2,7 +2,7 @@ within IDEAS.Interfaces;
 partial model HeatingSystem "Partial heating system inclusif control"
 
   import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-200,80},
             {-180,100}})));
 

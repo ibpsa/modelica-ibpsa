@@ -43,7 +43,7 @@ model SolarThermalSystem_Simple
     annotation (Placement(transformation(extent={{128,58},{88,98}})));
   Modelica.Blocks.Interfaces.RealInput TLow
     annotation (Placement(transformation(extent={{126,14},{86,54}})));
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-92,68},{-72,88}})));
 equation
   QCol = collectorG.QNet;

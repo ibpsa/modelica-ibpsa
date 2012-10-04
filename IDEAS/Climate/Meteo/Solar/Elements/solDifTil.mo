@@ -8,7 +8,7 @@ parameter Modelica.SIunits.Angle inc(displayUnit="degree") "inclination";
 
 Modelica.Blocks.Interfaces.RealOutput solDifTil
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
-outer IDEAS.Climate.SimInfoManager sim
+outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{60,72},{80,92}})));
 
   Modelica.Blocks.Interfaces.RealInput angZen
@@ -39,7 +39,7 @@ equation
       smooth=Smooth.None));
   connect(relativeAirMass.relAirMas, skyBrightness.relAirMas) annotation (
       Line(
-      points={{-42,-3.6},{-34,-3.6}},
+      points={{-42,-3.6},{-40,-3.6},{-40,-3.6},{-38,-3.6},{-38,-3.6},{-34,-3.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angZen, skyBrightnessCoefficients.angZen) annotation (Line(

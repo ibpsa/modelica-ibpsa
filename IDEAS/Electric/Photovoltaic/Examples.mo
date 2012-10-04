@@ -20,7 +20,7 @@ package Examples
     Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.PowerSensor
       powerSensorPVFile
       annotation (Placement(transformation(extent={{-20,-14},{0,6}})));
-    inner Climate.SimInfoManager sim(
+    inner IDEAS.SimInfoManager   sim(
                 redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
         IDEAS.Climate.Meteo.Files.min15 detail)
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -91,7 +91,7 @@ package Examples
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={40,0})));
-    inner IDEAS.Climate.SimInfoManager sim(redeclare
+    inner IDEAS.SimInfoManager         sim(redeclare
         IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
         IDEAS.Climate.Meteo.Files.min15 detail)
       annotation (Placement(transformation(extent={{-98,78},{-78,98}})));

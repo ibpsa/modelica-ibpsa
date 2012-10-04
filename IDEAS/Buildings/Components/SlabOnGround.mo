@@ -46,7 +46,8 @@ public
     A=AWall,
     inc=inc,
     nLay=constructionType.nLay,
-    mats=constructionType.mats)
+    mats=constructionType.mats,
+    nMat(Cap(T(start={{273.15+13}, {273.15+18}, {295,295,295,295,295,295,295}, {296}}))))
     "Declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(A=AWall, inc=inc)
@@ -56,7 +57,8 @@ public
     A=AWall,
     inc=inc,
     nLay=3,
-    mats={ground1,ground2,ground3})
+    mats={ground1,ground2,ground3},
+    nMat(Cap(T(start={{273.15}, {273.15}, {273.15}}+{{11.5}, {12.2}, {12.7}}))))
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 

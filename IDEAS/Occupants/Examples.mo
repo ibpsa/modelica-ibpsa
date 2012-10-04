@@ -16,16 +16,16 @@ package Examples
     parameter Modelica.SIunits.Area[nZones] AFloor
       "Floor area of different zones";
 
-    outer Components.UserProfiles userProfiles
-      annotation (Placement(transformation(extent={{-58,-38},{22,42}})));
+    outer IDEAS.SimInfoManager sim
+      annotation (Placement(transformation(extent={{-98,80},{-80,98}})));
   equation
 
-    heatPortCon[1].Q_flow = -userProfiles.tabQCon.y[profileID];
-    heatPortRad[1].Q_flow = -userProfiles.tabQRad.y[profileID];
-    TSet[1] = noEvent(if userProfiles.tabPre.y[profileID] >0.5 then TSetOcc else TSetNoOcc);
-    wattsLawPlug[1].P = userProfiles.tabP.y[profileID];
-    wattsLawPlug[1].Q = userProfiles.tabQ.y[profileID];
-    mDHW60C = userProfiles.tabDHW.y[profileID];
+    heatPortCon[1].Q_flow = -1 * sim.tabQCon.y[profileID];
+    heatPortRad[1].Q_flow = -1 * sim.tabQRad.y[profileID];
+    TSet[1] = noEvent(if sim.tabPre.y[profileID] >0.5 then TSetOcc else TSetNoOcc);
+    wattsLawPlug[1].P = sim.tabP.y[profileID];
+    wattsLawPlug[1].Q = sim.tabQ.y[profileID];
+    mDHW60C = sim.tabDHW.y[profileID];
 
   end Occupant_FromFiles;
 

@@ -11,7 +11,7 @@ parameter Integer nZones = 1 "Number of zones";
     redeclare IDEAS.Thermal.Components.Production.HP_AWMod_Losses heater,
     QNom={10000 for i in 1:nZones})
     annotation (Placement(transformation(extent={{14,-90},{34,-70}})));
-  inner IDEAS.Climate.SimInfoManager       sim(redeclare
+  inner IDEAS.SimInfoManager               sim(redeclare
       IDEAS.Climate.Meteo.Files.min15 detail, redeclare
       IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{82,80},{102,100}})));

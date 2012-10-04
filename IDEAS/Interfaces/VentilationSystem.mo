@@ -7,7 +7,7 @@ partial model VentilationSystem
   parameter Modelica.SIunits.HeatCapacity[nZones] C = 1012*1.204*VZones*5
     "Heat capacity of the conditioned zones";
 
-  outer IDEAS.Climate.SimInfoManager  sim
+  outer IDEAS.SimInfoManager          sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
     "Sensor temperature of the zones" annotation (Placement(transformation(extent={{-10,-10},{10,10}},

@@ -1,7 +1,7 @@
 within IDEAS.Interfaces;
 model Building
 
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Boolean standAlone = true;
 

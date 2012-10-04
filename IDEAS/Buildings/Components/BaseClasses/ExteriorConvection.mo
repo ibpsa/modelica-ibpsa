@@ -5,7 +5,7 @@ model ExteriorConvection "exterior surface convection"
 
 Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-outer IDEAS.Climate.SimInfoManager sim "Simulation information manager"
+outer IDEAS.SimInfoManager         sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 protected
