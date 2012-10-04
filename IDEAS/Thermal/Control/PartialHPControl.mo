@@ -69,6 +69,60 @@ equation
   // with regard to TTopSet and TBotSet and a reference temperature (TBotEmpty)
   SOC=0.5*(TTankBot-TBotEmpty)/(TBotSet+dTSafetyBot-TBotEmpty)+0.5*(TTankTop-(TTopSet+dTSafetyTop))/(dTSupRetNom-dTSafetyTop);
 
-  annotation(Icon(Bitmap(extent=[-90,90; 90,-90], name="Control.tif")),
+  annotation(Icon(graphics={
+        Ellipse(
+          extent={{-72,20},{0,-54}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-6,20},{66,-54}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-36,20},{34,-54}},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Polygon(
+          points={{-46,-10},{-46,2},{-34,2},{-34,-10},{-22,-10},{-22,-22},{-34,
+              -22},{-34,-34},{-46,-34},{-46,-22},{-58,-22},{-58,-10},{-46,-10}},
+
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{28,4},{40,-8}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{42,-8},{54,-20}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{14,-8},{26,-20}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{28,-22},{40,-34}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-20,24},{20,24}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{0,24},{0,40},{20,60},{80,60}},
+          color={0,0,127},
+          smooth=Smooth.None)}),
       Diagram(graphics));
 end PartialHPControl;

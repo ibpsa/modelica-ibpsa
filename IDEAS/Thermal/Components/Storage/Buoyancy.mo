@@ -45,32 +45,26 @@ First implementation.
 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
           extent={{-44,68},{36,28}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-42,-26},{38,-66}},
-          lineColor={255,0,0},
-          fillColor={255,0,0},
+          extent={{-44,-26},{36,-66}},
+          lineColor={127,0,0},
+          fillColor={127,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{26,10},{32,-22}},
-          lineColor={0,0,255},
+          extent={{24,10},{30,-22}},
+          lineColor={127,0,0},
           pattern=LinePattern.None,
-          fillColor={255,0,0},
+          fillColor={127,0,0},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{28,22},{22,10},{36,10},{36,10},{28,22}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
+          points={{26,22},{20,10},{34,10},{34,10},{26,22}},
+          lineColor={127,0,0},
+          fillColor={127,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-32,22},{-26,-10}},

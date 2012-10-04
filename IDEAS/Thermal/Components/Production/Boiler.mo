@@ -27,5 +27,37 @@ equation
       points={{-28,-36},{-20,-36},{-20,6.12323e-016}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics));
+  annotation (Diagram(graphics), Icon(graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          lineColor={127,0,0}),
+        Rectangle(
+          extent={{-100,0},{100,-100}},
+          fillPattern=FillPattern.Solid,
+          fillColor={255,255,255},
+          pattern=LinePattern.None),
+        Ellipse(
+          extent={{-58,60},{60,-60}},
+          lineColor={127,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={255,255,255}),
+        Ellipse(extent={{-46,46},{48,-46}}, lineColor={127,0,0}),
+        Line(
+          points={{-30,34},{32,-34}},
+          color={127,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{0,60},{0,100}},
+          color={127,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{100,20},{42,20}},
+          color={0,128,255},
+          smooth=Smooth.None),
+        Line(
+          points={{102,-20},{70,-20},{70,-80},{0,-80},{0,-60}},
+          color={0,128,255},
+          smooth=Smooth.None)}));
 end Boiler;

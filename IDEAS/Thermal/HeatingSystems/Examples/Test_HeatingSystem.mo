@@ -14,7 +14,7 @@ parameter Integer nZones = 1 "Number of zones";
   inner IDEAS.SimInfoManager               sim(redeclare
       IDEAS.Climate.Meteo.Files.min15 detail, redeclare
       IDEAS.Climate.Meteo.Locations.Uccle city)
-    annotation (Placement(transformation(extent={{82,80},{102,100}})));
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nZones] heatCapacitor(C={i*1e6 for i in 1:nZones}, each T(start=292))
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
   Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convection
@@ -63,19 +63,19 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heating.TSet, TOpSet.y) annotation (Line(
-      points={{22.5714,-89},{22.5714,62},{-71,62}},
+      points={{24,-89.6},{24,62},{-71,62}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heating.TSensor, temperatureSensor.T) annotation (Line(
-      points={{11.3714,-86},{-12,-86},{-12,-50},{-14,-50}},
+      points={{14.2,-86},{-12,-86},{-12,-50},{-14,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heating.heatPortRad, heatCapacitor.port) annotation (Line(
-      points={{11.1429,-82},{-16,-82},{-64,-58},{-80,-58},{-80,-2}},
+      points={{14,-82},{-16,-82},{-64,-58},{-80,-58},{-80,-2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heating.heatPortCon, heatCapacitor.port) annotation (Line(
-      points={{11.1429,-78},{-2,-78},{-2,-28},{-80,-28},{-80,-2}},
+      points={{14,-78},{-2,-78},{-2,-28},{-80,-28},{-80,-2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(voltageSource.pin_p,ground. pin) annotation (Line(
@@ -91,7 +91,7 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(mDHW60C.y, heating.mDHW60C) annotation (Line(
-      points={{-63,-84},{-44,-84},{-44,-96},{29.4286,-96},{29.4286,-89}},
+      points={{-63,-84},{-44,-84},{-44,-96},{30,-96},{30,-89.6}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics),

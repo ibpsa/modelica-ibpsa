@@ -2,12 +2,13 @@ within IDEAS.BaseClasses.Control;
 block Hyst_NoEvent_Var_HEATING
   "Hysteresis FOR HEATING without events, with Real in- and output, and inputs for uLow and uHigh"
 
-  extends Modelica.Blocks.Interfaces.partialBooleanBlockIcon;
+//  extends Modelica.Blocks.Interfaces.partialBooleanBlockIcon;
 
   Modelica.Blocks.Interfaces.RealInput u
     annotation (Placement(transformation(extent={{-130,-80},{-90,-40}})));
   Modelica.Blocks.Interfaces.RealOutput y
-    annotation (Placement(transformation(extent={{96,-10},{116,10}})));
+    annotation (Placement(transformation(extent={{92,50},{112,70}}),
+        iconTransformation(extent={{92,50},{112,70}})));
 
   Modelica.Blocks.Interfaces.RealInput uLow
     annotation (Placement(transformation(extent={{-128,60},{-88,100}})));
@@ -96,38 +97,60 @@ equation
         Line(points={{-69,10},{-60,10}}, color={160,160,164})}),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
-        Polygon(
-          points={{-80,90},{-88,68},{-72,68},{-80,90}},
-          lineColor={192,192,192},
-          fillColor={192,192,192},
+        Ellipse(
+          extent={{-72,20},{0,-54}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,68},{-80,-29}}, color={192,192,192}),
-        Polygon(
-          points={{92,-29},{70,-21},{70,-37},{92,-29}},
-          lineColor={192,192,192},
-          fillColor={192,192,192},
+        Ellipse(
+          extent={{-6,20},{66,-54}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
-        Line(points={{-79,-29},{84,-29}}, color={192,192,192}),
-        Line(points={{-79,-29},{41,-29}}, color={0,0,0}),
-        Line(points={{-15,-21},{1,-29},{-15,-36}}, color={0,0,0}),
-        Line(points={{41,51},{41,-29}}, color={0,0,0}),
-        Line(points={{33,3},{41,22},{50,3}}, color={0,0,0}),
-        Line(points={{-49,51},{81,51}}, color={0,0,0}),
-        Line(points={{-4,59},{-19,51},{-4,43}}, color={0,0,0}),
-        Line(points={{-59,29},{-49,11},{-39,29}}, color={0,0,0}),
-        Line(points={{-49,51},{-49,-29}}, color={0,0,0}),
-        Text(
-          extent={{-92,-49},{-9,-92}},
-          lineColor={192,192,192},
-          textString="%uLow"),
-        Text(
-          extent={{2,-49},{91,-92}},
-          lineColor={192,192,192},
-          textString="%uHigh"),
-        Rectangle(extent={{-91,-49},{-8,-92}}, lineColor={192,192,192}),
-        Line(points={{-49,-29},{-49,-49}}, color={192,192,192}),
-        Rectangle(extent={{2,-49},{91,-92}}, lineColor={192,192,192}),
-        Line(points={{41,-29},{41,-49}}, color={192,192,192})}),
+        Rectangle(
+          extent={{-36,20},{34,-54}},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Polygon(
+          points={{-46,-10},{-46,2},{-34,2},{-34,-10},{-22,-10},{-22,-22},{-34,
+              -22},{-34,-34},{-46,-34},{-46,-22},{-58,-22},{-58,-10},{-46,-10}},
+
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{28,4},{40,-8}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{42,-8},{54,-20}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{14,-8},{26,-20}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{28,-22},{40,-34}},
+          pattern=LinePattern.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-20,24},{20,24}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{0,24},{0,40},{20,60},{80,60}},
+          color={0,0,127},
+          smooth=Smooth.None)}),
     Documentation(info="<HTML>
 <p>
 This block transforms a <b>Real</b> input signal into a <b>Boolean</b>

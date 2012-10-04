@@ -73,8 +73,8 @@ partial model Partial_HydraulicHeatingSystem
     TInitial=TInitial,
     QNom=sum(QNom),
     medium=medium)
-    annotation (choicesAllMatching = true, Placement(transformation(extent={{-92,-12},
-            {-72,8}})));
+    annotation (choicesAllMatching = true, Placement(transformation(extent={{-110,
+            -12},{-90,8}})));
 
   annotation(Icon,
       Diagram(graphics));

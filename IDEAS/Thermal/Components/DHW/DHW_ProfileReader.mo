@@ -86,5 +86,36 @@ equation
       points={{70,-54},{0,-54},{0,-100}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Icon(graphics={
+        Polygon(
+          points={{42,6},{38,-16},{24,-34},{18,-44},{22,-60},{34,-70},{46,-70},
+              {58,-66},{64,-54},{64,-40},{56,-26},{48,-18},{42,6}},
+          lineColor={0,128,255},
+          smooth=Smooth.None,
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{16,20},{56,10}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-22,68},{0,46}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-46,68},{-24,46}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-24,26},{-24,0},{-120,0}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Rectangle(
+          extent={{-34,42},{50,20}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid)}));
 end DHW_ProfileReader;
