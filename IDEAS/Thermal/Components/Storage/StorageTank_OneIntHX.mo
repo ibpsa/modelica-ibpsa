@@ -21,7 +21,7 @@ model StorageTank_OneIntHX
     "Additional thermal conductance for connection losses and imperfect insulation";
   parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in
         1:nbrNodes} "Initial temperature of all Temperature states";
-  parameter SI.ThermalConductivity lamBuo(min=0) = 1
+  parameter SI.ThermalConductivity lamBuo(min=0) = 500
     "Equivalent thermal conductivity for buoancy mixing in case of temperature inversion.  See code for info";
 
     /* 
