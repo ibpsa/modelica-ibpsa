@@ -3,9 +3,11 @@ model Buoyancy
   "Model to add buoyancy if there is a temperature inversion in the tank"
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
     "Medium in the tank";
-  parameter Modelica.SIunits.Volume V "Total tank volume";
+  parameter SI.Length h "Total tank height";
   parameter Integer nbrNodes(min=2) = 2 "Number of tank nodes";
-  parameter Modelica.SIunits.Time tau(min=0) "Time constant for mixing";
+  parameter SI.Area surCroSec "Cross section surface of the tank";
+  parameter SI.ThermalConductivity lamBuo(min=0)
+    "Equivalent thermal conductivity for buoancy mixing";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nbrNodes] heatPort
     "Heat input into the volumes"
@@ -13,12 +15,10 @@ model Buoyancy
 
   Modelica.SIunits.HeatFlowRate[nbrNodes-1] Q_flow
     "Heat flow rate from segment i+1 to i";
-protected
-   parameter Real k(unit="W/K") = V*medium.rho*medium.cp/tau/nbrNodes
-    "Proportionality constant, since we use dT instead of dH";
+
 equation
   for i in 1:nbrNodes-1 loop
-    Q_flow[i] = k*max(heatPort[i+1].T-heatPort[i].T, 0);
+    Q_flow[i] = lamBuo * surCroSec * max(heatPort[i+1].T-heatPort[i].T, 0) / (h/nbrNodes);
   end for;
 
   heatPort[1].Q_flow = -Q_flow[1];

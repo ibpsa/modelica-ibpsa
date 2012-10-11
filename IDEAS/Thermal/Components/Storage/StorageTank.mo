@@ -11,16 +11,17 @@ model StorageTank "Simplified stratified storage tank"
     "Total height of the tank";
   final parameter Modelica.SIunits.Mass mNode=volumeTank*medium.rho/nbrNodes
     "Mass of each node";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer U(min=0)=0.4
-    "Average heat loss coefficient per m² of tank surface";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer UIns(min=0)=0.4
+    "Average heat loss coefficient for insulation per m² of tank surface";
+  parameter Modelica.SIunits.ThermalConductance UACon(min=0)=0.5
+    "Additional thermal conductance for connection losses and imperfect insulation";
   parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in
         1:nbrNodes} "Initial temperature of all Temperature states";
-  parameter Modelica.SIunits.Time tauBuo(min=0) = 60
-    "Time constant for mixing in case of temperature inversion.  See code for info";
+  parameter SI.ThermalConductivity lamBuo(min=0) = 1
+    "Equivalent thermal conductivity for buoancy mixing in case of temperature inversion.  See code for info";
 
     /* 
-    A validation excercise has shown that with all other values kept to default, tau should be set to 
-    220s in case of 10 nodes, and 60s in case of 20 nodes.
+    A validation excercise has shown that TO BE COMPLETED.
     */
 
   parameter Boolean preventNaturalDestratification = true
@@ -49,8 +50,9 @@ model StorageTank "Simplified stratified storage tank"
   Thermal.Components.Storage.Buoyancy buoancy(
     nbrNodes=nbrNodes,
     medium=medium,
-    tau=tauBuo,
-    V=volumeTank)
+    lamBuo=lamBuo,
+    surCroSec=volumeTank/heightTank,
+    h=heightTank)
     "Buoancy model to mix nodes in case of inversed temperature stratification";
 
 function areaCalculation
@@ -86,7 +88,7 @@ end areaCalculation;
 
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes] lossNodes(
-    G = U * areaCalculation(volumeTank, heightTank, nbrNodes, preventNaturalDestratification))
+    G = UACon/nbrNodes * ones(nbrNodes) + UIns * areaCalculation(volumeTank, heightTank, nbrNodes, preventNaturalDestratification))
     "Array of conduction loss components to the environment";
 
 public

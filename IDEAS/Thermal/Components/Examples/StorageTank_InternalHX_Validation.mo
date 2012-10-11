@@ -2,6 +2,8 @@ within IDEAS.Thermal.Components.Examples;
 model StorageTank_InternalHX_Validation
   "Thermal storage tank tester with internal heat exchanger"
 
+  parameter SI.ThermalConductivity lamBuo=1000 annotation(Evaluate=false);
+
   Thermal.Components.BaseClasses.Pump volumeFlow1(
     medium=Data.Media.Water(),
     m=4,
@@ -30,8 +32,9 @@ model StorageTank_InternalHX_Validation
     TInitial={283.15 for i in 1:tank.nbrNodes},
     nbrNodes=5,
     nodeHXLower=5,
-    tauBuo=100,
-    nodeHXUpper=2)                                        annotation (
+    lamBuo=lamBuo,
+    nodeHXUpper=2,
+    U=0.96)                                               annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
