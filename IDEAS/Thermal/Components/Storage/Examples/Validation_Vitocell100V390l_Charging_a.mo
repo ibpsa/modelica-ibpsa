@@ -33,9 +33,9 @@ model Validation_Vitocell100V390l_Charging_a
     lamBuo=lamBuo,
     UIns=0.4,
     UACon=0.56,
-    nbrNodes=10,
-    nodeHXUpper=4,
-    nodeHXLower=10)                                       annotation (
+    nbrNodes=160,
+    nodeHXUpper=64,
+    nodeHXLower=160)                                       annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -75,5 +75,7 @@ equation
       points={{80,-61},{74,-61},{74,-60},{70,-60},{70,-28}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics),
+    experiment(StopTime=3600, Interval=5),
+    __Dymola_experimentSetupOutput);
 end Validation_Vitocell100V390l_Charging_a;
