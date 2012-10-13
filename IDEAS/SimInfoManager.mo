@@ -3,32 +3,20 @@ model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
 
 protected
-  parameter IDEAS.Occupants.Extern.Files.none none;
-  parameter IDEAS.Climate.Meteo.Files.min60 hourly(locNam = Uccle.locNam)
-    "Hourly climate data";
+  parameter IDEAS.Climate.Meteo.Files.min60 hourly "Hourly climate data";
   parameter IDEAS.Climate.Meteo.Locations.Uccle Uccle "Uccle, Belgium";
-
+  parameter IDEAS.Occupants.Extern.none none "No occupant behavior to be read";
 public
-  replaceable IDEAS.Climate.Meteo.Detail detail(locNam=city.locNam) = hourly
+  replaceable parameter IDEAS.Climate.Meteo.Detail detail = hourly
     "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
-  replaceable IDEAS.Climate.Meteo.location city = Uccle
+  replaceable parameter IDEAS.Climate.Meteo.location city = Uccle
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
-
-  parameter Integer nOcc = 1 "Number of occupant data sets" annotation (Dialog(group="Building occupants"));
-  replaceable IDEAS.Occupants.Extern.Detail presence(locNam="User_Presence") = none
-    "Occupant presence data"   annotation (choicesAllMatching = true, Dialog(group="Building occupants"));
-  replaceable IDEAS.Occupants.Extern.Detail QCon(locNam="User_QCon") = none
-    "Radiative occupant gains data"   annotation (choicesAllMatching = true, Dialog(group="Building occupants"));
-  replaceable IDEAS.Occupants.Extern.Detail QRad(locNam="User_QRad") = none
-    "Convective and radiative occupant gains data"   annotation (choicesAllMatching = true, Dialog(group="Building occupants"));
-  replaceable IDEAS.Occupants.Extern.Detail P(locNam="User_P") = none
-    "Active occupant load data"   annotation (choicesAllMatching = true, Dialog(group="Building occupants"));
-  replaceable IDEAS.Occupants.Extern.Detail Q(locNam="User_Q") = none
-    "Reactive occupant load data"   annotation (choicesAllMatching = true, Dialog(group="Building occupants"));
-  replaceable IDEAS.Occupants.Extern.Detail mDHW(locNam="User_mDHW") = none
-    "Domestic hot water redrawal data"   annotation (choicesAllMatching = true, Dialog(group="Building occupants"));
+  replaceable parameter IDEAS.Occupants.Extern.occupant occupants = none
+    "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="Others"));
 
 protected
+  parameter Boolean occBeh = occupants.present;
+  parameter String filNamClim = "..\\Inputs\\" + city.locNam + detail.filNam;
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") = city.lat
     "latitude of the locatioin";
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") = city.lon;
@@ -87,10 +75,10 @@ protected
     ifSolCor=true)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Tables.CombiTable1Ds climate_nonSolar(final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    final tableOnFile=true, final tableName="data",final fileName=detail.filNam, final columns = {15,16,12,10})
+    final tableOnFile=true, final tableName="data",final fileName=filNamClim, final columns = {15,16,12,10})
     annotation (Placement(transformation(extent={{-40,66},{-26,80}})));
   Modelica.Blocks.Tables.CombiTable1Ds climate_solar(
-    final tableOnFile=true, final tableName="data",final fileName=detail.filNam, final columns = {7,11,14},
+    final tableOnFile=true, final tableName="data",final fileName=filNamClim, final columns = {7,11,14},
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     annotation (Placement(transformation(extent={{-40,46},{-26,60}})));
 
@@ -99,43 +87,43 @@ Modelica.Blocks.Tables.CombiTable1Ds tabQCon(
     final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile = true,
     tableName = "data",
-    fileName = QCon.filNam,
-    columns=2:nOcc)            annotation (Placement(transformation(extent={{-40,-34},
+    fileName = "..\\Inputs\\" + occupants.filQCon,
+    columns=2:nOcc) if occBeh annotation (Placement(transformation(extent={{-40,-34},
             {-26,-20}})));
 Modelica.Blocks.Tables.CombiTable1Ds tabQRad(
     final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile = true,
     tableName = "data",
-    fileName = QRad.filNam,
-    columns=2:nOcc)            annotation (Placement(transformation(extent={{-36,-38},
+    fileName = "..\\Inputs\\" + occupants.filQRad,
+    columns=2:nOcc) if occBeh annotation (Placement(transformation(extent={{-36,-38},
             {-22,-24}})));
 Modelica.Blocks.Tables.CombiTable1Ds tabPre(
     final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile = true,
     tableName = "data",
-    fileName = presence.filNam,
-    columns=2:nOcc)           annotation (Placement(transformation(extent={{-40,-14},
+    fileName = "..\\Inputs\\" + occupants.filPres,
+    columns=2:nOcc) if occBeh annotation (Placement(transformation(extent={{-40,-14},
             {-26,0}})));
 Modelica.Blocks.Tables.CombiTable1Ds tabP(
     final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile = true,
     tableName = "data",
-    fileName = P.filNam,
-    columns=2:nOcc)         annotation (Placement(transformation(extent={{-40,-58},
+    fileName = "..\\Inputs\\" + occupants.filP,
+    columns=2:nOcc) if occBeh annotation (Placement(transformation(extent={{-40,-58},
             {-26,-44}})));
 Modelica.Blocks.Tables.CombiTable1Ds tabQ(
     final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile = true,
     tableName = "data",
-    fileName = Q.filNam,
-    columns=2:nOcc)         annotation (Placement(transformation(extent={{-36,-62},
+    fileName = "..\\Inputs\\" + occupants.filQ,
+    columns=2:nOcc) if occBeh annotation (Placement(transformation(extent={{-36,-62},
             {-22,-48}})));
 Modelica.Blocks.Tables.CombiTable1Ds tabDHW(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=mDHW.filNam,
-    columns=2:nOcc) "Domestic hot water in kg/s at 60 degC"
+    fileName="..\\Inputs\\" + occupants.filDHW,
+    columns=2:nOcc) if occBeh
                             annotation (Placement(transformation(extent={{-40,-82},
             {-26,-68}})));
 algorithm
