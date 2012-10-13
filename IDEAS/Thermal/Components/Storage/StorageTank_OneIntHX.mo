@@ -21,8 +21,9 @@ model StorageTank_OneIntHX
     "Additional thermal conductance for connection losses and imperfect insulation";
   parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in
         1:nbrNodes} "Initial temperature of all Temperature states";
-  parameter SI.ThermalConductivity lamBuo(min=0) = 500
-    "Equivalent thermal conductivity for buoancy mixing in case of temperature inversion.  See code for info";
+   parameter SI.ThermalConductivity kBuo(min=0) = 500
+    "(hopefully fix) linear coefficient for buoyancy flow rate";
+  parameter Real expBuo "Exponent for the thermal gradient";
 
     /* 
     A validation excercise has shown that TO BE COMPLETED.
@@ -85,7 +86,8 @@ model StorageTank_OneIntHX
    Thermal.Components.Storage.Buoyancy buoancy(
     nbrNodes=nbrNodes,
     medium=medium,
-    lamBuo=lamBuo,
+    kBuo=kBuo,
+    expBuo=expBuo,
     surCroSec=volumeTank/heightTank,
     h=heightTank)
     "Buoancy model to mix nodes in case of inversed temperature stratification";

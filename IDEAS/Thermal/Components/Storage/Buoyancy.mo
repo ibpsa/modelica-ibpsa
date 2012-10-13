@@ -6,19 +6,27 @@ model Buoyancy
   parameter SI.Length h "Total tank height";
   parameter Integer nbrNodes(min=2) = 2 "Number of tank nodes";
   parameter SI.Area surCroSec "Cross section surface of the tank";
-  parameter SI.ThermalConductivity lamBuo(min=0)
-    "Equivalent thermal conductivity for buoancy mixing";
+  parameter Real kBuo(min=0)
+    "(hopefully fix) coefficient for buoyancy flow rate";
+  parameter Real expBuo "Exponent for the thermal gradient";
+  SI.HeatFlowRate[nbrNodes-1] Q_flow "Heat flow rate from segment i+1 to i";
+  SI.MassFlowRate[nbrNodes-1] mFloMix
+    "Mass flow rate between node i+1 and i (and vice versa)";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nbrNodes] heatPort
     "Heat input into the volumes"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
 
-  Modelica.SIunits.HeatFlowRate[nbrNodes-1] Q_flow
-    "Heat flow rate from segment i+1 to i";
+protected
+  SI.TemperatureDifference[nbrNodes-1] dT
+    "Temperature difference between layer i+1 and i, only if >0, else 0";
+  parameter SI.Length hi = h/nbrNodes;
 
 equation
   for i in 1:nbrNodes-1 loop
-    Q_flow[i] = lamBuo * surCroSec * max(heatPort[i+1].T-heatPort[i].T, 0) / (h/nbrNodes);
+    dT[i] = max(heatPort[i+1].T-heatPort[i].T, 0);
+    mFloMix[i] = kBuo * power((dT[i]/hi), expBuo) * surCroSec;
+    Q_flow[i] = mFloMix[i] * medium.cp * dT[i];
   end for;
 
   heatPort[1].Q_flow = -Q_flow[1];
