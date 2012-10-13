@@ -11,18 +11,6 @@ parameter SI.Temperature TOpStart = 297.15;
 
 parameter Boolean linear = true;
 
-//to be moved from the zone definition to ventilation models ?
-protected
-parameter Boolean recuperation = false;
-parameter Modelica.SIunits.Efficiency RecupEff = 0.84
-    "efficientie on heat recuperation of ventilation air";
-
-//not necessary ?
-protected
-parameter Modelica.SIunits.Length height = 2.7 "zone height";
-parameter Modelica.SIunits.Temperature Tset = 294.15 "setpoint temperature";
-parameter Real ACH = 0.0 "ventilation rate";
-
 protected
   IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(nSurf=nSurf)
     "distribution of radiative internal gains"
@@ -34,12 +22,9 @@ protected
     V=V,
     corrCV=corrCV) "convective part of the zone"
     annotation (Placement(transformation(extent={{-2,10},{-22,30}})));
-  IDEAS.Buildings.Components.BaseClasses.Ventilation vent(
+  IDEAS.Buildings.Components.BaseClasses.AirLeakage  vent(
     n50=n50,
-    V=V,
-    ACH=ACH,
-    RecupEff=RecupEff,
-    recuperation=recuperation) "zone ventilation"                                                        annotation (Placement(transformation(
+    V=V) "zone air leakage"                                                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,42})));
@@ -48,7 +33,6 @@ protected
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-54,-10})));
-
   Modelica.Blocks.Math.Sum sum(nin=2, k={0.5,0.5}, y(start=TOpStart))
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
 equation

@@ -134,5 +134,36 @@ equation
       points={{70,-54},{0,-54},{0,-100}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Icon(graphics={
+        Polygon(
+          points={{62,6},{58,-16},{44,-34},{38,-44},{42,-60},{54,-70},{66,-70},
+              {78,-66},{84,-54},{84,-40},{76,-26},{68,-18},{62,6}},
+          lineColor={0,128,255},
+          smooth=Smooth.None,
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{36,20},{76,10}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-2,68},{20,46}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-26,68},{-4,46}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-14,42},{70,20}},
+          lineColor={0,128,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-4,26},{-4,0},{-100,0}},
+          color={0,0,127},
+          smooth=Smooth.None)}));
 end partial_DHW;

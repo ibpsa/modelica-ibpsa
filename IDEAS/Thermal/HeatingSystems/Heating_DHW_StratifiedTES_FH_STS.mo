@@ -208,7 +208,7 @@ end for;
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
-      points={{46.3,-52},{54,-52},{54,22},{66,22},{66,22}},
+      points={{46.3,-52},{66,-52},{66,22},{66,22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSet, heatingControl.uLow) annotation (Line(

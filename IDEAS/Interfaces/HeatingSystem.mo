@@ -57,7 +57,7 @@ partial model HeatingSystem "Partial heating system inclusif control"
     "mFlow for domestic hot water, at 60 degC"  annotation (Placement(transformation(extent={{10,-10},
             {-10,10}},
         rotation=90,
-        origin={120,-96})));
+        origin={60,-96})));
 
 // Total heat use ///////////////////////////////////////////////////////////////////////////////////////
   SI.Power QHeatTotal "Total net heat use (space heating + DHW, if present)";

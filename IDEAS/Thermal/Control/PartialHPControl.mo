@@ -70,59 +70,59 @@ equation
   SOC=0.5*(TTankBot-TBotEmpty)/(TBotSet+dTSafetyBot-TBotEmpty)+0.5*(TTankTop-(TTopSet+dTSafetyTop))/(dTSupRetNom-dTSafetyTop);
 
   annotation(Icon(graphics={
-        Ellipse(
-          extent={{-72,20},{0,-54}},
-          pattern=LinePattern.None,
-          lineColor={0,0,0},
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-6,20},{66,-54}},
-          pattern=LinePattern.None,
-          lineColor={0,0,0},
-          fillColor={0,0,127},
+        Rectangle(
+          extent={{-74,58},{74,-56}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-36,20},{34,-54}},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
+          extent={{48,38},{54,-38}},
+          lineColor={70,70,70},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{22,38},{28,-38}},
+          lineColor={70,70,70},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-4,38},{2,-38}},
+          lineColor={70,70,70},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-30,38},{-24,-38}},
+          lineColor={70,70,70},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-54,36},{-46,28}},
+          lineColor={255,255,255},
+          fillColor={128,255,0},
+          fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-46,-10},{-46,2},{-34,2},{-34,-10},{-22,-10},{-22,-22},{-34,
-              -22},{-34,-34},{-46,-34},{-46,-22},{-58,-22},{-58,-10},{-46,-10}},
-
-          pattern=LinePattern.None,
+          points={{-34,-4},{-22,-4},{-16,-10},{-22,-16},{-34,-16},{-34,-4}},
+          lineColor={0,0,127},
           smooth=Smooth.None,
-          fillColor={255,255,255},
+          fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{28,4},{40,-8}},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
+        Polygon(
+          points={{-8,12},{4,12},{10,6},{4,0},{-8,0},{-8,12}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{42,-8},{54,-20}},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
+        Polygon(
+          points={{18,0},{30,0},{36,-6},{30,-12},{18,-12},{18,0}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{14,-8},{26,-20}},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{28,-22},{40,-34}},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-20,24},{20,24}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{0,24},{0,40},{20,60},{80,60}},
-          color={0,0,127},
-          smooth=Smooth.None)}),
+        Polygon(
+          points={{46,16},{58,16},{64,10},{58,4},{46,4},{46,16}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid)}),
       Diagram(graphics));
 end PartialHPControl;
