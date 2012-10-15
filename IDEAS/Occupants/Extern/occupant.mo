@@ -1,5 +1,5 @@
 within IDEAS.Occupants.Extern;
-partial model occupant
+model occupant
 
   parameter Boolean present = true "Occupancy behavior included in simulation";
 

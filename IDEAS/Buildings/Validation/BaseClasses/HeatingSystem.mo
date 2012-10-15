@@ -15,6 +15,8 @@ package HeatingSystem
     heatPortEmb[i].Q_flow = 0;
   end for;
 
+  QHeatTotal = 0;
+
   end None;
 
   model Deadband "BESTEST deadband heating system"
@@ -85,6 +87,8 @@ package HeatingSystem
     heatPortRad[i].Q_flow =  0;
     heatPortEmb[i].Q_flow =  0;
   end for;
+
+  QHeatTotal = sum(heatPortCon.Q_flow);
 
   wattsLawPlug[1].P = -1*sum(heatPortCon.Q_flow);
   wattsLawPlug[1].Q = 0

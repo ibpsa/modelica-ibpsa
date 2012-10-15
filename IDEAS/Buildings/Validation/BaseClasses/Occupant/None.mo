@@ -11,4 +11,6 @@ for i in 1:nZones loop
   TSet[i] =  273.15;
 end for;
   annotation (Diagram(graphics));
+mDHW60C = 0;
+
 end None;
