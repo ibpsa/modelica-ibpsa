@@ -71,15 +71,7 @@ package HeatingSystem
     parameter Modelica.SIunits.Temperature Tcool = 300.15
       "Cooling on above 27°C always";
 
-    Electric.BaseClasses.WattsLaw wattsLaw
-      annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-
   equation
-    connect(wattsLaw.vi, pinLoad) annotation (Line(
-        points={{80,0},{100,0}},
-        color={85,170,255},
-        smooth=Smooth.None));
-
   for i in 1:nZones loop
     if (Tbase > TSensor[i]) and not occ.occupied then
       heatPortCon[i].Q_flow =  max(-10*C[i]*(Tbase -  TSensor[i]),-1e7);
@@ -94,8 +86,8 @@ package HeatingSystem
     heatPortEmb[i].Q_flow =  0;
   end for;
 
-  wattsLaw.P = -1*sum(heatPortCon.Q_flow);
-  wattsLaw.Q = 0
+  wattsLawPlug[1].P = -1*sum(heatPortCon.Q_flow);
+  wattsLawPlug[1].Q = 0
     annotation (Diagram(graphics));
   end ThermostatSetback;
 
