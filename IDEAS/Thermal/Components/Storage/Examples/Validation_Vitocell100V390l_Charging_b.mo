@@ -35,9 +35,9 @@ model Validation_Vitocell100V390l_Charging_b
     expBuo=expBuo,
     UIns=0.4,
     UACon=0.56,
-    nbrNodes=160,
-    nodeHXUpper=64,
-    nodeHXLower=160)                                       annotation (
+    nbrNodes=5,
+    nodeHXUpper=2,
+    nodeHXLower=5)                                       annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

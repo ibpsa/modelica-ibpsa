@@ -7,8 +7,8 @@ model Validation_Vitocell100V390l_Charging_a
   See the IDEAS manual for more on the validation of the storage tank model
   */
 
-  parameter Real kBuo=1000 annotation(Evaluate=false);
-  parameter Real expBuo=1 annotation(Evaluate=false);
+  parameter Real kBuo=9.37e-7 annotation(Evaluate=false);
+  parameter Real expBuo= 4.75 annotation(Evaluate=false);
 
   Thermal.Components.BaseClasses.Pump volumeFlow1(
     medium=Data.Media.Water(),
@@ -35,9 +35,9 @@ model Validation_Vitocell100V390l_Charging_a
     expBuo=expBuo,
     UIns=0.4,
     UACon=0.56,
-    nbrNodes=40,
-    nodeHXUpper=16,
-    nodeHXLower=40)                                       annotation (
+    nbrNodes=10,
+    nodeHXUpper=4,
+    nodeHXLower=10)                                       annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

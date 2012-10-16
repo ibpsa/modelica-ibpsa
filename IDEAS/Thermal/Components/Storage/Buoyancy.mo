@@ -25,7 +25,7 @@ protected
 equation
   for i in 1:nbrNodes-1 loop
     dT[i] = max(heatPort[i+1].T-heatPort[i].T, 0);
-    mFloMix[i] = kBuo * power((dT[i]/hi), expBuo) * surCroSec;
+    mFloMix[i] = kBuo * (dT[i]/hi)^expBuo * surCroSec;
     Q_flow[i] = mFloMix[i] * medium.cp * dT[i];
   end for;
 
