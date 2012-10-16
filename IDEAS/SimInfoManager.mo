@@ -5,13 +5,14 @@ model SimInfoManager
 protected
   parameter IDEAS.Climate.Meteo.Files.min60 hourly "Hourly climate data";
   parameter IDEAS.Climate.Meteo.Locations.Uccle Uccle "Uccle, Belgium";
-  parameter IDEAS.Occupants.Extern.none none "No occupant behavior to be read";
+  parameter IDEAS.Occupants.Extern.Interfaces.none none
+    "No occupant behavior to be read";
 public
   replaceable parameter IDEAS.Climate.Meteo.Detail detail = hourly
     "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   replaceable parameter IDEAS.Climate.Meteo.location city = Uccle
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
-  replaceable parameter IDEAS.Occupants.Extern.occupant occupants = none
+  replaceable parameter IDEAS.Occupants.Extern.Interfaces.occupant occupants = none
     "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="Others"));
 
 protected
