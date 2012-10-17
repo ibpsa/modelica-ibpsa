@@ -23,7 +23,8 @@ package Examples
       annotation (Placement(transformation(extent={{46,-4},{66,16}})));
     inner SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Files.min60 detail,
         redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
-      redeclare IDEAS.Occupants.Extern.Interfaces.fromFiles occupants)
+      redeclare IDEAS.Occupants.Extern.Interfaces.fromFiles occupants,
+      occBeh=true)
       annotation (Placement(transformation(extent={{-94,78},{-74,98}})));
     Extern.ExternalFiles externalFiles
       annotation (Placement(transformation(extent={{-34,-2},{-14,18}})));

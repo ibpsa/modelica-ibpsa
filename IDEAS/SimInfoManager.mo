@@ -14,9 +14,11 @@ public
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   replaceable parameter IDEAS.Occupants.Extern.Interfaces.occupant occupants = none
     "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="Others"));
+  parameter Boolean occBeh = occupants.present
+    "true if occupant profiles are to be generated";
+  parameter Integer nOcc = 33 "Number of occupant profiles to foresee";
 
 protected
-  parameter Boolean occBeh = occupants.present;
   parameter String filNamClim = "..\\Inputs\\" + city.locNam + detail.filNam;
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") = city.lat
     "latitude of the locatioin";
