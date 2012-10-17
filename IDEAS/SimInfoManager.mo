@@ -5,16 +5,17 @@ model SimInfoManager
 protected
   parameter IDEAS.Climate.Meteo.Files.min60 hourly "Hourly climate data";
   parameter IDEAS.Climate.Meteo.Locations.Uccle Uccle "Uccle, Belgium";
-  parameter IDEAS.Occupants.Extern.Interfaces.fromFiles fromFiles
+  parameter IDEAS.Occupants.Extern.Interfaces.Stoch33 stoch33
     "Default occupant behavior to be read";
 public
   replaceable parameter IDEAS.Climate.Meteo.Detail detail = hourly
     "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   replaceable parameter IDEAS.Climate.Meteo.location city = Uccle
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
-  parameter Boolean occBeh = false "true if user behaviour is included"
+  parameter Boolean occBeh = false
+    "true if user behaviour is to be read from files"
                                          annotation(Dialog(group="User behaviour"));
-  replaceable parameter IDEAS.Occupants.Extern.Interfaces.occupant occupants = fromFiles
+  replaceable parameter IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants= stoch33
     "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="User behaviour"));
   parameter Integer nOcc = 33 "Number of occupant profiles" annotation(Dialog(group="User behaviour"));
 

@@ -23,11 +23,11 @@ package Examples
       annotation (Placement(transformation(extent={{46,-4},{66,16}})));
     inner SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Files.min60 detail,
         redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
-      redeclare IDEAS.Occupants.Extern.Interfaces.fromFiles occupants,
+      redeclare IDEAS.Occupants.Extern.Interfaces.Stoch33   occupants,
       occBeh=true)
       annotation (Placement(transformation(extent={{-94,78},{-74,98}})));
-    IDEAS.Occupants.Extern.Occupant_ExtFiles_SingleZone
-                         externalFiles(occ=5)
+    Extern.Occupant_ExtFiles_SingleZone
+                         externalFiles(occ=29)
       annotation (Placement(transformation(extent={{-34,-2},{-14,18}})));
   equation
     connect(voltageSource.pin_p,ground. pin) annotation (Line(

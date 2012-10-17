@@ -3,7 +3,7 @@ package Interfaces
 
   extends Modelica.Icons.InterfacesPackage;
 
-  model occupant
+  model Occ_Files "Dummy file reader for occupant model"
 
       parameter Integer nOcc = 1 "Number of occupant data sets to be read" annotation (Dialog(group="Building occupants"));
 
@@ -21,20 +21,15 @@ package Interfaces
     parameter String filDHW = "User_zeros.txt"
       "Filename for occupancy-driven domestic hot water redrawal" annotation (Dialog(group="Building occupants"));
 
-  end occupant;
+  end Occ_Files;
 
-  model none
 
-    extends IDEAS.Occupants.Extern.Interfaces.occupant;
+  model Stoch33 "33 stochastic user behaviour profiles "
 
-  end none;
-
-  model fromFiles
-
-    extends IDEAS.Occupants.Extern.Interfaces.occupant(nOcc=33, filPres = "User_Presence_15.txt",
+    extends IDEAS.Occupants.Extern.Interfaces.Occ_Files(nOcc=33, filPres = "User_Presence_15.txt",
     filQCon = "User_QCon_15.txt",filQRad = "User_QRad_15.txt",filP = "User_P_15.txt",
-    filQ = "User_Q_15.txt",filDHW = "User_mDHW_15.txt");
+    filQ = "User_zeros.txt",filDHW = "User_mDHW_15.txt");
 
-  end fromFiles;
+  end Stoch33;
 
 end Interfaces;
