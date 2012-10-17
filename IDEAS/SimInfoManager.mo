@@ -12,8 +12,8 @@ public
     "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   replaceable parameter IDEAS.Climate.Meteo.location city = Uccle
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
-  parameter Boolean occBeh = false
-    "true if user behaviour is to be read from files"
+  parameter Boolean occBeh = true
+    "put to false if no user behaviour is to be read from files"
                                          annotation(Dialog(group="User behaviour"));
   replaceable parameter IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants= stoch33
     "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="User behaviour"));
