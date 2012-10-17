@@ -3,6 +3,7 @@ HeatedPipe
 Ambient
 AbsolutePressure
 Pump
+Pump_HeatPort
 MixingVolume
 IdealMixer
 VariableThermalConductor
