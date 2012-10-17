@@ -1,5 +1,5 @@
 within IDEAS.Occupants.Extern;
-model fromFiles
+model ExternalFiles "Occupant model based on external files"
 
   extends IDEAS.Interfaces.Occupant(nLoads=1);
   parameter Integer occ
@@ -22,4 +22,4 @@ else
 end if;
 
   annotation (Diagram(graphics));
-end fromFiles;
+end ExternalFiles;
