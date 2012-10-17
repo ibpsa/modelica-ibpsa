@@ -23,15 +23,17 @@ temperature rise defined by storing heat in medium's mass.
 </HTML>"),
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
-        Rectangle(
-          extent={{-90,20},{90,-20}},
-          lineColor={255,0,0},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
         Text(extent={{-150,100},{150,40}}, textString="%name"),
         Polygon(
           points={{-10,-90},{-10,-40},{0,-20},{10,-40},{10,-90},{-10,-90}},
-          lineColor={255,0,0})}),
+          lineColor={255,0,0},
+          fillPattern=FillPattern.Forward,
+          fillColor={255,255,255}),
+                              Rectangle(
+          extent={{-100,20},{100,-20}},
+          lineColor={255,255,255},
+          fillColor={85,170,255},
+          fillPattern=FillPattern.HorizontalCylinder)}),
                             Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-100,-100},{100,100}}),
                                     graphics));

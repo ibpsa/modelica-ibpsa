@@ -25,7 +25,7 @@ protected
   parameter Real DSTend = 86400*(31+28+31+30+31+30+31+31+30+31-rem(5*yr/4+1,7))+2*3600;
 
 public
-  outer IDEAS.Climate.SimInfoManager   sim
+  outer IDEAS.SimInfoManager           sim
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
         annotation (Placement(transformation(extent={{-110,10},{-90,30}}),

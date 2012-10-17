@@ -3,6 +3,32 @@ package Examples
 
   extends Modelica.Icons.ExamplesPackage;
 
+  model Occupant_FromFiles
+    "Occupant model based on external files for a single zone building"
+    extends Interfaces.Occupant(nZones=1, nLoads=1);
+    parameter Integer profileID = 1
+      "Profile ID: the column number in the external files";
+    parameter SI.Temperature TSetOcc = 294.15
+      "(operative) Room set temperature during occupancy";
+    parameter SI.Temperature TSetNoOcc = 288.15
+      "(operative) Room set temperature during abscence";
+    //Not used in this model, but for compatibility with other occupancy models the floor surface is added
+    parameter Modelica.SIunits.Area[nZones] AFloor
+      "Floor area of different zones";
+
+    outer IDEAS.SimInfoManager sim
+      annotation (Placement(transformation(extent={{-98,80},{-80,98}})));
+  equation
+
+    heatPortCon[1].Q_flow = -1 * sim.tabQCon.y[profileID];
+    heatPortRad[1].Q_flow = -1 * sim.tabQRad.y[profileID];
+    TSet[1] = noEvent(if sim.tabPre.y[profileID] >0.5 then TSetOcc else TSetNoOcc);
+    wattsLawPlug[1].P = sim.tabP.y[profileID];
+    wattsLawPlug[1].Q = sim.tabQ.y[profileID];
+    mDHW60C = sim.tabDHW.y[profileID];
+
+  end Occupant_FromFiles;
+
   model Example_Occupant "Tester for occupant models"
 
     Occupant_FromFiles occupant_FromFiles(AFloor={100}, profileID=2)

@@ -5,8 +5,7 @@ package Components
 
   block Fanger "Fanger model"
 
-    outer IDEAS.Climate.SimInfoManager
-                               sim
+    outer IDEAS.SimInfoManager sim
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
     parameter Boolean Linear = true;
@@ -124,8 +123,7 @@ package Components
 
   model Schedule "Single schedule with look-ahead"
 
-    outer IDEAS.Climate.SimInfoManager
-                               sim;
+    outer IDEAS.SimInfoManager sim;
 
     parameter Real occupancy[:]=3600*{7, 19}
       "Occupancy table, each entry switching occupancy on or off";

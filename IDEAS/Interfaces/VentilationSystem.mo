@@ -7,7 +7,7 @@ partial model VentilationSystem
   parameter Modelica.SIunits.HeatCapacity[nZones] C = 1012*1.204*VZones*5
     "Heat capacity of the conditioned zones";
 
-  outer IDEAS.Climate.SimInfoManager  sim
+  outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
     "Sensor temperature of the zones" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -19,10 +19,10 @@ partial model VentilationSystem
     plugLoad(each m=1) "Electricity connection to the Inhome feeder"
                                                   annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Electric.BaseClasses.WattsLawPlug[nLoads] wattsLawPlug(each numPha=1)
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 equation
   connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-      points={{60,0},{100,0}},
+      points={{90,0},{100,0}},
         color={85,170,255},
         smooth=Smooth.None));
 

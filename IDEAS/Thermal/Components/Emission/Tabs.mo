@@ -42,5 +42,5 @@ equation
       points={{-54.6,12},{-33.3,12},{-33.3,2},{-12,2}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Icon(graphics));
 end Tabs;

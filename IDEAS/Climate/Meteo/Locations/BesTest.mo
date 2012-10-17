@@ -8,5 +8,5 @@ extends IDEAS.Climate.Meteo.location(
     timZonSta=-7*3600,
     DST=false,
     yr=2010,
-    LocNam="BesTest");
+    locNam="BesTest");
 end BesTest;

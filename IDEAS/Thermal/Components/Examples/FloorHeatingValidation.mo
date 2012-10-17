@@ -22,7 +22,7 @@ model FloorHeatingValidation
                                                                 FHChars,
     m_flowMin=12*24/3600) "tabs model"
                annotation (Placement(transformation(extent={{68,2},{88,22}})));
-  inner IDEAS.Climate.SimInfoManager sim(redeclare
+  inner IDEAS.SimInfoManager         sim(redeclare
       IDEAS.Climate.Meteo.Files.min15
       detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));

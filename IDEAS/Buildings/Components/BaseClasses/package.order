@@ -2,7 +2,7 @@ HeatRadiation
 MixedAir
 ZoneLwGainDistribution
 ZoneLwDistribution
-Ventilation
+AirLeakage
 AngleOfIncidence
 ShadingControl
 SwWindowResponse

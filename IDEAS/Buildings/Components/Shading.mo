@@ -128,7 +128,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(screen.Ctrl, Ctrl) annotation (Line(
-      points={{-9,-24},{-10,-24},{-10,-90}},
+      points={{-9,-24},{-10,-24},{-10,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(screen.iAngInc, iAngInc) annotation (Line(

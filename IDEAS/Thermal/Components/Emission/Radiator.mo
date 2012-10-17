@@ -93,44 +93,64 @@ leads to neglection of temperature transient cv*m*der(T).<br>
 Mixing rule is applied.<br>
 Parameter 0 &lt; tapT &lt; 1 defines temperature of heatPort between medium's inlet and outlet temperature.
 </HTML>"), Icon(graphics={
-        Rectangle(
-          extent={{-92,46},{94,-50}},
-          lineColor={0,0,255},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
         Line(
           points={{-60,38},{-60,-42}},
-          color={0,0,255},
-          thickness=0.5,
+          color={0,128,255},
           smooth=Smooth.None),
         Line(
           points={{-40,38},{-40,-42}},
-          color={0,0,255},
-          thickness=0.5,
+          color={0,128,255},
           smooth=Smooth.None),
         Line(
           points={{0,38},{0,-42}},
-          color={0,0,255},
-          thickness=0.5,
+          color={0,128,255},
           smooth=Smooth.None),
         Line(
           points={{-20,38},{-20,-42}},
-          color={0,0,255},
-          thickness=0.5,
+          color={0,128,255},
           smooth=Smooth.None),
         Line(
           points={{40,38},{40,-42}},
-          color={0,0,255},
-          thickness=0.5,
+          color={0,128,255},
           smooth=Smooth.None),
         Line(
           points={{20,38},{20,-42}},
-          color={0,0,255},
-          thickness=0.5,
+          color={0,128,255},
           smooth=Smooth.None),
         Line(
           points={{60,38},{60,-42}},
-          color={0,0,255},
-          thickness=0.5,
+          color={0,128,255},
+          smooth=Smooth.None),
+        Line(
+          points={{-100,0},{-60,0}},
+          color={0,128,255},
+          smooth=Smooth.None),
+        Line(
+          points={{100,0},{60,0}},
+          color={0,128,255},
+          smooth=Smooth.None),
+        Line(
+          points={{-60,-42},{-40,38}},
+          color={0,128,255},
+          smooth=Smooth.None),
+        Line(
+          points={{-40,-42},{-20,38}},
+          color={0,128,255},
+          smooth=Smooth.None),
+        Line(
+          points={{-20,-42},{0,38}},
+          color={0,128,255},
+          smooth=Smooth.None),
+        Line(
+          points={{0,-42},{20,38}},
+          color={0,128,255},
+          smooth=Smooth.None),
+        Line(
+          points={{20,-42},{40,38}},
+          color={0,128,255},
+          smooth=Smooth.None),
+        Line(
+          points={{40,-42},{60,38}},
+          color={0,128,255},
           smooth=Smooth.None)}));
 end Radiator;

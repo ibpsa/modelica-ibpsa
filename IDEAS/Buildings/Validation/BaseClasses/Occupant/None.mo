@@ -10,5 +10,7 @@ for i in 1:nZones loop
   heatPortRad[i].Q_flow =  0;
   TSet[i] =  273.15;
 end for;
+mDHW60C = 0;
+
   annotation (Diagram(graphics));
 end None;

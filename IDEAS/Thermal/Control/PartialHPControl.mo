@@ -50,7 +50,7 @@ partial model PartialHPControl "Basis of the heat Pump control algorithm"
     TOut_nominal = 273.15-8,
     redeclare IDEAS.BaseClasses.Math.MovingAverage filter(period=timeFilter))
     annotation (Placement(transformation(extent={{-54,44},{-34,64}})));
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{24,50},{44,70}})));
   Modelica.Blocks.Interfaces.RealOutput THPSet(start = 283.15)
     "Heat pump set temperature"
@@ -69,6 +69,60 @@ equation
   // with regard to TTopSet and TBotSet and a reference temperature (TBotEmpty)
   SOC=0.5*(TTankBot-TBotEmpty)/(TBotSet+dTSafetyBot-TBotEmpty)+0.5*(TTankTop-(TTopSet+dTSafetyTop))/(dTSupRetNom-dTSafetyTop);
 
-  annotation(Icon(Bitmap(extent=[-90,90; 90,-90], name="Control.tif")),
+  annotation(Icon(graphics={
+        Rectangle(
+          extent={{-74,58},{74,-56}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{48,38},{54,-38}},
+          lineColor={70,70,70},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{22,38},{28,-38}},
+          lineColor={70,70,70},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-4,38},{2,-38}},
+          lineColor={70,70,70},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-30,38},{-24,-38}},
+          lineColor={70,70,70},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-54,36},{-46,28}},
+          lineColor={255,255,255},
+          fillColor={128,255,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-34,-4},{-22,-4},{-16,-10},{-22,-16},{-34,-16},{-34,-4}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-8,12},{4,12},{10,6},{4,0},{-8,0},{-8,12}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{18,0},{30,0},{36,-6},{30,-12},{18,-12},{18,0}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{46,16},{58,16},{64,10},{58,4},{46,4},{46,16}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid)}),
       Diagram(graphics));
 end PartialHPControl;

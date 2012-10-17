@@ -17,7 +17,7 @@ parameter Integer nZones = 2 "Number of zones";
     solSys=true)
     annotation (Placement(transformation(extent={{0,-82},{50,-54}})));
 
-  inner IDEAS.Climate.SimInfoManager       sim(
+  inner IDEAS.SimInfoManager               sim(
                                         redeclare
       IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
       IDEAS.Climate.Meteo.Files.min5

@@ -59,6 +59,27 @@ inverter.P_dc=PV1.P_ratio*PNom;
       smooth=Smooth.None));
  PInit=pvVoltageCtrl.PInit;
  PFinal=pvVoltageCtrl.PFinal;
-  annotation (Icon(Bitmap(extent=[-90,90; 90,-90], name="modelica://IDEAS/Electric/PV.png")), Diagram(
+  annotation (Icon(graphics={
+        Polygon(
+          points={{-80,60},{-60,80},{60,80},{80,60},{80,-60},{60,-80},{-60,-80},
+              {-80,-60},{-80,60}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={85,170,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-40,80},{-40,-80}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{40,80},{40,-80}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Text(
+          extent={{-100,100},{100,-100}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="#")}),                                                                  Diagram(
         graphics));
 end PvSystemGeneralFromFile;

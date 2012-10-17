@@ -24,7 +24,7 @@ protected
   Boolean[nLoads] action "State change";
 
 public
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
     "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,10},{-90,30}}),

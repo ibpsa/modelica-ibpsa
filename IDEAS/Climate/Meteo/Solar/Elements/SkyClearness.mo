@@ -8,7 +8,7 @@ block SkyClearness
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
   Modelica.Blocks.Interfaces.RealOutput skyCle "sky clearness"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
 
 protected

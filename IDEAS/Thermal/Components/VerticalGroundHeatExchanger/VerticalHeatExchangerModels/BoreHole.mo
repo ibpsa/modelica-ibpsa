@@ -51,7 +51,7 @@ public
     annotation (Placement(transformation(extent={{-108,-12},{-88,8}})));
   AdaptedFluid.FlowPort_b flowPort_b(medium = medium)
     annotation (Placement(transformation(extent={{88,-10},{108,10}})));
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-90,74},{-70,94}})));
 equation
   // The upwardpipe of layer x is connected with the upwardpipe of layer x + 1 (the massflow and the heatresistance)

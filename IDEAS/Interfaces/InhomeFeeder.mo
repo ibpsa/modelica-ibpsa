@@ -12,7 +12,7 @@ partial model InhomeFeeder
   choice=1 "Single phaze grid connection",
   choice=4 "threephaze (4 line) grid connection"));
 
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin plugFeeder[
     numberOfPhazes]

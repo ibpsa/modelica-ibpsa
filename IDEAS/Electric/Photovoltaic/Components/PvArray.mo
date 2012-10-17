@@ -20,7 +20,7 @@ extends IDEAS.Electric.Photovoltaic.Components.DCgen;
   IDEAS.Electric.Photovoltaic.Components.Elements.incidenceAngles incidenceAngles(azi=azi,
       inc=inc)
     annotation (Placement(transformation(extent={{-38,20},{-18,40}})));
-  outer Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager   sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   IDEAS.Electric.Photovoltaic.Components.Elements.absorption absorption
     annotation (Placement(transformation(extent={{22,20},{42,40}})));

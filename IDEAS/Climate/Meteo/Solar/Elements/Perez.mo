@@ -1,7 +1,7 @@
 within IDEAS.Climate.Meteo.Solar.Elements;
 block Perez
   extends Modelica.Blocks.Interfaces.BlockIcon;
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-68,72},{-48,92}})));
   parameter Real rho = 0.2 "Ground reflectance";
   parameter Modelica.SIunits.Angle inc(displayUnit="degree")

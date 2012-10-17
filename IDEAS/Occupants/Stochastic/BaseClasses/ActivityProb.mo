@@ -25,7 +25,7 @@ protected
   parameter Real DSTend = 86400*(31+28+31+30+31+30+31+31+30+31-rem(5*yr/4+1,7))+2*3600;
 
 public
-  outer IDEAS.Climate.SimInfoManager   sim
+  outer IDEAS.SimInfoManager           sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 initial equation
 

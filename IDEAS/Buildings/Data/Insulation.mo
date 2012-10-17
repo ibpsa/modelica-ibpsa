@@ -39,4 +39,16 @@ package Insulation "Library of thermal insulation materials"
       k=0.020,
       c=1470,
       rho=30) "Polyisocyanuraat foam, PIR";
+  record Ytong = IDEAS.Buildings.Data.Interfaces.Insulation (
+      k=0.120,
+      c=1000,
+      rho=450,
+      epsLw=0.8,
+      epsSw=0.8) "Ytong";
+  record none = IDEAS.Buildings.Data.Interfaces.Insulation (
+      k=1000,
+      c=1008,
+      rho=1.23,
+      epsLw=0.8,
+      epsSw=0.8) "none";
 end Insulation;

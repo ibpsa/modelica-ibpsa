@@ -45,7 +45,7 @@ public
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,100})));
-  outer Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager   sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 initial equation

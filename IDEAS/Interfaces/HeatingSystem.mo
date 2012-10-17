@@ -2,7 +2,7 @@ within IDEAS.Interfaces;
 partial model HeatingSystem "Partial heating system inclusif control"
 
   import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-200,80},
             {-180,100}})));
 
@@ -42,19 +42,22 @@ partial model HeatingSystem "Partial heating system inclusif control"
     "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{190,-10},
             {210,10}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
-    "Sensor temperature of the zones" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    "Sensor temperature of the zones" annotation (Placement(transformation(extent={{-10,-10},
+            {10,10}},
         rotation=180,
         origin={-196,-60})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSet
-    "Setpoint temperature for the zones" annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    "Setpoint temperature for the zones" annotation (Placement(transformation(extent={{10,-10},
+            {-10,10}},
         rotation=90,
-        origin={0,-90})));
+        origin={0,-96})));
   Electric.BaseClasses.WattsLawPlug[nLoads] wattsLawPlug(each numPha=1)
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Modelica.Blocks.Interfaces.RealInput mDHW60C
-    "mFlow for domestic hot water, at 60 degC"  annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    "mFlow for domestic hot water, at 60 degC"  annotation (Placement(transformation(extent={{10,-10},
+            {-10,10}},
         rotation=90,
-        origin={120,-90})));
+        origin={60,-96})));
 
 // Total heat use ///////////////////////////////////////////////////////////////////////////////////////
   SI.Power QHeatTotal "Total net heat use (space heating + DHW, if present)";

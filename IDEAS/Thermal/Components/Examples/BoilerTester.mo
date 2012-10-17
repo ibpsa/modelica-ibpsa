@@ -24,7 +24,7 @@ model BoilerTester "Identical as the one in FluidHeatFlow_NoPressure"
                annotation (Placement(transformation(extent={{54,-16},{74,4}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{46,-112},{66,-92}})));
-  inner IDEAS.Climate.SimInfoManager sim(
+  inner IDEAS.SimInfoManager         sim(
               redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
       IDEAS.Climate.Meteo.Files.min5 detail)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));

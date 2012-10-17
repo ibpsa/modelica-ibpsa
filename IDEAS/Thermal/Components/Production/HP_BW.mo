@@ -20,7 +20,7 @@ model HP_BW "BW HP with losses to environment"
     TEnvironment=heatPort.T,
     UALoss=UALoss)
     annotation (Placement(transformation(extent={{-48,-46},{-28,-26}})));
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
   Thermal.Components.Interfaces.FlowPort_a flowPortEvap_a(medium=mediumEvap)
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
