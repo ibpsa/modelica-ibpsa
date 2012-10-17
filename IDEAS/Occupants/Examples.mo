@@ -26,7 +26,8 @@ package Examples
       redeclare IDEAS.Occupants.Extern.Interfaces.fromFiles occupants,
       occBeh=true)
       annotation (Placement(transformation(extent={{-94,78},{-74,98}})));
-    Extern.ExternalFiles externalFiles
+    IDEAS.Occupants.Extern.Occupant_ExtFiles_SingleZone
+                         externalFiles(occ=5)
       annotation (Placement(transformation(extent={{-34,-2},{-14,18}})));
   equation
     connect(voltageSource.pin_p,ground. pin) annotation (Line(

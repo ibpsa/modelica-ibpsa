@@ -12,11 +12,11 @@ public
     "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   replaceable parameter IDEAS.Climate.Meteo.location city = Uccle
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
+  parameter Boolean occBeh = false "true if user behaviour is included"
+                                         annotation(Dialog(group="User behaviour"));
   replaceable parameter IDEAS.Occupants.Extern.Interfaces.occupant occupants = none
-    "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="Others"));
-  parameter Boolean occBeh = occupants.present
-    "true if occupant profiles are to be generated";
-  parameter Integer nOcc = 33 "Number of occupant profiles to foresee";
+    "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="User behaviour"));
+  parameter Integer nOcc = 33 "Number of occupant profiles" annotation(Dialog(group="User behaviour"));
 
 protected
   parameter String filNamClim = "..\\Inputs\\" + city.locNam + detail.filNam;

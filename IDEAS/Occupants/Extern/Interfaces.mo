@@ -5,10 +5,7 @@ package Interfaces
 
   model occupant
 
-    parameter Boolean present = true
-      "Occupancy behavior included in simulation";
-
-    parameter Integer nOcc = 1 "Number of occupant data sets to be read" annotation (Dialog(group="Building occupants"));
+      parameter Integer nOcc = 1 "Number of occupant data sets to be read" annotation (Dialog(group="Building occupants"));
 
     parameter String filPres = "User_zeros.txt"
       "Filename for occupancy presence"
@@ -28,13 +25,13 @@ package Interfaces
 
   model none
 
-    extends IDEAS.Occupants.Extern.Interfaces.occupant(present=false);
+    extends IDEAS.Occupants.Extern.Interfaces.occupant;
 
   end none;
 
   model fromFiles
 
-    extends IDEAS.Occupants.Extern.Interfaces.occupant(filPres = "User_Presence_15.txt",
+    extends IDEAS.Occupants.Extern.Interfaces.occupant(nOcc=33, filPres = "User_Presence_15.txt",
     filQCon = "User_QCon_15.txt",filQRad = "User_QRad_15.txt",filP = "User_P_15.txt",
     filQ = "User_Q_15.txt",filDHW = "User_mDHW_15s.txt");
 
