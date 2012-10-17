@@ -3,7 +3,6 @@ package Examples
 
   extends Modelica.Icons.ExamplesPackage;
 
-
   model Example_Occupant "Tester for occupant models"
 
     Interfaces.DummyInHomeGrid dummyInHomeGrid
@@ -23,10 +22,11 @@ package Examples
       powerSensor
       annotation (Placement(transformation(extent={{46,-4},{66,16}})));
     inner SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Files.min60 detail,
-        redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
+        redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
+      redeclare IDEAS.Occupants.Extern.Interfaces.fromFiles occupants)
       annotation (Placement(transformation(extent={{-94,78},{-74,98}})));
-    Standards.ISO13790 iSO13790_1
-      annotation (Placement(transformation(extent={{-38,-2},{-18,18}})));
+    Extern.ExternalFiles externalFiles
+      annotation (Placement(transformation(extent={{-34,-2},{-14,18}})));
   equation
     connect(voltageSource.pin_p,ground. pin) annotation (Line(
         points={{80,-30},{80,-50}},
@@ -48,17 +48,17 @@ package Examples
         points={{56,-4},{56,-30},{80,-30}},
         color={85,170,255},
         smooth=Smooth.None));
-    connect(heatCapacitor.port, iSO13790_1.heatPortCon[1]) annotation (Line(
-        points={{-70,14},{-54,14},{-54,10},{-38,10}},
+    connect(heatCapacitor.port, externalFiles.heatPortCon[1]) annotation (Line(
+        points={{-70,14},{-52,14},{-52,10},{-34,10}},
         color={191,0,0},
         smooth=Smooth.None));
-    connect(heatCapacitor.port, iSO13790_1.heatPortRad[1]) annotation (Line(
-        points={{-70,14},{-54,14},{-54,6},{-38,6}},
+    connect(heatCapacitor.port, externalFiles.heatPortRad[1]) annotation (Line(
+        points={{-70,14},{-52,14},{-52,6},{-34,6}},
         color={191,0,0},
         smooth=Smooth.None));
-    connect(iSO13790_1.plugLoad[1], dummyInHomeGrid.nodeSingle) annotation (
+    connect(externalFiles.plugLoad[1], dummyInHomeGrid.nodeSingle) annotation (
         Line(
-        points={{-18,8},{-2,8},{-2,6},{14,6}},
+        points={{-14,8},{0,8},{0,6},{14,6}},
         color={85,170,255},
         smooth=Smooth.None));
     annotation (Diagram(graphics));
