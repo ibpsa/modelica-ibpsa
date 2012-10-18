@@ -7,3 +7,7 @@ Pump_HeatPort
 MixingVolume
 IdealMixer
 VariableThermalConductor
+inspipe_unbalanced
+InsulatedPipe
+inspipe_unbalancedtoo
+Pump_ThermalLosses

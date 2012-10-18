@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.8.27)  28 SEP 2012 16:17
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.8.27)  18 OCT 2012 15:47
 entering extended mode
 **Specs.tex
 (C:\Workspace\Modelica\IDEAS\Specifications\Specs.tex
@@ -1373,8 +1373,23 @@ Package: subfigure 2002/07/30 v2.1.4 subfigure package
 (C:\Workspace\Modelica\IDEAS\Specifications\Structure/Preamble/cblist.aux)
 (C:\Workspace\Modelica\IDEAS\Specifications\Climate/Climate.aux)
 (C:\Workspace\Modelica\IDEAS\Specifications\Buildings/BuildingModel.aux)
-(C:\Workspace\Modelica\IDEAS\Specifications\Thermal/ThermalSystemModel.aux)
-(C:\Workspace\Modelica\IDEAS\Specifications\Electric/ElectricSystemModel.aux
+(C:\Workspace\Modelica\IDEAS\Specifications\Thermal/ThermalSystemModel.aux
+
+LaTeX Warning: Label `eq:' multiply defined.
+
+
+LaTeX Warning: Label `eq:' multiply defined.
+
+
+LaTeX Warning: Label `eq:' multiply defined.
+
+
+LaTeX Warning: Label `eq:' multiply defined.
+
+
+LaTeX Warning: Label `eq:' multiply defined.
+
+) (C:\Workspace\Modelica\IDEAS\Specifications\Electric/ElectricSystemModel.aux
 
 LaTeX Warning: Label `3Ploss' multiply defined.
 
@@ -1589,7 +1604,7 @@ LaTeX Warning: Citation `Solar2009' on page 14 undefined on input line 156.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.46 \begin{left}
+l.77 \begin{left}
                  
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1597,7 +1612,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing delimiter (. inserted).
 <to be read again> 
                    \let 
-l.47 \includegraphics
+l.78 \includegraphics
                      [width=3cm]{Thermal/images/HydraulicScheme.pdf}% of \co...
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
@@ -1606,18 +1621,18 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
-<Thermal/images/HydraulicScheme.pdf, id=631, 130.26166pt x 187.45032pt>
+<Thermal/images/HydraulicScheme.pdf, id=621, 130.26166pt x 187.45032pt>
 File: Thermal/images/HydraulicScheme.pdf Graphic file (type pdf)
 
 <use Thermal/images/HydraulicScheme.pdf>
 Package pdftex.def Info: Thermal/images/HydraulicScheme.pdf used on input line 
-47.
+78.
 (pdftex.def)             Requested size: 85.35826pt x 122.83376pt.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.48 \caption{Tank with internal heat exchanger}
+l.79 \caption{Tank with internal heat exchanger}
                                                 %
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1625,7 +1640,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing \right. inserted.
 <inserted text> 
                 \right .
-l.48 \caption{Tank with internal heat exchanger}
+l.79 \caption{Tank with internal heat exchanger}
                                                 %
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -1634,18 +1649,14 @@ really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
 [20 <C:/Workspace/Modelica/IDEAS/Specifications/Thermal/images/HydraulicScheme.
-pdf>]
-
-LaTeX Warning: Citation `Koschenz2000' on page 21 undefined on input line 86.
-
-) [21] [22]
+pdf>]) [21] [22]
 (C:\Workspace\Modelica\IDEAS\Specifications\Electric/ElectricSystemModel.tex
 LaTeX Font Info:    Try loading font information for TS1+ptm on input line 21.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ts1ptm.fd"
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-<Electric/MyGraphics/5param_eq.png, id=670, 465.74pt x 192.72pt>
+<Electric/MyGraphics/5param_eq.png, id=668, 465.74pt x 192.72pt>
 File: Electric/MyGraphics/5param_eq.png Graphic file (type png)
 
 <use Electric/MyGraphics/5param_eq.png>
@@ -1663,7 +1674,7 @@ LaTeX Warning: Reference `chap:climate' on page 23 undefined on input line 36.
 
 ] [24 <C:/Workspace/Modelica/IDEAS/Specifications/Electric/MyGraphics/5param_eq
 .png>] [25] [26]
-<Electric/MyGraphics/grid_ieee34.png, id=740, 716.6775pt x 226.8475pt>
+<Electric/MyGraphics/grid_ieee34.png, id=738, 716.6775pt x 226.8475pt>
 File: Electric/MyGraphics/grid_ieee34.png Graphic file (type png)
 
 <use Electric/MyGraphics/grid_ieee34.png>
@@ -1672,7 +1683,7 @@ Package pdftex.def Info: Electric/MyGraphics/grid_ieee34.png used on input line
 (pdftex.def)             Requested size: 277.41435pt x 87.80904pt.
  [27] [28 <C:/Workspace/Modelica/IDEAS/Specifications/Electric/MyGraphics/grid_
 ieee34.png>] [29]
-<Electric/MyGraphics/trafo_equischeme.png, id=776, 371.88937pt x 224.33812pt>
+<Electric/MyGraphics/trafo_equischeme.png, id=774, 371.88937pt x 224.33812pt>
 File: Electric/MyGraphics/trafo_equischeme.png Graphic file (type png)
 
 <use Electric/MyGraphics/trafo_equischeme.png>
@@ -1696,7 +1707,7 @@ Missing character: There is no ” in font ptmr7t!
 
 
 
-] <Buildings/MyGraphics/AH_BESTEST.png, id=825, 706.0779pt x 267.399pt>
+] <Buildings/MyGraphics/AH_BESTEST.png, id=823, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/AH_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/AH_BESTEST.png>
@@ -1704,7 +1715,7 @@ Package pdftex.def Info: Buildings/MyGraphics/AH_BESTEST.png used on input line
  30.
 (pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
 
-<Buildings/MyGraphics/AC_BESTEST.png, id=826, 706.0779pt x 267.399pt>
+<Buildings/MyGraphics/AC_BESTEST.png, id=824, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/AC_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/AC_BESTEST.png>
@@ -1714,7 +1725,7 @@ Package pdftex.def Info: Buildings/MyGraphics/AC_BESTEST.png used on input line
  [36 <C:/Workspace/Modelica/IDEAS/Specifications/Buildings/MyGraphics/AH_BESTES
 T.png> <C:/Workspace/Modelica/IDEAS/Specifications/Buildings/MyGraphics/AC_BEST
 EST.png>]
-<Buildings/MyGraphics/PH_BESTEST.png, id=839, 706.0779pt x 267.399pt>
+<Buildings/MyGraphics/PH_BESTEST.png, id=837, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/PH_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/PH_BESTEST.png>
@@ -1722,7 +1733,7 @@ Package pdftex.def Info: Buildings/MyGraphics/PH_BESTEST.png used on input line
  38.
 (pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
 
-<Buildings/MyGraphics/PC_BESTEST.png, id=840, 706.0779pt x 267.399pt>
+<Buildings/MyGraphics/PC_BESTEST.png, id=838, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/PC_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/PC_BESTEST.png>
@@ -1730,7 +1741,7 @@ Package pdftex.def Info: Buildings/MyGraphics/PC_BESTEST.png used on input line
  39.
 (pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
 
-<Buildings/MyGraphics/Temp_BESTEST.pdf, id=841, 695.59875pt x 261.97874pt>
+<Buildings/MyGraphics/Temp_BESTEST.pdf, id=839, 695.59875pt x 261.97874pt>
 File: Buildings/MyGraphics/Temp_BESTEST.pdf Graphic file (type pdf)
 
 <use Buildings/MyGraphics/Temp_BESTEST.pdf>
@@ -1805,15 +1816,9 @@ n.aux)
 ion.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 59.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 59.
+Package rerunfilecheck Info: File `Specs.out' has not changed.
+(rerunfilecheck)             Checksum: E1614219CBDAB334139AA47BB9B42CAF;4619.
 
-
-Package rerunfilecheck Warning: File `Specs.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Specs.out':
-(rerunfilecheck)             Before: 3708B6FA2D54EF2CD988E74D03BF04EC;4800
-(rerunfilecheck)             After:  E1614219CBDAB334139AA47BB9B42CAF;4619.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.5pt have occurred.
@@ -1826,10 +1831,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 29608 strings out of 494045
- 598092 string characters out of 3145975
- 708082 words of memory out of 3000000
- 31917 multiletter control sequences out of 15000+200000
+ 29612 strings out of 494045
+ 598118 string characters out of 3145975
+ 708161 words of memory out of 3000000
+ 31916 multiletter control sequences out of 15000+200000
  58189 words of font info for 128 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  52i,10n,74p,1312b,1127s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1851,12 +1856,6 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 , replaced by a fixed one
 
-pdfTeX warning (dest): name{subsection.3.2.6} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.3.2.5} has been referenced but does not 
-exist, replaced by a fixed one
-
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Fi
 les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program File
@@ -1868,9 +1867,9 @@ MiKTeX/2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Users/RDC/AppData/Roaming/MiKTeX
 ype1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/ti
 mes/utmbi8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a
 .pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Specs.pdf (55 pages, 475908 bytes).
+Output written on Specs.pdf (55 pages, 477222 bytes).
 PDF statistics:
  1053 PDF objects out of 1200 (max. 8388607)
- 288 named destinations out of 1000 (max. 500000)
- 578 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 293 named destinations out of 1000 (max. 500000)
+ 562 words of extra memory for PDF output out of 10000 (max. 10000000)
 
