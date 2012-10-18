@@ -56,7 +56,8 @@ public
     A=AWall,
     inc=inc,
     nLay=3,
-    mats={ground1,ground2,ground3})
+    mats={ground1,ground2,ground3},
+    nMat(Cap(T(start={{273.15}, {273.15}, {273.15}}+{{11.5}, {12.2}, {12.7}}))))
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 

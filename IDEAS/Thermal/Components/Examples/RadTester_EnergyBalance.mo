@@ -26,7 +26,7 @@ model RadTester_EnergyBalance "Test for energy balance of the radiator model"
     TOutNom=308.15,
     powerFactor=3.37) "Hydraulic radiator model"
                annotation (Placement(transformation(extent={{52,-16},{72,4}})));
-  inner IDEAS.Climate.SimInfoManager sim(redeclare
+  inner IDEAS.SimInfoManager         sim(redeclare
       IDEAS.Climate.Meteo.Files.min15
       detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));

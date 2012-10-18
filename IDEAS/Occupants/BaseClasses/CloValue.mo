@@ -7,8 +7,7 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
   Modelica.Blocks.Interfaces.RealOutput CloFrac "clothign fraction"
     annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
-  outer IDEAS.Climate.SimInfoManager
-                             sim
+  outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   parameter Real CloWin = 0.9 "Clo value for winter conditions";

@@ -19,7 +19,7 @@ import time
 # folder with the subfolders a05...b80
 folder = os.path.abspath(r'C:\Workspace\DSMSim\Work\ValidationTank_nonlin')
 nonlinear = True
-run_optimization = False
+run_optimization = True
 figure = True
 
 def run_charging(lamBuo, folder):

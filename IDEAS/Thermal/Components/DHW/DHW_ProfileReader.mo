@@ -98,5 +98,5 @@ equation
       points={{70,-54},{0,-54},{0,-100}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Icon(graphics));
 end DHW_ProfileReader;

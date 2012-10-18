@@ -20,7 +20,7 @@ replaceable parameter IDEAS.Electric.Data.Interfaces.PvPanel pvPanel= IDEAS.Elec
 
 Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin         pin[numPha] annotation (Placement(transformation(extent={{92,30},{112,50}},rotation=0)));
 
-  outer Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager   sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   IDEAS.Electric.Photovoltaic.Components.PvArray pvArray(
     amount=amount,
@@ -103,7 +103,7 @@ equation
               {-80,-60},{-80,60}},
           lineColor={0,0,0},
           smooth=Smooth.None,
-          fillColor={0,128,255},
+          fillColor={85,170,255},
           fillPattern=FillPattern.Solid),
         Line(
           points={{-40,80},{-40,-80}},
@@ -114,7 +114,7 @@ equation
           color={0,0,0},
           smooth=Smooth.None),
         Text(
-          extent={{-100,98},{100,-102}},
+          extent={{-100,100},{100,-100}},
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

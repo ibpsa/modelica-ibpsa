@@ -26,7 +26,7 @@ protected
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a solGain
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  outer IDEAS.Climate.SimInfoManager
+  outer IDEAS.SimInfoManager
                        sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation

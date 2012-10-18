@@ -3,7 +3,9 @@ model Window "Multipane window"
 
 extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-  parameter Modelica.SIunits.Area A "Total window area";
+  parameter Modelica.SIunits.Area A "Total window and windowframe area";
+  parameter Real frac(min=0,max=1) = 0.15 "Area fraction of the window frame";
+
   parameter Modelica.SIunits.Angle inc
     "Inclination of the window, i.e. 90° denotes vertical";
   parameter Modelica.SIunits.Angle azi
@@ -11,8 +13,11 @@ extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
     "Glazing type" annotation (choicesAllMatching = true,Dialog(group="Construction details"));
-  replaceable Interfaces.StateShading shaType
-    annotation (choicesAllMatching = true,Dialog(group="Construction details"),Placement(transformation(extent={{-36,-70},{-26,-50}})));
+  replaceable parameter IDEAS.Buildings.Data.Interfaces.Frame fraType
+    "Window frame type" annotation (choicesAllMatching = true,Dialog(group="Construction details"));
+  replaceable Interfaces.StateShading shaType "Shading type"
+                   annotation (choicesAllMatching = true,Dialog(group="Construction details"));
+
   Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controled
     "Control signal between 0 and 1, i.e. 1 is fully closed"
     annotation (Placement(transformation(extent={{20,-20},{-20,20}},
@@ -22,35 +27,36 @@ extends IDEAS.Buildings.Components.Interfaces.StateWall;
         rotation=-90,
         origin={-30,-100})));
 
-Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDir
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDir
     "direct solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{-10,
             -110},{10,-90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
-Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif
     "diffuse solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{20,-110},
             {40,-90}}), iconTransformation(extent={{20,-110},{40,-90}})));
 
 protected
   parameter Boolean shading = false "Shading presence, i.e. true if present";
+  parameter Boolean framePresent = fraType.present;
   parameter Modelica.SIunits.Efficiency shaCorr = 0.2
     "Total shading transmittance";
 
-  IDEAS.Climate.Meteo.Solar.ShadedRadSol  radSol(inc=inc,azi=azi,A=A)
+  IDEAS.Climate.Meteo.Solar.ShadedRadSol  radSol(inc=inc,azi=azi,A=A*(1-frac))
     "determination of incident solar radiation on wall based on inclination and azimuth"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerLucent layMul(
-    A=A,
+    A=A*(1-frac),
     inc=inc,
     nLay=glazing.nLay,
     mats=glazing.mats)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eCon(A=A)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eCon(A=A*(1-frac))
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection iCon(A=A, inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection iCon(A=A*(1-frac), inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation skyRad(A=A, inc=
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation skyRad(A=A*(1-frac), inc=
         inc)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
@@ -59,6 +65,20 @@ protected
     SwAbs=glazing.SwAbs,
     SwTrans=glazing.SwTrans)
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection iConFra(A=A*frac, inc=
+        inc) if framePresent
+    "convective surface heat transimission on the interior side of the wall"
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation skyRadFra(A=A*frac, inc=
+        inc) if framePresent
+    "determination of radiant heat exchange with the environment and sky"
+    annotation (Placement(transformation(extent={{-20,80},{-40,100}})));
+  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eConFra(A=A*frac) if framePresent
+    "convective surface heat transimission on the exterior side of the wall"
+    annotation (Placement(transformation(extent={{-20,60},{-40,80}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(G=fraType.U_value*A*frac) if framePresent
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
 equation
   connect(eCon.port_a, layMul.port_a)            annotation (Line(
@@ -144,6 +164,26 @@ equation
       smooth=Smooth.None));
   connect(shaType.Ctrl, Ctrl)  annotation (Line(
       points={{-31,-70},{-30,-70},{-30,-110}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(iConFra.port_b, surfCon_a) annotation (Line(
+      points={{40,80},{44,80},{44,-30},{50,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(layFra.port_b, iConFra.port_a) annotation (Line(
+      points={{10,80},{20,80}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(skyRadFra.port_a, layFra.port_a) annotation (Line(
+      points={{-20,90},{-16,90},{-16,80},{-10,80}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(eConFra.port_a, layFra.port_a) annotation (Line(
+      points={{-20,70},{-16,70},{-16,80},{-10,80}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(layMul.iEpsLw_a, skyRadFra.epsLw) annotation (Line(
+      points={{-10,-22},{-14,-22},{-14,96},{-20,96}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},

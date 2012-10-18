@@ -19,7 +19,7 @@ model Example_Borehole "Most basic example/tester for a borehole "
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         277.15)
     annotation (Placement(transformation(extent={{-54,56},{-34,76}})));
-  inner IDEAS.Climate.SimInfoManager sim(redeclare
+  inner IDEAS.SimInfoManager         sim(redeclare
       IDEAS.Climate.Meteo.Files.min60                                              detail,
       redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));

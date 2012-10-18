@@ -5,8 +5,7 @@ package Components
 
   block Fanger "Fanger model"
 
-    outer IDEAS.Climate.SimInfoManager
-                               sim
+    outer IDEAS.SimInfoManager sim
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
     parameter Boolean Linear = true;
@@ -124,8 +123,7 @@ package Components
 
   model Schedule "Single schedule with look-ahead"
 
-    outer IDEAS.Climate.SimInfoManager
-                               sim;
+    outer IDEAS.SimInfoManager sim;
 
     parameter Real occupancy[:]=3600*{7, 19}
       "Occupancy table, each entry switching occupancy on or off";
@@ -277,120 +275,4 @@ package Components
           Icon(graphics));
   end userInfoMan;
 
-  model UserProfiles
-    "External file reader for all user behaviour.  Required for simulations with IDEAS.Occupants models based on external files."
-
-  parameter String fileNameQCon = "../Inputs/User_QCon.txt"
-      "File with convective heat gains, in W";
-  parameter String fileNameQRad = "../Inputs/User_QRad.txt"
-      "File with radiative heat gains, in W";
-  parameter String fileNamePre = "../Inputs/User_Presence.txt"
-      "File with presence (binary 0-1)";
-  parameter String fileNameDHW = "../Inputs/random_discrete.txt"
-      "File with DHW consumption at 60 degC, in kg/s";
-  parameter String fileNameP = "../Inputs/User_P.txt"
-      "File with active power, in W";
-  parameter String fileNameQ = "../Inputs/User_Q.txt"
-      "File with reactive power, in W";
-
-  Modelica.Blocks.Tables.CombiTable1Ds tabQCon(
-      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
-      tableOnFile = true,
-      tableName = "data",
-      fileName = fileNameQCon,
-      columns=2:34)            annotation (Placement(transformation(extent={{-54,52},
-              {-34,72}})));
-
-  Modelica.Blocks.Tables.CombiTable1Ds tabQRad(
-      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
-      tableOnFile = true,
-      tableName = "data",
-      fileName = fileNameQRad,
-      columns=2:34)            annotation (Placement(transformation(extent={{-54,22},
-              {-34,42}})));
-  Modelica.Blocks.Sources.CombiTimeTable
-                                       tabPre(
-      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
-      tableOnFile = true,
-      tableName = "data",
-      fileName = fileNamePre,
-      columns=2:34)           annotation (Placement(transformation(extent={{18,52},
-              {38,72}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabP(
-      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
-      tableOnFile = true,
-      tableName = "data",
-      fileName = fileNameP,
-      columns=2:34)         annotation (Placement(transformation(extent={{-54,-60},
-              {-34,-40}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabQ(
-      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
-      tableOnFile = true,
-      tableName = "data",
-      fileName = fileNameQ,
-      columns=2:34)         annotation (Placement(transformation(extent={{-54,-30},
-              {-34,-10}})));
-  Modelica.Blocks.Sources.CombiTimeTable
-                                       tabDHW(
-      final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-      tableOnFile=true,
-      tableName="data",
-      columns=2:34,
-      fileName=fileNameDHW) "Domestic hot water in kg/s at 60 degC"
-                              annotation (Placement(transformation(extent={{16,22},
-              {36,42}})));
-  equation
-  time=tabQCon.u;
-  time=tabQRad.u;
-  time=tabP.u;
-  time=tabQ.u;
-
-  annotation (defaultComponentName="userProfiles", defaultComponentPrefixes="inner",  missingInnerMessage="Your model is using an outer \"userProfiles\" component. An inner \"userProfiles\" component is not defined. For simulation drag IDEAS.Occupants.Components.UserProfiles into your model.",
-          Icon(graphics={
-          Ellipse(
-            extent={{-48,58},{-18,44}},
-            fillColor={255,0,0},
-            fillPattern=FillPattern.Solid,
-            pattern=LinePattern.None),
-          Ellipse(
-            extent={{18,58},{48,44}},
-            fillColor={255,0,0},
-            fillPattern=FillPattern.Solid,
-            pattern=LinePattern.None),
-          Ellipse(
-            extent={{-48,8},{48,-34}},
-            fillColor={255,0,0},
-            fillPattern=FillPattern.Solid,
-            pattern=LinePattern.None),
-          Ellipse(
-            extent={{-42,18},{42,-22}},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
-            pattern=LinePattern.None),
-          Line(
-            points={{-4,-74},{-8,-94}},
-            smooth=Smooth.None,
-            color={0,0,0},
-            thickness=1),
-          Line(
-            points={{-2,-74},{-4,-94}},
-            smooth=Smooth.None,
-            color={0,0,0},
-            thickness=1),
-          Line(
-            points={{0,-74},{0,-94}},
-            smooth=Smooth.None,
-            color={0,0,0},
-            thickness=1),
-          Line(
-            points={{2,-74},{4,-94}},
-            smooth=Smooth.None,
-            color={0,0,0},
-            thickness=1),
-          Line(
-            points={{4,-74},{8,-94}},
-            smooth=Smooth.None,
-            color={0,0,0},
-            thickness=1)}));
-  end UserProfiles;
 end Components;

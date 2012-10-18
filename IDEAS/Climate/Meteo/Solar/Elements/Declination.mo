@@ -3,7 +3,7 @@ block Declination "solar declination"
 
 extends Modelica.Blocks.Interfaces.BlockIcon;
 
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Interfaces.RealOutput delta(final quantity="Angle", final unit="rad",displayUnit="deg")
     "Declination angle"

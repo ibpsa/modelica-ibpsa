@@ -10,6 +10,6 @@ partial model location
   parameter Modelica.SIunits.Time timZonSta "Standard (winter) time zone";
   parameter Boolean DST "Take into account daylight saving time or not";
   parameter Integer yr "Ddepcited year for DST only";
-  parameter String LocNam;
+  parameter String locNam;
 
 end location;

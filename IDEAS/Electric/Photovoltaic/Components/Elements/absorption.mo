@@ -10,7 +10,7 @@ parameter Real UA = 36.2325
     "Loss coefficient describing convection and radiation losses";
 final parameter Modelica.SIunits.Irradiance solAbsRef = solRef * exp(-K*d);
 
-  outer Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager   sim
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
 extends Modelica.Blocks.Interfaces.BlockIcon;

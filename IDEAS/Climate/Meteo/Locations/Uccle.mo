@@ -8,5 +8,5 @@ model Uccle "Uccle, Belgium"
     timZonSta=3600,
     DST=true,
     yr=2010,
-    LocNam="climate");
+    locNam="climate");
 end Uccle;

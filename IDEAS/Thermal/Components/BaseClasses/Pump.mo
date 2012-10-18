@@ -34,26 +34,38 @@ Setting parameter m (mass of medium within fan/pump) to zero
 leads to neglection of temperature transient cv*m*der(T).<br>
 Thermodynamic equations are defined by Partials.TwoPort.
 </HTML>"),
-       Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}), graphics={
+       Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}),      graphics={
         Ellipse(
-          extent={{-90,90},{90,-90}},
-          lineColor={255,0,0},
+          extent={{-60,60},{60,-60}},
+          lineColor={135,135,135},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-150,-90},{150,-150}},
-          lineColor={0,0,255},
-          textString="%name"),
-        Polygon(
-          points={{-60,68},{90,10},{90,-10},{-60,-68},{-60,68}},
-          lineColor={255,0,0},
-          fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-40,20},{0,-20}},
           lineColor={0,0,0},
-          textString="V")}),
+          textString="V"),
+        Line(
+          points={{-100,0},{-60,0}},
+          color={0,128,255},
+          smooth=Smooth.None),
+        Line(
+          points={{100,0},{60,0}},
+          color={0,128,255},
+          smooth=Smooth.None),
+        Line(
+          points={{0,0},{0,80}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-40,80},{40,80}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Polygon(
+          points={{-38,46},{60,0},{60,0},{-38,-46},{-38,46}},
+          lineColor={135,135,135},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),
                     graphics));

@@ -5,10 +5,11 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
 
 parameter Modelica.SIunits.Angle inc(displayUnit="degree") "inclination";
 parameter Modelica.SIunits.Angle azi(displayUnit="degree") "azimuth";
-parameter Modelica.SIunits.Angle lat(displayUnit="degree") = sim.lat "latitude";
+parameter Modelica.SIunits.Angle lat(displayUnit="degree") = sim.city.lat
+    "latitude";
 parameter Modelica.SIunits.Area A;
 
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Elements.Declination declination

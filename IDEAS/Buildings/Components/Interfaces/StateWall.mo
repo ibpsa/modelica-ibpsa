@@ -13,7 +13,7 @@ partial model StateWall "Partial model for building envelope components"
     "Total interior surface area of the wall" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={56,60})));
-  outer Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager   sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),

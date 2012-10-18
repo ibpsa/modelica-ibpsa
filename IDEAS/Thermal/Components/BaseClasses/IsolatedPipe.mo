@@ -15,11 +15,10 @@ leads to neglection of temperature transient cv*m*der(T).
 </HTML>"),
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(
-          extent={{-90,20},{90,-20}},
-          lineColor={255,0,0},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid), Text(extent={{-150,100},{150,40}},
-            textString="%name")}),                          Diagram(
+          extent={{-100,20},{100,-20}},
+          lineColor={255,255,255},
+          fillColor={85,170,255},
+          fillPattern=FillPattern.HorizontalCylinder)}),    Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}),                                             graphics));
 end IsolatedPipe;

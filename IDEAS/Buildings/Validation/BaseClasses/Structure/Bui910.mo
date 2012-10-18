@@ -46,7 +46,9 @@ extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
       each PH=1.0,
       each RH=0.5,
       each PV=0.0,
-      each RW=0.0))                             annotation (Placement(transformation(
+      each RW=0.0),
+    redeclare IDEAS.Buildings.Data.Frames.None fraType)
+                                                annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));

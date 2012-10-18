@@ -35,6 +35,6 @@ equation
   annotation (Icon(graphics={Ellipse(
           extent={{-90,78},{88,-92}},
           lineColor={0,0,255},
-          fillColor={170,170,255},
+          fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}));
 end MixingVolume;

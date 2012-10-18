@@ -10,7 +10,7 @@ parameter Modelica.SIunits.Angle inc(displayUnit="degree") "inclination";
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
   Modelica.Blocks.Interfaces.RealOutput solDirTil
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
 algorithm

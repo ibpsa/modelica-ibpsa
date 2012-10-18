@@ -25,6 +25,7 @@ when sample(0,interval) then
 end when;
 
 equation
+  mDHW60C=0;
 heatPortRad.Q_flow = heatPortCon.Q_flow;
 wattsLawPlug.P = {heatPortCon[1].Q_flow + heatPortRad[1].Q_flow};
 wattsLawPlug.Q = {0};

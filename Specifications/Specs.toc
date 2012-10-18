@@ -43,8 +43,8 @@
 \contentsline {subsection}{\numberline {3.2.2}Thermal energy storage tank}{19}{subsection.3.2.2}
 \contentsline {subsubsection}{\numberline {3.2.2.1}Buffer tank}{19}{subsubsection.3.2.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2.2}Tank with internal heat exchanger}{20}{subsubsection.3.2.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Heat production}{20}{subsection.3.2.3}
-\contentsline {subsubsection}{\numberline {3.2.3.1}Partial heater}{20}{subsubsection.3.2.3.1}
+\contentsline {subsection}{\numberline {3.2.3}Heat production}{21}{subsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.3.1}Partial heater}{21}{subsubsection.3.2.3.1}
 \contentsline {subsubsection}{\numberline {3.2.3.2}Boiler}{21}{subsubsection.3.2.3.2}
 \contentsline {subsubsection}{\numberline {3.2.3.3}Heat pumps}{21}{subsubsection.3.2.3.3}
 \contentsline {subsection}{\numberline {3.2.4}Heat emission}{21}{subsection.3.2.4}

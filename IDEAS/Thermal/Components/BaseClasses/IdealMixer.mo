@@ -40,19 +40,22 @@ public
       start=293.15*medium.cp,
       min=1140947,
       max=1558647))
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}}),
+        iconTransformation(extent={{-70,-10},{-50,10}})));
 
   Thermal.Components.Interfaces.FlowPort_a flowPortCold(medium=medium, h(
       start=293.15*medium.cp,
       min=1140947,
       max=1558647))
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+    annotation (Placement(transformation(extent={{-10,-70},{10,-50}}),
+        iconTransformation(extent={{-10,-70},{10,-50}})));
 
   Thermal.Components.Interfaces.FlowPort_a flowPortMixed(medium=medium, h(
       start=293.15*medium.cp,
       min=1140947,
       max=1558647))
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+    annotation (Placement(transformation(extent={{50,-10},{70,10}}),
+        iconTransformation(extent={{50,-10},{70,10}})));
 
 protected
   MixingVolume mixingVolumeHot(
@@ -82,35 +85,47 @@ equation
 //  flowPortMixed.H_flow = semiLinear(flowPortMixed.m_flow,flowPortMixed.h,ambient.T*medium.cp);
 
   connect(flowPortCold, pumpCold.flowPort_a) annotation (Line(
-      points={{0,-100},{0,-72},{-1.83697e-015,-72}},
+      points={{0,-60},{0,-72},{-1.83697e-015,-72}},
       color={255,0,0},
       smooth=Smooth.None));
 
   connect(flowPortHot, mixingVolumeHot.flowPorts[1]) annotation (Line(
-      points={{-100,0},{-66,5.5}},
+      points={{-60,0},{-66,5.5}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(mixingVolumeHot.flowPorts[2], flowPortMixed) annotation (Line(
-      points={{-66,6.5},{18,6.5},{18,0},{100,0}},
+      points={{-66,6.5},{18,6.5},{18,0},{60,0}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pumpCold.flowPort_b, flowPortMixed) annotation (Line(
-      points={{1.83697e-015,-52},{8,-52},{8,0},{100,0}},
+      points={{1.83697e-015,-52},{8,-52},{8,0},{60,0}},
       color={255,0,0},
+      smooth=Smooth.None));
+  connect(flowPortHot, flowPortHot) annotation (Line(
+      points={{-60,0},{-60,0}},
+      color={0,128,255},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Icon(graphics={
         Polygon(
           points={{-60,30},{-60,-30},{0,0},{-60,30}},
-          lineColor={0,0,255},
+          lineColor={0,128,255},
           smooth=Smooth.None),
         Polygon(
           points={{60,30},{60,-30},{0,0},{60,30}},
-          lineColor={0,0,255},
+          lineColor={0,128,255},
           smooth=Smooth.None),
         Polygon(
           points={{-30,30},{-30,-30},{30,0},{-30,30}},
-          lineColor={0,0,255},
+          lineColor={0,128,255},
           smooth=Smooth.None,
           origin={0,-30},
-          rotation=90)}));
+          rotation=90),
+        Line(
+          points={{0,0},{0,70},{-40,70}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{0,70},{40,70}},
+          color={0,0,127},
+          smooth=Smooth.None)}));
 end IdealMixer;

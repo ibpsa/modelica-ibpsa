@@ -145,5 +145,5 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Icon(graphics));
 end EmbeddedPipeDynTOut;

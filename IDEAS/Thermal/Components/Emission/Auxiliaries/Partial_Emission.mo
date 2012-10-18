@@ -47,6 +47,15 @@ partial model Partial_Emission
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 initial equation
   //der(flowPort_a.h) = 0;
-  annotation(Icon(graphics),
+  annotation(Icon(graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={127,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.HorizontalCylinder), Rectangle(
+          extent={{100,-100},{-102,0}},
+          fillPattern=FillPattern.Solid,
+          fillColor={255,255,255},
+          pattern=LinePattern.None)}),
       Diagram(graphics));
 end Partial_Emission;

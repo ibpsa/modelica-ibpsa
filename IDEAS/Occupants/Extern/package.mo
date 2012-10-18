@@ -1,7 +1,7 @@
 within IDEAS.Occupants;
-package Stochastic 
+package Extern 
 
 
   extends Modelica.Icons.Package;
 
-end Stochastic;
+end Extern;
