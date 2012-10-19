@@ -52,14 +52,18 @@ model StorageTank "Simplified stratified storage tank"
       Placement(transformation(extent={{52,-10},{72,10}}), iconTransformation(
           extent={{52,-10},{72,10}})));
 
-  Thermal.Components.Storage.Buoyancy buoancy(
+   replaceable Thermal.Components.Storage.Buoyancy_gradpower buoancy(
     nbrNodes=nbrNodes,
     medium=medium,
-    kBuo=kBuo,
-    expBuo=expBuo,
     surCroSec=volumeTank/heightTank,
     h=heightTank)
-    "Buoancy model to mix nodes in case of inversed temperature stratification";
+    constrainedby IDEAS.Thermal.Components.Storage.Partial_Buoyancy(
+      nbrNodes=nbrNodes,
+      medium=medium,
+      surCroSec=volumeTank/heightTank,
+      h=heightTank)
+    "Buoancy model to mix nodes in case of inversed temperature stratification"
+                                                                                annotation(choicesAllMatching=true);
 
 function areaCalculation
   input Modelica.SIunits.Volume volumeTank;

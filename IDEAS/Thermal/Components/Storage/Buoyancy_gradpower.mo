@@ -4,11 +4,14 @@ model Buoyancy_gradpower
 
   extends IDEAS.Thermal.Components.Storage.Partial_Buoyancy;
 
-  parameter Real kBuo(min=0)
+  parameter Real kBuo(min=0)=1
     "(hopefully fix) coefficient for buoyancy flow rate";
-  parameter Real expBuo "Exponent for the thermal gradient";
+  parameter Real expBuo=1 "Exponent for the thermal gradient";
   SI.MassFlowRate[nbrNodes-1] mFloMix
     "Mass flow rate between node i+1 and i (and vice versa)";
+
+initial equation
+  assert(kBuo <> 1 and expBuo <> 1, "Attention, kBuo and expBuo have to be set to realistic values");
 
 equation
   for i in 1:nbrNodes-1 loop

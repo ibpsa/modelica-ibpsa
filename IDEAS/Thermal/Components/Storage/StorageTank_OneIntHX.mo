@@ -21,7 +21,7 @@ model StorageTank_OneIntHX
     "Additional thermal conductance for connection losses and imperfect insulation";
   parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in
         1:nbrNodes} "Initial temperature of all Temperature states";
-   parameter SI.ThermalConductivity kBuo(min=0) = 500
+  parameter SI.ThermalConductivity kBuo(min=0) = 500
     "(hopefully fix) linear coefficient for buoyancy flow rate";
   parameter Real expBuo "Exponent for the thermal gradient";
 
@@ -87,14 +87,18 @@ model StorageTank_OneIntHX
     "Conduction heat transfer between the layers"
     annotation (Placement(transformation(extent={{18,-10},{38,10}})));
 
-   Thermal.Components.Storage.Buoyancy buoancy(
+   replaceable Thermal.Components.Storage.Buoyancy_gradpower buoancy(
     nbrNodes=nbrNodes,
     medium=medium,
-    kBuo=kBuo,
-    expBuo=expBuo,
     surCroSec=volumeTank/heightTank,
     h=heightTank)
-    "Buoancy model to mix nodes in case of inversed temperature stratification";
+    constrainedby IDEAS.Thermal.Components.Storage.Partial_Buoyancy(
+      nbrNodes=nbrNodes,
+      medium=medium,
+      surCroSec=volumeTank/heightTank,
+      h=heightTank)
+    "Buoancy model to mix nodes in case of inversed temperature stratification"
+                                                                                annotation(choicesAllMatching=true);
 
 function areaCalculation
   input Modelica.SIunits.Volume volumeTank;
