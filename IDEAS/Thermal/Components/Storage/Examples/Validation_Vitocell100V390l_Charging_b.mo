@@ -17,7 +17,8 @@ model Validation_Vitocell100V390l_Charging_b
     TInitial=328.15,
     m_flowNom=0.5)
     annotation (Placement(transformation(extent={{-88,-16},{-68,4}})));
-  Thermal.Components.BaseClasses.HeatedPipe boiler(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            boiler(
     medium=Data.Media.Water(),
     m=5,
     TInitial=338.15) annotation (Placement(transformation(extent={{-4,-6},{16,14}})));

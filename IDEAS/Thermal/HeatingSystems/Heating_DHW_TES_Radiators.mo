@@ -85,9 +85,9 @@ protected
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Thermal.Components.BaseClasses.IdealMixer idealMixer(mFlowMin=0.01)
     annotation (Placement(transformation(extent={{28,22},{50,46}})));
-  Thermal.Components.BaseClasses.IsolatedPipe pipeDHW(medium=medium, m=1)
+  IDEAS.Thermal.Components.BaseClasses.Pipe   pipeDHW(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-8,-34},{4,-22}})));
-  Thermal.Components.BaseClasses.IsolatedPipe pipeMixer(medium=medium, m=1)
+  IDEAS.Thermal.Components.BaseClasses.Pipe   pipeMixer(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-8,-40},{4,-28}})));
 
   // Result variables

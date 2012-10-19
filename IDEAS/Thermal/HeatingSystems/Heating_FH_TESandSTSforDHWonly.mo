@@ -97,11 +97,13 @@ protected
     annotation (Placement(transformation(extent={{64,30},{84,50}})));
   Thermal.Components.BaseClasses.IdealMixer idealMixer
     annotation (Placement(transformation(extent={{66,-12},{86,10}})));
-  Thermal.Components.BaseClasses.IsolatedPipe pipeDHW(medium=medium, m=1)
+  IDEAS.Thermal.Components.BaseClasses.Pipe   pipeDHW(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-36,-48},{-48,-36}})));
-  Components.BaseClasses.HeatedPipe           pipeMixer(medium=medium, m=1)
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                              pipeMixer(medium=medium, m=1)
     annotation (Placement(transformation(extent={{50,-78},{62,-66}})));
-  Components.BaseClasses.HeatedPipe[          nZones] pipeEmission(each medium=
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort[
+                                              nZones] pipeEmission(each medium=
         medium, each m=1)
     annotation (Placement(transformation(extent={{164,-32},{176,-20}})));
   // Result variables

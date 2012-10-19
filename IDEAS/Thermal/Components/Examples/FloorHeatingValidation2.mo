@@ -34,7 +34,8 @@ model FloorHeatingValidation2
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
     prescribedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{8,64},{28,84}})));
-  Thermal.Components.BaseClasses.HeatedPipe heatedPipe(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedPipe(
     medium=medium,
     m=5,
     TInitial=303.15)

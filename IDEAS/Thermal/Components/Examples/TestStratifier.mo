@@ -25,7 +25,8 @@ model TestStratifier
     m_flowNom=0.05,
     useInput=true)
     annotation (Placement(transformation(extent={{-14,-22},{-34,-2}})));
-  Thermal.Components.BaseClasses.HeatedPipe heatedPipe(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedPipe(
     medium=medium,
     m=2,
     TInitial=278.15)

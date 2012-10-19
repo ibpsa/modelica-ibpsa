@@ -28,7 +28,8 @@ model StorageTank "Simplified stratified storage tank"
   parameter Boolean preventNaturalDestratification = true
     "if true, this automatically increases the insulation of the top layer";
 
-  Thermal.Components.BaseClasses.HeatedPipe[nbrNodes] nodes(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort[
+                                            nbrNodes] nodes(
     each medium=medium,
     each m=mNode,
     TInitial=TInitial) "Array of nodes";

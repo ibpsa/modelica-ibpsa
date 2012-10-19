@@ -1,34 +1,17 @@
 within IDEAS.Thermal.Components.BaseClasses;
-model inspipe_unbalancedtoo "Pipe with heat exchange"
+model Pipe_HeatPort "Pipe with HeatPort"
 
   extends Thermal.Components.Interfaces.Partials.TwoPort;
-  parameter SI.ThermalConductance UA "Thermal conductance of the insulation";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort_internal
-    annotation (Placement(transformation(extent={{-10,-36},{10,-16}},
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}},
           rotation=0)));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=
-        UA) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-62})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a1
-    annotation (Placement(transformation(extent={{-10,-108},{10,-88}})));
 equation
   // energy exchange with medium
-  Q_flow = heatPort_internal.Q_flow;
+  Q_flow = heatPort.Q_flow;
   // defines heatPort's temperature
-  heatPort_internal.T = T;
+  heatPort.T = T;
   // pressure drop = none
   flowPort_a.p = flowPort_b.p;
-  connect(thermalConductor.port_a, port_a1) annotation (Line(
-      points={{-6.12323e-016,-72},{-6.12323e-016,-86},{0,-86},{0,-98}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalConductor.port_b, heatPort_internal) annotation (Line(
-      points={{6.12323e-016,-52},{0,-52},{0,-26}},
-      color={191,0,0},
-      smooth=Smooth.None));
 annotation (Documentation(info="<HTML>
 Pipe with heat exchange.<br>
 Thermodynamic equations are defined by Partials.TwoPort.<br>
@@ -51,7 +34,7 @@ temperature rise defined by storing heat in medium's mass.
           lineColor={255,255,255},
           fillColor={85,170,255},
           fillPattern=FillPattern.HorizontalCylinder)}),
-                            Diagram(coordinateSystem(preserveAspectRatio=true,
-                   extent={{-100,-100},{100,100}}),
+                            Diagram(coordinateSystem(preserveAspectRatio=
+            false, extent={{-100,-100},{100,100}}),
                                     graphics));
-end inspipe_unbalancedtoo;
+end Pipe_HeatPort;

@@ -23,7 +23,6 @@ package Interfaces
 
   end Occ_Files;
 
-
   model Stoch33 "33 stochastic user behaviour profiles "
 
     extends IDEAS.Occupants.Extern.Interfaces.Occ_Files(nOcc=33, filPres = "User_Presence_15.txt",

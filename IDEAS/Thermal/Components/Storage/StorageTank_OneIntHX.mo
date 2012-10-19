@@ -49,7 +49,8 @@ model StorageTank_OneIntHX
   parameter SI.Area AHX = 4.1 "Total HX area (outside pipe area)";
   parameter SI.Mass mHX = 27 "HX water content";
 
-  Thermal.Components.BaseClasses.HeatedPipe[nbrNodes] nodes(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort[
+                                            nbrNodes] nodes(
     each medium=medium,
     each m=mNode,
     TInitial=TInitial) "Array of nodes";
@@ -70,7 +71,8 @@ model StorageTank_OneIntHX
       Placement(transformation(extent={{52,-10},{72,10}}), iconTransformation(
           extent={{52,-10},{72,10}})));
 
-  BaseClasses.HeatedPipe HX[nbrNodesHX](
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                         HX[nbrNodesHX](
      each m = mHX/nbrNodesHX,
      each medium = mediumHX,
      TInitial = TInitial[nodeHXUpper:nodeHXLower])

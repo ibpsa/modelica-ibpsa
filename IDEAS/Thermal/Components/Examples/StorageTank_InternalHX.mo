@@ -12,7 +12,8 @@ model StorageTank_InternalHX
     TInitial=313.15,
     m_flowNom=0.1)
     annotation (Placement(transformation(extent={{-88,-16},{-68,4}})));
-  Thermal.Components.BaseClasses.HeatedPipe boiler(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            boiler(
     medium=Data.Media.Water(),
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{-54,-16},{-34,

@@ -11,7 +11,8 @@ model TestCollector
     nCol=2,
     T0=283.15)
     annotation (Placement(transformation(extent={{-84,-28},{-64,-8}})));
-  Thermal.Components.BaseClasses.HeatedPipe heatedPipe(medium=medium, m=5)
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedPipe(medium=medium, m=5)
     annotation (Placement(transformation(extent={{-46,-28},{-26,-8}})));
   Thermal.Components.BaseClasses.Pump pump(
     medium=medium,
@@ -24,7 +25,8 @@ model TestCollector
     volumeTank=0.5,
     heightTank=2)
     annotation (Placement(transformation(extent={{54,-68},{74,-48}})));
-  Thermal.Components.BaseClasses.HeatedPipe heatedPipe1(medium=medium, m=5)
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedPipe1(medium=medium, m=5)
     annotation (Placement(transformation(extent={{-26,-78},{-46,-58}})));
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         medium, p=300000)

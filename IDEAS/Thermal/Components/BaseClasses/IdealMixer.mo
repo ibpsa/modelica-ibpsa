@@ -33,7 +33,7 @@ protected
     m=1)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={0,-62})));
+        origin={0,-28})));
 
 public
   Thermal.Components.Interfaces.FlowPort_a flowPortHot(medium=medium, h(
@@ -62,7 +62,7 @@ protected
     medium=medium,
     m=5,
     nbrPorts=2)
-    annotation (Placement(transformation(extent={{-76,6},{-56,26}})));
+    annotation (Placement(transformation(extent={{-36,28},{-16,48}})));
 equation
   //m_flowTotal = table.y[profileType] * VDayAvg * medium.rho;
   pumpCold.m_flowSet = m_flowColdInput;
@@ -85,20 +85,20 @@ equation
 //  flowPortMixed.H_flow = semiLinear(flowPortMixed.m_flow,flowPortMixed.h,ambient.T*medium.cp);
 
   connect(flowPortCold, pumpCold.flowPort_a) annotation (Line(
-      points={{0,-60},{0,-72},{-1.83697e-015,-72}},
+      points={{0,-60},{0,-38},{-1.83697e-015,-38}},
       color={255,0,0},
       smooth=Smooth.None));
 
   connect(flowPortHot, mixingVolumeHot.flowPorts[1]) annotation (Line(
-      points={{-60,0},{-66,5.5}},
+      points={{-60,0},{-60,27.5},{-26,27.5}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(mixingVolumeHot.flowPorts[2], flowPortMixed) annotation (Line(
-      points={{-66,6.5},{18,6.5},{18,0},{60,0}},
+      points={{-26,28.5},{0,28.5},{0,0},{60,0}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pumpCold.flowPort_b, flowPortMixed) annotation (Line(
-      points={{1.83697e-015,-52},{8,-52},{8,0},{60,0}},
+      points={{1.83697e-015,-18},{0,-18},{0,0},{60,0}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(flowPortHot, flowPortHot) annotation (Line(
