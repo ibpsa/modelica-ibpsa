@@ -52,7 +52,7 @@ model StorageTank "Simplified stratified storage tank"
       Placement(transformation(extent={{52,-10},{72,10}}), iconTransformation(
           extent={{52,-10},{72,10}})));
 
-   replaceable Thermal.Components.Storage.Buoyancy_gradpower buoancy(
+   replaceable Thermal.Components.Storage.Buoyancy_gradpower buoyancy(
     nbrNodes=nbrNodes,
     medium=medium,
     surCroSec=volumeTank/heightTank,
@@ -62,7 +62,7 @@ model StorageTank "Simplified stratified storage tank"
       medium=medium,
       surCroSec=volumeTank/heightTank,
       h=heightTank)
-    "Buoancy model to mix nodes in case of inversed temperature stratification"
+    "buoyancy model to mix nodes in case of inversed temperature stratification"
                                                                                 annotation(choicesAllMatching=true);
 
 function areaCalculation
@@ -129,8 +129,8 @@ equation
   connect(flowPorts[1:end-1], nodes.flowPort_a);
   connect(flowPorts[end], nodes[end].flowPort_b);
 
-  // Connection of buoancy model
-  connect(buoancy.heatPort, nodes.heatPort);
+  // Connection of buoyancy model
+  connect(buoyancy.heatPort, nodes.heatPort);
   annotation (Icon(graphics={
         Ellipse(extent={{-60,-76},{60,-100}},
           fillPattern=FillPattern.Solid,

@@ -291,7 +291,7 @@ end for;
       color={0,0,255},
       smooth=Smooth.None));
   connect(heater.flowPort_b, idealMixer.flowPortHot) annotation (Line(
-      points={{-90,0},{-10,0},{-10,5},{70,5}},
+      points={{-90,0},{-34,0},{-34,5},{70,5}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(heater.flowPort_b, tesTank.flowPortHXUpper) annotation (Line(

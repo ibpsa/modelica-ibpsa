@@ -21,9 +21,6 @@ model StorageTank_OneIntHX
     "Additional thermal conductance for connection losses and imperfect insulation";
   parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in
         1:nbrNodes} "Initial temperature of all Temperature states";
-  parameter SI.ThermalConductivity kBuo(min=0) = 500
-    "(hopefully fix) linear coefficient for buoyancy flow rate";
-  parameter Real expBuo "Exponent for the thermal gradient";
 
     /* 
     A validation excercise has shown that TO BE COMPLETED.
@@ -87,7 +84,7 @@ model StorageTank_OneIntHX
     "Conduction heat transfer between the layers"
     annotation (Placement(transformation(extent={{18,-10},{38,10}})));
 
-   replaceable Thermal.Components.Storage.Buoyancy_gradpower buoancy(
+   replaceable Thermal.Components.Storage.Buoyancy_gradpower buoyancy(
     nbrNodes=nbrNodes,
     medium=medium,
     surCroSec=volumeTank/heightTank,
@@ -97,7 +94,7 @@ model StorageTank_OneIntHX
       medium=medium,
       surCroSec=volumeTank/heightTank,
       h=heightTank)
-    "Buoancy model to mix nodes in case of inversed temperature stratification"
+    "buoyancy model to mix nodes in case of inversed temperature stratification"
                                                                                 annotation(choicesAllMatching=true);
 
 function areaCalculation
@@ -172,8 +169,8 @@ equation
   connect(flowPorts[1:end-1], nodes.flowPort_a);
   connect(flowPorts[end], nodes[end].flowPort_b);
 
-  // Connection of buoancy model
-  connect(buoancy.heatPort, nodes.heatPort);
+  // Connection of buoyancy model
+  connect(buoyancy.heatPort, nodes.heatPort);
 
   // Connections of the internal HX
   for i in 1:nbrNodesHX -1 loop
@@ -208,7 +205,7 @@ equation
         Line(
           points={{-100,20},{44,20},{-44,-20},{42,-60},{-98,-60}},
           smooth=Smooth.None,
-          color={0,0,0},
+          color={127,0,0},
           thickness=0.5)}),                                           Diagram(
         graphics));
 end StorageTank_OneIntHX;

@@ -3,12 +3,12 @@ model Validation_Vitocell100V390l_Charging_b
   "charging the tank from 10°C to 55°C with 65°C supply temperature: 77 minutes"
 
   /*
-  This model is used in an automatic optimization to determine the lamBuo factor across different number of nodes.
+  This model is used in an automatic optimization to determine the buoyancy model parameters across different number of nodes.
   See the IDEAS manual for more on the validation of the storage tank model
   */
 
-  parameter Real kBuo=1000 annotation(Evaluate=false);
-  parameter Real expBuo=1 annotation(Evaluate=false);
+  parameter Real kBuo=1e-7 annotation(Evaluate=false);
+  parameter Real expBuo=4 annotation(Evaluate=false);
 
   Thermal.Components.BaseClasses.Pump volumeFlow1(
     medium=Data.Media.Water(),
@@ -32,13 +32,14 @@ model Validation_Vitocell100V390l_Charging_b
     volumeTank=0.39,
     heightTank=1.4,
     TInitial={283.15 for i in 1:tank.nbrNodes},
-    kBuo=kBuo,
-    expBuo=expBuo,
     UIns=0.4,
     UACon=0.56,
     nbrNodes=5,
     nodeHXUpper=2,
-    nodeHXLower=5)                                       annotation (
+    nodeHXLower=5,
+    redeclare IDEAS.Thermal.Components.Storage.Buoyancy_gradpower buoyancy(
+      kBuo=kBuo,
+      expBuo=expBuo))                                    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -63,11 +64,11 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(boiler.flowPort_b, tank.flowPortHXUpper) annotation (Line(
-      points={{16,4},{50,4},{50,-16},{60,-16}},
+      points={{16,4},{50,4},{50,-15.9},{59.9,-15.9}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(tank.flowPortHXLower, volumeFlow1.flowPort_a) annotation (Line(
-      points={{60,-24},{50,-24},{50,-86},{-96,-86},{-96,-6},{-88,-6}},
+      points={{59.9,-23.9},{50,-23.9},{50,-86},{-96,-86},{-96,-6},{-88,-6}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure1.flowPort, volumeFlow1.flowPort_a) annotation (Line(
@@ -75,7 +76,7 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure2.flowPort, tank.flowPort_b) annotation (Line(
-      points={{80,-61},{74,-61},{74,-60},{70,-60},{70,-28}},
+      points={{80,-61},{74,-61},{74,-60},{69.9,-60},{69.9,-27.9}},
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),
