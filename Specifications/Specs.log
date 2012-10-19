@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.8.27)  18 OCT 2012 15:47
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.8.27)  18 OCT 2012 16:13
 entering extended mode
 **Specs.tex
 (C:\Workspace\Modelica\IDEAS\Specifications\Specs.tex
@@ -1389,6 +1389,21 @@ LaTeX Warning: Label `eq:' multiply defined.
 
 LaTeX Warning: Label `eq:' multiply defined.
 
+
+LaTeX Warning: Label `eq:' multiply defined.
+
+
+LaTeX Warning: Label `eq:' multiply defined.
+
+
+LaTeX Warning: Label `tankinternal' multiply defined.
+
+
+LaTeX Warning: Label `tankinternal' multiply defined.
+
+
+LaTeX Warning: Label `tankinternal' multiply defined.
+
 ) (C:\Workspace\Modelica\IDEAS\Specifications\Electric/ElectricSystemModel.aux
 
 LaTeX Warning: Label `3Ploss' multiply defined.
@@ -1604,7 +1619,7 @@ LaTeX Warning: Citation `Solar2009' on page 14 undefined on input line 156.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.77 \begin{left}
+l.70 \begin{left}
                  
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -1612,8 +1627,8 @@ you left one out. Proceed, with fingers crossed.
 ! Missing delimiter (. inserted).
 <to be read again> 
                    \let 
-l.78 \includegraphics
-                     [width=3cm]{Thermal/images/HydraulicScheme.pdf}% of \co...
+l.71 \includegraphics
+                     [width=\columnwidth]{Thermal/images/Validation_Vitocell...
 I was expecting to see something like `(' or `\{' or
 `\}' here. If you typed, e.g., `{' instead of `\{', you
 should probably delete the `{' by typing `1' now, so that
@@ -1621,42 +1636,215 @@ braces don't get unbalanced. Otherwise just proceed.
 Acceptable delimiters are characters whose \delcode is
 nonnegative, or you can use `\delimiter <delimiter code>'.
 
-<Thermal/images/HydraulicScheme.pdf, id=621, 130.26166pt x 187.45032pt>
-File: Thermal/images/HydraulicScheme.pdf Graphic file (type pdf)
 
-<use Thermal/images/HydraulicScheme.pdf>
-Package pdftex.def Info: Thermal/images/HydraulicScheme.pdf used on input line 
-78.
-(pdftex.def)             Requested size: 85.35826pt x 122.83376pt.
+<Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_Linear.
+png, id=621, 579.6054pt x 697.4055pt>
+File: Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_Li
+near.png Graphic file (type png)
+
+<use Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_Lin
+ear.png>
+Package pdftex.def Info: Thermal/images/Validation_Vitocell100V390l_ChargingTim
+eEndTemperatures_Linear.png used on input line 71.
+(pdftex.def)             Requested size: 369.88582pt x 445.061pt.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.79 \caption{Tank with internal heat exchanger}
-                                                %
+l.72 ...on{Result of the linear parameter fitting}
+                                                  %
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Missing \right. inserted.
 <inserted text> 
                 \right .
-l.79 \caption{Tank with internal heat exchanger}
-                                                %
+l.72 ...on{Result of the linear parameter fitting}
+                                                  %
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[20 <C:/Workspace/Modelica/IDEAS/Specifications/Thermal/images/HydraulicScheme.
-pdf>]) [21] [22]
+
+Overfull \hbox (2.4pt too wide) in paragraph at lines 70--72
+[]$[]$ 
+ []
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.98 \begin{left}
+                 
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing delimiter (. inserted).
+<to be read again> 
+                   \let 
+l.99 \includegraphics
+                     [width=\columnwidth]{Thermal/images/Validation_Vitocell...
+I was expecting to see something like `(' or `\{' or
+`\}' here. If you typed, e.g., `{' instead of `\{', you
+should probably delete the `{' by typing `1' now, so that
+braces don't get unbalanced. Otherwise just proceed.
+Acceptable delimiters are characters whose \delcode is
+nonnegative, or you can use `\delimiter <delimiter code>'.
+
+
+<Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_NonLine
+ar.png, id=623, 850.6179pt x 698.8509pt>
+File: Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_No
+nLinear.png Graphic file (type png)
+
+<use Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_Non
+Linear.png>
+Package pdftex.def Info: Thermal/images/Validation_Vitocell100V390l_ChargingTim
+eEndTemperatures_NonLinear.png used on input line 99.
+(pdftex.def)             Requested size: 369.88582pt x 303.89105pt.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.100 ...sult of the non-linear parameter fitting}
+                                                  %
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing \right. inserted.
+<inserted text> 
+                \right .
+l.100 ...sult of the non-linear parameter fitting}
+                                                  %
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (2.4pt too wide) in paragraph at lines 98--100
+[]$[]$ 
+ []
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.106 \begin{left}
+                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing delimiter (. inserted).
+<to be read again> 
+                   \let 
+l.107 \includegraphics
+                      [width=\columnwidth]{Thermal/images/Validation_Vitocel...
+I was expecting to see something like `(' or `\{' or
+`\}' here. If you typed, e.g., `{' instead of `\{', you
+should probably delete the `{' by typing `1' now, so that
+braces don't get unbalanced. Otherwise just proceed.
+Acceptable delimiters are characters whose \delcode is
+nonnegative, or you can use `\delimiter <delimiter code>'.
+
+
+<Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_nonlin_
+10nodes.png, id=624, 863.6265pt x 469.755pt>
+File: Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_no
+nlin_10nodes.png Graphic file (type png)
+
+<use Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_non
+lin_10nodes.png>
+Package pdftex.def Info: Thermal/images/Validation_Vitocell100V390l_ChargingTim
+eEndTemperatures_nonlin_10nodes.png used on input line 107.
+(pdftex.def)             Requested size: 369.88582pt x 201.19508pt.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.108 ...n the found values for 10 nodes are used}
+                                                  %
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing \right. inserted.
+<inserted text> 
+                \right .
+l.108 ...n the found values for 10 nodes are used}
+                                                  %
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (2.4pt too wide) in paragraph at lines 106--108
+[]$[]$ 
+ []
+
+[20] [21 <C:/Workspace/Modelica/IDEAS/Specifications/Thermal/images/Validation_
+Vitocell100V390l_ChargingTimeEndTemperatures_Linear.png>]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.122 \begin{left}
+                  
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing delimiter (. inserted).
+<to be read again> 
+                   \let 
+l.123 \includegraphics
+                      [width=3cm]{Thermal/images/HydraulicScheme.pdf}% of \c...
+I was expecting to see something like `(' or `\{' or
+`\}' here. If you typed, e.g., `{' instead of `\{', you
+should probably delete the `{' by typing `1' now, so that
+braces don't get unbalanced. Otherwise just proceed.
+Acceptable delimiters are characters whose \delcode is
+nonnegative, or you can use `\delimiter <delimiter code>'.
+
+<Thermal/images/HydraulicScheme.pdf, id=643, 130.26166pt x 187.45032pt>
+File: Thermal/images/HydraulicScheme.pdf Graphic file (type pdf)
+
+<use Thermal/images/HydraulicScheme.pdf>
+Package pdftex.def Info: Thermal/images/HydraulicScheme.pdf used on input line 
+123.
+(pdftex.def)             Requested size: 85.35826pt x 122.83376pt.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.124 \caption{Tank with internal heat exchanger}
+                                                 %
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing \right. inserted.
+<inserted text> 
+                \right .
+l.124 \caption{Tank with internal heat exchanger}
+                                                 %
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+[22 <C:/Workspace/Modelica/IDEAS/Specifications/Thermal/images/Validation_Vitoc
+ell100V390l_ChargingTimeEndTemperatures_NonLinear.png>] [23 <C:/Workspace/Model
+ica/IDEAS/Specifications/Thermal/images/Validation_Vitocell100V390l_ChargingTim
+eEndTemperatures_nonlin_10nodes.png> <C:/Workspace/Modelica/IDEAS/Specification
+s/Thermal/images/HydraulicScheme.pdf>]) [24]
 (C:\Workspace\Modelica\IDEAS\Specifications\Electric/ElectricSystemModel.tex
 LaTeX Font Info:    Try loading font information for TS1+ptm on input line 21.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ts1ptm.fd"
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-<Electric/MyGraphics/5param_eq.png, id=668, 465.74pt x 192.72pt>
+<Electric/MyGraphics/5param_eq.png, id=687, 465.74pt x 192.72pt>
 File: Electric/MyGraphics/5param_eq.png Graphic file (type png)
 
 <use Electric/MyGraphics/5param_eq.png>
@@ -1665,49 +1853,49 @@ Package pdftex.def Info: Electric/MyGraphics/5param_eq.png used on input line 3
 (pdftex.def)             Requested size: 240.42352pt x 99.48567pt.
 
 
-LaTeX Warning: Reference `chap:climate' on page 23 undefined on input line 36.
+LaTeX Warning: Reference `chap:climate' on page 25 undefined on input line 36.
 
-[23
-
-
+[25
 
 
-] [24 <C:/Workspace/Modelica/IDEAS/Specifications/Electric/MyGraphics/5param_eq
-.png>] [25] [26]
-<Electric/MyGraphics/grid_ieee34.png, id=738, 716.6775pt x 226.8475pt>
+
+
+] [26 <C:/Workspace/Modelica/IDEAS/Specifications/Electric/MyGraphics/5param_eq
+.png>] [27] [28]
+<Electric/MyGraphics/grid_ieee34.png, id=757, 716.6775pt x 226.8475pt>
 File: Electric/MyGraphics/grid_ieee34.png Graphic file (type png)
 
 <use Electric/MyGraphics/grid_ieee34.png>
 Package pdftex.def Info: Electric/MyGraphics/grid_ieee34.png used on input line
  155.
 (pdftex.def)             Requested size: 277.41435pt x 87.80904pt.
- [27] [28 <C:/Workspace/Modelica/IDEAS/Specifications/Electric/MyGraphics/grid_
-ieee34.png>] [29]
-<Electric/MyGraphics/trafo_equischeme.png, id=774, 371.88937pt x 224.33812pt>
+ [29] [30 <C:/Workspace/Modelica/IDEAS/Specifications/Electric/MyGraphics/grid_
+ieee34.png>] [31]
+<Electric/MyGraphics/trafo_equischeme.png, id=793, 371.88937pt x 224.33812pt>
 File: Electric/MyGraphics/trafo_equischeme.png Graphic file (type png)
 
 <use Electric/MyGraphics/trafo_equischeme.png>
 Package pdftex.def Info: Electric/MyGraphics/trafo_equischeme.png used on input
  line 245.
 (pdftex.def)             Requested size: 240.42352pt x 145.03757pt.
- [30 <C:/Workspace/Modelica/IDEAS/Specifications/Electric/MyGraphics/trafo_equi
-scheme.png>]) [31] [32
+ [32 <C:/Workspace/Modelica/IDEAS/Specifications/Electric/MyGraphics/trafo_equi
+scheme.png>]) [33] [34
 
 
 
-] [33]
-[34]
+] [35]
+[36]
 (C:\Workspace\Modelica\IDEAS\Specifications\Buildings/BuildingModelValidation.t
 ex
 Missing character: There is no Â in font ptmri7t!
 Missing character: There is no “ in font ptmri7t!
 Missing character: There is no Â in font ptmr7t!
 Missing character: There is no ” in font ptmr7t!
- [35
+ [37
 
 
 
-] <Buildings/MyGraphics/AH_BESTEST.png, id=823, 706.0779pt x 267.399pt>
+] <Buildings/MyGraphics/AH_BESTEST.png, id=842, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/AH_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/AH_BESTEST.png>
@@ -1715,17 +1903,17 @@ Package pdftex.def Info: Buildings/MyGraphics/AH_BESTEST.png used on input line
  30.
 (pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
 
-<Buildings/MyGraphics/AC_BESTEST.png, id=824, 706.0779pt x 267.399pt>
+<Buildings/MyGraphics/AC_BESTEST.png, id=843, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/AC_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/AC_BESTEST.png>
 Package pdftex.def Info: Buildings/MyGraphics/AC_BESTEST.png used on input line
  31.
 (pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
- [36 <C:/Workspace/Modelica/IDEAS/Specifications/Buildings/MyGraphics/AH_BESTES
+ [38 <C:/Workspace/Modelica/IDEAS/Specifications/Buildings/MyGraphics/AH_BESTES
 T.png> <C:/Workspace/Modelica/IDEAS/Specifications/Buildings/MyGraphics/AC_BEST
 EST.png>]
-<Buildings/MyGraphics/PH_BESTEST.png, id=837, 706.0779pt x 267.399pt>
+<Buildings/MyGraphics/PH_BESTEST.png, id=856, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/PH_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/PH_BESTEST.png>
@@ -1733,7 +1921,7 @@ Package pdftex.def Info: Buildings/MyGraphics/PH_BESTEST.png used on input line
  38.
 (pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
 
-<Buildings/MyGraphics/PC_BESTEST.png, id=838, 706.0779pt x 267.399pt>
+<Buildings/MyGraphics/PC_BESTEST.png, id=857, 706.0779pt x 267.399pt>
 File: Buildings/MyGraphics/PC_BESTEST.png Graphic file (type png)
 
 <use Buildings/MyGraphics/PC_BESTEST.png>
@@ -1741,35 +1929,35 @@ Package pdftex.def Info: Buildings/MyGraphics/PC_BESTEST.png used on input line
  39.
 (pdftex.def)             Requested size: 369.88582pt x 140.08057pt.
 
-<Buildings/MyGraphics/Temp_BESTEST.pdf, id=839, 695.59875pt x 261.97874pt>
+<Buildings/MyGraphics/Temp_BESTEST.pdf, id=858, 695.59875pt x 261.97874pt>
 File: Buildings/MyGraphics/Temp_BESTEST.pdf Graphic file (type pdf)
 
 <use Buildings/MyGraphics/Temp_BESTEST.pdf>
 Package pdftex.def Info: Buildings/MyGraphics/Temp_BESTEST.pdf used on input li
 ne 46.
 (pdftex.def)             Requested size: 369.88582pt x 139.30777pt.
-) [37 <C:/Workspace/Modelica/IDEAS/Specifications/Buildings/MyGraphics/PH_BESTE
+) [39 <C:/Workspace/Modelica/IDEAS/Specifications/Buildings/MyGraphics/PH_BESTE
 ST.png> <C:/Workspace/Modelica/IDEAS/Specifications/Buildings/MyGraphics/PC_BES
-TEST.png>] [38 <C:/Workspace/Modelica/IDEAS/Specifications/Buildings/MyGraphics
+TEST.png>] [40 <C:/Workspace/Modelica/IDEAS/Specifications/Buildings/MyGraphics
 /Temp_BESTEST.pdf>]
 (C:\Workspace\Modelica\IDEAS\Specifications\Thermal/ThermalSystemModelValidatio
-n.tex) [39
+n.tex) [41
 
 
 
 
 ]
 (C:\Workspace\Modelica\IDEAS\Specifications\Electric/ElectricSystemModelValidat
-ion.tex [40
+ion.tex [42
 
 
 
 
-]) [41] [42
+]) [43] [44
 
 
 
-] [43]
+] [45]
 Missing character: There is no Â in font ptmr7t!
 Missing character: There is no · in font ptmr7t!
 Missing character: There is no Â in font ptmr7t!
@@ -1778,7 +1966,7 @@ Missing character: There is no Â in font ptmr7t!
 Missing character: There is no · in font ptmr7t!
 Missing character: There is no Â in font ptmr7t!
 Missing character: There is no · in font ptmr7t!
- [44]
+ [46]
 (C:\Workspace\Modelica\IDEAS\Specifications\Specs.bbl
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
@@ -1791,11 +1979,11 @@ ata,'' in \OT1/ptm/m/it/8.5 CIE Day-light-ing con-fer-ence Vol.I\OT1/ptm/m/n/8.
 5 ,
  []
 
-[45] [46]) [47] [48
+[47] [48]) [49] [50
 
 
 ] (C:\Workspace\Modelica\IDEAS\Specifications\Specs.ind
-[49
+[51
 
 
 ])
@@ -1831,10 +2019,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 29612 strings out of 494045
- 598118 string characters out of 3145975
+ 29634 strings out of 494045
+ 599468 string characters out of 3145975
  708161 words of memory out of 3000000
- 31916 multiletter control sequences out of 15000+200000
+ 31928 multiletter control sequences out of 15000+200000
  58189 words of font info for 128 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  52i,10n,74p,1312b,1127s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1867,9 +2055,9 @@ MiKTeX/2.9/fonts/type1/urw/symbol/usyr.pfb><C:/Users/RDC/AppData/Roaming/MiKTeX
 ype1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/ti
 mes/utmbi8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmr8a
 .pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Specs.pdf (55 pages, 477222 bytes).
+Output written on Specs.pdf (57 pages, 621875 bytes).
 PDF statistics:
- 1053 PDF objects out of 1200 (max. 8388607)
- 293 named destinations out of 1000 (max. 500000)
- 562 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1072 PDF objects out of 1200 (max. 8388607)
+ 300 named destinations out of 1000 (max. 500000)
+ 577 words of extra memory for PDF output out of 10000 (max. 10000000)
 
