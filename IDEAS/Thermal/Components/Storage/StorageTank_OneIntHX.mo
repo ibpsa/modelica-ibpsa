@@ -185,8 +185,22 @@ equation
       smooth=Smooth.None));
   connect(heaTraHX.port_a, nodes[nodeHXUpper:nodeHXLower].heatPort);
   annotation (Icon(graphics={
-        Ellipse(extent={{-62,76},{60,52}}, lineColor={0,0,255}),
-        Ellipse(extent={{-62,-46},{60,-70}}, lineColor={0,0,255}),
-        Rectangle(extent={{-62,64},{60,-58}}, lineColor={0,0,255})}), Diagram(
+        Rectangle(extent={{-60,88},{60,-88}},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Ellipse(extent={{-60,-76},{60,-100}},
+          fillPattern=FillPattern.Solid,
+          fillColor={135,135,135},
+          pattern=LinePattern.None),
+        Ellipse(extent={{-60,100},{60,76}},lineColor={0,128,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-100,20},{44,20},{-44,-20},{42,-60},{-98,-60}},
+          smooth=Smooth.None,
+          color={0,0,0},
+          thickness=0.5)}),                                           Diagram(
         graphics));
 end StorageTank_OneIntHX;

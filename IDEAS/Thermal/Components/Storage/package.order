@@ -2,5 +2,5 @@ StorageTank
 StorageTank_OneIntHX
 StratifiedInlet
 Partial_Buoyancy
-Buoyancy
+Buoyancy_gradpower
 Examples

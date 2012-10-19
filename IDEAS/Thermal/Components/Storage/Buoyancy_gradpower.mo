@@ -1,39 +1,21 @@
 within IDEAS.Thermal.Components.Storage;
-model Buoyancy
-  "Model to add buoyancy if there is a temperature inversion in the tank"
-  parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
-    "Medium in the tank";
-  parameter SI.Length h "Total tank height";
-  parameter Integer nbrNodes(min=2) = 2 "Number of tank nodes";
-  parameter SI.Area surCroSec "Cross section surface of the tank";
+model Buoyancy_gradpower
+  "Buoyancy depending on a power of the temperature gradient"
+
+  extends IDEAS.Thermal.Components.Storage.Partial_Buoyancy;
+
   parameter Real kBuo(min=0)
     "(hopefully fix) coefficient for buoyancy flow rate";
   parameter Real expBuo "Exponent for the thermal gradient";
-  SI.HeatFlowRate[nbrNodes-1] Q_flow "Heat flow rate from segment i+1 to i";
   SI.MassFlowRate[nbrNodes-1] mFloMix
     "Mass flow rate between node i+1 and i (and vice versa)";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nbrNodes] heatPort
-    "Heat input into the volumes"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
-
-protected
-  SI.TemperatureDifference[nbrNodes-1] dT
-    "Temperature difference between layer i+1 and i, only if >0, else 0";
-  parameter SI.Length hi = h/nbrNodes;
-
 equation
   for i in 1:nbrNodes-1 loop
-    dT[i] = max(heatPort[i+1].T-heatPort[i].T, 0);
     mFloMix[i] = kBuo * (dT[i]/hi)^expBuo * surCroSec;
     Q_flow[i] = mFloMix[i] * medium.cp * dT[i];
   end for;
 
-  heatPort[1].Q_flow = -Q_flow[1];
-  for i in 2:nbrNodes-1 loop
-       heatPort[i].Q_flow = -Q_flow[i]+Q_flow[i-1];
-  end for;
-  heatPort[nbrNodes].Q_flow = Q_flow[nbrNodes-1];
   annotation (Documentation(info="<html>
 <p>
 This model outputs a heat flow rate that can be added to fluid volumes
@@ -89,4 +71,4 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
             graphics));
-end Buoyancy;
+end Buoyancy_gradpower;
