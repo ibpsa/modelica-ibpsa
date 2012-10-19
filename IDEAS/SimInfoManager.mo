@@ -5,18 +5,21 @@ model SimInfoManager
 protected
   parameter IDEAS.Climate.Meteo.Files.min60 hourly "Hourly climate data";
   parameter IDEAS.Climate.Meteo.Locations.Uccle Uccle "Uccle, Belgium";
-  parameter IDEAS.Occupants.Extern.Interfaces.none none
-    "No occupant behavior to be read";
+  parameter IDEAS.Occupants.Extern.Interfaces.Stoch33 stoch33
+    "Default occupant behavior to be read";
 public
   replaceable parameter IDEAS.Climate.Meteo.Detail detail = hourly
     "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   replaceable parameter IDEAS.Climate.Meteo.location city = Uccle
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
-  replaceable parameter IDEAS.Occupants.Extern.Interfaces.occupant occupants = none
-    "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="Others"));
+  parameter Boolean occBeh = true
+    "put to false if no user behaviour is to be read from files"
+                                         annotation(Dialog(group="User behaviour"));
+  replaceable parameter IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants= stoch33
+    "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="User behaviour"));
+  parameter Integer nOcc = 33 "Number of occupant profiles" annotation(Dialog(group="User behaviour"));
 
 protected
-  parameter Boolean occBeh = occupants.present;
   parameter String filNamClim = "..\\Inputs\\" + city.locNam + detail.filNam;
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") = city.lat
     "latitude of the locatioin";
@@ -89,44 +92,46 @@ Modelica.Blocks.Tables.CombiTable1Ds tabQCon(
     tableOnFile = true,
     tableName = "data",
     fileName = "..\\Inputs\\" + occupants.filQCon,
-    columns=2:nOcc) if occBeh annotation (Placement(transformation(extent={{-40,-34},
+    columns=2:nOcc+1) if occBeh annotation (Placement(transformation(extent={{-40,-34},
             {-26,-20}})));
 Modelica.Blocks.Tables.CombiTable1Ds tabQRad(
     final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile = true,
     tableName = "data",
     fileName = "..\\Inputs\\" + occupants.filQRad,
-    columns=2:nOcc) if occBeh annotation (Placement(transformation(extent={{-36,-38},
+    columns=2:nOcc+1) if occBeh annotation (Placement(transformation(extent={{-36,-38},
             {-22,-24}})));
-Modelica.Blocks.Tables.CombiTable1Ds tabPre(
+Modelica.Blocks.Sources.CombiTimeTable
+                                     tabPre(
     final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile = true,
     tableName = "data",
     fileName = "..\\Inputs\\" + occupants.filPres,
-    columns=2:nOcc) if occBeh annotation (Placement(transformation(extent={{-40,-14},
-            {-26,0}})));
+    columns=2:nOcc+1) if occBeh annotation (Placement(transformation(extent={{0,-34},
+            {14,-20}})));
 Modelica.Blocks.Tables.CombiTable1Ds tabP(
     final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile = true,
     tableName = "data",
     fileName = "..\\Inputs\\" + occupants.filP,
-    columns=2:nOcc) if occBeh annotation (Placement(transformation(extent={{-40,-58},
+    columns=2:nOcc+1) if occBeh annotation (Placement(transformation(extent={{-40,-58},
             {-26,-44}})));
 Modelica.Blocks.Tables.CombiTable1Ds tabQ(
     final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile = true,
     tableName = "data",
     fileName = "..\\Inputs\\" + occupants.filQ,
-    columns=2:nOcc) if occBeh annotation (Placement(transformation(extent={{-36,-62},
+    columns=2:nOcc+1) if occBeh annotation (Placement(transformation(extent={{-36,-62},
             {-22,-48}})));
-Modelica.Blocks.Tables.CombiTable1Ds tabDHW(
+Modelica.Blocks.Sources.CombiTimeTable
+                                     tabDHW(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
     fileName="..\\Inputs\\" + occupants.filDHW,
-    columns=2:nOcc) if occBeh
-                            annotation (Placement(transformation(extent={{-40,-82},
-            {-26,-68}})));
+    columns=2:nOcc+1) if occBeh
+                            annotation (Placement(transformation(extent={{0,-54},
+            {14,-40}})));
 algorithm
     weekend := calcWE.y;
     workday := 1-calcWE.y;
@@ -170,10 +175,6 @@ equation
       points={{-60,70},{-50,70},{-50,73},{-41.4,73}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(timMan.timCal, tabPre.u) annotation (Line(
-      points={{-60,66},{-52,66},{-52,-7},{-41.4,-7}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(timMan.timCal, tabQCon.u) annotation (Line(
       points={{-60,66},{-52,66},{-52,-27},{-41.4,-27}},
       color={0,0,127},
@@ -188,10 +189,6 @@ equation
       smooth=Smooth.None));
   connect(timMan.timCal, tabQ.u) annotation (Line(
       points={{-60,66},{-50,66},{-50,-55},{-37.4,-55}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabDHW.u) annotation (Line(
-      points={{-60,66},{-52,66},{-52,-75},{-41.4,-75}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation(defaultComponentName="sim", defaultComponentPrefixes="inner",  missingInnerMessage="Your model is using an outer \"sim\" component. An inner \"sim\" component is not defined. For simulation drag IDEAS.SimInfoManager into your model.",
