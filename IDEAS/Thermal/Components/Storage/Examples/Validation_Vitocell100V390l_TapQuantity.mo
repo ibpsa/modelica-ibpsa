@@ -136,35 +136,35 @@ equation
   der(mFlow_Int)=pump.flowPort_a.m_flow / 995.6;
   connect(absolutePressure.flowPort, storageTank.flowPortHXUpper) annotation (
       Line(
-      points={{-78,81},{-80,81},{-80,26},{-58,26}},
+      points={{-78,81},{-80,81},{-80,26.1},{-58.1,26.1}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump.flowPort_b, storageTank.flowPort_b) annotation (Line(
-      points={{-48,-40},{-48,14}},
+      points={{-48,-40},{-48,-12.95},{-48,14.1},{-48.1,14.1}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank.heatExchEnv) annotation (Line(
-      points={{116,-12},{-34,-12},{-34,24},{-41.8,24}},
+      points={{116,-12},{-34,-12},{-34,24},{-41.6,24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(storageTank.flowPort_a, ambient1.flowPort) annotation (Line(
-      points={{-48,34},{-48,80},{12,80}},
+      points={{-48.1,33.9},{-48.1,80},{12,80}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump3.flowPort_b, storageTank1.flowPort_b) annotation (Line(
-      points={{-14,-40},{-14,14}},
+      points={{-14,-40},{-14,-12.95},{-14,14.1},{-14.1,14.1}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump2.flowPort_b, storageTank2.flowPort_b) annotation (Line(
-      points={{22,-40},{22,14}},
+      points={{22,-40},{22,-12.95},{22,14.1},{21.9,14.1}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump1.flowPort_b, storageTank3.flowPort_b) annotation (Line(
-      points={{58,-40},{58,14},{56,14}},
+      points={{58,-40},{58,14.1},{55.9,14.1}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump4.flowPort_b, storageTank4.flowPort_b) annotation (Line(
-      points={{94,-42},{90,-42},{90,14},{86,14}},
+      points={{94,-42},{90,-42},{90,14.1},{85.9,14.1}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(ambient.flowPort, pump.flowPort_a) annotation (Line(
@@ -188,55 +188,55 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank1.heatExchEnv) annotation (Line(
-      points={{116,-12},{60,-12},{60,-10},{0,-10},{0,24},{-7.8,24}},
+      points={{116,-12},{60,-12},{60,-10},{0,-10},{0,24},{-7.6,24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank2.heatExchEnv) annotation (Line(
-      points={{116,-12},{38,-12},{38,24},{28.2,24}},
+      points={{116,-12},{38,-12},{38,24},{28.4,24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank3.heatExchEnv) annotation (Line(
-      points={{116,-12},{96,-12},{96,-10},{68,-10},{68,24},{62.2,24}},
+      points={{116,-12},{96,-12},{96,-10},{68,-10},{68,24},{62.4,24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank4.heatExchEnv) annotation (Line(
-      points={{116,-12},{112,-12},{112,-10},{98,-10},{98,24},{92.2,24}},
+      points={{116,-12},{112,-12},{112,-10},{98,-10},{98,24},{92.4,24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank1.flowPortHXUpper) annotation (
       Line(
-      points={{-78,81},{-80,81},{-80,46},{-30,46},{-30,26},{-24,26}},
+      points={{-78,81},{-80,81},{-80,46},{-30,46},{-30,26.1},{-24.1,26.1}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank2.flowPortHXUpper) annotation (
       Line(
-      points={{-78,81},{-80,81},{-80,46},{8,46},{8,26},{12,26}},
+      points={{-78,81},{-80,81},{-80,46},{8,46},{8,26.1},{11.9,26.1}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank3.flowPortHXUpper) annotation (
       Line(
-      points={{-78,81},{-80,81},{-80,46},{42,46},{42,26},{46,26}},
+      points={{-78,81},{-80,81},{-80,46},{42,46},{42,26.1},{45.9,26.1}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank4.flowPortHXUpper) annotation (
       Line(
-      points={{-78,81},{-80,81},{-80,46},{72,46},{72,26},{76,26}},
+      points={{-78,81},{-80,81},{-80,46},{72,46},{72,26.1},{75.9,26.1}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(storageTank1.flowPort_a, ambient1.flowPort) annotation (Line(
-      points={{-14,34},{-14,80},{12,80}},
+      points={{-14.1,33.9},{-14.1,80},{12,80}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(storageTank2.flowPort_a, ambient1.flowPort) annotation (Line(
-      points={{22,34},{20,34},{20,80},{12,80}},
+      points={{21.9,33.9},{20,33.9},{20,80},{12,80}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(storageTank3.flowPort_a, ambient1.flowPort) annotation (Line(
-      points={{56,34},{54,34},{54,80},{12,80}},
+      points={{55.9,33.9},{54,33.9},{54,80},{12,80}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(storageTank4.flowPort_a, ambient1.flowPort) annotation (Line(
-      points={{86,34},{84,34},{84,80},{12,80}},
+      points={{85.9,33.9},{84,33.9},{84,80},{12,80}},
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),

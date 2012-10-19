@@ -17,8 +17,8 @@ import time
 
 # Settings
 # folder with the subfolders a05...b80
-folder = os.path.abspath(r'C:\Workspace\DSMSim\Work\ValidationTank_nonlin')
-nonlinear = True
+folder = os.path.abspath(r'C:\Workspace\DSMSim\Work\ValidationTank')
+nonlinear = False
 run_optimization = True
 figure = True
 
@@ -151,7 +151,7 @@ if __name__ is '__main__':
             scaling = np.array([1e-6, 1])
             kBuo_init=1
             expBuo_init=5
-            nodes=[5,10,20,40,80]
+            nodes=[5,10,20,40]
             
             x_opt = np.ndarray((len(nodes),2))
             TOut_a_opt = np.ndarray(len(nodes))

@@ -3,4 +3,5 @@ StorageTank_OneIntHX
 StratifiedInlet
 Partial_Buoyancy
 Buoyancy_gradpower
+Buoyancy_eqcon
 Examples

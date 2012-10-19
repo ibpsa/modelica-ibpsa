@@ -34,12 +34,11 @@ model Validation_Vitocell100V390l_Charging_b
     TInitial={283.15 for i in 1:tank.nbrNodes},
     UIns=0.4,
     UACon=0.56,
-    nbrNodes=5,
-    nodeHXUpper=2,
-    nodeHXLower=5,
-    redeclare IDEAS.Thermal.Components.Storage.Buoyancy_gradpower buoyancy(
-      kBuo=kBuo,
-      expBuo=expBuo))                                    annotation (
+    nbrNodes=10,
+    nodeHXUpper=4,
+    nodeHXLower=10,
+    redeclare IDEAS.Thermal.Components.Storage.Buoyancy_eqcon buoyancy(lamBuo=392))
+                                                         annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
