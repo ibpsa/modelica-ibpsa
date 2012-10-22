@@ -20,7 +20,7 @@ import time
 folder = os.path.abspath(r'C:\Workspace\DSMSim\Work\ValidationTank_best')
 parameters = ['powBuo']
 run_optimization = True
-nodes=[10,20,40]
+nodes=[5,10,20,40]
 figure = True
 
 def run_charging(parvaldic, folder):

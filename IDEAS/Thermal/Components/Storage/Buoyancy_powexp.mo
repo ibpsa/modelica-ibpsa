@@ -1,17 +1,18 @@
 within IDEAS.Thermal.Components.Storage;
-model Buoyancy_power
-  "Buoyancy modelled as power depending only on temperature difference"
+model Buoyancy_powexp
+  "Buoyancy power depends on a power of the number of nodes "
 
   extends IDEAS.Thermal.Components.Storage.Partial_Buoyancy;
 
-  parameter SI.ThermalConductance powBuo=1 "Equivalent thermal conductivity ";
+  parameter SI.ThermalConductance powBuo=1 "Equivalent thermal conductivity " annotation(Evaluate=false);
+  parameter Real expNodes=1.5 "Exponent for the number of nodes" annotation(Evaluate=false);
 
 initial equation
   assert(powBuo <> 1, "Error: powBuo has to be set to a realistic value");
 
 equation
   for i in 1:nbrNodes-1 loop
-    Q_flow[i] = powBuo * dT[i];
+    Q_flow[i] = powBuo * dT[i] * nbrNodes^expNodes;
   end for;
 
   annotation (Documentation(info="<html>
@@ -69,4 +70,4 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
             graphics));
-end Buoyancy_power;
+end Buoyancy_powexp;

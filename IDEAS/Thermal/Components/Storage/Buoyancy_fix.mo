@@ -1,22 +1,16 @@
 within IDEAS.Thermal.Components.Storage;
-model Buoyancy_gradpower
-  "Buoyancy depending on a power of the temperature gradient"
+model Buoyancy_fix "Buoyancy power depending only on temperature difference"
 
   extends IDEAS.Thermal.Components.Storage.Partial_Buoyancy;
 
-  parameter Real kBuo(min=0)=1
-    "(hopefully fix) coefficient for buoyancy flow rate";
-  parameter Real expBuo=1 "Exponent for the thermal gradient";
-  SI.MassFlowRate[nbrNodes-1] mFloMix
-    "Mass flow rate between node i+1 and i (and vice versa)";
+  parameter SI.ThermalConductance powBuo=1 "Equivalent thermal conductivity ";
 
 initial equation
-  assert(kBuo <> 1 and expBuo <> 1, "Attention, kBuo and expBuo have to be set to realistic values");
+  assert(powBuo <> 1, "Error: powBuo has to be set to a realistic value");
 
 equation
   for i in 1:nbrNodes-1 loop
-    mFloMix[i] = kBuo * (dT[i]/hi)^expBuo * surCroSec;
-    Q_flow[i] = mFloMix[i] * medium.cp * dT[i];
+    Q_flow[i] = powBuo * dT[i];
   end for;
 
   annotation (Documentation(info="<html>
@@ -74,4 +68,4 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
             graphics));
-end Buoyancy_gradpower;
+end Buoyancy_fix;
