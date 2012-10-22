@@ -5,4 +5,6 @@ Partial_Buoyancy
 Buoyancy_gradpower
 Buoyancy_eqcon
 Buoyancy_power
+Buoyancy_nodessquared
+Buoyancy_better
 Examples

@@ -7,7 +7,7 @@ model Validation_Vitocell100V390l_Charging_b
   See the IDEAS manual for more on the validation of the storage tank model
   */
 
- parameter SI.ThermalConductance powBuo=3 annotation(Evaluate=false);
+ parameter SI.ThermalConductance powBuo=80 annotation(Evaluate=false);
 
   Thermal.Components.BaseClasses.Pump volumeFlow1(
     medium=Data.Media.Water(),
@@ -32,11 +32,11 @@ model Validation_Vitocell100V390l_Charging_b
     heightTank=1.4,
     TInitial={283.15 for i in 1:tank.nbrNodes},
     UIns=0.4,
-    UACon=0.56,
-    nbrNodes=10,
-    nodeHXUpper=4,
-    nodeHXLower=10,
-    redeclare IDEAS.Thermal.Components.Storage.Buoyancy_power buoyancy(powBuo=powBuo))
+    UACon=1.61,
+    nbrNodes=40,
+    nodeHXUpper=16,
+    nodeHXLower=40,
+    redeclare IDEAS.Thermal.Components.Storage.Buoyancy_better buoyancy(powBuo=powBuo))
                                                          annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

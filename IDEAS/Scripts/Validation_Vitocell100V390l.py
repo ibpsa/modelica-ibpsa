@@ -17,9 +17,10 @@ import time
 
 # Settings
 # folder with the subfolders a05...b80
-folder = os.path.abspath(r'C:\Workspace\DSMSim\Work\ValidationTank_power')
-nonlinear = False
+folder = os.path.abspath(r'C:\Workspace\DSMSim\Work\ValidationTank_best')
+parameters = ['powBuo']
 run_optimization = True
+nodes=[10,20,40]
 figure = True
 
 def run_charging(parvaldic, folder):
@@ -52,52 +53,8 @@ def run_charging(parvaldic, folder):
     os.chdir(cur_dir)
     return TOut[-1]
     
-def objective(parvaldic, folder, nodes):
-    """
-    Return the objective function
-    """    
-    #pdb.set_trace()
-    TOut_a = run_charging(parvaldic, os.path.join(folder, 'a'+str(nodes)))
-    TOut_b = run_charging(parvaldic, os.path.join(folder, 'b'+str(nodes)))
     
-    return (TOut_a-(273.15+45))**2 + (TOut_b-(273.15+55))**2   
-    
-
-###############################################################################
-def run_charging_nl(kBuo, expBuo, folder):
-    """
-    Run the corresponding dymosim.exe with the given kBuo, expBuo and return 
-    TOut at the end of the simulation
-    """
-    cur_dir = os.getcwd()    
-    os.chdir(folder)
-    
-    if os.path.exists('success'):
-        os.remove('success')
-    if os.path.exists('failure'):
-        os.remove('failure')
-    
-    kBuo = float(kBuo)
-    expBuo = float(expBuo) 
-    
-    print 'kBuo = ', kBuo,
-    print 'expBuo = ', expBuo
-    
-    pymosim.set_par('kBuo', kBuo)
-    pymosim.set_par('expBuo', expBuo)
-    pymosim.run_ds(result='run_charging.mat')
-
-    
-    while True:
-        if os.path.exists('success') or os.path.exists('failure'):        
-            break
-        
-    sim=Simulation('run_charging.mat')
-    TOut = sim.get_value('tank.nodes[1].T')
-    os.chdir(cur_dir)
-    return TOut[-1]
-    
-def objective_nl(x, parameters, folder, nodes, scaling=None, verbose=True):
+def objective(x, parameters, folder, nodes, scaling=None, verbose=True):
     """
     Return the objective function f(x)
 
@@ -127,11 +84,12 @@ def objective_nl(x, parameters, folder, nodes, scaling=None, verbose=True):
     return (TOut_a-(273.15+45))**2 + (TOut_b-(273.15+55))**2
 
 
-def runall_nl(x, folders, scaling=None, verbose=True):
+def runall(x, parameters, folders, scaling=None, verbose=True):
     """
     Return the charging experiment for all folders and return array with results 
     
-    x=np.array([kBuo, expBuo])
+    x: np.array([x0, x1, ..., xn])
+    parameters: list of parameter names corresponding to x
     
     """    
     #pdb.set_trace()
@@ -144,142 +102,103 @@ def runall_nl(x, folders, scaling=None, verbose=True):
         print 'x= ', x*scaling
         time.sleep(1)
         
-
+    parvaldic = {par:x_val*scal_val for par, x_val, scal_val in zip(parameters, x, scaling)}
+    
     for f in folders:
-        TOut.append(run_charging_nl(x[0]*scaling[0], x[1]*scaling[1], 
-                                    os.path.join(folder, f)))
+        TOut.append(run_charging(parvaldic, os.path.join(folder, f)))
     
     return np.array(TOut)
 
 
 if __name__ is '__main__':
-    
-    if nonlinear:
-        print 'Running the non-linear optimization'
+    if run_optimization:
+        scaling = np.array([10])
+        bounds = [(0, None)]
+        x0=np.array([1])
         
-        if run_optimization:
-            scaling = np.array([1e-6, 1])
-            kBuo_init=1
-            expBuo_init=5
-            nodes=[5,10,20,40]
+        
+        x_opt = {}        
+        parval_opt = {}
+        TOut_a_opt = np.ndarray(len(nodes))
+        TOut_b_opt = np.ndarray(len(nodes))
             
-            x_opt = np.ndarray((len(nodes),2))
-            TOut_a_opt = np.ndarray(len(nodes))
-            TOut_b_opt = np.ndarray(len(nodes))
-                
-            for i,nds in enumerate(nodes):    
-                x,f,d=optimize.fmin_l_bfgs_b(objective_nl, 
-                                     x0=np.array([kBuo_init, expBuo_init]), 
-                                     args=(folder, nds, scaling, False), 
-                                     approx_grad=True,
-                                     bounds=[(0,None), (0.1,10)],
-                                     factr=1e12,
-                                     epsilon=1e-4,
-                                     pgtol=1e-3,
-                                     maxfun=100, 
-                                     disp=1)
-                x_opt[i,:] = x*scaling                     
-                TOut_a_opt[i] = run_charging_nl(x[0]*scaling[0], x[1]*scaling[1], os.path.join(folder, 'a'+str(nds)))
-                TOut_b_opt[i] = run_charging_nl(x[0]*scaling[0], x[1]*scaling[1], os.path.join(folder, 'b'+str(nds)))
+        for i,nds in enumerate(nodes):    
+            x,f,d=optimize.fmin_l_bfgs_b(objective, 
+                                 x0=x0, 
+                                 args=(parameters, folder, nds, scaling, False), 
+                                 approx_grad=True,
+                                 bounds=bounds,
+                                 factr=1e12,
+                                 epsilon=1e-4,
+                                 pgtol=1e-3,
+                                 maxfun=100, 
+                                 disp=1)
+            x_opt[nds] = x
+            parval_opt[nds] = x*scaling
+            parvaldic = {par:x_val*scal_val for par, x_val, scal_val in zip(parameters, x, scaling)}                
+            TOut_a_opt[i] = run_charging(parvaldic, os.path.join(folder, 'a'+str(nds)))
+            TOut_b_opt[i] = run_charging(parvaldic, os.path.join(folder, 'b'+str(nds)))
  
-        if figure:
+    if figure:
 
-            plt.figure()
+        colors=['b', 'g', 'k']
+        mfcs=['r', 'orange', 'magenta']
+        plt.figure()
+    
+        ax1=plt.subplot(2,1,1)        
+        ax1.plot([0,200], [45,45], '--', color='0.6')  
+        ax1.plot([0,200], [55,55], '--', color='0.6') 
+        ax1.plot(nodes, TOut_b_opt-273.15, 'gD', label='TOut_b')
+        ax1.plot(nodes, TOut_a_opt-273.15, 'ro', label='TOut_a')
+                           
+        plt.title('Temperatures at end of charging time for x_opt')
+        plt.xlabel('Number of layers')
+        plt.ylabel('Temperature [degC]') 
+        plt.xlim((0, nodes[-1]*1.5))
+        plt.ylim((42,58))
+        plt.legend()    
         
-            ax1=plt.subplot(2,1,1)        
+        ax2=plt.subplot(2,1,2)
+        for i, par in enumerate(parameters):
+            parvalues = [x_opt[n][i] for n in nodes]
+            ax2.plot(nodes, parvalues, 'o-', 
+                 color=colors[i], mfc=mfcs[i], label=par)
+        plt.ylabel(u'x_opt') 
+        plt.xlim((0, nodes[-1]*1.5))
+        plt.legend()
+        plt.title('x_opt as function of number of layers')
+        plt.xlabel('Number of layers')
+ 
+
+        
+        for i,nds in enumerate(nodes):
+            plt.figure()
+            x=x_opt[nds]
+            folders = [os.path.join(folder, 'a'+str(n)) for n in nodes]
+            TOut_a = runall(x, parameters, folders, scaling=scaling)
+            folders = [os.path.join(folder, 'b'+str(n)) for n in nodes]
+            TOut_b = runall(x, parameters, folders, scaling=scaling)
+            
+            ax1=plt.subplot(111)            
             ax1.plot([0,200], [45,45], '--', color='0.6')  
             ax1.plot([0,200], [55,55], '--', color='0.6') 
-            ax1.plot(nodes, TOut_b_opt-273.15, 'gD', label='TOut_b')
-            ax1.plot(nodes, TOut_a_opt-273.15, 'ro', label='TOut_a')
-                               
-            plt.title('Temperatures at end of charging time for optimized kBuo and expBuo')
+            ax1.plot(nodes, TOut_b-273.15, 'gD', label='TOut_b')
+            ax1.plot(nodes, TOut_a-273.15, 'ro', label='TOut_a')
+            
+            parvalstring = ''
+            for j, par in enumerate(parameters):            
+                parvalstring = parvalstring + par + ' = %g; ' % (parval_opt[nds][j])                   
+            plt.title('Temperatures for optimization at %s nodes: ' % (nds) + parvalstring)
             plt.xlabel('Number of layers')
             plt.ylabel('Temperature [degC]') 
             plt.xlim((0, nodes[-1]*1.5))
-            plt.ylim((42,58))
+            #plt.ylim((42,58))
             plt.legend()    
-            
-            ax2=plt.subplot(2,1,2)
-            ax2.plot(nodes, x_opt[:,0], 'o-', 
-                     color='b', mfc='r', label='kBuo')
-            plt.ylabel(u'kBuo') 
-            plt.xlim((0, nodes[-1]*1.5))
-            plt.legend(loc='upper left')
-            ax3=plt.twinx(ax2)
-            ax3.plot(nodes, x_opt[:,1], 'D-', 
-                     color='g', mfc='orange', label='expBuo')
-            plt.ylabel(u'expBuo') 
-            plt.title('Optimized kBuo and expBuo as function of number of layers')
-            plt.xlabel('Number of layers')
-            
-            plt.xlim((0, nodes[-1]*1.5))
-            plt.legend(loc='upper right') 
 
-            
-            for i,nds in enumerate(nodes):
-                plt.figure()
-                x=x_opt[i,:]
-                folders = [os.path.join(folder, 'a'+str(n)) for n in nodes]
-                TOut_a = runall_nl(x, folders, scaling=None)
-                folders = [os.path.join(folder, 'b'+str(n)) for n in nodes]
-                TOut_b = runall_nl(x, folders, scaling=None)
-                
-                ax1=plt.subplot(111)            
-                ax1.plot([0,200], [45,45], '--', color='0.6')  
-                ax1.plot([0,200], [55,55], '--', color='0.6') 
-                ax1.plot(nodes, TOut_b-273.15, 'gD', label='TOut_b')
-                ax1.plot(nodes, TOut_a-273.15, 'ro', label='TOut_a')
-                                   
-                plt.title('Temperatures for optimization at %s nodes: kBuo=%g, expBuo=%g' %(nds, x[0], x[1]))
-                plt.xlabel('Number of layers')
-                plt.ylabel('Temperature [degC]') 
-                plt.xlim((0, nodes[-1]*1.5))
-                #plt.ylim((42,58))
-                plt.legend()    
-               
-
-            
-    else:
-        if run_optimization:
-            print 'Running the linear optimization'
-            nodes=[5,10,20,40,80]
-            lamBuo_init={5:233,10:391,20:487,40:543,80:570,160:570}
-            lamBuo_opt=[]
-            TOut_a_opt = []
-            TOut_b_opt = []
-            for nds in nodes:    
-                lamBuo_opt.append(optimize.fmin_powell(objective, x0=lamBuo_init[nds], args=(folder, nds), xtol=1, ftol=0.01, maxiter=30))
-                TOut_a_opt.append(run_charging(lamBuo_opt[-1], os.path.join(folder, 'a'+str(nds))))
-                TOut_b_opt.append(run_charging(lamBuo_opt[-1], os.path.join(folder, 'b'+str(nds))))
-            
-            TOut_a_opt = np.array(TOut_a_opt)
-            TOut_b_opt = np.array(TOut_b_opt)
+    for nds in nodes:
+        s=str(nds) + ' nodes: '
+        for i,par in enumerate(parameters):
+            s = s + par + ' = ' + str(parval_opt[nds][i]) + '; '
+        print s
         
-        if figure:        
-            # plot the result        
-            plt.figure()
-        
-            ax1=plt.subplot(2,1,1)        
-            ax1.plot([0,200], [45,45], '--', color='0.6')  
-            ax1.plot([0,200], [55,55], '--', color='0.6') 
-            ax1.plot(nodes, TOut_b_opt-273.15, 'gD', label='TOut_b')
-            ax1.plot(nodes, TOut_a_opt-273.15, 'ro', label='TOut_a')
-            
-                   
-            plt.title('Temperatures at end of charging time for optimized lamBuo')
-            plt.xlabel('Number of layers')
-            plt.ylabel('Temperature [degC]')
-            plt.ylim((42,58))
-            plt.xlim((0, nodes[-1]*1.5))
-            plt.legend()    
-            
-            ax2=plt.subplot(2,1,2)
-            ax2.plot(nodes, lamBuo_opt, 'o-', 
-                     color='b', mfc='r', label='lamBuo')
-            plt.title('Optimized lamBuo as function of number of layers')
-            plt.xlabel('Number of layers')
-            plt.ylabel(u'lamBuo [W/m²K]') 
-            plt.xlim((0, nodes[-1]*1.5))
-            plt.legend()    
-            
     plt.show()
