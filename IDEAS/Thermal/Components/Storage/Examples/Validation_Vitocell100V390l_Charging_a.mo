@@ -7,8 +7,7 @@ model Validation_Vitocell100V390l_Charging_a
   See the IDEAS manual for more on the validation of the storage tank model
   */
 
-  parameter Real kBuo=9.37e-7 annotation(Evaluate=false);
-  parameter Real expBuo= 4.75 annotation(Evaluate=false);
+  parameter SI.ThermalConductance powBuo=3 annotation(Evaluate=false);
 
   Thermal.Components.BaseClasses.Pump volumeFlow1(
     medium=Data.Media.Water(),
@@ -37,7 +36,7 @@ model Validation_Vitocell100V390l_Charging_a
     nbrNodes=10,
     nodeHXUpper=4,
     nodeHXLower=10,
-    redeclare IDEAS.Thermal.Components.Storage.Buoyancy_eqcon buoyancy(lamBuo=392))
+    redeclare IDEAS.Thermal.Components.Storage.Buoyancy_power buoyancy(powBuo=powBuo))
                                                           annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
