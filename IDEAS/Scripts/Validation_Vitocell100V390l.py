@@ -17,15 +17,17 @@ import time
 
 # Settings
 # folder with the subfolders a05...b80
-folder = os.path.abspath(r'C:\Workspace\DSMSim\Work\ValidationTank')
+folder = os.path.abspath(r'C:\Workspace\DSMSim\Work\ValidationTank_power')
 nonlinear = False
 run_optimization = True
 figure = True
 
-def run_charging(lamBuo, folder):
+def run_charging(parvaldic, folder):
     """
-    Run the corresponding dymosim.exe with the given lamBuo and return 
-    TOut at the end of the simulation
+    Run the corresponding dymosim.exe with the parameter/value combination 
+    from parvaldic and return TOut at the end of the simulation
+    
+    
     """
     cur_dir = os.getcwd()    
     os.chdir(folder)
@@ -35,8 +37,9 @@ def run_charging(lamBuo, folder):
     if os.path.exists('failure'):
         os.remove('failure')
     
-    lamBuo = float(lamBuo)    
-    pymosim.set_par('lamBuo', lamBuo)
+    for par, val in parvaldic.items():    
+        pymosim.set_par(par, float(val))
+    
     pymosim.run_ds(result='run_charging.mat')
 
     
@@ -49,13 +52,13 @@ def run_charging(lamBuo, folder):
     os.chdir(cur_dir)
     return TOut[-1]
     
-def objective(lamBuo, folder, nodes):
+def objective(parvaldic, folder, nodes):
     """
     Return the objective function
     """    
     #pdb.set_trace()
-    TOut_a = run_charging(lamBuo, os.path.join(folder, 'a'+str(nodes)))
-    TOut_b = run_charging(lamBuo, os.path.join(folder, 'b'+str(nodes)))
+    TOut_a = run_charging(parvaldic, os.path.join(folder, 'a'+str(nodes)))
+    TOut_b = run_charging(parvaldic, os.path.join(folder, 'b'+str(nodes)))
     
     return (TOut_a-(273.15+45))**2 + (TOut_b-(273.15+55))**2   
     
@@ -94,11 +97,18 @@ def run_charging_nl(kBuo, expBuo, folder):
     os.chdir(cur_dir)
     return TOut[-1]
     
-def objective_nl(x, folder, nodes, scaling=None, verbose=True):
+def objective_nl(x, parameters, folder, nodes, scaling=None, verbose=True):
     """
-    Return the objective function for a given number of nodese
+    Return the objective function f(x)
+
+    x: np.array([x0, x1, ..., xn])
+    parameters: list of parameter names corresponding to x
+    folder: the folder in which the dymosim.exe subfolders are
+    nodes: int, number of nodes
+    scaling: np.array with scaling factors between x and the real parameter
+             values.  parvalue = x * scaling
+    verbose: True or False
     
-    x=np.array([kBuo, expBuo])
     
     """    
     #pdb.set_trace()
@@ -109,11 +119,11 @@ def objective_nl(x, folder, nodes, scaling=None, verbose=True):
         print 'x= ', x*scaling
         time.sleep(1)
 
-    TOut_a = run_charging_nl(x[0]*scaling[0], x[1]*scaling[1], 
-                             os.path.join(folder, 'a'+str(nodes)))
-    TOut_b = run_charging_nl(x[0]*scaling[0], x[1]*scaling[1], 
-                             os.path.join(folder, 'b'+str(nodes)))
-
+    parvaldic = {par:x_val*scal_val for par, x_val, scal_val in zip(parameters, x, scaling)}
+    
+    TOut_a = run_charging(parvaldic, os.path.join(folder, 'a'+str(nodes)))
+    TOut_b = run_charging(parvaldic, os.path.join(folder, 'b'+str(nodes)))
+    
     return (TOut_a-(273.15+45))**2 + (TOut_b-(273.15+55))**2
 
 
