@@ -36,7 +36,7 @@ model Validation_Vitocell100V390l_Charging_b
     nbrNodes=10,
     nodeHXUpper=4,
     nodeHXLower=10,
-    redeclare IDEAS.Thermal.Components.Storage.Buoyancy_power buoyancy(powBuo=1000))
+    redeclare IDEAS.Thermal.Components.Storage.Buoyancy_power buoyancy(powBuo=powBuo))
                                                          annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
