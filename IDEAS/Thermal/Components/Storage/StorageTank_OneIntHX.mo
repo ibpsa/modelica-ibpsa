@@ -84,7 +84,7 @@ model StorageTank_OneIntHX
     "Conduction heat transfer between the layers"
     annotation (Placement(transformation(extent={{18,-10},{38,10}})));
 
-   replaceable Thermal.Components.Storage.Buoyancy_gradpower buoyancy(
+   replaceable Thermal.Components.Storage.Buoyancy_powexp buoyancy(
     nbrNodes=nbrNodes,
     medium=medium,
     surCroSec=volumeTank/heightTank,

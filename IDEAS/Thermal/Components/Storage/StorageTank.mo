@@ -52,7 +52,7 @@ model StorageTank "Simplified stratified storage tank"
       Placement(transformation(extent={{52,-10},{72,10}}), iconTransformation(
           extent={{52,-10},{72,10}})));
 
-   replaceable Thermal.Components.Storage.Buoyancy_gradpower buoyancy(
+   replaceable Thermal.Components.Storage.Buoyancy_powexp buoyancy(
     nbrNodes=nbrNodes,
     medium=medium,
     surCroSec=volumeTank/heightTank,
