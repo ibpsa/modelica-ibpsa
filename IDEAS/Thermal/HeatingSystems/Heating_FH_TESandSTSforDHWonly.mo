@@ -9,7 +9,7 @@ model Heating_FH_TESandSTSforDHWonly
 
   parameter Modelica.SIunits.Volume volumeTank=0.25;
   parameter Modelica.SIunits.Area AColTot=1 "TOTAL collector area";
-  parameter Integer nbrNodes=20 "Number of nodes in the tank";
+  parameter Integer nbrNodes=10 "Number of nodes in the tank";
   parameter Integer posTTop(max=nbrNodes) = 1
     "Position of the top temperature sensor";
   parameter Integer posTBot(max=nbrNodes) = nbrNodes-2
@@ -44,8 +44,8 @@ model Heating_FH_TESandSTSforDHWonly
     useInput=true,
     m_flowNom=sum(m_flowNom),
     m=0.5,
-    UA=1,
-    dpFix=30000) "Pump for loading the storage tank"
+    dpFix=30000,
+    UA=1) "Pump for loading the storage tank"
     annotation (Placement(transformation(extent={{-34,-68},{-50,-52}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-134,34},{-122,46}})));
@@ -306,10 +306,6 @@ end for;
       points={{-90,0},{-34,0},{-34,-19.01},{-28.17,-19.01}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(pumpSto.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-42,-66.88},{-42,-74},{-118,-74},{-118,40},{-122,40}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(pipeMixer.heatPort, fixedTemperature.port) annotation (Line(
       points={{30,-79},{30,-82},{-118,-82},{-118,40},{-122,40}},
       color={191,0,0},
@@ -330,8 +326,12 @@ end for;
       points={{152,-32},{152,-86},{-118,-86},{-118,40},{-122,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},
-            {200,100}}),
+  connect(pumpSto.heatPort, fixedTemperature.port) annotation (Line(
+      points={{-42,-66.88},{-42,-70},{-118,-70},{-118,40},{-122,40}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
+            -100},{200,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-200,-100},{200,100}})));
 end Heating_FH_TESandSTSforDHWonly;
