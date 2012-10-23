@@ -17,9 +17,6 @@ model StorageTank "Simplified stratified storage tank"
     "Additional thermal conductance for connection losses and imperfect insulation";
   parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in
         1:nbrNodes} "Initial temperature of all Temperature states";
-  parameter SI.ThermalConductivity kBuo(min=0) = 500
-    "(hopefully fix) linear coefficient for buoyancy flow rate";
-  parameter Real expBuo "Exponent for the thermal gradient";
 
     /* 
     A validation excercise has shown that TO BE COMPLETED.
@@ -53,6 +50,7 @@ model StorageTank "Simplified stratified storage tank"
           extent={{52,-10},{72,10}})));
 
    replaceable Thermal.Components.Storage.Buoyancy_powexp buoyancy(
+    powBuo=24,
     nbrNodes=nbrNodes,
     medium=medium,
     surCroSec=volumeTank/heightTank,

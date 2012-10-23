@@ -4,6 +4,10 @@ model Pump_Insulated "Pump with UA for thermal losses"
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
     "Medium in the component"
     annotation(choicesAllMatching=true);
+  parameter Modelica.SIunits.Mass m(start=1) "Mass of medium";
+  parameter Modelica.SIunits.Temperature TInitial=293.15
+    "Initial temperature of all Temperature states";
+
   parameter Boolean useInput = false "Enable / disable MassFlowRate input"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flowNom(min=0, start=1)
@@ -22,6 +26,8 @@ model Pump_Insulated "Pump with UA for thermal losses"
   parameter SI.ThermalConductance UA "Thermal conductance of the insulation";
 
 protected
+  Modelica.SIunits.MassFlowRate m_flow;
+
   Pump_HeatPort pump_HeatPort(
     medium=medium,
     useInput=useInput,
@@ -44,6 +50,9 @@ public
   Interfaces.FlowPort_b flowPort_b(medium=medium)
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
+  if not useInput then
+    m_flow = m_flowNom;
+  end if;
   connect(m_flowSet, pump_HeatPort.m_flowSet);
   connect(thermalConductor.port_a, heatPort) annotation (Line(
       points={{-6.12323e-016,-54},{0,-54},{0,-86}},
@@ -66,7 +75,7 @@ equation
           extent={{-78,76},{78,-76}},
           lineColor={255,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Backward),
+          fillPattern=FillPattern.CrossDiag),
         Text(
           extent={{-40,20},{0,-20}},
           lineColor={0,0,0},

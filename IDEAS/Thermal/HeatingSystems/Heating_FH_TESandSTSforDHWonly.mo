@@ -20,14 +20,15 @@ model Heating_FH_TESandSTSforDHWonly
     "Position of injection of STS in TES";
   parameter Boolean solSys(fixed=true) = false;
 
-  Components.BaseClasses.Pump_HeatPort[
+  Components.BaseClasses.Pump_Insulated[
                                       nZones] pumpRad(
     each medium=medium,
     each useInput=true,
     m_flowNom=m_flowNom,
     each m_flowSet(fixed=true, start=0),
     each etaTot=0.7,
-    each m=1,
+    UA=1,
+    each m=0.5,
     each dpFix=30000)
     annotation (Placement(transformation(extent={{94,-4},{110,12}})));
 
@@ -38,11 +39,12 @@ model Heating_FH_TESandSTSforDHWonly
     m_flowMin = m_flowNom)
     annotation (Placement(transformation(extent={{120,-4},{136,14}})));
 
-  Components.BaseClasses.Pump_HeatPort pumpSto(
+  Components.BaseClasses.Pump_Insulated pumpSto(
     medium=medium,
     useInput=true,
     m_flowNom=sum(m_flowNom),
-    m=1,
+    m=0.5,
+    UA=1,
     dpFix=30000) "Pump for loading the storage tank"
     annotation (Placement(transformation(extent={{-34,-68},{-50,-52}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
@@ -100,12 +102,12 @@ protected
     annotation (Placement(transformation(extent={{66,-6},{86,16}})));
   IDEAS.Thermal.Components.BaseClasses.Pipe   pipeDHW(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-36,-48},{-48,-36}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                              pipeMixer(medium=medium, m=1)
+  Components.BaseClasses.Pipe_Insulated       pipeMixer(medium=medium, m=1,
+    UA=1)
     annotation (Placement(transformation(extent={{24,-82},{36,-70}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort[
-                                              nZones] pipeEmission(each medium=
-        medium, each m=1)
+  Components.BaseClasses.Pipe_Insulated[      nZones] pipeEmission(each medium=
+        medium, each m=1,
+    UA=1)
     annotation (Placement(transformation(extent={{146,0},{158,12}})));
   // Result variables
 public
@@ -132,6 +134,12 @@ public
         origin={22,-8})));
   Components.BaseClasses.AbsolutePressure absolutePressure(medium=medium, p=300000)
     annotation (Placement(transformation(extent={{-14,-64},{-6,-56}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector(m=
+        nZones)
+    annotation (Placement(transformation(extent={{92,-32},{112,-12}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector1(m=
+       nZones)
+    annotation (Placement(transformation(extent={{142,-32},{162,-12}})));
 equation
   QHeatTotal = -sum(emission.heatPortEmb.Q_flow) + dHW.m_flowTotal * medium.cp * (dHW.TMixed - dHW.TCold);
   THeaterSet = HPControl.THPSet;
@@ -298,8 +306,32 @@ end for;
       points={{-90,0},{-34,0},{-34,-19.01},{-28.17,-19.01}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -100},{200,100}}),
+  connect(pumpSto.heatPort, fixedTemperature.port) annotation (Line(
+      points={{-42,-66.88},{-42,-74},{-118,-74},{-118,40},{-122,40}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(pipeMixer.heatPort, fixedTemperature.port) annotation (Line(
+      points={{30,-79},{30,-82},{-118,-82},{-118,40},{-122,40}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(pumpRad.heatPort, thermalCollector.port_a) annotation (Line(
+      points={{102,-2.88},{102,-12}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermalCollector.port_b, fixedTemperature.port) annotation (Line(
+      points={{102,-32},{102,-86},{-118,-86},{-118,40},{-122,40}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(pipeEmission.heatPort, thermalCollector1.port_a) annotation (Line(
+      points={{152,3},{152,-12}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermalCollector1.port_b, fixedTemperature.port) annotation (Line(
+      points={{152,-32},{152,-86},{-118,-86},{-118,40},{-122,40}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},
+            {200,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-200,-100},{200,100}})));
 end Heating_FH_TESandSTSforDHWonly;

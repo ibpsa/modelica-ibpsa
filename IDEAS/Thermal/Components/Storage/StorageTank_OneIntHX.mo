@@ -85,6 +85,7 @@ model StorageTank_OneIntHX
     annotation (Placement(transformation(extent={{18,-10},{38,10}})));
 
    replaceable Thermal.Components.Storage.Buoyancy_powexp buoyancy(
+    powBuo=24,
     nbrNodes=nbrNodes,
     medium=medium,
     surCroSec=volumeTank/heightTank,
