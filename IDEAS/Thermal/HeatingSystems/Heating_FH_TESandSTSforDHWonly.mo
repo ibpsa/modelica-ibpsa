@@ -28,7 +28,7 @@ model Heating_FH_TESandSTSforDHWonly
     each m_flowSet(fixed=true, start=0),
     each etaTot=0.7,
     UA=1,
-    each m=0.5,
+    each m=0,
     each dpFix=30000)
     annotation (Placement(transformation(extent={{94,-4},{110,12}})));
 
@@ -43,9 +43,9 @@ model Heating_FH_TESandSTSforDHWonly
     medium=medium,
     useInput=true,
     m_flowNom=sum(m_flowNom),
-    m=0.5,
-    dpFix=30000,
-    UA=1) "Pump for loading the storage tank"
+    UA=1,
+    m=0,
+    dpFix=30000) "Pump for loading the storage tank"
     annotation (Placement(transformation(extent={{-34,-68},{-50,-52}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-134,34},{-122,46}})));
