@@ -1,4 +1,4 @@
-within IDEAS.Thermal.Components.Emission;
+ï»¿within IDEAS.Thermal.Components.Emission;
 model EmbeddedPipeDynTOut
   "Embedded pipe model based on prEN 15377 and (Koschenz, 2000), water capacity lumped to TOut"
 
@@ -19,13 +19,13 @@ model EmbeddedPipeDynTOut
   - my appraoch gives exactly the same results as the norm in both dynamic and static results, but is also able to cope with no-flow conditions
   - Configuration of the model can be tricky: the speed of the fluid (flowSpeed) is influencing the convective resistance (R_w) and therefore these 2 configurations are NOT the same:
 
-        1. 10 m² of floor with 100 kg/h flowrate (m_flowSp = 10 kg/h/m²)
-        2. 1 m² of floor heating with 10 kg/h flowrate (m_flowSp = 10 kg/h/m²)
+        1. 10 m2 of floor with 100 kg/h flowrate (m_flowSp = 10 kg/h/m2)
+        2. 1 m2 of floor heating with 10 kg/h flowrate (m_flowSp = 10 kg/h/m2)
 
   - Validation of the model is not evident with the data in Koschenz, 2000:
 
-        * 4.5.1 is very strange: the results seem to be obtained with 1m² and 12 kg/h total flowrate, but this leads to very low flowSpeed value (although Reynolds number is still high?) and an alpha convection of only 144 W/m²K ==> I exclude this case explicitly with an assert statement on the flowSpeed
-        * 4.6 is ok and I get exactly the same results, but this leads to extremely low supply temperatures in order to reach 20 W/m²
+        * 4.5.1 is very strange: the results seem to be obtained with 1m2 and 12 kg/h total flowrate, but this leads to very low flowSpeed value (although Reynolds number is still high?) and an alpha convection of only 144 W/m2K ==> I exclude this case explicitly with an assert statement on the flowSpeed
+        * 4.6 is ok and I get exactly the same results, but this leads to extremely low supply temperatures in order to reach 20 W/m2
         * 4.5.2 not tested
 
   About the number of elements in the floor construction (see model Tabs): this seems to have an important impact on the results.  1 capacity above and below is clearly not enough.  No detailed sensitivity study made, but it seems that 3 capacities on each side were needed in my tests to get good results.
@@ -58,8 +58,8 @@ model EmbeddedPipeDynTOut
 
   final parameter Real rey = m_flowMin * (FHChars.d_a - 2*FHChars.s_r) / (medium.nue * Modelica.Constants.pi / 4 * (FHChars.d_a - 2*FHChars.s_r)^2)
     "Fix Reynolds number for assert of turbulent flow";
-  Real m_flowSp = flowPort_a.m_flow / FHChars.A_Floor "in kg/s.m²";
-  Real m_flowMinSp = m_flowMin / FHChars.A_Floor "in kg/s.m²";
+  Real m_flowSp = flowPort_a.m_flow / FHChars.A_Floor "in kg/s.m2";
+  Real m_flowMinSp = m_flowMin / FHChars.A_Floor "in kg/s.m2";
   Modelica.SIunits.Velocity flowSpeed=flowPort_a.m_flow/medium.rho/(Modelica.Constants.pi
       /4*(FHChars.d_a - 2*FHChars.s_r)^2);
 

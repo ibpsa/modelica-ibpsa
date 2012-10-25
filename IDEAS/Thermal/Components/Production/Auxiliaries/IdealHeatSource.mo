@@ -1,4 +1,4 @@
-within IDEAS.Thermal.Components.Production.Auxiliaries;
+﻿within IDEAS.Thermal.Components.Production.Auxiliaries;
 model IdealHeatSource
   "Ideal heat source for the dynamic heater model.  No losses, no interpolation"
   import IDEAS;

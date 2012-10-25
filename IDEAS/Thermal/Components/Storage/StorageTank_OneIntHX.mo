@@ -1,4 +1,4 @@
-within IDEAS.Thermal.Components.Storage;
+ï»¿within IDEAS.Thermal.Components.Storage;
 model StorageTank_OneIntHX
   "Simplified stratified storage tank with one internal heat exchanger (HX)"
 
@@ -16,7 +16,7 @@ model StorageTank_OneIntHX
   final parameter Modelica.SIunits.Mass mNode=volumeTank*medium.rho/nbrNodes
     "Mass of each node";
     parameter Modelica.SIunits.CoefficientOfHeatTransfer UIns(min=0)=0.4
-    "Average heat loss coefficient for insulation per m² of tank surface";
+    "Average heat loss coefficient for insulation per m2 tank surface";
   parameter Modelica.SIunits.ThermalConductance UACon(min=0)=0.5
     "Additional thermal conductance for connection losses and imperfect insulation";
   parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in

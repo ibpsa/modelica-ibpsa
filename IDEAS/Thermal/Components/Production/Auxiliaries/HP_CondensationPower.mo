@@ -1,10 +1,10 @@
-within IDEAS.Thermal.Components.Production.Auxiliaries;
+ï»¿within IDEAS.Thermal.Components.Production.Auxiliaries;
 model HP_CondensationPower
   "Computation of theoretical condensation power of the refrigerant based on interpolation data"
 
   /*
   This model is based on data we received from Daikin from an Altherma heat pump.
-  The nominal power of the original heat pump is 7177W at 2/35°C
+  The nominal power of the original heat pump is 7177W at 2/35degC
    
   First, the thermal power and electricity consumption are interpolated for the 
   evaporator and condensing temperature at 4 different modulation levels.  The results

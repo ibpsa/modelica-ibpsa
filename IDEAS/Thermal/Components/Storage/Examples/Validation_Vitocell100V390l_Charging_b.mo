@@ -1,6 +1,6 @@
-within IDEAS.Thermal.Components.Storage.Examples;
+ï»¿within IDEAS.Thermal.Components.Storage.Examples;
 model Validation_Vitocell100V390l_Charging_b
-  "charging the tank from 10°C to 55°C with 65°C supply temperature: 77 minutes"
+  "charging the tank from 10degC to 55degC with 65degC supply temperature: 77 minutes"
 
   /*
   This model is used in an automatic optimization to determine the buoyancy model parameters across different number of nodes.

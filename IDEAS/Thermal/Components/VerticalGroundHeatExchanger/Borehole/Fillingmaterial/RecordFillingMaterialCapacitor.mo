@@ -1,4 +1,4 @@
-within IDEAS.Thermal.Components.VerticalGroundHeatExchanger.Borehole.Fillingmaterial;
+ï»¿within IDEAS.Thermal.Components.VerticalGroundHeatExchanger.Borehole.Fillingmaterial;
 record RecordFillingMaterialCapacitor
   "Record containing the neccaisary inforamtion about the filling material capacitor."
 parameter Modelica.SIunits.Temperature startTemperature = 288
@@ -8,7 +8,7 @@ parameter Modelica.SIunits.Length depthOfEarth =  10
 parameter Modelica.SIunits.SpecificHeatCapacity heatCapacitanceFillig =  750
     "This is the specific heat capacity of the earth (J/(kg.K))";
 parameter Modelica.SIunits.Density densityFillig =  3000
-    " This is the density of the fillling material (kg/m³)";
+    " This is the density of the fillling material (kg/m3";
 parameter Modelica.SIunits.Radius innerRadius = 0.01
     "This is the inner of the pipe (m)";
 parameter Modelica.SIunits.Radius outerRadius = 0.13

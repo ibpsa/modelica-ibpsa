@@ -1,4 +1,4 @@
-within IDEAS.Thermal.Components.Production.Auxiliaries;
+﻿within IDEAS.Thermal.Components.Production.Auxiliaries;
 model PartialDynamicHeaterWithLosses
   "Partial heater model incl dynamics and environmental losses"
 

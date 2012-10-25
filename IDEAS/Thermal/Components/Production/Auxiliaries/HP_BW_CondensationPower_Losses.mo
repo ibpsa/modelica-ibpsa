@@ -1,4 +1,4 @@
-within IDEAS.Thermal.Components.Production.Auxiliaries;
+ï»¿within IDEAS.Thermal.Components.Production.Auxiliaries;
 model HP_BW_CondensationPower_Losses
   "Brine/Water, Computation of theoretical condensation power of the refrigerant based on interpolation data.  Takes into account losses of the heat pump to the environment"
 
@@ -36,7 +36,7 @@ model HP_BW_CondensationPower_Losses
 
 public
   parameter Real fraLosDesNom = 1
-    "Ratio of power at design conditions over power at 0/35°C";
+    "Ratio of power at design conditions over power at 0/35degC";
   parameter Real betaFactor = 0.8
     "Relative sizing compared to design heat load";
   parameter Modelica.SIunits.Power QDesign=QNomRef "Design heat load";

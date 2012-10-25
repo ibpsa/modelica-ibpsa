@@ -1,10 +1,10 @@
-within IDEAS.Thermal.Components.Production.Auxiliaries;
+ï»¿within IDEAS.Thermal.Components.Production.Auxiliaries;
 model HP_CondensationPower_Losses
   "Computation of theoretical condensation power of the refrigerant based on interpolation data.  Takes into account losses of the heat pump to the environment"
 
   /*
   This model is based on data we received from Daikin from an Altherma heat pump.
-  The nominal power of the original heat pump is 7177W at 2/35°C
+  The nominal power of the original heat pump is 7177W at 2/35degC
    
   First, the thermal power and electricity consumption are interpolated for the 
   evaporator and condensing temperature at 4 different modulation levels.  The results
@@ -48,7 +48,7 @@ model HP_CondensationPower_Losses
 
 public
   parameter Real fraLosDesNom = 0.68
-    "Ratio of power at design conditions over power at 2/35°C";
+    "Ratio of power at design conditions over power at 2/35degC";
   parameter Real betaFactor = 0.8
     "Relative sizing compared to design heat load";
   parameter Modelica.SIunits.Power QDesign=QNomRef "Design heat load";
