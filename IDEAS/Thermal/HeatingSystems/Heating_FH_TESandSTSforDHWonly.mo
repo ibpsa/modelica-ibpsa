@@ -196,7 +196,7 @@ end for;
       color={0,128,255},
       smooth=Smooth.None));
   connect(fixedTemperature.port, tesTank.heatExchEnv) annotation (Line(
-      points={{-122,40},{2,40},{2,-22},{2,-22},{2,-23},{-0.12,-23}},
+      points={{-122,40},{2,40},{2,-23},{-0.12,-23}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(dHW.flowPortHot, tesTank.flowPort_a) annotation (Line(
@@ -230,19 +230,16 @@ end for;
   connect(idealMixer.flowPortCold, pipeMixer.flowPort_b) annotation (Line(
       points={{76,-1.6},{76,-76},{36,-76}},
       color={0,128,255},
-      smooth=Smooth.None,
-  connect(fixedTemperature(
-          port), heater(         heatPort))       annotation (Line(
+      smooth=Smooth.None));
+  connect(fixedTemperature.port, heater.heatPort)       annotation (Line(
       points={{-122,40},{-112,40},{-112,32},{-82,32},{-82,8}},
       color={191,0,0},
-      smooth=Smooth.None))));
-
-    connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
+      smooth=Smooth.None));
+  connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
       points={{121.12,14},{122,14},{122,60},{-192,60},{-192,60},{-200,60},{-200,
           60}},
       color={191,0,0},
       smooth=Smooth.None));
-
   connect(HPControl.THeaCur, idealMixer.TMixedSet) annotation (Line(
       points={{-141.4,-4},{-136,-4},{-136,18},{76,18},{76,16.66}},
       color={0,0,127},
