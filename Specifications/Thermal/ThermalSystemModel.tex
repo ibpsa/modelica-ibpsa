@@ -30,7 +30,42 @@ The library is based on Modelica.Thermal.FluidHeatFlow and not on Modelica.Fluid
 
 \emph{IDEAS.Thermal.Components.Storage.StorageTank}
 
-Buffer tank (no internal heat exhcangers) composed of an array of interconnected pipes with ambient heat losses (= layers).  The number of layers $nbrNodes$ is a parameter and an array of $nbrNodes + 1$ \emph{FlowPort} connectors is available to connect to each intersection between the layers. 
+Buffer tank (no internal heat exchangers) composed of an array of interconnected pipes.  Except for the internal heat exchanger, this model is identical to \emph{IDEAS.Thermal.Components.Storage.StorageTank_OneIntHX}. Therefore, the model description can be found in \ref{sec:tesHX}.
+
+The following phenomena are modelled:
+
+\begin{enumerate}
+	\item thermal stratification due to discretization in layers (1D)
+	\item energy and mass balance on layer level
+	\item conductive heat losses to the environment base on tank geometry
+	\item thermal conduction through the water between the layers
+	\item buoyancy in case of temperature inversion
+	
+\end{enumerate}
+ 
+ with ambient heat losses (= nodes or layers).  The number of nodes $nbrNodes$ is a parameter and an array of $nbrNodes + 1$ \emph{FlowPort} connectors is available to connect to each intersection between the layers. 
+
+
+
+\subsubsection{Tank with internal heat exchanger}
+\label{sec:tesHX}
+
+\emph{IDEAS.Thermal.Components.Storage.StorageTank_OneIntHX}
+
+\vspace{6mm}
+
+This tank is similar to \emph{IDEAS.Thermal.Components.Storage.StorageTank} except that an internal heat exchanger is added.  The heat exchanger can be positioned in any continuous section of layers, it is modelled with one heat exhanger node per tank node. 
+
+\begin{figure}%
+\begin{left}
+\includegraphics[width=3cm]{Thermal/images/HydraulicScheme.pdf}% of \columnwidth
+\caption{Tank with internal heat exchanger}%
+\label{tankinternal}%	
+\end{left}
+\end{figure}
+
+
+
 
 \begin{equation}
 mc_p \frac{dT_i}{dt}=\dot{m}_ic_p(T_{i-1} - T_i) + \dot{q}_i
@@ -110,23 +145,6 @@ Again, optimization is used in order to identify $k_{buo}$ and $\text{exp}_{buo}
 \end{left}
 \end{figure}
 
-\subsubsection{Tank with internal heat exchanger}
-
-\emph{IDEAS.Thermal.Components.Storage.StorageTank_OneIntHX}
-
-\vspace{6mm}
-
-This tank is similar to \emph{IDEAS.Thermal.Components.Storage.StorageTank} except that an internal heat exchanger is added.  The heat exchanger can be positioned in any continuous section of layers, it is modelled with one heat exhanger node per tank layer. 
-
-\begin{figure}%
-\begin{left}
-\includegraphics[width=3cm]{Thermal/images/HydraulicScheme.pdf}% of \columnwidth
-\caption{Tank with internal heat exchanger}%
-\label{tankinternal}%	
-\end{left}
-\end{figure}
-
-Add heat transfer coefficients and other details.
 
 \subsection{Heat production}
 
