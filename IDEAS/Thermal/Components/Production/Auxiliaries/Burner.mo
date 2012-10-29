@@ -1,4 +1,4 @@
-﻿within IDEAS.Thermal.Components.Production.Auxiliaries;
+within IDEAS.Thermal.Components.Production.Auxiliaries;
 model Burner
   "Burner for use in Boiler, based on interpolation data.  Takes into account losses of the boiler to the environment"
   import IDEAS;

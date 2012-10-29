@@ -1,10 +1,10 @@
-﻿within IDEAS.Thermal.Components.Storage;
+within IDEAS.Thermal.Components.Storage;
 model StorageTank_OneIntHX
   "Simplified stratified storage tank with one internal heat exchanger (HX)"
 
-  parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
+  parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
     "Medium in the tank";
-  parameter Thermal.Data.Interfaces.Medium mediumHX=Data.Interfaces.Medium()
+  parameter Thermal.Data.Interfaces.Medium mediumHX=Data.Media.Water()
     "Medium in the HX";
 
   //Tank geometry and composition

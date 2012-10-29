@@ -1,4 +1,4 @@
-﻿within IDEAS.Thermal.Components.Storage;
+within IDEAS.Thermal.Components.Storage;
 model StorageTank "Simplified stratified storage tank"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()

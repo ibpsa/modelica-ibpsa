@@ -1,4 +1,4 @@
-﻿within IDEAS.Thermal.Components.Production;
+within IDEAS.Thermal.Components.Production;
 model CollectorG
   "Glazed collector, originally from master thesis Mark Gutschoven, 2010-2011"
 

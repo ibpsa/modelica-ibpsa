@@ -1,4 +1,4 @@
-﻿within IDEAS.Thermal.Components.Emission;
+within IDEAS.Thermal.Components.Emission;
 model EmbeddedPipeDynSwitch
   "Fully dynamic embedded pipe model (based on prEN 15377 and (Koschenz, 2000))"
 

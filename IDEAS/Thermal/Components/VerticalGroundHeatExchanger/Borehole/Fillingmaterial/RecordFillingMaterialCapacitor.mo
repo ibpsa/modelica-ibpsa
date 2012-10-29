@@ -1,4 +1,4 @@
-﻿within IDEAS.Thermal.Components.VerticalGroundHeatExchanger.Borehole.Fillingmaterial;
+within IDEAS.Thermal.Components.VerticalGroundHeatExchanger.Borehole.Fillingmaterial;
 record RecordFillingMaterialCapacitor
   "Record containing the neccaisary inforamtion about the filling material capacitor."
 parameter Modelica.SIunits.Temperature startTemperature = 288

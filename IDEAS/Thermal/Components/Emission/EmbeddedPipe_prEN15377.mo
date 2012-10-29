@@ -1,4 +1,4 @@
-﻿within IDEAS.Thermal.Components.Emission;
+within IDEAS.Thermal.Components.Emission;
 model EmbeddedPipe_prEN15377
   "Static embedded pipe model according to prEN 15377 and (Koschenz, 2000)"
 

@@ -1,4 +1,4 @@
-﻿within IDEAS.Thermal.Components.Storage.Examples;
+within IDEAS.Thermal.Components.Storage.Examples;
 model Validation_Vitocell100V390l_Charging_b
   "charging the tank from 10degC to 55degC with 65degC supply temperature: 77 minutes"
 

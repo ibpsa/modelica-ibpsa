@@ -1,4 +1,4 @@
-﻿within IDEAS.Thermal.Components.VerticalGroundHeatExchanger.Borehole.Borehole;
+within IDEAS.Thermal.Components.VerticalGroundHeatExchanger.Borehole.Borehole;
 record RecordPipes "Containing every information necaissary for the pipes."
 parameter Modelica.SIunits.Radius radiusPipe =  0.03045
     "This is the radius of the pipes (m)";

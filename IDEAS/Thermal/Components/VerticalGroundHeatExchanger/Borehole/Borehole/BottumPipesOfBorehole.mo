@@ -1,4 +1,4 @@
-﻿within IDEAS.Thermal.Components.VerticalGroundHeatExchanger.Borehole.Borehole;
+within IDEAS.Thermal.Components.VerticalGroundHeatExchanger.Borehole.Borehole;
 model BottumPipesOfBorehole "The two bottumpipes of the borehole"
   extends VerticalGroundHeatExchanger.Borehole.Borehole.PipesOfBorehole;
 // **************
