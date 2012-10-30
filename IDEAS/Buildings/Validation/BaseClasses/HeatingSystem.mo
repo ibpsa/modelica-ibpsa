@@ -23,9 +23,9 @@ package HeatingSystem
     extends IDEAS.Interfaces.HeatingSystem(final nLoads=1, QNom = zeros(nZones));
 
     parameter Modelica.SIunits.Temperature Theat = 293.15
-      "Heating on below 20°C";
+      "Heating on below 20degC";
     parameter Modelica.SIunits.Temperature Tcool = 300.15
-      "Cooling on above 27°C";
+      "Cooling on above 27degC";
 
     Modelica.Blocks.Sources.RealExpression realP(y=QHeatTotal)
       annotation (Placement(transformation(extent={{120,10},{140,30}})));
@@ -67,11 +67,11 @@ package HeatingSystem
     IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7, 23},firstEntryOccupied=true)
       "Occupancy shedule";
     parameter Modelica.SIunits.Temperature Tbase = 293.15
-      "Heating on below 10°C if non-occupied";
+      "Heating on below 10degC if non-occupied";
     parameter Modelica.SIunits.Temperature Theat = 293.15
-      "Heating on below 20°C if occupied";
+      "Heating on below 20degC if occupied";
     parameter Modelica.SIunits.Temperature Tcool = 300.15
-      "Cooling on above 27°C always";
+      "Cooling on above 27degC always";
 
   equation
   for i in 1:nZones loop

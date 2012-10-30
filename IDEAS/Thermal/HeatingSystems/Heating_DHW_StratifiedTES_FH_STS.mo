@@ -94,21 +94,21 @@ protected
   Thermal.Components.BaseClasses.IdealMixer idealMixer(mFlowMin=0.01, pumpCold(
         m=5))
     annotation (Placement(transformation(extent={{28,22},{50,46}})));
-  Thermal.Components.BaseClasses.IsolatedPipe pipeDHW(medium=medium, m=1)
+  IDEAS.Thermal.Components.BaseClasses.Pipe   pipeDHW(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-36,-40},{-48,-28}})));
-  Thermal.Components.BaseClasses.IsolatedPipe pipeMixer(medium=medium, m=1)
+  IDEAS.Thermal.Components.BaseClasses.Pipe   pipeMixer(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-8,-40},{4,-28}})));
-  Thermal.Components.BaseClasses.IsolatedPipe[nZones] pipeEmission(each medium=
+  IDEAS.Thermal.Components.BaseClasses.Pipe[  nZones] pipeEmission(each medium=
         medium, each m=1)
     annotation (Placement(transformation(extent={{128,28},{140,40}})));
   // Result variables
 public
-  output Modelica.SIunits.Temperature[nbrNodes] TSto=tesTank.nodes.heatPort.T;
-  output Modelica.SIunits.Temperature TTankTopSet;
-  output Modelica.SIunits.Temperature TTankBotIn;
-  output Modelica.SIunits.MassFlowRate m_flowDHW;
-  output Modelica.SIunits.Power QDHW;
-  output Real SOCTank;
+  Modelica.SIunits.Temperature[nbrNodes] TSto=tesTank.nodes.heatPort.T;
+  Modelica.SIunits.Temperature TTankTopSet;
+  Modelica.SIunits.Temperature TTankBotIn;
+  Modelica.SIunits.MassFlowRate m_flowDHW;
+  Modelica.SIunits.Power QDHW;
+  Real SOCTank;
 
   Thermal.Components.Production.SolarThermalSystem_Simple solarThermal(
     medium=medium,
@@ -129,7 +129,7 @@ public
         rotation=-90,
         origin={-52,100})));
 protected
-  Components.BaseClasses.IsolatedPipe         pipeDHW1(
+  IDEAS.Thermal.Components.BaseClasses.Pipe   pipeDHW1(
                                                       medium=medium, m=1)
     annotation (Placement(transformation(extent={{-8,-30},{4,-18}})));
 equation

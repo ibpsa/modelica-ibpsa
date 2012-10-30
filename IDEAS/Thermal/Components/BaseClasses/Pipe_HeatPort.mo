@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.BaseClasses;
-model HeatedPipe "Pipe with heat exchange"
+model Pipe_HeatPort "Pipe with HeatPort"
 
   extends Thermal.Components.Interfaces.Partials.TwoPort;
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
@@ -37,4 +37,4 @@ temperature rise defined by storing heat in medium's mass.
                             Diagram(coordinateSystem(preserveAspectRatio=
             false, extent={{-100,-100},{100,100}}),
                                     graphics));
-end HeatedPipe;
+end Pipe_HeatPort;

@@ -67,5 +67,30 @@ for i in 1:nbrNodes+1 loop
   end if;
 end for;
 
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Icon(graphics={
+        Line(
+          points={{0,80},{0,-80}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{0,-40},{42,-40}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{0,0},{42,0}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{0,40},{42,40}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{0,80},{42,80}},
+          color={0,0,0},
+          thickness=0.5,
+          smooth=Smooth.None)}));
 end StratifiedInlet;

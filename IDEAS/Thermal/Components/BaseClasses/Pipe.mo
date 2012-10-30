@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.BaseClasses;
-model IsolatedPipe "Pipe without heat exchange"
+model Pipe "Pipe without heat exchange"
 
   extends Thermal.Components.Interfaces.Partials.TwoPort;
 
@@ -21,4 +21,4 @@ leads to neglection of temperature transient cv*m*der(T).
           fillPattern=FillPattern.HorizontalCylinder)}),    Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}),                                             graphics));
-end IsolatedPipe;
+end Pipe;

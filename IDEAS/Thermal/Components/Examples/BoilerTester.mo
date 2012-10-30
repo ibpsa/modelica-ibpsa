@@ -10,7 +10,8 @@ model BoilerTester "Identical as the one in FluidHeatFlow_NoPressure"
     m_flowNom=1300/3600,
     useInput=true)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  Thermal.Components.BaseClasses.HeatedPipe isolatedPipe1(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            isolatedPipe1(
     medium=Data.Media.Water(),
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{12,-16},{32,4}})));

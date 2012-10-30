@@ -7,7 +7,8 @@ model PumpePipeTester "Identical as the one in FluidHeatFlow_NoPressure"
     m_flowNom=0.5,
     m=0)
     annotation (Placement(transformation(extent={{-36,28},{-16,48}})));
-  Thermal.Components.BaseClasses.HeatedPipe pipe1(medium=Data.Media.Water(), m=
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            pipe1(medium=Data.Media.Water(), m=
         5)
          annotation (Placement(transformation(extent={{10,28},{30,48}})));
   Modelica.Blocks.Sources.Sine pulse(
@@ -24,13 +25,14 @@ model PumpePipeTester "Identical as the one in FluidHeatFlow_NoPressure"
     useInput=true,
     m=0)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  Thermal.Components.BaseClasses.HeatedPipe pipe2(medium=Data.Media.Water(), m=
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            pipe2(medium=Data.Media.Water(), m=
         5)
          annotation (Placement(transformation(extent={{10,-16},{30,4}})));
   Modelica.Blocks.Sources.Pulse pulse1(period=1800, startTime=3600,
     amplitude=1)
     annotation (Placement(transformation(extent={{-64,2},{-44,22}})));
-  Thermal.Components.BaseClasses.IsolatedPipe pipe3(medium=Data.Media.Water(),
+  IDEAS.Thermal.Components.BaseClasses.Pipe   pipe3(medium=Data.Media.Water(),
       m=5)
          annotation (Placement(transformation(extent={{50,4},{70,24}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=20)

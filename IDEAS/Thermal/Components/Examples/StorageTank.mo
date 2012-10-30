@@ -11,13 +11,13 @@ model StorageTank "Thermal storage tank tester"
     TInitial=313.15,
     m_flowNom=0.1)
     annotation (Placement(transformation(extent={{-88,-16},{-68,4}})));
-  Thermal.Components.BaseClasses.HeatedPipe boiler(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            boiler(
     medium=Data.Media.Water(),
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{-54,-16},{-34,
             4}})));
-  IDEAS.Thermal.Components.Emission.Radiator_Old
-                      radiator(
+  Emission.Radiator   radiator(
     medium=Data.Media.Water()) "Hydraulic radiator model"
                annotation (Placement(transformation(extent={{52,-16},{72,4}})));
   inner IDEAS.SimInfoManager         sim(redeclare
@@ -84,13 +84,8 @@ prescribedHeatFlow.Q_flow=3000 * booleanToReal.y;
       color={0,0,127},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(prescribedTemperature.port, radiator.heatPortConv) annotation (Line(
-      points={{52,34},{59,34},{59,4}},
-      color={191,0,0},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(prescribedTemperature.port, radiator.heatPortRad) annotation (Line(
-      points={{52,34},{67,34},{67,4}},
+      points={{52,34},{68,34},{68,4}},
       color={191,0,0},
       thickness=0.5,
       smooth=Smooth.None));
@@ -130,6 +125,10 @@ prescribedHeatFlow.Q_flow=3000 * booleanToReal.y;
   connect(pulse1.y, volumeFlow2.m_flowSet) annotation (Line(
       points={{49,-44},{54,-44},{54,-60},{50,-60},{50,-64}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(radiator.heatPortCon, prescribedTemperature.port) annotation (Line(
+      points={{64,4},{64,34},{52,34},{52,34}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
 end StorageTank;

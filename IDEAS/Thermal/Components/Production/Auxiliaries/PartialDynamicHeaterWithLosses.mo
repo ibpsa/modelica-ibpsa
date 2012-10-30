@@ -23,7 +23,8 @@ protected
       medium.cp)/tauHeatLoss;
 
 public
-  Thermal.Components.BaseClasses.HeatedPipe heatedFluid(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedFluid(
     medium=medium,
     m=mWater,
     TInitial=TInitial)

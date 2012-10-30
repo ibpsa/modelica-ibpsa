@@ -5,7 +5,8 @@ model Example_Borehole "Most basic example/tester for a borehole "
       IDEAS.Thermal.Components.VerticalGroundHeatExchanger.VerticalHeatExchangerModels.Config1_10_3x7
       alTheParameters)
     annotation (Placement(transformation(extent={{2,-6},{-18,14}})));
-  Thermal.Components.BaseClasses.HeatedPipe heatedPipe(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedPipe(
     medium=Data.Media.Water(),
     m=1,
     TInitial=277.15)

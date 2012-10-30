@@ -11,14 +11,22 @@ model StorageTank "Simplified stratified storage tank"
     "Total height of the tank";
   final parameter Modelica.SIunits.Mass mNode=volumeTank*medium.rho/nbrNodes
     "Mass of each node";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer U(min=0)=0.4
-    "Average heat loss coefficient per m² of tank surface";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer UIns(min=0)=0.4
+    "Average heat loss coefficient for insulation per m2 of tank surface";
+  parameter Modelica.SIunits.ThermalConductance UACon(min=0)=0.5
+    "Additional thermal conductance for connection losses and imperfect insulation";
   parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in
         1:nbrNodes} "Initial temperature of all Temperature states";
+
+    /* 
+    A validation excercise has shown that TO BE COMPLETED.
+    */
+
   parameter Boolean preventNaturalDestratification = true
     "if true, this automatically increases the insulation of the top layer";
 
-  Thermal.Components.BaseClasses.HeatedPipe[nbrNodes] nodes(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort[
+                                            nbrNodes] nodes(
     each medium=medium,
     each m=mNode,
     TInitial=TInitial) "Array of nodes";
@@ -41,12 +49,19 @@ model StorageTank "Simplified stratified storage tank"
       Placement(transformation(extent={{52,-10},{72,10}}), iconTransformation(
           extent={{52,-10},{72,10}})));
 
-  Thermal.Components.Storage.Buoyancy buoancy(
+   replaceable Thermal.Components.Storage.Buoyancy_powexp buoyancy(
+    powBuo=24,
     nbrNodes=nbrNodes,
     medium=medium,
-    tau=100,
-    V=volumeTank)
-    "Buoancy model to mix nodes in case of inversed temperature stratification";
+    surCroSec=volumeTank/heightTank,
+    h=heightTank)
+    constrainedby IDEAS.Thermal.Components.Storage.Partial_Buoyancy(
+      nbrNodes=nbrNodes,
+      medium=medium,
+      surCroSec=volumeTank/heightTank,
+      h=heightTank)
+    "buoyancy model to mix nodes in case of inversed temperature stratification"
+                                                                                annotation(choicesAllMatching=true);
 
 function areaCalculation
   input Modelica.SIunits.Volume volumeTank;
@@ -81,9 +96,13 @@ end areaCalculation;
 
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes] lossNodes(
-    G = U * areaCalculation(volumeTank, heightTank, nbrNodes, preventNaturalDestratification))
+    G = UACon/nbrNodes * ones(nbrNodes) + UIns * areaCalculation(volumeTank, heightTank, nbrNodes, preventNaturalDestratification))
     "Array of conduction loss components to the environment";
 
+public
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes-1] conductionWater(each G = (volumeTank/heightTank) / (heightTank / nbrNodes) * medium.lamda)
+    "Conduction heat transfer between the layers"
+    annotation (Placement(transformation(extent={{-20,-4},{0,16}})));
 equation
   // Connection of upper and lower node to external flowPorts
   connect(flowPort_a, nodes[1].flowPort_a);
@@ -93,6 +112,8 @@ equation
   if nbrNodes > 1 then
     for i in 2:nbrNodes loop
       connect(nodes[i-1].flowPort_b, nodes[i].flowPort_a);
+      connect(nodes[i-1].heatPort, conductionWater[i-1].port_a);
+      connect(nodes[i].heatPort, conductionWater[i-1].port_b);
     end for;
   end if;
 
@@ -106,8 +127,8 @@ equation
   connect(flowPorts[1:end-1], nodes.flowPort_a);
   connect(flowPorts[end], nodes[end].flowPort_b);
 
-  // Connection of buoancy model
-  connect(buoancy.heatPort, nodes.heatPort);
+  // Connection of buoyancy model
+  connect(buoyancy.heatPort, nodes.heatPort);
   annotation (Icon(graphics={
         Ellipse(extent={{-60,-76},{60,-100}},
           fillPattern=FillPattern.Solid,

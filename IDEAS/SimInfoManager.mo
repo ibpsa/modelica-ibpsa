@@ -3,12 +3,12 @@ model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
 
 protected
-  parameter IDEAS.Climate.Meteo.Files.min60 hourly "Hourly climate data";
+  parameter IDEAS.Climate.Meteo.Files.min15 QHourly "15 minute climate data";
   parameter IDEAS.Climate.Meteo.Locations.Uccle Uccle "Uccle, Belgium";
   parameter IDEAS.Occupants.Extern.Interfaces.Stoch33 stoch33
     "Default occupant behavior to be read";
 public
-  replaceable parameter IDEAS.Climate.Meteo.Detail detail = hourly
+  replaceable parameter IDEAS.Climate.Meteo.Detail detail = QHourly
     "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   replaceable parameter IDEAS.Climate.Meteo.location city = Uccle
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));

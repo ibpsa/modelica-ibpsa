@@ -6,6 +6,8 @@ extends IDEAS.Thermal.Components.DHW.partial_DHW;
 
   parameter Modelica.SIunits.Volume VDayAvg "Average daily water consumption";
   parameter Integer profileType = 1 "Type of the DHW tap profile";
+  Real onoff;
+  Real m_minimum(start=0);
 
   Modelica.Blocks.Tables.CombiTable1Ds table(
     tableOnFile = true,
@@ -58,10 +60,20 @@ equation
   m_flowInit = table.y[profileType]* VDayAvg * medium.rho;
 
 algorithm
-
+  if m_flowInit > 0 then
+    m_minimum :=1e-3;
+    onoff :=1;
+  else
+    m_minimum :=0;
+    onoff :=0;
+  end if;
   m_flowTotal := onoff * max(m_flowInit, m_minimum);
 
+  m_flowCold := if noEvent(onoff > 0.5) then m_flowTotal* (THot - TSetVar)/(THot*onoff-TCold) else 0;
+  m_flowHot := if noEvent(onoff > 0.5) then m_flowTotal - m_flowCold else 0;
+
 equation
+
   connect(ambientCold.flowPort, pumpCold.flowPort_a)
                                                  annotation (Line(
       points={{68,-18},{50,-18}},

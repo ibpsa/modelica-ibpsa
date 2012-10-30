@@ -10,7 +10,8 @@ model HPTester "Identical as the one in FluidHeatFlow_NoPressure"
     m_flowNom=0.3,
     useInput=true)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  Thermal.Components.BaseClasses.HeatedPipe isolatedPipe1(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            isolatedPipe1(
     medium=Data.Media.Water(),
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{12,-16},{32,4}})));
@@ -42,7 +43,8 @@ model HPTester "Identical as the one in FluidHeatFlow_NoPressure"
     m_flowNom=0.3,
     useInput=true)
     annotation (Placement(transformation(extent={{-32,-148},{-12,-128}})));
-  Thermal.Components.BaseClasses.HeatedPipe isolatedPipe2(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            isolatedPipe2(
     medium=Data.Media.Water(),
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{16,-148},{36,

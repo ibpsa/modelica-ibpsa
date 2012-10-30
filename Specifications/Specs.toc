@@ -37,37 +37,60 @@
 \contentsline {titlech}{\numberline {3}Thermal building system}{19}{section*.21}
 \authcount {1}
 \contentsline {authorch}{Roel De Coninck and Lieve Helsen}{19}{section*.21}
-\contentsline {titlech}{\numberline {4}Electricity system}{21}{section*.22}
+\contentsline {section}{\numberline {3.1}Introduction}{19}{section.3.1}
+\contentsline {section}{\numberline {3.2}Hydraulic components}{19}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Basic components for Joe the plumber}{19}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Thermal energy storage tank}{19}{subsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.2.1}Buffer tank}{19}{subsubsection.3.2.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2.2}Tank with internal heat exchanger}{20}{subsubsection.3.2.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Heat production}{21}{subsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.3.1}Partial heater}{21}{subsubsection.3.2.3.1}
+\contentsline {subsubsection}{\numberline {3.2.3.2}Boiler}{23}{subsubsection.3.2.3.2}
+\contentsline {subsubsection}{\numberline {3.2.3.3}Heat pumps}{23}{subsubsection.3.2.3.3}
+\contentsline {subsection}{\numberline {3.2.4}Heat emission}{23}{subsection.3.2.4}
+\contentsline {subsubsection}{\numberline {3.2.4.1}Partial heat emission model}{23}{subsubsection.3.2.4.1}
+\contentsline {subsubsection}{\numberline {3.2.4.2}Radiator}{24}{subsubsection.3.2.4.2}
+\contentsline {subsubsection}{\numberline {3.2.4.3}Embedded pipe for thermally activated building systems (TABS)}{24}{subsubsection.3.2.4.3}
+\contentsline {section}{\numberline {3.3}Heating systems}{24}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Ideal heating}{24}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Hydraulic heating}{24}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Solar thermal system}{25}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Domestic hot water production}{25}{subsection.3.3.4}
+\contentsline {section}{\numberline {3.4}Vertical ground heat exchanger}{25}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Model Harm Leenders}{25}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Model Dieter Patteeuw}{25}{subsection.3.4.2}
+\contentsline {section}{\numberline {3.5}Control}{25}{section.3.5}
+\contentsline {titlech}{\numberline {4}Electricity system}{27}{section*.22}
 \authcount {1}
-\contentsline {authorch}{Juan Van Roy, Bart Verbruggen and Johan Driesen}{21}{section*.22}
-\contentsline {section}{\numberline {4.1}Photovoltaic system}{21}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Power output of PV panel}{22}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Power output of PV system}{24}{subsection.4.1.2}
-\contentsline {subsection}{\numberline {4.1.3}Orientation PV system}{24}{subsection.4.1.3}
-\contentsline {subsection}{\numberline {4.1.4}Inverter}{25}{subsection.4.1.4}
-\contentsline {section}{\numberline {4.2}Electrical distribution grid}{25}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Grid topology}{25}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Power flow analysis}{27}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Single/three-phase grid simulation}{28}{subsection.4.2.3}
-\contentsline {subsection}{\numberline {4.2.4}Transformer}{28}{subsection.4.2.4}
-\contentsline {section}{\numberline {4.3}Electrical in-home grid}{29}{section.4.3}
-\contentsline {section}{\numberline {4.4}Electrical storage}{29}{section.4.4}
-\contentsline {part}{Part\ II\hspace {\betweenumberspace }Validation or verification}{31}{part.2}
-\contentsline {titlech}{\numberline {5}Building energy simulation test - BESTEST}{33}{section*.23}
+\contentsline {authorch}{Juan Van Roy, Bart Verbruggen and Johan Driesen}{27}{section*.22}
+\contentsline {section}{\numberline {4.1}Photovoltaic system}{27}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Power output of PV panel}{28}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Power output of PV system}{30}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Orientation PV system}{30}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Inverter}{31}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}Electrical distribution grid}{31}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Grid topology}{31}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Power flow analysis}{33}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Single/three-phase grid simulation}{34}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}Transformer}{34}{subsection.4.2.4}
+\contentsline {section}{\numberline {4.3}Electrical in-home grid}{35}{section.4.3}
+\contentsline {section}{\numberline {4.4}Electrical storage}{35}{section.4.4}
+\contentsline {part}{Part\ II\hspace {\betweenumberspace }Validation or verification}{37}{part.2}
+\contentsline {titlech}{\numberline {5}Building energy simulation test - BESTEST}{39}{section*.23}
 \authcount {1}
-\contentsline {authorch}{Ruben Baetens and Dirk Saelens}{33}{section*.23}
-\contentsline {section}{\numberline {5.1}Introduction}{33}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Building energy simulation test cases}{33}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Test results}{34}{subsection.5.1.2}
-\contentsline {subsubsection}{\numberline {5.1.2.1}Annual heating and cooling loads}{34}{subsubsection.5.1.2.1}
-\contentsline {subsubsection}{\numberline {5.1.2.2}Peak heating and cooling loads}{35}{subsubsection.5.1.2.2}
-\contentsline {subsubsection}{\numberline {5.1.2.3}Indoor air temperatures}{35}{subsubsection.5.1.2.3}
-\contentsline {titlech}{\numberline {6}Thermal building energy system test - BESTEST}{37}{section*.24}
+\contentsline {authorch}{Ruben Baetens and Dirk Saelens}{39}{section*.23}
+\contentsline {section}{\numberline {5.1}Introduction}{39}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Building energy simulation test cases}{39}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Test results}{40}{subsection.5.1.2}
+\contentsline {subsubsection}{\numberline {5.1.2.1}Annual heating and cooling loads}{40}{subsubsection.5.1.2.1}
+\contentsline {subsubsection}{\numberline {5.1.2.2}Peak heating and cooling loads}{41}{subsubsection.5.1.2.2}
+\contentsline {subsubsection}{\numberline {5.1.2.3}Indoor air temperatures}{41}{subsubsection.5.1.2.3}
+\contentsline {titlech}{\numberline {6}Thermal building energy system test - BESTEST}{43}{section*.24}
 \authcount {1}
-\contentsline {authorch}{Roel De Coninck and Lieve Helsen}{37}{section*.24}
-\contentsline {titlech}{\numberline {7}IEEE Distribution system analysis for radial test feeders }{39}{section*.25}
+\contentsline {authorch}{Roel De Coninck and Lieve Helsen}{43}{section*.24}
+\contentsline {titlech}{\numberline {7}IEEE Distribution system analysis for radial test feeders }{45}{section*.25}
 \authcount {1}
-\contentsline {authorch}{Juan Van Roy, Bart Verbruggen and Johan Driesen}{39}{section*.25}
-\contentsline {part}{Part\ III\hspace {\betweenumberspace }Bibliography}{41}{part.3}
-\contentsline {section}{References}{43}{section*.26}
-\contentsline {chapter}{Index}{47}{chapter*.27}
+\contentsline {authorch}{Juan Van Roy, Bart Verbruggen and Johan Driesen}{45}{section*.25}
+\contentsline {part}{Part\ III\hspace {\betweenumberspace }Bibliography}{47}{part.3}
+\contentsline {section}{References}{49}{section*.26}
+\contentsline {chapter}{Index}{53}{chapter*.27}

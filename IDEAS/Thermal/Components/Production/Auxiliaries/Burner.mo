@@ -5,7 +5,7 @@ model Burner
 
   /*
   This model is based on data from XXX (get source data ruben mailede me).
-  The nominal power of the original boiler is 10.1 kW bij 50/30°C water temperatures. 
+  The nominal power of the original boiler is 10.1 kW bij 50/30degC water temperatures. 
   The efficiency in this point is 92.2% on higher heating value. 
    
   First, the efficiency is interpolated for the 
@@ -52,11 +52,11 @@ model Burner
 
 public
   parameter Real fraLosDesNom = 1
-    "Ratio of power at design conditions over power at 50/30°C";
+    "Ratio of power at design conditions over power at 50/30degC";
   parameter Real betaFactor = 1 "Relative sizing compared to design heat load";
   parameter Modelica.SIunits.Power QDesign "Design heat load";
   parameter Real etaNom = 0.922
-    "Nominal efficiency (higher heating value)of the xxx boiler at 50/30°C.  See datafile";
+    "Nominal efficiency (higher heating value)of the xxx boiler at 50/30degC.  See datafile";
   parameter Real modulationMin(max=29)=25 "Minimal modulation percentage";
     // dont' set this to 0 or very low values, you might get negative P at very low modulations because of wrong extrapolation
   parameter Real modulationStart(min=min(30,modulationMin+5)) = 35

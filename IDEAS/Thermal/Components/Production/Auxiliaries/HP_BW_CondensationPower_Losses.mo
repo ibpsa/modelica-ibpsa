@@ -36,7 +36,7 @@ model HP_BW_CondensationPower_Losses
 
 public
   parameter Real fraLosDesNom = 1
-    "Ratio of power at design conditions over power at 0/35°C";
+    "Ratio of power at design conditions over power at 0/35degC";
   parameter Real betaFactor = 0.8
     "Relative sizing compared to design heat load";
   parameter Modelica.SIunits.Power QDesign=QNomRef "Design heat load";
@@ -86,7 +86,8 @@ public
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
   Thermal.Components.Interfaces.FlowPort_b flowPort_b(medium=mediumEvap)
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-  Thermal.Components.BaseClasses.HeatedPipe evaporator(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            evaporator(
     medium=mediumEvap,
     m=3,
     TInitial=283.15)

@@ -5,8 +5,10 @@ parameter Integer nZones(min=1)
     "Number of conditioned thermal zones in the building";
 parameter Modelica.SIunits.Area ATrans
     "Transmission heat loss area of the residential unit";
+parameter Modelica.SIunits.Area[nZones] AZones
+    "Conditioned floor area of the zones";
 parameter Modelica.SIunits.Volume[nZones] VZones
-    "Conditioned volume of the building based on external dimensions";
+    "Conditioned volume of the zones based on external dimensions";
 final parameter Modelica.SIunits.Length C = sum(VZones)/ATrans
     "Building compactness";
 

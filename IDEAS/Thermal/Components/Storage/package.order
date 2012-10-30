@@ -1,3 +1,8 @@
 StorageTank
+StorageTank_OneIntHX
 StratifiedInlet
-Buoyancy
+Partial_Buoyancy
+Buoyancy_eqcon
+Buoyancy_fix
+Buoyancy_powexp
+Examples

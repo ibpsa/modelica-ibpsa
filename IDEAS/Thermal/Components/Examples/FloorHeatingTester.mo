@@ -60,9 +60,11 @@ model FloorHeatingTester "Simple floorheating tester"
     table=[0,293.15; 5000,293.15; 5000,303.15; 150000,303.15; 150000,293.15;
         300000,293.15])
     annotation (Placement(transformation(extent={{-50,-38},{-36,-24}})));
-  Thermal.Components.BaseClasses.HeatedPipe heatedPipe(medium=medium, m=0)
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedPipe(medium=medium, m=0)
     annotation (Placement(transformation(extent={{-28,-86},{-8,-66}})));
-  Thermal.Components.BaseClasses.HeatedPipe heatedPipe1(medium=medium, m=0)
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedPipe1(medium=medium, m=0)
     annotation (Placement(transformation(extent={{8,-16},{28,4}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature1

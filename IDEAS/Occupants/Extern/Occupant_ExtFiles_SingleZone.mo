@@ -1,6 +1,6 @@
 within IDEAS.Occupants.Extern;
 model Occupant_ExtFiles_SingleZone
-  "External file occupant, for single zone building models"
+  "Occupant model based on external files for a single zone"
 
   extends IDEAS.Interfaces.Occupant(nZones=1, nLoads=1);
   parameter Integer occ=1
