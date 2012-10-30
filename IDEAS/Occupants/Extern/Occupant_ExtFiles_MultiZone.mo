@@ -1,10 +1,12 @@
 within IDEAS.Occupants.Extern;
-model Occupant_ExtFiles_SingleZone
-  "External file occupant, for single zone building models"
+model Occupant_ExtFiles_MultiZone
+  "External file occupant, for multi zone building models"
 
-  extends IDEAS.Interfaces.Occupant(nZones=1, nLoads=1);
+  extends IDEAS.Interfaces.Occupant(nLoads=1);
+
   parameter Integer occ=1
     "Which user from the read profiles in the SimInfoManager";
+  parameter Real[nZones] VZones "Zone volumes";
   parameter Modelica.SIunits.Temperature TSetOcc = 293.15;
   parameter Modelica.SIunits.Temperature TSetNoOcc = 289.15;
 
@@ -12,12 +14,12 @@ model Occupant_ExtFiles_SingleZone
     annotation (Placement(transformation(extent={{-98,78},{-78,98}})));
 equation
 
--heatPortRad[1].Q_flow = sim.tabQRad.y[occ];
--heatPortCon[1].Q_flow = sim.tabQCon.y[occ];
+-heatPortRad.Q_flow = ones(nZones).*VZones/sum(VZones)*sim.tabQRad.y[occ];
+-heatPortCon.Q_flow = ones(nZones).*VZones/sum(VZones)*sim.tabQCon.y[occ];
 wattsLawPlug[1].P = sim.tabP.y[occ];
 wattsLawPlug[1].Q = sim.tabQ.y[occ];
 mDHW60C = sim.tabDHW.y[occ];
-TSet[1] = noEvent(if sim.tabPre.y[occ] > 0.5 then TSetOcc else TSetNoOcc);
+TSet = noEvent(if sim.tabPre.y[occ] > 0.5 then ones(nZones)*TSetOcc else ones(nZones)*TSetNoOcc);
 
   annotation (Diagram(graphics));
-end Occupant_ExtFiles_SingleZone;
+end Occupant_ExtFiles_MultiZone;
