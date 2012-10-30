@@ -2,7 +2,7 @@ within IDEAS.Thermal.HeatingSystems.Examples;
 model Test_FloorHeatingSystem
   "Generic test for floor heating systems as defined in TME.HVAC"
 
-parameter Integer nZones = 2 "Number of zones";
+parameter Integer nZones = 1 "Number of zones";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature[nZones] TAmb
     annotation (Placement(transformation(extent={{32,-22},{12,-2}})));
   Heating_FH_TESandSTSforDHWonly                        heating(
@@ -21,7 +21,8 @@ parameter Integer nZones = 2 "Number of zones";
                                         redeclare
       IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
       IDEAS.Climate.Meteo.Files.min5
-      detail)
+      detail,
+    occBeh=false)
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nZones] heatCapacitor(C={i*1e6 for i in 1:nZones}, each T(fixed=false, start=292))
     annotation (Placement(transformation(extent={{-56,-4},{-36,16}})));
