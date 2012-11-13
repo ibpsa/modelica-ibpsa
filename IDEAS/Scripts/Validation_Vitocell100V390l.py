@@ -9,6 +9,7 @@ Optimize the equivalent thermal conductivity for buoyancy heat transfer.
 
 from awesim import pymosim, Simulation
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import sys, os
 from scipy import optimize
@@ -19,9 +20,12 @@ import time
 # folder with the subfolders a05...b80
 folder = os.path.abspath(r'C:\Workspace\DSMSim\Work\ValidationTank_best')
 parameters = ['powBuo']
-run_optimization = True
+run_optimization = False
 nodes=[5,10,20,40]
 figure = True
+# plotting
+mpl.rcParams['axes.titlesize'] = 'medium'
+mpl.rcParams['legend.fontsize'] = 'medium'
 
 def run_charging(parvaldic, folder):
     """
@@ -143,31 +147,40 @@ if __name__ is '__main__':
 
         colors=['b', 'g', 'k']
         mfcs=['r', 'orange', 'magenta']
-        plt.figure()
+        plt.figure(figsize=(6,6))
     
         ax1=plt.subplot(2,1,1)        
-        ax1.plot([0,200], [45,45], '--', color='0.6')  
-        ax1.plot([0,200], [55,55], '--', color='0.6') 
-        ax1.plot(nodes, TOut_b_opt-273.15, 'gD', label='TOut_b')
+        ax1.plot([0,200], [45,45], '--', color='r', label='TOut_a desired')  
+        ax1.plot([0,200], [55,55], '--', color='g', label='TOut_b desired') 
         ax1.plot(nodes, TOut_a_opt-273.15, 'ro', label='TOut_a')
+        ax1.plot(nodes, TOut_b_opt-273.15, 'gD', label='TOut_b')
+        
                            
-        plt.title('Temperatures at end of charging time for x_opt')
+        plt.title('Temperatures at end of charging time for powBuo_opt',
+                  fontsize='medium')
         plt.xlabel('Number of layers')
-        plt.ylabel('Temperature [degC]') 
-        plt.xlim((0, nodes[-1]*1.5))
-        plt.ylim((42,58))
-        plt.legend()    
+        plt.ylabel(u'Temperature [\u00b0C]') 
+        plt.xlim((0, nodes[-1]*1.05))
+        plt.ylim((42,70))
+        leg=plt.legend(ncol=2, loc='upper center')   
+        for t in leg.get_texts():
+            plt.setp(t, fontsize='medium')
         
         ax2=plt.subplot(2,1,2)
         for i, par in enumerate(parameters):
-            parvalues = [x_opt[n][i] for n in nodes]
+            parvalues = [x_opt[n][i]*scaling[i] for n in nodes]
             ax2.plot(nodes, parvalues, 'o-', 
                  color=colors[i], mfc=mfcs[i], label=par)
-        plt.ylabel(u'x_opt') 
-        plt.xlim((0, nodes[-1]*1.5))
-        plt.legend()
-        plt.title('x_opt as function of number of layers')
+        plt.ylabel(u'powBuo_opt') 
+        plt.xlim((0, nodes[-1]*1.05))
+        leg=plt.legend()
+        for t in leg.get_texts():
+            plt.setp(t, fontsize='medium')
+        plt.title('powBuo_opt as function of number of layers',
+                  fontsize='medium')
         plt.xlabel('Number of layers')
+        plt.subplots_adjust(hspace=0.4)
+        plt.savefig('..\..\Specifications\Thermal\images\ValidationTES_powBuo_opt.pdf', dpi=300)
  
 
         
