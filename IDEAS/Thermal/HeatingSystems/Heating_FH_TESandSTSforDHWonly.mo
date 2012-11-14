@@ -25,7 +25,7 @@ model Heating_FH_TESandSTSforDHWonly
     each medium=medium,
     each useInput=true,
     m_flowNom=m_flowNom,
-    each m_flowSet(fixed=true, start=0),
+    each m_flowSet(start=0),
     each etaTot=0.7,
     UA=1,
     each m=0,
@@ -232,7 +232,7 @@ end for;
       color={0,128,255},
       smooth=Smooth.None));
   connect(fixedTemperature.port, heater.heatPort)       annotation (Line(
-      points={{-122,40},{-112,40},{-112,32},{-82,32},{-82,8}},
+      points={{-122,40},{-112,40},{-112,32},{-100,32},{-100,8}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
