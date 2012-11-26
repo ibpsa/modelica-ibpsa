@@ -8,8 +8,8 @@ block Hyst_NoEvent_Var_HEATING
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
         iconTransformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Blocks.Interfaces.RealOutput y
-    annotation (Placement(transformation(extent={{96,50},{116,70}}),
-        iconTransformation(extent={{96,50},{116,70}})));
+    annotation (Placement(transformation(extent={{92,-50},{112,-30}}),
+        iconTransformation(extent={{92,-50},{112,-30}})));
 
   Modelica.Blocks.Interfaces.RealInput uLow
     annotation (Placement(transformation(extent={{-110,50},{-90,70}}),
@@ -100,60 +100,22 @@ equation
         Line(points={{-69,10},{-60,10}}, color={160,160,164})}),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
-        Rectangle(
-          extent={{-74,58},{74,-56}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{48,38},{54,-38}},
-          lineColor={70,70,70},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{22,38},{28,-38}},
-          lineColor={70,70,70},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-4,38},{2,-38}},
-          lineColor={70,70,70},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-30,38},{-24,-38}},
-          lineColor={70,70,70},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-54,36},{-46,28}},
-          lineColor={255,255,255},
-          fillColor={128,255,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-34,-4},{-22,-4},{-16,-10},{-22,-16},{-34,-16},{-34,-4}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-8,12},{4,12},{10,6},{4,0},{-8,0},{-8,12}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{18,0},{30,0},{36,-6},{30,-12},{18,-12},{18,0}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{46,16},{58,16},{64,10},{58,4},{46,4},{46,16}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid)}),
+        Line(
+          points={{-100,0},{-40,0},{60,60}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{40,0},{40,-40},{100,-40}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{0,24},{0,48},{10,48},{10,70},{0,70},{0,88}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-100,80},{-100,-80}},
+          color={0,0,127},
+          smooth=Smooth.None)}),
     Documentation(info="<HTML>
 <p>
 This block transforms a <b>Real</b> input signal into a <b>Boolean</b>
