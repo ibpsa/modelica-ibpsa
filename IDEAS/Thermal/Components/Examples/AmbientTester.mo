@@ -7,7 +7,8 @@ parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
     constantAmbientPressure=200000,
     constantAmbientTemperature=283.15)
     annotation (Placement(transformation(extent={{-56,0},{-76,20}})));
-  Thermal.Components.BaseClasses.HeatedPipe heatedPipe(medium=medium, m=5)
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedPipe(medium=medium, m=5)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Thermal.Components.BaseClasses.Pump pump(
     medium=medium,

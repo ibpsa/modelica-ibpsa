@@ -1,10 +1,10 @@
 within IDEAS.Thermal.Components.Examples;
 model NakedTabsTester "Testing discretisation of the naked tabs"
 
-  IDEAS.Thermal.Components.Emission.NakedTabs
+  IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabs
                                     nakedTabs2(n1=2, n2=2)
     annotation (Placement(transformation(extent={{10,26},{30,46}})));
-  IDEAS.Thermal.Components.Emission.NakedTabs
+  IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabs
                                     nakedTabs50(n1=50, n2=50)
     annotation (Placement(transformation(extent={{10,-28},{30,-8}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
@@ -21,10 +21,10 @@ model NakedTabsTester "Testing discretisation of the naked tabs"
               annotation (Placement(transformation(extent={{-52,66},{-32,86}})));
    Modelica.Thermal.HeatTransfer.Components.Convection convection1
      annotation (Placement(transformation(extent={{62,26},{42,6}})));
-  IDEAS.Thermal.Components.Emission.NakedTabsMassiveCore
+  IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabsMassiveCore
                                                nakedTabs2Core(n1=2, n2=2)
     annotation (Placement(transformation(extent={{16,-104},{36,-84}})));
-  IDEAS.Thermal.Components.Emission.NakedTabsMassiveCore
+  IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabsMassiveCore
                                                nakedTabs50Core(n1=50, n2=50)
     annotation (Placement(transformation(extent={{16,-158},{36,-138}})));
    Modelica.Thermal.HeatTransfer.Components.Convection convection2

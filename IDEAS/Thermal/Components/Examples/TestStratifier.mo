@@ -11,7 +11,8 @@ model TestStratifier
     TInitial=340:-10:300,
     volumeTank=0.2)
     annotation (Placement(transformation(extent={{-2,12},{18,32}})));
-  Thermal.Components.Storage.StratifiedInlet stratifiedInlet(
+  IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet
+                                             stratifiedInlet(
     medium=medium,
     nbrNodes=5,
     TNodes=storageTank.nodes.T)
@@ -25,7 +26,8 @@ model TestStratifier
     m_flowNom=0.05,
     useInput=true)
     annotation (Placement(transformation(extent={{-14,-22},{-34,-2}})));
-  Thermal.Components.BaseClasses.HeatedPipe heatedPipe(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedPipe(
     medium=medium,
     m=2,
     TInitial=278.15)

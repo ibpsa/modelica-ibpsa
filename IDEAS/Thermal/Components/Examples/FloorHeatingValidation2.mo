@@ -14,11 +14,11 @@ model FloorHeatingValidation2
     TInitial=303.15,
     m_flowNom=15*24/3600)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  IDEAS.Thermal.Components.Emission.Tabs
+  IDEAS.Thermal.Components.Emission.BaseClasses.Tabs
                   tabs(
     medium=medium,
     S_1=0.1,
-    redeclare IDEAS.Thermal.Components.Emission.FH_Standard2
+    redeclare IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
                                               FHChars,
     S_2=0.2,
     A_Floor=24,
@@ -34,7 +34,8 @@ model FloorHeatingValidation2
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
     prescribedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{8,64},{28,84}})));
-  Thermal.Components.BaseClasses.HeatedPipe heatedPipe(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedPipe(
     medium=medium,
     m=5,
     TInitial=303.15)

@@ -10,7 +10,8 @@ model RadTester "Simple radiator tester"
     TInitial=313.15,
     m_flowNom=0.05)
     annotation (Placement(transformation(extent={{-58,-16},{-38,4}})));
-  Thermal.Components.BaseClasses.HeatedPipe boiler(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            boiler(
     medium=Data.Media.Water(),
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{-26,-16},{-6,

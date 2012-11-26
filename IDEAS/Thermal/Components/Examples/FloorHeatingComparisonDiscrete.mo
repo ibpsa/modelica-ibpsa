@@ -10,12 +10,14 @@ model FloorHeatingComparisonDiscrete "test with instantiated test models"
 
     FloorHeatingTester discDyn3(redeclare
       Components.HeatEmission.TabsDiscretized                                   tabs(n=3, redeclare parameter
-        IDEAS.Thermal.Components.Emission.FH_Standard2 FHCharsDiscretized))
+        IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
+                                                       FHCharsDiscretized))
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   FloorHeatingTester discDyn20(redeclare
       Components.HeatEmission.TabsDiscretized         tabs(n=20, redeclare parameter
-        IDEAS.Thermal.Components.Emission.FH_Standard2 FHCharsDiscretized))
+        IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
+                                                       FHCharsDiscretized))
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   FloorHeatingTester nonDiscDyn(redeclare Components.HeatEmission.Tabs tabs)
@@ -27,7 +29,8 @@ model FloorHeatingComparisonDiscrete "test with instantiated test models"
     FloorHeatingTester discFullDyn3(redeclare
       Components.HeatEmission.TabsDiscretized tabs(
       n=3,
-      redeclare parameter IDEAS.Thermal.Components.Emission.FH_Standard2
+      redeclare parameter
+        IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
         FHCharsDiscretized,
       tabs(redeclare IDEAS.Thermal.Components.Emission.EmbeddedPipeDynSwitch
           embeddedPipe)))
@@ -35,7 +38,8 @@ model FloorHeatingComparisonDiscrete "test with instantiated test models"
   FloorHeatingTester discFullDyn20(redeclare
       Components.HeatEmission.TabsDiscretized tabs(
       n=20,
-      redeclare parameter IDEAS.Thermal.Components.Emission.FH_Standard2
+      redeclare parameter
+        IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
         FHCharsDiscretized,
       tabs(redeclare IDEAS.Thermal.Components.Emission.EmbeddedPipeDynSwitch
           embeddedPipe)))

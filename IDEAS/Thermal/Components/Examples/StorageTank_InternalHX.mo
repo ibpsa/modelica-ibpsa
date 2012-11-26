@@ -1,5 +1,6 @@
 within IDEAS.Thermal.Components.Examples;
-model StorageTank "Thermal storage tank tester"
+model StorageTank_InternalHX
+  "Thermal storage tank tester with internal heat exchanger"
 
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         Data.Media.Water(), p=200000)
@@ -20,7 +21,7 @@ model StorageTank "Thermal storage tank tester"
   Emission.Radiator   radiator(
     medium=Data.Media.Water()) "Hydraulic radiator model"
                annotation (Placement(transformation(extent={{52,-16},{72,4}})));
-  inner IDEAS.SimInfoManager         sim(redeclare
+  inner IDEAS.Climate.SimInfoManager sim(redeclare
       IDEAS.Climate.Meteo.Files.min15
       detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
@@ -35,11 +36,16 @@ model StorageTank "Thermal storage tank tester"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow
                                                       prescribedHeatFlow
     annotation (Placement(transformation(extent={{-68,-52},{-48,-32}})));
-  Thermal.Components.Storage.StorageTank tank(
+  Storage.StorageTank_OneIntHX           tank(
     medium=Data.Media.Water(),
     volumeTank=1,
     nbrNodes=5,
-    heightTank=2)                                         annotation (
+    heightTank=2,
+    mediumHX=Data.Media.Water(),
+    nodeHXUpper=3,
+    AHX=4.1,
+    mHX=27,
+    nodeHXLower=5)                                        annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -62,17 +68,17 @@ model StorageTank "Thermal storage tank tester"
     period=3600,
     startTime=2000)
     annotation (Placement(transformation(extent={{28,-54},{48,-34}})));
+  Thermal.Components.BaseClasses.AbsolutePressure absolutePressure1(
+                                                                   medium=
+        Data.Media.Water(), p=200000)
+    annotation (Placement(transformation(extent={{-80,-70},{-66,-56}})));
 equation
 onOff.reference = 60+273.15;
 onOff.u = tank.nodes[1].T;
-prescribedHeatFlow.Q_flow=3000 * booleanToReal.y;
+prescribedHeatFlow.Q_flow=6000 * booleanToReal.y;
 
   connect(volumeFlow1.flowPort_b, boiler.flowPort_a)        annotation (Line(
       points={{-68,-6},{-54,-6}},
-      color={255,0,0},
-      smooth=Smooth.None));
-  connect(boiler.flowPort_b, radiator.flowPort_a)             annotation (Line(
-      points={{-34,-6},{52,-6}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, radiator.flowPort_a)      annotation (Line(
@@ -94,10 +100,6 @@ prescribedHeatFlow.Q_flow=3000 * booleanToReal.y;
       color={191,0,0},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(boiler.flowPort_b, tank.flowPort_a) annotation (Line(
-      points={{-34,-6},{-10,-6},{-10,-22}},
-      color={255,0,0},
-      smooth=Smooth.None));
   connect(radiator.flowPort_b, volumeFlow2.flowPort_a) annotation (Line(
       points={{72,-6},{82,-6},{82,-74},{60,-74}},
       color={255,0,0},
@@ -114,10 +116,6 @@ prescribedHeatFlow.Q_flow=3000 * booleanToReal.y;
       points={{40,-74},{-10,-74},{-10,-42}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(tank.flowPort_b, volumeFlow1.flowPort_a) annotation (Line(
-      points={{-10,-42},{-10,-74},{-96,-74},{-96,-6},{-88,-6}},
-      color={255,0,0},
-      smooth=Smooth.None));
   connect(fixedTemperature.port,tank.heatExchEnv)  annotation (Line(
       points={{16,-54},{20,-54},{20,-32},{-3.8,-32}},
       color={191,0,0},
@@ -130,5 +128,21 @@ prescribedHeatFlow.Q_flow=3000 * booleanToReal.y;
       points={{64,4},{64,34},{52,34},{52,34}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(boiler.flowPort_b, tank.flowPortHXUpper) annotation (Line(
+      points={{-34,-6},{-32,-6},{-32,-8},{-30,-8},{-30,-30},{-20,-30}},
+      color={255,0,0},
+      smooth=Smooth.None));
+  connect(tank.flowPortHXLower, volumeFlow1.flowPort_a) annotation (Line(
+      points={{-20,-38},{-30,-38},{-30,-72},{-96,-72},{-96,-6},{-88,-6}},
+      color={255,0,0},
+      smooth=Smooth.None));
+  connect(tank.flowPort_a, radiator.flowPort_a) annotation (Line(
+      points={{-10,-22},{-10,-6},{52,-6}},
+      color={255,0,0},
+      smooth=Smooth.None));
+  connect(absolutePressure1.flowPort, volumeFlow1.flowPort_a) annotation (Line(
+      points={{-80,-63},{-86,-63},{-86,-58},{-88,-58},{-88,-6}},
+      color={255,0,0},
+      smooth=Smooth.None));
   annotation (Diagram(graphics));
-end StorageTank;
+end StorageTank_InternalHX;

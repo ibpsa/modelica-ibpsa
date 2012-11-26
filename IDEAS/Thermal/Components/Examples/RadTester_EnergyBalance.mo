@@ -14,7 +14,8 @@ model RadTester_EnergyBalance "Test for energy balance of the radiator model"
     TInitial=293.15,
     useInput=true)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  Thermal.Components.BaseClasses.HeatedPipe boiler(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            boiler(
     medium=Data.Media.Water(),
     m=5,
     TInitial=293.15) annotation (Placement(transformation(extent={{12,-16},{32,4}})));
