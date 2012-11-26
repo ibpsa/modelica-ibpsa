@@ -140,7 +140,7 @@ public
      uLow = modulation_min,
     uHigh = modulation_start,
     y(
-    start = 0),
+    start = 0, fixed=true),
     enableRelease=true) "on-off, based on modulationInit"
     annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
 equation
