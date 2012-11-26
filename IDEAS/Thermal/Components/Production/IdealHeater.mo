@@ -1,12 +1,13 @@
 within IDEAS.Thermal.Components.Production;
 model IdealHeater "Ideal heater, no losses to environment, unlimited power"
   extends
-    Thermal.Components.Production.Auxiliaries.PartialDynamicHeaterWithLosses(
-      final heaterType=IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType.Boiler);
+    IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses(
+      final heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.Boiler);
 
   Real eta "Instanteanous efficiency";
 
-  Auxiliaries.IdealHeatSource                      heatSource(
+  IDEAS.Thermal.Components.Production.BaseClasses.IdealHeatSource
+                                                   heatSource(
     medium=medium,
     QDesign=QNom,
     TBoilerSet=TSet,
@@ -26,5 +27,23 @@ equation
       points={{-28,-36},{-20,-36},{-20,6.12323e-016}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics));
+  annotation (Diagram(graphics), Icon(graphics={
+        Ellipse(
+          extent={{-60,60},{58,-60}},
+          lineColor={127,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={255,255,255}),
+        Ellipse(extent={{-48,46},{46,-46}}, lineColor={95,95,95}),
+        Line(
+          points={{-32,34},{30,-34}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{98,20},{42,20}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{100,-40},{68,-40},{68,-80},{-2,-80},{-2,-46}},
+          color={0,0,127},
+          smooth=Smooth.None)}));
 end IdealHeater;

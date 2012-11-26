@@ -10,7 +10,7 @@ model PartialDynamicHeaterWithLosses
   parameter Modelica.SIunits.Power QNom "Nominal power";
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
     "Medium in the component";
-   Modelica.SIunits.Power PEl "Electrical consumption";
+
    Modelica.SIunits.Power PFuel "Fuel consumption";
   parameter Modelica.SIunits.Time tauHeatLoss=7200
     "Time constant of environmental heat losses";
@@ -23,7 +23,8 @@ protected
       medium.cp)/tauHeatLoss;
 
 public
-  Thermal.Components.BaseClasses.HeatedPipe heatedFluid(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            heatedFluid(
     medium=medium,
     m=mWater,
     TInitial=TInitial)
@@ -44,10 +45,20 @@ public
     annotation (Placement(transformation(extent={{-32,22},{-12,42}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort for thermal losses to environment"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
+        iconTransformation(extent={{-10,-110},{10,-90}})));
   Modelica.Blocks.Interfaces.RealInput TSet
     "Temperature setpoint, acts as on/off signal too"
-    annotation (Placement(transformation(extent={{-126,-20},{-86,20}})));
+    annotation (Placement(transformation(extent={{-126,-20},{-86,20}}),
+        iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,100})));
+  Modelica.Blocks.Interfaces.RealOutput PEl "Electrical consumption" annotation (Placement(transformation(
+          extent={{-252,10},{-232,30}}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={40,-100})));
 equation
 
     connect(flowPort_a, heatedFluid.flowPort_a)
@@ -72,8 +83,26 @@ equation
       smooth=Smooth.None));
   connect(thermalLosses.port_b, heatPort)
                                    annotation (Line(
-      points={{-12,32},{0,32},{0,100}},
+      points={{-12,32},{0,32},{0,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics));
+  annotation (Diagram(graphics), Icon(graphics={
+        Ellipse(
+          extent={{-60,60},{58,-60}},
+          lineColor={127,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={255,255,255}),
+        Ellipse(extent={{-48,46},{46,-46}}, lineColor={95,95,95}),
+        Line(
+          points={{-32,34},{30,-34}},
+          color={95,95,95},
+          smooth=Smooth.None),
+        Line(
+          points={{98,20},{42,20}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{100,-20},{68,-20},{68,-80},{-2,-80},{-2,-46}},
+          color={0,0,127},
+          smooth=Smooth.None)}));
 end PartialDynamicHeaterWithLosses;

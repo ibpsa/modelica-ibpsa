@@ -1,4 +1,4 @@
-within IDEAS.Thermal.Components.Production.Auxiliaries;
+within IDEAS.Thermal.Components.Production.BaseClasses;
 model HP_CondensationPower_Losses
   "Computation of theoretical condensation power of the refrigerant based on interpolation data.  Takes into account losses of the heat pump to the environment"
 

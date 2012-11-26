@@ -2,12 +2,13 @@ within IDEAS.Thermal.Components.Production;
 model Boiler
   "Modulating boiler with losses to environment, based on performance tables"
   extends
-    Thermal.Components.Production.Auxiliaries.PartialDynamicHeaterWithLosses(
-      final heaterType=IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType.Boiler);
+    IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses(
+      final heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.Boiler);
 
   Real eta "Instanteanous efficiency";
 
-  Thermal.Components.Production.Auxiliaries.Burner heatSource(
+  IDEAS.Thermal.Components.Production.BaseClasses.Burner
+                                                   heatSource(
     medium=medium,
     QDesign=QNom,
     TBoilerSet=TSet,
@@ -28,36 +29,22 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Icon(graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.HorizontalCylinder,
-          lineColor={127,0,0}),
-        Rectangle(
-          extent={{-100,0},{100,-100}},
-          fillPattern=FillPattern.Solid,
-          fillColor={255,255,255},
-          pattern=LinePattern.None),
         Ellipse(
           extent={{-58,60},{60,-60}},
           lineColor={127,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}),
-        Ellipse(extent={{-46,46},{48,-46}}, lineColor={127,0,0}),
+        Ellipse(extent={{-46,46},{48,-46}}, lineColor={95,95,95}),
         Line(
           points={{-30,34},{32,-34}},
-          color={127,0,0},
+          color={95,95,95},
           smooth=Smooth.None),
         Line(
-          points={{0,60},{0,100}},
-          color={127,0,0},
+          points={{100,20},{44,20}},
+          color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{100,20},{42,20}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{102,-20},{70,-20},{70,-80},{0,-80},{0,-60}},
-          color={0,128,255},
+          points={{102,-40},{70,-40},{70,-80},{0,-80},{0,-46}},
+          color={0,0,127},
           smooth=Smooth.None)}));
 end Boiler;

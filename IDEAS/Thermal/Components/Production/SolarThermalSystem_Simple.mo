@@ -8,10 +8,8 @@ model SolarThermalSystem_Simple
   parameter Integer nCol "Number of collectors in series";
   parameter Real m_flowSp = 30 "Specific mass flow rate, in liter/hm2";
 
-  output Modelica.SIunits.Power QCol
-    "Net power delivered by the solar collector";
-  output Modelica.SIunits.Power QSTS
-    "Net power delivered by the primary circuit";
+  Modelica.SIunits.Power QCol "Net power delivered by the solar collector";
+  Modelica.SIunits.Power QSTS "Net power delivered by the primary circuit";
 
   IDEAS.Thermal.Components.Production.CollectorG
                                            collectorG(
@@ -21,7 +19,8 @@ model SolarThermalSystem_Simple
     nCol=nCol,
     T0=283.15)
     annotation (Placement(transformation(extent={{-84,-28},{-64,-8}})));
-  Thermal.Components.BaseClasses.HeatedPipe pipeHot(medium=medium, m=5)
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            pipeHot(medium=medium, m=5)
     annotation (Placement(transformation(extent={{-46,-28},{-26,-8}})));
   Thermal.Components.BaseClasses.Pump pump(
     medium=medium,
@@ -29,7 +28,8 @@ model SolarThermalSystem_Simple
     useInput=true,
     m_flowNom=m_flowSp*ACol*nCol/3600)
     annotation (Placement(transformation(extent={{-10,-28},{10,-8}})));
-  Thermal.Components.BaseClasses.HeatedPipe pipeCold(medium=medium, m=5)
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
+                                            pipeCold(medium=medium, m=5)
     annotation (Placement(transformation(extent={{-26,-78},{-46,-58}})));
 
   Thermal.Control.SolarThermalControl_DT solarThermalControl_DT(TSafetyMax=

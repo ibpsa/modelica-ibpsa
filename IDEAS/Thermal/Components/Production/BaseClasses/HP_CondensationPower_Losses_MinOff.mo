@@ -1,5 +1,5 @@
-within IDEAS.Thermal.Components.Production.Auxiliaries;
-model HP_CondensationPower_Losses
+within IDEAS.Thermal.Components.Production.BaseClasses;
+model HP_CondensationPower_Losses_MinOff
   "Computation of theoretical condensation power of the refrigerant based on interpolation data.  Takes into account losses of the heat pump to the environment"
 
   /*
@@ -57,7 +57,7 @@ public
   parameter Real modulation_start(min=min(30,modulation_min+5)) = 35
     "Min estimated modulation level required for start of HP";
   Real modulationInit "Initial modulation, decides on start/stop of the HP";
-  Real modulation(min=0, max=100) "Current modulation percentage";
+  Real modulation(min=0, max=1) "Current modulation percentage";
   Modelica.SIunits.Power PEl "Resulting electrical power";
   input Modelica.SIunits.Temperature TEvaporator "Evaporator temperature";
   input Modelica.SIunits.Temperature TCondensor_in "Condensor temperature";
@@ -136,16 +136,16 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  IDEAS.BaseClasses.Control.Hyst_NoEvent onOff(
+  IDEAS.BaseClasses.Control.Hyst_NoEvent_MinOnOff
+                               onOff(
      uLow = modulation_min,
     uHigh = modulation_start,
     y(
     start = 0),
-    enableRelease=true) "on-off, based on modulationInit"
+    minOffTime=900) "on-off, based on modulationInit"
     annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
 equation
   onOff.u = modulationInit;
-  onOff.release = if noEvent(m_flowCondensor > 0) then 1.0 else 0.0;
   QAsked = m_flowCondensor * medium.cp * (TCondensor_set - TCondensor_in);
   P100.u1 = heatPort.T - 273.15;
   P100.u2 = TEvaporator - 273.15;
@@ -178,7 +178,7 @@ equation
   QMax = 1000* Q100.y * QNom/QNomRef;
 
   modulationInit = QAsked/QMax * 100;
-  modulation = onOff.y * min(modulationInit, 100);
+  modulation = smooth(2, if noEvent(m_flowCondensor > 0 and onOff.y > 0.5) then min(modulationInit, 100) else 0);
 
   // compensation of heat losses (only when the hp is operating)
   QLossesToCompensate = if noEvent(modulation > 0) then UALoss * (heatPort.T-TEnvironment) else 0;
@@ -188,4 +188,4 @@ equation
 
   annotation (Diagram(graphics),
               Diagram(graphics));
-end HP_CondensationPower_Losses;
+end HP_CondensationPower_Losses_MinOff;

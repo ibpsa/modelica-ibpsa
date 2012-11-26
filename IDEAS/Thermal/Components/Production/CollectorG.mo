@@ -32,7 +32,7 @@ Model_Mark.Meteo.Solar.RadiationSolar radSol(
   //pressure drop coefficietns
   parameter Real a=2*0.0008436127;
   parameter Real b=2*0.1510363177;//2 vanwege in serie
-  parameter Real correctie=11.1/16.5;//drukval collector is ongeveer gelijk per l/h.m²
+  parameter Real correctie=11.1/16.5;//drukval collector is ongeveer gelijk per l/h.m2
 
   Modelica.SIunits.Irradiance Ibeam=radSol.solDir;
   Modelica.SIunits.Irradiance Idiff=radSol.solDif;
@@ -53,10 +53,10 @@ Model_Mark.Meteo.Solar.RadiationSolar radSol(
   parameter Modelica.SIunits.TransmissionCoefficient ta=0.95*0.9
     "transmission-absorption coefficient";
 
-  parameter Real b_IAM=-0.09; // based on Kta 50° = 0.95
+  parameter Real b_IAM=-0.09; // based on Kta 50deg = 0.95
   Modelica.SIunits.TransmissionCoefficient Kta= (1+b_IAM*(1/cosXi-1)); // Duffie Beckman p263
   Modelica.SIunits.TransmissionCoefficient IAM= Kta
-    "incidence angle modifier Kta=0.95 at 50°";
+    "incidence angle modifier Kta=0.95 at 50deg";
 
    Real Ul;
    Real Q_loss;
@@ -118,8 +118,8 @@ TCol=T;
 <p>Glazed flat plate solar collector, originally modelled by Mark Gutschoven in his master thesis, 2010-2011</p>
 <p>This model is not yet validated nor cleaned according to the conventions</p>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
+                    graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics));
 end CollectorG;

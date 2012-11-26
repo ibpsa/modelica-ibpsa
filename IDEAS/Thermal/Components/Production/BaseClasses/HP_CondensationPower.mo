@@ -1,6 +1,6 @@
-within IDEAS.Thermal.Components.Production.Auxiliaries;
-model HP_CondensationPower_Losses
-  "Computation of theoretical condensation power of the refrigerant based on interpolation data.  Takes into account losses of the heat pump to the environment"
+within IDEAS.Thermal.Components.Production.BaseClasses;
+model HP_CondensationPower
+  "Computation of theoretical condensation power of the refrigerant based on interpolation data"
 
   /*
   This model is based on data we received from Daikin from an Altherma heat pump.
@@ -17,15 +17,8 @@ model HP_CondensationPower_Losses
   - if modulation_init > 100%, the modulation is 100%
   - if modulation_init between modulation_min and modulation_start: hysteresis for on/off cycling.
   
-  If the heat pump is on another modulation, interpolation is made to get P and Q at the real modulation.
-  
-  ATTENTION
-  This model takes into account environmental heat losses of the heat pump (at condensor side).
-  In order to keep the same nominal COP's during operation of the heat pump, these heat losses are added
-  to the computed power.  Therefore, the heat losses are only really 'losses' when the heat pump is 
-  NOT operating. 
-  
-  The COP is calculated as the heat delivered to the condensor divided by the electrical consumption (P). 
+  If the heat pump is on another interpolation is made to get P and Q at the real modulation.
+  The COP is calculated as Q/P. 
   
   */
 //protected
@@ -40,24 +33,15 @@ model HP_CondensationPower_Losses
   Modelica.SIunits.Power QMax
     "Maximum thermal power at specified evap and condr temperatures, in W";
   Modelica.SIunits.Power QAsked(start=0);
-  parameter Modelica.SIunits.ThermalConductance UALoss
-    "UA of heat losses of HP to environment";
-  final parameter Modelica.SIunits.Power QNom=QDesign*betaFactor/
-      fraLosDesNom
-    "The power at nominal conditions (2/35) taking into account beta factor and power loss fraction";
 
 public
-  parameter Real fraLosDesNom = 0.68
-    "Ratio of power at design conditions over power at 2/35degC";
-  parameter Real betaFactor = 0.8
-    "Relative sizing compared to design heat load";
-  parameter Modelica.SIunits.Power QDesign=QNomRef "Design heat load";
+  parameter Modelica.SIunits.Power QNom=QNomRef "Nominal power at 2/35";
   parameter Real modulation_min(max=29)=25 "Minimal modulation percentage";
     // dont' set this to 0 or very low values, you might get negative P at very low modulations because of wrong extrapolation
   parameter Real modulation_start(min=min(30,modulation_min+5)) = 35
     "Min estimated modulation level required for start of HP";
   Real modulationInit "Initial modulation, decides on start/stop of the HP";
-  Real modulation(min=0, max=100) "Current modulation percentage";
+  Real modulation(min=0, max=1) "Current modulation percentage";
   Modelica.SIunits.Power PEl "Resulting electrical power";
   input Modelica.SIunits.Temperature TEvaporator "Evaporator temperature";
   input Modelica.SIunits.Temperature TCondensor_in "Condensor temperature";
@@ -65,8 +49,6 @@ public
     "Condensor setpoint temperature.  Not always possible to reach it";
   input Modelica.SIunits.MassFlowRate m_flowCondensor
     "Condensor mass flow rate";
-  input Modelica.SIunits.Temperature TEnvironment
-    "Temperature of environment for heat losses";
 
 protected
   Modelica.Blocks.Tables.CombiTable2D P100(
@@ -131,21 +113,17 @@ protected
         1.577,1.787,1.973,2.629,3.002,3.494,3.494; 50,1.281,1.447,1.546,1.748,
         1.928,2.569,2.936,3.422,3.422])
     annotation (Placement(transformation(extent={{26,-44},{46,-24}})));
-  Modelica.SIunits.HeatFlowRate QLossesToCompensate "Environment losses";
+
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   IDEAS.BaseClasses.Control.Hyst_NoEvent onOff(
      uLow = modulation_min,
-    uHigh = modulation_start,
-    y(
-    start = 0),
-    enableRelease=true) "on-off, based on modulationInit"
+    uHigh = modulation_start) "on-off, based on modulationInit"
     annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
 equation
   onOff.u = modulationInit;
-  onOff.release = if noEvent(m_flowCondensor > 0) then 1.0 else 0.0;
   QAsked = m_flowCondensor * medium.cp * (TCondensor_set - TCondensor_in);
   P100.u1 = heatPort.T - 273.15;
   P100.u2 = TEvaporator - 273.15;
@@ -178,14 +156,11 @@ equation
   QMax = 1000* Q100.y * QNom/QNomRef;
 
   modulationInit = QAsked/QMax * 100;
-  modulation = onOff.y * min(modulationInit, 100);
+  modulation = smooth(2, if noEvent(m_flowCondensor > 0 and onOff.y > 0.5) then min(modulationInit, 100) else 0);
 
-  // compensation of heat losses (only when the hp is operating)
-  QLossesToCompensate = if noEvent(modulation > 0) then UALoss * (heatPort.T-TEnvironment) else 0;
-
-  heatPort.Q_flow = -1000 * Modelica.Math.Vectors.interpolate(mod_vector, Q_vector, modulation) - QLossesToCompensate;
+  heatPort.Q_flow = -1000 * Modelica.Math.Vectors.interpolate(mod_vector, Q_vector, modulation);
   PEl = 1000 * Modelica.Math.Vectors.interpolate(mod_vector, P_vector, modulation);
 
   annotation (Diagram(graphics),
               Diagram(graphics));
-end HP_CondensationPower_Losses;
+end HP_CondensationPower;
