@@ -2,7 +2,7 @@ within IDEAS.Interfaces;
 partial model Occupant
 
 parameter Integer nZones(min=1) "number of conditioned thermal zones";
-parameter Integer nLoads(min=1) "number of electric loads";
+parameter Integer nLoads(min=1) = 1 "number of electric loads";
 
   //outer IDEAS.Climate.SimInfoManager sim
   //  "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -19,10 +19,9 @@ parameter Integer nLoads(min=1) "number of electric loads";
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,100})));
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[nLoads]
-    plugLoad( each m=1) "Electricity connection to the Inhome feeder"
-                                                  annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Electric.BaseClasses.WattsLawPlug[nLoads] wattsLawPlug(each numPha=1)
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plugLoad( each m=1)
+    "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,nLoads=nLoads)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput mDHW60C

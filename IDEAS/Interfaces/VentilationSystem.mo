@@ -2,7 +2,7 @@ within IDEAS.Interfaces;
 partial model VentilationSystem
 
   parameter Integer nZones(min=1) "number of conditioned thermal zones";
-  parameter Integer nLoads(min=1) "number of electric loads";
+  parameter Integer nLoads(min=1) = 1 "number of electric loads";
   parameter Real[nZones] VZones "conditioned (C) volumes (V) of the zones";
   parameter Modelica.SIunits.HeatCapacity[nZones] C = 1012*1.204*VZones*5
     "Heat capacity of the conditioned zones";
@@ -15,10 +15,9 @@ partial model VentilationSystem
         origin={-96,-60})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
     "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[nLoads]
-    plugLoad(each m=1) "Electricity connection to the Inhome feeder"
-                                                  annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Electric.BaseClasses.WattsLawPlug[nLoads] wattsLawPlug(each numPha=1)
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plugLoad(each m=1)
+    "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,nLoads=nLoads)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 equation
   connect(wattsLawPlug.vi, plugLoad) annotation (Line(

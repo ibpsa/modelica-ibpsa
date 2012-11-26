@@ -8,16 +8,16 @@ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin pinSingle
             {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
 
   Modelica.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin_p(
-      m=1) annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
+      m=1) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
  //pinSingle.v = nodeSingle.pin[1].v;
  // pinSingle.i = - nodeSingle.pin[1].i;
   connect(nodeSingle, plugToPin_p.plug_p) annotation (Line(
-      points={{-100,0},{-52,0},{-52,2},{-2,2}},
+      points={{-100,0},{-2,0}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(plugToPin_p.pin_p, pinSingle) annotation (Line(
-      points={{2,2},{52,2},{52,0},{100,0}},
+      points={{2,0},{100,0}},
       color={85,170,255},
       smooth=Smooth.None));
   annotation(Icon(graphics={

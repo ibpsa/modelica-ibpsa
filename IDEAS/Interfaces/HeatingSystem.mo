@@ -1,23 +1,24 @@
 within IDEAS.Interfaces;
 partial model HeatingSystem "Partial heating system inclusif control"
 
-  import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
+  import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
   outer IDEAS.SimInfoManager         sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-200,80},
             {-180,100}})));
 
 // Building characteristics  //////////////////////////////////////////////////////////////////////////
-  parameter EmissionType emissionType = EmissionType.RadiatorsAndFloorHeating
+  parameter IDEAS.Thermal.Components.Emission.Interfaces.EmissionType
+                         emissionType = EmissionType.RadiatorsAndFloorHeating
     "Type of the heat emission system";
   parameter Integer nZones(min=1) "Number of conditioned thermal zones";
-  parameter Modelica.SIunits.Power[nZones] QNom(each min=0)
+  parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
     "Nominal power, can be seen as the max power of the emission system";
   parameter Real[nZones] VZones "Conditioned volumes of the zones";
   final parameter Modelica.SIunits.HeatCapacity[nZones] C = 1012*1.204*VZones*5
     "Heat capacity of the conditioned zones";
 
 // Electricity consumption or production  //////////////////////////////////////////////////////////////
-  parameter Integer nLoads(min=1) "Number of electric loads";
+  parameter Integer nLoads(min=1) = 1 "Number of electric loads";
   SI.Power[nLoads] P "Active power for each of the loads";
   SI.Power[nLoads] Q "Reactive power for each of the loads";
 
@@ -38,26 +39,26 @@ partial model HeatingSystem "Partial heating system inclusif control"
       (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
     "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-210,50},
             {-190,70}})));
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug[nLoads] plugLoad( each m=1)
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plugLoad( each m=1)
     "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{190,-10},
             {210,10}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
-    "Sensor temperature of the zones" annotation (Placement(transformation(extent={{-10,-10},
-            {10,10}},
-        rotation=180,
-        origin={-196,-60})));
-  Modelica.Blocks.Interfaces.RealInput[nZones] TSet
-    "Setpoint temperature for the zones" annotation (Placement(transformation(extent={{10,-10},
+    "Sensor temperature of the zones" annotation (Placement(transformation(extent={{10,-10},
             {-10,10}},
+        rotation=180,
+        origin={-204,-60})));
+  Modelica.Blocks.Interfaces.RealInput[nZones] TSet
+    "Setpoint temperature for the zones" annotation (Placement(transformation(extent={{-10,-10},
+            {10,10}},
         rotation=90,
-        origin={0,-96})));
-  Electric.BaseClasses.WattsLawPlug[nLoads] wattsLawPlug(each numPha=1)
+        origin={0,-104})));
+  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,nLoads=nLoads)
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Modelica.Blocks.Interfaces.RealInput mDHW60C
-    "mFlow for domestic hot water, at 60 degC"  annotation (Placement(transformation(extent={{10,-10},
-            {-10,10}},
+    "mFlow for domestic hot water, at 60 degC"  annotation (Placement(transformation(extent={{-10,-10},
+            {10,10}},
         rotation=90,
-        origin={60,-96})));
+        origin={60,-104})));
 
 // Total heat use ///////////////////////////////////////////////////////////////////////////////////////
   SI.Power QHeatTotal "Total net heat use (space heating + DHW, if present)";
