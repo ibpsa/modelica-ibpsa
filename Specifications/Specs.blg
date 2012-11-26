@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: Specs.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: C:\Workspace\Modelica\IDEAS\Specifications\Specs.aux
 The style file: ieeetr.bst
 A level-1 auxiliary file: Structure/Preface/preface.aux
 A level-1 auxiliary file: Structure/Preamble/cblist.aux
@@ -11,6 +11,10 @@ A level-1 auxiliary file: Thermal/ThermalSystemModelValidation.aux
 A level-1 auxiliary file: Electric/ElectricSystemModelValidation.aux
 Database file #1: Climate/MyBibTexLibrary.bib
 Database file #2: Buildings/MyBibTexLibrary.bib
+Repeated entry---line 9 of file Buildings/MyBibTexLibrary.bib
+ : @book{Koschenz2000
+ :                   ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 69 of file Buildings/MyBibTexLibrary.bib
  : @techreport{Furler1988
  :                       ,
@@ -229,6 +233,10 @@ Repeated entry---line 5927 of file Buildings/MyBibTexLibrary.bib
 I'm skipping whatever remains of this entry
 Database file #3: Electric/MyBibTexLibrary.bib
 Database file #4: Thermal/MyBibTexLibrary.bib
+Repeated entry---line 9 of file Thermal/MyBibTexLibrary.bib
+ : @book{Koschenz2000
+ :                   ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 69 of file Thermal/MyBibTexLibrary.bib
  : @techreport{Furler1988
  :                       ,
@@ -461,4 +469,4 @@ Warning--empty publisher in willis
 Warning--empty publisher in Lomas1994
 Warning--empty publisher in Lomas1994a
 Warning--can't use both author and editor fields in ASHRAE140
-(There were 108 error messages)
+(There were 110 error messages)
