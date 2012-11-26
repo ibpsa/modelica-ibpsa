@@ -3,21 +3,32 @@ model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
 
 protected
-  parameter IDEAS.Climate.Meteo.Files.min60 hourly "Hourly climate data";
+  parameter IDEAS.Climate.Meteo.Files.min15 QHourly "15 minute climate data";
   parameter IDEAS.Climate.Meteo.Locations.Uccle Uccle "Uccle, Belgium";
   parameter IDEAS.Occupants.Extern.Interfaces.Stoch33 stoch33
     "Default occupant behavior to be read";
+
 public
-  replaceable parameter IDEAS.Climate.Meteo.Detail detail = hourly
+  replaceable parameter IDEAS.Climate.Meteo.Detail detail = QHourly
     "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   replaceable parameter IDEAS.Climate.Meteo.location city = Uccle
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   parameter Boolean occBeh = true
     "put to false if no user behaviour is to be read from files"
                                          annotation(Dialog(group="User behaviour"));
+  parameter Boolean PV = true
+    "put to false if no photovoltaics is to be read from files "
+                                         annotation(Dialog(group="Photovoltaics"));
+
   replaceable parameter IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants= stoch33
     "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="User behaviour"));
   parameter Integer nOcc = 33 "Number of occupant profiles" annotation(Dialog(group="User behaviour"));
+
+  parameter String fileNamePv = "onePVpanel10min"
+    "Filename for photvoltaic profiles"                                                         annotation(Dialog(group="Photovoltaics"));
+  parameter Integer nPV = 33 "Number of photovoltaic profiles" annotation(Dialog(group="Photovoltaics"));
+  parameter Integer PNom = 1000
+    "Nominal power (W) of the photovoltaic profiles"                             annotation(Dialog(group="Photovoltaics"));
 
 protected
   parameter String filNamClim = "..\\Inputs\\" + city.locNam + detail.filNam;
@@ -56,20 +67,20 @@ public
   Boolean summer;
 
   Boolean day = true;
-
+/*
   Real workday;
   Real weekend;
-
+*/
   Modelica.SIunits.Time timLoc;
   Modelica.SIunits.Time timSol;
   Modelica.SIunits.Time timCal;
-
-  IDEAS.BaseClasses.Control.Hyst_NoEvent calcWE(uLow=604800, uHigh=432000)
+/*
+  IDEAS.BaseClasses.Control.Hyst_NoEvent calcWE(uLow=604800, uHigh=432000) 
     "calculation of weekend or workday"
     annotation (Placement(transformation(extent={{-20,26},{-6,40}})));
   IDEAS.BaseClasses.Control.rem_NoEvent remWE(interval=604800)
     annotation (Placement(transformation(extent={{-40,26},{-26,40}})));
-
+*/
 protected
   IDEAS.Climate.Time.SimTimes timMan(
     delay=detail.timestep/2,
@@ -130,12 +141,21 @@ Modelica.Blocks.Sources.CombiTimeTable
     tableName="data",
     fileName="..\\Inputs\\" + occupants.filDHW,
     columns=2:nOcc+1) if occBeh
-                            annotation (Placement(transformation(extent={{0,-54},
-            {14,-40}})));
+                            annotation (Placement(transformation(extent={{0,-58},
+            {14,-44}})));
+Modelica.Blocks.Tables.CombiTable1Ds tabPPV(
+    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    tableOnFile=true,
+    tableName="data",
+    fileName="..\\Inputs\\" + fileNamePv,
+    columns=2:nPV + 1) if
+                         PV annotation (Placement(transformation(extent={{-36,2},
+            {-22,16}})));
 algorithm
+/*
     weekend := calcWE.y;
     workday := 1-calcWE.y;
-
+*/
 equation
 
   solDirPer = climate_solar.y[3];
@@ -158,7 +178,7 @@ equation
   timLoc = timMan.timLoc;
   timSol = timMan.timSol;
   timCal = timMan.timCal;
-
+/*
   connect(remWE.y, calcWE.u) annotation (Line(
       points={{-25.3,33},{-20.56,33}},
       color={0,0,127},
@@ -167,6 +187,7 @@ equation
       points={{-60,66},{-52,66},{-52,33},{-41.4,33}},
       color={0,0,127},
       smooth=Smooth.None));
+*/
   connect(timMan.timCalSol, climate_solar.u) annotation (Line(
       points={{-60,62},{-52,62},{-52,53},{-41.4,53}},
       color={0,0,127},
@@ -189,6 +210,10 @@ equation
       smooth=Smooth.None));
   connect(timMan.timCal, tabQ.u) annotation (Line(
       points={{-60,66},{-50,66},{-50,-55},{-37.4,-55}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(timMan.timCal, tabPPV.u) annotation (Line(
+      points={{-60,66},{-48,66},{-48,9},{-37.4,9}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation(defaultComponentName="sim", defaultComponentPrefixes="inner",  missingInnerMessage="Your model is using an outer \"sim\" component. An inner \"sim\" component is not defined. For simulation drag IDEAS.SimInfoManager into your model.",
