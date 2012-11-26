@@ -1,8 +1,12 @@
-IsolatedPipe
-HeatedPipe
+Pipe
+Pipe_HeatPort
+Pipe_Insulated
 Ambient
 AbsolutePressure
 Pump
+Pump_HeatPort
+Pump_Insulated
 MixingVolume
 IdealMixer
 VariableThermalConductor
+FH_Characteristics

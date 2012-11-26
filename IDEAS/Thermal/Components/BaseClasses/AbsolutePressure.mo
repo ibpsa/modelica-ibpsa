@@ -18,13 +18,15 @@ Coolant's mass flow, temperature and enthalpy flow are not affected.<br>
 </HTML>"), Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                    graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={Text(
-          extent={{-150,150},{150,90}},
-          lineColor={0,0,255},
-          textString="%name"), Ellipse(
-          extent={{-90,90},{90,-90}},
-          lineColor={255,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}),     graphics={
+        Line(
+          points={{-70,20},{-70,-20}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-70,0},{-100,0}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Ellipse(extent={{-60,60},{60,-60}}, lineColor={100,100,100})}));
 end AbsolutePressure;
