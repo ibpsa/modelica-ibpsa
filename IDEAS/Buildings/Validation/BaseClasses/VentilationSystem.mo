@@ -7,8 +7,8 @@ package VentilationSystem
     extends IDEAS.Interfaces.VentilationSystem(nLoads=1);
 
   equation
-  wattsLawPlug[1].P = 0;
-  wattsLawPlug[1].Q = 0;
+  wattsLawPlug.P[1] = 0;
+  wattsLawPlug.Q[1] = 0;
   for i in 1:nZones loop
     heatPortCon[i].Q_flow =  0;
   end for;
