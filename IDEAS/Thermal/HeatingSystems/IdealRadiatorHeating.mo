@@ -1,7 +1,7 @@
 within IDEAS.Thermal.HeatingSystems;
 model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
 
-  import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
+  import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
   extends IDEAS.Interfaces.HeatingSystem(
     emissionType = EmissionType.Radiators,
     nLoads=1);

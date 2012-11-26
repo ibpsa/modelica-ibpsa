@@ -37,7 +37,7 @@ parameter Integer nZones = 2 "Number of zones";
     each offset=289,
     startTime={3600*7,3600*9})
     annotation (Placement(transformation(extent={{-58,50},{-38,70}})));
-  IDEAS.Thermal.Components.Emission.NakedTabs[
+  IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabs[
                                         nZones] nakedTabs(
     FHChars(
     each A_Floor =         50),
@@ -91,7 +91,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heating.TSet, TOpSet.y) annotation (Line(
-      points={{25,-80.6},{26,-96},{44,-96},{44,62},{-37,62},{-37,60}},
+      points={{25,-81.44},{26,-96},{44,-96},{44,62},{-37,62},{-37,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heating.TSensor, temperatureSensor.T) annotation (Line(
@@ -115,7 +115,7 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(mDHW60C.y, heating.mDHW60C) annotation (Line(
-      points={{-19,-98},{40,-98},{40,-80.6}},
+      points={{-19,-98},{32.5,-98},{32.5,-81.44}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics),

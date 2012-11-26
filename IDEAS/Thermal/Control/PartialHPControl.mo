@@ -38,7 +38,7 @@ partial model PartialHPControl "Basis of the heat Pump control algorithm"
     "Setpoint temperature for the DHW outlet";
   parameter Modelica.SIunits.Temperature TColdWaterNom=273.15 + 10
     "Nominal cold water temperature";
-  parameter Modelica.SIunits.Time timeFilter=86400
+  parameter Modelica.SIunits.Time timeFilter=43200
     "Time constant for filter on ambient temperature";
 
   HeatingCurve heatingCurve(
@@ -54,11 +54,14 @@ partial model PartialHPControl "Basis of the heat Pump control algorithm"
     annotation (Placement(transformation(extent={{24,50},{44,70}})));
   Modelica.Blocks.Interfaces.RealOutput THPSet(start = 283.15)
     "Heat pump set temperature"
-    annotation (Placement(transformation(extent={{96,50},{116,70}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}}),
+        iconTransformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealOutput onOff(start=0) "onoff signal as Real"
-    annotation (Placement(transformation(extent={{96,10},{116,30}})));
+    annotation (Placement(transformation(extent={{90,-50},{110,-30}}),
+        iconTransformation(extent={{90,-50},{110,-30}})));
   Modelica.Blocks.Interfaces.RealOutput THeaCur "Heating curve setpoint"
-    annotation (Placement(transformation(extent={{96,-30},{116,-10}})));
+    annotation (Placement(transformation(extent={{92,-90},{112,-70}}),
+        iconTransformation(extent={{92,-90},{112,-70}})));
 initial equation
   //der(onOff) = 0;
 
@@ -70,59 +73,29 @@ equation
   SOC=0.5*(TTankBot-TBotEmpty)/(TBotSet+dTSafetyBot-TBotEmpty)+0.5*(TTankTop-(TTopSet+dTSafetyTop))/(dTSupRetNom-dTSafetyTop);
 
   annotation(Icon(graphics={
-        Rectangle(
-          extent={{-74,58},{74,-56}},
-          lineColor={95,95,95},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{48,38},{54,-38}},
-          lineColor={70,70,70},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{22,38},{28,-38}},
-          lineColor={70,70,70},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-4,38},{2,-38}},
-          lineColor={70,70,70},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-30,38},{-24,-38}},
-          lineColor={70,70,70},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-54,36},{-46,28}},
-          lineColor={255,255,255},
-          fillColor={128,255,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-34,-4},{-22,-4},{-16,-10},{-22,-16},{-34,-16},{-34,-4}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-8,12},{4,12},{10,6},{4,0},{-8,0},{-8,12}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{18,0},{30,0},{36,-6},{30,-12},{18,-12},{18,0}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{46,16},{58,16},{64,10},{58,4},{46,4},{46,16}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid)}),
+        Line(
+          points={{-100,80},{-100,-80}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-100,0},{-40,0},{60,60}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{0,24},{0,48},{10,48},{10,70},{0,70},{0,88}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{40,0},{40,-40},{100,-40}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{60,0},{100,0}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{20,0},{20,-80},{100,-80}},
+          color={0,0,127},
+          smooth=Smooth.None)}),
       Diagram(graphics));
 end PartialHPControl;

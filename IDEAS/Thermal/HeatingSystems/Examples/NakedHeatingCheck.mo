@@ -6,7 +6,7 @@ model NakedHeatingCheck
     nZones=nZones,
     QNom={5000},
     VZones={100},
-    heaterType=IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType.Boiler)
+    heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.Boiler)
     annotation (Placement(transformation(extent={{-6,10},{18,30}})));
   inner IDEAS.SimInfoManager         sim(
       redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare

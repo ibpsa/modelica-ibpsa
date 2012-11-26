@@ -91,7 +91,7 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(mDHW60C.y, heating.mDHW60C) annotation (Line(
-      points={{-63,-84},{-44,-84},{-44,-96},{30,-96},{30,-89.6}},
+      points={{-63,-84},{-44,-84},{-44,-96},{27,-96},{27,-89.6}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics),
