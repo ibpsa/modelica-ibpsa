@@ -4,8 +4,8 @@ partial model Ambient "Partial model of ambient"
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
     "Ambient medium"
     annotation(__Dymola_choicesAllMatching=true);
-  output Modelica.SIunits.Temperature T "Outlet temperature of medium";
-  output Modelica.SIunits.Temperature T_port=flowPort.h/medium.cp
+  Modelica.SIunits.Temperature T "Outlet temperature of medium";
+  Modelica.SIunits.Temperature T_port=flowPort.h/medium.cp
     "Temperature at flowPort_a";
 protected
   Modelica.SIunits.SpecificEnthalpy h = medium.cp*T;
