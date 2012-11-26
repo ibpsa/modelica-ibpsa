@@ -11,6 +11,10 @@ extends Modelica.Icons.MaterialProperty;
     "Absorbed solar radiation for each layer as function of angle of incidence";
   parameter Real[:,2] SwTrans
     "Transmitted solar radiation as function of angle of incidence";
+  parameter Real[nLay] SwAbsDif
+    "Absorbed solar radiation for each layer as function of angle of incidence";
+  parameter Real SwTransDif
+    "Transmitted solar radiation as function of angle of incidence";
 
   parameter Real U_value "U-value";
   parameter Real g_value "g-value";

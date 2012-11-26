@@ -6,6 +6,10 @@ model SwWindowResponse "shortwave window respones"
     "absorbed solar radiation for each layer for look-up table as function of angle of incidence";
   parameter Real[:,2] SwTrans
     "transmitted solar radiation for look-up table as function of angle of incidence";
+  parameter Real[nLay] SwAbsDif
+    "absorbed solar radiation for each layer for look-up table as function of angle of incidence";
+  parameter Real SwTransDif
+    "transmitted solar radiation for look-up table as function of angle of incidence";
 
   Modelica.Blocks.Interfaces.RealInput solDir
     "direct solar illuminance on surface se"
@@ -41,22 +45,6 @@ model SwWindowResponse "shortwave window respones"
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={-3,-11})));
-  Modelica.Blocks.Tables.CombiTable1Ds SwAbsDif(table=SwAbs, smoothness=
-        Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "lookup table for diffuse absorptance"                                                      annotation (Placement(
-        transformation(
-        extent={{-9,-9},{9,9}},
-        rotation=90,
-        origin={23,-11})));
-  Modelica.Blocks.Tables.CombiTable1Ds SwTransDif(table=SwTrans, smoothness=
-        Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "lookup table for diffuse transmittance"                                                      annotation (Placement(
-        transformation(
-        extent={{-9,-9},{9,9}},
-        rotation=90,
-        origin={49,-11})));
-  Modelica.Blocks.Sources.Constant angDif(k=60)
-    annotation (Placement(transformation(extent={{-90,-38},{-72,-20}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nLay] Abs_flow
     "solar absorptance in the panes source"
     annotation (Placement(transformation(extent={{-8,-8},{8,8}},
@@ -96,21 +84,17 @@ model SwWindowResponse "shortwave window respones"
     annotation (Placement(transformation(extent={{8,-8},{-8,8}},
         rotation=-90,
         origin={-32,48})));
+
 equation
+  SwAbsDifProd.u2=SwAbsDif;
+  SwTransDifProd.u2=SwTransDif;
+
   connect(angDir.angIncDeg, SwAbsDir.u) annotation (Line(
       points={{-40,-43},{-29,-43},{-29,-21.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angDir.angIncDeg, SwTransDir.u) annotation (Line(
       points={{-40,-43},{-3,-43},{-3,-21.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angDif.y, SwAbsDif.u) annotation (Line(
-      points={{-71.1,-29},{23,-29},{23,-21.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angDif.y, SwTransDif.u) annotation (Line(
-      points={{-71.1,-29},{49,-29},{49,-21.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angInc, angDir.angInc) annotation (Line(
@@ -141,16 +125,8 @@ equation
       points={{-29,-1.1},{-29,13.45},{-28.8,13.45},{-28.8,10.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(SwAbsDif.y, SwAbsDifProd.u2) annotation (Line(
-      points={{23,-1.1},{23,4.45},{23.2,4.45},{23.2,8.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(SwTransDir.y[1], SwTransDirProd.u2) annotation (Line(
       points={{-3,-1.1},{-3,13.45},{-2.8,13.45},{-2.8,10.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(SwTransDif.y[1], SwTransDifProd.u2) annotation (Line(
-      points={{49,-1.1},{49,3.45},{49.2,3.45},{49.2,8.6}},
       color={0,0,127},
       smooth=Smooth.None));
 

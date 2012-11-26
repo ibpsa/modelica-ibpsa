@@ -63,7 +63,9 @@ protected
   IDEAS.Buildings.Components.BaseClasses.SwWindowResponse solWin(
     nLay=glazing.nLay,
     SwAbs=glazing.SwAbs,
-    SwTrans=glazing.SwTrans)
+    SwTrans=glazing.SwTrans,
+    SwTransDif=glazing.SwTransDif,
+    SwAbsDif=glazing.SwAbsDif)
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection iConFra(A=A*frac, inc=
