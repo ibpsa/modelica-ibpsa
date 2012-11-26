@@ -7,7 +7,9 @@ equation
   m_flowInit = mDHW60C;
 
 algorithm
-  m_flowTotal := onoff * max(mDHW60C, m_minimum) * (273.15+60-TCold) / (TDHWSet - TCold);
+  m_flowTotal := mDHW60C * (273.15+60-TCold) / (TDHWSet - TCold);
+  m_flowCold := m_flowTotal* (THot - TSetVar)/(THot-TCold);
+  m_flowHot := m_flowTotal - m_flowCold;
 
 equation
   connect(ambientCold.flowPort, pumpCold.flowPort_a)
@@ -17,7 +19,7 @@ equation
       smooth=Smooth.None));
   connect(flowPortHot, pumpHot.flowPort_a)
                                           annotation (Line(
-      points={{0,100},{0,64},{1.83697e-015,64}},
+      points={{-100,0},{-100,64},{1.83697e-015,64}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pumpHot.flowPort_b, ambientMixed.flowPort)
@@ -31,7 +33,7 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(ambientCold1.flowPort, flowPortCold) annotation (Line(
-      points={{70,-54},{0,-54},{0,-100}},
+      points={{70,-54},{140,-54},{140,0}},
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics));

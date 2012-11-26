@@ -9,14 +9,15 @@ partial model partial_DHW "partial DHW model"
   Modelica.SIunits.Temperature TMixed(start=TDHWSet)=pumpHot.flowPort_b.h
     /medium.cp "Temperature of the hot source";
 
-  Modelica.SIunits.MassFlowRate m_flowInit
+  Modelica.SIunits.MassFlowRate m_flowInit(start=0)
     "Initial mass flowrate of total DHW consumption";
-  Modelica.SIunits.MassFlowRate m_flowTotal
+  Modelica.SIunits.MassFlowRate m_flowTotal(start=0)
     "mass flowrate of total DHW consumption at TDHWSet, takes into account cut-off at very low flowrates";
-  Modelica.SIunits.MassFlowRate m_flowCold
+  Modelica.SIunits.MassFlowRate m_flowCold(start=0)
     "mass flowrate of cold water to the mixing point";
-  Modelica.SIunits.MassFlowRate m_flowHot
+  Modelica.SIunits.MassFlowRate m_flowHot(start=0)
     "mass flowrate of hot water to the mixing point";
+  Modelica.SIunits.Power QHeatTotal = m_flowTotal * medium.cp * ( TMixed - TCold);
 
   // we need to specify the flowrate in the pump and mixingValve as relative values between 0 and 1
   // so we compute a maximum flowrate and use this as nominal flowrate for these components
@@ -28,8 +29,6 @@ protected
   Real m_flowHotInput = m_flowHot/m_flowNom;
   Real m_flowColdInput = m_flowCold/m_flowNom;
   Real TSetVar;
-  Real m_minimum(start=0);
-  Real onoff;
 
   /*
   Slows down the simulation too much.  Should be in post processing
@@ -52,9 +51,11 @@ public
     constantAmbientTemperature=283.15)
     annotation (Placement(transformation(extent={{66,28},{86,48}})));
   Thermal.Components.Interfaces.FlowPort_a flowPortHot(medium=medium)
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
+        iconTransformation(extent={{-110,-10},{-90,10}})));
   Thermal.Components.Interfaces.FlowPort_a flowPortCold(medium=medium)
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+    annotation (Placement(transformation(extent={{130,-10},{150,10}}),
+        iconTransformation(extent={{130,-10},{150,10}})));
 
   Thermal.Components.BaseClasses.Ambient ambientCold1(
     medium=medium,
@@ -79,7 +80,11 @@ public
 
   Modelica.Blocks.Interfaces.RealInput mDHW60C
     "Mass flowrate of DHW at 60 degC in kg/s"
-    annotation (Placement(transformation(extent={{-126,-20},{-86,20}})));
+    annotation (Placement(transformation(extent={{-24,6},{16,46}}),
+        iconTransformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
+        origin={20,100})));
 equation
   pumpCold.m_flowSet = m_flowColdInput;
   pumpHot.m_flowSet = m_flowHotInput;
@@ -95,19 +100,9 @@ equation
   */
 algorithm
 
-  if m_flowInit > 0 then
-    m_minimum :=1e-3;
-    onoff :=1;
-  else
-    m_minimum :=0;
-    onoff :=0;
-  end if;
-
   THot := pumpHot.T;
   // put in the extended models: m_flowTotal := ...
   TSetVar := min(THot,TDHWSet);
-  m_flowCold := if noEvent(onoff > 0.5) then m_flowTotal* (THot - TSetVar)/(THot*onoff-TCold) else 0;
-  m_flowHot := if noEvent(onoff > 0.5) then m_flowTotal - m_flowCold else 0;
 
 equation
   connect(ambientCold.flowPort, pumpCold.flowPort_a)
@@ -117,7 +112,7 @@ equation
       smooth=Smooth.None));
   connect(flowPortHot, pumpHot.flowPort_a)
                                           annotation (Line(
-      points={{0,100},{0,64},{1.83697e-015,64}},
+      points={{-100,0},{-100,64},{1.83697e-015,64}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pumpHot.flowPort_b, ambientMixed.flowPort)
@@ -131,39 +126,50 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(ambientCold1.flowPort, flowPortCold) annotation (Line(
-      points={{70,-54},{0,-54},{0,-100}},
+      points={{70,-54},{140,-54},{140,0}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
-        Polygon(
-          points={{62,6},{58,-16},{44,-34},{38,-44},{42,-60},{54,-70},{66,-70},
-              {78,-66},{84,-54},{84,-40},{76,-26},{68,-18},{62,6}},
-          lineColor={0,128,255},
-          smooth=Smooth.None,
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{36,20},{76,10}},
-          lineColor={0,128,255},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-2,68},{20,46}},
-          lineColor={0,128,255},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-26,68},{-4,46}},
-          lineColor={0,128,255},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-14,42},{70,20}},
-          lineColor={0,128,255},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
+  annotation (Diagram(coordinateSystem(extent={{-100,-40},{140,100}}),
+                      graphics), Icon(coordinateSystem(extent={{-100,-40},{140,100}},
+          preserveAspectRatio=true),  graphics={
         Line(
-          points={{-4,26},{-4,0},{-100,0}},
+          points={{-20,30},{20,-30},{-20,-30},{20,30},{-20,30}},
+          color={100,100,100},
+          smooth=Smooth.None,
+          origin={-30,0},
+          rotation=-90),
+        Line(
+          points={{-70,0},{-70,0},{-100,0}},
           color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{20,40},{20,0},{20,0}},
+          color={100,100,100},
+          smooth=Smooth.None),
+        Line(
+          points={{0,40},{40,40},{34,80},{4,80},{0,40}},
+          color={100,100,100},
+          smooth=Smooth.None),
+        Line(
+          points={{-70,20},{-70,-20}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{140,0},{140,0},{110,0}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{110,18},{110,-22}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-20,30},{20,-30},{-20,-30},{20,30},{-20,30}},
+          color={100,100,100},
+          smooth=Smooth.None,
+          origin={70,0},
+          rotation=-90),
+        Line(
+          points={{0,0},{40,0},{40,-2}},
+          color={100,100,100},
           smooth=Smooth.None)}));
 end partial_DHW;
