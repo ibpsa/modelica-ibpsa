@@ -3,38 +3,8 @@ package Examples
 
   extends Modelica.Icons.ExamplesPackage;
 
-  model Occupant_FromFiles
-    "Occupant model based on external files for a single zone building"
-    extends Interfaces.Occupant(nZones=1, nLoads=1);
-    parameter Integer profileID = 1
-      "Profile ID: the column number in the external files";
-    parameter SI.Temperature TSetOcc = 294.15
-      "(operative) Room set temperature during occupancy";
-    parameter SI.Temperature TSetNoOcc = 288.15
-      "(operative) Room set temperature during abscence";
-    //Not used in this model, but for compatibility with other occupancy models the floor surface is added
-    parameter Modelica.SIunits.Area[nZones] AFloor
-      "Floor area of different zones";
-
-    outer IDEAS.SimInfoManager sim
-      annotation (Placement(transformation(extent={{-98,80},{-80,98}})));
-  equation
-
-    heatPortCon[1].Q_flow = -1 * sim.tabQCon.y[profileID];
-    heatPortRad[1].Q_flow = -1 * sim.tabQRad.y[profileID];
-    TSet[1] = noEvent(if sim.tabPre.y[profileID] >0.5 then TSetOcc else TSetNoOcc);
-    wattsLawPlug[1].P = sim.tabP.y[profileID];
-    wattsLawPlug[1].Q = sim.tabQ.y[profileID];
-    mDHW60C = sim.tabDHW.y[profileID];
-
-  end Occupant_FromFiles;
-
   model Example_Occupant "Tester for occupant models"
 
-    Occupant_FromFiles occupant_FromFiles(AFloor={100}, profileID=2)
-      annotation (Placement(transformation(extent={{-28,-4},{-8,16}})));
-    inner Components.UserProfiles userProfiles
-      annotation (Placement(transformation(extent={{-98,76},{-78,96}})));
     Interfaces.DummyInHomeGrid dummyInHomeGrid
       annotation (Placement(transformation(extent={{14,-4},{34,16}})));
     Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource voltageSource(
@@ -51,25 +21,18 @@ package Examples
     Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.PowerSensor
       powerSensor
       annotation (Placement(transformation(extent={{46,-4},{66,16}})));
+    inner SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Files.min60 detail,
+        redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
+      redeclare IDEAS.Occupants.Extern.Interfaces.Stoch33   occupants,
+      occBeh=true)
+      annotation (Placement(transformation(extent={{-94,78},{-74,98}})));
+    IDEAS.Occupants.Extern.SingleZone
+                         externalFiles(occ=29)
+      annotation (Placement(transformation(extent={{-34,-2},{-14,18}})));
   equation
-    connect(occupant_FromFiles.plugLoad[1], dummyInHomeGrid.nodeSingle)
-      annotation (Line(
-        points={{-8,6},{14,6}},
-        color={85,170,255},
-        smooth=Smooth.None));
     connect(voltageSource.pin_p,ground. pin) annotation (Line(
         points={{80,-30},{80,-50}},
         color={85,170,255},
-        smooth=Smooth.None));
-    connect(occupant_FromFiles.heatPortCon[1], heatCapacitor.port) annotation (
-        Line(
-        points={{-28,8},{-70,14}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    connect(occupant_FromFiles.heatPortRad[1], heatCapacitor.port) annotation (
-        Line(
-        points={{-28,4},{-70,14}},
-        color={191,0,0},
         smooth=Smooth.None));
     connect(dummyInHomeGrid.pinSingle, powerSensor.currentP) annotation (Line(
         points={{34,6},{46,6}},
@@ -87,32 +50,20 @@ package Examples
         points={{56,-4},{56,-30},{80,-30}},
         color={85,170,255},
         smooth=Smooth.None));
+    connect(heatCapacitor.port, externalFiles.heatPortCon[1]) annotation (Line(
+        points={{-70,14},{-52,14},{-52,10},{-34,10}},
+        color={191,0,0},
+        smooth=Smooth.None));
+    connect(heatCapacitor.port, externalFiles.heatPortRad[1]) annotation (Line(
+        points={{-70,14},{-52,14},{-52,6},{-34,6}},
+        color={191,0,0},
+        smooth=Smooth.None));
+    connect(externalFiles.plugLoad[1], dummyInHomeGrid.nodeSingle) annotation (
+        Line(
+        points={{-14,8},{0,8},{0,6},{14,6}},
+        color={85,170,255},
+        smooth=Smooth.None));
     annotation (Diagram(graphics));
   end Example_Occupant;
 
-  model Occupant_FromFiles_Timetable "Occupant model based on external files"
-    extends Interfaces.Occupant(nZones=1, nLoads=1);
-    parameter Integer profileID = 1
-      "Profile ID: the column number in the external files";
-    parameter SI.Temperature TSetOcc = 294.15
-      "(operative) Room set temperature during occupancy";
-    parameter SI.Temperature TSetNoOcc = 288.15
-      "(operative) Room set temperature during abscence";
-    //Not used in this model, but for compatibility with other occupancy models the floor surface is added
-    parameter Modelica.SIunits.Area[nZones] AFloor
-      "Floor area of different zones";
-
-    outer ThermalDSM.UserProfiles_timetableDHW
-                                  userProfiles
-      annotation (Placement(transformation(extent={{-58,-38},{22,42}})));
-  equation
-
-    heatPortCon[1].Q_flow = -userProfiles.tabQCon.y[profileID];
-    heatPortRad[1].Q_flow = -userProfiles.tabQRad.y[profileID];
-    TSet[1] = TSetNoOcc + (TSetOcc-TSetNoOcc) * userProfiles.tabPre.y[profileID];
-    wattsLawPlug[1].P = userProfiles.tabP.y[profileID];
-    wattsLawPlug[1].Q = userProfiles.tabQ.y[profileID];
-    mDHW60C = userProfiles.tabDHW.y[profileID];
-
-  end Occupant_FromFiles_Timetable;
 end Examples;
