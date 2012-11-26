@@ -5,7 +5,7 @@ parameter Real PNom "Nominal power, in Wp";
 parameter Integer prod=1;
 
 parameter Modelica.SIunits.Time timeOff=300;
-parameter Modelica.SIunits.Voltage VMax=248
+parameter Modelica.SIunits.Voltage VMax=253
     "Max grid voltage for operation of the PV system";
 
 parameter Integer numPha=1;
@@ -36,12 +36,12 @@ inverter.P_dc=PV1.P_ratio*PNom;
       smooth=Smooth.None));
   connect(pvVoltageCtrl.PFinal, wattsLaw.P)
                                            annotation (Line(
-      points={{46,36},{53,36},{53,34},{60,34}},
+      points={{46,36},{53,36},{53,36},{60.2,36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pvVoltageCtrl.QFinal, wattsLaw.Q)
                                            annotation (Line(
-      points={{46,32},{54,32},{54,28},{60,28}},
+      points={{46,32},{54,32},{54,32},{60.2,32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pin, pvVoltageCtrl.pin) annotation (Line(
@@ -49,12 +49,12 @@ inverter.P_dc=PV1.P_ratio*PNom;
       color={0,0,255},
       smooth=Smooth.None));
   connect(inverter.P, pvVoltageCtrl.PInit) annotation (Line(
-      points={{-19.4,34},{4,34},{4,36},{26,36}},
+      points={{-19.4,36},{4,36},{4,36},{26,36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(inverter.Q, pvVoltageCtrl.QInit)
    annotation (Line(
-      points={{-19.4,26},{4,26},{4,32},{26,32}},
+      points={{-19.6,32},{4,32},{4,32},{26,32}},
       color={0,0,127},
       smooth=Smooth.None));
  PInit=pvVoltageCtrl.PInit;
@@ -65,8 +65,14 @@ inverter.P_dc=PV1.P_ratio*PNom;
               {-80,-60},{-80,60}},
           lineColor={0,0,0},
           smooth=Smooth.None,
-          fillColor={85,170,255},
+          fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-100,100},{100,-100}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="#"),
         Line(
           points={{-40,80},{-40,-80}},
           color={0,0,0},
@@ -74,12 +80,6 @@ inverter.P_dc=PV1.P_ratio*PNom;
         Line(
           points={{40,80},{40,-80}},
           color={0,0,0},
-          smooth=Smooth.None),
-        Text(
-          extent={{-100,100},{100,-100}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="#")}),                                                                  Diagram(
+          smooth=Smooth.None)}),                                                              Diagram(
         graphics));
 end PvSystemGeneralFromFile;

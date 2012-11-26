@@ -1,7 +1,7 @@
 within IDEAS.Electric.Photovoltaic;
 model PVSystemGeneral "PV system with separate shut-down controller"
 
-parameter Real amount=30;
+parameter Real amount = 1;
 parameter Real inc = 34/180*Modelica.Constants.pi "inclination";
 parameter Real azi = 0 "azimuth";
 
@@ -14,6 +14,7 @@ parameter Modelica.SIunits.Voltage VMax=253
 parameter Integer numPha=1;
 output Real PInit;
 output Real PFinal;
+
 replaceable parameter IDEAS.Electric.Data.Interfaces.PvPanel pvPanel= IDEAS.Electric.Data.PvPanels.SanyoHIP230HDE1()
     "Choose a Photovoltaic panel to be used"
                                         annotation(choicesAllMatching = true);
@@ -83,12 +84,12 @@ equation
       smooth=Smooth.None));
   connect(pvVoltageCtrl.PFinal, wattsLaw.P)
                                            annotation (Line(
-      points={{46,36},{53,36},{53,34},{60,34}},
+      points={{46,36},{53,36},{53,36},{60.2,36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pvVoltageCtrl.QFinal, wattsLaw.Q)
                                            annotation (Line(
-      points={{46,32},{54,32},{54,28},{60,28}},
+      points={{46,32},{54,32},{54,32},{60.2,32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pin, pvVoltageCtrl.pin) annotation (Line(

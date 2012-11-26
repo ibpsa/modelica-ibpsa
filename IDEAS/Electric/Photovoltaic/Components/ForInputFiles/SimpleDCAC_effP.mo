@@ -1,7 +1,7 @@
 within IDEAS.Electric.Photovoltaic.Components.ForInputFiles;
 class SimpleDCAC_effP
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
+//extends Modelica.Blocks.Interfaces.BlockIcon;
 
 //  Real eff;
 //SI.ActivePower P;
@@ -14,11 +14,12 @@ Modelica.SIunits.ApparentPower S;
   parameter Real eff=0.95;       //For now
 
   Modelica.Blocks.Interfaces.RealInput P_dc
-    annotation (Placement(transformation(extent={{-130,-20},{-90,20}})));
+    annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
+        iconTransformation(extent={{-108,-10},{-88,10}})));
   Modelica.Blocks.Interfaces.RealOutput P
-    annotation (Placement(transformation(extent={{96,30},{116,50}})));
+    annotation (Placement(transformation(extent={{96,50},{116,70}})));
   Modelica.Blocks.Interfaces.RealOutput Q
-    annotation (Placement(transformation(extent={{96,-50},{116,-30}})));
+    annotation (Placement(transformation(extent={{94,10},{114,30}})));
 equation
   S^2=P^2+Q^2;
   P=S*cosphi;
@@ -35,18 +36,31 @@ equation
 //   end if;
 
   annotation (Icon(graphics={Text(
-          extent={{-100,20},{-40,-20}},
-          lineColor={0,0,0},
+          extent={{-90,20},{-50,0}},
+          lineColor={0,0,127},
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid,
           textString="DC"), Text(
-          extent={{40,20},{100,-20}},
-          lineColor={0,0,0},
+          extent={{50,20},{90,0}},
+          lineColor={0,0,127},
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid,
           textString="AC"),
         Line(
-          points={{-36,0},{36,0},{0,12},{0,-12},{36,0}},
-          color={0,0,0},
+          points={{10,0},{-30,60},{-30,-60},{10,0}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-100,0},{-30,0}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Ellipse(extent={{10,10},{30,-10}}, lineColor={0,0,127}),
+        Line(
+          points={{30,0},{100,0}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{100,-80},{100,80}},
+          color={0,0,127},
           smooth=Smooth.None)}), Diagram(graphics));
 end SimpleDCAC_effP;
