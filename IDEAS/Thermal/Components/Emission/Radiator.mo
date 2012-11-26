@@ -1,8 +1,9 @@
 within IDEAS.Thermal.Components.Emission;
 model Radiator "Simple 1-node radiator model according to EN 442"
 
-  import IDEAS.Thermal.Components.Emission.Auxiliaries.EmissionType;
-  extends Thermal.Components.Emission.Auxiliaries.Partial_Emission(final
+  import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
+  extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Emission(
+                                                                   final
       emissionType=EmissionType.Radiators);
 
   /* The capacity of the radiator is based on a calculation for 1 
@@ -48,6 +49,7 @@ model Radiator "Simple 1-node radiator model according to EN 442"
   Modelica.SIunits.HeatFlowRate QTotal(start=0)
     "Total heat emission of the radiator";
   Modelica.SIunits.TemperatureDifference dTRadRoo;
+  Modelica.SIunits.Power QHeatTotal = -sum(heatPortCon.Q_flow) - sum(heatPortRad.Q_flow);
 
 protected
   parameter Modelica.SIunits.MassFlowRate mFlowNom=QNom/medium.cp/(TInNom -
@@ -92,65 +94,29 @@ Setting parameter m (mass of medium within pipe) to zero
 leads to neglection of temperature transient cv*m*der(T).<br>
 Mixing rule is applied.<br>
 Parameter 0 &lt; tapT &lt; 1 defines temperature of heatPort between medium's inlet and outlet temperature.
-</HTML>"), Icon(graphics={
+</HTML>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+            140,60}}),
+                graphics={
         Line(
-          points={{-60,38},{-60,-42}},
-          color={0,128,255},
+          points={{-70,-60},{-70,-80}},
+          color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{-40,38},{-40,-42}},
-          color={0,128,255},
+          points={{110,40},{110,20}},
+          color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{0,38},{0,-42}},
-          color={0,128,255},
+          points={{-70,-70},{-100,-70}},
+          color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{-20,38},{-20,-42}},
-          color={0,128,255},
+          points={{110,30},{140,30}},
+          color={0,0,127},
           smooth=Smooth.None),
-        Line(
-          points={{40,38},{40,-42}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{20,38},{20,-42}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{60,38},{60,-42}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-100,0},{-60,0}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{100,0},{60,0}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-60,-42},{-40,38}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-40,-42},{-20,38}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-20,-42},{0,38}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{0,-42},{20,38}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{20,-42},{40,38}},
-          color={0,128,255},
-          smooth=Smooth.None),
-        Line(
-          points={{40,-42},{60,38}},
-          color={0,128,255},
-          smooth=Smooth.None)}));
+        Rectangle(extent={{-64,-100},{-42,60}}, lineColor={135,135,135}),
+        Rectangle(extent={{-34,-100},{-12,60}}, lineColor={135,135,135}),
+        Rectangle(extent={{-4,-100},{18,60}}, lineColor={135,135,135}),
+        Rectangle(extent={{26,-100},{48,60}}, lineColor={135,135,135}),
+        Rectangle(extent={{54,-100},{76,60}}, lineColor={135,135,135}),
+        Rectangle(extent={{82,-100},{104,60}}, lineColor={135,135,135})}));
 end Radiator;

@@ -11,7 +11,7 @@ model EmbeddedPipe_prEN15377
   
   */
 
-  extends Thermal.Components.Emission.Auxiliaries.Partial_EmbeddedPipe;
+  extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_EmbeddedPipe;
 
   // General model parameters ////////////////////////////////////////////////////////////////
   final parameter Modelica.SIunits.Length L_r=FHChars.A_Floor/FHChars.T
@@ -33,8 +33,8 @@ model EmbeddedPipe_prEN15377
     "Temperature of medium outflow through flowPort_b";
   final parameter Real rey = m_flowMin * (FHChars.d_a - 2*FHChars.s_r) / (medium.nue * Modelica.Constants.pi / 4 * (FHChars.d_a - 2*FHChars.s_r)^2)
     "Fix Reynolds number for assert of turbulent flow";
-  Real m_flowSp = flowPort_a.m_flow/FHChars.A_Floor "in kg/s.m²";
-  Real m_flowMinSp = m_flowMin / FHChars.A_Floor "in kg/s.m²";
+  Real m_flowSp = flowPort_a.m_flow/FHChars.A_Floor "in kg/s.m2";
+  Real m_flowMinSp = m_flowMin / FHChars.A_Floor "in kg/s.m2";
   Modelica.SIunits.Velocity flowSpeed=flowPort_a.m_flow/medium.rho/(Modelica.Constants.pi
       /4*(FHChars.d_a - 2*FHChars.s_r)^2);
 

@@ -12,15 +12,18 @@ partial model Partial_Emission
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon if
       (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
     "convective heat transfer from radiators"
-    annotation (Placement(transformation(extent={{10,90},{30,110}})));
+    annotation (Placement(transformation(extent={{40,50},{60,70}}),
+        iconTransformation(extent={{40,50},{60,70}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRad if
       (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
     "radiation heat transfer from radiators"
-    annotation (Placement(transformation(extent={{50,90},{70,110}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortEmb if
+    annotation (Placement(transformation(extent={{80,50},{100,70}}),
+        iconTransformation(extent={{80,50},{100,70}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heatPortEmb if
       (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
     "Port to the core of a floor heating/concrete activation"
-    annotation (Placement(transformation(extent={{-96,90},{-76,110}})));
+    annotation (Placement(transformation(extent={{-60,48},{-40,68}}),
+        iconTransformation(extent={{-60,48},{-40,68}})));
 // General parameters for the design (nominal) conditions /////////////////////////////////////////////
 
 // Other parameters//////////////////////////////////////////////////////////////////////////////////////
@@ -41,21 +44,18 @@ partial model Partial_Emission
 
   Thermal.Components.Interfaces.FlowPort_a flowPort_a(h(start=TInitial*medium.cp,
         fixed=false), medium=medium)
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+    annotation (Placement(transformation(extent={{-110,-80},{-90,-60}}),
+        iconTransformation(extent={{-110,-80},{-90,-60}})));
   Thermal.Components.Interfaces.FlowPort_b flowPort_b(h(start=TInitial*medium.cp,
         fixed=false), medium=medium)
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+    annotation (Placement(transformation(extent={{130,20},{150,40}}),
+        iconTransformation(extent={{130,20},{150,40}})));
 initial equation
   //der(flowPort_a.h) = 0;
-  annotation(Icon(graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={127,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.HorizontalCylinder), Rectangle(
-          extent={{100,-100},{-102,0}},
-          fillPattern=FillPattern.Solid,
-          fillColor={255,255,255},
-          pattern=LinePattern.None)}),
-      Diagram(graphics));
+  annotation(Icon(coordinateSystem(extent={{-100,-100},{140,60}},
+          preserveAspectRatio=true),
+                  graphics),
+      Diagram(coordinateSystem(extent={{-100,-100},{140,60}},
+          preserveAspectRatio=true),
+              graphics));
 end Partial_Emission;
