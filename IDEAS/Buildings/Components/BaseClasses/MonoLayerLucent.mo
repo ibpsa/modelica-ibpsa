@@ -24,16 +24,25 @@ protected
     "thermal expansion coefficient of the mterial, if a gas";
   Real Gr = if mat.gas then 9.81*beta*(mat.rho^2)*(mat.d^3)/(mat.mhu^2)*abs(port_a.T-port_b.T) else 0
     "Grrashof number";
-  Real Nu = if mat.gas then IDEAS.BaseClasses.Math.MaxSmooth(1,0.0384*abs(Gr)^(0.37),0.01) else 1
+  Real Nu = 1 "Nusselt number";
+
+/*
+  The effective Nusselt nuber is to be calculated as :
+
+  Real Nu = if mat.gas then IDEAS.BaseClasses.Math.MaxSmooth(1,0.0384*abs(Gr)^(0.37),0.01) else 1 
     "Nusselt number";
+
+  But no influence is found on the results of the simulation, whereas removing this equation and 
+  setting Nu equal to 1 speeds up the simuation significantly (eg. by 30 per cent)
+*/
 
 algorithm
 h := mat.k/mat.d*Nu;
 
 equation
 
-port_a.Q_flow + port_b.Q_flow + port_gain.Q_flow = 0 "no heat is stored";
 port_gain.T = 293.15;
+port_a.Q_flow + port_b.Q_flow + port_gain.Q_flow = 0 "no heat is stored";
 
 if mat.gas then
   port_a.Q_flow = A*h*(port_a.T-port_b.T) + A*Modelica.Constants.sigma*(epsLw_a*epsLw_b)/(1-(1-epsLw_a)*(1-epsLw_b))*(port_a.T^4-port_b.T^4);
