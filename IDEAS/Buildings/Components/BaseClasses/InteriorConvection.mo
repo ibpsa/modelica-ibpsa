@@ -17,6 +17,9 @@ protected
     "true if floor";
 
 equation
+port_a.Q_flow = A*8*dT;
+
+/*
 if Ceiling then
   port_a.Q_flow = if noEvent(dT>0) then A*2.72*abs(dT)^1.13 else -A*2.27*abs(dT)^1.24;
 elseif Floor then
@@ -24,6 +27,7 @@ elseif Floor then
 else
   port_a.Q_flow = A * sign(dT)*2.07*abs(dT)^1.23;
 end if;
+*/
 
 port_a.Q_flow + port_b.Q_flow = 0 "no heat is stored";
 dT = port_a.T-port_b.T;
