@@ -20,7 +20,7 @@ public
     m_flowCondensor=heatedFluid.flowPort_a.m_flow,
     TEnvironment=heatPort.T,
     UALoss=UALoss)
-    annotation (Placement(transformation(extent={{-46,-46},{-26,-26}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
 
@@ -31,7 +31,7 @@ equation
 
   connect(heatSource.heatPort, heatedFluid.heatPort)
                                                  annotation (Line(
-      points={{-26,-36},{-20,-36},{-20,6.12323e-016}},
+      points={{-40,0},{-20,0},{-20,6.12323e-016}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Icon(graphics={

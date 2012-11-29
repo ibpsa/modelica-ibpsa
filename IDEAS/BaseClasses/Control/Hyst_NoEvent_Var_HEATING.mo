@@ -6,18 +6,18 @@ block Hyst_NoEvent_Var_HEATING
 //  extends Modelica.Blocks.Interfaces.partialBooleanBlockIcon;
 
   Modelica.Blocks.Interfaces.RealInput u
-    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
-        iconTransformation(extent={{-110,-70},{-90,-50}})));
+    annotation (Placement(transformation(extent={{-88,-30},{-68,-10}}),
+        iconTransformation(extent={{-88,-30},{-68,-10}})));
   Modelica.Blocks.Interfaces.RealOutput y
-    annotation (Placement(transformation(extent={{92,-50},{112,-30}}),
-        iconTransformation(extent={{92,-50},{112,-30}})));
+    annotation (Placement(transformation(extent={{92,-10},{112,10}}),
+        iconTransformation(extent={{92,-10},{112,10}})));
 
   Modelica.Blocks.Interfaces.RealInput uLow
-    annotation (Placement(transformation(extent={{-110,50},{-90,70}}),
-        iconTransformation(extent={{-110,50},{-90,70}})));
+    annotation (Placement(transformation(extent={{-88,50},{-68,70}}),
+        iconTransformation(extent={{-88,50},{-68,70}})));
   Modelica.Blocks.Interfaces.RealInput uHigh
-    annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
-        iconTransformation(extent={{-110,10},{-90,30}})));
+    annotation (Placement(transformation(extent={{-88,10},{-68,30}}),
+        iconTransformation(extent={{-88,10},{-68,30}})));
 
 initial equation
   y=0;
@@ -32,8 +32,8 @@ equation
   end if;
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),     graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-80,-80},{100,80}}),
+                        graphics={
         Polygon(
           points={{-65,89},{-73,67},{-57,67},{-65,89}},
           lineColor={192,192,192},
@@ -103,24 +103,21 @@ equation
           lineColor={0,0,0},
           textString="uLow"),
         Line(points={{-69,10},{-60,10}}, color={160,160,164})}),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-80,-80},{100,80}}),
+                    graphics={
+        Rectangle(
+          extent={{100,80},{-80,-80}},
+          lineColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          fillColor={255,255,255}),
         Line(
-          points={{-100,0},{-40,0},{60,60}},
-          color={0,0,127},
+          points={{20,80},{100,0},{20,-80}},
+          color={100,100,100},
           smooth=Smooth.None),
-        Line(
-          points={{40,0},{40,-40},{100,-40}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{0,24},{0,48},{10,48},{10,70},{0,70},{0,88}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-100,80},{-100,-80}},
-          color={0,0,127},
-          smooth=Smooth.None)}),
+        Text(
+          extent={{-60,40},{60,-40}},
+          lineColor={100,100,100},
+          textString="hea")}),
     Documentation(info="<HTML>
 <p>
 This block transforms a <b>Real</b> input signal into a <b>Boolean</b>

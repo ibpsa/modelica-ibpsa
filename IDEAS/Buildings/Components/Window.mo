@@ -10,6 +10,8 @@ extends IDEAS.Buildings.Components.Interfaces.StateWall;
     "Inclination of the window, i.e. 90° denotes vertical";
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0° denotes South";
+  final parameter Modelica.SIunits.Power QNom = glazing.U_value*A*(273.15+21-sim.city.Tdes)
+    "Design heat losses at reference outdoor temperature";
 
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
     "Glazing type" annotation (choicesAllMatching = true,Dialog(group="Construction details"));
@@ -19,19 +21,17 @@ extends IDEAS.Buildings.Components.Interfaces.StateWall;
                    annotation (choicesAllMatching = true,Dialog(group="Construction details"));
 
   Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controled
-    "Control signal between 0 and 1, i.e. 1 is fully closed"
-    annotation (Placement(transformation(extent={{20,-20},{-20,20}},
+    "Control signal between 0 and 1, i.e. 1 is fully closed" annotation (Placement(transformation(extent={{20,-20},{-20,20}},
         rotation=-90,
         origin={-30,-110}),
         iconTransformation(extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-30,-100})));
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDir
-    "direct solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{-10,
+    "direct solar gains transmitted by windows" annotation (Placement(transformation(extent={{-10,
             -110},{10,-90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif
-    "diffuse solar gains transmitted by windows"                                                              annotation (Placement(transformation(extent={{20,-110},
+    "diffuse solar gains transmitted by windows" annotation (Placement(transformation(extent={{20,-110},
             {40,-90}}), iconTransformation(extent={{20,-110},{40,-90}})));
 
 protected

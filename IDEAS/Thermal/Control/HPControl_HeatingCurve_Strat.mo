@@ -26,7 +26,7 @@ equation
   end if;
 
   connect(heatingCurve.TSup, THeaCur) annotation (Line(
-      points={{-33,60},{-8,60},{-8,-20},{106,-20}},
+      points={{1,56},{12,56},{12,-40},{104,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics));

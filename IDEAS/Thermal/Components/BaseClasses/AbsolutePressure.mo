@@ -28,5 +28,7 @@ Coolant's mass flow, temperature and enthalpy flow are not affected.<br>
           points={{-70,0},{-100,0}},
           color={0,0,127},
           smooth=Smooth.None),
-        Ellipse(extent={{-60,60},{60,-60}}, lineColor={100,100,100})}));
+        Ellipse(extent={{-60,60},{60,-60}}, lineColor={100,100,100},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
 end AbsolutePressure;

@@ -3,10 +3,10 @@ model OuterWall "Opaque building envelope construction"
 
 extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-replaceable Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationThickness)
+replaceable parameter Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationThickness)
     "Type of building construction" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,72},
             {-34,76}})),Dialog(group="Construction details"));
-replaceable Data.Interfaces.Insulation insulationType(d=insulationThickness)
+replaceable parameter Data.Interfaces.Insulation  insulationType(d=insulationThickness)
     "Type of thermal insulation" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,84},
             {-34,88}})),Dialog(group="Construction details"));
 parameter Modelica.SIunits.Length insulationThickness
@@ -16,6 +16,12 @@ parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90° denotes vertical";
 parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0° denotes South";
+
+  final parameter Real U_value = 1/(1/8+sum(constructionType.mats.R)+1/25)
+    "Wall U-value";
+  final parameter Modelica.SIunits.Power QNom = U_value*AWall*(273.15+21-sim.city.Tdes)
+    "Design heat losses at reference outdoor temperature";
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
   annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));

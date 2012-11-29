@@ -18,7 +18,7 @@ model Pump_Insulated "Pump with UA for thermal losses"
   parameter Real etaTot = 0.8 "Fixed total pump efficiency";
 
   SI.Temperature T = pump_HeatPort.T "Temperature of the fluid";
-  Modelica.Blocks.Interfaces.RealInput m_flowSet(start = 0, min = 0, max = 1) = m_flow/m_flowNom if useInput
+  Modelica.Blocks.Interfaces.RealInput m_flowSet(min = 0, max = 1) = m_flow/m_flowNom if useInput
     annotation (Placement(transformation(
         origin={0,100},
         extent={{-10,-10},{10,10}},

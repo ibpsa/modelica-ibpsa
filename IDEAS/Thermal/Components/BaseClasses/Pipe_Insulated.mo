@@ -55,14 +55,6 @@ equation
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{-60,20},{-60,-20}},
-          color={100,100,100},
-          smooth=Smooth.None),
-        Line(
-          points={{60,20},{60,-20}},
-          color={100,100,100},
-          smooth=Smooth.None),
-        Line(
           points={{68,20},{68,-20}},
           color={0,0,127},
           smooth=Smooth.None),
@@ -74,12 +66,9 @@ equation
           points={{68,0},{100,0}},
           color={0,0,127},
           smooth=Smooth.None),
-        Line(
-          points={{-60,20},{60,20}},
-          color={100,100,100},
-          smooth=Smooth.None),
-        Line(
-          points={{-60,-20},{60,-20}},
-          color={100,100,100},
-          smooth=Smooth.None)}));
+        Rectangle(
+          extent={{-60,20},{60,-20}},
+          lineColor={100,100,100},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
 end Pipe_Insulated;

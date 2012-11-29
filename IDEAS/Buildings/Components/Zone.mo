@@ -11,6 +11,9 @@ parameter SI.Temperature TOpStart = 297.15;
 
 parameter Boolean linear = true;
 
+final parameter Modelica.SIunits.Power QNom = 1012*1.204*V/3600*n50/20*(273.15+21-sim.city.Tdes)
+    "Design heat losses at reference outdoor temperature";
+
 protected
   IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(nSurf=nSurf)
     "distribution of radiative internal gains"

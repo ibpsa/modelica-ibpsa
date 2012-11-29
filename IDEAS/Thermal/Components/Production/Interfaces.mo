@@ -45,9 +45,13 @@ extends Modelica.Icons.InterfacesPackage;
       annotation (Placement(transformation(extent={{90,10},{110,30}})));
     Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mDry(C=cDry, T(start=TInitial))
       "Lumped dry mass subject to heat exchange/accumulation"
-      annotation (Placement(transformation(extent={{-76,32},{-56,52}})));
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+          rotation=90,
+          origin={-40,-30})));
     Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalLosses(G=UALoss)
-      annotation (Placement(transformation(extent={{-32,22},{-12,42}})));
+      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={-30,-70})));
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
       "heatPort for thermal losses to environment"
       annotation (Placement(transformation(extent={{-40,-110},{-20,-90}}),
@@ -78,17 +82,17 @@ extends Modelica.Icons.InterfacesPackage;
         smooth=Smooth.None));
     connect(mDry.port, heatedFluid.heatPort)
                                            annotation (Line(
-        points={{-66,32},{-66,6.12323e-016},{-20,6.12323e-016}},
+        points={{-30,-30},{-30,6.12323e-016},{-20,6.12323e-016}},
         color={191,0,0},
         smooth=Smooth.None));
     connect(mDry.port, thermalLosses.port_a)
                                       annotation (Line(
-        points={{-66,32},{-32,32}},
+        points={{-30,-30},{-30,-30},{-30,-60},{-30,-60}},
         color={191,0,0},
         smooth=Smooth.None));
     connect(thermalLosses.port_b, heatPort)
                                      annotation (Line(
-        points={{-12,32},{-30,32},{-30,-100}},
+        points={{-30,-80},{-30,-100}},
         color={191,0,0},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,120}}),

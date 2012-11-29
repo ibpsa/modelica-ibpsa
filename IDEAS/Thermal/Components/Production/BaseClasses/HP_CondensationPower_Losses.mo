@@ -52,7 +52,7 @@ public
   parameter Real betaFactor = 0.8
     "Relative sizing compared to design heat load";
   parameter Modelica.SIunits.Power QDesign=QNomRef "Design heat load";
-  parameter Real modulation_min(max=29)=25 "Minimal modulation percentage";
+  parameter Real modulation_min(max=29)=20 "Minimal modulation percentage";
     // dont' set this to 0 or very low values, you might get negative P at very low modulations because of wrong extrapolation
   parameter Real modulation_start(min=min(30,modulation_min+5)) = 35
     "Min estimated modulation level required for start of HP";

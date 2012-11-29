@@ -64,7 +64,6 @@ model StorageTank "Simplified stratified storage tank"
     "buoyancy model to mix nodes in case of inversed temperature stratification"
                                                                                 annotation(choicesAllMatching=true);
 
-
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes] lossNodes(
     G = UACon/nbrNodes * ones(nbrNodes) + UIns * IDEAS.Thermal.Components.Storage.BaseClasses.areaCalculation(volumeTank, heightTank, nbrNodes, preventNaturalDestratification))
@@ -75,7 +74,6 @@ public
     "Conduction heat transfer between the layers";
   Modelica.Blocks.Interfaces.RealOutput[nbrNodes] T = nodes.heatPort.T annotation (Placement(transformation(
           extent={{70,-10},{90,10}}), iconTransformation(extent={{70,-10},{90,10}})));
-    annotation (Placement(transformation(extent={{-20,-4},{0,16}})));
 equation
   // Connection of upper and lower node to external flowPorts
   connect(flowPort_a, nodes[1].flowPort_a);
@@ -102,7 +100,8 @@ equation
 
   // Connection of buoyancy model
   connect(buoyancy.heatPort, nodes.heatPort);
-  annotation (Icon(coordinateSystem(extent={{-100,-160},{80,100}},
+    annotation (Placement(transformation(extent={{-20,-4},{0,16}})),
+              Icon(coordinateSystem(extent={{-100,-160},{80,100}},
           preserveAspectRatio=true),
                    graphics={
         Polygon(
