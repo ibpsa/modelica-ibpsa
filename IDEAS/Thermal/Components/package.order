@@ -3,7 +3,7 @@ Emission
 Storage
 DHW
 Ventilation
-VerticalGroundHeatExchanger
+GroundHeatExchanger
 BaseClasses
 Examples
 Interfaces
