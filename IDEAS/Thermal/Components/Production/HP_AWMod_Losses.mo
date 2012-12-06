@@ -9,7 +9,6 @@ model HP_AWMod_Losses "Modulating AW HP with losses to environment"
   parameter Real betaFactor = 0.8
     "Relative sizing compared to design heat load";
 
-public
   IDEAS.Thermal.Components.Production.BaseClasses.HP_CondensationPower_Losses
                                                                         heatSource(
     medium=medium,

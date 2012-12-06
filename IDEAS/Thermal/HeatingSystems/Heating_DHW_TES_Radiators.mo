@@ -80,7 +80,6 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
         rotation=90,
         origin={9,13})));
 
-protected
   IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[
                                nZones] heatingControl
     "onoff controller for the pumps of the radiator circuits"
@@ -93,6 +92,7 @@ protected
     annotation (Placement(transformation(extent={{-8,-40},{4,-28}})));
 
   // Result variables
+
   Modelica.SIunits.Temperature TTankTop;
   Modelica.SIunits.Temperature TTankBot;
   Modelica.SIunits.Temperature TTankTopSet;
@@ -162,11 +162,11 @@ end for;
       color={0,128,255},
       smooth=Smooth.None));
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
-      points={{40.2,-74},{66,-74},{66,22}},
+      points={{40.2222,-70},{66,-70},{66,22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSet, heatingControl.uLow) annotation (Line(
-      points={{0,-104},{0,-64},{20,-64}},
+      points={{0,-104},{0,-62.5},{20.2222,-62.5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tesTank.flowPort_a, idealMixer.flowPortHot) annotation (Line(
@@ -214,16 +214,16 @@ end for;
       smooth=Smooth.None));
 
   connect(HPControl.THeaCur, idealMixer.TMixedSet) annotation (Line(
-      points={{-137.8,-16},{-128,-16},{-128,56},{39,56},{39,46}},
+      points={{-137.556,-13},{-128,-13},{-128,56},{39,56},{39,46}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HPControl.onOff, pumpHeater.m_flowSet) annotation (Line(
-      points={{-138,-12},{-122,-12},{-122,-54},{-60,-54},{-60,-42}},
+      points={{-137.778,-8},{-122,-8},{-122,-54},{-60,-54},{-60,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HPControl.THPSet, heater.TSet) annotation (Line(
-      points={{-138,-8},{-125.85,-8},{-125.85,28},{-113.7,28},{-113.7,34},{-101,
-          34}},
+      points={{-137.778,-3},{-125.85,-3},{-125.85,28},{-113.7,28},{-113.7,34},{
+          -101,34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mDHW60C, dHW.mDHW60C) annotation (Line(
@@ -231,7 +231,7 @@ end for;
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSensor, heatingControl.u) annotation (Line(
-      points={{-204,-60},{-122,-60},{-122,-76},{20,-76}},
+      points={{-204,-60},{-122,-60},{-122,-72.5},{20.2222,-72.5}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,

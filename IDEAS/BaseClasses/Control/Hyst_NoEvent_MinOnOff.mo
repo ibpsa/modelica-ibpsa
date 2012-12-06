@@ -14,12 +14,11 @@ block Hyst_NoEvent_MinOnOff
     annotation (Placement(transformation(extent={{-128,-20},{-88,20}})));
   Modelica.Blocks.Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
-
   IDEAS.BaseClasses.Control.Timer_NoEvents offTimer(duration=if minOffTime > 0
-         then minOffTime else 666, timerType=Commons.Time.Elements.TimerType.off)
+         then minOffTime else 666, timerType=IDEAS.Climate.Time.BaseClasses.TimerType.off)
     annotation (Placement(transformation(extent={{-44,28},{-24,48}})));
   IDEAS.BaseClasses.Control.Timer_NoEvents onTimer(duration=if minOnTime > 0
-         then minOnTime else 666, timerType=Commons.Time.Elements.TimerType.on)
+         then minOnTime else 666, timerType=IDEAS.Climate.Time.BaseClasses.TimerType.on)
     annotation (Placement(transformation(extent={{-46,-20},{-26,0}})));
 algorithm
   offTimer.u :=y;

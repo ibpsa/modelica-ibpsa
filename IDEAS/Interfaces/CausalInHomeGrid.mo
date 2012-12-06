@@ -12,6 +12,7 @@ model CausalInHomeGrid
   Modelica.Blocks.Interfaces.RealOutput VGrid annotation (Placement(transformation(extent={{96,30},{116,50}})));
   Electric.DistributionGrid.Components.BranchLenTyp branch(len=len) annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
+protected
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource voltageSource(
     f=50,
     V=230,
@@ -24,7 +25,7 @@ model CausalInHomeGrid
       m=1) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-80,-22})));
-
+public
   IDEAS.Electric.BaseClasses.PotentialSensor voltageSensor annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

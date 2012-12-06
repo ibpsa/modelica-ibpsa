@@ -68,7 +68,6 @@ public
   input Modelica.SIunits.Temperature TEnvironment
     "Temperature of environment for heat losses";
 
-protected
   Modelica.Blocks.Tables.CombiTable2D P100(
       smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table=[0,
         -15,-10,-7,-2,2,7,12,18,30; 30,1.96,2.026,2.041,2.068,2.075,2.28,2.289,
@@ -132,7 +131,6 @@ protected
         1.928,2.569,2.936,3.422,3.422])
     annotation (Placement(transformation(extent={{26,-44},{46,-24}})));
   Modelica.SIunits.HeatFlowRate QLossesToCompensate "Environment losses";
-public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));

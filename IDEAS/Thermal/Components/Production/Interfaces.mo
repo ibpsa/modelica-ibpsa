@@ -22,11 +22,9 @@ extends Modelica.Icons.InterfacesPackage;
     parameter Modelica.SIunits.HeatCapacity cDry=4800
       "Capacity of dry material lumped to condensor";
 
-  protected
     parameter Modelica.SIunits.ThermalConductance UALoss=(cDry + mWater*
         medium.cp)/tauHeatLoss;
 
-  public
     IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
                                               heatedFluid(
       medium=medium,

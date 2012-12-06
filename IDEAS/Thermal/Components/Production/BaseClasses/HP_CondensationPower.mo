@@ -50,7 +50,6 @@ public
   input Modelica.SIunits.MassFlowRate m_flowCondensor
     "Condensor mass flow rate";
 
-protected
   Modelica.Blocks.Tables.CombiTable2D P100(
       smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table=[0,
         -15,-10,-7,-2,2,7,12,18,30; 30,1.96,2.026,2.041,2.068,2.075,2.28,2.289,

@@ -6,33 +6,34 @@ package Extern
   model PvSystemPlug
     "PV system with separate shut-down controller and plug connector"
 
-  parameter Modelica.SIunits.Power PNom "Nominal power, in Wp";
-  parameter Integer PV=19
-      "Which photovoltaic from the read profiles in the SimInfoManager";
+  outer SimInfoManager sim annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
+  parameter Modelica.SIunits.Power PNom "Nominal power, in Wp";
+  parameter Integer id=19
+      "Which photovoltaic from the read profiles in the SimInfoManager";
   parameter Modelica.SIunits.Time timeOff = 300;
   parameter Modelica.SIunits.Voltage VMax = 253
       "Max grid voltage for operation of the PV system";
   parameter Integer numPha=1;
-  //output Real PInit;
-  //output Real PFinal;
 
-  replaceable Components.PvVoltageCtrlGeneral_InputVGrid
-                         pvVoltageCtrl(VMax=VMax,timeOff = timeOff,numPha=numPha) annotation (Placement(transformation(extent={{20,30},{40,50}})),choicesAllMatching = true);
+  Modelica.SIunits.Power PInit = invertor.P
+      "Initial PV power before curtailing";
+  Modelica.SIunits.Power PFinal = pvVoltageCtrl.PFinal
+      "Effective PV power after curtailing";
 
-    Modelica.Blocks.Interfaces.RealInput VGrid
+  replaceable Components.PvVoltageCtrlGeneral_InputVGrid pvVoltageCtrl(VMax=VMax,timeOff = timeOff,numPha=numPha) annotation (Placement(transformation(extent={{20,30},{40,50}})),choicesAllMatching = true);
+
+    Modelica.Blocks.Interfaces.RealInput VGrid "Grid voltage for control"
       annotation (Placement(transformation(extent={{-116,30},{-96,50}})));
+
     Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plug(m=numPha)                                                                               annotation (Placement(transformation(extent={{90,30},
               {110,50}},                                                                                                    rotation=0)));
-
     IDEAS.Electric.Photovoltaic.Components.ForInputFiles.SimpleDCAC_effP invertor(PNom=-
           PNom, P_dc_max=-PNom)
       annotation (Placement(transformation(extent={{-20,30},{0,50}})));
     BaseClasses.WattsLawPlug wattsLaw(numPha=numPha)
       annotation (Placement(transformation(extent={{60,30},{80,50}})));
-    outer SimInfoManager sim
-      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-    Modelica.Blocks.Sources.RealExpression PDc(y=sim.tabPPV.y[PV]/sim.PNom*PNom)
+    Modelica.Blocks.Sources.RealExpression PDc(y=sim.tabPPV.y[id]/sim.PNom*PNom)
       annotation (Placement(transformation(extent={{-80,70},{-40,90}})));
   equation
 
@@ -56,8 +57,6 @@ package Extern
         points={{0.4,42},{20.2,42}},
         color={0,0,127},
         smooth=Smooth.None));
-  // PInit=pvVoltageCtrl.PInit;
-  // PFinal=pvVoltageCtrl.PFinal;
     connect(pvVoltageCtrl.VGrid, VGrid) annotation (Line(
         points={{30,30},{30,22},{-40,22},{-40,40},{-106,40}},
         color={0,0,127},
