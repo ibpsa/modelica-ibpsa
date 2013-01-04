@@ -5,12 +5,12 @@ model Branch
   Modelica.SIunits.ActivePower Plos;
 
   parameter Modelica.SIunits.Resistance R = 0.0057;
-  parameter Modelica.SIunits.Reactance X=0.0039;
-  parameter Modelica.SIunits.ComplexImpedance Z=R + Modelica.ComplexMath.j*X;
+  parameter Modelica.SIunits.Reactance X = 0.0039;
+  final parameter Modelica.SIunits.ComplexImpedance Z=R + Modelica.ComplexMath.j*X;
 
 equation
   v = Z*i;
-  Plos = R*(Modelica.ComplexMath.'abs'(i))^2;
+  Plos = R*Modelica.ComplexMath.'abs'(i)^2;
   annotation (Icon(graphics={
         Rectangle(
           extent={{-70,30},{70,-30}},

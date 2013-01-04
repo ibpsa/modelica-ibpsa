@@ -12,7 +12,7 @@ package Extern
   parameter Integer id=19
       "Which photovoltaic from the read profiles in the SimInfoManager";
   parameter Modelica.SIunits.Time timeOff = 300;
-  parameter Modelica.SIunits.Voltage VMax = 253
+  parameter Modelica.SIunits.Voltage VMax = 248
       "Max grid voltage for operation of the PV system";
   parameter Integer numPha=1;
 
@@ -20,6 +20,7 @@ package Extern
       "Initial PV power before curtailing";
   Modelica.SIunits.Power PFinal = pvVoltageCtrl.PFinal
       "Effective PV power after curtailing";
+  Modelica.SIunits.Power PLoss = PInit-PFinal "Effective curtailed PV power";
 
   replaceable Components.PvVoltageCtrlGeneral_InputVGrid pvVoltageCtrl(VMax=VMax,timeOff = timeOff,numPha=numPha) annotation (Placement(transformation(extent={{20,30},{40,50}})),choicesAllMatching = true);
 

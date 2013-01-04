@@ -23,10 +23,12 @@ replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid( Pha=1)
 
 //parameter Boolean Loss = true
 //    "if true, PLosBra and PGriLosTot gives branch and Grid losses";
-output Modelica.SIunits.ActivePower PLosBra[Nodes];
-output Modelica.SIunits.ActivePower PGriLosTot;
+Modelica.SIunits.ActivePower PLosBra[Nodes];
+Modelica.SIunits.ActivePower PGriLosTot;
 
-output Modelica.SIunits.Voltage Vabs[Nodes];
+Modelica.SIunits.Voltage Vabs[Nodes];
+Modelica.SIunits.Voltage VMax = max(Vabs);
+Modelica.SIunits.Voltage VMin = min(Vabs);
 
 protected
 parameter Integer nodeMatrix[Nodes,Nodes] = grid.nodeMatrix;

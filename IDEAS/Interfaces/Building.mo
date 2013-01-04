@@ -72,7 +72,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(building.TSensor, ventilationSystem.TSensor) annotation (Line(
-      points={{-35.4,-6},{-32,-6},{-32,-6},{-30,-6},{-30,24},{-19.6,24}},
+      points={{-35.4,-6},{-32,-6},{-32,-6},{-30,-6},{-30,24},{-20.4,24}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -159,5 +159,7 @@ end if;
           extent={{-100,-60},{100,-100}},
           lineColor={127,0,0},
           textString="%name")}),                                    Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
         graphics));
 end Building;

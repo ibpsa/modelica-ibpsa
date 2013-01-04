@@ -38,7 +38,9 @@ equation
           points={{-100,80},{-100,-80}},
           color={0,0,127},
           smooth=Smooth.None),
-        Ellipse(extent={{-60,60},{60,-60}}, lineColor={0,0,127}),
+        Ellipse(extent={{-60,60},{60,-60}}, lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Line(
           points={{-100,0},{-60,0}},
           color={0,0,127},
