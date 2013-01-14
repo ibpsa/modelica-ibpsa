@@ -5,56 +5,42 @@ model MonoLayerOpaque "single material layer"
   parameter IDEAS.Buildings.Data.Interfaces.Material mat "Layer material";
   parameter Modelica.SIunits.Angle inc "Inclination";
 
-  final parameter Real R = mat.d / mat.k "Total specific thermal resistance";
-  final parameter Integer nRes = mat.nState * 2
-    "Number of resistors in the RC-network";
-  final parameter Integer nCap = mat.nState * 2 - 1
-    "Odd number of capacitors in the RC-network";
+  final parameter Integer nSta=mat.nSta;
+  final parameter Real R=mat.R "Total specific thermal resistance";
+  final parameter Modelica.SIunits.ThermalConductance G=(A*mat.k*nSta)/mat.d;
+  final parameter Modelica.SIunits.HeatCapacity C=(A*mat.rho*mat.c*mat.d)/nSta;
 
 public
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_gain
-    "port for gains by embedded active layers"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=289.15))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nRes] Res(each final G=A*mat.k/mat.d*nRes)
-    "Resistors in the RC-network"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nCap] Cap(each final C=A*mat.rho*mat.c*mat.d/nCap)
-    "Capacitors in the RC-network"
-    annotation (Placement(transformation(extent={{-10,0},{10,-20}})));
+  Modelica.SIunits.Temperature T[nSta] "Temperature at the states";
+  Modelica.SIunits.HeatFlowRate Q_flow[nSta + 1]
+    "Heat flow rate from state i to i+1";
 
 equation
-connect(port_a, Res[1].port_a) annotation (Line(
-      points={{-100,0},{-40,0}},
-      color={191,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-for k in 1:nCap loop
-  connect(Res[k].port_b, Cap[k].port) annotation (Line(
-      points={{-20,0},{0,0}},
-      color={191,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(Cap[k].port, Res[k+1].port_a) annotation (Line(
-      points={{0,0},{20,0},{20,-30},{-60,-30},{-60,0},{-40,0}},
-      color={191,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-end for;
- connect(Res[nRes].port_b, port_b) annotation (Line(
-      points={{-20,0},{100,0}},
-      color={191,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(port_gain, Cap[mat.nState].port) annotation (Line(
-      points={{0,100},{0,0}},
-      color={191,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  // connectors
+  port_a.Q_flow = +Q_flow[1];
+  port_b.Q_flow = -Q_flow[nSta + 1];
+
+  // edge resistances
+  port_a.T - T[1] = Q_flow[1]/(G*2);
+  T[nSta] - port_b.T = Q_flow[nSta + 1]/(G*2);
+
+  // Q_flow[i] is heat flowing from (i-1) to (i)
+  for i in 2:nSta loop
+    T[i - 1] - T[i] = Q_flow[i]/G;
+  end for;
+
+  // Heat storages in the masses
+  for i in 1:nSta loop
+    der(T[i]) = (Q_flow[i] - Q_flow[i + 1])/C;
+  end for;
+
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Rectangle(
           extent={{-90,80},{90,-80}},
           fillColor={192,192,192},
