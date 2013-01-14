@@ -3,7 +3,7 @@ model MixedAir "Mixed air capacity of the thermal zone"
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
   parameter Modelica.SIunits.Volume V "air volume of the zone";
-  parameter Real corrCV = 5 "correction factor on the zone air capacity";
+  parameter Real corrCV=5 "correction factor on the zone air capacity";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conGain
     "convective internal gains"
@@ -12,24 +12,26 @@ model MixedAir "Mixed air capacity of the thermal zone"
     "convective gains on surfaces"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealOutput TCon "convective zone temperature"
-    annotation (Placement(transformation(extent={{20,-20},{-20,20}},
+    annotation (Placement(transformation(
+        extent={{20,-20},{-20,20}},
         rotation=90,
         origin={0,-100})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TiSensor
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TiSensor annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-30})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCap(C=1012*1.204*
-        V*corrCV, T(start=293.15)) "air capacity"
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCap(C=1012*1.204*V
+        *corrCV, T(start=293.15)) "air capacity"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 equation
-for i in 1:nSurf loop
-  connect(heatCap.port, conSurf[i]) annotation (Line(
-      points={{0,0},{100,0}},
-      color={191,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-end for;
+  for i in 1:nSurf loop
+    connect(heatCap.port, conSurf[i]) annotation (Line(
+        points={{0,0},{100,0}},
+        color={191,0,0},
+        pattern=LinePattern.None,
+        smooth=Smooth.None));
+  end for;
   connect(conGain, heatCap.port) annotation (Line(
       points={{-100,0},{0,0}},
       color={191,0,0},
@@ -38,6 +40,7 @@ end for;
 
   connect(heatCap.port, TiSensor.port) annotation (Line(
       points={{0,0},{0,2},{1.98721e-022,2},{1.98721e-022,-20},{1.83697e-015,-20}},
+
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -47,7 +50,9 @@ end for;
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Polygon(
           points={{0,83},{-20,79},{-40,73},{-52,59},{-58,51},{-68,41},{-72,29},
               {-76,15},{-78,1},{-76,-15},{-76,-27},{-76,-37},{-70,-49},{-64,-57},
@@ -59,13 +64,13 @@ end for;
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-58,51},{-68,41},{-72,29},{-76,15},{-78,1},{-76,-15},{-76,
-              -27},{-76,-37},{-70,-49},{-64,-57},{-48,-61},{-30,-67},{-18,-67},
-              {-2,-69},{8,-73},{22,-73},{32,-71},{42,-65},{54,-59},{42,-61},{40,
-              -61},{30,-63},{20,-65},{18,-65},{10,-65},{2,-61},{-12,-57},{-22,
-              -57},{-30,-55},{-40,-49},{-50,-39},{-56,-27},{-58,-19},{-58,-9},{
-              -60,3},{-60,11},{-60,23},{-58,33},{-56,35},{-52,43},{-48,51},{-44,
-              61},{-40,73},{-58,51}},
+          points={{-58,51},{-68,41},{-72,29},{-76,15},{-78,1},{-76,-15},{-76,-27},
+              {-76,-37},{-70,-49},{-64,-57},{-48,-61},{-30,-67},{-18,-67},{-2,-69},
+              {8,-73},{22,-73},{32,-71},{42,-65},{54,-59},{42,-61},{40,-61},{30,
+              -63},{20,-65},{18,-65},{10,-65},{2,-61},{-12,-57},{-22,-57},{-30,
+              -55},{-40,-49},{-50,-39},{-56,-27},{-58,-19},{-58,-9},{-60,3},{-60,
+              11},{-60,23},{-58,33},{-56,35},{-52,43},{-48,51},{-44,61},{-40,73},
+              {-58,51}},
           lineColor={0,0,0},
           fillColor={160,160,164},
           fillPattern=FillPattern.Solid),
@@ -79,7 +84,7 @@ end for;
           extent={{11,29},{50,-9}},
           lineColor={0,0,0},
           textString="T"),
-        Line(points={{0,4},{0,-80}},   color={0,0,127})}),
+        Line(points={{0,4},{0,-80}}, color={0,0,127})}),
     Documentation(info="<html>
 <p>The air within the zone is modeled based on the assumption that it is well-stirred, i.e. it is characterized by a single uniform air temperature. This is practically accomplished with the mixing caused by the air distribution system. The convective gains and the resulting change in air temperature <img src=\"modelica://IDEAS/Images/equations/equation-ps2Eq199.png\"/> of a single thermal zone can be modeled as a thermal circuit. The resulting heat balance for the air node can be described as</p>
 <p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-5E7Q41vV.png\"/></p>

@@ -1,46 +1,53 @@
 within IDEAS.Buildings.Components;
 model CommonWall "Common opaque wall with neighbors"
 
-extends IDEAS.Buildings.Components.Interfaces.StateWall;
+  extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-replaceable Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationThickness)
-    "Type of building construction" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,72},
-            {-34,76}})),Dialog(group="Construction details"));
-replaceable Data.Interfaces.Insulation insulationType(d=insulationThickness)
-    "Type of thermal insulation" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,84},
-            {-34,88}})),Dialog(group="Construction details"));
-parameter Modelica.SIunits.Length insulationThickness
-    "Thermal insulation thickness" annotation(Dialog(group="Construction details"));
-parameter Modelica.SIunits.Area AWall "Total wall area";
-parameter Modelica.SIunits.Angle inc
+  replaceable Data.Interfaces.Construction constructionType(insulationType=
+        insulationType, insulationTickness=insulationThickness)
+    "Type of building construction" annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{-38,72},{-34,76}})),
+    Dialog(group="Construction details"));
+  replaceable Data.Interfaces.Insulation insulationType(d=insulationThickness)
+    "Type of thermal insulation" annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{-38,84},{-34,88}})),
+    Dialog(group="Construction details"));
+  parameter Modelica.SIunits.Length insulationThickness
+    "Thermal insulation thickness"
+    annotation (Dialog(group="Construction details"));
+  parameter Modelica.SIunits.Area AWall "Total wall area";
+  parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90° denotes vertical";
-parameter Modelica.SIunits.Angle azi
+  parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0° denotes South";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "Port for gains by embedded active layers"
-  annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
 protected
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     A=AWall,
     inc=inc,
     nLay=constructionType.nLay,
-    mats=constructionType.mats)
+    mats=constructionType.mats,
+    locGain=constructionType.locGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(A=AWall, inc=
-        inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(A=AWall,
+      inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(A=AWall, inc=
-        inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(A=AWall,
+      inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-14,-40},{-34,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=292.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        292.15)
     annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
 equation
-  connect(layMul.port_b, intCon_b.port_a)
-                                      annotation (Line(
+  connect(layMul.port_b, intCon_b.port_a) annotation (Line(
       points={{10,-30},{20,-30}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -52,7 +59,7 @@ equation
       points={{-14,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.port_gain[constructionType.locGain], port_emb) annotation (Line(
+  connect(layMul.port_gain, port_emb) annotation (Line(
       points={{0,-40},{0,-100}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -76,10 +83,11 @@ equation
       points={{0,-20},{0,60},{56,60}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-50,-100},{50,100}}),graphics={
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+        graphics={
         Line(
           points={{-50,80},{50,80}},
           color={95,95,95},

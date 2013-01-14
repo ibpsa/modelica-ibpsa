@@ -3,37 +3,53 @@ partial model StateZone "Partial model for thermal building zones"
 
   parameter Integer nSurf(min=1)
     "Number of surfaces adjacent to and heat exchangeing with the zone";
-  outer IDEAS.SimInfoManager         sim
-    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  outer IDEAS.SimInfoManager sim
+    "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b gainRad
-    "Internal zone node for radiative heat gains" annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+    "Internal zone node for radiative heat gains"
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a gainCon
-    "Internal zone node for convective heat gains" annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
+    "Internal zone node for convective heat gains"
+    annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
   Modelica.Blocks.Interfaces.RealInput[nSurf] epsLw
-    "Longwave emissivities  of surfaces adjacent to the zone" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    "Longwave emissivities  of surfaces adjacent to the zone" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-104,30})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] surfCon
-    "Convective heat transfer of surfaces adjacent to the zone" annotation (Placement(transformation(extent={{-110,-40},{-90,-20}})));
+    "Convective heat transfer of surfaces adjacent to the zone"
+    annotation (Placement(transformation(extent={{-110,-40},{-90,-20}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nSurf] surfRad
-    "Longwave radiative heat transfer of surfaces adjacent to the zone" annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
+    "Longwave radiative heat transfer of surfaces adjacent to the zone"
+    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
-    "Shortwave solar heat gains by direct irradiation" annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
+    "Shortwave solar heat gains by direct irradiation"
+    annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDif
-    "Shortwave solar heat gains by diffuse irradiation" annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
+    "Shortwave solar heat gains by diffuse irradiation"
+    annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   Modelica.Blocks.Interfaces.RealInput[nSurf] epsSw
-    "Shortwave emissivities  of surfaces adjacent to the zone" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    "Shortwave emissivities  of surfaces adjacent to the zone" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-104,0})));
   Modelica.Blocks.Interfaces.RealOutput TSensor
-    "Sensor temperature of the zone, i.e. operative temeprature" annotation (Placement(transformation(extent={{96,-10},{116,10}}),
-        iconTransformation(extent={{96,-10},{116,10}})));
+    "Sensor temperature of the zone, i.e. operative temeprature" annotation (
+      Placement(transformation(extent={{96,-10},{116,10}}), iconTransformation(
+          extent={{96,-10},{116,10}})));
   Modelica.Blocks.Interfaces.RealInput[nSurf] area
-    "Total wall areas of surfaces adjacent to the zone" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    "Total wall areas of surfaces adjacent to the zone" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-104,60})));
-  annotation (Diagram(graphics),
-              Diagram(graphics), Icon(graphics={
+  annotation (
+    Diagram(graphics),
+    Diagram(graphics),
+    Icon(graphics={
         Rectangle(
           extent={{-90,90},{90,-90}},
           pattern=LinePattern.None,
@@ -60,8 +76,8 @@ partial model StateZone "Partial model for thermal building zones"
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-40,-90},{68,22},{68,-42},{40,-70},{40,-90},{-40,-90},{-40,
-              -90}},
+          points={{-40,-90},{68,22},{68,-42},{40,-70},{40,-90},{-40,-90},{-40,-90}},
+
           lineThickness=0.5,
           smooth=Smooth.None,
           fillColor={255,255,170},

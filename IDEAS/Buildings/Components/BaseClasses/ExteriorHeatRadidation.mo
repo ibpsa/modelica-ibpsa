@@ -7,13 +7,13 @@ model ExteriorHeatRadidation
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-outer IDEAS.SimInfoManager         sim "Simulation information manager"
+  outer IDEAS.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 protected
-  Real Fse = (1-cos(inc))/2
+  Real Fse=(1 - cos(inc))/2
     "radiant-interchange configuration factor between surface and environment";
-  Real Fssky = (1+cos(inc))/2
+  Real Fssky=(1 + cos(inc))/2
     "radiant-interchange configuration factor between surface and sky";
   Modelica.SIunits.Temperature Tenv
     "Radiative temperature of the total environment";
@@ -24,8 +24,9 @@ public
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
 equation
 
-Tenv = (Fssky*sim.Tsky^4+(1-Fssky)*sim.Te^4)^0.25;
-port_a.Q_flow = A*Modelica.Constants.sigma*epsLw*(port_a.T-Tenv)*(port_a.T+Tenv)*(port_a.T^2+Tenv^2);
+  Tenv = (Fssky*sim.Tsky^4 + (1 - Fssky)*sim.Te^4)^0.25;
+  port_a.Q_flow = A*Modelica.Constants.sigma*epsLw*(port_a.T - Tenv)*(port_a.T
+     + Tenv)*(port_a.T^2 + Tenv^2);
 
   annotation (Icon(graphics={
         Line(points={{-40,10},{40,10}}, color={191,0,0}),

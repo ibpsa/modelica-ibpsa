@@ -1,53 +1,64 @@
 within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
 
-extends IDEAS.Buildings.Components.Interfaces.StateWall;
+  extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-replaceable parameter Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationThickness)
-    "Type of building construction" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,72},
-            {-34,76}})),Dialog(group="Construction details"));
-replaceable parameter Data.Interfaces.Insulation  insulationType(d=insulationThickness)
-    "Type of thermal insulation" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,84},
-            {-34,88}})),Dialog(group="Construction details"));
-parameter Modelica.SIunits.Length insulationThickness
-    "Thermal insulation thickness" annotation(Dialog(group="Construction details"));
-parameter Modelica.SIunits.Area AWall "Total wall area";
-parameter Modelica.SIunits.Angle inc
+  replaceable parameter Data.Interfaces.Construction constructionType(
+      insulationType=insulationType, insulationTickness=insulationThickness)
+    "Type of building construction" annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{-38,72},{-34,76}})),
+    Dialog(group="Construction details"));
+  replaceable parameter Data.Interfaces.Insulation insulationType(d=
+        insulationThickness) "Type of thermal insulation" annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{-38,84},{-34,88}})),
+    Dialog(group="Construction details"));
+  parameter Modelica.SIunits.Length insulationThickness
+    "Thermal insulation thickness"
+    annotation (Dialog(group="Construction details"));
+  parameter Modelica.SIunits.Area AWall "Total wall area";
+  parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90° denotes vertical";
-parameter Modelica.SIunits.Angle azi
+  parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0° denotes South";
 
-  final parameter Real U_value = 1/(1/8+sum(constructionType.mats.R)+1/25)
+  final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
-  final parameter Modelica.SIunits.Power QNom = U_value*AWall*(273.15+21-sim.city.Tdes)
+  final parameter Modelica.SIunits.Power QNom=U_value*AWall*(273.15 + 21 - sim.city.Tdes)
     "Design heat losses at reference outdoor temperature";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
-  annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-protected
-  IDEAS.Climate.Meteo.Solar.RadSol  radSol(inc=inc,azi=azi,A=AWall)
+  //protected
+  IDEAS.Climate.Meteo.Solar.RadSol radSol(
+    inc=inc,
+    azi=azi,
+    A=AWall)
     "determination of incident solar radiation on wall based on inclination and azimuth"
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     A=AWall,
     inc=inc,
     nLay=constructionType.nLay,
-    mats=constructionType.mats)
+    mats=constructionType.mats,
+    locGain=constructionType.locGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(A=AWall)
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(A=AWall, inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(A=AWall, inc=
+       inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs(A=AWall)
     "determination of absorbed solar radiation by wall based on incident radiation"
- annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation extRad(A=AWall, inc=
-        inc)
+    annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation extRad(A=AWall,
+      inc=inc)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
 
@@ -60,20 +71,19 @@ equation
       points={{-50,-28},{-40,-28}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(extCon.port_a, layMul.port_a)          annotation (Line(
+  connect(extCon.port_a, layMul.port_a) annotation (Line(
       points={{-20,-50},{-16,-50},{-16,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(solAbs.port_a, layMul.port_a)        annotation (Line(
+  connect(solAbs.port_a, layMul.port_a) annotation (Line(
       points={{-20,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(extRad.port_a, layMul.port_a)        annotation (Line(
+  connect(extRad.port_a, layMul.port_a) annotation (Line(
       points={{-20,-10},{-16,-10},{-16,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.port_b, intCon.port_a)
-                                      annotation (Line(
+  connect(layMul.port_b, intCon.port_a) annotation (Line(
       points={{10,-30},{20,-30}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -81,12 +91,12 @@ equation
       points={{-10,-26},{-14,-26},{-14,-24},{-20,-24}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(layMul.iEpsLw_a,extRad. epsLw) annotation (Line(
+  connect(layMul.iEpsLw_a, extRad.epsLw) annotation (Line(
       points={{-10,-22},{-14,-22},{-14,-4},{-20,-4}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(port_emb, layMul.port_gain[constructionType.locGain]) annotation (Line(
+  connect(port_emb, layMul.port_gain) annotation (Line(
       points={{0,-100},{0,-40}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -110,9 +120,9 @@ equation
       points={{0,-20},{0,60},{56,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
-            {50,100}}),
-                   graphics={
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+        graphics={
         Polygon(
           points={{-50,60},{-30,60},{-30,80},{50,80},{50,100},{-50,100},{-50,60}},
           pattern=LinePattern.None,
@@ -155,9 +165,9 @@ equation
         Line(
           points={{-44,60},{-44,-20}},
           smooth=Smooth.None,
-          color={175,175,175})}),Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}),
-                                         graphics),
+          color={175,175,175})}),
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics),
     Documentation(info="<html>
 <p>The <code>OuterWall</code> model describes the transient behaviour of opaque builiding enelope constructions. The description of the thermal response of a wall is structured as in the 3 different occurring processes, i.e. the heat balance of the exterior surface, heat conduction between both surfaces and the heat balance of the interior surface.</p>
 <p><h4><font color=\"#008000\">Exterior surface heat balance </font></h4></p>

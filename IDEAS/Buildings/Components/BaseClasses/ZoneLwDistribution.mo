@@ -3,37 +3,41 @@ model ZoneLwDistribution "internal longwave radiative heat exchange"
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
 
-parameter Boolean linear = true;
+  parameter Boolean linear=true;
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] port_a
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  IDEAS.Buildings.Components.BaseClasses.HeatRadiation[nSurf] radRes(R=R, each linear=linear);
+  IDEAS.Buildings.Components.BaseClasses.HeatRadiation[nSurf] radRes(R=R, each
+      linear=linear);
 
-  Modelica.Blocks.Interfaces.RealInput[nSurf] A "surface areas" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput[nSurf] A "surface areas" annotation (
+      Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={40,100})));
   Modelica.Blocks.Interfaces.RealInput[nSurf] epsLw
-    "longwave surface emissivities"                                                 annotation (Placement(transformation(
+    "longwave surface emissivities" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,100})));
 
 protected
-  Real[nSurf] F = A ./ (ones(nSurf)*sum(A)-A) "view factor per surface";
-  Real[nSurf] R = (ones(nSurf)-epsLw)./(A.*epsLw) + (ones(nSurf)-F)./A
+  Real[nSurf] F=A ./ (ones(nSurf)*sum(A) - A) "view factor per surface";
+  Real[nSurf] R=(ones(nSurf) - epsLw) ./ (A .* epsLw) + (ones(nSurf) - F) ./ A
     "heat resistance for logwave radiative heat exchange";
 
 equation
-for i in 1:nSurf loop
-  connect(radRes[i].port_b,port_a[i]);
+  for i in 1:nSurf loop
+    connect(radRes[i].port_b, port_a[i]);
   end for;
 
-for i in 1:nSurf-1 loop
-  connect(radRes[i].port_a,radRes[i+1].port_a);
+  for i in 1:nSurf - 1 loop
+    connect(radRes[i].port_a, radRes[i + 1].port_a);
   end for;
 
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Rectangle(
           extent={{-90,80},{90,-80}},
           pattern=LinePattern.None,

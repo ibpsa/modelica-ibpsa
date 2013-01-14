@@ -1,44 +1,44 @@
 within IDEAS.Buildings.Validation.BaseClasses.Structure;
 model Bui630 "BESTEST Building model case 630"
 
-extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
+  extends IDEAS.Interfaces.Structure(
+    nZones=1,
+    ATrans=1,
+    VZones={gF.V});
 
   IDEAS.Buildings.Components.Zone gF(nSurf=8, V=129.6)
     annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
-      redeclare Data.Constructions.LightWall
-        constructionType,
-      redeclare Data.Insulation.fiberglass
-        insulationType,
-      azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
-          IDEAS.Constants.West},
-      insulationThickness={0.066,0.066,0.066,0.066},
-      inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-      AWall={21.6,10.2,21.6,10.2})             annotation (Placement(transformation(
+    redeclare Data.Constructions.LightWall constructionType,
+    redeclare Data.Insulation.fiberglass insulationType,
+    azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
+
+    insulationThickness={0.066,0.066,0.066,0.066},
+    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
+
+    AWall={21.6,10.2,21.6,10.2}) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-49,-14})));
 
   IDEAS.Buildings.Components.SlabOnGround floor(
-      redeclare Data.Constructions.LightFloor
-        constructionType,
-      redeclare Data.Insulation.insulation
-        insulationType,
-      insulationThickness=1.003,
-      AWall=48,
-      inc=IDEAS.Constants.Floor,
-      azi=IDEAS.Constants.South,
-    PWall=28)                                   annotation (Placement(transformation(
+    redeclare Data.Constructions.LightFloor constructionType,
+    redeclare Data.Insulation.insulation insulationType,
+    insulationThickness=1.003,
+    AWall=48,
+    inc=IDEAS.Constants.Floor,
+    azi=IDEAS.Constants.South,
+    PWall=28) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-19,-14})));
   IDEAS.Buildings.Components.Window[2] win(
-      A={6,6},
-      redeclare Data.Glazing.GlaBesTest                         glazing,
-      inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-      azi={IDEAS.Constants.East,IDEAS.Constants.West},
+    A={6,6},
+    redeclare Data.Glazing.GlaBesTest glazing,
+    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
+    azi={IDEAS.Constants.East,IDEAS.Constants.West},
     redeclare IDEAS.Buildings.Components.Shading.Overhang shaType(
       each H=2.0,
       each W=3.0,
@@ -46,19 +46,18 @@ extends IDEAS.Interfaces.Structure(nZones=1,ATrans=1,VZones={gF.V});
       each RH=0.0,
       each PV=1.0,
       each RW=0.0),
-    redeclare IDEAS.Buildings.Data.Frames.None fraType)
-                                                annotation (Placement(transformation(
+    redeclare IDEAS.Buildings.Data.Frames.None fraType) annotation (Placement(
+        transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));
   IDEAS.Buildings.Components.OuterWall roof(
-    redeclare Data.Constructions.LightRoof
-      constructionType,
-    redeclare Data.Insulation.fiberglass                         insulationType,
+    redeclare Data.Constructions.LightRoof constructionType,
+    redeclare Data.Insulation.fiberglass insulationType,
     insulationThickness=0.1118,
     AWall=48,
     inc=IDEAS.Constants.Ceiling,
-    azi=IDEAS.Constants.South)              annotation (Placement(transformation(
+    azi=IDEAS.Constants.South) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-79,-14})));
@@ -128,10 +127,10 @@ equation
       points={{21,-14},{64,-14},{64,0}},
       color={191,0,0},
       smooth=Smooth.None));
-    connect(floor.port_emb, heatPortEmb[1]) annotation (Line(
-        points={{-9,-14},{-4,-14},{-4,-40},{118,-40},{118,60},{150,60}},
-        color={191,0,0},
-        smooth=Smooth.None));
+  connect(floor.port_emb, heatPortEmb[1]) annotation (Line(
+      points={{-9,-14},{-4,-14},{-4,-40},{118,-40},{118,60},{150,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
   connect(roof.area_a, gF.area[1]) annotation (Line(
       points={{-85,-8.4},{-85,30.25},{39.2,30.25}},
       color={0,0,127},
@@ -180,7 +179,6 @@ equation
       points={{11,-8.4},{11,21.25},{39.2,21.25}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,-100},
-              {150,100}}),
-                         graphics));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,
+            -100},{150,100}}), graphics));
 end Bui630;

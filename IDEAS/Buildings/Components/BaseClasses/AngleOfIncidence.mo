@@ -8,6 +8,6 @@ model AngleOfIncidence "angle of incidence"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 algorithm
-angIncDeg := Modelica.SIunits.Conversions.to_deg(angInc);
+  angIncDeg := Modelica.SIunits.Conversions.to_deg(angInc);
 
 end AngleOfIncidence;

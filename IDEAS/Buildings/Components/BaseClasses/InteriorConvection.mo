@@ -11,26 +11,26 @@ model InteriorConvection "interior surface convection"
 
 protected
   Modelica.SIunits.TemperatureDifference dT;
-  final parameter Boolean Ceiling = abs(sin(inc)) < 10E-5 and cos(inc) > 0
+  final parameter Boolean Ceiling=abs(sin(inc)) < 10E-5 and cos(inc) > 0
     "true if ceiling";
-  final parameter Boolean Floor =  abs(sin(inc)) < 10E-5 and cos(inc) < 0
+  final parameter Boolean Floor=abs(sin(inc)) < 10E-5 and cos(inc) < 0
     "true if floor";
 
 equation
-port_a.Q_flow = A*8*dT;
+  //  port_a.Q_flow = A*8*dT;
 
-/*
-if Ceiling then
-  port_a.Q_flow = if noEvent(dT>0) then A*2.72*abs(dT)^1.13 else -A*2.27*abs(dT)^1.24;
-elseif Floor then
-  port_a.Q_flow = if noEvent(dT>0) then A*2.27*abs(dT)^1.24 else -A*2.72*abs(dT)^1.13;
-else
-  port_a.Q_flow = A * sign(dT)*2.07*abs(dT)^1.23;
-end if;
-*/
+  if Ceiling then
+    port_a.Q_flow = if noEvent(dT > 0) then A*2.72*abs(dT)^1.13 else -A*2.27*
+      abs(dT)^1.24;
+  elseif Floor then
+    port_a.Q_flow = if noEvent(dT > 0) then A*2.27*abs(dT)^1.24 else -A*2.72*
+      abs(dT)^1.13;
+  else
+    port_a.Q_flow = A*sign(dT)*2.07*abs(dT)^1.23;
+  end if;
 
-port_a.Q_flow + port_b.Q_flow = 0 "no heat is stored";
-dT = port_a.T-port_b.T;
+  port_a.Q_flow + port_b.Q_flow = 0 "no heat is stored";
+  dT = port_a.T - port_b.T;
 
   annotation (Icon(graphics={
         Rectangle(

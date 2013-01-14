@@ -1,20 +1,26 @@
 within IDEAS.Buildings.Components;
 model InternalWall "interior opaque wall between two zones"
 
-extends IDEAS.Buildings.Components.Interfaces.StateWall;
+  extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-replaceable Data.Interfaces.Construction constructionType(insulationType=insulationType, insulationTickness=insulationThickness)
-    "Type of building construction" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,72},
-            {-34,76}})),Dialog(group="Construction details"));
-replaceable Data.Interfaces.Insulation insulationType(d=insulationThickness)
-    "Type of thermal insulation" annotation (choicesAllMatching = true, Placement(transformation(extent={{-38,84},
-            {-34,88}})),Dialog(group="Construction details"));
-parameter Modelica.SIunits.Length insulationThickness
-    "Thermal insulation thickness" annotation(Dialog(group="Construction details"));
-parameter Modelica.SIunits.Area AWall "Total wall area";
-parameter Modelica.SIunits.Angle inc
+  replaceable Data.Interfaces.Construction constructionType(insulationType=
+        insulationType, insulationTickness=insulationThickness)
+    "Type of building construction" annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{-38,72},{-34,76}})),
+    Dialog(group="Construction details"));
+  replaceable Data.Interfaces.Insulation insulationType(d=insulationThickness)
+    "Type of thermal insulation" annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{-38,84},{-34,88}})),
+    Dialog(group="Construction details"));
+  parameter Modelica.SIunits.Length insulationThickness
+    "Thermal insulation thickness"
+    annotation (Dialog(group="Construction details"));
+  parameter Modelica.SIunits.Area AWall "Total wall area";
+  parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90° denotes vertical";
-parameter Modelica.SIunits.Angle azi
+  parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0° denotes South";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surfCon_b
     "convective nod on the inside"
@@ -29,26 +35,28 @@ parameter Modelica.SIunits.Angle azi
     annotation (Placement(transformation(extent={{-46,-10},{-66,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
-  annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  Modelica.Blocks.Interfaces.RealOutput area_b "output of the area"
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.Blocks.Interfaces.RealOutput area_b "output of the area" annotation
+    (Placement(transformation(
+        extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-56,60})));
 
 protected
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(A=AWall, inc=
-        inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(A=AWall,
+      inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(A=AWall, inc=
-        inc + Modelica.Constants.pi)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(A=AWall,
+      inc=inc + Modelica.Constants.pi)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     A=AWall,
     inc=inc,
     nLay=constructionType.nLay,
-    mats=constructionType.mats)
+    mats=constructionType.mats,
+    locGain=constructionType.locGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{10,-40},{-10,-20}})));
 
@@ -69,7 +77,7 @@ equation
       points={{50,-30},{40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.port_gain[constructionType.locGain], port_emb) annotation (Line(
+  connect(layMul.port_gain, port_emb) annotation (Line(
       points={{0,-40},{0,-100}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -105,8 +113,9 @@ equation
       points={{0,-20},{0,60},{56,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
-            {50,100}}), graphics={
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+        graphics={
         Rectangle(
           extent={{-10,80},{10,-70}},
           fillColor={175,175,175},
@@ -137,8 +146,9 @@ equation
           points={{10,80},{10,-70}},
           smooth=Smooth.None,
           color={0,0,0},
-          thickness=0.5)}),      Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-50,-100},{50,100}}), graphics),
+          thickness=0.5)}),
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,
+            100}}), graphics),
     Documentation(info="<html>
 <p>The <code>InternalWall</code> model describes the transient behaviour of opaque builiding constructions separating two thermal zones. The description of the thermal response of a wall is structured as in the 2 different occurring processes, i.e. heat conduction between both surfaces and the heat balance of the interior surfaces.</p>
 <p><h4><font color=\"#008000\">Wall conduction process </font></h4></p>

@@ -1,10 +1,9 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model SolarShading "solar shading"
 
-  parameter Real shaCorr = 0.24
-    "Shortwave transmittance of shortwave radiation";
-  final parameter Modelica.SIunits.Angle iAngDif = 60/180*Modelica.Constants.pi;
-  parameter Boolean enable = false;
+  parameter Real shaCorr=0.24 "Shortwave transmittance of shortwave radiation";
+  final parameter Modelica.SIunits.Angle iAngDif=60/180*Modelica.Constants.pi;
+  parameter Boolean enable=false;
 
   Modelica.Blocks.Interfaces.RealInput solDir
     "direct solar illuminance on surface se"
@@ -38,15 +37,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-if noEvent(shaCtrl.y > 0.5) and enable then
-  iAngInc = iAngDif;
-  iSolDif = (solDir+solDif)*shaCorr;
-  iSolDir = 0;
-else
-  iAngInc = angInc;
-  iSolDif = solDif;
-  iSolDir = solDir;
-end if;
+  if noEvent(shaCtrl.y > 0.5) and enable then
+    iAngInc = iAngDif;
+    iSolDif = (solDir + solDif)*shaCorr;
+    iSolDir = 0;
+  else
+    iAngInc = angInc;
+    iSolDif = solDif;
+    iSolDir = solDir;
+  end if;
 
   connect(solTot.y, shaCtrl.irr) annotation (Line(
       points={{-39,42},{-28,42}},
@@ -64,21 +63,20 @@ end if;
         Line(points={{-16,46},{-26,52}}, color={191,0,0}),
         Line(points={{-16,46},{-26,40}},color={191,0,0}),
         Line(points={{-16,-14},{-26,-8}},color={191,0,0}),
-        Line(points={{-16,-14},{-26,-20}},
-                                        color={191,0,0}),
-        Line(points={{68,-30},{16,-30}},  color={191,0,0}),
-        Line(points={{68,-30},{58,-24}},   color={191,0,0}),
-        Line(points={{68,-30},{58,-36}},   color={191,0,0}),
-        Line(points={{68,30},{16,30}},  color={191,0,0}),
-        Line(points={{68,30},{58,36}},   color={191,0,0}),
-        Line(points={{68,30},{58,24}},  color={191,0,0}),
+        Line(points={{-16,-14},{-26,-20}}, color={191,0,0}),
+        Line(points={{68,-30},{16,-30}}, color={191,0,0}),
+        Line(points={{68,-30},{58,-24}}, color={191,0,0}),
+        Line(points={{68,-30},{58,-36}}, color={191,0,0}),
+        Line(points={{68,30},{16,30}}, color={191,0,0}),
+        Line(points={{68,30},{58,36}}, color={191,0,0}),
+        Line(points={{68,30},{58,24}}, color={191,0,0}),
         Line(
           points={{0,80},{0,-80}},
           color={0,0,0},
           smooth=Smooth.None,
           thickness=0.5,
           pattern=LinePattern.Dash),
-        Line(points={{68,0},{16,0}},      color={191,0,0}),
-        Line(points={{68,0},{58,6}},       color={191,0,0}),
-        Line(points={{68,0},{58,-6}},      color={191,0,0})}));
+        Line(points={{68,0},{16,0}}, color={191,0,0}),
+        Line(points={{68,0},{58,6}}, color={191,0,0}),
+        Line(points={{68,0},{58,-6}}, color={191,0,0})}));
 end SolarShading;

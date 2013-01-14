@@ -1,23 +1,28 @@
 within IDEAS.Buildings.Components;
 model Zone "thermal building zone"
 
-extends IDEAS.Buildings.Components.Interfaces.StateZone;
+  extends IDEAS.Buildings.Components.Interfaces.StateZone;
 
-parameter Modelica.SIunits.Volume V "Total zone air volume";
-parameter Real n50 = 0.6
+  parameter Modelica.SIunits.Volume V "Total zone air volume";
+  parameter Real n50=0.6
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
-parameter Real corrCV = 5 "Multiplication factor for the zone air capacity";
-parameter SI.Temperature TOpStart = 297.15;
+  parameter Real corrCV=5 "Multiplication factor for the zone air capacity";
+  parameter SI.Temperature TOpStart=297.15;
 
-parameter Boolean linear = true;
+  parameter Boolean linear=true;
 
-final parameter Modelica.SIunits.Power QNom = 1012*1.204*V/3600*n50/20*(273.15+21-sim.city.Tdes)
+  final parameter Modelica.SIunits.Power QNom=1012*1.204*V/3600*n50/20*(273.15
+       + 21 - sim.city.Tdes)
     "Design heat losses at reference outdoor temperature";
 
+  Modelica.SIunits.Temperature TAir=conDistr.TCon;
+  Modelica.SIunits.Temperature TStar=radDistr.TRad;
+
 protected
-  IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(nSurf=nSurf)
-    "distribution of radiative internal gains"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+  IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(nSurf=
+        nSurf) "distribution of radiative internal gains" annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-54,-44})));
   IDEAS.Buildings.Components.BaseClasses.MixedAir conDistr(
@@ -25,18 +30,21 @@ protected
     V=V,
     corrCV=corrCV) "convective part of the zone"
     annotation (Placement(transformation(extent={{-2,10},{-22,30}})));
-  IDEAS.Buildings.Components.BaseClasses.AirLeakage  vent(
-    n50=n50,
-    V=V) "zone air leakage"                                                        annotation (Placement(transformation(
+  IDEAS.Buildings.Components.BaseClasses.AirLeakage vent(n50=n50, V=V)
+    "zone air leakage" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,42})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(nSurf=
         nSurf, linear=linear) "internal longwave radiative heat exchange"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-54,-10})));
-  Modelica.Blocks.Math.Sum sum(nin=2, k={0.5,0.5}, y(start=TOpStart))
+  Modelica.Blocks.Math.Sum sum(
+    nin=2,
+    k={0.5,0.5},
+    y(start=TOpStart))
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
 equation
   connect(surfRad, radDistr.radSurfTot) annotation (Line(

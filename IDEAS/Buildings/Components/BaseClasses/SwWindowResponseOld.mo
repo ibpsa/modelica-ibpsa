@@ -2,9 +2,9 @@ within IDEAS.Buildings.Components.BaseClasses;
 model SwWindowResponseOld "shortwave window respones"
 
   parameter Integer nLay(min=1) "number of layers of the wall";
-  parameter Real[:,nLay+1] SwAbs
+  parameter Real[:, nLay + 1] SwAbs
     "absorbed solar radiation for each layer for look-up table as function of angle of incidence";
-  parameter Real[:,2] SwTrans
+  parameter Real[:, 2] SwTrans
     "transmitted solar radiation for look-up table as function of angle of incidence";
 
   Modelica.Blocks.Interfaces.RealInput solDir
@@ -29,28 +29,28 @@ model SwWindowResponseOld "shortwave window respones"
     annotation (Placement(transformation(extent={{-58,-52},{-40,-34}})));
   Modelica.Blocks.Tables.CombiTable1Ds SwAbsDir(table=SwAbs, smoothness=
         Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "lookup table for AOI dependent absorptance"                                                      annotation (Placement(
+    "lookup table for AOI dependent absorptance" annotation (Placement(
         transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={-29,-11})));
-  Modelica.Blocks.Tables.CombiTable1Ds SwTransDir(table=SwTrans, smoothness=
-        Modelica.Blocks.Types.Smoothness.LinearSegments,
-    columns={2}) "lookup table for AOI dependent transmittance" annotation (Placement(
-        transformation(
+  Modelica.Blocks.Tables.CombiTable1Ds SwTransDir(
+    table=SwTrans,
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    columns={2}) "lookup table for AOI dependent transmittance" annotation (
+      Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={-3,-11})));
   Modelica.Blocks.Tables.CombiTable1Ds SwAbsDif(table=SwAbs, smoothness=
         Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "lookup table for diffuse absorptance"                                                      annotation (Placement(
-        transformation(
+    "lookup table for diffuse absorptance" annotation (Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={23,-11})));
   Modelica.Blocks.Tables.CombiTable1Ds SwTransDif(table=SwTrans, smoothness=
         Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "lookup table for diffuse transmittance"                                                      annotation (Placement(
+    "lookup table for diffuse transmittance" annotation (Placement(
         transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
@@ -58,18 +58,21 @@ model SwWindowResponseOld "shortwave window respones"
   Modelica.Blocks.Sources.Constant angDif(k=60)
     annotation (Placement(transformation(extent={{-90,-38},{-72,-20}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nLay] Abs_flow
-    "solar absorptance in the panes source"
-    annotation (Placement(transformation(extent={{-8,-8},{8,8}},
+    "solar absorptance in the panes source" annotation (Placement(
+        transformation(
+        extent={{-8,-8},{8,8}},
         rotation=90,
         origin={-8.88178e-016,78})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Dir_flow
-    "transmitted direct solar riadtion source"
-    annotation (Placement(transformation(extent={{-8,-8},{8,8}},
+    "transmitted direct solar riadtion source" annotation (Placement(
+        transformation(
+        extent={{-8,-8},{8,8}},
         rotation=-90,
         origin={-20,-78})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Dif_flow
-    "transmitted difuse solar riadtion source"
-    annotation (Placement(transformation(extent={{-8,-8},{8,8}},
+    "transmitted difuse solar riadtion source" annotation (Placement(
+        transformation(
+        extent={{-8,-8},{8,8}},
         rotation=-90,
         origin={20,-78})));
   Modelica.Blocks.Math.Product[nLay] SwAbsDirProd annotation (Placement(
@@ -92,8 +95,8 @@ model SwWindowResponseOld "shortwave window respones"
         extent={{-7,-7},{7,7}},
         rotation=90,
         origin={45,17})));
-  Modelica.Blocks.Math.Add[nLay] add
-    annotation (Placement(transformation(extent={{8,-8},{-8,8}},
+  Modelica.Blocks.Math.Add[nLay] add annotation (Placement(transformation(
+        extent={{8,-8},{-8,8}},
         rotation=-90,
         origin={-32,48})));
 equation
@@ -154,16 +157,16 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-for i in 1:nLay loop
-  connect(solDir, SwAbsDirProd[i].u1) annotation (Line(
-      points={{-100,60},{-60,60},{-60,4},{-37.2,4},{-37.2,10.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solDif, SwAbsDifProd[i].u1) annotation (Line(
-      points={{-100,20},{-62,20},{-62,2},{14.8,2},{14.8,8.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-end for;
+  for i in 1:nLay loop
+    connect(solDir, SwAbsDirProd[i].u1) annotation (Line(
+        points={{-100,60},{-60,60},{-60,4},{-37.2,4},{-37.2,10.6}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(solDif, SwAbsDifProd[i].u1) annotation (Line(
+        points={{-100,20},{-62,20},{-62,2},{14.8,2},{14.8,8.6}},
+        color={0,0,127},
+        smooth=Smooth.None));
+  end for;
 
   connect(SwTransDifProd.y, Dif_flow.Q_flow) annotation (Line(
       points={{45,24.7},{45,32},{66,32},{66,-44},{20,-44},{20,-70}},
@@ -185,7 +188,9 @@ end for;
       points={{-32,56.8},{-32,62},{-4.89859e-016,62},{-4.89859e-016,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Rectangle(
           extent={{-80,90},{80,70}},
           fillColor={192,192,192},

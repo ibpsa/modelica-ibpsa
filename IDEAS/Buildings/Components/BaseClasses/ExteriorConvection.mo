@@ -3,22 +3,22 @@ model ExteriorConvection "exterior surface convection"
 
   parameter Modelica.SIunits.Area A "surface area";
 
-Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-outer IDEAS.SimInfoManager         sim "Simulation information manager"
+  outer IDEAS.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 protected
   Real hcon "equivalent surface conductance";
 
 equation
-if noEvent(sim.Va <= 5) then
-  hcon = 4.0 * sim.Va + 5.6;
-else
-  hcon = 7.1*abs(sim.Va)^(0.78);
-end if;
+  if noEvent(sim.Va <= 5) then
+    hcon = 4.0*sim.Va + 5.6;
+  else
+    hcon = 7.1*abs(sim.Va)^(0.78);
+  end if;
 
-port_a.Q_flow = hcon*A*(port_a.T-sim.Te);
+  port_a.Q_flow = hcon*A*(port_a.T - sim.Te);
 
   annotation (Icon(graphics={
         Rectangle(

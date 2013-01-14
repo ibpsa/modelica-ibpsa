@@ -30,26 +30,29 @@ model MultiLayerLucent "multiple non-opaque layers"
   Modelica.Blocks.Interfaces.RealOutput iEpsSw_a
     "output of the interior emissivity for radiative heat losses"
     annotation (Placement(transformation(extent={{-90,30},{-110,50}})));
-  Modelica.Blocks.Interfaces.RealOutput area = A
-    "output of the interior emissivity for radiative heat losses"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+  Modelica.Blocks.Interfaces.RealOutput area=A
+    "output of the interior emissivity for radiative heat losses" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,100})));
 equation
-connect(port_a,nMat[1].port_a);
+  connect(port_a, nMat[1].port_a);
 
-  for j in 1:nLay-1 loop
-    connect(nMat[j].port_b,nMat[j+1].port_a);
+  for j in 1:nLay - 1 loop
+    connect(nMat[j].port_b, nMat[j + 1].port_a);
   end for;
 
-connect(nMat.port_gain,port_gain);
-connect(port_b,nMat[nLay].port_b);
+  connect(nMat.port_gain, port_gain);
+  connect(port_b, nMat[nLay].port_b);
 
-iEpsLw_a = mats[1].epsLw;
-iEpsSw_a = mats[1].epsSw;
-iEpsLw_b = mats[nLay].epsLw;
-iEpsSw_b = mats[nLay].epsSw;
-  annotation (Diagram(graphics), Icon(graphics={
+  iEpsLw_a = mats[1].epsLw;
+  iEpsSw_a = mats[1].epsSw;
+  iEpsLw_b = mats[nLay].epsLw;
+  iEpsSw_b = mats[nLay].epsSw;
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Rectangle(
           extent={{-90,80},{20,-80}},
           fillColor={192,192,192},

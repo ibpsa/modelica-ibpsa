@@ -6,15 +6,16 @@ model MultiLayerOpaque "multiple material layers in series"
   parameter Integer nLay(min=1) "number of layers";
   parameter IDEAS.Buildings.Data.Interfaces.Material mats[nLay]
     "array of layer materials";
+  parameter Integer locGain(min=1) "location of the internal gain";
 
   IDEAS.Buildings.Components.BaseClasses.MonoLayerOpaque[nLay] nMat(
     each final A=A,
     each final inc=inc,
     mat=mats) "layers";
 
-  final parameter Real R = sum(nMat.R) "total specific thermal resistance";
+  final parameter Real R=sum(nMat.R) "total specific thermal resistance";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nLay] port_gain
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_gain
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
@@ -33,27 +34,30 @@ model MultiLayerOpaque "multiple material layers in series"
   Modelica.Blocks.Interfaces.RealOutput iEpsSw_a
     "output of the interior emissivity for radiative heat losses"
     annotation (Placement(transformation(extent={{-90,30},{-110,50}})));
-  Modelica.Blocks.Interfaces.RealOutput area = A
-    "output of the interior emissivity for radiative heat losses"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+  Modelica.Blocks.Interfaces.RealOutput area=A
+    "output of the interior emissivity for radiative heat losses" annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,100})));
 equation
-connect(port_a,nMat[1].port_a);
+  connect(port_a, nMat[1].port_a);
 
-  for j in 1:nLay-1 loop
-    connect(nMat[j].port_b,nMat[j+1].port_a);
+  for j in 1:nLay - 1 loop
+    connect(nMat[j].port_b, nMat[j + 1].port_a);
   end for;
 
-connect(nMat.port_gain,port_gain);
-connect(port_b,nMat[nLay].port_b);
+  connect(nMat[locGain].port_b, port_gain);
+  connect(port_b, nMat[nLay].port_b);
 
-iEpsLw_a = mats[1].epsLw;
-iEpsSw_a = mats[1].epsSw;
-iEpsLw_b = mats[nLay].epsLw;
-iEpsSw_b = mats[nLay].epsSw;
+  iEpsLw_a = mats[1].epsLw;
+  iEpsSw_a = mats[1].epsSw;
+  iEpsLw_b = mats[nLay].epsLw;
+  iEpsSw_b = mats[nLay].epsSw;
 
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Rectangle(
           extent={{-90,80},{20,-80}},
           fillColor={192,192,192},

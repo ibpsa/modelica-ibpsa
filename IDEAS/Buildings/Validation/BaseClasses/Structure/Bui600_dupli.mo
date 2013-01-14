@@ -1,36 +1,35 @@
 within IDEAS.Buildings.Validation.BaseClasses.Structure;
-model Bui910 "BESTEST Building model case 910"
+model Bui600_dupli "BESTEST Building model case 600"
 
   extends IDEAS.Interfaces.Structure(
     nZones=1,
     ATrans=1,
     VZones={gF.V});
 
-  IDEAS.Buildings.Components.Zone gF(nSurf=8, V=129.6)
+  IDEAS.Buildings.Components.Zone gF(nSurf=8, V=129.6,
+    n50=0.6)
     annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
+    redeclare Data.Constructions.LightWall constructionType,
+    redeclare Data.Insulation.fiberglass_dupli insulationType,
     AWall={21.6,16.2,9.6,16.2},
     azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
-
-    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-
-    redeclare Data.Constructions.HeavyWall constructionType,
-    redeclare Data.Insulation.foaminsulation insulationType,
-    insulationThickness={0.0615,0.0615,0.0615,0.0615}) annotation (Placement(
-        transformation(
+    insulationThickness={0.066,0.066,0.066,0.066},
+    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})
+    annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-49,-14})));
 
   IDEAS.Buildings.Components.SlabOnGround floor(
+    redeclare Data.Constructions.LightFloor constructionType,
     redeclare Data.Insulation.insulation insulationType,
+    insulationThickness=1.003,
     AWall=48,
     inc=IDEAS.Constants.Floor,
     azi=IDEAS.Constants.South,
-    redeclare Data.Constructions.HeavyFloor constructionType,
-    insulationThickness=1.007,
     PWall=28) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
@@ -40,21 +39,16 @@ model Bui910 "BESTEST Building model case 910"
     redeclare Data.Glazing.GlaBesTest glazing,
     inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     azi={IDEAS.Constants.South,IDEAS.Constants.South},
-    redeclare IDEAS.Buildings.Components.Shading.Overhang shaType(
-      each H=2.0,
-      each W=3.0,
-      each PH=1.0,
-      each RH=0.5,
-      each PV=0.0,
-      each RW=0.0),
+    redeclare IDEAS.Buildings.Components.Shading.None shaType,
     redeclare IDEAS.Buildings.Data.Frames.None fraType) annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));
+
   IDEAS.Buildings.Components.OuterWall roof(
     redeclare Data.Constructions.LightRoof constructionType,
-    redeclare Data.Insulation.fiberglass insulationType,
+    redeclare Data.Insulation.fiberglass_dupli insulationType,
     insulationThickness=0.1118,
     AWall=48,
     inc=IDEAS.Constants.Ceiling,
@@ -182,4 +176,4 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,
             -100},{150,100}}), graphics));
-end Bui910;
+end Bui600_dupli;
