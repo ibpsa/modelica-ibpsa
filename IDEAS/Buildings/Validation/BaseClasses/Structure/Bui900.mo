@@ -13,9 +13,7 @@ model Bui900 "BESTEST Building model case 900"
   IDEAS.Buildings.Components.OuterWall[4] wall(
     AWall={21.6,16.2,9.6,16.2},
     azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
-
     inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-
     redeclare Data.Constructions.HeavyWall constructionType,
     redeclare Data.Insulation.foaminsulation insulationType,
     insulationThickness={0.0615,0.0615,0.0615,0.0615}) annotation (Placement(

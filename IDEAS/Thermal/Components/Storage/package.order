@@ -2,3 +2,8 @@ StorageTank
 StorageTank_OneIntHX
 BaseClasses
 Examples
+Buoyancy_eqcon
+Buoyancy_fix
+Buoyancy_powexp
+Partial_Buoyancy
+StratifiedInlet

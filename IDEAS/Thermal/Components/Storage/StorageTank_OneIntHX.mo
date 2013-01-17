@@ -99,7 +99,6 @@ model StorageTank_OneIntHX
     "buoyancy model to mix nodes in case of inversed temperature stratification"
                                                                                 annotation(choicesAllMatching=true);
 
-
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes] lossNodes(
     G = UACon/nbrNodes * ones(nbrNodes) + UIns * IDEAS.Thermal.Components.Storage.BaseClasses.areaCalculation(

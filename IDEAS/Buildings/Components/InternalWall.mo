@@ -36,8 +36,8 @@ model InternalWall "interior opaque wall between two zones"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  Modelica.Blocks.Interfaces.RealOutput area_b "output of the area" annotation
-    (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput area_b "output of the area" annotation (
+     Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-56,60})));

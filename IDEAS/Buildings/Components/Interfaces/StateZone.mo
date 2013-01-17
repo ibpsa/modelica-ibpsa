@@ -77,7 +77,6 @@ partial model StateZone "Partial model for thermal building zones"
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-40,-90},{68,22},{68,-42},{40,-70},{40,-90},{-40,-90},{-40,-90}},
-
           lineThickness=0.5,
           smooth=Smooth.None,
           fillColor={255,255,170},

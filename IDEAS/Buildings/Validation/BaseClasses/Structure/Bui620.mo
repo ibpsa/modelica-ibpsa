@@ -14,10 +14,8 @@ model Bui620 "BESTEST Building model case 620"
     redeclare Data.Constructions.LightWall constructionType,
     redeclare Data.Insulation.fiberglass insulationType,
     azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
-
     insulationThickness={0.066,0.066,0.066,0.066},
     inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-
     AWall={21.6,10.2,21.6,10.2}) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,

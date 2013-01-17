@@ -15,13 +15,13 @@ model Bui610 "BESTEST Building model case 610"
     redeclare Data.Insulation.fiberglass insulationType,
     AWall={21.6,16.2,9.6,16.2},
     azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
-
     insulationThickness={0.066,0.066,0.066,0.066},
     inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})
     annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-49,-14})));
+
   IDEAS.Buildings.Components.SlabOnGround floor(
     redeclare Data.Constructions.LightFloor constructionType,
     redeclare Data.Insulation.insulation insulationType,

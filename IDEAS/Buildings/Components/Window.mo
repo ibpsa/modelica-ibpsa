@@ -35,8 +35,8 @@ model Window "Multipane window"
         origin={-30,-100})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDir
     "direct solar gains transmitted by windows" annotation (Placement(
-        transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent
-          ={{-10,-110},{10,-90}})));
+        transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent=
+           {{-10,-110},{10,-90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif
     "diffuse solar gains transmitted by windows" annotation (Placement(
         transformation(extent={{20,-110},{40,-90}}), iconTransformation(extent=
@@ -88,8 +88,8 @@ protected
         frac, inc=inc) if framePresent
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,80},{-40,100}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eConFra(A=A*frac)
-    if framePresent
+  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eConFra(A=A*frac) if
+       framePresent
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,60},{-40,80}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(G=fraType.U_value

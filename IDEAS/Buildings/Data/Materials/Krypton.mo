@@ -6,6 +6,5 @@ record Krypton =
     rho=3.56,
     epsSw=0,
     epsLw=0,
-    nState=1,
     gas=true,
     mhu=23.0*10e-6) "Krypton gass";

@@ -63,8 +63,8 @@ public
     locGain=constructionType.locGain)
     "Declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(A=AWall, inc
-      =inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(A=AWall, inc=
+       inc)
     "Convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layGro(

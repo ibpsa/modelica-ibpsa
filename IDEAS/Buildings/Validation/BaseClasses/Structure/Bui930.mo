@@ -12,9 +12,7 @@ model Bui930 "BESTEST Building model case 930"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
     azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
-
     inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-
     redeclare Data.Constructions.HeavyWall constructionType,
     redeclare Data.Insulation.foaminsulation insulationType,
     insulationThickness={0.0615,0.0615,0.0615,0.0615},
