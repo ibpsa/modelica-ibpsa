@@ -21,8 +21,8 @@ parameter Real gridFreq=50
 //     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource[3] voltageSource(each V=
         Modelica.ComplexMath.'abs'(VSource), phi={Modelica.ComplexMath.arg(
-        VSource),Modelica.ComplexMath.arg(VSource) + 120,
-        Modelica.ComplexMath.arg(VSource) + 240},
+        VSource),Modelica.ComplexMath.arg(VSource) + 2*Modelica.Constants.pi/3,
+        Modelica.ComplexMath.arg(VSource) + 4*Modelica.Constants.pi/3},
     each f=gridFreq)                                                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
