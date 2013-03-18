@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.Production.Auxiliaries;
-partial model PartialDynamicHeaterWithLosses
+model PartialDynamicHeaterWithLosses
   "Partial heater model incl dynamics and environmental losses"
 
   import IDEAS.Thermal.Components.Production.Auxiliaries.HeaterType;
@@ -21,7 +21,6 @@ partial model PartialDynamicHeaterWithLosses
 protected
   parameter Modelica.SIunits.ThermalConductance UALoss=(cDry + mWater*
       medium.cp)/tauHeatLoss;
-  final parameter SI.SpecificEnthalpy h_start = TInitial*medium.cp;
 
 public
   IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
@@ -33,10 +32,10 @@ public
         rotation=90,
         origin={-10,0})));
 
-  Thermal.Components.Interfaces.FlowPort_a flowPort_a(final medium=medium,
-    h(start=h_start,        min=1140947, max=1558647))
+  Thermal.Components.Interfaces.FlowPort_a flowPort_a(final medium=medium, h(
+        min=1140947, max=1558647))
     annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
-  Thermal.Components.Interfaces.FlowPort_b flowPort_b(final medium=medium, h(start=h_start,
+  Thermal.Components.Interfaces.FlowPort_b flowPort_b(final medium=medium, h(
         min=1140947, max=1558647))
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mDry(C=cDry, T(start=TInitial))

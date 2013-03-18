@@ -2,7 +2,6 @@ within IDEAS.BaseClasses.Control;
 block Hyst_NoEvent_Var_HEATING
   "Hysteresis FOR HEATING without events, with Real in- and output, and inputs for uLow and uHigh"
 
-// IMPORTANT: MAKE SURE THE INITIAL CONDITIONS ALLOW THE HYST TO BE OFF AT INITIALIZATION
 //  extends Modelica.Blocks.Interfaces.partialBooleanBlockIcon;
 
   Modelica.Blocks.Interfaces.RealInput u
@@ -16,12 +15,17 @@ block Hyst_NoEvent_Var_HEATING
     annotation (Placement(transformation(extent={{-88,50},{-68,70}}),
         iconTransformation(extent={{-88,50},{-68,70}})));
   Modelica.Blocks.Interfaces.RealInput uHigh
+<<<<<<< HEAD
     annotation (Placement(transformation(extent={{-88,10},{-68,30}}),
         iconTransformation(extent={{-88,10},{-68,30}})));
 
 initial equation
   y=0;
 
+=======
+    annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
+        iconTransformation(extent={{-110,10},{-90,30}})));
+>>>>>>> f714c70107a1b37e7a87a2cf222cc46c27b348e4
 equation
   if noEvent(u<uLow) then
     y = 1;
