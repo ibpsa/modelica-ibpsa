@@ -232,11 +232,7 @@ end for;
       color={0,128,255},
       smooth=Smooth.None));
   connect(fixedTemperature.port, heater.heatPort)       annotation (Line(
-<<<<<<< HEAD
-      points={{-122,40},{-112,40},{-112,32},{-103,32},{-103,14}},
-=======
       points={{-122,40},{-112,40},{-112,32},{-82,32},{-82,8}},
->>>>>>> f714c70107a1b37e7a87a2cf222cc46c27b348e4
       color={191,0,0},
       smooth=Smooth.None));
   connect(emission.heatPortEmb, heatPortEmb) annotation (Line(

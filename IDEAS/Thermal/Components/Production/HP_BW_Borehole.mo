@@ -24,11 +24,7 @@ model HP_BW_Borehole "BW HP with borehole included"
     annotation (Placement(transformation(extent={{-48,-46},{-28,-26}})));
   outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
-<<<<<<< HEAD
-  IDEAS.Thermal.Components.Production.VerticalGroundHeatExchanger.VerticalHeatExchangerModels.BoreHole
-=======
   IDEAS.Thermal.Components.GroundHeatExchanger.ModelDieterPatteeuw.VerticalHeatExchangerModels.BoreHole
->>>>>>> f714c70107a1b37e7a87a2cf222cc46c27b348e4
     boreHole(medium=mediumBorehole)
     annotation (Placement(transformation(extent={{36,-70},{56,-50}})));
   Thermal.Components.BaseClasses.Pump pumpBorehole(

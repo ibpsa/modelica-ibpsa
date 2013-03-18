@@ -39,8 +39,7 @@ protected
         shortTermFlux) "fixed flux from the earth core"
     annotation (Placement(transformation(extent={{-92,-94},{-72,-74}})));
 
-    SingleBorehole.BoreholeComponents.CylindricalLayer upperLayer[numberLayers]
-    (
+    SingleBorehole.BoreholeComponents.CylindricalLayer upperLayer[numberLayers](
     each groundCpCyl=groundCp,
     each groundKCyl=groundK,
     each tempInitial=bhTinitial,

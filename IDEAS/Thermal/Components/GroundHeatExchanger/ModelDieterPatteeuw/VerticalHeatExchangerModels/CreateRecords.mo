@@ -61,7 +61,6 @@ parameter
     gradient=alTheParameters.gradient,
     bottumTemperature=alTheParameters.bottumTemperature + 273.15,
     totalDepth=alTheParameters.totalDepthHeatExchanger + alTheParameters.bottumDepth,
-
     metersOfEarthBlock=alTheParameters.bottumDepth);
 
 // This is the record for the filling material.
