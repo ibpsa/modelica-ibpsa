@@ -2,8 +2,8 @@ within IDEAS.Buildings.Data.Glazing;
 record Ins2ArSilver =
               IDEAS.Buildings.Data.Interfaces.Glazing (
     nLay=3,
-    mats={Materials.Glass(d=0.006),Materials.Argon(d=0.016),Materials.Glass(d=
-        0.006)},
+    mats={Materials.Glass(d=0.006),Materials.Argon(d=0.016,epsLw_a=0.110),Materials.Glass(d=
+        0.006,epsLw=0.10)},
     SwTrans=[0,0.226; 10,0.227; 20,0.223; 30,0.218; 40,0.211; 50,0.199; 60,
         0.173; 70,0.125; 80,0.056; 90,0.000],
     SwAbs=[0,0.520,0.0,0.045; 10,0.525,0.0,0.046; 20,0.530,0.0,0.047; 30,0.532,
@@ -12,4 +12,4 @@ record Ins2ArSilver =
     SwTransDif=0.173,
     SwAbsDif={0.521,0.0,0.046},
     U_value=1.3,
-    g_value=0.298) "Double pane window (U = 1.3 W/m2K, g = 0.298)";
+    g_value=0.298) "Low SHGC AR 1.3 6/16/6 (U = 1.3 W/m2K, g = 0.298)";

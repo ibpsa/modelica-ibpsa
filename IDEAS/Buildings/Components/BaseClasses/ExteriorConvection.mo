@@ -8,7 +8,6 @@ model ExteriorConvection "exterior surface convection"
   outer IDEAS.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-protected
   Real hcon "equivalent surface conductance";
 
 equation

@@ -14,6 +14,9 @@ extends Modelica.Icons.MaterialProperty;
     "Viscosity, i.e. if the material is a fluid";
   parameter Real R = d/k;
 
+  parameter Modelica.SIunits.Emissivity epsLw_a = 0.84 "Longwave emisivity";
+  parameter Modelica.SIunits.Emissivity epsLw_b = 0.84 "Longwave emisivity";
+
   parameter Modelica.SIunits.ThermalDiffusivity alpha = k/(c*rho)
     "Thermal diffusivity";
   parameter Integer nStaRef = 3

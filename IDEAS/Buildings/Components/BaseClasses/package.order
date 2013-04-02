@@ -12,6 +12,7 @@ MonoLayerOpaque
 MultiLayerLucent
 MultiLayerOpaque
 InteriorConvection
+InteriorConvectionWindow
 ExteriorConvection
 ExteriorSolarAbsorption
 ExteriorHeatRadidation

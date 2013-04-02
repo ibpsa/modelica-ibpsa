@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.BaseClasses;
-model InteriorConvection "interior surface convection"
+model InteriorConvectionWindow "interior surface convection for windows"
 
   parameter Modelica.SIunits.Area A "surface area";
   parameter Modelica.SIunits.Angle inc "inclination";
@@ -18,15 +18,7 @@ protected
     "true if floor";
 
 equation
-  if Ceiling then
-    port_a.Q_flow = if noEvent(dT > 0) then A*2.72*abs(dT)^1.13 else -A*2.27*
-      abs(dT)^1.24;
-  elseif Floor then
-    port_a.Q_flow = if noEvent(dT > 0) then A*2.27*abs(dT)^1.24 else -A*2.72*
-      abs(dT)^1.13;
-  else
-    port_a.Q_flow = A*sign(dT)*2.07*abs(dT)^1.23;
-  end if;
+  port_a.Q_flow = A*sign(dT)*7.61*abs(dT)^1.06;
 
   port_a.Q_flow + port_b.Q_flow = 0 "no heat is stored";
   dT = port_a.T - port_b.T;
@@ -68,4 +60,4 @@ equation
 <p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-KNBSKUDK.png\"/></p>
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-W5kvS3SS.png\"/> is the characteristic length of the surface, <img src=\"modelica://IDEAS/Images/equations/equation-jhC1rqax.png\"/> is the indoor air temperature and <img src=\"modelica://IDEAS/Images/equations/equation-sbXAgHuQ.png\"/> are correlation coefficients. These parameters {<img src=\"modelica://IDEAS/Images/equations/equation-nHmmePq5.png\"/>,<img src=\"modelica://IDEAS/Images/equations/equation-zJZmNUzp.png\"/>,<img src=\"modelica://IDEAS/Images/equations/equation-7nwXbcLp.png\"/>} are identical to {1.823,-0.121,0.293} for vertical surfaces <a href=\"IDEAS.Buildings.UsersGuide.References\">[Khalifa 2001]</a>, {2.175,-0.076,0.308} for horizontal surfaces wherefore the heat flux is in the same direction as the buoyancy force <a href=\"IDEAS.Buildings.UsersGuide.References\">[Khalifa 2001]</a>, and {2.72,-,0.13} for horizontal surfaces wherefore the heat flux is in the opposite direction as the buoyancy force <a href=\"IDEAS.Buildings.UsersGuide.References\">[Awbi 1999]</a>. The interior natural convective heat transfer coefficient is only described as function of the temperature difference. Similar to the thermal model for heat transfer through a wall, a thermal circuit formulation for the direct radiant exchange between surfaces can be derived <a href=\"IDEAS.Buildings.UsersGuide.References\">[ Buchberg 1955, Oppenheim 1956]</a>.</p>
 </html>"));
-end InteriorConvection;
+end InteriorConvectionWindow;

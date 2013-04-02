@@ -6,6 +6,8 @@ model MultiLayerLucent "multiple non-opaque layers"
   parameter Integer nLay(min=1) "input: number of layers";
   parameter IDEAS.Buildings.Data.Interfaces.Material mats[nLay] "input";
 
+  final parameter Real R=sum(nMat.R) "total specific thermal resistance";
+
   IDEAS.Buildings.Components.BaseClasses.MonoLayerLucent[nLay] nMat(
     each final A=A,
     each final inc=inc,

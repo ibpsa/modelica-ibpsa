@@ -42,7 +42,7 @@ model Window "Multipane window"
         transformation(extent={{20,-110},{40,-90}}), iconTransformation(extent=
             {{20,-110},{40,-90}})));
 
-protected
+//protected
   parameter Boolean shading=false "Shading presence, i.e. true if present";
   parameter Boolean framePresent=fraType.present;
   parameter Modelica.SIunits.Efficiency shaCorr=0.2
@@ -64,7 +64,7 @@ protected
   IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eCon(A=A*(1 - frac))
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection iCon(A=A*(1 - frac),
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvectionWindow iCon(A=A*(1 - frac),
       inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));

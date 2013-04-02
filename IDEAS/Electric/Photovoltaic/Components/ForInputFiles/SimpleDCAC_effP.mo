@@ -1,17 +1,13 @@
 within IDEAS.Electric.Photovoltaic.Components.ForInputFiles;
 class SimpleDCAC_effP
 
-//extends Modelica.Blocks.Interfaces.BlockIcon;
-
 //  Real eff;
-//SI.ActivePower P;
-Modelica.SIunits.ApparentPower S;
-//SI.ReactivePower Q;
-  parameter Real cosphi=1;      //For now
+  Modelica.SIunits.ApparentPower S;
+  final parameter Real cosphi=1;      //For now
 
   parameter Real PNom "Nominal power, in Wp";
-  parameter Real P_dc_max=230;                 //MPP for one panel.
-  parameter Real eff=0.95;       //For now
+  parameter Real P_dc_max = 230;                 //MPP for one panel.
+  parameter Real eff = 0.95;       //For now
 
   Modelica.Blocks.Interfaces.RealInput P_dc
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
@@ -20,10 +16,12 @@ Modelica.SIunits.ApparentPower S;
     annotation (Placement(transformation(extent={{96,50},{116,70}})));
   Modelica.Blocks.Interfaces.RealOutput Q
     annotation (Placement(transformation(extent={{94,10},{114,30}})));
-equation
-  S^2=P^2+Q^2;
-  P=S*cosphi;
-  P=eff*P_dc;
+algorithm
+
+  P := eff*P_dc;
+  S := P/cosphi;
+  Q := 0;
+//  Q := sqrt(S^2-P^2);
 
 //
 //   // Define efficiency as a function of P_dc (production) against the mpp for the system
