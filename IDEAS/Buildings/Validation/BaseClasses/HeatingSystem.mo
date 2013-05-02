@@ -48,12 +48,12 @@ package HeatingSystem
 
   QHeatTotal = sum(heatPortRad.Q_flow) + sum(heatPortCon.Q_flow) + sum(heatPortEmb.Q_flow);
 
-    connect(realP.y, wattsLawPlug[1].P) annotation (Line(
-        points={{141,20},{154,20},{154,4},{170,4}},
+    connect(realP.y, wattsLawPlug.P[1]) annotation (Line(
+        points={{141,20},{154,20},{154,6},{170,6}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(realQ.y, wattsLawPlug[1].Q) annotation (Line(
-        points={{141,-20},{154,-20},{154,-2},{170,-2}},
+    connect(realQ.y, wattsLawPlug.Q[1]) annotation (Line(
+        points={{141,-20},{154,-20},{154,2},{170,2}},
         color={0,0,127},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},
@@ -90,8 +90,8 @@ package HeatingSystem
 
   QHeatTotal = sum(heatPortCon.Q_flow);
 
-  wattsLawPlug[1].P = -1*sum(heatPortCon.Q_flow);
-  wattsLawPlug[1].Q = 0
+  wattsLawPlug.P[1] = -1*sum(heatPortCon.Q_flow);
+  wattsLawPlug.Q[1] = 0
     annotation (Diagram(graphics));
   end ThermostatSetback;
 

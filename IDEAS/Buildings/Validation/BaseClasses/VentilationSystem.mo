@@ -24,8 +24,8 @@ package VentilationSystem
       "Air density correction for BESTEST at hig altitude";
 
   equation
-  wattsLawPlug[1].P = 0;
-  wattsLawPlug[1].Q = 0;
+  wattsLawPlug.P[1] = 0;
+  wattsLawPlug.Q[1] = 0;
 
   for i in 1:nZones loop
     if not occ.occupied then

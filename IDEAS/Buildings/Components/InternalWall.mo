@@ -33,7 +33,7 @@ model InternalWall "interior opaque wall between two zones"
   Modelica.Blocks.Interfaces.RealOutput iEpsSw_b
     "output of the interior emissivity for radiative heat losses"
     annotation (Placement(transformation(extent={{-46,-10},{-66,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[constructionType.nGain] port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Modelica.Blocks.Interfaces.RealOutput area_b "output of the area" annotation (
@@ -147,8 +147,8 @@ equation
           smooth=Smooth.None,
           color={0,0,0},
           thickness=0.5)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
+                    graphics),
     Documentation(info="<html>
 <p>The <code>InternalWall</code> model describes the transient behaviour of opaque builiding constructions separating two thermal zones. The description of the thermal response of a wall is structured as in the 2 different occurring processes, i.e. heat conduction between both surfaces and the heat balance of the interior surfaces.</p>
 <p><h4><font color=\"#008000\">Wall conduction process </font></h4></p>

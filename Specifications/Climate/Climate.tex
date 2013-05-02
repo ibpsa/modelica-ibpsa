@@ -1,15 +1,17 @@
 
-\title{Climate}
+\chapter{Climate}
+%\title{Climate}
 
-\author{Ruben Baetens and Dirk Saelens}
-\authorrunning{R. Baetens, D. Saelens}
-\institute{Ruben Baetens \at KU Leuven, Kasteelpark Arenberg 40 bus 2447, BE-3001 Leuven (Heverlee) \email{ruben.baetens@bwk.kuleuven.be}
-\and Dirk Saelens \at KU Leuven, Kasteelpark Arenberg 40 bus 2447, BE-3001 Leuven (Heverlee) \email{dirk.saelens@bwk.kuleuven.be}}
-\maketitle
 
-\abstract{A numeric building model is developed in Modelica for integrated energy simulation.}
+%\author{Ruben Baetens and Dirk Saelens}
+%\authorrunning{R. Baetens, D. Saelens}
+%\institute{Ruben Baetens \at KU Leuven, Kasteelpark Arenberg 40 bus 2447, BE-3001 Leuven (Heverlee) \email{ruben.baetens@bwk.kuleuven.be}
+%\and Dirk Saelens \at KU Leuven, Kasteelpark Arenberg 40 bus 2447, BE-3001 Leuven (Heverlee) \email{dirk.saelens@bwk.kuleuven.be}}
+%\maketitle
 
-\vspace{\baselineskip}
+%\abstract{A numeric building model is developed in Modelica for integrated energy simulation.}
+
+%\vspace{\baselineskip}
 
 In this section, we describe in detail the climate model and its possibilities that are implemented in Modelica as part of the IDEAS platform. Four external factors are to be known, i.e. external temperature and ground temperature for transient heat losses by conduction, sky temperature for long-wave radiation losses and short-wave gains on surfaces by solar irradiation.
 
@@ -126,9 +128,11 @@ wherefore $E_{sc}$ is the solar constant and $\kappa$ equals 1.041.
 
 So far, two types of structures which can shade a surface and thus reduce the shortwave radiation on a surface, i.e. an exterior screen in the pane of the surface and surface overhangs.
 
-\runinhead{Exterior solar screen.} The implementation of an exterior solar screen in the surface pane is stratightforward. The transmitted direct solar irradiation equals $E_{D}(t,x) \left(1 - f_{p}(t)\right)$ where $f_{p}(t)$ is the position of the screen between 0 and 1. The total transmitted diffuse and reflected solar irradiation equals $E_{d}(x,t) \left(1 - f_{p}\right) +f_{p}(t)  f_{s} E(x,t)$ where $f_{sha}$ is the shortwave transmittance of the exterior screen.
+%\runinhead{Exterior solar screen.} 
+The implementation of an exterior solar screen in the surface pane is stratightforward. The transmitted direct solar irradiation equals $E_{D}(t,x) \left(1 - f_{p}(t)\right)$ where $f_{p}(t)$ is the position of the screen between 0 and 1. The total transmitted diffuse and reflected solar irradiation equals $E_{d}(x,t) \left(1 - f_{p}\right) +f_{p}(t)  f_{s} E(x,t)$ where $f_{sha}$ is the shortwave transmittance of the exterior screen.
 
-\runinhead{Overhangs for vertical surfaces.} Horizontal and vertical projectionso above and besides windows are able to intercept the direct component of solar radiation depeneding on the geometry of the obstructing and receiving surface. The usnlit area $A_{SL}(x,t)$ of a surface with width $W$ and height $H$, and vertical and horizontal projections $P_{V}$ and $P_{H}$ at a distance $R_{W}$ and $R_{H}$ of the receiving surface edges is determiend as
+%\runinhead{Overhangs for vertical surfaces.} 
+Horizontal and vertical projectionso above and besides windows are able to intercept the direct component of solar radiation depeneding on the geometry of the obstructing and receiving surface. The usnlit area $A_{SL}(x,t)$ of a surface with width $W$ and height $H$, and vertical and horizontal projections $P_{V}$ and $P_{H}$ at a distance $R_{W}$ and $R_{H}$ of the receiving surface edges is determiend as
 
 \begin{dmath}
 A_{SL}(x,t) = \left[W - P_{v}  \left|\tan \alpha(t,x) \right| + R_{W}\right] \left[H - P_{H} \tan \left(\pi - \xi_{h}(t)\right) \cos^{-1} \alpha(t,x) + R_{H}\right]

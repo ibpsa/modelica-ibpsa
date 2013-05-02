@@ -5,6 +5,6 @@ model HeavyWall "BESTEST Heavy wall"
     nLay=3,
     locGain=2,
     mats={Materials.WoodSiding(d=0.009),insulationType,Materials.ConcreteBlock(
-        d=0.10, nState=10)});
+        d=0.10)});
 
 end HeavyWall;
