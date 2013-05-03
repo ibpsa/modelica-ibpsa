@@ -11,8 +11,8 @@ equation
 
 -heatPortRad[1].Q_flow = sim.tabQRad.y[id];
 -heatPortCon[1].Q_flow = sim.tabQCon.y[id];
-wattsLawPlug.P[1] = sim.tabP.y[id];
-wattsLawPlug.Q[1] = sim.tabQ.y[id];
+wattsLawPlug.P = {sim.tabP.y[id]};
+wattsLawPlug.Q = {sim.tabQ.y[id]};
 mDHW60C = sim.tabDHW.y[id];
 TSet[1] = noEvent(if sim.tabPre.y[id] > 0.5 then TSetOcc else TSetNoOcc);
 
