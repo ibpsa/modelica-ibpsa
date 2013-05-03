@@ -97,22 +97,6 @@ Parameter 0 &lt; tapT &lt; 1 defines temperature of heatPort between medium's in
 </HTML>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             140,60}}),
                 graphics={
-        Line(
-          points={{-70,-60},{-70,-80}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{110,40},{110,20}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-70,-70},{-100,-70}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{110,30},{140,30}},
-          color={0,0,127},
-          smooth=Smooth.None),
         Rectangle(extent={{-64,-100},{-42,60}}, lineColor={135,135,135}),
         Rectangle(extent={{-34,-100},{-12,60}}, lineColor={135,135,135}),
         Rectangle(extent={{-4,-100},{18,60}}, lineColor={135,135,135}),

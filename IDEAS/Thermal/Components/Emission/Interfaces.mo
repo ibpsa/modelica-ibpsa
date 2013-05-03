@@ -60,7 +60,23 @@ extends Modelica.Icons.InterfacesPackage;
     //der(flowPort_a.h) = 0;
     annotation(Icon(coordinateSystem(extent={{-100,-100},{140,60}},
             preserveAspectRatio=true),
-                    graphics),
+                    graphics={
+          Line(
+            points={{-70,-70},{-100,-70}},
+            color={0,0,127},
+            smooth=Smooth.None),
+          Line(
+            points={{-70,-60},{-70,-80}},
+            color={0,0,127},
+            smooth=Smooth.None),
+          Line(
+            points={{110,40},{110,20}},
+            color={0,0,127},
+            smooth=Smooth.None),
+          Line(
+            points={{110,30},{140,30}},
+            color={0,0,127},
+            smooth=Smooth.None)}),
         Diagram(coordinateSystem(extent={{-100,-100},{140,60}},
             preserveAspectRatio=true),
                 graphics));
@@ -76,16 +92,24 @@ extends Modelica.Icons.InterfacesPackage;
 
     annotation (Icon(graphics={
           Line(
-            points={{-100,0},{-60,0}},
+            points={{-60,-70},{-40,-70}},
             color={0,128,255},
             smooth=Smooth.None),
           Line(
-            points={{100,0},{60,0}},
+            points={{100,30},{80,30}},
             color={0,128,255},
             smooth=Smooth.None),
           Line(
-            points={{-60,0},{-60,76},{-40,76},{-40,-78},{-22,-78},{-22,76},{0,76},
-                {0,-78},{20,-78},{20,76},{42,76},{42,-78},{60,-78},{60,0}},
+            points={{-40,-70},{-40,56},{-20,56},{-20,-98},{-2,-98},{-2,56},{20,
+                56},{20,-98},{40,-98},{40,56},{62,56},{62,-98},{80,-98},{80,30}},
+            color={0,128,255},
+            smooth=Smooth.None),
+          Line(
+            points={{-60,-80},{-60,-60}},
+            color={0,128,255},
+            smooth=Smooth.None),
+          Line(
+            points={{100,20},{100,40}},
             color={0,128,255},
             smooth=Smooth.None)}));
   end Partial_EmbeddedPipe;
