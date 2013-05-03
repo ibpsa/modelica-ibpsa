@@ -3,7 +3,9 @@ package Examples
 
   extends Modelica.Icons.ExamplesPackage;
 
-  model Example_Occupant "Tester for occupant models"
+  model Occupant "Tester for occupant models"
+
+    extends Modelica.Icons.Example;
 
     Interfaces.DummyInHomeGrid dummyInHomeGrid
       annotation (Placement(transformation(extent={{14,-4},{34,16}})));
@@ -64,6 +66,6 @@ package Examples
         color={85,170,255},
         smooth=Smooth.None));
     annotation (Diagram(graphics));
-  end Example_Occupant;
+  end Occupant;
 
 end Examples;

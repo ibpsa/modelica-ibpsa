@@ -15,9 +15,7 @@ final parameter Modelica.SIunits.Time period = 86400/interval
       "Number of intervals per repetition";
 final parameter Real[3] QDay(unit="W/m2") = {8,20,2}
       "Specific power for dayzone";
-final parameter Real[3] QNight(unit="W/m2") = {1,1,6}
-      "Specific power for dayzone";
-Integer t "Interval";
+Integer t "Time interval";
 
 algorithm
 when sample(0,interval) then
@@ -25,7 +23,7 @@ when sample(0,interval) then
 end when;
 
 equation
-  mDHW60C=0;
+mDHW60C=0;
 heatPortRad.Q_flow = heatPortCon.Q_flow;
 wattsLawPlug.P = {heatPortCon[1].Q_flow + heatPortRad[1].Q_flow};
 wattsLawPlug.Q = {0};

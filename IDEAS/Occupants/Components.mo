@@ -27,15 +27,19 @@ package Components
             origin={-100,-20})));
 
   protected
-    IDEAS.Occupants.BaseClasses.PredictedPercentageDissatisfied ppd
+    IDEAS.Occupants.Components.BaseClasses.PredictedPercentageDissatisfied
+                                                                ppd
       "PPD calculated"
       annotation (Placement(transformation(extent={{60,-36},{80,-16}})));
-    IDEAS.Occupants.BaseClasses.CloValue cloValue "clothing calculation"
+    IDEAS.Occupants.Components.BaseClasses.CloValue
+                                         cloValue "clothing calculation"
       annotation (Placement(transformation(extent={{-54,60},{-34,80}})));
-    IDEAS.Occupants.BaseClasses.CloTemperature cloTemperature(Linear=Linear)
+    IDEAS.Occupants.Components.BaseClasses.CloTemperature
+                                               cloTemperature(Linear=Linear)
       "clothing surface temperature"
         annotation (Placement(transformation(extent={{-26,26},{-6,46}})));
-    IDEAS.Occupants.BaseClasses.PredictedMeanVote pmv(Linear=Linear)
+    IDEAS.Occupants.Components.BaseClasses.PredictedMeanVote
+                                                  pmv(Linear=Linear)
       "pmv calculation"
         annotation (Placement(transformation(extent={{8,26},{28,46}})));
   equation
@@ -118,7 +122,9 @@ package Components
             points={{-2,44},{-2,-60}},
             color={0,0,0},
             thickness=0.5)}),
-        Diagram(graphics));
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+              {100,100}}),
+                graphics));
   end Fanger;
 
   model Schedule "Single schedule with look-ahead"
@@ -233,46 +239,171 @@ package Components
             fillPattern=FillPattern.Solid)}));
   end Schedule;
 
-  model userInfoMan
 
-  replaceable BWFlib.Residential.Users.userOnFile userDetail annotation (choicesAllMatching = true);
+  package BaseClasses
 
-  parameter Integer n_B = 33 "number of buildings to be considered";
-  final parameter Integer[n_B] columns = {i+1 for i in 1:n_B};
+    extends Modelica.Icons.BasesPackage;
 
-  Modelica.Blocks.Tables.CombiTable1Ds Pow(
-      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
-      tableOnFile = true,
-      tableName = "data",
-      fileName = userDetail.filNamPow,
-      columns = columns);
-  Modelica.Blocks.Tables.CombiTable1Ds PowCon(
-      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
-      tableOnFile = true,
-      tableName = "data",
-      fileName = userDetail.filNamPowCon,
-      columns = columns);
-  Modelica.Blocks.Tables.CombiTable1Ds PowRad(
-      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
-      tableOnFile = true,
-      tableName = "data",
-      fileName = userDetail.filNamPowRad,
-      columns = columns);
-  Modelica.Blocks.Tables.CombiTable1Ds TopAsk(
-      final smoothness = Modelica.Blocks.Types.Smoothness.LinearSegments,
-      tableName = "data",
-      tableOnFile = true,
-      fileName = userDetail.filNamTopAsk,
-      columns = columns);
+    block PredictedPercentageDissatisfied
+      "predicted percentage of dissatisfied"
 
-  equation
-  time = Pow.u;
-  time = PowCon.u;
-  time = PowRad.u;
-  time = TopAsk.u;
+    extends Modelica.Blocks.Interfaces.BlockIcon;
 
-    annotation (defaultComponentName="user", defaultComponentPrefixes="inner",  missingInnerMessage="Your model is using an outer \"user\" component. An inner \"user\" component is not defined. For simulation drag BWF.BuiUser.userInfoMan into your model.",
-          Icon(graphics));
-  end userInfoMan;
+      Modelica.Blocks.Interfaces.RealInput PMV "predicted mean vote"
+        annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
+      Modelica.Blocks.Interfaces.RealOutput PPD
+        "predicted percentage of dissatisfied"
+        annotation (Placement(transformation(extent={{90,50},{110,70}})));
 
+    algorithm
+      PPD := 100-95*exp(-0.003353*PMV^4-0.2179*PMV^2);
+
+      annotation (Icon(graphics),  Diagram(graphics));
+    end PredictedPercentageDissatisfied;
+
+    block PredictedMeanVote "predicted mean vote"
+
+    extends Modelica.Blocks.Interfaces.BlockIcon;
+
+      Modelica.Blocks.Interfaces.RealOutput PMV "predicted mean vote"
+        annotation (Placement(transformation(extent={{90,30},{110,50}})));
+      Modelica.Blocks.Interfaces.RealInput Trad "radiative zone temperature"
+        annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+            rotation=90,
+            origin={20,-100})));
+      Modelica.Blocks.Interfaces.RealInput Tair "convective zone temperature"
+        annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+            rotation=90,
+            origin={-40,-100})));
+      Modelica.Blocks.Interfaces.RealInput Tclo "clothing surface temperature" annotation (Placement(transformation(
+            extent={{-20,-20},{20,20}},
+            rotation=0,
+            origin={-100,40})));
+      Modelica.Blocks.Interfaces.RealInput CloFrac "clothing fraction" annotation (Placement(
+            transformation(
+            extent={{-20,-20},{20,20}},
+            rotation=-90,
+            origin={20,100})));
+
+      parameter Modelica.SIunits.Area Adu = 1.77 "DuBois Area";
+      parameter Modelica.SIunits.Efficiency Eta = 0.1
+        "external mechanical efficiency of the body";
+      parameter Modelica.SIunits.HeatFlowRate Met = 120 "Metabolic rate";
+      parameter Real RelHum = 0.50 "Relative humidity";
+      parameter Boolean Linear = true;
+
+      constant Real Cb = 5.67 "black body constant";
+      constant Real b = 0.82 "linearization fit";
+      final parameter Real Meta = Met/Adu "Specific metabolic rate";
+
+    protected
+      Real Conv "convective surface coefficient";
+      Modelica.SIunits.Temperature DTr4
+        "Linearized or not linearized radiative delta T^4";
+      Modelica.SIunits.Pressure Pvp "partial water vapour pressure";
+
+    algorithm
+    if Linear then
+      DTr4 := b*Cb/Modelica.Constants.sigma*(Tclo-Tair);
+    else
+      DTr4 := (Tclo-Tair)*(Tclo+Tair)*(Tclo^2+Tair^2);
+    end if;
+
+    Pvp := RelHum*611*exp(17.08*(Tair-273.15)/(234.18 +(Tair-273.15)))/1000;
+    Conv := 5; /*2.05*(Tclo-Tair)^0.25;*/
+
+    PMV := (0.303*exp(-0.036*Meta) + 0.028)*(Meta - 3.96*10^(-8)*CloFrac*DTr4- CloFrac*Conv*(Tclo-Tair) - 3.05*(5.73 -
+        0.007*Meta - Pvp) - 0.42*(Meta - 58.15) - 0.0173*Meta*(5.87 - Pvp) - 0.0014*Meta*(307.15 - Tair));
+
+      annotation (Diagram(graphics), Icon(graphics));
+    end PredictedMeanVote;
+
+    block CloValue "clothing"
+
+    extends Modelica.Blocks.Interfaces.BlockIcon;
+
+      Modelica.Blocks.Interfaces.RealOutput RClo "clothing thermal resistance"
+        annotation (Placement(transformation(extent={{90,30},{110,50}})));
+      Modelica.Blocks.Interfaces.RealOutput CloFrac "clothign fraction"
+        annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
+      outer IDEAS.SimInfoManager sim
+        annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
+      parameter Real CloWin = 0.9 "Clo value for winter conditions";
+      parameter Real CloSum = 0.5 "Clo value for summer conditions";
+
+    algorithm
+     if noEvent(sim.TeAv > 22 + 273.15) then
+       RClo :=0.155*CloSum;
+     else
+       RClo :=0.155*CloWin;
+     end if;
+
+     if noEvent(RClo > 0.078) then
+       CloFrac :=1.05 + 0.645*RClo;
+     else
+       CloFrac:=1.00 + 1.29*RClo;
+     end if;
+
+      annotation (Icon(graphics));
+    end CloValue;
+
+    block CloTemperature "clothing surface temperature"
+
+    extends Modelica.Blocks.Interfaces.BlockIcon;
+
+      Modelica.Blocks.Interfaces.RealOutput Tclo "clothing surface temperature"
+        annotation (Placement(transformation(extent={{90,30},{110,50}})));
+      Modelica.Blocks.Interfaces.RealInput Trad "radiative zone temperature"
+        annotation (Placement(transformation(extent={{20,-20},{-20,20}},
+                rotation=-90,
+                origin={20,-100})));
+      Modelica.Blocks.Interfaces.RealInput Tair "convective zone temperature"
+        annotation (Placement(transformation(extent={{20,-20},{-20,20}},
+                rotation=-90,
+                origin={-40,-100})));
+      Modelica.Blocks.Interfaces.RealInput RClo "clothing thermal resistance" annotation (Placement(transformation(
+            extent={{-20,-20},{20,20}},
+            rotation=-90,
+            origin={-40,100})));
+      Modelica.Blocks.Interfaces.RealInput CloFrac "clothign fraction" annotation (Placement(
+            transformation(
+            extent={{-20,-20},{20,20}},
+            rotation=-90,
+            origin={20,100})));
+
+      parameter Modelica.SIunits.Area Adu = 1.77 "DuBois Area";
+      parameter Modelica.SIunits.Efficiency Eta = 0.1
+        "external mechanical efficiency of the body";
+      parameter Modelica.SIunits.HeatFlowRate Met = 120 "Metabolic rate";
+      parameter Boolean Linear = true;
+      parameter Modelica.SIunits.Velocity VelVen=0.2;
+
+      constant Real Cb = 5.67 "black body constant";
+      constant Real b = 0.82 "linearization fit";
+      final parameter Real Meta = Met/Adu "Specific metabolic rate";
+
+    protected
+      Real Conv "convective surface coefficient";
+      Real DTr4 "Linearized or not linearized radiative delta T^4";
+
+    algorithm
+    if Linear then
+      DTr4 :=b*Cb/Modelica.Constants.sigma*(Tclo - Tair);
+    else
+      DTr4 :=(Tclo - Tair)*(Tclo + Tair)*(Tclo^2 + Tair^2);
+    end if;
+
+    if noEvent(65*(Tclo-Tair) > 21435.89*VelVen) then
+      Conv :=2.38*(Tclo - Tair)^0.25;
+    else
+      Conv :=12.1*VelVen^0.5;
+    end if;
+
+    Tclo:=(35.7 - 0.028*Meta - RClo*(3.96*10^(-8)*CloFrac*DTr4 + CloFrac*Conv*(
+        Tclo - Tair))) + 273.15;
+
+      annotation (Diagram(graphics), Icon(graphics));
+    end CloTemperature;
+  end BaseClasses;
 end Components;
