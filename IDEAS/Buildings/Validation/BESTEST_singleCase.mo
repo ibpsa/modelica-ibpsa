@@ -1,6 +1,13 @@
 within IDEAS.Buildings.Validation;
 model BESTEST_singleCase
-  import IDEAS;
+
+extends Modelica.Icons.RotationalSensor;
+
+/*
+
+Simulation of a single BESTEST case of your choice.
+
+*/
 
     inner IDEAS.SimInfoManager sim(
       redeclare IDEAS.Climate.Meteo.Files.min60 detail,

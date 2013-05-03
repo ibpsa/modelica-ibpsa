@@ -1,12 +1,20 @@
 within IDEAS.Buildings.Validation;
 model BESTEST
 
+extends Modelica.Icons.RotationalSensor;
+
+/*
+
+Simulation of all so far modeled BESTEST cases in a single simulation.
+
+*/
+
     inner IDEAS.SimInfoManager sim(
       redeclare IDEAS.Climate.Meteo.Files.min60 detail,
       redeclare IDEAS.Climate.Meteo.Locations.BesTest city)
       annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
 
-// BESTEST 600 Series //
+// BESTEST 600 Series
 
   replaceable Cases.Case600 Case600 constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{-76,44},{-64,56}})));
@@ -25,7 +33,7 @@ model BESTEST
   replaceable Cases.Case650FF Case650FF constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{64,44},{76,56}})));
 
-// BESTEST 900 Series //
+// BESTEST 900 Series
 
   replaceable Cases.Case900 Case900 constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{-76,4},{-64,16}})));
