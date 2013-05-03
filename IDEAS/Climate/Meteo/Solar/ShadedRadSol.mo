@@ -12,23 +12,30 @@ parameter Modelica.SIunits.Area A;
   outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Elements.Declination declination
+  BaseClasses.Declination
+                       declination
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Elements.AngleHour angleHour
+  BaseClasses.AngleHour
+                     angleHour
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
-  Elements.AngleSolar angSolar(inc=inc, azi=azi,lat=lat)
+  BaseClasses.AngleSolar
+                      angSolar(inc=inc, azi=azi,lat=lat)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Elements.solDirTil solDirTil(A=A,inc=inc)
+  BaseClasses.solDirTil
+                     solDirTil(A=A,inc=inc)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Elements.solDifTil solDifTil(A=A,inc=inc)
+  BaseClasses.solDifTil
+                     solDifTil(A=A,inc=inc)
     annotation (Placement(transformation(extent={{0,-2},{20,18}})));
-  Elements.solradExtraTerra extraTerra
+  BaseClasses.solradExtraTerra
+                            extraTerra
     annotation (Placement(transformation(extent={{-80,-24},{-60,-4}})));
   Modelica.Blocks.Interfaces.RealOutput solDir
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Modelica.Blocks.Interfaces.RealOutput solDif
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
-  Elements.AngleZenith angleZenith(lat=lat)
+  BaseClasses.AngleZenith
+                       angleZenith(lat=lat)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Interfaces.RealOutput angInc "Angle of incidence"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
@@ -36,7 +43,8 @@ parameter Modelica.SIunits.Area A;
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Blocks.Interfaces.RealOutput angAzi "Azimuth angle"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
-  Elements.AngleAzimuth angleAzimuth(
+  BaseClasses.AngleAzimuth
+                        angleAzimuth(
                                    lat=lat, azi=azi)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation

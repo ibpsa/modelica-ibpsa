@@ -12,23 +12,30 @@ parameter Modelica.SIunits.Area A;
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Elements.Declination declination
-    annotation (Placement(transformation(extent={{-96,20},{-76,40}})));
-  Elements.AngleHour angleHour
+  BaseClasses.Declination
+                       declination
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  BaseClasses.AngleHour
+                     angleHour
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
-  Elements.AngleSolar angSolar(inc=inc, azi=azi,lat=lat)
+  BaseClasses.AngleSolar
+                      angSolar(inc=inc, azi=azi,lat=lat)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Elements.solDirTil solDirTil(A=A,inc=inc)
+  BaseClasses.solDirTil
+                     solDirTil(A=A,inc=inc)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Elements.solDifTil solDifTil(A=A,inc=inc)
+  BaseClasses.solDifTil
+                     solDifTil(A=A,inc=inc)
     annotation (Placement(transformation(extent={{0,-2},{20,18}})));
-  Elements.solradExtraTerra extraTerra
+  BaseClasses.solradExtraTerra
+                            extraTerra
     annotation (Placement(transformation(extent={{-80,-24},{-60,-4}})));
   Modelica.Blocks.Interfaces.RealOutput solDir
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Modelica.Blocks.Interfaces.RealOutput solDif
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
-  Elements.AngleZenith angleZenith(lat=lat)
+  BaseClasses.AngleZenith
+                       angleZenith(lat=lat)
     annotation (Placement(transformation(extent={{-40,-2},{-20,18}})));
   Modelica.Blocks.Interfaces.RealOutput angInc "Angle of incidence"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
@@ -38,7 +45,7 @@ parameter Modelica.SIunits.Area A;
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
 equation
   connect(declination.delta, angSolar.angDec) annotation (Line(
-      points={{-76,36},{-40,36}},
+      points={{-60,36},{-40,36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angleHour.angHou, angSolar.angHou) annotation (Line(
@@ -54,7 +61,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(declination.delta, angleZenith.angDec) annotation (Line(
-      points={{-76,36},{-50,36},{-50,14},{-40,14}},
+      points={{-60,36},{-50,36},{-50,14},{-40,14}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angleHour.angHou, angleZenith.angHou) annotation (Line(

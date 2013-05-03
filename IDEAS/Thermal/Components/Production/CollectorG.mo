@@ -6,7 +6,8 @@ model CollectorG
 
  extends Modelica.Thermal.FluidHeatFlow.Interfaces.Partials.TwoPort(m=medium.rho
         *Vol);
-IDEAS.Climate.Meteo.Solar.Elements.AngleHour angleHour;
+IDEAS.Climate.Meteo.Solar.BaseClasses.AngleHour
+                                             angleHour;
 /*
 Model_Mark.Meteo.Solar.RadiationSolar radSol(
     TeAv=265,
