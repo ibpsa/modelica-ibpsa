@@ -1,159 +1,62 @@
 within IDEAS.Buildings.Validation;
 model BESTEST
 
-    inner IDEAS.SimInfoManager         sim(redeclare
-      IDEAS.Climate.Meteo.Files.min60   detail, redeclare
-      IDEAS.Climate.Meteo.Locations.BesTest   city)
+    inner IDEAS.SimInfoManager sim(
+      redeclare IDEAS.Climate.Meteo.Files.min60 detail,
+      redeclare IDEAS.Climate.Meteo.Locations.BesTest city)
       annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
-  Interfaces.Building case600(redeclare
-      IDEAS.Buildings.Validation.BaseClasses.Structure.Bui600  building,
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Interfaces.Building case600FF(redeclare
-      IDEAS.Buildings.Validation.BaseClasses.Structure.Bui600  building,
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.None heatingSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Interfaces.Building case620(redeclare
-      IDEAS.Buildings.Validation.BaseClasses.Structure.Bui620  building,
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Interfaces.Building case640(redeclare
-      IDEAS.Buildings.Validation.BaseClasses.Structure.Bui600  building,
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare
-      IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.ThermostatSetback
-      heatingSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Interfaces.Building case650(redeclare
-      IDEAS.Buildings.Validation.BaseClasses.Structure.Bui600  building,
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare
-      IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
-      ventilationSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Interfaces.Building case650FF(
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui900 building,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.None heatingSystem,
-    redeclare
-      IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
-      ventilationSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Interfaces.Building case900(redeclare
-      IDEAS.Buildings.Validation.BaseClasses.Structure.Bui900  building,
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Interfaces.Building case900FF(redeclare
-      IDEAS.Buildings.Validation.BaseClasses.Structure.Bui900  building,
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Interfaces.Building case920(redeclare
-      IDEAS.Buildings.Validation.BaseClasses.Structure.Bui620  building,
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Interfaces.Building case940(redeclare
-      IDEAS.Buildings.Validation.BaseClasses.Structure.Bui900  building,
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare
-      IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.ThermostatSetback
-      heatingSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Interfaces.Building case950(redeclare
-      IDEAS.Buildings.Validation.BaseClasses.Structure.Bui900  building,
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare
-      IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
-      ventilationSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Interfaces.Building case950FF(
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui900 building,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.None heatingSystem,
-    redeclare
-      IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.NightVentilation
-      ventilationSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  Interfaces.Building case610(
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui610 building,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Interfaces.Building case910(
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui910 building,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Interfaces.Building case630(
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui630 building,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Interfaces.Building case930(
-      redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain  occupant,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui930 building,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
-      ventilationSystem,
-    redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
-    redeclare IDEAS.Interfaces.DummyInHomeGrid inHomeGrid)
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+
+// BESTEST 600 Series //
+
+  replaceable Cases.Case600 Case600 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{-76,44},{-64,56}})));
+  replaceable Cases.Case600FF Case600FF constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{-56,44},{-44,56}})));
+  replaceable Cases.Case610 Case610 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{-36,44},{-24,56}})));
+  replaceable Cases.Case620 Case620 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{-16,44},{-4,56}})));
+  replaceable Cases.Case630 Case630 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{4,44},{16,56}})));
+  replaceable Cases.Case640 Case640 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{24,44},{36,56}})));
+  replaceable Cases.Case650 Case650 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{44,44},{56,56}})));
+  replaceable Cases.Case650FF Case650FF constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{64,44},{76,56}})));
+
+// BESTEST 900 Series //
+
+  replaceable Cases.Case900 Case900 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{-76,4},{-64,16}})));
+  replaceable Cases.Case900FF Case900FF constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{-56,4},{-44,16}})));
+  replaceable Cases.Case910 Case910 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{-36,4},{-24,16}})));
+  replaceable Cases.Case920 Case920 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{-16,4},{-4,16}})));
+  replaceable Cases.Case930 Case930 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{4,4},{16,16}})));
+  replaceable Cases.Case940 Case940 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{24,4},{36,16}})));
+  replaceable Cases.Case950 Case950 constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{44,4},{56,16}})));
+  replaceable Cases.Case950FF Case950FF constrainedby Interfaces.BesTestCase
+    annotation (Placement(transformation(extent={{64,4},{76,16}})));
   annotation (experiment(
       StopTime=3.1536e+007,
       Interval=3600,
-      Tolerance=1e-007), __Dymola_experimentSetupOutput);
+      Tolerance=1e-007), __Dymola_experimentSetupOutput,
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={Text(
+          extent={{-78,68},{-40,60}},
+          lineColor={85,0,0},
+          fontName="Calibri",
+          textStyle={TextStyle.Bold},
+          textString="BESTEST 600 Series"), Text(
+          extent={{-78,28},{-40,20}},
+          lineColor={85,0,0},
+          fontName="Calibri",
+          textStyle={TextStyle.Bold},
+          textString="BESTEST 900 Series")}));
 end BESTEST;

@@ -3,7 +3,8 @@ package Constructions "Library of building envelope constructions"
 
   extends Modelica.Icons.MaterialPropertiesPackage;
 
-  model CavityWall "Classic cavity wall construction with fully-filled cavity"
+  model CavityWall
+    "Example - Classic cavity wall construction with fully-filled cavity"
 
     extends IDEAS.Buildings.Data.Interfaces.Construction(
       nLay=4,
@@ -12,12 +13,12 @@ package Constructions "Library of building envelope constructions"
 
   end CavityWall;
 
-  model FloorOnGround "Floor on ground for floro heating system"
+  model FloorOnGround "Example - Floor on ground for floor heating system"
 
     extends IDEAS.Buildings.Data.Interfaces.Construction(
       nLay=4,
       locGain=2,
-      mats={Materials.Concrete(d=0.20),insulationType,Materials.Screed(d=0.08,nState=4),Materials.Concrete(d=0.015)});
+      mats={Materials.Concrete(d=0.20),insulationType,Materials.Screed(d=0.08),Materials.Concrete(d=0.015)});
 
   end FloorOnGround;
 end Constructions;

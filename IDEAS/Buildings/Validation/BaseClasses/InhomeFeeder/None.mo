@@ -1,8 +1,4 @@
-within IDEAS.Buildings.Validation.BaseClasses;
-package InhomeFeeder
-
-    extends Modelica.Icons.Package;
-
+within IDEAS.Buildings.Validation.BaseClasses.InhomeFeeder;
 model None "None"
 
   extends IDEAS.Interfaces.InhomeFeeder;
@@ -37,5 +33,3 @@ end for;
       smooth=Smooth.None));
   annotation (Diagram(graphics));
 end None;
-
-end InhomeFeeder;

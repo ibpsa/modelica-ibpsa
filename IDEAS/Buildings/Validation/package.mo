@@ -1,5 +1,5 @@
 within IDEAS.Buildings;
-package Validation 
+package Validation "BESTEST Validation"
 
 
 extends Modelica.Icons.SensorsPackage;

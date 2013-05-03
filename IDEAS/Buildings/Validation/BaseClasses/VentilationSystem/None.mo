@@ -1,16 +1,12 @@
-within IDEAS.Buildings.Validation.BaseClasses.Occupant;
+within IDEAS.Buildings.Validation.BaseClasses.VentilationSystem;
 model None "None"
-  extends IDEAS.Interfaces.Occupant(nLoads=1);
+  extends IDEAS.Interfaces.VentilationSystem(nLoads=1);
 
 equation
 wattsLawPlug.P[1] = 0;
 wattsLawPlug.Q[1] = 0;
 for i in 1:nZones loop
   heatPortCon[i].Q_flow =  0;
-  heatPortRad[i].Q_flow =  0;
-  TSet[i] =  273.15;
 end for;
-mDHW60C = 0;
-
   annotation (Diagram(graphics));
 end None;
