@@ -33,7 +33,7 @@ model InternalWall "interior opaque wall between two zones"
   Modelica.Blocks.Interfaces.RealOutput iEpsSw_b
     "output of the interior emissivity for radiative heat losses"
     annotation (Placement(transformation(extent={{-46,-10},{-66,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[constructionType.nGain] port_emb
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Modelica.Blocks.Interfaces.RealOutput area_b "output of the area" annotation (
