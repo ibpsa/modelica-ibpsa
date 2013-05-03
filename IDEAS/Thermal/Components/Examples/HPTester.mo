@@ -86,11 +86,11 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(isolatedPipe1.flowPort_b, HP.flowPort_a)            annotation (Line(
-      points={{32,-6},{52,-6},{52,18},{62,18}},
+      points={{32,-6},{52,-6},{52,15.6364},{62,15.6364}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(HP.flowPort_b, volumeFlow1.flowPort_a)            annotation (Line(
-      points={{62,22},{82,22},{82,-62},{-76,-62},{-76,-6},{-36,-6}},
+      points={{62,20.9091},{82,20.9091},{82,-62},{-76,-62},{-76,-6},{-36,-6}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(thermalConductor.port_b, isolatedPipe1.heatPort) annotation (Line(
@@ -102,11 +102,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, HP.flowPort_a)            annotation (Line(
-      points={{58,72},{80,72},{80,12},{76,12},{76,18},{62,18}},
+      points={{58,72},{80,72},{80,12},{76,12},{76,15.6364},{62,15.6364}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(HP.heatPort, fixedTemperature.port) annotation (Line(
-      points={{52,30},{94,30},{94,-72},{-36,-72},{-36,-42}},
+      points={{49,10},{94,10},{94,-72},{-36,-72},{-36,-42}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(volumeFlow2.flowPort_b,isolatedPipe2. flowPort_a) annotation (Line(
