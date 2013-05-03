@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.Interfaces;
-model StateShading "Window shading"
+partial model StateShading "Window shading"
 
   parameter Boolean controled=true;
 
