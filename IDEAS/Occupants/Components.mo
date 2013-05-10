@@ -239,7 +239,6 @@ package Components
             fillPattern=FillPattern.Solid)}));
   end Schedule;
 
-
   package BaseClasses
 
     extends Modelica.Icons.BasesPackage;
