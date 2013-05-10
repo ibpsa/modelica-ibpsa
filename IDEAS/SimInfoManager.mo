@@ -31,31 +31,33 @@ public
     "Nominal power (W) of the photovoltaic profiles"                             annotation(Dialog(group="Photovoltaics"));
 
 protected
-  parameter String filNamClim = "..\\Inputs\\" + city.locNam + detail.filNam;
-  parameter Modelica.SIunits.Angle lat(displayUnit="deg") = city.lat
+  final parameter String filNamClim = "..\\Inputs\\" + city.locNam + detail.filNam;
+  final parameter Modelica.SIunits.Angle lat(displayUnit="deg") = city.lat
     "latitude of the locatioin";
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") = city.lon;
-  parameter Modelica.SIunits.Temperature Tdes = city.Tdes
+  final parameter Modelica.SIunits.Angle lon(displayUnit="deg") = city.lon;
+  final parameter Modelica.SIunits.Temperature Tdes = city.Tdes
     "design outdoor temperature";
-  parameter Modelica.SIunits.Temperature TdesGround = city.TdesGround
+  final parameter Modelica.SIunits.Temperature TdesGround = city.TdesGround
     "design ground temperature";
-  parameter Modelica.SIunits.Time timZonSta = city.timZonSta
+  final parameter Modelica.SIunits.Time timZonSta = city.timZonSta
     "standard time zone";
-  parameter Boolean DST = city.DST "take into account daylight saving time";
-  parameter Integer yr = city.yr "depcited year for DST only";
+  final parameter Boolean DST = city.DST
+    "boolean to take into account daylight saving time";
+  final parameter Integer yr = city.yr "depcited year for DST only";
 
-  final parameter Boolean BesTest = Modelica.Utilities.Strings.isEqual(city.locNam,"BesTest");
+  final parameter Boolean BesTest = Modelica.Utilities.Strings.isEqual(city.locNam,"BesTest")
+    "boolean to determine if this simulation is a BESTEST simulation";
 
 public
-  Modelica.SIunits.Irradiance solDirPer
+  Modelica.SIunits.Irradiance solDirPer = climate_solar.y[3]
     "direct irradiation on normal to solar zenith";
-  Modelica.SIunits.Irradiance solDirHor
+  Modelica.SIunits.Irradiance solDirHor = climate_solar.y[1]-climate_solar.y[2]
     "direct irradiation on horizontal surface";
-  Modelica.SIunits.Irradiance solDifHor
+  Modelica.SIunits.Irradiance solDifHor = climate_solar.y[2]
     "difuse irradiation on horizontal surface";
   Modelica.SIunits.Irradiance solGloHor = solDirHor + solDifHor
     "global irradiation on horizontal";
-  Modelica.SIunits.Temperature Te
+  Modelica.SIunits.Temperature Te = climate_nonSolar.y[1] + 273.15
     "ambient outdoor temperature for determination of sky radiation exchange";
   Modelica.SIunits.Temperature Tsky "effective overall sky temperature";
   Modelica.SIunits.Temperature TeAv = Te
@@ -63,24 +65,15 @@ public
   Modelica.SIunits.Temperature Tground = TdesGround "ground temperature";
   Modelica.SIunits.Velocity Va "air velocity";
   Real Fc "cloud factor";
-  Modelica.SIunits.Irradiance irr;
-  Boolean summer;
+  Modelica.SIunits.Irradiance irr = climate_solar.y[1];
+  Boolean summer = timMan.summer;
 
   Boolean day = true;
-/*
-  Real workday;
-  Real weekend;
-*/
-  Modelica.SIunits.Time timLoc;
-  Modelica.SIunits.Time timSol;
-  Modelica.SIunits.Time timCal;
-/*
-  IDEAS.BaseClasses.Control.Hyst_NoEvent calcWE(uLow=604800, uHigh=432000) 
-    "calculation of weekend or workday"
-    annotation (Placement(transformation(extent={{-20,26},{-6,40}})));
-  IDEAS.BaseClasses.Control.rem_NoEvent remWE(interval=604800)
-    annotation (Placement(transformation(extent={{-40,26},{-26,40}})));
-*/
+
+  Modelica.SIunits.Time timLoc = timMan.timLoc "Local time";
+  Modelica.SIunits.Time timSol = timMan.timSol "Solar time";
+  Modelica.SIunits.Time timCal = timMan.timCal "Calendar time";
+
 protected
   IDEAS.Climate.Time.SimTimes timMan(
     delay=detail.timestep/2,
@@ -151,18 +144,8 @@ Modelica.Blocks.Tables.CombiTable1Ds tabPPV(
     columns=2:nPV + 1) if
                          PV annotation (Placement(transformation(extent={{-36,2},
             {-22,16}})));
-algorithm
-/*
-    weekend := calcWE.y;
-    workday := 1-calcWE.y;
-*/
+
 equation
-
-  solDirPer = climate_solar.y[3];
-  solDirHor = climate_solar.y[1]-climate_solar.y[2];
-  solDifHor = climate_solar.y[2];
-  Te = climate_nonSolar.y[1]+273.15;
-
   if not BesTest then
     Tsky = Te - (23.8 - 0.2025 * (Te-273.15)*(1-0.87*Fc));
     Fc = 0.2;
@@ -173,21 +156,6 @@ equation
     Va = climate_nonSolar.y[4];
   end if;
 
-  irr = climate_solar.y[1];
-  summer = timMan.summer;
-  timLoc = timMan.timLoc;
-  timSol = timMan.timSol;
-  timCal = timMan.timCal;
-/*
-  connect(remWE.y, calcWE.u) annotation (Line(
-      points={{-25.3,33},{-20.56,33}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, remWE.u) annotation (Line(
-      points={{-60,66},{-52,66},{-52,33},{-41.4,33}},
-      color={0,0,127},
-      smooth=Smooth.None));
-*/
   connect(timMan.timCalSol, climate_solar.u) annotation (Line(
       points={{-60,62},{-52,62},{-52,53},{-41.4,53}},
       color={0,0,127},

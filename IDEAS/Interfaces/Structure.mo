@@ -31,10 +31,6 @@ final parameter Modelica.SIunits.Length C = sum(VZones)/ATrans
           points={{60,8},{0,60},{-60,10},{-60,-60},{60,-60}},
           color={127,0,0},
           smooth=Smooth.None), Polygon(
-          points={{-24,30},{-30,26},{-58,50},{-110,8},{-110,-52},{2,-52},{2,-60},
-              {-118,-60},{-118,10},{-58,60},{-24,30}},
-          lineColor={95,95,95},
-          smooth=Smooth.None), Polygon(
           points={{60,8},{56,4},{0,50},{-52,8},{-52,-52},{60,-52},{60,-60},{-60,
               -60},{-60,10},{0,60},{60,8}},
           lineColor={95,95,95},

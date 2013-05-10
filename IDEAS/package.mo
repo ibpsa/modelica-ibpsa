@@ -1,18 +1,6 @@
 within ;
 package IDEAS "Integrated District Energy Assessment Simulation"
 
-/*
-
-Licensed by KU Leuven and 3E nv under the Modelica License 2
-Copyright © 2013-2023, KU Leuven and 3E nv.
- 
-This Modelica package is free software and the use is completely at your own risk;
-it can be redistributed and/or modified under the terms of the Modelica License 2. 
-For license conditions (including the disclaimer of warranty) see Modelica.UsersGuide.ModelicaLicense2 
-or visit https://www.modelica.org/licenses/ModelicaLicense2.
-
-*/
-
 
   extends Modelica.Icons.Library;
 
@@ -32,7 +20,7 @@ or visit https://www.modelica.org/licenses/ModelicaLicense2.
   annotation (uses(Modelica(version="3.2")),               Icon(graphics),
   version="2",
   conversion(noneFromVersion="", noneFromVersion="1"),
-  Documentation(info="<html>
+    Documentation(info="<html>
 <p>Licensed by KU Leuven and 3E under the Modelica License 2 </p>
 <p>Copyright &copy; 2013-2023, KU Leuven and 3E. </p>
 <p>&nbsp; </p>
