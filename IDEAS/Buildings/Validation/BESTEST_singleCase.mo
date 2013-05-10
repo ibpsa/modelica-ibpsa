@@ -16,8 +16,7 @@ Simulation of a single BESTEST case of your choice.
     occBeh=false)
       annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
 
-  replaceable IDEAS.Buildings.Validation.Cases.Case600
-                            Case constrainedby Interfaces.BesTestCase
+  replaceable Cases.Case900 Case constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   annotation (Diagram(graphics),
     experiment(

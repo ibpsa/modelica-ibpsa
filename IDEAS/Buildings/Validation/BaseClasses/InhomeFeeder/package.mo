@@ -4,5 +4,4 @@ package InhomeFeeder
 
     extends Modelica.Icons.Package;
 
-
 end InhomeFeeder;
