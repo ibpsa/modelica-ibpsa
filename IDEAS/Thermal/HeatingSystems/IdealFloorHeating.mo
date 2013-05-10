@@ -2,7 +2,7 @@ within IDEAS.Thermal.HeatingSystems;
 model IdealFloorHeating "Ideal heating, no DHW, with floor heating"
 
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
-  extends IDEAS.Interfaces.HeatingSystem(
+  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     emissionType = EmissionType.FloorHeating,
     nLoads=1);
 

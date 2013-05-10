@@ -1,6 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model None "None"
-  extends IDEAS.Interfaces.HeatingSystem(final nLoads = 1, QNom = zeros(nZones));
+  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+                                         final nLoads = 1, QNom = zeros(nZones));
 
 equation
 wattsLawPlug.P = {0};

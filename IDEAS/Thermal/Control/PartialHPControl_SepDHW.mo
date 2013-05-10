@@ -101,6 +101,15 @@ equation
     TBotEmptyDHW = 0;
     SOCDHW = 0;
   end if;
-  annotation(Icon(Bitmap(extent=[-90,90; 90,-90], name="Control.tif")),
+  annotation(Icon(graphics={
+        Rectangle(
+          extent={{80,80},{-100,-80}},
+          lineColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          fillColor={255,255,255}),
+        Line(
+          points={{0,80},{80,0},{0,-80}},
+          color={100,100,100},
+          smooth=Smooth.None)}),
       Diagram(graphics));
 end PartialHPControl_SepDHW;

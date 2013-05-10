@@ -1,6 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses.VentilationSystem;
 model NightVentilation "BESTEST nightventilation system"
-  extends IDEAS.Interfaces.VentilationSystem(nLoads=1);
+  extends IDEAS.Interfaces.BaseClasses.VentilationSystem(
+                                             nLoads=1);
 
   IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7, 18},firstEntryOccupied=true)
     "Occupancy shedule";

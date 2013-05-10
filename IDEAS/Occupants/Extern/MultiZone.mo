@@ -1,7 +1,8 @@
 within IDEAS.Occupants.Extern;
 model MultiZone "External file occupant, for multi zone building models"
 
-  extends IDEAS.Interfaces.Occupant(nLoads=1);
+  extends IDEAS.Interfaces.BaseClasses.Occupant(
+                                    nLoads=1);
 
   parameter Real[nZones] VZones "Zone volumes";
   parameter Modelica.SIunits.Temperature TSetOcc = 293.15;

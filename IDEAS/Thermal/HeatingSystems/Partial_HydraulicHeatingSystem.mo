@@ -2,7 +2,7 @@ within IDEAS.Thermal.HeatingSystems;
 partial model Partial_HydraulicHeatingSystem
   "Partial heating system for hydraulic heating systems"
 
-  extends IDEAS.Interfaces.HeatingSystem;
+  extends IDEAS.Interfaces.BaseClasses.HeatingSystem;
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
   import IDEAS.Thermal.Components.Production.BaseClasses.HeaterType;
   parameter HeaterType heaterType = heater.heaterType;

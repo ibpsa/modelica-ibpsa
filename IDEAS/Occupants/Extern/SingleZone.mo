@@ -1,7 +1,8 @@
 within IDEAS.Occupants.Extern;
 model SingleZone "Occupant model based on external files for a single zone"
 
-  extends IDEAS.Interfaces.Occupant(nZones=1, nLoads=1);
+  extends IDEAS.Interfaces.BaseClasses.Occupant(
+                                    nZones=1, nLoads=1);
   parameter Modelica.SIunits.Temperature TSetOcc = 293.15;
   parameter Modelica.SIunits.Temperature TSetNoOcc = 289.15;
 

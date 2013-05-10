@@ -1,6 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses.Occupant;
 model None "None"
-  extends IDEAS.Interfaces.Occupant(nLoads=1);
+  extends IDEAS.Interfaces.BaseClasses.Occupant(
+                                    nLoads=1);
 
 equation
 wattsLawPlug.P[1] = 0;

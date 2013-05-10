@@ -2,7 +2,7 @@ within IDEAS;
 package Constants "Constants for IDEAS"
 
 
-  extends Modelica.Icons.BasesPackage;
+  extends Modelica.Icons.VariantsPackage;
 
 final constant Modelica.SIunits.Angle Ceiling = 0
   "Inclination for horizontal ceiling";

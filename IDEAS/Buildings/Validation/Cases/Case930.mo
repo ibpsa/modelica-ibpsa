@@ -5,5 +5,6 @@ model Case930
     redeclare BaseClasses.Structure.Bui930 building,
     redeclare BaseClasses.VentilationSystem.None ventilationSystem,
     redeclare BaseClasses.HeatingSystem.Deadband heatingSystem,
-    redeclare IDEAS.Interfaces.CausalInHomeGrid inHomeGrid);
+    redeclare IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
+                                                inHomeGrid);
 end Case930;

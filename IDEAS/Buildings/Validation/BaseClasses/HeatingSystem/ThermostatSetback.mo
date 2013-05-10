@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model ThermostatSetback "BESTEST thermostat setback heating system"
 
-  extends IDEAS.Interfaces.HeatingSystem(final nLoads = 1, QNom = zeros(nZones));
+  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+                                         final nLoads = 1, QNom = zeros(nZones));
 
   IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7, 23},firstEntryOccupied=true)
     "Occupancy shedule";

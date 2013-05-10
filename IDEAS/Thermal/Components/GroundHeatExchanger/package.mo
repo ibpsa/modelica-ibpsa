@@ -2,7 +2,8 @@ within IDEAS.Thermal.Components;
 package GroundHeatExchanger "Ground heat exchangers"
 
 
-  extends Modelica.Icons.Package;
+  extends Modelica.Icons.UnderConstruction;
+
 
 
   annotation ();

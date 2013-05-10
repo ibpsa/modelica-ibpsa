@@ -5,5 +5,6 @@ model Case900FF
     redeclare BaseClasses.Occupant.Gain occupant,
     redeclare BaseClasses.HeatingSystem.None heatingSystem,
     redeclare BaseClasses.VentilationSystem.None ventilationSystem,
-    redeclare IDEAS.Interfaces.CausalInHomeGrid inHomeGrid);
+    redeclare IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
+                                                inHomeGrid);
 end Case900FF;

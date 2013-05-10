@@ -4,7 +4,8 @@ package Standards
   extends Modelica.Icons.Package;
 
 model ISO13790
-  extends IDEAS.Interfaces.Occupant(nZones=1,nLoads=1);
+  extends IDEAS.Interfaces.BaseClasses.Occupant(
+                                    nZones=1,nLoads=1);
 
 parameter Modelica.SIunits.Area[nZones] AFloor = ones(nZones)*100
       "Floor area of different zones";

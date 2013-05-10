@@ -9,6 +9,7 @@ extends IDEAS.Buildings.Validation.Interfaces.BesTestCase(
       heatingSystem,
     redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
       ventilationSystem,
-    redeclare IDEAS.Interfaces.CausalInHomeGrid inHomeGrid);
+    redeclare IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
+                                                inHomeGrid);
 
 end Case600;

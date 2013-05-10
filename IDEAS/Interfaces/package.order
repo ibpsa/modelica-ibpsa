@@ -1,9 +1,3 @@
 Building
-Structure
-HeatingSystem
-VentilationSystem
-InhomeFeeder
-DistrictFeeder
-Occupant
-DummyInHomeGrid
-CausalInHomeGrid
+Feeder
+BaseClasses

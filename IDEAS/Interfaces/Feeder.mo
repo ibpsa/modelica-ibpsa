@@ -1,5 +1,5 @@
 within IDEAS.Interfaces;
-partial model DistrictFeeder
+partial model Feeder
 
   parameter Integer nLoads(min=1) "number of electric loads";
   parameter Boolean backbone = false;
@@ -34,4 +34,4 @@ partial model DistrictFeeder
           smooth=Smooth.Bezier)}),                                  Diagram(
         graphics));
 
-end DistrictFeeder;
+end Feeder;
