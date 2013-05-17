@@ -13,4 +13,11 @@ extends Modelica.Icons.MaterialProperty;
   parameter Modelica.SIunits.Length insulationTickness
     "Thermal insulation thickness";
 
+  annotation (Documentation(info="<html>
+<p><h4><font color=\"#008000\">General description</font></h4></p>
+<p><h5>Goal</h5></p>
+<p>The <code>Construction.mo</code> partial describes the material data required for building construction modelling.</p>
+<p><h4><font color=\"#008000\">Validation </font></h4></p>
+<p>No validation required.</p>
+</html>"));
 end Construction;
