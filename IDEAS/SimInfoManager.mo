@@ -2,16 +2,10 @@ within IDEAS;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
 
-protected
-  parameter IDEAS.Climate.Meteo.Files.min15 QHourly "15 minute climate data";
-  parameter IDEAS.Climate.Meteo.Locations.Uccle Uccle "Uccle, Belgium";
-  parameter IDEAS.Occupants.Extern.Interfaces.Stoch33 stoch33
-    "Default occupant behavior to be read";
-
 public
-  replaceable parameter IDEAS.Climate.Meteo.Detail detail = QHourly
+  replaceable parameter IDEAS.Climate.Meteo.Detail detail
     "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
-  replaceable parameter IDEAS.Climate.Meteo.location city = Uccle
+  replaceable parameter IDEAS.Climate.Meteo.location city
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   parameter Boolean occBeh = true
     "put to false if no user behaviour is to be read from files"
@@ -20,7 +14,7 @@ public
     "put to false if no photovoltaics is to be read from files "
                                          annotation(Dialog(group="Photovoltaics"));
 
-  replaceable parameter IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants= stoch33
+  replaceable parameter IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants
     "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="User behaviour"));
   parameter Integer nOcc = 33 "Number of occupant profiles" annotation(Dialog(group="User behaviour"));
 

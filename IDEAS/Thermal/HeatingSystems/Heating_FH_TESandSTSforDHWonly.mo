@@ -30,14 +30,14 @@ model Heating_FH_TESandSTSforDHWonly
     UA=1,
     each m=0,
     each dpFix=30000)
-    annotation (Placement(transformation(extent={{94,-4},{110,12}})));
+    annotation (Placement(transformation(extent={{94,-4},{112,6}})));
 
   IDEAS.Thermal.Components.Emission.EmbeddedPipeDynTOut[
                                                   nZones] emission(
     each medium = medium,
     FHChars = FHChars,
     m_flowMin = m_flowNom)
-    annotation (Placement(transformation(extent={{120,-4},{136,14}})));
+    annotation (Placement(transformation(extent={{120,0},{136,10}})));
 
   Components.BaseClasses.Pump_Insulated pumpSto(
     medium=medium,
@@ -46,7 +46,7 @@ model Heating_FH_TESandSTSforDHWonly
     UA=1,
     m=0,
     dpFix=30000) "Pump for loading the storage tank"
-    annotation (Placement(transformation(extent={{-34,-68},{-50,-52}})));
+    annotation (Placement(transformation(extent={{-32,-62},{-50,-52}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-134,34},{-122,46}})));
 public
@@ -77,9 +77,9 @@ public
     volumeTank=volumeTank,
     TInitial={323.15 for i in 1:nbrNodes})                annotation (Placement(
         transformation(
-        extent={{-17,-19},{17,19}},
+        extent={{-14,-20},{14,20}},
         rotation=0,
-        origin={-11,-23})));
+        origin={-14,-22})));
 
   replaceable IDEAS.Thermal.Components.DHW.DHW_ProfileReader  dHW(
     medium=medium,
@@ -91,7 +91,7 @@ public
       TDHWSet=TDHWSet,
       TCold=TDHWCold)
     annotation (choicesAllMatching = true, Placement(transformation(extent={{-56,-32},
-            {-46,-16}})));
+            {-44,-26}})));
 
 protected
   IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[
@@ -99,16 +99,16 @@ protected
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{64,30},{84,50}})));
   Thermal.Components.BaseClasses.IdealMixer idealMixer
-    annotation (Placement(transformation(extent={{66,-6},{86,16}})));
+    annotation (Placement(transformation(extent={{66,-6},{88,14}})));
   IDEAS.Thermal.Components.BaseClasses.Pipe   pipeDHW(medium=medium, m=1)
-    annotation (Placement(transformation(extent={{-36,-48},{-48,-36}})));
+    annotation (Placement(transformation(extent={{-34,-42},{-48,-36}})));
   Components.BaseClasses.Pipe_Insulated       pipeMixer(medium=medium, m=1,
     UA=1)
-    annotation (Placement(transformation(extent={{24,-82},{36,-70}})));
+    annotation (Placement(transformation(extent={{24,-82},{38,-76}})));
   Components.BaseClasses.Pipe_Insulated[      nZones] pipeEmission(each medium=
         medium, each m=1,
     UA=1)
-    annotation (Placement(transformation(extent={{146,0},{158,12}})));
+    annotation (Placement(transformation(extent={{146,0},{160,6}})));
   // Result variables
 public
   Modelica.SIunits.Temperature[nbrNodes] TSto=tesTank.nodes.heatPort.T;
@@ -164,12 +164,12 @@ equation
 
   connect(solarThermal.flowPort_b, tesTank.flowPorts[posInSTS])
                                                        annotation (Line(
-      points={{38,-14},{38,-14},{16,-14},{16,-12.7692},{6,-12.7692}},
+      points={{38,-14},{38,-14},{16,-14},{16,-11.2308},{0,-11.2308}},
       color={0,128,255},
       smooth=Smooth.Bezier));
   connect(solarThermal.flowPort_a, tesTank.flowPorts[nbrNodes+1])
                                                        annotation (Line(
-      points={{38,-18},{38,-18},{24,-18},{24,-20},{18,-23},{6,-12.7692}},
+      points={{38,-18},{38,-18},{24,-18},{24,-20},{18,-23},{0,-11.2308}},
       color={0,128,255},
       smooth=Smooth.Bezier));
 
@@ -182,81 +182,80 @@ end for;
 // general connections for any configuration
 
     connect(emission.heatPortCon, heatPortCon) annotation (Line(
-      points={{130,14},{130,14},{130,52},{-192,52},{-192,20},{-200,20}},
+      points={{130,10},{130,52},{-192,52},{-192,20},{-200,20}},
       color={191,0,0},
       smooth=Smooth.None));
     connect(emission.heatPortRad, heatPortRad) annotation (Line(
-      points={{132.667,14},{134,44},{134,50},{-188,50},{-188,-20},{-200,-20}},
+      points={{132.667,10},{134,44},{134,50},{-188,50},{-188,-20},{-200,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(pumpRad.flowPort_b,emission. flowPort_a)
                                                 annotation (Line(
-      points={{110,4},{120,4},{120,-0.625}},
+      points={{112,1},{120,1},{120,1.875}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(fixedTemperature.port, tesTank.heatExchEnv) annotation (Line(
-      points={{-122,40},{2,40},{2,-24.4615},{0.333333,-24.4615}},
+      points={{-122,40},{2,40},{2,-23.5385},{-4.66667,-23.5385}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(dHW.flowPortHot, tesTank.flowPort_a) annotation (Line(
-      points={{-56,-27.4286},{-56,-10},{-46,-10},{-46,-2},{-12,-2},{-12,
-          -6.92308},{6,-6.92308}},
+      points={{-56,-30.2857},{-56,-10},{-46,-10},{-46,-2},{-12,-2},{-12,
+          -5.07692},{0,-5.07692}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(TSensor, heatingControl.u) annotation (Line(
-      points={{-204,-60},{-176,-60},{-176,24},{-56,24},{-56,34},{64,34}},
+      points={{-204,-60},{-176,-60},{-176,24},{-56,24},{-56,37.5},{64.2222,37.5}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
-      points={{84.2,36},{104.133,36},{104.133,12.2}},
+      points={{84.2222,40},{105.4,40},{105.4,6.125}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TSet, heatingControl.uLow) annotation (Line(
-      points={{0,-104},{0,46},{64,46}},
+      points={{0,-104},{0,47.5},{64.2222,47.5}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(dHW.flowPortCold, pipeDHW.flowPort_b) annotation (Line(
-      points={{-46,-27.4286},{-46,-42},{-48,-42}},
+      points={{-44,-30.2857},{-44,-39},{-48,-39}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(pipeDHW.flowPort_a, tesTank.flowPort_b) annotation (Line(
-      points={{-36,-42},{-23.415,-42},{-23.415,-39.0769},{6,-39.0769}},
+      points={{-34,-39},{-23.415,-39},{-23.415,-38.9231},{0,-38.9231}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(idealMixer.flowPortCold, pipeMixer.flowPort_b) annotation (Line(
-      points={{76,-6},{76,-76},{36,-76}},
+      points={{77,-6},{77,-79},{38,-79}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(fixedTemperature.port, heater.heatPort)       annotation (Line(
-      points={{-122,40},{-112,40},{-112,32},{-82,32},{-82,8}},
+      points={{-122,40},{-112,40},{-112,32},{-103,32},{-103,14}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
-      points={{123.333,13.775},{122,13.775},{122,60},{-192,60},{-192,60},{-200,
-          60},{-200,60}},
+      points={{123.333,9.875},{122,9.875},{122,60},{-200,60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(HPControl.THeaCur, idealMixer.TMixedSet) annotation (Line(
-      points={{-141.8,-10},{-136,-10},{-136,18},{76,18},{76,16}},
+      points={{-141.556,-7},{-136,-7},{-136,18},{77,18},{77,14}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(HPControl.onOff, pumpSto.m_flowSet)    annotation (Line(
-      points={{-142,-6},{-130,-6},{-130,-48},{-44.1333,-48},{-44.1333,-51.8}},
+      points={{-141.778,-2},{-130,-2},{-130,-48},{-43.4,-48},{-43.4,-51.875}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(HPControl.THPSet, heater.TSet) annotation (Line(
-      points={{-142,-2},{-120,-2},{-120,34},{-101,34}},
+      points={{-141.778,3},{-120,3},{-120,34},{-101,34}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.DashDot));
   connect(pipeEmission.flowPort_a, emission.flowPort_b) annotation (Line(
-      points={{146,6},{135,6},{135,10.625},{136,10.625}},
+      points={{146,3},{135,3},{135,8.125},{136,8.125}},
       color={0,128,255},
       smooth=Smooth.None));
 
@@ -271,16 +270,16 @@ end for;
       smooth=Smooth.Bezier,
       pattern=LinePattern.DashDot));
   connect(mDHW60C, dHW.mDHW60C) annotation (Line(
-      points={{60,-104},{60,-84},{-80,-84},{-80,-16},{-51,-16}},
+      points={{60,-104},{60,-84},{-80,-84},{-80,-26},{-50,-26}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(pipeMixer.flowPort_a, heater.flowPort_a) annotation (Line(
-      points={{24,-76},{-64,-76},{-64,19.6364},{-90,19.6364}},
+      points={{24,-79},{-64,-79},{-64,19.6364},{-90,19.6364}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(pumpSto.flowPort_b, heater.flowPort_a) annotation (Line(
-      points={{-50,-60},{-64,-60},{-64,19.6364},{-90,19.6364}},
+      points={{-50,-57},{-64,-57},{-64,19.6364},{-90,19.6364}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(heater.heatPort, fixedTemperature.port) annotation (Line(
@@ -288,27 +287,27 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, pumpSto.flowPort_a) annotation (Line(
-      points={{-14,-60},{-34,-60}},
+      points={{-14,-60},{-24,-60},{-24,-57},{-32,-57}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(tesTank.flowPortHXLower, pumpSto.flowPort_a) annotation (Line(
-      points={{-28,-36.1538},{-30,-36.1538},{-30,-60},{-34,-60}},
+      points={{-28,-35.8462},{-30,-35.8462},{-30,-57},{-32,-57}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(heater.flowPort_b, idealMixer.flowPortHot) annotation (Line(
-      points={{-90,24.9091},{-34,24.9091},{-34,5},{66,5}},
+      points={{-90,24.9091},{-34,24.9091},{-34,4},{66,4}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(heater.flowPort_b, tesTank.flowPortHXUpper) annotation (Line(
-      points={{-90,24.9091},{-34,24.9091},{-34,-30.3077},{-28,-30.3077}},
+      points={{-90,24.9091},{-34,24.9091},{-34,-29.6923},{-28,-29.6923}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(pipeMixer.heatPort, fixedTemperature.port) annotation (Line(
-      points={{30,-82},{30,-82},{-118,-82},{-118,40},{-122,40}},
+      points={{31,-82},{-118,-82},{-118,40},{-122,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pumpRad.heatPort, thermalCollector.port_a) annotation (Line(
-      points={{98.8,-4},{98.8,-8},{102,-8},{102,-12}},
+      points={{99.4,-4},{99.4,-8},{102,-8},{102,-12}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalCollector.port_b, fixedTemperature.port) annotation (Line(
@@ -316,7 +315,7 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(pipeEmission.heatPort, thermalCollector1.port_a) annotation (Line(
-      points={{152,0},{152,-12}},
+      points={{153,0},{153,-6},{152,-6},{152,-12}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalCollector1.port_b, fixedTemperature.port) annotation (Line(
@@ -324,10 +323,10 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(pumpSto.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-38.8,-68},{-38.8,-70},{-118,-70},{-118,40},{-122,40}},
+      points={{-37.4,-62},{-37.4,-70},{-118,-70},{-118,40},{-122,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,
             -100},{200,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-200,-100},{200,100}})));
