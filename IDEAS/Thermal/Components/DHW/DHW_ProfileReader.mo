@@ -13,8 +13,8 @@ extends IDEAS.Thermal.Components.DHW.partial_DHW;
     tableOnFile = true,
     tableName = "data",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    fileName= "..\\Inputs\\" + "DHWProfile.txt",
-    columns=2:4)
+    columns=2:4,
+    fileName="..\\Inputs\\" + "User_mDHW_15.txt")
     annotation(Placement(visible = true, transformation(origin={-62,66.5},   extent={{-15,15},
             {15,-15}},                                                                                     rotation = 0)));
 
