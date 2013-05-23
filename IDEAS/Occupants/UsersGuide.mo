@@ -17,7 +17,6 @@ This class summarizes general information about the implementation which is not 
 </html>"));
   end Implementation;
 
-
   class Contact "Contact"
     extends Modelica.Icons.Contact;
 
@@ -41,7 +40,6 @@ This class summarizes general information about the implementation which is not 
 </table>
 </html>"));
   end Contact;
-
 
 annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>
 <p>The UsersGuide of each package should consist of the following classes</p>

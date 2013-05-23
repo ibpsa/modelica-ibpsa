@@ -5,6 +5,5 @@ package GroundHeatExchanger "Ground heat exchangers"
   extends Modelica.Icons.UnderConstruction;
 
 
-
   annotation ();
 end GroundHeatExchanger;
