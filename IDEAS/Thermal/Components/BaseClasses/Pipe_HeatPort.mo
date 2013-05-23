@@ -12,15 +12,35 @@ equation
   heatPort.T = T;
   // pressure drop = none
   flowPort_a.p = flowPort_b.p;
-annotation (Documentation(info="<HTML>
-Pipe with heat exchange.<br>
-Thermodynamic equations are defined by Partials.TwoPort.<br>
-Q_flow is defined by heatPort.Q_flow.<br>
-<b>Note:</b> Setting parameter m (mass of medium within pipe) to zero
-leads to neglection of temperature transient cv*m*der(T).<br>
-<b>Note:</b> Injecting heat into a pipe with zero massflow causes
-temperature rise defined by storing heat in medium's mass.
-</HTML>"),
+annotation (Documentation(info="<html>
+<p><b>General description</b> </p>
+<p><h5>Goal</h5></p>
+<p>Pipe with heat exchange with the environment.</p>
+<p><h5>Description </h5></p>
+<p>Model for fluid flow through a pipe, including heat exchange with the environment. A dynamic heat balance is included, based on the in- and outlet enthalpy flow, the heat flux to/from environment and the internal mass m of the fluid content in the pipe. A stationary model is obtained when m=0 </p>
+<p>m.cv.der(T) = heatPort.Q_flow + ( h_flow_in - h_flow_out) </p>
+<p><b>Note:</b> as can be seen from the equation, injecting heat into a pipe with zero mass flow rate causes temperature rise defined by storing heat in medium&apos;s mass. </p>
+<p><h5>Assumptions and limitations </h5></p>
+<p><ol>
+<li>No pressure drop</li>
+<li>Conservation of mass</li>
+<li>Heat exchange with environment</li>
+</ol></p>
+<p><h4>Parameters</h4></p>
+<p>The following parameters have to be set by the user</p>
+<p><ol>
+<li>medium</li>
+<li>mass of fluid in the pipe (<b>Note:</b> Setting parameter m to zero leads to neglection of temperature transient cv.m.der(T).)</li>
+<li>initial temperature of the fluid (defaults to 20&deg;C)</li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>No validation performed; the model is based on physical principles</p>
+<p><h4>Revision, history and contact </h4></p>
+<p><ul>
+<li>2013 May 23, Roel De Coninck, documentation;</li>
+<li>2012 November, Roel De Coninck, first implementation. </li>
+</ul></p>
+</html>"),
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(extent={{-150,100},{150,40}}, textString="%name"),

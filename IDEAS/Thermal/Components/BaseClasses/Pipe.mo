@@ -13,7 +13,7 @@ annotation (Documentation(info="<html>
 <p>Pipe without heat exchange with the environment.</p>
 <p><h5>Description </h5></p>
 <p>Model for fluid flow through a pipe, without heat exchange nor pressure drop. A dynamic heat balance is included, based on the in- and outlet enthalpy flow and the internal mass m of the fluid content in the pipe. A stationary model is obtained when m=0 </p>
-<p>m.cp.der(T) = h_flow_in - h_flow_out </p>
+<p>m.cv.der(T) = h_flow_in - h_flow_out </p>
 <p><h5>Assumptions and limitations </h5></p>
 <p><ol>
 <li>No pressure drop</li>
@@ -24,7 +24,7 @@ annotation (Documentation(info="<html>
 <p>The following parameters have to be set by the user</p>
 <p><ol>
 <li>medium</li>
-<li>mass of fluid in the pipe (<b>Note:</b> Setting parameter m to zero leads to neglection of temperature transient cv*m*der(T).)</li>
+<li>mass of fluid in the pipe (<b>Note:</b> Setting parameter m to zero leads to neglection of temperature transient cv.m.der(T).)</li>
 <li>initial temperature of the fluid (defaults to 20&deg;C)</li>
 </ol></p>
 <p><h4>Validation </h4></p>
