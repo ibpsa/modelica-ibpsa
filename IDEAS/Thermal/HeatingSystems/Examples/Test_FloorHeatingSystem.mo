@@ -92,11 +92,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heating.TSet, TOpSet.y) annotation (Line(
-      points={{25,-81.44},{26,-96},{44,-96},{44,62},{-37,62},{-37,60}},
+      points={{25,-82.56},{26,-96},{44,-96},{44,62},{-37,62},{-37,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heating.TSensor, temperatureSensor.T) annotation (Line(
-      points={{0.5,-76.4},{2,-84},{-2,-84},{-2,-54},{-10,-54},{-10,-52}},
+      points={{-0.5,-76.4},{2,-84},{-2,-84},{-2,-54},{-10,-54},{-10,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heating.heatPortEmb, nakedTabs.portCore) annotation (Line(
@@ -116,7 +116,7 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(mDHW60C.y, heating.mDHW60C) annotation (Line(
-      points={{-19,-98},{32.5,-98},{32.5,-81.44}},
+      points={{-19,-98},{32.5,-98},{32.5,-82.56}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics),

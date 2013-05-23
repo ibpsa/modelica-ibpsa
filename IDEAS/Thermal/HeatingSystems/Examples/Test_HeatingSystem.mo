@@ -10,10 +10,11 @@ parameter Integer nZones = 1 "Number of zones";
     VZones={75*2.7 for i in 1:nZones},
     redeclare IDEAS.Thermal.Components.Production.HP_AWMod_Losses heater,
     QNom={10000 for i in 1:nZones})
-    annotation (Placement(transformation(extent={{14,-90},{34,-70}})));
+    annotation (Placement(transformation(extent={{14,-76},{34,-56}})));
   inner IDEAS.SimInfoManager               sim(redeclare
       IDEAS.Climate.Meteo.Files.min15 detail, redeclare
-      IDEAS.Climate.Meteo.Locations.Uccle city)
+      IDEAS.Climate.Meteo.Locations.Uccle city,
+    PV=false)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nZones] heatCapacitor(C={i*1e6 for i in 1:nZones}, each T(start=292))
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
@@ -38,8 +39,9 @@ parameter Integer nZones = 1 "Number of zones";
         origin={90,-64})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
-  Interfaces.DummyInHomeGrid dummyInHomeGrid
-    annotation (Placement(transformation(extent={{42,-90},{62,-70}})));
+  Interfaces.BaseClasses.CausalInhomeFeeder
+                             dummyInHomeGrid
+    annotation (Placement(transformation(extent={{42,-76},{62,-56}})));
   Modelica.Blocks.Sources.Pulse mDHW60C(
     each amplitude=0.2,
     each width=5,
@@ -63,38 +65,40 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heating.TSet, TOpSet.y) annotation (Line(
-      points={{24,-89.6},{24,62},{-71,62}},
+      points={{24,-76.4},{24,-80},{-58,-80},{-58,62},{-71,62}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heating.TSensor, temperatureSensor.T) annotation (Line(
-      points={{14.2,-86},{-12,-86},{-12,-50},{-14,-50}},
+      points={{13.8,-72},{-12,-72},{-12,-50},{-14,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heating.heatPortRad, heatCapacitor.port) annotation (Line(
-      points={{14,-82},{-16,-82},{-64,-58},{-80,-58},{-80,-2}},
+      points={{14,-68},{-16,-68},{-64,-58},{-80,-58},{-80,-2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heating.heatPortCon, heatCapacitor.port) annotation (Line(
-      points={{14,-78},{-2,-78},{-2,-28},{-80,-28},{-80,-2}},
+      points={{14,-64},{-2,-64},{-2,-28},{-80,-28},{-80,-2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(voltageSource.pin_p,ground. pin) annotation (Line(
       points={{90,-74},{90,-82}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(heating.plugLoad[1], dummyInHomeGrid.nodeSingle) annotation (Line(
-      points={{34,-80},{42,-80}},
-      color={85,170,255},
-      smooth=Smooth.None));
   connect(dummyInHomeGrid.pinSingle, voltageSource.pin_n) annotation (Line(
-      points={{62,-80},{70,-80},{70,-48},{90,-48},{90,-54}},
+      points={{62,-66},{70,-66},{70,-48},{90,-48},{90,-54}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(mDHW60C.y, heating.mDHW60C) annotation (Line(
-      points={{-63,-84},{-44,-84},{-44,-96},{27,-96},{27,-89.6}},
+      points={{-63,-84},{26,-84},{28,-80},{27,-76.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  connect(heating.plugLoad, dummyInHomeGrid.nodeSingle) annotation (Line(
+      points={{34,-66},{42,-66}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput);
 end Test_HeatingSystem;
