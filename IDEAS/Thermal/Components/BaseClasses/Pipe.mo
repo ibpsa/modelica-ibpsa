@@ -34,6 +34,8 @@ annotation (Documentation(info="<html>
 <li>2013 May 23, Roel De Coninck, documentation;</li>
 <li>2010, Roel De Coninck, first implementation. </li>
 </ul></p>
+</html>", revisions="<html>
+version x, 23 May 2013
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-40},{100,40}}),
                     graphics={
