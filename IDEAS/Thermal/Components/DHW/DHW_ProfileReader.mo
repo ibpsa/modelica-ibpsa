@@ -14,7 +14,7 @@ extends IDEAS.Thermal.Components.DHW.partial_DHW;
     tableName = "data",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     columns=2:4,
-    fileName="..\\Inputs\\" + "User_mDHW_15.txt")
+    fileName="..\\Inputs\\" + "DHWProfile.txt")
     annotation(Placement(visible = true, transformation(origin={-62,66.5},   extent={{-15,15},
             {15,-15}},                                                                                     rotation = 0)));
 
