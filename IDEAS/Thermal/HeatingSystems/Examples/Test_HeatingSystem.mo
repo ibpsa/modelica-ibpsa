@@ -9,12 +9,13 @@ parameter Integer nZones = 1 "Number of zones";
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     redeclare IDEAS.Thermal.Components.Production.HP_AWMod_Losses heater,
-    QNom={10000 for i in 1:nZones})
+    QNom={20000 for i in 1:nZones})
     annotation (Placement(transformation(extent={{14,-76},{34,-56}})));
   inner IDEAS.SimInfoManager               sim(redeclare
       IDEAS.Climate.Meteo.Files.min15 detail, redeclare
       IDEAS.Climate.Meteo.Locations.Uccle city,
-    PV=false)
+    PV=false,
+    occBeh=false)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nZones] heatCapacitor(C={i*1e6 for i in 1:nZones}, each T(start=292))
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
