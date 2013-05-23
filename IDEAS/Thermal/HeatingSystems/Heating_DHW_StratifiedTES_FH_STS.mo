@@ -51,6 +51,7 @@ public
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
+    TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom) constrainedby Thermal.Control.PartialHPControl(
     heatingCurve(timeFilter=timeFilter),
     TTankTop=TSto[posTTop],
@@ -58,6 +59,7 @@ public
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
+    TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom)
       annotation (choicesAllMatching=true, Placement(transformation(extent={{-158,
             -18},{-138,2}})));
@@ -204,15 +206,15 @@ end for;
       color={0,128,255},
       smooth=Smooth.None));
   connect(TSensor, heatingControl.u) annotation (Line(
-      points={{-204,-60},{-204,-70},{16,-70}},
+      points={{-204,-60},{-204,-64.75},{16.3333,-64.75}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
-      points={{46.3,-67},{66,-67},{66,22},{66,22}},
+      points={{46.3333,-61},{66,-61},{66,22},{66,22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSet, heatingControl.uLow) annotation (Line(
-      points={{0,-104},{0,-52},{16,-52}},
+      points={{0,-104},{0,-49.75},{16.3333,-49.75}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pipeDHW.flowPort_a, tesTank.flowPort_b) annotation (Line(
@@ -243,16 +245,16 @@ end for;
       smooth=Smooth.None));
 
   connect(HPControl.THeaCur, idealMixer.TMixedSet) annotation (Line(
-      points={{-137.8,-16},{-126,-16},{-126,58},{39,58},{39,46}},
+      points={{-137.556,-13},{-126,-13},{-126,58},{39,58},{39,46}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HPControl.onOff, pumpHeater.m_flowSet) annotation (Line(
-      points={{-138,-12},{-126,-12},{-126,-50},{-60,-50},{-60,-42}},
+      points={{-137.778,-8},{-126,-8},{-126,-50},{-60,-50},{-60,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HPControl.THPSet, heater.TSet) annotation (Line(
-      points={{-138,-8},{-125.85,-8},{-125.85,28},{-113.7,28},{-113.7,34},{-101,
-          34}},
+      points={{-137.778,-3},{-125.85,-3},{-125.85,28},{-113.7,28},{-113.7,34},{
+          -101,34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pipeEmission.flowPort_a, emission.flowPort_b) annotation (Line(

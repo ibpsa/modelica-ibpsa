@@ -56,6 +56,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
+    TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom) constrainedby Thermal.Control.PartialHPControl(
     heatingCurve(timeFilter=timeFilter),
     TTankTop=TSto[posTTop],
@@ -63,6 +64,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
+    TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom)
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-158,
             -18},{-138,2}})));

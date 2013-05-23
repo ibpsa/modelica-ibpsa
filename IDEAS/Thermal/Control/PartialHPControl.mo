@@ -24,6 +24,7 @@ partial model PartialHPControl "Basis of the heat Pump control algorithm"
   //output SI.Temperature THPSet(start = 283.15) "Heat pump set temperature";
   //output Real onOff(start=0) "onoff signal as Real";
 
+  parameter SI.Temperature TSupNom "Nominal heating curve supply temperature";
   parameter Modelica.SIunits.TemperatureDifference dTSupRetNom = 10
     "Nominal difference between supply and return water temperatures";
   parameter Modelica.SIunits.TemperatureDifference dTSafetyTop=3
@@ -44,8 +45,8 @@ partial model PartialHPControl "Basis of the heat Pump control algorithm"
   HeatingCurve heatingCurve(
     timeFilter = timeFilter,
     dTOutHeaBal = 0,
-    TSup_nominal = 273.15+55,
-    TRet_nominal = 273.15+45,
+    TSup_nominal = TSupNom,
+    TRet_nominal = TSupNom-dTSupRetNom,
     TRoo_nominal = 273.15+21,
     TOut_nominal = 273.15-8,
     redeclare IDEAS.BaseClasses.Math.MovingAverage filter(period=timeFilter))

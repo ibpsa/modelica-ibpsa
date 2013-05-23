@@ -25,7 +25,7 @@ model Heating_FH_TESandSTSforDHWonly
     each medium=medium,
     each useInput=true,
     m_flowNom=m_flowNom,
-    each m_flowSet(fixed=true, start=0),
+    each m_flowSet(start=0),
     each etaTot=0.7,
     UA=1,
     each m=0,
@@ -57,6 +57,7 @@ public
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
+    TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom) constrainedby Thermal.Control.PartialHPControl(
     timeFilter=timeFilter,
     TTankTop=TSto[posTTop],
@@ -64,6 +65,7 @@ public
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
+    TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom)
       annotation (choicesAllMatching=true, Placement(transformation(extent={{-162,
             -12},{-142,8}})));
@@ -205,17 +207,17 @@ end for;
       color={0,128,255},
       smooth=Smooth.None));
   connect(TSensor, heatingControl.u) annotation (Line(
-      points={{-204,-60},{-176,-60},{-176,24},{-56,24},{-56,34},{64,34}},
+      points={{-204,-60},{-176,-60},{-176,24},{-56,24},{-56,37.5},{64.2222,37.5}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
-      points={{84.2,36},{104.133,36},{104.133,12.2}},
+      points={{84.2222,40},{104.133,40},{104.133,12.2}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TSet, heatingControl.uLow) annotation (Line(
-      points={{0,-104},{0,46},{64,46}},
+      points={{0,-104},{0,47.5},{64.2222,47.5}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -232,7 +234,7 @@ end for;
       color={0,128,255},
       smooth=Smooth.None));
   connect(fixedTemperature.port, heater.heatPort)       annotation (Line(
-      points={{-122,40},{-112,40},{-112,32},{-82,32},{-82,8}},
+      points={{-122,40},{-112,40},{-112,32},{-103,32},{-103,14}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
@@ -241,17 +243,17 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(HPControl.THeaCur, idealMixer.TMixedSet) annotation (Line(
-      points={{-141.8,-10},{-136,-10},{-136,18},{76,18},{76,16}},
+      points={{-141.556,-7},{-136,-7},{-136,18},{76,18},{76,16}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(HPControl.onOff, pumpSto.m_flowSet)    annotation (Line(
-      points={{-142,-6},{-130,-6},{-130,-48},{-44.1333,-48},{-44.1333,-51.8}},
+      points={{-141.778,-2},{-130,-2},{-130,-48},{-44.1333,-48},{-44.1333,-51.8}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(HPControl.THPSet, heater.TSet) annotation (Line(
-      points={{-142,-2},{-120,-2},{-120,34},{-101,34}},
+      points={{-141.778,3},{-120,3},{-120,34},{-101,34}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.DashDot));
