@@ -33,7 +33,7 @@ annotation (Documentation(info="<html>
 <p><h4>Validation </h4></p>
 <p>No validation performed; the model is based on physical principles</p>
 <p><h4><font color=\"#008000\">Examples</font></h4></p>
-<p>An example in which this model is used is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.PumpePipeTester\">PumpPipeTester</a>.</p>
+<p>An example in which this model is used is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.HydraulicCircuit\">HydraulicCircuit</a>.</p>
 </html>", revisions="<html>
 <p><ul>
 <li>2013 May 23, Roel De Coninck, documentation;</li>

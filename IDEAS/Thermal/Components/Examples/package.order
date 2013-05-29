@@ -1,13 +1,13 @@
-PumpePipeTester
+OpenHydraulicSystem
+HydraulicCircuit
+MixingVolume
 HPTester
 RadTester
 HeatingSystem
 StorageTank
 StorageTank_InternalHX
-AmbientTester
-TempMixingTester
+StorageWithThermostaticMixing
 DHWTester
-MixingVolumeTester
 DHWTester_badmixing
 RadiatorCoolingDown
 RadTester_EnergyBalance

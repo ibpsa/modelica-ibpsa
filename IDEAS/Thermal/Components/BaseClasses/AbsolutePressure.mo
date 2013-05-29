@@ -21,8 +21,7 @@ annotation (Documentation(info="<html>
 <li>There is no enthalpy flowrate (nor mass flow) through the flowPort, so this model does not influence the thermal behaviour of the system. </li>
 </ol></p>
 <p><h4>Model use</h4></p>
-<p>It is important that the absolute pressure is known in EVERY branch of an hydraulic system. All  hydraulic components will pass this pressure to all their ports, except the pumps.</p>
-<p>Therefore, the model will be balanced if one single AbsolutePressure component is connected to every section of the hydraulic circuitry which is isolated by pumps.</p>
+<p>It is important that the absolute pressure is known in EVERY branch of an hydraulic system. All hydraulic components will simply pass the pressure through all their ports, except the pumps. There are two components that can set the pressure: the <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Ambient\">IDEAS.Thermal.Components.BaseClasses.Ambient</a> and this one.  Therefore, the model will be balanced if one of these components determines the pressure in every section of the hydraulic circuitry which is isolated by pumps.</p>
 <p>The following parameters have to be set:</p>
 <p><ol>
 <li>medium</li>

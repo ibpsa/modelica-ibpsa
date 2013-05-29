@@ -1,5 +1,6 @@
 within IDEAS.Thermal.Components.Examples;
-model PumpePipeTester "Identical as the one in FluidHeatFlow_NoPressure"
+model HydraulicCircuit
+  "Illustrates use of pumps, Pipes with heat port and AbsolutePressure"
 
   extends Modelica.Icons.Example;
 
@@ -102,5 +103,8 @@ equation
     experiment(StopTime=10000),
     __Dymola_experimentSetupOutput,
     Commands(file="Scripts/Example_ThermalExamplesPumpPipeTester.mos"
-        "RunTester"));
-end PumpePipeTester;
+        "RunTester"),
+    Documentation(info="<html>
+<p>This model shows </p>
+</html>"));
+end HydraulicCircuit;

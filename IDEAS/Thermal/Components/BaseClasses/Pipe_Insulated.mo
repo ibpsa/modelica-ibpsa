@@ -19,9 +19,9 @@ model Pipe_Insulated "Pipe with insulation, characterised by UA"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=
         UA) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-4,-4},{4,4}},
         rotation=90,
-        origin={0,-26})));
+        origin={0,-22})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort annotation (
       Placement(transformation(extent={{-10,-50},{10,-30}}), iconTransformation(
           extent={{-10,-50},{10,-30}})));
@@ -31,11 +31,11 @@ model Pipe_Insulated "Pipe with insulation, characterised by UA"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
   connect(heatedPipe.heatPort, thermalConductor.port_b) annotation (Line(
-      points={{0,-10},{0,-16},{6.12323e-016,-16}},
+      points={{0,-10},{0,-18},{2.22045e-016,-18}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalConductor.port_a, heatPort) annotation (Line(
-      points={{-6.12323e-016,-36},{0,-36},{0,-40}},
+      points={{-4.44089e-016,-26},{0,-26},{0,-40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatedPipe.flowPort_a, flowPort_a) annotation (Line(
@@ -46,7 +46,8 @@ equation
       points={{10,0},{100,0}},
       color={0,128,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-100,-40},{100,40}}),
+  annotation (Diagram(coordinateSystem(extent={{-100,-40},{100,40}},
+          preserveAspectRatio=false),
                       graphics), Icon(coordinateSystem(extent={{-100,-40},{100,
             40}}, preserveAspectRatio=true),
                                       graphics={
@@ -93,6 +94,8 @@ equation
 </ol></p>
 <p><h4>Validation </h4></p>
 <p>No validation performed; the model is based on physical principles</p>
+<p><h4><font color=\"#008000\">Examples</font></h4></p>
+<p>Many models use an insulated pipe.  A very basic example can be found in the <a href=\"modelica://IDEAS.Thermal.Components.Examples.OpenHydraulicSystem\">OpenHydraulicSystem</a>.</p>
 </html>", revisions="<html>
 <p><ul>
 <li>2013 May 23, Roel De Coninck, documentation;</li>

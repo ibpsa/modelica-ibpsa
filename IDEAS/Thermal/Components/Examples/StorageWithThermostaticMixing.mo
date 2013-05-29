@@ -1,5 +1,6 @@
 within IDEAS.Thermal.Components.Examples;
-model TempMixingTester "Test the temperature mixing valve"
+model StorageWithThermostaticMixing
+  "Test the temperature mixing valve connected to a storage tank"
 
 extends Modelica.Icons.Example;
 
@@ -23,7 +24,7 @@ extends Modelica.Icons.Example;
     constantAmbientPressure=400000,
     constantAmbientTemperature=283.15)
     annotation (Placement(transformation(extent={{74,16},{94,36}})));
-  Thermal.Components.BaseClasses.IdealMixer temperatureMixing(medium=medium,
+  BaseClasses.Thermostatic3WayValve         temperatureMixing(medium=medium,
       mFlowMin=0.01)
     annotation (Placement(transformation(extent={{2,16},{22,36}})));
   Modelica.Blocks.Sources.Pulse pulse(
@@ -65,4 +66,4 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end TempMixingTester;
+end StorageWithThermostaticMixing;

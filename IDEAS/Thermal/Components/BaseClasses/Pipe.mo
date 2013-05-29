@@ -26,6 +26,8 @@ annotation (Documentation(info="<html>
 </ol></p>
 <p><h4>Validation </h4></p>
 <p>No validation performed; the model is based on physical principles</p>
+<p><h4><font color=\"#008000\">Examples</font></h4></p>
+<p>Many models use a pipe, often a variant with <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort\">heatPort</a> or <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pipe_Insulated\">insulation</a>. A basic example is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.HydraulicCircuit\">HydraulicCircuit</a>.</p>
 </html>", revisions="<html>
 <p><ul>
 <li>2013 May 23, Roel De Coninck, documentation;</li>

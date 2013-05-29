@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.Examples;
-model MixingVolumeTester "Test the mixing volume component"
+model MixingVolume "Test the mixing volume component"
 
 extends Modelica.Icons.Example;
 
@@ -13,7 +13,7 @@ extends Modelica.Icons.Example;
   Thermal.Components.BaseClasses.Pump pump(
     medium=medium,
     m=4,
-    m_flowNom=1)
+    m_flowNom=0.2)
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
   Thermal.Components.BaseClasses.Ambient ambient1(
     medium=medium,
@@ -35,7 +35,7 @@ extends Modelica.Icons.Example;
     useInput=true,
     m_flowNom=0.5)
     annotation (Placement(transformation(extent={{-24,-18},{-4,2}})));
-  Modelica.Blocks.Sources.Step step(startTime=500)
+  Modelica.Blocks.Sources.Step step(height=0.4, startTime=1000)
     annotation (Placement(transformation(extent={{-92,-14},{-72,6}})));
 equation
   connect(ambient1.flowPort,pump. flowPort_b) annotation (Line(
@@ -65,4 +65,4 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics));
-end MixingVolumeTester;
+end MixingVolume;

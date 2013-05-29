@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.BaseClasses;
-model IdealMixer "Thermostatic mixing valve"
+model Thermostatic3WayValve "Thermostatic 3-way valve"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
   parameter Modelica.SIunits.Mass m=1 "Fluid content of the mixing valve";
@@ -183,4 +183,4 @@ equation
 <li>2010, Roel De Coninck, first version</li>
 </ul></p>
 </html>"));
-end IdealMixer;
+end Thermostatic3WayValve;

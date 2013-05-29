@@ -36,7 +36,7 @@ extends Modelica.Icons.Example;
                                                       fixedHeatFlow(T=333.15)
     annotation (Placement(transformation(extent={{-50,-52},{-30,-32}})));
 
-  Thermal.Components.BaseClasses.IdealMixer idealMixer_NotWorking(mFlowMin=0.01)
+  BaseClasses.Thermostatic3WayValve         idealMixer_NotWorking(mFlowMin=0.01)
     annotation (Placement(transformation(extent={{10,-16},{30,4}})));
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure
     annotation (Placement(transformation(extent={{54,-58},{74,-38}})));

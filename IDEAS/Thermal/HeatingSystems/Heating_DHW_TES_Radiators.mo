@@ -86,7 +86,8 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
                                nZones] heatingControl
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Thermal.Components.BaseClasses.IdealMixer idealMixer(mFlowMin=0.01)
+  Components.BaseClasses.Thermostatic3WayValve
+                                            idealMixer(mFlowMin=0.01)
     annotation (Placement(transformation(extent={{28,22},{50,46}})));
   IDEAS.Thermal.Components.BaseClasses.Pipe   pipeDHW(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-8,-34},{4,-22}})));

@@ -100,7 +100,8 @@ protected
                                nZones] heatingControl
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{64,30},{84,50}})));
-  Thermal.Components.BaseClasses.IdealMixer idealMixer
+  Components.BaseClasses.Thermostatic3WayValve
+                                            idealMixer
     annotation (Placement(transformation(extent={{66,-6},{86,16}})));
   IDEAS.Thermal.Components.BaseClasses.Pipe   pipeDHW(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-36,-48},{-48,-36}})));

@@ -9,7 +9,7 @@ Modelica experiment file
 double experiment(7,1)
        0                   # StartTime    Time at which integration starts
                            #              (and linearization and trimming time)
- 2.0000000000000000E+005   # StopTime     Time at which integration stops
+    3600                   # StopTime     Time at which integration stops
        0                   # Increment    Communication step size, if > 0
      500                   # nInterval    Number of communication intervals, if > 0
  1.0000000000000000E-004   # Tolerance    Relative precision of signals for
@@ -102,265 +102,12 @@ int settings(13,1)
 
 
 #    Names of initial variables
-char initialName(412,59)
+char initialName(153,38)
 medium.rho
 medium.cp
 medium.cv
 medium.lamda
 medium.nue
-storageTank.medium.rho
-storageTank.medium.cp
-storageTank.medium.cv
-storageTank.medium.lamda
-storageTank.medium.nue
-storageTank.nbrNodes
-storageTank.volumeTank
-storageTank.heightTank
-storageTank.mNode
-storageTank.UIns
-storageTank.UACon
-storageTank.TInitial[1]
-storageTank.TInitial[2]
-storageTank.TInitial[3]
-storageTank.TInitial[4]
-storageTank.TInitial[5]
-storageTank.preventNaturalDestratification
-storageTank.nodes[1].medium.rho
-storageTank.nodes[1].medium.cp
-storageTank.nodes[1].medium.cv
-storageTank.nodes[1].medium.lamda
-storageTank.nodes[1].medium.nue
-storageTank.nodes[1].m
-storageTank.nodes[1].TInitial
-storageTank.nodes[1].Q_flow
-storageTank.nodes[1].T
-storageTank.nodes[1].der(T)
-storageTank.nodes[1].T_a
-storageTank.nodes[1].T_b
-storageTank.nodes[1].dT
-storageTank.nodes[1].h
-storageTank.nodes[1].flowPort_a.medium.rho
-storageTank.nodes[1].flowPort_a.medium.cp
-storageTank.nodes[1].flowPort_a.medium.cv
-storageTank.nodes[1].flowPort_a.medium.lamda
-storageTank.nodes[1].flowPort_a.medium.nue
-storageTank.nodes[1].flowPort_b.medium.rho
-storageTank.nodes[1].flowPort_b.medium.cp
-storageTank.nodes[1].flowPort_b.medium.cv
-storageTank.nodes[1].flowPort_b.medium.lamda
-storageTank.nodes[1].flowPort_b.medium.nue
-storageTank.nodes[1].flowPort_b.H_flow
-storageTank.nodes[2].medium.rho
-storageTank.nodes[2].medium.cp
-storageTank.nodes[2].medium.cv
-storageTank.nodes[2].medium.lamda
-storageTank.nodes[2].medium.nue
-storageTank.nodes[2].m
-storageTank.nodes[2].TInitial
-storageTank.nodes[2].Q_flow
-storageTank.nodes[2].T
-storageTank.nodes[2].der(T)
-storageTank.nodes[2].T_a
-storageTank.nodes[2].T_b
-storageTank.nodes[2].dT
-storageTank.nodes[2].h
-storageTank.nodes[2].flowPort_a.medium.rho
-storageTank.nodes[2].flowPort_a.medium.cp
-storageTank.nodes[2].flowPort_a.medium.cv
-storageTank.nodes[2].flowPort_a.medium.lamda
-storageTank.nodes[2].flowPort_a.medium.nue
-storageTank.nodes[2].flowPort_b.medium.rho
-storageTank.nodes[2].flowPort_b.medium.cp
-storageTank.nodes[2].flowPort_b.medium.cv
-storageTank.nodes[2].flowPort_b.medium.lamda
-storageTank.nodes[2].flowPort_b.medium.nue
-storageTank.nodes[2].flowPort_b.H_flow
-storageTank.nodes[3].medium.rho
-storageTank.nodes[3].medium.cp
-storageTank.nodes[3].medium.cv
-storageTank.nodes[3].medium.lamda
-storageTank.nodes[3].medium.nue
-storageTank.nodes[3].m
-storageTank.nodes[3].TInitial
-storageTank.nodes[3].Q_flow
-storageTank.nodes[3].T
-storageTank.nodes[3].der(T)
-storageTank.nodes[3].T_a
-storageTank.nodes[3].T_b
-storageTank.nodes[3].dT
-storageTank.nodes[3].h
-storageTank.nodes[3].flowPort_a.medium.rho
-storageTank.nodes[3].flowPort_a.medium.cp
-storageTank.nodes[3].flowPort_a.medium.cv
-storageTank.nodes[3].flowPort_a.medium.lamda
-storageTank.nodes[3].flowPort_a.medium.nue
-storageTank.nodes[3].flowPort_b.medium.rho
-storageTank.nodes[3].flowPort_b.medium.cp
-storageTank.nodes[3].flowPort_b.medium.cv
-storageTank.nodes[3].flowPort_b.medium.lamda
-storageTank.nodes[3].flowPort_b.medium.nue
-storageTank.nodes[3].flowPort_b.H_flow
-storageTank.nodes[4].medium.rho
-storageTank.nodes[4].medium.cp
-storageTank.nodes[4].medium.cv
-storageTank.nodes[4].medium.lamda
-storageTank.nodes[4].medium.nue
-storageTank.nodes[4].m
-storageTank.nodes[4].TInitial
-storageTank.nodes[4].Q_flow
-storageTank.nodes[4].T
-storageTank.nodes[4].der(T)
-storageTank.nodes[4].T_a
-storageTank.nodes[4].T_b
-storageTank.nodes[4].dT
-storageTank.nodes[4].h
-storageTank.nodes[4].flowPort_a.medium.rho
-storageTank.nodes[4].flowPort_a.medium.cp
-storageTank.nodes[4].flowPort_a.medium.cv
-storageTank.nodes[4].flowPort_a.medium.lamda
-storageTank.nodes[4].flowPort_a.medium.nue
-storageTank.nodes[4].flowPort_b.medium.rho
-storageTank.nodes[4].flowPort_b.medium.cp
-storageTank.nodes[4].flowPort_b.medium.cv
-storageTank.nodes[4].flowPort_b.medium.lamda
-storageTank.nodes[4].flowPort_b.medium.nue
-storageTank.nodes[4].flowPort_b.H_flow
-storageTank.nodes[5].medium.rho
-storageTank.nodes[5].medium.cp
-storageTank.nodes[5].medium.cv
-storageTank.nodes[5].medium.lamda
-storageTank.nodes[5].medium.nue
-storageTank.nodes[5].m
-storageTank.nodes[5].TInitial
-storageTank.nodes[5].Q_flow
-storageTank.nodes[5].T
-storageTank.nodes[5].der(T)
-storageTank.nodes[5].T_a
-storageTank.nodes[5].T_b
-storageTank.nodes[5].dT
-storageTank.nodes[5].h
-storageTank.nodes[5].flowPort_a.medium.rho
-storageTank.nodes[5].flowPort_a.medium.cp
-storageTank.nodes[5].flowPort_a.medium.cv
-storageTank.nodes[5].flowPort_a.medium.lamda
-storageTank.nodes[5].flowPort_a.medium.nue
-storageTank.nodes[5].flowPort_b.medium.rho
-storageTank.nodes[5].flowPort_b.medium.cp
-storageTank.nodes[5].flowPort_b.medium.cv
-storageTank.nodes[5].flowPort_b.medium.lamda
-storageTank.nodes[5].flowPort_b.medium.nue
-storageTank.flowPort_a.medium.rho
-storageTank.flowPort_a.medium.cp
-storageTank.flowPort_a.medium.cv
-storageTank.flowPort_a.medium.lamda
-storageTank.flowPort_a.medium.nue
-storageTank.flowPort_a.m_flow
-storageTank.flowPort_a.h
-storageTank.flowPort_a.H_flow
-storageTank.flowPort_b.medium.rho
-storageTank.flowPort_b.medium.cp
-storageTank.flowPort_b.medium.cv
-storageTank.flowPort_b.medium.lamda
-storageTank.flowPort_b.medium.nue
-storageTank.flowPort_b.h
-storageTank.flowPort_b.H_flow
-storageTank.flowPorts[1].medium.rho
-storageTank.flowPorts[1].medium.cp
-storageTank.flowPorts[1].medium.cv
-storageTank.flowPorts[1].medium.lamda
-storageTank.flowPorts[1].medium.nue
-storageTank.flowPorts[1].m_flow
-storageTank.flowPorts[1].H_flow
-storageTank.flowPorts[2].medium.rho
-storageTank.flowPorts[2].medium.cp
-storageTank.flowPorts[2].medium.cv
-storageTank.flowPorts[2].medium.lamda
-storageTank.flowPorts[2].medium.nue
-storageTank.flowPorts[2].m_flow
-storageTank.flowPorts[2].h
-storageTank.flowPorts[2].H_flow
-storageTank.flowPorts[3].medium.rho
-storageTank.flowPorts[3].medium.cp
-storageTank.flowPorts[3].medium.cv
-storageTank.flowPorts[3].medium.lamda
-storageTank.flowPorts[3].medium.nue
-storageTank.flowPorts[3].m_flow
-storageTank.flowPorts[3].h
-storageTank.flowPorts[3].H_flow
-storageTank.flowPorts[4].medium.rho
-storageTank.flowPorts[4].medium.cp
-storageTank.flowPorts[4].medium.cv
-storageTank.flowPorts[4].medium.lamda
-storageTank.flowPorts[4].medium.nue
-storageTank.flowPorts[4].m_flow
-storageTank.flowPorts[4].h
-storageTank.flowPorts[4].H_flow
-storageTank.flowPorts[5].medium.rho
-storageTank.flowPorts[5].medium.cp
-storageTank.flowPorts[5].medium.cv
-storageTank.flowPorts[5].medium.lamda
-storageTank.flowPorts[5].medium.nue
-storageTank.flowPorts[5].m_flow
-storageTank.flowPorts[5].h
-storageTank.flowPorts[5].H_flow
-storageTank.flowPorts[6].medium.rho
-storageTank.flowPorts[6].medium.cp
-storageTank.flowPorts[6].medium.cv
-storageTank.flowPorts[6].medium.lamda
-storageTank.flowPorts[6].medium.nue
-storageTank.flowPorts[6].m_flow
-storageTank.flowPorts[6].H_flow
-storageTank.heatExchEnv.T
-storageTank.heatExchEnv.Q_flow
-storageTank.buoyancy.medium.rho
-storageTank.buoyancy.medium.cp
-storageTank.buoyancy.medium.cv
-storageTank.buoyancy.medium.lamda
-storageTank.buoyancy.medium.nue
-storageTank.buoyancy.h
-storageTank.buoyancy.nbrNodes
-storageTank.buoyancy.surCroSec
-storageTank.buoyancy.Q_flow[1]
-storageTank.buoyancy.Q_flow[2]
-storageTank.buoyancy.Q_flow[3]
-storageTank.buoyancy.Q_flow[4]
-storageTank.buoyancy.heatPort[2].Q_flow
-storageTank.buoyancy.heatPort[3].Q_flow
-storageTank.buoyancy.heatPort[4].Q_flow
-storageTank.buoyancy.dT[1]
-storageTank.buoyancy.dT[2]
-storageTank.buoyancy.dT[3]
-storageTank.buoyancy.dT[4]
-storageTank.buoyancy.hi
-storageTank.buoyancy.powBuo
-storageTank.buoyancy.expNodes
-storageTank.lossNodes[1].Q_flow
-storageTank.lossNodes[1].dT
-storageTank.lossNodes[1].G
-storageTank.lossNodes[2].Q_flow
-storageTank.lossNodes[2].dT
-storageTank.lossNodes[2].G
-storageTank.lossNodes[3].Q_flow
-storageTank.lossNodes[3].dT
-storageTank.lossNodes[3].G
-storageTank.lossNodes[4].Q_flow
-storageTank.lossNodes[4].dT
-storageTank.lossNodes[4].G
-storageTank.lossNodes[5].Q_flow
-storageTank.lossNodes[5].dT
-storageTank.lossNodes[5].G
-storageTank.conductionWater[1].Q_flow
-storageTank.conductionWater[1].dT
-storageTank.conductionWater[1].G
-storageTank.conductionWater[2].Q_flow
-storageTank.conductionWater[2].dT
-storageTank.conductionWater[2].G
-storageTank.conductionWater[3].Q_flow
-storageTank.conductionWater[3].dT
-storageTank.conductionWater[3].G
-storageTank.conductionWater[4].Q_flow
-storageTank.conductionWater[4].dT
-storageTank.conductionWater[4].G
 ambient.medium.rho
 ambient.medium.cp
 ambient.medium.cv
@@ -374,11 +121,45 @@ ambient.flowPort.medium.cv
 ambient.flowPort.medium.lamda
 ambient.flowPort.medium.nue
 ambient.flowPort.m_flow
+ambient.flowPort.h
 ambient.flowPort.H_flow
 ambient.usePressureInput
 ambient.constantAmbientPressure
 ambient.useTemperatureInput
 ambient.constantAmbientTemperature
+pump.medium.rho
+pump.medium.cp
+pump.medium.cv
+pump.medium.lamda
+pump.medium.nue
+pump.m
+pump.TInitial
+pump.Q_flow
+pump.T
+pump.der(T)
+pump.T_a
+pump.T_b
+pump.dT
+pump.h
+pump.flowPort_a.medium.rho
+pump.flowPort_a.medium.cp
+pump.flowPort_a.medium.cv
+pump.flowPort_a.medium.lamda
+pump.flowPort_a.medium.nue
+pump.flowPort_a.h
+pump.flowPort_a.H_flow
+pump.flowPort_b.medium.rho
+pump.flowPort_b.medium.cp
+pump.flowPort_b.medium.cv
+pump.flowPort_b.medium.lamda
+pump.flowPort_b.medium.nue
+pump.flowPort_b.h
+pump.flowPort_b.H_flow
+pump.useInput
+pump.m_flowNom
+pump.dpFix
+pump.etaTot
+pump.PEl
 ambient1.medium.rho
 ambient1.medium.cp
 ambient1.medium.cv
@@ -391,103 +172,57 @@ ambient1.flowPort.medium.cp
 ambient1.flowPort.medium.cv
 ambient1.flowPort.medium.lamda
 ambient1.flowPort.medium.nue
-ambient1.flowPort.m_flow
-ambient1.flowPort.h
-ambient1.flowPort.H_flow
 ambient1.usePressureInput
 ambient1.constantAmbientPressure
 ambient1.useTemperatureInput
 ambient1.constantAmbientTemperature
-temperatureMixing.medium.rho
-temperatureMixing.medium.cp
-temperatureMixing.medium.cv
-temperatureMixing.medium.lamda
-temperatureMixing.medium.nue
-temperatureMixing.m
-temperatureMixing.TMixedSet
-temperatureMixing.mFlowMin
-temperatureMixing.TCold
-temperatureMixing.TMixed
-temperatureMixing.m_flowCold
-temperatureMixing.m_flowNom
-temperatureMixing.m_flowColdInput
-temperatureMixing.pumpCold.medium.rho
-temperatureMixing.pumpCold.medium.cp
-temperatureMixing.pumpCold.medium.cv
-temperatureMixing.pumpCold.medium.lamda
-temperatureMixing.pumpCold.medium.nue
-temperatureMixing.pumpCold.m
-temperatureMixing.pumpCold.TInitial
-temperatureMixing.pumpCold.Q_flow
-temperatureMixing.pumpCold.T_a
-temperatureMixing.pumpCold.T_b
-temperatureMixing.pumpCold.dT
-temperatureMixing.pumpCold.h
-temperatureMixing.pumpCold.flowPort_a.medium.rho
-temperatureMixing.pumpCold.flowPort_a.medium.cp
-temperatureMixing.pumpCold.flowPort_a.medium.cv
-temperatureMixing.pumpCold.flowPort_a.medium.lamda
-temperatureMixing.pumpCold.flowPort_a.medium.nue
-temperatureMixing.pumpCold.flowPort_b.medium.rho
-temperatureMixing.pumpCold.flowPort_b.medium.cp
-temperatureMixing.pumpCold.flowPort_b.medium.cv
-temperatureMixing.pumpCold.flowPort_b.medium.lamda
-temperatureMixing.pumpCold.flowPort_b.medium.nue
-temperatureMixing.pumpCold.useInput
-temperatureMixing.pumpCold.m_flowNom
-temperatureMixing.pumpCold.dpFix
-temperatureMixing.pumpCold.etaTot
-temperatureMixing.pumpCold.PEl
-temperatureMixing.flowPortHot.medium.rho
-temperatureMixing.flowPortHot.medium.cp
-temperatureMixing.flowPortHot.medium.cv
-temperatureMixing.flowPortHot.medium.lamda
-temperatureMixing.flowPortHot.medium.nue
-temperatureMixing.flowPortCold.medium.rho
-temperatureMixing.flowPortCold.medium.cp
-temperatureMixing.flowPortCold.medium.cv
-temperatureMixing.flowPortCold.medium.lamda
-temperatureMixing.flowPortCold.medium.nue
-temperatureMixing.flowPortCold.m_flow
-temperatureMixing.flowPortCold.H_flow
-temperatureMixing.flowPortMixed.medium.rho
-temperatureMixing.flowPortMixed.medium.cp
-temperatureMixing.flowPortMixed.medium.cv
-temperatureMixing.flowPortMixed.medium.lamda
-temperatureMixing.flowPortMixed.medium.nue
-temperatureMixing.flowPortMixed.h
-temperatureMixing.mixingVolumeHot.medium.rho
-temperatureMixing.mixingVolumeHot.medium.cp
-temperatureMixing.mixingVolumeHot.medium.cv
-temperatureMixing.mixingVolumeHot.medium.lamda
-temperatureMixing.mixingVolumeHot.medium.nue
-temperatureMixing.mixingVolumeHot.nbrPorts
-temperatureMixing.mixingVolumeHot.m
-temperatureMixing.mixingVolumeHot.TInitial
-temperatureMixing.mixingVolumeHot.T
-temperatureMixing.mixingVolumeHot.der(T)
-temperatureMixing.mixingVolumeHot.h
-temperatureMixing.mixingVolumeHot.flowPorts[1].medium.rho
-temperatureMixing.mixingVolumeHot.flowPorts[1].medium.cp
-temperatureMixing.mixingVolumeHot.flowPorts[1].medium.cv
-temperatureMixing.mixingVolumeHot.flowPorts[1].medium.lamda
-temperatureMixing.mixingVolumeHot.flowPorts[1].medium.nue
-temperatureMixing.mixingVolumeHot.flowPorts[2].medium.rho
-temperatureMixing.mixingVolumeHot.flowPorts[2].medium.cp
-temperatureMixing.mixingVolumeHot.flowPorts[2].medium.cv
-temperatureMixing.mixingVolumeHot.flowPorts[2].medium.lamda
-temperatureMixing.mixingVolumeHot.flowPorts[2].medium.nue
-temperatureMixing.mixingVolumeHot.flowPorts[2].H_flow
-pulse.amplitude
-pulse.width
-pulse.period
-pulse.nperiod
-pulse.offset
-pulse.startTime
-pulse.y
-pulse.T_width
-pulse.T_start
-pulse.count
+mixingVolume.medium.rho
+mixingVolume.medium.cp
+mixingVolume.medium.cv
+mixingVolume.medium.lamda
+mixingVolume.medium.nue
+mixingVolume.nbrPorts
+mixingVolume.m
+mixingVolume.TInitial
+mixingVolume.T
+mixingVolume.der(T)
+mixingVolume.h
+mixingVolume.flowPorts[1].medium.rho
+mixingVolume.flowPorts[1].medium.cp
+mixingVolume.flowPorts[1].medium.cv
+mixingVolume.flowPorts[1].medium.lamda
+mixingVolume.flowPorts[1].medium.nue
+mixingVolume.flowPorts[2].medium.rho
+mixingVolume.flowPorts[2].medium.cp
+mixingVolume.flowPorts[2].medium.cv
+mixingVolume.flowPorts[2].medium.lamda
+mixingVolume.flowPorts[2].medium.nue
+mixingVolume.flowPorts[3].medium.rho
+mixingVolume.flowPorts[3].medium.cp
+mixingVolume.flowPorts[3].medium.cv
+mixingVolume.flowPorts[3].medium.lamda
+mixingVolume.flowPorts[3].medium.nue
+mixingVolume.flowPorts[3].m_flow
+mixingVolume.flowPorts[3].h
+mixingVolume.flowPorts[3].H_flow
+ambient2.medium.rho
+ambient2.medium.cp
+ambient2.medium.cv
+ambient2.medium.lamda
+ambient2.medium.nue
+ambient2.T_port
+ambient2.h
+ambient2.flowPort.medium.rho
+ambient2.flowPort.medium.cp
+ambient2.flowPort.medium.cv
+ambient2.flowPort.medium.lamda
+ambient2.flowPort.medium.nue
+ambient2.flowPort.h
+ambient2.flowPort.H_flow
+ambient2.usePressureInput
+ambient2.constantAmbientPressure
+ambient2.useTemperatureInput
+ambient2.constantAmbientTemperature
 pump1.medium.rho
 pump1.medium.cp
 pump1.medium.cv
@@ -497,9 +232,11 @@ pump1.m
 pump1.TInitial
 pump1.Q_flow
 pump1.T
+pump1.der(T)
 pump1.T_a
 pump1.T_b
 pump1.dT
+pump1.h
 pump1.flowPort_a.medium.rho
 pump1.flowPort_a.medium.cp
 pump1.flowPort_a.medium.cv
@@ -515,832 +252,165 @@ pump1.m_flowNom
 pump1.dpFix
 pump1.etaTot
 pump1.PEl
+pump1.m_flowSet
+step.height
+step.offset
+step.startTime
 
-double initialValue(412,6)
-  0 9.9560000000000002E+002       0                 1.0000000000000000E+100
-  6   256   # medium.rho
- -1    4177                       0                       0                
-  1   280   # medium.cp
- -1    4177                       0                       0                
-  1   280   # medium.cv
- -1 6.1499999999999999E-001       0                       0                
-  1   280   # medium.lamda
- -1 7.9999999999999996E-007       0                 1.0000000000000000E+100
-  1   280   # medium.nue
-  0 9.9560000000000002E+002       0                 1.0000000000000000E+100
-  6   256   # storageTank.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.medium.nue
-  0       5                       1                 1.0000000000000000E+100
-  6   258   # storageTank.nbrNodes
-  0 2.9999999999999999E-001       0                 1.0000000000000000E+100
-  6   256   # storageTank.volumeTank
- -1 1.6000000000000001E+000       0                 1.0000000000000000E+100
-  1   280   # storageTank.heightTank
-  0 5.9736000000000004E+001       0                 1.0000000000000000E+100
-  6   256   # storageTank.mNode
- -1 4.0000000000000002E-001       0                 1.0000000000000000E+100
-  1   280   # storageTank.UIns
- -1 5.0000000000000000E-001       0                 1.0000000000000000E+100
-  1   280   # storageTank.UACon
-  0 3.3314999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # storageTank.TInitial[1]
-  0 3.3314999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # storageTank.TInitial[2]
-  0 3.3314999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # storageTank.TInitial[3]
-  0 3.3314999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # storageTank.TInitial[4]
-  0 3.3314999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # storageTank.TInitial[5]
- -1       1                       0                       0                
-  1   281   # storageTank.preventNaturalDestratification
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[1].medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[1].medium.nue
-  0 5.9736000000000004E+001       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[1].m
-  0 3.3314999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[1].TInitial
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].Q_flow
- -1       0                       0                 1.0000000000000000E+100
-  2   272   # storageTank.nodes[1].T
-  0       0                       0                       0                
-  3   256   # storageTank.nodes[1].der(T)
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[1].T_a
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[1].T_b
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].dT
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].h
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[1].flowPort_a.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].flowPort_a.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].flowPort_a.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].flowPort_a.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[1].flowPort_a.medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[1].flowPort_b.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].flowPort_b.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].flowPort_b.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[1].flowPort_b.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[1].flowPort_b.medium.nue
-  0       0                       0                       0                
-  6   388   # storageTank.nodes[1].flowPort_b.H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[2].medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[2].medium.nue
-  0 5.9736000000000004E+001       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[2].m
-  0 3.3314999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[2].TInitial
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].Q_flow
- -1       0                       0                 1.0000000000000000E+100
-  2   272   # storageTank.nodes[2].T
-  0       0                       0                       0                
-  3   256   # storageTank.nodes[2].der(T)
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[2].T_a
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[2].T_b
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].dT
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].h
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[2].flowPort_a.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].flowPort_a.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].flowPort_a.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].flowPort_a.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[2].flowPort_a.medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[2].flowPort_b.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].flowPort_b.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].flowPort_b.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[2].flowPort_b.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[2].flowPort_b.medium.nue
-  0       0                       0                       0                
-  6   388   # storageTank.nodes[2].flowPort_b.H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[3].medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[3].medium.nue
-  0 5.9736000000000004E+001       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[3].m
-  0 3.3314999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[3].TInitial
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].Q_flow
- -1       0                       0                 1.0000000000000000E+100
-  2   272   # storageTank.nodes[3].T
-  0       0                       0                       0                
-  3   256   # storageTank.nodes[3].der(T)
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[3].T_a
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[3].T_b
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].dT
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].h
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[3].flowPort_a.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].flowPort_a.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].flowPort_a.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].flowPort_a.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[3].flowPort_a.medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[3].flowPort_b.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].flowPort_b.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].flowPort_b.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[3].flowPort_b.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[3].flowPort_b.medium.nue
-  0       0                       0                       0                
-  6   388   # storageTank.nodes[3].flowPort_b.H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[4].medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[4].medium.nue
-  0 5.9736000000000004E+001       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[4].m
-  0 3.3314999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[4].TInitial
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].Q_flow
- -1       0                       0                 1.0000000000000000E+100
-  2   272   # storageTank.nodes[4].T
-  0       0                       0                       0                
-  3   256   # storageTank.nodes[4].der(T)
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[4].T_a
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[4].T_b
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].dT
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].h
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[4].flowPort_a.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].flowPort_a.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].flowPort_a.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].flowPort_a.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[4].flowPort_a.medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[4].flowPort_b.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].flowPort_b.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].flowPort_b.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[4].flowPort_b.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[4].flowPort_b.medium.nue
-  0       0                       0                       0                
-  6   388   # storageTank.nodes[4].flowPort_b.H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[5].medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[5].medium.nue
-  0 5.9736000000000004E+001       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[5].m
-  0 3.3314999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[5].TInitial
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].Q_flow
- -1       0                       0                 1.0000000000000000E+100
-  2   272   # storageTank.nodes[5].T
-  0       0                       0                       0                
-  3   256   # storageTank.nodes[5].der(T)
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[5].T_a
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[5].T_b
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].dT
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].h
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[5].flowPort_a.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].flowPort_a.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].flowPort_a.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].flowPort_a.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[5].flowPort_a.medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[5].flowPort_b.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].flowPort_b.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].flowPort_b.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.nodes[5].flowPort_b.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.nodes[5].flowPort_b.medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPort_a.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.flowPort_a.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.flowPort_a.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.flowPort_a.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPort_a.medium.nue
-  0       0                       0                       0                
-  6   420   # storageTank.flowPort_a.m_flow
-  0 1.1409470000000000E+006 1.1409470000000000E+006 1.5586470000000000E+006
-  6   260   # storageTank.flowPort_a.h
-  0       0                       0                       0                
-  6   388   # storageTank.flowPort_a.H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPort_b.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.flowPort_b.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.flowPort_b.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.flowPort_b.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPort_b.medium.nue
-  0 1.1409470000000000E+006 1.1409470000000000E+006 1.5586470000000000E+006
-  6   260   # storageTank.flowPort_b.h
-  0       0                       0                       0                
-  6   388   # storageTank.flowPort_b.H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[1].medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[1].medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[1].medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[1].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[1].medium.nue
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[1].m_flow
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[1].H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[2].medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[2].medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[2].medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[2].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[2].medium.nue
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[2].m_flow
-  0 1.1409470000000000E+006 1.1409470000000000E+006 1.5586470000000000E+006
-  6   260   # storageTank.flowPorts[2].h
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[2].H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[3].medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[3].medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[3].medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[3].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[3].medium.nue
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[3].m_flow
-  0 1.1409470000000000E+006 1.1409470000000000E+006 1.5586470000000000E+006
-  6   260   # storageTank.flowPorts[3].h
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[3].H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[4].medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[4].medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[4].medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[4].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[4].medium.nue
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[4].m_flow
-  0 1.1409470000000000E+006 1.1409470000000000E+006 1.5586470000000000E+006
-  6   260   # storageTank.flowPorts[4].h
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[4].H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[5].medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[5].medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[5].medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[5].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[5].medium.nue
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[5].m_flow
-  0 1.1409470000000000E+006 1.1409470000000000E+006 1.5586470000000000E+006
-  6   260   # storageTank.flowPorts[5].h
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[5].H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[6].medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[6].medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[6].medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.flowPorts[6].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.flowPorts[6].medium.nue
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[6].m_flow
-  0       0                       0                       0                
-  6   388   # storageTank.flowPorts[6].H_flow
-  0 2.8814999999999998E+002       0                 1.0000000000000000E+100
-  6   260   # storageTank.heatExchEnv.T
-  0       0                       0                       0                
-  6   388   # storageTank.heatExchEnv.Q_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.buoyancy.medium.rho
-  0       0                       0                       0                
-  6   256   # storageTank.buoyancy.medium.cp
-  0       0                       0                       0                
-  6   256   # storageTank.buoyancy.medium.cv
-  0       0                       0                       0                
-  6   256   # storageTank.buoyancy.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # storageTank.buoyancy.medium.nue
-  0       0                       0                       0                
-  6   256   # storageTank.buoyancy.h
-  0       5                       2                 1.0000000000000000E+100
-  6   258   # storageTank.buoyancy.nbrNodes
-  0       0                       0                       0                
-  6   256   # storageTank.buoyancy.surCroSec
-  0       0                       0                       0                
-  6   256   # storageTank.buoyancy.Q_flow[1]
-  0       0                       0                       0                
-  6   256   # storageTank.buoyancy.Q_flow[2]
-  0       0                       0                       0                
-  6   256   # storageTank.buoyancy.Q_flow[3]
-  0       0                       0                       0                
-  6   256   # storageTank.buoyancy.Q_flow[4]
-  0       0                       0                       0                
-  6   388   # storageTank.buoyancy.heatPort[2].Q_flow
-  0       0                       0                       0                
-  6   388   # storageTank.buoyancy.heatPort[3].Q_flow
-  0       0                       0                       0                
-  6   388   # storageTank.buoyancy.heatPort[4].Q_flow
-  0       0                       0                       0                
-  6  1280   # storageTank.buoyancy.dT[1]
-  0       0                       0                       0                
-  6  1280   # storageTank.buoyancy.dT[2]
-  0       0                       0                       0                
-  6  1280   # storageTank.buoyancy.dT[3]
-  0       0                       0                       0                
-  6  1280   # storageTank.buoyancy.dT[4]
-  0       0                       0                       0                
-  6  1280   # storageTank.buoyancy.hi
- -1      24                       0                       0                
-  1   280   # storageTank.buoyancy.powBuo
- -1 1.5000000000000000E+000       0                       0                
-  1   280   # storageTank.buoyancy.expNodes
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[1].Q_flow
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[1].dT
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[1].G
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[2].Q_flow
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[2].dT
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[2].G
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[3].Q_flow
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[3].dT
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[3].G
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[4].Q_flow
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[4].dT
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[4].G
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[5].Q_flow
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[5].dT
-  0       0                       0                       0                
-  6  1280   # storageTank.lossNodes[5].G
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[1].Q_flow
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[1].dT
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[1].G
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[2].Q_flow
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[2].dT
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[2].G
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[3].Q_flow
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[3].dT
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[3].G
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[4].Q_flow
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[4].dT
-  0       0                       0                       0                
-  6   256   # storageTank.conductionWater[4].G
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # ambient.medium.rho
-  0       0                       0                       0                
-  6   256   # ambient.medium.cp
-  0       0                       0                       0                
-  6   256   # ambient.medium.cv
-  0       0                       0                       0                
-  6   256   # ambient.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # ambient.medium.nue
-  0 2.8814999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # ambient.T_port
-  0       0                       0                       0                
-  6  1280   # ambient.h
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # ambient.flowPort.medium.rho
-  0       0                       0                       0                
-  6   256   # ambient.flowPort.medium.cp
-  0       0                       0                       0                
-  6   256   # ambient.flowPort.medium.cv
-  0       0                       0                       0                
-  6   256   # ambient.flowPort.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # ambient.flowPort.medium.nue
-  0       0                       0                       0                
-  6   452   # ambient.flowPort.m_flow
-  0       0                       0                       0                
-  6   388   # ambient.flowPort.H_flow
-  0       0                       0                       0                
-  6   257   # ambient.usePressureInput
- -1 5.0000000000000000E+005       0                       0                
-  1   280   # ambient.constantAmbientPressure
-  0       0                       0                       0                
-  6   257   # ambient.useTemperatureInput
- -1 2.8314999999999998E+002       0                 1.0000000000000000E+100
-  1   280   # ambient.constantAmbientTemperature
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # ambient1.medium.rho
-  0       0                       0                       0                
-  6   256   # ambient1.medium.cp
-  0       0                       0                       0                
-  6   256   # ambient1.medium.cv
-  0       0                       0                       0                
-  6   256   # ambient1.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # ambient1.medium.nue
-  0 2.8814999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # ambient1.T_port
-  0       0                       0                       0                
-  6  1280   # ambient1.h
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # ambient1.flowPort.medium.rho
-  0       0                       0                       0                
-  6   256   # ambient1.flowPort.medium.cp
-  0       0                       0                       0                
-  6   256   # ambient1.flowPort.medium.cv
-  0       0                       0                       0                
-  6   256   # ambient1.flowPort.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # ambient1.flowPort.medium.nue
-  0       0                       0                       0                
-  6   452   # ambient1.flowPort.m_flow
-  0 1.1409470000000000E+006 1.1409470000000000E+006 1.5586470000000000E+006
-  6   260   # ambient1.flowPort.h
-  0       0                       0                       0                
-  6   388   # ambient1.flowPort.H_flow
-  0       0                       0                       0                
-  6   257   # ambient1.usePressureInput
- -1 4.0000000000000000E+005       0                       0                
-  1   280   # ambient1.constantAmbientPressure
-  0       0                       0                       0                
-  6   257   # ambient1.useTemperatureInput
- -1 2.8314999999999998E+002       0                 1.0000000000000000E+100
-  1   280   # ambient1.constantAmbientTemperature
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # temperatureMixing.medium.rho
-  0       0                       0                       0                
-  6   256   # temperatureMixing.medium.cp
-  0       0                       0                       0                
-  6   256   # temperatureMixing.medium.cv
-  0       0                       0                       0                
-  6   256   # temperatureMixing.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # temperatureMixing.medium.nue
- -1       1                       0                 1.0000000000000000E+100
-  1   280   # temperatureMixing.m
-  0 3.0814999999999998E+002       0                       0                
-  6   256   # temperatureMixing.TMixedSet
-  0 1.0000000000000000E-002       0                       0                
-  6   256   # temperatureMixing.mFlowMin
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # temperatureMixing.TCold
-  0 2.9314999999999998E+002       0                 1.0000000000000000E+100
-  6   256   # temperatureMixing.TMixed
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.m_flowCold
- -1     100                       0                       0                
-  1  1304   # temperatureMixing.m_flowNom
-  0       0                       0                       1                
-  6  1280   # temperatureMixing.m_flowColdInput
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.pumpCold.medium.rho
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.medium.cp
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.medium.cv
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.pumpCold.medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.pumpCold.m
- -1 2.9314999999999998E+002       0                 1.0000000000000000E+100
-  1  1304   # temperatureMixing.pumpCold.TInitial
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.Q_flow
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.pumpCold.T_a
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.pumpCold.T_b
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.dT
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.h
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.pumpCold.flowPort_a.medium.rho
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.flowPort_a.medium.cp
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.flowPort_a.medium.cv
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.flowPort_a.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.pumpCold.flowPort_a.medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.pumpCold.flowPort_b.medium.rho
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.flowPort_b.medium.cp
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.flowPort_b.medium.cv
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.flowPort_b.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.pumpCold.flowPort_b.medium.nue
-  0       1                       0                       0                
-  6  1281   # temperatureMixing.pumpCold.useInput
-  0       1                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.pumpCold.m_flowNom
- -1   50000                       0                       0                
-  1  1304   # temperatureMixing.pumpCold.dpFix
- -1 8.0000000000000004E-001       0                       0                
-  1  1304   # temperatureMixing.pumpCold.etaTot
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.pumpCold.PEl
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # temperatureMixing.flowPortHot.medium.rho
-  0       0                       0                       0                
-  6   256   # temperatureMixing.flowPortHot.medium.cp
-  0       0                       0                       0                
-  6   256   # temperatureMixing.flowPortHot.medium.cv
-  0       0                       0                       0                
-  6   256   # temperatureMixing.flowPortHot.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # temperatureMixing.flowPortHot.medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # temperatureMixing.flowPortCold.medium.rho
-  0       0                       0                       0                
-  6   256   # temperatureMixing.flowPortCold.medium.cp
-  0       0                       0                       0                
-  6   256   # temperatureMixing.flowPortCold.medium.cv
-  0       0                       0                       0                
-  6   256   # temperatureMixing.flowPortCold.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # temperatureMixing.flowPortCold.medium.nue
-  0       0                       0                       0                
-  6   388   # temperatureMixing.flowPortCold.m_flow
-  0       0                       0                       0                
-  6   388   # temperatureMixing.flowPortCold.H_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # temperatureMixing.flowPortMixed.medium.rho
-  0       0                       0                       0                
-  6   256   # temperatureMixing.flowPortMixed.medium.cp
-  0       0                       0                       0                
-  6   256   # temperatureMixing.flowPortMixed.medium.cv
-  0       0                       0                       0                
-  6   256   # temperatureMixing.flowPortMixed.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # temperatureMixing.flowPortMixed.medium.nue
-  0 1.1409470000000000E+006 1.1409470000000000E+006 1.5586470000000000E+006
-  6   260   # temperatureMixing.flowPortMixed.h
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.mixingVolumeHot.medium.rho
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.mixingVolumeHot.medium.cp
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.mixingVolumeHot.medium.cv
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.mixingVolumeHot.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.mixingVolumeHot.medium.nue
-  0       2                       2                 1.0000000000000000E+100
-  6  1282   # temperatureMixing.mixingVolumeHot.nbrPorts
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.mixingVolumeHot.m
- -1 2.9314999999999998E+002       0                 1.0000000000000000E+100
-  1  1304   # temperatureMixing.mixingVolumeHot.TInitial
- -1       0                       0                 1.0000000000000000E+100
-  2  1296   # temperatureMixing.mixingVolumeHot.T
-  0       0                       0                       0                
-  3  1280   # temperatureMixing.mixingVolumeHot.der(T)
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.mixingVolumeHot.h
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.mixingVolumeHot.flowPorts[1].medium.rho
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.mixingVolumeHot.flowPorts[1].medium.cp
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.mixingVolumeHot.flowPorts[1].medium.cv
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.mixingVolumeHot.flowPorts[1].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.mixingVolumeHot.flowPorts[1].medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.mixingVolumeHot.flowPorts[2].medium.rho
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.mixingVolumeHot.flowPorts[2].medium.cp
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.mixingVolumeHot.flowPorts[2].medium.cv
-  0       0                       0                       0                
-  6  1280   # temperatureMixing.mixingVolumeHot.flowPorts[2].medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6  1280   # temperatureMixing.mixingVolumeHot.flowPorts[2].medium.nue
-  0       0                       0                       0                
-  6  1412   # temperatureMixing.mixingVolumeHot.flowPorts[2].H_flow
- -1       1                       0                       0                
-  1   280   # pulse.amplitude
- -1      50                 9.9999999999999997E-061     100                
-  1   280   # pulse.width
- -1   86400                 9.9999999999999997E-061 1.0000000000000000E+100
-  1   280   # pulse.period
- -1      -1                       0                       0                
-  1   282   # pulse.nperiod
- -1       0                       0                       0                
-  1   280   # pulse.offset
- -1   25200                       0                       0                
-  1   280   # pulse.startTime
-  0       0                       0                       1                
-  6   320   # pulse.y
-  0       0                       0                       0                
-  6  1280   # pulse.T_width
-  0       0                       0                       0                
-  6  1344   # pulse.T_start
-  0       0                       0                       0                
-  6  1346   # pulse.count
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # pump1.medium.rho
-  0       0                       0                       0                
-  6   256   # pump1.medium.cp
-  0       0                       0                       0                
-  6   256   # pump1.medium.cv
-  0       0                       0                       0                
-  6   256   # pump1.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # pump1.medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # pump1.m
- -1 2.8314999999999998E+002       0                 1.0000000000000000E+100
-  1   280   # pump1.TInitial
-  0       0                       0                       0                
-  6   256   # pump1.Q_flow
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # pump1.T
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # pump1.T_a
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # pump1.T_b
-  0       0                       0                       0                
-  6   256   # pump1.dT
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # pump1.flowPort_a.medium.rho
-  0       0                       0                       0                
-  6   256   # pump1.flowPort_a.medium.cp
-  0       0                       0                       0                
-  6   256   # pump1.flowPort_a.medium.cv
-  0       0                       0                       0                
-  6   256   # pump1.flowPort_a.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # pump1.flowPort_a.medium.nue
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # pump1.flowPort_b.medium.rho
-  0       0                       0                       0                
-  6   256   # pump1.flowPort_b.medium.cp
-  0       0                       0                       0                
-  6   256   # pump1.flowPort_b.medium.cv
-  0       0                       0                       0                
-  6   256   # pump1.flowPort_b.medium.lamda
-  0       0                       0                 1.0000000000000000E+100
-  6   256   # pump1.flowPort_b.medium.nue
-  0       1                       0                       0                
-  6   257   # pump1.useInput
- -1 1.0000000000000001E-001       0                 1.0000000000000000E+100
-  1   280   # pump1.m_flowNom
- -1   50000                       0                       0                
-  1   280   # pump1.dpFix
- -1 8.0000000000000004E-001       0                       0                
-  1   280   # pump1.etaTot
-  0       0                       0                       0                
-  6   320   # pump1.PEl
+double initialValue(153,6)
+ -1 9.9560000000000002E+002        0 1.0000000000000000E+100  1   280   # medium.rho
+ -1    4177                        0       0                  1   280   # medium.cp
+ -1    4177                        0       0                  1   280   # medium.cv
+ -1 6.1499999999999999E-001        0       0                  1   280   # medium.lamda
+ -1 7.9999999999999996E-007        0 1.0000000000000000E+100  1   280   # medium.nue
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient.medium.rho
+  0       0                        0       0                  6   256   # ambient.medium.cp
+  0       0                        0       0                  6   256   # ambient.medium.cv
+  0       0                        0       0                  6   256   # ambient.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient.medium.nue
+  0 2.8814999999999998E+002        0 1.0000000000000000E+100  6   256   # ambient.T_port
+  0       0                        0       0                  6  1280   # ambient.h
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient.flowPort.medium.rho
+  0       0                        0       0                  6   256   # ambient.flowPort.medium.cp
+  0       0                        0       0                  6   256   # ambient.flowPort.medium.cv
+  0       0                        0       0                  6   256   # ambient.flowPort.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient.flowPort.medium.nue
+  0       0                        0       0                  6   452   # ambient.flowPort.m_flow
+  0       0                        0       0                  6   260   # ambient.flowPort.h
+  0       0                        0       0                  6   388   # ambient.flowPort.H_flow
+  0       0                        0       0                  6   257   # ambient.usePressureInput
+ -1 2.0000000000000000E+005        0       0                  1   280   # ambient.constantAmbientPressure
+  0       0                        0       0                  6   257   # ambient.useTemperatureInput
+ -1 2.8314999999999998E+002        0 1.0000000000000000E+100  1   280   # ambient.constantAmbientTemperature
+  0       0                        0 1.0000000000000000E+100  6   256   # pump.medium.rho
+  0       0                        0       0                  6   256   # pump.medium.cp
+  0       0                        0       0                  6   256   # pump.medium.cv
+  0       0                        0       0                  6   256   # pump.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # pump.medium.nue
+  0       4                        0 1.0000000000000000E+100  6   256   # pump.m
+ -1 2.9314999999999998E+002        0 1.0000000000000000E+100  1   280   # pump.TInitial
+  0       0                        0       0                  6   256   # pump.Q_flow
+ -1       0                        0 1.0000000000000000E+100  2   272   # pump.T
+  0       0                        0       0                  3   256   # pump.der(T)
+  0       0                        0 1.0000000000000000E+100  6   256   # pump.T_a
+  0       0                        0 1.0000000000000000E+100  6   256   # pump.T_b
+  0       0                        0       0                  6   256   # pump.dT
+  0       0                        0       0                  6   256   # pump.h
+  0       0                        0 1.0000000000000000E+100  6   256   # pump.flowPort_a.medium.rho
+  0       0                        0       0                  6   256   # pump.flowPort_a.medium.cp
+  0       0                        0       0                  6   256   # pump.flowPort_a.medium.cv
+  0       0                        0       0                  6   256   # pump.flowPort_a.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # pump.flowPort_a.medium.nue
+  0 1.1409470000000000E+006  1140947 1.5586470000000000E+006  6   260   # pump.flowPort_a.h
+  0       0                        0       0                  6   388   # pump.flowPort_a.H_flow
+  0       0                        0 1.0000000000000000E+100  6   256   # pump.flowPort_b.medium.rho
+  0       0                        0       0                  6   256   # pump.flowPort_b.medium.cp
+  0       0                        0       0                  6   256   # pump.flowPort_b.medium.cv
+  0       0                        0       0                  6   256   # pump.flowPort_b.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # pump.flowPort_b.medium.nue
+  0 1.1409470000000000E+006  1140947 1.5586470000000000E+006  6   260   # pump.flowPort_b.h
+  0       0                        0       0                  6   388   # pump.flowPort_b.H_flow
+  0       0                        0       0                  6   257   # pump.useInput
+ -1 2.0000000000000001E-001        0 1.0000000000000000E+100  1   280   # pump.m_flowNom
+ -1   50000                        0       0                  1   280   # pump.dpFix
+ -1 8.0000000000000004E-001        0       0                  1   280   # pump.etaTot
+  0       0                        0       0                  6   256   # pump.PEl
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient1.medium.rho
+  0       0                        0       0                  6   256   # ambient1.medium.cp
+  0       0                        0       0                  6   256   # ambient1.medium.cv
+  0       0                        0       0                  6   256   # ambient1.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient1.medium.nue
+  0 2.8814999999999998E+002        0 1.0000000000000000E+100  6   256   # ambient1.T_port
+  0       0                        0       0                  6  1280   # ambient1.h
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient1.flowPort.medium.rho
+  0       0                        0       0                  6   256   # ambient1.flowPort.medium.cp
+  0       0                        0       0                  6   256   # ambient1.flowPort.medium.cv
+  0       0                        0       0                  6   256   # ambient1.flowPort.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient1.flowPort.medium.nue
+  0       0                        0       0                  6   257   # ambient1.usePressureInput
+ -1 6.0000000000000000E+005        0       0                  1   280   # ambient1.constantAmbientPressure
+  0       0                        0       0                  6   257   # ambient1.useTemperatureInput
+ -1 3.1314999999999998E+002        0 1.0000000000000000E+100  1   280   # ambient1.constantAmbientTemperature
+  0       0                        0 1.0000000000000000E+100  6   256   # mixingVolume.medium.rho
+  0       0                        0       0                  6   256   # mixingVolume.medium.cp
+  0       0                        0       0                  6   256   # mixingVolume.medium.cv
+  0       0                        0       0                  6   256   # mixingVolume.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # mixingVolume.medium.nue
+  0       3                        2 1.0000000000000000E+100  6   258   # mixingVolume.nbrPorts
+ -1      10                        0 1.0000000000000000E+100  1   280   # mixingVolume.m
+ -1 2.9314999999999998E+002        0 1.0000000000000000E+100  1   280   # mixingVolume.TInitial
+ -1       0                        0 1.0000000000000000E+100  2   272   # mixingVolume.T
+  0       0                        0       0                  3   256   # mixingVolume.der(T)
+  0       0                        0       0                  6   256   # mixingVolume.h
+  0       0                        0 1.0000000000000000E+100  6   256   # mixingVolume.flowPorts[1].medium.rho
+  0       0                        0       0                  6   256   # mixingVolume.flowPorts[1].medium.cp
+  0       0                        0       0                  6   256   # mixingVolume.flowPorts[1].medium.cv
+  0       0                        0       0                  6   256   # mixingVolume.flowPorts[1].medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # mixingVolume.flowPorts[1].medium.nue
+  0       0                        0 1.0000000000000000E+100  6   256   # mixingVolume.flowPorts[2].medium.rho
+  0       0                        0       0                  6   256   # mixingVolume.flowPorts[2].medium.cp
+  0       0                        0       0                  6   256   # mixingVolume.flowPorts[2].medium.cv
+  0       0                        0       0                  6   256   # mixingVolume.flowPorts[2].medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # mixingVolume.flowPorts[2].medium.nue
+  0       0                        0 1.0000000000000000E+100  6   256   # mixingVolume.flowPorts[3].medium.rho
+  0       0                        0       0                  6   256   # mixingVolume.flowPorts[3].medium.cp
+  0       0                        0       0                  6   256   # mixingVolume.flowPorts[3].medium.cv
+  0       0                        0       0                  6   256   # mixingVolume.flowPorts[3].medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # mixingVolume.flowPorts[3].medium.nue
+  0       0                        0       0                  6   452   # mixingVolume.flowPorts[3].m_flow
+  0 1.1409470000000000E+006  1140947 1.5586470000000000E+006  6   260   # mixingVolume.flowPorts[3].h
+  0       0                        0       0                  6   388   # mixingVolume.flowPorts[3].H_flow
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient2.medium.rho
+  0       0                        0       0                  6   256   # ambient2.medium.cp
+  0       0                        0       0                  6   256   # ambient2.medium.cv
+  0       0                        0       0                  6   256   # ambient2.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient2.medium.nue
+  0 2.8814999999999998E+002        0 1.0000000000000000E+100  6   256   # ambient2.T_port
+  0       0                        0       0                  6  1280   # ambient2.h
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient2.flowPort.medium.rho
+  0       0                        0       0                  6   256   # ambient2.flowPort.medium.cp
+  0       0                        0       0                  6   256   # ambient2.flowPort.medium.cv
+  0       0                        0       0                  6   256   # ambient2.flowPort.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # ambient2.flowPort.medium.nue
+  0 1.1409470000000000E+006  1140947 1.5586470000000000E+006  6   260   # ambient2.flowPort.h
+  0       0                        0       0                  6   388   # ambient2.flowPort.H_flow
+  0       0                        0       0                  6   257   # ambient2.usePressureInput
+ -1 1.0000000000000000E+006        0       0                  1   280   # ambient2.constantAmbientPressure
+  0       0                        0       0                  6   257   # ambient2.useTemperatureInput
+ -1 3.1314999999999998E+002        0 1.0000000000000000E+100  1   280   # ambient2.constantAmbientTemperature
+  0       0                        0 1.0000000000000000E+100  6   256   # pump1.medium.rho
+  0       0                        0       0                  6   256   # pump1.medium.cp
+  0       0                        0       0                  6   256   # pump1.medium.cv
+  0       0                        0       0                  6   256   # pump1.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # pump1.medium.nue
+  0       4                        0 1.0000000000000000E+100  6   256   # pump1.m
+ -1 2.9314999999999998E+002        0 1.0000000000000000E+100  1   280   # pump1.TInitial
+  0       0                        0       0                  6   256   # pump1.Q_flow
+ -1       0                        0 1.0000000000000000E+100  2   272   # pump1.T
+  0       0                        0       0                  3   256   # pump1.der(T)
+  0       0                        0 1.0000000000000000E+100  6   256   # pump1.T_a
+  0       0                        0 1.0000000000000000E+100  6   256   # pump1.T_b
+  0       0                        0       0                  6   256   # pump1.dT
+  0       0                        0       0                  6   256   # pump1.h
+  0       0                        0 1.0000000000000000E+100  6   256   # pump1.flowPort_a.medium.rho
+  0       0                        0       0                  6   256   # pump1.flowPort_a.medium.cp
+  0       0                        0       0                  6   256   # pump1.flowPort_a.medium.cv
+  0       0                        0       0                  6   256   # pump1.flowPort_a.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # pump1.flowPort_a.medium.nue
+  0       0                        0 1.0000000000000000E+100  6   256   # pump1.flowPort_b.medium.rho
+  0       0                        0       0                  6   256   # pump1.flowPort_b.medium.cp
+  0       0                        0       0                  6   256   # pump1.flowPort_b.medium.cv
+  0       0                        0       0                  6   256   # pump1.flowPort_b.medium.lamda
+  0       0                        0 1.0000000000000000E+100  6   256   # pump1.flowPort_b.medium.nue
+  0       1                        0       0                  6   257   # pump1.useInput
+ -1 5.0000000000000000E-001        0 1.0000000000000000E+100  1   280   # pump1.m_flowNom
+ -1   50000                        0       0                  1   280   # pump1.dpFix
+ -1 8.0000000000000004E-001        0       0                  1   280   # pump1.etaTot
+  0       0                        0       0                  6   320   # pump1.PEl
+  0       0                        0       1                  6   320   # pump1.m_flowSet
+ -1 4.0000000000000002E-001        0       0                  1   280   # step.height
+ -1       0                        0       0                  1   280   # step.offset
+ -1    1000                        0       0                  1   280   # step.startTime
 
 
 # Matrix with 6 columns defining the initial value calculation
@@ -1391,283 +461,12 @@ double initialValue(412,6)
 #   nominal value (and maybe minimum and maximum values given in 
 #   column 3 and 4). If these values are zero, scale(i)=1 is used).
 #
-char initialDescription(412,88)
+char initialDescription(153,78)
 Density [kg/m3|g/cm3]
 Specific heat capacity at constant pressure [J/(kg.K)]
 Specific heat capacity at constant volume [J/(kg.K)]
 Thermal conductivity [W/(m.K)]
 Kinematic viscosity [m2/s]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Number of nodes [:#(type=Integer)]
-Total volume of the tank [m3]
-Total height of the tank [m]
-Mass of each node [kg]
-Average heat loss coefficient for insulation per m2 of tank surface [W/(m2.K)]
-Additional thermal conductance for connection losses and imperfect insulation [W/K]
-Initial temperature of all Temperature states [K|degC]
-Initial temperature of all Temperature states [K|degC]
-Initial temperature of all Temperature states [K|degC]
-Initial temperature of all Temperature states [K|degC]
-Initial temperature of all Temperature states [K|degC]
-if true, this automatically increases the insulation of the top layer [:#(type=Boolean)]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Mass of medium [kg]
-Initial temperature of all Temperature states [K|degC]
-Heat exchange with ambient [W]
-Outlet temperature of medium [K|degC]
-der(Outlet temperature of medium) [K/s]
-Temperature at flowPort_a [K|degC]
-Temperature at flowPort_b [K|degC]
-Outlet temperature minus inlet temperature [K,]
-Medium's specific enthalpy [J/kg]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Mass of medium [kg]
-Initial temperature of all Temperature states [K|degC]
-Heat exchange with ambient [W]
-Outlet temperature of medium [K|degC]
-der(Outlet temperature of medium) [K/s]
-Temperature at flowPort_a [K|degC]
-Temperature at flowPort_b [K|degC]
-Outlet temperature minus inlet temperature [K,]
-Medium's specific enthalpy [J/kg]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Mass of medium [kg]
-Initial temperature of all Temperature states [K|degC]
-Heat exchange with ambient [W]
-Outlet temperature of medium [K|degC]
-der(Outlet temperature of medium) [K/s]
-Temperature at flowPort_a [K|degC]
-Temperature at flowPort_b [K|degC]
-Outlet temperature minus inlet temperature [K,]
-Medium's specific enthalpy [J/kg]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Mass of medium [kg]
-Initial temperature of all Temperature states [K|degC]
-Heat exchange with ambient [W]
-Outlet temperature of medium [K|degC]
-der(Outlet temperature of medium) [K/s]
-Temperature at flowPort_a [K|degC]
-Temperature at flowPort_b [K|degC]
-Outlet temperature minus inlet temperature [K,]
-Medium's specific enthalpy [J/kg]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Mass of medium [kg]
-Initial temperature of all Temperature states [K|degC]
-Heat exchange with ambient [W]
-Outlet temperature of medium [K|degC]
-der(Outlet temperature of medium) [K/s]
-Temperature at flowPort_a [K|degC]
-Temperature at flowPort_b [K|degC]
-Outlet temperature minus inlet temperature [K,]
-Medium's specific enthalpy [J/kg]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[kg/s]
-[J/kg]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[J/kg]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[kg/s]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[kg/s]
-[J/kg]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[kg/s]
-[J/kg]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[kg/s]
-[J/kg]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[kg/s]
-[J/kg]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[kg/s]
-[W]
-Port temperature [K|degC]
-Heat flow rate (positive if flowing from outside into the component) [W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Total tank height [m]
-Number of tank nodes [:#(type=Integer)]
-Cross section surface of the tank [m2]
-Heat flow rate from segment i+1 to i [W]
-Heat flow rate from segment i+1 to i [W]
-Heat flow rate from segment i+1 to i [W]
-Heat flow rate from segment i+1 to i [W]
-Heat flow rate (positive if flowing from outside into the component) [W]
-Heat flow rate (positive if flowing from outside into the component) [W]
-Heat flow rate (positive if flowing from outside into the component) [W]
-Temperature difference between layer i+1 and i, only if >0, else 0 [K,]
-Temperature difference between layer i+1 and i, only if >0, else 0 [K,]
-Temperature difference between layer i+1 and i, only if >0, else 0 [K,]
-Temperature difference between layer i+1 and i, only if >0, else 0 [K,]
-[m]
-Equivalent thermal conductivity  [W/K]
-Exponent for the number of nodes
-Heat flow rate from port_a -> port_b [W]
-port_a.T - port_b.T [K,]
-Constant thermal conductance of material [W/K]
-Heat flow rate from port_a -> port_b [W]
-port_a.T - port_b.T [K,]
-Constant thermal conductance of material [W/K]
-Heat flow rate from port_a -> port_b [W]
-port_a.T - port_b.T [K,]
-Constant thermal conductance of material [W/K]
-Heat flow rate from port_a -> port_b [W]
-port_a.T - port_b.T [K,]
-Constant thermal conductance of material [W/K]
-Heat flow rate from port_a -> port_b [W]
-port_a.T - port_b.T [K,]
-Constant thermal conductance of material [W/K]
-Heat flow rate from port_a -> port_b [W]
-port_a.T - port_b.T [K,]
-Constant thermal conductance of material [W/K]
-Heat flow rate from port_a -> port_b [W]
-port_a.T - port_b.T [K,]
-Constant thermal conductance of material [W/K]
-Heat flow rate from port_a -> port_b [W]
-port_a.T - port_b.T [K,]
-Constant thermal conductance of material [W/K]
-Heat flow rate from port_a -> port_b [W]
-port_a.T - port_b.T [K,]
-Constant thermal conductance of material [W/K]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-Temperature at flowPort_a [K|degC]
-[J/kg]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[kg/s]
-[W]
-Enable / disable pressure input [:#(type=Boolean)]
-Ambient pressure [Pa|bar]
-Enable / disable temperature input [:#(type=Boolean)]
-Ambient temperature [K|degC]
 Density [kg/m3|g/cm3]
 Specific heat capacity at constant pressure [J/(kg.K)]
 Specific heat capacity at constant volume [J/(kg.K)]
@@ -1692,22 +491,11 @@ Specific heat capacity at constant pressure [J/(kg.K)]
 Specific heat capacity at constant volume [J/(kg.K)]
 Thermal conductivity [W/(m.K)]
 Kinematic viscosity [m2/s]
-Fluid content of the mixing valve [kg]
-Mixed outlet temperature setpoint [K]
-Minimum outlet flowrate for mixing to start [kg/s]
-[K|degC]
-Temperature of the mixed water [K|degC]
-mass flowrate of cold water to the mixing point [kg/s]
-Just a large nominal flowrate [kg/s]
-[1]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
 Mass of medium [kg]
 Initial temperature of all Temperature states [K|degC]
 Heat exchange with ambient [W]
+Outlet temperature of medium [K|degC]
+der(Outlet temperature of medium) [K/s]
 Temperature at flowPort_a [K|degC]
 Temperature at flowPort_b [K|degC]
 Outlet temperature minus inlet temperature [K,]
@@ -1717,11 +505,15 @@ Specific heat capacity at constant pressure [J/(kg.K)]
 Specific heat capacity at constant volume [J/(kg.K)]
 Thermal conductivity [W/(m.K)]
 Kinematic viscosity [m2/s]
+[J/kg]
+[W]
 Density [kg/m3|g/cm3]
 Specific heat capacity at constant pressure [J/(kg.K)]
 Specific heat capacity at constant volume [J/(kg.K)]
 Thermal conductivity [W/(m.K)]
 Kinematic viscosity [m2/s]
+[J/kg]
+[W]
 Enable / disable MassFlowRate input [:#(type=Boolean)]
 Nominal mass flowrate [kg/s]
 Fixed pressure drop, used for determining the electricity consumption [Pa|bar]
@@ -1732,19 +524,17 @@ Specific heat capacity at constant pressure [J/(kg.K)]
 Specific heat capacity at constant volume [J/(kg.K)]
 Thermal conductivity [W/(m.K)]
 Kinematic viscosity [m2/s]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
-[kg/s]
-[W]
-Density [kg/m3|g/cm3]
-Specific heat capacity at constant pressure [J/(kg.K)]
-Specific heat capacity at constant volume [J/(kg.K)]
-Thermal conductivity [W/(m.K)]
-Kinematic viscosity [m2/s]
+Temperature at flowPort_a [K|degC]
 [J/kg]
+Density [kg/m3|g/cm3]
+Specific heat capacity at constant pressure [J/(kg.K)]
+Specific heat capacity at constant volume [J/(kg.K)]
+Thermal conductivity [W/(m.K)]
+Kinematic viscosity [m2/s]
+Enable / disable pressure input [:#(type=Boolean)]
+Ambient pressure [Pa|bar]
+Enable / disable temperature input [:#(type=Boolean)]
+Ambient temperature [K|degC]
 Density [kg/m3|g/cm3]
 Specific heat capacity at constant pressure [J/(kg.K)]
 Specific heat capacity at constant volume [J/(kg.K)]
@@ -1766,17 +556,32 @@ Specific heat capacity at constant pressure [J/(kg.K)]
 Specific heat capacity at constant volume [J/(kg.K)]
 Thermal conductivity [W/(m.K)]
 Kinematic viscosity [m2/s]
+Density [kg/m3|g/cm3]
+Specific heat capacity at constant pressure [J/(kg.K)]
+Specific heat capacity at constant volume [J/(kg.K)]
+Thermal conductivity [W/(m.K)]
+Kinematic viscosity [m2/s]
+[kg/s]
+[J/kg]
 [W]
-Amplitude of pulse [1]
-Width of pulse in % of period
-Time for one period [s]
-Number of periods (< 0 means infinite number of periods) [:#(type=Integer)]
-Offset of output signals [1]
-Output = offset for time < startTime [s]
-Connector of Real output signal [1]
-[s]
-Start time of current period [s]
-Period count [:#(type=Integer)]
+Density [kg/m3|g/cm3]
+Specific heat capacity at constant pressure [J/(kg.K)]
+Specific heat capacity at constant volume [J/(kg.K)]
+Thermal conductivity [W/(m.K)]
+Kinematic viscosity [m2/s]
+Temperature at flowPort_a [K|degC]
+[J/kg]
+Density [kg/m3|g/cm3]
+Specific heat capacity at constant pressure [J/(kg.K)]
+Specific heat capacity at constant volume [J/(kg.K)]
+Thermal conductivity [W/(m.K)]
+Kinematic viscosity [m2/s]
+[J/kg]
+[W]
+Enable / disable pressure input [:#(type=Boolean)]
+Ambient pressure [Pa|bar]
+Enable / disable temperature input [:#(type=Boolean)]
+Ambient temperature [K|degC]
 Density [kg/m3|g/cm3]
 Specific heat capacity at constant pressure [J/(kg.K)]
 Specific heat capacity at constant volume [J/(kg.K)]
@@ -1786,9 +591,11 @@ Mass of medium [kg]
 Initial temperature of all Temperature states [K|degC]
 Heat exchange with ambient [W]
 Outlet temperature of medium [K|degC]
+der(Outlet temperature of medium) [K/s]
 Temperature at flowPort_a [K|degC]
 Temperature at flowPort_b [K|degC]
 Outlet temperature minus inlet temperature [K,]
+Medium's specific enthalpy [J/kg]
 Density [kg/m3|g/cm3]
 Specific heat capacity at constant pressure [J/(kg.K)]
 Specific heat capacity at constant volume [J/(kg.K)]
@@ -1804,4 +611,8 @@ Nominal mass flowrate [kg/s]
 Fixed pressure drop, used for determining the electricity consumption [Pa|bar]
 Fixed total pump efficiency [1]
 Electricity consumption [W]
+[1]
+Height of step
+Offset of output signal y
+Output y = offset for time < startTime [s]
 
