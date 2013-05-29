@@ -58,12 +58,10 @@ equation
   connect(step.y, prescribedTemperature.T) annotation (Line(
       points={{13,62},{28,62}},
       color={0,0,127},
-      thickness=0.5,
       smooth=Smooth.None));
   connect(prescribedTemperature.port, radiator.heatPortRad) annotation (Line(
       points={{50,62},{67.8333,62},{67.8333,10}},
       color={191,0,0},
-      thickness=0.5,
       smooth=Smooth.None));
   connect(fixedHeatFlow.port, boiler.heatPort) annotation (Line(
       points={{-30,-42},{-16,-42},{-16,-16}},
@@ -90,7 +88,7 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(prescribedTemperature.port, radiator.heatPortCon) annotation (Line(
-      points={{50,62},{56,62},{56,32},{64.5,32},{64.5,10}},
+      points={{50,62},{64,62},{64,36},{64.5,10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(const.y, thermostaticValve.TMixedSet) annotation (Line(
@@ -101,5 +99,10 @@ equation
             -100},{100,100}}),
                       graphics),
     experiment(StopTime=3600),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
+<p>In this example, a radiator is connector to a prescribed temperature (acting as room).  The boiler is represented by a pipe_HeatPort component connected to a fixed temperature of 60&deg;C.  Therefore, the heat flux will be a free variable and it will depend on the flowrate and temperature of the water entering the boiler. </p>
+<p>The thermostatic valve controls the inlet temperature of the radiator to 45&deg;C.  </p>
+<p><br/><b>Note</b>: make sure that when using a radiator, both the radiative and convective heatPort are connected, otherwise the model will not run under all operating conditions. </p>
+</html>"));
 end RadiatorWithMixingValve;
