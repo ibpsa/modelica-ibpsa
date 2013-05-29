@@ -1,5 +1,6 @@
 within IDEAS.Thermal.Components.BaseClasses;
-model Pump_Insulated "Pump with UA for thermal losses"
+model Pump_Insulated
+  "Prescribed mass flow rate, with UA-value for environmental heat exchange."
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
     "Medium in the component"

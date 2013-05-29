@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.BaseClasses;
-model Pump "Enforces constant mass flow rate"
+model Pump "Prescribed mass flow rate, no heat exchange."
 
   extends Thermal.Components.Interfaces.Partials.TwoPort;
   parameter Boolean useInput = false "Enable / disable MassFlowRate input"
@@ -27,13 +27,29 @@ equation
   Q_flow = 0;
   flowPort_a.m_flow = m_flow;
   PEl = m_flow / medium.rho * dpFix / etaTot;
-  annotation (Documentation(info="<HTML>
-Fan resp. pump with constant volume flow rate. Pressure increase is the response of the whole system.
-Coolant's temperature and enthalpy flow are not affected.<br>
-Setting parameter m (mass of medium within fan/pump) to zero
-leads to neglection of temperature transient cv*m*der(T).<br>
-Thermodynamic equations are defined by Partials.TwoPort.
-</HTML>"),
+  annotation (Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Basic pump model without heat exchange. This model sets the mass flow rate, either as a constant or based on an input.</p>
+<p>If an input is used (<code>useInput&nbsp;=&nbsp;true)</code>, <code>m_flowSet</code> is supposed to be a real value between 0 and 1, and the flowrate is then <code>m_flowSet * m_flowNom.</code></p>
+<p>The model calculates the electricity consumption of the pump in a very simplified way: a fixed pressure drop and an efficiency are given as parameters, and the electricity consumption is computed as:</p>
+<pre>PEl&nbsp;=&nbsp;m_flow&nbsp;/&nbsp;medium.rho&nbsp;*&nbsp;dpFix&nbsp;/&nbsp;etaTot;</pre>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>This model does not specify a relation between pressure and flowrate, the flowrate is IMPOSED</li>
+<li>If the water content of the pump, m, is zero, there are no thermal dynamics. </li>
+<li>The electricity consumption is computed based on a FIXED efficiency and FIXED pressure drop AS PARAMETERS</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>Decide if the pump will be controlled through an input or if the flowrate is a constant</li>
+<li>Set medium and water content of the pump</li>
+<li>Specify the parameters for computing the electricity consumption</li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>None</p>
+<p><h4>Example </h4></p>
+<p>An example in which this model is used is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.PumpePipeTester\">PumpPipeTester</a>.</p>
+</html>"),
        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),      graphics={
         Ellipse(

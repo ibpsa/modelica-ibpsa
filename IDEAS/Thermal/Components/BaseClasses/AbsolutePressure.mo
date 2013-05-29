@@ -12,10 +12,27 @@ equation
   flowPort.p = p;
   // no energy exchange; no mass flow by default
   flowPort.H_flow = 0;
-annotation (Documentation(info="<HTML>
-AbsolutePressure to define pressure level of a closed cooling cycle.
-Coolant's mass flow, temperature and enthalpy flow are not affected.<br>
-</HTML>"), Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+annotation (Documentation(info="<html>
+<p><h4><font color=\"#008000\">Description</font></h4></p>
+<p><br/>This model sets an absolute pressure at the flowPort. It takes the role of an expansion vessel in an hydraulic system. </p>
+<p>The function of this model can also be compared to a grounding in electrical circuits. </p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>There is no enthalpy flowrate (nor mass flow) through the flowPort, so this model does not influence the thermal behaviour of the system. </li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p>It is important that the absolute pressure is known in EVERY branch of an hydraulic system. All  hydraulic components will pass this pressure to all their ports, except the pumps.</p>
+<p>Therefore, the model will be balanced if one single AbsolutePressure component is connected to every section of the hydraulic circuitry which is isolated by pumps.</p>
+<p>The following parameters have to be set:</p>
+<p><ol>
+<li>medium</li>
+<li>the absolute pressure is to be specified, but the value is generally of no importance. </li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>None</p>
+<p><h4>Example</h4></p>
+<p>An example in which this model is used is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.PumpePipeTester\">PumpPipeTester</a>.</p>
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

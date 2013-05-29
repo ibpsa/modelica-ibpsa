@@ -1,6 +1,6 @@
 within IDEAS.Thermal.Components.BaseClasses;
 model Pump_HeatPort
-  "Enforces constant mass flow rate, with heat port for environmental heat losses"
+  "Prescribed mass flow rate, with heatPort for heat exchange."
 
   extends Thermal.Components.Interfaces.Partials.TwoPort;
   parameter Boolean useInput = false "Enable / disable MassFlowRate input"

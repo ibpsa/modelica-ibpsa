@@ -13,14 +13,11 @@ equation
   // pressure drop = none
   flowPort_a.p = flowPort_b.p;
 annotation (Documentation(info="<html>
-<p><b>General description</b> </p>
-<p><h5>Goal</h5></p>
-<p>Pipe with heat exchange with the environment.</p>
-<p><h5>Description </h5></p>
+<p><b>Description</b> </p>
 <p>Model for fluid flow through a pipe, including heat exchange with the environment. A dynamic heat balance is included, based on the in- and outlet enthalpy flow, the heat flux to/from environment and the internal mass m of the fluid content in the pipe. A stationary model is obtained when m=0 </p>
 <p>m.cv.der(T) = heatPort.Q_flow + ( h_flow_in - h_flow_out) </p>
 <p><b>Note:</b> as can be seen from the equation, injecting heat into a pipe with zero mass flow rate causes temperature rise defined by storing heat in medium&apos;s mass. </p>
-<p><h5>Assumptions and limitations </h5></p>
+<p><h5><font color=\"#008000\">Assumptions and limitations</font></h5></p>
 <p><ol>
 <li>No pressure drop</li>
 <li>Conservation of mass</li>
@@ -35,7 +32,9 @@ annotation (Documentation(info="<html>
 </ol></p>
 <p><h4>Validation </h4></p>
 <p>No validation performed; the model is based on physical principles</p>
-<p><h4>Revision, history and contact </h4></p>
+<p><h4><font color=\"#008000\">Examples</font></h4></p>
+<p>An example in which this model is used is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.PumpePipeTester\">PumpPipeTester</a>.</p>
+</html>", revisions="<html>
 <p><ul>
 <li>2013 May 23, Roel De Coninck, documentation;</li>
 <li>2012 November, Roel De Coninck, first implementation. </li>

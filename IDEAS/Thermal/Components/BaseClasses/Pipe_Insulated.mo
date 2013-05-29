@@ -72,10 +72,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p><b>General description</b> </p>
-<p><h5>Goal</h5></p>
+<p><b>Description</b> </p>
 <p>Insulated pipe: heat exchange with the environment is based on UA-value of the insulation.</p>
-<p><h5>Description </h5></p>
 <p>Model for fluid flow through a pipe, including heat losses or gains with the environment through insulation. A dynamic heat balance is included, based on the in- and outlet enthalpy flow, the heat flux to/from environment and the internal mass m of the fluid content in the pipe. A stationary model is obtained when m=0 </p>
 <p>m.cv.der(T) = ( h_flow_in - h_flow_out) - UA.(T - TAmb) </p>
 <p><b>Note:</b> as can be seen from the equation, the pipe temperature T will converge to the ambient temperature when there is no mass flow rate. </p>
@@ -95,7 +93,7 @@ equation
 </ol></p>
 <p><h4>Validation </h4></p>
 <p>No validation performed; the model is based on physical principles</p>
-<p><h4>Revision, history and contact </h4></p>
+</html>", revisions="<html>
 <p><ul>
 <li>2013 May 23, Roel De Coninck, documentation;</li>
 <li>2012 November, Roel De Coninck, first implementation. </li>

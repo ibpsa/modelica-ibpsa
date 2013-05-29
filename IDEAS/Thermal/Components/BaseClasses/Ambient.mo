@@ -32,11 +32,8 @@ equation
   flowPort.p = pAmbient;
   T = TAmbient;
 annotation (Documentation(info="<html>
-<p><b>General description</b> </p>
-<p><h5>Goal</h5></p>
+<p><b>Description</b> </p>
 <p>Model to specify pressure and temperature at boundaries of fluid flow systems.</p>
-<p><h5>Description </h5></p>
-<p>(Infinite) ambient with predefined pressure and temperature.</p>
 <p>Thermodynamic equations are defined by Partials.Ambient. </p>
 <p><h5>Assumptions and limitations </h5></p>
 <p><ol>
@@ -51,7 +48,9 @@ annotation (Documentation(info="<html>
 </ol></p>
 <p><h4>Validation </h4></p>
 <p>No validation performed; the model is based on physical principles</p>
-<p><h4>Revision, history and contact </h4></p>
+
+
+</html>", revisions="<html>
 <p><ul>
 <li>2013 May 23, Roel De Coninck, documentation;</li>
 <li>Model is taken from Modelica.Thermal.FluidHeatFlow.Sources.Ambient</li>
