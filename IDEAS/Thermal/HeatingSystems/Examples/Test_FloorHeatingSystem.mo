@@ -17,7 +17,6 @@ parameter Integer nZones = 1 "Number of zones";
     AColTot=5,
     dTSupRetNom=5,
     FHChars={IDEAS.Thermal.Components.BaseClasses.FH_Characteristics(A_Floor=10)},
-
     TSupNom=313.15)
     annotation (Placement(transformation(extent={{-2,-58},{48,-30}})));
 

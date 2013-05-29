@@ -32,7 +32,7 @@ model MixingVolumeTester "Test the mixing volume component"
     m=4,
     useInput=true,
     m_flowNom=0.5)
-    annotation (Placement(transformation(extent={{-22,-18},{-2,2}})));
+    annotation (Placement(transformation(extent={{-24,-18},{-4,2}})));
   Modelica.Blocks.Sources.Step step(startTime=500)
     annotation (Placement(transformation(extent={{-92,-14},{-72,6}})));
 equation
@@ -41,24 +41,26 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(ambient.flowPort, mixingVolume.flowPorts[1]) annotation (Line(
-      points={{-46,20},{-10,20},{-10,30},{-4,30},{-4,41.3333}},
+      points={{-46,20},{-10,20},{-10,42},{-4,42},{-4,41.3333}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(mixingVolume.flowPorts[2], pump.flowPort_a) annotation (Line(
-      points={{-4,42},{-4,20},{30,20}},
+      points={{-4,42},{2,42},{2,20},{30,20}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(ambient2.flowPort, pump1.flowPort_a) annotation (Line(
-      points={{-20,-40},{-36,-40},{-36,-8},{-22,-8}},
+      points={{-20,-40},{-36,-40},{-36,-8},{-24,-8}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump1.flowPort_b, mixingVolume.flowPorts[3]) annotation (Line(
-      points={{-2,-8},{-2,42.6667},{-4,42.6667}},
+      points={{-4,-8},{-4,42.6667}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(step.y, pump1.m_flowSet) annotation (Line(
-      points={{-71,-4},{-42,-4},{-42,2},{-12,2}},
+      points={{-71,-4},{-42,-4},{-42,2},{-14,2}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics));
 end MixingVolumeTester;

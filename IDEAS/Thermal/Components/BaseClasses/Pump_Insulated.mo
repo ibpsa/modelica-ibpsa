@@ -133,5 +133,36 @@ equation
           lineColor={100,100,100},
           smooth=Smooth.None,
           fillColor={100,100,100},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Basic pump model with UA-value for heat exchange to environment. This model sets the mass flow rate, either as a constant or based on an input. The thermal equations are identical to the <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pipe_Insulated\">Pipe_Insulated</a> model.</p>
+<p>If an input is used (<code>useInput&nbsp;=&nbsp;true)</code>, <code>m_flowSet</code> is supposed to be a real value between 0 and 1, and the flowrate is then <code>m_flowSet * m_flowNom.</code></p>
+<p>The model calculates the electricity consumption of the pump in a very simplified way: a fixed pressure drop and an efficiency are given as parameters, and the electricity consumption is computed as:</p>
+<pre>PEl&nbsp;=&nbsp;m_flow&nbsp;/&nbsp;medium.rho&nbsp;*&nbsp;dpFix&nbsp;/&nbsp;etaTot;</pre>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>This model does not specify a relation between pressure and flowrate, the flowrate is IMPOSED</li>
+<li>If the water content of the pump, m, is zero, there are no thermal dynamics. </li>
+<li>The electricity consumption is computed based on a FIXED efficiency and FIXED pressure drop AS PARAMETERS</li>
+<li>The inefficiency of the pump does NOT lead to an enthalpy increase of the outlet flow.</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>Decide if the pump will be controlled through an input or if the flowrate is a constant</li>
+<li>Set medium and water content of the pump</li>
+<li>Specify the parameters for computing the electricity consumption</li>
+<li>Set the UA value and connect the heatPort</li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>None</p>
+<p><h4>Example </h4></p>
+<p>The <a href=\"modelica://IDEAS.Thermal.Components.Examples.PumpePipeTester\">PumpPipeTeste</a>r model uses <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pump\">Pump</a> models but they can easily be replaced with this Pump_Insulated model.</p>
+</html>", revisions="<html>
+<p><ul>
+<li>May 2013, Roel De Coninck, documentation</li>
+<li>March 2013, Ruben Baetens, graphics</li>
+<li>October 2012, Roel De Coninck, first version.</li>
+</ul></p>
+</html>"));
 end Pump_Insulated;

@@ -33,5 +33,7 @@ equation
       points={{66,10},{40,10}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Documentation(info="<html>
+<p>Simple tester for the IDEAS.Thermal.Components.BaseClasses.Ambient model</p>
+</html>"));
 end AmbientTester;

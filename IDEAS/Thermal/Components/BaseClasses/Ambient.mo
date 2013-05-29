@@ -47,9 +47,9 @@ annotation (Documentation(info="<html>
 <li>temperatur (constant) or as input</li>
 </ol></p>
 <p><h4>Validation </h4></p>
-<p>No validation performed; the model is based on physical principles</p>
-
-
+<p>No validation performed; the model is based on physical principles </p>
+<p><h4><font color=\"#008000\">Examples</font></h4></p>
+<p>This model is tested in<a href=\"modelica://IDEAS.Thermal.Components.Examples.AmbientTester\"> IDEAS.Thermal.Components.Examples.AmbientTester</a></p>
 </html>", revisions="<html>
 <p><ul>
 <li>2013 May 23, Roel De Coninck, documentation;</li>

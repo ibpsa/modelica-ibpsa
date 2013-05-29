@@ -7,7 +7,7 @@ model TempMixingTester "Test the temperature mixing valve"
     TInitial={273.15 + 60 for i in 1:storageTank.nbrNodes},
     volumeTank=0.3,
     heightTank=1.6,
-    U=0.4,
+    UIns=0.4,
     medium=medium)
     annotation (Placement(transformation(extent={{2,-64},{-70,10}})));
 
@@ -15,7 +15,7 @@ model TempMixingTester "Test the temperature mixing valve"
     medium=medium,
     constantAmbientPressure=500000,
     constantAmbientTemperature=283.15)
-    annotation (Placement(transformation(extent={{54,-92},{74,-72}})));
+    annotation (Placement(transformation(extent={{76,-92},{96,-72}})));
   Thermal.Components.BaseClasses.Ambient ambient1(
     medium=medium,
     constantAmbientPressure=400000,
@@ -39,15 +39,15 @@ equation
   temperatureMixing.TMixedSet=273.15+35;
   connect(storageTank.flowPort_a, temperatureMixing.flowPortHot) annotation (
       Line(
-      points={{-34,10},{-16,10},{-16,26},{2,26}},
+      points={{-70,4.30769},{-70,4.30769},{-70,26},{2,26}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(ambient.flowPort, storageTank.flowPort_b) annotation (Line(
-      points={{54,-82},{-34,-82},{-34,-64}},
+      points={{76,-82},{-70,-82},{-70,-58.3077}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(ambient.flowPort, temperatureMixing.flowPortCold) annotation (Line(
-      points={{54,-82},{38,-82},{38,-80},{12,-80},{12,16}},
+      points={{76,-82},{12,-82},{12,16}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(temperatureMixing.flowPortMixed, pump1.flowPort_a) annotation (Line(

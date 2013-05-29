@@ -29,7 +29,7 @@ equation
   PEl = m_flow / medium.rho * dpFix / etaTot;
   annotation (Documentation(info="<html>
 <p><b>Description</b> </p>
-<p>Basic pump model without heat exchange. This model sets the mass flow rate, either as a constant or based on an input.</p>
+<p>Basic pump model without heat exchange. This model sets the mass flow rate, either as a constant or based on an input. The thermal equations are identical to the <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pipe\">Pipe</a> model.</p>
 <p>If an input is used (<code>useInput&nbsp;=&nbsp;true)</code>, <code>m_flowSet</code> is supposed to be a real value between 0 and 1, and the flowrate is then <code>m_flowSet * m_flowNom.</code></p>
 <p>The model calculates the electricity consumption of the pump in a very simplified way: a fixed pressure drop and an efficiency are given as parameters, and the electricity consumption is computed as:</p>
 <pre>PEl&nbsp;=&nbsp;m_flow&nbsp;/&nbsp;medium.rho&nbsp;*&nbsp;dpFix&nbsp;/&nbsp;etaTot;</pre>
@@ -38,6 +38,7 @@ equation
 <li>This model does not specify a relation between pressure and flowrate, the flowrate is IMPOSED</li>
 <li>If the water content of the pump, m, is zero, there are no thermal dynamics. </li>
 <li>The electricity consumption is computed based on a FIXED efficiency and FIXED pressure drop AS PARAMETERS</li>
+<li>The inefficiency of the pump does NOT lead to an enthalpy increase of the outlet flow.</li>
 </ol></p>
 <p><h4>Model use</h4></p>
 <p><ol>
@@ -49,6 +50,12 @@ equation
 <p>None</p>
 <p><h4>Example </h4></p>
 <p>An example in which this model is used is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.PumpePipeTester\">PumpPipeTester</a>.</p>
+</html>", revisions="<html>
+<p><ul>
+<li>2013, Roel De Coninck, documentation</li>
+<li>2012, Ruben Baetens, changed graphics</li>
+<li>2010, Roel De Coninck, First version</li>
+</ul></p>
 </html>"),
        Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),      graphics={
