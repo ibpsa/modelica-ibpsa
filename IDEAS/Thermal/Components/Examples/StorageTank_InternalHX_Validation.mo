@@ -2,6 +2,8 @@ within IDEAS.Thermal.Components.Examples;
 model StorageTank_InternalHX_Validation
   "Thermal storage tank tester with internal heat exchanger"
 
+extends Modelica.Icons.Example;
+
   parameter SI.ThermalConductivity lamBuo=1000 annotation(Evaluate=false);
 
   Thermal.Components.BaseClasses.Pump volumeFlow1(
@@ -67,11 +69,11 @@ QFix.Q_flow = 16000 * booleanToReal.y;
       thickness=0.5,
       smooth=Smooth.None));
   connect(boiler.flowPort_b, tank.flowPortHXUpper) annotation (Line(
-      points={{16,4},{50,4},{50,-16},{60,-16}},
+      points={{16,4},{50,4},{50,-21.8462},{60,-21.8462}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(tank.flowPortHXLower, volumeFlow1.flowPort_a) annotation (Line(
-      points={{60,-24},{50,-24},{50,-86},{-96,-86},{-96,-6},{-88,-6}},
+      points={{60,-24.9231},{50,-24.9231},{50,-86},{-96,-86},{-96,-6},{-88,-6}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure1.flowPort, volumeFlow1.flowPort_a) annotation (Line(
@@ -79,7 +81,7 @@ QFix.Q_flow = 16000 * booleanToReal.y;
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure2.flowPort, tank.flowPort_b) annotation (Line(
-      points={{80,-61},{74,-61},{74,-60},{70,-60},{70,-28}},
+      points={{80,-61},{74,-61},{74,-60},{80,-60},{80,-26.4615}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(onOff.y,booleanToReal. u) annotation (Line(

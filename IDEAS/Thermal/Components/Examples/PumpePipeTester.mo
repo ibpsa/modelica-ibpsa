@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model PumpePipeTester "Identical as the one in FluidHeatFlow_NoPressure"
 
+  extends Modelica.Icons.Example;
+
   Thermal.Components.BaseClasses.Pump pump1(
     medium=Data.Media.Water(),
     useInput=true,

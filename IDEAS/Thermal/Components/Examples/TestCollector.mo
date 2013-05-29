@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model TestCollector
 
+extends Modelica.Icons.Example;
+
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
   IDEAS.Thermal.Components.Production.CollectorG
@@ -51,11 +53,11 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump.flowPort_b, storageTank.flowPorts[3]) annotation (Line(
-      points={{10,-18},{34,-18},{34,-58.1667},{54,-58.1667}},
+      points={{10,-18},{34,-18},{34,-52.6923},{74,-52.6923}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(storageTank.flowPort_b, heatedPipe1.flowPort_a) annotation (Line(
-      points={{64,-68},{-26,-68}},
+      points={{74,-66.4615},{24,-66.4615},{24,-68},{-26,-68}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(heatedPipe1.flowPort_b, collectorG.flowPort_a) annotation (Line(

@@ -2,6 +2,8 @@ within IDEAS.Thermal.Components.Examples;
 model FloorHeatingValidation2
   "Testing the floorheating according to Koschenz, par. 4.6"
 
+extends Modelica.Icons.Example;
+
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=

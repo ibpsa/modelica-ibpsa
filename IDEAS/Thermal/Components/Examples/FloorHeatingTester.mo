@@ -12,6 +12,8 @@ model FloorHeatingTester "Simple floorheating tester"
     
   */
 
+extends Modelica.Icons.Example;
+
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
   parameter Modelica.SIunits.Area A_Floor=20;
 

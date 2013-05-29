@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model RadTester "Simple radiator tester"
 
+extends Modelica.Icons.Example;
+
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         Data.Media.Water(), p=200000)
     annotation (Placement(transformation(extent={{50,-52},{70,-32}})));
@@ -42,15 +44,15 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(boiler.flowPort_b, radiator.flowPort_a)             annotation (Line(
-      points={{-6,-6},{52,-6}},
+      points={{-6,-6},{23,-6},{23,-12.25},{52,-12.25}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(radiator.flowPort_b, volumeFlow1.flowPort_a)      annotation (Line(
-      points={{72,-6},{82,-6},{82,-62},{-76,-62},{-76,-6},{-58,-6}},
+      points={{72,0.25},{82,0.25},{82,-62},{-76,-62},{-76,-6},{-58,-6}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, radiator.flowPort_a)      annotation (Line(
-      points={{50,-42},{50,-30},{48,-30},{48,-6},{52,-6}},
+      points={{50,-42},{50,-30},{48,-30},{48,-12.25},{52,-12.25}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(step.y, prescribedTemperature.T) annotation (Line(
@@ -64,7 +66,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(prescribedTemperature.port, radiator.heatPortRad) annotation (Line(
-      points={{52,34},{68,34},{68,4}},
+      points={{52,34},{67.8333,34},{67.8333,4}},
       color={191,0,0},
       thickness=0.5,
       smooth=Smooth.None));

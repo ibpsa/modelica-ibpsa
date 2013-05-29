@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model DHWTester "Test the DHW component"
 
+extends Modelica.Icons.Example;
+
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
   Thermal.Components.Storage.StorageTank storageTank(
@@ -47,23 +49,24 @@ equation
   dHW.mDHW60C = pulse.y * sawTooth.y;
   pump.m_flowSet = HPControl.onOff;
   connect(dHW.flowPortCold, storageTank.flowPort_b) annotation (Line(
-      points={{72,-46},{58,-46},{58,-64},{6,-64}},
+      points={{82,-40.2857},{58,-40.2857},{58,-58.3077},{-30,-58.3077}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(dHW.flowPortHot, storageTank.flowPort_a) annotation (Line(
-      points={{72,-26},{72,12},{6,12},{6,10}},
+      points={{62,-40.2857},{62,12},{-30,12},{-30,4.30769}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(storageTank.flowPort_b, pump.flowPort_a) annotation (Line(
-      points={{6,-64},{-24,-64}},
+      points={{-30,-58.3077},{-27,-58.3077},{-27,-64},{-24,-64}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump.flowPort_b, hP_AWMod.flowPort_a) annotation (Line(
-      points={{-44,-64},{-64,-64},{-64,6},{-70,6}},
+      points={{-44,-64},{-64,-64},{-64,3.63636},{-70,3.63636}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(hP_AWMod.flowPort_b, storageTank.flowPort_a) annotation (Line(
-      points={{-70,10},{6,10}},
+      points={{-70,8.90909},{-69,8.90909},{-69,3.21678},{-68,3.21678},{-68,
+          4.30769},{-30,4.30769}},
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics));

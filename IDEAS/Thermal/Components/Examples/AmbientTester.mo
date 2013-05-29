@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model AmbientTester
 
+extends Modelica.Icons.Example;
+
 parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
   Thermal.Components.BaseClasses.Ambient ambient(
     medium=medium,

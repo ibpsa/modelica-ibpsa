@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model DHWTester_badmixing "Test the DHW component"
 
+extends Modelica.Icons.Example;
+
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
   Thermal.Components.Storage.StorageTank storageTank(
@@ -49,7 +51,7 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(storageTank.flowPort_b, pump.flowPort_a) annotation (Line(
-      points={{11,-64},{-36,-64}},
+      points={{-8,-58.7692},{-22,-58.7692},{-22,-64},{-36,-64}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump.flowPort_b, hP_AWMod.flowPort_a) annotation (Line(

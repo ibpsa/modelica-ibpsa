@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model HeatingSystem
 
+extends Modelica.Icons.Example;
+
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         Data.Media.Water(), p=200000)
     annotation (Placement(transformation(extent={{-88,40},{-68,60}})));

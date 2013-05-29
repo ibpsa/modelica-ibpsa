@@ -1,5 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model TestStratifier
+
+extends Modelica.Icons.Example;
+
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
     "Medium in the tank";
   //parameter Real[5] TInitial =
@@ -38,7 +41,7 @@ model TestStratifier
     annotation (Placement(transformation(extent={{-46,-66},{-26,-46}})));
 equation
   connect(storageTank.flowPort_b, pump.flowPort_a) annotation (Line(
-      points={{8,12},{8,-12},{-14,-12}},
+      points={{18,13.5385},{18,-12},{-14,-12}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump.flowPort_b, heatedPipe.flowPort_b) annotation (Line(
@@ -50,11 +53,11 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(stratifiedInlet.flowPorts, storageTank.flowPorts) annotation (Line(
-      points={{-38,22},{-2,22}},
+      points={{-38,22},{-10,22},{-10,27.3846},{18,27.3846}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank.flowPort_b) annotation (Line(
-      points={{28,-2},{8,-2},{8,12}},
+      points={{28,-2},{18,-2},{18,13.5385}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(fixedHeatFlow.port, heatedPipe.heatPort) annotation (Line(

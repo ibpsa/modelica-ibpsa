@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model MixingVolumeTester "Test the mixing volume component"
 
+extends Modelica.Icons.Example;
+
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
   Thermal.Components.BaseClasses.Ambient ambient(

@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model TankLosses "Check the total tank losses to environment"
 
+extends Modelica.Icons.Example;
+
   Thermal.Components.Storage.StorageTank storageTank(
     medium=Data.Media.Water(),
     TInitial={273.15 + 60 for i in 1:storageTank.nbrNodes},
@@ -23,7 +25,7 @@ model TankLosses "Check the total tank losses to environment"
 
 equation
   connect(storageTank.heatExchEnv, heatFlowSensor.port_a) annotation (Line(
-      points={{-9.8,16},{10,16}},
+      points={{-9.33333,15.2308},{0.333333,15.2308},{0.333333,16},{10,16}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatFlowSensor.port_b, fixedTemperature.port) annotation (Line(
@@ -35,7 +37,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank.flowPort_a) annotation (Line(
-      points={{-74,55},{-80,55},{-80,54},{-84,54},{-84,24},{-16,24},{-16,26}},
+      points={{-74,55},{-80,55},{-80,54},{-84,54},{-84,24},{-6,24},{-6,24.4615}},
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics));

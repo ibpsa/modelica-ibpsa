@@ -1,105 +1,107 @@
 within IDEAS.Thermal.Components.Examples;
 model NakedTabsTester "Testing discretisation of the naked tabs"
 
+extends Modelica.Icons.Example;
+
   IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabs
                                     nakedTabs2(n1=2, n2=2)
-    annotation (Placement(transformation(extent={{10,26},{30,46}})));
+    annotation (Placement(transformation(extent={{22,184},{42,204}})));
   IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabs
                                     nakedTabs50(n1=50, n2=50)
-    annotation (Placement(transformation(extent={{10,-28},{30,-8}})));
+    annotation (Placement(transformation(extent={{22,130},{42,150}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
-    annotation (Placement(transformation(extent={{-74,-2},{-54,18}})));
+    annotation (Placement(transformation(extent={{-62,156},{-42,176}})));
   Modelica.Blocks.Sources.Step step(
     height=10,
     offset=293.15,
     startTime=1000)
-    annotation (Placement(transformation(extent={{-94,36},{-74,56}})));
+    annotation (Placement(transformation(extent={{-82,194},{-62,214}})));
    Modelica.Thermal.HeatTransfer.Components.Convection convection
-     annotation (Placement(transformation(extent={{10,86},{-10,66}})));
+     annotation (Placement(transformation(extent={{22,244},{2,224}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature1(T=293.15)
-              annotation (Placement(transformation(extent={{-52,66},{-32,86}})));
+              annotation (Placement(transformation(extent={{-40,224},{-20,244}})));
    Modelica.Thermal.HeatTransfer.Components.Convection convection1
-     annotation (Placement(transformation(extent={{62,26},{42,6}})));
+     annotation (Placement(transformation(extent={{74,184},{54,164}})));
   IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabsMassiveCore
                                                nakedTabs2Core(n1=2, n2=2)
-    annotation (Placement(transformation(extent={{16,-104},{36,-84}})));
+    annotation (Placement(transformation(extent={{28,54},{48,74}})));
   IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabsMassiveCore
                                                nakedTabs50Core(n1=50, n2=50)
-    annotation (Placement(transformation(extent={{16,-158},{36,-138}})));
+    annotation (Placement(transformation(extent={{28,0},{48,20}})));
    Modelica.Thermal.HeatTransfer.Components.Convection convection2
-     annotation (Placement(transformation(extent={{14,-50},{-6,-70}})));
+     annotation (Placement(transformation(extent={{26,108},{6,88}})));
    Modelica.Thermal.HeatTransfer.Components.Convection convection3
-     annotation (Placement(transformation(extent={{68,-104},{48,-124}})));
+     annotation (Placement(transformation(extent={{80,54},{60,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature2(T=293.15)
-              annotation (Placement(transformation(extent={{-62,-68},{-42,-48}})));
+              annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=1000)
-    annotation (Placement(transformation(extent={{-46,-2},{-26,18}})));
+    annotation (Placement(transformation(extent={{-34,156},{-14,176}})));
 equation
   convection.Gc = nakedTabs2.FHChars.A_Floor * 11;
   convection1.Gc = nakedTabs2.FHChars.A_Floor * 11;
   convection2.Gc = nakedTabs2.FHChars.A_Floor * 11;
   convection3.Gc = nakedTabs2.FHChars.A_Floor * 11;
   connect(step.y, prescribedTemperature.T) annotation (Line(
-      points={{-73,46},{-68,46},{-68,26},{-86,26},{-86,8},{-76,8}},
+      points={{-61,204},{-56,204},{-56,184},{-74,184},{-74,166},{-64,166}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(nakedTabs2.port_a, convection.solid) annotation (Line(
-      points={{20,46},{20,78},{10,78},{10,76}},
+      points={{32,204},{32,236},{22,236},{22,234}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(prescribedTemperature1.port, convection.fluid) annotation (Line(
-      points={{-32,76},{-10,76}},
+      points={{-20,234},{2,234}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(nakedTabs50.port_a, convection1.solid) annotation (Line(
-      points={{20,-8},{22,-8},{22,-4},{70,-4},{70,16},{62,16}},
+      points={{32,150},{34,150},{34,154},{82,154},{82,174},{74,174}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convection1.fluid, prescribedTemperature1.port) annotation (Line(
-      points={{42,16},{40,16},{40,94},{-16,94},{-16,76},{-32,76}},
+      points={{54,174},{52,174},{52,252},{-4,252},{-4,234},{-20,234}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(nakedTabs2Core.port_a, convection2.solid)
                                                annotation (Line(
-      points={{26,-84},{26,-60},{14,-60}},
+      points={{38,74},{38,98},{26,98}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(nakedTabs50Core.port_a, convection3.solid)
                                                  annotation (Line(
-      points={{26,-138},{28,-138},{28,-134},{76,-134},{76,-114},{68,-114}},
+      points={{38,20},{40,20},{40,24},{88,24},{88,44},{80,44}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(prescribedTemperature2.port, convection2.fluid) annotation (Line(
-      points={{-42,-58},{-24,-58},{-24,-60},{-6,-60}},
+      points={{-30,100},{-12,100},{-12,98},{6,98}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(prescribedTemperature2.port, convection3.fluid) annotation (Line(
-      points={{-42,-58},{-36,-58},{-36,-114},{48,-114}},
+      points={{-30,100},{-24,100},{-24,44},{60,44}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(prescribedTemperature.port, thermalConductor.port_a) annotation (Line(
-      points={{-54,8},{-46,8}},
+      points={{-42,166},{-34,166}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalConductor.port_b, nakedTabs2.portCore) annotation (Line(
-      points={{-26,8},{-20,8},{-20,36},{10,36}},
+      points={{-14,166},{-8,166},{-8,194},{22,194}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalConductor.port_b, nakedTabs50.portCore) annotation (Line(
-      points={{-26,8},{-20,8},{-20,-18},{10,-18}},
+      points={{-14,166},{-8,166},{-8,140},{22,140}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalConductor.port_b, nakedTabs2Core.portCore) annotation (Line(
-      points={{-26,8},{-20,8},{-20,-94},{16,-94}},
+      points={{-14,166},{-8,166},{-8,64},{28,64}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalConductor.port_b, nakedTabs50Core.portCore) annotation (Line(
-      points={{-26,8},{-20,8},{-20,-148},{16,-148}},
+      points={{-14,166},{-8,166},{-8,10},{28,10}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -200},{100,200}}),
+            -100},{100,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-200},{100,200}})));
+          extent={{-100,-100},{100,100}})));
 end NakedTabsTester;

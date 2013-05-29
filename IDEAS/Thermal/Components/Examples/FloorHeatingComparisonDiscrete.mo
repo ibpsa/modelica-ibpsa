@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model FloorHeatingComparisonDiscrete "test with instantiated test models"
 
+extends Modelica.Icons.Example;
+
 //  FloorHeatingTester discDyn2(redeclare Components.HeatEmission.TabsDiscretized
 //                                                                                tabs(
 //    n=22,

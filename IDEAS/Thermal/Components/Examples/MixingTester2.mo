@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model MixingTester2 "Simple mixing tester"
 
+extends Modelica.Icons.Example;
+
   Thermal.Components.BaseClasses.Pump volumeFlow1(
     medium=Data.Media.Water(),
     m=4,

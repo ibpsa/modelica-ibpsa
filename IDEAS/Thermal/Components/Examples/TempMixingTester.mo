@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model TempMixingTester "Test the temperature mixing valve"
 
+extends Modelica.Icons.Example;
+
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
   Thermal.Components.Storage.StorageTank storageTank(

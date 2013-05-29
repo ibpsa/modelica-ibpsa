@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model RadiatorCoolingDown
 
+extends Modelica.Icons.Example;
+
   IDEAS.Thermal.Components.Emission.Radiator_Old
                           radiator_new(
     medium=Data.Media.Water(),

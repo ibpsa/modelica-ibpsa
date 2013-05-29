@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model HPTester "Identical as the one in FluidHeatFlow_NoPressure"
 
+extends Modelica.Icons.Example;
+
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         Data.Media.Water(), p=200000)
     annotation (Placement(transformation(extent={{58,62},{78,82}})));
@@ -136,9 +138,10 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -200},{100,100}}),
+            -100},{100,100}}),
                       graphics),
     experiment(StopTime=25000),
     __Dymola_experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-200},{100,100}})));
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}})));
 end HPTester;

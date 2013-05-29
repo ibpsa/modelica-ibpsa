@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model RadTester_EnergyBalance "Test for energy balance of the radiator model"
 
+extends Modelica.Icons.Example;
+
   Real QBoiler( start = 0);
   Real QRadiator( start = 0);
 
