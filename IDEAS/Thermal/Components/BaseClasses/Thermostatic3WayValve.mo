@@ -34,7 +34,7 @@ protected
     useInput=true,
     medium=medium,
     m_flowNom=m_flowNom,
-    m=0)
+    m=m/2)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,-28})));
@@ -65,7 +65,7 @@ protected
   MixingVolume mixingVolumeHot(
     medium=medium,
     nbrPorts=2,
-    m=m)
+    m=m/2)
     annotation (Placement(transformation(extent={{-22,30},{-2,50}})));
 equation
   //m_flowTotal = table.y[profileType] * VDayAvg * medium.rho;
@@ -175,7 +175,7 @@ equation
 <p><h4>Validation </h4></p>
 <p>None </p>
 <p><h4>Example (optional) </h4></p>
-<p>An example of this model can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.TempMixingTester\"> IDEAS.Thermal.Components.Examples.TempMixingTester</a></p>
+<p>Examples of this model can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.TempMixingTester\"> IDEAS.Thermal.Components.Examples.TempMixingTester</a> and<a href=\"modelica://IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve\"> IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve</a></p>
 </html>", revisions="<html>
 <p><ul>
 <li>2013 May, Roel De Coninck, documentation</li>
