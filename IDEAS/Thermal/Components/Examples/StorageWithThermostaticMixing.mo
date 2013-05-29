@@ -28,9 +28,11 @@ extends Modelica.Icons.Example;
       mFlowMin=0.01)
     annotation (Placement(transformation(extent={{2,16},{22,36}})));
   Modelica.Blocks.Sources.Pulse pulse(
-    period=86400,
     startTime=7*3600,
-    width=50) annotation (Placement(transformation(extent={{16,66},{36,86}})));
+    width=50,
+    amplitude=0.5,
+    period=5000)
+              annotation (Placement(transformation(extent={{16,66},{36,86}})));
   Thermal.Components.BaseClasses.Pump pump1(
     medium=medium,
     m_flowNom=0.1,
@@ -65,5 +67,12 @@ equation
       points={{37,76},{48,76},{48,36}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics),
+    Documentation(info="<html>
+<p>The mixing control changes as the storage tank gets colder, until the desired outlet temperature can no longer be reached. </p>
+<p><u>Remark</u></p>
+<p>- there are no heat losses.  Due to the cold water inlet in the bottom of the tank, the upper layers will cool down when the pump is not running and the bottom layers will heat up a little bit. </p>
+</html>"),
+    experiment(StopTime=86400),
+    __Dymola_experimentSetupOutput);
 end StorageWithThermostaticMixing;

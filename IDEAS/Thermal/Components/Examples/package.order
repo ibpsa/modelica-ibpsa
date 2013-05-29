@@ -1,12 +1,13 @@
 OpenHydraulicSystem
 HydraulicCircuit
 MixingVolume
+StorageWithThermostaticMixing
+RadiatorWithMixingValve
 HPTester
 RadTester
 HeatingSystem
 StorageTank
 StorageTank_InternalHX
-StorageWithThermostaticMixing
 DHWTester
 DHWTester_badmixing
 RadiatorCoolingDown
@@ -14,7 +15,6 @@ RadTester_EnergyBalance
 FloorHeatingTester
 FloorHeatingValidation
 FloorHeatingValidation2
-MixingTester2
 TestStratifier
 HPBW_Tester
 BoilerTester

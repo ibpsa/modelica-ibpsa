@@ -105,6 +105,6 @@ equation
     Commands(file="Scripts/Example_ThermalExamplesPumpPipeTester.mos"
         "RunTester"),
     Documentation(info="<html>
-<p>This model shows </p>
+<p>This model shows a hydraulic circuit composed of two loops that come together.  As shown, the flowrates in pumps and pipes can be bidirectional.</p>
 </html>"));
 end HydraulicCircuit;

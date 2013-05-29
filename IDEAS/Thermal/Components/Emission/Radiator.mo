@@ -87,14 +87,25 @@ equation
   // massflow b->a mixing rule at b, energy flow at a defined by medium's temperature
   flowPort_a.H_flow = semiLinear(flowPort_a.m_flow,flowPort_a.h,TOut * medium.cp);
   flowPort_b.H_flow = semiLinear(flowPort_b.m_flow,flowPort_b.h,TOut * medium.cp);
-annotation (Documentation(info="<HTML>
-Partial model with two flowPorts.<br>
-Possible heat exchange with the ambient is defined by Q_flow; setting this = 0 means no energy exchange.<br>
-Setting parameter m (mass of medium within pipe) to zero
-leads to neglection of temperature transient cv*m*der(T).<br>
-Mixing rule is applied.<br>
-Parameter 0 &lt; tapT &lt; 1 defines temperature of heatPort between medium's inlet and outlet temperature.
-</HTML>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+annotation (Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Simplified radiator model, not discretized.  </p>
+<p><h4>Assumptions and limitations </h4></p>
+<p>(keep this section short and to the point, preferentially in bullets only)</p>
+<p><ol>
+<li>Description of assumptions used by the model (including tuned parameters which should not be modified by the user). </li>
+<li>Description of the validity region of the model and interval of accuracy (if possible) </li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>Which are the important, the tuning and the &QUOT;negligeable&QUOT; parameters. </li>
+<li>What are the default value of the model and how have then been chosen. </li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>Description of the validation procedure and results </p>
+<p><h4>Example (optional) </h4></p>
+<p>Link to an example for the component and (optional) examples where the component is used. </p>
+</html>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             140,60}}),
                 graphics={
         Rectangle(extent={{-64,-100},{-42,60}}, lineColor={135,135,135}),
