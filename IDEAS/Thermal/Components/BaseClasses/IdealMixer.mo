@@ -1,7 +1,10 @@
 within IDEAS.Thermal.Components.BaseClasses;
-model IdealMixer "Temperature based ideal mixer"
+model IdealMixer "Thermostatic mixing valve"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
+  parameter Modelica.SIunits.Mass m=1 "Fluid content of the mixing valve";
+  parameter Modelica.SIunits.MassFlowRate mFlowMin = 0.01
+    "Minimum outlet flowrate for mixing to start";
   Modelica.Blocks.Interfaces.RealInput TMixedSet
     "Mixed outlet temperature setpoint" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
@@ -11,8 +14,6 @@ model IdealMixer "Temperature based ideal mixer"
         rotation=90,
         origin={0,100})));
 
-  parameter Modelica.SIunits.MassFlowRate mFlowMin = 0.01
-    "Minimum outlet flowrate for mixing to start";
   Modelica.SIunits.Temperature TCold=pumpCold.T;
   Modelica.SIunits.Temperature THot=mixingVolumeHot.T
     "Temperature of the hot source";
@@ -33,7 +34,7 @@ protected
     useInput=true,
     medium=medium,
     m_flowNom=m_flowNom,
-    m=1)
+    m=0)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,-28})));
@@ -63,9 +64,9 @@ public
 protected
   MixingVolume mixingVolumeHot(
     medium=medium,
-    m=5,
-    nbrPorts=2)
-    annotation (Placement(transformation(extent={{-36,28},{-16,48}})));
+    nbrPorts=2,
+    m=m)
+    annotation (Placement(transformation(extent={{-22,30},{-2,50}})));
 equation
   //m_flowTotal = table.y[profileType] * VDayAvg * medium.rho;
   pumpCold.m_flowSet = m_flowColdInput;
@@ -93,11 +94,11 @@ equation
       smooth=Smooth.None));
 
   connect(flowPortHot, mixingVolumeHot.flowPorts[1]) annotation (Line(
-      points={{-100,0},{0,0},{-26,27.5}},
+      points={{-100,0},{-24,0},{-24,30},{-12,30},{-12,29.5}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(mixingVolumeHot.flowPorts[2], flowPortMixed) annotation (Line(
-      points={{-26,28.5},{0,28.5},{0,0},{100,0}},
+      points={{-12,30.5},{0,30.5},{0,0},{100,0}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pumpCold.flowPort_b, flowPortMixed) annotation (Line(
@@ -155,5 +156,31 @@ equation
         Line(
           points={{0,-70},{0,-100}},
           color={0,0,127},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}),
+    Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>3-way valve with temperature set point for mixing a cold and hot fluid to obtain outlet fluid at the desired temperature. If the desired temperature is higher than the hot fluid, no mixing will occur and the outlet will have the temperature of the hot fluid. </p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>Correct connections of hot and cold fluid to the corresponding flowPorts is NOT CHECKED.</li>
+<li>The fluid content m of the valve has to be larger than zero</li>
+<li>There is an internal parameter mFlowMin which sets a minimum mass flow rate for mixing to start. </li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>Set medium and the internal fluid content of the valve (too small values of m could increase simulation times)</li>
+<li>Set mFlowMin, the minimum mass flow rate for mixing to start. </li>
+<li>Supply a set temperature at the outlet</li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>None </p>
+<p><h4>Example (optional) </h4></p>
+<p>An example of this model can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.TempMixingTester\"> IDEAS.Thermal.Components.Examples.TempMixingTester</a></p>
+</html>", revisions="<html>
+<p><ul>
+<li>2013 May, Roel De Coninck, documentation</li>
+<li>2013 March, Ruben Baetens, graphics</li>
+<li>2010, Roel De Coninck, first version</li>
+</ul></p>
+</html>"));
 end IdealMixer;
