@@ -97,5 +97,8 @@ equation
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
-    Commands(file="Scripts/Tester_Boiler.mos" "TestModel"));
+    Commands(file="Scripts/Tester_Boiler.mos" "TestModel"),
+    Documentation(info="<html>
+<p>Model used to validate the <a href=\"modelica://IDEAS.Thermal.Components.Production.Boiler\">IDEAS.Thermal.Components.Production.Boiler</a>. With a fixed set point, the boiler receives different mass flow rates. </p>
+</html>"));
 end Boiler_validation;

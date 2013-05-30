@@ -53,7 +53,7 @@ equation
 <p>See<a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\"> IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses</a> for more details about the heat losses and dynamics. </p>
 <p><h4>Assumptions and limitations </h4></p>
 <p><ol>
-<li>&apos;pseudo&apos; dynamic model becaue water content and lumped dry capacity are extremely small</li>
+<li>&apos;pseudo&apos; dynamic model because water content and lumped dry capacity are extremely small</li>
 <li>Ideal heater, so unlimited power and will always reach setpoint</li>
 <li>Heat losses to environment</li>
 </ol></p>
