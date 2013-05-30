@@ -23,7 +23,9 @@ extends Modelica.Icons.Example;
     tauHeatLoss=3600,
     cDry=10000,
     QNom=6000,
-    mWater=10) annotation (Placement(transformation(extent={{-76,14},{-56,34}})));
+    mWater=10,
+    fraLosDesNom=0.8,
+    QDesign=0) annotation (Placement(transformation(extent={{-76,14},{-56,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-94,-20},{-80,-6}})));
   inner IDEAS.SimInfoManager         sim(

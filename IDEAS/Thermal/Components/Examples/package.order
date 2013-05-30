@@ -7,6 +7,7 @@ IdealHeater
 Boiler_validation
 ModulatingHeatPump_AirWater
 HeatPump_BrineWater_DummyBorehole
+SolarThermalCollector
 HPTester
 Heater
 RadTester
@@ -25,5 +26,4 @@ HPBW_Tester
 TankLosses
 FloorHeatingComparisonDiscrete
 NakedTabsTester
-TestCollector
 StorageTank_InternalHX_Validation

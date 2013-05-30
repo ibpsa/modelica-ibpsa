@@ -224,5 +224,10 @@ equation
 <p>The model has been verified in order to check if the &apos;arrtificial&apos; heat loss compensation still leads to correct steady state efficiencies according to the manufacturer data. This verification is integrated in the example model <a href=\"modelica://IDEAS.Thermal.Components.Examples.Boiler_validation\">IDEAS.Thermal.Components.Examples.Boiler_validation</a>.</p>
 <p><h4>Example</h4></p>
 <p>No specific example foreseen. </p>
+</html>", revisions="<html>
+<p><ul>
+<li>2013 May, Roel De Coninck: propagation of heatSource parameters and better definition of QNom used.  Documentation added</li>
+<li>2011 Roel De Coninck: first version</li>
+</ul></p>
 </html>"));
 end HP_BrineWater_Borehole;

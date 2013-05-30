@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.Production;
-model CollectorG
+model SolarCollector_Glazed
   "Glazed collector, originally from master thesis Mark Gutschoven, 2010-2011"
 
   // not cleaned up nor validated
@@ -116,11 +116,31 @@ TCol=T;
 
   annotation (
     Documentation(info="<html>
-<p>Glazed flat plate solar collector, originally modelled by Mark Gutschoven in his master thesis, 2010-2011</p>
-<p>This model is not yet validated nor cleaned according to the conventions</p>
+<p><b>Description</b> </p>
+<p>Glazed solar thermal collector. The model needs cleaning and editing according to the IDEAS conventions and quality standards.</p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>Dynamic model with water content</li>
+<li>Incident Angle Modifier (IAM) to correct for reflection on the glazed plane</li>
+<li>No radiation heat exchange with environment</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>Check all parameters, the interface has not been cleaned up. </li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>No validation performed. </p>
+<p><h4>Example</h4></p>
+<p>A basic solar thermal system is predesigned in <a href=\"modelica://IDEAS.Thermal.Components.Production.SolarThermalSystem_Simple\">this</a> model, and an example of the collector is used in <a href=\"modelica://IDEAS.Thermal.Components.Examples.SolarThermalCollector\">this example</a>.</p>
+</html>", revisions="<html>
+<p><ul>
+<li>2013 May, Roel De Coninck: basic documentation</li>
+<li>2011 December, Roel De Coninck: inclusion in IDEAS</li>
+<li>2011 Mark Gutschoven: first version</li>
+</ul></p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                     graphics),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),     graphics));
-end CollectorG;
+end SolarCollector_Glazed;

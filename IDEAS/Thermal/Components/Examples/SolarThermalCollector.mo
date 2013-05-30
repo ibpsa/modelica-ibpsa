@@ -1,11 +1,12 @@
 within IDEAS.Thermal.Components.Examples;
-model TestCollector
+model SolarThermalCollector
+  "Simple circuit with a solar thermal collector and storage tank"
 
 extends Modelica.Icons.Example;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
-  IDEAS.Thermal.Components.Production.CollectorG
+  IDEAS.Thermal.Components.Production.SolarCollector_Glazed
                                        collectorG(
     medium=medium,
     h_g=2,
@@ -77,4 +78,4 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end TestCollector;
+end SolarThermalCollector;
