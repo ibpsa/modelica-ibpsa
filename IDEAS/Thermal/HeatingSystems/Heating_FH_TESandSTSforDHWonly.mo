@@ -172,7 +172,7 @@ equation
       smooth=Smooth.Bezier));
   connect(solarThermal.flowPort_a, tesTank.flowPorts[nbrNodes+1])
                                                        annotation (Line(
-      points={{38,-18},{38,-18},{24,-18},{24,-20},{18,-23},{6,-12.7692}},
+      points={{38,-18},{38,-20},{24,-20},{18,-20},{18,-12.7692},{6,-12.7692}},
       color={0,128,255},
       smooth=Smooth.Bezier));
 
@@ -189,7 +189,8 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
     connect(emission.heatPortRad, heatPortRad) annotation (Line(
-      points={{132.667,14},{134,44},{134,50},{-188,50},{-188,-20},{-200,-20}},
+      points={{132.667,14},{132.667,44},{132.667,50},{-188,50},{-188,-20},{-200,
+          -20}},
       color={191,0,0},
       smooth=Smooth.None));
 

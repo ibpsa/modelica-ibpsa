@@ -21,22 +21,22 @@ model HP_BW_Borehole "BW HP with borehole included"
     m_flowCondensor=heatedFluid.flowPort_a.m_flow,
     TEnvironment=heatPort.T,
     UALoss=UALoss)
-    annotation (Placement(transformation(extent={{-48,-46},{-28,-26}})));
+    annotation (Placement(transformation(extent={{-94,50},{-80,64}})));
   outer IDEAS.SimInfoManager         sim
-    annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
+    annotation (Placement(transformation(extent={{-86,92},{-66,112}})));
   IDEAS.Thermal.Components.GroundHeatExchanger.ModelDieterPatteeuw.VerticalHeatExchangerModels.BoreHole
     boreHole(medium=mediumBorehole)
-    annotation (Placement(transformation(extent={{36,-70},{56,-50}})));
+    annotation (Placement(transformation(extent={{-60,18},{-40,38}})));
   Thermal.Components.BaseClasses.Pump pumpBorehole(
     medium=mediumBorehole,
     m=0,
     useInput=true,
     m_flowNom=0.5,
     dpFix=80000)
-            annotation (Placement(transformation(extent={{-4,-68},{12,-52}})));
+            annotation (Placement(transformation(extent={{-80,26},{-64,42}})));
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         mediumBorehole, p=300000)
-    annotation (Placement(transformation(extent={{68,-46},{80,-34}})));
+    annotation (Placement(transformation(extent={{-44,38},{-56,50}})));
 equation
   PFuel = 0;
   PEl = heatSource.PEl + pumpBorehole.PEl;
@@ -44,28 +44,31 @@ equation
   pumpBorehole.m_flowSet = if noEvent(heatSource.PEl > 0) then 1 else 0;
   connect(heatSource.heatPort, heatedFluid.heatPort)
                                                  annotation (Line(
-      points={{-28,-36},{-20,-36},{-20,6.12323e-016}},
+      points={{-80,57},{-54,57},{-54,58},{-26,58},{-26,0},{-20,0},{-20,
+          6.66134e-016}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatSource.flowPort_b, pumpBorehole.flowPort_a)
                                                   annotation (Line(
-      points={{-36,-46},{-36,-60},{-4,-60}},
+      points={{-85.6,50},{-84,50},{-84,34},{-80,34}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pumpBorehole.flowPort_b, boreHole.flowPort_a)
                                                 annotation (Line(
-      points={{12,-60},{24.1,-60},{24.1,-60.2},{36.2,-60.2}},
+      points={{-64,34},{-62,34},{-62,27.8},{-59.8,27.8}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(heatSource.flowPort_a, boreHole.flowPort_b) annotation (Line(
-      points={{-42,-46},{-42,-88},{82,-88},{82,-60},{55.8,-60}},
+      points={{-89.8,50},{-89.8,6},{-40,6},{-40,28},{-40.2,28}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, boreHole.flowPort_b) annotation (Line(
-      points={{68,-40},{55.8,-40},{55.8,-60}},
+      points={{-44,44},{-40.2,44},{-40.2,28}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,120}}),
+                      graphics), Icon(graphics={
         Line(
           points={{-100,30},{-100,10}},
           color={0,0,127},

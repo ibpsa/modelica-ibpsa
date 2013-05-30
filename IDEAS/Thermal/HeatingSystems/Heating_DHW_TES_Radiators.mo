@@ -173,7 +173,7 @@ end for;
       color={0,0,127},
       smooth=Smooth.None));
   connect(tesTank.flowPort_a, idealMixer.flowPortHot) annotation (Line(
-      points={{-50,16.3077},{-40,26},{-40,34},{28,34}},
+      points={{-50,16.3077},{-40,16.3077},{-40,34},{28,34}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(dHW.flowPortCold, pipeDHW.flowPort_b) annotation (Line(

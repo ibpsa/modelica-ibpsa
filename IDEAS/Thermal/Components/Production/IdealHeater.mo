@@ -15,7 +15,7 @@ model IdealHeater "Ideal heater, no losses to environment, unlimited power"
     UALoss=UALoss,
     THxIn=heatedFluid.T_a,
     m_flowHx=heatedFluid.flowPort_a.m_flow)
-    annotation (Placement(transformation(extent={{-48,-46},{-28,-26}})));
+    annotation (Placement(transformation(extent={{-64,26},{-44,46}})));
 equation
   // Electricity consumption for electronics and fan only.  Pump is covered by pumpHeater;
   // This data is taken from Viessmann VitoDens 300W, smallest model.  So only valid for
@@ -24,7 +24,7 @@ equation
   PFuel = heatSource.PFuel;
   eta = 1;
   connect(heatSource.heatPort, heatedFluid.heatPort) annotation (Line(
-      points={{-28,-36},{-20,-36},{-20,6.12323e-016}},
+      points={{-44,36},{-20,36},{-20,6.12323e-016}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Icon(graphics={
