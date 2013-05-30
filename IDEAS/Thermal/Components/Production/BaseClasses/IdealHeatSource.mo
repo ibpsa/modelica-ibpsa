@@ -48,5 +48,8 @@ equation
   PFuel = - heatPort.Q_flow;
 
   annotation (Diagram(graphics),
-              Diagram(graphics));
+              Diagram(graphics),
+    Documentation(info="<html>
+<p>Heat source to be coupled to a <a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\">PartialDynamicHeaterWithLosses</a> in order to form an ideal heater.  See the documentation of the <a href=\"modelica://IDEAS.Thermal.Components.Production.IdealHeater\">IdealHeater</a> for more details.</p>
+</html>"));
 end IdealHeatSource;

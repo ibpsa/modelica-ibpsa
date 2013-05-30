@@ -3,6 +3,8 @@ HydraulicCircuit
 MixingVolume
 StorageWithThermostaticMixing
 RadiatorWithMixingValve
+IdealHeater
+Heater
 HPTester
 RadTester
 HeatingSystem
@@ -17,9 +19,9 @@ FloorHeatingValidation
 FloorHeatingValidation2
 TestStratifier
 HPBW_Tester
-BoilerTester
 TankLosses
 FloorHeatingComparisonDiscrete
 NakedTabsTester
 TestCollector
 StorageTank_InternalHX_Validation
+Boiler_validation

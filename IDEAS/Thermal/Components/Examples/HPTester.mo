@@ -74,7 +74,7 @@ extends Modelica.Icons.Example;
  Real SPFNoLosses( start = 0);
 
 equation
-  volumeFlow1.m_flowSet = if pulse.y > 300 then 1 else 0;
+  pump.m_flowSet = if pulse.y > 300 then 1 else 0;
   volumeFlow2.m_flowSet = if pulse.y > 300 then 1 else 0;
   der(PElLossesInt) = HP.PEl;
   der(PElNoLossesInt) = HP_NoLosses.PEl;

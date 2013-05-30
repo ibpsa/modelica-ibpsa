@@ -2,7 +2,7 @@ within IDEAS.Thermal.Components.Production;
 model IdealHeater "Ideal heater, no losses to environment, unlimited power"
   extends
     IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses(
-      final heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.Boiler);
+      final heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.Boiler, final QNom=1, final cDry=0.1, final mWater=0);
 
   Real eta "Instanteanous efficiency";
 
@@ -45,5 +45,32 @@ equation
         Line(
           points={{100,-40},{68,-40},{68,-80},{-2,-80},{-2,-46}},
           color={0,0,127},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}),
+    Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Ideal&nbsp;heater,&nbsp;will&nbsp;always&nbsp;make&nbsp;sure&nbsp;to&nbsp;reach&nbsp;the&nbsp;setpoint (no power limitation). This heater has thermal losses to the environment but an energy conversion efficiency of one. The IdealHeatSource will compute the required power and the environmental heat losses, and deliver exactly this heat flux to the heatedFluid so it will reach the set point. </p>
+<p>The dynamics have been largely removed from this model by setting a final mWater=0.1 and final cDry=0.1. This ensures that the setpoint is reached at all operating conditions, also when these operating conditions change very rapidly.</p>
+<p>See<a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\"> IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses</a> for more details about the heat losses and dynamics. </p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>&apos;pseudo&apos; dynamic model becaue water content and lumped dry capacity are extremely small</li>
+<li>Ideal heater, so unlimited power and will always reach setpoint</li>
+<li>Heat losses to environment</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>Specify medium and initial temperature (of the water + dry mass)</li>
+<li>Connect TSet, the flowPorts and the heatPort to environment. </li>
+</ol></p>
+<p>See also<a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\"> IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses</a> for more details about the heat losses and dynamics. </p>
+<p><h4>Validation </h4></p>
+<p>No validation.</p>
+<p><h4>Example</h4></p>
+<p>An example of this model can be found in <a href=\"modelica://IDEAS.Thermal.Components.Examples.IdealHeater\">IDEAS.Thermal.Components.Examples.IdealHeater</a>.</p>
+</html>", revisions="<html>
+<p><ul>
+<li>2013 May, Roel De Coninck: removing dynamics to improve setpoint reaching. Removing unused parameters</li>
+<li>2012 September, Roel De Coninck, first version</li>
+</ul></p>
+</html>"));
 end IdealHeater;
