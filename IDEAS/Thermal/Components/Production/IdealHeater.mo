@@ -6,7 +6,7 @@ model IdealHeater "Ideal heater, no losses to environment, unlimited power"
 
   Real eta "Instanteanous efficiency";
 
-  IDEAS.Thermal.Components.Production.BaseClasses.IdealHeatSource
+  IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_Ideal
                                                    heatSource(
     medium=medium,
     QDesign=QNom,

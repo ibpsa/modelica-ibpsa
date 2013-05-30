@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.Production;
-model HP_BW_Borehole "BW HP with borehole included"
+model HP_BrineWater_Borehole "Brine-Water HP with borehole included"
 
   extends
     IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses(
@@ -11,8 +11,7 @@ model HP_BW_Borehole "BW HP with borehole included"
 
   Real COP "Instanteanous COP";
 
-  IDEAS.Thermal.Components.Production.BaseClasses.HP_BW_CondensationPower_Losses
-                                                                           heatSource(
+  IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_BW         heatSource(
     medium=medium,
     mediumEvap=mediumEvap,
     QDesign=QNom,
@@ -188,4 +187,4 @@ equation
               20}},
           color={0,0,127},
           smooth=Smooth.None)}));
-end HP_BW_Borehole;
+end HP_BrineWater_Borehole;

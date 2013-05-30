@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.Production.BaseClasses;
-model HP_BW_CondensationPower_Losses
+model HeatSource_HP_BW
   "Brine/Water, Computation of theoretical condensation power of the refrigerant based on interpolation data.  Takes into account losses of the heat pump to the environment"
 
   /*
@@ -133,4 +133,4 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(graphics),
               Diagram(graphics));
-end HP_BW_CondensationPower_Losses;
+end HeatSource_HP_BW;

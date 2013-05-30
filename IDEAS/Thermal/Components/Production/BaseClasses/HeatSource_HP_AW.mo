@@ -1,6 +1,6 @@
 within IDEAS.Thermal.Components.Production.BaseClasses;
-model HP_CondensationPower
-  "Computation of theoretical condensation power of the refrigerant based on interpolation data"
+model HeatSource_HP_AW
+  "Computation of theoretical condensation power of the refrigerant based on interpolation data.  Takes into account losses of the heat pump to the environment"
 
   /*
   This model is based on data we received from Daikin from an Altherma heat pump.
@@ -17,8 +17,15 @@ model HP_CondensationPower
   - if modulation_init > 100%, the modulation is 100%
   - if modulation_init between modulation_min and modulation_start: hysteresis for on/off cycling.
   
-  If the heat pump is on another interpolation is made to get P and Q at the real modulation.
-  The COP is calculated as Q/P. 
+  If the heat pump is on another modulation, interpolation is made to get P and Q at the real modulation.
+  
+  ATTENTION
+  This model takes into account environmental heat losses of the heat pump (at condensor side).
+  In order to keep the same nominal COP's during operation of the heat pump, these heat losses are added
+  to the computed power.  Therefore, the heat losses are only really 'losses' when the heat pump is 
+  NOT operating. 
+  
+  The COP is calculated as the heat delivered to the condensor divided by the electrical consumption (P). 
   
   */
 //protected
@@ -33,15 +40,24 @@ model HP_CondensationPower
   Modelica.SIunits.Power QMax
     "Maximum thermal power at specified evap and condr temperatures, in W";
   Modelica.SIunits.Power QAsked(start=0);
+  parameter Modelica.SIunits.ThermalConductance UALoss
+    "UA of heat losses of HP to environment";
+  final parameter Modelica.SIunits.Power QNom=QDesign*betaFactor/
+      fraLosDesNom
+    "The power at nominal conditions (2/35) taking into account beta factor and power loss fraction";
 
 public
-  parameter Modelica.SIunits.Power QNom=QNomRef "Nominal power at 2/35";
-  parameter Real modulation_min(max=29)=25 "Minimal modulation percentage";
+  parameter Real fraLosDesNom = 0.68
+    "Ratio of power at design conditions over power at 2/35degC";
+  parameter Real betaFactor = 0.8
+    "Relative sizing compared to design heat load";
+  parameter Modelica.SIunits.Power QDesign=QNomRef "Design heat load";
+  parameter Real modulation_min(max=29)=20 "Minimal modulation percentage";
     // dont' set this to 0 or very low values, you might get negative P at very low modulations because of wrong extrapolation
   parameter Real modulation_start(min=min(30,modulation_min+5)) = 35
     "Min estimated modulation level required for start of HP";
   Real modulationInit "Initial modulation, decides on start/stop of the HP";
-  Real modulation(min=0, max=1) "Current modulation percentage";
+  Real modulation(min=0, max=100) "Current modulation percentage";
   Modelica.SIunits.Power PEl "Resulting electrical power";
   input Modelica.SIunits.Temperature TEvaporator "Evaporator temperature";
   input Modelica.SIunits.Temperature TCondensor_in "Condensor temperature";
@@ -49,6 +65,8 @@ public
     "Condensor setpoint temperature.  Not always possible to reach it";
   input Modelica.SIunits.MassFlowRate m_flowCondensor
     "Condensor mass flow rate";
+  input Modelica.SIunits.Temperature TEnvironment
+    "Temperature of environment for heat losses";
 
   Modelica.Blocks.Tables.CombiTable2D P100(
       smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table=[0,
@@ -112,17 +130,20 @@ public
         1.577,1.787,1.973,2.629,3.002,3.494,3.494; 50,1.281,1.447,1.546,1.748,
         1.928,2.569,2.936,3.422,3.422])
     annotation (Placement(transformation(extent={{26,-44},{46,-24}})));
-
-public
+  Modelica.SIunits.HeatFlowRate QLossesToCompensate "Environment losses";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   IDEAS.BaseClasses.Control.Hyst_NoEvent onOff(
      uLow = modulation_min,
-    uHigh = modulation_start) "on-off, based on modulationInit"
+    uHigh = modulation_start,
+    y(
+    start = 0),
+    enableRelease=true) "on-off, based on modulationInit"
     annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
 equation
   onOff.u = modulationInit;
+  onOff.release = if noEvent(m_flowCondensor > 0) then 1.0 else 0.0;
   QAsked = m_flowCondensor * medium.cp * (TCondensor_set - TCondensor_in);
   P100.u1 = heatPort.T - 273.15;
   P100.u2 = TEvaporator - 273.15;
@@ -155,11 +176,39 @@ equation
   QMax = 1000* Q100.y * QNom/QNomRef;
 
   modulationInit = QAsked/QMax * 100;
-  modulation = smooth(2, if noEvent(m_flowCondensor > 0 and onOff.y > 0.5) then min(modulationInit, 100) else 0);
+  modulation = onOff.y * min(modulationInit, 100);
 
-  heatPort.Q_flow = -1000 * Modelica.Math.Vectors.interpolate(mod_vector, Q_vector, modulation);
+  // compensation of heat losses (only when the hp is operating)
+  QLossesToCompensate = if noEvent(modulation > 0) then UALoss * (heatPort.T-TEnvironment) else 0;
+
+  heatPort.Q_flow = -1000 * Modelica.Math.Vectors.interpolate(mod_vector, Q_vector, modulation) - QLossesToCompensate;
   PEl = 1000 * Modelica.Math.Vectors.interpolate(mod_vector, P_vector, modulation);
 
   annotation (Diagram(graphics),
-              Diagram(graphics));
-end HP_CondensationPower;
+              Diagram(graphics),
+    Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;data&nbsp;received&nbsp;from&nbsp;Daikin&nbsp;from&nbsp;an&nbsp;Altherma&nbsp;heat&nbsp;pump, and the full heat pump is implemented as <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_AWMod_Losses\">IDEAS.Thermal.Components.Production.HP_AWMod_Losses</a>. </p>
+<p>The&nbsp;nominal&nbsp;power&nbsp;of&nbsp;the&nbsp;original&nbsp;heat&nbsp;pump&nbsp;is&nbsp;7177 W&nbsp;at&nbsp;2/35 degC.</p>
+<p>First,&nbsp;the&nbsp;thermal&nbsp;power&nbsp;and&nbsp;electricity&nbsp;consumption&nbsp;are&nbsp;interpolated&nbsp;for&nbsp;the&nbsp;evaporator&nbsp;and&nbsp;condensing&nbsp;temperature&nbsp;at&nbsp;4&nbsp;different&nbsp;modulation&nbsp;levels.&nbsp;&nbsp;The&nbsp;results&nbsp;are&nbsp;rescaled&nbsp;to&nbsp;the&nbsp;nominal&nbsp;power&nbsp;of&nbsp;the&nbsp;modelled&nbsp;heatpump&nbsp;(with&nbsp;QNom/QNom_data)&nbsp;and&nbsp;stored&nbsp;in&nbsp;2&nbsp;different&nbsp;vectors,&nbsp;Q_vector&nbsp;and&nbsp;P_vector.</p>
+<p>Finally,&nbsp;the&nbsp;modulation&nbsp;is&nbsp;calculated&nbsp;based&nbsp;on&nbsp;the&nbsp;asked&nbsp;power&nbsp;and&nbsp;the&nbsp;max&nbsp;power&nbsp;at&nbsp;operating&nbsp;conditions:&nbsp;</p>
+<p><ul>
+<li>if&nbsp;modulation_init&nbsp;&LT;&nbsp;modulation_min,&nbsp;the&nbsp;heat&nbsp;pump&nbsp;is&nbsp;OFF,&nbsp;modulation&nbsp;=&nbsp;0.&nbsp;&nbsp;</li>
+<li>if&nbsp;modulation_init&nbsp;&GT;&nbsp;100&percnt;,&nbsp;the&nbsp;modulation&nbsp;is&nbsp;100&percnt;</li>
+<li>if&nbsp;modulation_init&nbsp;between&nbsp;modulation_min&nbsp;and&nbsp;modulation_start:&nbsp;hysteresis&nbsp;for&nbsp;on/off&nbsp;cycling.</li>
+</ul></p>
+<p>If&nbsp;the&nbsp;heat&nbsp;pump&nbsp;is&nbsp;on&nbsp;another&nbsp;modulation level, interpolation&nbsp;is&nbsp;made&nbsp;to&nbsp;get&nbsp;P&nbsp;and&nbsp;Q&nbsp;at&nbsp;the&nbsp;real&nbsp;modulation.</p>
+<p><h4>ATTENTION</h4></p>
+<p>This&nbsp;model&nbsp;takes&nbsp;into&nbsp;account&nbsp;environmental&nbsp;heat&nbsp;losses&nbsp;of&nbsp;the&nbsp;heat pump.&nbsp;&nbsp;In&nbsp;order&nbsp;to&nbsp;keep&nbsp;the&nbsp;same&nbsp;nominal&nbsp;efficiency&nbsp;during&nbsp;operation,&nbsp;these&nbsp;heat&nbsp;losses&nbsp;are&nbsp;added&nbsp;to&nbsp;the&nbsp;computed&nbsp;power.&nbsp;&nbsp;Therefore,&nbsp;the&nbsp;heat&nbsp;losses&nbsp;are&nbsp;only&nbsp;really&nbsp;&apos;losses&apos;&nbsp;when&nbsp;the&nbsp;heat pump&nbsp;is&nbsp;NOT&nbsp;operating.&nbsp;</p>
+<p>The&nbsp;COP&nbsp;is&nbsp;calculated&nbsp;as&nbsp;the&nbsp;heat&nbsp;delivered&nbsp;to&nbsp;the&nbsp;condensor&nbsp;divided&nbsp;by&nbsp;the&nbsp;electrical&nbsp;consumption&nbsp;(P).</p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>Based on interpolation in manufacturer data for Daiking Altherma heat pump</li>
+<li>Ensure not to operate the heat pump outside of the manufacturer data.  No check is made if this happens, and this can lead to strange and wrong results.</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p>This model is used in the <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_AWMod_Losses\">HP_AWMod_Losses</a> model. If a different heat pumpr is to be simulated, copy this model and adapt the interpolation tables.</p>
+<p><h4>Validation </h4></p>
+<p>See the air-water heat pmp model. </p>
+</html>"));
+end HeatSource_HP_AW;

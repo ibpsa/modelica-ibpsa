@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.Production.BaseClasses;
-model Burner
+model HeatSource_CondensingGasBurner
   "Burner for use in Boiler, based on interpolation data.  Takes into account losses of the boiler to the environment"
   import IDEAS;
 
@@ -144,4 +144,4 @@ equation
 <li>2011 August, Roel De Coninck: first version</li>
 </ul></p>
 </html>"));
-end Burner;
+end HeatSource_CondensingGasBurner;

@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.Production;
-model HP_AWMod_Losses "Modulating AW HP with losses to environment"
+model HP_AirWater "Modulating air-to-water HP with losses to environment"
 
   extends
     IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses(
@@ -9,8 +9,7 @@ model HP_AWMod_Losses "Modulating AW HP with losses to environment"
   parameter Real betaFactor = 0.8
     "Relative sizing compared to design heat load";
 
-  IDEAS.Thermal.Components.Production.BaseClasses.HP_CondensationPower_Losses
-                                                                        heatSource(
+  IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_AW      heatSource(
     medium=medium,
     QDesign=QNom,
     TEvaporator=sim.Te,
@@ -189,5 +188,28 @@ equation
           points={{-216,60},{-210,60},{-206,56},{-206,30},{-204,26},{-196,26},
               {-194,30},{-194,38}},
           color={95,95,95},
-          smooth=Smooth.None)}));
-end HP_AWMod_Losses;
+          smooth=Smooth.None)}),
+    Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Dynamic heat pump model, based on interpolation in performance tables. The heat pump has thermal losses to the environment which are often not mentioned in the performance tables. Therefore, the additional environmental heat losses are added to the heat production in order to ensure the same performance as in the manufacturers data, while still obtaining a dynamic model with heat losses (also when heat pump is off). The heatSource will compute the required power and the environmental heat losses, and try to reach the set point. </p>
+<p>See<a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\"> IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses</a> for more details about the heat losses and dynamics. </p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>Dynamic model based on water content and lumped dry capacity</li>
+<li>Limited power (based on QNom and interpolation tables in heatSource) </li>
+<li>Heat losses to environment which are compensated &apos;artifically&apos; to meet the manufacturers data in steady state conditions</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p>This model is based on performance tables of a specific boiler, as specified by <a href=\"modelica://IDEAS.Thermal.Components.Production.BaseClasses.Burner\">IDEAS.Thermal.Components.Production.BaseClasses.Burne</a>r. If a different gas boiler is to be simulated, create a different Burner model with adapted interpolation tables.</p>
+<p><ol>
+<li>Specify medium and initial temperature (of the water + dry mass)</li>
+<li>Specify the nominal power</li>
+<li>Connect TSet, the flowPorts and the heatPort to environment. </li>
+</ol></p>
+<p>See also<a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\"> IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses</a> for more details about the heat losses and dynamics. </p>
+<p><h4>Validation </h4></p>
+<p>The model has been verified in order to check if the &apos;arrtificial&apos; heat loss compensation still leads to correct steady state efficiencies according to the manufacturer data. This verification is integrated in the example model <a href=\"modelica://IDEAS.Thermal.Components.Examples.Boiler_validation\">IDEAS.Thermal.Components.Examples.heat pump_validation</a>.</p>
+<p><h4>Example</h4></p>
+<p>See validation.</p>
+</html>"));
+end HP_AirWater;

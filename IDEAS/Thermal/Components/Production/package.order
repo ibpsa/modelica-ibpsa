@@ -1,7 +1,7 @@
 IdealHeater
 Boiler
-HP_AWMod_Losses
-HP_BW_Borehole
+HP_AirWater
+HP_BrineWater_Borehole
 CollectorG
 SolarThermalSystem_Simple
 VerticalGroundHeatExchanger

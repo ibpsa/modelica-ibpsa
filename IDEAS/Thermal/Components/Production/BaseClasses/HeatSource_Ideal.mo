@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.Production.BaseClasses;
-model IdealHeatSource
+model HeatSource_Ideal
   "Ideal heat source for the dynamic heater model.  No losses, no interpolation"
   import IDEAS;
 
@@ -52,4 +52,4 @@ equation
     Documentation(info="<html>
 <p>Heat source to be coupled to a <a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\">PartialDynamicHeaterWithLosses</a> in order to form an ideal heater.  See the documentation of the <a href=\"modelica://IDEAS.Thermal.Components.Production.IdealHeater\">IdealHeater</a> for more details.</p>
 </html>"));
-end IdealHeatSource;
+end HeatSource_Ideal;
