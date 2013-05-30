@@ -8,7 +8,7 @@ parameter Integer nZones = 1 "Number of zones";
   Heating_DHW_TES_Radiators                        heating(
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
-    redeclare IDEAS.Thermal.Components.Production.HP_AWMod_Losses heater,
+    redeclare IDEAS.Thermal.Components.Production.HP_AirWater     heater,
     QNom={20000 for i in 1:nZones})
     annotation (Placement(transformation(extent={{14,-76},{34,-56}})));
   inner IDEAS.SimInfoManager               sim(redeclare

@@ -10,13 +10,18 @@ model Boiler
   IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_CondensingGasBurner
                                                    heatSource(
     medium=medium,
-    QDesign=QNom,
+    QNom=QNom,
     TBoilerSet=TSet,
     TEnvironment=heatPort.T,
     UALoss=UALoss,
     THxIn=heatedFluid.T_a,
-    m_flowHx=heatedFluid.flowPort_a.m_flow)
+    m_flowHx=heatedFluid.flowPort_a.m_flow,
+    modulationMin=modulationMin,
+    modulationStart=modulationStart)
     annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
+  parameter Real modulationMin=25 "Minimal modulation percentage";
+  parameter Real modulationStart=35
+    "Min estimated modulation level required for start of HP";
 equation
   // Electricity consumption for electronics and fan only.  Pump is covered by pumpHeater;
   // This data is taken from Viessmann VitoDens 300W, smallest model.  So only valid for
@@ -56,12 +61,14 @@ equation
 <li>Dynamic model based on water content and lumped dry capacity</li>
 <li>Limited power (based on QNom and interpolation tables in heatSource) </li>
 <li>Heat losses to environment which are compensated &apos;artifically&apos; to meet the manufacturers data in steady state conditions</li>
+<li>No enforced min on or min off time; Hysteresis on start/stop thanks to different parameters for minimum modulation to start and stop the heat pump</li>
 </ol></p>
 <p><h4>Model use</h4></p>
 <p>This model is based on performance tables of a specific boiler, as specified by <a href=\"modelica://IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_CondensingGasBurner\">IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_CondensingGasBurner</a>. If a different gas boiler is to be simulated, create a different Burner model with adapted interpolation tables.</p>
 <p><ol>
 <li>Specify medium and initial temperature (of the water + dry mass)</li>
 <li>Specify the nominal power</li>
+<li>Specify the minimum required modulation level for the boiler to start (modulation_start) and the minimum modulation level when the boiler is operating (modulation_min). The difference between both will ensure some off-time in case of low heat demands</li>
 <li>Connect TSet, the flowPorts and the heatPort to environment. </li>
 </ol></p>
 <p>See also<a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\"> IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses</a> for more details about the heat losses and dynamics. </p>

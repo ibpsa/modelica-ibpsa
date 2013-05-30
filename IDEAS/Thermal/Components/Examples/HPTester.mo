@@ -17,7 +17,7 @@ extends Modelica.Icons.Example;
     medium=Data.Media.Water(),
     m=5,
     TInitial=313.15) annotation (Placement(transformation(extent={{12,-16},{32,4}})));
-  IDEAS.Thermal.Components.Production.HP_AWMod_Losses
+  IDEAS.Thermal.Components.Production.HP_AirWater
                       HP(
    medium=Data.Media.Water(),
     QNom=5000,

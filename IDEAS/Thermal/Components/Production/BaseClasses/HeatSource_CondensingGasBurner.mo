@@ -1,7 +1,6 @@
 within IDEAS.Thermal.Components.Production.BaseClasses;
 model HeatSource_CondensingGasBurner
   "Burner for use in Boiler, based on interpolation data.  Takes into account losses of the boiler to the environment"
-  import IDEAS;
 
   //protected
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
@@ -18,15 +17,10 @@ model HeatSource_CondensingGasBurner
   Modelica.SIunits.Power QAsked(start=0);
   parameter Modelica.SIunits.ThermalConductance UALoss
     "UA of heat losses of HP to environment";
-  final parameter Modelica.SIunits.Power QNom=QDesign*betaFactor/
-      fraLosDesNom
-    "The power at nominal conditions (50/30) taking into account beta factor and power loss fraction";
+  parameter Modelica.SIunits.Power QNom
+    "The power at nominal conditions (50/30)";
 
 public
-  parameter Real fraLosDesNom = 1
-    "Ratio of power at design conditions over power at 50/30degC";
-  parameter Real betaFactor = 1 "Relative sizing compared to design heat load";
-  parameter Modelica.SIunits.Power QDesign "Design heat load";
   parameter Real etaNom = 0.922
     "Nominal efficiency (higher heating value)of the xxx boiler at 50/30degC.  See datafile";
   parameter Real modulationMin(max=29)=25 "Minimal modulation percentage";

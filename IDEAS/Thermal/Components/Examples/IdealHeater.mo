@@ -92,5 +92,8 @@ equation
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
-    Commands(file="Scripts/Tester_Boiler.mos" "TestModel"));
+    Commands(file="Scripts/Tester_Boiler.mos" "TestModel"),
+    Documentation(info="<html>
+<p>This model, with abruptly changin water return temperatures to an IdealHeater, shows that the heater is able to reach the setpoint in almost all time instants. </p>
+</html>"));
 end IdealHeater;

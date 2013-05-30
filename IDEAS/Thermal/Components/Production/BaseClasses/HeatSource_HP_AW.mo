@@ -42,16 +42,10 @@ model HeatSource_HP_AW
   Modelica.SIunits.Power QAsked(start=0);
   parameter Modelica.SIunits.ThermalConductance UALoss
     "UA of heat losses of HP to environment";
-  final parameter Modelica.SIunits.Power QNom=QDesign*betaFactor/
-      fraLosDesNom
-    "The power at nominal conditions (2/35) taking into account beta factor and power loss fraction";
+  parameter Modelica.SIunits.Power QNom
+    "The power at nominal conditions (2/35)";
 
 public
-  parameter Real fraLosDesNom = 0.68
-    "Ratio of power at design conditions over power at 2/35degC";
-  parameter Real betaFactor = 0.8
-    "Relative sizing compared to design heat load";
-  parameter Modelica.SIunits.Power QDesign=QNomRef "Design heat load";
   parameter Real modulation_min(max=29)=20 "Minimal modulation percentage";
     // dont' set this to 0 or very low values, you might get negative P at very low modulations because of wrong extrapolation
   parameter Real modulation_start(min=min(30,modulation_min+5)) = 35
@@ -203,8 +197,8 @@ equation
 <p>The&nbsp;COP&nbsp;is&nbsp;calculated&nbsp;as&nbsp;the&nbsp;heat&nbsp;delivered&nbsp;to&nbsp;the&nbsp;condensor&nbsp;divided&nbsp;by&nbsp;the&nbsp;electrical&nbsp;consumption&nbsp;(P).</p>
 <p><h4>Assumptions and limitations </h4></p>
 <p><ol>
-<li>Based on interpolation in manufacturer data for Daiking Altherma heat pump</li>
-<li>Ensure not to operate the heat pump outside of the manufacturer data.  No check is made if this happens, and this can lead to strange and wrong results.</li>
+<li>Based on interpolation in manufacturer data for Daikin Altherma heat pump</li>
+<li>Ensure not to operate the heat pump outside of the manufacturer data. No check is made if this happens, and this can lead to strange and wrong results.</li>
 </ol></p>
 <p><h4>Model use</h4></p>
 <p>This model is used in the <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_AWMod_Losses\">HP_AWMod_Losses</a> model. If a different heat pumpr is to be simulated, copy this model and adapt the interpolation tables.</p>

@@ -17,7 +17,7 @@ extends Modelica.Icons.Example;
     medium=medium,
     TDHWSet=273.15 + 45)
     annotation (Placement(transformation(extent={{62,-46},{82,-26}})));
-  Production.HP_AWMod_Losses
+  Production.HP_AirWater
                       hP_AWMod(TSet = HPControl.THPSet, QNom=10000, medium=medium)
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
   Thermal.Components.BaseClasses.Pump pump(

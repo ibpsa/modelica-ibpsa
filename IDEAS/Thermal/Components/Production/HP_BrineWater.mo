@@ -1,15 +1,13 @@
 within IDEAS.Thermal.Components.Production;
-model HP_BrineWater_Borehole "Brine-Water HP with borehole included"
-
-  extends Modelica.Icons.UnderConstruction;
+model HP_BrineWater "Brine-Water HP WITHOUT borehole"
+  import IDEAS;
 
   extends
     IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses(
       final heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.HP_BW);
   parameter Modelica.SIunits.Power QNom "Nominal power at 2/35";
-  parameter Thermal.Data.Interfaces.Medium mediumEvap=Data.Media.Water()
-    "Medium in the evaporator";
-  parameter Thermal.Data.Interfaces.Medium mediumBorehole=Data.Media.Water();
+  parameter Thermal.Data.Interfaces.Medium mediumBrine=Data.Media.Water()
+    "Medium in the borehole";
 
   parameter Modelica.SIunits.Power QDesign = 0
     "Overrules QNom if different from 0. Design heat load, typically at -8 or -10 degC in Belgium.  ";
@@ -24,60 +22,45 @@ model HP_BrineWater_Borehole "Brine-Water HP with borehole included"
 
   IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_BW         heatSource(
     medium=medium,
-    mediumEvap=mediumEvap,
     QNom=QNomFinal,
     TCondensor_in=heatedFluid.T_a,
     TCondensor_set=TSet,
     m_flowCondensor=heatedFluid.flowPort_a.m_flow,
     TEnvironment=heatPort.T,
-    UALoss=UALoss)
-    annotation (Placement(transformation(extent={{-94,50},{-80,64}})));
+    UALoss=UALoss,
+    mediumEvap=mediumBrine)
+    annotation (Placement(transformation(extent={{2,-64},{16,-50}})));
   outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-86,92},{-66,112}})));
-  IDEAS.Thermal.Components.GroundHeatExchanger.ModelDieterPatteeuw.VerticalHeatExchangerModels.BoreHole
-    boreHole(medium=mediumBorehole)
-    annotation (Placement(transformation(extent={{-60,18},{-40,38}})));
-  Thermal.Components.BaseClasses.Pump pumpBorehole(
-    medium=mediumBorehole,
-    m=0,
-    useInput=true,
-    m_flowNom=0.5,
-    dpFix=80000)
-            annotation (Placement(transformation(extent={{-80,26},{-64,42}})));
-  Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
-        mediumBorehole, p=300000)
-    annotation (Placement(transformation(extent={{-44,38},{-56,50}})));
+  IDEAS.Thermal.Components.Interfaces.FlowPort_a flowPortBrine_a(medium=
+        mediumBrine) "Inlet flowport for the brine"
+    annotation (Placement(transformation(extent={{16,-110},{36,-90}})));
+  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPortBrine_b(medium=
+        mediumBrine) "Outlet flowport for brine"
+    annotation (Placement(transformation(extent={{66,-110},{86,-90}})));
 equation
   PFuel = 0;
-  PEl = heatSource.PEl + pumpBorehole.PEl;
+  PEl = heatSource.PEl;
   COP = if noEvent(heatSource.PEl > 0) then heatedFluid.heatPort.Q_flow / PEl else 0;
-  pumpBorehole.m_flowSet = if noEvent(heatSource.PEl > 0) then 1 else 0;
+
   connect(heatSource.heatPort, heatedFluid.heatPort)
                                                  annotation (Line(
-      points={{-80,57},{-54,57},{-54,58},{-26,58},{-26,0},{-20,0},{-20,6.66134e-016}},
+      points={{16,-57},{24,-57},{24,-46},{-26,-46},{-26,0},{-20,0},{-20,6.66134e-016}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(heatSource.flowPort_b, pumpBorehole.flowPort_a)
-                                                  annotation (Line(
-      points={{-85.6,50},{-84,50},{-84,34},{-80,34}},
-      color={255,0,0},
+  connect(heatSource.flowPort_a, flowPortBrine_a) annotation (Line(
+      points={{6.2,-64},{6,-64},{6,-88},{26,-88},{26,-100}},
+      color={0,0,255},
       smooth=Smooth.None));
-  connect(pumpBorehole.flowPort_b, boreHole.flowPort_a)
-                                                annotation (Line(
-      points={{-64,34},{-62,34},{-62,27.8},{-59.8,27.8}},
-      color={255,0,0},
-      smooth=Smooth.None));
-  connect(heatSource.flowPort_a, boreHole.flowPort_b) annotation (Line(
-      points={{-89.8,50},{-89.8,6},{-40,6},{-40,28},{-40.2,28}},
-      color={255,0,0},
-      smooth=Smooth.None));
-  connect(absolutePressure.flowPort, boreHole.flowPort_b) annotation (Line(
-      points={{-44,44},{-40.2,44},{-40.2,28}},
-      color={255,0,0},
+  connect(heatSource.flowPort_b, flowPortBrine_b) annotation (Line(
+      points={{10.4,-64},{10,-64},{10,-78},{76,-78},{76,-100}},
+      color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,120}}),
-                      graphics), Icon(graphics={
+                      graphics), Icon(coordinateSystem(preserveAspectRatio=
+            false, extent={{-100,-100},{100,120}}),
+                                      graphics={
         Line(
           points={{-100,30},{-100,10}},
           color={0,0,127},
@@ -200,8 +183,8 @@ equation
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Dynamic ground source heat pump model, based on interpolation in performance tables for a Viessmann Vitocall 300-G heat pump. These tables are encoded in the <a href=\"modelica://IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_BW\">heatSource</a> model. If a different heat pump is to be simulated, create a different heatSource model with adapted interpolation tables.</p>
-<p>The ground heat exchanger or aquifer is <b>INCLUDED</b> in this model, however, it may be required to check the ground heat exchanger model or use a different one. </p>
-<p>The nominal power of the heat pump can be adapted, this will NOT influence the efficiency as a function of ambient air temperature and condenser temperature. </p>
+<p>The ground heat exchanger or aquifer is NOT INCLUDED in this model, but flowPort connectors are foreseen to connect the ground model to the heatSource. Without a ground model (or dummy model) this model cannot work.</p>
+<p>The nominal power of the heat pump can be adapted, this will NOT influence the efficiency as a function of ambient air temperature and condenser temperaturel. </p>
 <p>The heat pump has thermal losses to the environment which are often not mentioned in the performance tables. Therefore, the additional environmental heat losses are added to the heat production in order to ensure the same performance as in the manufacturers data, while still obtaining a dynamic model with heat losses (also when heat pump is off). The heatSource will compute the required power and the environmental heat losses, and try to reach the set point. </p>
 <p>See<a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\"> IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses</a> for more details about the heat losses and dynamics. </p>
 <p><h4>Assumptions and limitations </h4></p>
@@ -216,7 +199,6 @@ equation
 <li>Specify medium and initial temperature (of the water + dry mass)</li>
 <li>Specify the nominal power QNom. There are two options: (1) specify QNom and put QDesign = 0 or (2) specify QDesign &GT; 0 and QNom wil be calculated from QDesign as follows:</li>
 <p>QNom = QDesign * betaFactor / fraLosDesNom</p>
-<li>Speficy all required details for the ground heat exchanger model</li>
 <li>Connect TSet, the flowPorts and the heatPort to environment. </li>
 </ol></p>
 <p><br/>See also<a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\"> IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses</a> for more details about the heat losses and dynamics. </p>
@@ -225,4 +207,4 @@ equation
 <p><h4>Example</h4></p>
 <p>No specific example foreseen. </p>
 </html>"));
-end HP_BrineWater_Borehole;
+end HP_BrineWater;

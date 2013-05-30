@@ -9,7 +9,6 @@ model IdealHeater "Ideal heater, no losses to environment, unlimited power"
   IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_Ideal
                                                    heatSource(
     medium=medium,
-    QDesign=QNom,
     TBoilerSet=TSet,
     TEnvironment=heatPort.T,
     UALoss=UALoss,

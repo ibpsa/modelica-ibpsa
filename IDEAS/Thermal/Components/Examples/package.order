@@ -5,8 +5,10 @@ StorageWithThermostaticMixing
 RadiatorWithMixingValve
 IdealHeater
 Boiler_validation
-Heater
+ModulatingHeatPump_AirWater
+HeatPump_BrineWater_DummyBorehole
 HPTester
+Heater
 RadTester
 HeatingSystem
 StorageTank

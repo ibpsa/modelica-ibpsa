@@ -30,16 +30,10 @@ model HeatSource_HP_BW
     "Nominal power of the Viesmann Vitocal 300-G BW/BWC 108.  See datafile";
   parameter Modelica.SIunits.ThermalConductance UALoss
     "UA of heat losses of HP to environment";
-  final parameter Modelica.SIunits.Power QNom=QDesign*betaFactor/
-      fraLosDesNom
-    "The power at nominal conditions (2/35) taking into account beta factor and power loss fraction";
+  parameter Modelica.SIunits.Power QNom
+    "The power at nominal conditions (0/35)";
 
 public
-  parameter Real fraLosDesNom = 1
-    "Ratio of power at design conditions over power at 0/35degC";
-  parameter Real betaFactor = 0.8
-    "Relative sizing compared to design heat load";
-  parameter Modelica.SIunits.Power QDesign=QNomRef "Design heat load";
   Modelica.SIunits.Power PEl "Resulting electrical power";
   Modelica.SIunits.Temperature TEvaporator "Evaporator temperature";
   input Modelica.SIunits.Temperature TCondensor_in "Condensor temperature";
@@ -132,5 +126,23 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),
-              Diagram(graphics));
+              Diagram(graphics),
+    Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;catalogue&nbsp;data&nbsp;from&nbsp;Viessmann&nbsp;for&nbsp;the&nbsp;vitocal&nbsp;300-G,&nbsp;type&nbsp;BW/BWC&nbsp;108&nbsp;(8kW&nbsp;nominal&nbsp;power at 0/35 degC) and the full heat pump is implemented as <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_BrineWater\">IDEAS.Thermal.Components.Production.HP_BrineWater</a> .</p>
+<p>First,&nbsp;the&nbsp;thermal&nbsp;power&nbsp;and&nbsp;electricity&nbsp;consumption&nbsp;are&nbsp;interpolated&nbsp;for&nbsp;the&nbsp;evaporator&nbsp;and&nbsp;condensing&nbsp;temperature.&nbsp;&nbsp;The&nbsp;results&nbsp;are&nbsp;rescaled&nbsp;to&nbsp;the&nbsp;nominal&nbsp;power&nbsp;of&nbsp;the&nbsp;modelled&nbsp;heatpump&nbsp;(with&nbsp;QNom/QNom_data)&nbsp;and&nbsp;stored&nbsp;in&nbsp;2&nbsp;different&nbsp;vectors,&nbsp;Q_vector&nbsp;and&nbsp;P_vector.</p>
+<p>There is hysteresis&nbsp;for&nbsp;on/off&nbsp;cycling based on the difference between TSet and the current condenser temperature. </p>
+<p><h4>ATTENTION</h4></p>
+<p>This&nbsp;model&nbsp;takes&nbsp;into&nbsp;account&nbsp;environmental&nbsp;heat&nbsp;losses&nbsp;of&nbsp;the&nbsp;heat pump.&nbsp;&nbsp;In&nbsp;order&nbsp;to&nbsp;keep&nbsp;the&nbsp;same&nbsp;nominal&nbsp;efficiency&nbsp;during&nbsp;operation,&nbsp;these&nbsp;heat&nbsp;losses&nbsp;are&nbsp;added&nbsp;to&nbsp;the&nbsp;computed&nbsp;power.&nbsp;&nbsp;Therefore,&nbsp;the&nbsp;heat&nbsp;losses&nbsp;are&nbsp;only&nbsp;really&nbsp;&apos;losses&apos;&nbsp;when&nbsp;the&nbsp;heat pump&nbsp;is&nbsp;NOT&nbsp;operating.&nbsp;</p>
+<p>The&nbsp;COP&nbsp;is&nbsp;calculated&nbsp;as&nbsp;the&nbsp;heat&nbsp;delivered&nbsp;to&nbsp;the&nbsp;condensor&nbsp;divided&nbsp;by&nbsp;the&nbsp;electrical&nbsp;consumption&nbsp;(P).</p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>Based on interpolation in manufacturer data for&nbsp;Viessmann&nbsp;for&nbsp;the&nbsp;vitocal&nbsp;300-G,&nbsp;type&nbsp;BW/BWC&nbsp;108&nbsp;(8kW&nbsp;nominal&nbsp;power at 0/35 degC)</li>
+<li>Ensure not to operate the heat pump outside of the manufacturer data. No check is made if this happens, and this can lead to strange and wrong results.</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p>This model is used in the <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_BrineWater\">IDEAS.Thermal.Components.Production.HP_BrineWater</a>  model and derivatives with boreholes. If a different heat pumpr is to be simulated, copy this model and adapt the interpolation tables.</p>
+<p><h4>Validation </h4></p>
+<p>No specific validation foreseen.</p>
+</html>"));
 end HeatSource_HP_BW;
