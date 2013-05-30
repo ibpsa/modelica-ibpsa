@@ -13,16 +13,20 @@ public
     "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   replaceable parameter IDEAS.Climate.Meteo.location city = Uccle
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
-  parameter Boolean occBeh = true
-    "put to false if no user behaviour is to be read from files"
+  parameter Boolean occBeh = false
+    "put to true if  user behaviour is to be read from files"
                                          annotation(Dialog(group="User behaviour"));
-  parameter Boolean PV = true
-    "put to false if no photovoltaics is to be read from files "
+
+  parameter Boolean DHW = false
+    "put to true if domestic how water (DHW) consumption is to be read from files"
+                                         annotation(Dialog(group="User behaviour"));
+  parameter Boolean PV = false
+    "put to true if photovoltaics is to be read from files "
                                          annotation(Dialog(group="Photovoltaics"));
 
   replaceable parameter IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants= stoch33
-    "Occupant behavior" annotation(choicesAllMatching = true,Dialog(group="User behaviour"));
-  parameter Integer nOcc = 33 "Number of occupant profiles" annotation(Dialog(group="User behaviour"));
+    "Specifies the files with occupant behavior" annotation(choicesAllMatching = true,Dialog(group="User behaviour"));
+  parameter Integer nOcc = 33 "Number of occupant profiles to be read" annotation(Dialog(group="User behaviour"));
 
   parameter String fileNamePv = "onePVpanel10min"
     "Filename for photvoltaic profiles"                                                         annotation(Dialog(group="Photovoltaics"));
@@ -133,7 +137,7 @@ Modelica.Blocks.Sources.CombiTimeTable
     tableOnFile=true,
     tableName="data",
     fileName="..\\Inputs\\" + occupants.filDHW,
-    columns=2:nOcc+1) if occBeh
+    columns=2:nOcc+1) if DHW
                             annotation (Placement(transformation(extent={{0,-58},
             {14,-44}})));
 Modelica.Blocks.Tables.CombiTable1Ds tabPPV(
