@@ -222,11 +222,11 @@ package BaseClasses
       // It's a bit stupid to explicitly pass n1 and n2 again, but it's the only way to avoid warnings/errors in dymola 2012.
   equation
     connect(flowPort_a, embeddedPipe.flowPort_a) annotation (Line(
-        points={{-100,40},{-70,40},{-70,2},{-56,2}},
+        points={{-100,40},{-70,40},{-70,-4.25},{-56,-4.25}},
         color={255,0,0},
         smooth=Smooth.None));
     connect(flowPort_b, embeddedPipe.flowPort_b) annotation (Line(
-        points={{-100,-40},{-26,-40},{-26,2},{-36,2}},
+        points={{-100,-40},{-26,-40},{-26,8.25},{-36,8.25}},
         color={255,0,0},
         smooth=Smooth.None));
     connect(nakedTabs.port_a, port_a) annotation (Line(

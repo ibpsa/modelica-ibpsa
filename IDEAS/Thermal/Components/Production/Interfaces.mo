@@ -1,5 +1,6 @@
 within IDEAS.Thermal.Components.Production;
 package Interfaces
+  "Contains partial classes for the IDEAS.Thermal.Components.Production package"
 
 extends Modelica.Icons.InterfacesPackage;
 
@@ -95,8 +96,8 @@ extends Modelica.Icons.InterfacesPackage;
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,120}},
             preserveAspectRatio=false),
-                        graphics), Icon(coordinateSystem(extent={{-100,-100},{
-              100,120}}, preserveAspectRatio=false),
+                        graphics), Icon(coordinateSystem(extent={{-100,-100},{100,
+              120}}, preserveAspectRatio=false),
                                         graphics),
       Documentation(info="<html>
 <p><b>Description</b> </p>
