@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components;
-package Production "Package for heat/cold production devices"
+package Production "Models for heat/cold production devices"
   extends Modelica.Icons.Package;
 
 /*
@@ -55,5 +55,14 @@ package Production "Package for heat/cold production devices"
     annotation (Diagram(graphics), Icon(graphics));
   end HP_BW;
 */
+
+
+
+
+
+
+
+
+
 
 end Production;
