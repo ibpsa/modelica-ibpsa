@@ -32,8 +32,7 @@ model Heating_FH_TESandSTSforDHWonly
     each dpFix=30000)
     annotation (Placement(transformation(extent={{94,-4},{110,12}})));
 
-  IDEAS.Thermal.Components.Emission.EmbeddedPipeDynTOut[
-                                                  nZones] emission(
+  IDEAS.Thermal.Components.Emission.EmbeddedPipe[ nZones] emission(
     each medium = medium,
     FHChars = FHChars,
     m_flowMin = m_flowNom)

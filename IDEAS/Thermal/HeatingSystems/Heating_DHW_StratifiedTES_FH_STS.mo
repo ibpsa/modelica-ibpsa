@@ -28,8 +28,7 @@ protected
     each etaTot=0.7)
     annotation (Placement(transformation(extent={{54,46},{78,22}})));
 
-  IDEAS.Thermal.Components.Emission.EmbeddedPipeDynTOut[
-                                                  nZones] emission(
+  IDEAS.Thermal.Components.Emission.EmbeddedPipe[ nZones] emission(
     each medium = medium,
     FHChars = FHChars,
     m_flowMin = m_flowNom)

@@ -53,5 +53,11 @@ equation
       points={{-44,-46},{-44,-80},{0,-80},{0,-98}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Documentation(revisions="<html>
+<p><ul>
+<li>2013 May, Roel De Coninck: documentation</li>
+<li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
+<li>2011, Roel De Coninck: first version and validation</li>
+</ul></p>
+</html>"));
 end TabsDiscretized;

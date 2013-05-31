@@ -37,5 +37,11 @@ equation
     connect(tabs[i].port_b, port_b);
   end for;
 
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Documentation(revisions="<html>
+<p><ul>
+<li>2013 May, Roel De Coninck: documentation</li>
+<li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
+<li>2011, Roel De Coninck: first version and validation</li>
+</ul></p>
+</html>"));
 end TabsDiscretized_Full;

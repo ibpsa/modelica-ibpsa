@@ -10,6 +10,7 @@ HeatPump_BrineWater_DummyBorehole
 SolarThermalCollector
 Radiator_CoolingDown
 Radiator_EnergyBalance
+NakedTabsTester
 HPTester
 Heater
 RadTester
@@ -25,5 +26,4 @@ TestStratifier
 HPBW_Tester
 TankLosses
 FloorHeatingComparisonDiscrete
-NakedTabsTester
 StorageTank_InternalHX_Validation

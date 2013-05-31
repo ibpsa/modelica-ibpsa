@@ -51,21 +51,32 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(graphics), Documentation(info="<html>
 <p><b>Description</b> </p>
-<p>Description of components, equations, reference links (references should be written in the user&apos;s Guide of the library) </p>
-<p><h4>Assumptions and limitations </h4></p>
-<p>(keep this section short and to the point, preferentially in bullets only)</p>
+<p>Discretized heat transfer model of a thermally activated building layer. The model has 3 heatPorts:</p>
 <p><ol>
-<li>Description of assumptions used by the model (including tuned parameters which should not be modified by the user). </li>
-<li>Description of the validity region of the model and interval of accuracy (if possible) </li>
+<li>portCore: port to the <a href=\"modelica://IDEAS.Thermal.Components.Emission.EmbeddedPipe\">embeddedPipe</a> model that computes the heat trransfer to the core of the thermally activated layer</li>
+<li>port_a: heatPort for heat emission at the upper side of the TABS</li>
+<li>port_b: heatPort for heat emission at the lower side of the TABS</li>
+</ol></p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>Discretized model in n1 elements between the core and port_a, and n2 layers between core and port_b</li>
+<li>No capacity lumped to the core of the thermally activated layer.</li>
 </ol></p>
 <p><h4>Model use</h4></p>
 <p><ol>
-<li>Which are the important, the tuning and the &QUOT;negligeable&QUOT; parameters. </li>
-<li>What are the default value of the model and how have then been chosen. </li>
+<li>The geometry, material properties and floor surface is obtained from a record, FHChars</li>
+<li>To control the discretization in more detail, regardless of material properties, n1 and n2 can be specified specifically.</li>
 </ol></p>
 <p><h4>Validation </h4></p>
-<p>Description of the validation procedure and results </p>
+<p>This component is validated together with the EmbeddedPipe.  The effect of discretization is shown in<a href=\"modelica://IDEAS.Thermal.Components.Examples.NakedTabsTester\"> IDEAS.Thermal.Components.Examples.NakedTabsTester</a>.</p>
+<p>A specific report of this validation can be found in IDEAS/Specifications/Thermal/ValidationEmbeddedPipeModels_20111006.pdf</p>
 <p><h4>Example (optional) </h4></p>
-<p>Link to an example for the component and (optional) examples where the component is used. </p>
+<p>The <a href=\"modelica://IDEAS.Thermal.Components.Emission.Tabs\">Tabs</a> model shows the integration of an EmbeddedPipe and a NakedTabs.</p>
+</html>", revisions="<html>
+<p><ul>
+<li>2013 May, Roel De Coninck: documentation</li>
+<li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
+<li>2011, Roel De Coninck: first version and validation</li>
+</ul></p>
 </html>"));
 end NakedTabs;
