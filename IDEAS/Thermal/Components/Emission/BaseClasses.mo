@@ -183,9 +183,7 @@ package BaseClasses
       annotation (choices(
         choice(redeclare
             IDEAS.Thermal.Components.Emission.EmbeddedPipe_prEN15377            embeddedPipe),
-        choice(redeclare IDEAS.Thermal.Components.Emission.EmbeddedPipeDynTOut       embeddedPipe),
-        choice(redeclare
-            IDEAS.Thermal.Components.Emission.EmbeddedPipeDynSwitch       embeddedPipe)),
+        choice(redeclare IDEAS.Thermal.Components.Emission.EmbeddedPipeDynTOut       embeddedPipe)),
         Placement(transformation(extent={{-56,-8},{-36,12}})));
 
     IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabs
@@ -212,8 +210,8 @@ package BaseClasses
         points={{-51.8333,11.75},{-51.8333,20},{-18,20},{-18,2},{-12,2}},
         color={191,0,0},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}}),
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}),
                         graphics), Icon(graphics));
   end Tabs;
 

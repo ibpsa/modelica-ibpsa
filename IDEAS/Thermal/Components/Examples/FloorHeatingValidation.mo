@@ -16,13 +16,15 @@ extends Modelica.Icons.Example;
     TInitial=303.15,
     m_flowNom=12*24/3600)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  IDEAS.Thermal.Components.Emission.BaseClasses.Tabs
+  replaceable IDEAS.Thermal.Components.Emission.BaseClasses.Tabs
                   tabs(
     medium=medium,
     A_Floor=24,
     redeclare IDEAS.Thermal.Components.Emission.BaseClasses.FH_ValidationEmpa
                                                                 FHChars,
-    m_flowMin=12*24/3600) "tabs model"
+    m_flowMin=12*24/3600) constrainedby Emission.Interfaces.Partial_Tabs(
+    medium=medium,
+    A_Floor=24) "tabs model"
                annotation (Placement(transformation(extent={{68,2},{88,22}})));
   inner IDEAS.SimInfoManager         sim(redeclare
       IDEAS.Climate.Meteo.Files.min15
@@ -48,9 +50,11 @@ extends Modelica.Icons.Example;
     period=7200,
     offset=0,
     startTime=0)
-              annotation (Placement(transformation(extent={{-58,30},{-38,50}})));
+              annotation (Placement(transformation(extent={{-82,42},{-62,62}})));
+  Modelica.Blocks.Sources.Step step(startTime=20000)
+    annotation (Placement(transformation(extent={{-82,8},{-62,28}})));
 equation
-  TSet.T = smooth(1, if time < 5*3600 then 273.15+30 else 273.15+20);
+  TSet.T = smooth(1, if time < 5*3600 then 273.15+30 else 273.15+35);
   //TSet.T = 273.15+15;
   convection.Gc = 11;
 
@@ -86,9 +90,11 @@ equation
       points={{78,2.2},{78,-8},{98,-8},{98,30},{78,30},{78,36}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(pulse.y, volumeFlow1.m_flowSet) annotation (Line(
-      points={{-37,40},{-26,40},{-26,4}},
+  connect(step.y, volumeFlow1.m_flowSet) annotation (Line(
+      points={{-61,18},{-26,18},{-26,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics));
 end FloorHeatingValidation;

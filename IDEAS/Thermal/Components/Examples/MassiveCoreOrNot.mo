@@ -24,7 +24,7 @@ extends Modelica.Icons.Example;
     m_flowMin=12*24/3600) constrainedby Emission.Interfaces.Partial_Tabs(
     medium=medium,
     A_Floor=24) "tabs model"
-               annotation (Placement(transformation(extent={{68,2},{88,22}})));
+               annotation (choicesAllMatching=true,Placement(transformation(extent={{68,2},{88,22}})));
   inner IDEAS.SimInfoManager         sim(redeclare
       IDEAS.Climate.Meteo.Files.min15
       detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
