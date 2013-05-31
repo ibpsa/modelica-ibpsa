@@ -3,19 +3,11 @@ model Tabs "Tabs system, not discretized"
 
   extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Tabs;
 
-  replaceable EmbeddedPipe                                    embeddedPipe(
-    medium=medium,
-    FHChars=FHChars,
-    m_flowMin=m_flowMin) constrainedby
-    IDEAS.Thermal.Components.Emission.Interfaces.Partial_EmbeddedPipe(
+   EmbeddedPipe embeddedPipe(
     medium=medium,
     FHChars=FHChars,
     m_flowMin=m_flowMin)
-    annotation (choices(
-      choice(redeclare IDEAS.Thermal.Components.Emission.EmbeddedPipe_prEN15377
-                                                                              embeddedPipe),
-      choice(redeclare IDEAS.Thermal.Components.Emission.EmbeddedPipe              embeddedPipe)),
-      Placement(transformation(extent={{-56,-8},{-36,12}})));
+    annotation (Placement(transformation(extent={{-56,-8},{-36,12}})));
 
   IDEAS.Thermal.Components.Emission.NakedTabs
             nakedTabs(FHChars=FHChars, n1=FHChars.n1, n2=FHChars.n2) annotation (Placement(transformation(extent={{-12,-8},{8,12}})));
@@ -52,17 +44,28 @@ equation
 </ul></p>
 </html>", info="<html>
 <p><b>Description</b> </p>
-<p>The Tabs model integrates an <a href=\"modelica://IDEAS.Thermal.Components.Emission.EmbeddedPipe\">EmbeddedPipe</a> and a <a href=\"modelica://IDEAS.Thermal.Components.Emission.NakedTabs\">NakedTabs</a> into a complete thermal emission system.  This model is not disretized along the length of the embedded pipe (along the flow).  For a model with discretization along the flow direction, choose either the <a href=\"modelica://IDEAS.Thermal.Components.Emission.TabsDiscretized\">TabsDiscretized</a> or <a href=\"modelica://IDEAS.Thermal.Components.Emission.TabsDiscretized_Full\">TabsDiscretized_Full</a> model. </p>
+<p>The Tabs model integrates an <a href=\"modelica://IDEAS.Thermal.Components.Emission.EmbeddedPipe\">EmbeddedPipe</a> and a <a href=\"modelica://IDEAS.Thermal.Components.Emission.NakedTabs\">NakedTabs</a> into a complete thermal emission system. This model is not disretized along the length of the embedded pipe (along the flow). For a model with discretization along the flow direction, choose either the <a href=\"modelica://IDEAS.Thermal.Components.Emission.TabsDiscretized\">TabsDiscretized</a> or <a href=\"modelica://IDEAS.Thermal.Components.Emission.TabsDiscretized_Full\">TabsDiscretized_Full</a> model. </p>
 <p><h4>Assumptions and limitations </h4></p>
 <p>See the <a href=\"modelica://IDEAS.Thermal.Components.Emission.EmbeddedPipe\">EmbeddedPipe</a> and a <a href=\"modelica://IDEAS.Thermal.Components.Emission.NakedTabs\">NakedTabs</a> models for more information. </p>
 <p><h4>Model use</h4></p>
 <p><ol>
-<li>Which are the important, the tuning and the &QUOT;negligeable&QUOT; parameters. </li>
-<li>What are the default value of the model and how have then been chosen. </li>
+<li>Choose the FHChars</li>
+<li>Set A_Floor (will overwrite the A_Floor defined in FHChars!!)</li>
+<li>Set mFlow_min, used to check validity range of the model. </li>
+</ol></p>
+<p><br/>ATTENTION: when a warning is issued that the model is not valid and discretization is required, there are generally two solutions:</p>
+<p><ol>
+<li>increase the mass flow rate</li>
+<li>use the <a href=\"modelica://IDEAS.Thermal.Components.Emission.TabsDiscretized\">discretized tabs model</a></li>
 </ol></p>
 <p><h4>Validation </h4></p>
-<p>Description of the validation procedure and results </p>
-<p><h4>Example (optional) </h4></p>
-<p>Link to an example for the component and (optional) examples where the component is used. </p>
+<p>The Tabs model is used in most validations of the EmbeddedPipe model:</p>
+<p><ul>
+<li><a href=\"modelica://IDEAS.Thermal.Components.Examples.FloorHeatingValidation\">IDEAS.Thermal.Components.Examples.FloorHeatingValidation</a></li>
+<li><a href=\"modelica://IDEAS.Thermal.Components.Examples.FloorHeatingValidation2\">IDEAS.Thermal.Components.Examples.FloorHeatingValidation2</a></li>
+</ul></p>
+<p>A specific report of the validation can be found in IDEAS/Specifications/Thermal/ValidationEmbeddedPipeModels_20111006.pdf</p>
+<p><h4>Example </h4></p>
+<p>Here is a <a href=\"modelica://IDEAS.Thermal.Components.Examples.Tabs\">very simple example</a> of the use of this model.</p>
 </html>"));
 end Tabs;

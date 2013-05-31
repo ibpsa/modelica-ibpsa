@@ -43,5 +43,17 @@ equation
 <li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
 <li>2011, Roel De Coninck: first version and validation</li>
 </ul></p>
+</html>", info="<html>
+<p><b>Description</b> </p>
+<p>Fully discretized <a href=\"modelica://IDEAS.Thermal.Components.Emission.Tabs\">tabs</a> model along the flow direction, including arrays of heatPorts at both sides.</p>
+<p><h4>Assumptions and limitations </h4></p>
+<p>Same as for the Tabs model. </p>
+<p><h4>Model use</h4></p>
+<p>Same as Tabs model, except that there is an additional parameter for the discretization in the flow direction. </p>
+<p>It does <u>not make sense to use this model by connecting the array of heatPorts to a single heatPort</u> again. It can be connected to a single (zone) temperature throug an array of (convective or radiative) resistors.</p>
+<p><h4>Validation </h4></p>
+<p>See tabs model</p>
+<p><h4>Example</h4></p>
+<p>To be completed.</p>
 </html>"));
 end TabsDiscretized_Full;

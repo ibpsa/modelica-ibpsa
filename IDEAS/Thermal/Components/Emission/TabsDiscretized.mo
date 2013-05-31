@@ -59,5 +59,17 @@ equation
 <li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
 <li>2011, Roel De Coninck: first version and validation</li>
 </ul></p>
+</html>", info="<html>
+<p><b>Description</b> </p>
+<p>Discretized <a href=\"modelica://IDEAS.Thermal.Components.Emission.Tabs\">tabs</a> model along the flow direction. </p>
+<p>However, there is only one single heatPort at each side of the tabs, so each NakedTabs discrete element sees the same boundary temperature. A fully discretized model can be found <a href=\"modelica://IDEAS.Thermal.Components.Emission.TabsDiscretized_Full\">here</a>.</p>
+<p><h4>Assumptions and limitations </h4></p>
+<p>Same as for the Tabs model. </p>
+<p><h4>Model use</h4></p>
+<p>Same as Tabs model, except that there is an additional parameter for the discretization in the flow direction. </p>
+<p><h4>Validation </h4></p>
+<p>See tabs model</p>
+<p><h4>Example</h4></p>
+<p>A specific example of the discretized tabs is given in<a href=\"modelica://IDEAS.Thermal.Components.Examples.Tabs_Disretized\"> IDEAS.Thermal.Components.Examples.Tabs_Disretized.</a></p>
 </html>"));
 end TabsDiscretized;

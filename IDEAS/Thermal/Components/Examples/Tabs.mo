@@ -1,6 +1,5 @@
 within IDEAS.Thermal.Components.Examples;
-model FloorHeatingValidation
-  "Testing the floorheating according to Koschenz, par. 4.5.1"
+model Tabs "Simple tester for TABS"
 
 extends Modelica.Icons.Example;
 
@@ -18,10 +17,10 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
   Emission.Tabs   tabs(
     medium=medium,
-    A_Floor=24,
     redeclare IDEAS.Thermal.Components.Emission.BaseClasses.FH_ValidationEmpa
                                                                 FHChars,
-    m_flowMin=12*24/3600) "tabs model"
+    m_flowMin=12*24/3600,
+    A_Floor=30) "tabs model"
                annotation (Placement(transformation(extent={{68,2},{88,22}})));
   inner IDEAS.SimInfoManager         sim(redeclare
       IDEAS.Climate.Meteo.Files.min15
@@ -89,5 +88,7 @@ equation
       points={{-37,40},{-26,40},{-26,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
-end FloorHeatingValidation;
+  annotation (Diagram(graphics),
+    experiment(StopTime=86400),
+    __Dymola_experimentSetupOutput);
+end Tabs;

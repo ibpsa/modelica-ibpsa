@@ -11,6 +11,12 @@ SolarThermalCollector
 Radiator_CoolingDown
 Radiator_EnergyBalance
 NakedTabsTester
+Tabs
+Tabs_Disretized
+FloorHeatingValidation
+FloorHeatingValidation2
+FloorHeatingTester
+FloorHeatingComparisonDiscrete
 HPTester
 Heater
 RadTester
@@ -19,11 +25,7 @@ StorageTank
 StorageTank_InternalHX
 DHWTester
 DHWTester_badmixing
-FloorHeatingTester
-FloorHeatingValidation
-FloorHeatingValidation2
 TestStratifier
 HPBW_Tester
 TankLosses
-FloorHeatingComparisonDiscrete
 StorageTank_InternalHX_Validation
