@@ -87,7 +87,25 @@ package BaseClasses
         points={{-100,0},{6.12323e-016,0},{6.12323e-016,-12}},
         color={191,0,0},
         smooth=Smooth.None));
-    annotation (Diagram(graphics));
+    annotation (Diagram(graphics), Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Description of components, equations, reference links (references should be written in the user&apos;s Guide of the library) </p>
+<p><h4>Assumptions and limitations </h4></p>
+<p>(keep this section short and to the point, preferentially in bullets only)</p>
+<p><ol>
+<li>Description of assumptions used by the model (including tuned parameters which should not be modified by the user). </li>
+<li>Description of the validity region of the model and interval of accuracy (if possible) </li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>Which are the important, the tuning and the &QUOT;negligeable&QUOT; parameters. </li>
+<li>What are the default value of the model and how have then been chosen. </li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>Description of the validation procedure and results </p>
+<p><h4>Example (optional) </h4></p>
+<p>Link to an example for the component and (optional) examples where the component is used. </p>
+</html>"));
   end NakedTabs;
 
   model NakedTabsMassiveCore
@@ -175,11 +193,11 @@ package BaseClasses
       // It's a bit stupid to explicitly pass n1 and n2 again, but it's the only way to avoid warnings/errors in dymola 2012.
   equation
     connect(flowPort_a, embeddedPipe.flowPort_a) annotation (Line(
-        points={{-100,40},{-70,40},{-70,2},{-56,2}},
+        points={{-100,40},{-70,40},{-70,-4.25},{-56,-4.25}},
         color={255,0,0},
         smooth=Smooth.None));
     connect(flowPort_b, embeddedPipe.flowPort_b) annotation (Line(
-        points={{-100,-40},{-26,-40},{-26,2},{-36,2}},
+        points={{-100,-40},{-26,-40},{-26,8.25},{-36,8.25}},
         color={255,0,0},
         smooth=Smooth.None));
     connect(nakedTabs.port_a, port_a) annotation (Line(
@@ -190,11 +208,13 @@ package BaseClasses
         points={{-2,-7.8},{-2,-98},{0,-98}},
         color={191,0,0},
         smooth=Smooth.None));
-    connect(embeddedPipe.heatPortFH, nakedTabs.portCore) annotation (Line(
-        points={{-54.6,12},{-33.3,12},{-33.3,2},{-12,2}},
+    connect(embeddedPipe.heatPortEmb, nakedTabs.portCore) annotation (Line(
+        points={{-51.8333,11.75},{-51.8333,20},{-18,20},{-18,2},{-12,2}},
         color={191,0,0},
         smooth=Smooth.None));
-    annotation (Diagram(graphics), Icon(graphics));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
+              -100,-100},{100,100}}),
+                        graphics), Icon(graphics));
   end Tabs;
 
   model TabsMassiveCore "Very simple tabs system, with NakedTabsMassiveCore"
@@ -237,11 +257,13 @@ package BaseClasses
         points={{-2,-7.8},{-2,-98},{0,-98}},
         color={191,0,0},
         smooth=Smooth.None));
-    connect(embeddedPipe.heatPortFH, nakedTabs.portCore) annotation (Line(
-        points={{-54.6,12},{-33.3,12},{-33.3,2},{-12,2}},
+    connect(embeddedPipe.heatPortEmb, nakedTabs.portCore) annotation (Line(
+        points={{-51.8333,11.75},{-51.8333,20},{-18,20},{-18,2},{-12,2}},
         color={191,0,0},
         smooth=Smooth.None));
-    annotation (Diagram(graphics));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
+              -100,-100},{100,100}}),
+                        graphics));
   end TabsMassiveCore;
 
   model TabsDiscretized "Discretized tabs system"
