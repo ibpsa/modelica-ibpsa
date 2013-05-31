@@ -108,65 +108,6 @@ package BaseClasses
 </html>"));
   end NakedTabs;
 
-  model NakedTabsMassiveCore
-    "HeatPort only very simple tabs system, with lumped capacity to the core layer"
-
-    replaceable parameter
-      IDEAS.Thermal.Components.BaseClasses.FH_Characteristics            FHChars     annotation (choicesAllMatching = true);
-
-    parameter Integer n1 = FHChars.n1;
-    parameter Integer n2 = FHChars.n2;
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
-      annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_b
-      annotation (Placement(transformation(extent={{-10,-108},{10,-88}})));
-    Modelica.Thermal.HeatTransfer.Components.ThermalConductor[n1+1] U1(each G = FHChars.lambda_b / (FHChars.S_1 / (n1+1)) * FHChars.A_Floor)
-                                                                 annotation (
-        Placement(transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=90,
-          origin={0,32})));
-    Modelica.Thermal.HeatTransfer.Components.ThermalConductor[n2+1] U2(each G = FHChars.lambda_b / (FHChars.S_2 / (n2+1)) * FHChars.A_Floor)
-                                                                 annotation (
-        Placement(transformation(
-          extent={{10,-10},{-10,10}},
-          rotation=90,
-          origin={0,-22})));
-    Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[n1] C1(each C = FHChars.A_Floor * FHChars.S_1/(n1+1) * FHChars.rho_b * FHChars.c_b)
-      annotation (Placement(transformation(extent={{32,54},{52,74}})));
-
-    Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[n2] C2(each C = FHChars.A_Floor * FHChars.S_2/(n2+1) * FHChars.rho_b * FHChars.c_b)
-      annotation (Placement(transformation(extent={{30,-62},{50,-42}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portCore
-      annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-    Modelica.Thermal.HeatTransfer.Components.HeatCapacitor C0(C = FHChars.A_Floor * FHChars.S_1/(n1+1) * FHChars.rho_b * FHChars.c_b + FHChars.A_Floor * FHChars.S_2/(n2+1) * FHChars.rho_b * FHChars.c_b)
-      "Capacitor to the core"
-      annotation (Placement(transformation(extent={{34,6},{54,26}})));
-  equation
-    for i in 1:n1 loop
-      connect(U1[i].port_b, U1[i+1].port_a);
-      connect(U1[i].port_b, C1[i].port);
-    end for;
-    for i in 1:n2 loop
-      connect(U2[i].port_b, U2[i+1].port_a);
-      connect(U2[i].port_b, C2[i].port);
-    end for;
-    connect(U1[n1+1].port_b, port_a);
-    connect(U2[n2+1].port_b, port_b);
-    connect(portCore, U1[1].port_a) annotation (Line(
-        points={{-100,0},{-6.12323e-016,0},{-6.12323e-016,22}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    connect(portCore, U2[1].port_a) annotation (Line(
-        points={{-100,0},{6.12323e-016,0},{6.12323e-016,-12}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    connect(C0.port, U1[1].port_a) annotation (Line(
-        points={{44,6},{44,0},{-6.12323e-016,0},{-6.12323e-016,22}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    annotation (Diagram(graphics));
-  end NakedTabsMassiveCore;
 
   model Tabs "Very simple tabs system"
 
@@ -215,54 +156,6 @@ package BaseClasses
                         graphics), Icon(graphics));
   end Tabs;
 
-  model TabsMassiveCore "Very simple tabs system, with NakedTabsMassiveCore"
-
-    extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Tabs;
-
-    replaceable Thermal.Components.Emission.EmbeddedPipeDynTOut embeddedPipe(
-      medium=medium,
-      FHChars=FHChars,
-      m_flowMin=m_flowMin) constrainedby
-      IDEAS.Thermal.Components.Emission.Interfaces.Partial_EmbeddedPipe(
-      medium=medium,
-      FHChars=FHChars,
-      m_flowMin=m_flowMin)
-      annotation (choices(
-        choice(redeclare
-            IDEAS.Thermal.Components.Emission.EmbeddedPipe_prEN15377            embeddedPipe),
-        choice(redeclare IDEAS.Thermal.Components.Emission.EmbeddedPipeDynTOut       embeddedPipe),
-        choice(redeclare
-            IDEAS.Thermal.Components.Emission.EmbeddedPipeDynSwitch       embeddedPipe)),
-        Placement(transformation(extent={{-56,-8},{-36,12}})));
-
-    IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabsMassiveCore
-              nakedTabs(FHChars=FHChars, n1=FHChars.n1, n2=FHChars.n2) annotation (Placement(transformation(extent={{-12,-8},{8,12}})));
-      // It's a bit stupid to explicitly pass n1 and n2 again, but it's the only way to avoid warnings/errors in dymola 2012.
-  equation
-    connect(flowPort_a, embeddedPipe.flowPort_a) annotation (Line(
-        points={{-100,40},{-70,40},{-70,-4.25},{-56,-4.25}},
-        color={255,0,0},
-        smooth=Smooth.None));
-    connect(flowPort_b, embeddedPipe.flowPort_b) annotation (Line(
-        points={{-100,-40},{-26,-40},{-26,8.25},{-36,8.25}},
-        color={255,0,0},
-        smooth=Smooth.None));
-    connect(nakedTabs.port_a, port_a) annotation (Line(
-        points={{-2,12},{-2,100},{0,100}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    connect(nakedTabs.port_b, port_b) annotation (Line(
-        points={{-2,-7.8},{-2,-98},{0,-98}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    connect(embeddedPipe.heatPortEmb, nakedTabs.portCore) annotation (Line(
-        points={{-51.8333,11.75},{-51.8333,20},{-18,20},{-18,2},{-12,2}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}}),
-                        graphics));
-  end TabsMassiveCore;
 
   model TabsDiscretized "Discretized tabs system"
 
