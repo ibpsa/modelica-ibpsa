@@ -37,9 +37,4 @@ package BaseClasses
                 // A_Floor should be 120m * 0.2m = 24 m²
   end FH_ValidationEmpa4_6;
 
-
-
-
-
-
 end BaseClasses;

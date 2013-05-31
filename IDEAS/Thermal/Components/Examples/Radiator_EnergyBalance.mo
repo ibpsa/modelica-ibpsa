@@ -21,8 +21,7 @@ extends Modelica.Icons.Example;
     medium=Data.Media.Water(),
     m=5,
     TInitial=293.15) annotation (Placement(transformation(extent={{12,-16},{32,4}})));
-  IDEAS.Thermal.Components.Emission.Radiator_Old
-                      radiator(
+  Emission.Radiator   radiator(
     medium=Data.Media.Water(),
                           QNom=3000,
     TInNom=318.15,
@@ -55,38 +54,31 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-56,30},{-36,50}})));
 equation
 der(QBoiler) = boilerHeatFlow.Q_flow;
-der(QRadiator) = -radiator.heatPortConv.Q_flow - radiator.heatPortRad.Q_flow;
+der(QRadiator) = -radiator.heatPortCon.Q_flow - radiator.heatPortRad.Q_flow;
 
   connect(volumeFlow1.flowPort_b, boiler.flowPort_a)        annotation (Line(
       points={{-16,-6},{12,-6}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(boiler.flowPort_b, radiator.flowPort_a)             annotation (Line(
-      points={{32,-6},{52,-6}},
+      points={{32,-6},{42,-6},{42,-12.25},{52,-12.25}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(radiator.flowPort_b, volumeFlow1.flowPort_a)      annotation (Line(
-      points={{72,-6},{82,-6},{82,-62},{-76,-62},{-76,-6},{-36,-6}},
+      points={{72,0.25},{82,0.25},{82,-62},{-76,-62},{-76,-6},{-36,-6}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, radiator.flowPort_a)      annotation (Line(
-      points={{50,-42},{50,-30},{48,-30},{48,-6},{52,-6}},
+      points={{50,-42},{50,-30},{48,-30},{48,-12.25},{52,-12.25}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(prescribedTemperature.port, radiator.heatPortConv) annotation (Line(
-      points={{52,34},{59,34},{59,4}},
-      color={191,0,0},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(prescribedTemperature.port, radiator.heatPortRad) annotation (Line(
-      points={{52,34},{67,34},{67,4}},
+      points={{52,34},{67.8333,34},{67.8333,4}},
       color={191,0,0},
-      thickness=0.5,
       smooth=Smooth.None));
   connect(boilerHeatFlow.port, boiler.heatPort) annotation (Line(
       points={{8,-40},{14,-40},{14,-38},{22,-38},{22,-16}},
       color={191,0,0},
-      thickness=0.5,
       smooth=Smooth.None));
   connect(step.y, boilerHeatFlow.Q_flow) annotation (Line(
       points={{-41,-40},{-12,-40}},
@@ -96,5 +88,17 @@ der(QRadiator) = -radiator.heatPortConv.Q_flow - radiator.heatPortRad.Q_flow;
       points={{-35,40},{-26,40},{-26,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  connect(prescribedTemperature.port, radiator.heatPortCon) annotation (Line(
+      points={{52,34},{64.5,34},{64.5,4}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
+    experiment(StopTime=100000),
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
+<p>This model checks the energy balance of the radiator for flow and no-flow situations.</p>
+<p>Plot the QBoiler and QRadiator variables over 100k seconds to make sure that in-out energy balance of the radiator is fine. </p>
+</html>"));
 end Radiator_EnergyBalance;
