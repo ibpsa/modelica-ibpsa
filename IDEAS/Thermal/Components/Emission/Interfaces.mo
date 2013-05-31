@@ -162,9 +162,9 @@ extends Modelica.Icons.InterfacesPackage;
     annotation (Diagram(graphics), Documentation(info="<html>
 <p>This partial model mainly specifies the interfaces of a TABS:</p>
 <p>- two flowPorts, for the fluid connections (in and out)</p>
-<p>- two heatPorts, for heat transfer to the upper and lower side.  By not connecting a heatPort, no heat transfer through that port wil occur (=perfectly insulated).</p>
+<p>- two heatPorts, for heat transfer to the upper and lower side. By not connecting a heatPort, no heat transfer through that port wil occur (=perfectly insulated).</p>
 <p>Furthermore, it specifies a Floor area and the floor characteristics.</p>
-<p>Actually, the embedded pipe components are often used together with a building component, and in that case this TABS model is not needed: the embedded heatPort of the EmbeddedPipe is connected to the corresponding layer in the building model. </p>
+<p>It takes two models to create a full TABS: an embedded pipe and a naked tabs.  Actually, the embedded pipe components are often used together with a building component, and in that case the naked tabs model and this partial model are not needed: the embedded heatPort of the EmbeddedPipe is connected to the corresponding layer in the building model. </p>
 </html>"));
 
   end Partial_Tabs;

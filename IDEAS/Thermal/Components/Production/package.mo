@@ -56,13 +56,4 @@ package Production "Models for heat/cold production devices"
   end HP_BW;
 */
 
-
-
-
-
-
-
-
-
-
 end Production;
