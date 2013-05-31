@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.Emission;
-model NakedTabs "HeatPort only very simple tabs system"
+model NakedTabs "HeatPort-only tabs system, without embedded pipe"
 
   replaceable parameter IDEAS.Thermal.Components.BaseClasses.FH_Characteristics
                                                                        FHChars     annotation (choicesAllMatching = true);

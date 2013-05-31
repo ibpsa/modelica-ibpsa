@@ -22,7 +22,7 @@ extends Modelica.Icons.Example;
                       radiator(
     medium=Data.Media.Water(),
                           QNom=3000) "Hydraulic radiator model"
-               annotation (Placement(transformation(extent={{52,-16},{72,4}})));
+               annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   inner IDEAS.SimInfoManager         sim(redeclare
       IDEAS.Climate.Meteo.Files.min15
       detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
@@ -44,15 +44,15 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(boiler.flowPort_b, radiator.flowPort_a)             annotation (Line(
-      points={{-6,-6},{23,-6},{23,-12.25},{52,-12.25}},
+      points={{-6,-6},{23,-6},{23,-6.25},{50,-6.25}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(radiator.flowPort_b, volumeFlow1.flowPort_a)      annotation (Line(
-      points={{72,0.25},{82,0.25},{82,-62},{-76,-62},{-76,-6},{-58,-6}},
+      points={{70,6.25},{82,6.25},{82,-62},{-76,-62},{-76,-6},{-58,-6}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, radiator.flowPort_a)      annotation (Line(
-      points={{50,-42},{50,-30},{48,-30},{48,-12.25},{52,-12.25}},
+      points={{50,-42},{50,-30},{48,-30},{48,-6.25},{50,-6.25}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(step.y, prescribedTemperature.T) annotation (Line(
@@ -66,7 +66,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(prescribedTemperature.port, radiator.heatPortRad) annotation (Line(
-      points={{52,34},{67.8333,34},{67.8333,4}},
+      points={{52,34},{65.8333,34},{65.8333,10}},
       color={191,0,0},
       thickness=0.5,
       smooth=Smooth.None));

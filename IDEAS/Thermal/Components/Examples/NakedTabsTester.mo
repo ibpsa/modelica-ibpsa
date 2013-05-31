@@ -3,10 +3,10 @@ model NakedTabsTester "Testing discretisation of the naked tabs"
 
 extends Modelica.Icons.Example;
 
-  IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabs
+  IDEAS.Thermal.Components.Emission.NakedTabs
                                     nakedTabs2(n1=2, n2=2)
     annotation (Placement(transformation(extent={{24,50},{44,70}})));
-  IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabs
+  IDEAS.Thermal.Components.Emission.NakedTabs
                                     nakedTabs50(n1=50, n2=50)
     annotation (Placement(transformation(extent={{24,4},{44,24}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature

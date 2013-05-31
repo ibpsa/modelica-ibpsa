@@ -1,10 +1,9 @@
 within IDEAS.Thermal.Components.Examples;
-model RadiatorCoolingDown
+model Radiator_CoolingDown "Test the cooling down of radiators"
 
 extends Modelica.Icons.Example;
 
-  IDEAS.Thermal.Components.Emission.Radiator_Old
-                          radiator_new(
+  Emission.Radiator       radiator_new(
     medium=Data.Media.Water(),
     QNom=1000,
     TInitial=333.15)
@@ -59,12 +58,8 @@ equation
   pump.m_flowSet = if time > 1 then 0 else 1;
   pump1.m_flowSet = if time > 1 then 0 else 1;
   pump2.m_flowSet = if time > 1 then 0 else 1;
-  connect(fixedTemperature.port, radiator_new.heatPortConv) annotation (Line(
-      points={{-34,30},{-57,30},{-57,56}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(fixedTemperature.port, radiator_new.heatPortRad) annotation (Line(
-      points={{-34,30},{-49,30},{-49,56}},
+      points={{-34,30},{-48.1667,30},{-48.1667,56}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, radiator_new1.heatPortConv) annotation (Line(
@@ -76,7 +71,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(ambient.flowPort, radiator_new.flowPort_a) annotation (Line(
-      points={{-90,26},{-96,26},{-96,66},{-64,66}},
+      points={{-90,26},{-96,26},{-96,72.25},{-64,72.25}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(ambient.flowPort, radiator_new1.flowPort_a) annotation (Line(
@@ -88,7 +83,7 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(radiator_new.flowPort_b, pump.flowPort_a) annotation (Line(
-      points={{-44,66},{-20,66}},
+      points={{-44,59.75},{-32,59.75},{-32,66},{-20,66}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump.flowPort_b, ambient1.flowPort) annotation (Line(
@@ -119,5 +114,10 @@ equation
       points={{-90,26},{-96,26},{-96,-40},{-60,-40}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
-end RadiatorCoolingDown;
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics={Line(
+          points={{-51.5,56},{-52,56},{-52,30},{-52,30}},
+          color={191,0,0},
+          smooth=Smooth.None)}));
+end Radiator_CoolingDown;

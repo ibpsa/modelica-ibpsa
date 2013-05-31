@@ -16,7 +16,7 @@ extends Modelica.Icons.Example;
     TInitial=303.15,
     m_flowNom=15*24/3600)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  IDEAS.Thermal.Components.Emission.BaseClasses.Tabs
+  IDEAS.Thermal.Components.Emission.Tabs
                   tabs(
     medium=medium,
     S_1=0.1,

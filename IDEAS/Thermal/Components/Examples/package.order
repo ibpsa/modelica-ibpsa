@@ -8,6 +8,8 @@ Boiler_validation
 ModulatingHeatPump_AirWater
 HeatPump_BrineWater_DummyBorehole
 SolarThermalCollector
+Radiator_CoolingDown
+Radiator_EnergyBalance
 HPTester
 Heater
 RadTester
@@ -16,8 +18,6 @@ StorageTank
 StorageTank_InternalHX
 DHWTester
 DHWTester_badmixing
-RadiatorCoolingDown
-RadTester_EnergyBalance
 FloorHeatingTester
 FloorHeatingValidation
 FloorHeatingValidation2

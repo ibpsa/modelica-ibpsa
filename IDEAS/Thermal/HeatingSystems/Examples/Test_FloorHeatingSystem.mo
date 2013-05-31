@@ -42,7 +42,7 @@ parameter Integer nZones = 1 "Number of zones";
     each offset=289,
     startTime={3600*7,3600*9})
     annotation (Placement(transformation(extent={{-4,-86},{16,-66}})));
-  IDEAS.Thermal.Components.Emission.BaseClasses.NakedTabs[
+  IDEAS.Thermal.Components.Emission.NakedTabs[
                                         nZones] nakedTabs(
     each n1=3,
     each n2=3,

@@ -11,7 +11,8 @@ extends Modelica.Icons.InterfacesPackage;
                            emissionType = EmissionType.RadiatorsAndFloorHeating
       "Type of the heat emission system";
 
-    parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
+    parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
+      "Medium in the emission system";
 
   // Interfaces ////////////////////////////////////////////////////////////////////////////////////////
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon if

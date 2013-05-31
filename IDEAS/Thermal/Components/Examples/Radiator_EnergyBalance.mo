@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.Examples;
-model RadTester_EnergyBalance "Test for energy balance of the radiator model"
+model Radiator_EnergyBalance "Test for energy balance of the radiator model"
 
 extends Modelica.Icons.Example;
 
@@ -97,4 +97,4 @@ der(QRadiator) = -radiator.heatPortConv.Q_flow - radiator.heatPortRad.Q_flow;
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end RadTester_EnergyBalance;
+end Radiator_EnergyBalance;
