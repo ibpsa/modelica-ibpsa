@@ -44,7 +44,7 @@ equation
   temperatureMixing.TMixedSet=273.15+35;
   connect(storageTank.flowPort_a, temperatureMixing.flowPortHot) annotation (
       Line(
-      points={{-70,4.30769},{-70,4.30769},{-70,26},{2,26}},
+      points={{-70,4.30769},{-70,26},{2,26}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(ambient.flowPort, storageTank.flowPort_b) annotation (Line(

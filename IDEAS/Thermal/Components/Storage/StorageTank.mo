@@ -1,10 +1,10 @@
 within IDEAS.Thermal.Components.Storage;
-model StorageTank "Simplified stratified storage tank"
+model StorageTank "1D multinode stratified storage tank"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
     "Medium in the tank";
   //Tank geometry and composition
-  parameter Integer nbrNodes(min=1) = 5 "Number of nodes";
+  parameter Integer nbrNodes(min=1) = 10 "Number of nodes";
   parameter Modelica.SIunits.Volume volumeTank(min=0)
     "Total volume of the tank";
   parameter Modelica.SIunits.Length heightTank(min=0)

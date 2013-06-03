@@ -1,6 +1,7 @@
 within IDEAS.Thermal.Components.Storage.Examples;
 model Validation_Vitocell100V390l_TapQuantity
   "Check the tap quantity for a hot tank"
+  import IDEAS;
 
   SI.Temperature TOut5Nodes=storageTank.nodes[1].T;
   SI.Temperature TOut10Nodes=storageTank1.nodes[1].T;
@@ -18,7 +19,6 @@ model Validation_Vitocell100V390l_TapQuantity
     preventNaturalDestratification=true,
     volumeTank=0.39,
     heightTank=1.4,
-    lamBuo=1000,
     TInitial={273.15 + 55 for i in 1:storageTank.nbrNodes},
     nbrNodes=5)
     annotation (Placement(transformation(extent={{-58,14},{-38,34}})));
@@ -30,10 +30,12 @@ model Validation_Vitocell100V390l_TapQuantity
         Data.Media.Water(), p=200000)
     annotation (Placement(transformation(extent={{-78,70},{-58,92}})));
 
-  BaseClasses.Ambient ambient(medium=IDEAS.Thermal.Data.Media.Water(),constantAmbientPressure=300000,
+  IDEAS.Thermal.Components.BaseClasses.Ambient
+                      ambient(medium=IDEAS.Thermal.Data.Media.Water(),constantAmbientPressure=300000,
       constantAmbientTemperature=283.15)
     annotation (Placement(transformation(extent={{36,-96},{56,-76}})));
-  BaseClasses.Pump pump(
+  IDEAS.Thermal.Components.BaseClasses.Pump
+                   pump(
     medium=IDEAS.Thermal.Data.Media.Water(),
     m=0,
     TInitial=283.15,
@@ -42,7 +44,8 @@ model Validation_Vitocell100V390l_TapQuantity
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-48,-50})));
-  BaseClasses.Ambient ambient1(
+  IDEAS.Thermal.Components.BaseClasses.Ambient
+                      ambient1(
                               medium=IDEAS.Thermal.Data.Media.Water(),constantAmbientPressure=300000,
       constantAmbientTemperature=283.15)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -56,7 +59,6 @@ model Validation_Vitocell100V390l_TapQuantity
     preventNaturalDestratification=true,
     volumeTank=0.39,
     heightTank=1.4,
-    lamBuo=1000,
     TInitial={273.15 + 55 for i in 1:storageTank1.nbrNodes},
     nbrNodes=10)
     annotation (Placement(transformation(extent={{-24,14},{-4,34}})));
@@ -68,7 +70,6 @@ model Validation_Vitocell100V390l_TapQuantity
     preventNaturalDestratification=true,
     volumeTank=0.39,
     heightTank=1.4,
-    lamBuo=1000,
     TInitial={273.15 + 55 for i in 1:storageTank2.nbrNodes},
     nbrNodes=20)
     annotation (Placement(transformation(extent={{12,14},{32,34}})));
@@ -80,7 +81,6 @@ model Validation_Vitocell100V390l_TapQuantity
     preventNaturalDestratification=true,
     volumeTank=0.39,
     heightTank=1.4,
-    lamBuo=1000,
     TInitial={273.15 + 55 for i in 1:storageTank3.nbrNodes},
     nbrNodes=40)
     annotation (Placement(transformation(extent={{46,14},{66,34}})));
@@ -92,11 +92,10 @@ model Validation_Vitocell100V390l_TapQuantity
     preventNaturalDestratification=true,
     volumeTank=0.39,
     heightTank=1.4,
-    lamBuo=1000,
     TInitial={273.15 + 55 for i in 1:storageTank4.nbrNodes},
     nbrNodes=80)
     annotation (Placement(transformation(extent={{76,14},{96,34}})));
-  BaseClasses.Pump pump1(
+  IDEAS.Thermal.Components.BaseClasses.Pump pump1(
     medium=IDEAS.Thermal.Data.Media.Water(),
     m=0,
     TInitial=283.15,
@@ -105,7 +104,7 @@ model Validation_Vitocell100V390l_TapQuantity
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={58,-50})));
-  BaseClasses.Pump pump2(
+  IDEAS.Thermal.Components.BaseClasses.Pump pump2(
     medium=IDEAS.Thermal.Data.Media.Water(),
     m=0,
     TInitial=283.15,
@@ -114,7 +113,7 @@ model Validation_Vitocell100V390l_TapQuantity
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={22,-50})));
-  BaseClasses.Pump pump3(
+  IDEAS.Thermal.Components.BaseClasses.Pump pump3(
     medium=IDEAS.Thermal.Data.Media.Water(),
     m=0,
     TInitial=283.15,
@@ -123,7 +122,7 @@ model Validation_Vitocell100V390l_TapQuantity
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-14,-50})));
-  BaseClasses.Pump pump4(
+  IDEAS.Thermal.Components.BaseClasses.Pump pump4(
     medium=IDEAS.Thermal.Data.Media.Water(),
     m=0,
     TInitial=283.15,
@@ -196,11 +195,13 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank3.heatExchEnv) annotation (Line(
-      points={{116,-12},{96,-12},{96,-10},{68,-10},{68,23.2308},{62.6667,23.2308}},
+      points={{116,-12},{96,-12},{96,-10},{68,-10},{68,23.2308},{62.6667,
+          23.2308}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank4.heatExchEnv) annotation (Line(
-      points={{116,-12},{112,-12},{112,-10},{98,-10},{98,23.2308},{92.6667,23.2308}},
+      points={{116,-12},{112,-12},{112,-10},{98,-10},{98,23.2308},{92.6667,
+          23.2308}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank1.flowPortHXUpper) annotation (

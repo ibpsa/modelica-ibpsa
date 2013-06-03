@@ -63,11 +63,11 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(boiler.flowPort_b, tank.flowPortHXUpper) annotation (Line(
-      points={{16,4},{50,4},{50,-15.9},{59.9,-15.9}},
+      points={{16,4},{50,4},{50,-21.8462},{60,-21.8462}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(tank.flowPortHXLower, volumeFlow1.flowPort_a) annotation (Line(
-      points={{59.9,-23.9},{50,-23.9},{50,-86},{-96,-86},{-96,-6},{-88,-6}},
+      points={{60,-24.9231},{50,-24.9231},{50,-86},{-96,-86},{-96,-6},{-88,-6}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure1.flowPort, volumeFlow1.flowPort_a) annotation (Line(
@@ -75,7 +75,7 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure2.flowPort, tank.flowPort_b) annotation (Line(
-      points={{80,-61},{74,-61},{74,-60},{69.9,-60},{69.9,-27.9}},
+      points={{80,-61},{74,-61},{74,-60},{80,-60},{80,-26.4615}},
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),

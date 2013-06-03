@@ -45,7 +45,7 @@ extends Modelica.Icons.Example;
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-10,-32})));
+        origin={-20,-28})));
   Thermal.Components.BaseClasses.Pump volumeFlow2(
     medium=Data.Media.Water(),
     m=4,
@@ -97,7 +97,7 @@ prescribedHeatFlow.Q_flow=3000 * booleanToReal.y;
       thickness=0.5,
       smooth=Smooth.None));
   connect(boiler.flowPort_b, tank.flowPort_a) annotation (Line(
-      points={{-34,-6},{0,-6},{0,-23.5385}},
+      points={{-34,-6},{-10,-6},{-10,-19.5385}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(radiator.flowPort_b, volumeFlow2.flowPort_a) annotation (Line(
@@ -113,15 +113,15 @@ prescribedHeatFlow.Q_flow=3000 * booleanToReal.y;
       color={0,0,127},
       smooth=Smooth.None));
   connect(volumeFlow2.flowPort_b, tank.flowPort_b) annotation (Line(
-      points={{40,-74},{0,-74},{0,-40.4615}},
+      points={{40,-74},{-10,-74},{-10,-36.4615}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(tank.flowPort_b, volumeFlow1.flowPort_a) annotation (Line(
-      points={{0,-40.4615},{0,-74},{-96,-74},{-96,-6},{-88,-6}},
+      points={{-10,-36.4615},{-10,-74},{-96,-74},{-96,-6},{-88,-6}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port,tank.heatExchEnv)  annotation (Line(
-      points={{16,-54},{20,-54},{20,-32.7692},{-3.33333,-32.7692}},
+      points={{16,-54},{20,-54},{20,-28.7692},{-13.3333,-28.7692}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pulse1.y, volumeFlow2.m_flowSet) annotation (Line(
@@ -132,5 +132,7 @@ prescribedHeatFlow.Q_flow=3000 * booleanToReal.y;
       points={{64.5,4},{64.5,34},{52,34},{52,34}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics),
+    experiment(StopTime=86400),
+    __Dymola_experimentSetupOutput);
 end StorageTank;

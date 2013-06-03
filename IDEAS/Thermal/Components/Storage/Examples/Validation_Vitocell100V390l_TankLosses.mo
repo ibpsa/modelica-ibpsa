@@ -14,7 +14,6 @@ model Validation_Vitocell100V390l_TankLosses
     preventNaturalDestratification=true,
     volumeTank=0.39,
     heightTank=1.4,
-    lamBuo=1000,
     nbrNodes=40)
     annotation (Placement(transformation(extent={{-26,6},{-10,28}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
@@ -43,7 +42,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank.flowPort_a) annotation (Line(
-      points={{-74,55},{-80,55},{-80,54},{-84,54},{-84,24},{-10,24},{-10,26.3077}},
+      points={{-74,55},{-80,55},{-80,54},{-84,54},{-84,24},{-10,24},{-10,
+          26.3077}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank.flowPortHXUpper) annotation (
@@ -56,5 +56,9 @@ equation
       StopTime=86400,
       Interval=600,
       Algorithm="Lsodar"),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
+<p>This validation model checks the 24h thermal losses of a storage tank at 60&deg;C.</p>
+<p>These losses should amount to 2.78 kWh over 24h. The current model results in 2.78916 kWh/24h.</p>
+</html>"));
 end Validation_Vitocell100V390l_TankLosses;
