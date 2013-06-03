@@ -17,6 +17,8 @@ FloorHeatingValidation
 FloorHeatingValidation2
 FloorHeatingTester
 FloorHeatingComparisonDiscrete
+StorageTank_Losses
+StorageTank_StratifiedInlet
 HPTester
 Heater
 RadTester
@@ -25,7 +27,5 @@ StorageTank
 StorageTank_InternalHX
 DHWTester
 DHWTester_badmixing
-TestStratifier
 HPBW_Tester
-TankLosses
 StorageTank_InternalHX_Validation

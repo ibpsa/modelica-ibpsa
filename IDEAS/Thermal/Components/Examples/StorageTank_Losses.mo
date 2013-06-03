@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components.Examples;
-model TankLosses "Check the total tank losses to environment"
+model StorageTank_Losses "Check the total tank losses to environment"
 
 extends Modelica.Icons.Example;
 
@@ -8,7 +8,7 @@ extends Modelica.Icons.Example;
     TInitial={273.15 + 60 for i in 1:storageTank.nbrNodes},
     volumeTank=0.3,
     heightTank=1.6,
-    U=0.4,
+    UIns=0.4,
     preventNaturalDestratification=true)
     annotation (Placement(transformation(extent={{-26,6},{-6,26}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
@@ -41,4 +41,4 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end TankLosses;
+end StorageTank_Losses;

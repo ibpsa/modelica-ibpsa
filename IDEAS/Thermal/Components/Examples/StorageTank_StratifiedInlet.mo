@@ -1,5 +1,6 @@
 within IDEAS.Thermal.Components.Examples;
-model TestStratifier
+model StorageTank_StratifiedInlet
+  "Example of a perfectly stratified inlet in a storage tank"
 
 extends Modelica.Icons.Example;
 
@@ -69,4 +70,4 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end TestStratifier;
+end StorageTank_StratifiedInlet;

@@ -143,12 +143,11 @@ package BaseClasses
 <p><h4>Validation </h4></p>
 <p>See extensions of this model</p>
 </html>",   revisions="<html>
-<ul>
-<li>
-October 28, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
+<p><ul>
+<li>2013 June, Roel De Coninck: documentation.</li>
+<li>2012 October, Roel De Coninck, modifications</li>
+<li>2008, Michael Wetter, first implementation.</li>
+</ul></p>
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
           graphics={
@@ -231,12 +230,11 @@ First implementation.
 <p>This model is not validated, and is merely as an example of how a buoyancy model can be created starting from the <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.Partial_Buoyancy\">Partial_Buoyancy</a> model.</p>
 <p>The only validated buoyancy model is <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.Buoyancy_powexp\">Buoyancy_powexp</a>.</p>
 </html>",   revisions="<html>
-<ul>
-<li>
-October 28, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
+<p><ul>
+<li>2013 June, Roel De Coninck: documentation.</li>
+<li>2012 October, Roel De Coninck, modifications</li>
+<li>2008, Michael Wetter, first implementation.</li>
+</ul></p>
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
           graphics={
@@ -278,7 +276,6 @@ First implementation.
               100,100}}),
               graphics));
   end Buoyancy_eqcon;
-
 
   model Buoyancy_powexp
     "Buoyancy power depends on a power of the number of nodes "
@@ -328,17 +325,17 @@ First implementation.
 <p>For different manufacturer data, different parameter values can be found, so use these values with care. </p>
 <p><img src=\"modelica://IDEAS/../Specifications/Thermal/images/Validation_Vitocell100V390l_powBuo_nbrNodespower1.5.png\"/></p>
 <p><h4>Examples</h4></p>
+<p>See the documentation of the <a href=\"modelica://IDEAS.Thermal.Components.Storage.StorageTank\">StorageTank</a> and <a href=\"modelica://IDEAS.Thermal.Components.Storage.StorageTank_OneIntHX\">StorageTank_ONeINtHX</a>.  </p>
 <p>Different example models use a storage tank. A basic setup with a thermostatic valve and only discharging can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageWithThermostaticMixing\"> IDEAS.Thermal.Components.Examples.StorageWithThermostaticMixing</a>. </p>
 <p><h4>References</h4></p>
 <p>De Coninck et al. (2013) - De Coninck, R., Baetens, R., Saelens, D., Woyte, A., &AMP; Helsen, L. (2013). Rule-based demand side management of domestic hot water production with heat pumps in zero energy neighbourhoods. Journal of Building Performance Simulation (accepted). </p>
-<p>Viessmann. 2011. Vitocell- 100-V, 390 liter, Datenblatt. Accessed April 21, 2013.  <a href=\"http://tinyurl.com/cdpv8rr\">http://tinyurl.com/cdpv8rr</a>.</p>
+<p>Viessmann. 2011. Vitocell- 100-V, 390 liter, Datenblatt. Accessed April 21, 2013. <a href=\"http://tinyurl.com/cdpv8rr\">http://tinyurl.com/cdpv8rr</a>.</p>
 </html>",   revisions="<html>
-<ul>
-<li>
-October 28, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
+<p><ul>
+<li>2013 June, Roel De Coninck: documentation.</li>
+<li>2012 October, Roel De Coninck: new buoyancy model. </li>
+<li>2008, Michael Wetter, first implementation.</li>
+</ul></p>
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
           graphics={
