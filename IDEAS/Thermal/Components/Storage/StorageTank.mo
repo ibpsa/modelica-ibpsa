@@ -236,5 +236,12 @@ equation
 <p><h4>References</h4></p>
 <p>De Coninck et al. (2013) - De Coninck, R., Baetens, R., Saelens, D., Woyte, A., &AMP; Helsen, L. (2013). Rule-based demand side management of domestic hot water production with heat pumps in zero energy neighbourhoods. Journal of Building Performance Simulation (accepted). </p>
 <p>Viessmann. 2011. Vitocell- 100-V, 390 liter, Datenblatt. Accessed April 21, 2013. <a href=\"http://tinyurl.com/cdpv8rr\">http://tinyurl.com/cdpv8rr</a>.</p>
+</html>", revisions="<html>
+<p><ul>
+<li>2013 June, Roel De Coninck: documentation.</li>
+<li>2012 October, Roel De Coninck: better buoyancy models</li>
+<li>2012 September, Roel De Coninck: added conduction between nodes</li>
+<li>2011, Roel De Coninck: first implementation.</li>
+</ul></p>
 </html>"));
 end StorageTank;

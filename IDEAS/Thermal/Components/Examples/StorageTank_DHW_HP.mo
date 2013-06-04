@@ -14,7 +14,7 @@ extends Modelica.Icons.Example;
     medium=medium)
     annotation (Placement(transformation(extent={{-30,-64},{42,10}})));
 
-  DHW.DHW_RealInput                               dHW(
+  Domestic_Hot_Water.DHW_RealInput                dHW(
     medium=medium,
     TDHWSet=273.15 + 45)
     annotation (Placement(transformation(extent={{62,6},{82,26}})));

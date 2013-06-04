@@ -1,5 +1,5 @@
 within IDEAS.Thermal.Components;
-package Distribution
+package Distribution "Not verified, not validated"
 
   extends Modelica.Icons.Package;
 
