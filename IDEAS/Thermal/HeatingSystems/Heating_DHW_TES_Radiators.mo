@@ -68,12 +68,14 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     dTSupRetNom=dTSupRetNom)
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-158,
             -18},{-138,2}})));
-  replaceable IDEAS.Thermal.Components.DHW.DHW_ProfileReader  dHW(
+  replaceable IDEAS.Thermal.Components.Domestic_Hot_Water.DHW_ProfileReader
+                                                              dHW(
     medium=medium,
     TDHWSet=TDHWSet,
     TCold=TDHWCold,
     VDayAvg=nOcc*0.045,
-    profileType=3)  constrainedby IDEAS.Thermal.Components.DHW.partial_DHW(
+    profileType=3)  constrainedby
+    IDEAS.Thermal.Components.Domestic_Hot_Water.partial_DHW(
       medium=medium,
       TDHWSet=TDHWSet,
       TCold=TDHWCold)
