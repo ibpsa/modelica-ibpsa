@@ -2,6 +2,8 @@ within IDEAS.Thermal.Components.Storage.Examples;
 model Validation_Vitocell100V390l_TankLosses
   "Check the total tank losses to environment"
 
+extends Modelica.Icons.Example;
+
   parameter Modelica.SIunits.ThermalConductance UACon(min=0)=1.61
     "Additional thermal conductance for connection losses and imperfect insulation";
 
@@ -42,8 +44,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank.flowPort_a) annotation (Line(
-      points={{-74,55},{-80,55},{-80,54},{-84,54},{-84,24},{-10,24},{-10,
-          26.3077}},
+      points={{-74,55},{-80,55},{-80,54},{-84,54},{-84,24},{-10,24},{-10,26.3077}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank.flowPortHXUpper) annotation (

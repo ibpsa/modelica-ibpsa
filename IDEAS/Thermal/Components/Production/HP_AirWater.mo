@@ -228,7 +228,7 @@ equation
 <p><h4>Validation </h4></p>
 <p>The model has been verified in order to check if the &apos;arrtificial&apos; heat loss compensation still leads to correct steady state efficiencies according to the manufacturer data. This verification is integrated in the example model <a href=\"modelica://IDEAS.Thermal.Components.Examples.Boiler_validation\">IDEAS.Thermal.Components.Examples.Boiler_validation</a>.</p>
 <p><h4>Example</h4></p>
-<p>A specific heat pump example is given in <a href=\"modelica://IDEAS.Thermal.Components.Examples.ModulatingHeatPump_AirW\">IDEAS.Thermal.Components.Examples.ModulatingHeatPump_AirWater</a>.</p>
+<p>A specific heat pump example is given in <a href=\"modelica://IDEAS.Thermal.Components.Examples.HeatPump_AirWater\">IDEAS.Thermal.Components.Examples.HeatPump_AirWater</a>.</p>
 </html>", revisions="<html>
 <p><ul>
 <li>2013 May, Roel De Coninck: propagation of heatSource parameters and better definition of QNom used.  Documentation and example added</li>

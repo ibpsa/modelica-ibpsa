@@ -1,7 +1,9 @@
 within IDEAS.Thermal.Components.Storage.Examples;
 model Validation_Vitocell100V390l_TapQuantity
-  "Check the tap quantity for a hot tank"
+  "Check the tap quantity for a hot tank as function of number of nodes"
   import IDEAS;
+
+extends Modelica.Icons.Example;
 
   SI.Temperature TOut5Nodes=storageTank.nodes[1].T;
   SI.Temperature TOut10Nodes=storageTank1.nodes[1].T;
@@ -195,13 +197,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank3.heatExchEnv) annotation (Line(
-      points={{116,-12},{96,-12},{96,-10},{68,-10},{68,23.2308},{62.6667,
-          23.2308}},
+      points={{116,-12},{96,-12},{96,-10},{68,-10},{68,23.2308},{62.6667,23.2308}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank4.heatExchEnv) annotation (Line(
-      points={{116,-12},{112,-12},{112,-10},{98,-10},{98,23.2308},{92.6667,
-          23.2308}},
+      points={{116,-12},{112,-12},{112,-10},{98,-10},{98,23.2308},{92.6667,23.2308}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank1.flowPortHXUpper) annotation (

@@ -5,7 +5,7 @@ StorageWithThermostaticMixing
 RadiatorWithMixingValve
 IdealHeater
 Boiler_validation
-ModulatingHeatPump_AirWater
+HeatPump_AirWater
 HeatPump_BrineWater_DummyBorehole
 SolarThermalCollector
 Radiator_CoolingDown
@@ -19,13 +19,4 @@ FloorHeatingTester
 FloorHeatingComparisonDiscrete
 StorageTank_Losses
 StorageTank_StratifiedInlet
-HPTester
-Heater
-RadTester
-HeatingSystem
-StorageTank
-StorageTank_InternalHX
-DHWTester
-DHWTester_badmixing
-HPBW_Tester
-StorageTank_InternalHX_Validation
+StorageTank_DHW_HP

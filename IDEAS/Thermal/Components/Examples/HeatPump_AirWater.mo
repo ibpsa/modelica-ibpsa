@@ -1,5 +1,6 @@
 within IDEAS.Thermal.Components.Examples;
-model Heater "General example and tester for a heater"
+model HeatPump_AirWater
+  "General example and tester for a modulating air-to-water heat pump"
 
 extends Modelica.Icons.Example;
 
@@ -9,8 +10,8 @@ extends Modelica.Icons.Example;
   Thermal.Components.BaseClasses.Pump pump(
     medium=Data.Media.Water(),
     m=1,
-    m_flowNom=1300/3600,
-    useInput=true)
+    useInput=false,
+    m_flowNom=0.2)
     annotation (Placement(transformation(extent={{-14,-24},{-34,-4}})));
   IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort pipe(
     medium=Data.Media.Water(),
@@ -19,10 +20,10 @@ extends Modelica.Icons.Example;
   Production.HP_AirWater
                     heater(
     medium=Data.Media.Water(),
-    QNom=5000,
     tauHeatLoss=3600,
-    mWater=10,
-    cDry=10000)
+    cDry=10000,
+    mWater=4,
+    QNom=12000)
                annotation (Placement(transformation(extent={{-76,14},{-56,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-94,-20},{-80,-6}})));
@@ -30,10 +31,6 @@ extends Modelica.Icons.Example;
               redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
       IDEAS.Climate.Meteo.Files.min5 detail)
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
-  Modelica.Blocks.Sources.TimeTable
-                                pulse(offset=0, table=[0,0; 5000,100; 10000,400;
-        15000,700; 20000,1000; 25000,1300; 50000,1300])
-    annotation (Placement(transformation(extent={{-50,72},{-30,92}})));
 //  Real PElLossesInt( start = 0, fixed = true);
 //  Real PElNoLossesInt( start = 0, fixed = true);
 //  Real QUsefulLossesInt( start = 0, fixed = true);
@@ -44,14 +41,13 @@ extends Modelica.Icons.Example;
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TReturn
     annotation (Placement(transformation(extent={{-40,-62},{-20,-42}})));
   Modelica.Blocks.Sources.Sine sine(
-    amplitude=30,
     freqHz=1/5000,
-    offset=273.15+50,
-    startTime=20000)
+    startTime=5000,
+    amplitude=4,
+    offset=273.15 + 30)
     annotation (Placement(transformation(extent={{-82,-62},{-62,-42}})));
 equation
-   heater.TSet=273.15+42;
-   pump.m_flowSet = pulse.y / 1300;
+   heater.TSet=273.15+35;
 //   der(PElLossesInt) = HP.PEl;
 //   der(PElNoLossesInt) = HP_NoLosses.PEl;
 //   der(QUsefulLossesInt) =thermalConductor.port_b.Q_flow;
@@ -91,9 +87,13 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),
                       graphics),
-    experiment(StopTime=40000),
+    experiment(StopTime=15000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
-    Commands(file="Scripts/Tester_Boiler.mos" "TestModel"));
-end Heater;
+    Commands(file="Scripts/Tester_Boiler.mos" "TestModel"),
+    Documentation(info="<html>
+<p>This example shows the modulation behaviour of an inverter controlled air-to-water heat pump when the inlet water temperature is changed. </p>
+<p>The modulation level can be seen from heater.heatSource.modulation.</p>
+</html>"));
+end HeatPump_AirWater;

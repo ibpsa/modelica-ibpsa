@@ -6,8 +6,9 @@ model Validation_Vitocell100V390l_Charging_b
   This model is used in an automatic optimization to determine the buoyancy model parameters across different number of nodes.
   See the IDEAS manual for more on the validation of the storage tank model
   */
+extends Modelica.Icons.Example;
 
- parameter SI.ThermalConductance powBuo=80 annotation(Evaluate=false);
+ parameter SI.ThermalConductance powBuo=24 annotation(Evaluate=false);
 
   Thermal.Components.BaseClasses.Pump volumeFlow1(
     medium=Data.Media.Water(),

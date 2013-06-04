@@ -10,13 +10,13 @@ extends Modelica.Icons.Example;
     heightTank=1.6,
     UIns=0.4,
     preventNaturalDestratification=true)
-    annotation (Placement(transformation(extent={{-26,6},{-6,26}})));
+    annotation (Placement(transformation(extent={{-58,-36},{-10,32}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
-    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
+    annotation (Placement(transformation(extent={{6,48},{26,68}})));
   Modelica.Blocks.Continuous.Integrator integrator
-    annotation (Placement(transformation(extent={{32,-30},{52,-10}})));
+    annotation (Placement(transformation(extent={{54,-62},{74,-42}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
-    annotation (Placement(transformation(extent={{10,6},{30,26}})));
+    annotation (Placement(transformation(extent={{10,-12},{30,8}})));
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         Data.Media.Water(), p=200000)
     annotation (Placement(transformation(extent={{-74,44},{-54,66}})));
@@ -25,20 +25,22 @@ extends Modelica.Icons.Example;
 
 equation
   connect(storageTank.heatExchEnv, heatFlowSensor.port_a) annotation (Line(
-      points={{-9.33333,15.2308},{0.333333,15.2308},{0.333333,16},{10,16}},
+      points={{-18,-4.61538},{0.333333,-4.61538},{0.333333,-2},{10,-2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatFlowSensor.port_b, fixedTemperature.port) annotation (Line(
-      points={{30,16},{38,16},{38,60},{-10,60}},
+      points={{30,-2},{38,-2},{38,58},{26,58}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatFlowSensor.Q_flow, integrator.u) annotation (Line(
-      points={{20,6},{20,-20},{30,-20}},
+      points={{20,-12},{20,-52},{52,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank.flowPort_a) annotation (Line(
-      points={{-74,55},{-80,55},{-80,54},{-84,54},{-84,24},{-6,24},{-6,24.4615}},
+      points={{-74,55},{-78,55},{-78,42},{-10,42},{-10,26.7692}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics),
+    experiment(StopTime=86400),
+    __Dymola_experimentSetupOutput);
 end StorageTank_Losses;

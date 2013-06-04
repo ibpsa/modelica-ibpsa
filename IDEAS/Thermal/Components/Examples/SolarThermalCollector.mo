@@ -57,7 +57,7 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(pump.flowPort_b, storageTank.flowPorts[3]) annotation (Line(
-      points={{10,-18},{34,-18},{34,-52.6923},{54,-52.6923}},
+      points={{10,-18},{34,-18},{34,-52.8671},{54,-52.8671}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(storageTank.flowPort_b, heatedPipe1.flowPort_a) annotation (Line(
