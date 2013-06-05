@@ -49,7 +49,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
         rotation=-90,
         origin={-52,100})));
 
-  replaceable Thermal.Control.HPControl_HeatingCurve HPControl(
+  replaceable Control.Ctrl_Heating_TES               HPControl(
     heatingCurve(timeFilter=timeFilter),
     TTankTop=tesTank.nodes[1].T,
     TTankBot=tesTank.nodes[posTBot].T,
@@ -57,7 +57,8 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
     TSupNom=TSupNom,
-    dTSupRetNom=dTSupRetNom) constrainedby Thermal.Control.PartialHPControl(
+    dTSupRetNom=dTSupRetNom) constrainedby
+    Control.Interfaces.Partial_Ctrl_Heating_TES(
     heatingCurve(timeFilter=timeFilter),
     TTankTop=TSto[posTTop],
     TTankBot=TSto[posTBot],

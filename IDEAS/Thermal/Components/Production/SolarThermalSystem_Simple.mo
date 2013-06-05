@@ -32,7 +32,7 @@ model SolarThermalSystem_Simple
                                             pipeCold(medium=medium, m=5)
     annotation (Placement(transformation(extent={{-26,-78},{-46,-58}})));
 
-  Thermal.Control.SolarThermalControl_DT solarThermalControl_DT(TSafetyMax=
+  Control.Ctrl_SolarThermal_Simple       solarThermalControl_DT(TSafetyMax=
         363.15)
     annotation (Placement(transformation(extent={{54,44},{34,64}})));
   Thermal.Components.Interfaces.FlowPort_a flowPort_a(medium=medium)

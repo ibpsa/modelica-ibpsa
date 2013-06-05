@@ -1,5 +1,6 @@
-within IDEAS.Thermal.Control;
-partial model PartialHPControl "Basis of the heat Pump control algorithm"
+within IDEAS.Thermal.Control.Interfaces;
+partial model Partial_Ctrl_Heating_TES
+  "Partial for a TES based heating control algorithm"
 
   /* 
   This partial class contains the temperature control algorithm. It has to be extended
@@ -105,4 +106,4 @@ equation
       Diagram(coordinateSystem(extent={{-80,-80},{100,80}}, preserveAspectRatio=
            true),
               graphics));
-end PartialHPControl;
+end Partial_Ctrl_Heating_TES;

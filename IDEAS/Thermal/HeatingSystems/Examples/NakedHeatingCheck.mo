@@ -26,7 +26,8 @@ model NakedHeatingCheck
         origin={74,-8})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
     annotation (Placement(transformation(extent={{64,-58},{84,-38}})));
-  Interfaces.DummyInHomeGrid dummyInHomeGrid
+  Interfaces.BaseClasses.CausalInhomeFeeder
+                             dummyInHomeGrid
     annotation (Placement(transformation(extent={{34,10},{54,30}})));
   Modelica.Blocks.Sources.Sine sine(
     amplitude=2,
@@ -64,11 +65,6 @@ equation
       points={{74,-18},{74,-38}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(heating_DHW_TES.plugLoad[1], dummyInHomeGrid.nodeSingle) annotation (
-      Line(
-      points={{18,20},{34,20}},
-      color={85,170,255},
-      smooth=Smooth.None));
   connect(dummyInHomeGrid.pinSingle, voltageSource.pin_n) annotation (Line(
       points={{54,20},{74,20},{74,2}},
       color={85,170,255},
@@ -85,7 +81,14 @@ equation
       points={{-33,-56},{9.6,-56},{9.6,9.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  connect(heating_DHW_TES.plugLoad, dummyInHomeGrid.nodeSingle) annotation (
+      Line(
+      points={{18,20},{34,20}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput);
 end NakedHeatingCheck;

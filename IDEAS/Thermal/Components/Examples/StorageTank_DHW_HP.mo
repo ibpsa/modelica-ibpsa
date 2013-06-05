@@ -31,7 +31,7 @@ extends Modelica.Icons.Example;
       IDEAS.Climate.Meteo.Files.min15
       detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
               annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
-  Thermal.Control.HPControl_HeatingCurve HPControl(
+  Control.Ctrl_Heating_TES               HPControl(
     dTSafetyTop=3,
     dTHPTankSet=2,
     DHW=true,

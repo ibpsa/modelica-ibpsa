@@ -1,7 +1,17 @@
 within IDEAS.Thermal;
-package Control "Controllers and auxiliary stuff"
+package Control "Controllers for thermal systems"
 
 
   extends Modelica.Icons.Package;
+
+
+
+
+
+
+
+
+
+
 
 end Control;

@@ -35,7 +35,7 @@ extends Modelica.Icons.Example;
         medium, p=300000)
     annotation (Placement(transformation(extent={{-22,4},{-34,16}})));
 
-  Thermal.Control.SolarThermalControl_DT solarThermalControl_DT(TSafetyMax=
+  Control.Ctrl_SolarThermal_Simple       solarThermalControl_DT(TSafetyMax=
         363.15)
     annotation (Placement(transformation(extent={{54,44},{34,64}})));
   inner IDEAS.SimInfoManager         sim(redeclare

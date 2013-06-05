@@ -49,7 +49,7 @@ model Heating_FH_TESandSTSforDHWonly
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-134,34},{-122,46}})));
 public
-  replaceable Thermal.Control.HPControl_SepDHW_Emission HPControl(
+  replaceable Control.Ctrl_Heating_DHW                  HPControl(
     timeFilter=timeFilter,
     TTankTop=TSto[posTTop],
     TTankBot=TSto[posTBot],
@@ -57,7 +57,8 @@ public
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
     TSupNom=TSupNom,
-    dTSupRetNom=dTSupRetNom) constrainedby Thermal.Control.PartialHPControl(
+    dTSupRetNom=dTSupRetNom) constrainedby
+    Control.Interfaces.Partial_Ctrl_Heating_TES(
     timeFilter=timeFilter,
     TTankTop=TSto[posTTop],
     TTankBot=TSto[posTBot],

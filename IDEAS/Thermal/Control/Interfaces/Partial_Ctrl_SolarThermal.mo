@@ -1,5 +1,5 @@
-within IDEAS.Thermal.Control;
-partial model Partial_SolarThermalControl
+within IDEAS.Thermal.Control.Interfaces;
+partial model Partial_Ctrl_SolarThermal
   "Partial for a solar thermal controller"
 
   /* 
@@ -43,4 +43,4 @@ equation
           color={100,100,100},
           smooth=Smooth.None)}),
       Diagram(graphics));
-end Partial_SolarThermalControl;
+end Partial_Ctrl_SolarThermal;

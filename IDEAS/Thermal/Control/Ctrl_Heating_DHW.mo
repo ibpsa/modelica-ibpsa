@@ -1,7 +1,7 @@
 within IDEAS.Thermal.Control;
-model HPControl_SepDHW_Emission
-  "Control for system with seperated DHW TES loading"
-  extends PartialHPControl;
+model Ctrl_Heating_DHW
+  "Heating curve control for heating (without TES) and separate DHW storage tank"
+  extends Interfaces.Partial_Ctrl_Heating_TES;
 
 equation
   TTopSet = TDHWSet + dTSafetyTop;
@@ -30,4 +30,4 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end HPControl_SepDHW_Emission;
+end Ctrl_Heating_DHW;

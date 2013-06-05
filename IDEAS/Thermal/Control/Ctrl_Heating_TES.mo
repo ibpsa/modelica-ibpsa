@@ -1,6 +1,7 @@
 within IDEAS.Thermal.Control;
-model HPControl_HeatingCurve "Heating curve control"
-  extends PartialHPControl;
+model Ctrl_Heating_TES
+  "Heating curve control for heating based on a water storage tank"
+  extends Interfaces.Partial_Ctrl_Heating_TES;
 
 equation
   TTopSet = max(TDHWSet, heatingCurve.TSup) + dTSafetyTop;
@@ -23,4 +24,4 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end HPControl_HeatingCurve;
+end Ctrl_Heating_TES;

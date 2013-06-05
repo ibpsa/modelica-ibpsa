@@ -1,6 +1,7 @@
 within IDEAS.Thermal.Control;
-model HPControl_HeatingCurve_DT "Heating curve control"
-  extends PartialHPControl;
+model Ctrl_Heating_TES_SetBack
+  "Heating curve control for heating based on a water storage tank, incl. time based temperature set back"
+  extends Interfaces.Partial_Ctrl_Heating_TES;
 
   Modelica.Blocks.Sources.CombiTimeTable daytime(
                                     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,
@@ -27,4 +28,4 @@ equation
     onOff = 0;
   end if;
 
-end HPControl_HeatingCurve_DT;
+end Ctrl_Heating_TES_SetBack;

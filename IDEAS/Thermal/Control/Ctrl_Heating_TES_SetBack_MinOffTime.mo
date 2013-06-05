@@ -1,7 +1,7 @@
 within IDEAS.Thermal.Control;
-model HPControl_HeatingCurve_DT_MinOff
-  "Heating curve control, daytime priority + off-timer"
-  extends PartialHPControl;
+model Ctrl_Heating_TES_SetBack_MinOffTime
+  "Heating curve control for heating based on a water storage tank, temperature set back + minimum off-time"
+  extends Interfaces.Partial_Ctrl_Heating_TES;
 
   parameter Modelica.SIunits.Time timeOff=60*15;
   Real debug(start = -1);
@@ -45,4 +45,4 @@ equation
 algorithm
   timerOff.u := onOff;
 
-end HPControl_HeatingCurve_DT_MinOff;
+end Ctrl_Heating_TES_SetBack_MinOffTime;

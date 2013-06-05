@@ -1,6 +1,7 @@
 within IDEAS.Thermal.Control;
-model SolarThermalControl_DT
-  extends Partial_SolarThermalControl;
+model Ctrl_SolarThermal_Simple
+  "Basic solar thermal controller based on temperature differences only."
+  extends Interfaces.Partial_Ctrl_SolarThermal;
 
 equation
   if noEvent(TCollector > (TTankBot + dTStart) and TSafety < TSafetyMax) then
@@ -14,4 +15,4 @@ equation
     onOff = 0;
   end if;
 
-end SolarThermalControl_DT;
+end Ctrl_SolarThermal_Simple;

@@ -1,7 +1,7 @@
 within IDEAS.Thermal.Control;
-model HPControl_HeatingCurve_Strat
-  "Heating curve control for stratified storage tank"
-  extends PartialHPControl;
+model Ctrl_Heating_combiTES
+  "Heating curve control for heating based on a combi tank (DHW + heating)"
+  extends Interfaces.Partial_Ctrl_Heating_TES;
 
  input Modelica.SIunits.Temperature TTankEmiOut
     "Tank temperature at outlet to emission";
@@ -30,4 +30,4 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end HPControl_HeatingCurve_Strat;
+end Ctrl_Heating_combiTES;
