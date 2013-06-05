@@ -48,7 +48,7 @@ package BaseClasses
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
       "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
           iconTransformation(extent={{-110,10},{-90,30}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad
       "Nodes for radiative heat gains" annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
           iconTransformation(extent={{-110,-30},{-90,-10}})));
     Modelica.Blocks.Interfaces.RealOutput[nZones] TSet
@@ -296,11 +296,11 @@ package BaseClasses
         (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
       "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-210,10},
               {-190,30}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad if
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad if
         (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
       "Nodes for radiative heat gains" annotation (Placement(transformation(extent={{-210,
               -30},{-190,-10}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortEmb if
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortEmb if
         (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
       "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-210,50},
               {-190,70}})));
@@ -374,7 +374,7 @@ package BaseClasses
             smooth=Smooth.None,
             fillColor={127,0,0},
             fillPattern=FillPattern.Solid)}),                         Diagram(
-          coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,100}}),
+          coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}}),
           graphics),
       DymolaStoredErrors);
   end HeatingSystem;
@@ -404,10 +404,10 @@ package BaseClasses
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
       "Internal zone nodes for convective heat gains" annotation (Placement(transformation(extent={{140,10},{160,30}}),
           iconTransformation(extent={{140,10},{160,30}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad
       "Internal zones node for radiative heat gains" annotation (Placement(transformation(extent={{140,-30},{160,-10}}),
           iconTransformation(extent={{140,-30},{160,-10}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nEmb] heatPortEmb
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nEmb] heatPortEmb
       "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{140,50},{160,70}}),
           iconTransformation(extent={{140,50},{160,70}})));
     Modelica.Blocks.Interfaces.RealOutput[nZones] TSensor
@@ -424,7 +424,8 @@ package BaseClasses
             smooth=Smooth.None,
             fillColor={95,95,95},
             fillPattern=FillPattern.Solid)}),                         Diagram(
-          coordinateSystem(preserveAspectRatio=true, extent={{-150,-100},{150,100}}),
+          coordinateSystem(preserveAspectRatio=false,extent={{-150,-100},{150,
+              100}}),
           graphics));
 
   end Structure;
