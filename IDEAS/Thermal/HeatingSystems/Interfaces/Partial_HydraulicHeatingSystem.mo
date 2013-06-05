@@ -1,4 +1,4 @@
-within IDEAS.Thermal.HeatingSystems;
+within IDEAS.Thermal.HeatingSystems.Interfaces;
 partial model Partial_HydraulicHeatingSystem
   "Partial heating system for hydraulic heating systems"
 
@@ -50,7 +50,7 @@ partial model Partial_HydraulicHeatingSystem
        then heater.PFuel else 0;
   Modelica.SIunits.Temperature THeaterOut = heater.heatedFluid.T;
   Modelica.SIunits.Temperature THeaterIn = heater.flowPort_a.h / medium.cp;
-  Modelica.SIunits.Temperature TDHW;
+
   Modelica.SIunits.Temperature TEmissionIn;
   Modelica.SIunits.Temperature[nZones] TEmissionOut;
   Modelica.SIunits.MassFlowRate m_flowHeater = heater.flowPort_a.m_flow;

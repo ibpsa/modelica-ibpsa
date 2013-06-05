@@ -3,7 +3,7 @@ model Heating_DHW_StratifiedTES_FH_STS
   "Hydraulic heating+DHW with TES, FH and STS"
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
 
-  extends Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(
+  extends Interfaces.Partial_HydraulicHeatingSystem(
     final emissionType=EmissionType.FloorHeating,
     nLoads=1);
 
@@ -113,6 +113,7 @@ public
   Modelica.SIunits.Temperature TTankBotIn;
   Modelica.SIunits.MassFlowRate m_flowDHW;
   Modelica.SIunits.Power QDHW;
+  Modelica.SIunits.Temperature TDHW;
   Real SOCTank;
 
   Thermal.Components.Production.SolarThermalSystem_Simple solarThermal(

@@ -2,7 +2,7 @@ within IDEAS.Thermal.HeatingSystems;
 model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
 
-  extends Thermal.HeatingSystems.Partial_HydraulicHeatingSystem(
+  extends Interfaces.Partial_HydraulicHeatingSystem(
     final emissionType=EmissionType.Radiators,
     nLoads=1);
 
@@ -33,7 +33,8 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
     medium=medium,
     heightTank=1.8,
     volumeTank=volumeTank,
-    TInitial={323.15 for i in 1:nbrNodes})                annotation (Placement(
+    TInitial={323.15 for i in 1:nbrNodes},
+    nbrNodes=nbrNodes)                                    annotation (Placement(
         transformation(
         extent={{7.99999,-11},{-7.99999,11}},
         rotation=0,
@@ -104,6 +105,7 @@ model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
   Modelica.SIunits.Temperature TTankTopSet;
   Modelica.SIunits.Temperature TTankBotIn;
   Modelica.SIunits.MassFlowRate m_flowDHW;
+  Modelica.SIunits.Temperature TDHW;
   Real SOCTank;
 
 equation

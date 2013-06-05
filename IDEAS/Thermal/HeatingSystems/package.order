@@ -1,7 +1,8 @@
 IdealFloorHeating
 IdealRadiatorHeating
-Partial_HydraulicHeatingSystem
+Heating_Basic
 Heating_DHW_TES_Radiators
 Heating_DHW_StratifiedTES_FH_STS
 Heating_FH_TESandSTSforDHWonly
+Interfaces
 Examples

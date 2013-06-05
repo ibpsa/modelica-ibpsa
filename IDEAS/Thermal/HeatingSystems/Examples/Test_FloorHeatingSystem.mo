@@ -1,6 +1,7 @@
 within IDEAS.Thermal.HeatingSystems.Examples;
 model Test_FloorHeatingSystem
   "Generic test for floor heating systems as defined in TME.HVAC"
+  import IDEAS;
 
 parameter Integer nZones = 1 "Number of zones";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature[nZones] TAmb
@@ -10,14 +11,14 @@ parameter Integer nZones = 1 "Number of zones";
     VZones={75*2.7 for i in 1:nZones},
     timeFilter=43200,
     QNom={1000 for i in 1:nZones},
-    redeclare Thermal.Components.Production.HP_AWMod_Losses heater,
     nOcc=4,
     volumeTank=0.3,
     solSys=true,
     AColTot=5,
     dTSupRetNom=5,
     FHChars={IDEAS.Thermal.Components.BaseClasses.FH_Characteristics(A_Floor=10)},
-    TSupNom=313.15)
+    TSupNom=313.15,
+    redeclare IDEAS.Thermal.Components.Production.HP_AirWater heater)
     annotation (Placement(transformation(extent={{-2,-58},{48,-30}})));
 
   inner IDEAS.SimInfoManager               sim(
@@ -61,7 +62,7 @@ parameter Integer nZones = 1 "Number of zones";
         origin={86,-66})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
     annotation (Placement(transformation(extent={{80,-92},{92,-80}})));
-  Interfaces.BaseClasses.CausalInhomeFeeder
+  IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
                              dummyInHomeGrid
     annotation (Placement(transformation(extent={{56,-54},{76,-34}})));
   Modelica.Blocks.Sources.Pulse mDHW60C(
