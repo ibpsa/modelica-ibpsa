@@ -1,14 +1,16 @@
 within IDEAS.Thermal.HeatingSystems.Examples;
-model Heating_Basic "Example and test for basic heating system"
+model IdealEmbeddedHeating
+  "Example and test for ideal heating with embedded emission"
+  import IDEAS;
 
 extends Modelica.Icons.Example;
 
 parameter Integer nZones = 1 "Number of zones";
-  IDEAS.Thermal.HeatingSystems.Heating_Basic       heating(
+  IDEAS.Thermal.HeatingSystems.IdealRadiatorHeating heating(
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
-    redeclare IDEAS.Thermal.Components.Production.HP_AirWater     heater,
-    QNom={20000 for i in 1:nZones})
+    QNom={20000 for i in 1:nZones},
+    t=1)
     annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
   inner IDEAS.SimInfoManager               sim(redeclare
       IDEAS.Climate.Meteo.Files.min15 detail, redeclare
@@ -67,10 +69,6 @@ equation
       points={{28,-13},{46,-13},{46,-12},{64,-12}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(dummyBuilding.heatPortEmb, heating.heatPortEmb) annotation (Line(
-      points={{-48,-6},{-28,-6},{-28,-7.6},{-8,-7.6}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(dummyBuilding.heatPortCon, heating.heatPortCon) annotation (Line(
       points={{-48,-10},{-28,-10},{-28,-11.2},{-8,-11.2}},
       color={191,0,0},
@@ -88,4 +86,4 @@ equation
                       graphics),
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput);
-end Heating_Basic;
+end IdealEmbeddedHeating;

@@ -1,5 +1,6 @@
 within IDEAS.Thermal.HeatingSystems;
-model Heating_Basic "Basic hydraulic heating (with heating curve), no DHW"
+model Heating_Radiators
+  "Basic hydraulic heating (with heating curve) with radiators. No TES, no DHW"
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
@@ -185,4 +186,4 @@ end for;
             -100},{200,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-200,-100},{200,100}})));
-end Heating_Basic;
+end Heating_Radiators;

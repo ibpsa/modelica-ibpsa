@@ -1,4 +1,6 @@
 DummyBuilding
-Heating_Basic
+IdealRadiatorHeating
+IdealEmbeddedHeating
+Heating_Radiators
 Test_FloorHeatingSystem
 NakedHeatingCheck

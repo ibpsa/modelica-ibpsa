@@ -1,6 +1,6 @@
 within IDEAS.Thermal.HeatingSystems;
-model Heating_DHW_StratifiedTES_FH_STS
-  "Hydraulic heating+DHW with TES, FH and STS"
+model Heating_Embedded_combiTES_DHW_STS
+  "Hydraulic heating for embedded emission, with combiTES and STS"
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
@@ -312,4 +312,4 @@ end for;
             -100},{200,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-200,-100},{200,100}})));
-end Heating_DHW_StratifiedTES_FH_STS;
+end Heating_Embedded_combiTES_DHW_STS;

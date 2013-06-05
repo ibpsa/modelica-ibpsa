@@ -157,7 +157,7 @@ equation
 <p><h4>Validation </h4></p>
 <p>None</p>
 <p><h4>Example </h4></p>
-<p>The <a href=\"modelica://IDEAS.Thermal.Components.Examples.PumpePipeTester\">PumpPipeTeste</a>r model uses <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pump\">Pump</a> models but they can easily be replaced with this Pump_Insulated model.</p>
+<p>The <a href=\"modelica://IDEAS.Thermal.Components.Examples.HydraulicCircuit\">HydraulicCircuit</a> example uses <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pump\">Pump</a> models but they can easily be replaced with this Pump_Insulated model.</p>
 </html>", revisions="<html>
 <p><ul>
 <li>May 2013, Roel De Coninck, documentation</li>

@@ -2,7 +2,7 @@ within IDEAS.Thermal.HeatingSystems.Examples;
 model NakedHeatingCheck
 
   parameter Integer nZones = 1;
-  Heating_DHW_StratifiedTES_FH_STS                 heating_DHW_TES(
+  Heating_Embedded_combiTES_DHW_STS                heating_DHW_TES(
     nZones=nZones,
     QNom={5000},
     VZones={100},

@@ -6,7 +6,7 @@ model Test_FloorHeatingSystem
 parameter Integer nZones = 1 "Number of zones";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature[nZones] TAmb
     annotation (Placement(transformation(extent={{-96,10},{-84,22}})));
-  Heating_FH_TESandSTSforDHWonly                        heating(
+  IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS heating(
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     timeFilter=43200,

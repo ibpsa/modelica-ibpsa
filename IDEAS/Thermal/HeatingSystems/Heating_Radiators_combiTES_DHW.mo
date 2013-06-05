@@ -1,5 +1,6 @@
 within IDEAS.Thermal.HeatingSystems;
-model Heating_DHW_TES_Radiators "Hydraulic heating+DHW with TES and radiators"
+model Heating_Radiators_combiTES_DHW
+  "Hydraulic heating+DHW with TES and radiators"
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
@@ -246,4 +247,4 @@ end for;
             -100},{200,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-200,-100},{200,100}})));
-end Heating_DHW_TES_Radiators;
+end Heating_Radiators_combiTES_DHW;
