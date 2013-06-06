@@ -12,7 +12,6 @@ parameter Integer nZones = 1 "Number of zones";
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
     heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.HP_AW,
-
     redeclare IDEAS.Thermal.Components.Production.HP_AirWater heater,
     nOcc=4,
     dTSupRetNom=5,
@@ -21,6 +20,7 @@ parameter Integer nZones = 1 "Number of zones";
     FHChars={IDEAS.Thermal.Components.BaseClasses.FH_Characteristics(A_Floor=
         150)})
     annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
+
   inner IDEAS.SimInfoManager               sim(redeclare
       IDEAS.Climate.Meteo.Files.min15 detail, redeclare
       IDEAS.Climate.Meteo.Locations.Uccle city,
