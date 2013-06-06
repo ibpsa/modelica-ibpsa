@@ -48,7 +48,7 @@ annotation (Documentation(info="<html>
 </ol></p>
 <p><h4>Validation </h4></p>
 <p>No validation performed; the model is based on physical principles </p>
-<p><h4><font color=\"#008000\">Examples</font></h4></p>
+<p><h4>Examples</h4></p>
 <p>This model is tested in<a href=\"modelica://IDEAS.Thermal.Components.Examples.OpenHydraulicSystem\"> IDEAS.Thermal.Components.Examples.OpenHydraulicSystem</a> and<a href=\"modelica://IDEAS.Thermal.Components.Examples.MixingVolume\"> IDEAS.Thermal.Components.Examples.MixingVolume</a></p>
 </html>", revisions="<html>
 <p><ul>

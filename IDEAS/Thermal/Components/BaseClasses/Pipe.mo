@@ -11,7 +11,7 @@ annotation (Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Model for fluid flow through a pipe, without heat exchange nor pressure drop. A dynamic heat balance is included, based on the in- and outlet enthalpy flow and the internal mass m of the fluid content in the pipe. A stationary model is obtained when m=0 </p>
 <p>m.cv.der(T) = h_flow_in - h_flow_out </p>
-<p><h4><font color=\"#008000\">Assumptions and limitations</font></h4></p>
+<p><h4>Assumptions and limitations</h4></p>
 <p><ol>
 <li>No pressure drop</li>
 <li>Conservation of mass</li>
@@ -26,7 +26,7 @@ annotation (Documentation(info="<html>
 </ol></p>
 <p><h4>Validation </h4></p>
 <p>No validation performed; the model is based on physical principles</p>
-<p><h4><font color=\"#008000\">Examples</font></h4></p>
+<p><h4>Examples</h4></p>
 <p>Many models use a pipe, often a variant with <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort\">heatPort</a> or <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pipe_Insulated\">insulation</a>. A basic example is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.HydraulicCircuit\">HydraulicCircuit</a>.</p>
 </html>", revisions="<html>
 <p><ul>

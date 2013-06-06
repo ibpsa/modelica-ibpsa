@@ -13,7 +13,7 @@ equation
   // no energy exchange; no mass flow by default
   flowPort.H_flow = 0;
 annotation (Documentation(info="<html>
-<p><h4><font color=\"#008000\">Description</font></h4></p>
+<p><h4>Description</h4></p>
 <p><br/>This model sets an absolute pressure at the flowPort. It takes the role of an expansion vessel in an hydraulic system. </p>
 <p>The function of this model can also be compared to a grounding in electrical circuits. </p>
 <p><h4>Assumptions and limitations </h4></p>
