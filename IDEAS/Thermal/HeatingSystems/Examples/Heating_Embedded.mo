@@ -1,16 +1,19 @@
 within IDEAS.Thermal.HeatingSystems.Examples;
-model IdealEmbeddedHeating
-  "Example and test for ideal heating with embedded emission"
+model Heating_Embedded
+  "Example and test for heating system with embedded emission"
   import IDEAS;
 
 extends Modelica.Icons.Example;
 
 parameter Integer nZones = 1 "Number of zones";
-  IDEAS.Thermal.HeatingSystems.IdealEmbeddedHeating heating(
+  IDEAS.Thermal.HeatingSystems.Heating_Embedded     heating(
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
-    t=1)
+    heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.HP_AW,
+
+    redeclare IDEAS.Thermal.Components.Production.HP_AirWater heater,
+    emission(FHChars(A_Floor=150)))
     annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
   inner IDEAS.SimInfoManager               sim(redeclare
       IDEAS.Climate.Meteo.Files.min15 detail, redeclare
@@ -51,7 +54,7 @@ parameter Integer nZones = 1 "Number of zones";
                                         nZones] nakedTabs(
     each n1=3,
     each n2=3,
-    FHChars(T=0.2, each A_Floor=10))
+    FHChars(T=0.2, each A_Floor=150))
     annotation (Placement(transformation(extent={{-26,2},{-44,14}})));
   Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convectionTabs
     annotation (Placement(transformation(extent={{7,-7},{-7,7}},
@@ -101,4 +104,4 @@ equation
                       graphics),
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput);
-end IdealEmbeddedHeating;
+end Heating_Embedded;

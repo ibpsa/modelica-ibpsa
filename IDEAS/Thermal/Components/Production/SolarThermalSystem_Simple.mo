@@ -101,7 +101,7 @@ equation
 <p><h4>Validation </h4></p>
 <p>None, use at your own risk.</p>
 <p><h4>Example </h4></p>
-<p>An example of the use of this model is given in <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_FH_TESandSTSforDHWonly\">IDEAS.Thermal.HeatingSystems.Heating_FH_TESandSTSforDHWonly</a>.</p>
+<p>An example of the use of this model is given in <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS\">IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS</a>.</p>
 </html>", revisions="<html>
 <p><ul>
 <li>2013 May, Roel De Coninck: basic documentation</li>
