@@ -354,5 +354,11 @@ end for;
 <p>This system (without solar thermal system, so <i>solSys</i>=false) is used in De Coninck et al. (2013) and more information can be found in that paper.</p>
 <p><h4>Example </h4></p>
 <p>An example of the use of this model can be found in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples.Heating_Embedded\"> IDEAS.Thermal.HeatingSystems.Examples.Heating_Embedded</a>.</p>
+</html>", revisions="<html>
+<p><ul>
+<li>2013 June, Roel De Coninck: minor edits and documentation</li>
+<li>2012-2013, Roel De Coninck: many minor and major revisions</li>
+<li>2011, Roel De Coninck: first version</li>
+</ul></p>
 </html>"));
 end Heating_Embedded_DHW_STS;

@@ -79,5 +79,12 @@ partial model Partial_HydraulicHeatingSystem
   annotation(Icon,
       Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{
             200,100}}),
-              graphics));
+              graphics),
+    Documentation(revisions="<html>
+<p><ul>
+<li>2013 June, Roel De Coninck: minor edits and documentation</li>
+<li>2012-2013, Roel De Coninck: many minor and major revisions</li>
+<li>2011, Roel De Coninck: first version</li>
+</ul></p>
+</html>"));
 end Partial_HydraulicHeatingSystem;

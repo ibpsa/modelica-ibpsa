@@ -332,5 +332,9 @@ end for;
 <p>This is a system level model, no validation performed. To be correct, a DHW heat exchanger should be foreseen. </p>
 <p><h4>Example </h4></p>
 <p>An example of the use of this model can be found in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples.Heating_Embedded_combiTES_DHW_STS\"> IDEAS.Thermal.HeatingSystems.Examples.Heating_Embedded_combiTES_DHW_STS</a> .</p>
+</html>", revisions="<html>
+<p>2013 June, Roel De Coninck: minor edits and documentation</p>
+<p>2012-2013, Roel De Coninck: many minor and major revisions</p>
+<p>2011, Roel De Coninck: first version</p>
 </html>"));
 end Heating_Embedded_combiTES_DHW_STS;
