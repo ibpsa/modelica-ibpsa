@@ -99,6 +99,8 @@ der(QRadiator) = -radiator.heatPortCon.Q_flow - radiator.heatPortRad.Q_flow;
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>This model checks the energy balance of the radiator for flow and no-flow situations.</p>
+<p>Check IDEAS.Thermal.Components.Emission.Radiator for radiator model use. <br>
+Heating power can be estimated with <a href=\"http://www.infotalia.com/nld/wonen/energie/verwarming_berekenen.asp\">online calculator</a> (Last visit: 06/06/2013)</p>
 <p>Plot the QBoiler and QRadiator variables over 100k seconds to make sure that in-out energy balance of the radiator is fine. </p>
 </html>"));
 end Radiator_EnergyBalance;
