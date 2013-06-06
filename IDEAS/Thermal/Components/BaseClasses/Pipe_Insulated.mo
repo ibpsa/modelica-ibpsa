@@ -78,7 +78,7 @@ equation
 <p>Model for fluid flow through a pipe, including heat losses or gains with the environment through insulation. A dynamic heat balance is included, based on the in- and outlet enthalpy flow, the heat flux to/from environment and the internal mass m of the fluid content in the pipe. A stationary model is obtained when m=0 </p>
 <p>m.cv.der(T) = ( h_flow_in - h_flow_out) - UA.(T - TAmb) </p>
 <p><b>Note:</b> as can be seen from the equation, the pipe temperature T will converge to the ambient temperature when there is no mass flow rate. </p>
-<p><h5>Assumptions and limitations </h5></p>
+<p><h4>Assumptions and limitations </h4></p>
 <p><ol>
 <li>No pressure drop</li>
 <li>Conservation of mass</li>
