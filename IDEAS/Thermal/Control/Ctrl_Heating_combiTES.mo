@@ -29,5 +29,22 @@ equation
       points={{1,56},{12,56},{12,-40},{104,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Heating curve based control of a heater + TES charging control. The set point temperature for the heater is higher than the heating curve output in order to make sure that the heating curve temperature is met also when thermal losses are present in the circuit. The heater set temperature is the maximum of the requirements for space heating and DHW: if tank charging is occurring, the DHW temperture requirements will normally be higher than for space heating. </p>
+<p>This controller tries to limit and even avoid the creating of events.</p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>Use this controller in a heating system with a combi storage tank where you want to follow a heating curve for space heating.</li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>No validation performed.</p>
+<p><h4>Example </h4></p>
+<p>This controller is used in <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS\">IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS</a>.</p>
+</html>", revisions="<html>
+<p><ul>
+<li>2013 May, Roel De Coninck: documentation</li>
+<li>2011, Roel De Coninck: first version and validation</li>
+</ul></p>
+</html>"));
 end Ctrl_Heating_combiTES;

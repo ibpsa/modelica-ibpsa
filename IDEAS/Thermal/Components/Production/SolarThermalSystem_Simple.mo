@@ -98,8 +98,8 @@ equation
 <li>The model is very easy to use by coupling it&apos;s provided flowPorts to the ports of a storage tank.</li>
 <li>Only 3 parameters to be set if the default collector properties are fine: collector surface, number of collectors in series and specific mass flow rate</li>
 </ol></p>
-<p><h4>Validation </h4></p>
-<p>None, use at your own risk.</p>
+<p><h4>Validation</h4></p>
+<p>No validation performed.</p>
 <p><h4>Example </h4></p>
 <p>An example of the use of this model is given in <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS\">IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS</a>.</p>
 </html>", revisions="<html>
