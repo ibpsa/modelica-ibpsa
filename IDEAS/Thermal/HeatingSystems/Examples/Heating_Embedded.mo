@@ -40,13 +40,6 @@ parameter Integer nZones = 1 "Number of zones";
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
                              dummyInHomeGrid
     annotation (Placement(transformation(extent={{64,-22},{84,-2}})));
-  Modelica.Blocks.Sources.Pulse mDHW60C(
-    each amplitude=0.2,
-    each width=5,
-    each period=20000,
-    each offset=0,
-    startTime=0)
-    annotation (Placement(transformation(extent={{-6,-70},{6,-58}})));
   IDEAS.Thermal.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=
         nZones)
     annotation (Placement(transformation(extent={{-90,46},{-60,66}})));
@@ -74,10 +67,6 @@ equation
   connect(dummyInHomeGrid.pinSingle, voltageSource.pin_n) annotation (Line(
       points={{84,-12},{88,-12},{88,-18},{90,-18},{90,-54}},
       color={85,170,255},
-      smooth=Smooth.None));
-  connect(mDHW60C.y, heating.mDHW60C) annotation (Line(
-      points={{6.6,-64},{15.4,-64},{15.4,-22.36}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(heating.plugLoad, dummyInHomeGrid.nodeSingle) annotation (Line(
       points={{28,-13},{46,-13},{46,-12},{64,-12}},

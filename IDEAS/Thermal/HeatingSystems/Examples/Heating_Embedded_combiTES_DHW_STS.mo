@@ -1,16 +1,25 @@
 within IDEAS.Thermal.HeatingSystems.Examples;
-model IdealEmbeddedHeating
-  "Example and test for ideal heating with embedded emission"
+model Heating_Embedded_combiTES_DHW_STS
+  "Example and test for heating system with embedded emission, combiTES, DHW and STS"
   import IDEAS;
 
 extends Modelica.Icons.Example;
 
 parameter Integer nZones = 1 "Number of zones";
-  IDEAS.Thermal.HeatingSystems.IdealEmbeddedHeating heating(
+  IDEAS.Thermal.HeatingSystems.Heating_Embedded_combiTES_DHW_STS
+                                                    heating(
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
-    t=1)
+    heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.HP_AW,
+
+    redeclare IDEAS.Thermal.Components.Production.HP_AirWater heater,
+    nOcc=4,
+    dTSupRetNom=5,
+    timeFilter=7200,
+    solSys=true,
+    FHChars={IDEAS.Thermal.Components.BaseClasses.FH_Characteristics(A_Floor=
+        150)})
     annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
   inner IDEAS.SimInfoManager               sim(redeclare
       IDEAS.Climate.Meteo.Files.min15 detail, redeclare
@@ -37,6 +46,13 @@ parameter Integer nZones = 1 "Number of zones";
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
                              dummyInHomeGrid
     annotation (Placement(transformation(extent={{64,-22},{84,-2}})));
+  Modelica.Blocks.Sources.Pulse mDHW60C(
+    each amplitude=0.2,
+    each width=5,
+    each period=20000,
+    each offset=0,
+    startTime=0)
+    annotation (Placement(transformation(extent={{-6,-70},{6,-58}})));
   IDEAS.Thermal.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=
         nZones)
     annotation (Placement(transformation(extent={{-90,46},{-60,66}})));
@@ -44,7 +60,7 @@ parameter Integer nZones = 1 "Number of zones";
                                         nZones] nakedTabs(
     each n1=3,
     each n2=3,
-    FHChars(T=0.2, each A_Floor=10))
+    FHChars(T=0.2, each A_Floor=150))
     annotation (Placement(transformation(extent={{-26,2},{-44,14}})));
   Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convectionTabs
     annotation (Placement(transformation(extent={{7,-7},{-7,7}},
@@ -64,6 +80,10 @@ equation
   connect(dummyInHomeGrid.pinSingle, voltageSource.pin_n) annotation (Line(
       points={{84,-12},{88,-12},{88,-18},{90,-18},{90,-54}},
       color={85,170,255},
+      smooth=Smooth.None));
+  connect(mDHW60C.y, heating.mDHW60C) annotation (Line(
+      points={{6.6,-64},{15.4,-64},{15.4,-22.36}},
+      color={0,0,127},
       smooth=Smooth.None));
   connect(heating.plugLoad, dummyInHomeGrid.nodeSingle) annotation (Line(
       points={{28,-13},{46,-13},{46,-12},{64,-12}},
@@ -90,4 +110,4 @@ equation
                       graphics),
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput);
-end IdealEmbeddedHeating;
+end Heating_Embedded_combiTES_DHW_STS;

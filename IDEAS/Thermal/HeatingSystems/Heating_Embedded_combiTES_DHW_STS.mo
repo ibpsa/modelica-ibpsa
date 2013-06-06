@@ -22,10 +22,10 @@ protected
     each medium=medium,
     each useInput=true,
     m_flowNom=m_flowNom,
-    each m_flowSet(fixed=true, start=0),
     each m=0,
+    each etaTot=0.7,
     each dpFix=30000,
-    each etaTot=0.7)
+    each m_flowSet(fixed=false, start=0))
     annotation (Placement(transformation(extent={{54,46},{78,22}})));
 
   IDEAS.Thermal.Components.Emission.EmbeddedPipe[ nZones] emission(
@@ -72,9 +72,9 @@ public
     volumeTank=volumeTank,
     TInitial={323.15 for i in 1:nbrNodes})                annotation (Placement(
         transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{12,-18},{-12,18}},
         rotation=0,
-        origin={-40,8})));
+        origin={-38,0})));
 
 protected
   replaceable IDEAS.Thermal.Components.Domestic_Hot_Water.DHW_ProfileReader
@@ -121,15 +121,7 @@ public
     pump(dpFix=100000, etaTot=0.6),
     ACol=AColTot,
     nCol=1) if solSys
-    annotation (Placement(transformation(extent={{80,80},{60,100}})));
-  Modelica.Blocks.Interfaces.RealOutput TTop "TES top temperature"              annotation (Placement(transformation(
-        extent={{7,-7},{-7,7}},
-        rotation=0,
-        origin={145,125})));
-  Modelica.Blocks.Interfaces.RealOutput TBot "TES top temperature"             annotation (Placement(transformation(
-        extent={{7,-7},{-7,7}},
-        rotation=0,
-        origin={145,115})));
+    annotation (Placement(transformation(extent={{18,68},{-2,88}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=-90,
@@ -156,18 +148,14 @@ equation
   SOCTank = HPControl.SOC;
   QDHW = m_flowDHW * medium.cp * ( TDHW - dHW.TCold);
 
-//STS
-  TTop = TSto[1];
-  TBot = TSto[nbrNodes];
-
   connect(solarThermal.flowPort_b, tesTank.flowPorts[3])
                                                        annotation (Line(
-      points={{60,88},{-20,88},{-20,13.3846},{-50,13.3846}},
+      points={{-2,76},{-20,76},{-20,9.69231},{-50,9.69231}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(solarThermal.flowPort_a, tesTank.flowPorts[nbrNodes+1])
                                                        annotation (Line(
-      points={{60,84},{-24,84},{-24,13.3846},{-50,13.3846}},
+      points={{-2,72},{-24,72},{-24,9.69231},{-50,9.69231}},
       color={0,128,255},
       smooth=Smooth.None));
 
@@ -201,12 +189,12 @@ end for;
       color={0,128,255},
       smooth=Smooth.None));
   connect(tesTank.flowPort_b, pumpHeater.flowPort_a) annotation (Line(
-      points={{-50,-0.461538},{-50,-34},{-52,-34}},
+      points={{-50,-15.2308},{-50,-34},{-52,-34}},
       color={0,128,255},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(dHW.flowPortHot, tesTank.flowPort_a) annotation (Line(
-      points={{20,3.71429},{20,50},{-40,50},{-40,16.4615},{-50,16.4615}},
+      points={{20,3.71429},{20,50},{-40,50},{-40,15.2308},{-50,15.2308}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(TSensor, heatingControl.u) annotation (Line(
@@ -214,7 +202,7 @@ end for;
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
-      points={{46.3333,-61},{66,-61},{66,22},{66,22}},
+      points={{46.3333,-61},{66,-61},{66,22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSet, heatingControl.uLow) annotation (Line(
@@ -222,7 +210,7 @@ end for;
       color={0,0,127},
       smooth=Smooth.None));
   connect(pipeDHW.flowPort_a, tesTank.flowPort_b) annotation (Line(
-      points={{-36,-34},{-50,-34},{-50,-0.461538}},
+      points={{-36,-34},{-50,-34},{-50,-15.2308}},
       color={0,128,255},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -232,13 +220,13 @@ end for;
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(pipeMixer.flowPort_a, tesTank.flowPort_b) annotation (Line(
-      points={{-8,-34},{-50,-34},{-50,-0.461538}},
+      points={{-8,-34},{-50,-34},{-50,-15.2308}},
       color={0,128,255},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
 
   connect(pumpHeater.flowPort_b, heater.flowPort_a) annotation (Line(
-      points={{-68,-34},{-68,-34},{-76,-34},{-76,19.6364},{-90,19.6364}},
+      points={{-68,-34},{-76,-34},{-76,19.6364},{-90,19.6364}},
       color={0,128,255},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -266,23 +254,15 @@ end for;
       color={0,128,255},
       smooth=Smooth.None));
   connect(tesTank.flowPorts[posOutFH], idealMixer.flowPortHot) annotation (Line(
-      points={{-50,13.3846},{-10,13.3846},{-10,34},{28,34}},
+      points={{-50,9.69231},{-10,9.69231},{-10,34},{28,34}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(heater.flowPort_b, tesTank.flowPorts[2]) annotation (Line(
-      points={{-90,24.9091},{-76,24.9091},{-76,34},{-24,34},{-24,13.3846},{-50,
-          13.3846}},
+      points={{-90,24.9091},{-76,24.9091},{-76,34},{-24,34},{-24,9.69231},{-50,
+          9.69231}},
       color={0,128,255},
       smooth=Smooth.None));
 
-  connect(TTop, solarThermal.TSafety) annotation (Line(
-      points={{145,125},{16,125},{16,97.8},{59.2,97.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TBot, solarThermal.TLow) annotation (Line(
-      points={{145,115},{18,115},{18,93.4},{59.4,93.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(mDHW60C, dHW.mDHW60C) annotation (Line(
       points={{60,-104},{60,-36},{120,-36},{120,18},{10,18}},
       color={0,0,127},
@@ -293,7 +273,7 @@ end for;
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(tesTank.heatExchEnv, fixedTemperature.port) annotation (Line(
-      points={{-46.6667,7.23077},{-52,7.23077},{-52,94}},
+      points={{-46,-1.38462},{-52,-1.38462},{-52,94}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -308,8 +288,49 @@ end for;
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -100},{200,100}}),
+  connect(tesTank.T[1], solarThermal.TSafety) annotation (Line(
+      points={{-50,4.15385},{-58,4.15385},{-58,4},{-64,4},{-64,85.8},{-2.8,85.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  connect(tesTank.T[nbrNodes], solarThermal.TLow) annotation (Line(
+      points={{-50,4.15385},{-58,4.15385},{-58,4},{-64,4},{-64,81.4},{-2.6,81.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},
+            {200,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-200,-100},{200,100}})));
+          extent={{-200,-100},{200,100}})),
+    Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Multi-zone hydraulic heating system with <a href=\"modelica://IDEAS.Thermal.Components.Emission.EmbeddedPipe\">embedded pipe</a> emission system (TABS). There is a thermal energy storage tank for the heating AND the domestic hot water (DHW) production. An optional solar thermal system is foreseen to (pre)heat the DHW storage tank.. A schematic hydraulic scheme is to be inserted here:</p>
+<p>For multizone systems, the components <i>pumpRad</i>, <i>emission</i> and <i>pipeReturn</i> are arrays of size <i>nZones</i>. In this model, the <i>emission</i> is a an embedded pipe, the <i>heater</i> is a replaceable component and can be a boiler or heat pump or anything that extends from <a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\">PartialDynamicHeaterWithLosses</a>.</p>
+<p>The storage tank is used for buffering space heating and DHW.  A simplification is made: the DHW is connected directly on the buffer, whereas for hygienic reasons, an additional heat exchanger is required. The outlet from the tank towards the space heating is somewhere in the middle of the tank, based on parameer <i>posOutFH</i>.  This ensures that the top of the tank stays hot for DHW while the supply temperature towards the floor heatings can be lower. </p>
+<p>There are two controllers in the model (not represented in the hydraulic scheme): one for the heater set temperature and control signal of the pump for charging the storage tank (<a href=\"modelica://IDEAS.Thermal.Control.Ctrl_Heating_combiTES\">Ctrl_Heating_combiTES</a>), and another one for the on/off signal of <i>pumpRad</i> (= thermostat). The system is controlled based on a temperature measurement in each zone, a set temperature for each zone, temperature measurements in the storage tank and a general heating curve (not per zone). The heater will produce hot water at a temperature slightly above the required temperature, depending on the heat demand (space heating or DHW). The <i>idealMixer</i> will mix the supply flow rate with return water to reach the heating curve set point. Right after the <i>idealMixer</i>, the flow is splitted in <i>nZones</i> flows and each <i>pumpRad</i> will set the flowrate in the zonal distribution circuit based on the zone temperature and set point. </p>
+<p>A solar thermal system is connected to the DHW storage tank (if <i>solSys</i>=true).</p>
+<p>The heat losses of the heater and all the pipes are connected to a central fix temperature. </p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>Controllers try to limit or avoid events for faster simulation</li>
+<li>Single heating curve for all zones</li>
+<li>Heat emitted through <i>heatPortEmb</i> (to the core of a building construction layer or a <a href=\"modelica://IDEAS.Thermal.Components.Emission.NakedTabs\">nakedTabs</a>)</li>
+<li>All pumps are on/off</li>
+<li>No priority: both pumps can run simultaneously (could be improved).</li>
+<li>CombiTES: space heating connections in the lower half, heat pump heats the whole tank.  </li>
+<li>Configurable positions of all connections to the storage tank.</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>Connect the heating system to the corresponding heatPorts of a <a href=\"modelica://IDEAS.Interfaces.BaseClasses.Structure\">structure</a>. </li>
+<li>Connect <i>TSet</i> and <i>TSensor</i> </li>
+<li>Connect <i>plugLoad </i>to an inhome grid. A<a href=\"modelica://IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder\"> dummy inhome grid like this</a> has to be used if no inhome grid is to be modelled. </li>
+<li>Set all parameters that are required. </li>
+<li>Not all parameters of the sublevel components are ported to the uppermost level. Therefore, it might be required to modify these components deeper down the hierarchy. </li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>This is a system level model, no validation performed. To be correct, a DHW heat exchanger should be foreseen. </p>
+<p><h4>Example </h4></p>
+<p>An example of the use of this model can be found in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples.Heating_Embedded_combiTES_DHW_STS\"> IDEAS.Thermal.HeatingSystems.Examples.Heating_Embedded_combiTES_DHW_STS</a> .</p>
+</html>"));
 end Heating_Embedded_combiTES_DHW_STS;
