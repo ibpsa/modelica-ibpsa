@@ -9,14 +9,14 @@ Modelica experiment file
 double experiment(7,1)
        0                   # StartTime    Time at which integration starts
                            #              (and linearization and trimming time)
-       0                   # StopTime     Time at which integration stops
+       2                   # StopTime     Time at which integration stops
        0                   # Increment    Communication step size, if > 0
-     100                   # nInterval    Number of communication intervals, if > 0
+     500                   # nInterval    Number of communication intervals, if > 0
  1.0000000000000000E-004   # Tolerance    Relative precision of signals for
                            #              simulation, linearization and trimming
        0                   # MaxFixedStep Maximum step size of fixed step size
                            #              integrators, if > 0.0
-       1                   # Algorithm    Integration algorithm as integer (1...28)
+       8                   # Algorithm    Integration algorithm as integer (1...28)
                            #
                            #             | model|       |        | dense | state |
                            # Algorithm   | typ  | stiff | order  | output| event |
@@ -70,10 +70,10 @@ double method(27,1)
        0                   # hmax     Maximum absolute stepsize, if > 0
        0                   # hmin     Minimum absolute stepsize, if > 0 (use with care!)
        0                   # h0       Stepsize to be attempted on first step, if > 0
- 9.9999999999999998E-013   # teps     Bound to check, if 2 equal time instants
+ 2.0000000000000000E-014   # teps     Bound to check, if 2 equal time instants
  1.0000000000000000E-010   # eveps    Hysteresis epsilon at event points
       20                   # eviter   Maximum number of event iterations
-       0                   # delaym   Minimum time increment in delay buffers
+ 9.9999999999999995E-007   # delaym   Minimum time increment in delay buffers
        1                   # fexcep   0/1 floating exception crashes/stops dymosim
        1                   # tscale   clock-time = tscale*simulation-time, if grid = 5
                            #          > 1: simulation too slow
@@ -87,7 +87,7 @@ double method(27,1)
 int settings(13,1)
  0                         # lprec    0/1 do not/store result data in double
  1                         # lx       0/1 do not/store x  (state variables)
- 0                         # lxd      0/1 do not/store xd (derivative of states)
+ 1                         # lxd      0/1 do not/store xd (derivative of states)
  1                         # lu       0/1 do not/store u  (input     signals)
  1                         # ly       0/1 do not/store y  (output    signals)
  0                         # lz       0/1 do not/store z  (indicator signals)

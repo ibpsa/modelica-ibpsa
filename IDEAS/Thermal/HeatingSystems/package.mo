@@ -1,5 +1,5 @@
 within IDEAS.Thermal;
-package HeatingSystems "Complete heating systems  "
+package HeatingSystems "Fully functional multi-zone heating and DHW systems"
 
 
   extends Modelica.Icons.Package;

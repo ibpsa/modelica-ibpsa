@@ -48,7 +48,7 @@ package BaseClasses
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
       "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
           iconTransformation(extent={{-110,10},{-90,30}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad
       "Nodes for radiative heat gains" annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
           iconTransformation(extent={{-110,-30},{-90,-10}})));
     Modelica.Blocks.Interfaces.RealOutput[nZones] TSet
@@ -261,7 +261,7 @@ package BaseClasses
           graphics));
   end VentilationSystem;
 
-  partial model HeatingSystem "Partial heating system inclusif control"
+  partial model HeatingSystem "Partial heating system"
 
     import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
     outer IDEAS.SimInfoManager         sim
@@ -275,7 +275,7 @@ package BaseClasses
     parameter Integer nZones(min=1)
       "Number of conditioned thermal zones in the building";
     parameter Integer nEmb(min=1) = nZones
-      "Number of embedded systems in the building";
+      "Number of embedded systems in the building, not used at the moment?";
     parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
       "Nominal power, can be seen as the max power of the emission system";
     parameter Real[nZones] VZones "Conditioned volumes of the zones";
@@ -296,11 +296,11 @@ package BaseClasses
         (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
       "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-210,10},
               {-190,30}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad if
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad if
         (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
       "Nodes for radiative heat gains" annotation (Placement(transformation(extent={{-210,
               -30},{-190,-10}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortEmb if
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortEmb if
         (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
       "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-210,50},
               {-190,70}})));
@@ -374,9 +374,36 @@ package BaseClasses
             smooth=Smooth.None,
             fillColor={127,0,0},
             fillPattern=FillPattern.Solid)}),                         Diagram(
-          coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,100}}),
+          coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}}),
           graphics),
-      DymolaStoredErrors);
+      DymolaStoredErrors,
+      Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Interface model for a complete multi-zone heating system (with our without domestic hot water and solar system).</p>
+<p>This model defines the ports used to link a heating system with a building, and the basic parameters that most heating systems will need to have. The model is modular as a function of the number of zones <i>nZones. </i></p>
+<p>Two sets of heatPorts are defined:</p>
+<p><ol>
+<li><i>heatPortCon[nZones]</i> and <i>heatPortRad[nZones]</i> for convective respectively radiative heat transfer to the building. </li>
+<li><i>heatPortEmb[nZones]</i> for heat transfer to TABS elements in the building. </li>
+</ol></p>
+<p>The model also defines <i>TSensor[nZones]</i> and <i>TSet[nZones]</i> for the control, and a nominal power <i>QNom[nZones].</i></p>
+<p>There is also an input for the DHW flow rate, <i>mDHW60C</i>, but this can be unconnected if the system only includes heating and no DHW.</p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>See the different extensions of this model in <a href=\"modelica://IDEAS.Thermal.HeatingSystems\">IDEAS.Thermal.HeatingSystems</a></li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>Connect the heating system to the corresponding heatPorts of a <a href=\"modelica://IDEAS.Interfaces.BaseClasses.Structure\">structure</a>. </li>
+<li>Connect <i>TSet</i> and <i>TSensor</i> and <i>plugLoad. </i></li>
+<li>Connect <i>plugLoad </i> to an inhome grid.  A<a href=\"modelica://IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder\"> dummy inhome grid like this</a> has to be used if no inhome grid is to be modelled. </li>
+<li>Set all parameters that are required, depending on which implementation of this interface is used. </li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>No validation performed.</p>
+<p><h4>Example </h4></p>
+<p>See the <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples\">heating system examples</a>. </p>
+</html>"));
   end HeatingSystem;
 
   partial model Structure "Partial model for building structure models"
@@ -404,10 +431,10 @@ package BaseClasses
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
       "Internal zone nodes for convective heat gains" annotation (Placement(transformation(extent={{140,10},{160,30}}),
           iconTransformation(extent={{140,10},{160,30}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortRad
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad
       "Internal zones node for radiative heat gains" annotation (Placement(transformation(extent={{140,-30},{160,-10}}),
           iconTransformation(extent={{140,-30},{160,-10}})));
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nEmb] heatPortEmb
+    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nEmb] heatPortEmb
       "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{140,50},{160,70}}),
           iconTransformation(extent={{140,50},{160,70}})));
     Modelica.Blocks.Interfaces.RealOutput[nZones] TSensor
@@ -424,7 +451,8 @@ package BaseClasses
             smooth=Smooth.None,
             fillColor={95,95,95},
             fillPattern=FillPattern.Solid)}),                         Diagram(
-          coordinateSystem(preserveAspectRatio=true, extent={{-150,-100},{150,100}}),
+          coordinateSystem(preserveAspectRatio=false,extent={{-150,-100},{150,
+              100}}),
           graphics));
 
   end Structure;

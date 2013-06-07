@@ -1,5 +1,6 @@
 within IDEAS.Thermal.Components.Production;
 package Interfaces
+  "Contains partial classes for the IDEAS.Thermal.Components.Production package"
 
 extends Modelica.Icons.InterfacesPackage;
 
@@ -22,7 +23,7 @@ extends Modelica.Icons.InterfacesPackage;
     parameter Modelica.SIunits.HeatCapacity cDry=4800
       "Capacity of dry material lumped to condensor";
 
-    parameter Modelica.SIunits.ThermalConductance UALoss=(cDry + mWater*
+    final parameter Modelica.SIunits.ThermalConductance UALoss=(cDry + mWater*
         medium.cp)/tauHeatLoss;
 
     IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
@@ -35,11 +36,11 @@ extends Modelica.Icons.InterfacesPackage;
           origin={-10,0})));
 
     Thermal.Components.Interfaces.FlowPort_a flowPort_a(final medium=medium, h(
-          min=1140947, max=1558647))
+          min=1140947, max=1558647)) "Fluid inlet "
       annotation (Placement(transformation(extent={{90,-48},{110,-28}}),
           iconTransformation(extent={{90,-48},{110,-28}})));
     Thermal.Components.Interfaces.FlowPort_b flowPort_b(final medium=medium, h(
-          min=1140947, max=1558647))
+          min=1140947, max=1558647)) "Fluid outlet"
       annotation (Placement(transformation(extent={{90,10},{110,30}})));
     Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mDry(C=cDry, T(start=TInitial))
       "Lumped dry mass subject to heat exchange/accumulation"
@@ -65,7 +66,7 @@ extends Modelica.Icons.InterfacesPackage;
             extent={{-252,10},{-232,30}}), iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=-90,
-          origin={10,-100})));
+          origin={-74,-100})));
   equation
 
       connect(flowPort_a, heatedFluid.flowPort_a)
@@ -93,8 +94,34 @@ extends Modelica.Icons.InterfacesPackage;
         points={{-30,-80},{-30,-100}},
         color={191,0,0},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,120}}),
-                        graphics), Icon(coordinateSystem(extent={{-100,-100},{
-              100,120}}),               graphics));
+    annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,120}},
+            preserveAspectRatio=false),
+                        graphics), Icon(coordinateSystem(extent={{-100,-100},{100,
+              120}}, preserveAspectRatio=false),
+                                        graphics),
+      Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>This is a partial model from which most heaters (boilers, heat pumps) will extend. This model is <u>dynamic</u> (there is a water content in the heater and a dry mass lumped to it) and it has <u>thermal losses to the environment</u>. To complete this model and turn it into a heater, a <u>heatSource</u> has to be added, specifying how much heat is injected in the heatedFluid pipe, at which efficiency, if there is a maximum power, etc. HeatSource models are grouped in <a href=\"modelica://IDEAS.Thermal.Components.Production.BaseClasses\">IDEAS.Thermal.Components.Production.BaseClasses.</a></p>
+<p>The set temperature of the model is passed as a realInput.The model has a realOutput PEl for the electricity consumption.</p>
+<p>See the extensions of this model for more details.</p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>the temperature of the dry mass is identical as the outlet temperature of the heater </li>
+<li>no pressure drop</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p>Depending on the extended model, different parameters will have to be set. Common to all these extensions are the following:</p>
+<p><ol>
+<li>the environmental heat losses are specified by a <u>time constant</u>. Based on the water content, dry capacity and this time constant, the UA value of the heat transfer to the environment will be set</li>
+<li>set the heaterType (useful in post-processing)</li>
+<li>connect the set temperature to the TSet realInput connector</li>
+<li>connect the flowPorts (flowPort_b is the outlet) </li>
+<li>if heat losses to environment are to be considered, connect heatPort to the environment.  If this port is not connected, the dry capacity and water content will still make this a dynamic model, but without heat losses to environment,.  IN that case, the time constant is not used.</li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>This partial model is based on physical principles and is not validated. Extensions may be validated.</p>
+<p><h4>Examples</h4></p>
+<p>See the extensions, like the <a href=\"modelica://IDEAS.Thermal.Components.Production.IdealHeater\">IdealHeater</a>, the <a href=\"modelica://IDEAS.Thermal.Components.Production.Boiler\">Boiler</a> or <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_AWMod_Losses\">air-water heat pump</a></p>
+</html>"));
   end PartialDynamicHeaterWithLosses;
 end Interfaces;

@@ -48,12 +48,23 @@ equation
   // massflow b->a mixing rule at b, energy flow at a defined by medium's temperature
   flowPort_a.H_flow = semiLinear(flowPort_a.m_flow,flowPort_a.h,h);
   flowPort_b.H_flow = semiLinear(flowPort_b.m_flow,flowPort_b.h,h);
-annotation (Documentation(info="<HTML>
-Partial model with two flowPorts.<br>
-Possible heat exchange with the ambient is defined by Q_flow; setting this = 0 means no energy exchange.<br>
-Setting parameter m (mass of medium within pipe) to zero
-leads to neglection of temperature transient cv*m*der(T).<br>
-Mixing rule is applied.<br>
-Parameter 0 &lt; tapT &lt; 1 defines temperature of heatPort between medium's inlet and outlet temperature.
-</HTML>"));
+annotation (Documentation(info="<html>
+<p><b>General description</b> </p>
+<p><h5>Goal</h5></p>
+<p>Partial model with two flowPorts.</p>
+<p><h5>Description </h5></p>
+<p>This model is deviated from Modelica.Thermal.FluidHeatFlow.Interfaces.Partials.TwoPort</p>
+<p>Possible heat exchange with the ambient is defined by Q_flow; setting this = 0 means no energy exchange.</p>
+<p>Setting parameter m (mass of medium within component) to zero leads to neglection of temperature transient cv*m*der(T).</p>
+<p>Mass flow can go in both directions, the temperature T is mapped to the outlet temperature. Mixing rule is applied. </p>
+<p><h5>Assumptions and limitations </h5></p>
+<p><ol>
+<li>This model makes assumption of mass balance: outlet flowrate = inlet flowrate</li>
+<li>This model includes the energy balance equation as a first order differential equation,<b> unless m=0</b></li>
+</ol></p>
+<p><h4>Parameters</h4></p>
+<p>Partial model, see extensions for implementation details.</p>
+<p><h4>Validation </h4></p>
+<p>Based on physical principles, no validation performed.</p>
+</html>"));
 end TwoPort;

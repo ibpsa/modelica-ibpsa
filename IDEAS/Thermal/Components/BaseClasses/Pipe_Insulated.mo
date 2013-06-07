@@ -19,9 +19,9 @@ model Pipe_Insulated "Pipe with insulation, characterised by UA"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=
         UA) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-4,-4},{4,4}},
         rotation=90,
-        origin={0,-26})));
+        origin={0,-22})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort annotation (
       Placement(transformation(extent={{-10,-50},{10,-30}}), iconTransformation(
           extent={{-10,-50},{10,-30}})));
@@ -31,11 +31,11 @@ model Pipe_Insulated "Pipe with insulation, characterised by UA"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
   connect(heatedPipe.heatPort, thermalConductor.port_b) annotation (Line(
-      points={{0,-10},{0,-16},{6.12323e-016,-16}},
+      points={{0,-10},{0,-18},{2.22045e-016,-18}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalConductor.port_a, heatPort) annotation (Line(
-      points={{-6.12323e-016,-36},{0,-36},{0,-40}},
+      points={{-4.44089e-016,-26},{0,-26},{0,-40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatedPipe.flowPort_a, flowPort_a) annotation (Line(
@@ -46,7 +46,8 @@ equation
       points={{10,0},{100,0}},
       color={0,128,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-100,-40},{100,40}}),
+  annotation (Diagram(coordinateSystem(extent={{-100,-40},{100,40}},
+          preserveAspectRatio=false),
                       graphics), Icon(coordinateSystem(extent={{-100,-40},{100,
             40}}, preserveAspectRatio=true),
                                       graphics={
@@ -70,5 +71,35 @@ equation
           extent={{-60,20},{60,-20}},
           lineColor={100,100,100},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Insulated pipe: heat exchange with the environment is based on UA-value of the insulation.</p>
+<p>Model for fluid flow through a pipe, including heat losses or gains with the environment through insulation. A dynamic heat balance is included, based on the in- and outlet enthalpy flow, the heat flux to/from environment and the internal mass m of the fluid content in the pipe. A stationary model is obtained when m=0 </p>
+<p>m.cv.der(T) = ( h_flow_in - h_flow_out) - UA.(T - TAmb) </p>
+<p><b>Note:</b> as can be seen from the equation, the pipe temperature T will converge to the ambient temperature when there is no mass flow rate. </p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>No pressure drop</li>
+<li>Conservation of mass</li>
+<li>Heat losses/gains with environment through conduction based on UA-value</li>
+</ol></p>
+<p><h4>Parameters</h4></p>
+<p>The following parameters have to be set by the user</p>
+<p><ol>
+<li>medium</li>
+<li>mass of fluid in the pipe (<b>Note:</b> Setting parameter m to zero leads to neglection of temperature transient cv.m.der(T).)</li>
+<li>initial temperature of the fluid (defaults to 20&deg;C)</li>
+<li>UA-value (W/K)</li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>No validation performed; the model is based on physical principles</p>
+<p><h4><font color=\"#008000\">Examples</font></h4></p>
+<p>Many models use an insulated pipe.  A very basic example can be found in the <a href=\"modelica://IDEAS.Thermal.Components.Examples.OpenHydraulicSystem\">OpenHydraulicSystem</a>.</p>
+</html>", revisions="<html>
+<p><ul>
+<li>2013 May 23, Roel De Coninck, documentation;</li>
+<li>2012 November, Roel De Coninck, first implementation. </li>
+</ul></p>
+</html>"));
 end Pipe_Insulated;

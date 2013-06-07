@@ -94,28 +94,30 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
-This block computes the set point temperatures for the
-supply and return temperature of a heating system.
-The set point for the room air temperature can either be specified
-by a parameter, or it can be an input to the model. The latter allows
-to use this model with systems that have night set back.
-</p>
-<p>
-The parameter <tt>dTOutHeaBal</tt> can be used to shift the heating curve to account
-for the fact that solar heat gains and heat gains from equipment and people 
-make up for some of the transmission losses. 
-For example, in energy efficient houses, the heating may not be switched on above 
-12 degree Celsius, even if a room temperature of 20 degree is required.
-In such a situation, set <tt>dTOutHeaBal=20-12=8</tt> Kelvin to 
-shift the heating curve.
-</p>
+<p><b>Description</b> </p>
+<p>This block computes the set point temperatures for the supply and return temperature of a heating system. The set point for the room air temperature can either be specified by a parameter, or it can be an input to the model. The latter allows to use this model with systems that have night set back. </p>
+<p>The parameter <code>dTOutHeaBal</code> can be used to shift the heating curve to account for the fact that solar heat gains and heat gains from equipment and people make up for some of the transmission losses. For example, in energy efficient houses, the heating may not be switched on above 12 degree Celsius, even if a room temperature of 20 degree is required. In such a situation, set <code>dTOutHeaBal=20-12=8</code> Kelvin to shift the heating curve. </p>
+<p>The outdoor temperature is filtered with a first order or moving average filter (replaceable component). The time constant of this filter can be set. </p>
+<p>If desired (minSup=true), a minimum supply temperature can be set for the heating curve output.</p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>Filtered ambient temperature</li>
+<li>Takes into account radiator exponent of emission system</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>This model is normally used inside a controller for the heating, but it can be used directly if desired. </li>
+</ol></p>
+<p><h4>Validation </h4></p>
+<p>No validation performed.</p>
+<p><h4>Example </h4></p>
+<p>No specific example foreseen for the heating curve, see the <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples\">heating system examples</a>. </p>
 </html>", revisions="<html>
-<ul>
-<li>
-February 5, 2009 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
+<p><ul>
+<li>2013 June, Roel De Coninck: documentation</li>
+<li>2011, Roel De Coninck: minimum guaranteed supply temperature and filter or moving average of ambient temperature.</li>
+<li>February 5, 2009 by Michael Wetter:first implementation. </li>
+</ul></p>
 </html>"), Icon(graphics={
         Polygon(
           points={{90,-82},{68,-74},{68,-90},{90,-82}},

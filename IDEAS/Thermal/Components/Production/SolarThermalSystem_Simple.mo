@@ -11,7 +11,7 @@ model SolarThermalSystem_Simple
   Modelica.SIunits.Power QCol "Net power delivered by the solar collector";
   Modelica.SIunits.Power QSTS "Net power delivered by the primary circuit";
 
-  IDEAS.Thermal.Components.Production.CollectorG
+  IDEAS.Thermal.Components.Production.SolarCollector_Glazed
                                            collectorG(
     medium=medium,
     h_g=2,
@@ -32,7 +32,7 @@ model SolarThermalSystem_Simple
                                             pipeCold(medium=medium, m=5)
     annotation (Placement(transformation(extent={{-26,-78},{-46,-58}})));
 
-  Thermal.Control.SolarThermalControl_DT solarThermalControl_DT(TSafetyMax=
+  Control.Ctrl_SolarThermal_Simple       solarThermalControl_DT(TSafetyMax=
         363.15)
     annotation (Placement(transformation(extent={{54,44},{34,64}})));
   Thermal.Components.Interfaces.FlowPort_a flowPort_a(medium=medium)
@@ -85,5 +85,27 @@ equation
       points={{106,34},{70,34},{70,48},{54.6,48}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Predesigned solar thermal primary circuit, including solar collector, pump, control and supply and return pipes. Connectors are foreseen to link the primary circuit with a storage tank for example. </p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>The <a href=\"modelica://IDEAS.Thermal.Components.Production.SolarCollector_Glazed\">solar thermal collector model</a> is not validated</li>
+<li>The pipes have no heat loss in this design. </li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p><ol>
+<li>The model is very easy to use by coupling it&apos;s provided flowPorts to the ports of a storage tank.</li>
+<li>Only 3 parameters to be set if the default collector properties are fine: collector surface, number of collectors in series and specific mass flow rate</li>
+</ol></p>
+<p><h4>Validation</h4></p>
+<p>No validation performed.</p>
+<p><h4>Example </h4></p>
+<p>An example of the use of this model is given in <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS\">IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS</a>.</p>
+</html>", revisions="<html>
+<p><ul>
+<li>2013 May, Roel De Coninck: basic documentation</li>
+<li>2011 Roel De Coninck: first version</li>
+</ul></p>
+</html>"));
 end SolarThermalSystem_Simple;

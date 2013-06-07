@@ -2,6 +2,8 @@ within IDEAS.Thermal.Components.Examples;
 model FloorHeatingValidation2
   "Testing the floorheating according to Koschenz, par. 4.6"
 
+extends Modelica.Icons.Example;
+
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
@@ -14,7 +16,7 @@ model FloorHeatingValidation2
     TInitial=303.15,
     m_flowNom=15*24/3600)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  IDEAS.Thermal.Components.Emission.BaseClasses.Tabs
+  IDEAS.Thermal.Components.Emission.Tabs
                   tabs(
     medium=medium,
     S_1=0.1,

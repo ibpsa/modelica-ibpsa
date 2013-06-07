@@ -11,7 +11,8 @@ extends Modelica.Icons.InterfacesPackage;
                            emissionType = EmissionType.RadiatorsAndFloorHeating
       "Type of the heat emission system";
 
-    parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
+    parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
+      "Medium in the emission system";
 
   // Interfaces ////////////////////////////////////////////////////////////////////////////////////////
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon if
@@ -36,7 +37,8 @@ extends Modelica.Icons.InterfacesPackage;
       "Initial temperature of all state variables";
     replaceable parameter
       IDEAS.Thermal.Components.BaseClasses.FH_Characteristics            FHChars if (
-      emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating) annotation (choicesAllMatching=true);
+      emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
+      "Properties of the floor heating or TABS, if present"                                                                                                     annotation (choicesAllMatching=true);
 
   // Variables ///////////////////////////////////////////////////////////////////////////////////////////
     Modelica.SIunits.Temperature TMean(start=TInitial, fixed=false)
@@ -49,11 +51,11 @@ extends Modelica.Icons.InterfacesPackage;
   // General outputs
 
     Thermal.Components.Interfaces.FlowPort_a flowPort_a(h(start=TInitial*medium.cp,
-          fixed=false), medium=medium)
+          fixed=false), medium=medium) "Fluid inlet"
       annotation (Placement(transformation(extent={{-110,-80},{-90,-60}}),
           iconTransformation(extent={{-110,-80},{-90,-60}})));
     Thermal.Components.Interfaces.FlowPort_b flowPort_b(h(start=TInitial*medium.cp,
-          fixed=false), medium=medium)
+          fixed=false), medium=medium) "Fluid outlet"
       annotation (Placement(transformation(extent={{130,20},{150,40}}),
           iconTransformation(extent={{130,20},{150,40}})));
   initial equation
@@ -79,7 +81,25 @@ extends Modelica.Icons.InterfacesPackage;
             smooth=Smooth.None)}),
         Diagram(coordinateSystem(extent={{-100,-100},{140,60}},
             preserveAspectRatio=true),
-                graphics));
+                graphics),
+      Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>Partial class for hydraulic heat emission systems. Can be used to create radiators, fan coil units etc. but also for embedded systems (or thermally activated building systems, TABS) like floor heating, wall heating, concrete core activation etc. </p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>Defines 3 thermal ports: one for embedded systems, and two for stand-alone heat emission systems</li>
+<li>Defines an inlet and outlet flowPort, but no dynamics nor equations are predefined in this partial class.</li>
+<li>Defines variables TIn, TOut and TMean, the medium and the initial temperature TInitial.</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p>See the extensions of this class, like the <a href=\"modelica://IDEAS.Thermal.Components.Emission.Radiator\">Radiator</a> or EmbeddedPipe models. </p>
+<p>Common to all those types is that the <a href=\"modelica://IDEAS.Thermal.Components.Emission.Interfaces.EmissionType\">emissionType</a> (enumeration) is to be set and this defines the presence of the heatPorts.</p>
+</html>",   revisions="<html>
+<p><ul>
+<li>2013 May, Roel De Coninck: documentation</li>
+<li>2011 August, Roel De Coninck: first version</li>
+</ul></p>
+</html>"));
   end Partial_Emission;
 
   model Partial_EmbeddedPipe "Partial for the embedded pipe model"
@@ -111,7 +131,10 @@ extends Modelica.Icons.InterfacesPackage;
           Line(
             points={{100,20},{100,40}},
             color={0,128,255},
-            smooth=Smooth.None)}));
+            smooth=Smooth.None)}), Documentation(info="<html>
+<p>This model fixes the emissionType (to <code>EmissionType.FloorHeating)</code>and specifies a minimum flow rate.  </p>
+<p>And it creates a nice icon for the embedded pipe models :-) </p>
+</html>"));
   end Partial_EmbeddedPipe;
 
   partial model Partial_Tabs "Partial tabs model"
@@ -137,7 +160,13 @@ extends Modelica.Icons.InterfacesPackage;
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_b
       annotation (Placement(transformation(extent={{-10,-108},{10,-88}})));
 
-    annotation (Diagram(graphics));
+    annotation (Diagram(graphics), Documentation(info="<html>
+<p>This partial model mainly specifies the interfaces of a TABS:</p>
+<p>- two flowPorts, for the fluid connections (in and out)</p>
+<p>- two heatPorts, for heat transfer to the upper and lower side. By not connecting a heatPort, no heat transfer through that port wil occur (=perfectly insulated).</p>
+<p>Furthermore, it specifies a Floor area and the floor characteristics.</p>
+<p>It takes two models to create a full TABS: an embedded pipe and a naked tabs.  Actually, the embedded pipe components are often used together with a building component, and in that case the naked tabs model and this partial model are not needed: the embedded heatPort of the EmbeddedPipe is connected to the corresponding layer in the building model. </p>
+</html>"));
 
   end Partial_Tabs;
 

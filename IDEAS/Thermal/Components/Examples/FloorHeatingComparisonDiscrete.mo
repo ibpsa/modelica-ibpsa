@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Examples;
 model FloorHeatingComparisonDiscrete "test with instantiated test models"
 
+extends Modelica.Icons.Example;
+
 //  FloorHeatingTester discDyn2(redeclare Components.HeatEmission.TabsDiscretized
 //                                                                                tabs(
 //    n=22,
@@ -12,7 +14,7 @@ model FloorHeatingComparisonDiscrete "test with instantiated test models"
       Components.HeatEmission.TabsDiscretized                                   tabs(n=3, redeclare parameter
         IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
                                                        FHCharsDiscretized))
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
   FloorHeatingTester discDyn20(redeclare
       Components.HeatEmission.TabsDiscretized         tabs(n=20, redeclare parameter
@@ -34,7 +36,7 @@ model FloorHeatingComparisonDiscrete "test with instantiated test models"
         FHCharsDiscretized,
       tabs(redeclare IDEAS.Thermal.Components.Emission.EmbeddedPipeDynSwitch
           embeddedPipe)))
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
   FloorHeatingTester discFullDyn20(redeclare
       Components.HeatEmission.TabsDiscretized tabs(
       n=20,

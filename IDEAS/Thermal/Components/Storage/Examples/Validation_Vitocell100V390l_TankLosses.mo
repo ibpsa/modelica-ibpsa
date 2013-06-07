@@ -2,6 +2,8 @@ within IDEAS.Thermal.Components.Storage.Examples;
 model Validation_Vitocell100V390l_TankLosses
   "Check the total tank losses to environment"
 
+extends Modelica.Icons.Example;
+
   parameter Modelica.SIunits.ThermalConductance UACon(min=0)=1.61
     "Additional thermal conductance for connection losses and imperfect insulation";
 
@@ -14,7 +16,6 @@ model Validation_Vitocell100V390l_TankLosses
     preventNaturalDestratification=true,
     volumeTank=0.39,
     heightTank=1.4,
-    lamBuo=1000,
     nbrNodes=40)
     annotation (Placement(transformation(extent={{-26,6},{-10,28}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
@@ -56,5 +57,9 @@ equation
       StopTime=86400,
       Interval=600,
       Algorithm="Lsodar"),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
+<p>This validation model checks the 24h thermal losses of a storage tank at 60&deg;C.</p>
+<p>These losses should amount to 2.78 kWh over 24h. The current model results in 2.78916 kWh/24h.</p>
+</html>"));
 end Validation_Vitocell100V390l_TankLosses;

@@ -147,5 +147,20 @@ equation
           52},{-50,58}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics), Documentation(info="<html>
+<p><b>Description</b> </p>
+<p>This&nbsp;model&nbsp;is&nbsp;identical&nbsp;to&nbsp;the&nbsp;norm&nbsp;prEN&nbsp;15377&nbsp;and&nbsp;corresponding&nbsp;background&nbsp;as&nbsp;developed&nbsp;in&nbsp;(Koschenz,&nbsp;2000).&nbsp;&nbsp;</p>
+<p>&nbsp;In general, it is strongly encouraged to use the <a href=\"modelica://IDEAS.Thermal.Components.Emission.EmbeddedPipe\">IDEAS.Thermal.Components.Emission.EmbeddedPipe</a> model for all cases.</p>
+<p><h4>Assumptions and limitations </h4></p>
+<p><ol>
+<li>This&nbsp;model&nbsp;is&nbsp;problematic&nbsp;when&nbsp;there&nbsp;is&nbsp;no&nbsp;flowrate.&nbsp;Do&nbsp;not&nbsp;use&nbsp;this&nbsp;model&nbsp;if&nbsp;the&nbsp;flowrate&nbsp;can&nbsp;become&nbsp;zero.&nbsp;</li>
+<li>Nomenclature&nbsp;from&nbsp;EN&nbsp;15377.</li>
+</ol></p>
+<p><h4>Model use</h4></p>
+<p>Don&apos;t use this model unless it&apos;s for specific, static calculations</p>
+<p><h4>Validation </h4></p>
+<p>For static situations (with flow rate), this model is validated according to (Koschenz, 2000).  A specific report of this validation can be found in IDEAS/Specifications/Thermal/ValidationEmbeddedPipeModels_20111006.pdf</p>
+<p><h4>References</h4></p>
+<p><br/>[Koshenz, 2000] -  Koschenz, Markus, and Beat Lehmann. 2000. <i>Thermoaktive Bauteilsysteme - Tabs</i>. D&uuml;bendorf: EMPA D&uuml;bendorf. </p>
+</html>"));
 end EmbeddedPipe_prEN15377;

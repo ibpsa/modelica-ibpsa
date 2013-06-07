@@ -12,6 +12,8 @@ model FloorHeatingTester "Simple floorheating tester"
     
   */
 
+extends Modelica.Icons.Example;
+
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
   parameter Modelica.SIunits.Area A_Floor=20;
 
@@ -25,7 +27,7 @@ model FloorHeatingTester "Simple floorheating tester"
     m=0,
     TInitial=293.15)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  replaceable IDEAS.Thermal.Components.Emission.BaseClasses.Tabs
+  replaceable IDEAS.Thermal.Components.Emission.Tabs
                                                    tabs(
     medium=medium,
     m_flowMin=15*20/3600,
