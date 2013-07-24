@@ -53,7 +53,7 @@ equation
           color={0,0,127},
           smooth=Smooth.None)}),
     Documentation(info="<html>
-<p><b>Description</b> </p>
+<p><h4><font color=\"#008000\">Description </font></h4></p>
 <p>Dynamic boiler model, based on interpolation in performance tables. The boiler has thermal losses to the environment which are often not mentioned in the performance tables. Therefore, the additional environmental heat losses are added to the heat production in order to ensure the same performance as in the manufacturers data, while still obtaining a dynamic model with heat losses (also when boiler is off). The heatSource will compute the required power and the environmental heat losses, and try to reach the set point. </p>
 <p>See<a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\"> IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses</a> for more details about the heat losses and dynamics. </p>
 <p><h4>Assumptions and limitations </h4></p>
