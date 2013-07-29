@@ -1,4 +1,4 @@
-within ;
+within IDEAS.Thermal.Components.GroundHeatExchanger;
 package VerticalSingleBorehole "Model for a single vertical borehole heat exchanger using Eskilsons grid"
 
 

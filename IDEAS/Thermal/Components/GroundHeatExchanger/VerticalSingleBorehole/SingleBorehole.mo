@@ -1,4 +1,4 @@
-within VerticalSingleBorehole;
+within IDEAS.Thermal.Components.GroundHeatExchanger.VerticalSingleBorehole;
 model SingleBorehole
   "One single vertical borehole heat exchanger with one u-loop"
 // Dieter Patteeuw 28feb2012

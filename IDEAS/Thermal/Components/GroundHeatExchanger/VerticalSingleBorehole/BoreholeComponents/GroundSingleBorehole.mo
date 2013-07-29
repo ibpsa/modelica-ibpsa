@@ -1,4 +1,4 @@
-within VerticalSingleBorehole.BoreholeComponents;
+within IDEAS.Thermal.Components.GroundHeatExchanger.VerticalSingleBorehole.BoreholeComponents;
 model GroundSingleBorehole "behaviour of the ground for a single borehole"
 // Dieter Patteeuw 13mar2012
 // vertically 3 layers: top (in contact with climate), main part (most of the borehole) and bottom (gets the geothermal flux)

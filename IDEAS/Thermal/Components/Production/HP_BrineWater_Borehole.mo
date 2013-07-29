@@ -34,7 +34,7 @@ model HP_BrineWater_Borehole "Brine-Water HP with borehole included"
     annotation (Placement(transformation(extent={{-94,50},{-80,64}})));
   outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-86,92},{-66,112}})));
-  IDEAS.Thermal.Components.GroundHeatExchanger.ModelDieterPatteeuw.VerticalHeatExchangerModels.BoreHole
+  IDEAS.Thermal.Components.VerticalSingleBorehole.ModelDieterPatteeuw.VerticalHeatExchangerModels.BoreHole
     boreHole(medium=mediumBorehole)
     annotation (Placement(transformation(extent={{-60,18},{-40,38}})));
   Thermal.Components.BaseClasses.Pump pumpBorehole(

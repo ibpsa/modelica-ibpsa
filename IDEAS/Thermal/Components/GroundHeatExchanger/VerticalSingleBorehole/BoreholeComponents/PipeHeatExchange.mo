@@ -1,4 +1,4 @@
-within VerticalSingleBorehole.BoreholeComponents;
+within IDEAS.Thermal.Components.GroundHeatExchanger.VerticalSingleBorehole.BoreholeComponents;
 model PipeHeatExchange
   "Pipe with heat exchange with surroundings on constant temperature"
 

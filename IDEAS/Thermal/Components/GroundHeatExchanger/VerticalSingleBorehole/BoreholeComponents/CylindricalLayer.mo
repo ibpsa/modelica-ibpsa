@@ -1,4 +1,4 @@
-within VerticalSingleBorehole.BoreholeComponents;
+within IDEAS.Thermal.Components.GroundHeatExchanger.VerticalSingleBorehole.BoreholeComponents;
 model CylindricalLayer
   "describes the physical behaviour of a cylindrical layer"
 // Dieter Patteeuw 28feb2012

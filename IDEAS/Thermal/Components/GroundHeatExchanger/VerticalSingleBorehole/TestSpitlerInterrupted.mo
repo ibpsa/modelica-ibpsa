@@ -1,27 +1,25 @@
-within VerticalSingleBorehole;
+within IDEAS.Thermal.Components.GroundHeatExchanger.VerticalSingleBorehole;
 model TestSpitlerInterrupted "validation spitler: Interrupted test"
 
 //Beier, Richard A., Marvin D. Smith, and Jeffrey D. Spitler.
 //"Reference data sets for vertical borehole ground heat exchanger models and thermal response test analysis."
 //Geothermics 40.1 (2011): 79-85.
 
-  IDEAS.Thermal.Components.BaseClasses.HeatedPipe
-                                heatedPipe(
-    medium=TME.FHF.Media.Water(),
+  BaseClasses.Pipe_HeatPort     heatedPipe(
     m=0.1,
+    medium=medium,
     TInitial=295.15)
     annotation (Placement(transformation(extent={{-32,40},{-12,20}})));
   IDEAS.Thermal.Components.BaseClasses.Pump
                           pump(
-    medium=TME.FHF.Media.Water(),
     m_flowNom=0.197,
     useInput=false,
     m=0,
+    medium=medium,
     TInitial=295.15)
     annotation (Placement(transformation(extent={{-2,20},{18,40}})));
-  inner IDEAS.Climate.SimInfoManager
-                               sim(redeclare Commons.Meteo.Files.min60 detail,
-      redeclare Commons.Meteo.Locations.Uccle city)
+  inner SimInfoManager         sim(redeclare IDEAS.Climate.Meteo.Files.min60
+      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
   IDEAS.Thermal.Components.BaseClasses.AbsolutePressure
                                       absolutePressure(p=300000)
@@ -30,7 +28,7 @@ model TestSpitlerInterrupted "validation spitler: Interrupted test"
     prescribedHeatFlow
     annotation (Placement(transformation(extent={{-60,36},{-40,56}})));
   SingleBorehole singleBorehole(
-    brine=TME.FHF.Media.Water(),
+    brine=medium,
     boreholeRadius=0.063,
     pipeConductivity=0.39,
     groundConductivity=2.82,
@@ -54,6 +52,8 @@ model TestSpitlerInterrupted "validation spitler: Interrupted test"
     width=4)
     annotation (Placement(transformation(extent={{-94,26},{-74,46}})));
 
+  parameter Data.Interfaces.Medium medium = IDEAS.Thermal.Data.Media.Water()
+    "Medium in the component";
 equation
   connect(heatedPipe.flowPort_b, pump.flowPort_a) annotation (Line(
       points={{-12,30},{-2,30}},
