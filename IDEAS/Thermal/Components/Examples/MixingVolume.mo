@@ -64,5 +64,5 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
-                      graphics));
+                      graphics), experiment(StopTime=3600));
 end MixingVolume;
