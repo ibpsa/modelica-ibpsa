@@ -83,11 +83,11 @@ public
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-30,-8})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TGro
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=0,
+      T_ref=284.15)
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
 equation
   periodicFlow.Q_flow = Qm;
-  TGro.T = sim.Tground;
 
   connect(layMul.port_b, intCon.port_a) annotation (Line(
       points={{10,-30},{20,-30}},
@@ -95,10 +95,6 @@ equation
       smooth=Smooth.None));
   connect(layGro.port_b, layMul.port_a) annotation (Line(
       points={{-20,-30},{-10,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(TGro.port, layGro.port_a) annotation (Line(
-      points={{-50,-30},{-40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -129,6 +125,10 @@ equation
   connect(layMul.area, area_a) annotation (Line(
       points={{0,-20},{0,60},{56,60}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(fixedHeatFlow.port, layGro.port_a) annotation (Line(
+      points={{-50,-30},{-40,-30}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
@@ -164,7 +164,7 @@ equation
           color={0,0,0},
           thickness=0.5,
           smooth=Smooth.None)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
