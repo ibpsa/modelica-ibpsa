@@ -102,8 +102,6 @@ equation
   annotation (Diagram(graphics),
     experiment(StopTime=10000),
     __Dymola_experimentSetupOutput,
-    Commands(file="Scripts/Example_ThermalExamplesPumpPipeTester.mos"
-        "RunTester"),
     Documentation(info="<html>
 <p>This model shows a hydraulic circuit composed of two loops that come together.  As shown, the flowrates in pumps and pipes can be bidirectional.</p>
 </html>"));

@@ -29,9 +29,9 @@ extends Modelica.Icons.Example;
     n1=3,
     n2=3) "tabs model"
                annotation (Placement(transformation(extent={{68,2},{88,22}})));
-  inner IDEAS.SimInfoManager         sim(redeclare
-      IDEAS.Climate.Meteo.Files.min15
-      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
+  inner IDEAS.SimInfoManager         sim(
+              redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
+      IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
     prescribedTemperature(T=293.15)
