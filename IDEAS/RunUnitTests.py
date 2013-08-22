@@ -16,11 +16,12 @@ import os
  ran. 
  The simulation logs (from the simulation environment) are copied back to this directory
 """
-os.chdir("D:\work\Modelica\OpenLibraries\ideas\IDEAS")
+#os.chdir("E:\work\ideas\IDEAS")
 
 tester=UT.Tester()
 """ number of parallel processes started."""
 tester.setNumberOfThreads(1)
+tester.validate_html = False
 
 """ Leave Dymola open after the simulation is finished for debugging.
 --> python waits until Dymola is closed to continue.
