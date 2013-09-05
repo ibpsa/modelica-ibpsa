@@ -16,18 +16,17 @@ extends Modelica.Icons.Example;
     TInitial=303.15,
     m_flowNom=15*24/3600)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  IDEAS.Thermal.Components.Emission.Tabs
-                  tabs(
+  IDEAS.Thermal.Components.Emission.Tabs tabs(
     medium=medium,
-    S_1=0.1,
-    redeclare IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
-                                              FHChars,
-    S_2=0.2,
-    A_Floor=24,
     m_flowMin=15*24/3600,
-    lambda_b=1.8,
-    n1=3,
-    n2=3) "tabs model"
+    redeclare IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2 FHChars(
+      S_1=0.1,
+      S_2=0.2,
+      A_Floor=24,
+      lambda_b=1.8,
+      lambda_r=0.45,
+      n1=3,
+      n2=3)) "tabs model"
                annotation (Placement(transformation(extent={{68,2},{88,22}})));
   inner IDEAS.SimInfoManager         sim(
               redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
@@ -90,5 +89,7 @@ equation
       points={{-10,-38},{10,-38},{10,-16}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics),
+    experiment(StopTime=86400, __Dymola_NumberOfIntervals=1000),
+    __Dymola_experimentSetupOutput);
 end FloorHeatingValidation2;
