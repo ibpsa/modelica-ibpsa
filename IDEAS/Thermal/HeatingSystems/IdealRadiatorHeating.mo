@@ -4,9 +4,7 @@ model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final emissionType = EmissionType.Radiators,
-    final nLoads=1,
-    final nEmb,
-    final nOcc);
+    nLoads=1);
 
 parameter Real fractionRad[nZones] = {0.3 for i in 1:nZones}
     "Fraction of radiative to total power";
