@@ -1,0 +1,4 @@
+simulateModel("Annex60.Media.GasesConstantDensity.Examples.TestSimpleAir", method="dassl", resultFile="GasesConstantDensityTestSimpleAir");
+createPlot(id = 1,
+ y = {"volume.medium.T"},
+ grid = true);
