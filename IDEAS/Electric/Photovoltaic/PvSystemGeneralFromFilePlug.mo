@@ -39,31 +39,31 @@ invertor.P_dc=PV1.P_ratio*PNom;
       points={{80,30},{92,30},{92,40},{102,40}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(pvVoltageCtrl.PFinal, wattsLaw.P)
-                                           annotation (Line(
-      points={{46,36},{53,36},{53,34},{60,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pvVoltageCtrl.QFinal, wattsLaw.Q)
-                                           annotation (Line(
-      points={{46,32},{54,32},{54,28},{60,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(invertor.P, pvVoltageCtrl.PInit) annotation (Line(
-      points={{-19.4,34},{4,34},{4,36},{26,36}},
+      points={{-19.4,36},{4,36},{4,36},{26.2,36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(invertor.Q, pvVoltageCtrl.QInit)
    annotation (Line(
-      points={{-19.4,26},{4,26},{4,32},{26,32}},
+      points={{-19.6,32},{4,32},{4,32},{26.2,32}},
       color={0,0,127},
       smooth=Smooth.None));
  PInit=pvVoltageCtrl.PInit;
  PFinal=pvVoltageCtrl.PFinal;
   connect(pvVoltageCtrl.VGrid, VGrid) annotation (Line(
-      points={{26,24},{26,-62},{94,-62}},
+      points={{36,20},{36,-62},{94,-62}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pvVoltageCtrl.PFinal, wattsLaw.P[1]) annotation (Line(
+      points={{46.6,36},{60,36}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pvVoltageCtrl.QFinal, wattsLaw.Q[1]) annotation (Line(
+      points={{46.6,32},{60,32}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(Bitmap(extent=[-90,90; 90,-90], name="modelica://IDEAS/Electric/PV.png")), Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
         graphics));
 end PvSystemGeneralFromFilePlug;
