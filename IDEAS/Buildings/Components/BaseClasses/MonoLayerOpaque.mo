@@ -5,17 +5,21 @@ model MonoLayerOpaque "single material layer"
   parameter IDEAS.Buildings.Data.Interfaces.Material mat "Layer material";
   parameter Modelica.SIunits.Angle inc "Inclination";
 
+  parameter Modelica.SIunits.Temperature TStart = 289.15
+    "Start temperature for each of the states";
+
   final parameter Integer nSta=mat.nSta;
   final parameter Real R=mat.R "Total specific thermal resistance";
   final parameter Modelica.SIunits.ThermalConductance G=(A*mat.k*nSta)/mat.d;
   final parameter Modelica.SIunits.HeatCapacity C=(A*mat.rho*mat.c*mat.d)/nSta;
 
 public
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=TStart))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=289.15))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=TStart))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.SIunits.Temperature T[nSta] "Temperature at the states";
+  Modelica.SIunits.Temperature T[nSta](start=ones(nSta)*TStart)
+    "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[nSta + 1]
     "Heat flow rate from state i to i+1";
 
