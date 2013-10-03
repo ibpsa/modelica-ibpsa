@@ -106,7 +106,7 @@ else
 end if;
 
   connect(heatingSystem.mDHW60C, occupant.mDHW60C) annotation (Line(
-      points={{6,-10.4},{6,-14},{6,-14},{6,-22}},
+      points={{6,-10.4},{6,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation(Icon(graphics={Line(

@@ -5,12 +5,7 @@ model Heating_Radiators
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
     final emissionType=EmissionType.Radiators,
-    final nLoads=1,
-    final nEmb,
-    final FHChars,
-    final TDHWSet,
-    final TDHWCold,
-    final nOcc);
+    nLoads=1);
 
   Thermal.Components.BaseClasses.Pump[nZones] pumpRad(
     each medium=medium,

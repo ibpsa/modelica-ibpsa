@@ -38,9 +38,9 @@ extends Modelica.Icons.Example;
   Control.Ctrl_SolarThermal_Simple       solarThermalControl_DT(TSafetyMax=
         363.15)
     annotation (Placement(transformation(extent={{54,44},{34,64}})));
-  inner IDEAS.SimInfoManager         sim(redeclare
-      IDEAS.Climate.Meteo.Files.min5                                              detail,
-      redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
+  inner IDEAS.SimInfoManager         sim(
+      redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
+      IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-92,76},{-72,96}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)

@@ -23,3 +23,5 @@
 /Specifications/Specs.tcp
 /Specifications/Specs.tps
 /IDEAS backup
+!/Inputs/*.txt
+!/IDEAS/Resources/ReferenceResults/Dymola/*txt

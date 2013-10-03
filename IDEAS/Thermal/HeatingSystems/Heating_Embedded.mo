@@ -5,12 +5,7 @@ model Heating_Embedded
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
     final emissionType=EmissionType.FloorHeating,
-    final nLoads=1,
-    final nEmb,
-    final FHChars,
-    final TDHWSet,
-    final TDHWCold,
-    final nOcc);
+    nLoads=1);
 
   Thermal.Components.BaseClasses.Pump[nZones] pumpRad(
     each medium=medium,
@@ -19,7 +14,7 @@ model Heating_Embedded
     each m=1)
     annotation (Placement(transformation(extent={{56,46},{80,22}})));
 
-  Components.Emission.EmbeddedPipe[        nZones] emission(
+  Components.Emission.EmbeddedPipe[nZones]         emission(
     each medium = medium,
     m_flowMin = m_flowNom)
     annotation (choicesAllMatching=true,Placement(transformation(extent={{88,18},{118,38}})));

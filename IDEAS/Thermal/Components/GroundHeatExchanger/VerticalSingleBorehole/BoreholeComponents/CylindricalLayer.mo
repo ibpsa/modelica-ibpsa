@@ -12,7 +12,7 @@ parameter Modelica.SIunits.ThermalConductivity groundKCyl
     "W/mK thermal conductivity of the ground";
 parameter Modelica.SIunits.Temperature tempInitial
     "initial temperature of the cylinder";
-parameter Modelica.SIunits.Density groundRhoCyl "kg/m³ density of the ground";
+parameter Modelica.SIunits.Density groundRhoCyl "kg/m3 density of the ground";
 
 protected
   parameter Modelica.SIunits.Radius capacityRadius = sqrt((outerRadiusCyl^2 + innerRadiusCyl^2)/2)

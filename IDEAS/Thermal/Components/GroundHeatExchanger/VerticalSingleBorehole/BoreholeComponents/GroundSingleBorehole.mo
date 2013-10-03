@@ -12,7 +12,7 @@ parameter Modelica.SIunits.SpecificHeatCapacity groundCp
     "J/kgK specific heat capacity of the ground";
 parameter Modelica.SIunits.ThermalConductivity groundK
     "W/mK thermal conductivity of the ground";
-parameter Modelica.SIunits.Density groundRho "kg/m³ density of the ground";
+parameter Modelica.SIunits.Density groundRho "kg/m3 density of the ground";
 parameter Integer typeMesh = 1 "Which type of mesh is to be used";
 parameter Modelica.SIunits.HeatFlux geothermalFlux "flux from the earth core";
 

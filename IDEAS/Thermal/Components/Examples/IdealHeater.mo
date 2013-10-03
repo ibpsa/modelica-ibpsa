@@ -25,7 +25,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-94,-20},{-80,-6}})));
   inner IDEAS.SimInfoManager         sim(
               redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
-      IDEAS.Climate.Meteo.Files.min5 detail)
+      IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   Modelica.Blocks.Sources.TimeTable
                                 pulse(offset=0, table=[0,0; 5000,0; 5000,400; 10000,

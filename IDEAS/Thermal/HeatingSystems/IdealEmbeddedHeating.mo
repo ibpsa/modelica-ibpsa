@@ -5,9 +5,7 @@ model IdealEmbeddedHeating
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final emissionType = EmissionType.FloorHeating,
-    final nLoads=1,
-    final nOcc,
-    final nEmb);
+    nLoads=1);
 
 parameter Real COP = 3 "virtual COP to get a PEl as output";
 SI.Power[nZones] QHeatZone(each start=0);

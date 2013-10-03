@@ -3,47 +3,25 @@ model FloorHeatingComparisonDiscrete "test with instantiated test models"
 
 extends Modelica.Icons.Example;
 
-//  FloorHeatingTester discDyn2(redeclare Components.HeatEmission.TabsDiscretized
+//  FloorHeatingTester discDyn2(redeclare Components.Emission.TabsDiscretized
 //                                                                                tabs(
 //    n=22,
 //    redeclare parameter TME.FHF.Components.HeatEmission.FH_Standard2  FHCharsDiscretized))
 //    annotation (Placement(transformation(extent={{-40,48},{-20,68}})));
 //
 
-    FloorHeatingTester discDyn3(redeclare
-      Components.HeatEmission.TabsDiscretized                                   tabs(n=3, redeclare parameter
+    FloorHeatingTester discDyn3(redeclare Components.Emission.TabsDiscretized
+                                                                            tabs(n=3, redeclare parameter
         IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
                                                        FHCharsDiscretized))
-    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+    annotation (Placement(transformation(extent={{-40,26},{-20,46}})));
 
-  FloorHeatingTester discDyn20(redeclare
-      Components.HeatEmission.TabsDiscretized         tabs(n=20, redeclare parameter
+  FloorHeatingTester discDyn20(redeclare Components.Emission.TabsDiscretized
+                                                  tabs(n=20, redeclare parameter
         IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
                                                        FHCharsDiscretized))
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(extent={{-40,-24},{-20,-4}})));
 
-  FloorHeatingTester nonDiscDyn(redeclare Components.HeatEmission.Tabs tabs)
+  FloorHeatingTester nonDiscDyn(redeclare Components.Emission.Tabs tabs)
     annotation (Placement(transformation(extent={{-40,76},{-20,96}})));
-  FloorHeatingTester nonDiscFullyDyn(redeclare Components.HeatEmission.Tabs
-      tabs(redeclare IDEAS.Thermal.Components.Emission.EmbeddedPipeDynSwitch
-        embeddedPipe))
-    annotation (Placement(transformation(extent={{-40,46},{-20,66}})));
-    FloorHeatingTester discFullDyn3(redeclare
-      Components.HeatEmission.TabsDiscretized tabs(
-      n=3,
-      redeclare parameter
-        IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
-        FHCharsDiscretized,
-      tabs(redeclare IDEAS.Thermal.Components.Emission.EmbeddedPipeDynSwitch
-          embeddedPipe)))
-    annotation (Placement(transformation(extent={{-70,-20},{-50,0}})));
-  FloorHeatingTester discFullDyn20(redeclare
-      Components.HeatEmission.TabsDiscretized tabs(
-      n=20,
-      redeclare parameter
-        IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
-        FHCharsDiscretized,
-      tabs(redeclare IDEAS.Thermal.Components.Emission.EmbeddedPipeDynSwitch
-          embeddedPipe)))
-    annotation (Placement(transformation(extent={{-40,-88},{-20,-68}})));
 end FloorHeatingComparisonDiscrete;

@@ -27,9 +27,9 @@ extends Modelica.Icons.Example;
     m_flowNom=0.5,
     useInput=true)
     annotation (Placement(transformation(extent={{-38,-62},{-58,-42}})));
-  inner IDEAS.SimInfoManager         sim(redeclare
-      IDEAS.Climate.Meteo.Files.min15
-      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
+  inner IDEAS.SimInfoManager         sim(
+              redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
+      IDEAS.Climate.Meteo.Files.min60 detail)
               annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
   Control.Ctrl_Heating_TES               HPControl(
     dTSafetyTop=3,

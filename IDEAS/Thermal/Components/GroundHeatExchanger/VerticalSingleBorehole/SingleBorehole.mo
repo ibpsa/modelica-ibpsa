@@ -31,7 +31,7 @@ parameter Modelica.SIunits.SpecificHeatCapacity groundHeatCapacity = 900
 parameter Modelica.SIunits.ThermalConductivity groundConductivity = 1.3
     "W/mK thermal conductivity of the ground";
 parameter Modelica.SIunits.Density groundDensity = 2000
-    "kg/m³ density of the ground";
+    "kg/m3 density of the ground";
 parameter Modelica.SIunits.HeatFlux geoFlux = 0.010
     "thermal flux from the earth core";
 parameter String typeGrid = "eskilson"
