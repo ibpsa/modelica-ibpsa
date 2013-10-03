@@ -46,7 +46,7 @@ model Heating_Embedded_DHW_STS
     m=0,
     dpFix=30000) "Pump for loading the storage tank"
     annotation (Placement(transformation(extent={{-34,-64},{-52,-54}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fT(T=293.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-162,-52},{-150,-40}})));
 public
   replaceable Control.Ctrl_Heating_DHW                  HPControl(
@@ -198,7 +198,7 @@ end for;
       points={{108,25},{114,25}},
       color={0,128,255},
       smooth=Smooth.None));
-  connect(fT.port, tesTank.heatExchEnv)               annotation (Line(
+  connect(fixedTemperature.port, tesTank.heatExchEnv) annotation (Line(
       points={{-150,-46},{2,-46},{2,-23.5385},{-4.66667,-23.5385}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -235,7 +235,7 @@ end for;
       points={{73,16},{73,-74},{34,-74}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(fT.port, heater.heatPort)                     annotation (Line(
+  connect(fixedTemperature.port, heater.heatPort)       annotation (Line(
       points={{-150,-46},{-110,-46},{-110,-10},{-103,-10},{-103,14}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -276,7 +276,7 @@ end for;
       points={{-52,-59},{-64,-59},{-64,19.6364},{-90,19.6364}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(heater.heatPort, fT.port)               annotation (Line(
+  connect(heater.heatPort, fixedTemperature.port) annotation (Line(
       points={{-103,14},{-102,14},{-102,-46},{-150,-46}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -296,7 +296,7 @@ end for;
       points={{-90,24.9091},{-34,24.9091},{-34,-29.6923},{-28,-29.6923}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(pipeMixer.heatPort, fT.port)               annotation (Line(
+  connect(pipeMixer.heatPort, fixedTemperature.port) annotation (Line(
       points={{29,-76},{-118,-76},{-118,-46},{-150,-46}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -304,7 +304,7 @@ end for;
       points={{94,20},{94,4},{100,4},{100,-12}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(th1.port_b, fT.port)                            annotation (Line(
+  connect(th1.port_b, fixedTemperature.port)              annotation (Line(
       points={{100,-32},{100,-86},{-118,-86},{-118,-46},{-150,-46}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -312,11 +312,11 @@ end for;
       points={{154,32},{154,-2},{118,-2},{118,-12}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(th2.port_b, fT.port)                             annotation (Line(
+  connect(th2.port_b, fixedTemperature.port)               annotation (Line(
       points={{118,-32},{118,-86},{-118,-86},{-118,-46},{-150,-46}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(pumpSto.heatPort, fT.port)               annotation (Line(
+  connect(pumpSto.heatPort, fixedTemperature.port) annotation (Line(
       points={{-39.4,-64},{-39.4,-70},{-118,-70},{-118,-46},{-150,-46}},
       color={191,0,0},
       smooth=Smooth.None));
