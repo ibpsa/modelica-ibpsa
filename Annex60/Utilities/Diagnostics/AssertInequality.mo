@@ -1,25 +1,28 @@
 within Annex60.Utilities.Diagnostics;
-block AssertEquality "Assert when condition is violated"
-  extends BaseClasses.PartialInputCheck(message = "Inputs differ by more than threShold");
+block AssertInequality "Assert when condition is violated"
+  extends BaseClasses.PartialInputCheck(message = "Inputs differ by more than threShold",
+     threShold = 0);
 equation
   if noEvent(time > t0) then
-    assert(noEvent(abs(u1 - u2) < threShold), message + "\n"
+    assert(noEvent(u1 > u2 - threShold), message + "\n"
       + "  time       = " + String(time) + "\n"
       + "  u1         = " + String(u1) + "\n"
       + "  u2         = " + String(u2) + "\n"
       + "  abs(u1-u2) = " + String(abs(u1-u2)) + "\n"
       + "  threShold  = " + String(threShold));
   end if;
-annotation (
-defaultComponentName="assEqu",
-Icon(graphics={Text(
+  annotation (Icon(graphics={Text(
           extent={{-84,108},{90,-28}},
           lineColor={255,0,0},
-          textString="u1 = u2")}),
-Documentation(info="<html>
+          textString="u1 > u2")}),            Diagram(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                                                      graphics),
+Documentation(
+defaultComponentName="assIne",
+info="<html>
 <p>
 Model that triggers an assert if 
-<i>|u1-u2| &gt; threShold</i>
+<i>u1 > u2 - threShold</i>
 and <i>t &gt; t<sub>0</sub></i>.
 </p>
 </html>",
@@ -47,4 +50,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AssertEquality;
+end AssertInequality;
