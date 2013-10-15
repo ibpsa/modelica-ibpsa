@@ -44,8 +44,7 @@ protected
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal = allowFlowReversal,
     final m_flow_small = m_flow_small,
-    final homotopyInitialization = homotopyInitialization,
-    final show_V_flow = false) if
+    final homotopyInitialization = homotopyInitialization) if
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Annex60.Fluid.Interfaces.ConservationEquation dynBal(
