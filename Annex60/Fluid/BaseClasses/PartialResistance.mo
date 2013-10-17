@@ -1,7 +1,7 @@
 within Annex60.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
-     show_T=false, show_V_flow=false,
+     show_T=false,
      m_flow(start=0, nominal=m_flow_nominal_pos),
      dp(start=0, nominal=dp_nominal_pos),
      final m_flow_small = 1E-4*abs(m_flow_nominal));
