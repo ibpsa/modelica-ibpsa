@@ -2,12 +2,9 @@ within Annex60.Fluid.MixingVolumes;
 model MixingVolumeMoistAir
   "Mixing volume with heat port for latent heat exchange, to be used with media that contain water"
   extends BaseClasses.PartialMixingVolume(
+    redeclare replaceable package Medium =
+        Modelica.Media.Interfaces.PartialCondensingGases,
     steBal(final sensibleOnly = false));
-  // redeclare Medium with a more restricting base class. This improves the error
-  // message if a user selects a medium that does not contain the function
-  // enthalpyOfLiquid(.)
-  replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
-      annotation (choicesAllMatching = true);
 
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
@@ -26,7 +23,7 @@ model MixingVolumeMoistAir
   Modelica.SIunits.HeatFlowRate HWat_flow = mWat_flow * Medium.enthalpyOfLiquid(TWat)
     "Enthalpy flow rate of extracted water";
 protected
-  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
+  parameter Integer i_w(fixed=false) "Index for water substance";
   parameter Real s[Medium.nXi](each fixed=false)
     "Vector with zero everywhere except where species is";
 
@@ -34,15 +31,15 @@ protected
      heatPort.Q_flow + HWat_flow) "Block to set heat input into volume"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 initial algorithm
-  i_w:= -1;
+  i_w := 0;
   for i in 1:Medium.nXi loop
       if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="Water",
                                             caseSensitive=false) then
-      i_w := i;
-      s[i] :=1;
+      i_w  := i;
+      s[i] := 1;
     else
-      s[i] :=0;
+      s[i] := 0;
     end if;
    end for;
     assert(i_w > 0, "Substance 'water' is not present in medium '"
@@ -101,6 +98,14 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 21, 2013 by Michael Wetter:<br/>
+Removed dublicate declaration of medium model.
+</li>
+<li>
+September 27, 2013 by Michael Wetter:<br/>
+Reformulated assignment of <code>i_w</code> to avoid a warning in OpenModelica.
+</li>
 <li>
 September 17, 2013 by Michael Wetter:<br/>
 Changed model to no longer use the obsolete model <code>Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort</code>.
