@@ -64,6 +64,7 @@ model MixingVolume
     redeclare package Medium = Medium,
     V=0.1,
     nPorts=2,
+    h_start=45300.945,
     use_portsData=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -207,12 +208,19 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Mixing
 <p>
 This model tests the implementation of the mixing volumes.
 It compares the results from the mixing volume of the Modelica
-Standard Library with the implementation in the <code>Buildings</code>
+Standard Library with the implementation in the <code>Annex60</code>
 library. If the changes are bigger than a prescribed limit, 
 the simulation stops with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 24, 2013, by Michael Wetter:<br/>
+Set <code>vol(h_start=45300.945)</code>.
+This avoids a cyclic assignment of <code>vol.T_start</code>
+and <code>vol.h_start</code> in 
+<code>Modelica.Fluid.Vessels.ClosedVolume</code>.
+</li>
 <li>
 October 12, 2009 by Michael Wetter:<br/>
 First implementation.
