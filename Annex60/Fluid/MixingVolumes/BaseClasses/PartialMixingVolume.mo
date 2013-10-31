@@ -58,8 +58,7 @@ protected
     final C_nominal=C_nominal,
     final fluidVolume = V,
     m(start=V*rho_start),
-    U(start=V*rho_start*Medium.specificInternalEnergy(
-        state_start)),
+    U(start=V*rho_start*u_start),
     nPorts=nPorts) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
@@ -73,6 +72,11 @@ protected
    state=state_start) "Density, used to compute start and guess values"
   annotation (Evaluate=true);
 
+  parameter Modelica.SIunits.SpecificInternalEnergy u_start=
+    Medium.specificInternalEnergy(Medium.setState_pTX(
+      T=T_start,
+      p=p_start,
+      X=X_start[1:Medium.nXi])) "Start value for specific internal energy";
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
