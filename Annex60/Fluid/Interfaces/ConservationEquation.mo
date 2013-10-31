@@ -84,11 +84,13 @@ protected
   Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
   Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts,Medium.nC];
 
-  parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-   Medium.setState_pTX(
-     T=T_start,
+  final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
      p=p_start,
-     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
+     T=T_start,
+     X=X_start[1:Medium.nXi]) "Start value of medium state";
+
+  parameter Modelica.SIunits.Density rho_nominal=Medium.density(
+    state=state_start) "Density, used to compute fluid mass"
   annotation (Evaluate=true);
 
   // Parameter that is used to construct the vector mXi_flow
@@ -98,8 +100,7 @@ protected
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
   parameter Modelica.SIunits.SpecificEnthalpy hStart=
-    Medium.specificEnthalpy_pTX(p_start, T_start, X_start)
-    "Start value for specific enthalpy";
+    Medium.specificEnthalpy(state_start) "Start value for specific enthalpy";
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
