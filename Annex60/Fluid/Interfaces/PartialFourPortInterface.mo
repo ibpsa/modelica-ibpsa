@@ -23,8 +23,6 @@ partial model PartialFourPortInterface
   parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(m2_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
   // Diagnostics
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
@@ -42,19 +40,16 @@ partial model PartialFourPortInterface
                            noEvent(actualStream(port_a1.h_outflow)),
                            noEvent(actualStream(port_a1.Xi_outflow))) if
          show_T "Medium properties in port_a1";
-
   Medium1.ThermodynamicState sta_b1=
       Medium1.setState_phX(port_b1.p,
                            noEvent(actualStream(port_b1.h_outflow)),
                            noEvent(actualStream(port_b1.Xi_outflow))) if
          show_T "Medium properties in port_b1";
-
   Medium2.ThermodynamicState sta_a2=
       Medium2.setState_phX(port_a2.p,
                            noEvent(actualStream(port_a2.h_outflow)),
                            noEvent(actualStream(port_a2.Xi_outflow))) if
          show_T "Medium properties in port_a2";
-
   Medium2.ThermodynamicState sta_b2=
       Medium2.setState_phX(port_b2.p,
                            noEvent(actualStream(port_b2.h_outflow)),
@@ -96,6 +91,11 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 11, 2013 by Michael Wetter:<br/>
+Removed the parameter <code>homotopyInitialization</code>
+as it is no longer used in this model.
+</li>
 <li>
 November 10, 2013 by Michael Wetter:<br/>
 In the computation of <code>sta_a1</code>, 

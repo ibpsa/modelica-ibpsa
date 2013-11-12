@@ -6,6 +6,10 @@ model StaticFourPortHeatMassExchanger
    final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
    final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
   import Modelica.Constants;
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   input Modelica.SIunits.HeatFlowRate Q1_flow
     "Heat transfered into the medium 1";
   input Medium1.MassFlowRate mWat1_flow
