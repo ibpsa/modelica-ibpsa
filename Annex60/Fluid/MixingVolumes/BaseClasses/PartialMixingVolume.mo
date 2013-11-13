@@ -172,6 +172,11 @@ Annex60.Fluid.MixingVolumes</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+October 8, 2013 by Michael Wetter:<br/>
+Removed propagation of <code>show_V_flow</code>
+to instance <code>steBal</code> as it has no longer this parameter.
+</li>
+<li>
 September 13, 2013 by Michael Wetter:<br/>
 Renamed <code>rho_nominal</code> to <code>rho_start</code>
 because this quantity is computed using start values and not
