@@ -382,6 +382,7 @@ algorithm
 end specificHelmholtzEnergy;
 
 function T_phX "Compute temperature from specific enthalpy and mass fraction"
+  extends Modelica.Icons.Function;
   input AbsolutePressure p "Pressure";
   input SpecificEnthalpy h "Specific enthalpy";
   input MassFraction X[:] "Mass fractions of composition";

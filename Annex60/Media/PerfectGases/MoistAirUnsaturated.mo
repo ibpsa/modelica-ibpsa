@@ -309,6 +309,7 @@ end specificHeatCapacityCp;
 
 replaceable function der_specificHeatCapacityCp
     "Derivative of specific heat capacity of gas mixture at constant pressure"
+  extends Modelica.Icons.Function;
     input ThermodynamicState state;
     input ThermodynamicState der_state;
     output Real der_cp(unit="J/(kg.K.s)");
@@ -325,6 +326,7 @@ end specificHeatCapacityCv;
 
 replaceable function der_specificHeatCapacityCv
     "Derivative of specific heat capacity of gas mixture at constant volume"
+  extends Modelica.Icons.Function;
     input ThermodynamicState state;
     input ThermodynamicState der_state;
     output Real der_cv(unit="J/(kg.K.s)");
@@ -352,25 +354,8 @@ function h_pTX
   input SI.Temperature T "Temperature";
   input SI.MassFraction X[:] "Mass fractions of moist air";
   output SI.SpecificEnthalpy h "Specific enthalpy at p, T, X";
-
-  protected
-  SI.AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-  SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
-  SI.SpecificEnthalpy hDryAir "Enthalpy of dry air";
 algorithm
-  p_steam_sat :=saturationPressure(T);
-  x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
-  /*
-  assert(X[Water] < x_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
-     + "To model a saturated medium, use 'Annex60.Media.PerfectGases.MoistAir' instead of this medium.\n"
-     + " T         = " + String(T) + "\n"
-     + " x_sat     = " + String(x_sat) + "\n"
-     + " X[Water] = "  + String(X[Water]) + "\n"
-     + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
-     + " p         = " + String(p));
-  */
-  hDryAir := (T - 273.15)*dryair.cp;
-  h := hDryAir * (1 - X[Water]) +
+  h := (T - 273.15)*dryair.cp * (1 - X[Water]) +
        ((T-273.15) * steam.cp + 2501014.5) * X[Water];
   annotation(Inline=false,smoothOrder=5);
 end h_pTX;
@@ -399,29 +384,13 @@ algorithm
 end specificHelmholtzEnergy;
 
 function T_phX "Compute temperature from specific enthalpy and mass fraction"
+  extends Modelica.Icons.Function;
   input AbsolutePressure p "Pressure";
   input SpecificEnthalpy h "specific enthalpy";
   input MassFraction[:] X "mass fractions of composition";
   output Temperature T "temperature";
-
-  protected
-  SI.AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-  SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
-
 algorithm
   T := 273.15 + (h - 2501014.5 * X[Water])/((1 - X[Water])*dryair.cp + X[Water] * steam.cp);
-  // check for saturation
-  p_steam_sat :=saturationPressure(T);
-  x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
-  /*
-  assert(X[Water] < x_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
-     + "To model a saturated medium, use 'Annex60.Media.PerfectGases.MoistAir' instead of this medium.\n"
-     + " T         = " + String(T) + "\n"
-     + " x_sat     = " + String(x_sat) + "\n"
-     + " X[Water] = " + String(X[Water]) + "\n"
-     + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
-     + " p         = " + String(p));
-   */
   annotation(Inline=false, smoothOrder=5,
       Documentation(info="<html>
 Temperature as a function of specific enthalpy and species concentration.
@@ -450,6 +419,11 @@ of initial conditions that can be numerically challenging for
 thermo-fluid systems.
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2013, by Michael Wetter:<br/>
+Removed un-used computations in <code>h_pTX</code> and
+in <code>T_phX</code>.
+</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the

@@ -12,7 +12,7 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
     T_max=Modelica.SIunits.Conversions.from_degC(130),
     T0=273.15,
     MM_const=0.018015268,
-    fluidConstants=Modelica.Media.Water.simpleWaterConstants,
+    fluidConstants=Modelica.Media.Water.ConstantPropertyLiquidWater.simpleWaterConstants,
     ThermoStates=Annex60.Media.Interfaces.Choices.IndependentVariables.T);
 
 
@@ -49,6 +49,13 @@ It implements the function that computes the specific internal energy.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2013, by Michael Wetter:<br/>
+Replaced <code>Modelica.Media.Water.simpleWaterConstants</code>
+with
+<code>Modelica.Media.Water.ConstantPropertyLiquidWater.simpleWaterConstants</code>
+as the former no longer exists in MSL 3.2.1.
+</li>
 <li>
 April 16, 2013, by Michael Wetter:<br/>
 Changed package to extend directly from

@@ -7,7 +7,7 @@ package SimpleAir
      mediumName="GasesConstantDensity.SimpleAir",
      cp_const=1005.45,
      MM_const=0.0289651159,
-     R_gas=Constants.R/0.0289651159,
+     R_gas=Modelica.Constants.R/0.0289651159,
      eta_const=1.82e-5,
      lambda_const=0.026,
      T_min=Cv.from_degC(-50),
@@ -15,7 +15,6 @@ package SimpleAir
 
   import SI = Modelica.SIunits;
   import Cv = Modelica.SIunits.Conversions;
-  import Modelica.Constants;
 
   constant FluidConstants[nS] fluidConstants=
     FluidConstants(iupacName={"simple air"},
@@ -229,6 +228,10 @@ quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2013, by Michael Wetter:<br/>
+Removed <code>import Modelica.Constants;</code> statement.
+</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Changed declarationo of <code>parameter Boolean standardOrderComponents = true</code>

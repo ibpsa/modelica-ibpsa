@@ -53,6 +53,8 @@ required from medium model \""   + mediumName + "\".
     h = specificEnthalpy_pTX(p,T,X);
     u = cv_const*(T-T0);
     // original equation d = d_const;
+    // fixme: remove this option, and also update the info section
+    // in the medium model that extends from this model
     d = if constantDensity then d_const else d_const * (1+kappa_const*(p-p0));
    // d = d_const * (1+kT*(T-T0)/T0); "this gives large coupled equations"
     R = 0;

@@ -340,23 +340,9 @@ function h_pTX
   input SI.Temperature T "Temperature";
   input SI.MassFraction X[nX] "Mass fractions of moist air";
   output SI.SpecificEnthalpy h "Specific enthalpy at p, T, X";
-  protected
-  SI.AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-  SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
-  SI.SpecificEnthalpy hDryAir "Enthalpy of dry air";
 algorithm
-  p_steam_sat :=saturationPressure(T);
-  x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
- /*
-  assert(X[Water] < x_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
-     + "To model a saturated medium, use 'Annex60.Media.GasesConstantDensity.MoistAir' instead of this medium.\n"
-     + " T         = " + String(T) + "\n"
-     + " x_sat     = " + String(x_sat) + "\n"
-     + " X[Water] = "  + String(X[Water]) + "\n"
-     + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
-     + " p         = " + String(p));
- */
- h := (T - 273.15)*dryair.cp * (1 - X[Water]) + ((T-273.15) * steam.cp + 2501014.5) * X[Water];
+ h := (T - 273.15)*dryair.cp * (1 - X[Water])
+      + ((T-273.15) * steam.cp + 2501014.5) * X[Water];
 
   annotation(smoothOrder=5);
 end h_pTX;
@@ -368,23 +354,8 @@ function T_phX "Compute temperature from specific enthalpy and mass fraction"
   input SpecificEnthalpy h "specific enthalpy";
   input MassFraction[:] X "mass fractions of composition";
   output Temperature T "temperature";
-  protected
-  SI.AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-  SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
 algorithm
   T := 273.15 + (h-2501014.5 * X[Water])/(dryair.cp * (1 - X[Water])+steam.cp*X[Water]);
-  // Check for saturation
-  p_steam_sat :=saturationPressure(T);
-  x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
-  /*
-  assert(X[Water] < x_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
-     + "To model a saturated medium, use 'Annex60.Media.GasesConstantDensity.MoistAir' instead of this medium.\n"
-     + " T         = " + String(T) + "\n"
-     + " x_sat     = " + String(x_sat) + "\n"
-     + " X[Water] = " + String(X[Water]) + "\n"
-     + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
-     + " p         = " + String(p));
-  */
   annotation(smoothOrder=5);
 end T_phX;
 
@@ -433,6 +404,11 @@ because it allows to invert the function <code>T_phX</code> analytically.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2013, by Michael Wetter:<br/>
+Removed non-used computations in <code>h_pTX</code> and
+in <code>T_phX</code>.
+</li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
 Added <code>final standardOrderComponents=true</code> in the
