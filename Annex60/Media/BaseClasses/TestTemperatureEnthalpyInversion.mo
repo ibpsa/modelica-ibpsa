@@ -2,7 +2,7 @@ within Annex60.Media.BaseClasses;
 partial model TestTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse"
    replaceable package Medium =
-        Modelica.Media.Interfaces.PartialCondensingGases;
+        Annex60.Media.PerfectGases.MoistAirUnsaturated;
      parameter Modelica.SIunits.Temperature T0=273.15+20 "Temperature";
      Modelica.SIunits.Temperature T "Temperature";
      Modelica.SIunits.SpecificEnthalpy h "Enthalpy";
@@ -22,6 +22,12 @@ Hence, it checks whether the function <code>T_phX</code> is
 implemented correctly.
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2013 by Michael Wetter:<br/>
+Replaced <code>Modelica.Media.Interfaces.PartialCondensingGases</code>
+because it does not implement <code>T_phX</code>
+and therefore the model did not check successfully.
+</li>
 <li>
 January 21, 2010 by Michael Wetter:<br/>
 First implementation.
