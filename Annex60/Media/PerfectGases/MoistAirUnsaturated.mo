@@ -203,15 +203,6 @@ end saturationPressure;
   r0 := 2501014.5;
  end enthalpyOfVaporization;
 
-  function HeatCapacityOfWater
-    "Specific heat capacity of water (liquid only) which is constant"
-    extends Modelica.Icons.Function;
-    input Temperature T;
-    output SpecificHeatCapacity cp_fl;
-  algorithm
-    cp_fl := 4186;
-  end HeatCapacityOfWater;
-
 redeclare replaceable function extends enthalpyOfLiquid
     "Enthalpy of liquid (per unit mass of liquid) which is linear in the temperature"
 
@@ -419,6 +410,13 @@ of initial conditions that can be numerically challenging for
 thermo-fluid systems.
 </html>", revisions="<html>
 <ul>
+<li>
+November 14, 2013, by Michael Wetter:<br/>
+Removed function
+<code>HeatCapacityOfWater</code>
+which is neither needed nor implemented in the
+Modelica Standard Library.
+</li>
 <li>
 November 13, 2013, by Michael Wetter:<br/>
 Removed un-used computations in <code>h_pTX</code> and
