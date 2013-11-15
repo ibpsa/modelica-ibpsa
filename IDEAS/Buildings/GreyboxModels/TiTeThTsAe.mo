@@ -6,8 +6,8 @@ model TiTeThTsAe
                                      nZones=1);
 
 //Window data
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
-    "Glazing type"                                                              annotation(choicesAllMatching=true);
+  replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing constrainedby
+    IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type";
   parameter Modelica.SIunits.Area windowArea "Total window area";
   parameter Modelica.SIunits.Angle windowInc "IInclination of the window";
   parameter Modelica.SIunits.Angle windowAzi "Azimuth of teh window";
