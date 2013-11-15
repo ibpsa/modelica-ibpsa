@@ -2,38 +2,37 @@ within IDEAS.Thermal.Components.Emission.Interfaces;
 partial model Partial_Emission
   "Partial emission system for both radiators and floor heating"
 
-  import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
-  parameter IDEAS.Thermal.Components.Emission.Interfaces.EmissionType emissionType=
-      EmissionType.RadiatorsAndFloorHeating "Type of the heat emission system";
-
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
     "Medium in the emission system";
 
+  parameter Boolean floorHeating "true if the emission has a floor heating";
+  parameter Boolean radiators "true if the emission has a radiator";
+
 // Interfaces ////////////////////////////////////////////////////////////////////////////////////////
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon if
-      (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon if radiators
     "convective heat transfer from radiators"
     annotation (Placement(transformation(extent={{40,50},{60,70}}),
         iconTransformation(extent={{40,50},{60,70}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRad if
-      (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRad if radiators
     "radiation heat transfer from radiators"
     annotation (Placement(transformation(extent={{80,50},{100,70}}),
         iconTransformation(extent={{80,50},{100,70}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heatPortEmb if
-      (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heatPortEmb if floorHeating
     "Port to the core of a floor heating/concrete activation"
     annotation (Placement(transformation(extent={{-60,48},{-40,68}}),
         iconTransformation(extent={{-60,48},{-40,68}})));
+
 // General parameters for the design (nominal) conditions /////////////////////////////////////////////
 
 // Other parameters//////////////////////////////////////////////////////////////////////////////////////
   parameter Modelica.SIunits.Temperature TInitial=293.15
     "Initial temperature of all state variables";
   replaceable parameter IDEAS.Thermal.Components.BaseClasses.FH_Characteristics
-                                                                       FHChars if (
-    emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
-    "Properties of the floor heating or TABS, if present"                                                                                                     annotation (choicesAllMatching=true);
+    FHChars if floorHeating constrainedby
+    IDEAS.Thermal.Components.BaseClasses.FH_Characteristics
+    "Properties of the floor heating or TABS, if present";
 
 // Variables ///////////////////////////////////////////////////////////////////////////////////////////
   Modelica.SIunits.Temperature TMean(start=TInitial, fixed=false)
@@ -55,9 +54,9 @@ partial model Partial_Emission
         iconTransformation(extent={{130,20},{150,40}})));
 initial equation
   //der(flowPort_a.h) = 0;
-  annotation(Icon(coordinateSystem(extent={{-100,-100},{140,60}},
-          preserveAspectRatio=true),
-                  graphics={
+  annotation (
+    Icon(coordinateSystem(extent={{-100,-100},{140,60}}, preserveAspectRatio=true),
+        graphics={
         Line(
           points={{-70,-70},{-100,-70}},
           color={0,0,127},
@@ -74,9 +73,8 @@ initial equation
           points={{110,30},{140,30}},
           color={0,0,127},
           smooth=Smooth.None)}),
-      Diagram(coordinateSystem(extent={{-100,-100},{140,60}},
-          preserveAspectRatio=true),
-              graphics),
+    Diagram(coordinateSystem(extent={{-100,-100},{140,60}}, preserveAspectRatio=
+           true), graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Partial class for hydraulic heat emission systems. Can be used to create radiators, fan coil units etc. but also for embedded systems (or thermally activated building systems, TABS) like floor heating, wall heating, concrete core activation etc. </p>

@@ -34,9 +34,9 @@ model HP_BrineWater_Borehole "Brine-Water HP with borehole included"
     annotation (Placement(transformation(extent={{-94,50},{-80,64}})));
   outer IDEAS.SimInfoManager         sim
     annotation (Placement(transformation(extent={{-86,92},{-66,112}})));
-  IDEAS.Thermal.Components.VerticalSingleBorehole.ModelDieterPatteeuw.VerticalHeatExchangerModels.BoreHole
-    boreHole(medium=mediumBorehole)
-    annotation (Placement(transformation(extent={{-60,18},{-40,38}})));
+  GroundHeatExchanger.VerticalSingleBorehole.SingleBorehole
+    boreHole
+    annotation (Placement(transformation(extent={{-58,4},{-38,24}})));
   Thermal.Components.BaseClasses.Pump pumpBorehole(
     medium=mediumBorehole,
     m=0,
@@ -62,18 +62,18 @@ equation
       points={{-85.6,50},{-84,50},{-84,34},{-80,34}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(pumpBorehole.flowPort_b, boreHole.flowPort_a)
-                                                annotation (Line(
-      points={{-64,34},{-62,34},{-62,27.8},{-59.8,27.8}},
-      color={255,0,0},
+  connect(pumpBorehole.flowPort_b, boreHole.boreholeInlet) annotation (Line(
+      points={{-64,34},{-60,34},{-60,19.3},{-57.3,19.3}},
+      color={0,0,255},
       smooth=Smooth.None));
-  connect(heatSource.flowPort_a, boreHole.flowPort_b) annotation (Line(
-      points={{-89.8,50},{-89.8,6},{-40,6},{-40,28},{-40.2,28}},
-      color={255,0,0},
+  connect(boreHole.boreholeOutlet, heatSource.flowPort_a) annotation (Line(
+      points={{-38.7,19.3},{-30,19.3},{-30,0},{-80,0},{-80,24},{-89.8,24},{
+          -89.8,50}},
+      color={0,0,255},
       smooth=Smooth.None));
-  connect(absolutePressure.flowPort, boreHole.flowPort_b) annotation (Line(
-      points={{-44,44},{-40.2,44},{-40.2,28}},
-      color={255,0,0},
+  connect(absolutePressure.flowPort, boreHole.boreholeOutlet) annotation (Line(
+      points={{-44,44},{-38.7,44},{-38.7,19.3}},
+      color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,120}}),

@@ -179,7 +179,6 @@ equation
   PEl = 1000 * Modelica.Math.Vectors.interpolate(mod_vector, P_vector, modulation);
 
   annotation (Diagram(graphics),
-              Diagram(graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;data&nbsp;received&nbsp;from&nbsp;Daikin&nbsp;from&nbsp;an&nbsp;Altherma&nbsp;heat&nbsp;pump, and the full heat pump is implemented as <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_AWMod_Losses\">IDEAS.Thermal.Components.Production.HP_AWMod_Losses</a>. (vermoedelijk <a href=\"Modelica://IDEAS.Thermal.Components.Production.HP_AirWater\">IDEAS.Thermal.Components.Production.HP_AirWater</a></p>

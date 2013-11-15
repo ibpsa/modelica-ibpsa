@@ -108,7 +108,6 @@ equation
   PFuel = if noEvent(modulation >0) then -heatPort.Q_flow / eta else 0;
 
   annotation (Diagram(graphics),
-              Diagram(graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;data&nbsp;from&nbsp;a Remeha boiler. It is used in the <a href=\"modelica://IDEAS.Thermal.Components.Production.Boiler\">Boiler</a> model. </p>

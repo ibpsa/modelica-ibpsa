@@ -126,7 +126,6 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),
-              Diagram(graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;catalogue&nbsp;data&nbsp;from&nbsp;Viessmann&nbsp;for&nbsp;the&nbsp;vitocal&nbsp;300-G,&nbsp;type&nbsp;BW/BWC&nbsp;108&nbsp;(8kW&nbsp;nominal&nbsp;power at 0/35 degC) and the full heat pump is implemented as <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_BrineWater\">IDEAS.Thermal.Components.Production.HP_BrineWater</a> .</p>
