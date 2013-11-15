@@ -20,5 +20,4 @@ FloorHeatingComparisonDiscrete
 StorageTank_Losses
 StorageTank_StratifiedInlet
 StorageTank_DHW_HP
-Boiler_validation_a60
-Pipe_a60
+
