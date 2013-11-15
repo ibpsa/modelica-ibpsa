@@ -4,7 +4,7 @@ model SimInfoManager
 
   replaceable parameter IDEAS.Climate.Meteo.Detail detail
     "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
-  replaceable parameter IDEAS.Climate.Meteo.location city
+  replaceable parameter IDEAS.Climate.Meteo.Location city
     "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
   parameter Boolean occBeh = false
     "put to true if  user behaviour is to be read from files"

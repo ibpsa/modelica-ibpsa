@@ -34,7 +34,7 @@ model Radiator "Simple 1-node radiator model according to EN 442"
   Modelica.SIunits.HeatFlowRate QTotal(start=0)
     "Total heat emission of the radiator";
   Modelica.SIunits.TemperatureDifference dTRadRoo;
-  Modelica.SIunits.Power QHeatTotal = -sum(heatPortCon.Q_flow) - sum(heatPortRad.Q_flow);
+  Modelica.SIunits.Power QHeatTotal = -heatPortCon.Q_flow - heatPortRad.Q_flow;
 
 protected
   parameter Modelica.SIunits.MassFlowRate mFlowNom=QNom/medium.cp/(TInNom -

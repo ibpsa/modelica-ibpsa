@@ -33,6 +33,6 @@ parameter Modelica.SIunits.Efficiency DOD_max=0.80 "Maximum discharge [%/100]";
   eta_d = technology.eta_d)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
-  annotation (Icon(Bitmap(extent=[-90,90; 90,-90], name="modelica://ELECTA/BatteryHome.png")), Diagram(
+  annotation (Icon,                                                                            Diagram(
         graphics));
 end BatterySystem;
