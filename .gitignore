@@ -18,6 +18,7 @@
 *.exe
 *.exp
 *.rar
+IDEAS/dsin.txt
 
 /Specifications/Specs.synctex
 /Specifications/Specs.tcp
