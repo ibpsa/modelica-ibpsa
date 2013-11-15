@@ -17,6 +17,7 @@
 *.exe
 *.exp
 *.rar
+*.bak-mo
 
 /Specifications/Specs.synctex
 /Specifications/Specs.tcp
