@@ -29,9 +29,9 @@ model StorageTank_OneIntHX
     "if true, this automatically increases the insulation of the top layer";
 
   // HX configuration
-  parameter Integer nodeHXUpper(min=1, max=nodeHXLower) = 1
+  parameter Integer nodeHXUpper(min=1) = 1
     "Upper entry/exit tank node for the HX";
-  parameter Integer nodeHXLower(min=nodeHXUpper, max=nbrNodes) = nbrNodes
+  parameter Integer nodeHXLower(max=nbrNodes) = nbrNodes
     "Lower entry/exit tank node for the HX";
   final parameter Integer nbrNodesHX = nodeHXLower - nodeHXUpper + 1
     "number of HX nodes";

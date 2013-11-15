@@ -17,7 +17,8 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
   Emission.Tabs   tabs(
     medium=medium,
-    redeclare IDEAS.Thermal.Components.Emission.BaseClasses.FH_ValidationEmpa
+    redeclare parameter
+      IDEAS.Thermal.Components.Emission.BaseClasses.FH_ValidationEmpa
                                                                 FHChars,
     m_flowMin=12*24/3600,
     A_Floor=30) "tabs model"

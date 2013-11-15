@@ -13,7 +13,6 @@ equation
   TTopSet = max(TDHWSet, heatingCurve.TSup) + dTSafetyTop + smooth(daytime.y[1],1)*5;
   TBotSet = max(TDHWSet, heatingCurve.TSup) + dTSafetyBot + smooth(daytime.y[1],1)*5;
   THPSet = TTopSet + dTHPTankSet;
-  THeaCur = 0 "not used!";
 //algorithm
 // Actually, I want this to be an algorithm instead of equation, but I get the following warning + error:
 // Warning: Dymola is currently unable to differentiate algorithms.

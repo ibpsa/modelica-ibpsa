@@ -5,9 +5,11 @@ model StorageTank_DHW_HP
 extends Modelica.Icons.Example;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
+  parameter Integer nbrNodes = 10 "Number of nodes in the storage tank";
 
   Storage.StorageTank_OneIntHX           storageTank(
-    TInitial={273.15 + 60 for i in 1:storageTank.nbrNodes},
+    nbrNodes=nbrNodes,
+    TInitial={273.15 + 60 for i in 1:nbrNodes},
     volumeTank=0.3,
     heightTank=1.6,
     UIns=0.4,
@@ -35,6 +37,7 @@ extends Modelica.Icons.Example;
     dTSafetyTop=3,
     dTHPTankSet=2,
     DHW=true,
+    TSupNom=313.15,
     TDHWSet=323.15)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -46,7 +49,7 @@ extends Modelica.Icons.Example;
     startTime=30000,
     amplitude=0.15)
     annotation (Placement(transformation(extent={{30,58},{50,78}})));
-  BaseClasses.AbsolutePressure absolutePressure
+  BaseClasses.AbsolutePressure absolutePressure(p=300000)
     annotation (Placement(transformation(extent={{-20,-94},{0,-74}})));
 equation
   dHW.mDHW60C = pulse.y * sawTooth.y;
@@ -83,12 +86,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(storageTank.T[10], HPControl.TTankBot) annotation (Line(
-      points={{42,-15.9},{70,-15.9},{70,-18},{92,-18},{92,96},{-83.1111,96},{
-          -83.1111,69.3333}},
+      points={{42,-18.4615},{70,-18.4615},{70,-18},{92,-18},{92,96},{-83.1111,
+          96},{-83.1111,69.3333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(storageTank.T[1], HPControl.TTankTop) annotation (Line(
-      points={{42,-21.0231},{72,-21.0231},{72,-22},{88,-22},{88,92},{-78.1111,
+      points={{42,-18.4615},{72,-18.4615},{72,-22},{88,-22},{88,92},{-78.1111,
           92},{-78.1111,69.3333}},
       color={0,0,127},
       smooth=Smooth.None));

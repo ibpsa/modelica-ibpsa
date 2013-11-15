@@ -1,7 +1,8 @@
 within IDEAS.Thermal.Components.BaseClasses;
 model AbsolutePressure "Defines absolute pressure level"
 
-  parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water() "medium";
+  parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water() "medium"
+    annotation(__Dymola_choicesAllMatching=true);
   parameter Modelica.SIunits.Pressure p(start=0) "Pressure ground";
   Thermal.Components.Interfaces.FlowPort_a flowPort(final medium=medium)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
