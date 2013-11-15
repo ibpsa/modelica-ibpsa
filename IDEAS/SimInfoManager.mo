@@ -28,7 +28,7 @@ model SimInfoManager
     "Nominal power (W) of the photovoltaic profiles"                             annotation(Dialog(group="Photovoltaics"));
 
 protected
-  final parameter String filNamClim = "..\\Inputs\\" + city.locNam + detail.filNam;
+  final parameter String filNamClim = "../Inputs/" + city.locNam + detail.filNam;
   final parameter Modelica.SIunits.Angle lat(displayUnit="deg") = city.lat
     "latitude of the locatioin";
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg") = city.lon;
