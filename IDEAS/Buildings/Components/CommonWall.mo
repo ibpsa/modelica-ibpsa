@@ -3,15 +3,15 @@ model CommonWall "Common opaque wall with neighbors"
 
   extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-  replaceable parameter Data.Interfaces.Construction constructionType(insulationType=
-        insulationType, insulationTickness=insulationThickness) constrainedby
-    Data.Interfaces.Construction "Type of building construction"
-                                    annotation (
+  replaceable parameter Data.Interfaces.Construction constructionType constrainedby
+    Data.Interfaces.Construction(final insulationType=
+        insulationType, final insulationTickness=insulationThickness)
+    "Type of building construction" annotation (
     Placement(transformation(extent={{-38,72},{-34,76}})),
     Dialog(group="Construction details"));
-  replaceable parameter Data.Interfaces.Insulation insulationType(d=insulationThickness) constrainedby
-    Data.Interfaces.Insulation "Type of thermal insulation"
-                                 annotation (
+  replaceable parameter Data.Interfaces.Insulation insulationType constrainedby
+    Data.Interfaces.Insulation(final d=insulationThickness)
+    "Type of thermal insulation" annotation (
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
   parameter Modelica.SIunits.Length insulationThickness

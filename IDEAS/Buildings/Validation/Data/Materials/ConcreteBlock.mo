@@ -1,2 +1,2 @@
 within IDEAS.Buildings.Validation.Data.Materials;
-record ConcreteBlock = IDEAS.Buildings.Data.Interfaces.Material(k=0.051,c=1000,rho=1400, epsLw = 0.9,epsSw = 0.6);
+record ConcreteBlock = IDEAS.Buildings.Data.Interfaces.Material(final k=0.051,final c=1000,final rho=1400,final  epsLw = 0.9,final epsSw = 0.6);

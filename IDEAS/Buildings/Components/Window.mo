@@ -74,11 +74,11 @@ model Window "Multipane window"
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
   IDEAS.Buildings.Components.BaseClasses.SwWindowResponse solWin(
-    nLay=glazing.nLay,
-    SwAbs=glazing.SwAbs,
-    SwTrans=glazing.SwTrans,
-    SwTransDif=glazing.SwTransDif,
-    SwAbsDif=glazing.SwAbsDif)
+    final nLay=glazing.nLay,
+    final SwAbs=glazing.SwAbs,
+    final SwTrans=glazing.SwTrans,
+    final SwTransDif=glazing.SwTransDif,
+    final SwAbsDif=glazing.SwAbsDif)
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection iConFra(A=A*frac,

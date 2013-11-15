@@ -3,15 +3,15 @@ model SlabOnGround "opaque floor on ground slab"
 
   extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-  replaceable parameter Data.Interfaces.Construction constructionType(
-      insulationType=insulationType, insulationTickness=insulationThickness) constrainedby
-    Data.Interfaces.Construction "Type of building construction"
-                                    annotation (
+  replaceable parameter Data.Interfaces.Construction constructionType constrainedby
+    Data.Interfaces.Construction(
+      final insulationType=insulationType, final insulationTickness=insulationThickness)
+    "Type of building construction" annotation (
     Placement(transformation(extent={{-38,72},{-34,76}})),
     Dialog(group="Construction details"));
-  replaceable parameter Data.Interfaces.Insulation insulationType(d=
-        insulationThickness) constrainedby Data.Interfaces.Insulation
-    "Type of thermal insulation"                                                                   annotation (
+  replaceable parameter Data.Interfaces.Insulation insulationType constrainedby
+    Data.Interfaces.Insulation( final d= insulationThickness)
+    "Type of thermal insulation"                                                                                                    annotation (
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
   parameter Modelica.SIunits.Length insulationThickness
@@ -34,9 +34,9 @@ model SlabOnGround "opaque floor on ground slab"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
 protected
-  final parameter IDEAS.Buildings.Data.Materials.Ground ground1(d=0.50);
-  final parameter IDEAS.Buildings.Data.Materials.Ground ground2(d=0.33);
-  final parameter IDEAS.Buildings.Data.Materials.Ground ground3(d=0.17);
+  final parameter IDEAS.Buildings.Data.Materials.Ground ground1(final d=0.50);
+  final parameter IDEAS.Buildings.Data.Materials.Ground ground2(final d=0.33);
+  final parameter IDEAS.Buildings.Data.Materials.Ground ground3(final d=0.17);
 
   Modelica.SIunits.HeatFlowRate Qm=U*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m
        - 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta));

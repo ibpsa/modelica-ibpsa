@@ -15,9 +15,9 @@ model WattsLawPlug
     annotation (Placement(transformation(extent={{-130,-10},{-90,30}}),
         iconTransformation(extent={{-110,10},{-90,30}})));
 
-  Modelica.Blocks.Math.Sum sum_P(nin=nLoads)
+  Modelica.Blocks.Math.Sum sum_P(final nin=nLoads)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Math.Sum sum_Q(nin=nLoads)
+  Modelica.Blocks.Math.Sum sum_Q(final nin=nLoads)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
     for i in 1:numPha loop

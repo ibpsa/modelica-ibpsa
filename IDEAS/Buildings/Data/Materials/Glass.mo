@@ -4,5 +4,4 @@ record Glass = IDEAS.Buildings.Data.Interfaces.Material (
     c=750,
     rho=2500,
     epsLw=0.84,
-    epsSw=0.67,
-    nSta=1) "Glass";
+    epsSw=0.67) "Glass";

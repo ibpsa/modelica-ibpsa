@@ -8,8 +8,8 @@ model MonoLayerOpaque "single material layer"
   parameter Modelica.SIunits.Temperature TStart = 289.15
     "Start temperature for each of the states";
 
-  final parameter Integer nSta=mat.nSta;
-  final parameter Real R=mat.R "Total specific thermal resistance";
+  final parameter Integer nSta = mat.nSta;
+  final parameter Real R = mat.R "Total specific thermal resistance";
   final parameter Modelica.SIunits.ThermalConductance G=(A*mat.k*nSta)/mat.d;
   final parameter Modelica.SIunits.HeatCapacity C=(A*mat.rho*mat.c*mat.d)/nSta;
 

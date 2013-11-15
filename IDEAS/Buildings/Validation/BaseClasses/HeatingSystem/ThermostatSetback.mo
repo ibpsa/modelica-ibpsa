@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model ThermostatSetback "BESTEST thermostat setback heating system"
 
-  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(radiators=true, floorHeating=true,
                                          final nLoads = 1, QNom = zeros(nZones));
 
   IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7, 23},firstEntryOccupied=true)
@@ -31,6 +31,6 @@ end for;
 QHeatTotal = sum(heatPortCon.Q_flow);
 
 wattsLawPlug.P[1] = -1*sum(heatPortCon.Q_flow);
-wattsLawPlug.Q[1] = 0
-  annotation (Diagram(graphics));
+wattsLawPlug.Q[1] = 0;
+
 end ThermostatSetback;
