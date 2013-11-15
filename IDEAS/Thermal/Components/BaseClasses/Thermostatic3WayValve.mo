@@ -105,10 +105,7 @@ equation
       points={{1.83697e-015,-18},{0,-18},{0,0},{100,0}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(flowPortHot, flowPortHot) annotation (Line(
-      points={{-100,0},{-100,0}},
-      color={0,128,255},
-      smooth=Smooth.None));
+
   annotation (Diagram(graphics), Icon(graphics={
         Polygon(
           points={{-60,30},{-60,-30},{0,0},{-60,30}},
