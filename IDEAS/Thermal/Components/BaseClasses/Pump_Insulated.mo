@@ -3,8 +3,7 @@ model Pump_Insulated
   "Prescribed mass flow rate, with UA-value for environmental heat exchange."
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
-    "Medium in the component"
-    annotation(choicesAllMatching=true);
+    "Medium in the component";
   parameter Modelica.SIunits.Mass m(start=1) "Mass of medium";
   parameter Modelica.SIunits.Temperature TInitial=293.15
     "Initial temperature of all Temperature states";

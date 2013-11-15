@@ -2,8 +2,7 @@ within IDEAS.Thermal.Components.Distribution;
 model Manifold "Radiant manifold"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
-    "Medium in the component"
-    annotation(choicesAllMatching=true);
+    "Medium in the component";
 
 parameter Boolean[6] open = {true, true, true, true, true, true};
 

@@ -2,8 +2,7 @@ within IDEAS.Thermal.Components.BaseClasses;
 model Pipe_Insulated "Pipe with insulation, characterised by UA"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
-    "Medium in the component"
-    annotation(choicesAllMatching=true);
+    "Medium in the component";
   parameter Modelica.SIunits.Mass m(start=1) "Mass of medium";
   // I remove this parameter completely because it can lead to wrong models!!!
   // See note in evernote of RDC
