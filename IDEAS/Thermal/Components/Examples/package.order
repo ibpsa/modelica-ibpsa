@@ -12,7 +12,7 @@ Radiator_CoolingDown
 Radiator_EnergyBalance
 NakedTabsTester
 Tabs
-Tabs_Disretized
+Tabs_Discretized
 FloorHeatingValidation
 FloorHeatingValidation2
 FloorHeatingTester
@@ -20,4 +20,3 @@ FloorHeatingComparisonDiscrete
 StorageTank_Losses
 StorageTank_StratifiedInlet
 StorageTank_DHW_HP
-

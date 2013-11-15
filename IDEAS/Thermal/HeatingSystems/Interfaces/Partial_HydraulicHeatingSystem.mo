@@ -28,15 +28,14 @@ partial model Partial_HydraulicHeatingSystem
     "Fixed temperature for the domestic COLD water";
 
 // Building parameters /////////////////////////////////////////////////////////////////////////////////
-// see Partial_HeatingSystem;
 // Other parameters//////////////////////////////////////////////////////////////////////////////////////
   parameter Modelica.SIunits.Time timeFilter=43200
     "Time constant for the filter of ambient temperature for computation of heating curve";
   parameter Modelica.SIunits.Temperature TInitial=293.15
     "Initial temperature of all state variables";
   replaceable parameter IDEAS.Thermal.Components.BaseClasses.FH_Characteristics[
-                                                                             nZones] FHChars if
-    (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating) annotation (choicesAllMatching=true);
+                                                                             nZones] FHChars if floorHeating
+     annotation (choicesAllMatching=true);
 
 // Variables ///////////////////////////////////////////////////////////////////////////////////////////
   Modelica.SIunits.Temperature THeaterSet;

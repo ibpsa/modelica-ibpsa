@@ -4,7 +4,7 @@ model Heating_Embedded_combiTES_DHW_STS
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
-    final emissionType=EmissionType.FloorHeating,
+    floorHeating=true,
     nLoads=1);
 
   parameter Modelica.SIunits.Volume volumeTank=0.25;

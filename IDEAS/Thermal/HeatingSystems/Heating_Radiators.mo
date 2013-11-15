@@ -4,7 +4,7 @@ model Heating_Radiators
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
-    final emissionType=EmissionType.Radiators,
+    radiators=true,
     nLoads=1);
 
   Thermal.Components.BaseClasses.Pump[nZones] pumpRad(
