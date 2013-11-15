@@ -61,8 +61,7 @@ model StorageTank "1D multinode stratified storage tank"
       medium=medium,
       surCroSec=volumeTank/heightTank,
       h=heightTank)
-    "buoyancy model to mix nodes in case of inversed temperature stratification"
-                                                                                annotation(choicesAllMatching=true);
+    "buoyancy model to mix nodes in case of inversed temperature stratification";
 
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes] lossNodes(
@@ -100,8 +99,7 @@ equation
 
   // Connection of buoyancy model
   connect(buoyancy.heatPort, nodes.heatPort);
-    annotation (Placement(transformation(extent={{-20,-4},{0,16}})),
-              Icon(coordinateSystem(extent={{-100,-160},{80,100}},
+    annotation (Icon(coordinateSystem(extent={{-100,-160},{80,100}},
           preserveAspectRatio=true),
                    graphics={
         Polygon(

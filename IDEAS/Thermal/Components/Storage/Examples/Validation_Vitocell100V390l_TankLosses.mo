@@ -44,8 +44,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank.flowPort_a) annotation (Line(
-      points={{-74,55},{-80,55},{-80,54},{-84,54},{-84,24},{-10,24},{-10,
-          26.3077}},
+      points={{-74,55},{-80,55},{-80,54},{-84,54},{-84,24},{-10,24},{-10,26.3077}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank.flowPortHXUpper) annotation (
@@ -56,8 +55,7 @@ equation
   annotation (Diagram(graphics),
     experiment(
       StopTime=86400,
-      Interval=600,
-      Algorithm="Lsodar"),
+      Interval=600),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>This validation model checks the 24h thermal losses of a storage tank at 60&deg;C.</p>

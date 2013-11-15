@@ -243,7 +243,6 @@ equation
   annotation (Diagram(graphics),
     experiment(
       StopTime=2000,
-      Interval=10,
-      Algorithm="Lsodar"),
+      Interval=10),
     __Dymola_experimentSetupOutput);
 end Validation_Vitocell100V390l_TapQuantity;

@@ -1,15 +1,14 @@
 within IDEAS.Interfaces.BaseClasses;
 partial model HeatingSystem "Partial heating system"
 
-  import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
   outer IDEAS.SimInfoManager         sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-200,80},
             {-180,100}})));
 
 // Building characteristics  //////////////////////////////////////////////////////////////////////////
-  parameter IDEAS.Thermal.Components.Emission.Interfaces.EmissionType
-                         emissionType = EmissionType.RadiatorsAndFloorHeating
-    "Type of the heat emission system";
+  parameter Boolean floorHeating "true if the emission has a floor heating";
+  parameter Boolean radiators "true if the emission has a radiator";
+
   parameter Integer nZones(min=1)
     "Number of conditioned thermal zones in the building";
   parameter Integer nEmb(min=1) = nZones
@@ -30,16 +29,13 @@ partial model HeatingSystem "Partial heating system"
     "number of occupants for determination of DHW consumption";
 
 // Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon if
-      (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon if radiators
     "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-210,10},
             {-190,30}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad if
-      (emissionType == EmissionType.Radiators or emissionType == EmissionType.RadiatorsAndFloorHeating)
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad if radiators
     "Nodes for radiative heat gains" annotation (Placement(transformation(extent={{-210,
             -30},{-190,-10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortEmb if
-      (emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortEmb if floorHeating
     "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-210,50},
             {-190,70}})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plugLoad( each m=1)
@@ -114,7 +110,6 @@ Q = wattsLawPlug.Q;
           fillPattern=FillPattern.Solid)}),                         Diagram(
         coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}}),
         graphics),
-    DymolaStoredErrors,
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Interface model for a complete multi-zone heating system (with our without domestic hot water and solar system).</p>

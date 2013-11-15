@@ -96,8 +96,7 @@ model StorageTank_OneIntHX
       medium=medium,
       surCroSec=volumeTank/heightTank,
       h=heightTank)
-    "buoyancy model to mix nodes in case of inversed temperature stratification"
-                                                                                annotation(choicesAllMatching=true);
+    "buoyancy model to mix nodes in case of inversed temperature stratification";
 
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes] lossNodes(
