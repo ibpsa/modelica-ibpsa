@@ -20,9 +20,9 @@ model SlabOnGround "opaque floor on ground slab"
   parameter Modelica.SIunits.Area AWall "Total wall area";
   parameter Modelica.SIunits.Area PWall "Total wall perimeter";
   parameter Modelica.SIunits.Angle inc
-    "Inclination of the wall, i.e. 90° denotes vertical";
+    "Inclination of the wall, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
-    "Azimuth of the wall, i.e. 0° denotes South";
+    "Azimuth of the wall, i.e. 0deg denotes South";
 
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
