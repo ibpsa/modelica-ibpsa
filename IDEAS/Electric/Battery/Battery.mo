@@ -47,7 +47,6 @@ der(SoC) = SoCdelta - delta_sd;
 SoC_out = SoC;
 
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}})),
-             Diagram(graphics), Icon(graphics={Bitmap(extent={{-95,95},{95,-95}},
-            fileName="modelica://ELECTA/Battery.png")}),defaultComponentName="battery",
+             Diagram(graphics), Icon(graphics),         defaultComponentName="battery",
             defaultComponentPrefixes="inner");
 end Battery;
