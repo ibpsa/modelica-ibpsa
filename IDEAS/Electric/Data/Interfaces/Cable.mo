@@ -7,9 +7,9 @@ parameter IDEAS.Electric.BaseClasses.Types.CharacteristicResistance
 parameter IDEAS.Electric.BaseClasses.Types.CharacteristicReactance
                                                        XCha
     "Characteristic Reactance of the Cable";
-parameter IDEAS.Electric.BaseClasses.Types.ComplexCharacteristicImpedance
+final parameter IDEAS.Electric.BaseClasses.Types.ComplexCharacteristicImpedance
                                                               ZCha(
-                                                           re=RCha,im=XCha)
+                                                           final re=RCha,final im=XCha)
     "Characteristic Impedance of the Cable";
 parameter Modelica.SIunits.ElectricCurrent In
     "Nominal Electrical Current Fused";
