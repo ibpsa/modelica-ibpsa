@@ -61,7 +61,7 @@ public
     TColdWaterNom=TDHWCold,
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom)
-      annotation (choicesAllMatching=true, Placement(transformation(extent={{-158,
+      annotation (Placement(transformation(extent={{-158,
             -18},{-138,2}})));
 
   Thermal.Components.Storage.StorageTank tesTank(
@@ -88,7 +88,7 @@ protected
       medium=medium,
       TDHWSet=TDHWSet,
       TCold=TDHWCold)
-    annotation (choicesAllMatching=true, Placement(transformation(extent={{20,-2},
+    annotation (Placement(transformation(extent={{20,-2},
             {0,18}})));
 
   IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[

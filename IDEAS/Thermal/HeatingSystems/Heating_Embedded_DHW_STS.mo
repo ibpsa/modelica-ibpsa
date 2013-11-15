@@ -5,7 +5,8 @@ model Heating_Embedded_DHW_STS
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
     floorHeating=true,
-    nLoads=1);
+    radiators=false,
+    final nLoads=1);
 
   parameter Modelica.SIunits.Volume volumeTank=0.25;
   parameter Modelica.SIunits.Area AColTot=1 "TOTAL collector area";
@@ -27,7 +28,7 @@ model Heating_Embedded_DHW_STS
     m_flowNom=m_flowNom,
     each m_flowSet(start=0),
     each etaTot=0.7,
-    UA=1,
+    each UA=1,
     each m=0,
     each dpFix=30000)
     annotation (Placement(transformation(extent={{88,20},{108,30}})));
@@ -51,8 +52,6 @@ model Heating_Embedded_DHW_STS
 public
   replaceable Control.Ctrl_Heating_DHW                  HPControl(
     timeFilter=timeFilter,
-    TTankTop=TSto[posTTop],
-    TTankBot=TSto[posTBot],
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
@@ -60,14 +59,12 @@ public
     dTSupRetNom=dTSupRetNom) constrainedby
     Control.Interfaces.Partial_Ctrl_Heating_TES(
     timeFilter=timeFilter,
-    TTankTop=TSto[posTTop],
-    TTankBot=TSto[posTBot],
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom)
-      annotation (choicesAllMatching=true, Placement(transformation(extent={{-162,
+      annotation (Placement(transformation(extent={{-162,
             -12},{-154,-4}})));
 
   Components.Storage.StorageTank_OneIntHX tesTank(
@@ -94,7 +91,7 @@ public
       medium=medium,
       TDHWSet=TDHWSet,
       TCold=TDHWCold)
-    annotation (choicesAllMatching = true, Placement(transformation(extent={{-9,5},{
+    annotation (Placement(transformation(extent={{-9,5},{
             9,-5}},
         rotation=-90,
         origin={-49,-21})));
@@ -114,7 +111,7 @@ protected
     annotation (Placement(transformation(extent={{24,-76},{34,-72}})));
   Components.BaseClasses.Pipe_Insulated[      nZones] pipeEmission(each medium=
         medium, each m=1,
-    UA=1)
+    each UA=1)
     annotation (Placement(transformation(extent={{146,32},{162,38}})));
   // Result variables
 public
@@ -139,6 +136,9 @@ public
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector th2(m=nZones)
     annotation (Placement(transformation(extent={{108,-32},{128,-12}})));
 equation
+  HPControl.TTankTop=TSto[posTTop];
+  HPControl.TTankBot=TSto[posTBot];
+
   QHeatTotal = -sum(emission.heatPortEmb.Q_flow) + dHW.m_flowTotal * medium.cp * (dHW.TMixed - dHW.TCold);
   THeaterSet = HPControl.THPSet;
 
