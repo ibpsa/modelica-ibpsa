@@ -35,7 +35,7 @@ partial model Partial_HydraulicHeatingSystem
     "Initial temperature of all state variables";
   replaceable parameter IDEAS.Thermal.Components.BaseClasses.FH_Characteristics[
                                                                              nZones] FHChars if floorHeating
-     annotation (choicesAllMatching=true);
+     constrainedby IDEAS.Thermal.Components.BaseClasses.FH_Characteristics;
 
 // Variables ///////////////////////////////////////////////////////////////////////////////////////////
   Modelica.SIunits.Temperature THeaterSet;
@@ -72,7 +72,7 @@ partial model Partial_HydraulicHeatingSystem
     TInitial=TInitial,
     QNom=sum(QNom),
     medium=medium) "Heater (boiler, heat pump, ...)"
-    annotation (choicesAllMatching = true, Placement(transformation(extent={{-110,14},
+    annotation (Placement(transformation(extent={{-110,14},
             {-90,34}})));
 
   annotation(Icon,

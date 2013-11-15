@@ -5,7 +5,8 @@ model Heating_Embedded_combiTES_DHW_STS
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
     floorHeating=true,
-    nLoads=1);
+    radiators=false,
+    final nLoads=1);
 
   parameter Modelica.SIunits.Volume volumeTank=0.25;
   parameter Modelica.SIunits.Area AColTot=1 "TOTAL collector area";
@@ -44,8 +45,6 @@ protected
 public
   replaceable Control.Ctrl_Heating_combiTES                HPControl(
     heatingCurve(timeFilter=timeFilter),
-    TTankTop=TSto[posTTop],
-    TTankBot=TSto[posTBot],
     TTankEmiOut=tesTank.nodes[posOutFH].T,
     DHW=true,
     TDHWSet=TDHWSet,
@@ -54,8 +53,6 @@ public
     dTSupRetNom=dTSupRetNom) constrainedby
     Control.Interfaces.Partial_Ctrl_Heating_TES(
     heatingCurve(timeFilter=timeFilter),
-    TTankTop=TSto[posTTop],
-    TTankBot=TSto[posTBot],
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
@@ -96,8 +93,7 @@ protected
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{16,-76},{46,-46}})));
   Components.BaseClasses.Thermostatic3WayValve
-                                            idealMixer(mFlowMin=0.01, pumpCold(
-        m=5))
+                                            idealMixer(m=5, mFlowMin=0.01)
     annotation (Placement(transformation(extent={{28,22},{50,46}})));
   IDEAS.Thermal.Components.BaseClasses.Pipe   pipeDHW(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-36,-40},{-48,-28}})));
@@ -131,6 +127,10 @@ protected
                                                       medium=medium, m=1)
     annotation (Placement(transformation(extent={{-8,-30},{4,-18}})));
 equation
+
+  HPControl.TTankTop=TSto[posTTop];
+  HPControl.TTankBot=TSto[posTBot];
+
   QHeatTotal = -sum(emission.heatPortEmb.Q_flow) + dHW.m_flowTotal * medium.cp * (dHW.TMixed - dHW.TCold);
   THeaterSet = HPControl.THPSet;
 
