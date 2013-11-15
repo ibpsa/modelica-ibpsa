@@ -2,7 +2,7 @@ within IDEAS.BaseClasses.Examples;
 model Tester_Timer "Check correct operation of the Timer_NoEvent"
 
   IDEAS.BaseClasses.Control.Timer_NoEvents timer(duration=200, timerType=
-        Commons.Time.Elements.TimerType.off)
+        IDEAS.Climate.Time.BaseClasses.TimerType.off)
     annotation (Placement(transformation(extent={{-12,2},{8,22}})));
 equation
   timer.u = 2*sin(time/20);
