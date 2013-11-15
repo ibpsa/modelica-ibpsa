@@ -61,10 +61,9 @@ partial model Partial_Ctrl_Heating_TES
   Modelica.Blocks.Interfaces.RealOutput onOff(start=0) "onoff signal as Real"
     annotation (Placement(transformation(extent={{92,-10},{112,10}}),
         iconTransformation(extent={{92,-10},{112,10}})));
-    Modelica.Blocks.Interfaces.RealOutput THeaCur "Heating curve setpoint"
-      annotation (Placement(transformation(extent={{94,-50},{114,-30}}),
-          iconTransformation(extent={{94,-50},{114,-30}})));
-
+  Modelica.Blocks.Interfaces.RealOutput THeaCur "Heating curve setpoint"
+    annotation (Placement(transformation(extent={{94,-50},{114,-30}}),
+        iconTransformation(extent={{94,-50},{114,-30}})));
   Modelica.Blocks.Interfaces.RealInput TTankTop
     "Top (or near top) tank temperature"
     annotation (Placement(transformation(extent={{-94,30},{-74,50}}),

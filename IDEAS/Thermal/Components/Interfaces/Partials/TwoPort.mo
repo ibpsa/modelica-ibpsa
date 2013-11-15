@@ -2,7 +2,8 @@ within IDEAS.Thermal.Components.Interfaces.Partials;
 partial model TwoPort "Partial model of two port"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
-    "Medium in the component";
+    "Medium in the component"
+    annotation(choicesAllMatching=true);
   parameter Modelica.SIunits.Mass m(start=1) "Mass of medium";
   // I remove this parameter completely because it can lead to wrong models!!!
   // See note in evernote of RDC

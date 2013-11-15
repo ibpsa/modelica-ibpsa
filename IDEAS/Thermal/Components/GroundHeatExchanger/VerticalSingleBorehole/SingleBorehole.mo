@@ -4,7 +4,8 @@ model SingleBorehole
 // Dieter Patteeuw 28feb2012
 
 parameter IDEAS.Thermal.Data.Interfaces.Medium brine=IDEAS.Thermal.Data.Interfaces.Medium()
-    "Medium in the component";
+    "Medium in the component"
+    annotation(choicesAllMatching=true);
 
 parameter Modelica.SIunits.Length boreholeDepth = 110 "depth of the borehole";
 parameter Modelica.SIunits.Radius boreholeRadius = 0.055
