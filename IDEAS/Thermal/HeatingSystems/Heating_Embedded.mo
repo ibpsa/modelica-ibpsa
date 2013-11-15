@@ -4,7 +4,7 @@ model Heating_Embedded
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
-    final emissionType=EmissionType.FloorHeating,
+    floorHeating=true,
     nLoads=1);
 
   Thermal.Components.BaseClasses.Pump[nZones] pumpRad(
