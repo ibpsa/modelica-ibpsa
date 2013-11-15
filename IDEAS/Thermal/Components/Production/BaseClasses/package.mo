@@ -4,7 +4,4 @@ package BaseClasses "Partials, submodels and general stuff to be used in other H
 
   extends Modelica.Icons.BasesPackage;
 
-
-
-
 end BaseClasses;
