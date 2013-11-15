@@ -1,7 +1,0 @@
-within IDEAS.Occupants.Stochastic.BaseClasses;
-model PreReal
-  "Breaks algebraic loops by an infinitesimal small time delay (y = pre(u): event iteration continues until u = pre(u))"
- extends Modelica.Blocks.Interfaces.SISO;
-equation
-  y = pre(u);
-end PreReal;
