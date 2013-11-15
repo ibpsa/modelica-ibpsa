@@ -15,7 +15,7 @@ model Bui910 "BESTEST Building model case 910"
     azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
     inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     redeclare Data.Constructions.HeavyWall constructionType,
-    redeclare Data.Insulation.foaminsulation insulationType,
+    redeclare Data.Insulation.foaminsulation insulationType(each d=0),
     insulationThickness={0.0615,0.0615,0.0615,0.0615}) annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
@@ -23,7 +23,7 @@ model Bui910 "BESTEST Building model case 910"
         origin={-49,-14})));
 
   IDEAS.Buildings.Components.SlabOnGround floor(
-    redeclare Data.Insulation.insulation insulationType,
+    redeclare Data.Insulation.insulation insulationType(d=0),
     AWall=48,
     inc=IDEAS.Constants.Floor,
     azi=IDEAS.Constants.South,
@@ -52,7 +52,7 @@ model Bui910 "BESTEST Building model case 910"
         origin={11,-14})));
   IDEAS.Buildings.Components.OuterWall roof(
     redeclare Data.Constructions.LightRoof constructionType,
-    redeclare Data.Insulation.fiberglass insulationType,
+    redeclare Data.Insulation.fiberglass insulationType(d=0),
     insulationThickness=0.1118,
     AWall=48,
     inc=IDEAS.Constants.Ceiling,

@@ -12,8 +12,8 @@ model Bui600 "BESTEST Building model case 600"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
-    redeclare Data.Constructions.LightWall constructionType,
-    redeclare Data.Insulation.fiberglass insulationType,
+    redeclare replaceable Data.Constructions.LightWall constructionType,
+    redeclare replaceable Data.Insulation.fiberglass insulationType(each d=0),
     AWall={21.6,16.2,9.6,16.2},
     azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
     insulationThickness={0.066,0.066,0.066,0.066},
@@ -24,8 +24,8 @@ model Bui600 "BESTEST Building model case 600"
         origin={-49,-14})));
 
   IDEAS.Buildings.Components.SlabOnGround floor(
-    redeclare Data.Constructions.LightFloor constructionType,
-    redeclare Data.Insulation.insulation insulationType,
+    redeclare replaceable Data.Constructions.LightFloor constructionType,
+    redeclare replaceable Data.Insulation.insulation insulationType(d=0),
     insulationThickness=1.003,
     AWall=48,
     inc=IDEAS.Constants.Floor,
@@ -36,18 +36,18 @@ model Bui600 "BESTEST Building model case 600"
         origin={-19,-14})));
   IDEAS.Buildings.Components.Window[2] win(
     A={6,6},
-    redeclare Data.Glazing.GlaBesTest glazing,
+    redeclare replaceable Data.Glazing.GlaBesTest glazing,
     inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     azi={IDEAS.Constants.South,IDEAS.Constants.South},
-    redeclare IDEAS.Buildings.Components.Shading.None shaType,
-    redeclare IDEAS.Buildings.Data.Frames.None fraType) annotation (Placement(
+    redeclare replaceable IDEAS.Buildings.Components.Shading.None shaType,
+    redeclare replaceable IDEAS.Buildings.Data.Frames.None fraType) annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));
   IDEAS.Buildings.Components.OuterWall roof(
-    redeclare Data.Constructions.LightRoof constructionType,
-    redeclare Data.Insulation.fiberglass insulationType,
+    redeclare replaceable Data.Constructions.LightRoof constructionType,
+    redeclare replaceable Data.Insulation.fiberglass insulationType(d=0),
     insulationThickness=0.1118,
     AWall=48,
     inc=IDEAS.Constants.Ceiling,

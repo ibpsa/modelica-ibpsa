@@ -48,7 +48,6 @@ partial model StateZone "Partial model for thermal building zones"
         origin={-104,60})));
   annotation (
     Diagram(graphics),
-    Diagram(graphics),
     Icon(graphics={
         Rectangle(
           extent={{-90,90},{90,-90}},

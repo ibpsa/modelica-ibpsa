@@ -2,10 +2,12 @@ within IDEAS;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
 
-  replaceable parameter IDEAS.Climate.Meteo.Detail detail
-    "Timeframe detail of the climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
-  replaceable parameter IDEAS.Climate.Meteo.Location city
-    "Location of the depicted climate data"   annotation (choicesAllMatching = true,Dialog(group="Climate"));
+  replaceable parameter IDEAS.Climate.Meteo.Files.min60 detail constrainedby
+    IDEAS.Climate.Meteo.Detail "Timeframe detail of the climate data"
+                                             annotation (Dialog(group="Climate"));
+  replaceable parameter IDEAS.Climate.Meteo.Locations.Uccle city constrainedby
+    IDEAS.Climate.Meteo.Location "Location of the depicted climate data"
+                                              annotation (Dialog(group="Climate"));
   parameter Boolean occBeh = false
     "put to true if  user behaviour is to be read from files"
                                          annotation(Dialog(group="User behaviour"));
@@ -17,8 +19,9 @@ model SimInfoManager
     "put to true if photovoltaics is to be read from files "
                                          annotation(Dialog(group="Photovoltaics"));
 
-  replaceable parameter IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants
-    "Specifies the files with occupant behavior" annotation(choicesAllMatching = true,Dialog(group="User behaviour"));
+  replaceable parameter IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants constrainedby
+    IDEAS.Occupants.Extern.Interfaces.Occ_Files
+    "Specifies the files with occupant behavior" annotation(Dialog(group="User behaviour"));
   parameter Integer nOcc = 33 "Number of occupant profiles to be read" annotation(Dialog(group="User behaviour"));
 
   parameter String fileNamePv = "onePVpanel10min"

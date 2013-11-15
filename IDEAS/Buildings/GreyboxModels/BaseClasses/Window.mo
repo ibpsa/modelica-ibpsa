@@ -10,8 +10,8 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
   parameter Boolean shading = false "shading presence";
   parameter Modelica.SIunits.Efficiency shaCorr = 0.2 "shading transmittance";
 
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
-    "glazing type"                                                              annotation(AllMatching=true);
+  replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing constrainedby
+    IDEAS.Buildings.Data.Interfaces.Glazing "glazing type";
 
 protected
   IDEAS.Climate.Meteo.Solar.RadSol  radSol(inc=inc,azi=azi,A=A)

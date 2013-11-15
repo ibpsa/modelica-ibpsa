@@ -25,7 +25,6 @@ partial model StateWall "Partial model for building envelope components"
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
-    Diagram(graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics));
 
