@@ -1,5 +1,5 @@
 within IDEAS.Climate.Meteo;
-partial model location
+partial model Location "Geogrphical location"
 
   parameter Modelica.SIunits.Angle lat(displayUnit="degree")
     "latitude of the locatioin";
@@ -12,4 +12,4 @@ partial model location
   parameter Integer yr "Ddepcited year for DST only";
   parameter String locNam;
 
-end location;
+end Location;
