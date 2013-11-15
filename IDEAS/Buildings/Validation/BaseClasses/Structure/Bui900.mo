@@ -14,8 +14,8 @@ model Bui900 "BESTEST Building model case 900"
     final AWall={21.6,16.2,9.6,16.2},
     final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-    redeclare final Data.Constructions.HeavyWall constructionType,
-    redeclare final Data.Insulation.foaminsulation insulationType,
+    redeclare final parameter Data.Constructions.HeavyWall constructionType,
+    redeclare final parameter Data.Insulation.foaminsulation insulationType,
     final insulationThickness={0.0615,0.0615,0.0615,0.0615}) annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
@@ -23,11 +23,11 @@ model Bui900 "BESTEST Building model case 900"
         origin={-49,-14})));
 
   IDEAS.Buildings.Components.SlabOnGround floor(
-    redeclare final Data.Insulation.insulation insulationType,
+    redeclare final parameter Data.Insulation.insulation insulationType,
     final AWall=48,
     final inc=IDEAS.Constants.Floor,
     final azi=IDEAS.Constants.South,
-    redeclare final Data.Constructions.HeavyFloor constructionType,
+    redeclare final parameter Data.Constructions.HeavyFloor constructionType,
     final insulationThickness=1.007,
     PWall=28) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -36,19 +36,19 @@ model Bui900 "BESTEST Building model case 900"
 
   IDEAS.Buildings.Components.Window[2] win(
     final A={6,6},
-    redeclare final Data.Glazing.GlaBesTest glazing,
+    redeclare final parameter Data.Glazing.GlaBesTest glazing,
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     final azi={IDEAS.Constants.South,IDEAS.Constants.South},
     redeclare final IDEAS.Buildings.Components.Shading.None shaType,
-    redeclare final IDEAS.Buildings.Data.Frames.None fraType) annotation (Placement(
+    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType) annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));
 
   IDEAS.Buildings.Components.OuterWall roof(
-    redeclare final Data.Constructions.LightRoof constructionType,
-    redeclare final Data.Insulation.fiberglass insulationType,
+    redeclare final parameter Data.Constructions.LightRoof constructionType,
+    redeclare final parameter Data.Insulation.fiberglass insulationType,
     final insulationThickness=0.1118,
     final AWall=48,
     final inc=IDEAS.Constants.Ceiling,
