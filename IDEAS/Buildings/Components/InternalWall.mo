@@ -4,14 +4,14 @@ model InternalWall "interior opaque wall between two zones"
   extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
   replaceable parameter Data.Interfaces.Construction constructionType(insulationType=
-        insulationType, insulationTickness=insulationThickness)
-    "Type of building construction" annotation (
-    choicesAllMatching=true,
+        insulationType, insulationTickness=insulationThickness) constrainedby
+    Data.Interfaces.Construction "Type of building construction"
+                                    annotation (
     Placement(transformation(extent={{-38,72},{-34,76}})),
     Dialog(group="Construction details"));
   replaceable parameter Data.Interfaces.Insulation insulationType(d=insulationThickness)
-    "Type of thermal insulation" annotation (
-    choicesAllMatching=true,
+                                 constrainedby Data.Interfaces.Insulation
+    "Type of thermal insulation"                                          annotation (
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
   parameter Modelica.SIunits.Length insulationThickness
