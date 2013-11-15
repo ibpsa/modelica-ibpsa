@@ -1,8 +1,0 @@
-HeaterType
-PartialDynamicHeaterWithLosses
-HP_CondensationPower
-HP_CondensationPower_Losses
-HP_CondensationPower_Losses_MinOff
-HP_BW_CondensationPower_Losses
-Burner
-IdealHeatSource

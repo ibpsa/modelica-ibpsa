@@ -1,6 +1,6 @@
 within IDEAS.Climate.Meteo.Locations;
 model Uccle "Uccle, Belgium"
-  extends IDEAS.Climate.Meteo.location(
+  extends IDEAS.Climate.Meteo.Location(
     lat=50.800/180*Modelica.Constants.pi,
     lon=4.317/180*Modelica.Constants.pi,
     Tdes=265.15,

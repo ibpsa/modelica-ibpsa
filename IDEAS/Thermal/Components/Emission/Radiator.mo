@@ -1,10 +1,9 @@
 within IDEAS.Thermal.Components.Emission;
 model Radiator "Simple 1-node radiator model according to EN 442"
 
-  import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
   extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Emission(
-                                                                   final
-      emissionType=EmissionType.Radiators);
+      final floorHeating=false,
+      final radiators=true);
 
   parameter Modelica.SIunits.Temperature TInNom=75 + 273.15
     "Nominal inlet temperature";
