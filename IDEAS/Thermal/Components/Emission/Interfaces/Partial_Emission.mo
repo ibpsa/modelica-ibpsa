@@ -30,9 +30,9 @@ partial model Partial_Emission
   parameter Modelica.SIunits.Temperature TInitial=293.15
     "Initial temperature of all state variables";
   replaceable parameter IDEAS.Thermal.Components.BaseClasses.FH_Characteristics
-    FHChars "Properties of the floor heating or TABS, if present"                                                                                             annotation (choicesAllMatching=true);
-//     if                                                                    (
-//     emissionType == EmissionType.FloorHeating or emissionType == EmissionType.RadiatorsAndFloorHeating)
+    FHChars if floorHeating constrainedby
+    IDEAS.Thermal.Components.BaseClasses.FH_Characteristics
+    "Properties of the floor heating or TABS, if present";
 
 // Variables ///////////////////////////////////////////////////////////////////////////////////////////
   Modelica.SIunits.Temperature TMean(start=TInitial, fixed=false)

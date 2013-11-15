@@ -1,8 +1,9 @@
 within IDEAS.Thermal.Components.Emission.Interfaces;
 model Partial_EmbeddedPipe "Partial for the embedded pipe model"
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
-  extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Emission(final
-      emissionType=EmissionType.FloorHeating);
+  extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Emission(
+    final floorHeating=true,
+    final radiators=false);
 
   parameter Modelica.SIunits.MassFlowRate m_flowMin
     "Minimal flowrate when in operation";
