@@ -4,8 +4,9 @@ model Heating_Radiators
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
-    final emissionType=EmissionType.Radiators,
-    nLoads=1);
+    radiators=true,
+    floorHeating=false,
+    final nLoads=1);
 
   Thermal.Components.BaseClasses.Pump[nZones] pumpRad(
     each medium=medium,
@@ -22,7 +23,7 @@ model Heating_Radiators
     TZoneNom = TRoomNom,
     QNom=QNom,
     each powerFactor=3.37)
-    annotation (choicesAllMatching=true,Placement(transformation(extent={{88,18},{118,38}})));
+    annotation (Placement(transformation(extent={{88,18},{118,38}})));
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
@@ -38,7 +39,7 @@ model Heating_Radiators
     heatingCurve(timeFilter=timeFilter),
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom) "Controller for the heater"
-    annotation (choicesAllMatching=true, Placement(transformation(extent={{-164,38},
+    annotation (Placement(transformation(extent={{-164,38},
             {-144,58}})));
 
   IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[

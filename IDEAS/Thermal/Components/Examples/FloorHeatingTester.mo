@@ -32,13 +32,15 @@ extends Modelica.Icons.Example;
     medium=medium,
     m_flowMin=15*20/3600,
     A_Floor=A_Floor,
-    redeclare IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
+    redeclare parameter
+      IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
                                                            FHChars)
      constrainedby IDEAS.Thermal.Components.Emission.Interfaces.Partial_Tabs(
        medium=medium,
        m_flowMin=15*20/3600,
        A_Floor=A_Floor,
-       redeclare IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2 FHChars)
+       redeclare parameter
+      IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2                      FHChars)
     "tabs model"
                annotation (Placement(transformation(extent={{68,2},{88,22}})));
   inner IDEAS.SimInfoManager         sim(

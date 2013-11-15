@@ -19,7 +19,8 @@ extends Modelica.Icons.Example;
   IDEAS.Thermal.Components.Emission.Tabs tabs(
     medium=medium,
     m_flowMin=15*24/3600,
-    redeclare IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2 FHChars(
+    redeclare parameter
+      IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2                   FHChars(
       S_1=0.1,
       S_2=0.2,
       A_Floor=24,

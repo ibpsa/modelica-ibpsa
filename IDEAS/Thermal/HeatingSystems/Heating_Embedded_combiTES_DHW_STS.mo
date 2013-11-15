@@ -4,8 +4,9 @@ model Heating_Embedded_combiTES_DHW_STS
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
 
   extends Interfaces.Partial_HydraulicHeatingSystem(
-    final emissionType=EmissionType.FloorHeating,
-    nLoads=1);
+    floorHeating=true,
+    radiators=false,
+    final nLoads=1);
 
   parameter Modelica.SIunits.Volume volumeTank=0.25;
   parameter Modelica.SIunits.Area AColTot=1 "TOTAL collector area";
@@ -44,8 +45,6 @@ protected
 public
   replaceable Control.Ctrl_Heating_combiTES                HPControl(
     heatingCurve(timeFilter=timeFilter),
-    TTankTop=TSto[posTTop],
-    TTankBot=TSto[posTBot],
     TTankEmiOut=tesTank.nodes[posOutFH].T,
     DHW=true,
     TDHWSet=TDHWSet,
@@ -54,14 +53,12 @@ public
     dTSupRetNom=dTSupRetNom) constrainedby
     Control.Interfaces.Partial_Ctrl_Heating_TES(
     heatingCurve(timeFilter=timeFilter),
-    TTankTop=TSto[posTTop],
-    TTankBot=TSto[posTBot],
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom)
-      annotation (choicesAllMatching=true, Placement(transformation(extent={{-158,
+      annotation (Placement(transformation(extent={{-158,
             -18},{-138,2}})));
 
   Thermal.Components.Storage.StorageTank tesTank(
@@ -88,7 +85,7 @@ protected
       medium=medium,
       TDHWSet=TDHWSet,
       TCold=TDHWCold)
-    annotation (choicesAllMatching=true, Placement(transformation(extent={{20,-2},
+    annotation (Placement(transformation(extent={{20,-2},
             {0,18}})));
 
   IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[
@@ -96,8 +93,7 @@ protected
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{16,-76},{46,-46}})));
   Components.BaseClasses.Thermostatic3WayValve
-                                            idealMixer(mFlowMin=0.01, pumpCold(
-        m=5))
+                                            idealMixer(m=5, mFlowMin=0.01)
     annotation (Placement(transformation(extent={{28,22},{50,46}})));
   IDEAS.Thermal.Components.BaseClasses.Pipe   pipeDHW(medium=medium, m=1)
     annotation (Placement(transformation(extent={{-36,-40},{-48,-28}})));
@@ -131,6 +127,10 @@ protected
                                                       medium=medium, m=1)
     annotation (Placement(transformation(extent={{-8,-30},{4,-18}})));
 equation
+
+  HPControl.TTankTop=TSto[posTTop];
+  HPControl.TTankBot=TSto[posTBot];
+
   QHeatTotal = -sum(emission.heatPortEmb.Q_flow) + dHW.m_flowTotal * medium.cp * (dHW.TMixed - dHW.TCold);
   THeaterSet = HPControl.THPSet;
 
