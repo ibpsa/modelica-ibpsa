@@ -1,0 +1,4 @@
+within IDEAS.Buildings.Components.Interfaces;
+partial model Shading
+
+end Shading;

@@ -1,0 +1,6 @@
+within IDEAS.Electric.Data;
+package Lines
+
+  extends Modelica.Icons.MaterialPropertiesPackage;
+
+end Lines;

@@ -1,0 +1,18 @@
+within IDEAS.Electric.Data.Interfaces;
+record LowVoltageCable
+
+extends Modelica.Icons.MaterialProperty;
+
+parameter ELECTAPub.General.Units.CharacteristicResistance
+                                                        RCha
+    "Characteristic Resistance of the Cable";
+parameter ELECTAPub.General.Units.CharacteristicReactance
+                                                       XCha
+    "Characteristic Reactance of the Cable";
+parameter ELECTAPub.General.Units.ComplexCharacteristicImpedance
+                                                              ZCha(
+                                                           re=RCha,im=XCha)
+    "Characteristic Impedance of the Cable";
+parameter Modelica.SIunits.ElectricCurrent In
+    "Nominal Electrical Current Fused";
+end LowVoltageCable;

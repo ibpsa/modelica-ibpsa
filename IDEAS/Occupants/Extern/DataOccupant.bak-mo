@@ -1,0 +1,4 @@
+within IDEAS.Occupants.Extern;
+model DataOccupant
+
+end DataOccupant;

@@ -1,0 +1,10 @@
+within IDEAS.Buildings.Validation;
+package Interfaces
+
+  extends Modelica.Icons.InterfacesPackage;
+
+model BesTestCase
+  extends IDEAS.Interfaces.Building;
+end BesTestCase;
+
+end Interfaces;

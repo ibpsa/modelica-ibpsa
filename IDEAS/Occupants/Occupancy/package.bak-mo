@@ -1,0 +1,8 @@
+within IDEAS.Occupants;
+package Occupancy 
+
+
+  extends Modelica.Icons.Package;
+
+
+end Occupancy;

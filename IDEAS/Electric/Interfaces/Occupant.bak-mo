@@ -1,0 +1,48 @@
+within IDEAS.Electric.Interfaces;
+partial model Occupant
+
+/*
+cfr. First TABULA synthesis report
+For a two-zone dwelling, zone one [1] always represents the dayzonze
+whereas zone two [2] will represent the nightzone.
+*/
+
+  outer IDEAS.Elements.SimInfoManager sim
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
+parameter Integer Nc "number (n) of conditioned (C) zones for simulation";
+parameter Modelica.SIunits.Area At
+    "transmission (T) heat loss area (A) of the residential unit";
+parameter Modelica.SIunits.Volume[Nc] Vc
+    "conditioned volume of the building based on external dimensions";
+
+final parameter Modelica.SIunits.Length C = sum(Vc)/At;
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[Nc] conv
+    annotation (Placement(transformation(extent={{-110,10},{-90,30}}),
+        iconTransformation(extent={{-110,10},{-90,30}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[Nc] rad
+    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
+        iconTransformation(extent={{-110,-30},{-90,-10}})));
+  Modelica.Blocks.Interfaces.RealOutput[Nc] TOpAsked
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,100}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,100})));
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug Plug
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  annotation(Icon(graphics={Line(
+          points={{60,8},{0,60},{-60,10},{-60,-60},{60,-60}},
+          color={127,0,0},
+          smooth=Smooth.None), Polygon(
+          points={{60,8},{56,4},{0,50},{-54,6},{-54,-54},{60,-54},{60,-60},{-60,
+              -60},{-60,10},{0,60},{60,8}},
+          lineColor={127,0,0},
+          smooth=Smooth.None,
+          fillColor={127,0,0},
+          fillPattern=FillPattern.Solid)}),                         Diagram(
+        graphics));
+
+end Occupant;

@@ -1,0 +1,11 @@
+within IDEAS.Occupants;
+package Appliances 
+
+
+  extends Modelica.Icons.Package;
+
+
+
+
+
+end Appliances;

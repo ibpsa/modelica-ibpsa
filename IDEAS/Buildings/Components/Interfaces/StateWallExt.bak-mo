@@ -1,0 +1,14 @@
+within IDEAS.Buildings.Components.Interfaces;
+partial model StateWallExt
+
+extends IDEAS.Buildings.Components.Interfaces.StateWall;
+
+Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
+    "port for gains by embedded active layers"
+  annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-50,
+            -100},{50,100}}),
+                        graphics), Icon(coordinateSystem(preserveAspectRatio=true,
+          extent={{-50,-100},{50,100}}),graphics));
+
+end StateWallExt;

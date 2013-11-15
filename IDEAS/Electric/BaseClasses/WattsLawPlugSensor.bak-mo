@@ -1,0 +1,60 @@
+within IDEAS.Electric.BaseClasses;
+model WattsLawPlugSensor
+  "For use  with loads. Either symmetrically divided over 3 phases (numPha=3) or single phase (numPha=1)."
+  parameter Integer numPha=1 "Choose the number of phases" annotation(choices(choice=1
+        "single phase",                                                                               choice=3
+        "symmetrical 3 phase"));
+  Modelica.Blocks.Interfaces.RealOutput P
+    annotation (Placement(transformation(extent={{74,30},{114,70}}),
+        iconTransformation(extent={{94,50},{114,70}})));
+  Modelica.Blocks.Interfaces.RealOutput Q
+    annotation (Placement(transformation(extent={{74,-10},{114,30}}),
+        iconTransformation(extent={{94,10},{114,30}})));
+ Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin[
+                          numPha] vi
+                     annotation (Placement(transformation(extent={{-110,-10},{
+            -90,10}},              rotation=0)));
+equation
+    for i in 1:numPha loop
+    P/numPha = Modelica.ComplexMath.real(vi.pin[i].v*Modelica.ComplexMath.conj(vi.pin[i].i));
+    Q/numPha = Modelica.ComplexMath.imag(vi.pin[i].v*Modelica.ComplexMath.conj(vi.pin[i].i));
+    end for;
+
+  annotation (Icon(graphics={
+        Line(
+          points={{100,80},{100,-80}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Ellipse(extent={{-60,60},{60,-60}}, lineColor={0,0,127}),
+        Line(
+          points={{-100,0},{-60,0}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{60,0},{100,0}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Text(
+          extent={{-20,40},{20,20}},
+          lineColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="P"),
+        Text(
+          extent={{0,-20},{40,-40}},
+          lineColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="I"),
+        Text(
+          extent={{-40,-20},{0,-40}},
+          lineColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="V"),
+        Line(
+          points={{-40,0},{40,0}},
+          color={135,135,135},
+          smooth=Smooth.None),
+        Line(
+          points={{0,0},{0,-40}},
+          color={135,135,135},
+          smooth=Smooth.None)}), Diagram(graphics));
+end WattsLawPlugSensor;

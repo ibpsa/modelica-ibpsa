@@ -1,0 +1,9 @@
+within IDEAS.Occupants;
+package Lighting 
+
+
+  extends Modelica.Icons.Package;
+
+
+
+end Lighting;

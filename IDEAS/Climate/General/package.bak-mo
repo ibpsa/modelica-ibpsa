@@ -1,0 +1,16 @@
+within IDEAS.Climate;
+package General "General stuff"
+
+
+  extends Modelica.Icons.Package;
+
+
+
+
+
+
+
+
+
+
+end General;

@@ -1,0 +1,49 @@
+within IDEAS.Occupants;
+package Read
+
+  extends Modelica.Icons.Package;
+
+  partial model Detail
+
+  parameter String filNam;
+  parameter String LocNam;
+  parameter Modelica.SIunits.Time timestep;
+
+  end Detail;
+
+  package Files
+
+    extends Modelica.Icons.Package;
+
+    model min1 "1-minute data"
+      extends IDEAS.Climate.Meteo.Detail(filNam="..\\Inputs\\" + LocNam + "_1.txt",
+          timestep=60);
+    end min1;
+
+    model min10 "10-minute data"
+      extends IDEAS.Climate.Meteo.Detail(filNam="..\\Inputs\\" + LocNam + "_10.txt",
+          timestep=600);
+    end min10;
+
+    model min15 "15-minute data"
+      extends IDEAS.Climate.Meteo.Detail(filNam="..\\Inputs\\" + LocNam + "_15.txt",
+          timestep=900);
+    end min15;
+
+    model min30 "30-minute data"
+      extends IDEAS.Climate.Meteo.Detail(filNam="..\\Inputs\\" + LocNam + "_30.txt",
+          timestep=1800);
+    end min30;
+
+    model min5 "5-minute data"
+      extends IDEAS.Climate.Meteo.Detail(filNam="..\\Inputs\\" + LocNam + "_5.txt",
+          timestep=300);
+    end min5;
+
+    model min60 "60-minute data"
+      extends IDEAS.Climate.Meteo.Detail(filNam="..\\Inputs\\" + LocNam + "_60.txt",
+          timestep=3600);
+    end min60;
+  end Files;
+
+end Read;

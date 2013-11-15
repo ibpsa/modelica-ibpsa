@@ -1,0 +1,17 @@
+within IDEAS.Electric.Data.Interfaces;
+record GridLayout "Describes a grid layout"
+
+extends Modelica.Icons.MaterialProperty;
+
+parameter Integer nPha = 3 "number of phases";
+parameter Integer nNodes(min=1) "number of nodes  in the grid layout";
+parameter Integer[nNodes,:] nodeMatrix
+    "Node-matrix describing the connection between the nodes";
+parameter Modelica.SIunits.Resistance[nNodes] R
+    "Electric resistance of the cables between depicted nodes";
+parameter Modelica.SIunits.Reactance[nNodes] X
+    "Electric reactances of the cables between depicted nodes";
+parameter Modelica.SIunits.ComplexImpedance[nNodes] Z(re=R,im=X)
+    "Complex impedances of the cables between depicted nodes";
+
+end GridLayout;

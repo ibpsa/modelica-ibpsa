@@ -1,0 +1,26 @@
+within IDEAS.Buildings.Components.Interfaces;
+partial model StateWallGround
+
+outer IDEAS.Climate.SimInfoManager
+                           sim "Simulation information manager"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
+    "convective nod on the inside"
+    annotation (Placement(transformation(extent={{90,10},{110,30}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_bRad
+    "rad.node on the inside"
+    annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
+
+  Modelica.Blocks.Interfaces.RealOutput iEpsLw
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-20,100})));
+  Modelica.Blocks.Interfaces.RealOutput iEpsSw
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={20,100})));
+
+  annotation (Diagram(graphics),
+              Diagram(graphics), Icon(graphics));
+end StateWallGround;

@@ -1,0 +1,12 @@
+within IDEAS.Occupants.Occupancy;
+package Random 
+
+
+  extends Modelica.Icons.BasesPackage;
+
+
+
+
+
+
+end Random;

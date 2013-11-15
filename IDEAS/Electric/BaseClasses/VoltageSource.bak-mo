@@ -1,0 +1,41 @@
+within IDEAS.Electric.BaseClasses;
+model VoltageSource "Constant AC voltage"
+
+  parameter Modelica.SIunits.Frequency f(start=1) "frequency of the source";
+  parameter Modelica.SIunits.Voltage V(start=1) "RMS voltage of the source";
+  parameter Modelica.SIunits.Angle phi(start=0) "phase shift of the source";
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
+              pin_p1 "Positive pin"
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}},   rotation=
+           0)));
+equation
+  omega = 2*Modelica.Constants.pi*f;
+  v = Complex(V*cos(phi), V*sin(phi));
+  pin_p.i = Complex(0);
+  annotation (Icon(graphics={
+        Text(
+          extent={{-120,50},{-20,0}},
+          lineColor={0,0,255},
+          textString=
+                  "+"),
+        Text(
+          extent={{20,50},{120,0}},
+          lineColor={0,0,255},
+          textString=
+                  "-"),
+        Line(points={{50,0},{-50,0}}, color={0,0,0})}),
+      Documentation(info="<html>
+
+<p>
+This is a constant voltage source, specifying the complex voltage by the RMS voltage and the phase shift.
+</p>
+
+<h4>See also</h4>
+
+<p>
+<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VariableVoltageSource\">VariableVoltageSource</a>,
+<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sources.CurrentSource\">CurrentSource</a>,
+<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VariableCurrentSource\">VariableCurrentSource</a>
+</p>
+</html>"));
+end VoltageSource;

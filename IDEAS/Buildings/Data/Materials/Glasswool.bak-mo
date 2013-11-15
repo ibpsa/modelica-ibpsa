@@ -1,0 +1,5 @@
+within IDEAS.Buildings.Data.Materials;
+record Glasswool = IDEAS.Buildings.Data.Interfaces.Material (
+    k=0.040,
+    c=840,
+    rho=80) "glass wool for thermal insulation";

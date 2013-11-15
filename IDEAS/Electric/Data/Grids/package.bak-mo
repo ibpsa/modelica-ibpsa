@@ -1,0 +1,8 @@
+within IDEAS.Electric.Data;
+package Grids 
+
+
+  extends Modelica.Icons.MaterialPropertiesPackage;
+
+
+end Grids;

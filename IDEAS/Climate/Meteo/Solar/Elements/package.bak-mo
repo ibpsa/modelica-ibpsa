@@ -1,0 +1,20 @@
+within IDEAS.Climate.Meteo.Solar;
+package Elements 
+
+
+extends Modelica.Icons.BasesPackage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+end Elements;
