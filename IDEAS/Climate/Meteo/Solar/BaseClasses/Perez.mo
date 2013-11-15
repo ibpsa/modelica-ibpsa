@@ -39,6 +39,5 @@ algorithm
     solDifTil := A * sim.solDifHor;
   else
     solDifTil := A * sim.solDifHor * (0.5*(1-F1)*(1+cos(inc)) + F1*a/b + F2*sin(inc)) + A * sim.solGloHor * 0.5 * rho * (1-cos(inc));
-  end if
-  annotation (Diagram(graphics));
+  end if;
 end Perez;
