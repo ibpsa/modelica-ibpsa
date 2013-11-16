@@ -13,13 +13,13 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
     InputAbsolutePressure p(stateSelect=if
           preferredMediumStates then StateSelect.prefer else StateSelect.default)
     "Absolute pressure of medium";
-    final InputMassFraction[nXi] Xi=fill(0, 0)
+    InputMassFraction[nXi] Xi=fill(0, 0)
     "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
     Modelica.SIunits.SpecificInternalEnergy u
     "Specific internal energy of medium";
-    final Modelica.SIunits.Density d=d_const "Density of medium";
-    final Modelica.SIunits.MassFraction[nX] X={1}
+    Modelica.SIunits.Density d=d_const "Density of medium";
+    Modelica.SIunits.MassFraction[nX] X={1}
     "Mass fractions (= (component mass)/total mass  m_i/m)";
     final Modelica.SIunits.SpecificHeatCapacity R=0
     "Gas constant (of mixture if applicable)";
