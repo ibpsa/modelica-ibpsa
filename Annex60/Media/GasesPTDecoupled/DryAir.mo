@@ -78,6 +78,13 @@ package DryAir
 
     end if;
 
+    assert(T >= T_min and T <= T_max, "
+Temperature T (= "   + String(T) + " K) is not
+in the allowed range ("   + String(T_min) + " K <= T <= " + String(T_max)
+           + " K)
+required from medium model \""   + mediumName + "\".
+");
+
     assert(p >= 0.0, "Pressure (= " + String(p) + " Pa) of medium \"" +
       mediumName + "\" is negative\n(Temperature = " + String(T) + " K)");
 

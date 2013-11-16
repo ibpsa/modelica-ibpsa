@@ -24,17 +24,6 @@ package DryAir
                    molarMass=Modelica.Media.IdealGases.Common.SingleGasesData.N2.MM)
     "constant data for the fluid";
 
-// the statements above have the same effects as the commented "extends" below,
-// except that the Interfaces of the Annex60.Media library is used instead of the Interfaces
-// of Modelica.Media. This is required since Modelica.Media does not allow to redeclare
-// certain property functions that we need to redeclare here.
-//  extends Modelica.Media.Air.DryAir(
-//      mediumName="GasesConstantDensity.DryAir",
-//      T_min=Cv.from_degC(-50));
-
-// redeclare model BaseProperties "Basic medium properties"
-//    extends BasePropertiesRecord;
-
    constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
    constant Density dStp = 1.2 "Fluid density at pressure pStp";
 
@@ -73,8 +62,6 @@ package DryAir
     connector InputMassFraction = input SI.MassFraction
       "Mass fraction as input signal connector";
 
-    // own declarations
-
  equation
     if standardOrderComponents then
       Xi = X[1:nXi];
@@ -92,6 +79,14 @@ package DryAir
         end for;
 
     end if;
+
+    assert(T >= T_min and T <= T_max,
+                                  "
+Temperature T (= "   + String(T) + " K) is not
+in the allowed range ("   + String(T_min) + " K <= T <= " + String(T_max)
+           + " K)
+required from medium model \""   + mediumName + "\".
+");
 
     assert(p >= 0.0, "Pressure (= " + String(p) + " Pa) of medium \"" +
       mediumName + "\" is negative\n(Temperature = " + String(T) + " K)");
