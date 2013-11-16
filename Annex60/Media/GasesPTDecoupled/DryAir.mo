@@ -82,7 +82,8 @@ package DryAir
       mediumName + "\" is negative\n(Temperature = " + String(T) + " K)");
 
     // new medium equations
-    h = specificEnthalpy_pTX(p,T,X);
+    //h = specificEnthalpy_pTX(p,T,X);
+    h = cp_const*(T-T0);
     // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
     // u = h-R*T;
 

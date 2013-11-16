@@ -43,7 +43,8 @@ package MoistAirUnsaturated
     MassFraction X_sat
       "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-
+    Modelica.SIunits.TemperatureDifference dT
+      "Temperature difference used to compute enthalpy";
   equation
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
@@ -60,7 +61,10 @@ required from medium model \""     + mediumName + "\".");
     X_steam  = Xi[Water]; // There is no liquid in this medium model
     X_air    = 1-Xi[Water];
 
-    h = specificEnthalpy_pTX(p,T,Xi);
+    //    h = specificEnthalpy_pTX(p,T,Xi);
+    dT = T - 273.15;
+    h = dT*dryair.cp * (1 - Xi[Water]) +
+       (dT * steam.cp + 2501014.5) * Xi[Water];
     R = dryair.R*(1 - Xi[Water]) + steam.R*Xi[Water];
 
     // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
