@@ -79,13 +79,12 @@ required from medium model \""     + mediumName + "\".");
 
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
-    p_steam_sat = min(saturationPressure(T),0.999*p);
-    X_sat = min(p_steam_sat * k_mair/max(100*Modelica.Constants.eps, p - p_steam_sat)*(1 - Xi[Water]), 1.0)
-      "Water content at saturation with respect to actual water content";
-    X_liquid = max(Xi[Water] - X_sat, 0.0);
-    X_steam  = Xi[Water]-X_liquid;
-    X_air    = 1-Xi[Water];
-
+    p_steam_sat = saturationPressure(T);
+    X_sat       = min(p_steam_sat*k_mair/max(100*Modelica.Constants.eps, p - p_steam_sat)
+                  *(1 - Xi[Water]), 1.0);
+    X_liquid    = max(Xi[Water] - X_sat, 0.0);
+    X_steam     = Xi[Water]-X_liquid;
+    X_air       = 1-Xi[Water];
     h = specificEnthalpy_pTX(p,T,Xi);
     R = dryair.R*(1 - X_steam/(1 - X_liquid)) + steam.R*X_steam/(1 - X_liquid);
     //
@@ -113,18 +112,20 @@ redeclare function specificEnthalpy
   protected
   Modelica.SIunits.AbsolutePressure p_steam_sat
       "Partial saturation pressure of steam";
-  Modelica.SIunits.MassFraction x_sat
-      "steam water mass fraction of saturation boundary";
-  Modelica.SIunits.MassFraction X_liquid "mass fraction of liquid water";
-  Modelica.SIunits.MassFraction X_steam "mass fraction of steam water";
-  Modelica.SIunits.MassFraction X_air "mass fraction of air";
-  Modelica.SIunits.SpecificEnthalpy hDryAir "Enthalpy of dry air";
+  Modelica.SIunits.MassFraction X_sat
+      "Absolute humidity per unit mass of moist air";
+  Modelica.SIunits.MassFraction X_liquid "Mass fraction of liquid water";
+  Modelica.SIunits.MassFraction X_steam "Mass fraction of steam water";
+  Modelica.SIunits.MassFraction X_air "Mass fraction of air";
+  Modelica.SIunits.TemperatureDifference dT
+      "Temperature difference used to compute enthalpy";
 algorithm
   p_steam_sat :=saturationPressure(state.T);
-  x_sat    :=k_mair*p_steam_sat/(state.p - p_steam_sat);
-  X_liquid :=max(state.X[Water] - x_sat/(1 + x_sat), 0.0);
-  X_steam  :=state.X[Water] - X_liquid;
-  X_air    :=1 - state.X[Water];
+  X_sat       :=min(p_steam_sat*k_mair/max(100*Modelica.Constants.eps, state.p
+       - p_steam_sat)*(1 - state.X[Water]), 1.0);
+  X_liquid    :=max(state.X[Water] - X_sat, 0.0);
+  X_steam  := state.X[Water] - X_liquid;
+  X_air    := 1 - state.X[Water];
 
 /* THIS DOES NOT WORK --------------------------    
   h := enthalpyOfDryAir(T) * X_air + 
@@ -135,11 +136,10 @@ algorithm
   h := (T - 273.15)*dryair.cp * X_air + 
        Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
  +++++++++++++++++++++*/
-
-  hDryAir := (state.T - 273.15)*dryair.cp;
-  h := hDryAir * X_air +
-       ((state.T-273.15) * steam.cp + 2501014.5) * X_steam +
-       (state.T - 273.15)*4186*X_liquid;
+  dT := state.T - 273.15;
+  h  := dT*dryair.cp * X_air +
+       (dT * steam.cp + 2501014.5) * X_steam +
+       dT*4186*X_liquid;
   annotation(Inline=false,smoothOrder=1);
 end specificEnthalpy;
 

@@ -64,12 +64,12 @@ Temperature T is not in the allowed range
 required from medium model \""     + mediumName + "\".");
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
-    p_steam_sat = min(saturationPressure(T),0.999*p);
-    X_sat = min(p_steam_sat * k_mair/max(100*Modelica.Constants.eps, p - p_steam_sat)*(1 - Xi[Water]), 1.0)
-      "Water content at saturation with respect to actual water content";
-    X_liquid = max(Xi[Water] - X_sat, 0.0);
-    X_steam  = Xi[Water]-X_liquid;
-    X_air    = 1-Xi[Water];
+    p_steam_sat = saturationPressure(T);
+    X_sat       = min(p_steam_sat*k_mair/max(100*Modelica.Constants.eps, p - p_steam_sat)
+                  *(1 - Xi[Water]), 1.0);
+    X_liquid    = max(Xi[Water] - X_sat, 0.0);
+    X_steam     = Xi[Water]-X_liquid;
+    X_air       = 1-Xi[Water];
 
     h = specificEnthalpy_pTX(p,T,Xi);
     R = dryair.R*(1 - X_steam/(1 - X_liquid)) + steam.R*X_steam/(1 - X_liquid);
@@ -314,8 +314,7 @@ function specificEnthalpy_pTX
 end specificEnthalpy_pTX;
 
 redeclare function extends specificEnthalpy "Specific enthalpy"
-algorithm
-  h := specificEnthalpy_pTX(state.p, state.T, state.X);
+  extends Annex60.Media.IdealGases.MoistAir.specificEnthalpy;
 end specificEnthalpy;
 
 redeclare function extends specificInternalEnergy "Specific internal energy"
@@ -336,7 +335,8 @@ algorithm
   f := specificEnthalpy_pTX(state.p,state.T,state.X) - gasConstant(state)*state.T - state.T*specificEntropy(state);
 end specificHelmholtzEnergy;
 
-function temperature_phX "Compute temperature from specific enthalpy and mass fraction"
+function temperature_phX
+    "Compute temperature from specific enthalpy and mass fraction"
   extends Annex60.Media.IdealGases.MoistAir.temperature_phX;
 end temperature_phX;
 
