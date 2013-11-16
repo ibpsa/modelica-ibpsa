@@ -1,4 +1,4 @@
-simulateModel("Annex60.Media.PerfectGases.Examples.TestMoistAirUnsaturated", method="dassl", resultFile="TestMoistAirUnsaturatedPerGas");
+simulateModel("Annex60.Media.IdealGases.Examples.TestMoistAirUnsaturated", method="dassl", resultFile="TestMoistAirUnsaturatedPerGas");
 createPlot(id = 1,
  position = {15, 10, 400, 337},
  y = {"volume.medium.T"},

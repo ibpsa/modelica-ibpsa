@@ -15,10 +15,10 @@ package MoistAirUnsaturated
   constant Integer Air=2
     "Index of air (in substanceNames, massFractions X, etc.)";
   constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
-  constant Annex60.Media.PerfectGases.Common.DataRecord dryair=
-        Annex60.Media.PerfectGases.Common.SingleGasData.Air;
-  constant Annex60.Media.PerfectGases.Common.DataRecord steam=
-        Annex60.Media.PerfectGases.Common.SingleGasData.H2O;
+  constant Annex60.Media.IdealGases.Common.DataRecord dryair=
+        Annex60.Media.IdealGases.Common.SingleGasData.Air;
+  constant Annex60.Media.IdealGases.Common.DataRecord steam=
+        Annex60.Media.IdealGases.Common.SingleGasData.H2O;
   import SI = Modelica.SIunits;
 
   constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
@@ -112,12 +112,12 @@ required from medium model \""     + mediumName + "\".");
     phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
-  function Xsaturation = Annex60.Media.PerfectGases.MoistAir.Xsaturation
+  function Xsaturation = Annex60.Media.IdealGases.MoistAir.Xsaturation
     "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
 
   redeclare function setState_pTX
     "Thermodynamic state as function of p, T and composition X"
-      extends Annex60.Media.PerfectGases.MoistAir.setState_pTX;
+      extends Annex60.Media.IdealGases.MoistAir.setState_pTX;
   end setState_pTX;
 
   redeclare replaceable function setState_phX
@@ -145,12 +145,12 @@ implementation provided by its parent package.
 
   redeclare function setState_dTX
     "Thermodynamic state as function of d, T and composition X"
-     extends Annex60.Media.PerfectGases.MoistAir.setState_dTX;
+     extends Annex60.Media.IdealGases.MoistAir.setState_dTX;
   end setState_dTX;
 
   redeclare function gasConstant
     "Gas constant (computation neglects liquid fraction)"
-     extends Annex60.Media.PerfectGases.MoistAir.gasConstant;
+     extends Annex60.Media.IdealGases.MoistAir.gasConstant;
   end gasConstant;
 
 function saturationPressureLiquid
@@ -185,7 +185,7 @@ Derivative function of <a href=modelica://Modelica.Media.Air.MoistAir.saturation
 end saturationPressureLiquid_der;
 
   function sublimationPressureIce =
-      Annex60.Media.PerfectGases.MoistAir.sublimationPressureIce
+      Annex60.Media.IdealGases.MoistAir.sublimationPressureIce
     "Saturation curve valid for 223.16 <= T <= 273.16. Outside of these limits a (less accurate) result is returned";
 
 redeclare function extends saturationPressure
@@ -198,11 +198,11 @@ algorithm
 end saturationPressure;
 
  redeclare function pressure "Gas pressure"
-    extends Annex60.Media.PerfectGases.MoistAir.pressure;
+    extends Annex60.Media.IdealGases.MoistAir.pressure;
  end pressure;
 
  redeclare function temperature "Gas temperature"
-    extends Annex60.Media.PerfectGases.MoistAir.temperature;
+    extends Annex60.Media.IdealGases.MoistAir.temperature;
  end temperature;
 
  redeclare function density "Gas density"
@@ -215,7 +215,7 @@ end saturationPressure;
 
  redeclare function specificEntropy
     "Specific entropy (liquid part neglected, mixing entropy included)"
-    extends Annex60.Media.PerfectGases.MoistAir.specificEntropy;
+    extends Annex60.Media.IdealGases.MoistAir.specificEntropy;
  end specificEntropy;
 
  redeclare function extends enthalpyOfVaporization

@@ -15,10 +15,10 @@ package MoistAir
   constant Integer Air=2
     "Index of air (in substanceNames, massFractions X, etc.)";
   constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
-  constant Annex60.Media.PerfectGases.Common.DataRecord dryair=
-        Annex60.Media.PerfectGases.Common.SingleGasData.Air;
-  constant Annex60.Media.PerfectGases.Common.DataRecord steam=
-        Annex60.Media.PerfectGases.Common.SingleGasData.H2O;
+  constant Annex60.Media.IdealGases.Common.DataRecord dryair=
+        Annex60.Media.IdealGases.Common.SingleGasData.Air;
+  constant Annex60.Media.IdealGases.Common.DataRecord steam=
+        Annex60.Media.IdealGases.Common.SingleGasData.H2O;
   import SI = Modelica.SIunits;
 
   constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
@@ -99,12 +99,12 @@ required from medium model \""     + mediumName + "\".");
     phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
-  function Xsaturation = Annex60.Media.PerfectGases.MoistAir.Xsaturation
+  function Xsaturation = Annex60.Media.IdealGases.MoistAir.Xsaturation
     "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
 
   redeclare function setState_pTX
     "Thermodynamic state as function of p, T and composition X"
-      extends Annex60.Media.PerfectGases.MoistAir.setState_pTX;
+      extends Annex60.Media.IdealGases.MoistAir.setState_pTX;
   end setState_pTX;
 
   redeclare function setState_phX
@@ -129,21 +129,21 @@ implementation provided by its parent package.
 
   redeclare function setState_dTX
     "Thermodynamic state as function of d, T and composition X"
-     extends Annex60.Media.PerfectGases.MoistAir.setState_dTX;
+     extends Annex60.Media.IdealGases.MoistAir.setState_dTX;
   end setState_dTX;
 
   redeclare function gasConstant
     "Gas constant (computation neglects liquid fraction)"
-     extends Annex60.Media.PerfectGases.MoistAir.gasConstant;
+     extends Annex60.Media.IdealGases.MoistAir.gasConstant;
   end gasConstant;
 
   function saturationPressureLiquid =
-      Annex60.Media.PerfectGases.MoistAir.saturationPressureLiquid
+      Annex60.Media.IdealGases.MoistAir.saturationPressureLiquid
     "Saturation curve valid for 273.16 <= T <= 373.16. Outside of these limits a (less accurate) result is returned"
-    annotation(Inline=false,smoothOrder=5,derivative=Annex60.Media.PerfectGases.MoistAir.saturationPressureLiquid_der);
+    annotation(Inline=false,smoothOrder=5,derivative=Annex60.Media.IdealGases.MoistAir.saturationPressureLiquid_der);
 
   function sublimationPressureIce =
-      Annex60.Media.PerfectGases.MoistAir.sublimationPressureIce
+      Annex60.Media.IdealGases.MoistAir.sublimationPressureIce
     "Saturation curve valid for 223.16 <= T <= 273.16. Outside of these limits a (less accurate) result is returned";
 
 redeclare function extends saturationPressure
@@ -156,11 +156,11 @@ algorithm
 end saturationPressure;
 
  redeclare function pressure "Gas pressure"
-    extends Annex60.Media.PerfectGases.MoistAir.pressure;
+    extends Annex60.Media.IdealGases.MoistAir.pressure;
  end pressure;
 
  redeclare function temperature "Gas temperature"
-    extends Annex60.Media.PerfectGases.MoistAir.temperature;
+    extends Annex60.Media.IdealGases.MoistAir.temperature;
  end temperature;
 
  redeclare function density "Gas density"
@@ -173,7 +173,7 @@ end saturationPressure;
 
  redeclare function specificEntropy
     "Specific entropy (liquid part neglected, mixing entropy included)"
-    extends Annex60.Media.PerfectGases.MoistAir.specificEntropy;
+    extends Annex60.Media.IdealGases.MoistAir.specificEntropy;
  end specificEntropy;
 
  redeclare function extends enthalpyOfVaporization
@@ -297,7 +297,7 @@ end thermalConductivity;
 
 function specificEnthalpy_pTX
     "Compute specific enthalpy from pressure, temperature and mass fraction"
-  extends Annex60.Media.PerfectGases.MoistAir.specificEnthalpy_pTX;
+  extends Annex60.Media.IdealGases.MoistAir.specificEnthalpy_pTX;
 end specificEnthalpy_pTX;
 
 redeclare function extends specificEnthalpy "Specific enthalpy"
@@ -324,14 +324,14 @@ algorithm
 end specificHelmholtzEnergy;
 
 function temperature_phX "Compute temperature from specific enthalpy and mass fraction"
-  extends Annex60.Media.PerfectGases.MoistAir.temperature_phX;
+  extends Annex60.Media.IdealGases.MoistAir.temperature_phX;
 end temperature_phX;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This is a medium model that is identical to 
-<a href=\"modelica://Annex60.Media.PerfectGases.MoistAir\">
-Annex60.Media.PerfectGases.MoistAir</a>, except the 
+<a href=\"modelica://Annex60.Media.IdealGases.MoistAir\">
+Annex60.Media.IdealGases.MoistAir</a>, except the 
 equation <code>d = p/(R*T)</code> has been replaced with 
 <code>d/dStp = p/pStp</code> where 
 <code>pStd</code> and <code>dStp</code> are constants for a reference
@@ -402,8 +402,8 @@ August 18, 2008, by Michael Wetter:<br/>
 Changed function 
 <a href=\"modelica://Annex60.Media.GasesPTDecoupled.MoistAir.temperature_phX\">
 temperature_phX</a> so that it uses the implementation of
-<a href=\"Annex60.Media.PerfectGases.MoistAir.temperature_phX\">
-Annex60.Media.PerfectGases.MoistAir.temperature_phX</a>.
+<a href=\"Annex60.Media.IdealGases.MoistAir.temperature_phX\">
+Annex60.Media.IdealGases.MoistAir.temperature_phX</a>.
 </li>
 <li>
 August 15, 2008, by Michael Wetter:<br/>

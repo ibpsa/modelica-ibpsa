@@ -2,8 +2,8 @@ within Annex60.Fluid.MassExchangers.Examples;
 model ConstantEffectiveness
   extends Modelica.Icons.Example;
 
- package Medium1 = Annex60.Media.PerfectGases.MoistAirUnsaturated;
- package Medium2 = Annex60.Media.PerfectGases.MoistAirUnsaturated;
+ package Medium1 = Annex60.Media.IdealGases.MoistAirUnsaturated;
+ package Medium2 = Annex60.Media.IdealGases.MoistAirUnsaturated;
 
   Annex60.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2, T=273.15 + 10,

@@ -1,8 +1,8 @@
-within Annex60.Media.PerfectGases.Examples;
+within Annex60.Media.IdealGases.Examples;
 model MoistAirComparison
   extends Modelica.Icons.Example;
 
-   package PerfectMedium = Annex60.Media.PerfectGases.MoistAir;
+   package PerfectMedium = Annex60.Media.IdealGases.MoistAir;
    //package IdealMedium =   Modelica.Media.Air.MoistAir;
    package IdealMedium =   Annex60.Media.GasesConstantDensity.MoistAir;
 
@@ -58,12 +58,12 @@ equation
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/PerfectGases/Examples/MoistAirComparison.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/IdealGases/Examples/MoistAirComparison.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
 This example compares the perfect medium model
-<a href=\"modelica://Annex60.Media.PerfectGases.MoistAir\">Annex60.Media.PerfectGases.MoistAir</a>
+<a href=\"modelica://Annex60.Media.IdealGases.MoistAir\">Annex60.Media.IdealGases.MoistAir</a>
  with the ideal gas model
 from <a href=\"modelica://Modelica.Media.Air.MoistAir\">Modelica.Media.Air.MoistAir</a>
 </p>

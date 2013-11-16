@@ -1,4 +1,4 @@
-simulateModel("Annex60.Media.PerfectGases.Examples.TestDryAir", method="dassl", resultFile="TestDryAirPerGas");
+simulateModel("Annex60.Media.IdealGases.Examples.TestDryAir", method="dassl", resultFile="TestDryAirPerGas");
 createPlot(id = 1,
  y = {"volume.medium.T"},
  grid = true);

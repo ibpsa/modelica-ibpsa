@@ -1,4 +1,4 @@
-simulateModel("Annex60.Media.PerfectGases.Examples.MoistAirTemperatureEnthalpyInversion", method="dassl", resultFile="PerfectGasesMoistAirTemperatureEnthalpyInversion");
+simulateModel("Annex60.Media.IdealGases.Examples.MoistAirTemperatureEnthalpyInversion", method="dassl", resultFile="IdealGasesMoistAirTemperatureEnthalpyInversion");
 createPlot(id = 1,
  position = {31, 30, 400, 280},
  y = {"T"},

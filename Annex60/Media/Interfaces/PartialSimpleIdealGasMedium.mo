@@ -310,8 +310,8 @@ except that the functions.
 <code>density</code>,
 <code>specificEntropy</code> and <code>setState_dTX</code> are declared as <code>replaceable</code>.
 This is required for the implementation of 
-<a href=\"modelica://Annex60.Media.GasesPTDecoupled.SimpleAir\">
-Annex60.Media.GasesPTDecoupled.SimpleAir</a>.
+<a href=\"modelica://Annex60.Media.GasesPTDecoupled.DryAir\">
+Annex60.Media.GasesPTDecoupled.DryAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
@@ -352,8 +352,8 @@ Declared functions
 <code>density</code>,
 <code>specificEntropy</code> and <code>setState_dTX</code> as <code>replaceable</code>.
 This is required for the implementation of 
-<a href=\"modelica://Annex60.Media.GasesPTDecoupled.SimpleAir\">
-Annex60.Media.GasesPTDecoupled.SimpleAir</a>.
+<a href=\"modelica://Annex60.Media.GasesPTDecoupled.DryAir\">
+Annex60.Media.GasesPTDecoupled.DryAir</a>.
 </li>
 </ul>
 </li>

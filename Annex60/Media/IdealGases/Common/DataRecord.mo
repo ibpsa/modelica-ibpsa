@@ -1,4 +1,4 @@
-within Annex60.Media.PerfectGases.Common;
+within Annex60.Media.IdealGases.Common;
 record DataRecord "Coefficient data record for properties of perfect gases"
   extends Modelica.Icons.Record;
 

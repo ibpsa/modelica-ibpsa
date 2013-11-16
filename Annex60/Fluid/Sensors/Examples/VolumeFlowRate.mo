@@ -2,7 +2,7 @@ within Annex60.Fluid.Sensors.Examples;
 model VolumeFlowRate "Test model for the volume flow rate sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.PerfectGases.MoistAirUnsaturated
+  package Medium = Annex60.Media.IdealGases.MoistAirUnsaturated
     "Medium model";
 
   Annex60.Fluid.Sources.Boundary_pT sin(

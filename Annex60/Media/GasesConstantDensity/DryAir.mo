@@ -1,9 +1,10 @@
-within Annex60.Media.GasesPTDecoupled;
-package SimpleAir
+within Annex60.Media.GasesConstantDensity;
+package DryAir
   "Package with dry air model that decouples pressure and temperature"
   extends Annex60.Media.Interfaces.PartialSimpleIdealGasMedium(
-     final singleState = false,
-     mediumName="GasesPTDecoupled.SimpleAir",
+     ThermoStates = Annex60.Media.Interfaces.Choices.IndependentVariables.pT,
+     final singleState = true,
+     mediumName="GasesConstantDensity.DryAir",
      cp_const=1005.45,
      MM_const=0.0289651159,
      R_gas=Modelica.Constants.R/0.0289651159,
@@ -27,8 +28,8 @@ package SimpleAir
 // except that the Interfaces of the Annex60.Media library is used instead of the Interfaces
 // of Modelica.Media. This is required since Modelica.Media does not allow to redeclare
 // certain property functions that we need to redeclare here.
-//  extends Modelica.Media.Air.SimpleAir(
-//      mediumName="GasesPTDecoupled.SimpleAir",
+//  extends Modelica.Media.Air.DryAir(
+//      mediumName="GasesConstantDensity.DryAir",
 //      T_min=Cv.from_degC(-50));
 
 // redeclare model BaseProperties "Basic medium properties"
@@ -97,15 +98,17 @@ package SimpleAir
 
     // new medium equations
     h = specificEnthalpy_pTX(p,T,X);
+
     // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
     // u = h-R*T;
 
-    // However, in this medium, the gas law is d/dStp=p/pStp, from which follows using h=u+pv that
-    // u= h-p*v = h-p/d = h-pStp/dStp
-    u = h-pStp/dStp;
+    // However, in this medium, the gas law is d=dStp (=constant), from which follows using h=u+pv that
+    // u= h-p*v = h-p/d = h-p/dStp
+    u = h-p/dStp;
+
     R = R_gas;
     //    d = p/(R*T);
-    d/dStp = p/pStp;
+    d = dStp;// = p/pStp;
 
     MM = MM_const;
     state.T = T;
@@ -124,20 +127,22 @@ package SimpleAir
  redeclare function setState_dTX
     "Return thermodynamic state from d, T, and X or Xi"
     extends Modelica.Icons.Function;
-    input Density d "Density";
+    input Density d "density";
     input Temperature T "Temperature";
     input MassFraction X[:] = fill(0,0) "Mass fractions";
-    output ThermodynamicState state;
+    output ThermodynamicState state "Thermodynamic state";
  algorithm
-    state := ThermodynamicState(p=d/dStp*pStp,T=T);
+   ModelicaError("The function 'setState_dTX' must not be used in GasesConstantDensity as
+                in this medium model, the pressure cannot be determined from the density.\n");
+    state :=setState_pTX(pStp, T, X);
  end setState_dTX;
 
  redeclare function density "return density of ideal gas"
     extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
+    input ThermodynamicState state "thermodynamic state record";
     output Density d "Density";
  algorithm
-    d := dStp*state.p/pStp;
+    d := dStp;
  end density;
 
  redeclare function specificInternalEnergy "Return specific internal energy"
@@ -145,12 +150,12 @@ package SimpleAir
    input ThermodynamicState state "thermodynamic state record";
    output SpecificEnergy u "Specific internal energy";
  algorithm
-   u := specificEnthalpy(state) - pStp/dStp;
+   u := specificEnthalpy(state) - state.p/dStp;
  end specificInternalEnergy;
 
  redeclare replaceable function specificEntropy "Return specific entropy"
     extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
+    input ThermodynamicState state "thermodynamic state record";
     output SpecificEntropy s "Specific entropy";
  algorithm
     s := cp_const*Modelica.Math.log(state.T/T0);// - R_gas*Modelica.Math.log(state.p/reference_p);
@@ -159,14 +164,19 @@ package SimpleAir
 replaceable function enthalpyOfCondensingGas
     "Enthalpy of steam per unit mass of steam"
   extends Modelica.Icons.Function;
-  input Temperature T "Temperature";
-  output SpecificEnthalpy h "Steam enthalpy";
+  input Temperature T "temperature";
+  output SpecificEnthalpy h "steam enthalpy";
 algorithm
   h := 0;
   annotation (Documentation(info="<html>
 Dummy function that returns <code>0</code>.
 </html>", revisions="<html>
 <ul>
+<li>
+August 3, 2011, by Michael Wetter:<br/>
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+For this medium, the function is <code>u=h-p/dStp</code>.
+</li>
 <li>
 April 27, 2011, by Michael Wetter:<br/>
 First implementation to allow using the room model with a medium that does not contain water vapor.
@@ -178,8 +188,8 @@ end enthalpyOfCondensingGas;
 replaceable function saturationPressure
     "Return saturation pressure of condensing fluid"
   extends Modelica.Icons.Function;
-  input Temperature Tsat "Saturation temperature";
-  output AbsolutePressure psat "Saturation pressure";
+  input Temperature Tsat "saturation temperature";
+  output AbsolutePressure psat "saturation pressure";
 algorithm
   psat := 0;
   annotation (Documentation(info="<html>
@@ -196,22 +206,22 @@ end saturationPressure;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This medium model is identical to 
-<a href=\"modelica://Modelica.Media.Air.SimpleAir\">
-Modelica.Media.Air.SimpleAir</a>, except the 
-equation <code>d = p/(R*T)</code> has been replaced with 
-<code>d/dStp = p/pStp</code> where 
-<code>pStd</code> and <code>dStp</code> are constants for a reference
-temperature and density.
+This medium model is similar to 
+<a href=\"modelica://Modelica.Media.Air.DryAir\">
+Modelica.Media.Air.DryAir</a>, except that the
+gas density is constant.
 </p>
 <p>
-This new formulation often leads to smaller systems of nonlinear equations 
-because pressure and temperature are decoupled, at the expense of accuracy.
+The use of a constant density avoids having pressure as a state variable in mixing volumes. Hence, fast transients
+introduced by a change in pressure are avoided. 
+The drawback is that the dimensionality of the coupled
+nonlinear equation system is typically larger for flow
+networks.
 </p>
 <p>
 As in
-<a href=\"modelica://Modelica.Media.Air.SimpleAir\">
-Modelica.Media.Air.SimpleAir</a>, the
+<a href=\"modelica://Modelica.Media.Air.DryAir\">
+Modelica.Media.Air.DryAir</a>, the
 specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium
 quantities are constant.
@@ -219,25 +229,32 @@ quantities are constant.
 </html>", revisions="<html>
 <ul>
 <li>
-November 13, 2013, by Michael Wetter:<br/>
+November 12, 2013, by Michael Wetter:<br/>
 Removed <code>import Modelica.Constants;</code> statement.
 </li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>
-Added qualifier <code>final</code> to <code>standardOrderComponents=true</code> in the
-<code>BaseProperties</code> declaration. This avoids an error
-when models are checked in Dymola 2014 in the pedenatic mode.
+Changed declarationo of <code>parameter Boolean standardOrderComponents = true</code>
+to final to avoid an error when checking models in pedantic mode in Dymola 2014.
 </li>
 <li>
 August 3, 2011, by Michael Wetter:<br/>
 Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
-For this medium, the function is <code>u=h-pStd/dStp</code>.
+For this medium, the function is <code>u=h-p/dStp</code>.
+</li>
+<li>
+August 2, 2011, by Michael Wetter:<br/>
+Fixed error in the function <code>density</code> which returned a non-constant density,
+and added a call to <code>ModelicaError(...)</code> in <code>setState_dTX</code> since this
+function cannot assign the medium pressure based on the density (as density is a constant
+in this model).
 </li>
 <li>
 April 27, 2011, by Michael Wetter:<br/>
 Added function <code>enthalpyOfCondensingGas</code>, which returns <code>0</code>,
 to allow using the room model with a medium that does not contain water vapor.
-</li><li>
+</li>
+<li>
 August 21, 2008, by Michael Wetter:<br/>
 Replaced <code>d*pStp = p*dStp</code> by
 <code>d/dStp = p/pStp</code> to indicate that division by 
@@ -249,4 +266,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SimpleAir;
+end DryAir;

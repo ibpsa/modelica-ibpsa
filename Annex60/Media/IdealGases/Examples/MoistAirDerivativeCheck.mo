@@ -1,8 +1,8 @@
-within Annex60.Media.PerfectGases.Examples;
+within Annex60.Media.IdealGases.Examples;
 model MoistAirDerivativeCheck
   extends Modelica.Icons.Example;
 
-   package Medium = Annex60.Media.PerfectGases.MoistAir;
+   package Medium = Annex60.Media.IdealGases.MoistAir;
 
     Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
@@ -32,7 +32,7 @@ equation
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
 experiment(StartTime=273.15, StopTime=373.15),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/PerfectGases/Examples/MoistAirDerivativeCheck.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/IdealGases/Examples/MoistAirDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>

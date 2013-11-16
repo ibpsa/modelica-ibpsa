@@ -1,13 +1,13 @@
-within Annex60.Media.PerfectGases.Common;
+within Annex60.Media.IdealGases.Common;
 package SingleGasData "Package with data records for single gases"
   extends Modelica.Icons.MaterialPropertiesPackage;
- constant PerfectGases.Common.DataRecord Air(
+ constant IdealGases.Common.DataRecord Air(
    name = Modelica.Media.IdealGases.Common.SingleGasesData.Air.name,
    R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
    cp =   1006,
    cv =   1006 - Modelica.Media.IdealGases.Common.SingleGasesData.Air.R);
-constant PerfectGases.Common.DataRecord H2O(
+constant IdealGases.Common.DataRecord H2O(
    name = Modelica.Media.IdealGases.Common.SingleGasesData.H2O.name,
    R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,

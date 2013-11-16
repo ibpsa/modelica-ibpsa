@@ -49,10 +49,10 @@ protected
  parameter Integer iWat(fixed=false)
     "Index of water in medium composition vector";
   constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-     Annex60.Media.PerfectGases.Common.SingleGasData.Air.cp
+     Annex60.Media.IdealGases.Common.SingleGasData.Air.cp
     "Specific heat capacity of air";
   constant Modelica.SIunits.SpecificHeatCapacity cpSte=
-     Annex60.Media.PerfectGases.Common.SingleGasData.H2O.cp
+     Annex60.Media.IdealGases.Common.SingleGasData.H2O.cp
     "Specific heat capacity of water vapor";
   constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
     "Specific heat capacity of water vapor";

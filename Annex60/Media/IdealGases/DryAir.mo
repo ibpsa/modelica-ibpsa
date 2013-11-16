@@ -1,7 +1,7 @@
-within Annex60.Media.PerfectGases;
+within Annex60.Media.IdealGases;
 package DryAir
   "Dry air model with constant specific heat capacities and ideal gas law"
-  extends Modelica.Media.Air.SimpleAir(
+  extends Modelica.Media.Air.DryAir(
      T_min=Modelica.SIunits.Conversions.from_degC(-50));
 
 replaceable function enthalpyOfCondensingGas
@@ -59,9 +59,9 @@ with the <code>Buildings</code> library are at a central location.
 <li>
 November 16, 2013, by Michael Wetter:<br/>
 Renamed model from
-<code>Annex60.IdealGases.SimpleAir</code>
+<code>Annex60.IdealGases.DryAir</code>
 to
-<code>Annex60.PerfectGases.DryAir</code>.
+<code>Annex60.IdealGases.DryAir</code>.
 </li>
 <li>
 April 27, 2011, by Michael Wetter:<br/>

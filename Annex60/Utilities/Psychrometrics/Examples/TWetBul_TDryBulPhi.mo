@@ -2,7 +2,7 @@ within Annex60.Utilities.Psychrometrics.Examples;
 model TWetBul_TDryBulPhi "Model to test the wet bulb temperature computation"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.PerfectGases.MoistAirUnsaturated
+ package Medium = Annex60.Media.IdealGases.MoistAirUnsaturated
     "Medium model"
            annotation (choicesAllMatching = true);
 

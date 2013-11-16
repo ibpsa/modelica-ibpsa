@@ -1,14 +1,14 @@
-within Annex60.Media.PerfectGases.Examples;
+within Annex60.Media.IdealGases.Examples;
 model TestMoistAirUnsaturated
   extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium =
-          Annex60.Media.PerfectGases.MoistAirUnsaturated);
+          Annex60.Media.IdealGases.MoistAirUnsaturated);
 
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
             -100,-100},{100,100}})),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/PerfectGases/Examples/TestMoistAirUnsaturated.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/IdealGases/Examples/TestMoistAirUnsaturated.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This is a simple test for the medium model. It uses the test model described in

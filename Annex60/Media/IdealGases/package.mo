@@ -1,5 +1,5 @@
 within Annex60.Media;
-package PerfectGases "Package with models for perfect gases"
+package IdealGases "Package with models for perfect gases"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 
@@ -35,4 +35,4 @@ Bower, William B. <i>A primer in fluid mechanics: Dynamics of flows in one
 space dimension</i>. CRC Press. 1998.
 </p>
 </html>"));
-end PerfectGases;
+end IdealGases;

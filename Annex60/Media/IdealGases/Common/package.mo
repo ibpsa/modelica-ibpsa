@@ -1,4 +1,4 @@
-within Annex60.Media.PerfectGases;
+within Annex60.Media.IdealGases;
 package Common "Package with common data for perfect gases"
   extends Modelica.Icons.MaterialPropertiesPackage;
 

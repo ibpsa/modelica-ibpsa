@@ -1,4 +1,4 @@
-within Annex60.Media.PerfectGases;
+within Annex60.Media.IdealGases;
 package MoistAirUnsaturated
   extends Modelica.Media.Interfaces.PartialCondensingGases(
      mediumName="Moist air unsaturated perfect gas",
@@ -14,10 +14,10 @@ package MoistAirUnsaturated
   constant Integer Air=2
     "Index of air (in substanceNames, massFractions X, etc.)";
   constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
-  constant Annex60.Media.PerfectGases.Common.DataRecord dryair=
-     Annex60.Media.PerfectGases.Common.SingleGasData.Air "Dry air properties";
-  constant Annex60.Media.PerfectGases.Common.DataRecord steam=
-     Annex60.Media.PerfectGases.Common.SingleGasData.H2O "Steam properties";
+  constant Annex60.Media.IdealGases.Common.DataRecord dryair=
+     Annex60.Media.IdealGases.Common.SingleGasData.Air "Dry air properties";
+  constant Annex60.Media.IdealGases.Common.DataRecord steam=
+     Annex60.Media.IdealGases.Common.SingleGasData.H2O "Steam properties";
 
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
@@ -382,8 +382,8 @@ algorithm
   annotation(Inline=false,smoothOrder=5,
     Documentation(info="<html>
 Derivative function of 
-<a href=\"modelica://Annex60.Media.PerfectGases.MoistAirUnsaturated.saturationPressureLiquid\">
-Annex60.Media.PerfectGases.MoistAirUnsaturated.saturationPressureLiquid</a>
+<a href=\"modelica://Annex60.Media.IdealGases.MoistAirUnsaturated.saturationPressureLiquid\">
+Annex60.Media.IdealGases.MoistAirUnsaturated.saturationPressureLiquid</a>
 </html>"));
 end saturationPressureLiquid_der;
 
@@ -492,12 +492,12 @@ air.
 </p>
 <p>
 The model is similar to 
-<a href=\"modelica://Annex60.Media.PerfectGases.MoistAir\">
-Annex60.Media.PerfectGases.MoistAir</a> but 
+<a href=\"modelica://Annex60.Media.IdealGases.MoistAir\">
+Annex60.Media.IdealGases.MoistAir</a> but 
 in this model, the air must not be saturated. If the air is saturated, 
 use the medium model
-<a href=\"modelica://Annex60.Media.PerfectGases.MoistAir\">
-Annex60.Media.PerfectGases.MoistAir</a> instead of this one.
+<a href=\"modelica://Annex60.Media.IdealGases.MoistAir\">
+Annex60.Media.IdealGases.MoistAir</a> instead of this one.
 </p>
 <p>
 This medium model has been added to allow an explicit computation of

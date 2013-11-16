@@ -1,6 +1,6 @@
-within Annex60.Media.PerfectGases;
+within Annex60.Media.IdealGases;
 package MoistAir
-  extends Annex60.Media.PerfectGases.MoistAirUnsaturated;
+  extends Annex60.Media.IdealGases.MoistAirUnsaturated;
 
   redeclare model BaseProperties
 
@@ -177,7 +177,7 @@ constant Modelica.Media.IdealGases.Common.DataRecord steam=
   // Min and max values, used for Brent's algorithm in T_hpX
 algorithm
   T := 273.15 + (h - 2501014.5 * X[Water])/((1 - X[Water])*dryair.cp + X[Water] *
-     Annex60.Media.PerfectGases.Common.SingleGasData.H2O.cp);
+     Annex60.Media.IdealGases.Common.SingleGasData.H2O.cp);
   // check for saturation
   p_steam_sat :=saturationPressure(T);
   x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
@@ -192,8 +192,8 @@ algorithm
 Documentation(info="<html>
 Temperature is computed from pressure, specific enthalpy and composition via 
 numerical inversion of function 
-<a href=\"modelica://Annex60.Media.PerfectGases.MoistAir.specificEnthalpy_pTX\">
-Annex60.Media.PerfectGases.MoistAir.specificEnthalpy_pTXspecificEnthalpy_pTX</a>.
+<a href=\"modelica://Annex60.Media.IdealGases.MoistAir.specificEnthalpy_pTX\">
+Annex60.Media.IdealGases.MoistAir.specificEnthalpy_pTXspecificEnthalpy_pTX</a>.
 </html>"));
 end temperature_phX;
 
@@ -208,8 +208,8 @@ The specific heat capacities at constant pressure and at constant volume are con
 The air can become saturated, at which point the humidity is in both, liquid
 and vapor form. As this is typically not needed to model air-conditioning equipment
 (even dehumidifying cooling coils), user's should generally use
-<a href=\"modelica://Annex60.Media.PerfectGases.MoistAirUnsaturated\">
-Annex60.Media.PerfectGases.MoistAirUnsaturated</a>
+<a href=\"modelica://Annex60.Media.IdealGases.MoistAirUnsaturated\">
+Annex60.Media.IdealGases.MoistAirUnsaturated</a>
 instead of this medium.
 </p>
 <h4>Implementation</h4>
@@ -217,8 +217,8 @@ instead of this medium.
 Because water may be in liquid and vapor form, computing temperature
 from specific enthalpy and water concentration requires the solution of
 a nonlinear equation. This equation is solved internally in the function
-<a href=\"modelica://Annex60.Media.PerfectGases.MoistAir.temperature_phX\">
-Annex60.Media.PerfectGases.MoistAir.temperature_phX</a>.
+<a href=\"modelica://Annex60.Media.IdealGases.MoistAir.temperature_phX\">
+Annex60.Media.IdealGases.MoistAir.temperature_phX</a>.
 Whenever this equation is used, it is not possible for a code generator 
 to compute a symbolic expression for the Jacobian matrix.
 Therefore, a numerical differentiation will be used during the simulation,
@@ -229,8 +229,8 @@ which can considerably increase computing time.
 <li>
 November 15, 2013, by Michael Wetter:<br/>
 Completely revised and simplified the implementation to extend from
-<a href=\"modelica://Annex60.Media.PerfectGases.MoistAirUnsaturated</a>
-Annex60.Media.PerfectGases.MoistAirUnsaturated</a>.
+<a href=\"modelica://Annex60.Media.IdealGases.MoistAirUnsaturated</a>
+Annex60.Media.IdealGases.MoistAirUnsaturated</a>.
 </li>
 <li>
 May 8, 2008, by Michael Wetter:<br/>
