@@ -3,7 +3,7 @@ package MoistAirUnsaturated
   "Package with moist air model that decouples pressure and temperature and that has no liquid water"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
      mediumName="GasesPTDecoupled.MoistAirUnsaturated",
-     substanceNames={"water", "air"},
+     final substanceNames={"water", "air"},
      final reducedX=true,
      final singleState = false,
      reference_X={0.01,0.99},
