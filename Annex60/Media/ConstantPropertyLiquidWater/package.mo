@@ -5,6 +5,7 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
      final cv_const=4148);
   // cp_const and cv_const have been made final because the model sets u=h.
 
+
   redeclare model BaseProperties "Base properties"
     Modelica.SIunits.Temperature T(stateSelect=if
           preferredMediumStates then StateSelect.prefer else StateSelect.default)
@@ -67,7 +68,7 @@ required from medium model \""
     <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
     Modelica.Media.Water.ConstantPropertyLiquidWater</a>,
     except that the equation
-    <code>    u = cv_const*(T - T0);</code>
+    <code>u = cv_const*(T - T0)</code>
     has been replaced by <code>u=h</code> because
     <code>cp_const=cv_const</code>.
     </p>
