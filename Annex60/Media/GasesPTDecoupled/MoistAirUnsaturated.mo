@@ -120,7 +120,7 @@ required from medium model \""     + mediumName + "\".");
       extends Annex60.Media.PerfectGases.MoistAir.setState_pTX;
   end setState_pTX;
 
-  redeclare function setState_phX
+  redeclare replaceable function setState_phX
     "Thermodynamic state as function of p, h and composition X"
   extends Modelica.Icons.Function;
   input AbsolutePressure p "Pressure";
@@ -129,13 +129,16 @@ required from medium model \""     + mediumName + "\".");
   output ThermodynamicState state;
   algorithm
   state := if size(X,1) == nX then
-         ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else
-        ThermodynamicState(p=p,T=T_phX(p,h,cat(1,X,{1-sum(X)})), X=cat(1,X,{1-sum(X)}));
-    //    ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
+         ThermodynamicState(p=p,
+                            T=temperature_phX(p,h,X),
+                            X=X) else
+        ThermodynamicState(p=p,
+                           T=temperature_phX(p,h,cat(1,X,{1-sum(X)})),
+                           X=cat(1,X,{1-sum(X)}));
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
-the implementation of <code>T_phX</code> provided by this package as opposed to the 
+the implementation of <code>temperature_phX</code> provided by this package as opposed to the 
 implementation provided by its parent package.
 </html>"));
   end setState_phX;
@@ -337,55 +340,43 @@ end thermalConductivity;
 
 redeclare function extends specificEnthalpy "Specific enthalpy"
 algorithm
-  h := Annex60.Media.GasesPTDecoupled.MoistAirUnsaturated.h_pTX(state.p, state.T, state.X);
+  h := (state.T - 273.15)*dryair.cp * (1 - state.X[Water])
+       + ((state.T-273.15) * steam.cp + 2501014.5) * state.X[Water];
+  annotation(smoothOrder=5);
 end specificEnthalpy;
 
 redeclare function extends specificInternalEnergy "Specific internal energy"
   extends Modelica.Icons.Function;
 algorithm
-  u := Annex60.Media.GasesPTDecoupled.MoistAirUnsaturated.h_pTX(state.p,state.T,state.X) - pStp/dStp;
+  u := specificEnthalpy(state) - pStp/dStp;
 end specificInternalEnergy;
 
 redeclare function extends specificGibbsEnergy "Specific Gibbs energy"
   extends Modelica.Icons.Function;
 algorithm
-  g := Annex60.Media.GasesPTDecoupled.MoistAirUnsaturated.h_pTX(state.p,state.T,state.X) - state.T*specificEntropy(state);
+  g := specificEnthalpy(state) - state.T*specificEntropy(state);
 end specificGibbsEnergy;
 
 redeclare function extends specificHelmholtzEnergy "Specific Helmholtz energy"
   extends Modelica.Icons.Function;
 algorithm
-  f := Annex60.Media.GasesPTDecoupled.MoistAirUnsaturated.h_pTX(state.p,state.T,state.X)
-         - gasConstant(state)*state.T
-         - state.T*Annex60.Media.GasesPTDecoupled.MoistAirUnsaturated.specificEntropy(state);
+  f := specificEnthalpy(state) - gasConstant(state)*state.T
+         - state.T*specificEntropy(state);
 end specificHelmholtzEnergy;
 
 ////////////////////////////////////////////////////////////////////////////
-function h_pTX
-    "Compute specific enthalpy from pressure, temperature and mass fraction"
-  extends Modelica.Icons.Function;
 
-  input SI.Pressure p "Pressure";
-  input SI.Temperature T "Temperature";
-  input SI.MassFraction X[nX] "Mass fractions of moist air";
-  output SI.SpecificEnthalpy h "Specific enthalpy at p, T, X";
+redeclare function extends temperature_phX
+    "Compute temperature from specific enthalpy and mass fraction"
 algorithm
-  h := (T - 273.15)*dryair.cp * (1 - X[Water])
-       + ((T-273.15) * steam.cp + 2501014.5) * X[Water];
-  annotation(smoothOrder=5);
-end h_pTX;
-
-function T_phX "Compute temperature from specific enthalpy and mass fraction"
-  extends Modelica.Icons.Function;
-
-  input AbsolutePressure p "Pressure";
-  input SpecificEnthalpy h "specific enthalpy";
-  input MassFraction[:] X "mass fractions of composition";
-  output Temperature T "temperature";
-algorithm
+          // fixme
   T := 273.15 + (h-2501014.5 * X[Water])/(dryair.cp * (1 - X[Water])+steam.cp*X[Water]);
-  annotation(smoothOrder=5);
-end T_phX;
+  annotation(smoothOrder=5,
+             inverse(T=specificEnthalpy_pTX(
+                  p,
+                  T,
+                  X)));
+end temperature_phX;
 
 redeclare function enthalpyOfNonCondensingGas
     "Enthalpy of non-condensing gas per unit mass"
@@ -420,7 +411,7 @@ Annex60.Media.GasesPTDecoupled.MoistAir</a> instead of this one.
 <p>
 This medium model has been added to allow an explicit computation of
 the function 
-<code>T_phX</code> so that it is once differentiable in <code>h</code>
+<code>temperature_phX</code> so that it is once differentiable in <code>h</code>
 with a continuous derivative. This allows obtaining an analytic
 expression for the Jacobian, and therefore simplifies the computation
 of initial conditions that can be numerically challenging for 
@@ -428,7 +419,7 @@ thermo-fluid systems.
 </p>
 <p>
 This new formulation often leads to smaller systems of nonlinear equations 
-because it allows to invert the function <code>T_phX</code> analytically.
+because it allows to invert the function <code>temperature_phX</code> analytically.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -441,8 +432,8 @@ Modelica Standard Library.
 </li>
 <li>
 November 13, 2013, by Michael Wetter:<br/>
-Removed non-used computations in <code>h_pTX</code> and
-in <code>T_phX</code>.
+Removed non-used computations in <code>specificEnthalpy_pTX</code> and
+in <code>temperature_phX</code>.
 </li>
 <li>
 March 29, 2013, by Michael Wetter:<br/>

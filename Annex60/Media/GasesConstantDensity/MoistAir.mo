@@ -114,13 +114,13 @@ required from medium model \""     + mediumName + "\".");
   output ThermodynamicState state;
   algorithm
   state := if size(X,1) == nX then
-         ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else
-        ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
-     //   ThermodynamicState(p=p,T=T_phX(p,h,cat(1,X,{1-sum(X)})), X=cat(1,X,{1-sum(X)}));
+         ThermodynamicState(p=p,T=temperature_phX(p,h,X),X=X) else
+        ThermodynamicState(p=p,T=temperature_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
+     //   ThermodynamicState(p=p,T=temperature_phX(p,h,cat(1,X,{1-sum(X)})), X=cat(1,X,{1-sum(X)}));
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
-the implementation of <code>T_phX</code> provided by this package as opposed to the 
+the implementation of <code>temperature_phX</code> provided by this package as opposed to the 
 implementation provided by its parent package.
 </html>"));
   end setState_phX;
@@ -308,37 +308,37 @@ algorithm
   Modelica.SIunits.Conversions.to_degC(state.T));
 end thermalConductivity;
 
-function h_pTX
+function specificEnthalpy_pTX
     "Compute specific enthalpy from pressure, temperature and mass fraction"
-  extends Annex60.Media.PerfectGases.MoistAir.h_pTX;
-end h_pTX;
+  extends Annex60.Media.PerfectGases.MoistAir.specificEnthalpy_pTX;
+end specificEnthalpy_pTX;
 
 redeclare function extends specificEnthalpy "Specific enthalpy"
 algorithm
-  h := h_pTX(state.p, state.T, state.X);
+  h := specificEnthalpy_pTX(state.p, state.T, state.X);
 end specificEnthalpy;
 
 redeclare function extends specificInternalEnergy "Specific internal energy"
   extends Modelica.Icons.Function;
 algorithm
-  u := h_pTX(state.p,state.T,state.X) - state.p/pStp;
+  u := specificEnthalpy_pTX(state.p,state.T,state.X) - state.p/pStp;
 end specificInternalEnergy;
 
 redeclare function extends specificGibbsEnergy "Specific Gibbs energy"
   extends Modelica.Icons.Function;
 algorithm
-  g := h_pTX(state.p,state.T,state.X) - state.T*specificEntropy(state);
+  g := specificEnthalpy_pTX(state.p,state.T,state.X) - state.T*specificEntropy(state);
 end specificGibbsEnergy;
 
 redeclare function extends specificHelmholtzEnergy "Specific Helmholtz energy"
   extends Modelica.Icons.Function;
 algorithm
-  f := h_pTX(state.p,state.T,state.X) - gasConstant(state)*state.T - state.T*specificEntropy(state);
+  f := specificEnthalpy_pTX(state.p,state.T,state.X) - gasConstant(state)*state.T - state.T*specificEntropy(state);
 end specificHelmholtzEnergy;
 
-function T_phX "Compute temperature from specific enthalpy and mass fraction"
-  extends Annex60.Media.PerfectGases.MoistAir.T_phX;
-end T_phX;
+function temperature_phX "Compute temperature from specific enthalpy and mass fraction"
+  extends Annex60.Media.PerfectGases.MoistAir.temperature_phX;
+end temperature_phX;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
@@ -428,10 +428,10 @@ instead of the ideal gas law.
 <li>
 August 18, 2008, by Michael Wetter:<br/>
 Changed function 
-<a href=\"modelica://Annex60.Media.GasesConstantDensity.MoistAir.T_phX\">
-T_phX</a> so that it uses the implementation of
-<a href=\"Annex60.Media.PerfectGases.MoistAir.T_phX\">
-Annex60.Media.PerfectGases.MoistAir.T_phX</a>.
+<a href=\"modelica://Annex60.Media.GasesConstantDensity.MoistAir.temperature_phX\">
+temperature_phX</a> so that it uses the implementation of
+<a href=\"Annex60.Media.PerfectGases.MoistAir.temperature_phX\">
+Annex60.Media.PerfectGases.MoistAir.temperature_phX</a>.
 </li>
 <li>
 August 15, 2008, by Michael Wetter:<br/>
