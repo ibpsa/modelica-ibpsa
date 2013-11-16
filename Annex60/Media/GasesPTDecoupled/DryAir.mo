@@ -5,15 +5,12 @@ package DryAir
      final singleState = false,
      mediumName="GasesPTDecoupled.DryAir",
      cp_const=1005.45,
-     MM_const=0.0289651159,
-     R_gas=Modelica.Constants.R/0.0289651159,
+     final MM_const=0.0289651159,
+     final R_gas=Modelica.Constants.R/0.0289651159,
      eta_const=1.82e-5,
      lambda_const=0.026,
-     T_min=Cv.from_degC(-50),
-     T_max=Cv.from_degC(100));
-
-  import SI = Modelica.SIunits;
-  import Cv = Modelica.SIunits.Conversions;
+     T_min=Modelica.SIunits.Conversions.from_degC(-50),
+     T_max=Modelica.SIunits.Conversions.from_degC(100));
 
   constant FluidConstants[nS] fluidConstants=
     FluidConstants(iupacName={"simple air"},
@@ -22,17 +19,6 @@ package DryAir
                    structureFormula={"N2, O2"},
                    molarMass=Modelica.Media.IdealGases.Common.SingleGasesData.N2.MM)
     "constant data for the fluid";
-
-// the statements above have the same effects as the commented "extends" below,
-// except that the Interfaces of the Annex60.Media library is used instead of the Interfaces
-// of Modelica.Media. This is required since Modelica.Media does not allow to redeclare
-// certain property functions that we need to redeclare here.
-//  extends Modelica.Media.Air.DryAir(
-//      mediumName="GasesPTDecoupled.DryAir",
-//      T_min=Cv.from_degC(-50));
-
-// redeclare model BaseProperties "Basic medium properties"
-//    extends BasePropertiesRecord;
 
    constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
    constant Density dStp = 1.2 "Fluid density at pressure pStp";
@@ -57,19 +43,19 @@ package DryAir
       annotation (Evaluate=true, Dialog(tab="Advanced"));
     final parameter Boolean standardOrderComponents = true
       "if true, and reducedX = true, the last element of X will be computed from the other ones";
-    SI.Conversions.NonSIunits.Temperature_degC T_degC=
+    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
         Modelica.SIunits.Conversions.to_degC(T)
       "Temperature of medium in [degC]";
-    SI.Conversions.NonSIunits.Pressure_bar p_bar=
-     Modelica.SIunits.Conversions.to_bar(p)
+    Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=
+    Modelica.SIunits.Conversions.to_bar(p)
       "Absolute pressure of medium in [bar]";
 
     // Local connector definition, used for equation balancing check
-    connector InputAbsolutePressure = input SI.AbsolutePressure
+    connector InputAbsolutePressure = input Modelica.SIunits.AbsolutePressure
       "Pressure as input signal connector";
-    connector InputSpecificEnthalpy = input SI.SpecificEnthalpy
+    connector InputSpecificEnthalpy = input Modelica.SIunits.SpecificEnthalpy
       "Specific enthalpy as input signal connector";
-    connector InputMassFraction = input SI.MassFraction
+    connector InputMassFraction = input Modelica.SIunits.MassFraction
       "Mass fraction as input signal connector";
 
     // own declarations
@@ -121,17 +107,6 @@ package DryAir
             lineColor={0,0,255})}));
  end BaseProperties;
 
- redeclare function setState_dTX
-    "Return thermodynamic state from d, T, and X or Xi"
-    extends Modelica.Icons.Function;
-    input Density d "Density";
-    input Temperature T "Temperature";
-    input MassFraction X[:] = fill(0,0) "Mass fractions";
-    output ThermodynamicState state;
- algorithm
-    state := ThermodynamicState(p=d/dStp*pStp,T=T);
- end setState_dTX;
-
  redeclare function density "return density of ideal gas"
     extends Modelica.Icons.Function;
     input ThermodynamicState state "Thermodynamic state record";
@@ -139,22 +114,6 @@ package DryAir
  algorithm
     d := dStp*state.p/pStp;
  end density;
-
- redeclare function specificInternalEnergy "Return specific internal energy"
-   extends Modelica.Icons.Function;
-   input ThermodynamicState state "thermodynamic state record";
-   output SpecificEnergy u "Specific internal energy";
- algorithm
-   u := specificEnthalpy(state) - pStp/dStp;
- end specificInternalEnergy;
-
- redeclare replaceable function specificEntropy "Return specific entropy"
-    extends Modelica.Icons.Function;
-    input ThermodynamicState state "Thermodynamic state record";
-    output SpecificEntropy s "Specific entropy";
- algorithm
-    s := cp_const*Modelica.Math.log(state.T/T0);// - R_gas*Modelica.Math.log(state.p/reference_p);
- end specificEntropy;
 
 replaceable function enthalpyOfCondensingGas
     "Enthalpy of steam per unit mass of steam"
@@ -194,30 +153,56 @@ First implementation to allow using the room model with a medium that does not c
 </html>"));
 end saturationPressure;
 
+ redeclare function setState_dTX
+    "Return thermodynamic state from d, T, and X or Xi"
+    extends Modelica.Icons.Function;
+    input Density d "Density";
+    input Temperature T "Temperature";
+    input MassFraction X[:] = fill(0,0) "Mass fractions";
+    output ThermodynamicState state;
+ algorithm
+    state := ThermodynamicState(p=d/dStp*pStp,T=T);
+ end setState_dTX;
+
+ redeclare function specificInternalEnergy "Return specific internal energy"
+   extends Modelica.Icons.Function;
+   input ThermodynamicState state "thermodynamic state record";
+   output SpecificEnergy u "Specific internal energy";
+ algorithm
+   u := specificEnthalpy(state) - pStp/dStp;
+ end specificInternalEnergy;
+
+ redeclare replaceable function specificEntropy "Return specific entropy"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output SpecificEntropy s "Specific entropy";
+ algorithm
+    s := cp_const*Modelica.Math.log(state.T/T0);// - R_gas*Modelica.Math.log(state.p/reference_p);
+ end specificEntropy;
+
   annotation (preferredView="info", Documentation(info="<html>
+  <p>
+This medium package models dry air using a gas law in which pressure and temperature
+are independent, which often leads to significantly faster and more robust computations. 
+The specific heat capacities at constant pressure and at constant volume are constant.
+</p>
 <p>
 This medium model is identical to 
 <a href=\"modelica://Modelica.Media.Air.DryAir\">
 Modelica.Media.Air.DryAir</a>, except the 
 equation <code>d = p/(R*T)</code> has been replaced with 
-<code>d/dStp = p/pStp</code> where 
-<code>pStd</code> and <code>dStp</code> are constants for a reference
+<code>d/dStp = p/pStp</code>, where 
+<code>pStd</code> and <code>dStp</code> are constants at a reference
 temperature and density.
-</p>
-<p>
-This new formulation often leads to smaller systems of nonlinear equations 
+This formulation often leads to smaller systems of nonlinear equations 
 because pressure and temperature are decoupled, at the expense of accuracy.
-</p>
-<p>
-As in
-<a href=\"modelica://Modelica.Media.Air.DryAir\">
-Modelica.Media.Air.DryAir</a>, the
-specific enthalpy h and specific internal energy u are only
-a function of temperature T and all other provided medium
-quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2013, by Michael Wetter:<br/>
+Revised and simplified the implementation.
+</li>
 <li>
 November 13, 2013, by Michael Wetter:<br/>
 Removed <code>import Modelica.Constants;</code> statement.
