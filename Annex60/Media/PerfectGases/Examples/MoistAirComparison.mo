@@ -40,14 +40,14 @@ equation
     hSteIde=IdealMedium.enthalpyOfCondensingGas(T);
     hAirIde=IdealMedium.enthalpyOfGas(T, X);
 
-    hMixPer=PerfectMedium.h_pTX(P, T, X);
-    hMixIde=IdealMedium.h_pTX(P, T, X);
+    hMixPer=PerfectMedium.specificEnthalpy_pTX(P, T, X);
+    hMixIde=IdealMedium.specificEnthalpy_pTX(P, T, X);
 
     errLiq * abs(hLiqIde+1E-3) = hLiqIde - hLiqPer;
     errSte * abs(hSteIde+1E-3) = hSteIde - hStePer;
     errAir * abs(hAirIde+1E-3) = hAirIde - hAirPer;
     errMix * abs(hMixIde+1E-3) = hMixIde - hMixPer;
-    errT * T = T - PerfectMedium.T_phX(P, PerfectMedium.h_pTX(P, T, X), X);
+    errT * T = T - PerfectMedium.temperature_phX(P, PerfectMedium.specificEnthalpy_pTX(P, T, X), X);
 
     assert( abs(errLiq) < 0.09, "Error too large. Check medium model.");
     assert( abs(errSte) < 0.01, "Error too large. Check medium model.");

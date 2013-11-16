@@ -5,7 +5,8 @@ package PerfectGases "Package with models for perfect gases"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains models of <i>thermally perfect</i> gases.
+This package contains models of <i>thermally perfect</i> gases that
+follow the ideal gas law.
 </p>
 <p>
 A medium is called thermally perfect if
