@@ -1,6 +1,8 @@
 within Annex60.Media.IdealGases;
 package MoistAir
-  extends Annex60.Media.IdealGases.MoistAirUnsaturated;
+  "Moist air model with constant specific heat capacities and ideal gas law"
+  extends Annex60.Media.IdealGases.MoistAirUnsaturated(
+    mediumName="Moist air ideal gas");
 
   redeclare model BaseProperties
 
@@ -74,6 +76,7 @@ package MoistAir
 Temperature T is not in the allowed range " + String(TMin) + " <= (T ="
                + String(T) + " K) <= " + String(TMax) + " K
 required from medium model \""     + mediumName + "\".");
+
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
     p_steam_sat = min(saturationPressure(T),0.999*p);
@@ -102,7 +105,8 @@ required from medium model \""     + mediumName + "\".");
 
 redeclare function specificEnthalpy
     "Compute specific enthalpy from pressure, temperature and mass fraction"
-    extends Modelica.Icons.Function;
+  extends Modelica.Icons.Function;
+
   input ThermodynamicState state "Thermodynamic state record";
   output SpecificEnthalpy h "Specific enthalpy";
 

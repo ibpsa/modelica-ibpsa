@@ -1,23 +1,19 @@
 within Annex60.Media.IdealGases;
 package MoistAirUnsaturated
+  "Moist air model with constant specific heat capacities and ideal gas law"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
-     mediumName="Moist air unsaturated perfect gas",
-     substanceNames={"water", "air"},
+     mediumName="Moist air unsaturated ideal gas",
+     final substanceNames={"water", "air"},
      final reducedX=true,
      final singleState=false,
      reference_X={0.01,0.99},
-     fluidConstants = {Modelica.Media.IdealGases.Common.FluidData.H2O,
-                       Modelica.Media.IdealGases.Common.FluidData.N2});
+     final fluidConstants = {Modelica.Media.IdealGases.Common.FluidData.H2O,
+                             Modelica.Media.IdealGases.Common.FluidData.N2});
 
-  constant Integer Water=1
+  final constant Integer Water=1
     "Index of water (in substanceNames, massFractions X, etc.)";
-  constant Integer Air=2
+  final constant Integer Air=2
     "Index of air (in substanceNames, massFractions X, etc.)";
-  constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
-  constant Annex60.Media.IdealGases.Common.DataRecord dryair=
-     Annex60.Media.IdealGases.Common.SingleGasData.Air "Dry air properties";
-  constant Annex60.Media.IdealGases.Common.DataRecord steam=
-     Annex60.Media.IdealGases.Common.SingleGasData.H2O "Steam properties";
 
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
@@ -71,8 +67,7 @@ required from medium model \""     + mediumName + "\".");
     phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
-redeclare function extends density
-    "Returns density of ideal gas as a function of the thermodynamic state record"
+redeclare function extends density "Gas density"
 
 algorithm
   d := state.p/(gasConstant(state)*state.T);
@@ -312,13 +307,20 @@ algorithm
 end thermalConductivity;
 
 //////////////////////////////////////////////////////////////////////
-// Protected functions.
-// These function are only of use within this medium model.
-// Equipment models generally have no need to access these functions.
+// Protected classes.
+// These classes are only of use within this medium model.
+// Equipment models generally have no need to access them.
 // Therefore, they are made protected. This also allows to redeclare the
 // medium model with another medium model that does not provide an
-// implementation of these functions.
+// implementation of these classes.
+
 protected
+  constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
+  constant Annex60.Media.IdealGases.Common.DataRecord dryair=
+     Annex60.Media.IdealGases.Common.SingleGasData.Air "Dry air properties";
+  constant Annex60.Media.IdealGases.Common.DataRecord steam=
+     Annex60.Media.IdealGases.Common.SingleGasData.H2O "Steam properties";
+
 replaceable function der_enthalpyOfLiquid
     "Temperature derivative of enthalpy of liquid per unit mass of liquid"
   extends Modelica.Icons.Function;
@@ -507,6 +509,7 @@ with a continuous derivative. This allows obtaining an analytic
 expression for the Jacobian, and therefore simplifies the computation
 of initial conditions that can be numerically challenging for 
 thermo-fluid systems.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
