@@ -4,7 +4,7 @@ package MoistAir
   extends Annex60.Media.GasesPTDecoupled.MoistAirUnsaturated(
     mediumName="GasesPTDecoupled.MoistAir");
 
-  redeclare model BaseProperties
+  redeclare model BaseProperties "Base properties"
 
    InputAbsolutePressure p(
      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
@@ -125,6 +125,7 @@ end temperature_phX;
 protected
   constant Modelica.SIunits.Temperature TMin = 200 "Minimum temperature";
   constant Modelica.SIunits.Temperature TMax = 400 "Maximum temperature";
+
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium package models moist air using a gas law in which pressure and temperature
