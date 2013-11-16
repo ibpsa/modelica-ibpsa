@@ -1,13 +1,14 @@
-within Annex60.Media.IdealGases;
-package SimpleAir "Air: Simple dry air model (-50..100 degC)"
+within Annex60.Media.PerfectGases;
+package DryAir
+  "Dry air model with constant specific heat capacities and ideal gas law"
   extends Modelica.Media.Air.SimpleAir(
      T_min=Modelica.SIunits.Conversions.from_degC(-50));
 
 replaceable function enthalpyOfCondensingGas
     "Enthalpy of steam per unit mass of steam"
   extends Modelica.Icons.Function;
-  input Temperature T "temperature";
-  output SpecificEnthalpy h "steam enthalpy";
+  input Temperature T "Temperature";
+  output SpecificEnthalpy h "Steam enthalpy";
 algorithm
   h := 0;
   annotation (Documentation(info="<html>
@@ -27,8 +28,8 @@ end enthalpyOfCondensingGas;
 replaceable function saturationPressure
     "Return saturation pressure of condensing fluid"
   extends Modelica.Icons.Function;
-  input Temperature Tsat "saturation temperature";
-  output AbsolutePressure psat "saturation pressure";
+  input Temperature Tsat "Saturation temperature";
+  output AbsolutePressure psat "Saturation pressure";
 algorithm
   psat := 0;
   annotation (Documentation(info="<html>
@@ -48,13 +49,20 @@ end saturationPressure;
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package is identical to 
-<a href=\"modelica://Modelica.Media.Air.SimpleAir\">
-Modelica.Media.Air.SimpleAir</a> except for the minimum fluid temperature.
+<a href=\"modelica://Modelica.Media.Air.DryAir\">
+Modelica.Media.Air.DryAir</a> except for the minimum fluid temperature.
 The package is here for convenience so that all medium models that are typically used
 with the <code>Buildings</code> library are at a central location.
 </html>",
         revisions="<html>
 <ul>
+<li>
+November 16, 2013, by Michael Wetter:<br/>
+Renamed model from
+<code>Annex60.IdealGases.SimpleAir</code>
+to
+<code>Annex60.PerfectGases.DryAir</code>.
+</li>
 <li>
 April 27, 2011, by Michael Wetter:<br/>
 Added function <code>enthalpyOfCondensingGas</code>, which returns <code>0</code>,
@@ -65,4 +73,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SimpleAir;
+end DryAir;
