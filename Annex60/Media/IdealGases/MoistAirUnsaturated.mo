@@ -50,7 +50,9 @@ required from medium model \""     + mediumName + "\".");
     X_steam  = Xi[Water];
     X_air    = 1-Xi[Water];
 
-    h = specificEnthalpy_pTX(p,T,Xi);
+    //    h = specificEnthalpy_pTX(p,T,Xi);
+    h = (T - 273.15)*dryair.cp * (1 - Xi[Water]) +
+       ((T-273.15) * steam.cp + 2501014.5) * Xi[Water];
     R = dryair.R*(1 - X_steam) + steam.R*X_steam;
     //
     u = h - R*T;
