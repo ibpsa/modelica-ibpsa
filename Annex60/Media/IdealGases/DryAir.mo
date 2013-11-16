@@ -1,7 +1,7 @@
 within Annex60.Media.IdealGases;
 package DryAir
   "Dry air model with constant specific heat capacities and ideal gas law"
-  extends Modelica.Media.Air.DryAir(
+  extends Modelica.Media.Air.SimpleAir(
      T_min=Modelica.SIunits.Conversions.from_degC(-50));
 
 replaceable function enthalpyOfCondensingGas
