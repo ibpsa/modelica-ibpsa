@@ -537,9 +537,9 @@ that provides basic classes for the development of
 Modelica libraries for building and community energy and control systems. 
 The library is compatible with models from the Modelica Standard Library,
 in particular with models from
-<h href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a>
+<a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a>
 and
-<h href=\"modelica://Modelica.Media\">Modelica.Media</a>.
+<a href=\"modelica://Modelica.Media\">Modelica.Media</a>.
 </p>
 <p>
 The library is developed through the international collaborative project
