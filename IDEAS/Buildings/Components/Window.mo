@@ -17,13 +17,13 @@ model Window "Multipane window"
 
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing constrainedby
     IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
-    annotation (Dialog(group="Construction details"));
+    annotation (__Dymola_choicesAllMatching = true, Dialog(group="Construction details"));
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Frame fraType constrainedby
     IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
-    annotation (Dialog(group="Construction details"));
+    annotation (__Dymola_choicesAllMatching = true, Dialog(group="Construction details"));
   replaceable Interfaces.StateShading shaType constrainedby
     Interfaces.StateShading "Shading type"
-    annotation (Dialog(group="Construction details"));
+    annotation (__Dymola_choicesAllMatching = true, Dialog(group="Construction details"));
 
   Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controled
     "Control signal between 0 and 1, i.e. 1 is fully closed" annotation (
