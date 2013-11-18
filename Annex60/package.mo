@@ -526,12 +526,12 @@ dateModified = "2013-09-20",
 uses(Modelica(version="3.2.1")),
 preferredView="info",
 Documentation(info="<html>
-<p align=\"right\">
-<img alt=\"Logo of IEA EBC\"
-width=\"200\"
-src=\"modelica://Annex60/Resources/Images/iea-ebc-logo-text.png\" border=\"1\"/>
-</p>
 <p>
+<img 
+align=\"right\"
+alt=\"Logo of IEA EBC\"
+width=\"100\"
+src=\"modelica://Annex60/Resources/Images/iea-ebc-logo.png\" border=\"1\"/>
 The <code>Annex60</code> library is a free library
 that provides basic classes for the development of
 Modelica libraries for building and community energy and control systems. 
