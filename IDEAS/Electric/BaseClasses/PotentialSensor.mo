@@ -10,7 +10,7 @@ model PotentialSensor
             10}},                  rotation=0)));
 algorithm
 
-  VGrid := max(Modelica.ComplexMath.'abs'(vi.v));
+  VGrid := Modelica.ComplexMath.'abs'(vi.v);
   vi.i :=Complex(0);
 
   annotation (Icon(graphics={

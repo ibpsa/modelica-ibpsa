@@ -5,8 +5,12 @@ model BranchLenTyp
         len, X=typ.XCha*mulFac*len);
 
   parameter Real mulFac=1;
-  parameter IDEAS.Electric.Data.Interfaces.Cable typ = IDEAS.Electric.Data.Cables.PvcAl16()
-    "Cable type";
+
+  replaceable parameter IDEAS.Electric.Data.Cables.PvcAl16 typ constrainedby
+    IDEAS.Electric.Data.Interfaces.Cable;
+
+//  parameter IDEAS.Electric.Data.Interfaces.Cable typ = IDEAS.Electric.Data.Cables.PvcAl16()
+//    "Cable type";
   parameter Modelica.SIunits.Length len=10 "Cable length";
 
 end BranchLenTyp;
