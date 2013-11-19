@@ -1,7 +1,7 @@
 within IDEAS.Interfaces.BaseClasses;
 partial model VentilationSystem
 
-  outer IDEAS.SimInfoManager sim
+  inner outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 // Building characteristics  //////////////////////////////////////////////////////////////////////////
