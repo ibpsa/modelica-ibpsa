@@ -33,7 +33,7 @@ protected
         extent={{-8,-8},{8,8}},
         rotation=270,
         origin={-80,-42})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
+  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground(pin(final reference))
     "Grounding for the building-side voltage source"                                                                   annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Basic.PlugToPin_p plugToPin_p(
       m=1) "Plug-to-pin conversion" annotation (Placement(transformation(extent={{-10,-10},{10,10}},
