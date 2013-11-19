@@ -39,7 +39,7 @@ model Bui900 "BESTEST Building model case 900"
     redeclare final parameter Data.Glazing.GlaBesTest glazing,
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     final azi={IDEAS.Constants.South,IDEAS.Constants.South},
-    redeclare final IDEAS.Buildings.Components.Shading.None shaType,
+    redeclare replaceable IDEAS.Buildings.Components.Shading.None shaType,
     redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType) annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
