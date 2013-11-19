@@ -15,7 +15,7 @@ model MultiLayerOpaque "multiple material layers in series"
     each final A=A,
     each final inc=inc,
     final TStart = TStart,
-    mat=mats) "layers";
+    final mat=mats) "layers";
 
   final parameter Real R=sum(nMat.R) "total specific thermal resistance";
 

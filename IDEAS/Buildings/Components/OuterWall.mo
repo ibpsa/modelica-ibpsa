@@ -48,17 +48,17 @@ model OuterWall "Opaque building envelope construction"
     final locGain = constructionType.locGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(A=AWall)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(final A=AWall)
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(A=AWall, inc=
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(final A=AWall, final inc=
        inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs(A=AWall)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs(final A=AWall)
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation extRad(A=AWall,
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation extRad(final A=AWall,
       inc=inc)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));

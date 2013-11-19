@@ -50,27 +50,27 @@ model Window "Multipane window"
     "Total shading transmittance";
 
   IDEAS.Climate.Meteo.Solar.ShadedRadSol radSol(
-    inc=inc,
-    azi=azi,
-    A=A*(1 - frac))
+    final inc=inc,
+    final azi=azi,
+    final A=A*(1 - frac))
     "determination of incident solar radiation on wall based on inclination and azimuth"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerLucent layMul(
-    A=A*(1 - frac),
-    inc=inc,
-    nLay=glazing.nLay,
-    mats=glazing.mats)
+    final A=A*(1 - frac),
+    final inc=inc,
+    final nLay=glazing.nLay,
+    final mats=glazing.mats)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eCon(A=A*(1 - frac))
+  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eCon(final A=A*(1 - frac))
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvectionWindow iCon(A=A*(1 - frac),
-      inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvectionWindow iCon(final A=A*(1 - frac),
+      final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation skyRad(A=A*(1
-         - frac), inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation skyRad(final A=A*(1
+         - frac), final inc=inc)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
   IDEAS.Buildings.Components.BaseClasses.SwWindowResponse solWin(
@@ -85,15 +85,15 @@ model Window "Multipane window"
       inc=inc) if framePresent
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation skyRadFra(A=A*
-        frac, inc=inc) if framePresent
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation skyRadFra(final A=A*
+        frac, final inc=inc) if framePresent
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,80},{-40,100}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eConFra(A=A*frac) if
+  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eConFra(final A=A*frac) if
        framePresent
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,60},{-40,80}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(G=fraType.U_value
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=fraType.U_value
         *A*frac) if framePresent
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 

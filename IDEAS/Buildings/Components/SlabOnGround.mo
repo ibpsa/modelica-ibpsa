@@ -56,23 +56,23 @@ protected
   //protected
 public
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
-    A=AWall,
-    inc=inc,
-    nLay=constructionType.nLay,
-    mats=constructionType.mats,
-    locGain=constructionType.locGain)
+    final A=AWall,
+    final inc=inc,
+    final nLay=constructionType.nLay,
+    final mats=constructionType.mats,
+    final locGain=constructionType.locGain)
     "Declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(A=AWall, inc=
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(final A=AWall, final inc=
        inc)
     "Convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layGro(
-    A=AWall,
-    inc=inc,
-    nLay=3,
-    mats={ground1,ground2,ground3},
-    locGain=1)
+    final A=AWall,
+    final inc=inc,
+    final nLay=3,
+    final mats={ground1,ground2,ground3},
+    final locGain=1)
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   //    nMat(T(start={{273.15},{273.15},{273.15}} + {{11.5},{12.2},{12.7}})))

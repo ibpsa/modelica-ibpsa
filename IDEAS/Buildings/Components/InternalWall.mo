@@ -43,20 +43,20 @@ model InternalWall "interior opaque wall between two zones"
         origin={-56,60})));
 
 protected
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(A=AWall,
-      inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=AWall,
+      final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(A=AWall,
-      inc=inc + Modelica.Constants.pi)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(final A=AWall,
+      final inc=inc + Modelica.Constants.pi)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
-    A=AWall,
-    inc=inc,
-    nLay=constructionType.nLay,
-    mats=constructionType.mats,
-    locGain=constructionType.locGain)
+    final A=AWall,
+    final inc=inc,
+    final nLay=constructionType.nLay,
+    final mats=constructionType.mats,
+    final locGain=constructionType.locGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{10,-40},{-10,-20}})));
 

@@ -28,22 +28,22 @@ model CommonWall "Common opaque wall with neighbors"
 
 protected
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
-    A=AWall,
-    inc=inc,
-    nLay=constructionType.nLay,
-    mats=constructionType.mats,
-    locGain=constructionType.locGain)
+    final A=AWall,
+    final inc=inc,
+    final nLay=constructionType.nLay,
+    final mats=constructionType.mats,
+    final locGain=constructionType.locGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(A=AWall,
-      inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=AWall,
+      final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(A=AWall,
-      inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(final A=AWall,
+      final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-14,-40},{-34,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(final T=
         292.15)
     annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
 equation
