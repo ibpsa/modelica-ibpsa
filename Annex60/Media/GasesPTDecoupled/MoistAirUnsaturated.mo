@@ -171,11 +171,7 @@ redeclare function extends saturationPressure
     "Saturation curve valid for 223.16 <= T <= 373.16 (and slightly outside with less accuracy)"
 
 algorithm
-  psat := Annex60.Utilities.Math.Functions.spliceFunction(
-             saturationPressureLiquid(Tsat),
-             sublimationPressureIce(Tsat),
-             Tsat-273.16,
-             1.0);
+  psat := Annex60.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
   annotation(Inline=false,smoothOrder=5);
 end saturationPressure;
 
@@ -375,94 +371,6 @@ algorithm
   h := (T - 273.15)*dryair.cp;
   annotation(smoothOrder=5, derivative=der_enthalpyOfDryAir);
 end enthalpyOfDryAir;
-
-function saturationPressureLiquid
-    "Return saturation pressure of water as a function of temperature T in the range of 273.16 to 373.16 K"
-    extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature Tsat "Saturation temperature";
-  output Modelica.SIunits.AbsolutePressure psat "Saturation pressure";
-algorithm
-  psat := 611.657*Modelica.Math.exp(17.2799 - 4102.99/(Tsat - 35.719));
-  annotation(Inline=false,
-             smoothOrder=5,
-             derivative=saturationPressureLiquid_der,
-    Documentation(info="<html>
-Saturation pressure of water above the triple point temperature is computed from temperature. 
-The range of validity is between
-273.16 and 373.16 K. Outside these limits, a less accurate result is returned.
-</html>"));
-end saturationPressureLiquid;
-
-function saturationPressureLiquid_der
-    "Time derivative of saturationPressureLiquid"
-
-  extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature Tsat "Saturation temperature";
-  input Real dTsat(unit="K/s") "Saturation temperature derivative";
-  output Real psat_der(unit="Pa/s") "Saturation pressure";
-
-algorithm
-  psat_der:=611.657*Modelica.Math.exp(17.2799 - 4102.99
-            /(Tsat - 35.719))*4102.99*dTsat/(Tsat - 35.719)/(Tsat - 35.719);
-
-  annotation(Inline=false,smoothOrder=5,
-    Documentation(info="<html>
-Derivative function of 
-<a href=\"modelica://Annex60.Media.IdealGases.MoistAirUnsaturated.saturationPressureLiquid\">
-Annex60.Media.IdealGases.MoistAirUnsaturated.saturationPressureLiquid</a>
-</html>"));
-end saturationPressureLiquid_der;
-
-function sublimationPressureIce
-    "Return sublimation pressure of water as a function of temperature T between 190 and 273.16 K"
-
-  extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature Tsat "Sublimation temperature";
-  output Modelica.SIunits.AbsolutePressure psat "Sublimation pressure";
-  protected
-  Modelica.SIunits.Temperature Ttriple=273.16 "Triple point temperature";
-  Modelica.SIunits.AbsolutePressure ptriple=611.657 "Triple point pressure";
-  Real r1=Tsat/Ttriple "Common subexpression";
-  Real a[:]={-13.9281690,34.7078238} "Coefficients a[:]";
-  Real n[:]={-1.5,-1.25} "Coefficients n[:]";
-algorithm
-  psat := exp(a[1] - a[1]*r1^n[1] + a[2] - a[2]*r1^n[2])*ptriple;
-  annotation (
-    Inline=false,
-    smoothOrder=5,
-    derivative=sublimationPressureIce_der,
-    Documentation(info="<html>
-    <p>Sublimation pressure of water below the triple point temperature 
-    is computed from temperature.</p>
-<p>Source: W Wagner, A Saul, A Pruss: &quot;International equations for the pressure along the melting and along the sublimation curve of ordinary water substance&quot;, equation 3.5</p>
-</html>"));
-end sublimationPressureIce;
-
-function sublimationPressureIce_der
-    "Derivative function for 'sublimationPressureIce'"
-
-    extends Modelica.Icons.Function;
-    input Modelica.SIunits.Temperature Tsat "Sublimation temperature";
-    input Real dTsat(unit="K/s") "Sublimation temperature derivative";
-    output Real psat_der(unit="Pa/s") "Sublimation pressure derivative";
-  protected
-    Modelica.SIunits.Temperature Ttriple=273.16 "Triple point temperature";
-    Modelica.SIunits.AbsolutePressure ptriple=611.657 "Triple point pressure";
-    Real r1=Tsat/Ttriple "Common subexpression 1";
-    Real r1_der=dTsat/Ttriple "Derivative of common subexpression 1";
-    Real a[:]={-13.9281690,34.7078238} "Coefficients a[:]";
-    Real n[:]={-1.5,-1.25} "Coefficients n[:]";
-algorithm
-    psat_der := exp(a[1] - a[1]*r1^n[1] + a[2] - a[2]*r1^n[2])*ptriple*(-(a[1]
-      *(r1^(n[1] - 1)*n[1]*r1_der)) - (a[2]*(r1^(n[2] - 1)*n[2]*r1_der)));
-    annotation (
-      Inline=false,
-      smoothOrder=5,
-      Documentation(info="<html>
-<p>Sublimation pressure of water below the triple point temperature is computed from temperature.</p>
-<p>Source: W Wagner, A Saul, A Pruss: &quot;International equations for the pressure along the melting and along the sublimation curve of ordinary water substance&quot;, equation 3.5</p>
-</html>"));
-end sublimationPressureIce_der;
 
 replaceable function der_enthalpyOfDryAir
     "Derivative of enthalpy of dry air per unit mass of dry air"

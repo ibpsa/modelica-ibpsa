@@ -69,7 +69,7 @@ initial algorithm
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
-    rh_per       = 100 * p/min(Medium.saturationPressure(TDryBul),0.999*p)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat]));
+    rh_per       = 100 * p/min(Annex60.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),0.999*p)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat]));
     TWetBul      = 273.15 + TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
        + Modelica.Math.atan(TDryBul_degC + rh_per)
@@ -77,8 +77,8 @@ equation
        + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
     XiSat = 0;
   else
-    XiSat   = Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=   Medium.saturationPressureLiquid(Tsat=TWetBul),
+    XiSat  = Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=  Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
     TWetBul = (TDryBul * ((1-Xi[iWat]) * cpAir + Xi[iWat] * cpSte) + (Xi[iWat]-XiSat) * h_fg)/
@@ -179,6 +179,14 @@ DOI: 10.1175/JAMC-D-11-0143.1
 ",
 revisions="<html>
 <ul>
+<li>
+November 20, 2013 by Michael Wetter:<br/>
+Updated model to use
+<code>Annex60.Utilities.Psychrometrics.Functions.saturationPressure()</code>
+and
+<code>Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
+as these functions have been moved from the medium to the psychrometrics package.
+</li>
 <li>
 September 10, 2013 by Michael Wetter:<br/>
 Added start value and nominal value for <code>XiSat</code> as this is an iteration

@@ -66,14 +66,14 @@ equation
     XiSat    = 0;
     XiDryBul = 0;
   else
-    XiSat   = Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=   Medium.saturationPressureLiquid(Tsat=TWetBul),
+    XiSat  = Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=  Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
     XiDryBul =Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      p=p,
-      pSat=Medium.saturationPressureLiquid(Tsat=TDryBul),
-      phi=phi);
+      p=     p,
+      pSat=  Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
+      phi=   phi);
     TWetBul = (TDryBul * ((1-XiDryBul) * cpAir + XiDryBul * cpSte) + (XiDryBul-XiSat) * h_fg)/
             ( (1-XiSat)*cpAir + XiSat * cpSte);
     TDryBul_degC = 0;
@@ -168,6 +168,14 @@ DOI: 10.1175/JAMC-D-11-0143.1
 ",
 revisions="<html>
 <ul>
+<li>
+November 20, 2013 by Michael Wetter:<br/>
+Updated model to use
+<code>Annex60.Utilities.Psychrometrics.Functions.saturationPressure()</code>
+and
+<code>Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
+as these functions have been moved from the medium to the psychrometrics package.
+</li>
 <li>
 October 1, 2012 by Michael Wetter:<br/>
 First implementation.
