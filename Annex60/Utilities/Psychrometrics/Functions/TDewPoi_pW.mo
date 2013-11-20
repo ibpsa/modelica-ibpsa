@@ -1,7 +1,7 @@
 within Annex60.Utilities.Psychrometrics.Functions;
 function TDewPoi_pW
   "Function to compute the water vapor partial pressure for a given dew point temperature of moist air"
-
+  extends Modelica.Icons.Function;
   input Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=200)
     "Water vapor partial pressure";
   output Modelica.SIunits.Temperature T "Dew point temperature";
