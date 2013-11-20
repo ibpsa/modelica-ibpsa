@@ -8,14 +8,11 @@ model MoistAirDerivativeCheck
     Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hSteSym "Water vapor enthalpy";
     Modelica.SIunits.SpecificEnthalpy hSteCod "Water vapor enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hAirSym "Dry air enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hAirCod "Dry air enthalpy";
     constant Real conv(unit="K/s") = 1
     "Conversion factor to satisfy unit check";
 initial equation
      hLiqSym = hLiqCod;
      hSteSym = hSteCod;
-     hAirSym = hAirCod;
 equation
     hLiqCod=Medium.enthalpyOfLiquid(conv*time);
     der(hLiqCod)=der(hLiqSym);
@@ -24,10 +21,6 @@ equation
     hSteCod=Medium.enthalpyOfCondensingGas(conv*time);
     der(hSteCod)=der(hSteSym);
     assert(abs(hSteCod-hSteSym) < 1E-2, "Model has an error");
-
-    hAirCod=Medium.enthalpyOfDryAir(conv*time);
-    der(hAirCod)=der(hAirSym);
-    assert(abs(hAirCod-hAirSym) < 1E-2, "Model has an error");
 
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
@@ -42,6 +35,11 @@ is not correct, the model will stop with an assert statement.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+November 20, 2013, by Michael Wetter:<br/>
+Removed check of <code>enthalpyOfDryAir</code> as this function
+is protected and should therefore not be accessed from outside the class.
+</li>
 <li>
 May 12, 2008, by Michael Wetter:<br/>
 First implementation.
