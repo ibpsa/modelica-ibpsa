@@ -1,4 +1,4 @@
-simulateModel("Annex60.Media.GasesPTDecoupled.Examples.MoistAirTemperatureEnthalpyInversion", method="dassl", resultFile="GasesPTDecoupledMoistAirTemperatureEnthalpyInversion");
+simulateModel("Annex60.Media.Examples.WaterTemperatureEnthalpyInversion", method="dassl", resultFile="WaterTemperatureEnthalpyInversion");
 createPlot(id = 1,
  position = {31, 30, 400, 280},
  y = {"T"},
