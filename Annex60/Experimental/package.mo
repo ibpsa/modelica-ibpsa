@@ -12,4 +12,4 @@ so that numerical benchmarks can be conducted easily in order
 to evaluate whether addition of the media is desirable or not.
 </p>
 </html>"));
-end Media;
+end Experimental;

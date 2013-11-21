@@ -1,5 +1,5 @@
 within Annex60.Media;
-package ConstantPropertyLiquidWater "Package with model for liquid water with constant properties"
+package Water "Package with model for liquid water with constant properties"
    extends Modelica.Media.Water.ConstantPropertyLiquidWater(
      final cp_const=4184,
      final cv_const=4148);
@@ -90,4 +90,4 @@ has never been used.
 </li>
 </ul>
 </html>"));
-end ConstantPropertyLiquidWater;
+end Water;

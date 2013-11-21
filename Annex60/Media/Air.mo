@@ -1,22 +1,19 @@
-within Annex60.Media.GasesConstantDensity;
-package MoistAirUnsaturated
-  "Package with moist air model that decouples pressure and temperature and that has no liquid water"
+within Annex60.Media;
+package Air
+  "Moist air model with constant specific heat capacities and ideal gas law"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
-     mediumName="GasesConstantDensity.MoistAirUnsaturated",
+     mediumName="Moist air unsaturated ideal gas",
      final substanceNames={"water", "air"},
      final reducedX=true,
-     final singleState=true,
+     final singleState=false,
      reference_X={0.01,0.99},
      final fluidConstants = {Modelica.Media.IdealGases.Common.FluidData.H2O,
                              Modelica.Media.IdealGases.Common.FluidData.N2});
 
-  constant Integer Water=1
+  final constant Integer Water=1
     "Index of water (in substanceNames, massFractions X, etc.)";
-  constant Integer Air=2
+  final constant Integer Air=2
     "Index of air (in substanceNames, massFractions X, etc.)";
-
-  constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
-  constant Density dStp = 1.2 "Fluid density at pressure pStp";
 
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
@@ -35,45 +32,62 @@ package MoistAirUnsaturated
     Real phi "Relative humidity";
 
   protected
+  record DataRecord "Coefficient data record for properties of perfect gases"
+    extends Modelica.Icons.Record;
+
+  String name "Name of ideal gas";
+  Modelica.SIunits.MolarMass MM "Molar mass";
+  Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
+  Modelica.SIunits.SpecificHeatCapacity cp
+        "Specific heat capacity at constant pressure";
+  Modelica.SIunits.SpecificHeatCapacity cv
+        "Specific heat capacity at constant volume";
+  annotation (
+        defaultComponentName="gas",
+        Documentation(preferredView="info", info=
+                                         "<html>
+<p>
+This data record contains the coefficients for perfect gases.
+</p>
+</html>"), revisions=
+        "<html>
+<ul>
+<li>
+May 12, 2008 by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>");
+  end DataRecord;
+
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
-
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
-    MassFraction X_sat
-      "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
     Modelica.SIunits.TemperatureDifference dT
       "Temperature difference used to compute enthalpy";
   equation
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
-200.0 K <= (T ="
-               + String(T) + " K) <= 423.15 K
+200.0 K <= (T =" + String(T) + " K) <= 423.15 K
 required from medium model \""     + mediumName + "\".");
+
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
     p_steam_sat = min(saturationPressure(T),0.999*p);
-    X_sat = min(p_steam_sat * k_mair/max(100*Modelica.Constants.eps, p - p_steam_sat)*(1 - Xi[Water]), 1.0)
-      "Water content at saturation with respect to actual water content";
 
-    X_steam  = Xi[Water]; // There is no liquid in this medium model
+    X_steam  = Xi[Water];
     X_air    = 1-Xi[Water];
 
-    //h = specificEnthalpy_pTX(p,T,Xi);
+    //    h = specificEnthalpy_pTX(p,T,Xi);
     dT = T - 273.15;
     h = dT*dryair.cp * (1 - Xi[Water]) +
        (dT * steam.cp + 2501014.5) * Xi[Water];
-    R = dryair.R*(1 - Xi[Water]) + steam.R*Xi[Water];
-
-    // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
-    // u = h-R*T;
-
-    // However, in this medium, the gas law is d=dStp (=constant), from which follows using h=u+pv that
-    // u= h-p*v = h-p/d = h-p/dStp
-    u = h-p/dStp;
-
-    d = dStp;// = p/pStp;
+    R = dryair.R*(1 - X_steam) + steam.R*X_steam;
+    //
+    u = h - R*T;
+    d = p/(R*T); // fixme: The state equation needs to be changed to make the d=d(T) only.
     /* Note, u and d are computed under the assumption that the volume of the liquid
          water is neglible with respect to the volume of air and of steam
       */
@@ -86,12 +100,13 @@ required from medium model \""     + mediumName + "\".");
     phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
-redeclare function density "Gas density"
-  extends Modelica.Icons.Function;
-  input ThermodynamicState state;
-  output Density d "Density";
+redeclare function extends density "Gas density"
+
 algorithm
-  d := dStp;
+  d := state.p/(gasConstant(state)*state.T);
+  annotation (smoothOrder=2, Documentation(info="<html>
+Density is computed from pressure, temperature and composition in the thermodynamic state record applying the ideal gas law.
+</html>"));
 end density;
 
 redeclare function extends dynamicViscosity "dynamic viscosity of dry air"
@@ -199,18 +214,38 @@ algorithm
     annotation(derivative=der_specificHeatCapacityCv);
 end specificHeatCapacityCv;
 
-  redeclare function setState_dTX
-    "Thermodynamic state as function of d, T and composition X"
-    extends Modelica.Icons.Function;
-    input Density d "density";
-    input Temperature T "Temperature";
-    input MassFraction X[:]=reference_X "Mass fractions";
-    output ThermodynamicState state "Thermodynamic state";
-  algorithm
-   ModelicaError("The function 'setState_dTX' must not be used in GasesConstantDensity as
-                in this medium model, the pressure cannot be determined from the density.\n");
-    state :=setState_pTX(pStp, T, X);
-  end setState_dTX;
+redeclare function setState_dTX
+    "Return thermodynamic state as function of density d, temperature T and composition X"
+  extends Modelica.Icons.Function;
+  input Density d "Density";
+  input Temperature T "Temperature";
+  input MassFraction X[:]=reference_X "Mass fractions";
+  output ThermodynamicState state "Thermodynamic state";
+
+algorithm
+    state := if size(X, 1) == nX then
+               ThermodynamicState(p=d*({steam.R,dryair.R}*X)*T, T=T, X=X)
+             else
+               ThermodynamicState(p=d*({steam.R,dryair.R}*cat(1, X, {1 - sum(X)}))*T,
+                                  T=T,
+                                  X=cat(1, X, {1 - sum(X)}));
+    annotation (smoothOrder=2, Documentation(info="<html>
+The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">thermodynamic state record</a> is computed from density d, temperature T and composition X.
+</html>"));
+end setState_dTX;
+
+redeclare function extends setState_phX
+    "Return thermodynamic state as function of pressure p, specific enthalpy h and composition X"
+algorithm
+  state := if size(X, 1) == nX then
+    ThermodynamicState(p=p, T=temperature_phX(p, h, X), X=X)
+ else
+    ThermodynamicState(p=p, T=temperature_phX(p, h, X), X=cat(1, X, {1 - sum(X)}));
+  annotation (smoothOrder=2, Documentation(info="<html>
+The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">
+thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
+</html>"));
+end setState_phX;
 
 redeclare function extends setState_pTX
     "Return thermodynamic state as function of p, T and composition X or Xi"
@@ -258,10 +293,10 @@ algorithm
   f := specificEnthalpy(state) - gasConstant(state)*state.T - state.T*specificEntropy(state);
 end specificHelmholtzEnergy;
 
-redeclare function extends specificInternalEnergy "Specific internal energy"
-  extends Modelica.Icons.Function;
+redeclare replaceable function extends specificInternalEnergy
+    "Specific internal energy"
 algorithm
-  u := specificEnthalpy(state) - state.p/dStp;
+  u := specificEnthalpy(state) - gasConstant(state)*state.T;
 end specificInternalEnergy;
 
 redeclare function extends temperature
@@ -307,12 +342,48 @@ end thermalConductivity;
 // Therefore, they are made protected. This also allows to redeclare the
 // medium model with another medium model that does not provide an
 // implementation of these classes.
+
 protected
-  constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
-  constant Annex60.Media.IdealGases.Common.DataRecord dryair=
-    Annex60.Media.IdealGases.Common.SingleGasData.Air "Dry air properties";
-  constant Annex60.Media.IdealGases.Common.DataRecord steam=
-    Annex60.Media.IdealGases.Common.SingleGasData.H2O "Steam properties";
+record GasProperties 
+  "Coefficient data record for properties of perfect gases"
+  extends Modelica.Icons.Record;
+
+  Modelica.SIunits.MolarMass MM "Molar mass";
+  Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
+  Modelica.SIunits.SpecificHeatCapacity cp 
+    "Specific heat capacity at constant pressure";
+  Modelica.SIunits.SpecificHeatCapacity cv 
+    "Specific heat capacity at constant volume";
+  annotation (
+defaultComponentName="gas",
+Documentation(preferredView="info", info="<html>
+<p>
+This data record contains the coefficients for perfect gases.
+</p>
+</html>"), revisions=
+        "<html>
+<ul>
+<li>
+November 21, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>");
+end GasProperties;
+
+  constant GasProperties dryair(
+    R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
+    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
+    cp =   1006,
+    cv =   1006 - Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
+    "Dry air properties";
+  constant GasProperties steam(
+    R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
+    MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
+    cp =   1860,
+    cv =   1860 - Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
+    "Steam properties";
+  constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
 
 replaceable function der_enthalpyOfLiquid
     "Temperature derivative of enthalpy of liquid per unit mass of liquid"
@@ -389,50 +460,13 @@ end der_specificHeatCapacityCv;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This medium package models moist air using a constant density. 
+This medium package models moist air using the ideal gas law. 
 The specific heat capacities at constant pressure and at constant volume are constant.
-The air is assumed to be not saturated. Even if its relative humidity raises
-above 100%, this model does not compute the amount of liquid that is
-condensed out of the medium. However, the medium can still be used
-in models of air-conditioning equipment that humidifies or dehumidifies
-air.
-</p>
-<p>
-Using a constant density avoids the fast pressure transients in volumes. 
-However, in flow networks, the coupled nonlinear system of equations is generally larger compared
-to using a medium model in which the density depends on the pressure.
-</p>
-<p>
-The model is similar to 
-<a href=\"modelica://Annex60.Media.GasesConstantDensity.MoistAir\">
-Annex60.Media.GasesConstantDensity.MoistAir</a> but 
-in this model, the air must not be saturated. If the air is saturated, 
-use the medium model
-<a href=\"modelica://Annex60.Media.GasesConstantDensity.MoistAir\">
-Annex60.Media.GasesConstantDensity.MoistAir</a> instead of this one.
-</p>
-<p>
-As in
-<a href=\"modelica://Annex60.Media.IdealGases.MoistAir\">
-Annex60.Media.IdealGases.MoistAir</a>, the
-specific enthalpy <i>h</i> and specific internal energy <i>u</i> are only
-a function of temperature <i>T</i> and 
-species concentration <i>X</i> and all other provided medium
-quantities are constant.
-</p>
-<p>
-This medium model has been added to allow an explicit computation of
-the function 
-<code>temperature_phX</code> so that it is once differentiable in <code>h</code>
-with a continuous derivative. This allows obtaining an analytic
-expression for the Jacobian, and therefore simplifies the computation
-of initial conditions that can be numerically challenging for 
-thermo-fluid systems.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-November 16, 2013, by Michael Wetter:<br/>
+November 15, 2013, by Michael Wetter:<br/>
 Revised and simplified the implementation.
 </li>
 <li>
@@ -444,7 +478,7 @@ Modelica Standard Library.
 </li>
 <li>
 November 13, 2013, by Michael Wetter:<br/>
-Removed non-used computations in <code>specificEnthalpy_pTX</code> and
+Removed un-used computations in <code>specificEnthalpy_pTX</code> and
 in <code>temperature_phX</code>.
 </li>
 <li>
@@ -463,35 +497,17 @@ Added redeclaration of <code>ThermodynamicState</code> to avoid a warning
 during model check and translation.
 </li>
 <li>
-August 3, 2011, by Michael Wetter:<br/>
-Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
-For this medium, the function is <code>u=h-p/dStp</code>.
-</li>
-<li>
-August 2, 2011, by Michael Wetter:<br/>
-Fixed error in the function <code>density</code> which returned a non-constant density,
-and added a call to <code>ModelicaError(...)</code> in <code>setState_dTX</code> since this
-function cannot assign the medium pressure based on the density (as density is a constant
-in this model).
+January 27, 2010, by Michael Wetter:<br/>
+Added function <code>enthalpyOfNonCondensingGas</code> and its derivative.
 </li>
 <li>
 January 27, 2010, by Michael Wetter:<br/>
-Fixed bug in <code>else</code> branch of function <code>setState_phX</code>
-that lead to a run-time error when the constructor of this function was called.
+Fixed bug with temperature offset in <code>temperature_phX</code>.
 </li>
 <li>
-January 22, 2010, by Michael Wetter:<br/>
-Added implementation of function
-<a href=\"modelica://Annex60.Media.GasesConstantDensity.MoistAirUnsaturated.enthalpyOfNonCondensingGas\">
-enthalpyOfNonCondensingGas</a> and its derivative.
-<li>
-January 13, 2010, by Michael Wetter:<br/>
-Fixed implementation of derivative functions.
-</li>
-<li>
-August 28, 2008, by Michael Wetter:<br/>
+August 18, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end MoistAirUnsaturated;
+end Air;
