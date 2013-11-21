@@ -1,8 +1,8 @@
 within Annex60.Media.GasesPTDecoupled;
-package MoistAirUnsaturated
-  "Package with moist air model that decouples pressure and temperature and that has no liquid water"
+package AirPTDecoupled
+  "Package with moist air model that decouples pressure and temperature"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
-     mediumName="GasesPTDecoupled.MoistAirUnsaturated",
+     mediumName="AirPTDecoupled",
      final substanceNames={"water", "air"},
      final reducedX=true,
      final singleState = false,
@@ -419,40 +419,7 @@ end der_specificHeatCapacityCv;
 This medium package models moist air using a gas law in which pressure and temperature
 are independent, which often leads to significantly faster and more robust computations. 
 The specific heat capacities at constant pressure and at constant volume are constant.
-The air is assumed to be not saturated. Even if its relative humidity raises
-above 100%, this model does not compute the amount of liquid that is
-condensed out of the medium. However, the medium can still be used
-in models of air-conditioning equipment that humidifies or dehumidifies
-air.
-</p>
-<p>
-The model is similar to 
-<a href=\"modelica://Annex60.Media.GasesPTDecoupled.MoistAir\">
-Annex60.Media.GasesPTDecoupled.MoistAir</a> but 
-in this model, the air must not be saturated. If the air is saturated, 
-use the medium model
-<a href=\"modelica://Annex60.Media.GasesPTDecoupled.MoistAir\">
-Annex60.Media.IdealGases.MoistAir</a> instead of this one.
-</p>
-<p>
-This medium model is identical to 
-<a href=\"modelica://Annex60.Media.IdealGases.MoistAirUnsaturated\">
-Annex60.Media.IdealGases.MoistAirUnsaturated</a>, except the 
-equation <code>d = p/(R*T)</code> has been replaced with 
-<code>d/dStp = p/pStp</code>, where 
-<code>pStd</code> and <code>dStp</code> are constants at a reference
-temperature and density.
-This formulation often leads to smaller systems of nonlinear equations 
-because pressure and temperature are decoupled, at the expense of accuracy.
-</p>
-<p>
-This medium model has been added to allow an explicit computation of
-the function 
-<code>temperature_phX</code> so that it is once differentiable in <code>h</code>
-with a continuous derivative. This allows obtaining an analytic
-expression for the Jacobian, and therefore simplifies the computation
-of initial conditions that can be numerically challenging for 
-thermo-fluid systems.
+The air is assumed to be not saturated.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -512,4 +479,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end MoistAirUnsaturated;
+end AirPTDecoupled;
