@@ -1,7 +1,7 @@
 within Annex60.Fluid.Sources.Examples;
 model TraceSubstancesFlowSource
   extends Modelica.Icons.Example;
-  package Medium = Annex60.Experimental.AirPTDecoupled(extraPropertiesNames={"CO2"});
+  package Medium = Annex60.Media.Air(extraPropertiesNames={"CO2"});
 
   MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
