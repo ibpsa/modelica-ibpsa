@@ -1,78 +1,92 @@
 within Annex60.Media;
 package ConstantPropertyLiquidWater "Package with model for liquid water with constant properties"
-  extends Annex60.Media.Interfaces.PartialSimpleMedium(
-    mediumName="SimpleLiquidWater",
-    cp_const=4184,
-    cv_const=4184,
-    d_const=995.586,
-    eta_const=1.e-3,
-    lambda_const=0.598,
-    a_const=1484,
-    T_min=Modelica.SIunits.Conversions.from_degC(-1),
-    T_max=Modelica.SIunits.Conversions.from_degC(130),
-    T0=273.15,
-    MM_const=0.018015268,
-    fluidConstants=Modelica.Media.Water.simpleWaterConstants,
-    ThermoStates=Annex60.Media.Interfaces.Choices.IndependentVariables.T);
+   extends Modelica.Media.Water.ConstantPropertyLiquidWater(
+     final cp_const=4184,
+     final cv_const=4148);
+  // cp_const and cv_const have been made final because the model sets u=h.
 
 
- redeclare replaceable function extends specificInternalEnergy
-  "Return specific internal energy"
- algorithm
-   u := cv_const * (state.T-T0);
- end specificInternalEnergy;
+  redeclare model BaseProperties "Base properties"
+    Modelica.SIunits.Temperature T(stateSelect=if
+          preferredMediumStates then StateSelect.prefer else StateSelect.default)
+    "Temperature of medium";
+    InputAbsolutePressure p(stateSelect=if
+          preferredMediumStates then StateSelect.prefer else StateSelect.default)
+    "Absolute pressure of medium";
+    InputMassFraction[nXi] Xi=fill(0, 0)
+    "Structurally independent mass fractions";
+    InputSpecificEnthalpy h "Specific enthalpy of medium";
+    Modelica.SIunits.SpecificInternalEnergy u
+    "Specific internal energy of medium";
+    Modelica.SIunits.Density d=d_const "Density of medium";
+    Modelica.SIunits.MassFraction[nX] X={1}
+    "Mass fractions (= (component mass)/total mass  m_i/m)";
+    final Modelica.SIunits.SpecificHeatCapacity R=0
+    "Gas constant (of mixture if applicable)";
+    final Modelica.SIunits.MolarMass MM=MM_const
+    "Molar mass (of mixture or single fluid)";
+    ThermodynamicState state
+    "Thermodynamic state record for optional functions";
+    parameter Boolean preferredMediumStates=false
+    "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
+      annotation (Evaluate=true, Dialog(tab="Advanced"));
+    final parameter Boolean standardOrderComponents=true
+    "If true, and reducedX = true, the last element of X will be computed from the other ones";
+    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
+        Modelica.SIunits.Conversions.to_degC(T)
+    "Temperature of medium in [degC]";
+    Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=
+        Modelica.SIunits.Conversions.to_bar(p)
+    "Absolute pressure of medium in [bar]";
+
+    // Local connector definition, used for equation balancing check
+    connector InputAbsolutePressure = input Modelica.SIunits.AbsolutePressure
+    "Pressure as input signal connector";
+    connector InputSpecificEnthalpy = input Modelica.SIunits.SpecificEnthalpy
+    "Specific enthalpy as input signal connector";
+    connector InputMassFraction = input Modelica.SIunits.MassFraction
+    "Mass fraction as input signal connector";
+
+  equation
+    assert(T >= T_min and T <= T_max, "
+Temperature T (= "
+                 + String(T) + " K) is not
+in the allowed range ("
+                      + String(T_min) + " K <= T <= " + String(T_max) + " K)
+required from medium model \""
+                             + mediumName + "\".
+");
+
+    h = cp_const*(T-T0);
+    //h = specificEnthalpy_pTX(p, T, X);
+    u = h;
+    state.T = T;
+    state.p = p;
+    annotation (Documentation(info="<html>
+    <p>
+    This base properties model is identical to
+    <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
+    Modelica.Media.Water.ConstantPropertyLiquidWater</a>,
+    except that the equation
+    <code>u = cv_const*(T - T0)</code>
+    has been replaced by <code>u=h</code> because
+    <code>cp_const=cv_const</code>.
+    </p>
+</html>"));
+  end BaseProperties;
 
 
   annotation (preferredView="info", Documentation(info="<html>
 This medium model is identical to 
 <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
-Modelica.Media.Water.ConstantPropertyLiquidWater</a>, except for the following
-points:<br/>clear
-
-<ul>
-<li>
-It allows computing a compressibility of the medium.
-This helps breaking algebraic loops, but the system gets stiff.
-The compressibility is defined by the constant <code>kappa_const</code>.
-If <code>kappa_const=0</code>, then the density is constant. Otherwise,
-the density is
-<p align=\"center\" style=\"font-style:italic;\">
-  &rho;(p) = &rho;(p0)  ( 1 + &kappa;<sub>const</sub>  (p-p<sub>0</sub>))
-</p>
-This equation is implemented in the base class
-<a href=\"modelica://Annex60.Media.Interfaces.PartialSimpleMedium\">
-Annex60.Media.Interfaces.PartialSimpleMedium</a>.
-</li>
-<li>
-It implements the function that computes the specific internal energy.
-</li>
-</ul>
+Modelica.Media.Water.ConstantPropertyLiquidWater</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-April 16, 2013, by Michael Wetter:<br/>
-Changed package to extend directly from
-<code>Annex60.Media.Interfaces.PartialSimpleMedium</code>
-to avoid an error in OpenModelica.
-</li>
-<li>
-August 20, 2012, by Michael Wetter:<br/>
-Fixed wrong hyperlink in the documentation.
-</li>
-<li>
-October 2, 2008, by Michael Wetter:<br/>
-Changed base class to 
-<a href=\"modelica://Annex60.Media.Interfaces.PartialSimpleMedium\">
-Annex60.Media.Interfaces.PartialSimpleMedium</a> to allow compressibility
-to break algebraic equation systems (at the expense of stiffness).
-</li>
-<li>
-September 4, 2008, by Michael Wetter:<br/>
-Added implementation for partial function <code>specificInternalEnergy</code>.
-</li>
-<li>
-March 19, 2008, by Michael Wetter:<br/>
-First implementation.
+November 15, 2013, by Michael Wetter:<br/>
+Complete new reimplementation because the previous version
+had the option to add a compressibility to the medium, which
+has never been used.
 </li>
 </ul>
 </html>"));

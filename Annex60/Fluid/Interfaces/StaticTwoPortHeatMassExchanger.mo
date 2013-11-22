@@ -129,6 +129,11 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+November 13, 2013 by Michael Wetter:<br/>
+Added parameter <code>homotopyInitialization</code> as
+it has been removed in the base class.
+</li>
+<li>
 October 8, 2013 by Michael Wetter:<br/>
 Removed propagation of <code>show_V_flow</code>
 to pressure drop calculation, as this model no longer has

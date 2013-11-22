@@ -82,6 +82,11 @@ this base class.
 </html>", revisions="<html>
 <ul>
 <li>
+October 8, 2013 by Michael Wetter:<br/>
+Removed propagation of <code>show_V_flow</code>
+to base class as it has no longer this parameter.
+</li>
+<li>
 December 14, 2012 by Michael Wetter:<br/>
 Renamed protected parameters for consistency with the naming conventions.
 </li>

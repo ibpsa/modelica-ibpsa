@@ -1,7 +1,7 @@
 within Annex60.Fluid.MixingVolumes.Examples;
 model MixingVolumeInitialization "Test model for mixing volume initialization"
   extends Modelica.Icons.Example;
- package Medium = Annex60.Media.IdealGases.SimpleAir;
+ package Medium = Annex60.Media.IdealGases.DryAir;
 
   Annex60.Fluid.Sources.Boundary_pT sou1(redeclare package Medium =
         Medium,

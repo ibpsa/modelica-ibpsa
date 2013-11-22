@@ -1,8 +1,7 @@
 within Annex60.Fluid.MixingVolumes.Examples;
 model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
   extends Modelica.Icons.Example;
- //   package Medium = Modelica.Media.Air.SimpleAir;
- package Medium = Annex60.Media.GasesConstantDensity.SimpleAir;
+ package Medium = Annex60.Media.GasesConstantDensity.DryAir;
   Modelica.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,

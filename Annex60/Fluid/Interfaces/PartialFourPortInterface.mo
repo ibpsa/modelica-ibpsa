@@ -1,16 +1,7 @@
 within Annex60.Fluid.Interfaces;
 partial model PartialFourPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
-  import Modelica.Constants;
-  extends Annex60.Fluid.Interfaces.FourPort(
-    port_a1(
-      m_flow(min = if allowFlowReversal1 then -Constants.inf else 0)),
-    port_b1(
-      m_flow(max = if allowFlowReversal1 then +Constants.inf else 0)),
-    port_a2(
-      m_flow(min = if allowFlowReversal2 then -Constants.inf else 0)),
-    port_b2(
-      m_flow(max = if allowFlowReversal2 then +Constants.inf else 0)));
+  extends Annex60.Fluid.Interfaces.FourPort;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -91,6 +82,16 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2013 by Michael Wetter:<br/>
+Removed assignment of <code>min</code> and <code>max</code>
+attributes of port mass flow rates, as this is already 
+done in the base class.
+</li>
+<li>
+November 12, 2013 by Michael Wetter:<br/>
+Removed <code>import Modelica.Constants;</code> statement.
+</li>
 <li>
 November 11, 2013 by Michael Wetter:<br/>
 Removed the parameter <code>homotopyInitialization</code>

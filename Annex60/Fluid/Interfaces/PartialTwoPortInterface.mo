@@ -1,7 +1,6 @@
 within Annex60.Fluid.Interfaces;
 partial model PartialTwoPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
-  import Modelica.Constants;
   extends Modelica.Fluid.Interfaces.PartialTwoPort(
     port_a(p(start=Medium.p_default,
              nominal=Medium.p_default)),
@@ -65,6 +64,10 @@ Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 12, 2013 by Michael Wetter:<br/>
+Removed <code>import Modelica.Constants;</code> statement.
+</li>
 <li>
 November 11, 2013 by Michael Wetter:<br/>
 Removed the parameter <code>homotopyInitialization</code>

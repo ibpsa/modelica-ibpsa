@@ -1,6 +1,6 @@
 within Annex60.Utilities.Psychrometrics.Functions.BaseClasses;
 function der_pW_TDewPoi "Derivative of function pW_TDewPoi"
-
+  extends Modelica.Icons.Function;
   input Modelica.SIunits.Temperature T "Dew point temperature";
   input Real dT "Temperature differential";
   output Real dp_w "Differential of water vapor partial pressure";

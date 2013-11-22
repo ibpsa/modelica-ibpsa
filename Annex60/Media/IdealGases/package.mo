@@ -1,11 +1,37 @@
 within Annex60.Media;
-package IdealGases "Package with models for ideal gases"
+package IdealGases "Package with models for perfect gases"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 
-annotation (Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains medium models for ideal gases.
+This package contains models of ideal gases that are <i>thermally perfect</i>.
+</p>
+<p>
+A medium is called thermally perfect if
+<ul>
+<li>
+it is in thermodynamic equilibrium,
+</li><li>
+it is chemically not reacting, and
+</li><li>
+internal energy and enthalpy are functions of temperature only.
+</li>
+</ul>
+<p>
+In addition, the gases in this package are <i>calorically perfect</i>, i.e., the
+specific heat capacities at constant pressure <i>c<sub>p</sub></i>
+and constant volume <i>c<sub>v</sub></i> are both constant (Bower 1998).
+</p>
+<p>
+For dry and moist air media that also have a constant density, see
+<a href=\"modelica://Annex60.Media.GasesConstantDensity\">
+Annex60.Media.GasesConstantDensity</a>.
+</p>
+<h4>References</h4>
+<p>
+Bower, William B. <i>A primer in fluid mechanics: Dynamics of flows in one
+space dimension</i>. CRC Press. 1998.
 </p>
 </html>"));
 end IdealGases;

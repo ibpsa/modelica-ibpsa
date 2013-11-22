@@ -2,7 +2,6 @@ within ;
 package Annex60 "Library with models for building energy and control systems"
   extends Modelica.Icons.Package;
 
-
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   class Conventions "Conventions"
@@ -528,13 +527,26 @@ uses(Modelica(version="3.2.1")),
 preferredView="info",
 Documentation(info="<html>
 <p>
+<img 
+align=\"right\"
+alt=\"Logo of IEA EBC\"
+width=\"100\"
+src=\"modelica://Annex60/Resources/Images/iea-ebc-logo.png\" border=\"1\"/>
 The <code>Annex60</code> library is a free library
 that provides basic classes for the development of
 Modelica libraries for building and community energy and control systems. 
-Many models are based on models from the package
-<code>Modelica.Fluid</code> and use
-the same ports to ensure compatibility with the Modelica Standard
-Library.
+The library is compatible with models from the Modelica Standard Library,
+in particular with models from
+<a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a>
+and
+<a href=\"modelica://Modelica.Media\">Modelica.Media</a>.
+</p>
+<p>
+The library is developed through the international collaborative project
+<i>New Generation Computational Tools for Building and Community Energy Systems</i>
+that is carried out within the implementation agreement 
+<i>Energy in Buildings and Communities (EBC)</i>
+from the <i>International Energy Agency</i>.
 </p>
 <p>
 The web page for this library is
@@ -545,5 +557,8 @@ through model use, model testing,
 requirements definition or providing feedback regarding the model applicability
 to solve specific problems.
 </p>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={Bitmap(extent={{-90,90},{90,-90}},
+        fileName="modelica://Annex60/Resources/Images/iea-ebc-logo.png")}));
 end Annex60;

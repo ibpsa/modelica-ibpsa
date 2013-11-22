@@ -2,7 +2,7 @@ within Annex60.Fluid.Interfaces.Examples;
 model ReverseFlowMassExchanger
   "Model that tests the reverse flow for a mass exchanger"
   extends Modelica.Icons.Example;
-package Medium = Annex60.Media.PerfectGases.MoistAir;
+package Medium = Annex60.Media.IdealGases.MoistAir;
   Annex60.Utilities.Diagnostics.AssertEquality assTem(threShold=1E-8,
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"

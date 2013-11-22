@@ -1,0 +1,4 @@
+simulateModel("Annex60.Media.GasesPTDecoupled.Examples.TestDryAir", method="dassl", resultFile="GasesPTDecoupledTestDryAir");
+createPlot(id = 1,
+ y = {"volume.medium.T"},
+ grid = true);
