@@ -10,7 +10,11 @@ package UsersGuide "User's Guide"
 <p>
 The package <code>Annex60.Fluid</code> consists of models
 for pressure driven mass flow rate and for heat and moisture
-exchange in fluid flow networks.
+exchange in fluid flow networks, structured as follows:
+</p>
+
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/Uml/a60.png\"/>
 </p>
 
 <p>
