@@ -1,4 +1,4 @@
-within Annex60.Experimental;
+within Annex60.Experimental.Media;
 package AirPTDecoupled
   "Package with moist air model that decouples pressure and temperature"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
