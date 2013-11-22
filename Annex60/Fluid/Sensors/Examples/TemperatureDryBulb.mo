@@ -2,7 +2,7 @@ within Annex60.Fluid.Sensors.Examples;
 model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.IdealGases.MoistAirUnsaturated
+ package Medium = Annex60.Media.Air
     "Medium model";
   Annex60.Fluid.Sources.Boundary_pT amb(
     redeclare package Medium = Medium,

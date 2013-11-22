@@ -41,11 +41,9 @@ block WetBul_pTX
   annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
 
 protected
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-     Annex60.Media.IdealGases.Common.SingleGasData.Air.cp
+  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
     "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=
-     Annex60.Media.IdealGases.Common.SingleGasData.H2O.cp
+  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
     "Specific heat capacity of water vapor";
   constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
     "Specific heat capacity of water vapor";

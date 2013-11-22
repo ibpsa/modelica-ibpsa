@@ -2,7 +2,7 @@ within Annex60.Utilities.Psychrometrics.Examples;
 model TWetBul_TDryBulXi
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.IdealGases.MoistAir "Medium model"
+ package Medium = Annex60.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
 
     Modelica.Blocks.Sources.Ramp TDryBul(

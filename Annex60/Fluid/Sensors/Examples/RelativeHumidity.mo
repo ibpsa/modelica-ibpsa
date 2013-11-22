@@ -2,7 +2,7 @@ within Annex60.Fluid.Sensors.Examples;
 model RelativeHumidity "Test model for relative humidity sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.IdealGases.MoistAir "Medium model"
+  package Medium = Annex60.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
 
   Annex60.Fluid.Sources.Boundary_pT sin(

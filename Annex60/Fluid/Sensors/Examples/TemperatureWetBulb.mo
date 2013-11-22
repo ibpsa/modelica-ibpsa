@@ -1,7 +1,7 @@
 within Annex60.Fluid.Sensors.Examples;
 model TemperatureWetBulb "Test model for the wet bulb temperature sensor"
   extends Modelica.Icons.Example;
- package Medium = Annex60.Media.IdealGases.MoistAir "Medium model"
+ package Medium = Annex60.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
     Modelica.Blocks.Sources.Ramp p(
     duration=1,

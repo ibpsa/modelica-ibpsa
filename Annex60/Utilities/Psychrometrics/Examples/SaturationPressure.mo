@@ -2,7 +2,7 @@ within Annex60.Utilities.Psychrometrics.Examples;
 model SaturationPressure "Model to test the wet bulb temperature computation"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.IdealGases.MoistAirUnsaturated "Medium model"
+ package Medium = Annex60.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
 
   Annex60.Utilities.Psychrometrics.SaturationPressure pSat

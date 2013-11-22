@@ -1,7 +1,7 @@
 within Annex60.Fluid.Sensors.Examples;
 model TraceSubstances "Test model for the extra property sensor"
   extends Modelica.Icons.Example;
- package Medium = Annex60.Media.GasesPTDecoupled.DryAir(extraPropertiesNames={"CO2"})
+ package Medium = Annex60.Experimental.AirPTDecoupled(extraPropertiesNames={"CO2"})
     "Medium model";
 
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 15*1.2/3600

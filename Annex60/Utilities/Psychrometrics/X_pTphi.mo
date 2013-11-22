@@ -3,7 +3,7 @@ block X_pTphi
   "Return steam mass fraction as a function of relative humidity phi and temperature T"
   extends
     Annex60.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
-  package Medium = Annex60.Media.IdealGases.MoistAirUnsaturated
+  package Medium = Annex60.Media.Air
     "Medium model";
 
 public
@@ -37,7 +37,7 @@ initial algorithm
   i_nw := if i_w == 1 then 2 else 1;
   assert(found, "Did not find medium species 'water' in the medium model. Change medium model.");
 algorithm
-  psat := Annex60.Media.IdealGases.MoistAirUnsaturated.saturationPressure(T);
+  psat := Annex60.Media.Air.saturationPressure(T);
   X[i_w] := Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(
      pSat=psat, p=p_in_internal, phi=phi);
   //sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system
@@ -56,7 +56,7 @@ and the value provided by the input connector is used instead.
 </html>", revisions="<html>
 <ul>
 <li>April 26, 2013 by Michael Wetter:<br/>
-Set the medium model to <code>Annex60.Media.IdealGases.MoistAirUnsaturated</code>.
+Set the medium model to <code>Annex60.Media.Air</code>.
 This was required to allow a pedantic model check in Dymola 2014.
 </li>
 <li>August 21, 2012 by Michael Wetter:<br/>

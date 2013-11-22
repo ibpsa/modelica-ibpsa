@@ -8,7 +8,9 @@ package Air
      final singleState=false,
      reference_X={0.01,0.99},
      final fluidConstants = {Modelica.Media.IdealGases.Common.FluidData.H2O,
-                             Modelica.Media.IdealGases.Common.FluidData.N2});
+                             Modelica.Media.IdealGases.Common.FluidData.N2},
+     reference_T=273.15,
+     reference_p=101325);
 
   final constant Integer Water=1
     "Index of water (in substanceNames, massFractions X, etc.)";
@@ -81,7 +83,7 @@ required from medium model \""     + mediumName + "\".");
     X_air    = 1-Xi[Water];
 
     //    h = specificEnthalpy_pTX(p,T,Xi);
-    dT = T - 273.15;
+    dT = T - reference_T;
     h = dT*dryair.cp * (1 - Xi[Water]) +
        (dT * steam.cp + 2501014.5) * Xi[Water];
     R = dryair.R*(1 - X_steam) + steam.R*X_steam;
@@ -121,7 +123,7 @@ redeclare function enthalpyOfCondensingGas
   input Temperature T "temperature";
   output SpecificEnthalpy h "steam enthalpy";
 algorithm
-  h := (T-273.15) * steam.cp + enthalpyOfVaporization(T);
+  h := (T-reference_T) * steam.cp + enthalpyOfVaporization(T);
   annotation(smoothOrder=5, derivative=der_enthalpyOfCondensingGas);
 end enthalpyOfCondensingGas;
 
@@ -135,7 +137,7 @@ end enthalpyOfGas;
 redeclare replaceable function extends enthalpyOfLiquid
     "Enthalpy of liquid (per unit mass of liquid) which is linear in the temperature"
 algorithm
-  h := (T - 273.15)*4186;
+  h := (T - reference_T)*4186;
   annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid);
 end enthalpyOfLiquid;
 
@@ -260,11 +262,31 @@ thermodynamic state record</a> is computed from pressure p, temperature T and co
 </html>"));
 end setState_pTX;
 
+redeclare function extends setState_psX
+algorithm
+    state := if size(X, 1) == nX then
+               ThermodynamicState(p=p,
+                                  T=Modelica.Media.Air.MoistAir.T_psX(
+                                     p, s, X),
+                                  X=X)
+             else
+               ThermodynamicState(p=p,
+                                  T=Modelica.Media.Air.MoistAir.T_psX(
+                                     p, s, X),
+                                  X=cat(1, X, {1 - sum(X)}));
+    annotation (smoothOrder=2, Documentation(info="<html>
+The <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
+</html>",
+        revisions="<html>
+<p>2012-01-12        Stefan Wischhusen: Initial Release.</p>
+</html>"));
+end setState_psX;
+
 redeclare replaceable function extends specificEnthalpy
     "Compute specific enthalpy from pressure, temperature and mass fraction"
 algorithm
-  h := (state.T - 273.15)*dryair.cp * (1 - state.X[Water]) +
-       ((state.T-273.15) * steam.cp + 2501014.5) * state.X[Water];
+  h := (state.T - reference_T)*dryair.cp * (1 - state.X[Water]) +
+       ((state.T-reference_T) * steam.cp + 2501014.5) * state.X[Water];
   annotation(Inline=false,smoothOrder=5);
 end specificEnthalpy;
 
@@ -316,7 +338,7 @@ redeclare replaceable function temperature_phX
   input MassFraction[:] X "mass fractions of composition";
   output Temperature T "temperature";
 algorithm
-  T := 273.15 + (h - 2501014.5 * X[Water])
+  T := reference_T + (h - 2501014.5 * X[Water])
        /((1 - X[Water])*dryair.cp + X[Water] * steam.cp);
   annotation(smoothOrder=5,
              inverse(h=specificEnthalpy_pTX(p, T, X)),
@@ -344,19 +366,19 @@ end thermalConductivity;
 // implementation of these classes.
 
 protected
-record GasProperties 
-  "Coefficient data record for properties of perfect gases"
-  extends Modelica.Icons.Record;
+  record GasProperties
+    "Coefficient data record for properties of perfect gases"
+    extends Modelica.Icons.Record;
 
-  Modelica.SIunits.MolarMass MM "Molar mass";
-  Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
-  Modelica.SIunits.SpecificHeatCapacity cp 
-    "Specific heat capacity at constant pressure";
-  Modelica.SIunits.SpecificHeatCapacity cv 
-    "Specific heat capacity at constant volume";
-  annotation (
-defaultComponentName="gas",
-Documentation(preferredView="info", info="<html>
+    Modelica.SIunits.MolarMass MM "Molar mass";
+    Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
+    Modelica.SIunits.SpecificHeatCapacity cp
+      "Specific heat capacity at constant pressure";
+    Modelica.SIunits.SpecificHeatCapacity cv = cp-R
+      "Specific heat capacity at constant volume";
+    annotation (
+      defaultComponentName="gas",
+      Documentation(preferredView="info", info="<html>
 <p>
 This data record contains the coefficients for perfect gases.
 </p>
@@ -369,20 +391,17 @@ First implementation.
 </li>
 </ul>
 </html>");
-end GasProperties;
+  end GasProperties;
 
   constant GasProperties dryair(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
-    cp =   1006,
-    cv =   1006 - Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
-    "Dry air properties";
+    cp =   1006) "Dry air properties";
   constant GasProperties steam(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
-    cp =   1860,
-    cv =   1860 - Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
-    "Steam properties";
+    cp =   1860) "Steam properties";
+
   constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
 
 replaceable function der_enthalpyOfLiquid
@@ -412,7 +431,7 @@ replaceable function enthalpyOfDryAir
   input Temperature T "Temperature";
   output SpecificEnthalpy h "Dry air enthalpy";
 algorithm
-  h := (T - 273.15)*dryair.cp;
+  h := (T - reference_T)*dryair.cp;
   annotation(smoothOrder=5, derivative=der_enthalpyOfDryAir);
 end enthalpyOfDryAir;
 

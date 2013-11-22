@@ -2,7 +2,7 @@ within Annex60.Fluid.MassExchangers.Examples;
 model HumidifierPrescribed "Model that demonstrates the ideal humidifier model"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.IdealGases.MoistAirUnsaturated;
+  package Medium = Annex60.Media.Air;
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
