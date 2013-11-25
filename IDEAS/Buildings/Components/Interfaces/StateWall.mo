@@ -19,7 +19,7 @@ partial model StateWall "Partial model for building envelope components"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={56,60})));
-  outer IDEAS.SimInfoManager sim
+  inner outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
   annotation (

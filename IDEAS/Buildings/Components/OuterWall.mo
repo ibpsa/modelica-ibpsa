@@ -3,18 +3,19 @@ model OuterWall "Opaque building envelope construction"
 
   extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-  replaceable parameter Data.Interfaces.Construction constructionType(
-      insulationType=insulationType, insulationTickness=insulationThickness)
-                                    constrainedby Data.Interfaces.Construction
-    "Type of building construction"                                            annotation (
+  replaceable parameter Data.Constructions.CavityWall constructionType
+                                    constrainedby Data.Interfaces.Construction(
+      final insulationType = insulationType, final insulationTickness = insulationThickness)
+    "Type of building construction" annotation (__Dymola_choicesAllMatching = true,
     Placement(transformation(extent={{-38,72},{-34,76}})),
     Dialog(group="Construction details"));
-  replaceable parameter Data.Interfaces.Insulation insulationType(d=
-        insulationThickness) constrainedby Data.Interfaces.Insulation
-    "Type of thermal insulation"                                                                   annotation (
+
+  replaceable parameter Data.Insulation.Rockwool insulationType constrainedby
+    Data.Interfaces.Insulation(final d= insulationThickness)
+    "Type of thermal insulation" annotation (__Dymola_choicesAllMatching = true,
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
-  parameter Modelica.SIunits.Length insulationThickness
+  parameter Modelica.SIunits.Length insulationThickness = 0.05
     "Thermal insulation thickness"
     annotation (Dialog(group="Construction details"));
   parameter Modelica.SIunits.Area AWall "Total wall area";
@@ -34,30 +35,30 @@ model OuterWall "Opaque building envelope construction"
 
   //protected
   IDEAS.Climate.Meteo.Solar.RadSol radSol(
-    inc=inc,
-    azi=azi,
-    A=AWall)
+    final inc=inc,
+    final azi=azi,
+    final A=AWall)
     "determination of incident solar radiation on wall based on inclination and azimuth"
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
-    A=AWall,
-    inc=inc,
-    nLay=constructionType.nLay,
-    mats=constructionType.mats,
-    locGain=constructionType.locGain)
+    final A=AWall,
+    final inc=inc,
+    final nLay = constructionType.nLay,
+    final mats = constructionType.mats,
+    final locGain = constructionType.locGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(A=AWall)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(final A=AWall)
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(A=AWall, inc=
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(final A=AWall, final inc=
        inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs(A=AWall)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs(final A=AWall)
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation extRad(A=AWall,
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation extRad(final A=AWall,
       inc=inc)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));

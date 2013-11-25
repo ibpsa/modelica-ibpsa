@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses.VentilationSystem;
 model None "None"
   extends IDEAS.Interfaces.BaseClasses.VentilationSystem(
-                                             nLoads=1);
+                                             final nLoads=1);
 
 equation
 wattsLawPlug.P[1] = 0;

@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model None "None"
-  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(radiators=true, floorHeating=true,
                                          final nLoads = 1, QNom = zeros(nZones));
 
 equation

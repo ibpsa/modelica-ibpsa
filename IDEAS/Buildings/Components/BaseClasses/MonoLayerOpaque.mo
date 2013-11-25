@@ -8,8 +8,9 @@ model MonoLayerOpaque "single material layer"
   parameter Modelica.SIunits.Temperature TStart = 289.15
     "Start temperature for each of the states";
 
-  final parameter Integer nSta=mat.nSta;
-  final parameter Real R=mat.R "Total specific thermal resistance";
+  final parameter Integer nSta = mat.nSta;
+  final parameter Integer nFlo = mat.nSta + 1;
+  final parameter Real R = mat.R "Total specific thermal resistance";
   final parameter Modelica.SIunits.ThermalConductance G=(A*mat.k*nSta)/mat.d;
   final parameter Modelica.SIunits.HeatCapacity C=(A*mat.rho*mat.c*mat.d)/nSta;
 
@@ -18,15 +19,15 @@ public
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=TStart))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.SIunits.Temperature T[nSta](start=ones(nSta)*TStart)
+  Modelica.SIunits.Temperature[nSta] T(start=ones(nSta)*TStart)
     "Temperature at the states";
-  Modelica.SIunits.HeatFlowRate Q_flow[nSta + 1]
+  Modelica.SIunits.HeatFlowRate[nFlo] Q_flow
     "Heat flow rate from state i to i+1";
 
 equation
   // connectors
   port_a.Q_flow = +Q_flow[1];
-  port_b.Q_flow = -Q_flow[nSta + 1];
+  port_b.Q_flow = -Q_flow[nFlo];
 
   // edge resistances
   port_a.T - T[1] = Q_flow[1]/(G*2);

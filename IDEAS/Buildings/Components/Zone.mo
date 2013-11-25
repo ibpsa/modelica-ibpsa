@@ -19,24 +19,24 @@ model Zone "thermal building zone"
   Modelica.SIunits.Temperature TStar = radDistr.TRad;
 
 protected
-  IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(nSurf=
+  IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(final nSurf=
         nSurf) "distribution of radiative internal gains" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-54,-44})));
   IDEAS.Buildings.Components.BaseClasses.MixedAir conDistr(
-    nSurf=nSurf,
-    V=V,
-    corrCV=corrCV) "convective part of the zone"
+    final nSurf=nSurf,
+    final V=V,
+    final corrCV=corrCV) "convective part of the zone"
     annotation (Placement(transformation(extent={{-2,10},{-22,30}})));
-  IDEAS.Buildings.Components.BaseClasses.AirLeakage vent(n50=n50, V=V)
+  IDEAS.Buildings.Components.BaseClasses.AirLeakage vent(final n50=n50,final V=V)
     "zone air leakage" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,42})));
-  IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(nSurf=
-        nSurf, linear=linear) "internal longwave radiative heat exchange"
+  IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final nSurf=
+        nSurf, final linear=linear) "internal longwave radiative heat exchange"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,

@@ -4,9 +4,7 @@ model BESTEST_singleCase
 extends Modelica.Icons.RotationalSensor;
 
 /*
-
 Simulation of a single BESTEST case of your choice.
-
 */
 
     inner IDEAS.SimInfoManager sim(

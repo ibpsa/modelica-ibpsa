@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses.Occupant;
 model Gain "BESTEST fixed internal gains by occupants"
   extends IDEAS.Interfaces.BaseClasses.Occupant(
-                                    nLoads=1);
+                                    final nLoads=1);
 
   parameter Modelica.SIunits.HeatFlowRate Q = 200 "Baseload internal gain";
 

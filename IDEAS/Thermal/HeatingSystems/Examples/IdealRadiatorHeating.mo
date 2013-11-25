@@ -32,7 +32,7 @@ final parameter Integer nZones = 1 "Number of zones";
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={90,-64})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
+  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground(pin(final reference))
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
                              dummyInHomeGrid

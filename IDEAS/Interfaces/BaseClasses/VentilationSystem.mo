@@ -1,7 +1,7 @@
 within IDEAS.Interfaces.BaseClasses;
 partial model VentilationSystem
 
-  outer IDEAS.SimInfoManager sim
+  inner outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 // Building characteristics  //////////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@ partial model VentilationSystem
     "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plugLoad(each m=1)
     "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,nLoads=nLoads)
+  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,final nLoads=nLoads)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 equation
   connect(wattsLawPlug.vi, plugLoad) annotation (Line(

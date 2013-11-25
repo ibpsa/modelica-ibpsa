@@ -4,7 +4,7 @@ model MultiLayerOpaque "multiple material layers in series"
   parameter Modelica.SIunits.Area A "total multilayer area";
   parameter Modelica.SIunits.Angle inc "inclination";
   parameter Integer nLay(min=1) "number of layers";
-  parameter IDEAS.Buildings.Data.Interfaces.Material mats[nLay]
+  parameter IDEAS.Buildings.Data.Interfaces.Material[nLay]  mats
     "array of layer materials";
   parameter Integer locGain(min=1) "location of the internal gain";
 
@@ -15,7 +15,7 @@ model MultiLayerOpaque "multiple material layers in series"
     each final A=A,
     each final inc=inc,
     final TStart = TStart,
-    mat=mats) "layers";
+    final mat=mats) "layers";
 
   final parameter Real R=sum(nMat.R) "total specific thermal resistance";
 

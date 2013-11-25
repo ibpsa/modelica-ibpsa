@@ -1,10 +1,10 @@
 within IDEAS.Buildings.Validation.Data.Glazing;
 record GlaBesTest = IDEAS.Buildings.Data.Interfaces.Glazing (
-  nLay=3,
-  mats={IDEAS.Buildings.Data.Materials.Glass(d=0.003175),
+  final nLay=3,
+  final mats={IDEAS.Buildings.Data.Materials.Glass(d=0.003175),
         IDEAS.Buildings.Data.Materials.Glass(d=0.013),
         IDEAS.Buildings.Data.Materials.Glass(d=0.003175)},
-  SwTrans=[0, 0.747454;
+  final SwTrans=[0, 0.747454;
           10, 0.746824;
           20, 0.744654;
           30, 0.739491;
@@ -16,7 +16,7 @@ record GlaBesTest = IDEAS.Buildings.Data.Interfaces.Glazing (
           80, 0.263009;
           88.9, 0.00;
           90, 0.00],
-   SwAbs=[0,0.0643,0.0,0.0522;
+   final SwAbs=[0,0.0643,0.0,0.0522;
          20,0.0659,0.0,0.0534;
          30, 0.0679,0.0,0.0548;
          40, 0.0708,0.0,0.0566;
@@ -42,7 +42,7 @@ record GlaBesTest = IDEAS.Buildings.Data.Interfaces.Glazing (
          89.5, 0.304,0.0,0.0004;
          89.99, 0.001,0.0,0.0;
          90,0.00,0.0,0.0],
-     U_value=3.0,
-     g_value=0.87,
-     SwAbsDif={0.0796,0.0,0.0585},
-     SwTransDif=0.652331) "Bestest glazing data";
+     final U_value=3.0,
+     final g_value=0.87,
+     final SwAbsDif={0.0796,0.0,0.0585},
+     final SwTransDif=0.652331) "Bestest glazing data";

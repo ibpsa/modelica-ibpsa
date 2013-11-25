@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model Deadband "BESTEST deadband heating system"
-  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(radiators=true, floorHeating=true,
                                          final nLoads=1, QNom = zeros(nZones));
 
   parameter Modelica.SIunits.Temperature Theat = 293.15
