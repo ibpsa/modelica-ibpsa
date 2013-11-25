@@ -51,7 +51,7 @@ partial model HeatingSystem "Partial heating system"
             {10,10}},
         rotation=90,
         origin={0,-104})));
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,nLoads=nLoads)
+  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,final nLoads=nLoads)
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Modelica.Blocks.Interfaces.RealInput mDHW60C
     "mFlow for domestic hot water, at 60 degC"  annotation (Placement(transformation(extent={{-10,-10},

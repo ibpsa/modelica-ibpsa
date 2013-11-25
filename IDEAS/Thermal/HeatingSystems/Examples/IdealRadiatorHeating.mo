@@ -4,9 +4,10 @@ model IdealRadiatorHeating "Example and test for ideal heating with radiators"
 
 extends Modelica.Icons.Example;
 
-parameter Integer nZones = 1 "Number of zones";
+final parameter Integer nZones = 1 "Number of zones";
+
   IDEAS.Thermal.HeatingSystems.IdealRadiatorHeating heating(
-    nZones=nZones,
+    final nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
     t=1)
