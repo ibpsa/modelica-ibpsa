@@ -1,15 +1,15 @@
 within Annex60.Media;
 package Air
-  "Moist air model with constant specific heat capacities and ideal gas law"
+  "Moist air model with constant specific heat capacities and Charle's law for density vs. temperature"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
-     mediumName="Moist air unsaturated ideal gas",
+     mediumName="Moist air unsaturated gas",
      final substanceNames={"water", "air"},
      final reducedX=true,
-     final singleState=false,
+     final singleState=true,
      reference_X={0.01,0.99},
      final fluidConstants = {Modelica.Media.IdealGases.Common.FluidData.H2O,
                              Modelica.Media.IdealGases.Common.FluidData.N2},
-     reference_T=273.15,
+     final reference_T=273.15,
      reference_p=101325);
 
   final constant Integer Water=1
@@ -26,11 +26,11 @@ package Air
 
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    p(stateSelect=StateSelect.never),
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
+    //p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
 
-    MassFraction x_water "Mass of total water/mass of dry air";
     Real phi "Relative humidity";
 
   protected
@@ -67,8 +67,7 @@ First implementation.
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-    Modelica.SIunits.TemperatureDifference dT
-      "Temperature difference used to compute enthalpy";
+
   equation
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
@@ -83,29 +82,24 @@ required from medium model \""     + mediumName + "\".");
     X_air    = 1-Xi[Water];
 
     //    h = specificEnthalpy_pTX(p,T,Xi);
-    dT = T - reference_T;
-    h = dT*dryair.cp * (1 - Xi[Water]) +
-       (dT * steam.cp + 2501014.5) * Xi[Water];
+    h = T_degC*dryair.cp * (1 - Xi[Water]) +
+       (T_degC * steam.cp + h_fg) * Xi[Water];
     R = dryair.R*(1 - X_steam) + steam.R*X_steam;
     //
     u = h - R*T;
-    d = p/(R*T); // fixme: The state equation needs to be changed to make the d=d(T) only.
-    /* Note, u and d are computed under the assumption that the volume of the liquid
-         water is neglible with respect to the volume of air and of steam
-      */
+    d = reference_p/(R*T);
+
     state.p = p;
     state.T = T;
     state.X = X;
 
-    // this x_steam is water load / dry air!!!!!!!!!!!
-    x_water = Xi[Water]/max(X_air,100*Modelica.Constants.eps);
     phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
 redeclare function extends density "Gas density"
 
 algorithm
-  d := state.p/(gasConstant(state)*state.T);
+  d := reference_p/(gasConstant(state)*state.T);
   annotation (smoothOrder=2, Documentation(info="<html>
 Density is computed from pressure, temperature and composition in the thermodynamic state record applying the ideal gas law.
 </html>"));
@@ -123,7 +117,7 @@ redeclare function enthalpyOfCondensingGas
   input Temperature T "temperature";
   output SpecificEnthalpy h "steam enthalpy";
 algorithm
-  h := (T-reference_T) * steam.cp + enthalpyOfVaporization(T);
+  h := (T + Modelica.Constants.T_zero) * steam.cp + enthalpyOfVaporization(T);
   annotation(smoothOrder=5, derivative=der_enthalpyOfCondensingGas);
 end enthalpyOfCondensingGas;
 
@@ -137,7 +131,7 @@ end enthalpyOfGas;
 redeclare replaceable function extends enthalpyOfLiquid
     "Enthalpy of liquid (per unit mass of liquid) which is linear in the temperature"
 algorithm
-  h := (T - reference_T)*4186;
+  h := (T + Modelica.Constants.T_zero)*cpWatLiq;
   annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid);
 end enthalpyOfLiquid;
 
@@ -155,7 +149,7 @@ end enthalpyOfNonCondensingGas;
 redeclare function extends enthalpyOfVaporization
     "Enthalpy of vaporization of water"
 algorithm
-  r0 := 2501014.5;
+  r0 := h_fg;
 end enthalpyOfVaporization;
 
 redeclare function extends gasConstant
@@ -164,7 +158,9 @@ redeclare function extends gasConstant
 algorithm
     R := dryair.R*(1 - state.X[Water]) + steam.R*state.X[Water];
   annotation (smoothOrder=2, Documentation(info="<html>
-The ideal gas constant for moist air is computed from <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state</a> assuming that all water is in the gas phase.
+  The ideal gas constant for moist air is computed from 
+  <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">
+  thermodynamic state</a> assuming that all water is in the gas phase.
 </html>"));
 end gasConstant;
 
@@ -172,7 +168,7 @@ redeclare function extends pressure
     "Returns pressure of ideal gas as a function of the thermodynamic state record"
 
 algorithm
-  p := state.p;
+  p := reference_p;
   annotation (smoothOrder=2, Documentation(info="<html>
 Pressure is returned from the thermodynamic state record input as a simple assignment.
 </html>"));
@@ -189,16 +185,70 @@ end saturationPressure;
 redeclare function extends specificEntropy
     "Return specific entropy from thermodynamic state record, only valid for phi<1"
 
+  protected
+    Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
 algorithm
-  s := Modelica.Media.Air.MoistAir.s_pTX(
-        state.p,
-        state.T,
-        state.X);
+    Y := Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions(
+         state.X, {steam.MM,dryair.MM});
+    s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/273.15)
+         - Modelica.Constants.R *
+         sum(state.X[i]/MMX[i]*
+             Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2);
   annotation (
     Inline=false,
-    smoothOrder=2,
     Documentation(info="<html>
-Specific entropy is calculated from the thermodynamic state record, assuming ideal gas behavior and including entropy of mixing. Liquid or solid water is not taken into account, the entire water content X[1] is assumed to be in the vapor state (relative humidity below 1.0).
+<p>
+The specific entropy of the mixture is obtained from
+<p align=\"center\" style=\"font-style:italic;\">
+s = s<sub>s</sub> + s<sub>m</sub>,
+</p>
+<p>
+where
+<i>s_s</i> is the entropy change due to the state change 
+(relative to the reference temperature) and
+<i>s<sub>m</sub></i> is the entropy change due to mixing
+of the dry air and water vapor.
+</p>
+<p>
+The entropy change due to change in state is obtained from
+<p align=\"center\" style=\"font-style:italic;\">
+s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(v/v<sub>0</sub>) <br/>
+     c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(&rho;<sub>0</sub>/&rho;)
+</p>
+<p>Because <i>&rho; = p<sub>0</sub>/(R T)</i> for this medium model, 
+and because <i>c<sub>p</sub> = c<sub>v</sub> + R</i>,
+we can write
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(T/T<sub>0</sub>) <br/>
+c<sub>p</sub> ln(T/T<sub>0</sub>).
+</p>
+<p>
+Next, the entropy of mixing is obtained from a reversible isothermal
+expansion process. Hence,
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  s<sub>m</sub> = -R &sum;<sub>i</sub>( X<sub>i</sub> &frasl; M<sub>i</sub> 
+  ln(Y<sub>i</sub>)),
+</p>
+<p>
+where <i>R</i> is the gas constant,
+<i>X</i> is the mass fraction,
+<i>M</i> is the molar mass, and
+<i>Y</i> is the mole fraction.
+</p>
+<p>
+To obtain the state for a given pressure, entropy and mass fraction, use
+<a href=\"modelica://Annex60.Media.Air.setState_psX\">
+Annex60.Media.Air.setState_psX</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 27, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end specificEntropy;
 
@@ -226,9 +276,9 @@ redeclare function setState_dTX
 
 algorithm
     state := if size(X, 1) == nX then
-               ThermodynamicState(p=d*({steam.R,dryair.R}*X)*T, T=T, X=X)
+               ThermodynamicState(p=reference_p, T=T, X=X)
              else
-               ThermodynamicState(p=d*({steam.R,dryair.R}*cat(1, X, {1 - sum(X)}))*T,
+               ThermodynamicState(p=reference_p,
                                   T=T,
                                   X=cat(1, X, {1 - sum(X)}));
     annotation (smoothOrder=2, Documentation(info="<html>
@@ -240,9 +290,9 @@ redeclare function extends setState_phX
     "Return thermodynamic state as function of pressure p, specific enthalpy h and composition X"
 algorithm
   state := if size(X, 1) == nX then
-    ThermodynamicState(p=p, T=temperature_phX(p, h, X), X=X)
+    ThermodynamicState(p=reference_p, T=temperature_phX(reference_p, h, X), X=X)
  else
-    ThermodynamicState(p=p, T=temperature_phX(p, h, X), X=cat(1, X, {1 - sum(X)}));
+    ThermodynamicState(p=reference_p, T=temperature_phX(reference_p, h, X), X=cat(1, X, {1 - sum(X)}));
   annotation (smoothOrder=2, Documentation(info="<html>
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">
 thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
@@ -253,9 +303,9 @@ redeclare function extends setState_pTX
     "Return thermodynamic state as function of p, T and composition X or Xi"
 algorithm
     state := if size(X, 1) == nX then
-                ThermodynamicState(p=p, T=T, X=X)
+                ThermodynamicState(p=reference_p, T=T, X=X)
              else
-                ThermodynamicState(p=p, T=T, X=cat(1, X, {1 - sum(X)}));
+                ThermodynamicState(p=reference_p, T=T, X=cat(1, X, {1 - sum(X)}));
     annotation (smoothOrder=2, Documentation(info="<html>
 The <a href=\"modelica://Modelica.Media.Interfaces.PartialMixtureMedium.ThermodynamicState\">
 thermodynamic state record</a> is computed from pressure p, temperature T and composition X.
@@ -263,30 +313,65 @@ thermodynamic state record</a> is computed from pressure p, temperature T and co
 end setState_pTX;
 
 redeclare function extends setState_psX
+
+  protected
+    Modelica.SIunits.MassFraction[2] X_int "Mass fraction";
+    Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
+    Modelica.SIunits.Temperature T "Temperature";
 algorithm
-    state := if size(X, 1) == nX then
-               ThermodynamicState(p=p,
-                                  T=Modelica.Media.Air.MoistAir.T_psX(
-                                     p, s, X),
-                                  X=X)
-             else
-               ThermodynamicState(p=p,
-                                  T=Modelica.Media.Air.MoistAir.T_psX(
-                                     p, s, X),
-                                  X=cat(1, X, {1 - sum(X)}));
-    annotation (smoothOrder=2, Documentation(info="<html>
-The <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
-</html>",
-        revisions="<html>
-<p>2012-01-12        Stefan Wischhusen: Initial Release.</p>
+    X_int :=if size(X, 1) == nX then
+              X
+            else cat(1, X, {1 - sum(X)});
+
+   Y := Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions(
+         X_int, {steam.MM,dryair.MM});
+    // The next line is obtained from symbolic solving the
+    // specificEntropy function for T.
+    // In this formulation, we can set T to any value when calling
+    // specificHeatCapacityCp as cp does not depend on T.
+    T := 273.15 * Modelica.Math.exp((s + Modelica.Constants.R *
+           sum(X_int[i]/MMX[i]*
+             Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2))
+             / specificHeatCapacityCp(setState_pTX(p=reference_p,
+                                                   T=273.15,
+                                                   X=X_int)));
+
+    state := ThermodynamicState(p=p,
+                                T=T,
+                                X=X_int);
+
+  annotation (
+    Inline=false,
+    Documentation(info="<html>
+    <p>
+    This function assigns the state based on pressure, 
+    specific entropy and mass fraction.
+    </p>
+    <p>
+    The state is computed by symbolically solving
+    <a href=\"modelica://Annex60.Media.Air.specificEntropy\">
+    Annex60.Media.Air.specificEntropy</a>
+    for temperature.
+      </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 27, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end setState_psX;
 
 redeclare replaceable function extends specificEnthalpy
     "Compute specific enthalpy from pressure, temperature and mass fraction"
+  protected
+  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
+      "Celsius temperature";
 algorithm
-  h := (state.T - reference_T)*dryair.cp * (1 - state.X[Water]) +
-       ((state.T-reference_T) * steam.cp + 2501014.5) * state.X[Water];
+  T_degC :=state.T + Modelica.Constants.T_zero;
+  h := T_degC*dryair.cp * (1 - state.X[Water]) +
+       (T_degC * steam.cp + h_fg) * state.X[Water];
   annotation(Inline=false,smoothOrder=5);
 end specificEnthalpy;
 
@@ -298,7 +383,7 @@ redeclare replaceable function specificEnthalpy_pTX "Specific enthalpy"
   output Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy at p, T, X";
 
 algorithm
-  h := specificEnthalpy(setState_pTX(p, T, X));
+  h := specificEnthalpy(setState_pTX(reference_p, T, X));
   annotation(smoothOrder=5,
              inverse(T=temperature_phX(p, h, X)));
 end specificEnthalpy_pTX;
@@ -338,7 +423,7 @@ redeclare replaceable function temperature_phX
   input MassFraction[:] X "mass fractions of composition";
   output Temperature T "temperature";
 algorithm
-  T := reference_T + (h - 2501014.5 * X[Water])
+  T := -Modelica.Constants.T_zero + (h - h_fg * X[Water])
        /((1 - X[Water])*dryair.cp + X[Water] * steam.cp);
   annotation(smoothOrder=5,
              inverse(h=specificEnthalpy_pTX(p, T, X)),
@@ -404,15 +489,23 @@ First implementation.
 
   constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
 
-replaceable function der_enthalpyOfLiquid
+  constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
+    "Molar masses of components";
+
+  constant Modelica.SIunits.SpecificEnergy h_fg = 2501014.5
+    "Latent heat of evaporation";
+  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4187
+    "Specific heat capacity of liquid water";
+
+  replaceable function der_enthalpyOfLiquid
     "Temperature derivative of enthalpy of liquid per unit mass of liquid"
-  extends Modelica.Icons.Function;
-  input Temperature T "Temperature";
-  input Real der_T "Temperature derivative";
-  output Real der_h "Derivative of liquid enthalpy";
-algorithm
-  der_h := 4186*der_T;
-end der_enthalpyOfLiquid;
+    extends Modelica.Icons.Function;
+    input Temperature T "Temperature";
+    input Real der_T "Temperature derivative";
+    output Real der_h "Derivative of liquid enthalpy";
+  algorithm
+    der_h := cpWatLiq*der_T;
+  end der_enthalpyOfLiquid;
 
 function der_enthalpyOfCondensingGas
     "Derivative of enthalpy of steam per unit mass of steam"
@@ -479,11 +572,45 @@ end der_specificHeatCapacityCv;
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This medium package models moist air using the ideal gas law. 
-The specific heat capacities at constant pressure and at constant volume are constant.
+This medium package models moist air. 
+The specific heat capacities at constant pressure and at constant volume are 
+constant for the individual species dry air, water vapor and liquid water.
+The gas law is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+d = p<sub>0</sub>/(R T)
+</p>
+<p>
+where
+<i>&rho;</i> is the mass density,
+<i>p<sub>0</sub></i> is the atmospheric pressure, which is equal to the constant
+<code>reference_p</code>, with a default value of 
+<i>101325</i> Pascals,
+<i>R</i> is the gas constant of the mixture
+and
+<i>T</i> is the absolute temperature.
+</p>
+<p>
+The enthalpy is computed using the convention that <i>h=0</i>
+if <i>T=0</i> &deg;C and the water vapor content is zero.
+</p>
+<h4>Limitations</h4>
+<p>
+This medium is modelled as incompressible. The pressure that is used
+to compute the physical properties is constant, and equal to 
+<code>reference_p</code>.
+</p>
+<p>
+This model assumes that water is only present in the form of vapor.
+If the medium is oversaturated, all properties are computes as if all
+water were present in the form of vapor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 27, 2013, by Michael Wetter:<br/>
+Changed the gas law.
+</li> 
 <li>
 November 15, 2013, by Michael Wetter:<br/>
 Revised and simplified the implementation.
