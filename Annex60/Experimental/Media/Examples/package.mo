@@ -1,4 +1,4 @@
-within Annex60.Media;
+within Annex60.Experimental.Media;
 package Examples "Collection of models that test the media models"
   extends Modelica.Icons.ExamplesPackage;
 
