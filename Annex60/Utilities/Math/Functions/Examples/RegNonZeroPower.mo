@@ -9,5 +9,6 @@ equation
             -100},{100,100}}),
                      graphics),
 experiment(StartTime=-1,StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPower.mos" "Simulate and plot"));
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPower.mos"
+        "Simulate and plot"));
 end RegNonZeroPower;

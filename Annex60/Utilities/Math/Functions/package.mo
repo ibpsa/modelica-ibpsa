@@ -1,6 +1,8 @@
 within Annex60.Utilities.Math;
 package Functions "Package with mathematical functions"
   extends Modelica.Icons.BasesPackage;
+
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains functions for commonly used

@@ -1,6 +1,8 @@
 within Annex60.Utilities;
 package Math "Library with functions such as for smoothing"
   extends Modelica.Icons.Package;
+
+
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains blocks and functions for commonly used
@@ -18,5 +20,4 @@ Icon(graphics={Line(
               57.5,-63.9},{63.9,-49.2},{72,-26.8},{80,-2}},
           color={95,95,95},
           smooth=Smooth.Bezier)}));
-
 end Math;
