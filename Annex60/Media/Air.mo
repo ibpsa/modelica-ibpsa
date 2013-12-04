@@ -29,39 +29,10 @@ package Air
     p(stateSelect=StateSelect.never),
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
-    // fixme p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
 
-    Real phi "Relative humidity";
+    Real phi(min=0, start=0.5) "Relative humidity";
 
   protected
-  record DataRecord "Coefficient data record for properties of perfect gases"
-    extends Modelica.Icons.Record;
-
-  String name "Name of ideal gas";
-  Modelica.SIunits.MolarMass MM "Molar mass";
-  Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
-  Modelica.SIunits.SpecificHeatCapacity cp
-        "Specific heat capacity at constant pressure";
-  Modelica.SIunits.SpecificHeatCapacity cv
-        "Specific heat capacity at constant volume";
-  annotation (
-        defaultComponentName="gas",
-        Documentation(preferredView="info", info=
-                                         "<html>
-<p>
-This data record contains the coefficients for perfect gases.
-</p>
-</html>"), revisions=
-        "<html>
-<ul>
-<li>
-May 12, 2008 by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
-</html>");
-  end DataRecord;
-
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
     MassFraction X_steam "Mass fraction of steam water";
@@ -81,9 +52,8 @@ required from medium model \""     + mediumName + "\".");
     X_steam  = Xi[Water];
     X_air    = 1-Xi[Water];
 
-    //    h = specificEnthalpy_pTX(p,T,Xi);
-    h = T_degC*dryair.cp * (1 - Xi[Water]) +
-       (T_degC * steam.cp + h_fg) * Xi[Water];
+    h = T_degC*dryair.cp * X_air +
+       (T_degC * steam.cp + h_fg) * X_steam;
     R = dryair.R*(1 - X_steam) + steam.R*X_steam;
 
     u = h-R*T;
@@ -93,7 +63,7 @@ required from medium model \""     + mediumName + "\".");
     state.T = T;
     state.X = X;
 
-    phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
+    phi = p/p_steam_sat*X_steam/(X_steam + k_mair*X_air);
   end BaseProperties;
 
 redeclare function extends density "Gas density"
