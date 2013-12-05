@@ -242,7 +242,7 @@ redeclare function extends pressure
     "Returns pressure of ideal gas as a function of the thermodynamic state record"
 
 algorithm
-  p := reference_p;
+  p := p;
   annotation (smoothOrder=99,
 Documentation(info="<html>
 <p>
