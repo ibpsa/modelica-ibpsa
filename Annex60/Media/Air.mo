@@ -292,7 +292,7 @@ redeclare function extends specificEntropy
   protected
     Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
 algorithm
-    Y := Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions(
+    Y := massToMoleFractions(
          state.X, {steam.MM,dryair.MM});
     s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/273.15)
          - Modelica.Constants.R *
@@ -440,9 +440,9 @@ redeclare function extends setState_phX
     "Return thermodynamic state as function of pressure p, specific enthalpy h and composition X"
 algorithm
   state := if size(X, 1) == nX then
-    ThermodynamicState(p=reference_p, T=temperature_phX(reference_p, h, X), X=X)
+    ThermodynamicState(p=p, T=temperature_phX(p, h, X), X=X)
  else
-    ThermodynamicState(p=reference_p, T=temperature_phX(reference_p, h, X), X=cat(1, X, {1 - sum(X)}));
+    ThermodynamicState(p=p, T=temperature_phX(p, h, X), X=cat(1, X, {1 - sum(X)}));
   annotation (smoothOrder=99,
 Documentation(info="<html>
 <p>
@@ -463,9 +463,9 @@ redeclare function extends setState_pTX
     "Return thermodynamic state as function of p, T and composition X or Xi"
 algorithm
     state := if size(X, 1) == nX then
-                ThermodynamicState(p=reference_p, T=T, X=X)
+                ThermodynamicState(p=p, T=T, X=X)
              else
-                ThermodynamicState(p=reference_p, T=T, X=cat(1, X, {1 - sum(X)}));
+                ThermodynamicState(p=p, T=T, X=cat(1, X, {1 - sum(X)}));
 annotation (smoothOrder=99,
 Documentation(info="<html>
 <p>
@@ -493,7 +493,7 @@ algorithm
               X
             else cat(1, X, {1 - sum(X)});
 
-   Y := Modelica.Media.Interfaces.PartialMixtureMedium.massToMoleFractions(
+   Y := massToMoleFractions(
          X_int, {steam.MM,dryair.MM});
     // The next line is obtained from symbolic solving the
     // specificEntropy function for T.
@@ -502,7 +502,7 @@ algorithm
     T := 273.15 * Modelica.Math.exp((s + Modelica.Constants.R *
            sum(X_int[i]/MMX[i]*
              Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2))
-             / specificHeatCapacityCp(setState_pTX(p=reference_p,
+             / specificHeatCapacityCp(setState_pTX(p=p,
                                                    T=273.15,
                                                    X=X_int)));
 
@@ -566,7 +566,7 @@ redeclare replaceable function specificEnthalpy_pTX "Specific enthalpy"
   output Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy at p, T, X";
 
 algorithm
-  h := specificEnthalpy(setState_pTX(reference_p, T, X));
+  h := specificEnthalpy(setState_pTX(p, T, X));
   annotation(smoothOrder=99,
              inverse(T=temperature_phX(p, h, X)),
 Documentation(info="<html>
@@ -974,7 +974,7 @@ if <i>T=0</i> &deg;C and the water vapor content is zero.
 </p>
 <h4>Limitations</h4>
 <p>
-This medium is modelled as incompressible. The pressure that is used
+This medium is modeled as incompressible. The pressure that is used
 to compute the physical properties is constant, and equal to 
 <code>reference_p</code>.
 </p>
@@ -985,6 +985,14 @@ water were present in the form of vapor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 10, 2013, by Michael Wetter:<br/>
+Replaced <code>reference_p</code> by <code>p</code> in the <code>setState_pXX</code> functions.
+This is required for
+<a href=\"modelica://Annex60.Fluid.MixingVolumes.Examples.MixingVolumeInitialization\">
+Annex60.Fluid.MixingVolumes.Examples.MixingVolumeInitialization</a>
+to translate.
+</li>
 <li>
 November 27, 2013, by Michael Wetter:<br/>
 Changed the gas law.
