@@ -30,7 +30,7 @@ package Air
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
 
-    Real phi(min=0, start=0.5) "Relative humidity";
+   // Real phi(min=0, start=0.5) "Relative humidity";
 
   protected
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
@@ -63,7 +63,12 @@ required from medium model \""     + mediumName + "\".");
     state.T = T;
     state.X = X;
 
-    phi = p/p_steam_sat*X_steam/(X_steam + k_mair*X_air);
+    //phi = p/p_steam_sat*X_steam/(X_steam + k_mair*X_air);
+    annotation (Documentation(info="<html>
+    <p>
+    Base properties of the medium.
+    </p>
+</html>"));
   end BaseProperties;
 
 redeclare function extends density "Gas density"
@@ -177,8 +182,8 @@ redeclare function enthalpyOfNonCondensingGas
     "Enthalpy of non-condensing gas per unit mass of steam"
   extends Modelica.Icons.Function;
 
-  input Temperature T "temperature";
-  output SpecificEnthalpy h "enthalpy";
+  input Temperature T "Temperature";
+  output SpecificEnthalpy h "Specific enthalpy";
 algorithm
   h := enthalpyOfDryAir(T);
   annotation(smoothOrder=5, derivative=der_enthalpyOfNonCondensingGas,
@@ -769,7 +774,7 @@ First implementation.
 
   constant Modelica.SIunits.SpecificEnergy h_fg = 2501014.5
     "Latent heat of evaporation";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4187
+  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
     "Specific heat capacity of liquid water";
 
   replaceable function der_enthalpyOfLiquid
