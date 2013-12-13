@@ -11,22 +11,21 @@ model StorageTank "1D multinode stratified storage tank"
     "Total height of the tank";
   final parameter Modelica.SIunits.Mass mNode=volumeTank*medium.rho/nbrNodes
     "Mass of each node";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer UIns(min=0)=0.4
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer UIns(min=0) = 0.4
     "Average heat loss coefficient for insulation per m2 of tank surface";
-  parameter Modelica.SIunits.ThermalConductance UACon(min=0)=0.5
+  parameter Modelica.SIunits.ThermalConductance UACon(min=0) = 0.5
     "Additional thermal conductance for connection losses and imperfect insulation";
-  parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in
-        1:nbrNodes} "Initial temperature of all Temperature states";
+  parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in 1:
+      nbrNodes} "Initial temperature of all Temperature states";
 
-    /* 
+  /* 
     A validation excercise has shown that TO BE COMPLETED.
     */
 
-  parameter Boolean preventNaturalDestratification = true
+  parameter Boolean preventNaturalDestratification=true
     "if true, this automatically increases the insulation of the top layer";
 
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort[
-                                            nbrNodes] nodes(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort[nbrNodes] nodes(
     each medium=medium,
     each m=mNode,
     TInitial=TInitial) "Array of nodes";
@@ -36,54 +35,61 @@ model StorageTank "1D multinode stratified storage tank"
         iconTransformation(extent={{74,74},{86,86}})));
   Thermal.Components.Interfaces.FlowPort_b flowPort_b(final medium=medium, h(
         min=1140947, max=1558647))
-    "Lower flowPort, connected to node[nbrNodes]"
-    annotation (Placement(transformation(extent={{74,50},{94,70}}),
-        iconTransformation(extent={{74,-146},{86,-134}})));
+    "Lower flowPort, connected to node[nbrNodes]" annotation (Placement(
+        transformation(extent={{74,50},{94,70}}), iconTransformation(extent={{
+            74,-146},{86,-134}})));
   Thermal.Components.Interfaces.FlowPort_a[nbrNodes + 1] flowPorts(each medium=
         medium, each h(min=1140947, max=1558647))
     "Array of nbrNodes+1 flowPorts. flowPorts[i] is connected to the upper flowPort of node i"
     annotation (Placement(transformation(extent={{92,74},{112,94}}),
         iconTransformation(extent={{74,34},{86,46}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatExchEnv
-    "HeatPort for conduction between tank and environment"         annotation (
+    "HeatPort for conduction between tank and environment" annotation (
       Placement(transformation(extent={{92,34},{112,54}}), iconTransformation(
           extent={{44,-46},{56,-34}})));
 
-   replaceable IDEAS.Thermal.Components.Storage.BaseClasses.Buoyancy_powexp
-                                                          buoyancy(
+  replaceable IDEAS.Thermal.Components.Storage.BaseClasses.Buoyancy_powexp
+    buoyancy(
     powBuo=24,
     nbrNodes=nbrNodes,
     medium=medium,
     surCroSec=volumeTank/heightTank,
+    h=heightTank) constrainedby
+    IDEAS.Thermal.Components.Storage.BaseClasses.Partial_Buoyancy(
+    nbrNodes=nbrNodes,
+    medium=medium,
+    surCroSec=volumeTank/heightTank,
     h=heightTank)
-    constrainedby IDEAS.Thermal.Components.Storage.BaseClasses.Partial_Buoyancy(
-      nbrNodes=nbrNodes,
-      medium=medium,
-      surCroSec=volumeTank/heightTank,
-      h=heightTank)
     "buoyancy model to mix nodes in case of inversed temperature stratification";
 
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes] lossNodes(
-    G = UACon/nbrNodes * ones(nbrNodes) + UIns * IDEAS.Thermal.Components.Storage.BaseClasses.areaCalculation(volumeTank, heightTank, nbrNodes, preventNaturalDestratification))
+      G=UACon/nbrNodes*ones(nbrNodes) + UIns*
+        IDEAS.Thermal.Components.Storage.BaseClasses.areaCalculation(
+        volumeTank,
+        heightTank,
+        nbrNodes,
+        preventNaturalDestratification))
     "Array of conduction loss components to the environment";
 
 public
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes-1] conductionWater(each G = (volumeTank/heightTank) / (heightTank / nbrNodes) * medium.lamda)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes - 1]
+    conductionWater(each G=(volumeTank/heightTank)/(heightTank/nbrNodes)*medium.lamda)
     "Conduction heat transfer between the layers";
-  Modelica.Blocks.Interfaces.RealOutput[nbrNodes] T = nodes.heatPort.T annotation (Placement(transformation(
-          extent={{70,-10},{90,10}}), iconTransformation(extent={{70,-10},{90,10}})));
+  Modelica.Blocks.Interfaces.RealOutput[nbrNodes] T=nodes.heatPort.T
+    annotation (Placement(transformation(extent={{70,-10},{90,10}}),
+        iconTransformation(extent={{70,-10},{90,10}})));
 equation
   // Connection of upper and lower node to external flowPorts
   connect(flowPort_a, nodes[1].flowPort_a);
-  connect(flowPort_b,nodes[nbrNodes].flowPort_b);
+  connect(flowPort_b, nodes[nbrNodes].flowPort_b);
 
   // Interconnection of nodes
   if nbrNodes > 1 then
     for i in 2:nbrNodes loop
-      connect(nodes[i-1].flowPort_b, nodes[i].flowPort_a);
-      connect(nodes[i-1].heatPort, conductionWater[i-1].port_a);
-      connect(nodes[i].heatPort, conductionWater[i-1].port_b);
+      connect(nodes[i - 1].flowPort_b, nodes[i].flowPort_a);
+      connect(nodes[i - 1].heatPort, conductionWater[i - 1].port_a);
+      connect(nodes[i].heatPort, conductionWater[i - 1].port_b);
     end for;
   end if;
 
@@ -94,14 +100,14 @@ equation
   end for;
 
   // Connection of flowPorts to the nodes
-  connect(flowPorts[1:end-1], nodes.flowPort_a);
+  connect(flowPorts[1:end - 1], nodes.flowPort_a);
   connect(flowPorts[end], nodes[end].flowPort_b);
 
   // Connection of buoyancy model
   connect(buoyancy.heatPort, nodes.heatPort);
-    annotation (Icon(coordinateSystem(extent={{-100,-160},{80,100}},
-          preserveAspectRatio=true),
-                   graphics={
+  annotation (
+    Icon(coordinateSystem(extent={{-100,-160},{80,100}}, preserveAspectRatio=
+            true), graphics={
         Polygon(
           points={{-70,74},{-68,82},{-62,88},{-52,94},{-38,98},{-22,100},{4,100},
               {18,98},{34,94},{42,88},{48,82},{50,74},{50,-134},{48,-142},{42,-148},
@@ -178,9 +184,8 @@ equation
         Line(
           points={{80,-140},{64,-140}},
           color={0,0,127},
-          smooth=Smooth.None)}),                                      Diagram(
-        coordinateSystem(extent={{-100,-160},{80,100}}),
-        graphics),
+          smooth=Smooth.None)}),
+    Diagram(coordinateSystem(extent={{-100,-160},{80,100}}), graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>1-dimensional thermal energy storage (TES) tank model for stratified water tanks. For a model with internal heat exchanger, see <a href=\"modelica://IDEAS.Thermal.Components.Storage.StorageTank_OneIntHX\">here</a>.</p>

@@ -1,10 +1,10 @@
 within IDEAS.Buildings.Data.Interfaces;
 record Frame "Window frame"
 
-extends Modelica.Icons.MaterialProperty;
+  extends Modelica.Icons.MaterialProperty;
 
-parameter Boolean present = true;
-parameter Real U_value = 1.1 "U-value window frame";
+  parameter Boolean present=true;
+  parameter Real U_value=1.1 "U-value window frame";
 
   annotation (Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>

@@ -1,11 +1,11 @@
 within IDEAS.Interfaces.BaseClasses;
 partial model HeatingSystem "Partial heating system"
 
-  inner outer IDEAS.SimInfoManager         sim
-    "Simulation information manager for climate data" annotation (Placement(transformation(extent={{-200,80},
-            {-180,100}})));
+  inner outer IDEAS.SimInfoManager sim
+    "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
 
-// Building characteristics  //////////////////////////////////////////////////////////////////////////
+  // Building characteristics  //////////////////////////////////////////////////////////////////////////
   parameter Boolean floorHeating "true if the emission has a floor heating";
   parameter Boolean radiators "true if the emission has a radiator";
 
@@ -16,71 +16,79 @@ partial model HeatingSystem "Partial heating system"
   parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
     "Nominal power, can be seen as the max power of the emission system";
   parameter Real[nZones] VZones "Conditioned volumes of the zones";
-  final parameter Modelica.SIunits.HeatCapacity[nZones] C = 1012*1.204*VZones*5
+  final parameter Modelica.SIunits.HeatCapacity[nZones] C=1012*1.204*VZones*5
     "Heat capacity of the conditioned zones";
 
-// Electricity consumption or production  //////////////////////////////////////////////////////////////
+  // Electricity consumption or production  //////////////////////////////////////////////////////////////
   parameter Integer nLoads(min=1) = 1 "Number of electric loads";
   SI.Power[nLoads] P "Active power for each of the loads";
   SI.Power[nLoads] Q "Reactive power for each of the loads";
 
-// Parameters DHW ///////////////////////////////////////////////////////////////////////////////////////
-  parameter Integer nOcc = 2
+  // Parameters DHW ///////////////////////////////////////////////////////////////////////////////////////
+  parameter Integer nOcc=2
     "number of occupants for determination of DHW consumption";
 
-// Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon if radiators
-    "Nodes for convective heat gains" annotation (Placement(transformation(extent={{-210,10},
-            {-190,30}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad if radiators
-    "Nodes for radiative heat gains" annotation (Placement(transformation(extent={{-210,
-            -30},{-190,-10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortEmb if floorHeating
-    "Construction nodes for heat gains by embedded layers" annotation (Placement(transformation(extent={{-210,50},
-            {-190,70}})));
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plugLoad( each m=1)
-    "Electricity connection to the Inhome feeder" annotation (Placement(transformation(extent={{190,-10},
-            {210,10}})));
+  // Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon if
+    radiators "Nodes for convective heat gains"
+    annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad if
+    radiators "Nodes for radiative heat gains"
+    annotation (Placement(transformation(extent={{-210,-30},{-190,-10}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortEmb if
+    floorHeating "Construction nodes for heat gains by embedded layers"
+    annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
+    plugLoad(each m=1) "Electricity connection to the Inhome feeder"
+    annotation (Placement(transformation(extent={{190,-10},{210,10}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
-    "Sensor temperature of the zones" annotation (Placement(transformation(extent={{10,-10},
-            {-10,10}},
+    "Sensor temperature of the zones" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-204,-60})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSet
-    "Setpoint temperature for the zones" annotation (Placement(transformation(extent={{-10,-10},
-            {10,10}},
+    "Setpoint temperature for the zones" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-104})));
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,final nLoads=nLoads)
+  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,final nLoads=
+        nLoads)
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Modelica.Blocks.Interfaces.RealInput mDHW60C
-    "mFlow for domestic hot water, at 60 degC"  annotation (Placement(transformation(extent={{-10,-10},
-            {10,10}},
+    "mFlow for domestic hot water, at 60 degC" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,-104})));
 
-// Total heat use ///////////////////////////////////////////////////////////////////////////////////////
+  // Total heat use ///////////////////////////////////////////////////////////////////////////////////////
   SI.Power QHeatTotal "Total net heat use (space heating + DHW, if present)";
 
 equation
   connect(wattsLawPlug.vi, plugLoad) annotation (Line(
       points={{190,0},{200,0}},
-        color={85,170,255},
-        smooth=Smooth.None));
-P = wattsLawPlug.P;
-Q = wattsLawPlug.Q;
-  annotation(Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},
-            {200,100}}),
-                  graphics={
+      color={85,170,255},
+      smooth=Smooth.None));
+  P = wattsLawPlug.P;
+  Q = wattsLawPlug.Q;
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
+            100}}), graphics={
+        Rectangle(
+          extent={{-200,100},{200,-100}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          lineColor={191,0,0}),
         Polygon(
           points={{-46,-8},{-46,-20},{-44,-22},{-24,-10},{-24,2},{-26,4},{-46,-8}},
+
           lineColor={127,0,0},
           smooth=Smooth.None,
           fillColor={127,0,0},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-46,-32},{-46,-44},{-44,-46},{-24,-34},{-24,-22},{-26,-20},{-46,
-              -32}},
+          points={{-46,-32},{-46,-44},{-44,-46},{-24,-34},{-24,-22},{-26,-20},{
+              -46,-32}},
           lineColor={127,0,0},
           smooth=Smooth.None,
           fillColor={127,0,0},
@@ -107,9 +115,13 @@ Q = wattsLawPlug.Q;
           lineColor={127,0,0},
           smooth=Smooth.None,
           fillColor={127,0,0},
-          fillPattern=FillPattern.Solid)}),                         Diagram(
-        coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}}),
-        graphics),
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{200,100},{200,-100}},
+          color={85,170,255},
+          smooth=Smooth.None)}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
+            200,100}}), graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Interface model for a complete multi-zone heating system (with our without domestic hot water and solar system).</p>

@@ -2,7 +2,7 @@ within IDEAS.Thermal.Components.Examples;
 model RadiatorWithMixingValve
   "Radiator circuit with a simplified boiler and thermal mixing valve"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   Thermal.Components.BaseClasses.Pump volumeFlow1(
     medium=Data.Media.Water(),
@@ -10,19 +10,18 @@ extends Modelica.Icons.Example;
     TInitial=313.15,
     m_flowNom=0.07)
     annotation (Placement(transformation(extent={{76,-86},{56,-66}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            boiler(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort boiler(
     medium=Data.Media.Water(),
     m=5,
-    TInitial=333.15) annotation (Placement(transformation(extent={{-26,-16},{-6,
-            4}})));
-  Emission.Radiator   radiator(
+    TInitial=333.15)
+    annotation (Placement(transformation(extent={{-26,-16},{-6,4}})));
+  Emission.Radiator radiator(
     medium=Data.Media.Water(),
     TInitial=293.15,
     QNom=5000) "Hydraulic radiator model"
-               annotation (Placement(transformation(extent={{52,-10},{72,10}})));
-  inner IDEAS.SimInfoManager         sim(
-              redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
+    annotation (Placement(transformation(extent={{52,-10},{72,10}})));
+  inner IDEAS.SimInfoManager sim(
+    redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
     occBeh=false,
     PV=false,
     redeclare IDEAS.Climate.Meteo.Files.min60 detail)
@@ -35,8 +34,7 @@ extends Modelica.Icons.Example;
     height=5,
     startTime=2000)
     annotation (Placement(transformation(extent={{-8,52},{12,72}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
-                                                      fixedHeatFlow(T=333.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedHeatFlow(T=333.15)
     annotation (Placement(transformation(extent={{-50,-52},{-30,-32}})));
 
   BaseClasses.Thermostatic3WayValve thermostaticValve(mFlowMin=0.01)
@@ -47,11 +45,11 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-2,6},{10,18}})));
 equation
 
-  connect(volumeFlow1.flowPort_b, boiler.flowPort_a)        annotation (Line(
+  connect(volumeFlow1.flowPort_b, boiler.flowPort_a) annotation (Line(
       points={{56,-76},{-70,-76},{-70,-6},{-26,-6}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(radiator.flowPort_b, volumeFlow1.flowPort_a)      annotation (Line(
+  connect(radiator.flowPort_b, volumeFlow1.flowPort_a) annotation (Line(
       points={{72,6.25},{94,6.25},{94,-76},{76,-76}},
       color={255,0,0},
       smooth=Smooth.None));
@@ -68,18 +66,17 @@ equation
       color={191,0,0},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(boiler.flowPort_b, thermostaticValve.flowPortHot)     annotation (
-      Line(
+  connect(boiler.flowPort_b, thermostaticValve.flowPortHot) annotation (Line(
       points={{-6,-6},{10,-6}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(thermostaticValve.flowPortMixed, radiator.flowPort_a)     annotation (
-     Line(
+  connect(thermostaticValve.flowPortMixed, radiator.flowPort_a) annotation (
+      Line(
       points={{30,-6},{41,-6},{41,-6.25},{52,-6.25}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(volumeFlow1.flowPort_b, thermostaticValve.flowPortCold)
-    annotation (Line(
+  connect(volumeFlow1.flowPort_b, thermostaticValve.flowPortCold) annotation (
+      Line(
       points={{56,-76},{20,-76},{20,-16}},
       color={255,0,0},
       smooth=Smooth.None));
@@ -95,9 +92,9 @@ equation
       points={{10.6,12},{20,12},{20,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=3600),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>

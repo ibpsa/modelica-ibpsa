@@ -40,6 +40,7 @@ equation
 
   connect(heatCap.port, TiSensor.port) annotation (Line(
       points={{0,0},{0,2},{1.98721e-022,2},{1.98721e-022,-20},{1.83697e-015,-20}},
+
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));

@@ -6,26 +6,27 @@ model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
     floorHeating=false,
     final nLoads=1);
 
-parameter Real fractionRad[nZones] = {0.3 for i in 1:nZones}
+  parameter Real fractionRad[nZones]={0.3 for i in 1:nZones}
     "Fraction of radiative to total power";
-parameter Real COP = 3 "virtual COP to get a PEl as output";
-SI.Power[nZones] QHeatZone(each start=0);
-parameter SI.Time t=10 "Time needed to reach temperature setpoint";
+  parameter Real COP=3 "virtual COP to get a PEl as output";
+  SI.Power[nZones] QHeatZone(each start=0);
+  parameter SI.Time t=10 "Time needed to reach temperature setpoint";
 
 equation
-for i in 1:nZones loop
-  if noEvent((TSet[i]-TSensor[i]) > 0) then
-      QHeatZone[i] = min(C[i] * (TSet[i]-TSensor[i]) / t,  QNom[i]);
-  else
+  for i in 1:nZones loop
+    if noEvent((TSet[i] - TSensor[i]) > 0) then
+      QHeatZone[i] = min(C[i]*(TSet[i] - TSensor[i])/t, QNom[i]);
+    else
       QHeatZone[i] = 0;
-  end if;
-  heatPortRad[i].Q_flow = - fractionRad[i] * QHeatZone[i];
-  heatPortCon[i].Q_flow = - (1-fractionRad[i]) * QHeatZone[i];
-end for;
+    end if;
+    heatPortRad[i].Q_flow = -fractionRad[i]*QHeatZone[i];
+    heatPortCon[i].Q_flow = -(1 - fractionRad[i])*QHeatZone[i];
+  end for;
 
-QHeatTotal = sum(QHeatZone); // useful output, QHeatTotal defined in partial
-P[1] = QHeatTotal/COP;
-Q[1] = 0;
+  QHeatTotal = sum(QHeatZone);
+  // useful output, QHeatTotal defined in partial
+  P[1] = QHeatTotal/COP;
+  Q[1] = 0;
 
   annotation (Documentation(info="<html>
 <p><b>Description</b> </p>

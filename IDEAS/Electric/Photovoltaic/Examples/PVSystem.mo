@@ -2,14 +2,15 @@ within IDEAS.Electric.Photovoltaic.Examples;
 model PVSystem
   "Only a PV system, see python script for generating profiles from this model"
 
-  parameter SI.Angle inc = 40/180*Modelica.Constants.pi annotation(evaluate=False);
-  parameter SI.Angle azi = 45/180*Modelica.Constants.pi annotation(evaluate=False);
+  parameter SI.Angle inc=40/180*Modelica.Constants.pi
+    annotation (evaluate=False);
+  parameter SI.Angle azi=45/180*Modelica.Constants.pi
+    annotation (evaluate=False);
 
   IDEAS.Electric.Photovoltaic.PVSystemGeneral pVSystemGeneral(
     amount=20,
     inc=inc,
-    azi=azi)
-    annotation (Placement(transformation(extent={{-38,4},{-18,24}})));
+    azi=azi) annotation (Placement(transformation(extent={{-38,4},{-18,24}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
@@ -17,9 +18,8 @@ model PVSystem
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={40,0})));
-  inner IDEAS.SimInfoManager         sim(redeclare
-      IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
-      IDEAS.Climate.Meteo.Files.min15 detail)
+  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
+      city, redeclare IDEAS.Climate.Meteo.Files.min15 detail)
     annotation (Placement(transformation(extent={{-98,78},{-78,98}})));
 equation
   connect(pVSystemGeneral.pin[1], voltageSource.pin_p) annotation (Line(

@@ -2,7 +2,7 @@ within IDEAS.Thermal.Components.Examples;
 model FloorHeatingValidation
   "Testing the floorheating according to Koschenz, par. 4.5.1"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
@@ -16,23 +16,19 @@ extends Modelica.Icons.Example;
     TInitial=303.15,
     m_flowNom=12*24/3600)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  Emission.Tabs   tabs(
+  Emission.Tabs tabs(
     medium=medium,
     A_Floor=24,
     redeclare parameter
-      IDEAS.Thermal.Components.Emission.BaseClasses.FH_ValidationEmpa
-                                                                FHChars,
+      IDEAS.Thermal.Components.Emission.BaseClasses.FH_ValidationEmpa FHChars,
     m_flowMin=12*24/3600) "tabs model"
-               annotation (Placement(transformation(extent={{68,2},{88,22}})));
-  inner IDEAS.SimInfoManager         sim(
-              redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
-      IDEAS.Climate.Meteo.Files.min60 detail)
+    annotation (Placement(transformation(extent={{68,2},{88,22}})));
+  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
+      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
-    prescribedTemperature(T=293.15)
-    annotation (Placement(transformation(extent={{8,64},{28,84}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            heatedPipe(
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(
+      T=293.15) annotation (Placement(transformation(extent={{8,64},{28,84}})));
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort heatedPipe(
     medium=medium,
     m=5,
     TInitial=303.15)
@@ -48,17 +44,17 @@ extends Modelica.Icons.Example;
     period=7200,
     offset=0,
     startTime=0)
-              annotation (Placement(transformation(extent={{-58,30},{-38,50}})));
+    annotation (Placement(transformation(extent={{-58,30},{-38,50}})));
 equation
-  TSet.T = smooth(1, if time < 5*3600 then 273.15+30 else 273.15+20);
+  TSet.T = smooth(1, if time < 5*3600 then 273.15 + 30 else 273.15 + 20);
   //TSet.T = 273.15+15;
   convection.Gc = 11;
 
-  connect(tabs.flowPort_b, volumeFlow1.flowPort_a)          annotation (Line(
+  connect(tabs.flowPort_b, volumeFlow1.flowPort_a) annotation (Line(
       points={{68,8},{56,8},{56,-60},{-76,-60},{-76,-6},{-36,-6}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(absolutePressure.flowPort, tabs.flowPort_a)          annotation (Line(
+  connect(absolutePressure.flowPort, tabs.flowPort_a) annotation (Line(
       points={{34,-44},{34,-30},{48,-30},{48,16},{68,16}},
       color={255,0,0},
       smooth=Smooth.None));

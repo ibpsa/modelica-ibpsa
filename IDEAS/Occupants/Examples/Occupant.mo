@@ -5,7 +5,8 @@ model Occupant "Tester for occupant models"
 
   Interfaces.DummyInHomeGrid dummyInHomeGrid
     annotation (Placement(transformation(extent={{14,-4},{34,16}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource voltageSource(
+  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
+    voltageSource(
     f=50,
     V=230,
     phi=0) annotation (Placement(transformation(
@@ -17,18 +18,17 @@ model Occupant "Tester for occupant models"
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCapacitor(C=1e20)
     annotation (Placement(transformation(extent={{-80,14},{-60,34}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.PowerSensor
-    powerSensor
-    annotation (Placement(transformation(extent={{46,-4},{66,16}})));
-  inner SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Files.min60 detail,
-      redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
-    redeclare IDEAS.Occupants.Extern.Interfaces.Stoch33   occupants,
+    powerSensor annotation (Placement(transformation(extent={{46,-4},{66,16}})));
+  inner SimInfoManager sim(
+    redeclare IDEAS.Climate.Meteo.Files.min60 detail,
+    redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
+    redeclare IDEAS.Occupants.Extern.Interfaces.Stoch33 occupants,
     occBeh=true)
     annotation (Placement(transformation(extent={{-94,78},{-74,98}})));
-  IDEAS.Occupants.Extern.SingleZone
-                       externalFiles(occ=29)
+  IDEAS.Occupants.Extern.SingleZone externalFiles(occ=29)
     annotation (Placement(transformation(extent={{-34,-2},{-14,18}})));
 equation
-  connect(voltageSource.pin_p,ground. pin) annotation (Line(
+  connect(voltageSource.pin_p, ground.pin) annotation (Line(
       points={{80,-30},{80,-50}},
       color={85,170,255},
       smooth=Smooth.None));

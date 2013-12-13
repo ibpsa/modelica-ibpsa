@@ -2,6 +2,6 @@ within IDEAS.Electric.Photovoltaic.Components;
 class DCgen
 
   import Modelica.Electrical.Analog.Interfaces;
-extends Interfaces.OnePort;
+  extends Interfaces.OnePort;
 
 end DCgen;

@@ -2,7 +2,7 @@ within IDEAS.Thermal.Components.Examples;
 model StorageWithThermostaticMixing
   "Test the temperature mixing valve connected to a storage tank"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
@@ -24,15 +24,14 @@ extends Modelica.Icons.Example;
     constantAmbientPressure=400000,
     constantAmbientTemperature=283.15)
     annotation (Placement(transformation(extent={{74,16},{94,36}})));
-  BaseClasses.Thermostatic3WayValve         temperatureMixing(medium=medium,
-      mFlowMin=0.01)
-    annotation (Placement(transformation(extent={{2,16},{22,36}})));
+  BaseClasses.Thermostatic3WayValve temperatureMixing(medium=medium, mFlowMin=
+        0.01) annotation (Placement(transformation(extent={{2,16},{22,36}})));
   Modelica.Blocks.Sources.Pulse pulse(
     startTime=7*3600,
     width=50,
     amplitude=0.5,
     period=5000)
-              annotation (Placement(transformation(extent={{16,66},{36,86}})));
+    annotation (Placement(transformation(extent={{16,66},{36,86}})));
   Thermal.Components.BaseClasses.Pump pump1(
     medium=medium,
     m_flowNom=0.1,
@@ -41,7 +40,7 @@ extends Modelica.Icons.Example;
     useInput=true)
     annotation (Placement(transformation(extent={{38,16},{58,36}})));
 equation
-  temperatureMixing.TMixedSet=273.15+35;
+  temperatureMixing.TMixedSet = 273.15 + 35;
   connect(storageTank.flowPort_a, temperatureMixing.flowPortHot) annotation (
       Line(
       points={{-70,4.30769},{-70,26},{2,26}},
@@ -67,7 +66,8 @@ equation
       points={{37,76},{48,76},{48,36}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  annotation (
+    Diagram(graphics),
     Documentation(info="<html>
 <p>The mixing control changes as the storage tank gets colder, until the desired outlet temperature can no longer be reached. </p>
 <p><u>Remark</u></p>

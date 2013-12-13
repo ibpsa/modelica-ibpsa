@@ -1,6 +1,6 @@
 within IDEAS.Thermal.Components;
 package Interfaces "Connectors and partial models"
-  extends Modelica.Icons.InterfacesPackage;
+extends Modelica.Icons.InterfacesPackage;
 
 
 annotation (Documentation(info="<HTML>
@@ -33,8 +33,7 @@ Copyright &copy; 1998-2010, Modelica Association, Anton Haumer and Austrian Inst
 <p>
 <i>This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica License 2. For license conditions (including the disclaimer of warranty) see <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica.UsersGuide.ModelicaLicense2</a> or visit <a href=\"http://www.modelica.org/licenses/ModelicaLicense2\"> http://www.modelica.org/licenses/ModelicaLicense2</a>.</i>
 </p>
-</HTML>",
-        revisions="<HTML>
+</HTML>", revisions="<HTML>
   <ul>
   <li> v1.00 2005/02/01 Anton Haumer<br>
        first stable official release</li>
@@ -52,7 +51,6 @@ Copyright &copy; 1998-2010, Modelica Association, Anton Haumer and Austrian Inst
        semiLinear works fine</li>
   </ul>
 </HTML>
-"),
-  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics));
+"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+          100}}), graphics));
 end Interfaces;

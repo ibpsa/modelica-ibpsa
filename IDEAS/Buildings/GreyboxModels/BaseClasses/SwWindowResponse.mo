@@ -1,13 +1,13 @@
 within IDEAS.Buildings.GreyboxModels.BaseClasses;
 model SwWindowResponse "shortwave window respones"
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
   parameter Integer nLay(min=1) "number of layers of the wall";
 
-  parameter Real[:,nLay+1] SwAbs
+  parameter Real[:, nLay + 1] SwAbs
     "absorbed solar radiation for each layer for look-up table as function of angle of incidence";
-  parameter Real[:,2] SwTrans
+  parameter Real[:, 2] SwTrans
     "transmitted solar radiation for look-up table as function of angle of incidence";
 
   Modelica.Blocks.Interfaces.RealInput solDir
@@ -24,16 +24,17 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
   IDEAS.Buildings.Components.BaseClasses.AngleOfIncidence angDir
     "angle of incidence conversion"
     annotation (Placement(transformation(extent={{-58,-52},{-40,-34}})));
-  Modelica.Blocks.Tables.CombiTable1Ds SwTransDir(table=SwTrans, smoothness=
-        Modelica.Blocks.Types.Smoothness.LinearSegments,
-    columns={2}) "lookup table for AOI dependent transmittance" annotation (Placement(
-        transformation(
+  Modelica.Blocks.Tables.CombiTable1Ds SwTransDir(
+    table=SwTrans,
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    columns={2}) "lookup table for AOI dependent transmittance" annotation (
+      Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={-3,-11})));
   Modelica.Blocks.Tables.CombiTable1Ds SwTransDif(table=SwTrans, smoothness=
         Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "lookup table for diffuse transmittance"                                                      annotation (Placement(
+    "lookup table for diffuse transmittance" annotation (Placement(
         transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
@@ -41,8 +42,9 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
   Modelica.Blocks.Sources.Constant angDif(k=60)
     annotation (Placement(transformation(extent={{-90,-38},{-72,-20}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Dir_flow
-    "transmitted direct solar riadtion source"
-    annotation (Placement(transformation(extent={{-8,-8},{8,8}},
+    "transmitted direct solar riadtion source" annotation (Placement(
+        transformation(
+        extent={{-8,-8},{8,8}},
         rotation=-90,
         origin={-20,-78})));
   Modelica.Blocks.Math.Product SwTransDirProd annotation (Placement(
@@ -70,7 +72,7 @@ equation
       points={{-100,-60},{-66,-60},{-66,-43},{-58,-43}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Dir_flow.port, iSol)    annotation (Line(
+  connect(Dir_flow.port, iSol) annotation (Line(
       points={{-20,-86},{-20,-100}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -91,8 +93,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-for i in 1:nLay loop
-end for;
+  for i in 1:nLay loop
+  end for;
 
   connect(SwTransDirProd.y, add.u1) annotation (Line(
       points={{-7,26.7},{-7,46},{54,46}},

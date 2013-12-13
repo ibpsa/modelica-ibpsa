@@ -2,10 +2,11 @@ within IDEAS.Thermal.Components.Interfaces;
 connector FlowPort_b "Hollow flow port (used downstream)"
 
   extends FlowPort;
-annotation (Documentation(info="<HTML>
+  annotation (
+    Documentation(info="<HTML>
 Same as FlowPort, but icon allows to differentiate direction of flow.
 </HTML>"),
-  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},
@@ -15,9 +16,8 @@ Same as FlowPort, but icon allows to differentiate direction of flow.
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
-                                         Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-        graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics={
         Rectangle(
           extent={{-50,50},{50,-50}},
           lineColor={255,0,0},

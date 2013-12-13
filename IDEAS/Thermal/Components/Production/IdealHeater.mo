@@ -2,12 +2,15 @@ within IDEAS.Thermal.Components.Production;
 model IdealHeater "Ideal heater, no losses to environment, unlimited power"
   extends
     IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses(
-      final heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.Boiler, final QNom=1, final cDry=0.1, final mWater=0);
+    final heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.Boiler,
+
+    final QNom=1,
+    final cDry=0.1,
+    final mWater=0);
 
   Real eta "Instanteanous efficiency";
 
-  IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_Ideal
-                                                   heatSource(
+  IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_Ideal heatSource(
     medium=medium,
     TBoilerSet=TSet,
     TEnvironment=heatPort.T,
@@ -26,7 +29,9 @@ equation
       points={{-44,36},{-20,36},{-20,6.12323e-016}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Ellipse(
           extent={{-60,60},{58,-60}},
           lineColor={127,0,0},

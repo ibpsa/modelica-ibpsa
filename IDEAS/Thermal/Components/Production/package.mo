@@ -1,6 +1,6 @@
 within IDEAS.Thermal.Components;
 package Production "Models for heat/cold production devices"
-  extends Modelica.Icons.Package;
+extends Modelica.Icons.Package;
 
 /*
   model HP_BW "BW HP with losses to environment"

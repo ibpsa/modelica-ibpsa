@@ -1,12 +1,13 @@
 within IDEAS.Electric.DistributionGrid.Components;
 model Branch
 
-  extends Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.OnePort(i(re(start = 0), im(start=0)));
+  extends Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.OnePort(i(
+        re(start=0), im(start=0)));
   Modelica.SIunits.ActivePower Plos;
 
-  parameter Modelica.SIunits.Resistance R = 0.0057;
-  parameter Modelica.SIunits.Reactance X = 0.0039;
-  final parameter Modelica.SIunits.ComplexImpedance Z= Complex(R,X);
+  parameter Modelica.SIunits.Resistance R=0.0057;
+  parameter Modelica.SIunits.Reactance X=0.0039;
+  final parameter Modelica.SIunits.ComplexImpedance Z=Complex(R, X);
 
 equation
   v = Z*i;

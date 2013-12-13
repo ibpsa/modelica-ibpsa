@@ -2,30 +2,36 @@ within IDEAS.Electric.Photovoltaic.Extern;
 model PvSystemPlug
   "PV system with separate shut-down controller and plug connector"
 
-outer SimInfoManager sim annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  outer SimInfoManager sim
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-parameter Modelica.SIunits.Power PNom "Nominal power, in Wp";
-parameter Integer id=19
+  parameter Modelica.SIunits.Power PNom "Nominal power, in Wp";
+  parameter Integer id=19
     "Which photovoltaic from the read profiles in the SimInfoManager";
-parameter Modelica.SIunits.Time timeOff = 300;
-parameter Modelica.SIunits.Voltage VMax = 248
+  parameter Modelica.SIunits.Time timeOff=300;
+  parameter Modelica.SIunits.Voltage VMax=248
     "Max grid voltage for operation of the PV system";
-parameter Integer numPha=1;
+  parameter Integer numPha=1;
 
-Modelica.SIunits.Power PInit = invertor.P "Initial PV power before curtailing";
-Modelica.SIunits.Power PFinal = pvVoltageCtrl.PFinal
+  Modelica.SIunits.Power PInit=invertor.P "Initial PV power before curtailing";
+  Modelica.SIunits.Power PFinal=pvVoltageCtrl.PFinal
     "Effective PV power after curtailing";
-Modelica.SIunits.Power PLoss = PInit-PFinal "Effective curtailed PV power";
+  Modelica.SIunits.Power PLoss=PInit - PFinal "Effective curtailed PV power";
 
-replaceable Components.PvVoltageCtrlGeneral_InputVGrid pvVoltageCtrl(VMax=VMax,timeOff = timeOff,numPha=numPha) annotation (Placement(transformation(extent={{20,30},{40,50}})),choicesAllMatching = true);
+  replaceable Components.PvVoltageCtrlGeneral_InputVGrid pvVoltageCtrl(
+    VMax=VMax,
+    timeOff=timeOff,
+    numPha=numPha) annotation (Placement(transformation(extent={{20,30},{40,50}})),
+      choicesAllMatching=true);
 
   Modelica.Blocks.Interfaces.RealInput VGrid "Grid voltage for control"
     annotation (Placement(transformation(extent={{-116,30},{-96,50}})));
 
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plug(m=numPha)                                                                               annotation (Placement(transformation(extent={{90,30},
-            {110,50}},                                                                                                    rotation=0)));
-  IDEAS.Electric.Photovoltaic.Components.ForInputFiles.SimpleDCAC_effP invertor(PNom=-
-        PNom, P_dc_max=-PNom)
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plug(m
+      =numPha) annotation (Placement(transformation(extent={{90,30},{110,50}},
+          rotation=0)));
+  IDEAS.Electric.Photovoltaic.Components.ForInputFiles.SimpleDCAC_effP invertor(
+      PNom=-PNom, P_dc_max=-PNom)
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   BaseClasses.WattsLawPlug wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
@@ -61,27 +67,22 @@ equation
       points={{-38,80},{-32,80},{-32,40},{-19.8,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(graphics={
-        Polygon(
+  annotation (Icon(graphics={Polygon(
           points={{-80,60},{-60,80},{60,80},{80,60},{80,-60},{60,-80},{-60,-80},
-              {-80,-60},{-80,60}},
+            {-80,-60},{-80,60}},
           lineColor={0,0,0},
           smooth=Smooth.None,
           fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Line(
+          fillPattern=FillPattern.Solid),Line(
           points={{-40,80},{-40,-80}},
           color={0,0,0},
-          smooth=Smooth.None),
-        Line(
+          smooth=Smooth.None),Line(
           points={{40,80},{40,-80}},
           color={0,0,0},
-          smooth=Smooth.None),
-        Text(
+          smooth=Smooth.None),Text(
           extent={{-80,80},{80,-80}},
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="#")}),                                                                  Diagram(
-        graphics));
+          textString="#")}), Diagram(graphics));
 end PvSystemPlug;

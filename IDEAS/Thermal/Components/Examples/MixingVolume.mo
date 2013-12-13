@@ -1,7 +1,7 @@
 within IDEAS.Thermal.Components.Examples;
 model MixingVolume "Test the mixing volume component"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
@@ -38,7 +38,7 @@ extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Step step(height=0.4, startTime=1000)
     annotation (Placement(transformation(extent={{-92,-14},{-72,6}})));
 equation
-  connect(ambient1.flowPort,pump. flowPort_b) annotation (Line(
+  connect(ambient1.flowPort, pump.flowPort_b) annotation (Line(
       points={{76,20},{50,20}},
       color={255,0,0},
       smooth=Smooth.None));
@@ -63,6 +63,5 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), experiment(StopTime=3600));
+            -100},{100,100}}), graphics), experiment(StopTime=3600));
 end MixingVolume;

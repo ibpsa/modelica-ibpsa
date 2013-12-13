@@ -42,11 +42,9 @@ partial model StateShading "Window shading"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-100})));
-  annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
-        graphics={
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}), graphics), Icon(coordinateSystem(
+          preserveAspectRatio=true, extent={{-50,-100},{50,100}}), graphics={
         Polygon(
           points={{-50,80},{0,60},{4,60},{4,-20},{-50,0},{-50,80}},
           smooth=Smooth.None,

@@ -1,20 +1,20 @@
 within IDEAS.Thermal.Components.Examples;
 model Radiator_CoolingDown "Test the cooling down of radiators"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
-  Emission.Radiator       radiator_new(
+  Emission.Radiator radiator_new(
     medium=Data.Media.Water(),
     QNom=1000,
     TInitial=333.15)
     annotation (Placement(transformation(extent={{-64,76},{-44,56}})));
-  IDEAS.Thermal.Components.Emission.Radiator
-                          radiator_new1(
+  IDEAS.Thermal.Components.Emission.Radiator radiator_new1(
     medium=Data.Media.Water(),
     QNom=2000,
     TInitial=333.15)
     annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=294.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        294.15)
     annotation (Placement(transformation(extent={{-14,20},{-34,40}})));
   Thermal.Components.BaseClasses.Ambient ambient(
     medium=Data.Media.Water(),
@@ -39,8 +39,7 @@ extends Modelica.Icons.Example;
     constantAmbientPressure=300000,
     constantAmbientTemperature=283.15)
     annotation (Placement(transformation(extent={{48,14},{68,34}})));
-  IDEAS.Thermal.Components.Emission.Radiator
-                          radiator_new2(
+  IDEAS.Thermal.Components.Emission.Radiator radiator_new2(
     medium=Data.Media.Water(),
     QNom=1000,
     powerFactor=3.37,
@@ -94,7 +93,7 @@ equation
       points={{48,24},{50,24},{50,0},{2,0}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(radiator_new2.flowPort_b,pump2. flowPort_a) annotation (Line(
+  connect(radiator_new2.flowPort_b, pump2.flowPort_a) annotation (Line(
       points={{-40,-33.75},{-28,-33.75},{-28,-40},{-14,-40}},
       color={255,0,0},
       smooth=Smooth.None));
@@ -118,9 +117,9 @@ equation
       points={{-51.5,56},{-52,56},{-52,10},{-51.5,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=25000),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>

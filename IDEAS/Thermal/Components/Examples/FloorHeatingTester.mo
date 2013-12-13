@@ -12,7 +12,7 @@ model FloorHeatingTester "Simple floorheating tester"
     
   */
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
   parameter Modelica.SIunits.Area A_Floor=20;
@@ -27,25 +27,21 @@ extends Modelica.Icons.Example;
     m=0,
     TInitial=293.15)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
-  replaceable IDEAS.Thermal.Components.Emission.Tabs
-                                                   tabs(
+  replaceable IDEAS.Thermal.Components.Emission.Tabs tabs(
     medium=medium,
     m_flowMin=15*20/3600,
     A_Floor=A_Floor,
     redeclare parameter
-      IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2
-                                                           FHChars)
-     constrainedby IDEAS.Thermal.Components.Emission.Interfaces.Partial_Tabs(
-       medium=medium,
-       m_flowMin=15*20/3600,
-       A_Floor=A_Floor,
-       redeclare parameter
-      IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2                      FHChars)
-    "tabs model"
-               annotation (Placement(transformation(extent={{68,2},{88,22}})));
-  inner IDEAS.SimInfoManager         sim(
-              redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
-      IDEAS.Climate.Meteo.Files.min60 detail)
+      IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2 FHChars)
+    constrainedby IDEAS.Thermal.Components.Emission.Interfaces.Partial_Tabs(
+    medium=medium,
+    m_flowMin=15*20/3600,
+    A_Floor=A_Floor,
+    redeclare parameter
+      IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2 FHChars)
+    "tabs model" annotation (Placement(transformation(extent={{68,2},{88,22}})));
+  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
+      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
@@ -61,23 +57,21 @@ extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.TimeTable tempTable(
     offset=0,
     startTime=0,
-    table=[0,293.15; 5000,293.15; 5000,303.15; 150000,303.15; 150000,293.15;
-        300000,293.15])
+    table=[0, 293.15; 5000, 293.15; 5000, 303.15; 150000, 303.15; 150000,
+        293.15; 300000, 293.15])
     annotation (Placement(transformation(extent={{-50,-38},{-36,-24}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            heatedPipe(medium=medium, m=0)
-    annotation (Placement(transformation(extent={{-28,-86},{-8,-66}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            heatedPipe1(medium=medium, m=0)
-    annotation (Placement(transformation(extent={{8,-16},{28,4}})));
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort heatedPipe(medium=medium,
+      m=0) annotation (Placement(transformation(extent={{-28,-86},{-8,-66}})));
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort heatedPipe1(medium=medium,
+      m=0) annotation (Placement(transformation(extent={{8,-16},{28,4}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature1
     annotation (Placement(transformation(extent={{-10,-48},{10,-28}})));
   Modelica.Blocks.Sources.TimeTable m_flowTable(
     offset=0,
     startTime=0,
-    table=[0,0; 500,0; 500,1; 20000,1; 20000,0; 25000,0; 25000,1; 40000,1;
-        40000,0; 45000,0])
+    table=[0, 0; 500, 0; 500, 1; 20000, 1; 20000, 0; 25000, 0; 25000, 1; 40000,
+        1; 40000, 0; 45000, 0])
     annotation (Placement(transformation(extent={{-74,32},{-54,52}})));
   Modelica.Blocks.Sources.Constant const(k=293.15)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
@@ -91,7 +85,7 @@ extends Modelica.Icons.Example;
 equation
   convection.Gc = 11*A_Floor;
 
-  connect(absolutePressure.flowPort, tabs.flowPort_a)          annotation (Line(
+  connect(absolutePressure.flowPort, tabs.flowPort_a) annotation (Line(
       points={{34,-44},{34,-30},{48,-30},{48,16},{68,16}},
       color={255,0,0},
       smooth=Smooth.None));
@@ -135,7 +129,8 @@ equation
       points={{-35.3,-31},{-22,-31},{-22,-38},{-12,-38}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  annotation (
+    Diagram(graphics),
     experiment(StopTime=40000, Interval=10),
     __Dymola_experimentSetupOutput,
     Commands(file="Scripts/Tester_FloorHeating.mos" "RunTester"));

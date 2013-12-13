@@ -11,7 +11,7 @@ equation
   // heat pump gets the heating curve + 2K as setpoint temperature and will go on only if
   // there is a flowrate through the HP.
 
-  if noEvent(TTankTop < TTopSet and TTankBot < (TBotSet-dTSafetyBot)) then
+  if noEvent(TTankTop < TTopSet and TTankBot < (TBotSet - dTSafetyBot)) then
     // top too cold, system MUST be on except if bottom is still very hot (temp inversion?)
     onOff = 1;
     THPSet = TTopSet + dTHPTankSet;

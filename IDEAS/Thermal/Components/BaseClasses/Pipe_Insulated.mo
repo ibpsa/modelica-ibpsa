@@ -2,8 +2,7 @@ within IDEAS.Thermal.Components.BaseClasses;
 model Pipe_Insulated "Pipe with insulation, characterised by UA"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
-    "Medium in the component"
-    annotation(choicesAllMatching=true);
+    "Medium in the component" annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Mass m(start=1) "Mass of medium";
   // I remove this parameter completely because it can lead to wrong models!!!
   // See note in evernote of RDC
@@ -14,8 +13,10 @@ model Pipe_Insulated "Pipe with insulation, characterised by UA"
 
   parameter SI.ThermalConductance UA "Thermal conductance of the insulation";
 
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-             heatedPipe(m=m, medium=medium, TInitial=TInitial)
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort heatedPipe(
+    m=m,
+    medium=medium,
+    TInitial=TInitial)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=
         UA) annotation (Placement(transformation(
@@ -46,11 +47,11 @@ equation
       points={{10,0},{100,0}},
       color={0,128,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-100,-40},{100,40}},
-          preserveAspectRatio=false),
-                      graphics), Icon(coordinateSystem(extent={{-100,-40},{100,
-            40}}, preserveAspectRatio=true),
-                                      graphics={
+  annotation (
+    Diagram(coordinateSystem(extent={{-100,-40},{100,40}}, preserveAspectRatio=
+            false), graphics),
+    Icon(coordinateSystem(extent={{-100,-40},{100,40}}, preserveAspectRatio=
+            true), graphics={
         Line(
           points={{-68,20},{-68,-20}},
           color={0,0,127},

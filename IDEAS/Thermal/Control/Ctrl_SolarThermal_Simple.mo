@@ -7,7 +7,8 @@ equation
   if noEvent(TCollector > (TTankBot + dTStart) and TSafety < TSafetyMax) then
     // collector hot enough.  System MUST be on except if safety issues.
     onOff = 1;
-  elseif noEvent(TCollector > (TTankBot + dTStop) and TSafety < TSafetyMax and onOff > 0.5) then
+  elseif noEvent(TCollector > (TTankBot + dTStop) and TSafety < TSafetyMax and
+      onOff > 0.5) then
     // system is running, everything is fine: keep running
     onOff = 1;
   else

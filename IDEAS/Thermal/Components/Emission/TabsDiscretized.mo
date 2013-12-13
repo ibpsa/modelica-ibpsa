@@ -4,25 +4,22 @@ model TabsDiscretized "Discretized tabs system"
   extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Tabs;
 
   replaceable parameter IDEAS.Thermal.Components.BaseClasses.FH_Characteristics
-                                                                       FHCharsDiscretized(A_Floor=
-        A_Floor/n) constrainedby
-    IDEAS.Thermal.Components.BaseClasses.FH_Characteristics(
-      A_Floor=A_Floor/n);
+    FHCharsDiscretized(A_Floor=A_Floor/n) constrainedby
+    IDEAS.Thermal.Components.BaseClasses.FH_Characteristics(A_Floor=A_Floor/n);
 
-  parameter Integer n(min=2)=2 "number of discrete elements";
+  parameter Integer n(min=2) = 2 "number of discrete elements";
 
-  IDEAS.Thermal.Components.Emission.Tabs[
-                                   n] tabs(
+  IDEAS.Thermal.Components.Emission.Tabs[n] tabs(
     each medium=medium,
     each A_Floor=A_Floor/n,
     each m_flowMin=m_flowMin,
     each FHChars=FHCharsDiscretized)
     annotation (Placement(transformation(extent={{-54,-8},{-34,12}})));
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector(m=n)
-    annotation (Placement(transformation(extent={{-54,52},{-34,32}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector1(m=n)
-    annotation (Placement(transformation(extent={{-54,-46},{-34,-26}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector(m=
+        n) annotation (Placement(transformation(extent={{-54,52},{-34,32}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector1(m
+      =n) annotation (Placement(transformation(extent={{-54,-46},{-34,-26}})));
 equation
   connect(flowPort_a, tabs[1].flowPort_a) annotation (Line(
       points={{-100,40},{-76,40},{-76,6},{-54,6}},
@@ -41,8 +38,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-  for i in 1:n-1 loop
-    connect(tabs[i].flowPort_b,tabs[i+1].flowPort_a);
+  for i in 1:n - 1 loop
+    connect(tabs[i].flowPort_b, tabs[i + 1].flowPort_a);
   end for;
 
   connect(tabs.port_b, thermalCollector1.port_a) annotation (Line(

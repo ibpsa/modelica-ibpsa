@@ -3,9 +3,9 @@ model Ctrl_Heating_combiTES
   "Heating curve control for heating based on a combi tank (DHW + heating)"
   extends Interfaces.Partial_Ctrl_Heating_TES;
 
- input Modelica.SIunits.Temperature TTankEmiOut
+  input Modelica.SIunits.Temperature TTankEmiOut
     "Tank temperature at outlet to emission";
- Modelica.SIunits.Temperature TTankEmiOutSet
+  Modelica.SIunits.Temperature TTankEmiOutSet
     "Setpoint for the tank layer at outlet to emission";
 
 equation
@@ -14,7 +14,8 @@ equation
   TTankEmiOutSet = heatingCurve.TSup + dTSafetyTop;
   THPSet = TTopSet + dTHPTankSet;
 
-  if noEvent((TTankTop < TTopSet or TTankEmiOut < TTankEmiOutSet) and TTankBot < (TBotSet-dTSafetyBot)) then
+  if noEvent((TTankTop < TTopSet or TTankEmiOut < TTankEmiOutSet) and TTankBot
+       < (TBotSet - dTSafetyBot)) then
     // top or emi-layer too cold, system MUST be on except if bottom is still very hot (temp inversion?)
     onOff = 1;
   elseif noEvent(TTankBot < TBotSet and onOff > 0.5) then

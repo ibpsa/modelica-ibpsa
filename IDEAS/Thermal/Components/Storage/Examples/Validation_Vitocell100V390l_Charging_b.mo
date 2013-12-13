@@ -6,9 +6,9 @@ model Validation_Vitocell100V390l_Charging_b
   This model is used in an automatic optimization to determine the buoyancy model parameters across different number of nodes.
   See the IDEAS manual for more on the validation of the storage tank model
   */
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
- parameter SI.ThermalConductance powBuo=24 annotation(Evaluate=false);
+  parameter SI.ThermalConductance powBuo=24 annotation (Evaluate=false);
 
   Thermal.Components.BaseClasses.Pump volumeFlow1(
     medium=Data.Media.Water(),
@@ -17,14 +17,14 @@ extends Modelica.Icons.Example;
     TInitial=328.15,
     m_flowNom=0.5)
     annotation (Placement(transformation(extent={{-88,-16},{-68,4}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            boiler(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort boiler(
     medium=Data.Media.Water(),
     m=5,
-    TInitial=338.15) annotation (Placement(transformation(extent={{-4,-6},{16,14}})));
+    TInitial=338.15)
+    annotation (Placement(transformation(extent={{-4,-6},{16,14}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature QFix(T=338.15)
     annotation (Placement(transformation(extent={{-28,-26},{-8,-6}})));
-  Storage.StorageTank_OneIntHX           tank(
+  Storage.StorageTank_OneIntHX tank(
     medium=Data.Media.Water(),
     mediumHX=Data.Media.Water(),
     AHX=4.1,
@@ -38,27 +38,23 @@ extends Modelica.Icons.Example;
     nodeHXUpper=2,
     nodeHXLower=5,
     redeclare IDEAS.Thermal.Components.Storage.BaseClasses.Buoyancy_powexp
-                                                               buoyancy(powBuo=powBuo))
-                                                         annotation (
-      Placement(transformation(
+      buoyancy(powBuo=powBuo)) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-18})));
-  Thermal.Components.BaseClasses.AbsolutePressure absolutePressure1(
-                                                                   medium=
+  Thermal.Components.BaseClasses.AbsolutePressure absolutePressure1(medium=
         Data.Media.Water(), p=200000)
     annotation (Placement(transformation(extent={{-80,-70},{-66,-56}})));
-  Thermal.Components.BaseClasses.AbsolutePressure absolutePressure2(
-                                                                   medium=
+  Thermal.Components.BaseClasses.AbsolutePressure absolutePressure2(medium=
         Data.Media.Water(), p=200000)
     annotation (Placement(transformation(extent={{80,-68},{94,-54}})));
 equation
 
-  connect(volumeFlow1.flowPort_b, boiler.flowPort_a)        annotation (Line(
+  connect(volumeFlow1.flowPort_b, boiler.flowPort_a) annotation (Line(
       points={{-68,-6},{-38,-6},{-38,4},{-4,4}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(QFix.port, boiler.heatPort)               annotation (Line(
+  connect(QFix.port, boiler.heatPort) annotation (Line(
       points={{-8,-16},{6,-16},{6,-6}},
       color={191,0,0},
       thickness=0.5,
@@ -69,6 +65,7 @@ equation
       smooth=Smooth.None));
   connect(tank.flowPortHXLower, volumeFlow1.flowPort_a) annotation (Line(
       points={{60,-24.9231},{50,-24.9231},{50,-86},{-96,-86},{-96,-6},{-88,-6}},
+
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure1.flowPort, volumeFlow1.flowPort_a) annotation (Line(
@@ -79,7 +76,8 @@ equation
       points={{80,-61},{74,-61},{74,-60},{80,-60},{80,-26.4615}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  annotation (
+    Diagram(graphics),
     experiment(StopTime=4620, Interval=5),
     __Dymola_experimentSetupOutput);
 end Validation_Vitocell100V390l_Charging_b;

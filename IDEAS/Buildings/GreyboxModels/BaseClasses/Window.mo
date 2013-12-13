@@ -1,20 +1,23 @@
 within IDEAS.Buildings.GreyboxModels.BaseClasses;
 model Window "multipane window"
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
   parameter Modelica.SIunits.Area A "window area";
 
   parameter Modelica.SIunits.Angle inc "inclination";
   parameter Modelica.SIunits.Angle azi "azimuth";
-  parameter Boolean shading = false "shading presence";
-  parameter Modelica.SIunits.Efficiency shaCorr = 0.2 "shading transmittance";
+  parameter Boolean shading=false "shading presence";
+  parameter Modelica.SIunits.Efficiency shaCorr=0.2 "shading transmittance";
 
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing constrainedby
-    IDEAS.Buildings.Data.Interfaces.Glazing "glazing type";
+  replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
+    constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "glazing type";
 
 protected
-  IDEAS.Climate.Meteo.Solar.RadSol  radSol(inc=inc,azi=azi,A=A)
+  IDEAS.Climate.Meteo.Solar.RadSol radSol(
+    inc=inc,
+    azi=azi,
+    A=A)
     "determination of incident solar radiation on wall based on inclination and azimuth"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   IDEAS.Buildings.GreyboxModels.BaseClasses.SwWindowResponse solWin(
@@ -26,8 +29,7 @@ protected
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a solGain
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  outer IDEAS.SimInfoManager
-                       sim
+  outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
 

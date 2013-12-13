@@ -1,15 +1,15 @@
 within IDEAS.Climate.Time;
 block SimTimes
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
-parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 4.317 "longitude";
-parameter Modelica.SIunits.Time delay(displayUnit="s") = 0
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 4.317 "longitude";
+  parameter Modelica.SIunits.Time delay(displayUnit="s") = 0
     "delay for solar data";
-parameter Modelica.SIunits.Time timZonSta = 3600 "standard time zone";
-parameter Boolean DST = false "take into account daylight saving time";
-parameter Integer yr = 2010 "depcited year for DST only";
-parameter Boolean ifSolCor = true;
+  parameter Modelica.SIunits.Time timZonSta=3600 "standard time zone";
+  parameter Boolean DST=false "take into account daylight saving time";
+  parameter Integer yr=2010 "depcited year for DST only";
+  parameter Boolean ifSolCor=true;
 
   Modelica.Blocks.Interfaces.RealOutput timSol "solar time"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -24,24 +24,20 @@ parameter Boolean ifSolCor = true;
     annotation (Placement(transformation(extent={{90,70},{110,90}})));
 
 protected
-  IDEAS.Climate.Time.BaseClasses.LocalTime
-                     localTime(lon=lon)
+  IDEAS.Climate.Time.BaseClasses.LocalTime localTime(lon=lon)
     annotation (Placement(transformation(extent={{-10,-6},{10,14}})));
-  IDEAS.Climate.Time.BaseClasses.SolarTime
-                     solarTime
+  IDEAS.Climate.Time.BaseClasses.SolarTime solarTime
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  IDEAS.Climate.Time.BaseClasses.CalendarTime
-                        calendarTime(ifSolCor=ifSolCor)
+  IDEAS.Climate.Time.BaseClasses.CalendarTime calendarTime(ifSolCor=ifSolCor)
     annotation (Placement(transformation(extent={{30,-54},{50,-34}})));
-  IDEAS.Climate.Time.BaseClasses.SimulationTime
-                          simulationTime
+  IDEAS.Climate.Time.BaseClasses.SimulationTime simulationTime
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
-  IDEAS.Climate.Time.BaseClasses.SimulationDelay
-                           simulationDelay(delay=delay)
+  IDEAS.Climate.Time.BaseClasses.SimulationDelay simulationDelay(delay=delay)
     annotation (Placement(transformation(extent={{-90,-58},{-70,-38}})));
-  IDEAS.Climate.Time.BaseClasses.TimeZone
-                    timeZone(timZonSta=timZonSta, DST=DST, yr=yr)
-    annotation (Placement(transformation(extent={{-50,-6},{-30,14}})));
+  IDEAS.Climate.Time.BaseClasses.TimeZone timeZone(
+    timZonSta=timZonSta,
+    DST=DST,
+    yr=yr) annotation (Placement(transformation(extent={{-50,-6},{-30,14}})));
 
 equation
   connect(localTime.timLoc, solarTime.timLoc) annotation (Line(
@@ -107,10 +103,10 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,100}}),
-                    graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-                    graphics={Text(
+    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
+            100}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics={Text(
           extent={{-78,48},{74,-42}},
           lineColor={0,0,0},
           textString="time")}));

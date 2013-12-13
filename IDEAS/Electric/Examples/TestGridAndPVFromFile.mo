@@ -8,12 +8,10 @@ model TestGridAndPVFromFile
     traPre=true,
     redeclare IDEAS.Electric.Data.Grids.Ieee34_AL120 grid)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Photovoltaic.PvSystemGeneralFromFile
-                            pVFromFilePQ(numPha=3)
+  Photovoltaic.PvSystemGeneralFromFile pVFromFilePQ(numPha=3)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   inner IDEAS.Electric.Photovoltaic.Components.ForInputFiles.PVProfileReader
-                                                          PV1
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    PV1 annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(pVFromFilePQ.pin, gridGeneral.gridNodes3P[:, 2]) annotation (Line(
       points={{-39.8,74},{-30,74},{-30,10},{-40,10}},

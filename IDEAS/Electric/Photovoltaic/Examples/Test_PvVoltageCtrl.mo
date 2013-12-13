@@ -16,13 +16,11 @@ equation
       points={{-59,-16},{-38,-16},{-38,12},{-16,12}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const.y, pvVoltageCtrlGeneral_InputVGrid_2_1.PInit) annotation (
-      Line(
+  connect(const.y, pvVoltageCtrlGeneral_InputVGrid_2_1.PInit) annotation (Line(
       points={{-67,58},{-52,58},{-52,24},{-16,24}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const.y, pvVoltageCtrlGeneral_InputVGrid_2_1.QInit) annotation (
-      Line(
+  connect(const.y, pvVoltageCtrlGeneral_InputVGrid_2_1.QInit) annotation (Line(
       points={{-67,58},{-66,58},{-66,38},{-52,38},{-52,20},{-16,20}},
       color={0,0,127},
       smooth=Smooth.None));

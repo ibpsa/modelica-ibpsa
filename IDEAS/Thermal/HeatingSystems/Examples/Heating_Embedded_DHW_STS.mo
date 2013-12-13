@@ -3,27 +3,26 @@ model Heating_Embedded_DHW_STS
   "Example and test for heating system with embedded emission, DHW and STS"
   import IDEAS;
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
-parameter Integer nZones = 1 "Number of zones";
-  IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS
-                                                    heating(
+  parameter Integer nZones=1 "Number of zones";
+  IDEAS.Thermal.HeatingSystems.Heating_Embedded_DHW_STS heating(
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
     heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.HP_AW,
+
     redeclare IDEAS.Thermal.Components.Production.HP_AirWater heater,
     nOcc=4,
     dTSupRetNom=5,
     timeFilter=7200,
     solSys=true,
     FHChars={IDEAS.Thermal.Components.BaseClasses.FH_Characteristics(A_Floor=
-        150)})
-    annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
+        150)}) annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
 
-  inner IDEAS.SimInfoManager               sim(redeclare
-      IDEAS.Climate.Meteo.Files.min15 detail, redeclare
-      IDEAS.Climate.Meteo.Locations.Uccle city,
+  inner IDEAS.SimInfoManager sim(
+    redeclare IDEAS.Climate.Meteo.Files.min15 detail,
+    redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
     PV=false,
     occBeh=false)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
@@ -34,7 +33,8 @@ parameter Integer nZones = 1 "Number of zones";
     each offset=289,
     startTime={3600*7,3600*9})
     annotation (Placement(transformation(extent={{-30,-56},{-18,-44}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource voltageSource(
+  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
+    voltageSource(
     f=50,
     V=230,
     phi=0) annotation (Placement(transformation(
@@ -43,8 +43,7 @@ parameter Integer nZones = 1 "Number of zones";
         origin={90,-64})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
-  IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
-                             dummyInHomeGrid
+  IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder dummyInHomeGrid
     annotation (Placement(transformation(extent={{64,-22},{84,-2}})));
   Modelica.Blocks.Sources.Pulse mDHW60C(
     each amplitude=0.2,
@@ -56,24 +55,24 @@ parameter Integer nZones = 1 "Number of zones";
   IDEAS.Thermal.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=
         nZones)
     annotation (Placement(transformation(extent={{-90,46},{-60,66}})));
-  IDEAS.Thermal.Components.Emission.NakedTabs[
-                                        nZones] nakedTabs(
+  IDEAS.Thermal.Components.Emission.NakedTabs[nZones] nakedTabs(
     each n1=3,
     each n2=3,
     FHChars(T=0.2, each A_Floor=150))
     annotation (Placement(transformation(extent={{-26,2},{-44,14}})));
   Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convectionTabs
-    annotation (Placement(transformation(extent={{7,-7},{-7,7}},
+    annotation (Placement(transformation(
+        extent={{7,-7},{-7,7}},
         rotation=-90,
         origin={-35,29})));
 equation
-  convectionTabs.Gc = 11 * nakedTabs.FHChars.A_Floor;
+  convectionTabs.Gc = 11*nakedTabs.FHChars.A_Floor;
 
   connect(heating.TSet, TOpSet.y) annotation (Line(
       points={{10,-22.36},{10,-50},{-17.4,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(voltageSource.pin_p,ground. pin) annotation (Line(
+  connect(voltageSource.pin_p, ground.pin) annotation (Line(
       points={{90,-74},{90,-82}},
       color={85,170,255},
       smooth=Smooth.None));
@@ -105,9 +104,9 @@ equation
       points={{-59.4,50},{-52,50},{-52,-18.4},{-8.36,-18.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput);
 end Heating_Embedded_DHW_STS;

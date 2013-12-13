@@ -1,9 +1,9 @@
 within IDEAS.Climate.Time.BaseClasses;
 model CalendarTime
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
-parameter Boolean ifSolCor;
+  parameter Boolean ifSolCor;
 
   Modelica.Blocks.Interfaces.RealInput timSim
     annotation (Placement(transformation(extent={{-120,20},{-80,60}})));
@@ -15,13 +15,14 @@ parameter Boolean ifSolCor;
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
 
 equation
-  timCal = timSim;// - integer(timSim/31536000)*31536000;
+  timCal = timSim;
+  // - integer(timSim/31536000)*31536000;
 
-if ifSolCor then
-  timCalSol = timSim + delay;
-else
-  timCalSol = timSim;
-end if;
+  if ifSolCor then
+    timCalSol = timSim + delay;
+  else
+    timCalSol = timSim;
+  end if;
 
   annotation (Diagram(graphics));
 end CalendarTime;

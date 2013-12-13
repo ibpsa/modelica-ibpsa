@@ -1,22 +1,21 @@
 within IDEAS.Buildings.Validation;
 model BESTEST
 
-extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.RotationalSensor;
 
-/*
+  /*
 
 Simulation of all so far modeled BESTEST cases in a single simulation.
 
 */
 
-    inner IDEAS.SimInfoManager sim(
-      redeclare IDEAS.Climate.Meteo.Files.min60 detail,
-      redeclare IDEAS.Climate.Meteo.Locations.BesTest city,
+  inner IDEAS.SimInfoManager sim(
+    redeclare IDEAS.Climate.Meteo.Files.min60 detail,
+    redeclare IDEAS.Climate.Meteo.Locations.BesTest city,
     occBeh=false,
-    PV=false)
-      annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
+    PV=false) annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
 
-// BESTEST 600 Series
+  // BESTEST 600 Series
 
   replaceable Cases.Case600 Case600 constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{-76,44},{-64,56}})));
@@ -35,7 +34,7 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
   replaceable Cases.Case650FF Case650FF constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{64,44},{76,56}})));
 
-// BESTEST 900 Series
+  // BESTEST 900 Series
 
   replaceable Cases.Case900 Case900 constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{-76,4},{-64,16}})));
@@ -53,17 +52,19 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
     annotation (Placement(transformation(extent={{44,4},{56,16}})));
   replaceable Cases.Case950FF Case950FF constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{64,4},{76,16}})));
-  annotation (experiment(
+  annotation (
+    experiment(
       StopTime=3.1536e+007,
       Interval=3600,
-      Tolerance=1e-007), __Dymola_experimentSetupOutput,
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Text(
+      Tolerance=1e-007),
+    __Dymola_experimentSetupOutput,
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics={Text(
           extent={{-78,68},{-40,60}},
           lineColor={85,0,0},
           fontName="Calibri",
           textStyle={TextStyle.Bold},
-          textString="BESTEST 600 Series"), Text(
+          textString="BESTEST 600 Series"),Text(
           extent={{-78,28},{-40,20}},
           lineColor={85,0,0},
           fontName="Calibri",

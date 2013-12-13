@@ -9,11 +9,12 @@ initial equation
   assert(lamBuo <> 1, "Error: lamBuo has to be set to a realistic value");
 
 equation
-  for i in 1:nbrNodes-1 loop
-    Q_flow[i] = lamBuo * surCroSec * dT[i] / (h/nbrNodes);
+  for i in 1:nbrNodes - 1 loop
+    Q_flow[i] = lamBuo*surCroSec*dT[i]/(h/nbrNodes);
   end for;
 
-  annotation (Documentation(info="<html>
+  annotation (
+    Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Buoyancy model that computes the buoyancy heat flux as an<u> equivalent additional thermal conductivity</u>.</p>
 <p>This model computes a heat flow rate that can be added to fluid volumes in order to model buoyancy during a temperature inversion in a storage tank. For simplicity, this model does not compute a buoyancy induced mass flow rate, but rather a heat flow that has the same magnitude as the enthalpy flow associated with the buoyancy induced mass flow rate. </p>
@@ -44,43 +45,36 @@ equation
 <li>2008, Michael Wetter, first implementation.</li>
 </ul></p>
 </html>"),
-Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
-        Rectangle(
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={Rectangle(
           extent={{-44,68},{36,28}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
+          fillPattern=FillPattern.Solid),Rectangle(
           extent={{-44,-26},{36,-66}},
           lineColor={127,0,0},
           fillColor={127,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
+          fillPattern=FillPattern.Solid),Rectangle(
           extent={{24,10},{30,-22}},
           lineColor={127,0,0},
           pattern=LinePattern.None,
           fillColor={127,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
+          fillPattern=FillPattern.Solid),Polygon(
           points={{26,22},{20,10},{34,10},{34,10},{26,22}},
           lineColor={127,0,0},
           fillColor={127,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
+          fillPattern=FillPattern.Solid),Rectangle(
           extent={{-32,22},{-26,-10}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Polygon(
+          fillPattern=FillPattern.Solid),Polygon(
           points={{-28,-18},{-36,-6},{-22,-6},{-22,-6},{-28,-18}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics));
+            100,100}}), graphics));
 end Buoyancy_eqcon;

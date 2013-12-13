@@ -11,20 +11,21 @@ model Bui610 "BESTEST Building model case 610"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
-    redeclare final parameter Data.Constructions.LightWall  constructionType,
-    redeclare final parameter Data.Insulation.fiberglass  insulationType,
+    redeclare final parameter Data.Constructions.LightWall constructionType,
+    redeclare final parameter Data.Insulation.fiberglass insulationType,
     final AWall={21.6,16.2,9.6,16.2},
-    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
+    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
+        IDEAS.Constants.West},
     final insulationThickness={0.066,0.066,0.066,0.066},
-    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})
-    annotation (Placement(transformation(
+    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,
+        IDEAS.Constants.Wall}) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-49,-14})));
 
   IDEAS.Buildings.Components.SlabOnGround floor(
-    redeclare final parameter Data.Constructions.LightFloor  constructionType,
-    redeclare final parameter Data.Insulation.insulation  insulationType,
+    redeclare final parameter Data.Constructions.LightFloor constructionType,
+    redeclare final parameter Data.Insulation.insulation insulationType,
     final insulationThickness=1.003,
     final AWall=48,
     final inc=IDEAS.Constants.Floor,
@@ -35,7 +36,7 @@ model Bui610 "BESTEST Building model case 610"
         origin={-19,-14})));
   IDEAS.Buildings.Components.Window[2] win(
     final A={6,6},
-    redeclare final parameter Data.Glazing.GlaBesTest  glazing,
+    redeclare final parameter Data.Glazing.GlaBesTest glazing,
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     final azi={IDEAS.Constants.South,IDEAS.Constants.South},
     redeclare replaceable IDEAS.Buildings.Components.Shading.Overhang shaType(
@@ -45,14 +46,14 @@ model Bui610 "BESTEST Building model case 610"
       each RH=0.5,
       each PV=0.0,
       each RW=0.0),
-    redeclare final parameter IDEAS.Buildings.Data.Frames.None  fraType) annotation (Placement(
-        transformation(
+    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType)
+    annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));
   IDEAS.Buildings.Components.OuterWall roof(
-    redeclare final parameter Data.Constructions.LightRoof  constructionType,
-    redeclare final parameter Data.Insulation.fiberglass  insulationType,
+    redeclare final parameter Data.Constructions.LightRoof constructionType,
+    redeclare final parameter Data.Insulation.fiberglass insulationType,
     final insulationThickness=0.1118,
     final AWall=48,
     final inc=IDEAS.Constants.Ceiling,

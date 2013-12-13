@@ -1,5 +1,5 @@
 within IDEAS.Electric.Data.Batteries;
-record LiIon =  IDEAS.Electric.Data.Interfaces.BatteryType (
+record LiIon = IDEAS.Electric.Data.Interfaces.BatteryType (
     eta_in=0.95,
     eta_out=0.98,
     eta_c=0.92,

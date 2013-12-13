@@ -12,21 +12,20 @@ model Heating_Radiators
     each medium=medium,
     each useInput=true,
     m_flowNom=m_flowNom,
-    each m=1)
-    annotation (Placement(transformation(extent={{56,46},{80,22}})));
+    each m=1) annotation (Placement(transformation(extent={{56,46},{80,22}})));
 
-  IDEAS.Thermal.Components.Emission.Radiator[
-                                           nZones] emission(
-    each medium = medium,
+  IDEAS.Thermal.Components.Emission.Radiator[nZones] emission(
+    each medium=medium,
     each TInNom=TSupNom,
     each TOutNom=TSupNom - dTSupRetNom,
-    TZoneNom = TRoomNom,
+    TZoneNom=TRoomNom,
     QNom=QNom,
     each powerFactor=3.37)
     annotation (Placement(transformation(extent={{88,18},{118,38}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
-    annotation (Placement(transformation(extent={{-6,-6},{6,6}},
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        293.15) annotation (Placement(transformation(
+        extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={-52,8})));
 
@@ -39,27 +38,22 @@ model Heating_Radiators
     heatingCurve(timeFilter=timeFilter),
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom) "Controller for the heater"
-    annotation (Placement(transformation(extent={{-164,38},
-            {-144,58}})));
+    annotation (Placement(transformation(extent={{-164,38},{-144,58}})));
 
-  IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[
-                               nZones] heatingControl
+  IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[nZones] heatingControl
     "onoff controller for the pumps of the radiator circuits"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Components.BaseClasses.Thermostatic3WayValve
-                                            idealMixer(mFlowMin=0.01)
+  Components.BaseClasses.Thermostatic3WayValve idealMixer(mFlowMin=0.01)
     annotation (Placement(transformation(extent={{28,22},{50,46}})));
   Components.BaseClasses.Pipe_Insulated pipeReturn(
     medium=medium,
     m=1,
-    UA=10)
-    annotation (Placement(transformation(extent={{4,-28},{-16,-36}})));
+    UA=10) annotation (Placement(transformation(extent={{4,-28},{-16,-36}})));
 
   Components.BaseClasses.Pipe_Insulated pipeSupply(
     medium=medium,
     m=1,
-    UA=10)
-    annotation (Placement(transformation(extent={{-16,30},{4,38}})));
+    UA=10) annotation (Placement(transformation(extent={{-16,30},{4,38}})));
   Components.BaseClasses.Pipe_Insulated[nZones] pipeReturnEmission(
     each medium=medium,
     each m=1,
@@ -68,47 +62,46 @@ model Heating_Radiators
   Components.BaseClasses.AbsolutePressure absolutePressure
     annotation (Placement(transformation(extent={{-94,-42},{-114,-22}})));
 equation
-  QHeatTotal = -sum(emission.heatPortCon.Q_flow) -sum(emission.heatPortRad.Q_flow);
-  heatingControl.uHigh = TSet + 0.5 * ones(nZones);
+  QHeatTotal = -sum(emission.heatPortCon.Q_flow) - sum(emission.heatPortRad.Q_flow);
+  heatingControl.uHigh = TSet + 0.5*ones(nZones);
   THeaterSet = ctrl_Heating.THeaterSet;
   P[1] = heater.PEl + sum(pumpRad.PEl);
   Q[1] = 0;
 
-  TEmissionIn = idealMixer.flowPortMixed.h / medium.cp;
+  TEmissionIn = idealMixer.flowPortMixed.h/medium.cp;
   TEmissionOut = emission.TOut;
   m_flowEmission = emission.flowPort_a.m_flow;
 
-// connections that are function of the number of circuits
-for i in 1:nZones loop
-  connect(idealMixer.flowPortMixed, pumpRad[i].flowPort_a)  annotation (Line(
-      points={{50,34},{56,34}},
-      color={0,128,255},
-      smooth=Smooth.None));
-  connect(pipeReturnEmission[i].flowPort_b, pipeReturn.flowPort_a) annotation (
-      Line(
-      points={{96,-32},{4,-32}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(pipeReturnEmission[i].heatPort, fixedTemperature.port) annotation (
-      Line(
-      points={{106,-28},{106,-4},{-52,-4},{-52,2}},
-      color={191,0,0},
-      smooth=Smooth.None));
-end for;
+  // connections that are function of the number of circuits
+  for i in 1:nZones loop
+    connect(idealMixer.flowPortMixed, pumpRad[i].flowPort_a) annotation (Line(
+        points={{50,34},{56,34}},
+        color={0,128,255},
+        smooth=Smooth.None));
+    connect(pipeReturnEmission[i].flowPort_b, pipeReturn.flowPort_a)
+      annotation (Line(
+        points={{96,-32},{4,-32}},
+        color={0,0,255},
+        smooth=Smooth.None));
+    connect(pipeReturnEmission[i].heatPort, fixedTemperature.port) annotation (
+        Line(
+        points={{106,-28},{106,-4},{-52,-4},{-52,2}},
+        color={191,0,0},
+        smooth=Smooth.None));
+  end for;
 
-// general connections for any configuration
+  // general connections for any configuration
 
-    connect(emission.heatPortCon, heatPortCon) annotation (Line(
+  connect(emission.heatPortCon, heatPortCon) annotation (Line(
       points={{106.75,38},{106.75,66},{-178,66},{-178,20},{-200,20}},
       color={191,0,0},
       smooth=Smooth.None));
-    connect(emission.heatPortRad, heatPortRad) annotation (Line(
+  connect(emission.heatPortRad, heatPortRad) annotation (Line(
       points={{111.75,38},{114,60},{114,68},{-180,68},{-180,-20},{-200,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(pumpRad.flowPort_b,emission. flowPort_a)
-                                                annotation (Line(
+  connect(pumpRad.flowPort_b, emission.flowPort_a) annotation (Line(
       points={{80,34},{83,34},{83,21.75},{88,21.75}},
       color={0,128,255},
       smooth=Smooth.None));
@@ -126,7 +119,7 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
 
-    connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
+  connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
       points={{94.25,37.75},{90,37.75},{90,70},{-200,70},{-200,60}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -136,11 +129,11 @@ end for;
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(heater.flowPort_b, pipeSupply.flowPort_a)  annotation (Line(
+  connect(heater.flowPort_b, pipeSupply.flowPort_a) annotation (Line(
       points={{-90,24.9091},{-76,24.9091},{-76,34},{-16,34}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(pipeSupply.flowPort_b, idealMixer.flowPortHot)  annotation (Line(
+  connect(pipeSupply.flowPort_b, idealMixer.flowPortHot) annotation (Line(
       points={{4,34},{28,34}},
       color={0,0,255},
       smooth=Smooth.None));
@@ -148,7 +141,7 @@ end for;
       points={{-6,-28},{-6,-4},{-103,-4},{-103,14}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(pipeSupply.heatPort, heater.heatPort)  annotation (Line(
+  connect(pipeSupply.heatPort, heater.heatPort) annotation (Line(
       points={{-6,30},{-6,-4},{-103,-4},{-103,14}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -178,10 +171,11 @@ end for;
       points={{-94,-32},{-76,-32},{-76,19.6364},{-90,19.6364}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,
-            -100},{200,100}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-200,-100},{200,100}})),
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
+            200,100}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
+            100}})),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Multi-zone Hydraulic heating system with <a href=\"modelica://IDEAS.Thermal.Components.Emission.Radiator\">radiators</a>. Except for the emission system, this model is identical to <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Embedded\">Heating_Embedded</a>. There is no thermal energy storage tank and no domestic hot water system. A schematic hydraulic scheme is given below:</p>

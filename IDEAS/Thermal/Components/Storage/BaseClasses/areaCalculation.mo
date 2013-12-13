@@ -9,11 +9,11 @@ function areaCalculation "Calculate the heat loss area for each tank node"
     "Array with (fictive) heat loss area for each node";
 protected
   final parameter Modelica.SIunits.Length dia=sqrt((4*volumeTank)/Modelica.Constants.pi
-          /heightTank) "Tank diameter";
-  final parameter Modelica.SIunits.Area areaLossSideNode=Modelica.Constants.pi
-          *dia*heightTank/nbrNodes "Side area per node";
+      /heightTank) "Tank diameter";
+  final parameter Modelica.SIunits.Area areaLossSideNode=Modelica.Constants.pi*
+      dia*heightTank/nbrNodes "Side area per node";
   final parameter Modelica.SIunits.Area areaLossBotTop=Modelica.Constants.pi*
-          dia^2/4 "Top (and bottom) area";
+      dia^2/4 "Top (and bottom) area";
 
 algorithm
   if nbrNodes == 1 then
@@ -22,14 +22,18 @@ algorithm
     A[1] := areaLossBotTop + areaLossSideNode;
     A[2] := areaLossBotTop + areaLossSideNode;
   else
-    A := cat(1,{areaLossSideNode + areaLossBotTop}, {areaLossSideNode for i in 1:nbrNodes-2}, {areaLossSideNode + areaLossBotTop});
+    A := cat(
+      1,
+      {areaLossSideNode + areaLossBotTop},
+      {areaLossSideNode for i in 1:nbrNodes - 2},
+      {areaLossSideNode + areaLossBotTop});
     if pnd then
       // we DECREASE the area of the top node in order NOT to let it cool down faster than the node just below.  This
       // is equivalent to increasing the insulation of the top node so the total losses in W/K are equal to the 2nd node.
       A[1] := 0.99*areaLossSideNode;
     end if;
   end if;
-    annotation (Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>Function to calculate the heat loss area of each node based on the following inputs:</p>
 <p><ul>
 <li>volume of the tank</li>

@@ -1,7 +1,7 @@
 within IDEAS.Climate.Time.BaseClasses;
 model SolarTime
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
   Modelica.Blocks.Interfaces.RealInput timLoc(quantity="Time", unit="s")
     annotation (Placement(transformation(extent={{-120,20},{-80,60}})));

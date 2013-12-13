@@ -2,10 +2,9 @@ within IDEAS.Thermal.Components.Emission.Interfaces;
 partial model Partial_Tabs "Partial tabs model"
 
   replaceable parameter IDEAS.Thermal.Components.BaseClasses.FH_Characteristics
-                                                                       FHChars(A_Floor=
-        A_Floor) constrainedby
-    IDEAS.Thermal.Components.BaseClasses.FH_Characteristics(
-      A_Floor=A_Floor)                                                    annotation (choicesAllMatching = true);
+    FHChars(A_Floor=A_Floor) constrainedby
+    IDEAS.Thermal.Components.BaseClasses.FH_Characteristics(A_Floor=A_Floor)
+    annotation (choicesAllMatching=true);
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
     "Medium in the component";

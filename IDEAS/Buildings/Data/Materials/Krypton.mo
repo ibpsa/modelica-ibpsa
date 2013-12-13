@@ -1,6 +1,5 @@
 within IDEAS.Buildings.Data.Materials;
-record Krypton =
-             IDEAS.Buildings.Data.Interfaces.Material (
+record Krypton = IDEAS.Buildings.Data.Interfaces.Material (
     k=0.0086,
     c=245,
     rho=3.56,

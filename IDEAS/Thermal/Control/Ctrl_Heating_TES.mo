@@ -8,7 +8,7 @@ equation
   TBotSet = max(TDHWSet, heatingCurve.TSup) + dTSafetyBot;
   THPSet = TTopSet + dTHPTankSet;
 
-  if noEvent(TTankTop < TTopSet and TTankBot < (TBotSet-dTSafetyBot)) then
+  if noEvent(TTankTop < TTopSet and TTankBot < (TBotSet - dTSafetyBot)) then
     // top too cold, system MUST be on except if bottom is still very hot (temp inversion?)
     onOff = 1;
   elseif noEvent(TTankBot < TBotSet and onOff > 0.5) then

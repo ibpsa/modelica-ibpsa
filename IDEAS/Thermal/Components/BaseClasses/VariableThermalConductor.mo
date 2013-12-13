@@ -9,42 +9,34 @@ model VariableThermalConductor
 equation
   Q_flow = G*dT;
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={
-        Rectangle(
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics={Rectangle(
           extent={{-90,70},{90,-70}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Line(
+          fillPattern=FillPattern.Backward),Line(
           points={{-90,70},{-90,-70}},
           color={0,0,0},
-          thickness=0.5),
-        Line(
+          thickness=0.5),Line(
           points={{90,70},{90,-70}},
           color={0,0,0},
-          thickness=0.5),
-        Text(
+          thickness=0.5),Text(
           extent={{-150,115},{150,75}},
           textString="%name",
-          lineColor={0,0,255}),
-        Text(
+          lineColor={0,0,255}),Text(
           extent={{-150,-75},{150,-105}},
           lineColor={0,0,0},
           textString="G=%G")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}), graphics={
-        Line(
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics={Line(
           points={{-80,0},{80,0}},
           color={255,0,0},
           thickness=0.5,
-          arrow={Arrow.None,Arrow.Filled}),
-        Text(
+          arrow={Arrow.None,Arrow.Filled}),Text(
           extent={{-26,-10},{27,-39}},
           lineColor={255,0,0},
-          textString="Q_flow"),
-        Text(
+          textString="Q_flow"),Text(
           extent={{-80,50},{80,20}},
           lineColor={0,0,0},
           textString="dT = port_a.T - port_b.T")}),

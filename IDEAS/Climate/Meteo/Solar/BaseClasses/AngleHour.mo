@@ -1,7 +1,7 @@
 within IDEAS.Climate.Meteo.Solar.BaseClasses;
 block AngleHour
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
@@ -13,7 +13,7 @@ extends Modelica.Blocks.Interfaces.BlockIcon;
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
 
 algorithm
-angHou :=(sim.timSol/3600 - 12)*2*Modelica.Constants.pi/24;
+  angHou := (sim.timSol/3600 - 12)*2*Modelica.Constants.pi/24;
 
   annotation (Diagram(graphics));
 end AngleHour;

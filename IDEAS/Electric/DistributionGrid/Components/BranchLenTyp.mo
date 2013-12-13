@@ -9,8 +9,8 @@ model BranchLenTyp
   replaceable parameter IDEAS.Electric.Data.Cables.PvcAl16 typ constrainedby
     IDEAS.Electric.Data.Interfaces.Cable;
 
-//  parameter IDEAS.Electric.Data.Interfaces.Cable typ = IDEAS.Electric.Data.Cables.PvcAl16()
-//    "Cable type";
+  //  parameter IDEAS.Electric.Data.Interfaces.Cable typ = IDEAS.Electric.Data.Cables.PvcAl16()
+  //    "Cable type";
   parameter Modelica.SIunits.Length len=10 "Cable length";
 
 end BranchLenTyp;

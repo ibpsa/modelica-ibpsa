@@ -1,9 +1,8 @@
 within IDEAS.Thermal.Components.Emission.Interfaces;
 model Partial_EmbeddedPipe "Partial for the embedded pipe model"
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
-  extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Emission(
-    final floorHeating=true,
-    final radiators=false);
+  extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Emission(final
+      floorHeating=true, final radiators=false);
 
   parameter Modelica.SIunits.MassFlowRate m_flowMin
     "Minimal flowrate when in operation";
@@ -18,8 +17,8 @@ model Partial_EmbeddedPipe "Partial for the embedded pipe model"
           color={0,128,255},
           smooth=Smooth.None),
         Line(
-          points={{-40,-70},{-40,56},{-20,56},{-20,-98},{-2,-98},{-2,56},{20,
-              56},{20,-98},{40,-98},{40,56},{62,56},{62,-98},{80,-98},{80,30}},
+          points={{-40,-70},{-40,56},{-20,56},{-20,-98},{-2,-98},{-2,56},{20,56},
+              {20,-98},{40,-98},{40,56},{62,56},{62,-98},{80,-98},{80,30}},
           color={0,128,255},
           smooth=Smooth.None),
         Line(

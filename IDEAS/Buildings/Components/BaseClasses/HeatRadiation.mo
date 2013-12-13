@@ -21,34 +21,27 @@ equation
       ^2 + port_b.T^2);
 
   end if;
-  annotation (Icon(graphics={
-        Line(points={{-40,10},{40,10}}, color={191,0,0}),
-        Line(points={{-40,10},{-30,16}}, color={191,0,0}),
-        Line(points={{-40,10},{-30,4}}, color={191,0,0}),
-        Line(points={{-40,-10},{40,-10}}, color={191,0,0}),
-        Line(points={{30,-16},{40,-10}}, color={191,0,0}),
-        Line(points={{30,-4},{40,-10}}, color={191,0,0}),
-        Line(points={{-40,-30},{40,-30}}, color={191,0,0}),
-        Line(points={{-40,-30},{-30,-24}}, color={191,0,0}),
-        Line(points={{-40,-30},{-30,-36}}, color={191,0,0}),
-        Line(points={{-40,30},{40,30}}, color={191,0,0}),
-        Line(points={{30,24},{40,30}}, color={191,0,0}),
-        Line(points={{30,36},{40,30}}, color={191,0,0}),
-        Rectangle(
+  annotation (Icon(graphics={Line(points={{-40,10},{40,10}}, color={191,0,0}),
+          Line(points={{-40,10},{-30,16}}, color={191,0,0}),Line(points={{-40,
+          10},{-30,4}}, color={191,0,0}),Line(points={{-40,-10},{40,-10}},
+          color={191,0,0}),Line(points={{30,-16},{40,-10}}, color={191,0,0}),
+          Line(points={{30,-4},{40,-10}}, color={191,0,0}),Line(points={{-40,-30},
+          {40,-30}}, color={191,0,0}),Line(points={{-40,-30},{-30,-24}}, color=
+          {191,0,0}),Line(points={{-40,-30},{-30,-36}}, color={191,0,0}),Line(
+          points={{-40,30},{40,30}}, color={191,0,0}),Line(points={{30,24},{40,
+          30}}, color={191,0,0}),Line(points={{30,36},{40,30}}, color={191,0,0}),
+          Rectangle(
           extent={{-90,80},{-60,-80}},
           fillColor={192,192,192},
           fillPattern=FillPattern.Backward,
-          pattern=LinePattern.None),
-        Line(
+          pattern=LinePattern.None),Line(
           points={{-60,80},{-60,-80}},
           color={0,0,0},
-          thickness=0.5),
-        Rectangle(
+          thickness=0.5),Rectangle(
           extent={{90,80},{60,-80}},
           fillColor={192,192,192},
           fillPattern=FillPattern.Backward,
-          pattern=LinePattern.None),
-        Line(
+          pattern=LinePattern.None),Line(
           points={{60,80},{60,-80}},
           color={0,0,0},
           thickness=0.5)}), Documentation(info="<html>

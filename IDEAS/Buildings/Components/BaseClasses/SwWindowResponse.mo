@@ -11,7 +11,11 @@ model SwWindowResponse "shortwave window respones"
   parameter Real SwTransDif
     "transmitted solar radiation for look-up table as function of angle of incidence";
 
-  final parameter Integer[nLay] columns = if (nLay == 1) then {2} else integer(linspace(2,nLay+1,nLay));
+  final parameter Integer[nLay] columns=if (nLay == 1) then {2} else integer(
+      linspace(
+      2,
+      nLay + 1,
+      nLay));
 
   Modelica.Blocks.Interfaces.RealInput solDir
     "direct solar illuminance on surface se"
@@ -35,18 +39,17 @@ model SwWindowResponse "shortwave window respones"
     annotation (Placement(transformation(extent={{-58,-52},{-40,-34}})));
   Modelica.Blocks.Tables.CombiTable1Ds SwAbsDir(
     final table=SwAbs,
-    final smoothness= Modelica.Blocks.Types.Smoothness.LinearSegments,
+    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     final columns=columns) "lookup table for AOI dependent absorptance"
-                                                 annotation (Placement(
-        transformation(
+    annotation (Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={-29,-11})));
   Modelica.Blocks.Tables.CombiTable1Ds SwTransDir(
     final table=SwTrans,
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    final columns={2}) "lookup table for AOI dependent transmittance" annotation (
-      Placement(transformation(
+    final columns={2}) "lookup table for AOI dependent transmittance"
+    annotation (Placement(transformation(
         extent={{-9,-9},{9,9}},
         rotation=90,
         origin={-3,-11})));

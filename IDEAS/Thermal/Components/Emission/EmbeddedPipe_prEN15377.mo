@@ -31,10 +31,11 @@ model EmbeddedPipe_prEN15377
     "Temperature of medium inflow through flowPort_a";
   Modelica.SIunits.Temperature TOut(start=TInitial)
     "Temperature of medium outflow through flowPort_b";
-  final parameter Real rey = m_flowMin * (FHChars.d_a - 2*FHChars.s_r) / (medium.nue * Modelica.Constants.pi / 4 * (FHChars.d_a - 2*FHChars.s_r)^2)
+  final parameter Real rey=m_flowMin*(FHChars.d_a - 2*FHChars.s_r)/(medium.nue*
+      Modelica.Constants.pi/4*(FHChars.d_a - 2*FHChars.s_r)^2)
     "Fix Reynolds number for assert of turbulent flow";
-  Real m_flowSp = flowPort_a.m_flow/FHChars.A_Floor "in kg/s.m2";
-  Real m_flowMinSp = m_flowMin / FHChars.A_Floor "in kg/s.m2";
+  Real m_flowSp=flowPort_a.m_flow/FHChars.A_Floor "in kg/s.m2";
+  Real m_flowMinSp=m_flowMin/FHChars.A_Floor "in kg/s.m2";
   Modelica.SIunits.Velocity flowSpeed=flowPort_a.m_flow/medium.rho/(Modelica.Constants.pi
       /4*(FHChars.d_a - 2*FHChars.s_r)^2);
 
@@ -46,17 +47,17 @@ model EmbeddedPipe_prEN15377
   final parameter Modelica.SIunits.ThermalInsulance R_r=FHChars.T*log(FHChars.d_a
       /(FHChars.d_a - 2*FHChars.s_r))/(2*Modelica.Constants.pi*FHChars.lambda_r)
     "Fix resistance of thermal conduction through pipe wall";
-  final parameter Modelica.SIunits.ThermalInsulance R_x=(FHChars.T*log(
-      FHChars.T/(3.14*FHChars.d_a)))/(2*3.14*FHChars.lambda_b)
+  final parameter Modelica.SIunits.ThermalInsulance R_x=(FHChars.T*log(FHChars.T
+      /(3.14*FHChars.d_a)))/(2*3.14*FHChars.lambda_b)
     "Fix resistance of thermal conduction from pipe wall to layer";
 
-    Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_x(G=FHChars.A_Floor/R_x) annotation (Placement(
-        transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_x(G=
+        FHChars.A_Floor/R_x) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={68,0})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_r(G=FHChars.A_Floor/R_r)
-    annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_r(G=
+        FHChars.A_Floor/R_r) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={34,0})));
@@ -77,27 +78,31 @@ model EmbeddedPipe_prEN15377
         rotation=180,
         origin={-32,0})));
 
-// Equations and stuff ////////////////////////////////////////////////////////////////////////
+  // Equations and stuff ////////////////////////////////////////////////////////////////////////
 initial equation
-  assert(FHChars.S_1 > 0.3 * FHChars.T, "Thickness of the concrete or screed layer above the tubes is smaller than 0.3 * the tube interdistance. 
+  assert(FHChars.S_1 > 0.3*FHChars.T, "Thickness of the concrete or screed layer above the tubes is smaller than 0.3 * the tube interdistance. 
     The model is not valid for this case");
-  assert(FHChars.S_2 > 0.3 * FHChars.T, "Thickness of the concrete or screed layer under the tubes is smaller than 0.3 * the tube interdistance. 
+  assert(FHChars.S_2 > 0.3*FHChars.T, "Thickness of the concrete or screed layer under the tubes is smaller than 0.3 * the tube interdistance. 
     The model is not valid for this case");
-  assert(rey > 2700, "The minimal flowrate leads to laminar flow.  Adapt the model (specifically R_w) to these conditions");
-  assert(m_flowMinSp * medium.cp * (R_w + R_r + R_x) >= 0.5, "Model is not valid, division in n parts is required");
+  assert(rey > 2700,
+    "The minimal flowrate leads to laminar flow.  Adapt the model (specifically R_w) to these conditions");
+  assert(m_flowMinSp*medium.cp*(R_w + R_r + R_x) >= 0.5,
+    "Model is not valid, division in n parts is required");
 
 algorithm
   if noEvent(abs(flowPort_a.m_flow) > m_flowMin/10) then
     TIn := flowPort_a.h/medium.cp;
-    R_w :=FHChars.T^0.13/8/Modelica.Constants.pi*((FHChars.d_a - 2*FHChars.s_r)/
-      (m_flowSp*L_r))^0.87;
-    R_z := 1 / (2 * m_flowSp * medium.cp);
+    R_w := FHChars.T^0.13/8/Modelica.Constants.pi*((FHChars.d_a - 2*FHChars.s_r)
+      /(m_flowSp*L_r))^0.87;
+    R_z := 1/(2*m_flowSp*medium.cp);
     // energy balance
-    TOut :=TIn - (-theta_v.port.Q_flow/flowPort_a.m_flow/medium.cp);
-    assert(noEvent(flowSpeed >= 0.05), "Attention, flowSpeed is smaller than 0.05 m/s");
-    assert(noEvent(flowSpeed <= 0.5), "Attention, flowSpeed is larger than 0.5 m/s");
+    TOut := TIn - (-theta_v.port.Q_flow/flowPort_a.m_flow/medium.cp);
+    assert(noEvent(flowSpeed >= 0.05),
+      "Attention, flowSpeed is smaller than 0.05 m/s");
+    assert(noEvent(flowSpeed <= 0.5),
+      "Attention, flowSpeed is larger than 0.5 m/s");
   else
-    R_w := FHChars.T / (200 * (FHChars.d_a - 2*FHChars.s_r) * Modelica.Constants.pi);
+    R_w := FHChars.T/(200*(FHChars.d_a - 2*FHChars.s_r)*Modelica.Constants.pi);
     // R_z has to be a big value, because otherwise heat exchange will take place
     // based on TIn
     R_z := 1e10;
@@ -119,15 +124,21 @@ equation
 
   // massflow a->b mixing rule at a, energy flow at b defined by medium's temperature
   // massflow b->a mixing rule at b, energy flow at a defined by medium's temperature
-  flowPort_a.H_flow = semiLinear(flowPort_a.m_flow,flowPort_a.h,TOut * medium.cp);
-  flowPort_b.H_flow = semiLinear(flowPort_b.m_flow,flowPort_b.h,TOut * medium.cp);
+  flowPort_a.H_flow = semiLinear(
+    flowPort_a.m_flow,
+    flowPort_a.h,
+    TOut*medium.cp);
+  flowPort_b.H_flow = semiLinear(
+    flowPort_b.m_flow,
+    flowPort_b.h,
+    TOut*medium.cp);
 
-  connect(resistance_r.port_b,resistance_x. port_a) annotation (Line(
+  connect(resistance_r.port_b, resistance_x.port_a) annotation (Line(
       points={{44,-1.22465e-015},{51,-1.22465e-015},{51,1.22465e-015},{58,
           1.22465e-015}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(resistance_w.port_b,resistance_r. port_a) annotation (Line(
+  connect(resistance_w.port_b, resistance_r.port_a) annotation (Line(
       points={{12,-1.22465e-015},{18,-1.22465e-015},{18,1.22465e-015},{24,
           1.22465e-015}},
       color={191,0,0},

@@ -5,8 +5,7 @@ model Tester_RadSol
     inc=34,
     azi=0,
     A=1) annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  inner IDEAS.SimInfoManager         sim(redeclare Climate.Meteo.Files.min15
-                                detail, redeclare Climate.Meteo.Locations.Uccle
-                                    city)
+  inner IDEAS.SimInfoManager sim(redeclare Climate.Meteo.Files.min15 detail,
+      redeclare Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 end Tester_RadSol;

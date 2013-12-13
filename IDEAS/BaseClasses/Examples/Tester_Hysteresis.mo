@@ -13,7 +13,7 @@ model Tester_Hysteresis
   Modelica.Blocks.Sources.Pulse pulse(period=7)
     annotation (Placement(transformation(extent={{-42,10},{-22,30}})));
 equation
-  connect(sine.y, hyst.u)         annotation (Line(
+  connect(sine.y, hyst.u) annotation (Line(
       points={{-63,46},{-26.8,46}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -22,7 +22,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  annotation (Diagram(graphics),
+  annotation (
+    Diagram(graphics),
     experiment(StopTime=100, Interval=0.1),
     __Dymola_experimentSetupOutput);
 end Tester_Hysteresis;

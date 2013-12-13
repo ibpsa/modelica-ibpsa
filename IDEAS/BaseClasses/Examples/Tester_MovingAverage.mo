@@ -7,8 +7,7 @@ model Tester_MovingAverage
     offset=50,
     startTime=5,
     amplitude=150,
-    period=10)
-    annotation (Placement(transformation(extent={{-74,8},{-54,28}})));
+    period=10) annotation (Placement(transformation(extent={{-74,8},{-54,28}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(
     T=3,
     initType=Modelica.Blocks.Types.Init.InitialOutput,

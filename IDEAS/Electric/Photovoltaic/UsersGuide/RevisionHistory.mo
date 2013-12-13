@@ -41,8 +41,7 @@ class RevisionHistory "Revision History"
 
 <p>This code appears then as in the \"Revisions\" section below.</p>
 
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr>
       <th>Version</th>

@@ -1,8 +1,8 @@
 within IDEAS.Electric.Battery.Examples;
 model TestBattery
-// Test the charging and discharging of a battery
+  // Test the charging and discharging of a battery
 
-Modelica.SIunits.Power Pnet;
+  Modelica.SIunits.Power Pnet;
 
   DistributionGrid.GridGeneral gridGeneral(redeclare
       IDEAS.Electric.Data.Grids.TestGrid2Nodes grid)
@@ -11,8 +11,7 @@ Modelica.SIunits.Power Pnet;
     redeclare IDEAS.Electric.Data.Batteries.LiIon technology,
     SoC_start=0.6,
     Pnet=Pnet,
-    EBat=10)
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+    EBat=10) annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Blocks.Sources.Ramp ramp2(
     duration=1500,
     startTime=2700,
@@ -35,8 +34,9 @@ Modelica.SIunits.Power Pnet;
     startTime=4800)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
-Pnet = ramp1.y + ramp2.y + ramp3.y;
-  connect(gridGeneral.gridNodes[2], batterySystemGeneral.pin[1]) annotation (Line(
+  Pnet = ramp1.y + ramp2.y + ramp3.y;
+  connect(gridGeneral.gridNodes[2], batterySystemGeneral.pin[1]) annotation (
+      Line(
       points={{-60,-30},{0.4,-30}},
       color={85,170,255},
       smooth=Smooth.None));

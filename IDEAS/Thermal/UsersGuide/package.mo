@@ -1,6 +1,6 @@
 within IDEAS.Thermal;
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Information;
+extends Modelica.Icons.Information;
 
 
 annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>

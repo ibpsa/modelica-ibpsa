@@ -6,19 +6,21 @@ model Bui600 "BESTEST Building model case 600"
     ATrans=1,
     VZones={gF.V});
 
-  IDEAS.Buildings.Components.Zone gF(nSurf=8, V=129.6,
-    n50=0.6)
-    annotation (Placement(transformation(extent={{40,0},{80,40}})));
+  IDEAS.Buildings.Components.Zone gF(
+    nSurf=8,
+    V=129.6,
+    n50=0.6) annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
     redeclare final parameter Data.Constructions.LightWall constructionType,
     redeclare final parameter Data.Insulation.fiberglass insulationType,
     final AWall={21.6,16.2,9.6,16.2},
-    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
+    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
+        IDEAS.Constants.West},
     final insulationThickness={0.066,0.066,0.066,0.066},
-    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})
-    annotation (Placement(transformation(
+    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,
+        IDEAS.Constants.Wall}) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-49,-14})));
@@ -40,8 +42,8 @@ model Bui600 "BESTEST Building model case 600"
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     final azi={IDEAS.Constants.South,IDEAS.Constants.South},
     redeclare replaceable IDEAS.Buildings.Components.Shading.None shaType,
-    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType) annotation (Placement(
-        transformation(
+    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType)
+    annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));

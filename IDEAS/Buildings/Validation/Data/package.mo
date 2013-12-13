@@ -2,6 +2,6 @@ within IDEAS.Buildings.Validation;
 package Data 
 
 
-  extends Modelica.Icons.MaterialPropertiesPackage;
+extends Modelica.Icons.MaterialPropertiesPackage;
 
 end Data;

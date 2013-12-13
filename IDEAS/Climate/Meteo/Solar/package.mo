@@ -2,6 +2,6 @@ within IDEAS.Climate.Meteo;
 package Solar 
 
 
-  extends Modelica.Icons.Package;
+extends Modelica.Icons.Package;
 
 end Solar;

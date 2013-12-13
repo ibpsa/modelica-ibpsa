@@ -8,25 +8,25 @@ partial model Partial_Emission
   parameter Boolean floorHeating "true if the emission has a floor heating";
   parameter Boolean radiators "true if the emission has a radiator";
 
-// Interfaces ////////////////////////////////////////////////////////////////////////////////////////
+  // Interfaces ////////////////////////////////////////////////////////////////////////////////////////
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon if radiators
-    "convective heat transfer from radiators"
-    annotation (Placement(transformation(extent={{40,50},{60,70}}),
-        iconTransformation(extent={{40,50},{60,70}})));
+    "convective heat transfer from radiators" annotation (Placement(
+        transformation(extent={{40,50},{60,70}}), iconTransformation(extent={{
+            40,50},{60,70}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRad if radiators
-    "radiation heat transfer from radiators"
-    annotation (Placement(transformation(extent={{80,50},{100,70}}),
-        iconTransformation(extent={{80,50},{100,70}})));
+    "radiation heat transfer from radiators" annotation (Placement(
+        transformation(extent={{80,50},{100,70}}), iconTransformation(extent={{
+            80,50},{100,70}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heatPortEmb if floorHeating
-    "Port to the core of a floor heating/concrete activation"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heatPortEmb if
+    floorHeating "Port to the core of a floor heating/concrete activation"
     annotation (Placement(transformation(extent={{-60,48},{-40,68}}),
         iconTransformation(extent={{-60,48},{-40,68}})));
 
-// General parameters for the design (nominal) conditions /////////////////////////////////////////////
+  // General parameters for the design (nominal) conditions /////////////////////////////////////////////
 
-// Other parameters//////////////////////////////////////////////////////////////////////////////////////
+  // Other parameters//////////////////////////////////////////////////////////////////////////////////////
   parameter Modelica.SIunits.Temperature TInitial=293.15
     "Initial temperature of all state variables";
   replaceable parameter IDEAS.Thermal.Components.BaseClasses.FH_Characteristics
@@ -34,7 +34,7 @@ partial model Partial_Emission
     IDEAS.Thermal.Components.BaseClasses.FH_Characteristics
     "Properties of the floor heating or TABS, if present";
 
-// Variables ///////////////////////////////////////////////////////////////////////////////////////////
+  // Variables ///////////////////////////////////////////////////////////////////////////////////////////
   Modelica.SIunits.Temperature TMean(start=TInitial, fixed=false)
     "Mean water temperature";
   Modelica.SIunits.Temperature TIn(start=TInitial, fixed=false)
@@ -42,21 +42,21 @@ partial model Partial_Emission
   Modelica.SIunits.Temperature TOut(start=TInitial, fixed=false)
     "Temperature of medium outflow through flowPort_b";
 
-// General outputs
+  // General outputs
 
   Thermal.Components.Interfaces.FlowPort_a flowPort_a(h(start=TInitial*medium.cp,
-        fixed=false), medium=medium) "Fluid inlet"
-    annotation (Placement(transformation(extent={{-110,-80},{-90,-60}}),
-        iconTransformation(extent={{-110,-80},{-90,-60}})));
+        fixed=false), medium=medium) "Fluid inlet" annotation (Placement(
+        transformation(extent={{-110,-80},{-90,-60}}), iconTransformation(
+          extent={{-110,-80},{-90,-60}})));
   Thermal.Components.Interfaces.FlowPort_b flowPort_b(h(start=TInitial*medium.cp,
-        fixed=false), medium=medium) "Fluid outlet"
-    annotation (Placement(transformation(extent={{130,20},{150,40}}),
-        iconTransformation(extent={{130,20},{150,40}})));
+        fixed=false), medium=medium) "Fluid outlet" annotation (Placement(
+        transformation(extent={{130,20},{150,40}}), iconTransformation(extent={
+            {130,20},{150,40}})));
 initial equation
   //der(flowPort_a.h) = 0;
   annotation (
-    Icon(coordinateSystem(extent={{-100,-100},{140,60}}, preserveAspectRatio=true),
-        graphics={
+    Icon(coordinateSystem(extent={{-100,-100},{140,60}}, preserveAspectRatio=
+            true), graphics={
         Line(
           points={{-70,-70},{-100,-70}},
           color={0,0,127},
@@ -73,8 +73,8 @@ initial equation
           points={{110,30},{140,30}},
           color={0,0,127},
           smooth=Smooth.None)}),
-    Diagram(coordinateSystem(extent={{-100,-100},{140,60}}, preserveAspectRatio=
-           true), graphics),
+    Diagram(coordinateSystem(extent={{-100,-100},{140,60}}, preserveAspectRatio
+          =true), graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Partial class for hydraulic heat emission systems. Can be used to create radiators, fan coil units etc. but also for embedded systems (or thermally activated building systems, TABS) like floor heating, wall heating, concrete core activation etc. </p>

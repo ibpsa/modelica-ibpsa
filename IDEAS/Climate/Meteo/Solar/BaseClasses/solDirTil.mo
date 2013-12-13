@@ -1,10 +1,10 @@
 within IDEAS.Climate.Meteo.Solar.BaseClasses;
 model solDirTil
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
-parameter Modelica.SIunits.Area A;
-parameter Modelica.SIunits.Angle inc(displayUnit="degree") "inclination";
+  parameter Modelica.SIunits.Area A;
+  parameter Modelica.SIunits.Angle inc(displayUnit="degree") "inclination";
 
   Modelica.Blocks.Interfaces.RealInput angSol
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));

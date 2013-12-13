@@ -33,10 +33,10 @@ block Timer_NoEvents "Min-on OR min-off timer that does not generate events"
   */
 
   import IDEAS.Climate.Time.BaseClasses.TimerType;
-  parameter TimerType timerType(start = TimerType.off) "Type of the timer";
+  parameter TimerType timerType(start=TimerType.off) "Type of the timer";
   parameter Modelica.SIunits.Time duration "Duration of the timer";
 
-//protected
+  //protected
   constant Modelica.SIunits.Temperature TStart=300;
   constant Modelica.SIunits.Temperature TStep=100;
   // the G-value is chosen in order to make sure that RC = duration, meaning that the time
@@ -45,10 +45,9 @@ block Timer_NoEvents "Min-on OR min-off timer that does not generate events"
   parameter Modelica.SIunits.HeatCapacity C=1e6;
   parameter Modelica.SIunits.Temperature TEnd=TStart + TStep*(1 - exp(-1));
 
-  IDEAS.Thermal.Components.BaseClasses.VariableThermalConductor
-                               RVar
+  IDEAS.Thermal.Components.BaseClasses.VariableThermalConductor RVar
     annotation (Placement(transformation(extent={{-36,18},{-16,38}})));
-   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAmb
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAmb
     annotation (Placement(transformation(extent={{-84,18},{-64,38}})));
 public
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap(
@@ -63,28 +62,28 @@ public
   Modelica.Blocks.Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
 algorithm
-  if timerType==TimerType.off then
+  if timerType == TimerType.off then
     if noEvent(u < 0.5 or y < 0.5) then
-      RVar.G :=GLow;
-      TAmb.T :=TStart + TStep;
+      RVar.G := GLow;
+      TAmb.T := TStart + TStep;
     else
-      RVar.G :=1e2*GLow;
-      TAmb.T :=TStart;
+      RVar.G := 1e2*GLow;
+      TAmb.T := TStart;
     end if;
 
   else
     if noEvent(u > 0.5 or y > 0.5) then
-      RVar.G :=GLow;
-      TAmb.T :=TStart + TStep;
+      RVar.G := GLow;
+      TAmb.T := TStart + TStep;
     else
-      RVar.G :=1e2*GLow;
-      TAmb.T :=TStart;
+      RVar.G := 1e2*GLow;
+      TAmb.T := TStart;
     end if;
 
   end if;
 
 equation
-  if timerType==TimerType.off then
+  if timerType == TimerType.off then
     y = if noEvent(IDEAS.BaseClasses.Control.Hysteresis_NoEvent(
       cap.T,
       y,
@@ -100,7 +99,7 @@ equation
        then 0 else 1;
   end if;
 
-  connect(RVar.port_b, cap.port)                               annotation (Line(
+  connect(RVar.port_b, cap.port) annotation (Line(
       points={{-16,28},{14,28},{14,46}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -108,14 +107,12 @@ equation
       points={{-64,28},{-36,28}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
-        Ellipse(extent={{-54,56},{60,-62}}, lineColor={0,0,255}),
-        Rectangle(
+  annotation (Diagram(graphics), Icon(graphics={Ellipse(extent={{-54,56},{60,-62}},
+          lineColor={0,0,255}),Rectangle(
           extent={{-2,56},{8,66}},
           lineColor={0,0,255},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Line(
+          fillPattern=FillPattern.Solid),Line(
           points={{4,-2},{32,46},{32,38},{26,42},{32,46}},
           color={0,0,255},
           smooth=Smooth.None,

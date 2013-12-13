@@ -1,6 +1,6 @@
 within IDEAS.Climate.Meteo.Locations;
 model BesTest "Climate file for BesTest"
-extends IDEAS.Climate.Meteo.Location(
+  extends IDEAS.Climate.Meteo.Location(
     lat=39.8/180*Modelica.Constants.pi,
     lon=-104.9/180*Modelica.Constants.pi,
     Tdes=265.15,

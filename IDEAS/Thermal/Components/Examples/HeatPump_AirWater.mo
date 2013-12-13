@@ -2,7 +2,7 @@ within IDEAS.Thermal.Components.Examples;
 model HeatPump_AirWater
   "General example and tester for a modulating air-to-water heat pump"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         Data.Media.Water(), p=200000)
@@ -16,28 +16,28 @@ extends Modelica.Icons.Example;
   IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort pipe(
     medium=Data.Media.Water(),
     m=5,
-    TInitial=313.15) annotation (Placement(transformation(extent={{32,-24},{12,-4}})));
-  Production.HP_AirWater
-                    heater(
+    TInitial=313.15)
+    annotation (Placement(transformation(extent={{32,-24},{12,-4}})));
+  Production.HP_AirWater heater(
     medium=Data.Media.Water(),
     tauHeatLoss=3600,
     cDry=10000,
     mWater=4,
     QNom=12000)
-               annotation (Placement(transformation(extent={{-76,14},{-56,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
+    annotation (Placement(transformation(extent={{-76,14},{-56,34}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        293.15)
     annotation (Placement(transformation(extent={{-94,-20},{-80,-6}})));
-  inner IDEAS.SimInfoManager         sim(
-              redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
-      IDEAS.Climate.Meteo.Files.min60 detail)
+  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
+      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
-//  Real PElLossesInt( start = 0, fixed = true);
-//  Real PElNoLossesInt( start = 0, fixed = true);
-//  Real QUsefulLossesInt( start = 0, fixed = true);
-//  Real QUsefulNoLossesInt( start = 0, fixed = true);
-//  Real SPFLosses( start = 0);
-//  Real SPFNoLosses( start = 0);
-//
+  //  Real PElLossesInt( start = 0, fixed = true);
+  //  Real PElNoLossesInt( start = 0, fixed = true);
+  //  Real QUsefulLossesInt( start = 0, fixed = true);
+  //  Real QUsefulNoLossesInt( start = 0, fixed = true);
+  //  Real SPFLosses( start = 0);
+  //  Real SPFNoLosses( start = 0);
+  //
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TReturn
     annotation (Placement(transformation(extent={{-40,-62},{-20,-42}})));
   Modelica.Blocks.Sources.Sine sine(
@@ -47,20 +47,19 @@ extends Modelica.Icons.Example;
     offset=273.15 + 30)
     annotation (Placement(transformation(extent={{-82,-62},{-62,-42}})));
 equation
-   heater.TSet=273.15+35;
-//   der(PElLossesInt) = HP.PEl;
-//   der(PElNoLossesInt) = HP_NoLosses.PEl;
-//   der(QUsefulLossesInt) =thermalConductor.port_b.Q_flow;
-//   der(QUsefulNoLossesInt) = thermalConductor1.port_b.Q_flow;
-//   SPFLosses = if noEvent(PElLossesInt > 0) then QUsefulLossesInt/PElLossesInt else 0;
-//   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
+  heater.TSet = 273.15 + 35;
+  //   der(PElLossesInt) = HP.PEl;
+  //   der(PElNoLossesInt) = HP_NoLosses.PEl;
+  //   der(QUsefulLossesInt) =thermalConductor.port_b.Q_flow;
+  //   der(QUsefulNoLossesInt) = thermalConductor1.port_b.Q_flow;
+  //   SPFLosses = if noEvent(PElLossesInt > 0) then QUsefulLossesInt/PElLossesInt else 0;
+  //   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
 
-  connect(heater.heatPort, fixedTemperature.port)
-                                              annotation (Line(
+  connect(heater.heatPort, fixedTemperature.port) annotation (Line(
       points={{-69,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TReturn.port, pipe.heatPort)                    annotation (Line(
+  connect(TReturn.port, pipe.heatPort) annotation (Line(
       points={{-20,-52},{22,-52},{22,-24}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -84,9 +83,9 @@ equation
       points={{-56,19.6364},{-44,19.6364},{-44,20},{-36,20}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-            {100,100}}),
-                      graphics),
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=15000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

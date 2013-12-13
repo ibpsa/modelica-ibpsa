@@ -5,7 +5,7 @@ model Case650FF
     redeclare BaseClasses.Structure.Bui900 building,
     redeclare BaseClasses.HeatingSystem.None heatingSystem,
     redeclare BaseClasses.VentilationSystem.NightVentilation ventilationSystem,
-    redeclare IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
-                                                inHomeGrid);
+
+    redeclare IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid);
 
 end Case650FF;

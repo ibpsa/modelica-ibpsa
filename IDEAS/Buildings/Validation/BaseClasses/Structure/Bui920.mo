@@ -11,8 +11,10 @@ model Bui920 "BESTEST Building model case 920"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
-    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
-    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
+    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
+        IDEAS.Constants.West},
+    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,
+        IDEAS.Constants.Wall},
     redeclare final parameter Data.Constructions.HeavyWall constructionType,
     redeclare final parameter Data.Insulation.foaminsulation insulationType,
     final insulationThickness={0.0615,0.0615,0.0615,0.0615},
@@ -38,8 +40,8 @@ model Bui920 "BESTEST Building model case 920"
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     final azi={IDEAS.Constants.East,IDEAS.Constants.West},
     redeclare replaceable IDEAS.Buildings.Components.Shading.None shaType,
-    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType) annotation (Placement(
-        transformation(
+    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType)
+    annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));

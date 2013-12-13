@@ -2,6 +2,6 @@ within IDEAS.Electric;
 package Data 
 
 
-  extends Modelica.Icons.MaterialPropertiesPackage;
+extends Modelica.Icons.MaterialPropertiesPackage;
 
 end Data;

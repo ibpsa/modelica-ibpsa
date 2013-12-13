@@ -7,25 +7,18 @@ partial model StateWall "Partial model for building envelope components"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b surfRad_a
     "Radiative surface node"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput iEpsLw_a
-    "Longwave emissivity for radiative heat losses"
-    annotation (Placement(transformation(extent={{46,20},{66,40}})));
-  Modelica.Blocks.Interfaces.RealOutput iEpsSw_a
-    "Shortwave emissivity for solar gain distribution"
-    annotation (Placement(transformation(extent={{46,-10},{66,10}})));
-  Modelica.Blocks.Interfaces.RealOutput area_a
-    "Total interior surface area of the wall" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={56,60})));
   inner outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
-  annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
-        graphics));
+  PropsBus propsBus_a annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={50,40}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={50,40})));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics), Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-50,-100},{50,100}}), graphics));
 
 end StateWall;

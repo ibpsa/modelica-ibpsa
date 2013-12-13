@@ -2,17 +2,18 @@ within IDEAS.Thermal.Components.BaseClasses;
 model Pump "Prescribed mass flow rate, no heat exchange."
 
   extends Thermal.Components.Interfaces.Partials.TwoPort;
-  parameter Boolean useInput = false "Enable / disable MassFlowRate input"
-    annotation(Evaluate=true);
+  parameter Boolean useInput=false "Enable / disable MassFlowRate input"
+    annotation (Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flowNom(min=0, start=1)
-    "Nominal mass flowrate"
-    annotation(Dialog(enable=not useVolumeFlowInput));
+    "Nominal mass flowrate" annotation (Dialog(enable=not useVolumeFlowInput));
   parameter Modelica.SIunits.Pressure dpFix=50000
     "Fixed pressure drop, used for determining the electricity consumption";
-  parameter Real etaTot = 0.8 "Fixed total pump efficiency";
+  parameter Real etaTot=0.8 "Fixed total pump efficiency";
   Modelica.SIunits.Power PEl "Electricity consumption";
-  Modelica.Blocks.Interfaces.RealInput m_flowSet(start = 0, min = 0, max = 1) = m_flow/m_flowNom if useInput
-    annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput m_flowSet(
+    start=0,
+    min=0,
+    max=1) = m_flow/m_flowNom if useInput annotation (Placement(transformation(
         origin={0,100},
         extent={{-10,-10},{10,10}},
         rotation=270)));
@@ -26,8 +27,9 @@ equation
 
   Q_flow = 0;
   flowPort_a.m_flow = m_flow;
-  PEl = m_flow / medium.rho * dpFix / etaTot;
-  annotation (Documentation(info="<html>
+  PEl = m_flow/medium.rho*dpFix/etaTot;
+  annotation (
+    Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Basic pump model without heat exchange. This model sets the mass flow rate, either as a constant or based on an input. The thermal equations are identical to the <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pipe\">Pipe</a> model.</p>
 <p>If an input is used (<code>useInput&nbsp;=&nbsp;true)</code>, <code>m_flowSet</code> is supposed to be a real value, and the flowrate is then <code>m_flowSet * m_flowNom. m_flowSet </code>is logically between 0 and 1, but any value is possible, as shown in the provided Example.</p>
@@ -57,8 +59,8 @@ equation
 <li>2010, Roel De Coninck, First version</li>
 </ul></p>
 </html>"),
-       Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),      graphics={
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics={
         Ellipse(
           extent={{-60,60},{60,-60}},
           lineColor={135,135,135},
@@ -89,7 +91,6 @@ equation
           lineColor={135,135,135},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}),
-                    graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics));
 end Pump;

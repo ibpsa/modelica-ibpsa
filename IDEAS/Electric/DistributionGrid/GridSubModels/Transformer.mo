@@ -2,42 +2,44 @@ within IDEAS.Electric.DistributionGrid.GridSubModels;
 model Transformer
   "This transfomer can be used in a single phase equivalent circuit or 3 phase"
 
-// Input parameters //////////////////////////////////////////////////////////////////////////////////////////////
-parameter Modelica.SIunits.ApparentPower Sn = 160000
-    "Apparant transformer power" annotation(choices(
-choice=100000 "100 kVA",
-choice=160000 "160 kVA",
-choice=250000 "250 kVA",
-choice=400000 "400 kVA",
-choice=630000 "630 kVA"));
-parameter Real Vsc = 4 "Short circuit voltage percentage of the transormer" annotation(choices(
-choice=3 "3%",
-choice=4 "4%",
-__Dymola_radioButtons=true));
-parameter Integer Phases=1 "Number of phases simulated" annotation(choices(
-choice=1 "Single Phase",
-choice=3 "3 Phase",
-__Dymola_radioButtons=true));
+  // Input parameters //////////////////////////////////////////////////////////////////////////////////////////////
+  parameter Modelica.SIunits.ApparentPower Sn=160000
+    "Apparant transformer power" annotation (choices(
+      choice=100000 "100 kVA",
+      choice=160000 "160 kVA",
+      choice=250000 "250 kVA",
+      choice=400000 "400 kVA",
+      choice=630000 "630 kVA"));
+  parameter Real Vsc=4 "Short circuit voltage percentage of the transormer"
+    annotation (choices(
+      choice=3 "3%",
+      choice=4 "4%",
+      __Dymola_radioButtons=true));
+  parameter Integer Phases=1 "Number of phases simulated" annotation (choices(
+      choice=1 "Single Phase",
+      choice=3 "3 Phase",
+      __Dymola_radioButtons=true));
 
-final parameter Modelica.SIunits.ActivePower P0=
-  if Sn==100000 then 190
-  elseif Sn==160000 then 260
-  elseif Sn==250000 then 365
-  elseif Sn==400000 then 515
-  elseif Sn==630000 then 745
-  else 190;
-final parameter Modelica.SIunits.ComplexImpedance Zs = (Phases/3)*(((400*Vsc/100)^2)/3)/(Sn*(Vsc/100)/3)+0*Modelica.ComplexMath.j;
-final parameter Modelica.SIunits.ComplexImpedance Zpar = (Phases/3)*(((400/sqrt(3))^2)/(P0/3))+0*Modelica.ComplexMath.j;
+  final parameter Modelica.SIunits.ActivePower P0=if Sn == 100000 then 190
+       elseif Sn == 160000 then 260 elseif Sn == 250000 then 365 elseif Sn ==
+      400000 then 515 elseif Sn == 630000 then 745 else 190;
+  final parameter Modelica.SIunits.ComplexImpedance Zs=(Phases/3)*(((400*Vsc/
+      100)^2)/3)/(Sn*(Vsc/100)/3) + 0*Modelica.ComplexMath.j;
+  final parameter Modelica.SIunits.ComplexImpedance Zpar=(Phases/3)*(((400/sqrt(
+      3))^2)/(P0/3)) + 0*Modelica.ComplexMath.j;
 
-// Output variables //////////////////////////////////////////////////////////////////////////////////////////////
-Modelica.SIunits.ActivePower traLosP0 = sum(Zp.R.*Modelica.ComplexMath.'abs'(Zp.i).*Modelica.ComplexMath.'abs'(Zp.i))
+  // Output variables //////////////////////////////////////////////////////////////////////////////////////////////
+  Modelica.SIunits.ActivePower traLosP0=sum(Zp.R .* Modelica.ComplexMath.'abs'(
+      Zp.i) .* Modelica.ComplexMath.'abs'(Zp.i))
     "Static power loss at zero load";
-Modelica.SIunits.ActivePower traLosPs = sum(ZsHV.R.*Modelica.ComplexMath.'abs'(ZsHV.i).*Modelica.ComplexMath.'abs'(ZsHV.i) + ZsLV.R.*Modelica.ComplexMath.'abs'(ZsLV.i).*Modelica.ComplexMath.'abs'(ZsLV.i))
-    "Load dependent transformer losses";
-Modelica.SIunits.ActivePower traLosPtot = traLosP0+traLosPs
+  Modelica.SIunits.ActivePower traLosPs=sum(ZsHV.R .*
+      Modelica.ComplexMath.'abs'(ZsHV.i) .* Modelica.ComplexMath.'abs'(ZsHV.i)
+       + ZsLV.R .* Modelica.ComplexMath.'abs'(ZsLV.i) .*
+      Modelica.ComplexMath.'abs'(ZsLV.i)) "Load dependent transformer losses";
+  Modelica.SIunits.ActivePower traLosPtot=traLosP0 + traLosPs
     "Total resistive power losses in the transormer";
 
-// Protected variables ///////////////////////////////////////////////////////////////////////////////////////////
+  // Protected variables ///////////////////////////////////////////////////////////////////////////////////////////
 protected
   IDEAS.Electric.DistributionGrid.Components.Branch ZsHV[Phases](each R=
         Modelica.ComplexMath.real(Zs)/2, each X=Modelica.ComplexMath.imag(Zs)/2)
@@ -47,41 +49,38 @@ protected
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IDEAS.Electric.DistributionGrid.Components.Branch Zp[Phases](each R=
         Modelica.ComplexMath.real(Zpar), each X=Modelica.ComplexMath.imag(Zpar))
-  annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,0})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
-                  pin_p[Phases]
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
-                  pin_n
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin pin_p[
+    Phases] annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin pin_n
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
-// Connection variables //////////////////////////////////////////////////////////////////////////////////////////
+  // Connection variables //////////////////////////////////////////////////////////////////////////////////////////
 public
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[Phases] HVpos(i(re(each start=-230/Modelica.ComplexMath.real(Zpar)), im(  each start=0)))
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[Phases]
+    HVpos(i(re(each start=-230/Modelica.ComplexMath.real(Zpar)), im(each start=
+            0)))
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
-                  HVgnd
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin HVgnd
     "Connect this to the voltage source negative pin / ground"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
-                  LVPos[Phases]
-    annotation (Placement(transformation(extent={{90,30},{110,50}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin LVPos[
+    Phases] annotation (Placement(transformation(extent={{90,30},{110,50}})));
 
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
-                  LVgnd
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin LVgnd
     "This should NOT be connected for single phase equivalent circuits"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
 
 equation
-for i in 1:Phases loop
+  for i in 1:Phases loop
     connect(Zp[i].pin_n, pin_n) annotation (Line(
-      points={{-1.77636e-015,-10},{-1.77636e-015,-29.5},{0,-29.5},{0,-40}},
-      color={0,0,255},
-      smooth=Smooth.None));
-end for;
+        points={{-1.77636e-015,-10},{-1.77636e-015,-29.5},{0,-29.5},{0,-40}},
+        color={0,0,255},
+        smooth=Smooth.None));
+  end for;
   connect(HVgnd, pin_n) annotation (Line(
       points={{-100,-40},{0,-40}},
       color={0,0,255},
@@ -112,7 +111,9 @@ end for;
       color={0,0,255},
       smooth=Smooth.None));
 
-annotation (Diagram(graphics), Documentation(info="<html>
+  annotation (
+    Diagram(graphics),
+    Documentation(info="<html>
 <p>Select the Rated Power for the Transformer as apparentpower<b> Sn</b>!</p>
 <p>This will set the series and parallel impedances (only resistance for now).</p>
 <p>Select the percentage Short Circuit Voltage <b>Vsc</b>, default is 4&percnt;, which normally should not be changed</p>

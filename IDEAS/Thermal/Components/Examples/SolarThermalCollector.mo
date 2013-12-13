@@ -2,21 +2,19 @@ within IDEAS.Thermal.Components.Examples;
 model SolarThermalCollector
   "Simple circuit with a solar thermal collector and storage tank"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
-  IDEAS.Thermal.Components.Production.SolarCollector_Glazed
-                                       collectorG(
+  IDEAS.Thermal.Components.Production.SolarCollector_Glazed collectorG(
     medium=medium,
     h_g=2,
     ACol=5,
     nCol=2,
     T0=283.15)
     annotation (Placement(transformation(extent={{-84,-28},{-64,-8}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            heatedPipe(medium=medium, m=5)
-    annotation (Placement(transformation(extent={{-46,-28},{-26,-8}})));
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort heatedPipe(medium=medium,
+      m=5) annotation (Placement(transformation(extent={{-46,-28},{-26,-8}})));
   Thermal.Components.BaseClasses.Pump pump(
     medium=medium,
     m=0,
@@ -28,19 +26,16 @@ extends Modelica.Icons.Example;
     volumeTank=0.5,
     heightTank=2)
     annotation (Placement(transformation(extent={{74,-68},{54,-48}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            heatedPipe1(medium=medium, m=5)
-    annotation (Placement(transformation(extent={{-26,-76},{-46,-56}})));
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort heatedPipe1(medium=medium,
+      m=5) annotation (Placement(transformation(extent={{-26,-76},{-46,-56}})));
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         medium, p=300000)
     annotation (Placement(transformation(extent={{-22,4},{-34,16}})));
 
-  Control.Ctrl_SolarThermal_Simple       solarThermalControl_DT(TSafetyMax=
-        363.15)
+  Control.Ctrl_SolarThermal_Simple solarThermalControl_DT(TSafetyMax=363.15)
     annotation (Placement(transformation(extent={{54,44},{34,64}})));
-  inner IDEAS.SimInfoManager         sim(
-      redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
-      IDEAS.Climate.Meteo.Files.min60 detail)
+  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
+      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-92,76},{-72,96}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
@@ -81,13 +76,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank.heatExchEnv) annotation (Line(
-      points={{16,-53},{20,-53},{20,-54},{28,-54},{28,-58.7692},{57.3333,
-          -58.7692}},
+      points={{16,-53},{20,-53},{20,-54},{28,-54},{28,-58.7692},{57.3333,-58.7692}},
+
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=604800, Interval=900),
     __Dymola_experimentSetupOutput);
 end SolarThermalCollector;

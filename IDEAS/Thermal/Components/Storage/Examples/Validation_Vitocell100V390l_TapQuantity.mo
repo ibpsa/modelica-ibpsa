@@ -3,7 +3,7 @@ model Validation_Vitocell100V390l_TapQuantity
   "Check the tap quantity for a hot tank as function of number of nodes"
   import IDEAS;
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   SI.Temperature TOut5Nodes=storageTank.nodes[1].T;
   SI.Temperature TOut10Nodes=storageTank1.nodes[1].T;
@@ -11,9 +11,9 @@ extends Modelica.Icons.Example;
   SI.Temperature TOut40Nodes=storageTank3.nodes[1].T;
   SI.Temperature TOut80Nodes=storageTank4.nodes[1].T;
 
-  SI.Volume mFlow_Int( start=0);
+  SI.Volume mFlow_Int(start=0);
 
-  StorageTank_OneIntHX                   storageTank(
+  StorageTank_OneIntHX storageTank(
     medium=Data.Media.Water(),
     mediumHX=Data.Media.Water(),
     UIns=0.4,
@@ -24,36 +24,37 @@ extends Modelica.Icons.Example;
     TInitial={273.15 + 55 for i in 1:storageTank.nbrNodes},
     nbrNodes=5)
     annotation (Placement(transformation(extent={{-58,14},{-38,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        293.15) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=180,
         origin={126,-12})));
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         Data.Media.Water(), p=200000)
     annotation (Placement(transformation(extent={{-78,70},{-58,92}})));
 
-  IDEAS.Thermal.Components.BaseClasses.Ambient
-                      ambient(medium=IDEAS.Thermal.Data.Media.Water(),constantAmbientPressure=300000,
-      constantAmbientTemperature=283.15)
+  IDEAS.Thermal.Components.BaseClasses.Ambient ambient(
+    medium=IDEAS.Thermal.Data.Media.Water(),
+    constantAmbientPressure=300000,
+    constantAmbientTemperature=283.15)
     annotation (Placement(transformation(extent={{36,-96},{56,-76}})));
-  IDEAS.Thermal.Components.BaseClasses.Pump
-                   pump(
+  IDEAS.Thermal.Components.BaseClasses.Pump pump(
     medium=IDEAS.Thermal.Data.Media.Water(),
     m=0,
     TInitial=283.15,
     m_flowNom=15/60,
-    etaTot=1)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    etaTot=1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-48,-50})));
-  IDEAS.Thermal.Components.BaseClasses.Ambient
-                      ambient1(
-                              medium=IDEAS.Thermal.Data.Media.Water(),constantAmbientPressure=300000,
-      constantAmbientTemperature=283.15)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  IDEAS.Thermal.Components.BaseClasses.Ambient ambient1(
+    medium=IDEAS.Thermal.Data.Media.Water(),
+    constantAmbientPressure=300000,
+    constantAmbientTemperature=283.15) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={12,90})));
-  StorageTank_OneIntHX                   storageTank1(
+  StorageTank_OneIntHX storageTank1(
     medium=Data.Media.Water(),
     mediumHX=Data.Media.Water(),
     UIns=0.4,
@@ -64,7 +65,7 @@ extends Modelica.Icons.Example;
     TInitial={273.15 + 55 for i in 1:storageTank1.nbrNodes},
     nbrNodes=10)
     annotation (Placement(transformation(extent={{-24,14},{-4,34}})));
-  StorageTank_OneIntHX                   storageTank2(
+  StorageTank_OneIntHX storageTank2(
     medium=Data.Media.Water(),
     mediumHX=Data.Media.Water(),
     UIns=0.4,
@@ -75,7 +76,7 @@ extends Modelica.Icons.Example;
     TInitial={273.15 + 55 for i in 1:storageTank2.nbrNodes},
     nbrNodes=20)
     annotation (Placement(transformation(extent={{12,14},{32,34}})));
-  StorageTank_OneIntHX                   storageTank3(
+  StorageTank_OneIntHX storageTank3(
     medium=Data.Media.Water(),
     mediumHX=Data.Media.Water(),
     UIns=0.4,
@@ -86,7 +87,7 @@ extends Modelica.Icons.Example;
     TInitial={273.15 + 55 for i in 1:storageTank3.nbrNodes},
     nbrNodes=40)
     annotation (Placement(transformation(extent={{46,14},{66,34}})));
-  StorageTank_OneIntHX                   storageTank4(
+  StorageTank_OneIntHX storageTank4(
     medium=Data.Media.Water(),
     mediumHX=Data.Media.Water(),
     UIns=0.4,
@@ -102,8 +103,8 @@ extends Modelica.Icons.Example;
     m=0,
     TInitial=283.15,
     m_flowNom=15/60,
-    etaTot=1)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    etaTot=1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={58,-50})));
   IDEAS.Thermal.Components.BaseClasses.Pump pump2(
@@ -111,8 +112,8 @@ extends Modelica.Icons.Example;
     m=0,
     TInitial=283.15,
     m_flowNom=15/60,
-    etaTot=1)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    etaTot=1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={22,-50})));
   IDEAS.Thermal.Components.BaseClasses.Pump pump3(
@@ -120,8 +121,8 @@ extends Modelica.Icons.Example;
     m=0,
     TInitial=283.15,
     m_flowNom=15/60,
-    etaTot=1)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    etaTot=1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-14,-50})));
   IDEAS.Thermal.Components.BaseClasses.Pump pump4(
@@ -129,12 +130,12 @@ extends Modelica.Icons.Example;
     m=0,
     TInitial=283.15,
     m_flowNom=15/60,
-    etaTot=1)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    etaTot=1) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={94,-52})));
 equation
-  der(mFlow_Int)=pump.flowPort_a.m_flow / 995.6;
+  der(mFlow_Int) = pump.flowPort_a.m_flow/995.6;
   connect(absolutePressure.flowPort, storageTank.flowPortHXUpper) annotation (
       Line(
       points={{-78,81},{-80,81},{-80,20.1538},{-58,20.1538}},
@@ -190,6 +191,7 @@ equation
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank1.heatExchEnv) annotation (Line(
       points={{116,-12},{60,-12},{60,-10},{0,-10},{0,23.2308},{-7.33333,23.2308}},
+
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank2.heatExchEnv) annotation (Line(
@@ -197,16 +199,19 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank3.heatExchEnv) annotation (Line(
-      points={{116,-12},{96,-12},{96,-10},{68,-10},{68,23.2308},{62.6667,23.2308}},
+      points={{116,-12},{96,-12},{96,-10},{68,-10},{68,23.2308},{62.6667,
+          23.2308}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank4.heatExchEnv) annotation (Line(
-      points={{116,-12},{112,-12},{112,-10},{98,-10},{98,23.2308},{92.6667,23.2308}},
+      points={{116,-12},{112,-12},{112,-10},{98,-10},{98,23.2308},{92.6667,
+          23.2308}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank1.flowPortHXUpper) annotation (
       Line(
       points={{-78,81},{-80,81},{-80,46},{-30,46},{-30,20.1538},{-24,20.1538}},
+
       color={255,0,0},
       smooth=Smooth.None));
   connect(absolutePressure.flowPort, storageTank2.flowPortHXUpper) annotation (
@@ -240,9 +245,8 @@ equation
       points={{96,32.4615},{84,32.4615},{84,80},{12,80}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-    experiment(
-      StopTime=2000,
-      Interval=10),
+  annotation (
+    Diagram(graphics),
+    experiment(StopTime=2000, Interval=10),
     __Dymola_experimentSetupOutput);
 end Validation_Vitocell100V390l_TapQuantity;

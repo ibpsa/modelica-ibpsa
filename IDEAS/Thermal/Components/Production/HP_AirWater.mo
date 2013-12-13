@@ -5,18 +5,17 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
     IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses(
       final heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.HP_AW);
 
-  parameter Modelica.SIunits.Power QDesign = 0
+  parameter Modelica.SIunits.Power QDesign=0
     "Overrules QNom if different from 0. Design heat load, typically at -8 or -10 degC in Belgium.  ";
-  parameter Real fraLosDesNom = 0.68
+  parameter Real fraLosDesNom=0.68
     "Ratio of power at design conditions over power at 2/35degC";
-  parameter Real betaFactor = 0.8
-    "Relative sizing compared to design heat load";
-  final parameter SI.Power QNomFinal = if QDesign == 0 then QNom else QDesign / fraLosDesNom * betaFactor
-    "Used nominal power in the heatSource model";
+  parameter Real betaFactor=0.8 "Relative sizing compared to design heat load";
+  final parameter SI.Power QNomFinal=if QDesign == 0 then QNom else QDesign/
+      fraLosDesNom*betaFactor "Used nominal power in the heatSource model";
 
   Real COP "Instanteanous COP";
 
-  IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_AW      heatSource(
+  IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_AW heatSource(
     medium=medium,
     QNom=QNomFinal,
     TEvaporator=sim.Te,
@@ -28,7 +27,7 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
     modulation_min=modulation_min,
     modulation_start=modulation_start)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  outer IDEAS.SimInfoManager         sim
+  outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
 
   parameter Real modulation_min=20 "Minimal modulation percentage";
@@ -37,14 +36,15 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
 equation
   PFuel = 0;
   PEl = heatSource.PEl;
-  COP = if noEvent(PEl > 0) then heatedFluid.heatPort.Q_flow / PEl else 0;
+  COP = if noEvent(PEl > 0) then heatedFluid.heatPort.Q_flow/PEl else 0;
 
-  connect(heatSource.heatPort, heatedFluid.heatPort)
-                                                 annotation (Line(
+  connect(heatSource.heatPort, heatedFluid.heatPort) annotation (Line(
       points={{-40,0},{-20,0},{-20,6.12323e-016}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Line(
           points={{-102,30},{-102,10}},
           color={0,0,127},
@@ -69,12 +69,12 @@ equation
           points={{78,-30},{78,-50}},
           color={128,0,255},
           smooth=Smooth.None),
-        Ellipse(extent={{-82,50},{-22,-10}},  lineColor={100,100,100}),
+        Ellipse(extent={{-82,50},{-22,-10}}, lineColor={100,100,100}),
         Line(
           points={{-102,20},{-70,20},{-42,32},{-62,8},{-34,20},{-22,20}},
           color={0,0,127},
           smooth=Smooth.None),
-        Ellipse(extent={{-2,-10},{58,-70}},   lineColor={100,100,100}),
+        Ellipse(extent={{-2,-10},{58,-70}}, lineColor={100,100,100}),
         Line(
           points={{-2,-40},{10,-40},{38,-28},{18,-52},{46,-40},{78,-40}},
           color={0,0,255},
@@ -192,13 +192,13 @@ equation
           color={95,95,95},
           smooth=Smooth.None),
         Line(
-          points={{-216,60},{-210,60},{-206,64},{-206,90},{-204,94},{-196,94},
-              {-194,90},{-194,82}},
+          points={{-216,60},{-210,60},{-206,64},{-206,90},{-204,94},{-196,94},{
+              -194,90},{-194,82}},
           color={95,95,95},
           smooth=Smooth.None),
         Line(
-          points={{-216,60},{-210,60},{-206,56},{-206,30},{-204,26},{-196,26},
-              {-194,30},{-194,38}},
+          points={{-216,60},{-210,60},{-206,56},{-206,30},{-204,26},{-196,26},{
+              -194,30},{-194,38}},
           color={95,95,95},
           smooth=Smooth.None)}),
     Documentation(info="<html>

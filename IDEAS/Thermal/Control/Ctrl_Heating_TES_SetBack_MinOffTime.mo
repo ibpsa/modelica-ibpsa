@@ -4,27 +4,28 @@ model Ctrl_Heating_TES_SetBack_MinOffTime
   extends Interfaces.Partial_Ctrl_Heating_TES;
 
   parameter Modelica.SIunits.Time timeOff=60*15;
-  Real debug(start = -1);
+  Real debug(start=-1);
   Real smoothed;
 
-  Modelica.Blocks.Sources.CombiTimeTable daytime(
-                                    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic, table=[0,
-        0; 43200,0; 43200,1; 68400,1; 68400,0; 86400,0])
+  Modelica.Blocks.Sources.CombiTimeTable daytime(extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+      table=[0, 0; 43200, 0; 43200, 1; 68400, 1; 68400, 0; 86400, 0])
     "Defines daytime, means period where storage tank can be charged"
     annotation (Placement(transformation(extent={{-64,-6},{-44,14}})));
   // this timer gives 0 during timing and 1 outside of timing
-  IDEAS.BaseClasses.Control.Timer_NoEvents
-                           timerOff(duration=timeOff)
+  IDEAS.BaseClasses.Control.Timer_NoEvents timerOff(duration=timeOff)
     annotation (Placement(transformation(extent={{-62,-42},{-42,-22}})));
 equation
-  smoothed = smooth(1,timerOff.y);
-  TTopSet = max(TDHWSet, heatingCurve.TSup) + dTSafetyTop + smooth(1, daytime.y[1])*5;
-  TBotSet = max(TDHWSet, heatingCurve.TSup) + dTSafetyBot + smooth(1, daytime.y[1])*5;
+  smoothed = smooth(1, timerOff.y);
+  TTopSet = max(TDHWSet, heatingCurve.TSup) + dTSafetyTop + smooth(1, daytime.y[
+    1])*5;
+  TBotSet = max(TDHWSet, heatingCurve.TSup) + dTSafetyBot + smooth(1, daytime.y[
+    1])*5;
   THPSet = TTopSet + dTHPTankSet;
 
-  if noEvent(smooth(2, timerOff.y) > 0.5) then  // with noEvent it is NOT possible to run this model:
+  if noEvent(smooth(2, timerOff.y) > 0.5) then
+    // with noEvent it is NOT possible to run this model:
     // Error: Cannot reduce the DAE index and select states.
-    if noEvent(TTankTop < TTopSet and TTankBot < (TBotSet-dTSafetyBot)) then
+    if noEvent(TTankTop < TTopSet and TTankBot < (TBotSet - dTSafetyBot)) then
       // top too cold, off-time passed: system MUST be on except if bottom is still very hot (temp inversion?)
       onOff = 1;
       debug = 1;

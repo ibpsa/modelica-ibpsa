@@ -1,49 +1,58 @@
 within IDEAS.Thermal.Components.GroundHeatExchanger.VerticalSingleBorehole.BoreholeComponents;
 model CylindricalLayer
   "describes the physical behaviour of a cylindrical layer"
-// Dieter Patteeuw 28feb2012
+  // Dieter Patteeuw 28feb2012
 
-parameter Modelica.SIunits.Radius innerRadiusCyl "inner radius of the cylinder";
-parameter Modelica.SIunits.Radius outerRadiusCyl "outer radius of the cylinder";
-parameter Modelica.SIunits.Length heigthCyl "heigth of the cylinder";
-parameter Modelica.SIunits.SpecificHeatCapacity groundCpCyl
+  parameter Modelica.SIunits.Radius innerRadiusCyl
+    "inner radius of the cylinder";
+  parameter Modelica.SIunits.Radius outerRadiusCyl
+    "outer radius of the cylinder";
+  parameter Modelica.SIunits.Length heigthCyl "heigth of the cylinder";
+  parameter Modelica.SIunits.SpecificHeatCapacity groundCpCyl
     "J/kgK specific heat capacity of the ground";
-parameter Modelica.SIunits.ThermalConductivity groundKCyl
+  parameter Modelica.SIunits.ThermalConductivity groundKCyl
     "W/mK thermal conductivity of the ground";
-parameter Modelica.SIunits.Temperature tempInitial
+  parameter Modelica.SIunits.Temperature tempInitial
     "initial temperature of the cylinder";
-parameter Modelica.SIunits.Density groundRhoCyl "kg/m3 density of the ground";
+  parameter Modelica.SIunits.Density groundRhoCyl "kg/m3 density of the ground";
 
 protected
-  parameter Modelica.SIunits.Radius capacityRadius = sqrt((outerRadiusCyl^2 + innerRadiusCyl^2)/2)
+  parameter Modelica.SIunits.Radius capacityRadius=sqrt((outerRadiusCyl^2 +
+      innerRadiusCyl^2)/2)
     "radius at which to place the capacity, according to Bianchi";
 
-  parameter Modelica.SIunits.ThermalConductance innerRadialConductance = (2*Modelica.Constants.pi*heigthCyl*groundKCyl)/(log(capacityRadius/innerRadiusCyl))
-    "W/K conductivity in the radial direction, inner side";
-  parameter Modelica.SIunits.ThermalConductance outerRadialConductance = (2*Modelica.Constants.pi*heigthCyl*groundKCyl)/(log(outerRadiusCyl/capacityRadius))
-    "W/K conductivity in the radial direction, outer side";
-  parameter Modelica.SIunits.ThermalConductance verticalConductance = groundKCyl/heigthCyl*Modelica.Constants.pi*(outerRadiusCyl^2 - innerRadiusCyl^2)
+  parameter Modelica.SIunits.ThermalConductance innerRadialConductance=(2*
+      Modelica.Constants.pi*heigthCyl*groundKCyl)/(log(capacityRadius/
+      innerRadiusCyl)) "W/K conductivity in the radial direction, inner side";
+  parameter Modelica.SIunits.ThermalConductance outerRadialConductance=(2*
+      Modelica.Constants.pi*heigthCyl*groundKCyl)/(log(outerRadiusCyl/
+      capacityRadius)) "W/K conductivity in the radial direction, outer side";
+  parameter Modelica.SIunits.ThermalConductance verticalConductance=groundKCyl/
+      heigthCyl*Modelica.Constants.pi*(outerRadiusCyl^2 - innerRadiusCyl^2)
     "W/K conductivity in vertical direction";
-  parameter Modelica.SIunits.HeatCapacity cylinderCapacity = groundCpCyl*groundRhoCyl*heigthCyl*Modelica.Constants.pi*(outerRadiusCyl^2 - innerRadiusCyl^2)
-    "J/K heatcapacity of the layer";
+  parameter Modelica.SIunits.HeatCapacity cylinderCapacity=groundCpCyl*
+      groundRhoCyl*heigthCyl*Modelica.Constants.pi*(outerRadiusCyl^2 -
+      innerRadiusCyl^2) "J/K heatcapacity of the layer";
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCapacitor(C=cylinderCapacity, T(
-        start=tempInitial))
-    annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCapacitor(C=
+        cylinderCapacity, T(start=tempInitial)) annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-2,-12})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor innerRadial(G=innerRadialConductance)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor innerRadial(G=
+        innerRadialConductance)
     annotation (Placement(transformation(extent={{-74,-12},{-54,8}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor outerRadial(G=outerRadialConductance)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor outerRadial(G=
+        outerRadialConductance)
     annotation (Placement(transformation(extent={{44,-12},{64,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor verticalUpper(G=verticalConductance/2)
-    annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor verticalUpper(G=
+        verticalConductance/2) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-8,46})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor verticalUnder(G=verticalConductance/2)
-    annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor verticalUnder(G=
+        verticalConductance/2) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-8,-54})));
@@ -89,13 +98,15 @@ equation
       points={{-8,-64},{-10,-64},{-10,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={Line(
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={Line(
           points={{-46,24},{-38,30},{-36,34},{-36,40},{-38,46},{-42,52},{-48,54},
-              {26,82},{40,68},{42,58},{44,44},{42,34},{38,22},{34,10},{28,4},{22,
-              0},{-46,24},{-46,-54},{24,-84},{22,0},{24,-84},{38,-72},{46,-46},{
-              44,44},{46,38}},
+            {26,82},{40,68},{42,58},{44,44},{42,34},{38,22},{34,10},{28,4},{22,
+            0},{-46,24},{-46,-54},{24,-84},{22,0},{24,-84},{38,-72},{46,-46},{
+            44,44},{46,38}},
           color={102,0,0},
-          smooth=Smooth.None), Text(
+          smooth=Smooth.None),Text(
           extent={{-94,118},{90,36}},
           lineColor={102,0,0},
           textString="%name")}),

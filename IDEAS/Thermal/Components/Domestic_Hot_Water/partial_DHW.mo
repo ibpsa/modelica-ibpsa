@@ -2,12 +2,12 @@ within IDEAS.Thermal.Components.Domestic_Hot_Water;
 partial model partial_DHW "partial DHW model"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
-  parameter Modelica.SIunits.Temperature TDHWSet(max=273.15+60) = 273.15 + 45
+  parameter Modelica.SIunits.Temperature TDHWSet(max=273.15 + 60) = 273.15 + 45
     "DHW temperature setpoint";
   parameter Modelica.SIunits.Temperature TCold=283.15;
   Modelica.SIunits.Temperature THot "Temperature of the hot source";
-  Modelica.SIunits.Temperature TMixed(start=TDHWSet)=pumpHot.flowPort_b.h
-    /medium.cp "Temperature of the hot source";
+  Modelica.SIunits.Temperature TMixed(start=TDHWSet) = pumpHot.flowPort_b.h/
+    medium.cp "Temperature of the hot source";
 
   Modelica.SIunits.MassFlowRate m_flowInit(start=0)
     "Initial mass flowrate of total DHW consumption";
@@ -17,7 +17,7 @@ partial model partial_DHW "partial DHW model"
     "mass flowrate of cold water to the mixing point";
   Modelica.SIunits.MassFlowRate m_flowHot(start=0)
     "mass flowrate of hot water to the mixing point";
-  Modelica.SIunits.Power QHeatTotal = m_flowTotal * medium.cp * ( TMixed - TCold);
+  Modelica.SIunits.Power QHeatTotal=m_flowTotal*medium.cp*(TMixed - TCold);
 
   // we need to specify the flowrate in the pump and mixingValve as relative values between 0 and 1
   // so we compute a maximum flowrate and use this as nominal flowrate for these components
@@ -26,8 +26,8 @@ partial model partial_DHW "partial DHW model"
 protected
   parameter Modelica.SIunits.MassFlowRate m_flowNom=1e3
     "only used to set a reference";
-  Real m_flowHotInput = m_flowHot/m_flowNom;
-  Real m_flowColdInput = m_flowCold/m_flowNom;
+  Real m_flowHotInput=m_flowHot/m_flowNom;
+  Real m_flowColdInput=m_flowCold/m_flowNom;
   Real TSetVar;
 
   /*
@@ -73,15 +73,14 @@ public
     useInput=true,
     medium=medium,
     m_flowNom=m_flowNom,
-    m=1)                 annotation (Placement(transformation(
+    m=1) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,54})));
 
   Modelica.Blocks.Interfaces.RealInput mDHW60C
-    "Mass flowrate of DHW at 60 degC in kg/s"
-    annotation (Placement(transformation(extent={{-74,70},{-34,110}}),
-        iconTransformation(
+    "Mass flowrate of DHW at 60 degC in kg/s" annotation (Placement(
+        transformation(extent={{-74,70},{-34,110}}), iconTransformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={20,100})));
@@ -102,26 +101,22 @@ algorithm
 
   THot := pumpHot.T;
   // put in the extended models: m_flowTotal := ...
-  TSetVar := min(THot,TDHWSet);
+  TSetVar := min(THot, TDHWSet);
 
 equation
-  connect(ambientCold.flowPort, pumpCold.flowPort_a)
-                                                 annotation (Line(
+  connect(ambientCold.flowPort, pumpCold.flowPort_a) annotation (Line(
       points={{68,-18},{50,-18}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(flowPortHot, pumpHot.flowPort_a)
-                                          annotation (Line(
+  connect(flowPortHot, pumpHot.flowPort_a) annotation (Line(
       points={{-100,0},{-100,64},{1.83697e-015,64}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(pumpHot.flowPort_b, ambientMixed.flowPort)
-                                                   annotation (Line(
+  connect(pumpHot.flowPort_b, ambientMixed.flowPort) annotation (Line(
       points={{-1.83697e-015,44},{126,44}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(pumpCold.flowPort_b, pumpHot.flowPort_b)
-                                             annotation (Line(
+  connect(pumpCold.flowPort_b, pumpHot.flowPort_b) annotation (Line(
       points={{30,-18},{0,-18},{0,44},{-1.83697e-015,44}},
       color={255,0,0},
       smooth=Smooth.None));
@@ -129,11 +124,11 @@ equation
       points={{70,-54},{140,-54},{140,0}},
       color={255,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-100,-40},{140,100}},
-          preserveAspectRatio=false),
-                      graphics), Icon(coordinateSystem(extent={{-100,-40},{
-            140,100}},
-          preserveAspectRatio=false), graphics={
+  annotation (
+    Diagram(coordinateSystem(extent={{-100,-40},{140,100}}, preserveAspectRatio
+          =false), graphics),
+    Icon(coordinateSystem(extent={{-100,-40},{140,100}}, preserveAspectRatio=
+            false), graphics={
         Line(
           points={{-20,30},{20,-30},{-20,-30},{20,30},{-20,30}},
           color={100,100,100},
@@ -209,8 +204,7 @@ equation
 <p>The model is verified to work properly by simulation of the different operating conditions.</p>
 <p><h4>Examples</h4></p>
 <p>An example of this model is given in <a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP\">IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP</a>.</p>
-</html>",
-        revisions="<html>
+</html>", revisions="<html>
 <p><ul>
 <li>2013 June, Roel De Coninck: documentation.</li>
 <li>2012 September, Roel De Coninck, simplification of equations.</li>

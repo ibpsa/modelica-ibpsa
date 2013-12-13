@@ -5,12 +5,12 @@ model MonoLayerOpaque "single material layer"
   parameter IDEAS.Buildings.Data.Interfaces.Material mat "Layer material";
   parameter Modelica.SIunits.Angle inc "Inclination";
 
-  parameter Modelica.SIunits.Temperature TStart = 289.15
+  parameter Modelica.SIunits.Temperature TStart=289.15
     "Start temperature for each of the states";
 
-  final parameter Integer nSta = mat.nSta;
-  final parameter Integer nFlo = mat.nSta + 1;
-  final parameter Real R = mat.R "Total specific thermal resistance";
+  final parameter Integer nSta=mat.nSta;
+  final parameter Integer nFlo=mat.nSta + 1;
+  final parameter Real R=mat.R "Total specific thermal resistance";
   final parameter Modelica.SIunits.ThermalConductance G=(A*mat.k*nSta)/mat.d;
   final parameter Modelica.SIunits.HeatCapacity C=(A*mat.rho*mat.c*mat.d)/nSta;
 
@@ -45,22 +45,18 @@ equation
 
   annotation (
     Diagram(graphics),
-    Icon(graphics={
-        Rectangle(
+    Icon(graphics={Rectangle(
           extent={{-90,80},{90,-80}},
           fillColor={192,192,192},
           fillPattern=FillPattern.Backward,
-          pattern=LinePattern.None),
-        Text(
+          pattern=LinePattern.None),Text(
           extent={{-150,113},{150,73}},
           textString="%name",
-          lineColor={0,0,255}),
-        Ellipse(
+          lineColor={0,0,255}),Ellipse(
           extent={{-40,-42},{40,38}},
           lineColor={127,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
+          fillPattern=FillPattern.Solid),Text(
           extent={{-39,40},{39,-40}},
           lineColor={127,0,0},
           fontName="Calibri",

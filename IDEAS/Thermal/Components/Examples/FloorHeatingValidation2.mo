@@ -2,7 +2,7 @@ within IDEAS.Thermal.Components.Examples;
 model FloorHeatingValidation2
   "Testing the floorheating according to Koschenz, par. 4.6"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
 
@@ -20,7 +20,7 @@ extends Modelica.Icons.Example;
     medium=medium,
     m_flowMin=15*24/3600,
     redeclare parameter
-      IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2                   FHChars(
+      IDEAS.Thermal.Components.Emission.BaseClasses.FH_Standard2 FHChars(
       S_1=0.1,
       S_2=0.2,
       A_Floor=24,
@@ -28,16 +28,13 @@ extends Modelica.Icons.Example;
       lambda_r=0.45,
       n1=3,
       n2=3)) "tabs model"
-               annotation (Placement(transformation(extent={{68,2},{88,22}})));
-  inner IDEAS.SimInfoManager         sim(
-              redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
-      IDEAS.Climate.Meteo.Files.min60 detail)
+    annotation (Placement(transformation(extent={{68,2},{88,22}})));
+  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
+      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
-    prescribedTemperature(T=293.15)
-    annotation (Placement(transformation(extent={{8,64},{28,84}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            heatedPipe(
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(
+      T=293.15) annotation (Placement(transformation(extent={{8,64},{28,84}})));
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort heatedPipe(
     medium=medium,
     m=5,
     TInitial=303.15)
@@ -51,18 +48,18 @@ extends Modelica.Icons.Example;
     period=7200,
     startTime=1e7,
     offset=1) annotation (Placement(transformation(extent={{-58,30},{-38,50}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=-24*20)
-    annotation (Placement(transformation(extent={{-30,-48},{-10,-28}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=-24*
+        20) annotation (Placement(transformation(extent={{-30,-48},{-10,-28}})));
 equation
   //TSet.T = smooth(1, if time < 5*3600 then 273.15+30 else 273.15+20);
   //TSet.T = 273.15+15;
   convection.Gc = 11;
 
-  connect(tabs.flowPort_b, volumeFlow1.flowPort_a)          annotation (Line(
+  connect(tabs.flowPort_b, volumeFlow1.flowPort_a) annotation (Line(
       points={{68,8},{56,8},{56,-60},{-76,-60},{-76,-6},{-36,-6}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(absolutePressure.flowPort, tabs.flowPort_a)          annotation (Line(
+  connect(absolutePressure.flowPort, tabs.flowPort_a) annotation (Line(
       points={{34,-44},{34,-30},{48,-30},{48,16},{68,16}},
       color={255,0,0},
       smooth=Smooth.None));
@@ -90,7 +87,8 @@ equation
       points={{-10,-38},{10,-38},{10,-16}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  annotation (
+    Diagram(graphics),
     experiment(StopTime=86400, __Dymola_NumberOfIntervals=1000),
     __Dymola_experimentSetupOutput);
 end FloorHeatingValidation2;

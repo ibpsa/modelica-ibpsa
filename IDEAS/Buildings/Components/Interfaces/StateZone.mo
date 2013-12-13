@@ -12,12 +12,6 @@ partial model StateZone "Partial model for thermal building zones"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a gainCon
     "Internal zone node for convective heat gains"
     annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
-  Modelica.Blocks.Interfaces.RealInput[nSurf] epsLw
-    "Longwave emissivities  of surfaces adjacent to the zone" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-104,30})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] surfCon
     "Convective heat transfer of surfaces adjacent to the zone"
     annotation (Placement(transformation(extent={{-110,-40},{-90,-20}})));
@@ -30,25 +24,21 @@ partial model StateZone "Partial model for thermal building zones"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDif
     "Shortwave solar heat gains by diffuse irradiation"
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-  Modelica.Blocks.Interfaces.RealInput[nSurf] epsSw
-    "Shortwave emissivities  of surfaces adjacent to the zone" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-104,0})));
   Modelica.Blocks.Interfaces.RealOutput TSensor
     "Sensor temperature of the zone, i.e. operative temeprature" annotation (
       Placement(transformation(extent={{96,-10},{116,10}}), iconTransformation(
           extent={{96,-10},{116,10}})));
-  Modelica.Blocks.Interfaces.RealInput[nSurf] area
-    "Total wall areas of surfaces adjacent to the zone" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-104,60})));
-  annotation (
-    Diagram(graphics),
-    Icon(graphics={
+  PropsBus[nSurf] propsBus annotation (Placement(transformation(
+        extent={{-20,20},{20,-20}},
+        rotation=-90,
+        origin={-100,40}), iconTransformation(
+        extent={{-20,20},{20,-20}},
+        rotation=-90,
+        origin={-100,40})));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics), Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
+        ={
         Rectangle(
           extent={{-90,90},{90,-90}},
           pattern=LinePattern.None,
@@ -76,6 +66,7 @@ partial model StateZone "Partial model for thermal building zones"
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-40,-90},{68,22},{68,-42},{40,-70},{40,-90},{-40,-90},{-40,-90}},
+
           lineThickness=0.5,
           smooth=Smooth.None,
           fillColor={255,255,170},

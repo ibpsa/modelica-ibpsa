@@ -15,16 +15,18 @@ protected
 
 equation
   iSolDir = solDir*(1 - limiter.y);
-  iSolDif = solDif*(1 - limiter.y) + solDif*limiter.y*shaCorr + solDir*
-    limiter.y*shaCorr;
+  iSolDif = solDif*(1 - limiter.y) + solDif*limiter.y*shaCorr + solDir*limiter.y
+    *shaCorr;
   angInc = iAngInc;
 
   connect(limiter.u, Ctrl) annotation (Line(
       points={{-10,-72},{-10,-110}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},
-            {50,100}}), graphics), Diagram(graphics),
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+        graphics),
+    Diagram(graphics),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>

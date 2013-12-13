@@ -1,6 +1,6 @@
 within IDEAS.Thermal.Data.Media;
 record Air_30degC "Medium properties of air at 30 degC"
-extends Thermal.Data.Interfaces.Medium(
+  extends Thermal.Data.Interfaces.Medium(
     rho=1.149,
     cp=1007,
     cv=720,

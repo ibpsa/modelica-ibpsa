@@ -2,16 +2,15 @@ within IDEAS.Buildings.GreyboxModels;
 model TiTeThTsAe
   "Selected linear low-order building model by P.Bacher, H.Madsen (2011) Procedure for identifying models for the heat dynamics of buildings "
 
-  extends IDEAS.Interfaces.BaseClasses.Structure(
-                                     nZones=1);
+  extends IDEAS.Interfaces.BaseClasses.Structure(nZones=1);
 
-//Window data
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing constrainedby
-    IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type";
+  //Window data
+  replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
+    constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type";
   parameter Modelica.SIunits.Area windowArea "Total window area";
   parameter Modelica.SIunits.Angle windowInc "IInclination of the window";
   parameter Modelica.SIunits.Angle windowAzi "Azimuth of teh window";
-//Resistor data
+  //Resistor data
   parameter Modelica.SIunits.HeatCapacity Cs
     "Total thermal capacity for the temperature sensor";
   parameter Modelica.SIunits.HeatCapacity Ci
@@ -20,7 +19,7 @@ model TiTeThTsAe
     "Total thermal capacity for the heating system";
   parameter Modelica.SIunits.HeatCapacity Ce
     "Total thermal capacity for the building envelope";
-//Capacitor data
+  //Capacitor data
   parameter Modelica.SIunits.ThermalResistance Ris
     "Thermal resistance between the indoor air and the sensor";
   parameter Modelica.SIunits.ThermalResistance Rih
@@ -29,24 +28,21 @@ model TiTeThTsAe
     "Thermal resistance between the indoor air and the building envelope";
   parameter Modelica.SIunits.ThermalResistance Rea
     "Thermal resistance between the building envelope and the ambient environment";
-//Model elements
+  //Model elements
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resS(G=1/Ris)
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIE(G=1/Rie)
-                                                annotation (Placement(
-        transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,10})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resAE(G=1/Rea)
-                                                annotation (Placement(
-        transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,50})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resH(G=1/Rih)
-                                                    annotation (Placement(
-        transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-30})));
@@ -61,30 +57,34 @@ model TiTeThTsAe
     glazing=glazing,
     A=windowArea,
     inc=windowInc,
-    azi=windowAzi)                                                                                  annotation (Placement(transformation(
+    azi=windowAzi) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-22,-30})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capS(C=Cs)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capS(C=Cs) annotation
+    (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-30})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capH(C=Ch)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capH(C=Ch) annotation
+    (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=180,
         origin={0,-56})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capE(C=Ce)
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capE(C=Ce) annotation
+    (Placement(transformation(
+        extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-42,30})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capI(C=Ci)
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capI(C=Ci) annotation
+    (Placement(transformation(
+        extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-40,-10})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
     annotation (Placement(transformation(extent={{-66,68},{-46,88}})));
 equation
-  connect(TaSource.port, resAE.port_b)         annotation (Line(
+  connect(TaSource.port, resAE.port_b) annotation (Line(
       points={{-10,78},{0,78},{0,60},{6.12323e-016,60}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -158,9 +158,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-150,
-            -100},{150,100}}),
-                      graphics), Icon(graphics={
-                                          Text(
+            -100},{150,100}}), graphics), Icon(graphics={Text(
           extent={{-48,-6},{30,-58}},
           lineColor={127,0,0},
           fillColor={127,0,0},

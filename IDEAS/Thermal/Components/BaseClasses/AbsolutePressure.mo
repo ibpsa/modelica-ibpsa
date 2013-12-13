@@ -2,17 +2,18 @@ within IDEAS.Thermal.Components.BaseClasses;
 model AbsolutePressure "Defines absolute pressure level"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water() "medium"
-    annotation(__Dymola_choicesAllMatching=true);
+    annotation (__Dymola_choicesAllMatching=true);
   parameter Modelica.SIunits.Pressure p(start=0) "Pressure ground";
   Thermal.Components.Interfaces.FlowPort_a flowPort(final medium=medium)
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation
+          =0)));
 equation
   // defining pressure
   flowPort.p = p;
   // no energy exchange; no mass flow by default
   flowPort.H_flow = 0;
-annotation (Documentation(info="<html>
+  annotation (
+    Documentation(info="<html>
 <p><h4>Description</h4></p>
 <p><br/>This model sets an absolute pressure at the flowPort. It takes the role of an expansion vessel in an hydraulic system. </p>
 <p>The function of this model can also be compared to a grounding in electrical circuits. </p>
@@ -31,11 +32,11 @@ annotation (Documentation(info="<html>
 <p>None</p>
 <p><h4>Example</h4></p>
 <p>An example in which this model is used is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.PumpePipeTester\">PumpPipeTester</a>.</p>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                   graphics),
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}),graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),     graphics={
+            100}}), graphics={
         Line(
           points={{-70,20},{-70,-20}},
           color={0,0,127},
@@ -44,7 +45,9 @@ annotation (Documentation(info="<html>
           points={{-70,0},{-100,0}},
           color={0,0,127},
           smooth=Smooth.None),
-        Ellipse(extent={{-60,60},{60,-60}}, lineColor={100,100,100},
+        Ellipse(
+          extent={{-60,60},{60,-60}},
+          lineColor={100,100,100},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}));
 end AbsolutePressure;

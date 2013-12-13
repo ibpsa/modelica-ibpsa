@@ -4,8 +4,7 @@ class RevisionHistory "Revision History"
 
   annotation (Documentation(info="<html>
 
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
     <tr>
       <th>Version</th>

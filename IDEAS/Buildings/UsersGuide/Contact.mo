@@ -1,7 +1,7 @@
 within IDEAS.Buildings.UsersGuide;
 class Contact "Contact"
   extends Modelica.Icons.Contact;
-  annotation(Documentation(info = "<html>
+  annotation (Documentation(info="<html>
 <p>This package is developed an maintained by the following contributors </p>
 <table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
 <td></td>

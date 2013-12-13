@@ -7,7 +7,8 @@ equation
   Q_flow = 0;
   // pressure drop = none
   flowPort_a.p = flowPort_b.p;
-annotation (Documentation(info="<html>
+  annotation (
+    Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Model for fluid flow through a pipe, without heat exchange nor pressure drop. A dynamic heat balance is included, based on the in- and outlet enthalpy flow and the internal mass m of the fluid content in the pipe. A stationary model is obtained when m=0 </p>
 <p>m.cv.der(T) = h_flow_in - h_flow_out </p>
@@ -34,8 +35,8 @@ annotation (Documentation(info="<html>
 <li>2010 November, Roel De Coninck, first implementation. </li>
 </ul></p>
 </html>"),
-  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-40},{100,40}}),
-                    graphics={
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-40},{100,40}}),
+        graphics={
         Line(
           points={{-68,20},{-68,-20}},
           color={0,0,127},
@@ -63,7 +64,7 @@ annotation (Documentation(info="<html>
         Line(
           points={{-60,0},{60,0}},
           color={100,100,100},
-          smooth=Smooth.None)}),                            Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-40},{100,40}}),
-                                                                    graphics));
+          smooth=Smooth.None)}),
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-40},{100,
+            40}}), graphics));
 end Pipe;

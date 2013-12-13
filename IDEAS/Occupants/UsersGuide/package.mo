@@ -1,9 +1,9 @@
 within IDEAS.Occupants;
 package UsersGuide "User's Guide"
-  extends Modelica.Icons.Information;
+extends Modelica.Icons.Information;
 
 
-  annotation(__Dymola_DocumentationClass = true, Documentation(info = "<html>
+annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>
 <p>The UsersGuide of each package should consist of the following classes</p>
 <ol>
 <li> <a href=\"modelica://Modelica.UsersGuide.Conventions.UsersGuide.Contact\">Contact</a> information of

@@ -1,41 +1,36 @@
 within IDEAS.Climate.Meteo.Solar;
 model RadSol "solar angle to surface"
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
-parameter Modelica.SIunits.Angle inc(displayUnit="degree") "inclination";
-parameter Modelica.SIunits.Angle azi(displayUnit="degree") "azimuth";
-parameter Modelica.SIunits.Angle lat(displayUnit="degree") = sim.city.lat
+  parameter Modelica.SIunits.Angle inc(displayUnit="degree") "inclination";
+  parameter Modelica.SIunits.Angle azi(displayUnit="degree") "azimuth";
+  parameter Modelica.SIunits.Angle lat(displayUnit="degree") = sim.city.lat
     "latitude";
-parameter Modelica.SIunits.Area A;
+  parameter Modelica.SIunits.Area A;
 
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  BaseClasses.Declination
-                       declination
+  BaseClasses.Declination declination
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  BaseClasses.AngleHour
-                     angleHour
+  BaseClasses.AngleHour angleHour
     annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
-  BaseClasses.AngleSolar
-                      angSolar(inc=inc, azi=azi,lat=lat)
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  BaseClasses.solDirTil
-                     solDirTil(A=A,inc=inc)
+  BaseClasses.AngleSolar angSolar(
+    inc=inc,
+    azi=azi,
+    lat=lat) annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  BaseClasses.solDirTil solDirTil(A=A, inc=inc)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  BaseClasses.solDifTil
-                     solDifTil(A=A,inc=inc)
+  BaseClasses.solDifTil solDifTil(A=A, inc=inc)
     annotation (Placement(transformation(extent={{0,-2},{20,18}})));
-  BaseClasses.solradExtraTerra
-                            extraTerra
+  BaseClasses.solradExtraTerra extraTerra
     annotation (Placement(transformation(extent={{-80,-24},{-60,-4}})));
   Modelica.Blocks.Interfaces.RealOutput solDir
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Modelica.Blocks.Interfaces.RealOutput solDif
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
-  BaseClasses.AngleZenith
-                       angleZenith(lat=lat)
+  BaseClasses.AngleZenith angleZenith(lat=lat)
     annotation (Placement(transformation(extent={{-40,-2},{-20,18}})));
   Modelica.Blocks.Interfaces.RealOutput angInc "Angle of incidence"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));

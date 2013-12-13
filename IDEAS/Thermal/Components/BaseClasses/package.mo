@@ -2,12 +2,11 @@ within IDEAS.Thermal.Components;
 package BaseClasses "Basic components for thermal fluid flow"
 
 
-  extends Modelica.Icons.BasesPackage;
+extends Modelica.Icons.BasesPackage;
 
 
 annotation (Documentation(info="<html>
-</html>",
-        revisions="<HTML>
+</html>", revisions="<HTML>
   <ul>
   <li> v1.00 2005/02/01 Anton Haumer<br>
        first stable official release</li>
@@ -18,7 +17,6 @@ annotation (Documentation(info="<html>
        friction losses are fed to medium</li>
   </ul>
 </HTML>
-"),
-  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics));
+"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+          100}}), graphics));
 end BaseClasses;

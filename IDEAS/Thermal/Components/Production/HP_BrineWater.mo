@@ -9,18 +9,17 @@ model HP_BrineWater "Brine-Water HP WITHOUT borehole"
   parameter Thermal.Data.Interfaces.Medium mediumBrine=Data.Media.Water()
     "Medium in the borehole";
 
-  parameter Modelica.SIunits.Power QDesign = 0
+  parameter Modelica.SIunits.Power QDesign=0
     "Overrules QNom if different from 0. Design heat load, typically at -8 or -10 degC in Belgium.  ";
-  parameter Real fraLosDesNom = 0.68
+  parameter Real fraLosDesNom=0.68
     "Ratio of power at design conditions over power at 2/35degC";
-  parameter Real betaFactor = 0.8
-    "Relative sizing compared to design heat load";
-  final parameter SI.Power QNomFinal = if QDesign == 0 then QNom else QDesign / fraLosDesNom * betaFactor
-    "Used nominal power in the heatSource model";
+  parameter Real betaFactor=0.8 "Relative sizing compared to design heat load";
+  final parameter SI.Power QNomFinal=if QDesign == 0 then QNom else QDesign/
+      fraLosDesNom*betaFactor "Used nominal power in the heatSource model";
 
   Real COP "Instanteanous COP";
 
-  IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_BW         heatSource(
+  IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_BW heatSource(
     medium=medium,
     QNom=QNomFinal,
     TCondensor_in=heatedFluid.T_a,
@@ -30,7 +29,7 @@ model HP_BrineWater "Brine-Water HP WITHOUT borehole"
     UALoss=UALoss,
     mediumEvap=mediumBrine)
     annotation (Placement(transformation(extent={{2,-64},{16,-50}})));
-  outer IDEAS.SimInfoManager         sim
+  outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-86,92},{-66,112}})));
   IDEAS.Thermal.Components.Interfaces.FlowPort_a flowPortBrine_a(medium=
         mediumBrine) "Inlet flowport for the brine"
@@ -41,11 +40,12 @@ model HP_BrineWater "Brine-Water HP WITHOUT borehole"
 equation
   PFuel = 0;
   PEl = heatSource.PEl;
-  COP = if noEvent(heatSource.PEl > 0) then heatedFluid.heatPort.Q_flow / PEl else 0;
+  COP = if noEvent(heatSource.PEl > 0) then heatedFluid.heatPort.Q_flow/PEl
+     else 0;
 
-  connect(heatSource.heatPort, heatedFluid.heatPort)
-                                                 annotation (Line(
-      points={{16,-57},{24,-57},{24,-46},{-26,-46},{-26,0},{-20,0},{-20,6.66134e-016}},
+  connect(heatSource.heatPort, heatedFluid.heatPort) annotation (Line(
+      points={{16,-57},{24,-57},{24,-46},{-26,-46},{-26,0},{-20,0},{-20,
+          6.66134e-016}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatSource.flowPort_a, flowPortBrine_a) annotation (Line(
@@ -56,11 +56,11 @@ equation
       points={{10.4,-64},{10,-64},{10,-78},{76,-78},{76,-100}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,120}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=
-            false, extent={{-100,-100},{100,120}}),
-                                      graphics={
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,120}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            120}}), graphics={
         Line(
           points={{-100,30},{-100,10}},
           color={0,0,127},
@@ -85,12 +85,12 @@ equation
           points={{80,-30},{80,-50}},
           color={128,0,255},
           smooth=Smooth.None),
-        Ellipse(extent={{-80,50},{-20,-10}},  lineColor={100,100,100}),
+        Ellipse(extent={{-80,50},{-20,-10}}, lineColor={100,100,100}),
         Line(
           points={{-100,20},{-68,20},{-40,32},{-60,8},{-32,20},{-20,20}},
           color={0,0,127},
           smooth=Smooth.None),
-        Ellipse(extent={{0,-10},{60,-70}},    lineColor={100,100,100}),
+        Ellipse(extent={{0,-10},{60,-70}}, lineColor={100,100,100}),
         Line(
           points={{0,-40},{12,-40},{40,-28},{20,-52},{48,-40},{80,-40}},
           color={0,0,255},

@@ -1,7 +1,7 @@
 within IDEAS.Electric.Photovoltaic.Components;
 class PvVoltageToPower
 
-extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
   Modelica.Electrical.Analog.Interfaces.Pin pin
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));

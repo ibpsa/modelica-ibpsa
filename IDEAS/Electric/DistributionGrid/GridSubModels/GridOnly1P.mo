@@ -2,62 +2,60 @@ within IDEAS.Electric.DistributionGrid.GridSubModels;
 model GridOnly1P
 
 public
-replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid( Pha=1)
+  replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=1)
     "Choose a grid Layout (with 3 phaze values)"
-                                                annotation(choicesAllMatching = true);
+    annotation (choicesAllMatching=true);
 
   IDEAS.Electric.DistributionGrid.Components.Branch branch[Nodes](R=
         Modelica.ComplexMath.real(Z), X=Modelica.ComplexMath.imag(Z));
 
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
-                  TraPin
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin TraPin
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[
-                                 Nodes] node
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[Nodes]
+    node annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
   Modelica.SIunits.ActivePower PGriTot;
   Modelica.SIunits.ComplexPower SGriTot;
   Modelica.SIunits.ReactivePower QGriTot;
 
-//parameter Boolean Loss = true
-//    "if true, PLosBra and PGriLosTot gives branch and Grid losses";
-Modelica.SIunits.ActivePower PLosBra[Nodes];
-Modelica.SIunits.ActivePower PGriLosTot;
+  //parameter Boolean Loss = true
+  //    "if true, PLosBra and PGriLosTot gives branch and Grid losses";
+  Modelica.SIunits.ActivePower PLosBra[Nodes];
+  Modelica.SIunits.ActivePower PGriLosTot;
 
-Modelica.SIunits.Voltage Vabs[Nodes];
-Modelica.SIunits.Voltage VMax = max(Vabs);
-Modelica.SIunits.Voltage VMin = min(Vabs);
+  Modelica.SIunits.Voltage Vabs[Nodes];
+  Modelica.SIunits.Voltage VMax=max(Vabs);
+  Modelica.SIunits.Voltage VMin=min(Vabs);
 
 protected
-parameter Integer nodeMatrix[Nodes,Nodes] = grid.nodeMatrix;
-parameter Modelica.SIunits.ComplexImpedance[Nodes] Z = grid.Z;
-parameter Integer Nodes=grid.nNodes;
+  parameter Integer nodeMatrix[Nodes, Nodes]=grid.nodeMatrix;
+  parameter Modelica.SIunits.ComplexImpedance[Nodes] Z=grid.Z;
+  parameter Integer Nodes=grid.nNodes;
 
 equation
-  connect(branch[1].pin_p,TraPin);
-for x in 1:Nodes loop
-  for y in 1:Nodes loop
-        if nodeMatrix[x,y]==1 then
-          connect(branch[x].pin_p,node[y]);
-        elseif nodeMatrix[x,y]==-1 then
-          connect(branch[x].pin_n,node[y]);
-        end if;
+  connect(branch[1].pin_p, TraPin);
+  for x in 1:Nodes loop
+    for y in 1:Nodes loop
+      if nodeMatrix[x, y] == 1 then
+        connect(branch[x].pin_p, node[y]);
+      elseif nodeMatrix[x, y] == -1 then
+        connect(branch[x].pin_n, node[y]);
+      end if;
+    end for;
+
   end for;
 
-end for;
-
-for x in 1:Nodes loop
+  for x in 1:Nodes loop
     Vabs[x] = Modelica.ComplexMath.'abs'(node[x].v);
-end for;
+  end for;
 
-//if Loss then
+  //if Loss then
   for x in 1:Nodes loop
     PLosBra[x] = branch[x].R*(Modelica.ComplexMath.'abs'(branch[x].i))^2;
   end for;
   PGriLosTot = ones(Nodes)*PLosBra;
-//end if;
+  //end if;
 
   SGriTot = branch[1].pin_p.v*Modelica.ComplexMath.conj(branch[1].pin_p.i);
   PGriTot = Modelica.ComplexMath.real(SGriTot);

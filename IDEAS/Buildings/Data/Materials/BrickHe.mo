@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data.Materials;
-record BrickHe =  IDEAS.Buildings.Data.Interfaces.Material (
+record BrickHe = IDEAS.Buildings.Data.Interfaces.Material (
     k=1.10,
     c=840,
     rho=1850,

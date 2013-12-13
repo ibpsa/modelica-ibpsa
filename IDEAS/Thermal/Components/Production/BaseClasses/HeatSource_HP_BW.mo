@@ -21,7 +21,7 @@ model HeatSource_HP_BW
   The COP is calculated as the heat delivered to the condensor divided by the electrical consumption (P). 
   
   */
-//protected
+  //protected
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
     "Medium in the condensor";
   parameter Thermal.Data.Interfaces.Medium mediumEvap=Data.Media.Water()
@@ -47,16 +47,14 @@ public
     "Current modulation percentage, has no function in this on/off heat pump";
 
 protected
-  Modelica.Blocks.Tables.CombiTable2D P100(
-      smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table=[0,
-        0,15; 35,1.8,1.99; 45,2.2,2.41; 55,2.72,2.98])
+  Modelica.Blocks.Tables.CombiTable2D P100(smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+      table=[0, 0, 15; 35, 1.8, 1.99; 45, 2.2, 2.41; 55, 2.72, 2.98])
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Tables.CombiTable2D Q100(
-     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table=[0,
-        0,15; 35,8.27,12.25; 45,7.75,11.63; 55,7.38,11.07])
+  Modelica.Blocks.Tables.CombiTable2D Q100(smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+      table=[0, 0, 15; 35, 8.27, 12.25; 45, 7.75, 11.63; 55, 7.38, 11.07])
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Modelica.Blocks.Tables.CombiTable2D evap100(smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-      table=[0,0,15; 35,6.6,10.73; 45,5.82,9.76; 55,5.06,8.63])
+      table=[0, 0, 15; 35, 6.6, 10.73; 45, 5.82, 9.76; 55, 5.06, 8.63])
     "Evaporator power, in kW"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
@@ -69,10 +67,9 @@ public
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   IDEAS.BaseClasses.Control.Hyst_NoEvent onOff(
-     uLow = -2.5,
-    uHigh = 2.5,
-    y(
-    start = 0),
+    uLow=-2.5,
+    uHigh=2.5,
+    y(start=0),
     enableRelease=true) "on-off, based on modulationInit"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
@@ -80,8 +77,7 @@ public
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
   Thermal.Components.Interfaces.FlowPort_b flowPort_b(medium=mediumEvap)
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            evaporator(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort evaporator(
     medium=mediumEvap,
     m=3,
     TInitial=283.15)
@@ -90,7 +86,7 @@ public
     annotation (Placement(transformation(extent={{-46,-34},{-26,-14}})));
 equation
   TEvaporator = flowPort_a.h/mediumEvap.cp;
-  onOff.u = TCondensor_set-heatPort.T;
+  onOff.u = TCondensor_set - heatPort.T;
   onOff.release = noEvent(if m_flowCondensor > 0 then 1.0 else 0.0);
   //QAsked = m_flowCondensor * medium.cp * (TCondensor_set - TCondensor_in);
   P100.u1 = heatPort.T - 273.15;
@@ -102,18 +98,18 @@ equation
 
   // all these are in W
 
-  QCond = Q100.y * QNom/QNomRef * 1000;
-  PComp = P100.y * QNom/QNomRef * 1000;
-  QEvap = evap100.y * QNom/QNomRef * 1000;
+  QCond = Q100.y*QNom/QNomRef*1000;
+  PComp = P100.y*QNom/QNomRef*1000;
+  QEvap = evap100.y*QNom/QNomRef*1000;
 
   // compensation of heat losses (only when the hp is operating)
-  QLossesToCompensate = onOff.y * UALoss * (heatPort.T-TEnvironment);
-  modulation = onOff.y * 100;
-  heatPort.Q_flow = -onOff.y * QCond - QLossesToCompensate;
-  PEl = onOff.y * PComp;
-  prescribedHeatFlow.Q_flow = - onOff.y * QEvap;
+  QLossesToCompensate = onOff.y*UALoss*(heatPort.T - TEnvironment);
+  modulation = onOff.y*100;
+  heatPort.Q_flow = -onOff.y*QCond - QLossesToCompensate;
+  PEl = onOff.y*PComp;
+  prescribedHeatFlow.Q_flow = -onOff.y*QEvap;
 
-  connect(flowPort_a,evaporator. flowPort_a) annotation (Line(
+  connect(flowPort_a, evaporator.flowPort_a) annotation (Line(
       points={{-40,-100},{-42,-100},{-42,-56},{-24,-56}},
       color={255,0,0},
       smooth=Smooth.None));
@@ -125,8 +121,7 @@ equation
       points={{-26,-24},{-14,-24},{-14,-46}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-    Documentation(info="<html>
+  annotation (Diagram(graphics), Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;catalogue&nbsp;data&nbsp;from&nbsp;Viessmann&nbsp;for&nbsp;the&nbsp;vitocal&nbsp;300-G,&nbsp;type&nbsp;BW/BWC&nbsp;108&nbsp;(8kW&nbsp;nominal&nbsp;power at 0/35 degC) and the full heat pump is implemented as <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_BrineWater\">IDEAS.Thermal.Components.Production.HP_BrineWater</a> .</p>
 <p>First,&nbsp;the&nbsp;thermal&nbsp;power&nbsp;and&nbsp;electricity&nbsp;consumption&nbsp;are&nbsp;interpolated&nbsp;for&nbsp;the&nbsp;evaporator&nbsp;and&nbsp;condensing&nbsp;temperature.&nbsp;&nbsp;The&nbsp;results&nbsp;are&nbsp;rescaled&nbsp;to&nbsp;the&nbsp;nominal&nbsp;power&nbsp;of&nbsp;the&nbsp;modelled&nbsp;heatpump&nbsp;(with&nbsp;QNom/QNom_data)&nbsp;and&nbsp;stored&nbsp;in&nbsp;2&nbsp;different&nbsp;vectors,&nbsp;Q_vector&nbsp;and&nbsp;P_vector.</p>

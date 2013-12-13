@@ -2,7 +2,7 @@ within IDEAS.Thermal.Components.Examples;
 model HeatPump_BrineWater_DummyBorehole
   "General example and tester for a brine-water heat pump without borehole"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
         Data.Media.Water(), p=200000)
@@ -16,29 +16,30 @@ extends Modelica.Icons.Example;
   IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort pipe(
     medium=Data.Media.Water(),
     m=5,
-    TInitial=313.15) annotation (Placement(transformation(extent={{32,-24},{12,-4}})));
-  Production.HP_BrineWater
-                    heater(
+    TInitial=313.15)
+    annotation (Placement(transformation(extent={{32,-24},{12,-4}})));
+  Production.HP_BrineWater heater(
     medium=Data.Media.Water(),
     tauHeatLoss=3600,
     cDry=10000,
     QNom=6000,
     mWater=10,
     fraLosDesNom=0.8,
-    QDesign=0) annotation (Placement(transformation(extent={{-76,14},{-56,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
+    QDesign=0)
+    annotation (Placement(transformation(extent={{-76,14},{-56,34}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        293.15)
     annotation (Placement(transformation(extent={{-94,-20},{-80,-6}})));
-  inner IDEAS.SimInfoManager         sim(
-              redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
-      IDEAS.Climate.Meteo.Files.min60 detail)
+  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
+      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
-//  Real PElLossesInt( start = 0, fixed = true);
-//  Real PElNoLossesInt( start = 0, fixed = true);
-//  Real QUsefulLossesInt( start = 0, fixed = true);
-//  Real QUsefulNoLossesInt( start = 0, fixed = true);
-//  Real SPFLosses( start = 0);
-//  Real SPFNoLosses( start = 0);
-//
+  //  Real PElLossesInt( start = 0, fixed = true);
+  //  Real PElNoLossesInt( start = 0, fixed = true);
+  //  Real QUsefulLossesInt( start = 0, fixed = true);
+  //  Real QUsefulNoLossesInt( start = 0, fixed = true);
+  //  Real SPFLosses( start = 0);
+  //  Real SPFNoLosses( start = 0);
+  //
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TReturn
     annotation (Placement(transformation(extent={{-40,-62},{-20,-42}})));
   Modelica.Blocks.Sources.Sine sine(
@@ -51,35 +52,32 @@ extends Modelica.Icons.Example;
     medium=Data.Media.Water(),
     m=5000,
     TInitial=277.15) "Dummy borehole"
-                     annotation (Placement(transformation(extent={{-46,-18},{
-            -60,-4}})));
+    annotation (Placement(transformation(extent={{-46,-18},{-60,-4}})));
   Thermal.Components.BaseClasses.Pump pump1(
     medium=Data.Media.Water(),
     m=1,
     useInput=false,
     m_flowNom=0.2)
     annotation (Placement(transformation(extent={{-54,-2},{-44,8}})));
-  Thermal.Components.BaseClasses.AbsolutePressure absolutePressure1(
-                                                                   medium=
-        Data.Media.Water(), p=200000)
-    annotation (Placement(transformation(extent={{-6,-6},{6,6}},
+  Thermal.Components.BaseClasses.AbsolutePressure absolutePressure1(medium=
+        Data.Media.Water(), p=200000) annotation (Placement(transformation(
+        extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={-46,-28})));
 equation
-   heater.TSet=273.15+35;
-//   der(PElLossesInt) = HP.PEl;
-//   der(PElNoLossesInt) = HP_NoLosses.PEl;
-//   der(QUsefulLossesInt) =thermalConductor.port_b.Q_flow;
-//   der(QUsefulNoLossesInt) = thermalConductor1.port_b.Q_flow;
-//   SPFLosses = if noEvent(PElLossesInt > 0) then QUsefulLossesInt/PElLossesInt else 0;
-//   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
+  heater.TSet = 273.15 + 35;
+  //   der(PElLossesInt) = HP.PEl;
+  //   der(PElNoLossesInt) = HP_NoLosses.PEl;
+  //   der(QUsefulLossesInt) =thermalConductor.port_b.Q_flow;
+  //   der(QUsefulNoLossesInt) = thermalConductor1.port_b.Q_flow;
+  //   SPFLosses = if noEvent(PElLossesInt > 0) then QUsefulLossesInt/PElLossesInt else 0;
+  //   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
 
-  connect(heater.heatPort, fixedTemperature.port)
-                                              annotation (Line(
+  connect(heater.heatPort, fixedTemperature.port) annotation (Line(
       points={{-69,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TReturn.port, pipe.heatPort)                    annotation (Line(
+  connect(TReturn.port, pipe.heatPort) annotation (Line(
       points={{-20,-52},{22,-52},{22,-24}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -119,9 +117,9 @@ equation
       points={{-46,-22},{-46,-11}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}),
-                      graphics),
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=15000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

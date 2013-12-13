@@ -8,8 +8,8 @@ equation
       points={{1,56},{24,56},{24,40},{104,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},
-            {100,80}}), graphics), Documentation(info="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,
+            -80},{100,80}}), graphics), Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Heating curve based control of a heater. This component is nothing more than a wrapper around the <a href=\"modelica://IDEAS.Thermal.Control.HeatingCurve\">IDEAS.Thermal.Control.HeatingCurve</a>. The set point temperature for the heater is <i>dTHeaterSet</i> Kelvin higher than the heating curve output in order to make sure that the heating curve temperature is met also when thermal losses are present in the circuit. </p>
 <p><h4>Model use</h4></p>

@@ -2,7 +2,7 @@ within IDEAS.Thermal.Components.Production.BaseClasses;
 model HeatSource_Ideal
   "Ideal heat source for the dynamic heater model.  No losses, no interpolation"
 
-//protected
+  //protected
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
     "Medium in the component";
 
@@ -21,7 +21,7 @@ public
     "Temperature of environment for heat losses";
 
 protected
-  Real kgps2lph = 3600 / medium.rho * 1000 "Conversion from kg/s to l/h";
+  Real kgps2lph=3600/medium.rho*1000 "Conversion from kg/s to l/h";
 
   Modelica.SIunits.HeatFlowRate QLossesToCompensate "Environment losses";
 public
@@ -30,16 +30,16 @@ public
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 equation
-  QAsked = max(0, m_flowHx * medium.cp * (TBoilerSet - THxIn));
+  QAsked = max(0, m_flowHx*medium.cp*(TBoilerSet - THxIn));
 
   // compensation of heat losses (only when the hp is operating)
-  QLossesToCompensate = if noEvent(QAsked > 0) then UALoss * (heatPort.T-TEnvironment) else 0;
+  QLossesToCompensate = if noEvent(QAsked > 0) then UALoss*(heatPort.T -
+    TEnvironment) else 0;
 
-  heatPort.Q_flow = - QAsked - QLossesToCompensate;
-  PFuel = - heatPort.Q_flow;
+  heatPort.Q_flow = -QAsked - QLossesToCompensate;
+  PFuel = -heatPort.Q_flow;
 
-  annotation (Diagram(graphics),
-    Documentation(info="<html>
+  annotation (Diagram(graphics), Documentation(info="<html>
 <p>Heat source to be coupled to a <a href=\"modelica://IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses\">PartialDynamicHeaterWithLosses</a> in order to form an ideal heater.  See the documentation of the <a href=\"modelica://IDEAS.Thermal.Components.Production.IdealHeater\">IdealHeater</a> for more details.</p>
 </html>"));
 end HeatSource_Ideal;

@@ -2,7 +2,7 @@ within IDEAS.Thermal.Components.Examples;
 model StorageTank_StratifiedInlet
   "Example of a perfectly stratified inlet in a storage tank"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
     "Medium in the tank";
@@ -15,8 +15,7 @@ extends Modelica.Icons.Example;
     TInitial=340:-10:300,
     volumeTank=0.2)
     annotation (Placement(transformation(extent={{34,-6},{8,32}})));
-  IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet
-                                             stratifiedInlet(
+  IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet stratifiedInlet(
     medium=medium,
     nbrNodes=5,
     TNodes=storageTank.nodes.T)
@@ -30,8 +29,7 @@ extends Modelica.Icons.Example;
     m_flowNom=0.05,
     useInput=true)
     annotation (Placement(transformation(extent={{-14,-2},{-34,-22}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            heatedPipe(
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort heatedPipe(
     medium=medium,
     m=2,
     TInitial=278.15)
@@ -69,7 +67,8 @@ equation
       points={{-35,-58},{-24,-58},{-24,-22}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  annotation (
+    Diagram(graphics),
     experiment(StopTime=10000),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>

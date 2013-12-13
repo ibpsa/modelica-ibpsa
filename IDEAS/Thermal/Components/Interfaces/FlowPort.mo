@@ -2,7 +2,7 @@ within IDEAS.Thermal.Components.Interfaces;
 connector FlowPort "Connector flow port"
 
   extends Modelica.Thermal.FluidHeatFlow.Interfaces.FlowPort;
-annotation (Documentation(info="<HTML>
+  annotation (Documentation(info="<HTML>
 Basic definition of the connector.<br>
 <b>Variables:</b>
 <ul>

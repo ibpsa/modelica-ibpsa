@@ -1,17 +1,18 @@
 within IDEAS.Thermal.Components.Examples;
 model OpenHydraulicSystem "Illustrate the use of the ambient model"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
-parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
+  parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
   Thermal.Components.BaseClasses.Ambient ambient(
     medium=medium,
     constantAmbientPressure=200000,
     constantAmbientTemperature=283.15)
     annotation (Placement(transformation(extent={{-56,0},{-76,20}})));
-  BaseClasses.Pipe_Insulated                heatedPipe(medium=medium, m=5,
-    UA=10)
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  BaseClasses.Pipe_Insulated heatedPipe(
+    medium=medium,
+    m=5,
+    UA=10) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Thermal.Components.BaseClasses.Pump pump(
     medium=medium,
     m=4,
@@ -42,9 +43,10 @@ equation
       points={{-32,-36},{-10,-36},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Documentation(info="<html>
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
+    Documentation(info="<html>
 <p>Simple tester for the IDEAS.Thermal.Components.BaseClasses.Ambient model</p>
 </html>"),
     experiment(StopTime=3600),

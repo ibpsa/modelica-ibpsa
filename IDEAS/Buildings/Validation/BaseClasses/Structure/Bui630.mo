@@ -13,9 +13,11 @@ model Bui630 "BESTEST Building model case 630"
   IDEAS.Buildings.Components.OuterWall[4] wall(
     redeclare final parameter Data.Constructions.LightWall constructionType,
     redeclare final parameter Data.Insulation.fiberglass insulationType,
-    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
+    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
+        IDEAS.Constants.West},
     final insulationThickness={0.066,0.066,0.066,0.066},
-    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
+    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,
+        IDEAS.Constants.Wall},
     final AWall={21.6,10.2,21.6,10.2}) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
@@ -44,8 +46,8 @@ model Bui630 "BESTEST Building model case 630"
       each RH=0.0,
       each PV=1.0,
       each RW=0.0),
-    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType) annotation (Placement(
-        transformation(
+    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType)
+    annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-14})));

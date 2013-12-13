@@ -1,6 +1,6 @@
 within IDEAS.Thermal.Data.Media;
 record Water "Medium properties of water"
-extends Thermal.Data.Interfaces.Medium(
+  extends Thermal.Data.Interfaces.Medium(
     rho=995.6,
     cp=4177,
     cv=4177,

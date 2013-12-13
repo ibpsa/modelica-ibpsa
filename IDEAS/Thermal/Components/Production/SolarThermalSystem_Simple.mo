@@ -6,21 +6,19 @@ model SolarThermalSystem_Simple
   parameter Modelica.SIunits.Area ACol
     "Area of one single series-connected collector";
   parameter Integer nCol "Number of collectors in series";
-  parameter Real m_flowSp = 30 "Specific mass flow rate, in liter/hm2";
+  parameter Real m_flowSp=30 "Specific mass flow rate, in liter/hm2";
 
   Modelica.SIunits.Power QCol "Net power delivered by the solar collector";
   Modelica.SIunits.Power QSTS "Net power delivered by the primary circuit";
 
-  IDEAS.Thermal.Components.Production.SolarCollector_Glazed
-                                           collectorG(
+  IDEAS.Thermal.Components.Production.SolarCollector_Glazed collectorG(
     medium=medium,
     h_g=2,
     ACol=ACol,
     nCol=nCol,
     T0=283.15)
     annotation (Placement(transformation(extent={{-84,-28},{-64,-8}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            pipeHot(medium=medium, m=5)
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort pipeHot(medium=medium, m=5)
     annotation (Placement(transformation(extent={{-46,-28},{-26,-8}})));
   Thermal.Components.BaseClasses.Pump pump(
     medium=medium,
@@ -28,12 +26,10 @@ model SolarThermalSystem_Simple
     useInput=true,
     m_flowNom=m_flowSp*ACol*nCol/3600)
     annotation (Placement(transformation(extent={{-10,-28},{10,-8}})));
-  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort
-                                            pipeCold(medium=medium, m=5)
-    annotation (Placement(transformation(extent={{-26,-78},{-46,-58}})));
+  IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort pipeCold(medium=medium, m=
+        5) annotation (Placement(transformation(extent={{-26,-78},{-46,-58}})));
 
-  Control.Ctrl_SolarThermal_Simple       solarThermalControl_DT(TSafetyMax=
-        363.15)
+  Control.Ctrl_SolarThermal_Simple solarThermalControl_DT(TSafetyMax=363.15)
     annotation (Placement(transformation(extent={{54,44},{34,64}})));
   Thermal.Components.Interfaces.FlowPort_a flowPort_a(medium=medium)
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
@@ -43,21 +39,21 @@ model SolarThermalSystem_Simple
     annotation (Placement(transformation(extent={{128,58},{88,98}})));
   Modelica.Blocks.Interfaces.RealInput TLow
     annotation (Placement(transformation(extent={{126,14},{86,54}})));
-  outer IDEAS.SimInfoManager         sim
+  outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,68},{-72,88}})));
 equation
   QCol = collectorG.QNet;
-  QSTS = - (flowPort_a.H_flow + flowPort_b.H_flow);
-  connect(collectorG.flowPort_b, pipeHot.flowPort_a)    annotation (Line(
+  QSTS = -(flowPort_a.H_flow + flowPort_b.H_flow);
+  connect(collectorG.flowPort_b, pipeHot.flowPort_a) annotation (Line(
       points={{-64,-18},{-46,-18}},
       color={255,0,0},
       smooth=Smooth.None));
 
-  connect(pipeHot.flowPort_b, pump.flowPort_a)    annotation (Line(
+  connect(pipeHot.flowPort_b, pump.flowPort_a) annotation (Line(
       points={{-26,-18},{-10,-18}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(pipeCold.flowPort_b, collectorG.flowPort_a)    annotation (Line(
+  connect(pipeCold.flowPort_b, collectorG.flowPort_a) annotation (Line(
       points={{-46,-68},{-92,-68},{-92,-18},{-84,-18}},
       color={255,0,0},
       smooth=Smooth.None));

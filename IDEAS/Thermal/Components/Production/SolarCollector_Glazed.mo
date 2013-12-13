@@ -4,11 +4,10 @@ model SolarCollector_Glazed
 
   // not cleaned up nor validated
 
- extends Modelica.Thermal.FluidHeatFlow.Interfaces.Partials.TwoPort(m=medium.rho
+  extends Modelica.Thermal.FluidHeatFlow.Interfaces.Partials.TwoPort(m=medium.rho
         *Vol);
-IDEAS.Climate.Meteo.Solar.BaseClasses.AngleHour
-                                             angleHour;
-/*
+  IDEAS.Climate.Meteo.Solar.BaseClasses.AngleHour angleHour;
+  /*
 Model_Mark.Meteo.Solar.RadiationSolar radSol(
     TeAv=265,
     solDirPer=sim.solDirPer,
@@ -21,10 +20,10 @@ Model_Mark.Meteo.Solar.RadiationSolar radSol(
   parameter Real pi=Modelica.Constants.pi;
   //parameter Real inc(start=30);
 
-  parameter Modelica.SIunits.Volume Vol=AColTot * 1.3 *1e-3;
+  parameter Modelica.SIunits.Volume Vol=AColTot*1.3*1e-3;
   parameter Modelica.SIunits.Area ACol "Surface of a single collector";
   parameter Integer nCol "Number of collectors in series";
-  final parameter Modelica.SIunits.Area AColTot = ACol * nCol
+  final parameter Modelica.SIunits.Area AColTot=ACol*nCol
     "Total effective surface";
 
   parameter Modelica.SIunits.Length h_g(start=-2)
@@ -32,17 +31,19 @@ Model_Mark.Meteo.Solar.RadiationSolar radSol(
 
   //pressure drop coefficietns
   parameter Real a=2*0.0008436127;
-  parameter Real b=2*0.1510363177;//2 vanwege in serie
-  parameter Real correctie=11.1/16.5;//drukval collector is ongeveer gelijk per l/h.m2
+  parameter Real b=2*0.1510363177;
+  //2 vanwege in serie
+  parameter Real correctie=11.1/16.5;
+  //drukval collector is ongeveer gelijk per l/h.m2
 
   Modelica.SIunits.Irradiance Ibeam=radSol.solDir;
   Modelica.SIunits.Irradiance Idiff=radSol.solDif;
   Real cosXi=cos(radSol.angInc);
-  Real angle_zenit = radSol.angZen;
+  Real angle_zenit=radSol.angZen;
 
   // gemeten in dezelfde hoek als collector
   Modelica.SIunits.Temperature T_amb=sim.Te;
-  Modelica.SIunits.Temperature T_coll=(T_a+T_b)/2;
+  Modelica.SIunits.Temperature T_coll=(T_a + T_b)/2;
   Modelica.SIunits.Temp_K T_sky=(T_amb^1.5)*0.0552;
 
   Modelica.SIunits.Efficiency eta;
@@ -54,65 +55,72 @@ Model_Mark.Meteo.Solar.RadiationSolar radSol(
   parameter Modelica.SIunits.TransmissionCoefficient ta=0.95*0.9
     "transmission-absorption coefficient";
 
-  parameter Real b_IAM=-0.09; // based on Kta 50deg = 0.95
-  Modelica.SIunits.TransmissionCoefficient Kta= (1+b_IAM*(1/cosXi-1)); // Duffie Beckman p263
-  Modelica.SIunits.TransmissionCoefficient IAM= Kta
+  parameter Real b_IAM=-0.09;
+  // based on Kta 50deg = 0.95
+  Modelica.SIunits.TransmissionCoefficient Kta=(1 + b_IAM*(1/cosXi - 1));
+  // Duffie Beckman p263
+  Modelica.SIunits.TransmissionCoefficient IAM=Kta
     "incidence angle modifier Kta=0.95 at 50deg";
 
-   Real Ul;
-   Real Q_loss;
-   Real QInNet;
-   Modelica.SIunits.Power QInBru=AColTot*(Ibeam + Idiff);
-   Modelica.SIunits.Power QNet=-(flowPort_b.H_flow + flowPort_a.H_flow)
+  Real Ul;
+  Real Q_loss;
+  Real QInNet;
+  Modelica.SIunits.Power QInBru=AColTot*(Ibeam + Idiff);
+  Modelica.SIunits.Power QNet=-(flowPort_b.H_flow + flowPort_a.H_flow)
     "Net power delivered by the collector";
-   parameter Modelica.SIunits.TransmissionCoefficient GSC=0;
-   Real Q_lossRad;
+  parameter Modelica.SIunits.TransmissionCoefficient GSC=0;
+  Real Q_lossRad;
 
   parameter Real eps=0.03;
 
   Modelica.SIunits.Irradiance S;
 
-Real feq=if noEvent((V_flow/nCol*correctie)>0.00001) then (1e8)*V_door^(-0.376) else 1e8*0.00001^(-0.376);
-Real V_door=V_flow/nCol*correctie;
-Real dpEq=2*(feq*medium.rho*(V_flow/nCol*correctie)^2/2*(nue/nue_ref)^0.25);
+  Real feq=if noEvent((V_flow/nCol*correctie) > 0.00001) then (1e8)*V_door^(-0.376)
+       else 1e8*0.00001^(-0.376);
+  Real V_door=V_flow/nCol*correctie;
+  Real dpEq=2*(feq*medium.rho*(V_flow/nCol*correctie)^2/2*(nue/nue_ref)^0.25);
 
-parameter Real nue_ref=1.004e-6;
-Real nue = (5.8127*exp(-0.03*(T-273)))*1e-6;
+  parameter Real nue_ref=1.004e-6;
+  Real nue=(5.8127*exp(-0.03*(T - 273)))*1e-6;
   Modelica.SIunits.Pressure dp_ref;
 
-  Real I=Idiff+Ibeam;
+  Real I=Idiff + Ibeam;
   Modelica.Blocks.Interfaces.RealOutput TCol
     annotation (Placement(transformation(extent={{94,-70},{114,-50}})));
-  outer IDEAS.SimInfoManager         sim
+  outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-86,60},{-66,80}})));
-  IDEAS.Climate.Meteo.Solar.RadSol radSol(inc=30 * pi/180, azi=0, A=1)
-    annotation (Placement(transformation(extent={{-40,58},{-20,78}})));
+  IDEAS.Climate.Meteo.Solar.RadSol radSol(
+    inc=30*pi/180,
+    azi=0,
+    A=1) annotation (Placement(transformation(extent={{-40,58},{-20,78}})));
 equation
-  eta = if noEvent(S<1) then eta_0 - k1*(T_coll - T_amb) - k2*((T_coll -
-    T_amb)^2) else eta_0 - k1*(T_coll - T_amb)/S - k2*((T_coll -
-    T_amb)^2)/S;
+  eta = if noEvent(S < 1) then eta_0 - k1*(T_coll - T_amb) - k2*((T_coll -
+    T_amb)^2) else eta_0 - k1*(T_coll - T_amb)/S - k2*((T_coll - T_amb)^2)/S;
   // vergelijking die efficientiecurve collector beschrijft
 
-/*  eta = if (S<1) then 0 else if noEvent(eta_0 - k1*(T_coll - T_amb)/S - k2*((T_coll
+  /*  eta = if (S<1) then 0 else if noEvent(eta_0 - k1*(T_coll - T_amb)/S - k2*((T_coll
      - T_amb)^2)/S) > 0 then eta_0 - k1*(T_coll - T_amb)/S - k2*((T_coll -
     T_amb)^2)/S else 0;
     */
 
-  Ul= (k1 + k2*(T_coll - T_amb));//stralingsverliezen verwaarloosd
+  Ul = (k1 + k2*(T_coll - T_amb));
+  //stralingsverliezen verwaarloosd
 
   dp = dpEq + medium.rho*Modelica.Constants.g_n*h_g;
   // energy exchange with medium
-  dp_ref= (a*((V_flow/nCol*correctie)*(10^3*3600))^2 + b*(V_flow/nCol*correctie)*(10^3*3600))*1e2;
-  Q_loss= Ul*AColTot*(T_coll - T_amb)+(1-eta_0)*S*AColTot;
+  dp_ref = (a*((V_flow/nCol*correctie)*(10^3*3600))^2 + b*(V_flow/nCol*
+    correctie)*(10^3*3600))*1e2;
+  Q_loss = Ul*AColTot*(T_coll - T_amb) + (1 - eta_0)*S*AColTot;
 
-S=Ibeam*IAM*(1-GSC)+Idiff+ 1e-8;
-// IAM= Incident angle modifier and GSC shading coefficient;
+  S = Ibeam*IAM*(1 - GSC) + Idiff + 1e-8;
+  // IAM= Incident angle modifier and GSC shading coefficient;
 
-Q_flow= eta_0*(S*AColTot)- Ul*AColTot*(T_coll - T_amb);
-QInNet = S*AColTot;
+  Q_flow = eta_0*(S*AColTot) - Ul*AColTot*(T_coll - T_amb);
+  QInNet = S*AColTot;
 
-Q_lossRad= eps*Modelica.Constants.sigma*AColTot*(T_coll^4-T_sky^4);// not considered
-TCol=T;
+  Q_lossRad = eps*Modelica.Constants.sigma*AColTot*(T_coll^4 - T_sky^4);
+  // not considered
+  TCol = T;
 
   annotation (
     Documentation(info="<html>
@@ -139,8 +147,8 @@ TCol=T;
 <li>2011 Mark Gutschoven: first version</li>
 </ul></p>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-                    graphics),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics));
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end SolarCollector_Glazed;

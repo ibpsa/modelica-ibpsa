@@ -5,9 +5,9 @@ model MonoLayerLucent "single non-opaque layer"
   parameter IDEAS.Buildings.Data.Interfaces.Material mat "material";
   parameter Modelica.SIunits.Angle inc "inclination";
 
-  parameter Modelica.SIunits.Emissivity epsLw_a = mat.epsLw_a
+  parameter Modelica.SIunits.Emissivity epsLw_a=mat.epsLw_a
     "longwave emissivity on exterior side";
-  parameter Modelica.SIunits.Emissivity epsLw_b = mat.epsLw_b
+  parameter Modelica.SIunits.Emissivity epsLw_b=mat.epsLw_b
     "longwave emissivity on interior side";
 
   final parameter Real R=mat.R "Total specific thermal resistance";
@@ -21,9 +21,9 @@ model MonoLayerLucent "single non-opaque layer"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 protected
-  parameter Real h = mat.k/mat.d "conductance";
+  parameter Real h=mat.k/mat.d "conductance";
 
-/*
+  /*
   The effective Nusselt nuber is to be calculated as :
   
   Real beta=1/((port_a.T + port_b.T)/2) 
@@ -43,7 +43,8 @@ equation
   port_a.Q_flow + port_b.Q_flow + port_gain.Q_flow = 0 "no heat is stored";
 
   if mat.gas then
-    port_a.Q_flow = A*h*(port_a.T - port_b.T) + A*Modelica.Constants.sigma*(1/((1/epsLw_a)+(1/epsLw_b)-1))*(port_a.T^4 - port_b.T^4);
+    port_a.Q_flow = A*h*(port_a.T - port_b.T) + A*Modelica.Constants.sigma*(1/(
+      (1/epsLw_a) + (1/epsLw_b) - 1))*(port_a.T^4 - port_b.T^4);
   else
     port_a.Q_flow = A*h*(port_a.T - port_b.T);
   end if;
@@ -54,7 +55,7 @@ equation
           extent={{-90,80},{90,-80}},
           fillColor={192,192,192},
           fillPattern=FillPattern.Backward,
-          pattern=LinePattern.None), Text(
+          pattern=LinePattern.None),Text(
           extent={{-150,113},{150,73}},
           textString="%name",
           lineColor={0,0,255})}),

@@ -12,12 +12,14 @@ model Bui910 "BESTEST Building model case 910"
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
     final AWall={21.6,16.2,9.6,16.2},
-    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
-    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
+    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
+        IDEAS.Constants.West},
+    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,
+        IDEAS.Constants.Wall},
     redeclare final parameter Data.Constructions.HeavyWall constructionType,
     redeclare final parameter Data.Insulation.foaminsulation insulationType,
-    final insulationThickness={0.0615,0.0615,0.0615,0.0615}) annotation (Placement(
-        transformation(
+    final insulationThickness={0.0615,0.0615,0.0615,0.0615}) annotation (
+      Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-49,-14})));

@@ -7,23 +7,20 @@ public
   Thermal.Components.Interfaces.FlowPort_a flowPort_a(medium=medium, h(
       start=293.15*medium.cp,
       min=1140947,
-      max=1558647))
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
-        iconTransformation(extent={{-110,-10},{-90,10}})));
+      max=1558647)) annotation (Placement(transformation(extent={{-110,-10},{-90,
+            10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
 
   Thermal.Components.Interfaces.FlowPort_a flowPort_b2(medium=medium, h(
       start=293.15*medium.cp,
       min=1140947,
-      max=1558647))
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
-        iconTransformation(extent={{-10,-110},{10,-90}})));
+      max=1558647)) annotation (Placement(transformation(extent={{-10,-110},{10,
+            -90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
 
   Thermal.Components.Interfaces.FlowPort_a flowPort_b1(medium=medium, h(
       start=293.15*medium.cp,
       min=1140947,
-      max=1558647))
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}),
-        iconTransformation(extent={{90,-10},{110,10}})));
+      max=1558647)) annotation (Placement(transformation(extent={{90,-10},{110,
+            10}}), iconTransformation(extent={{90,-10},{110,10}})));
 
 equation
   connect(flowPort_a, flowPort_b1) annotation (Line(

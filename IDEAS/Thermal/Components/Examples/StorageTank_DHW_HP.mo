@@ -2,12 +2,12 @@ within IDEAS.Thermal.Components.Examples;
 model StorageTank_DHW_HP
   "Example of a DHW system composed of HP and storage tank"
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
-  parameter Integer nbrNodes = 10 "Number of nodes in the storage tank";
+  parameter Integer nbrNodes=10 "Number of nodes in the storage tank";
 
-  Storage.StorageTank_OneIntHX           storageTank(
+  Storage.StorageTank_OneIntHX storageTank(
     nbrNodes=nbrNodes,
     TInitial={273.15 + 60 for i in 1:nbrNodes},
     volumeTank=0.3,
@@ -16,12 +16,9 @@ extends Modelica.Icons.Example;
     medium=medium)
     annotation (Placement(transformation(extent={{-30,-64},{42,10}})));
 
-  Domestic_Hot_Water.DHW_RealInput                dHW(
-    medium=medium,
-    TDHWSet=273.15 + 45)
+  Domestic_Hot_Water.DHW_RealInput dHW(medium=medium, TDHWSet=273.15 + 45)
     annotation (Placement(transformation(extent={{62,6},{82,26}})));
-  Production.HP_AirWater
-                      hP_AWMod(QNom=10000, medium=medium)
+  Production.HP_AirWater hP_AWMod(QNom=10000, medium=medium)
     annotation (Placement(transformation(extent={{-88,-2},{-68,18}})));
   Thermal.Components.BaseClasses.Pump pump(
     medium=medium,
@@ -29,17 +26,16 @@ extends Modelica.Icons.Example;
     m_flowNom=0.5,
     useInput=true)
     annotation (Placement(transformation(extent={{-38,-62},{-58,-42}})));
-  inner IDEAS.SimInfoManager         sim(
-              redeclare IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
-      IDEAS.Climate.Meteo.Files.min60 detail)
-              annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
-  Control.Ctrl_Heating_TES               HPControl(
+  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
+      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
+    annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
+  Control.Ctrl_Heating_TES HPControl(
     dTSafetyTop=3,
     dTHPTankSet=2,
     DHW=true,
     TSupNom=313.15,
-    TDHWSet=323.15)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    TDHWSet=323.15) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-82,60})));
   Modelica.Blocks.Sources.Pulse pulse(period=3600, width=10)
@@ -52,7 +48,7 @@ extends Modelica.Icons.Example;
   BaseClasses.AbsolutePressure absolutePressure(p=300000)
     annotation (Placement(transformation(extent={{-20,-94},{0,-74}})));
 equation
-  dHW.mDHW60C = pulse.y * sawTooth.y;
+  dHW.mDHW60C = pulse.y*sawTooth.y;
 
   connect(dHW.flowPortCold, storageTank.flowPort_b) annotation (Line(
       points={{82,11.7143},{82,-58.3077},{42,-58.3077}},
@@ -71,13 +67,14 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(hP_AWMod.flowPort_b, storageTank.flowPortHXUpper) annotation (Line(
-      points={{-68,8.90909},{-50,8.90909},{-50,8},{-36,8},{-36,-41.2308},{-30,
-          -41.2308}},
+      points={{-68,8.90909},{-50,8.90909},{-50,8},{-36,8},{-36,-41.2308},{-30,-41.2308}},
+
       color={0,0,255},
       smooth=Smooth.None));
 
   connect(absolutePressure.flowPort, pump.flowPort_a) annotation (Line(
       points={{-20,-84},{-30,-84},{-30,-52},{-34,-52.6154},{-34,-52},{-38,-52}},
+
       color={0,0,255},
       smooth=Smooth.None));
 
@@ -99,9 +96,9 @@ equation
       points={{-83.1111,48.6667},{-83.1111,40},{-48,40},{-48,-42}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=86400),
     __Dymola_experimentSetupOutput);
 end StorageTank_DHW_HP;

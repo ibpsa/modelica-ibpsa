@@ -1,7 +1,7 @@
 within IDEAS.Electric.UsersGuide;
 class Implementation "Implementation notes"
   extends Modelica.Icons.Information;
-  annotation(Documentation(info = "<html>
+  annotation (Documentation(info="<html>
 <p>
 This class summarizes general information about the implementation which is not stated elsewhere.
 </p>

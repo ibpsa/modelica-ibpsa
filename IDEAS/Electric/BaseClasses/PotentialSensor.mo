@@ -2,16 +2,16 @@ within IDEAS.Electric.BaseClasses;
 model PotentialSensor
   "For use  with loads. Either symmetrically divided over 3 phases (numPha=3) or single phase (numPha=1)."
 
-  Modelica.Blocks.Interfaces.RealOutput VGrid(start=0)
-    annotation (Placement(transformation(extent={{98,-10},{118,10}}),
-        iconTransformation(extent={{94,-10},{114,10}})));
- Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin vi
-                     annotation (Placement(transformation(extent={{-110,-10},{-90,
-            10}},                  rotation=0)));
+  Modelica.Blocks.Interfaces.RealOutput VGrid(start=0) annotation (Placement(
+        transformation(extent={{98,-10},{118,10}}), iconTransformation(extent={
+            {94,-10},{114,10}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin vi
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation
+          =0)));
 algorithm
 
   VGrid := Modelica.ComplexMath.'abs'(vi.v);
-  vi.i :=Complex(0);
+  vi.i := Complex(0);
 
   annotation (Icon(graphics={
         Ellipse(
@@ -36,11 +36,9 @@ algorithm
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-                             Text(
+        Text(
           extent={{-29,-11},{30,-70}},
           lineColor={0,0,0},
-          textString=
-               "V"),
-        Line(points={{-70,0},{-94,0}}, color={0,0,0})}),
-                                 Diagram(graphics));
+          textString="V"),
+        Line(points={{-70,0},{-94,0}}, color={0,0,0})}), Diagram(graphics));
 end PotentialSensor;

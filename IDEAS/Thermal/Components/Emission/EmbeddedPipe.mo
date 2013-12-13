@@ -18,8 +18,8 @@ model EmbeddedPipe
   final parameter Modelica.SIunits.ThermalInsulance R_r=FHChars.T*log(FHChars.d_a
       /(FHChars.d_a - 2*FHChars.s_r))/(2*Modelica.Constants.pi*FHChars.lambda_r)
     "Fix resistance of thermal conduction through pipe wall";
-  final parameter Modelica.SIunits.ThermalInsulance R_x=(FHChars.T*log(
-      FHChars.T/(3.14*FHChars.d_a)))/(2*3.14*FHChars.lambda_b)
+  final parameter Modelica.SIunits.ThermalInsulance R_x=(FHChars.T*log(FHChars.T
+      /(3.14*FHChars.d_a)))/(2*3.14*FHChars.lambda_b)
     "Fix resistance of thermal conduction from pipe wall to layer";
 
   // Auxiliary parameters and variables ////////////////////////////////////////////////////////////////
@@ -27,20 +27,21 @@ model EmbeddedPipe
       FHChars.d_a - 2*FHChars.s_r)^2*L_r*medium.rho
     "Mass of the water in the tube";
 
-  final parameter Real rey = m_flowMin * (FHChars.d_a - 2*FHChars.s_r) / (medium.nue * Modelica.Constants.pi / 4 * (FHChars.d_a - 2*FHChars.s_r)^2)
+  final parameter Real rey=m_flowMin*(FHChars.d_a - 2*FHChars.s_r)/(medium.nue*
+      Modelica.Constants.pi/4*(FHChars.d_a - 2*FHChars.s_r)^2)
     "Fix Reynolds number for assert of turbulent flow";
-  Real m_flowSp = flowPort_a.m_flow / FHChars.A_Floor "in kg/s.m2";
-  Real m_flowMinSp = m_flowMin / FHChars.A_Floor "in kg/s.m2";
+  Real m_flowSp=flowPort_a.m_flow/FHChars.A_Floor "in kg/s.m2";
+  Real m_flowMinSp=m_flowMin/FHChars.A_Floor "in kg/s.m2";
   Modelica.SIunits.Velocity flowSpeed=flowPort_a.m_flow/medium.rho/(Modelica.Constants.pi
       /4*(FHChars.d_a - 2*FHChars.s_r)^2);
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_x(G = FHChars.A_Floor / R_x) annotation (Placement(
-        transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_x(G=
+        FHChars.A_Floor/R_x) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={46,0})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_r(G = FHChars.A_Floor / R_r)
-    annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_r(G=
+        FHChars.A_Floor/R_r) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={12,0})));
@@ -55,14 +56,16 @@ model EmbeddedPipe
         rotation=0,
         origin={-54,0})));
 
-// Equations and stuff ////////////////////////////////////////////////////////////////////////
+  // Equations and stuff ////////////////////////////////////////////////////////////////////////
 initial equation
-  assert(FHChars.S_1 > 0.3 * FHChars.T, "Thickness of the concrete or screed layer above the tubes is smaller than 0.3 * the tube interdistance. 
+  assert(FHChars.S_1 > 0.3*FHChars.T, "Thickness of the concrete or screed layer above the tubes is smaller than 0.3 * the tube interdistance. 
     The model is not valid for this case");
-  assert(FHChars.S_2 > 0.3 * FHChars.T, "Thickness of the concrete or screed layer under the tubes is smaller than 0.3 * the tube interdistance. 
+  assert(FHChars.S_2 > 0.3*FHChars.T, "Thickness of the concrete or screed layer under the tubes is smaller than 0.3 * the tube interdistance. 
     The model is not valid for this case");
-  assert(rey > 2700, "The minimal flowrate leads to laminar flow.  Adapt the model (specifically R_w) to these conditions");
-  assert(m_flowMinSp * medium.cp * (R_w + R_r + R_x) >= 0.5, "Model is not valid, division in n parts is required");
+  assert(rey > 2700,
+    "The minimal flowrate leads to laminar flow.  Adapt the model (specifically R_w) to these conditions");
+  assert(m_flowMinSp*medium.cp*(R_w + R_r + R_x) >= 0.5,
+    "Model is not valid, division in n parts is required");
 
 equation
 
@@ -70,14 +73,14 @@ algorithm
   if noEvent(abs(flowPort_a.m_flow) > m_flowMin/10) then
     TIn := flowPort_a.h/medium.cp;
     TMean := (TIn + TOut)/2;
-    R_w :=FHChars.T^0.13/8/Modelica.Constants.pi * abs(((FHChars.d_a - 2*FHChars.s_r)/
-      (m_flowSp*L_r)))^0.87;
+    R_w := FHChars.T^0.13/8/Modelica.Constants.pi*abs(((FHChars.d_a - 2*FHChars.s_r)
+      /(m_flowSp*L_r)))^0.87;
     //assert(noEvent(flowSpeed >= 0.05), "Attention, flowSpeed in the floorheating is smaller than 0.05 m/s");
     //assert(noEvent(flowSpeed <= 0.5), "Attention, flowSpeed in the floorheating is larger than 0.5 m/s");
   else
     TIn := TOut;
     TMean := TOut;
-    R_w := FHChars.T / (200 * (FHChars.d_a - 2*FHChars.s_r) * Modelica.Constants.pi);
+    R_w := FHChars.T/(200*(FHChars.d_a - 2*FHChars.s_r)*Modelica.Constants.pi);
   end if;
 
 equation
@@ -91,32 +94,42 @@ equation
 
   // energy balance
   // the mass is lumped to TOut!  TOut will be DIFFERENT from TMean (when there is a flowrate)
-  flowPort_a.H_flow + flowPort_b.H_flow + theta_w.port.Q_flow = mMedium * medium.cp * der(TOut);
+  flowPort_a.H_flow + flowPort_b.H_flow + theta_w.port.Q_flow = mMedium*medium.cp
+    *der(TOut);
 
   // massflow a->b mixing rule at a, energy flow at b defined by medium's temperature
   // massflow b->a mixing rule at b, energy flow at a defined by medium's temperature
-  flowPort_a.H_flow = semiLinear(flowPort_a.m_flow,flowPort_a.h,TOut * medium.cp);
-  flowPort_b.H_flow = semiLinear(flowPort_b.m_flow,flowPort_b.h,TOut * medium.cp);
-  connect(resistance_r.port_b,resistance_x. port_a) annotation (Line(
+  flowPort_a.H_flow = semiLinear(
+    flowPort_a.m_flow,
+    flowPort_a.h,
+    TOut*medium.cp);
+  flowPort_b.H_flow = semiLinear(
+    flowPort_b.m_flow,
+    flowPort_b.h,
+    TOut*medium.cp);
+  connect(resistance_r.port_b, resistance_x.port_a) annotation (Line(
       points={{22,-1.22465e-015},{29,-1.22465e-015},{29,1.22465e-015},{36,
           1.22465e-015}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(resistance_w.port_b,resistance_r. port_a) annotation (Line(
+  connect(resistance_w.port_b, resistance_r.port_a) annotation (Line(
       points={{-10,-1.22465e-015},{-4,-1.22465e-015},{-4,1.22465e-015},{2,
           1.22465e-015}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(theta_w.port,resistance_w. port_a) annotation (Line(
+  connect(theta_w.port, resistance_w.port_a) annotation (Line(
       points={{-44,0},{-38,0},{-38,1.22465e-015},{-30,1.22465e-015}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(resistance_x.port_b, heatPortEmb) annotation (Line(
       points={{56,-1.22465e-015},{62,-1.22465e-015},{62,62},{-50,62},{-50,58}},
+
       color={191,0,0},
       smooth=Smooth.None));
 
-  annotation (Diagram(graphics), Icon(graphics),
+  annotation (
+    Diagram(graphics),
+    Icon(graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Dynamic model of an embedded pipe for a concrete core activation element. This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;the&nbsp;norm&nbsp;prEN&nbsp;15377&nbsp;for&nbsp;the&nbsp;nomenclature&nbsp;but&nbsp;relies&nbsp;more&nbsp;on&nbsp;the&nbsp;background&nbsp;as&nbsp;developed&nbsp;in&nbsp;(Koschenz,&nbsp;2000).&nbsp; There&nbsp;is&nbsp;one&nbsp;major&nbsp;deviation:&nbsp;instead&nbsp;of&nbsp;calculating&nbsp;R_z&nbsp;(to&nbsp;get&nbsp;the&nbsp;mean&nbsp;water&nbsp;temperature&nbsp;in&nbsp;the&nbsp;tube&nbsp;from&nbsp;the&nbsp;supply&nbsp;temperature&nbsp;and&nbsp;flowrate),&nbsp;this&nbsp;mean&nbsp;water&nbsp;temperatue&nbsp;is&nbsp;modelled&nbsp;specifically,&nbsp;based&nbsp;on&nbsp;the&nbsp;mass&nbsp;of&nbsp;the&nbsp;water&nbsp;in&nbsp;the&nbsp;system.<code><font style=\"color: #006400; \">&nbsp;&nbsp;</font></code></p>

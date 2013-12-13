@@ -2,6 +2,6 @@ within IDEAS.Thermal;
 package VentilationSystems 
 
 
-  extends Modelica.Icons.Package;
+extends Modelica.Icons.Package;
 
 end VentilationSystems;

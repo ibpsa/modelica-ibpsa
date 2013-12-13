@@ -2,7 +2,7 @@ within IDEAS.UsersGuide;
 class Contact "Contact"
   extends Modelica.Icons.Contact;
 
- annotation (Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <dl><dt>The Modelica Standard Library (this Modelica package) is developed by many people from different organizations (see list below). It is licensed under the <a href=\"modelica://Modelica.UsersGuide.ModelicaLicense2\">Modelica License 2</a> by:</dt>
 <dt>&nbsp;</dt>
 <dd>Modelica Association</dd>

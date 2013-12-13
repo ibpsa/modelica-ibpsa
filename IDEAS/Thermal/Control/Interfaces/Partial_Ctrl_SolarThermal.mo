@@ -31,16 +31,15 @@ initial equation
 
 equation
 
-                                       annotation(Evaluate=false,
-             Icon(graphics={
-        Rectangle(
+  annotation (
+    Evaluate=false,
+    Icon(graphics={Rectangle(
           extent={{80,80},{-100,-80}},
           lineColor={100,100,100},
           fillPattern=FillPattern.Solid,
-          fillColor={255,255,255}),
-        Line(
+          fillColor={255,255,255}),Line(
           points={{0,80},{80,0},{0,-80}},
           color={100,100,100},
           smooth=Smooth.None)}),
-      Diagram(graphics));
+    Diagram(graphics));
 end Partial_Ctrl_SolarThermal;

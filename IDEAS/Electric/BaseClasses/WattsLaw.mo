@@ -1,24 +1,22 @@
 within IDEAS.Electric.BaseClasses;
 model WattsLaw
   "For use  with loads. Either symmetrically divided over 3 phases (numPha=3) or single phase (numPha=1)."
-  parameter Integer numPha=1 "Choose the number of phases" annotation(choices(choice=1
-        "single phase",                                                                               choice=3
-        "symmetrical 3 phase"));
- Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin[
-                          numPha] vi
-                     annotation (Placement(transformation(extent={{90,-10},{110,10}},
-                                   rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput P(start=0)
-    annotation (Placement(transformation(extent={{-128,30},{-88,70}}),
-        iconTransformation(extent={{-108,50},{-88,70}})));
-  Modelica.Blocks.Interfaces.RealInput Q(start=0)
-    annotation (Placement(transformation(extent={{-128,-10},{-88,30}}),
-        iconTransformation(extent={{-108,10},{-88,30}})));
+  parameter Integer numPha=1 "Choose the number of phases" annotation (choices(
+        choice=1 "single phase", choice=3 "symmetrical 3 phase"));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin[numPha]
+    vi annotation (Placement(transformation(extent={{90,-10},{110,10}},
+          rotation=0)));
+  Modelica.Blocks.Interfaces.RealInput P(start=0) annotation (Placement(
+        transformation(extent={{-128,30},{-88,70}}), iconTransformation(extent=
+            {{-108,50},{-88,70}})));
+  Modelica.Blocks.Interfaces.RealInput Q(start=0) annotation (Placement(
+        transformation(extent={{-128,-10},{-88,30}}), iconTransformation(extent
+          ={{-108,10},{-88,30}})));
 equation
-    for i in 1:numPha loop
+  for i in 1:numPha loop
     P/numPha = Modelica.ComplexMath.real(vi[i].v*Modelica.ComplexMath.conj(vi[i].i));
     Q/numPha = Modelica.ComplexMath.imag(vi[i].v*Modelica.ComplexMath.conj(vi[i].i));
-    end for;
+  end for;
 
   annotation (Icon(graphics={
         Ellipse(extent={{-60,60},{60,-60}}, lineColor={0,0,127}),

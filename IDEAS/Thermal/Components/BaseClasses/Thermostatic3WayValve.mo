@@ -3,7 +3,7 @@ model Thermostatic3WayValve "Thermostatic 3-way valve"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
   parameter Modelica.SIunits.Mass m=1 "Fluid content of the mixing valve";
-  parameter Modelica.SIunits.MassFlowRate mFlowMin = 0.01
+  parameter Modelica.SIunits.MassFlowRate mFlowMin=0.01
     "Minimum outlet flowrate for mixing to start";
   Modelica.Blocks.Interfaces.RealInput TMixedSet
     "Mixed outlet temperature setpoint" annotation (Placement(transformation(
@@ -17,8 +17,8 @@ model Thermostatic3WayValve "Thermostatic 3-way valve"
   Modelica.SIunits.Temperature TCold=pumpCold.T;
   Modelica.SIunits.Temperature THot=mixingVolumeHot.T
     "Temperature of the hot source";
-  Modelica.SIunits.Temperature TMixed(start=273.15 + 20)=flowPortMixed.h
-    /medium.cp "Temperature of the mixed water";
+  Modelica.SIunits.Temperature TMixed(start=273.15 + 20) = flowPortMixed.h/
+    medium.cp "Temperature of the mixed water";
 
 protected
   Modelica.SIunits.MassFlowRate m_flowMixed=-flowPortMixed.m_flow
@@ -28,14 +28,14 @@ protected
   parameter Modelica.SIunits.MassFlowRate m_flowNom=100
     "Just a large nominal flowrate";
   Real m_flowColdInput(min=0) = m_flowCold/m_flowNom;
-//  Real m_flowHotInput = m_flowHot/m_flowNom;
+  //  Real m_flowHotInput = m_flowHot/m_flowNom;
 
   Pump pumpCold(
     useInput=true,
     medium=medium,
     m_flowNom=m_flowNom,
-    m=m/2)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    m=m/2) annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,-28})));
 
@@ -43,50 +43,47 @@ public
   Thermal.Components.Interfaces.FlowPort_a flowPortHot(medium=medium, h(
       start=293.15*medium.cp,
       min=1140947,
-      max=1558647))
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
-        iconTransformation(extent={{-110,-10},{-90,10}})));
+      max=1558647)) annotation (Placement(transformation(extent={{-110,-10},{-90,
+            10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
 
   Thermal.Components.Interfaces.FlowPort_a flowPortCold(medium=medium, h(
       start=293.15*medium.cp,
       min=1140947,
-      max=1558647))
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
-        iconTransformation(extent={{-10,-110},{10,-90}})));
+      max=1558647)) annotation (Placement(transformation(extent={{-10,-110},{10,
+            -90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
 
   Thermal.Components.Interfaces.FlowPort_a flowPortMixed(medium=medium, h(
       start=293.15*medium.cp,
       min=1140947,
-      max=1558647))
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}),
-        iconTransformation(extent={{90,-10},{110,10}})));
+      max=1558647)) annotation (Placement(transformation(extent={{90,-10},{110,
+            10}}), iconTransformation(extent={{90,-10},{110,10}})));
 
 protected
   MixingVolume mixingVolumeHot(
     medium=medium,
     nbrPorts=2,
-    m=m/2)
-    annotation (Placement(transformation(extent={{-22,30},{-2,50}})));
+    m=m/2) annotation (Placement(transformation(extent={{-22,30},{-2,50}})));
 equation
   //m_flowTotal = table.y[profileType] * VDayAvg * medium.rho;
   pumpCold.m_flowSet = m_flowColdInput;
-//  pumpHot.m_flowSet = m_flowHotInput;
+  //  pumpHot.m_flowSet = m_flowHotInput;
 
-    if noEvent(THot < TMixedSet) then
-      // no mixing
-      m_flowCold =  0;
-    elseif noEvent(TCold > TMixedSet) then
-       m_flowCold = m_flowMixed;
-    elseif noEvent(flowPortMixed.m_flow < -mFlowMin) then
-      m_flowCold =  - (flowPortHot.m_flow * THot + flowPortMixed.m_flow * TMixedSet) / TCold;
-    else
-      m_flowCold =  0;
-    end if;
+  if noEvent(THot < TMixedSet) then
+    // no mixing
+    m_flowCold = 0;
+  elseif noEvent(TCold > TMixedSet) then
+    m_flowCold = m_flowMixed;
+  elseif noEvent(flowPortMixed.m_flow < -mFlowMin) then
+    m_flowCold = -(flowPortHot.m_flow*THot + flowPortMixed.m_flow*TMixedSet)/
+      TCold;
+  else
+    m_flowCold = 0;
+  end if;
 
-//m_flowCold = max(0, -(flowPortHot.m_flow*THot + flowPortMixed.m_flow* TMixedSet)/TCold);
+  //m_flowCold = max(0, -(flowPortHot.m_flow*THot + flowPortMixed.m_flow* TMixedSet)/TCold);
 
-//  flowPortMixed.p = 300000;
-//  flowPortMixed.H_flow = semiLinear(flowPortMixed.m_flow,flowPortMixed.h,ambient.T*medium.cp);
+  //  flowPortMixed.p = 300000;
+  //  flowPortMixed.H_flow = semiLinear(flowPortMixed.m_flow,flowPortMixed.h,ambient.T*medium.cp);
 
   connect(flowPortCold, pumpCold.flowPort_a) annotation (Line(
       points={{0,-100},{0,-38},{-1.83697e-015,-38}},
@@ -106,7 +103,9 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
 
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Polygon(
           points={{-60,30},{-60,-30},{0,0},{-60,30}},
           lineColor={100,100,100},

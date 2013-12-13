@@ -1,7 +1,7 @@
 within IDEAS.Examples;
 model Example
 
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
   inner SimInfoManager sim(
     redeclare IDEAS.Climate.Meteo.Files.min15 detail,

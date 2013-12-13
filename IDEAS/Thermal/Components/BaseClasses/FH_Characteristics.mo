@@ -12,7 +12,7 @@ record FH_Characteristics
 
   parameter Modelica.SIunits.Length T(
     min=0.15,
-    max=0.3)=0.2 "Pipe spacing, limits imposed by prEN 15377-3 p22";
+    max=0.3) = 0.2 "Pipe spacing, limits imposed by prEN 15377-3 p22";
   parameter Modelica.SIunits.Length d_a=0.02 "External diameter of the pipe";
   parameter Modelica.SIunits.Length s_r=0.0025 "Thickness of the pipe wall";
   parameter Modelica.SIunits.ThermalConductivity lambda_r=0.35

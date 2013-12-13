@@ -1,9 +1,8 @@
 within IDEAS.Thermal.Components.Emission;
 model Radiator "Simple 1-node radiator model according to EN 442"
 
-  extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Emission(
-      final floorHeating=false,
-      final radiators=true);
+  extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Emission(final
+      floorHeating=false, final radiators=true);
 
   parameter Modelica.SIunits.Temperature TInNom=75 + 273.15
     "Nominal inlet temperature";
@@ -14,26 +13,26 @@ model Radiator "Simple 1-node radiator model according to EN 442"
 
   parameter Modelica.SIunits.Power QNom=1000
     "Nominal thermal power at the specified conditions";
-  parameter Real fraRad = 0.35 "Fraction of radiation at Nominal power";
-  parameter Real n = 1.3 "Radiator coefficient according to EN 442-2";
+  parameter Real fraRad=0.35 "Fraction of radiation at Nominal power";
+  parameter Real n=1.3 "Radiator coefficient according to EN 442-2";
 
-  parameter Real powerFactor = 1 "Size increase compared to design at 75/65/20";
-    // For reference: 45/35/20 is 3.37; 50/40/20 is 2.5:
-    // Source: http://www.radson.com/be/producten/paneelradiatoren/radson-compact.htm, accessed on 15/06/2011
-  parameter Modelica.SIunits.Mass mMedium(start=1)=0.0038*QNom*powerFactor
+  parameter Real powerFactor=1 "Size increase compared to design at 75/65/20";
+  // For reference: 45/35/20 is 3.37; 50/40/20 is 2.5:
+  // Source: http://www.radson.com/be/producten/paneelradiatoren/radson-compact.htm, accessed on 15/06/2011
+  parameter Modelica.SIunits.Mass mMedium(start=1) = 0.0038*QNom*powerFactor
     "Mass of medium (water) in the radiator";
-  parameter Modelica.SIunits.Mass mDry(start=1)=0.018*QNom*powerFactor
+  parameter Modelica.SIunits.Mass mDry(start=1) = 0.018*QNom*powerFactor
     "Mass of dry material (steel/aluminium) in the radiator";
   // cpDry for steel: based on carbon steel, Polytechnisch zakboekje, E1/8
   parameter Modelica.SIunits.SpecificHeatCapacity cpDry=480
     "Specific heat capacity of the dry material, default is for steel";
 
-  final parameter Real UA = QNom / ( (TInNom + TOutNom)/2 - TZoneNom)^n;
+  final parameter Real UA=QNom/((TInNom + TOutNom)/2 - TZoneNom)^n;
 
   Modelica.SIunits.HeatFlowRate QTotal(start=0)
     "Total heat emission of the radiator";
   Modelica.SIunits.TemperatureDifference dTRadRoo;
-  Modelica.SIunits.Power QHeatTotal = -heatPortCon.Q_flow - heatPortRad.Q_flow;
+  Modelica.SIunits.Power QHeatTotal=-heatPortCon.Q_flow - heatPortRad.Q_flow;
 
 protected
   parameter Modelica.SIunits.MassFlowRate mFlowNom=QNom/medium.cp/(TInNom -
@@ -59,19 +58,27 @@ algorithm
 
 equation
   // radiator equation
-  QTotal = - UA * (dTRadRoo)^n; // negative for heat emission!
-  heatPortCon.Q_flow = QTotal * (1-fraRad);
-  heatPortRad.Q_flow = QTotal * fraRad;
+  QTotal = -UA*(dTRadRoo)^n;
+  // negative for heat emission!
+  heatPortCon.Q_flow = QTotal*(1 - fraRad);
+  heatPortRad.Q_flow = QTotal*fraRad;
 
   // energy balance
   // the mass is lumped to TMean!  TOut can be DIFFERENT from TMean (when there is a flowrate)
-  flowPort_a.H_flow + flowPort_b.H_flow + QTotal = (mMedium * medium.cp + mDry * cpDry) * der(TMean);
+  flowPort_a.H_flow + flowPort_b.H_flow + QTotal = (mMedium*medium.cp + mDry*
+    cpDry)*der(TMean);
 
   // massflow a->b mixing rule at a, energy flow at b defined by medium's temperature
   // massflow b->a mixing rule at b, energy flow at a defined by medium's temperature
-  flowPort_a.H_flow = semiLinear(flowPort_a.m_flow,flowPort_a.h,TOut * medium.cp);
-  flowPort_b.H_flow = semiLinear(flowPort_b.m_flow,flowPort_b.h,TOut * medium.cp);
-annotation (Documentation(info="<html>
+  flowPort_a.H_flow = semiLinear(
+    flowPort_a.m_flow,
+    flowPort_a.h,
+    TOut*medium.cp);
+  flowPort_b.H_flow = semiLinear(
+    flowPort_b.m_flow,
+    flowPort_b.h,
+    TOut*medium.cp);
+  annotation (Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Simplified dynamic radiator model, not discretized, based on EN&nbsp;442-2. </p>
 <p>The <u>thermal emission</u> of the radiator is based on three equations:</p>
@@ -113,9 +120,8 @@ annotation (Documentation(info="<html>
 <li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
 <li>2011, Roel De Coninck: first version</li>
 </ul></p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            140,60}}),
-                graphics={
+</html>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+            {140,60}}), graphics={
         Rectangle(extent={{-64,-100},{-42,60}}, lineColor={135,135,135}),
         Rectangle(extent={{-34,-100},{-12,60}}, lineColor={135,135,135}),
         Rectangle(extent={{-4,-100},{18,60}}, lineColor={135,135,135}),

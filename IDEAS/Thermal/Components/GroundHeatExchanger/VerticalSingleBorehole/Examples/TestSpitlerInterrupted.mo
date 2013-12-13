@@ -1,32 +1,29 @@
 within IDEAS.Thermal.Components.GroundHeatExchanger.VerticalSingleBorehole.Examples;
 model TestSpitlerInterrupted "validation spitler: Interrupted test"
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
 
-//Beier, Richard A., Marvin D. Smith, and Jeffrey D. Spitler.
-//"Reference data sets for vertical borehole ground heat exchanger models and thermal response test analysis."
-//Geothermics 40.1 (2011): 79-85.
+  //Beier, Richard A., Marvin D. Smith, and Jeffrey D. Spitler.
+  //"Reference data sets for vertical borehole ground heat exchanger models and thermal response test analysis."
+  //Geothermics 40.1 (2011): 79-85.
 
-  BaseClasses.Pipe_HeatPort     heatedPipe(
+  BaseClasses.Pipe_HeatPort heatedPipe(
     m=0.1,
     medium=medium,
     TInitial=295.15)
     annotation (Placement(transformation(extent={{-32,40},{-12,20}})));
-  IDEAS.Thermal.Components.BaseClasses.Pump
-                          pump(
+  IDEAS.Thermal.Components.BaseClasses.Pump pump(
     m_flowNom=0.197,
     useInput=false,
     m=0,
     medium=medium,
     TInitial=295.15)
     annotation (Placement(transformation(extent={{-2,20},{18,40}})));
-  inner SimInfoManager         sim(redeclare IDEAS.Climate.Meteo.Files.min60
-      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
+  inner SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Files.min60 detail,
+      redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-92,70},{-72,90}})));
-  IDEAS.Thermal.Components.BaseClasses.AbsolutePressure
-                                      absolutePressure(p=300000)
-    annotation (Placement(transformation(extent={{62,46},{82,66}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow
-    prescribedHeatFlow
+  IDEAS.Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(p=
+        300000) annotation (Placement(transformation(extent={{62,46},{82,66}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     annotation (Placement(transformation(extent={{-60,36},{-40,56}})));
   SingleBorehole singleBorehole(
     brine=medium,
@@ -50,10 +47,9 @@ extends Modelica.Icons.Example;
     period=50*3600,
     offset=590,
     startTime=9*3600,
-    width=4)
-    annotation (Placement(transformation(extent={{-94,26},{-74,46}})));
+    width=4) annotation (Placement(transformation(extent={{-94,26},{-74,46}})));
 
-  parameter Data.Interfaces.Medium medium = IDEAS.Thermal.Data.Media.Water()
+  parameter Data.Interfaces.Medium medium=IDEAS.Thermal.Data.Media.Water()
     "Medium in the component";
 equation
   connect(heatedPipe.flowPort_b, pump.flowPort_a) annotation (Line(
@@ -72,8 +68,8 @@ equation
       points={{18,30},{22,30},{22,-2.7},{26.7,-2.7}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(singleBorehole.boreholeOutlet, heatedPipe.flowPort_a)
-    annotation (Line(
+  connect(singleBorehole.boreholeOutlet, heatedPipe.flowPort_a) annotation (
+      Line(
       points={{45.3,-2.7},{54,-4},{54,-28},{-32,-28},{-32,30}},
       color={255,0,0},
       smooth=Smooth.None));
@@ -81,8 +77,10 @@ equation
       points={{-73,36},{-68,36},{-68,46},{-60,46}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Commands(file=
-          "../../smartbuildings/TME/Scripts/Tester_Borehole.mos" "RunTest"),
+  annotation (
+    Diagram(graphics),
+    Commands(file="../../smartbuildings/TME/Scripts/Tester_Borehole.mos"
+        "RunTest"),
     experiment(StopTime=187200, Interval=60),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>

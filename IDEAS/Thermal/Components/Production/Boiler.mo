@@ -8,7 +8,7 @@ model Boiler
   Real eta "Instanteanous efficiency";
 
   IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_CondensingGasBurner
-                                                   heatSource(
+    heatSource(
     medium=medium,
     QNom=QNom,
     TBoilerSet=TSet,
@@ -26,14 +26,16 @@ equation
   // Electricity consumption for electronics and fan only.  Pump is covered by pumpHeater;
   // This data is taken from Viessmann VitoDens 300W, smallest model.  So only valid for
   // very small household condensing gas boilers.
-  PEl = 7 + heatSource.modulation/100 * (33-7);
+  PEl = 7 + heatSource.modulation/100*(33 - 7);
   PFuel = heatSource.PFuel;
   eta = heatSource.eta;
   connect(heatSource.heatPort, heatedFluid.heatPort) annotation (Line(
       points={{-48,30},{-20,30},{-20,6.12323e-016}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Ellipse(
           extent={{-58,60},{60,-60}},
           lineColor={127,0,0},

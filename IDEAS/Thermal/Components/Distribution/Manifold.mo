@@ -2,44 +2,36 @@ within IDEAS.Thermal.Components.Distribution;
 model Manifold "Radiant manifold"
 
   parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
-    "Medium in the component"
-    annotation(choicesAllMatching=true);
+    "Medium in the component" annotation (choicesAllMatching=true);
 
-parameter Boolean[6] open = {true, true, true, true, true, true};
+  parameter Boolean[6] open={true,true,true,true,true,true};
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_a
-                        flowPort_a(medium=medium)
-    annotation (Placement(transformation(extent={{-110,40},{-90,60}},
-          rotation=0), iconTransformation(extent={{-110,40},{-90,60}})));
+  IDEAS.Thermal.Components.Interfaces.FlowPort_a flowPort_a(medium=medium)
+    annotation (Placement(transformation(extent={{-110,40},{-90,60}}, rotation=
+            0), iconTransformation(extent={{-110,40},{-90,60}})));
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b
-                        flowPort_b1(medium=medium) if open[1]
-    annotation (Placement(transformation(extent={{-48,-50},{-28,-30}},
+  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b1(medium=medium) if
+    open[1] annotation (Placement(transformation(extent={{-48,-50},{-28,-30}},
           rotation=0), iconTransformation(extent={{-80,-50},{-60,-30}})));
 
- IDEAS.Thermal.Components.Interfaces.FlowPort_b
-                        flowPort_b2(medium=medium) if open[2]
-    annotation (Placement(transformation(extent={{-30,-50},{-10,-30}},
+  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b2(medium=medium) if
+    open[2] annotation (Placement(transformation(extent={{-30,-50},{-10,-30}},
           rotation=0), iconTransformation(extent={{-40,-50},{-20,-30}})));
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b
-                        flowPort_b3(medium=medium) if open[3]
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}},
+  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b3(medium=medium) if
+    open[3] annotation (Placement(transformation(extent={{-10,-50},{10,-30}},
           rotation=0), iconTransformation(extent={{0,-50},{20,-30}})));
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b
-                        flowPort_b4(medium=medium) if open[4]
-    annotation (Placement(transformation(extent={{10,-50},{30,-30}},
+  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b4(medium=medium) if
+    open[4] annotation (Placement(transformation(extent={{10,-50},{30,-30}},
           rotation=0), iconTransformation(extent={{40,-50},{60,-30}})));
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b
-                        flowPort_b5(medium=medium) if open[5]
-    annotation (Placement(transformation(extent={{30,-50},{50,-30}},
+  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b5(medium=medium) if
+    open[5] annotation (Placement(transformation(extent={{30,-50},{50,-30}},
           rotation=0), iconTransformation(extent={{80,-50},{100,-30}})));
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b
-                        flowPort_b6(medium=medium) if open[6]
-    annotation (Placement(transformation(extent={{50,-50},{70,-30}},
+  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b6(medium=medium) if
+    open[6] annotation (Placement(transformation(extent={{50,-50},{70,-30}},
           rotation=0), iconTransformation(extent={{120,-50},{140,-30}})));
 equation
   connect(flowPort_a, flowPort_b1) annotation (Line(
@@ -67,8 +59,7 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(extent={{-100,-40},{160,60}},
-          preserveAspectRatio=true),
-                   graphics={
+          preserveAspectRatio=true), graphics={
         Line(
           points={{-30,-16},{-30,-40}},
           color={0,0,127},
@@ -196,6 +187,6 @@ equation
         Line(
           points={{160,60},{160,40}},
           color={0,0,127},
-          smooth=Smooth.None)}),                         Diagram(
-        coordinateSystem(extent={{-100,-40},{160,60}}),          graphics));
+          smooth=Smooth.None)}), Diagram(coordinateSystem(extent={{-100,-40},{
+            160,60}}), graphics));
 end Manifold;

@@ -13,7 +13,7 @@ model MixingVolume "Ideal mixing volume"
 
   Thermal.Components.Interfaces.FlowPort_a flowPorts[nbrPorts](each final
       medium=medium)
-      annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
 equation
   // mass balance
@@ -25,11 +25,14 @@ equation
   end for;
 
   // energy balance
-  sum(flowPorts.H_flow) = m * medium.cp * der(T);
+  sum(flowPorts.H_flow) = m*medium.cp*der(T);
 
   // enthalpy outflow
   for i in 1:nbrPorts loop
-    flowPorts[i].H_flow = semiLinear(flowPorts[i].m_flow, flowPorts[i].h, h);
+    flowPorts[i].H_flow = semiLinear(
+      flowPorts[i].m_flow,
+      flowPorts[i].h,
+      h);
   end for;
 
   annotation (Icon(graphics={Ellipse(

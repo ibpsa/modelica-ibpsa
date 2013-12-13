@@ -16,9 +16,9 @@ model StratifiedInlet "Stratified inlet for a storage tank"
   parameter Integer nbrNodes(min=1) = 10 "Number of nodes in the tank";
   input Modelica.SIunits.Temperature[nbrNodes] TNodes
     "Temperature of the nodes in the tank";
-    // it seems not possible to work with the enthalpies provided by flowPorts because they depend
-    // on the flow direction in the tank...
-  Modelica.SIunits.Temperature T(start=293.15)=flowPort_a.h/medium.cp
+  // it seems not possible to work with the enthalpies provided by flowPorts because they depend
+  // on the flow direction in the tank...
+  Modelica.SIunits.Temperature T(start=293.15) = flowPort_a.h/medium.cp
     "Inlet temperature";
   Integer inlet(start=0) "Number of the inlet node";
 
@@ -42,7 +42,7 @@ algorithm
       inlet := 0;
     end if;
 
-    testNode :=testNode + 1;
+    testNode := testNode + 1;
 
     if testNode == nbrNodes + 1 then
       // T is colder than the coldest (lowest) layer, inject between last and one-but-last
@@ -55,40 +55,43 @@ algorithm
 
 equation
   flowPort_a.p = flowPorts[inlet].p;
-  flowPort_a.H_flow = semiLinear(flowPort_a.m_flow, flowPort_a.h, flowPorts[inlet].h);
+  flowPort_a.H_flow = semiLinear(
+    flowPort_a.m_flow,
+    flowPort_a.h,
+    flowPorts[inlet].h);
 
-for i in 1:nbrNodes+1 loop
-  if i==inlet then
-    flowPort_a.m_flow + flowPorts[i].m_flow = 0;
-    flowPorts[i].H_flow = semiLinear(flowPorts[i].m_flow, flowPorts[i].h, flowPort_a.h);
-  else
-    flowPorts[i].m_flow = 0;
-    flowPorts[i].H_flow = 0;
-  end if;
-end for;
+  for i in 1:nbrNodes + 1 loop
+    if i == inlet then
+      flowPort_a.m_flow + flowPorts[i].m_flow = 0;
+      flowPorts[i].H_flow = semiLinear(
+        flowPorts[i].m_flow,
+        flowPorts[i].h,
+        flowPort_a.h);
+    else
+      flowPorts[i].m_flow = 0;
+      flowPorts[i].H_flow = 0;
+    end if;
+  end for;
 
-  annotation (Diagram(graphics), Icon(graphics={
-        Line(
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={Line(
           points={{0,80},{0,-80}},
           color={0,0,0},
           thickness=0.5,
-          smooth=Smooth.None),
-        Line(
+          smooth=Smooth.None),Line(
           points={{0,-40},{42,-40}},
           color={0,0,0},
           thickness=0.5,
-          smooth=Smooth.None),
-        Line(
+          smooth=Smooth.None),Line(
           points={{0,0},{42,0}},
           color={0,0,0},
           thickness=0.5,
-          smooth=Smooth.None),
-        Line(
+          smooth=Smooth.None),Line(
           points={{0,40},{42,40}},
           color={0,0,0},
           thickness=0.5,
-          smooth=Smooth.None),
-        Line(
+          smooth=Smooth.None),Line(
           points={{0,80},{42,80}},
           color={0,0,0},
           thickness=0.5,
@@ -110,8 +113,7 @@ end for;
 <p>The model is verified to work properly by simulation of the different operating conditions.</p>
 <p><h4>Examples</h4></p>
 <p>An example of this model is given in <a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_StratifiedInlet\">IDEAS.Thermal.Components.Examples.StorageTank_StratifiedInlet</a>.</p>
-</html>",
-        revisions="<html>
+</html>", revisions="<html>
 <p><ul>
 <li>2013 June, Roel De Coninck: documentation.</li>
 <li>2011 June, Roel De Coninck, first implementation.</li>

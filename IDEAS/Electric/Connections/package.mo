@@ -1,4 +1,4 @@
 within IDEAS.Electric;
 package Connections 
-  extends Modelica.Icons.Package;
+extends Modelica.Icons.Package;
 end Connections;
