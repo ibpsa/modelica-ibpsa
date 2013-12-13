@@ -3,15 +3,17 @@ model CommonWall "Common opaque wall with neighbors"
 
   extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-  replaceable parameter Data.Interfaces.Construction constructionType constrainedby
-    Data.Interfaces.Construction(final insulationType=
+  replaceable parameter Data.Interfaces.Construction constructionType
+    constrainedby Data.Interfaces.Construction(final insulationType=
         insulationType, final insulationTickness=insulationThickness)
-    "Type of building construction" annotation (__Dymola_choicesAllMatching = true,
+    "Type of building construction" annotation (
+    __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,72},{-34,76}})),
     Dialog(group="Construction details"));
-  replaceable parameter Data.Interfaces.Insulation insulationType constrainedby
-    Data.Interfaces.Insulation(final d=insulationThickness)
-    "Type of thermal insulation" annotation (__Dymola_choicesAllMatching = true,
+  replaceable parameter Data.Interfaces.Insulation insulationType
+    constrainedby Data.Interfaces.Insulation(final d=insulationThickness)
+    "Type of thermal insulation" annotation (
+    __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
   parameter Modelica.SIunits.Length insulationThickness
@@ -35,16 +37,16 @@ protected
     final locGain=constructionType.locGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=AWall,
-      final inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=
+        AWall, final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(final A=AWall,
-      final inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(final A=
+        AWall, final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-14,-40},{-34,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(final T=
-        292.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(
+      final T=292.15)
     annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
 equation
   connect(layMul.port_b, intCon_b.port_a) annotation (Line(
@@ -71,20 +73,29 @@ equation
       points={{10,-30},{14,-30},{14,-60},{50,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.iEpsLw_b, iEpsLw_a) annotation (Line(
-      points={{10,-22},{16,-22},{16,30},{56,30}},
+  connect(layMul.area, propsBus_a.area) annotation (Line(
+      points={{0,-20},{0,40},{50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(layMul.iEpsSw_b, iEpsSw_a) annotation (Line(
-      points={{10,-26},{18,-26},{18,0},{56,0}},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
+      points={{10,-22},{10,40},{50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(layMul.area, area_a) annotation (Line(
-      points={{0,-20},{0,60},{56,60}},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
+      points={{10,-26},{10,40},{50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={

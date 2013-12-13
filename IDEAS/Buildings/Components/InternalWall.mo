@@ -3,15 +3,17 @@ model InternalWall "interior opaque wall between two zones"
 
   extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-  replaceable parameter Data.Interfaces.Construction constructionType constrainedby
-    Data.Interfaces.Construction(final insulationType=
+  replaceable parameter Data.Interfaces.Construction constructionType
+    constrainedby Data.Interfaces.Construction(final insulationType=
         insulationType, final insulationTickness=insulationThickness)
-    "Type of building construction" annotation (__Dymola_choicesAllMatching = true,
+    "Type of building construction" annotation (
+    __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,72},{-34,76}})),
     Dialog(group="Construction details"));
   replaceable parameter Data.Interfaces.Insulation insulationType
-                                 constrainedby Data.Interfaces.Insulation( final d=insulationThickness)
-    "Type of thermal insulation"                                          annotation (__Dymola_choicesAllMatching = true,
+    constrainedby Data.Interfaces.Insulation(final d=insulationThickness)
+    "Type of thermal insulation" annotation (
+    __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
   parameter Modelica.SIunits.Length insulationThickness
@@ -28,27 +30,17 @@ model InternalWall "interior opaque wall between two zones"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b surfRad_b
     "rad.node on the inside"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput iEpsLw_b
-    annotation (Placement(transformation(extent={{-46,20},{-66,40}})));
-  Modelica.Blocks.Interfaces.RealOutput iEpsSw_b
-    "output of the interior emissivity for radiative heat losses"
-    annotation (Placement(transformation(extent={{-46,-10},{-66,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  Modelica.Blocks.Interfaces.RealOutput area_b "output of the area" annotation (
-     Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={-56,60})));
 
 protected
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=AWall,
-      final inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=
+        AWall, final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(final A=AWall,
-      final inc=inc + Modelica.Constants.pi)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(final A=
+        AWall, final inc=inc + Modelica.Constants.pi)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
@@ -60,6 +52,14 @@ protected
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{10,-40},{-10,-20}})));
 
+public
+  Interfaces.PropsBus propsBus_b annotation (Placement(transformation(
+        extent={{-20,20},{20,-20}},
+        rotation=-90,
+        origin={-50,40}), iconTransformation(
+        extent={{-20,20},{20,-20}},
+        rotation=-90,
+        origin={-50,40})));
 equation
   connect(layMul.port_a, surfRad_a) annotation (Line(
       points={{10,-30},{14,-30},{14,-60},{50,-60}},
@@ -89,32 +89,50 @@ equation
       points={{10,-30},{20,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.iEpsLw_a, iEpsLw_a) annotation (Line(
-      points={{10,-22},{14,-22},{14,30},{56,30}},
+  connect(layMul.iEpsSw_a, propsBus_a.epsSw) annotation (Line(
+      points={{10,-26},{18,-26},{18,40},{50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(layMul.iEpsSw_a, iEpsSw_a) annotation (Line(
-      points={{10,-26},{16,-26},{16,0},{56,0}},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.iEpsLw_a, propsBus_a.epsLw) annotation (Line(
+      points={{10,-22},{14,-22},{14,40},{50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(layMul.iEpsLw_b, iEpsLw_b) annotation (Line(
-      points={{-10,-22},{-14,-22},{-14,30},{-56,30}},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.area, propsBus_a.area) annotation (Line(
+      points={{0,-20},{0,40},{50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(layMul.iEpsSw_b, iEpsSw_b) annotation (Line(
-      points={{-10,-26},{-16,-26},{-16,0},{-56,0}},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.area, propsBus_b.area) annotation (Line(
+      points={{0,-20},{0,40},{-50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(layMul.area, area_b) annotation (Line(
-      points={{0,-20},{0,60},{-56,60}},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.iEpsSw_b, propsBus_b.epsSw) annotation (Line(
+      points={{-10,-26},{-18,-26},{-18,40},{-50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(layMul.area, area_a) annotation (Line(
-      points={{0,-20},{0,60},{56,60}},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.iEpsLw_b, propsBus_b.epsLw) annotation (Line(
+      points={{-10,-22},{-14,-22},{-14,40},{-50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
         graphics={
         Rectangle(
           extent={{-10,80},{10,-70}},
@@ -147,8 +165,8 @@ equation
           smooth=Smooth.None,
           color={0,0,0},
           thickness=0.5)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
-                    graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,
+            100}}), graphics),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>

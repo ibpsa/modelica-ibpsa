@@ -4,24 +4,24 @@ model Zone "thermal building zone"
   extends IDEAS.Buildings.Components.Interfaces.StateZone;
 
   parameter Modelica.SIunits.Volume V "Total zone air volume";
-  parameter Real n50 = 0.6
+  parameter Real n50=0.6
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
-  parameter Real corrCV = 5 "Multiplication factor for the zone air capacity";
-  parameter Modelica.SIunits.Temperature TOpStart = 297.15;
+  parameter Real corrCV=5 "Multiplication factor for the zone air capacity";
+  parameter Modelica.SIunits.Temperature TOpStart=297.15;
 
   parameter Boolean linear=true;
 
-  final parameter Modelica.SIunits.Power QNom = 1012*1.204*V/3600*n50/20*(273.15
+  final parameter Modelica.SIunits.Power QNom=1012*1.204*V/3600*n50/20*(273.15
        + 21 - sim.city.Tdes)
     "Design heat losses at reference outdoor temperature";
 
-  Modelica.SIunits.Temperature TAir = conDistr.TCon;
-  Modelica.SIunits.Temperature TStar = radDistr.TRad;
+  Modelica.SIunits.Temperature TAir=conDistr.TCon;
+  Modelica.SIunits.Temperature TStar=radDistr.TRad;
 
 protected
-  IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(final nSurf=
-        nSurf) "distribution of radiative internal gains" annotation (Placement(
-        transformation(
+  IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(final
+      nSurf=nSurf) "distribution of radiative internal gains" annotation (
+      Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-54,-44})));
@@ -30,14 +30,15 @@ protected
     final V=V,
     final corrCV=corrCV) "convective part of the zone"
     annotation (Placement(transformation(extent={{-2,10},{-22,30}})));
-  IDEAS.Buildings.Components.BaseClasses.AirLeakage vent(final n50=n50,final V=V)
-    "zone air leakage" annotation (Placement(transformation(
+  IDEAS.Buildings.Components.BaseClasses.AirLeakage vent(final n50=n50,final V=
+        V) "zone air leakage" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,42})));
-  IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final nSurf=
-        nSurf, final linear=linear) "internal longwave radiative heat exchange"
-    annotation (Placement(transformation(
+  IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final
+      nSurf=nSurf, final linear=linear)
+    "internal longwave radiative heat exchange" annotation (Placement(
+        transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-54,-10})));
@@ -79,22 +80,6 @@ equation
       points={{-100,-60},{-74,-60},{-74,-26},{-54,-26},{-54,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(epsLw, radDistr.epsLw) annotation (Line(
-      points={{-104,30},{-82,30},{-82,-44},{-64,-44}},
-      color={0,0,127},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(epsSw, radDistr.epsSw) annotation (Line(
-      points={{-104,0},{-86,0},{-86,-48},{-64,-48}},
-      color={0,0,127},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-
-  connect(epsLw, radDistrLw.epsLw) annotation (Line(
-      points={{-104,30},{-82,30},{-82,-10},{-64,-10}},
-      color={0,0,127},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
 
   connect(sum.y, TSensor) annotation (Line(
       points={{12.6,-60},{59.3,-60},{59.3,0},{106,0}},
@@ -108,16 +93,45 @@ equation
       points={{-12,10},{-12,-62},{-1.2,-62},{-1.2,-59.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(radDistrLw.A, area) annotation (Line(
-      points={{-64,-14},{-78,-14},{-78,60},{-104,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radDistr.area, area) annotation (Line(
-      points={{-64,-40},{-78,-40},{-78,60},{-104,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  annotation (Icon(graphics), Documentation(info="<html>
+  connect(propsBus.area, radDistr.area) annotation (Line(
+      points={{-100,40},{-82,40},{-82,-40},{-64,-40}},
+      color={127,0,0},
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(propsBus.area, radDistrLw.A) annotation (Line(
+      points={{-100,40},{-82,40},{-82,-14},{-64,-14}},
+      color={127,0,0},
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(propsBus.epsLw, radDistrLw.epsLw) annotation (Line(
+      points={{-100,40},{-82,40},{-82,-10},{-64,-10}},
+      color={127,0,0},
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(propsBus.epsLw, radDistr.epsLw) annotation (Line(
+      points={{-100,40},{-82,40},{-82,-44},{-64,-44}},
+      color={127,0,0},
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(propsBus.epsSw, radDistr.epsSw) annotation (Line(
+      points={{-100,40},{-82,40},{-82,-48},{-64,-48}},
+      color={127,0,0},
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  annotation (
+    Icon(graphics),
+    Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>
 <p>Also the thermal response of a zone can be divided into a convective, longwave radiative and shortwave radiative process influencing both thermal comfort in the depicted zone as well as the response of adjacent wall structures.</p>
@@ -129,5 +143,7 @@ equation
 <p>Transmitted shortwave solar radiation is distributed over all surfaces in the zone in a prescribed scale. This scale is an input value which may be dependent on the shape of the zone and the location of the windows, but literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption.</p>
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end Zone;

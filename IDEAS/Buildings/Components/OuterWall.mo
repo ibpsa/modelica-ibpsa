@@ -4,18 +4,20 @@ model OuterWall "Opaque building envelope construction"
   extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
   replaceable parameter Data.Constructions.CavityWall constructionType
-                                    constrainedby Data.Interfaces.Construction(
-      final insulationType = insulationType, final insulationTickness = insulationThickness)
-    "Type of building construction" annotation (__Dymola_choicesAllMatching = true,
+    constrainedby Data.Interfaces.Construction(final insulationType=
+        insulationType, final insulationTickness=insulationThickness)
+    "Type of building construction" annotation (
+    __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,72},{-34,76}})),
     Dialog(group="Construction details"));
 
   replaceable parameter Data.Insulation.Rockwool insulationType constrainedby
-    Data.Interfaces.Insulation(final d= insulationThickness)
-    "Type of thermal insulation" annotation (__Dymola_choicesAllMatching = true,
+    Data.Interfaces.Insulation(final d=insulationThickness)
+    "Type of thermal insulation" annotation (
+    __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
-  parameter Modelica.SIunits.Length insulationThickness = 0.05
+  parameter Modelica.SIunits.Length insulationThickness=0.05
     "Thermal insulation thickness"
     annotation (Dialog(group="Construction details"));
   parameter Modelica.SIunits.Area AWall "Total wall area";
@@ -43,23 +45,25 @@ model OuterWall "Opaque building envelope construction"
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     final A=AWall,
     final inc=inc,
-    final nLay = constructionType.nLay,
-    final mats = constructionType.mats,
-    final locGain = constructionType.locGain)
+    final nLay=constructionType.nLay,
+    final mats=constructionType.mats,
+    final locGain=constructionType.locGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(final A=AWall)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(final A=
+        AWall)
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(final A=AWall, final inc=
-       inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(final A=
+        AWall, final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs(final A=AWall)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs(final A
+      =AWall)
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation extRad(final A=AWall,
-      inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation extRad(final A=
+        AWall, inc=inc)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
 
@@ -109,23 +113,33 @@ equation
       points={{10,-30},{16,-30},{16,-60},{50,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.iEpsLw_b, iEpsLw_a) annotation (Line(
-      points={{10,-22},{14,-22},{14,30},{56,30}},
+  connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
+      points={{10,-26},{14,-26},{14,40},{50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(layMul.iEpsSw_b, iEpsSw_a) annotation (Line(
-      points={{10,-26},{16,-26},{16,0},{56,0}},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
+      points={{10,-22},{12,-22},{12,40},{50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(layMul.area, area_a) annotation (Line(
-      points={{0,-20},{0,60},{56,60}},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.area, propsBus_a.area) annotation (Line(
+      points={{0,-20},{0,-20},{0,40},{50,40}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
         Polygon(
           points={{-50,60},{-30,60},{-30,80},{50,80},{50,100},{-50,100},{-50,60}},
+
           pattern=LinePattern.None,
           lineThickness=0.5,
           smooth=Smooth.None,
@@ -167,7 +181,7 @@ equation
           points={{-44,60},{-44,-20}},
           smooth=Smooth.None,
           color={175,175,175})}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
@@ -182,4 +196,5 @@ equation
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>"));
+
 end OuterWall;

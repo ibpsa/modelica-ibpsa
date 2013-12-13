@@ -3,15 +3,17 @@ model SlabOnGround "opaque floor on ground slab"
 
   extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-  replaceable parameter Data.Interfaces.Construction constructionType constrainedby
-    Data.Interfaces.Construction(
-      final insulationType=insulationType, final insulationTickness=insulationThickness)
-    "Type of building construction" annotation (__Dymola_choicesAllMatching = true,
+  replaceable parameter Data.Interfaces.Construction constructionType
+    constrainedby Data.Interfaces.Construction(final insulationType=
+        insulationType, final insulationTickness=insulationThickness)
+    "Type of building construction" annotation (
+    __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,72},{-34,76}})),
     Dialog(group="Construction details"));
-  replaceable parameter Data.Interfaces.Insulation insulationType constrainedby
-    Data.Interfaces.Insulation( final d= insulationThickness)
-    "Type of thermal insulation" annotation (__Dymola_choicesAllMatching = true,
+  replaceable parameter Data.Interfaces.Insulation insulationType
+    constrainedby Data.Interfaces.Insulation(final d=insulationThickness)
+    "Type of thermal insulation" annotation (
+    __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
   parameter Modelica.SIunits.Length insulationThickness
@@ -63,8 +65,8 @@ public
     final locGain=constructionType.locGain)
     "Declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(final A=AWall, final inc=
-       inc)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(final A=
+        AWall, final inc=inc)
     "Convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layGro(
@@ -106,14 +108,6 @@ equation
       points={{10,-30},{16,-30},{16,-60},{50,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.iEpsLw_b, iEpsLw_a) annotation (Line(
-      points={{10,-22},{14,-22},{14,30},{56,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(layMul.iEpsSw_b, iEpsSw_a) annotation (Line(
-      points={{10,-26},{16,-26},{16,0},{56,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(layMul.port_gain, port_emb) annotation (Line(
       points={{0,-40},{0,-100}},
       color={191,0,0},
@@ -122,14 +116,31 @@ equation
       points={{-10,-30},{-14,-30},{-14,-8},{-20,-8}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.area, area_a) annotation (Line(
-      points={{0,-20},{0,60},{56,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(fixedHeatFlow.port, layGro.port_a) annotation (Line(
       points={{-50,-30},{-40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(layMul.area, propsBus_a.area) annotation (Line(
+      points={{0,-20},{0,40},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
+      points={{10,-22},{12,-22},{12,40},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
+      points={{10,-26},{14,-26},{14,40},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
