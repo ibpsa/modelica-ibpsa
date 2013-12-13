@@ -33,11 +33,11 @@ package Water "Package with model for liquid water with constant properties"
      preferredMediumStates=true) "Base properties"
   equation
     h = (T - reference_T)*cp_const;
-    u = h;
+    u = h-reference_p/d;
     d = density(state);
     state.T = T;
     state.p = p;
-    R=0;
+    R=Modelica.Constants.R;
     MM=MM_const;
     annotation (Documentation(info="<html>
     <p>
@@ -54,7 +54,7 @@ algorithm
   // fixme: IDA uses T_degC = max(0, T_degC); We should keep rho constant at its inflection points
   // (both at low and high temperatures)
   d := 1000.12 + 1.43711e-2*T_degC -
-       5.83576e-3*T_degC^2 + 1.5009e-5*T_degC^3;
+         5.83576e-3*T_degC^2 + 1.5009e-5*T_degC^3;
     // fixme. Convert to use Kelvin
   annotation (smoothOrder=2,
 Documentation(info="<html>
@@ -137,7 +137,7 @@ end enthalpyOfLiquid;
 
 redeclare function extends specificInternalEnergy "Return specific enthalpy"
 algorithm
-  u := (state.T - reference_T)*cp_const;
+  u := specificEnthalpy(state) - reference_p/density(state);
 annotation(smoothOrder=5,
 Documentation(info="<html>
 <p>
@@ -192,25 +192,25 @@ end specificInternalEnergy;
     kappa := 0;
   end isothermalCompressibility;
 
-  redeclare function extends density_derp_T
+/*  redeclare function extends density_derp_T 
     "Returns the partial derivative of density with respect to pressure at constant temperature"
-  algorithm
+  algorithm 
     ddpT := 0;
   end density_derp_T;
 
   redeclare function extends density_derT_p
     "Returns the partial derivative of density with respect to temperature at constant pressure"
   algorithm
-  assert(false, "density_derT_p is not yet implemented.");
+  assert(false, "fixme: density_derT_p is not yet implemented.");
     ddTp := 0;
   end density_derT_p;
 
-  redeclare function extends density_derX
+  redeclare function extends density_derX 
     "Returns the partial derivative of density with respect to mass fractions at constant pressure and temperature"
-  algorithm
+  algorithm 
     dddX := fill(0, nX);
   end density_derX;
-
+*/
 redeclare replaceable function extends specificHeatCapacityCp
     "Specific heat capacity of gas mixture at constant pressure"
 algorithm
@@ -306,7 +306,7 @@ end setState_dTX;
 redeclare function extends setState_phX
     "Return thermodynamic state as function of pressure p, specific enthalpy h and composition X"
 algorithm
-  state := ThermodynamicState(p=p, T=temperature_phX(p, h, X));
+  state := ThermodynamicState(p=p, T=reference_T + h/cp_const);
   annotation (smoothOrder=99,
 Documentation(info="<html>
 <p>
