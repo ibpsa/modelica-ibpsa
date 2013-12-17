@@ -15,6 +15,5 @@ equation
             -100},{100,100}}),
                      graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXRegularized.mos"
-        "Simulate and plot"));
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXRegularized.mos" "Simulate and plot"));
 end InverseXRegularized;
