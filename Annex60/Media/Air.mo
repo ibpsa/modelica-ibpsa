@@ -30,7 +30,7 @@ package Air
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
 
-   // Real phi(min=0, start=0.5) "Relative humidity";
+    Real phi(min=0, start=0.5) "Relative humidity";
 
   protected
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
@@ -63,7 +63,7 @@ required from medium model \""     + mediumName + "\".");
     state.T = T;
     state.X = X;
 
-    //phi = p/p_steam_sat*X_steam/(X_steam + k_mair*X_air);
+    phi = p/p_steam_sat*X_steam/(X_steam + k_mair*X_air);
     annotation (Documentation(info="<html>
     <p>
     Base properties of the medium.
