@@ -243,6 +243,67 @@ First implementation.
 </html>"));
 end gasConstant;
 
+redeclare function extends isobaricExpansionCoefficient
+    "Isobaric expansion coefficient beta"
+algorithm
+  beta := -1/state.T;
+annotation (
+Documentation(info="<html>
+<p>
+This function returns the isobaric expansion coefficient at constant pressure,
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&beta;<sub>p</sub> = - 1 &frasl; v &nbsp; (&part; v &frasl; &part; T)<sub>p</sub>
+= -1&frasl;T,
+</p>
+<p>
+where
+<i>v</i> is the specific volume,
+<i>T</i> is the temperature and
+<i>p</i> is the pressure.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 18, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end isobaricExpansionCoefficient;
+
+redeclare function extends isothermalCompressibility
+    "Isothermal compressibility factor"
+algorithm
+  kappa := 0;
+annotation (
+Documentation(info="<html>
+<p>
+This function returns the isothermal compressibility coefficient,
+which is zero as this medium is incompressible.
+The isothermal compressibility is defined as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&beta;<sub>T</sub> = - 1 &frasl; v &nbsp; (&part; v &frasl; &part; p)<sub>T</sub>,
+</p>
+<p>
+where
+<i>v</i> is the specific volume,
+<i>T</i> is the temperature and
+<i>p</i> is the pressure.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 18, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end isothermalCompressibility;
+
 redeclare function extends pressure
     "Returns pressure of ideal gas as a function of the thermodynamic state record"
 
@@ -292,7 +353,7 @@ First implementation.
 end saturationPressure;
 
 redeclare function extends specificEntropy
-    "Return specific entropy from thermodynamic state record, only valid for phi<1"
+    "Specific entropy, only valid for phi<1"
 
   protected
     Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
