@@ -170,6 +170,68 @@ Pressure is returned from the thermodynamic state record input as a simple assig
 </html>"));
 end pressure;
 
+redeclare function extends isobaricExpansionCoefficient
+    "Isobaric expansion coefficient beta"
+algorithm
+  beta := 0;
+annotation (
+Documentation(info="<html>
+<p>
+This function returns the isobaric expansion coefficient at constant pressure,
+which is zero for this medium.
+The isobaric expansion coefficient at constant pressure is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&beta;<sub>p</sub> = - 1 &frasl; v &nbsp; (&part; v &frasl; &part; T)<sub>p</sub> = 0,
+</p>
+<p>
+where
+<i>v</i> is the specific volume,
+<i>T</i> is the temperature and
+<i>p</i> is the pressure.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 18, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end isobaricExpansionCoefficient;
+
+redeclare function extends isothermalCompressibility
+    "Isothermal compressibility factor"
+algorithm
+  kappa := 1/state.p;
+annotation (
+Documentation(info="<html>
+<p>
+This function returns the isothermal compressibility coefficient.
+The isothermal compressibility is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&beta;<sub>T</sub> = - 1 &frasl; v &nbsp; (&part; v &frasl; &part; p)<sub>T</sub>
+  = 1 &frasl; p,
+</p>
+<p>
+where
+<i>v</i> is the specific volume,
+<i>T</i> is the temperature and
+<i>p</i> is the pressure.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 18, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end isothermalCompressibility;
+
 redeclare function extends saturationPressure
     "Saturation curve valid for 223.16 <= T <= 373.16 (and slightly outside with less accuracy)"
 
