@@ -47,25 +47,34 @@ package Water "Package with model for liquid water with constant properties"
   end BaseProperties;
 
 redeclare function extends density "Gas density"
-  protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
-   Modelica.SIunits.Conversions.to_degC(state.T) "fixme";
 algorithm
-  // fixme: IDA uses T_degC = max(0, T_degC); We should keep rho constant at its inflection points
-  // (both at low and high temperatures)
-  d := 1000.12 + 1.43711e-2*T_degC -
-         5.83576e-3*T_degC^2 + 1.5009e-5*T_degC^3;
-    // fixme. Convert to use Kelvin
-  annotation (smoothOrder=2,
+  d := smooth(1, if state.T < 278.15 then -0.042860825*state.T + 1011.9695761
+ elseif state.T < 373.15 then 0.000015009*(state.T - 273.15)^3
+     - 0.00583576*(state.T-273.15)^2 + 0.0143711*state.T + 996.194534035
+ else
+  -0.7025109*state.T + 1220.35045233);
+  annotation (smoothOrder=1,
 Documentation(info="<html>
 <p>
-This function computes density as a function of temperature and humidity content.
+This function computes density as a function of temperature.
+</p>
+<h4>Implementation</h4>
+<p>
+The function is based on the IDA implementation in <code>therpro.nmf</code>.
+The original equation is
+<pre>
+d := 1000.12 + 1.43711e-2*T_degC -
+ 5.83576e-3*T_degC^2 + 1.5009e-5*T_degC^3;
+ </pre>
+ This has been converted to Kelvin, which resulted in the above expression.
+ In addition, at 5 &deg;C and at 100 &deg;C, the density is linearly extrapolated
+ to avoid inflection points.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-December 11, 2013, by Michael Wetter:<br/>
+December 18, 2013, by Michael Wetter:<br/>
 First implementation, based on the IDA implementation in <code>therpro.nmf</code>, 
 but converted from Celsius to Kelvin.
 </li>
@@ -75,7 +84,6 @@ end density;
 
 redeclare function extends dynamicViscosity "dynamic viscosity of dry air"
 algorithm
-  // fixme: These two polynomials should be collapsed into one.
   eta := density(state)*kinematicViscosity(state.T);
 annotation (
 Documentation(info="<html>
@@ -187,8 +195,6 @@ end specificInternalEnergy;
   redeclare function extends isothermalCompressibility
     "Returns overall the isothermal compressibility factor"
   algorithm
-    assert(false, "fixme: isothermalCompressibility is not yet implemented.");
-
     kappa := 0;
   end isothermalCompressibility;
 
@@ -445,14 +451,45 @@ function kinematicViscosity "Kinematic viscosity"
 
   input Modelica.SIunits.Temperature T "Temperature";
   output Modelica.SIunits.KinematicViscosity kinVis "Kinematic viscosity";
-  protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
-   Modelica.SIunits.Conversions.to_degC(T) "fixme";
 algorithm
-  // fixme: IDA uses T_degC = max(0, T_degC);
-  // This function can be collapsed into dynamicViscosity
-  kinVis :=1E-6*Modelica.Math.exp(0.577449 - 3.253945e-2*T_degC + 2.17369e-4*
+  kinVis := smooth(1,
+  if T < 278.15 then -(4.63023776563e-08)*T + 1.44011135763e-05
+  else
+    1.0e-6*
+      Modelica.Math.exp(-(7.22111000000000e-7)*T^3 + 0.000809102858950000*T^2
+      - 0.312920238272193*T + 40.4003044106506));
+
+  annotation (smoothOrder=1,
+Documentation(info="<html>
+<p>
+This function computes the kinematic viscosity as a function of temperature.
+</p>
+<h4>Implementation</h4>
+<p>
+The function is based on the IDA implementation in <code>therpro.nmf</code>.
+The original equation is
+<pre>
+kinVis :=1E-6*Modelica.Math.exp(0.577449 - 3.253945e-2*T_degC + 2.17369e-4*
       T_degC^2 - 7.22111e-7*T_degC^3);
+ </pre>
+ This has been converted to Kelvin, which resulted in the above expression.
+ In addition, at 5 &deg;C the kinematic viscosity is linearly extrapolated
+ to avoid a large gradient at very low temperatures.
+ We selected the same point for the linearization as we used for the density,
+ as the density and the kinematic viscosity are combined in 
+ <a href=\"modelica://Annex60.Media.Water.dynamicViscosity\">
+ Annex60.Media.Water.dynamicViscosity</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 18, 2013, by Michael Wetter:<br/>
+First implementation, based on the IDA implementation in <code>therpro.nmf</code>, 
+but converted from Celsius to Kelvin.
+</li>
+</ul>
+</html>"));
 end kinematicViscosity;
 
   annotation (preferredView="info", Documentation(info="<html>
