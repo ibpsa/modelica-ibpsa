@@ -62,10 +62,12 @@ This function computes density as a function of temperature.
 <p>
 The function is based on the IDA implementation in <code>therpro.nmf</code>.
 The original equation is
+</p>
 <pre>
 d := 1000.12 + 1.43711e-2*T_degC -
  5.83576e-3*T_degC^2 + 1.5009e-5*T_degC^3;
  </pre>
+ <p>
  This has been converted to Kelvin, which resulted in the above expression.
  In addition, at 5 &deg;C and at 100 &deg;C, the density is linearly extrapolated
  to avoid inflection points.
@@ -486,10 +488,12 @@ This function computes the kinematic viscosity as a function of temperature.
 <p>
 The function is based on the IDA implementation in <code>therpro.nmf</code>.
 The original equation is
+</p>
 <pre>
 kinVis :=1E-6*Modelica.Math.exp(0.577449 - 3.253945e-2*T_degC + 2.17369e-4*
       T_degC^2 - 7.22111e-7*T_degC^3);
- </pre>
+      </pre>
+<p>
  This has been converted to Kelvin, which resulted in the above expression.
  In addition, at 5 &deg;C the kinematic viscosity is linearly extrapolated
  to avoid a large gradient at very low temperatures.
@@ -529,7 +533,6 @@ density as a function of temperature.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Annex60/Resources/Images/Media/Water/plotRho.png\" border=\"1\" 
-alt=\"Control error.\"
 alt=\"Mass density as a function of temperature\"/>
 </p>
 <p>
