@@ -278,7 +278,13 @@ Documentation(info="<html>
 This function returns the isobaric expansion coefficient at constant pressure,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&beta;_p = - 1 &frasl; v &nbsp; (&part; v &frasl; &part; T)<sub>p</sub>.
+&beta;<sub>p</sub> = - 1 &frasl; v &nbsp; (&part; v &frasl; &part; T)<sub>p</sub>,
+</p>
+<p>
+where
+<i>v</i> is the specific volume,
+<i>T</i> is the temperature and
+<i>p</i> is the pressure.
 </p>
 </html>",
 revisions="<html>
@@ -300,6 +306,16 @@ Documentation(info="<html>
 <p>
 This function returns the isothermal compressibility coefficient,
 which is zero as this medium is incompressible.
+The isothermal compressibility is defined as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&beta;<sub>T</sub> = - 1 &frasl; v &nbsp; (&part; v &frasl; &part; p)<sub>T</sub>,
+</p>
+<p>
+where
+<i>v</i> is the specific volume,
+<i>T</i> is the temperature and
+<i>p</i> is the pressure.
 </p>
 </html>",
 revisions="<html>
