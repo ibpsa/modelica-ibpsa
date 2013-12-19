@@ -1,5 +1,5 @@
 within Annex60.Media.Examples;
-model AirDerivativeCheck "Model that tests the derivative implementation"
+model WaterDerivativeCheck "Model that tests the derivative implementation"
   extends Modelica.Icons.Example;
 
    package Medium = Annex60.Media.Water;
@@ -40,7 +40,7 @@ equation
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
 experiment(StartTime=273.15, StopTime=373.15),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Examples/AirDerivativeCheck.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Examples/WaterDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -52,17 +52,8 @@ is not correct, the model will stop with an assert statement.
 <ul>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
-Added check of <code>enthalpyOfNonCondensingGas</code>.
-</li>
-<li>
-November 20, 2013, by Michael Wetter:<br/>
-Removed check of <code>enthalpyOfDryAir</code> as this function
-is protected and should therefore not be accessed from outside the class.
-</li>
-<li>
-May 12, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end AirDerivativeCheck;
+end WaterDerivativeCheck;
