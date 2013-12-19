@@ -1,15 +1,11 @@
-within Annex60.Experimental.Media.Examples;
-model AirPTDecoupledDerivativeCheck "Model that tests the derivative implementation"
+within Annex60.Media.Examples;
+model AirDerivativeCheck "Model that tests the derivative implementation"
   extends Modelica.Icons.Example;
 
-   package Medium = Annex60.Media.Air;
+   package Medium = Annex60.Media.Water;
 
     Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hSteSym "Water vapor enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hSteCod "Water vapor enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hAirSym "Dry air enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hAirCod "Dry air enthalpy";
     Modelica.SIunits.SpecificHeatCapacity cpSym "Specific heat capacity";
     Modelica.SIunits.SpecificHeatCapacity cpCod "Specific heat capacity";
     Modelica.SIunits.SpecificHeatCapacity cvSym "Specific heat capacity";
@@ -18,22 +14,12 @@ model AirPTDecoupledDerivativeCheck "Model that tests the derivative implementat
     "Conversion factor to satisfy unit check";
 initial equation
      hLiqSym = hLiqCod;
-     hSteSym = hSteCod;
-     hAirSym = hAirCod;
      cpSym   = cpCod;
      cvSym   = cvCod;
 equation
     hLiqCod=Medium.enthalpyOfLiquid(conv*time);
     der(hLiqCod)=der(hLiqSym);
     assert(abs(hLiqCod-hLiqSym) < 1E-2, "Model has an error");
-
-    hSteCod=Medium.enthalpyOfCondensingGas(conv*time);
-    der(hSteCod)=der(hSteSym);
-    assert(abs(hSteCod-hSteSym) < 1E-2, "Model has an error");
-
-    hAirCod=Medium.enthalpyOfNonCondensingGas(conv*time);
-    der(hAirCod)=der(hAirSym);
-    assert(abs(hAirCod-hAirSym) < 1E-2, "Model has an error");
 
     cpCod=Medium.specificHeatCapacityCp(
       Medium.setState_pTX(
@@ -54,7 +40,7 @@ equation
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
 experiment(StartTime=273.15, StopTime=373.15),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Media/Examples/AirPTDecoupledDerivativeCheck.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Examples/AirDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -64,6 +50,10 @@ is not correct, the model will stop with an assert statement.
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+December 18, 2013, by Michael Wetter:<br/>
+Added check of <code>enthalpyOfNonCondensingGas</code>.
+</li>
 <li>
 November 20, 2013, by Michael Wetter:<br/>
 Removed check of <code>enthalpyOfDryAir</code> as this function
@@ -75,4 +65,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AirPTDecoupledDerivativeCheck;
+end AirDerivativeCheck;
