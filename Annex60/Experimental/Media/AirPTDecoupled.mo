@@ -272,20 +272,83 @@ algorithm
 end saturationPressure;
 
 redeclare function extends specificEntropy
-    "Return specific entropy from thermodynamic state record, only valid for phi<1"
+    "Return the specific entropy, only valid for phi<1"
 
+  protected
+    Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
 algorithm
-  s := Modelica.Media.Air.MoistAir.s_pTX(
-        state.p,
-        state.T,
-        state.X);
+    Y := massToMoleFractions(
+         state.X, {steam.MM,dryair.MM});
+    assert(Y[1]==99999, "not yet implemented. This must be changed for this gas model.");
+    s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/273.15)
+         - Modelica.Constants.R *
+         sum(state.X[i]/MMX[i]*
+             Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2);
   annotation (
     Inline=false,
-    smoothOrder=2,
     Documentation(info="<html>
-Specific entropy is calculated from the thermodynamic state record, assuming ideal gas behavior and including entropy of mixing. Liquid or solid water is not taken into account, the entire water content X[1] is assumed to be in the vapor state (relative humidity below 1.0).
+<p>
+This function computes the specific entropy.
+</p>
+<p>
+The specific entropy of the mixture is obtained from
+<p align=\"center\" style=\"font-style:italic;\">
+s = s<sub>s</sub> + s<sub>m</sub>,
+</p>
+<p>
+where
+<i>s_s</i> is the entropy change due to the state change 
+(relative to the reference temperature) and
+<i>s<sub>m</sub></i> is the entropy change due to mixing
+of the dry air and water vapor.
+</p>
+<p>
+The entropy change due to change in state is obtained from
+<p align=\"center\" style=\"font-style:italic;\">
+s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(v/v<sub>0</sub>) <br/>
+     c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(&rho;<sub>0</sub>/&rho;)
+</p>
+<p>Because <i>&rho; = p<sub>0</sub>/(R T)</i> for this medium model, 
+and because <i>c<sub>p</sub> = c<sub>v</sub> + R</i>,
+we can write
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(T/T<sub>0</sub>) <br/>
+c<sub>p</sub> ln(T/T<sub>0</sub>).
+</p>
+<p>
+Next, the entropy of mixing is obtained from a reversible isothermal
+expansion process. Hence,
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  s<sub>m</sub> = -R &sum;<sub>i</sub>( X<sub>i</sub> &frasl; M<sub>i</sub> 
+  ln(Y<sub>i</sub>)),
+</p>
+<p>
+where <i>R</i> is the gas constant,
+<i>X</i> is the mass fraction,
+<i>M</i> is the molar mass, and
+<i>Y</i> is the mole fraction.
+</p>
+<p>
+To obtain the state for a given pressure, entropy and mass fraction, use
+<a href=\"modelica://Annex60.Media.Air.setState_psX\">
+Annex60.Media.Air.setState_psX</a>.
+</p>
+<h4>Limitations</h4>
+<p>
+This function is only valid for a relative humidity below 100%.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 27, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end specificEntropy;
+
 
 redeclare function extends density_derp_T
     "Return the partial derivative of density with respect to pressure at constant temperature"
@@ -415,22 +478,52 @@ thermodynamic state record</a> is computed from pressure p, temperature T and co
 end setState_pTX;
 
 redeclare function extends setState_psX
+    "Return the thermodynamic state as function of p, s and composition X or Xi"
+  protected
+    Modelica.SIunits.MassFraction[2] X_int "Mass fraction";
+    Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
+    Modelica.SIunits.Temperature T "Temperature";
 algorithm
-    state := if size(X, 1) == nX then
-               ThermodynamicState(p=p,
-                                  T=Modelica.Media.Air.MoistAir.T_psX(
-                                     p, s, X),
-                                  X=X)
-             else
-               ThermodynamicState(p=p,
-                                  T=Modelica.Media.Air.MoistAir.T_psX(
-                                     p, s, X),
-                                  X=cat(1, X, {1 - sum(X)}));
-    annotation (smoothOrder=2, Documentation(info="<html>
-The <a href=\"modelica://Modelica.Media.Air.MoistAir.ThermodynamicState\">thermodynamic state record</a> is computed from pressure p, specific enthalpy h and composition X.
-</html>",
-        revisions="<html>
-<p>2012-01-12        Stefan Wischhusen: Initial Release.</p>
+    X_int :=if size(X, 1) == nX then X else cat(1, X, {1 - sum(X)});
+
+   Y := massToMoleFractions(
+         X_int, {steam.MM,dryair.MM});
+    // The next line is obtained from symbolic solving the
+    // specificEntropy function for T.
+    // In this formulation, we can set T to any value when calling
+    // specificHeatCapacityCp as cp does not depend on T.
+    assert(Y[0] == 888888, "Not yet implemented. This need to be changed for this gas model.");
+    T := 273.15 * Modelica.Math.exp((s + Modelica.Constants.R *
+           sum(X_int[i]/MMX[i]*
+             Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2))
+             / specificHeatCapacityCp(setState_pTX(p=p,
+                                                   T=273.15,
+                                                   X=X_int)));
+
+    state := ThermodynamicState(p=p,
+                                T=T,
+                                X=X_int);
+
+annotation (
+Inline=false,
+Documentation(info="<html>
+<p>
+This function returns the thermodynamic state based on pressure, 
+specific entropy and mass fraction.
+</p>
+<p>
+The state is computed by symbolically solving
+<a href=\"modelica://Annex60.Media.Air.specificEntropy\">
+Annex60.Media.Air.specificEntropy</a>
+for temperature.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 27, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end setState_psX;
 
