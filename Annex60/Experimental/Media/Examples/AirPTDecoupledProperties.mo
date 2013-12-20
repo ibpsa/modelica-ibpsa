@@ -1,9 +1,15 @@
 within Annex60.Experimental.Media.Examples;
-model AirPTDecoupledProperties  "Model that tests the implementation of the fluid properties"
+model AirPTDecoupledProperties
+  "Model that tests the implementation of the fluid properties"
   extends Annex60.Media.Examples.BaseClasses.FluidProperties(
     redeclare package Medium = Annex60.Experimental.Media.AirPTDecoupled,
     TMin=273.15-30,
     TMax=273.15+60);
+equation
+  // Check the implementation of the base properties
+  basPro.state.p=p;
+  basPro.state.T=T;
+  basPro.state.X[1]=X[1];
 
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),

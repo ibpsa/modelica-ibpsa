@@ -1,5 +1,5 @@
 within Annex60.Media.Examples.BaseClasses;
-model FluidProperties
+partial model FluidProperties
   "Model that tests the implementation of the fluid properties"
   extends Modelica.Icons.Example;
 
@@ -50,6 +50,8 @@ model FluidProperties
   Modelica.SIunits.AbsolutePressure pMed "Pressure";
   Modelica.SIunits.Temperature TMed "Temperature";
   Modelica.SIunits.MolarMass MM "Mixture molar mass";
+
+  Medium.BaseProperties basPro "Medium base properties";
 protected
   constant Real conv(unit="1/s") = 1 "Conversion factor to satisfy unit check";
 
@@ -62,9 +64,11 @@ protected
     assert(abs(state1.p-state2.p) < 1e-8, "Error in pressure of " + message);
   end checkState;
 equation
+    // Compute temperatures that are used as input to the functions
     T = TMin + conv*time * (TMax-TMin);
     T_degC = Modelica.SIunits.Conversions.to_degC(T);
 
+    // Check setting the states
     state_pTX = Medium.setState_pTX(p=p, T=T, X=X);
     state_dTX = Medium.setState_dTX(d=d, T=T, X=X);
     state_phX = Medium.setState_phX(p=p, h=h, X=X);
@@ -73,6 +77,7 @@ equation
     checkState(state_pTX, state_phX, "state_phX");
     checkState(state_pTX, state_psX, "state_psX");
 
+    // Check the implementation of the functions
     d = Medium.density(state_pTX);
     eta = Medium.dynamicViscosity(state_pTX);
     h = Medium.specificEnthalpy(state_pTX);
@@ -100,6 +105,9 @@ equation
     TMed = Medium.temperature(state_pTX);
     assert(abs(T-TMed) < 1e-8, "Error in temperature computation.");
     MM = Medium.molarMass(state_pTX);
+    // Check the implementation of the base properties
+    assert(abs(h-basPro.h) < 1e-8, "Error in enthalpy computation in BaseProperties.");
+    assert(abs(u-basPro.u) < 1e-8, "Error in internal energy computation in BaseProperties.");
 
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
