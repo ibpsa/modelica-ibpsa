@@ -480,6 +480,7 @@ redeclare function extends setState_psX
   protected
     Modelica.SIunits.MassFraction[2] X_int =
       if size(X, 1) == nX then X else cat(1, X, {1 - sum(X)})
+      "Mass fraction";
     Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
     Modelica.SIunits.Temperature T "Temperature";
 algorithm
