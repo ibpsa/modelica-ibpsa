@@ -645,9 +645,7 @@ redeclare function extends setState_psX
     Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
     Modelica.SIunits.Temperature T "Temperature";
 algorithm
-    X_int :=if size(X, 1) == nX then
-              X
-            else cat(1, X, {1 - sum(X)});
+    X_int :=if size(X, 1) == nX then X else cat(1, X, {1 - sum(X)});
 
    Y := massToMoleFractions(
          X_int, {steam.MM,dryair.MM});
