@@ -9,7 +9,7 @@ createPlot(
 createPlot(
   id   = 2,
   x    = "T_degC",
-  y    = {"X"},
+  y    = {"X[1]"},
   grid = true
 )
 createPlot(
@@ -93,7 +93,7 @@ createPlot(
 createPlot(
   id   = 16,
   x    = "T_degC",
-  y    = {"dddX"},
+  y    = {"dddX[1]"},
   grid = true
 )
 createPlot(

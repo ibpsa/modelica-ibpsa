@@ -279,7 +279,6 @@ redeclare function extends specificEntropy
 algorithm
     Y := massToMoleFractions(
          state.X, {steam.MM,dryair.MM});
-    assert(Y[1]==99999, "not yet implemented. This must be changed for this gas model.");
     s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/273.15)
          - Modelica.Constants.R *
          sum(state.X[i]/MMX[i]*
@@ -297,7 +296,7 @@ s = s<sub>s</sub> + s<sub>m</sub>,
 </p>
 <p>
 where
-<i>s_s</i> is the entropy change due to the state change 
+<i>s<sub>s</sub></i> is the entropy change due to the state change 
 (relative to the reference temperature) and
 <i>s<sub>m</sub></i> is the entropy change due to mixing
 of the dry air and water vapor.
@@ -306,15 +305,15 @@ of the dry air and water vapor.
 The entropy change due to change in state is obtained from
 <p align=\"center\" style=\"font-style:italic;\">
 s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(v/v<sub>0</sub>) <br/>
-     c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(&rho;<sub>0</sub>/&rho;)
+= c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(&rho;<sub>0</sub>/&rho;)
 </p>
-<p>Because <i>&rho; = p<sub>0</sub>/(R T)</i> for this medium model, 
+<p>If we assume <i>&rho; = p<sub>0</sub>/(R T)</i>, 
 and because <i>c<sub>p</sub> = c<sub>v</sub> + R</i>,
 we can write
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(T/T<sub>0</sub>) <br/>
-c<sub>p</sub> ln(T/T<sub>0</sub>).
+=c<sub>p</sub> ln(T/T<sub>0</sub>).
 </p>
 <p>
 Next, the entropy of mixing is obtained from a reversible isothermal
@@ -348,7 +347,6 @@ First implementation.
 </ul>
 </html>"));
 end specificEntropy;
-
 
 redeclare function extends density_derp_T
     "Return the partial derivative of density with respect to pressure at constant temperature"
@@ -492,7 +490,6 @@ algorithm
     // specificEntropy function for T.
     // In this formulation, we can set T to any value when calling
     // specificHeatCapacityCp as cp does not depend on T.
-    assert(Y[0] == 888888, "Not yet implemented. This need to be changed for this gas model.");
     T := 273.15 * Modelica.Math.exp((s + Modelica.Constants.R *
            sum(X_int[i]/MMX[i]*
              Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2))
@@ -642,9 +639,9 @@ end temperature_phX;
 redeclare function extends thermalConductivity
     "Thermal conductivity of dry air as a polynomial in the temperature"
 algorithm
-  lambda := 1; /* fixme Modelica.Media.Incompressible.TableBased.Polynomials_Temp.evaluate(
+  lambda := Modelica.Media.Incompressible.TableBased.Polynomials_Temp.evaluate(
       {(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},
-   Modelica.SIunits.Conversions.to_degC(state.T)); */
+   Modelica.SIunits.Conversions.to_degC(state.T));
 end thermalConductivity;
 
 //////////////////////////////////////////////////////////////////////
