@@ -81,14 +81,14 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
-      points={{10,-22},{10,40},{50,40}},
+      points={{10,-22},{14,-22},{14,40},{50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
-      points={{10,-26},{10,40},{50,40}},
+      points={{10,-26},{16,-26},{16,40},{50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",

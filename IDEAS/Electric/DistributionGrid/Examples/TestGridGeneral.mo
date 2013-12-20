@@ -26,8 +26,8 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
 
-  connect(gridGeneral1.gridNodes3P[:, 2], risingflankSingle1.nodes) annotation
-    (Line(
+  connect(gridGeneral1.gridNodes3P[:, 2], risingflankSingle1.nodes) annotation (
+     Line(
       points={{-20,-30},{40,-30}},
       color={85,170,255},
       smooth=Smooth.None));

@@ -161,8 +161,8 @@ equation
       points={{36,-10},{22,-10},{22,-11.2308},{0,-11.2308}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(solarThermal.flowPort_a, tesTank.flowPorts[nbrNodes + 1]) annotation
-    (Line(
+  connect(solarThermal.flowPort_a, tesTank.flowPorts[nbrNodes + 1]) annotation (
+     Line(
       points={{36,-6},{22,-6},{22,-11.2308},{0,-11.2308}},
       color={0,0,255},
       smooth=Smooth.None));
@@ -183,12 +183,11 @@ equation
 
   connect(emission.heatPortCon, heatPortCon) annotation (Line(
       points={{129,38},{129,58},{132,58},{132,98},{-192,98},{-192,20},{-200,20}},
-
       color={191,0,0},
       smooth=Smooth.None));
+
   connect(emission.heatPortRad, heatPortRad) annotation (Line(
       points={{133,38},{133,56},{136,56},{136,96},{-188,96},{-188,-20},{-200,-20}},
-
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -253,10 +252,10 @@ equation
       pattern=LinePattern.Dash));
   connect(HPControl.THPSet, heater.TSet) annotation (Line(
       points={{-153.911,-6},{-134,-6},{-134,40},{-100,40},{-100,34},{-101,34}},
-
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.DashDot));
+
   connect(pipeEmission.flowPort_a, emission.flowPort_b) annotation (Line(
       points={{146,35},{138,35}},
       color={0,128,255},
@@ -264,10 +263,10 @@ equation
 
   connect(mDHW60C, dHW.mDHW60C) annotation (Line(
       points={{60,-104},{60,-84},{-80,-84},{-80,-20.3571},{-57.6429,-20.3571}},
-
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
+
   connect(pipeMixer.flowPort_a, heater.flowPort_a) annotation (Line(
       points={{24,-74},{-64,-74},{-64,19.6364},{-90,19.6364}},
       color={0,0,255},

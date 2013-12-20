@@ -15,8 +15,8 @@ model PvVoltageCtrlGeneral_InputVGrid
         transformation(extent={{-128,30},{-88,70}}), iconTransformation(extent=
             {{-108,50},{-88,70}})));
   Modelica.Blocks.Interfaces.RealInput QInit annotation (Placement(
-        transformation(extent={{-128,-10},{-88,30}}), iconTransformation(extent
-          ={{-108,10},{-88,30}})));
+        transformation(extent={{-128,-10},{-88,30}}), iconTransformation(extent=
+           {{-108,10},{-88,30}})));
   Modelica.Blocks.Interfaces.RealOutput PFinal
     annotation (Placement(transformation(extent={{96,50},{116,70}})));
   Modelica.Blocks.Interfaces.RealOutput QFinal

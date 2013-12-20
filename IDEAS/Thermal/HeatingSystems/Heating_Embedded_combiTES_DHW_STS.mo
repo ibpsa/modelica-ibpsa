@@ -147,8 +147,8 @@ equation
       points={{-2,76},{-20,76},{-20,9.69231},{-50,9.69231}},
       color={0,128,255},
       smooth=Smooth.None));
-  connect(solarThermal.flowPort_a, tesTank.flowPorts[nbrNodes + 1]) annotation
-    (Line(
+  connect(solarThermal.flowPort_a, tesTank.flowPorts[nbrNodes + 1]) annotation (
+     Line(
       points={{-2,72},{-24,72},{-24,9.69231},{-50,9.69231}},
       color={0,128,255},
       smooth=Smooth.None));
@@ -283,13 +283,11 @@ equation
 
   connect(tesTank.T[1], solarThermal.TSafety) annotation (Line(
       points={{-50,4.15385},{-58,4.15385},{-58,4},{-64,4},{-64,85.8},{-2.8,85.8}},
-
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(tesTank.T[nbrNodes], solarThermal.TLow) annotation (Line(
       points={{-50,4.15385},{-58,4.15385},{-58,4},{-64,4},{-64,81.4},{-2.6,81.4}},
-
       color={0,0,127},
       smooth=Smooth.None));
 

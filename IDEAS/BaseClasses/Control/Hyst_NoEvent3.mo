@@ -89,8 +89,8 @@ equation
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),Line(points={{-79,-29},{84,-29}},
           color={192,192,192}),Line(points={{-79,-29},{41,-29}}, color={0,0,0}),
-          Line(points={{-15,-21},{1,-29},{-15,-36}}, color={0,0,0}),Line(points
-          ={{41,51},{41,-29}}, color={0,0,0}),Line(points={{33,3},{41,22},{50,3}},
+          Line(points={{-15,-21},{1,-29},{-15,-36}}, color={0,0,0}),Line(points=
+           {{41,51},{41,-29}}, color={0,0,0}),Line(points={{33,3},{41,22},{50,3}},
           color={0,0,0}),Line(points={{-49,51},{81,51}}, color={0,0,0}),Line(
           points={{-4,59},{-19,51},{-4,43}}, color={0,0,0}),Line(points={{-59,
           29},{-49,11},{-39,29}}, color={0,0,0}),Line(points={{-49,51},{-49,-29}},
@@ -100,8 +100,8 @@ equation
           textString="%uLow"),Text(
           extent={{2,-49},{91,-92}},
           lineColor={192,192,192},
-          textString="%uHigh"),Rectangle(extent={{-91,-49},{-8,-92}}, lineColor
-          ={192,192,192}),Line(points={{-49,-29},{-49,-49}}, color={192,192,192}),
+          textString="%uHigh"),Rectangle(extent={{-91,-49},{-8,-92}}, lineColor=
+           {192,192,192}),Line(points={{-49,-29},{-49,-49}}, color={192,192,192}),
           Rectangle(extent={{2,-49},{91,-92}}, lineColor={192,192,192}),Line(
           points={{41,-29},{41,-49}}, color={192,192,192})}),
     Documentation(info="<HTML>

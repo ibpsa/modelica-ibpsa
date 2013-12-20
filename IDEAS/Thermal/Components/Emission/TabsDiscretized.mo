@@ -18,8 +18,8 @@ model TabsDiscretized "Discretized tabs system"
 
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector(m=
         n) annotation (Placement(transformation(extent={{-54,52},{-34,32}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector1(m
-      =n) annotation (Placement(transformation(extent={{-54,-46},{-34,-26}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector1(m=
+       n) annotation (Placement(transformation(extent={{-54,-46},{-34,-26}})));
 equation
   connect(flowPort_a, tabs[1].flowPort_a) annotation (Line(
       points={{-100,40},{-76,40},{-76,6},{-54,6}},

@@ -27,8 +27,8 @@ model PvSystemPlug
   Modelica.Blocks.Interfaces.RealInput VGrid "Grid voltage for control"
     annotation (Placement(transformation(extent={{-116,30},{-96,50}})));
 
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plug(m
-      =numPha) annotation (Placement(transformation(extent={{90,30},{110,50}},
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plug(m=
+       numPha) annotation (Placement(transformation(extent={{90,30},{110,50}},
           rotation=0)));
   IDEAS.Electric.Photovoltaic.Components.ForInputFiles.SimpleDCAC_effP invertor(
       PNom=-PNom, P_dc_max=-PNom)

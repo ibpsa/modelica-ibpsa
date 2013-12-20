@@ -13,8 +13,8 @@ class SimpleDCAC_effP
   //For now
 
   Modelica.Blocks.Interfaces.RealInput P_dc annotation (Placement(
-        transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent
-          ={{-108,-10},{-88,10}})));
+        transformation(extent={{-120,-20},{-80,20}}), iconTransformation(extent=
+           {{-108,-10},{-88,10}})));
   Modelica.Blocks.Interfaces.RealOutput P
     annotation (Placement(transformation(extent={{96,50},{116,70}})));
   Modelica.Blocks.Interfaces.RealOutput Q

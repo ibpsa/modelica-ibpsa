@@ -11,8 +11,8 @@ model WattsLawPlug
         transformation(extent={{-130,30},{-90,70}}), iconTransformation(extent=
             {{-110,50},{-90,70}})));
   Modelica.Blocks.Interfaces.RealInput[nLoads] Q annotation (Placement(
-        transformation(extent={{-130,-10},{-90,30}}), iconTransformation(extent
-          ={{-110,10},{-90,30}})));
+        transformation(extent={{-130,-10},{-90,30}}), iconTransformation(extent=
+           {{-110,10},{-90,30}})));
 
   Modelica.Blocks.Math.Sum sum_P(final nin=nLoads)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));

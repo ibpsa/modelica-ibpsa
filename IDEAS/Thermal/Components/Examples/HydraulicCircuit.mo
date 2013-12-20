@@ -40,8 +40,8 @@ model HydraulicCircuit
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         333.15)
     annotation (Placement(transformation(extent={{-56,-52},{-36,-32}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor1(G
-      =20) annotation (Placement(transformation(extent={{16,76},{36,96}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor1(G=
+       20) annotation (Placement(transformation(extent={{16,76},{36,96}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature1(T=
         313.15)
     annotation (Placement(transformation(extent={{-34,76},{-14,96}})));

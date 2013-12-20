@@ -73,8 +73,8 @@ initial equation
           points={{110,30},{140,30}},
           color={0,0,127},
           smooth=Smooth.None)}),
-    Diagram(coordinateSystem(extent={{-100,-100},{140,60}}, preserveAspectRatio
-          =true), graphics),
+    Diagram(coordinateSystem(extent={{-100,-100},{140,60}}, preserveAspectRatio=
+           true), graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Partial class for hydraulic heat emission systems. Can be used to create radiators, fan coil units etc. but also for embedded systems (or thermally activated building systems, TABS) like floor heating, wall heating, concrete core activation etc. </p>

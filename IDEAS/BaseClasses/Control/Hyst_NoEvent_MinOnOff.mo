@@ -87,8 +87,8 @@ equation
           textString="%uLow"),Text(
           extent={{2,-49},{91,-92}},
           lineColor={192,192,192},
-          textString="%uHigh"),Rectangle(extent={{-91,-49},{-8,-92}}, lineColor
-          ={192,192,192}),Line(points={{-49,-29},{-49,-49}}, color={192,192,192}),
+          textString="%uHigh"),Rectangle(extent={{-91,-49},{-8,-92}}, lineColor=
+           {192,192,192}),Line(points={{-49,-29},{-49,-49}}, color={192,192,192}),
           Rectangle(extent={{2,-49},{91,-92}}, lineColor={192,192,192}),Line(
           points={{41,-29},{41,-49}}, color={192,192,192}),Polygon(
           points={{-63,129},{-71,107},{-55,107},{-63,129}},

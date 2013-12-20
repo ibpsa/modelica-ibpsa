@@ -38,8 +38,8 @@ model Window "Multipane window"
         origin={-30,-100})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDir
     "direct solar gains transmitted by windows" annotation (Placement(
-        transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent
-          ={{-10,-110},{10,-90}})));
+        transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent=
+           {{-10,-110},{10,-90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif
     "diffuse solar gains transmitted by windows" annotation (Placement(
         transformation(extent={{20,-110},{40,-90}}), iconTransformation(extent=

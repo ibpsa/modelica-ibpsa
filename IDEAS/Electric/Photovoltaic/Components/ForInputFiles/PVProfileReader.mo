@@ -19,7 +19,6 @@ equation
     defaultComponentPrefixes="inner",
     missingInnerMessage=
         "Your model is using an outer \"PV1\" component. An inner \"PV1\" component is not defined. For simulation drag IDEAS.Electric.Photovoltaic.Components.ForInputFiles.Read10minPV into your model.",
-
     Icon(graphics={Bitmap(extent={{-100,100},{100,-100}}, fileName=
           "modelica://IDEAS/Electric/PV.png"),Bitmap(extent={{124,-106},{34,-32}},
           fileName="modelica://BWF/../bluetooth.png")}));

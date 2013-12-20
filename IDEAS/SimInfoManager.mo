@@ -197,7 +197,6 @@ equation
     defaultComponentPrefixes="inner",
     missingInnerMessage=
         "Your model is using an outer \"sim\" component. An inner \"sim\" component is not defined. For simulation drag IDEAS.SimInfoManager into your model.",
-
     Icon(graphics={
         Ellipse(
           extent={{-60,78},{74,-58}},
@@ -278,5 +277,4 @@ equation
     Diagram(graphics),
     Documentation(info="<html>
 </html>"));
-
 end SimInfoManager;

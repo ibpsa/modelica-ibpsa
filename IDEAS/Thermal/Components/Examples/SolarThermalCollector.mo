@@ -77,9 +77,9 @@ equation
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank.heatExchEnv) annotation (Line(
       points={{16,-53},{20,-53},{20,-54},{28,-54},{28,-58.7692},{57.3333,-58.7692}},
-
       color={191,0,0},
       smooth=Smooth.None));
+
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),

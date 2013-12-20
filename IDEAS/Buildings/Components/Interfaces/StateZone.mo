@@ -37,8 +37,7 @@ partial model StateZone "Partial model for thermal building zones"
         origin={-100,40})));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
-        ={
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-90,90},{90,-90}},
           pattern=LinePattern.None,
@@ -66,7 +65,6 @@ partial model StateZone "Partial model for thermal building zones"
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-40,-90},{68,22},{68,-42},{40,-70},{40,-90},{-40,-90},{-40,-90}},
-
           lineThickness=0.5,
           smooth=Smooth.None,
           fillColor={255,255,170},

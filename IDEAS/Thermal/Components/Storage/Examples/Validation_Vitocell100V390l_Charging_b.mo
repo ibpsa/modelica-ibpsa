@@ -65,9 +65,9 @@ equation
       smooth=Smooth.None));
   connect(tank.flowPortHXLower, volumeFlow1.flowPort_a) annotation (Line(
       points={{60,-24.9231},{50,-24.9231},{50,-86},{-96,-86},{-96,-6},{-88,-6}},
-
       color={255,0,0},
       smooth=Smooth.None));
+
   connect(absolutePressure1.flowPort, volumeFlow1.flowPort_a) annotation (Line(
       points={{-80,-63},{-86,-63},{-86,-58},{-88,-58},{-88,-6}},
       color={255,0,0},

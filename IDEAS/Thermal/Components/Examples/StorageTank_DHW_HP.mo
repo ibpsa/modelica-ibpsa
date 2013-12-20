@@ -68,13 +68,11 @@ equation
       smooth=Smooth.None));
   connect(hP_AWMod.flowPort_b, storageTank.flowPortHXUpper) annotation (Line(
       points={{-68,8.90909},{-50,8.90909},{-50,8},{-36,8},{-36,-41.2308},{-30,-41.2308}},
-
       color={0,0,255},
       smooth=Smooth.None));
 
   connect(absolutePressure.flowPort, pump.flowPort_a) annotation (Line(
       points={{-20,-84},{-30,-84},{-30,-52},{-34,-52.6154},{-34,-52},{-38,-52}},
-
       color={0,0,255},
       smooth=Smooth.None));
 

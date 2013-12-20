@@ -81,7 +81,6 @@ equation
           lineColor={191,0,0}),
         Polygon(
           points={{-46,-8},{-46,-20},{-44,-22},{-24,-10},{-24,2},{-26,4},{-46,-8}},
-
           lineColor={127,0,0},
           smooth=Smooth.None,
           fillColor={127,0,0},

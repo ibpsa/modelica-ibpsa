@@ -17,8 +17,8 @@ model NakedTabsTester "Testing discretisation of the naked tabs"
     annotation (Placement(transformation(extent={{-88,-24},{-68,-4}})));
   Modelica.Thermal.HeatTransfer.Components.Convection convection
     annotation (Placement(transformation(extent={{28,46},{8,26}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature1
-    (T=293.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature1(
+     T=293.15)
     annotation (Placement(transformation(extent={{-34,26},{-14,46}})));
   Modelica.Thermal.HeatTransfer.Components.Convection convection1
     annotation (Placement(transformation(extent={{80,4},{60,-16}})));

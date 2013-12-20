@@ -54,8 +54,8 @@ equation
   annotation (Diagram(graphics), Icon(graphics={Line(points={{-16,16},{-66,16}},
           color={191,0,0}),Line(points={{-16,16},{-26,22}}, color={191,0,0}),
           Line(points={{-16,16},{-26,10}}, color={191,0,0}),Line(points={{-16,-14},
-          {-64,-14}}, color={191,0,0}),Line(points={{-16,-44},{-64,-44}}, color
-          ={191,0,0}),Line(points={{-16,-44},{-26,-38}}, color={191,0,0}),Line(
+          {-64,-14}}, color={191,0,0}),Line(points={{-16,-44},{-64,-44}}, color=
+           {191,0,0}),Line(points={{-16,-44},{-26,-38}}, color={191,0,0}),Line(
           points={{-16,-44},{-26,-50}}, color={191,0,0}),Line(points={{-16,46},
           {-66,46}}, color={191,0,0}),Line(points={{-16,46},{-26,52}}, color={
           191,0,0}),Line(points={{-16,46},{-26,40}}, color={191,0,0}),Line(

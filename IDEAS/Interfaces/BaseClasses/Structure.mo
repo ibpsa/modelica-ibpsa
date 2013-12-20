@@ -28,8 +28,8 @@ partial model Structure "Partial model for building structure models"
             {140,10},{160,30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad
     "Internal zones node for radiative heat gains" annotation (Placement(
-        transformation(extent={{140,-30},{160,-10}}), iconTransformation(extent
-          ={{140,-30},{160,-10}})));
+        transformation(extent={{140,-30},{160,-10}}), iconTransformation(extent=
+           {{140,-30},{160,-10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nEmb] heatPortEmb
     "Construction nodes for heat gains by embedded layers" annotation (
       Placement(transformation(extent={{140,50},{160,70}}), iconTransformation(

@@ -26,8 +26,8 @@ partial model TwoPort "Partial model of two port"
 
 public
   FlowPort_a flowPort_a(final medium=medium, h(min=1140947, max=1558647))
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation
-          =0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
+           0)));
   FlowPort_b flowPort_b(final medium=medium, h(min=1140947, max=1558647))
     annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
 equation

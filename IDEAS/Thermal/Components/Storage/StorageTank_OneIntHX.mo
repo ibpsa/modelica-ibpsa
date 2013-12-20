@@ -57,8 +57,8 @@ model StorageTank_OneIntHX
   Thermal.Components.Interfaces.FlowPort_b flowPort_b(final medium=medium, h(
         min=1140947, max=1558647))
     "Lower flowPort, connected to node[nbrNodes]" annotation (Placement(
-        transformation(extent={{64,-154},{84,-134}}), iconTransformation(extent
-          ={{74,-146},{86,-134}})));
+        transformation(extent={{64,-154},{84,-134}}), iconTransformation(extent=
+           {{74,-146},{86,-134}})));
   Thermal.Components.Interfaces.FlowPort_a[nbrNodes + 1] flowPorts(each medium=
         medium, each h(min=1140947, max=1558647))
     "Array of nbrNodes+1 flowPorts. flowPorts[i] is connected to the upper flowPort of node i"
@@ -116,8 +116,8 @@ public
     "Upper connection to the internal HX" annotation (Placement(transformation(
           extent={{-116,-54},{-96,-34}}), iconTransformation(extent={{-106,-86},
             {-94,-74}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor heaTraHX[nbrNodesHX]
-    (each G=hHX*AHX/nbrNodesHX) "Heat transfer between HX and tank layers"
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor heaTraHX[nbrNodesHX](
+     each G=hHX*AHX/nbrNodesHX) "Heat transfer between HX and tank layers"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Modelica.Blocks.Interfaces.RealOutput[nbrNodes] T=nodes.heatPort.T
     annotation (Placement(transformation(extent={{70,-10},{90,10}}),

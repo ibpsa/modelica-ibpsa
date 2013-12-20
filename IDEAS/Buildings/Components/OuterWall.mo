@@ -58,8 +58,8 @@ model OuterWall "Opaque building envelope construction"
         AWall, final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs(final A
-      =AWall)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs(final A=
+       AWall)
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation extRad(final A=
@@ -139,7 +139,6 @@ equation
         graphics={
         Polygon(
           points={{-50,60},{-30,60},{-30,80},{50,80},{50,100},{-50,100},{-50,60}},
-
           pattern=LinePattern.None,
           lineThickness=0.5,
           smooth=Smooth.None,
@@ -196,5 +195,4 @@ equation
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>"));
-
 end OuterWall;

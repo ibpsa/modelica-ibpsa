@@ -40,9 +40,9 @@ equation
       smooth=Smooth.None));
   connect(relativeAirMass.relAirMas, skyBrightness.relAirMas) annotation (Line(
       points={{-42,-3.6},{-40,-3.6},{-40,-3.6},{-38,-3.6},{-38,-3.6},{-34,-3.6}},
-
       color={0,0,127},
       smooth=Smooth.None));
+
   connect(angZen, skyBrightnessCoefficients.angZen) annotation (Line(
       points={{-100,20},{-70,20},{-70,36.4},{0,36.4}},
       color={0,0,127},

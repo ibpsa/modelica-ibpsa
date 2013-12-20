@@ -125,8 +125,8 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(extent={{-100,-40},{140,100}}, preserveAspectRatio
-          =false), graphics),
+    Diagram(coordinateSystem(extent={{-100,-40},{140,100}}, preserveAspectRatio=
+           false), graphics),
     Icon(coordinateSystem(extent={{-100,-40},{140,100}}, preserveAspectRatio=
             false), graphics={
         Line(

@@ -61,23 +61,23 @@ model TiTeThTsAe
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-22,-30})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capS(C=Cs) annotation
-    (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capS(C=Cs) annotation (
+     Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-30})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capH(C=Ch) annotation
-    (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capH(C=Ch) annotation (
+     Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={0,-56})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capE(C=Ce) annotation
-    (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capE(C=Ce) annotation (
+     Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-42,30})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capI(C=Ci) annotation
-    (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capI(C=Ci) annotation (
+     Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-40,-10})));

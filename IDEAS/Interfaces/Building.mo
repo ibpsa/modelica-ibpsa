@@ -125,7 +125,6 @@ equation
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-46,6},{-46,-6},{-44,-8},{-24,4},{-24,16},{-26,18},{-46,6}},
-
           lineColor={127,0,0},
           smooth=Smooth.None,
           fillColor={127,0,0},

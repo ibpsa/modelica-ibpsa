@@ -126,25 +126,21 @@ equation
   //Connection of the gF floor
   connect(gF_ext.surfCon_a, gF.surfCon[1:3]) annotation (Line(
       points={{-14.35,-70},{-14,-70},{-14,-54},{14,-54},{14,-53.875},{40,-53.875}},
-
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(gF_ext.surfRad_a, gF.surfRad[1:3]) annotation (Line(
       points={{-11.2,-70},{-12,-70},{-12,-56},{16,-56},{16,-56.875},{40,-56.875}},
-
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(gF_win.surfCon_a, gF.surfCon[4:6]) annotation (Line(
       points={{13.65,-70},{14,-70},{14,-54},{28,-54},{28,-53.125},{40,-53.125}},
-
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(gF_win.surfRad_a, gF.surfRad[4:6]) annotation (Line(
       points={{16.8,-70},{16,-70},{16,-56},{28,-56},{28,-56.125},{40,-56.125}},
-
       color={191,0,0},
       smooth=Smooth.None));
 

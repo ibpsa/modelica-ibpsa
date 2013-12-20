@@ -191,9 +191,9 @@ equation
       smooth=Smooth.None));
   connect(fixedTemperature.port, storageTank1.heatExchEnv) annotation (Line(
       points={{116,-12},{60,-12},{60,-10},{0,-10},{0,23.2308},{-7.33333,23.2308}},
-
       color={191,0,0},
       smooth=Smooth.None));
+
   connect(fixedTemperature.port, storageTank2.heatExchEnv) annotation (Line(
       points={{116,-12},{38,-12},{38,23.2308},{28.6667,23.2308}},
       color={191,0,0},
@@ -211,9 +211,9 @@ equation
   connect(absolutePressure.flowPort, storageTank1.flowPortHXUpper) annotation (
       Line(
       points={{-78,81},{-80,81},{-80,46},{-30,46},{-30,20.1538},{-24,20.1538}},
-
       color={255,0,0},
       smooth=Smooth.None));
+
   connect(absolutePressure.flowPort, storageTank2.flowPortHXUpper) annotation (
       Line(
       points={{-78,81},{-80,81},{-80,46},{8,46},{8,20.1538},{12,20.1538}},

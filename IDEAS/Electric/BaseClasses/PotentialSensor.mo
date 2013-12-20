@@ -6,8 +6,8 @@ model PotentialSensor
         transformation(extent={{98,-10},{118,10}}), iconTransformation(extent={
             {94,-10},{114,10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin vi
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation
-          =0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
+           0)));
 algorithm
 
   VGrid := Modelica.ComplexMath.'abs'(vi.v);

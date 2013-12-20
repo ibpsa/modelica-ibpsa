@@ -46,8 +46,8 @@ public
       choice=false "Do not Calculate Cable Losses",
       __Dymola_radioButtons=true));*/
 
-  parameter Modelica.SIunits.ComplexVoltage VSource=230 + 0*Modelica.ComplexMath.j
-    "Voltage" annotation (choices(
+  parameter Modelica.SIunits.ComplexVoltage VSource=230 + 0*Modelica.ComplexMath.j "Voltage"
+              annotation (choices(
       choice=(230*1) + 0*MCM.j "100% at HVpin of transformer",
       choice=(230*1.02) + 0*MCM.j "102% at HVpin of transformer",
       choice=(230*1.05) + 0*MCM.j "105% at HVpin of transformer",

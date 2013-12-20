@@ -39,8 +39,7 @@ equation
       // some voltage limit was crossed while system was on.  Switch off and set restarttime
       switch = false;
       restartTime = time + timeOff;
-    elseif (VGrid > VMax or VGrid600.y > VMax600) and time < pre(restartTime)
-         then
+    elseif (VGrid > VMax or VGrid600.y > VMax600) and time < pre(restartTime) then
       // some voltage limit was crossed during an offtime: keep off but don't change the restarTime
       switch = false;
       restartTime = pre(restartTime);

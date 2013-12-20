@@ -12,8 +12,8 @@ model PvSystemGeneralFromFilePlug
   parameter Integer numPha=1;
   output Real PInit;
   output Real PFinal;
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plug(m
-      =numPha) annotation (Placement(transformation(extent={{92,30},{112,50}},
+  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plug(m=
+       numPha) annotation (Placement(transformation(extent={{92,30},{112,50}},
           rotation=0)));
 
   IDEAS.Electric.Photovoltaic.Components.ForInputFiles.SimpleDCAC_effP invertor(

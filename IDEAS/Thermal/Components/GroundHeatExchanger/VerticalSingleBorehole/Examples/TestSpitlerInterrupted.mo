@@ -79,8 +79,7 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(graphics),
-    Commands(file="../../smartbuildings/TME/Scripts/Tester_Borehole.mos"
-        "RunTest"),
+    Commands(file="../../smartbuildings/TME/Scripts/Tester_Borehole.mos" "RunTest"),
     experiment(StopTime=187200, Interval=60),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>

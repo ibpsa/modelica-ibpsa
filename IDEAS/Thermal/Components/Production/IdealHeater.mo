@@ -3,7 +3,6 @@ model IdealHeater "Ideal heater, no losses to environment, unlimited power"
   extends
     IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses(
     final heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.Boiler,
-
     final QNom=1,
     final cDry=0.1,
     final mWater=0);

@@ -95,23 +95,23 @@ public
   output Modelica.SIunits.ReactivePower QGriTot3=grid3PGeneral.QGriTot if
     Phases == 3;
 
-  output Modelica.SIunits.ActivePower PGriTotPha[3]=grid3PGeneral.PGriTotPha
-    if Phases == 3;
-  output Modelica.SIunits.ComplexPower SGriTotPha[3]=grid3PGeneral.SGriTotPha
-    if Phases == 3;
-  output Modelica.SIunits.ReactivePower QGriTotPha[3]=grid3PGeneral.QGriTotPha
-    if Phases == 3;
+  output Modelica.SIunits.ActivePower PGriTotPha[3]=grid3PGeneral.PGriTotPha if
+       Phases == 3;
+  output Modelica.SIunits.ComplexPower SGriTotPha[3]=grid3PGeneral.SGriTotPha if
+       Phases == 3;
+  output Modelica.SIunits.ReactivePower QGriTotPha[3]=grid3PGeneral.QGriTotPha if
+       Phases == 3;
 
-  output Modelica.SIunits.ActivePower PLosBra3[3, Nodes]=grid3PGeneral.PLosBra
-    if Phases == 3;
+  output Modelica.SIunits.ActivePower PLosBra3[3, Nodes]=grid3PGeneral.PLosBra if
+       Phases == 3;
   output Modelica.SIunits.ActivePower PLosNeu[Nodes]=grid3PGeneral.PLosNeu if
     Phases == 3;
-  output Modelica.SIunits.ActivePower PGriLosPha[3]=grid3PGeneral.PGriLosPha
-    if Phases == 3;
+  output Modelica.SIunits.ActivePower PGriLosPha[3]=grid3PGeneral.PGriLosPha if
+       Phases == 3;
   output Modelica.SIunits.ActivePower PGriLosNeu=grid3PGeneral.PGriLosNeu if
     Phases == 3;
-  output Modelica.SIunits.ActivePower PGriLosPhaTot=grid3PGeneral.PGriLosPhaTot
-    if Phases == 3;
+  output Modelica.SIunits.ActivePower PGriLosPhaTot=grid3PGeneral.PGriLosPhaTot if
+       Phases == 3;
   output Modelica.SIunits.ActivePower PGriLosTot3=grid3PGeneral.PGriLosTot if
     Phases == 3;
 
@@ -126,8 +126,8 @@ public
      == 3;
   output Modelica.SIunits.Voltage Vabs[Nodes]=grid1PGeneral.Vabs if Phases == 1;
 
-  output Modelica.SIunits.ComplexCurrent Ibranch03P[3]=grid3PGeneral.Ibranch0
-    if Phases == 3;
+  output Modelica.SIunits.ComplexCurrent Ibranch03P[3]=grid3PGeneral.Ibranch0 if
+       Phases == 3;
   output Modelica.SIunits.Current Ibranch0Abs3P[3]={Modelica.ComplexMath.'abs'(
       Ibranch03P[i]) for i in 1:3} if Phases == 3;
   output Modelica.SIunits.ComplexCurrent Ineutral0=grid3PGeneral.Ineutral0 if
