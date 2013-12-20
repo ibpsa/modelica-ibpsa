@@ -478,12 +478,11 @@ end setState_pTX;
 redeclare function extends setState_psX
     "Return the thermodynamic state as function of p, s and composition X or Xi"
   protected
-    Modelica.SIunits.MassFraction[2] X_int "Mass fraction";
+    Modelica.SIunits.MassFraction[2] X_int =
+      if size(X, 1) == nX then X else cat(1, X, {1 - sum(X)})
     Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
     Modelica.SIunits.Temperature T "Temperature";
 algorithm
-    X_int :=if size(X, 1) == nX then X else cat(1, X, {1 - sum(X)});
-
    Y := massToMoleFractions(
          X_int, {steam.MM,dryair.MM});
     // The next line is obtained from symbolic solving the
@@ -679,14 +678,20 @@ First implementation.
 </html>");
   end GasProperties;
 
+  // In the assignments below, we compute cv as OpenModelica
+  // cannot evaluate cv=cp-R as defined in GasProperties.
   constant GasProperties dryair(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
-    cp =   1006) "Dry air properties";
+    cp =   1006,
+    cv =   1006-Modelica.Media.IdealGases.Common.SingleGasesData.Air.R) 
+    "Dry air properties";
   constant GasProperties steam(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
-    cp =   1860) "Steam properties";
+    cp =   1860,
+    cv =   1860-Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R) "Steam properties";
+
 
   constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
 
