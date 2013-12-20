@@ -46,8 +46,7 @@ package Water "Package with model for liquid water with constant properties"
 </html>"));
   end BaseProperties;
 
-redeclare function extends density 
-  "Return the density"
+redeclare function extends density "Return the density"
 algorithm
   d := smooth(1,
     if state.T < 278.15 then
@@ -90,8 +89,7 @@ but converted from Celsius to Kelvin and linearly extended.
 </html>"));
 end density;
 
-redeclare function extends dynamicViscosity 
-  "Return the dynamic viscosity"
+redeclare function extends dynamicViscosity "Return the dynamic viscosity"
 algorithm
   eta := density(state)*kinematicViscosity(state.T);
 annotation (
@@ -110,8 +108,7 @@ First implementation.
 </html>"));
 end dynamicViscosity;
 
-redeclare function extends specificEnthalpy 
-  "Return the specific enthalpy"
+redeclare function extends specificEnthalpy "Return the specific enthalpy"
 algorithm
   h := (state.T - reference_T)*cp_const;
 annotation(smoothOrder=5,
@@ -130,8 +127,7 @@ First implementation.
 </html>"));
 end specificEnthalpy;
 
-function enthalpyOfLiquid 
-  "Return the specific enthalpy of liquid"
+function enthalpyOfLiquid "Return the specific enthalpy of liquid"
   extends Modelica.Icons.Function;
   input Modelica.SIunits.Temperature T "Temperature";
   output Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
@@ -153,8 +149,8 @@ First implementation.
 </html>"));
 end enthalpyOfLiquid;
 
-redeclare function extends specificInternalEnergy 
-  "Return the specific enthalpy"
+redeclare function extends specificInternalEnergy
+    "Return the specific enthalpy"
 algorithm
   u := specificEnthalpy(state) - reference_p/density(state);
 annotation(smoothOrder=5,
@@ -173,8 +169,7 @@ First implementation.
 </html>"));
 end specificInternalEnergy;
 
-redeclare function extends specificEntropy 
-  "Return the specific entropy"
+redeclare function extends specificEntropy "Return the specific entropy"
   extends Modelica.Icons.Function;
 algorithm
   s := cv_const*Modelica.Math.log(state.T/273.15);
@@ -188,7 +183,7 @@ To obtain the state for a given pressure, entropy and mass fraction, use
 <a href=\"modelica://Annex60.Media.Air.setState_psX\">
 Annex60.Media.Air.setState_psX</a>.
 </p>
-</html>", 
+</html>",
 revisions="<html>
 <ul>
 <li>
@@ -199,8 +194,8 @@ First implementation.
 </html>"));
 end specificEntropy;
 
-redeclare function extends specificGibbsEnergy 
-  "Return the specific Gibbs energy"
+redeclare function extends specificGibbsEnergy
+    "Return the specific Gibbs energy"
   extends Modelica.Icons.Function;
 algorithm
   g := specificEnthalpy(state) - state.T*specificEntropy(state);
@@ -220,8 +215,8 @@ First implementation.
 </html>"));
 end specificGibbsEnergy;
 
-redeclare function extends specificHelmholtzEnergy 
-  "Return the specific Helmholtz energy"
+redeclare function extends specificHelmholtzEnergy
+    "Return the specific Helmholtz energy"
   extends Modelica.Icons.Function;
 algorithm
   f := specificInternalEnergy(state) - state.T*specificEntropy(state);
@@ -241,10 +236,12 @@ First implementation.
 </html>"));
 end specificHelmholtzEnergy;
 
-redeclare function extends isentropicEnthalpy 
-  "Return the isentropic enthalpy"
+redeclare function extends isentropicEnthalpy "Return the isentropic enthalpy"
 algorithm
-  h_is := cp_const*(temperature(refState) - reference_T);
+  h_is := specificEnthalpy(setState_psX(
+            p=p_downstream,
+            s=specificEntropy(refState),
+            X=refState.X));
 annotation (
 Documentation(info="<html>
 <p>
@@ -265,13 +262,13 @@ First implementation.
 end isentropicEnthalpy;
 
 redeclare function extends isobaricExpansionCoefficient
-  "Return the isobaric expansion coefficient"
+    "Return the isobaric expansion coefficient"
   protected
     Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
       "Celsius temperature";
 algorithm
     T_degC :=state.T + Modelica.Constants.T_zero;
-    beta := smooth(0,
+    beta := -smooth(0,
     if state.T < 278.15 then
       0.042860825*(0.042860825*state.T - 1011.9695761)/(-0.042860825*state.T +
       1011.9695761)^2
@@ -308,7 +305,7 @@ First implementation.
 end isobaricExpansionCoefficient;
 
 redeclare function extends isothermalCompressibility
-  "Return the isothermal compressibility factor"
+    "Return the isothermal compressibility factor"
 algorithm
   kappa := 0;
 annotation (
@@ -339,7 +336,7 @@ First implementation.
 end isothermalCompressibility;
 
 redeclare function extends density_derp_T
-  "Return the partial derivative of density with respect to pressure at constant temperature"
+    "Return the partial derivative of density with respect to pressure at constant temperature"
 algorithm
   ddpT := 0;
 annotation (
@@ -361,7 +358,7 @@ First implementation.
 end density_derp_T;
 
 redeclare function extends density_derT_p
-  "Return the partial derivative of density with respect to temperature at constant pressure"
+    "Return the partial derivative of density with respect to temperature at constant pressure"
 algorithm
   ddTp := smooth(1, if state.T < 278.15 then
             -0.042860825
@@ -411,7 +408,7 @@ First implementation.
 end density_derX;
 
 redeclare replaceable function extends specificHeatCapacityCp
-  "Return the specific heat capacity at constant pressure"
+    "Return the specific heat capacity at constant pressure"
 algorithm
   cp := cp_const;
     annotation(derivative=der_specificHeatCapacityCp,
@@ -431,7 +428,7 @@ First implementation.
 end specificHeatCapacityCp;
 
 redeclare replaceable function extends specificHeatCapacityCv
-  "Return the specific heat capacity at constant volume"
+    "Return the specific heat capacity at constant volume"
 algorithm
   cv := cp_const;
     annotation(derivative=der_specificHeatCapacityCp,
@@ -450,8 +447,8 @@ First implementation.
 </html>"));
 end specificHeatCapacityCv;
 
-redeclare function extends thermalConductivity 
-  "Return the thermal conductivity"
+redeclare function extends thermalConductivity
+    "Return the thermal conductivity"
 algorithm
   lambda := lambda_const; /* fixme: check if this is a valid assumption */
   annotation (
@@ -471,8 +468,7 @@ First implementation.
 </html>"));
 end thermalConductivity;
 
-redeclare function extends pressure 
-  "Return the pressure"
+redeclare function extends pressure "Return the pressure"
 algorithm
     p := state.p;
 annotation (
@@ -492,8 +488,7 @@ First implementation.
 </html>"));
 end pressure;
 
-redeclare function extends temperature 
-  "Return the temperature"
+redeclare function extends temperature "Return the temperature"
 algorithm
     T := state.T;
 annotation (
@@ -513,8 +508,7 @@ First implementation.
 </html>"));
 end temperature;
 
-redeclare function extends molarMass 
-  "Return the molar mass"
+redeclare function extends molarMass "Return the molar mass"
 algorithm
     MM := MM_const;
     annotation (
@@ -536,7 +530,7 @@ First implementation.
 end molarMass;
 
 redeclare function setState_dTX
-  "Return the thermodynamic state as function of density d, temperature T and composition X or Xi"
+    "Return the thermodynamic state as function of density d, temperature T and composition X or Xi"
   extends Modelica.Icons.Function;
   input Density d "Density";
   input Temperature T "Temperature";
@@ -589,7 +583,7 @@ First implementation.
 end setState_phX;
 
 redeclare function extends setState_pTX
-  "Return the thermodynamic state as function of p, T and composition X or Xi"
+    "Return the thermodynamic state as function of p, T and composition X or Xi"
 algorithm
     state := ThermodynamicState(p=p, T=T);
 annotation (smoothOrder=99,
@@ -610,7 +604,7 @@ First implementation.
 end setState_pTX;
 
 redeclare function extends setState_psX
-  "Return the thermodynamic state as function of p, s and composition X or Xi"
+    "Return the thermodynamic state as function of p, s and composition X or Xi"
 algorithm
   // The temperature is obtained from symbolic solving the
   // specificEntropy function for T, i.e.,
@@ -656,12 +650,11 @@ protected
   constant Modelica.SIunits.MolarMass MM_const=0.018015268 "Molar mass";
 
 replaceable function der_specificHeatCapacityCp
-  "Return the derivative of the specific heat capacity at constant pressure"
+    "Return the derivative of the specific heat capacity at constant pressure"
   extends Modelica.Icons.Function;
   input ThermodynamicState state "Thermodynamic state";
   input ThermodynamicState der_state "Derivative of thermodynamic state";
-  output Real der_cp(unit="J/(kg.K.s)")
-    "Derivative of specific heat capacity";
+  output Real der_cp(unit="J/(kg.K.s)") "Derivative of specific heat capacity";
 algorithm
   der_cp := 0;
 annotation (
@@ -706,8 +699,7 @@ First implementation.
 </html>"));
 end der_enthalpyOfLiquid;
 
-function kinematicViscosity 
-  "Return the kinematic viscosity"
+function kinematicViscosity "Return the kinematic viscosity"
   extends Modelica.Icons.Function;
 
   input Modelica.SIunits.Temperature T "Temperature";

@@ -103,9 +103,40 @@ Density is computed from pressure, temperature and composition in the thermodyna
 </html>"));
 end density;
 
-redeclare function extends dynamicViscosity "dynamic viscosity of dry air"
+redeclare function extends dynamicViscosity
+    "Return the dynamic viscosity of dry air"
 algorithm
-  eta := 1.85E-5;
+  eta := 4.89493640395e-08 * state.T + 3.88335940547e-06;
+  annotation (
+  smoothOrder=99,
+Documentation(info="<html>
+<p>
+This function returns the dynamic viscosity.
+</p>
+<h4>Implementation</h4>
+<p>
+The function is based on the 5th order polynomial 
+of 
+<a href=\"modelica://Modelica.Media.Air.MoistAir.dynamicViscosity\">
+Modelica.Media.Air.MoistAir.dynamicViscosity</a>.
+However, for the typical range of temperatures encountered
+in building applications, a linear function sufficies.
+This implementation is therefore the above 5th order polynomial,
+linearized around <i>20</i>&deg;C.
+The relative error of this linearization is 
+<i>0.4</i>% at <i>-20</i>&deg;C,
+and less then
+<i>0.2</i>% between  <i>-5</i>&deg;C and  <i>+50</i>&deg;C.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 19, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end dynamicViscosity;
 
 redeclare function enthalpyOfCondensingGas
@@ -256,6 +287,72 @@ Specific entropy is calculated from the thermodynamic state record, assuming ide
 </html>"));
 end specificEntropy;
 
+redeclare function extends density_derp_T
+    "Return the partial derivative of density with respect to pressure at constant temperature"
+algorithm
+  ddpT := dStp/pStp;
+annotation (
+Documentation(info="<html>
+<p>
+This function returns the partial derivative of density
+with respect to pressure at constant temperature.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 18, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end density_derp_T;
+
+redeclare function extends density_derT_p
+    "Return the partial derivative of density with respect to temperature at constant pressure"
+algorithm
+  ddTp := 0;
+
+  annotation (smoothOrder=99, Documentation(info=
+                   "<html>
+<p>
+This function computes the derivative of density with respect to temperature 
+at constant pressure.
+</p>
+</html>", revisions=
+"<html>
+<ul>
+<li>
+December 18, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end density_derT_p;
+
+redeclare function extends density_derX
+    "Return the partial derivative of density with respect to mass fractions at constant pressure and temperature"
+algorithm
+  dddX := fill(0, nX);
+annotation (
+Documentation(info="<html>
+<p>
+This function returns the partial derivative of density
+with respect to mass fraction.
+This value is zero because in this medium, density is proportional
+to pressure, but independent of the species concentration.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 18, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end density_derX;
+
 redeclare replaceable function extends specificHeatCapacityCp
     "Specific heat capacity of gas mixture at constant pressure"
 algorithm
@@ -370,6 +467,31 @@ algorithm
   f := specificEnthalpy(state) - gasConstant(state)*state.T - state.T*specificEntropy(state);
 end specificHelmholtzEnergy;
 
+redeclare function extends isentropicEnthalpy "Return the isentropic enthalpy"
+algorithm
+  h_is := specificEnthalpy(setState_psX(
+            p=p_downstream,
+            s=specificEntropy(refState),
+            X=refState.X));
+annotation (
+Documentation(info="<html>
+<p>
+This function computes the specific enthalpy for
+an isentropic state change from the temperature
+that corresponds to the state <code>refState</code>
+to <code>reference_T</code>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 18, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end isentropicEnthalpy;
+
 redeclare function extends specificInternalEnergy "Specific internal energy"
   extends Modelica.Icons.Function;
 algorithm
@@ -384,6 +506,26 @@ algorithm
 Temperature is returned from the thermodynamic state record input as a simple assignment.
 </html>"));
 end temperature;
+
+redeclare function extends molarMass "Return the molar mass"
+algorithm
+    MM := 1/(state.X[Water]/MMX[Water]+(1.0-state.X[Water])/MMX[Air]);
+    annotation (
+smoothOrder=99,
+Documentation(info="<html>
+<p>
+This function returns the molar mass.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+December 18, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end molarMass;
 
 redeclare replaceable function temperature_phX
     "Compute temperature from specific enthalpy and mass fraction"
@@ -407,9 +549,9 @@ end temperature_phX;
 redeclare function extends thermalConductivity
     "Thermal conductivity of dry air as a polynomial in the temperature"
 algorithm
-  lambda := Modelica.Media.Incompressible.TableBased.Polynomials_Temp.evaluate(
+  lambda := 1; /* fixme Modelica.Media.Incompressible.TableBased.Polynomials_Temp.evaluate(
       {(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},
-   Modelica.SIunits.Conversions.to_degC(state.T));
+   Modelica.SIunits.Conversions.to_degC(state.T)); */
 end thermalConductivity;
 
 //////////////////////////////////////////////////////////////////////
@@ -457,6 +599,9 @@ First implementation.
     cp =   1860) "Steam properties";
 
   constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
+
+  constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
+    "Molar masses of components";
 
 replaceable function der_enthalpyOfLiquid
     "Temperature derivative of enthalpy of liquid per unit mass of liquid"
