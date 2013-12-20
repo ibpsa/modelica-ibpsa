@@ -9,7 +9,6 @@ equation
   // Check the implementation of the base properties
   basPro.state.p=p;
   basPro.state.T=T;
-
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=1),

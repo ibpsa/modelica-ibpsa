@@ -316,7 +316,7 @@ which is zero as this medium is incompressible.
 The isothermal compressibility is defined as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&beta;<sub>T</sub> = - 1 &frasl; v &nbsp; (&part; v &frasl; &part; p)<sub>T</sub>,
+&kappa;<sub>T</sub> = - 1 &frasl; v &nbsp; (&part; v &frasl; &part; p)<sub>T</sub>,
 </p>
 <p>
 where

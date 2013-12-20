@@ -267,7 +267,7 @@ end gasConstant;
 redeclare function extends isobaricExpansionCoefficient
     "Return the isobaric expansion coefficient"
 algorithm
-  beta := -1/state.T;
+  beta := 1/state.T;
 annotation (
 Documentation(info="<html>
 <p>
@@ -275,7 +275,7 @@ This function returns the isobaric expansion coefficient,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &beta;<sub>p</sub> = - 1 &frasl; v &nbsp; (&part; v &frasl; &part; T)<sub>p</sub>
-= -1&frasl;T,
+= 1&frasl;T,
 </p>
 <p>
 where
@@ -306,7 +306,7 @@ which is zero as this medium is incompressible.
 The isothermal compressibility is defined as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&beta;<sub>T</sub> = - 1 &frasl; v &nbsp; (&part; v &frasl; &part; p)<sub>T</sub>,
+&kappa;<sub>T</sub> = -1 &frasl; v &nbsp; (&part; v &frasl; &part; p)<sub>T</sub>,
 </p>
 <p>
 where
@@ -641,9 +641,8 @@ end setState_pTX;
 redeclare function extends setState_psX
     "Return the thermodynamic state as function of p, s and composition X or Xi"
   protected
-    Modelica.SIunits.MassFraction[2] X_int =
-      if size(X, 1) == nX then X else cat(1, X, {1 - sum(X)})
-      "Mass fraction";
+    Modelica.SIunits.MassFraction[2] X_int=
+      if size(X, 1) == nX then X else cat(1, X, {1 - sum(X)}) "Mass fraction";
     Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
     Modelica.SIunits.Temperature T "Temperature";
 algorithm
@@ -958,13 +957,14 @@ First implementation.
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
     cp =   1006,
-    cv =   1006-Modelica.Media.IdealGases.Common.SingleGasesData.Air.R) 
+    cv =   1006-Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
     "Dry air properties";
   constant GasProperties steam(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
     cp =   1860,
-    cv =   1860-Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R) "Steam properties";
+    cv =   1860-Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
+    "Steam properties";
 
   constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
 
