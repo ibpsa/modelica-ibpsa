@@ -241,7 +241,7 @@ algorithm
   h_is := specificEnthalpy(setState_psX(
             p=p_downstream,
             s=specificEntropy(refState),
-            X=refState.X));
+            X={1}));
 annotation (
 Documentation(info="<html>
 <p>

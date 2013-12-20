@@ -393,7 +393,7 @@ s = s<sub>s</sub> + s<sub>m</sub>,
 </p>
 <p>
 where
-<i>s_s</i> is the entropy change due to the state change 
+<i>s<sub>s</sub></i> is the entropy change due to the state change 
 (relative to the reference temperature) and
 <i>s<sub>m</sub></i> is the entropy change due to mixing
 of the dry air and water vapor.
@@ -402,7 +402,7 @@ of the dry air and water vapor.
 The entropy change due to change in state is obtained from
 <p align=\"center\" style=\"font-style:italic;\">
 s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(v/v<sub>0</sub>) <br/>
-     c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(&rho;<sub>0</sub>/&rho;)
+= c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(&rho;<sub>0</sub>/&rho;)
 </p>
 <p>Because <i>&rho; = p<sub>0</sub>/(R T)</i> for this medium model, 
 and because <i>c<sub>p</sub> = c<sub>v</sub> + R</i>,
@@ -410,7 +410,7 @@ we can write
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(T/T<sub>0</sub>) <br/>
-c<sub>p</sub> ln(T/T<sub>0</sub>).
+=c<sub>p</sub> ln(T/T<sub>0</sub>).
 </p>
 <p>
 Next, the entropy of mixing is obtained from a reversible isothermal
