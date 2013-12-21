@@ -24,7 +24,6 @@ partial model FluidProperties
   Modelica.SIunits.Density d "Density";
   Modelica.SIunits.DynamicViscosity eta "Dynamic viscosity";
   Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
-  Modelica.SIunits.SpecificEnthalpy hLiq "Specific enthalpy of liquid";
   Modelica.SIunits.SpecificInternalEnergy u "Specific internal energy";
   Modelica.SIunits.SpecificEntropy s "Specific entropy";
   Modelica.SIunits.SpecificEnergy g "Specific Gibbs energy";
@@ -60,8 +59,10 @@ protected
     input Medium.ThermodynamicState state2 "Medium state";
     input String message "Message for error reporting";
   algorithm
-    assert(abs(state1.T-state2.T) < 1e-8, "Error in temperature of " + message);
-    assert(abs(state1.p-state2.p) < 1e-8, "Error in pressure of " + message);
+    assert(abs(Medium.temperature(state1)-Medium.temperature(state2))
+       < 1e-8, "Error in temperature of " + message);
+    assert(abs(Medium.pressure(state1)-Medium.pressure(state2))
+       < 1e-8, "Error in pressure of " + message);
   end checkState;
 equation
     // Compute temperatures that are used as input to the functions
@@ -81,10 +82,7 @@ equation
     d = Medium.density(state_pTX);
     eta = Medium.dynamicViscosity(state_pTX);
     h = Medium.specificEnthalpy(state_pTX);
-    hLiq = Medium.enthalpyOfLiquid(T);
-    if Medium.nX == 1 then
-      assert(abs(h-hLiq) < 1e-8, "Error in enthalpy computation.");
-    end if;
+
     u = Medium.specificInternalEnergy(state_pTX);
     s = Medium.specificEntropy(state_pTX);
     g = Medium.specificGibbsEnergy(state_pTX);

@@ -31,12 +31,6 @@ createPlot(
   grid = true
 )
 createPlot(
-  id   = 6,
-  x    = "T_degC",
-  y    = {"hLiq"},
-  grid = true
-)
-createPlot(
   id   = 7,
   x    = "T_degC",
   y    = {"u"},
