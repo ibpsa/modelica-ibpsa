@@ -1,6 +1,7 @@
 within Annex60.Experimental.Media.Examples;
 model AirPTDecoupledProperties
   "Model that tests the implementation of the fluid properties"
+  extends Modelica.Icons.Example;
   extends Annex60.Media.Examples.BaseClasses.FluidProperties(
     redeclare package Medium = Annex60.Experimental.Media.AirPTDecoupled,
     TMin=273.15-30,

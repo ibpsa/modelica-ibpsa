@@ -1,7 +1,6 @@
 within Annex60.Media.Examples.BaseClasses;
 partial model FluidProperties
   "Model that tests the implementation of the fluid properties"
-  extends Modelica.Icons.Example;
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium;
 

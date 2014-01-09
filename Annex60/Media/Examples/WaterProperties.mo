@@ -1,6 +1,7 @@
 within Annex60.Media.Examples;
 model WaterProperties
   "Model that tests the implementation of the fluid properties"
+  extends Modelica.Icons.Example;
   extends Annex60.Media.Examples.BaseClasses.FluidProperties(
     redeclare package Medium = Annex60.Media.Water,
     TMin=273.15,
