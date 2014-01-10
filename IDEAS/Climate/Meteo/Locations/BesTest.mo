@@ -1,5 +1,5 @@
 within IDEAS.Climate.Meteo.Locations;
-model BesTest "Climate file for BesTest"
+model BesTest "IEA Annex 21, Bestest"
   extends IDEAS.Climate.Meteo.Location(
     lat=39.8/180*Modelica.Constants.pi,
     lon=-104.9/180*Modelica.Constants.pi,

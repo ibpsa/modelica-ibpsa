@@ -7,7 +7,7 @@ partial model StateWall "Partial model for building envelope components"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b surfRad_a
     "Radiative surface node"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
-  inner outer IDEAS.SimInfoManager sim
+  outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
   PropsBus propsBus_a annotation (Placement(transformation(

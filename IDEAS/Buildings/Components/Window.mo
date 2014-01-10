@@ -45,7 +45,7 @@ model Window "Multipane window"
         transformation(extent={{20,-110},{40,-90}}), iconTransformation(extent=
             {{20,-110},{40,-90}})));
 
-  //protected
+protected
   parameter Boolean shading=false "Shading presence, i.e. true if present";
   parameter Boolean framePresent=fraType.present;
   parameter Modelica.SIunits.Efficiency shaCorr=0.2
