@@ -110,45 +110,6 @@ D.~C. Hamilton and W.~R. Morgan, ``{Radiant-interchange configuration
   factors},'' tech. rep., National Advisory Comittee for Aeronautics,
   Washington, 1952.
 
-\bibitem{Tindale1993}
-A.~Tindale, ``{Thrird-order lumped-parameter simulation method},'' {\em
-  Building Services Engineering Research \& Technology}, vol.~14, no.~3,
-  pp.~87--97, 1993.
-
-\bibitem{Gouda2000}
-M.~M. Gouda, S.~Danaher, and C.~P. Underwood, ``{Low-order model for the
-  simulation of a building and its heating system},'' {\em Building Services
-  Engineering Research \& Technology}, vol.~21, pp.~199--208, 2000.
-
-\bibitem{Gouda2002}
-M.~Gouda, ``{Building thermal model reduction using nonlinear constrained
-  optimization},'' {\em Building and Environment}, vol.~37, pp.~1255--1265,
-  Dec. 2002.
-
-\bibitem{Wang2006}
-S.~Wang and X.~Xu, ``{Simplified building model for transient thermal
-  performance estimation using GA-based parameter identification},'' {\em
-  International Journal of Thermal Sciences}, vol.~45, pp.~419--432, 2006.
-
-\bibitem{Xu2007}
-X.~Xu and S.~Wang, ``{Optimal simplified thermal models of building envelope
-  based on frequency domain regression using genetic algorithm},'' {\em Energy
-  and Buildings}, vol.~39, pp.~525--536, 2007.
-
-\bibitem{Bode1945}
-H.~W. Bode, {\em {Network analysis and feedback amplifier design}}.
-\newblock New York: Van Nostrand Co., 1945.
-
-\bibitem{ASHRAE2009}
-ASHRAE, {\em {2009 ASHRAE Handbook: fundamentals}}.
-\newblock Atlanta: ASHRAE American Society of Heating Refrigerating and
-  Air-Conditioning Engineers, 2009.
-
-\bibitem{Masy2008}
-G.~Masy, {\em {Definition and validation of a simplified multizone dynamic
-  building model connected to heating system and HVAC unit}}.
-\newblock Phd, Universit\'{e} de Li\`{e}ge, 2008.
-
 \bibitem{Khalifa2001}
 A.~J.~N. Khalifa, ``{Ntural convective heat transfer coefficient - a review :
   Surfaces in two- and three-dimensional enclosures},'' {\em Energy Conversion
@@ -214,26 +175,6 @@ M.~A. Fresnel, ``{M\'{e}moire sur la diffraction de la lumi\`{e}re},'' {\em
 V.~Snellius, {\em {Doctrina triangulorum}}.
 \newblock 1627.
 
-\bibitem{ISO77302005}
-{ISO 7730}, {\em {Ergonomics of the thermal environment - Analytical
-  determination and interpretation of themal comfort using calculation of the
-  PMV and PPD indices and local thermal comfort criteria}}.
-\newblock Aug. 2005.
-
-\bibitem{Fanger1970}
-P.~O. Fanger, {\em {Thermal comfort: Analysis and application in environmental
-  engineering}}.
-\newblock New York: McGraw-Hill Book Company, 1970.
-
-\bibitem{ASHRAE55_2004}
-{ANSI/ASRAE Standard 55-2004}, {\em {Thermal environmental conditions for human
-  occupancy}}.
-\newblock 2004.
-
-\bibitem{ASHRAE2009a}
-ASHRAE, {\em {ASHRAE Handbook - Fundamentals (SI Edition)}}.
-\newblock 2009.
-
 \bibitem{Koschenz2000}
 M.~Koschenz and B.~Lehman, {\em {Thermoaktive Bauteilsysteme tabs}}.
 \newblock D\"{u}bendorf: EMPA-Akademie, 2000.
@@ -260,36 +201,5 @@ H.~Willis, {\em { Power Distribution Planning Reference Book}}.
 \bibitem{IEEE_testfeeder}
 W.~Kersting, ``{Radial Distribution Test Feeders},'' in {\em IEEE Power
   Engineering Society Winter Meeting}, (Columbus, Ohio), pp.~908--912, 2001.
-
-\bibitem{Judkoff1995}
-R.~Judkoff and J.~Neymark, ``{International energy agency building energy
-  simulation test (BESTEST) and diagnostic method},'' tech. rep., National
-  Renewable Energy Laboratory, U.S. Department of Energy, Colorado, 1995.
-
-\bibitem{Neymark2008}
-J.~Neymark and R.~Judkoff, ``{International energy agency building energy
-  simulation test and diagnostic method (IEA BESTEST) - In-depth diagnostic
-  cases for ground coupled heat transfer related to slab-on-grad
-  construction},'' tech. rep., National Renewable Energy Laboratory, U.S.
-  Department of Energy, Colorado, 2008.
-
-\bibitem{Lomas1994}
-K.~J. Lomas, H.~Eppel, C.~Martin, and D.~Bloomfield, ``{Empirical validation of
-  thermal building simulation programs using test room data - Volume 1: Final
-  report},'' in {\em IEA Energy Conservation in Buildings and Community Systems
-  Programme Annex 21 \& IEA Solar Heating and Cooling Programme Task 12}, 1994.
-
-\bibitem{Lomas1994a}
-K.~J. Lomas, H.~Eppel, C.~Martin, and D.~Bloomfield, ``{Empirical validation of
-  thermal building simulation programs using test room data - Volume 2:
-  Empircial validation package},'' in {\em IEA Energy Conservation in Buildings
-  and Community Systems Programme Annex 21 \& IEA Solar Heating and Cooling
-  Programme Task 12}, 1994.
-
-\bibitem{ASHRAE140}
-ASHRAE, {\em {ANSI/ASHRAE Standard 140-2001 - Standard method of test for the
-  evaluation of building energy analysis computer programs}}, vol.~8400.
-\newblock American Society of Heating, Refrigerating and Air Conditioning
-  Engineers, 2004.
 
 \end{thebibliography}

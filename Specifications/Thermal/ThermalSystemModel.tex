@@ -1,12 +1,12 @@
 
-\title{Thermal building system}
+\chapter{Thermal building system}
 % Use \titlerunning{Short Title} for an abbreviated version of your contribution title if the original one is too long
-\author{Roel De Coninck and Lieve Helsen}
-\authorrunning{R. De Coninck, L. Helsen}
+%\author{Roel De Coninck and Lieve Helsen}
+%\authorrunning{R. De Coninck, L. Helsen}
 
-\maketitle
+%\maketitle
 
-\abstract{A dynamic thermal system model is developed in Modelica for integrated energy simulation.}
+%\abstract{A dynamic thermal system model is developed in Modelica for integrated energy simulation.}
 
 \section{Introduction}
 
@@ -30,7 +30,7 @@ The library is based on Modelica.Thermal.FluidHeatFlow and not on Modelica.Fluid
 
 \emph{IDEAS.Thermal.Components.Storage.StorageTank}
 
-Buffer tank (no internal heat exchangers) composed of an array of interconnected pipes.  Except for the internal heat exchanger, this model is identical to \emph{IDEAS.Thermal.Components.Storage.StorageTank_OneIntHX}. Therefore, the model description can be found in \ref{sec:tesHX}.
+Buffer tank (no internal heat exchangers) composed of an array of interconnected pipes.  Except for the internal heat exchanger, this model is identical to IDEAS.Thermal.Components.Storage.StorageTankOneIntHX. Therefore, the model description can be found in %\ref{sec:tesHX}.
 
 The following phenomena are modelled:
 
@@ -50,19 +50,19 @@ The following phenomena are modelled:
 \subsubsection{Tank with internal heat exchanger}
 \label{sec:tesHX}
 
-\emph{IDEAS.Thermal.Components.Storage.StorageTank_OneIntHX}
+%IDEAS.Thermal.Components.Storage.StorageTank_OneIntHX
 
 \vspace{6mm}
 
 This tank is similar to \emph{IDEAS.Thermal.Components.Storage.StorageTank} except that an internal heat exchanger is added.  The heat exchanger can be positioned in any continuous section of layers, it is modelled with one heat exhanger node per tank node. 
 
-\begin{figure}%
-\begin{left}
-\includegraphics[width=3cm]{Thermal/images/HydraulicScheme.pdf}% of \columnwidth
-\caption{Tank with internal heat exchanger}%
-\label{tankinternal}%	
-\end{left}
-\end{figure}
+%\begin{figure}%
+%\begin{left}
+%\includegraphics[width=3cm]{Thermal/images/HydraulicScheme.pdf}% of \columnwidth
+%\caption{Tank with internal heat exchanger}%
+%\label{tankinternal}%	
+%\end{left}
+%\end{figure}
 
 
 
@@ -101,13 +101,13 @@ A first attempt was to suppose that buoyancy can be modelled with an equivalent 
 \label{eq:}
 \end{equation}
 
-\begin{figure}%
-\begin{left}
-\includegraphics[width=\columnwidth]{Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_Linear.png}% of \columnwidth
-\caption{Result of the linear parameter fitting}%
-\label{tankinternal}%	
-\end{left}
-\end{figure}
+%\begin{figure}%
+%\begin{left}
+%\includegraphics[width=\columnwidth]{Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_Linear.png}% of \columnwidth
+%\caption{Result of the linear parameter fitting}%
+%\label{tankinternal}%	
+%\end{left}
+%\end{figure}
 
 To find $\lambda_{buoyancy}$, an optimization is carried out in which for different number of nodes, the $\lambda_{buoyancy}$ that assures the best fit of the end temperatures for both charging experiments is found.
 
@@ -130,19 +130,15 @@ We suppose $\dot{m}_{buo}$ depends on the temperature gradient, and is zero when
 Again, optimization is used in order to identify $k_{buo}$ and $\text{exp}_{buo}$ as a function of the number of nodes. Again, we see that these coefficients are depending on the number of nodes.  We also see that the sensitivities on the obtained end temperatures in the charging experiment is large.
 
 \begin{figure}%
-\begin{left}
 \includegraphics[width=\columnwidth]{Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_NonLinear.png}% of \columnwidth
 \caption{Result of the non-linear parameter fitting}%
 \label{tankinternal}%	
-\end{left}
 \end{figure}
 
 \begin{figure}%
-\begin{left}
 \includegraphics[width=\columnwidth]{Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_nonlin_10nodes.png}% of \columnwidth
 \caption{Resulting temperatures when the found values for 10 nodes are used}%
 \label{tankinternal}%	
-\end{left}
 \end{figure}
 
 
@@ -150,7 +146,7 @@ Again, optimization is used in order to identify $k_{buo}$ and $\text{exp}_{buo}
 
 \subsubsection{Partial heater}
 
-\emph{IDEAS.Thermal.Components.Production.Auxiliaries.PartialDynamicHeaterWithLosses}
+%\emph{IDEAS.Thermal.Components.Production.Auxiliaries.PartialDynamicHeaterWithLosses}
 
 \vspace{6mm}
 
@@ -170,7 +166,7 @@ tbc
 
 \subsubsection{Partial heat emission model}
 
-\emph{IDEAS.Thermal.Components.Emission.Auxiliaries.Partial_Emission}
+%\emph{IDEAS.Thermal.Components.Emission.Auxiliaries.Partial_Emission}
 \vspace{6mm}
 
 \subsubsection{Radiator}
@@ -183,7 +179,7 @@ From ~\cite{Koschenz2000}
 
 \subsection{Ideal heating}
 
-\subsection{Hydraulic heating}
+\subsubsection{Hydraulic heating}
 
 Main hydraulic scheme with replaceable models for heat production, heat emission, solar thermal system and control.
 

@@ -1,14 +1,14 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: C:\Workspace\Modelica\IDEAS\Specifications\Specs.aux
+This is BibTeX, Version 0.99dThe top-level auxiliary file: Specs.aux
 The style file: ieeetr.bst
-A level-1 auxiliary file: Structure/Preface/preface.aux
-A level-1 auxiliary file: Structure/Preamble/cblist.aux
+A level-1 auxiliary file: title/title.aux
 A level-1 auxiliary file: Climate/Climate.aux
 A level-1 auxiliary file: Buildings/BuildingModel.aux
 A level-1 auxiliary file: Thermal/ThermalSystemModel.aux
 A level-1 auxiliary file: Electric/ElectricSystemModel.aux
-A level-1 auxiliary file: Buildings/BuildingModelValidation.aux
-A level-1 auxiliary file: Thermal/ThermalSystemModelValidation.aux
-A level-1 auxiliary file: Electric/ElectricSystemModelValidation.aux
+Illegal, another \bibstyle command---line 81 of file Specs.aux
+ : \bibstyle
+ :          {ieeetr}
+I'm skipping whatever remains of this command
 Database file #1: Climate/MyBibTexLibrary.bib
 Database file #2: Buildings/MyBibTexLibrary.bib
 Repeated entry---line 9 of file Buildings/MyBibTexLibrary.bib
@@ -18,18 +18,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 69 of file Buildings/MyBibTexLibrary.bib
  : @techreport{Furler1988
  :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 279 of file Buildings/MyBibTexLibrary.bib
- : @article{Xu2007
- :                ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 306 of file Buildings/MyBibTexLibrary.bib
- : @article{Gouda2002
- :                   ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 321 of file Buildings/MyBibTexLibrary.bib
- : @book{Bode1945
- :               ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 442 of file Buildings/MyBibTexLibrary.bib
  : @article{Mohr2008
@@ -51,10 +39,6 @@ Repeated entry---line 898 of file Buildings/MyBibTexLibrary.bib
  : @article{Awbi1999
  :                  ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 925 of file Buildings/MyBibTexLibrary.bib
- : @phdthesis{Masy2008
- :                    ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 1010 of file Buildings/MyBibTexLibrary.bib
  : @article{Furler1991
  :                    ,
@@ -70,10 +54,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 1434 of file Buildings/MyBibTexLibrary.bib
  : @article{Boltzmann1884
  :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1457 of file Buildings/MyBibTexLibrary.bib
- : @article{Gouda2000
- :                   ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 1465 of file Buildings/MyBibTexLibrary.bib
  : @article{Defraeye2011
@@ -91,17 +71,9 @@ Repeated entry---line 1736 of file Buildings/MyBibTexLibrary.bib
  : @article{Kenelly1899
  :                     ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1751 of file Buildings/MyBibTexLibrary.bib
- : @book{Fanger1970
- :                 ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 1858 of file Buildings/MyBibTexLibrary.bib
  : @phdthesis{Beausoleil-Morrison2000
  :                                   ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1986 of file Buildings/MyBibTexLibrary.bib
- : @article{Tindale1993
- :                     ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 2069 of file Buildings/MyBibTexLibrary.bib
  : @article{Liesen1997
@@ -111,32 +83,8 @@ Repeated entry---line 2273 of file Buildings/MyBibTexLibrary.bib
  : @article{Jurges1924
  :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2297 of file Buildings/MyBibTexLibrary.bib
- : @book{ASHRAE140
- :                ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2372 of file Buildings/MyBibTexLibrary.bib
- : @book{ASHRAE2009a
- :                  ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 2415 of file Buildings/MyBibTexLibrary.bib
  : @techreport{Hamilton1952
- :                         ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2542 of file Buildings/MyBibTexLibrary.bib
- : @techreport{Judkoff1995
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2740 of file Buildings/MyBibTexLibrary.bib
- : @incollection{Lomas1994
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2942 of file Buildings/MyBibTexLibrary.bib
- : @book{ISO77302005
- :                  ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3189 of file Buildings/MyBibTexLibrary.bib
- : @incollection{Lomas1994a
  :                         ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 3547 of file Buildings/MyBibTexLibrary.bib
@@ -146,10 +94,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 3582 of file Buildings/MyBibTexLibrary.bib
  : @book{NCDC1976b
  :                ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3620 of file Buildings/MyBibTexLibrary.bib
- : @book{ASHRAE2009
- :                 ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 3652 of file Buildings/MyBibTexLibrary.bib
  : @book{Iqbal1983
@@ -174,10 +118,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 4421 of file Buildings/MyBibTexLibrary.bib
  : @article{Perez1986
  :                   ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 4656 of file Buildings/MyBibTexLibrary.bib
- : @book{ASHRAE55_2004
- :                    ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 4711 of file Buildings/MyBibTexLibrary.bib
  : @phdthesis{Buchberg1954
@@ -207,14 +147,6 @@ Repeated entry---line 5392 of file Buildings/MyBibTexLibrary.bib
  : @techreport{Finlayson1993
  :                          ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 5615 of file Buildings/MyBibTexLibrary.bib
- : @article{Wang2006
- :                  ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 5624 of file Buildings/MyBibTexLibrary.bib
- : @techreport{Neymark2008
- :                        ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 5718 of file Buildings/MyBibTexLibrary.bib
  : @book{Snellius1627
  :                   ,
@@ -241,18 +173,6 @@ Repeated entry---line 69 of file Thermal/MyBibTexLibrary.bib
  : @techreport{Furler1988
  :                       ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 279 of file Thermal/MyBibTexLibrary.bib
- : @article{Xu2007
- :                ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 306 of file Thermal/MyBibTexLibrary.bib
- : @article{Gouda2002
- :                   ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 321 of file Thermal/MyBibTexLibrary.bib
- : @book{Bode1945
- :               ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 442 of file Thermal/MyBibTexLibrary.bib
  : @article{Mohr2008
  :                  ,
@@ -273,10 +193,6 @@ Repeated entry---line 898 of file Thermal/MyBibTexLibrary.bib
  : @article{Awbi1999
  :                  ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 925 of file Thermal/MyBibTexLibrary.bib
- : @phdthesis{Masy2008
- :                    ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 1010 of file Thermal/MyBibTexLibrary.bib
  : @article{Furler1991
  :                    ,
@@ -292,10 +208,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 1434 of file Thermal/MyBibTexLibrary.bib
  : @article{Boltzmann1884
  :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1457 of file Thermal/MyBibTexLibrary.bib
- : @article{Gouda2000
- :                   ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 1465 of file Thermal/MyBibTexLibrary.bib
  : @article{Defraeye2011
@@ -313,17 +225,9 @@ Repeated entry---line 1736 of file Thermal/MyBibTexLibrary.bib
  : @article{Kenelly1899
  :                     ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1751 of file Thermal/MyBibTexLibrary.bib
- : @book{Fanger1970
- :                 ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 1858 of file Thermal/MyBibTexLibrary.bib
  : @phdthesis{Beausoleil-Morrison2000
  :                                   ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1986 of file Thermal/MyBibTexLibrary.bib
- : @article{Tindale1993
- :                     ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 2069 of file Thermal/MyBibTexLibrary.bib
  : @article{Liesen1997
@@ -333,32 +237,8 @@ Repeated entry---line 2273 of file Thermal/MyBibTexLibrary.bib
  : @article{Jurges1924
  :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2297 of file Thermal/MyBibTexLibrary.bib
- : @book{ASHRAE140
- :                ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2372 of file Thermal/MyBibTexLibrary.bib
- : @book{ASHRAE2009a
- :                  ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 2415 of file Thermal/MyBibTexLibrary.bib
  : @techreport{Hamilton1952
- :                         ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2542 of file Thermal/MyBibTexLibrary.bib
- : @techreport{Judkoff1995
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2740 of file Thermal/MyBibTexLibrary.bib
- : @incollection{Lomas1994
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2942 of file Thermal/MyBibTexLibrary.bib
- : @book{ISO77302005
- :                  ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3189 of file Thermal/MyBibTexLibrary.bib
- : @incollection{Lomas1994a
  :                         ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 3547 of file Thermal/MyBibTexLibrary.bib
@@ -368,10 +248,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 3582 of file Thermal/MyBibTexLibrary.bib
  : @book{NCDC1976b
  :                ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3620 of file Thermal/MyBibTexLibrary.bib
- : @book{ASHRAE2009
- :                 ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 3652 of file Thermal/MyBibTexLibrary.bib
  : @book{Iqbal1983
@@ -396,10 +272,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 4421 of file Thermal/MyBibTexLibrary.bib
  : @article{Perez1986
  :                   ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 4656 of file Thermal/MyBibTexLibrary.bib
- : @book{ASHRAE55_2004
- :                    ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 4711 of file Thermal/MyBibTexLibrary.bib
  : @phdthesis{Buchberg1954
@@ -429,14 +301,6 @@ Repeated entry---line 5392 of file Thermal/MyBibTexLibrary.bib
  : @techreport{Finlayson1993
  :                          ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 5615 of file Thermal/MyBibTexLibrary.bib
- : @article{Wang2006
- :                  ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 5624 of file Thermal/MyBibTexLibrary.bib
- : @techreport{Neymark2008
- :                        ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 5718 of file Thermal/MyBibTexLibrary.bib
  : @book{Snellius1627
  :                   ,
@@ -456,17 +320,10 @@ I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "NREC1995"
 Warning--I didn't find a database entry for "Lawrence1993"
 Warning--I didn't find a database entry for "Solar2009"
-Warning--can't use both author and editor fields in ASHRAE2009
 Warning--empty school in Beausoleil-Morrison2000
 Warning--empty institution in Finlayson1993
 Warning--empty institution in Furler1988
 Warning--empty publisher in Snellius1627
-Warning--empty publisher in ISO77302005
-Warning--empty publisher in ASHRAE55_2004
-Warning--empty publisher in ASHRAE2009a
 Warning--empty school in ehaesen
 Warning--empty publisher in willis
-Warning--empty publisher in Lomas1994
-Warning--empty publisher in Lomas1994a
-Warning--can't use both author and editor fields in ASHRAE140
-(There were 110 error messages)
+(There were 77 error messages)
