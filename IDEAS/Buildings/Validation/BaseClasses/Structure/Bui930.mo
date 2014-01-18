@@ -131,54 +131,28 @@ equation
       points={{-9,-14},{-4,-14},{-4,-40},{118,-40},{118,60},{150,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(roof.area_a, gF.area[1]) annotation (Line(
-      points={{-85,-8.4},{-85,30.25},{39.2,30.25}},
-      color={0,0,127},
+
+    connect(roof.propsBus_a, gF.propsBus[1]) annotation (Line(
+      points={{-83,-9},{-83,31.5},{40,31.5}},
+      color={255,204,51},
+      thickness=0.5,
       smooth=Smooth.None));
-  connect(roof.iEpsLw_a, gF.epsLw[1]) annotation (Line(
-      points={{-82,-8.4},{-82,24.25},{39.2,24.25}},
-      color={0,0,127},
+  connect(wall.propsBus_a, gF.propsBus[2:5]) annotation (Line(
+      points={{-53,-9},{-53,30.5},{40,30.5}},
+      color={255,204,51},
+      thickness=0.5,
       smooth=Smooth.None));
-  connect(roof.iEpsSw_a, gF.epsSw[1]) annotation (Line(
-      points={{-79,-8.4},{-79,18.25},{39.2,18.25}},
-      color={0,0,127},
+  connect(floor.propsBus_a, gF.propsBus[6]) annotation (Line(
+      points={{-23,-9},{-23,26.5},{40,26.5}},
+      color={255,204,51},
+      thickness=0.5,
       smooth=Smooth.None));
-  connect(wall.area_a, gF.area[2:5]) annotation (Line(
-      points={{-55,-8.4},{-55,30.75},{39.2,30.75}},
-      color={0,0,127},
+  connect(win.propsBus_a, gF.propsBus[7:8]) annotation (Line(
+      points={{7,-9},{7,25.5},{40,25.5}},
+      color={255,204,51},
+      thickness=0.5,
       smooth=Smooth.None));
-  connect(wall.iEpsLw_a, gF.epsLw[2:5]) annotation (Line(
-      points={{-52,-8.4},{-52,24.75},{39.2,24.75}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(wall.iEpsSw_a, gF.epsSw[2:5]) annotation (Line(
-      points={{-49,-8.4},{-49,18.75},{39.2,18.75}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(floor.area_a, gF.area[6]) annotation (Line(
-      points={{-25,-8.4},{-25,32.75},{39.2,32.75}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(floor.iEpsLw_a, gF.epsLw[6]) annotation (Line(
-      points={{-22,-8.4},{-22,26.75},{39.2,26.75}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(floor.iEpsSw_a, gF.epsSw[6]) annotation (Line(
-      points={{-19,-8.4},{-19,20.75},{39.2,20.75}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(win.area_a, gF.area[7:8]) annotation (Line(
-      points={{5,-8.4},{5,33.25},{39.2,33.25}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(win.iEpsLw_a, gF.epsLw[7:8]) annotation (Line(
-      points={{8,-8.4},{8,27.25},{39.2,27.25}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(win.iEpsSw_a, gF.epsSw[7:8]) annotation (Line(
-      points={{11,-8.4},{11,21.25},{39.2,21.25}},
-      color={0,0,127},
-      smooth=Smooth.None));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,
             -100},{150,100}}), graphics));
 end Bui930;
