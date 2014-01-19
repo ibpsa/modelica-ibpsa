@@ -6,6 +6,7 @@ model Bui900 "BESTEST Building model case 900"
     ATrans=1,
     VZones={gF.V});
 
+protected
   IDEAS.Buildings.Components.Zone gF(nSurf=8, V=129.6)
     annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor

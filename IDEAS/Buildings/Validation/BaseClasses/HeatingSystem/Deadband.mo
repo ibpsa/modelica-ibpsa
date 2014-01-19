@@ -6,6 +6,7 @@ model Deadband "BESTEST deadband heating system"
     final nLoads=1,
     QNom=zeros(nZones));
 
+protected
   parameter Modelica.SIunits.Temperature Theat=293.15 "Heating on below 20degC";
   parameter Modelica.SIunits.Temperature Tcool=300.15 "Cooling on above 27degC";
 

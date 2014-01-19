@@ -1,5 +1,5 @@
 within IDEAS.Climate.Meteo;
-partial model Location "Geogrphical location"
+model Location "Geogrphical location"
 
   parameter Modelica.SIunits.Angle lat(displayUnit="degree")
     "latitude of the locatioin";

@@ -1,10 +1,11 @@
 within IDEAS.Interfaces;
 model Building
 
-  inner outer IDEAS.SimInfoManager sim
+  outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Boolean standAlone=true;
 
+protected
   replaceable IDEAS.Interfaces.BaseClasses.Structure building
     "Building structure" annotation (Placement(transformation(extent={{-66,-10},
             {-36,10}})), choicesAllMatching=true);
