@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.11 (MiKTeX 2.9) (preloaded format=pdflatex 2013.12.29)  10 JAN 2014 12:41
+This is pdfTeX, Version 3.1415926-1.40.11 (MiKTeX 2.9) (preloaded format=pdflatex 2013.12.29)  18 JAN 2014 14:22
 entering extended mode
 **E:/3_PhD/3_Modelica/IDEAS/Specifications/Specs.tex
 (E:/3_PhD/3_Modelica/IDEAS/Specifications/Specs.tex
@@ -1353,9 +1353,9 @@ LaTeX Font Info:    Try loading font information for OMX+lmex on input line 11.
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 11.
+(Font)              <9> on input line 11.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 11.
+(Font)              <6> on input line 11.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 11.
 LaTeX Font Info:    Try loading font information for U+msa on input line 11.
@@ -1384,11 +1384,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--20
 <figures/sedes.pdf, id=36, 781.23871pt x 636.6987pt>
 File: figures/sedes.pdf Graphic file (type pdf)
  <use figures/sedes.pdf>
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 34.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 34.
-
 [1
 
 
@@ -1421,12 +1416,12 @@ File: mt-bch.cfg 2007/03/03 v1.5 microtype config. file: Bitstream Charter (RS)
 ))
 \tf@toc=\write6
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1438,12 +1433,12 @@ Overfull \hbox (8.88885pt too wide) has occurred while \output is active
 ] [2
 
 ]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1460,12 +1455,17 @@ Package natbib Warning: Citation `NREC1995' on page 3 undefined on input line 2
 8.
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
+
+ []
+
+
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1473,11 +1473,6 @@ Overfull \hbox (8.88885pt too wide) has occurred while \output is active
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 30--31
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 34--36
 
  []
@@ -1488,12 +1483,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 51--52
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1507,16 +1502,19 @@ $
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [5]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 84.
+
 Underfull \hbox (badness 10000) in paragraph at lines 84--85
 
  []
@@ -1527,22 +1525,22 @@ Overfull \hbox (17.89348pt too wide) in paragraph at lines 88--88
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [6])
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1557,12 +1555,12 @@ Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/9'.
 (microtype)             Ignoring protrusion settings for this character.
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1579,12 +1577,12 @@ LaTeX Warning: Reference `eq:ESd,eq:ESD' on page 10 undefined on input line 62.
 
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1599,22 +1597,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 83--84
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [11]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1633,20 +1631,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 134--135
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
-[][]    []
- []
-
-
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
-[][]    []
- []
-
-[13]
 Underfull \hbox (badness 10000) in paragraph at lines 138--140
 
  []
 
+
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
+[][]    []
+ []
+
+
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
+[][]    []
+ []
+
+[13]
 
 Package natbib Warning: Citation `Lawrence1993' on page 14 undefined on input l
 ine 146.
@@ -1656,37 +1655,37 @@ Package natbib Warning: Citation `Solar2009' on page 14 undefined on input line
  146.
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
-[][]    []
- []
-
-
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
-[][]    []
- []
-
-[14]
 Underfull \hbox (badness 10000) in paragraph at lines 158--159
 
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
+[][]    []
+ []
+
+[14]
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
+[][]    []
+ []
+
+
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [15])
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1699,12 +1698,12 @@ ed of an ar-ray of in-ter-con-
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1713,68 +1712,68 @@ Overfull \hbox (8.88885pt too wide) has occurred while \output is active
 
 
 ]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [18]
 <Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_NonLine
-ar.png, id=336, 850.6179pt x 698.8509pt>
+ar.png, id=334, 850.6179pt x 698.8509pt>
 File: Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_No
 nLinear.png Graphic file (type png)
 
 <use Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_Non
 Linear.png>
 <Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_nonlin_
-10nodes.png, id=338, 863.6265pt x 469.755pt>
+10nodes.png, id=336, 863.6265pt x 469.755pt>
 File: Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_no
 nlin_10nodes.png Graphic file (type png)
 
 <use Thermal/images/Validation_Vitocell100V390l_ChargingTimeEndTemperatures_non
 lin_10nodes.png>
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [19]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [20 <E:/3_PhD/3_Modelica/IDEAS/Specifications/Thermal/images/Validation_Vitocel
-l100V390l_ChargingTimeEndTemperatures_NonLinear.png>]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+l100V390l_ChargingTimeEndTemperatures_NonLinear.png>])
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [21 <E:/3_PhD/3_Modelica/IDEAS/Specifications/Thermal/images/Validation_Vitocel
-l100V390l_ChargingTimeEndTemperatures_nonlin_10nodes.png>])
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+l100V390l_ChargingTimeEndTemperatures_nonlin_10nodes.png>]
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1795,7 +1794,7 @@ See the caption package documentation for explanation.
 LaTeX Warning: Reference `fig:5param_equiv' on page 23 undefined on input line 
 27.
 
-<Electric/MyGraphics/5param_eq.png, id=387, 465.74pt x 192.72pt>
+<Electric/MyGraphics/5param_eq.png, id=384, 465.74pt x 192.72pt>
 File: Electric/MyGraphics/5param_eq.png Graphic file (type png)
 
 <use Electric/MyGraphics/5param_eq.png>
@@ -1803,12 +1802,12 @@ File: Electric/MyGraphics/5param_eq.png Graphic file (type png)
 LaTeX Warning: Reference `chap:climate' on page 23 undefined on input line 36.
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1817,125 +1816,115 @@ Overfull \hbox (8.88885pt too wide) has occurred while \output is active
 
 
 ]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [24 <E:/3_PhD/3_Modelica/IDEAS/Specifications/Electric/MyGraphics/5param_eq.png
  (PNG copy)>]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [25]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
-[26]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
-[][]    []
- []
-
-
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
-[][]    []
- []
-
-[27] <Electric/MyGraphics/grid_ieee34.png, id=472, 716.6775pt x 226.8475pt>
+[26] <Electric/MyGraphics/grid_ieee34.png, id=459, 716.6775pt x 226.8475pt>
 File: Electric/MyGraphics/grid_ieee34.png Graphic file (type png)
 
 <use Electric/MyGraphics/grid_ieee34.png>
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
+[][]    []
+ []
+
+[27]
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
+[][]    []
+ []
+
+
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [28 <E:/3_PhD/3_Modelica/IDEAS/Specifications/Electric/MyGraphics/grid_ieee34.p
 ng>]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [29]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
-[][]    []
- []
-
-
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
-[][]    []
- []
-
-[30]
-<Electric/MyGraphics/trafo_equischeme.png, id=509, 371.88937pt x 224.33812pt>
+<Electric/MyGraphics/trafo_equischeme.png, id=498, 371.88937pt x 224.33812pt>
 File: Electric/MyGraphics/trafo_equischeme.png Graphic file (type png)
 
 <use Electric/MyGraphics/trafo_equischeme.png>
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
+[][]    []
+ []
+
+[30])
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
+[][]    []
+ []
+
+
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [31 <E:/3_PhD/3_Modelica/IDEAS/Specifications/Electric/MyGraphics/trafo_equisch
-eme.png (PNG copy)>])
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+eme.png (PNG copy)>] [32
+
+
+]
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
-[32]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
-[][]    []
- []
-
-
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
-[][]    []
- []
-
-[33
-
-
-] [34]
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+[33] [34]
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1945,22 +1934,25 @@ Overfull \hbox (8.88885pt too wide) has occurred while \output is active
 (E:\3_PhD\3_Modelica\IDEAS\Specifications\Specs.brf)
 \tf@brf=\write7
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Underfull \vbox (badness 1028) has occurred while \output is active []
+
+
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 [37])
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
 
-Overfull \hbox (8.88885pt too wide) has occurred while \output is active
+Overfull \hbox (8.22217pt too wide) has occurred while \output is active
 [][]    []
  []
 
@@ -1980,7 +1972,7 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 101.
 Package rerunfilecheck Info: File `Specs.out' has not changed.
 (rerunfilecheck)             Checksum: B0E40FE394B25AFB8DB40AA8D6AE697F;412.
 Package rerunfilecheck Info: File `Specs.brf' has not changed.
-(rerunfilecheck)             Checksum: D5CAFAA913D8AC428171A146AE6960A8;2843.
+(rerunfilecheck)             Checksum: A7E8FADEBB1A28EACD61754A15CCF5CA;2843.
 
 
 LaTeX Warning: There were undefined references.
@@ -1990,41 +1982,38 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 30717 strings out of 494019
- 648749 string characters out of 3148241
- 845588 words of memory out of 3000000
- 32883 multiletter control sequences out of 15000+200000
- 116932 words of font info for 144 fonts, out of 3000000 for 9000
+ 30678 strings out of 494019
+ 648185 string characters out of 3148241
+ 847509 words of memory out of 3000000
+ 32863 multiletter control sequences out of 15000+200000
+ 101713 words of font info for 128 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 63i,35n,76p,1604b,734s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 63i,35n,76p,1604b,748s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/MiKTe
-X/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/
-lm-mathit.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program
+X/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/
+lm-rm.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program
  Files/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}{C:/Program Files/MiKTeX/fonts/e
 nc/dvips/fontname/8r.enc}<C:/Program Files/MiKTeX/fonts/type1/bitstrea/charter/
-bchb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Progra
-m Files/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX/fonts/
-type1/public/lm/lmbx6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx9.
-pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Program File
-s/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/
-public/lm/lmmi5.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C
-:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Program Files/MiKTeX
-/fonts/type1/public/lm/lmmi9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm
-/lmmib10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Progr
-am Files/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX/fonts/
-type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr5.p
-fb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Program Files/Mi
-KTeX/fonts/type1/public/lm/lmr7.pfb><C:/Program Files/MiKTeX/fonts/type1/public
-/lm/lmr9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Prog
-ram Files/MiKTeX/fonts/type1/public/lm/lmri7.pfb><C:/Program Files/MiKTeX/fonts
-/type1/public/lm/lmri9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy5
-.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Program Files
-/MiKTeX/fonts/type1/public/lm/lmsy9.pfb><C:/Program Files/MiKTeX/fonts/type1/pu
-blic/lm/lmtt9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/
-msam10.pfb>
-Output written on Specs.pdf (42 pages, 830868 bytes).
+bchb8a.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Progra
+m Files/MiKTeX/fonts/type1/public/lm/lmbx6.pfb><C:/Program Files/MiKTeX/fonts/t
+ype1/public/lm/lmbx9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmcsc10
+.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Program File
+s/MiKTeX/fonts/type1/public/lm/lmmi5.pfb><C:/Program Files/MiKTeX/fonts/type1/p
+ublic/lm/lmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:
+/Program Files/MiKTeX/fonts/type1/public/lm/lmmi9.pfb><C:/Program Files/MiKTeX/
+fonts/type1/public/lm/lmmib10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/l
+m/lmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Progra
+m Files/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Program Files/MiKTeX/fonts/ty
+pe1/public/lm/lmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr7.pfb>
+<C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Program Files/MiKTe
+X/fonts/type1/public/lm/lmri7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/l
+m/lmri9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Progra
+m Files/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Program Files/MiKTeX/fonts/t
+ype1/public/lm/lmsy9.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt9.p
+fb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on Specs.pdf (42 pages, 761020 bytes).
 PDF statistics:
- 704 PDF objects out of 1000 (max. 8388607)
+ 692 PDF objects out of 1000 (max. 8388607)
  241 named destinations out of 1000 (max. 500000)
- 33396 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 26740 words of extra memory for PDF output out of 29859 (max. 10000000)
 

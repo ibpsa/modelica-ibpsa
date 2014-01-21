@@ -1,7 +1,7 @@
 within IDEAS.Interfaces.BaseClasses;
 partial model HeatingSystem "Partial heating system"
 
-  inner outer IDEAS.SimInfoManager sim
+  outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
 

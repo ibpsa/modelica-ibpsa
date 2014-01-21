@@ -2,10 +2,10 @@ within IDEAS;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
 
-  replaceable parameter IDEAS.Climate.Meteo.Files.min60 detail constrainedby
+  replaceable IDEAS.Climate.Meteo.Detail detail constrainedby
     IDEAS.Climate.Meteo.Detail "Timeframe detail of the climate data"
     annotation (__Dymola_choicesAllMatching=true,Dialog(group="Climate"));
-  replaceable parameter IDEAS.Climate.Meteo.Locations.Uccle city constrainedby
+  replaceable IDEAS.Climate.Meteo.Location city constrainedby
     IDEAS.Climate.Meteo.Location "Location of the depicted climate data"
     annotation (__Dymola_choicesAllMatching=true,Dialog(group="Climate"));
   parameter Boolean occBeh=false

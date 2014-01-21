@@ -1,5 +1,5 @@
 within IDEAS.Climate.Meteo;
-partial model Detail
+model Detail
 
   parameter String filNam;
   parameter Modelica.SIunits.Time timestep;

@@ -7,6 +7,7 @@ model ThermostatSetback "BESTEST thermostat setback heating system"
     final nLoads=1,
     QNom=zeros(nZones));
 
+protected
   IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7,23},
       firstEntryOccupied=true) "Occupancy shedule";
   parameter Modelica.SIunits.Temperature Tbase=293.15
