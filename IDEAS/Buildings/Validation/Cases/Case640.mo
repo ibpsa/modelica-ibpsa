@@ -2,6 +2,7 @@ within IDEAS.Buildings.Validation.Cases;
 model Case640
 Modelica.SIunits.Power PHea = min(heatingSystem.heatPortCon[1].Q_flow,0);
 Modelica.SIunits.Power PCoo = max(heatingSystem.heatPortCon[1].Q_flow,0);
+Modelica.SIunits.Temperature TSen = building.TSensor[1];
 
 protected
   extends IDEAS.Buildings.Validation.Interfaces.BesTestCase(

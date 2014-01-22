@@ -7,7 +7,13 @@ model Bui900 "BESTEST Building model case 900"
     VZones={gF.V});
 
 protected
-  IDEAS.Buildings.Components.Zone gF(nSurf=8, V=129.6)
+  IDEAS.Buildings.Components.Zone gF(
+    nSurf=8,
+    V=129.6,
+    n50=0.5*20,
+    corrCV=5,
+    TOpStart=293.15,
+    linear=true)
     annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
@@ -25,14 +31,14 @@ protected
         rotation=90,
         origin={-49,-14})));
 
-  IDEAS.Buildings.Components.SlabOnGround floor(
+  IDEAS.Buildings.Components.CommonWall floor(
+    redeclare final parameter Data.Constructions.HeavyFloor constructionType,
     redeclare final parameter Data.Insulation.insulation insulationType,
+    final insulationThickness=1.003,
     final AWall=48,
     final inc=IDEAS.Constants.Floor,
     final azi=IDEAS.Constants.South,
-    redeclare final parameter Data.Constructions.HeavyFloor constructionType,
-    final insulationThickness=1.007,
-    PWall=28) annotation (Placement(transformation(
+    final TBou = 283.15) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-19,-14})));
@@ -43,7 +49,8 @@ protected
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     final azi={IDEAS.Constants.South,IDEAS.Constants.South},
     redeclare replaceable IDEAS.Buildings.Components.Shading.None shaType,
-    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType)
+    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType,
+    final frac=0)
     annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,

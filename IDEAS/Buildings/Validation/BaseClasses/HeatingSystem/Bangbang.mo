@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
-model Deadband "BESTEST deadband heating system"
+model Bangbang "BESTEST bang-bang heating system"
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     radiators=true,
     floorHeating=true,
@@ -8,7 +8,7 @@ model Deadband "BESTEST deadband heating system"
 
 protected
   parameter Modelica.SIunits.Temperature Theat=293.15 "Heating on below 20degC";
-  parameter Modelica.SIunits.Temperature Tcool=300.15 "Cooling on above 27degC";
+  parameter Modelica.SIunits.Temperature Tcool=293.15 "Cooling on above 27degC";
 
   Modelica.Blocks.Sources.RealExpression realP(y=QHeatTotal)
     annotation (Placement(transformation(extent={{120,10},{140,30}})));
@@ -18,9 +18,9 @@ protected
 equation
   for i in 1:nZones loop
     if Theat > TSensor[i] then
-      heatPortCon[i].Q_flow = -1*C[i]*(Theat - TSensor[i]);
+      heatPortCon[i].Q_flow = -100*C[i]*(Theat - TSensor[i]);
     elseif Tcool < TSensor[i] then
-      heatPortCon[i].Q_flow = -1*C[i]*(Tcool - TSensor[i]);
+      heatPortCon[i].Q_flow = -100*C[i]*(Tcool - TSensor[i]);
     else
       heatPortCon[i].Q_flow = 0;
     end if;
@@ -42,4 +42,4 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
             -100},{200,100}}), graphics));
-end Deadband;
+end Bangbang;

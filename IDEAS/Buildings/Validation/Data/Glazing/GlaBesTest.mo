@@ -2,7 +2,7 @@ within IDEAS.Buildings.Validation.Data.Glazing;
 record GlaBesTest = IDEAS.Buildings.Data.Interfaces.Glazing (
     final nLay=3,
     final mats={IDEAS.Buildings.Data.Materials.Glass(d=0.003175),
-        IDEAS.Buildings.Data.Materials.Glass(d=0.013),
+        IDEAS.Buildings.Data.Materials.Air(d=0.013),
         IDEAS.Buildings.Data.Materials.Glass(d=0.003175)},
     final SwTrans=[0, 0.747454; 10, 0.746824; 20, 0.744654; 30, 0.739491; 40,
         0.729832; 45, 0.720922; 50, 0.707331; 60, 0.652331; 70, 0.516754; 80,

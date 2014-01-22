@@ -7,7 +7,13 @@ model Bui630 "BESTEST Building model case 630"
     VZones={gF.V});
 
 protected
-  IDEAS.Buildings.Components.Zone gF(nSurf=8, V=129.6)
+  IDEAS.Buildings.Components.Zone gF(
+    nSurf=8,
+    V=129.6,
+    n50=0.822*0.5*20,
+    corrCV=0.822,
+    TOpStart=293.15,
+    linear=true)
     annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
@@ -24,14 +30,14 @@ protected
         rotation=90,
         origin={-49,-14})));
 
-  IDEAS.Buildings.Components.SlabOnGround floor(
+  IDEAS.Buildings.Components.CommonWall floor(
     redeclare final parameter Data.Constructions.LightFloor constructionType,
     redeclare final parameter Data.Insulation.insulation insulationType,
     final insulationThickness=1.003,
     final AWall=48,
     final inc=IDEAS.Constants.Floor,
     final azi=IDEAS.Constants.South,
-    final PWall=28) annotation (Placement(transformation(
+    final TBou = 283.15) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-19,-14})));
@@ -47,7 +53,8 @@ protected
       each RH=0.0,
       each PV=1.0,
       each RW=0.0),
-    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType)
+    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType,
+    final frac = 0)
     annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
