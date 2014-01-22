@@ -26,7 +26,7 @@ public
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput ctrl(min=0, max=0)
+  Modelica.Blocks.Interfaces.RealInput ctrl(min=0, max=1)
     "procentage of flow from flowPort_a1" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=90,
