@@ -9,7 +9,9 @@ algorithm
    "Error. Function should have returned 286.");
  /*assert(Annex60.Utilities.Math.Functions.trapezoidalIntegration(N=7, f=y2, deltaX=0.3333) - 80.8889 < 1E-2,
    "Error. Function should have returned 80.8889.");*/
-  annotation (Documentation(info="<html>
+  annotation (experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/TrapezoidalIntegration.mos"
+        "Simulate and plot"),Documentation(info="<html>
 <p>Tests the correct implementation of function trapezoidalIntegration.</p>
 <p>Integrands y1[7]={72, 70, 64, 54, 40, 22, 0} are the function values of y = -2*x^2-72 for x = {0,1,2,3,4,5,6}. The trapezoidal integration over the 7 integrand points should give a result of 286.</p>
 </html>", revisions="<html>
