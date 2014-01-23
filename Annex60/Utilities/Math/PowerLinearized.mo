@@ -12,19 +12,31 @@ equation
           extent={{-90,36},{90,-36}},
           lineColor={160,160,164},
           textString="powerLinearized()")}), Documentation(info="<html>
-<p>Block for function powerLinearized, which approximates <i>y=xn</i> where <i>0 &LT; n</i> so that </p>
-<p><ul>
-<li>the function is defined and monotone increasing for all <i>x</i>. </li>
-<li><i>dy/dx</i> is bounded and continuous everywhere (for <i>n &LT; 1</i>). </li>
-</ul></p>
-<p>For <i>x &LT; x0</i>, this function replaces <i>y=xn</i> by a linear function that is continuously differentiable everywhere. </p>
-<p>A typical use of this function is to replace <i>T = T4(1/4)</i> in a radiation balance to ensure that the function is defined everywhere. This can help solving the initialization problem when a solver may be far from a solution and hence <i>T4 &LT; 0</i>. </p>
-<p>See the package <code>Examples</code> for the graph. </p>
+Function that approximates <i>y=x<sup>n</sup></i> 
+where <i>0 &lt; n</i> so that
+<ul>
+<li>the function is defined and monotone increasing for all <i>x</i>.
+<li><i>dy/dx</i> is bounded and continuous everywhere (for <i>n &lt; 1</i>).
+</ul>
+<p>
+For <i>x &lt; x<sub>0</sub></i>, this function replaces 
+<i>y=x<sup>n</sup></i> by 
+a linear function that is continuously differentiable everywhere.
+</p>
+<p>
+A typical use of this function is to replace 
+<i>T = T4<sup>(1/4)</sup></i> in a radiation balance to ensure that the 
+function is defined everywhere. This can help solving the initialization problem
+when a solver may be far from a solution and hence <i>T4 &lt; 0</i>.
+</p>
+<p>
+See the package <code>Examples</code> for the graph.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
 November 29, 2013, by Marcus Fuchs:<br/>
-Implementation based on Funtions.powerLinearized.
+Implementation based on Functions.powerLinearized.
 </li>
 </ul>
 </html>"));
