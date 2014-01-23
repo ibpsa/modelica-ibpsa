@@ -3,9 +3,11 @@ model TrapezoidalIntegration
   "Tests the correct implementation of the function trapezoidalIntegration"
   extends Modelica.Icons.Example;
   Real y1[7] = {72, 70, 64, 54, 40, 22, 0}; //function values of y = -2*x^2-72 for x={0,1,2,3,4,5,6}
+  Real y "Integration result";
   //Real y2[7] = {0.3333, 1.0, 3.0, 9.9, 27.0, 81.0, 243.0}; // //function values of y = 3^(3x-1) for x=0:0.3333:2
 algorithm
- assert(Annex60.Utilities.Math.Functions.trapezoidalIntegration(N=7, f=y1, deltaX=1) - 286.0 < 1E-4,
+  y := Annex60.Utilities.Math.Functions.trapezoidalIntegration(N=7, f=y1, deltaX=1);
+ assert(y - 286.0 < 1E-4,
    "Error. Function should have returned 286.");
  /*assert(Annex60.Utilities.Math.Functions.trapezoidalIntegration(N=7, f=y2, deltaX=0.3333) - 80.8889 < 1E-2,
    "Error. Function should have returned 80.8889.");*/
