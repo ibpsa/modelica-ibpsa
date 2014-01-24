@@ -15,7 +15,7 @@ package Medium = Annex60.Media.Air;
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
-  Modelica.Fluid.Sources.MassFlowSource_T source2(
+  Annex60.Fluid.Sources.MassFlowSource_T source2(
     m_flow=1,
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -91,7 +91,7 @@ package Medium = Annex60.Media.Air;
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
-  Modelica.Fluid.Sources.MassFlowSource_T source3(
+  Annex60.Fluid.Sources.MassFlowSource_T source3(
     m_flow=1,
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -104,7 +104,7 @@ package Medium = Annex60.Media.Air;
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-150,70})));
-  Modelica.Fluid.Sources.MassFlowSource_T source4(
+  Annex60.Fluid.Sources.MassFlowSource_T source4(
     m_flow=1,
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -117,7 +117,7 @@ package Medium = Annex60.Media.Air;
         rotation=0,
         origin={38,30})));
 
-  Modelica.Fluid.Sources.MassFlowSource_T source1(
+  Annex60.Fluid.Sources.MassFlowSource_T source1(
     m_flow=1,
     redeclare package Medium = Medium,
     use_m_flow_in=false,
