@@ -2,7 +2,7 @@ within Annex60.Fluid.Interfaces.Examples;
 model HumidifierPrescribed
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Air;
+ package Medium = Annex60.Media.Air "Medium model";
  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.001
     "Nominal water mass flow rate";
   Humidifier hea1(redeclare package Medium =
@@ -411,13 +411,13 @@ protected
     "Model for humidifier that adds a variable for the thermodynamic states at its ports"
     extends Annex60.Fluid.MassExchangers.HumidifierPrescribed;
    Medium.ThermodynamicState staA=
-      Medium.setState_phX(port_a.p,
-                          actualStream(port_a.h_outflow),
+      Medium.setState_pTX(port_a.p,
+                          actualStream(port_a.T_outflow),
                           actualStream(port_a.Xi_outflow))
       "Thermodynamic state in port a";
    Medium.ThermodynamicState staB=
-      Medium.setState_phX(port_b.p,
-                          actualStream(port_b.h_outflow),
+      Medium.setState_pTX(port_b.p,
+                          actualStream(port_b.T_outflow),
                           actualStream(port_b.Xi_outflow))
       "Thermodynamic state in port b";
   end Humidifier;
@@ -664,6 +664,10 @@ than a prescribed threshold.</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 October 9, 2013, by Michael Wetter:<br/>
 Introduced protected model <code>Humidifier</code> so that states at
