@@ -70,8 +70,6 @@ model MixingVolume
     nPorts=2)
          annotation (Placement(transformation(extent={{0,60},{22,80}}, rotation=
            0)));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality
-    annotation (Placement(transformation(extent={{160,72},{180,92}},rotation=0)));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium =
         Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
@@ -103,9 +101,6 @@ model MixingVolume
     dp_nominal=2.5)
              annotation (Placement(transformation(extent={{80,-92},{100,-72}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1(startTime=999999)
-    annotation (Placement(transformation(extent={{156,10},{176,30}},   rotation=
-           0)));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium =
         Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
@@ -129,9 +124,6 @@ equation
                     color={0,0,127}));
   connect(res2.port_a, entFloRat.port_b) annotation (Line(points={{80,60},{60,
           60}}, color={0,127,255}));
-  connect(entFloRat2.H_flow, assertEquality1.u2) annotation (Line(points={{50,-71},
-          {50,-24},{140,-24},{140,14},{154,14}},
-                                    color={0,0,127}));
   connect(zero.y, vol2.mWat_flow) annotation (Line(points={{-19,-20},{-12,-20},
           {-12,-64},{-2,-64}}, color={0,0,127}));
   connect(TLiq.y, vol2.TWat) annotation (Line(points={{-19,-50},{-14,-50},{-14,
@@ -185,18 +177,6 @@ equation
       points={{60,10},{80,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(entFloRat.H_flow, assertEquality.u1) annotation (Line(
-      points={{50,71},{50,88},{158,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(entFloRat.H_flow, assertEquality1.u1) annotation (Line(
-      points={{50,71},{50,88},{140,88},{140,26},{154,26}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(entFloRat1.H_flow, assertEquality.u2) annotation (Line(
-      points={{50,21},{50,40},{146,40},{146,76},{158,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(res1.port_b, ada1.portAnnex60) annotation (Line(
       points={{-16,60},{-10,60}},
       color={0,127,0},
@@ -215,7 +195,7 @@ equation
       smooth=Smooth.None));
     annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,
-       extent={{-100,-100},{180,100}}),      graphics),
+       extent={{-100,-100},{140,100}}),      graphics),
 experiment(StopTime=2),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolume.mos"
         "Simulate and plot"),
