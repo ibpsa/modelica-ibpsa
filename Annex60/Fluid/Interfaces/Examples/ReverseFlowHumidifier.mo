@@ -2,7 +2,7 @@ within Annex60.Fluid.Interfaces.Examples;
 model ReverseFlowHumidifier
   "Model that tests the reverse flow for a humidifier"
   extends Modelica.Icons.Example;
-package Medium = Annex60.Media.Air;
+  package Medium = Annex60.Media.Air "Medium model";
   Annex60.Utilities.Diagnostics.AssertEquality assTem(threShold=0.01)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
@@ -30,7 +30,7 @@ package Medium = Annex60.Media.Air;
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Modelica.Blocks.Sources.Constant u2(k=0.01) "Control input"
     annotation (Placement(transformation(extent={{-92,54},{-80,66}})));
-  Modelica.Fluid.Sources.MassFlowSource_T source1(
+  Annex60.Fluid.Sources.MassFlowSource_T source1(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
     use_T_in=false,
@@ -85,7 +85,7 @@ package Medium = Annex60.Media.Air;
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{38,-100},{58,-80}})));
-  Modelica.Fluid.Sources.MassFlowSource_T source2(
+  Annex60.Fluid.Sources.MassFlowSource_T source2(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
     use_T_in=false,
