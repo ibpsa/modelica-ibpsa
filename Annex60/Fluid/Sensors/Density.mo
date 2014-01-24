@@ -10,9 +10,9 @@ model Density "Ideal one port density sensor"
 
 equation
   d = Medium.density(
-       state=Medium.setState_phX(
+       state=Medium.setState_pTX(
          p=port.p,
-         h=inStream(port.h_outflow),
+         T=inStream(port.T_outflow),
          X=inStream(port.Xi_outflow)));
 annotation (defaultComponentName="senDen",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -43,6 +43,10 @@ prior to using this model with one fluid port.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation.

@@ -2,7 +2,7 @@ within Annex60.Fluid.MixingVolumes.Examples;
 model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
   extends Modelica.Icons.Example;
  package Medium = Annex60.Media.Air;
-  Modelica.Fluid.Sources.MassFlowSource_T sou(
+  Annex60.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,
     use_m_flow_in=false,
@@ -29,13 +29,11 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(sou.ports[1], vol.ports[1]) annotation (Line(
-      points={{-40,6.66134e-16},{-26,6.66134e-16},{-26,-5.55112e-16},{-12,
-          -5.55112e-16}},
+      points={{-40,6.66134e-16},{-26,6.66134e-16},{-26,-2},{-10,-2}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol.ports[2], bou.ports[1]) annotation (Line(
-      points={{-8,-5.55112e-16},{6,-5.55112e-16},{6,1.55431e-15},{20,
-          1.55431e-15}},
+      points={{-10,2},{6,2},{6,1.55431e-15},{20,1.55431e-15}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Documentation(
@@ -45,6 +43,10 @@ This model demonstrates the use of the mixing volume with air flowing into and o
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 October 12, 2009 by Michael Wetter:<br/>
 First implementation.

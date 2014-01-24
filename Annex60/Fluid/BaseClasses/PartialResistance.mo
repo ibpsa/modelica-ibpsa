@@ -32,9 +32,10 @@ protected
   final parameter Modelica.SIunits.Pressure dp_nominal_pos = abs(dp_nominal)
     "Absolute value of nominal pressure";
 equation
-  // Isenthalpic state transformation (no storage and no loss of energy)
-  port_a.h_outflow = inStream(port_b.h_outflow);
-  port_b.h_outflow = inStream(port_a.h_outflow);
+  // Isenthalpic state transformation (no storage and no loss of energy),
+  // and assuming that cp is not a function of pressure.
+  port_a.T_outflow = inStream(port_b.T_outflow);
+  port_b.T_outflow = inStream(port_a.T_outflow);
 
   // Mass balance (no storage)
   port_a.m_flow + port_b.m_flow = 0;
@@ -81,6 +82,10 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>
 Removed propagation of <code>show_V_flow</code>

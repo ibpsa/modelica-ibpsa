@@ -18,9 +18,6 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
 protected
   Medium.Temperature TMed(start=T_start)
     "Medium temperature to which the sensor is exposed";
-  Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
-  Medium.Temperature T_b_inflow
-    "Temperature of inflowing fluid at port_b, or T_a_inflow if uni-directional flow";
 initial equation
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
@@ -32,20 +29,13 @@ initial equation
   end if;
 equation
   if allowFlowReversal then
-     T_a_inflow = Medium.temperature(state=
-                    Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
-     T_b_inflow = Medium.temperature(state=
-                    Medium.setState_phX(p=port_a.p, h=port_a.h_outflow, X=port_a.Xi_outflow));
      TMed = Modelica.Fluid.Utilities.regStep(
               x=port_a.m_flow,
-              y1=T_a_inflow,
-              y2=T_b_inflow,
+              y1=port_b.T_outflow,
+              y2=port_a.T_outflow,
               x_small=m_flow_small);
   else
-     TMed = Medium.temperature(state=
-              Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
-     T_a_inflow = TMed;
-     T_b_inflow = TMed;
+     TMed = port_b.T_outflow;
   end if;
   // Output signal of sensor
   if dynamic then
@@ -104,6 +94,10 @@ Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 

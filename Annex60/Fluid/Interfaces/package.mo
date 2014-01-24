@@ -108,8 +108,8 @@ see the <i>info</i> section of the class.
      Only parameters and fluid definitions are provided, but no
      equations.
      The model is identical to 
-     <a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">
-     Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has 
+     <a href=\"modelica://Annex60.Fluid.Interfaces.PartialTwoPort\">
+     Annex60.Fluid.Interfaces.PartialTwoPort</a>, except that it has 
      four ports.
   </td>
 </tr>

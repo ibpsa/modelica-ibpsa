@@ -23,9 +23,6 @@ protected
   Annex60.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulMod(
     redeclare package Medium = Medium,
     TWetBul(start=TWetBul_start)) "Block for wet bulb temperature";
-  Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
-  Medium.MassFraction Xi[Medium.nXi]
-    "Species vector, needed because indexed argument for the operator inStream is not supported";
 initial equation
   // Initialization of wet bulb temperature
   if dynamic then
@@ -38,23 +35,21 @@ initial equation
   end if;
 equation
   if allowFlowReversal then
-    h  = Modelica.Fluid.Utilities.regStep(
+    wetBulMod.TDryBul = Modelica.Fluid.Utilities.regStep(
            x=port_a.m_flow,
-           y1=port_b.h_outflow,
-           y2=port_a.h_outflow,
+           y1=port_b.T_outflow,
+           y2=port_a.T_outflow,
            x_small=m_flow_small);
-    Xi = Modelica.Fluid.Utilities.regStep(
+    wetBulMod.Xi = Modelica.Fluid.Utilities.regStep(
            x=port_a.m_flow,
            y1=port_b.Xi_outflow,
            y2=port_a.Xi_outflow,
            x_small=m_flow_small);
   else
-    h = port_b.h_outflow;
-    Xi = port_b.Xi_outflow;
+    wetBulMod.TDryBul = port_b.T_outflow;
+    wetBulMod.Xi = port_b.Xi_outflow;
   end if;
   // Compute wet bulb temperature
-  wetBulMod.TDryBul = Medium.temperature_phX(p=port_a.p, h=h, X=cat(1,Xi,{1-sum(Xi)}));
-  wetBulMod.Xi = Xi;
   wetBulMod.p  = port_a.p;
   TMedWetBul = wetBulMod.TWetBul;
   // Output signal of sensor
@@ -114,6 +109,10 @@ Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 September 10, 2013 by Michael Wetter:<br/>
 Set <code>start</code> attribute for <code>wetBulMod</code>

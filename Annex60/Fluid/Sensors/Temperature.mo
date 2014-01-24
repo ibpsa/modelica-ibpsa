@@ -10,8 +10,7 @@ model Temperature "Ideal one port temperature sensor"
     annotation (Placement(transformation(extent={{60,-10},{80,10}}, rotation=0)));
 
 equation
-  T = Medium.temperature(state=Medium.setState_phX(
-        p=port.p, h=inStream(port.h_outflow), X=inStream(port.Xi_outflow)));
+  T = Medium.temperature(inStream(port.T_outflow));
 annotation (defaultComponentName="senTem",
     Documentation(info="<html>
 <p>
@@ -27,6 +26,10 @@ prior to using this model with one fluid port.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation.

@@ -2,10 +2,10 @@ within Annex60.Fluid.Interfaces;
 model FourPortHeatMassExchanger
   "Model transporting two fluid streams between four ports with storing mass or energy"
   extends Annex60.Fluid.Interfaces.PartialFourPortInterface(
-    final h_outflow_a1_start = h1_outflow_start,
-    final h_outflow_b1_start = h1_outflow_start,
-    final h_outflow_a2_start = h2_outflow_start,
-    final h_outflow_b2_start = h2_outflow_start);
+    final T_outflow_a1_start = T1_outflow_start,
+    final T_outflow_b1_start = T1_outflow_start,
+    final T_outflow_a2_start = T2_outflow_start,
+    final T_outflow_b2_start = T2_outflow_start);
   extends Annex60.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true);
 
@@ -151,11 +151,11 @@ protected
 
   parameter Medium1.ThermodynamicState sta1_start=Medium1.setState_pTX(
       T=T1_start, p=p1_start, X=X1_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h1_outflow_start = Medium1.specificEnthalpy(sta1_start)
+  parameter Modelica.SIunits.Temperature T1_outflow_start = Medium1.temperature(sta1_start)
     "Start value for outflowing enthalpy";
   parameter Medium2.ThermodynamicState sta2_start=Medium2.setState_pTX(
       T=T2_start, p=p2_start, X=X2_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h2_outflow_start = Medium2.specificEnthalpy(sta2_start)
+  parameter Modelica.SIunits.Temperature T2_outflow_start = Medium2.temperature(sta2_start)
     "Start value for outflowing enthalpy";
 
 equation
@@ -213,6 +213,10 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 November 12, 2013, by Michael Wetter:<br/>
 Removed <code>import Modelica.Constants</code> statement.

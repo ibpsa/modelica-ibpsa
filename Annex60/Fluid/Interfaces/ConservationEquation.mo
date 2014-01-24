@@ -6,10 +6,11 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
+  Annex60.Fluid.Interfaces.FluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{-40,-10},{40,10}},
-      origin={0,-100})));
+    annotation (Placement(transformation(extent={{-10,-40},{10,40}},
+      origin={0,-100},
+        rotation=90)));
 
   // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
@@ -18,7 +19,6 @@ model ConservationEquation "Lumped volume with mass and energy balance"
       nominal=Medium.p_default,
       stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
                      then StateSelect.prefer else StateSelect.default),
-    h(start=hStart),
     T(start=T_start,
       nominal=Medium.T_default,
       stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
@@ -58,8 +58,11 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
 
   // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
-                                             start=hStart)
+  Modelica.Blocks.Interfaces.RealOutput TOut(unit="K",
+                                             nominal=300,
+                                             min=100,
+                                             max=500,
+                                             start=T_start)
     "Leaving enthalpy of the component"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -99,8 +102,6 @@ protected
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
-  parameter Modelica.SIunits.SpecificEnthalpy hStart=
-    Medium.specificEnthalpy(state_start) "Start value for specific enthalpy";
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
@@ -163,12 +164,15 @@ equation
   U = m*medium.u;
   mC = m*C;
 
-  hOut = medium.h;
+  TOut = medium.T;
   XiOut = medium.Xi;
   COut = C;
 
   for i in 1:nPorts loop
-    ports_H_flow[i]     = ports[i].m_flow * actualStream(ports[i].h_outflow)
+    ports_H_flow[i]     = ports[i].m_flow * Medium.specificEnthalpy_pTX(
+                                   p=medium.p,
+                                   T=actualStream(ports[i].T_outflow),
+                                   X=actualStream(ports[i].Xi_outflow))
       "Enthalpy flow";
     ports_mXi_flow[i,:] = ports[i].m_flow * actualStream(ports[i].Xi_outflow)
       "Component mass flow";
@@ -215,7 +219,7 @@ equation
   // Properties of outgoing flows
   for i in 1:nPorts loop
       ports[i].p          = medium.p;
-      ports[i].h_outflow  = medium.h;
+      ports[i].T_outflow  = medium.T;
       ports[i].Xi_outflow = medium.Xi;
       ports[i].C_outflow  = C;
   end for;
@@ -261,6 +265,10 @@ Annex60.Fluid.Storage.ExpansionVessel</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 September 17, 2013 by Michael Wetter:<br/>
 Added start value for <code>hOut</code>.
@@ -343,8 +351,8 @@ Implemented first version in <code>Buildings</code> library, based on model from
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics),
     Icon(graphics={            Rectangle(
           extent={{-100,100},{100,-100}},

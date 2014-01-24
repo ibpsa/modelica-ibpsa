@@ -6,13 +6,13 @@ model MixingVolumePrescribedHeatFlowRate
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Fluid.Sources.MassFlowSource_T sou(
+  Annex60.Fluid.Sources.MassFlowSource_T sou(
     nPorts=1,
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=313.15) "Flow source and sink"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Modelica.Fluid.Sources.FixedBoundary bou(
+  Annex60.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = Medium,
     nPorts=1,
     T=303.15) "Boundary condition"                         annotation (
@@ -46,7 +46,7 @@ model MixingVolumePrescribedHeatFlowRate
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 equation
   connect(sou.ports[1], vol.ports[1])         annotation (Line(
-      points={{0,-10},{38,-10},{38,20}},
+      points={{0,-10},{40,-10},{40,18}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(ramp.y, gain.u) annotation (Line(
@@ -58,7 +58,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(vol.ports[2], bou.ports[1]) annotation (Line(
-      points={{42,20},{43,20},{43,-10},{60,-10}},
+      points={{40,22},{43,22},{43,-10},{60,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(preHeaFlo.port, heaFlo.port_a) annotation (Line(
@@ -85,6 +85,10 @@ non-zero.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 October 12, 2009 by Michael Wetter:<br/>
 First implementation.

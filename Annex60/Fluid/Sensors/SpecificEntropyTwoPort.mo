@@ -33,9 +33,9 @@ initial equation
 equation
   if allowFlowReversal then
      s_a_inflow = Medium.specificEntropy(state=
-                    Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
+                    Medium.setState_pTX(p=port_b.p, T=port_b.T_outflow, X=port_b.Xi_outflow));
      s_b_inflow = Medium.specificEntropy(state=
-                    Medium.setState_phX(p=port_a.p, h=port_a.h_outflow, X=port_a.Xi_outflow));
+                    Medium.setState_pTX(p=port_a.p, T=port_a.T_outflow, X=port_a.Xi_outflow));
      sMed = Modelica.Fluid.Utilities.regStep(
            x=port_a.m_flow,
            y1=s_a_inflow,
@@ -43,7 +43,7 @@ equation
            x_small=m_flow_small);
   else
      sMed = Medium.specificEntropy(state=
-           Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
+           Medium.setState_pTX(p=port_b.p, T=port_b.T_outflow, X=port_b.Xi_outflow));
      s_a_inflow = sMed;
      s_b_inflow = sMed;
   end if;
@@ -78,6 +78,10 @@ Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Corrected wrong computation of <code>s</code> and <code>sMed</code>.

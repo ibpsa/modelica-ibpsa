@@ -1,7 +1,7 @@
 within Annex60.Fluid.Interfaces;
 partial model PartialTwoPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
-  extends Modelica.Fluid.Interfaces.PartialTwoPort(
+  extends Annex60.Fluid.Interfaces.PartialTwoPort(
     port_a(p(start=Medium.p_default,
              nominal=Medium.p_default)),
     port_b(p(start=Medium.p_default,
@@ -24,14 +24,14 @@ partial model PartialTwoPortInterface
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=
-      Medium.setState_phX(port_a.p,
-                          noEvent(actualStream(port_a.h_outflow)),
+      Medium.setState_pTX(port_a.p,
+                          noEvent(actualStream(port_a.T_outflow)),
                           noEvent(actualStream(port_a.Xi_outflow))) if
          show_T "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b=
-      Medium.setState_phX(port_b.p,
-                          noEvent(actualStream(port_b.h_outflow)),
+      Medium.setState_pTX(port_b.p,
+                          noEvent(actualStream(port_b.T_outflow)),
                           noEvent(actualStream(port_b.Xi_outflow))) if
           show_T "Medium properties in port_b";
 equation
@@ -46,8 +46,8 @@ equation
 <p>
 This component defines the interface for models that 
 transports a fluid between two ports. It is similar to 
-<a href=\"Modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
-Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not 
+<a href=\"Modelica://Annex60.Fluid.Interfaces.PartialTwoPortTransport\">
+Annex60.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not 
 include the species balance
 </p> 
 <pre>
@@ -64,6 +64,10 @@ Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 November 12, 2013 by Michael Wetter:<br/>
 Removed <code>import Modelica.Constants;</code> statement.

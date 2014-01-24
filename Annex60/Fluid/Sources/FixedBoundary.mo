@@ -1,6 +1,6 @@
 within Annex60.Fluid.Sources;
 model FixedBoundary "Boundary source component"
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
+  extends Annex60.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_p=true "select p or d"
     annotation (Evaluate = true,
                 Dialog(group = "Boundary pressure or Boundary density"));
@@ -80,6 +80,10 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation.

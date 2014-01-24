@@ -42,14 +42,25 @@ equation
                   y1=port_b.Xi_outflow,
                   y2=port_a.Xi_outflow,
                   x_small=m_flow_small);
-     hActual = Modelica.Fluid.Utilities.regStep(
-                 x=port_a.m_flow,
-                 y1=port_b.h_outflow,
-                 y2=port_a.h_outflow,
-                 x_small=m_flow_small);
+     hActual = Medium.specificEnthalpy(
+                 Medium.setState_pTX(
+                   p=port_a.p,
+                   T=Modelica.Fluid.Utilities.regStep(
+                       x=port_a.m_flow,
+                       y1=port_b.T_outflow,
+                       y2=port_a.T_outflow,
+                       x_small=m_flow_small),
+                   X=Modelica.Fluid.Utilities.regStep(
+                       x=port_a.m_flow,
+                       y1=port_b.Xi_outflow,
+                       y2=port_a.Xi_outflow,
+                       x_small=m_flow_small)));
+   // fixme: verify if this could be simplified by using TActual
   else
      XiActual = port_b.Xi_outflow;
-     hActual = port_b.h_outflow;
+     hActual = Medium.specificEnthalpy(Medium.setState_pTX(p=port_b.p, 
+                                                           T=port_b.T_outflow,
+                                                           X=port_b.Xi_outflow));
   end if;
   // Specific enthalpy measured by sensor
   hMed_out = (1-XiActual[i_x]) * Medium.enthalpyOfNonCondensingGas(
@@ -136,6 +147,10 @@ The sensor can only be used with medium models that implement the function
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>
 Changed medium declaration in the <code>extends</code> statement

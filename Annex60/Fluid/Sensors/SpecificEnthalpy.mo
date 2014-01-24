@@ -8,7 +8,9 @@ model SpecificEnthalpy "Ideal one port specific enthalpy sensor"
     annotation (defaultComponentName="senSpeEnt",
         Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
 equation
-  h_out = inStream(port.h_outflow);
+  h_out = Medium.specificEnthalpy(Medium.setState_pTX(p=port.p,
+                                                      T=inStream(port.T_outflow),
+                                                      X=inStream(port.Xi_outflow)));
 annotation (defaultComponentName="senSpeEnt",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
@@ -39,6 +41,10 @@ prior to using this model with one fluid port.
 ",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation.

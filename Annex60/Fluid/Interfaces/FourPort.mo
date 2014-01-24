@@ -1,5 +1,5 @@
 within Annex60.Fluid.Interfaces;
-model FourPort "Partial model with four ports"
+partial model FourPort "Partial model with four ports"
 
   outer Modelica.Fluid.System system "System wide properties";
 
@@ -17,51 +17,51 @@ model FourPort "Partial model with four ports"
     "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a1_start = Medium1.h_default
-    "Start value for enthalpy flowing out of port a1"
+  parameter Modelica.SIunits.Temperature T_outflow_a1_start = Medium1.T_default
+    "Start value for temperature flowing out of port a1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b1_start = Medium1.h_default
-    "Start value for enthalpy flowing out of port b1"
+  parameter Modelica.SIunits.Temperature T_outflow_b1_start = Medium1.T_default
+    "Start value for temperature flowing out of port b1"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_a2_start = Medium2.h_default
-    "Start value for enthalpy flowing out of port a2"
+  parameter Modelica.SIunits.Temperature T_outflow_a2_start = Medium2.T_default
+    "Start value for temperature flowing out of port a2"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_b2_start = Medium2.h_default
-    "Start value for enthalpy flowing out of port b2"
+  parameter Modelica.SIunits.Temperature T_outflow_b2_start = Medium2.T_default
+    "Start value for temperature flowing out of port b2"
     annotation (Dialog(tab="Advanced", group="Initialization"));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a1(
+  Annex60.Fluid.Interfaces.FluidPort_a port_a1(
                      redeclare package Medium = Medium1,
                      m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
-                     h_outflow(nominal=1E5, start=h_outflow_a1_start),
+                     T_outflow(nominal=300, start=T_outflow_a1_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}},
             rotation=0)));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b1(
+  Annex60.Fluid.Interfaces.FluidPort_b port_b1(
                      redeclare package Medium = Medium1,
                      m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0),
-                     h_outflow(nominal=1E5, start=h_outflow_b1_start),
+                     T_outflow(nominal=300, start=T_outflow_b1_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,50},{90,70}},  rotation=
              0), iconTransformation(extent={{110,50},{90,70}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a2(
+  Annex60.Fluid.Interfaces.FluidPort_a port_a2(
                      redeclare package Medium = Medium2,
                      m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0),
-                     h_outflow(nominal=1E5,start=h_outflow_a2_start),
+                     T_outflow(nominal=300,start=T_outflow_a2_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}},
             rotation=0)));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b2(
+  Annex60.Fluid.Interfaces.FluidPort_b port_b2(
                      redeclare package Medium = Medium2,
                      m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-                     h_outflow(nominal=1E5, start=h_outflow_b2_start),
+                     T_outflow(nominal=300, start=T_outflow_b2_start),
                      Xi_outflow(each nominal=0.01))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}},
@@ -83,11 +83,15 @@ this model to treat flow reversal.
 </p>
 <p>
 This model is identical to 
-<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">
-Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
+<a href=\"modelica://Annex60.Fluid.Interfaces.PartialTwoPort\">
+Annex60.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 November 12, 2013, by Michael Wetter:<br/>
 Removed <code>import Modelica.Constants</code> statement.

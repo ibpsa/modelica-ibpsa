@@ -31,10 +31,10 @@ initial equation
   end if;
 equation
   med_a_inflow.p  = port_a.p;
-  med_a_inflow.h  = port_b.h_outflow;
+  med_a_inflow.T  = port_b.T_outflow;
   med_a_inflow.Xi = port_b.Xi_outflow;
   med_b_inflow.p  = port_b.p;
-  med_b_inflow.h  = port_a.h_outflow;
+  med_b_inflow.T  = port_a.T_outflow;
   med_b_inflow.Xi = port_a.Xi_outflow;
   if allowFlowReversal then
     phiMed = Modelica.Fluid.Utilities.regStep(
@@ -84,6 +84,10 @@ Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 

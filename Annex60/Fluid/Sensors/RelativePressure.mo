@@ -5,13 +5,13 @@ model RelativePressure "Ideal relative pressure sensor"
     Modelica.Media.Interfaces.PartialMedium "Medium in the sensor"  annotation (
       choicesAllMatching = true);
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(m_flow(min=0),
+  Annex60.Fluid.Interfaces.FluidPort_a port_a(m_flow(min=0),
                                 p(start=Medium.p_default),
                                 redeclare package Medium = Medium)
     "Fluid connector of stream a"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
           rotation=0)));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(m_flow(min=0),
+  Annex60.Fluid.Interfaces.FluidPort_b port_b(m_flow(min=0),
                                 p(start=Medium.p_default),
                                 redeclare package Medium = Medium)
     "Fluid connector of stream b"
@@ -31,8 +31,8 @@ equation
   port_b.m_flow = 0;
 
   // No contribution of specific quantities
-  port_a.h_outflow = 0;
-  port_b.h_outflow = 0;
+  port_a.T_outflow = Medium.T_default;
+  port_b.T_outflow = Medium.T_default;
   port_a.Xi_outflow = zeros(Medium.nXi);
   port_b.Xi_outflow = zeros(Medium.nXi);
   port_a.C_outflow  = zeros(Medium.nC);
@@ -73,6 +73,10 @@ through the sensor is allowed.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation, based on <code>Modelica.Fluid</code>.

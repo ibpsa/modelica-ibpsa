@@ -12,21 +12,5 @@ with components of the
 Modelica.Blocks</a> 
 library.
 </p>
-</html>",
-      revisions="<html>
-<ul>
-<li><i>22 Dec 2008</i>
-    by R&uuml;diger Franke
-    <ul>
-    <li>flow sensors based on Modelica.Fluid.Interfaces.PartialTwoPort</li>
-    <li>adapted documentation to stream connectors, i.e. less need for two port sensors</li>
-    </ul>
-<li><i>4 Dec 2008</i>
-    by Michael Wetter<br/>
-       included sensors for trace substance</li>
-<li><i>31 Oct 2007</i>
-    by Carsten Heinrich<br/>
-       updated sensor models, included one and two port sensors for thermodynamic state variables</li>
-</ul>
-</html>"));
+</html>"))
 end Sensors;

@@ -2,7 +2,7 @@ within Annex60.Fluid.MixingVolumes.Examples;
 model MixingVolume
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air;
+  package Medium = Annex60.Media.Air "Medium model";
 
     Modelica.Blocks.Sources.Ramp P(
     duration=0.5,
@@ -63,21 +63,21 @@ model MixingVolume
   Modelica.Fluid.Vessels.ClosedVolume vol(
     redeclare package Medium = Medium,
     V=0.1,
-    nPorts=2,
     h_start=45300.945,
     use_portsData=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nPorts=2)
          annotation (Placement(transformation(extent={{0,60},{22,80}}, rotation=
            0)));
   Annex60.Utilities.Diagnostics.AssertEquality assertEquality
     annotation (Placement(transformation(extent={{160,72},{180,92}},rotation=0)));
-  Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium
-      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium =
+        Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,50},{60,70}}, rotation=0)));
-  Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium
-      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium =
+        Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,0},{60,20}},  rotation=0)));
   Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
@@ -103,11 +103,11 @@ model MixingVolume
     dp_nominal=2.5)
              annotation (Placement(transformation(extent={{80,-92},{100,-72}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1
+  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1(startTime=999999)
     annotation (Placement(transformation(extent={{156,10},{176,30}},   rotation=
            0)));
-  Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium
-      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium =
+        Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,-92},{60,-72}}, rotation=0)));
     Modelica.Blocks.Sources.Constant zero(k=0)
@@ -118,6 +118,12 @@ model MixingVolume
           rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+  Interfaces.AdaptorModelicaFluid ada1(redeclare package MediumAnnex60 = Medium)
+    "Adaptor to Modelica Standard Library connector"
+    annotation (Placement(transformation(extent={{-10,52},{-2,68}})));
+  Interfaces.AdaptorModelicaFluid ada2(redeclare package MediumAnnex60 = Medium)
+    "Adaptor to Modelica Standard Library connector"
+    annotation (Placement(transformation(extent={{32,52},{24,68}})));
 equation
   connect(P.y, sou.p_in) annotation (Line(points={{-79,70},{-72,70},{-72,66}},
                     color={0,0,127}));
@@ -155,28 +161,20 @@ equation
       points={{100,-82},{106,-82},{106,55.3333},{110,55.3333}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res1.port_b, vol.ports[1]) annotation (Line(
-      points={{-16,60},{8.8,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(vol.ports[2], entFloRat.port_a) annotation (Line(
-      points={{13.2,60},{40,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(res11.port_b, vol1.ports[1]) annotation (Line(
-      points={{-20,10},{8,10}},
+      points={{-20,10},{-6,10},{-6,8},{10,8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol1.ports[2], entFloRat1.port_a) annotation (Line(
-      points={{12,10},{40,10}},
+      points={{10,12},{26,12},{26,10},{40,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res21.port_b, vol2.ports[1]) annotation (Line(
-      points={{-20,-82},{8,-82}},
+      points={{-20,-82},{-6,-82},{-6,-84},{10,-84}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol2.ports[2], entFloRat2.port_a) annotation (Line(
-      points={{12,-82},{40,-82}},
+      points={{10,-80},{26,-80},{26,-82},{40,-82}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(entFloRat2.port_b, res22.port_a) annotation (Line(
@@ -199,8 +197,25 @@ equation
       points={{50,21},{50,40},{146,40},{146,76},{158,76}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{180,100}}),      graphics),
+  connect(res1.port_b, ada1.portAnnex60) annotation (Line(
+      points={{-16,60},{-10,60}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(ada1.portMSL, vol.ports[1]) annotation (Line(
+      points={{-2,60},{8.8,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(vol.ports[2], ada2.portMSL) annotation (Line(
+      points={{13.2,60},{24,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(ada2.portAnnex60, entFloRat.port_a) annotation (Line(
+      points={{32,60},{40,60}},
+      color={0,127,0},
+      smooth=Smooth.None));
+    annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+       extent={{-100,-100},{180,100}}),      graphics),
 experiment(StopTime=2),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolume.mos"
         "Simulate and plot"),
@@ -214,6 +229,10 @@ the simulation stops with an error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 October 24, 2013, by Michael Wetter:<br/>
 Set <code>vol(h_start=45300.945)</code>.

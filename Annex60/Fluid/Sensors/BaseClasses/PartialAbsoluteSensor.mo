@@ -6,7 +6,7 @@ partial model PartialAbsoluteSensor
     "Medium in the sensor"
     annotation(choicesAllMatching=true);
 
-  Modelica.Fluid.Interfaces.FluidPort_a port(redeclare package Medium=Medium, m_flow(min=0))
+  Annex60.Fluid.Interfaces.FluidPort_a port(redeclare package Medium=Medium, m_flow(min=0))
     annotation (Placement(transformation(
         origin={0,-100},
         extent={{-10,-10},{10,10}},
@@ -14,8 +14,8 @@ partial model PartialAbsoluteSensor
 
 equation
   port.m_flow = 0;
-  port.h_outflow = 0;
-  port.Xi_outflow = zeros(Medium.nXi);
+  port.T_outflow = Medium.T_default;
+  port.Xi_outflow = Medium.X_default[1:Medium.nXi];
   port.C_outflow = zeros(Medium.nC);
   annotation (Documentation(info="<html>
 <p>
@@ -28,6 +28,10 @@ Annex60.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 February 12, 2011, by Michael Wetter:<br/>
 First implementation.

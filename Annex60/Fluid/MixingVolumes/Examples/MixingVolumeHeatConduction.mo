@@ -11,13 +11,13 @@ model MixingVolumeHeatConduction "Test model for heat transfer to volume"
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAmb(T=293.15)
     "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Fluid.Sources.MassFlowSource_T sou(
+  Annex60.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=313.15,
     nPorts=1) "Flow source and sink"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Modelica.Fluid.Sources.FixedBoundary bou(
+  Annex60.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = Medium,
     T=303.15,
     nPorts=1) "Boundary condition"                         annotation (
@@ -65,11 +65,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sou.ports[1], vol.ports[1]) annotation (Line(
-      points={{0,-10},{38,-10},{38,20}},
+      points={{0,-10},{40,-10},{40,18}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol.ports[2], bou.ports[1]) annotation (Line(
-      points={{42,20},{42,-10},{60,-10}},
+      points={{40,22},{40,-10},{60,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Documentation(
@@ -80,6 +80,10 @@ The mixing volume is configured as a steady-state model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 October 12, 2009 by Michael Wetter:<br/>
 First implementation.

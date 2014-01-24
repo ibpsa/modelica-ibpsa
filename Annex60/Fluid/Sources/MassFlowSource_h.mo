@@ -1,7 +1,7 @@
 within Annex60.Fluid.Sources;
 model MassFlowSource_h
   "Ideal flow source that produces a prescribed mass flow with prescribed specific enthalpy, mass fraction and trace substances"
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
+  extends Annex60.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
     annotation(Evaluate=true, HideResult=true);
@@ -180,6 +180,10 @@ with exception of boundary flow rate, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation. 

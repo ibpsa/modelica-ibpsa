@@ -1,7 +1,7 @@
 within Annex60.Fluid.Sources;
 model TraceSubstancesFlowSource
   "Source with mass flow that does not take part in medium mass balance (such as CO2)"
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource(nPorts=1);
+  extends Annex60.Fluid.Sources.BaseClasses.PartialSource(nPorts=1);
 
   parameter String substanceName = "CO2" "Name of trace substance";
   parameter Boolean use_m_flow_in = false
@@ -63,6 +63,10 @@ made small compared to the room volume if the medium that leaves this
 component has a carbon dioxide concentration of <i>1</i>.
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>
 Added missing <code>each</code> in declaration of 

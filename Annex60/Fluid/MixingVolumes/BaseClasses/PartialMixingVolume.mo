@@ -21,10 +21,11 @@ partial model PartialMixingVolume
    annotation(Evaluate=true, Dialog(tab="Assumptions",
       enable=use_HeatTransfer,
       group="Heat transfer"));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
+  Annex60.Fluid.Interfaces.FluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{-40,-10},{40,10}},
-      origin={0,-100})));
+    annotation (Placement(transformation(extent={{-10,-40},{10,40}},
+      origin={0,-100},
+        rotation=90)));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port connected to outflowing medium"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -93,7 +94,7 @@ protected
   Modelica.SIunits.HeatFlowRate Q_flow
     "Heat flow across boundaries or energy source/sink";
   // Outputs that are needed to assign the medium properties
-  Modelica.Blocks.Interfaces.RealOutput hOut_internal(unit="J/kg")
+  Modelica.Blocks.Interfaces.RealOutput TOut_internal(unit="K")
     "Internal connector for leaving temperature of the component";
   Modelica.Blocks.Interfaces.RealOutput XiOut_internal[Medium.nXi](each unit="1")
     "Internal connector for leaving species concentration of the component";
@@ -125,7 +126,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
 
-    connect(hOut_internal,  steBal.hOut);
+    connect(TOut_internal,  steBal.TOut);
     connect(XiOut_internal, steBal.XiOut);
     connect(COut_internal,  steBal.COut);
   else
@@ -134,13 +135,13 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
 
-    connect(hOut_internal,  dynBal.hOut);
+    connect(TOut_internal,  dynBal.TOut);
     connect(XiOut_internal, dynBal.XiOut);
     connect(COut_internal,  dynBal.COut);
   end if;
   // Medium properties
   p = if nPorts > 0 then ports[1].p else p_start;
-  T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}));
+  T = TOut_internal;
   Xi = XiOut_internal;
   C = COut_internal;
   // Port properties
@@ -171,6 +172,10 @@ Annex60.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>
 Removed propagation of <code>show_V_flow</code>

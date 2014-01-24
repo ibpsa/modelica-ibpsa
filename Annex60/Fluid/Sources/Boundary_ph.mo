@@ -1,7 +1,7 @@
 within Annex60.Fluid.Sources;
 model Boundary_ph
   "Boundary with prescribed pressure, specific enthalpy, composition and trace substances"
-  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
+  extends Annex60.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_p_in = false
     "Get the pressure from the input connector"
     annotation(Evaluate=true, HideResult=true);
@@ -161,6 +161,10 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>
 First implementation.

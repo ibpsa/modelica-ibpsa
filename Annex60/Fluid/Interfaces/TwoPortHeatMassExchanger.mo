@@ -2,8 +2,8 @@ within Annex60.Fluid.Interfaces;
 model TwoPortHeatMassExchanger
   "Partial model transporting one fluid stream with storing mass or energy"
   extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
-    port_a(h_outflow(start=h_outflow_start)),
-    port_b(h_outflow(start=h_outflow_start)));
+    port_a(T_outflow(start=T_start)),
+    port_b(T_outflow(start=T_start)));
   extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true);
 
@@ -73,8 +73,6 @@ protected
     "Density, used to compute fluid volume";
   parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
       T=T_start, p=p_start, X=X_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
-    "Start value for outflowing enthalpy";
 
 initial algorithm
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
@@ -151,6 +149,10 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 November 12, 2013, by Michael Wetter:<br/>
 Removed <code>import Modelica.Constants</code> statement.

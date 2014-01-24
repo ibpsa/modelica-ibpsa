@@ -1,7 +1,7 @@
 within Annex60.Fluid.Sensors.BaseClasses;
 partial model PartialFlowSensor
   "Partial component to model sensors that measure flow properties"
-  extends Modelica.Fluid.Interfaces.PartialTwoPort;
+  extends Annex60.Fluid.Interfaces.PartialTwoPort;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate, used for regularization near zero flow"
     annotation(Dialog(group = "Nominal condition"));
@@ -14,8 +14,8 @@ equation
   // momentum equation (no pressure loss)
   port_a.p = port_b.p;
   // isenthalpic state transformation (no storage and no loss of energy)
-  port_a.h_outflow = inStream(port_b.h_outflow);
-  port_b.h_outflow = inStream(port_a.h_outflow);
+  port_a.T_outflow = inStream(port_b.T_outflow);
+  port_b.T_outflow = inStream(port_a.T_outflow);
   port_a.Xi_outflow = inStream(port_b.Xi_outflow);
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
   port_a.C_outflow = inStream(port_b.C_outflow);
@@ -29,6 +29,10 @@ species or substance balance, and it has no flow friction.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 February 12, 2011, by Michael Wetter:<br/>
 First implementation.

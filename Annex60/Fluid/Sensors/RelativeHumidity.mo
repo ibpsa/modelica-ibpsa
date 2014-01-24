@@ -13,7 +13,7 @@ protected
 
 equation
   med.p = port.p;
-  med.h = inStream(port.h_outflow);
+  med.T = inStream(port.T_outflow);
   med.Xi = inStream(port.Xi_outflow);
   phi = med.phi;
 
@@ -50,6 +50,10 @@ prior to using this model with one fluid port.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 May 12, 2010 by Michael Wetter:<br/>
 First implementation.

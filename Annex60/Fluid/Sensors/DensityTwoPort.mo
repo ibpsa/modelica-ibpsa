@@ -42,14 +42,14 @@ initial equation
 equation
   if allowFlowReversal then
      d_a_inflow = Medium.density(
-       state=Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
+       state=Medium.setState_pTX(p=port_b.p, T=port_b.T_outflow, X=port_b.Xi_outflow));
      d_b_inflow = Medium.density(
-       state=Medium.setState_phX(p=port_a.p, h=port_a.h_outflow, X=port_a.Xi_outflow));
+       state=Medium.setState_pTX(p=port_a.p, T=port_a.T_outflow, X=port_a.Xi_outflow));
      dMed = Modelica.Fluid.Utilities.regStep(
        x=port_a.m_flow, y1=d_a_inflow, y2=d_b_inflow, x_small=m_flow_small);
   else
      dMed = Medium.density(
-       state=Medium.setState_phX(p=port_b.p, h=port_b.h_outflow, X=port_b.Xi_outflow));
+       state=Medium.setState_pTX(p=port_b.p, T=port_b.T_outflow, X=port_b.Xi_outflow));
      d_a_inflow = dMed;
      d_b_inflow = dMed;
   end if;
@@ -88,6 +88,10 @@ Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that 

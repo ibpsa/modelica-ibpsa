@@ -38,7 +38,7 @@ model StaticTwoPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
   // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg")
+  Modelica.Blocks.Interfaces.RealOutput TOut(unit="K")
     "Leaving temperature of the component";
 
   Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
@@ -59,7 +59,7 @@ protected
     masExc(final y=mWat_flow) "Block to set moisture exchange in volume"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
-  connect(vol.hOut, hOut);
+  connect(vol.TOut, TOut);
   connect(vol.XiOut, XiOut);
   connect(vol.COut, COut);
   connect(port_a,preDro. port_a) annotation (Line(
@@ -94,8 +94,8 @@ equation
 <p>
 This component transports fluid between its two ports, without
 storing mass or energy. It is based on 
-<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
-Modelica.Fluid.Interfaces.PartialTwoPortTransport</a> but it does
+<a href=\"modelica://Annex60.Fluid.Interfaces.PartialTwoPortTransport\">
+Annex60.Fluid.Interfaces.PartialTwoPortTransport</a> but it does
 use a different implementation for handling reverse flow because
 in this component, mass flow rate can be added or removed from
 the medium.
@@ -128,6 +128,10 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 23, 2014, by Michael Wetter:<br/>
+Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+</li>
 <li>
 November 13, 2013 by Michael Wetter:<br/>
 Added parameter <code>homotopyInitialization</code> as
