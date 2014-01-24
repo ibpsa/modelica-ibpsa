@@ -10,7 +10,7 @@ model Temperature "Ideal one port temperature sensor"
     annotation (Placement(transformation(extent={{60,-10},{80,10}}, rotation=0)));
 
 equation
-  T = Medium.temperature(inStream(port.T_outflow));
+  T = inStream(port.T_outflow);
 annotation (defaultComponentName="senTem",
     Documentation(info="<html>
 <p>
