@@ -12,5 +12,5 @@ with components of the
 Modelica.Blocks</a> 
 library.
 </p>
-</html>"))
+</html>"));
 end Sensors;
