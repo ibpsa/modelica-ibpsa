@@ -1,12 +1,1 @@
 simulateModel("Annex60.Utilities.Math.Functions.Examples.IsMonotonic", method="dassl", resultFile="IsMonotonic");
-removePlots();
-createPlot(id = 5,
- y = {"x_incStrict[1]", "x_incStrict[2]","x_incStrict[3]"},
- autoscale = true,
- autoerase = true,
- autoreplot = true,
- grid = true,
- color = true,
- filename = "IsMonotonic.mat",
- leftTitleType = 1,
- bottomTitleType = 1);
