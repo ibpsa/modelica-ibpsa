@@ -41,18 +41,21 @@ protected
   Real[nSurf] areaAbsDifSol=area .* epsSw "longwave emissivity weighted areas";
   Real areaAbsDifTotSol=sum(areaAbsDifSol)
     "sum of longwave emissivity weighted areas";
-  Real[nSurf] areaAbsDifGain=area .* epsLw
-    "shortwave emissivity weighted areas";
-  Real areaAbsDifTotGain=sum(areaAbsDifGain)
+  Real[nSurf] areaAbsGain=area .* epsLw "shortwave emissivity weighted areas";
+  Real areaAbsTotGain=sum(areaAbsGain)
     "sum of shortwave emissivity weighted areas";
-  Real[nSurf] weightFactor=area ./ (ones(nSurf)*sum(area))
+
+  Real[nSurf] weightFactorDir = 0.96 * area ./ (ones(nSurf)*sum(area))
+    "weightfactor for received direct shortwave solar radiation";
+  Real[nSurf] weightFactorDif = 0.96 * areaAbsDifSol ./ (ones(nSurf)*areaAbsDifTotSol)
+    "weightfactor for received direct shortwave solar radiation";
+  Real[nSurf] weightFactorGain = areaAbsGain ./ (ones(nSurf)*areaAbsTotGain)
     "weightfactor for received direct shortwave solar radiation";
 
 equation
   for k in 1:nSurf loop
-    radSurfTot[k].Q_flow = -areaAbsDifSol[k]*iSolDif.Q_flow/areaAbsDifTotSol -
-      weightFactor[k]*iSolDir.Q_flow - areaAbsDifGain[k]*radGain.Q_flow/
-      areaAbsDifTotGain;
+    radSurfTot[k].Q_flow = -weightFactorDif[k]*iSolDif.Q_flow -
+      weightFactorDir[k]*iSolDir.Q_flow - weightFactorGain[k]*radGain.Q_flow;
   end for;
 
   TRad = sum(radSurfTot.T .* area/sum(area));
