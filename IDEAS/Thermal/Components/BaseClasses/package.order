@@ -10,3 +10,5 @@ MixingVolume
 Thermostatic3WayValve
 VariableThermalConductor
 FH_Characteristics
+ThreeWayValveMotor
+ThreeWayValveSwitch

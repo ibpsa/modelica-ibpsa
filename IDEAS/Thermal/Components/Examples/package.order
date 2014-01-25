@@ -14,9 +14,12 @@ NakedTabsTester
 Tabs
 Tabs_Discretized
 FloorHeatingValidation
+FloorHeatingValidation_v2
 FloorHeatingValidation2
 FloorHeatingTester
 FloorHeatingComparisonDiscrete
 StorageTank_Losses
 StorageTank_StratifiedInlet
 StorageTank_DHW_HP
+ThreeWayValveMotor
+ThreeWayValveSwitch3

@@ -10,6 +10,9 @@ record FH_Characteristics
   // Changed 20110629:
   // Important: this record ALSO contains the parameters that are specific to the building.
 
+  parameter Boolean tabs = true
+    "true if the model is used for tabs, false if the model is used for floor heating";
+
   parameter Modelica.SIunits.Length T(
     min=0.15,
     max=0.3) = 0.2 "Pipe spacing, limits imposed by prEN 15377-3 p22";
@@ -31,6 +34,12 @@ record FH_Characteristics
   constant Integer n1=3 "Number of discrete capacities in upper layer";
   constant Integer n2=3 "Number of discrete capacities in lower layer";
 
+  // Extra parameters for floor heating
+  parameter Modelica.SIunits.ThermalConductivity lambda_i = 0.036
+    "heat conductivity of the isolation";
+  parameter Modelica.SIunits.Length d_i = 0.05 "Thickness of the insulation";
+  final parameter Real alp2 = lambda_i / d_i
+    "help variable for resistance calculation";
   annotation (Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Record containing the properties of a floor heating or TABS.  The&nbsp;terminology&nbsp;from&nbsp;prEN&nbsp;15377&nbsp;is&nbsp;followed,&nbsp;even&nbsp;if&nbsp;I&nbsp;find&nbsp;the&nbsp;development&nbsp;of&nbsp;the&nbsp;theory by&nbsp;Koschenz&nbsp;and&nbsp;Lehmann&nbsp;better&nbsp;(see&nbsp;Thermoaktive&nbsp;Bauteilsysteme&nbsp;tabs,&nbsp;from&nbsp;Empa)</p>

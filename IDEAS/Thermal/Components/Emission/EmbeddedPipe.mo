@@ -18,8 +18,13 @@ model EmbeddedPipe
   final parameter Modelica.SIunits.ThermalInsulance R_r=FHChars.T*log(FHChars.d_a
       /(FHChars.d_a - 2*FHChars.s_r))/(2*Modelica.Constants.pi*FHChars.lambda_r)
     "Fix resistance of thermal conduction through pipe wall";
-  final parameter Modelica.SIunits.ThermalInsulance R_x=(FHChars.T*log(FHChars.T
-      /(3.14*FHChars.d_a)))/(2*3.14*FHChars.lambda_b)
+
+  //Calculation of the resistance from the outer pipe wall to the center of the tabs / floorheating.
+  final parameter Real corr = if FHChars.tabs then 0 else sum( -(FHChars.alp2/FHChars.lambda_b * FHChars.T - 2*3.14*s)/(FHChars.alp2/FHChars.lambda_b * FHChars.T + 2*3.14*s)*exp(-4*3.14*s/FHChars.T*FHChars.S_2)/s for s in 1:100)
+    "correction factor for the floor heating. If tabs is used, corr=0";
+  parameter Real test = FHChars.T*log(FHChars.T /(3.14*FHChars.d_a));
+  final parameter Modelica.SIunits.ThermalInsulance R_x=FHChars.T*(log(FHChars.T
+      /(3.14*FHChars.d_a)) + corr)/(2*3.14*FHChars.lambda_b)
     "Fix resistance of thermal conduction from pipe wall to layer";
 
   // Auxiliary parameters and variables ////////////////////////////////////////////////////////////////
@@ -58,16 +63,20 @@ model EmbeddedPipe
 
   // Equations and stuff ////////////////////////////////////////////////////////////////////////
 initial equation
-  assert(FHChars.S_1 > 0.3*FHChars.T, "Thickness of the concrete or screed layer above the tubes is smaller than 0.3 * the tube interdistance. 
-    The model is not valid for this case");
-  assert(FHChars.S_2 > 0.3*FHChars.T, "Thickness of the concrete or screed layer under the tubes is smaller than 0.3 * the tube interdistance. 
-    The model is not valid for this case");
   assert(rey > 2700,
     "The minimal flowrate leads to laminar flow.  Adapt the model (specifically R_w) to these conditions");
   assert(m_flowMinSp*medium.cp*(R_w + R_r + R_x) >= 0.5,
     "Model is not valid, division in n parts is required");
-
-equation
+  if FHChars.tabs then
+    assert(FHChars.S_1 > 0.3*FHChars.T, "Thickness of the concrete or screed layer above the tubes is smaller than 0.3 * the tube interdistance. 
+    The model is not valid for this case");
+    assert(FHChars.S_2 > 0.3*FHChars.T, "Thickness of the concrete or screed layer under the tubes is smaller than 0.3 * the tube interdistance. 
+      The model is not valid for this case");
+  else
+    assert(FHChars.alp2 < 1.212, "In order to use the floor heating model, FHChars.alp2 need to be < 1.212");
+    assert(FHChars.d_a/2 < FHChars.S_2, "In order to use the floor heating model, FHChars.alp2FHChars.d_a/2 < FHChars.S_2 needs to be true");
+    assert(FHChars.S_1/FHChars.T <0.3, "In order to use the floor heating model, FHChars.S_1/FHChars.T <0.3 needs to be true");
+  end if;
 
 algorithm
   if noEvent(abs(flowPort_a.m_flow) > m_flowMin/10) then
@@ -131,7 +140,7 @@ equation
     Icon(graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
-<p>Dynamic model of an embedded pipe for a concrete core activation element. This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;the&nbsp;norm&nbsp;prEN&nbsp;15377&nbsp;for&nbsp;the&nbsp;nomenclature&nbsp;but&nbsp;relies&nbsp;more&nbsp;on&nbsp;the&nbsp;background&nbsp;as&nbsp;developed&nbsp;in&nbsp;(Koschenz,&nbsp;2000).&nbsp; There&nbsp;is&nbsp;one&nbsp;major&nbsp;deviation:&nbsp;instead&nbsp;of&nbsp;calculating&nbsp;R_z&nbsp;(to&nbsp;get&nbsp;the&nbsp;mean&nbsp;water&nbsp;temperature&nbsp;in&nbsp;the&nbsp;tube&nbsp;from&nbsp;the&nbsp;supply&nbsp;temperature&nbsp;and&nbsp;flowrate),&nbsp;this&nbsp;mean&nbsp;water&nbsp;temperatue&nbsp;is&nbsp;modelled&nbsp;specifically,&nbsp;based&nbsp;on&nbsp;the&nbsp;mass&nbsp;of&nbsp;the&nbsp;water&nbsp;in&nbsp;the&nbsp;system.<code><font style=\"color: #006400; \">&nbsp;&nbsp;</font></code></p>
+<p>Dynamic model of an embedded pipe for a concrete core activation or a floor heating element. This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;the&nbsp;norm&nbsp;prEN&nbsp;15377&nbsp;for&nbsp;the&nbsp;nomenclature&nbsp;but&nbsp;relies&nbsp;more&nbsp;on&nbsp;the&nbsp;background&nbsp;as&nbsp;developed&nbsp;in&nbsp;(Koschenz,&nbsp;2000).&nbsp;The R_x for the floor heating is calculated according to the TRNSYS guide lines (TRNSYS, 2007)  There&nbsp;is&nbsp;one&nbsp;major&nbsp;deviation:&nbsp;instead&nbsp;of&nbsp;calculating&nbsp;R_z&nbsp;(to&nbsp;get&nbsp;the&nbsp;mean&nbsp;water&nbsp;temperature&nbsp;in&nbsp;the&nbsp;tube&nbsp;from&nbsp;the&nbsp;supply&nbsp;temperature&nbsp;and&nbsp;flowrate),&nbsp;this&nbsp;mean&nbsp;water&nbsp;temperatue&nbsp;is&nbsp;modelled&nbsp;specifically,&nbsp;based&nbsp;on&nbsp;the&nbsp;mass&nbsp;of&nbsp;the&nbsp;water&nbsp;in&nbsp;the&nbsp;system.<code><font style=\"color: #006400; \">&nbsp;&nbsp;</font></code></p>
 <p>The water&nbsp;mass is lumped&nbsp;to&nbsp;TOut.&nbsp;&nbsp;This&nbsp;seems&nbsp;to&nbsp;give&nbsp;the&nbsp;best&nbsp;results (see validation).&nbsp;&nbsp;When&nbsp;lumping&nbsp;to&nbsp;TMean&nbsp;there&nbsp;are&nbsp;additional&nbsp;algebraic&nbsp;constraints&nbsp;to&nbsp;be&nbsp;imposed&nbsp;on&nbsp;TOut&nbsp;which&nbsp;is&nbsp;not so elegant.&nbsp;For most simulations, TOut&nbsp;is&nbsp;more&nbsp;important&nbsp;(influences&nbsp;efficiencies&nbsp;of&nbsp;heat&nbsp;pumps,&nbsp;storage&nbsp;stratification&nbsp;etc.)</p>
 <p>This model gives&nbsp;exactly&nbsp;the&nbsp;same&nbsp;results&nbsp;as&nbsp;the&nbsp;norm&nbsp;in&nbsp;both&nbsp;dynamic&nbsp;and&nbsp;static&nbsp;results,&nbsp;but&nbsp;is&nbsp;also&nbsp;able&nbsp;to&nbsp;cope&nbsp;with&nbsp;no-flow&nbsp;conditions.</p>
 <p><h4>Assumptions and limitations </h4></p>
@@ -164,6 +173,7 @@ equation
 <p>See combinations with NakedTabs in a Tabs model. </p>
 <p><h4>References</h4></p>
 <p>[Koshenz, 2000] - Koschenz, Markus, and Beat Lehmann. 2000. <i>Thermoaktive Bauteilsysteme - Tabs</i>. D&uuml;bendorf: EMPA D&uuml;bendorf. </p>
+<p>[TRNSYS, 2007] - Multizone Building modeling with Type 56 and TRNBuild.</p>
 </html>", revisions="<html>
 <p><ul>
 <li>2013 May, Roel De Coninck: documentation</li>
