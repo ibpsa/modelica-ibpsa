@@ -131,19 +131,32 @@ The total convective and longwave heat transfer through thin gas gaps as present
 where $A_{x}$ is the glazing surface, $d_{x}$ is the gap width, $\textrm{Nu}_{x}$ is the Nusselt number of the gas, $\varepsilon_{x}$ is the longwave emissivity of the surfaces, $\varsigma_{x}$ equals $1-\varepsilon_{x}$ and $T_{\textrm{si}}$ is the surface temperature. The Nusselt number of the present gas in the gap describing the ratio of convective to conductive heat transfer is generally described is where $\textrm{Gr}_{x}$ is the Grashof number approximating the ratio of buoyancy to viscous force acting on the window gap gas, $g$ is the gravitational acceleration, $\beta$ is the coefficient of thermal expansion, $\rho$ is the gas density, $\mu$ is the gas viscosity and $n_{\textrm{i,:}}$ are correlation coefficients. These parameters $\{n_{\textrm{i,1}},n_{\textrm{i,2}}\}$ are identical to $\{1.0,0\}$ for all $\textrm{Gr}_{x}$ below $7.10^{3}$, $\{0.0384,0.37\}$ for all $\textrm{Gr}_{x}$ between $10^{4}$ and $8.10^{4}$, $\{0.41,0.16\}$ for all $\textrm{Gr}_{x}$ between $8.10^{4}$ and $2.10^{5}$ and $\{0.0317,0.37\}$ for all $\textrm{Gr}_{x}$ above $2.10^{5}$. 
 
 \paragraph{Shortwave optical properties}
-The properties for absorption by and transmission through the glazing are taken into account depending on the angle of incidence of solar irradiation and are based on the output of the WINDOW 4.0 software~\cite{Lawrence1993,Finlayson1993} as validated by Arasteh~\cite{Arasteh1986} and Furler~\cite{Furler1988}. Within this software, the angular dependence of the optical properties is determined based on the model of Furler~\cite{Furler1991}. The reflectivity $r$ and  transmissivity $t$ are determined with the Fresnel equations~\cite{Fresnel1926} and Snell's Law of refraction~\cite{Snellius1627},  based on the relative refractive index n as follows \\*
+The properties for absorption by and transmission of shortwave radiation through glazing are taken into account depending on the angle of incidence of solar irradiation. The windows' spectral properties are however not calculated within the simulation, but obtained in pre-process from the \mbox{\textsc{Window} 4.0} software\citep{Lawrence1993,Finlayson1993} as validated by Arasteh\citep{Arasteh1986} and Furler\citep{Furler1988,Furler1991}. \\*
+%
+The applied implementation requires the spectrally averaged window properties, \ie the directional total transmittance $T_{sw}^{\triangle}$ and hemispherical total transmittance $T_{sw}^{\Diamond}$ of the window, and the directional total absorbtance $\{A_{sw,j}^{\triangle}\}_{j=1}^{\mathcal{J}}$ and hemispherical total absorbtance $\{A_{sw,j}^{\Diamond}\}_{j=1}^{\mathcal{J}}$ for each glass pane $j \in \mathcal{J}$ of the window such that the transmitted and absorbed irradiation on surface $k$ are defined as \\*
 \begin{gather}
-r_{x} = 0.5\sin^{2}\Delta_{x} \sin^{-2}\Delta_{x} + 0.5\tan^{2}\Delta_{x}\tan^{-2}\Delta_{x} \\
-\Delta_{x}=\xi_{x}-\xi'_{x} \mbox{ st. } \sin \xi_{x} = n\sin \xi'_{x}
+\overrightarrow{\tv{E}}_{D}^{\s} + \overrightarrow{\tv{E}}_{d}^{\s} \triangleq T_{sw}^{\triangle} \tv{E}_{D}^{\s} + T_{sw}^{\Diamond} \tv{E}_{d}^{\s}\\
+\qflow_{abs,j} \triangleq A_{sw}^{\triangle} \tv{E}_{D}^{\s} + A_{sw}^{\Diamond} \tv{E}_{d}^{\s}
 \end{gather}
-where $\Delta_{x}=\xi_{x}-\xi'_{x}$ wherefore counts that $\sin \xi_{x} = n\sin \xi'_{x}$. The resulting transmittance $T_{x}$ and reflectance $R_{x}$ for a single glass pane after multiple reflections is obtained from \\*
+with $\tv{E}_{D}^{\s}$ and $\tv{E}_{D}^{\s}$ respectively the direct and diffuse incident solar irradiation. These properties are defined for each incident angle $\xi \in \mathcal{I} \triangleq \left\{0^{\circ},10^{\circ},20^{\circ},\ldots ,90^{\circ},\Diamond \right\}$.\\*
+%
+All the required parameters are obtained in \textsc{Window} 4.0 by solving the equations \\*
 \begin{gather}
-T_{x} = t_{0}^{2} \, \exp\left(-\alpha_{x} d_{x}/\cos \xi_{x} \right) \left(1-r_{x}^{2} \exp\left(-\alpha d_{x}/\cos \xi_{x}\right)\right)^{-1} \\
-R_{x} = r_{x} \left(1+T_{x} \, \exp\left(-\alpha_{x} d_{x}/\cos \xi_{x}\right)\right)
+T_{i,j-1}^{s} T_{j,j}^{s} = T_{i,j}^{s} \left( 1 - R_{j,j}^{s_{f}} R_{j-1,i}^{s_{b}}\right)\\
+T_{i,j-1}^{s,2} R_{j,j}^{s_{f}} = \left(R_{i,j}^{s_{f}} - R_{i,j-1}^{s_{f}}\right) \left( 1 - R_{j,j}^{s_{f}} R_{j-1,i}^{s_{b}}\right)  \\
+T_{j,j}^{s,2} R_{j-1,j}^{s_{b}} = \left(R_{j,i}^{s_{b}} - R_{j,j}^{s_{f}} \right)  \left( 1 - R_{j-1,i}^{s_{b}} R_{j,j}^{s_{f}}\right)\\
+\begin{array}{ll}
+A_{j}^{s} = & T_{1,j-1}^{s} \left( 1 - T_{j,j}^{s} - R_{j,j}^{s_{f}} \right) \left( 1 - R_{j,N}^{s_{f}} R_{j-1,1}^{s_{b}}\right)^{-1} \\
+& + \, T_{1,j}^{s} R_{j+1,N}^{s_{f}} \left(1 - T_{j,j}^{s} - R_{j,j}^{s_{b}} \right) \left( 1 - R_{j,1}^{s_{b}} R_{j+1,N}^{s_{f}}\right)^{-1}
+\end{array}
 \end{gather}
-where $d_{x}$ is the thickness of the pane and $\alpha_{x}$ is absorption coefficient. The total transmittance $T_{x}$ and the absorptances $A_{\textrm{i,:}}$ for multipane windows are retrieved using iterative equations taking into account the multiple internal reflections within the glazing system.
+for $T_{1,N}^{s}$ and $\{A_{j}^{s}\}_{j=1}^{\mathcal{J}}$ based on the notion that all spectral properties $P_{s} \triangleq \{ T, R, A \}$ are defined as \\*
+\begin{equation}
+P_{s} = \int P \left(\lambda\right) E_{s} \left(\lambda\right) \mbox{d} \lambda
+\end{equation}
+wherefore $E_{s}$ is the solar specral irradiance, and $T_{i,j}^{s}\left(\lambda\right)$ and $R_{i,j}^{s}\left(\lambda\right)$ refer to the solar transmittance through and the solar reflectance from $i$ to $j$ as function of wavelength $\lambda$ as if they were standing alone. The superscripts $f$ and $b$ denote respectively reflectance from the front and back side.
 
-The resulting output from WINDOW 4.0 ~\cite{Lawrence1993} depicts an array of the transmittances $T$ through the window and the absorptances $A_{x}$ for each glass pane $x$ for $\xi_{x}\in\left\{\left(k/18\right\}\right)$ with $k\in\left\{0,1,\ldots,9\right\}$. The same array input is used in other dynamic building simulation tools, e.g. in TRNSYS~\cite{Solar2009} where values for different angles are retrieved by means of linear interpolation. 
+The resulting output from \mbox{\textsc{Window} 4.0} depicts an array of the transmittances $\{T^{i}\}_{i=1}^{\mathcal{I}}$ through the window and the absorptances $\{\{A_{j}^{i}\}_{j=1}^{\mathcal{J}}\}_{i=1}^{\mathcal{I}}$ for each glass pane $j \in \mathcal{J}$ and incidence angle $\xi \in \mathcal{I}$.
 
 \subsection{Ground slabs}
 
