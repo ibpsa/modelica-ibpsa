@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
-model Deadband "BESTEST deadband heating system"
+model Deadband_650 "BESTEST deadband heating system"
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     radiators=true,
     floorHeating=true,
@@ -7,7 +7,7 @@ model Deadband "BESTEST deadband heating system"
     QNom=zeros(nZones));
 
 protected
-  parameter Modelica.SIunits.Temperature Theat=293.15 "Heating on below 20degC";
+  parameter Modelica.SIunits.Temperature Theat=0 "No Heating";
   parameter Modelica.SIunits.Temperature Tcool=300.15 "Cooling on above 27degC";
 
   Modelica.Blocks.Sources.RealExpression realP(y=QHeatTotal)
@@ -41,4 +41,4 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
             -100},{200,100}}), graphics));
-end Deadband;
+end Deadband_650;
