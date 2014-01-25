@@ -23,8 +23,8 @@ model Window "Multipane window"
     constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
-  replaceable Interfaces.StateShading shaType constrainedby
-    Interfaces.StateShading "Shading type" annotation (
+  replaceable Interfaces.StateShading shaType(final azi=azi) constrainedby
+    Interfaces.StateShading(final azi=azi) "Shading type" annotation (
       __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
 
   Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controled
