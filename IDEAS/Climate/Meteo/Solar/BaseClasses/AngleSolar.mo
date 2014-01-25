@@ -3,9 +3,9 @@ model AngleSolar "solar angle to surface"
 
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
-  parameter Modelica.SIunits.Angle inc(displayUnit="degree") "inclination";
-  parameter Modelica.SIunits.Angle azi(displayUnit="degree") "azimuth";
-  parameter Modelica.SIunits.Angle lat(displayUnit="degree");
+  parameter Modelica.SIunits.Angle inc "inclination";
+  parameter Modelica.SIunits.Angle azi "azimuth";
+  parameter Modelica.SIunits.Angle lat;
 
 public
   Modelica.Blocks.Interfaces.RealInput angDec(
@@ -33,8 +33,10 @@ protected
   Real sinLat=Modelica.Math.sin(lat);
 
 equation
-  angInc = acos(cos(inc)*(cosDec*cosHou*cosLat + sinDec*sinLat) + sin(inc)*(sin(
-    azi)*cosDec*sinHou + cos(azi)*(cosDec*cosHou*sinLat - sinDec*cosLat)));
+//  angInc = acos( cos(inc)*(cosDec*cosHou*cosLat + sinDec*sinLat) + sin(inc)*(sin(
+//    azi)*cosDec*sinHou + cos(azi)*(cosDec*cosHou*sinLat - sinDec*cosLat)) );
+
+  angInc = acos(sinDec*sinLat*cos(inc) - sinDec*cosLat*sin(inc)*cos(azi) + cosDec*cosLat*cos(inc)*cosHou + cosDec*sinLat*sin(inc)*cos(azi)*cosHou + cosDec*sin(inc)*sin(azi)*sinHou);
 
   annotation (Icon(graphics={Ellipse(
           extent={{88,88},{40,42}},

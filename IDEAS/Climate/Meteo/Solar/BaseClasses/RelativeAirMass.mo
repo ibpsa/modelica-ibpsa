@@ -11,15 +11,12 @@ block RelativeAirMass
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
 
 protected
-  Real angZenLim "limited zenith angle";
   Real angZenDeg "limited zenith angle in degrees";
+  Real angZenLim;
 
 algorithm
-  angZenLim := IDEAS.BaseClasses.Math.MinSmooth(
-    angZen,
-    Modelica.Constants.pi/2,
-    0.01);
-  angZenDeg := Modelica.SIunits.Conversions.to_deg(angZenLim);
-  relAirMas := 1/(cos(angZenLim) + 0.50572*(96.07995 - angZenDeg)^(-1.6364));
+  angZenLim := IDEAS.BaseClasses.Math.MinSmooth(angZen,Modelica.Constants.pi/2,0.01);
+  angZenDeg := angZenLim*180/Modelica.Constants.pi;
+  relAirMas := 1/(cos(angZenLim) + 0.15*(93.9 - angZenDeg)^(-1.253));
 
 end RelativeAirMass;

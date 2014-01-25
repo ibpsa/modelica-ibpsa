@@ -11,9 +11,13 @@ block SkyClearness
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
 
+//  final parameter Real kappa=1.041 "original kappa of 1.014 but for degrees";
 protected
-  final parameter Real kappa=1.041 "original kappa of 1.014 but for degrees";
+  final parameter Real kappa = 5.534*10^(-6)
+    "original kappa of 1.014 but for degrees";
+
   Real solDifHor "smoothed horizontal difuse radiation";
+  Real angZenDeg = angZen*180/Modelica.Constants.pi;
 
 algorithm
   solDifHor := IDEAS.BaseClasses.Math.MaxSmooth(
@@ -21,7 +25,7 @@ algorithm
     1e-4,
     1e-5);
   skyCle := smooth(1, if noEvent(sim.solGloHor < 1) then 1 else ((sim.solGloHor)
-    /solDifHor + kappa*angZen^3)/(1 + kappa*angZen^3));
+    /solDifHor + kappa*angZenDeg^3)/(1 + kappa*angZenDeg^3));
 
   annotation (Diagram(graphics));
 end SkyClearness;

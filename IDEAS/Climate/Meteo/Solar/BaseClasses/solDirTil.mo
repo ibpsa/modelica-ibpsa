@@ -14,15 +14,15 @@ model solDirTil
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
 algorithm
-  if inc <= Modelica.Constants.small then
+//  if inc <= Modelica.Constants.small then
+//    solDirTil := IDEAS.BaseClasses.Math.MaxSmooth(
+//      0,
+//      A*sim.solDirHor,
+//      delta=0.01);
+//  else
     solDirTil := IDEAS.BaseClasses.Math.MaxSmooth(
       0,
-      A*sim.solDirHor,
+      A*cos(angSol)*sim.solDirPer,
       delta=0.01);
-  else
-    solDirTil := IDEAS.BaseClasses.Math.MaxSmooth(
-      0,
-      cos(angSol)*sim.solDirPer*A,
-      delta=0.01);
-  end if;
+//  end if;
 end solDirTil;
