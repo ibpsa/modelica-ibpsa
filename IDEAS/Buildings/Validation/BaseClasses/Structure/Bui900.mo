@@ -11,7 +11,7 @@ protected
     nSurf=8,
     V=129.6,
     n50=0.5*20,
-    corrCV=5,
+    corrCV=0.822,
     TOpStart=293.15,
     linear=true)
     annotation (Placement(transformation(extent={{40,0},{80,40}})));

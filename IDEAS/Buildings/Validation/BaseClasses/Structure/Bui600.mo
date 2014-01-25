@@ -6,7 +6,7 @@ model Bui600 "BESTEST Building model case 600"
     ATrans=1,
     VZones={gF.V});
 
-protected
+//protected
   IDEAS.Buildings.Components.Zone gF(
     nSurf=8,
     V=129.6,

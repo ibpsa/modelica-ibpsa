@@ -25,14 +25,14 @@ protected
         rotation=90,
         origin={-49,-14})));
 
-  IDEAS.Buildings.Components.SlabOnGround floor(
+  IDEAS.Buildings.Components.CommonWall floor(
+    redeclare final parameter Data.Constructions.HeavyFloor constructionType,
     redeclare final parameter Data.Insulation.insulation insulationType,
+    final insulationThickness=1.003,
     final AWall=48,
     final inc=IDEAS.Constants.Floor,
     final azi=IDEAS.Constants.South,
-    redeclare final parameter Data.Constructions.HeavyFloor constructionType,
-    final insulationThickness=1.007,
-    final PWall=28) annotation (Placement(transformation(
+    final TBou = 283.15) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-19,-14})));
@@ -42,13 +42,15 @@ protected
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     final azi={IDEAS.Constants.South,IDEAS.Constants.South},
     redeclare replaceable IDEAS.Buildings.Components.Shading.Overhang shaType(
-      each H=2.0,
-      each W=3.0,
-      each PH=1.0,
-      each RH=0.5,
-      each PV=0.0,
-      each RW=0.0),
-    redeclare IDEAS.Buildings.Data.Frames.None fraType) annotation (Placement(
+      each hWin=2.0,
+      each wWin=3.0,
+      each dep=1.0,
+      each gap=0.35,
+      azi = win.azi,
+      wLeft={0.5,4.5},
+      wRight = {4.5,0.5}),
+    redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType,
+    final frac = 0) annotation (Placement(
         transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,

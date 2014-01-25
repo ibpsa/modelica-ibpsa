@@ -46,13 +46,16 @@ protected
     redeclare final parameter Data.Glazing.GlaBesTest glazing,
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     final azi={IDEAS.Constants.East,IDEAS.Constants.West},
-    redeclare replaceable IDEAS.Buildings.Components.Shading.Overhang shaType(
-      each H=2.0,
-      each W=3.0,
-      each PH=1.0,
-      each RH=0.0,
-      each PV=1.0,
-      each RW=0.0),
+    redeclare replaceable IDEAS.Buildings.Components.Shading.Box shaType(
+      each hWin=2.0,
+      each wWin=3.0,
+      each wLeft=0,
+      each wRight = 0,
+      each ovDep=1.0,
+      each ovGap=0.35,
+      each finGap = 0,
+      each finDep=1.0,
+      each hFin=0.35),
     redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType,
     final frac = 0)
     annotation (Placement(transformation(

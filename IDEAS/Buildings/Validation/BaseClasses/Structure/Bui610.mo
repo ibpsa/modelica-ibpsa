@@ -44,12 +44,13 @@ protected
     final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
     final azi={IDEAS.Constants.South,IDEAS.Constants.South},
     redeclare replaceable IDEAS.Buildings.Components.Shading.Overhang shaType(
-      each H=2.0,
-      each W=3.0,
-      each PH=1.0,
-      each RH=0.5,
-      each PV=0.0,
-      each RW=0.0),
+      each hWin=2.0,
+      each wWin=3.0,
+      each dep=1.0,
+      each gap=0.35,
+      azi = win.azi,
+      wLeft={0.5,4.5},
+      wRight = {4.5,0.5}),
     redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType,
     final frac = 0)
     annotation (Placement(transformation(
