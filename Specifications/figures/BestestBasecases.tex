@@ -1,0 +1,52 @@
+\begin{tikzpicture}
+\begin{axis} [
+ width=12.8cm, height=4.9cm,
+ xmin=-0.8, xmax=13.8,
+ ymin=-0.1,  ymax=1.6,
+ scatter/classes={a={darkgray,scale=0.7,opacity=0.4},b={darkgray,mark=o,scale=0.7,opacity=0.4}}, 
+ xtick={0,1,2,3,4,5,6,7,8,9,10,11,12,13},
+ xticklabels={\eg,600,610,620,630,640,650,900,910,920,930,940,950,195},]
+ \addplot[scatter, only marks, scatter src=explicit symbolic] table [x=x,y=y1,meta=label]{./data/bestest.dat};
+ \addplot[scatter, only marks, scatter src=explicit symbolic] table [x=x,y=y2,meta=label]{./data/bestest.dat};
+ \addplot[scatter, only marks, scatter src=explicit symbolic] table [x=x,y=y3,meta=label]{./data/bestest.dat};
+ \addplot[scatter, only marks, scatter src=explicit symbolic] table [x=x,y=y4,meta=label]{./data/bestest.dat};
+ \addplot[scatter, only marks, scatter src=explicit symbolic] table [x=x,y=y5,meta=label]{./data/bestest.dat};
+ \addplot[scatter, only marks, scatter src=explicit symbolic] table [x=x,y=y6,meta=label]{./data/bestest.dat};
+ \addplot[scatter, only marks, scatter src=explicit symbolic] table [x=x,y=y7,meta=label]{./data/bestest.dat};
+% \addplot coordinates {(-1, 0.9)(15, 0.9)};
+ \addplot coordinates {(-1, 1)(15, 1)};
+ %reference
+ \addplot[color=black,mark=halfcircle*] coordinates {(-0.24, 1.05)(-0.08, 1.1)(0.08, 0.95)(0.24, 0.9)};
+ \node[pin=90:{\footnotesize $Q_{h}$}] at (axis cs:-0.24,1.05) {};
+ \node[pin=90:{\footnotesize $P_{h}$}] at (axis cs:0.08,0.95) {};
+ \node[pin=-90:{\footnotesize $Q_{c}$}] at (axis cs:-0.08,1.1) {};
+ \node[pin=-90:{\footnotesize $P_{c}$}] at (axis cs:0.24,0.9) {};
+ \node[pin=180:{\footnotesize \textsc{bestest}}] at (axis cs:3.92,1.403) {};
+ %case600
+ \addplot[color=black,mark=halfcircle*] coordinates {(0.76, 1.038)(0.92, 0.972)(1.08, 0.967)(1.24, 1.029)}; %wettercorr
+ %case610
+ \addplot[color=black,mark=halfcircle*] coordinates {(1.76, 1.034)(1.92, 0.944)(2.08, 0.967)(2.24, 0.961)}; %wettercorr
+ %case620
+ \addplot[color=black,mark=halfcircle*] coordinates {(2.76, 0.987)(2.92, 0.906)(3.08, 0.952)(3.24, 0.974)}; %wettercorr
+ %case630
+ \addplot[color=black,mark=halfcircle*] coordinates {(3.76, 0.943)(3.92, 1.045)(4.08, 0.966)(4.24, 0.998)}; %wettercorr
+ %case640
+ \addplot[color=black,mark=halfcircle*] coordinates {(4.76, 1.000)(4.92, 1.078)(5.08, 1.091)(5.24, 1.036)}; %wettercorr
+ %case 650
+ \addplot[color=black,mark=halfcircle*] coordinates {(5.92, 1.094)(6.24, 1.048)}; %wettercorr
+ %case900
+ \addplot[color=black,mark=halfcircle*] coordinates {(6.76, 0.828)(6.92, 0.797)(7.08, 0.906)(7.24, 0.828)}; %wettercorr
+ %case910
+ \addplot[color=black,mark=halfcircle*] coordinates {(7.76, 0.792)(7.92, 0.636)(8.08, 0.862)(8.24, 0.808)}; %wettercorr
+ %case920
+ \addplot[color=black,mark=halfcircle*] coordinates {(8.76, 0.839)(8.92, 0.787)(9.08, 0.874)(9.24, 0.846)}; %wettercorr
+ %case930
+ \addplot[color=black,mark=halfcircle*] coordinates {(9.76, 0.781)(9.92, 0.906)(10.08, 0.878)(10.24, 0.884)}; %wettercorr
+ %case940
+ \addplot[color=black,mark=halfcircle*] coordinates {(10.76, 0.718)(10.92, 0.787)(11.08, 0.820)(11.24, 0.868)}; %wettercorr
+ %case950
+ \addplot[color=black,mark=halfcircle*] coordinates {(11.92, 1.023)(12.24, 0.956)}; %wettercorr
+ %case195
+ \addplot[color=black,mark=halfcircle*] coordinates {(12.76, 0.98)(12.92, 1.1096)(13.08, 0.9893)(13.24, 1.0692)}; %wettercorr
+\end{axis}
+\end{tikzpicture}

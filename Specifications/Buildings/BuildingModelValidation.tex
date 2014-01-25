@@ -34,11 +34,17 @@ Within this work, the so-called \emph{basic test cases} are used to \emph{va
 
 \subsubsection{Peak heating and cooling loads}
 
-\begin{figure}[ht]
-\subfigure[Peak heating loads for the low mass and heavy mass buildings.]{\includegraphics[width=\textwidth]{Buildings/MyGraphics/PH_BESTEST.png}\label{fig:PH_BESTEST}}
-\subfigure[Peak sensible cooling loads for the low mass and heavy mass buildings.]{\includegraphics[width=\textwidth]{Buildings/MyGraphics/PC_BESTEST.png}\label{fig:PC_BESTEST}}
-\caption{Peak heating and sensible cooling loads for the low mass and heavy mass buildings.} 
+\begin{figure}[t]
+ \center
+ \input{./figures/BestestBasecases.tex}
+ \caption{Verification by \abb{bestest}' inter model comparison, denoting the annual heating loads $Q_{h}$, the annual cooling loads $Q_{c}$, the hourly integrated peak heating loads $P_{h}$ and hourly integrated peak cooling loads $P_{c}$ normalized by the all-code mean for the low and heavy mass base cases.}
 \end{figure}
+
+%\begin{figure}[ht]
+%\subfigure[Peak heating loads for the low mass and heavy mass buildings.]{\includegraphics[width=\textwidth]{Buildings/MyGraphics/PH_BESTEST.png}\label{fig:PH_BESTEST}}
+%\subfigure[Peak sensible cooling loads for the low mass and heavy mass buildings.]{\includegraphics[width=\textwidth]{Buildings/MyGraphics/PC_BESTEST.png}\label{fig:PC_BESTEST}}
+%\caption{Peak heating and sensible cooling loads for the low mass and heavy mass buildings.} 
+%\end{figure}
 
 \subsubsection{Indoor air temperatures}
 
