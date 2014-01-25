@@ -4,8 +4,6 @@ ZoneLwGainDistribution
 ZoneLwDistribution
 AirLeakage
 AngleOfIncidence
-ShadingControl
-SolarShading
 MonoLayerLucent
 MonoLayerOpaque
 MultiLayerLucent
