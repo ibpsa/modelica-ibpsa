@@ -3,6 +3,8 @@ partial model StateShading "Window shading"
 
   parameter Boolean controled=true;
 
+  parameter Modelica.SIunits.Angle azi "window azimuth";
+
   Modelica.Blocks.Interfaces.RealInput solDir
     "direct solar illuminance on surface se" annotation (Placement(
         transformation(extent={{-80,30},{-40,70}}), iconTransformation(extent={
