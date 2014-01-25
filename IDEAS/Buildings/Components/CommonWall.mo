@@ -28,6 +28,8 @@ model CommonWall "Common opaque wall with neighbors"
     "Port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
+  parameter Modelica.SIunits.Temperature TBou = 292.15 "Boundary temperature";
+
 protected
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     final A=AWall,
@@ -46,7 +48,7 @@ protected
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-14,-40},{-34,-20}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(
-      final T=292.15)
+      final T=TBou)
     annotation (Placement(transformation(extent={{-58,-40},{-38,-20}})));
 equation
   connect(layMul.port_b, intCon_b.port_a) annotation (Line(
