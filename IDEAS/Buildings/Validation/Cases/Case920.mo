@@ -5,7 +5,7 @@ Modelica.SIunits.Power PCoo = max(heatingSystem.heatPortCon[1].Q_flow,0);
 
 protected
   extends IDEAS.Buildings.Validation.Interfaces.BesTestCase(
-    redeclare BaseClasses.Structure.Bui620 building,
+    redeclare BaseClasses.Structure.Bui920 building,
     redeclare BaseClasses.Occupant.Gain occupant,
     redeclare BaseClasses.VentilationSystem.None ventilationSystem,
     redeclare BaseClasses.HeatingSystem.Deadband heatingSystem,
