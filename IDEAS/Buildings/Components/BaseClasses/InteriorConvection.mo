@@ -4,6 +4,9 @@ model InteriorConvection "interior surface convection"
   parameter Modelica.SIunits.Area A "surface area";
   parameter Modelica.SIunits.Angle inc "inclination";
 
+  parameter Boolean fixed = false
+    "Fixed convective heat transfer coefficient or DT-dependent.";
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=289.15))
@@ -18,15 +21,25 @@ protected
     "true if floor";
 
 equation
+if not fixed then
   if Ceiling then
-    port_a.Q_flow = if noEvent(dT > 0) then A*2.72*abs(dT)^1.13 else -A*2.27*
-      abs(dT)^1.24;
+    port_a.Q_flow = if noEvent(dT > 0) then max(A*1.31*abs(dT)^1.33,0.1*A*abs(dT)) else min(-A*0.76*
+      abs(dT)^1.33,-A*0.1*abs(dT));
   elseif Floor then
-    port_a.Q_flow = if noEvent(dT > 0) then A*2.27*abs(dT)^1.24 else -A*2.72*
-      abs(dT)^1.13;
+    port_a.Q_flow = if noEvent(dT > 0) then max(A*0.76*abs(dT)^1.33,0.1*A*abs(dT)) else min(-A*1.31*
+      abs(dT)^1.33,-0.1*A*abs(dT));
   else
-    port_a.Q_flow = A*sign(dT)*2.07*abs(dT)^1.23;
+    port_a.Q_flow = sign(dT)*max(A*1.310*abs(dT)^1.33,0.1*A*abs(dT));
   end if;
+else
+  if Ceiling then
+    port_a.Q_flow = if noEvent(dT > 0) then 4.040*A*dT else 0.948*A*dT;
+  elseif Floor then
+    port_a.Q_flow = if noEvent(dT > 0) then 0.948*A*dT else 4.040*A*dT;
+  else
+    port_a.Q_flow = 3.076*A*dT;
+  end if;
+end if;
 
   port_a.Q_flow + port_b.Q_flow = 0 "no heat is stored";
   dT = port_a.T - port_b.T;
