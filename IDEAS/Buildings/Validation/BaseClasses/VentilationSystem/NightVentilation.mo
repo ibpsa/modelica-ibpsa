@@ -14,7 +14,7 @@ equation
 
   for i in 1:nZones loop
     if not occ.occupied then
-      heatPortCon[i].Q_flow = (TSensor[i] - sim.Te)*1703.16*CorrCV*1012*1.024/3600;
+      heatPortCon[i].Q_flow = (TSensor[i] - sim.Te)*1703.16*corrCV*1012*1.024/3600;
     else
       heatPortCon[i].Q_flow = 0;
     end if;
