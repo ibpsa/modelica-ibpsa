@@ -12,3 +12,4 @@ VariableThermalConductor
 FH_Characteristics
 ThreeWayValveMotor
 ThreeWayValveSwitch
+FluidStreamConversionWater
