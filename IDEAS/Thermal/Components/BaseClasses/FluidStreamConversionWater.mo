@@ -29,8 +29,8 @@ protected
   Real C_in_internal[Medium.nC] "Needed to connect to conditional connector";
 
   // help variable to check the temperature error
-  Modelica.SIunits.Temperature temperatureIDEAS;
-  Modelica.SIunits.Temperature temperatureMSL;
+//   Modelica.SIunits.Temperature temperatureIDEAS;
+//   Modelica.SIunits.Temperature temperatureMSL;
 public
   IDEAS.Thermal.Components.Interfaces.FlowPort_a[nPorts] portsIDEAS(each medium=mediumIDEAS)
     annotation (Placement(transformation(extent={{-110,-8},{-90,12}})));
@@ -45,17 +45,19 @@ equation
     ports[i].m_flow+portsIDEAS[i].m_flow=0;
     ports[i].p = portsIDEAS[i].p;
     //enthalpy linkage if the mass flow goes from IDEAS to MSL
-    ports[i].h_outflow = portsIDEAS[i].h-(273.15+tunTemp)*mediumIDEAS.cp;
+//     assert(abs(actualStream(ports[i].h_outflow) - portsIDEAS[i].h-(273.15+tunTemp)*mediumIDEAS.cp)<10,  "The temperature error introduced by the convertor component is too high");
+
+    Medium.temperature(Medium.setState_phX(ports[i].p, ports[i].h_outflow, ports[i].Xi_outflow))=portsIDEAS[i].h/mediumIDEAS.cp;
 
     //setting H_outflow depending on flow direction: enthalpy linkage if the mass flow goes from MSL to IDEAS
      portsIDEAS[i].H_flow = semiLinear(
         portsIDEAS[i].m_flow,
         portsIDEAS[i].h,
-        inStream(ports[i].h_outflow)+(273.15 +tunTemp)*mediumIDEAS.cp);
+        mediumIDEAS.cp*Medium.temperature(Medium.setState_phX(ports[i].p, inStream(ports[i].h_outflow), inStream(ports[i].Xi_outflow))));
 
-    temperatureIDEAS = portsIDEAS[i].h/mediumIDEAS.cp;
-    temperatureMSL = Medium.temperature(Medium.setState_phX(ports[i].p, ports[i].h_outflow,ports[i].Xi_outflow));
-    assert( noEvent(abs(temperatureIDEAS - temperatureMSL) < 0.5), "The temperature error introduced by the convertor component is too high ( " + String(abs(temperatureIDEAS - temperatureMSL)) + " K");
+//     temperatureIDEAS = portsIDEAS[i].h/mediumIDEAS.cp;
+//     temperatureMSL = Medium.temperature(Medium.setState_phX(ports[i].p, ports[i].h_outflow,ports[i].Xi_outflow));
+//     assert( noEvent(abs(temperatureIDEAS - temperatureMSL) < 0.5), "The temperature error introduced by the convertor component is too high ( " + String(abs(temperatureIDEAS - temperatureMSL)) + " K");
   end for;
 
   //remaining default code from Boundary_pT
