@@ -5,7 +5,7 @@ model FluidStreamConvertorWaterExample
 
   extends Modelica.Icons.Example;
   Buildings.Fluid.Sources.Boundary_pT bou1(
-    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
     use_p_in=false,
     use_T_in=false,
     use_X_in=false,
@@ -25,7 +25,7 @@ model FluidStreamConvertorWaterExample
     constantAmbientTemperature=372.15)
     annotation (Placement(transformation(extent={{-76,2},{-96,22}})));
   Modelica.Fluid.Sensors.TemperatureTwoPort temperature(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, allowFlowReversal=true)
+      Medium = Buildings.Media.ConstantPropertyLiquidWater, allowFlowReversal=true)
     annotation (Placement(transformation(extent={{38,2},{58,22}})));
   Modelica.Blocks.Sources.Ramp ramp(
     height=2,
@@ -33,7 +33,9 @@ model FluidStreamConvertorWaterExample
     offset=-1,
     startTime=0.1)
     annotation (Placement(transformation(extent={{-80,48},{-60,68}})));
-  BaseClasses.FluidStreamConversionWater convertStream(nPorts=1)
+  BaseClasses.FluidStreamConversionWater convertStream(nPorts=1, redeclare
+      package MediumMSL =
+        Buildings.Media.ConstantPropertyLiquidWater)
     annotation (Placement(transformation(extent={{-8,2},{12,22}})));
 equation
   connect(bou1.ports[1], temperature.port_b) annotation (Line(
