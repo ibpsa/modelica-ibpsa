@@ -16,11 +16,11 @@ model FluidStreamConvertorWaterExample
   IDEAS.Thermal.Components.BaseClasses.Pump pump(
     m=1,
     m_flowNom=1,
-    medium=IDEAS.Thermal.Data.Media.Water(),
-    useInput=true)
+    useInput=true,
+    medium=IDEAS.Thermal.Data.Media.WaterBuildingsLib())
     annotation (Placement(transformation(extent={{-56,2},{-36,22}})));
   IDEAS.Thermal.Components.BaseClasses.Ambient ambient(
-    medium=IDEAS.Thermal.Data.Media.Water(),
+    medium=IDEAS.Thermal.Data.Media.WaterBuildingsLib(),
     constantAmbientPressure=100000,
     constantAmbientTemperature=372.15)
     annotation (Placement(transformation(extent={{-76,2},{-96,22}})));
@@ -35,7 +35,8 @@ model FluidStreamConvertorWaterExample
     annotation (Placement(transformation(extent={{-80,48},{-60,68}})));
   BaseClasses.FluidStreamConversionWater convertStream(nPorts=1, redeclare
       package MediumMSL =
-        Buildings.Media.ConstantPropertyLiquidWater)
+        Buildings.Media.ConstantPropertyLiquidWater,
+    mediumIDEAS=IDEAS.Thermal.Data.Media.WaterBuildingsLib())
     annotation (Placement(transformation(extent={{-8,2},{12,22}})));
 equation
   connect(bou1.ports[1], temperature.port_b) annotation (Line(

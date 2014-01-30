@@ -4,7 +4,7 @@ model FluidStreamConversionWater
 
   //Water used on the modelica standard library (MSL) side of the block.
   replaceable package MediumMSL =
-        Modelica.Media.Water.StandardWater;
+        Modelica.Media.Interfaces.PartialMedium  annotation (choicesAllMatching=true);
 
   //Partialsource is used to 'create' the modelica fluid
   extends Modelica.Fluid.Sources.BaseClasses.PartialSource(nPorts=1, redeclare
@@ -12,7 +12,7 @@ model FluidStreamConversionWater
         MediumMSL);
 
   //Medium used on the ideas side of the block.
-  parameter IDEAS.Thermal.Data.Interfaces.Medium mediumIDEAS=IDEAS.Thermal.Data.Media.Water();
+  parameter IDEAS.Thermal.Data.Interfaces.Medium mediumIDEAS=IDEAS.Thermal.Data.Media.WaterBuildingsLib()  annotation (__Dymola_choicesAllMatching=true);
   //remaining default code from Boundary_pT
   parameter Medium.ExtraProperty C[Medium.nC](
        quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
@@ -91,7 +91,7 @@ equation
 <p>Limited verification has been performed for water in <a href=\"modelica://IDEAS.Thermal.Components.Examples.FluidStreamConvertorWaterExample\">IDEAS.Thermal.Components.Examples.FluidStreamConvertorWaterExample</a> and <a href=\"modelica://IDEAS.Thermal.Components.Examples.Boiler_validation_a60_conversion\">IDEAS.Thermal.Components.Examples.Boiler_validation_a60_conversion</a>. </p>
 <p><b>Limitations</b> </p>
 <ul>
-<li>The component defines equal temperature for in and outlet. However, when using two media with different specific heat capacity (<i>cp</i>) definitions, the enthalpy calculations are not the same. Therefore in this case energy is not conserved.</li>
+<li>The component defines equal temperature for in and outlet. However, when using two media with different specific heat capacity (<i>cp</i>) definitions, the enthalpy calculations are not the same. Therefore in this case energy is not conserved. The medium <a href=\"modelica://IDEAS.Thermal.Data.Media.WaterBuildingsLib\">WaterBuildingsLib</a> is calibrated so it is correctly converted into the medium ConstantPropertyLiquidWater from the buildings library.</li>
 <li>This block introduces a computational overhead, although it remains limited. A performance comparison can be made using <a href=\"modelica://IDEAS.Thermal.Components.Examples.Boiler_validation_a60\">IDEAS.Thermal.Components.Examples.Boiler_validation_a60</a> and <a href=\"modelica://IDEAS.Thermal.Components.Examples.Boiler_validation_a60_conversion\">IDEAS.Thermal.Components.Examples.Boiler_validation_a60_conversion</a>. The conversions introduce an additional computational expense of around 20&percnt; in the _conversion example. </li>
 </ul>
 </html>"),
