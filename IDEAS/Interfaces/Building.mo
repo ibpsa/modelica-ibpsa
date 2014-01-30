@@ -5,7 +5,6 @@ model Building
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Boolean standAlone=true;
 
-protected
   replaceable IDEAS.Interfaces.BaseClasses.Structure building
     "Building structure" annotation (Placement(transformation(extent={{-66,-10},
             {-36,10}})), choicesAllMatching=true);
@@ -18,9 +17,11 @@ protected
     constrainedby IDEAS.Interfaces.BaseClasses.Occupant(nZones=building.nZones)
     "Building occupant" annotation (Placement(transformation(extent={{-10,-42},
             {10,-22}})), choicesAllMatching=true);
-  replaceable IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid
+  replaceable IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid constrainedby
+    IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
     "Inhome low-voltage electricity grid system" annotation (Placement(
-        transformation(extent={{32,-10},{52,10}})), choicesAllMatching=true);
+        transformation(extent={{32,-10},{52,10}})), __Dymola_choicesAllMatching=true);
+
   replaceable IDEAS.Interfaces.BaseClasses.VentilationSystem ventilationSystem(
       nZones=building.nZones, VZones=building.VZones) "Ventilation system"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})),
