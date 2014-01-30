@@ -23,7 +23,7 @@ model Window "Multipane window"
     constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
-  replaceable Interfaces.StateShading shaType(final azi=azi) constrainedby
+  replaceable Interfaces.StateShading shaType constrainedby
     Interfaces.StateShading(final azi=azi) "Shading type" annotation (
       __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
 
@@ -46,11 +46,6 @@ model Window "Multipane window"
             {{20,-110},{40,-90}})));
 
 protected
-  parameter Boolean shading=false "Shading presence, i.e. true if present";
-  parameter Boolean framePresent=fraType.present;
-  parameter Modelica.SIunits.Efficiency shaCorr=0.2
-    "Total shading transmittance";
-
   IDEAS.Climate.Meteo.Solar.ShadedRadSol radSol(
     final inc=inc,
     final azi=azi,
@@ -85,19 +80,19 @@ protected
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection iConFra(A=A*frac,
-      inc=inc) if framePresent
+      inc=inc) if fraType.present
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation skyRadFra(
-      final A=A*frac, final inc=inc) if framePresent
+      final A=A*frac, final inc=inc) if fraType.present
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,80},{-40,100}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eConFra(final A=A*
-        frac) if framePresent
+        frac) if fraType.present
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,60},{-40,80}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=
-        fraType.U_value*A*frac) if framePresent
+        fraType.U_value*A*frac) if fraType.present
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
 equation
