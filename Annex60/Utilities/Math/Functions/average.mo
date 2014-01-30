@@ -11,7 +11,11 @@ algorithm
 <p>This block outputs the average of the vector. </p>
 </html>", revisions="<html>
 <p><ul>
-<li>November 28, 2013, by Marcus Fuchs<br/>Implementation based on Michael Wetter&apos;s block Average.</li>
+<li>November 28, 2013, by Marcus Fuchs:<br/>
+Implementation based on Michael Wetter&apos;s block
+<a href=\"modelica://Annex60.Utilities.Math.Average\">
+Annex60.Utilities.Math.Average</a>.
+</li>
 </ul></p>
 </html>"));
 end average;

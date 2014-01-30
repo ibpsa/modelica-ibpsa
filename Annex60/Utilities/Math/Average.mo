@@ -9,9 +9,13 @@ Documentation(info="<html>
 </html>",
 revisions="<html>
 <ul>
-<li>November 28, 2013, by Marcus Fuchs<br/>
-Changed block to use function average.</li>
-<li>April 3, 2009, by Michael Wetter:<br/>First implementation. </li>
+<li>November 28, 2013, by Marcus Fuchs:<br/>
+Changed block to use function average.
+</li>
+<li>
+April 3, 2009, by Michael Wetter:<br/>
+First implementation.
+</li>
 </ul>
 </html>"), Icon(graphics={Text(
           extent={{-74,46},{66,-58}},
