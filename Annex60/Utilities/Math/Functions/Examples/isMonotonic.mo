@@ -54,12 +54,22 @@ assert(false == Annex60.Utilities.Math.Functions.isMonotonic(x_decWeak, strict=t
 
   annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/IsMonotonic.mos"
-        "Simulate and plot"),Documentation(revisions="<html>
+        "Simulate and plot"),Documentation(
+info="<html>
+<p>
+This example tests the correct implementation of the function
+<a href=\"modelica://Annex60.Utilities.Math.Functions.isMonotonic\">
+Annex60.Utilities.Math.Functions.isMonotonic</a>.
+If the function is implemented incorrectly, the example will stop 
+with an error.
+</p>
+</html>"),
+revisions="<html>
 <ul>
 <li>
 January 8, 2014, by Marcus Fuchs:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>");
 end IsMonotonic;
