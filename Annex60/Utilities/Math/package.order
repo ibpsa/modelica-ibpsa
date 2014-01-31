@@ -5,7 +5,6 @@ Biquadratic
 BooleanReplicator
 IntegerReplicator
 InverseXRegularized
-IsMonotonic
 Max
 Min
 Polynominal
