@@ -1,6 +1,6 @@
 within Annex60.Utilities.Psychrometrics;
 block SublimationPressureIce "Saturation pressure as a function of temperature"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput TSat(unit="K",
                                             displayUnit="degC",
                                             nominal=300)
