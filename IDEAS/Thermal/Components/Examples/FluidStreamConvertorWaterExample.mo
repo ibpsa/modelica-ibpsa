@@ -62,5 +62,7 @@ equation
   annotation (                  Diagram(coordinateSystem(preserveAspectRatio=false,
                    extent={{-100,-100},{100,100}}), graphics), Documentation(info="<html>
                    <p>This example can be used to test the functionality of  <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.FluidStreamConversion\">IDEAS.Thermal.Components.BaseClasses.FluidStreamConversion</a>.</p>
-</html>"));
+</html>"),
+    experiment,
+    __Dymola_experimentSetupOutput);
 end FluidStreamConvertorWaterExample;

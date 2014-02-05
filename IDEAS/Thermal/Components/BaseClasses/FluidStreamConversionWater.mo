@@ -13,6 +13,7 @@ model FluidStreamConversionWater
 
   //Medium used on the ideas side of the block.
   parameter IDEAS.Thermal.Data.Interfaces.Medium mediumIDEAS=IDEAS.Thermal.Data.Media.WaterBuildingsLib()  annotation (__Dymola_choicesAllMatching=true);
+
   //remaining default code from Boundary_pT
   parameter Medium.ExtraProperty C[Medium.nC](
        quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
@@ -20,19 +21,22 @@ model FluidStreamConversionWater
     annotation (Evaluate=true,
                 Dialog(enable = (not use_C_in) and Medium.nC > 0));
 
-  final Real tunTemp = -0.1
-    "Tuning parameter to minimize the temperature error in the convertor. Default value for T_water=30degC";
   //remaining default code from Boundary_pT
 protected
   Real X_in_internal[Medium.nX] = Medium.X_default
     "Needed to connect to conditional connector";
   Real C_in_internal[Medium.nC] "Needed to connect to conditional connector";
 
+  Boolean checkCp(start = true)
+    "check if the specific heat capacity of the two media are equal";
 public
   IDEAS.Thermal.Components.Interfaces.FlowPort_a[nPorts] portsIDEAS(each medium=mediumIDEAS)
     annotation (Placement(transformation(extent={{-110,-8},{-90,12}})));
 
 equation
+  checkCp = abs(mediumIDEAS.rho*mediumIDEAS.cp - Medium.density_phX(ports[1].p, ports[1].h_outflow, ports[1].Xi_outflow)*Medium.specificHeatCapacityCp( Medium.setState_phX(ports[1].p, ports[1].h_outflow, ports[1].Xi_outflow)))   < Modelica.Constants.eps;
+  assert( checkCp, "The chosen media have different heat capacity and density. This is not allowed. ");
+
   //remaining default code from Boundary_pT
   Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
     Medium.singleState, true, X_in_internal, "Boundary_pT");
@@ -42,13 +46,13 @@ equation
     ports[i].m_flow+portsIDEAS[i].m_flow=0;
     ports[i].p = portsIDEAS[i].p;
     //temperature linkage if the mass flow goes from IDEAS to MSL
-    Medium.temperature(Medium.setState_phX(ports[i].p, ports[i].h_outflow, ports[i].Xi_outflow))=portsIDEAS[i].h/mediumIDEAS.cp;
+    Medium.temperature_phX(ports[i].p, ports[i].h_outflow, ports[i].Xi_outflow)=portsIDEAS[i].h/mediumIDEAS.cp;
 
     //setting H_outflow depending on flow direction: enthalpy linkage if the mass flow goes from MSL to IDEAS
      portsIDEAS[i].H_flow = semiLinear(
         portsIDEAS[i].m_flow,
         portsIDEAS[i].h,
-        mediumIDEAS.cp*Medium.temperature(Medium.setState_phX(ports[i].p, inStream(ports[i].h_outflow), inStream(ports[i].Xi_outflow))));
+        mediumIDEAS.cp*Medium.temperature_phX(ports[i].p, inStream(ports[i].h_outflow), inStream(ports[i].Xi_outflow)));
 
   end for;
 
