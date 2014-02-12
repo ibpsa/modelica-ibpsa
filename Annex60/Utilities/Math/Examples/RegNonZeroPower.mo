@@ -12,7 +12,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+            -100},{100,100}}), graphics), experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/RegNonZeroPower.mos"
+        "Simulate and plot"), Documentation(info="<html>
 <p>
 This model tests the implementation of 
 <a href=\"modelica://Annex60.Utilities.Math.RegNonZeroPower\">
