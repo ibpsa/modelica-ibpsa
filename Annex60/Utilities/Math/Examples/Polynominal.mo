@@ -15,7 +15,11 @@ equation
             -100},{100,100}}), graphics),  experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/Polynominal.mos"
         "Simulate and plot"), Documentation(info="<html>
-<p>This model tests the implementation of the polynominal function.</p>
+<p>
+This model tests the implementation of 
+<a href=\"modelica://Annex60.Utilities.Math.Polynominal\">
+Annex60.Utilities.Math.Polynominal</a>.
+</p>
 </html>", revisions="<html>
 <p><ul>
 <li>November 28, 2013, by Marcus Fuchs:<br/>First implementation. </li>

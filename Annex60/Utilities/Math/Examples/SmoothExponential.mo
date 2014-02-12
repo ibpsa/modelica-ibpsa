@@ -15,7 +15,11 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>
-<p>This model tests the implementation of the regNonZeroPower function.</p>
+<p>
+This model tests the implementation of 
+<a href=\"modelica://Annex60.Utilities.Math.SmoothExponential\">
+Annex60.Utilities.Math.SmoothExponential</a>.
+</p>
 </html>", revisions="<html>
 <p><ul>
 <li>November 28, 2013, by Marcus Fuchs:<br/>First implementation. </li>
