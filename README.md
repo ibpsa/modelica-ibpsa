@@ -10,4 +10,7 @@ The **IDEAS** package is licensed by [KU Leuven](www.kuleuven.be) and [3E](www.3
 ### Development and contribution
 
 1. You may report any issues with using the [Issues](https://github.com/blog/831-issues-2-0-the-next-generation) button.
-1. Contributions in the form of [Pull Requests](https://help.github.com/articles/using-pull-requests) are always welcome. Prior to issuing a pull request, make sure your code follows the style guide and coding conventions.
+1. Contributions in the form of [Pull Requests](https://help.github.com/articles/using-pull-requests) are always welcome. Prior to issuing a pull request, make sure :
+    1. your code follows the style guide and coding conventions, 
+    2. unittest are included for your models, and
+    3. the model physics are described in the Specifications.
