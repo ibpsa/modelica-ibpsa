@@ -1,6 +1,6 @@
 within Annex60.Media;
 package Air
-  "Moist air model with constant specific heat capacities and Charle's law for density versus temperature"
+  "Incompressible moist air model with constant specific heat capacities and Charle's law for density versus temperature"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
      mediumName="Moist air unsaturated gas",
      final substanceNames={"water", "air"},
@@ -45,19 +45,18 @@ Temperature T is not in the allowed range
 200.0 K <= (T =" + String(T) + " K) <= 423.15 K
 required from medium model \""     + mediumName + "\".");
 
-    MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
+    MM = molarMass(state);
 
     p_steam_sat = min(saturationPressure(T),0.999*p);
 
     X_steam  = Xi[Water];
     X_air    = 1-Xi[Water];
 
-    h = T_degC*dryair.cp * X_air +
-       (T_degC * steam.cp + h_fg) * X_steam;
-    R = dryair.R*(1 - X_steam) + steam.R*X_steam;
+    h = enthalpyOfGas(state.T,X);
+    R = gasConstant(state);
 
-    u = h-R*T;
-    d = reference_p/(R*T);
+    u = specificInternalEnergy(state);
+    d = density(state);
 
     state.p = p;
     state.T = T;
@@ -134,7 +133,7 @@ redeclare function enthalpyOfCondensingGas
   input Temperature T "temperature";
   output SpecificEnthalpy h "steam enthalpy";
 algorithm
-  h := (T + Modelica.Constants.T_zero) * steam.cp + enthalpyOfVaporization(T);
+  h := (T - reference_T) * steam.cp + enthalpyOfVaporization(T);
   annotation(smoothOrder=5, derivative=der_enthalpyOfCondensingGas,
 Documentation(info="<html>
 <p>
@@ -156,8 +155,7 @@ end enthalpyOfCondensingGas;
 redeclare replaceable function extends enthalpyOfGas
     "Return the enthalpy of the gas mixture per unit mass of the gas mixture"
 algorithm
-  h := enthalpyOfCondensingGas(T)*X[Water]
-       + enthalpyOfDryAir(T)*(1.0-X[Water]);
+  h := enthalpyOfCondensingGas(T)*X[Water] + enthalpyOfDryAir(T)*(1.0 - X[Water]);
   annotation(smoothOrder=5,
 Documentation(info="<html>
 <p>
@@ -178,7 +176,7 @@ end enthalpyOfGas;
 redeclare replaceable function extends enthalpyOfLiquid
     "Return the enthalpy of liquid per unit mass of liquid"
 algorithm
-  h := (T + Modelica.Constants.T_zero)*cpWatLiq;
+  h := (T - reference_T)*cpWatLiq;
   annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid,
 Documentation(info="<html>
 <p>
@@ -297,7 +295,7 @@ end isobaricExpansionCoefficient;
 redeclare function extends isothermalCompressibility
     "Return the isothermal compressibility factor"
 algorithm
-  kappa := 0;
+  kappa := 0; /* kappa for dry air = 1.4. Why is it zero here? */
 annotation (
 Documentation(info="<html>
 <p>
@@ -376,7 +374,7 @@ redeclare function extends specificEntropy
 algorithm
     Y := massToMoleFractions(
          state.X, {steam.MM,dryair.MM});
-    s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/273.15)
+    s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/reference_T)
          - Modelica.Constants.R *
          sum(state.X[i]/MMX[i]*
              Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2);
@@ -471,6 +469,10 @@ redeclare function extends density_derT_p
     "Return the partial derivative of density with respect to temperature at constant pressure"
 algorithm
   ddTp := -density(state)/temperature(state);
+  /* fixme: from the density formula, the derivative should be: 
+  ddTp := -reference_p / gasConstant(state) / (state.T)^2. 
+  Why is not implemented like that?
+  */
 
   annotation (smoothOrder=1, Documentation(info=
                    "<html>
@@ -688,13 +690,8 @@ end setState_psX;
 
 redeclare replaceable function extends specificEnthalpy
     "Return the specific enthalpy from pressure, temperature and mass fraction"
-  protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
-      "Celsius temperature";
 algorithm
-  T_degC :=state.T + Modelica.Constants.T_zero;
-  h := T_degC*dryair.cp * (1 - state.X[Water]) +
-       (T_degC * steam.cp + h_fg) * state.X[Water];
+  h :=enthalpyOfGas(state.T,state.X);
   annotation(Inline=false, smoothOrder=99,
 Documentation(info="<html>
 <p>
@@ -871,7 +868,7 @@ redeclare replaceable function temperature_phX
   input MassFraction[:] X "Mass fractions of composition";
   output Temperature T "Temperature";
 algorithm
-  T := -Modelica.Constants.T_zero + (h - h_fg * X[Water])
+  T := reference_T + (h - h_fg * X[Water])
        /((1 - X[Water])*dryair.cp + X[Water] * steam.cp);
   annotation(smoothOrder=99,
              inverse(h=specificEnthalpy_pTX(p, T, X)),
@@ -972,7 +969,7 @@ First implementation.
     "Molar masses of components";
 
   constant Modelica.SIunits.SpecificEnergy h_fg = 2501014.5
-    "Latent heat of evaporation";
+    "Latent heat of evaporation of water";
   constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
     "Specific heat capacity of liquid water";
 
