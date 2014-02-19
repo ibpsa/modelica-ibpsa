@@ -12,7 +12,6 @@ The package <code>Annex60.Fluid</code> consists of models
 for pressure driven mass flow rate and for heat and moisture
 exchange in fluid flow networks.
 </p>
-
 <p>
 The models have the same interface as models of the package
 <a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a>, 
@@ -299,6 +298,25 @@ parameters in various model to help the user understand how they are used.
   </td>
 </tr>
 </table>
+
+<h4>Implementation</h4>
+<p>
+The models are implemented using base classes from 
+<a href=\"modelica://Annex60.Fluid.Interfaces\">
+Annex60.Fluid.Interfaces</a>
+and from 
+<a href=\"modelica://Modelica.Fluid.Interfaces\">
+Modelica.Fluid.Interfaces</a>.
+This allows models to be fully compatible with 
+<a href=\"modelica://Modelica.Fluid\">
+Modelica.Fluid</a>, and it allows the implementation of
+component models that reuse base classes for heat transfer, mass transfer and 
+flow resistance.
+The class inheritance is as follows:
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/UsersGuide/a60.png\"/>
+</p>
 
 </html>"));
 
