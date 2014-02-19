@@ -2,7 +2,7 @@ within Annex60.Fluid.MixingVolumes.Examples;
 model MixingVolume
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.IdealGases.MoistAirUnsaturated;
+  package Medium = Annex60.Media.Air;
 
     Modelica.Blocks.Sources.Ramp P(
     duration=0.5,

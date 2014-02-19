@@ -1,4 +1,0 @@
-simulateModel("Annex60.Media.GasesPTDecoupled.Examples.TestMoistAir", method="dassl", resultFile="TestMoistAirPDDec");
-createPlot(id = 1,
- y = {"volume.medium.T"},
- grid = true);

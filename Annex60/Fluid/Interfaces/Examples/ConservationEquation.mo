@@ -1,7 +1,7 @@
 within Annex60.Fluid.Interfaces.Examples;
 model ConservationEquation "Model that tests the conservation equation"
 extends Modelica.Icons.Example;
- package Medium = Annex60.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Annex60.Media.Water "Medium model";
   Annex60.Fluid.Interfaces.ConservationEquation dyn(redeclare package Medium
       = Medium, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2,

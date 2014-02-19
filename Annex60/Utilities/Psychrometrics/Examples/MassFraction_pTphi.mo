@@ -2,7 +2,7 @@ within Annex60.Utilities.Psychrometrics.Examples;
 model MassFraction_pTphi "Unit test for dew point temperature calculation"
   extends Modelica.Icons.Example;
 
-   package Medium1 = Annex60.Media.IdealGases.MoistAir "Medium model";
+   package Medium1 = Annex60.Media.Air "Medium model";
    package Medium2 = Annex60.Media.GasesPTDecoupled.MoistAir "Medium model";
     Modelica.Blocks.Sources.Ramp Phi(
     offset=0,

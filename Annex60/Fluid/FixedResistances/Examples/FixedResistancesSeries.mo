@@ -2,7 +2,7 @@ within Annex60.Fluid.FixedResistances.Examples;
 model FixedResistancesSeries "Test of multiple resistances in series"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.IdealGases.DryAir;
+ package Medium = Annex60.Media.Air;
 
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{40,60},{60,80}}, rotation=0)));
