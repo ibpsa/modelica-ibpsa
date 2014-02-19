@@ -24,7 +24,11 @@ Annex60.Utilities.Math.SmoothExponential</a>.
 </p>
 </html>", revisions="<html>
 <p><ul>
-<li>November 28, 2013, by Marcus Fuchs:<br/>First implementation. </li>
-</ul></p>
+<li>
+November 28, 2013, by Marcus Fuchs:<br/>
+First implementation.
+</li>
+</ul>
+</p>
 </html>"));
 end SmoothExponential;

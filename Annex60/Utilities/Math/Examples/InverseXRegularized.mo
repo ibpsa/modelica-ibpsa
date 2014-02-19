@@ -23,8 +23,12 @@ This model tests the implementation of
 Annex60.Utilities.Math.InverseXRegularized</a>.
 </p>
 </html>", revisions="<html>
-<p><ul>
-<li>November 28, 2013, by Marcus Fuchs:<br/>Implementation based on Functions.inverseXRegularized. </li>
+<p>
+<ul>
+<li>
+November 28, 2013, by Marcus Fuchs:<br/>
+Implementation based on Functions.inverseXRegularized.
+</li>
 </ul></p>
 </html>"));
 end InverseXRegularized;
