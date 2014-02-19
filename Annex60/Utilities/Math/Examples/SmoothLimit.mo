@@ -22,7 +22,9 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Ma
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the implementation of smooth limit function.
+This model tests the implementation of 
+<a href=\"modelica://Annex60.Utilities.Math.SmoothLimit\">
+Annex60.Utilities.Math.SmoothLimit</a>.
 </p>
 </html>", revisions="<html>
 <ul>
