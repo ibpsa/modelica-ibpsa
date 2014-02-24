@@ -45,18 +45,19 @@ Temperature T is not in the allowed range
 200.0 K <= (T =" + String(T) + " K) <= 423.15 K
 required from medium model \""     + mediumName + "\".");
 
-    MM = molarMass(state);
+    MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
     p_steam_sat = min(saturationPressure(T),0.999*p);
 
     X_steam  = Xi[Water];
     X_air    = 1-Xi[Water];
 
-    h = enthalpyOfGas(state.T,X);
-    R = gasConstant(state);
+    h = T_degC*dryair.cp * X_air +
+       (T_degC * steam.cp + h_fg) * X_steam;
+    R = dryair.R*(1 - X_steam) + steam.R*X_steam;
 
-    u = specificInternalEnergy(state);
-    d = density(state);
+    u = h-R*T;
+    d = reference_p/(R*T);
 
     state.p = p;
     state.T = T;
@@ -155,7 +156,8 @@ end enthalpyOfCondensingGas;
 redeclare replaceable function extends enthalpyOfGas
     "Return the enthalpy of the gas mixture per unit mass of the gas mixture"
 algorithm
-  h := enthalpyOfCondensingGas(T)*X[Water] + enthalpyOfDryAir(T)*(1.0 - X[Water]);
+  h := enthalpyOfCondensingGas(T)*X[Water]
+       + enthalpyOfDryAir(T)*(1.0-X[Water]);
   annotation(smoothOrder=5,
 Documentation(info="<html>
 <p>
@@ -295,7 +297,7 @@ end isobaricExpansionCoefficient;
 redeclare function extends isothermalCompressibility
     "Return the isothermal compressibility factor"
 algorithm
-  kappa := 0; /* kappa for dry air = 1.4. Why is it zero here? */
+  kappa := 0;
 annotation (
 Documentation(info="<html>
 <p>
@@ -690,8 +692,13 @@ end setState_psX;
 
 redeclare replaceable function extends specificEnthalpy
     "Return the specific enthalpy from pressure, temperature and mass fraction"
+  protected
+  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
+      "Celsius temperature";
 algorithm
-  h :=enthalpyOfGas(state.T,state.X);
+  T_degC :=state.T + Modelica.Constants.T_zero;
+  h := T_degC*dryair.cp * (1 - state.X[Water]) +
+       (T_degC * steam.cp + h_fg) * state.X[Water];
   annotation(Inline=false, smoothOrder=99,
 Documentation(info="<html>
 <p>

@@ -32,8 +32,8 @@ package Water "Package with model for liquid water with constant properties"
           preferredMediumStates then StateSelect.prefer else StateSelect.default),
      preferredMediumStates=true) "Base properties"
   equation
-    h = specificEnthalpy(state);
-    u = specificInternalEnergy(state);
+    h = (T - reference_T)*cp_const;
+    u = h-reference_p/d;
     d = density(state);
     state.T = T;
     state.p = p;
@@ -47,20 +47,15 @@ package Water "Package with model for liquid water with constant properties"
   end BaseProperties;
 
 redeclare function extends density "Return the density"
-  protected
-    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
-      "Celsius temperature";
 algorithm
-    T_degC :=state.T + Modelica.Constants.T_zero;
   d := smooth(1,
     if state.T < 278.15 then
       -0.042860825*state.T + 1011.9695761
     elseif state.T < 373.15 then
-      0.000015009*T_degC^3
-        - 0.00583576*T_degC^2 + 0.0143711*state.T
-        + 996.194534035
+		0.000015009*state.T^3 - 0.01813488505*state.T^2 + 6.5619527954075*state.T + 254.900074971947;
     else
-     -0.7025109*state.T + 1220.35045233);
+     -0.7025109*state.T + 1220.35045233); 
+//fixme: I converted the polynomial into Kelvin, as it seems to me to be cleaner.
   annotation (smoothOrder=1,
 Documentation(info="<html>
 <p>
@@ -363,18 +358,12 @@ end density_derp_T;
 
 redeclare function extends density_derT_p
     "Return the partial derivative of density with respect to temperature at constant pressure"
-  protected
-    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
-      "Celsius temperature";
 algorithm
-  T_degC :=state.T + Modelica.Constants.T_zero;
-  // fixme: the T_degC need probably to be used instead of state.T (changed)
-  // fixme: I don't get the same value for the first order and zero order coefficient if I derive the expression given above!
   ddTp := smooth(1, if state.T < 278.15 then
             -0.042860825
           elseif state.T < 373.15 then
-            (0.0000450270000000000*T_degC^2 -0.01167152*T_degC +
-            0.0143711)
+            (0.0000450270000000000*state.T^2 - 0.0362697701000000*state.T +
+            6.56195279540750)
           else
            -0.7025109);
   annotation (smoothOrder=1, Documentation(info=
@@ -458,16 +447,10 @@ First implementation.
 end specificHeatCapacityCv;
 
 redeclare function extends thermalConductivity
-    "Return the thermal conductivity"
+    "Return the thermal conductivity according to Ramires et al. 1994 
+(http://www.nist.gov/data/PDFfiles/jpcrd493.pdf)"
 algorithm
-  lambda := lambda_const; /* fixme: check if this is a valid assumption */
-  /* According to Ramires et al. (1994, http://www.nist.gov/data/PDFfiles/jpcrd493.pdf)
-  for T=275K -> lambda = 0.5606
-  for T=370K -> lambda = 0.6723
-  
-  They propose the correlation:
-  lambda/0.6065  = -1.48445 + 4.12292*(state.T/298.15) - 1.63866*(state.T/298.15)^2 for 274K < state.T < 370K
-  */
+  lambda/0.6065  = -1.48445 + 4.12292*(state.T/298.15) - 1.63866*(state.T/298.15)^2;
   annotation (
 Documentation(info="<html>
 <p>
@@ -660,8 +643,7 @@ end setState_psX;
 protected
   final constant Modelica.SIunits.SpecificHeatCapacity cv_const = cp_const
     "Specific heat capacity at constant volume";
-  constant Modelica.SIunits.ThermalConductivity lambda_const=0.598
-    "Constant thermal conductivity"; /* fixme: see thermalConductivity */
+
   constant Modelica.SIunits.VelocityOfSound a_const=1484
     "Constant velocity of sound";
   constant Modelica.SIunits.MolarMass MM_const=0.018015268 "Molar mass";
@@ -766,15 +748,36 @@ but converted from Celsius to Kelvin.
 end kinematicViscosity;
 
 annotation (preferredView="info", Documentation(info="<html>
-<p>This medium package models liquid water. For the specific heat capacities at constant pressure and at constant volume, a constant value of <i>4184</i> J/(kg K), which corresponds to <i>20</i>&deg;C is used. The figure below shows the relative error of the specific heat capacity that is introduced by this simplification. </p>
-<p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Media/Water/plotCp.png\" alt=\"Relative variation of specific heat capacity with temperature\"/> </p>
+<p>
+This medium package models liquid water.
+For the specific heat capacities at constant pressure and at constant volume,
+a constant value of <i>4184</i> J/(kg K), which corresponds to <i>20</i>&deg;C
+is used.
+The figure below shows the relative error of the specific heat capacity that
+is introduced by this simplification.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Annex60/Resources/Images/Media/Water/plotCp.png\" border=\"1\" 
+alt=\"Relative variation of specific heat capacity with temperature\"/>
+</p>
 <p>fixme: unit for x-axes</p>
-<p>The mass density is computed using a 3rd order polynomial, which yields the following density as a function of temperature. </p>
-<p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Media/Water/plotRho.png\" alt=\"Mass density as a function of temperature\"/> </p>
+<p>
+The mass density is computed using a 3rd order polynomial, which yields the following
+density as a function of temperature.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Annex60/Resources/Images/Media/Water/plotRho.png\" border=\"1\" 
+alt=\"Mass density as a function of temperature\"/>
+</p>
 <p>fixme: unit for x-axes</p>
-<p>The enthalpy is computed using the convention that <i>h=0</i> if <i>T=0</i> &deg;C. </p>
+<p>
+The enthalpy is computed using the convention that <i>h=0</i>
+if <i>T=0</i> &deg;C.
+</p>
 <h4>Limitations</h4>
-<p>Water is modeled as an incompressible liquid, and there are no phase changes. </p>
+<p>
+Water is modeled as an incompressible liquid, and there are no phase changes.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
