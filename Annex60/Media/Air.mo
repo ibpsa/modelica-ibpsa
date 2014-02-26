@@ -54,7 +54,7 @@ required from medium model \""     + mediumName + "\".");
 
     h = T_degC*dryair.cp * X_air +
        (T_degC * steam.cp + h_fg) * X_steam;
-    R = dryair.R*(1 - X_steam) + steam.R*X_steam;
+    R = dryair.R*X_air + steam.R*X_steam;
 
     u = h-R*T;
     d = reference_p/(R*T);
