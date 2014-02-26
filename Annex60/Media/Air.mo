@@ -901,6 +901,7 @@ end temperature_phX;
 
 redeclare function extends thermalConductivity
     "Return the thermal conductivity"
+//fixme: no derivative is given. Necessary? If yes, add also a test in AirDerivativeCheck
 algorithm
   lambda := Modelica.Media.Incompressible.TableBased.Polynomials_Temp.evaluate(
       {(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},

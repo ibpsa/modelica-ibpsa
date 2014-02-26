@@ -52,9 +52,10 @@ algorithm
     if state.T < 278.15 then
       -0.042860825*state.T + 1011.9695761
     elseif state.T < 373.15 then
-		0.000015009*state.T^3 - 0.01813488505*state.T^2 + 6.5619527954075*state.T + 254.900074971947;
+      0.000015009*state.T^3 - 0.01813488505*state.T^2 + 6.5619527954075*state.T
+      + 254.900074971947
     else
-     -0.7025109*state.T + 1220.35045233); 
+     -0.7025109*state.T + 1220.35045233);
 //fixme: I converted the polynomial into Kelvin, as it seems to me to be cleaner.
   annotation (smoothOrder=1,
 Documentation(info="<html>
@@ -446,11 +447,11 @@ First implementation.
 </html>"));
 end specificHeatCapacityCv;
 
-redeclare function extends thermalConductivity
-    "Return the thermal conductivity according to Ramires et al. 1994 
+redeclare function extends thermalConductivity "Return the thermal conductivity according to Ramires et al. 1994 
 (http://www.nist.gov/data/PDFfiles/jpcrd493.pdf)"
 algorithm
-  lambda/0.6065  = -1.48445 + 4.12292*(state.T/298.15) - 1.63866*(state.T/298.15)^2;
+  //fixme: no derivative is given. Necessary? If yes, add also a test in AirDerivativeCheck
+  lambda :=0.6065*(-1.48445 + 4.12292*(state.T/298.15) - 1.63866*(state.T/298.15)^2);
   annotation (
 Documentation(info="<html>
 <p>
