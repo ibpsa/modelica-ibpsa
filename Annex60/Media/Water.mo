@@ -52,11 +52,11 @@ algorithm
     if state.T < 278.15 then
       -0.042860825*state.T + 1011.9695761
     elseif state.T < 373.15 then
-      0.000015009*(state.T - 273.15)^3
-        - 0.00583576*(state.T-273.15)^2 + 0.0143711*state.T
-        + 996.194534035
+      0.000015009*state.T^3 - 0.01813488505*state.T^2 + 6.5619527954075*state.T
+      + 254.900074971947
     else
      -0.7025109*state.T + 1220.35045233);
+//fixme: I converted the polynomial into Kelvin, as it seems to me to be cleaner.
   annotation (smoothOrder=1,
 Documentation(info="<html>
 <p>
@@ -172,7 +172,7 @@ end specificInternalEnergy;
 redeclare function extends specificEntropy "Return the specific entropy"
   extends Modelica.Icons.Function;
 algorithm
-  s := cv_const*Modelica.Math.log(state.T/273.15);
+  s := cv_const*Modelica.Math.log(state.T/reference_T);
   annotation (
     Documentation(info="<html>
 <p>
@@ -430,7 +430,7 @@ end specificHeatCapacityCp;
 redeclare replaceable function extends specificHeatCapacityCv
     "Return the specific heat capacity at constant volume"
 algorithm
-  cv := cp_const;
+  cv := cv_const;
     annotation(derivative=der_specificHeatCapacityCp,
 Documentation(info="<html>
 <p>
@@ -447,10 +447,11 @@ First implementation.
 </html>"));
 end specificHeatCapacityCv;
 
-redeclare function extends thermalConductivity
-    "Return the thermal conductivity"
+redeclare function extends thermalConductivity "Return the thermal conductivity according to Ramires et al. 1994 
+(http://www.nist.gov/data/PDFfiles/jpcrd493.pdf)"
 algorithm
-  lambda := lambda_const; /* fixme: check if this is a valid assumption */
+  //fixme: no derivative is given. Necessary? If yes, add also a test in AirDerivativeCheck
+  lambda :=0.6065*(-1.48445 + 4.12292*(state.T/298.15) - 1.63866*(state.T/298.15)^2);
   annotation (
 Documentation(info="<html>
 <p>
@@ -609,7 +610,7 @@ algorithm
   // The temperature is obtained from symbolic solving the
   // specificEntropy function for T, i.e.,
   // s := cv_const*Modelica.Math.log(state.T/reference_T)
-  state := ThermodynamicState(p=p, T=273.15 * Modelica.Math.exp(s/cv_const));
+  state := ThermodynamicState(p=p, T=reference_T * Modelica.Math.exp(s/cv_const));
   annotation (
 Inline=false,
 Documentation(info="<html>
@@ -643,8 +644,7 @@ end setState_psX;
 protected
   final constant Modelica.SIunits.SpecificHeatCapacity cv_const = cp_const
     "Specific heat capacity at constant volume";
-  constant Modelica.SIunits.ThermalConductivity lambda_const=0.598
-    "Constant thermal conductivity";
+
   constant Modelica.SIunits.VelocityOfSound a_const=1484
     "Constant velocity of sound";
   constant Modelica.SIunits.MolarMass MM_const=0.018015268 "Molar mass";
@@ -761,6 +761,7 @@ is introduced by this simplification.
 <img src=\"modelica://Annex60/Resources/Images/Media/Water/plotCp.png\" border=\"1\" 
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
+<p>fixme: unit for x-axes</p>
 <p>
 The mass density is computed using a 3rd order polynomial, which yields the following
 density as a function of temperature.
@@ -769,6 +770,7 @@ density as a function of temperature.
 <img src=\"modelica://Annex60/Resources/Images/Media/Water/plotRho.png\" border=\"1\" 
 alt=\"Mass density as a function of temperature\"/>
 </p>
+<p>fixme: unit for x-axes</p>
 <p>
 The enthalpy is computed using the convention that <i>h=0</i>
 if <i>T=0</i> &deg;C.
