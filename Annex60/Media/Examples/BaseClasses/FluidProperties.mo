@@ -39,7 +39,7 @@ partial model FluidProperties
   Modelica.Media.Interfaces.Types.DerDensityByTemperature ddTp
     "Density derivative w.r.t. temperature";
   Modelica.SIunits.Density[Medium.nX] dddX
-    "Derivative of density w.r.t. mass fraction";
+    "Density derivative w.r.t. mass fraction";
 
   Modelica.SIunits.SpecificHeatCapacity cp "Specific heat capacity";
   Modelica.SIunits.SpecificHeatCapacity cv "Specific heat capacity";

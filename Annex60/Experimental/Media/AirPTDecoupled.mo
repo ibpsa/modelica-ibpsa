@@ -18,7 +18,7 @@ package AirPTDecoupled
     "Index of air (in substanceNames, massFractions X, etc.)";
 
   constant AbsolutePressure pStp = reference_p
-    "Pressure for which dStp is defined";
+    "Pressure for which fluid density is defined";
   constant Density dStp = 1.2 "Fluid density at pressure pStp";
 
   // Redeclare ThermodynamicState to avoid the warning
@@ -34,8 +34,7 @@ package AirPTDecoupled
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
 
-    MassFraction x_water "Mass of total water/mass of dry air";
-    Real phi "Relative humidity";
+    Real phi(min=0, start=0.5) "Relative humidity";
 
   protected
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
@@ -43,8 +42,6 @@ package AirPTDecoupled
 
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
-    MassFraction X_sat
-      "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
     Modelica.SIunits.TemperatureDifference dT
       "Temperature difference used to compute enthalpy";
@@ -58,37 +55,30 @@ required from medium model \""     + mediumName + "\".");
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
     p_steam_sat = min(saturationPressure(T),0.999*p);
-    X_sat = min(p_steam_sat * k_mair/max(100*Modelica.Constants.eps, p - p_steam_sat)*(1 - Xi[Water]), 1.0)
-      "Water content at saturation with respect to actual water content";
 
     X_steam  = Xi[Water]; // There is no liquid in this medium model
     X_air    = 1-Xi[Water];
 
-    //    h = specificEnthalpy_pTX(p,T,Xi);
     dT = T - reference_T;
-    h = dT*dryair.cp * (1 - Xi[Water]) +
-       (dT * steam.cp + 2501014.5) * Xi[Water];
-    R = dryair.R*(1 - Xi[Water]) + steam.R*Xi[Water];
+    h = dT*dryair.cp * X_air +
+       (dT * steam.cp + h_fg) * X_steam;
+    R = dryair.R*X_air + steam.R*X_steam;
 
     // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
     // u = h-R*T;
-
     // However, in this medium, the gas law is d/dStp=p/pStp, from which follows using h=u+pv that
     // u= h-p*v = h-p/d = h-pStp/dStp
     u = h-pStp/dStp;
 
-    //    d = p/(R*T);
+    // In this medium model, the density depends only 
+    // on temperature, but not on pressure.
+    //  d = p/(R*T);
     d/dStp = p/pStp;
 
-    /* Note, u and d are computed under the assumption that the volume of the liquid
-         water is neglible with respect to the volume of air and of steam
-      */
     state.p = p;
     state.T = T;
     state.X = X;
 
-    // this x_steam is water load / dry air!!!!!!!!!!!
-    x_water = Xi[Water]/max(X_air,100*Modelica.Constants.eps);
     phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
@@ -146,7 +136,7 @@ redeclare function enthalpyOfCondensingGas
   input Temperature T "temperature";
   output SpecificEnthalpy h "steam enthalpy";
 algorithm
-  h := (T-reference_T) * steam.cp + enthalpyOfVaporization(T);
+  h := (T-reference_T) * steam.cp + h_fg;
   annotation(smoothOrder=5, derivative=der_enthalpyOfCondensingGas);
 end enthalpyOfCondensingGas;
 
@@ -178,7 +168,7 @@ end enthalpyOfNonCondensingGas;
 redeclare function extends enthalpyOfVaporization
     "Enthalpy of vaporization of water"
 algorithm
-  r0 := 2501014.5;
+  r0 := h_fg;
 end enthalpyOfVaporization;
 
 redeclare function extends gasConstant
@@ -279,7 +269,7 @@ redeclare function extends specificEntropy
 algorithm
     Y := massToMoleFractions(
          state.X, {steam.MM,dryair.MM});
-    s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/273.15)
+    s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/reference_T)
          - Modelica.Constants.R *
          sum(state.X[i]/MMX[i]*
              Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2);
@@ -527,7 +517,7 @@ redeclare replaceable function extends specificEnthalpy
     "Compute specific enthalpy from pressure, temperature and mass fraction"
 algorithm
   h := (state.T - reference_T)*dryair.cp * (1 - state.X[Water]) +
-       ((state.T-reference_T) * steam.cp + 2501014.5) * state.X[Water];
+       ((state.T-reference_T) * steam.cp + h_fg) * state.X[Water];
   annotation(Inline=false,smoothOrder=5);
 end specificEnthalpy;
 
@@ -624,7 +614,7 @@ redeclare replaceable function temperature_phX
   input MassFraction[:] X "mass fractions of composition";
   output Temperature T "temperature";
 algorithm
-  T := reference_T + (h - 2501014.5 * X[Water])
+  T := reference_T + (h - h_fg * X[Water])
        /((1 - X[Water])*dryair.cp + X[Water] * steam.cp);
   annotation(smoothOrder=5,
              inverse(h=specificEnthalpy_pTX(p, T, X)),
@@ -697,6 +687,9 @@ First implementation.
 
   constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
     "Molar masses of components";
+
+  constant Modelica.SIunits.SpecificEnergy h_fg = 2501014.5
+    "Latent heat of evaporation of water";
 
 replaceable function der_enthalpyOfLiquid
     "Temperature derivative of enthalpy of liquid per unit mass of liquid"

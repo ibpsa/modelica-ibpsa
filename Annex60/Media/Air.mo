@@ -1,6 +1,6 @@
 within Annex60.Media;
 package Air
-  "Moist air model with constant specific heat capacities and Charle's law for density versus temperature"
+  "Incompressible moist air model with constant specific heat capacities and Charle's law for density versus temperature"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
      mediumName="Moist air unsaturated gas",
      final substanceNames={"water", "air"},
@@ -54,7 +54,7 @@ required from medium model \""     + mediumName + "\".");
 
     h = T_degC*dryair.cp * X_air +
        (T_degC * steam.cp + h_fg) * X_steam;
-    R = dryair.R*(1 - X_steam) + steam.R*X_steam;
+    R = dryair.R*X_air + steam.R*X_steam;
 
     u = h-R*T;
     d = reference_p/(R*T);
@@ -134,7 +134,7 @@ redeclare function enthalpyOfCondensingGas
   input Temperature T "temperature";
   output SpecificEnthalpy h "steam enthalpy";
 algorithm
-  h := (T + Modelica.Constants.T_zero) * steam.cp + enthalpyOfVaporization(T);
+  h := (T - reference_T) * steam.cp + enthalpyOfVaporization(T);
   annotation(smoothOrder=5, derivative=der_enthalpyOfCondensingGas,
 Documentation(info="<html>
 <p>
@@ -178,7 +178,7 @@ end enthalpyOfGas;
 redeclare replaceable function extends enthalpyOfLiquid
     "Return the enthalpy of liquid per unit mass of liquid"
 algorithm
-  h := (T + Modelica.Constants.T_zero)*cpWatLiq;
+  h := (T - reference_T)*cpWatLiq;
   annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid,
 Documentation(info="<html>
 <p>
@@ -376,7 +376,7 @@ redeclare function extends specificEntropy
 algorithm
     Y := massToMoleFractions(
          state.X, {steam.MM,dryair.MM});
-    s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/273.15)
+    s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/reference_T)
          - Modelica.Constants.R *
          sum(state.X[i]/MMX[i]*
              Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2);
@@ -470,7 +470,7 @@ end density_derp_T;
 redeclare function extends density_derT_p
     "Return the partial derivative of density with respect to temperature at constant pressure"
 algorithm
-  ddTp := -density(state)/temperature(state);
+  ddTp := -reference_p / gasConstant(state) / (state.T)^2;
 
   annotation (smoothOrder=1, Documentation(info=
                    "<html>
@@ -871,7 +871,7 @@ redeclare replaceable function temperature_phX
   input MassFraction[:] X "Mass fractions of composition";
   output Temperature T "Temperature";
 algorithm
-  T := -Modelica.Constants.T_zero + (h - h_fg * X[Water])
+  T := reference_T + (h - h_fg * X[Water])
        /((1 - X[Water])*dryair.cp + X[Water] * steam.cp);
   annotation(smoothOrder=99,
              inverse(h=specificEnthalpy_pTX(p, T, X)),
@@ -972,7 +972,7 @@ First implementation.
     "Molar masses of components";
 
   constant Modelica.SIunits.SpecificEnergy h_fg = 2501014.5
-    "Latent heat of evaporation";
+    "Latent heat of evaporation of water";
   constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
     "Specific heat capacity of liquid water";
 

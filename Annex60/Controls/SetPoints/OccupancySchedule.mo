@@ -1,6 +1,6 @@
 within Annex60.Controls.SetPoints;
 block OccupancySchedule "Occupancy schedule with look-ahead"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   parameter Real occupancy[:]=3600*{7, 19}
     "Occupancy table, each entry switching occupancy on or off";
