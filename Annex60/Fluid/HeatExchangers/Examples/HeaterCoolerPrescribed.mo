@@ -2,7 +2,7 @@ within Annex60.Fluid.HeatExchangers.Examples;
 model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.GasesConstantDensity.DryAir;
+  package Medium = Annex60.Media.Air;
 
   inner Modelica.Fluid.System system(m_flow_start=0, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));

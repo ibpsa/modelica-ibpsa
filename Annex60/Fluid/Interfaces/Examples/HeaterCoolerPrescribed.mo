@@ -3,7 +3,7 @@ model HeaterCoolerPrescribed
   "Model that tests a heat exchanger model with reverse flow"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.ConstantPropertyLiquidWater;
+ package Medium = Annex60.Media.Water;
 
   Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed hea1(
                                                          redeclare package

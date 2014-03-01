@@ -2,7 +2,7 @@ within Annex60.Utilities.Psychrometrics.Examples;
 model TotalAirDryAir
   "Unit test for conversion of humidity per total air and dry air mass"
   extends Modelica.Icons.Example;
-   package Medium = Annex60.Media.IdealGases.MoistAir "Medium model"
+   package Medium = Annex60.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
     Modelica.Blocks.Sources.Ramp XHum(
     duration=1,

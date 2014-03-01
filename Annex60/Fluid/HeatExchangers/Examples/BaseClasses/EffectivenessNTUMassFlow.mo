@@ -1,8 +1,8 @@
 within Annex60.Fluid.HeatExchangers.Examples.BaseClasses;
 partial model EffectivenessNTUMassFlow
   "Partial model of epsilon-NTU coil that tests variable mass flow rates"
-  package Medium1 = Annex60.Media.ConstantPropertyLiquidWater;
-  package Medium2 = Annex60.Media.IdealGases.MoistAirUnsaturated;
+  package Medium1 = Annex60.Media.Water;
+  package Medium2 = Annex60.Media.Air;
   parameter Modelica.SIunits.Temperature T_a1_nominal=5 + 273.15;
   parameter Modelica.SIunits.Temperature T_b1_nominal=10 + 273.15;
   parameter Modelica.SIunits.Temperature T_a2_nominal=30 + 273.15;

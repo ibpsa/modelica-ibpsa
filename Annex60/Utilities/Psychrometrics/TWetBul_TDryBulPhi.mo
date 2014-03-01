@@ -37,20 +37,16 @@ block TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
 
 protected
-  constant Modelica.Media.IdealGases.Common.DataRecord dryair = Modelica.Media.IdealGases.Common.SingleGasesData.Air;
-  constant Modelica.Media.IdealGases.Common.DataRecord steam = Modelica.Media.IdealGases.Common.SingleGasesData.H2O;
-  constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
+  constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
   Modelica.SIunits.MassFraction XiDryBul
     "Water vapor mass fraction at dry bulb state";
   Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=
-     Annex60.Media.IdealGases.Common.SingleGasData.Air.cp
+  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
     "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=
-     Annex60.Media.IdealGases.Common.SingleGasData.H2O.cp
+  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
     "Specific heat capacity of water vapor";
   constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
     "Specific heat capacity of water vapor";

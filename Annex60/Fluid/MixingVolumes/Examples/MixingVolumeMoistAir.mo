@@ -2,7 +2,7 @@ within Annex60.Fluid.MixingVolumes.Examples;
 model MixingVolumeMoistAir
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.GasesPTDecoupled.MoistAirUnsaturated;
+  package Medium = Annex60.Media.Air;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.001
     "Nominal mass flow rate";
