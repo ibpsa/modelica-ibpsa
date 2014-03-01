@@ -28,7 +28,9 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Ma
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the implementation of the bicubic function.
+This model tests the implementation of 
+<a href=\"modelica://Annex60.Utilities.Math.Bicubic\">
+Annex60.Utilities.Math.Bicubic</a>.
 </p>
 </html>", revisions="<html>
 <ul>

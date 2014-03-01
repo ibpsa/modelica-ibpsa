@@ -1,7 +1,7 @@
 within Annex60.Utilities.Psychrometrics;
 block WetBul_pTX
   "Block to compute the wet bulb condition for given dry bulb temperature and humidity"
-   extends Modelica.Blocks.Interfaces.BlockIcon;
+   extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
