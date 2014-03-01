@@ -24,6 +24,9 @@ ax.set_xlabel('$T \, [^\circ C]$')
 ax.set_ylabel('$c_p(T)/c_p(20^\circ C)$')
 ax.grid(True)
 
+# The next line avoids the x-label to be cut off.
+plt.tight_layout(h_pad=1)
+
 # Save plot
 plt.savefig('plotCp.pdf')
 plt.savefig('plotCp.png')

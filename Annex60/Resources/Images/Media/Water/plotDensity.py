@@ -22,6 +22,9 @@ ax.set_xlabel('$T \, [\mathrm{^\circ C}]$')
 ax.set_ylabel('$\\rho \, [\mathrm{kg/m^3}]$')
 ax.grid(True)
 
+# The next line avoids the x-label to be cut off.
+plt.tight_layout(h_pad=1)
+
 # Save plot
 plt.savefig('plotRho.pdf')
 plt.savefig('plotRho.png')
