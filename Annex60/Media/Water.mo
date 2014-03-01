@@ -56,7 +56,6 @@ algorithm
       + 254.900074971947
     else
      -0.7025109*state.T + 1220.35045233);
-//fixme: I converted the polynomial into Kelvin, as it seems to me to be cleaner.
   annotation (smoothOrder=1,
 Documentation(info="<html>
 <p>
@@ -447,16 +446,22 @@ First implementation.
 </html>"));
 end specificHeatCapacityCv;
 
-redeclare function extends thermalConductivity "Return the thermal conductivity according to Ramires et al. 1994 
-(http://www.nist.gov/data/PDFfiles/jpcrd493.pdf)"
+redeclare function extends thermalConductivity "Return the thermal conductivity"
 algorithm
-  //fixme: no derivative is given. Necessary? If yes, add also a test in AirDerivativeCheck
   lambda :=0.6065*(-1.48445 + 4.12292*(state.T/298.15) - 1.63866*(state.T/298.15)^2);
   annotation (
 Documentation(info="<html>
 <p>
-This function returns the thermal conductivity,
-which is assumed to be constant.
+This function returns the thermal conductivity.
+The expression is obtained from Ramires et al. (1995).
+</p>
+<h4>References</h4>
+<p>
+Ramires, Maria L. V. and Nieto de Castro, Carlos A. and Nagasaka, Yuchi 
+and Nagashima, Akira and Assael, Marc J. and Wakeham, William A.
+Standard Reference Data for the Thermal Conductivity of Water.
+<i>Journal of Physical and Chemical Reference Data</i>, 24, p. 1377-1381, 1995.
+<a href=\"http://dx.doi.org/10.1063/1.555963\">DOI:10.1063/1.555963</a>.
 </p>
 </html>",
 revisions="<html>
@@ -761,7 +766,6 @@ is introduced by this simplification.
 <img src=\"modelica://Annex60/Resources/Images/Media/Water/plotCp.png\" border=\"1\" 
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
-<p>fixme: unit for x-axes</p>
 <p>
 The mass density is computed using a 3rd order polynomial, which yields the following
 density as a function of temperature.
@@ -770,7 +774,6 @@ density as a function of temperature.
 <img src=\"modelica://Annex60/Resources/Images/Media/Water/plotRho.png\" border=\"1\" 
 alt=\"Mass density as a function of temperature\"/>
 </p>
-<p>fixme: unit for x-axes</p>
 <p>
 The enthalpy is computed using the convention that <i>h=0</i>
 if <i>T=0</i> &deg;C.

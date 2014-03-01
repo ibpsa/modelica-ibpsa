@@ -34,7 +34,6 @@ package AirPTDecoupled
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
 
-    MassFraction x_water "Mass of total water/mass of dry air";
     Real phi(min=0, start=0.5) "Relative humidity";
 
   protected
@@ -43,9 +42,6 @@ package AirPTDecoupled
 
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
-    MassFraction X_sat
-      "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
-    //fixme: X_sat is not in the Media.Air package
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
     Modelica.SIunits.TemperatureDifference dT
       "Temperature difference used to compute enthalpy";
@@ -59,16 +55,10 @@ required from medium model \""     + mediumName + "\".");
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
     p_steam_sat = min(saturationPressure(T),0.999*p);
-    X_sat = min(p_steam_sat * k_mair/max(100*Modelica.Constants.eps, p - p_steam_sat)*(1 - Xi[Water]), 1.0)
-      "Water content at saturation with respect to actual water content";
-    //fixme: I don't understand the formule for X_sat (I don't have much experience with moist air)
-    //      1) isn't it "actual water content with respect to Water content at saturation ? (as X_sat < 1)
-    //      2) forumla: X_sat = X[steam]@actual / X[steam]@sat = p_steam * MM@sat / (p_sat * MM@steam) ?
 
     X_steam  = Xi[Water]; // There is no liquid in this medium model
     X_air    = 1-Xi[Water];
 
-    //    h = specificEnthalpy_pTX(p,T,Xi);
     dT = T - reference_T;
     h = dT*dryair.cp * X_air +
        (dT * steam.cp + h_fg) * X_steam;
@@ -76,23 +66,19 @@ required from medium model \""     + mediumName + "\".");
 
     // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
     // u = h-R*T;
-
     // However, in this medium, the gas law is d/dStp=p/pStp, from which follows using h=u+pv that
     // u= h-p*v = h-p/d = h-pStp/dStp
     u = h-pStp/dStp;
 
-    //    d = p/(R*T);
+    // In this medium model, the density depends only 
+    // on temperature, but not on pressure.
+    //  d = p/(R*T);
     d/dStp = p/pStp;
 
-    /* Note, u and d are computed under the assumption that the volume of the liquid
-         water is neglible with respect to the volume of air and of steam
-      */
     state.p = p;
     state.T = T;
     state.X = X;
 
-    // this x_water is water load / dry air!!!!!!!!!!! --> maybe unlucky name as capital X is the mass fraction
-    x_water = Xi[Water]/max(X_air,100*Modelica.Constants.eps);
     phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 

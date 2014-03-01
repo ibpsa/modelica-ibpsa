@@ -470,11 +470,7 @@ end density_derp_T;
 redeclare function extends density_derT_p
     "Return the partial derivative of density with respect to temperature at constant pressure"
 algorithm
-  ddTp := -density(state)/temperature(state);
-  /* fixme: from the density formula, the derivative should be: 
-  ddTp := -reference_p / gasConstant(state) / (state.T)^2. 
-  Why is not implemented like that?
-  */
+  ddTp := -reference_p / gasConstant(state) / (state.T)^2;
 
   annotation (smoothOrder=1, Documentation(info=
                    "<html>
@@ -901,7 +897,6 @@ end temperature_phX;
 
 redeclare function extends thermalConductivity
     "Return the thermal conductivity"
-//fixme: no derivative is given. Necessary? If yes, add also a test in AirDerivativeCheck
 algorithm
   lambda := Modelica.Media.Incompressible.TableBased.Polynomials_Temp.evaluate(
       {(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},
