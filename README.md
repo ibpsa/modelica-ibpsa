@@ -9,7 +9,7 @@ The **IDEAS** package is licensed by [KU Leuven](http://www.kuleuven.be) and [3E
 
 ### Development and contribution
 
-1. You may report any bugfixes or suggestions as a [gthub issue](https://github.com/open-ideas/IDEAS/issues).
+1. You may report any bugfixes or suggestions as a [github issue](https://github.com/open-ideas/IDEAS/issues).
 1. Contributions in the form of [Pull Requests](https://help.github.com/articles/using-pull-requests) are always welcome. Prior to issuing a pull request, make sure :
     1. your code follows the [Style Guide and Conventions](https://github.com/open-ideas/IDEAS/wiki/Style%20Guide%20and%20Conventions), 
     2. unittests are included for your models, and
