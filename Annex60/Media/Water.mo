@@ -262,22 +262,21 @@ end isentropicEnthalpy;
 
 redeclare function extends isobaricExpansionCoefficient
     "Return the isobaric expansion coefficient"
-  protected
-    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
-      "Celsius temperature";
 algorithm
-    T_degC :=state.T + Modelica.Constants.T_zero;
     beta := -smooth(0,
     if state.T < 278.15 then
       0.042860825*(0.042860825*state.T - 1011.9695761)/(-0.042860825*state.T +
       1011.9695761)^2
     elseif state.T < 373.15 then
-       ((4.5027e-05)*T_degC^2 - 0.01167152*state.T +
-              3.202446788)/((1.5009e-05)*T_degC^3 - 0.00583576*T_degC^2 +
-              0.0143711*state.T + 996.194534035)
+      (4.5027e-5*state.T^2 - 0.0362697701*state.T + 6.5619527954075)/
+        (1.5009e-5*state.T^3 - 0.01813488505*state.T^2 + 6.5619527954075*state.T + 254.900074971947)
     else
        0.7025109*(0.7025109*state.T - 1220.35045233)/(-0.7025109*state.T +
        1220.35045233)^2);
+        // Symbolic conversion of degC to Kelvin
+//        ((4.5027e-05)*T_degC^2 - 0.01167152*state.T +
+//               3.202446788)/((1.5009e-05)*T_degC^3 - 0.00583576*T_degC^2 +
+//               0.0143711*state.T + 996.194534035)
 annotation (
 Documentation(info="<html>
 <p>
@@ -446,7 +445,8 @@ First implementation.
 </html>"));
 end specificHeatCapacityCv;
 
-redeclare function extends thermalConductivity "Return the thermal conductivity"
+redeclare function extends thermalConductivity
+    "Return the thermal conductivity"
 algorithm
   lambda :=0.6065*(-1.48445 + 4.12292*(state.T/298.15) - 1.63866*(state.T/298.15)^2);
   annotation (
