@@ -7,13 +7,15 @@ connector FlowPort_b "Hollow flow port (used downstream)"
 Same as FlowPort, but icon allows to differentiate direction of flow.
 </HTML>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Rectangle(
+            100}}), graphics={
+        Ellipse(
           extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Ellipse(
-          extent={{-98,98},{98,-98}},
-          lineColor={0,0,255},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-80,80},{80,-80}},
+          lineColor={0,127,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
