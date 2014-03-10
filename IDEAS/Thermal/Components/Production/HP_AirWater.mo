@@ -16,7 +16,6 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
   Real COP "Instanteanous COP";
 
   IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_AW heatSource(
-    medium=medium,
     QNom=QNomFinal,
     TEvaporator=sim.Te,
     TCondensor_in=heatedFluid.T_a,
@@ -26,7 +25,7 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
     UALoss=UALoss,
     modulation_min=modulation_min,
     modulation_start=modulation_start)
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
 
@@ -38,12 +37,14 @@ equation
   PEl = heatSource.PEl;
   COP = if noEvent(PEl > 0) then heatedFluid.heatPort.Q_flow/PEl else 0;
 
-  connect(heatSource.heatPort, heatedFluid.heatPort) annotation (Line(
-      points={{-40,0},{-20,0},{-20,6.12323e-016}},
+  connect(heatSource.heatPort, vol.heatPort) annotation (Line(
+      points={{-60,30},{-14,30}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            120}}),
+            graphics),
     Icon(graphics={
         Line(
           points={{-102,30},{-102,10}},

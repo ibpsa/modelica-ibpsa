@@ -10,13 +10,12 @@ model IdealHeater "Ideal heater, no losses to environment, unlimited power"
   Real eta "Instanteanous efficiency";
 
   IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_Ideal heatSource(
-    medium=medium,
     TBoilerSet=TSet,
     TEnvironment=heatPort.T,
     UALoss=UALoss,
     THxIn=heatedFluid.T_a,
     m_flowHx=heatedFluid.flowPort_a.m_flow)
-    annotation (Placement(transformation(extent={{-64,26},{-44,46}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   // Electricity consumption for electronics and fan only.  Pump is covered by pumpHeater;
   // This data is taken from Viessmann VitoDens 300W, smallest model.  So only valid for
@@ -24,12 +23,14 @@ equation
   PEl = 0;
   PFuel = heatSource.PFuel;
   eta = 1;
-  connect(heatSource.heatPort, heatedFluid.heatPort) annotation (Line(
-      points={{-44,36},{-20,36},{-20,6.12323e-016}},
+  connect(heatSource.heatPort, vol.heatPort) annotation (Line(
+      points={{-60,30},{-14,30}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            120}}),
+            graphics),
     Icon(graphics={
         Ellipse(
           extent={{-60,60},{58,-60}},

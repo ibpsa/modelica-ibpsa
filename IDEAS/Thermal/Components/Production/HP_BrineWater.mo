@@ -20,7 +20,6 @@ model HP_BrineWater "Brine-Water HP WITHOUT borehole"
   Real COP "Instanteanous COP";
 
   IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_BW heatSource(
-    medium=medium,
     QNom=QNomFinal,
     TCondensor_in=heatedFluid.T_a,
     TCondensor_set=TSet,
@@ -43,11 +42,6 @@ equation
   COP = if noEvent(heatSource.PEl > 0) then heatedFluid.heatPort.Q_flow/PEl
      else 0;
 
-  connect(heatSource.heatPort, heatedFluid.heatPort) annotation (Line(
-      points={{16,-57},{24,-57},{24,-46},{-26,-46},{-26,0},{-20,0},{-20,
-          6.66134e-016}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(heatSource.flowPort_a, flowPortBrine_a) annotation (Line(
       points={{6.2,-64},{6,-64},{6,-88},{26,-88},{26,-100}},
       color={0,0,255},
@@ -56,9 +50,14 @@ equation
       points={{10.4,-64},{10,-64},{10,-78},{76,-78},{76,-100}},
       color={0,0,255},
       smooth=Smooth.None));
+  connect(heatSource.heatPort, vol.heatPort) annotation (Line(
+      points={{16,-57},{22,-57},{22,-56},{22,-56},{22,-44},{-14,-44},{-14,30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,120}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            120}}),     graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             120}}), graphics={
         Line(

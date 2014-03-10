@@ -9,7 +9,6 @@ model Boiler
 
   IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_CondensingGasBurner
     heatSource(
-    medium=medium,
     QNom=QNom,
     TBoilerSet=TSet,
     TEnvironment=heatPort.T,
@@ -18,7 +17,7 @@ model Boiler
     m_flowHx=heatedFluid.flowPort_a.m_flow,
     modulationMin=modulationMin,
     modulationStart=modulationStart)
-    annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   parameter Real modulationMin=25 "Minimal modulation percentage";
   parameter Real modulationStart=35
     "Min estimated modulation level required for start of HP";
@@ -29,12 +28,14 @@ equation
   PEl = 7 + heatSource.modulation/100*(33 - 7);
   PFuel = heatSource.PFuel;
   eta = heatSource.eta;
-  connect(heatSource.heatPort, heatedFluid.heatPort) annotation (Line(
-      points={{-48,30},{-20,30},{-20,6.12323e-016}},
+  connect(vol.heatPort, heatSource.heatPort) annotation (Line(
+      points={{-14,30},{-60,30}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            120}}),
+            graphics),
     Icon(graphics={
         Ellipse(
           extent={{-58,60},{60,-60}},
