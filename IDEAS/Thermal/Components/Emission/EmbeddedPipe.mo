@@ -29,15 +29,16 @@ model EmbeddedPipe
 
   // Auxiliary parameters and variables ////////////////////////////////////////////////////////////////
   final parameter Modelica.SIunits.Mass mMedium=Modelica.Constants.pi/4*(
-      FHChars.d_a - 2*FHChars.s_r)^2*L_r*medium.rho
+      FHChars.d_a - 2*FHChars.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
     "Mass of the water in the tube";
 
-  final parameter Real rey=m_flowMin*(FHChars.d_a - 2*FHChars.s_r)/(medium.nue*
-      Modelica.Constants.pi/4*(FHChars.d_a - 2*FHChars.s_r)^2)
+  final parameter Real rey=
+    m_flowMin*(FHChars.d_a - 2*FHChars.s_r)*Medium.density(state_default)/(
+    Medium.dynamicViscosity(state_default)*Modelica.Constants.pi/4*(FHChars.d_a - 2*FHChars.s_r)^2)
     "Fix Reynolds number for assert of turbulent flow";
   Real m_flowSp=flowPort_a.m_flow/FHChars.A_Floor "in kg/s.m2";
   Real m_flowMinSp=m_flowMin/FHChars.A_Floor "in kg/s.m2";
-  Modelica.SIunits.Velocity flowSpeed=flowPort_a.m_flow/medium.rho/(Modelica.Constants.pi
+  Modelica.SIunits.Velocity flowSpeed=flowPort_a.m_flow/Medium.density(state_default)/(Modelica.Constants.pi
       /4*(FHChars.d_a - 2*FHChars.s_r)^2);
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_x(G=
@@ -61,11 +62,23 @@ model EmbeddedPipe
         rotation=0,
         origin={-54,0})));
 
-  // Equations and stuff ////////////////////////////////////////////////////////////////////////
+  //fixme: update documentation regarding information about used values for density and viscosity
+protected
+  constant Medium.ThermodynamicState state_default= Medium.setState_pTX(Medium.p_default, TInitial, Medium.X_default)
+    "Default state for calculation of density, viscosity, ...";
+  Medium.ThermodynamicState state_medium
+    "State of the medium in the control volume";
+public
+  Modelica.Blocks.Sources.RealExpression conductance(y=FHChars.A_Floor/R_w)
+    "Floor heating conductance"
+    annotation (Placement(transformation(extent={{-76,14},{-40,34}})));
+  Modelica.Blocks.Sources.RealExpression T_water(y=Medium.temperature(
+        state_medium)) "Average water temperature"
+    annotation (Placement(transformation(extent={{-98,-10},{-78,10}})));
 initial equation
   assert(rey > 2700,
     "The minimal flowrate leads to laminar flow.  Adapt the model (specifically R_w) to these conditions");
-  assert(m_flowMinSp*medium.cp*(R_w + R_r + R_x) >= 0.5,
+  assert(m_flowMinSp*Medium.specificHeatCapacityCp(state_default)*(R_w + R_r + R_x) >= 0.5,
     "Model is not valid, division in n parts is required");
   if FHChars.tabs then
     assert(FHChars.S_1 > 0.3*FHChars.T, "Thickness of the concrete or screed layer above the tubes is smaller than 0.3 * the tube interdistance. 
@@ -78,23 +91,25 @@ initial equation
     assert(FHChars.S_1/FHChars.T <0.3, "In order to use the floor heating model, FHChars.S_1/FHChars.T <0.3 needs to be true");
   end if;
 
+  //fixme: write this without algorithm?
 algorithm
   if noEvent(abs(flowPort_a.m_flow) > m_flowMin/10) then
-    TIn := flowPort_a.h/medium.cp;
-    TMean := (TIn + TOut)/2;
+    hIn := inStream(flowPort_a.h_outflow);
+    hMean := (hIn + hOut)/2;
     R_w := FHChars.T^0.13/8/Modelica.Constants.pi*abs(((FHChars.d_a - 2*FHChars.s_r)
       /(m_flowSp*L_r)))^0.87;
     //assert(noEvent(flowSpeed >= 0.05), "Attention, flowSpeed in the floorheating is smaller than 0.05 m/s");
     //assert(noEvent(flowSpeed <= 0.5), "Attention, flowSpeed in the floorheating is larger than 0.5 m/s");
   else
-    TIn := TOut;
-    TMean := TOut;
+    hIn := hOut;
+    hMean := hOut;
     R_w := FHChars.T/(200*(FHChars.d_a - 2*FHChars.s_r)*Modelica.Constants.pi);
   end if;
 
 equation
-  theta_w.T = TMean;
-  resistance_w.G = FHChars.A_Floor/R_w;
+  // fixme: X_default ok? -> mention in documentation
+  state_medium=Medium.setState_phX(flowPort_a.p, hMean, Medium.X_default);
+
   // mass balance
   flowPort_a.m_flow + flowPort_b.m_flow = 0;
 
@@ -102,20 +117,18 @@ equation
   flowPort_a.p = flowPort_b.p;
 
   // energy balance
-  // the mass is lumped to TOut!  TOut will be DIFFERENT from TMean (when there is a flowrate)
-  flowPort_a.H_flow + flowPort_b.H_flow + theta_w.port.Q_flow = mMedium*medium.cp
-    *der(TOut);
+  //fixme: is this approximation correct? can a mixingvolume be used instead?
+  // the mass is lumped to hOut!  TOut will be DIFFERENT from TMean (when there is a flowrate)
+  inStream(flowPort_a.h_outflow)*flowPort_a.m_flow + flowPort_b.h_outflow*flowPort_b.m_flow + theta_w.port.Q_flow = mMedium*der(hOut);
 
-  // massflow a->b mixing rule at a, energy flow at b defined by medium's temperature
-  // massflow b->a mixing rule at b, energy flow at a defined by medium's temperature
-  flowPort_a.H_flow = semiLinear(
-    flowPort_a.m_flow,
-    flowPort_a.h,
-    TOut*medium.cp);
-  flowPort_b.H_flow = semiLinear(
-    flowPort_b.m_flow,
-    flowPort_b.h,
-    TOut*medium.cp);
+  //fixme: only for one-directional flow -> ok in documentation?
+  //fixme: zero flow ok?
+  //fixme: line below is not ok for reversed flow
+  flowPort_a.h_outflow=hOut;
+  flowPort_a.h_outflow=flowPort_b.h_outflow;
+  flowPort_a.Xi_outflow=flowPort_b.Xi_outflow;
+  flowPort_a.C_outflow=flowPort_b.C_outflow;
+
   connect(resistance_r.port_b, resistance_x.port_a) annotation (Line(
       points={{22,-1.22465e-015},{29,-1.22465e-015},{29,1.22465e-015},{36,
           1.22465e-015}},
@@ -134,9 +147,18 @@ equation
       points={{56,-1.22465e-015},{62,-1.22465e-015},{62,62},{-50,62},{-50,58}},
       color={191,0,0},
       smooth=Smooth.None));
-
+  connect(T_water.y, theta_w.T) annotation (Line(
+      points={{-77,0},{-66,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conductance.y, resistance_w.G) annotation (Line(
+      points={{-38.2,24},{-36,24},{-36,6},{-30.8,6}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,
+            60}}),
+            graphics),
     Icon(graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
@@ -176,6 +198,7 @@ equation
 <p>[TRNSYS, 2007] - Multizone Building modeling with Type 56 and TRNBuild.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>2014 March, Filip Jorissen: Annex60 baseclasses</li>
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
 <li>2011, Roel De Coninck: first version and validation</li>
