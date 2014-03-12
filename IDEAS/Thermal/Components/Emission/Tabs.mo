@@ -4,9 +4,9 @@ model Tabs "Tabs system, not discretized"
   extends IDEAS.Thermal.Components.Emission.Interfaces.Partial_Tabs;
 
   EmbeddedPipe embeddedPipe(
-    medium=medium,
     FHChars=FHChars,
-    m_flowMin=m_flowMin)
+    m_flowMin=m_flowMin,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-56,-8},{-36,12}})));
 
   IDEAS.Thermal.Components.Emission.NakedTabs nakedTabs(
@@ -42,6 +42,7 @@ equation
     Icon(graphics),
     Documentation(revisions="<html>
 <p><ul>
+<li>2014 March, Filip Jorissen: Annex60 compatibility</li>
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
 <li>2011, Roel De Coninck: first version and validation</li>

@@ -6,22 +6,26 @@ partial model Partial_Tabs "Partial tabs model"
     IDEAS.Thermal.Components.BaseClasses.FH_Characteristics(A_Floor=A_Floor)
     annotation (choicesAllMatching=true);
 
-  parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
-    "Medium in the component";
   parameter Modelica.SIunits.MassFlowRate m_flowMin
     "Minimal flowrate when in operation";
   parameter Modelica.SIunits.Area A_Floor=1 "Total Surface of the TABS";
 
-  Thermal.Components.Interfaces.FlowPort_a flowPort_a(medium=medium)
+  Thermal.Components.Interfaces.FlowPort_a flowPort_a(redeclare package Medium
+      = Medium)
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-  Thermal.Components.Interfaces.FlowPort_b flowPort_b(medium=medium)
+  Thermal.Components.Interfaces.FlowPort_b flowPort_b(redeclare package Medium
+      = Medium)
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_b
     annotation (Placement(transformation(extent={{-10,-108},{10,-88}})));
 
-  annotation (Diagram(graphics), Documentation(info="<html>
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    annotation (__Dymola_choicesAllMatching=true);
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics), Documentation(info="<html>
 <p>This partial model mainly specifies the interfaces of a TABS:</p>
 <p>- two flowPorts, for the fluid connections (in and out)</p>
 <p>- two heatPorts, for heat transfer to the upper and lower side. By not connecting a heatPort, no heat transfer through that port wil occur (=perfectly insulated).</p>
