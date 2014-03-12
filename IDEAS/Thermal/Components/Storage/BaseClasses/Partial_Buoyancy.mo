@@ -1,8 +1,7 @@
 within IDEAS.Thermal.Components.Storage.BaseClasses;
 partial model Partial_Buoyancy
   "Partial model to add buoyancy if there is a temperature inversion in the tank"
-  parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
-    "Medium in the tank";
+
   parameter SI.Length h "Total tank height";
   parameter Integer nbrNodes(min=2) = 2 "Number of tank nodes";
   parameter SI.Area surCroSec "Cross section surface of the tank";
