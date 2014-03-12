@@ -22,7 +22,7 @@ model EmbeddedPipe
   //Calculation of the resistance from the outer pipe wall to the center of the tabs / floorheating.
   final parameter Real corr = if FHChars.tabs then 0 else sum( -(FHChars.alp2/FHChars.lambda_b * FHChars.T - 2*3.14*s)/(FHChars.alp2/FHChars.lambda_b * FHChars.T + 2*3.14*s)*exp(-4*3.14*s/FHChars.T*FHChars.S_2)/s for s in 1:100)
     "correction factor for the floor heating. If tabs is used, corr=0";
-  parameter Real test = FHChars.T*log(FHChars.T /(3.14*FHChars.d_a));
+ // parameter Real test = FHChars.T*log(FHChars.T /(3.14*FHChars.d_a));
   final parameter Modelica.SIunits.ThermalInsulance R_x=FHChars.T*(log(FHChars.T
       /(3.14*FHChars.d_a)) + corr)/(2*3.14*FHChars.lambda_b)
     "Fix resistance of thermal conduction from pipe wall to layer";
