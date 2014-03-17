@@ -15,9 +15,9 @@ model MonoLayerLucent "single non-opaque layer"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_gain
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=293.15))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=289.15))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=293.15))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 protected
