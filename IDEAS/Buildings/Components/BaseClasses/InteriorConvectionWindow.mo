@@ -4,7 +4,7 @@ model InteriorConvectionWindow "interior surface convection for windows"
   parameter Modelica.SIunits.Area A "surface area";
   parameter Modelica.SIunits.Angle inc "inclination";
 
-  parameter Boolean fixed = false
+  parameter Boolean fixed = true
     "Fixed convective heat transfer coefficient or DT-dependent.";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=293.15))
