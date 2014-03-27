@@ -133,10 +133,10 @@ equation
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}),                                                                              graphics={Text(extent={{
-              -144,-12},{156,-72}},                                                                                                    textString =         "%name"),Polygon(          points={{
+              -144,-12},{156,-72}},                                                                                                    textString=          "%name"),Polygon(          points={{
               -10,-35},{-10,15},{0,35},{10,15},{10,-35},{-10,-35}},                                                                                                    lineColor={255,0,0},
-            fillPattern =                                                                                                    FillPattern.Forward,          fillColor={255,255,255},
+            fillPattern=                                                                                                    FillPattern.Forward,          fillColor={255,255,255},
           origin={0,55},
           rotation=180),                                                                                                    Rectangle(          extent={{-100,20},{100,-20}},          lineColor={255,255,255},          fillColor={85,170,255},
-            fillPattern =                                                                                                    FillPattern.HorizontalCylinder)}),    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{            100,100}}),      graphics));
+            fillPattern=                                                                                                    FillPattern.HorizontalCylinder)}),    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{            100,100}}),      graphics));
 end Pipe_HeatPort;

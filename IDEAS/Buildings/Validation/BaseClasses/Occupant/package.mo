@@ -4,5 +4,4 @@ package Occupant
 
 extends Modelica.Icons.Package;
 
-
 end Occupant;
