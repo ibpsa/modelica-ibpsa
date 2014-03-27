@@ -6,7 +6,7 @@ block SmoothLimit
  parameter Real upper "Upper limit";
  parameter Real lower "Lower limit";
 equation
-  y = Annex60.Utilities.Math.Functions.smoothLimit(u, lower, upper, deltaX);
+  y = IDEAS.Utilities.Math.Functions.smoothLimit(u, lower, upper, deltaX);
   annotation (Icon(graphics={Text(
           extent={{-88,40},{92,-32}},
           lineColor={160,160,164},

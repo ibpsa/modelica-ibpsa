@@ -18,7 +18,7 @@ algorithm
   annotation (
     Inline=false,
     smoothOrder=5,
-    derivative=Annex60.Utilities.Psychrometrics.Functions.BaseClasses.der_sublimationPressureIce,
+    derivative=IDEAS.Utilities.Psychrometrics.Functions.BaseClasses.der_sublimationPressureIce,
     Documentation(info="<html>
 <p>
 Sublimation pressure of water below the triple point temperature, computed from temperature,
@@ -39,7 +39,7 @@ revisions="<html>
 <ul>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
-First implementation, moved from <code>Annex60.Media</code>.
+First implementation, moved from <code>IDEAS.Media</code>.
 </li>
 </ul>
 </html>"));

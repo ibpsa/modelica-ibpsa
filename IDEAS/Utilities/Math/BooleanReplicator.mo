@@ -10,7 +10,7 @@ block BooleanReplicator "Boolean signal replicator"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
             rotation=0)));
 equation
-  y = Annex60.Utilities.Math.Functions.booleanReplicator(u=u, nout=nout);
+  y = IDEAS.Utilities.Math.Functions.booleanReplicator(u=u, nout=nout);
   annotation (
     defaultComponentName="booRep",
     Window(

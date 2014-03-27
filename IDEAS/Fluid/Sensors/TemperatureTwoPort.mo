@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Sensors;
 model TemperatureTwoPort "Ideal two port temperature sensor"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
+  extends IDEAS.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                           final unit="K",
                                           displayUnit = "degC",
@@ -98,8 +98,8 @@ between its fluid ports. The sensor does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then its output
 is computed using a first order differential equation. 
 Setting <code>tau=0</code> is <i>not</i> recommend. See
-<a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
+<a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>
@@ -119,7 +119,7 @@ use 0 Kelvin as the lower value of the ordinate.
 <li>
 September 10, 2008, by Michael Wetter:<br/>
 First implementation, based on 
-<a href=\"modelica://Annex60.Fluid.Sensors.Temperature\">Annex60.Fluid.Sensors.Temperature</a>.
+<a href=\"modelica://IDEAS.Fluid.Sensors.Temperature\">IDEAS.Fluid.Sensors.Temperature</a>.
 </li>
 </ul>
 </html>"));

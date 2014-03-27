@@ -22,7 +22,7 @@ model Boiler
   parameter Real modulationMin=25 "Minimal modulation percentage";
   parameter Real modulationStart=35
     "Min estimated modulation level required for start of HP";
-  Annex60.Fluid.Sensors.Temperature Tin(redeclare package Medium = Medium)
+  IDEAS.Fluid.Sensors.Temperature Tin(redeclare package Medium = Medium)
     "Incoming water temperature: for evaluation of condensation efficiency"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},

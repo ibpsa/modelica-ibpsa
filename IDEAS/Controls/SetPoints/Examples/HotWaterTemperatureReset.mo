@@ -1,7 +1,7 @@
 within IDEAS.Controls.SetPoints.Examples;
 model HotWaterTemperatureReset "Test model for the heating curve"
   extends Modelica.Icons.Example;
-  Annex60.Controls.SetPoints.HotWaterTemperatureReset heaCur(
+  IDEAS.Controls.SetPoints.HotWaterTemperatureReset heaCur(
     m=1,
     TSup_nominal=333.15,
     TRet_nominal=313.15,
@@ -12,7 +12,7 @@ model HotWaterTemperatureReset "Test model for the heating curve"
     duration=1,
     offset=263.15)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Annex60.Controls.SetPoints.HotWaterTemperatureReset heaCur1(
+  IDEAS.Controls.SetPoints.HotWaterTemperatureReset heaCur1(
     m=1,
     use_TRoo_in=true,
     TSup_nominal=333.15,
@@ -43,7 +43,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/SetPoints/Examples/HotWaterTemperatureReset.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Controls/SetPoints/Examples/HotWaterTemperatureReset.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -61,7 +61,7 @@ an outside temperature of
 The figure below shows the computed supply and return water temperatures.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Controls/SetPoints/Examples/HotWaterTemperatureReset.png\" border=\"1\" alt=\"Supply and return water temperatures.\"/>
+<img src=\"modelica://IDEAS/Resources/Images/Controls/SetPoints/Examples/HotWaterTemperatureReset.png\" border=\"1\" alt=\"Supply and return water temperatures.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

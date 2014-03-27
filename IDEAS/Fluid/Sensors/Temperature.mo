@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Sensors;
 model Temperature "Ideal one port temperature sensor"
-    extends Annex60.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+    extends IDEAS.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
 
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
                                           final unit = "K",
@@ -20,8 +20,8 @@ The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
 Read the 
-<a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a>
+<a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.
 </p>
 </html>",

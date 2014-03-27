@@ -1,8 +1,7 @@
 within IDEAS.Fluid.Sensors.Examples;
 model TraceSubstances "Test model for the extra property sensor"
   extends Modelica.Icons.Example;
- package Medium = Annex60.Media.Air(extraPropertiesNames={"CO2"})
-    "Medium model";
+ package Medium = IDEAS.Media.Air(extraPropertiesNames={"CO2"}) "Medium model";
 
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 15*1.2/3600
     "Mass flow rate into and out of the volume";
@@ -21,17 +20,17 @@ model TraceSubstances "Test model for the extra property sensor"
     annotation (Placement(transformation(extent={{-2,30},{18,50}}, rotation=0)));
   Modelica.Blocks.Sources.Constant step(k=8.18E-6) "CO2 mass flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}}, rotation=0)));
-  Annex60.Fluid.Sensors.TraceSubstances senVol(
+  IDEAS.Fluid.Sensors.TraceSubstances senVol(
     redeclare package Medium = Medium) "Sensor at volume"
     annotation (Placement(transformation(extent={{100,50},{120,70}}, rotation=0)));
-  Annex60.Fluid.Sensors.TraceSubstances senSou(
+  IDEAS.Fluid.Sensors.TraceSubstances senSou(
     redeclare package Medium = Medium,
     substanceName="CO2") "Sensor at source"
     annotation (Placement(transformation(extent={{24,90},{44,110}}, rotation=0)));
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal)
     "Fresh air mass flow rate"
     annotation (Placement(transformation(extent={{-80,-14},{-60,6}}, rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_T mSou(
+  IDEAS.Fluid.Sources.MassFlowSource_T mSou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) "Fresh air supply"
@@ -41,16 +40,16 @@ model TraceSubstances "Test model for the extra property sensor"
     nPorts=1) "Exhaust air"
     annotation (Placement(transformation(extent={{0,-62},{20,-42}},
           rotation=0)));
-  Annex60.Fluid.Sensors.Conversions.To_VolumeFraction masFraSou(
+  IDEAS.Fluid.Sensors.Conversions.To_VolumeFraction masFraSou(
     MMMea=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
     "Conversion of mass ratio to volume ratio"
     annotation (Placement(transformation(extent={{140,90},{160,110}},  rotation=
            0)));
-  Annex60.Fluid.Sensors.Conversions.To_VolumeFraction masFraVol(
+  IDEAS.Fluid.Sensors.Conversions.To_VolumeFraction masFraVol(
     MMMea=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
     "Conversion of mass ratio to volume ratio"
     annotation (Placement(transformation(extent={{140,50},{160,70}}, rotation=0)));
-  Annex60.Fluid.Sensors.TraceSubstancesTwoPort senTraSub(
+  IDEAS.Fluid.Sensors.TraceSubstancesTwoPort senTraSub(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Sensor at exhaust air"
     annotation (Placement(transformation(extent={{64,-62},{44,-42}})));
@@ -94,7 +93,7 @@ equation
       smooth=Smooth.None));
     annotation (
 experiment(StopTime=7200),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TraceSubstances.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TraceSubstances.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{180,
             180}}), graphics),
@@ -127,8 +126,8 @@ a translation warning in OpenModelica.
 <li>
 August 30, 2013 by Michael Wetter:<br/>
 Renamed example and added an instance of 
-<a href=\"modelica://Annex60.Fluid.Sensors.TraceSubstancesTwoPort\">
-Annex60.Fluid.Sensors.TraceSubstancesTwoPort</a>.
+<a href=\"modelica://IDEAS.Fluid.Sensors.TraceSubstancesTwoPort\">
+IDEAS.Fluid.Sensors.TraceSubstancesTwoPort</a>.
 </li>
 <li>
 September 29, 2009 by Michael Wetter:<br/>

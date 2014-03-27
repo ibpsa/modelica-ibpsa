@@ -7,7 +7,8 @@ model HP_BrineWater "Brine-Water HP WITHOUT borehole"
       final heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.HP_BW);
   parameter Modelica.SIunits.Power QNom "Nominal power at 2/35";
 
-  replaceable package MediumBrine = Modelica.Media.Interfaces.PartialMedium
+  replaceable package MediumBrine =
+      Modelica.Media.Interfaces.PartialMedium
     "Medium (brine) at the primary side of the heat pump";
 
   parameter Modelica.SIunits.Power QDesign=0
@@ -40,7 +41,7 @@ model HP_BrineWater "Brine-Water HP WITHOUT borehole"
       package Medium =
         MediumBrine) "Outlet flowport for brine"
     annotation (Placement(transformation(extent={{66,-110},{86,-90}})));
-  Annex60.Fluid.Sensors.Temperature Tin(redeclare package Medium = Medium)
+  IDEAS.Fluid.Sensors.Temperature Tin(redeclare package Medium = Medium)
     "Incoming water temperature: for evaluation of condensation efficiency"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},

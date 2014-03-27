@@ -8,10 +8,10 @@ model SaturationPressure "Model to test the saturationPressure function"
   constant Real conv(unit="1/s") = 1 "Conversion factor";
 equation
   T = TMin + conv*time * (TMax-TMin);
-  pSat = Annex60.Utilities.Psychrometrics.Functions.saturationPressure(T);
+  pSat = IDEAS.Utilities.Psychrometrics.Functions.saturationPressure(T);
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/saturationPressure.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/saturationPressure.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example computes the saturation pressure of water.

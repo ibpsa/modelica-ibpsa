@@ -2,7 +2,7 @@ within IDEAS.Controls.Continuous.Examples;
 model PIDHysteresis "Example model for PID controller with hysteresis"
   extends Modelica.Icons.Example;
 
-  Annex60.Controls.Continuous.PIDHysteresis con(
+  IDEAS.Controls.Continuous.PIDHysteresis con(
     pre_y_start=false,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0.3,
@@ -71,7 +71,7 @@ equation
       smooth=Smooth.None));
  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
              extent={{-100,-100},{100,100}})),
-                      __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresis.mos"
+                      __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresis.mos"
         "Simulate and plot"),
     experiment(StopTime=86400),
     Documentation(info="<html>
@@ -92,7 +92,7 @@ The figure below shows the control error
 <code>con.y</code>.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Controls/Continuous/Examples/PIDHysteresis.png\" border=\"1\" alt=\"Control error.\"/>
+<img src=\"modelica://IDEAS/Resources/Images/Controls/Continuous/Examples/PIDHysteresis.png\" border=\"1\" alt=\"Control error.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

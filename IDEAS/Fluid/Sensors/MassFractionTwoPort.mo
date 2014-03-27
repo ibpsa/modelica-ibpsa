@@ -1,9 +1,9 @@
 within IDEAS.Fluid.Sensors;
 model MassFractionTwoPort "Ideal two port mass fraction sensor"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
+  extends IDEAS.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases);
-  extends Annex60.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
+  extends IDEAS.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
   extends Modelica.Icons.RotationalSensor;
 
   parameter Medium.MassFraction X_start=Medium.X_default[i_x]
@@ -74,8 +74,8 @@ The sensor is ideal, i.e. it does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then its output
 is computed using a first order differential equation. 
 Setting <code>tau=0</code> is <i>not</i> recommend. See
-<a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
+<a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>",
 revisions="<html>
@@ -92,8 +92,8 @@ OpenModelica.
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Revised model to use base class
-<a href=\"modelica://Annex60.Fluid.BaseClasses.IndexMassFraction\">
-Annex60.Fluid.BaseClasses.IndexMassFraction</a>.
+<a href=\"modelica://IDEAS.Fluid.BaseClasses.IndexMassFraction\">
+IDEAS.Fluid.BaseClasses.IndexMassFraction</a>.
 </li>
 <li>
 November 3, 2011, by Michael Wetter:<br/>

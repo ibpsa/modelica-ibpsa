@@ -2,7 +2,7 @@ within IDEAS.Fluid.Interfaces;
 model ConservationEquation "Lumped volume with mass and energy balance"
 
 //  outer Modelica.Fluid.System system "System properties";
-  extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
@@ -248,16 +248,16 @@ Input connectors of the model are
 The model can be used as a dynamic model or as a steady-state model.
 However, for a steady-state model with exactly two fluid ports connected, 
 the model
-<a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation\">
-Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
+<a href=\"modelica://IDEAS.Fluid.Interfaces.StaticTwoPortConservationEquation\">
+IDEAS.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
 provides a more efficient implementation.
 </p>
 <p>
 For models that instantiates this model, see
-<a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolume\">
-Annex60.Fluid.MixingVolumes.MixingVolume</a> and
-<a href=\"modelica://Annex60.Fluid.Storage.ExpansionVessel\">
-Annex60.Fluid.Storage.ExpansionVessel</a>.
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes.MixingVolume\">
+IDEAS.Fluid.MixingVolumes.MixingVolume</a> and
+<a href=\"modelica://IDEAS.Fluid.Storage.ExpansionVessel\">
+IDEAS.Fluid.Storage.ExpansionVessel</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -301,8 +301,8 @@ Removed the option to use <code>h_start</code>, as this
 is not needed for building simulation. 
 Also removed the reference to <code>Modelica.Fluid.System</code>.
 Moved parameters and medium to 
-<a href=\"Annex60.Fluid.Interfaces.LumpedVolumeDeclarations\">
-Annex60.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
+<a href=\"IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations\">
+IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 <li>
 July 14, 2011 by Michael Wetter:<br/>
 Added start value for medium density.

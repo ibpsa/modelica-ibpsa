@@ -2,14 +2,14 @@ within IDEAS.Fluid.Sensors.Examples;
 model MassFraction "Test model for the mass fraction sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air "Medium model";
+  package Medium = IDEAS.Media.Air "Medium model";
 
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=1,
     T=293.15) "Flow boundary condition" annotation (Placement(
         transformation(extent={{90,-10},{70,10}},rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_T masFloRat(
+  IDEAS.Fluid.Sources.MassFlowSource_T masFloRat(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
     use_T_in=false,
@@ -19,21 +19,21 @@ model MassFraction "Test model for the mass fraction sensor"
           extent={{-80,0},{-60,20}},  rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Annex60.Fluid.Sensors.MassFraction senMasFra2(
+  IDEAS.Fluid.Sensors.MassFraction senMasFra2(
     redeclare package Medium = Medium) "Mass fraction sensor for the volume"
     annotation (Placement(transformation(extent={{20,36},{40,56}})));
-  Annex60.Fluid.MixingVolumes.MixingVolume vol(
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     V=1,
     nPorts=3,
     m_flow_nominal=10) "Volume"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM dp(
+  IDEAS.Fluid.FixedResistances.FixedResistanceDpM dp(
     redeclare package Medium = Medium,
     m_flow_nominal=10,
     dp_nominal=200) "Flow resistance"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Annex60.Fluid.Sensors.MassFractionTwoPort senMasFra1(
+  IDEAS.Fluid.Sensors.MassFractionTwoPort senMasFra1(
     redeclare package Medium = Medium, m_flow_nominal=10)
     "Mass fraction sensor for the flowing medium"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
@@ -61,7 +61,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=10),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

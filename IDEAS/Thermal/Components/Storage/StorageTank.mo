@@ -243,7 +243,7 @@ equation
 <p>Viessmann. 2011. Vitocell- 100-V, 390 liter, Datenblatt. Accessed April 21, 2013. <a href=\"http://tinyurl.com/cdpv8rr\">http://tinyurl.com/cdpv8rr</a>.</p>
 </html>", revisions="<html>
 <p><ul>
-<li>2014 March, Filip Jorissen: implemented Annex60 baseclasses</li>
+<li>2014 March, Filip Jorissen: implemented IDEAS baseclasses</li>
 <li>2013 June, Roel De Coninck: documentation.</li>
 <li>2012 October, Roel De Coninck: better buoyancy models</li>
 <li>2012 September, Roel De Coninck: added conduction between nodes</li>

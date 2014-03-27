@@ -1,6 +1,8 @@
 within IDEAS.Thermal.Components.Interfaces.Partials;
 partial model TwoPort "Partial model of two port"
+
   extends IDEAS.Thermal.Components.Interfaces.Partials.PartialTwoPort(vol(nPorts=2));
+
 
 equation
   connect(vol.ports[2], port_b) annotation (Line(

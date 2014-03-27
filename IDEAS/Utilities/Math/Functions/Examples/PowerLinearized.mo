@@ -7,20 +7,20 @@ model PowerLinearized
   Real TExact "Temperature";
 equation
   T = (1+500*time);
-  T = Annex60.Utilities.Math.Functions.powerLinearized(x=T4, x0=243.15^4, n=0.25);
+  T = IDEAS.Utilities.Math.Functions.powerLinearized(x=T4, x0=243.15^4, n=0.25);
   TExact = abs(T4)^(1/4);
 
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                      graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PowerLinearized.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PowerLinearized.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
 This example tests the implementation of
-<a href=\"modelica://Annex60.Utilities.Math.Functions.powerLinearized\">
-Annex60.Utilities.Math.Functions.powerLinearized</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.Functions.powerLinearized\">
+IDEAS.Utilities.Math.Functions.powerLinearized</a>.
 </p>
 </html>", revisions="<html>
 <ul>

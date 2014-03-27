@@ -1,5 +1,5 @@
 within IDEAS.Utilities.Psychrometrics.Functions;
-package BaseClasses "Package with base classes for Annex60.Utilities.Psychrometrics.Functions"
+package BaseClasses "Package with base classes for IDEAS.Utilities.Psychrometrics.Functions"
   extends Modelica.Icons.BasesPackage;
 
 
@@ -13,7 +13,7 @@ package BaseClasses "Package with base classes for Annex60.Utilities.Psychrometr
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains base classes that are used to construct the models in
-<a href=\"modelica://Annex60.Utilities.Psychrometrics.Functions\">Annex60.Utilities.Psychrometrics.Functions</a>.
+<a href=\"modelica://IDEAS.Utilities.Psychrometrics.Functions\">IDEAS.Utilities.Psychrometrics.Functions</a>.
 </p>
 </html>"));
 end BaseClasses;

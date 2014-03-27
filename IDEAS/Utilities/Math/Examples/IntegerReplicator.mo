@@ -5,7 +5,7 @@ model IntegerReplicator "Test model for integer replicator"
   Modelica.Blocks.Sources.IntegerTable intTab(table=[0,1;1, 4;1.5, 5;2, 6])
     "Integer input signal"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Annex60.Utilities.Math.IntegerReplicator intRep(nout=
+  IDEAS.Utilities.Math.IntegerReplicator intRep(nout=
        2) "Replicates integer values" annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(intTab.y, intRep.u) annotation (Line(
@@ -16,13 +16,13 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-10
             {100,100}}),
                     graphics),
 experiment(StopTime=2),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/IntegerReplicator.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Examples/IntegerReplicator.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests the implementation of 
-<a href=\"modelica://Annex60.Utilities.Math.IntegerReplicator\">
-Annex60.Utilities.Math.IntegerReplicator</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.IntegerReplicator\">
+IDEAS.Utilities.Math.IntegerReplicator</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -2,21 +2,21 @@ within IDEAS.Fluid.MassExchangers.Examples;
 model HumidifierPrescribed "Model that demonstrates the ideal humidifier model"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air;
+  package Medium = IDEAS.Media.Air;
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
      3000/1000/20 "Nominal mass flow rate";
 
-  Annex60.Fluid.Sources.MassFlowSource_T sou(
+  IDEAS.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_T_in=false,
     nPorts=2,
     m_flow=2*m_flow_nominal,
     T=303.15) "Source" annotation (Placement(transformation(extent={{-82,40},{-62,
             60}}, rotation=0)));
-  Annex60.Fluid.MassExchangers.HumidifierPrescribed humSte(
+  IDEAS.Fluid.MassExchangers.HumidifierPrescribed humSte(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -25,20 +25,20 @@ model HumidifierPrescribed "Model that demonstrates the ideal humidifier model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Steady-state model of the humidifier"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
         Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0, 273.15 + 30; 120, 273.15 +
         30; 120, 273.15 + 25; 1200, 273.15 + 25]) "Setpoint"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
-  Annex60.Controls.Continuous.LimPID con1(
+  IDEAS.Controls.Continuous.LimPID con1(
     Td=1,
     k=1,
     Ti=10,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     reverseAction=true) "Controller"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
-  Annex60.Fluid.MassExchangers.HumidifierPrescribed humDyn(
+  IDEAS.Fluid.MassExchangers.HumidifierPrescribed humDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -47,17 +47,17 @@ model HumidifierPrescribed "Model that demonstrates the ideal humidifier model"
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=303.15) "Dynamic model of the humidifier"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
         Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Annex60.Controls.Continuous.LimPID con2(
+  IDEAS.Controls.Continuous.LimPID con2(
     Td=1,
     Ti=10,
     k=0.1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     reverseAction=true) "Controller"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     use_T_in=false,
     p(displayUnit="Pa"),
@@ -118,7 +118,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{200,
             200}}), graphics),
     __Dymola_Commands(file=
-          "modelica://Annex60/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/HumidifierPrescribed.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/HumidifierPrescribed.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

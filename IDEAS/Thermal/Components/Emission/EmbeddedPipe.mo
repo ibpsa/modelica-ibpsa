@@ -198,7 +198,7 @@ equation
 <p>[TRNSYS, 2007] - Multizone Building modeling with Type 56 and TRNBuild.</p>
 </html>", revisions="<html>
 <p><ul>
-<li>2014 March, Filip Jorissen: Annex60 baseclasses</li>
+<li>2014 March, Filip Jorissen: IDEAS baseclasses</li>
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
 <li>2011, Roel De Coninck: first version and validation</li>

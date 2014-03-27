@@ -7,7 +7,7 @@ model SpliceFunctionDerivativeCheck
 initial equation
    y=x;
 equation
-  x=Annex60.Utilities.Math.Functions.spliceFunction(
+  x=IDEAS.Utilities.Math.Functions.spliceFunction(
                                             10, -10, time+0.1, 0.2);
   der(y)=der(x);
   assert(abs(x-y) < 1E-2, "Model has an error");
@@ -16,7 +16,7 @@ equation
             -100},{100,100}}),
                     graphics),
 experiment(StartTime=-1, StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SpliceFunctionDerivativeCheck.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

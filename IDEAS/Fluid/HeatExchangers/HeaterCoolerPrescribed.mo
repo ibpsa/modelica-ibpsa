@@ -1,7 +1,7 @@
 within IDEAS.Fluid.HeatExchangers;
 model HeaterCoolerPrescribed "Heater or cooler with prescribed heat flow rate"
-  extends Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Annex60.Fluid.MixingVolumes.MixingVolume vol,
+  extends IDEAS.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    redeclare final IDEAS.Fluid.MixingVolumes.MixingVolume vol,
     final showDesignFlowDirection=false);
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal

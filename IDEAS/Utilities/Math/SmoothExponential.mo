@@ -4,7 +4,7 @@ block SmoothExponential
   extends Modelica.Blocks.Interfaces.SISO;
   parameter Real delta "Transition point where approximation occurs";
 equation
-  y = Annex60.Utilities.Math.Functions.smoothExponential(x=u, delta=delta);
+  y = IDEAS.Utilities.Math.Functions.smoothExponential(x=u, delta=delta);
   annotation (Documentation(info="<html>
 <p>Function to provide a once continuously differentiable approximation to <i>exp(- |x| )</i> in the interval <i>|x| for some positive &delta; </i></p>
 </html>", revisions="<html>

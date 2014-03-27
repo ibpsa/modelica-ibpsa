@@ -1,6 +1,6 @@
 within IDEAS.Fluid.HeatExchangers;
 model ConstantEffectiveness "Heat exchanger with constant effectiveness"
-  extends Annex60.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
+  extends IDEAS.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
     sensibleOnly1 = true,
     sensibleOnly2 = true,
     Q1_flow = eps * QMax_flow,
@@ -40,8 +40,8 @@ where <i>&epsilon;</i> is a constant effectiveness and
 </p>
 <p>
 For a heat and moisture exchanger, use
-<a href=\"modelica://Annex60.Fluid.MassExchangers.ConstantEffectiveness\">
-Annex60.Fluid.MassExchangers.ConstantEffectiveness</a>
+<a href=\"modelica://IDEAS.Fluid.MassExchangers.ConstantEffectiveness\">
+IDEAS.Fluid.MassExchangers.ConstantEffectiveness</a>
 instead of this model.
 </p>
 </html>",

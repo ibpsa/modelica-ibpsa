@@ -59,8 +59,8 @@ Thus, it can be used as a base class for a heat <i>and</i> mass transfer compone
 <p>
 The model is used by other models in this package that add heat transfer,
 mass transfer and pressure drop equations. See for example
-<a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
-Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
+<a href=\"modelica://IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
+IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>

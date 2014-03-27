@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Sources.Examples;
 model TraceSubstancesFlowSource
   extends Modelica.Icons.Example;
-  package Medium = Annex60.Media.Air(extraPropertiesNames={"CO2"});
+  package Medium = IDEAS.Media.Air(extraPropertiesNames={"CO2"});
 
   MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
@@ -40,7 +40,7 @@ model TraceSubstancesFlowSource
       use_m_flow_in=true)
     annotation (Placement(transformation(extent={{-46,70},{-26,90}},  rotation=
             0)));
-  Annex60.Utilities.Diagnostics.AssertEquality assEqu(threShold=1E-4)
+  IDEAS.Utilities.Diagnostics.AssertEquality assEqu(threShold=1E-4)
     "Assert that both volumes have the same concentration"
     annotation (Placement(transformation(extent={{210,128},{230,148}},
                                                                      rotation=0)));
@@ -62,8 +62,7 @@ model TraceSubstancesFlowSource
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{88,-60},
             {108,-40}},rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality assEqu1(
-                                                     threShold=1E-4)
+  IDEAS.Utilities.Diagnostics.AssertEquality assEqu1(threShold=1E-4)
     "Assert that both volumes have the same concentration"
     annotation (Placement(transformation(extent={{210,0},{230,20}},rotation=0)));
   MixingVolumes.MixingVolume vol4(
@@ -80,13 +79,13 @@ model TraceSubstancesFlowSource
       use_m_flow_in=true)
     annotation (Placement(transformation(extent={{-48,-50},{-28,-30}}, rotation=
            0)));
-  Annex60.Fluid.Sources.Boundary_pT bou(
+  IDEAS.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     p=101325,
     nPorts=1,
     T=293.15) annotation (Placement(transformation(extent={{-62,-80},{-42,-60}},
           rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=2,
     p=101320,
@@ -156,7 +155,7 @@ model TraceSubstancesFlowSource
     "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{138,70},{160,90}},  rotation=
             0)));
-  Annex60.Fluid.Sources.Boundary_pT sin1(
+  IDEAS.Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium,
     nPorts=2,
     p=101320,
@@ -282,7 +281,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{240,180}}), graphics),
             experiment(StopTime=600),
-             __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sources/Examples/TraceSubstancesFlowSource.mos"
+             __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sources/Examples/TraceSubstancesFlowSource.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This model demonstrates the use of trace substances that are added

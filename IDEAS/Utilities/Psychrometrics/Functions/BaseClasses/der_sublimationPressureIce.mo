@@ -23,15 +23,15 @@ algorithm
       Documentation(info="<html>
 <p>
 Derivative of function
-<a href=\"modelica://Annex60.Utilities.Psychrometrics.Functions.sublimationPressureIce\">
-Annex60.Utilities.Psychrometrics.Functions.sublimationPressureIce</a>.
+<a href=\"modelica://IDEAS.Utilities.Psychrometrics.Functions.sublimationPressureIce\">
+IDEAS.Utilities.Psychrometrics.Functions.sublimationPressureIce</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
-First implementation, moved from <code>Annex60.Media</code>.
+First implementation, moved from <code>IDEAS.Media</code>.
 </li>
 </ul>
 </html>"));

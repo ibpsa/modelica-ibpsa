@@ -44,12 +44,12 @@ This block can be used to schedule a set-point by using piecewise linear functio
 For example, the instances
 </p>
 <pre>
-Annex60.Controls.SetPoints.Table tabLinExt(constantExtrapolation=false, 
+IDEAS.Controls.SetPoints.Table tabLinExt(constantExtrapolation=false, 
                                              table=[20, 0.0; 
                                                     22, 0.5; 
                                                     25, 0.5; 
                                                     26, 1.0]);
-Annex60.Controls.SetPoints.Table tabConExt(constantExtrapolation=true, 
+IDEAS.Controls.SetPoints.Table tabConExt(constantExtrapolation=true, 
                                              table=[20, 0.0; 
                                                     22, 0.5; 
                                                     25, 0.5; 
@@ -59,7 +59,7 @@ Annex60.Controls.SetPoints.Table tabConExt(constantExtrapolation=true,
 will cause the following output:
 </p>
 <p>
-<img src=\"modelica://Annex60/Resources/Images/Controls/SetPoints/Table.png\" border=\"1\" alt=\"Table output.\"/>
+<img src=\"modelica://IDEAS/Resources/Images/Controls/SetPoints/Table.png\" border=\"1\" alt=\"Table output.\"/>
 </p>
 <p>
 For the default setting <code>constantExtrapolation=true</code>, the

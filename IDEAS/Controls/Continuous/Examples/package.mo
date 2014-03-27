@@ -10,8 +10,8 @@ package Examples "Collection of models that illustrate model use and test models
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples for the use of models that can be found in
-<a href=\"modelica://Annex60.Controls.Continuous\">
-Annex60.Controls.Continuous</a>.
+<a href=\"modelica://IDEAS.Controls.Continuous\">
+IDEAS.Controls.Continuous</a>.
 </p>
 </html>"));
 end Examples;

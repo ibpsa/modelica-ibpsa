@@ -2,15 +2,15 @@ within IDEAS.Utilities.Psychrometrics.Examples;
 model MassFraction_pTphi "Unit test for dew point temperature calculation"
   extends Modelica.Icons.Example;
 
-   package Medium1 = Annex60.Media.Air "Medium model";
-   package Medium2 = Annex60.Media.GasesPTDecoupled.MoistAir "Medium model";
+   package Medium1 = IDEAS.Media.Air "Medium model";
+   package Medium2 = IDEAS.Media.GasesPTDecoupled.MoistAir "Medium model";
     Modelica.Blocks.Sources.Ramp Phi(
     offset=0,
     duration=0.5,
     height=1) "Relative humidity"
                  annotation (Placement(transformation(extent={{-80,-60},{-60,-40}},
                    rotation=0)));
-  Annex60.Utilities.Psychrometrics.X_pTphi masFra1 "Mass fraction computation"
+  IDEAS.Utilities.Psychrometrics.X_pTphi masFra1 "Mass fraction computation"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
     Modelica.Blocks.Sources.Ramp T(
     height=10,
@@ -22,7 +22,7 @@ model MassFraction_pTphi "Unit test for dew point temperature calculation"
     Modelica.Blocks.Sources.Constant P(k=101325) "Pressure"
                  annotation (Placement(transformation(extent={{-80,20},{-60,40}},
                    rotation=0)));
-  Annex60.Utilities.Psychrometrics.X_pTphi masFra2(use_p_in=false)
+  IDEAS.Utilities.Psychrometrics.X_pTphi masFra2(use_p_in=false)
     "Mass fraction computation"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 equation
@@ -52,7 +52,7 @@ equation
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/MassFraction_pTphi.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/MassFraction_pTphi.mos"
         "Simulate and plot"),                                                                                                    Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
 end MassFraction_pTphi;

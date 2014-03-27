@@ -33,8 +33,8 @@ Documentation(
 info="<html>
 <p>
 Implementation of the second derivative of the function
-<a href=\"modelica://Annex60.Utilities.Math.Functions.regNonZeroPower\">
-Annex60.Utilities.Math.Functions.regNonZeroPower</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.Functions.regNonZeroPower\">
+IDEAS.Utilities.Math.Functions.regNonZeroPower</a>.
 </p>
 </html>",
 revisions="<html>

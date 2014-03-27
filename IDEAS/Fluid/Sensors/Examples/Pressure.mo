@@ -2,14 +2,14 @@ within IDEAS.Fluid.Sensors.Examples;
 model Pressure "Test model for the pressure sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air "Medium model";
+  package Medium = IDEAS.Media.Air "Medium model";
 
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=293.15,
     nPorts=1) "Flow boundary condition" annotation (Placement(
         transformation(extent={{62,-10},{42,10}},rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_T masFloRat(
+  IDEAS.Fluid.Sources.MassFlowSource_T masFloRat(
     redeclare package Medium = Medium,
     use_T_in=false,
     X={0.02,0.98},
@@ -19,7 +19,7 @@ model Pressure "Test model for the pressure sensor"
           extent={{-52,-10},{-32,10}},rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM dp(
+  IDEAS.Fluid.FixedResistances.FixedResistanceDpM dp(
     redeclare package Medium = Medium,
     m_flow_nominal=10,
     dp_nominal=200) "Flow resistance"
@@ -29,13 +29,13 @@ model Pressure "Test model for the pressure sensor"
     offset=10,
     duration=1)
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
-  Annex60.Fluid.Sensors.Pressure senPre_a(redeclare package Medium = Medium)
+  IDEAS.Fluid.Sensors.Pressure senPre_a(redeclare package Medium = Medium)
     "Pressure sensor at resistance port a"
     annotation (Placement(transformation(extent={{-22,20},{-2,40}})));
-  Annex60.Fluid.Sensors.Pressure senPre_b(redeclare package Medium = Medium)
+  IDEAS.Fluid.Sensors.Pressure senPre_b(redeclare package Medium = Medium)
     "Pressure sensor at resistance port b"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Annex60.Fluid.Sensors.RelativePressure senRelPre(
+  IDEAS.Fluid.Sensors.RelativePressure senRelPre(
     redeclare package Medium = Medium) "Pressure difference across resistance"
     annotation (Placement(transformation(extent={{-2,-50},{18,-30}})));
 equation
@@ -71,7 +71,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
 experiment(StopTime=1),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Pressure.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Pressure.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

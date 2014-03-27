@@ -2,14 +2,14 @@ within IDEAS.Fluid.Sensors.Examples;
 model VolumeFlowRate "Test model for the volume flow rate sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air "Medium model";
+  package Medium = IDEAS.Media.Air "Medium model";
 
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=293.15,
     nPorts=1) "Flow boundary condition" annotation (Placement(
         transformation(extent={{80,-10},{60,10}},rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_T masFloRat(
+  IDEAS.Fluid.Sources.MassFlowSource_T masFloRat(
     redeclare package Medium = Medium,
     use_T_in=false,
     X={0.02,0.98},
@@ -24,12 +24,12 @@ model VolumeFlowRate "Test model for the volume flow rate sensor"
     offset=10,
     duration=60)
     annotation (Placement(transformation(extent={{-90,-2},{-70,18}})));
-  Annex60.Fluid.Sensors.VolumeFlowRate senDyn(
+  IDEAS.Fluid.Sensors.VolumeFlowRate senDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=10)
     "Sensor configured to use a dynamic model for the density"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Annex60.Fluid.Sensors.VolumeFlowRate senSteSta(
+  IDEAS.Fluid.Sensors.VolumeFlowRate senSteSta(
     redeclare package Medium = Medium,
     m_flow_nominal=10,
     tau=0) "Sensor configured to use a steady-state model for the density"
@@ -54,7 +54,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
 experiment(StopTime=60),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/VolumeFlowRate.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/VolumeFlowRate.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -64,8 +64,8 @@ configured to be dynamic.
 Note that steady-state sensors can lead to numerical problems
 if used incorrectly. 
 See
-<a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
+<a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>

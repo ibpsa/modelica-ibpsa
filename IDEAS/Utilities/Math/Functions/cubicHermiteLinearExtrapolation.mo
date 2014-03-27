@@ -34,8 +34,8 @@ linearly extrapolates.
 </p>
 <p>
 For how to use this function, see
-<a href=\"modelica://Annex60.Utilities.Math.Functions.Examples.CubicHermite\">
-Annex60.Utilities.Math.Functions.Examples.CubicHermite</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.Functions.Examples.CubicHermite\">
+IDEAS.Utilities.Math.Functions.Examples.CubicHermite</a>.
 </p>
 </html>",
 revisions="<html>

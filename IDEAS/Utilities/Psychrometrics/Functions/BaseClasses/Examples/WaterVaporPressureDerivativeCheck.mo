@@ -9,13 +9,13 @@ model WaterVaporPressureDerivativeCheck
 initial equation
      y=x;
 equation
-    x=Annex60.Utilities.Psychrometrics.Functions.pW_X(X_w=time*uniCon,p=101525);
+    x=IDEAS.Utilities.Psychrometrics.Functions.pW_X(X_w=time*uniCon,p=101525);
     der(y)=der(x);
     assert(abs(x-y) < 1E-2, "Model has an error");
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics),
-                       __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/WaterVaporPressureDerivativeCheck.mos"
+                       __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/WaterVaporPressureDerivativeCheck.mos"
         "Simulate and plot"),
       experiment(
         StartTime=0,

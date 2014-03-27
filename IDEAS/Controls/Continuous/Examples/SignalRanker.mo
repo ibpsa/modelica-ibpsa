@@ -5,7 +5,7 @@ model SignalRanker "Example model for signal ranker"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}}, rotation=0)));
   Modelica.Blocks.Sources.Pulse pulse(period=0.25)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}}, rotation=0)));
-  Annex60.Controls.Continuous.SignalRanker sigRan(nin=3)
+  IDEAS.Controls.Continuous.SignalRanker sigRan(nin=3)
     annotation (Placement(transformation(extent={{-20,20},{0,40}}, rotation=0)));
   Modelica.Blocks.Sources.ExpSine expSine(freqHz=10, damping=1)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}}, rotation=0)));
@@ -20,7 +20,7 @@ equation
  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/SignalRanker.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Controls/Continuous/Examples/SignalRanker.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -29,8 +29,8 @@ The figure below shows the input and output signals of the block.
 Note that 
 <code>sigRan.y[1] &ge; sigRan.y[2] &ge; sigRan.y[3]</code>.
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Controls/Continuous/Examples/SignalRankerU.png\" border=\"1\" alt=\"Input to signal ranker.\"/><br/>
-                  <img src=\"modelica://Annex60/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png\" border=\"1\" alt=\"Output of signal ranker.\"/>
+<img src=\"modelica://IDEAS/Resources/Images/Controls/Continuous/Examples/SignalRankerU.png\" border=\"1\" alt=\"Input to signal ranker.\"/><br/>
+                  <img src=\"modelica://IDEAS/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png\" border=\"1\" alt=\"Output of signal ranker.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

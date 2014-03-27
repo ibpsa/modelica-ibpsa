@@ -2,7 +2,7 @@ within IDEAS.Utilities.Psychrometrics.Examples;
 model TWetBul_TDryBulXi
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Air "Medium model"
+ package Medium = IDEAS.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
 
     Modelica.Blocks.Sources.Ramp TDryBul(
@@ -11,7 +11,7 @@ model TWetBul_TDryBulXi
     offset=273.15 + 30) "Dry bulb temperature"
                  annotation (Placement(transformation(extent={{-100,60},{-80,80}},
           rotation=0)));
-  Annex60.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(         redeclare
+  IDEAS.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(         redeclare
       package Medium = Medium) "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{0,20},{20,40}}, rotation=0)));
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure"
@@ -23,8 +23,8 @@ model TWetBul_TDryBulXi
     offset=0.0175) "Humidity concentration"
                  annotation (Placement(transformation(extent={{-100,20},{-80,40}},
                    rotation=0)));
-  Annex60.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulApp(redeclare
-      package Medium = Medium, approximateWetBulb=true)
+  IDEAS.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulApp(redeclare package
+      Medium =         Medium, approximateWetBulb=true)
     "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{0,-20},{20,0}}, rotation=0)));
 equation
@@ -57,7 +57,7 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulXi.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulXi.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the wet bulb computation.

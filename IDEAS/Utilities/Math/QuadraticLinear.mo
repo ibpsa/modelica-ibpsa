@@ -4,7 +4,7 @@ block QuadraticLinear
   extends Modelica.Blocks.Interfaces.SI2SO;
   parameter Real a[6] "Coefficients";
 equation
-  y = Annex60.Utilities.Math.Functions.quadraticLinear(a=a, x1=u1, x2=u2);
+  y = IDEAS.Utilities.Math.Functions.quadraticLinear(a=a, x1=u1, x2=u2);
   annotation (Documentation(info="<html>
 <p>Block for function quadraticLinear, which computes </p>
 <p align=\"center\"><i>y = a1 + a2 x1 + a3 x12 + (a4 + a5 x1 + a6 x12) x2 </i></p>

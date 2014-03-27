@@ -5,7 +5,7 @@ model BooleanReplicator "Test model for boolean replicator"
   Modelica.Blocks.Sources.BooleanTable booTab(table={100,200,400,500})
     "Boolean input signal"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Annex60.Utilities.Math.BooleanReplicator booRep(nout=
+  IDEAS.Utilities.Math.BooleanReplicator booRep(nout=
        4) "Replicates boolean values" annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(booTab.y, booRep.u) annotation (Line(
@@ -16,13 +16,13 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                     graphics),
 experiment(StopTime=600),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/BooleanReplicator.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Examples/BooleanReplicator.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests the implementation of 
-<a href=\"modelica://Annex60.Utilities.Math.BooleanReplicator\">
-Annex60.Utilities.Math.BooleanReplicator</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.BooleanReplicator\">
+IDEAS.Utilities.Math.BooleanReplicator</a>.
 </p>
 </html>", revisions="<html>
 <ul>

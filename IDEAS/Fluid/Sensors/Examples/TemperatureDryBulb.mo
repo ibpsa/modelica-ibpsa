@@ -2,8 +2,8 @@ within IDEAS.Fluid.Sensors.Examples;
 model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Air "Medium model";
-  Annex60.Fluid.Sources.Boundary_pT amb(
+ package Medium = IDEAS.Media.Air "Medium model";
+  IDEAS.Fluid.Sources.Boundary_pT amb(
     redeclare package Medium = Medium,
     T=298.15,
     nPorts=1)
@@ -12,7 +12,7 @@ model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
         transformation(extent={{10,-10},{-10,10}},
                                                  rotation=180,
         origin={-2,-40})));
-  Annex60.Fluid.Sources.MassFlowSource_T masFloRat(
+  IDEAS.Fluid.Sources.MassFlowSource_T masFloRat(
     redeclare package Medium = Medium,
     use_T_in=true,
     use_m_flow_in=true,
@@ -37,7 +37,7 @@ model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
     "Difference, used to compute the mass fraction of dry air"
     annotation (Placement(transformation(
           extent={{-70,-20},{-50,0}}, rotation=0)));
-  Annex60.Fluid.Sensors.TemperatureTwoPort temSteSta(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort temSteSta(
    redeclare package Medium = Medium,
    m_flow_nominal=2,
    tau=0) "Steady state temperature sensor"
@@ -50,7 +50,7 @@ model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
     period=30) "Mass flow rate"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}},
           rotation=0)));
-  Annex60.Fluid.Sensors.TemperatureTwoPort temDyn(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort temDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -61,7 +61,7 @@ model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={38,-40})));
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=2,
     T=293.15) "Flow boundary condition"
@@ -106,7 +106,7 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=60),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureDryBulb.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureDryBulb.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

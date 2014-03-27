@@ -2,15 +2,15 @@ within IDEAS.Fluid.Sensors.Examples;
 model Density "Test model for the density sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air "Medium model";
+  package Medium = IDEAS.Media.Air "Medium model";
 
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     T=293.15,
     nPorts=1) "Flow boundary condition" annotation (Placement(
         transformation(extent={{90,-40},{70,-20}},
                                                  rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_T masFloRat(
+  IDEAS.Fluid.Sources.MassFlowSource_T masFloRat(
     redeclare package Medium = Medium,
     use_T_in=false,
     X={0.02,0.98},
@@ -20,22 +20,22 @@ model Density "Test model for the density sensor"
           extent={{-50,-10},{-30,10}},rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Annex60.Fluid.Sensors.Density senDenVol(
+  IDEAS.Fluid.Sensors.Density senDenVol(
     redeclare package Medium = Medium) "Density sensor for the volume"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Annex60.Fluid.MixingVolumes.MixingVolume vol(
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     V=1,
     nPorts=3,
     m_flow_nominal=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Volume"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM dp(
+  IDEAS.Fluid.FixedResistances.FixedResistanceDpM dp(
     redeclare package Medium = Medium,
     m_flow_nominal=10,
     dp_nominal=200) "Flow resistance"
     annotation (Placement(transformation(extent={{8,-40},{28,-20}})));
-  Annex60.Fluid.Sensors.DensityTwoPort senDenFlo(
+  IDEAS.Fluid.Sensors.DensityTwoPort senDenFlo(
     redeclare package Medium = Medium,
     m_flow_nominal=10) "Density sensor for the flowing medium"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
@@ -72,7 +72,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
 experiment(StopTime=60),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Density.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/Density.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

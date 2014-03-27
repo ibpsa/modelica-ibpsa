@@ -15,7 +15,7 @@ block SublimationPressureIce "Saturation pressure as a function of temperature"
           rotation=0)));
 
 equation
-  pSat = Annex60.Utilities.Psychrometrics.Functions.sublimationPressureIce(TSat);
+  pSat = IDEAS.Utilities.Psychrometrics.Functions.sublimationPressureIce(TSat);
     annotation (
     defaultComponentName="pSat",
     Documentation(info="<html>

@@ -2,7 +2,7 @@ within IDEAS.Fluid.FixedResistances.Examples;
 model FixedResistancesSeries "Test of multiple resistances in series"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Air;
+ package Medium = IDEAS.Media.Air;
 
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{40,60},{60,80}}, rotation=0)));
@@ -14,18 +14,18 @@ model FixedResistancesSeries "Test of multiple resistances in series"
     offset=101325 - dp_nominal*nRes)
                  annotation (Placement(transformation(extent={{-80,60},{-60,80}},
           rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      =        Medium, T=273.15 + 20,
+  IDEAS.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
+               Medium, T=273.15 + 20,
     use_p_in=true,
     nPorts=1)                         annotation (Placement(transformation(
           extent={{-40,20},{-20,40}}, rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      =        Medium, T=273.15 + 10,
+  IDEAS.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+               Medium, T=273.15 + 10,
     use_p_in=true,
     nPorts=1)                         annotation (Placement(transformation(
           extent={{56,20},{36,40}}, rotation=0)));
   parameter Integer nRes( min=2) = 10 "Number of resistances";
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM[
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM[
                        nRes] res(
     redeclare each package Medium = Medium,
     each dp_nominal=dp_nominal,
@@ -56,6 +56,6 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesSeries.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesSeries.mos"
         "Simulate and plot"));
 end FixedResistancesSeries;

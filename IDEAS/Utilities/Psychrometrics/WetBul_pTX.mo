@@ -48,8 +48,8 @@ protected
   constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
     "Specific heat capacity of water vapor";
 equation
-  XWetBul   = Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=   Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
+  XWetBul   = IDEAS.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=   IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
   TWetBul = (TDryBul * ((1-XDryBul) * cpAir + XDryBul * cpSte) + (XDryBul-XWetBul) * h_fg)/
@@ -69,9 +69,9 @@ revisions="<html>
 November 20, 2013 by Michael Wetter:<br/>
 Removed package <code>Medium</code>.
 Updated model to use
-<code>Annex60.Utilities.Psychrometrics.Functions.saturationPressure()</code>
+<code>IDEAS.Utilities.Psychrometrics.Functions.saturationPressure()</code>
 and
-<code>Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
+<code>IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
 as these functions have been moved from the medium to the psychrometrics package.
 </li>
 <li>

@@ -4,7 +4,7 @@ model LimPID "Test model for PID controller with optional reverse action"
 
   Modelica.Blocks.Sources.Pulse pulse(period=0.25)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}},rotation=0)));
-  Annex60.Controls.Continuous.LimPID limPID(
+  IDEAS.Controls.Continuous.LimPID limPID(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
     Ti=1,
     Td=1,
@@ -12,7 +12,7 @@ model LimPID "Test model for PID controller with optional reverse action"
     yMin=-1,
     initType=Modelica.Blocks.Types.InitPID.InitialState)
           annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Annex60.Controls.Continuous.LimPID limPIDRev(
+  IDEAS.Controls.Continuous.LimPID limPIDRev(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
     reverseAction=true,
     Ti=1,
@@ -26,7 +26,7 @@ model LimPID "Test model for PID controller with optional reverse action"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Math.Gain gain(k=-1)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1e-10)
+  IDEAS.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1e-10)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Blocks.Continuous.LimPID limPIDOri(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
@@ -36,7 +36,7 @@ model LimPID "Test model for PID controller with optional reverse action"
     yMin=-1,
     initType=Modelica.Blocks.Types.InitPID.InitialState)
           annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1( threShold=1e-10)
+  IDEAS.Utilities.Diagnostics.AssertEquality assertEquality1( threShold=1e-10)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(pulse.y, limPID.u_s) annotation (Line(
@@ -89,7 +89,7 @@ equation
             -100},{100,100}}),
                      graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPID.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPID.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>

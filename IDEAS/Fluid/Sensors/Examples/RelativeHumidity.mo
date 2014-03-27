@@ -2,17 +2,17 @@ within IDEAS.Fluid.Sensors.Examples;
 model RelativeHumidity "Test model for relative humidity sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air "Medium model"
+  package Medium = IDEAS.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
 
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
    redeclare package Medium = Medium,
     use_p_in=false,
     T=293.15,
     nPorts=1)
      annotation (Placement(
         transformation(extent={{80,10},{60,30}}, rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_T sou(
+  IDEAS.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     m_flow=1,
     use_T_in=true,
@@ -41,7 +41,7 @@ model RelativeHumidity "Test model for relative humidity sensor"
           extent={{-68,-20},{-48,0}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Annex60.Fluid.Sensors.RelativeHumidity senRelHum(
+  IDEAS.Fluid.Sensors.RelativeHumidity senRelHum(
     redeclare package Medium = Medium)
     "Relative humidity of the flow source if the medium were outflowing"
                 annotation (Placement(transformation(extent={{-16,42},{4,62}})));
@@ -51,7 +51,7 @@ model RelativeHumidity "Test model for relative humidity sensor"
     duration=500) "Mass flow rate"
                  annotation (Placement(transformation(extent={{-80,40},{-60,60}},
           rotation=0)));
-  Annex60.Fluid.Sensors.RelativeHumidityTwoPort relHum(
+  IDEAS.Fluid.Sensors.RelativeHumidityTwoPort relHum(
     redeclare package Medium = Medium, m_flow_nominal=1,
     initType=Modelica.Blocks.Types.Init.InitialState)
     "Relative humidity of the passing fluid"
@@ -87,7 +87,7 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=600),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/RelativeHumidity.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/RelativeHumidity.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

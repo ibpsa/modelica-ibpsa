@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Interfaces;
 model StaticTwoPortConservationEquation
   "Partial model for static energy and mass conservation equations"
-  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
+  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
   showDesignFlowDirection = false);
 
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
@@ -67,7 +67,7 @@ equation
  mXi_flow = mWat_flow * s;
   // Regularization of m_flow around the origin to avoid a division by zero
  if use_safeDivision then
-    m_flowInv = Annex60.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
+    m_flowInv = IDEAS.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
  else
      m_flowInv = 0; // m_flowInv is not used if use_safeDivision = false.
  end if;
@@ -75,15 +75,15 @@ equation
  if allowFlowReversal then
    // Formulate hOut using spliceFunction. This avoids an event iteration.
    // The introduced error is small because deltax=m_flow_small/1e3
-   hOut = Annex60.Utilities.Math.Functions.spliceFunction(pos=port_b.h_outflow,
+   hOut = IDEAS.Utilities.Math.Functions.spliceFunction(pos=port_b.h_outflow,
                                                             neg=port_a.h_outflow,
                                                             x=port_a.m_flow,
                                                             deltax=m_flow_small/1E3);
-   XiOut = Annex60.Utilities.Math.Functions.spliceFunction(pos=port_b.Xi_outflow,
+   XiOut = IDEAS.Utilities.Math.Functions.spliceFunction(pos=port_b.Xi_outflow,
                                                             neg=port_a.Xi_outflow,
                                                             x=port_a.m_flow,
                                                             deltax=m_flow_small/1E3);
-   COut = Annex60.Utilities.Math.Functions.spliceFunction(pos=port_b.C_outflow,
+   COut = IDEAS.Utilities.Math.Functions.spliceFunction(pos=port_b.C_outflow,
                                                             neg=port_a.C_outflow,
                                                             x=port_a.m_flow,
                                                             deltax=m_flow_small/1E3);
@@ -168,8 +168,8 @@ Input connectors of the model are
 <p>
 The model can only be used as a steady-state model with two fluid ports.
 For a model with a dynamic balance, and more fluid ports, use
-<a href=\"modelica://Annex60.Fluid.Interfaces.ConservationEquation\">
-Annex60.Fluid.Interfaces.ConservationEquation</a>.
+<a href=\"modelica://IDEAS.Fluid.Interfaces.ConservationEquation\">
+IDEAS.Fluid.Interfaces.ConservationEquation</a>.
 </p>
 <p>
 Set the constant <code>sensibleOnly=true</code> if the model that extends
@@ -215,7 +215,7 @@ if <code>use_safeDivision=false</code>. This avoids a division by zero if
 </li>
 <li>
 February 7, 2012 by Michael Wetter:<br/>
-Revised base classes for conservation equations in <code>Annex60.Fluid.Interfaces</code>.
+Revised base classes for conservation equations in <code>IDEAS.Fluid.Interfaces</code>.
 </li>
 <li>
 December 14, 2011 by Michael Wetter:<br/>

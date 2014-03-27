@@ -4,7 +4,7 @@ model TrapezoidalIntegration "Integration using the trapezoidal rule"
   parameter Integer N "Number of integrand points";
   parameter Real deltaX "Width of interval for Trapezoidal integration";
 equation
-  y = Annex60.Utilities.Math.Functions.trapezoidalIntegration(N=N, f=u, deltaX=deltaX);
+  y = IDEAS.Utilities.Math.Functions.trapezoidalIntegration(N=N, f=u, deltaX=deltaX);
   annotation (Icon(graphics={Text(
           extent={{-90,36},{90,-36}},
           lineColor={160,160,164},

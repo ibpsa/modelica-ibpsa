@@ -48,7 +48,7 @@ equation
             -100},{100,100}}),
                      graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothBlocks.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothBlocks.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

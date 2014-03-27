@@ -1,9 +1,9 @@
 within IDEAS.Utilities.Psychrometrics.Examples;
 model HumidityRatioPressure "Unit test for humidity ratio model"
   extends Modelica.Icons.Example;
- package Medium = Annex60.Media.Air "Medium model"
+ package Medium = IDEAS.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
-  Annex60.Utilities.Psychrometrics.pW_X vapPre(
+  IDEAS.Utilities.Psychrometrics.pW_X vapPre(
                          use_p_in=true) "Model for humidity ratio"
                           annotation (Placement(transformation(extent={{0,0},{
             20,20}}, rotation=0)));
@@ -16,7 +16,7 @@ model HumidityRatioPressure "Unit test for humidity ratio model"
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-80,20},
             {-60,40}},          rotation=0)));
-  Annex60.Utilities.Psychrometrics.X_pW humRat(
+  IDEAS.Utilities.Psychrometrics.X_pW humRat(
                             use_p_in=true)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Diagnostics.AssertEquality assertEquality(threShold=1E-5)
@@ -55,7 +55,7 @@ equation
       smooth=Smooth.None));
  annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/HumidityRatioPressure.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/HumidityRatioPressure.mos"
         "Simulate and plot"),                                                                                                    Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
 end HumidityRatioPressure;

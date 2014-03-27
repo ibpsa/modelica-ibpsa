@@ -20,4 +20,3 @@ model Occ_Files "Dummy file reader for occupant model"
     "Filename for occupancy-driven domestic hot water redrawal"
     annotation (Dialog(group="Building occupants"));
 end Occ_Files;
-

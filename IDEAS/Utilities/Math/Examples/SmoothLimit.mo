@@ -3,7 +3,7 @@ model SmoothLimit "Test model for smooth limit"
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Sine sine(freqHz=8)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}},  rotation=0)));
-  Annex60.Utilities.Math.SmoothLimit smoLim(
+  IDEAS.Utilities.Math.SmoothLimit smoLim(
     deltaX=0.001,
     upper=0.5,
     lower=0) "Smooth limit"
@@ -18,13 +18,13 @@ equation
             {100,100}}),
                      graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothLimit.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothLimit.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests the implementation of 
-<a href=\"modelica://Annex60.Utilities.Math.SmoothLimit\">
-Annex60.Utilities.Math.SmoothLimit</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.SmoothLimit\">
+IDEAS.Utilities.Math.SmoothLimit</a>.
 </p>
 </html>", revisions="<html>
 <ul>

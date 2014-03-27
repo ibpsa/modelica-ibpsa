@@ -17,7 +17,7 @@ equation
   deltaDp = dp - dpCalc;
 annotation (
 experiment(StopTime=1),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/InverseFlowFunction.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/InverseFlowFunction.mos"
         "Simulate and plot"),
               Documentation(info="<html>
 <p>
@@ -25,11 +25,11 @@ This model tests the inverse formulation of the flow functions.
 The pressure difference <code>dp</code> and <code>dpCalc</code> need to
 be equal up to the solver tolerance, except for a small neighborhood 
 around the origin. In this neighborhood around the origin, the functions
-<a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
+<a href=\"modelica://IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
+IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
 and
-<a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
+<a href=\"modelica://IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
+IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
 are not invertible.
 </p>
 </html>", revisions="<html>

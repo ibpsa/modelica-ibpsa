@@ -3,7 +3,7 @@ block Polynominal "Polynominal function"
   extends Modelica.Blocks.Interfaces.SISO;
  parameter Real a[:] "Coefficients";
 equation
-  y = Annex60.Utilities.Math.Functions.polynomial(a=a, x=u);
+  y = IDEAS.Utilities.Math.Functions.polynomial(a=a, x=u);
   annotation (Documentation(info="<html>
 <p>This block computes a polynomial of arbitrary order. The polynomial has the form </p>
 <p align=\"center\"><i>y = a1 + a2 x + a3 x2 + ... </i></p>

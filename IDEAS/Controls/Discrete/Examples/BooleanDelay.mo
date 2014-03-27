@@ -1,7 +1,7 @@
 within IDEAS.Controls.Discrete.Examples;
 model BooleanDelay "Example model for boolean delay"
   extends Modelica.Icons.Example;
-  Annex60.Controls.Discrete.BooleanDelay del(samplePeriod=0.1)
+  IDEAS.Controls.Discrete.BooleanDelay del(samplePeriod=0.1)
                                                annotation (Placement(
         transformation(extent={{0,-20},{20,0}}, rotation=0)));
   Modelica.Blocks.Sources.BooleanPulse booleanPulse(period=0.25)
@@ -11,7 +11,7 @@ equation
         color={255,0,255}));
  annotation (Diagram(graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Discrete/Examples/BooleanDelay.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Controls/Discrete/Examples/BooleanDelay.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -21,7 +21,7 @@ to produce a response as shown in the figure below in which the sampling
 interval is <i>0.1</i> second, as indicated by the markers.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Controls/Discrete/Examples/BooleanDelay.png\" border=\"1\" alt=\"Input and output of the boolean delay.\"/>
+<img src=\"modelica://IDEAS/Resources/Images/Controls/Discrete/Examples/BooleanDelay.png\" border=\"1\" alt=\"Input and output of the boolean delay.\"/>
 </p>
 </html>", revisions="<html>
 <ul>

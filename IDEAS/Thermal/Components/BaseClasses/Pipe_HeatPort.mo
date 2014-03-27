@@ -1,10 +1,10 @@
 within IDEAS.Thermal.Components.BaseClasses;
 model Pipe_HeatPort "Pipe with HeatPort"
 
-  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
+  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     port_a(h_outflow(start=h_outflow_start)),
     port_b(h_outflow(start=h_outflow_start)));
-  extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true, dp_nominal = 0);
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
@@ -12,7 +12,7 @@ model Pipe_HeatPort "Pipe with HeatPort"
         transformation(extent={{-10,90},{10,110}}), iconTransformation(extent={{-10,90},
             {10,110}})));
 
-  Annex60.Fluid.MixingVolumes.MixingVolume vol(
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=2,
     redeclare package Medium = Medium,
     V=V,
@@ -27,7 +27,7 @@ model Pipe_HeatPort "Pipe with HeatPort"
         rotation=180,
         origin={10,-10})));
 
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM res(
+  IDEAS.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     final use_dh=false,
     final m_flow_nominal=m_flow_nominal,
@@ -44,7 +44,7 @@ model Pipe_HeatPort "Pipe with HeatPort"
 
   parameter SI.Volume V "Volume of the contained fluid";
 
-  //Advanced settings: based on Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger
+  //Advanced settings: based on IDEAS.Fluid.Interfaces.TwoPortHeatMassExchanger
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 

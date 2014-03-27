@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Sensors;
 model MassFlowRate "Ideal sensor for mass flow rate"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialFlowSensor(
+  extends IDEAS.Fluid.Sensors.BaseClasses.PartialFlowSensor(
     final m_flow_nominal = 0,
     final m_flow_small = 0);
   extends Modelica.Icons.RotationalSensor;

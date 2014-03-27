@@ -5,7 +5,8 @@ model FluidStreamConvertorWaterExample
 
   extends Modelica.Icons.Example;
   Buildings.Fluid.Sources.Boundary_pT bou1(
-    redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
+    redeclare package Medium =
+        Buildings.Media.ConstantPropertyLiquidWater,
     use_p_in=false,
     use_T_in=false,
     use_X_in=false,

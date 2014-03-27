@@ -1,7 +1,7 @@
 within IDEAS.Utilities.Psychrometrics.Functions.Examples;
 model X_pSatpphi "Model to test X_pSatpphi function"
   extends Modelica.Icons.Example;
-  package Medium = Annex60.Media.Air "Medium model"
+  package Medium = IDEAS.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
   parameter Modelica.SIunits.Temperature T = 293.15 "Temperature";
   Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
@@ -16,11 +16,11 @@ model X_pSatpphi "Model to test X_pSatpphi function"
 equation
   phi = time;
   pSat = Medium.saturationPressure(T);
-  X_w = Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(pSat=pSat, p=p, phi=phi);
+  X_w = IDEAS.Utilities.Psychrometrics.Functions.X_pSatpphi(pSat=pSat, p=p, phi=phi);
 
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/X_pSatpphi.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/X_pSatpphi.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example computes the water content of air for a relative humidity between

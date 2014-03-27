@@ -24,8 +24,8 @@ water vapor concentration <i>X</i>, trace substances <i>C</i> and density.
 For such quantities, sensors with two fluid ports need to be used.
 An exception is if the quantity is measured directly in a fluid volume, such as modeled in
 models of the package
-<a href=\"modelica://Annex60.Fluid.MixingVolumes\">
-Annex60.Fluid.MixingVolumes</a>.
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes\">
+IDEAS.Fluid.MixingVolumes</a>.
 Therefore, to measure for example the outlet temperature of a heat exchanger, the
 configuration on the left in the figure below should be used, and not the configuration on the right.
 For an explanation, see
@@ -36,12 +36,12 @@ Modelica.Fluid.Examples.Explanatory.MeasuringTemperature</a>.
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2>
 <tr><th valign=\"top\" align=\"left\">Correct use</th>
     <td valign=\"top\">
-    <img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/Sensors/twoPortHex.png\" />
+    <img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/Sensors/twoPortHex.png\" />
     </td>
 </tr>
 <tr><th valign=\"top\" align=\"left\">Not recommended</th>
     <td valign=\"top\">
-    <img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/Sensors/onePortHex.png\" />
+    <img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/Sensors/onePortHex.png\" />
     </td>
 </tr>
 </table>
@@ -135,8 +135,8 @@ The above equation is implemented in such a way that it is differentiable in the
 </p>
 <p>
 Note that the implementation of the dynamic sensors does not use the model
-<a href=\"modelica://Annex60.Fluid.MixingVolumes\">
-Annex60.Fluid.MixingVolumes</a>.
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes\">
+IDEAS.Fluid.MixingVolumes</a>.
 The reason is that depending on the selected medium model, the 
 mixing volume may introduce states for the pressure, species concentration,
 trace substance and enthalpy. Not all states are typically needed to

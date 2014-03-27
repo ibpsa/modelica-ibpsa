@@ -4,7 +4,7 @@ block SmoothHeaviside
   extends Modelica.Blocks.Interfaces.SISO;
  parameter Real delta "Width of transition interval";
 equation
-  y = Annex60.Utilities.Math.Functions.smoothHeaviside(x=u, delta=delta);
+  y = IDEAS.Utilities.Math.Functions.smoothHeaviside(x=u, delta=delta);
   annotation (Icon(graphics={
     Line(points={{-84,-74},{84,-74}},  color={192,192,192}),
     Polygon(

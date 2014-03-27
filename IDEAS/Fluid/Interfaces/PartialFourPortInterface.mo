@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Interfaces;
 partial model PartialFourPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
-  extends Annex60.Fluid.Interfaces.FourPort;
+  extends IDEAS.Fluid.Interfaces.FourPort;
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -73,8 +73,8 @@ equation
 This component defines the interface for models that 
 transport two fluid streams between four ports. 
 It is similar to 
-<a href=\"modelica://Annex60.Fluid.Interfaces.PartialTwoPortInterface\">
-Annex60.Fluid.Interfaces.PartialTwoPortInterface</a>,
+<a href=\"modelica://IDEAS.Fluid.Interfaces.PartialTwoPortInterface\">
+IDEAS.Fluid.Interfaces.PartialTwoPortInterface</a>,
 but it has four ports instead of two.
 <p>
 The model is used by other models in this package that add heat transfer,

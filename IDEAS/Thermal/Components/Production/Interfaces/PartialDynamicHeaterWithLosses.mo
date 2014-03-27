@@ -53,7 +53,8 @@ model PartialDynamicHeaterWithLosses
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-74,-100})));
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
   parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
   parameter SI.Pressure dp_nominal=0 "Pressure";

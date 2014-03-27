@@ -2,7 +2,7 @@ within IDEAS.Controls.Continuous.Examples;
 model NumberOfRequests
   "Example model for block that outputs the number of requests"
   extends Modelica.Icons.Example;
-  Annex60.Controls.Continuous.NumberOfRequests numReq(
+  IDEAS.Controls.Continuous.NumberOfRequests numReq(
     nin=2,
     threShold=0,
     kind=0) annotation (Placement(transformation(extent={{0,20},{20,40}},
@@ -19,7 +19,7 @@ equation
  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/NumberOfRequests.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Controls/Continuous/Examples/NumberOfRequests.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -31,14 +31,14 @@ Added documentation.
 </html>", info="<html>
 <p>
 Example that demonstrates the use of the block
-<a href=\"modelica://Annex60.Controls.Continuous.NumberOfRequests\">
-Annex60.Controls.Continuous.NumberOfRequests</a>.
+<a href=\"modelica://IDEAS.Controls.Continuous.NumberOfRequests\">
+IDEAS.Controls.Continuous.NumberOfRequests</a>.
 The parameters of the block are such that the output is incremented
 for each input signal that is strictly larger than <i>0</i>.
 The figure below shows the inputs and the output of the block.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Controls/Continuous/Examples/NumberOfRequests.png\" border=\"1\">
+<img src=\"modelica://IDEAS/Resources/Images/Controls/Continuous/Examples/NumberOfRequests.png\" border=\"1\">
 </p>
 </html>"));
 end NumberOfRequests;

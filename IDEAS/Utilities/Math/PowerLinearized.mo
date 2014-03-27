@@ -6,7 +6,7 @@ block PowerLinearized
   parameter Real x0 "Abscissa value below which linearization occurs";
 
 equation
-  y = Annex60.Utilities.Math.Functions.powerLinearized(x=u, n=n, x0=x0);
+  y = IDEAS.Utilities.Math.Functions.powerLinearized(x=u, n=n, x0=x0);
 
   annotation (Icon(graphics={Text(
           extent={{-90,36},{90,-36}},

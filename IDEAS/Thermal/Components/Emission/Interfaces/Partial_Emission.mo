@@ -54,7 +54,8 @@ protected
             {130,20},{150,40}})));
 
 public
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
 initial equation
   hInitial = Medium.specificEnthalpy(Medium.setState_pTX(flowPort_a.p,TInitial,Medium.X_default));

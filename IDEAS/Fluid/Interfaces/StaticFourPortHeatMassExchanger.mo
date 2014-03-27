@@ -1,8 +1,8 @@
 within IDEAS.Fluid.Interfaces;
 model StaticFourPortHeatMassExchanger
   "Partial model transporting two fluid streams between four ports without storing mass or energy"
-  extends Annex60.Fluid.Interfaces.PartialFourPortInterface;
-  extends Annex60.Fluid.Interfaces.FourPortFlowResistanceParameters(
+  extends IDEAS.Fluid.Interfaces.PartialFourPortInterface;
+  extends IDEAS.Fluid.Interfaces.FourPortFlowResistanceParameters(
    final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
    final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
 
@@ -22,7 +22,7 @@ model StaticFourPortHeatMassExchanger
   constant Boolean sensibleOnly2
     "Set to true if sensible exchange only for medium 2";
 protected
-  Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal1(
+  IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal1(
     final sensibleOnly = sensibleOnly1,
     redeclare final package Medium=Medium1,
     final m_flow_nominal = m1_flow_nominal,
@@ -36,7 +36,7 @@ protected
     final Q_flow = Q1_flow,
     final mWat_flow = mWat1_flow)
     "Model for heat, mass, species, trace substance and pressure balance of stream 1";
-  Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal2(
+  IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal2(
     final sensibleOnly = sensibleOnly2,
     redeclare final package Medium=Medium2,
     final m_flow_nominal = m2_flow_nominal,
@@ -65,8 +65,8 @@ equation
 <p>
 This component transports two fluid streams between four ports, without
 storing mass or energy. It is similar to
-<a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
-Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>,
+<a href=\"modelica://IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
+IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>,
 but it has four ports instead of two.
 </p>
 <p>

@@ -2,7 +2,7 @@ within IDEAS.Fluid.MixingVolumes.BaseClasses;
 partial model PartialMixingVolume
   "Partial mixing volume with inlet and outlet ports (flow reversal is allowed)"
   outer Modelica.Fluid.System system "System properties";
-  extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -36,7 +36,7 @@ partial model PartialMixingVolume
     "Trace substance mixture content";
    // Models for the steady-state and dynamic energy balance.
 protected
-  Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation steBal(
+  IDEAS.Fluid.Interfaces.StaticTwoPortConservationEquation steBal(
     sensibleOnly = true,
     redeclare final package Medium=Medium,
     final m_flow_nominal = m_flow_nominal,
@@ -44,7 +44,7 @@ protected
     final m_flow_small = m_flow_small) if
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Annex60.Fluid.Interfaces.ConservationEquation dynBal(
+  IDEAS.Fluid.Interfaces.ConservationEquation dynBal(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
@@ -153,8 +153,8 @@ Documentation(info="<html>
 <p>
 This is a partial model of an instantaneously mixed volume.
 It is used as the base class for all fluid volumes of the package
-<a href=\"modelica://Annex60.Fluid.MixingVolumes\">
-Annex60.Fluid.MixingVolumes</a>.
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes\">
+IDEAS.Fluid.MixingVolumes</a>.
 </p>
 
 <h4>Implementation</h4>
@@ -166,8 +166,8 @@ is not used for the properties at the port.
 </p>
 <p>
 For simple models that uses this model, see
-<a href=\"modelica://Annex60.Fluid.MixingVolumes\">
-Annex60.Fluid.MixingVolumes</a>.
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes\">
+IDEAS.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -190,7 +190,7 @@ of a fluid port, as this check required the use of the deprecated
 </li>
 <li>
 February 7, 2012 by Michael Wetter:<br/>
-Revised base classes for conservation equations in <code>Annex60.Fluid.Interfaces</code>.
+Revised base classes for conservation equations in <code>IDEAS.Fluid.Interfaces</code>.
 </li>
 <li>
 September 17, 2011 by Michael Wetter:<br/>
@@ -209,8 +209,8 @@ as a state. See ticket Dynasim #13596.
 <li>
 July 26, 2011 by Michael Wetter:<br/>
 Revised model to use new declarations from
-<a href=\"Annex60.Fluid.Interfaces.LumpedVolumeDeclarations\">
-Annex60.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
+<a href=\"IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations\">
+IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
 <li>
 July 14, 2011 by Michael Wetter:<br/>
@@ -229,8 +229,8 @@ for steady-state component models, i.e., instead of <code>actualStream(...)</cod
 This changed required the introduction of a new parameter <code>m_flow_nominal</code> which
 is used for smoothing in the steady-state balance equations of the model with two fluid ports.
 This implementation also simplifies the implementation of 
-<a href=\"modelica://Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort\">
-Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort</a>,
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort\">
+IDEAS.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort</a>,
 which now uses the same equations as this model.
 </li>
 <li>
@@ -255,8 +255,8 @@ Eliminated the base class <code>PartialLumpedVessel</code>.
 <li>
 October 12, 2009 by Michael Wetter:<br/>
 Changed base class to
-<a href=\"modelica://Annex60.Fluid.MixingVolumes.BaseClasses.ClosedVolume\">
-Annex60.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes.BaseClasses.ClosedVolume\">
+IDEAS.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
 </li>
 </ul>
 </html>"),

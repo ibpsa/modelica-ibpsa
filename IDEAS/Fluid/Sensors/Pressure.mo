@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Sensors;
 model Pressure "Ideal pressure sensor"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+  extends IDEAS.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput p(final quantity="Pressure",
                                           final unit="Pa",

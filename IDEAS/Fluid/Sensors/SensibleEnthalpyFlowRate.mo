@@ -1,10 +1,10 @@
 within IDEAS.Fluid.Sensors;
 model SensibleEnthalpyFlowRate
   "Ideal enthalphy flow rate sensor that outputs the sensible enthalpy flow rate only"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
+  extends IDEAS.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases);
-  extends Annex60.Fluid.BaseClasses.IndexMassFraction(final substanceName="water");
+  extends IDEAS.Fluid.BaseClasses.IndexMassFraction(final substanceName="water");
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput H_flow(final unit="W")
     "Sensible enthalpy flow rate, positive if from port_a to port_b"
@@ -113,19 +113,19 @@ specific sensible enthalpy <i>h<sub>out</sub></i> that is used to
 compute the sensible enthalpy flow rate 
 <i>H&#775;<sub>sen</sub> = m&#775; h<sub>out</sub></i> 
 is computed using a first order differential equation. 
-See <a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
+See <a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 
 <p>
 For a sensor that measures 
 <i>H&#775;<sub>tot</sub></i>, use
-<a href=\"modelica://Annex60.Fluid.Sensors.EnthalpyFlowRate\">
-Annex60.Fluid.Sensors.EnthalpyFlowRate</a>.<br/>
+<a href=\"modelica://IDEAS.Fluid.Sensors.EnthalpyFlowRate\">
+IDEAS.Fluid.Sensors.EnthalpyFlowRate</a>.<br/>
 For a sensor that measures 
 <i>H&#775;<sub>lat</sub></i>, use
-<a href=\"modelica://Annex60.Fluid.Sensors.LatentEnthalpyFlowRate\">
-Annex60.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
+<a href=\"modelica://IDEAS.Fluid.Sensors.LatentEnthalpyFlowRate\">
+IDEAS.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 </p>
 
 <p>
@@ -151,8 +151,8 @@ This change was made so that all sensors use the same default value.
 <li>
 December 18, 2012, by Michael Wetter:<br/>
 Moved computation of <code>i_w</code> to new base class
-<a href=\"modelica://Annex60.Fluid.BaseClasses.IndexWater\">
-Annex60.Fluid.BaseClasses.IndexWater</a>.
+<a href=\"modelica://IDEAS.Fluid.BaseClasses.IndexWater\">
+IDEAS.Fluid.BaseClasses.IndexWater</a>.
 The value of this parameter is now assigned dynamically and does not require to be specified
 by the user.
 </li>

@@ -3,19 +3,19 @@ model MoistAirEnthalpyFlowRate
   "Test model for the sensible and latent enthalpy flow rate sensors"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air;
+  package Medium = IDEAS.Media.Air;
 
-  Annex60.Fluid.Sensors.EnthalpyFlowRate senH_flow(
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate senH_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=1) "Sensor for enthalpy flow rate"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
-  Annex60.Fluid.Sources.MassFlowSource_T sou(
+  IDEAS.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1,
     T=293.15) "Flow boundary condition"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
      redeclare package Medium = Medium,
     nPorts=1,
     X={0.02,0.98},
@@ -31,30 +31,30 @@ model MoistAirEnthalpyFlowRate
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Annex60.Fluid.Sensors.SpecificEnthalpyTwoPort senH(
+  IDEAS.Fluid.Sensors.SpecificEnthalpyTwoPort senH(
     redeclare package Medium = Medium,
     m_flow_nominal=1) "Specific enthalpy sensor"
                 annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Annex60.Fluid.Sensors.MassFlowRate senM_flow(
+  IDEAS.Fluid.Sensors.MassFlowRate senM_flow(
     redeclare package Medium = Medium) "Mass flow rate sensor"
                 annotation (Placement(transformation(extent={{28,10},{48,30}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assEqu1
+  IDEAS.Utilities.Diagnostics.AssertEquality assEqu1
     "Assert to check then enthalpy flow rate sensor"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Math.Product product "Product to compute enthalpy flow rate"
     annotation (Placement(transformation(extent={{0,54},{20,74}})));
-  Annex60.Fluid.Sensors.LatentEnthalpyFlowRate senHLat_flow(
+  IDEAS.Fluid.Sensors.LatentEnthalpyFlowRate senHLat_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=1) "Latent enthalpy flow rate sensor"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Annex60.Fluid.Sensors.SensibleEnthalpyFlowRate senHSen_flow(
+  IDEAS.Fluid.Sensors.SensibleEnthalpyFlowRate senHSen_flow(
     redeclare package Medium = Medium, m_flow_nominal=1)
     "Sensible enthalpy flow rate sensor"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Modelica.Blocks.Math.Add add
     "Outputs the sensible plus latent enthalpy flow rate"
     annotation (Placement(transformation(extent={{20,-46},{40,-26}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assEqu2
+  IDEAS.Utilities.Diagnostics.AssertEquality assEqu2
     "Assert to check the sensible and latent enthalpy flow rate sensors"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 equation
@@ -121,7 +121,7 @@ equation
       smooth=Smooth.None));
     annotation (
 experiment(StopTime=60.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos"
         "Simulate and plot"),
         Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),

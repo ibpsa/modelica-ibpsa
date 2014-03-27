@@ -1,7 +1,7 @@
 within IDEAS.Fluid.MixingVolumes.Examples;
 model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
   extends Modelica.Icons.Example;
- package Medium = Annex60.Media.Air;
+ package Medium = IDEAS.Media.Air;
   Modelica.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -17,7 +17,7 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={30,0})));
-  Annex60.Fluid.MixingVolumes.MixingVolume vol(
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     V=1,
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
@@ -51,7 +51,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
- __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMassFlow.mos"
+ __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMassFlow.mos"
         "Simulate and plot"),
     experiment(StopTime=10));
 end MixingVolumeMassFlow;

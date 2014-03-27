@@ -10,7 +10,7 @@ block IntegerReplicator "Integer signal replicator"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
             rotation=0)));
 equation
-  y = Annex60.Utilities.Math.Functions.integerReplicator(u=u, nout=nout);
+  y = IDEAS.Utilities.Math.Functions.integerReplicator(u=u, nout=nout);
   annotation (
     defaultComponentName="intRep",
     Window(

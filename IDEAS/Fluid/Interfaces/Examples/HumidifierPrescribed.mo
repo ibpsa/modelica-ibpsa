@@ -2,7 +2,7 @@ within IDEAS.Fluid.Interfaces.Examples;
 model HumidifierPrescribed
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Air;
+ package Medium = IDEAS.Media.Air;
  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.001
     "Nominal water mass flow rate";
   Humidifier hea1(redeclare package Medium =
@@ -17,26 +17,26 @@ model HumidifierPrescribed
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
     annotation (Placement(transformation(extent={{-200,92},{-180,112}},
           rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sou_1(
+  IDEAS.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium,
     use_T_in=true,
     nPorts=4,
     p(displayUnit="Pa") = 101435,
     T=293.15)             annotation (Placement(transformation(extent={{-168,92},
             {-148,112}}, rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res_11(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_11(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
              annotation (Placement(transformation(extent={{-100,92},{-80,112}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res_12(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_12(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
              annotation (Placement(transformation(extent={{-100,134},{-80,154}},
           rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sin_1(
+  IDEAS.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium,
     use_p_in=true,
     T=288.15,
@@ -72,13 +72,13 @@ model HumidifierPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,12},{-34,32}}, rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res_2(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_2(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
              annotation (Placement(transformation(extent={{-100,12},{-80,32}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res_3(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_3(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
@@ -93,7 +93,7 @@ model HumidifierPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,54},{8,74}}, rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res_4(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_4(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
@@ -101,7 +101,7 @@ model HumidifierPrescribed
         origin={20,40},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  Annex60.Fluid.MixingVolumes.MixingVolume mix1(
+  IDEAS.Fluid.MixingVolumes.MixingVolume mix1(
     redeclare package Medium = Medium,
     V=0.000001,
     nPorts=2,
@@ -109,7 +109,7 @@ model HumidifierPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{-20,22},{0,42}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass1(
+  IDEAS.Utilities.Diagnostics.AssertEquality ass1(
     startTime=0.3,
     threShold=0.05)
     annotation (Placement(transformation(extent={{160,140},{180,160}}, rotation=
@@ -120,7 +120,7 @@ model HumidifierPrescribed
   Modelica.Blocks.Sources.RealExpression y2(y=hea1.staB.T)
     annotation (Placement(transformation(extent={{40,130},{140,150}}, rotation=
             0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass2(
+  IDEAS.Utilities.Diagnostics.AssertEquality ass2(
     startTime=0.3,
     threShold=0.05)
     annotation (Placement(transformation(extent={{160,100},{180,120}}, rotation=
@@ -130,7 +130,7 @@ model HumidifierPrescribed
             0)));
   Modelica.Blocks.Sources.RealExpression y4(y=hea1.staA.T)
     annotation (Placement(transformation(extent={{40,90},{140,110}}, rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass3(
+  IDEAS.Utilities.Diagnostics.AssertEquality ass3(
     startTime=0.3,
     threShold=0.05)
     annotation (Placement(transformation(extent={{160,38},{180,58}}, rotation=0)));
@@ -138,7 +138,7 @@ model HumidifierPrescribed
     annotation (Placement(transformation(extent={{40,48},{140,68}}, rotation=0)));
   Modelica.Blocks.Sources.RealExpression y6(y=hea3.staB.T)
     annotation (Placement(transformation(extent={{40,28},{140,48}}, rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass4(
+  IDEAS.Utilities.Diagnostics.AssertEquality ass4(
     startTime=0.3,
     threShold=0.05)
     annotation (Placement(transformation(extent={{160,-2},{180,18}}, rotation=0)));
@@ -155,13 +155,13 @@ model HumidifierPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-110},{-34,-90}}, rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res_1(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_1(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
              annotation (Placement(transformation(extent={{-100,-110},{-80,-90}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res_5(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_5(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
@@ -185,13 +185,13 @@ model HumidifierPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-190},{-34,-170}}, rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res_6(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_6(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
              annotation (Placement(transformation(extent={{-100,-190},{-80,-170}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res_7(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_7(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
@@ -206,7 +206,7 @@ model HumidifierPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,-148},{8,-128}}, rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res_8(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_8(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
@@ -214,7 +214,7 @@ model HumidifierPrescribed
         origin={20,-162},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  Annex60.Fluid.MixingVolumes.MixingVolume mix2(
+  IDEAS.Fluid.MixingVolumes.MixingVolume mix2(
                                            redeclare package Medium = Medium, V=
        0.000001,
     nPorts=2,
@@ -222,7 +222,7 @@ model HumidifierPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{-20,-180},{0,
             -160}}, rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass5(
+  IDEAS.Utilities.Diagnostics.AssertEquality ass5(
     startTime=0.3,
     threShold=0.05)
     annotation (Placement(transformation(extent={{160,-62},{180,-42}}, rotation=
@@ -234,7 +234,7 @@ model HumidifierPrescribed
                                             y=hea5.staB.T)
     annotation (Placement(transformation(extent={{40,-72},{140,-52}}, rotation=
             0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass6(
+  IDEAS.Utilities.Diagnostics.AssertEquality ass6(
     startTime=0.3,
     threShold=0.05)
     annotation (Placement(transformation(extent={{160,-102},{180,-82}},
@@ -247,7 +247,7 @@ model HumidifierPrescribed
                                             y=hea5.staA.T)
     annotation (Placement(transformation(extent={{40,-112},{140,-92}}, rotation=
            0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass7(
+  IDEAS.Utilities.Diagnostics.AssertEquality ass7(
     startTime=0.3,
     threShold=0.05)
     annotation (Placement(transformation(extent={{160,-164},{180,-144}},
@@ -260,7 +260,7 @@ model HumidifierPrescribed
                                             y=hea7.staB.T)
     annotation (Placement(transformation(extent={{40,-174},{140,-154}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass8(
+  IDEAS.Utilities.Diagnostics.AssertEquality ass8(
     startTime=0.3,
     threShold=0.05)
     annotation (Placement(transformation(extent={{160,-204},{180,-184}},
@@ -273,7 +273,7 @@ model HumidifierPrescribed
                                             y=hea7.staA.T)
     annotation (Placement(transformation(extent={{40,-214},{140,-194}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass9(
+  IDEAS.Utilities.Diagnostics.AssertEquality ass9(
     startTime=0.3,
     threShold=0.05)
     annotation (Placement(transformation(extent={{160,-300},{180,-280}},
@@ -284,7 +284,7 @@ model HumidifierPrescribed
   Modelica.Blocks.Sources.RealExpression y18(y=hea5.staB.T)
     annotation (Placement(transformation(extent={{40,-310},{140,-290}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass10(
+  IDEAS.Utilities.Diagnostics.AssertEquality ass10(
      startTime=0.3,
     threShold=0.05)
     annotation (Placement(transformation(extent={{160,-260},{180,-240}},
@@ -295,7 +295,7 @@ model HumidifierPrescribed
   Modelica.Blocks.Sources.RealExpression y20(y=hea7.staA.T)
     annotation (Placement(transformation(extent={{40,-270},{140,-250}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass11(
+  IDEAS.Utilities.Diagnostics.AssertEquality ass11(
     threShold=1E-2,
     startTime=0.3)
     annotation (Placement(transformation(extent={{340,140},{360,160}}, rotation=
@@ -306,7 +306,7 @@ model HumidifierPrescribed
   Modelica.Blocks.Sources.RealExpression y22(y=hea1.staB.X[1])
     annotation (Placement(transformation(extent={{220,130},{320,150}}, rotation=
            0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass12(threShold=1E-2, startTime=
+  IDEAS.Utilities.Diagnostics.AssertEquality ass12(threShold=1E-2, startTime=
         0.3)
     annotation (Placement(transformation(extent={{340,100},{360,120}}, rotation=
            0)));
@@ -318,7 +318,7 @@ model HumidifierPrescribed
                                             y=hea1.staA.X[1])
     annotation (Placement(transformation(extent={{220,90},{320,110}}, rotation=
             0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass13(threShold=1E-2, startTime=
+  IDEAS.Utilities.Diagnostics.AssertEquality ass13(threShold=1E-2, startTime=
         0.3)
     annotation (Placement(transformation(extent={{340,38},{360,58}}, rotation=0)));
   Modelica.Blocks.Sources.RealExpression y25(
@@ -327,7 +327,7 @@ model HumidifierPrescribed
   Modelica.Blocks.Sources.RealExpression y26(
                                             y=hea3.staB.X[1])
     annotation (Placement(transformation(extent={{220,28},{320,48}}, rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass14(threShold=1E-2, startTime=
+  IDEAS.Utilities.Diagnostics.AssertEquality ass14(threShold=1E-2, startTime=
         0.3)
     annotation (Placement(transformation(extent={{340,-2},{360,18}}, rotation=0)));
   Modelica.Blocks.Sources.RealExpression y27(
@@ -336,7 +336,7 @@ model HumidifierPrescribed
   Modelica.Blocks.Sources.RealExpression y28(
                                             y=hea3.staA.X[1])
     annotation (Placement(transformation(extent={{220,-12},{320,8}}, rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass15(threShold=1E-2, startTime=
+  IDEAS.Utilities.Diagnostics.AssertEquality ass15(threShold=1E-2, startTime=
         0.3)
     annotation (Placement(transformation(extent={{340,-62},{360,-42}}, rotation=
            0)));
@@ -348,7 +348,7 @@ model HumidifierPrescribed
                                             y=hea5.staB.X[1])
     annotation (Placement(transformation(extent={{220,-72},{320,-52}}, rotation=
            0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass16(threShold=1E-2, startTime=
+  IDEAS.Utilities.Diagnostics.AssertEquality ass16(threShold=1E-2, startTime=
         0.3)
     annotation (Placement(transformation(extent={{340,-102},{360,-82}},
           rotation=0)));
@@ -360,7 +360,7 @@ model HumidifierPrescribed
                                             y=hea5.staA.X[1])
     annotation (Placement(transformation(extent={{220,-112},{320,-92}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass17(threShold=1E-2, startTime=
+  IDEAS.Utilities.Diagnostics.AssertEquality ass17(threShold=1E-2, startTime=
         0.3)
     annotation (Placement(transformation(extent={{340,-164},{360,-144}},
           rotation=0)));
@@ -372,7 +372,7 @@ model HumidifierPrescribed
                                             y=hea7.staB.X[1])
     annotation (Placement(transformation(extent={{220,-174},{320,-154}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass18(threShold=1E-2, startTime=
+  IDEAS.Utilities.Diagnostics.AssertEquality ass18(threShold=1E-2, startTime=
         0.3)
     annotation (Placement(transformation(extent={{340,-204},{360,-184}},
           rotation=0)));
@@ -384,7 +384,7 @@ model HumidifierPrescribed
                                             y=hea7.staA.X[1])
     annotation (Placement(transformation(extent={{220,-214},{320,-194}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass19(threShold=1E-2, startTime=
+  IDEAS.Utilities.Diagnostics.AssertEquality ass19(threShold=1E-2, startTime=
         0.3)
     annotation (Placement(transformation(extent={{340,-300},{360,-280}},
           rotation=0)));
@@ -394,7 +394,7 @@ model HumidifierPrescribed
   Modelica.Blocks.Sources.RealExpression y38(y=hea5.staB.X[1])
     annotation (Placement(transformation(extent={{220,-310},{320,-290}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality ass20(threShold=1E-2, startTime=
+  IDEAS.Utilities.Diagnostics.AssertEquality ass20(threShold=1E-2, startTime=
         0.3)
     annotation (Placement(transformation(extent={{340,-260},{360,-240}},
           rotation=0)));
@@ -409,7 +409,7 @@ model HumidifierPrescribed
 protected
   model Humidifier
     "Model for humidifier that adds a variable for the thermodynamic states at its ports"
-    extends Annex60.Fluid.MassExchangers.HumidifierPrescribed;
+    extends IDEAS.Fluid.MassExchangers.HumidifierPrescribed;
    Medium.ThermodynamicState staA=
       Medium.setState_phX(port_a.p,
                           actualStream(port_a.h_outflow),
@@ -649,7 +649,7 @@ equation
           lineColor={0,0,255},
           textString="Same models as above, but flow is reversed")}),
 experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HumidifierPrescribed.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HumidifierPrescribed.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
@@ -678,7 +678,7 @@ Set initial conditions to
 </li>
 <li>
 July 11, 2011, by Michael Wetter:<br/>
-Moved model to <code>Annex60.Fluid.Interfaces.Examples</code>.
+Moved model to <code>IDEAS.Fluid.Interfaces.Examples</code>.
 </li>
 <li>
 April 18, 2008, by Michael Wetter:<br/>

@@ -14,14 +14,14 @@ model pW_TDewPoi_comparison
   Real r_p "Ratio of the two approximations";
 equation
   T = conv*time + 273.15;
-  p_w_ashrae = Annex60.Utilities.Psychrometrics.Functions.pW_TDewPoi(T);
-  p_w = Annex60.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T);
+  p_w_ashrae = IDEAS.Utilities.Psychrometrics.Functions.pW_TDewPoi(T);
+  p_w = IDEAS.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T);
   r_p = p_w_ashrae/p_w;
-  p_w = Annex60.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(TInv);
+  p_w = IDEAS.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(TInv);
   dT = T - TInv;
   assert(abs(dT) < 10E-12, "Error in function implementation.");
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_TDewPoi_comparison.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_TDewPoi_comparison.mos"
         "Simulate and plot"));
 end pW_TDewPoi_comparison;

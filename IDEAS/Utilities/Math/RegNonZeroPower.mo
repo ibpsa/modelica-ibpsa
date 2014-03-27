@@ -5,7 +5,7 @@ block RegNonZeroPower
   parameter Real n "Exponent";
   parameter Real delta = 0.01 "Abscissa value where transition occurs";
 equation
-  y = Annex60.Utilities.Math.Functions.regNonZeroPower(x=u, n=n, delta=delta);
+  y = IDEAS.Utilities.Math.Functions.regNonZeroPower(x=u, n=n, delta=delta);
   annotation (Documentation(info="<html>
 
 Function that approximates <i>y=|x|<sup>n</sup></i> where <i>n &gt; 0</i> 

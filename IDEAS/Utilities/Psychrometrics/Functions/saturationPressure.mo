@@ -9,9 +9,9 @@ function saturationPressure
                                           nominal=1000) "Saturation pressure";
 
 algorithm
-  pSat := Annex60.Utilities.Math.Functions.spliceFunction(
-             Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TSat),
-             Annex60.Utilities.Psychrometrics.Functions.sublimationPressureIce(TSat),
+  pSat := IDEAS.Utilities.Math.Functions.spliceFunction(
+             IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TSat),
+             IDEAS.Utilities.Psychrometrics.Functions.sublimationPressureIce(TSat),
              TSat-273.16,
              1.0);
   annotation(Inline=false,
@@ -36,7 +36,7 @@ revisions="<html>
 <ul>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
-First implementation, moved from <code>Annex60.Media</code>.
+First implementation, moved from <code>IDEAS.Media</code>.
 </li>
 </ul>
 </html>"));

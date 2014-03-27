@@ -1,15 +1,15 @@
 within IDEAS.Fluid.MixingVolumes.Examples;
 model MixingVolumeInitialization "Test model for mixing volume initialization"
   extends Modelica.Icons.Example;
- package Medium = Annex60.Media.Air;
+ package Medium = IDEAS.Media.Air;
 
-  Annex60.Fluid.Sources.Boundary_pT sou1(redeclare package Medium =
+  IDEAS.Fluid.Sources.Boundary_pT sou1(redeclare package Medium =
         Medium,
     p=101330,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-60,10},{-40,30}}, rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sin1(redeclare package Medium =
+  IDEAS.Fluid.Sources.Boundary_pT sin1(redeclare package Medium =
         Medium,
     p=101320,
     nPorts=1,
@@ -56,7 +56,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
 experiment(StopTime=0.001),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeInitialization.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeInitialization.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

@@ -13,10 +13,10 @@ model IdealHeater "Ideal heater, no losses to environment, unlimited power"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Annex60.Fluid.Sensors.Temperature senTem(redeclare package Medium = Medium)
+  IDEAS.Fluid.Sensors.Temperature senTem(redeclare package Medium = Medium)
     "Inlet temperature"
     annotation (Placement(transformation(extent={{-8,2},{-28,22}})));
-  Annex60.Utilities.Math.Max max(nin=2) "Maximum temperature"
+  IDEAS.Utilities.Math.Max max(nin=2) "Maximum temperature"
     annotation (Placement(transformation(extent={{-72,40},{-52,60}})));
 equation
   // Electricity consumption for electronics and fan only.  Pump is covered by pumpHeater;

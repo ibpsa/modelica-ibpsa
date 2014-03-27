@@ -5,7 +5,7 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-The package <code>Annex60.Fluid</code> consists of models
+The package <code>IDEAS.Fluid</code> consists of models
 for pressure driven mass flow rate and for heat and moisture
 exchange in fluid flow networks.
 </p>
@@ -126,8 +126,8 @@ where <i>m(t)</i> is the mass of the control volume,
 <li>
 If a system model sets the pressure, such as if the volume is connected
 to a model that sets the pressure, e.g.,
-<a href=\"modelica://Annex60.Fluid.Sources.FixedBoundary\">
-Annex60.Fluid.Sources.FixedBoundary</a>,
+<a href=\"modelica://IDEAS.Fluid.Sources.FixedBoundary\">
+IDEAS.Fluid.Sources.FixedBoundary</a>,
 then due to the connection between the models, the
 pressure of the volume is the same as the pressure of the 
 model for the boundary condition.
@@ -235,8 +235,8 @@ parameters in various model to help the user understand how they are used.
       to define a point on the flow rate versus pressure drop curve. For other
       mass flow rates, the pressure drop is typically adjusted using similarity laws.
       See
-      <a href=\"modelica://Annex60.Fluid.FixedResistances.FixedResistanceDpM\">
-      Annex60.Fluid.FixedResistances.FixedResistanceDpM</a>.
+      <a href=\"modelica://IDEAS.Fluid.FixedResistances.FixedResistanceDpM\">
+      IDEAS.Fluid.FixedResistances.FixedResistanceDpM</a>.
   </td>
 </tr>
 <tr>
@@ -290,8 +290,8 @@ parameters in various model to help the user understand how they are used.
       value for <code>tau</code>, and where generally applicable values can be used, 
       components already set a default value for <code>tau</code>.
       See for example
-      <a href=\"modelica://Annex60.Fluid.HeatExchangers.WetCoilDiscretized\">
-      Annex60.Fluid.HeatExchangers.WetCoilDiscretized</a>.
+      <a href=\"modelica://IDEAS.Fluid.HeatExchangers.WetCoilDiscretized\">
+      IDEAS.Fluid.HeatExchangers.WetCoilDiscretized</a>.
   </td>
 </tr>
 </table>
@@ -299,8 +299,8 @@ parameters in various model to help the user understand how they are used.
 <h4>Implementation</h4>
 <p>
 The models are implemented using base classes from 
-<a href=\"modelica://Annex60.Fluid.Interfaces\">
-Annex60.Fluid.Interfaces</a>
+<a href=\"modelica://IDEAS.Fluid.Interfaces\">
+IDEAS.Fluid.Interfaces</a>
 and from 
 <a href=\"modelica://Modelica.Fluid.Interfaces\">
 Modelica.Fluid.Interfaces</a>.
@@ -312,7 +312,7 @@ flow resistance.
 The class inheritance is as follows:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/UsersGuide/a60.png\"/>
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/UsersGuide/a60.png\"/>
 </p>
 
 </html>"));

@@ -2,7 +2,7 @@ within IDEAS.Utilities.Math;
 block Average "Average of a vector"
   extends Modelica.Blocks.Interfaces.MISO;
 equation
- y = Annex60.Utilities.Math.Functions.average(u=u, nin=nin);
+ y = IDEAS.Utilities.Math.Functions.average(u=u, nin=nin);
 annotation (defaultComponentName="ave",
 Documentation(info="<html>
 <p>This block outputs the average of the vector. </p>

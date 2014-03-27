@@ -13,13 +13,13 @@ equation
 initial equation
      pSat=pSatDer;
 equation
-    pSat=Annex60.Utilities.Psychrometrics.Functions.saturationPressure(T);
+    pSat=IDEAS.Utilities.Psychrometrics.Functions.saturationPressure(T);
     der(pSat)=der(pSatDer);
     assert(abs(pSat-pSatDer) < 1E-2, "Model has an error");
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics),
-                       __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/SaturationPressureDerivativeCheck.mos"
+                       __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/SaturationPressureDerivativeCheck.mos"
         "Simulate and plot"),
       experiment(
         StartTime=0,

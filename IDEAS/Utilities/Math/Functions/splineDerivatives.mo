@@ -80,8 +80,8 @@ The algorithm to ensure monotonicity is based on the method described in Fritsch
 </p>
 <p>
 This function is typically used with
-<a href=\"modelica://Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation\">
-Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</a>
+<a href=\"modelica://IDEAS.Utilities.Math.Functions.cubicHermiteLinearExtrapolation\">
+IDEAS.Utilities.Math.Functions.cubicHermiteLinearExtrapolation</a>
 which is used to evaluate the cubic spline.
 Because in many applications, the shape of the spline depends on parameters,
 this function has been implemented in such a way that all derivatives can be 

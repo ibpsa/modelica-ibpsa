@@ -11,8 +11,8 @@ protected
   Real cor;
 algorithm
   cor :=deltaX/10;
-  y := Annex60.Utilities.Math.Functions.smoothMax(x,l+deltaX,cor);
-  y := Annex60.Utilities.Math.Functions.smoothMin(y,u-deltaX,cor);
+  y := IDEAS.Utilities.Math.Functions.smoothMax(x,l+deltaX,cor);
+  y := IDEAS.Utilities.Math.Functions.smoothMin(y,u-deltaX,cor);
   annotation (Documentation(info="<html>
 <p>
 Once continuously differentiable approximation to the <code>limit(.,.)</code> function.

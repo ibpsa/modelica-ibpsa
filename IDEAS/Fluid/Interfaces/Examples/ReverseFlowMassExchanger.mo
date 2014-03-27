@@ -2,16 +2,16 @@ within IDEAS.Fluid.Interfaces.Examples;
 model ReverseFlowMassExchanger
   "Model that tests the reverse flow for a mass exchanger"
   extends Modelica.Icons.Example;
-package Medium = Annex60.Media.Air;
-  Annex60.Utilities.Diagnostics.AssertEquality assTem(threShold=1E-8,
+package Medium = IDEAS.Media.Air;
+  IDEAS.Utilities.Diagnostics.AssertEquality assTem(threShold=1E-8,
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assEnt(threShold=1E-8,
+  IDEAS.Utilities.Diagnostics.AssertEquality assEnt(threShold=1E-8,
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{160,-30},{180,-10}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assMas(threShold=1E-8,
+  IDEAS.Utilities.Diagnostics.AssertEquality assMas(threShold=1E-8,
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
@@ -27,7 +27,7 @@ package Medium = Annex60.Media.Air;
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={38,70})));
-  Annex60.Fluid.MassExchangers.ConstantEffectiveness masExcFor(
+  IDEAS.Fluid.MassExchangers.ConstantEffectiveness masExcFor(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     m1_flow_nominal=1,
@@ -36,7 +36,7 @@ package Medium = Annex60.Media.Air;
     dp2_nominal=0,
     epsL=0) "Mass exchanger with forward flow"
     annotation (Placement(transformation(extent={{-50,84},{-30,104}})));
-  Annex60.Fluid.MassExchangers.ConstantEffectiveness masExcRev(
+  IDEAS.Fluid.MassExchangers.ConstantEffectiveness masExcRev(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     m1_flow_nominal=1,
@@ -45,7 +45,7 @@ package Medium = Annex60.Media.Air;
     dp2_nominal=0,
     epsL=0) "Mass exchanger with reverse flow"
     annotation (Placement(transformation(extent={{-30,30},{-50,50}})));
-  Annex60.Fluid.Sources.FixedBoundary sink2(
+  IDEAS.Fluid.Sources.FixedBoundary sink2(
      redeclare package Medium = Medium,
      nPorts=2) "Fluid sink"
      annotation (Placement(
@@ -79,15 +79,15 @@ package Medium = Annex60.Media.Air;
     annotation (Placement(transformation(extent={{-350,60},{-330,80}})));
   Sensors.MassFraction senMas4(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-270,60},{-250,80}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assTem1(threShold=1E-8,
+  IDEAS.Utilities.Diagnostics.AssertEquality assTem1(threShold=1E-8,
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{-200,-20},{-180,0}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assEnt1(threShold=1E-8,
+  IDEAS.Utilities.Diagnostics.AssertEquality assEnt1(threShold=1E-8,
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assMas1(threShold=1E-8,
+  IDEAS.Utilities.Diagnostics.AssertEquality assMas1(threShold=1E-8,
       startTime=0)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{-200,-80},{-180,-60}})));
@@ -130,7 +130,7 @@ package Medium = Annex60.Media.Air;
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-150,100})));
-  Annex60.Fluid.Sources.FixedBoundary sink1(
+  IDEAS.Fluid.Sources.FixedBoundary sink1(
     redeclare package Medium = Medium,
     nPorts=2) "Fluid sink"
     annotation (Placement(
@@ -314,7 +314,7 @@ equation
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=1),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-200},{200,
             200}})),
@@ -346,7 +346,7 @@ October 9, 2013, by Michael Wetter:<br/>
 Replaced
 <code>Modelica.Fluid.Sources.FixedBoundary</code>
 with 
-<code>Annex60.Fluid.Sources.FixedBoundary</code>
+<code>IDEAS.Fluid.Sources.FixedBoundary</code>
 as otherwise, the pedantic model check fails in 
 Dymola 2014 FD01 beta3.
 </li>

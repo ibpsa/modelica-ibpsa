@@ -6,7 +6,7 @@ model PolynomialDerivativeCheck
 initial equation
    y=x;
 equation
-  x=Annex60.Utilities.Math.Functions.polynomial(x=time-2, a={2, 4, -4, 5});
+  x=IDEAS.Utilities.Math.Functions.polynomial(x=time-2, a={2, 4, -4, 5});
   der(y)=der(x);
   // Trigger an error if the derivative implementation is incorrect.
   assert(abs(x-y) < 1E-2, "Model has an error.");
@@ -15,7 +15,7 @@ equation
             -100},{100,100}}),
                     graphics),
 experiment(StopTime=4),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PolynomialDerivativeCheck.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PolynomialDerivativeCheck.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

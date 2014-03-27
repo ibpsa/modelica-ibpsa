@@ -4,7 +4,7 @@ block SmoothMin
   extends Modelica.Blocks.Interfaces.SI2SO;
   parameter Real deltaX "Width of transition interval";
 equation
-  y = Annex60.Utilities.Math.Functions.smoothMin(x1=u1, x2=u2, deltaX=deltaX);
+  y = IDEAS.Utilities.Math.Functions.smoothMin(x1=u1, x2=u2, deltaX=deltaX);
   annotation (Icon(graphics={Text(
           extent={{-88,40},{92,-32}},
           lineColor={160,160,164},

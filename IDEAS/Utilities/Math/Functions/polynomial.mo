@@ -36,5 +36,5 @@ First implementation.
 </ul>
 </html>",
 smoothOrder=999,
-derivative(zeroDerivative=a)=Annex60.Utilities.Math.Functions.BaseClasses.der_polynomial);
+derivative(zeroDerivative=a)=IDEAS.Utilities.Math.Functions.BaseClasses.der_polynomial);
 end polynomial;

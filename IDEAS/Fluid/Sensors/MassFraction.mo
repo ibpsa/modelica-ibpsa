@@ -1,9 +1,9 @@
 within IDEAS.Fluid.Sensors;
 model MassFraction "Ideal one port mass fraction sensor"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor(
+  extends IDEAS.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor(
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases);
-  extends Annex60.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
+  extends IDEAS.Fluid.BaseClasses.IndexMassFraction(substanceName = "water");
   extends Modelica.Icons.RotationalSensor;
 
   Modelica.Blocks.Interfaces.RealOutput X(min=-1e-3,
@@ -41,8 +41,8 @@ The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
 Read the 
-<a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a>
+<a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.
 </p>
 </html>
@@ -60,8 +60,8 @@ OpenModelica.
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Revised model to use base class
-<a href=\"modelica://Annex60.Fluid.BaseClasses.IndexMassFraction\">
-Annex60.Fluid.BaseClasses.IndexMassFraction</a>.
+<a href=\"modelica://IDEAS.Fluid.BaseClasses.IndexMassFraction\">
+IDEAS.Fluid.BaseClasses.IndexMassFraction</a>.
 </li>
 <li>
 February 22, by Michael Wetter:<br/>

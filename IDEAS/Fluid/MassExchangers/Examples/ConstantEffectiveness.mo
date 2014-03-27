@@ -2,10 +2,10 @@ within IDEAS.Fluid.MassExchangers.Examples;
 model ConstantEffectiveness
   extends Modelica.Icons.Example;
 
- package Medium1 = Annex60.Media.Air;
- package Medium2 = Annex60.Media.Air;
+ package Medium1 = IDEAS.Media.Air;
+ package Medium2 = IDEAS.Media.Air;
 
-  Annex60.Fluid.Sources.Boundary_pT sin_2(
+  IDEAS.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2, T=273.15 + 10,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-58,-10},
@@ -16,7 +16,7 @@ model ConstantEffectiveness
     offset=101330)
                  annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
           rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sou_2(
+  IDEAS.Fluid.Sources.Boundary_pT sou_2(
     redeclare package Medium = Medium2, T=273.15 + 5,
     use_p_in=true,
     use_T_in=true,
@@ -34,7 +34,7 @@ model ConstantEffectiveness
     Modelica.Blocks.Sources.Constant POut(k=101325)
       annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
           rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sin_1(
+  IDEAS.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     T=273.15 + 30,
     X={0.012,1 - 0.012},
@@ -42,7 +42,7 @@ model ConstantEffectiveness
     p=300000,
     nPorts=1)             annotation (Placement(transformation(extent={{84,2},{
             64,22}}, rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sou_1(
+  IDEAS.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     T=273.15 + 50,
     X={0.012,1 - 0.012},
@@ -57,7 +57,7 @@ model ConstantEffectiveness
     offset=1E5 - 110)
                  annotation (Placement(transformation(extent={{40,60},{60,80}},
           rotation=0)));
-  Annex60.Fluid.MassExchangers.ConstantEffectiveness hex(
+  IDEAS.Fluid.MassExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     m1_flow(start=5),
@@ -108,7 +108,7 @@ equation
             -100},{100,100}}),
                     graphics),
 experiment(StopTime=360),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/ConstantEffectiveness.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/ConstantEffectiveness.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

@@ -1,14 +1,14 @@
 within IDEAS.Fluid.Interfaces.Examples;
 model ConservationEquation "Model that tests the conservation equation"
 extends Modelica.Icons.Example;
- package Medium = Annex60.Media.Water "Medium model";
-  Annex60.Fluid.Interfaces.ConservationEquation dyn(redeclare package Medium =
+ package Medium = IDEAS.Media.Water "Medium model";
+  IDEAS.Fluid.Interfaces.ConservationEquation dyn(redeclare package Medium =
         Medium, energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=2,
     fluidVolume=0.01) "Dynamic conservation equation"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
-  Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation ste(
+  IDEAS.Fluid.Interfaces.StaticTwoPortConservationEquation ste(
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
     sensibleOnly=false,
@@ -26,7 +26,7 @@ extends Modelica.Icons.Example;
                                 1800,100])
     "Sensible heat flow rate added to the control volume"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
     nPorts=2,
     use_p_in=false,
     redeclare package Medium = Medium,
@@ -34,19 +34,19 @@ extends Modelica.Icons.Example;
     T=283.15)
       annotation (Placement(
         transformation(extent={{80,-68},{60,-48}}, rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res1(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res1(
     from_dp=true,
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
     dp_nominal=100) "Flow resistance"
       annotation (Placement(transformation(extent={{20,-10},{40,10}},
           rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_T bou(
+  IDEAS.Fluid.Sources.MassFlowSource_T bou(
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow=0.01) "Boundary condition for mass flow rate"
     annotation (Placement(transformation(extent={{-80,-68},{-60,-48}})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM res2(
+  IDEAS.Fluid.FixedResistances.FixedResistanceDpM res2(
     from_dp=true,
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
@@ -99,7 +99,7 @@ equation
       smooth=Smooth.None));
   annotation (
   experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ConservationEquation.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ConservationEquation.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>

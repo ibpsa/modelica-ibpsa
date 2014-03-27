@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Sensors;
 model RelativeHumidity "Ideal one port relative humidity sensor"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+  extends IDEAS.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
 
   Modelica.Blocks.Interfaces.RealOutput phi(unit="1", min=0)
@@ -43,8 +43,8 @@ which is typically the case for moist air models.
 </p>
 <p>
 Read the 
-<a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a>
+<a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.
 </p>
 </html>

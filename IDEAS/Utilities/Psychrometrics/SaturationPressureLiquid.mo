@@ -16,7 +16,7 @@ block SaturationPressureLiquid
           rotation=0)));
 
 equation
-  pSat = Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TSat);
+  pSat = IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TSat);
     annotation (
     defaultComponentName="pSat",
     Documentation(info="<html>

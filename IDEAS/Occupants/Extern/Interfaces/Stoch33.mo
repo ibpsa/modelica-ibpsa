@@ -9,4 +9,3 @@ model Stoch33 "33 stochastic user behaviour profiles "
     filQ="User_zeros.txt",
     filDHW="User_mDHW_15.txt");
 end Stoch33;
-

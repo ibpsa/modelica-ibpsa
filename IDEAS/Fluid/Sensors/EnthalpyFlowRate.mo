@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Sensors;
 model EnthalpyFlowRate "Ideal enthalphy flow rate sensor"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
+  extends IDEAS.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Enthalpy flow rate, positive if from port_a to port_b"
@@ -69,13 +69,13 @@ specific enthalpy <i>h<sub>out</sub></i> that is used to
 compute the enthalpy flow rate 
 <i>H&#775; = m&#775; h<sub>out</sub></i> 
 is computed using a first order differential equation. 
-See <a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
+See <a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 <p>
 For a sensor that measures the latent enthalpy flow rate, use
-<a href=\"modelica://Annex60.Fluid.Sensors.LatentEnthalpyFlowRate\">
-Annex60.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
+<a href=\"modelica://IDEAS.Fluid.Sensors.LatentEnthalpyFlowRate\">
+IDEAS.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 </p>
 </html>",
 revisions="<html>

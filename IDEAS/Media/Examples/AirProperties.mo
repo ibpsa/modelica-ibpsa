@@ -2,8 +2,8 @@ within IDEAS.Media.Examples;
 model AirProperties
   "Model that tests the implementation of the fluid properties"
   extends Modelica.Icons.Example;
-  extends Annex60.Media.Examples.BaseClasses.FluidProperties(
-    redeclare package Medium = Annex60.Media.Air,
+  extends IDEAS.Media.Examples.BaseClasses.FluidProperties(
+    redeclare package Medium = IDEAS.Media.Air,
     TMin=273.15-30,
     TMax=273.15+60);
 
@@ -22,7 +22,7 @@ equation
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=1),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Examples/AirProperties.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Media/Examples/AirProperties.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>

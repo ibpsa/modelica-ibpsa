@@ -3,9 +3,9 @@ model ConstantEffectiveness
   "Model that demonstrates use of a heat exchanger with constant effectiveness"
   extends Modelica.Icons.Example;
 
- package Medium1 = Annex60.Media.Water;
- package Medium2 = Annex60.Media.Air;
-  Annex60.Fluid.Sources.Boundary_pT sin_2(                       redeclare
+ package Medium1 = IDEAS.Media.Water;
+ package Medium2 = IDEAS.Media.Air;
+  IDEAS.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2,
     use_p_in=true,
     nPorts=1,
@@ -19,7 +19,7 @@ model ConstantEffectiveness
     startTime=50)
                  annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
           rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sou_2(                       redeclare
+  IDEAS.Fluid.Sources.Boundary_pT sou_2(                       redeclare
       package Medium = Medium2, T=273.15 + 5,
     use_p_in=true,
     use_T_in=true,
@@ -37,21 +37,21 @@ model ConstantEffectiveness
     Modelica.Blocks.Sources.Constant POut(k=101325)
       annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
           rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sin_1(                       redeclare
+  IDEAS.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium1,
     use_p_in=true,
     nPorts=1,
     p=300000,
     T=273.15 + 25)        annotation (Placement(transformation(extent={{84,2},{
             64,22}}, rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sou_1(
+  IDEAS.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     p=300000 + 5000,
     T=273.15 + 50,
     use_T_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-60,36},
             {-40,56}}, rotation=0)));
-  Annex60.Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package
+  IDEAS.Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package
       Medium1 =
         Medium1, redeclare package Medium2 = Medium2,
     show_T=true,
@@ -111,6 +111,6 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=360),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/ConstantEffectiveness.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/ConstantEffectiveness.mos"
         "Simulate and plot"));
 end ConstantEffectiveness;

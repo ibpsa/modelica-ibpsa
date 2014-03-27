@@ -5,7 +5,7 @@ function smoothHeaviside
   input Real delta "Parameter used for scaling";
   output Real y "Result";
 algorithm
- y := Annex60.Utilities.Math.Functions.spliceFunction(1, 0, x, delta);
+ y := IDEAS.Utilities.Math.Functions.spliceFunction(1, 0, x, delta);
  annotation (Documentation(info="<html>
 <p>
 Once Lipschitz continuously differentiable approximation to the 

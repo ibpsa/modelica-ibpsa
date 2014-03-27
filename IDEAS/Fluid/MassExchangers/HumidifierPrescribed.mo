@@ -1,10 +1,10 @@
 within IDEAS.Fluid.MassExchangers;
 model HumidifierPrescribed
   "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction"
-  extends Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger(
+  extends IDEAS.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases,
-    redeclare final Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir vol);
+    redeclare final IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir vol);
 
   parameter Boolean use_T_in= false
     "Get the temperature from the input connector"

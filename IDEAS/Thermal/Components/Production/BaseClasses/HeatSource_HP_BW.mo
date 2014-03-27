@@ -23,10 +23,12 @@ model HeatSource_HP_BW
   */
   //protected
 
-  replaceable package MediumPrimary = Modelica.Media.Interfaces.PartialMedium
+  replaceable package MediumPrimary =
+      Modelica.Media.Interfaces.PartialMedium
     "Medium at the secondary side of the heat pump";
 
-  replaceable package MediumSecondary = Modelica.Media.Interfaces.PartialMedium
+  replaceable package MediumSecondary =
+      Modelica.Media.Interfaces.PartialMedium
     "Medium at the primary side of the heat pump";
   final parameter Modelica.SIunits.Power QNomRef=8270
     "Nominal power of the Viesmann Vitocal 300-G BW/BWC 108.  See datafile";

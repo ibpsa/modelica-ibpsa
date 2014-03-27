@@ -1,10 +1,10 @@
 within IDEAS.Fluid.Interfaces;
 model TwoPortHeatMassExchanger
   "Partial model transporting one fluid stream with storing mass or energy"
-  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
+  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     port_a(h_outflow(start=h_outflow_start)),
     port_b(h_outflow(start=h_outflow_start)));
-  extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true);
 
   parameter Modelica.SIunits.Time tau = 30
@@ -38,8 +38,8 @@ model TwoPortHeatMassExchanger
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
-  replaceable Annex60.Fluid.MixingVolumes.MixingVolume vol
-  constrainedby Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
+  replaceable IDEAS.Fluid.MixingVolumes.MixingVolume vol
+  constrainedby IDEAS.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium,
     nPorts = 2,
     V=m_flow_nominal*tau/rho_default,
@@ -53,7 +53,7 @@ model TwoPortHeatMassExchanger
      annotation (Placement(transformation(extent={{-9,0},{11,-20}},
          rotation=0)));
 
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro(
+  IDEAS.Fluid.FixedResistances.FixedResistanceDpM preDro(
     redeclare package Medium = Medium,
     final use_dh=false,
     final m_flow_nominal=m_flow_nominal,
@@ -119,26 +119,26 @@ the temperature of the medium that leaves the component.
 For the actual temperatures at the port, the variables <code>sta_a.T</code>
 and <code>sta_b.T</code> can be used. These two variables are provided by 
 the base class
-<a href=\"modelica://Annex60.Fluid.Interfaces.PartialTwoPortInterface\">
-Annex60.Fluid.Interfaces.PartialTwoPortInterface</a>.
+<a href=\"modelica://IDEAS.Fluid.Interfaces.PartialTwoPortInterface\">
+IDEAS.Fluid.Interfaces.PartialTwoPortInterface</a>.
 </p>
 
 For models that extend this model, see for example
 <ul>
 <li>
 the ideal heater or cooler
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
-Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed</a>,
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
+IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed</a>,
 </li>
 <li>
 the ideal humidifier
-<a href=\"modelica://Annex60.Fluid.MassExchangers.HumidifierPrescribed\">
-Annex60.Fluid.MassExchangers.HumidifierPrescribed</a>, and
+<a href=\"modelica://IDEAS.Fluid.MassExchangers.HumidifierPrescribed\">
+IDEAS.Fluid.MassExchangers.HumidifierPrescribed</a>, and
 </li>
 <li>
 the boiler
-<a href=\"modelica://Annex60.Fluid.Boilers.BoilerPolynomial\">
-Annex60.Fluid.Boilers.BoilerPolynomial</a>.
+<a href=\"modelica://IDEAS.Fluid.Boilers.BoilerPolynomial\">
+IDEAS.Fluid.Boilers.BoilerPolynomial</a>.
 </li>
 </ul>
 
@@ -194,8 +194,8 @@ used when <code>tau = 0</code>.
 May 25, 2011, by Michael Wetter:<br/>
 Removed temperature sensor and changed implementation of fluid volume
 to allow use of this model for the steady-state and dynamic humidifier
-<a href=\"modelica://Annex60.Fluid.MassExchangers.HumidifierPrescribed\">
-Annex60.Fluid.MassExchangers.HumidifierPrescribed</a>.
+<a href=\"modelica://IDEAS.Fluid.MassExchangers.HumidifierPrescribed\">
+IDEAS.Fluid.MassExchangers.HumidifierPrescribed</a>.
 </li>
 <li>
 March 25, 2011, by Michael Wetter:<br/>

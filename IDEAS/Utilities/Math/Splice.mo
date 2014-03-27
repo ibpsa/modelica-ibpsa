@@ -16,7 +16,7 @@ block Splice "Block for splice function opertation"
         rotation=0)));
 parameter Real deltax "Half width of transition interval";
 equation
-  y=Annex60.Utilities.Math.Functions.spliceFunction(
+  y=IDEAS.Utilities.Math.Functions.spliceFunction(
     pos=u1,
     neg= u2,
     x= x,
@@ -67,8 +67,8 @@ equation
           textString="u1")}),
 Documentation(info="<html>
 <p>
-This block implements <a href=\"modelica://Annex60.Utilities.Math.Functions.spliceFunction\">
-Annex60.Utilities.Math.Functions.spliceFunction</a>, which provides a continuously differentiable transition between two arguments. 
+This block implements <a href=\"modelica://IDEAS.Utilities.Math.Functions.spliceFunction\">
+IDEAS.Utilities.Math.Functions.spliceFunction</a>, which provides a continuously differentiable transition between two arguments. 
 </p>
 </html>",
 revisions="<html>

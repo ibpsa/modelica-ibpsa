@@ -2,7 +2,7 @@ within IDEAS.Fluid.HeatExchangers.Examples;
 model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air;
+  package Medium = IDEAS.Media.Air;
 
   inner Modelica.Fluid.System system(
      m_flow_start=0,
@@ -12,7 +12,7 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
   parameter Modelica.SIunits.MassFlowRate
     m_flow_nominal=3000/1000/20 "Nominal mass flow rate";
 
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     use_T_in=false,
     p(displayUnit="Pa"),
@@ -21,7 +21,7 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
             10,10}},
                   rotation=180,
         origin={130,50})));
-  Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed heaSte(
+  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed heaSte(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -29,20 +29,20 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Steady-state model of the heater"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTem1(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0, 273.15 + 20; 120, 273.15 +
         20; 120, 273.15 + 30; 1200, 273.15 + 30]) "Setpoint"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
-  Annex60.Controls.Continuous.LimPID con1(
+  IDEAS.Controls.Continuous.LimPID con1(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
     k=1,
     Ti=10) "Controller"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
-  Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed heaDyn(
+  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed heaDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -50,10 +50,10 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Dynamic model of the heater"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
         Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Annex60.Controls.Continuous.LimPID con2(
+  IDEAS.Controls.Continuous.LimPID con2(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
     Ti=10,
@@ -121,7 +121,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{200,
             200}}), graphics),
     __Dymola_Commands(file=
-          "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/HeaterCoolerPrescribed.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/HeaterCoolerPrescribed.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

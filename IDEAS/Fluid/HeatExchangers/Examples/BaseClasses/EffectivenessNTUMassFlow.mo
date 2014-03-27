@@ -1,8 +1,8 @@
 within IDEAS.Fluid.HeatExchangers.Examples.BaseClasses;
 partial model EffectivenessNTUMassFlow
   "Partial model of epsilon-NTU coil that tests variable mass flow rates"
-  package Medium1 = Annex60.Media.Water;
-  package Medium2 = Annex60.Media.Air;
+  package Medium1 = IDEAS.Media.Water;
+  package Medium2 = IDEAS.Media.Air;
   parameter Modelica.SIunits.Temperature T_a1_nominal=5 + 273.15;
   parameter Modelica.SIunits.Temperature T_b1_nominal=10 + 273.15;
   parameter Modelica.SIunits.Temperature T_a2_nominal=30 + 273.15;
@@ -14,14 +14,14 @@ partial model EffectivenessNTUMassFlow
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=m1_flow_nominal*4200/
       1000*(T_a1_nominal - T_b1_nominal)/(T_b2_nominal - T_a2_nominal)
     "Nominal mass flow rate medium 2";
-  Annex60.Fluid.Sources.Boundary_pT sin_2(
+  IDEAS.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     T=T_a2_nominal)
               annotation (Placement(transformation(extent={{-42,14},{-22,34}},
           rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_T sou_2(
+  IDEAS.Fluid.Sources.MassFlowSource_T sou_2(
     redeclare package Medium = Medium2,
     T=T_a2_nominal,
     X={0.02,1 - 0.02},
@@ -30,14 +30,14 @@ partial model EffectivenessNTUMassFlow
     m_flow=m2_flow_nominal,
     use_m_flow_in=true)                 annotation (Placement(transformation(
           extent={{138,14},{118,34}}, rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sin_1(
+  IDEAS.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium1,
     use_p_in=false,
     p=300000,
     T=T_a1_nominal)
               annotation (Placement(transformation(extent={{140,50},{120,70}},
           rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_T sou_1(
+  IDEAS.Fluid.Sources.MassFlowSource_T sou_1(
     redeclare package Medium = Medium1,
     use_m_flow_in=true,
     use_T_in=false,
@@ -49,7 +49,7 @@ partial model EffectivenessNTUMassFlow
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Constant const(k=0.8)
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-  Annex60.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
+  IDEAS.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)
     annotation (Placement(transformation(extent={{150,-42},{170,-22}})));
   Modelica.Blocks.Sources.Constant const1(k=T_a2_nominal)
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));

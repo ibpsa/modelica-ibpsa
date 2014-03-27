@@ -1,9 +1,9 @@
 within IDEAS.Utilities.Psychrometrics.Examples;
 model DewPointTemperature "Unit test for dew point temperature calculation"
   extends Modelica.Icons.Example;
-   package Medium = Annex60.Media.Air "Medium model"
+   package Medium = IDEAS.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
-  Annex60.Utilities.Psychrometrics.pW_TDewPoi watVapPre
+  IDEAS.Utilities.Psychrometrics.pW_TDewPoi watVapPre
     annotation (Placement(transformation(extent={{40,0},{60,20}},    rotation=0)));
     Modelica.Blocks.Sources.Ramp XHum(
     duration=1,
@@ -11,10 +11,10 @@ model DewPointTemperature "Unit test for dew point temperature calculation"
     offset=0.1) "Humidity concentration"
                  annotation (Placement(transformation(extent={{-80,0},{-60,20}},
                    rotation=0)));
-  Annex60.Utilities.Psychrometrics.pW_X humRat(
+  IDEAS.Utilities.Psychrometrics.pW_X humRat(
                          use_p_in=false)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Annex60.Utilities.Psychrometrics.TDewPoi_pW TDewPoi
+  IDEAS.Utilities.Psychrometrics.TDewPoi_pW TDewPoi
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(XHum.y, humRat.X_w) annotation (Line(
@@ -31,7 +31,7 @@ equation
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/DewPointTemperature.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/DewPointTemperature.mos"
         "Simulate and plot"),                                                                                                    Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
 end DewPointTemperature;

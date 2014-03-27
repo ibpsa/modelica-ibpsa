@@ -4,9 +4,9 @@ model OffTimer "Example model for off timer"
 
   Modelica.Blocks.Sources.BooleanPulse booleanPulse(period=0.2)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Annex60.Controls.Continuous.OffTimer offTim1
+  IDEAS.Controls.Continuous.OffTimer offTim1
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Annex60.Controls.Continuous.OffTimer offTim2
+  IDEAS.Controls.Continuous.OffTimer offTim2
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Blocks.Logical.Not not1
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
@@ -25,7 +25,7 @@ equation
       smooth=Smooth.None));
  annotation (
 experiment(StopTime=1),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Continuous/Examples/OffTimer.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Controls/Continuous/Examples/OffTimer.mos"
         "Simulate and plot"),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}})),
@@ -33,14 +33,14 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Controls/Con
 info="<html>
 <p>
 Example that demonstrates the use of the model
-<a href=\"modelica://Annex60.Controls.Continuous.OffTimer\">
-Annex60.Controls.Continuous.OffTimer</a>.
+<a href=\"modelica://IDEAS.Controls.Continuous.OffTimer\">
+IDEAS.Controls.Continuous.OffTimer</a>.
 The input to the two timers are alternating boolean values.
 Whenever the input becomes <code>false(=0)</code>, the timer is reset.
 The figures below show the input and output of the blocks.
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Controls/Continuous/Examples/OffTimer1.png\" border=\"1\" alt=\"Input and output of the OffTimer offTim1.\"/><br/>
-<img src=\"modelica://Annex60/Resources/Images/Controls/Continuous/Examples/OffTimer2.png\" border=\"1\" alt=\"Input and output of the OffTimer offTim1.\"/>
+<img src=\"modelica://IDEAS/Resources/Images/Controls/Continuous/Examples/OffTimer1.png\" border=\"1\" alt=\"Input and output of the OffTimer offTim1.\"/><br/>
+<img src=\"modelica://IDEAS/Resources/Images/Controls/Continuous/Examples/OffTimer2.png\" border=\"1\" alt=\"Input and output of the OffTimer offTim1.\"/>
 </p>
 </html>",
 revisions="<html>

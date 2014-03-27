@@ -72,12 +72,12 @@ There is no flow through the sensor.
 </p>
 <p>
 Note that this sensor should only be connected to fluid volumes, such as
-<a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolume\">
-Annex60.Fluid.MixingVolumes.MixingVolume</a>. Otherwise, numerical
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes.MixingVolume\">
+IDEAS.Fluid.MixingVolumes.MixingVolume</a>. Otherwise, numerical
 problems may occur if one of the mass flow rates are close to zero.
 See
-<a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
+<a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ",

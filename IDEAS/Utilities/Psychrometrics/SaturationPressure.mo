@@ -15,7 +15,7 @@ block SaturationPressure "Saturation pressure as a function of temperature"
           rotation=0)));
 
 equation
-  pSat = Annex60.Utilities.Psychrometrics.Functions.saturationPressure(TSat);
+  pSat = IDEAS.Utilities.Psychrometrics.Functions.saturationPressure(TSat);
     annotation (
     defaultComponentName="pSat",
     Documentation(info="<html>

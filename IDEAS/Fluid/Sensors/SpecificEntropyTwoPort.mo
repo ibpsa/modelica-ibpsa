@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Sensors;
 model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
+  extends IDEAS.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
   parameter Modelica.SIunits.SpecificEntropy s_start=
     Medium.specificEntropy_pTX(p=Medium.p_default, T=Medium.T_default, X=Medium.X_default)
@@ -72,8 +72,8 @@ The sensor is ideal, i.e., it does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then its output
 is computed using a first order differential equation. 
 Setting <code>tau=0</code> is <i>not</i> recommend. See
-<a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
+<a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>

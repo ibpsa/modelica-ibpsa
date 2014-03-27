@@ -1,10 +1,10 @@
 within IDEAS.Utilities.Math.Examples;
 model QuadraticLinear "Test model for quadraticLinear function "
-  import Annex60;
+  import IDEAS;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1)
     annotation (Placement(transformation(extent={{-60,10},{-40,30}}, rotation=0)));
-  Annex60.Utilities.Math.QuadraticLinear quadraticLinear(a={1,2,3,4,5,6})
+  IDEAS.Utilities.Math.QuadraticLinear quadraticLinear(a={1,2,3,4,5,6})
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp x2(
     duration=1,
@@ -23,12 +23,12 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/QuadraticLinear.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Examples/QuadraticLinear.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model tests the implementation of 
-<a href=\"modelica://Annex60.Utilities.Math.QuadraticLinear\">
-Annex60.Utilities.Math.QuadraticLinear</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.QuadraticLinear\">
+IDEAS.Utilities.Math.QuadraticLinear</a>.
 </p>
 </html>", revisions="<html>
 <p>

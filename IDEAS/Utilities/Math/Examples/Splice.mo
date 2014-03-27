@@ -1,7 +1,7 @@
 within IDEAS.Utilities.Math.Examples;
 model Splice "Test model for splice"
   extends Modelica.Icons.Example;
-  Annex60.Utilities.Math.Splice splice(deltax=0.2)
+  IDEAS.Utilities.Math.Splice splice(deltax=0.2)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Sine sine(freqHz=0.5)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -25,13 +25,13 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(graphics),
 experiment(StopTime=2),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/Splice.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Examples/Splice.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests the implementation of 
-<a href=\"modelica://Annex60.Utilities.Math.Splice\">
-Annex60.Utilities.Math.Splice</a>
+<a href=\"modelica://IDEAS.Utilities.Math.Splice\">
+IDEAS.Utilities.Math.Splice</a>
 </p>
 </html>", revisions="<html>
 <ul>

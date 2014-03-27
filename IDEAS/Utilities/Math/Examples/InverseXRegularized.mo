@@ -1,12 +1,12 @@
 within IDEAS.Utilities.Math.Examples;
 model InverseXRegularized "Test model for inverseXRegularized function "
-  import Annex60;
+  import IDEAS;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1,
     height=2,
     offset=-1)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}},rotation=0)));
-  Annex60.Utilities.Math.InverseXRegularized inverseXRegularized(delta=0.1)
+  IDEAS.Utilities.Math.InverseXRegularized inverseXRegularized(delta=0.1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(x1.y, inverseXRegularized.u) annotation (Line(
@@ -15,12 +15,12 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/InverseXRegularized.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Examples/InverseXRegularized.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model tests the implementation of 
-<a href=\"modelica://Annex60.Utilities.Math.InverseXRegularized\">
-Annex60.Utilities.Math.InverseXRegularized</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.InverseXRegularized\">
+IDEAS.Utilities.Math.InverseXRegularized</a>.
 </p>
 </html>", revisions="<html>
 <p>

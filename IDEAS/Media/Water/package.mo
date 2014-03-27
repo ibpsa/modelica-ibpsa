@@ -166,8 +166,8 @@ This function computes the specific entropy.
 </p>
 <p>
 To obtain the state for a given pressure, entropy and mass fraction, use
-<a href=\"modelica://Annex60.Media.Air.setState_psX\">
-Annex60.Media.Air.setState_psX</a>.
+<a href=\"modelica://IDEAS.Media.Air.setState_psX\">
+IDEAS.Media.Air.setState_psX</a>.
 </p>
 </html>",
 revisions="<html>
@@ -630,8 +630,8 @@ specific entropy and mass fraction.
 </p>
 <p>
 The state is computed by symbolically solving
-<a href=\"modelica://Annex60.Media.Water.specificEntropy\">
-Annex60.Media.Water.specificEntropy</a>
+<a href=\"modelica://IDEAS.Media.Water.specificEntropy\">
+IDEAS.Media.Water.specificEntropy</a>
 for temperature.
   </p>
 </html>", revisions="<html>
@@ -746,8 +746,8 @@ In addition, at 5 &deg;C the kinematic viscosity is linearly extrapolated
 to avoid a large gradient at very low temperatures.
 We selected the same point for the linearization as we used for the density,
 as the density and the kinematic viscosity are combined in 
-<a href=\"modelica://Annex60.Media.Water.dynamicViscosity\">
-Annex60.Media.Water.dynamicViscosity</a>.
+<a href=\"modelica://IDEAS.Media.Water.dynamicViscosity\">
+IDEAS.Media.Water.dynamicViscosity</a>.
 </p>
 </html>",
 revisions="<html>
@@ -772,7 +772,7 @@ The figure below shows the relative error of the specific heat capacity that
 is introduced by this simplification.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Media/Water/plotCp.png\" border=\"1\" 
+<img src=\"modelica://IDEAS/Resources/Images/Media/Water/plotCp.png\" border=\"1\" 
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
 <p>
@@ -780,7 +780,7 @@ The mass density is computed using a 3rd order polynomial, which yields the foll
 density as a function of temperature.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Media/Water/plotRho.png\" border=\"1\" 
+<img src=\"modelica://IDEAS/Resources/Images/Media/Water/plotRho.png\" border=\"1\" 
 alt=\"Mass density as a function of temperature\"/>
 </p>
 <p>

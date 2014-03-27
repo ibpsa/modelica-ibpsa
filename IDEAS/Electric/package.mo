@@ -5,4 +5,12 @@ import MCM = Modelica.ComplexMath;
 
 extends Modelica.Icons.Package;
 
+
+
+
+
+
+
+
+
 end Electric;

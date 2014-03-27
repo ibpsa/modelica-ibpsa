@@ -1,6 +1,6 @@
 within IDEAS.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
-    extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
+    extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
      show_T=false,
      m_flow(start=0, nominal=m_flow_nominal_pos),
      dp(start=0, nominal=dp_nominal_pos),
@@ -75,8 +75,8 @@ Models that extend this class need to implement an equation that relates
 </p>
 <p>
 See for example
-<a href=\"modelica://Annex60.Fluid.FixedResistances.FixedResistanceDpM\">
-Annex60.Fluid.FixedResistances.FixedResistanceDpM</a> for a model that extends
+<a href=\"modelica://IDEAS.Fluid.FixedResistances.FixedResistanceDpM\">
+IDEAS.Fluid.FixedResistances.FixedResistanceDpM</a> for a model that extends
 this base class.
 </p>
 </html>", revisions="<html>
@@ -102,12 +102,12 @@ longer used in the base class.
 <li>
 January 16, 2012, by Michael Wetter:<br/>
 To simplify object inheritance tree, revised base classes
-<code>Annex60.Fluid.BaseClasses.PartialResistance</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialActuator</code>
+<code>IDEAS.Fluid.BaseClasses.PartialResistance</code>,
+<code>IDEAS.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
+<code>IDEAS.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
+<code>IDEAS.Fluid.Actuators.BaseClasses.PartialActuator</code>
 and model
-<code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code>.
+<code>IDEAS.Fluid.FixedResistances.FixedResistanceDpM</code>.
 </li>
 <li>
 August 5, 2011, by Michael Wetter:<br/>
@@ -153,8 +153,8 @@ Added <code>homotopy</code> operator.
 April 13, 2009, by Michael Wetter:<br/>
 Extracted pressure drop computation and implemented it in the
 new model
-<a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
-Annex60.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>.
+<a href=\"modelica://IDEAS.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
+IDEAS.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>.
 </li>
 <li>
 September 18, 2008, by Michael Wetter:<br/>

@@ -2,7 +2,7 @@ within IDEAS.Utilities.Psychrometrics.Examples;
 model TotalAirDryAir
   "Unit test for conversion of humidity per total air and dry air mass"
   extends Modelica.Icons.Example;
-   package Medium = Annex60.Media.Air "Medium model"
+   package Medium = IDEAS.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
     Modelica.Blocks.Sources.Ramp XHum(
     duration=1,
@@ -36,7 +36,7 @@ equation
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TotalAirDryAir.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TotalAirDryAir.mos"
         "Simulate and plot"),                                                                                                    Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
 end TotalAirDryAir;

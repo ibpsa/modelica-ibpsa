@@ -19,7 +19,7 @@ algorithm
  m_flow :=Modelica.Fluid.Utilities.regRoot2(x=dp, x_small=dp_turbulent, k1=kSqu, k2=kSqu);
 
 annotation(LateInline=true,
-           inverse(dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
+           inverse(dp=IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
            smoothOrder=2,
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Line(
@@ -60,11 +60,11 @@ as this causes the derivative to be discontinuous at <code>dp=0</code>.
 August 4, 2011, by Michael Wetter:<br/>
 Implemented linearized model in this model instead of 
 in the functions
-<a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
+<a href=\"modelica://IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
+IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
 and
-<a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>. 
+<a href=\"modelica://IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
+IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>. 
 With the previous implementation, 
 the symbolic processor may not rearrange the equations, which can lead 
 to coupled equations instead of an explicit solution.

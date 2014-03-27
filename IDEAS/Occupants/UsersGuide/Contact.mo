@@ -21,4 +21,3 @@ class Contact "Contact"
 </table>
 </html>"));
 end Contact;
-

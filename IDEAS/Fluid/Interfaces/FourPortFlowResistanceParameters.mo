@@ -44,7 +44,7 @@ This class contains parameters that are used to
 compute the pressure drop in components that have two fluid streams.
 Note that the nominal mass flow rate is not declared here because
 the model 
-<a href=\"modelica://Annex60.Fluid.Interfaces.PartialFourPortInterface\">
+<a href=\"modelica://IDEAS.Fluid.Interfaces.PartialFourPortInterface\">
 PartialFourPortInterface</a>
 already declares it.
 </html>",

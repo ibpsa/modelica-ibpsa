@@ -1,9 +1,9 @@
 within IDEAS.Fluid.Interfaces;
 model StaticTwoPortHeatMassExchanger
   "Partial model transporting fluid between two ports without storing mass or energy"
-  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
+  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
   showDesignFlowDirection = false);
-  extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -15,7 +15,7 @@ model StaticTwoPortHeatMassExchanger
     "Moisture mass flow rate added to the medium";
 
   // Models for conservation equations and pressure drop
-  Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation vol(
+  IDEAS.Fluid.Interfaces.StaticTwoPortConservationEquation vol(
     sensibleOnly = sensibleOnly,
     use_safeDivision = use_safeDivision,
     redeclare final package Medium = Medium,
@@ -24,7 +24,7 @@ model StaticTwoPortHeatMassExchanger
     final m_flow_small=m_flow_small)
     "Control volume for steady-state energy and mass balance"
     annotation (Placement(transformation(extent={{15,-10}, {35,10}})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro(
+  IDEAS.Fluid.FixedResistances.FixedResistanceDpM preDro(
     redeclare final package Medium = Medium,
     final use_dh=false,
     final m_flow_nominal=m_flow_nominal,

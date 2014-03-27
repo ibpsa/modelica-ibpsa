@@ -62,13 +62,13 @@ equation
     XiSat    = 0;
     XiDryBul = 0;
   else
-    XiSat  = Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=  Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
+    XiSat  = IDEAS.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=  IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
-    XiDryBul =Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(
+    XiDryBul =IDEAS.Utilities.Psychrometrics.Functions.X_pSatpphi(
       p=     p,
-      pSat=  Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
+      pSat=  IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
       phi=   phi);
     TWetBul = (TDryBul * ((1-XiDryBul) * cpAir + XiDryBul * cpSte) + (XiDryBul-XiSat) * h_fg)/
             ( (1-XiSat)*cpAir + XiSat * cpSte);
@@ -147,8 +147,8 @@ with a mean error of less than <i>0.3</i> Kelvin.
 </p>
 <p>
 For a model that takes the mass fraction instead of the relative humidity as an input, see
-<a href=\"modelica://Annex60.Utilities.Psychrometrics.TWetBul_TDryBulXi\">
-Annex60.Utilities.Psychrometrics.TWetBul_TDryBulXi</a>.
+<a href=\"modelica://IDEAS.Utilities.Psychrometrics.TWetBul_TDryBulXi\">
+IDEAS.Utilities.Psychrometrics.TWetBul_TDryBulXi</a>.
 </p>
 <h4>References</h4>
 <p>
@@ -167,9 +167,9 @@ revisions="<html>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
 Updated model to use
-<code>Annex60.Utilities.Psychrometrics.Functions.saturationPressure()</code>
+<code>IDEAS.Utilities.Psychrometrics.Functions.saturationPressure()</code>
 and
-<code>Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
+<code>IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
 as these functions have been moved from the medium to the psychrometrics package.
 </li>
 <li>

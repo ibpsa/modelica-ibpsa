@@ -2,7 +2,7 @@ within IDEAS.Fluid.MixingVolumes.Examples;
 model MixingVolume
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air;
+  package Medium = IDEAS.Media.Air;
 
     Modelica.Blocks.Sources.Ramp P(
     duration=0.5,
@@ -11,19 +11,19 @@ model MixingVolume
     offset=101330)
                  annotation (Placement(transformation(extent={{-100,60},{-80,80}},
           rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
-      = Medium, T=293.15,
+  IDEAS.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
+        Medium, T=293.15,
     use_p_in=true,
     nPorts=3)                                       annotation (Placement(
         transformation(extent={{-70,48},{-50,68}}, rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      = Medium,
+  IDEAS.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
+        Medium,
     nPorts=3,
     use_p_in=false,
     p=101325,
     T=283.15)                                       annotation (Placement(
         transformation(extent={{130,48},{110,68}}, rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res1(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
@@ -39,21 +39,21 @@ model MixingVolume
     m_flow_nominal=2)
           annotation (Placement(transformation(extent={{0,10},{20,30}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res2(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res2(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
              annotation (Placement(transformation(extent={{80,50},{100,70}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res11(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res11(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
              annotation (Placement(transformation(extent={{-40,0},{-20,20}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res12(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res12(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
@@ -70,17 +70,17 @@ model MixingVolume
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
          annotation (Placement(transformation(extent={{0,60},{22,80}}, rotation=
            0)));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality
+  IDEAS.Utilities.Diagnostics.AssertEquality assertEquality
     annotation (Placement(transformation(extent={{160,72},{180,92}},rotation=0)));
-  Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium =
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium =
         Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,50},{60,70}}, rotation=0)));
-  Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium =
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium =
         Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,0},{60,20}},  rotation=0)));
-  Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
+  IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
     redeclare package Medium = Medium,
     V=0.1,
     nPorts=2,
@@ -89,24 +89,24 @@ model MixingVolume
     m_flow_nominal=2)
           annotation (Placement(transformation(extent={{0,-82},{20,-62}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res21(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res21(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
              annotation (Placement(transformation(extent={{-40,-92},{-20,-72}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res22(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res22(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
              annotation (Placement(transformation(extent={{80,-92},{100,-72}},
           rotation=0)));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1
+  IDEAS.Utilities.Diagnostics.AssertEquality assertEquality1
     annotation (Placement(transformation(extent={{156,10},{176,30}},   rotation=
            0)));
-  Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium =
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium =
         Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,-92},{60,-72}}, rotation=0)));
@@ -202,13 +202,13 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
 experiment(StopTime=2),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolume.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolume.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests the implementation of the mixing volumes.
 It compares the results from the mixing volume of the Modelica
-Standard Library with the implementation in the <code>Annex60</code>
+Standard Library with the implementation in the <code>IDEAS</code>
 library. If the changes are bigger than a prescribed limit, 
 the simulation stops with an error.
 </p>

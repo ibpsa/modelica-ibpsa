@@ -361,14 +361,14 @@ end pressure;
 redeclare function extends saturationPressure "Return the saturation pressure"
 
 algorithm
-  psat := Annex60.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
+  psat := IDEAS.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
   annotation(Inline=false,smoothOrder=5,
 Documentation(info="<html>
 <p>
 This function computes the saturation pressure of the water vapor for a given temperature,
 using the function
-<a href=\"modelica://Annex60.Utilities.Psychrometrics.Functions.saturationPressure\">
-Annex60.Utilities.Psychrometrics.Functions.saturationPressure</a>.
+<a href=\"modelica://IDEAS.Utilities.Psychrometrics.Functions.saturationPressure\">
+IDEAS.Utilities.Psychrometrics.Functions.saturationPressure</a>.
 </p>
 </html>",
 revisions="<html>
@@ -442,8 +442,8 @@ where <i>R</i> is the gas constant,
 </p>
 <p>
 To obtain the state for a given pressure, entropy and mass fraction, use
-<a href=\"modelica://Annex60.Media.Air.setState_psX\">
-Annex60.Media.Air.setState_psX</a>.
+<a href=\"modelica://IDEAS.Media.Air.setState_psX\">
+IDEAS.Media.Air.setState_psX</a>.
 </p>
 <h4>Limitations</h4>
 <p>
@@ -695,8 +695,8 @@ specific entropy and mass fraction.
 </p>
 <p>
 The state is computed by symbolically solving
-<a href=\"modelica://Annex60.Media.Air.specificEntropy\">
-Annex60.Media.Air.specificEntropy</a>
+<a href=\"modelica://IDEAS.Media.Air.specificEntropy\">
+IDEAS.Media.Air.specificEntropy</a>
 for temperature.
 </p>
 </html>", revisions="<html>
@@ -1234,8 +1234,8 @@ water were present in the form of vapor.
 December 10, 2013, by Michael Wetter:<br/>
 Replaced <code>reference_p</code> by <code>p</code> in the <code>setState_pXX</code> functions.
 This is required for
-<a href=\"modelica://Annex60.Fluid.MixingVolumes.Examples.MixingVolumeInitialization\">
-Annex60.Fluid.MixingVolumes.Examples.MixingVolumeInitialization</a>
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes.Examples.MixingVolumeInitialization\">
+IDEAS.Fluid.MixingVolumes.Examples.MixingVolumeInitialization</a>
 to translate.
 </li>
 <li>

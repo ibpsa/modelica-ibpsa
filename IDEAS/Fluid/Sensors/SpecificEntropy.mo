@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Sensors;
 model SpecificEntropy "Ideal one port specific entropy sensor"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+  extends IDEAS.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")
@@ -33,8 +33,8 @@ The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
 Read the 
-<a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a>
+<a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.
 </p>
 </html>

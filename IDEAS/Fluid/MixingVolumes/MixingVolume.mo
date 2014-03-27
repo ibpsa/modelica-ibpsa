@@ -1,7 +1,7 @@
 within IDEAS.Fluid.MixingVolumes;
 model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
-  extends Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
+  extends IDEAS.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
 protected
   Modelica.Blocks.Sources.Constant masExc(k=0)
     "Block to set mass exchange in volume"
@@ -84,17 +84,17 @@ The variable <code>mXi_flow</code> is used to add a species mass flow rate to th
 
 <p>
 For simple models that uses this model, see
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
-Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed</a> and
-<a href=\"modelica://Annex60.Fluid.MassExchangers.HumidifierPrescribed\">
-Annex60.Fluid.MassExchangers.HumidifierPrescribed</a>.
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
+IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed</a> and
+<a href=\"modelica://IDEAS.Fluid.MassExchangers.HumidifierPrescribed\">
+IDEAS.Fluid.MassExchangers.HumidifierPrescribed</a>.
 </p>
 
 </html>", revisions="<html>
 <ul>
 <li>
 February 7, 2012 by Michael Wetter:<br/>
-Revised base classes for conservation equations in <code>Annex60.Fluid.Interfaces</code>.
+Revised base classes for conservation equations in <code>IDEAS.Fluid.Interfaces</code>.
 </li>
 <li>
 September 17, 2011 by Michael Wetter:<br/>
@@ -113,8 +113,8 @@ as a state. See ticket Dynasim #13596.
 <li>
 July 26, 2011 by Michael Wetter:<br/>
 Revised model to use new declarations from
-<a href=\"Annex60.Fluid.Interfaces.LumpedVolumeDeclarations\">
-Annex60.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
+<a href=\"IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations\">
+IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 </li>
 <li>
 July 14, 2011 by Michael Wetter:<br/>
@@ -155,8 +155,8 @@ Eliminated the base class <code>PartialLumpedVessel</code>.
 <li>
 October 12, 2009 by Michael Wetter:<br/>
 Changed base class to
-<a href=\"modelica://Annex60.Fluid.MixingVolumes.BaseClasses.ClosedVolume\">
-Annex60.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes.BaseClasses.ClosedVolume\">
+IDEAS.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
 </li>
 </ul>
 </html>"),

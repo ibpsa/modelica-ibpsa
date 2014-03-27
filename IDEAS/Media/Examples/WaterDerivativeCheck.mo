@@ -2,7 +2,7 @@ within IDEAS.Media.Examples;
 model WaterDerivativeCheck "Model that tests the derivative implementation"
   extends Modelica.Icons.Example;
 
-   package Medium = Annex60.Media.Water;
+   package Medium = IDEAS.Media.Water;
 
     Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
@@ -40,7 +40,7 @@ equation
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
 experiment(StartTime=273.15, StopTime=373.15),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Examples/WaterDerivativeCheck.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Media/Examples/WaterDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>

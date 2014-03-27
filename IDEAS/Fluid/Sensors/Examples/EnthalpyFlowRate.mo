@@ -2,19 +2,19 @@ within IDEAS.Fluid.Sensors.Examples;
 model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air "Medium model";
+  package Medium = IDEAS.Media.Air "Medium model";
 
-  Annex60.Fluid.Sensors.EnthalpyFlowRate senH_flow(
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate senH_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=2) "Enthalpy flow rate sensor"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
-  Annex60.Fluid.Sources.MassFlowSource_T sou(
+  IDEAS.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1,
     T=293.15) "Flow boundary condition"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=1,
     T=313.15) "Flow boundary condition"
@@ -29,14 +29,14 @@ model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
     annotation (Placement(transformation(extent={{-100,-12},{-80,8}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Annex60.Fluid.Sensors.SpecificEnthalpyTwoPort senH(
+  IDEAS.Fluid.Sensors.SpecificEnthalpyTwoPort senH(
     redeclare package Medium = Medium,
     m_flow_nominal=2) "Specific enthalpy sensor"
                 annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Annex60.Fluid.Sensors.MassFlowRate senM_flow(
+  IDEAS.Fluid.Sensors.MassFlowRate senM_flow(
     redeclare package Medium = Medium) "Mass flow rate sensor"
                 annotation (Placement(transformation(extent={{28,-20},{48,0}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assEqu
+  IDEAS.Utilities.Diagnostics.AssertEquality assEqu
     "Asserts the equality of the enthalpy flow rate computations"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Modelica.Blocks.Math.Product pro "Computes the enthalphy flow rate"
@@ -80,7 +80,7 @@ equation
       smooth=Smooth.None));
     annotation (
 experiment(StopTime=60.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos"
         "Simulate and plot"),  Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(info="<html>

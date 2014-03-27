@@ -36,8 +36,8 @@ Documentation(
 info="<html>
 <p>
 Implementation of the first derivative of the function
-<a href=\"modelica://Annex60.Utilities.Math.Functions.spliceFunction\">
-Annex60.Utilities.Math.Functions.spliceFunction</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.Functions.spliceFunction\">
+IDEAS.Utilities.Math.Functions.spliceFunction</a>.
 </p>
 </html>",
 revisions="<html>

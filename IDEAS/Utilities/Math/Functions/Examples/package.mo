@@ -17,8 +17,8 @@ package Examples "Collection of models that illustrate model use and test models
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples for the use of models that can be found in
-<a href=\"modelica://Annex60.Utilities.Math.Functions\">
-Annex60.Utilities.Math.Functions</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.Functions\">
+IDEAS.Utilities.Math.Functions</a>.
 </p>
 </html>"));
 end Examples;

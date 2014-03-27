@@ -6,7 +6,7 @@ function smoothMin
   input Real deltaX "Width of transition interval";
   output Real y "Result";
 algorithm
-  y := Annex60.Utilities.Math.Functions.spliceFunction(
+  y := IDEAS.Utilities.Math.Functions.spliceFunction(
        pos=x1, neg=x2, x=x2-x1, deltax=deltaX);
   annotation (
 Documentation(info="<html>

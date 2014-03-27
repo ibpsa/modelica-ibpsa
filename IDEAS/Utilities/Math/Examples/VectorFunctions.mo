@@ -2,7 +2,7 @@ within IDEAS.Utilities.Math.Examples;
 model VectorFunctions "Test model for functions that take a vector as argument"
   extends Modelica.Icons.Example;
 
-  Annex60.Utilities.Math.Min minVec(
+  IDEAS.Utilities.Math.Min minVec(
                    nin=3)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.Sine sine(freqHz=6)
@@ -13,10 +13,10 @@ model VectorFunctions "Test model for functions that take a vector as argument"
   Modelica.Blocks.Sources.Sine sine2(freqHz=10)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}},
                                                                      rotation=0)));
-  Annex60.Utilities.Math.Max maxVec(
+  IDEAS.Utilities.Math.Max maxVec(
                    nin=3)
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Annex60.Utilities.Math.Average aveVec(
+  IDEAS.Utilities.Math.Average aveVec(
                        nin=3)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 equation
@@ -60,7 +60,7 @@ equation
             -100},{100,100}}),
                     graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/VectorFunctions.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Examples/VectorFunctions.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

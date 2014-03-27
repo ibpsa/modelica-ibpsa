@@ -2,12 +2,12 @@ within IDEAS.Fluid.MixingVolumes.Examples;
 model MixingVolumeMoistAir
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air;
+  package Medium = IDEAS.Media.Air;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.001
     "Nominal mass flow rate";
 
-  Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir vol1(
+  IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir vol1(
     redeclare package Medium = Medium,
     V=1,
     nPorts=2,
@@ -27,11 +27,11 @@ model MixingVolumeMoistAir
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 20)
     "Set point for temperature" annotation (Placement(transformation(extent={{
             -80,120},{-60,140}}, rotation=0)));
-  Annex60.Utilities.Psychrometrics.pW_X humRat(           use_p_in=false)
+  IDEAS.Utilities.Psychrometrics.pW_X humRat(           use_p_in=false)
     "Conversion from humidity ratio to partial water vapor pressure"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}},rotation=
             0)));
-  Annex60.Utilities.Psychrometrics.TDewPoi_pW dewPoi "Dew point temperature"
+  IDEAS.Utilities.Psychrometrics.TDewPoi_pW dewPoi "Dew point temperature"
                             annotation (Placement(transformation(extent={{12,-120},
             {32,-100}},rotation=0)));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
@@ -44,19 +44,19 @@ model MixingVolumeMoistAir
   Modelica.Blocks.Sources.RealExpression HWat_flow(y=vol1.HWat_flow)
     "MoistAir heat flow rate" annotation (Placement(transformation(extent={{112,
             60},{132,80}}, rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_T sou(
+  IDEAS.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,
     T=293.15)    annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
           rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sin(        redeclare package Medium =
+  IDEAS.Fluid.Sources.Boundary_pT sin(        redeclare package Medium =
         Medium,
     T=293.15,
     nPorts=1)             annotation (Placement(transformation(
         origin={160,0},
         extent={{-10,-10},{10,10}},
         rotation=180)));
-  Annex60.Controls.Continuous.LimPID PI(
+  IDEAS.Controls.Continuous.LimPID PI(
     Ni=0.1,
     yMax=1000,
     k=1,
@@ -67,7 +67,7 @@ model MixingVolumeMoistAir
     yMin=-1000)
     annotation (Placement(transformation(extent={{-40,120},{-20,140}}, rotation=
            0)));
-  Annex60.Controls.Continuous.LimPID PI1(
+  IDEAS.Controls.Continuous.LimPID PI1(
     Ni=0.1,
     Ti=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -77,10 +77,10 @@ model MixingVolumeMoistAir
     Td=1)
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}}, rotation=
            0)));
-  Annex60.Fluid.Sensors.MassFlowRate mIn_flow(redeclare package Medium =
+  IDEAS.Fluid.Sensors.MassFlowRate mIn_flow(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{6,-10},{26,10}},
           rotation=0)));
-  Annex60.Fluid.Sensors.MassFlowRate mOut_flow(redeclare package Medium =
+  IDEAS.Fluid.Sensors.MassFlowRate mOut_flow(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{84,-10},{104,10}},
           rotation=0)));
   Modelica.Blocks.Math.Add dM_flow(k2=-1) annotation (Placement(transformation(
@@ -91,7 +91,7 @@ model MixingVolumeMoistAir
           extent={{-20,-60},{0,-40}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res1(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare each package Medium = Medium,
     from_dp=true,
     dp_nominal=2.5,
@@ -167,13 +167,13 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -160},{180,160}}),      graphics),
 experiment(StopTime=600),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests 
-<a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir\">
-Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir\">
+IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
 After an initial transient, the temperature and humidity of the volume
 stabilizes.
 </p>

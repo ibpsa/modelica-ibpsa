@@ -9,12 +9,12 @@ model pW_TDewPoi "Model to test pW_TDewPoi and its inverse function"
   constant Real conv(unit="K/s") = 100 "Conversion factor";
 equation
   T = conv*time + 273.15;
-  p_w = Annex60.Utilities.Psychrometrics.Functions.pW_TDewPoi(T);
-  TInv = Annex60.Utilities.Psychrometrics.Functions.TDewPoi_pW(p_w);
+  p_w = IDEAS.Utilities.Psychrometrics.Functions.pW_TDewPoi(T);
+  TInv = IDEAS.Utilities.Psychrometrics.Functions.TDewPoi_pW(p_w);
   dT = T - TInv;
   assert(abs(dT) < 10E-12, "Error in function implementation.");
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_TDewPoi.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_TDewPoi.mos"
         "Simulate and plot"));
 end pW_TDewPoi;

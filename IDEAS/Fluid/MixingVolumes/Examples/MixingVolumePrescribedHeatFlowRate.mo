@@ -2,7 +2,7 @@ within IDEAS.Fluid.MixingVolumes.Examples;
 model MixingVolumePrescribedHeatFlowRate
   "Test model for heat transfer to volume"
   extends Modelica.Icons.Example;
-    package Medium = Annex60.Media.Air;
+    package Medium = IDEAS.Media.Air;
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     "Heat flow sensor"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -20,7 +20,7 @@ model MixingVolumePrescribedHeatFlowRate
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-10})));
-  Annex60.Fluid.MixingVolumes.MixingVolume vol(
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     V=1,
     nPorts=2,
     redeclare package Medium = Medium,
@@ -92,7 +92,7 @@ First implementation.
 </ul>
 </html>"),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mos"
         "Simulate and plot"),
     Diagram(graphics));
 end MixingVolumePrescribedHeatFlowRate;

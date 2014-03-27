@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Sensors.Examples;
 model TemperatureWetBulb "Test model for the wet bulb temperature sensor"
   extends Modelica.Icons.Example;
- package Medium = Annex60.Media.Air "Medium model"
+ package Medium = IDEAS.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
     Modelica.Blocks.Sources.Ramp p(
     duration=1,
@@ -9,19 +9,19 @@ model TemperatureWetBulb "Test model for the wet bulb temperature sensor"
     height=250) "Pressure boundary condition"
     annotation (Placement(transformation(extent={{60,60},{80,80}},
           rotation=0)));
-  Annex60.Fluid.Sources.Boundary_pT sin(
+  IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium=Medium,
     use_p_in=true,
     nPorts=1,
     T=293.15) "Flow boundary condition"
       annotation (Placement(
         transformation(extent={{74,10},{54,30}}, rotation=0)));
-  Annex60.Fluid.Sensors.TemperatureWetBulbTwoPort senWetBul(
+  IDEAS.Fluid.Sensors.TemperatureWetBulbTwoPort senWetBul(
     redeclare package Medium=Medium,
     m_flow_nominal=1,
     tau=0) "Wet bulb temperature sensor"
     annotation (Placement(transformation(extent={{10,10},{30,30}}, rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_T sou(
+  IDEAS.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     m_flow=1,
     use_T_in=true,
@@ -74,7 +74,7 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=120),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureWetBulb.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureWetBulb.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

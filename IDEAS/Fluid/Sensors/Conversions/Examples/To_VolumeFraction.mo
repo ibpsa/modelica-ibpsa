@@ -1,26 +1,26 @@
 within IDEAS.Fluid.Sensors.Conversions.Examples;
 model To_VolumeFraction "Example problem for conversion model"
   extends Modelica.Icons.Example;
-  package Medium = Annex60.Media.Air(extraPropertiesNames={"CO2"});
+  package Medium = IDEAS.Media.Air(extraPropertiesNames={"CO2"});
 
-  Annex60.Fluid.Sensors.Conversions.To_VolumeFraction conMasVolFra(MMMea=
+  IDEAS.Fluid.Sensors.Conversions.To_VolumeFraction conMasVolFra(MMMea=
         Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
     "Conversion from mass fraction CO2 to volume fraction CO2"
     annotation (Placement(transformation(extent={{148,0},{168,20}})));
   Modelica.Blocks.Sources.Constant volFra(k=1000E-6)
     "Set point for volume fraction of 700PPM CO2"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-  Annex60.Controls.Continuous.LimPID limPID(
+  IDEAS.Controls.Continuous.LimPID limPID(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     reverseAction=true,
     Ti=600,
     k=2,
     Td=1)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Annex60.Fluid.Sensors.TraceSubstances senCO2(redeclare package Medium =
+  IDEAS.Fluid.Sensors.TraceSubstances senCO2(redeclare package Medium =
         Medium, substanceName="CO2") "CO2 sensor"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
-  Annex60.Fluid.MixingVolumes.MixingVolume vol(
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=4,
     redeclare package Medium = Medium,
     V=4*4*2.7,
@@ -28,7 +28,7 @@ model To_VolumeFraction "Example problem for conversion model"
     m_flow_nominal=0.1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Volume of air"
     annotation (Placement(transformation(extent={{90,60},{110,80}})));
-  Annex60.Fluid.Sources.TraceSubstancesFlowSource souCO2(
+  IDEAS.Fluid.Sources.TraceSubstancesFlowSource souCO2(
     use_m_flow_in=true,
     redeclare package Medium = Medium,
     nPorts=1) "CO2 source"
@@ -36,13 +36,13 @@ model To_VolumeFraction "Example problem for conversion model"
   Modelica.Blocks.Math.Gain CO2Per(k=15/1000/3600*1.977)
     "CO2 emission per person"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Annex60.Fluid.Sources.MassFlowSource_T sou(
+  IDEAS.Fluid.Sources.MassFlowSource_T sou(
     use_m_flow_in=true,
     redeclare package Medium = Medium,
     C={300E-6}*44.009544/28.9651159,
     nPorts=1) "Source of fresh air with 300 PPM CO2"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Annex60.Fluid.Sources.FixedBoundary sin(
+  IDEAS.Fluid.Sources.FixedBoundary sin(
     redeclare package Medium = Medium,
     p=100000,
     C={300E-6}*44.009544/28.9651159,
@@ -55,7 +55,7 @@ model To_VolumeFraction "Example problem for conversion model"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant nPeo(k=1) "Number of people"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Annex60.Fluid.Sensors.VolumeFlowRate senVolFlo(redeclare package Medium =
+  IDEAS.Fluid.Sensors.VolumeFlowRate senVolFlo(redeclare package Medium =
         Medium, m_flow_nominal=0.1)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Math.Gain norSet(k=1/1000E-6)
@@ -67,13 +67,13 @@ model To_VolumeFraction "Example problem for conversion model"
   Modelica.Blocks.Math.Gain conVolFlo(k=3600, y(unit="m3/h"))
     "Conversion from m3/s to m3/h"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Annex60.Fluid.Sensors.TraceSubstancesTwoPort senTraSubPeo(m_flow_nominal=0.1,
+  IDEAS.Fluid.Sensors.TraceSubstancesTwoPort senTraSubPeo(m_flow_nominal=0.1,
       redeclare package Medium = Medium,
     C_start=0,
     initType=Modelica.Blocks.Types.Init.InitialState)
     "CO2 concentration in absorptance from people"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Annex60.Fluid.Sensors.TraceSubstancesTwoPort senTraSubFre(m_flow_nominal=0.1,
+  IDEAS.Fluid.Sensors.TraceSubstancesTwoPort senTraSubFre(m_flow_nominal=0.1,
       redeclare package Medium = Medium,
     C_start=0,
     initType=Modelica.Blocks.Types.Init.InitialState)
@@ -81,7 +81,7 @@ model To_VolumeFraction "Example problem for conversion model"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM res(
+  IDEAS.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     dp_nominal=10,
     m_flow_nominal=50/3600)
@@ -163,7 +163,7 @@ equation
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=36000),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
         "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}})),
     Documentation(info="<html>

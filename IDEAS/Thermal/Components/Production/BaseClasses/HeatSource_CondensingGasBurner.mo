@@ -2,8 +2,8 @@ within IDEAS.Thermal.Components.Production.BaseClasses;
 model HeatSource_CondensingGasBurner
   "Burner for use in Boiler, based on interpolation data.  Takes into account losses of the boiler to the environment"
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component";
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium "Medium in the component";
 
   final parameter Real[6] modVector={0,20,40,60,80,100} "6 modulation steps, %";
   Real eta "Instantaneous efficiency of the boiler (higher heating value)";
@@ -93,7 +93,7 @@ public
 equation
   onOff.u = modulationInit;
   onOff.release = if noEvent(m_flowHx > 0) then 1.0 else 0.0;
-  QAsked = Annex60.Utilities.Math.Functions.smoothMax(0, m_flowHx*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TBoilerSet, Medium.X_default)) -hIn), 10);
+  QAsked = IDEAS.Utilities.Math.Functions.smoothMax(0, m_flowHx*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TBoilerSet, Medium.X_default)) -hIn), 10);
   eta100.u1 = THxIn - 273.15;
   eta100.u2 = m_flowHx*kgps2lph;
   eta80.u1 = THxIn - 273.15;

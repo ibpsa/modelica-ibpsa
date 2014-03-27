@@ -1,7 +1,7 @@
 within IDEAS.Fluid.FixedResistances;
 model FixedResistanceDpM
   "Fixed flow resistance with dp and m_flow as parameter"
-  extends Annex60.Fluid.BaseClasses.PartialResistance(
+  extends IDEAS.Fluid.BaseClasses.PartialResistance(
     final m_flow_turbulent = if (computeFlowResistance and use_dh) then
                        eta_default*dh/4*Modelica.Constants.pi*ReC
                        elseif (computeFlowResistance) then
@@ -50,20 +50,20 @@ equation
     else
       if homotopyInitialization then
         if from_dp then
-          m_flow=homotopy(actual=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
+          m_flow=homotopy(actual=IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
                                    m_flow_turbulent=m_flow_turbulent),
                                    simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
         else
-          dp=homotopy(actual=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
+          dp=homotopy(actual=IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
                                    m_flow_turbulent=m_flow_turbulent),
                     simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
          end if;  // from_dp
       else // do not use homotopy
         if from_dp then
-          m_flow=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
+          m_flow=IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
                                    m_flow_turbulent=m_flow_turbulent);
         else
-          dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
+          dp=IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
                                    m_flow_turbulent=m_flow_turbulent);
         end if;  // from_dp
       end if; // homotopyInitialization
@@ -127,7 +127,7 @@ The figure below shows the pressure drop for the parameters
 <code>deltaM=0.3</code>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
 </p>
 <p>
 If the parameter
@@ -168,8 +168,8 @@ can be used and combined with models from the
 <h4>Implementation</h4>
 <p>
 The pressure drop is computed by calling a function in the package
-<a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels\">
-Annex60.Fluid.BaseClasses.FlowModels</a>,
+<a href=\"modelica://IDEAS.Fluid.BaseClasses.FlowModels\">
+IDEAS.Fluid.BaseClasses.FlowModels</a>,
 This package contains regularized implementations of the equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -197,12 +197,12 @@ Renamed protected parameters for consistency with the naming conventions.
 <li>
 January 16, 2012 by Michael Wetter:<br/>
 To simplify object inheritance tree, revised base classes
-<code>Annex60.Fluid.BaseClasses.PartialResistance</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
-<code>Annex60.Fluid.Actuators.BaseClasses.PartialActuator</code>
+<code>IDEAS.Fluid.BaseClasses.PartialResistance</code>,
+<code>IDEAS.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
+<code>IDEAS.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
+<code>IDEAS.Fluid.Actuators.BaseClasses.PartialActuator</code>
 and model
-<code>Annex60.Fluid.FixedResistances.FixedResistanceDpM</code>.
+<code>IDEAS.Fluid.FixedResistances.FixedResistanceDpM</code>.
 </li>
 <li>
 May 30, 2008 by Michael Wetter:<br/>

@@ -6,5 +6,12 @@ extends Modelica.Icons.Package;
 import SI = Modelica.SIunits;
 
 
+
+
+
+
+
+
+
 annotation ();
 end Thermal;

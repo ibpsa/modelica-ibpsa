@@ -2,17 +2,17 @@ within IDEAS.Fluid.Interfaces.Examples;
 model ReverseFlowHumidifier
   "Model that tests the reverse flow for a humidifier"
   extends Modelica.Icons.Example;
-package Medium = Annex60.Media.Air;
-  Annex60.Utilities.Diagnostics.AssertEquality assTem(threShold=0.01)
+package Medium = IDEAS.Media.Air;
+  IDEAS.Utilities.Diagnostics.AssertEquality assTem(threShold=0.01)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assEnt(threShold=0.5)
+  IDEAS.Utilities.Diagnostics.AssertEquality assEnt(threShold=0.5)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assMas(threShold=1E-5)
+  IDEAS.Utilities.Diagnostics.AssertEquality assMas(threShold=1E-5)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Annex60.Fluid.MassExchangers.HumidifierPrescribed humBac(
+  IDEAS.Fluid.MassExchangers.HumidifierPrescribed humBac(
     redeclare package Medium = Medium,
     dp_nominal=0,
     m_flow(start=1),
@@ -20,7 +20,7 @@ package Medium = Annex60.Media.Air;
     T=283.15,
     mWat_flow_nominal=0.1) "Humidifier with backward flow"
     annotation (Placement(transformation(extent={{-32,-16},{-52,4}})));
-  Annex60.Fluid.MassExchangers.HumidifierPrescribed humFor(
+  IDEAS.Fluid.MassExchangers.HumidifierPrescribed humFor(
     redeclare package Medium = Medium,
     dp_nominal=0,
     m_flow(start=1),
@@ -43,7 +43,7 @@ package Medium = Annex60.Media.Air;
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,30})));
-  Annex60.Fluid.Sources.FixedBoundary sink1(
+  IDEAS.Fluid.Sources.FixedBoundary sink1(
     redeclare package Medium = Medium,
     nPorts=2) "Fluid sink"
                  annotation (Placement(
@@ -181,7 +181,7 @@ equation
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=1),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowHumidifier.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowHumidifier.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This model tests whether the results for a humidifer are
@@ -194,7 +194,7 @@ October 9, 2013, by Michael Wetter:<br/>
 Replaced
 <code>Modelica.Fluid.Sources.FixedBoundary</code>
 with 
-<code>Annex60.Fluid.Sources.FixedBoundary</code>
+<code>IDEAS.Fluid.Sources.FixedBoundary</code>
 as otherwise, the pedantic model check fails in 
 Dymola 2014 FD01 beta3.
 </li>

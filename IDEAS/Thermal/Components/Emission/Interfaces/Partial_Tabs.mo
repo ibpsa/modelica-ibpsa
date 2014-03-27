@@ -21,7 +21,8 @@ partial model Partial_Tabs "Partial tabs model"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_b
     annotation (Placement(transformation(extent={{-10,-108},{10,-88}})));
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),

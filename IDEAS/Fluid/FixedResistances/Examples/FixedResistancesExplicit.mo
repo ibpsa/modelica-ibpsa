@@ -2,14 +2,14 @@ within IDEAS.Fluid.FixedResistances.Examples;
 model FixedResistancesExplicit "Test of multiple resistances in series"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Air;
-  Annex60.Fluid.Sources.Boundary_ph sou(
+ package Medium = IDEAS.Media.Air;
+  IDEAS.Fluid.Sources.Boundary_ph sou(
    redeclare package Medium = Medium,
     nPorts=1,
     p(displayUnit="Pa") = 101335,
     use_p_in=true)                    annotation (Placement(transformation(
           extent={{-60,90},{-40,110}},rotation=0)));
-  Annex60.Fluid.Sources.Boundary_ph sin(
+  IDEAS.Fluid.Sources.Boundary_ph sin(
     redeclare package Medium = Medium,
     nPorts=1,
     use_p_in=false,
@@ -17,7 +17,7 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
           extent={{120,90},{100,110}},
                                     rotation=0)));
 
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res11(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res11(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
@@ -27,80 +27,80 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
   inner Modelica.Fluid.System system(p_ambient=101325)
                                    annotation (Placement(transformation(extent={{140,-80},
             {160,-60}},        rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res12(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res12(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
              annotation (Placement(transformation(extent={{20,90},{40,110}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res22(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res22(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
              annotation (Placement(transformation(extent={{20,50},{40,70}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res21(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res21(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
              annotation (Placement(transformation(extent={{-20,50},{0,70}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res31(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res31(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
              annotation (Placement(transformation(extent={{-20,-20},{0,0}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res32(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res32(
     redeclare package Medium = Medium,
     from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
              annotation (Placement(transformation(extent={{20,-20},{40,0}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res42(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res42(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
              annotation (Placement(transformation(extent={{20,-60},{40,-40}},
           rotation=0)));
-    Annex60.Fluid.FixedResistances.FixedResistanceDpM res41(
+    IDEAS.Fluid.FixedResistances.FixedResistanceDpM res41(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
              annotation (Placement(transformation(extent={{-20,-60},{0,-40}},
           rotation=0)));
-  Annex60.Fluid.Sources.MassFlowSource_h bou(
+  IDEAS.Fluid.Sources.MassFlowSource_h bou(
     redeclare package Medium = Medium,
     m_flow=1,
     nPorts=1) annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Annex60.Fluid.Sources.MassFlowSource_h bou1(
+  IDEAS.Fluid.Sources.MassFlowSource_h bou1(
     redeclare package Medium = Medium,
     m_flow=1,
     nPorts=1)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Annex60.Fluid.Sources.Boundary_pT sin1(            redeclare package Medium
-      =        Medium, T=273.15 + 10,
+  IDEAS.Fluid.Sources.Boundary_pT sin1(            redeclare package Medium =
+               Medium, T=273.15 + 10,
     nPorts=2,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
           extent={{120,-40},{100,-20}},
                                     rotation=0)));
-  Annex60.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium
-      =        Medium,
+  IDEAS.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium =
+               Medium,
     nPorts=1,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
           extent={{120,50},{100,70}},
                                     rotation=0)));
-  Annex60.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium
-      =        Medium,
+  IDEAS.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium =
+               Medium,
     nPorts=1,
     p(displayUnit="Pa") = 101335,
     use_p_in=true)                    annotation (Placement(transformation(
@@ -112,21 +112,21 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
                  annotation (Placement(transformation(extent={{-100,90},{-80,
             110}},
           rotation=0)));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium =
+  IDEAS.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium =
+  IDEAS.Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium =
+  IDEAS.Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Annex60.Fluid.Sensors.MassFlowRate senMasFlo4(redeclare package Medium =
+  IDEAS.Fluid.Sensors.MassFlowRate senMasFlo4(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality
+  IDEAS.Utilities.Diagnostics.AssertEquality assertEquality
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1
+  IDEAS.Utilities.Diagnostics.AssertEquality assertEquality1
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 equation
   connect(res11.port_b, res12.port_a)
@@ -235,7 +235,7 @@ equation
             -100},{160,160}}),
                       graphics),
 experiment(StartTime=-1, StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesExplicit.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesExplicit.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This model tests whether inverse functions are being used by the code

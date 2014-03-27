@@ -8,7 +8,7 @@ model Bicubic "Test model for bicubic function"
     duration=1,
     offset=2)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}}, rotation=0)));
-  Annex60.Utilities.Math.Bicubic bicubic(a={1,2,3,4,5,6,7,8,9,10})
+  IDEAS.Utilities.Math.Bicubic bicubic(a={1,2,3,4,5,6,7,8,9,10})
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
 
@@ -24,13 +24,13 @@ equation
             {100,100}}),
                      graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/Bicubic.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Examples/Bicubic.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests the implementation of 
-<a href=\"modelica://Annex60.Utilities.Math.Bicubic\">
-Annex60.Utilities.Math.Bicubic</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.Bicubic\">
+IDEAS.Utilities.Math.Bicubic</a>.
 </p>
 </html>", revisions="<html>
 <ul>

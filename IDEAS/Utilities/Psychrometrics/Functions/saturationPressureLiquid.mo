@@ -12,7 +12,7 @@ algorithm
 
   annotation (
     smoothOrder=99,
-    derivative=Annex60.Utilities.Psychrometrics.Functions.BaseClasses.der_saturationPressureLiquid,
+    derivative=IDEAS.Utilities.Psychrometrics.Functions.BaseClasses.der_saturationPressureLiquid,
     Inline=true,
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
@@ -27,7 +27,7 @@ revisions="<html>
 <ul>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
-First implementation, moved from <code>Annex60.Media</code>.
+First implementation, moved from <code>IDEAS.Media</code>.
 </li>
 </ul>
 </html>"));

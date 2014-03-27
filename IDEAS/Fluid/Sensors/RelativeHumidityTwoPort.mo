@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Sensors;
 model RelativeHumidityTwoPort "Ideal two port relative humidity sensor"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
+  extends IDEAS.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput phi(unit="1",
                                             min=0,
@@ -78,8 +78,8 @@ which is typically the case for moist air models.
 If the parameter <code>tau</code> is non-zero, then its output
 is computed using a first order differential equation. 
 Setting <code>tau=0</code> is <i>not</i> recommend. See
-<a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
-Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
+<a href=\"modelica://IDEAS.Fluid.Sensors.UsersGuide\">
+IDEAS.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ", revisions="<html>

@@ -22,8 +22,8 @@ equation
 Partial component to model an absolute sensor. 
 The component can be used for pressure sensor models.
 Use for other properties such as temperature or density is discouraged, because the enthalpy at the connector can have different meanings, depending on the connection topology. For these properties, use 
-<a href=\"modelica://Annex60.Fluid.Sensors.BaseClasses.PartialFlowSensor\">
-Annex60.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
+<a href=\"modelica://IDEAS.Fluid.Sensors.BaseClasses.PartialFlowSensor\">
+IDEAS.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 </p>
 </html>",
 revisions="<html>

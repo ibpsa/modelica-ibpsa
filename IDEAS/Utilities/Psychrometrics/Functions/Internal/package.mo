@@ -24,7 +24,7 @@ August 10, 2011, by Michael Wetter:<br/>
 Changed function to extend from 
 <code>Modelica.Media.Common.OneNonLinearEquation</code>
 instead of 
-<code>Annex60.Utilities.Math.BaseClasses.OneNonLinearEquation</code>.
+<code>IDEAS.Utilities.Math.BaseClasses.OneNonLinearEquation</code>.
 </li>
 <li>
 February 17, 2010, by Michael Wetter:<br/>

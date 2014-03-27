@@ -65,7 +65,7 @@ initial algorithm
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
-    rh_per       = 100 * p/min(Annex60.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),0.999*p)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat]));
+    rh_per       = 100 * p/min(IDEAS.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),0.999*p)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat]));
     TWetBul      = 273.15 + TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
        + Modelica.Math.atan(TDryBul_degC + rh_per)
@@ -73,8 +73,8 @@ equation
        + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
     XiSat = 0;
   else
-    XiSat  = Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=  Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
+    XiSat  = IDEAS.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=  IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
     TWetBul = (TDryBul * ((1-Xi[iWat]) * cpAir + Xi[iWat] * cpSte) + (Xi[iWat]-XiSat) * h_fg)/
@@ -154,12 +154,12 @@ with a mean error of less than <i>0.3</i> Kelvin.
 </p>
 <p>
 For a model that takes the relative humidity instead of the mass fraction as an input, see
-<a href=\"modelica://Annex60.Utilities.Psychrometrics.TWetBul_TDryBulPhi\">
-Annex60.Utilities.Psychrometrics.TWetBul_TDryBulPhi</a>.
+<a href=\"modelica://IDEAS.Utilities.Psychrometrics.TWetBul_TDryBulPhi\">
+IDEAS.Utilities.Psychrometrics.TWetBul_TDryBulPhi</a>.
 </p>
 <p>
 For a use of this model, see for example
-<a href=\"modelica://Annex60.Fluid.Sensors.WetBulbTemperature\">Annex60.Fluid.Sensors.WetBulbTemperature</a>
+<a href=\"modelica://IDEAS.Fluid.Sensors.WetBulbTemperature\">IDEAS.Fluid.Sensors.WetBulbTemperature</a>
 </p>
 <h4>References</h4>
 <p>
@@ -178,9 +178,9 @@ revisions="<html>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
 Updated model to use
-<code>Annex60.Utilities.Psychrometrics.Functions.saturationPressure()</code>
+<code>IDEAS.Utilities.Psychrometrics.Functions.saturationPressure()</code>
 and
-<code>Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
+<code>IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid()</code>
 as these functions have been moved from the medium to the psychrometrics package.
 </li>
 <li>

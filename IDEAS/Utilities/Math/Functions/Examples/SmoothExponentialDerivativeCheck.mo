@@ -8,7 +8,7 @@ model SmoothExponentialDerivativeCheck
 initial equation
    y=x;
 equation
-  x=Annex60.Utilities.Math.Functions.smoothExponential(
+  x=IDEAS.Utilities.Math.Functions.smoothExponential(
                                                x=time-2, delta=0.5);
   der(y)=der(x);
   assert(abs(x-y) < 1E-2, "Model has an error");
@@ -17,7 +17,7 @@ equation
             -100},{100,100}}),
                     graphics),
 experiment(StopTime=4),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

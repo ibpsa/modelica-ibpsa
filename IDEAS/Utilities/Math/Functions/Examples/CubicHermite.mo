@@ -14,11 +14,11 @@ model CubicHermite "Test problem for cubic hermite splines"
   Integer i "Integer to select data interval";
 initial algorithm
   // Get the derivative values at the support points
-  d := Annex60.Utilities.Math.Functions.splineDerivatives(
+  d := IDEAS.Utilities.Math.Functions.splineDerivatives(
     x=xd,
     y=yd,
     ensureMonotonicity=false);
-  dMonotone := Annex60.Utilities.Math.Functions.splineDerivatives(x=xd, y=yd,
+  dMonotone := IDEAS.Utilities.Math.Functions.splineDerivatives(x=xd, y=yd,
       ensureMonotonicity=true);
 algorithm
   x := xd[1] + time*1.2*(xd[size(xd, 1)] - xd[1]) - 0.5;
@@ -31,7 +31,7 @@ algorithm
     end if;
   end for;
   // Extrapolate or interpolate the data
-  y := Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+  y := IDEAS.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
     x=x,
     x1=xd[i],
     x2=xd[i + 1],
@@ -40,7 +40,7 @@ algorithm
     y1d=d[i],
     y2d=d[i + 1]);
   yMonotone :=
-    Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+    IDEAS.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
     x=x,
     x1=xd[i],
     x2=xd[i + 1],
@@ -52,7 +52,7 @@ algorithm
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
     __Dymola_Commands(file=
-          "modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermite.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermite.mos"
         "Simulate and plot"),
     experiment(StopTime=1.0),
     Documentation(info="<html>
@@ -65,7 +65,7 @@ does not enforce monotonicity.
 The resulting plot should look as shown below, where for better visibility, the support points have been marked with black dots.
 Notice that the red curve is monotone increasing.
 </p>
-<p align=\"center\"><img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png\"/></p>
+<p align=\"center\"><img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png\"/></p>
 </html>", revisions="<html>
 <ul>
 <li>

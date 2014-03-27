@@ -11,7 +11,7 @@ algorithm
   for i in 1:n loop
      b[i] :=a[i+1]*i;
   end for;
-  y := Annex60.Utilities.Math.Functions.polynomial(
+  y := IDEAS.Utilities.Math.Functions.polynomial(
                                            a=b, x=x);
   annotation (Documentation(info="<html>
 This function computes the first derivative of a polynomial of arbitrary order.
@@ -26,8 +26,8 @@ This function computes new coefficients<br/>
 </p>
 <p>
 and then calls recursively
-<a href=\"modelica://Annex60.Utilities.Math.Functions.polynomial\">
-Annex60.Utilities.Math.polynomial</a>
+<a href=\"modelica://IDEAS.Utilities.Math.Functions.polynomial\">
+IDEAS.Utilities.Math.polynomial</a>
 </html>"),
 revisions="<html>
 <ul>

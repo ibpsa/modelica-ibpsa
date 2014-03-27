@@ -77,8 +77,8 @@ to store mass and energy. The volume is fixed,
 and latent and sensible heat can be exchanged.
 <p>
 This model represents the same physics as 
-<a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolume\">
-Annex60.Fluid.MixingVolumes.MixingVolume</a>, but in addition, it allows
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes.MixingVolume\">
+IDEAS.Fluid.MixingVolumes.MixingVolume</a>, but in addition, it allows
 adding or subtracting water in liquid phase.
 The mass flow rate of the added or subtracted water is
 specified at the port <code>mWat_flow</code>.
@@ -93,15 +93,15 @@ as a substance. In particular, the medium model needs to implement the function
 <code>enthalpyOfLiquid(T)</code> and the integer variable <code>Water</code> that
 contains the index to the water substance. For medium that do not provide this
 functionality, use
-<a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolume\">
-Annex60.Fluid.MixingVolumes.MixingVolume</a>.
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes.MixingVolume\">
+IDEAS.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 December 18, 2013 by Michael Wetter:<br/>
 Changed computation of <code>s</code> to allow this model to also be used
-with <code>Annex60.Media.Water</code>.
+with <code>IDEAS.Media.Water</code>.
 </li>
 <li>
 October 21, 2013 by Michael Wetter:<br/>
@@ -113,7 +113,7 @@ Reformulated assignment of <code>i_w</code> to avoid a warning in OpenModelica.
 </li>
 <li>
 September 17, 2013 by Michael Wetter:<br/>
-Changed model to no longer use the obsolete model <code>Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort</code>.
+Changed model to no longer use the obsolete model <code>IDEAS.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort</code>.
 </li>
 <li>
 July 30, 2013 by Michael Wetter:<br/>
@@ -134,7 +134,7 @@ Therefore, all input signals must be connected.
 </li>
 <li>
 February 7, 2012 by Michael Wetter:<br/>
-Revised base classes for conservation equations in <code>Annex60.Fluid.Interfaces</code>.
+Revised base classes for conservation equations in <code>IDEAS.Fluid.Interfaces</code>.
 </li>
 <li>
 February 22, by Michael Wetter:<br/>

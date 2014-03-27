@@ -262,7 +262,7 @@ First implementation.
         "Saturation curve valid for 223.16 <= T <= 373.16 (and slightly outside with less accuracy)"
 
     algorithm
-      psat := Annex60.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
+      psat := IDEAS.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
       annotation(Inline=false,smoothOrder=5);
     end saturationPressure;
 
@@ -326,8 +326,8 @@ where <i>R</i> is the gas constant,
 </p>
 <p>
 To obtain the state for a given pressure, entropy and mass fraction, use
-<a href=\"modelica://Annex60.Media.Air.setState_psX\">
-Annex60.Media.Air.setState_psX</a>.
+<a href=\"modelica://IDEAS.Media.Air.setState_psX\">
+IDEAS.Media.Air.setState_psX</a>.
 </p>
 <h4>Limitations</h4>
 <p>
@@ -505,8 +505,8 @@ specific entropy and mass fraction.
 </p>
 <p>
 The state is computed by symbolically solving
-<a href=\"modelica://Annex60.Media.Air.specificEntropy\">
-Annex60.Media.Air.specificEntropy</a>
+<a href=\"modelica://IDEAS.Media.Air.specificEntropy\">
+IDEAS.Media.Air.specificEntropy</a>
 for temperature.
 </p>
 </html>",     revisions="<html>
@@ -825,7 +825,7 @@ that lead to a run-time error when the constructor of this function was called.
 <li>
 January 22, 2010, by Michael Wetter:<br/>
 Added implementation of function
-<a href=\"modelica://Annex60.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas\">
+<a href=\"modelica://IDEAS.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas\">
 enthalpyOfNonCondensingGas</a> and its derivative.
 <li>
 January 13, 2010, by Michael Wetter:<br/>
@@ -846,7 +846,7 @@ First implementation.
         "Model that tests the derivative implementation"
         extends Modelica.Icons.Example;
 
-         package Medium = Annex60.Media.Air;
+         package Medium = IDEAS.Media.Air;
 
           Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
           Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
@@ -898,7 +898,7 @@ First implementation.
          annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                   -100},{100,100}})),
       experiment(StartTime=273.15, StopTime=373.15),
-      __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Media/Examples/AirPTDecoupledDerivativeCheck.mos"
+      __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Experimental/Media/Examples/AirPTDecoupledDerivativeCheck.mos"
               "Simulate and plot"),
             Documentation(info="<html>
 <p>
@@ -924,9 +924,9 @@ First implementation.
       model AirPTDecoupledProperties
         "Model that tests the implementation of the fluid properties"
         extends Modelica.Icons.Example;
-        extends Annex60.Media.Examples.BaseClasses.FluidProperties(
+        extends IDEAS.Media.Examples.BaseClasses.FluidProperties(
           redeclare package Medium =
-              Annex60.Experimental.Media.AirPTDecoupled,
+              IDEAS.Experimental.Media.AirPTDecoupled,
           TMin=273.15-30,
           TMax=273.15+60);
 
@@ -945,7 +945,7 @@ First implementation.
          annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                   -100},{100,100}})),
       experiment(StopTime=1),
-      __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Media/Examples/AirPTDecoupledProperties.mos"
+      __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Experimental/Media/Examples/AirPTDecoupledProperties.mos"
               "Simulate and plot"),
             Documentation(info="<html>
 <p>
@@ -966,11 +966,11 @@ First implementation.
         "Model to check computation of h(T) and its inverse"
         extends Modelica.Icons.Example;
         extends
-          Annex60.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
-          redeclare package Medium = Annex60.Media.Air);
+          IDEAS.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
+          redeclare package Medium = IDEAS.Media.Air);
         annotation (
       experiment(StopTime=1.0),
-      __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Media/Examples/AirPTDecoupledTemperatureEnthalpyInversion.mos"
+      __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Experimental/Media/Examples/AirPTDecoupledTemperatureEnthalpyInversion.mos"
               "Simulate and plot"),
           Documentation(info="<html>
 <p>
@@ -992,12 +992,12 @@ First implementation.
         "Model that tests the medium implementation"
         extends Modelica.Icons.Example;
         extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
-           redeclare package Medium = Annex60.Media.Air);
+           redeclare package Medium = IDEAS.Media.Air);
 
             annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
                   -100,-100},{100,100}})),
       experiment(StopTime=1.0),
-      __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Media/Examples/AirPTDecoupledTestImplementation.mos"
+      __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Experimental/Media/Examples/AirPTDecoupledTestImplementation.mos"
               "Simulate and plot"),
           Documentation(info="<html>
 This is a simple test for the medium model. It uses the test model described in
@@ -1015,8 +1015,8 @@ First implementation.
     annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples that test the media packages in
-<a href=\"modelica://Annex60.Experimental.Media\">
-Annex60.Experimental.Media</a>.
+<a href=\"modelica://IDEAS.Experimental.Media\">
+IDEAS.Experimental.Media</a>.
 </p>
 </html>"));
     end Examples;
@@ -1029,7 +1029,7 @@ This package contains models that are experimental.
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains models that are experimental. 
-They may be included in the <code>Annex60</code> library
+They may be included in the <code>IDEAS</code> library
 if they have been shown to be useful.
 For example, this package may include new media models
 so that numerical benchmarks can be conducted easily in order

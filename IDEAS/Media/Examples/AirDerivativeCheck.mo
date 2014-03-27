@@ -2,7 +2,7 @@ within IDEAS.Media.Examples;
 model AirDerivativeCheck "Model that tests the derivative implementation"
   extends Modelica.Icons.Example;
 
-   package Medium = Annex60.Media.Air;
+   package Medium = IDEAS.Media.Air;
 
     Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
@@ -54,7 +54,7 @@ equation
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
 experiment(StartTime=273.15, StopTime=373.15),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Examples/AirDerivativeCheck.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Media/Examples/AirDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>

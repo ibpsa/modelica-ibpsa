@@ -1,7 +1,7 @@
 within IDEAS.Fluid.MassExchangers;
 model ConstantEffectiveness
   "Heat and moisture exchanger with constant effectiveness"
-  extends Annex60.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
+  extends IDEAS.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
   redeclare replaceable package Medium1 =
         Modelica.Media.Interfaces.PartialCondensingGases,
   redeclare replaceable package Medium2 =
@@ -121,8 +121,8 @@ for the sensible and latent heat transfer,
 </p>
 <p>
 For a sensible heat exchanger, use
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.ConstantEffectiveness\">
-Annex60.Fluid.HeatExchangers.ConstantEffectiveness</a>
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.ConstantEffectiveness\">
+IDEAS.Fluid.HeatExchangers.ConstantEffectiveness</a>
 instead of this model.
 </p>
 <p>
@@ -157,8 +157,8 @@ Added regularization near zero flow.
 <li>
 October 21, 2008, by Michael Wetter:<br/>
 First implementation, based on 
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.ConstantEffectiveness\">
-Annex60.Fluid.HeatExchangers.ConstantEffectiveness</a>.
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.ConstantEffectiveness\">
+IDEAS.Fluid.HeatExchangers.ConstantEffectiveness</a>.
 </li>
 </ul>
 </html>"));

@@ -1,12 +1,12 @@
 within IDEAS.Utilities.Math.Examples;
 model SmoothExponential "Test model for smoothExponential function "
-  import Annex60;
+  import IDEAS;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1,
     height=2,
     offset=-1)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}},rotation=0)));
-  Annex60.Utilities.Math.SmoothExponential smoothExponential(delta=0.1)
+  IDEAS.Utilities.Math.SmoothExponential smoothExponential(delta=0.1)
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
 equation
   connect(x1.y, smoothExponential.u) annotation (Line(
@@ -15,12 +15,12 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),  experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothExponential.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothExponential.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model tests the implementation of 
-<a href=\"modelica://Annex60.Utilities.Math.SmoothExponential\">
-Annex60.Utilities.Math.SmoothExponential</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.SmoothExponential\">
+IDEAS.Utilities.Math.SmoothExponential</a>.
 </p>
 </html>", revisions="<html>
 <p><ul>

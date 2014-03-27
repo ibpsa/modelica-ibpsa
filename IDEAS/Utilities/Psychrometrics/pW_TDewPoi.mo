@@ -14,7 +14,7 @@ block pW_TDewPoi
           rotation=0)));
 
 equation
- p_w = Annex60.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=T);
+ p_w = IDEAS.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=T);
     annotation (
     defaultComponentName="pWat",
     Documentation(info="<html>
@@ -33,9 +33,9 @@ temperatures.
 <li>
 December 7, 2011 by Michael Wetter:<br/>
 Changed function call from 
-<code>p_w = Annex60.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);</code>
+<code>p_w = IDEAS.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);</code>
 to 
-<code>p_w = Annex60.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=T);</code>
+<code>p_w = IDEAS.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=T);</code>
 as the first version sometimes triggered warnings when the solver attempts negative 
 temperatures. The accuracy of the two implementation does not change much in the
 region of interest for building HVAC applications.
@@ -47,8 +47,8 @@ to <code>pW_TDewPoi</code>.
 <li>
 September 4, 2008 by Michael Wetter:<br/>
 Changed from causal to acausal ports, needed, for example, for
-<a href=\"modelica://Annex60.Fluid.Examples.MixingVolumeMoistAir\">
-Annex60.Fluid.Examples.MixingVolumeMoistAir</a>.
+<a href=\"modelica://IDEAS.Fluid.Examples.MixingVolumeMoistAir\">
+IDEAS.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
 August 7, 2008 by Michael Wetter:<br/>

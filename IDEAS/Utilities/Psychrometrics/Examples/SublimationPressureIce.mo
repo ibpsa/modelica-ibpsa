@@ -3,7 +3,7 @@ model SublimationPressureIce
   "Model to test the wet bulb temperature computation"
   extends Modelica.Icons.Example;
 
-  Annex60.Utilities.Psychrometrics.SublimationPressureIce pSat
+  IDEAS.Utilities.Psychrometrics.SublimationPressureIce pSat
     "Saturation pressure"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp T(
@@ -20,7 +20,7 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/SublimationPressureIce.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/SublimationPressureIce.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the sublimation pressure computation of ice.

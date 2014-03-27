@@ -29,8 +29,8 @@ model HeatSource_HP_AW
   
   */
   //protected
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component";
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium "Medium in the component";
   final parameter Modelica.SIunits.Power QNomRef=7177
     "Nominal power of the Daikin Altherma.  See datafile";
   final parameter Real[5] mod_vector={0,30,50,90,100} "5 modulation steps, %";
@@ -137,7 +137,7 @@ public
 equation
   onOff.u = modulationInit;
   onOff.release = if noEvent(m_flowCondensor > 0) then 1.0 else 0.0;
-  QAsked = Annex60.Utilities.Math.Functions.smoothMax(0, m_flowCondensor*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TCondensor_set, Medium.X_default)) -hIn), 10);
+  QAsked = IDEAS.Utilities.Math.Functions.smoothMax(0, m_flowCondensor*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TCondensor_set, Medium.X_default)) -hIn), 10);
   P100.u1 = heatPort.T - 273.15;
   P100.u2 = TEvaporator - 273.15;
   P90.u1 = heatPort.T - 273.15;

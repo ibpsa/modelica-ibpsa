@@ -40,8 +40,8 @@ Fixed derivative implementation.
 <li>
 September 4, 2008 by Michael Wetter:<br/>
 Changed from causal to acausal ports, needed, for example, for
-<a href=\"modelica://Annex60.Fluid.Examples.MixingVolumeMoistAir\">
-Annex60.Fluid.Examples.MixingVolumeMoistAir</a>.
+<a href=\"modelica://IDEAS.Fluid.Examples.MixingVolumeMoistAir\">
+IDEAS.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
 August 7, 2008 by Michael Wetter:<br/>

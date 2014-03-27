@@ -1,7 +1,7 @@
 within IDEAS.Utilities.Math.Examples;
 model Average "\"Test model for average function "
   extends Modelica.Icons.Example;
-  Annex60.Utilities.Math.Average average(nin=2)
+  IDEAS.Utilities.Math.Average average(nin=2)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.Ramp x1(duration=1)
     annotation (Placement(transformation(extent={{-60,10},{-40,30}}, rotation=0)));
@@ -29,12 +29,12 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/Average.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Examples/Average.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model tests the implementation of 
-<a href=\"modelica://Annex60.Utilities.Math.Average\">
-Annex60.Utilities.Math.Average</a>.
+<a href=\"modelica://IDEAS.Utilities.Math.Average\">
+IDEAS.Utilities.Math.Average</a>.
 </p>
 </html>", revisions="<html>
 <p>

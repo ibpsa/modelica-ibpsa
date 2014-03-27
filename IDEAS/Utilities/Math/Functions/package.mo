@@ -28,8 +28,8 @@ annotation (preferredView="info", Documentation(info="<html>
 This package contains functions for commonly used
 mathematical operations. The functions are used in 
 the blocks
-<a href=\"modelica://Annex60.Utilities.Math\">
-Annex60.Utilities.Math</a>.
+<a href=\"modelica://IDEAS.Utilities.Math\">
+IDEAS.Utilities.Math</a>.
 </p>
 </html>"));
 end Functions;

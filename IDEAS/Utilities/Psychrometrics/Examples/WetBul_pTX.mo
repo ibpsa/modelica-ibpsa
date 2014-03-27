@@ -2,7 +2,7 @@ within IDEAS.Utilities.Psychrometrics.Examples;
 model WetBul_pTX "Model to test the wet bulb temperature computation"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Air "Medium model"
+ package Medium = IDEAS.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
 
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure"
@@ -17,7 +17,7 @@ model WetBul_pTX "Model to test the wet bulb temperature computation"
   Modelica.Blocks.Sources.Constant TDryBul(k=293.15) "Dry bulb temperature"
                                     annotation (Placement(transformation(extent={{-80,60},
             {-60,80}},           rotation=0)));
-  Annex60.Utilities.Psychrometrics.WetBul_pTX wetBul_TDryBulX
+  IDEAS.Utilities.Psychrometrics.WetBul_pTX wetBul_TDryBulX
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation
   connect(TDryBul.y, wetBul_TDryBulX.TDryBul) annotation (Line(
@@ -36,7 +36,7 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/WetBul_pTX.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/WetBul_pTX.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the wet bulb computation.

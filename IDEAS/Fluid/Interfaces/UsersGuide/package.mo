@@ -5,7 +5,7 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-The package <code>Annex60.Fluid.Interface</code> consists of basic
+The package <code>IDEAS.Fluid.Interface</code> consists of basic
 classes that can be used by developers to create new component models.
 </p>
 <p>
@@ -17,12 +17,12 @@ Otherwise, it may be used for a steady-state or a dynamic model.
 </p>
 <p>
 The most basic classes are the records
-<a href=\"modelica://Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters\">
-Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters</a>,
-<a href=\"modelica://Annex60.Fluid.Interfaces.FourPortFlowResistanceParameters\">
-Annex60.Fluid.Interfaces.FourPortFlowResistanceParameters</a> and
-<a href=\"modelica://Annex60.Fluid.Interfaces.LumpedVolumeDeclarations\">
-Annex60.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
+<a href=\"modelica://IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters\">
+IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters</a>,
+<a href=\"modelica://IDEAS.Fluid.Interfaces.FourPortFlowResistanceParameters\">
+IDEAS.Fluid.Interfaces.FourPortFlowResistanceParameters</a> and
+<a href=\"modelica://IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations\">
+IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 These define parameters that are needed by many fluid flow components.
 </p>
 
@@ -33,8 +33,8 @@ see the <i>info</i> section of the class.
 <table summary=\"summary\" border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <!-- ============================================== -->
-  <td><a href=\"modelica://Annex60.Fluid.Interfaces.ConservationEquation\">
-      Annex60.Fluid.Interfaces.ConservationEquation</a>
+  <td><a href=\"modelica://IDEAS.Fluid.Interfaces.ConservationEquation\">
+      IDEAS.Fluid.Interfaces.ConservationEquation</a>
   </td>
   <td><p>
       This is a basic model for an ideally mixed fluid volume.
@@ -64,8 +64,8 @@ see the <i>info</i> section of the class.
 </tr>
 <!-- ============================================== -->
 <tr>
-  <td><a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation\">
-      Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
+  <td><a href=\"modelica://IDEAS.Fluid.Interfaces.StaticTwoPortConservationEquation\">
+      IDEAS.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
   </td>
   <td><p>
       This is a basic model for steady-state conservation equations
@@ -87,8 +87,8 @@ see the <i>info</i> section of the class.
   </p>
  <p>
   Compared to 
-  <a href=\"modelica://Annex60.Fluid.Interfaces.ConservationEquation\">
-      Annex60.Fluid.Interfaces.ConservationEquation</a>
+  <a href=\"modelica://IDEAS.Fluid.Interfaces.ConservationEquation\">
+      IDEAS.Fluid.Interfaces.ConservationEquation</a>
   this model provides a more efficient implementation of the steady-state conservation equations for
   models with two fluid ports.
   </p>
@@ -97,8 +97,8 @@ see the <i>info</i> section of the class.
 <!-- ============================================== -->
 <tr>
   <td>
-     <a href=\"modelica://Annex60.Fluid.Interfaces.FourPort\">
-                          Annex60.Fluid.Interfaces.FourPort</a>
+     <a href=\"modelica://IDEAS.Fluid.Interfaces.FourPort\">
+                          IDEAS.Fluid.Interfaces.FourPort</a>
   </td>
   <td>
      This model defines an interface for components with four ports. 
@@ -113,8 +113,8 @@ see the <i>info</i> section of the class.
 <!-- ============================================== -->
 <tr>
   <td>
-     <a href=\"modelica://Annex60.Fluid.Interfaces.PartialTwoPortInterface\">
-                          Annex60.Fluid.Interfaces.PartialTwoPortInterface</a>
+     <a href=\"modelica://IDEAS.Fluid.Interfaces.PartialTwoPortInterface\">
+                          IDEAS.Fluid.Interfaces.PartialTwoPortInterface</a>
   </td>
   <td>
      This model defines the interface for component models that transport
@@ -129,21 +129,21 @@ see the <i>info</i> section of the class.
 <!-- ============================================== -->
 <tr>
   <td>
-     <a href=\"modelica://Annex60.Fluid.Interfaces.PartialFourPortInterface\">
-                          Annex60.Fluid.Interfaces.PartialFourPortInterface</a>
+     <a href=\"modelica://IDEAS.Fluid.Interfaces.PartialFourPortInterface\">
+                          IDEAS.Fluid.Interfaces.PartialFourPortInterface</a>
   </td>
   <td>
      This model is identical to 
-     <a href=\"modelica://Annex60.Fluid.Interfaces.PartialTwoPortInterface\">
-                          Annex60.Fluid.Interfaces.PartialTwoPortInterface</a>
+     <a href=\"modelica://IDEAS.Fluid.Interfaces.PartialTwoPortInterface\">
+                          IDEAS.Fluid.Interfaces.PartialTwoPortInterface</a>
      but it can be used for components with four fluid ports.
   </td>
 </tr>
 <!-- ============================================== -->
 <tr>
   <td>
-     <a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
-                          Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>
+     <a href=\"modelica://IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
+                          IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>
   </td>
   <td>
      This model implements the pressure drop as a function of the mass flow rate. 
@@ -160,21 +160,21 @@ see the <i>info</i> section of the class.
 <!-- ============================================== -->
 <tr>
   <td>
-     <a href=\"modelica://Annex60.Fluid.Interfaces.StaticFourPortHeatMassExchanger\">
-                          Annex60.Fluid.Interfaces.StaticFourPortHeatMassExchanger</a>
+     <a href=\"modelica://IDEAS.Fluid.Interfaces.StaticFourPortHeatMassExchanger\">
+                          IDEAS.Fluid.Interfaces.StaticFourPortHeatMassExchanger</a>
   </td>
   <td>
      This model is identical to 
-     <a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
-                          Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>
+     <a href=\"modelica://IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
+                          IDEAS.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>
      except that it has four ports.
   </td>
 </tr>
 <!-- ============================================== -->
 <tr>
   <td>
-     <a href=\"modelica://Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger\">
-                          Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger</a>
+     <a href=\"modelica://IDEAS.Fluid.Interfaces.TwoPortHeatMassExchanger\">
+                          IDEAS.Fluid.Interfaces.TwoPortHeatMassExchanger</a>
   </td>
   <td>
      This model implements the pressure drop as a function of the mass flow rate. 
@@ -185,13 +185,13 @@ see the <i>info</i> section of the class.
 <!-- ============================================== -->
 <tr>
   <td>
-     <a href=\"modelica://Annex60.Fluid.Interfaces.FourPortHeatMassExchanger\">
-                          Annex60.Fluid.Interfaces.FourPortHeatMassExchanger</a>
+     <a href=\"modelica://IDEAS.Fluid.Interfaces.FourPortHeatMassExchanger\">
+                          IDEAS.Fluid.Interfaces.FourPortHeatMassExchanger</a>
   </td>
   <td>
      This model is identical to 
-     <a href=\"modelica://Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger\">
-                          Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger</a>
+     <a href=\"modelica://IDEAS.Fluid.Interfaces.TwoPortHeatMassExchanger\">
+                          IDEAS.Fluid.Interfaces.TwoPortHeatMassExchanger</a>
      except that it has four ports.
   </td>
 </tr>

@@ -46,14 +46,14 @@ lumped volume model.
 </p>
 <p>
 These parameters are used by
-<a href=\"modelica://Annex60.Fluid.Interfaces.ConservationEquation\">
-Annex60.Fluid.Interfaces.ConservationEquation</a>,
-<a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolume\">
-Annex60.Fluid.MixingVolumes.MixingVolume</a>,
-<a href=\"modelica://Annex60.Rooms.MixedAir\">
-Annex60.Rooms.MixedAir</a>, and by
-<a href=\"modelica://Annex60.Rooms.BaseClasses.MixedAir\">
-Annex60.Rooms.BaseClasses.MixedAir</a>.
+<a href=\"modelica://IDEAS.Fluid.Interfaces.ConservationEquation\">
+IDEAS.Fluid.Interfaces.ConservationEquation</a>,
+<a href=\"modelica://IDEAS.Fluid.MixingVolumes.MixingVolume\">
+IDEAS.Fluid.MixingVolumes.MixingVolume</a>,
+<a href=\"modelica://IDEAS.Rooms.MixedAir\">
+IDEAS.Rooms.MixedAir</a>, and by
+<a href=\"modelica://IDEAS.Rooms.BaseClasses.MixedAir\">
+IDEAS.Rooms.BaseClasses.MixedAir</a>.
 </p>
 </html>",
 revisions="<html>

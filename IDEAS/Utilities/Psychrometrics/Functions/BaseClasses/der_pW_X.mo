@@ -27,8 +27,8 @@ algorithm
     Documentation(info="<html>
 <p>
 Derivative of function 
-<a href=\"modelica://Annex60.Utilities.Psychrometrics.Functions.pW_X\">
-Annex60.Utilities.Psychrometrics.Functions.pW_X</a>.
+<a href=\"modelica://IDEAS.Utilities.Psychrometrics.Functions.pW_X\">
+IDEAS.Utilities.Psychrometrics.Functions.pW_X</a>.
 </p>
 </html>", revisions="<html>
 <ul>

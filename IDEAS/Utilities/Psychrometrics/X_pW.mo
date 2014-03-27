@@ -1,7 +1,6 @@
 within IDEAS.Utilities.Psychrometrics;
 block X_pW "Humidity ratio for given water vapor pressure"
-  extends
-    Annex60.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
+  extends IDEAS.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
   Modelica.Blocks.Interfaces.RealOutput X_w(min=0, max=1, nominal=0.01)
     "Species concentration at dry bulb temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
@@ -17,7 +16,7 @@ block X_pW "Humidity ratio for given water vapor pressure"
   output Modelica.SIunits.MassFraction x_w(min=0, max=1, nominal=0.01, start=0.001)
     "Water mass fraction per mass of dry air";
 equation
-  X_w = Annex60.Utilities.Psychrometrics.Functions.X_pW(p_w=p_w, p=p_in_internal);
+  X_w = IDEAS.Utilities.Psychrometrics.Functions.X_pW(p_w=p_w, p=p_in_internal);
   x_w = X_w/(1-X_w);
   annotation (
 defaultComponentName="humRat",

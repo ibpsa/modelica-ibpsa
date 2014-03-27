@@ -2,15 +2,15 @@ within IDEAS.Fluid.Sensors.Examples;
 model SpecificEntropy "Test model for the entropy flow rate sensors"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air "Medium model";
+  package Medium = IDEAS.Media.Air "Medium model";
 
-  Annex60.Fluid.Sources.MassFlowSource_h sou(
+  IDEAS.Fluid.Sources.MassFlowSource_h sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     use_h_in=false,
     nPorts=2) "Flow boundary condition"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Annex60.Fluid.Sources.Boundary_ph sin(
+  IDEAS.Fluid.Sources.Boundary_ph sin(
     redeclare package Medium = Medium,
     use_h_in=false,
     h=20,
@@ -26,10 +26,10 @@ model SpecificEntropy "Test model for the entropy flow rate sensors"
     annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Annex60.Fluid.Sensors.SpecificEntropy senFloSou(
+  IDEAS.Fluid.Sensors.SpecificEntropy senFloSou(
     redeclare package Medium = Medium) "Sensor at the flow source"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Annex60.Fluid.Sensors.SpecificEntropyTwoPort senStr(
+  IDEAS.Fluid.Sensors.SpecificEntropyTwoPort senStr(
     redeclare package Medium = Medium,
     m_flow_nominal=2) "Sensor in the fluid stream"
     annotation (Placement(transformation(extent={{20,-22},{40,-2}})));
@@ -52,7 +52,7 @@ equation
       smooth=Smooth.None));
     annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/SpecificEntropy.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/SpecificEntropy.mos"
         "Simulate and plot"),  Diagram(
         coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
         graphics),
