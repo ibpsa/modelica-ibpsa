@@ -2,46 +2,17 @@ within IDEAS.Thermal.Components.BaseClasses;
 model Pump_HeatPort
   "Prescribed mass flow rate, with heatPort for heat exchange."
 
-  extends Thermal.Components.Interfaces.Partials.TwoPort;
-  parameter Boolean useInput=false "Enable / disable MassFlowRate input"
-    annotation (Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate m_flowNom(min=0, start=1)
-    "Nominal mass flowrate" annotation (Dialog(enable=not useVolumeFlowInput));
-  parameter Modelica.SIunits.Pressure dpFix=50000
-    "Fixed pressure drop, used for determining the electricity consumption";
-  parameter Real etaTot=0.8 "Fixed total pump efficiency";
-  Modelica.Blocks.Interfaces.RealInput m_flowSet(
-    start=0,
-    min=0,
-    max=1) = m_flow/m_flowNom if useInput annotation (Placement(transformation(
-        origin={0,100},
-        extent={{-10,-10},{10,10}},
-        rotation=270)));
+  extends IDEAS.Thermal.Components.BaseClasses.Pump;
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat exchange with environment" annotation (Placement(transformation(
           extent={{-10,-110},{10,-90}}, rotation=0)));
 
-protected
-  Modelica.SIunits.MassFlowRate m_flow;
-
-public
-  Modelica.Blocks.Interfaces.RealOutput PEl "Electricity consumption"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={40,-106})));
 equation
-  // energy exchange with medium
-  Q_flow = heatPort.Q_flow;
-  // defines heatPort's temperature
-  heatPort.T = T;
-
-  if not useInput then
-    m_flow = m_flowNom;
-  end if;
-
-  flowPort_a.m_flow = m_flow;
-  PEl = m_flow/medium.rho*dpFix/etaTot;
+  connect(vol.heatPort, heatPort) annotation (Line(
+      points={{-44,10},{-24,10},{-24,-100},{0,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
     Documentation(info="<html>
 <p><b>Description</b> </p>
@@ -105,6 +76,6 @@ equation
           lineColor={135,135,135},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics));
 end Pump_HeatPort;

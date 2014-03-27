@@ -1,7 +1,5 @@
 within IDEAS.Thermal.Components.BaseClasses;
 model Pump "Prescribed mass flow rate, no heat exchange."
-  import Buildings;
-
   extends Thermal.Components.Interfaces.Partials.PumpTwoPort(idealSource(
         control_m_flow=true));
   parameter Boolean useInput=false "Enable / disable MassFlowRate input"
@@ -24,16 +22,28 @@ protected
 public
   Modelica.Blocks.Sources.RealExpression realExpression1(y=m_flow_pump)
     annotation (Placement(transformation(extent={{-32,32},{-12,52}})));
+  Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={30,100})));
+public
+  Modelica.Blocks.Sources.RealExpression realExpression2(y=PEl)
+    annotation (Placement(transformation(extent={{4,52},{24,72}})));
 equation
   if not useInput then
     m_flow_pump = m_flow_nominal;
   end if;
 
   Q_flow = 0;
-  //port_a.m_flow = m_flow_pump;
+
   PEl = m_flow_pump/Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), Medium.X_default))*dpFix/etaTot;
   connect(realExpression1.y, idealSource.m_flow_in) annotation (Line(
       points={{-11,42},{0,42},{0,8},{12,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression2.y, P) annotation (Line(
+      points={{25,62},{30,62},{30,100}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
