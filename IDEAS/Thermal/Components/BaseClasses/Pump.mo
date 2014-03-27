@@ -1,11 +1,12 @@
 within IDEAS.Thermal.Components.BaseClasses;
 model Pump "Prescribed mass flow rate, no heat exchange."
+  import Buildings;
 
-  extends Thermal.Components.Interfaces.Partials.TwoPort;
+  extends Thermal.Components.Interfaces.Partials.PumpTwoPort(idealSource(
+        control_m_flow=true));
   parameter Boolean useInput=false "Enable / disable MassFlowRate input"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate m_flowNom(min=0, start=1)
-    "Nominal mass flowrate" annotation (Dialog(enable=not useVolumeFlowInput));
+
   parameter Modelica.SIunits.Pressure dpFix=50000
     "Fixed pressure drop, used for determining the electricity consumption";
   parameter Real etaTot=0.8 "Fixed total pump efficiency";
@@ -18,16 +19,23 @@ model Pump "Prescribed mass flow rate, no heat exchange."
         extent={{-10,-10},{10,10}},
         rotation=270)));
 protected
-  Modelica.SIunits.MassFlowRate m_flow;
+  Modelica.SIunits.MassFlowRate m_flow_pump;
 
+public
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=m_flow_pump)
+    annotation (Placement(transformation(extent={{-32,32},{-12,52}})));
 equation
   if not useInput then
-    m_flow = m_flowNom;
+    m_flow_pump = m_flow_nominal;
   end if;
 
   Q_flow = 0;
-  flowPort_a.m_flow = m_flow;
-  PEl = m_flow/medium.rho*dpFix/etaTot;
+  //port_a.m_flow = m_flow_pump;
+  PEl = m_flow_pump/Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), Medium.X_default))*dpFix/etaTot;
+  connect(realExpression1.y, idealSource.m_flow_in) annotation (Line(
+      points={{-11,42},{0,42},{0,8},{12,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Documentation(info="<html>
 <p><b>Description</b> </p>
@@ -91,6 +99,6 @@ equation
           lineColor={135,135,135},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics));
 end Pump;

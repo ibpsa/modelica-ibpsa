@@ -3,3 +3,5 @@ Ambient
 AbsoluteSensor
 RelativeSensor
 FlowSensor
+PartialTwoPort
+PumpTwoPort
