@@ -1,9 +1,10 @@
 within IDEAS.Thermal.Components.Interfaces.Partials;
 partial model TwoPort "Partial model of two port"
+  import Buildings;
+  extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
 
-  parameter Thermal.Data.Interfaces.Medium medium=Data.Interfaces.Medium()
-    "Medium in the component" annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Mass m(start=1) "Mass of medium";
+  parameter Modelica.SIunits.Mass m(start=1) = 1 "Mass of medium";
   // I remove this parameter completely because it can lead to wrong models!!!
   // See note in evernote of RDC
   //parameter Real tapT(final min=0, final max=1)=1
@@ -12,46 +13,60 @@ partial model TwoPort "Partial model of two port"
     "Initial temperature of all Temperature states";
 
   Modelica.SIunits.HeatFlowRate Q_flow(start=0) "Heat exchange with ambient";
-  Modelica.SIunits.Temperature T(start=TInitial) "Outlet temperature of medium";
-  Modelica.SIunits.Temperature T_a(start=TInitial) = flowPort_a.h/medium.cp
-    "Temperature at flowPort_a";
-  Modelica.SIunits.Temperature T_b(start=TInitial) = flowPort_b.h/medium.cp
-    "Temperature at flowPort_b";
+ // Modelica.SIunits.Temperature T(start=TInitial) "Outlet temperature of medium";
+//  Modelica.SIunits.Temperature T_a(start=TInitial) = flowPort_a.h/medium.cp
+ //   "Temperature at flowPort_a";
+ // Modelica.SIunits.Temperature T_b(start=TInitial) = flowPort_b.h/medium.cp
+  //  "Temperature at flowPort_b";
 
-  Modelica.SIunits.TemperatureDifference dT(start=0) = if noEvent(flowPort_a.m_flow
-     >= 0) then T - T_a else T_b - T
-    "Outlet temperature minus inlet temperature";
+ // Modelica.SIunits.TemperatureDifference dT(start=0) = if noEvent(flowPort_a.m_flow
+  //   >= 0) then T - T_a else T_b - T
+  //  "Outlet temperature minus inlet temperature";
 
-  Modelica.SIunits.SpecificEnthalpy h=medium.cp*T "Medium's specific enthalpy";
+  Modelica.SIunits.SpecificEnthalpy h(start=Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default, TInitial, Medium.X_default)))
+    "Medium's specific enthalpy";
 
-public
-  FlowPort_a flowPort_a(final medium=medium, h(min=1140947, max=1558647))
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
-           0)));
-  FlowPort_b flowPort_b(final medium=medium, h(min=1140947, max=1558647))
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+  Annex60.Fluid.MixingVolumes.MixingVolume vol(
+    redeclare package Medium = Medium,
+    energyDynamics=if dynamicBalance then energyDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=if dynamicBalance then massDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    m_flow_nominal=m_flow_nominal,
+    p_start=p_start,
+    prescribedHeatFlowRate=true,
+    allowFlowReversal=allowFlowReversal,
+    nPorts=2,
+    final V=m/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default)))
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+    annotation (Placement(transformation(extent={{-54,22},{-34,42}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=Q_flow)
+    annotation (Placement(transformation(extent={{-84,22},{-64,42}})));
+
+  parameter Boolean dynamicBalance = true
+    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
+    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
+
 equation
-  // mass balance
-  flowPort_a.m_flow + flowPort_b.m_flow = 0;
-
-  // no equation about pressure drop here in order to allow pumps to extend from this partial
-
-  // energy balance
-  if m > Modelica.Constants.small then
-    flowPort_a.H_flow + flowPort_b.H_flow + Q_flow = m*medium.cv*der(T);
-  else
-    flowPort_a.H_flow + flowPort_b.H_flow + Q_flow = 0;
-  end if;
-  // massflow a->b mixing rule at a, energy flow at b defined by medium's temperature
-  // massflow b->a mixing rule at b, energy flow at a defined by medium's temperature
-  flowPort_a.H_flow = semiLinear(
-    flowPort_a.m_flow,
-    flowPort_a.h,
-    h);
-  flowPort_b.H_flow = semiLinear(
-    flowPort_b.m_flow,
-    flowPort_b.h,
-    h);
+  connect(prescribedHeatFlow.port, vol.heatPort) annotation (Line(
+      points={{-34,32},{-28,32},{-28,10},{-10,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(realExpression.y, prescribedHeatFlow.Q_flow) annotation (Line(
+      points={{-63,32},{-54,32}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(port_a, vol.ports[1]) annotation (Line(
+      points={{-100,0},{-2,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(vol.ports[2], port_b) annotation (Line(
+      points={{2,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p><b>General description</b> </p>
 <p><h5>Goal</h5></p>
@@ -70,5 +85,6 @@ equation
 <p>Partial model, see extensions for implementation details.</p>
 <p><h4>Validation </h4></p>
 <p>Based on physical principles, no validation performed.</p>
-</html>"));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics));
 end TwoPort;
