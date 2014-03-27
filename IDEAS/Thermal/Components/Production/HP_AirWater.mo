@@ -18,13 +18,15 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
   IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_AW heatSource(
     QNom=QNomFinal,
     TEvaporator=sim.Te,
-    TCondensor_in=heatedFluid.T_a,
     TCondensor_set=TSet,
-    m_flowCondensor=heatedFluid.flowPort_a.m_flow,
     TEnvironment=heatPort.T,
     UALoss=UALoss,
     modulation_min=modulation_min,
-    modulation_start=modulation_start)
+    modulation_start=modulation_start,
+    TCondensor_in=Tin.T,
+    m_flowCondensor=port_a.m_flow,
+    hIn=inStream(port_a.h_outflow),
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
@@ -32,14 +34,24 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
   parameter Real modulation_min=20 "Minimal modulation percentage";
   parameter Real modulation_start=35
     "Min estimated modulation level required for start of HP";
+  Annex60.Fluid.Sensors.Temperature Tin(redeclare package Medium = Medium)
+    "Incoming water temperature: for evaluation of condensation efficiency"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={10,12})));
 equation
   PFuel = 0;
   PEl = heatSource.PEl;
-  COP = if noEvent(PEl > 0) then heatedFluid.heatPort.Q_flow/PEl else 0;
+  COP = if noEvent(PEl > 0) then pipe_HeatPort.heatPort.Q_flow/PEl else 0;
 
-  connect(heatSource.heatPort, vol.heatPort) annotation (Line(
-      points={{-60,30},{-14,30}},
+  connect(heatSource.heatPort, pipe_HeatPort.heatPort) annotation (Line(
+      points={{-60,30},{28,30},{28,-6}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(Tin.port, pipe_HeatPort.port_a) annotation (Line(
+      points={{10,2},{12,2},{12,-16},{38,-16}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

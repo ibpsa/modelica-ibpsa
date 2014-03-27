@@ -13,14 +13,21 @@ model Boiler
     TBoilerSet=TSet,
     TEnvironment=heatPort.T,
     UALoss=UALoss,
-    THxIn=heatedFluid.T_a,
-    m_flowHx=heatedFluid.flowPort_a.m_flow,
     modulationMin=modulationMin,
-    modulationStart=modulationStart)
+    modulationStart=modulationStart,
+    THxIn=Tin.T,
+    hIn=inStream(port_a.h_outflow),
+    m_flowHx=port_a.m_flow)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   parameter Real modulationMin=25 "Minimal modulation percentage";
   parameter Real modulationStart=35
     "Min estimated modulation level required for start of HP";
+  Annex60.Fluid.Sensors.Temperature Tin(redeclare package Medium = Medium)
+    "Incoming water temperature: for evaluation of condensation efficiency"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={8,10})));
 equation
   // Electricity consumption for electronics and fan only.  Pump is covered by pumpHeater;
   // This data is taken from Viessmann VitoDens 300W, smallest model.  So only valid for
@@ -28,9 +35,13 @@ equation
   PEl = 7 + heatSource.modulation/100*(33 - 7);
   PFuel = heatSource.PFuel;
   eta = heatSource.eta;
-  connect(vol.heatPort, heatSource.heatPort) annotation (Line(
-      points={{-14,30},{-60,30}},
+  connect(heatSource.heatPort, pipe_HeatPort.heatPort) annotation (Line(
+      points={{-60,30},{28,30},{28,-6}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(Tin.port, pipe_HeatPort.port_a) annotation (Line(
+      points={{8,0},{8,-16},{38,-16}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

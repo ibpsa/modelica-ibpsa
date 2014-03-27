@@ -2,8 +2,7 @@ within IDEAS.Thermal.Components.Production.BaseClasses;
 model HeatSource_CondensingGasBurner
   "Burner for use in Boiler, based on interpolation data.  Takes into account losses of the boiler to the environment"
 
-  //protected
-  parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
 
   final parameter Real[6] modVector={0,20,40,60,80,100} "6 modulation steps, %";
@@ -35,9 +34,11 @@ public
   input Modelica.SIunits.MassFlowRate m_flowHx "Condensor mass flow rate";
   input Modelica.SIunits.Temperature TEnvironment
     "Temperature of environment for heat losses";
+  input Modelica.SIunits.SpecificEnthalpy hIn "Specific enthalpy at the inlet";
 
 protected
-  Real kgps2lph=3600/medium.rho*1000 "Conversion from kg/s to l/h";
+  Real kgps2lph=3600/Medium.density(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))*1000
+    "Conversion from kg/s to l/h";
   Modelica.Blocks.Tables.CombiTable2D eta100(smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
       table=[0, 100, 400, 700, 1000, 1300; 20.0, 0.9015, 0.9441, 0.9599, 0.9691,
         0.9753; 30.0, 0.8824, 0.9184, 0.9324, 0.941, 0.9471; 40.0, 0.8736,
@@ -92,7 +93,7 @@ public
 equation
   onOff.u = modulationInit;
   onOff.release = if noEvent(m_flowHx > 0) then 1.0 else 0.0;
-  QAsked = max(0, m_flowHx*medium.cp*(TBoilerSet - THxIn));
+  QAsked = Annex60.Utilities.Math.Functions.smoothMax(0, m_flowHx*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TBoilerSet, Medium.X_default)) -hIn), 10);
   eta100.u1 = THxIn - 273.15;
   eta100.u2 = m_flowHx*kgps2lph;
   eta80.u1 = THxIn - 273.15;

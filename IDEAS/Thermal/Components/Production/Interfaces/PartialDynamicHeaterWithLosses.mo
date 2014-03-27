@@ -1,6 +1,7 @@
 within IDEAS.Thermal.Components.Production.Interfaces;
 model PartialDynamicHeaterWithLosses
   "Partial heater model incl dynamics and environmental losses"
+  import IDEAS;
 
   import IDEAS.Thermal.Components.Production.BaseClasses.HeaterType;
   parameter HeaterType heaterType
@@ -9,7 +10,7 @@ model PartialDynamicHeaterWithLosses
     "Initial temperature of the water and dry mass";
   parameter Modelica.SIunits.Power QNom "Nominal power";
 
-  Modelica.SIunits.Power PFuel "Fuel consumption";
+  Modelica.SIunits.Power PFuel "Fuel consumption in watt";
   parameter Modelica.SIunits.Time tauHeatLoss=7200
     "Time constant of environmental heat losses";
   parameter Modelica.SIunits.Mass mWater=5 "Mass of water in the condensor";
@@ -19,14 +20,11 @@ model PartialDynamicHeaterWithLosses
   final parameter Modelica.SIunits.ThermalConductance UALoss=(cDry + mWater*
       Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default,Medium.X_default)))/tauHeatLoss;
 
-  Thermal.Components.Interfaces.FlowPort_a flowPort_a(redeclare package Medium
-      =                                                                          Medium)
-    "Fluid inlet "                                annotation (Placement(
-        transformation(extent={{90,-48},{110,-28}}), iconTransformation(extent=
-            {{90,-48},{110,-28}})));
-  Thermal.Components.Interfaces.FlowPort_b flowPort_b(redeclare package Medium
-      =                                                                          Medium)
-    "Fluid outlet"
+  Thermal.Components.Interfaces.FlowPort_a port_a(redeclare package Medium =
+        Medium) "Fluid inlet " annotation (Placement(transformation(extent={{90,
+            -48},{110,-28}}), iconTransformation(extent={{90,-48},{110,-28}})));
+  Thermal.Components.Interfaces.FlowPort_b port_b(redeclare package Medium =
+        Medium) "Fluid outlet"
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mDry(C=cDry, T(start=
           TInitial)) "Lumped dry mass subject to heat exchange/accumulation"
@@ -55,16 +53,20 @@ model PartialDynamicHeaterWithLosses
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-74,-100})));
-  Annex60.Fluid.MixingVolumes.MixingVolume vol(
-    redeclare package Medium = Medium,
-    V=mWater/1000,
-    T_start=TInitial,
-    nPorts=2,
-    m_flow_nominal=m_flow_nominal)
-              annotation (Placement(transformation(extent={{-14,20},{6,40}})));
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
   parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
+  parameter SI.Pressure dp_nominal=0 "Pressure";
+  replaceable IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort pipe_HeatPort(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    T_start=TInitial,
+    final V=mWater/Medium.density(Medium.setState_pTX(Medium.p_default, Medium.T_default,Medium.X_default)))
+    constrainedby IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={38,-6})));
 equation
 
   connect(mDry.port, thermalLosses.port_a) annotation (Line(
@@ -75,16 +77,16 @@ equation
       points={{-30,-80},{-30,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(vol.ports[1], flowPort_b) annotation (Line(
-      points={{-6,20},{100,20}},
+  connect(pipe_HeatPort.port_a, port_a) annotation (Line(
+      points={{38,-16},{38,-36},{100,-36},{100,-38}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(flowPort_a, vol.ports[2]) annotation (Line(
-      points={{100,-38},{-4,-38},{-4,20},{-2,20}},
-      color={0,0,0},
+  connect(pipe_HeatPort.port_b, port_b) annotation (Line(
+      points={{38,4},{38,20},{100,20}},
+      color={0,127,255},
       smooth=Smooth.None));
-  connect(mDry.port, vol.heatPort) annotation (Line(
-      points={{-30,-30},{-30,30},{-14,30}},
+  connect(mDry.port, pipe_HeatPort.heatPort) annotation (Line(
+      points={{-30,-30},{-32,-30},{-32,-6},{28,-6}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (

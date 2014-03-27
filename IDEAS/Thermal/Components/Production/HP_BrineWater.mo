@@ -6,8 +6,9 @@ model HP_BrineWater "Brine-Water HP WITHOUT borehole"
     IDEAS.Thermal.Components.Production.Interfaces.PartialDynamicHeaterWithLosses(
       final heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.HP_BW);
   parameter Modelica.SIunits.Power QNom "Nominal power at 2/35";
-  parameter Thermal.Data.Interfaces.Medium mediumBrine=Data.Media.Water()
-    "Medium in the borehole";
+
+  replaceable package MediumBrine = Modelica.Media.Interfaces.PartialMedium
+    "Medium (brine) at the primary side of the heat pump";
 
   parameter Modelica.SIunits.Power QDesign=0
     "Overrules QNom if different from 0. Design heat load, typically at -8 or -10 degC in Belgium.  ";
@@ -21,40 +22,52 @@ model HP_BrineWater "Brine-Water HP WITHOUT borehole"
 
   IDEAS.Thermal.Components.Production.BaseClasses.HeatSource_HP_BW heatSource(
     QNom=QNomFinal,
-    TCondensor_in=heatedFluid.T_a,
     TCondensor_set=TSet,
-    m_flowCondensor=heatedFluid.flowPort_a.m_flow,
     TEnvironment=heatPort.T,
     UALoss=UALoss,
-    mediumEvap=mediumBrine)
+    TCondensor_in=Tin.T,
+    m_flowCondensor=port_a.m_flow,
+    redeclare package MediumPrimary = Medium,
+    redeclare package MediumSecondary = MediumBrine)
     annotation (Placement(transformation(extent={{2,-64},{16,-50}})));
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-86,92},{-66,112}})));
-  IDEAS.Thermal.Components.Interfaces.FlowPort_a flowPortBrine_a(medium=
-        mediumBrine) "Inlet flowport for the brine"
+  IDEAS.Thermal.Components.Interfaces.FlowPort_a flowPortBrine_a(redeclare
+      package Medium =
+        MediumBrine) "Inlet flowport for the brine"
     annotation (Placement(transformation(extent={{16,-110},{36,-90}})));
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPortBrine_b(medium=
-        mediumBrine) "Outlet flowport for brine"
+  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPortBrine_b(redeclare
+      package Medium =
+        MediumBrine) "Outlet flowport for brine"
     annotation (Placement(transformation(extent={{66,-110},{86,-90}})));
+  Annex60.Fluid.Sensors.Temperature Tin(redeclare package Medium = Medium)
+    "Incoming water temperature: for evaluation of condensation efficiency"
+    annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=0,
+        origin={40,-56})));
 equation
   PFuel = 0;
   PEl = heatSource.PEl;
-  COP = if noEvent(heatSource.PEl > 0) then heatedFluid.heatPort.Q_flow/PEl
+  COP = if noEvent(heatSource.PEl > 0) then pipe_HeatPort.heatPort.Q_flow/PEl
      else 0;
 
-  connect(heatSource.flowPort_a, flowPortBrine_a) annotation (Line(
-      points={{6.2,-64},{6,-64},{6,-88},{26,-88},{26,-100}},
-      color={0,0,255},
+  connect(Tin.port, port_a) annotation (Line(
+      points={{40,-46},{40,-36},{100,-36},{100,-38}},
+      color={0,127,255},
       smooth=Smooth.None));
-  connect(heatSource.flowPort_b, flowPortBrine_b) annotation (Line(
-      points={{10.4,-64},{10,-64},{10,-78},{76,-78},{76,-100}},
-      color={0,0,255},
+  connect(flowPortBrine_a, heatSource.prim_in) annotation (Line(
+      points={{26,-100},{20,-100},{20,-86},{6.2,-86},{6.2,-64}},
+      color={0,0,0},
       smooth=Smooth.None));
-  connect(heatSource.heatPort, vol.heatPort) annotation (Line(
-      points={{16,-57},{22,-57},{22,-56},{22,-56},{22,-44},{-14,-44},{-14,30}},
+  connect(flowPortBrine_b, heatSource.prim_out) annotation (Line(
+      points={{76,-100},{76,-78},{10.4,-78},{10.4,-64}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(pipe_HeatPort.heatPort, heatSource.heatPort) annotation (Line(
+      points={{28,-6},{22,-6},{22,-57},{16,-57}},
       color={191,0,0},
       smooth=Smooth.None));
-
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             120}}),     graphics),

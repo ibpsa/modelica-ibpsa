@@ -22,10 +22,12 @@ model HeatSource_HP_BW
   
   */
   //protected
-  parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
-    "Medium in the condensor";
-  parameter Thermal.Data.Interfaces.Medium mediumEvap=Data.Media.Water()
-    "Medium in the evaporator";
+
+  replaceable package MediumPrimary = Modelica.Media.Interfaces.PartialMedium
+    "Medium at the secondary side of the heat pump";
+
+  replaceable package MediumSecondary = Modelica.Media.Interfaces.PartialMedium
+    "Medium at the primary side of the heat pump";
   final parameter Modelica.SIunits.Power QNomRef=8270
     "Nominal power of the Viesmann Vitocal 300-G BW/BWC 108.  See datafile";
   parameter Modelica.SIunits.ThermalConductance UALoss
@@ -73,19 +75,25 @@ public
     enableRelease=true) "on-off, based on modulationInit"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Thermal.Components.Interfaces.FlowPort_a flowPort_a(medium=mediumEvap)
+  Thermal.Components.Interfaces.FlowPort_a prim_in(redeclare package Medium =
+        MediumPrimary)
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
-  Thermal.Components.Interfaces.FlowPort_b flowPort_b(medium=mediumEvap)
+  Thermal.Components.Interfaces.FlowPort_b prim_out(redeclare package Medium =
+        MediumPrimary)
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort evaporator(
-    medium=mediumEvap,
-    m=3,
-    TInitial=283.15)
-    annotation (Placement(transformation(extent={{-24,-46},{-4,-66}})));
+    V=0.003,
+    redeclare package Medium = MediumPrimary,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    T_start=556.3)
+    annotation (Placement(transformation(extent={{-24,-66},{-4,-46}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     annotation (Placement(transformation(extent={{-46,-34},{-26,-14}})));
+  parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
+  parameter SI.Pressure dp_nominal=0 "Nominal pressure drop";
 equation
-  TEvaporator = flowPort_a.h/mediumEvap.cp;
+  TEvaporator = MediumPrimary.temperature(MediumPrimary.setState_phX(MediumPrimary.p_default, inStream(prim_in.h_outflow), MediumPrimary.X_default));
   onOff.u = TCondensor_set - heatPort.T;
   onOff.release = noEvent(if m_flowCondensor > 0 then 1.0 else 0.0);
   //QAsked = m_flowCondensor * medium.cp * (TCondensor_set - TCondensor_in);
@@ -109,19 +117,21 @@ equation
   PEl = onOff.y*PComp;
   prescribedHeatFlow.Q_flow = -onOff.y*QEvap;
 
-  connect(flowPort_a, evaporator.flowPort_a) annotation (Line(
+  connect(prim_in, evaporator.port_a) annotation (Line(
       points={{-40,-100},{-42,-100},{-42,-56},{-24,-56}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(evaporator.flowPort_b, flowPort_b) annotation (Line(
+  connect(evaporator.port_b, prim_out) annotation (Line(
       points={{-4,-56},{20,-56},{20,-100}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(prescribedHeatFlow.port, evaporator.heatPort) annotation (Line(
-      points={{-26,-24},{-14,-24},{-14,-46}},
+  connect(evaporator.heatPort, prescribedHeatFlow.port) annotation (Line(
+      points={{-14,-46},{-14,-24},{-26,-24}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Documentation(info="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics), Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;catalogue&nbsp;data&nbsp;from&nbsp;Viessmann&nbsp;for&nbsp;the&nbsp;vitocal&nbsp;300-G,&nbsp;type&nbsp;BW/BWC&nbsp;108&nbsp;(8kW&nbsp;nominal&nbsp;power at 0/35 degC) and the full heat pump is implemented as <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_BrineWater\">IDEAS.Thermal.Components.Production.HP_BrineWater</a> .</p>
 <p>First,&nbsp;the&nbsp;thermal&nbsp;power&nbsp;and&nbsp;electricity&nbsp;consumption&nbsp;are&nbsp;interpolated&nbsp;for&nbsp;the&nbsp;evaporator&nbsp;and&nbsp;condensing&nbsp;temperature.&nbsp;&nbsp;The&nbsp;results&nbsp;are&nbsp;rescaled&nbsp;to&nbsp;the&nbsp;nominal&nbsp;power&nbsp;of&nbsp;the&nbsp;modelled&nbsp;heatpump&nbsp;(with&nbsp;QNom/QNom_data)&nbsp;and&nbsp;stored&nbsp;in&nbsp;2&nbsp;different&nbsp;vectors,&nbsp;Q_vector&nbsp;and&nbsp;P_vector.</p>

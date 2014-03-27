@@ -29,7 +29,7 @@ model HeatSource_HP_AW
   
   */
   //protected
-  parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water()
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
   final parameter Modelica.SIunits.Power QNomRef=7177
     "Nominal power of the Daikin Altherma.  See datafile";
@@ -60,6 +60,7 @@ public
     "Condensor mass flow rate";
   input Modelica.SIunits.Temperature TEnvironment
     "Temperature of environment for heat losses";
+  input Modelica.SIunits.SpecificEnthalpy hIn "Specific enthalpy at the inlet";
 
   Modelica.Blocks.Tables.CombiTable2D P100(smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
       table=[0, -15, -10, -7, -2, 2, 7, 12, 18, 30; 30, 1.96, 2.026, 2.041,
@@ -136,7 +137,7 @@ public
 equation
   onOff.u = modulationInit;
   onOff.release = if noEvent(m_flowCondensor > 0) then 1.0 else 0.0;
-  QAsked = m_flowCondensor*medium.cp*(TCondensor_set - TCondensor_in);
+  QAsked = Annex60.Utilities.Math.Functions.smoothMax(0, m_flowCondensor*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TCondensor_set, Medium.X_default)) -hIn), 10);
   P100.u1 = heatPort.T - 273.15;
   P100.u2 = TEvaporator - 273.15;
   P90.u1 = heatPort.T - 273.15;
