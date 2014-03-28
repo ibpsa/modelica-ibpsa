@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Interfaces.Partials;
 partial model PumpTwoPort
   extends PartialTwoPort(vol(nPorts=2));
-  BaseClasses.IdealSource idealSource(redeclare package Medium = Medium)
+  IDEAS.Fluid.Interfaces.IdealSource idealSource(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{8,-10},{28,10}})));
 equation
   connect(idealSource.port_a, vol.ports[2]) annotation (Line(

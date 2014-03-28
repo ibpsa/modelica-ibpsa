@@ -2,7 +2,7 @@ within IDEAS.Fluid.Movers;
 model Pump_HeatPort
   "Prescribed mass flow rate, with heatPort for heat exchange."
 
-  extends IDEAS.Thermal.Components.BaseClasses.Pump;
+  extends IDEAS.Fluid.Movers.Pump;
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat exchange with environment" annotation (Placement(transformation(

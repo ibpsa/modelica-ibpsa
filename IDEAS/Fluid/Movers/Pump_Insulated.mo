@@ -2,7 +2,7 @@ within IDEAS.Fluid.Movers;
 model Pump_Insulated
   "Prescribed mass flow rate, with UA-value for environmental heat exchange."
 
-   extends IDEAS.Thermal.Components.BaseClasses.Pump;
+   extends IDEAS.Fluid.Movers.Pump;
 
   parameter SI.ThermalConductance UA "Thermal conductance of the insulation";
 

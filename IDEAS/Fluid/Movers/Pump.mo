@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Movers;
 model Pump "Prescribed mass flow rate, no heat exchange."
-  extends Thermal.Components.Interfaces.Partials.PumpTwoPort(idealSource(
+  extends IDEAS.Fluid.Interfaces.Partials.PumpTwoPort(idealSource(
         control_m_flow=true));
   parameter Boolean useInput=false "Enable / disable MassFlowRate input"
     annotation (Evaluate=true);
