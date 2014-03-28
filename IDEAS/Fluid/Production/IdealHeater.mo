@@ -12,9 +12,6 @@ model IdealHeater "Ideal heater, no losses to environment, unlimited power"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  IDEAS.Fluid.Sensors.Temperature senTem(redeclare package Medium = Medium)
-    "Inlet temperature"
-    annotation (Placement(transformation(extent={{-8,2},{-28,22}})));
   IDEAS.Utilities.Math.Max max(nin=2) "Maximum temperature"
     annotation (Placement(transformation(extent={{-72,40},{-52,60}})));
 equation
@@ -27,21 +24,17 @@ equation
       points={{-51,50},{-42,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senTem.T, max.u[1]) annotation (Line(
-      points={{-25,12},{-74,12},{-74,49}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TSet, max.u[2]) annotation (Line(
       points={{-106,0},{-90,0},{-90,51},{-74,51}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senTem.port, pipe_HeatPort.port_a) annotation (Line(
-      points={{-18,2},{-18,-18},{38,-18},{38,-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(prescribedTemperature.port, pipe_HeatPort.heatPort) annotation (Line(
       points={{-20,50},{28,50},{28,-6}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(Tin.T, max.u[1]) annotation (Line(
+      points={{64,-29},{30,-29},{30,-28},{-16,-28},{-16,28},{-74,28},{-74,49}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

@@ -69,6 +69,9 @@ model PartialDynamicHeaterWithLosses
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) "Fluid outlet"
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
+  IDEAS.Fluid.Sensors.TemperatureTwoPort Tin(redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal) "Inlet temperature"
+    annotation (Placement(transformation(extent={{74,-50},{54,-30}})));
 equation
 
   connect(mDry.port, thermalLosses.port_a) annotation (Line(
@@ -83,12 +86,16 @@ equation
       points={{-30,-30},{-32,-30},{-32,-6},{28,-6}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(port_a, pipe_HeatPort.port_a) annotation (Line(
-      points={{100,-40},{38,-40},{38,-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pipe_HeatPort.port_b, port_b) annotation (Line(
       points={{38,4},{38,40},{100,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_a, Tin.port_a) annotation (Line(
+      points={{100,-40},{74,-40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(Tin.port_b, pipe_HeatPort.port_a) annotation (Line(
+      points={{54,-40},{38,-40},{38,-16}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
