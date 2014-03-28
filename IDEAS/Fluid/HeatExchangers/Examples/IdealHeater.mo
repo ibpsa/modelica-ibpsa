@@ -43,8 +43,8 @@ model IdealHeater "Very basic hydraulic circuit with an IdealHeater"
     annotation (Placement(transformation(extent={{-82,-62},{-62,-42}})));
   Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
-    p=200000,
-    nPorts=1) annotation (Placement(transformation(extent={{-6,10},{-26,30}})));
+    nPorts=1,
+    p=200000) annotation (Placement(transformation(extent={{-14,10},{-34,30}})));
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
@@ -85,7 +85,7 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(bou.ports[1], heater.port_a) annotation (Line(
-      points={{-26,20},{-32,20},{-32,19.4545},{-56,19.4545}},
+      points={{-34,20},{-34,19.4545},{-56,19.4545}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(gain.u, pulse.y) annotation (Line(
@@ -101,7 +101,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(firstOrder.y, pump.m_flowSet) annotation (Line(
-      points={{16,51},{16,8},{-24,8},{-24,-4}},
+      points={{16,51},{16,4},{-24,4},{-24,-4}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
