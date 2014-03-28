@@ -1,37 +1,25 @@
 within IDEAS.Fluid.Valves;
-model ThreeWayValve "Temperature based ideal mixer"
+model ThreeWayValve "Ideal mixing point"
 
-  parameter Thermal.Data.Interfaces.Medium medium=Thermal.Data.Media.Water();
-
-public
-  Thermal.Components.Interfaces.FlowPort_a flowPort_a(medium=medium, h(
-      start=293.15*medium.cp,
-      min=1140947,
-      max=1558647)) annotation (Placement(transformation(extent={{-110,-10},{-90,
-            10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
-
-  Thermal.Components.Interfaces.FlowPort_a flowPort_b2(medium=medium, h(
-      start=293.15*medium.cp,
-      min=1140947,
-      max=1558647)) annotation (Placement(transformation(extent={{-10,-110},{10,
-            -90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
-
-  Thermal.Components.Interfaces.FlowPort_a flowPort_b1(medium=medium, h(
-      start=293.15*medium.cp,
-      min=1140947,
-      max=1558647)) annotation (Placement(transformation(extent={{90,-10},{110,
-            10}}), iconTransformation(extent={{90,-10},{110,10}})));
-
+  Modelica.Fluid.Interfaces.FluidPort_a port_a
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
-  connect(flowPort_a, flowPort_b1) annotation (Line(
+
+  connect(port_a, port_b) annotation (Line(
       points={{-100,0},{100,0}},
-      color={0,0,255},
+      color={0,127,255},
       smooth=Smooth.None));
-  connect(flowPort_a, flowPort_b2) annotation (Line(
-      points={{-100,0},{0,0},{0,-100}},
-      color={0,0,255},
+  connect(port_a1, port_b) annotation (Line(
+      points={{0,-100},{0,0},{100,0}},
+      color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics), Icon(graphics={
         Polygon(
           points={{-60,30},{-60,-30},{0,0},{-60,30}},
           lineColor={100,100,100},
@@ -69,5 +57,12 @@ equation
         Line(
           points={{0,-70},{0,-100}},
           color={0,0,127},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}),
+    Documentation(revisions="<html>
+<ul>
+<li>March 2014 by Filip Jorissen:<br/> 
+Annex60 compatibility
+</li>
+</ul>
+</html>"));
 end ThreeWayValve;
