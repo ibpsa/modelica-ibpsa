@@ -20,12 +20,6 @@ model PartialDynamicHeaterWithLosses
   final parameter Modelica.SIunits.ThermalConductance UALoss=(cDry + mWater*
       Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default,Medium.X_default)))/tauHeatLoss;
 
-  Thermal.Components.Interfaces.FlowPort_a port_a(redeclare package Medium =
-        Medium) "Fluid inlet " annotation (Placement(transformation(extent={{90,
-            -48},{110,-28}}), iconTransformation(extent={{90,-48},{110,-28}})));
-  Thermal.Components.Interfaces.FlowPort_b port_b(redeclare package Medium =
-        Medium) "Fluid outlet"
-    annotation (Placement(transformation(extent={{90,10},{110,30}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mDry(C=cDry, T(start=
           TInitial)) "Lumped dry mass subject to heat exchange/accumulation"
     annotation (Placement(transformation(
@@ -58,7 +52,7 @@ model PartialDynamicHeaterWithLosses
     annotation (__Dymola_choicesAllMatching=true);
   parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
   parameter SI.Pressure dp_nominal=0 "Pressure";
-  replaceable IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(
+  IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
@@ -66,12 +60,18 @@ model PartialDynamicHeaterWithLosses
     final V=mWater/Medium.density(Medium.setState_pTX(
         Medium.p_default,
         Medium.T_default,
-        Medium.X_default))) constrainedby
-    IDEAS.Fluid.FixedResistances.Pipe_HeatPort annotation (Placement(
+        Medium.X_default)))
+         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={38,-6})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
+        Medium) "Fluid inlet"
+    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
+        Medium) "Fluid outlet"
+    annotation (Placement(transformation(extent={{90,30},{110,50}})));
 equation
 
   connect(mDry.port, thermalLosses.port_a) annotation (Line(
@@ -82,17 +82,17 @@ equation
       points={{-30,-80},{-30,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(pipe_HeatPort.port_a, port_a) annotation (Line(
-      points={{38,-16},{38,-36},{100,-36},{100,-38}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pipe_HeatPort.port_b, port_b) annotation (Line(
-      points={{38,4},{38,20},{100,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(mDry.port, pipe_HeatPort.heatPort) annotation (Line(
       points={{-30,-30},{-32,-30},{-32,-6},{28,-6}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(port_a, pipe_HeatPort.port_a) annotation (Line(
+      points={{100,-40},{38,-40},{38,-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipe_HeatPort.port_b, port_b) annotation (Line(
+      points={{38,4},{38,40},{100,40}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,120}},
