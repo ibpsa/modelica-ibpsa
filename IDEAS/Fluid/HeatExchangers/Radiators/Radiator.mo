@@ -36,21 +36,21 @@ model Radiator "Simple 1-node radiator model according to EN 442"
   Modelica.SIunits.Power QHeatTotal=-heatPortCon.Q_flow - heatPortRad.Q_flow;
 
 protected
-  parameter Modelica.SIunits.MassFlowRate mFlowNom=QNom/medium.cp/(TInNom -
+  parameter Modelica.SIunits.MassFlowRate mFlowNom=QNom/Medium.specificHeatCapacityCp(state_default)/(TInNom -
       TOutNom) "nominal mass flowrate";
-
+  final Medium.ThermodynamicState state_default=Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default);
 equation
   dTRadRoo = max(0, TMean - heatPortCon.T);
   // mass balance
-  flowPort_a.m_flow + flowPort_b.m_flow = 0;
+  port_a.m_flow + port_b.m_flow = 0;
 
   // no pressure drop
-  flowPort_a.p = flowPort_b.p;
+  port_a.p = port_b.p;
 
   // fixing temperatures
 algorithm
-  if noEvent(flowPort_a.m_flow > mFlowNom/10) then
-    TIn := flowPort_a.h/medium.cp;
+  if noEvent(port_a.m_flow > mFlowNom/10) then
+    TIn := port_a.h/medium.cp;
     TOut := max(heatPortCon.T, 2*TMean - TIn);
   else
     TIn := TMean;
@@ -66,18 +66,18 @@ equation
 
   // energy balance
   // the mass is lumped to TMean!  TOut can be DIFFERENT from TMean (when there is a flowrate)
-  flowPort_a.H_flow + flowPort_b.H_flow + QTotal = (mMedium*medium.cp + mDry*
+  port_a.H_flow + port_b.H_flow + QTotal = (mMedium*medium.cp + mDry*
     cpDry)*der(TMean);
 
   // massflow a->b mixing rule at a, energy flow at b defined by medium's temperature
   // massflow b->a mixing rule at b, energy flow at a defined by medium's temperature
-  flowPort_a.H_flow = semiLinear(
-    flowPort_a.m_flow,
-    flowPort_a.h,
+  port_a.H_flow = semiLinear(
+    port_a.m_flow,
+    port_a.h,
     TOut*medium.cp);
-  flowPort_b.H_flow = semiLinear(
-    flowPort_b.m_flow,
-    flowPort_b.h,
+  port_b.H_flow = semiLinear(
+    port_b.m_flow,
+    port_b.h,
     TOut*medium.cp);
   annotation (Documentation(info="<html>
 <p><b>Description</b> </p>

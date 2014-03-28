@@ -5,6 +5,8 @@ partial model Partial_Emission
   parameter Boolean floorHeating "true if the emission has a floor heating";
   parameter Boolean radiators "true if the emission has a radiator";
 
+  extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort;
+
   // Interfaces ////////////////////////////////////////////////////////////////////////////////////////
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon if radiators
     "Convective heat transfer from radiators" annotation (Placement(
@@ -21,9 +23,6 @@ partial model Partial_Emission
     annotation (Placement(transformation(extent={{-60,48},{-40,68}}),
         iconTransformation(extent={{-60,48},{-40,68}})));
 
-  // Other parameters//////////////////////////////////////////////////////////////////////////////////////
-  parameter Modelica.SIunits.Temperature TInitial=293.15
-    "Initial temperature of all state variables";
   replaceable parameter
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.FH_Characteristics
     FHChars if floorHeating constrainedby
@@ -31,28 +30,6 @@ partial model Partial_Emission
     "Properties of the floor heating or TABS, if present"
     annotation (Dialog(enable=floorHeating));
 
-  // Variables ///////////////////////////////////////////////////////////////////////////////////////////
-  Modelica.SIunits.SpecificEnthalpy hMean(start=hInitial, fixed=false)
-    "Mean water specific enthalpy";
-  Modelica.SIunits.SpecificEnthalpy hIn(start=hInitial, fixed=false)
-    "Specific enthalpy of medium inflow through port_a";
-  Modelica.SIunits.SpecificEnthalpy hOut(start=hInitial, fixed=false)
-    "Specific enthalpy of medium outflow through port_b";
-
-protected
-  constant Modelica.SIunits.SpecificEnthalpy hInitial
-    "Initial specific enthalpy of the states, calculated from initial temperature in initial equation";
-
-public
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium
-    annotation (__Dymola_choicesAllMatching=true);
-  Modelica.Fluid.Interfaces.FluidPort_b port_b
-    annotation (Placement(transformation(extent={{130,6},{150,26}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a
-    annotation (Placement(transformation(extent={{-110,-84},{-90,-64}})));
-initial equation
-  hInitial = Medium.specificEnthalpy(Medium.setState_pTX(port_a.p,TInitial,Medium.X_default));
   annotation (
     Icon(coordinateSystem(extent={{-100,-100},{140,60}}, preserveAspectRatio=
             true), graphics={

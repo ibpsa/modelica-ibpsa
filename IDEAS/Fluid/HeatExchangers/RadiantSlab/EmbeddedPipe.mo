@@ -47,22 +47,22 @@ model EmbeddedPipe
         FHChars.A_Floor/R_x) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={46,0})));
+        origin={54,-46})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_r(G=
         FHChars.A_Floor/R_r) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={12,0})));
+        origin={20,-46})));
   IDEAS.HeatTransfer.VariableThermalConductor resistance_w annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-20,0})));
+        origin={-12,-46})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature theta_w
     "Average temperature in the pipe" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-54,0})));
+        origin={-46,-46})));
 
   //fixme: update documentation regarding information about used values for density and viscosity
 protected
@@ -73,10 +73,10 @@ protected
 public
   Modelica.Blocks.Sources.RealExpression conductance(y=FHChars.A_Floor/R_w)
     "Floor heating conductance"
-    annotation (Placement(transformation(extent={{-76,14},{-40,34}})));
+    annotation (Placement(transformation(extent={{-68,-32},{-32,-12}})));
   Modelica.Blocks.Sources.RealExpression T_water(y=Medium.temperature(
         state_medium)) "Average water temperature"
-    annotation (Placement(transformation(extent={{-98,-10},{-78,10}})));
+    annotation (Placement(transformation(extent={{-90,-56},{-70,-36}})));
 initial equation
   assert(rey > 2700,
     "The minimal flowrate leads to laminar flow.  Adapt the model (specifically R_w) to these conditions");
@@ -132,29 +132,27 @@ equation
   port_a.C_outflow=port_b.C_outflow;
 
   connect(resistance_r.port_b, resistance_x.port_a) annotation (Line(
-      points={{22,-1.22465e-015},{29,-1.22465e-015},{29,1.22465e-015},{36,
-          1.22465e-015}},
+      points={{30,-46},{44,-46}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(resistance_w.port_b, resistance_r.port_a) annotation (Line(
-      points={{-10,-1.22465e-015},{-4,-1.22465e-015},{-4,1.22465e-015},{2,
-          1.22465e-015}},
+      points={{-2,-46},{10,-46}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theta_w.port, resistance_w.port_a) annotation (Line(
-      points={{-44,0},{-38,0},{-38,1.22465e-015},{-30,1.22465e-015}},
+      points={{-36,-46},{-22,-46}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(resistance_x.port_b, heatPortEmb) annotation (Line(
-      points={{56,-1.22465e-015},{62,-1.22465e-015},{62,62},{-50,62},{-50,58}},
+      points={{64,-46},{72,-46},{72,62},{-50,62},{-50,58}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(T_water.y, theta_w.T) annotation (Line(
-      points={{-77,0},{-66,0}},
+      points={{-69,-46},{-58,-46}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conductance.y, resistance_w.G) annotation (Line(
-      points={{-38.2,24},{-36,24},{-36,6},{-30.8,6}},
+      points={{-30.2,-22},{-28,-22},{-28,-40},{-22.8,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
