@@ -38,9 +38,9 @@ model EmbeddedPipe
     m_flowMin*(FHChars.d_a - 2*FHChars.s_r)*Medium.density(state_default)/(
     Medium.dynamicViscosity(state_default)*Modelica.Constants.pi/4*(FHChars.d_a - 2*FHChars.s_r)^2)
     "Fix Reynolds number for assert of turbulent flow";
-  Real m_flowSp=flowPort_a.m_flow/FHChars.A_Floor "in kg/s.m2";
+  Real m_flowSp=port_a.m_flow/FHChars.A_Floor "in kg/s.m2";
   Real m_flowMinSp=m_flowMin/FHChars.A_Floor "in kg/s.m2";
-  Modelica.SIunits.Velocity flowSpeed=flowPort_a.m_flow/Medium.density(state_default)/(Modelica.Constants.pi
+  Modelica.SIunits.Velocity flowSpeed=port_a.m_flow/Medium.density(state_default)/(Modelica.Constants.pi
       /4*(FHChars.d_a - 2*FHChars.s_r)^2);
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_x(G=
@@ -95,8 +95,8 @@ initial equation
 
   //fixme: write this without algorithm?
 algorithm
-  if noEvent(abs(flowPort_a.m_flow) > m_flowMin/10) then
-    hIn := inStream(flowPort_a.h_outflow);
+  if noEvent(abs(port_a.m_flow) > m_flowMin/10) then
+    hIn := inStream(port_a.h_outflow);
     hMean := (hIn + hOut)/2;
     R_w := FHChars.T^0.13/8/Modelica.Constants.pi*abs(((FHChars.d_a - 2*FHChars.s_r)
       /(m_flowSp*L_r)))^0.87;
@@ -110,26 +110,26 @@ algorithm
 
 equation
   // fixme: X_default ok? -> mention in documentation
-  state_medium=Medium.setState_phX(flowPort_a.p, hMean, Medium.X_default);
+  state_medium=Medium.setState_phX(port_a.p, hMean, Medium.X_default);
 
   // mass balance
-  flowPort_a.m_flow + flowPort_b.m_flow = 0;
+  port_a.m_flow + port_b.m_flow = 0;
 
   // no pressure drop
-  flowPort_a.p = flowPort_b.p;
+  port_a.p = port_b.p;
 
   // energy balance
   //fixme: is this approximation correct? can a mixingvolume be used instead?
   // the mass is lumped to hOut!  TOut will be DIFFERENT from TMean (when there is a flowrate)
-  inStream(flowPort_a.h_outflow)*flowPort_a.m_flow + flowPort_b.h_outflow*flowPort_b.m_flow + theta_w.port.Q_flow = mMedium*der(hOut);
+  inStream(port_a.h_outflow)*port_a.m_flow + port_b.h_outflow*port_b.m_flow + theta_w.port.Q_flow = mMedium*der(hOut);
 
   //fixme: only for one-directional flow -> ok in documentation?
   //fixme: zero flow ok?
   //fixme: line below is not ok for reversed flow
-  flowPort_a.h_outflow=hOut;
-  flowPort_a.h_outflow=flowPort_b.h_outflow;
-  flowPort_a.Xi_outflow=flowPort_b.Xi_outflow;
-  flowPort_a.C_outflow=flowPort_b.C_outflow;
+  port_a.h_outflow=hOut;
+  port_a.h_outflow=port_b.h_outflow;
+  port_a.Xi_outflow=port_b.Xi_outflow;
+  port_a.C_outflow=port_b.C_outflow;
 
   connect(resistance_r.port_b, resistance_x.port_a) annotation (Line(
       points={{22,-1.22465e-015},{29,-1.22465e-015},{29,1.22465e-015},{36,

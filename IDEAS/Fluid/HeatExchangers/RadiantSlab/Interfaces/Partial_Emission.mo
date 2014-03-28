@@ -35,31 +35,24 @@ partial model Partial_Emission
   Modelica.SIunits.SpecificEnthalpy hMean(start=hInitial, fixed=false)
     "Mean water specific enthalpy";
   Modelica.SIunits.SpecificEnthalpy hIn(start=hInitial, fixed=false)
-    "Specific enthalpy of medium inflow through flowPort_a";
+    "Specific enthalpy of medium inflow through port_a";
   Modelica.SIunits.SpecificEnthalpy hOut(start=hInitial, fixed=false)
-    "Specific enthalpy of medium outflow through flowPort_b";
+    "Specific enthalpy of medium outflow through port_b";
 
 protected
   constant Modelica.SIunits.SpecificEnthalpy hInitial
     "Initial specific enthalpy of the states, calculated from initial temperature in initial equation";
 
-  Thermal.Components.Interfaces.FlowPort_a flowPort_a(redeclare package Medium
-      = Medium) "Fluid inlet"
-                annotation (Placement(
-        transformation(extent={{-110,-80},{-90,-60}}), iconTransformation(
-          extent={{-110,-80},{-90,-60}})));
-  Thermal.Components.Interfaces.FlowPort_b flowPort_b(redeclare package Medium
-      = Medium) "Fluid outlet"
-                 annotation (Placement(
-        transformation(extent={{130,20},{150,40}}), iconTransformation(extent={
-            {130,20},{150,40}})));
-
 public
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
+  Modelica.Fluid.Interfaces.FluidPort_b port_b
+    annotation (Placement(transformation(extent={{130,6},{150,26}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a
+    annotation (Placement(transformation(extent={{-110,-84},{-90,-64}})));
 initial equation
-  hInitial = Medium.specificEnthalpy(Medium.setState_pTX(flowPort_a.p,TInitial,Medium.X_default));
+  hInitial = Medium.specificEnthalpy(Medium.setState_pTX(port_a.p,TInitial,Medium.X_default));
   annotation (
     Icon(coordinateSystem(extent={{-100,-100},{140,60}}, preserveAspectRatio=
             true), graphics={
@@ -87,7 +80,7 @@ initial equation
 <p><h4>Assumptions and limitations </h4></p>
 <p><ol>
 <li>Defines 3 thermal ports: one for embedded systems, and two for stand-alone heat emission systems</li>
-<li>Defines an inlet and outlet flowPort, but no dynamics nor equations are predefined in this partial class.</li>
+<li>Defines an inlet and outlet port, but no dynamics nor equations are predefined in this partial class.</li>
 <li>Defines variables TIn, TOut and TMean, the medium and the initial temperature TInitial.</li>
 </ol></p>
 <p><h4>Model use</h4></p>
