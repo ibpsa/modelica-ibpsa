@@ -1,12 +1,12 @@
 within IDEAS.Fluid.FixedResistances;
 model Pipe "Pipe without heat exchange"
 
-  extends Thermal.Components.Interfaces.Partials.TwoPort;
+  extends IDEAS.Fluid.Interfaces.Partials.TwoPort;
 
 equation
   Q_flow = 0;
   // pressure drop = none
-  flowPort_a.p = flowPort_b.p;
+  port_a.p = port_b.p;
   annotation (
     Documentation(info="<html>
 <p><b>Description</b> </p>
