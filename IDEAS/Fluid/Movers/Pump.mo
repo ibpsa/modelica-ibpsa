@@ -12,7 +12,7 @@ model Pump "Prescribed mass flow rate, no heat exchange."
   Modelica.Blocks.Interfaces.RealInput m_flowSet(
     start=0,
     min=0,
-    max=1) if useInput annotation (Placement(transformation(
+    max=1) = m_flow_pump if useInput annotation (Placement(transformation(
         origin={0,100},
         extent={{-10,-10},{10,10}},
         rotation=270)));
