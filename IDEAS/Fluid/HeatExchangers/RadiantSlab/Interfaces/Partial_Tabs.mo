@@ -11,12 +11,6 @@ partial model Partial_Tabs "Partial tabs model"
     "Minimal flowrate when in operation";
   parameter Modelica.SIunits.Area A_Floor=1 "Total Surface of the TABS";
 
-  Thermal.Components.Interfaces.FlowPort_a flowPort_a(redeclare package Medium
-      = Medium)
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-  Thermal.Components.Interfaces.FlowPort_b flowPort_b(redeclare package Medium
-      = Medium)
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_b
@@ -25,6 +19,12 @@ partial model Partial_Tabs "Partial tabs model"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium =
+        Medium)
+    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium =
+        Medium)
+    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics), Documentation(info="<html>
