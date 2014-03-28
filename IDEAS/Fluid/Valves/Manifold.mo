@@ -1,62 +1,61 @@
 within IDEAS.Fluid.Valves;
 model Manifold "Radiant manifold"
-
-  parameter Thermal.Data.Interfaces.Medium medium=Thermal.Data.Interfaces.Medium()
-    "Medium in the component" annotation (choicesAllMatching=true);
-
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    annotation (__Dymola_choicesAllMatching=true);
   parameter Boolean[6] open={true,true,true,true,true,true};
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_a flowPort_a(medium=medium)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,40},{-90,60}}, rotation=
             0), iconTransformation(extent={{-110,40},{-90,60}})));
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b1(medium=medium) if
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium = Medium)
+    if
     open[1] annotation (Placement(transformation(extent={{-48,-50},{-28,-30}},
           rotation=0), iconTransformation(extent={{-80,-50},{-60,-30}})));
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b2(medium=medium) if
+  Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium = Medium)
+    if
     open[2] annotation (Placement(transformation(extent={{-30,-50},{-10,-30}},
           rotation=0), iconTransformation(extent={{-40,-50},{-20,-30}})));
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b3(medium=medium) if
+  Modelica.Fluid.Interfaces.FluidPort_b port_b3(redeclare package Medium = Medium)
+    if
     open[3] annotation (Placement(transformation(extent={{-10,-50},{10,-30}},
           rotation=0), iconTransformation(extent={{0,-50},{20,-30}})));
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b4(medium=medium) if
+  Modelica.Fluid.Interfaces.FluidPort_b port_b4(redeclare package Medium = Medium)
+    if
     open[4] annotation (Placement(transformation(extent={{10,-50},{30,-30}},
           rotation=0), iconTransformation(extent={{40,-50},{60,-30}})));
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b5(medium=medium) if
+  Modelica.Fluid.Interfaces.FluidPort_b port_b5(redeclare package Medium = Medium)
+    if
     open[5] annotation (Placement(transformation(extent={{30,-50},{50,-30}},
           rotation=0), iconTransformation(extent={{80,-50},{100,-30}})));
 
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPort_b6(medium=medium) if
+  Modelica.Fluid.Interfaces.FluidPort_b port_b6(redeclare package Medium = Medium)
+    if
     open[6] annotation (Placement(transformation(extent={{50,-50},{70,-30}},
           rotation=0), iconTransformation(extent={{120,-50},{140,-30}})));
+
 equation
-  connect(flowPort_a, flowPort_b1) annotation (Line(
+  connect(port_a, port_b1) annotation (Line(
       points={{-100,50},{-100,-40},{-38,-40}},
-      color={255,0,0},
       smooth=Smooth.None));
-  connect(flowPort_a, flowPort_b2) annotation (Line(
+  connect(port_a, port_b2) annotation (Line(
       points={{-100,50},{-20,50},{-20,-40}},
-      color={255,0,0},
       smooth=Smooth.None));
-  connect(flowPort_a, flowPort_b3) annotation (Line(
-      points={{-100,50},{0,50},{0,-40},{0,-40}},
-      color={255,0,0},
+  connect(port_a, port_b3) annotation (Line(
+      points={{-100,50},{0,50},{0,-40}},
       smooth=Smooth.None));
-  connect(flowPort_a, flowPort_b4) annotation (Line(
+  connect(port_a, port_b4) annotation (Line(
       points={{-100,50},{20,50},{20,-40}},
-      color={255,0,0},
       smooth=Smooth.None));
-  connect(flowPort_a, flowPort_b5) annotation (Line(
+  connect(port_a, port_b5) annotation (Line(
       points={{-100,50},{40,50},{40,-40}},
-      color={255,0,0},
       smooth=Smooth.None));
-  connect(flowPort_a, flowPort_b6) annotation (Line(
+  connect(port_a, port_b6) annotation (Line(
       points={{-100,50},{60,50},{60,-40}},
-      color={255,0,0},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(extent={{-100,-40},{160,60}},
           preserveAspectRatio=true), graphics={
@@ -187,6 +186,14 @@ equation
         Line(
           points={{160,60},{160,40}},
           color={0,0,127},
-          smooth=Smooth.None)}), Diagram(coordinateSystem(extent={{-100,-40},{
-            160,60}}), graphics));
+          smooth=Smooth.None)}), Diagram(coordinateSystem(extent={{-100,-40},{160,
+            60}}, preserveAspectRatio=false),
+                       graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>March 2014 by Filip Jorissen:<br/> 
+Annex60 compatibility
+</li>
+</ul>
+</html>"));
 end Manifold;
