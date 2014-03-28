@@ -3,42 +3,38 @@ model OpenHydraulicSystem "Illustrate the use of the ambient model"
   import IDEAS;
 
   extends Modelica.Icons.Example;
-
-  parameter Thermal.Data.Interfaces.Medium medium=Thermal.Data.Media.Water();
-  IDEAS.BaseClasses.Ambient1 ambient(
-    medium=medium,
-    constantAmbientPressure=200000,
-    constantAmbientTemperature=283.15)
-    annotation (Placement(transformation(extent={{-56,0},{-76,20}})));
+  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
+    annotation (__Dymola_choicesAllMatching=true);
   Fluid.FixedResistances.Pipe_Insulated heatedPipe(
-    medium=medium,
     m=5,
-    UA=10) annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    UA=10,
+    redeclare package Medium = Medium)
+           annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Fluid.Movers.Pump pump(
-    medium=medium,
     m=4,
-    m_flowNom=0.1)
+    m_flow_nominal=0.1,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  IDEAS.BaseClasses.Ambient1 ambient1(
-    medium=medium,
-    constantAmbientPressure=600000,
-    constantAmbientTemperature=313.15)
-    annotation (Placement(transformation(extent={{66,0},{86,20}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
-        298.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=298.15)
     annotation (Placement(transformation(extent={{-52,-46},{-32,-26}})));
+  IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=2, redeclare package Medium =
+        Medium,
+    p=200000,
+    T=283.15)
+    annotation (Placement(transformation(extent={{-82,0},{-62,20}})));
+
 equation
-  connect(ambient.flowPort, heatedPipe.flowPort_a) annotation (Line(
-      points={{-56,10},{-20,10}},
-      color={255,0,0},
-      smooth=Smooth.None));
-  connect(heatedPipe.flowPort_b, pump.flowPort_a) annotation (Line(
+  connect(heatedPipe.port_b, pump.port_a) annotation (Line(
       points={{0,10},{20,10}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(ambient1.flowPort, pump.flowPort_b) annotation (Line(
-      points={{66,10},{40,10}},
-      color={255,0,0},
+  connect(bou.ports[1], heatedPipe.port_a) annotation (Line(
+      points={{-62,12},{-42,12},{-42,10},{-20,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pump.port_b, bou.ports[2]) annotation (Line(
+      points={{40,10},{48,10},{48,36},{-62,36},{-62,8}},
+      color={0,127,255},
       smooth=Smooth.None));
   connect(fixedTemperature.port, heatedPipe.heatPort) annotation (Line(
       points={{-32,-36},{-10,-36},{-10,0}},
