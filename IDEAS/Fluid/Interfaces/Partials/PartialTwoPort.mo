@@ -42,24 +42,12 @@ partial model PartialTwoPort
     final V=m/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default)))
     annotation (Placement(transformation(extent={{-44,0},{-64,20}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
-    annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=Q_flow)
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
   parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
     annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
 
 equation
-  connect(prescribedHeatFlow.port, vol.heatPort) annotation (Line(
-      points={{-50,80},{-42,80},{-42,10},{-44,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(realExpression.y, prescribedHeatFlow.Q_flow) annotation (Line(
-      points={{-79,80},{-70,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(port_a, vol.ports[1]) annotation (Line(
       points={{-100,0},{-78,0},{-78,0},{-54,0}},
       color={0,127,255},
