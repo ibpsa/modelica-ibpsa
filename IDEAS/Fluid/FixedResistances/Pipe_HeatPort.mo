@@ -72,8 +72,7 @@ equation
 </ul></p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}),                                                                              graphics={Text(extent={{
-              -144,-12},{156,-72}},                                                                                                    textString =         "%name"),Polygon(          points={{
+            100}}),                                                                              graphics={                                                          Polygon(          points={{
               -10,-35},{-10,15},{0,35},{10,15},{10,-35},{-10,-35}},                                                                                                    lineColor={255,0,0},
             fillPattern =                                                                                                   FillPattern.Forward,          fillColor={255,255,255},
           origin={0,55},
