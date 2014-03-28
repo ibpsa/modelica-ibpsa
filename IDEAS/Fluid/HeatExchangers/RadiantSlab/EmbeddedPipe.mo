@@ -4,7 +4,8 @@ model EmbeddedPipe
   import IDEAS;
 
   extends
-    IDEAS.Fluid.HeatExchangers.RadiantSlab.Interfaces.Partial_EmbeddedPipe;
+    IDEAS.Fluid.HeatExchangers.RadiantSlab.Interfaces.Partial_EmbeddedPipe(m=Modelica.Constants.pi/4*(
+      FHChars.d_a - 2*FHChars.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default));
 
   // General model parameters ////////////////////////////////////////////////////////////////
   // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
@@ -30,9 +31,6 @@ model EmbeddedPipe
     "Fix resistance of thermal conduction from pipe wall to layer";
 
   // Auxiliary parameters and variables ////////////////////////////////////////////////////////////////
-  final parameter Modelica.SIunits.Mass mMedium=Modelica.Constants.pi/4*(
-      FHChars.d_a - 2*FHChars.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
-    "Mass of the water in the tube";
 
   final parameter Real rey=
     m_flowMin*(FHChars.d_a - 2*FHChars.s_r)*Medium.density(state_default)/(
@@ -47,36 +45,27 @@ model EmbeddedPipe
         FHChars.A_Floor/R_x) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={54,-46})));
+        origin={56,24})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resistance_r(G=
         FHChars.A_Floor/R_r) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={20,-46})));
+        origin={22,24})));
   IDEAS.HeatTransfer.VariableThermalConductor resistance_w annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-12,-46})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature theta_w
-    "Average temperature in the pipe" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-46,-46})));
+        origin={-10,24})));
 
   //fixme: update documentation regarding information about used values for density and viscosity
 protected
   constant Medium.ThermodynamicState state_default= Medium.setState_pTX(Medium.p_default, TInitial, Medium.X_default)
     "Default state for calculation of density, viscosity, ...";
-  Medium.ThermodynamicState state_medium
-    "State of the medium in the control volume";
+
 public
   Modelica.Blocks.Sources.RealExpression conductance(y=FHChars.A_Floor/R_w)
     "Floor heating conductance"
-    annotation (Placement(transformation(extent={{-68,-32},{-32,-12}})));
-  Modelica.Blocks.Sources.RealExpression T_water(y=Medium.temperature(
-        state_medium)) "Average water temperature"
-    annotation (Placement(transformation(extent={{-90,-56},{-70,-36}})));
+    annotation (Placement(transformation(extent={{-92,20},{-36,40}})));
 initial equation
   assert(rey > 2700,
     "The minimal flowrate leads to laminar flow.  Adapt the model (specifically R_w) to these conditions");
@@ -93,71 +82,37 @@ initial equation
     assert(FHChars.S_1/FHChars.T <0.3, "In order to use the floor heating model, FHChars.S_1/FHChars.T <0.3 needs to be true");
   end if;
 
-  //fixme: write this without algorithm?
-algorithm
-  if noEvent(abs(port_a.m_flow) > m_flowMin/10) then
-    hIn := inStream(port_a.h_outflow);
-    hMean := (hIn + hOut)/2;
-    R_w := FHChars.T^0.13/8/Modelica.Constants.pi*abs(((FHChars.d_a - 2*FHChars.s_r)
-      /(m_flowSp*L_r)))^0.87;
-    //assert(noEvent(flowSpeed >= 0.05), "Attention, flowSpeed in the floorheating is smaller than 0.05 m/s");
-    //assert(noEvent(flowSpeed <= 0.5), "Attention, flowSpeed in the floorheating is larger than 0.5 m/s");
-  else
-    hIn := hOut;
-    hMean := hOut;
-    R_w := FHChars.T/(200*(FHChars.d_a - 2*FHChars.s_r)*Modelica.Constants.pi);
-  end if;
-
 equation
-  // fixme: X_default ok? -> mention in documentation
-  state_medium=Medium.setState_phX(port_a.p, hMean, Medium.X_default);
+  R_w = if noEvent(abs(port_a.m_flow) > m_flowMin/10) then
+  FHChars.T^0.13/8/Modelica.Constants.pi*abs(((FHChars.d_a - 2*FHChars.s_r)
+      /(m_flowSp*L_r)))^0.87 else
+      FHChars.T/(200*(FHChars.d_a - 2*FHChars.s_r)*Modelica.Constants.pi);
 
-  // mass balance
-  port_a.m_flow + port_b.m_flow = 0;
-
-  // no pressure drop
-  port_a.p = port_b.p;
-
-  // energy balance
-  //fixme: is this approximation correct? can a mixingvolume be used instead?
-  // the mass is lumped to hOut!  TOut will be DIFFERENT from TMean (when there is a flowrate)
-  inStream(port_a.h_outflow)*port_a.m_flow + port_b.h_outflow*port_b.m_flow + theta_w.port.Q_flow = mMedium*der(hOut);
-
-  //fixme: only for one-directional flow -> ok in documentation?
-  //fixme: zero flow ok?
-  //fixme: line below is not ok for reversed flow
-  port_a.h_outflow=hOut;
-  port_a.h_outflow=port_b.h_outflow;
-  port_a.Xi_outflow=port_b.Xi_outflow;
-  port_a.C_outflow=port_b.C_outflow;
+  Q_flow= -theta_w.port.Q_flow;
 
   connect(resistance_r.port_b, resistance_x.port_a) annotation (Line(
-      points={{30,-46},{44,-46}},
+      points={{32,24},{46,24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(resistance_w.port_b, resistance_r.port_a) annotation (Line(
-      points={{-2,-46},{10,-46}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(theta_w.port, resistance_w.port_a) annotation (Line(
-      points={{-36,-46},{-22,-46}},
+      points={{0,24},{12,24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(resistance_x.port_b, heatPortEmb) annotation (Line(
-      points={{64,-46},{72,-46},{72,62},{-50,62},{-50,58}},
+      points={{66,24},{72,24},{72,46},{-50,46},{-50,58}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(T_water.y, theta_w.T) annotation (Line(
-      points={{-69,-46},{-58,-46}},
+  connect(conductance.y, resistance_w.G) annotation (Line(
+      points={{-33.2,30},{-20.8,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conductance.y, resistance_w.G) annotation (Line(
-      points={{-30.2,-22},{-28,-22},{-28,-40},{-22.8,-40}},
-      color={0,0,127},
+  connect(resistance_w.port_a, vol.heatPort) annotation (Line(
+      points={{-20,24},{-38,24},{-38,10},{-44,10}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,
-            60}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            140,60}}),
             graphics),
     Icon(graphics),
     Documentation(info="<html>
