@@ -56,14 +56,13 @@ model Thermostatic3WayValve "Thermostatic 3-way valve"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,-28})));
-
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate";
 protected
   Modelica.SIunits.MassFlowRate m_flowMixed=-fluid_out.m_flow
     "mass flowrate of the mixed flow";
   Modelica.SIunits.MassFlowRate m_flowCold(min=0)
     "mass flowrate of cold water to the mixing point";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate";
 
 equation
   if noEvent(inStream(fluid_hot.h_outflow) < h_set) then
