@@ -1,4 +1,4 @@
-within IDEAS.Thermal.Components.BaseClasses;
+within IDEAS.HeatTransfer;
 model VariableThermalConductor
   "Thermal conductor (lumped) with conductance (G-value) as input"
   extends Modelica.Thermal.HeatTransfer.Interfaces.Element1D;
