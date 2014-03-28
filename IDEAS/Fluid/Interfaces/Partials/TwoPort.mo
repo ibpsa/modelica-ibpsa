@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Interfaces.Partials;
 partial model TwoPort "Partial model of two port"
   extends IDEAS.Fluid.Interfaces.Partials.PartialTwoPort(vol(nPorts=2));
-
+  Modelica.SIunits.HeatFlowRate Q_flow(start=0) "Heat exchange with ambient";
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=Q_flow)

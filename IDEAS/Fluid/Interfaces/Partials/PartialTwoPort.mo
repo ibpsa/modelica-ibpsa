@@ -13,7 +13,6 @@ partial model PartialTwoPort
   parameter Modelica.SIunits.Temperature TInitial=293.15
     "Initial temperature of all Temperature states";
 
-  Modelica.SIunits.HeatFlowRate Q_flow(start=0) "Heat exchange with ambient";
  // Modelica.SIunits.Temperature T(start=TInitial) "Outlet temperature of medium";
 //  Modelica.SIunits.Temperature T_a(start=TInitial) = flowPort_a.h/medium.cp
  //   "Temperature at flowPort_a";
@@ -41,7 +40,6 @@ partial model PartialTwoPort
     nPorts=1,
     final V=m/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default)))
     annotation (Placement(transformation(extent={{-44,0},{-64,20}})));
-
 
   parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
