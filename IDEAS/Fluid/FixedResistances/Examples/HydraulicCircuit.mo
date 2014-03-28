@@ -12,7 +12,8 @@ model HydraulicCircuit
     useInput=true,
     m_flow_nominal=0.5,
     m=0,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
          annotation (Placement(transformation(extent={{-36,28},{-16,48}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe1(
     m=5,
@@ -28,7 +29,8 @@ model HydraulicCircuit
     m_flow_nominal=0.5,
     useInput=true,
     m=0,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
          annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe2(
     m = 5,
