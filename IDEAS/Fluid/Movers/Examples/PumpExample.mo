@@ -3,12 +3,12 @@ model PumpExample "Example of how a pump can be used"
   import IDEAS;
   extends Modelica.Icons.Example;
 
-  IDEAS.BaseClasses.Pump pump(redeclare package Medium = Medium, m_flow_nominal
-      =1) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Annex60.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
+  IDEAS.Fluid.Movers.Pump pump(redeclare package Medium = Medium, m_flow_nominal=
+       1) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
-  Annex60.Fluid.Sources.Boundary_pT bou1(nPorts=1, redeclare package Medium =
+  IDEAS.Fluid.Sources.Boundary_pT bou1(nPorts=1, redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{68,-10},{48,10}})));
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
