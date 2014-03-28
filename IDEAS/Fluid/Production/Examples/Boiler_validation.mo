@@ -3,27 +3,25 @@ model Boiler_validation "Validation model for the boiler"
 
   extends Modelica.Icons.Example;
 
-  Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
-        Thermal.Data.Media.Water(),
-                            p=200000)
-    annotation (Placement(transformation(extent={{-38,-32},{-18,-12}})));
   Fluid.Movers.Pump pump(
-    medium=Thermal.Data.Media.Water(),
     m=1,
-    m_flowNom=1300/3600,
-    useInput=true)
+    m_flow_nominal=1300/3600,
+    useInput=true,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{8,-56},{-12,-36}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe(
-    medium=Thermal.Data.Media.Water(),
     m=5,
+    redeclare package Medium = Medium,
+    m_flow_nominal=1300/3600,
     TInitial=313.15)
-    annotation (Placement(transformation(extent={{-10,18},{10,-2}})));
+    annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
   IDEAS.Fluid.Production.Boiler heater(
-    medium=Thermal.Data.Media.Water(),
     QNom=5000,
     tauHeatLoss=3600,
     mWater=10,
-    cDry=10000)
+    cDry=10000,
+    redeclare package Medium = Medium,
+    m_flow_nominal=1300/3600)
     annotation (Placement(transformation(extent={{-70,-16},{-50,4}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
@@ -49,9 +47,18 @@ model Boiler_validation "Validation model for the boiler"
     offset=273.15 + 50,
     startTime=20000)
     annotation (Placement(transformation(extent={{-76,24},{-56,44}})));
+  Sources.Boundary_pT bou(
+    nPorts=1,
+    redeclare package Medium = Medium,
+    p=200000)
+    annotation (Placement(transformation(extent={{-12,-32},{-32,-12}})));
+  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
+    annotation (__Dymola_choicesAllMatching=true);
+  Modelica.Blocks.Math.Gain gain(k=1/1300)
+    annotation (Placement(transformation(extent={{-14,70},{6,90}})));
 equation
   heater.TSet = 273.15 + 82;
-  pump.m_flowSet = pulse.y/1300;
+
   //   der(PElLossesInt) = HP.PEl;
   //   der(PElNoLossesInt) = HP_NoLosses.PEl;
   //   der(QUsefulLossesInt) =thermalConductor.port_b.Q_flow;
@@ -64,34 +71,41 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(TReturn.port, pipe.heatPort) annotation (Line(
-      points={{-14,34},{0,34},{0,-2}},
+      points={{-14,34},{0,34},{0,18}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sine.y, TReturn.T) annotation (Line(
       points={{-55,34},{-36,34}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heater.flowPort_b, pipe.flowPort_a) annotation (Line(
-      points={{-50,-5.09091},{-50,8},{-10,8}},
+  connect(heater.port_b, pipe.port_a) annotation (Line(
+      points={{-50,-3.27273},{-50,8},{-10,8}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(pipe.flowPort_b, pump.flowPort_a) annotation (Line(
+  connect(pipe.port_b, pump.port_a) annotation (Line(
       points={{10,8},{48,8},{48,-46},{8,-46}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(pump.flowPort_b, heater.flowPort_a) annotation (Line(
-      points={{-12,-46},{-50,-46},{-50,-10.3636}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(heater.flowPort_a, absolutePressure.flowPort) annotation (Line(
-      points={{-50,-10.3636},{-46,-10.3636},{-46,-10},{-44,-10},{-44,-22},{-38,
-          -22}},
+  connect(pump.port_b, heater.port_a) annotation (Line(
+      points={{-12,-46},{-50,-46},{-50,-10.5455}},
       color={0,0,255},
       smooth=Smooth.None));
 
+  connect(bou.ports[1], heater.port_a) annotation (Line(
+      points={{-32,-22},{-42,-22},{-42,-10.5455},{-50,-10.5455}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pulse.y, gain.u) annotation (Line(
+      points={{-29,82},{-24,82},{-24,80},{-16,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gain.y, pump.m_flowSet) annotation (Line(
+      points={{7,80},{18,80},{18,-36},{-2,-36}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics),
     experiment(StopTime=40000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

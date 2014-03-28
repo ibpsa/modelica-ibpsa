@@ -57,10 +57,7 @@ model PartialDynamicHeaterWithLosses
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     T_start=TInitial,
-    final V=mWater/Medium.density(Medium.setState_pTX(
-        Medium.p_default,
-        Medium.T_default,
-        Medium.X_default)))
+    m=mWater)
          annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
