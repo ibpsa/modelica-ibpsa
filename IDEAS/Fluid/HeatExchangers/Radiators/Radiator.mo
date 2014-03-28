@@ -38,47 +38,29 @@ model Radiator "Simple 1-node radiator model according to EN 442"
 protected
   parameter Modelica.SIunits.MassFlowRate mFlowNom=QNom/Medium.specificHeatCapacityCp(state_default)/(TInNom -
       TOutNom) "nominal mass flowrate";
-  final Medium.ThermodynamicState state_default=Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default);
+  constant Medium.ThermodynamicState state_default=Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default);
+public
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+    annotation (Placement(transformation(extent={{0,16},{-20,36}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=QTotal)
+    annotation (Placement(transformation(extent={{42,16},{22,36}})));
 equation
-  dTRadRoo = max(0, TMean - heatPortCon.T);
-  // mass balance
-  port_a.m_flow + port_b.m_flow = 0;
+  dTRadRoo = max(0, vol.heatPort.T - heatPortCon.T);
 
-  // no pressure drop
-  port_a.p = port_b.p;
-
-  // fixing temperatures
-algorithm
-  if noEvent(port_a.m_flow > mFlowNom/10) then
-    TIn := port_a.h/medium.cp;
-    TOut := max(heatPortCon.T, 2*TMean - TIn);
-  else
-    TIn := TMean;
-    TOut := TMean;
-  end if;
-
-equation
   // radiator equation
   QTotal = -UA*(dTRadRoo)^n;
   // negative for heat emission!
   heatPortCon.Q_flow = QTotal*(1 - fraRad);
   heatPortRad.Q_flow = QTotal*fraRad;
 
-  // energy balance
-  // the mass is lumped to TMean!  TOut can be DIFFERENT from TMean (when there is a flowrate)
-  port_a.H_flow + port_b.H_flow + QTotal = (mMedium*medium.cp + mDry*
-    cpDry)*der(TMean);
-
-  // massflow a->b mixing rule at a, energy flow at b defined by medium's temperature
-  // massflow b->a mixing rule at b, energy flow at a defined by medium's temperature
-  port_a.H_flow = semiLinear(
-    port_a.m_flow,
-    port_a.h,
-    TOut*medium.cp);
-  port_b.H_flow = semiLinear(
-    port_b.m_flow,
-    port_b.h,
-    TOut*medium.cp);
+  connect(prescribedHeatFlow.port, vol.heatPort) annotation (Line(
+      points={{-20,26},{-20,10},{-44,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(realExpression.y, prescribedHeatFlow.Q_flow) annotation (Line(
+      points={{21,26},{0,26}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Simplified dynamic radiator model, not discretized, based on EN&nbsp;442-2. </p>
@@ -128,5 +110,7 @@ equation
         Rectangle(extent={{-4,-100},{18,60}}, lineColor={135,135,135}),
         Rectangle(extent={{26,-100},{48,60}}, lineColor={135,135,135}),
         Rectangle(extent={{54,-100},{76,60}}, lineColor={135,135,135}),
-        Rectangle(extent={{82,-100},{104,60}}, lineColor={135,135,135})}));
+        Rectangle(extent={{82,-100},{104,60}}, lineColor={135,135,135})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,
+            60}}), graphics));
 end Radiator;
