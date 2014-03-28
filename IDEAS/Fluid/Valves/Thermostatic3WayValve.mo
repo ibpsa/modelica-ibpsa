@@ -1,9 +1,8 @@
 within IDEAS.Fluid.Valves;
 model Thermostatic3WayValve "Thermostatic 3-way valve"
-
-  parameter Thermal.Data.Interfaces.Medium medium=Thermal.Data.Media.Water();
-  parameter Modelica.SIunits.Mass m=1 "Fluid content of the mixing valve";
-  parameter Modelica.SIunits.MassFlowRate mFlowMin=0.01
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+  parameter Modelica.SIunits.Mass m = 1 "Fluid content of the mixing valve";
+  parameter Modelica.SIunits.MassFlowRate mFlowMin=0.01*m_flow_nominal
     "Minimum outlet flowrate for mixing to start";
   Modelica.Blocks.Interfaces.RealInput TMixedSet
     "Mixed outlet temperature setpoint" annotation (Placement(transformation(
@@ -14,97 +13,94 @@ model Thermostatic3WayValve "Thermostatic 3-way valve"
         rotation=90,
         origin={0,100})));
 
-  Modelica.SIunits.Temperature TCold=pumpCold.T;
-  Modelica.SIunits.Temperature THot=mixingVolumeHot.T
-    "Temperature of the hot source";
-  Modelica.SIunits.Temperature TMixed(start=273.15 + 20) = flowPortMixed.h/
-    medium.cp "Temperature of the mixed water";
+  Modelica.SIunits.SpecificEnthalpy h_set = Medium.specificEnthalpy(Medium.setState_pTX(fluid_hot.p, TMixedSet, Medium.X_default))
+    "Specific enthalpy of the temperature setpoint";
+  Modelica.Fluid.Interfaces.FluidPort_a fluid_hot(redeclare package Medium =
+        Medium) "Hot fluid inlet"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Modelica.Fluid.Interfaces.FluidPort_a fluid_cold(redeclare package Medium =
+        Medium) "Cold fluid inlet"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_b fluid_out(redeclare package Medium =
+        Medium) "Fluid outlet"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-protected
-  Modelica.SIunits.MassFlowRate m_flowMixed=-flowPortMixed.m_flow
-    "mass flowrate of the mixed flow";
-  Modelica.SIunits.MassFlowRate m_flowCold(min=0)
-    "mass flowrate of cold water to the mixing point";
-  parameter Modelica.SIunits.MassFlowRate m_flowNom=100
-    "Just a large nominal flowrate";
-  Real m_flowColdInput(min=0) = m_flowCold/m_flowNom;
-  //  Real m_flowHotInput = m_flowHot/m_flowNom;
-
-  Movers.Pump pumpCold(
+  MixingVolumes.MixingVolume vol(nPorts=3,
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    V=m/2/Medium.density(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default)),
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    p_start=p_start,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    C_nominal=C_nominal)
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=m_flowCold/
+        m_flow_nominal) "Fraction of nominal mass flow rate"
+    annotation (Placement(transformation(extent={{92,-38},{38,-18}})));
+      IDEAS.Fluid.Movers.Pump pumpCold(
     useInput=true,
-    medium=medium,
-    m_flowNom=m_flowNom,
-    m=m/2) annotation (Placement(transformation(
+    m_flow_nominal=m_flow_nominal,
+    m=m/2,
+    redeclare package Medium = Medium,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    p_start=p_start,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    C_nominal=C_nominal)
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,-28})));
 
-public
-  Thermal.Components.Interfaces.FlowPort_a flowPortHot(medium=medium, h(
-      start=293.15*medium.cp,
-      min=1140947,
-      max=1558647)) annotation (Placement(transformation(extent={{-110,-10},{-90,
-            10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
-
-  Thermal.Components.Interfaces.FlowPort_a flowPortCold(medium=medium, h(
-      start=293.15*medium.cp,
-      min=1140947,
-      max=1558647)) annotation (Placement(transformation(extent={{-10,-110},{10,
-            -90}}), iconTransformation(extent={{-10,-110},{10,-90}})));
-
-  Thermal.Components.Interfaces.FlowPort_a flowPortMixed(medium=medium, h(
-      start=293.15*medium.cp,
-      min=1140947,
-      max=1558647)) annotation (Placement(transformation(extent={{90,-10},{110,
-            10}}), iconTransformation(extent={{90,-10},{110,10}})));
-
 protected
-  Thermal.Components.BaseClasses.MixingVolume mixingVolumeHot(
-    medium=medium,
-    nbrPorts=2,
-    m=m/2) annotation (Placement(transformation(extent={{-22,30},{-2,50}})));
-equation
-  //m_flowTotal = table.y[profileType] * VDayAvg * medium.rho;
-  pumpCold.m_flowSet = m_flowColdInput;
-  //  pumpHot.m_flowSet = m_flowHotInput;
+  Modelica.SIunits.MassFlowRate m_flowMixed=-fluid_out.m_flow
+    "mass flowrate of the mixed flow";
+  Modelica.SIunits.MassFlowRate m_flowCold(min=0)
+    "mass flowrate of cold water to the mixing point";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate";
 
-  if noEvent(THot < TMixedSet) then
+equation
+  if noEvent(inStream(fluid_hot.h_outflow) < h_set) then
     // no mixing
     m_flowCold = 0;
-  elseif noEvent(TCold > TMixedSet) then
-    m_flowCold = m_flowMixed;
-  elseif noEvent(flowPortMixed.m_flow < -mFlowMin) then
-    m_flowCold = -(flowPortHot.m_flow*THot + flowPortMixed.m_flow*TMixedSet)/
-      TCold;
+  elseif noEvent(inStream(fluid_cold.h_outflow) > h_set) then
+    m_flowCold = -fluid_out.m_flow;
+  elseif noEvent(fluid_out.m_flow < -mFlowMin) then
+    m_flowCold = -(fluid_hot.m_flow*inStream(fluid_hot.h_outflow) + fluid_out.m_flow*h_set)/
+      inStream(fluid_cold.h_outflow);
   else
     m_flowCold = 0;
   end if;
-
-  //m_flowCold = max(0, -(flowPortHot.m_flow*THot + flowPortMixed.m_flow* TMixedSet)/TCold);
-
-  //  flowPortMixed.p = 300000;
-  //  flowPortMixed.H_flow = semiLinear(flowPortMixed.m_flow,flowPortMixed.h,ambient.T*medium.cp);
-
-  connect(flowPortCold, pumpCold.flowPort_a) annotation (Line(
-      points={{0,-100},{0,-38},{-1.83697e-015,-38}},
-      color={255,0,0},
+  connect(fluid_hot, vol.ports[1]) annotation (Line(
+      points={{-100,0},{-2.66667,0}},
+      color={0,127,255},
       smooth=Smooth.None));
-
-  connect(flowPortHot, mixingVolumeHot.flowPorts[1]) annotation (Line(
-      points={{-100,0},{-24,0},{-24,30},{-12,30},{-12,29.5}},
-      color={255,0,0},
+  connect(fluid_out, vol.ports[2]) annotation (Line(
+      points={{100,0},{2.22045e-016,0}},
+      color={0,127,255},
       smooth=Smooth.None));
-  connect(mixingVolumeHot.flowPorts[2], flowPortMixed) annotation (Line(
-      points={{-12,30.5},{0,30.5},{0,0},{100,0}},
-      color={255,0,0},
+  connect(pumpCold.port_b, vol.ports[3]) annotation (Line(
+      points={{0,-18},{0,0},{2.66667,0}},
+      color={0,127,255},
       smooth=Smooth.None));
-  connect(pumpCold.flowPort_b, flowPortMixed) annotation (Line(
-      points={{1.83697e-015,-18},{0,-18},{0,0},{100,0}},
-      color={255,0,0},
+  connect(fluid_cold, pumpCold.port_a) annotation (Line(
+      points={{0,-100},{0,-38}},
+      color={0,127,255},
       smooth=Smooth.None));
-
+  connect(pumpCold.m_flowSet, realExpression.y) annotation (Line(
+      points={{10,-28},{35.3,-28}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+            graphics),
     Icon(graphics={
         Polygon(
           points={{-60,30},{-60,-30},{0,0},{-60,30}},
