@@ -1,5 +1,5 @@
 within IDEAS.Fluid.FixedResistances;
-model Pipe "Pipe without heat exchange"
+model Pipe "Pipe without heat exchange or pressure drop"
 
   extends IDEAS.Fluid.Interfaces.Partials.TwoPort;
 
