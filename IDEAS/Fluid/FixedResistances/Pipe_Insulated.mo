@@ -104,6 +104,7 @@ equation
 <p>Many models use an insulated pipe.  A very basic example can be found in the <a href=\"modelica://IDEAS.Thermal.Components.Examples.OpenHydraulicSystem\">OpenHydraulicSystem</a>.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>2014 March, Filip Jorissen, Annex60 compatibility</li>
 <li>2013 May 23, Roel De Coninck, documentation;</li>
 <li>2012 November, Roel De Coninck, first implementation. </li>
 </ul></p>

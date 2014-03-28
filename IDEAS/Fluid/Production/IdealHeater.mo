@@ -89,6 +89,7 @@ equation
 <p>An example of this model can be found in <a href=\"modelica://IDEAS.Thermal.Components.Examples.IdealHeater\">IDEAS.Thermal.Components.Examples.IdealHeater</a>.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>March 2014, Filip Jorissen, Annex60 compatibility and simplified implementation</li>
 <li>2013 May, Roel De Coninck: removing dynamics to improve setpoint reaching. Removing unused parameters</li>
 <li>2012 September, Roel De Coninck, first version</li>
 </ul></p>

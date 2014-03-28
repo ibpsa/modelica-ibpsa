@@ -90,6 +90,7 @@ equation
 <p>See validation.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>2014 March, Filip Jorissen, Annex60 compatibility</li>
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2011 August, Roel De Coninck: first version</li>
 </ul></p>

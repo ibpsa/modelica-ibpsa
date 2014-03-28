@@ -119,5 +119,9 @@ equation
 <p>This partial model is based on physical principles and is not validated. Extensions may be validated.</p>
 <p><h4>Examples</h4></p>
 <p>See the extensions, like the <a href=\"modelica://IDEAS.Thermal.Components.Production.IdealHeater\">IdealHeater</a>, the <a href=\"modelica://IDEAS.Thermal.Components.Production.Boiler\">Boiler</a> or <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_AWMod_Losses\">air-water heat pump</a></p>
+</html>", revisions="<html>
+<ul>
+<li>2014 March, Filip Jorissen, Annex60 compatibility</li>
+</ul>
 </html>"));
 end PartialDynamicHeaterWithLosses;

@@ -170,6 +170,7 @@ equation
 <p>Examples of this model can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.TempMixingTester\"> IDEAS.Thermal.Components.Examples.TempMixingTester</a> and<a href=\"modelica://IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve\"> IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve</a></p>
 </html>", revisions="<html>
 <p><ul>
+<li>2014 March, Filip Jorissen, Annex60 compatibility</li>
 <li>2013 May, Roel De Coninck, documentation</li>
 <li>2013 March, Ruben Baetens, graphics</li>
 <li>2010, Roel De Coninck, first version</li>

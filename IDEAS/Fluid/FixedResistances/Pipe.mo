@@ -5,8 +5,7 @@ model Pipe "Pipe without heat exchange or pressure drop"
 
 equation
   Q_flow = 0;
-  // pressure drop = none
-  port_a.p = port_b.p;
+
   annotation (
     Documentation(info="<html>
 <p><b>Description</b> </p>
@@ -31,6 +30,7 @@ equation
 <p>Many models use a pipe, often a variant with <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pipe_HeatPort\">heatPort</a> or <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pipe_Insulated\">insulation</a>. A basic example is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.HydraulicCircuit\">HydraulicCircuit</a>.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>2014 March, Filip Jorissen, Annex60 compatibility</li>
 <li>2013 May 23, Roel De Coninck, documentation;</li>
 <li>2010 November, Roel De Coninck, first implementation. </li>
 </ul></p>
@@ -65,6 +65,6 @@ equation
           points={{-60,0},{60,0}},
           color={100,100,100},
           smooth=Smooth.None)}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-40},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-40},{100,
             40}}), graphics));
 end Pipe;

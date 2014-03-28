@@ -50,5 +50,12 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
-                         graphics));
+                         graphics), Documentation(revisions="<html>
+<ul>
+<li>
+March 2014 by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Thermostatic3WayValveExample;

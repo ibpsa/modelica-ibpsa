@@ -33,19 +33,25 @@ equation
       points={{-62,12},{-42,12},{-42,10},{-20,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pump.port_b, bou.ports[2]) annotation (Line(
-      points={{40,10},{48,10},{48,36},{-62,36},{-62,8}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(fixedTemperature.port, heatedPipe.heatPort) annotation (Line(
       points={{-32,-36},{-10,-36},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(pump.port_b, bou.ports[2]) annotation (Line(
+      points={{40,10},{52,10},{52,38},{-62,38},{-62,8}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics),
     Documentation(info="<html>
 <p>Simple tester for the IDEAS.Thermal.Components.BaseClasses.Ambient model</p>
+</html>", revisions="<html>
+<ul>
+<li>March 2014 by Filip Jorissen:<br/> 
+Annex60 compatibility
+</li>
+</ul>
 </html>"),
     experiment(StopTime=3600),
     __Dymola_experimentSetupOutput);

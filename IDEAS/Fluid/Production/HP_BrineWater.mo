@@ -53,7 +53,7 @@ equation
      else 0;
 
   connect(Tin.port, port_a) annotation (Line(
-      points={{40,-46},{40,-36},{100,-36},{100,-38}},
+      points={{40,-46},{40,-36},{100,-36},{100,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(flowPortBrine_a, heatSource.prim_in) annotation (Line(
@@ -220,6 +220,7 @@ equation
 <p>No specific example foreseen. </p>
 </html>", revisions="<html>
 <p><ul>
+<li>2014 March, Filip Jorissen, Annex60 compatibility</li>
 <li>2013 May, Roel De Coninck: propagation of heatSource parameters and better definition of QNom used.  Documentation and example added</li>
 <li>2011 Roel De Coninck: first version</li>
 </ul></p>

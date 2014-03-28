@@ -26,5 +26,12 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Documentation(revisions="<html>
+<ul>
+<li>
+March 2014 by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PumpTwoPort;

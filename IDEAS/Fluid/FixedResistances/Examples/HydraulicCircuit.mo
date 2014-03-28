@@ -123,5 +123,11 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>This model shows a hydraulic circuit composed of two loops that come together.  As shown, the flowrates in pumps and pipes can be bidirectional.</p>
+</html>", revisions="<html>
+<ul>
+<li>March 2014 by Filip Jorissen:<br/> 
+Annex60 compatibility
+</li>
+</ul>
 </html>"));
 end HydraulicCircuit;

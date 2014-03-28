@@ -72,6 +72,7 @@ equation
 <p>An example in which this model is used is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.HydraulicCircuit\">HydraulicCircuit</a>.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>March 2014, Filip Jorissen, Annex60 compatibility</li>
 <li>2013, Roel De Coninck, documentation</li>
 <li>2012, Ruben Baetens, changed graphics</li>
 <li>2010, Roel De Coninck, First version</li>

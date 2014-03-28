@@ -68,6 +68,13 @@ equation
 <p>Partial model, see extensions for implementation details.</p>
 <p><h4>Validation </h4></p>
 <p>Based on physical principles, no validation performed.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 2014 by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
 </html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                          graphics));

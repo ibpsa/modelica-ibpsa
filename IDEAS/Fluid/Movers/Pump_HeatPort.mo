@@ -40,6 +40,7 @@ equation
 <p>The <a href=\"modelica://IDEAS.Thermal.Components.Examples.PumpePipeTester\">PumpPipeTeste</a>r model uses <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pump\">Pump</a> models but they can easily be replaced with this Pump_HeatPort model.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>March 2014, Filip Jorissen, Annex60 compatibility and extended from Pump</li>
 <li>May 2013, Roel De Coninck, documentation</li>
 <li>March 2013, Ruben Baetens, graphics</li>
 <li>October 2012, Roel De Coninck, first version.</li>
