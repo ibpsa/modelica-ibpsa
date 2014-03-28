@@ -2,8 +2,9 @@ within IDEAS.Fluid.HeatExchangers.Radiators;
 model Radiator "Simple 1-node radiator model according to EN 442"
 
   extends IDEAS.Fluid.HeatExchangers.RadiantSlab.Interfaces.Partial_Emission(
-                                                                        final
-      floorHeating=false, final radiators=true);
+    final m_flow_nominal=mFlowNom,
+    final floorHeating=false,
+    final radiators=true);
 
   parameter Modelica.SIunits.Temperature TInNom=75 + 273.15
     "Nominal inlet temperature";

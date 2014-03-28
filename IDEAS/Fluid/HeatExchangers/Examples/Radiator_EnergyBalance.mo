@@ -23,7 +23,6 @@ model Radiator_EnergyBalance "Test for energy balance of the radiator model"
     QNom=3000,
     powerFactor=3.37,
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
     TInNom=318.15,
     TOutNom=308.15) "Hydraulic radiator model"
     annotation (Placement(transformation(extent={{50,-8},{70,12}})));
@@ -48,8 +47,8 @@ model Radiator_EnergyBalance "Test for energy balance of the radiator model"
     amplitude=1,
     nperiod=5)
     annotation (Placement(transformation(extent={{-56,30},{-36,50}})));
-  Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=1)
-                                                             annotation (
+  Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=1,
+    p=200000)                                                annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
