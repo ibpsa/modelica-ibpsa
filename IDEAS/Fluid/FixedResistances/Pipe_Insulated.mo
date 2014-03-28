@@ -1,8 +1,8 @@
 within IDEAS.Fluid.FixedResistances;
 model Pipe_Insulated "Pipe with insulation, characterised by UA"
+ replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    annotation (__Dymola_choicesAllMatching=true);
 
-  parameter Thermal.Data.Interfaces.Medium medium=Thermal.Data.Interfaces.Medium()
-    "Medium in the component" annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Mass m(start=1) "Mass of medium";
   // I remove this parameter completely because it can lead to wrong models!!!
   // See note in evernote of RDC
@@ -15,7 +15,6 @@ model Pipe_Insulated "Pipe with insulation, characterised by UA"
 
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort heatedPipe(
     m=m,
-    medium=medium,
     TInitial=TInitial,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
@@ -33,8 +32,7 @@ model Pipe_Insulated "Pipe with insulation, characterised by UA"
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) "Fluid outlet"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    annotation (__Dymola_choicesAllMatching=true);
+
 equation
   connect(heatedPipe.heatPort, thermalConductor.port_b) annotation (Line(
       points={{0,-10},{0,-18},{2.22045e-016,-18}},
