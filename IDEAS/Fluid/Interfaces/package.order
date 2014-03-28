@@ -1,4 +1,7 @@
 UsersGuide
+FlowPort
+FlowPort_b
+FlowPort_a
 FourPort
 TwoPortHeatMassExchanger
 FourPortHeatMassExchanger
@@ -12,3 +15,5 @@ TwoPortFlowResistanceParameters
 FourPortFlowResistanceParameters
 LumpedVolumeDeclarations
 Examples
+FluidStreamConversionWater
+Partials

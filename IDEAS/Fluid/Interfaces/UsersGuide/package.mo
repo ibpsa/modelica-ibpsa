@@ -2,6 +2,7 @@ within IDEAS.Fluid.Interfaces;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
+
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>

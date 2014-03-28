@@ -3,31 +3,6 @@ package Sensors "Package with sensor models"
   extends Modelica.Icons.SensorsPackage;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 annotation (preferredView="info",
 Documentation(info="<html>
 <p>
