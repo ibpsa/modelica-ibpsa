@@ -1,4 +1,4 @@
-within IDEAS.Thermal.Components.Interfaces.Partials;
+within IDEAS.Fluid.Interfaces.Partials;
 partial model PumpTwoPort
   extends PartialTwoPort(vol(nPorts=2));
   BaseClasses.IdealSource idealSource(redeclare package Medium = Medium)

@@ -1,4 +1,4 @@
-within IDEAS.Thermal.Components.BaseClasses;
+within IDEAS.Fluid.Interfaces;
 model IdealSource
   "Base class for pressure and mass flow source with optional power input"
   extends Modelica.Fluid.Interfaces.PartialTwoPortTransport(show_T=false);

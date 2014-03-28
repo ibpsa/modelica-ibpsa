@@ -1,9 +1,9 @@
-within IDEAS.Thermal.Components.Interfaces.Partials;
+within IDEAS.Fluid.Interfaces.Partials;
 partial model PartialTwoPort
   "Partial model of two port without internal connections"
   import Buildings;
-  extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
-  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Modelica.SIunits.Mass m(start=1) = 1 "Mass of medium";
   // I remove this parameter completely because it can lead to wrong models!!!
@@ -27,7 +27,7 @@ partial model PartialTwoPort
   //Modelica.SIunits.SpecificEnthalpy h(start=Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default, TInitial, Medium.X_default)))
     //"Medium's specific enthalpy";
 
-  Annex60.Fluid.MixingVolumes.MixingVolume vol(
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     energyDynamics=if dynamicBalance then energyDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=if dynamicBalance then massDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -42,7 +42,7 @@ partial model PartialTwoPort
     final V=m/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default)))
     annotation (Placement(transformation(extent={{-44,0},{-64,20}})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=Q_flow)
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
