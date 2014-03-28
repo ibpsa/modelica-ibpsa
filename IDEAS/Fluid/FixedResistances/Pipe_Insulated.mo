@@ -16,7 +16,8 @@ model Pipe_Insulated "Pipe with insulation, characterised by UA"
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort heatedPipe(
     m=m,
     TInitial=TInitial,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=
         UA) annotation (Placement(transformation(
@@ -33,6 +34,7 @@ model Pipe_Insulated "Pipe with insulation, characterised by UA"
         Medium) "Fluid outlet"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
+  parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 equation
   connect(heatedPipe.heatPort, thermalConductor.port_b) annotation (Line(
       points={{0,-10},{0,-18},{2.22045e-016,-18}},

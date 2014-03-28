@@ -8,7 +8,8 @@ model OpenHydraulicSystem "Illustrate the use of the ambient model"
   Fluid.FixedResistances.Pipe_Insulated heatedPipe(
     m=5,
     UA=10,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    m_flow_nominal=1)
            annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Fluid.Movers.Pump pump(
     m=4,
