@@ -121,5 +121,12 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
     experiment(StopTime=86400),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Documentation(revisions="<html>
+<ul>
+<li>March 2014 by Filip Jorissen:<br/> 
+Annex60 compatibility
+</li>
+</ul>
+</html>"));
 end StorageTank_DHW_HP;

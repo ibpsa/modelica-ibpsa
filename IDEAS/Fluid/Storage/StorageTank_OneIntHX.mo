@@ -369,6 +369,7 @@ equation
 <p>Viessmann. 2011. Vitocell- 100-V, 390 liter, Datenblatt. Accessed April 21, 2013. <a href=\"http://tinyurl.com/cdpv8rr\">http://tinyurl.com/cdpv8rr</a>.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>March 2014, Filip Jorissen: Annex60 compatibility.</li>
 <li>2013 June, Roel De Coninck: documentation.</li>
 <li>2012 October, Roel De Coninck: better buoyancy models and validation</li>
 <li>2012 September, Roel De Coninck: added conduction between nodes</li>
