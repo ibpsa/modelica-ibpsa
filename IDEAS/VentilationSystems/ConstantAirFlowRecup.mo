@@ -1,4 +1,4 @@
-within IDEAS.Thermal.VentilationSystems;
+within IDEAS.VentilationSystems;
 model ConstantAirFlowRecup
   "Ventilation System with constant airflow rate and recuperation efficiency"
 

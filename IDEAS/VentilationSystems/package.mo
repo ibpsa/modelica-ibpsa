@@ -1,4 +1,4 @@
-within IDEAS.Thermal;
+within IDEAS;
 package VentilationSystems 
 
 
