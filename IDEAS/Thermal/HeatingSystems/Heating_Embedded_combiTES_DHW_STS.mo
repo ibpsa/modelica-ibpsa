@@ -43,7 +43,7 @@ protected
     dpFix=30000)
     annotation (Placement(transformation(extent={{-52,-26},{-68,-42}})));
 public
-  replaceable Control.Ctrl_Heating_combiTES HPControl(
+  replaceable Controls.ControlHeating.Ctrl_Heating_combiTES HPControl(
     heatingCurve(timeFilter=timeFilter),
     TTankEmiOut=tesTank.nodes[posOutFH].T,
     DHW=true,
@@ -51,7 +51,7 @@ public
     TColdWaterNom=TDHWCold,
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom) constrainedby
-    Control.Interfaces.Partial_Ctrl_Heating_TES(
+    Controls.ControlHeating.Interfaces.Partial_Ctrl_Heating_TES(
     heatingCurve(timeFilter=timeFilter),
     DHW=true,
     TDHWSet=TDHWSet,

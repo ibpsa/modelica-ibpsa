@@ -50,14 +50,14 @@ model Heating_Embedded_DHW_STS
         293.15)
     annotation (Placement(transformation(extent={{-162,-52},{-150,-40}})));
 public
-  replaceable Control.Ctrl_Heating_DHW HPControl(
+  replaceable Controls.ControlHeating.Ctrl_Heating_DHW HPControl(
     timeFilter=timeFilter,
     DHW=true,
     TDHWSet=TDHWSet,
     TColdWaterNom=TDHWCold,
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom) constrainedby
-    Control.Interfaces.Partial_Ctrl_Heating_TES(
+    Controls.ControlHeating.Interfaces.Partial_Ctrl_Heating_TES(
     timeFilter=timeFilter,
     DHW=true,
     TDHWSet=TDHWSet,

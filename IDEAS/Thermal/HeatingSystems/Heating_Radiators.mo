@@ -29,12 +29,12 @@ model Heating_Radiators
         rotation=-90,
         origin={-52,8})));
 
-  replaceable Control.Ctrl_Heating ctrl_Heating(
+  replaceable Controls.ControlHeating.Ctrl_Heating ctrl_Heating(
     heatingCurve(timeFilter=timeFilter),
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom,
     THeaterSet(start=293.15)) constrainedby
-    Control.Interfaces.Partial_Ctrl_Heating(
+    Controls.ControlHeating.Interfaces.Partial_Ctrl_Heating(
     heatingCurve(timeFilter=timeFilter),
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom) "Controller for the heater"
