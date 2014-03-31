@@ -1,47 +1,64 @@
 within IDEAS.Fluid.Valves;
-model Thermostatic3WayValve "Thermostatic 3-way valve"
-  extends Partial3WayValve;
+model Partial3WayValve "Partial for 3-way valves"
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+  parameter Modelica.SIunits.Mass m = 1 "Fluid content of the mixing valve";
 
-  parameter Modelica.SIunits.MassFlowRate mFlowMin=0.01*m_flow_nominal
-    "Minimum outlet flowrate for mixing to start";
-  Modelica.Blocks.Interfaces.RealInput TMixedSet
-    "Mixed outlet temperature setpoint" annotation (Placement(transformation(
-        extent={{20,-20},{-20,20}},
-        rotation=90,
-        origin={0,106}), iconTransformation(
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium =
+        Medium) "Hot fluid inlet"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium =
+        Medium) "Cold fluid inlet"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
+        Medium) "Fluid outlet"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
+  MixingVolumes.MixingVolume vol(nPorts=3,
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    V=m/2/Medium.density(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default)),
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    p_start=p_start,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    C_nominal=C_nominal)
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+  IDEAS.Fluid.Movers.Pump pump(
+    useInput=true,
+    m_flow_nominal=m_flow_nominal,
+    m=m/2,
+    redeclare package Medium = Medium,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    p_start=p_start,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    C_nominal=C_nominal) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={0,100})));
-
-  Modelica.SIunits.SpecificEnthalpy h_set = Medium.specificEnthalpy(Medium.setState_pTX(port_a1.p, TMixedSet, Medium.X_default))
-    "Specific enthalpy of the temperature setpoint";
-
-  Modelica.Blocks.Sources.RealExpression realExpression(y=m_flowCold/
-        m_flow_nominal) "Fraction of nominal mass flow rate"
-    annotation (Placement(transformation(extent={{92,-38},{38,-18}})));
-
-protected
-  Modelica.SIunits.MassFlowRate m_flowMixed=-port_b.m_flow
-    "mass flowrate of the mixed flow";
-  Modelica.SIunits.MassFlowRate m_flowCold(min=0)
-    "mass flowrate of cold water to the mixing point";
+        rotation=-90,
+        origin={0,-28})));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate";
 
 equation
-  if noEvent(inStream(port_a1.h_outflow) < h_set) then
-    // no mixing
-    m_flowCold = 0;
-  elseif noEvent(inStream(port_a2.h_outflow) > h_set) then
-    m_flowCold = -port_b.m_flow;
-  elseif noEvent(port_b.m_flow < -mFlowMin) then
-    m_flowCold = -(port_a1.m_flow*inStream(port_a1.h_outflow) + port_b.m_flow*h_set)/
-      inStream(port_a2.h_outflow);
-  else
-    m_flowCold = 0;
-  end if;
-
-  connect(realExpression.y, pump.m_flowSet) annotation (Line(
-      points={{35.3,-28},{10,-28}},
-      color={0,0,127},
+  connect(port_a1, vol.ports[1]) annotation (Line(
+      points={{-100,0},{-2.66667,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_b, vol.ports[2]) annotation (Line(
+      points={{100,0},{2.22045e-016,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pump.port_b, vol.ports[3]) annotation (Line(
+      points={{0,-18},{0,0},{2.66667,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_a2, pump.port_a) annotation (Line(
+      points={{0,-100},{0,-38}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -123,4 +140,4 @@ equation
 <li>2010, Roel De Coninck, first version</li>
 </ul></p>
 </html>"));
-end Thermostatic3WayValve;
+end Partial3WayValve;
