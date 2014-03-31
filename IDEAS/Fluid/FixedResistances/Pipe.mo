@@ -65,6 +65,6 @@ equation
           points={{-60,0},{60,0}},
           color={100,100,100},
           smooth=Smooth.None)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-40},{100,
-            40}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
+            100}}), graphics));
 end Pipe;
