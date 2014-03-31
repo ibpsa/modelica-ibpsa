@@ -68,7 +68,7 @@ model StorageTank_OneIntHX
       Medium = Medium)
     "Array of nbrNodes+1 ports. ports[i] is connected to the upper port of node i"
     annotation (Placement(transformation(extent={{68,28},{88,48}}),
-        iconTransformation(extent={{74,34},{86,46}})));
+        iconTransformation(extent={{74,20},{86,60}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatExchEnv
     "HeatPort for conduction between tank and environment" annotation (
       Placement(transformation(extent={{48,-16},{68,4}}), iconTransformation(
@@ -172,8 +172,8 @@ equation
       smooth=Smooth.None));
   connect(heaTraHX.port_a, nodes[nodeHXUpper:nodeHXLower].heatPort);
   annotation (
-    Icon(coordinateSystem(extent={{-100,-160},{80,100}}, preserveAspectRatio=
-            true), graphics={
+    Icon(coordinateSystem(extent={{-100,-160},{80,100}}, preserveAspectRatio=false),
+                   graphics={
         Polygon(
           points={{-70,74},{-68,82},{-62,88},{-52,94},{-38,98},{-22,100},{4,100},
               {18,98},{34,94},{42,88},{48,82},{50,74},{50,-134},{48,-142},{42,-148},
