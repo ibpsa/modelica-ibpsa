@@ -3,6 +3,9 @@ model Boiler_validation "Validation model for the boiler"
 
   extends Modelica.Icons.Example;
 
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
+    annotation (__Dymola_choicesAllMatching=true);
+
   Fluid.Movers.Pump pump(
     m=1,
     m_flow_nominal=1300/3600,
@@ -52,10 +55,9 @@ model Boiler_validation "Validation model for the boiler"
     redeclare package Medium = Medium,
     p=200000)
     annotation (Placement(transformation(extent={{-12,-32},{-32,-12}})));
-  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
-    annotation (__Dymola_choicesAllMatching=true);
+
   Modelica.Blocks.Math.Gain gain(k=1/1300)
-    annotation (Placement(transformation(extent={{-14,70},{6,90}})));
+    annotation (Placement(transformation(extent={{-14,72},{6,92}})));
 equation
   heater.TSet = 273.15 + 82;
 
@@ -96,11 +98,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pulse.y, gain.u) annotation (Line(
-      points={{-29,82},{-24,82},{-24,80},{-16,80}},
+      points={{-29,82},{-16,82}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, pump.m_flowSet) annotation (Line(
-      points={{7,80},{18,80},{18,-36},{-2,-36}},
+      points={{7,82},{18,82},{18,-36},{-2,-36}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

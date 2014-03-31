@@ -3,7 +3,7 @@ model OpenHydraulicSystem "Illustrate the use of the ambient model"
   import IDEAS;
 
   extends Modelica.Icons.Example;
-  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
   Fluid.FixedResistances.Pipe_Insulated heatedPipe(
     m=5,
