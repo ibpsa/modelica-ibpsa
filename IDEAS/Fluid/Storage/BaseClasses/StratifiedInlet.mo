@@ -11,23 +11,27 @@ model StratifiedInlet "Stratified inlet for a storage tank"
   
   */
 
-  parameter Thermal.Data.Interfaces.Medium medium=Thermal.Data.Interfaces.Medium()
-    "Medium in the component";
-  parameter Integer nbrNodes(min=1) = 10 "Number of nodes in the tank";
-  input Modelica.SIunits.Temperature[nbrNodes] TNodes
-    "Temperature of the nodes in the tank";
-  // it seems not possible to work with the enthalpies provided by flowPorts because they depend
-  // on the flow direction in the tank...
-  Modelica.SIunits.Temperature T(start=293.15) = flowPort_a.h/medium.cp
-    "Inlet temperature";
-  Integer inlet(start=0) "Number of the inlet node";
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    annotation (__Dymola_choicesAllMatching=true);
 
-  Thermal.Components.Interfaces.FlowPort_a flowPort_a(medium=medium)
-    "Inlet flowport"
+  parameter Integer nbrNodes(min=1) = 10 "Number of nodes in the tank";
+//  input Modelica.SIunits.Temperature[nbrNodes] TNodes
+ //   "Temperature of the nodes in the tank";
+  // it seems not possible to work with the enthalpies provided by port_b because they depend
+  // on the flow direction in the tank...
+//  Modelica.SIunits.Temperature T(start=293.15) = port_a.h/medium.cp
+  //    "Inlet temperature";
+
+  Modelica.SIunits.SpecificEnthalpy h_in = inStream(port_a.h_outflow);
+
+  Integer inlet(start=0) "Number of the active inlet node";
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = Medium)
+    "Inlet port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Thermal.Components.Interfaces.FlowPort_b[nbrNodes + 1] flowPorts(each medium=
-        medium) "Array of outlet flowPorts"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Modelica.Fluid.Interfaces.FluidPorts_b[nbrNodes+1] port_b(redeclare package
+      Medium =                                                                         Medium)
+    annotation (Placement(transformation(extent={{88,-40},{108,40}})));
 
 protected
   Integer testNode(start=0) "Node counter";
@@ -36,7 +40,7 @@ algorithm
   inlet := 0;
   testNode := 1;
   while inlet == 0 loop
-    if T > TNodes[testNode] then
+    if h_in > inStream(port_b[testNode].h_outflow) then
       inlet := testNode;
     else
       inlet := 0;
@@ -54,27 +58,24 @@ algorithm
   end while;
 
 equation
-  flowPort_a.p = flowPorts[inlet].p;
-  flowPort_a.H_flow = semiLinear(
-    flowPort_a.m_flow,
-    flowPort_a.h,
-    flowPorts[inlet].h);
-
+  port_a.p = port_b[inlet].p;
+  port_a.h_outflow = inStream(port_b[inlet].h_outflow);
+  port_a.Xi_outflow = inStream(port_b[inlet].Xi_outflow);
+  port_a.C_outflow = inStream(port_b[inlet].C_outflow);
   for i in 1:nbrNodes + 1 loop
+    h_in = port_b[i].h_outflow;
+    port_b[i].Xi_outflow = inStream(port_a.Xi_outflow);
+    port_b[i].C_outflow = inStream(port_a.C_outflow);
     if i == inlet then
-      flowPort_a.m_flow + flowPorts[i].m_flow = 0;
-      flowPorts[i].H_flow = semiLinear(
-        flowPorts[i].m_flow,
-        flowPorts[i].h,
-        flowPort_a.h);
+      port_a.m_flow + port_b[i].m_flow = 0;
     else
-      flowPorts[i].m_flow = 0;
-      flowPorts[i].H_flow = 0;
+      port_b[i].m_flow = 0;
     end if;
   end for;
 
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+            graphics),
     Icon(graphics={Line(
           points={{0,80},{0,-80}},
           color={0,0,0},
@@ -98,7 +99,7 @@ equation
           smooth=Smooth.None)}),
     Documentation(info="<html>
 <p><b>Description</b> </p>
-<p>Perfectly stratified inlet for a thermal energy storage tank. This model has an &apos;inlet&apos; flowPort, and an array of &apos;outlet&apos; flowPorts of the same size as the number of nodes in a storage tank. This array of flowPorts is connected to the array of flowPorts of the tank, and the complete mass flow rate will enter in the tank exactly in between the nodes of corresponding temperature. In&nbsp;other&nbsp;words:&nbsp;the&nbsp;fluid&nbsp;seeks&nbsp;it&apos;s&nbsp;way&nbsp;to&nbsp;the&nbsp;nodes&nbsp;with&nbsp;most&nbsp;close&nbsp;temperature&nbsp;&nbsp;in&nbsp;order&nbsp;to&nbsp;prevent&nbsp;destratification.</p>
+<p>Perfectly stratified inlet for a thermal energy storage tank. This model has an &apos;inlet&apos; flowPort, and an array of &apos;outlet&apos; port_b of the same size as the number of nodes in a storage tank. This array of port_b is connected to the array of port_b of the tank, and the complete mass flow rate will enter in the tank exactly in between the nodes of corresponding temperature. In&nbsp;other&nbsp;words:&nbsp;the&nbsp;fluid&nbsp;seeks&nbsp;it&apos;s&nbsp;way&nbsp;to&nbsp;the&nbsp;nodes&nbsp;with&nbsp;most&nbsp;close&nbsp;temperature&nbsp;&nbsp;in&nbsp;order&nbsp;to&nbsp;prevent&nbsp;destratification.</p>
 <p><h4>Assumptions and limitations </h4></p>
 <p><ol>
 <li>Complete flowrate exits through the same flowPort</li>
