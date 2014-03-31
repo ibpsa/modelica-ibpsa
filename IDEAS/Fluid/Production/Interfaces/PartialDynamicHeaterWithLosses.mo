@@ -4,6 +4,11 @@ model PartialDynamicHeaterWithLosses
   import IDEAS;
 
   import IDEAS.Fluid.Production.BaseClasses.HeaterType;
+
+    replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium
+    annotation (__Dymola_choicesAllMatching=true);
+
   parameter HeaterType heaterType
     "Type of the heater, is used mainly for post processing";
   parameter Modelica.SIunits.Temperature TInitial=293.15
@@ -47,9 +52,7 @@ model PartialDynamicHeaterWithLosses
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-74,-100})));
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium
-    annotation (__Dymola_choicesAllMatching=true);
+
   parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
   parameter SI.Pressure dp_nominal=0 "Pressure";
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(
