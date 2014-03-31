@@ -15,7 +15,8 @@ model Boiler
     modulationStart=modulationStart,
     THxIn=Tin.T,
     hIn=inStream(port_a.h_outflow),
-    m_flowHx=port_a.m_flow)
+    m_flowHx=port_a.m_flow,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   parameter Real modulationMin=25 "Minimal modulation percentage";
   parameter Real modulationStart=35

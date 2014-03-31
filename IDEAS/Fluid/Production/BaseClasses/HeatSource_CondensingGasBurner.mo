@@ -89,11 +89,10 @@ public
     y(start=0),
     enableRelease=true) "on-off, based on modulationInit"
     annotation (Placement(transformation(extent={{28,40},{48,60}})));
-
 equation
   onOff.u = modulationInit;
   onOff.release = if noEvent(m_flowHx > 0) then 1.0 else 0.0;
-  QAsked = IDEAS.Utilities.Math.Functions.smoothMax(0, m_flowHx*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TBoilerSet, Medium.X_default)) -hIn), 10);
+  QAsked = IDEAS.Utilities.Math.Functions.smoothMax(0, m_flowHx*(Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default,TBoilerSet, Medium.X_default)) -hIn), 10);
   eta100.u1 = THxIn - 273.15;
   eta100.u2 = m_flowHx*kgps2lph;
   eta80.u1 = THxIn - 273.15;
