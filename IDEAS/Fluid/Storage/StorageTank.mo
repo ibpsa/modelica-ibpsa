@@ -1,6 +1,8 @@
 within IDEAS.Fluid.Storage;
 model StorageTank "1D multinode stratified storage tank"
 
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    annotation (__Dymola_choicesAllMatching=true);
   //Tank geometry and composition
   parameter Integer nbrNodes(min=1) = 10 "Number of nodes";
   parameter Modelica.SIunits.Volume volumeTank(min=0) "Total volume of the tank";
@@ -78,8 +80,7 @@ public
   Modelica.Blocks.Interfaces.RealOutput[nbrNodes] T=nodes.heatPort.T
     annotation (Placement(transformation(extent={{70,-10},{90,10}}),
         iconTransformation(extent={{70,-10},{90,10}})));
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    annotation (__Dymola_choicesAllMatching=true);
+
 equation
   // Connection of upper and lower node to external ports
   connect(port_a, nodes[1].port_a);
