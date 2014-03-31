@@ -50,7 +50,7 @@ partial model Partial_Ctrl_Heating_TES
     TRet_nominal=TSupNom - dTSupRetNom,
     TRoo_nominal=273.15 + 21,
     TOut_nominal=273.15 - 8,
-    redeclare IDEAS.BaseClasses.Math.MovingAverage filter(period=timeFilter))
+    redeclare IDEAS.Utilities.Math.MovingAverage filter(period=timeFilter))
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{24,50},{44,70}})));
