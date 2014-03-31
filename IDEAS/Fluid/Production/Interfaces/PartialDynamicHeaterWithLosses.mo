@@ -4,15 +4,12 @@ model PartialDynamicHeaterWithLosses
   import IDEAS;
 
   import IDEAS.Fluid.Production.BaseClasses.HeaterType;
-
-    replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium
-    annotation (__Dymola_choicesAllMatching=true);
+  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    final computeFlowResistance=true, dp_nominal = 0);
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=293.15);
 
   parameter HeaterType heaterType
     "Type of the heater, is used mainly for post processing";
-  parameter Modelica.SIunits.Temperature TInitial=293.15
-    "Initial temperature of the water and dry mass";
   parameter Modelica.SIunits.Power QNom "Nominal power";
 
   Modelica.SIunits.Power PFuel "Fuel consumption in watt";
@@ -26,7 +23,7 @@ model PartialDynamicHeaterWithLosses
       Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default,Medium.X_default)))/tauHeatLoss;
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mDry(C=cDry, T(start=
-          TInitial)) "Lumped dry mass subject to heat exchange/accumulation"
+          T_start)) "Lumped dry mass subject to heat exchange/accumulation"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -59,8 +56,19 @@ model PartialDynamicHeaterWithLosses
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
-    T_start=TInitial,
-    m=mWater)
+    m=mWater,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    p_start=p_start,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    C_nominal=C_nominal,
+    dynamicBalance=dynamicBalance,
+    from_dp=from_dp,
+    linearizeFlowResistance=linearizeFlowResistance,
+    deltaM=deltaM,
+    homotopyInitialization=homotopyInitialization)
          annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -75,10 +83,15 @@ model PartialDynamicHeaterWithLosses
   IDEAS.Fluid.Sensors.TemperatureTwoPort Tin(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Inlet temperature"
     annotation (Placement(transformation(extent={{74,-50},{54,-30}})));
+  parameter Boolean dynamicBalance=true
+    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
+    annotation (Dialog(tab="Flow resistance"));
+  parameter Boolean homotopyInitialization=true "= true, use homotopy method"
+    annotation (Dialog(tab="Flow resistance"));
 equation
 
   connect(mDry.port, thermalLosses.port_a) annotation (Line(
-      points={{-30,-30},{-30,-30},{-30,-60},{-30,-60}},
+      points={{-30,-30},{-30,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalLosses.port_b, heatPort) annotation (Line(
