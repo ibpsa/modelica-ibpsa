@@ -1,19 +1,23 @@
 within IDEAS.Fluid.Storage;
 model StorageTank_OneIntHX
   "1D multinode stratified storage tank with one internal heat exchanger (HX)"
-
-  parameter Thermal.Data.Interfaces.Medium medium=Thermal.Data.Media.Water()
-    "Medium in the tank";
-  parameter Thermal.Data.Interfaces.Medium mediumHX=Thermal.Data.Media.Water()
-    "Medium in the HX";
-
+  replaceable package MediumHX = Modelica.Media.Interfaces.PartialMedium
+    annotation (__Dymola_choicesAllMatching=true);
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    annotation (__Dymola_choicesAllMatching=true);
   //Tank geometry and composition
+  constant Medium.ThermodynamicState state_default=
+  Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
+    "Default state for parameters";
   parameter Integer nbrNodes(min=1) = 10 "Number of nodes";
   parameter Modelica.SIunits.Volume volumeTank(min=0)
     "Total volume of the tank";
   parameter Modelica.SIunits.Length heightTank(min=0)
     "Total height of the tank";
-  final parameter Modelica.SIunits.Mass mNode=volumeTank*medium.rho/nbrNodes
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate";
+  final parameter Modelica.SIunits.Mass mNode=volumeTank*Medium.density(state_default)/nbrNodes
     "Mass of each node";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer UIns(min=0) = 0.4
     "Average heat loss coefficient for insulation per m2 tank surface";
@@ -47,21 +51,22 @@ model StorageTank_OneIntHX
   parameter SI.Mass mHX=27 "HX water content";
 
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort[nbrNodes] nodes(
-    each medium=medium,
+    redeclare each package Medium = Medium,
     each m=mNode,
+    each m_flow_nominal=m_flow_nominal,
     TInitial=TInitial) "Array of nodes";
-  Thermal.Components.Interfaces.FlowPort_a flowPort_a(final medium=medium, h(
-        min=1140947, max=1558647)) "Upper flowPort, connected to node[1]"
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
+        Medium) "Upper port, connected to node[1]"
     annotation (Placement(transformation(extent={{64,66},{84,86}}),
         iconTransformation(extent={{74,74},{86,86}})));
-  Thermal.Components.Interfaces.FlowPort_b flowPort_b(final medium=medium, h(
-        min=1140947, max=1558647))
-    "Lower flowPort, connected to node[nbrNodes]" annotation (Placement(
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
+        Medium) "Lower port, connected to node[nbrNodes]"
+                                              annotation (Placement(
         transformation(extent={{64,-154},{84,-134}}), iconTransformation(extent=
            {{74,-146},{86,-134}})));
-  Thermal.Components.Interfaces.FlowPort_a[nbrNodes + 1] flowPorts(each medium=
-        medium, each h(min=1140947, max=1558647))
-    "Array of nbrNodes+1 flowPorts. flowPorts[i] is connected to the upper flowPort of node i"
+  Modelica.Fluid.Interfaces.FluidPorts_a[nbrNodes + 1] ports(redeclare package
+      Medium = Medium)
+    "Array of nbrNodes+1 ports. ports[i] is connected to the upper port of node i"
     annotation (Placement(transformation(extent={{68,28},{88,48}}),
         iconTransformation(extent={{74,34},{86,46}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatExchEnv
@@ -70,28 +75,27 @@ model StorageTank_OneIntHX
           extent={{44,-46},{56,-34}})));
 
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort HX[nbrNodesHX](
+    each m_flow_nominal=m_flow_nominal,
     each m=mHX/nbrNodesHX,
-    each medium=mediumHX,
-    TInitial=TInitial[nodeHXUpper:nodeHXLower]) annotation (Placement(
+    TInitial=TInitial[nodeHXUpper:nodeHXLower],
+    redeclare package Medium = MediumHX)          annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=270,
         origin={0,-20})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes - 1]
-    conductionWater(each G=(volumeTank/heightTank)/(heightTank/nbrNodes)*medium.lamda)
+    conductionWater(each G=(volumeTank/heightTank)/(heightTank/nbrNodes)*Medium.dynamicViscosity(state_default)/Medium.density(state_default))
     "Conduction heat transfer between the layers"
     annotation (Placement(transformation(extent={{18,-10},{38,10}})));
 
   replaceable IDEAS.Fluid.Storage.BaseClasses.Buoyancy_powexp buoyancy(
     powBuo=24,
     nbrNodes=nbrNodes,
-    medium=medium,
     surCroSec=volumeTank/heightTank,
     h=heightTank) constrainedby
     IDEAS.Fluid.Storage.BaseClasses.Partial_Buoyancy(
     nbrNodes=nbrNodes,
-    medium=medium,
     surCroSec=volumeTank/heightTank,
     h=heightTank)
     "buoyancy model to mix nodes in case of inversed temperature stratification";
@@ -107,12 +111,14 @@ protected
     "Array of conduction loss components to the environment";
 
 public
-  Thermal.Components.Interfaces.FlowPort_b flowPortHXLower(medium=mediumHX)
-    "Lower connection to the HX" annotation (Placement(transformation(extent={{
+  Modelica.Fluid.Interfaces.FluidPort_b portHXLower(redeclare package Medium =
+        MediumHX) "Lower connection to the HX"
+                                 annotation (Placement(transformation(extent={{
             -116,-134},{-96,-114}}), iconTransformation(extent={{-106,-126},{-94,
             -114}})));
-  Thermal.Components.Interfaces.FlowPort_a flowPortHXUpper(medium=mediumHX)
-    "Upper connection to the internal HX" annotation (Placement(transformation(
+  Modelica.Fluid.Interfaces.FluidPort_a portHXUpper(redeclare package Medium =
+        MediumHX) "Upper connection to the internal HX"
+                                          annotation (Placement(transformation(
           extent={{-116,-54},{-96,-34}}), iconTransformation(extent={{-106,-86},
             {-94,-74}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor heaTraHX[nbrNodesHX](
@@ -122,14 +128,14 @@ public
     annotation (Placement(transformation(extent={{70,-10},{90,10}}),
         iconTransformation(extent={{70,-10},{90,10}})));
 equation
-  // Connection of upper and lower node to external flowPorts
-  connect(flowPort_a, nodes[1].flowPort_a);
-  connect(flowPort_b, nodes[nbrNodes].flowPort_b);
+  // Connection of upper and lower node to external ports
+  connect(port_a, nodes[1].port_a);
+  connect(port_b, nodes[nbrNodes].port_b);
 
   // Interconnection of nodes
   if nbrNodes > 1 then
     for i in 2:nbrNodes loop
-      connect(nodes[i - 1].flowPort_b, nodes[i].flowPort_a);
+      connect(nodes[i - 1].port_b, nodes[i].port_a);
       connect(nodes[i - 1].heatPort, conductionWater[i - 1].port_a);
       connect(nodes[i].heatPort, conductionWater[i - 1].port_b);
     end for;
@@ -141,27 +147,27 @@ equation
     connect(heatExchEnv, lossNodes[i].port_b);
   end for;
 
-  // Connection of flowPorts to the nodes
-  connect(flowPorts[1:end - 1], nodes.flowPort_a);
-  connect(flowPorts[end], nodes[end].flowPort_b);
+  // Connection of ports to the nodes
+  connect(ports[1:end - 1], nodes.port_a);
+  connect(ports[end], nodes[end].port_b);
 
   // Connection of buoyancy model
   connect(buoyancy.heatPort, nodes.heatPort);
 
   // Connections of the internal HX
   for i in 1:nbrNodesHX - 1 loop
-    connect(HX[i].flowPort_b, HX[i + 1].flowPort_a);
+    connect(HX[i].port_b, HX[i + 1].port_a);
   end for;
-  connect(flowPortHXUpper, HX[1].flowPort_a) annotation (Line(
+  connect(portHXUpper, HX[1].port_a) annotation (Line(
       points={{-106,-44},{1.83697e-015,-44},{1.83697e-015,-10}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(flowPortHXLower, HX[nbrNodesHX].flowPort_b) annotation (Line(
+  connect(portHXLower, HX[nbrNodesHX].port_b) annotation (Line(
       points={{-106,-124},{-1.83697e-015,-124},{-1.83697e-015,-30}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(heaTraHX.port_b, HX.heatPort) annotation (Line(
-      points={{-30,-20},{-20,-20},{-20,-20},{-10,-20}},
+      points={{-30,-20},{-10,-20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaTraHX.port_a, nodes[nodeHXUpper:nodeHXLower].heatPort);
@@ -290,7 +296,8 @@ equation
           points={{60,40},{32,40}},
           color={0,0,127},
           smooth=Smooth.None)}),
-    Diagram(coordinateSystem(extent={{-100,-160},{80,100}}), graphics),
+    Diagram(coordinateSystem(extent={{-100,-160},{80,100}}, preserveAspectRatio=
+           false),                                           graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>1-dimensional thermal energy storage (TES) tank model with internal heat exchanger (HX) for stratified water tanks. For a model without internal heat exchanger, see <a href=\"modelica://IDEAS.Thermal.Components.Storage.StorageTank\">here</a>.</p>
@@ -298,7 +305,7 @@ equation
 <p><ul>
 <li>thermal conduction between the nodes through the water </li>
 <li>heat losses by conduction to the environment through the tank envelope (based on UIns and UACon)</li>
-<li>forced convection due to inlet and outlet mass flows (can be at any node thanks to array <i>flowPorts[nrbNodes+1]</i>. </li>
+<li>forced convection due to inlet and outlet mass flows (can be at any node thanks to array <i>ports[nrbNodes+1]</i>. </li>
 <li>natural convection due to buoyancy effects at moments of temperature inversion</li>
 <li>heat transfer from a fluid in the internal heat exchanger to the fluid in the tank (internal convection, conduction, external convection)</li>
 </ul></p>
@@ -328,7 +335,7 @@ equation
 <li>Node numbering starts at the top (upper node = 1)</li>
 <li>Additional thermal conduction between the nodes through the tank wall or (if present) immersed heat exchangers or stratification devices is NOT modelled.</li>
 <li>One single heatPort available at the interface for heat exchange with environment</li>
-<li>Besides <i>flowPort_a</i> and <i>flowPort_b</i>, there is an array <i>flowPorts</i> for connections between every node. </li>
+<li>Besides <i>port_a</i> and <i>port_b</i>, there is an array <i>ports</i> for connections between every node. </li>
 <li>The internal coil has 1 node for each tank node through which it passes</li>
 <li>Fix heat transfer coefficients for the internal coil.</li>
 </ol></p>
@@ -339,7 +346,7 @@ equation
 <li>Set the number of nodes. It is not adviced to go below 10 nodes, whereas more than 40 nodes will not be useful either for most cases. </li>
 <li>If the tank is substantially different from the Viesmann Vitocell100V 390 liter (Viessmann, 2011), adapt the buoyancy model parameters <i>powBuo</i> and <i>expNodes. </i>The default values are 24 and 1.5 respectively, they ware identified according to De Coninck et al. (2013).</li>
 <li>If needed, choose a different <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.Partial_Buoyancy\">Buoyancy</a> model.</li>
-<li>If a <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet\">stratified inlet</a> is desired, add this seperately to your model and connect the two arrays of <i>flowPorts</i>. </li>
+<li>If a <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet\">stratified inlet</a> is desired, add this seperately to your model and connect the two arrays of <i>ports</i>. </li>
 <li>Model the internal coil: specify inlet and outlet node, it&apos;s length and water content</li>
 <li>Set the three heat transfer coefficients for internal convection, conduction and external convection of the coil.</li>
 <li>A realOutput <i>T[nbrNodes]</i> is available</li>

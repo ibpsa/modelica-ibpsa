@@ -6,19 +6,6 @@ partial model partial_DHW "partial DHW model"
   parameter Modelica.SIunits.Temperature TDHWSet(max=273.15 + 60) = 273.15 + 45
     "DHW temperature setpoint";
   parameter Modelica.SIunits.Temperature TCold=283.15;
-  Modelica.SIunits.Temperature THot "Temperature of the hot source";
-  Modelica.SIunits.Temperature TMixed(start=TDHWSet) = pumpHot.flowPort_b.h/
-    medium.cp "Temperature of the hot source";
-
-  Modelica.SIunits.MassFlowRate m_flowInit(start=0)
-    "Initial mass flowrate of total DHW consumption";
-  Modelica.SIunits.MassFlowRate m_flowTotal(start=0)
-    "mass flowrate of total DHW consumption at TDHWSet, takes into account cut-off at very low flowrates";
-  Modelica.SIunits.MassFlowRate m_flowCold(start=0)
-    "mass flowrate of cold water to the mixing point";
-  Modelica.SIunits.MassFlowRate m_flowHot(start=0)
-    "mass flowrate of hot water to the mixing point";
-  Modelica.SIunits.Power QHeatTotal=m_flowTotal*Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default,Medium.T_default,Medium.X_default))*(TMixed - TCold);
 
   // we need to specify the flowrate in the pump and mixingValve as relative values between 0 and 1
   // so we compute a maximum flowrate and use this as nominal flowrate for these components
@@ -27,9 +14,6 @@ partial model partial_DHW "partial DHW model"
 protected
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1e3
     "only used to set a reference";
-  Real m_flowHotInput=m_flowHot/m_flow_nominal;
-  Real m_flowColdInput=m_flowCold/m_flow_nominal;
-  Real TSetVar;
 
   /*
   Slows down the simulation too much.  Should be in post processing
@@ -45,10 +29,8 @@ public
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
 
-
   Fluid.Movers.Pump pumpHot(
     useInput=true,
-    medium=medium,
     m_flow_nominal=m_flow_nominal,
     m=1,
     redeclare package Medium = Medium)
@@ -95,10 +77,6 @@ public
     annotation (Placement(transformation(extent={{-58,62},{-42,78}})));
   Buildings.HeatTransfer.Radiosity.Constant const1(k=273.15 + 60)
     annotation (Placement(transformation(extent={{-102,70},{-88,84}})));
-algorithm
-  THot := pumpHot.T;
-  // put in the extended models: m_flowTotal := ...
-  TSetVar := min(THot, TDHWSet);
 
 equation
   connect(realExpression.y, cold.T_in) annotation (Line(
