@@ -33,7 +33,7 @@ model StratifiedInlet "Stratified inlet for a storage tank"
     "Inlet port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPorts_b[nbrNodes+1] port_b(redeclare package
-      Medium =                                                                         Medium)
+      Medium = Medium) "Outlet ports"
     annotation (Placement(transformation(extent={{88,-40},{108,40}})));
 
 protected
@@ -43,7 +43,10 @@ algorithm
   inlet := 0;
   testNode := 1;
   while inlet == 0 loop
-    if h_in > inStream(port_b[testNode].h_outflow) then
+    //determine inlet
+    //note that the inequality is reversed and that no ´inStream´ is used!
+    //before Annex60: if T > TNodes[testNode] then
+    if port_a.h_outflow < port_b[testNode].h_outflow then
       inlet := testNode;
     else
       inlet := 0;
