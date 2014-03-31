@@ -33,12 +33,6 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
   parameter Real modulation_min=20 "Minimal modulation percentage";
   parameter Real modulation_start=35
     "Min estimated modulation level required for start of HP";
-  IDEAS.Fluid.Sensors.Temperature Tin(redeclare package Medium = Medium)
-    "Incoming water temperature: for evaluation of condensation efficiency"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={10,12})));
 equation
   PFuel = 0;
   PEl = heatSource.PEl;
@@ -47,10 +41,6 @@ equation
   connect(heatSource.heatPort, pipe_HeatPort.heatPort) annotation (Line(
       points={{-60,30},{28,30},{28,-6}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(Tin.port, pipe_HeatPort.port_a) annotation (Line(
-      points={{10,2},{12,2},{12,-16},{38,-16}},
-      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
