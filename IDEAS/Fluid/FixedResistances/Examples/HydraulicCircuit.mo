@@ -4,7 +4,7 @@ model HydraulicCircuit
 
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
    parameter SI.MassFlowRate m_flow_nominal = 0.5 "Nominal mass flow rate";
 

@@ -12,7 +12,7 @@ model Pipe_HeatPortExample "Example of a Pipe_HeatPort"
     redeclare package Medium = Medium,
     m_flow=1)
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
-  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
   Sources.Boundary_pT bou2(redeclare package Medium = Medium, nPorts=1)
     annotation (Placement(transformation(extent={{82,-10},{62,10}})));
