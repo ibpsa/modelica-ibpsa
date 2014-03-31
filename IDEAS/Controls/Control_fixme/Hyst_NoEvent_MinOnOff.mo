@@ -1,23 +1,19 @@
-within IDEAS.BaseClasses.Control;
+within IDEAS.Controls.Control_fixme;
 block Hyst_NoEvent_MinOnOff
   "Hysteresis without events, with Real in- and output and min on and off-times"
 
   // still not working as it should
 
-  extends Modelica.Blocks.Interfaces.partialBooleanBlockIcon;
+  extends Modelica.Blocks.Interfaces.SISO(y(start=0));
   parameter Real uLow;
   parameter Real uHigh;
   parameter Modelica.SIunits.Time minOnTime=0;
   parameter Modelica.SIunits.Time minOffTime=0;
 
-  Modelica.Blocks.Interfaces.RealInput u
-    annotation (Placement(transformation(extent={{-128,-20},{-88,20}})));
-  Modelica.Blocks.Interfaces.RealOutput y
-    annotation (Placement(transformation(extent={{96,-10},{116,10}})));
-  IDEAS.BaseClasses.Control.Timer_NoEvents offTimer(duration=if minOffTime > 0
-         then minOffTime else 666, timerType=IDEAS.Climate.Time.BaseClasses.TimerType.off)
+  IDEAS.Controls.Control_fixme.Timer_NoEvents offTimer(duration=if minOffTime
+         > 0 then minOffTime else 666, timerType=IDEAS.Climate.Time.BaseClasses.TimerType.off)
     annotation (Placement(transformation(extent={{-44,28},{-24,48}})));
-  IDEAS.BaseClasses.Control.Timer_NoEvents onTimer(duration=if minOnTime > 0
+  IDEAS.Controls.Control_fixme.Timer_NoEvents onTimer(duration=if minOnTime > 0
          then minOnTime else 666, timerType=IDEAS.Climate.Time.BaseClasses.TimerType.on)
     annotation (Placement(transformation(extent={{-46,-20},{-26,0}})));
 algorithm

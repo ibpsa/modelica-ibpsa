@@ -1,10 +1,10 @@
-within IDEAS.BaseClasses.Control;
-block Hyst_MinOn "Hysteresis, with Real in- and output and min on-time"
+within IDEAS.Controls.Control_fixme;
+block Hyst_MinOff "Hysteresis, with Real in- and output and min off-time"
 
   extends Modelica.Blocks.Interfaces.partialBooleanBlockIcon;
   parameter Real uLow;
   parameter Real uHigh;
-  parameter Modelica.SIunits.Time minOnTime=0;
+  parameter Modelica.SIunits.Time minOffTime=0;
 
   Modelica.Blocks.Interfaces.RealInput u
     annotation (Placement(transformation(extent={{-128,-20},{-88,20}})));
@@ -13,21 +13,21 @@ block Hyst_MinOn "Hysteresis, with Real in- and output and min on-time"
 protected
   Hyst_NoEvent3 hyst(uLow=uLow, uHigh=uHigh)
     annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
-  IDEAS.BaseClasses.Control.MinOnTimer_Events timerON(duration=minOnTime)
+  IDEAS.Controls.Control_fixme.MinOffTimer_Events timerOff(duration=minOffTime)
     annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
 public
   output Real error;
 
 algorithm
   error := hyst.error;
-  y := max(hyst.y, timerON.y);
+  y := min(hyst.y, timerOff.y);
 
 equation
   connect(u, hyst.u) annotation (Line(
       points={{-108,0},{-54.8,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hyst.y, timerON.u) annotation (Line(
+  connect(hyst.y, timerOff.u) annotation (Line(
       points={{-33.4,0},{-4,0}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -82,4 +82,4 @@ The default value of this parameter is <b>false</b>.
 </p>
 </HTML>
 "));
-end Hyst_MinOn;
+end Hyst_MinOff;

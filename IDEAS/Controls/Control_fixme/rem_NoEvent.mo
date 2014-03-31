@@ -1,4 +1,4 @@
-within IDEAS.BaseClasses.Control;
+within IDEAS.Controls.Control_fixme;
 block rem_NoEvent
   "Timer measuring the time from the time instant where the Boolean input became true"
 
