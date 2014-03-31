@@ -1,4 +1,4 @@
-within IDEAS.Thermal.HeatingSystems;
+within IDEAS.HeatingSystems;
 model Heating_Embedded_combiTES_DHW_STS
   "Hydraulic heating for embedded emission, with combiTES and STS"
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;

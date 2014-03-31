@@ -1,4 +1,4 @@
-within IDEAS.Thermal.HeatingSystems;
+within IDEAS.HeatingSystems;
 model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
 
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(

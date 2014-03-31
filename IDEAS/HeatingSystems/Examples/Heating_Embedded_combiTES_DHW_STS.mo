@@ -1,4 +1,4 @@
-within IDEAS.Thermal.HeatingSystems.Examples;
+within IDEAS.HeatingSystems.Examples;
 model Heating_Embedded_combiTES_DHW_STS
   "Example and test for heating system with embedded emission, combiTES, DHW and STS"
   import IDEAS;
@@ -6,11 +6,12 @@ model Heating_Embedded_combiTES_DHW_STS
   extends Modelica.Icons.Example;
 
   parameter Integer nZones=1 "Number of zones";
-  IDEAS.Thermal.HeatingSystems.Heating_Embedded_combiTES_DHW_STS heating(
+  IDEAS.HeatingSystems.Heating_Embedded_combiTES_DHW_STS heating(
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
     heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.HP_AW,
+
     redeclare IDEAS.Thermal.Components.Production.HP_AirWater heater,
     nOcc=4,
     dTSupRetNom=5,
@@ -51,8 +52,7 @@ model Heating_Embedded_combiTES_DHW_STS
     each offset=0,
     startTime=0)
     annotation (Placement(transformation(extent={{-6,-70},{6,-58}})));
-  IDEAS.Thermal.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=
-        nZones)
+  IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones)
     annotation (Placement(transformation(extent={{-90,46},{-60,66}})));
   IDEAS.Thermal.Components.Emission.NakedTabs[nZones] nakedTabs(
     each n1=3,

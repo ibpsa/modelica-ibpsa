@@ -1,4 +1,4 @@
-within IDEAS.Thermal.HeatingSystems.Examples;
+within IDEAS.HeatingSystems.Examples;
 model IdealEmbeddedHeating
   "Example and test for ideal heating with embedded emission"
   import IDEAS;
@@ -6,7 +6,7 @@ model IdealEmbeddedHeating
   extends Modelica.Icons.Example;
 
   parameter Integer nZones=1 "Number of zones";
-  IDEAS.Thermal.HeatingSystems.IdealEmbeddedHeating heating(
+  IDEAS.HeatingSystems.IdealEmbeddedHeating heating(
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
@@ -36,8 +36,7 @@ model IdealEmbeddedHeating
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder dummyInHomeGrid
     annotation (Placement(transformation(extent={{64,-22},{84,-2}})));
-  IDEAS.Thermal.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=
-        nZones)
+  IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones)
     annotation (Placement(transformation(extent={{-90,46},{-60,66}})));
   IDEAS.Thermal.Components.Emission.NakedTabs[nZones] nakedTabs(
     each n1=3,

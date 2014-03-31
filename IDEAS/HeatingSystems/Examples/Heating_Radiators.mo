@@ -1,20 +1,16 @@
-within IDEAS.Thermal.HeatingSystems.Examples;
-model Heating_Embedded
-  "Example and test for heating system with embedded emission"
-  import IDEAS;
+within IDEAS.HeatingSystems.Examples;
+model Heating_Radiators
+  "Example and test for basic heating system with radiators"
 
   extends Modelica.Icons.Example;
 
   parameter Integer nZones=1 "Number of zones";
-  IDEAS.Thermal.HeatingSystems.Heating_Embedded heating(
+  IDEAS.HeatingSystems.Heating_Radiators heating(
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
-    QNom={20000 for i in 1:nZones},
-    heaterType=IDEAS.Thermal.Components.Production.BaseClasses.HeaterType.HP_AW,
     redeclare IDEAS.Thermal.Components.Production.HP_AirWater heater,
-    emission(FHChars(A_Floor=150)))
+    QNom={20000 for i in 1:nZones})
     annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
-
   inner IDEAS.SimInfoManager sim(
     redeclare IDEAS.Climate.Meteo.Files.min15 detail,
     redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
@@ -40,21 +36,9 @@ model Heating_Embedded
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder dummyInHomeGrid
     annotation (Placement(transformation(extent={{64,-22},{84,-2}})));
-  IDEAS.Thermal.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=
-        nZones)
-    annotation (Placement(transformation(extent={{-90,46},{-60,66}})));
-  IDEAS.Thermal.Components.Emission.NakedTabs[nZones] nakedTabs(
-    each n1=3,
-    each n2=3,
-    FHChars(T=0.2, each A_Floor=150))
-    annotation (Placement(transformation(extent={{-26,2},{-44,14}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convectionTabs
-    annotation (Placement(transformation(
-        extent={{7,-7},{-7,7}},
-        rotation=-90,
-        origin={-35,29})));
+  IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones)
+    annotation (Placement(transformation(extent={{-78,-22},{-48,-2}})));
 equation
-  convectionTabs.Gc = 11*nakedTabs.FHChars.A_Floor;
 
   connect(heating.TSet, TOpSet.y) annotation (Line(
       points={{10,-22.36},{10,-50},{-17.4,-50}},
@@ -72,20 +56,16 @@ equation
       points={{28,-13},{46,-13},{46,-12},{64,-12}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(nakedTabs.port_a, convectionTabs.solid) annotation (Line(
-      points={{-35,14},{-35,22}},
+  connect(dummyBuilding.heatPortCon, heating.heatPortCon) annotation (Line(
+      points={{-48,-10},{-28,-10},{-28,-11.2},{-8,-11.2}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(convectionTabs.fluid, dummyBuilding.heatPortEmb) annotation (Line(
-      points={{-35,36},{-36,36},{-36,62},{-60,62}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(heating.heatPortEmb, nakedTabs.portCore) annotation (Line(
-      points={{-8,-7.6},{-14,-7.6},{-14,-8},{-18,-8},{-18,8},{-26,8}},
+  connect(dummyBuilding.heatPortRad, heating.heatPortRad) annotation (Line(
+      points={{-48,-14},{-28,-14},{-28,-14.8},{-8,-14.8}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(dummyBuilding.TSensor, heating.TSensor) annotation (Line(
-      points={{-59.4,50},{-52,50},{-52,-18.4},{-8.36,-18.4}},
+      points={{-47.4,-18},{-28,-18},{-28,-18.4},{-8.36,-18.4}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -93,4 +73,4 @@ equation
             100,100}}), graphics),
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput);
-end Heating_Embedded;
+end Heating_Radiators;

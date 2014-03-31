@@ -1,4 +1,4 @@
-within IDEAS.Thermal.HeatingSystems.Interfaces;
+within IDEAS.HeatingSystems.Interfaces;
 partial model Partial_HydraulicHeatingSystem
   "Partial heating system for hydraulic heating systems"
 
@@ -7,7 +7,7 @@ partial model Partial_HydraulicHeatingSystem
   import IDEAS.Thermal.Components.Production.BaseClasses.HeaterType;
   parameter HeaterType heaterType=heater.heaterType;
 
-  parameter Thermal.Data.Interfaces.Medium medium=Data.Media.Water();
+  parameter Thermal.Data.Interfaces.Medium medium=Thermal.Data.Media.Water();
 
   // Interfaces ////////////////////////////////////////////////////////////////////////////////////////
   // see IDEAS.Interfaces.HeatingSystem;

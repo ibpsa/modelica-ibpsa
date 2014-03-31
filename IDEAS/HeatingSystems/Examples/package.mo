@@ -1,4 +1,4 @@
-within IDEAS.Thermal.HeatingSystems;
+within IDEAS.HeatingSystems;
 package Examples "Models for testing heating systems "
 
 

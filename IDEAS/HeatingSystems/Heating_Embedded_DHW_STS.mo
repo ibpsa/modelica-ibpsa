@@ -1,4 +1,4 @@
-within IDEAS.Thermal.HeatingSystems;
+within IDEAS.HeatingSystems;
 model Heating_Embedded_DHW_STS
   "Hydraulic heating with embedded emission, DHW (with STS), no TES for heating"
   import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;

@@ -1,4 +1,4 @@
-within IDEAS.Thermal.HeatingSystems.Examples;
+within IDEAS.HeatingSystems.Examples;
 model DummyBuilding "Dummy building for testing heating systems"
   import IDEAS;
   extends IDEAS.Interfaces.BaseClasses.Structure;
