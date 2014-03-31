@@ -77,25 +77,36 @@ public
     enableRelease=true) "on-off, based on modulationInit"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Thermal.Components.Interfaces.FlowPort_a prim_in(redeclare package Medium =
-        MediumPrimary)
-    annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
-  Thermal.Components.Interfaces.FlowPort_b prim_out(redeclare package Medium =
-        MediumPrimary)
-    annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort evaporator(
-    V=0.003,
+    m=3,
     redeclare package Medium = MediumPrimary,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     T_start=556.3)
-    annotation (Placement(transformation(extent={{-24,-66},{-4,-46}})));
+    annotation (Placement(transformation(extent={{-10,-66},{10,-46}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
-    annotation (Placement(transformation(extent={{-46,-34},{-26,-14}})));
+    annotation (Placement(transformation(extent={{-52,-52},{-32,-32}})));
   parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
   parameter SI.Pressure dp_nominal=0 "Nominal pressure drop";
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
+        MediumPrimary) "Fluid inlet"
+    annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
+        MediumPrimary) "Fluid outlet"
+    annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=-QEvap)
+    annotation (Placement(transformation(extent={{-18,-16},{-44,4}})));
+  Modelica.Blocks.Math.Product product
+    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
+  Modelica.Blocks.Math.Product product1
+    annotation (Placement(transformation(extent={{36,-10},{56,10}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=-QCond -
+        QLossesToCompensate)
+    annotation (Placement(transformation(extent={{-14,-16},{22,4}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow1
+    annotation (Placement(transformation(extent={{64,-10},{84,10}})));
 equation
-  TEvaporator = MediumPrimary.temperature(MediumPrimary.setState_phX(MediumPrimary.p_default, inStream(prim_in.h_outflow), MediumPrimary.X_default));
+  TEvaporator = MediumPrimary.temperature(MediumPrimary.setState_phX(MediumPrimary.p_default, inStream(port_a.h_outflow), MediumPrimary.X_default));
   onOff.u = TCondensor_set - heatPort.T;
   onOff.release = noEvent(if m_flowCondensor > 0 then 1.0 else 0.0);
   //QAsked = m_flowCondensor * medium.cp * (TCondensor_set - TCondensor_in);
@@ -113,23 +124,49 @@ equation
   QEvap = evap100.y*QNom/QNomRef*1000;
 
   // compensation of heat losses (only when the hp is operating)
-  QLossesToCompensate = onOff.y*UALoss*(heatPort.T - TEnvironment);
+  QLossesToCompensate = UALoss*(heatPort.T - TEnvironment);
   modulation = onOff.y*100;
-  heatPort.Q_flow = -onOff.y*QCond - QLossesToCompensate;
   PEl = onOff.y*PComp;
-  prescribedHeatFlow.Q_flow = -onOff.y*QEvap;
 
-  connect(prim_in, evaporator.port_a) annotation (Line(
-      points={{-40,-100},{-42,-100},{-42,-56},{-24,-56}},
-      color={255,0,0},
-      smooth=Smooth.None));
-  connect(evaporator.port_b, prim_out) annotation (Line(
-      points={{-4,-56},{20,-56},{20,-100}},
-      color={255,0,0},
-      smooth=Smooth.None));
   connect(evaporator.heatPort, prescribedHeatFlow.port) annotation (Line(
-      points={{-14,-46},{-14,-24},{-26,-24}},
+      points={{6.66134e-16,-46},{6.66134e-16,-42},{-32,-42}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(evaporator.port_a, port_a) annotation (Line(
+      points={{-10,-56},{-40,-56},{-40,-100}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(evaporator.port_b, port_b) annotation (Line(
+      points={{10,-56},{40,-56},{40,-100}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(product.u1, onOff.y) annotation (Line(
+      points={{-58,6},{-4,6},{-4,18},{52,18},{52,30},{40.6,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression.y, product.u2) annotation (Line(
+      points={{-45.3,-6},{-58,-6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(product.y, prescribedHeatFlow.Q_flow) annotation (Line(
+      points={{-81,6.66134e-16},{-90,6.66134e-16},{-90,-42},{-52,-42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression1.y, product1.u2) annotation (Line(
+      points={{23.8,-6},{34,-6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(prescribedHeatFlow1.port, heatPort) annotation (Line(
+      points={{84,4.44089e-16},{92,4.44089e-16},{92,0},{100,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(product1.u1, onOff.y) annotation (Line(
+      points={{34,6},{20,6},{20,18},{52,18},{52,30},{40.6,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(prescribedHeatFlow1.Q_flow, product1.y) annotation (Line(
+      points={{64,8.88178e-16},{64,6.66134e-16},{57,6.66134e-16}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),

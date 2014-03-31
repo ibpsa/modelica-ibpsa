@@ -29,48 +29,36 @@ model HP_BrineWater "Brine-Water HP WITHOUT borehole"
     m_flowCondensor=port_a.m_flow,
     redeclare package MediumPrimary = Medium,
     redeclare package MediumSecondary = MediumBrine)
-    annotation (Placement(transformation(extent={{2,-64},{16,-50}})));
+    annotation (Placement(transformation(extent={{4,-66},{18,-52}})));
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-86,92},{-66,112}})));
-  IDEAS.Thermal.Components.Interfaces.FlowPort_a flowPortBrine_a(redeclare
-      package Medium =
-        MediumBrine) "Inlet flowport for the brine"
-    annotation (Placement(transformation(extent={{16,-110},{36,-90}})));
-  IDEAS.Thermal.Components.Interfaces.FlowPort_b flowPortBrine_b(redeclare
-      package Medium =
-        MediumBrine) "Outlet flowport for brine"
-    annotation (Placement(transformation(extent={{66,-110},{86,-90}})));
-  IDEAS.Fluid.Sensors.Temperature Tin(redeclare package Medium = Medium)
-    "Incoming water temperature: for evaluation of condensation efficiency"
-    annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=0,
-        origin={40,-56})));
+  Modelica.Fluid.Interfaces.FluidPort_a prim_in(redeclare package Medium =
+        MediumBrine) "Primary fluid inlet"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.Fluid.Interfaces.FluidPort_b prim_out(redeclare package Medium =
+        MediumBrine) "Primary fluid outlet"
+    annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
 equation
   PFuel = 0;
   PEl = heatSource.PEl;
   COP = if noEvent(heatSource.PEl > 0) then pipe_HeatPort.heatPort.Q_flow/PEl
      else 0;
 
-  connect(Tin.port, port_a) annotation (Line(
-      points={{40,-46},{40,-36},{100,-36},{100,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(flowPortBrine_a, heatSource.prim_in) annotation (Line(
-      points={{26,-100},{20,-100},{20,-86},{6.2,-86},{6.2,-64}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(flowPortBrine_b, heatSource.prim_out) annotation (Line(
-      points={{76,-100},{76,-78},{10.4,-78},{10.4,-64}},
-      color={0,0,0},
-      smooth=Smooth.None));
   connect(pipe_HeatPort.heatPort, heatSource.heatPort) annotation (Line(
-      points={{28,-6},{22,-6},{22,-57},{16,-57}},
+      points={{28,-6},{22,-6},{22,-59},{18,-59}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(heatSource.port_a, prim_in) annotation (Line(
+      points={{8.2,-66},{8,-66},{8,-80},{0,-80},{0,-100}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatSource.port_b, prim_out) annotation (Line(
+      points={{13.8,-66},{14,-66},{14,-80},{40,-80},{40,-100}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            120}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,120}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             120}}), graphics={
         Line(
