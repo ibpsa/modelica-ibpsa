@@ -1,40 +1,82 @@
-within IDEAS.BaseClasses.Control;
-block Hyst_MinOff "Hysteresis, with Real in- and output and min off-time"
+within IDEAS.Controls.Control_fixme;
+block Hyst_NoEvent3 "Hysteresis without events, with Real in- and output"
 
   extends Modelica.Blocks.Interfaces.partialBooleanBlockIcon;
   parameter Real uLow;
   parameter Real uHigh;
-  parameter Modelica.SIunits.Time minOffTime=0;
 
   Modelica.Blocks.Interfaces.RealInput u
     annotation (Placement(transformation(extent={{-128,-20},{-88,20}})));
-  Modelica.Blocks.Interfaces.RealOutput y
+  Modelica.Blocks.Interfaces.RealOutput y(start=0)
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
-protected
-  Hyst_NoEvent3 hyst(uLow=uLow, uHigh=uHigh)
-    annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
-  IDEAS.BaseClasses.Control.MinOffTimer_Events timerOff(duration=minOffTime)
-    annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
-public
+
   output Real error;
-
-algorithm
-  error := hyst.error;
-  y := min(hyst.y, timerOff.y);
-
 equation
-  connect(u, hyst.u) annotation (Line(
-      points={{-108,0},{-54.8,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(hyst.y, timerOff.u) annotation (Line(
-      points={{-33.4,0},{-4,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  y = Hysteresis_NoEvent(
+    u,
+    y,
+    uLow,
+    uHigh);
+  error = if noEvent(u < uHigh and u > (uLow + 1.01*(uHigh - uLow)) and der(u)
+     < 0 and y < 0.5) then 1.0 else 0.0;
+  assert(error < 0.5,
+    "The Hyst_NoEvent did not operate correctly.  Try reducing the tolerance of the solver");
   annotation (
-    Placement(transformation(extent={{18,56},{38,76}})),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
+            100}}), graphics={Polygon(
+          points={{-65,89},{-73,67},{-57,67},{-65,89}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),Line(points={{-65,67},{-65,-81}},
+          color={192,192,192}),Line(points={{-90,-70},{82,-70}}, color={192,192,
+          192}),Polygon(
+          points={{90,-70},{68,-62},{68,-78},{90,-70}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),Text(
+          extent={{70,-80},{94,-100}},
+          lineColor={160,160,164},
+          textString="u"),Text(
+          extent={{-65,93},{-12,75}},
+          lineColor={160,160,164},
+          textString="y"),Line(
+          points={{-80,-70},{30,-70}},
+          color={0,0,0},
+          thickness=0.5),Line(
+          points={{-50,10},{80,10}},
+          color={0,0,0},
+          thickness=0.5),Line(
+          points={{-50,10},{-50,-70}},
+          color={0,0,0},
+          thickness=0.5),Line(
+          points={{30,10},{30,-70}},
+          color={0,0,0},
+          thickness=0.5),Line(
+          points={{-10,-65},{0,-70},{-10,-75}},
+          color={0,0,0},
+          thickness=0.5),Line(
+          points={{-10,15},{-20,10},{-10,5}},
+          color={0,0,0},
+          thickness=0.5),Line(
+          points={{-55,-20},{-50,-30},{-44,-20}},
+          color={0,0,0},
+          thickness=0.5),Line(
+          points={{25,-30},{30,-19},{35,-30}},
+          color={0,0,0},
+          thickness=0.5),Text(
+          extent={{-99,2},{-70,18}},
+          lineColor={160,160,164},
+          textString="true"),Text(
+          extent={{-98,-87},{-66,-73}},
+          lineColor={160,160,164},
+          textString="false"),Text(
+          extent={{19,-87},{44,-70}},
+          lineColor={0,0,0},
+          textString="uHigh"),Text(
+          extent={{-63,-88},{-38,-71}},
+          lineColor={0,0,0},
+          textString="uLow"),Line(points={{-69,10},{-60,10}}, color={160,160,
+          164})}),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},
@@ -82,4 +124,4 @@ The default value of this parameter is <b>false</b>.
 </p>
 </HTML>
 "));
-end Hyst_MinOff;
+end Hyst_NoEvent3;

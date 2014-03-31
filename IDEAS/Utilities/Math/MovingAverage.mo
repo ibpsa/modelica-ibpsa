@@ -1,4 +1,4 @@
-within IDEAS.BaseClasses.Math;
+within IDEAS.Utilities.Math;
 block MovingAverage "Calculates the moving average of a Real input"
 
   extends Modelica.Blocks.Interfaces.SISO;

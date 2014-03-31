@@ -1,4 +1,4 @@
-within IDEAS.BaseClasses.Control;
+within IDEAS.Controls.Control_fixme;
 function Hysteresis_NoEvent "function for hysteresis without event"
   input Real u;
   input Real y_pre;

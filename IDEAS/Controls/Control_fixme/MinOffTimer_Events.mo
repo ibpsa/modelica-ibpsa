@@ -1,4 +1,4 @@
-within IDEAS.BaseClasses.Control;
+within IDEAS.Controls.Control_fixme;
 block MinOffTimer_Events "MinOffTimer that works (and has events)"
   extends Modelica.Blocks.Interfaces.SISO(y(start=1));
 

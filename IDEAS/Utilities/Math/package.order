@@ -18,4 +18,5 @@ SmoothMax
 SmoothMin
 Splice
 TrapezoidalIntegration
+MovingAverage
 Examples

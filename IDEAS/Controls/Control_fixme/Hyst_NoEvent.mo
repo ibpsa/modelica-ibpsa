@@ -1,26 +1,45 @@
-within IDEAS.BaseClasses.Control;
-block Hyst_NoEvent3 "Hysteresis without events, with Real in- and output"
+within IDEAS.Controls.Control_fixme;
+block Hyst_NoEvent "Hysteresis without events, with Real in- and output"
 
-  extends Modelica.Blocks.Interfaces.partialBooleanBlockIcon;
+  extends Modelica.Blocks.Interfaces.SISO(y(start=0));
   parameter Real uLow;
   parameter Real uHigh;
+  parameter Boolean enableRelease=false
+    "if true, an additional RealInput will be available for releasing the controller";
 
-  Modelica.Blocks.Interfaces.RealInput u
-    annotation (Placement(transformation(extent={{-128,-20},{-88,20}})));
-  Modelica.Blocks.Interfaces.RealOutput y(start=0)
-    annotation (Placement(transformation(extent={{96,-10},{116,10}})));
+  output Real error(start=0);
 
-  output Real error;
+  Modelica.Blocks.Interfaces.RealInput release(start=0) = rel if enableRelease
+    "if < 0.5, the controller is OFF"
+    annotation (Placement(transformation(extent={{-128,60},{-88,100}})));
+protected
+  Real rel
+    "release, either 1 ,either from RealInput release if enableRelease is true";
+
 equation
-  y = Hysteresis_NoEvent(
-    u,
-    y,
-    uLow,
-    uHigh);
-  error = if noEvent(u < uHigh and u > (uLow + 1.01*(uHigh - uLow)) and der(u)
-     < 0 and y < 0.5) then 1.0 else 0.0;
-  assert(error < 0.5,
-    "The Hyst_NoEvent did not operate correctly.  Try reducing the tolerance of the solver");
+  if not enableRelease then
+    rel = 1;
+  end if;
+
+  if noEvent(u >= uHigh and rel > 0.5) then
+    y = 1;
+  elseif noEvent(u <= uLow) then
+    y = 0;
+  elseif noEvent(u > uLow) and noEvent(y > 0.5) and noEvent(rel > 0.5) then
+    y = 1;
+  else
+    y = 0;
+  end if;
+
+  /* 
+  We have experienced errors with the hysteresis without events in case the tolerance of the 
+  integrator is too low: some unlogical behaviour.
+  To check correct behaviour, it was possible to define the error as below. 
+  The u-delay(u,1) is there because der(u) causes problems in case u is not continuous...
+  */
+
+  error = if noEvent(u < uHigh and u > uLow and u - delay(u, 1) < 0 and y < 0.5)
+     then 1.0 else 0.0;
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Polygon(
@@ -124,4 +143,4 @@ The default value of this parameter is <b>false</b>.
 </p>
 </HTML>
 "));
-end Hyst_NoEvent3;
+end Hyst_NoEvent;

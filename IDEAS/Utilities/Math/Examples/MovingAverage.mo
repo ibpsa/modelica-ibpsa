@@ -1,7 +1,8 @@
-within IDEAS.BaseClasses.Examples;
-model Tester_MovingAverage
+within IDEAS.Utilities.Math.Examples;
+model MovingAverage
+  extends Modelica.Icons.Example;
 
-  IDEAS.BaseClasses.Math.MovingAverage movingAverage(period=3)
+  IDEAS.Utilities.Math.MovingAverage movingAverage(period=3)
     annotation (Placement(transformation(extent={{-16,8},{4,28}})));
   Modelica.Blocks.Sources.Pulse step(
     offset=50,
@@ -27,4 +28,4 @@ equation
     Diagram(graphics),
     experiment(StopTime=20),
     __Dymola_experimentSetupOutput);
-end Tester_MovingAverage;
+end MovingAverage;

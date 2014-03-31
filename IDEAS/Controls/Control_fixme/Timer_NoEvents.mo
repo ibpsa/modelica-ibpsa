@@ -1,4 +1,4 @@
-within IDEAS.BaseClasses.Control;
+within IDEAS.Controls.Control_fixme;
 block Timer_NoEvents "Min-on OR min-off timer that does not generate events"
 
   /*
@@ -84,14 +84,14 @@ algorithm
 
 equation
   if timerType == TimerType.off then
-    y = if noEvent(IDEAS.BaseClasses.Control.Hysteresis_NoEvent(
+    y = if noEvent(IDEAS.Controls.Control_fixme.Hysteresis_NoEvent(
       cap.T,
       y,
       TStart + TStep/2,
       TEnd) > 0.5 or der(cap.T) <= 0 or cap.T < (TStart + Modelica.Constants.small))
        then 1 else 0;
   else
-    y = if noEvent(IDEAS.BaseClasses.Control.Hysteresis_NoEvent(
+    y = if noEvent(IDEAS.Controls.Control_fixme.Hysteresis_NoEvent(
       cap.T,
       1 - y,
       TStart + TStep/2,
