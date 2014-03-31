@@ -14,6 +14,8 @@ model StratifiedInlet "Stratified inlet for a storage tank"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
 
+  Integer test = 1;
+
   parameter Integer nbrNodes(min=1) = 10 "Number of nodes in the tank";
 //  input Modelica.SIunits.Temperature[nbrNodes] TNodes
  //   "Temperature of the nodes in the tank";
@@ -22,7 +24,8 @@ model StratifiedInlet "Stratified inlet for a storage tank"
 //  Modelica.SIunits.Temperature T(start=293.15) = port_a.h/medium.cp
   //    "Inlet temperature";
 
-  Modelica.SIunits.SpecificEnthalpy h_in = inStream(port_a.h_outflow);
+  Modelica.SIunits.SpecificEnthalpy h_in = inStream(port_a.h_outflow)
+    "Enthalpy at the inlet";
 
   Integer inlet(start=0) "Number of the active inlet node";
 
@@ -59,13 +62,16 @@ algorithm
 
 equation
   port_a.p = port_b[inlet].p;
-  port_a.h_outflow = inStream(port_b[inlet].h_outflow);
-  port_a.Xi_outflow = inStream(port_b[inlet].Xi_outflow);
-  port_a.C_outflow = inStream(port_b[inlet].C_outflow);
+  //using ´inlet´ for the following three equations would be more correct,
+  //however this results in errors. This shortcut only results in errors for reversed
+  //flows, for which a stratified inlet is not accurate anyway.
+  port_a.h_outflow  = inStream(port_b[1].h_outflow);
+  port_a.Xi_outflow = inStream(port_b[1].Xi_outflow);
+  port_a.C_outflow  = inStream(port_b[1].C_outflow);
   for i in 1:nbrNodes + 1 loop
-    h_in = port_b[i].h_outflow;
+    port_b[i].h_outflow  = inStream(port_a.h_outflow);
     port_b[i].Xi_outflow = inStream(port_a.Xi_outflow);
-    port_b[i].C_outflow = inStream(port_a.C_outflow);
+    port_b[i].C_outflow  = inStream(port_a.C_outflow);
     if i == inlet then
       port_a.m_flow + port_b[i].m_flow = 0;
     else
