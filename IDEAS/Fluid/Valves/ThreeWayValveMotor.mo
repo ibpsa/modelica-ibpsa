@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Valves;
 model ThreeWayValveMotor
   "Ideal three way valve with a krane controlled with a Real input with value between 0 and 1"
-  extends Partial3WayValve;
+  extends BaseClasses.Partial3WayValve;
 
 public
   Modelica.Blocks.Interfaces.RealInput ctrl(min=0, max=1)
@@ -93,8 +93,14 @@ equation
           lineColor={0,0,255},
           textString="%name")}),
     Documentation(revisions="<html>
-<p><ul>
-<li>January 2014, Damien Picard<br/><i>First implementation</i></li>
-</ul></p>
-</html>"));
+<ul>
+<li>March 2014 by Filip Jorissen:<br/> 
+Annex60 compatibility
+</li>
+<li>January 2014, Damien Picard:<br/> 
+First implementation
+</li>
+</ul>
+</html>
+"));
 end ThreeWayValveMotor;

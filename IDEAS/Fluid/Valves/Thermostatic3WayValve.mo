@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Valves;
 model Thermostatic3WayValve "Thermostatic 3-way valve"
-  extends Partial3WayValve;
+  extends BaseClasses.Partial3WayValve;
 
   parameter Modelica.SIunits.MassFlowRate mFlowMin=0.01*m_flow_nominal
     "Minimum outlet flowrate for mixing to start";

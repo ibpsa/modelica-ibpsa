@@ -115,5 +115,11 @@ equation
     Commands(file="Scripts/Tester_Boiler.mos" "TestModel"),
     Documentation(info="<html>
 <p>Model used to validate the <a href=\"modelica://IDEAS.Thermal.Components.Production.Boiler\">IDEAS.Thermal.Components.Production.Boiler</a>. With a fixed set point, the boiler receives different mass flow rates. </p>
+</html>", revisions="<html>
+<ul>
+<li>March 2014 by Filip Jorissen:<br/> 
+Annex60 compatibility
+</li>
+</ul>
 </html>"));
 end Boiler_validation;

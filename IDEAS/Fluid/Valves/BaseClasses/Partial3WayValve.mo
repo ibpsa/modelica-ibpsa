@@ -1,4 +1,4 @@
-within IDEAS.Fluid.Valves;
+within IDEAS.Fluid.Valves.BaseClasses;
 model Partial3WayValve "Partial for 3-way valves"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   parameter Modelica.SIunits.Mass m = 1 "Fluid content of the mixing valve";
@@ -40,8 +40,7 @@ model Partial3WayValve "Partial for 3-way valves"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,-28})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 
 equation
   connect(port_a1, vol.ports[1]) annotation (Line(
@@ -133,11 +132,11 @@ equation
 <p><h4>Example (optional) </h4></p>
 <p>Examples of this model can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.TempMixingTester\"> IDEAS.Thermal.Components.Examples.TempMixingTester</a> and<a href=\"modelica://IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve\"> IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve</a></p>
 </html>", revisions="<html>
-<p><ul>
-<li>2014 March, Filip Jorissen, Annex60 compatibility</li>
-<li>2013 May, Roel De Coninck, documentation</li>
-<li>2013 March, Ruben Baetens, graphics</li>
-<li>2010, Roel De Coninck, first version</li>
-</ul></p>
-</html>"));
+<ul>
+<li>March 2014 by Filip Jorissen:<br/> 
+Initial implementation
+</li>
+</ul>
+</html>
+"));
 end Partial3WayValve;

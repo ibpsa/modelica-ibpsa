@@ -100,5 +100,11 @@ equation
     Documentation(info="<html>
 <p>This example shows the modulation behaviour of an inverter controlled air-to-water heat pump when the inlet water temperature is changed. </p>
 <p>The modulation level can be seen from heater.heatSource.modulation.</p>
+</html>", revisions="<html>
+<ul>
+<li>March 2014 by Filip Jorissen:<br/> 
+Annex60 compatibility
+</li>
+</ul>
 </html>"));
 end HeatPump_AirWater;

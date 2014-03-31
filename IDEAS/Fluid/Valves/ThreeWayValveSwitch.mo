@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Valves;
 model ThreeWayValveSwitch "Switches between two circuits"
-  extends Partial3WayValve;
+  extends BaseClasses.Partial3WayValve;
   parameter Modelica.SIunits.MassFlowRate mFlowMin = 0.01
     "Minimum outlet flowrate for mixing to start";
 
@@ -93,8 +93,14 @@ equation
           lineColor={255,0,0},
           textString="1")}),
     Documentation(revisions="<html>
-<p><ul>
-<li>January 2014, Dieter Patteeuw<br/><i>First implementation</i></li>
-</ul></p>
-</html>"));
+<ul>
+<li>March 2014 by Filip Jorissen:<br/> 
+Annex60 compatibility
+</li>
+<li>January 2014, Dieter Patteeuw:<br/> 
+First implementation
+</li>
+</ul>
+</html>
+"));
 end ThreeWayValveSwitch;
