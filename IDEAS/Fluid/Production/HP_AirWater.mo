@@ -46,7 +46,9 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             120}}),
             graphics),
-    Icon(graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            120}}),
+         graphics={
         Line(
           points={{-102,30},{-102,10}},
           color={0,0,127},
@@ -56,11 +58,11 @@ equation
           color={85,85,255},
           smooth=Smooth.None),
         Line(
-          points={{78,30},{78,10}},
+          points={{78,50},{78,30}},
           color={128,0,255},
           smooth=Smooth.None),
         Line(
-          points={{98,20},{82,20}},
+          points={{96,40},{80,40}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
@@ -94,7 +96,7 @@ equation
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{82,30},{82,10}},
+          points={{80,50},{80,30}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
@@ -102,7 +104,7 @@ equation
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{-2,-40},{-12,-40},{8,20},{78,20}},
+          points={{-2,-40},{-12,-40},{16,40},{78,40}},
           color={0,0,255},
           smooth=Smooth.None),
         Line(
