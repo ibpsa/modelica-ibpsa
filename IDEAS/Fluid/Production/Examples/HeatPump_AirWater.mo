@@ -4,28 +4,29 @@ model HeatPump_AirWater
 
   extends Modelica.Icons.Example;
 
-  Thermal.Components.BaseClasses.AbsolutePressure absolutePressure(medium=
-        Thermal.Data.Media.Water(),
-                            p=200000)
-    annotation (Placement(transformation(extent={{-36,10},{-16,30}})));
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
+    annotation (__Dymola_choicesAllMatching=true);
+
   Fluid.Movers.Pump pump(
-    medium=Thermal.Data.Media.Water(),
     m=1,
     useInput=false,
-    m_flowNom=0.2)
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-14,-24},{-34,-4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe(
-    medium=Thermal.Data.Media.Water(),
     m=5,
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
     TInitial=313.15)
-    annotation (Placement(transformation(extent={{32,-24},{12,-4}})));
+    annotation (Placement(transformation(extent={{32,-4},{12,-24}})));
   Fluid.Production.HP_AirWater heater(
-    medium=Thermal.Data.Media.Water(),
     tauHeatLoss=3600,
     cDry=10000,
     mWater=4,
-    QNom=12000)
-    annotation (Placement(transformation(extent={{-76,14},{-56,34}})));
+    QNom=12000,
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{-74,14},{-56,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
     annotation (Placement(transformation(extent={{-94,-20},{-80,-6}})));
@@ -47,6 +48,10 @@ model HeatPump_AirWater
     amplitude=4,
     offset=273.15 + 30)
     annotation (Placement(transformation(extent={{-82,-62},{-62,-42}})));
+  Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = Medium,
+    p=200000)
+    annotation (Placement(transformation(extent={{-8,8},{-28,28}})));
+  constant SI.MassFlowRate m_flow_nominal=0.2 "Nominal mass flow rate";
 equation
   heater.TSet = 273.15 + 35;
   //   der(PElLossesInt) = HP.PEl;
@@ -57,36 +62,36 @@ equation
   //   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
 
   connect(heater.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-69,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
+      points={{-67.7,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TReturn.port, pipe.heatPort) annotation (Line(
-      points={{-20,-52},{22,-52},{22,-4}},
+      points={{-20,-52},{22,-52},{22,-24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sine.y, TReturn.T) annotation (Line(
       points={{-61,-52},{-42,-52}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heater.flowPort_b, pipe.flowPort_a) annotation (Line(
-      points={{-56,24.9091},{-56,36},{48,36},{48,-14},{32,-14}},
+  connect(heater.port_b, pipe.port_a) annotation (Line(
+      points={{-56,26.7273},{-56,36},{48,36},{48,-14},{32,-14}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(pipe.flowPort_b, pump.flowPort_a) annotation (Line(
+  connect(pipe.port_b, pump.port_a) annotation (Line(
       points={{12,-14},{-14,-14}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(pump.flowPort_b, heater.flowPort_a) annotation (Line(
-      points={{-34,-14},{-56,-14},{-56,19.6364}},
+  connect(pump.port_b, heater.port_a) annotation (Line(
+      points={{-34,-14},{-56,-14},{-56,19.4545}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(heater.flowPort_a, absolutePressure.flowPort) annotation (Line(
-      points={{-56,19.6364},{-44,19.6364},{-44,20},{-36,20}},
-      color={0,0,255},
+  connect(bou.ports[1], heater.port_a) annotation (Line(
+      points={{-28,18},{-42,18},{-42,19.4545},{-56,19.4545}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics),
     experiment(StopTime=15000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
