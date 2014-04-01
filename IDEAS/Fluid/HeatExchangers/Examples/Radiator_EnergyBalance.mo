@@ -61,7 +61,7 @@ equation
   der(QRadiator) = -radiator.heatPortCon.Q_flow - radiator.heatPortRad.Q_flow;
 
   connect(prescribedTemperature.port, radiator.heatPortRad) annotation (Line(
-      points={{52,34},{65.8333,34},{65.8333,12}},
+      points={{52,34},{69,34},{69,12}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(boilerHeatFlow.port, boiler.heatPort) annotation (Line(
@@ -77,19 +77,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(prescribedTemperature.port, radiator.heatPortCon) annotation (Line(
-      points={{52,34},{62.5,34},{62.5,12}},
+      points={{52,34},{65,34},{65,12}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(boiler.port_b, radiator.port_a) annotation (Line(
-      points={{32,-6},{42,-6},{42,4.5},{50,4.5}},
+      points={{32,-6},{42,-6},{42,2},{50,2}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(radiator.port_b, volumeFlow1.port_a) annotation (Line(
-      points={{66.6667,4.5},{88,4.5},{88,-70},{-80,-70},{-80,-6},{-36,-6}},
+      points={{70,2},{88,2},{88,-70},{-80,-70},{-80,-6},{-36,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou.ports[1], radiator.port_a) annotation (Line(
-      points={{42,-34},{46,-34},{46,4.5},{50,4.5}},
+      points={{42,-34},{46,-34},{46,2},{50,2}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volumeFlow1.port_b, boiler.port_a) annotation (Line(

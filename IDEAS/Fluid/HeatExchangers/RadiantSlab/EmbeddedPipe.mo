@@ -70,8 +70,8 @@ protected
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heatPortEmb
     "Port to the core of a floor heating/concrete activation"
-    annotation (Placement(transformation(extent={{-70,90},{-50,110}}),
-        iconTransformation(extent={{-70,90},{-50,110}})));
+    annotation (Placement(transformation(extent={{-10,90},{10,110}}),
+        iconTransformation(extent={{-10,90},{10,110}})));
 
   Modelica.Blocks.Sources.RealExpression G_w_val(y=RadSlaCha.A_Floor/R_w_val)
     "Value of the G_w_val of the convective heat transfer inside pipe"
@@ -108,7 +108,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(R_x.port_b, heatPortEmb) annotation (Line(
-      points={{66,24},{72,24},{72,100},{-60,100}},
+      points={{66,24},{72,24},{72,100},{0,100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(R_w.fluid, R_r.port_a) annotation (Line(
@@ -127,7 +127,14 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
             graphics),
-    Icon(graphics),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+         graphics={Line(
+          points={{-90,0},{-80,0},{-80,-60},{-60,-60},{-60,80},{-40,80},{-40,
+              -60},{-20,-60},{-20,80},{0,80},{0,-60},{20,-60},{20,80},{40,80},{
+              40,-60},{60,-60},{60,80},{80,80},{80,0},{100,0}},
+          color={0,0,255},
+          smooth=Smooth.None)}),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Dynamic model of an embedded pipe for a concrete core activation or a floor heating element. This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;the&nbsp;norm&nbsp;prEN&nbsp;15377&nbsp;for&nbsp;the&nbsp;nomenclature&nbsp;but&nbsp;relies&nbsp;more&nbsp;on&nbsp;the&nbsp;background&nbsp;as&nbsp;developed&nbsp;in&nbsp;(Koschenz,&nbsp;2000).&nbsp;The R_x_val for the floor heating is calculated according to the TRNSYS guide lines (TRNSYS, 2007)  There&nbsp;is&nbsp;one&nbsp;major&nbsp;deviation:&nbsp;instead&nbsp;of&nbsp;calculating&nbsp;R_z&nbsp;(to&nbsp;get&nbsp;the&nbsp;mean&nbsp;water&nbsp;temperature&nbsp;in&nbsp;the&nbsp;tube&nbsp;from&nbsp;the&nbsp;supply&nbsp;temperature&nbsp;and&nbsp;flowrate),&nbsp;this&nbsp;mean&nbsp;water&nbsp;temperatue&nbsp;is&nbsp;modelled&nbsp;specifically,&nbsp;based&nbsp;on&nbsp;the&nbsp;mass&nbsp;of&nbsp;the&nbsp;water&nbsp;in&nbsp;the&nbsp;system.<code><font style=\"color: #006400; \">&nbsp;&nbsp;</font></code></p>

@@ -10,7 +10,8 @@ record RadiantSlabChar
   // Changed 20110629:
   // Important: this record ALSO contains the parameters that are specific to the building.
 
-    // fixme: remove tabs
+  extends Modelica.Icons.Record;
+
   parameter Boolean tabs = true
     "true if the model is used for tabs, false if the model is used for floor heating";
 
