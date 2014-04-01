@@ -28,7 +28,8 @@ model HP_BrineWater "Brine-Water HP WITHOUT borehole"
     TCondensor_in=Tin.T,
     m_flowCondensor=port_a.m_flow,
     redeclare package MediumPrimary = Medium,
-    redeclare package MediumSecondary = MediumBrine)
+    redeclare package MediumSecondary = MediumBrine,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{4,-66},{18,-52}})));
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-86,92},{-66,112}})));
