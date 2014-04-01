@@ -2,9 +2,10 @@ IdealHeater
 Boiler
 HP_AirWater
 HP_BrineWater
-OnOffHeatPump
+HeatPumpOnOff
 SolarCollector_Glazed
 SolarThermalSystem_Simple
 BaseClasses
 Interfaces
 Examples
+HeatPumpTset

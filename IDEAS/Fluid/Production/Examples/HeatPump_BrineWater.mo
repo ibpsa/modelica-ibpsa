@@ -39,7 +39,7 @@ model HeatPump_BrineWater
     m=1,
     useInput=false,
     redeclare package Medium = Medium,
-    m_flow_nominal=5*m_flow_nominal)
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-6,-22},{-26,-2}})));
   Sources.Boundary_pT bou1(         redeclare package Medium = Medium,
     nPorts=2,
@@ -52,10 +52,10 @@ model HeatPump_BrineWater
     offset=273.15 + 10,
     startTime=4000)
     annotation (Placement(transformation(extent={{92,-34},{72,-14}})));
-  OnOffHeatPump onOffHeatPump(
+  HeatPumpOnOff onOffHeatPump(
     redeclare package MediumBrine = Medium,
     redeclare package MediumFluid = Medium,
-    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA06
+    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA08
       heatPumpData,
     use_onOffSignal=false)
     annotation (Placement(transformation(extent={{-58,18},{-38,38}})));
@@ -68,7 +68,7 @@ equation
   //   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
 
   connect(pump.port_a, bou.ports[1]) annotation (Line(
-      points={{-6,24},{16,24},{16,24},{38,24}},
+      points={{-6,24},{38,24}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sine.y, bou.T_in) annotation (Line(

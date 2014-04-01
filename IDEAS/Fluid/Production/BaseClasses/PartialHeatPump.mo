@@ -134,16 +134,7 @@ public
 
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
-  parameter Real powerData[:,:]=fill(
-      0.0,
-      0,
-      2)
-    "Table matrix (grid u1 = first column, grid u2 = first row; e.g., table=[0,0;0,1])";
-  parameter Real copData[:,:]=fill(
-      0.0,
-      0,
-      2)
-    "Table matrix (grid u1 = first column, grid u2 = first row; e.g., table=[0,0;0,1])";
+
   FixedResistances.Pipe_HeatPort evaporator(
     redeclare package Medium = MediumBrine,
     energyDynamics=energyDynamics,

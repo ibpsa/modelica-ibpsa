@@ -8,14 +8,14 @@ record HeatPumpData "Data record for storing data for an on/off heat pump"
   Modelica.SIunits.Mass mFluid "Fluid content of the condensor";
 
   Modelica.SIunits.MassFlowRate m_flow_nominal_brine
-    "Nominal mass flow rate of the brine (evaporator)";
+    "Mass flow rate of the brine (evaporator) for calculation of the pressure drop";
   Modelica.SIunits.MassFlowRate m_flow_nominal_fluid
-    "Nominal mass flow rate of the fluid (condensor)";
+    "Mass flow rate of the fluid (condensor) for calculation of the pressure drop";
 
   Modelica.SIunits.Pressure dp_nominal_brine
-    "Nominal pressure drop of the evaporator";
+    "Pressure drop of the evaporator at nominal mass flow rate";
   Modelica.SIunits.Pressure dp_nominal_fluid
-    "Nominal pressure drop of the condensor";
+    "Pressure drop of the condensor at nominal mass flow rate";
 
   Modelica.SIunits.ThermalConductance G
     "Thermal conductivity between the evaporator and the environment";

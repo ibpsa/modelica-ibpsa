@@ -1,5 +1,5 @@
 within IDEAS.Fluid.Production;
-model OnOffHeatPump "A heat pump that can only be switch on or off"
+model HeatPumpOnOff "A heat pump that can only be switch on or off"
   extends IDEAS.Fluid.Production.BaseClasses.PartialHeatPump(redeclare replaceable parameter
       IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData heatPumpData constrainedby
       IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData);
@@ -67,4 +67,4 @@ Initial version
 </li>
 </ul>
 </html>"));
-end OnOffHeatPump;
+end HeatPumpOnOff;
