@@ -35,12 +35,6 @@ model HeatPump_BrineWater
     p=200000)
     annotation (Placement(transformation(extent={{58,36},{38,16}})));
   constant SI.MassFlowRate m_flow_nominal=0.2 "Nominal mass flow rate";
-  HP_BrineWater hP_BrineWater(
-    redeclare package Medium = Medium,
-    redeclare package MediumBrine = Medium,
-    m_flow_nominal=m_flow_nominal,
-    QNom=10000)
-    annotation (Placement(transformation(extent={{-64,22},{-44,44}})));
   Fluid.Movers.Pump pump1(
     m=1,
     useInput=false,
@@ -58,8 +52,13 @@ model HeatPump_BrineWater
     offset=273.15 + 10,
     startTime=4000)
     annotation (Placement(transformation(extent={{92,-34},{72,-14}})));
-  Modelica.Blocks.Sources.Constant const(k=273.15 + 35)
-    annotation (Placement(transformation(extent={{-18,68},{-38,88}})));
+  OnOffHeatPump onOffHeatPump(
+    redeclare package MediumBrine = Medium,
+    redeclare package MediumFluid = Medium,
+    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA06
+      heatPumpData,
+    use_onOffSignal=false)
+    annotation (Placement(transformation(extent={{-58,18},{-38,38}})));
 equation
   //   der(PElLossesInt) = HP.PEl;
   //   der(PElNoLossesInt) = HP_NoLosses.PEl;
@@ -68,16 +67,8 @@ equation
   //   SPFLosses = if noEvent(PElLossesInt > 0) then QUsefulLossesInt/PElLossesInt else 0;
   //   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
 
-  connect(pump.port_b, hP_BrineWater.port_a) annotation (Line(
-      points={{-26,24},{-36,24},{-36,28},{-44,28}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pump.port_a, bou.ports[1]) annotation (Line(
-      points={{-6,24},{38,24}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(hP_BrineWater.port_b, bou.ports[2]) annotation (Line(
-      points={{-44,36},{-4,36},{-4,28},{38,28}},
+      points={{-6,24},{16,24},{16,24},{38,24}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sine.y, bou.T_in) annotation (Line(
@@ -92,17 +83,21 @@ equation
       points={{38,-22},{16,-22},{16,-12},{-6,-12}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pump1.port_b, hP_BrineWater.prim_in) annotation (Line(
-      points={{-26,-12},{-54,-12},{-54,22}},
+  connect(onOffHeatPump.fluidIn, pump.port_b) annotation (Line(
+      points={{-38,24},{-26,24}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hP_BrineWater.prim_out, bou1.ports[2]) annotation (Line(
-      points={{-50,22},{-48,22},{-48,-28},{38,-28},{38,-18}},
+  connect(onOffHeatPump.fluidOut, bou.ports[2]) annotation (Line(
+      points={{-38,32},{0,32},{0,28},{38,28}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(const.y, hP_BrineWater.TSet) annotation (Line(
-      points={{-39,78},{-55,78},{-55,44}},
-      color={0,0,127},
+  connect(onOffHeatPump.brineOut, bou1.ports[2]) annotation (Line(
+      points={{-58,24},{-58,0},{38,0},{38,-18}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(onOffHeatPump.brineIn, pump1.port_b) annotation (Line(
+      points={{-58,32},{-74,32},{-74,-12},{-26,-12}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
