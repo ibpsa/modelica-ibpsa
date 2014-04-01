@@ -70,7 +70,7 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  IDEAS.BaseClasses.Control.Hyst_NoEvent onOff(
+  IDEAS.Controls.Control_fixme.Hyst_NoEvent onOff(
     uLow=-2.5,
     uHigh=2.5,
     y(start=0),
@@ -82,7 +82,7 @@ public
     redeclare package Medium = MediumPrimary,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
-    T_start=556.3)
+    T_start=283.15)
     annotation (Placement(transformation(extent={{-10,-66},{10,-46}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     annotation (Placement(transformation(extent={{-52,-52},{-32,-32}})));
@@ -141,7 +141,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(product.u1, onOff.y) annotation (Line(
-      points={{-58,6},{-4,6},{-4,18},{52,18},{52,30},{40.6,30}},
+      points={{-58,6},{-4,6},{-4,18},{52,18},{52,30},{41,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression.y, product.u2) annotation (Line(
@@ -161,7 +161,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(product1.u1, onOff.y) annotation (Line(
-      points={{34,6},{20,6},{20,18},{52,18},{52,30},{40.6,30}},
+      points={{34,6},{20,6},{20,18},{52,18},{52,30},{41,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(prescribedHeatFlow1.Q_flow, product1.y) annotation (Line(
