@@ -1,6 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses;
 record FH_ValidationEmpa "According to Koschenz, 2000, par 4.5.1"
-  extends IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.FH_Characteristics(
+  extends IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar(
     T=0.25,
     d_a=0.02,
     s_r=0.0025,
