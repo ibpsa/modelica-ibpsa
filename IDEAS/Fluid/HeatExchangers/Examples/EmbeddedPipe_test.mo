@@ -1,5 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.Examples;
-model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
+model EmbeddedPipe_test
+  "Testing the floorheating according to Koschenz, par. 4.5.1"
 
   extends Modelica.Icons.Example;
 
@@ -27,7 +28,8 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
     m=5,
     redeclare package Medium = Medium,
     m_flow_nominal=12*24/3600,
-    T_start=303.15)
+    T_start=303.15,
+    dynamicBalance=false)
     annotation (Placement(transformation(extent={{0,6},{20,-16}})));
   Modelica.Thermal.HeatTransfer.Components.Convection convection annotation (
       Placement(transformation(
@@ -43,11 +45,6 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
     annotation (Placement(transformation(extent={{-58,30},{-38,50}})));
   BaseClasses.NakedTabs nakedTabs(radSlaCha=radSlaCha_ValidationEmpa)
     annotation (Placement(transformation(extent={{68,2},{88,22}})));
-  RadiantSlab.EmbeddedPipe embeddedPipe(
-    redeclare package Medium = Medium,
-    m_flow_nominal=12*24/3600,
-    m_flowMin=0.01)
-    annotation (Placement(transformation(extent={{30,-16},{50,4}})));
   BaseClasses.RadSlaCha_ValidationEmpa radSlaCha_ValidationEmpa
     annotation (Placement(transformation(extent={{-90,-96},{-70,-76}})));
   Modelica.Blocks.Sources.RealExpression convTabs(y=11)
@@ -80,27 +77,23 @@ equation
       points={{78,2.2},{78,-6},{96,-6},{96,36},{78,36}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(heatedPipe.port_b, embeddedPipe.port_a) annotation (Line(
-      points={{20,-5},{26,-5},{26,-6},{30,-6}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(embeddedPipe.heatPortEmb, nakedTabs.portCore) annotation (Line(
-      points={{40,4},{40,12},{68,12}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(embeddedPipe.port_b, absolutePressure.ports[1]) annotation (Line(
-      points={{50,-6},{58,-6},{58,-50}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(absolutePressure.ports[2], pump.port_a) annotation (Line(
-      points={{58,-54},{58,-66},{-60,-66},{-60,-4},{-36,-4}},
+  connect(absolutePressure.ports[1], pump.port_a) annotation (Line(
+      points={{58,-50},{58,-66},{-60,-66},{-60,-4},{-36,-4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(convTabs.y, convection.Gc) annotation (Line(
       points={{49,46},{68,46}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(heatedPipe.port_b, absolutePressure.ports[2]) annotation (Line(
+      points={{20,-5},{58,-5},{58,-54}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TSet.port, nakedTabs.portCore) annotation (Line(
+      points={{-8,-40},{50,-40},{50,12},{68,12}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics));
-end EmbeddedPipe;
+end EmbeddedPipe_test;
