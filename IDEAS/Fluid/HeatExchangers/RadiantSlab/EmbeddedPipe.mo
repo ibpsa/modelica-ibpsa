@@ -83,6 +83,9 @@ initial equation
   end if;
 
 equation
+  //For high flow rates see [Koshenz, 2000] eqn 4.37
+  //For low or zero mass flow rate an average convective heat transfer coefficient h = 200 for laminar flow is used.
+  //based on [Koshenz, 2000] figure 4.5
   R_w = if noEvent(abs(port_a.m_flow) > m_flowMin/10) then
   FHChars.T^0.13/8/Modelica.Constants.pi*abs(((FHChars.d_a - 2*FHChars.s_r)
       /(m_flowSp*L_r)))^0.87 else
