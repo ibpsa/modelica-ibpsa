@@ -3,6 +3,7 @@ Boiler
 HP_AirWater
 HP_BrineWater
 SolarCollector_Glazed
+OnOffHeatPump
 SolarThermalSystem_Simple
 BaseClasses
 Interfaces
