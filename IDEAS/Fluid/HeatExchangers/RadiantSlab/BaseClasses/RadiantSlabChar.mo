@@ -1,6 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses;
-record FH_Characteristics
-  "Record containing all parameters for a given floor heating"
+record RadiantSlabChar
+  "Record containing all parameters for a given a floor heating of concrete core activation"
 
   // The terminology from prEN 15377 is followed, even if I find the development of the theory
   // by Koschenz and Lehmann better (see Thermoaktive Bauteilsysteme tabs, from Empa)
@@ -9,6 +9,8 @@ record FH_Characteristics
 
   // Changed 20110629:
   // Important: this record ALSO contains the parameters that are specific to the building.
+
+  extends Modelica.Icons.Record;
 
   parameter Boolean tabs = true
     "true if the model is used for tabs, false if the model is used for floor heating";
@@ -54,4 +56,4 @@ record FH_Characteristics
 <li>2011 June, Roel De Coninck, first version</li>
 </ul></p>
 </html>"));
-end FH_Characteristics;
+end RadiantSlabChar;

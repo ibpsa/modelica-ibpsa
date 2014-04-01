@@ -1,10 +1,18 @@
 within IDEAS.Fluid.HeatExchangers.Radiators;
 model Radiator "Simple 1-node radiator model according to EN 442"
 
-  extends IDEAS.Fluid.HeatExchangers.RadiantSlab.Interfaces.Partial_Emission(
-    final m_flow_nominal=mFlowNom,
-    final floorHeating=false,
-    final radiators=true);
+   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(final m_flow_nominal=mFlowNom);
+
+  // Interfaces ////////////////////////////////////////////////////////////////////////////////////////
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon
+    "Convective heat transfer from radiators" annotation (Placement(
+        transformation(extent={{40,90},{60,110}}),iconTransformation(extent={{40,90},
+            {60,110}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRad
+    "Radiative heat transfer from radiators" annotation (Placement(
+        transformation(extent={{80,90},{100,110}}),iconTransformation(extent={{80,90},
+            {100,110}})));
 
   parameter Modelica.SIunits.Temperature TInNom=75 + 273.15
     "Nominal inlet temperature";
@@ -43,7 +51,8 @@ protected
 public
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     annotation (Placement(transformation(extent={{0,16},{-20,36}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=QTotal)
+  Modelica.Blocks.Sources.RealExpression power_rad(y=QTotal)
+    "Radiator power (amount of heat delivered)"
     annotation (Placement(transformation(extent={{42,16},{22,36}})));
 equation
   dTRadRoo = max(0, vol.heatPort.T - heatPortCon.T);
@@ -58,7 +67,7 @@ equation
       points={{-20,26},{-20,10},{-44,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(realExpression.y, prescribedHeatFlow.Q_flow) annotation (Line(
+  connect(power_rad.y, prescribedHeatFlow.Q_flow) annotation (Line(
       points={{21,26},{0,26}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -104,14 +113,12 @@ equation
 <li>2012 April, Roel De Coninck: rebasing on common Partial_Emission</li>
 <li>2011, Roel De Coninck: first version</li>
 </ul></p>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {140,60}}), graphics={
-        Rectangle(extent={{-64,-100},{-42,60}}, lineColor={135,135,135}),
-        Rectangle(extent={{-34,-100},{-12,60}}, lineColor={135,135,135}),
-        Rectangle(extent={{-4,-100},{18,60}}, lineColor={135,135,135}),
-        Rectangle(extent={{26,-100},{48,60}}, lineColor={135,135,135}),
-        Rectangle(extent={{54,-100},{76,60}}, lineColor={135,135,135}),
-        Rectangle(extent={{82,-100},{104,60}}, lineColor={135,135,135})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{140,
-            60}}), graphics));
+</html>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+            100,100}}), graphics={
+        Rectangle(extent={{-52,-82},{-30,78}},  lineColor={135,135,135}),
+        Rectangle(extent={{-22,-82},{0,78}},    lineColor={135,135,135}),
+        Rectangle(extent={{8,-82},{30,78}},   lineColor={135,135,135}),
+        Rectangle(extent={{38,-82},{60,78}},  lineColor={135,135,135})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),graphics));
 end Radiator;
