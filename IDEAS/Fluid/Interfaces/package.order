@@ -17,3 +17,5 @@ LumpedVolumeDeclarations
 Examples
 FluidStreamConversionWater
 Partials
+IdealSource
+OnOffInterface

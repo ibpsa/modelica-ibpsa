@@ -10,8 +10,6 @@ partial model PartialTwoPort
   // See note in evernote of RDC
   //parameter Real tapT(final min=0, final max=1)=1
   //  "Defines temperature of heatPort between inlet and outlet temperature";
-  parameter Modelica.SIunits.Temperature TInitial=293.15
-    "Initial temperature of all Temperature states";
 
  // Modelica.SIunits.Temperature T(start=TInitial) "Outlet temperature of medium";
 //  Modelica.SIunits.Temperature T_a(start=TInitial) = flowPort_a.h/medium.cp
