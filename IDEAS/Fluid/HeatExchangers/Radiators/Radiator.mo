@@ -1,7 +1,7 @@
 within IDEAS.Fluid.HeatExchangers.Radiators;
 model Radiator "Simple 1-node radiator model according to EN 442"
 
-   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(final m_flow_nominal=mFlowNom);
+   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(final m_flow_nominal=mFlowNom, vol(V=(m+mDry*cpDry/4180)/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default))));
 
   // Interfaces ////////////////////////////////////////////////////////////////////////////////////////
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon

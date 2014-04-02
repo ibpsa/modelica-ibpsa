@@ -36,7 +36,7 @@ partial model PartialTwoPort
     prescribedHeatFlowRate=true,
     allowFlowReversal=allowFlowReversal,
     nPorts=1,
-    final V=m/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default)))
+    V=m/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default)))
     annotation (Placement(transformation(extent={{-44,0},{-64,20}})));
 
   parameter Boolean dynamicBalance = true
@@ -45,7 +45,7 @@ partial model PartialTwoPort
 
 equation
   connect(port_a, vol.ports[1]) annotation (Line(
-      points={{-100,0},{-78,0},{-78,0},{-54,0}},
+      points={{-100,0},{-54,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
