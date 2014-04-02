@@ -1,24 +1,19 @@
 within IDEAS.Fluid.Production.Examples;
 model HeatPump_BrineWater
   "General example and tester for a modulating water-to-water heat pump"
-
   extends Modelica.Icons.Example;
-
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
-
   constant SI.MassFlowRate m_flow_nominal=0.3 "Nominal mass flow rate";
-
   Fluid.Movers.Pump pump(
     m=1,
     useInput=false,
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=2550/3600)
     annotation (Placement(transformation(extent={{-6,14},{-26,34}})));
   inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
       city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
-
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/5000,
     startTime=5000,
@@ -30,12 +25,11 @@ model HeatPump_BrineWater
     use_T_in=true,
     p=200000)
     annotation (Placement(transformation(extent={{58,36},{38,16}})));
-
   Fluid.Movers.Pump pump1(
     m=1,
     useInput=false,
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=4200/3600)
     annotation (Placement(transformation(extent={{-6,-22},{-26,-2}})));
   Sources.Boundary_pT bou1(         redeclare package Medium = Medium,
     nPorts=2,
@@ -51,13 +45,12 @@ model HeatPump_BrineWater
   replaceable HeatPumpOnOff heatPump(
     redeclare package MediumBrine = Medium,
     redeclare package MediumFluid = Medium,
-    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA08
-      heatPumpData,
-    use_onOffSignal=false)
+    use_onOffSignal=false,
+    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA29
+      heatPumpData)
     constrainedby IDEAS.Fluid.Production.BaseClasses.PartialHeatPump
     annotation (Placement(transformation(extent={{-58,18},{-38,38}})));
 equation
-
   connect(pump.port_a, bou.ports[1]) annotation (Line(
       points={{-6,24},{38,24}},
       color={0,127,255},
