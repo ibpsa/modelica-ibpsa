@@ -3,5 +3,5 @@
 translateModel("IDEAS.Fluid.Storage.Examples.StorageTank_DHW_HP");
 // experiment StopTime=86400
 simulateModel("IDEAS.Fluid.Storage.Examples.StorageTank_DHW_HP", stopTime=86400, method="dassl", resultFile="StorageTank_DHW_HP");
-plot(y={"dHW.THot", "storageTank.T[1]", "storageTank.T[10]"}, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+plot(y={"storageTank.T[1]", "storageTank.T[10]"}, colors={{0,0,255}, {255,0,0}, {0,128,0}});
 

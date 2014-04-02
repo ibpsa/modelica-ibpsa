@@ -16,7 +16,7 @@ model Boiler_validation "Validation model for the boiler"
     m=5,
     redeclare package Medium = Medium,
     m_flow_nominal=1300/3600,
-    TInitial=313.15)
+    T_start=313.15)
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
   IDEAS.Fluid.Production.Boiler heater(
     QNom=5000,
