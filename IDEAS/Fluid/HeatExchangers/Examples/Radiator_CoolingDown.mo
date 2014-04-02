@@ -9,12 +9,12 @@ model Radiator_CoolingDown "Test the cooling down of radiators"
   Fluid.HeatExchangers.Radiators.Radiator radiator_new(
     QNom=1000,
     redeclare package Medium = Medium,
-    TInitial=333.15)
+    T_start=333.15)
     annotation (Placement(transformation(extent={{-64,76},{-44,56}})));
   IDEAS.Fluid.HeatExchangers.Radiators.Radiator radiator_new1(
     QNom=2000,
     redeclare package Medium = Medium,
-    TInitial=333.15)
+    T_start=333.15)
     annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=294.15)
     annotation (Placement(transformation(extent={{-14,20},{-34,40}})));
@@ -34,7 +34,7 @@ model Radiator_CoolingDown "Test the cooling down of radiators"
     QNom=1000,
     powerFactor=3.37,
     redeclare package Medium = Medium,
-    TInitial=333.15,
+    T_start=333.15,
     TInNom=318.15,
     TOutNom=308.15)
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
@@ -66,39 +66,39 @@ equation
   pump1.m_flowSet = if time > 1 then 0 else 1;
   pump2.m_flowSet = if time > 1 then 0 else 1;
   connect(fixedTemperature.port, radiator_new.heatPortRad) annotation (Line(
-      points={{-34,30},{-48.1667,30},{-48.1667,56}},
+      points={{-34,30},{-45,30},{-45,56}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, radiator_new1.heatPortCon) annotation (Line(
-      points={{-34,30},{-51.5,30},{-51.5,10}},
+      points={{-34,30},{-49,30},{-49,10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, radiator_new1.heatPortRad) annotation (Line(
-      points={{-34,30},{-50,30},{-50,10},{-48.1667,10}},
+      points={{-34,30},{-50,30},{-50,10},{-45,10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(radiator_new1.port_b, pump1.port_a) annotation (Line(
-      points={{-47.3333,2.5},{-32,2.5},{-32,0},{-18,0}},
+      points={{-44,0},{-32,0},{-32,0},{-18,0}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(radiator_new.port_b, pump.port_a) annotation (Line(
-      points={{-47.3333,63.5},{-32,63.5},{-32,66},{-20,66}},
+      points={{-44,66},{-32,66},{-32,66},{-20,66}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(radiator_new2.port_b, pump2.port_a) annotation (Line(
-      points={{-43.3333,-37.5},{-28,-37.5},{-28,-40},{-14,-40}},
+      points={{-40,-40},{-28,-40},{-28,-40},{-14,-40}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, radiator_new2.heatPortCon) annotation (Line(
-      points={{-34,30},{-36,30},{-36,-16},{-47.5,-16},{-47.5,-30}},
+      points={{-34,30},{-36,30},{-36,-16},{-45,-16},{-45,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, radiator_new2.heatPortRad) annotation (Line(
-      points={{-34,30},{-36,30},{-36,-20},{-44.1667,-20},{-44.1667,-30}},
+      points={{-34,30},{-36,30},{-36,-20},{-41,-20},{-41,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(radiator_new.heatPortCon, radiator_new1.heatPortCon) annotation (Line(
-      points={{-51.5,56},{-52,56},{-52,10},{-51.5,10}},
+      points={{-49,56},{-52,56},{-52,10},{-49,10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(bou.ports[1], pump1.port_b) annotation (Line(
@@ -114,15 +114,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou1.ports[1], radiator_new1.port_a) annotation (Line(
-      points={{-80,24},{-92,24},{-92,2.5},{-64,2.5}},
+      points={{-80,24},{-92,24},{-92,0},{-64,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(radiator_new.port_a, radiator_new1.port_a) annotation (Line(
-      points={{-64,63.5},{-92,63.5},{-92,2.5},{-64,2.5}},
+      points={{-64,66},{-92,66},{-92,0},{-64,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(radiator_new2.port_a, radiator_new1.port_a) annotation (Line(
-      points={{-60,-37.5},{-92,-37.5},{-92,2.5},{-64,2.5}},
+      points={{-60,-40},{-92,-40},{-92,0},{-64,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

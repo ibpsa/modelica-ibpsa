@@ -11,13 +11,13 @@ model Radiator_EnergyBalance "Test for energy balance of the radiator model"
     useInput=true,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    TInitial=293.15)
+    T_start=293.15)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort boiler(
     m=5,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    TInitial=293.15)
+    T_start=293.15)
     annotation (Placement(transformation(extent={{12,4},{32,-16}})));
   Fluid.HeatExchangers.Radiators.Radiator radiator(
     QNom=3000,

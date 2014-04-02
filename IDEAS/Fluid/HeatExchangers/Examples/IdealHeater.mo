@@ -13,7 +13,7 @@ model IdealHeater "Very basic hydraulic circuit with an IdealHeater"
     m=5,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    TInitial=313.15)
+    T_start=313.15)
     annotation (Placement(transformation(extent={{32,-4},{12,-24}})));
   Fluid.Production.IdealHeater heater(
   tauHeatLoss=3600,
