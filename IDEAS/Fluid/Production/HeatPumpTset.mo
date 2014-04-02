@@ -18,7 +18,7 @@ model HeatPumpTset "Heat pump using a temperature setpoint"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
-        origin={-10,108})));
+        origin={-20,108})));
 
     Real cop "COP of the heat pump";
   Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=uLow, uHigh=uHigh)
