@@ -12,7 +12,7 @@ model Pump "Prescribed mass flow rate, no heat exchange."
   Modelica.Blocks.Interfaces.RealInput m_flowSet(
     start=0,
     min=0,
-    max=1) = m_flow_pump if useInput annotation (Placement(transformation(
+    max=1) = m_flow_pump/m_flow_nominal if useInput annotation (Placement(transformation(
         origin={0,100},
         extent={{-10,-10},{10,10}},
         rotation=270)));
@@ -21,7 +21,7 @@ protected
 
 public
   Modelica.Blocks.Sources.RealExpression realExpression1(y=m_flow_pump)
-    annotation (Placement(transformation(extent={{-32,32},{-12,52}})));
+    annotation (Placement(transformation(extent={{-32,32},{-2,52}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -39,7 +39,7 @@ equation
 
   PEl = m_flow_pump/Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), Medium.X_default))*dpFix/etaTot;
   connect(realExpression1.y, idealSource.m_flow_in) annotation (Line(
-      points={{-11,42},{0,42},{0,8},{12,8}},
+      points={{-0.5,42},{0,42},{0,8},{12,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression2.y, P) annotation (Line(
