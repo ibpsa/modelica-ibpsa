@@ -6,7 +6,7 @@
 
 
 
-translateModel("IDEAS.Thermal.Components.Examples.HydraulicCircuit");
+translateModel("IDEAS.Fluid.FixedResistances.Examples.HydraulicCircuit");
 
 
 
@@ -14,7 +14,7 @@ translateModel("IDEAS.Thermal.Components.Examples.HydraulicCircuit");
 
 
 
-simulateModel("IDEAS.Thermal.Components.Examples.HydraulicCircuit", stopTime=10000, method="dassl", resultFile="HydraulicCircuit");
+simulateModel("IDEAS.Fluid.FixedResistances.Examples.HydraulicCircuit", stopTime=10000, method="dassl", resultFile="HydraulicCircuit");
 
 
 

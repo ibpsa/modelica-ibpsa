@@ -2,13 +2,13 @@
 
 
 
-translateModel("IDEAS.Thermal.Components.Examples.OpenHydraulicSystem");
+translateModel("IDEAS.Fluid.FixedResistances.Examples.OpenHydraulicSystem");
 
 // experiment StopTime=3600
 
-simulateModel("IDEAS.Thermal.Components.Examples.OpenHydraulicSystem", stopTime=3600, method="dassl", resultFile="OpenHydraulicSystem_test_default");
+simulateModel("IDEAS.Fluid.FixedResistances.Examples.OpenHydraulicSystem", stopTime=3600, method="dassl", resultFile="OpenHydraulicSystem_test_default");
 
-plot( y={"ambient.T", "ambient1.T", "heatedPipe.heatPort.T", "heatedPipe.heatedPipe.heatPort.T"}, colors={{255,0,0}, {0,128,0}, {0,0,255}, {255,0,255}});
+plot( y={"ambient.T", "bou.medium.T", "heatedPipe.heatPort.T", "heatedPipe.heatedPipe.heatPort.T"}, colors={{255,0,0}, {0,128,0}, {0,0,255}, {255,0,255}});
 
 
 

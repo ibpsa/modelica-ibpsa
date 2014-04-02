@@ -2,13 +2,13 @@
 
 
 
-translateModel("IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve");
+translateModel("IDEAS.Fluid.HeatExchangers.Examples.RadiatorWithMixingValve");
 
 // experiment StopTime=3600
 
-simulateModel("IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve", stopTime=3600, method="dassl", resultFile="RadiatorWithMixingValve");
+simulateModel("IDEAS.Fluid.HeatExchangers.Examples.RadiatorWithMixingValve", stopTime=3600, method="dassl", resultFile="RadiatorWithMixingValve");
 
-plot( y={"volumeFlow1.T"}, colors={{0,0,255}});
+plot( y={"volumeFlow1.vol.T"}, colors={{0,0,255}});
 
 
 
