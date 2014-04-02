@@ -1,23 +1,32 @@
 within IDEAS.Fluid.FixedResistances;
 model Pipe_Insulated "Pipe with insulation, characterised by UA"
- replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    annotation (__Dymola_choicesAllMatching=true);
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    final computeFlowResistance=true, dp_nominal = 0);
 
   parameter Modelica.SIunits.Mass m(start=1) "Mass of medium";
   // I remove this parameter completely because it can lead to wrong models!!!
   // See note in evernote of RDC
   //parameter Real tapT(final min=0, final max=1)=1
   //  "Defines temperature of heatPort between inlet and outlet temperature";
-  parameter Modelica.SIunits.Temperature TInitial=293.15
-    "Initial temperature of all Temperature states";
 
   parameter SI.ThermalConductance UA "Thermal conductance of the insulation";
 
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort heatedPipe(
     m=m,
-    TInitial=TInitial,
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    p_start=p_start,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    C_nominal=C_nominal,
+    from_dp=from_dp,
+    dp_nominal=dp_nominal,
+    linearizeFlowResistance=linearizeFlowResistance,
+    deltaM=deltaM)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=
         UA) annotation (Placement(transformation(
