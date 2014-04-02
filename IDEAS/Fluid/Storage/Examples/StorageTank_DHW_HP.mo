@@ -12,7 +12,7 @@ model StorageTank_DHW_HP
 
   Fluid.Storage.StorageTank_OneIntHX storageTank(
     nbrNodes=nbrNodes,
-    TInitial={273.15 + 60 for i in 1:nbrNodes},
+    T_start={273.15 + 60 for i in 1:nbrNodes},
     volumeTank=0.3,
     heightTank=1.6,
     UIns=0.4,

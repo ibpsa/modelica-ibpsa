@@ -5,15 +5,17 @@ model StorageTank "1D multinode stratified storage tank"
     annotation (__Dymola_choicesAllMatching=true);
   //Tank geometry and composition
   parameter Integer nbrNodes(min=1) = 10 "Number of nodes";
-  parameter Modelica.SIunits.Volume volumeTank(min=0) "Total volume of the tank";
-  parameter Modelica.SIunits.Length heightTank(min=0) "Total height of the tank";
+  parameter Modelica.SIunits.Volume volumeTank(min=0)
+    "Total volume of the tank";
+  parameter Modelica.SIunits.Length heightTank(min=0)
+    "Total height of the tank";
   final parameter Modelica.SIunits.Mass mNode=volumeTank*Medium.density(state_default)/nbrNodes
     "Mass of each node";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer UIns(min=0) = 0.4
     "Average heat loss coefficient for insulation per m2 of tank surface";
   parameter Modelica.SIunits.ThermalConductance UACon(min=0) = 0.5
     "Additional thermal conductance for connection losses and imperfect insulation";
-  parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in 1:
+  parameter Modelica.SIunits.Temperature[nbrNodes] T_start={293.15 for i in 1:
       nbrNodes} "Initial temperature of all Temperature states";
   parameter SI.MassFlowRate m_flow_nominal=0.1 "Nominal mass flow rate";
 
@@ -29,7 +31,7 @@ model StorageTank "1D multinode stratified storage tank"
     redeclare each package Medium=Medium,
     each m_flow_nominal=m_flow_nominal,
     each m=mNode,
-    TInitial=TInitial) "Array of nodes";
+    T_start=T_start) "Array of nodes";
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) "Upper port, connected to node[1]"
     annotation (Placement(transformation(extent={{10,10},{30,30}}),

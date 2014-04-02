@@ -6,7 +6,7 @@ model StorageTank_Losses "Check the total tank losses to environment"
       __Dymola_choicesAllMatching=true);
 
   Fluid.Storage.StorageTank storageTank(
-    TInitial={273.15 + 60 for i in 1:storageTank.nbrNodes},
+    T_start={273.15 + 60 for i in 1:storageTank.nbrNodes},
     volumeTank=0.3,
     heightTank=1.6,
     UIns=0.4,

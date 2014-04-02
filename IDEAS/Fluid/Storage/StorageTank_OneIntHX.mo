@@ -23,7 +23,7 @@ model StorageTank_OneIntHX
     "Average heat loss coefficient for insulation per m2 tank surface";
   parameter Modelica.SIunits.ThermalConductance UACon(min=0) = 0.5
     "Additional thermal conductance for connection losses and imperfect insulation";
-  parameter Modelica.SIunits.Temperature[nbrNodes] TInitial={293.15 for i in 1:
+  parameter Modelica.SIunits.Temperature[nbrNodes] T_start={293.15 for i in 1:
       nbrNodes} "Initial temperature of all Temperature states";
 
   /* 
@@ -54,7 +54,7 @@ model StorageTank_OneIntHX
     redeclare each package Medium = Medium,
     each m=mNode,
     each m_flow_nominal=m_flow_nominal,
-    TInitial=TInitial) "Array of nodes";
+    T_start=T_start) "Array of nodes";
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) "Upper port, connected to node[1]"
     annotation (Placement(transformation(extent={{64,66},{84,86}}),
@@ -77,7 +77,7 @@ model StorageTank_OneIntHX
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort HX[nbrNodesHX](
     each m_flow_nominal=m_flow_nominal,
     each m=mHX/nbrNodesHX,
-    TInitial=TInitial[nodeHXUpper:nodeHXLower],
+    T_start=T_start[nodeHXUpper:nodeHXLower],
     redeclare package Medium = MediumHX)          annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},

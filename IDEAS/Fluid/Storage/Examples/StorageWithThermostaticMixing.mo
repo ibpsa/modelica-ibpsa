@@ -9,7 +9,7 @@ model StorageWithThermostaticMixing
   constant SI.MassFlowRate m_flow_nominal=0.1 "Nominal mass flow rate";
 
   Fluid.Storage.StorageTank storageTank(
-    TInitial={273.15 + 60 for i in 1:storageTank.nbrNodes},
+    T_start={273.15 + 60 for i in 1:storageTank.nbrNodes},
     volumeTank=0.3,
     heightTank=1.6,
     UIns=0.4,
@@ -33,7 +33,7 @@ model StorageWithThermostaticMixing
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    TInitial=283.15)
+    T_start=283.15)
     annotation (Placement(transformation(extent={{38,16},{58,36}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,

@@ -10,7 +10,7 @@ model StorageTank_StratifiedInlet
   Fluid.Storage.StorageTank storageTank(
     nbrNodes=5,
     heightTank=2,
-    TInitial=340:-10:300,
+    T_start=340:-10:300,
     volumeTank=0.2,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{34,-6},{8,34}})));
@@ -29,7 +29,7 @@ model StorageTank_StratifiedInlet
     m=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    TInitial=278.15)
+    T_start=278.15)
     annotation (Placement(transformation(extent={{-58,-2},{-78,-22}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=1000)
     annotation (Placement(transformation(extent={{-96,-54},{-76,-34}})));
