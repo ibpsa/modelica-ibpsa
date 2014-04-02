@@ -83,7 +83,7 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  IDEAS.BaseClasses.Control.Hyst_NoEvent onOff(
+  IDEAS.Controls.Control_fixme.Hyst_NoEvent onOff(
     uLow=modulationMin,
     uHigh=modulationStart,
     y(start=0),

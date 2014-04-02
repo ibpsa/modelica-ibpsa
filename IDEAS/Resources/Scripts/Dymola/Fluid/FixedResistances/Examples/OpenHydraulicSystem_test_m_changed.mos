@@ -6,7 +6,7 @@ translateModel("IDEAS.Fluid.FixedResistances.Examples.OpenHydraulicSystem");
 
 // experiment StopTime=3600
 
-pump.m_flowNom = 0.01;
+pump.m_flow_nominal = 0.01;
 
 simulateModel("IDEAS.Fluid.FixedResistances.Examples.OpenHydraulicSystem", stopTime=3600, method="dassl", resultFile="OpenHydraulicSystem_test_m_changed");
 
