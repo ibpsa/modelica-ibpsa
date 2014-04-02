@@ -10,8 +10,8 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
     useInput=true,
     redeclare package Medium = Medium,
     m_flow(start=12*24/3600),
-    T_start=303.15,
-    m_flow_nominal=12*24/3600)
+    m_flow_nominal=12*24/3600,
+    T_start=303.15)
     annotation (Placement(transformation(extent={{-36,-14},{-16,6}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(
       T=293.15) annotation (Placement(transformation(extent={{8,64},{28,84}})));
@@ -33,7 +33,7 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
     period=7200,
     offset=0,
     startTime=0)
-    annotation (Placement(transformation(extent={{-58,30},{-38,50}})));
+    annotation (Placement(transformation(extent={{-88,30},{-68,50}})));
   BaseClasses.NakedTabs nakedTabs(radSlaCha=radSlaCha_ValidationEmpa)
     annotation (Placement(transformation(extent={{102,2},{122,22}})));
   RadiantSlab.EmbeddedPipe embeddedPipe(
@@ -67,6 +67,9 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={100,-32})));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder1(
+                                                   T=60, y_start=1)
+    annotation (Placement(transformation(extent={{-54,30},{-34,50}})));
 equation
 
   connect(convection.fluid, prescribedTemperature.port) annotation (Line(
@@ -76,10 +79,6 @@ equation
   connect(TSet.port, heatedPipe.heatPort) annotation (Line(
       points={{-8,-40},{2,-40},{2,-38},{10,-38},{10,-16}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(pulse.y, pump.m_flowSet) annotation (Line(
-      points={{-37,40},{-26,40},{-26,6}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(pump.port_b, heatedPipe.port_a) annotation (Line(
       points={{-16,-4},{-8,-4},{-8,-5},{0,-5}},
@@ -128,6 +127,14 @@ equation
   connect(TSen_emb_ret.port_b, bou.ports[2]) annotation (Line(
       points={{100,-42},{100,-62}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(pulse.y, firstOrder1.u) annotation (Line(
+      points={{-67,40},{-56,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(firstOrder1.y, pump.m_flowSet) annotation (Line(
+      points={{-33,40},{-26,40},{-26,6}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{140,100}}),

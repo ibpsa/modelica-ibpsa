@@ -12,7 +12,8 @@ model PumpWithPipeHeatPort "Example of how a pump can be used"
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
 //   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
 //     annotation (__Dymola_choicesAllMatching=true);
-   replaceable package Medium = IDEAS.Media.Water
+   package Medium =
+      Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
   inner Modelica.Fluid.System system(
@@ -43,16 +44,17 @@ model PumpWithPipeHeatPort "Example of how a pump can be used"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature1
     annotation (Placement(transformation(extent={{92,68},{112,88}})));
-  Modelica.Blocks.Sources.Sine sine2(
-    freqHz=0.001,
-    startTime=0,
-    amplitude=20,
-    offset=303.15)
-    annotation (Placement(transformation(extent={{60,68},{80,88}})));
   Modelica.Fluid.Sensors.TemperatureTwoPort temperature1(
                                                         redeclare package
       Medium = Medium)
     annotation (Placement(transformation(extent={{84,-70},{64,-50}})));
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=60, y_start=273.15 + 30)
+    annotation (Placement(transformation(extent={{60,68},{80,88}})));
+  Modelica.Blocks.Sources.Step step(
+    height=-10,
+    startTime=5*3600,
+    offset=273.15 + 30)
+    annotation (Placement(transformation(extent={{80,36},{60,56}})));
 equation
   connect(bou.ports[1], pump.port_a) annotation (Line(
       points={{-38,0},{-10,0}},
@@ -82,10 +84,6 @@ equation
       points={{82,0},{106,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(prescribedTemperature1.T, sine2.y) annotation (Line(
-      points={{90,78},{81,78}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(prescribedTemperature1.port, pipe_HeatPort1.heatPort) annotation (
       Line(
       points={{112,78},{116,78},{116,10}},
@@ -98,6 +96,14 @@ equation
   connect(temperature1.port_b, pump.port_a) annotation (Line(
       points={{64,-60},{-10,-60},{-10,0}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(prescribedTemperature1.T, firstOrder.y) annotation (Line(
+      points={{90,78},{81,78}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(step.y, firstOrder.u) annotation (Line(
+      points={{59,46},{54,46},{54,78},{58,78}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{160,100}}), graphics),
