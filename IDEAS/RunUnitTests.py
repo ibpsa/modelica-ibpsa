@@ -5,9 +5,14 @@ Created on Thu Jul 18 18:29:36 2013
 @author: u0088104
 """
 
-import buildingspy as BP
-import buildingspy.development.unittest as UT
 import os
+import sys
+sys.path.append("E:\work\python\BuildingsPy")
+
+import buildingspy as BP
+import buildingspy.development.regressiontest as rt
+
+
 
 """
  If If this file is not ran from the Modelicalibrary home directory (which 
@@ -16,9 +21,9 @@ import os
  ran. 
  The simulation logs (from the simulation environment) are copied back to this directory
 """
-#os.chdir("E:\work\ideas\IDEAS")
+os.chdir("E:\work\modelica\IDEAS\IDEAS")
 
-tester=UT.Tester()
+tester=rt.Tester(checkHtml=False)
 """ number of parallel processes started."""
 tester.setNumberOfThreads(1)
 tester.validate_html = False
