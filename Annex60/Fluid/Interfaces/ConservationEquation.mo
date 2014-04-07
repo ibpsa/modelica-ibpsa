@@ -84,13 +84,11 @@ protected
   Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
   Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts,Medium.nC];
 
-  final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
-     p=p_start,
-     T=T_start,
-     X=X_start[1:Medium.nXi]) "Start value of medium state";
-
   parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-    state=state_start) "Density, used to compute fluid mass"
+   Medium.setState_pTX(
+     T=T_start,
+     p=p_start,
+     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
   annotation (Evaluate=true);
 
   // Parameter that is used to construct the vector mXi_flow
@@ -100,7 +98,8 @@ protected
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
   parameter Modelica.SIunits.SpecificEnthalpy hStart=
-    Medium.specificEnthalpy(state_start) "Start value for specific enthalpy";
+    Medium.specificEnthalpy_pTX(p_start, T_start, X_start)
+    "Start value for specific enthalpy";
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
@@ -232,8 +231,7 @@ The model has zero pressure drop between its ports.
 When extending or instantiating this model, the input 
 <code>fluidVolume</code>, which is the actual volume occupied by the fluid,
 needs to be assigned.
-For most components, this can be set to a parameter. However, for components such as 
-expansion vessels, the fluid volume can change in time.
+For most components, this can be set to a parameter.
 </p>
 Input connectors of the model are
 <ul>
@@ -253,11 +251,9 @@ Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
 provides a more efficient implementation.
 </p>
 <p>
-For models that instantiates this model, see
+For a model that instantiates this model, see
 <a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolume\">
-Annex60.Fluid.MixingVolumes.MixingVolume</a> and
-<a href=\"modelica://Annex60.Fluid.Storage.ExpansionVessel\">
-Annex60.Fluid.Storage.ExpansionVessel</a>.
+Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -342,7 +338,7 @@ was only done for <code>Xi</code> but not for <code>X</code>, which caused the
 medium to be initialized to <code>reference_X</code>, ignoring the value of <code>X_start</code>.
 </li>
 <li><i>October 12, 2009</i> by Michael Wetter:<br/>
-Implemented first version in <code>Buildings</code> library, based on model from
+Implemented first version in <code>Annex60</code> library, based on model from
 <code>Modelica.Fluid 1.0</code>.
 </li>
 </ul>
