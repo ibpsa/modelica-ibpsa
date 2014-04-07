@@ -14,8 +14,6 @@ model StratifiedInlet "Stratified inlet for a storage tank"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
 
-  Integer test = 1;
-
   parameter Integer nbrNodes(min=1) = 10 "Number of nodes in the tank";
 //  input Modelica.SIunits.Temperature[nbrNodes] TNodes
  //   "Temperature of the nodes in the tank";
