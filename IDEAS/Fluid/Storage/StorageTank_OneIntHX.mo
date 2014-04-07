@@ -85,7 +85,7 @@ model StorageTank_OneIntHX
         origin={0,-20})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[nbrNodes - 1]
-    conductionWater(each G=(volumeTank/heightTank)/(heightTank/nbrNodes)*Medium.dynamicViscosity(state_default)/Medium.density(state_default))
+    conductionWater(each G=(volumeTank/heightTank)/(heightTank/nbrNodes)*Medium.thermalConductivity(state_default))
     "Conduction heat transfer between the layers"
     annotation (Placement(transformation(extent={{18,-10},{38,10}})));
 
