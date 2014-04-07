@@ -5,6 +5,12 @@ model Pump "Prescribed mass flow rate, no heat exchange."
   parameter Boolean useInput=false "Enable / disable MassFlowRate input"
     annotation (Evaluate=true);
 
+  // Classes used to implement the filtered mass flow rate
+  parameter Boolean filteredMassFlowRate=true
+    "= true, if speed is filtered with a 2nd order CriticalDamping filter";
+  parameter Modelica.SIunits.Time riseTime=1
+    "Rise time of the filter (time to reach 99.6 % of the mass flow rate)";
+
   parameter Modelica.SIunits.Pressure dpFix=50000
     "Fixed pressure drop, used for determining the electricity consumption";
   parameter Real etaTot=0.8 "Fixed total pump efficiency";
@@ -12,28 +18,78 @@ model Pump "Prescribed mass flow rate, no heat exchange."
   Modelica.Blocks.Interfaces.RealInput m_flowSet(
     start=0,
     min=0,
-    max=1) = m_flow_pump/m_flow_nominal if useInput annotation (Placement(transformation(
-        origin={0,100},
+    max=1) if useInput annotation (Placement(transformation(
+        origin={0,104},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-protected
-  Modelica.SIunits.MassFlowRate m_flow_pump;
 
-public
   Modelica.Blocks.Sources.RealExpression realExpression1(y=m_flow_pump)
     annotation (Placement(transformation(extent={{-32,32},{-2,52}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={30,100})));
-public
+        origin={-16,-42})));
+
   Modelica.Blocks.Sources.RealExpression realExpression2(y=PEl)
-    annotation (Placement(transformation(extent={{4,52},{24,72}})));
+    annotation (Placement(transformation(extent={{-42,-90},{-22,-70}})));
+  Modelica.Blocks.Interfaces.RealOutput m_flow_actual(min=0, max=m_flow_nominal,
+                                                 final quantity="MassFlowRate",
+                                                  final unit="kg/s",
+                                                  nominal=m_flow_nominal) = m_flow_pump/m_flow_nominal if useInput and not filteredMassFlowRate
+    annotation (Placement(transformation(extent={{40,54},{60,74}})));
+
+protected
+  Modelica.SIunits.MassFlowRate m_flow_pump;
+
+  Modelica.Blocks.Math.Gain gaiFlow(final k=m_flow_nominal,
+    u(min=0, max=1),
+    y(final quantity="MassFlowRate",
+      final unit="kg/s",
+      nominal=m_flow_nominal)) "Gain for mass flow rate input signal"
+    annotation (Placement(transformation(extent={{-6,58},{6,70}})));
+
+  Modelica.Blocks.Interfaces.RealOutput m_flow_filtered(min=0, max=m_flow_nominal,
+                                                 final quantity="MassFlowRate",
+                                                  final unit="kg/s",
+                                                  nominal=m_flow_nominal) = m_flow_pump/m_flow_nominal if
+     useInput and filteredMassFlowRate
+    "Filtered m_flow in the range 0..m_flow_nominal"
+    annotation (Placement(transformation(extent={{40,72},{60,92}}),
+        iconTransformation(extent={{60,50},{80,70}})));
+  Modelica.Blocks.Continuous.Filter filter(
+     order=2,
+     f_cut=5/(2*Modelica.Constants.pi*riseTime),
+     x(each stateSelect=StateSelect.always),
+     u_nominal=m_flow_nominal,
+     u(final quantity="MassFlowRate", final unit="kg/s", nominal=m_flow_nominal),
+     y(final quantity="MassFlowRate", final unit="kg/s", nominal=m_flow_nominal),
+     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
+        filteredMassFlowRate
+    "Second order filter to approximate valve opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{20,75},{34,89}})));
+
 equation
   if not useInput then
     m_flow_pump = m_flow_nominal;
-  end if;
+  else
+      if filteredMassFlowRate then
+        connect(gaiFlow.y, filter.u) annotation (Line(
+          points={{6.6,64},{10.6,64},{10.6,82},{18.6,82}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(filter.y, m_flow_actual) annotation (Line(
+          points={{34.7,82},{38,82},{38,64},{50,64}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      else
+        connect(gaiFlow.y, m_flow_actual) annotation (Line(
+          points={{6.6,64},{50,64}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      end if;
+    end if;
 
   Q_flow = 0;
 
@@ -43,7 +99,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression2.y, P) annotation (Line(
-      points={{25,62},{30,62},{30,100}},
+      points={{-21,-80},{-16,-80},{-16,-42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(filter.y, m_flow_filtered) annotation (Line(
+      points={{34.7,82},{50,82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(m_flowSet, gaiFlow.u) annotation (Line(
+      points={{0,104},{0,82},{-16,82},{-16,64},{-7.2,64}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -72,6 +136,7 @@ equation
 <p>An example in which this model is used is the <a href=\"modelica://IDEAS.Thermal.Components.Examples.HydraulicCircuit\">HydraulicCircuit</a>.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>April 2014, Damien Picard, add a filter to the input of pump, to avoid singularities with pulse controller.</li>
 <li>March 2014, Filip Jorissen, Annex60 compatibility</li>
 <li>2013, Roel De Coninck, documentation</li>
 <li>2012, Ruben Baetens, changed graphics</li>
