@@ -7,6 +7,8 @@ model StorageTank_StratifiedInlet
       __Dymola_choicesAllMatching=true);
   constant SI.MassFlowRate m_flow_nominal=0.05 "Nominal mass flow rate";
 
+  Modelica.SIunits.Enthalpy H_tot(start=0)
+    "Enthalpy content of the storage tank";
   Fluid.Storage.StorageTank storageTank(
     nbrNodes=5,
     heightTank=2,
@@ -41,12 +43,13 @@ model StorageTank_StratifiedInlet
     p=200000) annotation (Placement(transformation(extent={{42,-42},{22,-22}})));
 
 equation
+    der(H_tot) = (sum(der(storageTank.nodes.vol.T)*storageTank.nodes.m)+ der(pump.vol.T)*pump.m+ der(heatedPipe.vol.T)*heatedPipe.m)*Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default));
   connect(fixedHeatFlow.port, heatedPipe.heatPort) annotation (Line(
       points={{-76,-44},{-68,-44},{-68,-22}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pulse.y, pump.m_flowSet) annotation (Line(
-      points={{-35,-58},{-24,-58},{-24,-22}},
+      points={{-35,-58},{-24,-58},{-24,-22.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(stratifiedInlet.port_b, storageTank.ports) annotation (Line(
