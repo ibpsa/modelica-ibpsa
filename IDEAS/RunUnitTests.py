@@ -24,7 +24,7 @@ import buildingspy.development.regressiontest as rt
  run. Output from the temperorary directories is gathered and stored in the current 
  directory under dymola.log. 
 """
-os.chdir("E:\work\modelica\IDEAS\IDEAS")
+# os.chdir("E:\work\modelica\IDEAS\IDEAS")
 
 tester=r.Tester(executable='dymola', checkHtml=False)
 
