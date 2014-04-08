@@ -31,7 +31,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sine.y, pump.m_flowSet) annotation (Line(
-      points={{-21,50},{0,50},{0,10}},
+      points={{-21,50},{0,50},{0,10.4}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
