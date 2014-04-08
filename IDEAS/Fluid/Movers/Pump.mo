@@ -6,7 +6,7 @@ model Pump "Prescribed mass flow rate, no heat exchange."
     annotation (Evaluate=true);
 
   // Classes used to implement the filtered mass flow rate
-  parameter Boolean filteredMassFlowRate=true
+  parameter Boolean filteredMassFlowRate=false
     "= true, if speed is filtered with a 2nd order CriticalDamping filter";
   parameter Modelica.SIunits.Time riseTime=1
     "Rise time of the filter (time to reach 99.6 % of the mass flow rate)";
@@ -36,7 +36,7 @@ model Pump "Prescribed mass flow rate, no heat exchange."
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(min=0, max=m_flow_nominal,
                                                  final quantity="MassFlowRate",
                                                   final unit="kg/s",
-                                                  nominal=m_flow_nominal) = m_flow_pump/m_flow_nominal if useInput and not filteredMassFlowRate
+                                                  nominal=m_flow_nominal) = m_flow_pump/m_flow_nominal if useInput
     annotation (Placement(transformation(extent={{40,54},{60,74}})));
 
 protected
@@ -46,13 +46,14 @@ protected
     u(min=0, max=1),
     y(final quantity="MassFlowRate",
       final unit="kg/s",
-      nominal=m_flow_nominal)) "Gain for mass flow rate input signal"
+      nominal=m_flow_nominal)) if useInput
+    "Gain for mass flow rate input signal"
     annotation (Placement(transformation(extent={{-6,58},{6,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput m_flow_filtered(min=0, max=m_flow_nominal,
                                                  final quantity="MassFlowRate",
                                                   final unit="kg/s",
-                                                  nominal=m_flow_nominal) = m_flow_pump/m_flow_nominal if
+                                                  nominal=m_flow_nominal) if
      useInput and filteredMassFlowRate
     "Filtered m_flow in the range 0..m_flow_nominal"
     annotation (Placement(transformation(extent={{40,72},{60,92}}),
@@ -66,7 +67,7 @@ protected
      y(final quantity="MassFlowRate", final unit="kg/s", nominal=m_flow_nominal),
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
-        filteredMassFlowRate
+        useInput and filteredMassFlowRate
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{20,75},{34,89}})));
 
@@ -81,6 +82,10 @@ equation
           smooth=Smooth.None));
         connect(filter.y, m_flow_actual) annotation (Line(
           points={{34.7,82},{38,82},{38,64},{50,64}},
+          color={0,0,127},
+          smooth=Smooth.None));
+        connect(filter.y, m_flow_filtered) annotation (Line(
+          points={{34.7,82},{50,82}},
           color={0,0,127},
           smooth=Smooth.None));
       else
@@ -100,10 +105,6 @@ equation
       smooth=Smooth.None));
   connect(realExpression2.y, P) annotation (Line(
       points={{-21,-80},{-16,-80},{-16,-42}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(filter.y, m_flow_filtered) annotation (Line(
-      points={{34.7,82},{50,82}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flowSet, gaiFlow.u) annotation (Line(
