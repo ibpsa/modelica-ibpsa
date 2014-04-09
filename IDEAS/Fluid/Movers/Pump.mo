@@ -36,7 +36,7 @@ model Pump "Prescribed mass flow rate, no heat exchange."
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(min=0, max=m_flow_nominal,
                                                  final quantity="MassFlowRate",
                                                   final unit="kg/s",
-                                                  nominal=m_flow_nominal) = m_flow_pump/m_flow_nominal if useInput
+                                                  nominal=m_flow_nominal) = m_flow_pump if useInput
     annotation (Placement(transformation(extent={{40,54},{60,74}})));
   Modelica.Blocks.Math.Gain gaiFlow(final k=m_flow_nominal,
     u(min=0, max=1),
