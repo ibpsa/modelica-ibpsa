@@ -16,9 +16,9 @@ model HeatPump_BrineWater
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/5000,
-    startTime=5000,
     amplitude=4,
-    offset=273.15 + 30)
+    offset=273.15 + 30,
+    startTime=2000)
     annotation (Placement(transformation(extent={{92,12},{72,32}})));
   Sources.Boundary_pT bou(          redeclare package Medium = Medium,
     nPorts=2,
@@ -37,10 +37,10 @@ model HeatPump_BrineWater
     p=200000)
     annotation (Placement(transformation(extent={{58,-10},{38,-30}})));
   Modelica.Blocks.Sources.Sine sine1(
-    freqHz=1/5000,
     amplitude=4,
     offset=273.15 + 10,
-    startTime=4000)
+    startTime=4000,
+    freqHz=1/3000)
     annotation (Placement(transformation(extent={{92,-34},{72,-14}})));
   replaceable HeatPumpOnOff heatPump(
     redeclare package MediumBrine = Medium,
