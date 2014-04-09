@@ -29,19 +29,15 @@ model Pump "Prescribed mass flow rate, no heat exchange."
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-16,-42})));
+        origin={-24,108})));
 
   Modelica.Blocks.Sources.RealExpression realExpression2(y=PEl)
-    annotation (Placement(transformation(extent={{-42,-90},{-22,-70}})));
+    annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(min=0, max=m_flow_nominal,
                                                  final quantity="MassFlowRate",
                                                   final unit="kg/s",
                                                   nominal=m_flow_nominal) = m_flow_pump/m_flow_nominal if useInput
     annotation (Placement(transformation(extent={{40,54},{60,74}})));
-
-protected
-  Modelica.SIunits.MassFlowRate m_flow_pump;
-
   Modelica.Blocks.Math.Gain gaiFlow(final k=m_flow_nominal,
     u(min=0, max=1),
     y(final quantity="MassFlowRate",
@@ -70,6 +66,9 @@ protected
         useInput and filteredMassFlowRate
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{20,75},{34,89}})));
+
+protected
+  Modelica.SIunits.MassFlowRate m_flow_pump;
 
 equation
   if not useInput then
@@ -104,7 +103,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression2.y, P) annotation (Line(
-      points={{-21,-80},{-16,-80},{-16,-42}},
+      points={{-31,-80},{-24,-80},{-24,108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flowSet, gaiFlow.u) annotation (Line(
