@@ -1,0 +1,10 @@
+//translateModel("IDEAS.Fluid.FixedResistances.Examples.PumpWithPipeHeatPort");
+
+// experiment StopTime=3600
+
+simulateModel("IDEAS.Fluid.FixedResistances.Examples.PumpWithPipeHeatPort", stopTime=10000, method="dassl", resultFile="PumpWithPipeHeatPort");
+
+createPlot(id=1, position={15, 10, 407, 281}, y=fill("", 0), range={0.0, 1.0, 0.0, 1.0}, autoscale=true, autoerase=true, autoreplot=true, description=false, grid=true, color=true, online=false, filename="PumpWithPipeHeatPort.mat", leftTitleType=1, bottomTitleType=1);
+
+
+
