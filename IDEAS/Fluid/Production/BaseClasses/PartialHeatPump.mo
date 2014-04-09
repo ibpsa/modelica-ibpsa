@@ -105,13 +105,13 @@ partial model PartialHeatPump "Heat pump partial"
 
   Modelica.Blocks.Sources.RealExpression realExpression1(y=P_cond)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort T_in_evap(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_evap(
     redeclare package Medium = MediumBrine,
     allowFlowReversal=allowFlowReversal,
     tau=10,
     m_flow_nominal=heatPumpData.m_flow_nominal_fluid)
             annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort T_in_cond(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_cond(
     redeclare package Medium = MediumFluid,
     tau=10,
     allowFlowReversal=allowFlowReversal,
