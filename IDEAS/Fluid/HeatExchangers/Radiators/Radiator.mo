@@ -1,18 +1,9 @@
 within IDEAS.Fluid.HeatExchangers.Radiators;
 model Radiator "Simple 1-node radiator model according to EN 442"
 
-   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(final m=1, final m_flow_nominal=mFlowNom, vol(V=(mMedium+mDry*cpDry/4180)/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default))));
-
-  // Interfaces ////////////////////////////////////////////////////////////////////////////////////////
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon
-    "Convective heat transfer from radiators" annotation (Placement(
-        transformation(extent={{40,90},{60,110}}),iconTransformation(extent={{40,90},
-            {60,110}})));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRad
-    "Radiative heat transfer from radiators" annotation (Placement(
-        transformation(extent={{80,90},{100,110}}),iconTransformation(extent={{80,90},
-            {100,110}})));
+   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(
+     final m=mMedium+mDry*cpDry/Medium.specificHeatCapacityCp(state_default),
+     final m_flow_nominal=QNom/Medium.specificHeatCapacityCp(state_default)/(TInNom -TOutNom));
 
   parameter Modelica.SIunits.Temperature TInNom=75 + 273.15
     "Nominal inlet temperature";
@@ -20,12 +11,10 @@ model Radiator "Simple 1-node radiator model according to EN 442"
     "Nominal outlet temperature";
   parameter Modelica.SIunits.Temperature TZoneNom=20 + 273.15
     "Nominal room temperature";
-
   parameter Modelica.SIunits.Power QNom=1000
     "Nominal thermal power at the specified conditions";
   parameter Real fraRad=0.35 "Fraction of radiation at Nominal power";
   parameter Real n=1.3 "Radiator coefficient according to EN 442-2";
-
   parameter Real powerFactor=1 "Size increase compared to design at 75/65/20";
   // For reference: 45/35/20 is 3.37; 50/40/20 is 2.5:
   // Source: http://www.radson.com/be/producten/paneelradiatoren/radson-compact.htm, accessed on 15/06/2011
@@ -42,18 +31,26 @@ model Radiator "Simple 1-node radiator model according to EN 442"
   Modelica.SIunits.HeatFlowRate QTotal(start=0)
     "Total heat emission of the radiator";
   Modelica.SIunits.TemperatureDifference dTRadRoo;
-  Modelica.SIunits.Power QHeatTotal=-heatPortCon.Q_flow - heatPortRad.Q_flow;
 
-protected
-  parameter Modelica.SIunits.MassFlowRate mFlowNom=QNom/Medium.specificHeatCapacityCp(state_default)/(TInNom -
-      TOutNom) "nominal mass flowrate";
-  constant Medium.ThermodynamicState state_default=Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default);
-public
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon
+    "Convective heat transfer from radiators" annotation (Placement(
+        transformation(extent={{40,90},{60,110}}),iconTransformation(extent={{40,90},
+            {60,110}})));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortRad
+    "Radiative heat transfer from radiators" annotation (Placement(
+        transformation(extent={{80,90},{100,110}}),iconTransformation(extent={{80,90},
+            {100,110}})));
+
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     annotation (Placement(transformation(extent={{0,16},{-20,36}})));
   Modelica.Blocks.Sources.RealExpression power_rad(y=QTotal)
     "Radiator power (amount of heat delivered)"
     annotation (Placement(transformation(extent={{42,16},{22,36}})));
+
+protected
+  constant Medium.ThermodynamicState state_default=Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default);
+
 equation
   dTRadRoo = max(0, vol.heatPort.T - heatPortCon.T);
 
