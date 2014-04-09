@@ -20,5 +20,7 @@ equation
 Initial version
 </li>
 </ul>
-</html>"));
+</html>"),
+    experiment(StopTime=15000),
+    __Dymola_experimentSetupOutput);
 end HeatPump_BrineWaterTset;
