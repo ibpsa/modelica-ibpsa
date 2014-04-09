@@ -13,9 +13,9 @@ model ThreeWayValveSwitch "Switches between two circuits"
         rotation=-90,
         origin={0,80})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression(y=-flowPort_fixed.m_flow)
+  Modelica.Blocks.Sources.RealExpression realExpression(y=-port_b.m_flow)
     "Outlet flow rate"
-    annotation (Placement(transformation(extent={{68,50},{34,70}})));
+    annotation (Placement(transformation(extent={{78,50},{34,70}})));
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
@@ -36,11 +36,11 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(realExpression.y, product.u1) annotation (Line(
-      points={{32.3,60},{28,60},{28,44}},
+      points={{31.8,60},{28,60},{28,44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(product.y, pump.m_flowSet) annotation (Line(
-      points={{22,21},{22,-28},{10,-28}},
+      points={{22,21},{22,-28},{10.4,-28}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
