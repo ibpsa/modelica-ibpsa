@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.BaseClasses;
-model MonoLayerOpaque "single material layer"
+model MonoLayerOpaqueNf "Non-fictive single material layer"
 
   parameter Modelica.SIunits.Area A "Layer area";
   parameter IDEAS.Buildings.Data.Interfaces.Material mat "Layer material";
@@ -8,33 +8,45 @@ model MonoLayerOpaque "single material layer"
   parameter Modelica.SIunits.Temperature TStart=293.15
     "Start temperature for each of the states";
 
+  final parameter Boolean present = mat.d <> 0;
+
+  final parameter Integer nSta=mat.nSta;
+  final parameter Integer nFlo=mat.nSta + 1;
   final parameter Real R = mat.R "Total specific thermal resistance";
+  final parameter Modelica.SIunits.ThermalConductance G = (A*mat.k*nSta)/mat.d;
+  final parameter Modelica.SIunits.HeatCapacity C = (A*mat.rho*mat.c*mat.d)/nSta;
 
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=TStart))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=TStart))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Modelica.SIunits.Temperature[nSta] T(start=ones(nSta)*TStart)
+    "Temperature at the states";
+  Modelica.SIunits.HeatFlowRate[nFlo] Q_flow
+    "Heat flow rate from state i to i+1";
 
-  MonoLayerOpaqueNf monoLayerOpaqueNf(A=A, mat=mat, inc=inc) if mat.d <> 0
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
-  connect(port_a, monoLayerOpaqueNf.port_a) annotation (Line(
-      points={{-100,0},{-56,0},{-56,-40},{-10,-40}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(monoLayerOpaqueNf.port_b, port_b) annotation (Line(
-      points={{10,-40},{56,-40},{56,0},{100,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(port_a, port_b) annotation (Line(
-      points={{-100,0},{100,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+  // connectors
+  port_a.Q_flow = +Q_flow[1];
+  port_b.Q_flow = -Q_flow[nFlo];
+
+  // edge resistances
+  port_a.T - T[1] = Q_flow[1]/(G*2);
+  T[nSta] - port_b.T = Q_flow[nSta + 1]/(G*2);
+
+  // Q_flow[i] is heat flowing from (i-1) to (i)
+  for i in 2:nSta loop
+    T[i - 1] - T[i] = Q_flow[i]/G;
+  end for;
+
+  // Heat storages in the masses
+  for i in 1:nSta loop
+    der(T[i]) = (Q_flow[i] - Q_flow[i + 1])/C;
+  end for;
+
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics),
+    Diagram(graphics),
     Icon(graphics={Rectangle(
           extent={{-90,80},{90,-80}},
           fillColor={192,192,192},
@@ -58,4 +70,4 @@ equation
 <p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-pqp0E04K.png\"/></p>
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-I7KXJhSH.png\"/> is the added energy to the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-B0HPmGTu.png\"/> is the temperature of the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-t7aqbnLB.png\"/> is the thermal capacity of the lumped capacity equal to<img src=\"modelica://IDEAS/Images/equations/equation-JieDs0oi.png\"/> for which rho denotes the density and <img src=\"modelica://IDEAS/Images/equations/equation-ml5CM4zK.png\"/> is the specific heat capacity of the material and <img src=\"modelica://IDEAS/Images/equations/equation-hOGNA6h5.png\"/> the equivalent thickness of the lumped element, where <img src=\"modelica://IDEAS/Images/equations/equation-1pDREAb7.png\"/> the heat flux through the lumped resistance and <img src=\"modelica://IDEAS/Images/equations/equation-XYf3O3hw.png\"/> is the total thermal resistance of the lumped resistance and where <img src=\"modelica://IDEAS/Images/equations/equation-dgS5sGAN.png\"/> are internal thermal source.</p>
 </html>"));
-end MonoLayerOpaque;
+end MonoLayerOpaqueNf;
