@@ -18,6 +18,7 @@
 *.exp
 *.rar
 *.bak-mo
+*.DS_Store
 
 /Specifications/Specs.synctex
 /Specifications/Specs.tcp
@@ -25,3 +26,4 @@
 /IDEAS backup
 !/Inputs/*.txt
 !/IDEAS/Resources/ReferenceResults/Dymola/*txt
+/IDEAS/Resources/drawings.pptx

@@ -3,6 +3,8 @@ package UsersGuide "User's Guide"
 extends Modelica.Icons.Information;
 
 
+
+
 annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>
 <p>The UsersGuide of each package should consist of the following classes</p>
 <ol>

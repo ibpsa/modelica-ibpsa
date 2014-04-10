@@ -12,4 +12,3 @@ This class summarizes general information about the implementation which is not 
 </ol>
 </html>"));
 end Implementation;
-

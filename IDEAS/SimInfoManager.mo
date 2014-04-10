@@ -19,7 +19,7 @@ model SimInfoManager
     "put to true if photovoltaics is to be read from files "
     annotation (Dialog(group="Photovoltaics"));
 
-  replaceable parameter IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants
+  replaceable IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants
     constrainedby IDEAS.Occupants.Extern.Interfaces.Occ_Files
     "Specifies the files with occupant behavior"
     annotation (Dialog(group="User behaviour"));

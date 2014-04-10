@@ -1,0 +1,7 @@
+
+//translateModel("IDEAS.Fluid.FixedResistances.Examples.Pipe_HeatPortExample");
+
+simulateModel("IDEAS.Fluid.FixedResistances.Examples.Pipe_HeatPortExample", stopTime=1, method="dassl", resultFile="Pipe_HeatPortExample");
+
+createPlot(id=1, position={15, 10, 407, 281}, y={"pipe_HeatPort.port_b.h_outflow"}, range={0.0, 1.0, 83000.0, 91000.0}, autoscale=true, autoerase=true, autoreplot=true, description=false, grid=true, color=true, online=false, filename="Pipe_HeatPortExample.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+
