@@ -1,7 +1,6 @@
 within IDEAS.Fluid.Domestic_Hot_Water;
 partial model partial_DHW "partial DHW model"
   import IDEAS;
-  import Buildings;
 
   parameter Modelica.SIunits.Temperature TDHWSet(max=273.15 + 60) = 273.15 + 45
     "DHW temperature setpoint";
@@ -67,7 +66,7 @@ public
     annotation (Placement(transformation(extent={{-20,64},{0,84}})));
   Modelica.Blocks.Math.Sum sum1(nin=2, k={1,-1})
     annotation (Placement(transformation(extent={{-58,40},{-42,56}})));
-  Buildings.HeatTransfer.Radiosity.Constant const(k=273.15 + 10)
+  Modelica.Blocks.Sources.Constant const(k=273.15 + 10)
     annotation (Placement(transformation(extent={{-102,42},{-88,56}})));
   Modelica.Blocks.Math.Division division
     annotation (Placement(transformation(extent={{12,44},{32,64}})));
@@ -75,7 +74,7 @@ public
     annotation (Placement(transformation(extent={{-30,40},{-14,56}})));
   Modelica.Blocks.Math.Sum sum2(nin=2, k={1,-1})
     annotation (Placement(transformation(extent={{-58,62},{-42,78}})));
-  Buildings.HeatTransfer.Radiosity.Constant const1(k=273.15 + 60)
+  Modelica.Blocks.Sources.Constant const1(k=273.15 + 60)
     annotation (Placement(transformation(extent={{-102,70},{-88,84}})));
 
 equation
@@ -107,7 +106,7 @@ equation
       points={{-22,80},{-30,80},{-30,90},{-54,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const.JOut, sum1.u[2]) annotation (Line(
+  connect(const.y, sum1.u[2]) annotation (Line(
       points={{-87.3,49},{-60,49},{-60,48},{-60,48},{-59.6,48},{-59.6,48.8}},
       color={0,127,0},
       smooth=Smooth.None));
@@ -116,7 +115,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(division.y, pumpHot.m_flowSet) annotation (Line(
-      points={{33,54},{64,54},{64,10}},
+      points={{33,54},{64,54},{64,10.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, division.u2) annotation (Line(
@@ -127,11 +126,11 @@ equation
       points={{-31.6,48},{-41.2,48}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const1.JOut, sum2.u[1]) annotation (Line(
+  connect(const1.y, sum2.u[1]) annotation (Line(
       points={{-87.3,77},{-73.65,77},{-73.65,69.2},{-59.6,69.2}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(sum2.u[2], const.JOut) annotation (Line(
+  connect(sum2.u[2], const.y) annotation (Line(
       points={{-59.6,70.8},{-80,70.8},{-80,49},{-87.3,49}},
       color={0,0,127},
       smooth=Smooth.None));

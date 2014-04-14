@@ -1,7 +1,6 @@
 within IDEAS.Fluid.Interfaces.Partials;
 partial model PartialTwoPort
   "Partial model of two port without internal connections"
-  import Buildings;
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
 
