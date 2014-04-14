@@ -20,7 +20,7 @@ protected
   Real angZenDeg = angZen*180/Modelica.Constants.pi;
 
 algorithm
-  solDifHor := IDEAS.BaseClasses.Math.MaxSmooth(
+  solDifHor := IDEAS.Utilities.Math.Functions.smoothMax(
     sim.solDifHor,
     1e-4,
     1e-5);

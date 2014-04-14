@@ -20,9 +20,9 @@ algorithm
 //      A*sim.solDirHor,
 //      delta=0.01);
 //  else
-    solDirTil := IDEAS.BaseClasses.Math.MaxSmooth(
+    solDirTil := IDEAS.Utilities.Math.Functions.smoothMax(
       0,
       A*cos(angSol)*sim.solDirPer,
-      delta=0.01);
+      deltaX=0.01);
 //  end if;
 end solDirTil;

@@ -9,7 +9,7 @@ block SkyBrightness
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
 
 algorithm
-  skyBri := IDEAS.BaseClasses.Math.MinSmooth(
+  skyBri := IDEAS.Utilities.Math.Functions.smoothMin(
     sim.solDifHor*relAirMas/1367,
     1,
     0.025);

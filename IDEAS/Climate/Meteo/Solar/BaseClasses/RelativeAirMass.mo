@@ -15,7 +15,7 @@ protected
   Real angZenLim;
 
 algorithm
-  angZenLim := IDEAS.BaseClasses.Math.MinSmooth(angZen,Modelica.Constants.pi/2,0.01);
+  angZenLim := IDEAS.Utilities.Math.Functions.smoothMin(angZen,Modelica.Constants.pi/2,0.01);
   angZenDeg := angZenLim*180/Modelica.Constants.pi;
   relAirMas := 1/(cos(angZenLim) + 0.15*(93.9 - angZenDeg)^(-1.253));
 
