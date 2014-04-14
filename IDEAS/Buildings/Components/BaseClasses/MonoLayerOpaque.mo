@@ -10,13 +10,15 @@ model MonoLayerOpaque "single material layer"
 
   final parameter Real R = mat.R "Total specific thermal resistance";
 
+  final parameter Boolean notFictive = (mat.d <> 0);
+
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=TStart))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=TStart))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  MonoLayerOpaqueNf monoLayerOpaqueNf(A=A, mat=mat, inc=inc) if mat.d <> 0
+  MonoLayerOpaqueNf monoLayerOpaqueNf(A=A, mat=mat, inc=inc) if notFictive
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
   connect(port_a, monoLayerOpaqueNf.port_a) annotation (Line(
