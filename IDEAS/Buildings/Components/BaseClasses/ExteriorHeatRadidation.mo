@@ -25,8 +25,9 @@ public
 equation
 
   Tenv = (Fssky*sim.Tsky^4 + (1 - Fssky)*sim.Te^4)^0.25;
-  port_a.Q_flow = A*Modelica.Constants.sigma*epsLw*(port_a.T - Tenv)*(port_a.T
-     + Tenv)*(port_a.T^2 + Tenv^2);
+//  port_a.Q_flow = A*Modelica.Constants.sigma*epsLw*(port_a.T - Tenv)*(port_a.T
+//     + Tenv)*(port_a.T^2 + Tenv^2);
+  port_a.Q_flow = A*5.67*epsLw*(port_a.T - Tenv);
 
   annotation (Icon(graphics={
         Line(points={{-40,10},{40,10}}, color={191,0,0}),

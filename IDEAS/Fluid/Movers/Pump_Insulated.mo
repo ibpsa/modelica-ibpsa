@@ -27,52 +27,10 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(extent={{-100,-80},{200,80}}, preserveAspectRatio=true),
+    Diagram(coordinateSystem(extent={{-100,-80},{100,80}}, preserveAspectRatio=true),
                    graphics),
-    Icon(coordinateSystem(extent={{-100,-80},{200,80}}, preserveAspectRatio=
-            true), graphics={
-        Ellipse(extent={{-70,60},{50,-60}}, lineColor={100,100,100}),
-        Line(
-          points={{-100,0},{-80,0}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Polygon(
-          points={{-40,46},{46,0},{46,0},{-40,-44},{-40,46}},
-          lineColor={135,135,135},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-80,60},{-80,-60}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{180,60},{180,-60}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{180,0},{200,0}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{170,60},{26,-48}},
-          color={100,100,100},
-          smooth=Smooth.None),
-        Line(
-          points={{170,-60},{90,0}},
-          color={100,100,100},
-          smooth=Smooth.None),
-        Polygon(
-          points={{170,60},{130,46},{144,28},{170,60}},
-          lineColor={100,100,100},
-          smooth=Smooth.None,
-          fillColor={100,100,100},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{130,-30},{120,-16},{114,-24},{130,-30}},
-          lineColor={100,100,100},
-          smooth=Smooth.None,
-          fillColor={100,100,100},
-          fillPattern=FillPattern.Solid)}),
+    Icon(coordinateSystem(extent={{-100,-80},{100,80}}, preserveAspectRatio=
+            true), graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Basic pump model with UA-value for heat exchange to environment. This model sets the mass flow rate, either as a constant or based on an input. The thermal equations are identical to the <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Pipe_Insulated\">Pipe_Insulated</a> model.</p>
