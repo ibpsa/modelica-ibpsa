@@ -1,0 +1,5 @@
+simulateModel("Annex60.Fluid.FixedResistances.Examples.FixedResistances3Way", resultFile="FixedResistances3Way");
+createPlot(id = 1,
+ position = {1, 6, 400, 280},
+ y = {"res1.m_flow", "res2.m_flow"},
+ grid = true);
