@@ -1,9 +1,13 @@
 UsersGuide
+Actuators
+Delays
 FixedResistances
 HeatExchangers
 MassExchangers
 MixingVolumes
 Sensors
 Sources
+Storage
+Types
 BaseClasses
 Interfaces

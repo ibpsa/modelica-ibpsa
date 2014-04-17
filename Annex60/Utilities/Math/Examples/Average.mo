@@ -1,5 +1,5 @@
 within Annex60.Utilities.Math.Examples;
-model Average "\"Test model for average function "
+model Average "Test model for average function"
   extends Modelica.Icons.Example;
   Annex60.Utilities.Math.Average average(nin=2)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
