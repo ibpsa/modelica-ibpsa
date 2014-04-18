@@ -7,15 +7,18 @@ record Material "Properties of building materials"
   parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
   parameter Modelica.SIunits.SpecificHeatCapacity c "Specific thermal capacity";
   parameter Modelica.SIunits.Density rho "Density";
-  parameter Modelica.SIunits.Emissivity epsLw=0.85 "Longwave emisivity";
-  parameter Modelica.SIunits.Emissivity epsSw=0.85 "Shortwave emissivity";
+  parameter Modelica.SIunits.Emissivity epsLw = 0.85 "Longwave emisivity";
+  parameter Modelica.SIunits.Emissivity epsSw = 0.85 "Shortwave emissivity";
   parameter Boolean gas=false "Boolean wether the material is a gas";
   parameter Real mhu(unit="m2/s") = 0
     "Viscosity, i.e. if the material is a fluid";
+
   final parameter Real R=d/k;
 
-  parameter Modelica.SIunits.Emissivity epsLw_a=0.84 "Longwave emisivity";
-  parameter Modelica.SIunits.Emissivity epsLw_b=0.84 "Longwave emisivity";
+  parameter Modelica.SIunits.Emissivity epsLw_a=0.84
+    "Longwave emisivity for surface a if different";
+  parameter Modelica.SIunits.Emissivity epsLw_b=0.84
+    "Longwave emisivity for surface a if different";
 
   final parameter Modelica.SIunits.ThermalDiffusivity alpha=k/(c*rho)
     "Thermal diffusivity";

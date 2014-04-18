@@ -30,11 +30,11 @@ protected
   Real b;
 
 algorithm
-  a := IDEAS.BaseClasses.Math.MaxSmooth(
+  a := IDEAS.Utilities.Math.Functions.smoothMax(
     0,
     cos(angInc),
     0.01);
-  b := IDEAS.BaseClasses.Math.MaxSmooth(
+  b := IDEAS.Utilities.Math.Functions.smoothMax(
     0.087,
     cos(angZen),
     0.01);

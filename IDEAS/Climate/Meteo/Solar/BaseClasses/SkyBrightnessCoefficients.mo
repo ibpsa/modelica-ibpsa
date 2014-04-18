@@ -88,7 +88,7 @@ algorithm
     *a[6] - 1.127*a[7] - 1.377*a[8];
   F23 := -0.022*a[1] - 0.029*a[2] - 0.026*a[3] - 0.014*a[4] + 0.001*a[5] +
     0.056*a[6] + 0.131*a[7] + 0.251*a[8];
-  F1 := IDEAS.BaseClasses.Math.MaxSmooth(
+  F1 := IDEAS.Utilities.Math.Functions.smoothMax(
     0,
     F11 + F12*skyBri + F13*angZen,
     0.01);

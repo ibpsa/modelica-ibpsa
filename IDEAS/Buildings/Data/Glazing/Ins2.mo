@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Data.Glazing;
 record Ins2 = IDEAS.Buildings.Data.Interfaces.Glazing (
     nLay=3,
-    mats={Materials.Glass(d=0.004),Materials.Air(d=0.015, epsLw=0.04),
+    mats={Materials.Glass(d=0.004),Materials.Air(d=0.015, epsLw_a=0.04),
         Materials.Glass(d=0.004, epsLw=0.04)},
     SwTrans=[0, 0.521; 10, 0.524; 20, 0.517; 30, 0.508; 40, 0.495; 50, 0.472;
         60, 0.418; 70, 0.312; 80, 0.153; 90, 0.000],
