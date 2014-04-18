@@ -243,7 +243,7 @@ the simulation stops.");
     preDer2:=zeros(nOri+1);
     preDer3:=zeros(nOri+2);
 
-    // Equation to compute dpDelta
+    // Equation to compute dpDelta: pressure at zero flow and r_N=delta
     dpDelta :=cha.pressure(
       data=pCur1,
       V_flow=0,
@@ -263,20 +263,12 @@ the simulation stops.");
     // Linear equations to determine cBar
     // Conditions for r_N=delta, V_flow = VDelta_flow
     // Conditions for r_N=delta, V_flow = 0
-    cBar[1] :=cha.pressure(
-      data=pCur1,
-      V_flow=0,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer1,
-      cBar=zeros(2),
-      kRes=  kRes) * (1-delta)/delta^2;
 
-    cBar[2] :=((cha.pressure(
+    // Normalised (for term r_N²) pressure at V_flow = 0, used in flowApproximationAtOrigin
+    cBar[1] :=dpDelta/delta^2;
+
+    // numerical derivative of dp/dV_flow, also normalised for r_N²
+    cBar[2] :=(cha.pressure(
       data=pCur1,
       V_flow=VDelta_flow,
       r_N=delta,
@@ -287,7 +279,7 @@ the simulation stops.");
       delta=0,
       d=preDer1,
       cBar=zeros(2),
-      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+      kRes=  kRes) - dpDelta)/delta^2/VDelta_flow;
 
   elseif haveVMax or haveDPMax then  // ----- Curve 2
     curve :=2; // V_flow_max or dpMax is provided by the user, but not both
@@ -314,7 +306,7 @@ the simulation stops.");
     preDer2:=Annex60.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow, y=pCur2.dp);
     preDer3:=zeros(nOri+2);
 
-    // Equation to compute dpDelta
+    // Equation to compute dpDelta: pressure at zero flow and r_N=delta
     dpDelta :=cha.pressure(
       data=pCur2,
       V_flow=0,
@@ -334,20 +326,12 @@ the simulation stops.");
     // Linear equations to determine cBar
     // Conditions for r_N=delta, V_flow = VDelta_flow
     // Conditions for r_N=delta, V_flow = 0
-    cBar[1] :=cha.pressure(
-      data=pCur2,
-      V_flow=0,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer2,
-      cBar=zeros(2),
-      kRes=  kRes) * (1-delta)/delta^2;
 
-    cBar[2] :=((cha.pressure(
+    // Normalised (for term r_N²) pressure at V_flow = 0, used in flowApproximationAtOrigin
+    cBar[1] :=dpDelta/delta^2;
+
+    // numerical derivative of dp/dV_flow, also normalised for r_N²
+    cBar[2] :=(cha.pressure(
       data=pCur2,
       V_flow=VDelta_flow,
       r_N=delta,
@@ -358,7 +342,7 @@ the simulation stops.");
       delta=0,
       d=preDer2,
       cBar=zeros(2),
-      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+      kRes=  kRes) - dpDelta)/delta^2/VDelta_flow;
 
   else  // ----- Curve 3
     curve :=3; // Neither V_flow_max nor dpMax are provided by the user
@@ -378,7 +362,7 @@ the simulation stops.");
     preDer2:=zeros(nOri+1);
     preDer3:=Annex60.Utilities.Math.Functions.splineDerivatives(x=pCur3.V_flow, y=pCur3.dp);
 
-    // Equation to compute dpDelta
+    // Equation to compute dpDelta: pressure at zero flow and r_N=delta
     dpDelta :=cha.pressure(
       data=pCur3,
       V_flow=0,
@@ -398,20 +382,12 @@ the simulation stops.");
     // Linear equations to determine cBar
     // Conditions for r_N=delta, V_flow = VDelta_flow
     // Conditions for r_N=delta, V_flow = 0
-    cBar[1] :=cha.pressure(
-      data=pCur3,
-      V_flow=0,
-      r_N=delta,
-      VDelta_flow=0,
-      dpDelta=0,
-      V_flow_max=Modelica.Constants.eps,
-      dpMax=0,
-      delta=0,
-      d=preDer3,
-      cBar=zeros(2),
-      kRes=  kRes) * (1-delta)/delta^2;
 
-    cBar[2] :=((cha.pressure(
+    // Normalised (for term r_N²) pressure at V_flow = 0, used in flowApproximationAtOrigin
+    cBar[1] :=dpDelta/delta^2;
+
+    // numerical derivative of dp/dV_flow, also normalised for r_N²
+    cBar[2] :=(cha.pressure(
       data=pCur3,
       V_flow=VDelta_flow,
       r_N=delta,
@@ -422,7 +398,7 @@ the simulation stops.");
       delta=0,
       d=preDer3,
       cBar=zeros(2),
-      kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+      kRes=  kRes) - dpDelta)/delta^2/VDelta_flow;
 
   end if;
 
