@@ -129,8 +129,7 @@ First implementation.
     "Flow vs. head characteristics for fan or pump pressure raise"
     extends Modelica.Icons.Function;
     input
-      Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
-                                                                                    data
+      Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal     data
       "Pressure performance data";
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
@@ -273,7 +272,7 @@ First implementation.
       "Coefficients for linear approximation of pressure vs. flow rate";
     output Modelica.SIunits.Pressure dp "Pressure raise";
   algorithm
-    dp := r_N * dpDelta + r_N^2 * (cBar[1] + cBar[2]*V_flow);
+    dp := r_N^2 * (cBar[1] + cBar[2]*V_flow);
     annotation (Documentation(info="<html>
 <p>
 This function computes the fan static
@@ -363,8 +362,7 @@ First implementation.
 
   function efficiency "Flow vs. efficiency characteristics for fan or pump"
     extends Modelica.Icons.Function;
-    input
-      Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    input Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
       data "Efficiency performance data";
     input Real r_V(unit="1")
       "Volumetric flow rate divided by nominal flow rate";
