@@ -17,9 +17,9 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
-  Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
+  IDEAS.Climate.Meteo.WeaBus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
             294,-10},{314,10}}), iconTransformation(extent={{190,-10},{210,10}})));
-  BaseClasses.SolarSubBus solBus "Sub bus with solar position"
+  IDEAS.Climate.Meteo.SolBus solBus "Sub bus with solar position"
     annotation (Placement(transformation(extent={{-2,-304},{18,-284}}),
         iconTransformation(extent={{-2,-200},{18,-180}})));
 
