@@ -39,12 +39,12 @@ equation
       points={{31.8,60},{28,60},{28,44}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(product.y, pump.m_flowSet) annotation (Line(
-      points={{22,21},{22,-28},{10.4,-28}},
+  connect(product.y, idealSource.m_flow_in) annotation (Line(
+      points={{22,21},{24,21},{24,-50},{8,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
                       graphics), Icon(graphics={
         Polygon(
           points={{-60,30},{-60,-30},{0,0},{-60,30}},

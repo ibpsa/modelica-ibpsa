@@ -13,13 +13,12 @@ public
         rotation=90,
         origin={-10,96})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression(y=-ctrl*port_b.m_flow/
-        m_flow_nominal)
-    annotation (Placement(transformation(extent={{62,-38},{22,-18}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=-ctrl*port_b.m_flow)
+    annotation (Placement(transformation(extent={{66,-60},{26,-40}})));
 equation
 
-  connect(realExpression.y, pump.m_flowSet) annotation (Line(
-      points={{20,-28},{10,-28}},
+  connect(realExpression.y, idealSource.m_flow_in) annotation (Line(
+      points={{24,-50},{8,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

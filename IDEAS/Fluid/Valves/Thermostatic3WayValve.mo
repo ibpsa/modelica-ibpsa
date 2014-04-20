@@ -16,9 +16,9 @@ model Thermostatic3WayValve "Thermostatic 3-way valve"
   Modelica.SIunits.SpecificEnthalpy h_set = Medium.specificEnthalpy(Medium.setState_pTX(port_a1.p, TMixedSet, Medium.X_default))
     "Specific enthalpy of the temperature setpoint";
 
-  Modelica.Blocks.Sources.RealExpression realExpression(y=m_flowCold/
-        m_flow_nominal) "Fraction of nominal mass flow rate"
-    annotation (Placement(transformation(extent={{92,-38},{38,-18}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=m_flowCold)
+    "Fraction of nominal mass flow rate"
+    annotation (Placement(transformation(extent={{74,-60},{34,-40}})));
 
 protected
   Modelica.SIunits.MassFlowRate m_flowMixed=-port_b.m_flow
@@ -39,13 +39,13 @@ equation
     m_flowCold = 0;
   end if;
 
-  connect(realExpression.y, pump.m_flowSet) annotation (Line(
-      points={{35.3,-28},{10,-28}},
+  connect(realExpression.y, idealSource.m_flow_in) annotation (Line(
+      points={{32,-50},{8,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Icon(graphics={
         Polygon(
