@@ -6,14 +6,12 @@ model HeatPumpOnOff "A heat pump that can only be switch on or off"
   extends IDEAS.Fluid.Interfaces.OnOffInterface(use_onOffSignal=true);
 
   // check https://github.com/open-ideas/IDEAS/issues/17 for a discussion on why CombiTable2D is used
-  Modelica.Blocks.Tables.CombiTable2D powerTable(                 smoothness=
-        Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table=
-        heatPumpData.powerData)
+  Modelica.Blocks.Tables.CombiTable2D powerTable(              table=
+        heatPumpData.powerData, smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "Interpolation table for finding the electrical power"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Modelica.Blocks.Tables.CombiTable2D copTable(               smoothness=
-        Modelica.Blocks.Types.Smoothness.ContinuousDerivative, table=
-        heatPumpData.copData)
+  Modelica.Blocks.Tables.CombiTable2D copTable(                table=
+        heatPumpData.copData, smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     annotation (Placement(transformation(extent={{-60,54},{-40,74}})));
     Real cop "COP of the heat pump";
 equation
