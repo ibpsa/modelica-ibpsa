@@ -1,0 +1,13 @@
+getAbsolutePath
+getHeaderElementTMY3
+getLatitudeTMY3
+getLongitudeTMY3
+getTimeZoneTMY3
+CheckCeilingHeight
+CheckTemperature
+ConvertRelativeHumidity
+CheckPressure
+CheckRadiation
+CheckSkyCover
+CheckWindDirection
+CheckWindSpeed
