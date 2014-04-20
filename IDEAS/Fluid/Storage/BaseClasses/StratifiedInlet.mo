@@ -36,6 +36,10 @@ model StratifiedInlet "Stratified inlet for a storage tank"
 
 protected
   Integer testNode(start=0) "Node counter";
+  Modelica.SIunits.SpecificEnthalpy hIn = inStream(port_a.h_outflow)
+    "Instream not supported in algorithms";
+  Modelica.SIunits.SpecificEnthalpy[nbrNodes+1] hPorts = inStream(port_b.h_outflow)
+    "Instream not supported in algorithms";
 
 algorithm
   inlet := 0;
@@ -44,7 +48,7 @@ algorithm
     //determine inlet
     //note that the inequality is reversed and that no ´inStream´ is used!
     //before Annex60: if T > TNodes[testNode] then
-    if port_a.h_outflow < port_b[testNode].h_outflow then
+    if hIn > hPorts[testNode] then
       inlet := testNode;
     else
       inlet := 0;
