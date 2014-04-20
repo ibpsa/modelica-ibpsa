@@ -75,9 +75,9 @@ public
 
   Boolean day=true;
 
-  Modelica.SIunits.Time timLoc=timMan.timLoc "Local time";
-  Modelica.SIunits.Time timSol=timMan.timSol "Solar time";
-  Modelica.SIunits.Time timCal=timMan.timCal "Calendar time";
+  Modelica.SIunits.Time timLoc = timMan.timLoc "Local time";
+  Modelica.SIunits.Time timSol = timMan.timSol "Solar time";
+  Modelica.SIunits.Time timCal = timMan.timCal "Calendar time";
 
 protected
   IDEAS.Climate.Time.SimTimes timMan(
