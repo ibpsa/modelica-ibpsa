@@ -9,26 +9,16 @@ block ReaderTMY3 "Reader for TMY3 weather data"
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
-    filNam) "Longitude";
+    IDEAS.Climate.Meteo.TMY3.getLongitudeTMY3(filNam) "Longitude";
   final parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
-    filNam) "Latitude";
+    IDEAS.Climate.Meteo.TMY3.getLatitudeTMY3(filNam) "Latitude";
   final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
-    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
-    "Time zone";
+    IDEAS.Climate.Meteo.TMY3.getTimeZoneTMY3(filNam) "Time zone";
   IDEAS.Climate.Meteo.WeaBus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
             294,-10},{314,10}}), iconTransformation(extent={{190,-10},{210,10}})));
   IDEAS.Climate.Meteo.SolBus solBus "Sub bus with solar position"
     annotation (Placement(transformation(extent={{-2,-304},{18,-284}}),
         iconTransformation(extent={{-2,-200},{18,-180}})));
-
-  parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation
-    calTSky=Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover
-    "Computation of black-body sky temperature" annotation (
-    choicesAllMatching=true,
-    Evaluate=true,
-    Dialog(group="Sky temperature"));
 
   constant Real epsCos = 1e-6 "Small value to avoid division by 0";
 
@@ -41,36 +31,42 @@ protected
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
         28,29,30}) "Data reader"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
-    cheTemDryBul "Check dry bulb temperature "
+  IDEAS.Climate.Meteo.TMY3.CheckTemperature cheTemDryBul
+    "Check dry bulb temperature "
     annotation (Placement(transformation(extent={{160,-200},{180,-180}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
-    cheTemDewPoi "Check dew point temperature"
+  IDEAS.Climate.Meteo.TMY3.CheckTemperature cheTemDewPoi
+    "Check dew point temperature"
     annotation (Placement(transformation(extent={{160,-240},{180,-220}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity
-    conRelHum "Convert the relative humidity from percentage to [0, 1] "
+  IDEAS.Climate.Meteo.TMY3.ConvertRelativeHumidity conRelHum
+    "Convert the relative humidity from percentage to [0, 1] "
     annotation (Placement(transformation(extent={{120,20},{140,40}})));
-  BaseClasses.CheckPressure chePre "Check the air pressure"
+  IDEAS.Climate.Meteo.TMY3.CheckPressure chePre "Check the air pressure"
     annotation (Placement(transformation(extent={{160,60},{180,80}})));
-  BaseClasses.CheckSkyCover cheTotSkyCov "Check the total sky cover"
+  IDEAS.Climate.Meteo.TMY3.CheckSkyCover cheTotSkyCov
+    "Check the total sky cover"
     annotation (Placement(transformation(extent={{160,-40},{180,-20}})));
-  BaseClasses.CheckSkyCover cheOpaSkyCov "Check the opaque sky cover"
+  IDEAS.Climate.Meteo.TMY3.CheckSkyCover cheOpaSkyCov
+    "Check the opaque sky cover"
     annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
-  BaseClasses.CheckRadiation cheGloHorRad
+  IDEAS.Climate.Meteo.TMY3.CheckRadiation cheGloHorRad
     "Check the global horizontal radiation"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
-  BaseClasses.CheckRadiation cheDifHorRad
+  IDEAS.Climate.Meteo.TMY3.CheckRadiation cheDifHorRad
     "Check the diffuse horizontal radiation"
     annotation (Placement(transformation(extent={{160,120},{180,140}})));
-  BaseClasses.CheckRadiation cheDirNorRad "Check the direct normal radiation"
+  IDEAS.Climate.Meteo.TMY3.CheckRadiation cheDirNorRad
+    "Check the direct normal radiation"
     annotation (Placement(transformation(extent={{160,200},{180,220}})));
-  BaseClasses.CheckCeilingHeight cheCeiHei "Check the ceiling height"
+  IDEAS.Climate.Meteo.TMY3.CheckCeilingHeight cheCeiHei
+    "Check the ceiling height"
     annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
-  BaseClasses.CheckWindSpeed cheWinSpe "Check the wind speed"
+  IDEAS.Climate.Meteo.TMY3.CheckWindSpeed cheWinSpe "Check the wind speed"
     annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
-  BaseClasses.CheckRadiation cheHorRad "Check the horizontal radiation"
+  IDEAS.Climate.Meteo.TMY3.CheckRadiation cheHorRad
+    "Check the horizontal radiation"
     annotation (Placement(transformation(extent={{160,240},{180,260}})));
-  BaseClasses.CheckWindDirection cheWinDir "Check the wind direction"
+  IDEAS.Climate.Meteo.TMY3.CheckWindDirection cheWinDir
+    "Check the wind direction"
     annotation (Placement(transformation(extent={{160,-280},{180,-260}})));
   SkyTemperature.BlackBody TBlaSky(final calTSky=calTSky)
     "Check the sky black-body temperature"
@@ -143,129 +139,43 @@ protected
   Modelica.Blocks.Math.UnitConversions.From_degC conTDewPoi
     "Convert the dew point temperature form [degC] to [K]"
     annotation (Placement(transformation(extent={{120,-240},{140,-220}})));
-  BaseClasses.ConvertRadiation conDirNorRad
+  IDEAS.Climate.Meteo.TMY3.ConvertRadiation conDirNorRad
     annotation (Placement(transformation(extent={{120,200},{140,220}})));
-  BaseClasses.ConvertRadiation conGloHorRad
+  IDEAS.Climate.Meteo.TMY3.ConvertRadiation conGloHorRad
     annotation (Placement(transformation(extent={{120,160},{140,180}})));
-  BaseClasses.ConvertRadiation conDifHorRad
+  IDEAS.Climate.Meteo.TMY3.ConvertRadiation conDifHorRad
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
-  BaseClasses.CheckRelativeHumidity cheRelHum
+  IDEAS.Climate.Meteo.TMY3.CheckRelativeHumidity cheRelHum
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
   SolarGeometry.BaseClasses.AltitudeAngle altAng "Solar altitude angle"
     annotation (Placement(transformation(extent={{-30,-280},{-10,-260}})));
-   SolarGeometry.BaseClasses.ZenithAngle zenAng(
-     final lat = lat) "Zenith angle"
+   SolarGeometry.BaseClasses.ZenithAngle zenAng(final lat = lat) "Zenith angle"
     annotation (Placement(transformation(extent={{-80,-226},{-60,-206}})));
    SolarGeometry.BaseClasses.Declination decAng "Declination angle"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
-   SolarGeometry.BaseClasses.SolarHourAngle
-    solHouAng
+   SolarGeometry.BaseClasses.SolarHourAngle solHouAng
     annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
   Modelica.Blocks.Sources.Constant latitude(final k=lat) "Latitude"
     annotation (Placement(transformation(extent={{-180,-280},{-160,-260}})));
   Modelica.Blocks.Sources.Constant longitude(final k=lon) "Longitude"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
 
-  //---------------------------------------------------------------------------
-  // Optional instanciation of a block that computes the wet bulb temperature.
-  // This block may be needed for evaporative cooling towers.
-  // By default, it is enabled. This introduces a nonlinear equation, but
-  // we have not observed an increase in computing time because of this equation.
-  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi tWetBul_TDryBulXi(
-      redeclare package Medium = Buildings.Media.PerfectGases.MoistAir,
-      TDryBul(displayUnit="degC")) if computeWetBulbTemperature
-    annotation (Placement(transformation(extent={{244,-66},{264,-46}})));
-
 equation
-  //---------------------------------------------------------------------------
-  // Select atmospheric pressure connector
-//  if pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
-//    pAtm_in_internal = pAtm;
-//  elseif pAtmSou == Buildings.BoundaryConditions.Types.DataSource.File then
-    connect(datRea.y[4], pAtm_in_internal);
-//  else
-//    connect(pAtm_in, pAtm_in_internal);
-//  end if;
+  connect(datRea.y[4], pAtm_in_internal);
   connect(pAtm_in_internal, chePre.PIn);
-  //---------------------------------------------------------------------------
-  // Select dry bulb temperature connector
-//  if TDryBulSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
-//    TDryBul_in_internal = TDryBul;
-//  elseif TDryBulSou == Buildings.BoundaryConditions.Types.DataSource.Input then
-//    connect(TDryBul_in, TDryBul_in_internal);
-//  else
-    connect(conTDryBul.y, TDryBul_in_internal);
-//  end if;
+  connect(conTDryBul.y, TDryBul_in_internal);
   connect(TDryBul_in_internal, cheTemDryBul.TIn);
-  //---------------------------------------------------------------------------
-  // Select relative humidity connector
-//  if relHumSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
-//    relHum_in_internal = relHum;
-//  elseif relHumSou == Buildings.BoundaryConditions.Types.DataSource.Input then
-//    connect(relHum_in, relHum_in_internal);
-//  else
-    connect(conRelHum.relHumOut, relHum_in_internal);
-//  end if;
+  connect(conRelHum.relHumOut, relHum_in_internal);
   connect(relHum_in_internal, cheRelHum.relHumIn);
-  //---------------------------------------------------------------------------
-  // Select wind speed connector
-//  if winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
-//    winSpe_in_internal = winSpe;
-//  elseif winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input then
-    connect(winSpe_in, winSpe_in_internal);
-//  else
-//    connect(datRea.y[12], winSpe_in_internal);
-//  end if;
+  connect(winSpe_in, winSpe_in_internal);
   connect(winSpe_in_internal, cheWinSpe.winSpeIn);
-  //---------------------------------------------------------------------------
-  // Select wind direction connector
-//  if winDirSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
-//    winDir_in_internal = winDir;
-//  elseif winDirSou == Buildings.BoundaryConditions.Types.DataSource.Input then
-//    connect(winDir_in, winDir_in_internal);
-//  else
-    connect(conWinDir.y, winDir_in_internal);
-//  end if;
+  connect(conWinDir.y, winDir_in_internal);
   connect(winDir_in_internal, cheWinDir.nIn);
-  //---------------------------------------------------------------------------
-  // Select global horizontal radiation connector
-//  if HSou ==  Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor then
-//    connect(HGloHor_in, HGloHor_in_internal)
-//      "Get HGloHor using user input file";
-//  elseif HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor then
-//     HDirNor_in_internal*cos(zenAng.zen)+HDifHor_in_internal = HGloHor_in_internal
-//      "Calculate the HGloHor using HDirNor and HDifHor according to (A.4.14) and (A.4.15)";
-//  else
-    connect(conGloHorRad.HOut, HGloHor_in_internal)
-    "Get HGloHor using weather data file";
-//  end if;
+  connect(conGloHorRad.HOut, HGloHor_in_internal);
   connect(HGloHor_in_internal, cheGloHorRad.HIn);
-  //---------------------------------------------------------------------------
-  // Select diffuse horizontal radiation connector
-//  if HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor then
-//     connect(HDifHor_in, HDifHor_in_internal)
-//      "Get HDifHor using user input file";
-//  elseif  HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor then
-//      HGloHor_in_internal - HDirNor_in_internal*cos(zenAng.zen) = HDifHor_in_internal
-//      "Calculate the HGloHor using HDirNor and HDifHor according to (A.4.14) and (A.4.15)";
-//  else
-    connect(conDifHorRad.HOut, HDifHor_in_internal)
-    "Get HDifHor using weather data file";
-//  end if;
+  connect(conDifHorRad.HOut, HDifHor_in_internal);
   connect(HDifHor_in_internal, cheDifHorRad.HIn);
-  //---------------------------------------------------------------------------
-  // Select direct normal radiation connector
-//  if HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor then
-//     connect(HDirNor_in, HDirNor_in_internal)
-//      "Get HDirNor using user input file";
-//  elseif  HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor then
-//      (HGloHor_in_internal -HDifHor_in_internal)/Buildings.Utilities.Math.Functions.smoothMax(x1=cos(zenAng.zen), x2=epsCos, deltaX=0.1*epsCos)
-//       = HDirNor_in_internal
-//      "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
-//  else
-    connect(conDirNorRad.HOut, HDirNor_in_internal)
-    "Get HDirNor using weather data file";
-//  end if;
+  connect(conDirNorRad.HOut, HDirNor_in_internal);
   connect(HDirNor_in_internal, cheDirNorRad.HIn);
 
   connect(chePre.POut, weaBus.pAtm) annotation (Line(

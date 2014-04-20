@@ -10,4 +10,6 @@ CheckPressure
 CheckRadiation
 CheckSkyCover
 CheckWindDirection
+CheckRelativeHumidity
 CheckWindSpeed
+ConvertRadiation
