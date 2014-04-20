@@ -11,8 +11,8 @@ partial model partial_DHW "partial DHW model"
   // We suppose the flowrate will always be lower than 1e3 kg/s.
 
 protected
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1e3
-    "only used to set a reference";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+    "Nominal mass flow rate";
 
   /*
   Slows down the simulation too much.  Should be in post processing
@@ -38,12 +38,6 @@ public
         rotation=0,
         origin={64,0})));
 
-  Modelica.Blocks.Interfaces.RealInput mDHW60C
-    "Mass flowrate of DHW at 60 degC in kg/s" annotation (Placement(
-        transformation(extent={{-74,70},{-34,110}}), iconTransformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={20,100})));
   IDEAS.Fluid.Sources.Boundary_pT cold(
     redeclare package Medium = Medium,
     use_T_in=true,
@@ -63,19 +57,19 @@ public
     m_flow_nominal=m_flow_nominal,
     tau=30) annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
   Modelica.Blocks.Math.Product product
-    annotation (Placement(transformation(extent={{-20,64},{0,84}})));
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Math.Sum sum1(nin=2, k={1,-1})
-    annotation (Placement(transformation(extent={{-58,40},{-42,56}})));
+    annotation (Placement(transformation(extent={{-56,16},{-40,32}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 10)
-    annotation (Placement(transformation(extent={{-102,42},{-88,56}})));
+    annotation (Placement(transformation(extent={{-100,18},{-86,32}})));
   Modelica.Blocks.Math.Division division
-    annotation (Placement(transformation(extent={{12,44},{32,64}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Math.Gain gain(k=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-30,40},{-14,56}})));
+    annotation (Placement(transformation(extent={{-18,16},{-2,32}})));
   Modelica.Blocks.Math.Sum sum2(nin=2, k={1,-1})
-    annotation (Placement(transformation(extent={{-58,62},{-42,78}})));
+    annotation (Placement(transformation(extent={{-56,38},{-40,54}})));
   Modelica.Blocks.Sources.Constant const1(k=273.15 + 60)
-    annotation (Placement(transformation(extent={{-102,70},{-88,84}})));
+    annotation (Placement(transformation(extent={{-100,46},{-86,60}})));
 
 equation
   connect(realExpression.y, cold.T_in) annotation (Line(
@@ -99,43 +93,39 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTem.T, sum1.u[1]) annotation (Line(
-      points={{-78,11},{-78,46},{-59.6,46},{-59.6,47.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(product.u1, mDHW60C) annotation (Line(
-      points={{-22,80},{-30,80},{-30,90},{-54,90}},
+      points={{-78,11},{-78,22},{-57.6,22},{-57.6,23.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, sum1.u[2]) annotation (Line(
-      points={{-87.3,49},{-60,49},{-60,48},{-60,48},{-59.6,48},{-59.6,48.8}},
+      points={{-85.3,25},{-58,25},{-58,24},{-57.6,24},{-57.6,24.8}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(division.u1, product.y) annotation (Line(
-      points={{10,60},{6,60},{6,74},{1,74}},
+      points={{18,36},{8,36},{8,50},{1,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(division.y, pumpHot.m_flowSet) annotation (Line(
-      points={{33,54},{64,54},{64,10.4}},
+      points={{41,30},{64,30},{64,10.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, division.u2) annotation (Line(
-      points={{-13.2,48},{10,48}},
+      points={{-1.2,24},{18,24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.u, sum1.y) annotation (Line(
-      points={{-31.6,48},{-41.2,48}},
+      points={{-19.6,24},{-39.2,24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const1.y, sum2.u[1]) annotation (Line(
-      points={{-87.3,77},{-73.65,77},{-73.65,69.2},{-59.6,69.2}},
+      points={{-85.3,53},{-71.65,53},{-71.65,45.2},{-57.6,45.2}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(sum2.u[2], const.y) annotation (Line(
-      points={{-59.6,70.8},{-80,70.8},{-80,49},{-87.3,49}},
+      points={{-57.6,46.8},{-78,46.8},{-78,25},{-85.3,25}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(product.u2, sum2.y) annotation (Line(
-      points={{-22,68},{-32,68},{-32,70},{-41.2,70}},
+      points={{-22,44},{-30,44},{-30,46},{-39.2,46}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

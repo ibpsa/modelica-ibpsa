@@ -78,7 +78,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(HPControl.onOff, pump.m_flowSet) annotation (Line(
-      points={{-83.1111,48.6667},{-83.1111,40},{-48,40},{-48,-42}},
+      points={{-83.1111,48.6667},{-83.1111,40},{-48,40},{-48,-41.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bou.ports[1], pump.port_a) annotation (Line(
@@ -94,7 +94,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(product.y, dHW.mDHW60C) annotation (Line(
-      points={{46.5,53},{72,53},{72,20}},
+      points={{46.5,53},{62,53},{62,18.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hP_AWMod.port_b, storageTank.portHXUpper) annotation (Line(
