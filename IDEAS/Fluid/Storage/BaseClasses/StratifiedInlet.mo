@@ -46,8 +46,6 @@ algorithm
   testNode := 1;
   while inlet == 0 loop
     //determine inlet
-    //note that the inequality is reversed and that no ´inStream´ is used!
-    //before Annex60: if T > TNodes[testNode] then
     if hIn > hPorts[testNode] then
       inlet := testNode;
     else
