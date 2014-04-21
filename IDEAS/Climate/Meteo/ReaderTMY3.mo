@@ -68,10 +68,10 @@ protected
   IDEAS.Climate.Meteo.TMY3.CheckWindDirection cheWinDir
     "Check the wind direction"
     annotation (Placement(transformation(extent={{160,-280},{180,-260}})));
-  SkyTemperature.BlackBody TBlaSky(final calTSky=calTSky)
+  IDEAS.Climate.Meteo.TMY3.BlackBody TBlaSky
     "Check the sky black-body temperature"
     annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
-  Utilities.SimulationTime simTim "Simulation time"
+  IDEAS.Climate.Time.BaseClasses.SimulationTime simTim "Simulation time"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
   Modelica.Blocks.Math.Add add
     "Add 30 minutes to time to shift weather data reader"
@@ -79,24 +79,25 @@ protected
   Modelica.Blocks.Sources.Constant con30mins(final k=1800)
     "Constant used to shift weather data reader"
     annotation (Placement(transformation(extent={{-180,192},{-160,212}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(
+  IDEAS.Climate.Time.BaseClasses.LocalTime locTim(
       final lon=lon, final timZon=timZon) "Local civil time"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Modelica.Blocks.Tables.CombiTable1Ds datRea1(
     final tableOnFile=true,
     final tableName="tab1",
-    final fileName=Buildings.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
+    final fileName=IDEAS.Climate.Meteo.TMY3.getAbsolutePath(filNam),
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns=8:11) "Data reader"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1
+  IDEAS.Climate.Time.BaseClasses.CalendarTime conTim1
     "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-110,160},{-90,180}})));
-  BaseClasses.ConvertTime conTim "Convert simulation time to calendar time"
+  IDEAS.Climate.Time.BaseClasses.CalendarTime conTim
+    "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-  BaseClasses.EquationOfTime eqnTim "Equation of time"
+  IDEAS.Climate.Time.BaseClasses.EquationOfTime eqnTim "Equation of time"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
-  BaseClasses.SolarTime solTim "Solar time"
+  IDEAS.Climate.Time.BaseClasses.SolarTime solTim "Solar time"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
   // Conditional connectors
 
@@ -134,7 +135,7 @@ protected
     annotation (Placement(transformation(extent={{120,-280},{140,-260}})));
   Modelica.Blocks.Math.UnitConversions.From_degC conTDryBul
     annotation (Placement(transformation(extent={{120,-200},{140,-180}})));
-  BaseClasses.ConvertRadiation conHorRad
+  IDEAS.Climate.Meteo.TMY3.ConvertRadiation conHorRad
     annotation (Placement(transformation(extent={{120,240},{140,260}})));
   Modelica.Blocks.Math.UnitConversions.From_degC conTDewPoi
     "Convert the dew point temperature form [degC] to [K]"
@@ -147,13 +148,15 @@ protected
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
   IDEAS.Climate.Meteo.TMY3.CheckRelativeHumidity cheRelHum
     annotation (Placement(transformation(extent={{160,20},{180,40}})));
-  SolarGeometry.BaseClasses.AltitudeAngle altAng "Solar altitude angle"
+  IDEAS.Climate.Meteo.Solar.BaseClasses.AltitudeAngle altAng
+    "Solar altitude angle"
     annotation (Placement(transformation(extent={{-30,-280},{-10,-260}})));
-   SolarGeometry.BaseClasses.ZenithAngle zenAng(final lat = lat) "Zenith angle"
+  IDEAS.Climate.Meteo.Solar.BaseClasses.ZenithAngle zenAng(final lat = lat)
+    "Zenith angle"
     annotation (Placement(transformation(extent={{-80,-226},{-60,-206}})));
-   SolarGeometry.BaseClasses.Declination decAng "Declination angle"
+  IDEAS.Climate.Meteo.Solar.BaseClasses.Declination decAng "Declination angle"
     annotation (Placement(transformation(extent={{-140,-220},{-120,-200}})));
-   SolarGeometry.BaseClasses.SolarHourAngle solHouAng
+  IDEAS.Climate.Meteo.Solar.BaseClasses.AngleHour solHouAng
     annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
   Modelica.Blocks.Sources.Constant latitude(final k=lat) "Latitude"
     annotation (Placement(transformation(extent={{-180,-280},{-160,-260}})));
@@ -513,45 +516,6 @@ equation
           extent={{-162,270},{138,230}},
           textString="%name",
           lineColor={0,0,255}),
-        Text(
-          visible=(pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Input),
-          extent={{-190,216},{-164,184}},
-          lineColor={0,0,127},
-          textString="p"),
-        Text(
-          visible=(TDryBulSou == Buildings.BoundaryConditions.Types.DataSource.Input),
-          extent={{-194,162},{-118,118}},
-          lineColor={0,0,127},
-          textString="TDryBul"),
-        Text(
-          visible=(relHumSou == Buildings.BoundaryConditions.Types.DataSource.Input),
-          extent={{-190,92},{-104,66}},
-          lineColor={0,0,127},
-          textString="relHum"),
-        Text(
-        visible=(winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input),
-          extent={{-196,44},{-110,2}},
-          lineColor={0,0,127},
-          textString="winSpe"),
-        Text(
-          visible=(winDirSou == Buildings.BoundaryConditions.Types.DataSource.Input),
-          extent={{-192,-18},{-106,-60}},
-          lineColor={0,0,127},
-          textString="winDir"),
-        Text(
-        visible=(HSou ==  Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor),
-        extent={{-202,-88},{-112,-108}},
-          lineColor={0,0,127},
-          textString="HGloHor"),
-        Text(visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
-        extent={{-202,-142},{-116,-164}},
-          lineColor={0,0,127},
-          textString="HDifHor"),
-        Text(
-        visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
-        extent={{-200,-186},{-126,-214}},
-          lineColor={0,0,127},
-          textString="HDirNor"),
         Ellipse(
           extent={{-146,154},{28,-20}},
           lineColor={255,220,220},
