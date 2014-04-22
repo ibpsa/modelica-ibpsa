@@ -5,9 +5,9 @@ model PumpWithPipe2 "Example of how a pump can be used"
 
   IDEAS.Fluid.Movers.Pump pump(redeclare package Medium = Medium, m_flow_nominal=
        1,
-    useInput=true,
-    dpFix=0,
-    dynamicBalance=false)
+    useInput=false,
+    dynamicBalance=false,
+    dpFix=0)
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=2, redeclare package Medium =
         Medium)

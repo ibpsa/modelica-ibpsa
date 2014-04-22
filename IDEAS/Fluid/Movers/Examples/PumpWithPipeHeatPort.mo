@@ -7,7 +7,7 @@ model PumpWithPipeHeatPort "Example of how a pump can be used"
        1,
     useInput=true,
     dpFix=0,
-    dynamicBalance=false)
+    dynamicBalance=true)
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
         Medium)
@@ -25,8 +25,8 @@ model PumpWithPipeHeatPort "Example of how a pump can be used"
     annotation (Placement(transformation(extent={{-38,28},{-18,48}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(redeclare package
       Medium = Medium, m_flow_nominal=1,
-    dynamicBalance=false,
-    linearizeFlowResistance=true)
+    linearizeFlowResistance=true,
+    dynamicBalance=false)
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
