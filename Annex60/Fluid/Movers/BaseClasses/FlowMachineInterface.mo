@@ -263,7 +263,7 @@ the simulation stops.");
     // Linear equations to determine cBar
     // Conditions for r_N=delta, V_flow = VDelta_flow
     // Conditions for r_N=delta, V_flow = 0
-    // used equation 20 in  http://simulationresearch.lbl.gov/wetter/download/2013-IBPSA-Wetter.pdf
+    // used in equation 20 in  http://simulationresearch.lbl.gov/wetter/download/2013-IBPSA-Wetter.pdf
     // see function Annex60.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin
     cBar[1] :=cha.pressure(
       data=pCur1,
@@ -402,7 +402,7 @@ the simulation stops.");
     // Linear equations to determine cBar
     // Conditions for r_N=delta, V_flow = VDelta_flow
     // Conditions for r_N=delta, V_flow = 0
-    // used equation 20 in  http://simulationresearch.lbl.gov/wetter/download/2013-IBPSA-Wetter.pdf
+    // used in equation 20 in  http://simulationresearch.lbl.gov/wetter/download/2013-IBPSA-Wetter.pdf
     // see function Annex60.Fluid.Movers.BaseClasses.Characteristics.flowApproximationAtOrigin
     cBar[1] :=cha.pressure(
       data=pCur3,
