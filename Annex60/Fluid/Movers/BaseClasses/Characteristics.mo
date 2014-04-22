@@ -129,8 +129,7 @@ First implementation.
     "Flow vs. head characteristics for fan or pump pressure raise"
     extends Modelica.Icons.Function;
     input
-      Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
-                                                                                    data
+      Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal       data
       "Pressure performance data";
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
@@ -209,6 +208,8 @@ First implementation.
                                                      delta=delta, cBar=cBar),
                                              x_small=delta/4);
     end if;
+    // linear equation for being able to handle r_N=0, see
+    // http://simulationresearch.lbl.gov/wetter/download/2013-IBPSA-Wetter.pdf
     dp := dp - V_flow*kRes;
     annotation(smoothOrder=1,
                 Documentation(info="<html>
@@ -254,6 +255,10 @@ in all input variables.
 </html>", revisions="<html>
 <ul>
 <li>
+April 22, by Filip Jorissen:<br/>
+Added more documentation references to paper
+</li>
+<li>
 August 25, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
@@ -273,6 +278,11 @@ First implementation.
       "Coefficients for linear approximation of pressure vs. flow rate";
     output Modelica.SIunits.Pressure dp "Pressure raise";
   algorithm
+    // see equation 20 in  http://simulationresearch.lbl.gov/wetter/download/2013-IBPSA-Wetter.pdf
+    // this equation satisfies the constraints detailed in the paper
+    // the first term is added for having a faster convergence
+    // the last term in the paper is absent here because it can be found in
+    // Annex60.Fluid.Movers.BaseClasses.Characteristics.pressure
     dp := r_N * dpDelta + r_N^2 * (cBar[1] + cBar[2]*V_flow);
     annotation (Documentation(info="<html>
 <p>
@@ -283,6 +293,10 @@ approaches zero.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 22, by Filip Jorissen:<br/>
+Added more documentation references to paper
+</li>
 <li>
 August 25, 2011, by Michael Wetter:<br/>
 First implementation.
@@ -363,8 +377,7 @@ First implementation.
 
   function efficiency "Flow vs. efficiency characteristics for fan or pump"
     extends Modelica.Icons.Function;
-    input
-      Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    input Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
       data "Efficiency performance data";
     input Real r_V(unit="1")
       "Volumetric flow rate divided by nominal flow rate";
