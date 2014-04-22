@@ -1,5 +1,5 @@
 within IDEAS.Fluid.Movers.Examples;
-model PumpWithPipeHeatPort "Example of how a pump can be used"
+model PumpWithPipe2 "Example of how a pump can be used"
   import IDEAS;
   extends Modelica.Icons.Example;
 
@@ -9,7 +9,7 @@ model PumpWithPipeHeatPort "Example of how a pump can be used"
     dpFix=0,
     dynamicBalance=false)
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
+  IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=2, redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
 //   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
@@ -23,26 +23,13 @@ model PumpWithPipeHeatPort "Example of how a pump can be used"
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   Modelica.Blocks.Sources.Sine sine(freqHz=0.001)
     annotation (Placement(transformation(extent={{-38,28},{-18,48}})));
-  IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(redeclare package
+  IDEAS.Fluid.FixedResistances.Pipe          pipe_HeatPort(redeclare package
       Medium = Medium, m_flow_nominal=1,
-    dynamicBalance=false,
-    linearizeFlowResistance=true)
+    dynamicBalance=false)
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature
-    annotation (Placement(transformation(extent={{4,70},{24,90}})));
-  Modelica.Blocks.Sources.Sine sine1(
-    freqHz=0.001,
-    amplitude=10,
-    offset=293.15,
-    startTime=0)
-    annotation (Placement(transformation(extent={{-38,70},{-18,90}})));
-  Modelica.Fluid.Sensors.TemperatureTwoPort temperature(redeclare package
-      Medium = Medium)
-    annotation (Placement(transformation(extent={{62,-10},{82,10}})));
 equation
   connect(bou.ports[1], pump.port_a) annotation (Line(
-      points={{-38,0},{-10,0}},
+      points={{-38,2},{-24,2},{-24,0},{-10,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sine.y, pump.m_flowSet) annotation (Line(
@@ -53,24 +40,12 @@ equation
       points={{10,0},{28,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(prescribedTemperature.port, pipe_HeatPort.heatPort) annotation (Line(
-      points={{24,80},{38,80},{38,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(sine1.y, prescribedTemperature.T) annotation (Line(
-      points={{-17,80},{2,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pipe_HeatPort.port_b, temperature.port_a) annotation (Line(
-      points={{48,0},{62,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(temperature.port_b, pump.port_a) annotation (Line(
-      points={{82,0},{90,0},{90,-70},{-10,-70},{-10,0}},
+  connect(pipe_HeatPort.port_b, bou.ports[2]) annotation (Line(
+      points={{48,0},{82,0},{82,-60},{-28,-60},{-28,-2},{-38,-2}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
     experiment(StopTime=10000),
     __Dymola_experimentSetupOutput);
-end PumpWithPipeHeatPort;
+end PumpWithPipe2;
