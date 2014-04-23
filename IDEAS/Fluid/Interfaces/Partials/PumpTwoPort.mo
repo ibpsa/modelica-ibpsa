@@ -1,6 +1,6 @@
 within IDEAS.Fluid.Interfaces.Partials;
 partial model PumpTwoPort
-  extends PartialTwoPort(vol(nPorts=2));
+  extends PartialTwoPort(vol(nPorts=2, prescribedHeatFlowRate=true));
     Modelica.SIunits.HeatFlowRate Q_flow(start=0) "Heat exchange with ambient";
   IDEAS.Fluid.Interfaces.IdealSource idealSource(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{8,-10},{28,10}})));
