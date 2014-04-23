@@ -1,6 +1,6 @@
 within IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses;
 block SkyClearness "Sky clearness"
-  import Buildings;
+
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput zen(
@@ -25,8 +25,8 @@ algorithm
   tmp1 := 5.534e-6*(zen*180/Modelica.Constants.pi)^3;
 
   skyCle := smooth(1, if (HGloHor < Modelica.Constants.small) then 1 else
-    Buildings.Utilities.Math.Functions.smoothLimit(
-    (HGloHor/Buildings.Utilities.Math.Functions.smoothMax(
+    IDEAS.Utilities.Math.Functions.smoothLimit(
+    (HGloHor/IDEAS.Utilities.Math.Functions.smoothMax(
       HDifHor,
       1e-4,
       1e-5) + tmp1)/(1 + tmp1),

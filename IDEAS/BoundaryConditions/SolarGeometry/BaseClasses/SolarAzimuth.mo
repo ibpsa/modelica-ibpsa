@@ -89,7 +89,5 @@ First implementation.
         Text(
           extent={{-102,6},{-60,-4}},
           lineColor={0,0,127},
-          textString="decAng"),
-        Bitmap(extent={{-90,90},{90,-92}}, fileName=
-              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/SolarAzimuth.png")}));
+          textString="decAng")}));
 end SolarAzimuth;

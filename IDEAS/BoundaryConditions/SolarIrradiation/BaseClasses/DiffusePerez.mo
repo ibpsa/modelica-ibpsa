@@ -1,7 +1,7 @@
 within IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses;
 block DiffusePerez
   "Hemispherical diffuse irradiation on a tilted surface with Perez's anisotropic model"
-  import Buildings;
+
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   parameter Real rho=0.2 "Ground reflectance";
@@ -43,11 +43,11 @@ protected
   constant Real bMin=Modelica.Math.cos(Modelica.Constants.pi*85/180)
     "Lower bound for b";
 equation
-  a = Buildings.Utilities.Math.Functions.smoothMax(
+  a = IDEAS.Utilities.Math.Functions.smoothMax(
     0,
     Modelica.Math.cos(incAng),
     0.01);
-  b = Buildings.Utilities.Math.Functions.smoothMax(
+  b = IDEAS.Utilities.Math.Functions.smoothMax(
     bMin,
     Modelica.Math.cos(zen),
     0.01);

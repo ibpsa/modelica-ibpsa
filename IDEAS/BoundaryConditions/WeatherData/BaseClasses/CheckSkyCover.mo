@@ -14,10 +14,10 @@ protected
   constant Real nMax=10 - delta "Upper bound";
 equation
   nOut = Buildings.Utilities.Math.Functions.smoothLimit(
-    nIn,
-    nMin,
-    nMax,
-    delta/10)/10;
+      nIn,
+      nMin,
+      nMax,
+      delta/10)/10;
   annotation (
     defaultComponentName="cheSkyCov",
     Documentation(info="<html>

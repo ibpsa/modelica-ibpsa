@@ -14,9 +14,9 @@ public
 equation
 
   ceiHeiOut = Buildings.Utilities.Math.Functions.smoothMax(
-    ceiHeiIn,
-    ceiHeiMin,
-    0.1);
+      ceiHeiIn,
+      ceiHeiMin,
+      0.1);
 
   annotation (
     defaultComponentName="cheCeiHei",

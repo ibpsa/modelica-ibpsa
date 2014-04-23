@@ -57,7 +57,5 @@ First implementation.
         Text(
           extent={{74,6},{98,-4}},
           lineColor={0,0,127},
-          textString="calTim"),
-        Bitmap(extent={{-50,60},{52,-60}}, fileName=
-              "modelica://Buildings/Resources/Images/Utilities/IO/WeatherData/BaseClasses/calendar.png")}));
+          textString="calTim")}));
 end ConvertTime;

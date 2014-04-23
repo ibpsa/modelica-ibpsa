@@ -1,8 +1,8 @@
 within IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses;
 block BrighteningCoefficient "Circumsolar and horizon brightening coefficients"
-  import Buildings;
+
   extends Modelica.Blocks.Interfaces.BlockIcon;
-  import H = Buildings.Utilities.Math.Functions.spliceFunction;
+  import H = IDEAS.Utilities.Math.Functions.spliceFunction;
 public
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
@@ -107,7 +107,7 @@ equation
     a5 - 0.8230357*a6 - 1.1272340*a7 - 1.3765031*a8;
   F23 = -0.0220216*a1 - 0.0288748*a2 - 0.0260542*a3 - 0.0139754*a4 + 0.0012448*
     a5 + 0.0558651*a6 + 0.1310694*a7 + 0.2506212*a8;
-  F1 = Buildings.Utilities.Math.Functions.smoothMax(
+  F1 = IDEAS.Utilities.Math.Functions.smoothMax(
     0,
     F11 + F12*skyBri + F13*zen,
     0.01);

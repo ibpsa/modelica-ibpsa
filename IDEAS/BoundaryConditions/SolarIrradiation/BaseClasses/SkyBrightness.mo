@@ -1,6 +1,6 @@
 within IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses;
 block SkyBrightness "Sky brightness"
-  import Buildings;
+
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput relAirMas "Relative Air Mass"
@@ -12,7 +12,7 @@ public
   Modelica.Blocks.Interfaces.RealOutput skyBri "Sky Brightness"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
-  skyBri = Buildings.Utilities.Math.Functions.smoothMin(
+  skyBri = IDEAS.Utilities.Math.Functions.smoothMin(
     HDifHor*relAirMas/1367,
     1,
     0.025);

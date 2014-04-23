@@ -10,10 +10,10 @@ protected
  String element "String representation of the returned element";
 algorithm
   element := getHeaderElementTMY3(
-    filNam=filNam,
-    start="#LOCATION",
-    name="longitude",
-    position=7);
+      filNam=filNam,
+      start="#LOCATION",
+      name="longitude",
+      position=7);
    (nexInd, lat) :=Modelica.Utilities.Strings.Advanced.scanReal(
     string=element,
     startIndex=1,

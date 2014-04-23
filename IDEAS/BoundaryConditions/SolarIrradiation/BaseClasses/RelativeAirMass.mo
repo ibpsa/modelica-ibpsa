@@ -1,6 +1,6 @@
 within IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses;
 block RelativeAirMass "Relative air mass"
-  import Buildings;
+
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput zen(
@@ -14,7 +14,7 @@ protected
   Real zenLim;
   Real zenDeg;
 equation
-  zenLim = Buildings.Utilities.Math.Functions.smoothMin(
+  zenLim = IDEAS.Utilities.Math.Functions.smoothMin(
     zen,
     Modelica.Constants.pi/2,
     0.01);

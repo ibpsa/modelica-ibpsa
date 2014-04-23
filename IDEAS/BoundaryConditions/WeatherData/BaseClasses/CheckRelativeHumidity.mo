@@ -16,10 +16,10 @@ protected
 
 equation
   relHumOut = Buildings.Utilities.Math.Functions.smoothLimit(
-    relHumIn,
-    relHumMin,
-    relHumMax,
-    delta/10);
+      relHumIn,
+      relHumMin,
+      relHumMax,
+      delta/10);
   annotation (
     defaultComponentName="cheRelHum",
     Documentation(info="<html>
@@ -38,6 +38,5 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
             100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Bitmap(extent={{-56,52},{62,-42}}, fileName=
-              "modelica://Buildings/Resources/Images/Utilities/IO/WeatherData/BaseClasses/RelativeHumidity.png")}));
+            100}}), graphics));
 end CheckRelativeHumidity;

@@ -21,10 +21,10 @@ protected
 equation
 
   nOut = Buildings.Utilities.Math.Functions.smoothLimit(
-    nIn,
-    nMin,
-    nMax,
-    delta/10);
+      nIn,
+      nMin,
+      nMax,
+      delta/10);
   annotation (
     defaultComponentName="cheWinDir",
     Documentation(info="<html>

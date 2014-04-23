@@ -1,12 +1,7 @@
 within IDEAS.BoundaryConditions.SkyTemperature;
 block BlackBody "Calculate black body sky temperature"
-  import Buildings;
   extends Modelica.Blocks.Interfaces.BlockIcon;
-  import IDEAS.BoundaryConditions.Types.SkyTemperatureCalculation;
-  parameter SkyTemperatureCalculation calTSky=SkyTemperatureCalculation.TemperaturesAndSkyCover
-    "Computation of black-body sky temperature"
-    annotation(choicesAllMatching=true,
-               Evaluate=true);
+
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -34,8 +29,7 @@ protected
   Modelica.SIunits.Emissivity epsSky "Black-body absorptivity of sky";
   Real nOpa10(min=0, max=10) "Opaque sky cover";
 algorithm
-  if calTSky == SkyTemperatureCalculation.TemperaturesAndSkyCover then
-    TDewPoiK := Buildings.Utilities.Math.Functions.smoothMin(
+    TDewPoiK := IDEAS.Utilities.Math.Functions.smoothMin(
       TDryBul,
       TDewPoi,
       0.1);
@@ -43,12 +37,6 @@ algorithm
     epsSky := (0.787 + 0.764*Modelica.Math.log(-TDewPoiK/Modelica.Constants.T_zero))*(1 + 0.0224*nOpa10 -
       0.0035*(nOpa10^2) + 0.00028*(nOpa10^3));
     TBlaSky := TDryBul*(epsSky^0.25);
-  else
-    TDewPoiK := 273.15;
-    nOpa10   := 0.0;
-    epsSky   := 0.0;
-    TBlaSky  := (radHorIR/Modelica.Constants.sigma)^0.25;
-  end if;
   annotation (
     defaultComponentName="TBlaSky",
     Documentation(info="<html>

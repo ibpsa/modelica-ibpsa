@@ -53,7 +53,5 @@ First implementation.
         Text(
           extent={{-98,-40},{-22,-58}},
           lineColor={0,0,127},
-          textString="solHouAng"),
-        Bitmap(extent={{-90,90},{90,-94}}, fileName=
-              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/ZenithAngle.png")}));
+          textString="solHouAng")}));
 end ZenithAngle;

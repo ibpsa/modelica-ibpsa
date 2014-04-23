@@ -15,9 +15,9 @@ public
 equation
 
   HOut = Buildings.Utilities.Math.Functions.smoothMax(
-    x1=HIn,
-    x2=HMin,
-    deltaX=HMin/10);
+      x1=HIn,
+      x2=HMin,
+      deltaX=HMin/10);
   annotation (
     defaultComponentName="cheRad",
     Documentation(info="<html>
