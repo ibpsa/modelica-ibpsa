@@ -14,7 +14,7 @@ model PumpWithPipeHeatPort "Example of how a pump can be used"
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
 //   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
 //     annotation (__Dymola_choicesAllMatching=true);
-   replaceable package Medium = IDEAS.Media.Water
+   package Medium = IDEAS.Media.Water
     annotation (__Dymola_choicesAllMatching=true);
 
   inner Modelica.Fluid.System system(

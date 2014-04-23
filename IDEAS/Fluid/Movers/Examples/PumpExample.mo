@@ -13,7 +13,7 @@ model PumpExample "Example of how a pump can be used"
   IDEAS.Fluid.Sources.Boundary_pT bou1(nPorts=1, redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{68,-10},{48,10}})));
-  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
   inner Modelica.Fluid.System system(
     p_ambient=300000,
