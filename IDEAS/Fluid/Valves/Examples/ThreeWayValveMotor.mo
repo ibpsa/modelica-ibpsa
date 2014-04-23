@@ -79,5 +79,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics),
+    experiment(StopTime=100),
+    __Dymola_experimentSetupOutput);
 end ThreeWayValveMotor;

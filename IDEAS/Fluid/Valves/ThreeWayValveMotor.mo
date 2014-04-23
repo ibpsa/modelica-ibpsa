@@ -5,7 +5,7 @@ model ThreeWayValveMotor
 
 public
   Modelica.Blocks.Interfaces.RealInput ctrl(min=0, max=1)
-    "procentage of flow from flowPort_a1" annotation (Placement(transformation(
+    "procentage of flow through flowPort_a1" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=90,
         origin={0,106}), iconTransformation(
@@ -13,13 +13,13 @@ public
         rotation=90,
         origin={-10,96})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression(y=-ctrl*port_b.m_flow/
+  Modelica.Blocks.Sources.RealExpression realExpression(y=-(1-ctrl)*port_b.m_flow/
         m_flow_nominal)
     annotation (Placement(transformation(extent={{62,-38},{22,-18}})));
 equation
 
   connect(realExpression.y, pump.m_flowSet) annotation (Line(
-      points={{20,-28},{10,-28}},
+      points={{20,-28},{10.4,-28}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
