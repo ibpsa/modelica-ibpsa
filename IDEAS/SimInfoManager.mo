@@ -3,13 +3,14 @@ model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
 
   parameter String filNam="" "Name of weather data file";
-
-  replaceable IDEAS.Climate.Meteo.Detail detail constrainedby
+/*
+  replaceable IDEAS.Climate.Meteo.Detail detail constrainedby 
     IDEAS.Climate.Meteo.Detail "Timeframe detail of the climate data"
     annotation (__Dymola_choicesAllMatching=true,Dialog(group="Climate"));
-  replaceable IDEAS.Climate.Meteo.Location city constrainedby
+  replaceable IDEAS.Climate.Meteo.Location city constrainedby 
     IDEAS.Climate.Meteo.Location "Location of the depicted climate data"
     annotation (__Dymola_choicesAllMatching=true,Dialog(group="Climate"));
+*/
   parameter Boolean occBeh=false
     "put to true if  user behaviour is to be read from files"
     annotation (Dialog(group="User behaviour"));
@@ -36,23 +37,22 @@ model SimInfoManager
   parameter Integer PNom=1000 "Nominal power (W) of the photovoltaic profiles"
     annotation (Dialog(group="Photovoltaics"));
 
+//  final parameter String filNamClim="../Inputs/" + city.locNam + detail.filNam;
 protected
-  final parameter String filNamClim="../Inputs/" + city.locNam + detail.filNam;
-  final parameter Modelica.SIunits.Angle lat(displayUnit="deg") = city.lat
+  final parameter Modelica.SIunits.Angle lat(displayUnit="deg") = weaDat.lat
     "latitude of the locatioin";
-  final parameter Modelica.SIunits.Angle lon(displayUnit="deg") = city.lon;
-  final parameter Modelica.SIunits.Temperature Tdes=city.Tdes
+  final parameter Modelica.SIunits.Angle lon(displayUnit="deg") = weaDat.lon;
+  final parameter Modelica.SIunits.Temperature Tdes = -8 + 273.15
     "design outdoor temperature";
-  final parameter Modelica.SIunits.Temperature TdesGround=city.TdesGround
+  final parameter Modelica.SIunits.Temperature TdesGround = 10 + 273.15
     "design ground temperature";
-  final parameter Modelica.SIunits.Time timZonSta=city.timZonSta
+  final parameter Modelica.SIunits.Time timZonSta=weaDat.timZon
     "standard time zone";
-  final parameter Boolean DST=city.DST
+  final parameter Boolean DST = true
     "boolean to take into account daylight saving time";
-  final parameter Integer yr=city.yr "depcited year for DST only";
+  final parameter Integer yr = 2014 "depcited year for DST only";
 
-  final parameter Boolean BesTest=Modelica.Utilities.Strings.isEqual(city.locNam,
-      "BesTest")
+  final parameter Boolean BesTest = Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
     "boolean to determine if this simulation is a BESTEST simulation";
 
 public
@@ -83,7 +83,6 @@ public
 
 protected
   IDEAS.Climate.Time.SimTimes timMan(
-    delay=detail.timestep/2,
     timZonSta=timZonSta,
     lon=lon,
     DST=false,

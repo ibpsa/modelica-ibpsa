@@ -152,39 +152,28 @@ public
 equation
   //---------------------------------------------------------------------------
   // Select atmospheric pressure connector
-  connect(datRea.y[4], pAtm_in_internal);
-  connect(pAtm_in_internal, chePre.PIn);
+  connect(datRea.y[4], chePre.PIn);
   //---------------------------------------------------------------------------
   // Select dry bulb temperature connector
-  connect(conTDryBul.y, TDryBul_in_internal);
-  connect(TDryBul_in_internal, cheTemDryBul.TIn);
+  connect(conTDryBul.y, cheTemDryBul.TIn);
   //---------------------------------------------------------------------------
   // Select relative humidity connector
-  connect(conRelHum.relHumOut, relHum_in_internal);
-  connect(relHum_in_internal, cheRelHum.relHumIn);
+  connect(conRelHum.relHumOut, cheRelHum.relHumIn);
   //---------------------------------------------------------------------------
   // Select wind speed connector
-  connect(datRea.y[12], winSpe_in_internal);
-  connect(winSpe_in_internal, cheWinSpe.winSpeIn);
+  connect(datRea.y[12], cheWinSpe.winSpeIn);
   //---------------------------------------------------------------------------
   // Select wind direction connector
-  connect(conWinDir.y, winDir_in_internal);
-  connect(winDir_in_internal, cheWinDir.nIn);
+  connect(conWinDir.y, cheWinDir.nIn);
   //---------------------------------------------------------------------------
   // Select global horizontal radiation connector
-  connect(conGloHorRad.HOut, HGloHor_in_internal)
-    "Get HGloHor using weather data file";
-  connect(HGloHor_in_internal, cheGloHorRad.HIn);
+  connect(conGloHorRad.HOut, cheGloHorRad.HIn);
   //---------------------------------------------------------------------------
   // Select diffuse horizontal radiation connector
-  connect(conDifHorRad.HOut, HDifHor_in_internal)
-    "Get HDifHor using weather data file";
-  connect(HDifHor_in_internal, cheDifHorRad.HIn);
+  connect(conDifHorRad.HOut, cheDifHorRad.HIn);
   //---------------------------------------------------------------------------
   // Select direct normal radiation connector
-  connect(conDirNorRad.HOut, HDirNor_in_internal)
-    "Get HDirNor using weather data file";
-  connect(HDirNor_in_internal, cheDirNorRad.HIn);
+  connect(conDirNorRad.HOut, cheDirNorRad.HIn);
 
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
       points={{181,70},{220,70},{220,5.55112e-16},{304,5.55112e-16}},
