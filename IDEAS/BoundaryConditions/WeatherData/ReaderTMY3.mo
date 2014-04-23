@@ -21,7 +21,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
 
   constant Real epsCos = 1e-6 "Small value to avoid division by 0";
 
-protected
+//protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
     final tableName="tab1",
@@ -70,9 +70,6 @@ protected
   Modelica.Blocks.Sources.Constant con30mins(final k=1800)
     "Constant used to shift weather data reader"
     annotation (Placement(transformation(extent={{-180,192},{-160,212}})));
-  IDEAS.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(
-      final lon=lon, final timZon=timZon) "Local civil time"
-    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Modelica.Blocks.Tables.CombiTable1Ds datRea1(
     final tableOnFile=true,
     final tableName="tab1",
@@ -85,10 +82,6 @@ protected
     annotation (Placement(transformation(extent={{-110,160},{-90,180}})));
   BaseClasses.ConvertTime conTim "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-  BaseClasses.EquationOfTime eqnTim "Equation of time"
-    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
-  BaseClasses.SolarTime solTim "Solar time"
-    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
   // Conditional connectors
   Modelica.Blocks.Interfaces.RealInput pAtm_in_internal(
     final quantity="Pressure",
@@ -152,6 +145,10 @@ protected
   Modelica.Blocks.Sources.Constant longitude(final k=lon) "Longitude"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
 
+public
+  Modelica.Blocks.Interfaces.RealInput sol annotation (Placement(transformation(
+          extent={{-220,-180},{-180,-140}}), iconTransformation(extent={{-220,-180},
+            {-180,-140}})));
 equation
   //---------------------------------------------------------------------------
   // Select atmospheric pressure connector
@@ -299,10 +296,6 @@ equation
       points={{-89,170},{-82,170}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, locTim.cloTim) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-150},{-122,-150}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(simTim.y, conTim.simTim) annotation (Line(
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-30},{-122,-30}},
       color={0,0,127},
@@ -311,26 +304,6 @@ equation
       points={{-99,-30},{-82,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, eqnTim.nDay) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-110},{-122,-110}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(
-      points={{-99,-110},{-88,-110},{-88,-124},{-82,-124}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(locTim.locTim, solTim.locTim) annotation (Line(
-      points={{-99,-150},{-88,-150},{-88,-135.4},{-82,-135.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solTim.solTim, weaBus.solTim) annotation (Line(
-      points={{-59,-130},{-20,-130},{-20,0},{284,0},{284,5.55112e-16},{304,
-          5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(datRea.y[13], cheTotSkyCov.nIn) annotation (Line(
       points={{-59,-30},{158,-30}},
       color={0,0,127},
@@ -422,10 +395,6 @@ equation
       points={{-119,-240},{-100,-240},{-100,-220.8},{-82,-220.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(solHouAng.solTim, solTim.solTim) annotation (Line(
-      points={{-142,-240},{-154,-240},{-154,-172},{-20,-172},{-20,-130},{-59,-130}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
   connect(decAng.nDay, simTim.y) annotation (Line(
       points={{-142,-210},{-150,-210},{-150,-180},{0,-180},{0,6.10623e-16},{
@@ -486,7 +455,18 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
 
-  annotation (
+  connect(sol, weaBus.solTim) annotation (Line(
+      points={{-200,-160},{54,-160},{54,0},{304,0}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(sol, solHouAng.solTim) annotation (Line(
+      points={{-200,-160},{-172,-160},{-172,-240},{-142,-240}},
+      color={0,0,127},
+      smooth=Smooth.None));
+ annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -818,6 +798,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-300},{300,
-            300}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false,
+                                                      extent={{-200,-300},{300,300}}),
+        graphics));
 end ReaderTMY3;
