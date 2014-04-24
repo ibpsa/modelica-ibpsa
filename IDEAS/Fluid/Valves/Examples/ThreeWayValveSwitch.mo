@@ -68,7 +68,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(prescribedHeatFlow.port, pipe_HeatPort.heatPort) annotation (Line(
-      points={{-60,-10},{-58,-10},{-58,-12},{-56,-12}},
+      points={{-60,-10},{-58,-10},{-58,-12},{-36,-12}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pipe5.flowPort_b, pumpEmission.flowPort_b) annotation (Line(
