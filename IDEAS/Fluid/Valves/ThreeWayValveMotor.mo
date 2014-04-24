@@ -13,7 +13,6 @@ public
         rotation=90,
         origin={-10,96})));
 
-
   Modelica.Blocks.Sources.RealExpression realExpression(y=-(1-ctrl)*port_b.m_flow/
         m_flow_nominal)
     annotation (Placement(transformation(extent={{62,-38},{22,-18}})));
@@ -80,11 +79,6 @@ equation
         Ellipse(extent={{-46,-6},{-40,-14}}, lineColor={0,0,0},
           lineThickness=1),
         Rectangle(extent={{-20,80},{20,40}}, lineColor={100,100,100}),
-        Text(
-          extent={{-20,80},{20,40}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="M"),
         Line(
           points={{0,40},{0,-2},{0,0}},
           color={100,100,100},
