@@ -40,7 +40,7 @@ public
     redeclare package Medium = Medium,
     nPorts=1,
     p=100000,
-    T=283.15) annotation (Placement(transformation(extent={{40,-70},{20,-50}})));
+    T=283.15) annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
   inner Modelica.Fluid.System system(
     p_ambient=300000,
     T_ambient=313.15)
@@ -63,7 +63,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(cold.ports[1], threeWayValveMotor.port_a2) annotation (Line(
-      points={{20,-60},{0,-60},{0,-10}},
+      points={{60,-60},{0,-60},{0,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(ctrl.y, threeWayValveMotor.ctrl) annotation (Line(

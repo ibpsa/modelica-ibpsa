@@ -4,7 +4,8 @@ model ThreeWayValveSwitch "Switches between two circuits"
   parameter Modelica.SIunits.MassFlowRate mFlowMin = 0.01
     "Minimum outlet flowrate for mixing to start";
 
-  Modelica.Blocks.Interfaces.BooleanInput switch annotation (Placement(
+  Modelica.Blocks.Interfaces.BooleanInput switch
+    "if true, the flow goes from leg a2 to leg b. Otherwise from leg a1"                                              annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,

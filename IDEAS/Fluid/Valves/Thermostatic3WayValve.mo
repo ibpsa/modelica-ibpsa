@@ -1,5 +1,5 @@
 within IDEAS.Fluid.Valves;
-model Thermostatic3WayValve "Thermostatic 3-way valve"
+model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
   extends BaseClasses.Partial3WayValve;
 
   parameter Modelica.SIunits.MassFlowRate mFlowMin=0.01*m_flow_nominal
@@ -31,8 +31,11 @@ equation
     // no mixing
     m_flowCold = 0;
   elseif noEvent(inStream(port_a2.h_outflow) > h_set) then
+    // no mixing
     m_flowCold = -port_b.m_flow;
   elseif noEvent(port_b.m_flow < -mFlowMin) then
+    // mixing if mass flow higher than minimal mass flow
+    // energy balance with port_b at T=TMixedSet
     m_flowCold = -(port_a1.m_flow*inStream(port_a1.h_outflow) + port_b.m_flow*h_set)/
       inStream(port_a2.h_outflow);
   else
@@ -40,18 +43,22 @@ equation
   end if;
 
   connect(realExpression.y, pump.m_flowSet) annotation (Line(
-      points={{35.3,-28},{10,-28}},
+      points={{35.3,-28},{10.4,-28}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
             graphics),
-    Icon(graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+         graphics={
         Polygon(
           points={{-60,30},{-60,-30},{0,0},{-60,30}},
           lineColor={100,100,100},
-          smooth=Smooth.None),
+          smooth=Smooth.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{60,30},{60,-30},{0,0},{60,30}},
           lineColor={100,100,100},
@@ -61,7 +68,9 @@ equation
           lineColor={100,100,100},
           smooth=Smooth.None,
           origin={0,-30},
-          rotation=90),
+          rotation=90,
+          fillPattern=FillPattern.Solid,
+          fillColor={0,0,255}),
         Ellipse(extent={{-20,80},{20,40}}, lineColor={100,100,100}),
         Line(
           points={{0,0},{0,40}},
@@ -94,7 +103,19 @@ equation
         Line(
           points={{0,-70},{0,-100}},
           color={0,0,127},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Text(
+          extent={{-62,14},{-20,-12}},
+          lineColor={100,100,100},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="H"),
+        Text(
+          extent={{-20,-34},{22,-60}},
+          lineColor={100,100,100},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="C")}),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>3-way valve with temperature set point for mixing a cold and hot fluid to obtain outlet fluid at the desired temperature. If the desired temperature is higher than the hot fluid, no mixing will occur and the outlet will have the temperature of the hot fluid. </p>

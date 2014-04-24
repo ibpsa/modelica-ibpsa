@@ -32,7 +32,7 @@ public
   inner Modelica.Fluid.System system(
     p_ambient=300000,
     T_ambient=313.15)
-    annotation (Placement(transformation(extent={{158,20},{178,40}})));
+    annotation (Placement(transformation(extent={{160,40},{180,60}})));
   Modelica.Fluid.Sensors.TemperatureTwoPort temperature(redeclare package
       Medium = Medium, m_flow_nominal=1)
     annotation (Placement(transformation(extent={{-24,-10},{-44,10}})));
@@ -242,9 +242,9 @@ equation
       smooth=Smooth.None));
   connect(pipe_HeatPort4.port_b, threeWayValveMotor2.port_a2) annotation (Line(
       points={{-100,-212},{-100,-218},{-2,-218},{-2,-206},{-2,-206},{-2,-190}},
-
       color={0,127,255},
       smooth=Smooth.None));
+
   connect(threeWayValveMotor2.port_a1, threeWayValveMotor3.port_b) annotation (
       Line(
       points={{8,-180},{24,-180}},
@@ -264,9 +264,9 @@ equation
       smooth=Smooth.None));
   connect(pipe_HeatPort1.port_b, pipe_HeatPort4.port_b) annotation (Line(
       points={{-98,-32},{-100,-32},{-100,-40},{-150,-40},{-150,-212},{-100,-212}},
-
       color={0,127,255},
       smooth=Smooth.None));
+
   connect(sine1.y, prescribedTemperature.T) annotation (Line(
       points={{-131,34},{-124,34},{-124,2},{-144,2},{-144,-22},{-136,-22}},
       color={0,0,127},
