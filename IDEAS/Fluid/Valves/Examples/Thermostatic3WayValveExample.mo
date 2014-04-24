@@ -18,7 +18,7 @@ model Thermostatic3WayValveExample "Example of a thermostatic three way valve"
   Sources.Boundary_pT hotSou(
     redeclare package Medium = Medium,
     p=100000,
-    T=333.15) annotation (Placement(transformation(extent={{-74,30},{-54,50}})));
+    T=333.15, nPorts=2) annotation (Placement(transformation(extent={{-74,30},{-54,50}})));
 
   Modelica.Blocks.Sources.Constant const(k=273.15 + 50)
     annotation (Placement(transformation(extent={{-44,70},{-24,90}})));
@@ -60,30 +60,7 @@ model Thermostatic3WayValveExample "Example of a thermostatic three way valve"
     T_ambient=313.15)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
-<<<<<<< HEAD
-  connect(pump.port_b, vol.ports[1]) annotation (Line(
-      points={{54,20},{72,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(const.y, thermostatic3WayValve.TMixedSet) annotation (Line(
-      points={{-11,58},{2,58},{2,30},{12,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(bou.ports[1], thermostatic3WayValve.port_a1) annotation (Line(
-      points={{-44,20},{-22,20},{-22,20},{2,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(thermostatic3WayValve.port_b, pump.port_a) annotation (Line(
-      points={{22,20},{34,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(thermostatic3WayValve.port_a2, bou.ports[2]) annotation (Line(
-      points={{12,10},{12,-2},{-44,-2},{-44,16}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(vol.ports[2], thermostatic3WayValve.port_a2) annotation (Line(
-      points={{76,20},{76,-2},{12,-2},{12,10}},
-=======
+
   connect(const.y, thermostatic3WayValve.TMixedSet) annotation (Line(
       points={{-23,80},{-10,80},{-10,52},{0,52}},
       color={0,0,127},
@@ -93,7 +70,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(hotSou.ports[1], thermostatic3WayValve.port_a1) annotation (Line(
-      points={{-54,42},{-10,42}},
+      points={{-54,42},{-32,42},{-32,42},{-10,42}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(thermostatic3WayValve.port_a2, hotSou.ports[2]) annotation (Line(
@@ -146,7 +123,6 @@ equation
       smooth=Smooth.None));
   connect(T_in1.port_b, vol1.ports[2]) annotation (Line(
       points={{56,-64},{74,-64}},
->>>>>>> openideas/issue33_BugInValve
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
