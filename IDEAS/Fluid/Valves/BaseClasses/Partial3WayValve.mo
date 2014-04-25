@@ -40,8 +40,7 @@ model Partial3WayValve "Partial for 3-way valves"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,-28})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
 
 equation
   connect(port_a1, vol.ports[1]) annotation (Line(

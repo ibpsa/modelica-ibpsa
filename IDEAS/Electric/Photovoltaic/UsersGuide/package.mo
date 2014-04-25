@@ -3,6 +3,9 @@ package UsersGuide "User's Guide"
 extends Modelica.Icons.Information;
 
 
+
+
+
 annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>
 <p>The Photovoltaic Package implements everything that has to do with a distributed PV system itself.</p>
 <p>The possibility exists to let the PV output be calculated during simulation using <a href=\"modelica://IDEAS.Electric.Photovoltaic.PVSystemGeneral\">PVSystemGeneral</a>, or to use an input file with the output of one PV panel for one year when using PVFromFile.</p>
