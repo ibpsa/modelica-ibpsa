@@ -3,6 +3,11 @@ model Zone "thermal building zone"
 
   extends IDEAS.Buildings.Components.Interfaces.StateZone;
 
+  replaceable package Medium = IDEAS.Media.Air
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+      annotation (choicesAllMatching = true);
+
   parameter Modelica.SIunits.Volume V "Total zone air volume";
   parameter Real n50=0.6
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
@@ -14,8 +19,9 @@ model Zone "thermal building zone"
   final parameter Modelica.SIunits.Power QNom=1012*1.204*V/3600*n50/20*(273.15
        + 21 - sim.city.Tdes)
     "Design heat losses at reference outdoor temperature";
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1*1.224*V/3600;
 
-  Modelica.SIunits.Temperature TAir=conDistr.TCon;
+  Modelica.SIunits.Temperature TAir=senTem.T;
   Modelica.SIunits.Temperature TStar=radDistr.TRad;
 
 protected
@@ -25,16 +31,12 @@ protected
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-54,-44})));
-  IDEAS.Buildings.Components.BaseClasses.MixedAir conDistr(
-    final nSurf=nSurf,
-    final V=V,
-    final corrCV=corrCV) "convective part of the zone"
-    annotation (Placement(transformation(extent={{-2,10},{-22,30}})));
   IDEAS.Buildings.Components.BaseClasses.AirLeakage vent(final n50=n50,final V=
-        V) "zone air leakage" annotation (Placement(transformation(
+        V) "Thermal zone air leakage"
+                              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={10,42})));
+        origin={30,10})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final
       nSurf=nSurf, final linear=linear)
     "internal longwave radiative heat exchange" annotation (Placement(
@@ -47,6 +49,33 @@ protected
     k={0.5,0.5},
     y(start=TOpStart))
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
+public
+  Fluid.MixingVolumes.MixingVolume         vol(
+    V=V,
+    m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = IDEAS.Media.Air,
+    nPorts=2)                                  annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-10,30})));
+  Fluid.Interfaces.FlowPort_b flowPort_Out(redeclare package Medium =
+        IDEAS.Media.Air)
+    annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
+  Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium =
+        IDEAS.Media.Air)
+    annotation (Placement(transformation(extent={{10,90},{30,110}})));
+  Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
+        IDEAS.Media.Air, m_flow_nominal=m_flow_nominal) annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-20,70})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCap(C=1012*1.204*V
+        *(corrCV-1), T(start=293.15)) "air capacity"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-10,2})));
 equation
   connect(surfRad, radDistr.radSurfTot) annotation (Line(
       points={{-100,-60},{-74,-60},{-74,-26},{-54,-26},{-54,-34}},
@@ -60,20 +89,8 @@ equation
       points={{-54,-54},{-54,-76},{20,-76},{20,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(surfCon, conDistr.conSurf) annotation (Line(
-      points={{-100,-30},{-30,-30},{-30,20},{-22,20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conDistr.conGain, gainCon) annotation (Line(
-      points={{-2,20},{49,20},{49,-30},{100,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(radDistr.radGain, gainRad) annotation (Line(
       points={{-50.2,-54},{-50,-54},{-50,-72},{80,-72},{80,-60},{100,-60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(vent.port_a, conDistr.conGain) annotation (Line(
-      points={{10,32},{10,20},{-2,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(surfRad, radDistrLw.port_a) annotation (Line(
@@ -87,10 +104,6 @@ equation
       smooth=Smooth.None));
   connect(radDistr.TRad, sum.u[1]) annotation (Line(
       points={{-44,-44},{-22,-44},{-22,-60.6},{-1.2,-60.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conDistr.TCon, sum.u[2]) annotation (Line(
-      points={{-12,10},{-12,-62},{-1.2,-62},{-1.2,-59.4}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -129,8 +142,43 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  connect(vol.heatPort, gainCon) annotation (Line(
+      points={{0,30},{0,30},{10,30},{10,-30},{100,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(vent.port_a, gainCon) annotation (Line(
+      points={{30,0},{30,-30},{100,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+for i in 1:nSurf loop
+  connect(surfCon[i], vol.heatPort) annotation (Line(
+      points={{-100,-30},{10,-30},{10,30},{0,30},{0,30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+end for;
+  connect(flowPort_In, vol.ports[1]) annotation (Line(
+      points={{20,100},{20,100},{20,40},{-8,40}},
+      color={0,128,255},
+      smooth=Smooth.None));
+  connect(senTem.port_a, vol.ports[2]) annotation (Line(
+      points={{-20,60},{-20,40},{-12,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTem.port_b, flowPort_Out) annotation (Line(
+      points={{-20,80},{-20,100}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTem.T, sum.u[2]) annotation (Line(
+      points={{-31,70},{-40,70},{-40,-59.4},{-1.2,-59.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heatCap.port, gainCon) annotation (Line(
+      points={{0,2},{10,2},{10,-30},{100,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
-    Icon(graphics),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+         graphics),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>
