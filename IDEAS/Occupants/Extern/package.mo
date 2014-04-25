@@ -4,6 +4,4 @@ package Extern
 
 extends Modelica.Icons.Package;
 
-
-
 end Extern;

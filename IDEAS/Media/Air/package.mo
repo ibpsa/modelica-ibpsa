@@ -20,6 +20,7 @@ package Air "Incompressible moist air model with constant specific heat capaciti
   // "Base class ThermodynamicState is replaceable"
   // during model check
 
+
   redeclare record extends ThermodynamicState
   "ThermodynamicState record for moist air"
   end ThermodynamicState;
@@ -957,6 +958,7 @@ end thermalConductivity;
 // Therefore, they are made protected. This also allows to redeclare the
 // medium model with another medium model that does not provide an
 // implementation of these classes.
+
 
 protected 
   record GasProperties

@@ -3,26 +3,6 @@ package Math "Library with functions such as for smoothing"
   extends Modelica.Icons.Package;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains blocks and functions for commonly used

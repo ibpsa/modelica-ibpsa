@@ -133,7 +133,6 @@ First implementation.
 end specificEnthalpy;
 
 
-
 redeclare function extends specificInternalEnergy
   "Return the specific enthalpy"
 algorithm
