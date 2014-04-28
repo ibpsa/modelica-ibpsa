@@ -107,49 +107,49 @@ public
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filQCon,
+    fileName="../Inputs/" + occupants.filQCon,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-40,-34},{-26,-20}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabQRad(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filQRad,
+    fileName="../Inputs/" + occupants.filQRad,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-36,-38},{-22,-24}})));
   Modelica.Blocks.Sources.CombiTimeTable tabPre(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filPres,
+    fileName="../Inputs/" + occupants.filPres,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{0,-34},{14,-20}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabP(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filP,
+    fileName="../Inputs/" + occupants.filP,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-40,-58},{-26,-44}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabQ(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filQ,
+    fileName="../Inputs/" + occupants.filQ,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-36,-62},{-22,-48}})));
   Modelica.Blocks.Sources.CombiTimeTable tabDHW(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filDHW,
+    fileName="../Inputs/" + occupants.filDHW,
     columns=2:nOcc + 1) if DHW
     annotation (Placement(transformation(extent={{0,-58},{14,-44}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabPPV(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + fileNamePv,
+    fileName="../Inputs/" + fileNamePv,
     columns=2:nPV + 1) if PV
     annotation (Placement(transformation(extent={{-36,2},{-22,16}})));
 
