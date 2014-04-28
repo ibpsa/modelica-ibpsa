@@ -35,7 +35,8 @@ model StorageTank_DHW_HP
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-38,-62},{-58,-42}})));
   inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
-      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
+      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail,
+    PV=false)
     annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
   IDEAS.Controls.ControlHeating.Ctrl_Heating_TES HPControl(
     dTSafetyTop=3,
@@ -56,7 +57,7 @@ model StorageTank_DHW_HP
   IDEAS.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     p=300000,
-    nPorts=1) annotation (Placement(transformation(extent={{38,-96},{18,-76}})));
+    nPorts=2) annotation (Placement(transformation(extent={{86,-96},{66,-76}})));
 
   parameter SI.MassFlowRate m_flow_nominal=0.5 "Nominal mass flow rate";
   Modelica.Blocks.Math.Product product
@@ -82,7 +83,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(bou.ports[1], pump.port_a) annotation (Line(
-      points={{18,-86},{-38,-86},{-38,-52}},
+      points={{66,-84},{-38,-84},{-38,-52}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(product.u2, pulse.y) annotation (Line(
@@ -115,6 +116,10 @@ equation
       smooth=Smooth.None));
   connect(pump.port_a, storageTank.portHXLower) annotation (Line(
       points={{-38,-52},{-34,-52},{-34,-52.6154},{-30,-52.6154}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(storageTank.port_b, bou.ports[2]) annotation (Line(
+      points={{42,-58.3077},{42,-88},{66,-88}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
