@@ -13,9 +13,10 @@ model DHW_example
     annotation (Placement(transformation(extent={{-40,-12},{-20,8}})));
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   Modelica.Blocks.Sources.Sine sine(
-    amplitude=0.5,
     freqHz=0.1,
-    offset=1) annotation (Placement(transformation(extent={{-44,42},{-24,62}})));
+    amplitude=100,
+    offset=200)
+              annotation (Placement(transformation(extent={{-44,42},{-24,62}})));
   Modelica.Blocks.Sources.Step step(
     height=-20,
     startTime=100,

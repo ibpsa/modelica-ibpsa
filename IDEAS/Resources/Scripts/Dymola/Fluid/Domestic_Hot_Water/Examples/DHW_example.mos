@@ -1,0 +1,14 @@
+translateModel("IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example");
+
+simulateModel("IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example", stopTime=200, method="dassl", resultFile="DHW_example");
+
+
+
+plot( y={"dHW_RealInput.senTem.T", "dHW_RealInput.port_hot.m_flow"}, colors={{0,0,255}, {255,0,0}});
+
+
+
+
+
+
+
