@@ -6,9 +6,10 @@ model DHW_RealInput "DHW consumption with input for flowrate at 60 degC"
   Modelica.Blocks.Interfaces.RealInput mDHW60C(unit="kg/s")
     "Mass flowrate of DHW at 60 degC in kg/s"
     annotation (Placement(transformation(extent={{-120,66},{-80,106}})));
+
 equation
   connect(product.u1, mDHW60C) annotation (Line(
-      points={{-20,56},{-36,56},{-36,86},{-100,86}},
+      points={{-22,56},{-36,56},{-36,86},{-100,86}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

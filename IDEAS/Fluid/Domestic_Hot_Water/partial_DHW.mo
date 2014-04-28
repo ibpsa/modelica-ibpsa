@@ -28,26 +28,10 @@ public
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
 
-  Fluid.Movers.Pump pumpHot(
-    useInput=true,
-    m_flow_nominal=m_flow_nominal,
-    m=1,
-    redeclare package Medium = Medium)
-         annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={64,0})));
 
-  IDEAS.Fluid.Sources.Boundary_pT cold(
-    redeclare package Medium = Medium,
-    use_T_in=true,
-    p=500000,
-    nPorts=2) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={100,-10})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=TCold)
-    annotation (Placement(transformation(extent={{44,-36},{64,-16}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_cold(redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_cold(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium annotation (
       __Dymola_choicesAllMatching=true);
@@ -55,7 +39,8 @@ public
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    tau=30) annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
+    tau=tau)
+            annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Math.Sum sum1(nin=2, k={1,-1})
@@ -64,32 +49,29 @@ public
     annotation (Placement(transformation(extent={{-100,18},{-86,32}})));
   Modelica.Blocks.Math.Division division
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Modelica.Blocks.Math.Gain gain(k=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-18,16},{-2,32}})));
   Modelica.Blocks.Math.Sum sum2(nin=2, k={1,-1})
     annotation (Placement(transformation(extent={{-56,38},{-40,54}})));
   Modelica.Blocks.Sources.Constant const1(k=273.15 + 60)
     annotation (Placement(transformation(extent={{-100,46},{-86,60}})));
 
+  IDEAS.Fluid.Interfaces.IdealSource idealSource(
+    redeclare package Medium = Medium,
+    control_m_flow=true,
+    allowFlowReversal=false)
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(
+    redeclare package Medium = Medium,
+    allowFlowReversal=false,
+    dynamicBalance=false,
+    m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+    prescribedTemperature
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+  parameter SI.Time tau=30 "Tin time constant at nominal flow rate";
 equation
-  connect(realExpression.y, cold.T_in) annotation (Line(
-      points={{65,-26},{96,-26},{96,-24},{96,-24},{96,-22},{96,-22}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(cold.ports[1], port_cold) annotation (Line(
-      points={{98,8.88178e-16},{126,8.88178e-16},{126,0},{140,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pumpHot.port_b, cold.ports[2]) annotation (Line(
-      points={{74,4.44089e-16},{102,4.44089e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(port_hot, senTem.port_a) annotation (Line(
       points={{-100,4.44089e-16},{-88,4.44089e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem.port_b, pumpHot.port_a) annotation (Line(
-      points={{-68,4.44089e-16},{54,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTem.T, sum1.u[1]) annotation (Line(
@@ -104,18 +86,6 @@ equation
       points={{18,36},{8,36},{8,50},{1,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(division.y, pumpHot.m_flowSet) annotation (Line(
-      points={{41,30},{64,30},{64,10.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, division.u2) annotation (Line(
-      points={{-1.2,24},{18,24}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.u, sum1.y) annotation (Line(
-      points={{-19.6,24},{-39.2,24}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(const1.y, sum2.u[1]) annotation (Line(
       points={{-85.3,53},{-71.65,53},{-71.65,45.2},{-57.6,45.2}},
       color={0,127,0},
@@ -126,6 +96,34 @@ equation
       smooth=Smooth.None));
   connect(product.u2, sum2.y) annotation (Line(
       points={{-22,44},{-30,44},{-30,46},{-39.2,46}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sum1.y, division.u2) annotation (Line(
+      points={{-39.2,24},{18,24}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(idealSource.port_a, senTem.port_b) annotation (Line(
+      points={{40,0},{-68,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(division.y, idealSource.m_flow_in) annotation (Line(
+      points={{41,30},{42,30},{42,8},{44,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(idealSource.port_b, pipe_HeatPort.port_a) annotation (Line(
+      points={{60,0},{80,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipe_HeatPort.port_b, port_cold) annotation (Line(
+      points={{100,0},{140,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(prescribedTemperature.port, pipe_HeatPort.heatPort) annotation (Line(
+      points={{80,80},{90,80},{90,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(realExpression.y, prescribedTemperature.T) annotation (Line(
+      points={{41,80},{58,80}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
