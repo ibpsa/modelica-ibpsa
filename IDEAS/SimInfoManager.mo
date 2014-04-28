@@ -8,14 +8,14 @@ model SimInfoManager
   replaceable IDEAS.Climate.Meteo.Location city constrainedby
     IDEAS.Climate.Meteo.Location "Location of the depicted climate data"
     annotation (__Dymola_choicesAllMatching=true,Dialog(group="Climate"));
-  parameter Boolean occBeh=true
+  parameter Boolean occBeh=false
     "put to true if  user behaviour is to be read from files"
     annotation (Dialog(group="User behaviour"));
 
-  parameter Boolean DHW=true
+  parameter Boolean DHW=false
     "put to true if domestic how water (DHW) consumption is to be read from files"
     annotation (Dialog(group="User behaviour"));
-  parameter Boolean PV=true
+  parameter Boolean PV=false
     "put to true if photovoltaics is to be read from files "
     annotation (Dialog(group="Photovoltaics"));
 
