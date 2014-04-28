@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Movers;
 model Pump "Prescribed mass flow rate, no heat exchange."
   extends IDEAS.Fluid.Interfaces.Partials.PumpTwoPort(idealSource(
-        control_m_flow=true, allowFlowReversal=false));
+        control_m_flow=true, allowFlowReversal=true));
   parameter Boolean useInput=false "Enable / disable MassFlowRate input"
     annotation (Evaluate=true);
   // Classes used to implement the filtered mass flow rate
