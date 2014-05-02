@@ -75,7 +75,12 @@ public
         *(corrCV-1), T(start=293.15)) "air capacity"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-10,2})));
+        origin={-10,-12})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=0.0001)
+    annotation (Placement(transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=90,
+        origin={2,6})));
 equation
   connect(surfRad, radDistr.radSurfTot) annotation (Line(
       points={{-100,-60},{-74,-60},{-74,-26},{-54,-26},{-54,-34}},
@@ -142,22 +147,18 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(vol.heatPort, gainCon) annotation (Line(
-      points={{0,30},{0,30},{10,30},{10,-30},{100,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(vent.port_a, gainCon) annotation (Line(
       points={{30,0},{30,-30},{100,-30}},
       color={191,0,0},
       smooth=Smooth.None));
 for i in 1:nSurf loop
-  connect(surfCon[i], vol.heatPort) annotation (Line(
-      points={{-100,-30},{10,-30},{10,30},{0,30},{0,30}},
+  connect(surfCon[i], heatCap.port) annotation (Line(
+      points={{-100,-30},{10,-30},{10,-12},{0,-12}},
       color={191,0,0},
       smooth=Smooth.None));
 end for;
   connect(flowPort_In, vol.ports[1]) annotation (Line(
-      points={{20,100},{20,100},{20,40},{-8,40}},
+      points={{20,100},{20,40},{-8,40}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(senTem.port_a, vol.ports[2]) annotation (Line(
@@ -173,7 +174,15 @@ end for;
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatCap.port, gainCon) annotation (Line(
-      points={{0,2},{10,2},{10,-30},{100,-30}},
+      points={{0,-12},{2,-12},{2,-30},{100,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heatCap.port, thermalConductor.port_a) annotation (Line(
+      points={{0,-12},{2,-12},{2,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermalConductor.port_b, vol.heatPort) annotation (Line(
+      points={{2,12},{2,30},{0,30}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
@@ -192,6 +201,6 @@ end for;
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics));
 end Zone;
