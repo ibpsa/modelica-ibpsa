@@ -67,8 +67,11 @@ public
   Modelica.SIunits.Temperature Tground=TdesGround "ground temperature";
   Modelica.SIunits.Velocity Va "air velocity";
   Real Fc "cloud factor";
-  Modelica.SIunits.Irradiance irr = weaDat.cheGloHorRad.HOut;
+  Modelica.SIunits.Irradiance irr = weaDat.cheGloHorRad.HOut "Irradiance";
   Boolean summer = timMan.summer;
+
+  Real relHum(final unit="1") = weaDat.weaBus.relHum "Relative humidity";
+  Modelica.SIunits.Temperature TDewPoi = weaDat.weaBus.TDewPoi "Dewpoint";
 
   Boolean day=true;
 
