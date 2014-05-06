@@ -4,15 +4,9 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter String filNam="" "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
-  final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
-    BaseClasses.getLongitudeTMY3(
-    filNam) "Longitude";
-  final parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
-    BaseClasses.getLatitudeTMY3(
-    filNam) "Latitude";
-  final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
-    BaseClasses.getTimeZoneTMY3(                                         filNam)
-    "Time zone";
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
+  parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
+  parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone";
   Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
             294,-10},{314,10}}), iconTransformation(extent={{190,-10},{210,10}})));
   BaseClasses.SolarSubBus solBus "Sub bus with solar position"
@@ -24,11 +18,11 @@ block ReaderTMY3 "Reader for TMY3 weather data"
 //protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
-    final tableName="tab1",
     final fileName=BaseClasses.getAbsolutePath(                                         filNam),
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
-        28,29,30}) "Data reader"
+        28,29,30},
+    final tableName="data") "Data reader"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   BaseClasses.CheckTemperature cheTemDryBul "Check dry bulb temperature "
     annotation (Placement(transformation(extent={{160,-200},{180,-180}})));
@@ -72,45 +66,16 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     annotation (Placement(transformation(extent={{-180,192},{-160,212}})));
   Modelica.Blocks.Tables.CombiTable1Ds datRea1(
     final tableOnFile=true,
-    final tableName="tab1",
     final fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    final columns=8:11) "Data reader"
+    final columns=8:11,
+    final tableName="data") "Data reader"
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1
     "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-110,160},{-90,180}})));
   BaseClasses.ConvertTime conTim "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-  // Conditional connectors
-  Modelica.Blocks.Interfaces.RealInput pAtm_in_internal(
-    final quantity="Pressure",
-    final unit="Pa",
-    displayUnit="bar") "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput TDryBul_in_internal(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC") "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput relHum_in_internal(
-    final quantity="1",
-    min=0,
-    max=1) "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput winSpe_in_internal(
-    final quantity="Velocity",
-    final unit="m/s") "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput winDir_in_internal(
-    final quantity="Angle",
-    final unit="rad",
-    displayUnit="deg") "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput HGloHor_in_internal(
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput HDifHor_in_internal(
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput HDirNor_in_internal(
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "Needed to connect to conditional connector";
 
   Modelica.Blocks.Math.UnitConversions.From_deg conWinDir
     "Convert the wind direction unit from [deg] to [rad]"
