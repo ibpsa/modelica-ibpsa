@@ -1,5 +1,5 @@
 within IDEAS.Fluid.FixedResistances.Examples;
-model PumpWithPipeHeatPort "Example of how a pump can be used"
+model PumpWithPipeHeatPorts "Example of Pipe_heatPort usage"
   import IDEAS;
   extends Modelica.Icons.Example;
 
@@ -110,4 +110,4 @@ equation
     experiment(StopTime=10000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end PumpWithPipeHeatPort;
+end PumpWithPipeHeatPorts;
