@@ -1,7 +1,7 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses;
 block CheckCeilingHeight
   "Ensures that the ceiling height is above a lower bound"
-  import Buildings;
+
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput ceiHeiIn(final quantity="Height", final unit=
@@ -13,7 +13,7 @@ public
   constant Modelica.SIunits.Height ceiHeiMin=0 "Minimum allowed ceiling height";
 equation
 
-  ceiHeiOut = Buildings.Utilities.Math.Functions.smoothMax(
+  ceiHeiOut = IDEAS.Utilities.Math.Functions.smoothMax(
       ceiHeiIn,
       ceiHeiMin,
       0.1);

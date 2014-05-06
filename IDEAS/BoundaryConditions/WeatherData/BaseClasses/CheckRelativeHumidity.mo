@@ -1,6 +1,6 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses;
 block CheckRelativeHumidity "Check the validity of relative humidity"
-  import Buildings;
+
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput relHumIn(final unit="1")
@@ -15,7 +15,7 @@ protected
   constant Real relHumMax=1 - delta "Upper bound";
 
 equation
-  relHumOut = Buildings.Utilities.Math.Functions.smoothLimit(
+  relHumOut = IDEAS.Utilities.Math.Functions.smoothLimit(
       relHumIn,
       relHumMin,
       relHumMax,

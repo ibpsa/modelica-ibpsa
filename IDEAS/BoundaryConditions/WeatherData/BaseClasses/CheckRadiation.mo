@@ -1,6 +1,6 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses;
 block CheckRadiation "Ensure that the radiation is not smaller than 0"
-  import Buildings;
+
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput HIn(final quantity=
@@ -14,7 +14,7 @@ public
     "Minimum value for radiation";
 equation
 
-  HOut = Buildings.Utilities.Math.Functions.smoothMax(
+  HOut = IDEAS.Utilities.Math.Functions.smoothMax(
       x1=HIn,
       x2=HMin,
       deltaX=HMin/10);

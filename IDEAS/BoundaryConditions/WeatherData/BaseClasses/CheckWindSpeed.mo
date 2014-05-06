@@ -1,6 +1,6 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses;
 block CheckWindSpeed "Ensures that the wind speed is non-negative"
-  import Buildings;
+
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput winSpeIn(final quantity="Velocity",
@@ -15,7 +15,7 @@ public
 equation
   // Modelica Table will interpolate data when it reads the weather data file.
   // It can generate negative values due to the interpolation.
-  winSpeOut = Buildings.Utilities.Math.Functions.smoothMax(
+  winSpeOut = IDEAS.Utilities.Math.Functions.smoothMax(
       x1=winSpeIn,
       x2=winSpeMin,
       deltaX=winSpeMin/10);

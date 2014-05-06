@@ -1,6 +1,6 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses;
 block CheckSkyCover "Constrains the sky cover to [0, 1]"
-  import Buildings;
+
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput nIn "Input sky cover [0, 10]"
@@ -13,7 +13,7 @@ protected
   constant Real nMin=delta "Lower bound";
   constant Real nMax=10 - delta "Upper bound";
 equation
-  nOut = Buildings.Utilities.Math.Functions.smoothLimit(
+  nOut = IDEAS.Utilities.Math.Functions.smoothLimit(
       nIn,
       nMin,
       nMax,

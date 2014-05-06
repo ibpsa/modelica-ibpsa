@@ -1,6 +1,6 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses;
 block CheckWindDirection "Constrains the wind direction to [0, 2*pi] degree"
-  import Buildings;
+
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput nIn(
@@ -20,7 +20,7 @@ protected
   constant Real nMax=2*Modelica.Constants.pi "Upper bound";
 equation
 
-  nOut = Buildings.Utilities.Math.Functions.smoothLimit(
+  nOut = IDEAS.Utilities.Math.Functions.smoothLimit(
       nIn,
       nMin,
       nMax,
