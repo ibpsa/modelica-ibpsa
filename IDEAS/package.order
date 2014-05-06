@@ -1,6 +1,7 @@
 UsersGuide
 SimInfoManager
 Climate
+BoundaryConditions
 Buildings
 HeatingSystems
 VentilationSystems
@@ -15,4 +16,3 @@ Constants
 Examples
 Interfaces
 Experimental
-BoundaryConditions
