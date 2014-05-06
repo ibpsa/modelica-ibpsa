@@ -2,15 +2,15 @@ within IDEAS;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
 
-  parameter String filNam="" "Name of weather data file";
-/*
-  replaceable IDEAS.Climate.Meteo.Detail detail constrainedby 
-    IDEAS.Climate.Meteo.Detail "Timeframe detail of the climate data"
-    annotation (__Dymola_choicesAllMatching=true,Dialog(group="Climate"));
-  replaceable IDEAS.Climate.Meteo.Location city constrainedby 
-    IDEAS.Climate.Meteo.Location "Location of the depicted climate data"
-    annotation (__Dymola_choicesAllMatching=true,Dialog(group="Climate"));
-*/
+  parameter String filNam = "Uccle_TMY3_60.txt" "Name of weather data file";
+  parameter Modelica.SIunits.Angle lat(displayUnit="deg") = 0.88749992463912
+    "latitude of the locatioin";
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 0.075921822461753;
+  parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = 3600
+    "standard time zone";
+
+  final parameter String filNamClim="../Inputs/" + filNam;
+
   parameter Boolean occBeh=false
     "put to true if  user behaviour is to be read from files"
     annotation (Dialog(group="User behaviour"));
@@ -37,17 +37,12 @@ model SimInfoManager
   parameter Integer PNom=1000 "Nominal power (W) of the photovoltaic profiles"
     annotation (Dialog(group="Photovoltaics"));
 
-//  final parameter String filNamClim="../Inputs/" + city.locNam + detail.filNam;
 protected
-  final parameter Modelica.SIunits.Angle lat(displayUnit="deg") = weaDat.lat
-    "latitude of the locatioin";
-  final parameter Modelica.SIunits.Angle lon(displayUnit="deg") = weaDat.lon;
   final parameter Modelica.SIunits.Temperature Tdes = -8 + 273.15
     "design outdoor temperature";
   final parameter Modelica.SIunits.Temperature TdesGround = 10 + 273.15
     "design ground temperature";
-  final parameter Modelica.SIunits.Time timZonSta=weaDat.timZon
-    "standard time zone";
+
   final parameter Boolean DST = true
     "boolean to take into account daylight saving time";
   final parameter Integer yr = 2014 "depcited year for DST only";
@@ -140,10 +135,10 @@ public
     columns=2:nPV + 1) if PV
     annotation (Placement(transformation(extent={{-36,2},{-22,16}})));
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=filNam)
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=filNamClim, lat=lat, lon=lon, timZon=timZonSta)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
-  if not BesTest then
+  if BesTest then
     Tsky = Te - (23.8 - 0.2025*(Te - 273.15)*(1 - 0.87*Fc));
     Fc = 0.2;
     Va = 2.5;
