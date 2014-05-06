@@ -26,7 +26,7 @@ model Radiator "Simple 1-node radiator model according to EN 442"
   parameter Modelica.SIunits.SpecificHeatCapacity cpDry=480
     "Specific heat capacity of the dry material, default is for steel";
 
-  final parameter Real UA=QNom/((TInNom + TOutNom)/2 - TZoneNom)^n;
+  final parameter Real UA=QNom/(TOutNom - TZoneNom)^n;
 
   Modelica.SIunits.HeatFlowRate QTotal(start=0)
     "Total heat emission of the radiator";

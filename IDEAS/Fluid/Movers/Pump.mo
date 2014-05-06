@@ -1,16 +1,14 @@
 within IDEAS.Fluid.Movers;
 model Pump "Prescribed mass flow rate, no heat exchange."
   extends IDEAS.Fluid.Interfaces.Partials.PumpTwoPort(idealSource(
-        control_m_flow=true));
+        control_m_flow=true, allowFlowReversal=true));
   parameter Boolean useInput=false "Enable / disable MassFlowRate input"
     annotation (Evaluate=true);
-
   // Classes used to implement the filtered mass flow rate
   parameter Boolean filteredMassFlowRate=false
     "= true, if speed is filtered with a 2nd order CriticalDamping filter";
   parameter Modelica.SIunits.Time riseTime=1
     "Rise time of the filter (time to reach 99.6 % of the mass flow rate)";
-
   parameter Modelica.SIunits.Pressure dpFix=50000
     "Fixed pressure drop, used for determining the electricity consumption";
   parameter Real etaTot=0.8 "Fixed total pump efficiency";
@@ -22,7 +20,6 @@ model Pump "Prescribed mass flow rate, no heat exchange."
         origin={0,104},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-
   Modelica.Blocks.Sources.RealExpression realExpression1(y=m_flow_pump)
     annotation (Placement(transformation(extent={{-32,32},{-2,52}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
@@ -30,7 +27,6 @@ model Pump "Prescribed mass flow rate, no heat exchange."
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-24,108})));
-
   Modelica.Blocks.Sources.RealExpression realExpression2(y=PEl)
     annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(min=0, max=m_flow_nominal,
@@ -45,7 +41,6 @@ model Pump "Prescribed mass flow rate, no heat exchange."
       nominal=m_flow_nominal)) if useInput
     "Gain for mass flow rate input signal"
     annotation (Placement(transformation(extent={{-6,58},{6,70}})));
-
   Modelica.Blocks.Interfaces.RealOutput m_flow_filtered(min=0, max=m_flow_nominal,
                                                  final quantity="MassFlowRate",
                                                   final unit="kg/s",
@@ -66,10 +61,8 @@ model Pump "Prescribed mass flow rate, no heat exchange."
         useInput and filteredMassFlowRate
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{20,75},{34,89}})));
-
 protected
   Modelica.SIunits.MassFlowRate m_flow_pump;
-
 equation
   if not useInput then
     m_flow_pump = m_flow_nominal;
@@ -94,9 +87,7 @@ equation
           smooth=Smooth.None));
       end if;
     end if;
-
   Q_flow = 0;
-
   PEl = m_flow_pump/Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), Medium.X_default))*dpFix/etaTot;
   connect(realExpression1.y, idealSource.m_flow_in) annotation (Line(
       points={{-0.5,42},{0,42},{0,8},{12,8}},

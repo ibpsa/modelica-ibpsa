@@ -17,68 +17,41 @@ model DHW_ProfileReader
     columns=2:4,
     fileName="..\\Inputs\\" + "DHWProfile.txt") annotation (Placement(visible=
           true, transformation(
-        origin={-52,30.5},
-        extent={{-15,15},{15,-15}},
+        origin={69.5,89.75},
+        extent={{10.5,10.25},{-10.5,-10.25}},
         rotation=0)));
 
-public
-  IDEAS.BaseClasses.Ambient1 ambientCold(
-    medium=medium,
-    constantAmbientPressure=500000,
-    constantAmbientTemperature=TCold)
-    annotation (Placement(transformation(extent={{68,-28},{88,-8}})));
-
-  IDEAS.BaseClasses.Ambient1 ambientCold1(
-    medium=medium,
-    constantAmbientPressure=500000,
-    constantAmbientTemperature=TCold)
-    annotation (Placement(transformation(extent={{70,-64},{90,-44}})));
-  Fluid.Movers.Pump pumpCold(
-    useInput=true,
-    medium=medium,
-    m=5,
-    m_flowNom=m_flowNom)
-    annotation (Placement(transformation(extent={{50,-28},{30,-8}})));
-
-  Fluid.Movers.Pump pumpHot(
-    useInput=true,
-    medium=medium,
-    m_flowNom=m_flowNom,
-    m=1) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,54})));
-
+  Modelica.Blocks.Math.Product product1
+    annotation (Placement(transformation(extent={{0,80},{-20,100}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=time)
+    annotation (Placement(transformation(extent={{120,80},{100,100}})));
+  Modelica.Blocks.Sources.RealExpression realExpression2(y=VDayAvg*
+        Medium.density(Medium.setState_phX(
+        port_hot.p,
+        inStream(port_hot.h_outflow),
+        inStream(port_hot.Xi_outflow))))
+    annotation (Placement(transformation(extent={{134,46},{62,66}})));
 equation
-  table.u = time;
-  m_flowInit = table.y[profileType]*VDayAvg*medium.rho;
-
-algorithm
-  if m_flowInit > 0 then
-    m_minimum := 1e-3;
-    onoff := 1;
-  else
-    m_minimum := 0;
-    onoff := 0;
-  end if;
-  m_flowTotal := onoff*max(m_flowInit, m_minimum);
-
-  m_flowCold := if noEvent(onoff > 0.5) then m_flowTotal*(THot - TSetVar)/(THot
-    *onoff - TCold) else 0;
-  m_flowHot := if noEvent(onoff > 0.5) then m_flowTotal - m_flowCold else 0;
-
-equation
-
-  connect(ambientCold.flowPort, pumpCold.flowPort_a) annotation (Line(
-      points={{68,-18},{50,-18}},
-      color={255,0,0},
+  connect(product1.y, product.u1) annotation (Line(
+      points={{-21,90},{-30,90},{-30,56},{-22,56}},
+      color={0,0,127},
       smooth=Smooth.None));
-  connect(pumpCold.flowPort_b, pumpHot.flowPort_b) annotation (Line(
-      points={{30,-18},{0,-18},{0,44},{-1.83697e-015,44}},
-      color={255,0,0},
+  connect(realExpression1.y, table.u) annotation (Line(
+      points={{99,90},{103.5,90},{103.5,89.75},{82.1,89.75}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression2.y, product1.u2) annotation (Line(
+      points={{58.4,56},{30,56},{30,84},{2,84}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(table.y[profileType], product1.u1) annotation (Line(
+      points={{57.95,89.75},{30,89.75},{30,90},{30,90},{30,96},{2,96}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-40},{140,
+            100}}),
+            graphics),
     Icon(graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>

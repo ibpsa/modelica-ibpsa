@@ -2,127 +2,111 @@ within IDEAS.Fluid.Valves.Examples;
 model ThreeWayValveSwitch "Test the new component ThreeWayValveSwitch"
   import IDEAS;
   extends Modelica.Icons.Example;
-
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   Fluid.Movers.Pump pumpEmission(
-    medium=IDEAS.Thermal.Data.Media.Water(),
+    redeclare package Medium = Medium,
     m=0.1,
-    TInitial=283.15,
-    m_flowNom=2) annotation (Placement(transformation(extent={{54,0},{74,20}})));
-  Modelica.Blocks.Sources.Pulse pulse(
-    period=10,
-    offset=0,
-    amplitude=1000)
-    annotation (Placement(transformation(extent={{-96,18},{-76,38}})));
-  Fluid.FixedResistances.Pipe pipe(
-    medium=IDEAS.Thermal.Data.Media.Water(),
-    m=0.1,
-    TInitial=291.15)
-    annotation (Placement(transformation(extent={{38,8},{48,12}})));
-  Fluid.FixedResistances.Pipe pipeSplit(
-    medium=IDEAS.Thermal.Data.Media.Water(),
-    m=0.1,
-    TInitial=291.15)
-    annotation (Placement(transformation(extent={{40,-34},{50,-30}})));
-  Fluid.FixedResistances.Pipe pipeBOTTOM(
-    medium=IDEAS.Thermal.Data.Media.Water(),
-    m=0.1,
-    TInitial=291.15)
-    annotation (Placement(transformation(extent={{22,-18},{32,-14}})));
-  Fluid.FixedResistances.Pipe pipe3(
-    medium=IDEAS.Thermal.Data.Media.Water(),
-    m=0.1,
-    TInitial=291.15)
-    annotation (Placement(transformation(extent={{-18,-34},{-8,-30}})));
-  Fluid.FixedResistances.Pipe pipeTOP(
-    medium=IDEAS.Thermal.Data.Media.Water(),
-    m=0.1,
-    TInitial=291.15)
-    annotation (Placement(transformation(extent={{-16,8},{-6,12}})));
-  Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(m=5, medium=
-        IDEAS.Thermal.Data.Media.Water()) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+    m_flow_nominal=1)
+    annotation (Placement(transformation(extent={{58,0},{78,20}})));
+  Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(m=5, redeclare package
+      Medium =                                                                       Medium,
+    m_flow_nominal=1)                                                                        annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
         rotation=-90,
-        origin={-46,-12})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Fluid.FixedResistances.Pipe pipe5(
-    medium=IDEAS.Thermal.Data.Media.Water(),
-    m=100,
-    TInitial=291.15)
-    annotation (Placement(transformation(extent={{58,-36},{78,-28}})));
-  IDEAS.BaseClasses.AbsolutePressure absolutePressure1(p=100000)
-    annotation (Placement(transformation(extent={{18,-62},{38,-42}})));
+        origin={-48,-12})));
   Modelica.Blocks.Sources.Pulse pulse1(period=10)
     annotation (Placement(transformation(extent={{-52,32},{-32,52}})));
   Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=0.5)
     annotation (Placement(transformation(extent={{-12,34},{2,48}})));
-  IDEAS.Fluid.Valves.ThreeWayValveSwitch threeWayValveSwitch
-    annotation (Placement(transformation(extent={{10,0},{30,20}})));
+  IDEAS.Fluid.Valves.ThreeWayValveSwitch threeWayValveSwitch(redeclare package
+      Medium =                                                                          Medium,
+      m_flow_nominal=1)
+    annotation (Placement(transformation(extent={{6,0},{26,20}})));
+  IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=3,          redeclare package
+      Medium =                                                                      Medium,
+    T=293.15)
+    annotation (Placement(transformation(extent={{-68,-70},{-48,-50}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+    prescribedTemperature
+    annotation (Placement(transformation(extent={{-86,-22},{-66,-2}})));
+  Modelica.Blocks.Sources.Constant pulse2(k=273.15 + 40)
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(nPorts=3, m_flow_nominal=1,redeclare
+      package Medium =                                                                             Medium,
+    V=0.01)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={90,-26})));
+  IDEAS.Fluid.Sensors.TemperatureTwoPort T_mix(redeclare package Medium =
+        Medium, m_flow_nominal=1)
+    annotation (Placement(transformation(extent={{32,0},{52,20}})));
+  IDEAS.Fluid.Sensors.TemperatureTwoPort T_leg0(redeclare package Medium =
+        Medium, m_flow_nominal=1)
+    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
+  IDEAS.Fluid.Sensors.TemperatureTwoPort T_leg1(redeclare package Medium =
+        Medium, m_flow_nominal=1)
+    annotation (Placement(transformation(extent={{-20,-54},{0,-34}})));
+  inner Modelica.Fluid.System system(
+    p_ambient=300000,
+    T_ambient=313.15)
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
-  connect(pipe.flowPort_b, pumpEmission.flowPort_a) annotation (Line(
-      points={{48,10},{54,10}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(pulse.y, prescribedHeatFlow.Q_flow) annotation (Line(
-      points={{-75,28},{-70,28},{-70,4},{-92,4},{-92,-10},{-80,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(prescribedHeatFlow.port, pipe_HeatPort.heatPort) annotation (Line(
-      points={{-60,-10},{-58,-10},{-58,-12},{-56,-12}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(pipe5.flowPort_b, pumpEmission.flowPort_b) annotation (Line(
-      points={{78,-32},{86,-28},{84,10},{74,10}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(pipe3.flowPort_a, pipe_HeatPort.flowPort_b) annotation (Line(
-      points={{-18,-32},{-48,-32},{-48,-22},{-46,-22}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(pipe_HeatPort.flowPort_a, pipeTOP.flowPort_a) annotation (Line(
-      points={{-46,-2},{-46,10},{-16,10}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(pulse1.y, realToBoolean.u) annotation (Line(
       points={{-31,42},{-22.2,42},{-22.2,41},{-13.4,41}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(threeWayValveSwitch.flowPort_option1, pipeBOTTOM.flowPort_a)
-    annotation (Line(
-      points={{20,0},{20,-16},{22,-16}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(threeWayValveSwitch.flowPort_fixed, pipe.flowPort_a) annotation (Line(
-      points={{30,10},{38,10}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(threeWayValveSwitch.flowPort_option0, pipeTOP.flowPort_b) annotation (
-     Line(
-      points={{10,10},{-6,10}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(threeWayValveSwitch.switch, realToBoolean.y) annotation (Line(
-      points={{20,18},{18,18},{18,41},{2.7,41}},
+      points={{16,18},{16,41},{2.7,41}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(absolutePressure1.flowPort, pipe3.flowPort_b) annotation (Line(
-      points={{18,-52},{-8,-52},{-8,-32}},
-      color={0,0,255},
+  connect(bou.ports[1], pipe_HeatPort.port_a) annotation (Line(
+      points={{-48,-57.3333},{-46,-57.3333},{-46,-22},{-48,-22}},
+      color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe3.flowPort_b, pipeSplit.flowPort_a) annotation (Line(
-      points={{-8,-32},{40,-32}},
-      color={0,0,255},
+  connect(pipe_HeatPort.heatPort, prescribedTemperature.port) annotation (Line(
+      points={{-58,-12},{-66,-12}},
+      color={191,0,0},
       smooth=Smooth.None));
-  connect(pipeBOTTOM.flowPort_b, pipeSplit.flowPort_a) annotation (Line(
-      points={{32,-16},{40,-16},{40,-32}},
-      color={0,0,255},
+  connect(pulse2.y, prescribedTemperature.T) annotation (Line(
+      points={{-79,30},{-74,30},{-74,6},{-96,6},{-96,-12},{-88,-12}},
+      color={0,0,127},
       smooth=Smooth.None));
-  connect(pipeSplit.flowPort_b, pipe5.flowPort_a) annotation (Line(
-      points={{50,-32},{58,-32}},
-      color={0,0,255},
+  connect(pumpEmission.port_b, vol.ports[1]) annotation (Line(
+      points={{78,10},{80,10},{80,-23.3333}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(threeWayValveSwitch.port_b, T_mix.port_a) annotation (Line(
+      points={{26,10},{32,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(T_mix.port_b, pumpEmission.port_a) annotation (Line(
+      points={{52,10},{58,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipe_HeatPort.port_b, T_leg0.port_a) annotation (Line(
+      points={{-48,-2},{-48,10},{-30,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(T_leg0.port_b, threeWayValveSwitch.port_a1) annotation (Line(
+      points={{-10,10},{6,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(bou.ports[2], T_leg1.port_a) annotation (Line(
+      points={{-48,-60},{-32,-60},{-32,-44},{-20,-44}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(T_leg1.port_b, threeWayValveSwitch.port_a2) annotation (Line(
+      points={{0,-44},{16,-44},{16,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(vol.ports[2], bou.ports[3]) annotation (Line(
+      points={{80,-26},{80,-62.6667},{-48,-62.6667}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
-    experiment(StopTime=101),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics),
+    experiment(StopTime=100),
     __Dymola_experimentSetupOutput);
 end ThreeWayValveSwitch;

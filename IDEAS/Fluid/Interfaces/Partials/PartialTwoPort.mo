@@ -1,7 +1,6 @@
 within IDEAS.Fluid.Interfaces.Partials;
 partial model PartialTwoPort
   "Partial model of two port without internal connections"
-  import Buildings;
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
 
@@ -33,7 +32,6 @@ partial model PartialTwoPort
     C_start=C_start,
     m_flow_nominal=m_flow_nominal,
     p_start=p_start,
-    prescribedHeatFlowRate=true,
     allowFlowReversal=allowFlowReversal,
     nPorts=1,
     final V=m/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default)))
