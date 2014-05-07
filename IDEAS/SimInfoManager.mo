@@ -70,8 +70,8 @@ public
   Modelica.SIunits.Irradiance irr = weaDat.cheGloHorRad.HOut "Irradiance";
   Boolean summer = timMan.summer;
 
-  Real relHum(final unit="1") = weaDat.weaBus.relHum "Relative humidity";
-  Modelica.SIunits.Temperature TDewPoi = weaDat.weaBus.TDewPoi "Dewpoint";
+  Real relHum(final unit="1") = weaDat.cheRelHum.relHumOut "Relative humidity";
+  Modelica.SIunits.Temperature TDewPoi = weaDat.cheTemDewPoi.TOut "Dewpoint";
 
   Boolean day=true;
 
