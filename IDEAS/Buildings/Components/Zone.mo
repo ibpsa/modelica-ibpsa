@@ -17,8 +17,7 @@ model Zone "thermal building zone"
   parameter Boolean linear=true;
 
   final parameter Modelica.SIunits.Power QNom=1012*1.204*V/3600*n50/20*(273.15
-       + 21 - sim.city.Tdes)
-    "Design heat losses at reference outdoor temperature";
+       + 21 - sim.Tdes) "Design heat losses at reference outdoor temperature";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1*1.224*V/3600;
 
   Modelica.SIunits.Temperature TAir=senTem.T;
