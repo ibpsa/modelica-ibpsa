@@ -63,10 +63,10 @@ equation
     x3[i] = tmpW[i];
     y1[i] = tmpH[i];
     y3[i] = tmpW[i]*lambda;
-    minX2X3[i] = IDEAS.BaseClasses.Math.MinSmooth(u1=x2,u2=x3[i],delta=deltaL);
-    minX[i] = IDEAS.BaseClasses.Math.MinSmooth(u1=x1[i],u2=minX2X3[i],delta=deltaL);
-    minY2Y3[i] = IDEAS.BaseClasses.Math.MinSmooth(u1=y2,u2=y3[i],delta=deltaL);
-    minY[i] = IDEAS.BaseClasses.Math.MinSmooth(u1=y1[i],u2=minY2Y3[i],delta=deltaL);
+    minX2X3[i] = IDEAS.Utilities.Math.Functions.smoothMin(x1=x2,x2=x3[i],deltaX=deltaL);
+    minX[i] = IDEAS.Utilities.Math.Functions.smoothMin(x1=x1[i],x2=minX2X3[i],deltaX=deltaL);
+    minY2Y3[i] = IDEAS.Utilities.Math.Functions.smoothMin(x1=y2,x2=y3[i],deltaX=deltaL);
+    minY[i] = IDEAS.Utilities.Math.Functions.smoothMin(x1=y1[i],x2=minY2Y3[i],deltaX=deltaL);
     area[i] = tmpH[i]*minX[i] - minX[i]*minY[i]/2;
   end for;
   shdArea = area[4] - area[3] - area[2] + area[1];
@@ -74,8 +74,8 @@ equation
   crShdArea1 = Modelica.Media.Air.MoistAir.Utilities.spliceFunction(pos=shdArea,neg=AWin,x=(Modelica.Constants.pi/2)-verAzi,deltax=0.01);
   // correction case: Sun not above horizon
   crShdArea2 = Modelica.Media.Air.MoistAir.Utilities.spliceFunction(pos=shdArea,neg=AWin,x=alt,deltax=0.01);
-  crShdArea=IDEAS.BaseClasses.Math.MaxSmooth(u1=crShdArea1,u2=crShdArea2,delta=0.01);
-  fraSun = IDEAS.BaseClasses.Math.MinSmooth( u1=IDEAS.BaseClasses.Math.MaxSmooth(u1=1-crShdArea/AWin,u2=0,delta=0.01),u2=1.0,delta=0.01);
+  crShdArea=IDEAS.Utilities.Math.Functions.smoothMax(x1=crShdArea1,x2=crShdArea2,deltaX=0.01);
+  fraSun = IDEAS.Utilities.Math.Functions.smoothMin( x1=IDEAS.Utilities.Math.Functions.smoothMax(x1=1-crShdArea/AWin,x2=0,deltaX=0.01),x2=1.0,deltaX=0.01);
 
   iSolDir = solDir * fraSun;
 
