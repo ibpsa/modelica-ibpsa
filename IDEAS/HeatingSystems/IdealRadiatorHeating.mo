@@ -15,7 +15,7 @@ model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
 equation
   for i in 1:nZones loop
     if noEvent((TSet[i] - TSensor[i]) > 0) then
-      QHeatZone[i] = min(C[i]*(TSet[i] - TSensor[i])/t, QNom[i]);
+      QHeatZone[i] = min(C[i]*(TSet[i] - TSensor[i])/t, QNom[i]); //fixme: smooth min.
     else
       QHeatZone[i] = 0;
     end if;
