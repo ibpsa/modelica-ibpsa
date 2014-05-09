@@ -2,15 +2,34 @@ within IDEAS.HeatingSystems;
 model IdealEmbeddedHeating
   "Ideal heating, no DHW, with embedded system (eg. floor heating) "
 
-  import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
-    floorHeating=true,
-    radiators=false,
+    final isHea = true,
+    final isCoo = false,
+    final nConvPorts = 0,
+    final nRadPorts = 0,
+    final nTemSen = nZones,
+    final nEmbPorts=nZones,
     final nLoads=1);
 
+  Modelica.Blocks.Interfaces.RealInput[nZones] TSet(unit="K",displayUnit="degC")=293.15*ones(nZones)
+    "Set point temperature for each zones" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={4,-110}), iconTransformation(
+        extent={{-14,-14},{14,14}},
+        rotation=90,
+        origin={-2,-104})));
   parameter Real COP=3 "virtual COP to get a PEl as output";
   SI.Power[nZones] QHeatZone(each start=0);
   parameter SI.Time t=10 "Time needed to reach temperature setpoint";
+
+  parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
+    "Nominal power, can be seen as the max power of the emission system per zone";
+  parameter Real[nZones] VZones = 50*ones(nZones)
+    "Conditioned volumes of the zones";
+  final parameter Modelica.SIunits.HeatCapacity[nZones] C=1012*1.204*VZones*5
+    "Heat capacity of the conditioned zones (air capacity with a correction factor of 5";
 
 equation
   for i in 1:nZones loop
@@ -22,9 +41,9 @@ equation
     heatPortEmb[i].Q_flow = -QHeatZone[i];
   end for;
 
-  QHeatTotal = sum(QHeatZone);
+  QHeaSys = sum(QHeatZone);
   // useful output, QHeatTotal defined in partial
-  P[1] = QHeatTotal/COP;
+  P[1] = QHeaSys/COP;
   Q[1] = 0;
 
   annotation (Documentation(revisions="<html>

@@ -3,12 +3,12 @@ model DummyBuilding "Dummy building for testing heating systems"
   import IDEAS;
   extends IDEAS.Interfaces.BaseClasses.Structure;
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature[nZones] TAmb
-    annotation (Placement(transformation(extent={{42,52},{22,72}})));
+    annotation (Placement(transformation(extent={{-116,44},{-96,64}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nZones] heatCapacitor(
       C={i*1e6 for i in 1:nZones}, each T(start=292))
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convection
-    annotation (Placement(transformation(extent={{-14,52},{6,72}})));
+    annotation (Placement(transformation(extent={{-62,44},{-82,64}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor[nZones]
     temperatureSensor
     annotation (Placement(transformation(extent={{-18,-70},{2,-50}})));
@@ -18,16 +18,24 @@ model DummyBuilding "Dummy building for testing heating systems"
     each offset=500) annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,
-        origin={-4,92})));
+        origin={-86,92})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nZones] heatCapacitor1(C={i*1e7
+        for i in 1:nZones}, each T(start=292))
+    annotation (Placement(transformation(extent={{40,60},{60,40}})));
+  Modelica.Blocks.Sources.RealExpression[nZones] TAmb_val(each y=sim.Te)
+    annotation (Placement(transformation(extent={{-146,44},{-126,64}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor[nZones] thermalResistor(each R=10)
+    annotation (Placement(transformation(extent={{110,50},{90,70}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor[nZones] thermalResistor2(each R=10)
+    annotation (Placement(transformation(extent={{20,50},{0,70}})));
 equation
-  TAmb.T = sim.Te*ones(nZones);
 
   connect(heatCapacitor.port, convection.solid) annotation (Line(
-      points={{-50,70},{-50,62},{-14,62}},
+      points={{-50,70},{-50,54},{-62,54}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convection.fluid, TAmb.port) annotation (Line(
-      points={{6,62},{22,62}},
+      points={{-82,54},{-96,54}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(temperatureSensor.port, heatCapacitor.port) annotation (Line(
@@ -35,12 +43,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(temperatureSensor.T, TSensor) annotation (Line(
-      points={{2,-60},{28,-60},{28,-60},{34,-60},{34,-60},{156,-60}},
+      points={{2,-60},{156,-60}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(heatCapacitor.port, heatPortEmb) annotation (Line(
-      points={{-50,70},{-50,42},{118,42},{118,60},{150,60}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(heatCapacitor.port, heatPortCon) annotation (Line(
       points={{-50,70},{-50,20},{150,20}},
@@ -51,8 +55,28 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(pulse.y, convection.Gc) annotation (Line(
-      points={{-4,85.4},{-4,72}},
+      points={{-86,85.4},{-86,80},{-72,80},{-72,64},{-72,64}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(TAmb_val.y, TAmb.T) annotation (Line(
+      points={{-125,54},{-118,54}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(thermalResistor2.port_b, heatCapacitor.port) annotation (Line(
+      points={{0,60},{-50,60},{-50,70}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermalResistor2.port_a, heatCapacitor1.port) annotation (Line(
+      points={{20,60},{50,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heatCapacitor1.port, thermalResistor.port_b) annotation (Line(
+      points={{50,60},{90,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermalResistor.port_a, heatPortEmb) annotation (Line(
+      points={{110,60},{150,60}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-150,
             -100},{150,100}}), graphics));
