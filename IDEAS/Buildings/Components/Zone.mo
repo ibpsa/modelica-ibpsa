@@ -64,17 +64,13 @@ public
   Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium =
         IDEAS.Media.Air)
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
-  Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
-        IDEAS.Media.Air, m_flow_nominal=m_flow_nominal) annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-20,70})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCap(C=1012*1.204*V
         *(corrCV-1), T(start=293.15)) "air capacity"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,2})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
+    annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
 equation
   connect(surfRad, radDistr.radSurfTot) annotation (Line(
       points={{-100,-60},{-74,-60},{-74,-26},{-54,-26},{-54,-34}},
@@ -159,21 +155,21 @@ end for;
       points={{20,100},{20,100},{20,40},{-8,40}},
       color={0,128,255},
       smooth=Smooth.None));
-  connect(senTem.port_a, vol.ports[2]) annotation (Line(
-      points={{-20,60},{-20,40},{-12,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem.port_b, flowPort_Out) annotation (Line(
-      points={{-20,80},{-20,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem.T, sum.u[2]) annotation (Line(
-      points={{-31,70},{-40,70},{-40,-59.4},{-1.2,-59.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(heatCap.port, gainCon) annotation (Line(
       points={{0,2},{10,2},{10,-30},{100,-30}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(flowPort_Out, vol.ports[2]) annotation (Line(
+      points={{-20,100},{-20,40},{-12,40}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(senTem.port, gainCon) annotation (Line(
+      points={{0,-20},{10,-20},{10,-30},{100,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(senTem.T, sum.u[2]) annotation (Line(
+      points={{-16,-20},{-18,-20},{-18,-59.4},{-1.2,-59.4}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
