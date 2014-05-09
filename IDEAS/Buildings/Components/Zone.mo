@@ -17,8 +17,7 @@ model Zone "thermal building zone"
   parameter Boolean linear=true;
 
   final parameter Modelica.SIunits.Power QNom=1012*1.204*V/3600*n50/20*(273.15
-       + 21 - sim.city.Tdes)
-    "Design heat losses at reference outdoor temperature";
+       + 21 - sim.Tdes) "Design heat losses at reference outdoor temperature";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1*1.224*V/3600;
 
   Modelica.SIunits.Temperature TAir=senTem.T;
@@ -65,22 +64,13 @@ public
   Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium =
         IDEAS.Media.Air)
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
-  Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
-        IDEAS.Media.Air, m_flow_nominal=m_flow_nominal) annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-20,70})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCap(C=1012*1.204*V
         *(corrCV-1), T(start=293.15)) "air capacity"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-10,-12})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=0.0001)
-    annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=90,
-        origin={2,6})));
+        origin={-10,2})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
+    annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
 equation
   connect(surfRad, radDistr.radSurfTot) annotation (Line(
       points={{-100,-60},{-74,-60},{-74,-26},{-54,-26},{-54,-34}},
@@ -147,43 +137,39 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  connect(vol.heatPort, gainCon) annotation (Line(
+      points={{0,30},{0,30},{10,30},{10,-30},{100,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
   connect(vent.port_a, gainCon) annotation (Line(
       points={{30,0},{30,-30},{100,-30}},
       color={191,0,0},
       smooth=Smooth.None));
 for i in 1:nSurf loop
-  connect(surfCon[i], heatCap.port) annotation (Line(
-      points={{-100,-30},{10,-30},{10,-12},{0,-12}},
+  connect(surfCon[i], vol.heatPort) annotation (Line(
+      points={{-100,-30},{10,-30},{10,30},{0,30},{0,30}},
       color={191,0,0},
       smooth=Smooth.None));
 end for;
   connect(flowPort_In, vol.ports[1]) annotation (Line(
-      points={{20,100},{20,40},{-8,40}},
+      points={{20,100},{20,100},{20,40},{-8,40}},
       color={0,128,255},
       smooth=Smooth.None));
-  connect(senTem.port_a, vol.ports[2]) annotation (Line(
-      points={{-20,60},{-20,40},{-12,40}},
-      color={0,127,255},
+  connect(heatCap.port, gainCon) annotation (Line(
+      points={{0,2},{10,2},{10,-30},{100,-30}},
+      color={191,0,0},
       smooth=Smooth.None));
-  connect(senTem.port_b, flowPort_Out) annotation (Line(
-      points={{-20,80},{-20,100}},
-      color={0,127,255},
+  connect(flowPort_Out, vol.ports[2]) annotation (Line(
+      points={{-20,100},{-20,40},{-12,40}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(senTem.port, gainCon) annotation (Line(
+      points={{0,-20},{10,-20},{10,-30},{100,-30}},
+      color={191,0,0},
       smooth=Smooth.None));
   connect(senTem.T, sum.u[2]) annotation (Line(
-      points={{-31,70},{-40,70},{-40,-59.4},{-1.2,-59.4}},
+      points={{-16,-20},{-18,-20},{-18,-59.4},{-1.2,-59.4}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(heatCap.port, gainCon) annotation (Line(
-      points={{0,-12},{2,-12},{2,-30},{100,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(heatCap.port, thermalConductor.port_a) annotation (Line(
-      points={{0,-12},{2,-12},{2,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalConductor.port_b, vol.heatPort) annotation (Line(
-      points={{2,12},{2,30},{0,30}},
-      color={191,0,0},
       smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -201,6 +187,6 @@ end for;
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end Zone;
