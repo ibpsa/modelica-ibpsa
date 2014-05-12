@@ -1,0 +1,29 @@
+simulateModel("Annex60.Experimental.Benchmarks.CentralHeatingSystem.System1", stopTime=31536000, method="dassl", tolerance=1e-04,resultFile="System1");
+createPlot(
+  id = 1, 
+  position = {50, 39, 400, 444},
+  y = {"rad.Q_flow","rad.Q_flow","room.port_amb.Q_flow"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  description = false,
+  grid = true,
+  color = true,
+  online = false,
+  filename = "System1.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
+createPlot(
+  id = 2, 
+  position = {600, 39, 400, 444},
+  y = {"room.heaCap.T","rad.vol[1].T", "hea.vol.T"},
+  autoscale = true,
+  autoerase = true,
+  autoreplot = true,
+  description = false,
+  grid = true,
+  color = true,
+  online = false,
+  filename = "System1.mat",
+  leftTitleType = 1,
+  bottomTitleType = 1);
