@@ -1,5 +1,4 @@
 simulateModel("Annex60.Experimental.Benchmarks.CentralHeatingSystem.System1", stopTime=31536000, method="dassl", tolerance=1e-04,resultFile="System1");
-removePlots();
 createPlot(
   id = 1, 
   position = {50, 39, 400, 444},
