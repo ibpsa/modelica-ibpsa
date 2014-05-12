@@ -1,6 +1,5 @@
 within Annex60.Utilities.Math.Examples;
 model SmoothExponential "Test model for smoothExponential function "
-  import Annex60;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1,
     height=2,
