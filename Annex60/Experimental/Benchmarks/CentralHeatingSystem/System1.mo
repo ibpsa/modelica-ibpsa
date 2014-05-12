@@ -88,7 +88,7 @@ model System1
     annotation (Placement(transformation(extent={{4,-4},{-4,4}},rotation=90,origin={-24,30})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor tempSen
     annotation (Placement(transformation(extent={{-2,26},{-10,34}})));
-  Buildings.Fluid.Movers.FlowMachine_dp pump(
+  Annex60.Fluid.Movers.FlowMachine_dp pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
