@@ -21,10 +21,13 @@ partial model HeatingSystem "Partial heating/cooling system"
     "Number of ports in building for embedded systems";
 
   // --- Electrical
-  parameter Integer nLoads(min=0) = 1 "Number of electric loads";
-  SI.Power[nLoads] P = wattsLawPlug.P "Active power for each of the loads";
+  parameter Integer nLoads(min=0) = 1
+    "Number of electric loads. If zero, all electric equations disappear.";
+  SI.Power[nLoads] P = wattsLawPlug.P if nLoads >= 1
+    "Active power for each of the loads";
   //fixme: can the variable disappear for n=0?
-  SI.Power[nLoads] Q = wattsLawPlug.Q "Reactive power for each of the loads";
+  SI.Power[nLoads] Q = wattsLawPlug.Q if nLoads >= 1
+    "Reactive power for each of the loads";
 
   // --- Sensor
   parameter Integer nTemSen(min=0) = nZones
@@ -50,10 +53,10 @@ partial model HeatingSystem "Partial heating/cooling system"
 
   // --- Electrical
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
-    plugLoad(m=1) "Electricity connection to the Inhome feeder"
+    plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
   Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
-        nLoads)
+        nLoads) if nLoads >= 1
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
 
   // --- Sensor
@@ -76,10 +79,12 @@ partial model HeatingSystem "Partial heating/cooling system"
   //         origin={0,-104})));
 
 equation
-  connect(wattsLawPlug.vi, plugLoad) annotation (Line(
+  if nLoads >= 1 then
+     connect(wattsLawPlug.vi, plugLoad) annotation (Line(
       points={{180,0},{200,0}},
       color={85,170,255},
       smooth=Smooth.None));
+  end if;
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,100}}),
@@ -158,5 +163,4 @@ equation
 <p><h4>Example </h4></p>
 <p>See the <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples\">heating system examples</a>. </p>
 </html>"));
-
 end HeatingSystem;
