@@ -1,10 +1,10 @@
-within Buildings.Fluid.HeatExchangers.Radiators;
+within Annex60.Fluid.HeatExchangers.Radiators;
 model RadiatorEN442_2 "Dynamic radiator for space heating"
    extends Fluid.Interfaces.PartialTwoPortInterface(
    showDesignFlowDirection = false,
    show_T=true,
    m_flow_nominal=abs(Q_flow_nominal/cp_nominal/(T_a_nominal-T_b_nominal)));
-   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations(
      final X_start = Medium.X_default,
      final C_start = fill(0, Medium.nC),
      final C_nominal = fill(1E-2, Medium.nC));
@@ -106,10 +106,10 @@ protected
     "heat capacity of radiator metal"
      annotation (Placement(transformation(extent={{-30,12},{-10,32}})));
 
-   Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon
+   Annex60.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon
     "Heat input into radiator from convective heat transfer"
      annotation (Placement(transformation(extent={{-48,-48},{-28,-28}})));
-   Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preRad
+   Annex60.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preRad
     "Heat input into radiator from radiative heat transfer"
      annotation (Placement(transformation(extent={{-48,-80},{-28,-60}})));
 
@@ -120,12 +120,12 @@ protected
 
   Modelica.Blocks.Sources.RealExpression QCon[nEle](y=if homotopyInitialization
          then homotopy(actual=(1 - fraRad) .* UAEle .* dTCon .*
-        Buildings.Utilities.Math.Functions.regNonZeroPower(
+        Annex60.Utilities.Math.Functions.regNonZeroPower(
         x=dTCon,
         n=n - 1,
         delta=0.05), simplified=(1 - fraRad) .* UAEle .* abs(dTCon_nominal) .^ (
         n - 1) .* dTCon) else (1 - fraRad) .* UAEle .* dTCon .*
-        Buildings.Utilities.Math.Functions.regNonZeroPower(
+        Annex60.Utilities.Math.Functions.regNonZeroPower(
         x=dTCon,
         n=n - 1,
         delta=0.05)) "Convective heat flow rate"
@@ -133,18 +133,18 @@ protected
 
   Modelica.Blocks.Sources.RealExpression QRad[nEle](y=if homotopyInitialization
          then homotopy(actual=fraRad .* UAEle .* dTRad .*
-        Buildings.Utilities.Math.Functions.regNonZeroPower(
+        Annex60.Utilities.Math.Functions.regNonZeroPower(
         x=dTRad,
         n=n - 1,
         delta=0.05), simplified=fraRad .* UAEle .* abs(dTRad_nominal) .^ (n - 1)
          .* dTRad) else fraRad .* UAEle .* dTRad .*
-        Buildings.Utilities.Math.Functions.regNonZeroPower(
+        Annex60.Utilities.Math.Functions.regNonZeroPower(
         x=dTRad,
         n=n - 1,
         delta=0.05)) "Convective heat flow rate"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preSumCon
+  Annex60.HeatTransfer.Sources.PrescribedHeatFlow preSumCon
     "Heat input into radiator from convective heat transfer"
     annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
   Modelica.Blocks.Math.Sum sumCon(nin=nEle, k=-ones(nEle))
@@ -153,7 +153,7 @@ protected
   Modelica.Blocks.Math.Sum sumRad(nin=nEle, k=-ones(nEle))
     "Sum of radiative heat flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preSumRad
+  Annex60.HeatTransfer.Sources.PrescribedHeatFlow preSumRad
     "Heat input into radiator from convective heat transfer"
     annotation (Placement(transformation(extent={{52,-90},{72,-70}})));
 initial equation
@@ -182,11 +182,11 @@ initial equation
 
   for i in 1:nEle loop
     QEle_flow_nominal[i] = k * UAEle * ((1-fraRad) *
-                   Buildings.Utilities.Math.Functions.powerLinearized(x=k*dTRad_nominal[i],
+                   Annex60.Utilities.Math.Functions.powerLinearized(x=k*dTRad_nominal[i],
                    n=n,
                    x0=0.1*k*(T_b_nominal-TRad_nominal))
                    + fraRad *
-                   Buildings.Utilities.Math.Functions.powerLinearized(x=k*dTCon_nominal[i],
+                   Annex60.Utilities.Math.Functions.powerLinearized(x=k*dTCon_nominal[i],
                    n=n,
                    x0=0.1*k*(T_b_nominal-TAir_nominal)));
    end for;
@@ -377,8 +377,8 @@ declarations in the <code>equation</code> section.
 <li>
 April 4, 2011 by Michael Wetter:<br/>
 Changed the implementation to use
-<a href=\"modelica://Buildings.Utilities.Math.Functions.regNonZeroPower\">
-Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
+<a href=\"modelica://Annex60.Utilities.Math.Functions.regNonZeroPower\">
+Annex60.Utilities.Math.Functions.regNonZeroPower</a>.
 This allows formulating the model without any non-differentiable function
 inside the equation section.
 </li>

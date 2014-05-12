@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers;
+within Annex60.Fluid.HeatExchangers;
 package Radiators "Package with radiators models for hydronic space heating systems"
   extends Modelica.Icons.VariantsPackage;
 annotation (preferredView="info", Documentation(info="<html>

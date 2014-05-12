@@ -1,7 +1,7 @@
-within Buildings.Fluid.HeatExchangers.Radiators.Examples;
+within Annex60.Fluid.HeatExchangers.Radiators.Examples;
 model RadiatorEN442_2 "Test model for radiator"
   extends Modelica.Icons.Example;
- package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium = Annex60.Media.Water "Medium model";
  parameter Modelica.SIunits.Temperature TRoo = 20+273.15 "Room temperature"
     annotation (Evaluate=false);
  parameter Modelica.SIunits.Power Q_flow_nominal = 500 "Nominal power";
@@ -17,7 +17,7 @@ model RadiatorEN442_2 "Test model for radiator"
  parameter Modelica.SIunits.Pressure dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
 
-  Buildings.Fluid.Sources.Boundary_pT sou(
+  Annex60.Fluid.Sources.Boundary_pT sou(
     nPorts=2,
     redeclare package Medium = Medium,
     use_p_in=true,
@@ -31,7 +31,7 @@ model RadiatorEN442_2 "Test model for radiator"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal) annotation (Placement(transformation(extent={{20,-2},{40,18}})));
-  Buildings.Fluid.Sources.Boundary_pT sin(
+  Annex60.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 300000,
@@ -39,7 +39,7 @@ model RadiatorEN442_2 "Test model for radiator"
     annotation (Placement(transformation(extent={{90,-68},{70,-48}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(redeclare
+  Annex60.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(redeclare
       package Medium =
                Medium,
     T_a_nominal=T_a_nominal,
@@ -47,7 +47,7 @@ model RadiatorEN442_2 "Test model for radiator"
     Q_flow_nominal=Q_flow_nominal,
     TAir_nominal=TRoo) "Radiator"
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
-  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
+  Annex60.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     T_a_nominal=T_a_nominal,
@@ -55,18 +55,18 @@ model RadiatorEN442_2 "Test model for radiator"
     Q_flow_nominal=Q_flow_nominal,
     TAir_nominal=TRoo) "Radiator"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TBCCon1(T=TRoo)
+  Annex60.HeatTransfer.Sources.FixedTemperature TBCCon1(T=TRoo)
     annotation (Placement(transformation(extent={{-32,28},{-20,40}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TBCCon2(T=TRoo)
+  Annex60.HeatTransfer.Sources.FixedTemperature TBCCon2(T=TRoo)
     annotation (Placement(transformation(extent={{-32,-40},{-20,-28}})));
   Modelica.Blocks.Sources.Step step(
     startTime=3600,
     offset=300000 + dp_nominal,
     height=-dp_nominal)
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TBCRad2(T=TRoo)
+  Annex60.HeatTransfer.Sources.FixedTemperature TBCRad2(T=TRoo)
     annotation (Placement(transformation(extent={{-32,-20},{-20,-8}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TBCRad1(T=TRoo)
+  Annex60.HeatTransfer.Sources.FixedTemperature TBCRad1(T=TRoo)
     annotation (Placement(transformation(extent={{-32,48},{-20,60}})));
 equation
   connect(sou.ports[1], rad1.port_a) annotation (Line(
@@ -114,7 +114,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Radiators/Examples/RadiatorEN442_2.mos"
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Radiators/Examples/RadiatorEN442_2.mos"
         "Simulate and plot"),
     experiment(StopTime=10800),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
