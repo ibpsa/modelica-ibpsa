@@ -19,15 +19,8 @@ model DummyBuilding "Dummy building for testing heating systems"
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={-86,92})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nZones] heatCapacitor1(C={i*1e7
-        for i in 1:nZones}, each T(start=292))
-    annotation (Placement(transformation(extent={{40,60},{60,40}})));
   Modelica.Blocks.Sources.RealExpression[nZones] TAmb_val(each y=sim.Te)
     annotation (Placement(transformation(extent={{-146,44},{-126,64}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor[nZones] thermalResistor(each R=10)
-    annotation (Placement(transformation(extent={{110,50},{90,70}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor[nZones] thermalResistor2(each R=10)
-    annotation (Placement(transformation(extent={{20,50},{0,70}})));
 equation
 
   connect(heatCapacitor.port, convection.solid) annotation (Line(
@@ -62,20 +55,8 @@ equation
       points={{-125,54},{-118,54}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(thermalResistor2.port_b, heatCapacitor.port) annotation (Line(
-      points={{0,60},{-50,60},{-50,70}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalResistor2.port_a, heatCapacitor1.port) annotation (Line(
-      points={{20,60},{50,60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(heatCapacitor1.port, thermalResistor.port_b) annotation (Line(
-      points={{50,60},{90,60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalResistor.port_a, heatPortEmb) annotation (Line(
-      points={{110,60},{150,60}},
+  connect(heatPortEmb, heatCapacitor.port) annotation (Line(
+      points={{150,60},{-50,60},{-50,70}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-150,
