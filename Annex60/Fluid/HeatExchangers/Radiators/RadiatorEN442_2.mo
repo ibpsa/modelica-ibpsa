@@ -106,10 +106,10 @@ protected
     "heat capacity of radiator metal"
      annotation (Placement(transformation(extent={{-30,12},{-10,32}})));
 
-   Annex60.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon
+   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preCon
     "Heat input into radiator from convective heat transfer"
      annotation (Placement(transformation(extent={{-48,-48},{-28,-28}})));
-   Annex60.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preRad
+   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preRad
     "Heat input into radiator from radiative heat transfer"
      annotation (Placement(transformation(extent={{-48,-80},{-28,-60}})));
 
@@ -144,7 +144,7 @@ protected
         delta=0.05)) "Convective heat flow rate"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Annex60.HeatTransfer.Sources.PrescribedHeatFlow preSumCon
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preSumCon
     "Heat input into radiator from convective heat transfer"
     annotation (Placement(transformation(extent={{52,-60},{72,-40}})));
   Modelica.Blocks.Math.Sum sumCon(nin=nEle, k=-ones(nEle))
@@ -153,7 +153,7 @@ protected
   Modelica.Blocks.Math.Sum sumRad(nin=nEle, k=-ones(nEle))
     "Sum of radiative heat flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Annex60.HeatTransfer.Sources.PrescribedHeatFlow preSumRad
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preSumRad
     "Heat input into radiator from convective heat transfer"
     annotation (Placement(transformation(extent={{52,-90},{72,-70}})));
 initial equation
