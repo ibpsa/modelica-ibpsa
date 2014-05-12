@@ -22,7 +22,7 @@ package Water "Package with model for liquid water with constant properties"
     Modelica.SIunits.AbsolutePressure p "Pressure of medium";
   end ThermodynamicState;
 
-  constant Modelica.SIunits.SpecificHeatCapacity cp_const = 4148
+  constant Modelica.SIunits.SpecificHeatCapacity cp_const = 4184
     "Specific heat capacity at constant pressure";
 
   redeclare model extends BaseProperties(
