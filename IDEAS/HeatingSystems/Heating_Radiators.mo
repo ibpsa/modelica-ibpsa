@@ -1,30 +1,50 @@
 within IDEAS.HeatingSystems;
 model Heating_Radiators
   "Basic hydraulic heating (with heating curve) with radiators. No TES, no DHW"
-  import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  extends Interfaces.Partial_HydraulicHeatingSystem(
-    radiators=true,
-    floorHeating=false,
-    final nLoads=1);
+  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+    final isHea = true,
+    final isCoo = false,
+    final nConvPorts = nZones,
+    final nRadPorts = nZones,
+    final nTemSen = nZones,
+    final nEmbPorts=0,
+    final nLoads=1,
+    nZones=1);
 
-  Thermal.Components.BaseClasses.Pump[nZones] pumpRad(
-    each medium=medium,
+  // General parameters for the design (nominal) conditions /////////////////////////////////////////////
+  parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
+    "Nominal power, can be seen as the max power of the emission system per zone";
+  parameter Modelica.SIunits.Temperature TSupNom=273.15 + 45
+    "Nominal supply temperature";
+  parameter Modelica.SIunits.TemperatureDifference dTSupRetNom=10
+    "Nominal DT in the heating system";
+  final parameter Modelica.SIunits.MassFlowRate[nZones] m_flow_nominal = QNom/(4180.6*dTSupRetNom)
+    "Nominal mass flow rates";
+  parameter Modelica.SIunits.Temperature[nZones] TRoomNom={294.15 for i in 1:
+      nZones} "Nominal room temperature";
+ parameter Modelica.SIunits.Time timeFilter=43200
+    "Time constant for the filter of ambient temperature for computation of heating curve";
+
+  IDEAS.Fluid.Movers.Pump[nZones] pumpRad(
     each useInput=true,
-    m_flowNom=m_flowNom,
-    each m=1) annotation (Placement(transformation(extent={{56,46},{80,22}})));
+    each m=1,
+    m_flow_nominal=m_flow_nominal,
+    redeclare each package Medium = Medium)
+              annotation (Placement(transformation(extent={{88,46},{112,22}})));
 
-  IDEAS.Thermal.Components.Emission.Radiator[nZones] emission(
-    each medium=medium,
+  IDEAS.Fluid.HeatExchangers.Radiators.Radiator[nZones] emission(
+    redeclare each package Medium = Medium,
     each TInNom=TSupNom,
     each TOutNom=TSupNom - dTSupRetNom,
     TZoneNom=TRoomNom,
     QNom=QNom,
     each powerFactor=3.37)
-    annotation (Placement(transformation(extent={{88,18},{118,38}})));
+    annotation (Placement(transformation(extent={{120,24},{150,44}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
-        293.15) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
+    annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={-52,8})));
@@ -38,144 +58,201 @@ model Heating_Radiators
     heatingCurve(timeFilter=timeFilter),
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom) "Controller for the heater"
-    annotation (Placement(transformation(extent={{-164,38},{-144,58}})));
+    annotation (Placement(transformation(extent={{-148,38},{-128,58}})));
 
-  IDEAS.BaseClasses.Control.Hyst_NoEvent_Var_HEATING[nZones] heatingControl
+  replaceable IDEAS.Controls.Control_fixme.Hyst_NoEvent_Var[
+                                                nZones] heatingControl(each uLow_val=
+        22, each uHigh_val=20)
     "onoff controller for the pumps of the radiator circuits"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Components.BaseClasses.Thermostatic3WayValve idealMixer(mFlowMin=0.01)
+    annotation (Placement(transformation(extent={{42,-70},{62,-50}})));
+  Fluid.Valves.Thermostatic3WayValve    idealCtrlMixer(m_flow_nominal=sum(
+        m_flow_nominal), redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{28,22},{50,46}})));
-  Components.BaseClasses.Pipe_Insulated pipeReturn(
-    medium=medium,
+  IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeReturn(
+    redeclare package Medium = Medium,
     m=1,
-    UA=10) annotation (Placement(transformation(extent={{4,-28},{-16,-36}})));
+    UA=10,
+    m_flow_nominal=sum(m_flow_nominal))
+           annotation (Placement(transformation(extent={{4,-28},{-16,-36}})));
 
-  Components.BaseClasses.Pipe_Insulated pipeSupply(
-    medium=medium,
+  IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeSupply(
+    redeclare package Medium = Medium,
     m=1,
-    UA=10) annotation (Placement(transformation(extent={{-16,30},{4,38}})));
-  Components.BaseClasses.Pipe_Insulated[nZones] pipeReturnEmission(
-    each medium=medium,
+    UA=10,
+    m_flow_nominal=sum(m_flow_nominal))
+           annotation (Placement(transformation(extent={{-16,30},{4,38}})));
+  IDEAS.Fluid.FixedResistances.Pipe_Insulated[nZones] pipeReturnEmission(
+    redeclare each package Medium = Medium,
     each m=1,
-    each UA=10)
-    annotation (Placement(transformation(extent={{116,-28},{96,-36}})));
-  Components.BaseClasses.AbsolutePressure absolutePressure
-    annotation (Placement(transformation(extent={{-94,-42},{-114,-22}})));
+    each UA=10,
+    m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{142,-28},{122,-36}})));
+  IDEAS.Fluid.Sources.FixedBoundary absolutePressure(redeclare package Medium
+      = Medium, use_T=false,
+    nPorts=1)
+    annotation (Placement(transformation(extent={{-114,-42},{-94,-22}})));
+  Modelica.Blocks.Interfaces.RealInput TSet[nZones](    final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC")
+    "Set point temperature for the zones" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-140,-110}),
+                          iconTransformation(
+        extent={{-14,-14},{14,14}},
+        rotation=90,
+        origin={-2,-104})));
+  Modelica.Blocks.Sources.RealExpression THigh_val[nZones](y=0.5*ones(nZones))
+    "Higher boudary for set point temperature"
+    annotation (Placement(transformation(extent={{-18,-62},{20,-42}})));
+  Modelica.Blocks.Sources.RealExpression TLow_val[nZones](y=-0.5*ones(nZones))
+    "Lower boundary for set point temperature"
+    annotation (Placement(transformation(extent={{-18,-80},{20,-60}})));
+  replaceable Fluid.Production.Boiler       heater(
+    QNom=sum(QNom), redeclare package Medium = Medium,
+    m_flow_nominal=sum(m_flow_nominal)) "Heater (boiler, heat pump, ...)"
+    annotation (Placement(transformation(extent={{-112,12},{-92,32}})));
+  Modelica.Blocks.Sources.RealExpression TSet_max(y=max(TSet))
+    "maximum value of set point temperature" annotation (Placement(
+        transformation(
+        extent={{-21,-10},{21,10}},
+        rotation=90,
+        origin={-160,3})));
+  Modelica.Blocks.Math.Add add[nZones](k1=-1, k2=+1)
+    annotation (Placement(transformation(extent={{-62,-70},{-42,-50}})));
+  Fluid.Sensors.TemperatureTwoPort senTemEm_in(redeclare package Medium =
+        Medium, m_flow_nominal=sum(m_flow_nominal))
+    "Inlet temperature of the emission system"
+    annotation (Placement(transformation(extent={{56,24},{76,44}})));
+  Fluid.Sensors.TemperatureTwoPort senTemHea_out(redeclare package Medium =
+        Medium, m_flow_nominal=sum(m_flow_nominal))
+    "Outlet temperature of the heater"
+    annotation (Placement(transformation(extent={{-62,24},{-42,44}})));
 equation
-  QHeatTotal = -sum(emission.heatPortCon.Q_flow) - sum(emission.heatPortRad.Q_flow);
-  heatingControl.uHigh = TSet + 0.5*ones(nZones);
-  THeaterSet = ctrl_Heating.THeaterSet;
+  QHeaSys = -sum(emission.heatPortCon.Q_flow) - sum(emission.heatPortRad.Q_flow);
   P[1] = heater.PEl + sum(pumpRad.PEl);
   Q[1] = 0;
 
-  TEmissionIn = idealMixer.flowPortMixed.h/medium.cp;
-  TEmissionOut = emission.TOut;
-  m_flowEmission = emission.flowPort_a.m_flow;
-
   // connections that are function of the number of circuits
   for i in 1:nZones loop
-    connect(idealMixer.flowPortMixed, pumpRad[i].flowPort_a) annotation (Line(
-        points={{50,34},{56,34}},
-        color={0,128,255},
-        smooth=Smooth.None));
-    connect(pipeReturnEmission[i].flowPort_b, pipeReturn.flowPort_a)
-      annotation (Line(
-        points={{96,-32},{4,-32}},
-        color={0,0,255},
-        smooth=Smooth.None));
     connect(pipeReturnEmission[i].heatPort, fixedTemperature.port) annotation (
         Line(
-        points={{106,-28},{106,-4},{-52,-4},{-52,2}},
+        points={{132,-28},{132,-4},{-52,-4},{-52,2}},
         color={191,0,0},
+        smooth=Smooth.None));
+    connect(pipeReturnEmission[i].port_b, pipeReturn.port_a) annotation (Line(
+      points={{122,-32},{4,-32}},
+      color={0,127,255},
+      smooth=Smooth.None));
+    connect(senTemEm_in.port_b, pumpRad[i].port_a) annotation (Line(
+        points={{76,34},{88,34}},
+        color={0,127,255},
         smooth=Smooth.None));
   end for;
 
   // general connections for any configuration
 
   connect(emission.heatPortCon, heatPortCon) annotation (Line(
-      points={{106.75,38},{106.75,66},{-178,66},{-178,20},{-200,20}},
+      points={{142.5,44},{142.5,66},{-178,66},{-178,20},{-200,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(emission.heatPortRad, heatPortRad) annotation (Line(
-      points={{111.75,38},{114,60},{114,68},{-180,68},{-180,-20},{-200,-20}},
+      points={{148.5,44},{148.5,68},{-180,68},{-180,-20},{-200,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(pumpRad.flowPort_b, emission.flowPort_a) annotation (Line(
-      points={{80,34},{83,34},{83,21.75},{88,21.75}},
-      color={0,128,255},
-      smooth=Smooth.None));
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
-      points={{40.2222,-70},{68,-70},{68,22}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TSet, heatingControl.uLow) annotation (Line(
-      points={{0,-104},{0,-62.5},{20.2222,-62.5}},
+      points={{63,-60},{100,-60},{100,21.52}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(fixedTemperature.port, heater.heatPort) annotation (Line(
-      points={{-52,2},{-52,-4},{-103,-4},{-103,14}},
+      points={{-52,2},{-52,-4},{-105,-4},{-105,12}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
-      points={{94.25,37.75},{90,37.75},{90,70},{-200,70},{-200,60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
-  connect(TSensor, heatingControl.u) annotation (Line(
-      points={{-204,-60},{-122,-60},{-122,-72.5},{20.2222,-72.5}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-  connect(heater.flowPort_b, pipeSupply.flowPort_a) annotation (Line(
-      points={{-90,24.9091},{-76,24.9091},{-76,34},{-16,34}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(pipeSupply.flowPort_b, idealMixer.flowPortHot) annotation (Line(
-      points={{4,34},{28,34}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(pipeReturn.heatPort, heater.heatPort) annotation (Line(
-      points={{-6,-28},{-6,-4},{-103,-4},{-103,14}},
+      points={{-6,-28},{-6,-4},{-105,-4},{-105,12}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(pipeSupply.heatPort, heater.heatPort) annotation (Line(
-      points={{-6,30},{-6,-4},{-103,-4},{-103,14}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(pipeReturn.flowPort_b, heater.flowPort_a) annotation (Line(
-      points={{-16,-32},{-76,-32},{-76,19.6364},{-90,19.6364}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(pipeReturn.flowPort_a, idealMixer.flowPortCold) annotation (Line(
-      points={{4,-32},{39,-32},{39,22}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(emission.flowPort_b, pipeReturnEmission.flowPort_a) annotation (Line(
-      points={{118,34.25},{122,34.25},{122,34},{130,34},{130,-32},{116,-32}},
-      color={0,0,255},
       smooth=Smooth.None));
 
+  connect(THigh_val.y, heatingControl.uHigh) annotation (Line(
+      points={{21.9,-52},{30,-52},{30,-53.2},{40,-53.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TLow_val.y, heatingControl.uLow) annotation (Line(
+      points={{21.9,-70},{30,-70},{30,-67},{40,-67}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pipeSupply.heatPort, fixedTemperature.port) annotation (Line(
+      points={{-6,30},{-6,-4},{-52,-4},{-52,2}},
+      color={191,0,0},
+      smooth=Smooth.None));
   connect(ctrl_Heating.THeaterSet, heater.TSet) annotation (Line(
-      points={{-143.556,48},{-101,48},{-101,34}},
+      points={{-127.556,48},{-103,48},{-103,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ctrl_Heating.THeaCur, idealMixer.TMixedSet) annotation (Line(
-      points={{-143.556,53},{39,53},{39,46}},
-      color={0,0,127},
+  connect(pipeReturn.port_b, heater.port_a) annotation (Line(
+      points={{-16,-32},{-78,-32},{-78,17.4545},{-92,17.4545}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipeSupply.port_b, idealCtrlMixer.port_a1) annotation (Line(
+      points={{4,34},{28,34}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(absolutePressure.ports[1], heater.port_a) annotation (Line(
+      points={{-94,-32},{-78,-32},{-78,17.4545},{-92,17.4545}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(idealCtrlMixer.port_a2, pipeReturn.port_a) annotation (Line(
+      points={{39,22},{40,22},{40,-32},{4,-32}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(emission.port_b, pipeReturnEmission.port_a) annotation (Line(
+      points={{150,34},{156,34},{156,-32},{142,-32}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pumpRad.port_b, emission.port_a) annotation (Line(
+      points={{112,34},{120,34}},
+      color={0,127,255},
       smooth=Smooth.None));
 
-  connect(absolutePressure.flowPort, heater.flowPort_a) annotation (Line(
-      points={{-94,-32},{-76,-32},{-76,19.6364},{-90,19.6364}},
-      color={0,0,255},
+  connect(TSet_max.y, ctrl_Heating.TRoo_in1) annotation (Line(
+      points={{-160,26.1},{-160,48},{-149.111,48}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TSensor, add.u1) annotation (Line(
+      points={{-204,-60},{-78,-60},{-78,-54},{-64,-54}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TSet, add.u2) annotation (Line(
+      points={{-140,-110},{-140,-66},{-64,-66}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(add.y, heatingControl.u) annotation (Line(
+      points={{-41,-60},{40,-60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ctrl_Heating.THeaCur, idealCtrlMixer.TMixedSet) annotation (Line(
+      points={{-127.556,53},{39,53},{39,46}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(idealCtrlMixer.port_b, senTemEm_in.port_a) annotation (Line(
+      points={{50,34},{56,34}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
+  connect(heater.port_b, senTemHea_out.port_a) annotation (Line(
+      points={{-92,24.7273},{-78,24.7273},{-78,34},{-62,34}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTemHea_out.port_b, pipeSupply.port_a) annotation (Line(
+      points={{-42,34},{-16,34}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
-            200,100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
+            100}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,100}})),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Multi-zone Hydraulic heating system with <a href=\"modelica://IDEAS.Thermal.Components.Emission.Radiator\">radiators</a>. Except for the emission system, this model is identical to <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Heating_Embedded\">Heating_Embedded</a>. There is no thermal energy storage tank and no domestic hot water system. A schematic hydraulic scheme is given below:</p>
@@ -206,4 +283,5 @@ equation
 <li>2013 June, Roel De Coninck: first version</li>
 </ul></p>
 </html>"));
+
 end Heating_Radiators;
