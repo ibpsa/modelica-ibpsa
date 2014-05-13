@@ -19,7 +19,7 @@ model HeatSource_CondensingGasBurner
   final parameter Modelica.SIunits.Power QNom0 = 10100
     "Nominal power of the boiler from which the power data are used in this model";
 
-  parameter Real etaNom=0.922
+  final parameter Real etaNom=0.922
     "Nominal efficiency (higher heating value)of the xxx boiler at 50/30degC.  See datafile";
   parameter Real modulationMin(max=29) = 10 "Minimal modulation percentage";
   parameter Real modulationStart(min=min(30, modulationMin + 5)) = 20
@@ -36,7 +36,7 @@ model HeatSource_CondensingGasBurner
   input Modelica.SIunits.SpecificEnthalpy hIn "Specific enthalpy at the inlet";
 
 protected
-  Real m_flowHx_scaled = m_flowHx * QNom0/QNom
+  Real m_flowHx_scaled = IDEAS.Utilities.Math.Functions.smoothMax(x1=m_flowHx, x2=0,deltaX=0.001) * QNom0/QNom
     "mass flow rate, scaled with the original and the actual nominal power of the boiler";
 
   Real kgps2lph=3600/Medium.density(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))*1000
@@ -157,10 +157,13 @@ algorithm
     y1=QVector[i],
     y2=QVector[i + 1],
     y1d=0,
-    y2d=0) - QLossesToCompensate;
+    y2d=0) - onOff.y*QLossesToCompensate;
 
 equation
   assert(TBoilerSet < 80+273.15 and TBoilerSet > 20 + 273.15, "The given set point temperature is not inside the covered range (20 -> 80 degC)");
+  assert(m_flowHx_scaled*kgps2lph < 1300, "The given mass flow rate is outside the allowed range. Make sure that the mass flow
+  is positive and not too high. The current mass flow equals " + String(m_flowHx) + " [kg/s] but its maximum value is for the chosen QNom is " + String(1300*QNom/QNom0/kgps2lph));
+
   onOff.release = if noEvent(m_flowHx > Modelica.Constants.eps) then 1.0 else 0.0;
 
   QAsked = IDEAS.Utilities.Math.Functions.smoothMax(0, m_flowHx*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TBoilerSet, Medium.X_default)) -hIn), 10);
