@@ -28,7 +28,7 @@ model System1
     dp_nominal=10.0) 
     "Boiler model"
     annotation (Placement(transformation(extent={{10,-58},{-10,-38}})));
-  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
+  Annex60.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal, 
     Q_flow_nominal=1500.0, // IDA model: RADIATOR.Firadnom = 1500 W
