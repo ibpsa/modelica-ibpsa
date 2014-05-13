@@ -60,7 +60,8 @@ partial model HeatingSystem "Partial heating/cooling system"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
 
   // --- Sensor
-  Modelica.Blocks.Interfaces.RealInput[nTemSen] TSensor "Sensor temperature"
+  Modelica.Blocks.Interfaces.RealInput[nTemSen] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
+    "Sensor temperature"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
