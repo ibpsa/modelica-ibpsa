@@ -11,18 +11,10 @@ model Heating_Radiators
       nZones=nZones,
      TSupNom=273.15 + 45,
      dTSupRetNom=10,
-     QNom={8000 for i in 1:nZones},
-     redeclare IDEAS.Fluid.Production.Boiler heater)
+     redeclare IDEAS.Fluid.Production.Boiler heater,
+    QNom={8000 for i in 1:nZones},
+    corFac_val=5)
     annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
-
-    // IDEAS.HeatingSystems.Heating_Radiators heating(
-    // redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater,
-    // nZones=nZones,
-//  TSupNom=273.15 + 45,
-//  dTSupRetNom=10,
-    // redeclare IDEAS.Fluid.Production.Boiler heater( redeclare package Medium =
-    //       Modelica.Media.Water.ConstantPropertyLiquidWater),
-    // QNom={8000 for i in 1:nZones})
 
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
@@ -44,7 +36,7 @@ model Heating_Radiators
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder dummyInHomeGrid
     annotation (Placement(transformation(extent={{64,-22},{84,-2}})));
   IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones)
-    annotation (Placement(transformation(extent={{-78,-22},{-48,-2}})));
+    annotation (Placement(transformation(extent={{-78,-24},{-48,-4}})));
   inner SimInfoManager       sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
@@ -66,15 +58,15 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(dummyBuilding.heatPortCon, heating.heatPortCon) annotation (Line(
-      points={{-48,-10},{-28,-10},{-28,-11.2},{-8,-11.2}},
+      points={{-48,-12},{-28,-12},{-28,-11.2},{-8,-11.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(dummyBuilding.heatPortRad, heating.heatPortRad) annotation (Line(
-      points={{-48,-14},{-28,-14},{-28,-14.8},{-8,-14.8}},
+      points={{-48,-16},{-28,-16},{-28,-14.8},{-8,-14.8}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(dummyBuilding.TSensor, heating.TSensor) annotation (Line(
-      points={{-47.4,-18},{-28,-18},{-28,-18.4},{-8.36,-18.4}},
+      points={{-47.4,-20},{-28,-20},{-28,-18.4},{-8.36,-18.4}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

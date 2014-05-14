@@ -6,10 +6,23 @@ model Heating_Embedded
   extends Modelica.Icons.Example;
 
   final parameter Integer nZones=1 "Number of zones";
+
+  parameter
+    IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.RadSlaCha_ValidationEmpa[        nZones]
+                                       radSlaCha_ValidationEmpa(A_Floor=
+        dummyBuilding.AZones)
+    annotation (Placement(transformation(extent={{-94,-98},{-74,-78}})));
+
   IDEAS.HeatingSystems.Heating_Embedded     heating(
     nZones=nZones,
-    QNom={20000 for i in 1:nZones})
+    dTSupRetNom=5,
+    redeclare IDEAS.Fluid.Production.HP_AirWater heater,
+    each RadSlaCha = radSlaCha_ValidationEmpa,
+    QNom={8000 for i in 1:nZones},
+    TSupNom=273.15 + 45,
+    corFac_val=5)
           annotation (Placement(transformation(extent={{12,-18},{50,0}})));
+
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
     each width=67,
@@ -29,7 +42,10 @@ model Heating_Embedded
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder dummyInHomeGrid
     annotation (Placement(transformation(extent={{64,-20},{84,0}})));
-  IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones)
+  IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones,
+    AZones=ones(nZones)*40,
+    VZones=dummyBuilding.AZones*3,
+    UA_building=150)
     annotation (Placement(transformation(extent={{-96,-16},{-64,4}})));
   Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convectionTabs
     annotation (Placement(transformation(
@@ -39,10 +55,7 @@ model Heating_Embedded
   IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.NakedTabs[nZones] nakedTabs(radSlaCha=
        radSlaCha_ValidationEmpa)
     annotation (Placement(transformation(extent={{-6,-12},{-26,8}})));
-  IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.RadSlaCha_ValidationEmpa[nZones]
-                                       radSlaCha_ValidationEmpa(A_Floor=
-        dummyBuilding.AZones)
-    annotation (Placement(transformation(extent={{-94,-98},{-74,-78}})));
+
   inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Blocks.Sources.RealExpression[nZones] realExpression(y=11*

@@ -1,6 +1,9 @@
 within IDEAS.HeatingSystems;
 model Heating_Embedded
-  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+  replaceable parameter
+    IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nZones] RadSlaCha constrainedby
+    IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
+    "Properties of the floor heating or TABS, if present";
 
   extends IDEAS.HeatingSystems.Interfaces.Partial_heating_noSTS(
     final isHea=true,
@@ -11,17 +14,13 @@ model Heating_Embedded
     final nEmbPorts=nZones,
     final nLoads=1,
     nZones=1,
-    redeclare IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe emission(      redeclare
+    minSup=true,
+    TSupMin=273.15+25,
+    redeclare IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe emission[nZones](      redeclare
         each package Medium =                                                                                    Medium,
       m_flow_nominal=m_flow_nominal,
-      m_flowMin=m_flow_nominal/100,
-      redeclare each
-        IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar              RadSlaCha));
-
-//   replaceable parameter
-//     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nZones] RadSlaCha constrainedby
-//     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
-//     "Properties of the floor heating or TABS, if present";
+      m_flowMin=m_flow_nominal/3,
+      RadSlaCha = RadSlaCha));
 
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow);
@@ -64,5 +63,4 @@ equation
 <li>2013 June, Roel De Coninck: first version</li>
 </ul></p>
 </html>"));
-
 end Heating_Embedded;

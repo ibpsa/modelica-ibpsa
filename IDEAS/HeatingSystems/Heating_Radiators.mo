@@ -11,6 +11,8 @@ model Heating_Radiators
     final nEmbPorts=0,
     final nLoads=1,
     nZones=1,
+    minSup=true,
+    TSupMin=273.15+30,
     redeclare Fluid.HeatExchangers.Radiators.Radiator emission[nZones](
       each TInNom=TSupNom,
       each TOutNom=TSupNom - dTSupRetNom,

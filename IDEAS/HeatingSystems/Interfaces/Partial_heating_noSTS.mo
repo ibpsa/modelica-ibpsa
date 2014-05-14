@@ -14,12 +14,18 @@ partial model Partial_heating_noSTS
   // --- Paramter: General parameters for the design (nominal) conditions and heat curve
   parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
     "Nominal power, can be seen as the max power of the emission system per zone";
+  parameter Boolean minSup=true
+    "true to limit the supply temperature on the lower side";
+    parameter SI.Temperature TSupMin=273.15 + 30
+    "Minimum supply temperature if enabled";
   parameter Modelica.SIunits.Temperature TSupNom=273.15 + 45
     "Nominal supply temperature";
   parameter Modelica.SIunits.TemperatureDifference dTSupRetNom=10
     "Nominal DT in the heating system";
   parameter Modelica.SIunits.Temperature[nZones] TRoomNom={294.15 for i in 1:
       nZones} "Nominal room temperature";
+  parameter Modelica.SIunits.TemperatureDifference corFac_val = 0
+    "correction term for TSet of the heating curve";
   parameter Modelica.SIunits.Time timeFilter=43200
     "Time constant for the filter of ambient temperature for computation of heating curve";
   final parameter Modelica.SIunits.MassFlowRate[nZones] m_flow_nominal = QNom/(4180.6*dTSupRetNom)
@@ -29,8 +35,9 @@ partial model Partial_heating_noSTS
   replaceable Fluid.Production.Boiler       heater(
     QNom=sum(QNom), redeclare package Medium = Medium,
     m_flow_nominal=sum(m_flow_nominal)) constrainedby
-    Fluid.Production.Interfaces.PartialDynamicHeaterWithLosses
-    "Heater (boiler, heat pump, ...)"
+    Fluid.Production.Interfaces.PartialDynamicHeaterWithLosses( QNom=sum(QNom), redeclare
+      package Medium =                                                                                     Medium,
+    m_flow_nominal=sum(m_flow_nominal)) "Heater (boiler, heat pump, ...)"
     annotation (Placement(transformation(extent={{-112,12},{-92,32}})));
 
   // --- distribution components of hydraulic circuit
@@ -93,13 +100,15 @@ partial model Partial_heating_noSTS
     heatingCurve(timeFilter=timeFilter),
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom,
+    TSupMin=TSupMin,
+    minSup=minSup,
     THeaterSet(start=293.15)) constrainedby
     Controls.ControlHeating.Interfaces.Partial_Ctrl_Heating(
     heatingCurve(timeFilter=timeFilter),
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom)
     "Controller for the heater and the emission set point "
-    annotation (Placement(transformation(extent={{-148,38},{-128,58}})));
+    annotation (Placement(transformation(extent={{-148,54},{-128,74}})));
 
   replaceable IDEAS.Controls.Control_fixme.Hyst_NoEvent_Var[
                                                 nZones] heatingControl(each uLow_val=
@@ -152,6 +161,16 @@ partial model Partial_heating_noSTS
         extent={{8,-8},{-8,8}},
         rotation=0,
         origin={42,-26})));
+
+  Modelica.Blocks.Sources.RealExpression corFac(y=corFac_val)
+    "Correction factor on the heating curve"
+    annotation (Placement(transformation(extent={{-148,76},{-128,96}})));
+  Modelica.Blocks.Math.Add add1
+    annotation (Placement(transformation(extent={{-78,66},{-62,82}})));
+  Modelica.Blocks.Math.Add add2
+    annotation (Placement(transformation(extent={{-8,-8},{8,8}},
+        rotation=270,
+        origin={-104,48})));
 equation
   P[1] = heater.PEl + sum(pumpRad.PEl);
   Q[1] = 0;
@@ -201,10 +220,6 @@ equation
       points={{-6,30},{-6,-4},{-52,-4},{-52,2}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ctrl_Heating.THeaterSet, heater.TSet) annotation (Line(
-      points={{-127.556,48},{-103,48},{-103,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(pipeReturn.port_b, heater.port_a) annotation (Line(
       points={{-16,-32},{-78,-32},{-78,17.4545},{-92,17.4545}},
       color={0,127,255},
@@ -227,7 +242,7 @@ equation
       smooth=Smooth.None));
 
   connect(TSet_max.y, ctrl_Heating.TRoo_in1) annotation (Line(
-      points={{-160,26.1},{-160,48},{-149.111,48}},
+      points={{-160,26.1},{-160,64},{-149.111,64}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSensor, add.u1) annotation (Line(
@@ -240,10 +255,6 @@ equation
       smooth=Smooth.None));
   connect(add.y, heatingControl.u) annotation (Line(
       points={{-41,-60},{40,-60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(ctrl_Heating.THeaCur, idealCtrlMixer.TMixedSet) annotation (Line(
-      points={{-127.556,53},{39,53},{39,46}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(idealCtrlMixer.port_b, senTemEm_in.port_a) annotation (Line(
@@ -267,6 +278,30 @@ equation
   connect(idealCtrlMixer.port_a2, pipeReturn.port_a) annotation (Line(
       points={{39,22},{39,8},{20,8},{20,-32},{4,-32}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(add1.y, idealCtrlMixer.TMixedSet) annotation (Line(
+      points={{-61.2,74},{39,74},{39,46}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ctrl_Heating.THeaterSet, add2.u2) annotation (Line(
+      points={{-127.556,64},{-108.8,64},{-108.8,57.6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(corFac.y, add2.u1) annotation (Line(
+      points={{-127,86},{-99.2,86},{-99.2,57.6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ctrl_Heating.THeaCur, add1.u2) annotation (Line(
+      points={{-127.556,69},{-103.778,69},{-103.778,69.2},{-79.6,69.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(corFac.y, add1.u1) annotation (Line(
+      points={{-127,86},{-92,86},{-92,78.8},{-79.6,78.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(add2.y, heater.TSet) annotation (Line(
+      points={{-104,39.2},{-104,32},{-103,32}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}), graphics));
