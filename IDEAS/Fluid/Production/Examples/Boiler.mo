@@ -66,7 +66,7 @@ model Boiler
     startTime=2000,
     amplitude=-1,
     period=500,
-    offset=0)
+    offset=1)
     annotation (Placement(transformation(extent={{20,-80},{0,-60}})));
 equation
   //   der(PElLossesInt) = HP.PEl;

@@ -1,7 +1,6 @@
 within IDEAS.HeatingSystems;
 model Heating_Radiators
   "Basic hydraulic heating (with heating curve) with embedded emission (eg. TABS). No TES, no DHW"
-  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   extends IDEAS.HeatingSystems.Interfaces.Partial_heating_noSTS(
     final isHea=true,
@@ -12,15 +11,16 @@ model Heating_Radiators
     final nEmbPorts=0,
     final nLoads=1,
     nZones=1,
-    redeclare Fluid.HeatExchangers.Radiators.Radiator emission(
-      redeclare each package Medium = Medium,
+    redeclare Fluid.HeatExchangers.Radiators.Radiator emission[nZones](
       each TInNom=TSupNom,
       each TOutNom=TSupNom - dTSupRetNom,
       TZoneNom=TRoomNom,
       QNom=QNom,
-      each powerFactor=3.37));
+      each powerFactor=3.37,
+    redeclare each package Medium = Medium));
+
 equation
-    QHeaSys = -sum(emission.heatPortCon.Q_flow) - sum(emission.heatPortRad.Q_flow);
+  QHeaSys = -sum(emission.heatPortCon.Q_flow) - sum(emission.heatPortRad.Q_flow);
 
   connect(emission.heatPortCon, heatPortCon) annotation (Line(
       points={{142.5,44},{142.5,66},{-178,66},{-178,20},{-200,20}},
@@ -31,7 +31,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-annotation (
+  annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
             200,100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
@@ -66,5 +66,4 @@ annotation (
 <li>2013 June, Roel De Coninck: first version</li>
 </ul></p>
 </html>"));
-
 end Heating_Radiators;

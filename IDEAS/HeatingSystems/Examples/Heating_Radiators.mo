@@ -1,17 +1,29 @@
 within IDEAS.HeatingSystems.Examples;
 model Heating_Radiators
   "Example and test for basic heating system with radiators"
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   extends Modelica.Icons.Example;
 
   final parameter Integer nZones=1 "Number of zones";
   IDEAS.HeatingSystems.Heating_Radiators heating(
-    nZones=nZones,
-    TSupNom=273.15 + 45,
-    dTSupRetNom=10,
-    redeclare IDEAS.Fluid.Production.Boiler heater,
-    QNom={8000 for i in 1:nZones})
+    redeclare package Medium = Medium,
+      nZones=nZones,
+     TSupNom=273.15 + 45,
+     dTSupRetNom=10,
+     QNom={8000 for i in 1:nZones},
+     redeclare IDEAS.Fluid.Production.Boiler heater)
     annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
+
+    // IDEAS.HeatingSystems.Heating_Radiators heating(
+    // redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater,
+    // nZones=nZones,
+//  TSupNom=273.15 + 45,
+//  dTSupRetNom=10,
+    // redeclare IDEAS.Fluid.Production.Boiler heater( redeclare package Medium =
+    //       Modelica.Media.Water.ConstantPropertyLiquidWater),
+    // QNom={8000 for i in 1:nZones})
+
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
     each width=67,

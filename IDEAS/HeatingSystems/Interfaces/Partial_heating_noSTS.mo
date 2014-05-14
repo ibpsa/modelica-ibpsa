@@ -1,6 +1,6 @@
 within IDEAS.HeatingSystems.Interfaces;
 partial model Partial_heating_noSTS
-  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     isHea = true,
     isCoo = false,
@@ -28,7 +28,9 @@ partial model Partial_heating_noSTS
   // --- production components of hydraulic circuit
   replaceable Fluid.Production.Boiler       heater(
     QNom=sum(QNom), redeclare package Medium = Medium,
-    m_flow_nominal=sum(m_flow_nominal)) "Heater (boiler, heat pump, ...)"
+    m_flow_nominal=sum(m_flow_nominal)) constrainedby
+    Fluid.Production.Interfaces.PartialDynamicHeaterWithLosses
+    "Heater (boiler, heat pump, ...)"
     annotation (Placement(transformation(extent={{-112,12},{-92,32}})));
 
   // --- distribution components of hydraulic circuit
@@ -42,8 +44,15 @@ partial model Partial_heating_noSTS
   // --- emission components of hydraulic circuit
   replaceable IDEAS.Fluid.HeatExchangers.Radiators.Radiator[
                                                 nZones] emission(
-    redeclare each package Medium = Medium)
+      each TInNom=TSupNom,
+      each TOutNom=TSupNom - dTSupRetNom,
+      TZoneNom=TRoomNom,
+      QNom=QNom,
+      each powerFactor=3.37,
+    redeclare each package Medium = Medium) constrainedby
+    Fluid.HeatExchangers.Interfaces.EmissionTwoPort
     annotation (Placement(transformation(extent={{120,24},{150,44}})));
+
   Fluid.Valves.Thermostatic3WayValve    idealCtrlMixer(m_flow_nominal=sum(
         m_flow_nominal), redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{28,22},{50,46}})));
