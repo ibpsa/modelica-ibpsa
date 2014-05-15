@@ -1,8 +1,13 @@
 within IDEAS.Controls.ControlHeating;
 model Ctrl_Heating_DHW
-  "Heating curve control for heating (without TES) and separate DHW storage tank"
+  "Heating curve control for heating (without Thermal Energy Storage) and separate DHW storage tank"
+
   extends Interfaces.Partial_Ctrl_Heating_TES;
 
+  Modelica.Blocks.Math.Add add2
+    annotation (Placement(transformation(extent={{-8,-8},{8,8}},
+        rotation=0,
+        origin={72,0})));
 equation
   TTopSet = TDHWSet + dTSafetyTop;
   TBotSet = TDHWSet + dTSafetyBot;
@@ -25,11 +30,21 @@ equation
     THPSet = heatingCurve.TSup + 2;
   end if;
 
-  connect(heatingCurve.TSup, THeaCur) annotation (Line(
-      points={{1,56},{8,56},{8,-40},{104,-40}},
+  connect(corHeaCur.y, add2.u1) annotation (Line(
+      points={{1,20},{52,20},{52,4.8},{62.4,4.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Documentation(info="<html>
+  connect(realExpression2.y, add2.u2) annotation (Line(
+      points={{16.2,-3},{40.1,-3},{40.1,-4.8},{62.4,-4.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(add2.y, THeaterSet) annotation (Line(
+      points={{80.8,0},{104,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},
+            {100,80}}),
+                      graphics), Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Heating curve based control of a heater + TES charging control for DHW. The set point temperature for the heater is higher than the heating curve output in order to make sure that the heating curve temperature is met also when thermal losses are present in the circuit. The heater set temperature is the maximum of the requirements for space heating and DHW: if tank charging is occurring, the DHW temperture requirements will normally be higher than for space heating. </p>
 <p>This controller tries to limit and even avoid the creating of events.</p>

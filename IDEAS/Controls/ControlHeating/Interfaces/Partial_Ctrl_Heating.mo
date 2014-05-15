@@ -22,6 +22,8 @@ partial model Partial_Ctrl_Heating
     "true to limit the supply temperature on the lower side";
   parameter SI.TemperatureDifference dTOutHeaBal=0 "Offset for heating curve";
   parameter SI.Temperature TOut_nominal=273.15 - 8 "Outside temperature";
+  parameter Modelica.SIunits.TemperatureDifference corFac_val = 0
+    "correction term for TSet of the heating curve";
 
   HeatingCurve heatingCurve(
     timeFilter=timeFilter,
@@ -36,7 +38,7 @@ partial model Partial_Ctrl_Heating
     dTOutHeaBal=dTOutHeaBal)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   outer IDEAS.SimInfoManager sim
-    annotation (Placement(transformation(extent={{24,50},{44,70}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Interfaces.RealOutput THeaterSet(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0,start=283.15)
     "Heat pump set temperature" annotation (Placement(transformation(extent={{
             94,-10},{114,10}}), iconTransformation(extent={{94,-10},{114,10}})));
@@ -48,17 +50,22 @@ partial model Partial_Ctrl_Heating
 
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
     annotation (Placement(transformation(extent={{-60,46},{-40,66}})));
+  Modelica.Blocks.Sources.RealExpression realExpression2(y=heatingCurve.TSup + dTHeaterSet)
+    annotation (Placement(transformation(extent={{-30,-12},{14,6}})));
 
   Modelica.Blocks.Interfaces.RealInput TRoo_in1(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
     "Room air temperature set point"
-    annotation (Placement(transformation(extent={{-110,-20},{-70,20}})));
+    annotation (Placement(transformation(extent={{-108,-20},{-68,20}})));
+  Modelica.Blocks.Sources.RealExpression corHeaCur(y=corFac_val)
+    "Correction term on the heating curve"
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
 equation
   connect(realExpression.y, heatingCurve.TOut) annotation (Line(
       points={{-39,56},{-22,56}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatingCurve.TRoo_in, TRoo_in1) annotation (Line(
-      points={{-21.9,44},{-40,44},{-40,0},{-90,0}},
+      points={{-21.9,44},{-40,44},{-40,0},{-88,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(extent={{-80,-80},{100,80}}), graphics={
@@ -74,6 +81,6 @@ equation
         Text(
           extent={{-60,40},{60,-40}},
           lineColor={100,100,100},
-          textString="hp ")}), Diagram(coordinateSystem(extent={{-80,-80},{100,80}},
-                  preserveAspectRatio=false), graphics));
+          textString="hp ")}), Diagram(coordinateSystem(extent={{-80,-80},{100,
+            80}}, preserveAspectRatio=false), graphics));
 end Partial_Ctrl_Heating;
