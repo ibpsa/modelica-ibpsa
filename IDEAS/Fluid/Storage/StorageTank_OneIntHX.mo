@@ -75,7 +75,7 @@ model StorageTank_OneIntHX
           extent={{44,-46},{56,-34}})));
 
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort HX[nbrNodesHX](
-    each m_flow_nominal=m_flow_nominal,
+    each m_flow_nominal=m_flow_nominal_HX,
     each m=mHX/nbrNodesHX,
     T_start=T_start[nodeHXUpper:nodeHXLower],
     redeclare package Medium = MediumHX)          annotation (Placement(
