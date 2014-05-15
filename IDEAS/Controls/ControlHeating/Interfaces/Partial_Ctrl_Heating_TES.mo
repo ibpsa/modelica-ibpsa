@@ -58,6 +58,10 @@ protected
 public
   Modelica.Blocks.Sources.RealExpression realExpression1(y=THPSet)
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
+  Modelica.Blocks.Math.Add add2
+    annotation (Placement(transformation(extent={{-8,-8},{8,8}},
+        rotation=0,
+        origin={64,0})));
 equation
   TBotEmpty = if DHW then TColdWaterNom else TTopSet - dTSupRetNom;
   //tankSOC is intentionally computed based only on 2 temperature sensors for practical reasons.  It is computed
@@ -71,6 +75,18 @@ equation
       smooth=Smooth.None));
   connect(realExpression1.y, THeaCur) annotation (Line(
       points={{61,40},{104,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(corHeaCur.y, add2.u1) annotation (Line(
+      points={{1,20},{36,20},{36,4.8},{54.4,4.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression2.y, add2.u2) annotation (Line(
+      points={{16.2,-3},{35.1,-3},{35.1,-4.8},{54.4,-4.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(add2.y, THeaterSet) annotation (Line(
+      points={{72.8,0},{104,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(extent={{-80,-80},{100,80}},
@@ -87,6 +103,6 @@ equation
         Text(
           extent={{-60,40},{60,-40}},
           lineColor={100,100,100},
-          textString="hp ")}), Diagram(coordinateSystem(extent={{-80,-80},{100,80}},
-                  preserveAspectRatio=false),graphics));
+          textString="hp ")}), Diagram(coordinateSystem(extent={{-80,-80},{100,
+            80}}, preserveAspectRatio=false),graphics));
 end Partial_Ctrl_Heating_TES;
