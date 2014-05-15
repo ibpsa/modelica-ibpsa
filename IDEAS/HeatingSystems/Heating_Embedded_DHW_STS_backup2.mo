@@ -1,5 +1,5 @@
 within IDEAS.HeatingSystems;
-model Heating_Embedded_DHW_STS
+model Heating_Embedded_DHW_STS_backup2
   "Hydraulic heating with embedded emission, DHW (with STS), no TES for heating"
   replaceable parameter
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nZones] RadSlaCha constrainedby
@@ -96,19 +96,37 @@ model Heating_Embedded_DHW_STS
   // Result variables
   Modelica.SIunits.Temperature[nbrNodes] TSto=tesTank.nodes.heatPort.T;
   Modelica.SIunits.Temperature TTankTopSet;
-//  Modelica.SIunits.Temperature TTankBotIn;
+  Modelica.SIunits.Temperature TTankBotIn;
   Modelica.SIunits.MassFlowRate m_flowDHW;
   Modelica.SIunits.Power QDHW;
   Modelica.SIunits.Temperature TDHW;
   Real SOCTank;
 
+  Fluid.Sensors.TemperatureTwoPort senTem_stoBot(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal_DHW,
+    tau=m_flow_nominal_DHW/100)
+    "Temperature at the bottom inlet of the storage tank (port_b)"
+    annotation (Placement(transformation(extent={{-14,-32},{-6,-24}})));
+  Fluid.Sensors.TemperatureTwoPort senTem_stoTop(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal_DHW,
+    tau=m_flow_nominal_DHW/100,
+    T_start=567.3) "Temperature at the top outlet of the storage tank (port_a)"
+    annotation (Placement(transformation(extent={{-32,18},{-40,26}})));
+  Fluid.Sensors.TemperatureTwoPort senTem_stoHX_out(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal_stoHX,
+    tau=m_flow_nominal_stoHX/100)
+    "Temperature at the outlet of the storage tank heat exchanger (port_bHX)"
+    annotation (Placement(transformation(extent={{-66,-52},{-74,-44}})));
   Fluid.Sources.FixedBoundary       absolutePressure1(
                                                      redeclare package Medium
       = Medium, use_T=false,
     nPorts=1)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=90,
-        origin={8,-38})));
+        origin={6,-46})));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow) + QDHW;
 
@@ -118,7 +136,7 @@ equation
   // Result variables
   TTankTopSet = ctrl_Heating.TTopSet;
   TDHW = dHW.TDHW_actual;
-//  TTankBotIn = senTem_stoBot.T;
+  TTankBotIn = senTem_stoBot.T;
   m_flowDHW = dHW.idealSource.m_flow_in;
   SOCTank = ctrl_Heating.SOC;
   QDHW = -dHW.pipe_HeatPort.heatPort.Q_flow;
@@ -174,20 +192,32 @@ equation
           56.5},{-160.889,56.5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pumpSto.port_b, heater.port_a) annotation (Line(
-      points={{-44,-48},{-106,-48},{-106,17.4545},{-114,17.4545}},
+  connect(tesTank.port_b, senTem_stoBot.port_b) annotation (Line(
+      points={{2,-16.9231},{6,-16.9231},{6,-28},{-6,-28}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(tesTank.port_b, pipeDHW.port_a) annotation (Line(
-      points={{2,-16.9231},{6,-16.9231},{6,-18},{8,-18},{8,-27},{-28,-27}},
+  connect(senTem_stoBot.port_a, pipeDHW.port_a) annotation (Line(
+      points={{-14,-28},{-22,-28},{-22,-27},{-28,-27}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(dHW.port_hot, tesTank.port_a) annotation (Line(
-      points={{-48.5,10.6429},{-48.5,24},{6,24},{6,16.9231},{2,16.9231}},
+  connect(dHW.port_hot, senTem_stoTop.port_b) annotation (Line(
+      points={{-48.5,10.6429},{-48.5,22},{-40,22}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(absolutePressure1.ports[1], pipeDHW.port_a) annotation (Line(
-      points={{8,-32},{8,-27},{-28,-27}},
+  connect(senTem_stoTop.port_a, tesTank.port_a) annotation (Line(
+      points={{-32,22},{8,22},{8,16.9231},{2,16.9231}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pumpSto.port_b, senTem_stoHX_out.port_a) annotation (Line(
+      points={{-44,-48},{-66,-48}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTem_stoHX_out.port_b, heater.port_a) annotation (Line(
+      points={{-74,-48},{-86,-48},{-86,17.4545},{-114,17.4545}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(absolutePressure1.ports[1], senTem_stoBot.port_b) annotation (Line(
+      points={{6,-40},{6,-28},{-6,-28}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -231,4 +261,4 @@ equation
 <li>2011, Roel De Coninck: first version</li>
 </ul></p>
 </html>"));
-end Heating_Embedded_DHW_STS;
+end Heating_Embedded_DHW_STS_backup2;

@@ -67,7 +67,7 @@ equation
   convectionTabs.Gc = 11*nakedTabs.FHChars.A_Floor;
 
   connect(heating.TSet, TOpSet.y) annotation (Line(
-      points={{10,-22.36},{10,-50},{-17.4,-50}},
+      points={{9.82,-22.36},{9.82,-50},{-17.4,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(voltageSource.pin_p, ground.pin) annotation (Line(

@@ -25,11 +25,13 @@ equation
   QHeaSys = -sum(emission.heatPortCon.Q_flow) - sum(emission.heatPortRad.Q_flow);
 
   connect(emission.heatPortCon, heatPortCon) annotation (Line(
-      points={{142.5,44},{142.5,66},{-178,66},{-178,20},{-200,20}},
+      points={{142.5,44},{142.5,70},{142,70},{142,96},{-178,96},{-178,20},{-200,
+          20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(emission.heatPortRad, heatPortRad) annotation (Line(
-      points={{148.5,44},{148.5,68},{-180,68},{-180,-20},{-200,-20}},
+      points={{148.5,44},{148.5,72},{148,72},{148,100},{-180,100},{-180,-20},{
+          -200,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 

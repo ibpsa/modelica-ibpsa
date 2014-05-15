@@ -26,7 +26,7 @@ equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow);
 
   connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
-      points={{135,44},{132,44},{132,80},{-172,80},{-172,60},{-200,60}},
+      points={{135,44},{136,44},{136,98},{-176,98},{-176,60},{-200,60}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (

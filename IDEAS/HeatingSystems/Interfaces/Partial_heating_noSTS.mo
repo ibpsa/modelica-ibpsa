@@ -38,7 +38,7 @@ partial model Partial_heating_noSTS
     Fluid.Production.Interfaces.PartialDynamicHeaterWithLosses( QNom=sum(QNom), redeclare
       package Medium =                                                                                     Medium,
     m_flow_nominal=sum(m_flow_nominal)) "Heater (boiler, heat pump, ...)"
-    annotation (Placement(transformation(extent={{-112,12},{-92,32}})));
+    annotation (Placement(transformation(extent={{-134,12},{-114,32}})));
 
   // --- distribution components of hydraulic circuit
   IDEAS.Fluid.Movers.Pump[nZones] pumpRad(
@@ -46,7 +46,29 @@ partial model Partial_heating_noSTS
     each m=1,
     m_flow_nominal=m_flow_nominal,
     redeclare each package Medium = Medium)
-              annotation (Placement(transformation(extent={{88,46},{112,22}})));
+              annotation (Placement(transformation(extent={{88,64},{112,40}})));
+  Fluid.Valves.Thermostatic3WayValve    idealCtrlMixer(m_flow_nominal=sum(
+        m_flow_nominal), redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{34,46},{56,70}})));
+  IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeReturn(
+    redeclare package Medium = Medium,
+    m=1,
+    UA=10,
+    m_flow_nominal=sum(m_flow_nominal))
+           annotation (Placement(transformation(extent={{2,-88},{-18,-96}})));
+
+  IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeSupply(
+    redeclare package Medium = Medium,
+    m=1,
+    UA=10,
+    m_flow_nominal=sum(m_flow_nominal))
+           annotation (Placement(transformation(extent={{-16,54},{4,62}})));
+  IDEAS.Fluid.FixedResistances.Pipe_Insulated[nZones] pipeReturnEmission(
+    redeclare each package Medium = Medium,
+    each m=1,
+    each UA=10,
+    m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{148,-88},{128,-96}})));
 
   // --- emission components of hydraulic circuit
   replaceable IDEAS.Fluid.HeatExchangers.Radiators.Radiator[
@@ -60,40 +82,19 @@ partial model Partial_heating_noSTS
     Fluid.HeatExchangers.Interfaces.EmissionTwoPort
     annotation (Placement(transformation(extent={{120,24},{150,44}})));
 
-  Fluid.Valves.Thermostatic3WayValve    idealCtrlMixer(m_flow_nominal=sum(
-        m_flow_nominal), redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{28,22},{50,46}})));
-  IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeReturn(
-    redeclare package Medium = Medium,
-    m=1,
-    UA=10,
-    m_flow_nominal=sum(m_flow_nominal))
-           annotation (Placement(transformation(extent={{4,-28},{-16,-36}})));
-
-  IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeSupply(
-    redeclare package Medium = Medium,
-    m=1,
-    UA=10,
-    m_flow_nominal=sum(m_flow_nominal))
-           annotation (Placement(transformation(extent={{-16,30},{4,38}})));
-  IDEAS.Fluid.FixedResistances.Pipe_Insulated[nZones] pipeReturnEmission(
-    redeclare each package Medium = Medium,
-    each m=1,
-    each UA=10,
-    m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{90,-28},{70,-36}})));
-
   // --- boudaries
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=293.15)
     "fixed temperature to simulate heat losses of hydraulic components"
     annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
+        extent={{7,-7},{-7,7}},
         rotation=-90,
-        origin={-52,8})));
+        origin={-127,-21})));
   IDEAS.Fluid.Sources.FixedBoundary absolutePressure(redeclare package Medium
       = Medium, use_T=false,
     nPorts=1)
-    annotation (Placement(transformation(extent={{-114,-42},{-94,-22}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-106,-114})));
 
   // --- controllers
   replaceable Controls.ControlHeating.Ctrl_Heating ctrl_Heating(
@@ -102,35 +103,36 @@ partial model Partial_heating_noSTS
     dTSupRetNom=dTSupRetNom,
     TSupMin=TSupMin,
     minSup=minSup,
+    corFac_val=corFac_val,
     THeaterSet(start=293.15)) constrainedby
     Controls.ControlHeating.Interfaces.Partial_Ctrl_Heating(
     heatingCurve(timeFilter=timeFilter),
     TSupNom=TSupNom,
     dTSupRetNom=dTSupRetNom)
     "Controller for the heater and the emission set point "
-    annotation (Placement(transformation(extent={{-148,54},{-128,74}})));
+    annotation (Placement(transformation(extent={{-160,54},{-140,74}})));
 
   replaceable IDEAS.Controls.Control_fixme.Hyst_NoEvent_Var[
                                                 nZones] heatingControl(each uLow_val=
         22, each uHigh_val=20)
     "onoff controller for the pumps of the emission circuits"
-    annotation (Placement(transformation(extent={{42,-70},{62,-50}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
 
   Modelica.Blocks.Sources.RealExpression THigh_val[nZones](y=0.5*ones(nZones))
     "Higher boudary for set point temperature"
-    annotation (Placement(transformation(extent={{-18,-62},{20,-42}})));
+    annotation (Placement(transformation(extent={{-174,-62},{-162,-42}})));
   Modelica.Blocks.Sources.RealExpression TLow_val[nZones](y=-0.5*ones(nZones))
     "Lower boundary for set point temperature"
-    annotation (Placement(transformation(extent={{-18,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{-174,-102},{-160,-82}})));
 
   Modelica.Blocks.Sources.RealExpression TSet_max(y=max(TSet))
     "maximum value of set point temperature" annotation (Placement(
         transformation(
         extent={{-21,-10},{21,10}},
         rotation=90,
-        origin={-160,3})));
+        origin={-170,3})));
   Modelica.Blocks.Math.Add add[nZones](each k1=-1, each k2=+1)
-    annotation (Placement(transformation(extent={{-62,-70},{-42,-50}})));
+    annotation (Placement(transformation(extent={{-174,-78},{-160,-64}})));
 
   // --- Interface
   Modelica.Blocks.Interfaces.RealInput TSet[nZones](    final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC")
@@ -138,7 +140,7 @@ partial model Partial_heating_noSTS
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={-140,-110}),
+        origin={-190,-108}),
                           iconTransformation(
         extent={{-14,-14},{14,14}},
         rotation=90,
@@ -148,11 +150,11 @@ partial model Partial_heating_noSTS
   Fluid.Sensors.TemperatureTwoPort senTemEm_in(redeclare package Medium =
         Medium, m_flow_nominal=sum(m_flow_nominal))
     "Inlet temperature of the emission system"
-    annotation (Placement(transformation(extent={{56,24},{76,44}})));
+    annotation (Placement(transformation(extent={{62,42},{82,62}})));
   Fluid.Sensors.TemperatureTwoPort senTemHea_out(redeclare package Medium =
         Medium, m_flow_nominal=sum(m_flow_nominal))
     "Outlet temperature of the heater"
-    annotation (Placement(transformation(extent={{-62,24},{-42,44}})));
+    annotation (Placement(transformation(extent={{-62,48},{-42,68}})));
 
   Fluid.Sensors.TemperatureTwoPort senTemEm_out(redeclare package Medium =
         Medium, m_flow_nominal=sum(m_flow_nominal))
@@ -160,17 +162,8 @@ partial model Partial_heating_noSTS
         transformation(
         extent={{8,-8},{-8,8}},
         rotation=0,
-        origin={42,-26})));
+        origin={108,-92})));
 
-  Modelica.Blocks.Sources.RealExpression corFac(y=corFac_val)
-    "Correction factor on the heating curve"
-    annotation (Placement(transformation(extent={{-148,76},{-128,96}})));
-  Modelica.Blocks.Math.Add add1
-    annotation (Placement(transformation(extent={{-78,66},{-62,82}})));
-  Modelica.Blocks.Math.Add add2
-    annotation (Placement(transformation(extent={{-8,-8},{8,8}},
-        rotation=270,
-        origin={-104,48})));
 equation
   P[1] = heater.PEl + sum(pumpRad.PEl);
   Q[1] = 0;
@@ -178,15 +171,15 @@ equation
   for i in 1:nZones loop
     connect(pipeReturnEmission[i].heatPort, fixedTemperature.port) annotation (
         Line(
-        points={{80,-28},{80,-4},{-52,-4},{-52,2}},
+        points={{138,-88},{138,-68},{-102,-68},{-102,-12},{-127,-12},{-127,-14}},
         color={191,0,0},
         smooth=Smooth.None));
     connect(senTemEm_in.port_b, pumpRad[i].port_a) annotation (Line(
-        points={{76,34},{88,34}},
+        points={{82,52},{88,52}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(pipeReturnEmission[i].port_b, senTemEm_out.port_a) annotation (Line(
-      points={{70,-32},{58,-32},{58,-26},{50,-26}},
+      points={{128,-92},{116,-92}},
       color={0,127,255},
       smooth=Smooth.None));
   end for;
@@ -194,115 +187,108 @@ equation
   // general connections for any configuration
 
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
-      points={{63,-60},{100,-60},{100,21.52}},
+      points={{-119,-70},{100,-70},{100,39.52}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(fixedTemperature.port, heater.heatPort) annotation (Line(
-      points={{-52,2},{-52,-4},{-105,-4},{-105,12}},
+      points={{-127,-14},{-127,12}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(pipeReturn.heatPort, heater.heatPort) annotation (Line(
-      points={{-6,-28},{-6,-4},{-105,-4},{-105,12}},
+      points={{-8,-88},{-8,-68},{-102,-68},{-102,-12},{-127,-12},{-127,12}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(THigh_val.y, heatingControl.uHigh) annotation (Line(
-      points={{21.9,-52},{30,-52},{30,-53.2},{40,-53.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TLow_val.y, heatingControl.uLow) annotation (Line(
-      points={{21.9,-70},{30,-70},{30,-67},{40,-67}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(pipeSupply.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-6,30},{-6,-4},{-52,-4},{-52,2}},
+      points={{-6,54},{-6,42},{-102,42},{-102,6},{-127,6},{-127,-14}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pipeReturn.port_b, heater.port_a) annotation (Line(
-      points={{-16,-32},{-78,-32},{-78,17.4545},{-92,17.4545}},
+      points={{-18,-92},{-106,-92},{-106,17.4545},{-114,17.4545}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pipeSupply.port_b, idealCtrlMixer.port_a1) annotation (Line(
-      points={{4,34},{28,34}},
+      points={{4,58},{34,58}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(absolutePressure.ports[1], heater.port_a) annotation (Line(
-      points={{-94,-32},{-78,-32},{-78,17.4545},{-92,17.4545}},
+      points={{-106,-104},{-106,17.4545},{-114,17.4545}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(emission.port_b, pipeReturnEmission.port_a) annotation (Line(
-      points={{150,34},{156,34},{156,-32},{90,-32}},
+      points={{150,34},{156,34},{156,-92},{148,-92}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pumpRad.port_b, emission.port_a) annotation (Line(
-      points={{112,34},{120,34}},
+      points={{112,52},{116,52},{116,34},{120,34}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(TSet_max.y, ctrl_Heating.TRoo_in1) annotation (Line(
-      points={{-160,26.1},{-160,64},{-149.111,64}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TSensor, add.u1) annotation (Line(
-      points={{-204,-60},{-78,-60},{-78,-54},{-64,-54}},
+      points={{-170,26.1},{-170,64},{-160.889,64}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSet, add.u2) annotation (Line(
-      points={{-140,-110},{-140,-66},{-64,-66}},
+      points={{-190,-108},{-190,-75.2},{-175.4,-75.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, heatingControl.u) annotation (Line(
-      points={{-41,-60},{40,-60}},
+      points={{-159.3,-71},{-146,-71},{-146,-70},{-142,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(idealCtrlMixer.port_b, senTemEm_in.port_a) annotation (Line(
-      points={{50,34},{56,34}},
+      points={{56,58},{60,58},{60,52},{62,52}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(heater.port_b, senTemHea_out.port_a) annotation (Line(
-      points={{-92,24.7273},{-78,24.7273},{-78,34},{-62,34}},
+      points={{-114,24.7273},{-112,24.7273},{-112,58},{-62,58}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemHea_out.port_b, pipeSupply.port_a) annotation (Line(
-      points={{-42,34},{-16,34}},
+      points={{-42,58},{-16,58}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(senTemEm_out.port_b, pipeReturn.port_a) annotation (Line(
-      points={{34,-26},{26,-26},{26,-32},{4,-32}},
+      points={{100,-92},{2,-92}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(idealCtrlMixer.port_a2, pipeReturn.port_a) annotation (Line(
-      points={{39,22},{39,8},{20,8},{20,-32},{4,-32}},
+      points={{45,46},{45,40},{46,40},{46,34},{92,34},{92,-92},{2,-92}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(add1.y, idealCtrlMixer.TMixedSet) annotation (Line(
-      points={{-61.2,74},{39,74},{39,46}},
+  connect(TSensor, add.u1) annotation (Line(
+      points={{-204,-60},{-190,-60},{-190,-66.8},{-175.4,-66.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ctrl_Heating.THeaterSet, add2.u2) annotation (Line(
-      points={{-127.556,64},{-108.8,64},{-108.8,57.6}},
+  connect(ctrl_Heating.THeaterSet, heater.TSet) annotation (Line(
+      points={{-139.556,64},{-125,64},{-125,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(corFac.y, add2.u1) annotation (Line(
-      points={{-127,86},{-99.2,86},{-99.2,57.6}},
+  connect(ctrl_Heating.THeaCur, idealCtrlMixer.TMixedSet) annotation (Line(
+      points={{-139.556,69},{-126,69},{-126,76},{45,76},{45,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ctrl_Heating.THeaCur, add1.u2) annotation (Line(
-      points={{-127.556,69},{-103.778,69},{-103.778,69.2},{-79.6,69.2}},
+  connect(THigh_val.y, heatingControl.uHigh) annotation (Line(
+      points={{-161.4,-52},{-152,-52},{-152,-63.2},{-142,-63.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(corFac.y, add1.u1) annotation (Line(
-      points={{-127,86},{-92,86},{-92,78.8},{-79.6,78.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add2.y, heater.TSet) annotation (Line(
-      points={{-104,39.2},{-104,32},{-103,32}},
+  connect(TLow_val.y, heatingControl.uLow) annotation (Line(
+      points={{-159.3,-92},{-152,-92},{-152,-77},{-142,-77}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -100},{200,100}}), graphics));
+            -100},{200,100}}), graphics={Rectangle(
+          extent={{-98,30},{88,-64}},
+          lineColor={135,135,135},
+          lineThickness=1), Text(
+          extent={{36,30},{86,20}},
+          lineColor={135,135,135},
+          lineThickness=1,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          textString="Thermal Energy Storage")}));
 end Partial_heating_noSTS;
