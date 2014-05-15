@@ -4,7 +4,8 @@ partial model partial_DHW "partial DHW model"
 
   parameter Modelica.SIunits.Temperature TDHWSet(max=273.15 + 60) = 273.15 + 45
     "DHW temperature setpoint";
-  parameter Modelica.SIunits.Temperature TCold=283.15;
+    parameter Modelica.SIunits.Temperature TColdWaterNom=273.15 + 10
+    "Nominal cold water temperature";
 
   // we need to specify the flowrate in the pump and mixingValve as relative values between 0 and 1
   // so we compute a maximum flowrate and use this as nominal flowrate for these components
@@ -27,7 +28,7 @@ public
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression(y=TCold)
+  Modelica.Blocks.Sources.RealExpression realExpression(y=TColdWaterNom)
     annotation (Placement(transformation(extent={{26,-40},{46,-20}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_cold(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
@@ -41,12 +42,12 @@ public
             annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{-22,46},{-2,66}})));
-  Modelica.Blocks.Sources.Constant TTapWat_val(k=TCold)
+  Modelica.Blocks.Sources.Constant TTapWat_val(k=TColdWaterNom)
     "Water temperature for the tapwater"
     annotation (Placement(transformation(extent={{-100,18},{-86,32}})));
   Modelica.Blocks.Math.Division division
     annotation (Placement(transformation(extent={{16,20},{36,40}})));
-  Modelica.Blocks.Sources.Constant TDHW_val(k=273.15 + 60)
+  Modelica.Blocks.Sources.Constant TDHW_val(k=TDHWSet)
     "Temperature of the Domestic hot water"
     annotation (Placement(transformation(extent={{-100,48},{-86,62}})));
 

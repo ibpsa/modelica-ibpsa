@@ -16,7 +16,7 @@ model DHW_ProfileReader
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     columns=2:4,
     fileName="..\\Inputs\\" + "DHWProfile.txt")
-    "ratio between the actual DHW mass flow rate and its daily average mass flow rate"
+    "ratio between the actual DHW mass flow rate (per second) and its average daily mass flow rate (per day)"
                                                                                                         annotation (Placement(visible=
           true, transformation(
         origin={49.5,89.75},
@@ -27,8 +27,8 @@ model DHW_ProfileReader
     annotation (Placement(transformation(extent={{-2,74},{-22,94}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=time)
     annotation (Placement(transformation(extent={{96,80},{76,100}})));
-  Modelica.Blocks.Sources.RealExpression m_flowDHW_ave(y=VDayAvg*Medium.density(
-         Medium.setState_phX(
+  Modelica.Blocks.Sources.RealExpression m_flowDHW_ave_day(y=VDayAvg*
+        Medium.density(Medium.setState_phX(
         port_hot.p,
         inStream(port_hot.h_outflow),
         inStream(port_hot.Xi_outflow))))
@@ -39,7 +39,7 @@ equation
       points={{-23,84},{-30,84},{-30,62},{-24,62}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(m_flowDHW_ave.y, m_flowDHW_actual.u2) annotation (Line(
+  connect(m_flowDHW_ave_day.y, m_flowDHW_actual.u2) annotation (Line(
       points={{36.4,56},{30,56},{30,78},{0,78}},
       color={0,0,127},
       smooth=Smooth.None));
