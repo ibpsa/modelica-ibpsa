@@ -10,8 +10,7 @@ model Building
             {-36,10}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem(
     nZones=building.nZones,
-    VZones=building.VZones,
-    nEmb=building.nEmb) "Thermal building heating system" annotation (Placement(
+    nEmbPorts=building.nEmb) "Thermal building heating system" annotation (Placement(
         transformation(extent={{-20,-10},{20,10}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.Occupant occupant(nZones=building.nZones)
     constrainedby IDEAS.Interfaces.BaseClasses.Occupant(nZones=building.nZones)
@@ -43,18 +42,10 @@ model Building
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
 equation
-  connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
-      points={{0,-10.4},{0,-22}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(building.heatPortEmb, heatingSystem.heatPortEmb) annotation (Line(
-      points={{-36,6},{-20,6}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(building.heatPortCon, heatingSystem.heatPortCon) annotation (Line(
-      points={{-36,2},{-20,2}},
-      color={191,0,0},
-      smooth=Smooth.None));
+//   connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
+//       points={{0,-10.4},{0,-22}},
+//       color={0,0,127},
+//       smooth=Smooth.None));
   connect(building.heatPortCon, ventilationSystem.heatPortCon) annotation (Line(
       points={{-36,2},{-26,2},{-26,30},{-20,30}},
       color={191,0,0},
@@ -63,16 +54,12 @@ equation
       points={{-36,2},{-26,2},{-26,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(building.heatPortRad, heatingSystem.heatPortRad) annotation (Line(
-      points={{-36,-2},{-20,-2}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(building.heatPortRad, occupant.heatPortRad) annotation (Line(
       points={{-36,-2},{-28,-2},{-28,-34},{-10,-34}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.TSensor, heatingSystem.TSensor) annotation (Line(
-      points={{-35.4,-6},{-20.4,-6}},
+      points={{-35.4,-6},{-28,-6},{-28,-6},{-20.4,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(building.TSensor, ventilationSystem.TSensor) annotation (Line(
@@ -85,7 +72,7 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(heatingSystem.plugLoad, inHomeGrid.nodeSingle) annotation (Line(
-      points={{20,0},{32,0}},
+      points={{20,0},{26,0},{26,0},{32,0}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(occupant.plugLoad, inHomeGrid.nodeSingle) annotation (Line(
@@ -109,10 +96,10 @@ equation
         smooth=Smooth.None));
   end if;
 
-  connect(heatingSystem.mDHW60C, occupant.mDHW60C) annotation (Line(
-      points={{6,-10.4},{6,-22}},
-      color={0,0,127},
-      smooth=Smooth.None));
+//   connect(heatingSystem.mDHW60C, occupant.mDHW60C) annotation (Line(
+//       points={{6,-10.4},{6,-22}},
+//       color={0,0,127},
+//       smooth=Smooth.None));
   annotation (Icon(graphics={
         Line(
           points={{60,22},{0,74},{-60,24},{-60,-46},{60,-46}},

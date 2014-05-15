@@ -11,11 +11,11 @@ model SimInfoManager
 
   final parameter String filNamClim="../Inputs/" + filNam;
 
-  parameter Boolean occBeh=false
+  parameter Boolean occBeh=true
     "put to true if  user behaviour is to be read from files"
     annotation (Dialog(group="User behaviour"));
 
-  parameter Boolean DHW=false
+  parameter Boolean DHW=true
     "put to true if domestic how water (DHW) consumption is to be read from files"
     annotation (Dialog(group="User behaviour"));
   parameter Boolean PV=false
