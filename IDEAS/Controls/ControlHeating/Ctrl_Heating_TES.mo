@@ -19,10 +19,6 @@ equation
     onOff = 0;
   end if;
 
-  connect(heatingCurve.TSup, THeaCur) annotation (Line(
-      points={{1,56},{-8,56},{-8,-40},{104,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (Diagram(graphics), Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Heating curve based control of a heater + TES charging control. The set point temperature for the heater is higher than the heating curve output in order to make sure that the heating curve temperature is met also when thermal losses are present in the circuit. The heater set temperature is the maximum of the requirements for space heating and DHW: if tank charging is occurring, the DHW temperture requirements will normally be higher than for space heating. </p>

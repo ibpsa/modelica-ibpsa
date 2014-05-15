@@ -4,10 +4,6 @@ model Ctrl_Heating_DHW
 
   extends Interfaces.Partial_Ctrl_Heating_TES;
 
-  Modelica.Blocks.Math.Add add2
-    annotation (Placement(transformation(extent={{-8,-8},{8,8}},
-        rotation=0,
-        origin={72,0})));
 equation
   TTopSet = TDHWSet + dTSafetyTop;
   TBotSet = TDHWSet + dTSafetyBot;
@@ -30,18 +26,6 @@ equation
     THPSet = heatingCurve.TSup + 2;
   end if;
 
-  connect(corHeaCur.y, add2.u1) annotation (Line(
-      points={{1,20},{52,20},{52,4.8},{62.4,4.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(realExpression2.y, add2.u2) annotation (Line(
-      points={{16.2,-3},{40.1,-3},{40.1,-4.8},{62.4,-4.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add2.y, THeaterSet) annotation (Line(
-      points={{80.8,0},{104,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},
             {100,80}}),
                       graphics), Documentation(info="<html>
