@@ -35,11 +35,10 @@ public
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium annotation (
       __Dymola_choicesAllMatching=true);
 
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem_hot(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    tau=tau)
-            annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
+    tau=tau) annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{-22,46},{-2,66}})));
   Modelica.Blocks.Sources.Constant TTapWat_val(k=TColdWaterNom)
@@ -72,8 +71,10 @@ public
   Modelica.Blocks.Math.Add TemDifHotTap(k2=-1)
     "Temperature difference between the port_hot temperature and the tapwater"
     annotation (Placement(transformation(extent={{-60,34},{-40,14}})));
+
+  Modelica.SIunits.Temperature TDHW_actual = max(senTem_hot.T,TDHWSet);
 equation
-  connect(port_hot, senTem.port_a) annotation (Line(
+  connect(port_hot, senTem_hot.port_a) annotation (Line(
       points={{-100,4.44089e-16},{-88,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -81,7 +82,7 @@ equation
       points={{14,36},{8,36},{8,56},{-1,56}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(idealSource.port_a, senTem.port_b) annotation (Line(
+  connect(idealSource.port_a, senTem_hot.port_b) annotation (Line(
       points={{40,0},{-68,0}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -113,7 +114,7 @@ equation
       points={{-85.3,25},{-76,25},{-76,44},{-62,44}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senTem.T, TemDifHotTap.u1) annotation (Line(
+  connect(senTem_hot.T, TemDifHotTap.u1) annotation (Line(
       points={{-78,11},{-78,18},{-62,18}},
       color={0,0,127},
       smooth=Smooth.None));
