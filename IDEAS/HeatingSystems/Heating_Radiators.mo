@@ -23,7 +23,8 @@ model Heating_Radiators
 
 equation
   QHeaSys = -sum(emission.heatPortCon.Q_flow) - sum(emission.heatPortRad.Q_flow);
-
+  P[1] = heater.PEl + sum(pumpRad.PEl);
+  Q[1] = 0;
   connect(emission.heatPortCon, heatPortCon) annotation (Line(
       points={{142.5,44},{142.5,70},{142,70},{142,96},{-178,96},{-178,20},{-200,
           20}},

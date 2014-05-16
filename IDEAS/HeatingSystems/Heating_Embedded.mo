@@ -24,7 +24,8 @@ model Heating_Embedded
 
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow);
-
+  P[1] = heater.PEl + sum(pumpRad.PEl);
+  Q[1] = 0;
   connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
       points={{135,44},{136,44},{136,98},{-176,98},{-176,60},{-200,60}},
       color={191,0,0},

@@ -24,9 +24,11 @@ model Heating_Embedded_DHW_STS
       RadSlaCha = RadSlaCha),
     redeclare Controls.ControlHeating.Ctrl_Heating_DHW ctrl_Heating(TDHWSet=
           TDHWSet, TColdWaterNom=TColdWaterNom,
-      dTHPTankSet=dTHPTankSet));
+      dTHPTankSet=dTHPTankSet),
+    heater(m_flow_nominal=sum(m_flow_nominal) + m_flow_nominal_stoHX),
+    pumpRad(riseTime=100, dpFix=0));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_DHW = dHW.m_flow_nominal/(3600*24)*3
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_DHW = sim.nOcc*dHW.VDayAvg*983/(3600*24)*10
     "nominal mass flow rate of DHW";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal_stoHX = m_flow_nominal_DHW * (TDHWSet - TColdWaterNom)/dTHPTankSet
     "nominal mass flow rate of HX of storage tank";
@@ -34,7 +36,7 @@ model Heating_Embedded_DHW_STS
     "DHW temperature setpoint";
   parameter Modelica.SIunits.Temperature TColdWaterNom=273.15 + 10
     "Nominal tap (cold) water temperature";
-  parameter SI.TemperatureDifference dTHPTankSet=2
+  parameter SI.TemperatureDifference dTHPTankSet(min=1)=2
     "Difference between tank setpoint and heat pump setpoint";
   parameter Modelica.SIunits.Volume volumeTank=0.25;
   parameter Modelica.SIunits.Area AColTot=1 "TOTAL collector area";
@@ -53,9 +55,10 @@ model Heating_Embedded_DHW_STS
     redeclare package Medium = Medium,
     useInput=true,
     UA=1,
-    m=0,
     m_flow_nominal=m_flow_nominal_stoHX,
-    dpFix=30000) "Pump for loading the storage tank"
+    m=1,
+    riseTime=100,
+    dpFix=0) "Pump for loading the storage tank"
     annotation (Placement(transformation(extent={{-30,-54},{-44,-42}})));
 
   IDEAS.Fluid.Storage.StorageTank_OneIntHX tesTank(
@@ -91,12 +94,12 @@ model Heating_Embedded_DHW_STS
       =                                                                          Medium, m=1,
     UA=10,
     m_flow_nominal=m_flow_nominal_DHW)
-    annotation (Placement(transformation(extent={{-28,-30},{-44,-24}})));
+    annotation (Placement(transformation(extent={{-28,-32},{-44,-26}})));
 
   // Result variables
   Modelica.SIunits.Temperature[nbrNodes] TSto=tesTank.nodes.heatPort.T;
   Modelica.SIunits.Temperature TTankTopSet;
-//  Modelica.SIunits.Temperature TTankBotIn;
+  Modelica.SIunits.Temperature TTankBotIn;
   Modelica.SIunits.MassFlowRate m_flowDHW;
   Modelica.SIunits.Power QDHW;
   Modelica.SIunits.Temperature TDHW;
@@ -108,7 +111,19 @@ model Heating_Embedded_DHW_STS
     nPorts=1)
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=90,
-        origin={8,-38})));
+        origin={8,-42})));
+  Fluid.Sensors.TemperatureTwoPort senTemSto_top(redeclare package Medium =
+        Medium, m_flow_nominal=sum(m_flow_nominal))
+    "Temperature at the top outlet of the storage tank (port_a)"
+    annotation (Placement(transformation(extent={{-24,18},{-32,26}})));
+  Fluid.Sensors.TemperatureTwoPort senTemSto_bot(redeclare package Medium =
+        Medium, m_flow_nominal=sum(m_flow_nominal))
+    "Temperature at the bottom inlet of the storage tank (port_b)"
+    annotation (Placement(transformation(extent={{-6,-34},{-16,-24}})));
+  Fluid.Sensors.TemperatureTwoPort senTemStoHX_out(redeclare package Medium =
+        Medium, m_flow_nominal=sum(m_flow_nominal))
+    "Temperature at the outlet of the storage tank heat exchanger (port_bHX)"
+    annotation (Placement(transformation(extent={{-66,-54},{-78,-42}})));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow) + QDHW;
 
@@ -118,7 +133,7 @@ equation
   // Result variables
   TTankTopSet = ctrl_Heating.TTopSet;
   TDHW = dHW.TDHW_actual;
-//  TTankBotIn = senTem_stoBot.T;
+  TTankBotIn = senTemSto_bot.T;
   m_flowDHW = dHW.idealSource.m_flow_in;
   SOCTank = ctrl_Heating.SOC;
   QDHW = -dHW.pipe_HeatPort.heatPort.Q_flow;
@@ -131,12 +146,8 @@ equation
       points={{-30,-48},{-26,-48},{-26,-13.8462}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(tesTank.portHXUpper, pipeSupply.port_a) annotation (Line(
-      points={{-26,-7.69231},{-26,58},{-16,58}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pipeDHW.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-36,-30},{-56,-30},{-56,-68},{-102,-68},{-102,-12},{-127,-12},{-127,
+      points={{-36,-32},{-56,-32},{-56,-68},{-102,-68},{-102,-12},{-127,-12},{-127,
           -14}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -161,38 +172,56 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(dHW.port_cold, pipeDHW.port_b) annotation (Line(
-      points={{-48.5,-7.35714},{-48.5,-27},{-44,-27}},
+      points={{-48.5,-7.35714},{-48.5,-29},{-44,-29}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tesTank.T[posTTop], ctrl_Heating.TTankTop) annotation (Line(
-      points={{2,4.61538},{12,4.61538},{12,2},{16,2},{16,88},{-166,88},{-166,
-          71.375},{-161,71.375}},
+      points={{2,4.61538},{18,4.61538},{18,80},{-176,80},{-176,71.375},{-161,
+          71.375}},
       color={0,0,127},
       smooth=Smooth.None));
+
   connect(tesTank.T[posTBot], ctrl_Heating.TTankBot) annotation (Line(
-      points={{2,4.61538},{10,4.61538},{10,2},{16,2},{16,88},{-176,88},{-176,
+      points={{2,4.61538},{10,4.61538},{10,4},{18,4},{18,80},{-176,80},{-176,
           56.5},{-160.889,56.5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pumpSto.port_b, heater.port_a) annotation (Line(
-      points={{-44,-48},{-106,-48},{-106,17.4545},{-114,17.4545}},
+  connect(dHW.port_hot,senTemSto_top. port_b) annotation (Line(
+      points={{-48.5,10.6429},{-48.5,22},{-32,22}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(tesTank.port_b, pipeDHW.port_a) annotation (Line(
-      points={{2,-16.9231},{6,-16.9231},{6,-18},{8,-18},{8,-27},{-28,-27}},
+  connect(senTemSto_top.port_a, tesTank.port_a) annotation (Line(
+      points={{-24,22},{6,22},{6,16.9231},{2,16.9231}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(dHW.port_hot, tesTank.port_a) annotation (Line(
-      points={{-48.5,10.6429},{-48.5,24},{6,24},{6,16.9231},{2,16.9231}},
+  connect(pipeDHW.port_a,senTemSto_bot. port_b) annotation (Line(
+      points={{-28,-29},{-16,-29}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(absolutePressure1.ports[1], pipeDHW.port_a) annotation (Line(
-      points={{8,-32},{8,-27},{-28,-27}},
+  connect(senTemSto_bot.port_a, tesTank.port_b) annotation (Line(
+      points={{-6,-29},{4,-29},{4,-16.9231},{2,-16.9231}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(absolutePressure1.ports[1], tesTank.port_b) annotation (Line(
+      points={{8,-36},{8,-28},{4,-28},{4,-16.9231},{2,-16.9231}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(tesTank.portHXUpper, pipeSupply.port_a) annotation (Line(
+      points={{-26,-7.69231},{-30,-7.69231},{-30,-8},{-36,-8},{-36,58},{-16,58}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
+  connect(pumpSto.port_b, senTemStoHX_out.port_a) annotation (Line(
+      points={{-44,-48},{-66,-48}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTemStoHX_out.port_b, heater.port_a) annotation (Line(
+      points={{-78,-48},{-106,-48},{-106,17.4545},{-114,17.4545}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
-            200,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
+            100}}),     graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
             100}})),
     Documentation(info="<html>

@@ -165,8 +165,6 @@ partial model Partial_heating_noSTS
         origin={108,-92})));
 
 equation
-  P[1] = heater.PEl + sum(pumpRad.PEl);
-  Q[1] = 0;
     // connections that are function of the number of circuits
   for i in 1:nZones loop
     connect(pipeReturnEmission[i].heatPort, fixedTemperature.port) annotation (
