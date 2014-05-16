@@ -4,8 +4,10 @@ partial model partial_DHW "partial DHW model"
 
   parameter Modelica.SIunits.Temperature TDHWSet(max=273.15 + 60) = 273.15 + 45
     "DHW temperature setpoint";
-    parameter Modelica.SIunits.Temperature TColdWaterNom=273.15 + 10
+  parameter Modelica.SIunits.Temperature TColdWaterNom=273.15 + 10
     "Nominal cold water temperature";
+  parameter Modelica.SIunits.MassFlowRate m_flow_max = m_flow_nominal
+    "maximum mass flow rate of DHW (not necessarily at TDHWSet)";
 
   // we need to specify the flowrate in the pump and mixingValve as relative values between 0 and 1
   // so we compute a maximum flowrate and use this as nominal flowrate for these components
@@ -40,12 +42,12 @@ public
     m_flow_nominal=m_flow_nominal,
     tau=tau) annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
   Modelica.Blocks.Math.Product product
-    annotation (Placement(transformation(extent={{-22,46},{-2,66}})));
+    annotation (Placement(transformation(extent={{-30,46},{-14,62}})));
   Modelica.Blocks.Sources.Constant TTapWat_val(k=TColdWaterNom)
     "Water temperature for the tapwater"
     annotation (Placement(transformation(extent={{-100,18},{-86,32}})));
   Modelica.Blocks.Math.Division division
-    annotation (Placement(transformation(extent={{16,20},{36,40}})));
+    annotation (Placement(transformation(extent={{-4,22},{10,36}})));
   Modelica.Blocks.Sources.Constant TDHW_val(k=TDHWSet)
     "Temperature of the Domestic hot water"
     annotation (Placement(transformation(extent={{-100,48},{-86,62}})));
@@ -67,28 +69,28 @@ public
   parameter SI.Time tau=30 "Tin time constant at nominal flow rate";
   Modelica.Blocks.Math.Add TemDifDHWTap(k2=-1)
     "Temperature difference between supply and net"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,40},{-42,58}})));
   Modelica.Blocks.Math.Add TemDifHotTap(k2=-1)
     "Temperature difference between the port_hot temperature and the tapwater"
-    annotation (Placement(transformation(extent={{-60,34},{-40,14}})));
+    annotation (Placement(transformation(extent={{-60,34},{-42,16}})));
 
   Modelica.SIunits.Temperature TDHW_actual = max(senTem_hot.T,TDHWSet);
+  IDEAS.Utilities.Math.SmoothLimit smoothLimit(                   lower=0,
+    deltaX=0.01*m_flow_nominal,
+    upper=m_flow_max)
+    annotation (Placement(transformation(extent={{20,22},{34,36}})));
 equation
   connect(port_hot, senTem_hot.port_a) annotation (Line(
       points={{-100,4.44089e-16},{-88,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(division.u1, product.y) annotation (Line(
-      points={{14,36},{8,36},{8,56},{-1,56}},
+      points={{-5.4,33.2},{-8,33.2},{-8,54},{-13.2,54}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(idealSource.port_a, senTem_hot.port_b) annotation (Line(
       points={{40,0},{-68,0}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(division.y, idealSource.m_flow_in) annotation (Line(
-      points={{37,30},{44,30},{44,8}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(idealSource.port_b, pipe_HeatPort.port_a) annotation (Line(
       points={{60,0},{80,0}},
@@ -107,27 +109,35 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TDHW_val.y, TemDifDHWTap.u1) annotation (Line(
-      points={{-85.3,55},{-76,55},{-76,56},{-62,56}},
+      points={{-85.3,55},{-76,55},{-76,54.4},{-61.8,54.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TTapWat_val.y, TemDifDHWTap.u2) annotation (Line(
-      points={{-85.3,25},{-76,25},{-76,44},{-62,44}},
+      points={{-85.3,25},{-76,25},{-76,43.6},{-61.8,43.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTem_hot.T, TemDifHotTap.u1) annotation (Line(
-      points={{-78,11},{-78,18},{-62,18}},
+      points={{-78,11},{-78,19.6},{-61.8,19.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TTapWat_val.y, TemDifHotTap.u2) annotation (Line(
-      points={{-85.3,25},{-76,25},{-76,30},{-62,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TemDifDHWTap.y, product.u2) annotation (Line(
-      points={{-39,50},{-24,50}},
+      points={{-85.3,25},{-76,25},{-76,30.4},{-61.8,30.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TemDifHotTap.y, division.u2) annotation (Line(
-      points={{-39,24},{14,24}},
+      points={{-41.1,25},{-18,25},{-18,24.8},{-5.4,24.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TemDifDHWTap.y, product.u2) annotation (Line(
+      points={{-41.1,49},{-36.55,49},{-36.55,49.2},{-31.6,49.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(division.y, smoothLimit.u) annotation (Line(
+      points={{10.7,29},{18.6,29}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(smoothLimit.y, idealSource.m_flow_in) annotation (Line(
+      points={{34.7,29},{44,29},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

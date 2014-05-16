@@ -3,12 +3,13 @@ model DHW_ProfileReader
   "DHW consumption with profile reader.  RealInput mDHW60C is not used."
   import IDEAS;
 
-  extends IDEAS.Fluid.Domestic_Hot_Water.partial_DHW;
+  extends IDEAS.Fluid.Domestic_Hot_Water.partial_DHW(idealSource(control_m_flow=
+         true));
 
   parameter Modelica.SIunits.Volume VDayAvg "Average daily water consumption";
   parameter Integer profileType=1 "Type of the DHW tap profile";
-  Real onoff;
-  Real m_minimum(start=0);
+//   Real onoff;
+//   Real m_minimum(start=0);
 
   Modelica.Blocks.Tables.CombiTable1Ds table(
     tableOnFile=true,
@@ -25,8 +26,6 @@ model DHW_ProfileReader
 
   Modelica.Blocks.Math.Product m_flowDHW_actual
     annotation (Placement(transformation(extent={{-2,74},{-22,94}})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=time)
-    annotation (Placement(transformation(extent={{96,80},{76,100}})));
   Modelica.Blocks.Sources.RealExpression m_flowDHW_ave_day(y=VDayAvg*
         Medium.density(Medium.setState_phX(
         port_hot.p,
@@ -34,9 +33,11 @@ model DHW_ProfileReader
         inStream(port_hot.Xi_outflow))))
     "average mass flow rate of DHW consumption"
     annotation (Placement(transformation(extent={{112,46},{40,66}})));
+  IDEAS.Climate.Time.BaseClasses.SimulationTime simulationTime
+    annotation (Placement(transformation(extent={{100,80},{80,100}})));
 equation
   connect(m_flowDHW_actual.y, product.u1) annotation (Line(
-      points={{-23,84},{-30,84},{-30,62},{-24,62}},
+      points={{-23,84},{-36,84},{-36,58.8},{-31.6,58.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flowDHW_ave_day.y, m_flowDHW_actual.u2) annotation (Line(
@@ -47,8 +48,8 @@ equation
       points={{37.95,89.75},{30,89.75},{30,90},{0,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(realExpression1.y, table.u) annotation (Line(
-      points={{75,90},{74,90},{74,89.75},{62.1,89.75}},
+  connect(simulationTime.timSim, table.u) annotation (Line(
+      points={{80,90},{72,90},{72,89.75},{62.1,89.75}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
