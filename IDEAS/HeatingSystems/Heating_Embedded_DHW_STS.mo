@@ -1,6 +1,7 @@
 within IDEAS.HeatingSystems;
 model Heating_Embedded_DHW_STS
   "Hydraulic heating with embedded emission, DHW (with STS), no TES for heating"
+  // fixme: no solar system is implemeted so far (adapt documentation)
   replaceable parameter
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nZones] RadSlaCha constrainedby
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
@@ -28,14 +29,17 @@ model Heating_Embedded_DHW_STS
     heater(m_flow_nominal=sum(m_flow_nominal) + m_flow_nominal_stoHX),
     pumpRad(riseTime=100, dpFix=0));
 
+  // --- Domestic Hot Water (DHW) Parameters
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal_DHW = sim.nOcc*dHW.VDayAvg*983/(3600*24)*10
     "nominal mass flow rate of DHW";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_stoHX = m_flow_nominal_DHW * (TDHWSet - TColdWaterNom)/dTHPTankSet
-    "nominal mass flow rate of HX of storage tank";
   parameter Modelica.SIunits.Temperature TDHWSet(max=273.15 + 60) = 273.15 + 45
     "DHW temperature setpoint";
   parameter Modelica.SIunits.Temperature TColdWaterNom=273.15 + 10
     "Nominal tap (cold) water temperature";
+
+  // --- Storage Tank Parameters
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_stoHX = m_flow_nominal_DHW * (TDHWSet - TColdWaterNom)/dTHPTankSet
+    "nominal mass flow rate of HX of storage tank";
   parameter SI.TemperatureDifference dTHPTankSet(min=1)=2
     "Difference between tank setpoint and heat pump setpoint";
   parameter Modelica.SIunits.Volume volumeTank=0.25;
@@ -51,6 +55,7 @@ model Heating_Embedded_DHW_STS
     "Position of injection of STS in TES";
   parameter Boolean solSys(fixed=true) = false;
 
+  // --- Storage tank and hydraulic circuit connect to its heat exchanger
   IDEAS.Fluid.Movers.Pump_Insulated pumpSto(
     redeclare package Medium = Medium,
     useInput=true,
@@ -75,6 +80,7 @@ model Heating_Embedded_DHW_STS
         rotation=0,
         origin={-12,0})));
 
+  // --- Domestic Hot Water and it hydraulic circuit
   replaceable IDEAS.Fluid.Domestic_Hot_Water.DHW_ProfileReader dHW(
     TDHWSet=TDHWSet,
     TColdWaterNom=TColdWaterNom,
@@ -96,7 +102,15 @@ model Heating_Embedded_DHW_STS
     m_flow_nominal=m_flow_nominal_DHW)
     annotation (Placement(transformation(extent={{-28,-32},{-44,-26}})));
 
-  // Result variables
+  Fluid.Sources.FixedBoundary       absolutePressure1(
+                                                     redeclare package Medium
+      = Medium, use_T=false,
+    nPorts=1)
+    annotation (Placement(transformation(extent={{-6,-6},{6,6}},
+        rotation=90,
+        origin={8,-42})));
+
+  // --- Result (Output) variables
   Modelica.SIunits.Temperature[nbrNodes] TSto=tesTank.nodes.heatPort.T;
   Modelica.SIunits.Temperature TTankTopSet;
   Modelica.SIunits.Temperature TTankBotIn;
@@ -105,13 +119,7 @@ model Heating_Embedded_DHW_STS
   Modelica.SIunits.Temperature TDHW;
   Real SOCTank;
 
-  Fluid.Sources.FixedBoundary       absolutePressure1(
-                                                     redeclare package Medium
-      = Medium, use_T=false,
-    nPorts=1)
-    annotation (Placement(transformation(extent={{-6,-6},{6,6}},
-        rotation=90,
-        origin={8,-42})));
+  // --- Temperature sensors
   Fluid.Sensors.TemperatureTwoPort senTemSto_top(redeclare package Medium =
         Medium, m_flow_nominal=sum(m_flow_nominal))
     "Temperature at the top outlet of the storage tank (port_a)"
@@ -137,10 +145,6 @@ equation
   m_flowDHW = dHW.idealSource.m_flow_in;
   SOCTank = ctrl_Heating.SOC;
   QDHW = -dHW.pipe_HeatPort.heatPort.Q_flow;
-
-  //STS
-
-  // general connections for any configuration
 
   connect(pumpSto.port_a, tesTank.portHXLower) annotation (Line(
       points={{-30,-48},{-26,-48},{-26,-13.8462}},
