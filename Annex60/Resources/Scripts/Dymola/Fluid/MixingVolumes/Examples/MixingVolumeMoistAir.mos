@@ -1,5 +1,4 @@
 simulateModel("Annex60.Fluid.MixingVolumes.Examples.MixingVolumeMoistAir",
-   tolerance=1e-06, 
    stopTime=600,
    resultFile="MixingVolumeMoistAir");
 
