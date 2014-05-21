@@ -47,16 +47,14 @@ equation
   flowPort_a.p = flowPort_b.p;
 
   // fixing temperatures
-algorithm
   if noEvent(flowPort_a.m_flow > mFlowNom/10) then
-    TIn := flowPort_a.h/medium.cp;
-    TOut := max(heatPortCon.T, 2*TMean - TIn);
+    TIn = flowPort_a.h/medium.cp;
+    TOut = max(heatPortCon.T, 2*TMean - TIn);
   else
-    TIn := TMean;
-    TOut := TMean;
+    TIn = TMean;
+    TOut = TMean;
   end if;
 
-equation
   // radiator equation
   QTotal = -UA*(dTRadRoo)^n;
   // negative for heat emission!
