@@ -4,7 +4,8 @@ model EmbeddedPipe
   import IDEAS;
 
   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(m=Modelica.Constants.pi/4*(
-      RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default));
+      RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default), res(use_dh=true, dh=
+          if RadSlaCha.tabs then RadSlaCha.d_a - RadSlaCha.s_r else 1));
 
   // General model parameters ////////////////////////////////////////////////////////////////
   // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
@@ -15,7 +16,8 @@ model EmbeddedPipe
   replaceable parameter
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar RadSlaCha constrainedby
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
-    "Properties of the floor heating or TABS, if present";
+    "Properties of the floor heating or TABS, if present"
+    annotation (choicesAllMatching=true);
 
   // Resistances ////////////////////////////////////////////////////////////////
   // there is no R_z in the model because the dynamics of the water is explicitly simulated
