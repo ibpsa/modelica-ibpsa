@@ -53,20 +53,19 @@ public
   Fluid.MixingVolumes.MixingVolume         vol(
     V=V,
     m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = IDEAS.Media.Air,
-    nPorts=2)                                  annotation (Placement(
+    nPorts=2,
+    redeclare package Medium = Medium)         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-10,30})));
-  Fluid.Interfaces.FlowPort_b flowPort_Out(redeclare package Medium =
-        IDEAS.Media.Air)
+  Fluid.Interfaces.FlowPort_b flowPort_Out(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
-  Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium =
-        IDEAS.Media.Air)
+  Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
-  Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
-        IDEAS.Media.Air, m_flow_nominal=m_flow_nominal) annotation (Placement(
+  Fluid.Sensors.TemperatureTwoPort senTem(
+                         m_flow_nominal=m_flow_nominal, redeclare package
+      Medium = Medium)                                  annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -143,7 +142,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(vol.heatPort, gainCon) annotation (Line(
-      points={{0,30},{0,30},{10,30},{10,-30},{100,-30}},
+      points={{0,30},{10,30},{10,-30},{100,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(vent.port_a, gainCon) annotation (Line(
@@ -152,12 +151,12 @@ equation
       smooth=Smooth.None));
 for i in 1:nSurf loop
   connect(surfCon[i], vol.heatPort) annotation (Line(
-      points={{-100,-30},{10,-30},{10,30},{0,30},{0,30}},
+      points={{-100,-30},{10,-30},{10,30},{0,30}},
       color={191,0,0},
       smooth=Smooth.None));
 end for;
   connect(flowPort_In, vol.ports[1]) annotation (Line(
-      points={{20,100},{20,100},{20,40},{-8,40}},
+      points={{20,100},{20,40},{-8,40}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(senTem.port_a, vol.ports[2]) annotation (Line(
@@ -192,6 +191,6 @@ end for;
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics));
 end Zone;
