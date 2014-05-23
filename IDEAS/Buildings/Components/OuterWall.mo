@@ -3,7 +3,7 @@ model OuterWall "Opaque building envelope construction"
 
   extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-  replaceable parameter Data.Constructions.CavityWall constructionType
+  replaceable Data.Constructions.CavityWall constructionType
     constrainedby Data.Interfaces.Construction(final insulationType=
         insulationType, final insulationTickness=insulationThickness)
     "Type of building construction" annotation (
@@ -11,7 +11,7 @@ model OuterWall "Opaque building envelope construction"
     Placement(transformation(extent={{-38,72},{-34,76}})),
     Dialog(group="Construction details"));
 
-  replaceable parameter Data.Insulation.Rockwool insulationType constrainedby
+  replaceable Data.Insulation.Rockwool insulationType constrainedby
     Data.Interfaces.Insulation(final d=insulationThickness)
     "Type of thermal insulation" annotation (
     __Dymola_choicesAllMatching=true,
