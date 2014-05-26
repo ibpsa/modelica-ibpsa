@@ -9,10 +9,13 @@ model EmbeddedPipe
 
   // General model parameters ////////////////////////////////////////////////////////////////
   // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
-  final parameter Modelica.SIunits.Length L_r=RadSlaCha.A_Floor/RadSlaCha.T
+  final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T
     "Length of the circuit";
   parameter Modelica.SIunits.MassFlowRate m_flowMin
     "Minimal flowrate when in operation";
+
+  parameter Modelica.SIunits.Area A_floor "Floor/tabs surface area";
+
   replaceable parameter
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar RadSlaCha constrainedby
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
@@ -45,19 +48,19 @@ model EmbeddedPipe
     m_flowMin/(Modelica.Constants.pi/4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2)*(RadSlaCha.d_a - 2*RadSlaCha.s_r)/
     Medium.dynamicViscosity(state_default)
     "Fix Reynolds number for assert of turbulent flow";
-  Real m_flowSp(unit="kg/(m2.s)")=port_a.m_flow/RadSlaCha.A_Floor
+  Real m_flowSp(unit="kg/(m2.s)")=port_a.m_flow/A_floor
     "mass flow rate per unit floor area";
-  Real m_flowMinSp(unit="kg/(m2.s)")=m_flowMin/RadSlaCha.A_Floor
+  Real m_flowMinSp(unit="kg/(m2.s)")=m_flowMin/A_floor
     "minimum mass flow rate per unit floor area";
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor R_x(G=
-        RadSlaCha.A_Floor/R_x_val) "Thermal conductor from pipe wall to layer"
+        A_floor/R_x_val) "Thermal conductor from pipe wall to layer"
          annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={56,24})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor R_r(G=
-        RadSlaCha.A_Floor/R_r_val) "Thermal conductor of pipe wall"
+        A_floor/R_r_val) "Thermal conductor of pipe wall"
         annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -75,7 +78,7 @@ public
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
 
-  Modelica.Blocks.Sources.RealExpression G_w_val(y=RadSlaCha.A_Floor/R_w_val)
+  Modelica.Blocks.Sources.RealExpression G_w_val(y=A_floor/R_w_val)
     "Value of the G_w_val of the convective heat transfer inside pipe"
     annotation (Placement(transformation(extent={{-92,40},{-36,60}})));
   Modelica.Thermal.HeatTransfer.Components.Convection R_w
