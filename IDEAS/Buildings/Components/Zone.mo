@@ -30,12 +30,11 @@ protected
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-54,-44})));
-  IDEAS.Buildings.Components.BaseClasses.AirLeakage vent(final n50=n50,final V=
-        V) "Thermal zone air leakage"
-                              annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={30,10})));
+  BaseClasses.AirLeakage airLeakage(
+    redeclare package Medium = IDEAS.Media.Air,
+    m_flow_nominal=V/3600*n50/20,
+    V=V)
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final
       nSurf=nSurf, final linear=linear)
     "internal longwave radiative heat exchange" annotation (Placement(
@@ -141,10 +140,16 @@ equation
       points={{0,30},{0,30},{10,30},{10,-30},{100,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(vent.port_a, gainCon) annotation (Line(
-      points={{30,0},{30,-30},{100,-30}},
-      color={191,0,0},
+
+  connect(vol.ports[2], airLeakage.port_a)       annotation (Line(
+      points={{-12,40},{40,40}},
+      color={0,127,255},
       smooth=Smooth.None));
+  connect(airLeakage.port_b, vol.ports[3])       annotation (Line(
+      points={{60,40},{80,40},{80,16},{-32,16},{-32,40},{-10,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
 for i in 1:nSurf loop
   connect(surfCon[i], vol.heatPort) annotation (Line(
       points={{-100,-30},{10,-30},{10,30},{0,30},{0,30}},
@@ -161,7 +166,7 @@ end for;
       smooth=Smooth.None));
   connect(flowPort_Out, vol.ports[2]) annotation (Line(
       points={{-20,100},{-20,40},{-12,40}},
-      color={0,0,0},
+      color={0,128,255},
       smooth=Smooth.None));
   connect(senTem.port, gainCon) annotation (Line(
       points={{0,-20},{10,-20},{10,-30},{100,-30}},
