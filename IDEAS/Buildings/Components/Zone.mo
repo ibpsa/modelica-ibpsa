@@ -52,7 +52,7 @@ public
     V=V,
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = IDEAS.Media.Air,
-    nPorts=2)                                  annotation (Placement(
+    nPorts=4)                                  annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -137,27 +137,19 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(vol.heatPort, gainCon) annotation (Line(
-      points={{0,30},{0,30},{10,30},{10,-30},{100,-30}},
+      points={{0,30},{10,30},{10,-30},{100,-30}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(vol.ports[2], airLeakage.port_a)       annotation (Line(
-      points={{-12,40},{40,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(airLeakage.port_b, vol.ports[3])       annotation (Line(
-      points={{60,40},{80,40},{80,16},{-32,16},{-32,40},{-10,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
 
 for i in 1:nSurf loop
   connect(surfCon[i], vol.heatPort) annotation (Line(
-      points={{-100,-30},{10,-30},{10,30},{0,30},{0,30}},
+      points={{-100,-30},{10,-30},{10,30},{0,30}},
       color={191,0,0},
       smooth=Smooth.None));
 end for;
   connect(flowPort_In, vol.ports[1]) annotation (Line(
-      points={{20,100},{20,100},{20,40},{-8,40}},
+      points={{20,100},{20,40},{-7,40}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(heatCap.port, gainCon) annotation (Line(
@@ -165,7 +157,7 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(flowPort_Out, vol.ports[2]) annotation (Line(
-      points={{-20,100},{-20,40},{-12,40}},
+      points={{-20,100},{-20,40},{-9,40}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(senTem.port, gainCon) annotation (Line(
@@ -175,6 +167,14 @@ end for;
   connect(senTem.T, sum.u[2]) annotation (Line(
       points={{-16,-20},{-18,-20},{-18,-59.4},{-1.2,-59.4}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(airLeakage.port_a, vol.ports[3]) annotation (Line(
+      points={{40,40},{-11,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(airLeakage.port_b, vol.ports[4]) annotation (Line(
+      points={{60,40},{70,40},{70,14},{-32,14},{-32,40},{-13,40}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
