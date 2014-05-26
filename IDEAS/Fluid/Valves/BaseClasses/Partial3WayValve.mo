@@ -16,52 +16,46 @@ model Partial3WayValve "Partial for 3-way valves"
   MixingVolumes.MixingVolume vol(nPorts=3,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    V=m/2/Medium.density(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default)),
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
     p_start=p_start,
     T_start=T_start,
     X_start=X_start,
     C_start=C_start,
-    C_nominal=C_nominal)
+    C_nominal=C_nominal,
+    V=m/Medium.density(Medium.setState_pTX(
+        Medium.p_default,
+        Medium.T_default,
+        Medium.X_default)))
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  IDEAS.Fluid.Movers.Pump pump(
-    useInput=true,
-    m_flow_nominal=m_flow_nominal,
-    m=m/2,
-    redeclare package Medium = Medium,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    p_start=p_start,
-    T_start=T_start,
-    X_start=X_start,
-    C_start=C_start,
-    C_nominal=C_nominal) annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={0,-28})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate";
 
+  Interfaces.IdealSource idealSource(redeclare package Medium = Medium,
+      control_m_flow=true) annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={0,-44})));
 equation
   connect(port_a1, vol.ports[1]) annotation (Line(
       points={{-100,0},{-2.66667,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_b, vol.ports[2]) annotation (Line(
-      points={{100,0},{2.22045e-016,0}},
+      points={{100,0},{4.44089e-16,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pump.port_b, vol.ports[3]) annotation (Line(
-      points={{0,-18},{0,0},{2.66667,0}},
+  connect(idealSource.port_a, port_a2) annotation (Line(
+      points={{0,-54},{4.44089e-16,-54},{4.44089e-16,-100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_a2, pump.port_a) annotation (Line(
-      points={{0,-100},{0,-38}},
+  connect(idealSource.port_b, vol.ports[3]) annotation (Line(
+      points={{0,-34},{0,-4.44089e-16},{2.66667,-4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Icon(graphics={
         Polygon(

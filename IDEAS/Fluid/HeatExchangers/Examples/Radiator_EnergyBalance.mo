@@ -73,7 +73,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(step1.y, volumeFlow1.m_flowSet) annotation (Line(
-      points={{-35,40},{-26,40},{-26,4}},
+      points={{-35,40},{-26,40},{-26,4.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(prescribedTemperature.port, radiator.heatPortCon) annotation (Line(

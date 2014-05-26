@@ -3,7 +3,7 @@ model ShadingControl "shading control based on irradiation"
 
   parameter Real uLow=250 "upper limit above which shading goes down";
   parameter Real uHigh=150 "lower limit below which shading goes up again";
-  IDEAS.BaseClasses.Control.Hyst_NoEvent hyst(uLow=uLow, uHigh=uHigh);
+  IDEAS.Controls.Control_fixme.Hyst_NoEvent hyst(uLow=uLow, uHigh=uHigh);
   Modelica.Blocks.Interfaces.RealInput irr "irradiance on the depicted surface"
     annotation (Placement(transformation(extent={{-128,30},{-88,70}}),
         iconTransformation(extent={{-108,50},{-88,70}})));

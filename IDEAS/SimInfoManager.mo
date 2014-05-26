@@ -2,12 +2,15 @@ within IDEAS;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
 
-  replaceable IDEAS.Climate.Meteo.Detail detail constrainedby
-    IDEAS.Climate.Meteo.Detail "Timeframe detail of the climate data"
-    annotation (__Dymola_choicesAllMatching=true,Dialog(group="Climate"));
-  replaceable IDEAS.Climate.Meteo.Location city constrainedby
-    IDEAS.Climate.Meteo.Location "Location of the depicted climate data"
-    annotation (__Dymola_choicesAllMatching=true,Dialog(group="Climate"));
+  parameter String filNam = "Uccle_TMY3_60.txt" "Name of weather data file";
+  parameter Modelica.SIunits.Angle lat(displayUnit="deg") = 0.88749992463912
+    "latitude of the locatioin";
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 0.075921822461753;
+  parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = 3600
+    "standard time zone";
+
+  final parameter String filNamClim="../Inputs/" + filNam;
+
   parameter Boolean occBeh=false
     "put to true if  user behaviour is to be read from files"
     annotation (Dialog(group="User behaviour"));
@@ -35,161 +38,141 @@ model SimInfoManager
     annotation (Dialog(group="Photovoltaics"));
 
 protected
-  final parameter String filNamClim="../Inputs/" + city.locNam + detail.filNam;
-  final parameter Modelica.SIunits.Angle lat(displayUnit="deg") = city.lat
-    "latitude of the locatioin";
-  final parameter Modelica.SIunits.Angle lon(displayUnit="deg") = city.lon;
-  final parameter Modelica.SIunits.Temperature Tdes=city.Tdes
+  final parameter Modelica.SIunits.Temperature Tdes = -8 + 273.15
     "design outdoor temperature";
-  final parameter Modelica.SIunits.Temperature TdesGround=city.TdesGround
+  final parameter Modelica.SIunits.Temperature TdesGround = 10 + 273.15
     "design ground temperature";
-  final parameter Modelica.SIunits.Time timZonSta=city.timZonSta
-    "standard time zone";
-  final parameter Boolean DST=city.DST
-    "boolean to take into account daylight saving time";
-  final parameter Integer yr=city.yr "depcited year for DST only";
 
-  final parameter Boolean BesTest=Modelica.Utilities.Strings.isEqual(city.locNam,
-      "BesTest")
+  final parameter Boolean DST = true
+    "boolean to take into account daylight saving time";
+  final parameter Integer yr = 2014 "depcited year for DST only";
+
+  final parameter Boolean BesTest = Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
     "boolean to determine if this simulation is a BESTEST simulation";
 
 public
-  Modelica.SIunits.Irradiance solDirPer=climate_solar.y[3]
+  Modelica.SIunits.Irradiance solDirPer = weaDat.cheDirNorRad.HOut
     "direct irradiation on normal to solar zenith";
-  Modelica.SIunits.Irradiance solDirHor=climate_solar.y[1] - climate_solar.y[2]
+  Modelica.SIunits.Irradiance solDirHor = weaDat.cheGloHorRad.HOut - solDifHor
     "direct irradiation on horizontal surface";
-  Modelica.SIunits.Irradiance solDifHor=climate_solar.y[2]
+  Modelica.SIunits.Irradiance solDifHor = weaDat.cheDifHorRad.HOut
     "difuse irradiation on horizontal surface";
-  Modelica.SIunits.Irradiance solGloHor=solDirHor + solDifHor
+  Modelica.SIunits.Irradiance solGloHor = solDirHor + solDifHor
     "global irradiation on horizontal";
-  Modelica.SIunits.Temperature Te=climate_nonSolar.y[1] + 273.15
+  Modelica.SIunits.Temperature Te = weaDat.cheTemDryBul.TOut
     "ambient outdoor temperature for determination of sky radiation exchange";
   Modelica.SIunits.Temperature Tsky "effective overall sky temperature";
-  Modelica.SIunits.Temperature TeAv=Te
+  Modelica.SIunits.Temperature TeAv = Te
     "running average of ambient outdoor temperature of the last 5 days, not yet implemented";
   Modelica.SIunits.Temperature Tground=TdesGround "ground temperature";
   Modelica.SIunits.Velocity Va "air velocity";
   Real Fc "cloud factor";
-  Modelica.SIunits.Irradiance irr=climate_solar.y[1];
-  Boolean summer=timMan.summer;
+  Modelica.SIunits.Irradiance irr = weaDat.cheGloHorRad.HOut "Irradiance";
+  Boolean summer = timMan.summer;
+
+  Real relHum(final unit="1") = weaDat.cheRelHum.relHumOut "Relative humidity";
+  Modelica.SIunits.Temperature TDewPoi = weaDat.cheTemDewPoi.TOut "Dewpoint";
 
   Boolean day=true;
 
-  Modelica.SIunits.Time timLoc=timMan.timLoc "Local time";
-  Modelica.SIunits.Time timSol=timMan.timSol "Solar time";
-  Modelica.SIunits.Time timCal=timMan.timCal "Calendar time";
+  Modelica.SIunits.Time timLoc = timMan.timLoc "Local time";
+  Modelica.SIunits.Time timSol = timMan.timSol "Solar time";
+  Modelica.SIunits.Time timCal = timMan.timCal "Calendar time";
 
 protected
   IDEAS.Climate.Time.SimTimes timMan(
-    delay=detail.timestep/2,
     timZonSta=timZonSta,
     lon=lon,
     DST=false,
     ifSolCor=true)
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Tables.CombiTable1Ds climate_nonSolar(
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    final tableOnFile=true,
-    final tableName="data",
-    final fileName=filNamClim,
-    final columns={15,16,12,10})
-    annotation (Placement(transformation(extent={{-40,66},{-26,80}})));
-  Modelica.Blocks.Tables.CombiTable1Ds climate_solar(
-    final tableOnFile=true,
-    final tableName="data",
-    final fileName=filNamClim,
-    final columns={7,11,14},
-    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-    annotation (Placement(transformation(extent={{-40,46},{-26,60}})));
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
 public
   Modelica.Blocks.Tables.CombiTable1Ds tabQCon(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filQCon,
+    fileName="../Inputs/" + occupants.filQCon,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-40,-34},{-26,-20}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabQRad(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filQRad,
+    fileName="../Inputs/" + occupants.filQRad,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-36,-38},{-22,-24}})));
   Modelica.Blocks.Sources.CombiTimeTable tabPre(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filPres,
+    fileName="../Inputs/" + occupants.filPres,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{0,-34},{14,-20}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabP(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filP,
+    fileName="../Inputs/" + occupants.filP,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-40,-58},{-26,-44}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabQ(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filQ,
+    fileName="../Inputs/" + occupants.filQ,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-36,-62},{-22,-48}})));
   Modelica.Blocks.Sources.CombiTimeTable tabDHW(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + occupants.filDHW,
+    fileName="../Inputs/" + occupants.filDHW,
     columns=2:nOcc + 1) if DHW
     annotation (Placement(transformation(extent={{0,-58},{14,-44}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabPPV(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="..\\Inputs\\" + fileNamePv,
+    fileName="../Inputs/" + fileNamePv,
     columns=2:nPV + 1) if PV
     annotation (Placement(transformation(extent={{-36,2},{-22,16}})));
 
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=filNamClim, lat=lat, lon=lon, timZon=timZonSta)
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
-  if not BesTest then
+  if BesTest then
     Tsky = Te - (23.8 - 0.2025*(Te - 273.15)*(1 - 0.87*Fc));
     Fc = 0.2;
     Va = 2.5;
   else
-    Tsky = climate_nonSolar.y[2] + 273.15;
-    Fc = climate_nonSolar.y[3]*0.87;
-    Va = climate_nonSolar.y[4];
+    Tsky = weaDat.TBlaSky.TBlaSky;
+    Fc = weaDat.cheOpaSkyCov.nOut*0.87;
+    Va = weaDat.cheWinSpe.winSpeOut;
   end if;
 
-  connect(timMan.timCalSol, climate_solar.u) annotation (Line(
-      points={{-60,62},{-52,62},{-52,53},{-41.4,53}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timSol, climate_nonSolar.u) annotation (Line(
-      points={{-60,70},{-50,70},{-50,73},{-41.4,73}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(timMan.timCal, tabQCon.u) annotation (Line(
-      points={{-60,66},{-52,66},{-52,-27},{-41.4,-27}},
+      points={{-60,6},{-52,6},{-52,-27},{-41.4,-27}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(timMan.timCal, tabQRad.u) annotation (Line(
-      points={{-60,66},{-50,66},{-50,-31},{-37.4,-31}},
+      points={{-60,6},{-50,6},{-50,-31},{-37.4,-31}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(timMan.timCal, tabP.u) annotation (Line(
-      points={{-60,66},{-52,66},{-52,-51},{-41.4,-51}},
+      points={{-60,6},{-52,6},{-52,-51},{-41.4,-51}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(timMan.timCal, tabQ.u) annotation (Line(
-      points={{-60,66},{-50,66},{-50,-55},{-37.4,-55}},
+      points={{-60,6},{-50,6},{-50,-55},{-37.4,-55}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(timMan.timCal, tabPPV.u) annotation (Line(
-      points={{-60,66},{-48,66},{-48,9},{-37.4,9}},
+      points={{-60,6},{-48,6},{-48,9},{-37.4,9}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(timMan.timSol, weaDat.sol) annotation (Line(
+      points={{-60,10},{-50,10},{-50,42},{-40,42}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -274,7 +257,9 @@ equation
           smooth=Smooth.None,
           fillColor={127,67,62},
           fillPattern=FillPattern.Solid)}),
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+            graphics),
     Documentation(info="<html>
 </html>"));
 end SimInfoManager;

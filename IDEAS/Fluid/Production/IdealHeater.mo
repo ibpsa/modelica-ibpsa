@@ -1,7 +1,5 @@
 within IDEAS.Fluid.Production;
 model IdealHeater "Ideal heater, no losses to environment, unlimited power"
-  import IDEAS;
-  import Buildings;
   extends IDEAS.Fluid.Production.Interfaces.PartialDynamicHeaterWithLosses(
     final heaterType=IDEAS.Fluid.Production.BaseClasses.HeaterType.Boiler,
     final QNom=1,
