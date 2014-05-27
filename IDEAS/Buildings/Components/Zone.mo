@@ -9,7 +9,7 @@ model Zone "thermal building zone"
       annotation (choicesAllMatching = true);
 
   parameter Modelica.SIunits.Volume V "Total zone air volume";
-  parameter Real n50=0.6
+  parameter Real n50(min=0.01)=0.4
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
   parameter Real corrCV=5 "Multiplication factor for the zone air capacity";
   parameter Modelica.SIunits.Temperature TOpStart=297.15;
@@ -33,7 +33,8 @@ protected
   BaseClasses.AirLeakage airLeakage(
     redeclare package Medium = IDEAS.Media.Air,
     m_flow_nominal=V/3600*n50/20,
-    V=V)
+    V=V,
+    n50=0.1)
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final
       nSurf=nSurf, final linear=linear)
@@ -140,7 +141,6 @@ equation
       points={{0,30},{10,30},{10,-30},{100,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-
 
 for i in 1:nSurf loop
   connect(surfCon[i], vol.heatPort) annotation (Line(

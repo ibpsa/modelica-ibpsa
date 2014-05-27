@@ -4,7 +4,7 @@ model AirLeakage "air leakage due to limied air tightness"
 extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Modelica.SIunits.Volume V "zone air volume";
-  parameter Real n50=0 "n50-value of airtightness";
+  parameter Real n50(min=0.01)=0.4 "n50-value of airtightness";
 
   parameter SI.Time tau=30 "Tin time constant at nominal flow rate";
 
@@ -61,7 +61,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(realExpression1.y, idealSource.m_flow_in) annotation (Line(
-      points={{-19,30},{-6,30},{-6,30},{4,30},{4,8}},
+      points={{-19,30},{4,30},{4,8}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
