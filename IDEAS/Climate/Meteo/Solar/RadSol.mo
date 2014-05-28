@@ -5,7 +5,7 @@ model RadSol "solar angle to surface"
 
   parameter Modelica.SIunits.Angle inc(displayUnit="degree") "inclination";
   parameter Modelica.SIunits.Angle azi(displayUnit="degree") "azimuth";
-  parameter Modelica.SIunits.Angle lat(displayUnit="degree") = sim.city.lat
+  parameter Modelica.SIunits.Angle lat(displayUnit="degree") = sim.lat
     "latitude";
   parameter Modelica.SIunits.Area A;
 
