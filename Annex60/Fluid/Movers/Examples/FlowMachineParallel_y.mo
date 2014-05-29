@@ -50,13 +50,8 @@ model FlowMachineParallel_y "Two flow machines in parallel"
   Modelica.Blocks.Sources.Constant const2(k=1) "Constant source"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default) "Start state";
-  parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-     state_start) "Density, used to compute fluid mass"
-                                           annotation (Evaluate=true);
+  parameter Modelica.SIunits.Density rho_nominal=1.2
+    "Density, used to compute fluid mass";
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn2(
@@ -143,6 +138,12 @@ As its speed is reduced, the mass flow rate changes its direction in such a way 
 at the top has reverse flow.
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>,
+and set <code>rho_nominal</code> to a constant to avoid a non-literal
+nominal value for <code>V_flow_max</code> and <code>VMachine_flow</code>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.
