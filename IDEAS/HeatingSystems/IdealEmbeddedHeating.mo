@@ -15,7 +15,7 @@ model IdealEmbeddedHeating
 equation
   for i in 1:nZones loop
     if noEvent((TSet[i] - TSensor[i]) > 0) then
-      QHeatZone[i] = min(C[i]*(TSet[i] - TSensor[i])/t, QNom[i]);
+      QHeatZone[i] = IDEAS.Utilities.Math.Functions.smoothMin(x1=C[i]*(TSet[i] - TSensor[i])/t, x2=QNom[i],deltaX=1);
     else
       QHeatZone[i] = 0;
     end if;

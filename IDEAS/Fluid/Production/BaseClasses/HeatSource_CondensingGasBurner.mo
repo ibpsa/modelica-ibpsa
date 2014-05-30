@@ -19,7 +19,7 @@ model HeatSource_CondensingGasBurner
   final parameter Modelica.SIunits.Power QNom0 = 10100
     "Nominal power of the boiler from which the power data are used in this model";
 
-  final parameter Real etaNom=0.922
+  constant Real etaNom=0.922
     "Nominal efficiency (higher heating value)of the xxx boiler at 50/30degC.  See datafile";
   parameter Real modulationMin(max=29) = 10 "Minimal modulation percentage";
   parameter Real modulationStart(min=min(30, modulationMin + 5)) = 20
@@ -39,7 +39,7 @@ protected
   Real m_flowHx_scaled = IDEAS.Utilities.Math.Functions.smoothMax(x1=m_flowHx, x2=0,deltaX=0.001) * QNom0/QNom
     "mass flow rate, scaled with the original and the actual nominal power of the boiler";
 
-  Real kgps2lph=3600/Medium.density(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))*1000
+  constant Real kgps2lph=3600/Medium.density(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))*1000
     "Conversion from kg/s to l/h";
   Modelica.Blocks.Tables.CombiTable2D eta100(smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
       table=[0, 100, 400, 700, 1000, 1300; 20.0, 0.9015, 0.9441, 0.9599, 0.9691,
@@ -171,8 +171,6 @@ equation
   // compensation of heat losses (only when the hp is operating)
   QLossesToCompensate = if noEvent(modulation > 0) then UALoss*(heatPort.T -
     TEnvironment) else 0;
-
-  //fixme: use sth else than Interpole to be differentiable
 
   PFuel = if onOff.release > 0.5 and noEvent(eta>Modelica.Constants.eps) then -heatPort.Q_flow/eta else 0;
 

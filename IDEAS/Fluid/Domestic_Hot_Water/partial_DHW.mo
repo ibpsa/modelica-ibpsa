@@ -79,6 +79,11 @@ public
     deltaX=0.01*m_flow_nominal,
     upper=m_flow_max)
     annotation (Placement(transformation(extent={{20,22},{34,36}})));
+  IDEAS.Utilities.Math.SmoothMin smoothMin(deltaX=0.1)
+    annotation (Placement(transformation(extent={{-30,18},{-16,32}})));
+  Modelica.Blocks.Sources.RealExpression minValTemDiff(y=0.1)
+    "minimal value of the temperature difference, to avoid division by zero."
+    annotation (Placement(transformation(extent={{-46,-4},{-38,12}})));
 equation
   connect(port_hot, senTem_hot.port_a) annotation (Line(
       points={{-100,4.44089e-16},{-88,4.44089e-16}},
@@ -124,10 +129,6 @@ equation
       points={{-85.3,25},{-76,25},{-76,30.4},{-61.8,30.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TemDifHotTap.y, division.u2) annotation (Line(
-      points={{-41.1,25},{-18,25},{-18,24.8},{-5.4,24.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TemDifDHWTap.y, product.u2) annotation (Line(
       points={{-41.1,49},{-36.55,49},{-36.55,49.2},{-31.6,49.2}},
       color={0,0,127},
@@ -138,6 +139,18 @@ equation
       smooth=Smooth.None));
   connect(smoothLimit.y, idealSource.m_flow_in) annotation (Line(
       points={{34.7,29},{44,29},{44,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(smoothMin.y, division.u2) annotation (Line(
+      points={{-15.3,25},{-18,24.8},{-5.4,24.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TemDifHotTap.y, smoothMin.u1) annotation (Line(
+      points={{-41.1,25},{-38,25},{-38,29.2},{-31.4,29.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(minValTemDiff.y, smoothMin.u2) annotation (Line(
+      points={{-37.6,4},{-36,4},{-36,20.8},{-31.4,20.8}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

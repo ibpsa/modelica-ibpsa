@@ -8,7 +8,7 @@ model Boiler
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
-  Fluid.Movers.Pump pump(
+  IDEAS.Fluid.Movers.Pump pump(
     m=1,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
