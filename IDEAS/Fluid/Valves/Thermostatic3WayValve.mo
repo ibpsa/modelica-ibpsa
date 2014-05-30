@@ -2,7 +2,7 @@ within IDEAS.Fluid.Valves;
 model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
   extends BaseClasses.Partial3WayValve;
 
-  parameter Modelica.SIunits.MassFlowRate mFlowMin=0.01*m_flow_nominal
+  final parameter Modelica.SIunits.MassFlowRate mFlowMin=0.00001*m_flow_nominal
     "Minimum outlet flowrate for mixing to start";
   Modelica.Blocks.Interfaces.RealInput TMixedSet
     "Mixed outlet temperature setpoint" annotation (Placement(transformation(
@@ -16,30 +16,39 @@ model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
   Modelica.SIunits.SpecificEnthalpy h_set = Medium.specificEnthalpy(Medium.setState_pTX(port_a1.p, TMixedSet, Medium.X_default))
     "Specific enthalpy of the temperature setpoint";
 
-  Modelica.Blocks.Sources.RealExpression realExpression(y=m_flowCold)
+  Modelica.Blocks.Sources.RealExpression realExpression(y=m_flowBottom)
     "Fraction of nominal mass flow rate"
     annotation (Placement(transformation(extent={{74,-60},{34,-40}})));
 
-protected
-  Modelica.SIunits.MassFlowRate m_flowMixed=-port_b.m_flow
-    "mass flowrate of the mixed flow";
-  Modelica.SIunits.MassFlowRate m_flowCold(min=0)
+  Modelica.SIunits.MassFlowRate m_flowBottom(min=0)
     "mass flowrate of cold water to the mixing point";
 
 equation
-  if noEvent(inStream(port_a1.h_outflow) < h_set) then
-    // no mixing
-    m_flowCold = 0;
-  elseif noEvent(inStream(port_a2.h_outflow) > h_set) then
-    // no mixing
-    m_flowCold = -port_b.m_flow;
-  elseif noEvent(port_b.m_flow < -mFlowMin) then
-    // mixing if mass flow higher than minimal mass flow
-    // energy balance with port_b at T=TMixedSet
-    m_flowCold = -(port_a1.m_flow*inStream(port_a1.h_outflow) + port_b.m_flow*h_set)/
-      inStream(port_a2.h_outflow);
+//   if noEvent(inStream(port_a1.h_outflow) < h_set) then
+//     // no mixing
+//     m_flowBottom = 0;
+//   elseif noEvent(inStream(port_a2.h_outflow) > h_set) then
+//     // no mixing
+//     m_flowBottom = -port_b.m_flow;
+//   elseif noEvent(port_b.m_flow < -mFlowMin) then
+//     // mixing if mass flow higher than minimal mass flow
+//     // energy balance with port_b at T=TMixedSet
+//     m_flowBottom = -(port_a1.m_flow*inStream(port_a1.h_outflow) + port_b.m_flow*h_set)/
+//       inStream(port_a2.h_outflow);
+//   else
+//     m_flowBottom = 0;
+//   end if;
+
+  if port_b.m_flow > -mFlowMin then
+    m_flowBottom=0;
   else
-    m_flowCold = 0;
+  m_flowBottom = -port_b.m_flow*IDEAS.Utilities.Math.Functions.smoothMax(
+          IDEAS.Utilities.Math.Functions.smoothMin(
+                      (h_set-inStream(port_a1.h_outflow))*sign((inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow)))/IDEAS.Utilities.Math.Functions.smoothMax(abs(inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow)), 0.001,0.01),
+                      1,
+                      mFlowMin),
+          0,
+          mFlowMin);
   end if;
 
   connect(realExpression.y, idealSource.m_flow_in) annotation (Line(
@@ -47,8 +56,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
@@ -103,19 +112,7 @@ equation
         Line(
           points={{0,-70},{0,-100}},
           color={0,0,127},
-          smooth=Smooth.None),
-        Text(
-          extent={{-62,14},{-20,-12}},
-          lineColor={100,100,100},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="H"),
-        Text(
-          extent={{-20,-34},{22,-60}},
-          lineColor={100,100,100},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="C")}),
+          smooth=Smooth.None)}),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>3-way valve with temperature set point for mixing a cold and hot fluid to obtain outlet fluid at the desired temperature. If the desired temperature is higher than the hot fluid, no mixing will occur and the outlet will have the temperature of the hot fluid. </p>
@@ -138,6 +135,7 @@ equation
 <p>Examples of this model can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.TempMixingTester\"> IDEAS.Thermal.Components.Examples.TempMixingTester</a> and<a href=\"modelica://IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve\"> IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve</a></p>
 </html>", revisions="<html>
 <p><ul>
+<li>2014 May, Filip Jorissen, Both legs can be hot or cold</li>
 <li>2014 March, Filip Jorissen, Annex60 compatibility</li>
 <li>2013 May, Roel De Coninck, documentation</li>
 <li>2013 March, Ruben Baetens, graphics</li>
