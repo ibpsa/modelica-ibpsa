@@ -47,8 +47,8 @@ model Thermostatic3WayValveExample "Example of a thermostatic three way valve"
     annotation (Placement(transformation(extent={{62,72},{42,92}})));
   Modelica.Blocks.Sources.Sine sine(
     amplitude=25,
-    freqHz=0.01,
-    offset=273.15 + 30)
+    offset=273.15 + 30,
+    freqHz=0.002)
     annotation (Placement(transformation(extent={{-104,50},{-84,70}})));
 equation
 
