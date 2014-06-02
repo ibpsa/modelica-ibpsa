@@ -2,8 +2,6 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchanger.Borefield.BaseClasses.Bore
 model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
   extends Modelica.Icons.Example;
 
-  import Buildings;
-
   package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 
    parameter Data.StepResponse.example steRes "generic step load parameter"
@@ -31,13 +29,23 @@ model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
         transformation(extent={{-12,-50},{12,-26}}, rotation=0)));
 
   Buildings.Fluid.Sources.Boundary_ph sin(redeclare package Medium = Medium,
-      nPorts=1) "Sink"
+      nPorts=2) "Sink"
     annotation (Placement(transformation(extent={{22,-34},{34,-22}})));
 
   Modelica.Blocks.Sources.Step step(height=1)
-    annotation (Placement(transformation(extent={{48,-18},{36,-6}})));
+    annotation (Placement(transformation(extent={{58,-18},{46,-6}})));
 
-  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea(
+  Modelica.Blocks.Sources.Constant mFlo(k=1)
+    annotation (Placement(transformation(extent={{-46,-24},{-34,-12}})));
+  Movers.Pump                               pum(
+    redeclare package Medium = Medium,
+    m_flow_nominal=steRes.m_flow,
+    m_flow(start=steRes.m_flow),
+    T_start=steRes.T_ini,
+    useInput=true)
+    annotation (Placement(transformation(extent={{-12,10},{-32,-10}})));
+
+  HeaterCoolerPrescribed                                hea(
     redeclare package Medium = Medium,
     m_flow_nominal=steRes.m_flow,
     dp_nominal=10000,
@@ -47,48 +55,38 @@ model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
     T_start=steRes.T_ini,
     Q_flow_nominal=steRes.q_ste*geo.hBor*geo.nbSer,
     p_start=100000)
-    annotation (Placement(transformation(extent={{26,10},{6,-10}})));
-  Modelica.Blocks.Sources.Constant mFlo(k=steRes.m_flow)
-    annotation (Placement(transformation(extent={{-54,-24},{-42,-12}})));
-  Buildings.Fluid.Movers.FlowMachine_m_flow pum(
-    redeclare package Medium = Medium,
-    m_flow_nominal=steRes.m_flow,
-    m_flow(start=steRes.m_flow),
-    T_start=steRes.T_ini)
-    annotation (Placement(transformation(extent={{-12,10},{-32,-10}})));
-
+    annotation (Placement(transformation(extent={{30,10},{10,-10}})));
 equation
-  connect(mFlo.y, pum.m_flow_in) annotation (Line(
-      points={{-41.4,-18},{-21.8,-18},{-21.8,-12}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(pum.port_b, borHolSer.port_a) annotation (Line(
       points={{-32,0},{-58,0},{-58,-38},{-12,-38}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pum.port_a, hea.port_b) annotation (Line(
-      points={{-12,0},{6,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(hea.port_a, borHolSer.port_b) annotation (Line(
-      points={{26,0},{56,0},{56,-38},{12,-38}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(hea.port_a, sin.ports[1]) annotation (Line(
-      points={{26,0},{56,0},{56,-28},{34,-28}},
+      points={{30,0},{66,0},{66,-26.8},{34,-26.8}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pum.port_a,hea. port_b) annotation (Line(
+      points={{-12,0},{10,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(step.y, hea.u) annotation (Line(
-      points={{35.4,-12},{34,-12},{34,-6},{28,-6}},
+      points={{45.4,-12},{40,-12},{40,-6},{32,-6}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(mFlo.y, pum.m_flowSet) annotation (Line(
+      points={{-33.4,-18},{-22,-18},{-22,-10.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(hea.port_a, borHolSer.port_b) annotation (Line(
+      points={{30,0},{66,0},{66,-38},{12,-38}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/Examples/UTube.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                   graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),graphics),
     experimentSetupOutput,
     Diagram,
     Documentation(info="<html>

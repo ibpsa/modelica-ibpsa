@@ -9,11 +9,7 @@ function ShortTimeResponseHX
 
   import SI = Modelica.SIunits;
 
-  input Real hBor=50;
   input String name="example";
-  final parameter String modelToSimulate=
-      "IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
-    "model to simulate";
 
   input Data.Records.Soil soi=Data.SoilData.example()
     "Thermal properties of the ground";
@@ -25,11 +21,13 @@ function ShortTimeResponseHX
   input Data.Records.StepResponse steRes=Data.StepResponse.example()
     "generic step load parameter";
 
-  final parameter String savePath=
-      "..\\IDEAS\\IDEAS\\Thermal\\Components\\GroundHeatExchanger\\Borefield\\Data\\ShortTermResponse\\";
-
   output Real[3,steRes.tBre_d + 1] readData;
+
 protected
+  constant String packagePath="IDEAS.Fluid.HeatExchangers.GroundHeatExchanger.Borefield";
+  constant String savePath="..\\IDEAS\\IDEAS\\Fluid\\HeatExchangers\\GroundHeatExchanger\\Borefield\\Data\\ShortTermResponse\\";
+  constant String modelToSimulate=packagePath+".BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
+    "model to simulate";
   Integer nbOfPoi=1000;
   String filPathAndName=savePath + name "path and name of file";
   String[2] variablesToStore={"borHolSer.sta_a.T","borHolSer.sta_b.T"}
@@ -48,18 +46,22 @@ algorithm
   Modelica.Utilities.Files.removeFile(filPathAndName + "Data");
 
   //   translateModel(modelToSimulate +
-  //     "( IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.SoilData." + soi.name + " soi" +
-  //     ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.FillingData." + fill.name +
-  //     " fill" + ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.GeometricData." +
-  //     geo.name + " geo" +
-  //     ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.StepResponse." + steRes.name +
-  //     " steRes" + ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.Advanced." + adv.name +
-  //     " adv)");
+//      "( IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.SoilData." + soi.name + " soi" +
+//      ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.FillingData." + fill.name +
+//      " fill" + ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.GeometricData." +
+//      geo.name + " geo" +
+//      ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.StepResponse." + steRes.name +
+//      " steRes" + ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.Advanced." + adv.name +
+//      " adv)");
 
   // simulation for short time
   simulateModel(
-    modelToSimulate + "(geo(hBor=" + String(hBor) + "),adv(hBor=" + String(hBor)
-       + "))",
+    modelToSimulate +
+     "( " + packagePath + ".Data.SoilData." + soi.name + " soi" +
+     "( " + packagePath + ".Data.FillingData." + fill.name + " fill" +
+     "( " + packagePath + ".Data.GeometricData." + geo.name + " geo" +
+     "( " + packagePath + ".Data.StepResponse." + steRes.name + " steRes" +
+     "( " + packagePath + ".Data.Advanced." + adv.name + " adv)",
     stopTime=steRes.tBre_d*steRes.tStep,
     numberOfIntervals=nbOfPoi,
     method="dassl",
