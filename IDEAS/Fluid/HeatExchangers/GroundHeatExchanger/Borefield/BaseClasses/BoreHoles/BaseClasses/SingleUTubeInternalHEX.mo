@@ -1,10 +1,9 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchanger.Borefield.BaseClasses.BoreHoles.BaseClasses;
 model SingleUTubeInternalHEX
   "Internal part of a borehole for a U-Tube configuration"
-  import Buildings;
   extends Interface.PartialBoreHoleInternalHEX;
 
-  extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
+  extends IDEAS.Fluid.Interfaces.FourPortHeatMassExchanger(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     T1_start=TFil_start,
@@ -18,15 +17,13 @@ model SingleUTubeInternalHEX
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
-      final homotopyInitialization=homotopyInitialization,
       final allowFlowReversal=allowFlowReversal1,
       final V=m2_flow_nominal*tau2/rho2_nominal,
       final m_flow_small=m1_flow_small),
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+    redeclare final IDEAS.Fluid.MixingVolumes.MixingVolume vol2(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
-      final homotopyInitialization=homotopyInitialization,
       final V=m1_flow_nominal*tau1/rho1_nominal,
       final m_flow_small=m2_flow_small));
 

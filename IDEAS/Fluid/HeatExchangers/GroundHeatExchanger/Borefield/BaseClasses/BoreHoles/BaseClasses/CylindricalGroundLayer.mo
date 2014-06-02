@@ -3,7 +3,7 @@ model CylindricalGroundLayer
   "Heat conduction in a cylinder using the radial descretization as adviced by Eskilson"
 
   parameter Data.Records.Soil material "Thermal properties of the ground"
-    annotation (Placement(transformation(extent={{-46,-116},{-26,-96}})));
+    annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
 
   parameter Modelica.SIunits.Height h "Height of the cylinder";
   parameter Modelica.SIunits.Radius r_a "Internal radius";

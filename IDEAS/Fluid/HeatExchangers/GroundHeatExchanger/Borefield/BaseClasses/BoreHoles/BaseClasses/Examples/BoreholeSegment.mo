@@ -1,9 +1,8 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchanger.Borefield.BaseClasses.BoreHoles.BaseClasses.Examples;
 model BoreholeSegment "Test for the boreholeSegment model"
-  import Buildings;
   import DaPModels;
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   BoreHoleSegmentFourPort seg(
     redeclare package Medium = Medium,
@@ -17,14 +16,14 @@ model BoreholeSegment "Test for the boreholeSegment model"
         extent={{-13,-13},{13,13}},
         rotation=270,
         origin={11,-1})));
-  Buildings.Fluid.Sources.Boundary_pT sou_1(
+  IDEAS.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=false,
     p=101340,
     T=303.15) annotation (Placement(transformation(extent={{-60,40},{-40,60}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_2(
+  IDEAS.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium,
     use_p_in=false,
     use_T_in=false,

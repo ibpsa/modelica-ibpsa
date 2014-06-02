@@ -1,6 +1,5 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchanger.Borefield.BaseClasses.BoreHoles.BaseClasses;
 model SingleBoreHole "Single U-tube borehole heat exchanger"
-  import Buildings;
 
   extends Interface.PartialSingleBoreHole;
 
@@ -14,7 +13,6 @@ model SingleBoreHole "Single U-tube borehole heat exchanger"
     final dp_nominal={if i == 1 then dp_nominal else 0 for i in 1:adv.nVer},
     TExt_start=adv.TExt_start,
     TFil_start=adv.TExt_start,
-    each final homotopyInitialization=homotopyInitialization,
     each final show_T=show_T,
     each final computeFlowResistance=computeFlowResistance,
     each final from_dp=from_dp,

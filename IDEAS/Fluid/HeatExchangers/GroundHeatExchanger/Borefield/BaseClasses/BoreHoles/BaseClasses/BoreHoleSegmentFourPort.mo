@@ -1,9 +1,7 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchanger.Borefield.BaseClasses.BoreHoles.BaseClasses;
 model BoreHoleSegmentFourPort "Vertical segment of a borehole"
-  import Buildings;
-
   extends Interface.PartialBoreHoleElement;
-  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
+  extends IDEAS.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     final m1_flow_nominal=adv.m_flow_nominal,
@@ -12,8 +10,8 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
     final m2_flow_small=adv.m_flow_small,
     final allowFlowReversal1=adv.allowFlowReversal,
     final allowFlowReversal2=adv.allowFlowReversal);
-  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters;
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=adv.TFil0_start);
+  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=adv.TFil0_start);
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
                               annotation (choicesAllMatching=true);
@@ -46,7 +44,6 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
     final steRes=steRes,
     final allowFlowReversal1=adv.allowFlowReversal,
     final allowFlowReversal2=adv.allowFlowReversal,
-    final homotopyInitialization=adv.homotopyInitialization,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p1_start=p_start,
