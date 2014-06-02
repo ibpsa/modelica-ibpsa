@@ -1,4 +1,4 @@
 within IDEAS.Fluid.HeatExchangers;
-package Boreholes 
+package GroundHeatExchanger 
   extends Modelica.Icons.VariantsPackage;
-end Boreholes;
+end GroundHeatExchanger;
