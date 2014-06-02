@@ -1,17 +1,13 @@
 within IDEAS.HeatingSystems.Examples;
 model IdealRadiatorHeating "Example and test for ideal heating with radiators"
   import IDEAS;
-
   extends Modelica.Icons.Example;
-
   final parameter Integer nZones = 1 "Number of zones";
-
   IDEAS.HeatingSystems.IdealRadiatorHeating heating(
     final nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
     t=1) annotation (Placement(transformation(extent={{-16,-10},{22,12}})));
-
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
     each width=67,
@@ -36,7 +32,6 @@ model IdealRadiatorHeating "Example and test for ideal heating with radiators"
   IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones)
     annotation (Placement(transformation(extent={{-86,-10},{-52,12}})));
 equation
-
   connect(TOpSet.y, heating.TSet) annotation (Line(
       points={{-23.4,-50},{2.81,-50},{2.81,-10.44}},
       color={0,0,127},

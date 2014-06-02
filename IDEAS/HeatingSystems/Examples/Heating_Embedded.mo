@@ -2,17 +2,13 @@ within IDEAS.HeatingSystems.Examples;
 model Heating_Embedded
   "Example and test for heating system with embedded emission"
   import IDEAS;
-
   extends Modelica.Icons.Example;
-
   final parameter Integer nZones=1 "Number of zones";
-
   parameter
     IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.RadSlaCha_ValidationEmpa[        nZones]
                                        radSlaCha_ValidationEmpa(A_Floor=
         dummyBuilding.AZones)
     annotation (Placement(transformation(extent={{-94,-98},{-74,-78}})));
-
   IDEAS.HeatingSystems.Heating_Embedded     heating(
     nZones=nZones,
     dTSupRetNom=5,
@@ -22,7 +18,6 @@ model Heating_Embedded
     TSupNom=273.15 + 45,
     corFac_val=5)
           annotation (Placement(transformation(extent={{12,-18},{50,0}})));
-
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
     each width=67,
@@ -55,7 +50,6 @@ model Heating_Embedded
   IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.NakedTabs[nZones] nakedTabs(radSlaCha=
        radSlaCha_ValidationEmpa)
     annotation (Placement(transformation(extent={{-6,-12},{-26,8}})));
-
   inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Blocks.Sources.RealExpression[nZones] realExpression(y=11*
@@ -98,7 +92,6 @@ equation
       points={{-63.36,-12},{-58,-12},{-58,-28},{0,-28},{0,-14.4},{11.62,-14.4}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(realExpression.y, convectionTabs.Gc) annotation (Line(
       points={{-59,40},{-48,40},{-48,8}},
       color={0,0,127},

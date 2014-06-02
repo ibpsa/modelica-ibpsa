@@ -11,7 +11,6 @@ model IdealEmbeddedHeating
     final nEmbPorts=nZones,
     final nLoads=1,
     nZones=nZones);
-
 equation
   for i in 1:nZones loop
     if noEvent((TSet[i] - TSensor[i]) > 0) then
@@ -21,11 +20,9 @@ equation
     end if;
     heatPortEmb[i].Q_flow = -QHeatZone[i];
   end for;
-
   QHeaSys = sum(QHeatZone);
   P[1] = QHeaSys/COP;
   Q[1] = 0;
-
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li>2013 June, Roel De Coninck: reworking interface and documentation</li>

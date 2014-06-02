@@ -1,7 +1,6 @@
 within IDEAS.HeatingSystems;
 model Heating_Radiators
   "Basic hydraulic heating (with heating curve) with embedded emission (eg. TABS). No TES, no DHW"
-
   extends IDEAS.HeatingSystems.Interfaces.Partial_heating_noSTS(
     final isHea=true,
     final isCoo=false,
@@ -20,7 +19,6 @@ model Heating_Radiators
       QNom=QNom,
       each powerFactor=3.37,
     redeclare each package Medium = Medium));
-
 equation
   QHeaSys = -sum(emission.heatPortCon.Q_flow) - sum(emission.heatPortRad.Q_flow);
   P[1] = heater.PEl + sum(pumpRad.PEl);
@@ -35,7 +33,6 @@ equation
           -200,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
             200,100}}), graphics),

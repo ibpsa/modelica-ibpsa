@@ -2,9 +2,7 @@ within IDEAS.HeatingSystems.Examples;
 model Heating_Embedded_combiTES_DHW_STS
   "Example and test for heating system with embedded emission, combiTES, DHW and STS"
   import IDEAS;
-
   extends Modelica.Icons.Example;
-
   parameter Integer nZones=1 "Number of zones";
   IDEAS.HeatingSystems.Heating_Embedded_combiTES_DHW_STS heating(
     nZones=nZones,
@@ -18,7 +16,6 @@ model Heating_Embedded_combiTES_DHW_STS
     solSys=true,
     FHChars={IDEAS.Thermal.Components.BaseClasses.FH_Characteristics(A_Floor=
         150)}) annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
-
   inner IDEAS.SimInfoManager sim(
     redeclare IDEAS.Climate.Meteo.Files.min15 detail,
     redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
@@ -65,7 +62,6 @@ model Heating_Embedded_combiTES_DHW_STS
         origin={-35,29})));
 equation
   convectionTabs.Gc = 11*nakedTabs.FHChars.A_Floor;
-
   connect(heating.TSet, TOpSet.y) annotation (Line(
       points={{10,-22.36},{10,-50},{-17.4,-50}},
       color={0,0,127},
