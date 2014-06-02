@@ -29,8 +29,7 @@ model Boiler_validation "Validation model for the boiler"
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
     annotation (Placement(transformation(extent={{-84,-48},{-70,-34}})));
-  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
-      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
+  inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   Modelica.Blocks.Sources.TimeTable pulse(offset=0, table=[0, 0; 5000, 100;
         10000, 400; 15000, 700; 20000, 1000; 25000, 1300; 50000, 1300])
@@ -102,7 +101,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, pump.m_flowSet) annotation (Line(
-      points={{7,82},{18,82},{18,-36},{-2,-36}},
+      points={{7,82},{18,82},{18,-35.6},{-2,-35.6}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

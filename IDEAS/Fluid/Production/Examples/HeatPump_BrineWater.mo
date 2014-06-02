@@ -11,8 +11,7 @@ model HeatPump_BrineWater
     redeclare package Medium = Medium,
     m_flow_nominal=2550/3600)
     annotation (Placement(transformation(extent={{-6,14},{-26,34}})));
-  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
-      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
+  inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/5000,
