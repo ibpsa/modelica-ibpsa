@@ -1,5 +1,6 @@
 within IDEAS.HeatingSystems;
 model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
+  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating(nZones = nZones);
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,
@@ -9,7 +10,7 @@ model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
     final nEmbPorts=0,
     final nLoads=1,
     nZones = nZones);
-    extends IDEAS.HeatingSystems.Interfaces.Partial_idealHeating(nZones = nZones);
+
 equation
    for i in 1:nZones loop
      if noEvent((TSet[i] - TSensor[i]) > 0) then

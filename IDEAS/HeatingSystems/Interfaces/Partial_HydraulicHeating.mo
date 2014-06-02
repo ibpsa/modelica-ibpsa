@@ -1,5 +1,5 @@
 within IDEAS.HeatingSystems.Interfaces;
-partial model Partial_heating_noSTS
+partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     isHea = true,
@@ -267,4 +267,4 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
           textString="Thermal Energy Storage")}));
-end Partial_heating_noSTS;
+end Partial_HydraulicHeating;

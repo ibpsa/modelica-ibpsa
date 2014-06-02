@@ -3,7 +3,7 @@ model Heating_Embedded_DHW_STS
   "Example and test for heating system with embedded emission, DHW and STS"
   import IDEAS;
   extends Modelica.Icons.Example;
-  final parameter Integer nZones=1 "Number of zones";
+  final parameter Integer nZones=2 "Number of zones";
   parameter
     IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.RadSlaCha_ValidationEmpa[        nZones]
                                        radSlaCha_ValidationEmpa(A_Floor=

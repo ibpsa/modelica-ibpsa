@@ -6,7 +6,7 @@ model Heating_Embedded_DHW_STS
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nZones] RadSlaCha constrainedby
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
     "Properties of the floor heating or TABS, if present";
-   extends IDEAS.HeatingSystems.Interfaces.Partial_heating_noSTS(
+   extends IDEAS.HeatingSystems.Interfaces.Partial_HydraulicHeating(
     final isHea=true,
     final isCoo=false,
     final nConvPorts=0,
