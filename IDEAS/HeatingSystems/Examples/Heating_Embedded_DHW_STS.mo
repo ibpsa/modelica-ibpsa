@@ -51,11 +51,13 @@ model Heating_Embedded_DHW_STS
   IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.NakedTabs[nZones] nakedTabs(radSlaCha=
        radSlaCha_ValidationEmpa)
     annotation (Placement(transformation(extent={{-6,-12},{-26,8}})));
-  inner IDEAS.SimInfoManager sim(nOcc=3)
+  inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Blocks.Sources.RealExpression[nZones] realExpression(y=11*
         radSlaCha_ValidationEmpa.A_Floor)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{64,84},{78,94}})));
 equation
   connect(voltageSource.pin_p, ground.pin) annotation (Line(
       points={{90,-74},{90,-82}},

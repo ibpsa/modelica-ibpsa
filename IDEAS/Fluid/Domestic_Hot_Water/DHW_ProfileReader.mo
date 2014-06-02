@@ -7,8 +7,8 @@ model DHW_ProfileReader
 
   parameter Modelica.SIunits.Volume VDayAvg "Average daily water consumption";
   parameter Integer profileType=1 "Type of the DHW tap profile";
-  Real onoff;
-  Real m_minimum(start=0);
+  //Real onoff;
+  //Real m_minimum(start=0);
 
   Modelica.Blocks.Tables.CombiTable1Ds table(
     tableOnFile=true,
@@ -17,14 +17,14 @@ model DHW_ProfileReader
     columns=2:4,
     fileName="../Inputs/" + "DHWProfile.txt") annotation (Placement(visible=
           true, transformation(
-        origin={59.5,103.75},
+        origin={49.5,89.75},
         extent={{6.5,6.25},{-6.5,-6.25}},
         rotation=0)));
 
   Modelica.Blocks.Math.Product product1
     annotation (Placement(transformation(extent={{0,80},{-20,100}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=time)
-    annotation (Placement(transformation(extent={{122,86},{102,106}})));
+    annotation (Placement(transformation(extent={{118,80},{98,100}})));
   Modelica.Blocks.Sources.RealExpression realExpression2(y=VDayAvg*
         Medium.density(Medium.setState_phX(
         port_hot.p,
@@ -33,11 +33,11 @@ model DHW_ProfileReader
     annotation (Placement(transformation(extent={{66,54},{24,70}})));
 equation
   connect(product1.y, product.u1) annotation (Line(
-      points={{-21,90},{-30,90},{-30,56},{-22,56}},
+      points={{-21,90},{-30,90},{-30,58.8},{-31.6,58.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression1.y, table.u) annotation (Line(
-      points={{101,96},{92,96},{92,103.75},{67.3,103.75}},
+      points={{97,90},{92,90},{92,89.75},{57.3,89.75}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression2.y, product1.u2) annotation (Line(
@@ -45,7 +45,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(table.y[profileType], product1.u1) annotation (Line(
-      points={{52.35,103.75},{30,103.75},{30,96},{2,96}},
+      points={{42.35,89.75},{30,89.75},{30,96},{2,96}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
