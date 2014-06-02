@@ -14,7 +14,7 @@ model EmbeddedPipe
   parameter Modelica.SIunits.MassFlowRate m_flowMin
     "Minimal flowrate when in operation";
 
-  parameter Modelica.SIunits.Area A_floor "Floor/tabs surface area";
+  parameter Modelica.SIunits.Area A_floor=1 "Floor/tabs surface area";
 
   replaceable parameter
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar RadSlaCha constrainedby
