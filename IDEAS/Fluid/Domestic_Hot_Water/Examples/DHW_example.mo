@@ -22,13 +22,22 @@ model DHW_example
     startTime=100,
     offset=333.15)
     annotation (Placement(transformation(extent={{-94,-8},{-74,12}})));
+  DHW_ProfileReader dHW_ProfileReader(redeclare package Medium = Medium,
+      VDayAvg=45)
+    annotation (Placement(transformation(extent={{4,-54},{28,-40}})));
+  Sources.Boundary_pT bou1(
+    redeclare package Medium = Medium,
+    nPorts=2,
+    use_T_in=false,
+    T=333)
+    annotation (Placement(transformation(extent={{-40,-62},{-20,-42}})));
 equation
   connect(sine.y, dHW_RealInput.mDHW60C) annotation (Line(
       points={{-23,52},{-14,52},{-14,20},{-2,20},{-2,8.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dHW_RealInput.port_cold, bou.ports[1]) annotation (Line(
-      points={{22,2.22045e-16},{22,-22},{-20,-22},{-20,8.88178e-16}},
+      points={{22,2.22045e-016},{22,-22},{-20,-22},{-20,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dHW_RealInput.port_hot, bou.ports[2]) annotation (Line(
@@ -38,6 +47,14 @@ equation
   connect(step.y, bou.T_in) annotation (Line(
       points={{-73,2},{-42,2}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(bou1.ports[1], dHW_ProfileReader.port_hot) annotation (Line(
+      points={{-20,-50},{4,-50}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(dHW_ProfileReader.port_cold, bou1.ports[2]) annotation (Line(
+      points={{28,-50},{44,-50},{44,-70},{-20,-70},{-20,-54}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));

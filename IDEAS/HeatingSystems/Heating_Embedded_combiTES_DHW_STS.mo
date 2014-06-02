@@ -230,11 +230,11 @@ equation
       smooth=Smooth.None));
 
   connect(HPControl.THeaCur, idealMixer.TMixedSet) annotation (Line(
-      points={{-137.556,-13},{-126,-13},{-126,58},{39,58},{39,46}},
+      points={{-137.556,-3},{-126,-3},{-126,58},{39,58},{39,46}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HPControl.onOff, pumpHeater.m_flowSet) annotation (Line(
-      points={{-137.778,-8},{-126,-8},{-126,-50},{-60,-50},{-60,-42}},
+      points={{-137.556,-15.5},{-126,-15.5},{-126,-50},{-60,-50},{-60,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HPControl.THPSet, heater.TSet) annotation (Line(

@@ -11,7 +11,7 @@ block HeatingCurve
   parameter Real m=1.3 "Exponent for heat transfer";
   parameter Modelica.SIunits.Temperature TSup_nominal "Supply temperature"
     annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TSupMin=273.15 + 30
+  parameter Modelica.SIunits.Temperature TSupMin=273.15 + 30 if minSup
     "Minimum supply temperature if enabled";
   parameter Boolean minSup=true
     "true to limit the supply temperature on the lower side";
@@ -85,15 +85,14 @@ equation
   end if;
   TOutOffSet = filter.y + dTOutHeaBal;
   // Relative heating load, compared to nominal conditions
-  qRel = max(0, (TRoo_in_internal - TOutOffSet)/(TRoo_nominal -
-    TOutOffSet_nominal));
+  qRel = IDEAS.Utilities.Math.Functions.smoothMax(x1=0, x2=(TRoo_in_internal - TOutOffSet)/(TRoo_nominal -
+    TOutOffSet_nominal),deltaX=0.1);
   if minSup then
-
-    TSup = max(TSupMin, TRoo_in_internal + ((TSup_nominal + TRet_nominal)/2 -
-      TRoo_in_internal)*qRel^(1/m) + (TSup_nominal - TRet_nominal)/2*qRel);
+    TSup = IDEAS.Utilities.Math.Functions.smoothMax(x1=TSupMin, x2=TRoo_in_internal + ((TSup_nominal + TRet_nominal)/2 -
+      TRoo_nominal)*qRel^(1/m) + (TSup_nominal - TRet_nominal)/2*qRel,deltaX=0.1);
   else
     TSup = TRoo_in_internal + ((TSup_nominal + TRet_nominal)/2 -
-      TRoo_in_internal)*qRel^(1/m) + (TSup_nominal - TRet_nominal)/2*qRel;
+      TRoo_nominal)*qRel^(1/m) + (TSup_nominal - TRet_nominal)/2*qRel;
   end if;
 
   TRet = TSup - qRel*(TSup_nominal - TRet_nominal);
@@ -123,6 +122,7 @@ equation
 <p>No specific example foreseen for the heating curve, see the <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples\">heating system examples</a>. </p>
 </html>", revisions="<html>
 <p><ul>
+<li>2014 May, Damien Picard: fixed bug reported in Buildings Library (see <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">#74</a>) </li>
 <li>2013 June, Roel De Coninck: documentation</li>
 <li>2011, Roel De Coninck: minimum guaranteed supply temperature and filter or moving average of ambient temperature.</li>
 <li>February 5, 2009 by Michael Wetter:first implementation. </li>

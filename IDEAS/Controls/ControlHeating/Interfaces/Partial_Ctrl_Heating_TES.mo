@@ -13,22 +13,9 @@ partial model Partial_Ctrl_Heating_TES
     "Bottom (or near bottom) tank temperature";
 
   */
+  extends IDEAS.Controls.ControlHeating.Interfaces.Partial_Ctrl_Heating;
 
-  Modelica.SIunits.Temperature TBotSet(start=283.15)
-    "Bottom temperature setpoint";
-  Modelica.SIunits.Temperature TTopSet(start=283.15) "Top temperature setpoint";
-  Modelica.SIunits.Temperature TBotEmpty(start=283.15)
-    "Temperature in bottom corresponding to SOC = 0";
-
-  Real SOC(start=0);
-
-  //output SI.Temperature THPSet(start = 283.15) "Heat pump set temperature";
-  //output Real onOff(start=0) "onoff signal as Real";
-
-  parameter SI.Temperature TSupNom "Nominal heating curve supply temperature";
-  parameter Modelica.SIunits.TemperatureDifference dTSupRetNom=10
-    "Nominal difference between supply and return water temperatures";
-  parameter Modelica.SIunits.TemperatureDifference dTSafetyTop=3
+ parameter Modelica.SIunits.TemperatureDifference dTSafetyTop=3
     "Safety margin on top temperature setpoint" annotation (Evaluate=false);
   parameter Modelica.SIunits.TemperatureDifference dTSafetyBot=dTSafetyTop
     "Safety margin on bottom temperature setpoint";
@@ -36,48 +23,46 @@ partial model Partial_Ctrl_Heating_TES
     "Difference between tank setpoint and heat pump setpoint";
 
   parameter Boolean DHW=true "if true, the system has to foresee DHW";
-  parameter Modelica.SIunits.Temperature TDHWSet=0
+  parameter Modelica.SIunits.Temperature TDHWSet=273.15+60
     "Setpoint temperature for the DHW outlet";
   parameter Modelica.SIunits.Temperature TColdWaterNom=273.15 + 10
-    "Nominal cold water temperature";
-  parameter Modelica.SIunits.Time timeFilter=43200
-    "Time constant for filter on ambient temperature";
+    "Nominal tap (cold) water temperature";
 
-  HeatingCurve heatingCurve(
-    timeFilter=timeFilter,
-    dTOutHeaBal=0,
-    TSup_nominal=TSupNom,
-    TRet_nominal=TSupNom - dTSupRetNom,
-    TRoo_nominal=273.15 + 21,
-    TOut_nominal=273.15 - 8,
-    redeclare IDEAS.Utilities.Math.MovingAverage filter(period=timeFilter))
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  outer IDEAS.SimInfoManager sim
-    annotation (Placement(transformation(extent={{24,50},{44,70}})));
-  Modelica.Blocks.Interfaces.RealOutput THPSet(start=283.15)
-    "Heat pump set temperature" annotation (Placement(transformation(extent={{
-            92,30},{112,50}}), iconTransformation(extent={{92,30},{112,50}})));
-  Modelica.Blocks.Interfaces.RealOutput onOff(start=0) "onoff signal as Real"
-    annotation (Placement(transformation(extent={{92,-10},{112,10}}),
-        iconTransformation(extent={{92,-10},{112,10}})));
-  Modelica.Blocks.Interfaces.RealOutput THeaCur "Heating curve setpoint"
-    annotation (Placement(transformation(extent={{94,-50},{114,-30}}),
-        iconTransformation(extent={{94,-50},{114,-30}})));
+  // --- Interface
+  Modelica.Blocks.Interfaces.RealOutput onOff(start=0)
+    "onoff signal as Real for the charging of the storage tank"
+    annotation (Placement(transformation(extent={{94,-70},{114,-50}}),
+        iconTransformation(extent={{94,-70},{114,-50}})));
   Modelica.Blocks.Interfaces.RealInput TTankTop
     "Top (or near top) tank temperature" annotation (Placement(transformation(
-          extent={{-94,30},{-74,50}}), iconTransformation(extent={{-94,30},{-74,
-            50}})));
+          extent={{-106,42},{-70,78}}),iconTransformation(extent={{-108,40},{-70,
+            78}})));
   Modelica.Blocks.Interfaces.RealInput TTankBot
     "Bottom (or near bottom) tank temperature" annotation (Placement(
-        transformation(extent={{-94,-10},{-74,10}}), iconTransformation(extent=
-            {{-94,-10},{-74,10}})));
+        transformation(extent={{-108,-80},{-68,-40}}),
+                                                     iconTransformation(extent={{-108,
+            -80},{-68,-40}})));
+
+  // --- Variables
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
     annotation (Placement(transformation(extent={{-60,46},{-40,66}})));
-initial equation
-  //der(onOff) = 0;
+  Modelica.SIunits.Temperature TBotSet(start=283.15)
+    "Bottom temperature setpoint";
+  Modelica.SIunits.Temperature TTopSet(start=283.15) "Top temperature setpoint";
+  Modelica.SIunits.Temperature TBotEmpty(start=283.15)
+    "Temperature in bottom corresponding to SOC = 0";
+  Real SOC(start=0);
 
+protected
+  Modelica.SIunits.Temperature THPSet;
+public
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=THPSet)
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+  Modelica.Blocks.Math.Add add2
+    annotation (Placement(transformation(extent={{-8,-8},{8,8}},
+        rotation=0,
+        origin={64,0})));
 equation
-
   TBotEmpty = if DHW then TColdWaterNom else TTopSet - dTSupRetNom;
   //tankSOC is intentionally computed based only on 2 temperature sensors for practical reasons.  It is computed
   // with regard to TTopSet and TBotSet and a reference temperature (TBotEmpty)
@@ -88,7 +73,24 @@ equation
       points={{-39,56},{-22,56}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(extent={{-80,-80},{100,80}}), graphics={
+  connect(realExpression1.y, THeaCur) annotation (Line(
+      points={{61,40},{104,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(corHeaCur.y, add2.u1) annotation (Line(
+      points={{1,20},{36,20},{36,4.8},{54.4,4.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression2.y, add2.u2) annotation (Line(
+      points={{16.2,-3},{35.1,-3},{35.1,-4.8},{54.4,-4.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(add2.y, THeaterSet) annotation (Line(
+      points={{72.8,0},{104,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Icon(coordinateSystem(extent={{-80,-80},{100,80}},
+          preserveAspectRatio=false),                             graphics={
         Rectangle(
           extent={{100,80},{-80,-80}},
           lineColor={100,100,100},
@@ -102,5 +104,5 @@ equation
           extent={{-60,40},{60,-40}},
           lineColor={100,100,100},
           textString="hp ")}), Diagram(coordinateSystem(extent={{-80,-80},{100,
-            80}}, preserveAspectRatio=true), graphics));
+            80}}, preserveAspectRatio=false),graphics));
 end Partial_Ctrl_Heating_TES;
