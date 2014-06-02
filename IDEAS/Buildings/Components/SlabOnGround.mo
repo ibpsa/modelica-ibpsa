@@ -28,7 +28,7 @@ model SlabOnGround "opaque floor on ground slab"
 
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
-  final parameter Modelica.SIunits.Power QNom=U_value*AWall*(273.15 + 21 - sim.city.TdesGround)
+  final parameter Modelica.SIunits.Power QNom=U_value*AWall*(273.15 + 21 - sim.TdesGround)
     "Design heat losses at reference outdoor temperature";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb

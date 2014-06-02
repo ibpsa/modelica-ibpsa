@@ -13,7 +13,7 @@ model Window "Multipane window"
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0deg denotes South";
   final parameter Modelica.SIunits.Power QNom=glazing.U_value*A*(273.15 + 21 -
-      sim.city.Tdes) "Design heat losses at reference outdoor temperature";
+      sim.Tdes) "Design heat losses at reference outdoor temperature";
 
   replaceable IDEAS.Buildings.Data.Interfaces.Glazing glazing
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"

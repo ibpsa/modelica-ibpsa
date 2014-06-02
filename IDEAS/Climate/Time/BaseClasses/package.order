@@ -4,4 +4,5 @@ SimulationDelay
 SimulationTime
 SolarTime
 TimeZone
+EquationOfTime
 TimerType
