@@ -21,11 +21,7 @@ model RadiatorWithMixingValve
     QNom=5000,
     redeclare package Medium = Medium) "Hydraulic radiator model"
     annotation (Placement(transformation(extent={{52,-10},{72,10}})));
-  inner IDEAS.SimInfoManager sim(
-    redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
-    occBeh=false,
-    PV=false,
-    redeclare IDEAS.Climate.Meteo.Files.min60 detail)
+  inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
