@@ -15,7 +15,9 @@ model DHW_ProfileReader
     tableName="data",
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     columns=2:4,
-    fileName="../Inputs/" + "DHWProfile.txt") annotation (Placement(visible=
+    fileName="../Inputs/" + "DHWProfile.txt")
+    "ratio between the actual DHW mass flow rate (per second) and its average daily mass flow rate (per day)"
+                                                                                                        annotation (Placement(visible=
           true, transformation(
         origin={49.5,89.75},
         extent={{6.5,6.25},{-6.5,-6.25}},
@@ -30,6 +32,7 @@ model DHW_ProfileReader
         port_hot.p,
         inStream(port_hot.h_outflow),
         inStream(port_hot.Xi_outflow))))
+    "average mass flow rate of DHW consumption"
     annotation (Placement(transformation(extent={{66,54},{24,70}})));
 equation
   connect(product1.y, product.u1) annotation (Line(
