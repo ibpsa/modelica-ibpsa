@@ -24,8 +24,8 @@ function ShortTimeResponseHX
   output Real[3,steRes.tBre_d + 1] readData;
 
 protected
-  final parameter String packagePath="IDEAS.Fluid.HeatExchangers.GroundHeatExchanger.Borefield";
-  final parameter String savePath="..\\IDEAS\\IDEAS\\Fluid\\HeatExchangers\\GroundHeatExchanger\\Borefield\\Data\\ShortTermResponse\\";
+  final parameter String packagePath="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield";
+  final parameter String savePath="..\\IDEAS\\IDEAS\\Fluid\\HeatExchangers\\GroundHeatExchangers\\Borefield\\Data\\ShortTermResponse\\";
   final parameter String modelToSimulate=packagePath+".BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
     "model to simulate";
   Integer nbOfPoi=1000;
@@ -55,13 +55,25 @@ algorithm
 //      " adv)");
 
   // simulation for short time
+//   simulateModel(
+//     modelToSimulate +
+//      "( " + packagePath + ".Data.SoilData." + soi.name + " soi" +
+//      "( " + packagePath + ".Data.FillingData." + fill.name + " fill" +
+//      "( " + packagePath + ".Data.GeometricData." + geo.name + " geo" +
+//      "( " + packagePath + ".Data.StepResponse." + steRes.name + " steRes" +
+//      "( " + packagePath + ".Data.Advanced." + adv.name + " adv)",
+//     stopTime=steRes.tBre_d*steRes.tStep,
+//     numberOfIntervals=nbOfPoi,
+//     method="dassl",
+//    resultFile=filPathAndName + "_sim");
+
   simulateModel(
     modelToSimulate +
-     "( " + packagePath + ".Data.SoilData." + soi.name + " soi" +
-     "( " + packagePath + ".Data.FillingData." + fill.name + " fill" +
-     "( " + packagePath + ".Data.GeometricData." + geo.name + " geo" +
-     "( " + packagePath + ".Data.StepResponse." + steRes.name + " steRes" +
-     "( " + packagePath + ".Data.Advanced." + adv.name + " adv)",
+     "( soi=" + packagePath + ".Data.SoilData." + soi.name + "(), " +
+     "fill=" + packagePath + ".Data.FillingData." + fill.name + "()," +
+     "geo=" + packagePath + ".Data.GeometricData." + geo.name + "()," +
+     "steRes=" + packagePath + ".Data.StepResponse." + steRes.name + "()," +
+     "adv=" + packagePath + ".Data.Advanced." + adv.name + "())",
     stopTime=steRes.tBre_d*steRes.tStep,
     numberOfIntervals=nbOfPoi,
     method="dassl",
