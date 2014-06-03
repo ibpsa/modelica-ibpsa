@@ -12,23 +12,24 @@ model DHW_example
     T=333)
     annotation (Placement(transformation(extent={{-40,-12},{-20,8}})));
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-  Modelica.Blocks.Sources.Pulse sine(
+  Modelica.Blocks.Sources.Pulse mDHW60C(
     amplitude=0.1,
     width=5,
     period=10000,
     offset=0,
     startTime=5000)
-              annotation (Placement(transformation(extent={{-44,42},{-24,62}})));
-  Modelica.Blocks.Sources.Step step(
-    height=-20,
-    offset=333.15,
-    startTime=86400)
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Modelica.Blocks.Sources.Ramp step(
+    startTime=86400,
+    height=-30,
+    duration=50000,
+    offset=273.15 + 70)
     annotation (Placement(transformation(extent={{-94,-8},{-74,12}})));
   DHW_ProfileReader dHW_ProfileReader(redeclare package Medium = Medium,
     VDayAvg=1,
     profileType=2,
-    m_flow_nominal=100,
-    TDHWSet=318.15)
+    TDHWSet=318.15,
+    m_flow_nominal=1)
     annotation (Placement(transformation(extent={{4,-54},{28,-40}})));
   Sources.Boundary_pT bou2(
     redeclare package Medium = Medium,
@@ -39,8 +40,8 @@ model DHW_example
         rotation=180,
         origin={62,-20})));
 equation
-  connect(sine.y, dHW_RealInput.mDHW60C) annotation (Line(
-      points={{-23,52},{-14,52},{-14,20},{-2,20},{-2,8.6}},
+  connect(mDHW60C.y, dHW_RealInput.mDHW60C) annotation (Line(
+      points={{-19,50},{-14,50},{-14,20},{-2,20},{-2,8.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dHW_RealInput.port_hot, bou.ports[1]) annotation (Line(
