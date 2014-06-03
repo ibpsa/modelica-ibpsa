@@ -30,4 +30,9 @@ record BorefieldData
                                              constrainedby ShortTermResponse
     annotation (__Dymola_choicesAllMatching=true);
   ShoTerRes shoTerRes;
+
+  Modelica.SIunits.MassFlowRate m_flow_nominal = steRes.m_flow*geo.nbBh/geo.nbSer
+    "total nominal flow to the borefield";
+  Modelica.SIunits.Power P_the_nominal = geo.hBor*geo.nbBh*50
+    "nominal thermal power of the borefield";
 end BorefieldData;

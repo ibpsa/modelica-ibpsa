@@ -44,14 +44,14 @@ partial model partial_MultipleBoreHoles
         origin={0,146}),
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={0,86})));
+        origin={0,134})));
   Modelica.Blocks.Interfaces.RealOutput T_fts(unit="K")
   annotation (Placement(transformation(extent={{-18,-18},{18,18}},
         rotation=-90,
-        origin={0,-144}),
+        origin={2,-144}),
         iconTransformation(extent={{-18,-18},{18,18}},
         rotation=-90,
-        origin={2,-98})));
+        origin={2,-144})));
 
 protected
   final parameter Integer[q_max] rArr=
@@ -136,54 +136,54 @@ algorithm
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,
             140}}), graphics={
         Rectangle(
-          extent={{-90,90},{90,-90}},
+          extent={{-140,140},{140,-140}},
           lineColor={0,0,0},
           fillColor={234,210,210},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{10,-10},{70,-70}},
+          extent={{-108,114},{-30,36}},
           lineColor={0,0,0},
           fillColor={223,188,190},
           fillPattern=FillPattern.Forward),
         Ellipse(
-          extent={{10,70},{70,10}},
-          lineColor={0,0,0},
-          fillColor={223,188,190},
-          fillPattern=FillPattern.Forward),
-        Ellipse(
-          extent={{-70,70},{-10,10}},
-          lineColor={0,0,0},
-          fillColor={223,188,190},
-          fillPattern=FillPattern.Forward),
-        Ellipse(
-          extent={{-70,-10},{-10,-70}},
-          lineColor={0,0,0},
-          fillColor={223,188,190},
-          fillPattern=FillPattern.Forward),
-        Ellipse(
-          extent={{-62,62},{-18,18}},
-          lineColor={0,0,0},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Forward),
-        Ellipse(
-          extent={{18,62},{62,18}},
-          lineColor={0,0,0},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Forward),
-        Ellipse(
-          extent={{-62,-18},{-18,-62}},
-          lineColor={0,0,0},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Forward),
-        Ellipse(
-          extent={{18,-18},{62,-62}},
+          extent={{-100,106},{-38,44}},
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward),
         Text(
-          extent={{-76,156},{74,98}},
+          extent={{-116,40},{118,-40}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Ellipse(
+          extent={{-104,-34},{-26,-112}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{-96,-42},{-34,-106}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{32,112},{110,34}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{40,104},{102,42}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{36,-36},{114,-114}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{44,-44},{106,-106}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,
             140}}),     graphics));
 end partial_MultipleBoreHoles;

@@ -5,7 +5,7 @@ model HeatPumpOnOff "A heat pump that can only be switch on or off"
       IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData);
   extends IDEAS.Fluid.Interfaces.OnOffInterface(use_onOffSignal=true);
 
-  parameter Boolean use_scaling = true
+  parameter Boolean use_scaling = false
     "scale the performance data based on the nominal power";
   parameter Modelica.SIunits.Power P_the_nominal if use_scaling
     "nominal thermal power of the heat pump";
