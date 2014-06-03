@@ -5,6 +5,13 @@ model HeatPumpOnOff "A heat pump that can only be switch on or off"
       IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData);
   extends IDEAS.Fluid.Interfaces.OnOffInterface(use_onOffSignal=true);
 
+  parameter Boolean use_scaling = true
+    "scale the performance data based on the nominal power";
+  parameter Modelica.SIunits.Power P_the_nominal if use_scaling
+    "nominal thermal power of the heat pump";
+  final parameter Real sca = if use_scaling then P_the_nominal / heatPumpData.P_the_nominal else 1
+    "scaling factor for the nominal power of the heat pump";
+
   // check https://github.com/open-ideas/IDEAS/issues/17 for a discussion on why CombiTable2D is used
   Modelica.Blocks.Tables.CombiTable2D powerTable(              table=
         heatPumpData.powerData, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
@@ -14,9 +21,12 @@ model HeatPumpOnOff "A heat pump that can only be switch on or off"
         heatPumpData.copData, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     annotation (Placement(transformation(extent={{-60,54},{-40,74}})));
     Real cop "COP of the heat pump";
+  Modelica.Blocks.Interfaces.RealOutput P_evap_val "evaporator power"
+    annotation (Placement(transformation(extent={{-96,-14},{-124,14}})));
+
 equation
   cop = if on_internal then  copTable.y else 1;
-  P_el = if on_internal then  powerTable.y else 0;
+  P_el = if on_internal then  powerTable.y * sca else 0;
   P_evap=P_el*(cop-1);
   P_cond=P_el*cop;
   connect(copTable.u2, powerTable.u2) annotation (Line(
@@ -35,6 +45,16 @@ equation
       points={{-82,51},{-82,84},{-62,84}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(realExpression.y, P_evap_val) annotation (Line(
+      points={{-0.9,10},{-4,10},{-4,0},{-30,0},{-30,-10},{-80,-10},{-80,1.77636e-015},
+          {-110,1.77636e-015}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(P_evap_val, P_evap_val) annotation (Line(
+      points={{-110,1.77636e-015},{-110,0},{-107,0},{-107,1.77636e-015},{-110,1.77636e-015}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
