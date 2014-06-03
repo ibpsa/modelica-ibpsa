@@ -14,7 +14,7 @@ partial model Occupant
     "Nodes for radiative heat gains" annotation (Placement(transformation(
           extent={{-110,-30},{-90,-10}}), iconTransformation(extent={{-110,-30},
             {-90,-10}})));
-  Modelica.Blocks.Interfaces.RealOutput[nZones] TSet
+  Modelica.Blocks.Interfaces.RealOutput[nZones] TSet( final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
     "Setpoint temperature for the zones" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

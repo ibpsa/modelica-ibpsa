@@ -3,11 +3,17 @@ model Ctrl_Heating_combiTES
   "Heating curve control for heating based on a combi tank (DHW + heating)"
   extends Interfaces.Partial_Ctrl_Heating_TES;
 
-  input Modelica.SIunits.Temperature TTankEmiOut
-    "Tank temperature at outlet to emission";
   Modelica.SIunits.Temperature TTankEmiOutSet
     "Setpoint for the tank layer at outlet to emission";
 
+  Modelica.Blocks.Interfaces.RealInput TTankEmiOut(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
+    "Tank temperature at outlet to emission" annotation (Placement(
+        transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-92}),                             iconTransformation(extent={{-20,-20},
+            {20,20}},
+        rotation=90,
+        origin={-4,-88})));
 equation
   TTopSet = max(TDHWSet, heatingCurve.TSup) + dTSafetyTop;
   TBotSet = max(TDHWSet, heatingCurve.TSup) + dTSafetyBot;
@@ -26,11 +32,9 @@ equation
     onOff = 0;
   end if;
 
-  connect(heatingCurve.TSup, THeaCur) annotation (Line(
-      points={{1,56},{12,56},{12,-40},{104,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  annotation (Diagram(graphics), Documentation(info="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,
+            -80},{100,80}}),
+                      graphics), Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Heating curve based control of a heater + TES charging control. The set point temperature for the heater is higher than the heating curve output in order to make sure that the heating curve temperature is met also when thermal losses are present in the circuit. The heater set temperature is the maximum of the requirements for space heating and DHW: if tank charging is occurring, the DHW temperture requirements will normally be higher than for space heating. </p>
 <p>This controller tries to limit and even avoid the creating of events.</p>
@@ -47,5 +51,7 @@ equation
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2011, Roel De Coninck: first version and validation</li>
 </ul></p>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-80,-80},{100,80}}),
+        graphics));
 end Ctrl_Heating_combiTES;
