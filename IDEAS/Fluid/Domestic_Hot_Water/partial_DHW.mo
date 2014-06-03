@@ -16,15 +16,6 @@ partial model partial_DHW "partial DHW model"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
-  /*
-  Slows down the simulation too much.  Should be in post processing
-  Real m_flowIntegrated(start = 0, fixed = true);
-  Real m_flowDiscomfort(start=0);
-  Real discomfort; //base 1
-  Real discomfortWeighted;
-  Real dTDiscomfort;
-  */
-
 public
   Modelica.Fluid.Interfaces.FluidPort_a port_hot(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
