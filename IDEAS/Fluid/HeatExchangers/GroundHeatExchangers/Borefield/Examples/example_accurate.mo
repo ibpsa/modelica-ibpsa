@@ -7,7 +7,7 @@ model example_accurate
     annotation (Placement(transformation(extent={{-70,52},{-50,72}})));
   parameter Integer lenSim=3600*24*20;
 
-  MultipleBoreHoles_MBL multipleBoreholes(lenSim=lenSim, bfData=bfData)
+  MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData)
     annotation (Placement(transformation(extent={{-34,-68},{36,2}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=30*bfData.geo.hBor)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));

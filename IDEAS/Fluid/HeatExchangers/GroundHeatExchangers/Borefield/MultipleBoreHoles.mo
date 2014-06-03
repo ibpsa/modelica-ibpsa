@@ -1,7 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
-model MultipleBoreHoles_MBL
-  "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow. Compatible with the Modelica Buildings Library"
-  import Buildings;
+model MultipleBoreHoles
+  "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
 
   // FIXME:
   //  1) make it possible to run model without pre-compilation of g-function (short term)
@@ -9,7 +8,7 @@ model MultipleBoreHoles_MBL
   //  3) Make the enthalpy a differentiable function (look at if statement)
 
   // Medium in borefield
-  replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   extends BaseClasses.partial_MultipleBoreHoles(     p_max=5, lenSim=3600*24*50);
 
@@ -31,24 +30,24 @@ protected
   Modelica.SIunits.Enthalpy sinEntVal "Enthalpy of the medium of the sink";
   Modelica.SIunits.Enthalpy souEntVal "Enthalpy of the medium of the source";
 public
-  Buildings.Fluid.Sources.Boundary_ph sin(
+  IDEAS.Fluid.Sources.Boundary_ph sin(
     redeclare package Medium = Medium,
     nPorts=1,
     use_h_in=true) "Sink"
     annotation (Placement(transformation(extent={{-88,-10},{-108,10}})));
-  Buildings.Fluid.Sources.Boundary_ph sou(
+  IDEAS.Fluid.Sources.Boundary_ph sou(
     redeclare package Medium = Medium,
     nPorts=1,
     use_h_in=true) "Sink"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Fluid.Interfaces.FluidPorts_b flowPort_b(redeclare package Medium =
         Medium)
-    annotation (Placement(transformation(extent={{-106,-40},{-86,40}}),
-        iconTransformation(extent={{-106,-40},{-86,40}})));
+    annotation (Placement(transformation(extent={{-150,-40},{-130,40}}),
+        iconTransformation(extent={{-150,-40},{-130,40}})));
   Modelica.Fluid.Interfaces.FluidPorts_b flowPort_a(redeclare package Medium =
         Medium)
-    annotation (Placement(transformation(extent={{86,-40},{106,40}}),
-        iconTransformation(extent={{86,-40},{106,40}})));
+    annotation (Placement(transformation(extent={{130,-40},{150,40}}),
+        iconTransformation(extent={{130,-40},{150,40}})));
 
     Modelica.Blocks.Sources.RealExpression sinEnt(y=sinEntVal)
     "Enthalpy of the medium of the sink"
@@ -75,12 +74,12 @@ equation
 
   connect(sin.ports[1], flowPort_b)
                                 annotation (Line(
-      points={{-108,0},{-96,0}},
+      points={{-108,0},{-140,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[1], flowPort_a)
                                 annotation (Line(
-      points={{110,0},{96,0}},
+      points={{110,0},{140,0}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -146,6 +145,6 @@ equation
           extent={{-76,156},{74,98}},
           lineColor={0,0,255},
           textString="%name")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{
-            140,140}}), graphics));
-end MultipleBoreHoles_MBL;
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,
+            140}}),     graphics));
+end MultipleBoreHoles;

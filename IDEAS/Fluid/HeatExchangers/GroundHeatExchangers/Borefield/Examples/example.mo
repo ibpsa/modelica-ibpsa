@@ -12,8 +12,7 @@ model example
     annotation (Placement(transformation(extent={{-70,52},{-50,72}})));
   parameter Integer lenSim=3600*24*20 "length of the simulation";
 
-  MultipleBoreHoles_MBL multipleBoreholes(lenSim=lenSim, bfData=bfData)
-    "borefield"
+  MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData) "borefield"
     annotation (Placement(transformation(extent={{-34,-68},{36,2}})));
   Modelica.Blocks.Sources.RealExpression load(y=q*bfData.geo.hBor)
     "load for the borefield"

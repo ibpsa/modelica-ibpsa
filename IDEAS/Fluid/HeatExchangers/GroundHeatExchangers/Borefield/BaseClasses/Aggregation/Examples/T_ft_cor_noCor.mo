@@ -16,14 +16,7 @@ algorithm
   if t_d <= steRes.t_min_d then
     T := 0;
   else
-/*
-    delta_T_fts_corBre := shoTerRes.TResSho[steRes.tBre_d] - 273.15 - Borefield.GroundHX.T_rt(
-      t_d= steRes.tBre_d,
-      r=0,
-      steRes=steRes,
-      geo=geo,
-      soi=soi);
-*/
+
     T := GroundHX.BoreFieldWallTemperature(
       t_d=t_d,
       r=0,
