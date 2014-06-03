@@ -2,17 +2,13 @@ within IDEAS.HeatingSystems.Examples;
 model Heating_Embedded_DHW_STS
   "Example and test for heating system with embedded emission, DHW and STS"
   import IDEAS;
-
   extends Modelica.Icons.Example;
-
-  final parameter Integer nZones=1 "Number of zones";
-
+  final parameter Integer nZones=2 "Number of zones";
   parameter
     IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.RadSlaCha_ValidationEmpa[        nZones]
                                        radSlaCha_ValidationEmpa(A_Floor=
         dummyBuilding.AZones)
     annotation (Placement(transformation(extent={{-94,-98},{-74,-78}})));
-
   IDEAS.HeatingSystems.Heating_Embedded_DHW_STS
                                             heating(
     nZones=nZones,
@@ -23,7 +19,6 @@ model Heating_Embedded_DHW_STS
     TSupNom=273.15 + 45,
     corFac_val=5)
           annotation (Placement(transformation(extent={{12,-18},{50,0}})));
-
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
     each width=67,
@@ -56,12 +51,13 @@ model Heating_Embedded_DHW_STS
   IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.NakedTabs[nZones] nakedTabs(radSlaCha=
        radSlaCha_ValidationEmpa)
     annotation (Placement(transformation(extent={{-6,-12},{-26,8}})));
-
-  inner IDEAS.SimInfoManager sim(nOcc=3)
+  inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Blocks.Sources.RealExpression[nZones] realExpression(y=11*
         radSlaCha_ValidationEmpa.A_Floor)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{64,84},{78,94}})));
 equation
   connect(voltageSource.pin_p, ground.pin) annotation (Line(
       points={{90,-74},{90,-82}},
@@ -95,7 +91,6 @@ equation
       points={{-63.36,-12},{-58,-12},{-58,-28},{0,-28},{0,-14.4},{11.62,-14.4}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(realExpression.y, convectionTabs.Gc) annotation (Line(
       points={{-59,40},{-48,40},{-48,8}},
       color={0,0,127},

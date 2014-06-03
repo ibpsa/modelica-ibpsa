@@ -4,8 +4,7 @@ model Heating_Embedded
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nZones] RadSlaCha constrainedby
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
     "Properties of the floor heating or TABS, if present";
-
-  extends IDEAS.HeatingSystems.Interfaces.Partial_heating_noSTS(
+  extends IDEAS.HeatingSystems.Interfaces.Partial_HydraulicHeating(
     final isHea=true,
     final isCoo=false,
     final nConvPorts=0,
@@ -21,7 +20,6 @@ model Heating_Embedded
       m_flow_nominal=m_flow_nominal,
       m_flowMin=m_flow_nominal/3,
       RadSlaCha = RadSlaCha));
-
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow);
   P[1] = heater.PEl + sum(pumpRad.PEl);

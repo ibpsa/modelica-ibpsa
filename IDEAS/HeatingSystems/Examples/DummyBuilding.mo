@@ -12,8 +12,8 @@ model DummyBuilding "Dummy building for testing heating systems"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor[nZones]
     temperatureSensor
     annotation (Placement(transformation(extent={{-18,-70},{2,-50}})));
-  Modelica.Blocks.Sources.Constant[nZones] isolationValue(k=UA_building) annotation (
-      Placement(transformation(
+  Modelica.Blocks.Sources.Constant[nZones] insulationValue(each k=UA_building)
+    annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=0,
         origin={-86,80})));
@@ -21,7 +21,6 @@ model DummyBuilding "Dummy building for testing heating systems"
     annotation (Placement(transformation(extent={{-146,44},{-126,64}})));
   parameter Real UA_building=500 "Constant output value";
 equation
-
   connect(heatCapacitor.port, convection.solid) annotation (Line(
       points={{-50,70},{-50,54},{-62,54}},
       color={191,0,0},
@@ -46,7 +45,7 @@ equation
       points={{-50,70},{-50,-20},{150,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(isolationValue.y, convection.Gc) annotation (Line(
+  connect(insulationValue.y, convection.Gc) annotation (Line(
       points={{-79.4,80},{-72,80},{-72,64}},
       color={0,0,127},
       smooth=Smooth.None));

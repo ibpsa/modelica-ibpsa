@@ -2,9 +2,7 @@ within IDEAS.HeatingSystems.Examples;
 model Heating_Radiators
   "Example and test for basic heating system with radiators"
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-
   extends Modelica.Icons.Example;
-
   final parameter Integer nZones=1 "Number of zones";
   IDEAS.HeatingSystems.Heating_Radiators heating(
     redeclare package Medium = Medium,
@@ -15,7 +13,6 @@ model Heating_Radiators
     QNom={8000 for i in 1:nZones},
     corFac_val=5)
     annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
-
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
     each width=67,
@@ -39,8 +36,9 @@ model Heating_Radiators
     annotation (Placement(transformation(extent={{-78,-24},{-48,-4}})));
   inner SimInfoManager       sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{64,84},{78,94}})));
 equation
-
   connect(heating.TSet, TOpSet.y) annotation (Line(
       points={{9.82,-22.36},{9.82,-50},{-17.4,-50}},
       color={0,0,127},
