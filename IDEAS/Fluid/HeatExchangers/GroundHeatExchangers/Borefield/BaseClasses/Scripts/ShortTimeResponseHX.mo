@@ -45,28 +45,6 @@ algorithm
   Modelica.Utilities.Files.removeFile(filPathAndName + "_sim");
   Modelica.Utilities.Files.removeFile(filPathAndName + "Data");
 
-  //   translateModel(modelToSimulate +
-//      "( IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.SoilData." + soi.name + " soi" +
-//      ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.FillingData." + fill.name +
-//      " fill" + ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.GeometricData." +
-//      geo.name + " geo" +
-//      ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.StepResponse." + steRes.name +
-//      " steRes" + ", IDEAS.Thermal.Components.GroundHeatExchanger.Borefield.Data.Advanced." + adv.name +
-//      " adv)");
-
-  // simulation for short time
-//   simulateModel(
-//     modelToSimulate +
-//      "( " + packagePath + ".Data.SoilData." + soi.name + " soi" +
-//      "( " + packagePath + ".Data.FillingData." + fill.name + " fill" +
-//      "( " + packagePath + ".Data.GeometricData." + geo.name + " geo" +
-//      "( " + packagePath + ".Data.StepResponse." + steRes.name + " steRes" +
-//      "( " + packagePath + ".Data.Advanced." + adv.name + " adv)",
-//     stopTime=steRes.tBre_d*steRes.tStep,
-//     numberOfIntervals=nbOfPoi,
-//     method="dassl",
-//    resultFile=filPathAndName + "_sim");
-
   simulateModel(
     modelToSimulate +
      "( soi=" + packagePath + ".Data.SoilData." + soi.name + "(), " +
