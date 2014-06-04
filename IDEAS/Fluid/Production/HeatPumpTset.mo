@@ -18,14 +18,23 @@ model HeatPumpTset "Heat pump using a temperature setpoint"
         rotation=270,
         origin={-20,108})));
 
-    Real cop "COP of the heat pump";
+  parameter Boolean use_scaling = false
+    "scale the performance data based on the nominal power";
+  parameter Modelica.SIunits.Power P_the_nominal
+    "nominal thermal power of the heat pump";
+  final parameter Real sca = if use_scaling then P_the_nominal / heatPumpData.P_the_nominal else 1
+    "scaling factor for the nominal power of the heat pump";
+
+  Real cop "COP of the heat pump";
   Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=uLow, uHigh=uHigh)
     annotation (Placement(transformation(extent={{-22,-64},{-2,-44}})));
   parameter Real uLow=-2.5 "Lower bound of the hysteresis control";
   parameter Real uHigh=2.5 "Upper bound of the hysteresis control";
+  Modelica.Blocks.Interfaces.RealOutput P_evap_val "evaporator power"
+    annotation (Placement(transformation(extent={{-96,-14},{-124,14}})));
 equation
   cop =  if hysteresis.y then  copTable.y else 1;
-  P_el = if hysteresis.y then  powerTable.y else 0;
+  P_el = if hysteresis.y then  powerTable.y*sca else 0;
 
   P_evap=P_el*(cop-1);
   P_cond=P_el*cop;
@@ -47,6 +56,11 @@ equation
       smooth=Smooth.None));
   connect(realExpression4.y, hysteresis.u) annotation (Line(
       points={{-31.9,-54},{-24,-54}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression.y,P_evap_val)  annotation (Line(
+      points={{-0.9,10},{-4,10},{-4,0},{-30,0},{-30,-10},{-80,-10},{-80,0},{-110,
+          0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

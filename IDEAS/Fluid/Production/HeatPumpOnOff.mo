@@ -7,7 +7,7 @@ model HeatPumpOnOff "A heat pump that can only be switch on or off"
 
   parameter Boolean use_scaling = false
     "scale the performance data based on the nominal power";
-  parameter Modelica.SIunits.Power P_the_nominal if use_scaling
+  parameter Modelica.SIunits.Power P_the_nominal
     "nominal thermal power of the heat pump";
   final parameter Real sca = if use_scaling then P_the_nominal / heatPumpData.P_the_nominal else 1
     "scaling factor for the nominal power of the heat pump";
