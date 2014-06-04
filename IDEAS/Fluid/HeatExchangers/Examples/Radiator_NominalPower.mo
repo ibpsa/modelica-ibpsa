@@ -25,8 +25,7 @@ model Radiator_NominalPower
     TOutNom=308.15,
     show_T=true) "Hydraulic radiator model"
     annotation (Placement(transformation(extent={{50,-8},{70,12}})));
-  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
-      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
+  inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(
       T=293.15) annotation (Placement(transformation(extent={{32,24},{52,44}})));

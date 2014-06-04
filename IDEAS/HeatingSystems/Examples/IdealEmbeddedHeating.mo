@@ -2,9 +2,7 @@ within IDEAS.HeatingSystems.Examples;
 model IdealEmbeddedHeating
   "Example and test for ideal heating with embedded emission"
   import IDEAS;
-
   extends Modelica.Icons.Example;
-
   final parameter Integer nZones=1 "Number of zones";
   IDEAS.HeatingSystems.IdealEmbeddedHeating heating(
     nZones=nZones,
@@ -86,7 +84,6 @@ equation
       points={{-63.36,-12},{-58,-12},{-58,-28},{0,-28},{0,-17.2},{10.64,-17.2}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(realExpression.y, convectionTabs.Gc) annotation (Line(
       points={{-59,40},{-48,40},{-48,8}},
       color={0,0,127},

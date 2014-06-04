@@ -23,9 +23,7 @@ model IdealHeater "Very basic hydraulic circuit with an IdealHeater"
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
     annotation (Placement(transformation(extent={{-94,-20},{-80,-6}})));
-  inner IDEAS.SimInfoManager sim(
-    redeclare IDEAS.Climate.Meteo.Locations.Uccle city,
-    redeclare IDEAS.Climate.Meteo.Files.min60 detail)
+  inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   Modelica.Blocks.Sources.TimeTable pulse(
   offset=0,
@@ -101,7 +99,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(firstOrder.y, pump.m_flowSet) annotation (Line(
-      points={{16,51},{16,4},{-24,4},{-24,-4}},
+      points={{16,51},{16,4},{-24,4},{-24,-3.6}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
