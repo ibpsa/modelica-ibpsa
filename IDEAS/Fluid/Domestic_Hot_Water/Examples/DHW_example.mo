@@ -17,19 +17,20 @@ model DHW_example
     width=5,
     period=10000,
     offset=0,
-    startTime=5000)
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    startTime=5000) annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp step(
     startTime=86400,
     height=-30,
     duration=50000,
     offset=273.15 + 70)
     annotation (Placement(transformation(extent={{-94,-8},{-74,12}})));
-  DHW_ProfileReader dHW_ProfileReader(redeclare package Medium = Medium,
+  DHW_ProfileReader dHW_ProfileReader(
+    redeclare package Medium = Medium,
     VDayAvg=1,
     profileType=2,
     TDHWSet=318.15,
-    m_flow_nominal=1)
+    m_flow_nominal=1,
+    table(fileName="../Inputs/DHWProfile_2d.txt"))
     annotation (Placement(transformation(extent={{4,-54},{28,-40}})));
   Sources.Boundary_pT bou2(
     redeclare package Medium = Medium,
@@ -66,6 +67,6 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
-    experiment(StopTime=192800),
+    experiment(StopTime=172800),
     __Dymola_experimentSetupOutput);
 end DHW_example;
