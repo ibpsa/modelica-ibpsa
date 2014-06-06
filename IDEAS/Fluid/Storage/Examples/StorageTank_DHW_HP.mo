@@ -18,7 +18,7 @@ model StorageTank_DHW_HP
     UIns=0.4,
     redeclare package MediumHX = Medium,
     redeclare package Medium = Medium,
-    m_flow_nominal=1)
+    m_flow_nominal_HX=1)
     annotation (Placement(transformation(extent={{-30,-64},{42,10}})));
 
   Fluid.Domestic_Hot_Water.DHW_RealInput dHW(TDHWSet=273.15 + 45,
@@ -34,8 +34,7 @@ model StorageTank_DHW_HP
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-38,-62},{-58,-42}})));
-  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
-      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
+  inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
   IDEAS.Controls.ControlHeating.Ctrl_Heating_TES HPControl(
     dTSafetyTop=3,
@@ -61,24 +60,22 @@ model StorageTank_DHW_HP
   parameter SI.MassFlowRate m_flow_nominal=0.5 "Nominal mass flow rate";
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{36,48},{46,58}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=294.15)
+    annotation (Placement(transformation(extent={{-44,70},{-64,90}})));
 equation
 
-  connect(HPControl.THPSet, hP_AWMod.TSet) annotation (Line(
-      points={{-78.1111,48.6667},{-78.1111,32},{-79,32},{-79,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(storageTank.T[10], HPControl.TTankBot) annotation (Line(
-      points={{42,-18.4615},{70,-18.4615},{70,-18},{92,-18},{92,96},{-83.1111,
-          96},{-83.1111,69.3333}},
+      points={{42,-18.4615},{70,-18.4615},{70,-18},{92,-18},{92,96},{-90.6111,
+          96},{-90.6111,69.7778}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(storageTank.T[1], HPControl.TTankTop) annotation (Line(
-      points={{42,-18.4615},{92,-18.4615},{92,96},{-78.1111,96},{-78.1111,
-          69.3333}},
+      points={{42,-18.4615},{92,-18.4615},{92,96},{-75.7361,96},{-75.7361,
+          69.8889}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HPControl.onOff, pump.m_flowSet) annotation (Line(
-      points={{-83.1111,48.6667},{-83.1111,40},{-48,40},{-48,-41.6}},
+      points={{-90.6111,48.4444},{-90.6111,40},{-48,40},{-48,-41.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bou.ports[1], pump.port_a) annotation (Line(
@@ -120,6 +117,14 @@ equation
   connect(storageTank.port_b, bou.ports[2]) annotation (Line(
       points={{42,-58.3077},{42,-88},{66,-88}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(HPControl.THeaCur, hP_AWMod.TSet) annotation (Line(
+      points={{-78.1111,48.4444},{-78.1111,33.2222},{-79,33.2222},{-79,18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression.y, HPControl.TRoo_in1) annotation (Line(
+      points={{-65,80},{-83.1111,80},{-83.1111,69.7778}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

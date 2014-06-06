@@ -3,14 +3,14 @@ model SlabOnGround "opaque floor on ground slab"
 
   extends IDEAS.Buildings.Components.Interfaces.StateWall;
 
-  replaceable parameter Data.Interfaces.Construction constructionType
+  replaceable Data.Interfaces.Construction constructionType
     constrainedby Data.Interfaces.Construction(final insulationType=
         insulationType, final insulationTickness=insulationThickness)
     "Type of building construction" annotation (
     __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,72},{-34,76}})),
     Dialog(group="Construction details"));
-  replaceable parameter Data.Interfaces.Insulation insulationType
+  replaceable Data.Interfaces.Insulation insulationType
     constrainedby Data.Interfaces.Insulation(final d=insulationThickness)
     "Type of thermal insulation" annotation (
     __Dymola_choicesAllMatching=true,

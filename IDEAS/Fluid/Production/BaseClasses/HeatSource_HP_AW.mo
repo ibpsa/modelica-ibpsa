@@ -1,6 +1,7 @@
 within IDEAS.Fluid.Production.BaseClasses;
 model HeatSource_HP_AW
   "Computation of theoretical condensation power of the refrigerant based on interpolation data.  Takes into account losses of the heat pump to the environment"
+  //fixme: adaptation of heatSource_CondensingGasBurner should also be applied on this model.
 
   /*
   This model is based on data we received from Daikin from an Altherma heat pump.
@@ -128,14 +129,18 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  IDEAS.Controls.Control_fixme.Hyst_NoEvent onOff(
-    uLow=modulation_min,
-    uHigh=modulation_start,
+
+  Controls.Control_fixme.Hyst_NoEvent_Var onOff(
+    use_input=false,
+    enableRelease=true,
+    uLow_val=modulation_min,
+    uHigh_val=modulation_start,
     y(start=0),
-    enableRelease=true) "on-off, based on modulationInit"
-    annotation (Placement(transformation(extent={{-60,-88},{-40,-68}})));
+    release(start=0))
+    annotation (Placement(transformation(extent={{12,-86},{32,-66}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=modulationInit)
+    annotation (Placement(transformation(extent={{-20,-86},{0,-66}})));
 equation
-  onOff.u = modulationInit;
   onOff.release = if noEvent(m_flowCondensor > 0) then 1.0 else 0.0;
   QAsked = IDEAS.Utilities.Math.Functions.smoothMax(0, m_flowCondensor*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TCondensor_set, Medium.X_default)) -hIn), 10);
   P100.u1 = heatPort.T - 273.15;
@@ -184,6 +189,10 @@ equation
     P_vector,
     modulation);
 
+  connect(realExpression.y, onOff.u) annotation (Line(
+      points={{1,-76},{10,-76}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(graphics), Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;data&nbsp;received&nbsp;from&nbsp;Daikin&nbsp;from&nbsp;an&nbsp;Altherma&nbsp;heat&nbsp;pump, and the full heat pump is implemented as <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_AWMod_Losses\">IDEAS.Thermal.Components.Production.HP_AWMod_Losses</a>. (vermoedelijk <a href=\"Modelica://IDEAS.Thermal.Components.Production.HP_AirWater\">IDEAS.Thermal.Components.Production.HP_AirWater</a></p>

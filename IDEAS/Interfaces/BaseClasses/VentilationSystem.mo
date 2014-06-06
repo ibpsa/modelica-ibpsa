@@ -14,7 +14,7 @@ partial model VentilationSystem
 
   // Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
 
-  Modelica.Blocks.Interfaces.RealInput[nZones] TSensor
+  Modelica.Blocks.Interfaces.RealInput[nZones] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
     "Sensor temperature of the zones" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,

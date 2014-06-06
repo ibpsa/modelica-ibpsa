@@ -5,14 +5,4 @@ package Control_fixme "General stuff"
 
 extends Modelica.Icons.Package;
 
-
-
-
-
-
-
-
-
-
-
 end Control_fixme;
