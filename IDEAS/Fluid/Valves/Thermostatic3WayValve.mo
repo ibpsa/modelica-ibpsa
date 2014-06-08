@@ -1,9 +1,10 @@
 within IDEAS.Fluid.Valves;
 model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
-  extends BaseClasses.Partial3WayValve;
+  extends BaseClasses.Partial3WayValve(vol(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+        massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
 
   final parameter Modelica.SIunits.MassFlowRate mFlowMin=0.0001*m_flow_nominal
-    "Minimum outlet flowrate for mixing to start";
+    "Minimum flow rate for sensing temperature at the port";
   Modelica.Blocks.Interfaces.RealInput TMixedSet
     "Mixed outlet temperature setpoint" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
@@ -22,51 +23,15 @@ model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
 
   Modelica.SIunits.MassFlowRate m_flowBottom(min=0)
     "mass flowrate of cold water to the mixing point";
+protected
+  Real k "Help variable for determining fraction of each flow";
 
 equation
-//   if noEvent(inStream(port_a1.h_outflow) < h_set) then
-//     // no mixing
-//     m_flowBottom = 0;
-//   elseif noEvent(inStream(port_a2.h_outflow) > h_set) then
-//     // no mixing
-//     m_flowBottom = -port_b.m_flow;
-//   elseif noEvent(port_b.m_flow < -mFlowMin) then
-//     // mixing if mass flow higher than minimal mass flow
-//     // energy balance with port_b at T=TMixedSet
-//     m_flowBottom = -(port_a1.m_flow*inStream(port_a1.h_outflow) + port_b.m_flow*h_set)/
-//       inStream(port_a2.h_outflow);
-//   else
-//     m_flowBottom = 0;
-//   end if;
-
-//    if max(inStream(port_a2.h_outflow),inStream(port_a1.h_outflow))> h_set and min(inStream(port_a2.h_outflow),inStream(port_a1.h_outflow)) <h_set then
-//      //m_flowBottom =-port_b.m_flow*(h_set-inStream(port_a1.h_outflow))/(inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow));
-//      m_flowBottom = -(port_a1.m_flow*inStream(port_a1.h_outflow) + port_b.m_flow*h_set)/inStream(port_a2.h_outflow);
-//    elseif max(inStream(port_a2.h_outflow),inStream(port_a1.h_outflow)) < h_set then
-//      if inStream(port_a2.h_outflow)>inStream(port_a1.h_outflow) then
-//        m_flowBottom=-port_b.m_flow;
-//      else
-//        m_flowBottom=0;
-//      end if;
-//    else
-//      if inStream(port_a2.h_outflow)>inStream(port_a1.h_outflow) then
-//        m_flowBottom=0;
-//      else
-//        m_flowBottom=-port_b.m_flow;
-//      end if;
-//    end if;
-
-   if -port_b.m_flow < mFlowMin or abs(inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow))<1 then
-     m_flowBottom=-0.5*port_b.m_flow;
-   else
-   m_flowBottom =-port_b.m_flow*IDEAS.Utilities.Math.Functions.smoothMax(
-           IDEAS.Utilities.Math.Functions.smoothMin(
-                       (h_set-inStream(port_a1.h_outflow))/(inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow)),
-                       1,
-                       mFlowMin),
-           0,
-           mFlowMin);
-   end if;
+  k*inStream(port_a2.h_outflow) + inStream(port_a1.h_outflow)*(1-k)=h_set;
+  m_flowBottom=-port_b.m_flow*IDEAS.Utilities.Math.Functions.smoothMax(
+            IDEAS.Utilities.Math.Functions.smoothMin(k, 1,mFlowMin),
+            0,
+            mFlowMin);
 
   connect(realExpression.y, idealSource.m_flow_in) annotation (Line(
       points={{32,-50},{8,-50}},
