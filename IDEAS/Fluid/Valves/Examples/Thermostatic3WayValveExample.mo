@@ -23,8 +23,6 @@ model Thermostatic3WayValveExample "Example of a thermostatic three way valve"
     T=333.15, nPorts=2,
     use_T_in=true)      annotation (Placement(transformation(extent={{-74,30},{-54,50}})));
 
-  Modelica.Blocks.Sources.Constant const(k=273.15 + 40)
-    annotation (Placement(transformation(extent={{-44,70},{-24,90}})));
   Sensors.TemperatureTwoPort T_out(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{62,10},{46,26}})));
@@ -50,12 +48,14 @@ model Thermostatic3WayValveExample "Example of a thermostatic three way valve"
     offset=273.15 + 30,
     freqHz=0.002)
     annotation (Placement(transformation(extent={{-104,50},{-84,70}})));
+  Modelica.Blocks.Sources.Ramp ramp1(
+    height=-20,
+    offset=273.15 + 40,
+    duration=1000,
+    startTime=5000)
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 equation
 
-  connect(const.y, thermostatic3WayValve.TMixedSet) annotation (Line(
-      points={{-23,80},{-10,80},{-10,52},{0,52}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(thermostatic3WayValve.port_b, pump.port_a) annotation (Line(
       points={{10,42},{18,42}},
       color={0,127,255},
@@ -92,15 +92,13 @@ equation
       points={{-83,60},{-80,60},{-80,44},{-76,44}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(ramp1.y, thermostatic3WayValve.TMixedSet) annotation (Line(
+      points={{-19,70},{0,70},{0,52}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
-                         graphics={Text(
-          extent={{-94,102},{-56,82}},
-          lineColor={100,100,100},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          textString="Normal use of valve")}),
-                                    Documentation(revisions="<html>
+                         graphics), Documentation(revisions="<html>
 <ul>
 <li>
 March 2014 by Filip Jorissen:<br/>

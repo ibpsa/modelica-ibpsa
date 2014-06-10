@@ -2,9 +2,6 @@ within IDEAS.Fluid.Valves;
 model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
   extends BaseClasses.Partial3WayValve(vol(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
         massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
-
-  final parameter Modelica.SIunits.MassFlowRate mFlowMin=0.0001*m_flow_nominal
-    "Minimum flow rate for sensing temperature at the port";
   Modelica.Blocks.Interfaces.RealInput TMixedSet
     "Mixed outlet temperature setpoint" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
@@ -29,9 +26,9 @@ protected
 equation
   k*inStream(port_a2.h_outflow) + inStream(port_a1.h_outflow)*(1-k)=h_set;
   m_flowBottom=-port_b.m_flow*IDEAS.Utilities.Math.Functions.smoothMax(
-            IDEAS.Utilities.Math.Functions.smoothMin(k, 1,mFlowMin),
+            IDEAS.Utilities.Math.Functions.smoothMin(k, 1,0.001),
             0,
-            mFlowMin);
+            0.001);
 
   connect(realExpression.y, idealSource.m_flow_in) annotation (Line(
       points={{32,-50},{8,-50}},
