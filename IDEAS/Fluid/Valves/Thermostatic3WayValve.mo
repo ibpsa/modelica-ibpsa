@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Valves;
 model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
-  extends BaseClasses.Partial3WayValve(vol(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-        massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState));
+  extends BaseClasses.Partial3WayValve(
+      idealSource(m_flow(start=m_flow_nominal*0.5)));
   Modelica.Blocks.Interfaces.RealInput TMixedSet
     "Mixed outlet temperature setpoint" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
@@ -11,7 +11,7 @@ model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
         rotation=90,
         origin={0,100})));
 
-  Modelica.SIunits.SpecificEnthalpy h_set = Medium.specificEnthalpy(Medium.setState_pTX(port_a1.p, TMixedSet, Medium.X_default))
+  Modelica.SIunits.SpecificEnthalpy h_set = Medium.specificEnthalpy(Medium.setState_pTX(port_a2.p, TMixedSet, port_a2.Xi_outflow))
     "Specific enthalpy of the temperature setpoint";
 
   Modelica.Blocks.Sources.RealExpression realExpression(y=m_flowBottom)
@@ -21,14 +21,14 @@ model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
   Modelica.SIunits.MassFlowRate m_flowBottom(min=0)
     "mass flowrate of cold water to the mixing point";
 protected
-  Real k "Help variable for determining fraction of each flow";
+  Real k(start=0.5) "Help variable for determining fraction of each flow";
 
 equation
   k*inStream(port_a2.h_outflow) + inStream(port_a1.h_outflow)*(1-k)=h_set;
-  m_flowBottom=-port_b.m_flow*IDEAS.Utilities.Math.Functions.smoothMax(
+  m_flowBottom=-port_b.m_flow*homotopy(actual=IDEAS.Utilities.Math.Functions.smoothMax(
             IDEAS.Utilities.Math.Functions.smoothMin(k, 1,0.001),
             0,
-            0.001);
+            0.001), simplified=0.5);
 
   connect(realExpression.y, idealSource.m_flow_in) annotation (Line(
       points={{32,-50},{8,-50}},
