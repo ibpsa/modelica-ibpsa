@@ -39,13 +39,13 @@ model RadiatorEN442_2 "Test model for radiator"
     annotation (Placement(transformation(extent={{90,-68},{70,-48}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Annex60.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(redeclare
-      package Medium =
-               Medium,
+  Annex60.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(redeclare package
+      Medium = Medium,
     T_a_nominal=T_a_nominal,
     T_b_nominal=T_b_nominal,
     Q_flow_nominal=Q_flow_nominal,
-    TAir_nominal=TRoo) "Radiator"
+    TAir_nominal=TRoo,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Radiator"
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
   Annex60.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
     redeclare package Medium = Medium,
