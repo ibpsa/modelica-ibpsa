@@ -2,8 +2,7 @@ within Annex60.Fluid.Sensors.Examples;
 model MassFraction "Test model for the mass fraction sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air
-    "Medium model";
+  package Medium = Annex60.Media.Air "Medium model";
 
   Annex60.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -27,7 +26,8 @@ model MassFraction "Test model for the mass fraction sensor"
     redeclare package Medium = Medium,
     V=1,
     nPorts=3,
-    m_flow_nominal=10) "Volume"
+    m_flow_nominal=10,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Volume"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dp(
     redeclare package Medium = Medium,
