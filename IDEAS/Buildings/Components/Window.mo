@@ -36,14 +36,6 @@ model Window "Multipane window"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-30,-100})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDir
-    "direct solar gains transmitted by windows" annotation (Placement(
-        transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent=
-           {{-10,-110},{10,-90}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif
-    "diffuse solar gains transmitted by windows" annotation (Placement(
-        transformation(extent={{20,-110},{40,-90}}), iconTransformation(extent=
-            {{20,-110},{40,-90}})));
 
 protected
   IDEAS.Climate.Meteo.Solar.ShadedRadSol radSol(
@@ -104,12 +96,12 @@ equation
       points={{-20,-10},{-16,-10},{-16,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(solWin.iSolDir, iSolDir) annotation (Line(
-      points={{-2,-70},{-2,-80},{0,-80},{0,-100}},
+  connect(solWin.iSolDir, propsBus_a.iSolDir) annotation (Line(
+      points={{-2,-70},{-2,-80},{50,-80},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(solWin.iSolDif, iSolDif) annotation (Line(
-      points={{2,-70},{0,-70},{0,-80},{30,-80},{30,-100}},
+  connect(solWin.iSolDif, propsBus_a.iSolDif) annotation (Line(
+      points={{2,-70},{0,-70},{0,-80},{50,-80},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolAbs, layMul.port_gain) annotation (Line(
@@ -121,12 +113,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(layMul.port_b, surfRad_a) annotation (Line(
-      points={{10,-30},{16,-30},{16,-60},{50,-60}},
+  connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
+      points={{10,-30},{16,-30},{16,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(iCon.port_b, surfCon_a) annotation (Line(
-      points={{40,-30},{50,-30}},
+  connect(iCon.port_b, propsBus_a.surfCon) annotation (Line(
+      points={{40,-30},{46,-30},{46,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_b, iCon.port_a) annotation (Line(
@@ -169,8 +161,8 @@ equation
       points={{-31,-70},{-30,-70},{-30,-110}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(iConFra.port_b, surfCon_a) annotation (Line(
-      points={{40,80},{44,80},{44,-30},{50,-30}},
+  connect(iConFra.port_b, propsBus_a.surfCon) annotation (Line(
+      points={{40,80},{44,80},{44,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layFra.port_b, iConFra.port_a) annotation (Line(

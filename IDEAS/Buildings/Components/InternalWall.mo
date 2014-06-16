@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components;
 model InternalWall "interior opaque wall between two zones"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWall;
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
 
   replaceable Data.Interfaces.Construction constructionType
     constrainedby Data.Interfaces.Construction(final insulationType=
@@ -24,12 +24,6 @@ model InternalWall "interior opaque wall between two zones"
     "Inclination of the wall, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0deg denotes South";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surfCon_b
-    "convective nod on the inside"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b surfRad_b
-    "rad.node on the inside"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
@@ -53,7 +47,7 @@ protected
     annotation (Placement(transformation(extent={{10,-40},{-10,-20}})));
 
 public
-  Interfaces.PropsBus propsBus_b annotation (Placement(transformation(
+  Interfaces.ZoneBus propsBus_b annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,
         origin={-50,40}), iconTransformation(
@@ -61,20 +55,20 @@ public
         rotation=-90,
         origin={-50,40})));
 equation
-  connect(layMul.port_a, surfRad_a) annotation (Line(
-      points={{10,-30},{14,-30},{14,-60},{50,-60}},
+  connect(layMul.port_a, propsBus_a.surfRad) annotation (Line(
+      points={{10,-30},{14,-30},{14,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.port_b, surfRad_b) annotation (Line(
-      points={{-10,-30},{-12,-30},{-12,-60},{-50,-60}},
+  connect(layMul.port_b, propsBus_b.surfRad) annotation (Line(
+      points={{-10,-30},{-12,-30},{-12,40},{-50,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(surfCon_b, intCon_b.port_b) annotation (Line(
-      points={{-50,-30},{-40,-30}},
+  connect(propsBus_b.surfCon, intCon_b.port_b) annotation (Line(
+      points={{-50,40},{-46,40},{-46,-30},{-40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(surfCon_a, intCon_a.port_b) annotation (Line(
-      points={{50,-30},{40,-30}},
+  connect(propsBus_a.surfCon, intCon_a.port_b) annotation (Line(
+      points={{50,40},{46,40},{46,-30},{40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_gain, port_emb) annotation (Line(
@@ -165,8 +159,8 @@ equation
           smooth=Smooth.None,
           color={0,0,0},
           thickness=0.5)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
+                    graphics),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>
