@@ -458,10 +458,6 @@ equation
       points={{-152,-5.8},{-152,-32},{-158,-32}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(heatPumpOnOff.P_evap_val, multipleBoreholes.Q_flow) annotation (Line(
-      points={{-153.5,1},{-172,1},{-172,-18.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(heatPumpOnOff.heatLoss, fixedTemperature.port) annotation (Line(
       points={{-133.1,-16},{-133,-24},{-133,-34}},
       color={191,0,0},

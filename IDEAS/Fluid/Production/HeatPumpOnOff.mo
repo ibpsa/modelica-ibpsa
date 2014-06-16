@@ -21,8 +21,6 @@ model HeatPumpOnOff "A heat pump that can only be switch on or off"
         heatPumpData.copData, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     annotation (Placement(transformation(extent={{-60,54},{-40,74}})));
     Real cop "COP of the heat pump";
-  Modelica.Blocks.Interfaces.RealOutput P_evap_val "evaporator power"
-    annotation (Placement(transformation(extent={{-96,-14},{-124,14}})));
 
 equation
   cop = if on_internal then  copTable.y else 1;
@@ -43,15 +41,6 @@ equation
       smooth=Smooth.None));
   connect(T_in_evap.T, powerTable.u2) annotation (Line(
       points={{-82,51},{-82,84},{-62,84}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(realExpression.y, P_evap_val) annotation (Line(
-      points={{-0.9,10},{-4,10},{-4,0},{-30,0},{-30,-10},{-80,-10},{-80,1.77636e-015},
-          {-110,1.77636e-015}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(P_evap_val, P_evap_val) annotation (Line(
-      points={{-110,1.77636e-015},{-110,0},{-107,0},{-107,1.77636e-015},{-110,1.77636e-015}},
       color={0,0,127},
       smooth=Smooth.None));
 

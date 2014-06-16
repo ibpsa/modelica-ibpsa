@@ -73,10 +73,6 @@ model MultipleBoreholesWithHeatPump
   Modelica.Blocks.Sources.BooleanPulse booleanPulse(width=50, period=100000)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
-  connect(heatPumpOnOff.P_evap_val, multipleBoreholes.Q_flow) annotation (Line(
-      points={{1,16.5},{1,-1.02857},{0,-1.02857}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(bou.ports[1], pump.port_a) annotation (Line(
       points={{32,78},{12,78}},
       color={0,127,255},
