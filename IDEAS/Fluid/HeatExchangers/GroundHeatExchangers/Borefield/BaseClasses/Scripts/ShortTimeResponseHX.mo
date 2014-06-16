@@ -25,7 +25,7 @@ function ShortTimeResponseHX
 
 protected
   final parameter String packagePath="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield";
-  final parameter String savePath="..\\IDEAS\\IDEAS\\Fluid\\HeatExchangers\\GroundHeatExchangers\\Borefield\\Data\\ShortTermResponse\\";
+  final parameter String savePath=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/ShortTermResponse/");
   final parameter String modelToSimulate=packagePath+".BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
     "model to simulate";
   Integer nbOfPoi=1000;
