@@ -35,7 +35,7 @@ model MultipleBoreholesWithHeatPump
     startTime=2000)
     annotation (Placement(transformation(extent={{90,70},{70,90}})));
   Sources.Boundary_pT bou(          redeclare package Medium = Medium,
-    nPorts=2,
+    nPorts=3,
     use_T_in=true,
     p=200000)
     annotation (Placement(transformation(extent={{52,66},{32,86}})));
@@ -74,20 +74,16 @@ model MultipleBoreholesWithHeatPump
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(bou.ports[1], pump.port_a) annotation (Line(
-      points={{32,78},{12,78}},
+      points={{32,78.6667},{22,78.6667},{22,78},{12,78}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heatPumpOnOff.fluidIn, bou.ports[2]) annotation (Line(
-      points={{7.8,48},{32,48},{32,74}},
+      points={{7.8,48},{32,48},{32,76}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sine.y, bou.T_in) annotation (Line(
       points={{69,80},{54,80}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(multipleBoreholes.flowPort_b, pump_pri.port_a) annotation (Line(
-      points={{-24,-24},{-44,-24},{-44,-14}},
-      color={0,127,255},
       smooth=Smooth.None));
   connect(pump_pri.port_b, heatPumpOnOff.brineIn) annotation (Line(
       points={{-44,6},{-44,18},{-5.8,18}},
@@ -95,10 +91,6 @@ equation
       smooth=Smooth.None));
   connect(heatPumpOnOff.brineOut, TSen_pri.port_a) annotation (Line(
       points={{7.8,18},{46,18},{46,4}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TSen_pri.port_b, multipleBoreholes.flowPort_a) annotation (Line(
-      points={{46,-16},{46,-24},{24,-24}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pump.port_b, TSen_sec.port_a) annotation (Line(
@@ -112,6 +104,18 @@ equation
   connect(booleanPulse.y, heatPumpOnOff.on) annotation (Line(
       points={{-59,30},{-17.36,30}},
       color={255,0,255},
+      smooth=Smooth.None));
+  connect(bou.ports[3], heatPumpOnOff.brineOut) annotation (Line(
+      points={{32,73.3333},{34,73.3333},{34,18},{7.8,18}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(multipleBoreholes.port_b, TSen_pri.port_b) annotation (Line(
+      points={{17.1429,-24},{46,-24},{46,-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pump_pri.port_a, multipleBoreholes.port_a) annotation (Line(
+      points={{-44,-14},{-44,-24},{-17.1429,-24}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

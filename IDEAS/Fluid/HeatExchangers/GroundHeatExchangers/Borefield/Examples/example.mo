@@ -41,6 +41,9 @@ model example
     p_start=100000,
     Q_flow_nominal=bfData.steRes.q_ste*bfData.geo.nbBh*bfData.geo.hBor)
     annotation (Placement(transformation(extent={{30,22},{10,2}})));
+  Modelica.Fluid.Sources.Boundary_pT boundary(nPorts=1, redeclare package
+      Medium = Medium)
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
   connect(pum.port_a,hea. port_b) annotation (Line(
       points={{-8,12},{10,12}},
@@ -54,12 +57,16 @@ equation
       points={{40.7,-11},{52,-11},{52,6},{32,6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pum.port_b, multipleBoreholes.flowPort_a) annotation (Line(
-      points={{-28,12},{-60,12},{-60,-40},{-20,-40}},
+  connect(boundary.ports[1], pum.port_a) annotation (Line(
+      points={{-40,50},{-8,50},{-8,12}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(multipleBoreholes.flowPort_b, hea.port_a) annotation (Line(
-      points={{20,-40},{60,-40},{60,12},{30,12}},
+  connect(pum.port_b, multipleBoreholes.port_b) annotation (Line(
+      points={{-28,12},{-60,12},{-60,-40},{-14.2857,-40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(multipleBoreholes.port_a, hea.port_a) annotation (Line(
+      points={{14.2857,-40},{58,-40},{58,12},{30,12}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
