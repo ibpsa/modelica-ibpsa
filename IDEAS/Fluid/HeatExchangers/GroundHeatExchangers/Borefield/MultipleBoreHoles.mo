@@ -187,6 +187,24 @@ algorithm
 
     iSam := iSam + 1; // FIXME: when I remove this, I get a T_fts = 0 for the whole simulation! ??
   end when;
+
+equation
+  connect(TSen_in.port_a, flowPort_a) annotation (Line(
+      points={{120,0},{140,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TSen_out.port_b, flowPort_b) annotation (Line(
+      points={{-102,0},{-140,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TSen_in.port_b, out.ports[1]) annotation (Line(
+      points={{96,0},{40,0},{40,40},{-70,40},{-70,2},{-64,2}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TSen_out.port_a, out.ports[2]) annotation (Line(
+      points={{-78,0},{-72,0},{-72,-2},{-64,-2}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,
@@ -243,22 +261,4 @@ algorithm
           fillPattern=FillPattern.Forward)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,
             140}}),     graphics));
-
-equation
-  connect(TSen_in.port_a, flowPort_a) annotation (Line(
-      points={{120,0},{140,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TSen_out.port_b, flowPort_b) annotation (Line(
-      points={{-102,0},{-140,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TSen_in.port_b, out.ports[1]) annotation (Line(
-      points={{96,0},{40,0},{40,40},{-70,40},{-70,2},{-64,2}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TSen_out.port_a, out.ports[2]) annotation (Line(
-      points={{-78,0},{-72,0},{-72,-2},{-64,-2}},
-      color={0,127,255},
-      smooth=Smooth.None));
 end MultipleBoreHoles;
