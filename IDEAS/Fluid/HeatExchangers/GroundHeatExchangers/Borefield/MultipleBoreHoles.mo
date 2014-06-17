@@ -8,12 +8,15 @@ model MultipleBoreHoles
   //  3) Make the enthalpy a differentiable function (look at if statement)
 
   // Medium in borefield
-  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(m_flow_nominal = bfData.m_flow_nominal);
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    final computeFlowResistance=true, dp_nominal = 0);
 
   // General parameters of borefield
   replaceable parameter Borefield.Data.Records.BorefieldData bfData
     constrainedby Data.Records.BorefieldData
-    annotation (Placement(transformation(extent={{-134,-134},{-114,-114}})));
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{-134,-134},{-114,-114}})));
 
   //General parameters of aggregation
   parameter Integer p_max=5
@@ -21,7 +24,7 @@ model MultipleBoreHoles
 
   parameter Integer lenSim=3600*24*100
     "Simulation length ([s]). By default = 100 days";
-
+  parameter Boolean homotopyInitialization=true "= true, use homotopy method";
   final parameter Integer q_max=
       Borefield.BaseClasses.Aggregation.BaseClasses.nbOfLevelAgg(
       n_max=integer(lenSim/bfData.steRes.tStep), p_max=p_max)
@@ -41,7 +44,7 @@ model MultipleBoreHoles
   // Load of borefield
   Modelica.SIunits.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
-  Modelica.Blocks.Interfaces.RealOutput T_fts(unit="K")
+  Modelica.Blocks.Interfaces.RealOutput T_fts(unit="K") "Fixme: add comment"
   annotation (Placement(transformation(extent={{-18,-18},{18,18}},
         rotation=-90,
         origin={2,-144}),
@@ -53,8 +56,8 @@ protected
   Medium.ThermodynamicState sta_hcf
     "thermodynamic state for heat carrier fluid at temperature T_ft";
 
-  Modelica.SIunits.Enthalpy h_out_val
-    "Enthalpy of the medium exiting the borefield";
+  Modelica.SIunits.Temperature T_out_val
+    "Temperature of the medium exiting the borefield";
 
   final parameter Integer[q_max] rArr=
       Borefield.BaseClasses.Aggregation.BaseClasses.cellWidth(
@@ -93,40 +96,56 @@ protected
   Modelica.SIunits.Time startTime "Start time of the simulation";
 
 public
-  IDEAS.Fluid.Sources.Boundary_ph out(
-    redeclare package Medium = Medium,
-    use_h_in=true,
-    nPorts=2)
-    annotation (Placement(transformation(extent={{-44,-10},{-64,10}})));
-  Modelica.Fluid.Interfaces.FluidPorts_b flowPort_b(redeclare package Medium =
-        Medium)
-    annotation (Placement(transformation(extent={{-150,-40},{-130,40}}),
-        iconTransformation(extent={{-150,-40},{-130,40}})));
-  Modelica.Fluid.Interfaces.FluidPorts_a flowPort_a(redeclare package Medium =
-        Medium)
-    annotation (Placement(transformation(extent={{130,-40},{150,40}}),
-        iconTransformation(extent={{130,-40},{150,40}})));
-
-    Modelica.Blocks.Sources.RealExpression h_out(y=h_out_val)
+    Modelica.Blocks.Sources.RealExpression T_out(y=T_out_val)
     "Enthalpy of the medium of the exiting fluid from the borefield"
-    annotation (Placement(transformation(extent={{10,-6},{-10,14}})));
+    annotation (Placement(transformation(extent={{-60,-40},{-38,-20}})));
   Sensors.TemperatureTwoPort TSen_out(
     redeclare package Medium = Medium,
     tau=30,
     m_flow_nominal=bfData.m_flow_nominal,
-    T_start=bfData.steRes.T_ini)
-    "Temperature of the fluid exiting the borefield"
-    annotation (Placement(transformation(extent={{-78,-12},{-102,12}})));
+    T_start=bfData.steRes.T_ini,
+    m_flow_small=m_flow_small) "Temperature of the fluid exiting the borefield"
+    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
   Sensors.TemperatureTwoPort TSen_in(
     redeclare package Medium = Medium,
     tau=30,
     m_flow_nominal=bfData.m_flow_nominal,
-    T_start=bfData.steRes.T_ini)
+    T_start=bfData.steRes.T_ini,
+    m_flow_small=m_flow_small)
     "Temperature of the fluid entering the borefield"
-    annotation (Placement(transformation(extent={{120,-12},{96,12}})));
+    annotation (Placement(transformation(extent={{80,-10},{60,10}})));
 
   Modelica.SIunits.Power Q_flow
     "thermal power extracted or injected in the borefield";
+
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature fixedTemperature
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+  MixingVolumes.MixingVolume             vol(
+    redeclare package Medium = Medium,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    m_flow_nominal=m_flow_nominal,
+    p_start=p_start,
+    allowFlowReversal=allowFlowReversal,
+    nPorts=2,
+    C_nominal=C_nominal,
+    m_flow_small=m_flow_small,
+    final V=m_flow_nominal*30,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    annotation (Placement(transformation(extent={{20,0},{40,-20}})));
+  FixedResistances.FixedResistanceDpM             res(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final from_dp=from_dp,
+    final homotopyInitialization=homotopyInitialization,
+    dp_nominal=dp_nominal,
+    deltaM=deltaM,
+    linearized=linearizeFlowResistance,
+    final show_T=show_T)
+    annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
 
 initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same lenght as the number of aggregated pulse and cover lenSim
@@ -147,16 +166,11 @@ equation
     "integration of load to calculate below the average load/(discrete time step)";
 
   //if the heat flow is very low, the enthalpie is the same at the inlet and outlet
-  if abs(Q_flow) > 10^(-3) and TSen_in.port_a.m_flow > bfData.m_flow_nominal / 10000 then
-    h_out_val = Medium.specificEnthalpy(sta_hcf) - Q_flow/TSen_in.port_a.m_flow/2;
+  if abs(Q_flow) > 10^(-3) and TSen_in.port_a.m_flow > m_flow_small then
+    T_out_val = 280; // fixme: I was not sure which values should be used here
   else
-    h_out_val = Medium.specificEnthalpy(sta_hcf);
+    T_out_val = 280; // fixme: I was not sure which values should be used here
   end if;
-
-  connect(h_out.y, out.h_in) annotation (Line(
-      points={{-11,4},{-42,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
 algorithm
   // Set the start time for the sampling
@@ -189,29 +203,41 @@ algorithm
   end when;
 
 equation
-  connect(TSen_in.port_a, flowPort_a) annotation (Line(
-      points={{120,0},{140,0}},
+  connect(fixedTemperature.port, vol.heatPort) annotation (Line(
+      points={{4.44089e-16,-30},{20,-30},{20,-10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(T_out.y, fixedTemperature.T) annotation (Line(
+      points={{-36.9,-30},{-22,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TSen_in.port_b, vol.ports[1]) annotation (Line(
+      points={{60,4.44089e-16},{28,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSen_out.port_b, flowPort_b) annotation (Line(
-      points={{-102,0},{-140,0}},
+  connect(res.port_a, vol.ports[2]) annotation (Line(
+      points={{-20,0},{32,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSen_in.port_b, out.ports[1]) annotation (Line(
-      points={{96,0},{40,0},{40,40},{-70,40},{-70,2},{-64,2}},
+  connect(res.port_b, TSen_out.port_a) annotation (Line(
+      points={{-40,0},{-50,0},{-50,4.44089e-16},{-60,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSen_out.port_a, out.ports[2]) annotation (Line(
-      points={{-78,0},{-72,0},{-72,-2},{-64,-2}},
+  connect(port_a, TSen_out.port_b) annotation (Line(
+      points={{-100,0},{-94,0},{-94,4.44089e-16},{-80,4.44089e-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TSen_in.port_a, port_b) annotation (Line(
+      points={{80,4.44089e-16},{94,4.44089e-16},{94,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,
-            140}}), graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}}),
+                    graphics={
         Rectangle(
-          extent={{-140,140},{140,-140}},
+          extent={{-120,120},{120,-120}},
           lineColor={0,0,0},
           fillColor={234,210,210},
           fillPattern=FillPattern.Solid),
@@ -225,10 +251,6 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward),
-        Text(
-          extent={{-116,40},{118,-40}},
-          lineColor={0,0,255},
-          textString="%name"),
         Ellipse(
           extent={{-104,-34},{-26,-112}},
           lineColor={0,0,0},
