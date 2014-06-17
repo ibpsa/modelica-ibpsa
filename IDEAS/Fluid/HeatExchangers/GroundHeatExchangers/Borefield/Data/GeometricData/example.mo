@@ -1,7 +1,7 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeometricData;
 record example
   extends Records.Geometry(
-    name="example",
+    path="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeometricData.example",
     rBor=0.055,
     hBor=110,
     nbBh=8,

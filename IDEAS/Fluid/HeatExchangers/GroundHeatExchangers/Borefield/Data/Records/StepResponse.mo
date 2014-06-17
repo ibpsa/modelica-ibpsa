@@ -4,7 +4,7 @@ record StepResponse
   extends Modelica.Icons.Record;
   import SI = Modelica.SIunits;
 
-  parameter String name="StepResponse";
+  parameter String path="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.StepResponse";
 
   parameter SI.Time tStep=3600 "[s] time resolution of the step-response";
   parameter Integer t_min_d=1 "[-] Mininum simulation discrete time";

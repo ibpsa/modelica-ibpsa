@@ -23,10 +23,10 @@ function ShortTimeResponseHX
 
   output Real[3,steRes.tBre_d + 1] readData;
 
+  input String savePath=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/ShortTermResponse/");
+
 protected
-  final parameter String packagePath="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield";
-  final parameter String savePath=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/ShortTermResponse/");
-  final parameter String modelToSimulate=packagePath+".BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
+  final parameter String modelToSimulate="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
     "model to simulate";
   Integer nbOfPoi=1000;
   String filPathAndName=savePath + name "path and name of file";
@@ -47,11 +47,11 @@ algorithm
 
   simulateModel(
     modelToSimulate +
-     "( soi=" + packagePath + ".Data.SoilData." + soi.name + "(), " +
-     "fill=" + packagePath + ".Data.FillingData." + fill.name + "()," +
-     "geo=" + packagePath + ".Data.GeometricData." + geo.name + "()," +
-     "steRes=" + packagePath + ".Data.StepResponse." + steRes.name + "()," +
-     "adv=" + packagePath + ".Data.Advanced." + adv.name + "())",
+     "( soi=" + soi.path + "(), " +
+     "fill=" + fill.path + "()," +
+     "geo=" + geo.path + "()," +
+     "steRes=" + steRes.path + "()," +
+     "adv=" + adv.path + "())",
     stopTime=steRes.tBre_d*steRes.tStep,
     numberOfIntervals=nbOfPoi,
     method="dassl",

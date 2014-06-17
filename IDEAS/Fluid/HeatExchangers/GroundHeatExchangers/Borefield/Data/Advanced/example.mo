@@ -9,5 +9,5 @@ record example
     dT_dz=0,
     rExt=3,
     TExt0_start=283.15,
-    name="example");
+    path="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Advanced.example");
 end example;
