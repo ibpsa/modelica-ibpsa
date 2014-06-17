@@ -57,9 +57,6 @@ record Advanced "Advanced parameters"
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumption"), Evaluate=true);
-  parameter Boolean homotopyInitialization=true "= true, use homotopy method"
-    annotation (Dialog(tab="Assumption"), Evaluate=true);
-  parameter Boolean computeFlowResistance=false;
 
   parameter SI.Pressure p_constant=101300;
 end Advanced;

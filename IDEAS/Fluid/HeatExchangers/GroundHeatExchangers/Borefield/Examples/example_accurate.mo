@@ -16,7 +16,7 @@ model example_accurate
 
   MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData,
     redeclare package Medium = Medium) "borefield"
-    annotation (Placement(transformation(extent={{20,-60},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
   Modelica.Blocks.Sources.Step           load(height=1, startTime=36000)
     "load for the borefield"
     annotation (Placement(transformation(extent={{26,-18},{40,-4}})));
@@ -61,12 +61,12 @@ equation
       points={{-40,50},{-8,50},{-8,12}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pum.port_b, multipleBoreholes.port_b) annotation (Line(
-      points={{-28,12},{-60,12},{-60,-40},{-14.2857,-40}},
+  connect(multipleBoreholes.port_b, hea.port_a) annotation (Line(
+      points={{20,-40},{60,-40},{60,12},{30,12}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hea.port_a, multipleBoreholes.port_a) annotation (Line(
-      points={{30,12},{60,12},{60,-40},{14.2857,-40}},
+  connect(multipleBoreholes.port_a, pum.port_b) annotation (Line(
+      points={{-20,-40},{-60,-40},{-60,12},{-28,12}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

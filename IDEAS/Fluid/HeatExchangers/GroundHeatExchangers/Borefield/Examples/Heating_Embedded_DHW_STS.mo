@@ -7,6 +7,9 @@ model Heating_Embedded_DHW_STS
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
+  parameter Data.BorefieldData.example_accurate
+    bfData
+    annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
   final parameter Integer lenSim=3600*24*20;
   final parameter Integer nZones=2 "Number of zones";
@@ -61,7 +64,7 @@ model Heating_Embedded_DHW_STS
   parameter
     IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.RadSlaCha_ValidationEmpa[
     nZones] radSlaCha_ValidationEmpa(A_Floor=dummyBuilding.AZones)
-    annotation (Placement(transformation(extent={{-198,100},{-178,120}})));
+    annotation (Placement(transformation(extent={{-190,100},{-170,120}})));
 
   IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(
     nZones=nZones,
@@ -231,48 +234,34 @@ model Heating_Embedded_DHW_STS
     each offset=289,
     startTime={3600*7,3600*9})
     annotation (Placement(transformation(extent={{-228,-130},{-208,-110}})));
-  IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.MultipleBoreHoles
-    multipleBoreholes(
-    lenSim=lenSim,
-    bfData=bfData,
-    redeclare package Medium = Medium) annotation (Placement(transformation(
-        extent={{-14,-14},{14,14}},
-        rotation=0,
-        origin={-172,-32})));
-  IDEAS.Fluid.Production.HeatPumpTset heatPumpOnOff(
-    redeclare package MediumBrine = Medium,
-    redeclare package MediumFluid = Medium,
-    allowFlowReversal=false,
-    use_scaling=true,
-    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA45
-      heatPumpData,
-    P_the_nominal=sum(QNom))              annotation (Placement(transformation(
-        extent={{-15,-17},{15,17}},
-        rotation=0,
-        origin={-137,1})));
-  IDEAS.Fluid.Movers.Pump pump_pri(
-    m=1,
-    useInput=false,
-    redeclare package Medium = Medium,
-    m_flow_nominal=bfData.m_flow_nominal) "pump of the primary circuit"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={-202,6})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort TSen_pri_out(
-    redeclare package Medium = Medium,
-    m_flow_nominal=bfData.m_flow_nominal,
-    tau=60,
-    T_start=bfData.steRes.T_ini) annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={-202,-20})));
-  parameter
-    IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.BorefieldData.example_accurate
-    bfData
-    annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
   inner IDEAS.SimInfoManager sim(nOcc=3)
     annotation (Placement(transformation(extent={{-240,100},{-220,120}})));
+  IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.MultipleBoreHoles
+                    multipleBoreholes(lenSim=lenSim, bfData=bfData,
+    redeclare package Medium = Medium) "borefield"
+    annotation (Placement(transformation(extent={{-170,-46},{-198,-18}})));
+  IDEAS.Fluid.Movers.Pump               pum(
+    redeclare package Medium = Medium,
+    T_start=bfData.steRes.T_ini,
+    m_flow(start=bfData.m_flow_nominal),
+    m_flow_nominal=bfData.m_flow_nominal,
+    useInput=false)
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={-218,-10})));
+  Modelica.Fluid.Sources.Boundary_pT boundary(          redeclare package
+      Medium = Medium, nPorts=1)
+    annotation (Placement(transformation(extent={{-234,-60},{-214,-40}})));
+  IDEAS.Fluid.Production.HeatPumpTset heatPumpTset(
+    redeclare package MediumBrine = Medium,
+    redeclare package MediumFluid = Medium,
+    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA45
+      heatPumpData,
+    allowFlowReversal=false,
+    use_scaling=true,
+    P_the_nominal=bfData.P_the_nominal)
+    annotation (Placement(transformation(extent={{-164,-14},{-138,18}})));
+
 equation
   connect(nakedTabs.port_a, convectionTabs.solid) annotation (Line(
       points={{154,66},{154,70},{174,70},{174,58},{184,58}},
@@ -441,39 +430,6 @@ equation
           {-200,-86},{-200,-86.8},{-181.4,-86.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TSen_pri_out.port_b, pump_pri.port_a) annotation (Line(
-      points={{-202,-10},{-202,-4}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TSen_pri_out.port_a, multipleBoreholes.flowPort_b) annotation (Line(
-      points={{-202,-30},{-202,-34},{-186,-34},{-186,-32}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pump_pri.port_b, heatPumpOnOff.brineIn) annotation (Line(
-      points={{-202,16},{-152,16},{-152,7.8}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heatPumpOnOff.brineOut, multipleBoreholes.flowPort_a) annotation (
-      Line(
-      points={{-152,-5.8},{-152,-32},{-158,-32}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heatPumpOnOff.heatLoss, fixedTemperature.port) annotation (Line(
-      points={{-133.1,-16},{-133,-24},{-133,-34}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(ctrl_Heating.THeaterSet, heatPumpOnOff.Tset) annotation (Line(
-      points={{-145.556,44},{-140,44},{-140,19.36}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(heatPumpOnOff.fluidOut, senTemHea_out.port_a) annotation (Line(
-      points={{-122,7.8},{-122,36},{-68,36},{-68,38}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heatPumpOnOff.fluidIn, senTemStoHX_out.port_b) annotation (Line(
-      points={{-122,-5.8},{-120,-5.8},{-120,-6},{-114,-6},{-114,-68},{-84,-68}},
-      color={0,127,255},
-      smooth=Smooth.None));
 
   connect(absolutePressure.ports[1], senTemStoHX_out.port_b) annotation (Line(
       points={{-112,-124},{-114,-124},{-114,-68},{-84,-68}},
@@ -492,6 +448,38 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
+  connect(boundary.ports[1], multipleBoreholes.port_b) annotation (Line(
+      points={{-214,-50},{-206,-50},{-206,-32},{-198,-32}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pum.port_a, multipleBoreholes.port_b) annotation (Line(
+      points={{-218,-20},{-218,-32},{-198,-32}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pum.port_b, heatPumpTset.brineIn) annotation (Line(
+      points={{-218,0},{-218,14},{-164,14},{-164,8.4}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(multipleBoreholes.port_a, heatPumpTset.brineOut) annotation (Line(
+      points={{-170,-32},{-164,-32},{-164,-4.4}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(ctrl_Heating.THeaterSet, heatPumpTset.Tset) annotation (Line(
+      points={{-145.556,44},{-138,44},{-138,26},{-153.6,26},{-153.6,19.28}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heatPumpTset.fluidOut, senTemHea_out.port_a) annotation (Line(
+      points={{-138,8.4},{-118,8.4},{-118,38},{-68,38}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatPumpTset.fluidIn, senTemStoHX_out.port_b) annotation (Line(
+      points={{-138,-4.4},{-114,-4.4},{-114,-68},{-84,-68}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatPumpTset.heatLoss, fixedTemperature.port) annotation (Line(
+      points={{-147.62,-14},{-146,-14},{-146,-24},{-134,-24},{-133,-34}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-160},{280,
             120}}), graphics={Rectangle(

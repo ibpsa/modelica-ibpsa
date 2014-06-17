@@ -8,7 +8,9 @@ model MultipleBoreHoles
   //  3) Make the enthalpy a differentiable function (look at if statement)
 
   // Medium in borefield
-  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(m_flow_nominal = bfData.m_flow_nominal);
+  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(m_flow_nominal = bfData.m_flow_nominal, redeclare
+      package Medium =
+        Modelica.Media.Water.ConstantPropertyLiquidWater, final allowFlowReversal=false);
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true, dp_nominal = 0);
@@ -16,7 +18,8 @@ model MultipleBoreHoles
   // General parameters of borefield
   replaceable parameter Borefield.Data.Records.BorefieldData bfData
     constrainedby Data.Records.BorefieldData
-    annotation (choicesAllMatching=true,Placement(transformation(extent={{-134,-134},{-114,-114}})));
+    annotation (choicesAllMatching=true,Placement(transformation(extent={{-90,-88},
+            {-70,-68}})));
 
   //General parameters of aggregation
   parameter Integer p_max=5
@@ -44,13 +47,6 @@ model MultipleBoreHoles
   // Load of borefield
   Modelica.SIunits.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
-  Modelica.Blocks.Interfaces.RealOutput T_fts(unit="K") "Fixme: add comment"
-  annotation (Placement(transformation(extent={{-18,-18},{18,18}},
-        rotation=-90,
-        origin={2,-144}),
-        iconTransformation(extent={{-18,-18},{18,18}},
-        rotation=-90,
-        origin={2,-144})));
 
 protected
   Medium.ThermodynamicState sta_hcf
@@ -96,30 +92,34 @@ protected
   Modelica.SIunits.Time startTime "Start time of the simulation";
 
 public
-    Modelica.Blocks.Sources.RealExpression T_out(y=T_out_val)
+  Modelica.SIunits.Temperature T_fts
+    "average of heat carrier fluid temperature between in and outlet";
+
+  Modelica.Blocks.Sources.RealExpression T_out(y=T_out_val)
     "Enthalpy of the medium of the exiting fluid from the borefield"
-    annotation (Placement(transformation(extent={{-60,-40},{-38,-20}})));
+    annotation (Placement(transformation(extent={{50,-44},{28,-24}})));
   Sensors.TemperatureTwoPort TSen_out(
     redeclare package Medium = Medium,
     tau=30,
-    m_flow_nominal=bfData.m_flow_nominal,
     T_start=bfData.steRes.T_ini,
-    m_flow_small=m_flow_small) "Temperature of the fluid exiting the borefield"
-    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
+    "Temperature of the fluid exiting the borefield"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Sensors.TemperatureTwoPort TSen_in(
     redeclare package Medium = Medium,
     tau=30,
-    m_flow_nominal=bfData.m_flow_nominal,
     T_start=bfData.steRes.T_ini,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
     "Temperature of the fluid entering the borefield"
-    annotation (Placement(transformation(extent={{80,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Modelica.SIunits.Power Q_flow
     "thermal power extracted or injected in the borefield";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature fixedTemperature
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
+    annotation (Placement(transformation(extent={{14,-44},{-6,-24}})));
   MixingVolumes.MixingVolume             vol(
     redeclare package Medium = Medium,
     T_start=T_start,
@@ -128,24 +128,24 @@ public
     m_flow_nominal=m_flow_nominal,
     p_start=p_start,
     allowFlowReversal=allowFlowReversal,
-    nPorts=2,
     C_nominal=C_nominal,
     m_flow_small=m_flow_small,
     final V=m_flow_nominal*30,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    annotation (Placement(transformation(extent={{20,0},{40,-20}})));
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nPorts=2)
+    annotation (Placement(transformation(extent={{-30,0},{-50,-20}})));
   FixedResistances.FixedResistanceDpM             res(
     redeclare package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final from_dp=from_dp,
     final homotopyInitialization=homotopyInitialization,
     dp_nominal=dp_nominal,
     deltaM=deltaM,
     linearized=linearizeFlowResistance,
-    final show_T=show_T)
-    annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
+    final show_T=show_T,
+    final m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same lenght as the number of aggregated pulse and cover lenSim
@@ -167,9 +167,9 @@ equation
 
   //if the heat flow is very low, the enthalpie is the same at the inlet and outlet
   if abs(Q_flow) > 10^(-3) and TSen_in.port_a.m_flow > m_flow_small then
-    T_out_val = 280; // fixme: I was not sure which values should be used here
+    TSen_in.port_a.m_flow*Medium.specificHeatCapacityCp(sta_hcf) * (T_fts - T_out_val) = Q_flow/2;
   else
-    T_out_val = 280; // fixme: I was not sure which values should be used here
+    T_out_val = T_fts;
   end if;
 
 algorithm
@@ -203,84 +203,104 @@ algorithm
   end when;
 
 equation
-  connect(fixedTemperature.port, vol.heatPort) annotation (Line(
-      points={{4.44089e-16,-30},{20,-30},{20,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(T_out.y, fixedTemperature.T) annotation (Line(
-      points={{-36.9,-30},{-22,-30}},
+      points={{26.9,-34},{16,-34}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(fixedTemperature.port, vol.heatPort) annotation (Line(
+      points={{-6,-34},{-16,-34},{-16,-10},{-30,-10}},
+      color={191,0,0},
+      smooth=Smooth.None));
   connect(TSen_in.port_b, vol.ports[1]) annotation (Line(
-      points={{60,4.44089e-16},{28,4.44089e-16}},
+      points={{-60,0},{-38,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res.port_a, vol.ports[2]) annotation (Line(
-      points={{-20,0},{32,0}},
+  connect(vol.ports[2], res.port_a) annotation (Line(
+      points={{-42,0},{20,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res.port_b, TSen_out.port_a) annotation (Line(
-      points={{-40,0},{-50,0},{-50,4.44089e-16},{-60,4.44089e-16}},
+      points={{40,0},{60,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_a, TSen_out.port_b) annotation (Line(
-      points={{-100,0},{-94,0},{-94,4.44089e-16},{-80,4.44089e-16}},
+  connect(TSen_out.port_b, port_b) annotation (Line(
+      points={{80,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSen_in.port_a, port_b) annotation (Line(
-      points={{80,4.44089e-16},{94,4.44089e-16},{94,0},{100,0}},
+  connect(port_a, TSen_in.port_a) annotation (Line(
+      points={{-100,0},{-80,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                     graphics={
         Rectangle(
-          extent={{-120,120},{120,-120}},
+          extent={{-100,60},{100,-66}},
           lineColor={0,0,0},
           fillColor={234,210,210},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-108,114},{-30,36}},
+          extent={{-88,-6},{-32,-62}},
           lineColor={0,0,0},
           fillColor={223,188,190},
           fillPattern=FillPattern.Forward),
         Ellipse(
-          extent={{-100,106},{-38,44}},
+          extent={{-82,-12},{-38,-56}},
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward),
         Ellipse(
-          extent={{-104,-34},{-26,-112}},
+          extent={{-88,54},{-32,-2}},
           lineColor={0,0,0},
           fillColor={223,188,190},
           fillPattern=FillPattern.Forward),
         Ellipse(
-          extent={{-96,-42},{-34,-106}},
+          extent={{-82,48},{-38,4}},
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward),
         Ellipse(
-          extent={{32,112},{110,34}},
+          extent={{-26,54},{30,-2}},
           lineColor={0,0,0},
           fillColor={223,188,190},
           fillPattern=FillPattern.Forward),
         Ellipse(
-          extent={{40,104},{102,42}},
+          extent={{-20,48},{24,4}},
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward),
         Ellipse(
-          extent={{36,-36},{114,-114}},
+          extent={{-28,-6},{28,-62}},
           lineColor={0,0,0},
           fillColor={223,188,190},
           fillPattern=FillPattern.Forward),
         Ellipse(
-          extent={{44,-44},{106,-106}},
+          extent={{-22,-12},{22,-56}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{36,56},{92,0}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{42,50},{86,6}},
+          lineColor={0,0,0},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{38,-4},{94,-60}},
+          lineColor={0,0,0},
+          fillColor={223,188,190},
+          fillPattern=FillPattern.Forward),
+        Ellipse(
+          extent={{44,-10},{88,-54}},
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,
-            140}}),     graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics));
 end MultipleBoreHoles;
