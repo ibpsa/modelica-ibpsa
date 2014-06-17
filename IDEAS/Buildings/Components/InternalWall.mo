@@ -54,6 +54,12 @@ public
         extent={{-20,20},{20,-20}},
         rotation=-90,
         origin={-50,40})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif1(
+                                                              Q_flow=0)
+    annotation (Placement(transformation(extent={{10,68},{-10,88}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDir1(
+                                                              Q_flow=0)
+    annotation (Placement(transformation(extent={{10,50},{-10,70}})));
 equation
   connect(layMul.port_a, propsBus_a.surfRad) annotation (Line(
       points={{10,-30},{14,-30},{14,40},{50,40}},
@@ -125,6 +131,20 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(iSolDif1.port, propsBus_b.iSolDif) annotation (Line(
+      points={{-10,78},{-30,78},{-30,56},{-50,56},{-50,40}},
+      color={191,0,0},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(iSolDir1.port, propsBus_b.iSolDir) annotation (Line(
+      points={{-10,60},{-32,60},{-32,58},{-50,58},{-50,40}},
+      color={191,0,0},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
         graphics={
@@ -159,8 +179,8 @@ equation
           smooth=Smooth.None,
           color={0,0,0},
           thickness=0.5)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
-                    graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,
+            100}}), graphics),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>
