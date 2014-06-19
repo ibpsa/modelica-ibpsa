@@ -17,8 +17,7 @@ equation
             -100},{100,100}}),
                     graphics),
 experiment(StopTime=4),
-__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mos"
-        "Simulate and plot"),
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/SmoothExponentialDerivativeCheck.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative

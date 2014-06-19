@@ -1,8 +1,10 @@
 within IDEAS.Utilities.Psychrometrics;
 block X_pTphi
   "Return steam mass fraction as a function of relative humidity phi and temperature T"
-  extends IDEAS.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
-  package Medium = IDEAS.Media.Air "Medium model";
+  extends
+    IDEAS.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
+  package Medium = IDEAS.Media.Air
+    "Medium model";
 
 public
   Modelica.Blocks.Interfaces.RealInput T(final unit="K",

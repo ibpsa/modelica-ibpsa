@@ -1,7 +1,8 @@
 within IDEAS.Utilities.Psychrometrics.Functions;
 function TDewPoi_pW_amb
   "Function to compute the dew point temperature of moist air for a given water vapor partial pressure"
-  extends IDEAS.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb;
+  extends
+    IDEAS.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb;
 
   input Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=100)
     "Water vapor partial pressure";

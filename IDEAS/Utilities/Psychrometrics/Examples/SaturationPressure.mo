@@ -5,7 +5,8 @@ model SaturationPressure "Model to test the wet bulb temperature computation"
  package Medium = IDEAS.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
 
-  IDEAS.Utilities.Psychrometrics.SaturationPressure pSat "Saturation pressure"
+  IDEAS.Utilities.Psychrometrics.SaturationPressure pSat
+    "Saturation pressure"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp T(
     height=373.15 - 190,
