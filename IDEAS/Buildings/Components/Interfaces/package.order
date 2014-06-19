@@ -1,4 +1,6 @@
 StateZone
 StateWall
+StateWallNoSol
 StateShading
 PropsBus
+ZoneBus
