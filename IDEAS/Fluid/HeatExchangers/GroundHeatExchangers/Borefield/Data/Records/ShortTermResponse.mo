@@ -4,6 +4,7 @@ record ShortTermResponse
   extends Modelica.Icons.Record;
   import SI = Modelica.SIunits;
 
+  parameter String name = "example";
   parameter String path=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/ShortTermResponse/");
   parameter String modelPath="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.ShortTermResponse";
   parameter Integer vecLen=BaseClasses.Scripts.readTrajectoryVecLen(

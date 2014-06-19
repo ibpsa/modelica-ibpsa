@@ -1,7 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.StepResponse;
 record example_accurate
   extends Records.StepResponse(
-    name="example_accurate",
     tStep=8640,
     t_min_d=1,
     tBre_d=100,
