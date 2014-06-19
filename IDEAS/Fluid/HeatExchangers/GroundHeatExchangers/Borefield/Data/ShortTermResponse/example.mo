@@ -2,5 +2,5 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.ShortTermR
 record example
   extends Records.ShortTermResponse(
     name="example",
-    modelPath="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.ShortTermResponse.example");
+    path="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.ShortTermResponse.example");
 end example;

@@ -5,13 +5,13 @@ record ShortTermResponse
   import SI = Modelica.SIunits;
 
   parameter String name = "example";
-  parameter String path=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/ShortTermResponse/");
-  parameter String modelPath="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.ShortTermResponse";
+  parameter String savePath=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/ShortTermResponse/");
+  parameter String path="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.ShortTermResponse";
   parameter Integer vecLen=BaseClasses.Scripts.readTrajectoryVecLen(
-        path + name + "Data") "vector lenght (=tBre_d)";
+        savePath + name + "Data") "vector lenght (=tBre_d)";
   parameter SI.Time[vecLen] tVec = BaseClasses.Scripts.readTrajectorytVec(
-        path + name + "Data") "[s] time vector";
+        savePath + name + "Data") "[s] time vector";
   parameter SI.Temperature[vecLen] TResSho = BaseClasses.Scripts.readTrajectoryTResSho(
-        path + name + "Data")
+        savePath + name + "Data")
     "Vector containing the fluid step-reponse temperature in function of the time obtained by the script readTrajectoryTResSho";
 end ShortTermResponse;

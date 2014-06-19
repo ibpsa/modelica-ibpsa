@@ -8,7 +8,6 @@ function ShortTimeResponseHX
     */
 
   import SI = Modelica.SIunits;
-
   input Data.Records.Soil soi=Data.SoilData.example()
     "Thermal properties of the ground";
   input Data.Records.Filling fill=Data.FillingData.example()
@@ -23,10 +22,9 @@ function ShortTimeResponseHX
 
   output Real[3,steRes.tBre_d + 1] readData;
 
-  input String savePath=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/ShortTermResponse/");
-
 protected
   parameter String name=shoTerRes.name;
+  parameter String savePath=shoTerRes.savePath;
   final parameter String modelToSimulate="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
     "model to simulate";
   Integer nbOfPoi=1000;
