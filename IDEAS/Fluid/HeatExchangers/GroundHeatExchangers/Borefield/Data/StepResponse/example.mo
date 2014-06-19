@@ -1,7 +1,7 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.StepResponse;
 record example
   extends Records.StepResponse(
-    name="example",
+    path="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.StepResponse.example",
     tStep=86400,
     t_min_d=1,
     tBre_d=10,

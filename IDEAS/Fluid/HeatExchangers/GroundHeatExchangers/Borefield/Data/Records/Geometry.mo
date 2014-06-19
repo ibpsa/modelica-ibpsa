@@ -3,7 +3,7 @@ record Geometry "Parameters of the geometrical configuration of the borefield"
   extends Modelica.Icons.Record;
   import SI = Modelica.SIunits;
 
-  parameter String name="Geometry";
+  parameter String path="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.Geometry";
 
   /*Borehole*/
   parameter SI.Height hBor=100 "Total height of the borehole"

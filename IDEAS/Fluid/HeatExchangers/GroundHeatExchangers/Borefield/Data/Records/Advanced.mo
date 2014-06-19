@@ -3,7 +3,7 @@ record Advanced "Advanced parameters"
   extends Modelica.Icons.Record;
   import SI = Modelica.SIunits;
 
-  parameter String name="Advanced";
+  parameter String path="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.Advanced";
 
   parameter SI.Height hBor=100 "Total height of the borehole";
 
