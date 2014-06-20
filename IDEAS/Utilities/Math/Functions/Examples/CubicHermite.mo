@@ -11,7 +11,9 @@ model CubicHermite "Test problem for cubic hermite splines"
   Real x "Independent variable";
   Real y "Dependent variable without monotone interpolation";
   Real yMonotone "Dependent variable with monotone interpolation";
-  Integer i "Integer to select data interval";
+  discrete Integer i "Integer to select data interval";
+  Real test;
+
 initial algorithm
   // Get the derivative values at the support points
   d := IDEAS.Utilities.Math.Functions.splineDerivatives(
@@ -24,21 +26,17 @@ algorithm
   x := xd[1] + time*1.2*(xd[size(xd, 1)] - xd[1]) - 0.5;
   // i is a counter that is used to pick the derivative of d or dMonotonic
   // that correspond to the interval that contains x
-  i := 1;
-  for j in 1:size(xd, 1) - 1 loop
-    if x > xd[j] then
-      i := j;
-    end if;
-  end for;
-  // Extrapolate or interpolate the data
-  y := IDEAS.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
-    x=x,
-    x1=xd[i],
-    x2=xd[i + 1],
-    y1=yd[i],
-    y2=yd[i + 1],
-    y1d=d[i],
-    y2d=d[i + 1]);
+
+  (test,i) := IDEAS.Utilities.Math.Functions.searchIndex1D(xd,x,pre(i),false);
+
+   y := IDEAS.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+     x=x,
+     x1=xd[i],
+     x2=xd[i + 1],
+     y1=yd[i],
+     y2=yd[i + 1],
+     y1d=d[i],
+     y2d=d[i + 1]);
   yMonotone :=
     IDEAS.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
     x=x,

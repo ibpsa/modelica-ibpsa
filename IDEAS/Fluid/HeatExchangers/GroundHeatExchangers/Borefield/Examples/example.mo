@@ -6,10 +6,7 @@ model example
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  parameter Modelica.SIunits.HeatFlowRate q = 30
-    "heat flow rate which is injected per meter depth of borehole";
-
-  parameter Data.BorefieldData.example
+  parameter Data.BorefieldData.example_64_accurate
     bfData
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Integer lenSim=3600*24*20 "length of the simulation";
