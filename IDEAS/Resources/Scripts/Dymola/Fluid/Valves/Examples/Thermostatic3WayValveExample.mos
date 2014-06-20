@@ -5,7 +5,7 @@
 
 simulateModel("IDEAS.Fluid.Valves.Examples.Thermostatic3WayValveExample", stopTime=10000, method="dassl", resultFile="Thermostatic3WayValveExample");
 
-plot(y={"T_out.T", "T_in.T", "T_out1.T", "T_in1.T", "const.y", "const1.y"},colors={{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}, {0,0,255}});
-
+plot(id=1,y={"T_out.T", "T_in.T", "const.k"});
+createPlot(id=2,y={"thermostatic3WayValve.port_a1.m_flow"});
 
 
