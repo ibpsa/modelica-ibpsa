@@ -23,6 +23,14 @@ partial model PartialHeatPump "Heat pump partial"
   constrainedby HeatPumpData
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-98,-98},{-78,-78}})));
 
+  parameter Boolean use_scaling = false
+    "scale the performance data based on the nominal power";
+  parameter Modelica.SIunits.Power P_the_nominal = heatPumpData.P_the_nominal
+    "nominal thermal power of the heat pump"
+    annotation (Dialog(enable=use_scaling));
+  final parameter Real sca = if use_scaling then P_the_nominal / heatPumpData.P_the_nominal else 1
+    "scaling factor for the nominal power of the heat pump";
+
     //From LumpedVolumeDeclarations
       // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
