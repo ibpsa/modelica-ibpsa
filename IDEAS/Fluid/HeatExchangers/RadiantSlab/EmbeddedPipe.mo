@@ -63,7 +63,7 @@ model EmbeddedPipe
 
   //fixme: update documentation regarding information about used values for density and viscosity
 protected
-  constant Medium.ThermodynamicState state_default= Medium.setState_pTX(Medium.p_default, T_start, Medium.X_default)
+  parameter Medium.ThermodynamicState state_default= Medium.setState_pTX(Medium.p_default, T_start, Medium.X_default)
     "Default state for calculation of density, viscosity, ...";
 
   // Interface
