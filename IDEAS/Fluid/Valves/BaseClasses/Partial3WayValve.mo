@@ -13,7 +13,7 @@ model Partial3WayValve "Partial for 3-way valves"
         Medium) "Fluid outlet"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  MixingVolumes.MixingVolume vol(nPorts=3,
+  MixingVolumes.MixingVolume vol(nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=energyDynamics,
@@ -26,31 +26,36 @@ model Partial3WayValve "Partial for 3-way valves"
     V=m/Medium.density(Medium.setState_pTX(
         Medium.p_default,
         Medium.T_default,
-        Medium.X_default)))
+        Medium.X_default)),
+    allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
 
   Interfaces.IdealSource idealSource(redeclare package Medium = Medium,
-      control_m_flow=true) annotation (Placement(transformation(
+      control_m_flow=true,
+    allowFlowReversal=allowFlowReversal)
+                           annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,-44})));
+  parameter Boolean allowFlowReversal=false
+    "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports.";
 equation
   connect(port_a1, vol.ports[1]) annotation (Line(
-      points={{-100,0},{-2.66667,0}},
+      points={{-100,0},{-2,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_b, vol.ports[2]) annotation (Line(
-      points={{100,0},{4.44089e-16,0}},
+      points={{100,0},{2,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(idealSource.port_a, port_a2) annotation (Line(
       points={{0,-54},{4.44089e-16,-54},{4.44089e-16,-100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(idealSource.port_b, vol.ports[3]) annotation (Line(
-      points={{0,-34},{0,-4.44089e-16},{2.66667,-4.44089e-16}},
+  connect(idealSource.port_b, vol.ports[1]) annotation (Line(
+      points={{0,-34},{0,-4.44089e-16},{-2,-4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
