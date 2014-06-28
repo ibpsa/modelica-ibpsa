@@ -5,7 +5,7 @@ model EmbeddedPipe
 
   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(m=Modelica.Constants.pi/4*(
       RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default), res(use_dh=true, dh=
-          if RadSlaCha.tabs then RadSlaCha.d_a - RadSlaCha.s_r else 1));
+          if RadSlaCha.tabs then RadSlaCha.d_a - 2*RadSlaCha.s_r else 1));
 
   // General model parameters ////////////////////////////////////////////////////////////////
   // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
