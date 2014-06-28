@@ -17,7 +17,7 @@ function ShortTimeResponseHX
   input Data.Records.Advanced adv=Data.Advanced.example() "Advanced parameters";
   input Data.Records.StepResponse steRes=Data.StepResponse.example()
     "generic step load parameter";
-  input Data.Records.ShortTermResponse shoTerRes=Data.ShortTermResponse.example(name=  "example")
+  input Data.Records.ShortTermResponse shoTerRes=Data.ShortTermResponse.example(rendering=true)
     "generic step load parameter";
 
   output Real[3,steRes.tBre_d + 1] readData;
