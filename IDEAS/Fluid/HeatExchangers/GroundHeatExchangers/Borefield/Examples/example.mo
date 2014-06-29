@@ -6,13 +6,14 @@ model example
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  parameter Data.BorefieldData.example_64_accurate
+  parameter Data.BorefieldData.example
     bfData
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Integer lenSim=3600*24*20 "length of the simulation";
 
   MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData,
-    redeclare package Medium = Medium) "borefield"
+    redeclare package Medium = Medium, saveAggMat=false,loadAggMat=true)
+    "borefield"
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
   Modelica.Blocks.Sources.Step           load(height=1, startTime=36000)
     "load for the borefield"
