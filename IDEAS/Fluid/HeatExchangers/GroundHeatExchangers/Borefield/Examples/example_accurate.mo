@@ -9,13 +9,13 @@ model example_accurate
   parameter Modelica.SIunits.HeatFlowRate q = 30
     "heat flow rate which is injected per meter depth of borehole";
 
-  parameter Data.BorefieldData.example_accurate
-    bfData
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Integer lenSim=3600*24*20 "length of the simulation";
 
-  MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData,
-    redeclare package Medium = Medium) "borefield"
+  MultipleBoreHoles multipleBoreholes(lenSim=lenSim,
+    redeclare package Medium = Medium, saveAggMat=false,loadAggMat=true,
+    redeclare
+      IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.BorefieldData.example_accurate
+      bfData) "borefield"
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
   Modelica.Blocks.Sources.Step           load(height=1, startTime=36000)
     "load for the borefield"
@@ -24,9 +24,9 @@ model example_accurate
   Movers.Pump                           pum(
     redeclare package Medium = Medium,
     useInput=true,
-    T_start=bfData.steRes.T_ini,
-    m_flow(start=bfData.m_flow_nominal),
-    m_flow_nominal=bfData.m_flow_nominal)
+    T_start=multipleBoreholes.bfData.steRes.T_ini,
+    m_flow(start=multipleBoreholes.bfData.m_flow_nominal),
+    m_flow_nominal=multipleBoreholes.bfData.m_flow_nominal)
     annotation (Placement(transformation(extent={{-8,22},{-28,2}})));
   Modelica.Blocks.Sources.Constant mFlo(k=1)
     annotation (Placement(transformation(extent={{-46,-12},{-34,0}})));
@@ -35,11 +35,11 @@ model example_accurate
     dp_nominal=10000,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    T_start=bfData.steRes.T_ini,
-    m_flow_nominal=bfData.m_flow_nominal,
-    m_flow(start=bfData.m_flow_nominal),
+    T_start=multipleBoreholes.bfData.steRes.T_ini,
+    m_flow_nominal=multipleBoreholes.bfData.m_flow_nominal,
+    m_flow(start=multipleBoreholes.bfData.m_flow_nominal),
     p_start=100000,
-    Q_flow_nominal=bfData.steRes.q_ste*bfData.geo.nbBh*bfData.geo.hBor)
+    Q_flow_nominal=multipleBoreholes.bfData.steRes.q_ste*multipleBoreholes.bfData.geo.nbBh*multipleBoreholes.bfData.geo.hBor)
     annotation (Placement(transformation(extent={{30,22},{10,2}})));
   Modelica.Fluid.Sources.Boundary_pT boundary(nPorts=1, redeclare package
       Medium = Medium)

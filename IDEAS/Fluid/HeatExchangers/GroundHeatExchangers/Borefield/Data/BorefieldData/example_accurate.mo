@@ -9,4 +9,5 @@ record example_accurate =            Records.BorefieldData (
         StepResponse.example_accurate,
     redeclare replaceable record Adv = Advanced.example,
     redeclare replaceable record ShoTerRes =
-        ShortTermResponse.example_accurate);
+        ShortTermResponse.example_accurate,
+    redeclare replaceable record AggMat = AggregationMatrix.example_accurate);
