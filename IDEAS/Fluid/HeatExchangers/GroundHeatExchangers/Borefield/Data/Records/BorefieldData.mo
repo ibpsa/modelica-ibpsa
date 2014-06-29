@@ -30,6 +30,10 @@ record BorefieldData
                                              constrainedby ShortTermResponse
     annotation (__Dymola_choicesAllMatching=true);
   ShoTerRes shoTerRes;
+  replaceable record AggMat = AggregationMatrix
+                                             constrainedby AggregationMatrix
+    annotation (__Dymola_choicesAllMatching=true);
+  AggMat aggMat;
 
   Modelica.SIunits.MassFlowRate m_flow_nominal = steRes.m_flow*geo.nbBh/geo.nbSer
     "total nominal flow to the borefield";

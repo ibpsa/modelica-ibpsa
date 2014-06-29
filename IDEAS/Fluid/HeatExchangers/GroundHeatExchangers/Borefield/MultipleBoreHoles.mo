@@ -8,30 +8,30 @@ model MultipleBoreHoles
   //  3) Make the enthalpy a differentiable function (look at if statement)
 
   // Medium in borefield
-  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(m_flow_nominal = bfData.m_flow_nominal, redeclare
-      package Medium =
+  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(m_flow_nominal = bfData.m_flow_nominal, redeclare package
+      Medium =
         Modelica.Media.Water.ConstantPropertyLiquidWater, final allowFlowReversal=false);
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true, dp_nominal = 0);
 
   // General parameters of borefield
-  replaceable parameter Borefield.Data.Records.BorefieldData bfData
+  replaceable parameter Borefield.Data.Records.BorefieldData bfData(aggMat(rendering=rendering))
     constrainedby Data.Records.BorefieldData
     annotation (choicesAllMatching=true,Placement(transformation(extent={{-90,-88},
             {-70,-68}})));
 
-  //General parameters of aggregation
-  parameter Integer p_max=5
-    "maximum number of cells for each aggreagation level";
+  parameter Boolean saveAggMat = true;
+  parameter Boolean rendering = if saveAggMat then true else false;
 
-  parameter Integer lenSim=3600*24*100
-    "Simulation length ([s]). By default = 100 days";
+  //General parameters of aggregation
+  parameter Integer p_max=5 "maximum number of cells for each aggreagation level";
+
+  parameter Integer lenSim=3600*24*100 "Simulation length ([s]). By default = 100 days";
   parameter Boolean homotopyInitialization=true "= true, use homotopy method";
   final parameter Integer q_max=
       Borefield.BaseClasses.Aggregation.BaseClasses.nbOfLevelAgg(
-      n_max=integer(lenSim/bfData.steRes.tStep), p_max=p_max)
-    "number of aggregation levels";
+      n_max=integer(lenSim/bfData.steRes.tStep), p_max=p_max) "number of aggregation levels";
 
   final parameter Modelica.SIunits.Temperature TSteSta=
       Borefield.BaseClasses.GroundHX.HeatCarrierFluidStepTemperature(
@@ -45,15 +45,12 @@ model MultipleBoreHoles
       *bfData.geo.nbBh) "steady state resistance";
 
   // Load of borefield
-  Modelica.SIunits.HeatFlowRate QAve_flow
-    "Average heat flux over a time period";
+  Modelica.SIunits.HeatFlowRate QAve_flow "Average heat flux over a time period";
 
-protected
-  Medium.ThermodynamicState sta_hcf
-    "thermodynamic state for heat carrier fluid at temperature T_ft";
+//protected
+  Medium.ThermodynamicState sta_hcf "thermodynamic state for heat carrier fluid at temperature T_ft";
 
-  Modelica.SIunits.Temperature T_out_val
-    "Temperature of the medium exiting the borefield";
+  Modelica.SIunits.Temperature T_out_val "Temperature of the medium exiting the borefield";
 
   final parameter Integer[q_max] rArr=
       Borefield.BaseClasses.Aggregation.BaseClasses.cellWidth(
@@ -62,8 +59,7 @@ protected
       Borefield.BaseClasses.Aggregation.BaseClasses.nbPulseAtEndEachLevel(
             q_max=q_max,
             p_max=p_max,
-            rArr=rArr)
-    "nb of aggregated pulse at end of each aggregation cells";
+            rArr=rArr) "nb of aggregated pulse at end of each aggregation cells";
   final parameter Real[q_max,p_max] kappaMat=
       Borefield.BaseClasses.Aggregation.transientFrac(
             q_max=q_max,
@@ -73,27 +69,22 @@ protected
             soi=bfData.soi,
             shoTerRes=bfData.shoTerRes,
             nuMat=nuMat,
-            TSteSta=TSteSta)
-    "transient thermal resistance of each aggregation cells";
+            TSteSta=TSteSta) "transient thermal resistance of each aggregation cells";
 
-  final parameter Integer nbOfAggPulse=nuMat[end, end]
-    "number of aggregated pulse";
+  final parameter Integer nbOfAggPulse=nuMat[end, end] "number of aggregated pulse";
 
 //Load
-  Real[q_max,p_max] QMat
-    "aggregation of load vector. Every discrete time step it is updated.";
+  Real[q_max,p_max] QMat "aggregation of load vector. Every discrete time step it is updated.";
 
 //Utilities
-  Integer iSam(min=1)
-    "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
+  Integer iSam(min=1) "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
   Modelica.SIunits.Energy UOld "Internal energy at the previous period";
-  Modelica.SIunits.Energy U
-    "Current internal energy, defined as U=0 for t=tStart";
+  Modelica.SIunits.Energy U "Current internal energy, defined as U=0 for t=tStart";
   Modelica.SIunits.Time startTime "Start time of the simulation";
 
 public
-  Modelica.SIunits.Temperature T_fts
-    "average of heat carrier fluid temperature between in and outlet";
+  parameter Boolean statusWriteMatrix(fixed=false);
+  Modelica.SIunits.Temperature T_fts "average of heat carrier fluid temperature between in and outlet";
 
   Modelica.Blocks.Sources.RealExpression T_out(y=T_out_val)
     "Enthalpy of the medium of the exiting fluid from the borefield"
@@ -103,20 +94,17 @@ public
     tau=30,
     T_start=bfData.steRes.T_ini,
     m_flow_small=m_flow_small,
-    m_flow_nominal=m_flow_nominal)
-    "Temperature of the fluid exiting the borefield"
+    m_flow_nominal=m_flow_nominal) "Temperature of the fluid exiting the borefield"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Sensors.TemperatureTwoPort TSen_in(
     redeclare package Medium = Medium,
     tau=30,
     T_start=bfData.steRes.T_ini,
     m_flow_small=m_flow_small,
-    m_flow_nominal=m_flow_nominal)
-    "Temperature of the fluid entering the borefield"
+    m_flow_nominal=m_flow_nominal) "Temperature of the fluid entering the borefield"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Modelica.SIunits.Power Q_flow
-    "thermal power extracted or injected in the borefield";
+  Modelica.SIunits.Power Q_flow "thermal power extracted or injected in the borefield";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature fixedTemperature
     annotation (Placement(transformation(extent={{14,-44},{-6,-24}})));
@@ -151,6 +139,14 @@ initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same lenght as the number of aggregated pulse and cover lenSim
   U := 0;
   UOld := 0;
+
+  if saveAggMat then
+    statusWriteMatrix :=
+    Borefield.BaseClasses.Scripts.writeAggregationMatrix(
+      fileName=bfData.aggMat.savePath+bfData.aggMat.name+".mat", matrix=kappaMat);
+  else
+    statusWriteMatrix :=false;
+  end if;
 equation
   assert( abs(TSen_in.port_a.m_flow - bfData.m_flow_nominal) < 0.001 or abs(TSen_in.port_a.m_flow) < Modelica.Constants.eps, "This borefield model only works for fixed mass flow rate as defined in bfData.SteRes.m_flow");
   assert( time < lenSim, "The chosen value for lenSim is too small. It cannot cover the simulation time!");
@@ -162,8 +158,7 @@ equation
 
   Q_flow = Medium.specificHeatCapacityCp(sta_hcf)*TSen_in.port_a.m_flow*(TSen_in.T - TSen_out.T);
 
-  der(U) = Q_flow
-    "integration of load to calculate below the average load/(discrete time step)";
+  der(U) = Q_flow "integration of load to calculate below the average load/(discrete time step)";
 
   //if the heat flow is very low, the enthalpie is the same at the inlet and outlet
   if abs(Q_flow) > 10^(-3) and TSen_in.port_a.m_flow > m_flow_small then
