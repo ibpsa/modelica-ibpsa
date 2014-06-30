@@ -39,8 +39,9 @@ model Delay
           rotation=0)));
   Annex60.Fluid.Delays.DelayFirstOrder del(         m_flow_nominal=5, redeclare
       package Medium = Medium,
-    T_start=283.15,
-    nPorts=2)
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=283.15)
     annotation (Placement(transformation(extent={{-2,6},{18,26}},  rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -69,5 +70,6 @@ equation
             -100},{100,100}}),
                         graphics),
 experiment(StopTime=300),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Delays/Examples/Delay.mos" "Simulate and plot"));
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Delays/Examples/Delay.mos"
+        "Simulate and plot"));
 end Delay;
