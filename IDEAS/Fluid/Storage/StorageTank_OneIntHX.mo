@@ -15,8 +15,8 @@ model StorageTank_OneIntHX
   parameter Modelica.SIunits.Length heightTank(min=0)
     "Total height of the tank";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_HX
+    "Nominal mass flow rate of the heat exchanger";
   final parameter Modelica.SIunits.Mass mNode=volumeTank*Medium.density(state_default)/nbrNodes
     "Mass of each node";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer UIns(min=0) = 0.4
@@ -53,7 +53,7 @@ model StorageTank_OneIntHX
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort[nbrNodes] nodes(
     redeclare each package Medium = Medium,
     each m=mNode,
-    each m_flow_nominal=m_flow_nominal,
+    each m_flow_nominal=m_flow_nominal_HX,
     T_start=T_start) "Array of nodes";
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) "Upper port, connected to node[1]"
@@ -75,7 +75,7 @@ model StorageTank_OneIntHX
           extent={{44,-46},{56,-34}})));
 
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort HX[nbrNodesHX](
-    each m_flow_nominal=m_flow_nominal,
+    each m_flow_nominal=m_flow_nominal_HX,
     each m=mHX/nbrNodesHX,
     T_start=T_start[nodeHXUpper:nodeHXLower],
     redeclare package Medium = MediumHX)          annotation (Placement(

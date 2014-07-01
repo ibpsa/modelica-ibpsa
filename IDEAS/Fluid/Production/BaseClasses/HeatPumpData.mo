@@ -19,6 +19,7 @@ record HeatPumpData "Data record for storing data for an on/off heat pump"
 
   Modelica.SIunits.ThermalConductance G
     "Thermal conductivity between the evaporator and the environment";
+  Modelica.SIunits.Power P_the_nominal "nominal thermal power of the heat pump";
 
   annotation (Documentation(revisions="<html>
 <ul>

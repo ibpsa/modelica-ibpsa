@@ -2,7 +2,7 @@ within IDEAS.Fluid.HeatExchangers.RadiantSlab;
 model EmbeddedPipe
   "Embedded pipe model based on prEN 15377 and (Koschenz, 2000), water capacity lumped to TOut"
   import IDEAS;
-
+  extends IDEAS.Fluid.HeatExchangers.Interfaces.EmissionTwoPort;
   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(m=Modelica.Constants.pi/4*(
       RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default), res(use_dh=true, dh=
           if RadSlaCha.tabs then RadSlaCha.d_a - 2*RadSlaCha.s_r else 1));
@@ -68,7 +68,7 @@ model EmbeddedPipe
 
   //fixme: update documentation regarding information about used values for density and viscosity
 protected
-  constant Medium.ThermodynamicState state_default= Medium.setState_pTX(Medium.p_default, T_start, Medium.X_default)
+  parameter Medium.ThermodynamicState state_default= Medium.setState_pTX(Medium.p_default, T_start, Medium.X_default)
     "Default state for calculation of density, viscosity, ...";
 
   // Interface

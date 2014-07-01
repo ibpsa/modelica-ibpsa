@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWall;
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
 
   replaceable Data.Constructions.CavityWall constructionType
     constrainedby Data.Interfaces.Construction(final insulationType=
@@ -105,12 +105,12 @@ equation
       points={{0,-100},{0,-40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(intCon.port_b, surfCon_a) annotation (Line(
-      points={{40,-30},{50,-30}},
+  connect(intCon.port_b, propsBus_a.surfCon) annotation (Line(
+      points={{40,-30},{46,-30},{46,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.port_b, surfRad_a) annotation (Line(
-      points={{10,-30},{16,-30},{16,-60},{50,-60}},
+  connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
+      points={{10,-30},{16,-30},{16,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(

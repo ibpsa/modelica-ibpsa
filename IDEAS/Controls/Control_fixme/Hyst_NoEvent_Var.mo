@@ -4,21 +4,54 @@ block Hyst_NoEvent_Var
 
   extends Modelica.Blocks.Interfaces.SISO(y(start=0));
 
-  Modelica.Blocks.Interfaces.RealInput uLow
-    annotation (Placement(transformation(extent={{-128,60},{-88,100}})));
-  Modelica.Blocks.Interfaces.RealInput uHigh
-    annotation (Placement(transformation(extent={{-130,-10},{-90,30}})));
+  parameter Boolean use_input = true;
+  parameter Boolean enableRelease=false
+    "if true, an additional RealInput will be available for releasing the controller";
+
+  Modelica.Blocks.Interfaces.RealInput uLow if use_input
+    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
+  Modelica.Blocks.Interfaces.RealInput uHigh if use_input
+    annotation (Placement(transformation(extent={{-140,48},{-100,88}})));
+
+  parameter Real uLow_val "lower boundary value if the input uLow is not used";
+  parameter Real uHigh_val
+    "higher boundary value if the input uHigh is not used";
+  Modelica.Blocks.Interfaces.RealInput release(start=0) = rel if enableRelease
+    "if < 0.5, the controller is OFF"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120})));
+protected
+  Modelica.Blocks.Interfaces.RealInput uLow_internal
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput uHigh_internal
+    "Needed to connect to conditional connector";
+  Real rel
+    "release, either 1 ,either from RealInput release if enableRelease is true";
+
 equation
-  if noEvent(u > uHigh) then
+  if not enableRelease then
+    rel = 1;
+  end if;
+
+  connect(uLow,uLow_internal);
+  connect(uHigh,uHigh_internal);
+  // Needed to connect to conditional connector
+  if not use_input then
+    uLow_internal = uLow_val;
+    uHigh_internal = uHigh_val;
+  end if;
+
+  if noEvent(u >= uHigh_internal and rel > 0.5) then
     y = 1;
-  elseif noEvent(u > uLow and y > 0.5) then
+  elseif noEvent(u > uLow_internal and y > 0.5 and rel>0.5) then
     y = 1;
   else
     y = 0;
   end if;
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics={Polygon(
           points={{-65,89},{-73,67},{-57,67},{-65,89}},
           lineColor={192,192,192},
@@ -119,5 +152,12 @@ The start value of the output is defined via parameter
 The default value of this parameter is <b>false</b>.
 </p>
 </HTML>
-"));
+",revisions="<html>
+<ul>
+<li>
+May 13, 2014, by Damien Picard:<br/>
+Add possibility to use parameters as boundary values instead of inputs.
+</li>
+</ul>
+</html>"));
 end Hyst_NoEvent_Var;

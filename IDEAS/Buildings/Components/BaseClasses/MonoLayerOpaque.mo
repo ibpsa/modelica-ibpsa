@@ -29,10 +29,14 @@ equation
       points={{10,-40},{56,-40},{56,0},{100,0}},
       color={191,0,0},
       smooth=Smooth.None));
+
+if not notFictive then
   connect(port_a, port_b) annotation (Line(
       points={{-100,0},{100,0}},
       color={191,0,0},
       smooth=Smooth.None));
+end if;
+
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),

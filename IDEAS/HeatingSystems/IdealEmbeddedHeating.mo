@@ -1,32 +1,28 @@
 within IDEAS.HeatingSystems;
 model IdealEmbeddedHeating
   "Ideal heating, no DHW, with embedded system (eg. floor heating) "
-
-  import IDEAS.Thermal.Components.Emission.Interfaces.EmissionType;
+  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating(nZones = nZones);
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
-    floorHeating=true,
-    radiators=false,
-    final nLoads=1);
-
-  parameter Real COP=3 "virtual COP to get a PEl as output";
-  SI.Power[nZones] QHeatZone(each start=0);
-  parameter SI.Time t=10 "Time needed to reach temperature setpoint";
-
+    final isHea = true,
+    final isCoo = false,
+    final nConvPorts = 0,
+    final nRadPorts = 0,
+    final nTemSen = nZones,
+    final nEmbPorts=nZones,
+    final nLoads=1,
+    nZones=nZones);
 equation
   for i in 1:nZones loop
     if noEvent((TSet[i] - TSensor[i]) > 0) then
-      QHeatZone[i] = min(C[i]*(TSet[i] - TSensor[i])/t, QNom[i]);
+      QHeatZone[i] = IDEAS.Utilities.Math.Functions.smoothMin(x1=C[i]*(TSet[i] - TSensor[i])/t, x2=QNom[i],deltaX=1);
     else
       QHeatZone[i] = 0;
     end if;
     heatPortEmb[i].Q_flow = -QHeatZone[i];
   end for;
-
-  QHeatTotal = sum(QHeatZone);
-  // useful output, QHeatTotal defined in partial
-  P[1] = QHeatTotal/COP;
+  QHeaSys = sum(QHeatZone);
+  P[1] = QHeaSys/COP;
   Q[1] = 0;
-
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li>2013 June, Roel De Coninck: reworking interface and documentation</li>
@@ -53,5 +49,6 @@ equation
 <p>No validation performed.</p>
 <p><h4>Example </h4></p>
 <p>An example of the use of this model can be found in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating\"> IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating</a>.</p>
-</html>"));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics));
 end IdealEmbeddedHeating;

@@ -9,7 +9,7 @@ model Zone "thermal building zone"
       annotation (choicesAllMatching = true);
 
   parameter Modelica.SIunits.Volume V "Total zone air volume";
-  parameter Real n50=0.6
+  parameter Real n50(min=0.01)=0.4
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
   parameter Real corrCV=5 "Multiplication factor for the zone air capacity";
   parameter Modelica.SIunits.Temperature TOpStart=297.15;
@@ -30,12 +30,12 @@ protected
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-54,-44})));
-  IDEAS.Buildings.Components.BaseClasses.AirLeakage vent(final n50=n50,final V=
-        V) "Thermal zone air leakage"
-                              annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={30,10})));
+  BaseClasses.AirLeakage airLeakage(
+    redeclare package Medium = Medium,
+    m_flow_nominal=V/3600*n50/20,
+    V=V,
+    n50=0.1)
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final
       nSurf=nSurf, final linear=linear)
     "internal longwave radiative heat exchange" annotation (Placement(
@@ -52,7 +52,7 @@ public
   Fluid.MixingVolumes.MixingVolume         vol(
     V=V,
     m_flow_nominal=m_flow_nominal,
-    nPorts=2,
+    nPorts=4,
     redeclare package Medium = Medium)         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -70,24 +70,13 @@ public
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
 equation
-  connect(surfRad, radDistr.radSurfTot) annotation (Line(
-      points={{-100,-60},{-74,-60},{-74,-26},{-54,-26},{-54,-34}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(radDistr.iSolDir, iSolDir) annotation (Line(
-      points={{-58,-54},{-58,-80},{-20,-80},{-20,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(radDistr.iSolDif, iSolDif) annotation (Line(
-      points={{-54,-54},{-54,-76},{20,-76},{20,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
+
   connect(radDistr.radGain, gainRad) annotation (Line(
       points={{-50.2,-54},{-50,-54},{-50,-72},{80,-72},{80,-60},{100,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(surfRad, radDistrLw.port_a) annotation (Line(
-      points={{-100,-60},{-74,-60},{-74,-26},{-54,-26},{-54,-20}},
+  connect(propsBus[:].surfRad, radDistrLw.port_a) annotation (Line(
+      points={{-100,40},{-74,40},{-74,-26},{-54,-26},{-54,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -139,18 +128,23 @@ equation
       points={{0,30},{10,30},{10,-30},{100,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(vent.port_a, gainCon) annotation (Line(
-      points={{30,0},{30,-30},{100,-30}},
+
+for i in 1:nSurf loop
+  connect(radDistr.iSolDir, propsBus[i].iSolDir) annotation (Line(
+      points={{-58,-54},{-58,-80},{-100,-80},{-100,40}},
       color={191,0,0},
       smooth=Smooth.None));
-for i in 1:nSurf loop
-  connect(surfCon[i], vol.heatPort) annotation (Line(
-      points={{-100,-30},{10,-30},{10,30},{0,30}},
+  connect(radDistr.iSolDif, propsBus[i].iSolDif) annotation (Line(
+      points={{-54,-54},{-54,-76},{-100,-76},{-100,40}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(propsBus[i].surfCon, vol.heatPort) annotation (Line(
+      points={{-100,40},{-46,40},{-46,12},{10,12},{10,30},{4.44089e-16,30}},
       color={191,0,0},
       smooth=Smooth.None));
 end for;
   connect(flowPort_In, vol.ports[1]) annotation (Line(
-      points={{20,100},{20,40},{-8,40}},
+      points={{20,100},{20,40},{-7,40}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(heatCap.port, gainCon) annotation (Line(
@@ -158,8 +152,8 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(flowPort_Out, vol.ports[2]) annotation (Line(
-      points={{-20,100},{-20,40},{-12,40}},
-      color={0,0,0},
+      points={{-20,100},{-20,40},{-9,40}},
+      color={0,128,255},
       smooth=Smooth.None));
   connect(senTem.port, gainCon) annotation (Line(
       points={{0,-20},{10,-20},{10,-30},{100,-30}},
@@ -168,6 +162,18 @@ end for;
   connect(senTem.T, sum.u[2]) annotation (Line(
       points={{-16,-20},{-18,-20},{-18,-59.4},{-1.2,-59.4}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(airLeakage.port_a, vol.ports[3]) annotation (Line(
+      points={{40,40},{-11,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(airLeakage.port_b, vol.ports[4]) annotation (Line(
+      points={{60,40},{70,40},{70,14},{-32,14},{-32,40},{-13,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(radDistr.radSurfTot, radDistrLw.port_a) annotation (Line(
+      points={{-54,-34},{-54,-20}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -185,6 +191,6 @@ end for;
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics));
 end Zone;

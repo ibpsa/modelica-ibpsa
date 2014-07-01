@@ -36,10 +36,9 @@ model SimInfoManager
     annotation (Dialog(group="Photovoltaics"));
   parameter Integer PNom=1000 "Nominal power (W) of the photovoltaic profiles"
     annotation (Dialog(group="Photovoltaics"));
-
-protected
   final parameter Modelica.SIunits.Temperature Tdes = -8 + 273.15
     "design outdoor temperature";
+protected
   final parameter Modelica.SIunits.Temperature TdesGround = 10 + 273.15
     "design ground temperature";
 

@@ -1,72 +1,64 @@
 within IDEAS.HeatingSystems.Examples;
 model IdealRadiatorHeating "Example and test for ideal heating with radiators"
   import IDEAS;
-
-extends Modelica.Icons.Example;
-
-final parameter Integer nZones = 1 "Number of zones";
-
+  extends Modelica.Icons.Example;
+  final parameter Integer nZones = 1 "Number of zones";
   IDEAS.HeatingSystems.IdealRadiatorHeating heating(
     final nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
-    t=1) annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
-  inner IDEAS.SimInfoManager               sim(redeclare
-      IDEAS.Climate.Meteo.Files.min15 detail, redeclare
-      IDEAS.Climate.Meteo.Locations.Uccle city,
-    PV=false,
-    occBeh=false)
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+    t=1) annotation (Placement(transformation(extent={{-16,-10},{22,12}})));
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
     each width=67,
     each period=86400,
-    each offset=289,
-    startTime={3600*7,3600*9})
-    annotation (Placement(transformation(extent={{-30,-56},{-18,-44}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource voltageSource(
+    each offset=289)
+    annotation (Placement(transformation(extent={{-36,-56},{-24,-44}})));
+  inner IDEAS.SimInfoManager sim(redeclare
+      IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants)
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
+    voltageSource(
     f=50,
     V=230,
     phi=0) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={90,-64})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground(pin(final reference))
-    annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
-  IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
-                             dummyInHomeGrid
-    annotation (Placement(transformation(extent={{64,-22},{84,-2}})));
+        origin={86,-54})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
+    annotation (Placement(transformation(extent={{76,-92},{96,-72}})));
+  IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder dummyInHomeGrid
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones)
-    annotation (Placement(transformation(extent={{-78,-22},{-48,-2}})));
+    annotation (Placement(transformation(extent={{-86,-10},{-52,12}})));
 equation
-
-  connect(heating.TSet, TOpSet.y) annotation (Line(
-      points={{10,-22.36},{10,-50},{-17.4,-50}},
+  connect(TOpSet.y, heating.TSet) annotation (Line(
+      points={{-23.4,-50},{2.81,-50},{2.81,-10.44}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(voltageSource.pin_p,ground. pin) annotation (Line(
-      points={{90,-74},{90,-82}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(dummyInHomeGrid.pinSingle, voltageSource.pin_n) annotation (Line(
-      points={{84,-12},{88,-12},{88,-18},{90,-18},{90,-54}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(heating.plugLoad, dummyInHomeGrid.nodeSingle) annotation (Line(
-      points={{28,-13},{46,-13},{46,-12},{64,-12}},
-      color={85,170,255},
-      smooth=Smooth.None));
   connect(dummyBuilding.heatPortCon, heating.heatPortCon) annotation (Line(
-      points={{-48,-10},{-28,-10},{-28,-11.2},{-8,-11.2}},
+      points={{-52,3.2},{-16,3.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(dummyBuilding.heatPortRad, heating.heatPortRad) annotation (Line(
-      points={{-48,-14},{-28,-14},{-28,-14.8},{-8,-14.8}},
+      points={{-52,-1.2},{-16,-1.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(dummyBuilding.TSensor, heating.TSensor) annotation (Line(
-      points={{-47.4,-18},{-28,-18},{-28,-18.4},{-8.36,-18.4}},
+      points={{-51.32,-5.6},{-16.38,-5.6}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(voltageSource.pin_p,ground. pin) annotation (Line(
+      points={{86,-64},{86,-72}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(dummyInHomeGrid.pinSingle,voltageSource. pin_n) annotation (Line(
+      points={{80,0},{86,0},{86,-44}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(heating.plugLoad,dummyInHomeGrid. nodeSingle) annotation (Line(
+      points={{22,1},{48,1},{48,0},{60,0}},
+      color={85,170,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
