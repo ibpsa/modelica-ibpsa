@@ -3,24 +3,37 @@ model EmbeddedPipe
   "Embedded pipe model based on prEN 15377 and (Koschenz, 2000), water capacity lumped to TOut"
   import IDEAS;
   extends IDEAS.Fluid.HeatExchangers.Interfaces.EmissionTwoPort;
-  extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(m=Modelica.Constants.pi/4*(
-      RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default), res(use_dh=true, dh=
-          if RadSlaCha.tabs then RadSlaCha.d_a - 2*RadSlaCha.s_r else 1));
-
-  // General model parameters ////////////////////////////////////////////////////////////////
-  // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
-  final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T
-    "Length of the circuit";
-  parameter Modelica.SIunits.MassFlowRate m_flowMin
-    "Minimal flowrate when in operation";
-
-  parameter Modelica.SIunits.Area A_floor=1 "Floor/tabs surface area";
-
   replaceable parameter
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar RadSlaCha constrainedby
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
     "Properties of the floor heating or TABS, if present"
     annotation (choicesAllMatching=true);
+  extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(
+  final m=Modelica.Constants.pi/4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default),
+  res(use_dh=true, dh= if RadSlaCha.tabs then RadSlaCha.d_a - 2*RadSlaCha.s_r else 1),
+  final dp_nominal=if RadSlaCha.tabs and use_dp then Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+      m_flow=m_flow_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
+      length=L_r,
+      diameter=RadSlaCha.d_a - 2*RadSlaCha.s_r,
+      roughness=roughness,
+      m_flow_small=m_flow_small) else 0);
+
+  // General model parameters ////////////////////////////////////////////////////////////////
+  // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
+  final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T
+    "Length of the circuit";
+  parameter Boolean use_dp = true "Set to true to calculate pressure drop";
+  parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
+    "Absolute roughness of pipe, with a default for a smooth steel pipe";
+
+  parameter Modelica.SIunits.MassFlowRate m_flowMin
+    "Minimal flowrate when in operation";
+
+  parameter Modelica.SIunits.Area A_floor=1 "Floor/tabs surface area";
 
   // Resistances ////////////////////////////////////////////////////////////////
   // there is no R_z in the model because the dynamics of the water is explicitly simulated
@@ -67,7 +80,12 @@ model EmbeddedPipe
         origin={22,24})));
 
   //fixme: update documentation regarding information about used values for density and viscosity
+   //copied from Buildings.Fluid.FixedResistances.BaseClasses.Pipe
 protected
+  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
+  parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
+    "Dynamic viscosity at nominal condition";
+
   parameter Medium.ThermodynamicState state_default= Medium.setState_pTX(Medium.p_default, T_start, Medium.X_default)
     "Default state for calculation of density, viscosity, ...";
 
