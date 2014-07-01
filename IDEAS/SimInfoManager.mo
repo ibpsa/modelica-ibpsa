@@ -1,145 +1,24 @@
 within IDEAS;
 model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
+  extends PartialSimInfoManager(final useTmy3Reader = true);
 
-  parameter String filNam = "Uccle_TMY3_60.txt" "Name of weather data file";
-  parameter Modelica.SIunits.Angle lat(displayUnit="deg") = 0.88749992463912
-    "latitude of the locatioin";
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 0.075921822461753;
-  parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = 3600
-    "standard time zone";
-
-  final parameter String filNamClim="../Inputs/" + filNam;
-
-  parameter Boolean occBeh=false
-    "put to true if  user behaviour is to be read from files"
-    annotation (Dialog(group="User behaviour"));
-
-  parameter Boolean DHW=false
-    "put to true if domestic how water (DHW) consumption is to be read from files"
-    annotation (Dialog(group="User behaviour"));
-  parameter Boolean PV=false
-    "put to true if photovoltaics is to be read from files "
-    annotation (Dialog(group="Photovoltaics"));
-
-  replaceable IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants
-    constrainedby IDEAS.Occupants.Extern.Interfaces.Occ_Files
-    "Specifies the files with occupant behavior"
-    annotation (Dialog(group="User behaviour"));
-  parameter Integer nOcc=33 "Number of occupant profiles to be read"
-    annotation (Dialog(group="User behaviour"));
-
-  parameter String fileNamePv="onePVpanel10min"
-    "Filename for photvoltaic profiles"
-    annotation (Dialog(group="Photovoltaics"));
-  parameter Integer nPV=33 "Number of photovoltaic profiles"
-    annotation (Dialog(group="Photovoltaics"));
-  parameter Integer PNom=1000 "Nominal power (W) of the photovoltaic profiles"
-    annotation (Dialog(group="Photovoltaics"));
-  final parameter Modelica.SIunits.Temperature Tdes = -8 + 273.15
-    "design outdoor temperature";
-protected
-  final parameter Modelica.SIunits.Temperature TdesGround = 10 + 273.15
-    "design ground temperature";
-
-  final parameter Boolean DST = true
-    "boolean to take into account daylight saving time";
-  final parameter Integer yr = 2014 "depcited year for DST only";
-
-  final parameter Boolean BesTest = Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
-    "boolean to determine if this simulation is a BESTEST simulation";
-
-public
-  Modelica.SIunits.Irradiance solDirPer = weaDat.cheDirNorRad.HOut
-    "direct irradiation on normal to solar zenith";
-  Modelica.SIunits.Irradiance solDirHor = weaDat.cheGloHorRad.HOut - solDifHor
-    "direct irradiation on horizontal surface";
-  Modelica.SIunits.Irradiance solDifHor = weaDat.cheDifHorRad.HOut
-    "difuse irradiation on horizontal surface";
-  Modelica.SIunits.Irradiance solGloHor = solDirHor + solDifHor
-    "global irradiation on horizontal";
-  Modelica.SIunits.Temperature Te = weaDat.cheTemDryBul.TOut
-    "ambient outdoor temperature for determination of sky radiation exchange";
-  Modelica.SIunits.Temperature Tsky "effective overall sky temperature";
-  Modelica.SIunits.Temperature TeAv = Te
-    "running average of ambient outdoor temperature of the last 5 days, not yet implemented";
-  Modelica.SIunits.Temperature Tground=TdesGround "ground temperature";
-  Modelica.SIunits.Velocity Va "air velocity";
-  Real Fc "cloud factor";
-  Modelica.SIunits.Irradiance irr = weaDat.cheGloHorRad.HOut "Irradiance";
-  Boolean summer = timMan.summer;
-
-  Real relHum(final unit="1") = weaDat.cheRelHum.relHumOut "Relative humidity";
-  Modelica.SIunits.Temperature TDewPoi = weaDat.cheTemDewPoi.TOut "Dewpoint";
-
-  Boolean day=true;
-
-  Modelica.SIunits.Time timLoc = timMan.timLoc "Local time";
-  Modelica.SIunits.Time timSol = timMan.timSol "Solar time";
-  Modelica.SIunits.Time timCal = timMan.timCal "Calendar time";
-
-protected
-  IDEAS.Climate.Time.SimTimes timMan(
-    timZonSta=timZonSta,
-    lon=lon,
-    DST=false,
-    ifSolCor=true)
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-
-public
-  Modelica.Blocks.Tables.CombiTable1Ds tabQCon(
-    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    tableOnFile=true,
-    tableName="data",
-    fileName="../Inputs/" + occupants.filQCon,
-    columns=2:nOcc + 1) if occBeh
-    annotation (Placement(transformation(extent={{-40,-34},{-26,-20}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabQRad(
-    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    tableOnFile=true,
-    tableName="data",
-    fileName="../Inputs/" + occupants.filQRad,
-    columns=2:nOcc + 1) if occBeh
-    annotation (Placement(transformation(extent={{-36,-38},{-22,-24}})));
-  Modelica.Blocks.Sources.CombiTimeTable tabPre(
-    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    tableOnFile=true,
-    tableName="data",
-    fileName="../Inputs/" + occupants.filPres,
-    columns=2:nOcc + 1) if occBeh
-    annotation (Placement(transformation(extent={{0,-34},{14,-20}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabP(
-    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    tableOnFile=true,
-    tableName="data",
-    fileName="../Inputs/" + occupants.filP,
-    columns=2:nOcc + 1) if occBeh
-    annotation (Placement(transformation(extent={{-40,-58},{-26,-44}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabQ(
-    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    tableOnFile=true,
-    tableName="data",
-    fileName="../Inputs/" + occupants.filQ,
-    columns=2:nOcc + 1) if occBeh
-    annotation (Placement(transformation(extent={{-36,-62},{-22,-48}})));
-  Modelica.Blocks.Sources.CombiTimeTable tabDHW(
-    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    tableOnFile=true,
-    tableName="data",
-    fileName="../Inputs/" + occupants.filDHW,
-    columns=2:nOcc + 1) if DHW
-    annotation (Placement(transformation(extent={{0,-58},{14,-44}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabPPV(
-    final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    tableOnFile=true,
-    tableName="data",
-    fileName="../Inputs/" + fileNamePv,
-    columns=2:nPV + 1) if PV
-    annotation (Placement(transformation(extent={{-36,2},{-22,16}})));
-
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=filNamClim, lat=lat, lon=lon, timZon=timZonSta)
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
+  solDirPer=weaDat.cheDirNorRad.HOut;
+  solDirHor = weaDat.cheGloHorRad.HOut - solDifHor;
+  solDifHor = weaDat.cheDifHorRad.HOut;
+  solGloHor = solDirHor + solDifHor;
+  Te = weaDat.cheTemDryBul.TOut;
+  TeAv = Te;
+  Tground=TdesGround;
+  irr = weaDat.cheGloHorRad.HOut;
+  summer = timMan.summer;
+  relHum = weaDat.cheRelHum.relHumOut;
+  TDewPoi = weaDat.cheTemDewPoi.TOut;
+  timLoc = timMan.timLoc;
+  timSol = timMan.timSol;
+  timCal = timMan.timCal;
+
   if BesTest then
     Tsky = Te - (23.8 - 0.2025*(Te - 273.15)*(1 - 0.87*Fc));
     Fc = 0.2;
@@ -150,30 +29,6 @@ equation
     Va = weaDat.cheWinSpe.winSpeOut;
   end if;
 
-  connect(timMan.timCal, tabQCon.u) annotation (Line(
-      points={{-60,6},{-52,6},{-52,-27},{-41.4,-27}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabQRad.u) annotation (Line(
-      points={{-60,6},{-50,6},{-50,-31},{-37.4,-31}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabP.u) annotation (Line(
-      points={{-60,6},{-52,6},{-52,-51},{-41.4,-51}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabQ.u) annotation (Line(
-      points={{-60,6},{-50,6},{-50,-55},{-37.4,-55}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabPPV.u) annotation (Line(
-      points={{-60,6},{-48,6},{-48,9},{-37.4,9}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timSol, weaDat.sol) annotation (Line(
-      points={{-60,10},{-50,10},{-50,42},{-40,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",

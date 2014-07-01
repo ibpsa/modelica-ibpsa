@@ -1,5 +1,6 @@
 UsersGuide
 SimInfoManager
+PartialSimInfoManager
 Climate
 BoundaryConditions
 Buildings
