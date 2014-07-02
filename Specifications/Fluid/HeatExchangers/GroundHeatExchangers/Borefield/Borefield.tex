@@ -1,0 +1,86 @@
+% Documentklasse
+\documentclass[a4paper,oneside,11pt]{report}
+
+% Packages laden
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=2cm]{geometry}		% paginagrootte
+%\usepackage{a4wide}
+\usepackage{parskip}									% andere regels voor nieuwe paragraaf: witregel + niet inspringen
+
+\usepackage[english]{babel}						%	spelling en woordafbreking (Engles)
+\usepackage[latin1]{inputenc}					% invoer van speciale tekens (bvb. Umlaut)
+\usepackage[T1]{fontenc}							% weergave van speciale tekens (bvb. Umlaut)
+\usepackage{lmodern}									% betere weergave van speciale tekens (bvb. Umlaut)
+\usepackage{dsfont}	
+\usepackage{amsfonts,amsthm, tabularx}					% wiskundige symbolen and table of equations
+%\usepackage[fleqn]{amsmath}
+
+\usepackage{graphicx,subfigure}				% figuren
+\usepackage{float}										% plaatsen van figuren en tabellen
+\usepackage[format=plain,
+						indent=1cm]{caption}			% personaliseren van onderschriften
+
+\usepackage{eurosym}									% sign of euro
+
+% Instellingen voor document
+\graphicspath{{Figuren/}}             % bestandslocatie van in te voegen figuren
+\renewcommand{\arraystretch}{1.1}			% tabelrijen iets hoger maken
+
+\usepackage[squaren,Gray]{SIunits}
+\usepackage{amsmath,amsfonts,amsthm,mathrsfs,MnSymbol}	% wiskundige symbolen
+\renewcommand*\thesection{\arabic{section}}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\usepackage{pifont}							
+
+\setcounter{secnumdepth}{3}		% Enable subsubsection numbering
+\setcounter{tocdepth}{3}		% Include subsubsection in table of content
+
+\usepackage{color}				% Load the color package: \color{declared-color}{text}. If also background:
+								% \colorbox{declared-color1}{\color{declared-color2}text}
+\usepackage{hyperref}
+
+
+%%%%%%%%%%
+%% Body %%
+%%%%%%%%%%
+\begin{document}
+
+\chapter*{Borefield model}
+
+\section{Install}
+To run the model, you will need Dymola 2014 FD01 (64bit) or a later version. Make sure that you open the 64-bit by default. Also use version 3.2 or higher of the Modelica Standard Library.
+
+\section{Structure of the code}
+The code is divided in several packages:
+\begin{enumerate}
+\item Data: all the parameter values of the borefield are stored here. This package also includes parameters for the calculation of the step response (short and long-term) and for the aggregation technic. The records {\tt SoilData, FillingData, GeometricData, StepResponse}, and {\tt Advanced} contain the general parameter values. The record {\tt ShortTermResponse} reads a mat-file which should contain the fluid temperature response for the general parameters given by the other records. Finally, the record {\tt BorefieldData} groups the six records into one. 
+\item BaseClasses: most of the calculations for the borefield are done by its base classes. It includes the model for the short-term response, the model for the long-term response, functions for the aggregation technic and some scripts to automate the calculation of the short-term response for given parameters and the saving of the results in a .mat file (see section \ref{sec:ini_mod}).
+\item Examples: some examples to show how you can run the model
+\end{enumerate}
+
+
+\section{Initialization of a new borefield model} \label{sec:ini_mod}
+The borefield model is based on a temperature response model. Prior any simulation, the model will build a step-response and create the aggregation cells. This is only semi-automatic. Every time the user want to use a different borefield (different parameter values), he should build a new records structure as following:
+
+\begin{enumerate}
+\item Go on {\tt borefield/Data } and create new record for {\tt SoilData, FillingData, FillingData, GeometricData, StepResponse, Advanced} with appropriate values for their parameters. Notice that most of the parameters have default values.
+\item Run the script {\tt borefield/BaseClasses/Script/ShortTimeResponseHX } in order to create a new record \textit{ShortTermResponse}:
+	\begin{enumerate}
+	\item right click on the function's name
+	\item fill inputs:
+		\begin{enumerate}
+		\item name: give the name of your new record model
+		\item Tree Data: select the \textit{soi, fill, geo, adv} and \textit{steRes} that you have created (click on \textit{arrow > select record > recordName})
+		\item click on execute
+		\item Check from simulation tab that you get 3 times \textit{True}. 
+		\item If no errors occur, go \textit{Data/ShortTermResponse} and duplicate \textit{example} (right click > new > duplicate) and give the model a new name
+		\item change the string \textit{exampleData} to the new name and click on check the model
+		\item if it gives an error, give the full path of your computer
+		\end{enumerate}
+	\end{enumerate}
+\item Finally, make a new record \textit{Data/BorefieldData} calling all the new subrecord you have made
+\end{enumerate}
+
+
+\section{Simulation}
+Simulating the model is now very easy. Go for example on {\tt Borefield.Examples.MultipleBoreholesWithHeatPump}. Change the parameter {\tt lenSim} to the desired simulation time (necessary to know for the aggregation technique). Change also the type of the borefieldData to the newly creating record by modifying the parameter {\tt Data.BorefieldData.example\_accurate bfData} to your new record.
+\end{document}

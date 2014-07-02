@@ -18,5 +18,6 @@ splineDerivatives
 trapezoidalIntegration
 inverseXRegularized
 isMonotonic
+searchIndex1D
 Examples
 BaseClasses
