@@ -8,15 +8,13 @@ model SpecificEnthalpy "Test model for the enthalpy flow rate sensors"
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     use_h_in=false,
-    nPorts=2,
-    X={0,1}) "Flow boundary condition"
+    nPorts=2) "Flow boundary condition"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   IDEAS.Fluid.Sources.Boundary_ph sin(
     redeclare package Medium = Medium,
     use_h_in=false,
     h=20,
-    nPorts=1,
-    X={0,1}) "Flow boundary condition"
+    nPorts=1) "Flow boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -64,6 +62,10 @@ This example tests the specific enthalpy sensors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 8, 2014, by Michael Wetter:<br/>
+Set species concentration to the default value of the medium.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 First implementation.

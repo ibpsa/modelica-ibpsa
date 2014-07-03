@@ -62,7 +62,8 @@ model TraceSubstancesFlowSource
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
                           annotation (Placement(transformation(extent={{88,-60},
             {108,-40}},rotation=0)));
-  IDEAS.Utilities.Diagnostics.AssertEquality assEqu1(threShold=1E-4)
+  IDEAS.Utilities.Diagnostics.AssertEquality assEqu1(
+                                                     threShold=1E-4)
     "Assert that both volumes have the same concentration"
     annotation (Placement(transformation(extent={{210,0},{230,20}},rotation=0)));
   MixingVolumes.MixingVolume vol4(

@@ -1,6 +1,5 @@
 within IDEAS.Utilities.Math.Examples;
 model PowerLinearized "Test model for powerLinearized function "
-  import IDEAS;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}},rotation=0)));
