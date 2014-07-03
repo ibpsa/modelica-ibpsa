@@ -7,7 +7,6 @@ IntegerReplicator
 InverseXRegularized
 Max
 Min
-MovingAverage
 Polynominal
 PowerLinearized
 QuadraticLinear
@@ -19,4 +18,5 @@ SmoothMax
 SmoothMin
 Splice
 TrapezoidalIntegration
+MovingAverage
 Examples

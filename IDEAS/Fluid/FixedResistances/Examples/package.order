@@ -1,7 +1,7 @@
-FixedResistancesExplicit
-FixedResistancesParallel
 FixedResistancesSeries
-HydraulicCircuit
+FixedResistancesParallel
+FixedResistancesExplicit
 OpenHydraulicSystem
+HydraulicCircuit
 Pipe_HeatPortExample
 PumpWithPipeHeatPorts

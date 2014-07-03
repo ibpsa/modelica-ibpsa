@@ -1,4 +1,0 @@
-simulateModel("IDEAS.Utilities.Math.Examples.PowerLinearized", method="euler", resultFile="PowerLinearizedBlock");
-createPlot(id = 1,
- y = {"powerLinearized.y"},
- grid = true);

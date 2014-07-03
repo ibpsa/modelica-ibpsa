@@ -1,7 +1,4 @@
 within IDEAS.Fluid;
-package Movers "Package with fan and pump models"
+package Movers 
   extends Modelica.Icons.VariantsPackage;
-annotation (preferredView="info", Documentation(info="<html>
-This package contains components models for fans and pumps.
-</html>"));
 end Movers;

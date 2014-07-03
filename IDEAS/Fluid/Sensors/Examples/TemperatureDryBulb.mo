@@ -2,8 +2,7 @@ within IDEAS.Fluid.Sensors.Examples;
 model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
   extends Modelica.Icons.Example;
 
- package Medium = IDEAS.Media.Air
-    "Medium model";
+ package Medium = IDEAS.Media.Air "Medium model";
   IDEAS.Fluid.Sources.Boundary_pT amb(
     redeclare package Medium = Medium,
     T=298.15,

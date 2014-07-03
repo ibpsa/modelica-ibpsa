@@ -1,10 +1,8 @@
 ConstantEffectiveness
 HeaterCoolerPrescribed
+BaseClasses
 GroundHeatExchangers
 Radiators
-Boreholes
 RadiantSlab
-Radiators
 Examples
 Interfaces
-BaseClasses

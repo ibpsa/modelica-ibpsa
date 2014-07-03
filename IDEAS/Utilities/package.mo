@@ -3,6 +3,8 @@ package Utilities "Package with utility functions such as for I/O"
   extends Modelica.Icons.Package;
 
 
+
+
 annotation (
 preferredView="info", Documentation(info="<html>
 <p>
