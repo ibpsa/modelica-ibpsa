@@ -10,7 +10,7 @@ import buildingspy as BP
 import buildingspy.development.regressiontest as r
 import os
 import sys
-sys.path.append("E:\work\python\BuildingsPy")
+# sys.path.append("E:\work\python\BuildingsPy")
 
 import buildingspy as BP
 import buildingspy.development.regressiontest as rt

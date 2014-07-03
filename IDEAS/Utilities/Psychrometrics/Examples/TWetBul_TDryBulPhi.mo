@@ -2,11 +2,12 @@ within IDEAS.Utilities.Psychrometrics.Examples;
 model TWetBul_TDryBulPhi "Model to test the wet bulb temperature computation"
   extends Modelica.Icons.Example;
 
- package Medium = IDEAS.Media.Air "Medium model"
+ package Medium = IDEAS.Media.Air
+    "Medium model"
            annotation (choicesAllMatching = true);
 
-  IDEAS.Utilities.Psychrometrics.TWetBul_TDryBulPhi wetBulPhi(redeclare package
-      Medium =         Medium) "Model for wet bulb temperature"
+  IDEAS.Utilities.Psychrometrics.TWetBul_TDryBulPhi wetBulPhi(redeclare
+      package Medium = Medium) "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{0,40},{20,60}}, rotation=0)));
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-100,
