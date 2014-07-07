@@ -1,6 +1,6 @@
 within Annex60.Fluid.Delays.Examples;
 model Delay
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
 // We set X_default to a small enough value to avoid saturation at the medium temperature
 // that is used in this model.
  package Medium = Annex60.Media.Air(X_default={0.001, 0.999});
@@ -42,6 +42,7 @@ model Delay
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=283.15)
+    "Fluid volume that is a first order approximation of the transport delay"
     annotation (Placement(transformation(extent={{-2,6},{18,26}},  rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
