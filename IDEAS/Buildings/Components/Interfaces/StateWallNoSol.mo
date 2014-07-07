@@ -34,5 +34,4 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-50,-100},{50,100}}), graphics));
-
 end StateWallNoSol;
