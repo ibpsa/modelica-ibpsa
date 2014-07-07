@@ -38,16 +38,16 @@ model EmbeddedPipe
   parameter Real N_pipes = A_floor/L_floor/RadSlaCha.T - 1
     "Number of parallel pipes in the slab"
 annotation(Dialog(tab="Pressure drop"));
-  parameter Modelica.SIunits.Length pipeBendEqLen = 2*N_pipes*(2.48*RadSlaCha.T/2/pipeDiaInt+3.20)*pipeDiaInt
+  parameter Modelica.SIunits.Length pipeBendEqLen = 2*(N_pipes-1)*(2.48*RadSlaCha.T/2/pipeDiaInt+3.20)*pipeDiaInt
     "Pipe bends equivalent length, default according to Fox and McDonald"
 annotation(Dialog(tab="Pressure drop"));
-  parameter Modelica.SIunits.Length pipeEqLen = pipeBendEqLen + (L_floor-4*RadSlaCha.T)*N_pipes
-    "Total pipe equivalent length, default assuming 180 dg turns starting at 2 time RadSlaCha.T from the end of the slab"
+  parameter Modelica.SIunits.Length pipeEqLen = pipeBendEqLen + (L_floor-2*RadSlaCha.T)*N_pipes
+    "Total pipe equivalent length, default assuming 180 dg turns starting at RadSlaCha.T from the end of the slab"
 annotation(Dialog(tab="Pressure drop"));
   parameter Modelica.SIunits.MassFlowRate m_flowMin
     "Minimal flowrate when in operation";
 
-  parameter Modelica.SIunits.Area A_floor=1 "Floor/tabs surface area";
+  parameter Modelica.SIunits.Area A_floor "Floor/tabs surface area";
 
   // Resistances ////////////////////////////////////////////////////////////////
   // there is no R_z in the model because the dynamics of the water is explicitly simulated
