@@ -17,7 +17,6 @@ model StorageWithThermostaticMixing
     annotation (Placement(transformation(extent={{-20,-62},{-70,10}})));
 
   Fluid.Valves.Thermostatic3WayValve temperatureMixing(
-    mFlowMin=0.01,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
               annotation (Placement(transformation(extent={{2,16},{22,36}})));
@@ -59,7 +58,7 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(pulse.y, pump1.m_flowSet) annotation (Line(
-      points={{37,76},{48,76},{48,36}},
+      points={{37,76},{48,76},{48,36.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bou.ports[1], pump1.port_b) annotation (Line(
