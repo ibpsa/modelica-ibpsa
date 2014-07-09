@@ -38,10 +38,11 @@ model SimInfoManager
     annotation (Dialog(group="Photovoltaics"));
   final parameter Modelica.SIunits.Temperature Tdes = -8 + 273.15
     "design outdoor temperature";
-protected
+
   final parameter Modelica.SIunits.Temperature TdesGround = 10 + 273.15
     "design ground temperature";
 
+protected
   final parameter Boolean DST = true
     "boolean to take into account daylight saving time";
   final parameter Integer yr = 2014 "depcited year for DST only";
