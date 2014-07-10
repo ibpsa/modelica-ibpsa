@@ -142,7 +142,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(humBac.port_a, res2.port_a)         annotation (Line(
-      points={{-32,-6},{-26.5,-6},{-26.5,-6},{-21,-6},{-21,-6},{-10,-6}},
+      points={{-32,-6},{-10,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res2.port_b, sink1.ports[2]) annotation (Line(
