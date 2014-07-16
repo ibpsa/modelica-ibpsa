@@ -17,7 +17,6 @@ A million repetitions of "a"
 
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 
 typedef struct {
     unsigned long state[5];
@@ -176,26 +175,39 @@ unsigned char finalcount[8];
 
 /*************************************************************/
 
-char* sha1(char* path)
+
+long double sha1(char* path)
 {
 int i, j;
+long double sha;
+long double sha_el;
 SHA1_CTX context;
 unsigned char digest[20], buffer[16384];
 FILE* file;
 
-        if (!(file = fopen(path, "rb"))) {
-            fputs("Unable to open file.", stderr);
-            exit(-1);
-        }
+	if (!(file = fopen(path, "rb"))) {
+		fputs("Unable to open file.", stderr);
+		exit(-1);
+	}
 
     SHA1Init(&context);
-
     while (!feof(file)) {  /* note: what if ferror(file) */
         i = fread(buffer, 1, 16384, file);
         SHA1Update(&context, buffer, i);
     }
-	
     SHA1Final(digest, &context);
     fclose(file);
-return digest;    
+
+	sha = 0;
+	i = 0;
+	while(i<5){
+		j = 0;
+		while(j<4){
+			sha_el = (int) digest[i*4+j];
+			sha = sha*1000 + sha_el; 
+			j++;
+		}
+		i++;
+	}
+return sha;
 }
