@@ -178,7 +178,7 @@ unsigned char finalcount[8];
 
 long double sha2(char* path)
 {
-int i, j;
+int i, j, n;
 long double sha;
 long double sha_el;
 SHA1_CTX context;
