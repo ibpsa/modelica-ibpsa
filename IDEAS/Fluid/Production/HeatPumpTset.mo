@@ -19,14 +19,13 @@ model HeatPumpTset "Heat pump using a temperature setpoint"
         origin={-20,108})));
 
   Real cop "COP of the heat pump";
-
   Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=uLow, uHigh=uHigh)
     annotation (Placement(transformation(extent={{-22,-64},{-2,-44}})));
   parameter Real uLow=-2.5 "Lower bound of the hysteresis control";
   parameter Real uHigh=2.5 "Upper bound of the hysteresis control";
 equation
   cop =  if hysteresis.y then  copTable.y else 1;
-  P_el = if hysteresis.y then  powerTable.y else 0;
+  P_el = if hysteresis.y then  powerTable.y*sca else 0;
 
   P_evap=P_el*(cop-1);
   P_cond=P_el*cop;

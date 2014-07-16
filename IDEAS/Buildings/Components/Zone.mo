@@ -31,7 +31,7 @@ protected
         rotation=-90,
         origin={-54,-44})));
   BaseClasses.AirLeakage airLeakage(
-    redeclare package Medium = IDEAS.Media.Air,
+    redeclare package Medium = Medium,
     m_flow_nominal=V/3600*n50/20,
     V=V,
     n50=0.1)
@@ -52,17 +52,15 @@ public
   Fluid.MixingVolumes.MixingVolume         vol(
     V=V,
     m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = IDEAS.Media.Air,
-    nPorts=4)                                  annotation (Placement(
+    nPorts=4,
+    redeclare package Medium = Medium)         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-10,30})));
-  Fluid.Interfaces.FlowPort_b flowPort_Out(redeclare package Medium =
-        IDEAS.Media.Air)
+  Fluid.Interfaces.FlowPort_b flowPort_Out(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
-  Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium =
-        IDEAS.Media.Air)
+  Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCap(C=1012*1.204*V
         *(corrCV-1), T(start=293.15)) "air capacity"

@@ -1,7 +1,7 @@
 within IDEAS.Fluid.HeatExchangers.BaseClasses;
 partial model PartialEffectiveness
   "Partial model to implement heat exchangers based on effectiveness model"
-  extends Interfaces.StaticFourPortHeatMassExchanger(show_T=false);
+  extends Fluid.Interfaces.StaticFourPortHeatMassExchanger(show_T=false);
 
   Modelica.SIunits.Temperature T_in1 "Inlet temperature medium 1";
   Modelica.SIunits.Temperature T_in2 "Inlet temperature medium 2";

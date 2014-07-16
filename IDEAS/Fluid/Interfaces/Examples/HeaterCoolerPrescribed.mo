@@ -5,7 +5,8 @@ model HeaterCoolerPrescribed
 
  package Medium = IDEAS.Media.Water;
 
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea1(redeclare package
+  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea1(
+                                                         redeclare package
       Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
@@ -61,7 +62,8 @@ model HeaterCoolerPrescribed
         transformation(extent={{28,134},{48,154}}, rotation=0)));
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
           extent={{-50,174},{-30,194}}, rotation=0)));
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea3(redeclare package
+  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea3(
+                                                         redeclare package
       Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
@@ -113,7 +115,8 @@ model HeaterCoolerPrescribed
         0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,116},{180,136}}, rotation=
            0)));
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea5(redeclare package
+  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea5(
+                                                         redeclare package
       Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
@@ -141,7 +144,8 @@ model HeaterCoolerPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{0,-130},{20,-110}},rotation=0)));
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea7(redeclare package
+  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea7(
+                                                         redeclare package
       Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
