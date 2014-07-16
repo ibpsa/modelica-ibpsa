@@ -3,4 +3,5 @@ readTrajectoryTRSHX
 readTrajectorytVec
 readTrajectoryTResSho
 readTrajectoryVecLen
-readAggregationMatrixSize
+initializeModel_test
+initializeModel

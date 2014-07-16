@@ -8,5 +8,4 @@ record example =            Records.BorefieldData (
     redeclare replaceable record SteRes =
         StepResponse.example,
     redeclare replaceable record Adv = Advanced.example,
-    redeclare replaceable record ShoTerRes = ShortTermResponse.example,
-    redeclare replaceable record AggMat = AggregationMatrix.example);
+    redeclare replaceable record ShoTerRes = ShortTermResponse.example);
