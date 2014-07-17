@@ -2,6 +2,7 @@ within Annex60.Utilities.Psychrometrics;
 block TWetBul_TDryBulPhi
   "Model to compute the wet bulb temperature based on relative humidity"
   extends Modelica.Blocks.Icons.Block;
+  extends Annex60.Utilities.Psychrometrics.BaseClasses.psychometricsConstants;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
                                                             annotation (
@@ -37,19 +38,12 @@ block TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
 
 protected
-  constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
   Modelica.SIunits.MassFraction XiDryBul
     "Water vapor mass fraction at dry bulb state";
   Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
-    "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
-    "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-    "Specific heat capacity of water vapor";
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
@@ -140,7 +134,7 @@ Otherwise, the model will introduce one nonlinear equation.
 </p>
 <p>
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
-a temperature range from <i>-20&circ;C</i> to <i>50&circ;C</i> 
+a temperature range from <i>-20degC;C</i> to <i>50degC;C</i> 
 and standard sea level pressure. 
 For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
 with a mean error of less than <i>0.3</i> Kelvin.

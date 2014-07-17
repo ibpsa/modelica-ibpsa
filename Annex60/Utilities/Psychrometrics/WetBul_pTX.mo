@@ -2,6 +2,7 @@ within Annex60.Utilities.Psychrometrics;
 block WetBul_pTX
   "Block to compute the wet bulb condition for given dry bulb temperature and humidity"
    extends Modelica.Blocks.Icons.Block;
+   extends Annex60.Utilities.Psychrometrics.BaseClasses.psychometricsConstants;
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
@@ -39,14 +40,6 @@ block WetBul_pTX
     unit="1",
     nominal=0.01) "Water vapor mass fraction at wet bulb temperature"
   annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
-
-protected
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
-    "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
-    "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-    "Specific heat capacity of water vapor";
 equation
   XWetBul   = Annex60.Utilities.Psychrometrics.Functions.X_pSatpphi(
       pSat=   Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),

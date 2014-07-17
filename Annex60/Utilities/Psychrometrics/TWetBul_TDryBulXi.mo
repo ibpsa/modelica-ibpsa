@@ -2,6 +2,8 @@ within Annex60.Utilities.Psychrometrics;
 block TWetBul_TDryBulXi
   "Model to compute the wet bulb temperature based on mass fraction"
   extends Modelica.Blocks.Icons.Block;
+  extends Annex60.Utilities.Psychrometrics.BaseClasses.psychometricsConstants;
+
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
                                                             annotation (
@@ -35,7 +37,6 @@ block TWetBul_TDryBulXi
           rotation=0)));
 
 protected
-  constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
@@ -46,12 +47,6 @@ protected
 
  parameter Integer iWat(fixed=false)
     "Index of water in medium composition vector";
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
-    "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
-    "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
-    "Specific heat capacity of water vapor";
 initial algorithm
   iWat:=-1;
     for i in 1:Medium.nX loop
@@ -65,7 +60,7 @@ initial algorithm
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
-    rh_per       = 100 * p/min(Annex60.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),0.999*p)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat]));
+    rh_per       = 100 * p/min(Annex60.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),0.999*p)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat])); //fixme: smoothMin?
     TWetBul      = 273.15 + TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
        + Modelica.Math.atan(TDryBul_degC + rh_per)
