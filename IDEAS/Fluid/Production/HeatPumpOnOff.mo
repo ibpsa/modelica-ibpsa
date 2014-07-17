@@ -5,11 +5,6 @@ model HeatPumpOnOff "A heat pump that can only be switch on or off"
       IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData);
   extends IDEAS.Fluid.Interfaces.OnOffInterface(use_onOffSignal=true);
 
-  parameter Boolean use_scaling = false
-    "scale the performance data based on the nominal power";
-  final parameter Real sca = if use_scaling then P_the_nominal / heatPumpData.P_the_nominal else 1
-    "scaling factor for the nominal power of the heat pump";
-
   // check https://github.com/open-ideas/IDEAS/issues/17 for a discussion on why CombiTable2D is used
   Modelica.Blocks.Tables.CombiTable2D powerTable(              table=
         heatPumpData.powerData, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
