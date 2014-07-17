@@ -31,6 +31,11 @@ partial model PartialHeatPump "Heat pump partial"
   final parameter Real sca = if use_scaling then P_the_nominal / heatPumpData.P_the_nominal else 1
     "scaling factor for the nominal power of the heat pump";
 
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_brine=heatPumpData.m_flow_nominal_brine*sca
+    "Mass flow rate of the brine (evaporator) for calculation of the pressure drop";
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_fluid=heatPumpData.m_flow_nominal_fluid*sca
+    "Mass flow rate of the fluid (condensor) for calculation of the pressure drop";
+
     //From LumpedVolumeDeclarations
       // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -155,7 +160,7 @@ public
     from_dp=from_dp,
     linearizeFlowResistance=linearizeFlowResistance,
     deltaM=deltaM,
-    m_flow_nominal=heatPumpData.m_flow_nominal_brine,
+    m_flow_nominal=m_flow_nominal_brine,
     m=heatPumpData.mBrine,
     dp_nominal=heatPumpData.dp_nominal_brine)
               annotation (Placement(transformation(
@@ -174,7 +179,7 @@ public
     X_start=X_start2,
     C_start=C_start2,
     C_nominal=C_nominal2,
-    m_flow_nominal=heatPumpData.m_flow_nominal_fluid,
+    m_flow_nominal=m_flow_nominal_fluid,
     m=heatPumpData.mFluid,
     dp_nominal=heatPumpData.dp_nominal_fluid)
                                  annotation (Placement(transformation(
