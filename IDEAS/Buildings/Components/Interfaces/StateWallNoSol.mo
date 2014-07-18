@@ -5,6 +5,22 @@ partial model StateWallNoSol
   outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
+  parameter Modelica.SIunits.Length insulationThickness
+    "Thermal insulation thickness"
+    annotation (Dialog(group="Construction details"));
+  replaceable IDEAS.Buildings.Data.Constructions.CavityWall constructionType
+    constrainedby Data.Interfaces.Construction(final insulationType=
+        insulationType, final insulationTickness=insulationThickness)
+    "Type of building construction" annotation (
+    __Dymola_choicesAllMatching=true,
+    Placement(transformation(extent={{-38,72},{-34,76}})),
+    Dialog(group="Construction details"));
+  replaceable IDEAS.Buildings.Data.Insulation.Rockwool insulationType
+    constrainedby Data.Interfaces.Insulation(final d=insulationThickness)
+    "Type of thermal insulation" annotation (
+    __Dymola_choicesAllMatching=true,
+    Placement(transformation(extent={{-38,84},{-34,88}})),
+    Dialog(group="Construction details"));
   ZoneBus propsBus_a annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,

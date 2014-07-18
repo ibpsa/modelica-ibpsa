@@ -15,16 +15,16 @@ model Window "Multipane window"
   final parameter Modelica.SIunits.Power QNom=glazing.U_value*A*(273.15 + 21 -
       sim.Tdes) "Design heat losses at reference outdoor temperature";
 
-  replaceable IDEAS.Buildings.Data.Interfaces.Glazing glazing
+  replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazing
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
-  replaceable IDEAS.Buildings.Data.Interfaces.Frame fraType
+  replaceable IDEAS.Buildings.Data.Frames.None fraType
     constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
-  replaceable Interfaces.StateShading shaType constrainedby
-    Interfaces.StateShading(final azi=azi) "Shading type" annotation (
+  replaceable IDEAS.Buildings.Components.Shading.None shaType constrainedby
+    Interfaces.StateShading(final azi=azi) "Shading type" annotation (Placement(transformation(extent={{-36,-70},{-26,-50}})),
       __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
 
   Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controled
@@ -43,7 +43,7 @@ protected
     final azi=azi,
     final A=A*(1 - frac))
     "determination of incident solar radiation on wall based on inclination and azimuth"
-    annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
+    annotation (Placement(transformation(extent={{-72,-70},{-52,-50}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerLucent layMul(
     final A=A*(1 - frac),
     final inc=inc,
@@ -86,7 +86,6 @@ protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=
         fraType.U_value*A*frac) if fraType.present
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-
 equation
   connect(eCon.port_a, layMul.port_a) annotation (Line(
       points={{-20,-30},{-10,-30}},
@@ -126,23 +125,23 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(radSol.solDir, shaType.solDir) annotation (Line(
-      points={{-50,-54},{-36,-54}},
+      points={{-52,-54},{-36,-54}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSol.solDif, shaType.solDif) annotation (Line(
-      points={{-50,-58},{-36,-58}},
+      points={{-52,-58},{-36,-58}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSol.angInc, shaType.angInc) annotation (Line(
-      points={{-50,-64},{-36,-64}},
+      points={{-52,-64},{-36,-64}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSol.angZen, shaType.angZen) annotation (Line(
-      points={{-50,-66},{-36,-66}},
+      points={{-52,-66},{-36,-66}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSol.angAzi, shaType.angAzi) annotation (Line(
-      points={{-50,-68},{-36,-68}},
+      points={{-52,-68},{-36,-68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaType.iSolDir, solWin.solDir) annotation (Line(

@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Data.Interfaces;
-model Construction
+record Construction
 
   extends Modelica.Icons.MaterialProperty;
 
