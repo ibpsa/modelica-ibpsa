@@ -31,7 +31,7 @@ equation
       summer = true;
     else
       timZon = timZonSta;
-      summer = false;
+      summer = true;
     end if;
   else
     timZon = timZonSta;

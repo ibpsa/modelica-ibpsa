@@ -41,10 +41,11 @@ partial model PartialSimInfoManager
     "Set to false if you do not want to use the TMY3 reader for providing data";
   final parameter Modelica.SIunits.Temperature Tdes = -8 + 273.15
     "design outdoor temperature";
-protected
+
   final parameter Modelica.SIunits.Temperature TdesGround = 10 + 273.15
     "design ground temperature";
 
+protected
   final parameter Boolean DST = true
     "boolean to take into account daylight saving time";
   final parameter Integer yr = 2014 "depcited year for DST only";
@@ -80,7 +81,6 @@ public
   Modelica.SIunits.Time timSol "Solar time";
   Modelica.SIunits.Time timCal "Calendar time";
 
-protected
   IDEAS.Climate.Time.SimTimes timMan(
     timZonSta=timZonSta,
     lon=lon,
@@ -88,7 +88,6 @@ protected
     ifSolCor=true)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 
-public
   Modelica.Blocks.Tables.CombiTable1Ds tabQCon(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
