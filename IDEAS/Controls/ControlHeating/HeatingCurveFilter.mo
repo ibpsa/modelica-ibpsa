@@ -1,5 +1,5 @@
 within IDEAS.Controls.ControlHeating;
-block HeatingCurve
+block HeatingCurveFilter
   "Block to compute the supply and return set point of heating systems"
 
   /* 
@@ -32,7 +32,8 @@ block HeatingCurve
     annotation (Evaluate=true, Dialog(enable=not use_TRoo_in));
   parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal=8
     "Offset for heating curve";
-
+  parameter Modelica.SIunits.Time timeFilter=86400
+    "Time constant for filter on ambient temperature";
   Modelica.Blocks.Interfaces.RealInput TRoo_in(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -72,12 +73,17 @@ protected
       dTOutHeaBal
     "Effective outside temperature for heat transfer at nominal conditions (takes into account room heat gains)";
 
+public
+  replaceable Modelica.Blocks.Interfaces.SISO filter annotation (choices(choice(
+          redeclare Modelica.Blocks.Continuous.FirstOrder filter(T=timeFilter)),
+        choice(redeclare IDEAS.BaseClasses.Math.MovingAverage filter(period=
+              timeFilter))), Placement(transformation(extent={{-42,50},{-22,70}})));
 equation
   connect(TRoo_in, TRoo_in_internal);
   if not use_TRoo_in then
     TRoo_in_internal = TRoo;
   end if;
-  TOutOffSet = TOut + dTOutHeaBal;
+  TOutOffSet = filter.y + dTOutHeaBal;
   // Relative heating load, compared to nominal conditions
   qRel = IDEAS.Utilities.Math.Functions.smoothMax(x1=0, x2=(TRoo_in_internal - TOutOffSet)/(TRoo_nominal -
     TOutOffSet_nominal),deltaX=0.1);
@@ -90,6 +96,10 @@ equation
   end if;
 
   TRet = TSup - qRel*(TSup_nominal - TRet_nominal);
+  connect(TOut, filter.u) annotation (Line(
+      points={{-120,60},{-44,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Documentation(info="<html>
 <p><b>Description</b> </p>
@@ -153,4 +163,4 @@ equation
           textString="TRet")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics));
-end HeatingCurve;
+end HeatingCurveFilter;
