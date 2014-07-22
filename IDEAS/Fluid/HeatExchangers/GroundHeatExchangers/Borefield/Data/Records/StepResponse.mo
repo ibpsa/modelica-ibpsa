@@ -10,8 +10,8 @@ record StepResponse
   parameter Integer t_min_d=1 "[-] Mininum simulation discrete time";
   final parameter Integer tSteSta_d=integer(3600*24*365*30/tStep)
     "[-] discrete time to reach steady state (default = 30 years)";
-  parameter Integer tBre_d=100
-    "[-] discrete time upper boundary for saving results (tBre_d * tStep) should be > 100 hours";
+  final parameter Integer tBre_d= max(1,integer(150*3600 / tStep))
+    "[-] discrete time upper boundary for saving results (tBre_d * tStep) should be >= 150 hours";
   parameter Real q_ste(unit="W/m") = 30
     "Power per length borehole of step load input";
   parameter SI.MassFlowRate m_flow=0.3 "Flow through the pipe";

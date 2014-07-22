@@ -173,8 +173,7 @@ initial algorithm
 
   kappaMat:=
     IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.initializeModel(
-    nameBfData=bfData.name,
-    path=bfData.path,
+    pathRec=bfData.pathAbs,
     q_max=q_max,
     p_max=p_max,
     steRes=bfData.steRes,
@@ -182,7 +181,8 @@ initial algorithm
     soi=bfData.soi,
     shoTerRes=bfData.shoTerRes,
     nuMat=nuMat,
-    TSteSta=TSteSta);
+    TSteSta=TSteSta,
+    lenSim=lenSim);
 
 //
 //

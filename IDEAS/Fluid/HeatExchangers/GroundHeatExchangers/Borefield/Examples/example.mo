@@ -9,7 +9,7 @@ model example
   parameter Data.BorefieldData.example
     bfData
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  parameter Integer lenSim=3600*24*20 "length of the simulation";
+  parameter Integer lenSim=3600*24*365*30 "length of the simulation";
 
   MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData,
     redeclare package Medium = Medium, saveAggMat=false,loadAggMat=true)

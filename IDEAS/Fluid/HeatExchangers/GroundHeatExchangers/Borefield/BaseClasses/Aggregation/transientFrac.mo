@@ -6,7 +6,8 @@ function transientFrac "Calculates the transient resistance for each cell"
   input Data.Records.StepResponse steRes;
   input Data.Records.Geometry geo;
   input Data.Records.Soil soi;
-  input Data.Records.ShortTermResponse shoTerRes;
+  input Real[:] TResSho
+    "Vector containing the short term  fluid step-reponse temperature in function of the time";
 
   input Integer[q_max,p_max] nuMat "number of pulse at the end of each cells";
 
@@ -27,7 +28,7 @@ algorithm
           steRes=steRes,
           geo=geo,
           soi=soi,
-          shoTerRes=shoTerRes) - steRes.T_ini)/TSteSta;
+          TResSho=TResSho) - steRes.T_ini)/TSteSta;
 
       else
         (q_pre,p_pre) := BaseClasses.previousCellIndex(
@@ -41,12 +42,12 @@ algorithm
           steRes=steRes,
           geo=geo,
           soi=soi,
-          shoTerRes=shoTerRes) - GroundHX.HeatCarrierFluidStepTemperature(
+          TResSho=TResSho) - GroundHX.HeatCarrierFluidStepTemperature(
           t_d=nuMat[q_pre, p_pre],
           steRes=steRes,
           geo=geo,
           soi=soi,
-          shoTerRes=shoTerRes))/TSteSta;
+          TResSho=TResSho))/TSteSta;
       end if;
     end for;
   end for;

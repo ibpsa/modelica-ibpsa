@@ -1,5 +1,5 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts;
-function ShortTimeResponseHX
+function ShortTimeResponseHX_old
   /* Remark: by calling the function, 3 "true" should appear for: \
       1) translation of model \
       2) simulation of model \
@@ -17,26 +17,31 @@ function ShortTimeResponseHX
   input Data.Records.Advanced adv=Data.Advanced.example() "Advanced parameters";
   input Data.Records.StepResponse steRes=Data.StepResponse.example()
     "generic step load parameter";
+  input Data.Records.ShortTermResponse shoTerRes=Data.ShortTermResponse.example(rendering=true); // constrainedby(Data.Records.ShortTermResponse(rendering=true))
 
-  input String pathSave "save path for the result file";
-
-  output Real[steRes.tBre_d + 1] TResSho;
   output Real[3,steRes.tBre_d + 1] readData;
 
 protected
+  parameter String name=shoTerRes.name;
+  parameter String savePath=shoTerRes.savePath;
   final parameter String modelToSimulate="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
     "model to simulate";
-
-  String[2] varToStore={"borHolSer.sta_a.T","borHolSer.sta_b.T"}
+  Integer nbOfPoi=1000;
+  String filPathAndName=savePath + name "path and name of file";
+  String[2] variablesToStore={"borHolSer.sta_a.T","borHolSer.sta_b.T"}
     "variables to store in result file";
   SI.Time[1,steRes.tBre_d + 1] timVec={0:steRes.tStep:steRes.tBre_d*steRes.tStep}
     "time vector for which the data are saved";
-  String[3] saveName={"Time",varToStore[1],varToStore[2]};
+  String[3] saveName;
 
 algorithm
   //To ensure that the same number of data points is written in all result files
   //equidistant time grid is enabled and store variables at events is disabled.
   experimentSetupOutput(equdistant=true, events=false);
+
+  //delete the result file if it already exists
+  Modelica.Utilities.Files.removeFile(filPathAndName + "_sim");
+  Modelica.Utilities.Files.removeFile(filPathAndName + "Data");
 
   simulateModel(
     modelToSimulate +
@@ -46,24 +51,25 @@ algorithm
      "steRes=" + steRes.path + "()," +
      "adv=" + adv.path + "())",
     stopTime=steRes.tBre_d*steRes.tStep,
-    numberOfIntervals=steRes.tBre_d + 1,
+    numberOfIntervals=nbOfPoi,
     method="dassl",
-   resultFile=pathSave + "_sim");
+   resultFile=filPathAndName + "_sim");
 
   // First columns are shorttime, last column is steady state
   readData := cat(
     1,
     timVec,
     interpolateTrajectory(
-      pathSave + "_sim.mat",
-      varToStore,
+      filPathAndName + "_sim.mat",
+      variablesToStore,
       timVec[1, :]));
 
-  TResSho :=(readData[2, 1:end] + readData[3, 1:end])/2;
+  saveName := {"Time",variablesToStore[1],variablesToStore[2]};
+
   writeTrajectory(
-    fileName=pathSave + "ShoTermData.mat",
-    signals="TResSho",
-    values=transpose(TResSho));
+    fileName=filPathAndName + "Data.mat",
+    signals=saveName,
+    values=transpose(readData));
 
   annotation ();
-end ShortTimeResponseHX;
+end ShortTimeResponseHX_old;

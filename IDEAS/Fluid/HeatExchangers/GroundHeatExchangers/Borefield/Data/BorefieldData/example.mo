@@ -7,5 +7,4 @@ record example =            Records.BorefieldData (
         GeometricData.example,
     redeclare replaceable record SteRes =
         StepResponse.example,
-    redeclare replaceable record Adv = Advanced.example,
-    redeclare replaceable record ShoTerRes = ShortTermResponse.example);
+    redeclare replaceable record Adv = Advanced.example);
