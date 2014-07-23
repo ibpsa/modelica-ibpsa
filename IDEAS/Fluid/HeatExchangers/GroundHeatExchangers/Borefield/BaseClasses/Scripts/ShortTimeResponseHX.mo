@@ -20,7 +20,7 @@ function ShortTimeResponseHX
 
   input String pathSave "save path for the result file";
 
-  output Real[steRes.tBre_d + 1] TResSho;
+  output Real[1,steRes.tBre_d + 1] TResSho;
   output Real[3,steRes.tBre_d + 1] readData;
 
 protected
@@ -59,11 +59,14 @@ algorithm
       varToStore,
       timVec[1, :]));
 
-  TResSho :=(readData[2, 1:end] + readData[3, 1:end])/2;
-  writeTrajectory(
-    fileName=pathSave + "ShoTermData.mat",
-    signals="TResSho",
-    values=transpose(TResSho));
+  TResSho[1,:] :=(readData[2, 1:end] + readData[3, 1:end])/2;
+
+  writeMatrix(
+      fileName=pathSave + "ShoTermData.mat", matrixName="TResSho", matrix=TResSho, append=false);
+//   writeTrajectory(
+//     fileName=pathSave + "ShoTermData.mat",
+//     signals={"TResSho"},
+//     values=transpose(TResSho));
 
   annotation ();
 end ShortTimeResponseHX;

@@ -10,6 +10,12 @@ model test_T_ft_cor
       Data.ShortTermResponse.example();
 
   SI.Temperature T_fts_cor;
+  SI.Temperature T_fts_cor_steSta=HeatCarrierFluidStepTemperature(
+      t_d=integer(36000*24*365*30/steRes.tStep),
+      steRes=steRes,
+      geo=geo,
+      soi=soi,
+      TResSho=shoTerRes.TResSho);
 
   Integer timeSca "time step size for simulation";
   Integer timeSca_old;
@@ -25,15 +31,15 @@ algorithm
 
 algorithm
   when initial() then
-    i :=integer(2);
-    i_old :=i;
-    timeSca :=integer(steRes.tStep);
-    timeSca_old :=timeSca;
-  elsewhen sample(steRes.tStep*10^1,steRes.tStep*10^i/5) then
-    i_old :=i;
-    i :=i_old+1;
-    timeSca :=integer(timeSca_old*2);
-    timeSca_old :=timeSca;
+    i := integer(2);
+    i_old := i;
+    timeSca := integer(steRes.tStep);
+    timeSca_old := timeSca;
+  elsewhen sample(steRes.tStep*10^1, steRes.tStep*10^i/5) then
+    i_old := i;
+    i := i_old + 1;
+    timeSca := integer(timeSca_old*2);
+    timeSca_old := timeSca;
   end when;
 
 equation
@@ -42,7 +48,7 @@ equation
     steRes=steRes,
     geo=geo,
     soi=soi,
-    shoTerRes=shoTerRes);
+    TResSho=shoTerRes.TResSho);
 
   annotation (experiment(StopTime=720000, __Dymola_NumberOfIntervals=10),
       __Dymola_experimentSetupOutput);

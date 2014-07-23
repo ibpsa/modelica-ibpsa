@@ -40,17 +40,6 @@ model MultipleBoreHoles
       n_max=integer(lenSim/bfData.steRes.tStep), p_max=p_max)
     "number of aggregation levels";
 
-  final parameter Modelica.SIunits.Temperature TSteSta=
-      Borefield.BaseClasses.GroundHX.HeatCarrierFluidStepTemperature(
-            steRes=bfData.steRes,
-            geo=bfData.geo,
-            soi=bfData.soi,
-            shoTerRes=bfData.shoTerRes,
-            t_d=bfData.steRes.tSteSta_d);
-
-  final parameter Real R_ss=TSteSta/(bfData.steRes.q_ste*bfData.geo.hBor
-      *bfData.geo.nbBh) "steady state resistance";
-
   // Load of borefield
   Modelica.SIunits.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
@@ -78,6 +67,11 @@ model MultipleBoreHoles
 
   final parameter Integer nbOfAggPulse=nuMat[end, end]
     "number of aggregated pulse";
+
+  final parameter Modelica.SIunits.Temperature TSteSta[1,1](fixed=false)
+    "Quasi steady state temperature";
+
+  final parameter Real R_ss(fixed=false) "steady state resistance";
 
 //Load
   Real[q_max,p_max] QMat
@@ -171,7 +165,7 @@ initial algorithm
 //       TSteSta=TSteSta);
 //   end if;
 
-  kappaMat:=
+  (kappaMat, TSteSta):=
     IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.initializeModel(
     pathRec=bfData.pathAbs,
     q_max=q_max,
@@ -179,10 +173,13 @@ initial algorithm
     steRes=bfData.steRes,
     geo=bfData.geo,
     soi=bfData.soi,
-    shoTerRes=bfData.shoTerRes,
+    fill=  bfData.fil,
+    adv=  bfData.adv,
     nuMat=nuMat,
-    TSteSta=TSteSta,
     lenSim=lenSim);
+
+  R_ss :=TSteSta[1,1]/(bfData.steRes.q_ste*bfData.geo.hBor*bfData.geo.nbBh)
+    "steady state resistance";
 
 //
 //
