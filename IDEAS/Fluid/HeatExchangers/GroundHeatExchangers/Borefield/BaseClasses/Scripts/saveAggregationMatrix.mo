@@ -65,12 +65,12 @@ write the temperory file at a different location. \n
     existShoTerRes := true;
   end if;
 
-  assert(existShoTerRes, sha + " \n
+  assert(existShoTerRes, " \n
 ************************************************************************************************************************ \n 
 The borefield model with this BfData record has not yet been initialized. Please run 
 IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.initializeModel 
 with the correct parameters to initialize the model. To run the function, right click on it < \"Call function\" \n
-************************************************************************************************************************ \n "+pathSave + "ShoTermData.mat");
+************************************************************************************************************************ \n ");
 
   TResSho := readMatrix(
     fileName=pathSave + "ShoTermData.mat",

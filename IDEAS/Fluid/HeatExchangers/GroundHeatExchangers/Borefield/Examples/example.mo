@@ -13,7 +13,7 @@ model example
 
   MultipleBoreHoles multipleBoreholes(lenSim=lenSim,
     redeclare package Medium = Medium,
-    bfData) "borefield"
+    bfData=bfData) "borefield"
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
   Modelica.Blocks.Sources.Step           load(height=1, startTime=36000)
     "load for the borefield"
