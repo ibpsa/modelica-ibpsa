@@ -40,13 +40,13 @@ algorithm
   // --------------- Generate SHA-code and path
   sha := IDEAS.Utilities.Cryptographics.sha_hash(pathRec);
 
-  if Modelica.Utilities.Files.exist("W:") then
+  if Modelica.Utilities.Files.exist("C:") then
     dir :="C://.BfData";
-  elseif Modelica.Utilities.Files.exist("home/") then
-    dir :="home//.BfData";
+  elseif Modelica.Utilities.Files.exist("/tmp") then
+    dir :="/tmp/.BfData";
   else
     dir :="";
-    assert(false,"\n
+    assert(false, "\n
 ************************************************************************************************************************ \n 
 You do not have the writing permission on the C: or home/ folder. Change the variable dir in
 IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.saveAggregationMatrix to 
@@ -65,12 +65,12 @@ write the temperory file at a different location. \n
     existShoTerRes := true;
   end if;
 
-  assert(existShoTerRes, " \n
+  assert(existShoTerRes, sha + " \n
 ************************************************************************************************************************ \n 
 The borefield model with this BfData record has not yet been initialized. Please run 
 IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.initializeModel 
 with the correct parameters to initialize the model. To run the function, right click on it < \"Call function\" \n
-************************************************************************************************************************ \n ");
+************************************************************************************************************************ \n "+pathSave + "ShoTermData.mat");
 
   TResSho := readMatrix(
     fileName=pathSave + "ShoTermData.mat",

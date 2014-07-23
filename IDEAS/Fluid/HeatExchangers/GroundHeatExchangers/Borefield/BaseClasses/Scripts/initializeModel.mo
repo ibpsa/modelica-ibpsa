@@ -1,6 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts;
 function initializeModel
-  input String pathRecBfData=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/BorefieldData/example_accurate.mo");
+  input String pathRecBfData=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/BorefieldData/example.mo");
 
   input Data.Records.Soil soi=Data.SoilData.example()
     "Thermal properties of the ground";
@@ -18,15 +18,30 @@ function initializeModel
 
 protected
   String pathSave;
+  String dir;
   final String pathAbs = Modelica.Utilities.Strings.replace(pathRecBfData, "\\", "/")
     "replace the '' by '/' as the former are not recognized";
 algorithm
   // --------------- Generate SHA-code and path
   sha := IDEAS.Utilities.Cryptographics.sha_hash(pathAbs);
 
-  Modelica.Utilities.Files.createDirectory("C:\.BfData");
+  if Modelica.Utilities.Files.exist("C:") then
+    dir :="C://.BfData";
+  elseif Modelica.Utilities.Files.exist("/tmp") then
+    dir :="/tmp/.BfData";
+  else
+    dir :="";
+    assert(false,String(sha) + "\n
+************************************************************************************************************************ \n 
+You do not have the writing permission on the C: or home/ folder. Change the variable dir in
+IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.saveAggregationMatrix to 
+write the temperory file at a different location. \n
+************************************************************************************************************************ \n ");
+  end if;
 
-  pathSave := "C://.BfData/" + sha;
+  Modelica.Utilities.Files.createDirectory(dir);
+
+  pathSave := dir + "/" + sha;
 
   // --------------- Check if the short term response (TResSho) needs to be calculated or loaded
   if not Modelica.Utilities.Files.exist(pathSave + "ShoTermData.mat") then
