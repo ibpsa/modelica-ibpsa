@@ -2,14 +2,11 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scr
 function saveAggregationMatrix
   extends Aggregation.Interface.partialAggFunction;
 
-  input String pathRec=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/BorefieldData/example_accurate.mo");
+  input String pathRec;
 
-  input Data.Records.Soil soi=Data.SoilData.example()
-    "Thermal properties of the ground";
-  input Data.Records.Geometry geo=Data.GeometricData.example()
-    "Geometric charachteristic of the borehole";
-  input Data.Records.StepResponse steRes=Data.StepResponse.example()
-    "generic step load parameter";
+  input Data.Records.Soil soi "Thermal properties of the ground";
+  input Data.Records.Geometry geo "Geometric charachteristic of the borehole";
+  input Data.Records.StepResponse steRes "generic step load parameter";
 
   input Integer lenSim "Simulation length ([s]). By default = 100 days";
 
@@ -36,16 +33,30 @@ function saveAggregationMatrix
 
 protected
   String pathSave;
-
+  String dir;
   Real[1,1] mat;
 algorithm
   q_max_out :=q_max;
   // --------------- Generate SHA-code and path
   sha := IDEAS.Utilities.Cryptographics.sha_hash(pathRec);
 
-  Modelica.Utilities.Files.createDirectory("C:\.BfData");
+  if Modelica.Utilities.Files.exist("W:") then
+    dir :="C://.BfData";
+  elseif Modelica.Utilities.Files.exist("home/") then
+    dir :="home//.BfData";
+  else
+    dir :="";
+    assert(false,"\n
+************************************************************************************************************************ \n 
+You do not have the writing permission on the C: or home/ folder. Change the variable dir in
+IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.saveAggregationMatrix to 
+write the temperory file at a different location. \n
+************************************************************************************************************************ \n ");
+  end if;
 
-  pathSave := "C://.BfData/" + sha;
+  Modelica.Utilities.Files.createDirectory(dir);
+
+  pathSave := dir + "/" + sha;
 
   // --------------- Check if the short term response (TResSho) needs to be calculated or loaded
   if not Modelica.Utilities.Files.exist(pathSave + "ShoTermData.mat") then
@@ -54,11 +65,12 @@ algorithm
     existShoTerRes := true;
   end if;
 
-  assert(existShoTerRes, " \n ************************************************************ \n 
-The borefield model with this BfData has not yet been initialized. Please run 
+  assert(existShoTerRes, " \n
+************************************************************************************************************************ \n 
+The borefield model with this BfData record has not yet been initialized. Please run 
 IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.initializeModel 
-with the right parameters first to initialize the model. To run the function, right click on it < \"Call function\" \n
-************************************************************ \n ");
+with the correct parameters to initialize the model. To run the function, right click on it < \"Call function\" \n
+************************************************************************************************************************ \n ");
 
   TResSho := readMatrix(
     fileName=pathSave + "ShoTermData.mat",

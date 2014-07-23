@@ -1,10 +1,3 @@
 initializeModel
 saveAggregationMatrix
 ShortTimeResponseHX
-ShortTimeResponseHX_old
-readTrajectoryTRSHX
-readTrajectorytVec
-readTrajectoryTResSho
-readTrajectoryVecLen
-initializeModel_test
-readAggregationMatrixSize

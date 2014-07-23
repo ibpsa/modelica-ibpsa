@@ -12,8 +12,7 @@ model example
   parameter Integer lenSim=3600*24*365 "length of the simulation";
 
   MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData,
-    redeclare package Medium = Medium, saveAggMat=false,loadAggMat=true)
-    "borefield"
+    redeclare package Medium = Medium) "borefield"
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
   Modelica.Blocks.Sources.Step           load(height=1, startTime=36000)
     "load for the borefield"
@@ -25,7 +24,7 @@ model example
     T_start=bfData.steRes.T_ini,
     m_flow(start=bfData.m_flow_nominal),
     m_flow_nominal=bfData.m_flow_nominal)
-    annotation (Placement(transformation(extent={{-8,22},{-28,2}})));
+    annotation (Placement(transformation(extent={{-10,22},{-30,2}})));
   Modelica.Blocks.Sources.Constant mFlo(k=1)
     annotation (Placement(transformation(extent={{-46,-12},{-34,0}})));
   HeaterCoolerPrescribed                            hea(
@@ -36,19 +35,24 @@ model example
     T_start=bfData.steRes.T_ini,
     m_flow_nominal=bfData.m_flow_nominal,
     m_flow(start=bfData.m_flow_nominal),
-    p_start=100000,
-    Q_flow_nominal=bfData.steRes.q_ste*bfData.geo.nbBh*bfData.geo.hBor)
+    Q_flow_nominal=bfData.steRes.q_ste*bfData.geo.nbBh*bfData.geo.hBor,
+    p_start=100000)
     annotation (Placement(transformation(extent={{30,22},{10,2}})));
   Modelica.Fluid.Sources.Boundary_pT boundary(nPorts=1, redeclare package
       Medium = Medium)
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+  Sensors.TemperatureTwoPort senTem(
+    redeclare package Medium = Medium,
+    m_flow_nominal=bfData.m_flow_nominal,
+    T_start=bfData.steRes.T_ini)
+    annotation (Placement(transformation(extent={{38,-50},{58,-30}})));
 equation
   connect(pum.port_a,hea. port_b) annotation (Line(
-      points={{-8,12},{10,12}},
+      points={{-10,12},{10,12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(mFlo.y,pum. m_flowSet) annotation (Line(
-      points={{-33.4,-6},{-18,-6},{-18,1.6}},
+      points={{-33.4,-6},{-20,-6},{-20,1.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(load.y, hea.u) annotation (Line(
@@ -56,15 +60,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(boundary.ports[1], pum.port_a) annotation (Line(
-      points={{-40,50},{-8,50},{-8,12}},
+      points={{-40,50},{-10,50},{-10,12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pum.port_b, multipleBoreholes.port_a) annotation (Line(
-      points={{-28,12},{-60,12},{-60,-40},{-20,-40}},
+      points={{-30,12},{-60,12},{-60,-40},{-20,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hea.port_a, multipleBoreholes.port_b) annotation (Line(
-      points={{30,12},{70,12},{70,-40},{20,-40}},
+  connect(hea.port_a, senTem.port_b) annotation (Line(
+      points={{30,12},{70,12},{70,-40},{58,-40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTem.port_a, multipleBoreholes.port_b) annotation (Line(
+      points={{38,-40},{20,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

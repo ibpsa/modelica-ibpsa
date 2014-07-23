@@ -1,19 +1,16 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Examples;
-model example_accurate
+model example_test
   "Model of a borefield with axb borefield and a constant heat injection rate"
 
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  parameter Data.BorefieldData.example_accurate
+  parameter Data.BorefieldData.example
     bfData
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  parameter Integer lenSim=3600*24*365*10 "length of the simulation";
+  parameter Integer lenSim=3600*24*365 "length of the simulation";
 
-  MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData,
-    redeclare package Medium = Medium) "borefield"
-    annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
   Modelica.Blocks.Sources.Step           load(height=1, startTime=36000)
     "load for the borefield"
     annotation (Placement(transformation(extent={{26,-18},{40,-4}})));
@@ -35,8 +32,8 @@ model example_accurate
     T_start=bfData.steRes.T_ini,
     m_flow_nominal=bfData.m_flow_nominal,
     m_flow(start=bfData.m_flow_nominal),
-    Q_flow_nominal=bfData.steRes.q_ste*bfData.geo.nbBh*bfData.geo.hBor,
-    p_start=100000)
+    p_start=100000,
+    Q_flow_nominal=bfData.steRes.q_ste*bfData.geo.hBor)
     annotation (Placement(transformation(extent={{30,22},{10,2}})));
   Modelica.Fluid.Sources.Boundary_pT boundary(nPorts=1, redeclare package
       Medium = Medium)
@@ -46,6 +43,18 @@ model example_accurate
     m_flow_nominal=bfData.m_flow_nominal,
     T_start=bfData.steRes.T_ini)
     annotation (Placement(transformation(extent={{38,-50},{58,-30}})));
+  BaseClasses.BoreHoles.SingleBoreHolesInSerie borehole(
+    soi=bfData.soi,
+    geo=bfData.geo,
+    adv=bfData.adv,
+    steRes=bfData.steRes,
+    redeclare package Medium = Medium,
+    m_flow_nominal=bfData.m_flow_nominal,
+    m_flow(start=bfData.m_flow_nominal),
+    dp_nominal=0.1,
+    T_start=bfData.steRes.T_ini,
+    fill=bfData.fil)
+    annotation (Placement(transformation(extent={{-32,-62},{24,-18}})));
 equation
   connect(pum.port_a,hea. port_b) annotation (Line(
       points={{-10,12},{10,12}},
@@ -63,16 +72,16 @@ equation
       points={{-40,50},{-10,50},{-10,12}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pum.port_b, multipleBoreholes.port_a) annotation (Line(
-      points={{-30,12},{-60,12},{-60,-40},{-20,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(hea.port_a, senTem.port_b) annotation (Line(
       points={{30,12},{70,12},{70,-40},{58,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTem.port_a, multipleBoreholes.port_b) annotation (Line(
-      points={{38,-40},{20,-40}},
+  connect(borehole.port_b, senTem.port_a) annotation (Line(
+      points={{24,-40},{38,-40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(borehole.port_a, pum.port_b) annotation (Line(
+      points={{-32,-40},{-62,-40},{-62,12},{-30,12}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -80,4 +89,4 @@ equation
             100,100}}), graphics),
     experiment(StopTime=1.7e+006, __Dymola_NumberOfIntervals=100),
     __Dymola_experimentSetupOutput);
-end example_accurate;
+end example_test;

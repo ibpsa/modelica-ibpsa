@@ -44,7 +44,6 @@ record BorefieldData
     "Modelica path of the record";
   String pathAbsolute = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/Records")
     "absolute (computer) path of the record";
-
   final String pathAbs = Modelica.Utilities.Strings.replace(pathAbsolute, "\\", "/")
     "replace the '' by '/' as the former are not recognized";
 end BorefieldData;

@@ -1,6 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts;
 function initializeModel
-  input String pathRec=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/BorefieldData/example_accurate.mo");
+  input String pathRecBfData=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/BorefieldData/example_accurate.mo");
 
   input Data.Records.Soil soi=Data.SoilData.example()
     "Thermal properties of the ground";
@@ -12,29 +12,17 @@ function initializeModel
   input Data.Records.StepResponse steRes=Data.StepResponse.example()
     "generic step load parameter";
 
-  input Integer lenSim "Simulation length ([s]). By default = 100 days";
-
   output String sha;
   output Real[1,steRes.tBre_d + 1] TResSho;
   output Boolean existShoTerRes;
 
 protected
   String pathSave;
-
-  final parameter Integer[q_max] rArr=
-      Borefield.BaseClasses.Aggregation.BaseClasses.cellWidth(q_max=q_max,
-      p_max=p_max) "width of aggregation cell for each level";
-  final parameter Integer[q_max,p_max] nuMat=
-      Borefield.BaseClasses.Aggregation.BaseClasses.nbPulseAtEndEachLevel(
-      q_max=q_max,
-      p_max=p_max,
-      rArr=rArr) "nb of aggregated pulse at end of each aggregation cells";
-  Modelica.SIunits.Temperature TSteSta "Quasi steady state temperature";
-
-  Real[1,1] mat;
+  final String pathAbs = Modelica.Utilities.Strings.replace(pathRecBfData, "\\", "/")
+    "replace the '' by '/' as the former are not recognized";
 algorithm
   // --------------- Generate SHA-code and path
-  sha := IDEAS.Utilities.Cryptographics.sha_hash(pathRec);
+  sha := IDEAS.Utilities.Cryptographics.sha_hash(pathAbs);
 
   Modelica.Utilities.Files.createDirectory("C:\.BfData");
 

@@ -1,12 +1,12 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Examples;
-model example_accurate
+model example_64
   "Model of a borefield with axb borefield and a constant heat injection rate"
 
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  parameter Data.BorefieldData.example_accurate
+  parameter Data.BorefieldData.example_64
     bfData
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Integer lenSim=3600*24*365*10 "length of the simulation";
@@ -80,4 +80,4 @@ equation
             100,100}}), graphics),
     experiment(StopTime=1.7e+006, __Dymola_NumberOfIntervals=100),
     __Dymola_experimentSetupOutput);
-end example_accurate;
+end example_64;
