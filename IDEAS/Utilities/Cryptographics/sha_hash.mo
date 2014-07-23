@@ -2,7 +2,7 @@ within IDEAS.Utilities.Cryptographics;
 function sha_hash
   "Return unique string containing the digits from the real number of baseClasses.sha. This is necessary as the Modelica function \"String\" cannot return 60 digits"
    extends Modelica.Icons.Function;
-    input String argv="E:/work/modelica/SimulationResults/test.txt";
+    input String argv=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Constants/package.mo");
     output String hash "string make of the digits of the sha-number";
 protected
   Real hash_numb "Real number for sha-function";
