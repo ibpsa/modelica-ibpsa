@@ -12,8 +12,8 @@ protected
   SI.TemperatureDifference delta_T_fts_corBre;
 
 algorithm
-  assert(steRes.tBre_d > steRes.t_min_d,
-    "The choosen tBre_d is too small. It should be bigger than t_min_d!");
+//   assert(steRes.tBre_d > steRes.t_min_d,
+//     "The choosen tBre_d is too small. It should be bigger than t_min_d!");
   if t_d < steRes.tBre_d then
     T := TResSho[t_d + 1];
     delta_T_fts_corBre := 0;
