@@ -10,7 +10,7 @@ function ShortTimeResponseHX
   import SI = Modelica.SIunits;
   input Data.Records.Soil soi=Data.SoilData.example()
     "Thermal properties of the ground";
-  input Data.Records.Filling fill=Data.FillingData.example()
+  input Data.Records.Filling fil=Data.FillingData.example()
     "Thermal properties of the filling material";
   input Data.Records.Geometry geo=Data.GeometricData.example()
     "Geometric charachteristic of the borehole";
@@ -41,7 +41,7 @@ algorithm
   simulateModel(
     modelToSimulate +
      "( soi=" + soi.path + "(), " +
-     "fill=" + fill.path + "()," +
+     "fil=" + fil.path + "()," +
      "geo=" + geo.path + "()," +
      "steRes=" + steRes.path + "()," +
      "adv=" + adv.path + "())",

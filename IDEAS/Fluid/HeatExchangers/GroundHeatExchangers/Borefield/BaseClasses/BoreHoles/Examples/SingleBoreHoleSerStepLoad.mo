@@ -13,7 +13,7 @@ model SingleBoreHoleSerStepLoad "SingleBoreHoleSer with step input load "
   redeclare replaceable parameter Data.Records.Soil soi=
       Data.SoilData.example()
     annotation (Placement(transformation(extent={{14,-76},{24,-66}})));
-  redeclare replaceable parameter Data.Records.Filling fill=
+  redeclare replaceable parameter Data.Records.Filling fil=
       Data.FillingData.example() "Thermal properties of the filling material"
     annotation (Placement(transformation(extent={{30,-76},{40,-66}})));
   redeclare replaceable parameter Data.Records.Geometry geo=
@@ -23,7 +23,7 @@ model SingleBoreHoleSerStepLoad "SingleBoreHoleSer with step input load "
   SingleBoreHolesInSerie borHolSer(
     redeclare each package Medium = Medium,
     soi=soi,
-    fill=fill,
+    fil=fil,
     geo=geo,
     adv=adv,
     dp_nominal=10000,

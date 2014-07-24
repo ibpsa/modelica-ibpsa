@@ -70,11 +70,11 @@ model SingleUTubeInternalHEX
         origin={80,6})));
 
 protected
-  final parameter Modelica.SIunits.SpecificHeatCapacity cpFil=fill.c
+  final parameter Modelica.SIunits.SpecificHeatCapacity cpFil=fil.c
     "Specific heat capacity of the filling material";
-  final parameter Modelica.SIunits.ThermalConductivity kFil=fill.k
+  final parameter Modelica.SIunits.ThermalConductivity kFil=fil.k
     "Thermal conductivity of the filling material";
-  final parameter Modelica.SIunits.Density dFil=fill.d
+  final parameter Modelica.SIunits.Density dFil=fil.d
     "Density of the filling material";
 
   parameter Modelica.SIunits.HeatCapacity Co_fil=dFil*cpFil*adv.hSeg*Modelica.Constants.pi
@@ -134,7 +134,7 @@ initial equation
     rTub=geo.rTub,
     eTub=geo.eTub,
     sha=geo.xC,
-    kFil=fill.k,
+    kFil=fil.k,
     kSoi=soi.k,
     kTub=geo.kTub);
 

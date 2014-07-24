@@ -6,7 +6,7 @@ model SingleBoreHolesInSerie
   BaseClasses.SingleBoreHole[geo.nbSer] borHol(
     redeclare each final package Medium = Medium,
     each final soi=soi,
-    each final fill=fill,
+    each final fil=fil,
     each final geo=geo,
     each final adv=adv,
     each final steRes=steRes,

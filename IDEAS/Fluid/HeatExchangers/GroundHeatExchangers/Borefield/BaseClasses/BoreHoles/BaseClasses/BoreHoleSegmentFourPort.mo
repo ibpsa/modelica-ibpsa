@@ -38,7 +38,7 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
     final m1_flow_small=adv.m_flow_small,
     final m2_flow_small=adv.m_flow_small,
     final soi=soi,
-    final fill=fill,
+    final fil=fil,
     final geo=geo,
     final adv=adv,
     final steRes=steRes,

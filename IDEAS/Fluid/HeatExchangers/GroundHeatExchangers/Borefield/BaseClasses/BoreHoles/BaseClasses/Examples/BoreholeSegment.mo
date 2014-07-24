@@ -8,7 +8,7 @@ model BoreholeSegment "Test for the boreholeSegment model"
     redeclare package Medium = Medium,
     dp_nominal=5,
     soi=Data.SoilData.example(),
-    fill=Data.FillingData.example(),
+    fil=Data.FillingData.example(),
     geo=Data.GeometricData.example(),
     adv=Data.Advanced.example(),
     TExt_start=273.15,

@@ -4,7 +4,7 @@ function initializeModel
 
   input Data.Records.Soil soi=Data.SoilData.example()
     "Thermal properties of the ground";
-  input Data.Records.Filling fill=Data.FillingData.example()
+  input Data.Records.Filling fil=Data.FillingData.example()
     "Thermal properties of the filling material";
   input Data.Records.Geometry geo=Data.GeometricData.example()
     "Geometric charachteristic of the borehole";
@@ -48,7 +48,7 @@ write the temperory file at a different location. \n
 
     IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.ShortTimeResponseHX(
       soi=soi,
-      fill=fill,
+      fil=fil,
       geo=geo,
       steRes=steRes,
       adv=adv,

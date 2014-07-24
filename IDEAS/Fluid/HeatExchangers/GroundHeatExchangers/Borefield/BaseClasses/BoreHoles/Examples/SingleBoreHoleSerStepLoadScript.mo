@@ -10,7 +10,7 @@ model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
      annotation (Placement(transformation(extent={{-2,-46},{8,-36}})));
    parameter Data.SoilData.example soi
      annotation (Placement(transformation(extent={{14,-46},{24,-36}})));
-   parameter Data.FillingData.example fill
+   parameter Data.FillingData.example fil
     "Thermal properties of the filling material"
      annotation (Placement(transformation(extent={{30,-46},{40,-36}})));
    parameter Data.GeometricData.example geo
@@ -20,7 +20,7 @@ model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
   BoreHoles.SingleBoreHolesInSerie borHolSer(
     redeclare each package Medium = Medium,
     soi=soi,
-    fill=fill,
+    fil=fil,
     geo=geo,
     adv=adv,
     dp_nominal=10000,

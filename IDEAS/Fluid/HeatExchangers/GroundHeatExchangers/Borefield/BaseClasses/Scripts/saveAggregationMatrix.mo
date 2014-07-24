@@ -7,6 +7,8 @@ function saveAggregationMatrix
   input Data.Records.Soil soi "Thermal properties of the ground";
   input Data.Records.Geometry geo "Geometric charachteristic of the borehole";
   input Data.Records.StepResponse steRes "generic step load parameter";
+  input Data.Records.Filling fil "Thermal properties of the filling material";
+  input Data.Records.Advanced adv "Advanced parameters";
 
   input Integer lenSim "Simulation length ([s]). By default = 100 days";
 
@@ -67,9 +69,15 @@ write the temperory file at a different location. \n
 
   assert(existShoTerRes, " \n
 ************************************************************************************************************************ \n 
-The borefield model with this BfData record has not yet been initialized. Please run 
-IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.initializeModel 
-with the correct parameters to initialize the model. To run the function, right click on it < \"Call function\" \n
+The borefield model with this BfData record has not yet been initialized. Please firstly run the following command in the command log: \n" +
+"IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.initializeModel("+
+"pathRecBfData=\"" + pathRec + "\","+
+"soi=" + soi.path + "(), " +
+"fil=" + fil.path + "()," +
+"geo=" + geo.path + "()," +
+"steRes=" + steRes.path + "()," +
+"adv=" + adv.path + "())"+
+"\n
 ************************************************************************************************************************ \n ");
 
   TResSho := readMatrix(

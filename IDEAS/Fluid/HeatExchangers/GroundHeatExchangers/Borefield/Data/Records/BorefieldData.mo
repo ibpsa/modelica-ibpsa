@@ -9,9 +9,9 @@ record BorefieldData
       __Dymola_choicesAllMatching=true);
   Soi soi;
 
-  replaceable record Fill =   Filling             constrainedby Filling
+  replaceable record Fil =   Filling             constrainedby Filling
                         annotation (__Dymola_choicesAllMatching=true);
-  Fill fil;
+  Fil fil;
 
   replaceable record Geo =   Geometry              constrainedby Geometry
                           annotation (__Dymola_choicesAllMatching=true);

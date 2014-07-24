@@ -8,67 +8,36 @@ model MultipleBoreHoles
   //  3) Make the enthalpy a differentiable function (look at if statement)
 
   // Medium in borefield
-  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(m_flow_nominal = bfData.m_flow_nominal, redeclare
-      package Medium =
-        Modelica.Media.Water.ConstantPropertyLiquidWater, final allowFlowReversal=false);
+  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
+    m_flow_nominal=bfData.m_flow_nominal,
+    redeclare package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater,
+    final allowFlowReversal=false);
+
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
-  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    final computeFlowResistance=true, dp_nominal = 0);
+  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
+      computeFlowResistance=true, dp_nominal=0);
 
   // General parameters of borefield
   replaceable parameter Borefield.Data.Records.BorefieldData bfData
-    constrainedby Data.Records.BorefieldData
-    annotation (choicesAllMatching=true,Placement(transformation(extent={{-90,-88},
-            {-70,-68}})));
+    constrainedby Data.Records.BorefieldData annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{-90,-88},{-70,-68}})));
+
+  parameter Boolean homotopyInitialization=true "= true, use homotopy method";
 
   //General parameters of aggregation
   parameter Integer lenSim=3600*24*100
     "Simulation length ([s]). By default = 100 days";
-  parameter Boolean homotopyInitialization=true "= true, use homotopy method";
 
   // Load of borefield
   Modelica.SIunits.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
 
-//protected
   Medium.ThermodynamicState sta_hcf
     "thermodynamic state for heat carrier fluid at temperature T_ft";
 
   Modelica.SIunits.Temperature T_out_val
     "Temperature of the medium exiting the borefield";
 
-protected
-  final parameter Integer p_max=5;
-  final parameter Integer q_max=
-      Borefield.BaseClasses.Aggregation.BaseClasses.nbOfLevelAgg(n_max=integer(
-      lenSim/bfData.steRes.tStep), p_max=p_max) "number of aggregation levels";
-  final parameter Real[q_max,p_max] kappaMat(fixed = false)
-    "transient thermal resistance of each aggregation cells";
-      //load the aggregation matrix from file
-      //calculate the aggregation matrix
-  final parameter Integer[q_max] rArr(fixed=false)
-    "width of aggregation cell for each level";
-  final parameter Integer[q_max,p_max] nuMat(fixed=false)
-    "nb of aggregated pulse at end of each aggregation cells";
-  final parameter Modelica.SIunits.Temperature TSteSta(fixed=false)
-    "Quasi steady state temperature";
-
-  final parameter Real R_ss(fixed=false) "steady state resistance";
-
-//Load
-  Real[q_max,p_max] QMat
-    "aggregation of load vector. Every discrete time step it is updated.";
-
-//Utilities
-  Integer iSam(min=1)
-    "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
-  Modelica.SIunits.Energy UOld "Internal energy at the previous period";
-  Modelica.SIunits.Energy U
-    "Current internal energy, defined as U=0 for t=tStart";
-  Modelica.SIunits.Time startTime "Start time of the simulation";
-
-//  parameter Boolean statusWriteMatrix(fixed=false);
-public
   Modelica.SIunits.Temperature T_fts
     "average of heat carrier fluid temperature between in and outlet";
 
@@ -97,7 +66,7 @@ public
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature fixedTemperature
     annotation (Placement(transformation(extent={{14,-44},{-6,-24}})));
-  MixingVolumes.MixingVolume             vol(
+  MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     T_start=T_start,
     X_start=X_start,
@@ -110,9 +79,8 @@ public
     final V=m_flow_nominal*30,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    nPorts=2)
-    annotation (Placement(transformation(extent={{-30,0},{-50,-20}})));
-  FixedResistances.FixedResistanceDpM             res(
+    nPorts=2) annotation (Placement(transformation(extent={{-30,0},{-50,-20}})));
+  FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
     final from_dp=from_dp,
@@ -124,12 +92,45 @@ public
     final m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
+  // Parameters for the aggregation technic
+protected
+  final parameter Integer p_max=5;
+  final parameter Integer q_max=
+      Borefield.BaseClasses.Aggregation.BaseClasses.nbOfLevelAgg(n_max=integer(
+      lenSim/bfData.steRes.tStep), p_max=p_max) "number of aggregation levels";
+  final parameter Real[q_max,p_max] kappaMat(fixed=false)
+    "transient thermal resistance of each aggregation cells";
+  //load the aggregation matrix from file
+  //calculate the aggregation matrix
+  final parameter Integer[q_max] rArr(fixed=false)
+    "width of aggregation cell for each level";
+  final parameter Integer[q_max,p_max] nuMat(fixed=false)
+    "nb of aggregated pulse at end of each aggregation cells";
+
+  // Parameters for the calculation of the steady state resistance of the borefield
+  final parameter Modelica.SIunits.Temperature TSteSta(fixed=false)
+    "Quasi steady state temperature";
+  final parameter Real R_ss(fixed=false) "steady state resistance";
+
+  //Load
+  Real[q_max,p_max] QMat
+    "aggregation of load vector. Every discrete time step it is updated.";
+
+  //Utilities
+  Integer iSam(min=1)
+    "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
+  Modelica.SIunits.Energy UOld "Internal energy at the previous period";
+  Modelica.SIunits.Energy U
+    "Current internal energy, defined as U=0 for t=tStart";
+  Modelica.SIunits.Time startTime "Start time of the simulation";
+
 initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same lenght as the number of aggregated pulse and cover lenSim
   U := 0;
   UOld := 0;
 
-  (kappaMat, rArr, nuMat, TSteSta):=
+  // Initialization of the aggregation matrix and check that the short-term response for the given bfData record has already been calculated
+  (kappaMat,rArr,nuMat,TSteSta) :=
     IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.saveAggregationMatrix(
     p_max=p_max,
     q_max=q_max,
@@ -137,28 +138,31 @@ initial algorithm
     lenSim=lenSim,
     steRes=bfData.steRes,
     geo=bfData.geo,
-    soi=bfData.soi);
+    soi=bfData.soi,
+    fil=bfData.fil,
+    adv=bfData.adv);
 
-  R_ss :=TSteSta/(bfData.steRes.q_ste*bfData.geo.hBor*bfData.geo.nbBh)
+  R_ss := TSteSta/(bfData.steRes.q_ste*bfData.geo.hBor*bfData.geo.nbBh)
     "steady state resistance";
 
 equation
-  assert( abs(TSen_in.port_a.m_flow - bfData.m_flow_nominal) < 0.001 or abs(TSen_in.port_a.m_flow) < Modelica.Constants.eps, "This borefield model only works for fixed mass flow rate as defined in bfData.SteRes.m_flow");
-  assert( time < lenSim, "The chosen value for lenSim is too small. It cannot cover the simulation time!");
+  assert(time < lenSim, "The chosen value for lenSim is too small. It cannot cover the whole simulation time!");
 
- sta_hcf = Medium.setState_pTX(
+  sta_hcf = Medium.setState_pTX(
     bfData.adv.p_constant,
     T_fts,
     X=Medium.X_default[1:Medium.nXi]);
 
-  Q_flow = Medium.specificHeatCapacityCp(sta_hcf)*TSen_in.port_a.m_flow*(TSen_in.T - TSen_out.T);
+  Q_flow = Medium.specificHeatCapacityCp(sta_hcf)*TSen_in.port_a.m_flow*(
+    TSen_in.T - TSen_out.T);
 
   der(U) = Q_flow
     "integration of load to calculate below the average load/(discrete time step)";
 
   //if the heat flow is very low, the enthalpie is the same at the inlet and outlet
   if abs(Q_flow) > 10^(-3) and TSen_in.port_a.m_flow > m_flow_small then
-    TSen_in.port_a.m_flow*Medium.specificHeatCapacityCp(sta_hcf) * (T_fts - T_out_val) = Q_flow/2;
+    TSen_in.port_a.m_flow*Medium.specificHeatCapacityCp(sta_hcf)*(T_fts -
+      T_out_val) = Q_flow/2;
   else
     T_out_val = T_fts;
   end if;
@@ -190,7 +194,8 @@ algorithm
       kappaMat=kappaMat,
       R_ss=R_ss) + bfData.steRes.T_ini;
 
-    iSam := iSam + 1; // FIXME: when I remove this, I get a T_fts = 0 for the whole simulation! ??
+    iSam := iSam + 1;
+    // FIXME: when I remove this, I get a T_fts = 0 for the whole simulation! ??
   end when;
 
 equation
@@ -226,7 +231,7 @@ equation
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                    graphics={
+        graphics={
         Rectangle(
           extent={{-100,60},{100,-66}},
           lineColor={0,0,0},
@@ -292,6 +297,6 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end MultipleBoreHoles;

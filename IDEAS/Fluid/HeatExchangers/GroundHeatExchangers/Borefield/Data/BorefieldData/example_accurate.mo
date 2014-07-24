@@ -3,7 +3,7 @@ record example_accurate =            Records.BorefieldData (
     pathModelica = "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.BorefieldData.example_accurate",
     pathAbsolute = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/BorefieldData/example_accurate.mo"),
     redeclare replaceable record Soi = SoilData.example,
-    redeclare replaceable record Fill =
+    redeclare replaceable record Fil =
         FillingData.example,
     redeclare replaceable record Geo =
         GeometricData.example,

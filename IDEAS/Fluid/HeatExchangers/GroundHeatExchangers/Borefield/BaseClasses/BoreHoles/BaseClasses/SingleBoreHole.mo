@@ -6,7 +6,7 @@ model SingleBoreHole "Single U-tube borehole heat exchanger"
   BaseClasses.BoreHoleSegmentFourPort borHolSeg[adv.nVer](
     redeclare each final package Medium = Medium,
     each final soi=soi,
-    each final fill=fill,
+    each final fil=fil,
     each final geo=geo,
     each final steRes=steRes,
     each final adv=adv,
