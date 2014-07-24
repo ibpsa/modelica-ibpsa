@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-model LightWall_195 "BESTEST Light wall"
+record LightWall_195 "BESTEST Light wall"
 
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     final nLay=3,

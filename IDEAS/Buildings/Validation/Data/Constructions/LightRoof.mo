@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-model LightRoof "BESTEST Light roof"
+record LightRoof "BESTEST Light roof"
 
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     final nLay=3,
