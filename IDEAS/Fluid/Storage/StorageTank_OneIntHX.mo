@@ -50,11 +50,14 @@ model StorageTank_OneIntHX
   parameter SI.Area AHX=4.1 "Total HX area (outside pipe area)";
   parameter SI.Mass mHX=27 "HX water content";
 
+  parameter Boolean allowFlowReversal = system.allowFlowReversal
+    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort[nbrNodes] nodes(
     redeclare each package Medium = Medium,
     each m=mNode,
     each m_flow_nominal=m_flow_nominal_HX,
-    T_start=T_start) "Array of nodes";
+    T_start=T_start,
+    each allowFlowReversal=allowFlowReversal) "Array of nodes";
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) "Upper port, connected to node[1]"
     annotation (Placement(transformation(extent={{64,66},{84,86}}),
@@ -78,7 +81,8 @@ model StorageTank_OneIntHX
     each m_flow_nominal=m_flow_nominal_HX,
     each m=mHX/nbrNodesHX,
     T_start=T_start[nodeHXUpper:nodeHXLower],
-    redeclare package Medium = MediumHX)          annotation (Placement(
+    redeclare package Medium = MediumHX,
+    each allowFlowReversal=allowFlowReversal)          annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -123,10 +127,13 @@ public
             {-94,-74}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor heaTraHX[nbrNodesHX](
      each G=hHX*AHX/nbrNodesHX) "Heat transfer between HX and tank layers"
-    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
+    annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
   Modelica.Blocks.Interfaces.RealOutput[nbrNodes] T=nodes.heatPort.T
     annotation (Placement(transformation(extent={{70,-10},{90,10}}),
         iconTransformation(extent={{70,-10},{90,10}})));
+
+  outer Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   // Connection of upper and lower node to external ports
   connect(port_a, nodes[1].port_a);
@@ -159,7 +166,7 @@ equation
     connect(HX[i].port_b, HX[i + 1].port_a);
   end for;
   connect(portHXUpper, HX[1].port_a) annotation (Line(
-      points={{-106,-44},{1.83697e-015,-44},{1.83697e-015,-10}},
+      points={{-106,-44},{-84,-44},{-84,-10},{-60,-10},{-60,-10},{1.77636e-015,-10}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(portHXLower, HX[nbrNodesHX].port_b) annotation (Line(
@@ -167,7 +174,7 @@ equation
       color={255,0,0},
       smooth=Smooth.None));
   connect(heaTraHX.port_b, HX.heatPort) annotation (Line(
-      points={{-30,-20},{-10,-20}},
+      points={{-28,-30},{-20,-30},{-20,-20},{-10,-20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaTraHX.port_a, nodes[nodeHXUpper:nodeHXLower].heatPort);
