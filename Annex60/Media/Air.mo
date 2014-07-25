@@ -956,14 +956,16 @@ First implementation.
   constant GasProperties dryair(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
-    cp =   1006,
-    cv =   1006-Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
+    cp =   Annex60.Utilities.Psychrometrics.Constants.cpAir,
+    cv =   Annex60.Utilities.Psychrometrics.Constants.cpAir
+             -Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
     "Dry air properties";
   constant GasProperties steam(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
-    cp =   1860,
-    cv =   1860-Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
+    cp =   Annex60.Utilities.Psychrometrics.Constants.cpSte,
+    cv =   Annex60.Utilities.Psychrometrics.Constants.cpSte
+            -Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
     "Steam properties";
 
   constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
@@ -971,9 +973,11 @@ First implementation.
   constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
     "Molar masses of components";
 
-  constant Modelica.SIunits.SpecificEnergy h_fg = 2501014.5
+  constant Modelica.SIunits.SpecificEnergy h_fg=
+    Annex60.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of evaporation of water";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
+  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
+    Annex60.Utilities.Psychrometrics.Constants.cpWatLiq
     "Specific heat capacity of liquid water";
 
 replaceable function der_enthalpyOfLiquid
@@ -1188,6 +1192,13 @@ water were present in the form of vapor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 24, 2014, by Michael Wetter:<br/>
+Changed implementation to use 
+<a href=\"modelica://Annex60.Utilities.Psychrometrics.Constants\">
+Annex60.Utilities.Psychrometrics.Constants</a>.
+This was done to use consistent values throughout the library.
+</li>
 <li>
 December 10, 2013, by Michael Wetter:<br/>
 Replaced <code>reference_p</code> by <code>p</code> in the <code>setState_pXX</code> functions.

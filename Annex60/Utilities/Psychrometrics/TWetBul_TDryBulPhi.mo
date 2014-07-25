@@ -2,7 +2,6 @@ within Annex60.Utilities.Psychrometrics;
 block TWetBul_TDryBulPhi
   "Model to compute the wet bulb temperature based on relative humidity"
   extends Modelica.Blocks.Icons.Block;
-  extends Annex60.Utilities.Psychrometrics.BaseClasses.psychometricsConstants;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
     annotation (choicesAllMatching = true);
@@ -62,8 +61,12 @@ equation
       p=     p,
       pSat=  Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TDryBul),
       phi=   phi);
-    TWetBul = (TDryBul * ((1-XiDryBul) * cpAir + XiDryBul * cpSte) + (XiDryBul-XiSat) * h_fg)/
-            ( (1-XiSat)*cpAir + XiSat * cpSte);
+    TWetBul = (TDryBul * ((1-XiDryBul) *
+               Annex60.Utilities.Psychrometrics.Constants.cpAir + XiDryBul *
+               Annex60.Utilities.Psychrometrics.Constants.cpSte) + (XiDryBul-XiSat) *
+               Annex60.Utilities.Psychrometrics.Constants.h_fg)/
+            ( (1-XiSat)*Annex60.Utilities.Psychrometrics.Constants.cpAir + XiSat *
+            Annex60.Utilities.Psychrometrics.Constants.cpSte);
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;

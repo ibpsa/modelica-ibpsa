@@ -2,7 +2,6 @@ within Annex60.Utilities.Psychrometrics;
 block WetBul_pTX
   "Block to compute the wet bulb condition for given dry bulb temperature and humidity"
    extends Modelica.Blocks.Icons.Block;
-   extends Annex60.Utilities.Psychrometrics.BaseClasses.psychometricsConstants;
 
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
@@ -45,8 +44,11 @@ equation
       pSat=   Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
-  TWetBul = (TDryBul * ((1-XDryBul) * cpAir + XDryBul * cpSte) + (XDryBul-XWetBul) * h_fg)/
-            ( (1-XWetBul)*cpAir + XWetBul * cpSte);
+  TWetBul = (TDryBul * ((1-XDryBul) * Annex60.Utilities.Psychrometrics.Constants.cpAir +
+             XDryBul * Annex60.Utilities.Psychrometrics.Constants.cpSte) +
+             (XDryBul-XWetBul) * Annex60.Utilities.Psychrometrics.Constants.h_fg)/
+              ( (1-XWetBul)*Annex60.Utilities.Psychrometrics.Constants.cpAir +
+              XWetBul * Annex60.Utilities.Psychrometrics.Constants.cpSte);
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),

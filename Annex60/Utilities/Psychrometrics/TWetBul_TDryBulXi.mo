@@ -2,7 +2,6 @@ within Annex60.Utilities.Psychrometrics;
 block TWetBul_TDryBulXi
   "Model to compute the wet bulb temperature based on mass fraction"
   extends Modelica.Blocks.Icons.Block;
-  extends Annex60.Utilities.Psychrometrics.BaseClasses.psychometricsConstants;
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
@@ -64,7 +63,8 @@ equation
       Annex60.Utilities.Math.Functions.smoothMin(
          x1=Annex60.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),
          x2=0.999*p,
-         deltaX=1E-4)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat]));
+         deltaX=1E-4)*Xi[iWat]/(Xi[iWat] +
+         Annex60.Utilities.Psychrometrics.Constants.k_mair*(1-Xi[iWat]));
     TWetBul      = 273.15 + TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
        + Modelica.Math.atan(TDryBul_degC + rh_per)
@@ -76,8 +76,12 @@ equation
       pSat=  Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(TWetBul),
       p=     p,
       phi=   1);
-    TWetBul = (TDryBul * ((1-Xi[iWat]) * cpAir + Xi[iWat] * cpSte) + (Xi[iWat]-XiSat) * h_fg)/
-            ( (1-XiSat)*cpAir + XiSat * cpSte);
+    TWetBul = (TDryBul *
+                ((1-Xi[iWat]) * Annex60.Utilities.Psychrometrics.Constants.cpAir +
+                Xi[iWat] * Annex60.Utilities.Psychrometrics.Constants.cpSte) +
+                (Xi[iWat]-XiSat) * Annex60.Utilities.Psychrometrics.Constants.h_fg)/
+            ( (1-XiSat)*Annex60.Utilities.Psychrometrics.Constants.cpAir +
+            XiSat * Annex60.Utilities.Psychrometrics.Constants.cpSte);
     TDryBul_degC = 0;
     rh_per       = 0;
   end if;
