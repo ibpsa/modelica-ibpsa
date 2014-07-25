@@ -2,7 +2,6 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Advanced;
 record example
   extends Records.Advanced(
     hBor=110,
-    nVer=10,
     nHor=10,
     m_flow_nominal=0.3,
     z0=10,

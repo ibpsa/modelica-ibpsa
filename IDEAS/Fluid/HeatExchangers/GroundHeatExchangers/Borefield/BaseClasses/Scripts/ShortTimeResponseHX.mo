@@ -27,11 +27,11 @@ protected
   final parameter String modelToSimulate="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
     "model to simulate";
 
-  String[2] varToStore={"borHolSer.sta_a.T","borHolSer.sta_b.T"}
+  String[1] varToStore={"borHolSer.TWallAve"}
     "variables to store in result file";
   SI.Time[1,steRes.tBre_d + 1] timVec={0:steRes.tStep:steRes.tBre_d*steRes.tStep}
     "time vector for which the data are saved";
-  String[3] saveName={"Time",varToStore[1],varToStore[2]};
+  String[2] saveName={"Time",varToStore[1]};
 
 algorithm
   //To ensure that the same number of data points is written in all result files
@@ -59,14 +59,10 @@ algorithm
       varToStore,
       timVec[1, :]));
 
-  TResSho[1,:] :=(readData[2, 1:end] + readData[3, 1:end])/2;
+  TResSho[1,:] :=readData[2, 1:end];
 
   writeMatrix(
       fileName=pathSave + "ShoTermData.mat", matrixName="TResSho", matrix=TResSho, append=false);
-//   writeTrajectory(
-//     fileName=pathSave + "ShoTermData.mat",
-//     signals={"TResSho"},
-//     values=transpose(TResSho));
 
   annotation ();
 end ShortTimeResponseHX;

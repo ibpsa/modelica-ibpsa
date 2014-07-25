@@ -10,6 +10,6 @@ partial model PartialSingleBoreHole "Single borehole heat exchanger"
       computeFlowResistance=false, final linearizeFlowResistance=false);
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
 
-  Modelica.SIunits.Temperature T_wall_ave "Average borehole temperature";
+  Modelica.SIunits.Temperature TWallAve "Average borehole temperature";
 
 end PartialSingleBoreHole;

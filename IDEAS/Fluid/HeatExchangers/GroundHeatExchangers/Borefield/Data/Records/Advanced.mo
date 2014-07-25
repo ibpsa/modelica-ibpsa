@@ -5,11 +5,14 @@ record Advanced "Advanced parameters"
 
   parameter String path="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.Advanced";
 
+  parameter SI.Radius rTub=0.02 "Radius of the tubes"
+    annotation (Dialog(group="Tubes"));
+
   parameter SI.Height hBor=100 "Total height of the borehole";
 
   /*--------Discretization: */
-  parameter Integer nVer=10
-    "Number of segments used for discretization in the vertical direction. Only important for the short-term simulation."
+  parameter Integer nVer=1
+    "DO NOT CHANGE! NOT YET SUPPORTED. Number of segments used for discretization in the vertical direction. Only important for the short-term simulation. nVer>1 not yet supported"
     annotation (Dialog(tab="Discretization"));
   parameter Integer nHor(min=1) = 10
     "Number of state variables in each horizontal layer of the soil"
@@ -59,4 +62,9 @@ record Advanced "Advanced parameters"
     annotation (Dialog(tab="Assumption"), Evaluate=true);
 
   parameter SI.Pressure p_constant=101300;
+  parameter SI.Pressure dp_nominal=50000
+    "pressure losses for the entire borefield";
+
+  final SI.Volume volOneLegSeg = hSeg*Modelica.Constants.pi*rTub^2
+    "volume of brine in one leg of a segment";
 end Advanced;

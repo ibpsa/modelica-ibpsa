@@ -1,21 +1,24 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.Examples;
-model BoreholeSegment "Test for the boreholeSegment model"
+model SingleBoreHolesInSerie "Test for the SingleBoreHole model"
   import DaPModels;
+  import IDEAS;
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  BoreHoleSegmentFourPort seg(
+  IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.SingleBoreHolesInSerie
+                          seg(
     redeclare package Medium = Medium,
     dp_nominal=5,
     soi=Data.SoilData.example(),
     fil=Data.FillingData.example(),
     geo=Data.GeometricData.example(),
     adv=Data.Advanced.example(),
-    TExt_start=273.15,
-    TFil_start=273.15) annotation (Placement(transformation(
+    m_flow_nominal=1,
+    steRes=Data.StepResponse.example())
+                       annotation (Placement(transformation(
         extent={{-13,-13},{13,13}},
         rotation=270,
-        origin={11,-1})));
+        origin={9,33})));
   Sources.MassFlowSource_T        sou_1(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -31,24 +34,22 @@ model BoreholeSegment "Test for the boreholeSegment model"
     p=101330,
     T=283.15) annotation (Placement(transformation(extent={{-60,10},{-40,30}},
           rotation=0)));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{80,60},{100,80}})));
 equation
-  connect(sou_1.ports[1], seg.port_a1) annotation (Line(
-      points={{-40,50},{20,50},{20,12},{18.8,12}},
+  connect(sou_1.ports[1], seg.port_a) annotation (Line(
+      points={{-40,50},{9,50},{9,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(seg.port_b1, seg.port_a2) annotation (Line(
-      points={{18.8,-14},{3.2,-14}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(seg.port_b2, sin_2.ports[1]) annotation (Line(
-      points={{3.2,12},{4,12},{4,20},{-40,20}},
+  connect(seg.port_b, sin_2.ports[1]) annotation (Line(
+      points={{9,20},{-40,20}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/BoreholeSegment.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
     experimentSetupOutput,
     Diagram,
@@ -64,4 +65,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end BoreholeSegment;
+end SingleBoreHolesInSerie;

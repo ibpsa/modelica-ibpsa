@@ -2,27 +2,41 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Bor
 model SingleBoreHolesInSerie
   "Single U-tube borehole heat exchanger model. If more than one borehole is given, they are assumed to be connected in series"
   extends Interface.PartialSingleBoreHole;
-
   BaseClasses.SingleBoreHole[geo.nbSer] borHol(
     redeclare each final package Medium = Medium,
     each final soi=soi,
     each final fil=fil,
     each final geo=geo,
-    each final adv=adv,
     each final steRes=steRes,
-    each final dp_nominal=10000,
-    each final m_flow_nominal=steRes.m_flow,
-    each final T_start=steRes.T_ini) "Borehole heat exchanger" annotation (
+    each final adv=adv,
+    final dp_nominal={if i == 1 then dp_nominal else 0 for i in 1:geo.nbSer},
+    each final show_T=show_T,
+    each final from_dp=from_dp,
+    each final deltaM=deltaM,
+    each final energyDynamics=energyDynamics,
+    each final massDynamics=massDynamics,
+    each final p_start=p_start,
+    each T_start=steRes.T_ini,
+    each X_start=X_start,
+    each C_start=C_start,
+    each C_nominal=C_nominal,
+    each m_flow_nominal=adv.m_flow_nominal) "Borehole heat exchanger"
+                                                        annotation (
       Placement(transformation(extent={{-16,-16},{16,16}}, rotation=0)));
-
+  Modelica.SIunits.Temperature[geo.nbSer] TWallAveSeg;
 equation
-  T_wall_ave = sum(borHol[:].T_wall_ave)/geo.nbSer;
 
-  connect(port_a, borHol[1].port_a);
-  connect(borHol[geo.nbSer].port_b, port_b);
-  for i in 1:geo.nbSer - 1 loop
-    connect(borHol[i].port_b, borHol[i + 1].port_a);
+  for i in 1:geo.nbSer loop
+    TWallAveSeg[i] = sum(borHol[i].borHolSeg[:].intHEX.port.T)/adv.nVer;
   end for;
+
+  TWallAve = sum(TWallAveSeg)/geo.nbSer;
+
+    connect(port_a, borHol[1].port_a);
+    connect(borHol[geo.nbSer].port_b, port_b);
+    for i in 1:geo.nbSer - 1 loop
+      connect(borHol[i].port_b, borHol[i + 1].port_a);
+    end for;
 
   annotation (
     Dialog(group="Borehole"),

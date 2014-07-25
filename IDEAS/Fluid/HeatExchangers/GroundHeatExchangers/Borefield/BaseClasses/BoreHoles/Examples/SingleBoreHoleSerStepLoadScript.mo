@@ -29,7 +29,7 @@ model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
         transformation(extent={{-12,-20},{12,4}},   rotation=0)));
 
   IDEAS.Fluid.Sources.Boundary_ph sin(redeclare package Medium = Medium,
-      nPorts=2) "Sink"
+      nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{22,-2},{34,10}})));
 
   Modelica.Blocks.Sources.Step step(height=1)
@@ -68,9 +68,11 @@ model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
     m_flow_nominal=steRes.m_flow,
     T_start=steRes.T_ini) "temperature at the outlet of the borefield"
     annotation (Placement(transformation(extent={{40,-16},{56,0}})));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(hea.port_a, sin.ports[1]) annotation (Line(
-      points={{30,30},{66,30},{66,5.2},{34,5.2}},
+      points={{30,30},{66,30},{66,4},{34,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pum.port_a,hea. port_b) annotation (Line(

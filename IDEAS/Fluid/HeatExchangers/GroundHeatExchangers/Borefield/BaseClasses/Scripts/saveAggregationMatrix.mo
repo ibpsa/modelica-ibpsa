@@ -90,7 +90,7 @@ The borefield model with this BfData record has not yet been initialized. Please
   if not existShoTerRes or not Modelica.Utilities.Files.exist(pathSave + "Agg" + String(lenSim) + ".mat") then
     existAgg := false;
 
-    TSteSta := Borefield.BaseClasses.GroundHX.HeatCarrierFluidStepTemperature(
+    TSteSta :=GroundHX.CorrectedBoreFieldWallTemperature(
       steRes=steRes,
       geo=geo,
       soi=soi,

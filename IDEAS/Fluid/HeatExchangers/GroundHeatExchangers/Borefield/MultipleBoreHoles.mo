@@ -32,18 +32,10 @@ model MultipleBoreHoles
   Modelica.SIunits.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
 
-  Medium.ThermodynamicState sta_hcf
-    "thermodynamic state for heat carrier fluid at temperature T_ft";
+  Modelica.SIunits.Temperature TWall "average borehole wall temperature";
 
-  Modelica.SIunits.Temperature T_out_val
-    "Temperature of the medium exiting the borefield";
-
-  Modelica.SIunits.Temperature T_fts
-    "average of heat carrier fluid temperature between in and outlet";
-
-  Modelica.Blocks.Sources.RealExpression T_out(y=T_out_val)
-    "Enthalpy of the medium of the exiting fluid from the borefield"
-    annotation (Placement(transformation(extent={{50,-44},{28,-24}})));
+  Modelica.Blocks.Sources.RealExpression RealExpression(y=TWall)
+    annotation (Placement(transformation(extent={{-80,-54},{-58,-34}})));
   Sensors.TemperatureTwoPort TSen_out(
     redeclare package Medium = Medium,
     tau=30,
@@ -65,32 +57,7 @@ model MultipleBoreHoles
     "thermal power extracted or injected in the borefield";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature fixedTemperature
-    annotation (Placement(transformation(extent={{14,-44},{-6,-24}})));
-  MixingVolumes.MixingVolume vol(
-    redeclare package Medium = Medium,
-    T_start=T_start,
-    X_start=X_start,
-    C_start=C_start,
-    m_flow_nominal=m_flow_nominal,
-    p_start=p_start,
-    allowFlowReversal=allowFlowReversal,
-    C_nominal=C_nominal,
-    m_flow_small=m_flow_small,
-    final V=m_flow_nominal*30,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    nPorts=2) annotation (Placement(transformation(extent={{-30,0},{-50,-20}})));
-  FixedResistances.FixedResistanceDpM res(
-    redeclare package Medium = Medium,
-    final allowFlowReversal=allowFlowReversal,
-    final from_dp=from_dp,
-    final homotopyInitialization=homotopyInitialization,
-    dp_nominal=dp_nominal,
-    deltaM=deltaM,
-    linearized=linearizeFlowResistance,
-    final show_T=show_T,
-    final m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{-44,-54},{-24,-34}})));
 
   // Parameters for the aggregation technic
 protected
@@ -117,13 +84,53 @@ protected
     "aggregation of load vector. Every discrete time step it is updated.";
 
   //Utilities
-  Integer iSam(min=1)
-    "Counter for how many time the model was sampled. Defined as iSam=1 when called at t=0";
   Modelica.SIunits.Energy UOld "Internal energy at the previous period";
   Modelica.SIunits.Energy U
     "Current internal energy, defined as U=0 for t=tStart";
   Modelica.SIunits.Time startTime "Start time of the simulation";
 
+public
+  BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX
+                                     intHEX(
+    redeclare final package Medium = Medium,
+    final m1_flow_nominal=bfData.adv.m_flow_nominal,
+    final m2_flow_nominal=bfData.adv.m_flow_nominal,
+    final dp1_nominal=dp_nominal,
+    final dp2_nominal=0,
+    final from_dp1=from_dp,
+    final from_dp2=from_dp,
+    final linearizeFlowResistance1=linearizeFlowResistance,
+    final linearizeFlowResistance2=linearizeFlowResistance,
+    final deltaM1=deltaM,
+    final deltaM2=deltaM,
+    final m1_flow_small=bfData.adv.m_flow_small,
+    final m2_flow_small=bfData.adv.m_flow_small,
+    final soi=bfData.soi,
+    final fil=bfData.fil,
+    final geo=bfData.geo,
+    final steRes=bfData.steRes,
+    final allowFlowReversal1=bfData.adv.allowFlowReversal,
+    final allowFlowReversal2=bfData.adv.allowFlowReversal,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p1_start=p_start,
+    T1_start=bfData.adv.TFil0_start,
+    X1_start=X_start,
+    C1_start=C_start,
+    C1_nominal=C_nominal,
+    final p2_start=p_start,
+    T2_start=bfData.adv.TFil0_start,
+    X2_start=X_start,
+    C2_start=C_start,
+    C2_nominal=C_nominal,
+    adv=bfData.adv,
+    vol1(V=bfData.adv.volOneLegSeg*bfData.adv.nVer*bfData.geo.nbBh),
+    vol2(V=bfData.adv.volOneLegSeg*bfData.adv.nVer*bfData.geo.nbBh),
+    final scaSeg=bfData.geo.nbBh*bfData.adv.nVer)
+    "Internal part of the borehole including the pipes and the filling material"
+    annotation (Placement(transformation(extent={{-12,13},{12,-13}},
+        rotation=270,
+        origin={3,-10})));
 initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same lenght as the number of aggregated pulse and cover lenSim
   U := 0;
@@ -148,30 +155,15 @@ initial algorithm
 equation
   assert(time < lenSim, "The chosen value for lenSim is too small. It cannot cover the whole simulation time!");
 
-  sta_hcf = Medium.setState_pTX(
-    bfData.adv.p_constant,
-    T_fts,
-    X=Medium.X_default[1:Medium.nXi]);
-
-  Q_flow = Medium.specificHeatCapacityCp(sta_hcf)*TSen_in.port_a.m_flow*(
-    TSen_in.T - TSen_out.T);
+  Q_flow = port_a.m_flow*(actualStream(port_a.h_outflow) - actualStream(port_b.h_outflow));
 
   der(U) = Q_flow
     "integration of load to calculate below the average load/(discrete time step)";
-
-  //if the heat flow is very low, the enthalpie is the same at the inlet and outlet
-  if abs(Q_flow) > 10^(-3) and TSen_in.port_a.m_flow > m_flow_small then
-    TSen_in.port_a.m_flow*Medium.specificHeatCapacityCp(sta_hcf)*(T_fts -
-      T_out_val) = Q_flow/2;
-  else
-    T_out_val = T_fts;
-  end if;
 
 algorithm
   // Set the start time for the sampling
   when initial() then
     startTime := time;
-    iSam := 1;
   end when;
 
   when initial() or sample(startTime, bfData.steRes.tStep) then
@@ -187,37 +179,18 @@ algorithm
       QNew=QAve_flow,
       QAggOld=QMat);
 
-    T_fts := Borefield.BaseClasses.deltaT_ft(
+    TWall :=BaseClasses.deltaTWall(
       q_max=q_max,
       p_max=p_max,
       QMat=QMat,
       kappaMat=kappaMat,
       R_ss=R_ss) + bfData.steRes.T_ini;
-
-    iSam := iSam + 1;
-    // FIXME: when I remove this, I get a T_fts = 0 for the whole simulation! ??
   end when;
 
 equation
-  connect(T_out.y, fixedTemperature.T) annotation (Line(
-      points={{26.9,-34},{16,-34}},
+  connect(RealExpression.y, fixedTemperature.T) annotation (Line(
+      points={{-56.9,-44},{-46,-44}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(fixedTemperature.port, vol.heatPort) annotation (Line(
-      points={{-6,-34},{-16,-34},{-16,-10},{-30,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(TSen_in.port_b, vol.ports[1]) annotation (Line(
-      points={{-60,0},{-38,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(vol.ports[2], res.port_a) annotation (Line(
-      points={{-42,0},{20,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res.port_b, TSen_out.port_a) annotation (Line(
-      points={{40,0},{60,0}},
-      color={0,127,255},
       smooth=Smooth.None));
   connect(TSen_out.port_b, port_b) annotation (Line(
       points={{80,0},{100,0}},
@@ -225,6 +198,25 @@ equation
       smooth=Smooth.None));
   connect(port_a, TSen_in.port_a) annotation (Line(
       points={{-100,0},{-80,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TSen_in.port_b, intHEX.port_a1) annotation (Line(
+      points={{-60,0},{-32,0},{-32,0.818182},{-4.09091,0.818182}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(fixedTemperature.port, intHEX.port) annotation (Line(
+      points={{-24,-44},{-20,-44},{-20,-12},{-10,-12},{-10,-11.1818},{-8.81818,
+          -11.1818}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(intHEX.port_b1, intHEX.port_a2) annotation (Line(
+      points={{-4.09091,-23.1818},{-4.09091,-30},{10.0909,-30},{10.0909,
+          -23.1818}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
+  connect(intHEX.port_b2, TSen_out.port_a) annotation (Line(
+      points={{10.0909,0.818182},{60,0.818182},{60,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

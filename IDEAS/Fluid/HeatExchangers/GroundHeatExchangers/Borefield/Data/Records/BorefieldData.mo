@@ -21,7 +21,7 @@ record BorefieldData
                      annotation (__Dymola_choicesAllMatching=true);
   SteRes steRes;
 
-  replaceable record Adv = Advanced (hBor=geo.hBor) constrainedby Advanced
+  replaceable record Adv = Advanced (hBor=geo.hBor,rTub=geo.rTub) constrainedby Advanced
     annotation (__Dymola_choicesAllMatching=true);
   Adv adv;
 
@@ -37,7 +37,7 @@ record BorefieldData
 
   Modelica.SIunits.MassFlowRate m_flow_nominal = steRes.m_flow*geo.nbBh/geo.nbSer
     "total nominal flow to the borefield";
-  Modelica.SIunits.Power P_the_nominal = geo.hBor*geo.nbBh*50
+  Modelica.SIunits.Power P_the_nominal = geo.hBor*geo.nbBh*30
     "nominal thermal power of the borefield";
 
   String pathModelica = "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.BorefieldData"

@@ -1,16 +1,12 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.GroundHX.Examples;
-model test_T_ft_cor
+model test_CorrectedBoreFieldWallTemperature
   extends Modelica.Icons.Example;
   import SI = Modelica.SIunits;
 
-  parameter Data.StepResponse.example steRes;
-  parameter Data.GeometricData.example geo;
-  parameter Data.SoilData.example soi;
-  parameter Data.Records.ShortTermResponse shoTerRes=
-      Data.ShortTermResponse.example();
+parameter Integer lenSim=3600*24*365 "length of the simulation";
 
   SI.Temperature T_fts_cor;
-  SI.Temperature T_fts_cor_steSta=HeatCarrierFluidStepTemperature(
+  SI.Temperature T_fts_cor_steSta=CorrectedBoreFieldWallTemperature(
       t_d=integer(36000*24*365*30/steRes.tStep),
       steRes=steRes,
       geo=geo,
@@ -35,7 +31,7 @@ algorithm
     i_old := i;
     timeSca := integer(steRes.tStep);
     timeSca_old := timeSca;
-  elsewhen sample(steRes.tStep*10^1, steRes.tStep*10^i/5) then
+  elsewhen sample(steRes.tStep*10^1, bfData.steRes.tStep*10^i/5) then
     i_old := i;
     i := i_old + 1;
     timeSca := integer(timeSca_old*2);
@@ -43,7 +39,7 @@ algorithm
   end when;
 
 equation
-  T_fts_cor = HeatCarrierFluidStepTemperature(
+  T_fts_cor =CorrectedBoreFieldWallTemperature(
     t_d=max(t_old, integer(integer(time/timeSca)*timeSca/steRes.tStep)),
     steRes=steRes,
     geo=geo,
@@ -52,4 +48,4 @@ equation
 
   annotation (experiment(StopTime=720000, __Dymola_NumberOfIntervals=10),
       __Dymola_experimentSetupOutput);
-end test_T_ft_cor;
+end test_CorrectedBoreFieldWallTemperature;

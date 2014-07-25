@@ -23,7 +23,7 @@ algorithm
   for q in 1:q_max loop
     for p in 1:p_max loop
       if q == 1 and p == 1 then
-        kappaMat[q, p] := (GroundHX.HeatCarrierFluidStepTemperature(
+        kappaMat[q, p] :=(GroundHX.CorrectedBoreFieldWallTemperature(
           t_d=nuMat[q, p],
           steRes=steRes,
           geo=geo,
@@ -37,12 +37,12 @@ algorithm
           q,
           p);
 
-        kappaMat[q, p] := (GroundHX.HeatCarrierFluidStepTemperature(
+        kappaMat[q, p] :=(GroundHX.CorrectedBoreFieldWallTemperature(
           t_d=nuMat[q, p],
           steRes=steRes,
           geo=geo,
           soi=soi,
-          TResSho=TResSho) - GroundHX.HeatCarrierFluidStepTemperature(
+          TResSho=TResSho) - GroundHX.CorrectedBoreFieldWallTemperature(
           t_d=nuMat[q_pre, p_pre],
           steRes=steRes,
           geo=geo,

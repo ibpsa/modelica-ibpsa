@@ -13,7 +13,8 @@ record Geometry "Parameters of the geometrical configuration of the borefield"
   parameter Integer nbBh=1 "total number of boreholes"
     annotation (Dialog(group="Borehole"));
 
-  parameter Integer nbSer=2 "number of boreholes in series"
+  parameter Integer nbSer=1
+    "DO NOT CHANGE! NOT YET SUPPORTED. number of boreholes in series."
     annotation (Dialog(group="Borehole"));
 
   parameter Real[nbBh,2] cooBh={{0,0}}

@@ -18,14 +18,14 @@ model SingleUTubeInternalHEX
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal1,
-      final V=m2_flow_nominal*tau2/rho2_nominal,
-      final m_flow_small=m1_flow_small),
-    redeclare final IDEAS.Fluid.MixingVolumes.MixingVolume vol2(
+      final m_flow_small=m1_flow_small,
+      V=adv.volOneLegSeg),
+    redeclare IDEAS.Fluid.MixingVolumes.MixingVolume vol2(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
-      final V=m1_flow_nominal*tau1/rho1_nominal,
-      final m_flow_small=m2_flow_small));
+      final m_flow_small=m2_flow_small,
+      V=adv.volOneLegSeg));
 
   parameter Modelica.SIunits.Temperature TFil_start=adv.TFil0_start
     "Initial temperature of the filling material"
@@ -38,37 +38,40 @@ model SingleUTubeInternalHEX
     "Pipe convective resistance"
     annotation (Placement(transformation(extent={{-56,-40},{-80,-16}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg1(
-    final R=RCondGro_val) "Grout thermal resistance"
+    R=RCondGro_val/scaSeg) "Grout thermal resistance"
     annotation (Placement(transformation(extent={{-50,16},{-26,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg2(
-    final R=RCondGro_val) "Grout thermal resistance"
+    R=RCondGro_val/scaSeg) "Grout thermal resistance"
     annotation (Placement(transformation(extent={{-48,-40},{-24,-16}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb1(
-    final R=Rgb_val) "Grout thermal resistance"
+    R=Rgb_val/scaSeg) "Grout thermal resistance"
     annotation (Placement(transformation(extent={{52,26},{76,50}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb2(
-    final R=Rgb_val) "Grout thermal resistance"
+    R=Rgb_val/scaSeg) "Grout thermal resistance"
     annotation (Placement(transformation(extent={{52,-40},{76,-16}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg(
-    final R=Rgg_val) "Grout thermal resistance"
+    R=Rgg_val/scaSeg) "Grout thermal resistance"
     annotation (Placement(transformation(extent={{-12,-12},{12,12}},
         rotation=-90,
         origin={20,2})));
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(final C=Co_fil/2, T(
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(C=Co_fil/2*scaSeg, T(
         start=TFil_start)) "Heat capacity of the filling material" annotation (
       Placement(transformation(
         extent={{-90,36},{-70,16}},
         rotation=0,
         origin={80,0})));
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(final C=Co_fil/2, T(
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(C=Co_fil/2*scaSeg, T(
         start=TFil_start)) "Heat capacity of the filling material" annotation (
       Placement(transformation(
         extent={{-90,-36},{-70,-16}},
         rotation=0,
         origin={80,6})));
 
+  parameter Real scaSeg = 1
+    "scaling factor used by Borefield.MultipleBoreHoles to represent the whole borefield by one single segment"
+                                                                                                        annotation (Dialog(group="Advanced"));
 protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cpFil=fil.c
     "Specific heat capacity of the filling material";
@@ -112,7 +115,7 @@ public
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow=m1_flow,
-    m_flow_nominal=adv.m_flow_nominal))
+    m_flow_nominal=adv.m_flow_nominal)/scaSeg)
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
   Modelica.Blocks.Sources.RealExpression RVol2(y=
@@ -123,7 +126,7 @@ public
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow=m2_flow,
-    m_flow_nominal=adv.m_flow_nominal))
+    m_flow_nominal=adv.m_flow_nominal)/scaSeg)
     "Convective and thermal resistance at fluid 2"
      annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
 

@@ -1,5 +1,5 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses;
-function deltaT_ft
+function deltaTWall
   "calculate the temperature difference from the inital temperature of the bore hole wall, due to the Load array."
   extends Aggregation.Interface.partialAggFunction;
 
@@ -7,7 +7,7 @@ function deltaT_ft
   input Real[q_max,p_max] kappaMat;
   input Real R_ss;
 
-  output Modelica.SIunits.TemperatureDifference T_fts;
+  output Modelica.SIunits.TemperatureDifference deltaTWall;
 
 protected
   Modelica.SIunits.HeatFlowRate q_sum;
@@ -18,5 +18,5 @@ algorithm
       q_sum := q_sum + QMat[q, p]*kappaMat[q, p];
     end for;
   end for;
-  T_fts := R_ss*q_sum;
-end deltaT_ft;
+  deltaTWall := R_ss*q_sum;
+end deltaTWall;

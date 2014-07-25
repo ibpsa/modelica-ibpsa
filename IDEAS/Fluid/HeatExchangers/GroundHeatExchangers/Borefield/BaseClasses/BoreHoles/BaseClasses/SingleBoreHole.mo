@@ -4,23 +4,23 @@ model SingleBoreHole "Single U-tube borehole heat exchanger"
   extends Interface.PartialSingleBoreHole;
 
   BaseClasses.BoreHoleSegmentFourPort borHolSeg[adv.nVer](
-    redeclare each final package Medium = Medium,
-    each final soi=soi,
-    each final fil=fil,
-    each final geo=geo,
-    each final steRes=steRes,
-    each final adv=adv,
-    final dp_nominal={if i == 1 then dp_nominal else 0 for i in 1:adv.nVer},
+    redeclare each package Medium =  Medium,
+    each final   soi=soi,
+    each final   fil=fil,
+    each final   geo=geo,
+    each final   steRes=steRes,
+    each final   adv=adv,
+    dp_nominal={if i == 1 then dp_nominal else 0 for i in 1:adv.nVer},
     TExt_start=adv.TExt_start,
     TFil_start=adv.TExt_start,
-    each final show_T=show_T,
-    each final computeFlowResistance=computeFlowResistance,
-    each final from_dp=from_dp,
-    each final linearizeFlowResistance=linearizeFlowResistance,
-    each final deltaM=deltaM,
-    each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics,
-    each final p_start=p_start,
+    each final   show_T=show_T,
+    each final   computeFlowResistance=computeFlowResistance,
+    each final   from_dp=from_dp,
+    each final   linearizeFlowResistance=linearizeFlowResistance,
+    each final   deltaM=deltaM,
+    each final   energyDynamics=energyDynamics,
+    each final   massDynamics=massDynamics,
+    each final   p_start=p_start,
     each T_start=steRes.T_ini,
     each X_start=X_start,
     each C_start=C_start,
@@ -31,7 +31,7 @@ model SingleBoreHole "Single U-tube borehole heat exchanger"
   Modelica.SIunits.Temperature TUp[adv.nVer] "Medium temperature in pipe 2";
 
 equation
-  T_wall_ave = sum(borHolSeg[:].intHEX.port.T)/adv.nVer;
+  TWallAve = sum(borHolSeg[:].intHEX.port.T)/adv.nVer;
 
   TDown[:] = borHolSeg[:].intHEX.vol1.heatPort.T;
   TUp[:] = borHolSeg[:].intHEX.vol2.heatPort.T;
