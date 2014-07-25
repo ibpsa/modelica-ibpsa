@@ -1,19 +1,18 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Examples;
-model example
-  "Model of a borefield with axb borefield and a constant heat injection rate"
+model borefield8x1_accurate
+  "Model of a borefield in a 8x1 boreholes line configuration and a constant heat injection rate. The descritization is 600 second"
 
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  parameter Data.BorefieldData.example
+  parameter Data.BorefieldData.SandStone_Bentonite_c8x1_h110_b5_d600_T283
     bfData
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  parameter Integer lenSim=3600*24*366 "length of the simulation";
+  parameter Integer lenSim=3600*24*365*10 "length of the simulation";
 
-  MultipleBoreHoles multipleBoreholes(lenSim=lenSim,
-    redeclare package Medium = Medium,
-    bfData=bfData) "borefield"
+  MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData,
+    redeclare package Medium = Medium) "borefield"
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
   Modelica.Blocks.Sources.Step           load(height=1, startTime=36000)
     "load for the borefield"
@@ -22,7 +21,7 @@ model example
   Movers.Pump                           pum(
     redeclare package Medium = Medium,
     useInput=true,
-    T_start=bfData.steRes.T_ini,
+    T_start=bfData.gen.T_start,
     m_flow(start=bfData.m_flow_nominal),
     m_flow_nominal=bfData.m_flow_nominal)
     annotation (Placement(transformation(extent={{-10,22},{-30,2}})));
@@ -33,10 +32,10 @@ model example
     dp_nominal=10000,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    T_start=bfData.steRes.T_ini,
+    T_start=bfData.gen.T_start,
     m_flow_nominal=bfData.m_flow_nominal,
     m_flow(start=bfData.m_flow_nominal),
-    Q_flow_nominal=bfData.steRes.q_ste*bfData.geo.nbBh*bfData.geo.hBor,
+    Q_flow_nominal=bfData.gen.q_ste*bfData.gen.nbBh*bfData.gen.hBor,
     p_start=100000)
     annotation (Placement(transformation(extent={{30,22},{10,2}})));
   Modelica.Fluid.Sources.Boundary_pT boundary(nPorts=1, redeclare package
@@ -45,7 +44,7 @@ model example
   Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=bfData.m_flow_nominal,
-    T_start=bfData.steRes.T_ini)
+    T_start=bfData.gen.T_start)
     annotation (Placement(transformation(extent={{38,-50},{58,-30}})));
 equation
   connect(pum.port_a,hea. port_b) annotation (Line(
@@ -81,4 +80,4 @@ equation
             100,100}}), graphics),
     experiment(StopTime=1.7e+006, __Dymola_NumberOfIntervals=100),
     __Dymola_experimentSetupOutput);
-end example;
+end borefield8x1_accurate;

@@ -1,17 +1,18 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Aggregation;
-function transientFrac "Calculates the transient resistance for each cell"
+function transientFrac
+  "Calculates the transient resistance for each cell of the aggregation matrix"
   extends Interface.partialAggFunction;
   import SI = Modelica.SIunits;
 
-  input Data.Records.StepResponse steRes;
-  input Data.Records.Geometry geo;
-  input Data.Records.Soil soi;
+  input Data.Records.General gen "General parameter of the borefield";
+  input Data.Records.Soil soi "Soil charachteristics";
   input Real[:] TResSho
-    "Vector containing the short term  fluid step-reponse temperature in function of the time";
+    "Vector containing the short term step-reponse wall temperature in function of the time";
 
-  input Integer[q_max,p_max] nuMat "number of pulse at the end of each cells";
+  input Integer[q_max,p_max] nuMat "number of pulse at the end of each cell";
 
-  input Modelica.SIunits.Temperature TSteSta "steady state temperature";
+  input Modelica.SIunits.Temperature TWallSteSta
+    "steady state temperature of the wall";
 
   output Real[q_max,p_max] kappaMat "transient resistance for each cell";
 
@@ -25,10 +26,9 @@ algorithm
       if q == 1 and p == 1 then
         kappaMat[q, p] :=(GroundHX.CorrectedBoreFieldWallTemperature(
           t_d=nuMat[q, p],
-          steRes=steRes,
-          geo=geo,
+          gen=gen,
           soi=soi,
-          TResSho=TResSho) - steRes.T_ini)/TSteSta;
+          TResSho=TResSho) - gen.T_start)/TWallSteSta;
 
       else
         (q_pre,p_pre) := BaseClasses.previousCellIndex(
@@ -39,17 +39,25 @@ algorithm
 
         kappaMat[q, p] :=(GroundHX.CorrectedBoreFieldWallTemperature(
           t_d=nuMat[q, p],
-          steRes=steRes,
-          geo=geo,
+          gen=gen,
           soi=soi,
           TResSho=TResSho) - GroundHX.CorrectedBoreFieldWallTemperature(
           t_d=nuMat[q_pre, p_pre],
-          steRes=steRes,
-          geo=geo,
+          gen=gen,
           soi=soi,
-          TResSho=TResSho))/TSteSta;
+          TResSho=TResSho))/TWallSteSta;
       end if;
     end for;
   end for;
 
+  annotation (Documentation(info="<html>
+        <p>Calculates the transient resistance for each cell of the aggregation matrix.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end transientFrac;

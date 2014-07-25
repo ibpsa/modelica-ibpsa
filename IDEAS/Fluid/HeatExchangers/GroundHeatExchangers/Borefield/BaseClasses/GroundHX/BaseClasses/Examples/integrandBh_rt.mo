@@ -1,5 +1,5 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.GroundHX.BaseClasses.Examples;
-model test_integrandBh_rt
+model integrandBh_rt
   extends Modelica.Icons.Example;
 
   parameter Real samplePeriod=0.01;
@@ -29,5 +29,14 @@ algorithm
       StopTime=5,
       __Dymola_NumberOfIntervals=100,
       Tolerance=1e-005,
-      __Dymola_Algorithm="Dassl"), __Dymola_experimentSetupOutput);
-end test_integrandBh_rt;
+      __Dymola_Algorithm="Dassl"), __Dymola_experimentSetupOutput, Documentation(info="<html>
+        <p>Test implementation of integrandBh_rt function.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
+end integrandBh_rt;

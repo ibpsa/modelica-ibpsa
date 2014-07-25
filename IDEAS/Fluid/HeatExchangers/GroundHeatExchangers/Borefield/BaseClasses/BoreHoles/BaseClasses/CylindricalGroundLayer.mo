@@ -88,7 +88,7 @@ initial equation
   // r[i]= r[i-1] + ( r_b - r_a)  * (1-griFac)/(1-griFac^(nSta)) * griFac^(i-2);
 
   r[1] = r_a;
-  r[2] = r_a + sqrt(k/c/d*60) "eskilson minimum lengthe";
+  r[2] = r_a + sqrt(k/c/d*60) "eskilson minimum length";
   r[3] = r_a + 2*sqrt(k/c/d*60);
   r[4] = r_a + 3*sqrt(k/c/d*60);
 
@@ -252,6 +252,13 @@ and not the variable <code>T[1]</code>.
 <p>
 </html>", revisions="<html>
 <ul>
+<li>
+Januari, 2014, by Damien Picard:<br>
+Modify the discretization of the cilindrical layer so that the first three layers have an equal thickness the following an exponentionally growing thickness.
+This follows the guidelines of Eskilson (P. Eskilson. Thermal analysis of heat extraction
+boreholes. PhD thesis, Dep. of Mathematical
+Physics, University of Lund, Sweden, 1987).
+</li>
 <li>
 March 9, 2012, by Michael Wetter:<br>
 Removed protected variable <code>der_T</code> as it is not required.

@@ -3,8 +3,6 @@ record BorefieldData
   "Record containing all the subrecords which describe all parameter values of the borefield"
   extends Modelica.Icons.Record;
 
-  //  parameter String name = "nameBfSteRes" "name of the record";
-
   replaceable record Soi = Soil     constrainedby Soil     annotation (
       __Dymola_choicesAllMatching=true);
   Soi soi;
@@ -13,37 +11,30 @@ record BorefieldData
                         annotation (__Dymola_choicesAllMatching=true);
   Fil fil;
 
-  replaceable record Geo =   Geometry              constrainedby Geometry
-                          annotation (__Dymola_choicesAllMatching=true);
-  Geo geo;
-
-  replaceable record SteRes =    StepResponse     constrainedby StepResponse
-                     annotation (__Dymola_choicesAllMatching=true);
-  SteRes steRes;
-
-  replaceable record Adv = Advanced (hBor=geo.hBor,rTub=geo.rTub) constrainedby Advanced
+  replaceable record Gen = General constrainedby General
     annotation (__Dymola_choicesAllMatching=true);
-  Adv adv;
+  Gen gen;
 
-//   replaceable record ShoTerRes =
-//                               ShortTermResponse
-//                                              constrainedby ShortTermResponse
-//     annotation (__Dymola_choicesAllMatching=true);
-//   ShoTerRes shoTerRes;
-//   replaceable record AggMat = AggregationMatrix
-//                                              constrainedby AggregationMatrix
-//     annotation (__Dymola_choicesAllMatching=true);
-//   AggMat aggMat;
-
-  Modelica.SIunits.MassFlowRate m_flow_nominal = steRes.m_flow*geo.nbBh/geo.nbSer
+  Real loaPerMBor_nominal(unit="W/m") = 40
+    "nominal thermal load per meter borhole depth";
+  Modelica.SIunits.MassFlowRate m_flow_nominal = gen.m_flow_nominal_bh*gen.nbBh/gen.nbSer
     "total nominal flow to the borefield";
-  Modelica.SIunits.Power P_the_nominal = geo.hBor*geo.nbBh*30
+  Modelica.SIunits.Power PThe_nominal = gen.hBor*gen.nbBh*loaPerMBor_nominal
     "nominal thermal power of the borefield";
 
-  String pathModelica = "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.BorefieldData"
+  String pathMod = "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.BorefieldData"
     "Modelica path of the record";
-  String pathAbsolute = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/Records")
-    "absolute (computer) path of the record";
-  final String pathAbs = Modelica.Utilities.Strings.replace(pathAbsolute, "\\", "/")
-    "replace the '' by '/' as the former are not recognized";
+  String pathCom = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/Records")
+    "Computer path of the record";
+
+ annotation (Documentation(info="<html>
+ <p>Record containing all the subrecords which describe all parameter values of the borefield and record path.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end BorefieldData;

@@ -1,40 +1,34 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles;
 model SingleBoreHolesInSerie
   "Single U-tube borehole heat exchanger model. If more than one borehole is given, they are assumed to be connected in series"
-  extends Interface.PartialSingleBoreHole;
-  BaseClasses.SingleBoreHole[geo.nbSer] borHol(
+  extends Interface.PartialSingleBoreHole(final m_flow_nominal = gen.m_flow_nominal_bh,final T_start=gen.T_start,final dp_nominal=gen.dp_nominal);
+  BaseClasses.SingleBoreHole[gen.nbSer] borHol(
     redeclare each final package Medium = Medium,
     each final soi=soi,
     each final fil=fil,
-    each final geo=geo,
-    each final steRes=steRes,
-    each final adv=adv,
-    final dp_nominal={if i == 1 then dp_nominal else 0 for i in 1:geo.nbSer},
+    each final gen=gen,
     each final show_T=show_T,
     each final from_dp=from_dp,
     each final deltaM=deltaM,
     each final energyDynamics=energyDynamics,
     each final massDynamics=massDynamics,
     each final p_start=p_start,
-    each T_start=steRes.T_ini,
     each X_start=X_start,
     each C_start=C_start,
-    each C_nominal=C_nominal,
-    each m_flow_nominal=adv.m_flow_nominal) "Borehole heat exchanger"
-                                                        annotation (
+    each C_nominal=C_nominal) "Borehole heat exchanger" annotation (
       Placement(transformation(extent={{-16,-16},{16,16}}, rotation=0)));
-  Modelica.SIunits.Temperature[geo.nbSer] TWallAveSeg;
+  Modelica.SIunits.Temperature[gen.nbSer] TWallAveSeg;
 equation
 
-  for i in 1:geo.nbSer loop
-    TWallAveSeg[i] = sum(borHol[i].borHolSeg[:].intHEX.port.T)/adv.nVer;
+  for i in 1:gen.nbSer loop
+    TWallAveSeg[i] = sum(borHol[i].borHolSeg[:].intHEX.port.T)/gen.nVer;
   end for;
 
-  TWallAve = sum(TWallAveSeg)/geo.nbSer;
+  TWallAve = sum(TWallAveSeg)/gen.nbSer;
 
     connect(port_a, borHol[1].port_a);
-    connect(borHol[geo.nbSer].port_b, port_b);
-    for i in 1:geo.nbSer - 1 loop
+    connect(borHol[gen.nbSer].port_b, port_b);
+    for i in 1:gen.nbSer - 1 loop
       connect(borHol[i].port_b, borHol[i + 1].port_a);
     end for;
 

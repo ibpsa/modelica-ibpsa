@@ -6,19 +6,16 @@ model SingleBoreHolesInSerie "Test for the SingleBoreHole model"
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.SingleBoreHolesInSerie
-                          seg(
+    seg(
     redeclare package Medium = Medium,
-    dp_nominal=5,
-    soi=Data.SoilData.example(),
-    fil=Data.FillingData.example(),
-    geo=Data.GeometricData.example(),
-    adv=Data.Advanced.example(),
-    m_flow_nominal=1,
-    steRes=Data.StepResponse.example())
-                       annotation (Placement(transformation(
+    soi=Data.SoilData.SandStone(),
+    fil=Data.FillingData.Bentonite(),
+    gen=IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData.c8x1_h110_b5_d3600_T283())
+            annotation (Placement(transformation(
         extent={{-13,-13},{13,13}},
         rotation=270,
         origin={9,33})));
+
   Sources.MassFlowSource_T        sou_1(
     redeclare package Medium = Medium,
     nPorts=1,

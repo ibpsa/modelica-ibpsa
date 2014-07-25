@@ -36,22 +36,6 @@ model MultipleBoreHoles
 
   Modelica.Blocks.Sources.RealExpression RealExpression(y=TWall)
     annotation (Placement(transformation(extent={{-80,-54},{-58,-34}})));
-  Sensors.TemperatureTwoPort TSen_out(
-    redeclare package Medium = Medium,
-    tau=30,
-    T_start=bfData.steRes.T_ini,
-    m_flow_small=m_flow_small,
-    m_flow_nominal=m_flow_nominal)
-    "Temperature of the fluid exiting the borefield"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Sensors.TemperatureTwoPort TSen_in(
-    redeclare package Medium = Medium,
-    tau=30,
-    T_start=bfData.steRes.T_ini,
-    m_flow_small=m_flow_small,
-    m_flow_nominal=m_flow_nominal)
-    "Temperature of the fluid entering the borefield"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Modelica.SIunits.Power Q_flow
     "thermal power extracted or injected in the borefield";
@@ -64,7 +48,7 @@ protected
   final parameter Integer p_max=5;
   final parameter Integer q_max=
       Borefield.BaseClasses.Aggregation.BaseClasses.nbOfLevelAgg(n_max=integer(
-      lenSim/bfData.steRes.tStep), p_max=p_max) "number of aggregation levels";
+      lenSim/bfData.gen.tStep), p_max=p_max) "number of aggregation levels";
   final parameter Real[q_max,p_max] kappaMat(fixed=false)
     "transient thermal resistance of each aggregation cells";
   //load the aggregation matrix from file
@@ -93,8 +77,8 @@ public
   BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX
                                      intHEX(
     redeclare final package Medium = Medium,
-    final m1_flow_nominal=bfData.adv.m_flow_nominal,
-    final m2_flow_nominal=bfData.adv.m_flow_nominal,
+    final m1_flow_nominal=bfData.gen.m_flow_nominal_bh,
+    final m2_flow_nominal=bfData.gen.m_flow_nominal_bh,
     final dp1_nominal=dp_nominal,
     final dp2_nominal=0,
     final from_dp1=from_dp,
@@ -103,30 +87,28 @@ public
     final linearizeFlowResistance2=linearizeFlowResistance,
     final deltaM1=deltaM,
     final deltaM2=deltaM,
-    final m1_flow_small=bfData.adv.m_flow_small,
-    final m2_flow_small=bfData.adv.m_flow_small,
+    final m1_flow_small=bfData.gen.m_flow_small,
+    final m2_flow_small=bfData.gen.m_flow_small,
     final soi=bfData.soi,
     final fil=bfData.fil,
-    final geo=bfData.geo,
-    final steRes=bfData.steRes,
-    final allowFlowReversal1=bfData.adv.allowFlowReversal,
-    final allowFlowReversal2=bfData.adv.allowFlowReversal,
+    final gen=bfData.gen,
+    final allowFlowReversal1=bfData.gen.allowFlowReversal,
+    final allowFlowReversal2=bfData.gen.allowFlowReversal,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p1_start=p_start,
-    T1_start=bfData.adv.TFil0_start,
+    T1_start=bfData.gen.TFil0_start,
     X1_start=X_start,
     C1_start=C_start,
     C1_nominal=C_nominal,
     final p2_start=p_start,
-    T2_start=bfData.adv.TFil0_start,
+    T2_start=bfData.gen.TFil0_start,
     X2_start=X_start,
     C2_start=C_start,
     C2_nominal=C_nominal,
-    adv=bfData.adv,
-    vol1(V=bfData.adv.volOneLegSeg*bfData.adv.nVer*bfData.geo.nbBh),
-    vol2(V=bfData.adv.volOneLegSeg*bfData.adv.nVer*bfData.geo.nbBh),
-    final scaSeg=bfData.geo.nbBh*bfData.adv.nVer)
+    vol1(V=bfData.gen.volOneLegSeg*bfData.gen.nVer*bfData.gen.nbBh),
+    vol2(V=bfData.gen.volOneLegSeg*bfData.gen.nVer*bfData.gen.nbBh),
+    final scaSeg=bfData.gen.nbBh*bfData.gen.nVer)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(extent={{-12,13},{12,-13}},
         rotation=270,
@@ -141,15 +123,12 @@ initial algorithm
     IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.saveAggregationMatrix(
     p_max=p_max,
     q_max=q_max,
-    pathRec=bfData.pathAbs,
     lenSim=lenSim,
-    steRes=bfData.steRes,
-    geo=bfData.geo,
+    gen=bfData.gen,
     soi=bfData.soi,
-    fil=bfData.fil,
-    adv=bfData.adv);
+    fil=bfData.fil);
 
-  R_ss := TSteSta/(bfData.steRes.q_ste*bfData.geo.hBor*bfData.geo.nbBh)
+  R_ss := TSteSta/(bfData.gen.q_ste*bfData.gen.hBor*bfData.gen.nbBh)
     "steady state resistance";
 
 equation
@@ -166,8 +145,8 @@ algorithm
     startTime := time;
   end when;
 
-  when initial() or sample(startTime, bfData.steRes.tStep) then
-    QAve_flow := (U - UOld)/bfData.steRes.tStep;
+  when initial() or sample(startTime, bfData.gen.tStep) then
+    QAve_flow := (U - UOld)/bfData.gen.tStep;
     UOld := U;
 
     // Update of aggregated load matrix. Careful: need of inversing order of loaVec (so that [end] = most recent load). FIXME: see if you can change that.
@@ -184,25 +163,13 @@ algorithm
       p_max=p_max,
       QMat=QMat,
       kappaMat=kappaMat,
-      R_ss=R_ss) + bfData.steRes.T_ini;
+      R_ss=R_ss) + bfData.gen.T_start;
   end when;
 
 equation
   connect(RealExpression.y, fixedTemperature.T) annotation (Line(
       points={{-56.9,-44},{-46,-44}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(TSen_out.port_b, port_b) annotation (Line(
-      points={{80,0},{100,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(port_a, TSen_in.port_a) annotation (Line(
-      points={{-100,0},{-80,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TSen_in.port_b, intHEX.port_a1) annotation (Line(
-      points={{-60,0},{-32,0},{-32,0.818182},{-4.09091,0.818182}},
-      color={0,127,255},
       smooth=Smooth.None));
   connect(fixedTemperature.port, intHEX.port) annotation (Line(
       points={{-24,-44},{-20,-44},{-20,-12},{-10,-12},{-10,-11.1818},{-8.81818,
@@ -215,8 +182,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
 
-  connect(intHEX.port_b2, TSen_out.port_a) annotation (Line(
-      points={{10.0909,0.818182},{60,0.818182},{60,0}},
+  connect(port_a, intHEX.port_a1) annotation (Line(
+      points={{-100,0},{-52,0},{-52,0.818182},{-4.09091,0.818182}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_b, intHEX.port_b2) annotation (Line(
+      points={{100,0},{54,0},{54,2},{10.0909,2},{10.0909,0.818182}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -289,6 +260,7 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+                    graphics));
 end MultipleBoreHoles;

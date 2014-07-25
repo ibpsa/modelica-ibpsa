@@ -1,5 +1,5 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Aggregation.Examples;
-function test_aggregateLoad
+function aggregateLoad
   input Integer n_max=14;
   input Integer p_max=2;
   // for n_max = 14 and p_max=2 --> q_max = 3
@@ -20,11 +20,21 @@ function test_aggregateLoad
         rArr);
   output Real[q_max,p_max] QMat;
 algorithm
-  QMat := aggregateLoad(
+  QMat := Aggregation.aggregateLoad(
     q_max=q_max,
     p_max=p_max,
     rArr=rArr,
     nuMat=nuMat,
     QNew=QNew,
     QAggOld=QAggOld);
-end test_aggregateLoad;
+
+    annotation (Documentation(info="<html>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
+end aggregateLoad;

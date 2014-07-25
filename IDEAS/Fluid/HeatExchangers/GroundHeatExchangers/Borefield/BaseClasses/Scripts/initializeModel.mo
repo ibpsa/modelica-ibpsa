@@ -1,30 +1,29 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts;
 function initializeModel
-  input String pathRecBfData=Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/BorefieldData/example.mo");
-
-  input Data.Records.Soil soi=Data.SoilData.example()
-    "Thermal properties of the ground";
-  input Data.Records.Filling fil=Data.FillingData.example()
-    "Thermal properties of the filling material";
-  input Data.Records.Geometry geo=Data.GeometricData.example()
-    "Geometric charachteristic of the borehole";
-  input Data.Records.Advanced adv=Data.Advanced.example() "Advanced parameters";
-  input Data.Records.StepResponse steRes=Data.StepResponse.example()
-    "generic step load parameter";
+  input Data.Records.Soil soi "Thermal properties of the ground";
+  input Data.Records.Filling fil "Thermal properties of the filling material";
+  input Data.Records.General gen "General data of the borefield";
 
   output String sha;
-  output Real[1,steRes.tBre_d + 1] TResSho;
+  output Real[1,gen.tBre_d + 1] TResSho;
   output Boolean existShoTerRes;
 
 protected
   String pathSave;
   String dir;
-  final String pathAbs = Modelica.Utilities.Strings.replace(pathRecBfData, "\\", "/")
-    "replace the '' by '/' as the former are not recognized";
 algorithm
   // --------------- Generate SHA-code and path
-  sha := IDEAS.Utilities.Cryptographics.sha_hash(pathAbs);
-
+  sha := shaBorefieldRecords(
+    soiPath=Modelica.Utilities.Strings.replace(
+      soi.pathCom,
+      "\\",
+      "/"), filPath=Modelica.Utilities.Strings.replace(
+      fil.pathCom,
+      "\\",
+      "/"),genPath=Modelica.Utilities.Strings.replace(
+      gen.pathCom,
+      "\\",
+      "/"));
   if Modelica.Utilities.Files.exist("C:") then
     dir :="C://.BfData";
   elseif Modelica.Utilities.Files.exist("/tmp") then
@@ -49,9 +48,7 @@ write the temperory file at a different location. \n
     IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.ShortTimeResponseHX(
       soi=soi,
       fil=fil,
-      geo=geo,
-      steRes=steRes,
-      adv=adv,
+      gen=gen,
       pathSave=pathSave);
 
     existShoTerRes := false;
@@ -63,5 +60,26 @@ write the temperory file at a different location. \n
     fileName=pathSave + "ShoTermData.mat",
     matrixName="TResSho",
     rows=1,
-    columns=steRes.tBre_d + 1);
+    columns=gen.tBre_d + 1);
+
+    annotation (Documentation(info="<html>
+    <p>  This function calculates the short-term wall temperature response of a borefield for given parameters and save it in a hidden folder C:\.BfData\ for windows and C:\.tmp\ for Linux.</p>
+    <p> Firstly, a SHA-code of the records soi, fil and gen are computed and summed by the function shaBorefieldRecords. The algorithm checks then if the step response for these parameters already 
+    exists in the temperory file. If not, a response vector is computed by the function ShortTimeResponseHX and saved under the name SHA+ShoTermData.mat.</p>
+    <p> Remark: by calling the function, three 'true' should appear in the command window for:</p>
+    <ul>
+    <li> translation of model </li>
+    <li> simulation of model</li>
+    <li> writing the data </li>
+    </ul>
+    <p> If not, an error has occured!
+    </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end initializeModel;

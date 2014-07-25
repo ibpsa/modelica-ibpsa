@@ -2,34 +2,31 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scr
 function saveAggregationMatrix
   extends Aggregation.Interface.partialAggFunction;
 
-  input String pathRec;
-
   input Data.Records.Soil soi "Thermal properties of the ground";
-  input Data.Records.Geometry geo "Geometric charachteristic of the borehole";
-  input Data.Records.StepResponse steRes "generic step load parameter";
+  input Data.Records.General gen "General charachteristic of the borefield";
   input Data.Records.Filling fil "Thermal properties of the filling material";
-  input Data.Records.Advanced adv "Advanced parameters";
 
   input Integer lenSim "Simulation length ([s]). By default = 100 days";
 
   output Real[q_max,p_max] kappaMat "transient resistance for each cell";
   output Integer[q_max] rArr=
-    Borefield.BaseClasses.Aggregation.BaseClasses.cellWidth(q_max=q_max,
-    p_max=p_max) "width of aggregation cell for each level";
+      Borefield.BaseClasses.Aggregation.BaseClasses.cellWidth(q_max=q_max,
+      p_max=p_max) "width of aggregation cell for each level";
   output Integer[q_max,p_max] nuMat=
-    Borefield.BaseClasses.Aggregation.BaseClasses.nbPulseAtEndEachLevel(
-    q_max=q_max,
-    p_max=p_max,
-    rArr=rArr) "nb of aggregated pulse at end of each aggregation cells";
-  output Modelica.SIunits.Temperature TSteSta "Quasi steady state temperature";
+      Borefield.BaseClasses.Aggregation.BaseClasses.nbPulseAtEndEachLevel(
+      q_max=q_max,
+      p_max=p_max,
+      rArr=rArr) "nb of aggregated pulse at end of each aggregation cells";
+  output Modelica.SIunits.Temperature TWallSteSta
+    "Quasi steady state temperature";
 
-  output Real[1,steRes.tBre_d + 1] TResSho;
+  output Real[1,gen.tBre_d + 1] TResSho;
   output String sha;
 
   output Boolean existShoTerRes;
 
   output Boolean existAgg;
-  output Boolean writeTSteSta;
+  output Boolean writeTWallSteSta;
   output Boolean writeAgg;
   output Real q_max_out;
 
@@ -38,16 +35,26 @@ protected
   String dir;
   Real[1,1] mat;
 algorithm
-  q_max_out :=q_max;
+  q_max_out := q_max;
   // --------------- Generate SHA-code and path
-  sha := IDEAS.Utilities.Cryptographics.sha_hash(pathRec);
+  sha := shaBorefieldRecords(
+    soiPath=Modelica.Utilities.Strings.replace(
+      soi.pathCom,
+      "\\",
+      "/"), filPath=Modelica.Utilities.Strings.replace(
+      fil.pathCom,
+      "\\",
+      "/"),genPath=Modelica.Utilities.Strings.replace(
+      gen.pathCom,
+      "\\",
+      "/"));
 
   if Modelica.Utilities.Files.exist("C:") then
-    dir :="C://.BfData";
+    dir := "C://.BfData";
   elseif Modelica.Utilities.Files.exist("/tmp") then
-    dir :="/tmp/.BfData";
+    dir := "/tmp/.BfData";
   else
-    dir :="";
+    dir := "";
     assert(false, "\n
 ************************************************************************************************************************ \n 
 You do not have the writing permission on the C: or home/ folder. Change the variable dir in
@@ -69,65 +76,59 @@ write the temperory file at a different location. \n
 
   assert(existShoTerRes, " \n
 ************************************************************************************************************************ \n 
-The borefield model with this BfData record has not yet been initialized. Please firstly run the following command in the command log: \n" +
-"IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.initializeModel("+
-"pathRecBfData=\"" + pathRec + "\","+
-"soi=" + soi.path + "(), " +
-"fil=" + fil.path + "()," +
-"geo=" + geo.path + "()," +
-"steRes=" + steRes.path + "()," +
-"adv=" + adv.path + "())"+
-"\n
+The borefield model with this BfData record has not yet been initialized. Please firstly run the following command in the command log: \n"
+     + "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.initializeModel("
+     + "soi=" + soi.pathMod + "(), " + "fil="
+     + fil.pathMod + "()," + "gen=" + gen.pathMod + "())" + "\n
 ************************************************************************************************************************ \n ");
 
   TResSho := readMatrix(
     fileName=pathSave + "ShoTermData.mat",
     matrixName="TResSho",
     rows=1,
-    columns=steRes.tBre_d + 1);
+    columns=gen.tBre_d + 1);
 
-  // --------------- Check if the aggregation matrix kappaMat and the steady state temperature (TSteSta) need to be calculated or loaded
-  if not existShoTerRes or not Modelica.Utilities.Files.exist(pathSave + "Agg" + String(lenSim) + ".mat") then
+  // --------------- Check if the aggregation matrix kappaMat and the steady state temperature (TWallSteSta) need to be calculated or loaded
+  if not existShoTerRes or not Modelica.Utilities.Files.exist(pathSave + "Agg" +
+      String(lenSim) + ".mat") then
     existAgg := false;
 
-    TSteSta :=GroundHX.CorrectedBoreFieldWallTemperature(
-      steRes=steRes,
-      geo=geo,
+    TWallSteSta := GroundHX.CorrectedBoreFieldWallTemperature(
+      gen=gen,
       soi=soi,
       TResSho=TResSho[1, :],
-      t_d=steRes.tSteSta_d);
+      t_d=gen.tSteSta_d);
 
     kappaMat := Borefield.BaseClasses.Aggregation.transientFrac(
       q_max=q_max,
       p_max=p_max,
-      steRes=steRes,
-      geo=geo,
+      gen=gen,
       soi=soi,
       TResSho=TResSho[1, :],
       nuMat=nuMat,
-      TSteSta=TSteSta);
+      TWallSteSta=TWallSteSta);
 
-    writeTSteSta := writeMatrix(
-      fileName=pathSave + "TSteSta.mat",
-      matrixName="TSteSta",
-      matrix={{TSteSta}},
+    writeTWallSteSta := writeMatrix(
+      fileName=pathSave + "TWallSteSta.mat",
+      matrixName="TWallSteSta",
+      matrix={{TWallSteSta}},
       append=false);
     writeAgg := writeMatrix(
       fileName=pathSave + "Agg" + String(lenSim) + ".mat",
       matrixName="kappaMat",
       matrix=kappaMat,
       append=false);
-      mat :={{1}};
+    mat := {{1}};
   else
     existAgg := true;
     writeAgg := false;
 
     mat := readMatrix(
-      fileName=pathSave + "TSteSta.mat",
-      matrixName="TSteSta",
+      fileName=pathSave + "TWallSteSta.mat",
+      matrixName="TWallSteSta",
       rows=1,
       columns=1);
-    TSteSta:=mat[1, 1];
+    TWallSteSta := mat[1, 1];
 
     kappaMat := readMatrix(
       fileName=pathSave + "Agg" + String(lenSim) + ".mat",
@@ -136,4 +137,18 @@ The borefield model with this BfData record has not yet been initialized. Please
       columns=p_max);
   end if;
 
+    annotation (Documentation(info="<html>
+    <p>  This function calculates aggregation matrix and the steady state temperature of a simulation with given simulation length (lenSim) with given borefield parameters 
+    and saves it in a hidden folder C:\.BfData\ for windows and C:\.tmp\ for Linux.</p>
+    <p> Firstly, a SHA-code of the records soi, fil and gen are computed and summed by the function shaBorefieldRecords. The algorithm checks then if aggregation matrix already
+    exists for these parameters and this simulation length in the temperory file. If not, the aggregation matrix and the steady state temperature are calculated using the function
+    Borefield.BaseClasses.Aggregation.transientFrac and GroundHX.CorrectedBoreFieldWallTemperature and saved under the name SHA+Agg or TWallSteSta+lenSim+.mat.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end saveAggregationMatrix;

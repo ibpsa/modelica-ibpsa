@@ -1,12 +1,12 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.GroundHX.BaseClasses;
 function integrandBf_bt
-  "Integrand for the mean bore hole wall temperature of a borefield fluid. u = integration variable  y = integrand "
+  "Integrand for the mean borehole wall temperature of a borefield. u = integration variable,  y = integrand "
   extends Modelica.Math.Nonlinear.Interfaces.partialScalarFunction;
   import SI = Modelica.SIunits;
 
-  input SI.Distance D "depth of bh";
+  input SI.Distance D "depth of boreholes";
   input SI.Radius rBor "bh radius";
-  input Integer nbBh "number of bh";
+  input Integer nbBh "number of boreholes";
   input Real cooBh[nbBh,2] "coordinates of center of boreholes";
 
 protected
@@ -31,4 +31,14 @@ algorithm
 
   y := supCoe*(4*ierf(D*u) - ierf(2*D*u))/(D*u^2);
 
+  annotation (Documentation(info="<html>
+  <p>FIXME </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end integrandBf_bt;

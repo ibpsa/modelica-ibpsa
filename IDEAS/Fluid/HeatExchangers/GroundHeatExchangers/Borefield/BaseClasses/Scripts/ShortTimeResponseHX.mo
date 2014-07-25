@@ -8,20 +8,20 @@ function ShortTimeResponseHX
     */
 
   import SI = Modelica.SIunits;
-  input Data.Records.Soil soi=Data.SoilData.example()
+  input Data.Records.Soil soi=Data.SoilData.SandStone()
     "Thermal properties of the ground";
-  input Data.Records.Filling fil=Data.FillingData.example()
+                                        //=Data.SoilData.SandStone()
+  input Data.Records.Filling fil=Data.FillingData.Bentonite()
     "Thermal properties of the filling material";
-  input Data.Records.Geometry geo=Data.GeometricData.example()
-    "Geometric charachteristic of the borehole";
-  input Data.Records.Advanced adv=Data.Advanced.example() "Advanced parameters";
-  input Data.Records.StepResponse steRes=Data.StepResponse.example()
-    "generic step load parameter";
+                                                  //=Data.FillingData.Bentonite()
+  input Data.Records.General gen=Data.GeneralData.c8x1_h110_b5_d3600_T283()
+    "General charachteristic of the borefield";
+                                                //=Data.GeneralData.c8x1_h110_b5_d3600_T283()
 
   input String pathSave "save path for the result file";
 
-  output Real[1,steRes.tBre_d + 1] TResSho;
-  output Real[3,steRes.tBre_d + 1] readData;
+  output Real[1,gen.tBre_d + 1] TResSho;
+  output Real[2,gen.tBre_d + 1] readData;
 
 protected
   final parameter String modelToSimulate="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
@@ -29,7 +29,7 @@ protected
 
   String[1] varToStore={"borHolSer.TWallAve"}
     "variables to store in result file";
-  SI.Time[1,steRes.tBre_d + 1] timVec={0:steRes.tStep:steRes.tBre_d*steRes.tStep}
+  SI.Time[1,gen.tBre_d + 1] timVec={0:gen.tStep:gen.tBre_d*gen.tStep}
     "time vector for which the data are saved";
   String[2] saveName={"Time",varToStore[1]};
 
@@ -39,30 +39,32 @@ algorithm
   experimentSetupOutput(equdistant=true, events=false);
 
   simulateModel(
-    modelToSimulate +
-     "( soi=" + soi.path + "(), " +
-     "fil=" + fil.path + "()," +
-     "geo=" + geo.path + "()," +
-     "steRes=" + steRes.path + "()," +
-     "adv=" + adv.path + "())",
-    stopTime=steRes.tBre_d*steRes.tStep,
-    numberOfIntervals=steRes.tBre_d + 1,
+    modelToSimulate+"( soi=" + soi.pathMod + "(), " +
+    "fil=" + fil.pathMod + "()," +
+    "gen=" + gen.pathMod + "())",
+    stopTime=gen.tBre_d*gen.tStep,
+    numberOfIntervals=gen.tBre_d + 1,
     method="dassl",
    resultFile=pathSave + "_sim");
 
+    // +
+    //  "( soi=" + soi.pathMod + "(), " +
+    //  "fil=" + fil.pathMod + "()," +
+    //  "gen=" + gen.pathMod + "())"
+
   // First columns are shorttime, last column is steady state
-  readData := cat(
-    1,
-    timVec,
-    interpolateTrajectory(
-      pathSave + "_sim.mat",
-      varToStore,
-      timVec[1, :]));
+    readData := cat(
+      1,
+      timVec,
+      interpolateTrajectory(
+        pathSave + "_sim.mat",
+        varToStore,
+        timVec[1, :]));
 
-  TResSho[1,:] :=readData[2, 1:end];
+    TResSho[1,:] :=readData[2, 1:end];
 
-  writeMatrix(
-      fileName=pathSave + "ShoTermData.mat", matrixName="TResSho", matrix=TResSho, append=false);
+    writeMatrix(
+        fileName=pathSave + "ShoTermData.mat", matrixName="TResSho", matrix=TResSho, append=false);
 
   annotation ();
 end ShortTimeResponseHX;

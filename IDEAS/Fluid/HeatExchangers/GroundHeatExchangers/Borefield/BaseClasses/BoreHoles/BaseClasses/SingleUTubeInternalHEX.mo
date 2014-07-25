@@ -8,9 +8,9 @@ model SingleUTubeInternalHEX
     redeclare final package Medium2 = Medium,
     T1_start=TFil_start,
     T2_start=TFil_start,
-    final tau1=Modelica.Constants.pi*geo.rTub^2*adv.hSeg*rho1_nominal/
+    final tau1=Modelica.Constants.pi*gen.rTub^2*gen.hSeg*rho1_nominal/
         m1_flow_nominal,
-    final tau2=Modelica.Constants.pi*geo.rTub^2*adv.hSeg*rho2_nominal/
+    final tau2=Modelica.Constants.pi*gen.rTub^2*gen.hSeg*rho2_nominal/
         m2_flow_nominal,
     final show_T=true,
     vol1(
@@ -19,15 +19,15 @@ model SingleUTubeInternalHEX
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal1,
       final m_flow_small=m1_flow_small,
-      V=adv.volOneLegSeg),
+      V=gen.volOneLegSeg),
     redeclare IDEAS.Fluid.MixingVolumes.MixingVolume vol2(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m2_flow_small,
-      V=adv.volOneLegSeg));
+      V=gen.volOneLegSeg));
 
-  parameter Modelica.SIunits.Temperature TFil_start=adv.TFil0_start
+  parameter Modelica.SIunits.Temperature TFil_start=gen.TFil0_start
     "Initial temperature of the filling material"
     annotation (Dialog(group="Filling material"));
 
@@ -80,8 +80,8 @@ protected
   final parameter Modelica.SIunits.Density dFil=fil.d
     "Density of the filling material";
 
-  parameter Modelica.SIunits.HeatCapacity Co_fil=dFil*cpFil*adv.hSeg*Modelica.Constants.pi
-      *(geo.rBor^2 - 2*(geo.rTub + geo.eTub)^2)
+  parameter Modelica.SIunits.HeatCapacity Co_fil=dFil*cpFil*gen.hSeg*Modelica.Constants.pi
+      *(gen.rBor^2 - 2*(gen.rTub + gen.eTub)^2)
     "Heat capacity of the whole filling material";
 
   parameter Modelica.SIunits.SpecificHeatCapacity cpMed=
@@ -108,38 +108,38 @@ protected
 public
   Modelica.Blocks.Sources.RealExpression RVol1(y=
     convectionResistance(
-    hSeg=adv.hSeg,
-    rBor=geo.rBor,
-    rTub=geo.rTub,
+    hSeg=gen.hSeg,
+    rBor=gen.rBor,
+    rTub=gen.rTub,
     kMed=kMed,
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow=m1_flow,
-    m_flow_nominal=adv.m_flow_nominal)/scaSeg)
+    m_flow_nominal=gen.m_flow_nominal_bh)/scaSeg)
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
   Modelica.Blocks.Sources.RealExpression RVol2(y=
-    convectionResistance(hSeg=adv.hSeg,
-    rBor=geo.rBor,
-    rTub=geo.rTub,
+    convectionResistance(hSeg=gen.hSeg,
+    rBor=gen.rBor,
+    rTub=gen.rTub,
     kMed=kMed,
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow=m2_flow,
-    m_flow_nominal=adv.m_flow_nominal)/scaSeg)
+    m_flow_nominal=gen.m_flow_nominal_bh)/scaSeg)
     "Convective and thermal resistance at fluid 2"
      annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
 
 initial equation
   (Rgb_val, Rgg_val, RCondGro_val, x) =
-    singleUTubeResistances(hSeg=adv.hSeg,
-    rBor=geo.rBor,
-    rTub=geo.rTub,
-    eTub=geo.eTub,
-    sha=geo.xC,
+    singleUTubeResistances(hSeg=gen.hSeg,
+    rBor=gen.rBor,
+    rTub=gen.rTub,
+    eTub=gen.eTub,
+    sha=gen.xC,
     kFil=fil.k,
     kSoi=soi.k,
-    kTub=geo.kTub);
+    kTub=gen.kTub);
 
 equation
   connect(vol1.heatPort, RConv1.fluid) annotation (Line(

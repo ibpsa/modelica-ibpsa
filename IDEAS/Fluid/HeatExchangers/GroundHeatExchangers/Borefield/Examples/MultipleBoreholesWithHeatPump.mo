@@ -9,7 +9,7 @@ model MultipleBoreholesWithHeatPump
   parameter Modelica.SIunits.HeatFlowRate q = 30
     "heat flow rate which is injected per meter depth of borehole";
 
-  parameter Data.BorefieldData.example_accurate
+  parameter Data.BorefieldData.SandStone_Bentonite_c8x1_h110_b5_d600_T283
     bfData
     annotation (Placement(transformation(extent={{-90,74},{-70,94}})));
   parameter Integer lenSim=3600*24*20 "length of the simulation";
@@ -21,7 +21,7 @@ model MultipleBoreholesWithHeatPump
   Movers.Pump                           pum(
     redeclare package Medium = Medium,
     useInput=true,
-    T_start=bfData.steRes.T_ini,
+    T_start=bfData.gen.T_start,
     m_flow(start=bfData.m_flow_nominal),
     m_flow_nominal=bfData.m_flow_nominal)
     annotation (Placement(transformation(extent={{-38,4},{-18,-16}})));
@@ -39,7 +39,7 @@ model MultipleBoreholesWithHeatPump
     redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA45
       heatPumpData,
     use_onOffSignal=true,
-    P_the_nominal=bfData.P_the_nominal/2)
+    P_the_nominal=bfData.PThe_nominal/2)
                      annotation (Placement(transformation(
         extent={{-15,-17},{15,17}},
         rotation=90,
@@ -50,7 +50,7 @@ model MultipleBoreholesWithHeatPump
     redeclare package Medium = Medium,
     m_flow_nominal=bfData.m_flow_nominal,
     tau=60,
-    T_start=bfData.steRes.T_ini) annotation (Placement(transformation(
+    T_start=bfData.gen.T_start) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-24,54})));
@@ -75,7 +75,7 @@ model MultipleBoreholesWithHeatPump
     redeclare package Medium = Medium,
     m_flow_nominal=bfData.m_flow_nominal,
     tau=60,
-    T_start=bfData.steRes.T_ini) annotation (Placement(transformation(
+    T_start=bfData.gen.T_start) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-62,-26})));

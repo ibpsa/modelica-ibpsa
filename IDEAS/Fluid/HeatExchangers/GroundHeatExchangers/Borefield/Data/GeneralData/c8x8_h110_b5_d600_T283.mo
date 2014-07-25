@@ -1,7 +1,11 @@
-within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeometricData;
-record example_64
-  extends Records.Geometry(
-    path="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeometricData.example_64",
+within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData;
+record c8x8_h110_b5_d600_T283
+  "Square configuration of 64 boreholes of 110 meter with a spacing of 5.5 meter from each other. Initial temperature is 283K and the discretization is 600 seconds"
+  extends Records.General(
+    pathMod="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData.c8x8_h110_b5_d600_T283",
+    pathCom = Modelica.Utilities.Files.loadResource("modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/GeneralData/c8x8_h110_b5_d600_T283.mo"),
+    m_flow_nominal_bh=0.3,
+    T_start=283.15,
     rBor=0.055,
     hBor=110,
     nbBh=64,
@@ -16,5 +20,9 @@ record example_64
     rTub=0.02,
     kTub=0.5,
     eTub=0.002,
-    xC=0.05);
-end example_64;
+    xC=0.05,
+    tStep=600,
+    q_ste=21.99,
+    nHor=10,
+    rExt=3);
+end c8x8_h110_b5_d600_T283;

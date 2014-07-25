@@ -7,7 +7,7 @@ model Heating_Embedded_DHW_STS
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
-  parameter Data.BorefieldData.example_accurate
+  parameter Data.BorefieldData.SandStone_Bentonite_c8x1_h110_b5_d600_T283
     bfData
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
 
@@ -242,7 +242,7 @@ model Heating_Embedded_DHW_STS
     annotation (Placement(transformation(extent={{-170,-46},{-198,-18}})));
   IDEAS.Fluid.Movers.Pump               pum(
     redeclare package Medium = Medium,
-    T_start=bfData.steRes.T_ini,
+    T_start=bfData.gen.T_start,
     m_flow(start=bfData.m_flow_nominal),
     m_flow_nominal=bfData.m_flow_nominal,
     useInput=false)
@@ -259,7 +259,7 @@ model Heating_Embedded_DHW_STS
       heatPumpData,
     allowFlowReversal=false,
     use_scaling=true,
-    P_the_nominal=bfData.P_the_nominal)
+    P_the_nominal=bfData.PThe_nominal)
     annotation (Placement(transformation(extent={{-164,-14},{-138,18}})));
 
 equation

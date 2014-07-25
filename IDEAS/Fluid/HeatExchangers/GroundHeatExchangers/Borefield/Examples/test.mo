@@ -1,12 +1,12 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Examples;
-model example_accurate_test
-  "Model of a borefield with axb borefield and a constant heat injection rate"
+model test
+  "Model of a borefield with 8x1 borefield and a constant heat injection rate"
 
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  parameter Data.BorefieldData.example_accurate
+  parameter Data.BorefieldData.SandStone_Bentonite_c8x1_h110_b5_d600_T283
     bfData
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Integer lenSim=3600*101 "length of the simulation";
@@ -21,7 +21,7 @@ model example_accurate_test
   Movers.Pump                           pum(
     redeclare package Medium = Medium,
     useInput=true,
-    T_start=bfData.steRes.T_ini,
+    T_start=bfData.gen.T_start,
     m_flow(start=bfData.m_flow_nominal),
     m_flow_nominal=bfData.m_flow_nominal)
     annotation (Placement(transformation(extent={{-10,22},{-30,2}})));
@@ -32,10 +32,10 @@ model example_accurate_test
     dp_nominal=10000,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    T_start=bfData.steRes.T_ini,
+    T_start=bfData.gen.T_start,
     m_flow_nominal=bfData.m_flow_nominal,
     m_flow(start=bfData.m_flow_nominal),
-    Q_flow_nominal=bfData.steRes.q_ste*bfData.geo.nbBh*bfData.geo.hBor,
+    Q_flow_nominal=bfData.gen.q_ste*bfData.gen.nbBh*bfData.gen.hBor,
     p_start=100000)
     annotation (Placement(transformation(extent={{30,22},{10,2}})));
   Modelica.Fluid.Sources.Boundary_pT boundary(nPorts=1, redeclare package
@@ -44,7 +44,7 @@ model example_accurate_test
   Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=bfData.m_flow_nominal,
-    T_start=bfData.steRes.T_ini)
+    T_start=bfData.gen.T_start)
     annotation (Placement(transformation(extent={{38,-50},{58,-30}})));
   Modelica.Blocks.Sources.Step           load1(
                                               height=1, startTime=0)
@@ -53,9 +53,9 @@ model example_accurate_test
   Movers.Pump                           pum1(
     redeclare package Medium = Medium,
     useInput=true,
-    T_start=bfData.steRes.T_ini,
-    m_flow(start=bfData.m_flow_nominal/bfData.geo.nbBh),
-    m_flow_nominal=bfData.m_flow_nominal/bfData.geo.nbBh*bfData.geo.nbSer)
+    T_start=bfData.gen.T_start,
+    m_flow(start=bfData.m_flow_nominal/bfData.gen.nbBh),
+    m_flow_nominal=bfData.m_flow_nominal/bfData.gen.nbBh*bfData.gen.nbSer)
     annotation (Placement(transformation(extent={{-2,-116},{-22,-136}})));
   Modelica.Blocks.Sources.Constant mFlo1(
                                         k=1)
@@ -65,11 +65,10 @@ model example_accurate_test
     dp_nominal=10000,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    T_start=bfData.steRes.T_ini,
-    Q_flow_nominal=bfData.steRes.q_ste*bfData.geo.hBor,
-    m_flow_nominal=bfData.m_flow_nominal/bfData.geo.nbBh*bfData.geo.nbSer,
-    m_flow(start=bfData.m_flow_nominal/bfData.geo.nbBh*bfData.geo.nbSer),
-    p_start=100000)
+    T_start=bfData.gen.T_start,
+    Q_flow_nominal=bfData.gen.q_ste*bfData.gen.hBor,
+    p_start=100000,
+    m_flow_nominal=bfData.gen.m_flow_nominal_bh)
     annotation (Placement(transformation(extent={{38,-116},{18,-136}})));
   Modelica.Fluid.Sources.Boundary_pT boundary1(
                                               nPorts=1, redeclare package
@@ -77,20 +76,14 @@ model example_accurate_test
     annotation (Placement(transformation(extent={{-52,-98},{-32,-78}})));
   Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium = Medium,
-    T_start=bfData.steRes.T_ini,
-    m_flow_nominal=bfData.m_flow_nominal/bfData.geo.nbBh*bfData.geo.nbSer)
+    T_start=bfData.gen.T_start,
+    m_flow_nominal=bfData.gen.m_flow_nominal_bh)
     annotation (Placement(transformation(extent={{46,-188},{66,-168}})));
   BaseClasses.BoreHoles.SingleBoreHolesInSerie borehole(
     soi=bfData.soi,
-    geo=bfData.geo,
-    adv=bfData.adv,
-    steRes=bfData.steRes,
+    gen=bfData.gen,
     redeclare package Medium = Medium,
-    dp_nominal=0.1,
-    T_start=bfData.steRes.T_ini,
-    fil=bfData.fil,
-    m_flow_nominal=bfData.m_flow_nominal/bfData.geo.nbBh*bfData.geo.nbSer,
-    m_flow(start=bfData.m_flow_nominal/bfData.geo.nbBh*bfData.geo.nbSer))
+    fil=bfData.fil)
     annotation (Placement(transformation(extent={{-24,-200},{32,-156}})));
 equation
   connect(pum.port_a,hea. port_b) annotation (Line(
@@ -155,4 +148,4 @@ equation
     experiment(StopTime=1.7e+006, __Dymola_NumberOfIntervals=100),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-220},{100,100}})));
-end example_accurate_test;
+end test;

@@ -1,5 +1,5 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Aggregation.Examples;
-function test_TransientFrac "ATTENTION: don't translate this function! otherwise it doesn't work anymore, \\
+function transientFrac "ATTENTION: don't translate this function! otherwise it doesn't work anymore, \\
   because some of the code is not possible to statically translate into c-code!\\
   ATTENTION: first translate transientFrac!
   ---------------------------------------------------------------------
@@ -11,7 +11,8 @@ function test_TransientFrac "ATTENTION: don't translate this function! otherwise
   "
   input Integer n_max=201;
   input Integer p_max=5;
-  input Real TSteSta = 280;
+  input Real TWallSteSta = 280;
+  input Real[:] TResSho;
 
   output Integer q_max=BaseClasses.nbOfLevelAgg(
       n_max, p_max);
@@ -30,14 +31,21 @@ algorithm
     p_max,
     rArr);
 
-  kappaMat := transientFrac(
-    q_max,
-    p_max,
-    Data.StepResponse.example(),
-    Data.GeometricData.example(),
-    Data.SoilData.example(),
-    Data.ShortTermResponse.example(),
+  kappaMat :=Aggregation.transientFrac(
+    q_max=q_max,
+    p_max=p_max,
+    gen=Data.GeneralData.c8x1_h110_b5_d3600_T283(),
+    soi=Data.SoilData.SandStone(),
+    TResSho=TResSho,
     nuMat=nuMat,
-    TSteSta=TSteSta);
-
-end test_TransientFrac;
+    TWallSteSta=TWallSteSta);
+    annotation (Documentation(info="<html>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
+end transientFrac;
