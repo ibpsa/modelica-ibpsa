@@ -23,13 +23,13 @@ Block to compute the water vapor pressure for a given dew point temperature.
 </p>
 <p>
 The correlation used in this model is valid for dew point temperatures between 
-<code>0 degC</code> and <code>30 degC</code>. It is an approximation to the correlation from 2005
+<i>0</i>&deg;C and <i>30</i>&deg;C. It is an approximation to the correlation from 2005
 ASHRAE Handbook, p. 6.2, which is valid in a wider range of temperatures and implemented
 in
 <a href=\"modelica://Annex60.Utilities.Psychrometrics.Functions.pW_TDewPoi\">
 Annex60.Utilities.Psychrometrics.Functions.pW_TDewPoi</a>.
 The approximation error of this simplified function is below 5% for a 
-temperature of <code>0 degC</code> to <code>30 degC</code>.
+temperature of <i>0</i>&deg;C to <i>30</i>&deg;C.
 The benefit of this simpler function is that it can be inverted analytically,
 whereas the other function requires a numerical solution.
 </html>", revisions="<html>

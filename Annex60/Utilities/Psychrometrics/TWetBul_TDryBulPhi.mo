@@ -5,8 +5,7 @@ block TWetBul_TDryBulPhi
   extends Annex60.Utilities.Psychrometrics.BaseClasses.psychometricsConstants;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
-                                                            annotation (
-      choicesAllMatching = true);
+    annotation (choicesAllMatching = true);
 
   parameter Boolean approximateWetBulb=false
     "Set to true to approximate wet bulb temperature" annotation (Evaluate=true);
@@ -23,12 +22,11 @@ block TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
           rotation=0)));
 
-  Modelica.Blocks.Interfaces.RealInput p(  final quantity="Pressure",
-                                           final unit="Pa",
-                                           min = 0) "Pressure"
+  Modelica.Blocks.Interfaces.RealInput p(final quantity="Pressure",
+                                         final unit="Pa",
+                                         min = 0) "Pressure"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},
-                                                                       rotation=
-           0)));
+                          rotation=0)));
 
   Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
@@ -134,7 +132,7 @@ Otherwise, the model will introduce one nonlinear equation.
 </p>
 <p>
 The approximation by Stull is valid for a relative humidity of <i>5%</i> to <i>99%</i>,
-a temperature range from <i>-20degC;C</i> to <i>50degC;C</i> 
+a temperature range from <i>-20</i>&deg;C to <i>50</i>&deg;C 
 and standard sea level pressure. 
 For this range of data, the approximation error is <i>-1</i> Kelvin to <i>+0.65</i> Kelvin,
 with a mean error of less than <i>0.3</i> Kelvin.
