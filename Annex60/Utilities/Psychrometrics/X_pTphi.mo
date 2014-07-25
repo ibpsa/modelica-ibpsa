@@ -16,13 +16,14 @@ public
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealOutput X[Medium.nX](each min=0, each max=1)
     "Steam mass fraction"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}))); //fixme: the formulation of this function is only valid if Medium.nX = 2. So I would ieder change the output to X[2] or the function implementation.
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
  parameter Integer i_nw(min=1, fixed=false) "Index for non-water substance";
  parameter Boolean found(fixed=false) "Flag, used for error checking";
 initial algorithm
+  assert(Medium.nX==2, "The implementation is only valid if Medium.nX=2.");
   found:=false;
   i_w :=1;
     for i in 1:Medium.nXi loop
@@ -54,6 +55,10 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>July 24, 2014 by Michael Wetter:<br/>
+Added <code>assert</code> to verify that <code>Medium.nX==2</code>
+as the implementation is only valid for such media.
+</li>
 <li>April 26, 2013 by Michael Wetter:<br/>
 Set the medium model to <code>Annex60.Media.Air</code>.
 This was required to allow a pedantic model check in Dymola 2014.
