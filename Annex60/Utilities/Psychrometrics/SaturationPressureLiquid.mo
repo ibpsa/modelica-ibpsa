@@ -23,7 +23,6 @@ equation
 <p>
 Saturation pressure of water above the triple point temperature computed from temperature
 according to Wagner <i>et al.</i> (1993). The range of validity is between
-</p>
 <i>273.16</i> and <i>373.16</i> Kelvin.
 </p>
 <h4>References</h4>
@@ -33,6 +32,7 @@ Wagner W., A. Saul, A. Pruss.
 equation 3.5. 1993.
 <a href=\"http://www.nist.gov/data/PDFfiles/jpcrd477.pdf\">
 http://www.nist.gov/data/PDFfiles/jpcrd477.pdf</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
