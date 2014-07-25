@@ -60,7 +60,11 @@ initial algorithm
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;
-    rh_per       = 100 * p/min(Annex60.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),0.999*p)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat])); //fixme: smoothMin?
+    rh_per       = 100 * p/
+      Annex60.Utilities.Math.Functions.smoothMin(
+         x1=Annex60.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul),
+         x2=0.999*p,
+         deltaX=1E-4)*Xi[iWat]/(Xi[iWat] + k_mair*(1-Xi[iWat]));
     TWetBul      = 273.15 + TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
        + Modelica.Math.atan(TDryBul_degC + rh_per)
@@ -170,6 +174,13 @@ DOI: 10.1175/JAMC-D-11-0143.1
 ",
 revisions="<html>
 <ul>
+<li>
+July 24, 2014 by Michael Wetter:<br/>
+Revised computation of <code>rh_per</code> to use
+<a href=\"modelica://Annex60.Utilities.Math.Functions.smoothMin\">
+Annex60.Utilities.Math.Functions.smoothMin</a> rather
+than <code>min</code>.
+</li>
 <li>
 November 20, 2013 by Michael Wetter:<br/>
 Updated model to use
