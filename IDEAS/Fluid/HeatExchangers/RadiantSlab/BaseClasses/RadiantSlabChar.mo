@@ -35,6 +35,8 @@ record RadiantSlabChar
   constant Integer n1=3 "Number of discrete capacities in upper layer";
   constant Integer n2=3 "Number of discrete capacities in lower layer";
 
+  parameter Integer nParCir=1 "number of circuit in parallel";
+
   // Extra parameters for floor heating
   parameter Modelica.SIunits.ThermalConductivity lambda_i = 0.036
     "heat conductivity of the isolation";

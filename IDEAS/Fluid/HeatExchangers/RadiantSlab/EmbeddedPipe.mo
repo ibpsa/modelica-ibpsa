@@ -9,22 +9,22 @@ model EmbeddedPipe
     "Properties of the floor heating or TABS, if present"
     annotation (choicesAllMatching=true);
   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(
-  final m=Modelica.Constants.pi/4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default),
+  final m=Modelica.Constants.pi/4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*RadSlaCha.nParCir*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default),
   res(use_dh=true, dh= if RadSlaCha.tabs then RadSlaCha.d_a - 2*RadSlaCha.s_r else 1),
   final dp_nominal=if RadSlaCha.tabs and use_dp then Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
+      m_flow=m_flow_nominal/RadSlaCha.nParCir,
       rho_a=rho_default,
       rho_b=rho_default,
       mu_a=mu_default,
       mu_b=mu_default,
-      length=pipeEqLen,
+      length=pipeEqLen/RadSlaCha.nParCir,
       diameter=RadSlaCha.d_a - 2*RadSlaCha.s_r,
       roughness=roughness,
-      m_flow_small=m_flow_small) else 0);
+      m_flow_small=m_flow_small/RadSlaCha.nParCir) else 0);
 
   // General model parameters ////////////////////////////////////////////////////////////////
   // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
-  final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T
+  final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T/RadSlaCha.nParCir
     "Length of the circuit";
   parameter Boolean use_dp = false "Set to true to calculate pressure drop";
   parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
