@@ -3,19 +3,51 @@ model EmbeddedPipe
   "Embedded pipe model based on prEN 15377 and (Koschenz, 2000), water capacity lumped to TOut"
   import IDEAS;
   extends IDEAS.Fluid.HeatExchangers.Interfaces.EmissionTwoPort;
-  extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(m=Modelica.Constants.pi/4*(
-      RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default));
-
-  // General model parameters ////////////////////////////////////////////////////////////////
-  // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
-  final parameter Modelica.SIunits.Length L_r=RadSlaCha.A_Floor/RadSlaCha.T
-    "Length of the circuit";
-  parameter Modelica.SIunits.MassFlowRate m_flowMin
-    "Minimal flowrate when in operation";
   replaceable parameter
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar RadSlaCha constrainedby
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
-    "Properties of the floor heating or TABS, if present";
+    "Properties of the floor heating or TABS, if present"
+    annotation (choicesAllMatching=true);
+  extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(
+  final m=Modelica.Constants.pi/4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default),
+  res(use_dh=true, dh= if RadSlaCha.tabs then RadSlaCha.d_a - 2*RadSlaCha.s_r else 1),
+  final dp_nominal=if RadSlaCha.tabs and use_dp then Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+      m_flow=m_flow_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
+      length=pipeEqLen,
+      diameter=RadSlaCha.d_a - 2*RadSlaCha.s_r,
+      roughness=roughness,
+      m_flow_small=m_flow_small) else 0);
+
+  // General model parameters ////////////////////////////////////////////////////////////////
+  // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
+  final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T
+    "Length of the circuit";
+  parameter Boolean use_dp = false "Set to true to calculate pressure drop";
+  parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
+    "Absolute roughness of pipe, with a default for a smooth steel pipe"
+    annotation(Dialog(tab="Pressure drop"));
+  final parameter Real pipeDiaInt = RadSlaCha.d_a - 2*RadSlaCha.s_r
+    "Pipe internal diameter";
+  parameter Modelica.SIunits.Length L_floor = A_floor^(1/2)
+    "Floor length - along the pipe direction"
+    annotation(Dialog(tab="Pressure drop"));
+  parameter Real N_pipes = A_floor/L_floor/RadSlaCha.T - 1
+    "Number of parallel pipes in the slab"
+annotation(Dialog(tab="Pressure drop"));
+  parameter Modelica.SIunits.Length pipeBendEqLen = 2*(N_pipes-1)*(2.48*RadSlaCha.T/2/pipeDiaInt+3.20)*pipeDiaInt
+    "Pipe bends equivalent length, default according to Fox and McDonald"
+annotation(Dialog(tab="Pressure drop"));
+  parameter Modelica.SIunits.Length pipeEqLen = pipeBendEqLen + (L_floor-2*RadSlaCha.T)*N_pipes
+    "Total pipe equivalent length, default assuming 180 dg turns starting at RadSlaCha.T from the end of the slab"
+annotation(Dialog(tab="Pressure drop"));
+  parameter Modelica.SIunits.MassFlowRate m_flowMin
+    "Minimal flowrate when in operation";
+
+  parameter Modelica.SIunits.Area A_floor "Floor/tabs surface area";
 
   // Resistances ////////////////////////////////////////////////////////////////
   // there is no R_z in the model because the dynamics of the water is explicitly simulated
@@ -43,27 +75,32 @@ model EmbeddedPipe
     m_flowMin/(Modelica.Constants.pi/4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2)*(RadSlaCha.d_a - 2*RadSlaCha.s_r)/
     Medium.dynamicViscosity(state_default)
     "Fix Reynolds number for assert of turbulent flow";
-  Real m_flowSp(unit="kg/(m2.s)")=port_a.m_flow/RadSlaCha.A_Floor
+  Real m_flowSp(unit="kg/(m2.s)")=port_a.m_flow/A_floor
     "mass flow rate per unit floor area";
-  Real m_flowMinSp(unit="kg/(m2.s)")=m_flowMin/RadSlaCha.A_Floor
+  Real m_flowMinSp(unit="kg/(m2.s)")=m_flowMin/A_floor
     "minimum mass flow rate per unit floor area";
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor R_x(G=
-        RadSlaCha.A_Floor/R_x_val) "Thermal conductor from pipe wall to layer"
+        A_floor/R_x_val) "Thermal conductor from pipe wall to layer"
          annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={56,24})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor R_r(G=
-        RadSlaCha.A_Floor/R_r_val) "Thermal conductor of pipe wall"
+        A_floor/R_r_val) "Thermal conductor of pipe wall"
         annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={22,24})));
 
   //fixme: update documentation regarding information about used values for density and viscosity
+   //copied from Buildings.Fluid.FixedResistances.BaseClasses.Pipe
 protected
-  constant Medium.ThermodynamicState state_default= Medium.setState_pTX(Medium.p_default, T_start, Medium.X_default)
+  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
+  parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
+    "Dynamic viscosity at nominal condition";
+
+  parameter Medium.ThermodynamicState state_default= Medium.setState_pTX(Medium.p_default, T_start, Medium.X_default)
     "Default state for calculation of density, viscosity, ...";
 
   // Interface
@@ -73,7 +110,7 @@ public
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
 
-  Modelica.Blocks.Sources.RealExpression G_w_val(y=RadSlaCha.A_Floor/R_w_val)
+  Modelica.Blocks.Sources.RealExpression G_w_val(y=A_floor/R_w_val)
     "Value of the G_w_val of the convective heat transfer inside pipe"
     annotation (Placement(transformation(extent={{-92,40},{-36,60}})));
   Modelica.Thermal.HeatTransfer.Components.Convection R_w

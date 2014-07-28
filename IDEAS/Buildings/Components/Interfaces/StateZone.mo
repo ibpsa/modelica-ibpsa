@@ -2,7 +2,8 @@ within IDEAS.Buildings.Components.Interfaces;
 partial model StateZone "Partial model for thermal building zones"
 
   parameter Integer nSurf(min=1)
-    "Number of surfaces adjacent to and heat exchangeing with the zone";
+    "Number of surfaces adjacent to and heat exchangeing with the zone"
+    annotation (Dialog(connectorSizing=true));
   outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -12,23 +13,11 @@ partial model StateZone "Partial model for thermal building zones"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a gainCon
     "Internal zone node for convective heat gains"
     annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] surfCon
-    "Convective heat transfer of surfaces adjacent to the zone"
-    annotation (Placement(transformation(extent={{-110,-40},{-90,-20}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nSurf] surfRad
-    "Longwave radiative heat transfer of surfaces adjacent to the zone"
-    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
-    "Shortwave solar heat gains by direct irradiation"
-    annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDif
-    "Shortwave solar heat gains by diffuse irradiation"
-    annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
   Modelica.Blocks.Interfaces.RealOutput TSensor
     "Sensor temperature of the zone, i.e. operative temeprature" annotation (
       Placement(transformation(extent={{96,-10},{116,10}}), iconTransformation(
           extent={{96,-10},{116,10}})));
-  PropsBus[nSurf] propsBus annotation (Placement(transformation(
+  ZoneBus[nSurf] propsBus annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,
         origin={-100,40}), iconTransformation(

@@ -4,53 +4,32 @@ partial model partial_DHW "partial DHW model"
 
   parameter Modelica.SIunits.Temperature TDHWSet(max=273.15 + 60) = 273.15 + 45
     "DHW temperature setpoint";
-  parameter Modelica.SIunits.Temperature TColdWaterNom=273.15 + 10
+  parameter Modelica.SIunits.Temperature TCold=273.15 + 10
     "Nominal cold water temperature";
-  parameter Modelica.SIunits.MassFlowRate m_flow_max = m_flow_nominal
-    "maximum mass flow rate of DHW (not necessarily at TDHWSet)";
-
-  // we need to specify the flowrate in the pump and mixingValve as relative values between 0 and 1
-  // so we compute a maximum flowrate and use this as nominal flowrate for these components
-  // We suppose the flowrate will always be lower than 1e3 kg/s.
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
-  /*
-  Slows down the simulation too much.  Should be in post processing
-  Real m_flowIntegrated(start = 0, fixed = true);
-  Real m_flowDiscomfort(start=0);
-  Real discomfort; //base 1
-  Real discomfortWeighted;
-  Real dTDiscomfort;
-  */
+protected
+  Modelica.SIunits.MassFlowRate mFlo60C "DHW flow rate at 60 degC";
+  parameter SI.Time tau=30
+    "Tin time constant of temperature sensor at nominal flow rate";
 
 public
   Modelica.Fluid.Interfaces.FluidPort_a port_hot(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression(y=TColdWaterNom)
+  Modelica.Blocks.Sources.RealExpression TCold_expr(y=TCold)
     annotation (Placement(transformation(extent={{26,-40},{46,-20}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_cold(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium annotation (
       __Dymola_choicesAllMatching=true);
 
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem_hot(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort THot(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=tau) annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
-  Modelica.Blocks.Math.Product product
-    annotation (Placement(transformation(extent={{-30,46},{-14,62}})));
-  Modelica.Blocks.Sources.Constant TTapWat_val(k=TColdWaterNom)
-    "Water temperature for the tapwater"
-    annotation (Placement(transformation(extent={{-100,18},{-86,32}})));
-  Modelica.Blocks.Math.Division division
-    annotation (Placement(transformation(extent={{-4,22},{10,36}})));
-  Modelica.Blocks.Sources.Constant TDHW_val(k=TDHWSet)
-    "Temperature of the Domestic hot water"
-    annotation (Placement(transformation(extent={{-100,48},{-86,62}})));
 
   IDEAS.Fluid.Interfaces.IdealSource idealSource(
     redeclare package Medium = Medium,
@@ -65,35 +44,32 @@ public
     annotation (Placement(transformation(extent={{80,10},{100,-10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
-    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  parameter SI.Time tau=30 "Tin time constant at nominal flow rate";
-  Modelica.Blocks.Math.Add TemDifDHWTap(k2=-1)
-    "Temperature difference between supply and net"
-    annotation (Placement(transformation(extent={{-60,40},{-42,58}})));
-  Modelica.Blocks.Math.Add TemDifHotTap(k2=-1)
-    "Temperature difference between the port_hot temperature and the tapwater"
-    annotation (Placement(transformation(extent={{-60,34},{-42,16}})));
+    annotation (Placement(transformation(extent={{66,-36},{78,-24}})));
 
-  Modelica.SIunits.Temperature TDHW_actual = max(senTem_hot.T,TDHWSet);
-  IDEAS.Utilities.Math.SmoothLimit smoothLimit(                   lower=0,
-    deltaX=0.01*m_flow_nominal,
-    upper=m_flow_max)
-    annotation (Placement(transformation(extent={{20,22},{34,36}})));
-  IDEAS.Utilities.Math.SmoothMin smoothMin(deltaX=0.1)
-    annotation (Placement(transformation(extent={{-30,18},{-16,32}})));
-  Modelica.Blocks.Sources.RealExpression minValTemDiff(y=0.1)
+  Modelica.SIunits.Temperature TDHW_actual = min(THot.T,TDHWSet);
+  Modelica.Blocks.Sources.RealExpression mFloCor(y=mFlo60C*(273.15 + 60 - TCold)
+        /(TDHWSet - TCold)) "Corrected desired mass flow rate for TDHWSet"
+    annotation (Placement(transformation(extent={{-66,76},{-4,96}})));
+  Modelica.Blocks.Sources.RealExpression deltaT(y=THot.T - TCold) "THot-TCold"
+    annotation (Placement(transformation(extent={{-66,62},{-40,82}})));
+  IDEAS.Utilities.Math.SmoothMax deltaT_with_smoothmax(deltaX=0.1)
+    annotation (Placement(transformation(extent={{-28,56},{-10,74}})));
+  Modelica.Blocks.Sources.RealExpression minValTemDif(y=0.1)
     "minimal value of the temperature difference, to avoid division by zero."
-    annotation (Placement(transformation(extent={{-46,-4},{-38,12}})));
+    annotation (Placement(transformation(extent={{-48,48},{-40,64}})));
+  Modelica.Blocks.Sources.RealExpression mFloHot_intermediate(y=mFlo60C*(273.15 +
+        60 - TCold)/(deltaT_with_smoothmax.y))
+    "Requied mass flow rate based on current THot"
+    annotation (Placement(transformation(extent={{-66,28},{-2,50}})));
+  IDEAS.Utilities.Math.SmoothMin mFloHot(deltaX=1e-3*m_flow_nominal)
+    "Hot and cold water flowrate"
+    annotation (Placement(transformation(extent={{18,34},{36,52}})));
 equation
-  connect(port_hot, senTem_hot.port_a) annotation (Line(
+  connect(port_hot, THot.port_a) annotation (Line(
       points={{-100,4.44089e-16},{-88,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(division.u1, product.y) annotation (Line(
-      points={{-5.4,33.2},{-8,33.2},{-8,54},{-13.2,54}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(idealSource.port_a, senTem_hot.port_b) annotation (Line(
+  connect(idealSource.port_a, THot.port_b) annotation (Line(
       points={{40,0},{-68,0}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -106,51 +82,31 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(prescribedTemperature.port, pipe_HeatPort.heatPort) annotation (Line(
-      points={{80,-30},{90,-30},{90,-10}},
+      points={{78,-30},{90,-30},{90,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(realExpression.y, prescribedTemperature.T) annotation (Line(
-      points={{47,-30},{58,-30}},
+  connect(TCold_expr.y, prescribedTemperature.T) annotation (Line(
+      points={{47,-30},{64.8,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TDHW_val.y, TemDifDHWTap.u1) annotation (Line(
-      points={{-85.3,55},{-76,55},{-76,54.4},{-61.8,54.4}},
+  connect(deltaT.y,deltaT_with_smoothmax. u1) annotation (Line(
+      points={{-38.7,72},{-34,72},{-34,70.4},{-29.8,70.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TTapWat_val.y, TemDifDHWTap.u2) annotation (Line(
-      points={{-85.3,25},{-76,25},{-76,43.6},{-61.8,43.6}},
+  connect(minValTemDif.y,deltaT_with_smoothmax. u2) annotation (Line(
+      points={{-39.6,56},{-34,56},{-34,59.6},{-29.8,59.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senTem_hot.T, TemDifHotTap.u1) annotation (Line(
-      points={{-78,11},{-78,19.6},{-61.8,19.6}},
+  connect(mFloHot_intermediate.y, mFloHot.u2) annotation (Line(
+      points={{1.2,39},{11.6,39},{11.6,37.6},{16.2,37.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TTapWat_val.y, TemDifHotTap.u2) annotation (Line(
-      points={{-85.3,25},{-76,25},{-76,30.4},{-61.8,30.4}},
+  connect(mFloCor.y, mFloHot.u1) annotation (Line(
+      points={{-0.9,86},{10,86},{10,48.4},{16.2,48.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TemDifDHWTap.y, product.u2) annotation (Line(
-      points={{-41.1,49},{-36.55,49},{-36.55,49.2},{-31.6,49.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(division.y, smoothLimit.u) annotation (Line(
-      points={{10.7,29},{18.6,29}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(smoothLimit.y, idealSource.m_flow_in) annotation (Line(
-      points={{34.7,29},{44,29},{44,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(smoothMin.y, division.u2) annotation (Line(
-      points={{-15.3,25},{-18,24.8},{-5.4,24.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TemDifHotTap.y, smoothMin.u1) annotation (Line(
-      points={{-41.1,25},{-38,25},{-38,29.2},{-31.4,29.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(minValTemDiff.y, smoothMin.u2) annotation (Line(
-      points={{-37.6,4},{-36,4},{-36,20.8},{-31.4,20.8}},
+  connect(mFloHot.y, idealSource.m_flow_in) annotation (Line(
+      points={{36.9,43},{44,43},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -202,37 +158,37 @@ equation
 <p><b>Description</b> </p>
 <p>Partial model of a domestic hot water (DHW) system composed mainly of a thermostatic mixing valve. The model foresees a cold water flowPort which has to be connected to the system (eg. storage tank).</p>
 <p>The model has two flowPorts and a realInput:</p>
-<p><ul>
+<ul>
 <li><i>port_hot</i>: connection to the hot water source (designation: <i>hot</i>)</li>
-<li><i>flowPortCold</i>: connection to the inlet of cold water in the hot water source (designation: <i>cold</i>)</li>
-<li><i>mDHW60C</i>: desired flowrate of DHW water (designation: <i>mixed</i>), equivalent at 60&deg;C</li>
-</ul></p>
-<p>In a first step, the desired DHW flow rate is computed based on <i>mDHW60C</i> and the set temperature <i>TDHWSet</i>.  The model tries to reach the given DHW flow rate at a the desired mixing temperature <i>TDHWSet </i>by mixing the hot water with cold water. The resulting hot flowrate will be extracted automatically from the hot source, and through the connection of flowPortCold to the hot source, this same flow rate will be injected (at TCold) in the production system. </p>
+<li><i>port_cold</i>: connection to the inlet of cold water in the hot water source (designation: <i>cold</i>)</li>
+<li><i>mDHW60C</i>: desired flowrate of DHW water, equivalent at 60&deg;C</li>
+</ul>
+<p>In a first step, the desired DHW flow rate at 60&deg;C is corrected for the set temperature <i>TDHWSet</i>. The model tries to reach the given DHW flow rate at a the desired mixing temperature <i>TDHWSet </i>by mixing the hot water with cold water. The resulting hot flowrate will be extracted automatically from the hot source, and through the connection of port_cold to the hot source, this same flow rate will be injected (at TCold) in the production system. </p>
 <p>There are currently two implementations of this partial model:</p>
-<p><ol>
+<ol>
 <li><a href=\"modelica://IDEAS.Thermal.Components.Domestic_Hot_Water.DHW_ProfileReader\">Reading in mDHW60c from a table</a></li>
 <li><a href=\"modelica://IDEAS.Thermal.Components.Domestic_Hot_Water.DHW_RealInput\">Getting mDHW60c from a realInput</a></li>
-</ol></p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
+</ol>
+<h4>Assumptions and limitations </h4>
+<ol>
 <li>No heat losses</li>
-<li>Inertia is foreseen through the inclusion of a water volume on the hot water side (default=1 liter). This parameter is not propagated to the interface, but it can be changed by modifying pumpHot.m.  Putting this water content to zero may lead to numerical problems (not tested)</li>
+<li>Inertia is foreseen through the inclusion of a water volume on the hot water side (default=1 liter). This parameter is not propagated to the interface, but it can be changed by modifying pumpHot.m. Putting this water content to zero may lead to numerical problems (not tested)</li>
 <li>If THot &LT; TDHWSEt, there is no mixing and TMixed = THot</li>
 <li>Fixed TDHWSet and TCold as parameters</li>
 <li>The mixed DHW is not available as an outlet or flowPort, it is assumed to be &apos;consumed&apos;. </li>
-</ol></p>
-<p><h4>Model use</h4></p>
-<p><ol>
+</ol>
+<h4>Model use</h4>
+<ol>
 <li>Set the parameters for cold water temperature and the DHW set temperature (mixed)</li>
 <li>Connect <i>port_hot </i>to the hot water source</li>
-<li>Connect <i>flowPortCold</i> to the cold water inlet of the hot water source</li>
+<li>Connect <i>port_</i>c<i>old</i> to the cold water inlet of the hot water source</li>
 <li>Depending on the implementation: fill out the table or provide a realInput for <i>mDHW60C</i></li>
 <li>Thanks to the use of <a href=\"modelica://IDEAS.Thermal.Components.BaseClasses.Ambient\">ambient</a> components in this model, it is <b>NOT</b> required to add additional pumps, ambients or AbsolutePressure to the DHW circuit.</li>
-</ol></p>
-<p><h4>Validation </h4></p>
+</ol>
+<h4>Validation </h4>
 <p>The model is verified to work properly by simulation of the different operating conditions.</p>
-<p><h4>Examples</h4></p>
-<p>An example of this model is given in <a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP\">IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP</a>.</p>
+<h4>Examples</h4>
+<p>An example of this model is given in <a href=\"IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example\">IDEAS.Fluid.Domestic_Hot_Water.Examples.DHW_example</a> and <a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP\">IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP</a>.</p>
 </html>", revisions="<html>
 <p><ul>
 <li>2013 June, Roel De Coninck: documentation.</li>

@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-model HeavyWall "BESTEST Heavy wall"
+record HeavyWall "BESTEST Heavy wall"
 
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     final nLay=3,

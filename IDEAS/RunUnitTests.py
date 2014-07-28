@@ -10,7 +10,7 @@ import buildingspy as BP
 import buildingspy.development.regressiontest as r
 import os
 import sys
-sys.path.append("E:\work\python\BuildingsPy")
+# sys.path.append("E:\work\python\BuildingsPy")
 
 import buildingspy as BP
 import buildingspy.development.regressiontest as rt
@@ -26,7 +26,7 @@ import buildingspy.development.regressiontest as rt
 """
 # os.chdir("E:\work\modelica\IDEAS\IDEAS")
 
-tester=r.Tester(executable='dymola', checkHtml=False)
+tester=r.Tester(executable='dymola')
 
 """ number of parallel processes started."""
 tester.setNumberOfThreads(1)

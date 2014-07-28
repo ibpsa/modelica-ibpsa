@@ -1,17 +1,9 @@
 within IDEAS.Fluid.Domestic_Hot_Water;
 model DHW_RealInput "DHW consumption with input for flowrate at 60 degC"
-
   extends IDEAS.Fluid.Domestic_Hot_Water.partial_DHW;
-
-  Modelica.Blocks.Interfaces.RealInput mDHW60C(unit="kg/s")
+  Modelica.Blocks.Interfaces.RealInput mDHW60C(unit="kg/s") = mFlo60C
     "Mass flowrate of DHW at 60 degC in kg/s"
     annotation (Placement(transformation(extent={{-120,66},{-80,106}})));
-
-equation
-  connect(product.u1, mDHW60C) annotation (Line(
-      points={{-22,56},{-36,56},{-36,86},{-100,86}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -40},{140,100}}),
                       graphics), Documentation(info="<html>

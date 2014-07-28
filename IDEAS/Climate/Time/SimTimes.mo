@@ -23,13 +23,16 @@ protected
     annotation (Placement(transformation(extent={{-10,-6},{10,14}})));
   IDEAS.Climate.Time.BaseClasses.SolarTime solarTime
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  IDEAS.Climate.Time.BaseClasses.SimulationTime simulationTime
+  IDEAS.Climate.Time.BaseClasses.SimulationTime simulationTime(delay=delay)
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   IDEAS.Climate.Time.BaseClasses.TimeZone timeZone(
     timZonSta=timZonSta,
     DST=DST,
     yr=yr) annotation (Placement(transformation(extent={{-50,-6},{-30,14}})));
 
+public
+  parameter SI.Time delay=0
+    "Delay [s] for simulations not starting on the first of january";
 equation
   connect(localTime.timLoc, solarTime.timLoc) annotation (Line(
       points={{10,4},{30,4}},

@@ -11,13 +11,13 @@ model MixingVolume
     offset=101330)
                  annotation (Placement(transformation(extent={{-100,60},{-80,80}},
           rotation=0)));
-  IDEAS.Fluid.Sources.Boundary_pT sou(             redeclare package Medium =
-        Medium, T=293.15,
+  IDEAS.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+      = Medium, T=293.15,
     use_p_in=true,
     nPorts=3)                                       annotation (Placement(
         transformation(extent={{-70,48},{-50,68}}, rotation=0)));
-  IDEAS.Fluid.Sources.Boundary_pT sin(             redeclare package Medium =
-        Medium,
+  IDEAS.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+      = Medium,
     nPorts=3,
     use_p_in=false,
     p=101325,
@@ -72,12 +72,12 @@ model MixingVolume
            0)));
   IDEAS.Utilities.Diagnostics.AssertEquality assertEquality
     annotation (Placement(transformation(extent={{160,72},{180,92}},rotation=0)));
-  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium =
-        Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium
+      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,50},{60,70}}, rotation=0)));
-  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium =
-        Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium
+      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,0},{60,20}},  rotation=0)));
   IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
@@ -106,8 +106,8 @@ model MixingVolume
   IDEAS.Utilities.Diagnostics.AssertEquality assertEquality1
     annotation (Placement(transformation(extent={{156,10},{176,30}},   rotation=
            0)));
-  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium =
-        Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium
+      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,-92},{60,-72}}, rotation=0)));
     Modelica.Blocks.Sources.Constant zero(k=0)

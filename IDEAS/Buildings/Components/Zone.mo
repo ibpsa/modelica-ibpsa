@@ -31,7 +31,7 @@ protected
         rotation=-90,
         origin={-54,-44})));
   BaseClasses.AirLeakage airLeakage(
-    redeclare package Medium = IDEAS.Media.Air,
+    redeclare package Medium = Medium,
     m_flow_nominal=V/3600*n50/20,
     V=V,
     n50=0.1)
@@ -52,17 +52,15 @@ public
   Fluid.MixingVolumes.MixingVolume         vol(
     V=V,
     m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = IDEAS.Media.Air,
-    nPorts=4)                                  annotation (Placement(
+    nPorts=4,
+    redeclare package Medium = Medium)         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-10,30})));
-  Fluid.Interfaces.FlowPort_b flowPort_Out(redeclare package Medium =
-        IDEAS.Media.Air)
+  Fluid.Interfaces.FlowPort_b flowPort_Out(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
-  Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium =
-        IDEAS.Media.Air)
+  Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCap(C=1012*1.204*V
         *(corrCV-1), T(start=293.15)) "air capacity"
@@ -72,24 +70,13 @@ public
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
 equation
-  connect(surfRad, radDistr.radSurfTot) annotation (Line(
-      points={{-100,-60},{-74,-60},{-74,-26},{-54,-26},{-54,-34}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(radDistr.iSolDir, iSolDir) annotation (Line(
-      points={{-58,-54},{-58,-80},{-20,-80},{-20,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(radDistr.iSolDif, iSolDif) annotation (Line(
-      points={{-54,-54},{-54,-76},{20,-76},{20,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
+
   connect(radDistr.radGain, gainRad) annotation (Line(
       points={{-50.2,-54},{-50,-54},{-50,-72},{80,-72},{80,-60},{100,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(surfRad, radDistrLw.port_a) annotation (Line(
-      points={{-100,-60},{-74,-60},{-74,-26},{-54,-26},{-54,-20}},
+  connect(propsBus[:].surfRad, radDistrLw.port_a) annotation (Line(
+      points={{-100,40},{-74,40},{-74,-26},{-54,-26},{-54,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -143,8 +130,16 @@ equation
       smooth=Smooth.None));
 
 for i in 1:nSurf loop
-  connect(surfCon[i], vol.heatPort) annotation (Line(
-      points={{-100,-30},{10,-30},{10,30},{0,30}},
+  connect(radDistr.iSolDir, propsBus[i].iSolDir) annotation (Line(
+      points={{-58,-54},{-58,-80},{-100,-80},{-100,40}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(radDistr.iSolDif, propsBus[i].iSolDif) annotation (Line(
+      points={{-54,-54},{-54,-76},{-100,-76},{-100,40}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(propsBus[i].surfCon, vol.heatPort) annotation (Line(
+      points={{-100,40},{-46,40},{-46,12},{10,12},{10,30},{4.44089e-16,30}},
       color={191,0,0},
       smooth=Smooth.None));
 end for;
@@ -176,6 +171,10 @@ end for;
       points={{60,40},{70,40},{70,14},{-32,14},{-32,40},{-13,40}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(radDistr.radSurfTot, radDistrLw.port_a) annotation (Line(
+      points={{-54,-34},{-54,-20}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -192,6 +191,6 @@ end for;
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics));
 end Zone;

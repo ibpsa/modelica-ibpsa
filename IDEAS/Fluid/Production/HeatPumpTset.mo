@@ -18,13 +18,6 @@ model HeatPumpTset "Heat pump using a temperature setpoint"
         rotation=270,
         origin={-20,108})));
 
-  parameter Boolean use_scaling = false
-    "scale the performance data based on the nominal power";
-  parameter Modelica.SIunits.Power P_the_nominal
-    "nominal thermal power of the heat pump";
-  final parameter Real sca = if use_scaling then P_the_nominal / heatPumpData.P_the_nominal else 1
-    "scaling factor for the nominal power of the heat pump";
-
   Real cop "COP of the heat pump";
   Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=uLow, uHigh=uHigh)
     annotation (Placement(transformation(extent={{-22,-64},{-2,-44}})));

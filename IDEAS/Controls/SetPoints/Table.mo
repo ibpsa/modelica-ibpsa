@@ -2,7 +2,7 @@ within IDEAS.Controls.SetPoints;
 model Table
   "Model for a set point that is interpolated based on a user-specified table"
   extends Modelica.Blocks.Interfaces.SISO;
-  parameter Real table[:,2]=fill(0.0, 1, 2)
+  parameter Real table[:,2]=fill(0.0, 1, 2) 
     "Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])";
 
   parameter Real offset=0 "Offset of output signal";

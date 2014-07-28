@@ -23,6 +23,14 @@ partial model PartialHeatPump "Heat pump partial"
   constrainedby HeatPumpData
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-98,-98},{-78,-78}})));
 
+  parameter Boolean use_scaling = false
+    "scale the performance data based on the nominal power";
+  parameter Modelica.SIunits.Power P_the_nominal = heatPumpData.P_the_nominal
+    "nominal thermal power of the heat pump"
+    annotation (Dialog(enable=use_scaling));
+  final parameter Real sca = if use_scaling then P_the_nominal / heatPumpData.P_the_nominal else 1
+    "scaling factor for the nominal power of the heat pump";
+
     //From LumpedVolumeDeclarations
       // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -147,9 +155,9 @@ public
     from_dp=from_dp,
     linearizeFlowResistance=linearizeFlowResistance,
     deltaM=deltaM,
-    m_flow_nominal=heatPumpData.m_flow_nominal_brine,
     m=heatPumpData.mBrine,
-    dp_nominal=heatPumpData.dp_nominal_brine)
+    dp_nominal=heatPumpData.dp_nominal_brine,
+    m_flow_nominal=heatPumpData.m_flow_nominal_brine)
               annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -166,14 +174,16 @@ public
     X_start=X_start2,
     C_start=C_start2,
     C_nominal=C_nominal2,
-    m_flow_nominal=heatPumpData.m_flow_nominal_fluid,
     m=heatPumpData.mFluid,
-    dp_nominal=heatPumpData.dp_nominal_fluid)
+    dp_nominal=heatPumpData.dp_nominal_fluid,
+    m_flow_nominal=heatPumpData.m_flow_nominal_fluid)
                                  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,-10})));
 
+  outer Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 equation
   connect(heatLoss, thermalConductor.port_a) annotation (Line(
       points={{26,-100},{26,-80}},

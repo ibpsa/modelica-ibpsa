@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Validation.Data.Constructions;
-model HighConductance "BESTEST high conductance wall"
+record HighConductance "BESTEST high conductance wall"
 
   extends IDEAS.Buildings.Data.Interfaces.Construction(
     final nLay=3,

@@ -15,16 +15,16 @@ model Window "Multipane window"
   final parameter Modelica.SIunits.Power QNom=glazing.U_value*A*(273.15 + 21 -
       sim.Tdes) "Design heat losses at reference outdoor temperature";
 
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Glazing glazing
+  replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazing
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
-  replaceable parameter IDEAS.Buildings.Data.Interfaces.Frame fraType
+  replaceable IDEAS.Buildings.Data.Frames.None fraType
     constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
-  replaceable Interfaces.StateShading shaType constrainedby
-    Interfaces.StateShading(final azi=azi) "Shading type" annotation (
+  replaceable IDEAS.Buildings.Components.Shading.None shaType constrainedby
+    Interfaces.StateShading(final azi=azi) "Shading type" annotation (Placement(transformation(extent={{-36,-70},{-26,-50}})),
       __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
 
   Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controled
@@ -36,14 +36,6 @@ model Window "Multipane window"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-30,-100})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDir
-    "direct solar gains transmitted by windows" annotation (Placement(
-        transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent=
-           {{-10,-110},{10,-90}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif
-    "diffuse solar gains transmitted by windows" annotation (Placement(
-        transformation(extent={{20,-110},{40,-90}}), iconTransformation(extent=
-            {{20,-110},{40,-90}})));
 
 protected
   IDEAS.Climate.Meteo.Solar.ShadedRadSol radSol(
@@ -51,7 +43,7 @@ protected
     final azi=azi,
     final A=A*(1 - frac))
     "determination of incident solar radiation on wall based on inclination and azimuth"
-    annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
+    annotation (Placement(transformation(extent={{-72,-70},{-52,-50}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerLucent layMul(
     final A=A*(1 - frac),
     final inc=inc,
@@ -94,7 +86,6 @@ protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=
         fraType.U_value*A*frac) if fraType.present
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
-
 equation
   connect(eCon.port_a, layMul.port_a) annotation (Line(
       points={{-20,-30},{-10,-30}},
@@ -104,12 +95,12 @@ equation
       points={{-20,-10},{-16,-10},{-16,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(solWin.iSolDir, iSolDir) annotation (Line(
-      points={{-2,-70},{-2,-80},{0,-80},{0,-100}},
+  connect(solWin.iSolDir, propsBus_a.iSolDir) annotation (Line(
+      points={{-2,-70},{-2,-80},{50,-80},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(solWin.iSolDif, iSolDif) annotation (Line(
-      points={{2,-70},{0,-70},{0,-80},{30,-80},{30,-100}},
+  connect(solWin.iSolDif, propsBus_a.iSolDif) annotation (Line(
+      points={{2,-70},{0,-70},{0,-80},{50,-80},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolAbs, layMul.port_gain) annotation (Line(
@@ -121,12 +112,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(layMul.port_b, surfRad_a) annotation (Line(
-      points={{10,-30},{16,-30},{16,-60},{50,-60}},
+  connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
+      points={{10,-30},{16,-30},{16,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(iCon.port_b, surfCon_a) annotation (Line(
-      points={{40,-30},{50,-30}},
+  connect(iCon.port_b, propsBus_a.surfCon) annotation (Line(
+      points={{40,-30},{46,-30},{46,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_b, iCon.port_a) annotation (Line(
@@ -134,23 +125,23 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(radSol.solDir, shaType.solDir) annotation (Line(
-      points={{-50,-54},{-36,-54}},
+      points={{-52,-54},{-36,-54}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSol.solDif, shaType.solDif) annotation (Line(
-      points={{-50,-58},{-36,-58}},
+      points={{-52,-58},{-36,-58}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSol.angInc, shaType.angInc) annotation (Line(
-      points={{-50,-64},{-36,-64}},
+      points={{-52,-64},{-36,-64}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSol.angZen, shaType.angZen) annotation (Line(
-      points={{-50,-66},{-36,-66}},
+      points={{-52,-66},{-36,-66}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSol.angAzi, shaType.angAzi) annotation (Line(
-      points={{-50,-68},{-36,-68}},
+      points={{-52,-68},{-36,-68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaType.iSolDir, solWin.solDir) annotation (Line(
@@ -169,8 +160,8 @@ equation
       points={{-31,-70},{-30,-70},{-30,-110}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(iConFra.port_b, surfCon_a) annotation (Line(
-      points={{40,80},{44,80},{44,-30},{50,-30}},
+  connect(iConFra.port_b, propsBus_a.surfCon) annotation (Line(
+      points={{40,80},{44,80},{44,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layFra.port_b, iConFra.port_a) annotation (Line(

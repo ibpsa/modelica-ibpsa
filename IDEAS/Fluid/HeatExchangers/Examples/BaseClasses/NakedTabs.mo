@@ -8,29 +8,30 @@ model NakedTabs "HeatPort-only tabs system, without embedded pipe"
 
   parameter Integer n1=radSlaCha.n1;
   parameter Integer n2=radSlaCha.n2;
+  parameter Modelica.SIunits.Area A_floor=1 "Floor surface";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_b
     annotation (Placement(transformation(extent={{-10,-108},{10,-88}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[n1 + 1] U1(each G=
-        radSlaCha.lambda_b/(radSlaCha.S_1/(n1 + 1))*radSlaCha.A_Floor)
+        radSlaCha.lambda_b/(radSlaCha.S_1/(n1 + 1))*A_floor)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,32})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[n2 + 1] U2(each G=
-        radSlaCha.lambda_b/(radSlaCha.S_2/(n2 + 1))*radSlaCha.A_Floor)
+        radSlaCha.lambda_b/(radSlaCha.S_2/(n2 + 1))*A_floor)
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,-22})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[n1] C1(each C=
-        radSlaCha.A_Floor*radSlaCha.S_1/n1*radSlaCha.rho_b*radSlaCha.c_b, each
+        A_floor*radSlaCha.S_1/n1*radSlaCha.rho_b*radSlaCha.c_b, each
       T(fixed=false))
     annotation (Placement(transformation(extent={{32,54},{52,74}})));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[n2] C2(each C=
-        radSlaCha.A_Floor*radSlaCha.S_2/n2*radSlaCha.rho_b*radSlaCha.c_b)
+        A_floor*radSlaCha.S_2/n2*radSlaCha.rho_b*radSlaCha.c_b)
     annotation (Placement(transformation(extent={{30,-62},{50,-42}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portCore
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));

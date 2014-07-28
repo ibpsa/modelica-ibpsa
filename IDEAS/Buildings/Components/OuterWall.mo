@@ -1,25 +1,8 @@
 within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWall;
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
 
-  replaceable Data.Constructions.CavityWall constructionType
-    constrainedby Data.Interfaces.Construction(final insulationType=
-        insulationType, final insulationTickness=insulationThickness)
-    "Type of building construction" annotation (
-    __Dymola_choicesAllMatching=true,
-    Placement(transformation(extent={{-38,72},{-34,76}})),
-    Dialog(group="Construction details"));
-
-  replaceable Data.Insulation.Rockwool insulationType constrainedby
-    Data.Interfaces.Insulation(final d=insulationThickness)
-    "Type of thermal insulation" annotation (
-    __Dymola_choicesAllMatching=true,
-    Placement(transformation(extent={{-38,84},{-34,88}})),
-    Dialog(group="Construction details"));
-  parameter Modelica.SIunits.Length insulationThickness=0.05
-    "Thermal insulation thickness"
-    annotation (Dialog(group="Construction details"));
   parameter Modelica.SIunits.Area AWall "Total wall area";
   parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90deg denotes vertical";
@@ -105,12 +88,12 @@ equation
       points={{0,-100},{0,-40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(intCon.port_b, surfCon_a) annotation (Line(
-      points={{40,-30},{50,-30}},
+  connect(intCon.port_b, propsBus_a.surfCon) annotation (Line(
+      points={{40,-30},{46,-30},{46,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.port_b, surfRad_a) annotation (Line(
-      points={{10,-30},{16,-30},{16,-60},{50,-60}},
+  connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
+      points={{10,-30},{16,-30},{16,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(

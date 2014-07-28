@@ -23,8 +23,8 @@ model TWetBul_TDryBulXi
     offset=0.0175) "Humidity concentration"
                  annotation (Placement(transformation(extent={{-100,20},{-80,40}},
                    rotation=0)));
-  IDEAS.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulApp(redeclare package
-      Medium =         Medium, approximateWetBulb=true)
+  IDEAS.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulApp(redeclare
+      package Medium = Medium, approximateWetBulb=true)
     "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{0,-20},{20,0}}, rotation=0)));
 equation
