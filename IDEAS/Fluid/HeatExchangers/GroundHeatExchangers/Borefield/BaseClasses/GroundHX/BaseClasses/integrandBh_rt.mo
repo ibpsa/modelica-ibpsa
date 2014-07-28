@@ -10,5 +10,14 @@ function integrandBh_rt
 
 algorithm
   y := exp(-r^2*u^2)*(4*ierf(D*u) - ierf(2*D*u))/(D*u^2);
-
+  annotation (Documentation(info="<html>
+  <p>FIXME </p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end integrandBh_rt;

@@ -7,20 +7,17 @@ model BoreholeSegment "Test for the boreholeSegment model"
   BoreHoleSegmentFourPort seg(
     redeclare package Medium = Medium,
     dp_nominal=5,
-    soi=Data.SoilData.example(),
-    fill=Data.FillingData.example(),
-    geo=Data.GeometricData.example(),
-    adv=Data.Advanced.example(),
-    TExt_start=273.15,
-    TFil_start=273.15) annotation (Placement(transformation(
+    soi=Data.SoilData.SandStone(),
+    fil=Data.FillingData.Bentonite(),
+    gen=Data.GeneralData.c8x1_h110_b5_d3600_T283()) annotation (Placement(transformation(
         extent={{-13,-13},{13,13}},
         rotation=270,
         origin={11,-1})));
-  IDEAS.Fluid.Sources.Boundary_pT sou_1(
+  Sources.MassFlowSource_T        sou_1(
     redeclare package Medium = Medium,
     nPorts=1,
     use_T_in=false,
-    p=101340,
+    m_flow=1,
     T=303.15) annotation (Placement(transformation(extent={{-60,40},{-40,60}},
           rotation=0)));
   IDEAS.Fluid.Sources.Boundary_pT sin_2(

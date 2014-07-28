@@ -4,31 +4,22 @@ model SingleBoreHoleSerStepLoad "SingleBoreHoleSer with step input load "
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  redeclare replaceable parameter Data.Records.StepResponse steRes=
-      Data.StepResponse.example_accurate() "generic step load parameter"
-    annotation (Placement(transformation(extent={{-18,-76},{-8,-66}})));
-  redeclare replaceable parameter Data.Records.Advanced adv=
-      Data.Advanced.example() "Advanced parameters"
-    annotation (Placement(transformation(extent={{-2,-76},{8,-66}})));
   redeclare replaceable parameter Data.Records.Soil soi=
-      Data.SoilData.example()
+      Data.SoilData.SandStone()
     annotation (Placement(transformation(extent={{14,-76},{24,-66}})));
-  redeclare replaceable parameter Data.Records.Filling fill=
-      Data.FillingData.example() "Thermal properties of the filling material"
+  redeclare replaceable parameter Data.Records.Filling fil=
+      Data.FillingData.Bentonite() "Thermal properties of the filling material"
     annotation (Placement(transformation(extent={{30,-76},{40,-66}})));
-  redeclare replaceable parameter Data.Records.Geometry geo=
-      Data.GeometricData.example() "Geometric charachteristic of the borehole"
+  redeclare replaceable parameter Data.Records.General gen=
+      Data.GeneralData.c8x1_h110_b5_d3600_T283()
+    "General charachteristic of the borefield"
     annotation (Placement(transformation(extent={{46,-76},{56,-66}})));
 
   SingleBoreHolesInSerie borHolSer(
     redeclare each package Medium = Medium,
     soi=soi,
-    fill=fill,
-    geo=geo,
-    adv=adv,
-    dp_nominal=10000,
-    m_flow_nominal=steRes.m_flow,
-    T_start=steRes.T_ini) "Borehole heat exchanger" annotation (Placement(
+    fil=fil,
+    gen=gen) "Borehole heat exchanger" annotation (Placement(
         transformation(extent={{-12,-50},{12,-26}}, rotation=0)));
 
   IDEAS.Fluid.Sources.Boundary_ph sin(redeclare package Medium = Medium,
@@ -40,22 +31,22 @@ model SingleBoreHoleSerStepLoad "SingleBoreHoleSer with step input load "
 
   IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea(
     redeclare package Medium = Medium,
-    m_flow_nominal=steRes.m_flow,
+    m_flow_nominal=gen.m_flow_nominal_bh,
     dp_nominal=10000,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    m_flow(start=steRes.m_flow),
-    T_start=steRes.T_ini,
-    Q_flow_nominal=steRes.q_ste*geo.hBor*geo.nbSer,
+    m_flow(start=gen.m_flow_nominal_bh),
+    T_start=gen.T_start,
+    Q_flow_nominal=gen.q_ste*gen.hBor*gen.nbSer,
     p_start=100000)
     annotation (Placement(transformation(extent={{26,10},{6,-10}})));
   Modelica.Blocks.Sources.Constant mFlo(k=1)
     annotation (Placement(transformation(extent={{-50,-24},{-38,-12}})));
   Movers.Pump                           pum(
     redeclare package Medium = Medium,
-    m_flow_nominal=steRes.m_flow,
-    m_flow(start=steRes.m_flow),
-    T_start=steRes.T_ini,
+    m_flow_nominal=gen.m_flow_nominal_bh,
+    m_flow(start=gen.m_flow_nominal_bh),
+    T_start=gen.T_start,
     useInput=true)
     annotation (Placement(transformation(extent={{-12,10},{-32,-10}})));
 

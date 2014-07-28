@@ -4,32 +4,24 @@ model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-   parameter Data.StepResponse.example steRes "generic step load parameter"
-     annotation (Placement(transformation(extent={{-18,-46},{-8,-36}})));
-   parameter Data.Advanced.example adv "Advanced parameters"
-     annotation (Placement(transformation(extent={{-2,-46},{8,-36}})));
-   parameter Data.SoilData.example soi
+  parameter Data.SoilData.SandStone soi
      annotation (Placement(transformation(extent={{14,-46},{24,-36}})));
-   parameter Data.FillingData.example fill
+  parameter Data.FillingData.Bentonite fil
     "Thermal properties of the filling material"
      annotation (Placement(transformation(extent={{30,-46},{40,-36}})));
-   parameter Data.GeometricData.example geo
-    "Geometric charachteristic of the borehole"
-     annotation (Placement(transformation(extent={{46,-46},{56,-36}})));
+  parameter Data.GeneralData.c8x1_h110_b5_d3600_T283 gen
+    "General charachteristic of the borehole"
+    annotation (Placement(transformation(extent={{46,-46},{56,-36}})));
 
   BoreHoles.SingleBoreHolesInSerie borHolSer(
     redeclare each package Medium = Medium,
     soi=soi,
-    fill=fill,
-    geo=geo,
-    adv=adv,
-    dp_nominal=10000,
-    m_flow_nominal=steRes.m_flow,
-    T_start=steRes.T_ini) "Borehole heat exchanger" annotation (Placement(
+    fil=fil,
+    gen=gen) "Borehole heat exchanger" annotation (Placement(
         transformation(extent={{-12,-20},{12,4}},   rotation=0)));
 
   IDEAS.Fluid.Sources.Boundary_ph sin(redeclare package Medium = Medium,
-      nPorts=2) "Sink"
+      nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{22,-2},{34,10}})));
 
   Modelica.Blocks.Sources.Step step(height=1)
@@ -39,38 +31,40 @@ model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
     annotation (Placement(transformation(extent={{-46,6},{-34,18}})));
   IDEAS.Fluid.Movers.Pump                               pum(
     redeclare package Medium = Medium,
-    m_flow_nominal=steRes.m_flow,
-    m_flow(start=steRes.m_flow),
-    T_start=steRes.T_ini,
+    m_flow_nominal=gen.m_flow_nominal_bh,
+    m_flow(start=gen.m_flow_nominal_bh),
+    T_start=gen.T_start,
     useInput=true)
     annotation (Placement(transformation(extent={{-12,40},{-32,20}})));
 
   IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed                                hea(
     redeclare package Medium = Medium,
-    m_flow_nominal=steRes.m_flow,
+    m_flow_nominal=gen.m_flow_nominal_bh,
     dp_nominal=10000,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    m_flow(start=steRes.m_flow),
-    T_start=steRes.T_ini,
-    Q_flow_nominal=steRes.q_ste*geo.hBor*geo.nbSer,
+    m_flow(start=gen.m_flow_nominal_bh),
+    T_start=gen.T_start,
+    Q_flow_nominal=gen.q_ste*gen.hBor*gen.nbSer,
     p_start=100000)
     annotation (Placement(transformation(extent={{30,40},{10,20}})));
   Sensors.TemperatureTwoPort TSen_bor_in(
     redeclare package Medium = Medium,
     tau=60,
-    m_flow_nominal=steRes.m_flow,
-    T_start=steRes.T_ini) "temperature at the inlet of the borefield"
+    m_flow_nominal=gen.m_flow_nominal_bh,
+    T_start=gen.T_start) "temperature at the inlet of the borefield"
     annotation (Placement(transformation(extent={{-48,-16},{-32,0}})));
   Sensors.TemperatureTwoPort TSen_bor_out(
     redeclare package Medium = Medium,
     tau=60,
-    m_flow_nominal=steRes.m_flow,
-    T_start=steRes.T_ini) "temperature at the outlet of the borefield"
+    m_flow_nominal=gen.m_flow_nominal_bh,
+    T_start=gen.T_start) "temperature at the outlet of the borefield"
     annotation (Placement(transformation(extent={{40,-16},{56,0}})));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(hea.port_a, sin.ports[1]) annotation (Line(
-      points={{30,30},{66,30},{66,5.2},{34,5.2}},
+      points={{30,30},{66,30},{66,4},{34,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pum.port_a,hea. port_b) annotation (Line(

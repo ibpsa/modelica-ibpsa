@@ -1,28 +1,36 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles;
 model SingleBoreHolesInSerie
   "Single U-tube borehole heat exchanger model. If more than one borehole is given, they are assumed to be connected in series"
-  extends Interface.PartialSingleBoreHole;
-
-  BaseClasses.SingleBoreHole[geo.nbSer] borHol(
+  extends Interface.PartialSingleBoreHole(final m_flow_nominal = gen.m_flow_nominal_bh,final T_start=gen.T_start,final dp_nominal=gen.dp_nominal);
+  BaseClasses.SingleBoreHole[gen.nbSer] borHol(
     redeclare each final package Medium = Medium,
     each final soi=soi,
-    each final fill=fill,
-    each final geo=geo,
-    each final adv=adv,
-    each final steRes=steRes,
-    each final dp_nominal=10000,
-    each final m_flow_nominal=steRes.m_flow,
-    each final T_start=steRes.T_ini) "Borehole heat exchanger" annotation (
+    each final fil=fil,
+    each final gen=gen,
+    each final show_T=show_T,
+    each final from_dp=from_dp,
+    each final deltaM=deltaM,
+    each final energyDynamics=energyDynamics,
+    each final massDynamics=massDynamics,
+    each final p_start=p_start,
+    each X_start=X_start,
+    each C_start=C_start,
+    each C_nominal=C_nominal) "Borehole heat exchanger" annotation (
       Placement(transformation(extent={{-16,-16},{16,16}}, rotation=0)));
-
+  Modelica.SIunits.Temperature[gen.nbSer] TWallAveSeg;
 equation
-  T_wall_ave = sum(borHol[:].T_wall_ave)/geo.nbSer;
 
-  connect(port_a, borHol[1].port_a);
-  connect(borHol[geo.nbSer].port_b, port_b);
-  for i in 1:geo.nbSer - 1 loop
-    connect(borHol[i].port_b, borHol[i + 1].port_a);
+  for i in 1:gen.nbSer loop
+    TWallAveSeg[i] = sum(borHol[i].borHolSeg[:].intHEX.port.T)/gen.nVer;
   end for;
+
+  TWallAve = sum(TWallAveSeg)/gen.nbSer;
+
+    connect(port_a, borHol[1].port_a);
+    connect(borHol[gen.nbSer].port_b, port_b);
+    for i in 1:gen.nbSer - 1 loop
+      connect(borHol[i].port_b, borHol[i + 1].port_a);
+    end for;
 
   annotation (
     Dialog(group="Borehole"),

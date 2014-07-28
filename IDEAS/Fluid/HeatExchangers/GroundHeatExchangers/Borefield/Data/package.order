@@ -1,9 +1,5 @@
 Records
 SoilData
 FillingData
-GeometricData
-StepResponse
-Advanced
-ShortTermResponse
-AggregationMatrix
+GeneralData
 BorefieldData
