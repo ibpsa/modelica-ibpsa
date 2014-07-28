@@ -22,4 +22,15 @@ algorithm
     "Too many or zero levels. Increase the nbOfCells by levels");
 
   q_max := i_lev;
+
+    annotation (Documentation(info="<html>
+    <p>Calculate the number of level necessary to aggregate the whole load and set the value of v_max, q_max and rArr.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end nbOfLevelAgg;

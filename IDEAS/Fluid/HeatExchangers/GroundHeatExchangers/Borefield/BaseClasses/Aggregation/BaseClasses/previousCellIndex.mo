@@ -22,4 +22,14 @@ algorithm
     p_pre := p - 1;
   end if;
 
+    annotation (Documentation(info="<html>
+    <p>This function calculates the index [q,p] of the previous cell.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end previousCellIndex;

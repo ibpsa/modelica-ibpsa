@@ -3,23 +3,23 @@ model singleLayerCylinder_MLB
   "Comparison of the CylindricalGroundLayer with the Modelica Buildings Library"
   extends Modelica.Icons.Example;
 
-  parameter Data.BorefieldData.example_accurate bfData
+  parameter Data.BorefieldData.SandStone_Bentonite_c8x1_h110_b5_d3600_T283 bfData
     annotation (Placement(transformation(extent={{-60,76},{-40,96}})));
 
   CylindricalGroundLayer soi(
     final material=bfData.soi,
-    final h=bfData.adv.hSeg,
-    final nSta=bfData.adv.nHor,
-    final r_a=bfData.geo.rBor,
-    final r_b=bfData.adv.rExt,
+    final h=bfData.gen.hSeg,
+    final nSta=bfData.gen.nHor,
+    final r_a=bfData.gen.rBor,
+    final r_b=bfData.gen.rExt,
     final steadyStateInitial=false,
-    final TInt_start=bfData.adv.TFil0_start,
-    final TExt_start=bfData.adv.TExt0_start) "Heat conduction in the soil"
+    final TInt_start=bfData.gen.TFil0_start,
+    final TExt_start=bfData.gen.TExt0_start) "Heat conduction in the soil"
                                   annotation (Placement(
         transformation(extent={{-12,16},{8,36}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature2
     annotation (Placement(transformation(extent={{42,16},{62,36}})));
-  Modelica.Blocks.Sources.Constant const1(k=bfData.adv.TFil0_start)
+  Modelica.Blocks.Sources.Constant const1(k=bfData.gen.TFil0_start)
     annotation (Placement(transformation(extent={{-2,-14},{18,6}})));
   Modelica.Blocks.Sources.Step     const4(
     height=120,

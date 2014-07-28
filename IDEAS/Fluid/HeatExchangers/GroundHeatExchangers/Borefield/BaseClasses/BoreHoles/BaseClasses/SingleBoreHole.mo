@@ -1,37 +1,35 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses;
 model SingleBoreHole "Single U-tube borehole heat exchanger"
 
-  extends Interface.PartialSingleBoreHole;
+  extends Interface.PartialSingleBoreHole(final m_flow_nominal = gen.m_flow_nominal_bh,final T_start=gen.T_start,final dp_nominal=gen.dp_nominal);
 
-  BaseClasses.BoreHoleSegmentFourPort borHolSeg[adv.nVer](
-    redeclare each final package Medium = Medium,
-    each final soi=soi,
-    each final fill=fill,
-    each final geo=geo,
-    each final steRes=steRes,
-    each final adv=adv,
-    final dp_nominal={if i == 1 then dp_nominal else 0 for i in 1:adv.nVer},
-    TExt_start=adv.TExt_start,
-    TFil_start=adv.TExt_start,
-    each final show_T=show_T,
-    each final computeFlowResistance=computeFlowResistance,
-    each final from_dp=from_dp,
-    each final linearizeFlowResistance=linearizeFlowResistance,
-    each final deltaM=deltaM,
-    each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics,
-    each final p_start=p_start,
-    each T_start=steRes.T_ini,
+  BaseClasses.BoreHoleSegmentFourPort borHolSeg[gen.nVer](
+    redeclare each package Medium =  Medium,
+    each final   soi=soi,
+    each final   fil=fil,
+    each final   gen=gen,
+    final dp_nominal={if i == 1 then gen.dp_nominal else 0 for i in 1:gen.nVer},
+    TExt_start=gen.TExt_start,
+    TFil_start=gen.TExt_start,
+    each final   show_T=show_T,
+    each final   computeFlowResistance=computeFlowResistance,
+    each final   from_dp=from_dp,
+    each final   linearizeFlowResistance=linearizeFlowResistance,
+    each final   deltaM=deltaM,
+    each final   energyDynamics=energyDynamics,
+    each final   massDynamics=massDynamics,
+    each final   p_start=p_start,
+    each T_start=gen.T_start,
     each X_start=X_start,
     each C_start=C_start,
     each C_nominal=C_nominal) "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-18,-10},{2,10}})));
 
-  Modelica.SIunits.Temperature TDown[adv.nVer] "Medium temperature in pipe 1";
-  Modelica.SIunits.Temperature TUp[adv.nVer] "Medium temperature in pipe 2";
+  Modelica.SIunits.Temperature TDown[gen.nVer] "Medium temperature in pipe 1";
+  Modelica.SIunits.Temperature TUp[gen.nVer] "Medium temperature in pipe 2";
 
 equation
-  T_wall_ave = sum(borHolSeg[:].intHEX.port.T)/adv.nVer;
+  TWallAve = sum(borHolSeg[:].intHEX.port.T)/gen.nVer;
 
   TDown[:] = borHolSeg[:].intHEX.vol1.heatPort.T;
   TUp[:] = borHolSeg[:].intHEX.vol2.heatPort.T;
@@ -44,12 +42,12 @@ equation
           {-18,-6}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(borHolSeg[adv.nVer].port_b1, borHolSeg[adv.nVer].port_a2) annotation (
+  connect(borHolSeg[gen.nVer].port_b1, borHolSeg[gen.nVer].port_a2) annotation (
      Line(
       points={{5.55112e-16,6},{10,6},{10,-6},{5.55112e-16,-6}},
       color={0,127,255},
       smooth=Smooth.None));
-  for i in 1:adv.nVer - 1 loop
+  for i in 1:gen.nVer - 1 loop
     connect(borHolSeg[i].port_b1, borHolSeg[i + 1].port_a1) annotation (Line(
         points={{2,6},{2,20},{-18,20},{-18,6}},
         color={0,127,255},

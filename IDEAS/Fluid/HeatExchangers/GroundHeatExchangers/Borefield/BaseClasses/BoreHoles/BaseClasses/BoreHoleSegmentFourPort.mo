@@ -4,29 +4,29 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
   extends IDEAS.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
-    final m1_flow_nominal=adv.m_flow_nominal,
-    final m2_flow_nominal=adv.m_flow_nominal,
-    final m1_flow_small=adv.m_flow_small,
-    final m2_flow_small=adv.m_flow_small,
-    final allowFlowReversal1=adv.allowFlowReversal,
-    final allowFlowReversal2=adv.allowFlowReversal);
+    final m1_flow_nominal=gen.m_flow_nominal_bh,
+    final m2_flow_nominal=gen.m_flow_nominal_bh,
+    final m1_flow_small=gen.m_flow_small,
+    final m2_flow_small=gen.m_flow_small,
+    final allowFlowReversal1=gen.allowFlowReversal,
+    final allowFlowReversal2=gen.allowFlowReversal);
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters;
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=adv.TFil0_start);
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=gen.TFil0_start);
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
                               annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Temperature TExt_start=adv.TExt0_start
+  parameter Modelica.SIunits.Temperature TExt_start=gen.TExt0_start
     "Initial far field temperature"
     annotation (Dialog(tab="Boundary conditions",group="T_start: ground"));
-  parameter Modelica.SIunits.Temperature TFil_start=adv.TFil0_start
+  parameter Modelica.SIunits.Temperature TFil_start=gen.TFil0_start
     "Initial far field temperature"
     annotation (Dialog(tab="Boundary conditions",group="T_start: ground"));
 
   replaceable SingleUTubeInternalHEX intHEX(
     redeclare final package Medium = Medium,
-    final m1_flow_nominal=adv.m_flow_nominal,
-    final m2_flow_nominal=adv.m_flow_nominal,
+    final m1_flow_nominal=gen.m_flow_nominal_bh,
+    final m2_flow_nominal=gen.m_flow_nominal_bh,
     final dp1_nominal=dp_nominal,
     final dp2_nominal=0,
     final from_dp1=from_dp,
@@ -35,24 +35,22 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
     final linearizeFlowResistance2=linearizeFlowResistance,
     final deltaM1=deltaM,
     final deltaM2=deltaM,
-    final m1_flow_small=adv.m_flow_small,
-    final m2_flow_small=adv.m_flow_small,
+    final m1_flow_small=gen.m_flow_small,
+    final m2_flow_small=gen.m_flow_small,
     final soi=soi,
-    final fill=fill,
-    final geo=geo,
-    final adv=adv,
-    final steRes=steRes,
-    final allowFlowReversal1=adv.allowFlowReversal,
-    final allowFlowReversal2=adv.allowFlowReversal,
+    final fil=fil,
+    final gen=gen,
+    final allowFlowReversal1=gen.allowFlowReversal,
+    final allowFlowReversal2=gen.allowFlowReversal,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p1_start=p_start,
-    T1_start=adv.TFil0_start,
+    T1_start=gen.TFil0_start,
     X1_start=X_start,
     C1_start=C_start,
     C1_nominal=C_nominal,
     final p2_start=p_start,
-    T2_start=adv.TFil0_start,
+    T2_start=gen.TFil0_start,
     X2_start=X_start,
     C2_start=C_start,
     C2_nominal=C_nominal) constrainedby Interface.PartialBoreHoleInternalHEX
@@ -61,21 +59,26 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
 
     CylindricalGroundLayer soilLay(
     final material=soi,
-    final h=adv.hSeg,
-    final nSta=adv.nHor,
-    final r_a=geo.rBor,
-    final r_b=adv.rExt,
+    final h=gen.hSeg,
+    final nSta=gen.nHor,
+    final r_a=gen.rBor,
+    final r_b=gen.rExt,
     final TInt_start=TFil_start,
     final TExt_start=TExt_start,
     final steadyStateInitial=false) "Heat conduction in the soil layers"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBouCon(final T=
-        adv.TExt0_start) "Thermal boundary condition for the far-field"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBouCon
+    "Thermal boundary condition for the far-field"
     annotation (Placement(transformation(extent={{68,-10},{48,10}})));
+public
+  Modelica.Blocks.Sources.RealExpression realExpression(final y=gen.TExt0_start)
+    annotation (Placement(transformation(extent={{50,-42},{70,-22}})));
+
 protected
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+
 equation
   connect(intHEX.port_b1, port_b1) annotation (Line(
       points={{-50,6.36364},{-40,6.36364},{-40,60},{100,60}},
@@ -107,9 +110,13 @@ equation
       points={{20,0},{48,0}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(realExpression.y, TBouCon.T) annotation (Line(
+      points={{71,-32},{84,-32},{84,0},{70,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics),
     Icon(graphics={
         Rectangle(
           extent={{-72,80},{68,-80}},

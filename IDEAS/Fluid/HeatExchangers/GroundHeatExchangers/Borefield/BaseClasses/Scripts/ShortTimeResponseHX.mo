@@ -8,67 +8,63 @@ function ShortTimeResponseHX
     */
 
   import SI = Modelica.SIunits;
-  input Data.Records.Soil soi=Data.SoilData.example()
+  input Data.Records.Soil soi=Data.SoilData.SandStone()
     "Thermal properties of the ground";
-  input Data.Records.Filling fill=Data.FillingData.example()
+                                        //=Data.SoilData.SandStone()
+  input Data.Records.Filling fil=Data.FillingData.Bentonite()
     "Thermal properties of the filling material";
-  input Data.Records.Geometry geo=Data.GeometricData.example()
-    "Geometric charachteristic of the borehole";
-  input Data.Records.Advanced adv=Data.Advanced.example() "Advanced parameters";
-  input Data.Records.StepResponse steRes=Data.StepResponse.example()
-    "generic step load parameter";
-  input Data.Records.ShortTermResponse shoTerRes=Data.ShortTermResponse.example(rendering=true); // constrainedby(Data.Records.ShortTermResponse(rendering=true))
+                                                  //=Data.FillingData.Bentonite()
+  input Data.Records.General gen=Data.GeneralData.c8x1_h110_b5_d3600_T283()
+    "General charachteristic of the borefield";
+                                                //=Data.GeneralData.c8x1_h110_b5_d3600_T283()
 
-  output Real[3,steRes.tBre_d + 1] readData;
+  input String pathSave "save path for the result file";
+
+  output Real[1,gen.tBre_d + 1] TResSho;
+  output Real[2,gen.tBre_d + 1] readData;
 
 protected
-  parameter String name=shoTerRes.name;
-  parameter String savePath=shoTerRes.savePath;
   final parameter String modelToSimulate="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
     "model to simulate";
-  Integer nbOfPoi=1000;
-  String filPathAndName=savePath + name "path and name of file";
-  String[2] variablesToStore={"borHolSer.sta_a.T","borHolSer.sta_b.T"}
+
+  String[1] varToStore={"borHolSer.TWallAve"}
     "variables to store in result file";
-  SI.Time[1,steRes.tBre_d + 1] timVec={0:steRes.tStep:steRes.tBre_d*steRes.tStep}
+  SI.Time[1,gen.tBre_d + 1] timVec={0:gen.tStep:gen.tBre_d*gen.tStep}
     "time vector for which the data are saved";
-  String[3] saveName;
+  String[2] saveName={"Time",varToStore[1]};
 
 algorithm
   //To ensure that the same number of data points is written in all result files
   //equidistant time grid is enabled and store variables at events is disabled.
   experimentSetupOutput(equdistant=true, events=false);
 
-  //delete the result file if it already exists
-  Modelica.Utilities.Files.removeFile(filPathAndName + "_sim");
-  Modelica.Utilities.Files.removeFile(filPathAndName + "Data");
-
   simulateModel(
-    modelToSimulate +
-     "( soi=" + soi.path + "(), " +
-     "fill=" + fill.path + "()," +
-     "geo=" + geo.path + "()," +
-     "steRes=" + steRes.path + "()," +
-     "adv=" + adv.path + "())",
-    stopTime=steRes.tBre_d*steRes.tStep,
-    numberOfIntervals=nbOfPoi,
+    modelToSimulate+"( soi=" + soi.pathMod + "(), " +
+    "fil=" + fil.pathMod + "()," +
+    "gen=" + gen.pathMod + "())",
+    stopTime=gen.tBre_d*gen.tStep,
+    numberOfIntervals=gen.tBre_d + 1,
     method="dassl",
-   resultFile=filPathAndName + "_sim");
+   resultFile=pathSave + "_sim");
+
+    // +
+    //  "( soi=" + soi.pathMod + "(), " +
+    //  "fil=" + fil.pathMod + "()," +
+    //  "gen=" + gen.pathMod + "())"
 
   // First columns are shorttime, last column is steady state
-  readData := cat(
-    1,
-    timVec,
-    interpolateTrajectory(
-      filPathAndName + "_sim.mat",
-      variablesToStore,
-      timVec[1, :]));
+    readData := cat(
+      1,
+      timVec,
+      interpolateTrajectory(
+        pathSave + "_sim.mat",
+        varToStore,
+        timVec[1, :]));
 
-  saveName := {"Time",variablesToStore[1],variablesToStore[2]};
+    TResSho[1,:] :=readData[2, 1:end];
 
-  writeTrajectory(
-    fileName=filPathAndName + "Data.mat",
-    signals=saveName,
-    values=transpose(readData));
+    writeMatrix(
+        fileName=pathSave + "ShoTermData.mat", matrixName="TResSho", matrix=TResSho, append=false);
 
+  annotation ();
 end ShortTimeResponseHX;
