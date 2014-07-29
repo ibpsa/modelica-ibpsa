@@ -1,6 +1,9 @@
 within Annex60.Utilities.Math.Functions;
 function searchIndex1D
   "Find the index value i in a vector x for the desired abscissa a so that x[i] < a < x[i+1]"
+  //fixme: What happens if a = x[i]? At least one inequality must be strong.
+  extends Modelica.Icons.Function;
+
   input Real x[:]
     "Abscissa table vector (strict monotonically increasing values required)";
   input Real xi "Desired abscissa value";
@@ -43,5 +46,6 @@ algorithm
     iNew := i;
   end if;
   dummy :=i;
-
+  // fixme: add info and revision section and also unit tests that
+  // test the function for different inputs
 end searchIndex1D;
