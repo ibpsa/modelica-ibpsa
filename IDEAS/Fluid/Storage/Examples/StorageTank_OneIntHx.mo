@@ -1,6 +1,5 @@
 within IDEAS.Fluid.Storage.Examples;
-model StorageTank_DHW_HP2
-  "Example of a DHW system composed of HP and storage tank"
+model StorageTank_OneIntHx
   import IDEAS;
   import Buildings;
 
@@ -115,7 +114,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou1.ports[2], pump2.port_a) annotation (Line(
-      points={{-102,-20},{-112,-20},{-112,-16},{-122,-16},{-122,24},{-114,24}},
+      points={{-102,-20},{-122,-20},{-122,24},{-114,24}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -156,8 +155,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{
+            120,100}}), graphics),
     experiment(StopTime=86400),
     __Dymola_experimentSetupOutput,
     Documentation(revisions="<html>
@@ -166,5 +165,6 @@ equation
 Annex60 compatibility
 </li>
 </ul>
-</html>"));
-end StorageTank_DHW_HP2;
+</html>"),
+    Icon(coordinateSystem(extent={{-140,-100},{120,100}})));
+end StorageTank_OneIntHx;

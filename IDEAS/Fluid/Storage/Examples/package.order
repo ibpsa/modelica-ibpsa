@@ -1,5 +1,6 @@
 ExpansionVessel
 StorageTank_DHW_HP
+StorageTank_OneIntHx
 StorageTank_Losses
 StorageTank_StratifiedInlet
 StorageWithThermostaticMixing
@@ -7,4 +8,3 @@ Validation_Vitocell100V390l_Charging_a
 Validation_Vitocell100V390l_Charging_b
 Validation_Vitocell100V390l_TankLosses
 Validation_Vitocell100V390l_TapQuantity
-StorageTank_DHW_HP2
