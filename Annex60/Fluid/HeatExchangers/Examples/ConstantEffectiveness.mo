@@ -3,8 +3,8 @@ model ConstantEffectiveness
   "Model that demonstrates use of a heat exchanger with constant effectiveness"
   extends Modelica.Icons.Example;
 
- package Medium1 = Annex60.Media.Water "Medium model for water";
- package Medium2 = Annex60.Media.Air "Medium model for air";
+ package Medium1 = Annex60.Media.Water;
+ package Medium2 = Annex60.Media.Air;
   Annex60.Fluid.Sources.Boundary_pT sin_2(
     redeclare package Medium = Medium2,
     use_p_in=true,
@@ -52,7 +52,7 @@ model ConstantEffectiveness
     nPorts=1)             annotation (Placement(transformation(extent={{-60,36},
             {-40,56}}, rotation=0)));
   Annex60.Fluid.HeatExchangers.ConstantEffectiveness hex(
-    redeclare package Medium1 = Medium1, 
+    redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     show_T=true,
     m1_flow_nominal=5,
