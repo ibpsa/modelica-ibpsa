@@ -25,7 +25,7 @@ partial model Partial_Ctrl_Heating
   parameter Modelica.SIunits.TemperatureDifference corFac_val = 0
     "correction term for TSet of the heating curve";
 
-  HeatingCurve heatingCurve(
+  HeatingCurveFilter heatingCurve(
     timeFilter=timeFilter,
     TSup_nominal=TSupNom,
     TRet_nominal=TSupNom - dTSupRetNom,

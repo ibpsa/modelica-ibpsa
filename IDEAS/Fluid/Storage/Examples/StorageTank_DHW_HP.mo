@@ -62,6 +62,15 @@ model StorageTank_DHW_HP
     annotation (Placement(transformation(extent={{36,48},{46,58}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=294.15)
     annotation (Placement(transformation(extent={{-44,70},{-64,90}})));
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_in(redeclare package Medium
+      = Medium, m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{-46,4},{-34,16}})));
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_out(redeclare package Medium
+      = Medium, m_flow_nominal=m_flow_nominal) annotation (Placement(
+        transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=90,
+        origin={-58,-22})));
 equation
 
   connect(storageTank.T[10], HPControl.TTankBot) annotation (Line(
@@ -94,14 +103,6 @@ equation
       points={{46.5,53},{62,53},{62,18.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hP_AWMod.port_b, storageTank.portHXUpper) annotation (Line(
-      points={{-68,10.7273},{-52,10.7273},{-52,12},{-30,12},{-30,-41.2308}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(hP_AWMod.port_a, pump.port_b) annotation (Line(
-      points={{-68,3.45455},{-66,3.45455},{-66,4},{-58,4},{-58,-52}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(storageTank.port_b, dHW.port_cold) annotation (Line(
       points={{42,-58.3077},{64,-58.3077},{64,-58},{82,-58},{82,11.4286}},
       color={0,127,255},
@@ -125,6 +126,22 @@ equation
   connect(realExpression.y, HPControl.TRoo_in1) annotation (Line(
       points={{-65,80},{-83.1111,80},{-83.1111,69.7778}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(hP_AWMod.port_b, senStoHx_in.port_a) annotation (Line(
+      points={{-68,10.7273},{-52,10.7273},{-52,10},{-46,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senStoHx_in.port_b, storageTank.portHXUpper) annotation (Line(
+      points={{-34,10},{-30,10},{-30,-41.2308}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hP_AWMod.port_a, senStoHx_out.port_b) annotation (Line(
+      points={{-68,3.45455},{-66,3.45455},{-66,4},{-58,4},{-58,-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senStoHx_out.port_a, pump.port_b) annotation (Line(
+      points={{-58,-28},{-58,-52}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
