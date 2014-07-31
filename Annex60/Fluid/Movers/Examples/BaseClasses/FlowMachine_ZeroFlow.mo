@@ -2,8 +2,7 @@ within Annex60.Fluid.Movers.Examples.BaseClasses;
 partial model FlowMachine_ZeroFlow
   "Base class to test flow machines with zero flow rate"
 
-  package Medium = Annex60.Media.Air
-    "Medium model";
+  package Medium = Annex60.Media.Air "Medium model";
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
