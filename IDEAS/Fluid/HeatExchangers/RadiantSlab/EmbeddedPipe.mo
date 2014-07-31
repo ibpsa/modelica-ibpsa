@@ -9,22 +9,22 @@ model EmbeddedPipe
     "Properties of the floor heating or TABS, if present"
     annotation (choicesAllMatching=true);
   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(
-  final m=Modelica.Constants.pi/4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*RadSlaCha.nParCir*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default),
+  final m=Modelica.Constants.pi/4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default),
   res(use_dh=true, dh= if RadSlaCha.tabs then RadSlaCha.d_a - 2*RadSlaCha.s_r else 1),
   final dp_nominal=if RadSlaCha.tabs and use_dp then Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal/RadSlaCha.nParCir,
+      m_flow=m_flow_nominal/nParCir,
       rho_a=rho_default,
       rho_b=rho_default,
       mu_a=mu_default,
       mu_b=mu_default,
-      length=pipeEqLen/RadSlaCha.nParCir,
+      length=pipeEqLen/nParCir,
       diameter=RadSlaCha.d_a - 2*RadSlaCha.s_r,
       roughness=roughness,
-      m_flow_small=m_flow_small/RadSlaCha.nParCir) else 0);
+      m_flow_small=m_flow_small/nParCir) else 0);
 
   // General model parameters ////////////////////////////////////////////////////////////////
   // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
-  final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T/RadSlaCha.nParCir
+  final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T/nParCir
     "Length of the circuit";
   parameter Boolean use_dp = false "Set to true to calculate pressure drop";
   parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
@@ -44,10 +44,17 @@ annotation(Dialog(tab="Pressure drop"));
   parameter Modelica.SIunits.Length pipeEqLen = pipeBendEqLen + (L_floor-2*RadSlaCha.T)*N_pipes
     "Total pipe equivalent length, default assuming 180 dg turns starting at RadSlaCha.T from the end of the slab"
 annotation(Dialog(tab="Pressure drop"));
-  parameter Modelica.SIunits.MassFlowRate m_flowMin
-    "Minimal flowrate when in operation";
+  parameter Modelica.SIunits.MassFlowRate m_flowMin = m_flow_nominal*0.5
+    "Minimal flowrate when in operation - used for determining required series discretisation";
+
+  parameter Real nParCir
+    "Number of parallel equally sized circuits in the tabs";
 
   parameter Modelica.SIunits.Area A_floor "Floor/tabs surface area";
+
+  final parameter Modelica.SIunits.Area A_pipe=
+    Modelica.Constants.pi/4*pipeDiaInt^2
+    "Pipe internal cross section surface area";
 
   // Resistances ////////////////////////////////////////////////////////////////
   // there is no R_z in the model because the dynamics of the water is explicitly simulated
@@ -68,12 +75,11 @@ annotation(Dialog(tab="Pressure drop"));
 
   // Auxiliary parameters and variables ////////////////////////////////////////////////////////////////
 
-  Modelica.SIunits.Velocity flowSpeed=port_a.m_flow/Medium.density(state_default)/(Modelica.Constants.pi
-      /4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2) "flow speed through the pipe";
-  //Reynold number Re = ( (m_flow / rho / A) * D * rho )  / mu.
+  Modelica.SIunits.Velocity flowSpeed=port_a.m_flow/nParCir/rho_default/A_pipe
+    "flow speed through the pipe";
+  //Reynold number Re = ( (m_flow / rho / A) * D * rho )  / mu / numParCir.
   final parameter Modelica.SIunits.ReynoldsNumber rey=
-    m_flowMin/(Modelica.Constants.pi/4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2)*(RadSlaCha.d_a - 2*RadSlaCha.s_r)/
-    Medium.dynamicViscosity(state_default)
+    m_flowMin/nParCir/A_pipe*pipeDiaInt/mu_default
     "Fix Reynolds number for assert of turbulent flow";
   Real m_flowSp(unit="kg/(m2.s)")=port_a.m_flow/A_floor
     "mass flow rate per unit floor area";
