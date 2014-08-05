@@ -11,16 +11,7 @@ model EmbeddedPipe
   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(
   final m=Modelica.Constants.pi/4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default),
   res(use_dh=true, dh= if RadSlaCha.tabs then pipeDiaInt else 1),
-  final dp_nominal=if RadSlaCha.tabs and use_dp then Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal/nParCir,
-      rho_a=rho_default,
-      rho_b=rho_default,
-      mu_a=mu_default,
-      mu_b=mu_default,
-      length=pipeEqLen/nParCir,
-      diameter=RadSlaCha.d_a - 2*RadSlaCha.s_r,
-      roughness=roughness,
-      m_flow_small=m_flow_small/nParCir) else 0);
+  final dp_nominal=if RadSlaCha.tabs and use_dp then dp_nominal_internal else 0);
 
   // General model parameters ////////////////////////////////////////////////////////////////
   // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
@@ -35,6 +26,18 @@ model EmbeddedPipe
   parameter Modelica.SIunits.Length L_floor = A_floor^(1/2)
     "Floor length - along the pipe direction"
     annotation(Dialog(tab="Pressure drop"));
+
+  parameter Modelica.SIunits.Pressure dp_nominal_internal = Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+      m_flow=m_flow_nominal/nParCir,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
+      length=pipeEqLen/nParCir,
+      diameter=RadSlaCha.d_a - 2*RadSlaCha.s_r,
+      roughness=roughness,
+      m_flow_small=m_flow_small/nParCir) "Nominal pressure drop in the pipes"
+      annotation(Dialog(tab="Pressure drop"));
   parameter Real N_pipes = A_floor/L_floor/RadSlaCha.T - 1
     "Number of parallel pipes in the slab"
 annotation(Dialog(tab="Pressure drop"));
