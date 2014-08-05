@@ -130,7 +130,7 @@ public
 initial equation
    assert(reyMin > 2700 or lamFlo,
      "The minimal flowrate leads to laminar flow. This is not valid when using the turbulent flow model. Set lamFlo to true if you want to use a laminar flow model");
-   assert(reyNom < 2700 or not lamFlo,
+   assert(reyNom < 4000 or not lamFlo,
      "The nominal flowrate leads to turbulent flow. This is not valid when using the laminar flow model.  Set lamFlo to false if you want to use a turbulent flow model");
 
    assert(m_flowMinSp*Medium.specificHeatCapacityCp(state_default)*(R_w_val + R_r_val + R_x_val) >= 0.5,
