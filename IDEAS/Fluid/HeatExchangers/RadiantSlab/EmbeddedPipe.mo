@@ -9,14 +9,14 @@ model EmbeddedPipe
     "Properties of the floor heating or TABS, if present"
     annotation (choicesAllMatching=true);
   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(
-  final m=Modelica.Constants.pi/4*(RadSlaCha.d_a - 2*RadSlaCha.s_r)^2*L_r*Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default),
+  final m=A_pipe*L_r*rho_default,
   res(use_dh=true, dh= if RadSlaCha.tabs then pipeDiaInt else 1),
   final dp_nominal=if RadSlaCha.tabs and use_dp then dp_nominal_internal else 0);
 
   // General model parameters ////////////////////////////////////////////////////////////////
   // in partial: parameter SI.MassFlowRate m_flowMin "Minimal flowrate when in operation";
   final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T/nParCir
-    "Length of the circuit";
+    "Length of one of the parallel circuits";
   parameter Boolean use_dp = false "Set to true to calculate pressure drop";
   parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
     "Absolute roughness of pipe, with a default for a smooth steel pipe"
@@ -68,7 +68,7 @@ annotation(Dialog(tab="Pressure drop"));
   Modelica.SIunits.ThermalInsulance R_w_val
     "Flow dependent resistance value of convective heat transfer inside pipe, only valid if turbulent flow (see assert in initial equation)";
   final parameter Modelica.SIunits.ThermalInsulance R_r_val=RadSlaCha.T*log(RadSlaCha.d_a
-      /(RadSlaCha.d_a - 2*RadSlaCha.s_r))/(2*Modelica.Constants.pi*RadSlaCha.lambda_r)
+      /pipeDiaInt)/(2*Modelica.Constants.pi*RadSlaCha.lambda_r)
     "Fix resistance value of thermal conduction through pipe wall * surface of floor between 2 pipes (see RadSlaCha documentation)";
 
   //Calculation of the resistance from the outer pipe wall to the center of the tabs / floorheating.
@@ -159,7 +159,7 @@ equation
     else
   RadSlaCha.T^0.13/8/Modelica.Constants.pi*abs((pipeDiaInt/(m_flowSp*L_r)))^0.87 else
       RadSlaCha.T/(200*pipeDiaInt*Modelica.Constants.pi);
-                  //assumes Nu_D = 4: between constant heat flow and constant wall temperature
+                  // for laminar flow Nu_D = 4 is assumed: between constant heat flow and constant wall temperature
 
   connect(R_r.port_b, R_x.port_a) annotation (Line(
       points={{32,24},{46,24}},
