@@ -27,7 +27,7 @@ model EmbeddedPipe
     "Floor length - along the pipe direction"
     annotation(Dialog(tab="Pressure drop"));
 
-  parameter Modelica.SIunits.Pressure dp_nominal_internal = Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+  final parameter Modelica.SIunits.Pressure dp_nominal_internal = Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
       m_flow=m_flow_nominal/nParCir,
       rho_a=rho_default,
       rho_b=rho_default,
@@ -84,16 +84,16 @@ annotation(Dialog(tab="Pressure drop"));
   Modelica.SIunits.Velocity flowSpeed=port_a.m_flow/nParCir/rho_default/A_pipe
     "flow speed through the pipe";
   //Reynold number Re = ( (m_flow / rho / A) * D * rho )  / mu / numParCir.
-  final parameter Modelica.SIunits.ReynoldsNumber reyMin=
-    m_flowMin/nParCir/A_pipe*pipeDiaInt/mu_default
-    "Reynolds at minimum mass flow rate";
-  final parameter Modelica.SIunits.ReynoldsNumber reyNom=
-    m_flow_nominal/nParCir/A_pipe*pipeDiaInt/mu_default
-    "Reynolds number at nominal mass flow rate";
+  final parameter Modelica.SIunits.ReynoldsNumber reyLo=2700
+    "Reynolds number where transition to turbulence starts";
+  final parameter Modelica.SIunits.ReynoldsNumber reyHi=4000
+    "Reynolds number where transition to turbulence ends";
   Real m_flowSp(unit="kg/(m2.s)")=port_a.m_flow/A_floor
     "mass flow rate per unit floor area";
   Real m_flowMinSp(unit="kg/(m2.s)")=m_flowMin/A_floor
     "minimum mass flow rate per unit floor area";
+  Modelica.SIunits.ReynoldsNumber rey=
+    m_flow/nParCir/A_pipe*pipeDiaInt/mu_default "Reynolds number";
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor R_x(G=
         A_floor/R_x_val) "Thermal conductor from pipe wall to layer"
@@ -131,10 +131,10 @@ public
   Modelica.Thermal.HeatTransfer.Components.Convection R_w
     annotation (Placement(transformation(extent={{-22,14},{-2,34}})));
 initial equation
-   assert(reyMin > 2700 or lamFlo,
-     "The minimal flowrate leads to laminar flow. This is not valid when using the turbulent flow model. Set lamFlo to true if you want to use a laminar flow model");
-   assert(reyNom < 4000 or not lamFlo,
-     "The nominal flowrate leads to turbulent flow. This is not valid when using the laminar flow model.  Set lamFlo to false if you want to use a turbulent flow model");
+//    assert(reyMin > 2700 or lamFlo,
+//      "The minimal flowrate leads to laminar flow. This is not valid when using the turbulent flow model. Set lamFlo to true if you want to use a laminar flow model");
+//    assert(reyNom < 4000 or not lamFlo,
+//      "The nominal flowrate leads to turbulent flow. This is not valid when using the laminar flow model.  Set lamFlo to false if you want to use a turbulent flow model");
 
    assert(m_flowMinSp*Medium.specificHeatCapacityCp(state_default)*(R_w_val + R_r_val + R_x_val) >= 0.5,
      "Model is not valid, division in n parts is required");
@@ -153,12 +153,10 @@ equation
   //For high flow rates see [Koshenz, 2000] eqn 4.37
   //For low or zero mass flow rate an average convective heat transfer coefficient h = 200 for laminar flow is used.
   //based on [Koshenz, 2000] figure 4.5
-  R_w_val = if noEvent(abs(port_a.m_flow) > m_flowMin/10) then
-  if lamFlo then
-      RadSlaCha.T/(4*Medium.thermalConductivity(state_default)*Modelica.Constants.pi)
-    else
-  RadSlaCha.T^0.13/8/Modelica.Constants.pi*abs((pipeDiaInt/(m_flowSp*L_r)))^0.87 else
-      RadSlaCha.T/(200*pipeDiaInt*Modelica.Constants.pi);
+  R_w_val = Modelica.Fluid.Utilities.regStep(x=rey-(reyHi+reyLo)/2,
+    y1=RadSlaCha.T^0.13/8/Modelica.Constants.pi*abs((pipeDiaInt/(m_flowSp*L_r)))^0.87,
+    y2=RadSlaCha.T/(4*Medium.thermalConductivity(state_default)*Modelica.Constants.pi),
+    x_small=(reyHi-reyLo)/2);
                   // for laminar flow Nu_D = 4 is assumed: between constant heat flow and constant wall temperature
 
   connect(R_r.port_b, R_x.port_a) annotation (Line(
