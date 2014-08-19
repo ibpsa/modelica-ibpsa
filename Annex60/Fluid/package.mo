@@ -51,7 +51,7 @@ Fluid ports declare the variables listed in the table below.
       The absolute total pressure is the sum of 
       the static pressure and the dynamic pressure. 
       As the total pressure is used in the connector, components
-      need not specify the area of the port or the velocity at the port.
+      do not need to specify the area of the port or the velocity at the port.
       This convention is consistent with the Modelica Standard Library.
       Note that component models typically simplify the pressure balance
       by not taking into account the static pressure that is caused by
@@ -68,7 +68,7 @@ Fluid ports declare the variables listed in the table below.
   <td>Specific enthalpy <i>h</i> of the outflowing fluid, i.e., 
       assuming <i>m&#775; &lt; 0.</i><br/>
       The specific enthalpy in the fluid port always carries the value
-      of the enthalpy that the medium would have if it were leaving
+      of the enthalpy that the medium would have if it was leaving
       the component.
       Users who need to access the actual enthalpy for the given flow
       direction can do so using the sensor
@@ -81,7 +81,7 @@ Fluid ports declare the variables listed in the table below.
       <i>m<sub>i</sub>/m</i> close to the connection point, i.e., 
       assuming <i>m&#775; &lt; 0.</i><br/>
       The independent mixture mass fraction in the fluid port always carries the value
-      that the medium would have if it were leaving
+      that the medium would have if it was leaving
       the component.
       Users who need to access the actual value for the given flow
       direction can do so using the sensor
@@ -96,7 +96,7 @@ Fluid ports declare the variables listed in the table below.
   <td>Trace substances <i>c<sub>i</sub>/m</i> close to the connection point, i.e., 
       assuming <i>m&#775; &lt; 0.</i><br/>
       The trace substances in the fluid port always carries the value
-      that the medium would have if it were leaving
+      that the medium would have if it was leaving
       the component.
       Users who need to access the actual value for the given flow
       direction can do so using the sensor
