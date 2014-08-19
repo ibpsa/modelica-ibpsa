@@ -8,7 +8,7 @@ model EmbeddedPipe
     "Properties of the floor heating or TABS, if present"
     annotation (choicesAllMatching=true);
   extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(
-    final m=A_pipe*L_r*rho_default,
+    final m=A_pipe*L_r*rho_default*nParCir,
     res(final use_dh=true, final dh= if RadSlaCha.tabs then pipeDiaInt*nParCir else 1),
     final dp_nominal=if RadSlaCha.tabs and use_dp then dp_nominal_internal else 0);
 
@@ -48,7 +48,7 @@ annotation(Dialog(tab="Pressure drop"));
     y1=RadSlaCha.T^0.13/8/Modelica.Constants.pi*abs((pipeDiaInt/(m_flowSp*L_r)))^0.87,
     y2=RadSlaCha.T/(4*Medium.thermalConductivity(state_default)*Modelica.Constants.pi),
     x_small=(reyHi-reyLo)/2)
-    "Flow dependent resistance value of convective heat transfer inside pipe, only valid if turbulent flow (see assert in initial equation)";
+    "Flow dependent resistance value of convective heat transfer inside pipe for both turbulent and laminar heat transfer.";
   final parameter Modelica.SIunits.ThermalInsulance R_w_val_min = Modelica.Fluid.Utilities.regStep(x=m_flow_nominal/nParCir/A_pipe*pipeDiaInt/mu_default-(reyHi+reyLo)/2,
     y1=RadSlaCha.T^0.13/8/Modelica.Constants.pi*abs((pipeDiaInt/(m_flow_nominal/A_floor*L_r)))^0.87,
     y2=RadSlaCha.T/(4*Medium.thermalConductivity(state_default)*Modelica.Constants.pi),
@@ -95,7 +95,7 @@ protected
       mu_a=mu_default,
       mu_b=mu_default,
       length=pipeEqLen/nParCir,
-      diameter=RadSlaCha.d_a - 2*RadSlaCha.s_r,
+      diameter=pipeDiaInt,
       roughness=roughness,
       m_flow_small=m_flow_small/nParCir) "Nominal pressure drop in the pipes"
       annotation(Dialog(tab="Pressure drop"));
