@@ -4,14 +4,14 @@ model EmbeddedPipeExample
   extends Modelica.Icons.Example;
 
   EmbeddedPipe embeddedPipe(
-    use_dp=true,
     redeclare package Medium = Medium,
     redeclare
       IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.FH_ValidationEmpa4_6
       RadSlaCha,
     m_flow_nominal=1,
     A_floor=100,
-    nParCir=10)
+    nParCir=10,
+    computeFlowResistance=true)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Sources.MassFlowSource_T boundary(
     nPorts=1,

@@ -7,14 +7,22 @@ model EmbeddedPipe
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
     "Properties of the floor heating or TABS, if present"
     annotation (choicesAllMatching=true);
-  extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(
-    final m=A_pipe*L_r*rho_default,
-    res(final use_dh=true, final dh= if RadSlaCha.tabs then pipeDiaInt*nParCir else 1),
-    final dp_nominal=if RadSlaCha.tabs and use_dp then dp_nominal_internal else 0);
+  extends IDEAS.Fluid.Interfaces.Partials.PartialTwoPort(
+    final m=A_pipe*L_r*rho_default, vol(nPorts=2));
+  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    computeFlowResistance=false,
+    final dp_nominal=Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+      m_flow=m_flow_nominal/nParCir,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
+      length=pipeEqLen/nParCir,
+      diameter=pipeDiaInt,
+      roughness=roughness,
+      m_flow_small=m_flow_small/nParCir));
 
   // General model parameters ////////////////////////////////////////////////////////////////
-
-  parameter Boolean use_dp = false "Set to true to calculate pressure drop";
   parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
     "Absolute roughness of pipe, with a default for a smooth steel pipe"
     annotation(Dialog(tab="Pressure drop"));
@@ -33,7 +41,7 @@ annotation(Dialog(tab="Pressure drop"));
   parameter Modelica.SIunits.MassFlowRate m_flowMin = m_flow_nominal*0.5
     "Minimal flowrate when in operation - used for determining required series discretisation";
   parameter Real nParCir
-    "Number of parallel equally sized circuits in the tabs";
+    "Number of parallel (equally sized) circuits in the tabs";
   parameter Modelica.SIunits.Area A_floor "Floor/tabs surface area";
 
   // Resistances ////////////////////////////////////////////////////////////////
@@ -46,12 +54,12 @@ annotation(Dialog(tab="Pressure drop"));
   // for laminar flow Nu_D = 4 is assumed: between constant heat flow and constant wall temperature
   Modelica.SIunits.ThermalInsulance R_w_val= Modelica.Fluid.Utilities.regStep(x=rey-(reyHi+reyLo)/2,
     y1=RadSlaCha.T^0.13/8/Modelica.Constants.pi*abs((pipeDiaInt/(m_flowSp*L_r)))^0.87,
-    y2=RadSlaCha.T/(4*Medium.thermalConductivity(state_default)*Modelica.Constants.pi),
+    y2=RadSlaCha.T/(4*Medium.thermalConductivity(sta_default)*Modelica.Constants.pi),
     x_small=(reyHi-reyLo)/2)
     "Flow dependent resistance value of convective heat transfer inside pipe, only valid if turbulent flow (see assert in initial equation)";
   final parameter Modelica.SIunits.ThermalInsulance R_w_val_min = Modelica.Fluid.Utilities.regStep(x=m_flow_nominal/nParCir/A_pipe*pipeDiaInt/mu_default-(reyHi+reyLo)/2,
     y1=RadSlaCha.T^0.13/8/Modelica.Constants.pi*abs((pipeDiaInt/(m_flow_nominal/A_floor*L_r)))^0.87,
-    y2=RadSlaCha.T/(4*Medium.thermalConductivity(state_default)*Modelica.Constants.pi),
+    y2=RadSlaCha.T/(4*Medium.thermalConductivity(sta_default)*Modelica.Constants.pi),
     x_small=(reyHi-reyLo)/2)
     "Lowest value for R_w that is expected for the set mass flow rate";
   final parameter Modelica.SIunits.ThermalInsulance R_r_val=RadSlaCha.T*log(RadSlaCha.d_a
@@ -64,6 +72,11 @@ annotation(Dialog(tab="Pressure drop"));
   final parameter Real corr = if RadSlaCha.tabs then 0 else
     sum( -(RadSlaCha.alp2/RadSlaCha.lambda_b * RadSlaCha.T - 2*3.14*s)/(RadSlaCha.alp2/RadSlaCha.lambda_b * RadSlaCha.T + 2*3.14*s)*exp(-4*3.14*s/RadSlaCha.T*RadSlaCha.S_2)/s for s in 1:10) "correction factor for the floor heating according to Multizone Building modeling with Type56 and TRNBuild (see documentation). 
     If tabs is used, corr=0";
+  final parameter Modelica.SIunits.Length pipeDiaInt = RadSlaCha.d_a - 2*RadSlaCha.s_r
+    "Pipe internal diameter";
+  parameter Boolean from_dp = false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
 
   //Reynold number Re = ( (m_flow / rho / A) * D * rho )  / mu / numParCir.
   Modelica.SIunits.ReynoldsNumber rey=
@@ -72,38 +85,6 @@ annotation(Dialog(tab="Pressure drop"));
   // specific mass flow rates
   Real m_flowSp(unit="kg/(m2.s)")=port_a.m_flow/A_floor
     "mass flow rate per unit floor area";
-
-protected
-  parameter Modelica.SIunits.Density rho_default = Medium.density(state_default);
-  parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(state_default)
-    "Dynamic viscosity at nominal condition";
-
-  parameter Medium.ThermodynamicState state_default= Medium.setState_pTX(Medium.p_default, T_start, Medium.X_default)
-    "Default state for calculation of density, viscosity, ...";
-  final parameter Real pipeDiaInt = RadSlaCha.d_a - 2*RadSlaCha.s_r
-    "Pipe internal diameter";
-  final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T/nParCir
-    "Length of one of the parallel circuits";
-  constant Modelica.SIunits.ReynoldsNumber reyLo=2700
-    "Reynolds number where transition to turbulence starts";
-  constant Modelica.SIunits.ReynoldsNumber reyHi=4000
-    "Reynolds number where transition to turbulence ends";
-  final parameter Modelica.SIunits.Pressure dp_nominal_internal = Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal/nParCir,
-      rho_a=rho_default,
-      rho_b=rho_default,
-      mu_a=mu_default,
-      mu_b=mu_default,
-      length=pipeEqLen/nParCir,
-      diameter=RadSlaCha.d_a - 2*RadSlaCha.s_r,
-      roughness=roughness,
-      m_flow_small=m_flow_small/nParCir) "Nominal pressure drop in the pipes"
-      annotation(Dialog(tab="Pressure drop"));
-  final parameter Modelica.SIunits.Area A_pipe=
-    Modelica.Constants.pi/4*pipeDiaInt^2
-    "Pipe internal cross section surface area";
-
-public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heatPortEmb
     "Port to the core of a floor heating/concrete activation"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
@@ -115,8 +96,50 @@ public
     annotation (Placement(transformation(extent={{-92,40},{-22,60}})));
   Modelica.Thermal.HeatTransfer.Components.Convection R_w
     annotation (Placement(transformation(extent={{-2,14},{-22,34}})));
+
+protected
+  final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T/nParCir
+    "Length of one of the parallel circuits";
+  final parameter Modelica.SIunits.Area A_pipe=
+    Modelica.Constants.pi/4*pipeDiaInt^2
+    "Pipe internal cross section surface area";
+  final parameter Medium.ThermodynamicState sta_default=
+     Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
+  final parameter Modelica.SIunits.Density rho_default = Medium.density(sta_default);
+  final parameter Modelica.SIunits.DynamicViscosity mu_default = Medium.dynamicViscosity(sta_default)
+    "Dynamic viscosity at nominal condition";
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
+    "Absolute value of nominal flow rate";
+  final parameter Modelica.SIunits.MassFlowRate m_flow_turbulent =  mu_default*pipeDiaInt/4*Modelica.Constants.pi*reyHi
+    "Turbulent flow if |m_flow| >= m_flow_turbulent";
+  final parameter Modelica.SIunits.Pressure dp_nominal_pos = abs(dp_nominal)
+    "Absolute value of nominal pressure";
+  final parameter Modelica.SIunits.ReynoldsNumber reyLo=2700
+    "Reynolds number where transition to turbulence starts";
+  final parameter Modelica.SIunits.ReynoldsNumber reyHi=4000
+    "Reynolds number where transition to turbulence ends";
+
+public
+  FixedResistances.ParallelFixedResistanceDpM res(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal,
+    nParCir=nParCir,
+    final use_dh=true,
+    dh=pipeDiaInt,
+    ReC=reyHi,
+    allowFlowReversal=allowFlowReversal,
+    from_dp=from_dp,
+    homotopyInitialization=homotopyInitialization,
+    linearized=linearized)
+               annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 initial equation
-   assert(m_flowMin/A_floor*Medium.specificHeatCapacityCp(state_default)*(R_w_val_min + R_r_val + R_x_val) >= 0.5,
+   assert(m_flowMin/A_floor*Medium.specificHeatCapacityCp(sta_default)*(R_w_val_min + R_r_val + R_x_val) >= 0.5,
      "Model is not valid for the set nominal and minimal mass flow rate, discretisation in multiple parts is required");
   if RadSlaCha.tabs then
     assert(RadSlaCha.S_1 > 0.3*RadSlaCha.T, "Thickness of the concrete or screed layer above the tubes is smaller than 0.3 * the tube interdistance. 
@@ -142,6 +165,14 @@ equation
   connect(R_w.solid, heatPortEmb) annotation (Line(
       points={{-2,24},{-2,100},{0,100}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(res.port_a, vol.ports[2]) annotation (Line(
+      points={{20,0},{-54,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res.port_b, port_b) annotation (Line(
+      points={{40,0},{100,0}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
