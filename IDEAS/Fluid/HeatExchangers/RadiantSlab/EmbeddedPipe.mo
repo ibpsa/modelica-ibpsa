@@ -56,7 +56,7 @@ annotation(Dialog(tab="Pressure drop"));
     y1=RadSlaCha.T^0.13/8/Modelica.Constants.pi*abs((pipeDiaInt/(m_flowSp*L_r)))^0.87,
     y2=RadSlaCha.T/(4*Medium.thermalConductivity(sta_default)*Modelica.Constants.pi),
     x_small=(reyHi-reyLo)/2)
-    "Flow dependent resistance value of convective heat transfer inside pipe, only valid if turbulent flow (see assert in initial equation)";
+    "Flow dependent resistance value of convective heat transfer inside pipe for both turbulent and laminar heat transfer.";
   final parameter Modelica.SIunits.ThermalInsulance R_w_val_min = Modelica.Fluid.Utilities.regStep(x=m_flow_nominal/nParCir/A_pipe*pipeDiaInt/mu_default-(reyHi+reyLo)/2,
     y1=RadSlaCha.T^0.13/8/Modelica.Constants.pi*abs((pipeDiaInt/(m_flow_nominal/A_floor*L_r)))^0.87,
     y2=RadSlaCha.T/(4*Medium.thermalConductivity(sta_default)*Modelica.Constants.pi),
@@ -85,6 +85,7 @@ annotation(Dialog(tab="Pressure drop"));
   // specific mass flow rates
   Real m_flowSp(unit="kg/(m2.s)")=port_a.m_flow/A_floor
     "mass flow rate per unit floor area";
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b heatPortEmb
     "Port to the core of a floor heating/concrete activation"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
