@@ -1,6 +1,7 @@
 within Annex60.Experimental;
 package Benchmarks "Package with benchmarks for the Annex 60 library"
   extends Modelica.Icons.Package;
+
 annotation (
 preferredView="info", Documentation(info="<html>
 This package contains system models with benchmarks for the Annex 60 library.
