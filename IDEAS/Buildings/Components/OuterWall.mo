@@ -32,7 +32,7 @@ model OuterWall "Opaque building envelope construction"
     final mats=constructionType.mats,
     final locGain=constructionType.locGain)
     "declaration of array of resistances and capacitances for wall simulation"
-    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
+    annotation (Placement(transformation(extent={{10,-40},{-10,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(final A=
         AWall)
     "convective surface heat transimission on the exterior side of the wall"
@@ -59,27 +59,27 @@ equation
       points={{-50,-28},{-40,-28}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(extCon.port_a, layMul.port_a) annotation (Line(
+  connect(extCon.port_a, layMul.port_b) annotation (Line(
       points={{-20,-50},{-16,-50},{-16,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(solAbs.port_a, layMul.port_a) annotation (Line(
+  connect(solAbs.port_a, layMul.port_b) annotation (Line(
       points={{-20,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(extRad.port_a, layMul.port_a) annotation (Line(
+  connect(extRad.port_a, layMul.port_b) annotation (Line(
       points={{-20,-10},{-16,-10},{-16,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.port_b, intCon.port_a) annotation (Line(
+  connect(layMul.port_a, intCon.port_a) annotation (Line(
       points={{10,-30},{20,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.iEpsSw_a, solAbs.epsSw) annotation (Line(
+  connect(layMul.iEpsSw_b, solAbs.epsSw) annotation (Line(
       points={{-10,-26},{-14,-26},{-14,-24},{-20,-24}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(layMul.iEpsLw_a, extRad.epsLw) annotation (Line(
+  connect(layMul.iEpsLw_b, extRad.epsLw) annotation (Line(
       points={{-10,-22},{-14,-22},{-14,-4},{-20,-4}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -92,18 +92,18 @@ equation
       points={{40,-30},{46,-30},{46,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
+  connect(layMul.port_a, propsBus_a.surfRad) annotation (Line(
       points={{10,-30},{16,-30},{16,40},{50,40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
+  connect(layMul.iEpsSw_a, propsBus_a.epsSw) annotation (Line(
       points={{10,-26},{14,-26},{14,40},{50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
+  connect(layMul.iEpsLw_a, propsBus_a.epsLw) annotation (Line(
       points={{10,-22},{12,-22},{12,40},{50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
