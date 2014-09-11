@@ -48,14 +48,15 @@ package Water "Package with model for liquid water with constant properties"
 
 redeclare function extends density "Return the density"
 algorithm
-  d := smooth(1,
-    if state.T < 278.15 then
-      -0.042860825*state.T + 1011.9695761
-    elseif state.T < 373.15 then
-      0.000015009*state.T^3 - 0.01813488505*state.T^2 + 6.5619527954075*state.T
-      + 254.900074971947
-    else
-     -0.7025109*state.T + 1220.35045233);
+  d :=995.586; // Value from Modelica.Media.Water.ConstantPropertyLiquidWater
+  //~ d := smooth(1,
+    //~ if state.T < 278.15 then
+      //~ -0.042860825*state.T + 1011.9695761
+    //~ elseif state.T < 373.15 then
+      //~ 0.000015009*state.T^3 - 0.01813488505*state.T^2 + 6.5619527954075*state.T
+      //~ + 254.900074971947
+    //~ else
+     //~ -0.7025109*state.T + 1220.35045233);
   annotation (smoothOrder=1,
 Documentation(info="<html>
 <p>

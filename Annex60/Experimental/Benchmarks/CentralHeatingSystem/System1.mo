@@ -34,8 +34,7 @@ model System1
     Q_flow_nominal=1500.0, // IDA model: RADIATOR.Firadnom = 1500 W
     VWat=0.005, // IDA model: RADIATOR.Mw = 0.5 kg
     mDry=0.0001, // no additional mass (mDry=0.0 doesn't work)
-    //nEle=1, // one node in the benchmark model
-    nEle=6,// necessary for numerical stability
+    nEle=1, // one node in the benchmark model
     fraRad=0, // only het transfer by convection is considered
     T_a_nominal=273.15 + 90.0, // nominal water inlet temperature
     T_b_nominal=273.15 + 70, // nominal water oulet temperature
@@ -104,12 +103,6 @@ model System1
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},rotation=180,origin={66,30})));
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
     annotation(Placement(transformation(extent={{54,24},{42,36}})));
-  Fluid.Delays.DelayFirstOrder del(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    nPorts=3) 
-    "Fixes the division by zero bug in Dymola 2014 FD1"
-    annotation (Placement(transformation(extent={{-3,-3},{3,3}},rotation=180,origin={29,-51})));
   Modelica.Blocks.Sources.Constant TAirSet(k=273.15 + 22.0)
     annotation (Placement(transformation(extent={{-18,36},{-22,40}})));
   Modelica.Blocks.Sources.Clock clock
@@ -169,18 +162,6 @@ equation
     points={{55.2,30},{59.4,30}},
     color={0,0,127},
     smooth=Smooth.None));
-  connect(del.ports[1], pip1.port_b) annotation (Line(
-      points={{29.8,-48},{38,-48},{38,0},{34,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(hea.port_a, del.ports[2]) annotation (Line(
-      points={{10,-48},{29,-48}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(del.ports[3], exp.port_a) annotation (Line(
-      points={{28.2,-48},{28.2,-46},{28,-46},{28,-42}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(thermostat.y, val.y) annotation (Line(
       points={{-24,25.6},{-24,12}},
       color={0,0,127},
@@ -201,10 +182,17 @@ equation
       points={{86.8,30},{89.6,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),graphics),
-  experiment(StopTime=31536000),
-  __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Benchmarks/CentralHeatingSystem/System1.mos"
-        "Simulate and plot"),
+  connect(hea.port_a, pip1.port_b) annotation (Line(
+      points={{10,-48},{40,-48},{40,0},{34,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(exp.port_a, pip1.port_b) annotation (Line(
+      points={{28,-42},{28,-48},{40,-48},{40,0},{34,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+      
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),graphics), experiment(StopTime=31536000),
+  __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Benchmarks/CentralHeatingSystem/System1.mos" "Simulate and plot"),
   Documentation(info="<html>
   <p>
   Benchmark model for a water heating system.

@@ -1,5 +1,5 @@
 within Annex60.Fluid.HeatExchangers;
-model HeaterCoolerPrescribed "Heater or cooler with prescribed heat flow rate"
+model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
   extends Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final Annex60.Fluid.MixingVolumes.MixingVolume vol,
     final showDesignFlowDirection=false);
@@ -70,6 +70,10 @@ can be positive or negative.
 revisions="<html>
 <ul>
 <li>
+September 11, 2014, by Christoph nytsch-Geusen:<br/>
+Renaming model class to HeaterCooler_u.
+</li>
+<li>
 October 15, 2013, by Michael Wetter:<br/>
 Redeclared the control volume to be final so that it does not show
 anymore in the parameter window.
@@ -90,4 +94,4 @@ First implementation.
 </ul>
 </html>"),
     Diagram(graphics));
-end HeaterCoolerPrescribed;
+end HeaterCooler_u;
