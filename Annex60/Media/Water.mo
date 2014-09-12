@@ -18,8 +18,8 @@ package Water "Package with model for liquid water with constant properties"
     each molarMass=MM_const);
 
   redeclare record extends ThermodynamicState "Thermodynamic state variables"
-    Modelica.SIunits.Temperature T "Temperature of medium";
-    Modelica.SIunits.AbsolutePressure p "Pressure of medium";
+    Modelica.SIunits.Temperature T(start=T_default) "Temperature of medium";
+    Modelica.SIunits.AbsolutePressure p(start=p_default) "Pressure of medium";
   end ThermodynamicState;
 
   constant Modelica.SIunits.SpecificHeatCapacity cp_const = 4184
@@ -784,6 +784,14 @@ Water is modeled as an incompressible liquid, and there are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Set <code>T(start=T_default)</code> and <code>p(start=p_default)</code> in the
+<code>ThermodynamicState</code> record. Setting the start value for
+<code>T</code> is required to avoid an error due to conflicting start values
+when checking <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
+Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
+</li>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
 First implementation.
