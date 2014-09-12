@@ -2,8 +2,7 @@ within IDEAS.Buildings.Components.Interfaces;
 partial model StateZone "Partial model for thermal building zones"
 
   parameter Integer nSurf(min=1)
-    "Number of surfaces adjacent to and heat exchangeing with the zone"
-    annotation (Dialog(connectorSizing=true));
+    "Number of surfaces adjacent to and heat exchangeing with the zone";
   outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
