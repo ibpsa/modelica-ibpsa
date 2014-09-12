@@ -652,20 +652,25 @@ protected
     Modelica.SIunits.SpecificHeatCapacity cv = cp-R
       "Specific heat capacity at constant volume";
     annotation (
+      preferredView="info",
       defaultComponentName="gas",
-      Documentation(preferredView="info", info="<html>
+      Documentation(info="<html>
 <p>
 This data record contains the coefficients for perfect gases.
 </p>
-</html>"), revisions=
-        "<html>
+</html>", revisions="<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Corrected the wrong location of the <code>preferredView</code>
+and the <code>revisions</code> annotation.
+</li>
 <li>
 November 21, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
   end GasProperties;
 
   // In the assignments below, we compute cv as OpenModelica
