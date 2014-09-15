@@ -19,9 +19,11 @@ package Air
 
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
-  // during model check
-  redeclare record extends ThermodynamicState
-    "ThermodynamicState record for moist air"
+  // during model check, and to set the start values.
+  redeclare record extends ThermodynamicState(
+    p(start=p_default),
+    T(start=T_default),
+    X(start=X_default))
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
@@ -936,19 +938,26 @@ protected
     Modelica.SIunits.SpecificHeatCapacity cv = cp-R
       "Specific heat capacity at constant volume";
     annotation (
+      preferredView="info",
       defaultComponentName="gas",
-      Documentation(preferredView="info", info="<html>
+      Documentation(info="<html>
 <p>
 This data record contains the coefficients for perfect gases.
 </p>
-</html>"), revisions="<html>
+</html>", revisions=
+          "<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Corrected the wrong location of the <code>preferredView</code>
+and the <code>revisions</code> annotation.
+</li>
 <li>
 November 21, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
   end GasProperties;
 
   // In the assignments below, we compute cv as OpenModelica
@@ -1192,6 +1201,14 @@ water were present in the form of vapor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Set <code>T(start=T_default)</code> and <code>p(start=p_default)</code> in the
+<code>ThermodynamicState</code> record. Setting the start value for
+<code>T</code> is required to avoid an error due to conflicting start values
+when checking <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
+Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
+</li>
 <li>
 July 24, 2014, by Michael Wetter:<br/>
 Changed implementation to use 
