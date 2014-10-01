@@ -40,8 +40,8 @@ protected
   final parameter IDEAS.Buildings.Data.Materials.Ground ground2(final d=0.33);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground3(final d=0.17);
 
-  Modelica.SIunits.HeatFlowRate Qm=U*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m
-       - 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta));
+  Modelica.SIunits.HeatFlowRate Qm = if (PWall <> 0) then U*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta)) else 0
+    "Two-dimensionl correction for edge flow";
 
   Modelica.SIunits.Length B=AWall/(0.5*PWall)
     "Characteristic dimension of the slab on ground";
@@ -80,8 +80,8 @@ public
   //    nMat(T(start={{273.15},{273.15},{273.15}} + {{11.5},{12.2},{12.7}})))
 
 public
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=
-        284.15) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=284.15)
+                annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-30,-8})));
@@ -89,6 +89,7 @@ public
       T_ref=284.15)
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
 equation
+
   periodicFlow.Q_flow = -Qm;
 
   connect(layMul.port_b, intCon.port_a) annotation (Line(
