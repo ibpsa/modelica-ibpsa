@@ -14,8 +14,8 @@ model Building
         transformation(extent={{-20,-10},{20,10}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.Occupant occupant(nZones=building.nZones)
     constrainedby IDEAS.Interfaces.BaseClasses.Occupant(nZones=building.nZones)
-    "Building occupant" annotation (Placement(transformation(extent={{-10,-42},
-            {10,-22}})), choicesAllMatching=true);
+    "Building occupant" annotation (Placement(transformation(extent={{-18,-42},{
+            2,-22}})),   choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid constrainedby
     IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
     "Inhome low-voltage electricity grid system" annotation (Placement(
@@ -46,16 +46,12 @@ equation
 //       points={{0,-10.4},{0,-22}},
 //       color={0,0,127},
 //       smooth=Smooth.None));
-  connect(building.heatPortCon, ventilationSystem.heatPortCon) annotation (Line(
-      points={{-36,2},{-26,2},{-26,30},{-20,30}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(building.heatPortCon, occupant.heatPortCon) annotation (Line(
-      points={{-36,2},{-26,2},{-26,-30},{-10,-30}},
+      points={{-36,2},{-26,2},{-26,-30},{-18,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortRad, occupant.heatPortRad) annotation (Line(
-      points={{-36,-2},{-28,-2},{-28,-34},{-10,-34}},
+      points={{-36,-2},{-28,-2},{-28,-34},{-18,-34}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.TSensor, heatingSystem.TSensor) annotation (Line(
@@ -76,7 +72,7 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(occupant.plugLoad, inHomeGrid.nodeSingle) annotation (Line(
-      points={{10,-32},{26,-32},{26,0},{32,0}},
+      points={{2,-32},{26,-32},{26,0},{32,0}},
       color={85,170,255},
       smooth=Smooth.None));
 
@@ -100,6 +96,15 @@ equation
 //       points={{6,-10.4},{6,-22}},
 //       color={0,0,127},
 //       smooth=Smooth.None));
+  connect(building.flowPort_Out, ventilationSystem.flowPort_Out) annotation (
+      Line(
+      points={{-53,10},{-53,10},{-53,32},{-20,32}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(building.flowPort_In, ventilationSystem.flowPort_In) annotation (Line(
+      points={{-49,10},{-49,10},{-49,28},{-20,28}},
+      color={0,0,0},
+      smooth=Smooth.None));
   annotation (Icon(graphics={
         Line(
           points={{60,22},{0,74},{-60,24},{-60,-46},{60,-46}},
@@ -151,6 +156,6 @@ equation
         Text(
           extent={{-100,-60},{100,-100}},
           lineColor={127,0,0},
-          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-100,-100},{100,100}}), graphics));
+          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
+                   extent={{-100,-100},{100,100}}), graphics));
 end Building;
