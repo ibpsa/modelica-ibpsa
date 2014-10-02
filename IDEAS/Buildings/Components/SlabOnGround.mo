@@ -40,10 +40,10 @@ protected
   final parameter IDEAS.Buildings.Data.Materials.Ground ground2(final d=0.33);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground3(final d=0.17);
 
-  Modelica.SIunits.HeatFlowRate Qm = if (PWall <> 0) then U*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta)) else 0
+  Modelica.SIunits.HeatFlowRate Qm = U*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta))
     "Two-dimensionl correction for edge flow";
 
-  Modelica.SIunits.Length B=AWall/(0.5*PWall)
+  Modelica.SIunits.Length B=AWall/(0.5*PWall + 1E-10)
     "Characteristic dimension of the slab on ground";
   Modelica.SIunits.Length dt=sum(constructionType.mats.d) + ground1.k*layMul.R
     "Equivalent thickness";
