@@ -20,7 +20,7 @@ partial model Structure "Partial model for building structure models"
   final parameter Modelica.SIunits.Length C=sum(VZones)/ATrans
     "Building compactness";
 
-  final parameter Modelica.SIunits.Temperature[nZones] TOpStart
+  final parameter Modelica.SIunits.Temperature[nZones] T_start
     "Operative zonal start temperatures";
 
   // Interfaces  ///////////////////////////////////////////////////////////////////////////////////////

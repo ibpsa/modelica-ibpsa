@@ -19,7 +19,7 @@ partial model HeatingSystem "Partial heating system"
   final parameter Modelica.SIunits.HeatCapacity[nZones] C=1012*1.204*VZones*5
     "Heat capacity of the conditioned zones";
 
-  final parameter Modelica.SIunits.Temperature[nZones] TOpStart
+  final parameter Modelica.SIunits.Temperature[nZones] T_start
     "Operative zonal start temperatures";
 
   // Electricity consumption or production  //////////////////////////////////////////////////////////////

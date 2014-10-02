@@ -5,7 +5,7 @@ model Building
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Boolean standAlone=true;
 
-  final parameter Modelica.SIunits.Temperature[building.nZones] TOpStart
+  final parameter Modelica.SIunits.Temperature[building.nZones] T_start
     "Operative zonal start temperatures";
 
   replaceable IDEAS.Interfaces.BaseClasses.Structure building(TOpStart=TOpStart)
