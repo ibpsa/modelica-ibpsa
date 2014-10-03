@@ -37,10 +37,10 @@ public
   Modelica.Blocks.Interfaces.RealInput Q_flow if use_Q_in annotation (Placement(
         transformation(extent={{-60,10},{-40,30}}), iconTransformation(extent={{
             -60,10},{-40,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if use_Q_in
     annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature 
+    prescribedTemperature if use_T_in
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
 equation
   connect(layMul.port_b, intCon_b.port_a) annotation (Line(
