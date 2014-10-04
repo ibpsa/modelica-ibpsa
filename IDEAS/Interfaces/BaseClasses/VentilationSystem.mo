@@ -5,6 +5,11 @@ partial model VentilationSystem
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
+  replaceable package Medium = IDEAS.Media.Air
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+      annotation (choicesAllMatching = true);
+
   // Building characteristics  //////////////////////////////////////////////////////////////////////////
 
   parameter Integer nZones(min=1)
@@ -19,15 +24,16 @@ partial model VentilationSystem
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-104,-60})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
-    "Nodes for convective heat gains"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
     plugLoad(each m=1) "Electricity connection to the Inhome feeder"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,final nLoads=
         nLoads)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Fluid.Interfaces.FlowPort_b[nZones] flowPort_Out(redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
+  Fluid.Interfaces.FlowPort_a[nZones] flowPort_In(redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
 equation
   connect(wattsLawPlug.vi, plugLoad) annotation (Line(
       points={{90,0},{100,0}},
@@ -59,5 +65,7 @@ equation
         Line(
           points={{100,100},{100,-100}},
           color={85,170,255},
-          smooth=Smooth.None)}), Diagram(graphics));
+          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}),
+                                         graphics));
 end VentilationSystem;
