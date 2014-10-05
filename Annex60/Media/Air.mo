@@ -350,8 +350,16 @@ end pressure;
 redeclare function extends saturationPressure "Return the saturation pressure"
 
 algorithm
-  psat := Annex60.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
-  annotation(Inline=false,smoothOrder=5,
+  // Calling saturationPressure as below causes the commands
+  // simulate(Annex60.Utilities.Psychrometrics.Functions.Examples.X_pSatpphi);
+  // in OpenModelica to never return. 2014-10-04
+  //psat := Annex60.Utilities.Psychrometrics.Functions.saturationPressure(Tsat=Tsat);
+  psat := Annex60.Utilities.Math.Functions.spliceFunction(
+             Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(Tsat),
+             Annex60.Utilities.Psychrometrics.Functions.sublimationPressureIce(Tsat),
+             Tsat-273.16,
+             1.0);
+  annotation(Inline=true,smoothOrder=5,
 Documentation(info="<html>
 <p>
 This function computes the saturation pressure of the water vapor for a given temperature,
@@ -1201,6 +1209,12 @@ water were present in the form of vapor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 4, 2014, by Michael Wetter:<br/>
+Reformulated <code>saturationPressure</code> as the previous implementation
+caused OpenModelica to never return when executing 
+<code>Annex60.Utilities.Psychrometrics.Functions.Examples.X_pSatpphi</code>.
+</li>
 <li>
 September 12, 2014, by Michael Wetter:<br/>
 Set <code>T(start=T_default)</code> and <code>p(start=p_default)</code> in the
