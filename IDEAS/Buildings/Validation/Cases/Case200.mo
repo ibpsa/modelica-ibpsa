@@ -11,7 +11,7 @@ protected
     redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui200 building,
     redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.None occupant,
     redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Bangbang
-      heatingSystem,
+      heatingSystem(VZones=building.VZones),
     redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
       ventilationSystem,
     redeclare IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid);

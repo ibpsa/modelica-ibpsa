@@ -8,6 +8,7 @@ protected
     redeclare BaseClasses.Structure.Bui900 building,
     redeclare BaseClasses.Occupant.Gain occupant,
     redeclare BaseClasses.VentilationSystem.None ventilationSystem,
-    redeclare BaseClasses.HeatingSystem.ThermostatSetback heatingSystem,
+    redeclare BaseClasses.HeatingSystem.ThermostatSetback heatingSystem(VZones=
+          building.VZones),
     redeclare IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid);
 end Case940;

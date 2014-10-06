@@ -10,7 +10,7 @@ protected
     redeclare IDEAS.Buildings.Validation.BaseClasses.Structure.Bui600 building,
     redeclare IDEAS.Buildings.Validation.BaseClasses.Occupant.Gain occupant,
     redeclare IDEAS.Buildings.Validation.BaseClasses.HeatingSystem.Deadband
-      heatingSystem,
+      heatingSystem(VZones=building.VZones),
     redeclare IDEAS.Buildings.Validation.BaseClasses.VentilationSystem.None
       ventilationSystem,
     redeclare IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid);

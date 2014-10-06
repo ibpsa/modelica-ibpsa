@@ -8,6 +8,6 @@ protected
     redeclare BaseClasses.Structure.Bui920 building,
     redeclare BaseClasses.Occupant.Gain occupant,
     redeclare BaseClasses.VentilationSystem.None ventilationSystem,
-    redeclare BaseClasses.HeatingSystem.Deadband heatingSystem,
+    redeclare BaseClasses.HeatingSystem.Deadband heatingSystem(VZones=building.VZones),
     redeclare IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid);
 end Case920;
