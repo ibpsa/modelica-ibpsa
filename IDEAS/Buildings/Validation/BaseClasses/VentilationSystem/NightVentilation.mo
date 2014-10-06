@@ -17,10 +17,14 @@ public
   Fluid.Sources.FixedBoundary bou(redeclare package Medium =
         IDEAS.Media.Air, final nPorts=nZones)
     annotation (Placement(transformation(extent={{-68,-30},{-88,-10}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_in(y=1703.16*corrCV*1.024/3600)
+  Modelica.Blocks.Sources.RealExpression m_flow_in(y=1703.16*corrCV*1.024/3600*Occupancy)
     annotation (Placement(transformation(extent={{-12,38},{-32,58}})));
   Modelica.Blocks.Sources.RealExpression T_in(y=sim.Te)
     annotation (Placement(transformation(extent={{-10,-8},{-30,12}})));
+
+protected
+  Real Occupancy = if occ.occupied then 1 else 0;
+
 equation
   wattsLawPlug.P[1] = 0;
   wattsLawPlug.Q[1] = 0;
