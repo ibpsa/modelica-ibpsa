@@ -66,30 +66,6 @@ equation
       points={{80,8},{120,8},{120,-20},{150,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(roof.surfRad_a, gF.surfRad[1]) annotation (Line(
-      points={{-73,-9},{-73,6.33333},{40,6.33333}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(roof.surfCon_a, gF.surfCon[1]) annotation (Line(
-      points={{-76,-9},{-76,12.3333},{40,12.3333}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(wall.surfRad_a, gF.surfRad[2:5]) annotation (Line(
-      points={{-43,-9},{-43,7},{40,7}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(wall.surfCon_a, gF.surfCon[2:5]) annotation (Line(
-      points={{-46,-9},{-46,13},{40,13}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(floor.surfCon_a, gF.surfCon[6]) annotation (Line(
-      points={{-16,-9},{-16,15.6667},{40,15.6667}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(floor.surfRad_a, gF.surfRad[6]) annotation (Line(
-      points={{-13,-9},{-13,9.66667},{40,9.66667}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(floor.port_emb, heatPortEmb[1]) annotation (Line(
       points={{-9,-14},{-4,-14},{-4,-40},{118,-40},{118,60},{150,60}},
       color={191,0,0},
@@ -101,7 +77,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(wall.propsBus_a, gF.propsBus[2:5]) annotation (Line(
-      points={{-53,-9},{-53,30},{40,30}},
+      points={{-53,-9},{-53,26},{40,26}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -114,6 +90,14 @@ equation
       points={{140,-60},{156,-60}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-150,-100},
-            {150,100}}),       graphics));
+  connect(flowPort_Out[1], gF.flowPort_Out) annotation (Line(
+      points={{-20,100},{-20,60},{56,60},{56,40},{56,40}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(flowPort_In[1], gF.flowPort_In) annotation (Line(
+      points={{20,100},{20,100},{20,62},{64,62},{64,40}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-150,
+            -100},{150,100}}), graphics));
 end Bui195;
