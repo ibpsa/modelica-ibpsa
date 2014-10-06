@@ -1,16 +1,17 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model Bangbang "BESTEST bang-bang heating system"
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
-    radiators=true,
-    floorHeating=true,
-    final nLoads=1,
-    QNom=zeros(nZones));
+    final nLoads=1);
+
+  parameter Modelica.SIunits.Volume[nZones] VZones;
+  parameter Real corrCV = 5 "Correction factor for thermal mass in zone";
+  final parameter Modelica.SIunits.HeatCapacity[nZones] C;
 
 protected
   parameter Modelica.SIunits.Temperature Theat=293.15 "Heating on below 20degC";
   parameter Modelica.SIunits.Temperature Tcool=293.15 "Cooling on above 27degC";
 
-  Modelica.Blocks.Sources.RealExpression realP(y=QHeatTotal)
+  Modelica.Blocks.Sources.RealExpression realP(y=QHeaSys)
     annotation (Placement(transformation(extent={{120,10},{140,30}})));
   Modelica.Blocks.Sources.RealExpression realQ(y=0.0)
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
@@ -29,15 +30,15 @@ equation
     heatPortEmb[i].Q_flow = 0;
   end for;
 
-  QHeatTotal = sum(heatPortRad.Q_flow) + sum(heatPortCon.Q_flow) + sum(
+  QHeaSys = sum(heatPortRad.Q_flow) + sum(heatPortCon.Q_flow) + sum(
     heatPortEmb.Q_flow);
 
   connect(realP.y, wattsLawPlug.P[1]) annotation (Line(
-      points={{141,20},{154,20},{154,6},{170,6}},
+      points={{141,20},{154,20},{154,6},{160,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(realQ.y, wattsLawPlug.Q[1]) annotation (Line(
-      points={{141,-20},{154,-20},{154,2},{170,2}},
+      points={{141,-20},{154,-20},{154,2},{160,2}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
