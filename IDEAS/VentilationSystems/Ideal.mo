@@ -4,7 +4,7 @@ model Ideal
   extends IDEAS.Interfaces.BaseClasses.VentilationSystem(nLoads=1);
   parameter Modelica.SIunits.MassFlowRate m_flow[nZones] = zeros(nZones)
     "Ventilation mass flow rate per zones";
-  parameter Modelica.SIunits.Temperature TSet[nZones] = 22*.ones(nZones) + 273.15
+  parameter Modelica.SIunits.Temperature TSet[nZones] = 22*.ones(nZones) .+ 273.15
     "Ventilation set point temperature per zone";
 
   Fluid.Sources.MassFlowSource_T sou[nZones](
