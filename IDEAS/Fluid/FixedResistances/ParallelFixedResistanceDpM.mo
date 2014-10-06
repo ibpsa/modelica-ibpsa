@@ -62,10 +62,10 @@ equation
       else // do not use homotopy
         if from_dp then
           m_flow=IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                   m_flow_turbulent=m_flow_turbulent)*nParCir;
+                                   m_flow_turbulent=m_flow_turbulent/nParCir)*nParCir;
         else
           dp=IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow/nParCir, k=k,
-                                   m_flow_turbulent=m_flow_turbulent);
+                                   m_flow_turbulent=m_flow_turbulent/nParCir);
         end if;  // from_dp
       end if; // homotopyInitialization
     end if; // linearized
