@@ -2,10 +2,11 @@ within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model ThermostatSetback "BESTEST thermostat setback heating system"
 
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
-    radiators=true,
-    floorHeating=true,
-    final nLoads=1,
-    QNom=zeros(nZones));
+    final nLoads=1);
+
+  parameter Modelica.SIunits.Volume[nZones] VZones;
+  parameter Real corrCV = 5 "Correction factor for thermal mass in zone";
+  final parameter Modelica.SIunits.HeatCapacity[nZones] C;
 
 protected
   IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7,23},
@@ -36,14 +37,14 @@ equation
     heatPortEmb[i].Q_flow = 0;
   end for;
 
-  QHeatTotal = -1*sum(heatPortCon.Q_flow);
+  QHeaSys = -1*sum(heatPortCon.Q_flow);
 
   connect(realQ.y, wattsLawPlug.Q[1]) annotation (Line(
-      points={{141,-10},{174,-10},{174,2},{170,2}},
+      points={{141,-10},{174,-10},{174,2},{160,2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(realP.y, wattsLawPlug.P[1]) annotation (Line(
-      points={{137,28},{174,28},{174,6},{170,6}},
+      points={{137,28},{174,28},{174,6},{160,6}},
       color={0,0,127},
       smooth=Smooth.None));
 end ThermostatSetback;
