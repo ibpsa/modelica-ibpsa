@@ -42,10 +42,10 @@ model Building
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
 equation
-//   connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
-//       points={{0,-10.4},{0,-22}},
-//       color={0,0,127},
-//       smooth=Smooth.None));
+  connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
+       points={{0,-10.4},{0,-14},{-8,-14},{-8,-18},{-8,-18},{-8,-22},{-8,-22}},
+       color={0,0,127},
+       smooth=Smooth.None));
   connect(building.heatPortCon, occupant.heatPortCon) annotation (Line(
       points={{-36,2},{-26,2},{-26,-30},{-18,-30}},
       color={191,0,0},
@@ -92,10 +92,6 @@ equation
         smooth=Smooth.None));
   end if;
 
-//   connect(heatingSystem.mDHW60C, occupant.mDHW60C) annotation (Line(
-//       points={{6,-10.4},{6,-22}},
-//       color={0,0,127},
-//       smooth=Smooth.None));
   connect(building.flowPort_Out, ventilationSystem.flowPort_Out) annotation (
       Line(
       points={{-53,10},{-53,10},{-53,32},{-20,32}},
@@ -104,6 +100,22 @@ equation
   connect(building.flowPort_In, ventilationSystem.flowPort_In) annotation (Line(
       points={{-49,10},{-49,10},{-49,28},{-20,28}},
       color={0,0,0},
+      smooth=Smooth.None));
+  connect(occupant.mDHW60C, heatingSystem.mDHW60C) annotation (Line(
+      points={{-2,-22},{-2,-16},{6,-16},{6,-10.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(building.heatPortEmb, heatingSystem.heatPortEmb) annotation (Line(
+      points={{-36,6},{-20,6}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(building.heatPortCon, heatingSystem.heatPortCon) annotation (Line(
+      points={{-36,2},{-20,2}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(building.heatPortRad, heatingSystem.heatPortRad) annotation (Line(
+      points={{-36,-2},{-20,-2}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (Icon(graphics={
         Line(

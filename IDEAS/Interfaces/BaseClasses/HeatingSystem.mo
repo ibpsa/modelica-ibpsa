@@ -73,12 +73,17 @@ partial model HeatingSystem "Partial heating/cooling system"
   //   final parameter Modelica.SIunits.HeatCapacity[nZones] C=1012*1.204*VZones*5
   //     "Heat capacity of the conditioned zones";
   //
-  //   Modelica.Blocks.Interfaces.RealInput[nZones] TSet
-  //     "Setpoint temperature for the zones" annotation (Placement(transformation(
-  //         extent={{-10,-10},{10,10}},
-  //         rotation=90,
-  //         origin={0,-104})));
+     Modelica.Blocks.Interfaces.RealInput[nZones] TSet
+    "Setpoint temperature for the zones"    annotation (Placement(transformation(
+           extent={{-10,-10},{10,10}},
+           rotation=90,
+           origin={0,-104})));
 
+     Modelica.Blocks.Interfaces.RealInput mDHW60C
+    "Setpoint temperature for the zones" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={60,-104})));
 equation
   if nLoads >= 1 then
      connect(wattsLawPlug.vi, plugLoad) annotation (Line(
