@@ -31,9 +31,9 @@ partial model VentilationSystem
         nLoads)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Fluid.Interfaces.FlowPort_b[nZones] flowPort_Out(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
-  Fluid.Interfaces.FlowPort_a[nZones] flowPort_In(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
+  Fluid.Interfaces.FlowPort_a[nZones] flowPort_In(redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 equation
   connect(wattsLawPlug.vi, plugLoad) annotation (Line(
       points={{90,0},{100,0}},
