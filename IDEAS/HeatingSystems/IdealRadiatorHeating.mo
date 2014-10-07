@@ -49,8 +49,9 @@ equation
 <li>2013 June, Roel De Coninck: reworking interface and documentation</li>
 <li>2011, Roel De Coninck: first version</li>
 </ul></p>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},
-            {200,100}}), graphics),
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
+            -100},{200,100}}),
+                         graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,100}}),
         graphics));
 end IdealRadiatorHeating;

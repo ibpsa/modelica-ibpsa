@@ -24,7 +24,8 @@ model Heating_Embedded_DHW_STS
       m_flow_nominal=m_flow_nominal,
       m_flowMin=m_flow_nominal/3,
       RadSlaCha = RadSlaCha,
-      A_floor=AEmb),
+      A_floor=AEmb,
+      nParCir=1),
     redeclare Controls.ControlHeating.Ctrl_Heating_DHW ctrl_Heating(TDHWSet=
           TDHWSet, TColdWaterNom=TColdWaterNom,
       dTHPTankSet=dTHPTankSet),

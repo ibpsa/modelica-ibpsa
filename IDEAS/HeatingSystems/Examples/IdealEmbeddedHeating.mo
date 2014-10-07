@@ -8,7 +8,9 @@ model IdealEmbeddedHeating
     nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
-    t=10) annotation (Placement(transformation(extent={{14,-22},{42,2}})));
+    t=10,
+    use_DHW=false)
+          annotation (Placement(transformation(extent={{14,-22},{42,2}})));
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
     each width=67,
@@ -50,7 +52,7 @@ model IdealEmbeddedHeating
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 equation
   connect(heating.TSet, TOpSet.y) annotation (Line(
-      points={{27.86,-22.48},{27.86,-50},{21,-50}},
+      points={{28,-22.48},{28,-50},{21,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(voltageSource.pin_p, ground.pin) annotation (Line(

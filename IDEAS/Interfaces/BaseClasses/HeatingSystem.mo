@@ -11,6 +11,7 @@ partial model HeatingSystem "Partial heating/cooling system"
     "Number of conditioned thermal zones in the building";
   parameter Boolean isHea=true "true if system is able to heat";
   parameter Boolean isCoo=false "true if system is able to cool";
+  parameter Boolean use_DHW = sim.DHW;
 
   // --- Ports
   parameter Integer nConvPorts(min=0) = nZones
@@ -85,7 +86,7 @@ public
     annotation (Placement(transformation(extent={{146,0},{160,16}})));
   Modelica.Blocks.Sources.RealExpression[nLoads_min] realExpression1(y=Q)
     annotation (Placement(transformation(extent={{148,-14},{162,4}})));
-     Modelica.Blocks.Interfaces.RealInput mDHW60C
+     Modelica.Blocks.Interfaces.RealInput mDHW60C if use_DHW
     "Setpoint temperature for the zones" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

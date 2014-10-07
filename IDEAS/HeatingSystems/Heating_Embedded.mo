@@ -22,7 +22,8 @@ model Heating_Embedded
       m_flow_nominal=m_flow_nominal,
       m_flowMin=m_flow_nominal/3,
       RadSlaCha = RadSlaCha,
-      A_floor=AEmb));
+      A_floor=AEmb,
+      nParCir=1));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow);
   P[1] = heater.PEl + sum(pumpRad.PEl);

@@ -3,15 +3,6 @@ partial model Partial_IdealHeating
   "Ideal, non-hydraulic heating with limited power"
   parameter Integer nZones(min=1)
     "Number of conditioned thermal zones in the building";
-  Modelica.Blocks.Interfaces.RealInput[nZones] TSet(unit="K",displayUnit="degC")
-    "Set point temperature for each zones" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={4,-110}), iconTransformation(
-        extent={{-14,-14},{14,14}},
-        rotation=90,
-        origin={-2,-104})));
   parameter Real fractionRad[nZones]=0.3*ones(nZones)
     "Fraction of radiative to total power";
   parameter Real COP=3 "virtual COP to get a PEl as output";

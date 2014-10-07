@@ -18,7 +18,8 @@ model Heating_Radiators
       TZoneNom=TRoomNom,
       QNom=QNom,
       each powerFactor=3.37,
-    redeclare each package Medium = Medium));
+    redeclare each package Medium = Medium),
+    pumpRad(filteredMassFlowRate=true));
 equation
   QHeaSys = -sum(emission.heatPortCon.Q_flow) - sum(emission.heatPortRad.Q_flow);
   P[1] = heater.PEl + sum(pumpRad.PEl);

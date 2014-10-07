@@ -45,7 +45,8 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     redeclare each package Medium = Medium)
               annotation (Placement(transformation(extent={{88,64},{112,40}})));
   Fluid.Valves.Thermostatic3WayValve    idealCtrlMixer(m_flow_nominal=sum(
-        m_flow_nominal), redeclare package Medium = Medium)
+        m_flow_nominal), redeclare package Medium = Medium,
+    k(start=0.5))
     annotation (Placement(transformation(extent={{34,46},{56,70}})));
   IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeReturn(
     redeclare package Medium = Medium,
@@ -150,6 +151,12 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
         extent={{8,-8},{-8,8}},
         rotation=0,
         origin={108,-92})));
+  Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
+    redeclare package Medium = Medium,
+    m_flow_nominal={sum(m_flow_nominal),sum(m_flow_nominal),-sum(m_flow_nominal)},
+
+    dp_nominal={0,0,0})
+    annotation (Placement(transformation(extent={{92,-88},{84,-96}})));
 equation
     // connections that are function of the number of circuits
   for i in 1:nZones loop
@@ -228,14 +235,6 @@ equation
       points={{-42,58},{-16,58}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemEm_out.port_b, pipeReturn.port_a) annotation (Line(
-      points={{100,-92},{2,-92}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(idealCtrlMixer.port_a2, pipeReturn.port_a) annotation (Line(
-      points={{45,46},{45,40},{46,40},{46,34},{92,34},{92,-92},{2,-92}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(TSensor, add.u1) annotation (Line(
       points={{-204,-60},{-190,-60},{-190,-66.8},{-175.4,-66.8}},
       color={0,0,127},
@@ -255,6 +254,18 @@ equation
   connect(TLow_val.y, heatingControl.uLow) annotation (Line(
       points={{-159.3,-92},{-152,-92},{-152,-77},{-142,-77}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(senTemEm_out.port_b, spl.port_1) annotation (Line(
+      points={{100,-92},{92,-92}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(spl.port_2, pipeReturn.port_a) annotation (Line(
+      points={{84,-92},{2,-92}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(idealCtrlMixer.port_a2, spl.port_3) annotation (Line(
+      points={{45,46},{44,46},{44,34},{92,34},{92,-78},{88,-78},{88,-88}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}), graphics={Rectangle(

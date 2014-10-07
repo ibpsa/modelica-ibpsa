@@ -16,7 +16,8 @@ model Heating_Embedded
     QNom={8000 for i in 1:nZones},
     TSupNom=273.15 + 45,
     corFac_val=5,
-    AEmb=dummyBuilding.AZones)
+    AEmb=dummyBuilding.AZones,
+    use_DHW=false)
           annotation (Placement(transformation(extent={{12,-16},{50,2}})));
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,

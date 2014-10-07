@@ -2,14 +2,14 @@ within IDEAS.HeatingSystems.Examples;
 model IdealRadiatorHeating "Example and test for ideal heating with radiators"
   import IDEAS;
   extends Modelica.Icons.Example;
-  parameter Boolean standAlone = true;
   final parameter Integer nZones = 1 "Number of zones";
   IDEAS.HeatingSystems.IdealRadiatorHeating heating(
     final nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
     t=1,
-    nLoads=0)
+    nLoads=0,
+    use_DHW=false)
          annotation (Placement(transformation(extent={{-20,-10},{18,12}})));
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
@@ -33,16 +33,15 @@ model IdealRadiatorHeating "Example and test for ideal heating with radiators"
     voltageSource(
     f=50,
     V=230,
-    phi=0) if standAlone annotation (Placement(transformation(
+    phi=0) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={86,-30})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground if
-    standAlone
+  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
     annotation (Placement(transformation(extent={{76,-80},{96,-60}})));
 equation
   connect(TOpSet.y, heating.TSet) annotation (Line(
-      points={{-23.4,-50},{-1.19,-50},{-1.19,-10.44}},
+      points={{-23.4,-50},{-1,-50},{-1,-10.44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dummyBuilding.heatPortCon, heating.heatPortCon) annotation (Line(
