@@ -49,9 +49,7 @@ model ConstantAirFlowRecup
     annotation (Placement(transformation(extent={{14,-30},{-6,-10}})));
   Fluid.Movers.Pump pump[nZones](
     m_flow_nominal=n ./ 3600.*1.204,
-    redeclare package Medium = Medium,
-    useInput=false,
-    filteredMassFlowRate=false)
+    redeclare each package Medium = Medium)
     annotation (Placement(transformation(extent={{-64,-10},{-84,-30}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
     annotation (Placement(transformation(extent={{46,-26},{26,-6}})));

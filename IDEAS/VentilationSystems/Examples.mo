@@ -139,6 +139,4 @@ package Examples
               -100},{100,100}}), graphics));
   end none;
 
-
-
 end Examples;
