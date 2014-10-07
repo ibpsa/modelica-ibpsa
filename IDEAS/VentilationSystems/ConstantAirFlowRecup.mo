@@ -37,18 +37,21 @@ model ConstantAirFlowRecup
       package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     V=m_flow_nominal*tau/1.204,
-    nPorts=nZones+1) "Mixing volume for the air coming for the zones"
-    annotation (Placement(transformation(extent={{-84,20},{-64,40}})));
+    nPorts=1+nZones) "Mixing volume for the air coming for the zones"
+    annotation (Placement(transformation(extent={{-76,20},{-56,40}})));
   Fluid.Sources.FixedBoundary sink(final nPorts=1, redeclare package Medium =
                Medium)
-    annotation (Placement(transformation(extent={{14,10},{-6,30}})));
+    annotation (Placement(transformation(extent={{26,10},{6,30}})));
   Fluid.Sources.Boundary_pT sou(
     final nPorts=1,
     redeclare package Medium = Medium,
     use_T_in=true) "Ambient air"
     annotation (Placement(transformation(extent={{14,-30},{-6,-10}})));
-  Fluid.Movers.Pump pump[nZones](m_flow_nominal=n ./ 3600.*1.204, redeclare
-      package Medium = Medium)
+  Fluid.Movers.Pump pump[nZones](
+    m_flow_nominal=n ./ 3600.*1.204,
+    redeclare package Medium = Medium,
+    useInput=false,
+    filteredMassFlowRate=false)
     annotation (Placement(transformation(extent={{-64,-10},{-84,-30}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
     annotation (Placement(transformation(extent={{46,-26},{26,-6}})));
@@ -60,14 +63,14 @@ equation
 
   for i in 1:nZones loop
     connect(pump[i].port_a, hex.port_b2) annotation (Line(
-      points={{-64,-20},{-58,-20},{-58,-20.4},{-52,-20.4}},
-      color={0,127,255},
-      smooth=Smooth.None));
-    connect(vol.ports[1+i],flowPort_In[i]);
+        points={{-64,-20},{-58,-20},{-58,-20.4},{-52,-20.4}},
+        color={0,127,255},
+        smooth=Smooth.None));
+    connect(vol.ports[i+1],flowPort_In[i]);
   end for;
 
   connect(hex.port_b1, sink.ports[1]) annotation (Line(
-      points={{-30,20.4},{-18,20.4},{-18,20},{-6,20}},
+      points={{-30,20.4},{-18,20.4},{-18,20},{6,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pump.port_b, flowPort_Out) annotation (Line(
@@ -85,7 +88,7 @@ equation
       smooth=Smooth.None));
 
   connect(vol.ports[1], hex.port_a1) annotation (Line(
-      points={{-74,20},{-64,20},{-64,20.4},{-52,20.4}},
+      points={{-66,20},{-64,20},{-64,20.4},{-52,20.4}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
