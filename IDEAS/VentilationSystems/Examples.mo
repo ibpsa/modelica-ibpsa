@@ -227,15 +227,12 @@ package Examples
     Fluid.Sources.FixedBoundary sink[nZones](
                            each final nPorts=1, redeclare package Medium = Medium)
       annotation (Placement(transformation(extent={{-4,-8},{-24,12}})));
-    Modelica.Blocks.Sources.Constant m_flow_val[nZones](each k=0)
-      annotation (Placement(transformation(extent={{36,58},{16,78}})));
     Modelica.Blocks.Sources.Constant TSet_val[nZones](each k=295.15)
       annotation (Placement(transformation(extent={{36,22},{16,42}})));
+    Modelica.Blocks.Sources.Pulse    m_flow_val[nZones](amplitude=0.01, period=
+          36000)
+      annotation (Placement(transformation(extent={{46,68},{26,88}})));
   equation
-    connect(sou.m_flow_in,m_flow_val. y) annotation (Line(
-        points={{-4,50},{10,50},{10,68},{15,68}},
-        color={0,0,127},
-        smooth=Smooth.None));
     connect(TSet_val.y,sou. T_in) annotation (Line(
         points={{15,32},{10,32},{10,46},{-2,46}},
         color={0,0,127},
@@ -248,6 +245,10 @@ package Examples
       connect(structure.flowPort_Out, sou[:].ports[1]) annotation (Line(
         points={{-65,-20},{-66,-20},{-66,42},{-24,42}},
         color={0,0,0},
+        smooth=Smooth.None));
+    connect(m_flow_val.y, sou.m_flow_in) annotation (Line(
+        points={{25,78},{8,78},{8,50},{-4,50}},
+        color={0,0,127},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics));
@@ -274,7 +275,8 @@ package Examples
     Fluid.Sources.FixedBoundary sink[nZones](
                            each final nPorts=1, redeclare package Medium = Medium)
       annotation (Placement(transformation(extent={{-4,-8},{-24,12}})));
-    Modelica.Blocks.Sources.Constant m_flow_val[nZones](each k=0)
+    Modelica.Blocks.Sources.Pulse    m_flow_val[nZones](amplitude=0.01, period=
+          36000)
       annotation (Placement(transformation(extent={{36,58},{16,78}})));
     Modelica.Blocks.Sources.Constant TSet_val[nZones](each k=295.15)
       annotation (Placement(transformation(extent={{36,22},{16,42}})));
