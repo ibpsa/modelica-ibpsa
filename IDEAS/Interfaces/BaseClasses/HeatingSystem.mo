@@ -23,11 +23,6 @@ partial model HeatingSystem "Partial heating/cooling system"
   // --- Electrical
   parameter Integer nLoads(min=0) = 1
     "Number of electric loads. If zero, all electric equations disappear.";
-  SI.Power[nLoads] P = wattsLawPlug.P if nLoads >= 1
-    "Active power for each of the loads";
-  //fixme: can the variable disappear for n=0?
-  SI.Power[nLoads] Q = wattsLawPlug.Q if nLoads >= 1
-    "Reactive power for each of the loads";
 
   // --- Sensor
   parameter Integer nTemSen(min=0) = nZones
@@ -35,9 +30,9 @@ partial model HeatingSystem "Partial heating/cooling system"
 
   // *********** Outputs ***********
   // --- Thermal
-  SI.Power QHeaSys if isHea
+  Modelica.SIunits.Power QHeaSys if isHea
     "Total energy use forspace heating + DHW, if present)";
-  SI.Power QCooTotal if isCoo "Total cooling energy use";
+  Modelica.SIunits.Power QCooTotal if isCoo "Total cooling energy use";
 
   // *********** Interface ***********
   // --- thermal
@@ -67,24 +62,31 @@ partial model HeatingSystem "Partial heating/cooling system"
         rotation=180,
         origin={-204,-60})));
 
-  //   parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
-  //     "Nominal power, can be seen as the max power of the emission system";
-  //   parameter Real[nZones] VZones "Conditioned volumes of the zones";
-  //   final parameter Modelica.SIunits.HeatCapacity[nZones] C=1012*1.204*VZones*5
-  //     "Heat capacity of the conditioned zones";
-  //
-  //   Modelica.Blocks.Interfaces.RealInput[nZones] TSet
-  //     "Setpoint temperature for the zones" annotation (Placement(transformation(
-  //         extent={{-10,-10},{10,10}},
-  //         rotation=90,
-  //         origin={0,-104})));
-
+protected
+  final parameter Integer nLoads_min = max(1,nLoads);
+   Modelica.SIunits.Power[nLoads_min] P_dummy
+    "dummy variable active power for each of the loads";
+   Modelica.SIunits.Power[nLoads_min] Q_dummy
+    "dummy variable passive power for each of the loads";
+public
+  Modelica.Blocks.Sources.RealExpression[nLoads_min] realExpression(y=P_dummy)
+    annotation (Placement(transformation(extent={{76,-2},{130,16}})));
+  Modelica.Blocks.Sources.RealExpression[nLoads_min] realExpression1(y=Q_dummy)
+    annotation (Placement(transformation(extent={{76,-18},{130,0}})));
 equation
   if nLoads >= 1 then
      connect(wattsLawPlug.vi, plugLoad) annotation (Line(
       points={{180,0},{200,0}},
       color={85,170,255},
       smooth=Smooth.None));
+     connect(realExpression.y, wattsLawPlug.P) annotation (Line(
+      points={{132.7,7},{145.35,7},{145.35,6},{160,6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(realExpression1.y, wattsLawPlug.Q) annotation (Line(
+          points={{132.7,-9},{145.35,-9},{145.35,2},{160,2}},
+          color={0,0,127},
+          smooth=Smooth.None));
   end if;
 
   annotation (

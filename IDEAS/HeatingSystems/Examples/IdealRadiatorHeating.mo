@@ -8,7 +8,9 @@ model IdealRadiatorHeating "Example and test for ideal heating with radiators"
     final nZones=nZones,
     VZones={75*2.7 for i in 1:nZones},
     QNom={20000 for i in 1:nZones},
-    t=1) annotation (Placement(transformation(extent={{-20,-10},{18,12}})));
+    t=1,
+    nLoads=1)
+         annotation (Placement(transformation(extent={{-20,-10},{18,12}})));
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
     each width=67,
