@@ -73,7 +73,7 @@ public
       T_ref=284.15)
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
 equation
-  periodicFlow.Q_flow = Qm;
+  periodicFlow.Q_flow = -Qm;
 
   connect(layMul.port_b, intCon.port_a) annotation (Line(
       points={{10,-30},{20,-30}},

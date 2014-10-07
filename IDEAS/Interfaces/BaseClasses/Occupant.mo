@@ -68,5 +68,7 @@ equation
         Line(
           points={{100,100},{100,-100}},
           color={85,170,255},
-          smooth=Smooth.None)}), Diagram(graphics));
+          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=
+            false, extent={{-100,-100},{100,100}}),
+                                         graphics));
 end Occupant;

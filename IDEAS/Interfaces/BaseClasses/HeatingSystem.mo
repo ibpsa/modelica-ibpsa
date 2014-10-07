@@ -62,6 +62,18 @@ partial model HeatingSystem "Partial heating/cooling system"
         rotation=180,
         origin={-204,-60})));
 
+  //   parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
+  //     "Nominal power, can be seen as the max power of the emission system";
+  //   parameter Real[nZones] VZones "Conditioned volumes of the zones";
+  //   final parameter Modelica.SIunits.HeatCapacity[nZones] C=1012*1.204*VZones*5
+  //     "Heat capacity of the conditioned zones";
+  //
+     Modelica.Blocks.Interfaces.RealInput[nZones] TSet
+    "Setpoint temperature for the zones"    annotation (Placement(transformation(
+           extent={{-10,-10},{10,10}},
+           rotation=90,
+           origin={0,-104})));
+
 protected
   final parameter Integer nLoads_min = max(1,nLoads);
    Modelica.SIunits.Power[nLoads_min] P
@@ -73,6 +85,11 @@ public
     annotation (Placement(transformation(extent={{146,0},{160,16}})));
   Modelica.Blocks.Sources.RealExpression[nLoads_min] realExpression1(y=Q)
     annotation (Placement(transformation(extent={{148,-14},{162,4}})));
+     Modelica.Blocks.Interfaces.RealInput mDHW60C
+    "Setpoint temperature for the zones" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={60,-104})));
 equation
   if nLoads >= 1 then
      connect(wattsLawPlug.vi, plugLoad) annotation (Line(
