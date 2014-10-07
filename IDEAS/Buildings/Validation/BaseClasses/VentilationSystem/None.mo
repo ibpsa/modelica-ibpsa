@@ -1,4 +1,4 @@
 within IDEAS.Buildings.Validation.BaseClasses.VentilationSystem;
-model None
-  extends IDEAS.VentilationSystems.None;
+model None "None"
+  extends IDEAS.VentilationSystems.Ideal(final m_flow = zeros(nZones));
 end None;
