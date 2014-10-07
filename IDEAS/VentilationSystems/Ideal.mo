@@ -16,9 +16,9 @@ model Ideal
   Fluid.Sources.FixedBoundary sink[nZones](
                          each final nPorts=1, redeclare each package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,-30},{-80,-10}})));
-  Modelica.Blocks.Sources.Constant m_flow_val[nZones](k=m_flow)
+  Modelica.Blocks.Sources.Constant m_flow_val[nZones](final k=m_flow)
     annotation (Placement(transformation(extent={{-20,36},{-40,56}})));
-  Modelica.Blocks.Sources.Constant TSet_val[nZones](k=TSet)
+  Modelica.Blocks.Sources.Constant TSet_val[nZones](final k=TSet)
     annotation (Placement(transformation(extent={{-20,0},{-40,20}})));
 equation
   wattsLawPlug.P = zeros(nLoads);
