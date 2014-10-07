@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation;
 model BESTEST
 
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.Example;
 
   /*
 

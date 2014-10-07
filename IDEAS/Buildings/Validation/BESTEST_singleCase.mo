@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation;
 model BESTEST_singleCase
 
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.Example;
 
   /*
 Simulation of a single BESTEST case of your choice.
