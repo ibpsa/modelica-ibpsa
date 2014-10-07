@@ -11,7 +11,9 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
 
   inner IDEAS.SimInfoManager sim(
     occBeh=false,
-    PV=false) annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
+    PV=false,
+    filNam="BESTEST.TMY")
+              annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
 
   // BESTEST 600 Series
 
