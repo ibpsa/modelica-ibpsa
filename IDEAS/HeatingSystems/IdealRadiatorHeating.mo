@@ -21,8 +21,8 @@ equation
    end for;
   QHeaSys = sum(QHeatZone);
 
-  P_dummy[1] = QHeaSys/COP;
-  Q_dummy[1] = 0;
+  P[1] = QHeaSys/COP;
+  Q[1] = 0;
   annotation (Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Ideal heating (no hydraulics) but with limited power <i>QNom</i> per zone. There are no radiators. This model assumes a thermal inertia of each zone and computes the heat flux that would be required to heat up the zone to the set point within a time <i>t</i>. This heat flux is limited to <i>QNom</i> and splitted in a radiative and a convective part which are imposed on the heatPorts <i>heatPortRad</i> and <i>heatPortCon</i> respectively. A COP can be passed in order to compute the electricity consumption of the heating.</p>

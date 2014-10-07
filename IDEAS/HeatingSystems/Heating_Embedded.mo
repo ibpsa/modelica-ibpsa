@@ -1,9 +1,11 @@
 within IDEAS.HeatingSystems;
 model Heating_Embedded
   replaceable parameter
-    IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nZones] RadSlaCha constrainedby
+    IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nEmbPorts] RadSlaCha constrainedby
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
     "Properties of the floor heating or TABS, if present";
+  parameter Modelica.SIunits.Area AEmb[nEmbPorts]
+    "surface of each embedded circuit";
   extends IDEAS.HeatingSystems.Interfaces.Partial_HydraulicHeating(
     final isHea=true,
     final isCoo=false,
@@ -15,11 +17,12 @@ model Heating_Embedded
     nZones=1,
     minSup=true,
     TSupMin=273.15+25,
-    redeclare IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe emission[nZones](      redeclare
+    redeclare IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe emission[nEmbPorts](      redeclare
         each package Medium =                                                                                    Medium,
       m_flow_nominal=m_flow_nominal,
       m_flowMin=m_flow_nominal/3,
-      RadSlaCha = RadSlaCha));
+      RadSlaCha = RadSlaCha,
+      A_floor=AEmb));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow);
   P[1] = heater.PEl + sum(pumpRad.PEl);

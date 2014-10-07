@@ -6,8 +6,7 @@ model Heating_Embedded_DHW_STS
   final parameter Integer nZones=2 "Number of zones";
   parameter
     IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.RadSlaCha_ValidationEmpa[        nZones]
-                                       radSlaCha_ValidationEmpa(A_Floor=
-        dummyBuilding.AZones)
+                                       radSlaCha_ValidationEmpa
     annotation (Placement(transformation(extent={{-94,-98},{-74,-78}})));
   IDEAS.HeatingSystems.Heating_Embedded_DHW_STS
                                             heating(
@@ -17,7 +16,8 @@ model Heating_Embedded_DHW_STS
     each RadSlaCha = radSlaCha_ValidationEmpa,
     QNom={8000 for i in 1:nZones},
     TSupNom=273.15 + 45,
-    corFac_val=5)
+    corFac_val=5,
+    AEmb=dummyBuilding.AZones)
           annotation (Placement(transformation(extent={{12,-18},{50,0}})));
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
@@ -49,15 +49,17 @@ model Heating_Embedded_DHW_STS
         rotation=0,
         origin={-48,0})));
   IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.NakedTabs[nZones] nakedTabs(radSlaCha=
-       radSlaCha_ValidationEmpa)
+       radSlaCha_ValidationEmpa, A_floor=dummyBuilding.AZones)
     annotation (Placement(transformation(extent={{-6,-12},{-26,8}})));
   inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Blocks.Sources.RealExpression[nZones] realExpression(y=11*
-        radSlaCha_ValidationEmpa.A_Floor)
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+        dummyBuilding.AZones)
+    annotation (Placement(transformation(extent={{-20,28},{-40,48}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{64,84},{78,94}})));
+  IDEAS.VentilationSystems.None none(nZones=nZones, VZones=dummyBuilding.VZones)
+    annotation (Placement(transformation(extent={{-32,74},{-12,94}})));
 equation
   connect(voltageSource.pin_p, ground.pin) annotation (Line(
       points={{90,-74},{90,-82}},
@@ -92,12 +94,28 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression.y, convectionTabs.Gc) annotation (Line(
-      points={{-59,40},{-48,40},{-48,8}},
+      points={{-41,38},{-48,38},{-48,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOpSet.y, heating.TSet) annotation (Line(
       points={{1,-50},{30.81,-50},{30.81,-18.36}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(none.flowPort_In, dummyBuilding.flowPort_Out) annotation (Line(
+      points={{-32,86},{-82.1333,86},{-82.1333,4}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(none.flowPort_Out, dummyBuilding.flowPort_In) annotation (Line(
+      points={{-32,82},{-77.8667,82},{-77.8667,4}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(dummyBuilding.TSensor,none. TSensor) annotation (Line(
+      points={{-63.36,-12},{-60,-12},{-60,78},{-32.4,78}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(none.plugLoad, dummyInHomeGrid.nodeSingle) annotation (Line(
+      points={{-12,84},{56,84},{56,-10},{64,-10}},
+      color={85,170,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

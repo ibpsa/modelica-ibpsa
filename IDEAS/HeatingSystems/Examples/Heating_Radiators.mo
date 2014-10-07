@@ -38,6 +38,8 @@ model Heating_Radiators
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{64,84},{78,94}})));
+  VentilationSystems.None       none(nZones=nZones, VZones=dummyBuilding.VZones)
+    annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 equation
   connect(heating.TSet, TOpSet.y) annotation (Line(
       points={{9.82,-22.36},{9.82,-50},{-17.4,-50}},
@@ -66,6 +68,22 @@ equation
   connect(dummyBuilding.TSensor, heating.TSensor) annotation (Line(
       points={{-47.4,-20},{-28,-20},{-28,-18.4},{-8.36,-18.4}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(none.flowPort_In, dummyBuilding.flowPort_Out) annotation (Line(
+      points={{-30,82},{-65,82},{-65,-4}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(none.flowPort_Out, dummyBuilding.flowPort_In) annotation (Line(
+      points={{-30,78},{-61,78},{-61,-4}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(dummyBuilding.TSensor,none. TSensor) annotation (Line(
+      points={{-47.4,-20},{-42,-20},{-42,74},{-30.4,74}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(none.plugLoad, dummyInHomeGrid.nodeSingle) annotation (Line(
+      points={{-10,80},{62,80},{62,-12},{64,-12}},
+      color={85,170,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

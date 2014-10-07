@@ -1,7 +1,7 @@
 within IDEAS.HeatingSystems;
 model IdealEmbeddedHeating
   "Ideal heating, no DHW, with embedded system (eg. floor heating) "
-  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating(nZones = nZones);
+  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating;
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,
@@ -9,8 +9,7 @@ model IdealEmbeddedHeating
     final nRadPorts = 0,
     final nTemSen = nZones,
     final nEmbPorts=nZones,
-    final nLoads=1,
-    nZones=nZones);
+    final nLoads=1);
 equation
   for i in 1:nZones loop
     if noEvent((TSet[i] - TSensor[i]) > 0) then
@@ -49,6 +48,7 @@ equation
 <p>No validation performed.</p>
 <p><h4>Example </h4></p>
 <p>An example of the use of this model can be found in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating\"> IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating</a>.</p>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},
+            {200,100}}),       graphics),
+    Icon(coordinateSystem(extent={{-200,-100},{200,100}})));
 end IdealEmbeddedHeating;

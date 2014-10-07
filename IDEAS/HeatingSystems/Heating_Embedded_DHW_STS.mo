@@ -3,9 +3,11 @@ model Heating_Embedded_DHW_STS
   "Hydraulic heating with embedded emission, DHW (with STS), no TES for heating"
   // fixme: no solar system is implemeted so far (adapt documentation)
   replaceable parameter
-    IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nZones] RadSlaCha constrainedby
+    IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nEmbPorts] RadSlaCha constrainedby
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
     "Properties of the floor heating or TABS, if present";
+   parameter Modelica.SIunits.Area AEmb[nEmbPorts]
+    "surface of each embedded circuit";
    extends IDEAS.HeatingSystems.Interfaces.Partial_HydraulicHeating(
     final isHea=true,
     final isCoo=false,
@@ -17,11 +19,12 @@ model Heating_Embedded_DHW_STS
     nZones=1,
     minSup=true,
     TSupMin=273.15+25,
-    redeclare IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe emission[nZones](      redeclare
+    redeclare IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe emission[nEmbPorts](      redeclare
         each package Medium =                                                                                    Medium,
       m_flow_nominal=m_flow_nominal,
       m_flowMin=m_flow_nominal/3,
-      RadSlaCha = RadSlaCha),
+      RadSlaCha = RadSlaCha,
+      A_floor=AEmb),
     redeclare Controls.ControlHeating.Ctrl_Heating_DHW ctrl_Heating(TDHWSet=
           TDHWSet, TColdWaterNom=TColdWaterNom,
       dTHPTankSet=dTHPTankSet),
@@ -77,15 +80,13 @@ model Heating_Embedded_DHW_STS
   // --- Domestic Hot Water and it hydraulic circuit
   replaceable IDEAS.Fluid.Domestic_Hot_Water.DHW_ProfileReader dHW(
     TDHWSet=TDHWSet,
-    TColdWaterNom=TColdWaterNom,
     profileType=3,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal_DHW,
     VDayAvg=sim.nOcc*0.045)
                    constrainedby IDEAS.Fluid.Domestic_Hot_Water.partial_DHW(
     redeclare package Medium = Medium,
-    TDHWSet=TDHWSet,
-    TColdWaterNom=TColdWaterNom) annotation (Placement(transformation(
+    TDHWSet=TDHWSet) annotation (Placement(transformation(
         extent={{-9,5},{9,-5}},
         rotation=-90,
         origin={-47,1})));

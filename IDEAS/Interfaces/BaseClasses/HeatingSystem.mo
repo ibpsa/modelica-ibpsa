@@ -52,7 +52,7 @@ partial model HeatingSystem "Partial heating/cooling system"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
   Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
         nLoads) if nLoads >= 1
-    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
+    annotation (Placement(transformation(extent={{168,-10},{188,10}})));
 
   // --- Sensor
   Modelica.Blocks.Interfaces.RealInput[nTemSen] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
@@ -64,27 +64,27 @@ partial model HeatingSystem "Partial heating/cooling system"
 
 protected
   final parameter Integer nLoads_min = max(1,nLoads);
-   Modelica.SIunits.Power[nLoads_min] P_dummy
+   Modelica.SIunits.Power[nLoads_min] P
     "dummy variable active power for each of the loads";
-   Modelica.SIunits.Power[nLoads_min] Q_dummy
+   Modelica.SIunits.Power[nLoads_min] Q
     "dummy variable passive power for each of the loads";
 public
-  Modelica.Blocks.Sources.RealExpression[nLoads_min] realExpression(y=P_dummy)
-    annotation (Placement(transformation(extent={{76,-2},{130,16}})));
-  Modelica.Blocks.Sources.RealExpression[nLoads_min] realExpression1(y=Q_dummy)
-    annotation (Placement(transformation(extent={{76,-18},{130,0}})));
+  Modelica.Blocks.Sources.RealExpression[nLoads_min] realExpression(y=P)
+    annotation (Placement(transformation(extent={{146,0},{160,16}})));
+  Modelica.Blocks.Sources.RealExpression[nLoads_min] realExpression1(y=Q)
+    annotation (Placement(transformation(extent={{148,-14},{162,4}})));
 equation
   if nLoads >= 1 then
      connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-      points={{180,0},{200,0}},
+      points={{188,0},{200,0}},
       color={85,170,255},
       smooth=Smooth.None));
      connect(realExpression.y, wattsLawPlug.P) annotation (Line(
-      points={{132.7,7},{145.35,7},{145.35,6},{160,6}},
+      points={{160.7,8},{163.35,8},{163.35,6},{168,6}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(realExpression1.y, wattsLawPlug.Q) annotation (Line(
-          points={{132.7,-9},{145.35,-9},{145.35,2},{160,2}},
+          points={{162.7,-5},{164,-5},{164,-6},{164,-6},{164,2},{168,2}},
           color={0,0,127},
           smooth=Smooth.None));
   end if;
