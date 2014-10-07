@@ -1,6 +1,6 @@
 within IDEAS.HeatingSystems;
 model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
-  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating(nZones = nZones);
+  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating;
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,
@@ -8,8 +8,7 @@ model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
     final nRadPorts = nZones,
     final nTemSen = nZones,
     final nEmbPorts=0,
-    final nLoads=1,
-    nZones = nZones);
+    final nLoads=1);
 
 equation
    for i in 1:nZones loop

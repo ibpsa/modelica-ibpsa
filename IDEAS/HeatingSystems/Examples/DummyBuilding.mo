@@ -2,6 +2,7 @@ within IDEAS.HeatingSystems.Examples;
 model DummyBuilding "Dummy building for testing heating systems"
   import IDEAS;
   extends IDEAS.Interfaces.BaseClasses.Structure;
+
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature[nZones] TAmb
     annotation (Placement(transformation(extent={{-116,44},{-96,64}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nZones] heatCapacitor(
@@ -53,9 +54,16 @@ equation
       points={{-125,54},{-118,54}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heatPortEmb, heatCapacitor.port) annotation (Line(
-      points={{150,60},{-50,60},{-50,70}},
-      color={191,0,0},
+  if nEmb > 0 then
+      connect(heatPortEmb, heatCapacitor.port) annotation (Line(
+        points={{150,60},{-50,60},{-50,70}},
+        color={191,0,0},
+        smooth=Smooth.None));
+  end if;
+
+  connect(flowPort_Out, flowPort_In) annotation (Line(
+      points={{-20,100},{2,100},{2,100},{20,100}},
+      color={0,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-150,
             -100},{150,100}}), graphics));

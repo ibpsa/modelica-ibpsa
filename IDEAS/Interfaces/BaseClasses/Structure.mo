@@ -14,7 +14,7 @@ partial model Structure "Partial model for building structure models"
 
   parameter Integer nZones(min=1)
     "Number of conditioned thermal zones in the building";
-  parameter Integer nEmb(min=1) = nZones
+  parameter Integer nEmb(min=0) = nZones
     "Number of embedded systems in the building";
   parameter Modelica.SIunits.Area ATrans=100
     "Transmission heat loss area of the residential unit";

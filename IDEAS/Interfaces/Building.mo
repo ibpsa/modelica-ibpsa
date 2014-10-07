@@ -96,13 +96,14 @@ equation
 //       points={{6,-10.4},{6,-22}},
 //       color={0,0,127},
 //       smooth=Smooth.None));
-  connect(building.flowPort_Out, ventilationSystem.flowPort_Out) annotation (
+  connect(building.flowPort_Out, ventilationSystem.flowPort_In) annotation (
       Line(
-      points={{-53,10},{-53,10},{-53,32},{-20,32}},
+      points={{-53,10},{-52,10},{-52,32},{-20,32}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(building.flowPort_In, ventilationSystem.flowPort_In) annotation (Line(
-      points={{-49,10},{-49,10},{-49,28},{-20,28}},
+  connect(building.flowPort_In, ventilationSystem.flowPort_Out) annotation (
+      Line(
+      points={{-49,10},{-48,10},{-48,28},{-20,28}},
       color={0,0,0},
       smooth=Smooth.None));
   annotation (Icon(graphics={
