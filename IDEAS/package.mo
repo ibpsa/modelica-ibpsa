@@ -8,7 +8,7 @@ import SI = Modelica.SIunits;
 
 
 annotation (
-  uses(Modelica(version="3.2")),
+  uses(Modelica(version="3.2.1")),
   Icon(graphics),
   version="0.1",
   conversion(noneFromVersion="", noneFromVersion="1"),
