@@ -42,11 +42,12 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     each useInput=true,
     each m=1,
     m_flow_nominal=m_flow_nominal,
-    redeclare each package Medium = Medium)
+    redeclare each package Medium = Medium,
+    filteredMassFlowRate=true,
+    riseTime=60)
               annotation (Placement(transformation(extent={{88,64},{112,40}})));
-  Fluid.Valves.Thermostatic3WayValve    idealCtrlMixer(m_flow_nominal=sum(
-        m_flow_nominal), redeclare package Medium = Medium,
-    k(start=0.5))
+  Fluid.Valves.ThreeWayValveMotor       idealCtrlMixer(m_flow_nominal=sum(
+        m_flow_nominal), redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{34,46},{56,70}})));
   IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeReturn(
     redeclare package Medium = Medium,
@@ -150,13 +151,23 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
         transformation(
         extent={{8,-8},{-8,8}},
         rotation=0,
-        origin={108,-92})));
+        origin={90,-92})));
   Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
     redeclare package Medium = Medium,
     m_flow_nominal={sum(m_flow_nominal),sum(m_flow_nominal),-sum(m_flow_nominal)},
-
     dp_nominal={0,0,0})
-    annotation (Placement(transformation(extent={{92,-88},{84,-96}})));
+    annotation (Placement(transformation(extent={{76,-88},{68,-96}})));
+
+  Fluid.MixingVolumes.MixingVolume vol(
+    redeclare package Medium = Medium,
+    m_flow_nominal=sum(m_flow_nominal),
+    V=sum(m_flow_nominal)*30/1000,
+    nPorts=1+nZones)
+    annotation (Placement(transformation(extent={{104,-92},{124,-72}})));
+  Controls.Continuous.LimPID conPID(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    yMax=1,
+    yMin=0) annotation (Placement(transformation(extent={{10,80},{30,100}})));
 equation
     // connections that are function of the number of circuits
   for i in 1:nZones loop
@@ -169,10 +180,6 @@ equation
         points={{82,52},{88,52}},
         color={0,127,255},
         smooth=Smooth.None));
-    connect(pipeReturnEmission[i].port_b, senTemEm_out.port_a) annotation (Line(
-      points={{128,-92},{116,-92}},
-      color={0,127,255},
-      smooth=Smooth.None));
   end for;
   // general connections for any configuration
   connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
@@ -243,10 +250,6 @@ equation
       points={{-139.556,64},{-125,64},{-125,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ctrl_Heating.THeaCur, idealCtrlMixer.TMixedSet) annotation (Line(
-      points={{-139.556,69},{-126,69},{-126,76},{45,76},{45,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(THigh_val.y, heatingControl.uHigh) annotation (Line(
       points={{-161.4,-52},{-152,-52},{-152,-63.2},{-142,-63.2}},
       color={0,0,127},
@@ -256,16 +259,36 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTemEm_out.port_b, spl.port_1) annotation (Line(
-      points={{100,-92},{92,-92}},
+      points={{82,-92},{76,-92}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(spl.port_2, pipeReturn.port_a) annotation (Line(
-      points={{84,-92},{2,-92}},
+      points={{68,-92},{2,-92}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(idealCtrlMixer.port_a2, spl.port_3) annotation (Line(
-      points={{45,46},{44,46},{44,34},{92,34},{92,-78},{88,-78},{88,-88}},
+      points={{45,46},{44,46},{44,34},{92,34},{92,-78},{72,-78},{72,-88}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipeReturnEmission.port_b, vol.ports[1:nZones]) annotation (Line(
+      points={{128,-92},{114,-92}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(vol.ports[end], senTemEm_out.port_a) annotation (Line(
+      points={{114,-92},{98,-92}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTemEm_in.T, conPID.u_m) annotation (Line(
+      points={{72,63},{72,74},{20,74},{20,78}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conPID.u_s, ctrl_Heating.THeaCur) annotation (Line(
+      points={{8,90},{-118,90},{-118,69},{-139.556,69}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conPID.y, idealCtrlMixer.ctrl) annotation (Line(
+      points={{31,90},{43.9,90},{43.9,69.52}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}), graphics={Rectangle(
