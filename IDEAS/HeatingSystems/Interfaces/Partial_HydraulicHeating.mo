@@ -46,7 +46,7 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     filteredMassFlowRate=true,
     riseTime=60)
               annotation (Placement(transformation(extent={{88,64},{112,40}})));
-  Fluid.Valves.ThreeWayValveMotor       idealCtrlMixer(m_flow_nominal=sum(
+  Fluid.Valves.Thermostatic3WayValvePI  idealCtrlMixer(m_flow_nominal=sum(
         m_flow_nominal), redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{34,46},{56,70}})));
   IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeReturn(
@@ -164,10 +164,6 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     V=sum(m_flow_nominal)*30/1000,
     nPorts=1+nZones)
     annotation (Placement(transformation(extent={{104,-92},{124,-72}})));
-  Controls.Continuous.LimPID conPID(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    yMax=1,
-    yMin=0) annotation (Placement(transformation(extent={{10,80},{30,100}})));
 equation
     // connections that are function of the number of circuits
   for i in 1:nZones loop
@@ -278,16 +274,8 @@ equation
       points={{114,-92},{98,-92}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemEm_in.T, conPID.u_m) annotation (Line(
-      points={{72,63},{72,74},{20,74},{20,78}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conPID.u_s, ctrl_Heating.THeaCur) annotation (Line(
-      points={{8,90},{-118,90},{-118,69},{-139.556,69}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conPID.y, idealCtrlMixer.ctrl) annotation (Line(
-      points={{31,90},{43.9,90},{43.9,69.52}},
+  connect(ctrl_Heating.THeaCur, idealCtrlMixer.TMixedSet) annotation (Line(
+      points={{-139.556,69},{-80,69},{-80,80},{45,80},{45,70}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,

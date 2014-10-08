@@ -10,9 +10,9 @@ model Heating_Radiators
      TSupNom=273.15 + 45,
      dTSupRetNom=10,
      redeclare IDEAS.Fluid.Production.Boiler heater,
-    QNom={8000 for i in 1:nZones},
-    corFac_val=5,
-    use_DHW=false)
+    use_DHW=false,
+    corFac_val=7,
+    QNom={10000 for i in 1:nZones})
     annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
