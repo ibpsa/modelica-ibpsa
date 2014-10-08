@@ -63,8 +63,9 @@ model Heating_Embedded_DHW_STS
     m_flow_nominal=m_flow_nominal_stoHX,
     m=1,
     riseTime=100,
-    dpFix=0) "Pump for loading the storage tank"
-    annotation (Placement(transformation(extent={{-30,-54},{-44,-42}})));
+    dpFix=0,
+    filteredMassFlowRate=true) "Pump for loading the storage tank"
+    annotation (Placement(transformation(extent={{-30,-56},{-44,-44}})));
   IDEAS.Fluid.Storage.StorageTank_OneIntHX tesTank(
     port_a(m_flow(start=0)),
     nbrNodes=nbrNodes,
@@ -136,7 +137,7 @@ equation
   SOCTank = ctrl_Heating.SOC;
   QDHW = -dHW.pipe_HeatPort.heatPort.Q_flow;
   connect(pumpSto.port_a, tesTank.portHXLower) annotation (Line(
-      points={{-30,-48},{-26,-48},{-26,-13.8462}},
+      points={{-30,-50},{-26,-50},{-26,-13.8462}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pipeDHW.heatPort, fixedTemperature.port) annotation (Line(
@@ -145,8 +146,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(pumpSto.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-36.3,-54},{-26,-54},{-26,-68},{-102,-68},{-102,-12},{-127,-12},{
-          -127,-14}},
+      points={{-36.3,-56},{-26,-56},{-26,-68},{-102,-68},{-102,-12},{-127,-12},
+          {-127,-14}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(tesTank.heatExchEnv, fixedTemperature.port) annotation (Line(
@@ -161,7 +162,7 @@ equation
       smooth=Smooth.None));
   connect(ctrl_Heating.onOff, pumpSto.m_flowSet) annotation (Line(
       points={{-139.556,56.5},{-122,56.5},{-122,48},{-78,48},{-78,-34},{-37,-34},
-          {-37,-40.2}},
+          {-37,-42.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dHW.port_cold, pipeDHW.port_b) annotation (Line(
@@ -203,7 +204,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pumpSto.port_b, senTemStoHX_out.port_a) annotation (Line(
-      points={{-44,-48},{-66,-48}},
+      points={{-44,-50},{-56,-50},{-56,-48},{-66,-48}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemStoHX_out.port_b, heater.port_a) annotation (Line(

@@ -14,10 +14,10 @@ model Heating_Embedded_DHW_STS
     dTSupRetNom=5,
     redeclare IDEAS.Fluid.Production.HP_AirWater heater,
     each RadSlaCha = radSlaCha_ValidationEmpa,
-    QNom={8000 for i in 1:nZones},
     TSupNom=273.15 + 45,
     corFac_val=5,
-    AEmb=dummyBuilding.AZones)
+    AEmb=dummyBuilding.AZones,
+    QNom={10000 for i in 1:nZones})
           annotation (Placement(transformation(extent={{12,-18},{50,0}})));
   Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
     each amplitude=4,
