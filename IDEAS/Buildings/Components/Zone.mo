@@ -34,7 +34,7 @@ protected
     redeclare package Medium = Medium,
     m_flow_nominal=V/3600*n50/20,
     V=V,
-    n50=0.1)
+    n50=n50)
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final
       nSurf=nSurf, final linear=linear)
