@@ -3,7 +3,6 @@ model Case900
 Modelica.SIunits.Power PHea = min(heatingSystem.heatPortCon[1].Q_flow,0);
 Modelica.SIunits.Power PCoo = max(heatingSystem.heatPortCon[1].Q_flow,0);
 
-protected
   extends IDEAS.Buildings.Validation.Interfaces.BesTestCase(
     redeclare final BaseClasses.Structure.Bui900 building,
     redeclare final BaseClasses.Occupant.Gain occupant,
