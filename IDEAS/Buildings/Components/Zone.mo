@@ -75,7 +75,7 @@ public
         origin={-10,2})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
-  parameter Boolean allowFlowReversal=vol.system.allowFlowReversal
+  parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Assumptions"));
 equation
