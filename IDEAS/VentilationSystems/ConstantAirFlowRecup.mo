@@ -56,8 +56,8 @@ model ConstantAirFlowRecup
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 equation
-  wattsLawPlug.P[1] = sum(n .* VZones/3600)*sysPres/fanEff/motEff;
-  wattsLawPlug.Q[1] = 0;
+  P[1:nLoads_min] = sum(n .* VZones/3600)*sysPres/fanEff/motEff / nLoads_min .*ones(nLoads_min);
+  Q[1:nLoads_min] = zeros(nLoads_min);
 
   for i in 1:nZones loop
     connect(pump[i].port_a, hex.port_b2) annotation (Line(

@@ -4,6 +4,8 @@ partial model VentilationSystem
   outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  outer Modelica.Fluid.System system
+  annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
   replaceable package Medium = IDEAS.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -14,7 +16,7 @@ partial model VentilationSystem
 
   parameter Integer nZones(min=1)
     "Number of conditioned thermal building zones";
-  parameter Integer nLoads(min=1) = 1 "Number of electric system loads";
+  parameter Integer nLoads(min=0) = 1 "Number of electric loads";
   parameter Real[nZones] VZones "Conditioned volumes of the zones";
 
   // Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
@@ -25,20 +27,40 @@ partial model VentilationSystem
         rotation=180,
         origin={-104,-60})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
-    plugLoad(each m=1) "Electricity connection to the Inhome feeder"
+    plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,final nLoads=
-        nLoads)
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
+        nLoads) if nLoads >= 1
+    annotation (Placement(transformation(extent={{68,-10},{88,10}})));
   Fluid.Interfaces.FlowPort_b[nZones] flowPort_Out(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
   Fluid.Interfaces.FlowPort_a[nZones] flowPort_In(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
+
+protected
+  final parameter Integer nLoads_min = max(1,nLoads);
+   Modelica.SIunits.Power[nLoads_min] P "Active power for each of the loads";
+   Modelica.SIunits.Power[nLoads_min] Q "Passive power for each of the loads";
+public
+  Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
+    annotation (Placement(transformation(extent={{42,0},{56,16}})));
+  Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
+    annotation (Placement(transformation(extent={{42,-12},{56,6}})));
 equation
-  connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-      points={{90,0},{100,0}},
+    if nLoads >= 1 then
+     connect(wattsLawPlug.vi, plugLoad) annotation (Line(
+      points={{88,0},{100,0}},
       color={85,170,255},
       smooth=Smooth.None));
+     connect(P_val.y, wattsLawPlug.P) annotation (Line(
+      points={{56.7,8},{60,8},{60,6},{68,6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
+      points={{56.7,-3},{60,-3},{60,2},{68,2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={

@@ -11,7 +11,6 @@ partial model HeatingSystem "Partial heating/cooling system"
     "Number of conditioned thermal zones in the building";
   parameter Boolean isHea=true "true if system is able to heat";
   parameter Boolean isCoo=false "true if system is able to cool";
-  parameter Boolean use_DHW = sim.DHW;
 
   // --- Ports
   parameter Integer nConvPorts(min=0) = nZones
@@ -53,7 +52,7 @@ partial model HeatingSystem "Partial heating/cooling system"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
   Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
         nLoads) if nLoads >= 1
-    annotation (Placement(transformation(extent={{168,-10},{188,10}})));
+    annotation (Placement(transformation(extent={{160,-10},{180,10}})));
 
   // --- Sensor
   Modelica.Blocks.Interfaces.RealInput[nTemSen] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
@@ -62,53 +61,59 @@ partial model HeatingSystem "Partial heating/cooling system"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-204,-60})));
-
-  //   parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
-  //     "Nominal power, can be seen as the max power of the emission system";
-  //   parameter Real[nZones] VZones "Conditioned volumes of the zones";
-  //   final parameter Modelica.SIunits.HeatCapacity[nZones] C=1012*1.204*VZones*5
-  //     "Heat capacity of the conditioned zones";
-  //
-     Modelica.Blocks.Interfaces.RealInput[nZones] TSet
-    "Setpoint temperature for the zones"    annotation (Placement(transformation(
-           extent={{-10,-10},{10,10}},
-           rotation=90,
-           origin={0,-104})));
+  Modelica.Blocks.Interfaces.RealInput mDHW60C
+    "mFlow for domestic hot water, at 60 degC" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=270,
+        origin={80,-104}),iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={60,-102})));
 
 protected
   final parameter Integer nLoads_min = max(1,nLoads);
-   Modelica.SIunits.Power[nLoads_min] P
-    "dummy variable active power for each of the loads";
-   Modelica.SIunits.Power[nLoads_min] Q
-    "dummy variable passive power for each of the loads";
+   Modelica.SIunits.Power[nLoads_min] P "Active power for each of the loads";
+   Modelica.SIunits.Power[nLoads_min] Q "Passive power for each of the loads";
 public
-  Modelica.Blocks.Sources.RealExpression[nLoads_min] realExpression(y=P)
-    annotation (Placement(transformation(extent={{146,0},{160,16}})));
-  Modelica.Blocks.Sources.RealExpression[nLoads_min] realExpression1(y=Q)
-    annotation (Placement(transformation(extent={{148,-14},{162,4}})));
-     Modelica.Blocks.Interfaces.RealInput mDHW60C if use_DHW
-    "Setpoint temperature for the zones" annotation (Placement(transformation(
+  Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
+    annotation (Placement(transformation(extent={{76,-2},{130,16}})));
+  Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
+    annotation (Placement(transformation(extent={{76,-18},{130,0}})));
+  Modelica.Blocks.Interfaces.RealInput[nZones] TSet(
+    final quantity="ThermodynamicTemperature",
+    unit="K",
+    displayUnit="degC",
+    min=0) "Setpoint temperature for the zones" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={60,-104})));
+        origin={20,-106}),
+                         iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,-102})));
+  outer Modelica.Fluid.System system
+  annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 equation
   if nLoads >= 1 then
-     connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-      points={{188,0},{200,0}},
+    connect(wattsLawPlug.vi, plugLoad) annotation (Line(
+      points={{180,0},{200,0}},
       color={85,170,255},
       smooth=Smooth.None));
-     connect(realExpression.y, wattsLawPlug.P) annotation (Line(
-      points={{160.7,8},{163.35,8},{163.35,6},{168,6}},
+    connect(P_val.y, wattsLawPlug.P) annotation (Line(
+      points={{132.7,7},{145.35,7},{145.35,6},{160,6}},
       color={0,0,127},
       smooth=Smooth.None));
-    connect(realExpression1.y, wattsLawPlug.Q) annotation (Line(
-          points={{162.7,-5},{164,-5},{164,-6},{164,-6},{164,2},{168,2}},
+    connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
+          points={{132.7,-9},{145.35,-9},{145.35,2},{160,2}},
           color={0,0,127},
           smooth=Smooth.None));
   end if;
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
+            100}}),
         graphics={
         Rectangle(
           extent={{-200,100},{200,-100}},
@@ -155,8 +160,9 @@ equation
           points={{200,100},{200,-100}},
           color={85,170,255},
           smooth=Smooth.None)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
+            200,100}}),
+                    graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Interface model for a complete multi-zone heating system (with our without domestic hot water and solar system).</p>

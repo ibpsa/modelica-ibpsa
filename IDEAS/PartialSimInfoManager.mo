@@ -140,6 +140,12 @@ public
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=filNamClim, lat=lat, lon=lon, timZon=timZonSta) if useTmy3Reader
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
+    annotation (Placement(transformation(extent={{-30,-96},{-10,-76}})));
+  Modelica.Blocks.Sources.RealExpression phiEnv(y=relHum)
+    annotation (Placement(transformation(extent={{-70,-102},{-50,-82}})));
+  Modelica.Blocks.Sources.RealExpression TEnv(y=Te)
+    annotation (Placement(transformation(extent={{-70,-86},{-50,-66}})));
 equation
 
   connect(timMan.timCal, tabQCon.u) annotation (Line(
@@ -164,6 +170,14 @@ equation
       smooth=Smooth.None));
   connect(timMan.timSol, weaDat.sol) annotation (Line(
       points={{-60,10},{-50,10},{-50,42},{-40,42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TEnv.y,XiEnv. T) annotation (Line(
+      points={{-49,-76},{-32,-76},{-32,-86}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(phiEnv.y,XiEnv. phi) annotation (Line(
+      points={{-49,-92},{-32,-92}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

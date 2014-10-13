@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.Shading;
 model Screen "Exterior screen"
-  extends IDEAS.Buildings.Components.Interfaces.StateShading(controled=true);
+  extends IDEAS.Buildings.Components.Interfaces.StateShading(final controled=true);
 
   parameter Real shaCorr=0.24 "Shortwave transmittance of shortwave radiation";
 

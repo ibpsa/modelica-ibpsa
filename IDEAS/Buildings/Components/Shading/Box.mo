@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.Shading;
 model Box "Both side fins and overhang"
-  extends IDEAS.Buildings.Components.Interfaces.StateShading(controled=false);
+  extends IDEAS.Buildings.Components.Interfaces.StateShading(final controled=false);
 
   // Window properties
   parameter Modelica.SIunits.Length hWin "Window height";
