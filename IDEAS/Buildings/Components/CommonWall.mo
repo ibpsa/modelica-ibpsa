@@ -13,7 +13,7 @@ model CommonWall "Common opaque wall with neighbors"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
   parameter Modelica.SIunits.Temperature TBou = 292.15 "Boundary temperature";
-  parameter Modelica.SIunits.Temperature[constructionType.nLay] T_start=ones(constructionType.nLay)*293.15
+  parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the layers";
 
 protected
@@ -23,7 +23,7 @@ protected
     final nLay=constructionType.nLay,
     final mats=constructionType.mats,
     final locGain=constructionType.locGain,
-    final T_start=T_start)
+    T_start=ones(constructionType.nLay)*T_start)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=

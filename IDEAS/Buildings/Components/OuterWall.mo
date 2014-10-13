@@ -14,7 +14,7 @@ model OuterWall "Opaque building envelope construction"
   final parameter Modelica.SIunits.Power QNom=U_value*AWall*(273.15 + 21 - sim.Tdes)
     "Design heat losses at reference outdoor temperature";
 
-  parameter Modelica.SIunits.Temperature[constructionType.nLay] T_start=ones(constructionType.nLay)*293.15
+  parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the layers";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
@@ -34,7 +34,7 @@ model OuterWall "Opaque building envelope construction"
     final nLay=constructionType.nLay,
     final mats=constructionType.mats,
     final locGain=constructionType.locGain,
-    final T_start=T_start)
+    T_start=ones(constructionType.nLay)*T_start)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(final A=
