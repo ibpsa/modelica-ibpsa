@@ -17,9 +17,9 @@ model MonoLayerOpaqueNf "Non-fictive single material layer"
   final parameter Modelica.SIunits.HeatCapacity C = (A*mat.rho*mat.c*mat.d)/nSta;
 
 public
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=TStart))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=TStart))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.SIunits.Temperature[nSta] T(start=ones(nSta)*T_start)
     "Temperature at the states";
