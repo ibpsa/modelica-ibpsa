@@ -2,7 +2,7 @@ within IDEAS.Interfaces.BaseClasses;
 partial model Occupant
 
   parameter Integer nZones(min=1) "number of conditioned thermal zones";
-  parameter Integer nLoads(min=1) = 1 "number of electric loads";
+  parameter Integer nLoads(min=0) = 1 "number of electric loads";
 
   parameter Integer id=1 "id-number on extern data references";
 
@@ -14,8 +14,12 @@ partial model Occupant
     "Nodes for radiative heat gains" annotation (Placement(transformation(
           extent={{-110,-30},{-90,-10}}), iconTransformation(extent={{-110,-30},
             {-90,-10}})));
-  Modelica.Blocks.Interfaces.RealOutput[nZones] TSet( final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
-    "Setpoint temperature for the zones" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput[nZones] TSet(
+    final quantity="ThermodynamicTemperature",
+    unit="K",
+    displayUnit="degC",
+    min=0) "Setpoint temperature for the zones" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,100}), iconTransformation(
@@ -23,29 +27,52 @@ partial model Occupant
         rotation=90,
         origin={0,100})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
-    plugLoad(each m=1) "Electricity connection to the Inhome feeder"
+    plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,final nLoads=
-        nLoads)
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
+        nLoads) if nLoads >= 1
+    annotation (Placement(transformation(extent={{68,-10},{88,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput mDHW60C
     "mFlow for domestic hot water, at 60 degC" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={60,100}),iconTransformation(
+        origin={60,100}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,100})));
-equation
-  connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-      points={{60,0},{100,0}},
-      color={85,170,255},
-      smooth=Smooth.None));
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={
+protected
+  final parameter Integer nLoads_min=max(1, nLoads);
+  Modelica.SIunits.Power[nLoads_min] P "Active power for each of the loads";
+  Modelica.SIunits.Power[nLoads_min] Q "Passive power for each of the loads";
+public
+  Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
+    annotation (Placement(transformation(extent={{42,0},{56,16}})));
+  Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
+    annotation (Placement(transformation(extent={{42,-12},{56,6}})));
+  outer SimInfoManager       sim
+    "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+equation
+  if nLoads >= 1 then
+    connect(wattsLawPlug.vi, plugLoad) annotation (Line(
+        points={{88,0},{100,0}},
+        color={85,170,255},
+        smooth=Smooth.None));
+    connect(P_val.y, wattsLawPlug.P) annotation (Line(
+        points={{56.7,8},{60,8},{60,6},{68,6}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
+        points={{56.7,-3},{60,-3},{60,2},{68,2}},
+        color={0,0,127},
+        smooth=Smooth.None));
+  end if;
+
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={215,215,215},
@@ -53,12 +80,12 @@ equation
           lineColor={191,0,0}),
         Ellipse(extent={{-12,74},{12,48}}, lineColor={127,0,0}),
         Polygon(
-          points={{4,48},{-4,48},{-8,44},{-14,32},{-18,16},{-20,-6},{-14,-20},{
-              14,-20},{-14,-20},{-10,-46},{-8,-56},{-8,-64},{-8,-72},{-10,-76},
-              {4,-76},{4,-64},{2,-56},{2,-46},{4,-38},{8,-40},{12,-42},{12,-54},
-              {12,-64},{14,-70},{18,-76},{24,-76},{22,-64},{22,-56},{22,-48},{
-              24,-40},{24,-30},{22,-24},{20,-18},{18,-8},{18,4},{18,12},{18,14},
-              {18,26},{14,38},{10,44},{8,46},{4,48}},
+          points={{4,48},{-4,48},{-8,44},{-14,32},{-18,16},{-20,-6},{-14,-20},{14,
+              -20},{-14,-20},{-10,-46},{-8,-56},{-8,-64},{-8,-72},{-10,-76},{4,-76},
+              {4,-64},{2,-56},{2,-46},{4,-38},{8,-40},{12,-42},{12,-54},{12,-64},
+              {14,-70},{18,-76},{24,-76},{22,-64},{22,-56},{22,-48},{24,-40},{24,
+              -30},{22,-24},{20,-18},{18,-8},{18,4},{18,12},{18,14},{18,26},{14,
+              38},{10,44},{8,46},{4,48}},
           lineColor={127,0,0},
           smooth=Smooth.None),
         Line(
@@ -68,7 +95,6 @@ equation
         Line(
           points={{100,100},{100,-100}},
           color={85,170,255},
-          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=
-            false, extent={{-100,-100},{100,100}}),
-                                         graphics));
+          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}), graphics));
 end Occupant;
