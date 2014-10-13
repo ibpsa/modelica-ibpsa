@@ -41,7 +41,8 @@ model Heating_Embedded
   IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones,
     AZones=ones(nZones)*40,
     VZones=dummyBuilding.AZones*3,
-    UA_building=150)
+    UA_building=150,
+    nEmb=nZones)
     annotation (Placement(transformation(extent={{-96,-16},{-64,4}})));
   Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convectionTabs
     annotation (Placement(transformation(
@@ -115,9 +116,19 @@ equation
       points={{-22,74},{56,74},{56,-10},{64,-10}},
       color={85,170,255},
       smooth=Smooth.None));
+  connect(heating.heatPortCon, dummyBuilding.heatPortCon) annotation (Line(
+      points={{12,-5.2},{6,-5.2},{6,-6},{-6,-6},{-6,-20},{-56,-20},{-56,-4},{
+          -64,-4}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heating.heatPortRad, dummyBuilding.heatPortRad) annotation (Line(
+      points={{12,-8.8},{4,-8.8},{4,-8},{-4,-8},{-4,-22},{-58,-22},{-58,-8},{
+          -64,-8}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput);
 end Heating_Embedded;

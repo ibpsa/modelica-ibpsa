@@ -5,11 +5,17 @@ model IdealEmbeddedHeating
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,
-    final nConvPorts = 0,
-    final nRadPorts = 0,
+    final nConvPorts = nZones,
+    final nRadPorts = nZones,
     final nTemSen = nZones,
     final nEmbPorts=nZones,
     final nLoads=1);
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[
+    nConvPorts](Q_flow=0)
+    annotation (Placement(transformation(extent={{-162,10},{-182,30}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow1[
+    nRadPorts](Q_flow=0)
+    annotation (Placement(transformation(extent={{-160,-30},{-180,-10}})));
 equation
   for i in 1:nZones loop
     if noEvent((TSet[i] - TSensor[i]) > 0) then
@@ -22,6 +28,14 @@ equation
   QHeaSys = sum(QHeatZone);
   P[1] = QHeaSys/COP;
   Q[1] = 0;
+  connect(prescribedHeatFlow1.port, heatPortRad) annotation (Line(
+      points={{-180,-20},{-200,-20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(prescribedHeatFlow.port, heatPortCon) annotation (Line(
+      points={{-182,20},{-200,20}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li>2013 June, Roel De Coninck: reworking interface and documentation</li>

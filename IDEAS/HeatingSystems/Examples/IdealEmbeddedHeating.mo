@@ -30,7 +30,8 @@ model IdealEmbeddedHeating
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder dummyInHomeGrid
     annotation (Placement(transformation(extent={{64,-20},{84,0}})));
-  IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones)
+  IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones, nEmb=
+        nZones)
     annotation (Placement(transformation(extent={{-96,-16},{-64,4}})));
   Modelica.Thermal.HeatTransfer.Components.Convection[nZones] convectionTabs
     annotation (Placement(transformation(
@@ -107,9 +108,19 @@ equation
       points={{-20,70},{22,70},{22,72},{52,72},{52,-10},{64,-10}},
       color={85,170,255},
       smooth=Smooth.None));
+  connect(heating.heatPortCon, dummyBuilding.heatPortCon) annotation (Line(
+      points={{14,-7.6},{8,-7.6},{8,-6},{-4,-6},{-4,-20},{-56,-20},{-56,-4},{
+          -64,-4}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heating.heatPortRad, dummyBuilding.heatPortRad) annotation (Line(
+      points={{14,-12.4},{6,-12.4},{6,-12},{-2,-12},{-2,-22},{-56,-22},{-56,-8},
+          {-64,-8}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput);
 end IdealEmbeddedHeating;

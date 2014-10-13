@@ -1,6 +1,6 @@
 within IDEAS.HeatingSystems;
 model Heating_Radiators
-  "Basic hydraulic heating (with heating curve) with embedded emission (eg. TABS). No TES, no DHW"
+  "Basic hydraulic heating (with heating curve) with radiator. No TES, no DHW"
   extends IDEAS.HeatingSystems.Interfaces.Partial_HydraulicHeating(
     final isHea=true,
     final isCoo=false,
@@ -8,7 +8,7 @@ model Heating_Radiators
     final nRadPorts=nZones,
     final nTemSen=nZones,
     final nEmbPorts=0,
-    final nLoads=1,
+    nLoads=1,
     nZones=1,
     minSup=true,
     TSupMin=273.15+30,

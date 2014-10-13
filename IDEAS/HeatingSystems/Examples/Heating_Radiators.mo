@@ -33,7 +33,7 @@ model Heating_Radiators
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder dummyInHomeGrid
     annotation (Placement(transformation(extent={{64,-22},{84,-2}})));
-  IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones)
+  IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones, nEmb=0)
     annotation (Placement(transformation(extent={{-78,-24},{-48,-4}})));
   inner SimInfoManager       sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

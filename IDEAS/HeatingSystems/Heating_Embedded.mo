@@ -9,8 +9,8 @@ model Heating_Embedded
   extends IDEAS.HeatingSystems.Interfaces.Partial_HydraulicHeating(
     final isHea=true,
     final isCoo=false,
-    final nConvPorts=0,
-    final nRadPorts=0,
+    final nConvPorts = nZones,
+    final nRadPorts = nZones,
     final nTemSen=nZones,
     final nEmbPorts=nZones,
     final nLoads=1,
@@ -24,6 +24,12 @@ model Heating_Embedded
       RadSlaCha = RadSlaCha,
       A_floor=AEmb,
       nParCir=1));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[
+    nConvPorts](Q_flow=0)
+    annotation (Placement(transformation(extent={{-164,10},{-184,30}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow1[
+    nRadPorts](Q_flow=0)
+    annotation (Placement(transformation(extent={{-162,-30},{-182,-10}})));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow);
   P[1] = heater.PEl + sum(pumpRad.PEl);
@@ -32,9 +38,18 @@ equation
       points={{135,44},{136,44},{136,98},{-176,98},{-176,60},{-200,60}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(prescribedHeatFlow.port, heatPortCon) annotation (Line(
+      points={{-184,20},{-200,20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(prescribedHeatFlow1.port, heatPortRad) annotation (Line(
+      points={{-182,-20},{-200,-20}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
+            200,100}}),
+                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,100}})),
     Documentation(info="<html>
 <p><b>Description</b> </p>
