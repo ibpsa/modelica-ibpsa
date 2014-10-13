@@ -55,7 +55,8 @@ model ZoneExample
     redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
-    AWall=10)
+    AWall=10,
+    insulationThickness=0)
     annotation (Placement(transformation(extent={{-54,-58},{-44,-38}})));
 equation
   connect(commonWall.propsBus_a, zone.propsBus[1]) annotation (Line(
