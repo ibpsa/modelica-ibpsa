@@ -50,7 +50,7 @@ public
   Fluid.MixingVolumes.MixingVolume         vol(
     V=V,
     m_flow_nominal=m_flow_nominal,
-    nPorts=2,
+    nPorts=if allowFlowReversal then 4 else 2,
     redeclare package Medium = Medium,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
@@ -153,7 +153,7 @@ for i in 1:nSurf loop
       smooth=Smooth.None));
 end for;
   connect(flowPort_In, vol.ports[1]) annotation (Line(
-      points={{20,100},{20,40},{-8,40}},
+      points={{20,100},{20,40},{-10,40}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(heatCap.port, gainCon) annotation (Line(
@@ -161,7 +161,7 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(flowPort_Out, vol.ports[2]) annotation (Line(
-      points={{-20,100},{-20,40},{-12,40}},
+      points={{-20,100},{-20,40},{-10,40}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(senTem.port, gainCon) annotation (Line(
@@ -172,14 +172,25 @@ end for;
       points={{-16,-20},{-18,-20},{-18,-59.4},{-1.2,-59.4}},
       color={0,0,127},
       smooth=Smooth.None));
+      if allowFlowReversal then
+  connect(airLeakage.port_a, vol.ports[4]) annotation (Line(
+      points={{40,40},{-10,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(airLeakage.port_b, vol.ports[3]) annotation (Line(
+      points={{60,40},{70,40},{70,14},{-32,14},{-32,40},{-10,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+      else
   connect(airLeakage.port_a, vol.ports[2]) annotation (Line(
-      points={{40,40},{-12,40}},
+      points={{40,40},{-10,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(airLeakage.port_b, vol.ports[1]) annotation (Line(
-      points={{60,40},{70,40},{70,14},{-32,14},{-32,40},{-8,40}},
+      points={{60,40},{70,40},{70,14},{-32,14},{-32,40},{-10,40}},
       color={0,127,255},
       smooth=Smooth.None));
+      end if;
   connect(radDistr.radSurfTot, radDistrLw.port_a) annotation (Line(
       points={{-54,-34},{-54,-20}},
       color={191,0,0},
