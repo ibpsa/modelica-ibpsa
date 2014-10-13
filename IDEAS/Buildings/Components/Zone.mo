@@ -69,7 +69,7 @@ public
   Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCap(C=1012*1.204*V
-        *(corrCV-1), T(start=293.15)) "air capacity"
+        *(corrCV-1), T(start=T_start)) "air capacity"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,2})));
