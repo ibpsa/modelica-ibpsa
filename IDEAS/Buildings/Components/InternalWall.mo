@@ -14,6 +14,8 @@ model InternalWall "interior opaque wall between two zones"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  parameter Modelica.SIunits.Temperature[constructionType.nLay] T_start=ones(constructionType.nLay)*293.15
+    "Start temperature for each of the layers";
 
 protected
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=
@@ -29,7 +31,8 @@ protected
     final inc=inc,
     final nLay=constructionType.nLay,
     final mats=constructionType.mats,
-    final locGain=constructionType.locGain)
+    final locGain=constructionType.locGain,
+    final T_start=T_start)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 

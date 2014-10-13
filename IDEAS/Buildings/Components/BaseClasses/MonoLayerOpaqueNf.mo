@@ -5,7 +5,7 @@ model MonoLayerOpaqueNf "Non-fictive single material layer"
   parameter IDEAS.Buildings.Data.Interfaces.Material mat "Layer material";
   parameter Modelica.SIunits.Angle inc "Inclination";
 
-  parameter Modelica.SIunits.Temperature TStart=293.15
+  parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the states";
 
   final parameter Boolean present = mat.d <> 0;

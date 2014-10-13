@@ -16,6 +16,8 @@ model BoundaryWall "Opaque wall with boundary conditions"
     "Get the boundary temperature from the input connector";
   parameter Boolean use_Q_in = false
     "Get the boundary heat flux from the input connector";
+  parameter Modelica.SIunits.Temperature[constructionType.nLay] T_start=ones(constructionType.nLay)*293.15
+    "Start temperature for each of the layers";
 
 protected
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
@@ -23,7 +25,8 @@ protected
     final inc=inc,
     final nLay=constructionType.nLay,
     final mats=constructionType.mats,
-    final locGain=constructionType.locGain)
+    final locGain=constructionType.locGain,
+    final T_start=T_start)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=
@@ -39,7 +42,7 @@ public
             -60,10},{-40,30}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if use_Q_in
     annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature 
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature if use_T_in
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
 equation
