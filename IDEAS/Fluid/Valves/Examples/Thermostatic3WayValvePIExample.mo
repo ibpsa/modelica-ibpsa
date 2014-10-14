@@ -2,8 +2,7 @@ within IDEAS.Fluid.Valves.Examples;
 model Thermostatic3WayValvePIExample
   "Example of a thermostatic three way valve"
   extends Modelica.Icons.Example;
-  Thermostatic3WayValvePI
-                        thermostatic3WayValve(redeclare package Medium = Medium,
+  Thermostatic3WayValve thermostatic3WayValve(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
     allowFlowReversal=false)
     annotation (Placement(transformation(extent={{-10,32},{10,52}})));
