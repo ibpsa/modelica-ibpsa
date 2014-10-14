@@ -30,12 +30,13 @@ protected
   Real k(start=0.5)
     "Unbounded help variable for determining fraction of each flow";
   Real k_state(start=y_start) "Variable for introducing a state";
-
+  Real delta_h "Enthalpy difference between port_a2 and port_a1";
+  parameter Real delta_h_min=100 "minimum enthalpy difference to compute k";
 equation
   der(k_state) = if dynamicValve then (k-k_state)/tau else 0;
 
-  // the equation below makes sure that k>>1 when the two incoming enthalpies are nearly equal, irrespective of which of the two is larger. Otherwise chattering can be introduced.
-  k=  noEvent(1E-10/(1E-8+1E-8*abs(inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow))) + sign((inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow))) * (h_set-inStream(port_a1.h_outflow))/(1+abs(inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow))));
+  delta_h = noEvent( if abs(inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow)) > delta_h_min then inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow) elseif inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow) > 0 then  delta_h_min else -delta_h_min);
+  k = (h_set-inStream(port_a1.h_outflow))/delta_h;
   m_flow_a2=-port_b.m_flow*IDEAS.Utilities.Math.Functions.smoothMin(IDEAS.Utilities.Math.Functions.smoothMax(if dynamicValve then k_state else k,y_min,0.001),y_max,0.001);
   connect(realExpression.y, idealSource.m_flow_in) annotation (Line(
       points={{32,-50},{8,-50}},
