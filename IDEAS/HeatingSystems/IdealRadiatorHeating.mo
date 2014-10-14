@@ -1,6 +1,6 @@
 within IDEAS.HeatingSystems;
 model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
-  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating(nZones = nZones);
+  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating;
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,
@@ -8,8 +8,7 @@ model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
     final nRadPorts = nZones,
     final nTemSen = nZones,
     final nEmbPorts=0,
-    final nLoads=1,
-    nZones = nZones);
+    nLoads=1);
 
 equation
    for i in 1:nZones loop
@@ -22,6 +21,7 @@ equation
      heatPortCon[i].Q_flow = -(1 - fractionRad[i])*QHeatZone[i];
    end for;
   QHeaSys = sum(QHeatZone);
+
   P[1] = QHeaSys/COP;
   Q[1] = 0;
   annotation (Documentation(info="<html>
@@ -50,8 +50,9 @@ equation
 <li>2013 June, Roel De Coninck: reworking interface and documentation</li>
 <li>2011, Roel De Coninck: first version</li>
 </ul></p>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},
-            {200,100}}), graphics),
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
+            -100},{200,100}}),
+                         graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,100}}),
         graphics));
 end IdealRadiatorHeating;
