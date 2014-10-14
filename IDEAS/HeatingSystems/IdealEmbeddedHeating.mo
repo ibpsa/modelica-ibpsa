@@ -5,10 +5,10 @@ model IdealEmbeddedHeating
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,
-    final nConvPorts = nZones,
-    final nRadPorts = nZones,
-    final nTemSen = nZones,
-    final nEmbPorts=nZones,
+      nConvPorts = nZones,
+      nRadPorts = nZones,
+      nTemSen = nZones,
+      nEmbPorts=nZones,
     nLoads=1);
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[
     nConvPorts](each Q_flow=0)

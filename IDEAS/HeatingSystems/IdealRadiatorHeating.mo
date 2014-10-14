@@ -4,10 +4,10 @@ model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,
-    final nConvPorts = nZones,
-    final nRadPorts = nZones,
-    final nTemSen = nZones,
-    final nEmbPorts=0,
+      nConvPorts = nZones,
+      nRadPorts = nZones,
+      nTemSen = nZones,
+      nEmbPorts=0,
     nLoads=1);
 
 equation
