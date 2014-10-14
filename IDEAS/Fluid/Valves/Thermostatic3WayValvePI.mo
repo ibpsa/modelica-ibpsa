@@ -1,14 +1,8 @@
 within IDEAS.Fluid.Valves;
-model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
+model Thermostatic3WayValvePI
+  "Thermostatic 3-way valve with hot and cold side controlled by PI controller"
   extends BaseClasses.Partial3WayValve(
       idealSource(m_flow(start=m_flow_nominal*0.5)));
-  parameter Boolean dynamicValve = false
-    "Set to true to simulate a valve opening delay: typically slower but more robust";
-  parameter Real tau = 30 "Valve opening time constant"
-    annotation(Dialog(enable=dynamicValve));
-  parameter Real y_min(min=0, max=1) = 0.0001 "Minimum valve opening/leakage";
-  parameter Real y_max(min=0, max=1) = 0.9999 "Maximum valve opening/leakage";
-  parameter Real y_start(min=0, max=1) = 0 "Initial valve opening";
   Modelica.Blocks.Interfaces.RealInput TMixedSet
     "Mixed outlet temperature setpoint" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
@@ -18,29 +12,33 @@ model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
         rotation=90,
         origin={0,100})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression(y=m_flow_a2)
-    "Fraction of nominal mass flow rate"
-    annotation (Placement(transformation(extent={{74,-60},{34,-40}})));
+  Real ctrl(min=0, max=1) = conPID.y "procentage of flow through flowPort_a1";
 
-  Modelica.SIunits.MassFlowRate m_flow_a2(min=0)
-    "mass flowrate of cold water to the mixing point";
-protected
-  Modelica.SIunits.SpecificEnthalpy h_set = Medium.specificEnthalpy(Medium.setState_pTX(port_a2.p, TMixedSet, port_a2.Xi_outflow))
-    "Specific enthalpy of the temperature setpoint";
-  Real k(start=0.5)
-    "Unbounded help variable for determining fraction of each flow";
-  Real k_state(start=y_start) "Variable for introducing a state";
-  Real delta_h "Enthalpy difference between port_a2 and port_a1";
-  parameter Real delta_h_min=100 "minimum enthalpy difference to compute k";
+public
+  Modelica.Blocks.Sources.RealExpression realExpression(y=-(1 - ctrl)*port_b.m_flow)
+    annotation (Placement(transformation(extent={{94,-60},{30,-40}})));
+  Controls.Continuous.LimPID conPID(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    yMax=1,
+    yMin=0) annotation (Placement(transformation(extent={{20,50},{40,70}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
+    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 equation
-  der(k_state) = if dynamicValve then (k-k_state)/tau else 0;
-
-  delta_h = noEvent( if abs(inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow)) > delta_h_min then inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow) elseif inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow) > 0 then  delta_h_min else -delta_h_min);
-  k = (h_set-inStream(port_a1.h_outflow))/delta_h;
-  m_flow_a2=-port_b.m_flow*IDEAS.Utilities.Math.Functions.smoothMin(IDEAS.Utilities.Math.Functions.smoothMax(if dynamicValve then k_state else k,y_min,0.001),y_max,0.001);
   connect(realExpression.y, idealSource.m_flow_in) annotation (Line(
-      points={{32,-50},{8,-50}},
+      points={{26.8,-50},{8,-50}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(TMixedSet, conPID.u_s) annotation (Line(
+      points={{0,106},{0,60},{18,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(temperatureSensor.T, conPID.u_m) annotation (Line(
+      points={{10,40},{30,40},{30,48}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(temperatureSensor.port, vol.heatPort) annotation (Line(
+      points={{-10,40},{-20,40},{-20,10},{-10,10}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -141,4 +139,4 @@ equation
 <li>2010, Roel De Coninck, first version</li>
 </ul></p>
 </html>"));
-end Thermostatic3WayValve;
+end Thermostatic3WayValvePI;
