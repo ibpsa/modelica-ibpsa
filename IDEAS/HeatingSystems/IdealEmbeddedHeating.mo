@@ -9,12 +9,12 @@ model IdealEmbeddedHeating
     final nRadPorts = nZones,
     final nTemSen = nZones,
     final nEmbPorts=nZones,
-    final nLoads=1);
+    nLoads=1);
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[
-    nConvPorts](Q_flow=0)
+    nConvPorts](each Q_flow=0)
     annotation (Placement(transformation(extent={{-162,10},{-182,30}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow1[
-    nRadPorts](Q_flow=0)
+    nRadPorts](each Q_flow=0)
     annotation (Placement(transformation(extent={{-160,-30},{-180,-10}})));
 equation
   for i in 1:nZones loop

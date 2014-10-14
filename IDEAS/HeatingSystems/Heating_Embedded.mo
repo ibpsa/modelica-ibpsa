@@ -13,7 +13,7 @@ model Heating_Embedded
     final nRadPorts = nZones,
     final nTemSen=nZones,
     final nEmbPorts=nZones,
-    final nLoads=1,
+    nLoads=1,
     nZones=1,
     minSup=true,
     TSupMin=273.15+25,

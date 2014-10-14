@@ -7,7 +7,8 @@ model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
     final nConvPorts = nZones,
     final nRadPorts = nZones,
     final nTemSen = nZones,
-    final nEmbPorts=0);
+    final nEmbPorts=0,
+    nLoads=1);
 
 equation
    for i in 1:nZones loop

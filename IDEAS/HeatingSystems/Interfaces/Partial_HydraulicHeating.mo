@@ -43,11 +43,13 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     each m=1,
     m_flow_nominal=m_flow_nominal,
     redeclare each package Medium = Medium,
-    filteredMassFlowRate=true,
-    riseTime=60)
+    each filteredMassFlowRate=true,
+    each riseTime=60)
               annotation (Placement(transformation(extent={{88,64},{112,40}})));
-  Fluid.Valves.Thermostatic3WayValvePI  idealCtrlMixer(m_flow_nominal=sum(
-        m_flow_nominal), redeclare package Medium = Medium)
+  Fluid.Valves.Thermostatic3WayValve    idealCtrlMixer(m_flow_nominal=sum(
+        m_flow_nominal), redeclare package Medium = Medium,
+    tau=30,
+    dynamicValve=false)
     annotation (Placement(transformation(extent={{34,46},{56,70}})));
   IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeReturn(
     redeclare package Medium = Medium,
@@ -126,16 +128,6 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
   Modelica.Blocks.Math.Add add[nZones](each k1=-1, each k2=+1)
     annotation (Placement(transformation(extent={{-174,-78},{-160,-64}})));
   // --- Interface
-  Modelica.Blocks.Interfaces.RealInput TSet[nZones](    final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC")
-    "Set point temperature for the zones" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-190,-108}),
-                          iconTransformation(
-        extent={{-14,-14},{14,14}},
-        rotation=90,
-        origin={-2,-104})));
   // --- Sensors
   Fluid.Sensors.TemperatureTwoPort senTemEm_in(redeclare package Medium =
         Medium, m_flow_nominal=sum(m_flow_nominal))
@@ -218,10 +210,6 @@ equation
       points={{-170,26.1},{-170,64},{-160.889,64}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TSet, add.u2) annotation (Line(
-      points={{-190,-108},{-190,-75.2},{-175.4,-75.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(add.y, heatingControl.u) annotation (Line(
       points={{-159.3,-71},{-146,-71},{-146,-70},{-142,-70}},
       color={0,0,127},
@@ -278,6 +266,10 @@ equation
       points={{-139.556,69},{-80,69},{-80,80},{45,80},{45,70}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(add.u2, TSet) annotation (Line(
+      points={{-175.4,-75.2},{-194,-75.2},{-194,-106},{20,-106}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}), graphics={Rectangle(
           extent={{-98,30},{88,-64}},
@@ -288,5 +280,6 @@ equation
           lineThickness=1,
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          textString="Thermal Energy Storage")}));
+          textString="Thermal Energy Storage")}), Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-200,-100},{200,100}}), graphics));
 end Partial_HydraulicHeating;
