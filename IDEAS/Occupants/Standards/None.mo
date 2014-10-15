@@ -1,6 +1,5 @@
 within IDEAS.Occupants.Standards;
 model None "No occupants, constant set point temperature."
-  import Buildings;
   extends IDEAS.Interfaces.BaseClasses.Occupant(final nLoads=0, nZones=1);
   parameter Modelica.SIunits.Temperature TSet_val = 273.15 + 17
     "Set point temperature";
@@ -24,5 +23,6 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{160,100}}), graphics), Icon(coordinateSystem(extent={{-100,-100},
+            {160,100}})));
 end None;
