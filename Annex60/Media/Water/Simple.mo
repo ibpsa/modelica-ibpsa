@@ -2,7 +2,7 @@ within Annex60.Media;
 package Simple "Package with model for liquid water with constant properties"
    extends Modelica.Media.Water.ConstantPropertyLiquidWater(
      final cp_const=4184,
-     final cv_const=4148,
+     final cv_const=4184,
      p_default=300000);
   // cp_const and cv_const have been made final because the model sets u=h.
 
