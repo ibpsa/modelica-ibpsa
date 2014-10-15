@@ -21,8 +21,8 @@ model Ideal
   Modelica.Blocks.Sources.Constant TSet_val[nZones](k=TSet)
     annotation (Placement(transformation(extent={{-20,0},{-40,20}})));
 equation
-  wattsLawPlug.P = zeros(nLoads);
-  wattsLawPlug.Q = zeros(nLoads);
+  P[1:nLoads_min] = zeros(nLoads_min);
+  Q[1:nLoads_min] = zeros(nLoads_min);
 
   connect(flowPort_Out[:], sou[:].ports[1]);
   connect(flowPort_In[:], sink[:].ports[1]);

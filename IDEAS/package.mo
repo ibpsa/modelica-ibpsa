@@ -15,6 +15,7 @@ annotation (
   Documentation(info="<html>
 <p>Important changes since before Annex60 conversion:</p>
 <p>- material sturctures such as in IDEAS.Buildings.Data.Constructions have a reversed order for IDEAS.Buildings.Components.InternalWall models</p>
+<p>- TOpStart in zone model has been removed and is changed into T_start.</p>
 <p><br>Licensed by KU Leuven and 3E under the Modelica License 2 </p>
 <p>Copyright &copy; 2013-2023, KU Leuven and 3E. </p>
 <p>&nbsp; </p>

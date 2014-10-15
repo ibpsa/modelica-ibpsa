@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components;
-model BoundaryWall "Opaque wall with boundary conditions"
+model CommonWall "Common opaque wall with neighbors"
 
   extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
 
@@ -12,10 +12,7 @@ model BoundaryWall "Opaque wall with boundary conditions"
     "Port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-  parameter Boolean use_T_in = false
-    "Get the boundary temperature from the input connector";
-  parameter Boolean use_Q_in = false
-    "Get the boundary heat flux from the input connector";
+  parameter Modelica.SIunits.Temperature TBou = 292.15 "Boundary temperature";
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the layers";
 
@@ -33,21 +30,24 @@ protected
         AWall, final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-public
-  Modelica.Blocks.Interfaces.RealInput T if use_T_in annotation (Placement(transformation(
-          extent={{-60,50},{-40,70}}), iconTransformation(extent={{-60,50},{-40,
-            70}})));
-  Modelica.Blocks.Interfaces.RealInput Q_flow if use_Q_in annotation (Placement(
-        transformation(extent={{-60,10},{-40,30}}), iconTransformation(extent={{
-            -60,10},{-40,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if use_Q_in
-    annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature if use_T_in
-    annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(final A=
+        AWall, final inc=inc)
+    "convective surface heat transimission on the interior side of the wall"
+    annotation (Placement(transformation(extent={{-40,-40},{-60,-20}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(
+      final T=TBou)
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 equation
   connect(layMul.port_b, intCon_b.port_a) annotation (Line(
       points={{4.44089e-16,-30},{20,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(fixedTemperature.port, intCon_a.port_b) annotation (Line(
+      points={{-80,-30},{-60,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(intCon_a.port_a, layMul.port_a) annotation (Line(
+      points={{-40,-30},{-20,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_gain, port_emb) annotation (Line(
@@ -83,33 +83,10 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-
-  if use_Q_in then
-  connect(Q_flow, prescribedHeatFlow.Q_flow) annotation (Line(
-      points={{-50,20},{-60,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-    connect(prescribedHeatFlow.port, layMul.port_a) annotation (Line(
-      points={{-80,20},{-90,20},{-90,-30},{-20,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  end if;
-  if use_T_in then
-  connect(T, prescribedTemperature.T) annotation (Line(
-      points={{-50,60},{-58,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-    connect(prescribedTemperature.port, layMul.port_a) annotation (Line(
-      points={{-80,60},{-90,60},{-90,-30},{-20,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  end if;
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
         Line(
           points={{-50,80},{50,80}},
@@ -157,4 +134,4 @@ equation
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>"));
-end BoundaryWall;
+end CommonWall;

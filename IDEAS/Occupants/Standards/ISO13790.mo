@@ -21,8 +21,8 @@ algorithm
 equation
   mDHW60C = 0;
   heatPortRad.Q_flow = heatPortCon.Q_flow;
-  wattsLawPlug.P = {heatPortCon[1].Q_flow + heatPortRad[1].Q_flow};
-  wattsLawPlug.Q = {0};
+  P = {heatPortCon[1].Q_flow + heatPortRad[1].Q_flow};
+  Q = {0};
 
   if noEvent(t <= 7 or t >= 23) then
     heatPortCon.Q_flow = -AFloor*QDay[3]*0.5;

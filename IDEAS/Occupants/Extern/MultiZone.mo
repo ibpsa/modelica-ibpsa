@@ -13,8 +13,8 @@ equation
 
   -heatPortRad.Q_flow = ones(nZones) .* VZones/sum(VZones)*sim.tabQRad.y[id];
   -heatPortCon.Q_flow = ones(nZones) .* VZones/sum(VZones)*sim.tabQCon.y[id];
-  wattsLawPlug.P = {sim.tabP.y[id]};
-  wattsLawPlug.Q = {sim.tabQ.y[id]};
+  P = {sim.tabP.y[id]};
+  Q = {sim.tabQ.y[id]};
   mDHW60C = sim.tabDHW.y[id];
   TSet = noEvent(if sim.tabPre.y[id] > 0.5 then ones(nZones)*TSetOcc else ones(
     nZones)*TSetNoOcc);

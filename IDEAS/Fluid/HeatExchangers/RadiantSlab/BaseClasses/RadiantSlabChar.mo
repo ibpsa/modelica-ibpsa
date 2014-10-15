@@ -13,7 +13,7 @@ record RadiantSlabChar
   extends Modelica.Icons.Record;
 
   parameter Boolean tabs = true
-    "true if the model is used for tabs, false if the model is used for floor heating";
+    "true if the model is used for tabs, false if the model is used for floor heating. This is used for the correction factor of the thermal resistances in EmbeddedPipe";
 
   parameter Modelica.SIunits.Length T(
     min=0.15,
@@ -43,6 +43,7 @@ record RadiantSlabChar
   parameter Modelica.SIunits.Length d_i = 0.05 "Thickness of the insulation";
   final parameter Real alp2 = lambda_i / d_i
     "help variable for resistance calculation";
+
   annotation (Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Record containing the properties of a floor heating or TABS.  The&nbsp;terminology&nbsp;from&nbsp;prEN&nbsp;15377&nbsp;is&nbsp;followed,&nbsp;even&nbsp;if&nbsp;I&nbsp;find&nbsp;the&nbsp;development&nbsp;of&nbsp;the&nbsp;theory by&nbsp;Koschenz&nbsp;and&nbsp;Lehmann&nbsp;better&nbsp;(see&nbsp;Thermoaktive&nbsp;Bauteilsysteme&nbsp;tabs,&nbsp;from&nbsp;Empa)</p>
