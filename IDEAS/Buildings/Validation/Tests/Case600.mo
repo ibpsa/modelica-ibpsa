@@ -12,10 +12,11 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
   inner IDEAS.SimInfoManager sim(
     occBeh=false,
     PV=false,
+    DST=false,
     filNam="BESTEST.TMY",
     lat=0.69464104229374,
     lon=-1.8308503853421,
-    timZonSta=-25200)
+    timZonSta=-28800)
               annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
 
   // BESTEST 600 Series
