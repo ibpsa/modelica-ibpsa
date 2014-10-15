@@ -1,6 +1,7 @@
 within Annex60.Fluid.Sensors;
 model RelativeHumidityTwoPort "Ideal two port relative humidity sensor"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
+  extends Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(redeclare
+      package Medium = Annex60.Media.Air);
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput phi(unit="1",
                                             min=0,
