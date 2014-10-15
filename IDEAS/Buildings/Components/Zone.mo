@@ -6,6 +6,9 @@ model Zone "thermal building zone"
       Medium =
         IDEAS.Media.Air);
 
+  outer Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+
   parameter Modelica.SIunits.Volume V "Total zone air volume";
   parameter Real n50(min=0.01)=0.4
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
