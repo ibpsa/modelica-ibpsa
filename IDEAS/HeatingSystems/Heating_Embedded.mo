@@ -1,25 +1,35 @@
 within IDEAS.HeatingSystems;
 model Heating_Embedded
   replaceable parameter
-    IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nZones] RadSlaCha constrainedby
+    IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar[nEmbPorts] RadSlaCha constrainedby
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
     "Properties of the floor heating or TABS, if present";
+  parameter Modelica.SIunits.Area AEmb[nEmbPorts]
+    "surface of each embedded circuit";
   extends IDEAS.HeatingSystems.Interfaces.Partial_HydraulicHeating(
     final isHea=true,
     final isCoo=false,
-    final nConvPorts=0,
-    final nRadPorts=0,
+    final nConvPorts = nZones,
+    final nRadPorts = nZones,
     final nTemSen=nZones,
     final nEmbPorts=nZones,
-    final nLoads=1,
+    nLoads=1,
     nZones=1,
     minSup=true,
     TSupMin=273.15+25,
-    redeclare IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe emission[nZones](      redeclare
+    redeclare IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe emission[nEmbPorts](      redeclare
         each package Medium =                                                                                    Medium,
       m_flow_nominal=m_flow_nominal,
       m_flowMin=m_flow_nominal/3,
-      RadSlaCha = RadSlaCha));
+      RadSlaCha = RadSlaCha,
+      A_floor=AEmb,
+      nParCir=1));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[
+    nConvPorts](Q_flow=0)
+    annotation (Placement(transformation(extent={{-164,10},{-184,30}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow1[
+    nRadPorts](Q_flow=0)
+    annotation (Placement(transformation(extent={{-162,-30},{-182,-10}})));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow);
   P[1] = heater.PEl + sum(pumpRad.PEl);
@@ -28,9 +38,18 @@ equation
       points={{135,44},{136,44},{136,98},{-176,98},{-176,60},{-200,60}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(prescribedHeatFlow.port, heatPortCon) annotation (Line(
+      points={{-184,20},{-200,20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(prescribedHeatFlow1.port, heatPortRad) annotation (Line(
+      points={{-182,-20},{-200,-20}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
+            200,100}}),
+                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,100}})),
     Documentation(info="<html>
 <p><b>Description</b> </p>

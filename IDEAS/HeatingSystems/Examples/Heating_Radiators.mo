@@ -7,69 +7,69 @@ model Heating_Radiators
   IDEAS.HeatingSystems.Heating_Radiators heating(
     redeclare package Medium = Medium,
       nZones=nZones,
-     TSupNom=273.15 + 45,
      dTSupRetNom=10,
      redeclare IDEAS.Fluid.Production.Boiler heater,
-    QNom={8000 for i in 1:nZones},
-    corFac_val=5)
+    corFac_val=7,
+    TSupNom=273.15 + 55,
+    nLoads=0,
+    QNom={100000 for i in 1:nZones})
     annotation (Placement(transformation(extent={{-8,-22},{28,-4}})));
-  Modelica.Blocks.Sources.Pulse[nZones] TOpSet(
-    each amplitude=4,
-    each width=67,
-    each period=86400,
-    each offset=289,
-    startTime={3600*7,3600*9})
-    annotation (Placement(transformation(extent={{-30,-56},{-18,-44}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
-    voltageSource(
-    f=50,
-    V=230,
-    phi=0) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={90,-64})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
-    annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
-  IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder dummyInHomeGrid
-    annotation (Placement(transformation(extent={{64,-22},{84,-2}})));
-  IDEAS.HeatingSystems.Examples.DummyBuilding dummyBuilding(nZones=nZones)
-    annotation (Placement(transformation(extent={{-78,-24},{-48,-4}})));
+  IDEAS.HeatingSystems.Examples.DummyBuilding building(nZones=nZones, nEmb=0)
+    annotation (Placement(transformation(extent={{-78,-22},{-48,-2}})));
   inner SimInfoManager       sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{64,84},{78,94}})));
+  VentilationSystems.None       none(nZones=nZones, VZones=building.VZones)
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+  Occupants.Standards.ISO13790 occ(
+    nZones=building.nZones,
+    AFloor=building.AZones,
+    nLoads=0) annotation (Placement(transformation(extent={{0,-54},{20,-34}})));
 equation
-  connect(heating.TSet, TOpSet.y) annotation (Line(
-      points={{9.82,-22.36},{9.82,-50},{-17.4,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(voltageSource.pin_p, ground.pin) annotation (Line(
-      points={{90,-74},{90,-82}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(dummyInHomeGrid.pinSingle, voltageSource.pin_n) annotation (Line(
-      points={{84,-12},{88,-12},{88,-18},{90,-18},{90,-54}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(heating.plugLoad, dummyInHomeGrid.nodeSingle) annotation (Line(
-      points={{28,-13},{46,-13},{46,-12},{64,-12}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(dummyBuilding.heatPortCon, heating.heatPortCon) annotation (Line(
-      points={{-48,-12},{-28,-12},{-28,-11.2},{-8,-11.2}},
+  connect(building.heatPortCon, heating.heatPortCon) annotation (Line(
+      points={{-48,-10},{-28,-10},{-28,-11.2},{-8,-11.2}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(dummyBuilding.heatPortRad, heating.heatPortRad) annotation (Line(
-      points={{-48,-16},{-28,-16},{-28,-14.8},{-8,-14.8}},
+  connect(building.heatPortRad, heating.heatPortRad) annotation (Line(
+      points={{-48,-14},{-28,-14},{-28,-14.8},{-8,-14.8}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(dummyBuilding.TSensor, heating.TSensor) annotation (Line(
-      points={{-47.4,-20},{-28,-20},{-28,-18.4},{-8.36,-18.4}},
+  connect(building.TSensor, heating.TSensor) annotation (Line(
+      points={{-47.4,-18},{-28,-18},{-28,-18.4},{-8.36,-18.4}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(none.flowPort_In, building.flowPort_Out) annotation (Line(
+      points={{-20,42},{-65,42},{-65,-2}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(none.flowPort_Out, building.flowPort_In) annotation (Line(
+      points={{-20,38},{-61,38},{-61,-2}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(building.TSensor,none. TSensor) annotation (Line(
+      points={{-47.4,-18},{-42,-18},{-42,34},{-20.4,34}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(occ.TSet, heating.TSet) annotation (Line(
+      points={{10,-34},{10,-22.18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(occ.mDHW60C, heating.mDHW60C) annotation (Line(
+      points={{16,-34},{16,-22.18},{15.4,-22.18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(occ.heatPortRad, building.heatPortRad) annotation (Line(
+      points={{0,-46},{-32,-46},{-32,-14},{-48,-14}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(occ.heatPortCon, building.heatPortCon) annotation (Line(
+      points={{0,-42},{-10,-42},{-10,-40},{-30,-40},{-30,-10},{-48,-10}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics),
     experiment(StopTime=200000, Interval=900),
     __Dymola_experimentSetupOutput);
 end Heating_Radiators;
