@@ -1,10 +1,10 @@
 within IDEAS.Fluid.Valves.Examples;
-model Thermostatic3WayValveExample "Example of a thermostatic three way valve"
+model Thermostatic3WayValvePIExample
+  "Example of a thermostatic three way valve"
   extends Modelica.Icons.Example;
   Thermostatic3WayValve thermostatic3WayValve(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-    allowFlowReversal=false,
-    dynamicValve=false)
+    allowFlowReversal=false)
     annotation (Placement(transformation(extent={{-10,32},{10,52}})));
   MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
@@ -113,4 +113,4 @@ Changed implementation for more flexible 3wayvalve
 </html>"),
     experiment(StopTime=10000),
     __Dymola_experimentSetupOutput);
-end Thermostatic3WayValveExample;
+end Thermostatic3WayValvePIExample;

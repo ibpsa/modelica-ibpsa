@@ -2,17 +2,17 @@ within IDEAS.Buildings.Components;
 model Zone "thermal building zone"
 
   extends IDEAS.Buildings.Components.Interfaces.StateZone;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
+      Medium =
+        IDEAS.Media.Air);
 
-  replaceable package Medium = IDEAS.Media.Air
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component"
-      annotation (choicesAllMatching = true);
+  outer Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
   parameter Modelica.SIunits.Volume V "Total zone air volume";
   parameter Real n50(min=0.01)=0.4
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
   parameter Real corrCV=5 "Multiplication factor for the zone air capacity";
-  parameter Modelica.SIunits.Temperature TOpStart=297.15;
 
   parameter Boolean linear=true;
 
@@ -34,7 +34,9 @@ protected
     redeclare package Medium = Medium,
     m_flow_nominal=V/3600*n50/20,
     V=V,
-    n50=0.1)
+    n50=0.1,
+    allowFlowReversal=allowFlowReversal,
+    show_T=false)
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final
       nSurf=nSurf, final linear=linear)
@@ -45,15 +47,22 @@ protected
         origin={-54,-10})));
   Modelica.Blocks.Math.Sum sum(
     nin=2,
-    k={0.5,0.5},
-    y(start=TOpStart))
+    k={0.5,0.5})
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
 public
   Fluid.MixingVolumes.MixingVolume         vol(
     V=V,
     m_flow_nominal=m_flow_nominal,
-    nPorts=4,
-    redeclare package Medium = Medium)         annotation (Placement(
+    nPorts=if allowFlowReversal then 4 else 2,
+    redeclare package Medium = Medium,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    p_start=p_start,
+    T_start=T_start,
+    X_start=X_start,
+    C_start=C_start,
+    C_nominal=C_nominal,
+    allowFlowReversal=allowFlowReversal)       annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -63,12 +72,15 @@ public
   Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCap(C=1012*1.204*V
-        *(corrCV-1), T(start=293.15)) "air capacity"
+        *(corrCV-1), T(start=T_start)) "air capacity"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,2})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
+  parameter Boolean allowFlowReversal=system.allowFlowReversal
+    "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
+    annotation(Dialog(tab="Assumptions"));
 equation
 
   connect(radDistr.radGain, gainRad) annotation (Line(
@@ -144,7 +156,7 @@ for i in 1:nSurf loop
       smooth=Smooth.None));
 end for;
   connect(flowPort_In, vol.ports[1]) annotation (Line(
-      points={{20,100},{20,40},{-7,40}},
+      points={{20,100},{20,40},{-10,40}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(heatCap.port, gainCon) annotation (Line(
@@ -152,7 +164,7 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(flowPort_Out, vol.ports[2]) annotation (Line(
-      points={{-20,100},{-20,40},{-9,40}},
+      points={{-20,100},{-20,40},{-10,40}},
       color={0,128,255},
       smooth=Smooth.None));
   connect(senTem.port, gainCon) annotation (Line(
@@ -163,14 +175,25 @@ end for;
       points={{-16,-20},{-18,-20},{-18,-59.4},{-1.2,-59.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airLeakage.port_a, vol.ports[3]) annotation (Line(
-      points={{40,40},{-11,40}},
+      if allowFlowReversal then
+  connect(airLeakage.port_a, vol.ports[4]) annotation (Line(
+      points={{40,40},{-10,40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(airLeakage.port_b, vol.ports[4]) annotation (Line(
-      points={{60,40},{70,40},{70,14},{-32,14},{-32,40},{-13,40}},
+  connect(airLeakage.port_b, vol.ports[3]) annotation (Line(
+      points={{60,40},{70,40},{70,14},{-32,14},{-32,40},{-10,40}},
       color={0,127,255},
       smooth=Smooth.None));
+      else
+  connect(airLeakage.port_a, vol.ports[2]) annotation (Line(
+      points={{40,40},{-10,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(airLeakage.port_b, vol.ports[1]) annotation (Line(
+      points={{60,40},{70,40},{70,14},{-32,14},{-32,40},{-10,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+      end if;
   connect(radDistr.radSurfTot, radDistrLw.port_a) annotation (Line(
       points={{-54,-34},{-54,-20}},
       color={191,0,0},
