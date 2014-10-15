@@ -18,7 +18,7 @@ model OuterWall "Opaque building envelope construction"
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-  Modelica.SIunits.Power QSolIrr = radSol.solDir + radSol.solDif
+  Modelica.SIunits.Power QSolIrr = (radSol.solDir + radSol.solDif)
     "Total solar irradiance";
 
   //protected

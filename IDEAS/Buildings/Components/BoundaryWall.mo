@@ -39,7 +39,7 @@ public
             -60,10},{-40,30}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if use_Q_in
     annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature 
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature if use_T_in
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
 equation
