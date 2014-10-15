@@ -49,6 +49,7 @@ equation
 <p>No validation performed.</p>
 <p><h4>Example </h4></p>
 <p>An example of the use of this model can be found in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating\"> IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating</a>.</p>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
+            -100},{200,100}}), graphics),
+    Icon(coordinateSystem(extent={{-200,-100},{200,100}})));
 end IdealEmbeddedHeating;
