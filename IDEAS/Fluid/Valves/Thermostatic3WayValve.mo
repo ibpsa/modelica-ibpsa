@@ -6,8 +6,8 @@ model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
     "Set to true to simulate a valve opening delay: typically slower but more robust";
   parameter Real tau = 30 "Valve opening time constant"
     annotation(Dialog(enable=dynamicValve));
-  parameter Real y_min(min=0, max=1) = 0.0001 "Minimum valve opening/leakage";
-  parameter Real y_max(min=0, max=1) = 0.9999 "Maximum valve opening/leakage";
+  parameter Real y_min(min=0, max=1) = 0.001 "Minimum valve opening/leakage";
+  parameter Real y_max(min=0, max=1) = 0.999 "Maximum valve opening/leakage";
   parameter Real y_start(min=0, max=1) = 0 "Initial valve opening";
   Modelica.Blocks.Interfaces.RealInput TMixedSet
     "Mixed outlet temperature setpoint" annotation (Placement(transformation(
@@ -23,9 +23,9 @@ model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
     annotation (Placement(transformation(extent={{74,-60},{34,-40}})));
 
   Modelica.SIunits.MassFlowRate m_flow_a2(min=0)
-    "mass flowrate of cold water to the mixing point";
+    "mass flowrate of part_a2 to the mixing point";
 protected
-  Modelica.SIunits.SpecificEnthalpy h_set = Medium.specificEnthalpy(Medium.setState_pTX(port_a2.p, TMixedSet, port_a2.Xi_outflow))
+  Modelica.SIunits.SpecificEnthalpy h_set = Medium.specificEnthalpy(Medium.setState_pTX(port_b.p, TMixedSet, vol.Xi))
     "Specific enthalpy of the temperature setpoint";
   Real k(start=0.5)
     "Unbounded help variable for determining fraction of each flow";

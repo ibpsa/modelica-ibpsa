@@ -5,7 +5,7 @@ model MonoLayerOpaque "single material layer"
   parameter IDEAS.Buildings.Data.Interfaces.Material mat "Layer material";
   parameter Modelica.SIunits.Angle inc "Inclination";
 
-  parameter Modelica.SIunits.Temperature TStart=293.15
+  parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the states";
 
   final parameter Real R = mat.R "Total specific thermal resistance";
@@ -13,12 +13,12 @@ model MonoLayerOpaque "single material layer"
   final parameter Boolean notFictive = (mat.d <> 0);
 
 public
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=TStart))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=TStart))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  MonoLayerOpaqueNf monoLayerOpaqueNf(A=A, mat=mat, inc=inc) if notFictive
+  MonoLayerOpaqueNf monoLayerOpaqueNf(A=A, mat=mat, inc=inc, T_start=T_start) if notFictive
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
   connect(port_a, monoLayerOpaqueNf.port_a) annotation (Line(
