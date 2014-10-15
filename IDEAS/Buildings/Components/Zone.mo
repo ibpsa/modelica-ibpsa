@@ -78,6 +78,8 @@ public
   parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Assumptions"));
+  outer Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
 
   connect(radDistr.radGain, gainRad) annotation (Line(
