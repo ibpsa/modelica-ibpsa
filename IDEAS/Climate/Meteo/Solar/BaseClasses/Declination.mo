@@ -11,10 +11,10 @@ block Declination "solar declination"
     displayUnit="deg") "Declination angle"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
 equation
-//  delta = asin(-sin(23.45*Modelica.Constants.pi/180)*cos((sim.timLoc/86400 +
-//    10)*2*Modelica.Constants.pi/365.25));
+  delta = asin(-sin(23.45*Modelica.Constants.pi/180)*cos((sim.timLoc/86400 +
+    10)*2*Modelica.Constants.pi/365.25));
 
-  delta = 23.45*Modelica.Constants.pi/180 * sin((sim.timLoc/86400 + 284)*2*Modelica.Constants.pi/365.25);
+//  delta = 23.45*Modelica.Constants.pi/180 * sin((sim.timLoc/86400 + 284)*2*Modelica.Constants.pi/365.25);
 
   annotation (Icon(graphics={Ellipse(
           extent={{-74,74},{78,-72}},
