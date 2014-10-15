@@ -60,10 +60,7 @@ model ConstantEffectiveness
     dp1_nominal=500,
     dp2_nominal=10)
     annotation (Placement(transformation(extent={{6,-4},{26,16}}, rotation=0)));
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+
   Modelica.Blocks.Sources.Trapezoid trapezoid(
     amplitude=5000,
     rising=10,

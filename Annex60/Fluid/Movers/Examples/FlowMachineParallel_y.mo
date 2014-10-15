@@ -52,8 +52,7 @@ model FlowMachineParallel_y "Two flow machines in parallel"
 
   parameter Modelica.SIunits.Density rho_nominal=1.2
     "Density, used to compute fluid mass";
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn2(
     redeclare package Medium = Medium,
     dp_nominal=1000,

@@ -29,8 +29,7 @@ model Damper
     p(displayUnit="Pa") = 101325,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{74,10},{54,30}}, rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
 equation
   connect(yRam.y, res.y) annotation (Line(
       points={{1,50},{10,50},{10,32}},

@@ -2,6 +2,7 @@ within Annex60.Fluid.Interfaces;
 partial model PartialTwoPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
   extends Modelica.Fluid.Interfaces.PartialTwoPort(
+    allowFlowReversal=true,
     port_a(p(start=Medium.p_default,
              nominal=Medium.p_default)),
     port_b(p(start=Medium.p_default,
