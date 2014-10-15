@@ -31,10 +31,9 @@ protected
         rotation=90,
         origin={-49,-14})));
 
-  IDEAS.Buildings.Components.CommonWall floor(
+  IDEAS.Buildings.Components.BoundaryWall floor(
     redeclare final parameter Data.Constructions.LightFloor constructionType,
     redeclare final parameter Data.Insulation.insulation insulationType,
-    final TBou = 283.15,
     final insulationThickness=1.003,
     final AWall=48,
     final inc=IDEAS.Constants.Floor,

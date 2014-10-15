@@ -30,14 +30,13 @@ protected
         rotation=90,
         origin={-49,-14})));
 
-  IDEAS.Buildings.Components.CommonWall floor(
+  IDEAS.Buildings.Components.BoundaryWall floor(
     redeclare final parameter Data.Constructions.LightFloor constructionType,
     redeclare final parameter Data.Insulation.insulation insulationType,
     final insulationThickness=1.003,
     final AWall=48,
     final inc=IDEAS.Constants.Floor,
-    final azi=IDEAS.Constants.South,
-    final TBou = 283.15) annotation (Placement(transformation(
+    final azi=IDEAS.Constants.South) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-19,-14})));
