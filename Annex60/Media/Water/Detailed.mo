@@ -82,7 +82,7 @@ revisions="<html>
 <ul>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
-First implementation, based on the IDA implementation in <code>therpro.nmf</code>, 
+First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
 but converted from Celsius to Kelvin and linearly extended.
 </li>
 </ul>
@@ -342,7 +342,7 @@ annotation (
 Documentation(info="<html>
 <p>
 This function returns the partial derivative of density
-with respect to pressure at constant temperature, 
+with respect to pressure at constant temperature,
 which is zero as the medium is incompressible.
 </p>
 </html>",
@@ -369,7 +369,7 @@ algorithm
   annotation (smoothOrder=1, Documentation(info=
                    "<html>
 <p>
-This function computes the derivative of density with respect to temperature 
+This function computes the derivative of density with respect to temperature
 at constant pressure.
 </p>
 </html>", revisions=
@@ -377,7 +377,7 @@ at constant pressure.
 <ul>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
-First implementation, based on the IDA implementation in <code>therpro.nmf</code>, 
+First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
 but converted from Celsius to Kelvin.
 </li>
 </ul>
@@ -458,7 +458,7 @@ The expression is obtained from Ramires et al. (1995).
 </p>
 <h4>References</h4>
 <p>
-Ramires, Maria L. V. and Nieto de Castro, Carlos A. and Nagasaka, Yuchi 
+Ramires, Maria L. V. and Nieto de Castro, Carlos A. and Nagasaka, Yuchi
 and Nagashima, Akira and Assael, Marc J. and Wakeham, William A.
 Standard Reference Data for the Thermal Conductivity of Water.
 <i>Journal of Physical and Chemical Reference Data</i>, 24, p. 1377-1381, 1995.
@@ -556,7 +556,7 @@ algorithm
 smoothOrder=99,
 Documentation(info="<html>
 <p>
-This function returns the thermodynamic state for a given pressure, 
+This function returns the thermodynamic state for a given pressure,
 specific enthalpy and composition.
 </p>
 </html>",
@@ -577,7 +577,7 @@ algorithm
 annotation (smoothOrder=99,
 Documentation(info="<html>
 <p>
-This function returns the thermodynamic state for a given pressure, 
+This function returns the thermodynamic state for a given pressure,
 temperature and composition.
 </p>
 </html>",
@@ -602,7 +602,7 @@ algorithm
 Inline=false,
 Documentation(info="<html>
 <p>
-This function returns the thermodynamic state based on pressure, 
+This function returns the thermodynamic state based on pressure,
 specific entropy and mass fraction.
 </p>
 <p>
@@ -647,7 +647,7 @@ algorithm
 annotation (
 Documentation(info="<html>
 <p>
-This function computes the derivative of the specific heat capacity 
+This function computes the derivative of the specific heat capacity
 at constant pressure with respect to the state.
 </p>
 </html>",
@@ -719,7 +719,7 @@ This has been converted to Kelvin, which resulted in the above expression.
 In addition, at 5 &deg;C the kinematic viscosity is linearly extrapolated
 to avoid a large gradient at very low temperatures.
 We selected the same point for the linearization as we used for the density,
-as the density and the kinematic viscosity are combined in 
+as the density and the kinematic viscosity are combined in
 <a href=\"modelica://Annex60.Media.Water.Detailed.dynamicViscosity\">
 Annex60.Media.Water.Detailed.dynamicViscosity</a>.
 </p>
@@ -728,7 +728,7 @@ revisions="<html>
 <ul>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
-First implementation, based on the IDA implementation in <code>therpro.nmf</code>, 
+First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
 but converted from Celsius to Kelvin.
 </li>
 </ul>
@@ -752,7 +752,7 @@ Annex60.Media.Water.Simple</a>
 for typical building energy simulations.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Media/Water/Detailed/plotRho.png\" border=\"1\" 
+<img src=\"modelica://Annex60/Resources/Images/Media/Water/Detailed/plotRho.png\" border=\"1\"
 alt=\"Mass density as a function of temperature\"/>
 </p>
 <p>
@@ -763,7 +763,7 @@ The figure below shows the relative error of the specific heat capacity that
 is introduced by this simplification.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Media/Water/Detailed/plotCp.png\" border=\"1\" 
+<img src=\"modelica://Annex60/Resources/Images/Media/Water/Detailed/plotCp.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
 <p>

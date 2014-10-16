@@ -12,7 +12,7 @@ water.
 For typical building energy simulations, we recommend to use
 <a href=\"modelica://Annex60.Media.Water.Simple\">Annex60.Media.Water.Simple</a>
 in which the density is a constant. This leads to faster and more robust simulation.
-The media model 
+The media model
 <a href=\"modelica://Annex60.Media.Water.Simple\">Annex60.Media.Water.Detailed</a>
 models density as a function of temperature. This leads to coupled nonlinear system of
 equations that cause slower computing time and may cause for models

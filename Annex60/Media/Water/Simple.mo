@@ -126,7 +126,7 @@ The figure below shows the relative error of the specific heat capacity that
 is introduced by this simplification.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Media/Water/Detailed/plotCp.png\" border=\"1\" 
+<img src=\"modelica://Annex60/Resources/Images/Media/Water/Detailed/plotCp.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
 <p>
@@ -143,7 +143,7 @@ There are no phase changes.
 <ul>
 <li>
 October 15, 2014, by Michael Wetter:<br/>
-Reimplemented media based on 
+Reimplemented media based on
 <a href=\"https://github.com/iea-annex60/modelica-annex60/blob/446aa83720884052476ad6d6d4f90a6a29bb8ec9/Annex60/Media/Water.mo\">446aa83</a>.
 </li>
 <li>
