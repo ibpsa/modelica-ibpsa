@@ -797,5 +797,12 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Ellipse(
+          lineColor={102,102,102},
+          fillColor={250,250,250},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Sphere,
+          extent={{-60,-60},{60,60}})}));
 end Detailed;

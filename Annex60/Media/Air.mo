@@ -11,6 +11,7 @@ package Air
                              Modelica.Media.IdealGases.Common.FluidData.N2},
      final reference_T=273.15,
      reference_p=101325);
+  extends Modelica.Icons.Package;
 
   final constant Integer Water=1
     "Index of water (in substanceNames, massFractions X, etc.)";
@@ -1286,5 +1287,42 @@ August 18, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
+        Ellipse(
+          extent={{-72,74},{-28,30}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-30,-34},{14,-78}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-12,82},{32,38}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-84,-10},{-40,-54}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-16,28},{28,-16}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{42,-36},{86,-80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{54,54},{98,10}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120})}));
 end Air;

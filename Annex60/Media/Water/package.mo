@@ -1,6 +1,9 @@
 within Annex60.Media;
 package Water "Package with medium models for water"
-  extends Modelica.Icons.MaterialPropertiesPackage;
+  extends Modelica.Icons.Package;
+
+
+
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
@@ -15,5 +18,34 @@ models density as a function of temperature. This leads to coupled nonlinear sys
 equations that cause slower computing time and may cause for models
 with large hydraulic networks convergence problems.
 </p>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
+        Polygon(
+          points={{16,-28},{32,-42},{26,-48},{10,-36},{16,-28}},
+          lineColor={95,95,95},
+          fillPattern=FillPattern.Sphere,
+          smooth=Smooth.None,
+          fillColor={95,95,95}),
+        Polygon(
+          points={{10,34},{26,44},{30,36},{14,26},{10,34}},
+          lineColor={95,95,95},
+          fillPattern=FillPattern.Sphere,
+          smooth=Smooth.None,
+          fillColor={95,95,95}),
+        Ellipse(
+          extent={{-98,58},{24,-64}},
+          lineColor={95,95,95},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,0,0}),
+        Ellipse(
+          extent={{20,94},{90,22}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={95,95,95}),
+        Ellipse(
+          extent={{22,-22},{92,-94}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={95,95,95})}));
 end Water;
