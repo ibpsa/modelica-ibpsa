@@ -2,7 +2,7 @@ within IDEAS.Buildings.Validation.BaseClasses.Structure;
 model Bui930 "BESTEST Building model case 930"
 
   extends IDEAS.Interfaces.BaseClasses.Structure(
-    nZones=1,
+    final nZones=1, final nEmb=0,
     ATrans=1,
     VZones={gF.V});
 
@@ -81,10 +81,6 @@ equation
       smooth=Smooth.None));
   connect(gF.gainRad, heatPortRad[1]) annotation (Line(
       points={{80,8},{120,8},{120,-20},{150,-20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(floor.port_emb, heatPortEmb[1]) annotation (Line(
-      points={{-9,-14},{-4,-14},{-4,-40},{118,-40},{118,60},{150,60}},
       color={191,0,0},
       smooth=Smooth.None));
 

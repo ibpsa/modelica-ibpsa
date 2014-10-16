@@ -2,7 +2,7 @@ within IDEAS.Buildings.Validation.BaseClasses.Structure;
 model Bui630 "BESTEST Building model case 630"
 
   extends IDEAS.Interfaces.BaseClasses.Structure(
-    nZones=1,
+    final nZones=1, final nEmb=0,
     ATrans=1,
     VZones={gF.V});
 
@@ -12,7 +12,7 @@ protected
     V=129.6,
     n50=0.822*0.5*20,
     corrCV=0.822,
-    TOpStart=293.15,
+    T_start=293.15,
     linear=true)
     annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
@@ -87,10 +87,6 @@ equation
       smooth=Smooth.None));
   connect(gF.gainRad, heatPortRad[1]) annotation (Line(
       points={{80,8},{120,8},{120,-20},{150,-20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(floor.port_emb, heatPortEmb[1]) annotation (Line(
-      points={{-9,-14},{-4,-14},{-4,-40},{118,-40},{118,60},{150,60}},
       color={191,0,0},
       smooth=Smooth.None));
 
