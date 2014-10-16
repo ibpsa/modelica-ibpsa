@@ -18,10 +18,6 @@ protected
   parameter Modelica.SIunits.Temperature Tcool=300.15
     "Cooling on above 27degC always";
 
-  Modelica.Blocks.Sources.RealExpression realP(y=0.0)
-    annotation (Placement(transformation(extent={{116,18},{136,38}})));
-  Modelica.Blocks.Sources.RealExpression realQ(y=0.0)
-    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
 equation
   for i in 1:nZones loop
     if (Tbase > TSensor[i]) and not occ.occupied then
@@ -34,17 +30,12 @@ equation
       heatPortCon[i].Q_flow = 0;
     end if;
     heatPortRad[i].Q_flow = 0;
-    heatPortEmb[i].Q_flow = 0;
+//    heatPortEmb[i].Q_flow = 0;
   end for;
+
+  P = {0};
+  Q = {0};
 
   QHeaSys = -1*sum(heatPortCon.Q_flow);
 
-  connect(realQ.y, wattsLawPlug.Q[1]) annotation (Line(
-      points={{141,-10},{174,-10},{174,2},{160,2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(realP.y, wattsLawPlug.P[1]) annotation (Line(
-      points={{137,28},{174,28},{174,6},{160,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
 end ThermostatSetback;

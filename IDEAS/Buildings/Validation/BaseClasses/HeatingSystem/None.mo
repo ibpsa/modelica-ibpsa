@@ -4,13 +4,13 @@ model None "None"
     final nLoads=1, nZones=1, final nTemSen = nZones);
 
 equation
-  wattsLawPlug.P = {0};
-  wattsLawPlug.Q = {0};
+  P = {0};
+  Q = {0};
 
   for i in 1:nZones loop
     heatPortCon[i].Q_flow = 0;
     heatPortRad[i].Q_flow = 0;
-    heatPortEmb[i].Q_flow = 0;
+//    heatPortEmb[i].Q_flow = 0;
   end for;
 
   QHeaSys = 0;
