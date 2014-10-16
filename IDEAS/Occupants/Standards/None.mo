@@ -16,14 +16,13 @@ equation
   P[1:nLoads_min] = zeros(nLoads_min);
   Q[1:nLoads_min] = zeros(nLoads_min);
   connect(prescribedHeatFlow1.port, heatPortCon) annotation (Line(
-      points={{-74,20},{-200,20}},
+      points={{-74,20},{-100,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(prescribedHeatFlow.port, heatPortRad) annotation (Line(
-      points={{-74,-20},{-200,-20}},
+      points={{-74,-20},{-100,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -100},{200,100}}), graphics), Icon(coordinateSystem(extent={{-200,
-            -100},{200,100}})));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics));
 end None;

@@ -12,14 +12,14 @@ model Ideal
     each final nPorts=1,
     redeclare each package Medium = Medium,
     each use_T_in=true) "Source"
-    annotation (Placement(transformation(extent={{-162,12},{-182,32}})));
+    annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
   Fluid.Sources.FixedBoundary sink[nZones](
                          each final nPorts=1, redeclare each package Medium = Medium)
-    annotation (Placement(transformation(extent={{-162,-28},{-182,-8}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-80,-10}})));
   Modelica.Blocks.Sources.Constant m_flow_val[nZones](k=m_flow)
-    annotation (Placement(transformation(extent={{-122,38},{-142,58}})));
+    annotation (Placement(transformation(extent={{-20,36},{-40,56}})));
   Modelica.Blocks.Sources.Constant TSet_val[nZones](k=TSet)
-    annotation (Placement(transformation(extent={{-122,2},{-142,22}})));
+    annotation (Placement(transformation(extent={{-20,0},{-40,20}})));
 equation
   P[1:nLoads_min] = zeros(nLoads_min);
   Q[1:nLoads_min] = zeros(nLoads_min);
@@ -28,14 +28,13 @@ equation
   connect(flowPort_In[:], sink[:].ports[1]);
 
   connect(sou.m_flow_in, m_flow_val.y) annotation (Line(
-      points={{-162,30},{-148,30},{-148,48},{-143,48}},
+      points={{-60,28},{-46,28},{-46,46},{-41,46}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSet_val.y, sou.T_in) annotation (Line(
-      points={{-143,12},{-148,12},{-148,26},{-160,26}},
+      points={{-41,10},{-46,10},{-46,24},{-58,24}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -100},{200,100}}), graphics), Icon(coordinateSystem(extent={{-200,
-            -100},{200,100}})));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics));
 end Ideal;

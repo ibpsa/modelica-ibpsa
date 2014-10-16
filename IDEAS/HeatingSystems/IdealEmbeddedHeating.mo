@@ -1,21 +1,16 @@
 within IDEAS.HeatingSystems;
 model IdealEmbeddedHeating
   "Ideal heating, no DHW, with embedded system (eg. floor heating) "
-  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating;
+  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating(nZones = nZones);
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,
-    final nConvPorts = nZones,
-    final nRadPorts = nZones,
+    final nConvPorts = 0,
+    final nRadPorts = 0,
     final nTemSen = nZones,
     final nEmbPorts=nZones,
-    nLoads=1);
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[
-    nConvPorts](each Q_flow=0)
-    annotation (Placement(transformation(extent={{-162,10},{-182,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow1[
-    nRadPorts](each Q_flow=0)
-    annotation (Placement(transformation(extent={{-160,-30},{-180,-10}})));
+    final nLoads=1,
+    nZones=nZones);
 equation
   for i in 1:nZones loop
     if noEvent((TSet[i] - TSensor[i]) > 0) then
@@ -28,14 +23,6 @@ equation
   QHeaSys = sum(QHeatZone);
   P[1] = QHeaSys/COP;
   Q[1] = 0;
-  connect(prescribedHeatFlow1.port, heatPortRad) annotation (Line(
-      points={{-180,-20},{-200,-20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(prescribedHeatFlow.port, heatPortCon) annotation (Line(
-      points={{-182,20},{-200,20}},
-      color={191,0,0},
-      smooth=Smooth.None));
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li>2013 June, Roel De Coninck: reworking interface and documentation</li>
@@ -62,7 +49,6 @@ equation
 <p>No validation performed.</p>
 <p><h4>Example </h4></p>
 <p>An example of the use of this model can be found in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating\"> IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating</a>.</p>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},
-            {200,100}}),       graphics),
-    Icon(coordinateSystem(extent={{-200,-100},{200,100}})));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics));
 end IdealEmbeddedHeating;

@@ -3,9 +3,9 @@ partial model VentilationSystem
 
   outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data"
-    annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   outer Modelica.Fluid.System system
-  annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
+  annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
   replaceable package Medium = IDEAS.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -25,17 +25,17 @@ partial model VentilationSystem
     "Sensor temperature of the zones" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-204,-60})));
+        origin={-104,-60})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
     plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
-    annotation (Placement(transformation(extent={{190,-10},{210,10}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
         nLoads) if nLoads >= 1
-    annotation (Placement(transformation(extent={{178,-10},{188,10}})));
+    annotation (Placement(transformation(extent={{68,-10},{88,10}})));
   Fluid.Interfaces.FlowPort_b[nZones] flowPort_Out(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-210,-30},{-190,-10}})));
+    annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
   Fluid.Interfaces.FlowPort_a[nZones] flowPort_In(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
+    annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 
 protected
   final parameter Integer nLoads_min = max(1,nLoads);
@@ -43,29 +43,29 @@ protected
    Modelica.SIunits.Power[nLoads_min] Q "Passive power for each of the loads";
 public
   Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
-    annotation (Placement(transformation(extent={{156,0},{170,16}})));
+    annotation (Placement(transformation(extent={{42,0},{56,16}})));
   Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
-    annotation (Placement(transformation(extent={{156,-12},{170,6}})));
+    annotation (Placement(transformation(extent={{42,-12},{56,6}})));
 equation
     if nLoads >= 1 then
      connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-      points={{188,0},{200,0}},
+      points={{88,0},{100,0}},
       color={85,170,255},
       smooth=Smooth.None));
      connect(P_val.y, wattsLawPlug.P) annotation (Line(
-      points={{170.7,8},{174,8},{174,6},{178,6}},
+      points={{56.7,8},{60,8},{60,6},{68,6}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
-      points={{170.7,-3},{174,-3},{174,2},{178,2}},
+      points={{56.7,-3},{60,-3},{60,2},{68,2}},
       color={0,0,127},
       smooth=Smooth.None));
     end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -100},{200,100}}), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics={
         Rectangle(
-          extent={{-200,100},{202,-100}},
+          extent={{-100,100},{100,-100}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           lineColor={191,0,0}),
@@ -85,9 +85,9 @@ equation
           color={127,0,0},
           smooth=Smooth.None),
         Line(
-          points={{202,100},{202,-100}},
+          points={{100,100},{100,-100}},
           color={85,170,255},
           smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-200,-100},{200,100}}),
+          extent={{-100,-100},{100,100}}),
                                          graphics));
 end VentilationSystem;

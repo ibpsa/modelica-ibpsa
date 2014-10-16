@@ -8,12 +8,12 @@ partial model Occupant
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
     "Nodes for convective heat gains" annotation (Placement(transformation(
-          extent={{-210,10},{-190,30}}),iconTransformation(extent={{-210,10},{
-            -190,30}})));
+          extent={{-110,10},{-90,30}}), iconTransformation(extent={{-110,10},{-90,
+            30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad
     "Nodes for radiative heat gains" annotation (Placement(transformation(
-          extent={{-210,-30},{-190,-10}}),iconTransformation(extent={{-210,-30},
-            {-190,-10}})));
+          extent={{-110,-30},{-90,-10}}), iconTransformation(extent={{-110,-30},
+            {-90,-10}})));
   Modelica.Blocks.Interfaces.RealOutput[nZones] TSet(
     final quantity="ThermodynamicTemperature",
     unit="K",
@@ -28,10 +28,10 @@ partial model Occupant
         origin={0,100})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
     plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
-    annotation (Placement(transformation(extent={{190,-10},{210,10}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
         nLoads) if nLoads >= 1
-    annotation (Placement(transformation(extent={{184,-8},{192,6}})));
+    annotation (Placement(transformation(extent={{68,-10},{88,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput mDHW60C
     "mFlow for domestic hot water, at 60 degC" annotation (Placement(
@@ -49,33 +49,32 @@ protected
   Modelica.SIunits.Power[nLoads_min] Q "Passive power for each of the loads";
 public
   Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
-    annotation (Placement(transformation(extent={{170,0},{180,14}})));
+    annotation (Placement(transformation(extent={{42,0},{56,16}})));
   Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
-    annotation (Placement(transformation(extent={{172,-8},{180,4}})));
+    annotation (Placement(transformation(extent={{42,-12},{56,6}})));
   outer SimInfoManager       sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 equation
   if nLoads >= 1 then
     connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-        points={{192,-1},{194,-1},{194,0},{200,0}},
+        points={{88,0},{100,0}},
         color={85,170,255},
         smooth=Smooth.None));
     connect(P_val.y, wattsLawPlug.P) annotation (Line(
-        points={{180.5,7},{184,7},{184,3.2}},
+        points={{56.7,8},{60,8},{60,6},{68,6}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
-        points={{180.4,-2},{182,-2},{182,0.4},{184,0.4}},
+        points={{56.7,-3},{60,-3},{60,2},{68,2}},
         color={0,0,127},
         smooth=Smooth.None));
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -100},{200,100}}),
-                         graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics={
         Rectangle(
-          extent={{-200,100},{200,-100}},
+          extent={{-100,100},{100,-100}},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           lineColor={191,0,0}),
@@ -94,8 +93,8 @@ equation
           color={127,0,0},
           smooth=Smooth.None),
         Line(
-          points={{200,100},{200,-100}},
+          points={{100,100},{100,-100}},
           color={85,170,255},
           smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-200,-100},{200,100}}), graphics));
+          extent={{-100,-100},{100,100}}), graphics));
 end Occupant;
