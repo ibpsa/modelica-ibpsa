@@ -1,6 +1,7 @@
-within Annex60.Media.Examples;
+within Annex60.Media.Water.Examples;
 package BaseClasses "Package with base classes for Annex60.Media.Examples"
   extends Modelica.Icons.BasesPackage;
+
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

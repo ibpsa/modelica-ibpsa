@@ -738,6 +738,24 @@ end kinematicViscosity;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium package models liquid water.
+</p>
+<p>
+The mass density is computed using a 3rd order polynomial, which yields the
+density as a function of temperature as shown in the figure below. Note, however,
+that computing density as a function of temperature can lead to considerably
+slower computing time compared to using
+<a href=\"modelica://Annex60.Media.Water.Simple\">
+Annex60.Media.Water.Simple</a>
+in which the density is a constant. We therefore recommend to use
+<a href=\"modelica://Annex60.Media.Water.Simple\">
+Annex60.Media.Water.Simple</a>
+for typical building energy simulations.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Annex60/Resources/Images/Media/Water/Detailed/plotRho.png\" border=\"1\" 
+alt=\"Mass density as a function of temperature\"/>
+</p>
+<p>
 For the specific heat capacities at constant pressure and at constant volume,
 a constant value of <i>4184</i> J/(kg K), which corresponds to <i>20</i>&deg;C
 is used.
@@ -749,20 +767,14 @@ is introduced by this simplification.
 alt=\"Relative variation of specific heat capacity with temperature\"/>
 </p>
 <p>
-The mass density is computed using a 3rd order polynomial, which yields the following
-density as a function of temperature.
-</p>
-<p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Media/Water/Detailed/plotRho.png\" border=\"1\" 
-alt=\"Mass density as a function of temperature\"/>
-</p>
-<p>
 The enthalpy is computed using the convention that <i>h=0</i>
 if <i>T=0</i> &deg;C.
 </p>
 <h4>Limitations</h4>
 <p>
-Water is modeled as an incompressible liquid, and there are no phase changes.
+Specific heat capacity, thermal conductivity and viscosity are constant.
+Water is modeled as an incompressible liquid.
+There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>

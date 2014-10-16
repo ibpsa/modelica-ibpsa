@@ -1,5 +1,5 @@
 within Annex60.Media.Water;
-package Simple "Package with model for liquid water with constant properties"
+package Simple "Package with model for liquid water with constant density"
    extends Modelica.Media.Water.ConstantPropertyLiquidWater(
      final cv_const=cp_const,
      p_default=300000,
@@ -109,11 +109,36 @@ Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
 end enthalpyOfLiquid;
 
   annotation (preferredView="info", Documentation(info="<html>
-fixme: review info section.
-
-This medium model is identical to 
-<a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
-Modelica.Media.Water.ConstantPropertyLiquidWater</a>.
+<p>
+This medium package models liquid water.
+</p>
+<p>
+The mass density is computed using a constant value of <i>995.586</i> kg/s.
+For a medium model in which the density is a function of temperature, use
+<a href=\"modelica://Annex60.Media.Water.Detailed\">
+Annex60.Media.Water.Detailed</a> which may have considerably higher computing time.
+</p>
+<p>
+For the specific heat capacities at constant pressure and at constant volume,
+a constant value of <i>4184</i> J/(kg K), which corresponds to <i>20</i>&deg;C
+is used.
+The figure below shows the relative error of the specific heat capacity that
+is introduced by this simplification.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Annex60/Resources/Images/Media/Water/Detailed/plotCp.png\" border=\"1\" 
+alt=\"Relative variation of specific heat capacity with temperature\"/>
+</p>
+<p>
+The enthalpy is computed using the convention that <i>h=0</i>
+if <i>T=0</i> &deg;C.
+</p>
+<h4>Limitations</h4>
+<p>
+Density, specific heat capacity, thermal conductivity and viscosity are constant.
+Water is modeled as an incompressible liquid.
+There are no phase changes.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
