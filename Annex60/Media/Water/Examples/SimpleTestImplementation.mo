@@ -4,9 +4,7 @@ model SimpleTestImplementation "Model that tests the medium implementation"
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium = Annex60.Media.Water.Simple);
 
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-            -100,-100},{100,100}})),
-experiment(StopTime=1.0),
+      annotation (experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Water/Examples/SimpleTestImplementation.mos"
         "Simulate and plot"),
     Documentation(info="<html>

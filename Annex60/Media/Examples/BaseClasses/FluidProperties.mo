@@ -7,9 +7,7 @@ equation
     state_dTX = Medium.setState_dTX(d=d, T=T, X=X);
     checkState(state_pTX, state_dTX, "state_dTX");
 
-   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-      Documentation(info="<html>
+   annotation(      Documentation(info="<html>
 <p>
 This example checks thermophysical properties of the medium.
 It extends from
