@@ -30,7 +30,7 @@ model DHW_example
     profileType=2,
     TDHWSet=318.15,
     m_flow_nominal=1,
-    table(fileName="../Inputs/DHWProfile_2d.txt"))
+    table(fileName=Modelica.Utilities.Files.loadResource("modelica://IDEAS/") + "Inputs/DHWProfile_2d.txt"))
     annotation (Placement(transformation(extent={{4,-54},{28,-40}})));
   Sources.Boundary_pT bou2(
     redeclare package Medium = Medium,
