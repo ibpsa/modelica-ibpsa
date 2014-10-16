@@ -1,5 +1,6 @@
 within Annex60.Media.Water;
-package Detailed "Package with model for liquid water with temperature-dependent density"
+package Detailed
+  "Package with model for liquid water with temperature-dependent density"
    extends Modelica.Media.Interfaces.PartialPureSubstance(
      mediumName="WaterDetailed",
      p_default=300000,
@@ -535,36 +536,17 @@ First implementation.
 </html>"));
 end molarMass;
 
-redeclare function setState_dTX
-    "Return the thermodynamic state as function of density d, temperature T and composition X or Xi"
-  extends Modelica.Icons.Function;
-  input Density d "Density";
-  input Temperature T "Temperature";
-  input MassFraction X[:]=reference_X "Mass fractions";
-  output ThermodynamicState state "Thermodynamic state";
-
-algorithm
-    state := ThermodynamicState(p=reference_p, T=T);
-    annotation (
-smoothOrder=99,
-Documentation(info="<html>
-<p>
-This function returns the thermodynamic state for a given density, temperature and composition.
-Because this medium assumes density to be a function of temperature only,
-this function ignores the argument <code>d</code>.
-The pressure that is used to set the state is equal to the constant
-<code>reference_p</code>.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-December 11, 2013, by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
-end setState_dTX;
+  redeclare function setState_dTX
+    "Return thermodynamic state from d, T, and X or Xi"
+    extends Modelica.Icons.Function;
+    input Density d "Density";
+    input Temperature T "Temperature";
+    input MassFraction X[:]=reference_X "Mass fractions";
+    output ThermodynamicState state "Thermodynamic state record";
+  algorithm
+    assert(false,
+      "Pressure can not be computed from temperature and density for an incompressible fluid!");
+  end setState_dTX;
 
 redeclare function extends setState_phX
     "Return the thermodynamic state as function of pressure p, specific enthalpy h and composition X or Xi"

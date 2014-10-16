@@ -2,12 +2,19 @@ within Annex60.Media.Water;
 package Simple "Package with model for liquid water with constant properties"
    extends Modelica.Media.Water.ConstantPropertyLiquidWater(
      final cv_const=cp_const,
-     p_default=300000);
+     p_default=300000,
+     reference_p=300000,
+     reference_T=273.15,
+     reference_X={1});
   // cp_const and cv_const have been made final because the model sets u=h.
 
-  redeclare record extends ThermodynamicState "Thermodynamic state variables"
-    Modelica.SIunits.Temperature T(start=T_default) "Temperature of medium";
-    Modelica.SIunits.AbsolutePressure p(start=p_default) "Pressure of medium";
+  // For the ThermodynamicState, we set start values to the default medium states
+  // to provide better guesses for solvers
+  redeclare record extends ThermodynamicState(
+      T(start=T_default),
+      p(start=p_default)) "Thermodynamic state variables"
+    //    Modelica.SIunits.Temperature T(start=T_default) "Temperature of medium";
+    //    Modelica.SIunits.AbsolutePressure p(start=p_default) "Pressure of medium";
   end ThermodynamicState;
 
   redeclare model BaseProperties "Base properties"
@@ -58,7 +65,7 @@ in the allowed range (" + String(T_min) + " K <= T <= " + String(T_max) + " K)
 required from medium model \"" + mediumName + "\".
 ");
 
-    h = cp_const*(T-T0);
+    h = cp_const*(T-reference_T);
     //h = specificEnthalpy_pTX(p, T, X);
     u = h;
     state.T = T;
@@ -69,12 +76,37 @@ required from medium model \"" + mediumName + "\".
     <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
     Modelica.Media.Water.ConstantPropertyLiquidWater</a>,
     except that the equation
-    <code>u = cv_const*(T - T0)</code>
+    <code>u = cv_const*(T - reference_T)</code>
     has been replaced by <code>u=h</code> because
     <code>cp_const=cv_const</code>.
     </p>
 </html>"));
   end BaseProperties;
+
+function enthalpyOfLiquid "Return the specific enthalpy of liquid"
+  extends Modelica.Icons.Function;
+  input Modelica.SIunits.Temperature T "Temperature";
+  output Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
+algorithm
+  h := cp_const*(T-reference_T);
+
+annotation (smoothOrder=5,
+Documentation(info="<html>
+<p>
+Enthalpy of the water.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 16, 2014 by Michael Wetter:<br/>
+First implementation.
+This function is used by
+<a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir\">
+Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
+</li>
+</ul>
+</html>"));
+end enthalpyOfLiquid;
 
   annotation (preferredView="info", Documentation(info="<html>
 fixme: review info section.

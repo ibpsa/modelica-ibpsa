@@ -2,7 +2,7 @@ within Annex60.Media.Water.Examples;
 model SimpleProperties
   "Model that tests the implementation of the fluid properties"
   extends Modelica.Icons.Example;
-  extends Annex60.Media.Examples.BaseClasses.FluidProperties(
+  extends Annex60.Media.Water.Examples.BaseClasses.FluidProperties(
     redeclare package Medium = Annex60.Media.Water.Simple,
     TMin=273.15,
     TMax=373.15);
