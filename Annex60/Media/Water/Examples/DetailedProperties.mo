@@ -1,9 +1,9 @@
-within Annex60.Media.Examples;
-model WaterProperties
+within Annex60.Media.Water.Examples;
+model DetailedProperties
   "Model that tests the implementation of the fluid properties"
   extends Modelica.Icons.Example;
   extends Annex60.Media.Examples.BaseClasses.FluidProperties(
-    redeclare package Medium = Annex60.Media.Water,
+    redeclare package Medium = Annex60.Media.Water.Detailed,
     TMin=273.15,
     TMax=373.15);
 equation
@@ -13,7 +13,7 @@ equation
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
 experiment(StopTime=1),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Examples/WaterProperties.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Water/Examples/DetailedProperties.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -28,4 +28,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end WaterProperties;
+end DetailedProperties;

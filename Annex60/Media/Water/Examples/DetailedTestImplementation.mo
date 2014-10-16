@@ -1,13 +1,13 @@
-within Annex60.Media.Examples;
-model WaterTestImplementation "Model that tests the medium implementation"
+within Annex60.Media.Water.Examples;
+model DetailedTestImplementation "Model that tests the medium implementation"
   extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
-     redeclare package Medium = Annex60.Media.Water);
+     redeclare package Medium = Annex60.Media.Water.Detailed);
 
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
             -100,-100},{100,100}})),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Examples/WaterTestImplementation.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Water/Examples/DetailedTestImplementation.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This is a simple test for the medium model. It uses the test model described in
@@ -18,7 +18,7 @@ Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium</a>.
 <li>
 May 12, 2008, by Michael Wetter:<br/>
 First implementation.
-</li>
+</li>n
 </ul>
 </html>"));
-end WaterTestImplementation;
+end DetailedTestImplementation;
