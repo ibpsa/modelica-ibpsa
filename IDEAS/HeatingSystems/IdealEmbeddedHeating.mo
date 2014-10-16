@@ -5,12 +5,18 @@ model IdealEmbeddedHeating
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,
-    final nConvPorts = 0,
-    final nRadPorts = 0,
+    final nConvPorts = nZones,
+    final nRadPorts = nZones,
     final nTemSen = nZones,
     final nEmbPorts=nZones,
     final nLoads=1,
     nZones=nZones);
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow1[
+    nRadPorts](Q_flow=0)
+    annotation (Placement(transformation(extent={{-142,-30},{-162,-10}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[
+    nConvPorts](Q_flow=0)
+    annotation (Placement(transformation(extent={{-144,10},{-164,30}})));
 equation
   for i in 1:nZones loop
     if noEvent((TSet[i] - TSensor[i]) > 0) then
@@ -23,6 +29,14 @@ equation
   QHeaSys = sum(QHeatZone);
   P[1] = QHeaSys/COP;
   Q[1] = 0;
+  connect(prescribedHeatFlow1.port, heatPortRad) annotation (Line(
+      points={{-162,-20},{-200,-20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(prescribedHeatFlow.port, heatPortCon) annotation (Line(
+      points={{-164,20},{-200,20}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li>2013 June, Roel De Coninck: reworking interface and documentation</li>
@@ -49,6 +63,7 @@ equation
 <p>No validation performed.</p>
 <p><h4>Example </h4></p>
 <p>An example of the use of this model can be found in<a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating\"> IDEAS.Thermal.HeatingSystems.Examples.IdealEmbeddedHeating</a>.</p>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},
+            {200,100}}),       graphics),
+    Icon(coordinateSystem(extent={{-200,-100},{200,100}})));
 end IdealEmbeddedHeating;
