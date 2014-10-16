@@ -40,7 +40,7 @@ annotation(Dialog(tab="Pressure drop"));
 annotation(Dialog(tab="Pressure drop"));
   parameter Modelica.SIunits.MassFlowRate m_flowMin = m_flow_nominal*0.5
     "Minimal flowrate when in operation - used for determining required series discretisation";
-  parameter Real nParCir
+  parameter Real nParCir = 1
     "Number of parallel (equally sized) circuits in the tabs";
   parameter Modelica.SIunits.Area A_floor "Floor/tabs surface area";
 
