@@ -103,7 +103,8 @@ equation
     assert(abs(h-basPro.h) < 1e-8, "Error in enthalpy computation in BaseProperties.");
     assert(abs(u-basPro.u) < 1e-8, "Error in internal energy computation in BaseProperties.");
 
-   annotation(      Documentation(info="<html>
+   annotation (
+Documentation(info="<html>
 <p>
 This example checks thermophysical properties of the medium.
 </p>
