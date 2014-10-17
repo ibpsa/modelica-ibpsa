@@ -11,6 +11,7 @@ The **IDEAS** package is licensed by [KU Leuven](http://www.kuleuven.be) and [3E
 
 1. You may report any bugfixes or suggestions as a [github issue](https://github.com/open-ideas/IDEAS/issues).
 1. Contributions in the form of [Pull Requests](https://help.github.com/articles/using-pull-requests) are always welcome. Prior to issuing a pull request, make sure :
-    1. your code follows the [Style Guide and Conventions](https://github.com/open-ideas/IDEAS/wiki/Style%20Guide%20and%20Conventions), 
-    2. unittests are included for your models, and
-    3. the model physics are described in the [Specifications](https://github.com/open-ideas/IDEAS/tree/master/Specifications).
+    1. your code follows the [Style Guide and Conventions](https://github.com/open-ideas/IDEAS/wiki/Style%20Guide%20and%20Conventions),
+    2. you use this **IDEAS** GitHub repository as escribed in the [GitHub Good Practice Description](https://github.com/open-ideas/IDEAS/wiki/Style%20Guide%20and%20Conventions)
+    3. unittests are included for your models, and
+    4. the model physics are described in the [Specifications](https://github.com/open-ideas/IDEAS/tree/master/Specifications).
