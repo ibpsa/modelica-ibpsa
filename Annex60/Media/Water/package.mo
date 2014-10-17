@@ -12,8 +12,8 @@ in which the density is a constant. This leads to faster and more robust simulat
 The media model
 <a href=\"modelica://Annex60.Media.Water.Simple\">Annex60.Media.Water.Detailed</a>
 models density as a function of temperature. This leads to coupled nonlinear system of
-equations that cause slower computing time and may cause for models
-with large hydraulic networks convergence problems.
+equations that cause slower computing time and may cause convergence problems for models
+with large hydraulic networks.
 </p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
