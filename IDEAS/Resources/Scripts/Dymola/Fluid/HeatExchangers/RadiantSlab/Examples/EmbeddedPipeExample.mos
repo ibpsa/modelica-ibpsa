@@ -1,0 +1,5 @@
+simulateModel("IDEAS.Fluid.HeatExchangers.RadiantSlab.Examples.EmbeddedPipeExample", stopTime=10000, method="dassl", resultFile="EmbeddedPipeExample");
+
+createPlot(id=1, position={0, 0, 804, 518}, y={"senTem.T"}, range={0.0, 10000.0, 284.0, 296.0}, grid=true, filename="EmbeddedPipeExample.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}});
+
+
