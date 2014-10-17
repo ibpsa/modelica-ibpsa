@@ -2,9 +2,6 @@ within Annex60.Media;
 package Water "Package with medium models for water"
   extends Modelica.Icons.Package;
 
-
-
-
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains different implementations for
@@ -34,17 +31,17 @@ with large hydraulic networks convergence problems.
           smooth=Smooth.None,
           fillColor={95,95,95}),
         Ellipse(
-          extent={{-98,58},{24,-64}},
+          extent={{-82,52},{24,-54}},
           lineColor={95,95,95},
           fillPattern=FillPattern.Sphere,
           fillColor={0,0,0}),
         Ellipse(
-          extent={{20,94},{90,22}},
+          extent={{22,82},{80,24}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={95,95,95}),
         Ellipse(
-          extent={{22,-22},{92,-94}},
+          extent={{20,-30},{78,-88}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={95,95,95})}));
