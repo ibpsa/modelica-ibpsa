@@ -10,7 +10,7 @@ package Simple "Package with model for liquid water with constant density"
 
   // For the ThermodynamicState, we set start values to the default medium states
   // to provide better guesses for solvers
-  redeclare record extends ThermodynamicState(
+  record extends ThermodynamicState(
       T(start=T_default),
       p(start=p_default)) "Thermodynamic state variables"
     //    Modelica.SIunits.Temperature T(start=T_default) "Temperature of medium";
