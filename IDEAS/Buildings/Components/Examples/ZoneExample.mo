@@ -6,7 +6,8 @@ model ZoneExample
     nSurf=5,
     redeclare package Medium = Medium,
     V=2) annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  CommonWall commonWall(
+  BoundaryWall
+             commonWall(
     redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
@@ -23,7 +24,8 @@ model ZoneExample
 
   inner SimInfoManager sim
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
-  CommonWall commonWall1(
+  BoundaryWall
+             commonWall1(
     redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
