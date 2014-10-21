@@ -1,4 +1,6 @@
 ConstantEffectiveness
-HeaterCoolerPrescribed
+HeaterCooler_u
+HeaterCooler_T
+Radiators
 Examples
 BaseClasses
