@@ -4,7 +4,6 @@ model HeaterCooler_T
   extends Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare final Annex60.Fluid.MixingVolumes.MixingVolume vol(prescribedHeatFlowRate=true),
     final showDesignFlowDirection=false);
-
     model TemperatureControlledHeatFlow
     "Prescribed heat flow boundary condition, depending on a set temperature TSet"
     replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
@@ -24,6 +23,7 @@ model HeaterCooler_T
     input Modelica.SIunits.Pressure p "Pressure";
     input Modelica.SIunits.MassFraction Xi[Medium.nXi] "Mass fraction";
     equation
+      // fixme: this triggers a state event at m_flow=0 which must be fixed.
       if m_flow > 0 then
         if Q_flow_maxHeat <> Modelica.Constants.inf and  Q_flow_maxCool == - Modelica.Constants.inf then
           port.Q_flow = - Annex60.Utilities.Math.Functions.smoothLimit((Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TSet, X=Xi)) - h_outflow) * m_flow, - Modelica.Constants.inf, Q_flow_maxHeat, 0.1);
@@ -116,7 +116,6 @@ model HeaterCooler_T
             fillColor={191,0,0},
             fillPattern=FillPattern.Solid)}));
     end TemperatureControlledHeatFlow;
-
   parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat(
     min=0,max=Modelica.Constants.inf) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";
