@@ -201,8 +201,7 @@ model HeaterCoolerPrescribed
              threShold=0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,-360},{180,-340}},
           rotation=0)));
-  inner Modelica.Fluid.System system(m_flow_start=0, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    annotation (Placement(transformation(extent={{-180,-380},{-160,-360}})));
+
   Annex60.Fluid.Sensors.TemperatureTwoPort
                                       senTem2a(redeclare package Medium = Medium,
     m_flow_nominal=0.5,

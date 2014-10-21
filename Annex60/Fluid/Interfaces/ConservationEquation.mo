@@ -1,7 +1,7 @@
 within Annex60.Fluid.Interfaces;
 model ConservationEquation "Lumped volume with mass and energy balance"
 
-//  outer Modelica.Fluid.System system "System properties";
+
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"

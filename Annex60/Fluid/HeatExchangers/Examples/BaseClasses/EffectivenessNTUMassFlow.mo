@@ -47,8 +47,7 @@ partial model EffectivenessNTUMassFlow
     annotation (Placement(transformation(extent={{-2,52},{18,72}},
                   rotation=0)));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
   Modelica.Blocks.Sources.Constant relHum(k=0.8) "Relative humidity"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Annex60.Utilities.Psychrometrics.X_pTphi x_pTphi(use_p_in=false)

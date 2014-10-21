@@ -1,7 +1,7 @@
 within Annex60.Fluid.MixingVolumes.BaseClasses;
 partial model PartialMixingVolume
   "Partial mixing volume with inlet and outlet ports (flow reversal is allowed)"
-  outer Modelica.Fluid.System system "System properties";
+
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
@@ -12,7 +12,7 @@ partial model PartialMixingVolume
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Boolean allowFlowReversal = system.allowFlowReversal
+  parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.Volume V "Volume";
