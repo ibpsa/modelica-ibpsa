@@ -1,0 +1,12 @@
+simulateModel("Annex60.Fluid.HeatExchangers.Examples.HeaterCooler_T", method="dassl", stopTime=1200, resultFile="HeaterCooler_T");
+createPlot(id = 1,
+ position = {78, 39, 400, 444},
+ y = {"senTem1.T","senTem2.T","senTem3.T","senTem4.T"},
+ range = {0.0, 1200.0, 35.0, 15.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);
