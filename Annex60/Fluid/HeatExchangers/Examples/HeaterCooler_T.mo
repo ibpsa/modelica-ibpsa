@@ -12,150 +12,166 @@ model HeaterCooler_T
     use_T_in=false,
     p(displayUnit="Pa"),
     T=293.15,
-    nPorts=4) "Sink"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,origin={130,50})));
-  Annex60.Fluid.HeatExchangers.HeaterCooler_T heaterStrongPower(
+    nPorts=3) "Sink"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=180,origin={150,34})));
+  Annex60.Fluid.HeatExchangers.HeaterCooler_T heaHigPow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    Q_flow_maxHeat=1.0e10) "Steady-state model of the heater"
-    annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
-    Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
+    Q_flow_maxHeat=1.0e10)
+    "Steady-state model of the heater with high capacity"
+    annotation (Placement(transformation(extent={{40,110},{60,130}})));
+  Annex60.Fluid.Sensors.TemperatureTwoPort heaHigPowOut(redeclare package
+      Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+    annotation (Placement(transformation(extent={{78,110},{98,130}})));
   Modelica.Blocks.Sources.TimeTable TSetHeat(table=[0,273.15 + 20.0; 120,273.15
     + 20.0; 120,273.15 + 60.0; 500,273.15 + 60.0; 500,273.15 + 30.0; 1200,273.15 + 30.0])
     "Setpoint heating"
-    annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
-  Annex60.Fluid.Sources.MassFlowSource_T sou(
-    redeclare package Medium = Medium,
-    use_T_in=false,
-    nPorts=4,
-    m_flow=2*m_flow_nominal,
-    T=293.15) "Source"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}},rotation=0)));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
-    Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{50,24},{70,44}})));
-  Annex60.Fluid.HeatExchangers.HeaterCooler_T coolerWeakPower(
+    annotation (Placement(transformation(extent={{-10,160},{10,180}})));
+  Annex60.Fluid.Sensors.TemperatureTwoPort cooLimPowOut(redeclare package
+      Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+    annotation (Placement(transformation(extent={{80,24},{100,44}})));
+  Annex60.Fluid.HeatExchangers.HeaterCooler_T cooLimPow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    Q_flow_maxCool=-1000) "Steady-state model of the heater"
-    annotation (Placement(transformation(extent={{0,24},{20,44}})));
+    Q_flow_maxCool=-1000)
+    "Steady-state model of the cooler with limited capacity"
+    annotation (Placement(transformation(extent={{40,24},{60,44}})));
   Modelica.Blocks.Sources.TimeTable TSetCool(table=[0,273.15 + 20.0; 120,273.15
     + 20.0; 120,273.15 + 15.0; 500,273.15 + 15.0; 500,273.15 + 10.0; 1200,273.15 + 10.0])
     "Setpoint cooling"
-    annotation (Placement(transformation(extent={{-86,2},{-66,22}})));
-  Annex60.Fluid.HeatExchangers.HeaterCooler_T idealHeaterAndCooler(
+    annotation (Placement(transformation(extent={{-8,70},{12,90}})));
+  Annex60.Fluid.HeatExchangers.HeaterCooler_T heaCooUnl(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Steady-state model of the heater"
-    annotation (Placement(transformation(extent={{2,-34},{22,-14}})));
+    "Steady-state model of the heater or cooler with unlimited capacity"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Modelica.Blocks.Sources.TimeTable TSetCoolHeat(table=[0,273.15 + 20.0; 120,273.15
     + 20.0; 120,273.15 + 15.0; 500,273.15 + 15.0; 500,273.15 + 30.0; 1200,273.15
     + 30.0]) "Setpoint cooling"
-    annotation (Placement(transformation(extent={{-84,-38},{-64,-18}})));
-  Annex60.Fluid.HeatExchangers.HeaterCooler_T idealHeaterAndCoolerWrongFlowDirection(
+    annotation (Placement(transformation(extent={{-8,-20},{12,0}})));
+  Annex60.Fluid.Sensors.TemperatureTwoPort heaCooUnlOut(redeclare package
+      Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+    annotation (Placement(transformation(extent={{78,-60},{98,-40}})));
+  Modelica.Blocks.Sources.Ramp m_flow(
+    height=-2*m_flow_nominal,
+    duration=100,
+    offset=m_flow_nominal,
+    startTime=1000) "Mass flow rate"
+    annotation (Placement(transformation(extent={{-80,32},{-60,52}})));
+  Annex60.Fluid.Sensors.TemperatureTwoPort heaHigPowIn(redeclare package Medium
+      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+    annotation (Placement(transformation(extent={{-8,110},{12,130}})));
+  Annex60.Fluid.Sensors.TemperatureTwoPort cooLimPowIn(redeclare package Medium
+      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+    annotation (Placement(transformation(extent={{-6,24},{14,44}})));
+  Annex60.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(redeclare package Medium
+      = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
+    annotation (Placement(transformation(extent={{-8,-60},{12,-40}})));
+  Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=6000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Steady-state model of the heater"
-    annotation (Placement(transformation(extent={{22,-80},{2,-60}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTem3(redeclare package Medium =
-    Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{50,-34},{70,-14}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTem4(redeclare package Medium =
-    Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
-    annotation (Placement(transformation(extent={{52,-80},{72,-60}})));
+    use_m_flow_in=true,
+    T=293.15,
+    nPorts=3) "Flow source"
+    annotation (Placement(transformation(extent={{-40,24},{-20,44}})));
 equation
-  connect(heaterStrongPower.port_b, senTem1.port_a) annotation (Line(
-      points={{20,100},{40,100}},
+  connect(heaHigPow.port_b, heaHigPowOut.port_a) annotation (Line(
+      points={{60,120},{78,120}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(heaterStrongPower.port_a, sou.ports[1]) annotation (Line(
-      points={{0,100},{-40,100},{-40,53},{-60,53}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem1.port_b, sin.ports[1]) annotation (Line(
-      points={{60,100},{100,100},{100,47},{120,47}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TSetHeat.y, heaterStrongPower.TSet) annotation (Line(
-      points={{-39,150},{-12,150},{-12,106},{-2,106}},
+  connect(TSetHeat.y, heaHigPow.TSet) annotation (Line(
+      points={{11,170},{20,170},{20,126},{38,126}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sou.ports[2], coolerWeakPower.port_a) annotation (Line(
-      points={{-60,51},{-40,51},{-40,34},{0,34}},
+  connect(cooLimPow.port_b, cooLimPowOut.port_a) annotation (Line(
+      points={{60,34},{80,34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(coolerWeakPower.port_b, senTem2.port_a) annotation (Line(
-      points={{20,34},{50,34}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem2.port_b, sin.ports[2]) annotation (Line(
-      points={{70,34},{100,34},{100,49},{120,49}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TSetCool.y, coolerWeakPower.TSet) annotation (Line(
-      points={{-65,12},{-12,12},{-12,40},{-2,40}},
+  connect(TSetCool.y, cooLimPow.TSet) annotation (Line(
+      points={{13,80},{28,80},{28,40},{38,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sou.ports[3], idealHeaterAndCooler.port_a) annotation (Line(
-      points={{-60,49},{-40,49},{-40,-24},{2,-24}},
+  connect(heaCooUnl.port_b, heaCooUnlOut.port_a) annotation (Line(
+      points={{60,-50},{78,-50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(idealHeaterAndCooler.port_b, senTem3.port_a) annotation (Line(
-      points={{22,-24},{50,-24}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem3.port_b, sin.ports[3]) annotation (Line(
-      points={{70,-24},{100,-24},{100,48},{120,48},{120,51}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TSetCoolHeat.y, idealHeaterAndCoolerWrongFlowDirection.TSet) annotation (
-     Line(
-      points={{-63,-28},{-54,-28},{-54,-50},{28,-50},{28,-64},{24,-64}},
+  connect(TSetCoolHeat.y, heaCooUnl.TSet) annotation (Line(
+      points={{13,-10},{26,-10},{26,-44},{38,-44}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sou.ports[4], idealHeaterAndCoolerWrongFlowDirection.port_b)
-    annotation (Line(
-      points={{-60,47},{-40,47},{-40,-70},{2,-70}},
+  connect(heaHigPowIn.port_b, heaHigPow.port_a) annotation (Line(
+      points={{12,120},{40,120}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(idealHeaterAndCoolerWrongFlowDirection.port_a, senTem4.port_a)
-    annotation (Line(
-      points={{22,-70},{52,-70}},
+  connect(cooLimPowIn.port_b, cooLimPow.port_a) annotation (Line(
+      points={{14,34},{40,34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTem4.port_b, sin.ports[4]) annotation (Line(
-      points={{72,-70},{100,-70},{100,-26},{100,-26},{100,48},{120,48},{120,53}},
+  connect(heaCooUnlIn.port_b, heaCooUnl.port_a) annotation (Line(
+      points={{12,-50},{40,-50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSetCoolHeat.y, idealHeaterAndCooler.TSet) annotation (Line(
-      points={{-63,-28},{-22,-28},{-22,-18},{0,-18}},
+  connect(sou.ports[1], heaHigPowIn.port_a) annotation (Line(
+      points={{-20,36.6667},{-16,36.6667},{-16,120},{-8,120}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sou.ports[2], cooLimPowIn.port_a) annotation (Line(
+      points={{-20,34},{-6,34}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sou.ports[3], heaCooUnlIn.port_a) annotation (Line(
+      points={{-20,31.3333},{-16,31.3333},{-16,-50},{-8,-50}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heaCooUnlOut.port_b, sin.ports[1]) annotation (Line(
+      points={{98,-50},{120,-50},{120,31.3333},{140,31.3333}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(cooLimPowOut.port_b, sin.ports[2]) annotation (Line(
+      points={{100,34},{120,34},{120,34},{140,34}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heaHigPowOut.port_b, sin.ports[3]) annotation (Line(
+      points={{98,120},{120,120},{120,36.6667},{140,36.6667}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(m_flow.y, sou.m_flow_in) annotation (Line(
+      points={{-59,42},{-40,42}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{200,200}}), graphics),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+            -100},{200,200}}),                                                                    graphics),
     __Dymola_Commands(file= "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/HeaterCooler_T.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of an ideal heater and an ideal cooler.
-
-The heater model has an almost unlimited positive power (<code>Q_flow_nominal = 1.0e10</code>),
-so its outlet temperature always reaches the different levels of set temperatures during the simulation experiment. 
+</p>
 <p>
-The cooler model has a limited negative power (<code>Q_flow_nominal = 1000</code>),
-so its outlet temperature reaches only a limited value corresponding to its maximum negative power during the simulation experiment.
+The heater model has an almost unlimited positive capacity (<code>Q_flow_nominal = 1.0e10</code> Watts),
+and hence its outlet temperature always reaches the set point temperatures.
+<p>
+The cooler model has a limited negative capacitiy (<code>Q_flow_nominal = 1000</code> Watts), and hence
+its outlet temperature reaches only a limited value corresponding to its 
+maximum negative capacity.
+</p>
+<p>
+There is also a heater and cooler with unlimited capacity.
+</p>
+<p>
+At <i>t=1000</i> second, the flow reverses its direction.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 21, 2014, by Michael Wetter:<br/>
+Revised example to test reverse flow and zero flow transition.
+</li>
 <li>
 March 19, 2014, by Christoph Nytsch-Geusen:<br/>
 First implementation.
