@@ -1,5 +1,5 @@
 within Annex60.Fluid.MassExchangers;
-model HumidifierPrescribed
+model Humidifier_u
   "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction"
   extends Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases,
@@ -157,4 +157,4 @@ First implementation.
 </ul>
 </html>"),
     Diagram(graphics));
-end HumidifierPrescribed;
+end Humidifier_u;

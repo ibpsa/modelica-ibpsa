@@ -1,11 +1,11 @@
 within Annex60.Fluid.Interfaces.Examples;
-model HeaterCoolerPrescribed
+model HeaterCooler_u
   "Model that tests a heat exchanger model with reverse flow"
   extends Modelica.Icons.Example;
 
  package Medium = Annex60.Media.Water.Simple;
 
-  Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed hea1(
+  Annex60.Fluid.HeatExchangers.HeaterCooler_u hea1(
                                                          redeclare package
       Medium =
         Medium, Q_flow_nominal=5000,
@@ -53,7 +53,7 @@ model HeaterCoolerPrescribed
     startTime=0) "Control signal"
                  annotation (Placement(transformation(extent={{-148,174},{-128,
             194}}, rotation=0)));
-  Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed hea2(
+  Annex60.Fluid.HeatExchangers.HeaterCooler_u hea2(
                                                  redeclare package Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
@@ -63,7 +63,7 @@ model HeaterCoolerPrescribed
         transformation(extent={{28,134},{48,154}}, rotation=0)));
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
           extent={{-50,174},{-30,194}}, rotation=0)));
-  Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed hea3(
+  Annex60.Fluid.HeatExchangers.HeaterCooler_u hea3(
                                                          redeclare package
       Medium =
         Medium, Q_flow_nominal=5000,
@@ -85,7 +85,7 @@ model HeaterCoolerPrescribed
     m_flow_nominal=0.5)
              annotation (Placement(transformation(extent={{-100,22},{-80,42}},
           rotation=0)));
-  Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed hea4(
+  Annex60.Fluid.HeatExchangers.HeaterCooler_u hea4(
                                                  redeclare package Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
@@ -117,7 +117,7 @@ model HeaterCoolerPrescribed
         0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,116},{180,136}}, rotation=
            0)));
-  Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed hea5(
+  Annex60.Fluid.HeatExchangers.HeaterCooler_u hea5(
                                                          redeclare package
       Medium =
         Medium, Q_flow_nominal=5000,
@@ -139,7 +139,7 @@ model HeaterCoolerPrescribed
     m_flow_nominal=0.5)
              annotation (Placement(transformation(extent={{-100,-130},{-80,-110}},
           rotation=0)));
-  Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed hea6(
+  Annex60.Fluid.HeatExchangers.HeaterCooler_u hea6(
                                                  redeclare package Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
@@ -147,7 +147,7 @@ model HeaterCoolerPrescribed
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{0,-130},{20,-110}},rotation=0)));
-  Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed hea7(
+  Annex60.Fluid.HeatExchangers.HeaterCooler_u hea7(
                                                          redeclare package
       Medium =
         Medium, Q_flow_nominal=5000,
@@ -169,7 +169,7 @@ model HeaterCoolerPrescribed
     m_flow_nominal=0.5)
              annotation (Placement(transformation(extent={{-100,-270},{-80,-250}},
           rotation=0)));
-  Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed hea8(
+  Annex60.Fluid.HeatExchangers.HeaterCooler_u hea8(
                                                  redeclare package Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
@@ -594,7 +594,7 @@ equation
           lineColor={0,0,255},
           textString="Same system as above, but with flow reversed")}),
 experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCoolerPrescribed.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCooler_u.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>Model that tests the basic class that is used for the heater models. It adds and removes heat for forward and reverse flow. The top and bottom models should give similar results, although the sign of the temperature difference over the components differ because of the reverse flow. The model uses assert statements that will be triggered if results that are expected to be close to each other differ by more than a prescribed threshold. All temperature sensors are configured as steady-state sensors to avoid differences in temperature due to the dynamic response of the sensor.</p>
@@ -623,4 +623,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeaterCoolerPrescribed;
+end HeaterCooler_u;
