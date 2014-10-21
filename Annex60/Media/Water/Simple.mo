@@ -13,8 +13,6 @@ package Simple "Package with model for liquid water with constant density"
   record extends ThermodynamicState(
       T(start=T_default),
       p(start=p_default)) "Thermodynamic state variables"
-    //    Modelica.SIunits.Temperature T(start=T_default) "Temperature of medium";
-    //    Modelica.SIunits.AbsolutePressure p(start=p_default) "Pressure of medium";
   end ThermodynamicState;
 
   redeclare model BaseProperties "Base properties"
@@ -66,7 +64,6 @@ required from medium model \"" + mediumName + "\".
 ");
 
     h = cp_const*(T-reference_T);
-    //h = specificEnthalpy_pTX(p, T, X);
     u = h;
     state.T = T;
     state.p = p;
