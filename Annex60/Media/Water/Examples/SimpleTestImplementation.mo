@@ -1,11 +1,11 @@
-within Annex60.Media.Examples;
-model AirTestImplementation "Model that tests the medium implementation"
+within Annex60.Media.Water.Examples;
+model SimpleTestImplementation "Model that tests the medium implementation"
   extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
-     redeclare package Medium = Annex60.Media.Air);
+     redeclare package Medium = Annex60.Media.Water.Simple);
 
       annotation (experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Examples/AirTestImplementation.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Water/Examples/SimpleTestImplementation.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This is a simple test for the medium model. It uses the test model described in
@@ -19,4 +19,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AirTestImplementation;
+end SimpleTestImplementation;

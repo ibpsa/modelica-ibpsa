@@ -3,7 +3,7 @@ model ValveParameterization
   "Model to test and illustrate different parameterization for valves"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Water;
+ package Medium = Annex60.Media.Water.Simple;
 
   Annex60.Fluid.Actuators.Valves.TwoWayLinear valOPPoi(
     redeclare package Medium = Medium,

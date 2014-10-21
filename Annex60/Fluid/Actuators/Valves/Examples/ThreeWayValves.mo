@@ -2,7 +2,7 @@ within Annex60.Fluid.Actuators.Valves.Examples;
 model ThreeWayValves "Three way valves with different opening characteristics"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Water
+ package Medium = Annex60.Media.Water.Simple
     "Medium in the component";
 
   Annex60.Fluid.Actuators.Valves.ThreeWayLinear valLin(

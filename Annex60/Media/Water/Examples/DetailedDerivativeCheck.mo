@@ -1,8 +1,8 @@
-within Annex60.Media.Examples;
-model WaterDerivativeCheck "Model that tests the derivative implementation"
+within Annex60.Media.Water.Examples;
+model DetailedDerivativeCheck "Model that tests the derivative implementation"
   extends Modelica.Icons.Example;
 
-   package Medium = Annex60.Media.Water;
+   package Medium = Annex60.Media.Water.Detailed;
 
     Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
@@ -37,10 +37,8 @@ equation
     der(cvCod)=der(cvSym);
     assert(abs(cvCod-cvSym) < 1E-2, "Model has an error");
 
-   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-experiment(StartTime=273.15, StopTime=373.15),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Examples/WaterDerivativeCheck.mos"
+   annotation(experiment(StartTime=273.15, StopTime=373.15),
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Media/Water/Examples/DetailedDerivativeCheck.mos"
         "Simulate and plot"),
       Documentation(info="<html>
 <p>
@@ -56,4 +54,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end WaterDerivativeCheck;
+end DetailedDerivativeCheck;

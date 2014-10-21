@@ -1,4 +1,4 @@
-simulateModel("Annex60.Media.Examples.WaterTestImplementation", method="dassl", resultFile="WaterTestImplementation");
+simulateModel("Annex60.Media.Water.Examples.SimpleTestImplementation", method="dassl", resultFile="MediaExamplesWaterSimpleTestImplementation");
 createPlot(id = 1,
  position = {15, 10, 400, 337},
  y = {"volume.medium.T"},
