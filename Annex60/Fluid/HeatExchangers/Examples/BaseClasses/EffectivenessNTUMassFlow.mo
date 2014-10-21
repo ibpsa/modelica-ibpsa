@@ -1,7 +1,7 @@
 within Annex60.Fluid.HeatExchangers.Examples.BaseClasses;
 partial model EffectivenessNTUMassFlow
   "Partial model of epsilon-NTU coil that tests variable mass flow rates"
-  package Medium1 = Annex60.Media.Water
+  package Medium1 = Annex60.Media.Water.Simple
     "Medium model for water";
   package Medium2 = Annex60.Media.Air
     "Medium model for air";

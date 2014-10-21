@@ -3,9 +3,9 @@ model FlowMachineParallel_y "Two flow machines in parallel"
   extends Modelica.Icons.Example;
   // fixme. Revisit when Dymola 2015 is available.
   // The medium has been changed from
-  // Annex60.Media.Water to
+  // Annex60.Media.Water.Simple to
   // Annex60.Experimental.Media.AirPTDecoupled because
-  // Annex60.Media.Water and Annex60.Media.Air cause in
+  // Annex60.Media.Water.Simple and Annex60.Media.Air cause in
   // Dymola 2014 FD01 a division by zero. This is due to the
   // bug https://github.com/iea-annex60/modelica-annex60/issues/53
   package Medium = Annex60.Experimental.Media.AirPTDecoupled "Medium model";

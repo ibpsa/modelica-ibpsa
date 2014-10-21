@@ -1,7 +1,7 @@
 within Annex60.Fluid.Actuators.Valves.Examples;
 model TwoWayValvesTable "Two way valve with linear opening characteristics"
   extends Modelica.Icons.Example;
-  package Medium = Annex60.Media.Water "Medium";
+  package Medium = Annex60.Media.Water.Simple "Medium";
 
     Modelica.Blocks.Sources.Ramp y(
     height=1,

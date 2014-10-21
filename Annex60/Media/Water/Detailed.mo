@@ -1,7 +1,8 @@
-within Annex60.Media;
-package Water "Package with model for liquid water with constant properties"
+within Annex60.Media.Water;
+package Detailed
+  "Package with model for liquid water with temperature-dependent density"
    extends Modelica.Media.Interfaces.PartialPureSubstance(
-     mediumName="Water",
+     mediumName="WaterDetailed",
      p_default=300000,
      reference_p=300000,
      reference_T=273.15,
@@ -81,7 +82,7 @@ revisions="<html>
 <ul>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
-First implementation, based on the IDA implementation in <code>therpro.nmf</code>, 
+First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
 but converted from Celsius to Kelvin and linearly extended.
 </li>
 </ul>
@@ -341,7 +342,7 @@ annotation (
 Documentation(info="<html>
 <p>
 This function returns the partial derivative of density
-with respect to pressure at constant temperature, 
+with respect to pressure at constant temperature,
 which is zero as the medium is incompressible.
 </p>
 </html>",
@@ -368,7 +369,7 @@ algorithm
   annotation (smoothOrder=1, Documentation(info=
                    "<html>
 <p>
-This function computes the derivative of density with respect to temperature 
+This function computes the derivative of density with respect to temperature
 at constant pressure.
 </p>
 </html>", revisions=
@@ -376,7 +377,7 @@ at constant pressure.
 <ul>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
-First implementation, based on the IDA implementation in <code>therpro.nmf</code>, 
+First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
 but converted from Celsius to Kelvin.
 </li>
 </ul>
@@ -457,7 +458,7 @@ The expression is obtained from Ramires et al. (1995).
 </p>
 <h4>References</h4>
 <p>
-Ramires, Maria L. V. and Nieto de Castro, Carlos A. and Nagasaka, Yuchi 
+Ramires, Maria L. V. and Nieto de Castro, Carlos A. and Nagasaka, Yuchi
 and Nagashima, Akira and Assael, Marc J. and Wakeham, William A.
 Standard Reference Data for the Thermal Conductivity of Water.
 <i>Journal of Physical and Chemical Reference Data</i>, 24, p. 1377-1381, 1995.
@@ -535,36 +536,17 @@ First implementation.
 </html>"));
 end molarMass;
 
-redeclare function setState_dTX
-    "Return the thermodynamic state as function of density d, temperature T and composition X or Xi"
-  extends Modelica.Icons.Function;
-  input Density d "Density";
-  input Temperature T "Temperature";
-  input MassFraction X[:]=reference_X "Mass fractions";
-  output ThermodynamicState state "Thermodynamic state";
-
-algorithm
-    state := ThermodynamicState(p=reference_p, T=T);
-    annotation (
-smoothOrder=99,
-Documentation(info="<html>
-<p>
-This function returns the thermodynamic state for a given density, temperature and composition.
-Because this medium assumes density to be a function of temperature only,
-this function ignores the argument <code>d</code>.
-The pressure that is used to set the state is equal to the constant
-<code>reference_p</code>.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-December 11, 2013, by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
-</html>"));
-end setState_dTX;
+  redeclare function setState_dTX
+    "Return thermodynamic state from d, T, and X or Xi"
+    extends Modelica.Icons.Function;
+    input Density d "Density";
+    input Temperature T "Temperature";
+    input MassFraction X[:]=reference_X "Mass fractions";
+    output ThermodynamicState state "Thermodynamic state record";
+  algorithm
+    assert(false,
+      "Pressure can not be computed from temperature and density for an incompressible fluid!");
+  end setState_dTX;
 
 redeclare function extends setState_phX
     "Return the thermodynamic state as function of pressure p, specific enthalpy h and composition X or Xi"
@@ -574,7 +556,7 @@ algorithm
 smoothOrder=99,
 Documentation(info="<html>
 <p>
-This function returns the thermodynamic state for a given pressure, 
+This function returns the thermodynamic state for a given pressure,
 specific enthalpy and composition.
 </p>
 </html>",
@@ -595,7 +577,7 @@ algorithm
 annotation (smoothOrder=99,
 Documentation(info="<html>
 <p>
-This function returns the thermodynamic state for a given pressure, 
+This function returns the thermodynamic state for a given pressure,
 temperature and composition.
 </p>
 </html>",
@@ -620,13 +602,13 @@ algorithm
 Inline=false,
 Documentation(info="<html>
 <p>
-This function returns the thermodynamic state based on pressure, 
+This function returns the thermodynamic state based on pressure,
 specific entropy and mass fraction.
 </p>
 <p>
 The state is computed by symbolically solving
-<a href=\"modelica://Annex60.Media.Water.specificEntropy\">
-Annex60.Media.Water.specificEntropy</a>
+<a href=\"modelica://Annex60.Media.Water.Detailed.specificEntropy\">
+Annex60.Media.Water.Detailed.specificEntropy</a>
 for temperature.
   </p>
 </html>", revisions="<html>
@@ -665,7 +647,7 @@ algorithm
 annotation (
 Documentation(info="<html>
 <p>
-This function computes the derivative of the specific heat capacity 
+This function computes the derivative of the specific heat capacity
 at constant pressure with respect to the state.
 </p>
 </html>",
@@ -737,16 +719,16 @@ This has been converted to Kelvin, which resulted in the above expression.
 In addition, at 5 &deg;C the kinematic viscosity is linearly extrapolated
 to avoid a large gradient at very low temperatures.
 We selected the same point for the linearization as we used for the density,
-as the density and the kinematic viscosity are combined in 
-<a href=\"modelica://Annex60.Media.Water.dynamicViscosity\">
-Annex60.Media.Water.dynamicViscosity</a>.
+as the density and the kinematic viscosity are combined in
+<a href=\"modelica://Annex60.Media.Water.Detailed.dynamicViscosity\">
+Annex60.Media.Water.Detailed.dynamicViscosity</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
-First implementation, based on the IDA implementation in <code>therpro.nmf</code>, 
+First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
 but converted from Celsius to Kelvin.
 </li>
 </ul>
@@ -756,6 +738,24 @@ end kinematicViscosity;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium package models liquid water.
+</p>
+<p>
+The mass density is computed using a 3rd order polynomial, which yields the
+density as a function of temperature as shown in the figure below. Note, however,
+that computing density as a function of temperature can lead to considerably
+slower computing time compared to using
+<a href=\"modelica://Annex60.Media.Water.Simple\">
+Annex60.Media.Water.Simple</a>
+in which the density is a constant. We therefore recommend to use
+<a href=\"modelica://Annex60.Media.Water.Simple\">
+Annex60.Media.Water.Simple</a>
+for typical building energy simulations.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Annex60/Resources/Images/Media/Water/Detailed/plotRho.png\" border=\"1\"
+alt=\"Mass density as a function of temperature\"/>
+</p>
+<p>
 For the specific heat capacities at constant pressure and at constant volume,
 a constant value of <i>4184</i> J/(kg K), which corresponds to <i>20</i>&deg;C
 is used.
@@ -763,16 +763,8 @@ The figure below shows the relative error of the specific heat capacity that
 is introduced by this simplification.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Media/Water/plotCp.png\" border=\"1\" 
+<img src=\"modelica://Annex60/Resources/Images/Media/Water/Detailed/plotCp.png\" border=\"1\"
 alt=\"Relative variation of specific heat capacity with temperature\"/>
-</p>
-<p>
-The mass density is computed using a 3rd order polynomial, which yields the following
-density as a function of temperature.
-</p>
-<p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Media/Water/plotRho.png\" border=\"1\" 
-alt=\"Mass density as a function of temperature\"/>
 </p>
 <p>
 The enthalpy is computed using the convention that <i>h=0</i>
@@ -780,10 +772,18 @@ if <i>T=0</i> &deg;C.
 </p>
 <h4>Limitations</h4>
 <p>
-Water is modeled as an incompressible liquid, and there are no phase changes.
+Specific heat capacity, thermal conductivity and viscosity are constant.
+Water is modeled as an incompressible liquid.
+There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 15, 2014, by Michael Wetter:<br/>
+Renamed from <code>Annex60.Media.Water</code> to
+<code>Annex60.Media.Water.Detailed</code> to allow addition of
+<code>Annex60.Media.Water.Simple</code>.
+</li>
 <li>
 September 12, 2014, by Michael Wetter:<br/>
 Set <code>T(start=T_default)</code> and <code>p(start=p_default)</code> in the
@@ -797,5 +797,12 @@ December 18, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
-end Water;
+</html>"),
+    Icon(graphics={
+        Ellipse(
+          lineColor={102,102,102},
+          fillColor={250,250,250},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Sphere,
+          extent={{-60,-60},{60,60}})}));
+end Detailed;

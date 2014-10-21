@@ -3,7 +3,7 @@ model ExpansionVessel "Test model for expansion vessel"
   extends Modelica.Icons.Example;
 
 // package Medium = Modelica.Media.Water.WaterIF97OnePhase_ph "Medium model";
- package Medium = Annex60.Media.Water "Medium model";
+ package Medium = Annex60.Media.Water.Simple "Medium model";
 
 
   Annex60.Fluid.Storage.ExpansionVessel expVes(

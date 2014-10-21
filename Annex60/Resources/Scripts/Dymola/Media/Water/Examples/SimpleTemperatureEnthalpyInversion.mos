@@ -1,4 +1,4 @@
-simulateModel("Annex60.Media.Examples.WaterTemperatureEnthalpyInversion", method="dassl", resultFile="WaterTemperatureEnthalpyInversion");
+simulateModel("Annex60.Media.Water.Examples.SimpleTemperatureEnthalpyInversion", method="dassl", resultFile="MediaExamplesWaterSimpleTemperatureEnthalpyInversion");
 createPlot(id = 1,
  position = {31, 30, 400, 280},
  y = {"T"},
