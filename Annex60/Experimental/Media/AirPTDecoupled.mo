@@ -70,7 +70,7 @@ required from medium model \""     + mediumName + "\".");
     // u= h-p*v = h-p/d = h-pStp/dStp
     u = h-pStp/dStp;
 
-    // In this medium model, the density depends only 
+    // In this medium model, the density depends only
     // on temperature, but not on pressure.
     //  d = p/(R*T);
     d/dStp = p/pStp;
@@ -150,7 +150,7 @@ end enthalpyOfGas;
 redeclare replaceable function extends enthalpyOfLiquid
     "Enthalpy of liquid (per unit mass of liquid) which is linear in the temperature"
 algorithm
-  h := (T - reference_T)*4186;
+  h := (T - reference_T)*cpWatLiq;
   annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid);
 end enthalpyOfLiquid;
 
@@ -652,20 +652,25 @@ protected
     Modelica.SIunits.SpecificHeatCapacity cv = cp-R
       "Specific heat capacity at constant volume";
     annotation (
+      preferredView="info",
       defaultComponentName="gas",
-      Documentation(preferredView="info", info="<html>
+      Documentation(info="<html>
 <p>
 This data record contains the coefficients for perfect gases.
 </p>
-</html>"), revisions=
-        "<html>
+</html>", revisions="<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Corrected the wrong location of the <code>preferredView</code>
+and the <code>revisions</code> annotation.
+</li>
 <li>
 November 21, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
   end GasProperties;
 
   // In the assignments below, we compute cv as OpenModelica
@@ -673,14 +678,16 @@ First implementation.
   constant GasProperties dryair(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
-    cp =   1006,
-    cv =   1006-Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
+    cp =   Annex60.Utilities.Psychrometrics.Constants.cpAir,
+    cv =   Annex60.Utilities.Psychrometrics.Constants.cpAir
+             -Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
     "Dry air properties";
   constant GasProperties steam(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
-    cp =   1860,
-    cv =   1860-Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
+    cp =   Annex60.Utilities.Psychrometrics.Constants.cpSte,
+    cv =   Annex60.Utilities.Psychrometrics.Constants.cpSte
+             -Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
     "Steam properties";
 
   constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
@@ -688,8 +695,12 @@ First implementation.
   constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
     "Molar masses of components";
 
-  constant Modelica.SIunits.SpecificEnergy h_fg = 2501014.5
+   constant Modelica.SIunits.SpecificEnergy h_fg=
+    Annex60.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of evaporation of water";
+  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
+    Annex60.Utilities.Psychrometrics.Constants.cpWatLiq
+    "Specific heat capacity of liquid water";
 
 replaceable function der_enthalpyOfLiquid
     "Temperature derivative of enthalpy of liquid per unit mass of liquid"
@@ -698,7 +709,7 @@ replaceable function der_enthalpyOfLiquid
   input Real der_T "Temperature derivative";
   output Real der_h "Derivative of liquid enthalpy";
 algorithm
-  der_h := 4186*der_T;
+  der_h := cpWatLiq*der_T;
 end der_enthalpyOfLiquid;
 
 function der_enthalpyOfCondensingGas
@@ -773,6 +784,13 @@ The air is assumed to be not saturated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 24, 2014, by Michael Wetter:<br/>
+Changed implementation to use 
+<a href=\"modelica://Annex60.Utilities.Psychrometrics.Constants\">
+Annex60.Utilities.Psychrometrics.Constants</a>.
+This was done to use consistent values throughout the library.
+</li>
 <li>
 November 16, 2013, by Michael Wetter:<br/>
 Revised and simplified the implementation.

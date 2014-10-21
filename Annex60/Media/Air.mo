@@ -11,6 +11,7 @@ package Air
                              Modelica.Media.IdealGases.Common.FluidData.N2},
      final reference_T=273.15,
      reference_p=101325);
+  extends Modelica.Icons.Package;
 
   final constant Integer Water=1
     "Index of water (in substanceNames, massFractions X, etc.)";
@@ -19,9 +20,11 @@ package Air
 
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
-  // during model check
-  redeclare record extends ThermodynamicState
-    "ThermodynamicState record for moist air"
+  // during model check, and to set the start values.
+  redeclare record extends ThermodynamicState(
+    p(start=p_default),
+    T(start=T_default),
+    X(start=X_default))
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
@@ -103,15 +106,15 @@ This function returns the dynamic viscosity.
 </p>
 <h4>Implementation</h4>
 <p>
-The function is based on the 5th order polynomial 
-of 
+The function is based on the 5th order polynomial
+of
 <a href=\"modelica://Modelica.Media.Air.MoistAir.dynamicViscosity\">
 Modelica.Media.Air.MoistAir.dynamicViscosity</a>.
 However, for the typical range of temperatures encountered
 in building applications, a linear function sufficies.
 This implementation is therefore the above 5th order polynomial,
 linearized around <i>20</i>&deg;C.
-The relative error of this linearization is 
+The relative error of this linearization is
 <i>0.4</i>% at <i>-20</i>&deg;C,
 and less then
 <i>0.2</i>% between  <i>-5</i>&deg;C and  <i>+50</i>&deg;C.
@@ -348,8 +351,16 @@ end pressure;
 redeclare function extends saturationPressure "Return the saturation pressure"
 
 algorithm
-  psat := Annex60.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
-  annotation(Inline=false,smoothOrder=5,
+  // Calling saturationPressure as below causes the commands
+  // simulate(Annex60.Utilities.Psychrometrics.Functions.Examples.X_pSatpphi);
+  // in OpenModelica to never return. 2014-10-04
+  //psat := Annex60.Utilities.Psychrometrics.Functions.saturationPressure(Tsat=Tsat);
+  psat := Annex60.Utilities.Math.Functions.spliceFunction(
+             Annex60.Utilities.Psychrometrics.Functions.saturationPressureLiquid(Tsat),
+             Annex60.Utilities.Psychrometrics.Functions.sublimationPressureIce(Tsat),
+             Tsat-273.16,
+             1.0);
+  annotation(Inline=true,smoothOrder=5,
 Documentation(info="<html>
 <p>
 This function computes the saturation pressure of the water vapor for a given temperature,
@@ -393,7 +404,7 @@ s = s<sub>s</sub> + s<sub>m</sub>,
 </p>
 <p>
 where
-<i>s<sub>s</sub></i> is the entropy change due to the state change 
+<i>s<sub>s</sub></i> is the entropy change due to the state change
 (relative to the reference temperature) and
 <i>s<sub>m</sub></i> is the entropy change due to mixing
 of the dry air and water vapor.
@@ -404,7 +415,7 @@ The entropy change due to change in state is obtained from
 s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(v/v<sub>0</sub>) <br/>
 = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(&rho;<sub>0</sub>/&rho;)
 </p>
-<p>Because <i>&rho; = p<sub>0</sub>/(R T)</i> for this medium model, 
+<p>Because <i>&rho; = p<sub>0</sub>/(R T)</i> for this medium model,
 and because <i>c<sub>p</sub> = c<sub>v</sub> + R</i>,
 we can write
 </p>
@@ -417,7 +428,7 @@ Next, the entropy of mixing is obtained from a reversible isothermal
 expansion process. Hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  s<sub>m</sub> = -R &sum;<sub>i</sub>( X<sub>i</sub> &frasl; M<sub>i</sub> 
+  s<sub>m</sub> = -R &sum;<sub>i</sub>( X<sub>i</sub> &frasl; M<sub>i</sub>
   ln(Y<sub>i</sub>)),
 </p>
 <p>
@@ -453,7 +464,7 @@ annotation (
 Documentation(info="<html>
 <p>
 This function returns the partial derivative of density
-with respect to pressure at constant temperature, 
+with respect to pressure at constant temperature,
 which is zero as the medium is incompressible.
 </p>
 </html>",
@@ -475,7 +486,7 @@ algorithm
   annotation (smoothOrder=1, Documentation(info=
                    "<html>
 <p>
-This function computes the derivative of density with respect to temperature 
+This function computes the derivative of density with respect to temperature
 at constant pressure.
 </p>
 </html>", revisions=
@@ -483,7 +494,7 @@ at constant pressure.
 <ul>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
-First implementation, based on the IDA implementation in <code>therpro.nmf</code>, 
+First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
 but converted from Celsius to Kelvin.
 </li>
 </ul>
@@ -667,7 +678,7 @@ annotation (
 Inline=false,
 Documentation(info="<html>
 <p>
-This function returns the thermodynamic state based on pressure, 
+This function returns the thermodynamic state based on pressure,
 specific entropy and mass fraction.
 </p>
 <p>
@@ -936,19 +947,26 @@ protected
     Modelica.SIunits.SpecificHeatCapacity cv = cp-R
       "Specific heat capacity at constant volume";
     annotation (
+      preferredView="info",
       defaultComponentName="gas",
-      Documentation(preferredView="info", info="<html>
+      Documentation(info="<html>
 <p>
 This data record contains the coefficients for perfect gases.
 </p>
-</html>"), revisions="<html>
+</html>", revisions=
+          "<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Corrected the wrong location of the <code>preferredView</code>
+and the <code>revisions</code> annotation.
+</li>
 <li>
 November 21, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
   end GasProperties;
 
   // In the assignments below, we compute cv as OpenModelica
@@ -956,14 +974,16 @@ First implementation.
   constant GasProperties dryair(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
-    cp =   1006,
-    cv =   1006-Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
+    cp =   Annex60.Utilities.Psychrometrics.Constants.cpAir,
+    cv =   Annex60.Utilities.Psychrometrics.Constants.cpAir
+             -Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
     "Dry air properties";
   constant GasProperties steam(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
-    cp =   1860,
-    cv =   1860-Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
+    cp =   Annex60.Utilities.Psychrometrics.Constants.cpSte,
+    cv =   Annex60.Utilities.Psychrometrics.Constants.cpSte
+            -Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
     "Steam properties";
 
   constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
@@ -971,9 +991,11 @@ First implementation.
   constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
     "Molar masses of components";
 
-  constant Modelica.SIunits.SpecificEnergy h_fg = 2501014.5
+  constant Modelica.SIunits.SpecificEnergy h_fg=
+    Annex60.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of evaporation of water";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
+  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
+    Annex60.Utilities.Psychrometrics.Constants.cpWatLiq
     "Specific heat capacity of liquid water";
 
 replaceable function der_enthalpyOfLiquid
@@ -1038,7 +1060,7 @@ algorithm
   annotation(smoothOrder=5, derivative=der_enthalpyOfDryAir,
 Documentation(info="<html>
 <p>
-This function computes the specific enthalpy of dry air. 
+This function computes the specific enthalpy of dry air.
 </p>
 </html>",
 revisions="<html>
@@ -1153,8 +1175,8 @@ end der_specificHeatCapacityCv;
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This medium package models moist air. 
-The specific heat capacities at constant pressure and at constant volume are 
+This medium package models moist air.
+The specific heat capacities at constant pressure and at constant volume are
 constant for the individual species dry air, water vapor and liquid water.
 The gas law is
 </p>
@@ -1165,7 +1187,7 @@ d = p<sub>0</sub>/(R T)
 where
 <i>&rho;</i> is the mass density,
 <i>p<sub>0</sub></i> is the atmospheric pressure, which is equal to the constant
-<code>reference_p</code>, with a default value of 
+<code>reference_p</code>, with a default value of
 <i>101325</i> Pascals,
 <i>R</i> is the gas constant of the mixture
 and
@@ -1178,7 +1200,7 @@ if <i>T=0</i> &deg;C and the water vapor content is zero.
 <h4>Limitations</h4>
 <p>
 This medium is modeled as incompressible. The pressure that is used
-to compute the physical properties is constant, and equal to 
+to compute the physical properties is constant, and equal to
 <code>reference_p</code>.
 </p>
 <p>
@@ -1188,6 +1210,27 @@ water were present in the form of vapor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 4, 2014, by Michael Wetter:<br/>
+Reformulated <code>saturationPressure</code> as the previous implementation
+caused OpenModelica to never return when executing
+<code>Annex60.Utilities.Psychrometrics.Functions.Examples.X_pSatpphi</code>.
+</li>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Set <code>T(start=T_default)</code> and <code>p(start=p_default)</code> in the
+<code>ThermodynamicState</code> record. Setting the start value for
+<code>T</code> is required to avoid an error due to conflicting start values
+when checking <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
+Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
+</li>
+<li>
+July 24, 2014, by Michael Wetter:<br/>
+Changed implementation to use
+<a href=\"modelica://Annex60.Utilities.Psychrometrics.Constants\">
+Annex60.Utilities.Psychrometrics.Constants</a>.
+This was done to use consistent values throughout the library.
+</li>
 <li>
 December 10, 2013, by Michael Wetter:<br/>
 Replaced <code>reference_p</code> by <code>p</code> in the <code>setState_pXX</code> functions.
@@ -1199,7 +1242,7 @@ to translate.
 <li>
 November 27, 2013, by Michael Wetter:<br/>
 Changed the gas law.
-</li> 
+</li>
 <li>
 November 15, 2013, by Michael Wetter:<br/>
 Revised and simplified the implementation.
@@ -1244,5 +1287,42 @@ August 18, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
+        Ellipse(
+          extent={{-72,74},{-28,30}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-30,-34},{14,-78}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-12,82},{32,38}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-84,-10},{-40,-54}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-16,28},{28,-16}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{42,-36},{86,-80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{54,54},{98,10}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120})}));
 end Air;

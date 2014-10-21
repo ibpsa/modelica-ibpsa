@@ -54,17 +54,23 @@ def _setEnvironmentVariables(var, value):
         os.environ[var] = value
 
 def _runUnitTests():
-    import buildingspy.development.unittest as u
+    import buildingspy.development.regressiontest as u
     ut = u.Tester()
     ut.batchMode(batch)
 #    ut.setNumberOfThreads(1)
 #    ut.deleteTemporaryDirectories(False)
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
 #    #print ut.getDataDictionary()
-#    ut.setSinglePackage("Annex60.Fluid.MassExchangers")
+#    ut.setSinglePackage("Annex60.Media.Water")
     retVal = ut.run()
     exit(retVal)
 
+def _runOpenModelicaUnitTests():
+    import buildingspy.development.regressiontest as u
+    ut = u.Tester()
+    ut.batchMode(batch)
+    ut.test_OpenModelica(cmpl=True, simulate=True,
+                         packages=['Examples'], number=-1)
 
 if __name__ == '__main__':
     import platform
@@ -101,4 +107,5 @@ if __name__ == '__main__':
 
 
     _runUnitTests()
+#   _runOpenModelicaUnitTests()
 
