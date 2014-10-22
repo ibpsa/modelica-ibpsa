@@ -12,3 +12,5 @@ TwoPortFlowResistanceParameters
 FourPortFlowResistanceParameters
 LumpedVolumeDeclarations
 Examples
+PartialTwoPort
+PartialTwoPortTransport

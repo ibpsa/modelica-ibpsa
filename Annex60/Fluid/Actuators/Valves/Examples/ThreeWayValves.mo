@@ -54,8 +54,7 @@ model ThreeWayValves "Three way valves with different opening characteristics"
     T=303.15)                                       annotation (Placement(
         transformation(extent={{10,-10},{-10,10}},  rotation=0,
         origin={64,-70})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
 equation
   connect(y.y, valLin.y) annotation (Line(
       points={{-19,40},{10,40},{10,14}},

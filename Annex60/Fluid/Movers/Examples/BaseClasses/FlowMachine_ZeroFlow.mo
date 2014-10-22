@@ -4,8 +4,7 @@ partial model FlowMachine_ZeroFlow
 
   package Medium = Annex60.Media.Air "Medium model";
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1
     "Nominal mass flow rate";
@@ -22,7 +21,7 @@ partial model FlowMachine_ZeroFlow
   Annex60.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_p_in=false,
-    p=system.p_ambient,
+    p=101325,
     T=293.15,
     nPorts=4) annotation (Placement(transformation(extent={{-88,-46},{-68,-26}},
           rotation=0)));
