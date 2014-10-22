@@ -10,7 +10,7 @@ partial model PartialTwoPortTransport
   // Note: value of dp_start shall be refined by derived model,
   // based on local dp_nominal
   // fixme: review dp_start. This does not make sense for most applications.
-  parameter Medium.AbsolutePressure dp_start = 0.01*101325
+  parameter Medium.AbsolutePressure dp_start = 0
     "Guess value of dp = port_a.p - port_b.p"
     annotation(Dialog(tab = "Advanced", enable=from_dp));
   parameter Medium.MassFlowRate m_flow_start = 0
