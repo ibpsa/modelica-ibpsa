@@ -1,24 +1,30 @@
 within Annex60.Fluid.Interfaces;
 partial model PartialTwoPortTransport
-  "Partial element transporting fluid between two ports without storage of mass or energy - without system block"
+  "Partial element transporting fluid between two ports without storage of mass or energy"
 
-  extends Annex60.Fluid.Interfaces.PartialTwoPort(final port_a_exposesState=false,
-      final port_b_exposesState=false);
+  extends Annex60.Fluid.Interfaces.PartialTwoPort(
+    final port_a_exposesState=false,
+    final port_b_exposesState=false);
 
   // Advanced
-  // Note: value of dp_start shall be refined by derived model, basing on local dp_nominal
+  // Note: value of dp_start shall be refined by derived model,
+  // based on local dp_nominal
+  // fixme: review dp_start. This does not make sense for most applications.
   parameter Medium.AbsolutePressure dp_start = 0.01*101325
     "Guess value of dp = port_a.p - port_b.p"
     annotation(Dialog(tab = "Advanced", enable=from_dp));
   parameter Medium.MassFlowRate m_flow_start = 0
     "Guess value of m_flow = port_a.m_flow"
     annotation(Dialog(tab = "Advanced", enable=not from_dp));
-  // Note: value of m_flow_small shall be refined by derived model, basing on local m_flow_nominal
-  parameter Medium.MassFlowRate m_flow_small = 1e-2
+  // Note: value of m_flow_small shall be refined by derived model,
+  // based on local m_flow_nominal
+  parameter Medium.MassFlowRate m_flow_small
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
 
   // Diagnostics
+  // fixme: verify whether show_T and show_V_flow are indeed used
+  //        in the Annex60 library.
   parameter Boolean show_T = true
     "= true, if temperatures at port_a and port_b are computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
@@ -57,15 +63,22 @@ protected
   Medium.ThermodynamicState state_b "state for medium inflowing through port_b";
 equation
   // medium states
-  state_a = Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow));
-  state_b = Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), inStream(port_b.Xi_outflow));
+  state_a = Medium.setState_phX(
+              port_a.p,
+              inStream(port_a.h_outflow),
+              inStream(port_a.Xi_outflow));
+  state_b = Medium.setState_phX(
+              port_b.p,
+              inStream(port_b.h_outflow),
+              inStream(port_b.Xi_outflow));
 
   // Pressure drop in design flow direction
   dp = port_a.p - port_b.p;
 
   // Design direction of mass flow rate
   m_flow = port_a.m_flow;
-  assert(m_flow > -m_flow_small or allowFlowReversal, "Reverting flow occurs even though allowFlowReversal is false");
+  assert(m_flow > -m_flow_small or allowFlowReversal,
+      "Reverting flow occurs even though allowFlowReversal is false");
 
   // Mass balance (no storage)
   port_a.m_flow + port_b.m_flow = 0;
@@ -87,7 +100,7 @@ Energy may be exchanged with the environment though, e.g., in the form of work.
 Three equations need to be added by an extending class using this component:
 </p>
 <ul>
-<li>the momentum balance specifying the relationship between the pressure drop <code>dp</code> and the mass flow rate <code>m_flow</code>,</li>
+<li>The momentum balance specifying the relationship between the pressure drop <code>dp</code> and the mass flow rate <code>m_flow</code>,</li>
 <li><code>port_b.h_outflow</code> for flow in design direction, and</li>
 <li><code>port_a.h_outflow</code> for flow in reverse direction.</li>
 </ul>
@@ -98,5 +111,15 @@ Moreover appropriate values shall be assigned to the following parameters:
 <li><code>dp_start</code> for a guess of the pressure drop</li>
 <li><code>m_flow_small</code> for regularization of zero flow.</li>
 </ul>
+<h4>Implementation</h4>
+<p>
+This is similar to
+<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
+Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>
+except that it does not use the <code>outer system</code> declaration.
+This declaration is omitted as in building energy simulation,
+many models use multiple media, an in practice,
+users have not used this global definition to assign parameters.
+</p>
 </html>"));
 end PartialTwoPortTransport;
