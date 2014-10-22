@@ -11,13 +11,13 @@ partial model PartialTwoPort "Partial component with two ports"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
      m_flow(min=if allowFlowReversal then -Constants.inf else 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
             rotation=0)));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Constants.inf else 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=
@@ -58,6 +58,7 @@ users have not used this global definition to assign parameters.
 <li>
 October 21, 2014, by Michael Wetter:<br/>
 Revised implementation.
+Declared medium in ports to be <code>final</code>.
 </li>
 <li>
 October 20, 2014, by Filip Jorisson:<br/>
