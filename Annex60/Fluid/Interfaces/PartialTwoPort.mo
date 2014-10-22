@@ -1,6 +1,5 @@
 within Annex60.Fluid.Interfaces;
-partial model PartialTwoPort
-  "Partial component with two ports"
+partial model PartialTwoPort "Partial component with two ports"
   import Modelica.Constants;
 
   replaceable package Medium =
@@ -54,6 +53,17 @@ This declaration is omitted as in building energy simulation,
 many models use multiple media, an in practice,
 users have not used this global definition to assign parameters.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 21, 2014, by Michael Wetter:<br/>
+Revised implementation.
+</li>
+<li>
+October 20, 2014, by Filip Jorisson:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Icon(coordinateSystem(
           preserveAspectRatio=true,
