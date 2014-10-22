@@ -60,7 +60,8 @@ protected
     m(start=V*rho_start),
     U(start=V*rho_start*Medium.specificInternalEnergy(
         state_start)),
-    nPorts=nPorts) if
+    nPorts=nPorts,
+    mFactor=mFactor) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
@@ -98,6 +99,7 @@ protected
   Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
     "Block to set sensible heat input into volume"
     annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
+
 equation
   ///////////////////////////////////////////////////////////////////////////
   // asserts
