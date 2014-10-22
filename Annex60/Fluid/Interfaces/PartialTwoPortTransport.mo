@@ -1,7 +1,6 @@
 within Annex60.Fluid.Interfaces;
 partial model PartialTwoPortTransport
   "Partial element transporting fluid between two ports without storage of mass or energy"
-
   extends Annex60.Fluid.Interfaces.PartialTwoPort(
     final port_a_exposesState=false,
     final port_b_exposesState=false);
@@ -9,7 +8,6 @@ partial model PartialTwoPortTransport
   // Advanced
   // Note: value of dp_start shall be refined by derived model,
   // based on local dp_nominal
-  // fixme: review dp_start. This does not make sense for most applications.
   parameter Medium.AbsolutePressure dp_start = 0
     "Guess value of dp = port_a.p - port_b.p"
     annotation(Dialog(tab = "Advanced", enable=from_dp));
@@ -23,8 +21,6 @@ partial model PartialTwoPortTransport
     annotation(Dialog(tab = "Advanced"));
 
   // Diagnostics
-  // fixme: verify whether show_T and show_V_flow are indeed used
-  //        in the Annex60 library.
   parameter Boolean show_T = true
     "= true, if temperatures at port_a and port_b are computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
