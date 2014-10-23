@@ -3,23 +3,11 @@ model HeatPumpOnOff "A heat pump that can only be switch on or off"
   extends IDEAS.Fluid.Production.BaseClasses.PartialHeatPump(redeclare replaceable parameter
       IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData heatPumpData constrainedby
       IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData);
-  extends IDEAS.Fluid.Interfaces.OnOffInterface(use_onOffSignal=true);
 
   // check https://github.com/open-ideas/IDEAS/issues/17 for a discussion on why CombiTable2D is used
-  Modelica.Blocks.Tables.CombiTable2D powerTable(              table=
-        heatPumpData.powerData, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    "Interpolation table for finding the electrical power"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Modelica.Blocks.Tables.CombiTable2D copTable(                table=
-        heatPumpData.copData, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    annotation (Placement(transformation(extent={{-60,54},{-40,74}})));
-    Real cop "COP of the heat pump";
 
 equation
-  cop = if on_internal then  copTable.y else 1;
-  P_el = if on_internal then  powerTable.y * sca else 0;
-  P_evap=P_el*(cop-1);
-  P_cond=P_el*cop;
+   compressorOn = on_internal and not tempProtection.y;
   connect(copTable.u2, powerTable.u2) annotation (Line(
       points={{-62,58},{-82,58},{-82,84},{-62,84}},
       color={0,0,127},
