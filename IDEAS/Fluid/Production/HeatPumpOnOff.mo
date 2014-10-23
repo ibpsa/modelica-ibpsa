@@ -7,7 +7,7 @@ model HeatPumpOnOff "A heat pump that can only be switch on or off"
   // check https://github.com/open-ideas/IDEAS/issues/17 for a discussion on why CombiTable2D is used
 
 equation
-   compressorOn = on_internal and not tempProtection.y;
+   compressorOn = on_internal and tempProtection.y;
   connect(copTable.u2, powerTable.u2) annotation (Line(
       points={{-62,58},{-82,58},{-82,84},{-62,84}},
       color={0,0,127},
