@@ -8,7 +8,8 @@ model ZoneExample
     V=2,
     allowFlowReversal=true)
          annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  CommonWall commonWall(
+  BoundaryWall
+             commonWall(
     redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
@@ -22,7 +23,7 @@ model ZoneExample
 
   inner SimInfoManager sim
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
-  InternalWall
+  BoundaryWall
              commonWall1(
     redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,

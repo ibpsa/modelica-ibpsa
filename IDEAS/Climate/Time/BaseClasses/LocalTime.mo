@@ -5,11 +5,14 @@ model LocalTime
 
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") "longitude";
 
-  Modelica.Blocks.Interfaces.RealInput timZon "time zone"
+  Modelica.Blocks.Interfaces.RealInput timZon(final quantity="Time", final unit=
+       "s") "time zone"
     annotation (Placement(transformation(extent={{-120,20},{-80,60}})));
-  Modelica.Blocks.Interfaces.RealInput timSim "simulation time"
+  Modelica.Blocks.Interfaces.RealInput timSim(final quantity="Time", final unit=
+       "s") "simulation time"
     annotation (Placement(transformation(extent={{-120,-60},{-80,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput timLoc "local time"
+  Modelica.Blocks.Interfaces.RealOutput timLoc(final quantity="Time", final unit=
+       "s") "local time"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 equation
