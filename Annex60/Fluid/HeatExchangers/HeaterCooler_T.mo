@@ -124,7 +124,7 @@ model HeaterCooler_T "Ideal heater or cooler with a prescribed outlet temperatur
   parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool(
     min=-Modelica.Constants.inf,max=0.0) = - Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
-  Modelica.Blocks.Interfaces.RealInput u(unit = "K") 
+  Modelica.Blocks.Interfaces.RealInput TSet(unit = "K") 
     "Control input (set temperature)"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}, rotation=0)));
   Modelica.SIunits.HeatFlowRate Q_flow=-preHea.port.Q_flow
@@ -144,11 +144,11 @@ equation
       points={{-20,60},{-9,60},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(u, preHea.TSet) annotation (Line(
+  connect(TSet, preHea.TSet) annotation (Line(
       points={{-120,60},{-40,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
@@ -175,7 +175,7 @@ equation
         Text(
           extent={{-122,106},{-78,78}},
           lineColor={0,0,255},
-          textString="u")}),
+          textString="TSet")}),
 defaultComponentName="hea",
 Documentation(info="<html>
 <p>
@@ -188,7 +188,7 @@ If the maximum positive or negative value is greater than <code>Q_flow_maxHeat</
 the ideal heating or cooling demand of the heater/cooler the default value of the parameter <code>Q_flow_maxHeat</code>
 is set to <code>Modelica.Constant.inf</code> and <code>Q_flow_maxCool</code> to <code>-Modelica.Constant.inf</code>.
 
-The input signal <code>u</code> (set temperature in K) has to be positive and the calculated heat flow rate <code>Q_flow</code> 
+The input signal <code>TSet</code> (set temperature in K) has to be positive and the calculated heat flow rate <code>Q_flow</code> 
 can be positive or negative.
 </p>
 </html>",

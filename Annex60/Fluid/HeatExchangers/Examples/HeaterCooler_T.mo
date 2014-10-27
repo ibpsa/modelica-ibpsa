@@ -98,7 +98,7 @@ equation
       points={{60,100},{100,100},{100,47},{120,47}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSetHeat.y, heaterStrongPower.u) annotation (Line(
+  connect(TSetHeat.y, heaterStrongPower.TSet) annotation (Line(
       points={{-39,150},{-12,150},{-12,106},{-2,106}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -114,7 +114,7 @@ equation
       points={{70,34},{100,34},{100,49},{120,49}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSetCool.y, coolerWeakPower.u) annotation (Line(
+  connect(TSetCool.y, coolerWeakPower.TSet) annotation (Line(
       points={{-65,12},{-12,12},{-12,40},{-2,40}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -130,7 +130,7 @@ equation
       points={{70,-24},{100,-24},{100,48},{120,48},{120,51}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSetCoolHeat.y, idealHeaterAndCoolerWrongFlowDirection.u) annotation 
+  connect(TSetCoolHeat.y, idealHeaterAndCoolerWrongFlowDirection.TSet) annotation 
     (Line(
       points={{-63,-28},{-54,-28},{-54,-50},{28,-50},{28,-64},{24,-64}},
       color={0,0,127},
@@ -150,7 +150,7 @@ equation
 
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSetCoolHeat.y, idealHeaterAndCooler.u) annotation (Line(
+  connect(TSetCoolHeat.y, idealHeaterAndCooler.TSet) annotation (Line(
       points={{-63,-28},{-22,-28},{-22,-18},{0,-18}},
       color={0,0,127},
       smooth=Smooth.None));
