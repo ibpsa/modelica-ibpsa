@@ -34,9 +34,9 @@ protected
   parameter Real delta_h_min=100 "minimum enthalpy difference to compute k";
 equation
   der(k_state) = if dynamicValve then (k-k_state)/tau else 0;
+  delta_h = inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow);
 
-  delta_h = noEvent( if abs(inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow)) > delta_h_min then inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow) elseif inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow) > 0 then  delta_h_min else -delta_h_min);
-  k = (h_set-inStream(port_a1.h_outflow))/delta_h;
+  k = IDEAS.Utilities.Math.Functions.spliceFunction(x=abs(delta_h)-delta_h_min, pos=(h_set-inStream(port_a1.h_outflow))/delta_h, neg=0.5, deltax=delta_h_min);
   m_flow_a2=-port_b.m_flow*IDEAS.Utilities.Math.Functions.smoothMin(IDEAS.Utilities.Math.Functions.smoothMax(if dynamicValve then k_state else k,y_min,0.001),y_max,0.001);
   connect(realExpression.y, idealSource.m_flow_in) annotation (Line(
       points={{32,-50},{8,-50}},
