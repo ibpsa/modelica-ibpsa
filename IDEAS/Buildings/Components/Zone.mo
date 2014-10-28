@@ -34,7 +34,7 @@ protected
     redeclare package Medium = Medium,
     m_flow_nominal=V/3600*n50/20,
     V=V,
-    n50=0.1,
+    n50=n50,
     allowFlowReversal=allowFlowReversal,
     show_T=false)
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
@@ -81,6 +81,8 @@ public
   parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Assumptions"));
+  outer Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
 
   connect(radDistr.radGain, gainRad) annotation (Line(

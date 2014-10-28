@@ -21,6 +21,11 @@ record HeatPumpData "Data record for storing data for an on/off heat pump"
     "Thermal conductivity between the evaporator and the environment";
   Modelica.SIunits.Power P_the_nominal "nominal thermal power of the heat pump";
 
+  Modelica.SIunits.Temperature T_evap_min = 273.15
+    "Temperature protection threshold evaporator";
+  Modelica.SIunits.Temperature T_cond_max = 273.15 + 60
+    "Temperature protection threshold condensor";
+
   annotation (Documentation(revisions="<html>
 <ul>
 <li>March 2014 by Filip Jorissen:<br/> 

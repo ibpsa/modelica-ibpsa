@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation;
 model BESTEST
 
-  extends Modelica.Icons.RotationalSensor;
+  extends Modelica.Icons.Example;
 
   /*
 
@@ -10,10 +10,13 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
 */
 
   inner IDEAS.SimInfoManager sim(
-    redeclare IDEAS.Climate.Meteo.Files.min60 detail,
-    redeclare IDEAS.Climate.Meteo.Locations.BesTest city,
     occBeh=false,
-    PV=false) annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
+    PV=false,
+    filNam="BESTEST.TMY",
+    lat=0.69464104229374,
+    lon=-1.8308503853421,
+    timZonSta=-25200)
+              annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
 
   // BESTEST 600 Series
 
@@ -52,6 +55,8 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
     annotation (Placement(transformation(extent={{44,4},{56,16}})));
   replaceable Cases.Case950FF Case950FF constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{64,4},{76,16}})));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
   annotation (
     experiment(
       StopTime=3.1536e+007,
