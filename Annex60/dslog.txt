@@ -1,0 +1,28 @@
+Log-file of program ./dymosim
+(generated: Tue Oct 28 10:29:35 2014)
+
+dymosim started
+... "dsin.txt" loading (dymosim input file)
+... loading "tab" from "C:/Users/christo/VirtualBox/modelica-annex60-issue45_benchmarks/Annex60/Experimental/Benchmarks/CentralHeatingSystem/COP_try.prn"
+... "System1.mat" creating (simulation result file)
+
+Integration started at T = 0 using integration method DASSL
+(DAE multi-step solver (dassl/dasslrt of Petzold modified by Dynasim))
+Integration terminated successfully at T = 31536000
+   CPU-time for integration      : 1.63 seconds
+   CPU-time for one GRID interval: 3.25 milli-seconds
+   Number of result points       : 611
+   Number of GRID   points       : 501
+   Number of (successful) steps  : 9882
+   Number of F-evaluations       : 49600
+   Number of H-evaluations       : 10834
+   Number of Jacobian-evaluations: 3740
+   Number of (model) time events : 0
+   Number of (U) time events     : 0
+   Number of state    events     : 55
+   Number of step     events     : 0
+   Minimum integration stepsize  : 0.000454
+   Maximum integration stepsize  : 3.34e+004
+   Maximum integration order     : 3
+Calling terminal section
+... "dsfinal.txt" creating (final states)

@@ -11,4 +11,5 @@ StaticTwoPortConservationEquation
 TwoPortFlowResistanceParameters
 FourPortFlowResistanceParameters
 LumpedVolumeDeclarations
+TemperatureControlledHeatFlow
 Examples

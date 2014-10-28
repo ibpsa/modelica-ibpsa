@@ -126,7 +126,7 @@ equation
       points={{-14,-48},{-10,-48}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hea.u, TSet.y) annotation (Line(
+  connect(hea.TSet, TSet.y) annotation (Line(
       points={{12,-42},{15.8,-42}},
       color={0,0,127},
       smooth=Smooth.None));
