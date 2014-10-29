@@ -8,8 +8,8 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
      final X_start = Medium.X_default,
      final C_start = fill(0, Medium.nC),
      final C_nominal = fill(1E-2, Medium.nC),
-     mFactor=1 + 500*mDry/(VWat*cp_nominal*Medium.density(
-        Medium.setState_pTX(Medium.p_default, T_a_nominal, Medium.X_default))));
+     final mFactor = 1 + 500*mDry/(VWat*cp_nominal*Medium.density(
+        Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))));
 
   parameter Integer nEle(min=1) = 5
     "Number of elements used in the discretization";
@@ -356,6 +356,17 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 29, 2014, by Michael Wetter:<br/>
+Made assignment of <code>mFactor</code> final, and changed computation of
+density to use default medium states as are also used to compute the
+specific heat capacity.
+</li>
+<li>
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> and removed thermal capacity
+which can lead to an index reduction.
+</li>
 <li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
