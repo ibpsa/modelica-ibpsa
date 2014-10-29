@@ -37,7 +37,7 @@ record LumpedVolumeDeclarations "Declarations for lumped volumes"
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   parameter Real mFactor=1
-    "Optional factor for scaling the thermal mass of the mixing volume"
+    "Factor to scale the thermal mass of the volume"
     annotation(Dialog(tab="Advanced"));
 
 annotation (preferredView="info",

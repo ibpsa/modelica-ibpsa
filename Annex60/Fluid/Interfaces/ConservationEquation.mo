@@ -8,7 +8,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure";
   parameter Real mFactor = 1
-    "Optional factor for scaling the thermal mass of the mixing volume";
+    "Factor to scale the thermal mass of the volume";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
