@@ -11,27 +11,31 @@ model CubicHermite "Test problem for cubic hermite splines"
   Real x "Independent variable";
   Real y "Dependent variable without monotone interpolation";
   Real yMonotone "Dependent variable with monotone interpolation";
-  Integer i "Integer to select data interval";
+protected
+  discrete Integer i "Integer to select data interval";
 initial algorithm
   // Get the derivative values at the support points
-  d := Annex60.Utilities.Math.Functions.splineDerivatives(
+  d :=Annex60.Utilities.Math.Functions.splineDerivatives(
     x=xd,
     y=yd,
     ensureMonotonicity=false);
-  dMonotone := Annex60.Utilities.Math.Functions.splineDerivatives(x=xd, y=yd,
-      ensureMonotonicity=true);
-algorithm
-  x := xd[1] + time*1.2*(xd[size(xd, 1)] - xd[1]) - 0.5;
-  // i is a counter that is used to pick the derivative of d or dMonotonic
+  dMonotone :=Annex60.Utilities.Math.Functions.splineDerivatives(
+    x=xd,
+    y=yd,
+    ensureMonotonicity=true);
+
+    // i is a counter that is used to pick the derivative of d or dMonotonic
   // that correspond to the interval that contains x
-  i := 1;
-  for j in 1:size(xd, 1) - 1 loop
-    if x > xd[j] then
-      i := j;
-    end if;
-  end for;
-  // Extrapolate or interpolate the data
-  y := Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+algorithm
+  x :=xd[1] + time*1.2*(xd[size(xd, 1)] - xd[1]) - 0.5;
+  i :=Annex60.Utilities.Math.Functions.searchIndex1D(
+    xd,
+    x,
+    pre(i),
+    false);
+
+ // Extrapolate or interpolate the data
+ y :=Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
     x=x,
     x1=xd[i],
     x2=xd[i + 1],
@@ -39,8 +43,7 @@ algorithm
     y2=yd[i + 1],
     y1d=d[i],
     y2d=d[i + 1]);
-  yMonotone :=
-    Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
+  yMonotone :=Annex60.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
     x=x,
     x1=xd[i],
     x2=xd[i + 1],
@@ -48,7 +51,8 @@ algorithm
     y2=yd[i + 1],
     y1d=dMonotone[i],
     y2d=dMonotone[i + 1]);
-  annotation (
+
+      annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
     __Dymola_Commands(file=
