@@ -11,8 +11,8 @@ model Heating_Embedded_DHW_STS
    extends IDEAS.HeatingSystems.Interfaces.Partial_HydraulicHeating(
     final isHea=true,
     final isCoo=false,
-    final nConvPorts=0,
-    final nRadPorts=0,
+    final nConvPorts=nZones,
+    final nRadPorts=nZones,
     final nTemSen=nZones,
     final nEmbPorts=nZones,
     nLoads=1,
@@ -125,6 +125,12 @@ model Heating_Embedded_DHW_STS
         Medium, m_flow_nominal=sum(m_flow_nominal))
     "Temperature at the outlet of the storage tank heat exchanger (port_bHX)"
     annotation (Placement(transformation(extent={{-66,-54},{-78,-42}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow1[
+    nRadPorts](Q_flow=0)
+    annotation (Placement(transformation(extent={{-140,-32},{-160,-12}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[
+    nConvPorts](Q_flow=0)
+    annotation (Placement(transformation(extent={{-142,8},{-162,28}})));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow) + QDHW;
   P[1] = heater.PEl + pumpSto.PEl + sum(pumpRad.PEl);
@@ -210,6 +216,14 @@ equation
   connect(senTemStoHX_out.port_b, heater.port_a) annotation (Line(
       points={{-78,-48},{-106,-48},{-106,17.4545},{-114,17.4545}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(prescribedHeatFlow1.port, heatPortRad) annotation (Line(
+      points={{-160,-22},{-180,-22},{-180,-20},{-200,-20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(prescribedHeatFlow.port, heatPortCon) annotation (Line(
+      points={{-162,18},{-180,18},{-180,20},{-200,20}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
