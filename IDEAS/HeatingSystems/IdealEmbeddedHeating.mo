@@ -5,12 +5,11 @@ model IdealEmbeddedHeating
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,
-    final nConvPorts = nZones,
-    final nRadPorts = nZones,
-    final nTemSen = nZones,
-    final nEmbPorts=nZones,
-    final nLoads=1,
-    nZones=nZones);
+    nConvPorts = nZones,
+    nRadPorts = nZones,
+    nTemSen = nZones,
+    nEmbPorts=nZones,
+    nLoads=1);
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow1[
     nRadPorts](Q_flow=0)
     annotation (Placement(transformation(extent={{-142,-30},{-162,-10}})));
