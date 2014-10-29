@@ -1,7 +1,6 @@
 within Annex60.Fluid.Interfaces;
 model ConservationEquation "Lumped volume with mass and energy balance"
 
-
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
@@ -255,6 +254,10 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> to increase the thermal capacity.
+</li>
 <li>
 October 6, 2014, by Michael Wetter:<br/>
 Changed medium declaration in ports to be final.

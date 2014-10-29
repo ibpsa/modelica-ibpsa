@@ -62,6 +62,10 @@ Annex60.Rooms.BaseClasses.MixedAir</a>.
 revisions="<html>
 <ul>
 <li>
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> to increase the thermal capacity.
+</li>
+<li>
 August 2, 2011, by Michael Wetter:<br/>
 Set <code>substanceDynamics</code> and <code>traceDynamics</code> to final
 and equal to <code>energyDynamics</code>, 

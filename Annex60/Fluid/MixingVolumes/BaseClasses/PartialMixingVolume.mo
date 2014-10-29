@@ -61,7 +61,7 @@ protected
     U(start=V*rho_start*Medium.specificInternalEnergy(
         state_start)),
     nPorts=nPorts,
-    mFactor=mFactor) if
+    final mFactor=mFactor) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
@@ -171,6 +171,16 @@ Annex60.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 29, 2014, by Michael Wetter:<br/>
+Made assignment of <code>mFactor</code> final, and changed computation of
+density to use default medium states as are also used to compute the
+specific heat capacity.
+</li>
+<li>
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> to increase the thermal capacity.
+</li>
 <li>
 July 3, 2014, by Michael Wetter:<br/>
 Added parameter <code>initialize_p</code>. This is required
