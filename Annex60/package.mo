@@ -9,7 +9,7 @@ package UsersGuide "User's Guide"
     annotation (preferredView="info",
     Documentation(info="<html>
 <p>
-This library follows the conventions of the 
+This library follows the conventions of the
 <a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>, which are as follows:
 </p>
 
@@ -77,7 +77,7 @@ in addition to the ones of the Modelica Standard Library:
 The nomenclature used in the package
 <a href=\"modelica://Annex60.Utilities.Psychrometrics\">
 Annex60.Utilities.Psychrometrics</a>
- is as follows, 
+ is as follows,
 <ul>
 <li>
 Uppercase <code>X</code> denotes mass fraction per total mass.
@@ -90,7 +90,7 @@ The notation <code>z_xy</code> denotes that the function or block has output
 <code>z</code> and inputs <code>x</code> and <code>y</code>.
 </li>
 <li>
-The symbol <code>pW</code> denotes water vapor pressure, <code>TDewPoi</code> 
+The symbol <code>pW</code> denotes water vapor pressure, <code>TDewPoi</code>
 denotes dew point temperature, <code>TWetBul</code> denotes wet bulb temperature,
 and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature.
 </li>
@@ -142,7 +142,7 @@ This section summarizes the changes that have been performed
 on the <code>Annex60</code> library.
 </p>
 <ul>
-<li> 
+<li>
 <a href=\"modelica://Annex60.UsersGuide.ReleaseNotes.Version_0_1_build0\">Version 0.1</a>(September xxx , 2013)
 </li>
 </ul>
@@ -158,7 +158,7 @@ on the <code>Annex60</code> library.
 <h4><font color=\"#008000\" size=5>Contact</font></h4>
 <p>
 The development of the <code>Annex60</code> library is done through the
-<a href=\"http://www.iea-annex60.org\">Annex 60</a> project of the 
+<a href=\"http://www.iea-annex60.org\">Annex 60</a> project of the
 Energy in Buildings and Communities Programme
 of the
 International Energy Agency.
@@ -167,7 +167,7 @@ International Energy Agency.
 Library point of contact<br/>
 <a href=\"http://simulationresearch.lbl.gov/wetter\">Michael Wetter</a><br/>
     Lawrence Berkeley National Laboratory (LBNL)<br/>
-    One Cyclotron Road<br/> 
+    One Cyclotron Road<br/>
     Bldg. 90-3147<br/>
     Berkeley, CA 94720<br/>
     USA<br/>
@@ -209,6 +209,7 @@ xxx add contributors for the first version in alphabetical order.
 </html>
 "));
   end Acknowledgements;
+
 
   class License "Modelica License 2"
     extends Modelica.Icons.Information;
@@ -420,15 +421,29 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-The <code>Buildings</code> library is a free open-source library for modeling of building energy and control systems. 
+The Modelica <code>Annex60</code> library is a free open-source library 
+with basic models that
+codify best practices for the implementation of models for
+building and community energy and control systems.
+The library is developed within the Annex 60 project
+<a href=\"http://www.iea-annex60.org\">http://www.iea-annex60.org</a>
+of the International Energy Agency's Energy in Buildings and Communities Programme.
+</p>
+<p>
 Many models are based on models from the package
 <a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a> and use
 the same ports to ensure compatibility with models from that library.
+However, a design change is that models from the <code>Annex60</code>
+library do not require the use of
+<a href=\"modelica://Modelica.Fluid.Systems\">Modelica.Fluid.Systems</a>
+as applications in buildings often have multiple fluids with largely varying
+flow rates, and therefore a global declaration is impractical.
 </p>
 <p>
-The web page for this library is
-<a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>. 
-We welcome contributions from different users to further advance this library, 
+The development page for this library is
+<a href=\"https://github.com/iea-annex60/modelica-annex60\">
+https://github.com/iea-annex60/modelica-annex60</a>.
+We welcome contributions from different users to further advance this library,
 whether it is through collaborative model development, through model use and testing
 or through requirements definition or by providing feedback regarding the model applicability
 to solve specific problems.
@@ -436,36 +451,7 @@ to solve specific problems.
 <p>
 The library has the following <i>User's Guides</i>:
 </p>
-<ol>
-<li>
-General information about the use of the <code>Buildings</code> library
-is available at
-<a href=\"http://simulationresearch.lbl.gov/modelica/userGuide\">
-http://simulationresearch.lbl.gov/modelica/userGuide</a>.
-This web site covers general information that is not specific to the 
-use of individual sublibraries or models.
-Discussed topics include 
-how to get started, best practices, how to post-process results using Python,
-work-around for problems and how to develop models.<br/>
-</li>
-<li>
-Some of the main sublibraries have their own
-User's Guides that can be accessed by the links below.
-These User's Guides are discussing items that are specific to the
-individual libraries.<br/>
 <table summary=\"summary\" border=1 cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\"><a href=\"modelica://Annex60.Airflow.Multizone.UsersGuide\">Airflow.Multizone</a>
-   </td>
-   <td valign=\"top\">Package for multizone airflow and contaminant transport.</td>
-</tr>
-<tr><td valign=\"top\"><a href=\"modelica://Annex60.BoundaryConditions.UsersGuide\">BoundaryConditions</a>
-   </td>
-   <td valign=\"top\">Package for computing boundary conditions, such as solar irradiation.</td>
-</tr>
-<tr><td valign=\"top\"><a href=\"modelica://Annex60.BoundaryConditions.WeatherData.UsersGuide\">BoundaryConditions.WeatherData</a>
-   </td>
-   <td valign=\"top\">Package for reading weather data.</td>
-</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.UsersGuide\">Fluid</a>
    </td>
    <td valign=\"top\">Package for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
@@ -474,10 +460,6 @@ individual libraries.<br/>
    </td>
    <td valign=\"top\">Package with valves and air dampers.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.HeatExchangers.DXCoils.UsersGuide\">Fluid.HeatExchangers.DXCoils</a>
-   </td>
-   <td valign=\"top\">Package with direct evaporative cooling coils.</td>
-</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.Movers.UsersGuide\">Fluid.Movers</a>
    </td>
    <td valign=\"top\">Package with fans and pumps.</td>
@@ -485,34 +467,11 @@ individual libraries.<br/>
 <tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">Fluid.Sensors</a>
    </td>
    <td valign=\"top\">Package with sensors.</td>
-<tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.SolarCollectors.UsersGuide\">Fluid.SolarCollectors</a>
-   </td>
-   <td valign=\"top\">Package with solar collectors.</td>
-</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.Interfaces.UsersGuide\">Fluid.Interfaces</a>
    </td>
    <td valign=\"top\">Base models that can be used by developers to implement new models.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Annex60.HeatTransfer.UsersGuide\">HeatTransfer</a>
-   </td>
-   <td valign=\"top\">Package for heat transfer in building constructions.</td>
-</tr>
-<tr><td valign=\"top\"><a href=\"modelica://Annex60.Rooms.UsersGuide\">Rooms</a>
-   </td>
-   <td valign=\"top\">Package for heat transfer in rooms and through the building envelope.</td>
-</tr>
-<tr><td valign=\"top\"><a href=\"modelica://Annex60.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
-   </td>
-   <td valign=\"top\">Package to call Python functions from Modelica.</td>
-</tr></table><br/>
-</li>
-<li>
-There is also a tutorial available at 
-<a href=\"modelica://Annex60.Examples.Tutorial\">
-Annex60.Examples.Tutorial</a>.
-The tutorial contains step by step instructions for how to build system models.
-</li>
-</ol>
+</table>
 </html>"));
 end UsersGuide;
 
@@ -527,14 +486,14 @@ uses(Modelica(version="3.2.1")),
 preferredView="info",
 Documentation(info="<html>
 <p>
-<img 
+<img
 align=\"right\"
 alt=\"Logo of IEA EBC\"
 width=\"100\"
 src=\"modelica://Annex60/Resources/Images/iea-ebc-logo.png\" border=\"1\"/>
 The <code>Annex60</code> library is a free library
 that provides basic classes for the development of
-Modelica libraries for building and community energy and control systems. 
+Modelica libraries for building and community energy and control systems.
 The library is compatible with models from the Modelica Standard Library,
 in particular with models from
 <a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a>
@@ -544,10 +503,52 @@ and
 <p>
 The library is developed through the international collaborative project
 <i>New Generation Computational Tools for Building and Community Energy Systems</i>
-that is carried out within the implementation agreement 
+that is carried out within the implementation agreement
 <i>Energy in Buildings and Communities (EBC)</i>
 from the <i>International Energy Agency</i>.
 </p>
+<p>
+The intent of the library is that classes of this library will be extended by
+implementations of Modelica libraries that are targeted to end-users.
+Major goals are
+</p>
+<ul>
+<li>to codify best practice and to provide a solid foundation onto which
+other libraries for building and community energy systems can be built, and
+</li>
+<li>
+to avoid a fragmentation of libraries that serve similar purpose but
+that cannot share models among each others, thereby duplicating efforts
+for model development and validation.
+</li>
+</ul>
+<p>
+Hence, this library is typically not used directly by end-users,
+but rather by developers of libraries that will be distributed to end-users.
+Libraries that are using the <code>Annex60</code> library as their core, or
+that are working on using the <code>Annex60</code> as their core, include, in
+alphabetic order:
+</p>
+<ul>
+<li>
+The <code>AixLib</code> library from RWTH Aachen, Germany, available at
+<a href=\"https://github.com/RWTH-EBC/AixLib\">https://github.com/RWTH-EBC/AixLib</a>
+</li>
+<li>
+The <code>Buildings</code> library from Lawrence Berkeley National Laboratory, Berkeley, CA, available at
+<a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica/</a>.
+</li>
+<li>
+The <code>BuildingSystems</code> library from
+Universit&auml;t der K&uuml;nste Berlin, Germany,
+available at
+<a href=\"http://www.modelica-buildingsystems.de/\">http://www.modelica-buildingsystems.de/</a>.
+</li>
+<li>
+The <code>IDEAS</code> library from KU Leuven, Belgium, available at
+<a href=\"https://github.com/open-ideas/IDEAS\">https://github.com/open-ideas/IDEAS</a>.
+</li>
+</ul>
 <p>
 The web page for this library is
 <a href=\"https://github.com/iea-annex60/modelica-annex60\">https://github.com/iea-annex60/modelica-annex60</a>.
