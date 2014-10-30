@@ -114,7 +114,7 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
-<ul>
+<li>
 February 11, 2014 by Michael Wetter:<br/>
 Redesigned implementation of latent and sensible heat flow rates
 as port of the correction of issue

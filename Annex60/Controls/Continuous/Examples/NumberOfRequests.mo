@@ -35,7 +35,7 @@ for each input signal that is strictly larger than <i>0</i>.
 The figure below shows the inputs and the output of the block.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Annex60/Resources/Images/Controls/Continuous/Examples/NumberOfRequests.png\" border=\"1\">
+<img alt=\"Simulation results\" src=\"modelica://Annex60/Resources/Images/Controls/Continuous/Examples/NumberOfRequests.png\" border=\"1\" />
 </p>
 </html>"));
 end NumberOfRequests;
