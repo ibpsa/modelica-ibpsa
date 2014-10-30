@@ -1,6 +1,7 @@
-within IDEAS.Media.Examples;
+within IDEAS.Media.Water.Examples;
 package BaseClasses "Package with base classes for IDEAS.Media.Examples"
   extends Modelica.Icons.BasesPackage;
+
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

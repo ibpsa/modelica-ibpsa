@@ -22,12 +22,6 @@ model PartialDynamicHeaterWithLosses
   final parameter Modelica.SIunits.ThermalConductance UALoss=(cDry + mWater*
       Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default,Medium.X_default)))/tauHeatLoss;
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mDry(C=cDry, T(start=
-          T_start)) "Lumped dry mass subject to heat exchange/accumulation"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-40,-30})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalLosses(G=
         UALoss) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -68,7 +62,8 @@ model PartialDynamicHeaterWithLosses
     from_dp=from_dp,
     linearizeFlowResistance=linearizeFlowResistance,
     deltaM=deltaM,
-    homotopyInitialization=homotopyInitialization)
+    homotopyInitialization=homotopyInitialization,
+    vol(mFactor=1 + cDry/Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))/mWater))
          annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -90,16 +85,8 @@ model PartialDynamicHeaterWithLosses
     annotation (Dialog(tab="Flow resistance"));
 equation
 
-  connect(mDry.port, thermalLosses.port_a) annotation (Line(
-      points={{-30,-30},{-30,-60}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(thermalLosses.port_b, heatPort) annotation (Line(
       points={{-30,-80},{-30,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(mDry.port, pipe_HeatPort.heatPort) annotation (Line(
-      points={{-30,-30},{-32,-30},{-32,-6},{28,-6}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pipe_HeatPort.port_b, port_b) annotation (Line(
@@ -113,6 +100,10 @@ equation
   connect(Tin.port_b, pipe_HeatPort.port_a) annotation (Line(
       points={{54,-40},{38,-40},{38,-16}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipe_HeatPort.heatPort, thermalLosses.port_a) annotation (Line(
+      points={{28,-6},{-30,-6},{-30,-60}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,120}},

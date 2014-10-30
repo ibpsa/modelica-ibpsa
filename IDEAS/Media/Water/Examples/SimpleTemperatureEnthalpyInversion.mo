@@ -1,12 +1,12 @@
-within IDEAS.Media.Examples;
-model AirTemperatureEnthalpyInversion
+within IDEAS.Media.Water.Examples;
+model SimpleTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse"
   extends Modelica.Icons.Example;
   extends IDEAS.Media.Examples.BaseClasses.TestTemperatureEnthalpyInversion(
-    redeclare package Medium = IDEAS.Media.Air);
+    redeclare package Medium = IDEAS.Media.Water.Simple);
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Media/Examples/AirTemperatureEnthalpyInversion.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Media/Water/Examples/SimpleTemperatureEnthalpyInversion.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -22,4 +22,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AirTemperatureEnthalpyInversion;
+end SimpleTemperatureEnthalpyInversion;

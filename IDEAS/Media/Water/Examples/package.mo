@@ -1,12 +1,13 @@
-within IDEAS.Media;
-package Examples "Collection of models that test the media models"
+within IDEAS.Media.Water;
+package Examples "Collection of models that test the water models"
   extends Modelica.Icons.ExamplesPackage;
+
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains examples that test the media packages in
-<a href=\"modelica://IDEAS.Media\">
-IDEAS.Media</a>.
+<a href=\"modelica://IDEAS.Media.Water\">
+IDEAS.Media.Water</a>.
 </p>
 </html>"));
 end Examples;

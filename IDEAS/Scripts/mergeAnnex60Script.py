@@ -19,4 +19,5 @@ else:
         json.dump(data, dataFile)
 
 mer = m.Annex60(annex60_dir, dest_dir) 
+mer.set_excluded_packages(["Experimental", "Obsolete"])
 mer.merge()
