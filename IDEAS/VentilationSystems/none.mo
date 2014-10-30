@@ -15,9 +15,6 @@ model None "No ventilation"
     annotation (Placement(transformation(extent={{-114,36},{-134,56}})));
   Modelica.Blocks.Sources.Constant TSet_val[nZones](each k=273.15+20)
     annotation (Placement(transformation(extent={{-114,0},{-134,20}})));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -100},{200,100}}), graphics), Icon(coordinateSystem(extent={{-200,
-            -100},{200,100}})));
 equation
   P[1:nLoads_min] = zeros(nLoads_min);
   Q[1:nLoads_min] = zeros(nLoads_min);
@@ -31,4 +28,7 @@ equation
       points={{-135,10},{-140,10},{-140,24},{-152,24}},
       color={0,0,127},
       smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
+            -100},{200,100}}), graphics), Icon(coordinateSystem(extent={{-200,
+            -100},{200,100}})));
 end None;
