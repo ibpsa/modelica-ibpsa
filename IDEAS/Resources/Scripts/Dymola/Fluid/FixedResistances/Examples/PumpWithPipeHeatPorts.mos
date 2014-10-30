@@ -1,6 +1,6 @@
 translateModel("IDEAS.Fluid.FixedResistances.Examples.PumpWithPipeHeatPorts");
 
-simulateModel("IDEAS.Fluid.FixedResistances.Examples.PumpWithPipeHeatPorts", stopTime=10000, method="dassl", resultFile="PumpWithPipeHeatPorts");
+simulateModel("IDEAS.Fluid.FixedResistances.Examples.PumpWithPipeHeatPorts", stopTime=4000, method="dassl", resultFile="PumpWithPipeHeatPorts");
 
 plot(y={"pipe_HeatPort1.heatPort.T", "temperature1.T", "temperature.T"}, colors={{0,0,255}, {255,0,0}, {0,128,0}});
 
