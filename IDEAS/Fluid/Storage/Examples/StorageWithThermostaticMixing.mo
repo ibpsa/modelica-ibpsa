@@ -46,8 +46,9 @@ model StorageWithThermostaticMixing
     p=500000,
     T=283.15) annotation (Placement(transformation(extent={{92,-90},{72,-70}})));
 
+  Modelica.Blocks.Sources.Constant const(k=273.15 + 35)
+    annotation (Placement(transformation(extent={{-54,68},{-34,88}})));
 equation
-  temperatureMixing.TMixedSet = 273.15 + 35;
   connect(storageTank.port_a, temperatureMixing.port_a1) annotation (
       Line(
       points={{-70,4.46154},{-70,26},{2,26}},
@@ -73,8 +74,13 @@ equation
       points={{-70,-56.4615},{-70,-80},{12,-80},{12,16}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(const.y, temperatureMixing.TMixedSet) annotation (Line(
+      points={{-33,78},{12,78},{12,36}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Documentation(info="<html>
 <p>The mixing control changes as the storage tank gets colder, until the desired outlet temperature can no longer be reached. </p>
