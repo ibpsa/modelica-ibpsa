@@ -4,7 +4,7 @@ package Media "Package with experimental models"
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains models that are experimental. 
+This package contains models that are experimental.
 </p>
 </html>"));
 end Media;
