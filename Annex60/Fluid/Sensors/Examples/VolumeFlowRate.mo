@@ -9,7 +9,7 @@ model VolumeFlowRate "Test model for the volume flow rate sensor"
     redeclare package Medium = Medium,
     T=293.15,
     nPorts=1) "Flow boundary condition" annotation (Placement(
-        transformation(extent={{80,-10},{60,10}},rotation=0)));
+        transformation(extent={{80,-10},{60,10}})));
   Annex60.Fluid.Sources.MassFlowSource_T masFloRat(
     redeclare package Medium = Medium,
     use_T_in=false,
@@ -17,7 +17,7 @@ model VolumeFlowRate "Test model for the volume flow rate sensor"
     use_m_flow_in=true,
     nPorts=1) "Flow boundary condition"
      annotation (Placement(transformation(
-          extent={{-50,-10},{-30,10}},rotation=0)));
+          extent={{-50,-10},{-30,10}})));
 
   Modelica.Blocks.Sources.Ramp ramp(
     height=-20,
@@ -51,9 +51,7 @@ equation
       points={{48,0},{60,0}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-experiment(StopTime=60),
+    annotation (experiment(StopTime=60),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/VolumeFlowRate.mos"
         "Simulate and plot"),
     Documentation(info="<html>

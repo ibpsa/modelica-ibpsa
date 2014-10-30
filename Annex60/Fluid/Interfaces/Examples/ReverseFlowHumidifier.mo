@@ -43,7 +43,6 @@ package Medium = Annex60.Media.Air;
     m_flow=0.5) "Fluid source"
                    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-90,30})));
   Annex60.Fluid.Sources.FixedBoundary sink1(
     redeclare package Medium = Medium,
@@ -51,7 +50,6 @@ package Medium = Annex60.Media.Air;
                  annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={40,28})));
   Sensors.SpecificEnthalpy senEnt1(redeclare package Medium = Medium)
     "Specific enthalpy sensor"
@@ -97,7 +95,6 @@ package Medium = Annex60.Media.Air;
     m_flow=0.5) "Fluid source"
                    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-90,-6})));
 equation
   connect(u2.y, humFor.u)                annotation (Line(
@@ -213,7 +210,5 @@ August 19, 2010, by Michael Wetter:<br/>
 First implementation based on a model from Giuliano Fontanella.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end ReverseFlowHumidifier;

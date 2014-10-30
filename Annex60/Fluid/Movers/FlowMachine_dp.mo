@@ -152,6 +152,5 @@ Revised implementation to allow zero flow rate.
           smooth=Smooth.None),
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
-          textString="dp")}),
-    Diagram(graphics));
+          textString="dp")}));
 end FlowMachine_dp;
