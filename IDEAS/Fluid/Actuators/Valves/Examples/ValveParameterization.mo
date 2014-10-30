@@ -3,7 +3,7 @@ model ValveParameterization
   "Model to test and illustrate different parameterization for valves"
   extends Modelica.Icons.Example;
 
- package Medium = IDEAS.Media.Water;
+ package Medium = IDEAS.Media.Water.Simple;
 
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear valOPPoi(
     redeclare package Medium = Medium,
@@ -45,8 +45,7 @@ model ValveParameterization
          annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                                                                        rotation=
            0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
   Valves.TwoWayLinear valCv(
     redeclare package Medium = Medium,
     m_flow_nominal=150/3600,

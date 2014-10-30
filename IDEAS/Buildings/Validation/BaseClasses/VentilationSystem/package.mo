@@ -4,5 +4,4 @@ package VentilationSystem
 
 extends Modelica.Icons.Package;
 
-
 end VentilationSystem;

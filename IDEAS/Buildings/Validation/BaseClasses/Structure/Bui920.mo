@@ -2,7 +2,7 @@ within IDEAS.Buildings.Validation.BaseClasses.Structure;
 model Bui920 "BESTEST Building model case 920"
 
   extends IDEAS.Interfaces.BaseClasses.Structure(
-    nZones=1,
+    final nZones=1, final nEmb=0,
     ATrans=1,
     VZones={gF.V});
 
@@ -24,14 +24,13 @@ protected
         rotation=90,
         origin={-49,-14})));
 
-  IDEAS.Buildings.Components.CommonWall floor(
+  IDEAS.Buildings.Components.BoundaryWall floor(
     redeclare final parameter Data.Constructions.HeavyFloor constructionType,
     redeclare final parameter Data.Insulation.insulation insulationType,
     final insulationThickness=1.003,
     final AWall=48,
     final inc=IDEAS.Constants.Floor,
-    final azi=IDEAS.Constants.South,
-    final TBou = 283.15) annotation (Placement(transformation(
+    final azi=IDEAS.Constants.South) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-19,-14})));
@@ -42,7 +41,7 @@ protected
     final azi={IDEAS.Constants.East,IDEAS.Constants.West},
     redeclare replaceable IDEAS.Buildings.Components.Shading.None shaType,
     redeclare final parameter IDEAS.Buildings.Data.Frames.None fraType,
-    final frac = 0)
+    each frac = 0)
     annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
@@ -75,58 +74,6 @@ equation
       points={{80,8},{120,8},{120,-20},{150,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(roof.surfRad_a, gF.surfRad[1]) annotation (Line(
-      points={{-73,-9},{-73,6.25},{40,6.25}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(roof.surfCon_a, gF.surfCon[1]) annotation (Line(
-      points={{-76,-9},{-76,12.25},{40,12.25}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(wall.surfRad_a, gF.surfRad[2:5]) annotation (Line(
-      points={{-43,-9},{-43,6.75},{40,6.75}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(wall.surfCon_a, gF.surfCon[2:5]) annotation (Line(
-      points={{-46,-9},{-46,12.75},{40,12.75}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(floor.surfCon_a, gF.surfCon[6]) annotation (Line(
-      points={{-16,-9},{-16,14.75},{40,14.75}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(floor.surfRad_a, gF.surfRad[6]) annotation (Line(
-      points={{-13,-9},{-13,8.75},{40,8.75}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(win.surfCon_a, gF.surfCon[7:8]) annotation (Line(
-      points={{14,-9},{14,15.25},{40,15.25}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(win.surfRad_a, gF.surfRad[7:8]) annotation (Line(
-      points={{17,-9},{17,9.25},{40,9.25}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(win[1].iSolDif, gF.iSolDir) annotation (Line(
-      points={{21,-11},{56,-11},{56,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(win[1].iSolDir, gF.iSolDif) annotation (Line(
-      points={{21,-14},{64,-14},{64,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(win[2].iSolDif, gF.iSolDir) annotation (Line(
-      points={{21,-11},{56,-11},{56,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(win[2].iSolDir, gF.iSolDif) annotation (Line(
-      points={{21,-14},{64,-14},{64,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(floor.port_emb, heatPortEmb[1]) annotation (Line(
-      points={{-9,-14},{-4,-14},{-4,-40},{118,-40},{118,60},{150,60}},
-      color={191,0,0},
-      smooth=Smooth.None));
 
     connect(roof.propsBus_a, gF.propsBus[1]) annotation (Line(
       points={{-83,-9},{-83,31.5},{40,31.5}},
@@ -134,7 +81,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(wall.propsBus_a, gF.propsBus[2:5]) annotation (Line(
-      points={{-53,-9},{-53,30.5},{40,30.5}},
+      points={{-53,-9},{-53,27.5},{40,27.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -144,11 +91,19 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(win.propsBus_a, gF.propsBus[7:8]) annotation (Line(
-      points={{7,-9},{7,25.5},{40,25.5}},
+      points={{7,-9},{7,24.5},{40,24.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-150,
+  connect(flowPort_Out[1], gF.flowPort_Out) annotation (Line(
+      points={{-20,100},{-20,60},{56,60},{56,40}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(flowPort_In[1], gF.flowPort_In) annotation (Line(
+      points={{20,100},{20,64},{64,64},{64,40}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-150,
             -100},{150,100}}), graphics));
 end Bui920;

@@ -12,7 +12,9 @@ IdealSource
 LumpedVolumeDeclarations
 OnOffInterface
 PartialFourPortInterface
+PartialTwoPort
 PartialTwoPortInterface
+PartialTwoPortTransport
 StaticFourPortHeatMassExchanger
 StaticTwoPortConservationEquation
 StaticTwoPortHeatMassExchanger

@@ -17,16 +17,15 @@ model BuildingFreeFloat "Dummy building without heating"
     voltageSource(
     f=50,
     V=230,
-    phi=0) if standAlone annotation (Placement(transformation(
+    phi=0) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={96,-20})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground if
-    standAlone
+  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
     annotation (Placement(transformation(extent={{86,-70},{106,-50}})));
 equation
   connect(dummyBuilding.TSensor,none. TSensor) annotation (Line(
-      points={{-43.4,-6},{-36,-6},{-36,54},{-10.4,54}},
+      points={{-43.4,-6},{-36,-6},{-36,54},{-10.2,54}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dummyBuilding.flowPort_In,none. flowPort_Out) annotation (Line(

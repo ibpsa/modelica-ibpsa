@@ -8,7 +8,8 @@ model ZoneExample
     V=2,
     allowFlowReversal=true)
          annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  CommonWall commonWall(
+  BoundaryWall
+             commonWall(
     redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
@@ -22,7 +23,7 @@ model ZoneExample
 
   inner SimInfoManager sim
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
-  InternalWall
+  BoundaryWall
              commonWall1(
     redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
@@ -40,7 +41,7 @@ model ZoneExample
     azi=0,
     redeclare IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Interfaces.Frame fraType,
-    redeclare IDEAS.Buildings.Components.Shading.None shaType)
+    redeclare IDEAS.Buildings.Components.Shading.Screen shaType)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
   SlabOnGround slabOnGround(
     redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
@@ -66,6 +67,10 @@ model ZoneExample
     V=2,
     allowFlowReversal=true)
          annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+  Shading.ShadingControl shadingControl
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+  Modelica.Blocks.Sources.RealExpression irr(y=sim.irr) "Irradiation"
+    annotation (Placement(transformation(extent={{-108,-94},{-88,-74}})));
 equation
   connect(commonWall.propsBus_a, zone.propsBus[1]) annotation (Line(
       points={{-44,12},{-12,12},{-12,-4.5},{20,-4.5}},
@@ -104,6 +109,14 @@ equation
       points={{7,-43},{6.5,-43},{6.5,-55},{20,-55}},
       color={255,204,51},
       thickness=0.5,
+      smooth=Smooth.None));
+  connect(shadingControl.y, window.Ctrl) annotation (Line(
+      points={{-60,-84},{-58,-84},{-58,-86},{-52,-86},{-52,-82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(irr.y, shadingControl.irr) annotation (Line(
+      points={{-87,-84},{-79.8,-84}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));

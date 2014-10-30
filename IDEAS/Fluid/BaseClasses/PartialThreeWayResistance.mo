@@ -2,7 +2,7 @@ within IDEAS.Fluid.BaseClasses;
 partial model PartialThreeWayResistance
   "Flow splitter with partial resistance model at each port"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
-  outer Modelica.Fluid.System system "System properties";
+
 
   Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium =
         Medium, m_flow(min=if (portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Entering) then

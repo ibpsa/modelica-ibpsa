@@ -24,9 +24,7 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
     dp_nominal=5)
              annotation (Placement(transformation(extent={{-20,90},{0,110}},
           rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-                                   annotation (Placement(transformation(extent={{140,-80},
-            {160,-60}},        rotation=0)));
+
     IDEAS.Fluid.FixedResistances.FixedResistanceDpM res12(
     redeclare package Medium = Medium,
     from_dp=false,

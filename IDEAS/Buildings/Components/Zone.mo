@@ -34,7 +34,7 @@ protected
     redeclare package Medium = Medium,
     m_flow_nominal=V/3600*n50/20,
     V=V,
-    n50=0.1,
+    n50=n50,
     allowFlowReversal=allowFlowReversal,
     show_T=false)
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
@@ -62,7 +62,8 @@ public
     X_start=X_start,
     C_start=C_start,
     C_nominal=C_nominal,
-    allowFlowReversal=allowFlowReversal)       annotation (Placement(
+    allowFlowReversal=allowFlowReversal,
+    mFactor=corrCV)                            annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -71,11 +72,6 @@ public
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
   Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCap(C=1012*1.204*V
-        *(corrCV-1), T(start=T_start)) "air capacity"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-10,2})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
   parameter Boolean allowFlowReversal=system.allowFlowReversal
@@ -158,10 +154,6 @@ end for;
   connect(flowPort_In, vol.ports[1]) annotation (Line(
       points={{20,100},{20,40},{-10,40}},
       color={0,128,255},
-      smooth=Smooth.None));
-  connect(heatCap.port, gainCon) annotation (Line(
-      points={{0,2},{10,2},{10,-30},{100,-30}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(flowPort_Out, vol.ports[2]) annotation (Line(
       points={{-20,100},{-20,40},{-10,40}},

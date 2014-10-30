@@ -39,8 +39,7 @@ model RelativeHumidity "Test model for relative humidity sensor"
     "Difference, used to compute the mass fraction of dry air"
     annotation (Placement(transformation(
           extent={{-68,-20},{-48,0}}, rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
   IDEAS.Fluid.Sensors.RelativeHumidity senRelHum(
     redeclare package Medium = Medium)
     "Relative humidity of the flow source if the medium were outflowing"

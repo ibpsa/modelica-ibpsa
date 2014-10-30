@@ -1,7 +1,7 @@
 within IDEAS.Fluid.MixingVolumes.BaseClasses;
 partial model PartialMixingVolume
   "Partial mixing volume with inlet and outlet ports (flow reversal is allowed)"
-  outer Modelica.Fluid.System system "System properties";
+
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
@@ -12,7 +12,7 @@ partial model PartialMixingVolume
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Boolean allowFlowReversal = system.allowFlowReversal
+  parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.Volume V "Volume";
@@ -21,6 +21,8 @@ partial model PartialMixingVolume
    annotation(Evaluate=true, Dialog(tab="Assumptions",
       enable=use_HeatTransfer,
       group="Heat transfer"));
+  parameter Boolean initialize_p = not Medium.singleState
+    "= true to set up initial equations for pressure";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -54,21 +56,21 @@ protected
     final C_start=C_start,
     final C_nominal=C_nominal,
     final fluidVolume = V,
+    final initialize_p = initialize_p,
     m(start=V*rho_start),
     U(start=V*rho_start*Medium.specificInternalEnergy(
         state_start)),
-    nPorts=nPorts) if
+    nPorts=nPorts,
+    final mFactor=mFactor) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
   // Density at medium default values, used to compute the size of control volumes
   parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass"
-  annotation (Evaluate=true);
+    state=state_default) "Density, used to compute fluid mass";
   // Density at start values, used to compute initial values and start guesses
   parameter Modelica.SIunits.Density rho_start=Medium.density(
-   state=state_start) "Density, used to compute start and guess values"
-  annotation (Evaluate=true);
+   state=state_start) "Density, used to compute start and guess values";
 
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
@@ -97,6 +99,7 @@ protected
   Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
     "Block to set sensible heat input into volume"
     annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
+
 equation
   ///////////////////////////////////////////////////////////////////////////
   // asserts
@@ -169,10 +172,33 @@ IDEAS.Fluid.MixingVolumes</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+October 29, 2014, by Michael Wetter:<br/>
+Made assignment of <code>mFactor</code> final, and changed computation of
+density to use default medium states as are also used to compute the
+specific heat capacity.
+</li>
+<li>
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> to increase the thermal capacity.
+</li>
+<li>
+July 3, 2014, by Michael Wetter:<br/>
+Added parameter <code>initialize_p</code>. This is required
+to enable the coil models to initialize the pressure in the first
+volume, but not in the downstream volumes. Otherwise,
+the initial equations will be overdetermined, but consistent.
+This change was done to avoid a long information message that appears
+when translating models.
+</li>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
 February 11, 2014 by Michael Wetter:<br/>
 Removed <code>Q_flow</code> and added <code>QSen_flow</code>.
 This was done to clarify what is sensible and total heat flow rate
-as part of the correction of issue 
+as part of the correction of issue
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>.
 </li>
 <li>
@@ -200,7 +226,7 @@ Revised base classes for conservation equations in <code>IDEAS.Fluid.Interfaces<
 September 17, 2011 by Michael Wetter:<br/>
 Removed instance <code>medium</code> as this is already used in <code>dynBal</code>.
 Removing the base properties led to 30% faster computing time for a solar thermal system
-that contains many fluid volumes. 
+that contains many fluid volumes.
 </li>
 <li>
 September 13, 2011 by Michael Wetter:<br/>
@@ -225,14 +251,14 @@ model.
 May 25, 2011 by Michael Wetter:<br/>
 <ul>
 <li>
-Changed implementation of balance equation. The new implementation uses a different model if 
+Changed implementation of balance equation. The new implementation uses a different model if
 exactly two fluid ports are connected, and in addition, the model is used as a steady-state
 component. For this model configuration, the same balance equations are used as were used
 for steady-state component models, i.e., instead of <code>actualStream(...)</code>, the
 <code>inStream(...)</code> formulation is used.
 This changed required the introduction of a new parameter <code>m_flow_nominal</code> which
 is used for smoothing in the steady-state balance equations of the model with two fluid ports.
-This implementation also simplifies the implementation of 
+This implementation also simplifies the implementation of
 <a href=\"modelica://IDEAS.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort\">
 IDEAS.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort</a>,
 which now uses the same equations as this model.
@@ -245,7 +271,7 @@ no noticable overhead in always having the <code>heatPort</code> connector prese
 </li>
 <li>
 July 30, 2010 by Michael Wetter:<br/>
-Added nominal value for <code>mC</code> to avoid wrong trajectory 
+Added nominal value for <code>mC</code> to avoid wrong trajectory
 when concentration is around 1E-7.
 See also <a href=\"https://trac.modelica.org/Modelica/ticket/393\">
 https://trac.modelica.org/Modelica/ticket/393</a>.
