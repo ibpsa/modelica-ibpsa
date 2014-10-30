@@ -103,7 +103,7 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Actuat
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Test model for two way valves. Note that the 
+Test model for two way valves. Note that the
 leakage flow rate has been set to a large value
 and the rangeability to a small value
 for better visualization of the valve characteristics.

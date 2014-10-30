@@ -79,8 +79,7 @@ See
 <a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
 Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

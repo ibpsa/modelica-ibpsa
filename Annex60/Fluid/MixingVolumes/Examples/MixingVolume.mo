@@ -210,7 +210,7 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Mixing
 This model tests the implementation of the mixing volumes.
 It compares the results from the mixing volume of the Modelica
 Standard Library with the implementation in the <code>Annex60</code>
-library. If the changes are bigger than a prescribed limit, 
+library. If the changes are bigger than a prescribed limit,
 the simulation stops with an error.
 </p>
 </html>", revisions="<html>
@@ -219,7 +219,7 @@ the simulation stops with an error.
 October 24, 2013, by Michael Wetter:<br/>
 Set <code>vol(h_start=45300.945)</code>.
 This avoids a cyclic assignment of <code>vol.T_start</code>
-and <code>vol.h_start</code> in 
+and <code>vol.h_start</code> in
 <code>Modelica.Fluid.Vessels.ClosedVolume</code>.
 </li>
 <li>

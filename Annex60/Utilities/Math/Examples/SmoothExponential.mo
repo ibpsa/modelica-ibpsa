@@ -17,7 +17,7 @@ equation
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothExponential.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This model tests the implementation of 
+This model tests the implementation of
 <a href=\"modelica://Annex60.Utilities.Math.SmoothExponential\">
 Annex60.Utilities.Math.SmoothExponential</a>.
 </p>

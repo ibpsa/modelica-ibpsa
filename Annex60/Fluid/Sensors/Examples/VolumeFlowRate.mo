@@ -59,10 +59,10 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensor
     Documentation(info="<html>
 <p>
 This example tests the volume flow rate sensor.
-One sensor is configured to be steady-state, and the other is 
+One sensor is configured to be steady-state, and the other is
 configured to be dynamic.
 Note that steady-state sensors can lead to numerical problems
-if used incorrectly. 
+if used incorrectly.
 See
 <a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
 Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.

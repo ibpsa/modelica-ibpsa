@@ -15,7 +15,7 @@ equation
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/PowerLinearized.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This model tests the implementation of 
+This model tests the implementation of
 <a href=\"modelica://Annex60.Utilities.Math.PowerLinearized\">
 Annex60.Utilities.Math.PowerLinearized</a>.
 </p>

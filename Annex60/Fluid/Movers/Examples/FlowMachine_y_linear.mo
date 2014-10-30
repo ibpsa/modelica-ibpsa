@@ -103,7 +103,7 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Movers
     Documentation(info="<html>
 <p>
 This example demonstrates and tests the use of a flow machine whose speed is reduced to zero.
-In the top model, the pressure drop across the pump is constant, and in the bottom model, 
+In the top model, the pressure drop across the pump is constant, and in the bottom model,
 the mass flow rate across the pump is constant.
 In the top model, a small flow resistance has been added since a pump with zero speed cannot
 produce a non-zero pressure raise. For this operating region, the pressure drop ensures that
