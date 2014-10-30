@@ -140,6 +140,7 @@ equation
 <h4>Typical use and important parameters</h4>
 <ol>
 <li>The parameter m sets the mass of the fluid contained by the valve. </li>
+<li>Parameter dT_nominal sets the nominal temperature difference of the inlet ports. It provides an estimate for when to start regularization: when the temperature difference accross the inlet ports is smaller than dT/10. Small dT_nominal values may lead to convergence errors, large dT_nominal values cause a greater error when the inlet temperatures are almost equal.</li>
 </ol>
 <h4>Options</h4>
 <ol>
@@ -149,10 +150,10 @@ equation
 </ol>
 <h4>Validation</h4>
 <p>Only verification was performed.</p>
-<h4> </h4>
 <p>Examples of this model can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.TempMixingTester\"> IDEAS.Thermal.Components.Examples.TempMixingTester</a> and<a href=\"modelica://IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve\"> IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve</a></p>
 </html>", revisions="<html>
 <p><ul>
+<li>2014 October, Filip Jorissen, Added parameter for regularization range</li>
 <li>2014 October, Filip Jorissen, Regularized implementation and documentation </li>
 <li>2014 May, Filip Jorissen, Both legs can be hot or cold</li>
 <li>2014 March, Filip Jorissen, Annex60 compatibility</li>
