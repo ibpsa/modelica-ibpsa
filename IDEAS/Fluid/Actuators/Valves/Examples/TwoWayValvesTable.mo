@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Actuators.Valves.Examples;
 model TwoWayValvesTable "Two way valve with linear opening characteristics"
   extends Modelica.Icons.Example;
-  package Medium = IDEAS.Media.Water "Medium";
+  package Medium = IDEAS.Media.Water.Simple "Medium";
 
     Modelica.Blocks.Sources.Ramp y(
     height=1,
@@ -41,8 +41,7 @@ model TwoWayValvesTable "Two way valve with linear opening characteristics"
     dpValve_nominal=6000,
     from_dp=true) "Valve model with linear opening characteristics"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-    inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
 equation
   connect(y.y,valTab. y) annotation (Line(
       points={{-39,50},{-39,50},{0,50},{0,50},{0,32}},

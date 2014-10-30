@@ -3,10 +3,9 @@ model ExpansionVessel "Test model for expansion vessel"
   extends Modelica.Icons.Example;
 
 // package Medium = Modelica.Media.Water.WaterIF97OnePhase_ph "Medium model";
- package Medium = IDEAS.Media.Water "Medium model";
+ package Medium = IDEAS.Media.Water.Simple "Medium model";
 
-  inner Modelica.Fluid.System system(p_ambient=400000, massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
   IDEAS.Fluid.Storage.ExpansionVessel expVes(
     redeclare package Medium = Medium, V_start=1) "Expansion vessel"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

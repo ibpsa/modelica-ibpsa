@@ -3,9 +3,9 @@ model FlowMachineParallel_y "Two flow machines in parallel"
   extends Modelica.Icons.Example;
   // fixme. Revisit when Dymola 2015 is available.
   // The medium has been changed from
-  // IDEAS.Media.Water to
+  // IDEAS.Media.Water.Simple to
   // IDEAS.Experimental.Media.AirPTDecoupled because
-  // IDEAS.Media.Water and IDEAS.Media.Air cause in
+  // IDEAS.Media.Water.Simple and IDEAS.Media.Air cause in
   // Dymola 2014 FD01 a division by zero. This is due to the
   // bug https://github.com/iea-annex60/modelica-annex60/issues/53
   package Medium = IDEAS.Experimental.Media.AirPTDecoupled "Medium model";
@@ -50,15 +50,9 @@ model FlowMachineParallel_y "Two flow machines in parallel"
   Modelica.Blocks.Sources.Constant const2(k=1) "Constant source"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default) "Start state";
-  parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-     state_start) "Density, used to compute fluid mass"
-                                           annotation (Evaluate=true);
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+  parameter Modelica.SIunits.Density rho_nominal=1.2
+    "Density, used to compute fluid mass";
+
   IDEAS.Fluid.FixedResistances.FixedResistanceDpM dpIn2(
     redeclare package Medium = Medium,
     dp_nominal=1000,
@@ -143,6 +137,12 @@ As its speed is reduced, the mass flow rate changes its direction in such a way 
 at the top has reverse flow.
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>,
+and set <code>rho_nominal</code> to a constant to avoid a non-literal
+nominal value for <code>V_flow_max</code> and <code>VMachine_flow</code>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br/>
 Added filter for start-up and shut-down transient.

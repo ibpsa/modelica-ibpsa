@@ -2,7 +2,7 @@ within IDEAS.Fluid.Movers.Examples;
 model FlowMachine_y_linear
   "Pump with linear characteristic for pressure vs. flow rate"
   extends Modelica.Icons.Example;
-  package Medium = IDEAS.Media.Water "Medium model";
+  package Medium = IDEAS.Media.Water.Simple "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
@@ -29,8 +29,7 @@ model FlowMachine_y_linear
     pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0}),
     filteredSpeed=false) "Pump with fixed pressure raise"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+
   IDEAS.Fluid.Sources.Boundary_pT sou1(
     redeclare package Medium = Medium,
     use_p_in=false,

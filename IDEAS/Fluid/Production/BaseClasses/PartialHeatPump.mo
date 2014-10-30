@@ -20,14 +20,17 @@ partial model PartialHeatPump "Heat pump partial"
     Modelica.Media.Interfaces.PartialMedium "Fluid medium at secondary side"
     annotation(choicesAllMatching=true);
   replaceable parameter HeatPumpData heatPumpData
-  constrainedby HeatPumpData
+  constrainedby HeatPumpData "Record containing heat pump performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{-98,-98},{-78,-78}})));
+  extends IDEAS.Fluid.Interfaces.OnOffInterface(use_onOffSignal=true);
 
   parameter Boolean use_scaling = false
-    "scale the performance data based on the nominal power";
+    "scale the performance data based on the nominal power"
+    annotation(Dialog(tab="Advanced"));
   parameter Modelica.SIunits.Power P_the_nominal = heatPumpData.P_the_nominal
     "nominal thermal power of the heat pump"
-    annotation (Dialog(enable=use_scaling));
+    annotation (Dialog(enable=use_scaling, tab="Advanced"));
+
   final parameter Real sca = if use_scaling then P_the_nominal / heatPumpData.P_the_nominal else 1
     "scaling factor for the nominal power of the heat pump";
 
@@ -95,7 +98,14 @@ partial model PartialHeatPump "Heat pump partial"
   parameter Real deltaM = 0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation(Dialog(enable = computeFlowResistance, tab="Flow resistance"));
-
+  Modelica.Blocks.Tables.CombiTable2D powerTable(              table=
+        heatPumpData.powerData, smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+    "Interpolation table for finding the electrical power"
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+  Modelica.Blocks.Tables.CombiTable2D copTable(                table=
+        heatPumpData.copData, smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
+    annotation (Placement(transformation(extent={{-60,54},{-40,74}})));
+  Boolean compressorOn;
   Modelica.Blocks.Sources.RealExpression realExpression(y=-P_evap)
     annotation (Placement(transformation(extent={{18,0},{0,20}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
@@ -129,6 +139,7 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.SIunits.Power P_el "Electrical power consumption";
   Modelica.SIunits.Power P_evap "Thermal power of the evaporator (positive)";
   Modelica.SIunits.Power P_cond "Thermal power of the condensor (positive)";
+  Real cop "COP of the heat pump";
   Modelica.Blocks.Sources.RealExpression realExpression2(y=P_el)
     annotation (Placement(transformation(extent={{60,70},{40,90}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
@@ -141,7 +152,8 @@ public
     annotation (Dialog(tab="Flow resistance"));
 
   parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
+    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"));
 
   FixedResistances.Pipe_HeatPort evaporator(
     redeclare package Medium = MediumBrine,
@@ -184,7 +196,30 @@ public
 
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+protected
+  Modelica.Blocks.Logical.Hysteresis hysteresisCond(
+    pre_y_start=true,
+    uLow=0,
+    uHigh=5)
+    annotation (Placement(transformation(extent={{-42,-88},{-30,-76}})));
+  Modelica.Blocks.Sources.RealExpression limit1(y=heatPumpData.T_cond_max -
+        condensor.heatPort.T)
+    annotation (Placement(transformation(extent={{-68,-92},{-48,-72}})));
+  Modelica.Blocks.Logical.Hysteresis hysteresisEvap(
+    pre_y_start=true,
+    uLow=0,
+    uHigh=5)
+    annotation (Placement(transformation(extent={{-42,-102},{-30,-90}})));
+  Modelica.Blocks.Sources.RealExpression limit2(y=evaporator.heatPort.T -
+        heatPumpData.T_evap_min)
+    annotation (Placement(transformation(extent={{-68,-106},{-48,-86}})));
+  Modelica.Blocks.Logical.And tempProtection
+    annotation (Placement(transformation(extent={{-24,-90},{-16,-82}})));
 equation
+  cop = if compressorOn then  copTable.y else 1;
+  P_el = if compressorOn then  powerTable.y * sca else 0;
+  P_evap=P_el*(cop-1);
+  P_cond=P_el*cop;
   connect(heatLoss, thermalConductor.port_a) annotation (Line(
       points={{26,-100},{26,-80}},
       color={191,0,0},
@@ -236,6 +271,22 @@ equation
   connect(thermalConductor.port_b, condensor.heatPort) annotation (Line(
       points={{26,-60},{26,-28},{50,-28},{50,-10}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(limit1.y, hysteresisCond.u) annotation (Line(
+      points={{-47,-82},{-43.2,-82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(limit2.y, hysteresisEvap.u) annotation (Line(
+      points={{-47,-96},{-43.2,-96}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(hysteresisCond.y, tempProtection.u1) annotation (Line(
+      points={{-29.4,-82},{-26,-82},{-26,-86},{-24.8,-86}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(hysteresisEvap.y, tempProtection.u2) annotation (Line(
+      points={{-29.4,-96},{-26,-96},{-26,-89.2},{-24.8,-89.2}},
+      color={255,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={

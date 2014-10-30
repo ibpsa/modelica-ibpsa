@@ -95,29 +95,19 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(building.TSensor, none.TSensor) annotation (Line(
-      points={{-63.36,-12},{-58,-12},{-58,64},{-40.4,64}},
+      points={{-63.36,-12},{-58,-12},{-58,64},{-40.2,64}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(none.plugLoad, dummyInHomeGrid.nodeSingle) annotation (Line(
-      points={{-20,70},{22,70},{22,72},{52,72},{52,-10},{64,-10}},
+      points={{-20,70},{30,70},{30,72},{60,72},{60,-10},{64,-10}},
       color={85,170,255},
-      smooth=Smooth.None));
-  connect(heating.heatPortCon, building.heatPortCon) annotation (Line(
-      points={{14,-7.6},{8,-7.6},{8,-6},{-4,-6},{-4,-20},{-56,-20},{-56,-4},{-64,
-          -4}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(heating.heatPortRad, building.heatPortRad) annotation (Line(
-      points={{14,-12.4},{6,-12.4},{6,-12},{-2,-12},{-2,-22},{-56,-22},{-56,-8},
-          {-64,-8}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(iSO13790_1.TSet, heating.TSet) annotation (Line(
       points={{30,-40},{30,-22.24},{28,-22.24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(iSO13790_1.mDHW60C, heating.mDHW60C) annotation (Line(
-      points={{36,-40},{34,-40},{34,-22.24},{32.2,-22.24}},
+      points={{33,-40},{34,-40},{34,-22.24},{32.2,-22.24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(iSO13790_1.heatPortRad, building.heatPortRad) annotation (Line(
@@ -131,8 +121,16 @@ equation
       smooth=Smooth.None));
 
   connect(iSO13790_1.plugLoad, dummyInHomeGrid.nodeSingle) annotation (Line(
-      points={{40,-50},{50,-50},{50,-10},{64,-10}},
+      points={{40,-50},{60,-50},{60,-10},{64,-10}},
       color={85,170,255},
+      smooth=Smooth.None));
+  connect(heating.heatPortRad, building.heatPortRad) annotation (Line(
+      points={{14,-12.4},{-31,-12.4},{-31,-8},{-64,-8}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heating.heatPortCon, building.heatPortCon) annotation (Line(
+      points={{14,-7.6},{-29,-7.6},{-29,-4},{-64,-4}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

@@ -84,11 +84,11 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(building.TSensor, none.TSensor) annotation (Line(
-      points={{-63.36,-12},{-60,-12},{-60,78},{-32.4,78}},
+      points={{-63.36,-12},{-60,-12},{-60,78},{-32.2,78}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(occ.mDHW60C, heating.mDHW60C) annotation (Line(
-      points={{38,-50},{38,-18.18},{36.7,-18.18}},
+      points={{35,-50},{35,-18.18},{36.7,-18.18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(occ.TSet, heating.TSet) annotation (Line(
@@ -101,6 +101,16 @@ equation
       smooth=Smooth.None));
   connect(occ.heatPortRad, building.heatPortRad) annotation (Line(
       points={{22,-62},{-64,-62},{-64,-8}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heating.heatPortCon, building.heatPortCon) annotation (Line(
+      points={{12,-7.2},{6,-7.2},{6,-8},{-6,-8},{-6,-24},{-58,-24},{-58,-4},{
+          -64,-4}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heating.heatPortRad, building.heatPortRad) annotation (Line(
+      points={{12,-10.8},{4,-10.8},{4,-12},{-4,-12},{-4,-26},{-64,-26},{-64,-8}},
+
       color={191,0,0},
       smooth=Smooth.None));
   annotation (

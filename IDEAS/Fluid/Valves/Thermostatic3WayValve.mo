@@ -1,14 +1,22 @@
 within IDEAS.Fluid.Valves;
 model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
   extends BaseClasses.Partial3WayValve(
-      idealSource(m_flow(start=m_flow_nominal*0.5)));
+      idealSource(m_flow(start=m_flow_nominal*0.5)),
+      final allowFlowReversal=false);
   parameter Boolean dynamicValve = false
-    "Set to true to simulate a valve opening delay: typically slower but more robust";
+    "Set to true to simulate a valve opening delay: typically slower but more robust"
+    annotation(Dialog(tab="Dynamics", group="Filter"));
   parameter Real tau = 30 "Valve opening time constant"
-    annotation(Dialog(enable=dynamicValve));
-  parameter Real y_min(min=0, max=1) = 0.001 "Minimum valve opening/leakage";
-  parameter Real y_max(min=0, max=1) = 0.999 "Maximum valve opening/leakage";
-  parameter Real y_start(min=0, max=1) = 0 "Initial valve opening";
+    annotation(Dialog(enable=dynamicValve,tab="Dynamics", group="Filter"));
+  parameter Real y_min(min=0, max=1) = 0.001 "Minimum valve opening/leakage"
+    annotation(Dialog(tab="Advanced"));
+  parameter Real y_max(min=0, max=1) = 0.999 "Maximum valve opening/leakage"
+    annotation(Dialog(tab="Advanced"));
+  parameter Real y_start(min=0, max=1) = 0 "Initial valve opening"
+    annotation(Dialog(enable=dynamicValve,tab="Dynamics", group="Filter"));
+  parameter Modelica.SIunits.Temperature dT_nominal = 50
+    "Nominal/maximum temperature difference between inlet ports, used for regularization";
+
   Modelica.Blocks.Interfaces.RealInput TMixedSet
     "Mixed outlet temperature setpoint" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
@@ -31,20 +39,25 @@ protected
     "Unbounded help variable for determining fraction of each flow";
   Real k_state(start=y_start) "Variable for introducing a state";
   Real delta_h "Enthalpy difference between port_a2 and port_a1";
-  parameter Real delta_h_min=100 "minimum enthalpy difference to compute k";
+  Real inv_delta_h "Regularized inverse of delta_h";
+
+  parameter Real delta_h_reg=dT_nominal/10*Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default,Medium.T_default,Medium.X_default))
+    "Enthalpy difference where regularization starts";
+
 equation
   der(k_state) = if dynamicValve then (k-k_state)/tau else 0;
+  delta_h=inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow);
+  inv_delta_h = IDEAS.Utilities.Math.Functions.inverseXRegularized(delta_h, delta=delta_h_reg);
 
-  delta_h = noEvent( if abs(inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow)) > delta_h_min then inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow) elseif inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow) > 0 then  delta_h_min else -delta_h_min);
-  k = (h_set-inStream(port_a1.h_outflow))/delta_h;
+  k = IDEAS.Utilities.Math.Functions.spliceFunction(x=abs(delta_h)-delta_h_reg, pos=(h_set-inStream(port_a1.h_outflow))*inv_delta_h, neg=0.5, deltax=delta_h_reg);
   m_flow_a2=-port_b.m_flow*IDEAS.Utilities.Math.Functions.smoothMin(IDEAS.Utilities.Math.Functions.smoothMax(if dynamicValve then k_state else k,y_min,0.001),y_max,0.001);
   connect(realExpression.y, idealSource.m_flow_in) annotation (Line(
       points={{32,-50},{8,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
@@ -113,27 +126,35 @@ equation
           fillPattern=FillPattern.Solid,
           textString="2")}),
     Documentation(info="<html>
-<p><b>Description</b> </p>
-<p>3-way valve with temperature set point for mixing a cold and hot fluid to obtain outlet fluid at the desired temperature. If the desired temperature is higher than the hot fluid, no mixing will occur and the outlet will have the temperature of the hot fluid. </p>
-<p>Inside the valve, the cold water flowrate is fixed with a pump component.  The fluid content in the valve is equally split between the mixing volume and this pump.  Without fluid content in the pump, this model does not work in all operating conditions.  </p>
-<p><h4>Assumptions and limitations </h4></p>
-<p><ol>
-<li>Correct connections of hot and cold fluid to the corresponding flowPorts is NOT CHECKED.</li>
-<li>The fluid content m of the valve has to be larger than zero</li>
-<li>There is an internal parameter mFlowMin which sets a minimum mass flow rate for mixing to start. </li>
-</ol></p>
-<p><h4>Model use</h4></p>
-<p><ol>
-<li>Set medium and the internal fluid content of the valve (too small values of m could increase simulation times)</li>
-<li>Set mFlowMin, the minimum mass flow rate for mixing to start. </li>
-<li>Supply a set temperature at the outlet</li>
-</ol></p>
-<p><h4>Validation </h4></p>
-<p>None </p>
-<p><h4>Example (optional) </h4></p>
+<p>This model provides an ideal implementation of a thermostatic three way valve. The mass flow rates are adjusted so that the desired temperature is reached as close as possible. Pressure drops are not considered.</p>
+<p><b>Main equations</b> </p>
+<p>Water with enthalpy h needs to be mixed such that:</p>
+<p>h_out = k * h_in1 + (1-k) * h_in2</p>
+<p>this equation defines the mass flow rates:</p>
+<p>m_flow_in1 = k * m_flow_out</p>
+<p>m_flow_in2 = (1-k) * m_flow_out</p>
+<h4>Assumptions and limitations </h4>
+<p>No pressure drops are calculated by this model!</p>
+<p>Ideally h_out equals h_set, the enthalpy corresponding to the temperature setpoint. However, if the desired temperature can not be reached through mixing then water from only one stream is used: the stream with the temperature closest to the desired temperature.</p>
+<p>The model is not exact around h_in1 = h_in2. Regularization functions are used to ensure smooth behaviour through this transition and to avoid chattering.</p>
+<h4>Typical use and important parameters</h4>
+<ol>
+<li>The parameter m sets the mass of the fluid contained by the valve. </li>
+<li>Parameter dT_nominal sets the nominal temperature difference of the inlet ports. It provides an estimate for when to start regularization: when the temperature difference accross the inlet ports is smaller than dT/10. Small dT_nominal values may lead to convergence errors, large dT_nominal values cause a greater error when the inlet temperatures are almost equal.</li>
+</ol>
+<h4>Options</h4>
+<ol>
+<li>Typical options inherited through lumpedVolumeDeclarations can be used.</li>
+<li>A delayed valve opening can be simulated by setting dynamicValve tot true.</li>
+<li>The minimum and maximum valve opening can be adjusted.</li>
+</ol>
+<h4>Validation</h4>
+<p>Only verification was performed.</p>
 <p>Examples of this model can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.TempMixingTester\"> IDEAS.Thermal.Components.Examples.TempMixingTester</a> and<a href=\"modelica://IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve\"> IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve</a></p>
 </html>", revisions="<html>
 <p><ul>
+<li>2014 October, Filip Jorissen, Added parameter for regularization range</li>
+<li>2014 October, Filip Jorissen, Regularized implementation and documentation </li>
 <li>2014 May, Filip Jorissen, Both legs can be hot or cold</li>
 <li>2014 March, Filip Jorissen, Annex60 compatibility</li>
 <li>2013 May, Roel De Coninck, documentation</li>

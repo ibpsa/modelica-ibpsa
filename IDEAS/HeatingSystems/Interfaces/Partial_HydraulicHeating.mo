@@ -48,8 +48,8 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
               annotation (Placement(transformation(extent={{88,64},{112,40}})));
   Fluid.Valves.Thermostatic3WayValve    idealCtrlMixer(m_flow_nominal=sum(
         m_flow_nominal), redeclare package Medium = Medium,
-    tau=30,
-    dynamicValve=false)
+    dynamicValve=true,
+    tau=600)
     annotation (Placement(transformation(extent={{34,46},{56,70}})));
   IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeReturn(
     redeclare package Medium = Medium,

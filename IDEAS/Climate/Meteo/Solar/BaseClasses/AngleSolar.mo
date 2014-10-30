@@ -34,7 +34,7 @@ protected
 
 equation
 //  angInc = acos( cos(inc)*(cosDec*cosHou*cosLat + sinDec*sinLat) + sin(inc)*(sin(
-//    azi)*cosDec*sinHou + cos(azi)*(cosDec*cosHou*sinLat - sinDec*cosLat)) );
+//    azi)*cosDec*sinHou + cos(azi)*(cosDec*cosHou*sinLat - sinDec*cosLat)));
 
   angInc = acos(sinDec*sinLat*cos(inc) - sinDec*cosLat*sin(inc)*cos(azi) + cosDec*cosLat*cos(inc)*cosHou + cosDec*sinLat*sin(inc)*cos(azi)*cosHou + cosDec*sin(inc)*sin(azi)*sinHou);
 
