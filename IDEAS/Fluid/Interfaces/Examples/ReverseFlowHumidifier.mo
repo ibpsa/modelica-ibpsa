@@ -17,16 +17,18 @@ package Medium = IDEAS.Media.Air;
     dp_nominal=0,
     m_flow(start=1),
     m_flow_nominal=1,
-    T=283.15,
-    mWat_flow_nominal=0.1) "Humidifier with backward flow"
+    mWat_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T=283.15) "Humidifier with backward flow"
     annotation (Placement(transformation(extent={{-32,-16},{-52,4}})));
   IDEAS.Fluid.MassExchangers.HumidifierPrescribed humFor(
     redeclare package Medium = Medium,
     dp_nominal=0,
     m_flow(start=1),
     m_flow_nominal=1,
-    T=283.15,
-    mWat_flow_nominal=0.1) "Humidifier with forward flow"
+    mWat_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T=283.15) "Humidifier with forward flow"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Modelica.Blocks.Sources.Constant u2(k=0.01) "Control input"
     annotation (Placement(transformation(extent={{-92,54},{-80,66}})));
@@ -83,8 +85,7 @@ package Medium = IDEAS.Media.Air;
     linearized=false,
     dp_nominal=1000) "Fixed resistance"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{38,-100},{58,-80}})));
+
   Modelica.Fluid.Sources.MassFlowSource_T source2(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -140,7 +141,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(humBac.port_a, res2.port_a)         annotation (Line(
-      points={{-32,-6},{-26.5,-6},{-26.5,-6},{-21,-6},{-21,-6},{-10,-6}},
+      points={{-32,-6},{-10,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res2.port_b, sink1.ports[2]) annotation (Line(

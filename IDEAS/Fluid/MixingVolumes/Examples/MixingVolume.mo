@@ -72,12 +72,12 @@ model MixingVolume
            0)));
   IDEAS.Utilities.Diagnostics.AssertEquality assertEquality
     annotation (Placement(transformation(extent={{160,72},{180,92}},rotation=0)));
-  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium
-      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium =
+        Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,50},{60,70}}, rotation=0)));
-  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium
-      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium =
+        Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,0},{60,20}},  rotation=0)));
   IDEAS.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
@@ -106,8 +106,8 @@ model MixingVolume
   IDEAS.Utilities.Diagnostics.AssertEquality assertEquality1
     annotation (Placement(transformation(extent={{156,10},{176,30}},   rotation=
            0)));
-  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium
-      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+  IDEAS.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium =
+        Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
           extent={{40,-92},{60,-72}}, rotation=0)));
     Modelica.Blocks.Sources.Constant zero(k=0)
@@ -116,8 +116,9 @@ model MixingVolume
     Modelica.Blocks.Sources.Constant TLiq(k=283.15)
       annotation (Placement(transformation(extent={{-40,-60},{-20,-40}},
           rotation=0)));
+
   inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 equation
   connect(P.y, sou.p_in) annotation (Line(points={{-79,70},{-72,70},{-72,66}},
                     color={0,0,127}));

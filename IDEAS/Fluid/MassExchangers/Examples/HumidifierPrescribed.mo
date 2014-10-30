@@ -4,8 +4,7 @@ model HumidifierPrescribed "Model that demonstrates the ideal humidifier model"
 
   package Medium = IDEAS.Media.Air;
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
      3000/1000/20 "Nominal mass flow rate";
 

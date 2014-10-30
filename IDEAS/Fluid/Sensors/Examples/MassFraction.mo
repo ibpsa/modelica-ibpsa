@@ -18,8 +18,7 @@ model MassFraction "Test model for the mass fraction sensor"
     m_flow=10,
     nPorts=1) "Flow boundary condition"  annotation (Placement(transformation(
           extent={{-80,0},{-60,20}},  rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
   IDEAS.Fluid.Sensors.MassFraction senMasFra2(
     redeclare package Medium = Medium) "Mass fraction sensor for the volume"
     annotation (Placement(transformation(extent={{20,36},{40,56}})));
@@ -27,7 +26,8 @@ model MassFraction "Test model for the mass fraction sensor"
     redeclare package Medium = Medium,
     V=1,
     nPorts=3,
-    m_flow_nominal=10) "Volume"
+    m_flow_nominal=10,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Volume"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   IDEAS.Fluid.FixedResistances.FixedResistanceDpM dp(
     redeclare package Medium = Medium,

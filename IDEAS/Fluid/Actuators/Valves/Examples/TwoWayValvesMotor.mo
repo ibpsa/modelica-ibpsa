@@ -2,7 +2,7 @@ within IDEAS.Fluid.Actuators.Valves.Examples;
 model TwoWayValvesMotor
     "Two way valves with different opening characteristics and motor"
   extends Modelica.Icons.Example;
-  package Medium = IDEAS.Media.Water;
+  package Medium = IDEAS.Media.Water.Simple;
 
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear valLin(
     redeclare package Medium = Medium,
@@ -54,8 +54,7 @@ model TwoWayValvesMotor
             60},{-80,80}}, rotation=0)));
   Actuators.Motors.IdealMotor mot(                 tOpe=60) "Motor model"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}}, rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
 equation
   connect(PSin.y, sin.p_in) annotation (Line(points={{81,70},{86,70},{86,-2},{
           72,-2}}, color={0,0,127}));
