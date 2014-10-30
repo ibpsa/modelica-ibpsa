@@ -14,6 +14,9 @@ model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
     annotation(Dialog(tab="Advanced"));
   parameter Real y_start(min=0, max=1) = 0 "Initial valve opening"
     annotation(Dialog(enable=dynamicValve,tab="Dynamics", group="Filter"));
+  parameter Modelica.SIunits.Temperature dT_nominal = 50
+    "Nominal/maximum temperature difference between inlet ports, used for regularization";
+
   Modelica.Blocks.Interfaces.RealInput TMixedSet
     "Mixed outlet temperature setpoint" annotation (Placement(transformation(
         extent={{20,-20},{-20,20}},
@@ -37,13 +40,16 @@ protected
   Real k_state(start=y_start) "Variable for introducing a state";
   Real delta_h "Enthalpy difference between port_a2 and port_a1";
   Real inv_delta_h "Regularized inverse of delta_h";
-  parameter Real delta_h_min=100 "minimum enthalpy difference to compute k";
+
+  parameter Real delta_h_reg=dT_nominal/10*Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default,Medium.T_default,Medium.X_default))
+    "Enthalpy difference where regularization starts";
+
 equation
   der(k_state) = if dynamicValve then (k-k_state)/tau else 0;
   delta_h=inStream(port_a2.h_outflow)-inStream(port_a1.h_outflow);
-  inv_delta_h = IDEAS.Utilities.Math.Functions.inverseXRegularized(delta_h, delta=delta_h_min);
+  inv_delta_h = IDEAS.Utilities.Math.Functions.inverseXRegularized(delta_h, delta=delta_h_reg);
 
-  k = IDEAS.Utilities.Math.Functions.spliceFunction(x=abs(delta_h)-delta_h_min, pos=(h_set-inStream(port_a1.h_outflow))*inv_delta_h, neg=0.5, deltax=delta_h_min);
+  k = IDEAS.Utilities.Math.Functions.spliceFunction(x=abs(delta_h)-delta_h_reg, pos=(h_set-inStream(port_a1.h_outflow))*inv_delta_h, neg=0.5, deltax=delta_h_reg);
   m_flow_a2=-port_b.m_flow*IDEAS.Utilities.Math.Functions.smoothMin(IDEAS.Utilities.Math.Functions.smoothMax(if dynamicValve then k_state else k,y_min,0.001),y_max,0.001);
   connect(realExpression.y, idealSource.m_flow_in) annotation (Line(
       points={{32,-50},{8,-50}},
@@ -134,6 +140,7 @@ equation
 <h4>Typical use and important parameters</h4>
 <ol>
 <li>The parameter m sets the mass of the fluid contained by the valve. </li>
+<li>Parameter dT_nominal sets the nominal temperature difference of the inlet ports. It provides an estimate for when to start regularization: when the temperature difference accross the inlet ports is smaller than dT/10. Small dT_nominal values may lead to convergence errors, large dT_nominal values cause a greater error when the inlet temperatures are almost equal.</li>
 </ol>
 <h4>Options</h4>
 <ol>
@@ -143,10 +150,10 @@ equation
 </ol>
 <h4>Validation</h4>
 <p>Only verification was performed.</p>
-<h4> </h4>
 <p>Examples of this model can be found in<a href=\"modelica://IDEAS.Thermal.Components.Examples.TempMixingTester\"> IDEAS.Thermal.Components.Examples.TempMixingTester</a> and<a href=\"modelica://IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve\"> IDEAS.Thermal.Components.Examples.RadiatorWithMixingValve</a></p>
 </html>", revisions="<html>
 <p><ul>
+<li>2014 October, Filip Jorissen, Added parameter for regularization range</li>
 <li>2014 October, Filip Jorissen, Regularized implementation and documentation </li>
 <li>2014 May, Filip Jorissen, Both legs can be hot or cold</li>
 <li>2014 March, Filip Jorissen, Annex60 compatibility</li>
