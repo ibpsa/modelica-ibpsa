@@ -1,7 +1,7 @@
 within IDEAS.Fluid.HeatExchangers.Radiators.Examples;
 model RadiatorEN442_2 "Test model for radiator"
   extends Modelica.Icons.Example;
- package Medium = IDEAS.Media.Water "Medium model";
+ package Medium = IDEAS.Media.Water.Simple "Medium model";
  parameter Modelica.SIunits.Temperature TRoo = 20+273.15 "Room temperature"
     annotation (Evaluate=false);
  parameter Modelica.SIunits.Power Q_flow_nominal = 500 "Nominal power";
@@ -37,15 +37,15 @@ model RadiatorEN442_2 "Test model for radiator"
     p(displayUnit="Pa") = 300000,
     T=T_b_nominal) "Sink"
     annotation (Placement(transformation(extent={{90,-68},{70,-48}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
   IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(redeclare
       package Medium =
                Medium,
     T_a_nominal=T_a_nominal,
     T_b_nominal=T_b_nominal,
     Q_flow_nominal=Q_flow_nominal,
-    TAir_nominal=TRoo) "Radiator"
+    TAir_nominal=TRoo,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Radiator"
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
   IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
     redeclare package Medium = Medium,

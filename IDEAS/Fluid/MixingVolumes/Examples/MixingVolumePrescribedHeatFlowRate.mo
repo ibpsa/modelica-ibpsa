@@ -35,8 +35,7 @@ model MixingVolumePrescribedHeatFlowRate
     offset=1,
     height=-2)
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
   Modelica.Blocks.Math.Gain gain(k=0.01)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.Blocks.Sources.Constant const(k=0)
@@ -79,7 +78,7 @@ equation
 This model demonstrates the use of the mixing volume with a prescribed heat flow rate.
 The mixing volume is configured as a steady-state model.
 The heat flow rate is set to a very small value. This model is used to test
-convergence for the case the the prescribed heat flow rate should be zero,
+convergence for the case the prescribed heat flow rate should be zero,
 but due to numerical solutions, it may have a small error that causes the signal to be 
 non-zero.
 </p>

@@ -130,7 +130,7 @@ as port of the correction of issue
 <li>
 December 18, 2013 by Michael Wetter:<br/>
 Changed computation of <code>s</code> to allow this model to also be used
-with <code>IDEAS.Media.Water</code>.
+with <code>IDEAS.Media.Water.Simple</code>.
 </li>
 <li>
 October 21, 2013 by Michael Wetter:<br/>

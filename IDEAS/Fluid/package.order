@@ -1,4 +1,6 @@
 UsersGuide
+Actuators
+Delays
 Domestic_Hot_Water
 FixedResistances
 HeatExchangers
@@ -10,8 +12,6 @@ Sensors
 Sources
 Storage
 Valves
-Actuators
-Delays
 Types
 BaseClasses
 Interfaces

@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Actuators.Valves.Examples;
 model TwoWayValves "Two way valves with different opening characteristics"
   extends Modelica.Icons.Example;
-  package Medium = IDEAS.Media.Water;
+  package Medium = IDEAS.Media.Water.Simple;
 
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear valLin(
     redeclare package Medium = Medium,
@@ -49,8 +49,7 @@ model TwoWayValves "Two way valves with different opening characteristics"
     "Valve model, equal percentage opening characteristics"
          annotation (Placement(transformation(extent={{0,-60},{20,-40}},
           rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
 equation
   connect(y.y, valLin.y) annotation (Line(
       points={{-39,70},{-12,70},{-12,50},{10,50},{10,42}},

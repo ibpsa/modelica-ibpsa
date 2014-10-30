@@ -1,6 +1,4 @@
 UsersGuide
-SimInfoManager
-PartialSimInfoManager
 BoundaryConditions
 Buildings
 Climate
@@ -14,6 +12,7 @@ Media
 Occupants
 Utilities
 VentilationSystems
+PartialSimInfoManager
 SimInfoManager
 Examples
 Experimental

@@ -2,7 +2,7 @@ within IDEAS.Fluid.FixedResistances.Examples;
 model FixedResistancesParallel
   extends Modelica.Icons.Example;
 
- package Medium = IDEAS.Media.Water;
+ package Medium = IDEAS.Media.Water.Simple;
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{66,76},{86,96}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp P(
@@ -51,9 +51,7 @@ model FixedResistancesParallel
   IDEAS.Fluid.Sensors.MassFlowRate masFlo1(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{20,30},
             {40,50}}, rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-                                   annotation (Placement(transformation(extent={{-80,-80},
-            {-60,-60}},        rotation=0)));
+
 equation
   connect(PAtm.y, sin1.p_in)
                             annotation (Line(points={{87,86},{94,86},{94,46},{
