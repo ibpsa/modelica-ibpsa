@@ -1,8 +1,9 @@
 within IDEAS;
 partial model PartialSimInfoManager
   "Partial providing structure for SimInfoManager"
-
-  parameter String filNam = "Uccle_TMY3_60.txt" "Name of weather data file"
+  parameter String filDir = Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "/Inputs/"
+    "Directory containing the weather data file, default under IDEAS/Inputs/";
+  parameter String filNam = "Uccle.TMY" "Name of weather data file"
     annotation(Dialog(enable=useTmy3Reader));
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") = 0.88749992463912
     "latitude of the locatioin";
@@ -10,7 +11,7 @@ partial model PartialSimInfoManager
   parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = 3600
     "standard time zone";
 
-  final parameter String filNamClim="../Inputs/" + filNam;
+  final parameter String filNamClim=filDir + filNam;
 
   parameter Boolean occBeh=false
     "put to true if  user behaviour is to be read from files"
@@ -92,49 +93,49 @@ public
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="../Inputs/" + occupants.filQCon,
+    fileName=filDir + occupants.filQCon,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-40,-34},{-26,-20}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabQRad(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="../Inputs/" + occupants.filQRad,
+    fileName=filDir + occupants.filQRad,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-36,-38},{-22,-24}})));
   Modelica.Blocks.Sources.CombiTimeTable tabPre(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="../Inputs/" + occupants.filPres,
+    fileName=filDir + occupants.filPres,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{0,-34},{14,-20}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabP(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="../Inputs/" + occupants.filP,
+    fileName=filDir + occupants.filP,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-40,-58},{-26,-44}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabQ(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="../Inputs/" + occupants.filQ,
+    fileName=filDir + occupants.filQ,
     columns=2:nOcc + 1) if occBeh
     annotation (Placement(transformation(extent={{-36,-62},{-22,-48}})));
   Modelica.Blocks.Sources.CombiTimeTable tabDHW(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="../Inputs/" + occupants.filDHW,
+    fileName=filDir + occupants.filDHW,
     columns=2:nOcc + 1) if DHW
     annotation (Placement(transformation(extent={{0,-58},{14,-44}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabPPV(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName="../Inputs/" + fileNamePv,
+    fileName=filDir + fileNamePv,
     columns=2:nPV + 1) if PV
     annotation (Placement(transformation(extent={{-36,2},{-22,16}})));
 
