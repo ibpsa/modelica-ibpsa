@@ -56,7 +56,7 @@ equation
         Text(
           extent={{-122,106},{-78,78}},
           lineColor={0,0,255},
-          textString="T")}),
+          textString="Tset")}),
 defaultComponentName="hea",
 Documentation(info="<html>
 <p>
@@ -69,7 +69,7 @@ If the maximum positive or negative value is greater than <code>Q_flow_maxHeat</
 the ideal heating or cooling demand of the heater/cooler the default value of the parameter <code>Q_flow_maxHeat</code>
 is set to <code>Modelica.Constant.inf</code> and <code>Q_flow_maxCool</code> to <code>-Modelica.Constant.inf</code>.
 
-The input signal <code>u</code> (set temperature in K) has to be positive and the calculated heat flow rate <code>Q_flow</code> 
+The input signal <code>Tset</code> (set temperature in K) has to be positive and the calculated heat flow rate <code>Q_flow</code> 
 can be positive or negative.
 </p>
 </html>",
