@@ -5,12 +5,11 @@ model Bangbang "BESTEST bang-bang heating system"
 
   parameter Modelica.SIunits.Volume[nZones] VZones;
   parameter Real corrCV = 5 "Correction factor for thermal mass in zone";
-  final parameter Modelica.SIunits.HeatCapacity[nZones] C = VZones * corrCV;
+  final parameter Modelica.SIunits.HeatCapacity[nZones] C = VZones * corrCV  * 1012 * 1.204;
 
 protected
   parameter Modelica.SIunits.Temperature Theat=293.15 "Heating on below 20degC";
   parameter Modelica.SIunits.Temperature Tcool=293.15 "Cooling on above 27degC";
-
 
 equation
   for i in 1:nZones loop
