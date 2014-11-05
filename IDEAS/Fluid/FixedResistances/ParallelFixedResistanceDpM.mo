@@ -22,8 +22,7 @@ model ParallelFixedResistanceDpM
   final parameter Real k(unit="") = if computeFlowResistance then
         m_flow_nominal_pos/nParCir / sqrt(dp_nominal_pos) else 0
     "Flow coefficient for 1 of the parallel circuits";
-protected
-  final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
+  parameter Boolean computeFlowResistance=true
     "Flag to enable/disable computation of flow resistance"
    annotation(Evaluate=true);
 initial equation
