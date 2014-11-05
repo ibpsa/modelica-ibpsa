@@ -2,8 +2,8 @@ within IDEAS.Fluid.Interfaces;
 partial model PartialTwoPort "Partial component with two ports"
   import Modelica.Constants;
 
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium =Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
       annotation (choicesAllMatching = true);
 
   parameter Boolean allowFlowReversal = true
