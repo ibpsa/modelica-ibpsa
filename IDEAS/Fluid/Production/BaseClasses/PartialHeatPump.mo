@@ -14,10 +14,12 @@ partial model PartialHeatPump "Heat pump partial"
         MediumBrine)
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   replaceable package MediumBrine =
-    Modelica.Media.Interfaces.PartialMedium "Brine medium at primary side"
+    IDEAS.Media.Water constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Brine medium at primary side"
     annotation(choicesAllMatching=true);
   replaceable package MediumFluid =
-    Modelica.Media.Interfaces.PartialMedium "Fluid medium at secondary side"
+    IDEAS.Media.Water constrainedby Modelica.Media.Interfaces.PartialMedium
+    "Fluid medium at secondary side"
     annotation(choicesAllMatching=true);
   replaceable parameter HeatPumpData heatPumpData
   constrainedby HeatPumpData "Record containing heat pump performance data"
@@ -85,8 +87,12 @@ partial model PartialHeatPump "Heat pump partial"
        quantity=MediumFluid.extraPropertiesNames) = fill(1E-2, MediumFluid.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=MediumFluid.nC > 0));
+  parameter Real mFactor=1 "Factor to scale the thermal mass of the volumes";
 
   //From TwoPortFlowResistanceParameters:
+  parameter Boolean computeFlowResistance = true
+    "=true, compute flow resistance. Set to false to assume no friction"
+    annotation (Evaluate=true, Dialog(tab="Flow resistance"));
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance,
@@ -98,6 +104,12 @@ partial model PartialHeatPump "Heat pump partial"
   parameter Real deltaM = 0.1
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation(Dialog(enable = computeFlowResistance, tab="Flow resistance"));
+  parameter Boolean avoidEvents = false
+    "Set to true to switch heat pumps on using a continuous transition"
+    annotation(Dialog(tab="Advanced", group="Events"));
+
+  parameter SI.Frequency riseTime=120 "Heat pump rise time"
+    annotation(Dialog(tab="Advanced", group="Events", enable=avoidEvents));
   Modelica.Blocks.Tables.CombiTable2D powerTable(              table=
         heatPumpData.powerData, smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "Interpolation table for finding the electrical power"
@@ -169,7 +181,11 @@ public
     deltaM=deltaM,
     m=heatPumpData.mBrine,
     dp_nominal=heatPumpData.dp_nominal_brine,
-    m_flow_nominal=heatPumpData.m_flow_nominal_brine)
+    m_flow_nominal=heatPumpData.m_flow_nominal_brine,
+    mFactor=if avoidEvents then max(mFactor, 1+riseTime*heatPumpData.P_the_nominal
+        /MediumBrine.specificHeatCapacityCp(state_default_brine)/5/heatPumpData.mBrine)
+         else mFactor,
+    computeFlowResistance=computeFlowResistance)
               annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -188,7 +204,11 @@ public
     C_nominal=C_nominal2,
     m=heatPumpData.mFluid,
     dp_nominal=heatPumpData.dp_nominal_fluid,
-    m_flow_nominal=heatPumpData.m_flow_nominal_fluid)
+    m_flow_nominal=heatPumpData.m_flow_nominal_fluid,
+    mFactor=if avoidEvents then max(mFactor, 1+riseTime*heatPumpData.P_the_nominal
+        /MediumFluid.specificHeatCapacityCp(state_default_fluid)/5/heatPumpData.mFluid)
+         else mFactor,
+    computeFlowResistance=computeFlowResistance)
                                  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -197,6 +217,9 @@ public
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 protected
+  parameter MediumBrine.ThermodynamicState state_default_brine = MediumBrine.setState_pTX(MediumBrine.p_default, MediumBrine.T_default, MediumBrine.X_default);
+  parameter MediumFluid.ThermodynamicState state_default_fluid = MediumFluid.setState_pTX(MediumFluid.p_default, MediumFluid.T_default, MediumFluid.X_default);
+
   Modelica.Blocks.Logical.Hysteresis hysteresisCond(
     pre_y_start=true,
     uLow=0,
@@ -215,9 +238,25 @@ protected
     annotation (Placement(transformation(extent={{-68,-106},{-48,-86}})));
   Modelica.Blocks.Logical.And tempProtection
     annotation (Placement(transformation(extent={{-24,-90},{-16,-82}})));
+public
+  Modelica.Blocks.Sources.BooleanExpression compressorOnBlock(y=compressorOn) if avoidEvents
+    annotation (Placement(transformation(extent={{-100,-68},{-60,-48}})));
+  Modelica.Blocks.Math.BooleanToReal booleanToReal if avoidEvents
+    annotation (Placement(transformation(extent={{-52,-64},{-40,-52}})));
+  Modelica.Blocks.Continuous.Filter modulationRate(f_cut=5/(2*Modelica.Constants.pi*riseTime)) if avoidEvents
+    "Fictive modulation rate to avoid non-smooth on/off transitions causing events."
+    annotation (Placement(transformation(extent={{-34,-64},{-22,-52}})));
+protected
+   Modelica.Blocks.Interfaces.RealInput modulationInternal;
+
 equation
-  cop = if compressorOn then  copTable.y else 1;
-  P_el = if compressorOn then  powerTable.y * sca else 0;
+  cop = copTable.y;
+  connect(modulationInternal, modulationRate.y);
+  if avoidEvents then
+    P_el = powerTable.y * sca*modulationInternal;
+  else
+    P_el = if compressorOn then  powerTable.y * sca else 0;
+  end if;
   P_evap=P_el*(cop-1);
   P_cond=P_el*cop;
   connect(heatLoss, thermalConductor.port_a) annotation (Line(
@@ -287,6 +326,14 @@ equation
   connect(hysteresisEvap.y, tempProtection.u2) annotation (Line(
       points={{-29.4,-96},{-26,-96},{-26,-89.2},{-24.8,-89.2}},
       color={255,0,255},
+      smooth=Smooth.None));
+  connect(compressorOnBlock.y, booleanToReal.u) annotation (Line(
+      points={{-58,-58},{-53.2,-58}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(modulationRate.u, booleanToReal.y) annotation (Line(
+      points={{-35.2,-58},{-39.4,-58}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
