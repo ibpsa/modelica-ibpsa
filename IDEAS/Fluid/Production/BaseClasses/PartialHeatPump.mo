@@ -14,12 +14,12 @@ partial model PartialHeatPump "Heat pump partial"
         MediumBrine)
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   replaceable package MediumBrine =
-    IDEAS.Media.Water constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Brine medium at primary side"
+    IDEAS.Media.Water.Simple constrainedby
+    Modelica.Media.Interfaces.PartialMedium "Brine medium at primary side"
     annotation(choicesAllMatching=true);
   replaceable package MediumFluid =
-    IDEAS.Media.Water constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Fluid medium at secondary side"
+    IDEAS.Media.Water.Simple constrainedby
+    Modelica.Media.Interfaces.PartialMedium "Fluid medium at secondary side"
     annotation(choicesAllMatching=true);
   replaceable parameter HeatPumpData heatPumpData
   constrainedby HeatPumpData "Record containing heat pump performance data"
