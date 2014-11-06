@@ -358,9 +358,44 @@ equation
           smooth=Smooth.None)}),
     Documentation(revisions="<html>
 <ul>
+<li>November 2014 by Filip Jorissen:<br/> 
+Added 'AvoidEvents' parameter, temperature protection and documentation.
+</li>
 <li>March 2014 by Filip Jorissen:<br/> 
 Initial version
 </li>
 </ul>
+</html>", info="<html>
+<p>This partial model provides an implementation for a heat pump. Heat is drawn from the fluid at the &apos;Brine&apos; side and injected into the &apos;Fluid&apos; side. The model uses performance tables to calculate the COP and electrical power.</p>
+<p><b>Main equations</b> </p>
+<p>The COP and electrical power Pel are read from performance tables as a function of the water inlet temperatures:</p>
+<p>COP = f1(T_in_condensor, T_in_evaporator)</p>
+<p>P_el = f2(T_in_condensor, T_in_evaporator)</p>
+<p>These values are used to calculate the thermal powers:</p>
+<p>Q_condensor = P_el*COP</p>
+<p>Q_evaporator = P_el*(COP-1)</p>
+<p><br>The heat pump compressor will be switched off when:</p>
+<ol>
+<li>The external control signal is false</li>
+<li>The over/under-temperature protection is activated</li>
+</ol>
+<p>In this case P_el will become zero. The transition from on to off can happen discretely or through a filter using the parameter &apos;avoidEvents&apos;.</p>
+<h4>Assumptions and limitations </h4>
+<ul>
+<li>The transient behaviour of the thermodynamic cycle is not simulated.</li>
+<li>The fluid mass flow rates do not have an impact on the values of COP and P_el.</li>
+<li>Modulation of the power is not supported.</li>
+<li>Maximum temperatures of the evaporator and minimum temperatures of the condensor are not considered.</li>
+<li>Defrosting cycles etc are not considered.</li>
+</ul>
+<h4>Typical use and important parameters</h4>
+<p>A record with the required parameters needs to be provided.</p>
+<p><br>The parameter &apos;avoidEvents&apos; can be used to avoid an event when activating the over/under-temperature protection. When avoidEvents is true the thermal mass of the condensor and evaporator are increased to avoid undercooling/overheating the heat pump while it is switching off and the mass flow rate is zero. This factor can be quite significant and depends on the &apos;riseTime&apos;.</p>
+<h4>Options</h4>
+<ol>
+<li>Typical options inherited through lumpedVolumeDeclarations can be used.</li>
+</ol>
+<h4>Validation</h4>
+<p>Examples of this model can be found in<a href=\"modelica://IDEAS.Fluid.Production.Examples.HeatPump_BrineWater\"> IDEAS.Fluid.Production.Examples.HeatPump_BrineWater</a>, <a href=\"modelica://IDEAS.Fluid.Production.Examples.HeatPump_BrineWaterTset\">IDEAS.Fluid.Production.Examples.HeatPump_BrineWaterTset</a> and <a href=\"modelica://IDEAS.Fluid.Production.Examples.HeatPump_Events\">IDEAS.Fluid.Production.Examples.HeatPump_Events</a></p>
 </html>"));
 end PartialHeatPump;

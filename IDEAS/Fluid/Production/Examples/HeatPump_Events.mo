@@ -10,5 +10,11 @@ model HeatPump_Events
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>This model demonstrates the use of the &apos;AvoidEvents&apos; parameter. The parameter can be switched to see the impact on number of events and on the simulation time.</p>
+</html>", revisions="<html>
+<ul>
+<li>November 2014 by Filip Jorissen:<br/> 
+Initial version
+</li>
+</ul>
 </html>"));
 end HeatPump_Events;
