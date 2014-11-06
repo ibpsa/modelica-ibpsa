@@ -3,7 +3,7 @@ partial model PartialTwoPort
   "Partial model of two port without internal connections"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare
       replaceable package Medium =
-        IDEAS.Media.Water);
+        IDEAS.Media.Water.Simple);
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Modelica.SIunits.Mass m(start=1) = 1 "Mass of medium";
