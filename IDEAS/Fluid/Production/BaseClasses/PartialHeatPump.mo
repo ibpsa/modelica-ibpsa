@@ -87,7 +87,9 @@ partial model PartialHeatPump "Heat pump partial"
        quantity=MediumFluid.extraPropertiesNames) = fill(1E-2, MediumFluid.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=MediumFluid.nC > 0));
-  parameter Real mFactor=1 "Factor to scale the thermal mass of the volumes";
+  parameter Real mFactor=1
+    "Factor to scale the thermal mass of the evaporator and condensor"
+    annotation(Dialog(tab="Advanced"));
 
   //From TwoPortFlowResistanceParameters:
   parameter Boolean computeFlowResistance = true
