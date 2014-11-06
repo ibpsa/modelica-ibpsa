@@ -1,7 +1,9 @@
 within IDEAS.Fluid.Interfaces.Partials;
 partial model PartialTwoPort
   "Partial model of two port without internal connections"
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare
+      replaceable package Medium =
+        IDEAS.Media.Water);
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
 
   parameter Modelica.SIunits.Mass m(start=1) = 1 "Mass of medium";
@@ -34,7 +36,10 @@ partial model PartialTwoPort
     p_start=p_start,
     allowFlowReversal=allowFlowReversal,
     nPorts=1,
-    final V=m/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default)))
+    final V=m/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default)),
+    C_nominal=C_nominal,
+    mFactor=mFactor,
+    m_flow_small=m_flow_small)
     annotation (Placement(transformation(extent={{-44,0},{-64,20}})));
 
   parameter Boolean dynamicBalance = true

@@ -2,7 +2,7 @@ within IDEAS.Fluid.Interfaces.Partials;
 model PipeTwoPort "Two port containing a volume and pressure drop"
   extends IDEAS.Fluid.Interfaces.Partials.PartialTwoPort(vol(nPorts=2));
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-    final computeFlowResistance=true, dp_nominal = 0);
+    dp_nominal = 0);
 
   IDEAS.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
@@ -14,7 +14,7 @@ model PipeTwoPort "Two port containing a volume and pressure drop"
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
     final homotopyInitialization=homotopyInitialization,
-    final dp_nominal=dp_nominal)
+    final dp_nominal=if computeFlowResistance then dp_nominal else 0)
     annotation (Placement(transformation(extent={{4,-10},{24,10}})));
   //Advanced settings: based on IDEAS.Fluid.Interfaces.TwoPortHeatMassExchanger
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -25,7 +25,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(res.port_b, port_b) annotation (Line(
-      points={{24,0},{62,0},{62,0},{100,0}},
+      points={{24,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

@@ -1,7 +1,8 @@
 within IDEAS.Fluid.Storage;
 model StorageTank "1D multinode stratified storage tank"
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium = IDEAS.Media.Water constrainedby
+    Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
   //Tank geometry and composition
   parameter Integer nbrNodes(min=1) = 10 "Number of nodes";
