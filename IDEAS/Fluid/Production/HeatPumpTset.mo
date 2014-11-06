@@ -46,5 +46,14 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+    Documentation(info="<html>
+<p>This model implements a heat pump as described in<a href=\"modelica://IDEAS.Fluid.Production.BaseClasses.PartialHeatPump\"> IDEAS.Fluid.Production.BaseClasses.PartialHeatPump</a>. The heat pump is switched on or off based on a temperature set point.</p>
+</html>", revisions="<html>
+<ul>
+<li>November 2014 by Filip Jorissen:<br/> 
+Added documentation
+</li>
+</ul>
+</html>"));
 end HeatPumpTset;

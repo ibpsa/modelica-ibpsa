@@ -47,9 +47,14 @@ equation
           smooth=Smooth.None)}),
     Documentation(revisions="<html>
 <ul>
+<li>November 2014 by Filip Jorissen:<br/> 
+Added documentation
+</li>
 <li>March 2014 by Filip Jorissen:<br/> 
 Initial version
 </li>
 </ul>
+</html>", info="<html>
+<p>This model implements a heat pump as described in<a href=\"modelica://IDEAS.Fluid.Production.BaseClasses.PartialHeatPump\"> IDEAS.Fluid.Production.BaseClasses.PartialHeatPump</a>. The heat pump can be switching on or off using an external control signal.</p>
 </html>"));
 end HeatPumpOnOff;
