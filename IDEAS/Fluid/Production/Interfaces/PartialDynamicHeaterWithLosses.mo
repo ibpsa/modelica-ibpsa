@@ -8,7 +8,7 @@ model PartialDynamicHeaterWithLosses
     final computeFlowResistance=true, dp_nominal = 0);
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=293.15, redeclare
       replaceable package Medium =
-        IDEAS.Media.Water);
+        IDEAS.Media.Water.Simple);
 
   parameter HeaterType heaterType
     "Type of the heater, is used mainly for post processing";
