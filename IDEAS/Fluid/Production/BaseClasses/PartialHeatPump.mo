@@ -108,7 +108,8 @@ partial model PartialHeatPump "Heat pump partial"
     "Set to true to switch heat pumps on using a continuous transition"
     annotation(Dialog(tab="Advanced", group="Events"));
 
-  parameter SI.Frequency riseTime=120 "Heat pump rise time"
+  parameter SI.Frequency riseTime=120
+    "The time it takes to reach full/zero power when switching"
     annotation(Dialog(tab="Advanced", group="Events", enable=avoidEvents));
   Modelica.Blocks.Tables.CombiTable2D powerTable(              table=
         heatPumpData.powerData, smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
