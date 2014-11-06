@@ -40,7 +40,7 @@ annotation(Dialog(tab="Pressure drop"));
 annotation(Dialog(tab="Pressure drop"));
   parameter Modelica.SIunits.MassFlowRate m_flowMin = m_flow_nominal*0.5
     "Minimal flowrate when in operation - used for determining required series discretisation";
-  parameter Real nParCir
+  parameter Real nParCir = 1
     "Number of parallel (equally sized) circuits in the tabs";
   parameter Modelica.SIunits.Area A_floor "Floor/tabs surface area";
 
@@ -132,7 +132,8 @@ public
     allowFlowReversal=allowFlowReversal,
     from_dp=from_dp,
     homotopyInitialization=homotopyInitialization,
-    linearized=linearized)
+    linearized=linearized,
+    dp(nominal=100))
                annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -152,7 +153,6 @@ initial equation
     assert(RadSlaCha.d_a/2 < RadSlaCha.S_2, "In order to use the floor heating model, RadSlaCha.alp2RadSlaCha.d_a/2 < RadSlaCha.S_2 needs to be true");
     assert(RadSlaCha.S_1/RadSlaCha.T <0.3, "In order to use the floor heating model, RadSlaCha.S_1/RadSlaCha.T <0.3 needs to be true");
   end if;
-
 equation
 
   connect(G_w_val.y, R_w.Gc) annotation (Line(
