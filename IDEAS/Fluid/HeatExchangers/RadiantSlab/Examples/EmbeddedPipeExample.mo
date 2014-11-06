@@ -22,7 +22,7 @@ model EmbeddedPipeExample
   Buildings.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15 +
         10)
     annotation (Placement(transformation(extent={{-34,24},{-14,44}})));
-  replaceable package Medium = IDEAS.Media.Water;
+  replaceable package Medium = IDEAS.Media.Water.Simple;
   Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Modelica.Blocks.Sources.Trapezoid trapezoid(
