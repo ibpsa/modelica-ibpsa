@@ -17,22 +17,48 @@ model HeaterCooler_T
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}, rotation=0)));
   Modelica.SIunits.HeatFlowRate Q_flow=-preHea.port.Q_flow "Heat flow rate";
 protected
+  Modelica.Blocks.Sources.RealExpression h_in(y=inStream(port_a.h_outflow))
+    "Instreaming enthalpy"
+    annotation (Placement(transformation(extent={{-80,66},{-60,86}})));
+  Modelica.Blocks.Sources.RealExpression Xi[Medium.nXi](y=inStream(port_a.Xi_outflow)) if
+       Medium.nXi > 0 "Inlet mass fractions"
+    annotation (Placement(transformation(extent={{-80,52},{-60,72}})));
+  Modelica.Blocks.Sources.RealExpression m_in_flow(y=port_a.m_flow)
+    "Mass flow rate"
+    annotation (Placement(transformation(extent={{-80,38},{-60,58}})));
+  Modelica.Blocks.Sources.RealExpression p(y=vol.ports[1].p) "Pressure"
+    annotation (Placement(transformation(extent={{-80,26},{-60,46}})));
+
   Fluid.Interfaces.TemperatureControlledHeatFlow preHea(
     redeclare final package Medium = Medium,
     final Q_flow_maxHeat = Q_flow_maxHeat,
     final Q_flow_maxCool = Q_flow_maxCool,
-    final m_flow = port_a.m_flow,
-    final h_outflow = inStream(port_a.h_outflow),
-    final Xi = inStream(port_a.Xi_outflow),
-    final p = port_a.p) "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    final m_flow_small =   m_flow_small) "Prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{-38,50},{-18,70}})));
+
 equation
   connect(preHea.port, vol.heatPort) annotation (Line(
-      points={{-20,60},{-9,60},{-9,-10}},
+      points={{-18,60},{-9,60},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TSet, preHea.TSet) annotation (Line(
-      points={{-120,60},{-40,60}},
+      points={{-120,60},{-94,60},{-94,92},{-46,92},{-46,68},{-40,68}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preHea.h_in, h_in.y) annotation (Line(
+      points={{-40,64},{-50,64},{-50,76},{-59,76}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Xi.y, preHea.Xi) annotation (Line(
+      points={{-59,62},{-50,62},{-50,60},{-40,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preHea.m_flow, m_in_flow.y) annotation (Line(
+      points={{-40,56},{-50,56},{-50,48},{-59,48}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(p.y, preHea.p) annotation (Line(
+      points={{-59,36},{-46,36},{-46,52},{-40,52}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -83,7 +109,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics));
 end HeaterCooler_T;
