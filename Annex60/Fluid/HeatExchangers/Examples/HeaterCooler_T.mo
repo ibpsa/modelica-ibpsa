@@ -3,7 +3,7 @@ model HeaterCooler_T
   "Model that demonstrates the ideal heater/cooler model for a prescribed outlet temperature"
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Water.Simple;
-  inner Modelica.Fluid.System system(m_flow_start=0, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
@@ -18,7 +18,6 @@ model HeaterCooler_T
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     Q_flow_maxHeat=1.0e10)
     "Steady-state model of the heater with high capacity"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
@@ -36,7 +35,6 @@ model HeaterCooler_T
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     Q_flow_maxCool=-1000)
     "Steady-state model of the cooler with limited capacity"
     annotation (Placement(transformation(extent={{40,24},{60,44}})));
@@ -47,8 +45,7 @@ model HeaterCooler_T
   Annex60.Fluid.HeatExchangers.HeaterCooler_T heaCooUnl(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=6000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    dp_nominal=6000)
     "Steady-state model of the heater or cooler with unlimited capacity"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Modelica.Blocks.Sources.TimeTable TSetCoolHeat(table=[0,273.15 + 20.0; 120,273.15
