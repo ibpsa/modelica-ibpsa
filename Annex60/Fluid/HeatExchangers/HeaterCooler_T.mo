@@ -5,24 +5,26 @@ model HeaterCooler_T
     redeclare final Annex60.Fluid.MixingVolumes.MixingVolume vol(prescribedHeatFlowRate=true),
     final showDesignFlowDirection=false);
   parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat(
-    min=0,max=Modelica.Constants.inf) = Modelica.Constants.inf
+    min=0,
+    max=Modelica.Constants.inf) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool(
-    min=-Modelica.Constants.inf,max=0.0) = - Modelica.Constants.inf
+    min=-Modelica.Constants.inf,
+    max=0.0) = - Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
     "Set point for leaving temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-  Modelica.SIunits.HeatFlowRate Q_flow=-preHea.port.Q_flow
-    "Current heat flow rate";
+  Modelica.SIunits.HeatFlowRate Q_flow=-preHea.port.Q_flow "Heat flow rate";
+protected
   Fluid.Interfaces.TemperatureControlledHeatFlow preHea(
-    redeclare package Medium = Medium,
-    Q_flow_maxHeat = Q_flow_maxHeat,
-    Q_flow_maxCool = Q_flow_maxCool,
-    m_flow = port_a.m_flow,
-    h_outflow = inStream(port_a.h_outflow),
-    Xi = inStream(port_a.Xi_outflow),
-    p = port_a.p) "Prescribed heat flow"
+    redeclare final package Medium = Medium,
+    final Q_flow_maxHeat = Q_flow_maxHeat,
+    final Q_flow_maxCool = Q_flow_maxCool,
+    final m_flow = port_a.m_flow,
+    final h_outflow = inStream(port_a.h_outflow),
+    final Xi = inStream(port_a.Xi_outflow),
+    final p = port_a.p) "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 equation
   connect(preHea.port, vol.heatPort) annotation (Line(
@@ -54,9 +56,9 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-122,106},{-78,78}},
+          extent={{-106,98},{-62,70}},
           lineColor={0,0,255},
-          textString="Tset")}),
+          textString="T")}),
 defaultComponentName="hea",
 Documentation(info="<html>
 <p>
