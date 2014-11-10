@@ -4,28 +4,39 @@ model TemperatureControlledHeatFlow
 replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
   annotation (choicesAllMatching = true);
-parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat
     "Maximum heat flow rate for heating (positive)";
-parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool
     "Maximum heat flow rate for cooling (negative)";
-Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
+  Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
     "Set temperature of the heater"
-  annotation (Placement(transformation(origin={-100,0},extent={{20,-20},{-20,20}},rotation=180)));
-Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port
-  annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
-input Medium.SpecificEnthalpy h_outflow "Specific thermodynamic enthalpy";
-input Medium.MassFlowRate m_flow "Mass flow rate";
-input Modelica.SIunits.Pressure p "Pressure";
-input Modelica.SIunits.MassFraction Xi[Medium.nXi] "Mass fraction";
+    annotation (Placement(transformation(origin={-100,0},extent={{20,-20},{-20,20}},rotation=180)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port
+    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+  input Medium.SpecificEnthalpy h_outflow "Specific thermodynamic enthalpy";
+  input Medium.MassFlowRate m_flow "Mass flow rate";
+  input Modelica.SIunits.Pressure p "Pressure";
+  input Modelica.SIunits.MassFraction Xi[Medium.nXi] "Mass fraction";
 equation
   // fixme: this triggers a state event at m_flow=0 which must be fixed.
   if m_flow > 0 then
     if Q_flow_maxHeat <> Modelica.Constants.inf and  Q_flow_maxCool == - Modelica.Constants.inf then
-      port.Q_flow = - Annex60.Utilities.Math.Functions.smoothLimit((Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TSet, X=Xi)) - h_outflow) * m_flow, - Modelica.Constants.inf, Q_flow_maxHeat, 0.1);
+      port.Q_flow = - Annex60.Utilities.Math.Functions.smoothLimit(
+        x=  (Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TSet, X=Xi)) - h_outflow)
+        * m_flow,
+        l=  -Modelica.Constants.inf,
+        u=  Q_flow_maxHeat,
+        deltaX=  0.1);
     elseif Q_flow_maxHeat == Modelica.Constants.inf and  Q_flow_maxCool <> - Modelica.Constants.inf then
-      port.Q_flow = - Annex60.Utilities.Math.Functions.smoothLimit((Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TSet, X=Xi)) - h_outflow) * m_flow, Q_flow_maxCool, Q_flow_maxHeat, 0.1);
+      port.Q_flow =
+        -Annex60.Utilities.Math.Functions.smoothLimit(
+        x=  (Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TSet, X=Xi)) - h_outflow) * m_flow,
+        l=  Q_flow_maxCool,
+        u=  Q_flow_maxHeat,
+        deltaX=  0.1);
     else
-      port.Q_flow = - (Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TSet, X=Xi)) - h_outflow) * m_flow;
+      port.Q_flow = - (Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TSet, X=Xi)) - h_outflow)
+       * m_flow;
     end if;
   else
     port.Q_flow = 0.0;
