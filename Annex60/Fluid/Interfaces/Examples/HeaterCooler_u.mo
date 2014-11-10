@@ -6,9 +6,8 @@ model HeaterCooler_u
  package Medium = Annex60.Media.Water.Simple;
 
   Annex60.Fluid.HeatExchangers.HeaterCooler_u hea1(
-                                                         redeclare package
-      Medium =
-        Medium, Q_flow_nominal=5000,
+    redeclare package Medium = Medium, 
+    Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -50,7 +49,7 @@ model HeaterCooler_u
                  annotation (Placement(transformation(extent={{-148,174},{-128,
             194}})));
   Annex60.Fluid.HeatExchangers.HeaterCooler_u hea2(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
@@ -60,7 +59,7 @@ model HeaterCooler_u
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
           extent={{-50,174},{-30,194}})));
   Annex60.Fluid.HeatExchangers.HeaterCooler_u hea3(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
@@ -107,7 +106,7 @@ model HeaterCooler_u
         0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,116},{180,136}})));
   Annex60.Fluid.HeatExchangers.HeaterCooler_u hea5(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
@@ -134,7 +133,7 @@ model HeaterCooler_u
     "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{0,-130},{20,-110}})));
   Annex60.Fluid.HeatExchangers.HeaterCooler_u hea7(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
@@ -168,7 +167,7 @@ model HeaterCooler_u
         extent={{-10,-10},{10,10}},
         rotation=180)));
   Annex60.Fluid.MixingVolumes.MixingVolume mix2(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     V=0.000001,
     nPorts=2,
     m_flow_nominal=0.5,
