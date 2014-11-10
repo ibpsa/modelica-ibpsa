@@ -34,8 +34,7 @@ model FlowMachineParallel_y "Two flow machines in parallel"
     redeclare package Medium = Medium,
     use_p_in=false,
     nPorts=2,
-    T=293.15) annotation (Placement(transformation(extent={{-92,48},{-72,68}},
-          rotation=0)));
+    T=293.15) annotation (Placement(transformation(extent={{-92,48},{-72,68}})));
 
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn(
     redeclare package Medium = Medium,
@@ -52,8 +51,7 @@ model FlowMachineParallel_y "Two flow machines in parallel"
 
   parameter Modelica.SIunits.Density rho_nominal=1.2
     "Density, used to compute fluid mass";
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn2(
     redeclare package Medium = Medium,
     dp_nominal=1000,
@@ -132,7 +130,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 This example tests the configuration of two flow machines that are installed in parallel.
-Both flow machines start with full speed. 
+Both flow machines start with full speed.
 At <i>t=150</i> second, the speed of the flow machine on the top is reduced to zero.
 As its speed is reduced, the mass flow rate changes its direction in such a way that the flow machine
 at the top has reverse flow.

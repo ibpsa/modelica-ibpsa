@@ -8,7 +8,7 @@ model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
     "Heat flow rate at u=1, positive for heating";
   Modelica.Blocks.Interfaces.RealInput u "Control input"
     annotation (Placement(transformation(
-          extent={{-140,40},{-100,80}}, rotation=0)));
+          extent={{-140,40},{-100,80}})));
 protected
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow"
@@ -63,15 +63,15 @@ Model for an ideal heater or cooler with prescribed heat flow rate to the medium
 </p>
 <p>
 This model adds heat in the amount of <code>Q_flow = u Q_flow_nominal</code> to the medium.
-The input signal <code>u</code> and the nominal heat flow rate <code>Q_flow_nominal</code> 
+The input signal <code>u</code> and the nominal heat flow rate <code>Q_flow_nominal</code>
 can be positive or negative.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-September 11, 2014, by Christoph nytsch-Geusen:<br/>
-Renaming model class to HeaterCooler_u.
+September 11, 2014, by Christoph Nytsch-Geusen:<br/>
+Renaming class to <code>HeaterCooler_u</code>.
 </li>
 <li>
 October 15, 2013, by Michael Wetter:<br/>
@@ -92,6 +92,6 @@ April 17, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(graphics));
+</html>"));
 end HeaterCooler_u;
+

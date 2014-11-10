@@ -4,11 +4,7 @@ model HeaterCooler_u "Model that demonstrates the ideal heater model"
 
   package Medium = Annex60.Media.Air;
 
-  inner Modelica.Fluid.System system(
-     m_flow_start=0,
-     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-    "System wide declarations"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
   parameter Modelica.SIunits.MassFlowRate
     m_flow_nominal=3000/1000/20 "Nominal mass flow rate";
 
@@ -60,7 +56,7 @@ model HeaterCooler_u "Model that demonstrates the ideal heater model"
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
     Ti=10,
-    k=0.1) 
+    k=0.1)
     "Controller"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
@@ -69,9 +65,8 @@ model HeaterCooler_u "Model that demonstrates the ideal heater model"
     use_T_in=false,
     nPorts=2,
     m_flow=2*m_flow_nominal,
-    T=293.15) 
-    "Source" 
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}},rotation=0)));
+    T=293.15) "Source" annotation (Placement(transformation(extent={{-80,40},{
+            -60,60}})));
 equation
   connect(senTem1.T, con1.u_m) annotation (Line(
       points={{50,111},{50,138}},

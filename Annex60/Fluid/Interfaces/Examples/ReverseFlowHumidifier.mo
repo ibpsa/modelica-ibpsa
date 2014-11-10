@@ -43,7 +43,6 @@ package Medium = Annex60.Media.Air;
     m_flow=0.5) "Fluid source"
                    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-90,30})));
   Annex60.Fluid.Sources.FixedBoundary sink1(
     redeclare package Medium = Medium,
@@ -51,7 +50,6 @@ package Medium = Annex60.Media.Air;
                  annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=0,
         origin={40,28})));
   Sensors.SpecificEnthalpy senEnt1(redeclare package Medium = Medium)
     "Specific enthalpy sensor"
@@ -85,8 +83,7 @@ package Medium = Annex60.Media.Air;
     linearized=false,
     dp_nominal=1000) "Fixed resistance"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{38,-100},{58,-80}})));
+
   Modelica.Fluid.Sources.MassFlowSource_T source2(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -98,7 +95,6 @@ package Medium = Annex60.Media.Air;
     m_flow=0.5) "Fluid source"
                    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={-90,-6})));
 equation
   connect(u2.y, humFor.u)                annotation (Line(
@@ -195,9 +191,9 @@ If the results differ, then an assert is triggered.
 October 9, 2013, by Michael Wetter:<br/>
 Replaced
 <code>Modelica.Fluid.Sources.FixedBoundary</code>
-with 
+with
 <code>Annex60.Fluid.Sources.FixedBoundary</code>
-as otherwise, the pedantic model check fails in 
+as otherwise, the pedantic model check fails in
 Dymola 2014 FD01 beta3.
 </li>
 <li>
@@ -205,8 +201,8 @@ July 5, 2013, by Michael Wetter:<br/>
 Changed one instance of <code>Modelica.Fluid.Sources.MassFlowSource_T</code>,
 that was connected to the two fluid streams,
 to two instances, each having half the mass flow rate.
-This is required for the model to work with Modelica 3.2.1 due to the 
-change introduced in 
+This is required for the model to work with Modelica 3.2.1 due to the
+change introduced in
 ticket <a href=\"https://trac.modelica.org/Modelica/ticket/739\">#739</a>.
 </li>
 <li>
@@ -214,7 +210,5 @@ August 19, 2010, by Michael Wetter:<br/>
 First implementation based on a model from Giuliano Fontanella.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end ReverseFlowHumidifier;

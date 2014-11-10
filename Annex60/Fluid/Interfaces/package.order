@@ -4,7 +4,9 @@ TwoPortHeatMassExchanger
 FourPortHeatMassExchanger
 StaticTwoPortHeatMassExchanger
 StaticFourPortHeatMassExchanger
+PartialTwoPort
 PartialTwoPortInterface
+PartialTwoPortTransport
 PartialFourPortInterface
 ConservationEquation
 StaticTwoPortConservationEquation

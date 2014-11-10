@@ -4,7 +4,7 @@ package Experimental "Package with experimental models"
 
   annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains models that are experimental. 
+This package contains models that are experimental.
 They may be included in the <code>Annex60</code> library
 if they have been shown to be useful.
 For example, this package may include new media models
