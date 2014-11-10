@@ -147,6 +147,14 @@ public
     annotation (Placement(transformation(extent={{-70,-102},{-50,-82}})));
   Modelica.Blocks.Sources.RealExpression TEnv(y=Te)
     annotation (Placement(transformation(extent={{-70,-86},{-50,-66}})));
+  Buildings.Components.BaseClasses.GlobalProperties globalProperties
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=Va)
+    annotation (Placement(transformation(extent={{18,-66},{38,-86}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=Te)
+    annotation (Placement(transformation(extent={{18,-76},{38,-56}})));
+  Modelica.Blocks.Sources.RealExpression realExpression2(y=Tsky)
+    annotation (Placement(transformation(extent={{18,-62},{38,-42}})));
 equation
 
   connect(timMan.timCal, tabQCon.u) annotation (Line(
@@ -179,6 +187,18 @@ equation
       smooth=Smooth.None));
   connect(phiEnv.y,XiEnv. phi) annotation (Line(
       points={{-49,-92},{-32,-92}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression.y, globalProperties.Va) annotation (Line(
+      points={{39,-76},{50,-76},{50,-70},{59.6,-70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression1.y, globalProperties.Te) annotation (Line(
+      points={{39,-66},{59.6,-66}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression2.y, globalProperties.Tsky) annotation (Line(
+      points={{39,-52},{50,-52},{50,-62},{59.6,-62}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -263,8 +283,8 @@ equation
           smooth=Smooth.None,
           fillColor={127,67,62},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Documentation(info="<html>
 </html>"));

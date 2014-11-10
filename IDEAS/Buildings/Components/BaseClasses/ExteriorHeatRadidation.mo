@@ -10,9 +10,9 @@ model ExteriorHeatRadidation
   outer IDEAS.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
+  //Real Fse=(1 - cos(inc))/2
+  //  "radiant-interchange configuration factor between surface and environment";
 protected
-  Real Fse=(1 - cos(inc))/2
-    "radiant-interchange configuration factor between surface and environment";
   Real Fssky=(1 + cos(inc))/2
     "radiant-interchange configuration factor between surface and sky";
   Modelica.SIunits.Temperature Tenv
@@ -24,7 +24,7 @@ public
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
 equation
 
-  Tenv = (Fssky*sim.Tsky^4 + (1 - Fssky)*sim.Te^4)^0.25;
+  Tenv = (Fssky*sim.globalProperties.TskyPow4 + (1 - Fssky)*sim.globalProperties.TePow4)^0.25;
 //  port_a.Q_flow = A*Modelica.Constants.sigma*epsLw*(port_a.T - Tenv)*(port_a.T
 //     + Tenv)*(port_a.T^2 + Tenv^2);
   port_a.Q_flow = A*5.67*epsLw*(port_a.T - Tenv);
