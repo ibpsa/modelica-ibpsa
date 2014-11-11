@@ -9,7 +9,7 @@ model ExteriorConvection "exterior surface convection"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
 equation
-  port_a.Q_flow = sim.globalProperties.hCon*A*(port_a.T - sim.Te);
+  port_a.Q_flow = sim.hCon*A*(port_a.T - sim.Te);
 
   annotation (Icon(graphics={
         Rectangle(
