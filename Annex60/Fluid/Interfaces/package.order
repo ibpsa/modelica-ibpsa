@@ -8,10 +8,11 @@ PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
 PartialFourPortInterface
+PrescribedOutletState
 ConservationEquation
 StaticTwoPortConservationEquation
 TwoPortFlowResistanceParameters
 FourPortFlowResistanceParameters
 LumpedVolumeDeclarations
 Examples
-TemperatureControlledHeatFlow
+

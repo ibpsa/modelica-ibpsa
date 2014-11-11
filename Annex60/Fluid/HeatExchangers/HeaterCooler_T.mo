@@ -1,9 +1,10 @@
 within Annex60.Fluid.HeatExchangers;
 model HeaterCooler_T
   "Ideal heater or cooler with a prescribed outlet temperature"
-  extends Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Annex60.Fluid.MixingVolumes.MixingVolume vol(prescribedHeatFlowRate=true),
-    final showDesignFlowDirection=false);
+  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
+  extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
+
   parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat(
     min=0,
     max=Modelica.Constants.inf) = Modelica.Constants.inf
@@ -12,53 +13,54 @@ model HeaterCooler_T
     min=-Modelica.Constants.inf,
     max=0.0) = - Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
-    "Set point for leaving temperature"
+    "Set point temperature of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-  Modelica.SIunits.HeatFlowRate Q_flow=-preHea.port.Q_flow "Heat flow rate";
+    // fixme  Modelica.SIunits.HeatFlowRate Q_flow=-preHea.port.Q_flow "Heat flow rate";
+
+  // Models for conservation equations and pressure drop
 protected
-  Modelica.Blocks.Sources.RealExpression h_in(y=inStream(port_a.h_outflow))
-    "Instreaming enthalpy"
-    annotation (Placement(transformation(extent={{-80,66},{-60,86}})));
-  Modelica.Blocks.Sources.RealExpression Xi[Medium.nXi](y=inStream(port_a.Xi_outflow)) if
-       Medium.nXi > 0 "Inlet mass fractions"
-    annotation (Placement(transformation(extent={{-80,52},{-60,72}})));
-  Modelica.Blocks.Sources.RealExpression m_in_flow(y=port_a.m_flow)
-    "Mass flow rate"
-    annotation (Placement(transformation(extent={{-80,38},{-60,58}})));
-  Modelica.Blocks.Sources.RealExpression p(y=vol.ports[1].p) "Pressure"
-    annotation (Placement(transformation(extent={{-80,26},{-60,46}})));
-
-  Fluid.Interfaces.TemperatureControlledHeatFlow preHea(
+  Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro(
     redeclare final package Medium = Medium,
-    final Q_flow_maxHeat = Q_flow_maxHeat,
-    final Q_flow_maxCool = Q_flow_maxCool,
-    final m_flow_small =   m_flow_small) "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-38,50},{-18,70}})));
+    final use_dh=false,
+    final m_flow_nominal=m_flow_nominal,
+    final deltaM=deltaM,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=false,
+    final from_dp=from_dp,
+    final linearized=linearizeFlowResistance,
+    final homotopyInitialization=homotopyInitialization,
+    final dp_nominal=dp_nominal) "Pressure drop model"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
+  Annex60.Fluid.Interfaces.PrescribedOutletState heaCoo(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small,
+    final show_T=false,
+    final show_V_flow=false,
+    final Q_flow_maxHeat=Q_flow_maxHeat,
+    final Q_flow_maxCool=Q_flow_maxCool) "Heater or cooler"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
-  connect(preHea.port, vol.heatPort) annotation (Line(
-      points={{-18,60},{-9,60},{-9,-10}},
-      color={191,0,0},
+  connect(port_a, preDro.port_a) annotation (Line(
+      points={{-100,0},{-50,0}},
+      color={0,127,255},
       smooth=Smooth.None));
-  connect(TSet, preHea.TSet) annotation (Line(
-      points={{-120,60},{-94,60},{-94,92},{-46,92},{-46,68},{-40,68}},
-      color={0,0,127},
+  connect(preDro.port_b, heaCoo.port_a) annotation (Line(
+      points={{-30,0},{20,0}},
+      color={0,127,255},
       smooth=Smooth.None));
-  connect(preHea.h_in, h_in.y) annotation (Line(
-      points={{-40,64},{-50,64},{-50,76},{-59,76}},
-      color={0,0,127},
+  connect(heaCoo.port_b, port_b) annotation (Line(
+      points={{40,0},{100,0}},
+      color={0,127,255},
       smooth=Smooth.None));
-  connect(Xi.y, preHea.Xi) annotation (Line(
-      points={{-59,62},{-50,62},{-50,60},{-40,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(preHea.m_flow, m_in_flow.y) annotation (Line(
-      points={{-40,56},{-50,56},{-50,48},{-59,48}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(p.y, preHea.p) annotation (Line(
-      points={{-59,36},{-46,36},{-46,52},{-40,52}},
+  connect(heaCoo.TSet, TSet) annotation (Line(
+      points={{18,8},{0,8},{0,60},{-120,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
