@@ -1,9 +1,10 @@
 within Annex60.Fluid.HeatExchangers;
 model HeaterCooler_T
   "Ideal heater or cooler with a prescribed outlet temperature"
-  extends Annex60.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare final Annex60.Fluid.MixingVolumes.MixingVolume vol(prescribedHeatFlowRate=true),
-    final showDesignFlowDirection=false);
+  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
+  extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
+    final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
+
   parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat(
     min=0,
     max=Modelica.Constants.inf) = Modelica.Constants.inf
@@ -12,27 +13,54 @@ model HeaterCooler_T
     min=-Modelica.Constants.inf,
     max=0.0) = - Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
+
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
-    "Set point for leaving temperature"
+    "Set point temperature of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-  Modelica.SIunits.HeatFlowRate Q_flow=-preHea.port.Q_flow "Heat flow rate";
+    // fixme  Modelica.SIunits.HeatFlowRate Q_flow=-preHea.port.Q_flow "Heat flow rate";
+
+  // Models for conservation equations and pressure drop
 protected
-  Fluid.Interfaces.TemperatureControlledHeatFlow preHea(
+  Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro(
     redeclare final package Medium = Medium,
-    final Q_flow_maxHeat = Q_flow_maxHeat,
-    final Q_flow_maxCool = Q_flow_maxCool,
-    final m_flow = port_a.m_flow,
-    final h_outflow = inStream(port_a.h_outflow),
-    final Xi = inStream(port_a.Xi_outflow),
-    final p = port_a.p) "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    final use_dh=false,
+    final m_flow_nominal=m_flow_nominal,
+    final deltaM=deltaM,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=false,
+    final from_dp=from_dp,
+    final linearized=linearizeFlowResistance,
+    final homotopyInitialization=homotopyInitialization,
+    final dp_nominal=dp_nominal) "Pressure drop model"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+
+  Annex60.Fluid.Interfaces.PrescribedOutletState heaCoo(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small,
+    final show_T=false,
+    final show_V_flow=false,
+    final Q_flow_maxHeat=Q_flow_maxHeat,
+    final Q_flow_maxCool=Q_flow_maxCool) "Heater or cooler"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
-  connect(preHea.port, vol.heatPort) annotation (Line(
-      points={{-20,60},{-9,60},{-9,-10}},
-      color={191,0,0},
+  connect(port_a, preDro.port_a) annotation (Line(
+      points={{-100,0},{-50,0}},
+      color={0,127,255},
       smooth=Smooth.None));
-  connect(TSet, preHea.TSet) annotation (Line(
-      points={{-120,60},{-40,60}},
+  connect(preDro.port_b, heaCoo.port_a) annotation (Line(
+      points={{-30,0},{20,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heaCoo.port_b, port_b) annotation (Line(
+      points={{40,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heaCoo.TSet, TSet) annotation (Line(
+      points={{18,8},{0,8},{0,60},{-120,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -83,7 +111,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics));
 end HeaterCooler_T;
