@@ -145,16 +145,30 @@ public
     tableName="data",
     fileName=filDir + fileNamePv,
     columns=2:nPV + 1) if PV
-    annotation (Placement(transformation(extent={{-36,2},{-22,16}})));
+    annotation (Placement(transformation(extent={{-36,-12},{-22,2}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=filNamClim, lat=lat, lon=lon, timZon=timZonSta) if useTmy3Reader
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-38,10},{-18,30}})));
   Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
     annotation (Placement(transformation(extent={{-30,-96},{-10,-76}})));
   Modelica.Blocks.Sources.RealExpression phiEnv(y=relHum)
     annotation (Placement(transformation(extent={{-70,-102},{-50,-82}})));
   Modelica.Blocks.Sources.RealExpression TEnv(y=Te)
     annotation (Placement(transformation(extent={{-70,-86},{-50,-66}})));
+  Climate.Meteo.Solar.BaseClasses.RelativeAirMass
+                  relativeAirMass
+    annotation (Placement(transformation(extent={{-78,42},{-60,60}})));
+  Climate.Meteo.Solar.BaseClasses.SkyBrightness
+                skyBrightness
+    annotation (Placement(transformation(extent={{-52,42},{-34,60}})));
+  Climate.Meteo.Solar.BaseClasses.SkyClearness
+               skyClearness
+    annotation (Placement(transformation(extent={{-78,70},{-60,88}})));
+  Climate.Meteo.Solar.BaseClasses.SkyBrightnessCoefficients
+                            skyBrightnessCoefficients
+    annotation (Placement(transformation(extent={{-18,60},{0,78}})));
+  Modelica.Blocks.Sources.RealExpression zenithAngle(y=angZen)
+    annotation (Placement(transformation(extent={{-106,60},{-86,80}})));
 equation
 
   connect(timMan.timCal, tabQCon.u) annotation (Line(
@@ -174,11 +188,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(timMan.timCal, tabPPV.u) annotation (Line(
-      points={{-60,6},{-48,6},{-48,9},{-37.4,9}},
+      points={{-60,6},{-48,6},{-48,-5},{-37.4,-5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(timMan.timSol, weaDat.sol) annotation (Line(
-      points={{-60,10},{-50,10},{-50,42},{-40,42}},
+      points={{-60,10},{-50,10},{-50,12},{-38,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEnv.y,XiEnv. T) annotation (Line(
@@ -187,6 +201,34 @@ equation
       smooth=Smooth.None));
   connect(phiEnv.y,XiEnv. phi) annotation (Line(
       points={{-49,-92},{-32,-92}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(skyClearness.skyCle,skyBrightnessCoefficients. skyCle) annotation (
+      Line(
+      points={{-60,84.4},{-56,84.4},{-56,70.8},{-18,70.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(skyBrightness.skyBri,skyBrightnessCoefficients. skyBri) annotation (
+      Line(
+      points={{-34,56.4},{-22,56.4},{-22,67.2},{-18,67.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(relativeAirMass.relAirMas,skyBrightness. relAirMas) annotation (Line(
+      points={{-60,56.4},{-52,56.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(zenithAngle.y, relativeAirMass.angZen) annotation (Line(
+      points={{-85,70},{-84,70},{-84,56.4},{-78,56.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(zenithAngle.y, skyClearness.angZen) annotation (Line(
+      points={{-85,70},{-85,84.4},{-78,84.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(skyBrightnessCoefficients.angZen, skyClearness.angZen) annotation (
+      Line(
+      points={{-18,74.4},{-52,74.4},{-52,96},{-84,96},{-84,84},{-86,84},{-85,84.4},
+          {-78,84.4}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -271,8 +313,8 @@ equation
           smooth=Smooth.None,
           fillColor={127,67,62},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics),
     Documentation(info="<html>
 </html>"));
