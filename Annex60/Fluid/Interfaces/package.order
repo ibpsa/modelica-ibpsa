@@ -14,5 +14,6 @@ StaticTwoPortConservationEquation
 TwoPortFlowResistanceParameters
 FourPortFlowResistanceParameters
 LumpedVolumeDeclarations
+PrescribedOutletStateParameters
 Examples
 

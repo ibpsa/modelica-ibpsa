@@ -4,15 +4,8 @@ model HeaterCooler_T
   extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
   extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
-
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat(
-    min=0,
-    max=Modelica.Constants.inf) = Modelica.Constants.inf
-    "Maximum heat flow rate for heating (positive)";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool(
-    min=-Modelica.Constants.inf,
-    max=0.0) = - Modelica.Constants.inf
-    "Maximum heat flow rate for cooling (negative)";
+  extends Annex60.Fluid.Interfaces.PrescribedOutletStateParameters(
+    T_start=Medium.T_default);
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -20,9 +13,11 @@ model HeaterCooler_T
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
     "Set point temperature of the fluid that leaves port_b"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}, rotation=0)));
-    // fixme  Modelica.SIunits.HeatFlowRate Q_flow=-preHea.port.Q_flow "Heat flow rate";
 
-  // Models for conservation equations and pressure drop
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
+    "Heat added to the fluid (if flow is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+
 protected
   Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro(
     redeclare final package Medium = Medium,
@@ -44,7 +39,11 @@ protected
     final show_T=false,
     final show_V_flow=false,
     final Q_flow_maxHeat=Q_flow_maxHeat,
-    final Q_flow_maxCool=Q_flow_maxCool) "Heater or cooler"
+    final Q_flow_maxCool=Q_flow_maxCool,
+    final m_flow_nominal=m_flow_nominal,
+    final tau=tau,
+    final T_start=T_start,
+    final initType=initType) "Heater or cooler"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(port_a, preDro.port_a) annotation (Line(
@@ -61,6 +60,10 @@ equation
       smooth=Smooth.None));
   connect(heaCoo.TSet, TSet) annotation (Line(
       points={{18,8},{0,8},{0,60},{-120,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heaCoo.Q_flow, Q_flow) annotation (Line(
+      points={{41,8},{72,8},{72,60},{110,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -85,26 +88,65 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-106,98},{-62,70}},
+          lineColor={0,0,127},
+          textString="T"),
+        Rectangle(
+          extent={{70,61},{100,58}},
           lineColor={0,0,255},
-          textString="T")}),
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{72,96},{116,68}},
+          lineColor={0,0,127},
+          textString="Q_flow")}),
 defaultComponentName="hea",
 Documentation(info="<html>
 <p>
-Model for an ideal heater or cooler with a prescribed outlet temperature of the medium.
+Model for an ideal heater or cooler with a prescribed outlet temperature.
 </p>
 <p>
-This model adds an heat amount to the medium that the outlet temperature reaches the value <code>TSet</code>. 
-If the maximum positive or negative value is greater than <code>Q_flow_maxHeat</code> or smaller than 
-<code>Q_flow_maxCool</code> the outlet temperature is calculated with these max./min. values. So, for the calculation of
-the ideal heating or cooling demand of the heater/cooler the default value of the parameter <code>Q_flow_maxHeat</code>
-is set to <code>Modelica.Constant.inf</code> and <code>Q_flow_maxCool</code> to <code>-Modelica.Constant.inf</code>.
-
-The input signal <code>Tset</code> (set temperature in K) has to be positive and the calculated heat flow rate <code>Q_flow</code> 
-can be positive or negative.
+This model forces the outlet temperature at <code>port_b</code> to be equal to the temperature
+of the input signal <code>TSet</code>, subject to optional limits on the
+heating or cooling capacity <code>Q_flow_max</code> and <code>Q_flow_min</code>.
+For unlimited capacity, set <code>Q_flow_maxHeat = Modelica.Constant.inf</code>
+and <code>Q_flow_maxCool=-Modelica.Constant.inf</code>.
+</p>
+<p>
+The output signal <code>Q_flow</code> is the heat added (for heating) or subtracted (for cooling)
+to the medium if the flow rate is from <code>port_a</code> to <code>port_b</code>.
+If the flow is reversed, then <code>Q_flow=0</code>.
+The outlet temperature at <code>port_a</code> is not affected by this model.
+</p>
+<p>
+The parameter <code>tau</code> is equal to the time constant of the component.
+If <code>tau=0</code>, the component is a steady-state model, otherwise
+it models the dynamic response using a first order differential equation.
+The effective time constant is computed as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&tau;<sub>eff</sub> = &tau; |m&#775;| &frasl; m&#775;<sub>nom</sub>
+</p>
+<p>
+where
+<i>&tau;<sub>eff</sub></i> is the effective time constant for the given mass flow rate
+<i>m&#775;</i> and
+<i>&tau;</i> is the time constant at the nominal mass flow rate
+<i>m&#775;<sub>nom</sub></i>.
+This type of dynamics is equal to the dynamics that a completely mixed
+control volume would have.
+</p>
+<p>
+Optionally, this model can have a flow resistance.
+If no flow resistance is requested, set <code>dp_nominal=0</code>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 11, 2014, by Michael Wetter:<br/>
+Revised implementation.
+</li>
 <li>
 March 19, 2014, by Christoph Nytsch-Geusen:<br/>
 First implementation.

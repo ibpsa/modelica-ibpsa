@@ -1,10 +1,8 @@
 within Annex60.Fluid.HeatExchangers.Examples;
 model HeaterCooler_T
-  "Model that demonstrates the ideal heater/cooler model for a prescribed outlet temperature"
+  "Model that demonstrates the ideal heater/cooler model for a prescribed outlet temperature, configured as steady-state"
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Water.Simple;
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
   Annex60.Fluid.Sources.Boundary_pT sin(
@@ -18,8 +16,7 @@ model HeaterCooler_T
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
-    Q_flow_maxHeat=1.0e10)
-    "Steady-state model of the heater with high capacity"
+    Q_flow_maxHeat=1e4) "Steady-state model of the heater with high capacity"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort heaHigPowOut(redeclare package
       Medium = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
@@ -70,12 +67,24 @@ model HeaterCooler_T
   Annex60.Fluid.Sensors.TemperatureTwoPort heaCooUnlIn(redeclare package Medium
       = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{-8,-60},{12,-40}})));
-  Sources.MassFlowSource_T sou(
+  Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    T=293.15,
-    nPorts=3) "Flow source"
+    nPorts=1,
+    T=293.15) "Flow source"
+    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
+  Sources.MassFlowSource_T sou2(
+    redeclare package Medium = Medium,
+    use_m_flow_in=true,
+    nPorts=1,
+    T=293.15) "Flow source"
     annotation (Placement(transformation(extent={{-40,24},{-20,44}})));
+  Sources.MassFlowSource_T sou3(
+    redeclare package Medium = Medium,
+    use_m_flow_in=true,
+    nPorts=1,
+    T=293.15) "Flow source"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 equation
   connect(heaHigPow.port_b, heaHigPowOut.port_a) annotation (Line(
       points={{60,120},{78,120}},
@@ -113,18 +122,6 @@ equation
       points={{12,-50},{40,-50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sou.ports[1], heaHigPowIn.port_a) annotation (Line(
-      points={{-20,36.6667},{-16,36.6667},{-16,120},{-8,120}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sou.ports[2], cooLimPowIn.port_a) annotation (Line(
-      points={{-20,34},{-6,34}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sou.ports[3], heaCooUnlIn.port_a) annotation (Line(
-      points={{-20,31.3333},{-16,31.3333},{-16,-50},{-8,-50}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(heaCooUnlOut.port_b, sin.ports[1]) annotation (Line(
       points={{98,-50},{120,-50},{120,31.3333},{140,31.3333}},
       color={0,127,255},
@@ -137,9 +134,29 @@ equation
       points={{98,120},{120,120},{120,36.6667},{140,36.6667}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(m_flow.y, sou.m_flow_in) annotation (Line(
+  connect(m_flow.y, sou1.m_flow_in) annotation (Line(
+      points={{-59,42},{-50,42},{-50,128},{-40,128}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sou1.ports[1], heaHigPowIn.port_a) annotation (Line(
+      points={{-20,120},{-8,120}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(m_flow.y, sou2.m_flow_in) annotation (Line(
       points={{-59,42},{-40,42}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(m_flow.y, sou3.m_flow_in) annotation (Line(
+      points={{-59,42},{-50,42},{-50,-42},{-40,-42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sou2.ports[1], cooLimPowIn.port_a) annotation (Line(
+      points={{-20,34},{-6,34}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sou3.ports[1], heaCooUnlIn.port_a) annotation (Line(
+      points={{-20,-50},{-8,-50}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}}),                                                                    graphics),
@@ -150,18 +167,18 @@ equation
 Model that demonstrates the use of an ideal heater and an ideal cooler.
 </p>
 <p>
-The heater model has an almost unlimited positive capacity (<code>Q_flow_nominal = 1.0e10</code> Watts),
-and hence its outlet temperature always reaches the set point temperatures.
-<p>
-The cooler model has a limited negative capacitiy (<code>Q_flow_nominal = 1000</code> Watts), and hence
-its outlet temperature reaches only a limited value corresponding to its 
-maximum negative capacity.
-</p>
-<p>
+The heater model has a capacity of <code>Q_flow_max = 1.0e4</code> Watts and
+the cooler model has a capacitiy of <code>Q_flow_min = -1000</code> Watts.
+Hence, both only track their set point of the outlet temperature during certain times.
 There is also a heater and cooler with unlimited capacity.
 </p>
 <p>
 At <i>t=1000</i> second, the flow reverses its direction.
+</p>
+<p>
+Each flow leg has the same mass flow rate. There are three mass flow sources
+as using one source only would yield a nonlinear system of equations that
+needs to be solved to determine the mass flow rate distribution.
 </p>
 </html>", revisions="<html>
 <ul>

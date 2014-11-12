@@ -1,15 +1,21 @@
 within Annex60.Fluid.Interfaces;
 model PrescribedOutletState
   "Component that assigns the outlet fluid property at port_a based on an input signal"
-  extends Annex60.Fluid.Interfaces.PartialTwoPortTransport;
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxHeat
-    "Maximum heat flow rate for heating (positive)";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_maxCool
-    "Maximum heat flow rate for cooling (negative)";
+  extends Annex60.Fluid.Interfaces.PartialTwoPortTransport(
+    final dp_start=0,
+    show_T=false,
+    show_V_flow=false);
+  extends Annex60.Fluid.Interfaces.PrescribedOutletStateParameters(
+    T_start=Medium.T_default);
+
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
     "Set point temperature of the fluid that leaves port_b"
     annotation (Placement(transformation(origin={-120,80},
               extent={{20,-20},{-20,20}},rotation=180)));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
+    "Heat added to the fluid (if flow is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(
@@ -27,29 +33,69 @@ protected
     cp_default*m_flow_small*0.01
     "Small value for deltah used for regularization";
 
+  Modelica.SIunits.MassFlowRate m_flow_pos
+    "Mass flow rate, or zero if reverse flow";
+
   Modelica.SIunits.MassFlowRate m_flow_limited
     "Mass flow rate bounded away from zero";
 
   Modelica.SIunits.SpecificEnthalpy hSet
     "Set point for enthalpy leaving port_b";
 
+  Modelica.SIunits.Temperature T
+    "Temperature of outlet state assuming unlimited capacity and taking dynamics into account";
+
   Modelica.SIunits.SpecificEnthalpy dhSetAct
     "Actual enthalpy difference from port_a to port_b";
 
+  Real k(start=1)
+    "Gain to take flow rate into account for sensor time constant";
+  final parameter Boolean dynamic = tau > 1E-10 or tau < -1E-10
+    "Flag, true if the sensor is a dynamic sensor";
+  Real mNor_flow "Normalized mass flow rate";
+
+initial equation
+  if dynamic then
+    if initType == Modelica.Blocks.Types.Init.SteadyState then
+      der(T) = 0;
+     elseif initType == Modelica.Blocks.Types.Init.InitialState or
+           initType == Modelica.Blocks.Types.Init.InitialOutput then
+      T = T_start;
+    end if;
+  end if;
+
 equation
-  // Set point for outlet enthalpy without any limitation
+  if dynamic then
+    mNor_flow = port_a.m_flow/m_flow_nominal;
+    k = Modelica.Fluid.Utilities.regStep(x=port_a.m_flow,
+                                         y1= mNor_flow,
+                                         y2=-mNor_flow,
+                                         x_small=m_flow_small);
+    der(T) = (TSet-T)*k/tau;
+  else
+    mNor_flow = 1;
+    k = 1;
+    T=TSet;
+  end if;
+
+  // Set point for outlet enthalpy without any capacity limitation
   hSet = Medium.specificEnthalpy(
     Medium.setState_pTX(
       p=  port_a.p,
-      T=  TSet,
+      T=  T,
       X=  inStream(port_a.Xi_outflow)));
 
+  m_flow_pos = Annex60.Utilities.Math.Functions.smoothMax(
+    x1=m_flow,
+    x2=0,
+    deltaX=m_flow_small);
   // Compute how much dH may need to be reduced.
   if not restrictHeat and not restrictCool then
     // No capacity limit
     dhSetAct = 0;
     port_b.h_outflow = hSet;
     m_flow_limited = 0;
+    Q_flow = m_flow_pos*(hSet-inStream(port_a.h_outflow));
   else
 
     m_flow_limited = Annex60.Utilities.Math.Functions.smoothMax(
@@ -79,6 +125,7 @@ equation
     end if;
 
     port_b.h_outflow = inStream(port_a.h_outflow) + dhSetAct;
+    Q_flow = m_flow_pos*dhSetAct;
 
   end if;
 
@@ -92,10 +139,6 @@ equation
   defaultComponentName="heaCoo",
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
                       graphics={
-      Text(
-        extent={{-154,138},{146,98}},
-        textString="%name",
-        lineColor={0,0,255}),
         Rectangle(
           extent={{-68,70},{74,-70}},
           lineColor={0,0,255},
@@ -117,7 +160,11 @@ equation
         Text(
           extent={{-96,92},{-78,70}},
           lineColor={0,0,127},
-          textString="T")}),
+          textString="T"),
+        Text(
+          extent={{48,102},{92,74}},
+          lineColor={0,0,127},
+          textString="Q_flow")}),
   Documentation(info="<HTML>
 <p>
 This model sets the temperature of the medium that leaves <code>port_a</code>
@@ -129,10 +176,28 @@ In case of reverse flow, the set point temperature is still applied to
 the fluid that leaves <code>port_b</code>.
 </p>
 <p>
+The parameter <code>tau</code> is equal to the time constant of the component.
+If <code>tau=0</code>, the component is a steady-state model, otherwise
+it models the dynamic response using a first order differential equation.
+The effective time constant is computed as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&tau;<sub>eff</sub> = &tau; |m&#775;| &frasl; m&#775;<sub>nom</sub>
+</p>
+<p>
+where
+<i>&tau;<sub>eff</sub></i> is the effective time constant for the given mass flow rate
+<i>m&#775;</i> and
+<i>&tau;</i> is the time constant at the nominal mass flow rate
+<i>m&#775;<sub>nom</sub></i>.
+This type of dynamics is equal to the dynamics that a completely mixed
+control volume would have.
+</p>
+<p>
 This model has no pressure drop.
 See <a href=\"modelica://Annex60.Fluid.HeatExchangers.HeaterCooler_T\">
 Annex60.Fluid.HeatExchangers.HeaterCooler_T</a>
-for a model that instantiates this model and that has pressure drop.
+for a model that instantiates this model and that has a pressure drop.
 </p>
 </html>", revisions="<html>
 <ul>
