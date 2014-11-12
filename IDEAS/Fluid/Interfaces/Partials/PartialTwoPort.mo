@@ -4,7 +4,9 @@ partial model PartialTwoPort
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare
       replaceable package Medium =
         IDEAS.Media.Water.Simple);
-  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
+  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(redeclare replaceable
+      package Medium =
+        IDEAS.Media.Water.Simple);
 
   parameter Modelica.SIunits.Mass m(start=1) = 1 "Mass of medium";
   // I remove this parameter completely because it can lead to wrong models!!!
