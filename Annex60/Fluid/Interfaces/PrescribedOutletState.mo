@@ -55,27 +55,27 @@ protected
   Real mNor_flow "Normalized mass flow rate";
 
 initial equation
-  if dynamic then
-    if initType == Modelica.Blocks.Types.Init.SteadyState then
+  if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
       der(T) = 0;
-     elseif initType == Modelica.Blocks.Types.Init.InitialState or
-           initType == Modelica.Blocks.Types.Init.InitialOutput then
+  elseif energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
       T = T_start;
-    end if;
   end if;
 
+  if energyDynamics <>  Modelica.Fluid.Types.Dynamics.SteadyState then
+    assert(tau > 1E-5, "Time constant tau is unreasonably small for dynamic balance. Check model parameters.");
+  end if;
 equation
-  if dynamic then
+  if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
+    mNor_flow = 1;
+    k = 1;
+    T=TSet;
+  else
     mNor_flow = port_a.m_flow/m_flow_nominal;
     k = Modelica.Fluid.Utilities.regStep(x=port_a.m_flow,
                                          y1= mNor_flow,
                                          y2=-mNor_flow,
                                          x_small=m_flow_small);
     der(T) = (TSet-T)*k/tau;
-  else
-    mNor_flow = 1;
-    k = 1;
-    T=TSet;
   end if;
 
   // Set point for outlet enthalpy without any capacity limitation
@@ -176,10 +176,11 @@ In case of reverse flow, the set point temperature is still applied to
 the fluid that leaves <code>port_b</code>.
 </p>
 <p>
-The parameter <code>tau</code> is equal to the time constant of the component.
-If <code>tau=0</code>, the component is a steady-state model, otherwise
-it models the dynamic response using a first order differential equation.
-The effective time constant is computed as
+If the parameter <code>energyDynamics</code> is not equal to
+<code>Modelica.Fluid.Types.Dynamics.SteadyState</code>, 
+the component models the dynamic response using a first order differential equation.
+The time constant of the component is equal to the parameter <code>tau</code>.
+This time constant is adjusted based on the mass flow rate using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &tau;<sub>eff</sub> = &tau; |m&#775;| &frasl; m&#775;<sub>nom</sub>

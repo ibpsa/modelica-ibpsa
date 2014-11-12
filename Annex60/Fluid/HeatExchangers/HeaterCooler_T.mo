@@ -43,7 +43,7 @@ protected
     final m_flow_nominal=m_flow_nominal,
     final tau=tau,
     final T_start=T_start,
-    final initType=initType) "Heater or cooler"
+    final energyDynamics=energyDynamics) "Heater or cooler"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(port_a, preDro.port_a) annotation (Line(
@@ -69,7 +69,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
-          extent={{-70,80},{70,-80}},
+          extent={{-70,60},{60,-60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
@@ -81,7 +81,7 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-100,61},{-70,58}},
+          extent={{-100,60},{-70,58}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
@@ -91,7 +91,7 @@ equation
           lineColor={0,0,127},
           textString="T"),
         Rectangle(
-          extent={{70,61},{100,58}},
+          extent={{60,60},{100,58}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,127},
@@ -119,10 +119,11 @@ If the flow is reversed, then <code>Q_flow=0</code>.
 The outlet temperature at <code>port_a</code> is not affected by this model.
 </p>
 <p>
-The parameter <code>tau</code> is equal to the time constant of the component.
-If <code>tau=0</code>, the component is a steady-state model, otherwise
-it models the dynamic response using a first order differential equation.
-The effective time constant is computed as
+If the parameter <code>energyDynamics</code> is not equal to
+<code>Modelica.Fluid.Types.Dynamics.SteadyState</code>, 
+the component models the dynamic response using a first order differential equation.
+The time constant of the component is equal to the parameter <code>tau</code>.
+This time constant is adjusted based on the mass flow rate using
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &tau;<sub>eff</sub> = &tau; |m&#775;| &frasl; m&#775;<sub>nom</sub>

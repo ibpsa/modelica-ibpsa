@@ -2,9 +2,9 @@ within Annex60.Fluid.HeatExchangers.Examples;
 model HeaterCooler_T_dynamic
   "Model that demonstrates the ideal heater/cooler model for a prescribed outlet temperature, configured as dynamic"
   extends HeaterCooler_T(
-    heaHigPow(tau=60),
-    cooLimPow(tau=60),
-    heaCooUnl(tau=60));
+    heaHigPow(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    cooLimPow(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    heaCooUnl(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}}),                                                                    graphics),
     __Dymola_Commands(file= "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/HeaterCooler_T_dynamic.mos"
