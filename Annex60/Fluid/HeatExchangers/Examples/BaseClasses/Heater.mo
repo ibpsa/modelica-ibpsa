@@ -99,8 +99,7 @@ equation
       points={{70,-20},{52,-20},{52,-10},{52.6667,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This partial model is used to construct the models
 <a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.Heater_T\">

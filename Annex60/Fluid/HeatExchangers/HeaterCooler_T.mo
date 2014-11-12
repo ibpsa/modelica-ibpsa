@@ -12,7 +12,7 @@ model HeaterCooler_T
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
     "Set point temperature of the fluid that leaves port_b"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
     "Heat added to the fluid (if flow is from port_a to port_b)"
@@ -181,8 +181,5 @@ March 19, 2014, by Christoph Nytsch-Geusen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics));
+</html>"));
 end HeaterCooler_T;

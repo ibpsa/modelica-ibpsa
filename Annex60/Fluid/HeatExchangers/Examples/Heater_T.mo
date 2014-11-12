@@ -32,8 +32,7 @@ equation
       points={{-9,30},{-6,30},{-6,-20},{-32,-20},{-32,-34},{-22,-34}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+  annotation ( Documentation(info="<html>
 <p>
 This example illustrates how to use the heater model that takes as an
 input the leaving fluid temperature.
