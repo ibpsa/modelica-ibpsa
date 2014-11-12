@@ -120,7 +120,7 @@ The outlet temperature at <code>port_a</code> is not affected by this model.
 </p>
 <p>
 If the parameter <code>energyDynamics</code> is not equal to
-<code>Modelica.Fluid.Types.Dynamics.SteadyState</code>, 
+<code>Modelica.Fluid.Types.Dynamics.SteadyState</code>,
 the component models the dynamic response using a first order differential equation.
 The time constant of the component is equal to the parameter <code>tau</code>.
 This time constant is adjusted based on the mass flow rate using
@@ -141,6 +141,27 @@ control volume would have.
 Optionally, this model can have a flow resistance.
 If no flow resistance is requested, set <code>dp_nominal=0</code>.
 </p>
+<h4>Limitations</h4>
+<p>
+This model only adds or removes heat for the flow from
+<code>port_a</code> to <code>port_b</code>.
+The enthalpy of the reverse flow is not affected by this model.
+</p>
+<p>
+This model does not affect the humidity of the air. Therefore,
+if used to cool air below the dew point temperature, the water mass fraction
+will not change.
+</p>
+<h4>Validation</h4>
+<p>
+The model has been validated against the analytical solution in
+the examples
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_T\">
+Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_T</a>
+and
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_T_dynamic\">
+Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_T_dynamic</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
@@ -154,7 +175,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics));
 end HeaterCooler_T;

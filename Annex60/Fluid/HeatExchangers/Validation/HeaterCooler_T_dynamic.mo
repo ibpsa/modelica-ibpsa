@@ -1,4 +1,4 @@
-within Annex60.Fluid.HeatExchangers.Examples;
+within Annex60.Fluid.HeatExchangers.Validation;
 model HeaterCooler_T_dynamic
   "Model that demonstrates the ideal heater/cooler model for a prescribed outlet temperature, configured as dynamic"
   extends HeaterCooler_T(
@@ -7,7 +7,7 @@ model HeaterCooler_T_dynamic
     heaCooUnl(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}}),                                                                    graphics),
-    __Dymola_Commands(file= "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/HeaterCooler_T_dynamic.mos"
+    __Dymola_Commands(file= "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/HeaterCooler_T_dynamic.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -15,8 +15,8 @@ Model that demonstrates the use of an ideal heater and an ideal cooler, configur
 </p>
 <p>
 This example is identical to 
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.HeaterCooler_T\">
-Annex60.Fluid.HeatExchangers.Examples.HeaterCooler_T</a>
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_T\">
+Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_T</a>
 except that the heater and cooler models are configured to have a
 time constant of <i>60</i> seconds at nominal flow rate.
 At lower flow rate, the time constant increases proportional to the mass flow rate.

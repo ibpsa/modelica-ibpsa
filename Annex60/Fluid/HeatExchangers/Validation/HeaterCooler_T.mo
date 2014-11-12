@@ -1,4 +1,4 @@
-within Annex60.Fluid.HeatExchangers.Examples;
+within Annex60.Fluid.HeatExchangers.Validation;
 model HeaterCooler_T
   "Model that demonstrates the ideal heater/cooler model for a prescribed outlet temperature, configured as steady-state"
   extends Modelica.Icons.Example;
@@ -160,7 +160,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{200,200}}),                                                                    graphics),
-    __Dymola_Commands(file= "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/HeaterCooler_T.mos"
+    __Dymola_Commands(file= "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/HeaterCooler_T.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

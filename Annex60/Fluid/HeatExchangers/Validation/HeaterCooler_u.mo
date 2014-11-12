@@ -1,4 +1,4 @@
-within Annex60.Fluid.HeatExchangers.Examples;
+within Annex60.Fluid.HeatExchangers.Validation;
 model HeaterCooler_u "Model that demonstrates the ideal heater model"
   extends Modelica.Icons.Example;
 
@@ -120,7 +120,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{200,
             200}}), graphics),
-    __Dymola_Commands(file= "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/HeaterCooler_u.mos" "Simulate and plot"),
+    __Dymola_Commands(file= "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/HeaterCooler_u.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Model that demonstrates the use of an ideal heater.
