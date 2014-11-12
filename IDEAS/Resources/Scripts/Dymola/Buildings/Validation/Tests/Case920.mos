@@ -1,5 +1,5 @@
 simulateModel("IDEAS.Buildings.Validation.Tests.Case920", stopTime=1000000, outputInterval=600, method = "dassl", resultFile="Case920");
 
-createPlot(id=1, position={0, 0, 804, 518}, y={"building.heatPortCon[1].T", "building.heatPortRad[1].T"}, range={0.0, 1000000.0, 280.0, 320.0}, grid=true, filename="Case920.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});
+createPlot(id=1, y={"Case920.building.heatPortCon[1].T", "Case920.building.heatPortRad[1].T"});
 
-createPlot(id=2, position={0, 0, 804, 518}, y={"PHea", "PCoo"}, range={0.0, 1000000.0, -5000, 2000.0}, grid=true, filename="Case920.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});
+createPlot(id=2, y={"Case920.PHea", "Case920.PCoo"});

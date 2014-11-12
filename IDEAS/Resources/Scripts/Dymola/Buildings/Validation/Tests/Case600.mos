@@ -1,3 +1,3 @@
 simulateModel("IDEAS.Buildings.Validation.Tests.Case600", stopTime=1000000, outputInterval=600, method = "dassl", resultFile="Case600");
 
-createPlot(id=1, position={0, 0, 804, 518}, y={"building.heatPortCon[1].T", "building.heatPortRad[1].T"}, range={0.0, 1000000.0, 280.0, 320.0}, grid=true, filename="Case600.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}});
+createPlot(id=1, y={"Case600.building.heatPortCon[1].T", "Case600.building.heatPortRad[1].T"});
