@@ -91,8 +91,7 @@ equation
             100}})),
     Commands(file="Scripts/Tester_Boiler.mos" "TestModel"),
     Documentation(info="<html>
-<p>This example shows the modulation behaviour of an inverter controlled air-to-water heat pump when the inlet water temperature is changed. </p>
-<p>The modulation level can be seen from heater.heatSource.modulation.</p>
+<p>This example demonstrates the use of a heat pump.</p>
 </html>", revisions="<html>
 <ul>
 <li>March 2014 by Filip Jorissen:<br/> 
