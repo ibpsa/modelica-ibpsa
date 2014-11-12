@@ -14,7 +14,7 @@ model HeaterCooler_T_dynamic
 Model that demonstrates the use of an ideal heater and an ideal cooler, configured as dynamic models.
 </p>
 <p>
-This example is identical to 
+This example is identical to
 <a href=\"modelica://Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_T\">
 Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_T</a>
 except that the heater and cooler models are configured to have a

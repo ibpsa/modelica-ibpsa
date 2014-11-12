@@ -177,7 +177,7 @@ the fluid that leaves <code>port_b</code>.
 </p>
 <p>
 If the parameter <code>energyDynamics</code> is not equal to
-<code>Modelica.Fluid.Types.Dynamics.SteadyState</code>, 
+<code>Modelica.Fluid.Types.Dynamics.SteadyState</code>,
 the component models the dynamic response using a first order differential equation.
 The time constant of the component is equal to the parameter <code>tau</code>.
 This time constant is adjusted based on the mass flow rate using

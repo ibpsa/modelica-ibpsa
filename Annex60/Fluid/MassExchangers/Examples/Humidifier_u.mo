@@ -13,7 +13,7 @@ model Humidifier_u "Model that demonstrates the ideal humidifier model"
     use_T_in=false,
     nPorts=2,
     m_flow=2*m_flow_nominal,
-    T=303.15) "Source" 
+    T=303.15) "Source"
     annotation (Placement(transformation(extent={{-82,40},{-62,60}})));
   Annex60.Fluid.MassExchangers.Humidifier_u humSte(
     redeclare package Medium = Medium,

@@ -138,7 +138,7 @@ The heater model has an almost unlimited positive capacity (<code>Q_flow_nominal
 and hence its outlet temperature always reaches the set point temperatures.
 <p>
 The cooler model has a limited negative capacitiy (<code>Q_flow_nominal = 1000</code> Watts), and hence
-its outlet temperature reaches only a limited value corresponding to its 
+its outlet temperature reaches only a limited value corresponding to its
 maximum negative capacity.
 </p>
 <p>

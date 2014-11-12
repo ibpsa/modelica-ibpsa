@@ -41,11 +41,11 @@ input the leaving fluid temperature.
 <p>
 The model consist of an air volume with heat loss to the ambient.
 The set point of the air temperature is different between night and day.
-The heater tracks the set point temperature, except for the periods in 
+The heater tracks the set point temperature, except for the periods in
 which the air temperature is above the set point.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.Heater_u\">
 Annex60.Fluid.HeatExchangers.Examples.Heater_u</a>
 for a model that takes the heating power as an input.

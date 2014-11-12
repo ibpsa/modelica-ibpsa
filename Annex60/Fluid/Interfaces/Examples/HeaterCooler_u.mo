@@ -6,7 +6,7 @@ model HeaterCooler_u
  package Medium = Annex60.Media.Water.Simple;
 
   Annex60.Fluid.HeatExchangers.HeaterCooler_u hea1(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,

@@ -28,15 +28,15 @@ model HeaterCooler_u "Model that demonstrates the ideal heater model"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Temperature sensor"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Modelica.Blocks.Sources.TimeTable TSet(table=[0, 273.15 + 20; 120, 273.15 
-    +20; 120, 273.15 + 30; 1200, 273.15 + 30]) 
+  Modelica.Blocks.Sources.TimeTable TSet(table=[0, 273.15 + 20; 120, 273.15
+    +20; 120, 273.15 + 30; 1200, 273.15 + 30])
     "Setpoint"
     annotation (Placement(transformation(extent={{-60,140},{-40,160}})));
   Annex60.Controls.Continuous.LimPID con1(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=1,
     k=1,
-    Ti=10) 
+    Ti=10)
     "Controller"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
   Annex60.Fluid.HeatExchangers.HeaterCooler_u heaDyn(
@@ -48,7 +48,7 @@ model HeaterCooler_u "Model that demonstrates the ideal heater model"
     "Dynamic model of the heater"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem2(
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Temperature sensor"
 
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
