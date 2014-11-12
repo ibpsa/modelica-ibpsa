@@ -141,6 +141,13 @@ control volume would have.
 Optionally, this model can have a flow resistance.
 If no flow resistance is requested, set <code>dp_nominal=0</code>.
 </p>
+<p>
+For a model that uses a control signal <i>u &isin; [0, 1]</i> and multiplies
+this with the nominal heating or cooling power, use
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.HeaterCooler_u\">
+Annex60.Fluid.HeatExchangers.HeaterCooler_u</a>
+
+</p>
 <h4>Limitations</h4>
 <p>
 This model only adds or removes heat for the flow from
@@ -175,7 +182,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics));
 end HeaterCooler_T;

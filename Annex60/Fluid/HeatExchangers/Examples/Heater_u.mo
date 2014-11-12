@@ -3,7 +3,7 @@ model Heater_u "Example model for the heater with prescribed heat input"
   extends Modelica.Icons.Example;
   extends Annex60.Fluid.HeatExchangers.Examples.BaseClasses.Heater;
 
-  HeaterCooler_u                              hea(
+  HeaterCooler_u hea(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
@@ -33,11 +33,11 @@ input the heat added to the medium.
 <p>
 The model consist of an air volume with heat loss to the ambient.
 The set point of the air temperature is different between night and day.
-The heater tracks the set point temperature, except for the periods in 
+The heater tracks the set point temperature, except for the periods in
 which the air temperature is above the set point.
 </p>
 <p>
-See 
+See
 <a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.Heater_T\">
 Annex60.Fluid.HeatExchangers.Examples.Heater_T</a>
 for a model that takes the leaving air temperature as an input.
