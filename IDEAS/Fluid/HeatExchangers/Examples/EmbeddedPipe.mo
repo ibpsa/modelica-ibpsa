@@ -40,7 +40,6 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
     redeclare package Medium = Medium,
     m_flow_nominal=12*24/3600,
     m_flowMin=0.1,
-    use_dp=false,
     A_floor=1)
     annotation (Placement(transformation(extent={{64,-16},{84,4}})));
   BaseClasses.RadSlaCha_ValidationEmpa radSlaCha_ValidationEmpa

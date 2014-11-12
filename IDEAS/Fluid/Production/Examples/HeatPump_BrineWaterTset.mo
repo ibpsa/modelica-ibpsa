@@ -10,7 +10,7 @@ model HeatPump_BrineWaterTset
     annotation (Placement(transformation(extent={{2,56},{-18,76}})));
 equation
   connect(const.y, heatPump.Tset) annotation (Line(
-      points={{-19,66},{-50,66},{-50,38.8}},
+      points={{-19,66},{-53,66},{-53,38}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -20,6 +20,8 @@ equation
 Initial version
 </li>
 </ul>
+</html>", info="<html>
+<p>This model demonstrates the use of a heat pump with a temperature set point.</p>
 </html>"),
     experiment(StopTime=15000),
     __Dymola_experimentSetupOutput);

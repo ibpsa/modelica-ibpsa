@@ -29,7 +29,8 @@ import buildingspy.development.regressiontest as rt
 tester=r.Tester(executable='dymola')
 
 """ number of parallel processes started."""
-tester.setNumberOfThreads(3)
+
+tester.setNumberOfThreads(4)
 
 """ Html validation on/off"""
 # tester.validate_html = False

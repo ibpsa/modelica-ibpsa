@@ -5,7 +5,7 @@ model Deadband "BESTEST deadband heating system"
 
   parameter Modelica.SIunits.Volume[nZones] VZones;
   parameter Real corrCV = 5 "Correction factor for thermal mass in zone";
-  final parameter Modelica.SIunits.HeatCapacity[nZones] C = VZones * corrCV;
+  final parameter Modelica.SIunits.HeatCapacity[nZones] C = VZones * corrCV * 1012 * 1.204;
 
 protected
   parameter Modelica.SIunits.Temperature Theat=293.15 "Heating on below 20degC";
