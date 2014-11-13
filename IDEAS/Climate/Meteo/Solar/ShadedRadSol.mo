@@ -4,12 +4,12 @@ model ShadedRadSol "Solar angle to surface"
   extends IDEAS.Climate.Meteo.Solar.RadSol;
 
   Modelica.Blocks.Interfaces.RealOutput angAzi "Azimuth angle"
-    annotation (Placement(transformation(extent={{90,-106},{110,-86}})));
+    annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
   BaseClasses.AngleAzimuth angleAzimuth(lat=lat, azi=azi)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 equation
   connect(angleAzimuth.angAzi, angAzi) annotation (Line(
-      points={{-20,-24},{-14,-24},{-14,-96},{100,-96}},
+      points={{-20,-24},{-14,-24},{-14,-80},{100,-80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angleAzimuth.angDec, angSolar.angDec) annotation (Line(
