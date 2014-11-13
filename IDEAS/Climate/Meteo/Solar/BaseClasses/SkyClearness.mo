@@ -19,12 +19,12 @@ protected
   Real solDifHor "smoothed horizontal difuse radiation";
   Real angZenDeg = angZen*180/Modelica.Constants.pi;
 
-algorithm
-  solDifHor := IDEAS.Utilities.Math.Functions.smoothMax(
+equation
+  solDifHor = IDEAS.Utilities.Math.Functions.smoothMax(
     sim.solDifHor,
     1e-4,
     1e-5);
-  skyCle := smooth(1, if noEvent(sim.solGloHor < 1) then 1 else ((sim.solGloHor)
+  skyCle = smooth(1, if noEvent(sim.solGloHor < 1) then 1 else ((sim.solGloHor)
     /solDifHor + kappa*angZenDeg^3)/(1 + kappa*angZenDeg^3));
 
   annotation (Diagram(graphics));
