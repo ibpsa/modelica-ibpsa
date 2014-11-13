@@ -13,7 +13,7 @@ model ExteriorHeatRadidation
   //Real Fse=(1 - cos(inc))/2
   //  "radiant-interchange configuration factor between surface and environment";
 protected
-  Real Fssky=(1 + cos(inc))/2
+  parameter Real Fssky=(1 + cos(inc))/2
     "radiant-interchange configuration factor between surface and sky";
   Modelica.SIunits.Temperature Tenv
     "Radiative temperature of the total environment";
