@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.BaseClasses;
-model ExteriorHeatRadidation
+model ExteriorHeatRadiation
   "longwave radiative heat exchange of an exterior surface with the environment"
 
   parameter Modelica.SIunits.Area A "surface area";
@@ -13,7 +13,7 @@ model ExteriorHeatRadidation
   //Real Fse=(1 - cos(inc))/2
   //  "radiant-interchange configuration factor between surface and environment";
 protected
-  Real Fssky=(1 + cos(inc))/2
+  final parameter Real Fssky=(1 + cos(inc))/2
     "radiant-interchange configuration factor between surface and sky";
   Modelica.SIunits.Temperature Tenv
     "Radiative temperature of the total environment";
@@ -66,4 +66,4 @@ equation
 <p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-cISf3Itz.png\"/></p>
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-IKuIUMef.png\"/> is the shortwave absorption of the surface and <img src=\"modelica://IDEAS/Images/equations/equation-Vuo4fgcb.png\"/> the total irradiation on the depicted surface. </p>
 </html>"));
-end ExteriorHeatRadidation;
+end ExteriorHeatRadiation;

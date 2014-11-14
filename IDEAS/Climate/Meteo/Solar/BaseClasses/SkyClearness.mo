@@ -24,8 +24,7 @@ equation
     sim.solDifHor,
     1e-4,
     1e-5);
-  skyCle = smooth(1, if noEvent(sim.solGloHor < 1) then 1 else ((sim.solGloHor)
-    /solDifHor + kappa*angZenDeg^3)/(1 + kappa*angZenDeg^3));
-
+  skyCle = IDEAS.Utilities.Math.Functions.spliceFunction(x=sim.solGloHor-1, pos=((sim.solGloHor)
+    /solDifHor + kappa*angZenDeg^3)/(1 + kappa*angZenDeg^3), neg= 1, deltax=1);
   annotation (Diagram(graphics));
 end SkyClearness;

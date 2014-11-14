@@ -31,8 +31,6 @@ model RadSol "solar angle to surface"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   Modelica.Blocks.Interfaces.RealOutput angZen "Angle of incidence"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput angHou "Angle of incidence"
-    annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
   Modelica.Blocks.Sources.RealExpression declination(y=sim.angDec)
     annotation (Placement(transformation(extent={{-98,26},{-64,46}})));
   Modelica.Blocks.Sources.RealExpression angleZenith(y=sim.angZen)
@@ -72,10 +70,6 @@ equation
       smooth=Smooth.None));
   connect(angZen, solDifTil.angZen) annotation (Line(
       points={{100,-60},{-28,-60},{-28,10},{0,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angHou, angSolar.angHou) annotation (Line(
-      points={{100,-80},{-48,-80},{-48,-76},{-48,-76},{-48,32},{-40,32}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
