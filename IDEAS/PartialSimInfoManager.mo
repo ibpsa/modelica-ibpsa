@@ -168,7 +168,11 @@ public
                             skyBrightnessCoefficients
     annotation (Placement(transformation(extent={{-18,60},{0,78}})));
   Modelica.Blocks.Sources.RealExpression zenithAngle(y=angZen)
-    annotation (Placement(transformation(extent={{-106,60},{-86,80}})));
+    annotation (Placement(transformation(extent={{-110,46},{-90,66}})));
+  Modelica.Blocks.Sources.RealExpression solGloHorIn(y=solGloHor)
+    annotation (Placement(transformation(extent={{-110,78},{-90,98}})));
+  Modelica.Blocks.Sources.RealExpression solDifHorIn(y=solDifHor)
+    annotation (Placement(transformation(extent={{-110,62},{-90,82}})));
 equation
 
   connect(timMan.timCal, tabQCon.u) annotation (Line(
@@ -205,7 +209,7 @@ equation
       smooth=Smooth.None));
   connect(skyClearness.skyCle,skyBrightnessCoefficients. skyCle) annotation (
       Line(
-      points={{-60,84.4},{-56,84.4},{-56,70.8},{-18,70.8}},
+      points={{-59.46,79},{-56,79},{-56,70.8},{-18,70.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyBrightness.skyBri,skyBrightnessCoefficients. skyBri) annotation (
@@ -218,17 +222,29 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(zenithAngle.y, relativeAirMass.angZen) annotation (Line(
-      points={{-85,70},{-84,70},{-84,56.4},{-78,56.4}},
+      points={{-89,56},{-84,56},{-84,56.4},{-78,56.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zenithAngle.y, skyClearness.angZen) annotation (Line(
-      points={{-85,70},{-85,84.4},{-78,84.4}},
+      points={{-89,56},{-89,84.4},{-78,84.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyBrightnessCoefficients.angZen, skyClearness.angZen) annotation (
       Line(
       points={{-18,74.4},{-52,74.4},{-52,96},{-84,96},{-84,84},{-86,84},{-85,84.4},
           {-78,84.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(skyClearness.solGloHor, solGloHorIn.y) annotation (Line(
+      points={{-78,79},{-88,79},{-88,88},{-89,88}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(solDifHorIn.y, skyClearness.solDifHor) annotation (Line(
+      points={{-89,72},{-84,72},{-84,73.6},{-78,73.6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(skyClearness.solDifHor, skyBrightness.solDifHor) annotation (Line(
+      points={{-78,73.6},{-80,73.6},{-80,66},{-56,66},{-56,51},{-52,51}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -313,8 +329,8 @@ equation
           smooth=Smooth.None,
           fillColor={127,67,62},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Documentation(info="<html>
 </html>"));
