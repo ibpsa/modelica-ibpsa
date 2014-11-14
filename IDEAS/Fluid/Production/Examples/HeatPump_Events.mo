@@ -1,10 +1,11 @@
 within IDEAS.Fluid.Production.Examples;
 model HeatPump_Events
   extends HeatPump_BrineWater(pump(m_flow_nominal=0.3), heatPump(avoidEvents=
-          avoidEvents.k));
+          avoidEvents.k),
+    heatPump1(avoidEvents=avoidEvents.k));
   Modelica.Blocks.Sources.BooleanConstant avoidEvents(k=true)
     "Switch to see influence on generated events"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
   annotation (
     experiment(StopTime=15000),
     __Dymola_experimentSetupOutput,
