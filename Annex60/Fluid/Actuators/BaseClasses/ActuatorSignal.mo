@@ -2,20 +2,24 @@ within Annex60.Fluid.Actuators.BaseClasses;
 model ActuatorSignal
   "Partial model that implements the filtered opening for valves and dampers"
 
+  parameter Boolean use_TSet = false
+    "True if use a temperature set poin instead of a position set point";
   parameter Boolean filteredOpening=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
   parameter Modelica.SIunits.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening and not use_TSet));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening and not use_TSet));
   parameter Real y_start=1 "Initial value of output"
-    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening));
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening and not use_TSet));
+  parameter Modelica.SIunits.Temperature T_max = 373.15 "Maximum temperature"
+    annotation(Dialog(tab="Dynamics", group="Set point temperature",enable=use_TSet));
 
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)
-    "Actuator position (0: closed, 1: open)"
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=y_max, unit=if use_TSet then "K" else "")
+    "If use_TSet is false, y gives the actuator position (0: closed, 1: open). Otherwie a set point temperature."
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
           rotation=270,
         origin={0,120}),iconTransformation(
@@ -28,7 +32,9 @@ model ActuatorSignal
 
   // Classes used to implement the filtered opening
 protected
-  Modelica.Blocks.Interfaces.RealOutput y_filtered if filteredOpening
+  parameter Real y_max = if use_TSet then T_max else 1
+    "Maximum value of the actuator input";
+  Modelica.Blocks.Interfaces.RealOutput y_filtered if filteredOpening and not use_TSet
     "Filtered valve position in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
         iconTransformation(extent={{60,50},{80,70}})));
@@ -41,7 +47,7 @@ protected
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass,
      x(each stateSelect=StateSelect.always)) if
-        filteredOpening
+        filteredOpening and not use_TSet
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{6,81},{20,95}})));
 
@@ -50,12 +56,12 @@ equation
       points={{20.7,88},{50,88}},
       color={0,0,127},
       smooth=Smooth.None));
-  if filteredOpening then
-  connect(y, filter.u) annotation (Line(
+  if filteredOpening and not use_TSet then
+    connect(y, filter.u) annotation (Line(
       points={{1.11022e-15,120},{1.11022e-15,88},{4.6,88}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(filter.y, y_actual) annotation (Line(
+    connect(filter.y, y_actual) annotation (Line(
       points={{20.7,88},{30,88},{30,70},{50,70}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -105,6 +111,9 @@ Models that extend this model use the signal
 current position of the actuator.
 </p>
 <p>
+The model can also be used for a temperature set point.
+</p>
+<p>
 See
 <a href=\"modelica://Annex60.Fluid.Actuators.UsersGuide\">
 Annex60.Fluid.Actuators.UsersGuide</a>
@@ -113,9 +122,15 @@ for a description of the filter.
 </html>", revisions="<html>
 <ul>
 <li>
+November 18, 2014 by Damien Picard:<br/>
+Add the possibility to use a temperature set point instead of a position set point.
+</li>
+<li>
 February 14, 2012 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end ActuatorSignal;
