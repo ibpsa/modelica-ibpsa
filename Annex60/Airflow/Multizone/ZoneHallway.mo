@@ -14,7 +14,10 @@ model ZoneHallway
     redeclare package Medium = Medium,
     m_flow_nominal=0.001,
     V=heightRoom*lengthRoom*widthRoom,
-    nPorts=6) "Air volume of hallway element"
+    nPorts=6,
+    T_start=TRoom,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Air volume of hallway element"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAir(T=TRoom)
     "Fixed air temperature for room"
@@ -50,6 +53,10 @@ model ZoneHallway
   Modelica.Fluid.Interfaces.FluidPort_a port_a3(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  Orifice oriOutTop(redeclare package Medium = Medium, A=0.01)
+    annotation (Placement(transformation(extent={{68,50},{88,70}})));
+  Orifice oriOutBottom(redeclare package Medium = Medium, A=0.01)
+    annotation (Placement(transformation(extent={{68,-70},{88,-50}})));
 equation
   connect(TAir.port, conRoom.port_a) annotation (Line(
       points={{-40,0},{-20,0}},
@@ -58,14 +65,6 @@ equation
   connect(conRoom.port_b, volumeHall.heatPort) annotation (Line(
       points={{0,0},{20,0}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(col1.port_a, port_a1) annotation (Line(
-      points={{60,40},{60,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(col.port_b, port_b1) annotation (Line(
-      points={{60,-40},{60,-60},{100,-60}},
-      color={0,127,255},
       smooth=Smooth.None));
   connect(port_a, volumeHall.ports[1]) annotation (Line(
       points={{-100,60},{-80,60},{-80,-24},{26,-24},{26.6667,-10}},
@@ -89,6 +88,22 @@ equation
       smooth=Smooth.None));
   connect(port_a3, volumeHall.ports[6]) annotation (Line(
       points={{0,100},{0,40},{44,40},{44,-16},{36,-16},{33.3333,-10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(col.port_b, oriOutBottom.port_a) annotation (Line(
+      points={{60,-40},{60,-60},{68,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(oriOutBottom.port_b, port_b1) annotation (Line(
+      points={{88,-60},{100,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(col1.port_a, oriOutTop.port_a) annotation (Line(
+      points={{60,40},{60,60},{68,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(oriOutTop.port_b, port_a1) annotation (Line(
+      points={{88,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}},

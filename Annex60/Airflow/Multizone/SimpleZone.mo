@@ -6,6 +6,8 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   parameter Modelica.SIunits.Height heightRoom = 3 "Height of room in m";
   parameter Modelica.SIunits.Length lengthRoom = 5 "Length of room in m";
   parameter Modelica.SIunits.Length widthRoom = 5 "Width of room in m";
+  parameter Real doorOpening = 1
+    "Opening of door (between 0:closed and 1:open)";
 
   package Medium = Modelica.Media.Air.SimpleAir;
 
@@ -25,10 +27,24 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium)
-    annotation (Placement(transformation(extent={{90,30},{110,50}})));
+    annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium)
-    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+  DoorDiscretizedOperable door(
+  redeclare package Medium = Medium,
+  LClo=20*1E-4,
+  wOpe=1,
+  hOpe=2.2,
+  CDOpe=0.78,
+  CDClo=0.78,
+  nCom=10,
+  hA=3/2,
+  hB=3/2,
+  dp_turbulent(displayUnit="Pa") = 0.01) "Discretized door"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Modelica.Blocks.Sources.Constant const(k=doorOpening)
+    annotation (Placement(transformation(extent={{28,40},{48,60}})));
 equation
   connect(TAir.port, conRoom.port_a) annotation (Line(
       points={{-40,0},{-20,0}},
@@ -38,13 +54,25 @@ equation
       points={{0,0},{20,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(volRoom.ports[1], port_a) annotation (Line(
-      points={{28,-10},{28,-24},{58,-24},{58,40},{100,40}},
+  connect(volRoom.ports[1], door.port_b2) annotation (Line(
+      points={{28,-10},{28,-34},{52,-34},{52,-6},{60,-6}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(volRoom.ports[2], port_b) annotation (Line(
-      points={{32,-10},{32,-40},{100,-40}},
+  connect(volRoom.ports[2], door.port_a1) annotation (Line(
+      points={{32,-10},{32,-24},{44,-24},{44,6},{60,6}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(door.port_b1, port_a) annotation (Line(
+      points={{80,6},{86,6},{86,60},{100,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(door.port_a2, port_b) annotation (Line(
+      points={{80,-6},{86,-6},{86,-60},{100,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(const.y, door.y) annotation (Line(
+      points={{49,50},{54,50},{54,0},{59,0}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));

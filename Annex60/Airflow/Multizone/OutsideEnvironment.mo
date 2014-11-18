@@ -9,9 +9,9 @@ model OutsideEnvironment
 
   Fluid.Sources.FixedBoundary outdoorVolume(
     redeclare package Medium = Medium,
-    p=10132500000,
-    T=283.15,
-    nPorts=2) "Volume representing the outdoor air"
+    nPorts=2,
+    p=101325,
+    T=283.15) "Volume representing the outdoor air"
                                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
