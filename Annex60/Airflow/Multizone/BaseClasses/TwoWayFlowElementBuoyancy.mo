@@ -1,7 +1,7 @@
 within Annex60.Airflow.Multizone.BaseClasses;
 partial model TwoWayFlowElementBuoyancy
   "Flow resistance that uses the power law"
-  extends Buildings.Airflow.Multizone.BaseClasses.TwoWayFlowElement;
+  extends Annex60.Airflow.Multizone.BaseClasses.TwoWayFlowElement;
 
   parameter Modelica.SIunits.Length wOpe=0.9 "|Geometry|Width of opening";
   parameter Modelica.SIunits.Length hOpe=2.1 "|Geometry|Height of opening";
