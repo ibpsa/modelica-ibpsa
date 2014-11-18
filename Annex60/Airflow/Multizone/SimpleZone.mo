@@ -1,7 +1,7 @@
 within Annex60.Airflow.Multizone;
 model SimpleZone "A room as a thermal zone represented by its air volume"
 
-  parameter Modelica.SIunits.Temperature TRoom = 293.15
+  parameter Modelica.SIunits.Temperature TRoom = 298.15
     "Indoor air temperature of room in K";
   parameter Modelica.SIunits.Height heightRoom = 3 "Height of room in m";
   parameter Modelica.SIunits.Length lengthRoom = 5 "Length of room in m";
