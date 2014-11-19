@@ -9,7 +9,7 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   parameter Real doorOpening = 1
     "Opening of door (between 0:closed and 1:open)";
 
-  package Medium = Modelica.Media.Air.SimpleAir;
+  replaceable package Medium = Modelica.Media.Air.SimpleAir;
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAir(T=TRoom)
     "Fixed air temperature for room"

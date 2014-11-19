@@ -8,7 +8,7 @@ model ZoneHallway
   parameter Modelica.SIunits.Length lengthRoom = 5 "Length of room in m";
   parameter Modelica.SIunits.Length widthRoom = 3 "Width of room in m";
 
-  package Medium = Modelica.Media.Air.SimpleAir;
+  replaceable package Medium = Modelica.Media.Air.SimpleAir;
 
   Fluid.MixingVolumes.MixingVolume volumeHall(
     redeclare package Medium = Medium,
