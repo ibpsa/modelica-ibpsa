@@ -44,7 +44,7 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   hA=3/2,
   hB=3/2,
   dp_turbulent(displayUnit="Pa") = 0.01,
-    forceErrorControlOnFlow=falseforceErrorControlOnFlow) "Discretized door"
+    forceErrorControlOnFlow=forceErrorControlOnFlow) "Discretized door"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Sources.Constant const(k=doorOpening)
     annotation (Placement(transformation(extent={{28,40},{48,60}})));
