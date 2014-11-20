@@ -28,7 +28,7 @@ model ZoneHallway
   MediumColumn col(
     redeclare package Medium = Medium,
     h=heightRoom/2,
-    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   MediumColumn col1(
     redeclare package Medium = Medium,
@@ -67,7 +67,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(port_a, volumeHall.ports[1]) annotation (Line(
-      points={{-100,60},{-80,60},{-80,-24},{26,-24},{26.6667,-10}},
+      points={{-100,60},{-80,60},{-80,-24},{26.6667,-24},{26.6667,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_b, volumeHall.ports[2]) annotation (Line(
@@ -75,11 +75,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a2, volumeHall.ports[3]) annotation (Line(
-      points={{0,-100},{0,-80},{30,-80},{29.3333,-10}},
+      points={{0,-100},{0,-80},{29.3333,-80},{29.3333,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(col.port_a, volumeHall.ports[4]) annotation (Line(
-      points={{60,-20},{32,-20},{30.6667,-10}},
+      points={{60,-20},{30.6667,-20},{30.6667,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(col1.port_b, volumeHall.ports[5]) annotation (Line(
@@ -87,7 +87,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a3, volumeHall.ports[6]) annotation (Line(
-      points={{0,100},{0,40},{44,40},{44,-16},{36,-16},{33.3333,-10}},
+      points={{0,100},{0,40},{44,40},{44,-16},{33.3333,-16},{33.3333,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(col.port_b, oriOutBottom.port_a) annotation (Line(
