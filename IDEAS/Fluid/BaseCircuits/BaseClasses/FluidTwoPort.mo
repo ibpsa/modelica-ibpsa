@@ -19,5 +19,10 @@ connector FluidTwoPort "For automatically connecting supply and return pipes"
           extent={{8,42},{92,-42}},
           lineColor={0,127,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}), Documentation(revisions="<html>
+<p><ul>
+<li>November 2014 by Filip Jorissen:<br> 
+Initial version</li>
+</ul></p>
+</html>"));
 end FluidTwoPort;

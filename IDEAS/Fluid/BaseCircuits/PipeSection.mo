@@ -11,7 +11,7 @@ model PipeSection
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"));
 
-  FixedResistances.Pipe pipe(
+  FixedResistances.Pipe pipe_a(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     m=m/2,
@@ -26,12 +26,11 @@ model PipeSection
     allowFlowReversal=allowFlowReversal,
     dynamicBalance=dynamicBalance,
     m_flow_small=m_flow_small,
-    show_T=false)
-           annotation (Placement(transformation(
+    show_T=false) annotation (Placement(transformation(
         extent={{-10,-4},{10,4}},
         rotation=90,
         origin={-40,0})));
-  FixedResistances.Pipe pipe1(
+  FixedResistances.Pipe pipe_b(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     m=m/2,
@@ -46,29 +45,33 @@ model PipeSection
     allowFlowReversal=allowFlowReversal,
     dynamicBalance=dynamicBalance,
     m_flow_small=m_flow_small,
-    show_T=false)
-           annotation (Placement(transformation(
+    show_T=false) annotation (Placement(transformation(
         extent={{10,-4},{-10,4}},
         rotation=90,
         origin={40,0})));
 
 equation
-  connect(pipe.port_b, fluidTwoPort_a.port_b) annotation (Line(
-      points={{-40,10},{-40,100},{0,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pipe.port_a, fluidTwoPort_b.port_a) annotation (Line(
+  connect(pipe_a.port_a, fluidTwoPort_b.port_a) annotation (Line(
       points={{-40,-10},{-40,-100},{0,-100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe1.port_b, fluidTwoPort_b.port_b) annotation (Line(
+  connect(pipe_b.port_b, fluidTwoPort_b.port_b) annotation (Line(
       points={{40,-10},{40,-100},{0,-100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe1.port_a, fluidTwoPort_a.port_a) annotation (Line(
+  connect(pipe_a.port_b, fluidTwoPort_a.port_a) annotation (Line(
+      points={{-40,10},{-40,100},{0,100}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipe_b.port_a, fluidTwoPort_a.port_b) annotation (Line(
       points={{40,10},{40,100},{0,100}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Documentation(revisions="<html>
+<p><ul>
+<li>November 2014 by Filip Jorissen:<br> 
+Initial version</li>
+</ul></p>
+</html>"));
 end PipeSection;

@@ -15,5 +15,10 @@ partial model TwoPort
     annotation(Dialog(tab = "Advanced"));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Documentation(revisions="<html>
+<p><ul>
+<li>November 2014 by Filip Jorissen:<br> 
+Initial version</li>
+</ul></p>
+</html>"));
 end TwoPort;

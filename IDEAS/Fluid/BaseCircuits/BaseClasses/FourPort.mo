@@ -2,7 +2,7 @@ within IDEAS.Fluid.BaseCircuits.BaseClasses;
 partial model FourPort
 
   FluidTwoPort fluidTwoPort_a(redeclare package Medium = Medium) annotation (
-      Placement(transformation(extent={{10,90},{-10,110}}), iconTransformation(
+      Placement(transformation(extent={{-10,90},{10,110}}), iconTransformation(
           extent={{-10,90},{10,110}})));
   FluidTwoPort fluidTwoPort_b(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
@@ -17,5 +17,12 @@ partial model FourPort
     annotation(Dialog(tab = "Advanced"));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Documentation(info="<html>
+<p>By convention the &apos;a&apos; side of the model and its connectors are used as the supply side (when appropriate).</p>
+</html>", revisions="<html>
+<p><ul>
+<li>November 2014 by Filip Jorissen:<br> 
+Initial version</li>
+</ul></p>
+</html>"));
 end FourPort;
