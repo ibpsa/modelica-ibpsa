@@ -28,6 +28,12 @@ model MultipleZones "Test case for air flow between multiple zones"
   Airflow.Multizone.SimpleZone simpleZone3(TRoom=300.15, redeclare package
       Medium = Medium)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  Airflow.Multizone.OutsideEnvironment outsideEnvironment1
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+  Airflow.Multizone.OutsideEnvironment outsideEnvironment2
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+  Airflow.Multizone.OutsideEnvironment outsideEnvironment3
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
   connect(simpleZone.port_a, zoneHallway.port_a) annotation (Line(
       points={{-60,-64},{-10,-64}},
@@ -70,39 +76,51 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(zoneHallway.port_a3, zoneHallway1.port_a2) annotation (Line(
-      points={{0,-60},{0,-40}},
+      points={{-6,-60},{-6,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(zoneHallway1.port_a3, zoneHallway2.port_a2) annotation (Line(
-      points={{0,-20},{0,0}},
+      points={{-6,-20},{-6,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(zoneHallway2.port_a3, zoneHallway3.port_a2) annotation (Line(
-      points={{0,20},{0,40}},
+      points={{-6,20},{-6,40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(outsideEnvironment.port_b, zoneHallway1.port_b1) annotation (Line(
-      points={{60,-76},{40,-76},{40,-36},{10,-36}},
+  connect(zoneHallway.port_b3, zoneHallway1.port_b2) annotation (Line(
+      points={{6,-60},{6,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(outsideEnvironment.port_b, zoneHallway2.port_b1) annotation (Line(
-      points={{60,-76},{40,-76},{40,4},{10,4}},
+  connect(zoneHallway1.port_b3, zoneHallway2.port_b2) annotation (Line(
+      points={{6,-20},{6,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(outsideEnvironment.port_b, zoneHallway3.port_b1) annotation (Line(
-      points={{60,-76},{40,-76},{40,44},{10,44}},
+  connect(zoneHallway2.port_b3, zoneHallway3.port_b2) annotation (Line(
+      points={{6,20},{6,40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(outsideEnvironment.port_a, zoneHallway1.port_a1) annotation (Line(
-      points={{60,-64},{48,-64},{48,-24},{10,-24}},
+  connect(zoneHallway3.port_a1, outsideEnvironment3.port_a) annotation (Line(
+      points={{10,56},{60,56}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(outsideEnvironment.port_a, zoneHallway2.port_a1) annotation (Line(
-      points={{60,-64},{48,-64},{48,16},{10,16}},
+  connect(zoneHallway3.port_b1, outsideEnvironment3.port_b) annotation (Line(
+      points={{10,44},{60,44}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(outsideEnvironment.port_a, zoneHallway3.port_a1) annotation (Line(
-      points={{60,-64},{48,-64},{48,56},{10,56}},
+  connect(zoneHallway2.port_a1, outsideEnvironment2.port_a) annotation (Line(
+      points={{10,16},{60,16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(zoneHallway2.port_b1, outsideEnvironment2.port_b) annotation (Line(
+      points={{10,4},{60,4}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(zoneHallway1.port_a1, outsideEnvironment1.port_a) annotation (Line(
+      points={{10,-24},{60,-24}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(zoneHallway1.port_b1, outsideEnvironment1.port_b) annotation (Line(
+      points={{10,-36},{60,-36}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
