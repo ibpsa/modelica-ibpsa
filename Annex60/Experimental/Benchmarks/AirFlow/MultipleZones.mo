@@ -3,30 +3,39 @@ model MultipleZones "Test case for air flow between multiple zones"
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Air.SimpleAir;
+  parameter Boolean forceErrorControlOnFlow = true;
 
-  Airflow.Multizone.ZoneHallway zoneHallway(redeclare package Medium = Medium)
+  Airflow.Multizone.ZoneHallway zoneHallway(redeclare package Medium = Medium,
+      forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
-  Airflow.Multizone.SimpleZone simpleZone(redeclare package Medium = Medium)
+  Airflow.Multizone.SimpleZone simpleZone(redeclare package Medium = Medium,
+      forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Airflow.Multizone.OutsideEnvironment outsideEnvironment(redeclare package
       Medium = Medium)
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-  Airflow.Multizone.ZoneHallway zoneHallway1(redeclare package Medium = Medium)
+  Airflow.Multizone.ZoneHallway zoneHallway1(redeclare package Medium = Medium,
+      forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  Airflow.Multizone.ZoneHallway zoneHallway2(redeclare package Medium = Medium)
+  Airflow.Multizone.ZoneHallway zoneHallway2(redeclare package Medium = Medium,
+      forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Airflow.Multizone.ZoneHallway zoneHallway3(redeclare package Medium = Medium)
+  Airflow.Multizone.ZoneHallway zoneHallway3(redeclare package Medium = Medium,
+      forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Airflow.Multizone.SimpleZone simpleZone1(TRoom=293.15, redeclare package
-      Medium = Medium)
+      Medium = Medium,
+    forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Airflow.Multizone.SimpleZone simpleZone2(TRoom=303.15, redeclare package
-      Medium = Medium)
+      Medium = Medium,
+    forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Airflow.Multizone.SimpleZone simpleZone3(TRoom=300.15, redeclare package
-      Medium = Medium)
+      Medium = Medium,
+    forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Airflow.Multizone.OutsideEnvironment outsideEnvironment1
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));

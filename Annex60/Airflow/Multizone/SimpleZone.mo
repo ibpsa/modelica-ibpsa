@@ -10,6 +10,8 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
     "Opening of door (between 0:closed and 1:open)";
 
   replaceable package Medium = Modelica.Media.Air.SimpleAir;
+  parameter Boolean forceErrorControlOnFlow = true
+    "Flag to force error control on m_flow. Set to true if interested in flow rate";
 
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAir(T=TRoom)
     "Fixed air temperature for room"
@@ -41,7 +43,8 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   nCom=10,
   hA=3/2,
   hB=3/2,
-  dp_turbulent(displayUnit="Pa") = 0.01) "Discretized door"
+  dp_turbulent(displayUnit="Pa") = 0.01,
+    forceErrorControlOnFlow=falseforceErrorControlOnFlow) "Discretized door"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Sources.Constant const(k=doorOpening)
     annotation (Placement(transformation(extent={{28,40},{48,60}})));
