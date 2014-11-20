@@ -19,7 +19,7 @@ model OutsideEnvironment
   MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=heightRoom/2,
-    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   MediumColumn colOutTop(
     redeclare package Medium = Medium,
