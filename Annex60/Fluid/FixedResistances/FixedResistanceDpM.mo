@@ -31,16 +31,26 @@ initial equation
  end if;
 
  assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
- if ( m_flow_turbulent > m_flow_nominal_pos) then
-   Modelica.Utilities.Streams.print("Warning: In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent."
-           + "\n"
-           + "  m_flow_nominal = " + String(m_flow_nominal) + "\n"
-           + "  dh      = " + String(dh) + "\n"
-           + "  To fix, set dh < " +
-                String(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + "\n"
-           + "  Suggested value: dh = " +
-                String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC));
- end if;
+ assert(m_flow_nominal_pos > m_flow_turbulent,
+   "In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent.
+  m_flow_nominal = " + String(m_flow_nominal) + "
+  dh      = " + String(dh) + "
+ To correct it, set dh < " +
+     String(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + "
+  Suggested value:   dh = " +
+                String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC),
+                AssertionLevel.warning);
+
+// if ( m_flow_turbulent > m_flow_nominal_pos) then
+//   Modelica.Utilities.Streams.print("Warning: In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent."
+//           + "\n"
+//           + "  m_flow_nominal = " + String(m_flow_nominal) + "\n"
+//           + "  dh      = " + String(dh) + "\n"
+//          + "  To fix, set dh < " +
+//                String(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + "\n"
+//           + "  Suggested value: dh = " +
+//                String(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC));
+// end if;
 
 equation
   // Pressure drop calculation
@@ -160,7 +170,7 @@ models from the package
 <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>
 can be used and combined with models from the
-<code>Buildings</code> library.
+<code>Annex60</code> library.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -183,6 +193,12 @@ This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 20, 2014, by Michael Wetter:<br/>
+Rewrote the warning message using an <code>assert</code> with
+<code>AssertionLevel.warning</code>
+as this is the proper way to write warnings in Modelica.
+</li>
 <li>
 August 5, 2014, by Michael Wetter:<br/>
 Corrected error in documentation of computation of <code>k</code>.
