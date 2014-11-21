@@ -7,8 +7,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure";
-  parameter Real mFactor = 1
-    "Factor to scale the thermal mass of the volume";
+  parameter Real mFactor(min=1) = 1
+    "Factor for scaling the thermal mass of the volume";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -156,7 +156,10 @@ equation
   // Total quantities
   m = fluidVolume*medium.d;
   mXi = m*medium.Xi;
-  U = m*medium.u*mFactor;
+  //mFactor is not directly multiplied with m since this does not work properly for moist air
+  //mFactor adds a thermal mass with a constant heat capacity of `default` air
+  U = m*medium.u + (mFactor-1)*m*Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default,Medium.T_default,Medium.X_default))*medium.T;
+
   mC = m*C;
 
   hOut = medium.h;
