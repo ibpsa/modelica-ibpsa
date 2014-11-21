@@ -2,7 +2,6 @@ within IDEAS.Fluid.Production.BaseClasses;
 model HeatSource_HP_AW
   "Computation of theoretical condensation power of the refrigerant based on interpolation data.  Takes into account losses of the heat pump to the environment"
   //fixme: adaptation of heatSource_CondensingGasBurner should also be applied on this model.
-
   /*
   This model is based on data we received from Daikin from an Altherma heat pump.
   The nominal power of the original heat pump is 7177W at 2/35degC
@@ -44,7 +43,6 @@ model HeatSource_HP_AW
     "UA of heat losses of HP to environment";
   parameter Modelica.SIunits.Power QNom
     "The power at nominal conditions (2/35)";
-
 public
   parameter Real modulation_min(max=29) = 20 "Minimal modulation percentage";
   // dont' set this to 0 or very low values, you might get negative P at very low modulations because of wrong extrapolation
@@ -62,7 +60,6 @@ public
   input Modelica.SIunits.Temperature TEnvironment
     "Temperature of environment for heat losses";
   input Modelica.SIunits.SpecificEnthalpy hIn "Specific enthalpy at the inlet";
-
   Modelica.Blocks.Tables.CombiTable2D P100(smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
       table=[0, -15, -10, -7, -2, 2, 7, 12, 18, 30; 30, 1.96, 2.026, 2.041,
         2.068, 2.075, 2.28, 2.289, 2.277, 2.277; 35, 2.08, 2.174, 2.199, 2.245,
@@ -129,7 +126,6 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
   Controls.Control_fixme.Hyst_NoEvent_Var onOff(
     use_input=false,
     enableRelease=true,
@@ -159,7 +155,6 @@ equation
   Q50.u2 = TEvaporator - 273.15;
   Q30.u1 = heatPort.T - 273.15;
   Q30.u2 = TEvaporator - 273.15;
-
   // all these are in kW
   Q_vector[1] = 0;
   Q_vector[2] = Q30.y*QNom/QNomRef;
@@ -172,14 +167,11 @@ equation
   P_vector[4] = P90.y*QNom/QNomRef;
   P_vector[5] = P100.y*QNom/QNomRef;
   QMax = 1000*Q100.y*QNom/QNomRef;
-
   modulationInit = QAsked/QMax*100;
   modulation = onOff.y*min(modulationInit, 100);
-
   // compensation of heat losses (only when the hp is operating)
   QLossesToCompensate = if noEvent(modulation > 0) then UALoss*(heatPort.T -
     TEnvironment) else 0;
-
   heatPort.Q_flow = -1000*Modelica.Math.Vectors.interpolate(
     mod_vector,
     Q_vector,
@@ -188,7 +180,6 @@ equation
     mod_vector,
     P_vector,
     modulation);
-
   connect(realExpression.y, onOff.u) annotation (Line(
       points={{1,-76},{10,-76}},
       color={0,0,127},
