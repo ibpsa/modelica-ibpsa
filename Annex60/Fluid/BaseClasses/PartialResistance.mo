@@ -4,7 +4,7 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
      show_T=false,
      m_flow(start=0, nominal=m_flow_nominal_pos),
      dp(start=0, nominal=dp_nominal_pos),
-     final m_flow_small = 1E-4*abs(m_flow_nominal));
+     m_flow_small = 1E-4*abs(m_flow_nominal));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
