@@ -126,18 +126,19 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Controls.Control_fixme.Hyst_NoEvent_Var onOff(
-    use_input=false,
+  Controls.Discrete.Hyst_Var_Cooling      onOff(
     enableRelease=true,
-    uLow_val=modulation_min,
-    uHigh_val=modulation_start,
     y(start=0),
     release(start=0))
     annotation (Placement(transformation(extent={{12,-86},{32,-66}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=modulationInit)
     annotation (Placement(transformation(extent={{-20,-86},{0,-66}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=modulation_start)
+    annotation (Placement(transformation(extent={{-44,-92},{-24,-72}})));
+  Modelica.Blocks.Sources.RealExpression realExpression2(y=modulation_min)
+    annotation (Placement(transformation(extent={{-70,-102},{-50,-82}})));
 equation
-  onOff.release = if noEvent(m_flowCondensor > 0) then 1.0 else 0.0;
+  onOff.release = if m_flowCondensor > 0 then 1.0 else 0.0;
   QAsked = IDEAS.Utilities.Math.Functions.smoothMax(0, m_flowCondensor*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TCondensor_set, Medium.X_default)) -hIn), 10);
   P100.u1 = heatPort.T - 273.15;
   P100.u2 = TEvaporator - 273.15;
@@ -170,7 +171,7 @@ equation
   modulationInit = QAsked/QMax*100;
   modulation = onOff.y*min(modulationInit, 100);
   // compensation of heat losses (only when the hp is operating)
-  QLossesToCompensate = if noEvent(modulation > 0) then UALoss*(heatPort.T -
+  QLossesToCompensate = if modulation > 0 then UALoss*(heatPort.T -
     TEnvironment) else 0;
   heatPort.Q_flow = -1000*Modelica.Math.Vectors.interpolate(
     mod_vector,
@@ -184,7 +185,17 @@ equation
       points={{1,-76},{10,-76}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Documentation(info="<html>
+  connect(realExpression1.y, onOff.uHigh) annotation (Line(
+      points={{-23,-82},{2,-82},{2,-80},{10,-80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression2.y, onOff.uLow) annotation (Line(
+      points={{-49,-92},{-22,-92},{-22,-90},{2,-90},{2,-84},{10,-84}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics), Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;data&nbsp;received&nbsp;from&nbsp;Daikin&nbsp;from&nbsp;an&nbsp;Altherma&nbsp;heat&nbsp;pump, and the full heat pump is implemented as <a href=\"modelica://IDEAS.Thermal.Components.Production.HP_AWMod_Losses\">IDEAS.Thermal.Components.Production.HP_AWMod_Losses</a>. (vermoedelijk <a href=\"Modelica://IDEAS.Thermal.Components.Production.HP_AirWater\">IDEAS.Thermal.Components.Production.HP_AirWater</a></p>
 <p>The&nbsp;nominal&nbsp;power&nbsp;of&nbsp;the&nbsp;original&nbsp;heat&nbsp;pump&nbsp;is&nbsp;7177 W&nbsp;at&nbsp;2/35 degC.</p>
