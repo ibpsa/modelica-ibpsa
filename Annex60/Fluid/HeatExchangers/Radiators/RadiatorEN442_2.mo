@@ -174,11 +174,11 @@ initial equation
   Q_flow_nominal = sum(QEle_flow_nominal);
 
   for i in 1:nEle loop
-    QEle_flow_nominal[i] = k * UAEle * ((1-fraRad) *
+    QEle_flow_nominal[i] = k * UAEle * (fraRad *
                    Annex60.Utilities.Math.Functions.powerLinearized(x=k*dTRad_nominal[i],
                    n=n,
                    x0=0.1*k*(T_b_nominal-TRad_nominal))
-                   + fraRad *
+                   + (1-fraRad) *
                    Annex60.Utilities.Math.Functions.powerLinearized(x=k*dTCon_nominal[i],
                    n=n,
                    x0=0.1*k*(T_b_nominal-TAir_nominal)));
