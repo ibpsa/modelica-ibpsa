@@ -34,15 +34,12 @@ package AirPTDecoupled
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
 
-    Real phi(min=0, start=0.5) "Relative humidity";
-
   protected
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
 
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
-    AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
     Modelica.SIunits.TemperatureDifference dT
       "Temperature difference used to compute enthalpy";
   equation
@@ -53,8 +50,6 @@ Temperature T is not in the allowed range
 required from medium model \""     + mediumName + "\".");
 
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
-
-    p_steam_sat = min(saturationPressure(T),0.999*p);
 
     X_steam  = Xi[Water]; // There is no liquid in this medium model
     X_air    = 1-Xi[Water];
@@ -78,8 +73,6 @@ required from medium model \""     + mediumName + "\".");
     state.p = p;
     state.T = T;
     state.X = X;
-
-    phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
 redeclare function density "Gas density"

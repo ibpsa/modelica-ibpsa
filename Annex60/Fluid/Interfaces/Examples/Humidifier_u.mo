@@ -1,5 +1,5 @@
 within Annex60.Fluid.Interfaces.Examples;
-model HumidifierPrescribed
+model Humidifier_u
   extends Modelica.Icons.Example;
 
  package Medium = Annex60.Media.Air;
@@ -354,7 +354,7 @@ model HumidifierPrescribed
 protected
   model Humidifier
     "Model for humidifier that adds a variable for the thermodynamic states at its ports"
-    extends Annex60.Fluid.MassExchangers.HumidifierPrescribed;
+    extends Annex60.Fluid.MassExchangers.Humidifier_u;
    Medium.ThermodynamicState staA=
       Medium.setState_phX(port_a.p,
                           actualStream(port_a.h_outflow),
@@ -594,7 +594,7 @@ equation
           lineColor={0,0,255},
           textString="Same models as above, but flow is reversed")}),
 experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HumidifierPrescribed.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/Humidifier_u.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
@@ -636,4 +636,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HumidifierPrescribed;
+end Humidifier_u;

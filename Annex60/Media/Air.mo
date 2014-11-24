@@ -33,26 +33,22 @@ package Air
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
 
-    Real phi(min=0, start=0.5) "Relative humidity";
-
   protected
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
+
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
-    AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
 
   equation
+    MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
+
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
 200.0 K <= (T =" + String(T) + " K) <= 423.15 K
 required from medium model \""     + mediumName + "\".");
 
-    MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
-
-    p_steam_sat = min(saturationPressure(T),0.999*p);
-
-    X_steam  = Xi[Water];
+    X_steam  = Xi[Water]; // There is no liquid in this medium model
     X_air    = 1-Xi[Water];
 
     h = T_degC*dryair.cp * X_air +
@@ -66,7 +62,6 @@ required from medium model \""     + mediumName + "\".");
     state.T = T;
     state.X = X;
 
-    phi = p/p_steam_sat*X_steam/(X_steam + k_mair*X_air);
     annotation (Documentation(info="<html>
     <p>
     Base properties of the medium.
