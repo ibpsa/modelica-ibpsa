@@ -1,5 +1,6 @@
 within IDEAS.Fluid.Movers;
 model Pump "Prescribed mass flow rate, no heat exchange."
+  extends IDEAS.Fluid.Interfaces.OnOffInterface;
   extends IDEAS.Fluid.Interfaces.Partials.PumpTwoPort(idealSource(
         control_m_flow=true, allowFlowReversal=true));
   parameter Boolean useInput=false "Enable / disable MassFlowRate input"
@@ -20,15 +21,17 @@ model Pump "Prescribed mass flow rate, no heat exchange."
         origin={0,104},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=m_flow_pump)
-    annotation (Placement(transformation(extent={{-32,32},{-2,52}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=if on_internal then m_flow_pump else 0)
+    annotation (Placement(transformation(extent={{80,22},{18,42}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-24,108})));
+        origin={80,106})));
   Modelica.Blocks.Sources.RealExpression realExpression2(y=PEl)
-    annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={80,76})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(min=0, max=m_flow_nominal,
                                                  final quantity="MassFlowRate",
                                                   final unit="kg/s",
@@ -89,16 +92,16 @@ equation
     end if;
   Q_flow = 0;
   PEl = m_flow_pump/Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), Medium.X_default))*dpFix/etaTot;
-  connect(realExpression1.y, idealSource.m_flow_in) annotation (Line(
-      points={{-0.5,42},{0,42},{0,8},{12,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(realExpression2.y, P) annotation (Line(
-      points={{-31,-80},{-24,-80},{-24,108}},
+      points={{80,87},{80,106}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flowSet, gaiFlow.u) annotation (Line(
       points={{0,104},{0,82},{-16,82},{-16,64},{-7.2,64}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression1.y, idealSource.m_flow_in) annotation (Line(
+      points={{14.9,32},{12,32},{12,8}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
