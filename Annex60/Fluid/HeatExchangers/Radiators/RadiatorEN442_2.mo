@@ -1,6 +1,6 @@
 within Annex60.Fluid.HeatExchangers.Radiators;
 model RadiatorEN442_2 "Dynamic radiator for space heating"
-   extends Fluid.Interfaces.PartialTwoPortInterface(
+   extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
    showDesignFlowDirection = false,
    show_T=true,
    m_flow_nominal=abs(Q_flow_nominal/cp_nominal/(T_a_nominal-T_b_nominal)));
@@ -134,7 +134,7 @@ protected
         Annex60.Utilities.Math.Functions.regNonZeroPower(
         x=dTRad,
         n=n - 1,
-        delta=0.05)) "Convective heat flow rate"
+        delta=0.05)) "Radiative heat flow rate"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preSumCon
