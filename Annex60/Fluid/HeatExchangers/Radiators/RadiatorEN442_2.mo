@@ -352,6 +352,10 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </html>", revisions="<html>
 <ul>
 <li>
+November 25, 2014, by Carles Ribas Tugores:<br/>
+Interchange position of <code>fraRad</code> parameter and its reciprocal <code>(1-fraRad)</code>.
+</li>
+<li>
 October 29, 2014, by Michael Wetter:<br/>
 Made assignment of <code>mFactor</code> final, and changed computation of
 density to use default medium states as are also used to compute the
