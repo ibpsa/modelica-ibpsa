@@ -147,19 +147,19 @@ protected
     "Sum of radiative heat flow rate"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preSumRad
-    "Heat input into radiator from convective heat transfer"
+    "Heat input into radiator from radiative heat transfer"
     annotation (Placement(transformation(extent={{52,-90},{72,-70}})));
 initial equation
   if T_b_nominal > TAir_nominal then
      assert(T_a_nominal > T_b_nominal,
-       "In RadiatorEN442_2, T_a_nominal must be higher than T_b_nominal");
+       "In RadiatorEN442_2, T_a_nominal must be higher than T_b_nominal.");
      assert(Q_flow_nominal > 0,
-       "In RadiatorEN442_2, nominal power must be bigger than zero if T_b_nominal > TAir_nominal");
+       "In RadiatorEN442_2, nominal power must be bigger than zero if T_b_nominal > TAir_nominal.");
   else
      assert(T_a_nominal < T_b_nominal,
-       "In RadiatorEN442_2, T_a_nominal must be lower than T_b_nominal");
+       "In RadiatorEN442_2, T_a_nominal must be lower than T_b_nominal.");
      assert(Q_flow_nominal < 0,
-       "In RadiatorEN442_2, nominal power must be smaller than zero if T_b_nominal < TAir_nominal");
+       "In RadiatorEN442_2, nominal power must be smaller than zero if T_b_nominal < TAir_nominal.");
   end if;
   TWat_nominal[1] = T_a_nominal - QEle_flow_nominal[1]/m_flow_nominal/
   Medium.specificHeatCapacityCp(
