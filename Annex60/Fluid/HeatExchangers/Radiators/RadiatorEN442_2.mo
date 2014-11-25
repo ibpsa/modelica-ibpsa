@@ -353,7 +353,8 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 <ul>
 <li>
 November 25, 2014, by Carles Ribas Tugores:<br/>
-Interchange position of <code>fraRad</code> parameter and its reciprocal <code>(1-fraRad)</code>.
+Interchange position of <code>fraRad</code> parameter and the complementary <code>(1-fraRad)</code>
+in the equation used to calculate the nominal heating power of each element, <code>QEle_flow_nominal[i]</code>.
 </li>
 <li>
 October 29, 2014, by Michael Wetter:<br/>
