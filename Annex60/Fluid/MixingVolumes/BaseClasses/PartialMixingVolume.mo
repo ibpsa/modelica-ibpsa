@@ -59,9 +59,9 @@ protected
     final initialize_p = initialize_p,
     m(start=V*rho_start),
     U(start=V*rho_start*Medium.specificInternalEnergy(
-        state_start)),
+        state_start)+T_start*C_dry),
     nPorts=nPorts,
-    C_dry=(mFactor - 1)*rho_default*cp_default*V) if
+    C_dry=C_dry) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
@@ -74,6 +74,8 @@ protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
   Medium.specificHeatCapacityCp(state=state_default)
     "Heat capacity, to compute additional dry mass";
+  parameter Modelica.SIunits.HeatCapacity C_dry = (mFactor - 1)*rho_default*cp_default*V
+    "Aditional heat capacity for implementing mFactor";
 
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
