@@ -37,23 +37,23 @@ model ZoneHallway
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{50,20},{70,40}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a_toZone(redeclare package Medium
+      = Medium) "Direct connection to air volume without orifice"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
-        Medium)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b_toZone(redeclare package Medium
+      = Medium) "Direct connection to air volume without orifice"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium =
-        Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a_toOutside(redeclare package
+      Medium = Medium) "Indirect connection to air volume with orifice"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium =
-        Medium)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b_toOutside(redeclare package
+      Medium = Medium) "Indirect connection to air volume with orifice"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium =
-        Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium =
+        Medium) "Indirect connection to air volume with orifice"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a3(redeclare package Medium =
-        Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium =
+        Medium) "Direct connection to air volume without orifice"
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
   Orifice oriOutTop(redeclare package Medium = Medium, A=0.01,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
@@ -61,11 +61,11 @@ model ZoneHallway
   Orifice oriOutBottom(redeclare package Medium = Medium, A=0.01,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{68,-70},{88,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium =
-        Medium)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium =
+        Medium) "Indirect connection to air volume with orifice"
     annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b3(redeclare package Medium =
-        Medium)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium =
+        Medium) "Direct connection to air volume without orifice"
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
   MediumColumn col2(
     redeclare package Medium = Medium,
@@ -103,11 +103,11 @@ equation
       points={{0,0},{20,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(port_a, volumeHall.ports[1]) annotation (Line(
+  connect(port_a_toZone, volumeHall.ports[1]) annotation (Line(
       points={{-100,60},{-80,60},{-80,-24},{24,-24},{26.5,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_b, volumeHall.ports[2]) annotation (Line(
+  connect(port_b_toZone, volumeHall.ports[2]) annotation (Line(
       points={{-100,-60},{-80,-60},{-80,-28},{26,-28},{27.5,-10}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -115,7 +115,7 @@ equation
       points={{60,-40},{60,-60},{68,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(oriOutBottom.port_b, port_b1) annotation (Line(
+  connect(oriOutBottom.port_b, port_b_toOutside) annotation (Line(
       points={{88,-60},{100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -123,19 +123,19 @@ equation
       points={{60,40},{60,60},{68,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(oriOutTop.port_b, port_a1) annotation (Line(
+  connect(oriOutTop.port_b, port_a_toOutside) annotation (Line(
       points={{88,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_a2, port_a2) annotation (Line(
+  connect(port_a1,port_a1)  annotation (Line(
       points={{-60,-100},{-60,-100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(ori.port_b, port_a2) annotation (Line(
+  connect(ori.port_b,port_a1)  annotation (Line(
       points={{-40,-90},{-40,-94},{-60,-100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(ori1.port_b, port_b2) annotation (Line(
+  connect(ori1.port_b,port_b1)  annotation (Line(
       points={{40,-90},{40,-92},{60,-100}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -163,11 +163,11 @@ equation
       points={{60,20},{60,-4},{50,-4},{50,-32},{38,-32},{31.5,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(volumeHall.ports[7], port_b3) annotation (Line(
+  connect(volumeHall.ports[7],port_b2)  annotation (Line(
       points={{32.5,-10},{40,-30},{48,-30},{48,80},{60,80},{60,100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(volumeHall.ports[8], port_a3) annotation (Line(
+  connect(volumeHall.ports[8],port_a2)  annotation (Line(
       points={{33.5,-10},{42,-28},{44,-28},{44,80},{-60,80},{-60,100}},
       color={0,127,255},
       smooth=Smooth.None));

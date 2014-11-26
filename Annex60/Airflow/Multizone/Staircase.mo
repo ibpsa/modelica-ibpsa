@@ -28,22 +28,22 @@ model Staircase
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=1E9)
     "Thermal conductor between fixed T and Volume"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a_toHallway(redeclare package
+      Medium = Medium)
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
-        Medium)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b_toHallway(redeclare package
+      Medium = Medium)
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_a port_a_bot(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a3(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_a port_a_top(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_b port_b_bot(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b3(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_b port_b_top(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
   MediumColumn col2(
@@ -113,23 +113,23 @@ equation
       points={{10,0},{20,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(port_a2, port_a2) annotation (Line(
+  connect(port_a_bot, port_a_bot) annotation (Line(
       points={{-60,-100},{-60,-100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_a2, col2.port_b) annotation (Line(
+  connect(port_a_bot, col2.port_b) annotation (Line(
       points={{-60,-100},{-60,-80},{-30,-80},{-30,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_b2, col.port_b) annotation (Line(
+  connect(port_b_bot, col.port_b) annotation (Line(
       points={{60,-100},{60,-80},{10,-80},{10,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(doo.port_b1, port_b) annotation (Line(
+  connect(doo.port_b1, port_b_toHallway) annotation (Line(
       points={{-90,-6},{-92,-6},{-92,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(doo.port_a2, port_a) annotation (Line(
+  connect(doo.port_a2, port_a_toHallway) annotation (Line(
       points={{-90,6},{-92,6},{-92,60},{-100,60}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -137,7 +137,7 @@ equation
       points={{-60,23.4},{-60,0},{-69,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(ori.port_b, port_a3) annotation (Line(
+  connect(ori.port_b, port_a_top) annotation (Line(
       points={{-60,90},{-60,100}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -149,7 +149,7 @@ equation
       points={{10,60},{10,62},{60,62},{60,70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(ori1.port_b, port_b3) annotation (Line(
+  connect(ori1.port_b, port_b_top) annotation (Line(
       points={{60,90},{60,100}},
       color={0,127,255},
       smooth=Smooth.None));
