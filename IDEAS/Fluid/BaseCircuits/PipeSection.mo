@@ -29,7 +29,7 @@ model PipeSection
     show_T=false) annotation (Placement(transformation(
         extent={{-10,-4},{10,4}},
         rotation=90,
-        origin={-40,0})));
+        origin={-60,-2})));
   FixedResistances.Pipe pipe_b(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -48,23 +48,23 @@ model PipeSection
     show_T=false) annotation (Placement(transformation(
         extent={{10,-4},{-10,4}},
         rotation=90,
-        origin={40,0})));
+        origin={60,0})));
 
 equation
-  connect(pipe_a.port_a, fluidTwoPort_b.port_a) annotation (Line(
-      points={{-40,-10},{-40,-100},{0,-100}},
+  connect(pipe_a.port_b, port_A1) annotation (Line(
+      points={{-60,8},{-60,100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe_b.port_b, fluidTwoPort_b.port_b) annotation (Line(
-      points={{40,-10},{40,-100},{0,-100}},
+  connect(pipe_a.port_a, port_A2) annotation (Line(
+      points={{-60,-12},{-60,-100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe_a.port_b, fluidTwoPort_a.port_a) annotation (Line(
-      points={{-40,10},{-40,100},{0,100}},
+  connect(pipe_b.port_a, port_B1) annotation (Line(
+      points={{60,10},{60,100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe_b.port_a, fluidTwoPort_a.port_b) annotation (Line(
-      points={{40,10},{40,100},{0,100}},
+  connect(pipe_b.port_b, port_B2) annotation (Line(
+      points={{60,-10},{60,-100}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
