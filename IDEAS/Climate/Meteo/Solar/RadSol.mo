@@ -12,10 +12,9 @@ model RadSol "solar angle to surface"
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  BaseClasses.Declination declination
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  BaseClasses.AngleHour angleHour
-    annotation (Placement(transformation(extent={{-80,-2},{-60,18}})));
+  Modelica.Blocks.Sources.RealExpression
+                        angleHour(y=sim.angHou)
+    annotation (Placement(transformation(extent={{-98,-8},{-64,12}})));
   BaseClasses.AngleSolar angSolar(
     inc=inc,
     azi=azi,
@@ -24,47 +23,25 @@ model RadSol "solar angle to surface"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   BaseClasses.solDifTil solDifTil(A=A, inc=inc)
     annotation (Placement(transformation(extent={{0,-2},{20,18}})));
-  BaseClasses.solradExtraTerra extraTerra
-    annotation (Placement(transformation(extent={{-80,-24},{-60,-4}})));
   Modelica.Blocks.Interfaces.RealOutput solDir
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Modelica.Blocks.Interfaces.RealOutput solDif
     annotation (Placement(transformation(extent={{90,10},{110,30}})));
-  BaseClasses.AngleZenith angleZenith(lat=lat)
-    annotation (Placement(transformation(extent={{-40,-2},{-20,18}})));
   Modelica.Blocks.Interfaces.RealOutput angInc "Angle of incidence"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   Modelica.Blocks.Interfaces.RealOutput angZen "Angle of incidence"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Blocks.Interfaces.RealOutput angHou "Angle of incidence"
-    annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
+  Modelica.Blocks.Sources.RealExpression declination(y=sim.angDec)
+    annotation (Placement(transformation(extent={{-98,26},{-64,46}})));
+  Modelica.Blocks.Sources.RealExpression angleZenith(y=sim.angZen)
+    annotation (Placement(transformation(extent={{-98,6},{-64,26}})));
 equation
-  connect(declination.delta, angSolar.angDec) annotation (Line(
-      points={{-60,36},{-40,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angleHour.angHou, angSolar.angHou) annotation (Line(
-      points={{-60,14},{-48,14},{-48,32},{-40,32}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(solDirTil.solDirTil, solDir) annotation (Line(
       points={{20,36},{56,36},{56,60},{100,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solDifTil.solDifTil, solDif) annotation (Line(
       points={{20,14},{56,14},{56,20},{100,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(declination.delta, angleZenith.angDec) annotation (Line(
-      points={{-60,36},{-50,36},{-50,14},{-40,14}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angleHour.angHou, angleZenith.angHou) annotation (Line(
-      points={{-60,14},{-50,14},{-50,10},{-40,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angleZenith.angZen, solDifTil.angZen) annotation (Line(
-      points={{-20,14},{-6,14},{-6,10},{0,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angSolar.angInc, solDifTil.angInc) annotation (Line(
@@ -79,15 +56,25 @@ equation
       points={{-20,36},{-10,36},{-10,-40},{100,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(angleHour.angHou, angHou) annotation (Line(
-      points={{-60,14},{-50,14},{-50,-80},{100,-80}},
+  connect(declination.y, angSolar.angDec) annotation (Line(
+      points={{-62.3,36},{-40,36}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(angleZenith.angZen, angZen) annotation (Line(
-      points={{-20,14},{-14,14},{-14,-60},{100,-60}},
+  connect(angleHour.y, angSolar.angHou) annotation (Line(
+      points={{-62.3,2},{-48,2},{-48,32},{-40,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Icon(graphics={
+  connect(angleZenith.y, solDifTil.angZen) annotation (Line(
+      points={{-62.3,16},{-28,16},{-28,10},{0,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(angZen, solDifTil.angZen) annotation (Line(
+      points={{100,-60},{-28,-60},{-28,10},{0,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics), Icon(graphics={
         Polygon(
           points={{-90,-80},{-40,-40},{40,-40},{90,-80},{-90,-80}},
           lineColor={95,95,95},

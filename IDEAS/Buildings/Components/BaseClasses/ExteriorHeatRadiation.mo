@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.BaseClasses;
-model ExteriorHeatRadidation
+model ExteriorHeatRadiation
   "longwave radiative heat exchange of an exterior surface with the environment"
 
   parameter Modelica.SIunits.Area A "surface area";
@@ -10,10 +10,10 @@ model ExteriorHeatRadidation
   outer IDEAS.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
+  //Real Fse=(1 - cos(inc))/2
+  //  "radiant-interchange configuration factor between surface and environment";
 protected
-  Real Fse=(1 - cos(inc))/2
-    "radiant-interchange configuration factor between surface and environment";
-  Real Fssky=(1 + cos(inc))/2
+  final parameter Real Fssky=(1 + cos(inc))/2
     "radiant-interchange configuration factor between surface and sky";
   Modelica.SIunits.Temperature Tenv
     "Radiative temperature of the total environment";
@@ -24,7 +24,7 @@ public
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
 equation
 
-  Tenv = (Fssky*sim.Tsky^4 + (1 - Fssky)*sim.Te^4)^0.25;
+  Tenv = (Fssky*sim.TskyPow4 + (1 - Fssky)*sim.TePow4)^0.25;
 //  port_a.Q_flow = A*Modelica.Constants.sigma*epsLw*(port_a.T - Tenv)*(port_a.T
 //     + Tenv)*(port_a.T^2 + Tenv^2);
   port_a.Q_flow = A*5.67*epsLw*(port_a.T - Tenv);
@@ -66,4 +66,4 @@ equation
 <p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-cISf3Itz.png\"/></p>
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-IKuIUMef.png\"/> is the shortwave absorption of the surface and <img src=\"modelica://IDEAS/Images/equations/equation-Vuo4fgcb.png\"/> the total irradiation on the depicted surface. </p>
 </html>"));
-end ExteriorHeatRadidation;
+end ExteriorHeatRadiation;

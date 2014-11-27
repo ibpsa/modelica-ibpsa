@@ -5,7 +5,7 @@ model HeatPumpTset "Heat pump using a temperature setpoint"
       IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData);
 
   Modelica.Blocks.Sources.RealExpression realExpression4(y=Tset - condensor.heatPort.T)
-    annotation (Placement(transformation(extent={{-76,-44},{-34,-64}})));
+    annotation (Placement(transformation(extent={{-70,-26},{-28,-46}})));
   Modelica.Blocks.Interfaces.RealInput Tset "Condensor temperature setpoint"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -16,7 +16,7 @@ model HeatPumpTset "Heat pump using a temperature setpoint"
         origin={-50,100})));
 
   Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=uLow, uHigh=uHigh)
-    annotation (Placement(transformation(extent={{-22,-64},{-2,-44}})));
+    annotation (Placement(transformation(extent={{-16,-46},{4,-26}})));
   parameter Real uLow=-2.5
     "Lower bound of the hysteresis in the tempeature controller";
   parameter Real uHigh=2.5
@@ -41,10 +41,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression4.y, hysteresis.u) annotation (Line(
-      points={{-31.9,-54},{-24,-54}},
+      points={{-25.9,-36},{-18,-36}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),
+    Documentation(info="<html>
+<p>This model implements a heat pump as described in<a href=\"modelica://IDEAS.Fluid.Production.BaseClasses.PartialHeatPump\"> IDEAS.Fluid.Production.BaseClasses.PartialHeatPump</a>. The heat pump is switched on or off based on a temperature set point.</p>
+</html>", revisions="<html>
+<ul>
+<li>November 2014 by Filip Jorissen:<br/> 
+Added documentation
+</li>
+</ul>
+</html>"));
 end HeatPumpTset;

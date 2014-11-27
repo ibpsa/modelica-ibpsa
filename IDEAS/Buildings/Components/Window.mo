@@ -59,8 +59,8 @@ protected
         A*(1 - frac), final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation skyRad(final A=
-        A*(1 - frac), final inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation skyRad(final A=A
+        *(1 - frac), final inc=inc)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
   IDEAS.Buildings.Components.BaseClasses.SwWindowResponse solWin(
@@ -75,8 +75,8 @@ protected
       inc=inc) if fraType.present
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation skyRadFra(
-      final A=A*frac, final inc=inc) if fraType.present
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation skyRadFra(final
+      A=A*frac, final inc=inc) if       fraType.present
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,80},{-40,100}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eConFra(final A=A*

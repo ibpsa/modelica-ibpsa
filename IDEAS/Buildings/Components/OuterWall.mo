@@ -52,7 +52,7 @@ model OuterWall "Opaque building envelope construction"
        AWall)
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadidation extRad(final A=
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation extRad(final A=
         AWall, inc=inc)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));

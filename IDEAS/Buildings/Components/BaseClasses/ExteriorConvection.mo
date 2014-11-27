@@ -8,16 +8,8 @@ model ExteriorConvection "exterior surface convection"
   outer IDEAS.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  Real hcon "equivalent surface conductance";
-
 equation
-  if noEvent(sim.Va <= 5) then
-    hcon = 4.0*sim.Va + 5.6;
-  else
-    hcon = 7.1*abs(sim.Va)^(0.78);
-  end if;
-
-  port_a.Q_flow = hcon*A*(port_a.T - sim.Te);
+  port_a.Q_flow = sim.hCon*A*(port_a.T - sim.Te);
 
   annotation (Icon(graphics={
         Rectangle(
