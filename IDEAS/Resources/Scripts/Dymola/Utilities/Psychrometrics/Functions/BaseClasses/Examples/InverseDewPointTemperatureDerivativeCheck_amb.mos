@@ -2,4 +2,3 @@ simulateModel("IDEAS.Utilities.Psychrometrics.Functions.BaseClasses.Examples.Inv
 createPlot(id = 1,
  y = {"x", "y"},
  grid = true);
-

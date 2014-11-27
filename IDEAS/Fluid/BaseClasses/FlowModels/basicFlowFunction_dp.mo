@@ -44,7 +44,7 @@ with regularization near the origin.
 Therefore, the flow coefficient is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  k = m &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span> 
+  k = m &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 The input <code>m_flow_turbulent</code> determines the location of the regularization.
@@ -58,15 +58,15 @@ as this causes the derivative to be discontinuous at <code>dp=0</code>.
 </li>
 <li>
 August 4, 2011, by Michael Wetter:<br/>
-Implemented linearized model in this model instead of 
+Implemented linearized model in this model instead of
 in the functions
 <a href=\"modelica://IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
 IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
 and
 <a href=\"modelica://IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
-IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>. 
-With the previous implementation, 
-the symbolic processor may not rearrange the equations, which can lead 
+IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>.
+With the previous implementation,
+the symbolic processor may not rearrange the equations, which can lead
 to coupled equations instead of an explicit solution.
 </li>
 <li>
@@ -75,14 +75,14 @@ Changed implementation to allow <code>k=0</code>, which is
 the case for a closed valve with no leakage
 </li>
 </ul>
-</html>"),
+</html>",
 revisions="<html>
 <ul>
 <li>
 August 4, 2011, by Michael Wetter:<br/>
 Removed option to use a linear function. The linear implementation is now done
-in models that call this function. With the previous implementation, 
-the symbolic processor may not rearrange the equations, which can lead 
+in models that call this function. With the previous implementation,
+the symbolic processor may not rearrange the equations, which can lead
 to coupled equations instead of an explicit solution.
 </li>
 <li>
@@ -90,5 +90,5 @@ April 13, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
 end basicFlowFunction_dp;
