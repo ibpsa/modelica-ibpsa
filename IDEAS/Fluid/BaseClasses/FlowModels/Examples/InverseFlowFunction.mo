@@ -23,7 +23,7 @@ __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/BaseClas
 <p>
 This model tests the inverse formulation of the flow functions.
 The pressure difference <code>dp</code> and <code>dpCalc</code> need to
-be equal up to the solver tolerance, except for a small neighborhood 
+be equal up to the solver tolerance, except for a small neighborhood
 around the origin. In this neighborhood around the origin, the functions
 <a href=\"modelica://IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
 IDEAS.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>

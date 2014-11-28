@@ -2,6 +2,8 @@ ConstantEffectiveness
 EmbeddedPipe
 EmbeddedPipeDp
 HeaterCoolerPrescribed
+Heater_T
+Heater_u
 IdealHeater
 RadiatorWithMixingValve
 Radiator_CoolingDown

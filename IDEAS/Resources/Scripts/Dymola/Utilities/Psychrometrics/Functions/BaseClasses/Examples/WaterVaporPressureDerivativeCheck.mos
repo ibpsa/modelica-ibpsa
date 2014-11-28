@@ -2,5 +2,3 @@ simulateModel("IDEAS.Utilities.Psychrometrics.Functions.BaseClasses.Examples.Wat
 createPlot(id = 1,
  y = {"x", "y"},
  grid = true);
-
-

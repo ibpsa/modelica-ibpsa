@@ -4,6 +4,9 @@ RadiantSlab
 Radiators
 ConstantEffectiveness
 HeaterCoolerPrescribed
+HeaterCooler_T
+HeaterCooler_u
+Validation
 Examples
 BaseClasses
 Interfaces

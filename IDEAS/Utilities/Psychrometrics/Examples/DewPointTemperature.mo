@@ -4,13 +4,12 @@ model DewPointTemperature "Unit test for dew point temperature calculation"
    package Medium = IDEAS.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
   IDEAS.Utilities.Psychrometrics.pW_TDewPoi watVapPre
-    annotation (Placement(transformation(extent={{40,0},{60,20}},    rotation=0)));
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
     Modelica.Blocks.Sources.Ramp XHum(
     duration=1,
     height=(0.01 - 0.1),
     offset=0.1) "Humidity concentration"
-                 annotation (Placement(transformation(extent={{-80,0},{-60,20}},
-                   rotation=0)));
+                 annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   IDEAS.Utilities.Psychrometrics.pW_X humRat(
                          use_p_in=false)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
@@ -32,6 +31,5 @@ equation
   annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/DewPointTemperature.mos"
-        "Simulate and plot"),                                                                                                    Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
+        "Simulate and plot"));
 end DewPointTemperature;
