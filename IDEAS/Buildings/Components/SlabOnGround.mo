@@ -72,6 +72,8 @@ public
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=0,
       T_ref=284.15)
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
+  outer SimInfoManager sim "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
 equation
   periodicFlow.Q_flow = -Qm;
 
