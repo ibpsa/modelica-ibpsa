@@ -2,9 +2,6 @@ within IDEAS.Buildings.Components.Interfaces;
 partial model StateWallNoSol
   "Partial model for building envelope components without solar gains"
 
-  outer IDEAS.SimInfoManager sim
-    "Simulation information manager for climate data"
-    annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
   parameter Modelica.SIunits.Length insulationThickness
     "Thermal insulation thickness"
     annotation (Dialog(group="Construction details"));
