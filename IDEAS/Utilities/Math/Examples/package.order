@@ -13,3 +13,4 @@ SmoothExponential
 SmoothLimit
 Splice
 VectorFunctions
+MovingAverage
