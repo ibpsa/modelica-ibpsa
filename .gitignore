@@ -1,4 +1,4 @@
-# ignore Dymola output, log and temporary files (in alphabetical order)
+# Ignore Dymola output, log and temporary files (in alphabetical order)
 *.bak-mo
 *.mat
 *.mof
@@ -17,3 +17,6 @@ request
 stat
 status
 stop
+# Ignore files created by the unit tests.
+simulator.log
+unitTests.log
