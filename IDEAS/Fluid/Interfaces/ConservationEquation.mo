@@ -7,8 +7,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure";
-  parameter Real mFactor = 1
-    "Factor to scale the thermal mass of the volume";
+  parameter Modelica.SIunits.HeatCapacity C_dry(min=0) = 0
+    "Additional heat capacity";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -88,6 +88,8 @@ protected
      p=p_start,
      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
 
+  final parameter Boolean computeCdry = C_dry > Modelica.Constants.eps
+    annotation(Evaluate=true);
   // Parameter that is used to construct the vector mXi_flow
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="Water",
@@ -156,7 +158,7 @@ equation
   // Total quantities
   m = fluidVolume*medium.d;
   mXi = m*medium.Xi;
-  U = m*medium.u*mFactor;
+  U = m*medium.u + (if computeCdry then C_dry*medium.T else 0);
   mC = m*C;
 
   hOut = medium.h;
