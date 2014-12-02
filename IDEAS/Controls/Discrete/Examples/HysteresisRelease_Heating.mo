@@ -1,9 +1,9 @@
 within IDEAS.Controls.Discrete.Examples;
-model Hyst_Var_Heating
+model HysteresisRelease_Heating
   "Example model for hysteresis with variable uLow and uHigh"
   import IDEAS;
   extends Modelica.Icons.Example;
-  IDEAS.Controls.Discrete.Hyst_Var_Heating con
+  IDEAS.Controls.Discrete.HysteresisRelease con(revert=true)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Blocks.Sources.Ramp uHigh(
     y(unit="K"),
@@ -114,4 +114,4 @@ Added documentation.
 </li>
 </ul>
 </html>"));
-end Hyst_Var_Heating;
+end HysteresisRelease_Heating;

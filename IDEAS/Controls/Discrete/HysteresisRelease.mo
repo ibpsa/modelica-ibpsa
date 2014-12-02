@@ -1,44 +1,67 @@
 within IDEAS.Controls.Discrete;
-block Hyst_Var_Cooling
+block HysteresisRelease
   "Hysteresis for cooling mode WITH events, with Real in- and output, and inputs for uLow and uHigh"
-  extends Modelica.Blocks.Interfaces.SISO;
+  extends Modelica.Blocks.Interfaces.SISO(y(start=if y_start then 1 else 0, min=0, max=1));
+  parameter Boolean revert = false
+    "Set to true if the hysteresis becauses true when u < uLow instead of u > uHigh (for example for heating revert is true)";
+  parameter Boolean use_input = true;
   parameter Boolean enableRelease=false
     "if true, an additional RealInput will be available for releasing the controller";
-  Modelica.Blocks.Interfaces.RealInput uLow
+  Modelica.Blocks.Interfaces.RealInput uLow if use_input
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealInput uHigh
+  Modelica.Blocks.Interfaces.RealInput uHigh if use_input
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
-  Modelica.Blocks.Interfaces.RealInput release(start=0) = rel if enableRelease
+  parameter Real uLow_val = 0
+    "lower boundary value if the input uLow is not used"
+    annotation(dialog(enable=not use_input));
+  parameter Real uHigh_val = 1
+    "higher boundary value if the input uHigh is not used"
+    annotation(dialog(enable=not use_input));
+
+  Modelica.Blocks.Interfaces.RealInput release(start=0) = rel_internal if enableRelease
     "if < 0.5, the controller is OFF"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={0,-120})));
   parameter Boolean y_start = false "Output of controller at initial time";
-  Modelica.Blocks.Math.BooleanToReal yy_to_y "Convert boolean yy to real y";
 
 protected
-  Real rel
+  Modelica.Blocks.Interfaces.RealInput uLow_internal
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput uHigh_internal
+    "Needed to connect to conditional connector";
+  Real rel_internal
     "release, either 1 ,either from RealInput release if enableRelease is true";
 
-  Boolean yy "Boolean control signal, will be converted to Real";
+  Boolean y_boolean "Boolean control signal, will be converted to Real";
 
 initial equation
-  pre(yy) = y_start;
+  pre(y_boolean) = y_start;
 
 equation
   if not enableRelease then
-    rel = 1;
+    rel_internal = 1;
+  end if;
+  connect(uLow,uLow_internal);
+  connect(uHigh,uHigh_internal);
+  // Needed to connect to conditional connector
+  if not use_input then
+    uLow_internal = uLow_val;
+    uHigh_internal = uHigh_val;
   end if;
 
-  if rel > 0.5 then
-    yy = u > uHigh or pre(yy) and u >= uLow;
+  if rel_internal > 0.5 then
+    if not revert then
+      y_boolean = u > uHigh or pre(y_boolean) and u >= uLow;
+    else
+      y_boolean = u < uLow or pre(y_boolean) and u <= uHigh;
+    end if;
   else
-    yy = false;
+    y_boolean = false;
   end if;
 
-  yy_to_y.u = yy;
-  yy_to_y.y = y;
+  y = if y_boolean then 1 else 0;
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
@@ -150,4 +173,4 @@ Add possibility to use parameters as boundary values instead of inputs.
 </li>
 </ul>
 </html>"));
-end Hyst_Var_Cooling;
+end HysteresisRelease;
