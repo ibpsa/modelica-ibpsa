@@ -1,7 +1,4 @@
-translateModel("IDEAS.Fluid.Production.Examples.HeatPump_BrineWaterTset");
-
 simulateModel("IDEAS.Fluid.Production.Examples.HeatPump_BrineWaterTset", stopTime=15000, method="dassl", resultFile="HeatPump_BrineWaterTset");
-
 plot(y={"heatPump.fluidOut.h_outflow", "heatPump.brineOut.h_outflow", "heatPump.P"},colors={{0,0,255}, {255,0,0}, {0,255,0}});
 
 
