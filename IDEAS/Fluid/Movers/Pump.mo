@@ -21,8 +21,9 @@ model Pump "Prescribed mass flow rate, no heat exchange."
         origin={0,104},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=if on_internal then m_flow_pump else 0)
-    annotation (Placement(transformation(extent={{80,22},{18,42}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=filter2.y*
+        m_flow_pump)
+    annotation (Placement(transformation(extent={{82,8},{20,28}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -43,7 +44,7 @@ model Pump "Prescribed mass flow rate, no heat exchange."
       final unit="kg/s",
       nominal=m_flow_nominal)) if useInput
     "Gain for mass flow rate input signal"
-    annotation (Placement(transformation(extent={{-6,58},{6,70}})));
+    annotation (Placement(transformation(extent={{-12,58},{0,70}})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_filtered(min=0, max=m_flow_nominal,
                                                  final quantity="MassFlowRate",
                                                   final unit="kg/s",
@@ -66,13 +67,39 @@ model Pump "Prescribed mass flow rate, no heat exchange."
     annotation (Placement(transformation(extent={{20,75},{34,89}})));
 protected
   Modelica.SIunits.MassFlowRate m_flow_pump;
+public
+  Modelica.Blocks.Continuous.Filter filter1(
+     order=2,
+     f_cut=5/(2*Modelica.Constants.pi*riseTime),
+     x(each stateSelect=StateSelect.always),
+     u_nominal=m_flow_nominal,
+     u(final quantity="MassFlowRate", final unit="kg/s", nominal=m_flow_nominal),
+     y(final quantity="MassFlowRate", final unit="kg/s", nominal=m_flow_nominal),
+     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
+        useInput and filteredMassFlowRate
+    "Second order filter to approximate valve opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{80,43},{94,57}})));
+  Modelica.Blocks.Math.BooleanToReal booleanToReal
+    annotation (Placement(transformation(extent={{0,34},{12,46}})));
+  Modelica.Blocks.Sources.BooleanExpression realExpression3(y=on_internal)
+    annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
+  Modelica.Blocks.Continuous.Filter filter2(
+     order=2,
+     f_cut=5/(2*Modelica.Constants.pi*riseTime),
+     x(each stateSelect=StateSelect.always),
+     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     final filterType=Modelica.Blocks.Types.FilterType.LowPass,
+    y_start=if onOff then 1 else 0)
+    "Second order filter to approximate valve opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{20,33},{34,47}})));
 equation
   if not useInput then
     m_flow_pump = m_flow_nominal;
   else
       if filteredMassFlowRate then
         connect(gaiFlow.y, filter.u) annotation (Line(
-          points={{6.6,64},{10.6,64},{10.6,82},{18.6,82}},
+          points={{0.6,64},{10.6,64},{10.6,82},{18.6,82}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(filter.y, m_flow_actual) annotation (Line(
@@ -85,7 +112,7 @@ equation
           smooth=Smooth.None));
       else
         connect(gaiFlow.y, m_flow_actual) annotation (Line(
-          points={{6.6,64},{50,64}},
+          points={{0.6,64},{50,64}},
           color={0,0,127},
           smooth=Smooth.None));
       end if;
@@ -97,11 +124,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flowSet, gaiFlow.u) annotation (Line(
-      points={{0,104},{0,82},{-16,82},{-16,64},{-7.2,64}},
+      points={{0,104},{0,82},{-16,82},{-16,64},{-13.2,64}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression1.y, idealSource.m_flow_in) annotation (Line(
-      points={{14.9,32},{12,32},{12,8}},
+      points={{16.9,18},{12,18},{12,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression3.y, booleanToReal.u) annotation (Line(
+      points={{-7,40},{-1.2,40}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(booleanToReal.y, filter2.u) annotation (Line(
+      points={{12.6,40},{18.6,40}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
