@@ -126,7 +126,7 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Controls.Discrete.Hyst_Var_Cooling      onOff(
+  Controls.Discrete.HysteresisRelease     onOff(
     enableRelease=true,
     y(start=0),
     release(start=0))
