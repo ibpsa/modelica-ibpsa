@@ -2,3 +2,4 @@ BaseClasses
 PipeSection
 PipeSection_Alternative
 FourPortExample
+PipeSplit_Alternative
