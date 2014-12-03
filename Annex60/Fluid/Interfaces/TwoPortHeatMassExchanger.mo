@@ -9,7 +9,7 @@ model TwoPortHeatMassExchanger
 
   parameter Modelica.SIunits.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
+     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
 
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -50,11 +50,10 @@ model TwoPortHeatMassExchanger
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start) "Volume for fluid stream"
-     annotation (Placement(transformation(extent={{-9,0},{11,-20}},
-         rotation=0)));
+     annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 
   Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     final use_dh=false,
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
@@ -80,12 +79,12 @@ initial algorithm
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau > Modelica.Constants.eps,
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
- Set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
   assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau > Modelica.Constants.eps,
-"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.          
- Set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
+ You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
 
 equation
@@ -102,13 +101,9 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
-This component transports one fluid stream. 
+This component transports one fluid stream.
 It provides the basic model for implementing dynamic and steady-state
 models that exchange heat and water vapor with the fluid stream.
 The model also computes the pressure drop due to the flow resistance.
@@ -117,7 +112,7 @@ of the pressure drop can be avoided.
 The variable <code>vol.heatPort.T</code> always has the value of
 the temperature of the medium that leaves the component.
 For the actual temperatures at the port, the variables <code>sta_a.T</code>
-and <code>sta_b.T</code> can be used. These two variables are provided by 
+and <code>sta_b.T</code> can be used. These two variables are provided by
 the base class
 <a href=\"modelica://Annex60.Fluid.Interfaces.PartialTwoPortInterface\">
 Annex60.Fluid.Interfaces.PartialTwoPortInterface</a>.
@@ -144,13 +139,22 @@ Annex60.Fluid.Boilers.BoilerPolynomial</a>.
 
 <h4>Implementation</h4>
 <p>
-The variable names follow the conventions used in 
+The variable names follow the conventions used in
 <a href=\"modelica://Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX\">
 Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in pressure drop element to be final.
+</li>
+<li>
+May 28, 2014, by Michael Wetter:<br/>
+Removed <code>annotation(Evaluate=true)</code> for parameter <code>tau</code>.
+This is needed to allow changing the time constant after translation.
+</li>
 <li>
 November 12, 2013, by Michael Wetter:<br/>
 Removed <code>import Modelica.Constants</code> statement.
@@ -204,7 +208,7 @@ Added homotopy operator.
 <li>
 March 21, 2010 by Michael Wetter:<br/>
 Changed pressure start value from <code>system.p_start</code>
-to <code>Medium.p_default</code> since HVAC models may have water and 
+to <code>Medium.p_default</code> since HVAC models may have water and
 air, which are typically at different pressures.
 </li>
 <li>

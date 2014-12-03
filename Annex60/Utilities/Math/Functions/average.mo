@@ -10,12 +10,12 @@ algorithm
   annotation (Documentation(info="<html>
 <p>This block outputs the average of the vector. </p>
 </html>", revisions="<html>
-<p><ul>
+<ul>
 <li>November 28, 2013, by Marcus Fuchs:<br/>
 Implementation based on Michael Wetter&apos;s block
 <a href=\"modelica://Annex60.Utilities.Math.Average\">
 Annex60.Utilities.Math.Average</a>.
 </li>
-</ul></p>
+</ul>
 </html>"));
 end average;

@@ -10,12 +10,10 @@ model TraceSubstancesFlowSource
 
   parameter Modelica.SIunits.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_m_flow_in));
+    annotation (Dialog(enable = not use_m_flow_in));
   Modelica.Blocks.Interfaces.RealInput m_flow_in if
        use_m_flow_in "Prescribed mass flow rate for extra property"
-    annotation (Placement(transformation(extent={{-141,-20},{-101,20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-141,-20},{-101,20}})));
 
 protected
   Modelica.Blocks.Interfaces.RealInput m_flow_in_internal
@@ -23,8 +21,7 @@ protected
   parameter Medium.ExtraProperty C_in_internal[Medium.nC](
        each fixed=false,
        quantity=Medium.extraPropertiesNames) "Boundary trace substances"
-    annotation (Evaluate=true,
-                Dialog(enable = Medium.nC > 0));
+    annotation (Dialog(enable = Medium.nC > 0));
 initial algorithm
   for i in 1:Medium.nC loop
     if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
@@ -56,16 +53,20 @@ This model can be used to inject trace substances into a system.
 The model adds a mass flow rate to its port with a
 trace substance concentration of <i>1</i>.
 <p>
-A typical use of this model is to add carbon dioxide to room air, since the 
-carbon dioxide concentration is typically so small that it need not be 
+A typical use of this model is to add carbon dioxide to room air, since the
+carbon dioxide concentration is typically so small that it need not be
 added to the room mass balance, and since the mass flow rate can be
 made small compared to the room volume if the medium that leaves this
 component has a carbon dioxide concentration of <i>1</i>.
 </html>", revisions="<html>
 <ul>
 <li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
 September 10, 2013, by Michael Wetter:<br/>
-Added missing <code>each</code> in declaration of 
+Added missing <code>each</code> in declaration of
 <code>C_in_internal</code>.
 This eliminates a compilation error in OpenModelica.
 </li>
@@ -82,10 +83,7 @@ September 18, 2008 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+</html>"),                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
           extent={{20,60},{100,-60}},

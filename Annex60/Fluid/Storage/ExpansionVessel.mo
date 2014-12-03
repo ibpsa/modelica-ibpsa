@@ -19,8 +19,7 @@ protected
       p=p_start,
       X=X_start[1:Medium.nXi]) "Medium state at start values";
   final parameter Modelica.SIunits.Density rho_start=Medium.density(
-   state=state_start) "Density, used to compute start and guess values"
-  annotation (Evaluate=true);
+   state=state_start) "Density, used to compute start and guess values";
 
   Modelica.SIunits.Energy H "Internal energy of fluid";
   Modelica.SIunits.Mass[Medium.nXi] mXi
@@ -96,12 +95,12 @@ the thermal expansion of the liquid.
 <p>
 Note that alternatively, the model
 <a href=\"modelica://Annex60.Fluid.Sources.FixedBoundary\">
-Annex60.Fluid.Sources.FixedBoundary</a> may be used to set 
+Annex60.Fluid.Sources.FixedBoundary</a> may be used to set
 a reference pressure. The main difference between these two models
 is that in this model, there is an energy and mass balance for the volume.
 In contrast, for
 <a href=\"modelica://Annex60.Fluid.Sources.FixedBoundary\">
-Annex60.Fluid.Sources.FixedBoundary</a>, 
+Annex60.Fluid.Sources.FixedBoundary</a>,
 any mass flow rate that flows out of the model will be at a user-specified temperature.
 Therefore, <a href=\"modelica://Annex60.Fluid.Sources.FixedBoundary\">
 Annex60.Fluid.Sources.FixedBoundary</a> leads to smaller systems
@@ -109,6 +108,10 @@ of equations, which may result in faster simulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
 <li>
 March 25, 2014 by Michael Wetter:<br/>
 Revised the model to use a constant pressure rather than a constant volume of
@@ -142,7 +145,5 @@ Nov. 4, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end ExpansionVessel;

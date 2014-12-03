@@ -13,51 +13,54 @@ model TraceSubstances "Test model for the extra property sensor"
     m_flow_nominal=1E-6,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Mixing volume"
-    annotation (Placement(transformation(extent={{74,50}, {94,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{74,50}, {94,70}})));
   Sources.TraceSubstancesFlowSource sou(
     redeclare package Medium = Medium,
     nPorts=2,
     use_m_flow_in=true) "CO2 mass flow source"
-    annotation (Placement(transformation(extent={{-2,30},{18,50}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-2,30},{18,50}})));
   Modelica.Blocks.Sources.Constant step(k=8.18E-6) "CO2 mass flow rate"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Annex60.Fluid.Sensors.TraceSubstances senVol(
     redeclare package Medium = Medium) "Sensor at volume"
-    annotation (Placement(transformation(extent={{100,50},{120,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Annex60.Fluid.Sensors.TraceSubstances senSou(
     redeclare package Medium = Medium,
     substanceName="CO2") "Sensor at source"
-    annotation (Placement(transformation(extent={{24,90},{44,110}}, rotation=0)));
+    annotation (Placement(transformation(extent={{24,90},{44,110}})));
   Modelica.Blocks.Sources.Constant m_flow(k=m_flow_nominal)
     "Fresh air mass flow rate"
-    annotation (Placement(transformation(extent={{-80,-14},{-60,6}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-80,-14},{-60,6}})));
   Annex60.Fluid.Sources.MassFlowSource_T mSou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1) "Fresh air supply"
-    annotation (Placement(transformation(extent={{0,-22},{20,-2}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,-22},{20,-2}})));
   Sources.FixedBoundary mSin(
     redeclare package Medium = Medium,
     nPorts=1) "Exhaust air"
-    annotation (Placement(transformation(extent={{0,-62},{20,-42}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{0,-62},{20,-42}})));
   Annex60.Fluid.Sensors.Conversions.To_VolumeFraction masFraSou(
     MMMea=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
     "Conversion of mass ratio to volume ratio"
-    annotation (Placement(transformation(extent={{140,90},{160,110}},  rotation=
-           0)));
+    annotation (Placement(transformation(extent={{140,90},{160,110}})));
   Annex60.Fluid.Sensors.Conversions.To_VolumeFraction masFraVol(
     MMMea=Modelica.Media.IdealGases.Common.SingleGasesData.CO2.MM)
     "Conversion of mass ratio to volume ratio"
-    annotation (Placement(transformation(extent={{140,50},{160,70}}, rotation=0)));
+    annotation (Placement(transformation(extent={{140,50},{160,70}})));
   Annex60.Fluid.Sensors.TraceSubstancesTwoPort senTraSub(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Sensor at exhaust air"
-    annotation (Placement(transformation(extent={{64,-62},{44,-42}})));
+    annotation (Placement(transformation(extent={{50,-62},{30,-42}})));
 
-  inner Modelica.Fluid.System system   annotation (Placement(transformation(
-          extent={{-100,-100},{-80,-80}}, rotation=0)));
 
+
+  FixedResistances.FixedResistanceDpM res(
+    redeclare package Medium = Medium,
+    dp_nominal=10,
+    m_flow_nominal=0.005,
+    linearized=true)
+    annotation (Placement(transformation(extent={{60,-62},{80,-42}})));
 equation
   connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{0,-4}}, color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{45,100},{45,100},{139,
@@ -73,7 +76,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mSin.ports[1], senTraSub.port_b) annotation (Line(
-      points={{20,-52},{44,-52}},
+      points={{20,-52},{30,-52}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], vol.ports[1]) annotation (Line(
@@ -84,12 +87,16 @@ equation
       points={{20,-12},{83,-12},{83,50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTraSub.port_a, vol.ports[3]) annotation (Line(
-      points={{64,-52},{85,-52},{85,50}},
+  connect(res.port_a, senTraSub.port_a) annotation (Line(
+      points={{60,-52},{50,-52}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(vol.ports[4], senVol.port) annotation (Line(
-      points={{87,50},{86,50},{86,40},{110,40},{110,50}},
+  connect(res.port_b, vol.ports[3]) annotation (Line(
+      points={{80,-52},{85,-52},{85,50}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senVol.port, vol.ports[4]) annotation (Line(
+      points={{110,50},{110,40},{87,40},{87,50}},
       color={0,127,255},
       smooth=Smooth.None));
     annotation (
@@ -113,8 +120,13 @@ to the outside air concentration.
 revisions="<html>
 <ul>
 <li>
+May 8, 2014, by Michael Wetter:<br/>
+Added a pressure drop element, as otherwise the initialization problem
+is overspecified for incompressible media.
+</li>
+<li>
 November 27, 2013 by Michael Wetter:<br/>
-Changed sink model from a prescribed flow source to a pressure 
+Changed sink model from a prescribed flow source to a pressure
 boundary condition. This is required for the new air model,
 which is incompressible. Otherwise, there will be no pressure reference
 in the system.
@@ -126,7 +138,7 @@ a translation warning in OpenModelica.
 </li>
 <li>
 August 30, 2013 by Michael Wetter:<br/>
-Renamed example and added an instance of 
+Renamed example and added an instance of
 <a href=\"modelica://Annex60.Fluid.Sensors.TraceSubstancesTwoPort\">
 Annex60.Fluid.Sensors.TraceSubstancesTwoPort</a>.
 </li>

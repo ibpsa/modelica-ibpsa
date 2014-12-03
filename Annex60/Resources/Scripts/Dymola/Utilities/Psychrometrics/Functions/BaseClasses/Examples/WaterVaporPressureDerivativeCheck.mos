@@ -2,5 +2,3 @@ simulateModel("Annex60.Utilities.Psychrometrics.Functions.BaseClasses.Examples.W
 createPlot(id = 1,
  y = {"x", "y"},
  grid = true);
-
-
