@@ -6,8 +6,8 @@ model PumpExample "Example of how a pump can be used"
   IDEAS.Fluid.Movers.Pump pump(redeclare package Medium = Medium, m_flow_nominal=
        1,
     useInput=true,
-    use_onOffSignal=true,
-    riseTime=500)
+    riseTime=500,
+    use_onOffSignal=true)
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
         Medium)
