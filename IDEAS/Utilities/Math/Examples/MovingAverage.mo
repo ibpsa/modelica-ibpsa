@@ -12,7 +12,8 @@ model MovingAverage
   Modelica.Blocks.Continuous.FirstOrder firstOrder(
     T=3,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
-    y_start=50)
+    y_start=50,
+    k=1.5)
     annotation (Placement(transformation(extent={{-14,-28},{6,-8}})));
 equation
   connect(step.y, movingAverage.u) annotation (Line(
@@ -25,7 +26,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+            graphics),
     experiment(StopTime=20),
     __Dymola_experimentSetupOutput);
 end MovingAverage;
