@@ -22,7 +22,7 @@ model HeatPumpTset "Heat pump using a temperature setpoint"
   parameter Real uHigh=2.5
     "Upper bound of the hysteresis in the tempeature controller";
 equation
-  compressorOn = on_internal and tempProtection.y;
+  compressorOn = on_internal and tempProtection.y and hysteresis.y;
 
   connect(copTable.u2,powerTable. u2) annotation (Line(
       points={{-62,58},{-82,58},{-82,84},{-62,84}},

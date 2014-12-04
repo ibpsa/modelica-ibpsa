@@ -29,6 +29,10 @@ partial model PartialHeatPump "Heat pump partial"
   parameter Boolean use_scaling = false
     "scale the performance data based on the nominal power"
     annotation(Dialog(tab="Advanced"));
+  parameter Boolean use_modulationSignal = false
+    "Use modulation signal to modulate the heat pump ideally (no change of COP, just scaling of the electrical and thermal power)"
+    annotation(Dialog(tab="Advanced"));
+
   parameter Modelica.SIunits.Power P_the_nominal = heatPumpData.P_the_nominal
     "nominal thermal power of the heat pump"
     annotation (Dialog(enable=use_scaling, tab="Advanced"));
@@ -250,20 +254,41 @@ public
     "Fictive modulation rate to avoid non-smooth on/off transitions causing events."
     annotation (Placement(transformation(extent={{-34,-64},{-22,-52}})));
 protected
-   Modelica.Blocks.Interfaces.RealInput modulationInternal;
-
+   Modelica.Blocks.Interfaces.RealInput modulationInternal
+    " Internal variable for temperature safety modulation";
+   Modelica.Blocks.Interfaces.RealOutput modulationSignal_internal
+    " Internal variable for the modulation signal";
+public
+  Modelica.Blocks.Interfaces.RealInput mod(min=0,max=1) if use_modulationSignal
+    "Modulation level"                                                                             annotation (
+      Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={88,110})));
+  Modelica.Blocks.Continuous.Filter filModSig(f_cut=5/(2*Modelica.Constants.pi*
+        riseTime)) if                                                                             use_modulationSignal
+    annotation (Placement(transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=270,
+        origin={88,76})));
 equation
   cop = copTable.y;
+  connect(modulationInternal, modulationRate.y);
   if avoidEvents then
-    connect(modulationInternal, modulationRate.y);
+    P_el = powerTable.y * sca*modulationInternal*modulationSignal_internal;
   else
-    modulationInternal = if compressorOn then 1 else 0;
+    P_el = if compressorOn then  powerTable.y * sca * modulationSignal_internal else 0;
   end if;
-  if avoidEvents then
-    P_el = powerTable.y * sca*modulationInternal;
+  if use_modulationSignal then
+    connect(mod, filModSig.u) annotation (Line(
+      points={{88,110},{88,83.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(modulationSignal_internal,filModSig.y);
   else
-    P_el = if compressorOn then  powerTable.y * sca else 0;
+    modulationSignal_internal = 1;
   end if;
+
   P_evap=P_el*(cop-1);
   P_cond=P_el*cop;
   connect(heatLoss, thermalConductor.port_a) annotation (Line(
@@ -342,6 +367,7 @@ equation
       points={{-35.2,-58},{-39.4,-58}},
       color={0,0,127},
       smooth=Smooth.None));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
