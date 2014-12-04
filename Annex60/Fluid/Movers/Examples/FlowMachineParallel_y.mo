@@ -4,8 +4,11 @@ model FlowMachineParallel_y "Two flow machines in parallel"
 
   package Medium = Annex60.Media.Water.Simple "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-     1 "Nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+    "Nominal mass flow rate";
+
+  parameter Modelica.SIunits.Density rho_nominal=1000
+    "Density, used to compute fluid mass";
 
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn1(
     redeclare package Medium = Medium,
@@ -42,9 +45,6 @@ model FlowMachineParallel_y "Two flow machines in parallel"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Sources.Constant const2(k=1) "Constant source"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-
-  parameter Modelica.SIunits.Density rho_nominal=1.2
-    "Density, used to compute fluid mass";
 
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn2(
     redeclare package Medium = Medium,
