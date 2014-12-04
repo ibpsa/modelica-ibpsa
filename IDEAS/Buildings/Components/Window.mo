@@ -27,7 +27,7 @@ model Window "Multipane window"
     Interfaces.StateShading(final azi=azi) "Shading type" annotation (Placement(transformation(extent={{-36,-70},{-26,-50}})),
       __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
 
-  Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controled
+  Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controlled
     "Control signal between 0 and 1, i.e. 1 is fully closed" annotation (
       Placement(transformation(
         extent={{20,-20},{-20,20}},
