@@ -1,5 +1,5 @@
 within IDEAS.Fluid.MassExchangers.Examples;
-model HumidifierPrescribed "Model that demonstrates the ideal humidifier model"
+model Humidifier_u "Model that demonstrates the ideal humidifier model"
   extends Modelica.Icons.Example;
 
   package Medium = IDEAS.Media.Air;
@@ -13,9 +13,9 @@ model HumidifierPrescribed "Model that demonstrates the ideal humidifier model"
     use_T_in=false,
     nPorts=2,
     m_flow=2*m_flow_nominal,
-    T=303.15) "Source" annotation (Placement(transformation(extent={{-82,40},{-62,
-            60}}, rotation=0)));
-  IDEAS.Fluid.MassExchangers.HumidifierPrescribed humSte(
+    T=303.15) "Source"
+    annotation (Placement(transformation(extent={{-82,40},{-62,60}})));
+  IDEAS.Fluid.MassExchangers.Humidifier_u humSte(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -37,7 +37,7 @@ model HumidifierPrescribed "Model that demonstrates the ideal humidifier model"
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     reverseAction=true) "Controller"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
-  IDEAS.Fluid.MassExchangers.HumidifierPrescribed humDyn(
+  IDEAS.Fluid.MassExchangers.Humidifier_u humDyn(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
@@ -62,7 +62,7 @@ model HumidifierPrescribed "Model that demonstrates the ideal humidifier model"
     p(displayUnit="Pa"),
     T=303.15,
     nPorts=2) "Sink"   annotation (Placement(transformation(extent={{178,40},{158,
-            60}}, rotation=0)));
+            60}})));
 equation
   connect(senTem1.T, con1.u_m) annotation (Line(
       points={{50,111},{50,138}},
@@ -117,7 +117,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{200,
             200}}), graphics),
     __Dymola_Commands(file=
-          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/HumidifierPrescribed.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/Humidifier_u.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -145,4 +145,4 @@ First implementation.
     experiment(
       StopTime=1200,
       Tolerance=1e-05));
-end HumidifierPrescribed;
+end Humidifier_u;

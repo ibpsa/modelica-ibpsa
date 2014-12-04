@@ -2,8 +2,8 @@ within IDEAS.Fluid.Interfaces;
 partial model PartialTwoPort "Partial component with two ports"
   import Modelica.Constants;
 
-  replaceable package Medium =Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component"
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
   parameter Boolean allowFlowReversal = true
@@ -14,14 +14,12 @@ partial model PartialTwoPort "Partial component with two ports"
     redeclare final package Medium = Medium,
      m_flow(min=if allowFlowReversal then -Constants.inf else 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Constants.inf else 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=
-             0), iconTransformation(extent={{110,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{110,-10},{90,10}}), iconTransformation(extent={{110,-10},{90,10}})));
   // Model structure, e.g., used for visualization
 protected
   parameter Boolean port_a_exposesState = false

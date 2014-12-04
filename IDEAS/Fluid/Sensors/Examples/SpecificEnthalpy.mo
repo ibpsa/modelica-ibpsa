@@ -52,10 +52,7 @@ equation
     annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Sensors/Examples/SpecificEnthalpy.mos"
-        "Simulate and plot"),  Diagram(
-        coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-        graphics),
-    Documentation(info="<html>
+        "Simulate and plot"),    Documentation(info="<html>
 <p>
 This example tests the specific enthalpy sensors.
 </p>

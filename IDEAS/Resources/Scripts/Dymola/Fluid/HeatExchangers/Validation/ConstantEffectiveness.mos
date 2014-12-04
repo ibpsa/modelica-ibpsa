@@ -1,4 +1,4 @@
-simulateModel("IDEAS.Fluid.HeatExchangers.Examples.ConstantEffectiveness", stopTime=360, method="dassl", tolerance=1e-05, resultFile="ConstantEffectivenessHex");
+simulateModel("IDEAS.Fluid.HeatExchangers.Validation.ConstantEffectiveness", stopTime=360, method="dassl", tolerance=1e-05, resultFile="ConstantEffectivenessHex");
 
 createPlot(id = 5,
  position = {39, -2, 802, 524},
@@ -36,4 +36,3 @@ createPlot(id = 5,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
-

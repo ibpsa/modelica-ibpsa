@@ -57,6 +57,8 @@ model OuterWall "Opaque building envelope construction"
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
 
+  outer SimInfoManager sim "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
 equation
   connect(radSol.solDir, solAbs.solDir) annotation (Line(
       points={{-50,-24},{-40,-24}},

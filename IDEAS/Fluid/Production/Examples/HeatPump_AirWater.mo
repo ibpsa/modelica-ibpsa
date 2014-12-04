@@ -1,12 +1,9 @@
 within IDEAS.Fluid.Production.Examples;
 model HeatPump_AirWater
   "General example and tester for a modulating air-to-water heat pump"
-
   extends Modelica.Icons.Example;
-
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
-
   Fluid.Movers.Pump pump(
     m=1,
     useInput=false,
@@ -17,7 +14,7 @@ model HeatPump_AirWater
     m=5,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    TInitial=313.15)
+    T_start(displayUnit="K") = 313.15)
     annotation (Placement(transformation(extent={{32,-4},{12,-24}})));
   Fluid.Production.HP_AirWater heater(
     tauHeatLoss=3600,
@@ -30,9 +27,6 @@ model HeatPump_AirWater
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
     annotation (Placement(transformation(extent={{-94,-20},{-80,-6}})));
-  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
-      city, redeclare IDEAS.Climate.Meteo.Files.min60 detail)
-    annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   //  Real PElLossesInt( start = 0, fixed = true);
   //  Real PElNoLossesInt( start = 0, fixed = true);
   //  Real QUsefulLossesInt( start = 0, fixed = true);
@@ -52,6 +46,8 @@ model HeatPump_AirWater
     p=200000)
     annotation (Placement(transformation(extent={{-8,8},{-28,28}})));
   constant SI.MassFlowRate m_flow_nominal=0.2 "Nominal mass flow rate";
+  inner SimInfoManager sim
+    annotation (Placement(transformation(extent={{-100,78},{-80,98}})));
 equation
   heater.TSet = 273.15 + 35;
   //   der(PElLossesInt) = HP.PEl;
@@ -60,7 +56,6 @@ equation
   //   der(QUsefulNoLossesInt) = thermalConductor1.port_b.Q_flow;
   //   SPFLosses = if noEvent(PElLossesInt > 0) then QUsefulLossesInt/PElLossesInt else 0;
   //   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
-
   connect(heater.heatPort, fixedTemperature.port) annotation (Line(
       points={{-67.7,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
       color={191,0,0},
@@ -96,7 +91,9 @@ equation
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
-    Commands(file="Scripts/Tester_Boiler.mos" "TestModel"),
+    Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Production/Examples/HeatPump_AirWater.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>This example shows the modulation behaviour of an inverter controlled air-to-water heat pump when the inlet water temperature is changed. </p>
 <p>The modulation level can be seen from heater.heatSource.modulation.</p>
