@@ -4,11 +4,11 @@ model PumpSupply "Pump on supply duct"
   extends PartialCircuit;
 
   //Interfaces
-  Modelica.Blocks.Interfaces.RealOutput T annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,100})));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput m_flow_in "Mass flow setpoint" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -46,12 +46,12 @@ equation
       points={{0,100},{0,72},{29.8,72}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pip1.port_b, pump.port_a) annotation (Line(
+  connect(pipeSupply.port_b, pump.port_a) annotation (Line(
       points={{-60,60},{20,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pip3.port_b, port_b2) annotation (Line(
-      points={{60,-60},{-100,-60}},
+  connect(port_b2, pipeReturn.port_b) annotation (Line(
+      points={{-100,-60},{60,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

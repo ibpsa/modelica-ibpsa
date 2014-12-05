@@ -5,11 +5,12 @@ model MixingCircuit "Active mixing circuit"
   extends PartialCircuit;
 
   //Interfaces
-  Modelica.Blocks.Interfaces.RealOutput T annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,100})));
-  Modelica.Blocks.Interfaces.RealInput TMixedSet annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput TMixedSet
+    "Setpoint for the supply temperature"                                              annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -54,19 +55,19 @@ equation
       points={{10,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_b2, pip3.port_b) annotation (Line(
-      points={{-100,-60},{60,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pip2.port_b, threeWayValveMotor.port_a2) annotation (Line(
       points={{1.77636e-015,20},{1.77636e-015,50},{0,50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pip2.port_a, pip3.port_b) annotation (Line(
-      points={{0,0},{0,-60},{60,-60}},
+  connect(pipeReturn.port_b, port_b2) annotation (Line(
+      points={{60,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pip1.port_b, threeWayValveMotor.port_a1) annotation (Line(
+  connect(pip2.port_a, port_b2) annotation (Line(
+      points={{0,0},{0,-60},{-100,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipeSupply.port_b, threeWayValveMotor.port_a1) annotation (Line(
       points={{-60,60},{-10,60}},
       color={0,127,255},
       smooth=Smooth.None));

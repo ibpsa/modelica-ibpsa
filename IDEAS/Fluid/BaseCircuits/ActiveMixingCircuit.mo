@@ -5,11 +5,12 @@ model ActiveMixingCircuit "Active mixing circuit"
   extends PartialCircuit;
 
   //Interfaces
-  Modelica.Blocks.Interfaces.RealOutput T annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,100})));
-  Modelica.Blocks.Interfaces.RealInput TMixedSet annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput TMixedSet
+    "Setpoint for the supply temperature"                                              annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -17,7 +18,7 @@ model ActiveMixingCircuit "Active mixing circuit"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,100})));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput m_flow_in "Mass flow rate set point" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -81,16 +82,16 @@ equation
       points={{-20,20},{-20,50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pip1.port_b, threeWayValveMotor.port_a1) annotation (Line(
-      points={{-60,60},{-30,60}},
+  connect(pip2.port_a, pipeReturn.port_b) annotation (Line(
+      points={{-20,0},{-20,-60},{60,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_b2, pip3.port_b) annotation (Line(
+  connect(port_b2, pipeReturn.port_b) annotation (Line(
       points={{-100,-60},{60,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pip2.port_a, pip3.port_b) annotation (Line(
-      points={{-20,0},{-20,-60},{60,-60}},
+  connect(pipeSupply.port_b, threeWayValveMotor.port_a1) annotation (Line(
+      points={{-60,60},{-30,60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

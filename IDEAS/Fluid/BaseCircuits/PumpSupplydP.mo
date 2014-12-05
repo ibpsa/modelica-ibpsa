@@ -1,7 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
 model PumpSupplydP
 
-//Extensions
+  //Extensions
   extends PartialCircuit;
 
   //Parameters
@@ -12,7 +12,7 @@ model PumpSupplydP
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,114})));
-  Modelica.Blocks.Interfaces.RealOutput T annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={68,106}), iconTransformation(
@@ -55,14 +55,6 @@ equation
       points={{-10,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pip1.port_b, fan.port_a) annotation (Line(
-      points={{-60,60},{-10,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(val1.port_a, pip3.port_b) annotation (Line(
-      points={{10,-60},{60,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(fan.port_b, senTem.port_a) annotation (Line(
       points={{10,60},{50,60}},
       color={0,127,255},
@@ -74,6 +66,14 @@ equation
   connect(senTem.T, T) annotation (Line(
       points={{60,71},{60,84},{68,84},{68,106}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(pipeSupply.port_b, fan.port_a) annotation (Line(
+      points={{-60,60},{-10,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(val1.port_a, pipeReturn.port_b) annotation (Line(
+      points={{10,-60},{60,-60}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(

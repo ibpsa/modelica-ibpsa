@@ -3,13 +3,16 @@ model BalancingValve
   //Extensions
   extends PartialCircuit;
 
+  //Parameters
   parameter Real Kv "Kv value of the balancing valve";
 
+  //Components
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = Medium,
     CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=Kv,
     m_flow_nominal=m_flow_nominal) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
+
   Modelica.Blocks.Sources.Constant hlift(k=1)
     "Constant opening of the balancing valve"
     annotation (Placement(transformation(extent={{-38,-20},{-18,0}})));
@@ -23,11 +26,11 @@ equation
       points={{-17,-10},{0,-10},{0,-48}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pip1.port_b, port_b1) annotation (Line(
+  connect(pipeSupply.port_b, port_b1) annotation (Line(
       points={{-60,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(val1.port_a, pip3.port_b) annotation (Line(
+  connect(val1.port_a, pipeReturn.port_b) annotation (Line(
       points={{10,-60},{60,-60}},
       color={0,127,255},
       smooth=Smooth.None));

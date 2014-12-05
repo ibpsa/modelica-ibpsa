@@ -3,25 +3,11 @@ model FlowController
   //Extensions
   extends PartialCircuit;
 
+  //Parameters
   parameter Real Kv "Kv value of the balancing valve";
   parameter Real Kvs "Kv value of the controllable valve";
 
-  IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
-    redeclare package Medium = Medium,
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=Kv) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
-  Modelica.Blocks.Sources.Constant hlift(k=1)
-    "Constant opening of the balancing valve"
-    annotation (Placement(transformation(extent={{-38,-20},{-18,0}})));
-
-  Actuators.Valves.TwoWayEqualPercentage val(
-    m_flow(nominal=0.1),
-    redeclare package Medium = Medium,
-    dpValve_nominal=20,
-    m_flow_nominal=m_flow_nominal,
-    from_dp=from_dp,
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=Kvs) annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+  //Interfaces
   Modelica.Blocks.Interfaces.RealInput opening "Valve opening signal"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -30,6 +16,24 @@ model FlowController
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,114})));
+
+  //Components
+  IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
+    redeclare package Medium = Medium,
+    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+    Kv=Kv) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
+
+  Modelica.Blocks.Sources.Constant hlift(k=1)
+    "Constant opening of the balancing valve"
+    annotation (Placement(transformation(extent={{-38,-20},{-18,0}})));
+
+  Actuators.Valves.TwoWayEqualPercentage val(
+    m_flow(nominal=0.1),
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+    Kv=Kvs) annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+
 equation
   connect(val1.port_b, port_b2) annotation (Line(
       points={{-10,-60},{-100,-60}},
@@ -39,14 +43,6 @@ equation
       points={{-17,-10},{0,-10},{0,-48}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(val1.port_a, pip3.port_b) annotation (Line(
-      points={{10,-60},{60,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip1.port_b, val.port_a) annotation (Line(
-      points={{-60,60},{-10,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(val.port_b, port_b1) annotation (Line(
       points={{10,60},{100,60}},
       color={0,127,255},
@@ -54,6 +50,14 @@ equation
   connect(opening, val.y) annotation (Line(
       points={{0,114},{0,72}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(pipeSupply.port_b, val.port_a) annotation (Line(
+      points={{-60,60},{-10,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(val1.port_a, pipeReturn.port_b) annotation (Line(
+      points={{10,-60},{60,-60}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(

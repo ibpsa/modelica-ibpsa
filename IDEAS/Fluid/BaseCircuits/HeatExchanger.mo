@@ -59,19 +59,23 @@ model HeatExchanger
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={0,0})));
+
   IDEAS.Fluid.Sensors.MassFlowRate senMasFlo2(
     redeclare package Medium=Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={60,34})));
+
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium =Medium,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-34,0},{-14,20}})));
+
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTem2(
     redeclare package Medium=Medium,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{18,24},{38,44}})));
+
   IDEAS.Fluid.Sensors.MassFlowRate senMasFlo1(
     redeclare package Medium=Medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -115,14 +119,6 @@ equation
       points={{-34,10},{-80,10},{-80,32}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pip1.port_b, senMasFlo1.port_a) annotation (Line(
-      points={{-60,60},{-52,60},{-52,32},{-60,32}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pip3.port_b, hex.port_a2) annotation (Line(
-      points={{60,-60},{6,-60},{6,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(port_b2, hex.port_b1) annotation (Line(
       points={{-100,-60},{-6,-60},{-6,-10}},
       color={0,127,255},
@@ -130,6 +126,14 @@ equation
   connect(senT1, senT1) annotation (Line(
       points={{-40,106},{-40,102},{-40,102},{-40,106}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(pipeSupply.port_b, senMasFlo1.port_a) annotation (Line(
+      points={{-60,60},{-52,60},{-52,32},{-60,32}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hex.port_a2, pipeReturn.port_b) annotation (Line(
+      points={{6,-10},{6,-60},{60,-60}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
