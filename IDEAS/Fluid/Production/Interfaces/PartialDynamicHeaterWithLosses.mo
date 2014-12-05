@@ -73,10 +73,10 @@ model PartialDynamicHeaterWithLosses
         origin={38,-6})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) "Fluid inlet"
-    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) "Fluid outlet"
-    annotation (Placement(transformation(extent={{90,30},{110,50}})));
+    annotation (Placement(transformation(extent={{90,50},{110,70}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort Tin(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Inlet temperature"
     annotation (Placement(transformation(extent={{74,-50},{54,-30}})));
@@ -92,11 +92,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(pipe_HeatPort.port_b, port_b) annotation (Line(
-      points={{38,4},{38,40},{100,40}},
+      points={{38,4},{38,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a, Tin.port_a) annotation (Line(
-      points={{100,-40},{74,-40}},
+      points={{100,-60},{88,-60},{88,-40},{74,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(Tin.port_b, pipe_HeatPort.port_a) annotation (Line(
@@ -108,9 +108,9 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(extent={{-100,-100},{100,120}},
+    Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
           preserveAspectRatio=false), graphics),
-    Icon(coordinateSystem(extent={{-100,-100},{100,120}}, preserveAspectRatio=
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false), graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
