@@ -78,28 +78,26 @@ equation
 Initial version</li>
 </ul></p>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
         graphics={
-        Line(
-          points={{0,100},{6,80},{0,60}},
-          color={0,255,128},
-          smooth=Smooth.None),
         Line(
           points={{-40,60},{-100,60}},
           color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{0,100},{6,80},{0,60}},
+          color={0,255,128},
           smooth=Smooth.None),
         Line(
           points={{60,60},{100,60}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{-100,-60},{100,-60}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
           points={{0,40},{0,-60}},
           color={0,0,127},
-          smooth=Smooth.None),
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
         Line(
           points={{0,60},{20,60}},
           color={0,0,127},

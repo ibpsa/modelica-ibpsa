@@ -110,7 +110,8 @@ Initial version</li>
         Line(
           points={{-40,40},{-40,-60}},
           color={0,0,127},
-          smooth=Smooth.None),
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
         Line(
           points={{-40,60},{-20,60}},
           color={0,0,127},

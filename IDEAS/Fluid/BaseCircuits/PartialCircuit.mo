@@ -45,10 +45,12 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Line(
           points={{-100,60},{100,60}},
-          color={0,0,255},
+          color={0,0,127},
           smooth=Smooth.None), Line(
           points={{-100,-60},{100,-60}},
-          color={0,0,255},
-          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          color={0,0,127},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash)}),
+                                 Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics));
 end PartialCircuit;

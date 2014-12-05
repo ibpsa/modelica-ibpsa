@@ -142,5 +142,4 @@ equation
           lineColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid)}));
-
 end PumpSupplydP;

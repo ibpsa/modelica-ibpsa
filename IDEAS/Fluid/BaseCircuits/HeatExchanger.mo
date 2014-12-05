@@ -140,7 +140,7 @@ equation
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
           extent={{-42,76},{44,-76}},
-          lineColor={0,128,255},
+          lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Line(
           points={{-42,76},{44,-76}},
@@ -148,7 +148,7 @@ equation
           smooth=Smooth.None),
         Polygon(
           points={{-42,76},{-42,-76},{44,-76},{-42,76}},
-          lineColor={0,128,255},
+          lineColor={0,0,127},
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Forward),
