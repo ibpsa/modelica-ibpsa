@@ -4,14 +4,6 @@ model ActiveMixingCircuit "Active mixing circuit"
   //Extensions
   extends PartialCircuit;
 
-  //Components
-  Valves.Thermostatic3WayValve threeWayValveMotor(m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
-  Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal, tau=120,
-    redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
-
   //Interfaces
   Modelica.Blocks.Interfaces.RealOutput T annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -33,17 +25,33 @@ model ActiveMixingCircuit "Active mixing circuit"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,104})));
+
+  //Components
+  Valves.Thermostatic3WayValve threeWayValveMotor(
+    m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
+
+  Sensors.TemperatureTwoPort senTem(
+    m_flow_nominal=m_flow_nominal,
+    tau=120,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+
   Movers.FlowMachine_m_flow pump(
     motorCooledByFluid=false,
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{18,50},{38,70}})));
-  FixedResistances.LosslessPipe pip2(m_flow_nominal=m_flow_nominal,
+
+  FixedResistances.LosslessPipe pip2(
+    m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-20,10})));
+
 equation
   connect(senTem.port_b, port_b1) annotation (Line(
       points={{80,60},{100,60}},
@@ -92,8 +100,7 @@ equation
 Initial version</li>
 </ul></p>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(
           points={{-40,100},{-34,80},{-40,60}},

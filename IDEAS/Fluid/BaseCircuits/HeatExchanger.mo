@@ -11,26 +11,7 @@ model HeatExchanger
   parameter Modelica.SIunits.Pressure dp2_nominal=200
     "Pressure drop on the secondary side";
 
-  //Components
-  IDEAS.Fluid.HeatExchangers.ConstantEffectiveness hex(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium1,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m1_flow_nominal,
-    eps=efficiency,
-    dp1_nominal=dp1_nominal,
-    dp2_nominal=dp2_nominal) annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=270,
-        origin={0,0})));
-  IDEAS.Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium =
-        Medium1) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={60,34})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium =
-        Medium1, m_flow_nominal=m1_flow_nominal)
-    annotation (Placement(transformation(extent={{-34,0},{-14,20}})));
+  //Interfaces
   Modelica.Blocks.Interfaces.RealOutput senT1
     "Temperature of the supply line on the primary side" annotation (
       Placement(transformation(
@@ -40,6 +21,14 @@ model HeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-54,106})));
+  Modelica.Blocks.Interfaces.RealOutput senMassFlow1
+    "Massflow at the primary side" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-82,106}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-82,106})));
   Modelica.Blocks.Interfaces.RealOutput senMassFlow2
     "Massflow at the secondary side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -48,19 +37,8 @@ model HeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={78,106})));
-  Modelica.Blocks.Interfaces.RealOutput senMassFlow1
-    "Massflow at the secondary side" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-82,106}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-82,106})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem2(redeclare package Medium =
-        Medium1, m_flow_nominal=m1_flow_nominal)
-    annotation (Placement(transformation(extent={{18,24},{38,44}})));
   Modelica.Blocks.Interfaces.RealOutput senT2
-    "Temperature of the supply line on the primary side" annotation (
+    "Temperature of the supply line on the secondary side" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -68,11 +46,38 @@ model HeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={48,106})));
-  IDEAS.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium =
-        Medium1) annotation (Placement(transformation(
+
+  //Components
+  IDEAS.Fluid.HeatExchangers.ConstantEffectiveness hex(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
+    m1_flow_nominal=m_flow_nominal,
+    m2_flow_nominal=m_flow_nominal,
+    eps=efficiency,
+    dp1_nominal=dp1_nominal,
+    dp2_nominal=dp2_nominal) annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=270,
+        origin={0,0})));
+  IDEAS.Fluid.Sensors.MassFlowRate senMasFlo2(
+    redeclare package Medium=Medium) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={60,34})));
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem1(
+    redeclare package Medium =Medium,
+    m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{-34,0},{-14,20}})));
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem2(
+    redeclare package Medium=Medium,
+    m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{18,24},{38,44}})));
+  IDEAS.Fluid.Sensors.MassFlowRate senMasFlo1(
+    redeclare package Medium=Medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-70,32})));
+
 equation
   connect(senMasFlo2.port_b, port_b1) annotation (Line(
       points={{70,34},{74,34},{74,60},{100,60}},

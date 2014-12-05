@@ -3,10 +3,7 @@ model PumpSupply "Pump on supply duct"
   //Extensions
   extends PartialCircuit;
 
-  Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal, redeclare
-      package Medium = Medium,
-    tau=120)
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+  //Interfaces
   Modelica.Blocks.Interfaces.RealOutput T annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -19,6 +16,13 @@ model PumpSupply "Pump on supply duct"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,100})));
+
+  //Components
+  Sensors.TemperatureTwoPort senTem(
+    m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = Medium,
+    tau=120)
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Movers.FlowMachine_m_flow pump(
     motorCooledByFluid=false,
     m_flow_nominal=m_flow_nominal,
@@ -57,8 +61,7 @@ equation
 Initial version</li>
 </ul></p>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Ellipse(extent={{-20,80},{20,40}},lineColor={0,0,127},
           fillColor={0,128,255},

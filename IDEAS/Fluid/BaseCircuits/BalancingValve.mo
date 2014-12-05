@@ -8,7 +8,8 @@ model BalancingValve
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = Medium,
     CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=Kv) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
+    Kv=Kv,
+    m_flow_nominal=m_flow_nominal) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
   Modelica.Blocks.Sources.Constant hlift(k=1)
     "Constant opening of the balancing valve"
     annotation (Placement(transformation(extent={{-38,-20},{-18,0}})));

@@ -16,12 +16,12 @@ model FlowController
 
   Actuators.Valves.TwoWayEqualPercentage val(
     m_flow(nominal=0.1),
-    redeclare package Medium = Medium1,
+    redeclare package Medium = Medium,
     dpValve_nominal=20,
-    m_flow_nominal=0.1,
+    m_flow_nominal=m_flow_nominal,
     from_dp=from_dp,
     CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=KVs) annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    Kv=Kvs) annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Modelica.Blocks.Interfaces.RealInput opening "Valve opening signal"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
