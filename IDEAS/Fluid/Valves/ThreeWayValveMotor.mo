@@ -28,59 +28,25 @@ equation
                                       graphics={
         Polygon(
           points={{-60,30},{-60,-30},{0,0},{-60,30}},
-          lineColor={100,100,100},
+          lineColor={0,0,127},
           smooth=Smooth.None,
-          fillColor={0,0,255},
+          fillColor={0,127,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{60,30},{60,-30},{0,0},{60,30}},
-          lineColor={100,100,100},
-          smooth=Smooth.None),
-        Polygon(
           points={{-30,30},{-30,-30},{30,0},{-30,30}},
-          lineColor={100,100,100},
+          lineColor={0,0,127},
           smooth=Smooth.None,
           origin={0,-30},
           rotation=90,
-          fillColor={0,0,255},
+          fillColor={0,127,255},
           fillPattern=FillPattern.Solid),
-        Line(
-          points={{-70,30},{-70,-30}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{70,30},{70,-30}},
-          color={0,0,127},
-          smooth=Smooth.None),
         Line(
           points={{-30,-70},{30,-70}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{-70,0},{-100,0}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{70,0},{100,0}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
           points={{0,-70},{0,-100}},
           color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-40,10},{-52,-14},{-52,-14},{-52,-14}},
-          color={0,0,0},
-          smooth=Smooth.None,
-          thickness=1),
-        Ellipse(extent={{-54,10},{-48,2}}, lineColor={0,0,0},
-          lineThickness=1),
-        Ellipse(extent={{-46,-6},{-40,-14}}, lineColor={0,0,0},
-          lineThickness=1),
-        Rectangle(extent={{-20,80},{20,40}}, lineColor={100,100,100}),
-        Line(
-          points={{0,40},{0,-2},{0,0}},
-          color={100,100,100},
           smooth=Smooth.None),
         Text(
           extent={{-100,-56},{100,-100}},
