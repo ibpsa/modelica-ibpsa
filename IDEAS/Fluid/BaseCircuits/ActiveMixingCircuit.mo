@@ -33,10 +33,10 @@ model ActiveMixingCircuit "Active mixing circuit"
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-20,100}), iconTransformation(
+        origin={0,100}),   iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-20,100})));
+        origin={0,100})));
 equation
   connect(pip3.port_a, port_a2) annotation (Line(
       points={{60,-60},{100,-60}},
@@ -71,7 +71,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(threeWayValveMotor.TMixedSet, TMixedSet) annotation (Line(
-      points={{-10,70},{-10,86},{-10,100},{-20,100}},
+      points={{-10,70},{-10,86},{-10,100},{0,100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(threeWayValveMotor.port_b, senTem.port_a) annotation (Line(
@@ -85,25 +85,12 @@ equation
 Initial version</li>
 </ul></p>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
         graphics={
         Line(
-          points={{40,100},{44,86},{40,70}},
+          points={{0,100},{6,80},{0,60}},
           color={0,255,128},
-          smooth=Smooth.None),
-        Line(
-          points={{-20,100},{-14,80},{-20,60}},
-          color={0,255,128},
-          smooth=Smooth.None),
-        Ellipse(extent={{20,80},{60,40}}, lineColor={0,0,127}),
-        Line(
-          points={{0,70},{-20,60},{-40,70},{-40,50},{-20,60},{-30,40},{-10,40},{
-              -20,60},{0,50},{0,70}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-20,0},{-30,20},{-10,20},{-30,-20},{-10,-20},{-20,0}},
-          color={0,0,127},
           smooth=Smooth.None),
         Line(
           points={{-40,60},{-100,60}},
@@ -118,19 +105,15 @@ Initial version</li>
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{-20,40},{-20,20}},
+          points={{0,40},{0,20}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{-20,-20},{-20,-60}},
+          points={{0,-20},{0,-60}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
           points={{0,60},{20,60}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{60,60},{28,76},{28,44},{60,60}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
@@ -141,5 +124,41 @@ Initial version</li>
           extent={{72,62},{76,58}},
           lineColor={255,0,0},
           fillColor={255,0,0},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-20,70},{-20,50},{0,60},{-20,70}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{20,70},{20,50},{0,60},{20,70}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{10,-10},{10,10},{-10,0},{10,-10}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          origin={0,50},
+          rotation=270),
+        Polygon(
+          points={{10,-10},{10,10},{-10,0},{10,-10}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          origin={0,-10},
+          rotation=270),
+        Polygon(
+          points={{10,-10},{10,10},{-10,0},{10,-10}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          origin={0,10},
+          rotation=90)}));
 end ActiveMixingCircuit;
