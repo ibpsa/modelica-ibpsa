@@ -1,6 +1,6 @@
 within IDEAS.Fluid.BaseCircuits;
-model PipeSection
-  extends IDEAS.Fluid.BaseCircuits.BaseClasses.FourPort;
+model ActiveMixingCircuit "Active mixing circuit"
+  extends IDEAS.Fluid.Interfaces.FourPort;
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
 
   parameter SI.Mass m=1 "Mass of medium";
@@ -10,6 +10,15 @@ model PipeSection
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"));
+
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (__Dymola_choicesAllMatching=true);
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+    "Small mass flow rate for regularization of zero flow";
 
   FixedResistances.Pipe pipe_a(
     redeclare package Medium = Medium,
@@ -28,8 +37,8 @@ model PipeSection
     m_flow_small=m_flow_small,
     show_T=false) annotation (Placement(transformation(
         extent={{-10,-4},{10,4}},
-        rotation=90,
-        origin={-60,-2})));
+        rotation=0,
+        origin={0,60})));
   FixedResistances.Pipe pipe_b(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -47,24 +56,24 @@ model PipeSection
     m_flow_small=m_flow_small,
     show_T=false) annotation (Placement(transformation(
         extent={{10,-4},{-10,4}},
-        rotation=90,
-        origin={60,0})));
+        rotation=0,
+        origin={0,-60})));
 
 equation
-  connect(pipe_a.port_b, port_A1) annotation (Line(
-      points={{-60,8},{-60,100}},
+  connect(port_a1, pipe_a.port_a) annotation (Line(
+      points={{-100,60},{-10,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe_a.port_a, port_A2) annotation (Line(
-      points={{-60,-12},{-60,-100}},
+  connect(pipe_a.port_b, port_b1) annotation (Line(
+      points={{10,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe_b.port_a, port_B1) annotation (Line(
-      points={{60,10},{60,100}},
+  connect(port_b2, pipe_b.port_b) annotation (Line(
+      points={{-100,-60},{-10,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe_b.port_b, port_B2) annotation (Line(
-      points={{60,-10},{60,-100}},
+  connect(pipe_b.port_a, port_a2) annotation (Line(
+      points={{10,-60},{100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -73,5 +82,7 @@ equation
 <li>November 2014 by Filip Jorissen:<br> 
 Initial version</li>
 </ul></p>
-</html>"));
-end PipeSection;
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics));
+end ActiveMixingCircuit;
