@@ -20,22 +20,25 @@ model ActiveMixingCircuit "Active mixing circuit"
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow";
 
-
-  Movers.Pump pump(useInput=true)
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Valves.Thermostatic3WayValve threeWayValveMotor
+  Valves.Thermostatic3WayValve threeWayValveMotor(m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Sensors.TemperatureTwoPort senTem
+  Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal, tau=120,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  FixedResistances.LosslessPipe pip
+  FixedResistances.LosslessPipe pip(m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  FixedResistances.LosslessPipe pip1 annotation (Placement(transformation(
+  FixedResistances.LosslessPipe pip1(m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = Medium)
+                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,10})));
-  FixedResistances.LosslessPipe pip3
+  FixedResistances.LosslessPipe pip3(m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
-  Modelica.Blocks.Interfaces.RealInput m_flowSet annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput m_flow_in annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -55,6 +58,12 @@ model ActiveMixingCircuit "Active mixing circuit"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,100})));
+  Movers.FlowMachine_m_flow pump(
+    motorCooledByFluid=false,
+    m_flow_nominal=m_flow_nominal,
+    addPowerToMedium=false,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
 equation
   connect(pip3.port_a, port_a2) annotation (Line(
       points={{60,-60},{100,-60}},
@@ -80,21 +89,9 @@ equation
       points={{-40,60},{-20,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(threeWayValveMotor.port_b, pump.port_a) annotation (Line(
-      points={{0,60},{20,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pump.port_b, senTem.port_a) annotation (Line(
-      points={{40,60},{60,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(senTem.port_b, port_b1) annotation (Line(
       points={{80,60},{100,60}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(m_flowSet, pump.m_flowSet) annotation (Line(
-      points={{30,100},{30,70.4}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(senTem.T, T) annotation (Line(
       points={{70,71},{70,100}},
@@ -104,6 +101,18 @@ equation
       points={{-10,70},{-10,86},{-10,100},{-20,100}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(m_flow_in, pump.m_flow_in) annotation (Line(
+      points={{30,100},{30,86},{30,72},{29.8,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pump.port_b, senTem.port_a) annotation (Line(
+      points={{40,60},{60,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(threeWayValveMotor.port_b, pump.port_a) annotation (Line(
+      points={{0,60},{20,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(revisions="<html>
 <p><ul>
@@ -111,8 +120,7 @@ equation
 Initial version</li>
 </ul></p>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(
           points={{40,100},{44,86},{40,70}},
@@ -124,8 +132,8 @@ Initial version</li>
           smooth=Smooth.None),
         Ellipse(extent={{20,80},{60,40}}, lineColor={0,0,127}),
         Line(
-          points={{0,70},{-20,60},{-40,70},{-40,50},{-20,60},{-30,40},{-10,40},
-              {-20,60},{0,50},{0,70}},
+          points={{0,70},{-20,60},{-40,70},{-40,50},{-20,60},{-30,40},{-10,40},{
+              -20,60},{0,50},{0,70}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
