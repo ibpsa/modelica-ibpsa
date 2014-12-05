@@ -1,25 +1,10 @@
 within IDEAS.Fluid.BaseCircuits;
 model ActiveMixingCircuit "Active mixing circuit"
-  extends IDEAS.Fluid.Interfaces.FourPort;
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
 
-  parameter SI.Mass m=1 "Mass of medium";
-  parameter Boolean dynamicBalance=true
-    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation(Dialog(tab="Dynamics", group="Equations"));
-  parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"));
+  //Extensions
+  extends PartialCircuit;
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component"
-    annotation (__Dymola_choicesAllMatching=true);
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
-    "Small mass flow rate for regularization of zero flow";
-
+  //Components
   Valves.Thermostatic3WayValve threeWayValveMotor(m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
@@ -38,14 +23,8 @@ model ActiveMixingCircuit "Active mixing circuit"
   FixedResistances.LosslessPipe pip3(m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={30,100}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={40,100})));
+
+  //Interfaces
   Modelica.Blocks.Interfaces.RealOutput T annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -58,12 +37,6 @@ model ActiveMixingCircuit "Active mixing circuit"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,100})));
-  Movers.FlowMachine_m_flow pump(
-    motorCooledByFluid=false,
-    m_flow_nominal=m_flow_nominal,
-    addPowerToMedium=false,
-    redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
 equation
   connect(pip3.port_a, port_a2) annotation (Line(
       points={{60,-60},{100,-60}},
@@ -101,16 +74,8 @@ equation
       points={{-10,70},{-10,86},{-10,100},{-20,100}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(m_flow_in, pump.m_flow_in) annotation (Line(
-      points={{30,100},{30,86},{30,72},{29.8,72}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pump.port_b, senTem.port_a) annotation (Line(
-      points={{40,60},{60,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(threeWayValveMotor.port_b, pump.port_a) annotation (Line(
-      points={{0,60},{20,60}},
+  connect(threeWayValveMotor.port_b, senTem.port_a) annotation (Line(
+      points={{0,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

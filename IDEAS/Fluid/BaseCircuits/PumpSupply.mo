@@ -1,24 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
 model PumpSupply "Pump on supply duct"
-  extends IDEAS.Fluid.Interfaces.FourPort;
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
-
-  parameter SI.Mass m=1 "Mass of medium";
-  parameter Boolean dynamicBalance=true
-    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation(Dialog(tab="Dynamics", group="Equations"));
-  parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"));
-
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component"
-    annotation (__Dymola_choicesAllMatching=true);
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
-    "Small mass flow rate for regularization of zero flow";
+  //Extensions
+  extends PartialCircuit;
 
   Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal, redeclare
       package Medium = Medium,
@@ -88,9 +71,12 @@ equation
 Initial version</li>
 </ul></p>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
         graphics={
-        Ellipse(extent={{20,80},{60,40}}, lineColor={0,0,127}),
+        Ellipse(extent={{20,80},{60,40}}, lineColor={0,0,127},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
         Line(
           points={{60,60},{100,60}},
           color={0,0,127},
@@ -101,10 +87,6 @@ Initial version</li>
           smooth=Smooth.None),
         Line(
           points={{-100,60},{20,60}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{60,60},{28,76},{28,44},{60,60}},
           color={0,0,127},
           smooth=Smooth.None),
         Ellipse(
@@ -119,5 +101,11 @@ Initial version</li>
         Line(
           points={{40,100},{44,86},{40,70}},
           color={0,255,128},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None),
+        Polygon(
+          points={{28,76},{28,44},{60,60},{28,76}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
 end PumpSupply;
