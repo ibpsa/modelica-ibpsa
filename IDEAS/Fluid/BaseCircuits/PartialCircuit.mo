@@ -24,6 +24,23 @@ model PartialCircuit
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow";
 
+  FixedResistances.LosslessPipe pip3(m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
+  FixedResistances.LosslessPipe pip1(m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={-70,60})));
+equation
+  connect(port_a2, pip3.port_a) annotation (Line(
+      points={{100,-60},{80,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_a1, pip1.port_a) annotation (Line(
+      points={{-100,60},{-80,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Line(
           points={{-100,60},{100,60}},
@@ -31,5 +48,6 @@ model PartialCircuit
           smooth=Smooth.None), Line(
           points={{-100,-60},{100,-60}},
           color={0,0,255},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=
+            false, extent={{-100,-100},{100,100}}), graphics));
 end PartialCircuit;
