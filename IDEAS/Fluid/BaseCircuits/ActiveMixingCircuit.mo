@@ -20,61 +20,89 @@ model ActiveMixingCircuit "Active mixing circuit"
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow";
 
-  FixedResistances.Pipe pipe_a(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    m=m/2,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    p_start=p_start,
-    T_start=T_start,
-    X_start=X_start,
-    C_start=C_start,
-    C_nominal=C_nominal,
-    mFactor=mFactor,
-    allowFlowReversal=allowFlowReversal,
-    dynamicBalance=dynamicBalance,
-    m_flow_small=m_flow_small,
-    show_T=false) annotation (Placement(transformation(
-        extent={{-10,-4},{10,4}},
-        rotation=0,
-        origin={0,60})));
-  FixedResistances.Pipe pipe_b(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    m=m/2,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    p_start=p_start,
-    T_start=T_start,
-    X_start=X_start,
-    C_start=C_start,
-    C_nominal=C_nominal,
-    mFactor=mFactor,
-    allowFlowReversal=allowFlowReversal,
-    dynamicBalance=dynamicBalance,
-    m_flow_small=m_flow_small,
-    show_T=false) annotation (Placement(transformation(
-        extent={{10,-4},{-10,4}},
-        rotation=0,
-        origin={0,-60})));
 
+  Movers.Pump pump(useInput=true)
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+  Valves.Thermostatic3WayValve threeWayValveMotor
+    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+  Sensors.TemperatureTwoPort senTem
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+  FixedResistances.LosslessPipe pip
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+  FixedResistances.LosslessPipe pip1 annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-10,10})));
+  FixedResistances.LosslessPipe pip3
+    annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
+  Modelica.Blocks.Interfaces.RealInput m_flowSet annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={30,100}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={40,100})));
+  Modelica.Blocks.Interfaces.RealOutput T annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={70,100})));
+  Modelica.Blocks.Interfaces.RealInput TMixedSet annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-20,100}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-20,100})));
 equation
-  connect(port_a1, pipe_a.port_a) annotation (Line(
-      points={{-100,60},{-10,60}},
+  connect(pip3.port_a, port_a2) annotation (Line(
+      points={{60,-60},{100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe_a.port_b, port_b1) annotation (Line(
-      points={{10,60},{100,60}},
+  connect(pip3.port_b, pip1.port_a) annotation (Line(
+      points={{40,-60},{-10,-60},{-10,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_b2, pipe_b.port_b) annotation (Line(
-      points={{-100,-60},{-10,-60}},
+  connect(pip3.port_b, port_b2) annotation (Line(
+      points={{40,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe_b.port_a, port_a2) annotation (Line(
-      points={{10,-60},{100,-60}},
+  connect(threeWayValveMotor.port_a2, pip1.port_b) annotation (Line(
+      points={{-10,50},{-10,20}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_a1, pip.port_a) annotation (Line(
+      points={{-100,60},{-60,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pip.port_b, threeWayValveMotor.port_a1) annotation (Line(
+      points={{-40,60},{-20,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(threeWayValveMotor.port_b, pump.port_a) annotation (Line(
+      points={{0,60},{20,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pump.port_b, senTem.port_a) annotation (Line(
+      points={{40,60},{60,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTem.port_b, port_b1) annotation (Line(
+      points={{80,60},{100,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(m_flowSet, pump.m_flowSet) annotation (Line(
+      points={{30,100},{30,70.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(senTem.T, T) annotation (Line(
+      points={{70,71},{70,100}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(threeWayValveMotor.TMixedSet, TMixedSet) annotation (Line(
+      points={{-10,70},{-10,86},{-10,100},{-20,100}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(revisions="<html>
@@ -83,6 +111,62 @@ equation
 Initial version</li>
 </ul></p>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics));
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+        graphics={
+        Line(
+          points={{40,100},{44,86},{40,70}},
+          color={0,255,128},
+          smooth=Smooth.None),
+        Line(
+          points={{-20,100},{-14,80},{-20,60}},
+          color={0,255,128},
+          smooth=Smooth.None),
+        Ellipse(extent={{20,80},{60,40}}, lineColor={0,0,127}),
+        Line(
+          points={{0,70},{-20,60},{-40,70},{-40,50},{-20,60},{-30,40},{-10,40},
+              {-20,60},{0,50},{0,70}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-20,0},{-30,20},{-10,20},{-30,-20},{-10,-20},{-20,0}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-40,60},{-100,60}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{60,60},{100,60}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-100,-60},{100,-60}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-20,40},{-20,20}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-20,-20},{-20,-60}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{0,60},{20,60}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{60,60},{28,76},{28,44},{60,60}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{70,100},{76,80},{74,60}},
+          color={255,0,0},
+          smooth=Smooth.None),
+        Ellipse(
+          extent={{72,62},{76,58}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid)}));
 end ActiveMixingCircuit;
