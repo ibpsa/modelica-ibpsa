@@ -181,11 +181,16 @@ equation
             graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
-         graphics={Line(
-          points={{-90,0},{-80,0},{-80,-60},{-60,-60},{-60,80},{-40,80},{-40,
-              -60},{-20,-60},{-20,80},{0,80},{0,-60},{20,-60},{20,80},{40,80},{
-              40,-60},{60,-60},{60,80},{80,80},{80,0},{100,0}},
-          color={0,0,255},
+         graphics={Rectangle(
+          extent={{80,68},{-80,-70}},
+          lineColor={175,175,175},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+                   Line(
+          points={{-80,-12},{-80,0},{-80,-58},{-60,-64},{-60,56},{-40,62},{-40,
+              -60},{-20,-66},{-20,58},{0,64},{0,-62},{20,-68},{20,60},{40,66},{
+              40,-64},{60,-70},{60,62},{80,68},{80,0},{80,0}},
+          color={0,0,0},
           smooth=Smooth.None)}),
     Documentation(info="<html>
 <p><b>Description</b> </p>
