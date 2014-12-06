@@ -5,6 +5,6 @@ PumpSupplydP
 BalancingValve
 FlowController
 HeatExchanger
-PartialCircuit
 CollectorUnit
 Overflow
+Interfaces

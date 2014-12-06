@@ -1,6 +1,6 @@
 within IDEAS.Fluid.BaseCircuits;
 model HeatExchanger
-  extends PartialCircuit;
+  extends Interfaces.Circuit;
 
   //Parameters
   parameter Modelica.SIunits.Pressure p=200000

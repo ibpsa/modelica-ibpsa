@@ -2,7 +2,7 @@ within IDEAS.Fluid.BaseCircuits;
 model PumpSupplydP
 
   //Extensions
-  extends PartialCircuit;
+  extends Interfaces.Circuit;
 
   //Parameters
   parameter Real Kv = 30 "KV value of the balancing valve";

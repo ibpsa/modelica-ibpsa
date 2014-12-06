@@ -1,7 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
 model PumpSupply "Pump on supply duct"
   //Extensions
-  extends PartialCircuit;
+  extends Interfaces.Circuit;
 
   //Interfaces
   Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(

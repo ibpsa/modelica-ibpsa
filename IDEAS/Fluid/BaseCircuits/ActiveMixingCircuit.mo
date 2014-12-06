@@ -2,7 +2,7 @@ within IDEAS.Fluid.BaseCircuits;
 model ActiveMixingCircuit "Active mixing circuit"
 
   //Extensions
-  extends PartialCircuit;
+  extends Interfaces.Circuit;
 
   //Interfaces
   Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
