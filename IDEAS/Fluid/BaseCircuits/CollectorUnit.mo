@@ -10,14 +10,14 @@ model CollectorUnit "Collector unit"
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a3(
-                     redeclare final package Medium = Medium1,
+                     redeclare final package Medium = Medium,
                      m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
                      h_outflow(start=h_outflow_a1_start))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{50,90},{70,110}},
             rotation=0)));
   Modelica.Fluid.Interfaces.FluidPort_b port_b3(
-                     redeclare final package Medium = Medium2,
+                     redeclare final package Medium = Medium,
                      m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
                      h_outflow(start=h_outflow_b2_start))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"

@@ -10,7 +10,8 @@ package Interfaces
       annotation (__Dymola_choicesAllMatching=true);
 
     //Extensions
-    extends IDEAS.Fluid.Interfaces.FourPort;
+    extends IDEAS.Fluid.Interfaces.FourPort(redeclare package Medium1 = Medium, redeclare
+        package Medium2 =                                                                                   Medium);
     extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
 
     //Parameters
