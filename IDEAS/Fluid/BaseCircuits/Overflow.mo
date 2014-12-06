@@ -54,7 +54,9 @@ model Overflow "Collector unit"
   Movers.FlowMachine_m_flow fan(
     motorCooledByFluid=false,
     m_flow_nominal=m_flow_nominal,
-    addPowerToMedium=false) annotation (Placement(transformation(
+    addPowerToMedium=false,
+    redeclare package Medium = Medium)
+                            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,10})));
