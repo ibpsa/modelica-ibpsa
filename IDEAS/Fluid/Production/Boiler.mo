@@ -38,21 +38,27 @@ equation
             graphics),
     Icon(graphics={
         Ellipse(
-          extent={{-58,60},{60,-60}},
-          lineColor={127,0,0},
+          extent={{-60,60},{58,-60}},
+          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          fillColor={255,255,255}),
-        Ellipse(extent={{-46,46},{48,-46}}, lineColor={95,95,95}),
+          fillColor={95,95,95}),
+        Ellipse(extent={{-48,46},{46,-46}}, lineColor={0,0,0},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
         Line(
-          points={{-30,34},{32,-34}},
-          color={95,95,95},
+          points={{-32,34},{30,-34}},
+          color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{100,20},{44,20}},
+          points={{100,60},{44,60}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{102,-40},{70,-40},{70,-80},{0,-80},{0,-46}},
+          points={{100,-60},{68,-60},{68,-80},{0,-80},{0,-46}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{44,60},{34,48}},
           color={0,0,127},
           smooth=Smooth.None)}),
     Documentation(info="<html>
