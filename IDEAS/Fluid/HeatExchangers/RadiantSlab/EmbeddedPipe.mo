@@ -181,17 +181,48 @@ equation
             graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
-         graphics={Rectangle(
-          extent={{80,68},{-80,-70}},
-          lineColor={175,175,175},
-          fillColor={175,175,175},
+         graphics={
+        Ellipse(
+          extent={{-20,22},{20,-20}},
+          fillColor={127,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-95,6},{106,-4}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
-                   Line(
-          points={{-80,-12},{-80,0},{-80,-58},{-60,-64},{-60,56},{-40,62},{-40,
-              -60},{-20,-66},{-20,58},{0,64},{0,-62},{20,-68},{20,60},{40,66},{
-              40,-64},{60,-70},{60,62},{80,68},{80,0},{80,0}},
+        Rectangle(
+          extent={{-102,-4},{-2,6}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-20,22},{20,-20}},
+          fillColor={127,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-80,60},{80,-60}},
+          lineColor={0,0,0},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-66,60},{-66,-60}},
           color={0,0,0},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Line(
+          points={{66,60},{66,-60}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Polygon(
+          points={{-66,60},{-66,-60},{66,-60},{-66,60}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Forward)}),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Dynamic model of an embedded pipe for a concrete core activation or a floor heating element. This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;the&nbsp;norm&nbsp;prEN&nbsp;15377&nbsp;for&nbsp;the&nbsp;nomenclature&nbsp;but&nbsp;relies&nbsp;more&nbsp;on&nbsp;the&nbsp;background&nbsp;as&nbsp;developed&nbsp;in&nbsp;(Koschenz,&nbsp;2000).&nbsp;The R_x_val for the floor heating is calculated according to the TRNSYS guide lines (TRNSYS, 2007)  There&nbsp;is&nbsp;one&nbsp;major&nbsp;deviation:&nbsp;instead&nbsp;of&nbsp;calculating&nbsp;R_z&nbsp;(to&nbsp;get&nbsp;the&nbsp;mean&nbsp;water&nbsp;temperature&nbsp;in&nbsp;the&nbsp;tube&nbsp;from&nbsp;the&nbsp;supply&nbsp;temperature&nbsp;and&nbsp;flowrate),&nbsp;this&nbsp;mean&nbsp;water&nbsp;temperatue&nbsp;is&nbsp;modelled&nbsp;specifically,&nbsp;based&nbsp;on&nbsp;the&nbsp;mass&nbsp;of&nbsp;the&nbsp;water&nbsp;in&nbsp;the&nbsp;system.<code><font style=\"color: #006400; \">&nbsp;&nbsp;</font></code></p>
