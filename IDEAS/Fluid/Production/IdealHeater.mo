@@ -58,11 +58,6 @@ equation
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{100,-60},{68,-60},{68,-80},{0,-80},{0,-46}},
-          color={0,0,127},
-          smooth=Smooth.None,
-          pattern=LinePattern.Dash),
-        Line(
           points={{44,60},{34,48}},
           color={0,0,127},
           smooth=Smooth.None),
@@ -81,7 +76,17 @@ equation
           fillColor={0,255,128},
           fillPattern=FillPattern.Solid,
           origin={30,0},
-          rotation=270)}),
+          rotation=270),
+        Line(
+          points={{44,-60},{34,-48}},
+          color={0,0,127},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
+        Line(
+          points={{100,-60},{44,-60}},
+          color={0,0,127},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash)}),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">Description </font></h4></p>
 <p>Ideal&nbsp;heater,&nbsp;will&nbsp;always&nbsp;make&nbsp;sure&nbsp;to&nbsp;reach&nbsp;the&nbsp;setpoint (no power limitation). This heater has thermal losses to the environment but an energy conversion efficiency of one. The IdealHeatSource will compute the required power and the environmental heat losses, and deliver exactly this heat flux to the heatedFluid so it will reach the set point. </p>

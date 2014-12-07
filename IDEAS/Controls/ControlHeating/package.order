@@ -1,5 +1,3 @@
-HeatingCurve
-HeatingCurveFilter
 Ctrl_Heating
 Ctrl_Heating_DHW
 Ctrl_Heating_combiTES
@@ -7,4 +5,5 @@ Ctrl_Heating_TES
 Ctrl_Heating_TES_SetBack
 Ctrl_Heating_TES_SetBack_MinOffTime
 Ctrl_SolarThermal_Simple
+HeatingCurves
 Interfaces

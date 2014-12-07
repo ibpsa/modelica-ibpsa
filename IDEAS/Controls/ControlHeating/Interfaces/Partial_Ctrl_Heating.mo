@@ -25,7 +25,7 @@ partial model Partial_Ctrl_Heating
   parameter Modelica.SIunits.TemperatureDifference corFac_val = 0
     "correction term for TSet of the heating curve";
 
-  HeatingCurveFilter heatingCurve(
+  HeatingCurves.HeatingCurveFilter heatingCurve(
     timeFilter=timeFilter,
     TSup_nominal=TSupNom,
     TRet_nominal=TSupNom - dTSupRetNom,
@@ -40,13 +40,13 @@ partial model Partial_Ctrl_Heating
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Interfaces.RealOutput THeaterSet(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0,start=283.15)
-    "Heat pump set temperature" annotation (Placement(transformation(extent={{
-            94,-10},{114,10}}), iconTransformation(extent={{94,-10},{114,10}})));
+    "Heat pump set temperature" annotation (Placement(transformation(extent={{80,0},{
+            100,20}}),          iconTransformation(extent={{80,0},{100,20}})));
 
   Modelica.Blocks.Interfaces.RealOutput THeaCur(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
     "Heating curve setpoint"
-    annotation (Placement(transformation(extent={{94,30},{114,50}}),
-        iconTransformation(extent={{94,30},{114,50}})));
+    annotation (Placement(transformation(extent={{90,30},{110,50}}),
+        iconTransformation(extent={{90,30},{110,50}})));
 
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
     annotation (Placement(transformation(extent={{-60,46},{-40,66}})));
@@ -55,7 +55,8 @@ partial model Partial_Ctrl_Heating
 
   Modelica.Blocks.Interfaces.RealInput TRoo_in1(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
     "Room air temperature set point"
-    annotation (Placement(transformation(extent={{-108,-20},{-68,20}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}}),
+        iconTransformation(extent={{-110,30},{-90,50}})));
   Modelica.Blocks.Sources.RealExpression corHeaCur(y=corFac_val)
     "Correction term on the heating curve"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
@@ -65,22 +66,27 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatingCurve.TRoo_in, TRoo_in1) annotation (Line(
-      points={{-21.9,44},{-40,44},{-40,0},{-88,0}},
+      points={{-21.9,44},{-40,44},{-40,0},{0,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(extent={{-80,-80},{100,80}}), graphics={
-        Rectangle(
-          extent={{100,80},{-80,-80}},
-          lineColor={100,100,100},
-          fillPattern=FillPattern.Solid,
-          fillColor={255,255,255}),
-        Line(
-          points={{20,80},{100,0},{20,-80}},
-          color={100,100,100},
-          smooth=Smooth.None),
+  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}},
+          preserveAspectRatio=false),                             graphics={
         Text(
-          extent={{-60,40},{60,-40}},
-          lineColor={100,100,100},
-          textString="hp ")}), Diagram(coordinateSystem(extent={{-80,-80},{100,
-            80}}, preserveAspectRatio=false), graphics));
+          extent={{-151,147},{149,107}},
+          lineColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name"),
+          Rectangle(
+          extent={{120,60},{-80,-60}},
+          lineColor={175,175,175},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid), Polygon(
+          points={{-80,60},{-80,-60},{-20,0},{-80,60}},
+          smooth=Smooth.None,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0})}),Diagram(coordinateSystem(extent={{-100,-100},{100,
+            100}},preserveAspectRatio=false), graphics));
 end Partial_Ctrl_Heating;

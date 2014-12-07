@@ -54,13 +54,19 @@ equation
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{100,-60},{68,-60},{68,-80},{0,-80},{0,-46}},
+          points={{44,60},{34,48}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{44,60},{34,48}},
+          points={{44,-60},{34,-48}},
           color={0,0,127},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
+        Line(
+          points={{100,-60},{44,-60}},
+          color={0,0,127},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash)}),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">Description </font></h4></p>
 <p>Dynamic boiler model, based on interpolation in performance tables. The boiler has thermal losses to the environment which are often not mentioned in the performance tables. Therefore, the additional environmental heat losses are added to the heat production in order to ensure the same performance as in the manufacturers data, while still obtaining a dynamic model with heat losses (also when boiler is off). The heatSource will compute the required power and the environmental heat losses, and try to reach the set point. </p>
