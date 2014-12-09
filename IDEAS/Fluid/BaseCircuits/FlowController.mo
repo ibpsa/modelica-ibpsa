@@ -2,10 +2,12 @@ within IDEAS.Fluid.BaseCircuits;
 model FlowController
   //Extensions
   extends Interfaces.Circuit;
+  extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters(
+    CvData=IDEAS.Fluid.Types.CvTypes.Kv);
 
   //Parameters
-  parameter Real Kv "Kv value of the balancing valve";
-  parameter Real Kvs "Kv value of the controllable valve";
+  parameter Real KV "Fixed KV value of the balancing valve";
+  parameter Real KVs "Kv value of the controllable valve";
 
   //Interfaces
   Modelica.Blocks.Interfaces.RealInput opening "Valve opening signal"
@@ -20,8 +22,9 @@ model FlowController
   //Components
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = Medium,
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=Kv) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
+    CvData=CvData,
+    m_flow_nominal=m_flow_nominal,
+    Kv=KV) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 
   Modelica.Blocks.Sources.Constant hlift(k=1)
     "Constant opening of the balancing valve"
@@ -31,8 +34,8 @@ model FlowController
     m_flow(nominal=0.1),
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=Kvs) annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    CvData=CvData,
+    Kv=KVs) annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
 equation
   connect(val1.port_b, port_b2) annotation (Line(

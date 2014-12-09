@@ -2,15 +2,19 @@ within IDEAS.Fluid.BaseCircuits;
 model BalancingValve
   //Extensions
   extends Interfaces.Circuit;
+  extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters(
+    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+    Kv=KV);
 
   //Parameters
-  parameter Real Kv "Kv value of the balancing valve";
+  parameter Real KV "Fixed KV value of the balancing valve";
 
   //Components
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = Medium,
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+    CvData=CvData,
     Kv=Kv,
+    rhoStd=rhoStd,
     m_flow_nominal=m_flow_nominal) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 
   Modelica.Blocks.Sources.Constant hlift(k=1)

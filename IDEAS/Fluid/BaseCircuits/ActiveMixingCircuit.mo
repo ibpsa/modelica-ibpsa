@@ -3,7 +3,7 @@ model ActiveMixingCircuit "Active mixing circuit"
 
   //Extensions
   extends Interfaces.Circuit;
-
+  extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters;
   //Interfaces
   Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

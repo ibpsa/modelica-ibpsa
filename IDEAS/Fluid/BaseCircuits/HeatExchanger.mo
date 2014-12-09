@@ -1,15 +1,11 @@
 within IDEAS.Fluid.BaseCircuits;
 model HeatExchanger
+  //Extensions
   extends Interfaces.Circuit;
+  extends IDEAS.Fluid.Interfaces.FourPortFlowResistanceParameters;
 
   //Parameters
-  parameter Modelica.SIunits.Pressure p=200000
-    "Absolute pressure on the secondary side";
   parameter Real efficiency=0.9 "Efficiency of the heat exchanger";
-  parameter Modelica.SIunits.Pressure dp1_nominal=200
-    "Pressure drop on the primary side";
-  parameter Modelica.SIunits.Pressure dp2_nominal=200
-    "Pressure drop on the secondary side";
 
   //Interfaces
   Modelica.Blocks.Interfaces.RealOutput senT1
@@ -55,7 +51,15 @@ model HeatExchanger
     m2_flow_nominal=m_flow_nominal,
     eps=efficiency,
     dp1_nominal=dp1_nominal,
-    dp2_nominal=dp2_nominal) annotation (Placement(transformation(
+    from_dp1=from_dp1,
+    linearizeFlowResistance1=linearizeFlowResistance1,
+    allowFlowReversal1=allowFlowReversal1,
+    deltaM1=deltaM1,
+    dp2_nominal=dp2_nominal,
+    from_dp2=from_dp2,
+    linearizeFlowResistance2=linearizeFlowResistance2,
+    allowFlowReversal2=allowFlowReversal2,
+    deltaM2=deltaM2) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={0,0})));
