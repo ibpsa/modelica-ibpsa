@@ -141,12 +141,12 @@ partial model PartialHeatPump "Heat pump partial"
   IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_evap(
     redeclare package Medium = MediumBrine,
     allowFlowReversal=allowFlowReversal,
-    tau=10,
+    tau=riseTime,
     m_flow_nominal=heatPumpData.m_flow_nominal_fluid)
             annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_cond(
     redeclare package Medium = MediumFluid,
-    tau=10,
+    tau=riseTime,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=heatPumpData.m_flow_nominal_fluid)
     annotation (Placement(transformation(extent={{88,-50},{68,-30}})));
@@ -172,8 +172,6 @@ public
 
   FixedResistances.Pipe_HeatPort evaporator(
     redeclare package Medium = MediumBrine,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
     p_start=p_start,
     T_start=T_start,
     X_start=X_start,
@@ -188,14 +186,14 @@ public
     mFactor=if avoidEvents then max(mFactor, 1+riseTime*heatPumpData.P_the_nominal
         /MediumBrine.specificHeatCapacityCp(state_default_brine)/5/heatPumpData.mBrine)
          else mFactor,
-    computeFlowResistance=computeFlowResistance)
+    computeFlowResistance=computeFlowResistance,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
               annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-60,10})));
   FixedResistances.Pipe_HeatPort condensor(
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
     from_dp=from_dp,
     linearizeFlowResistance=linearizeFlowResistance,
     deltaM=deltaM,
@@ -211,7 +209,9 @@ public
     mFactor=if avoidEvents then max(mFactor, 1+riseTime*heatPumpData.P_the_nominal
         /MediumFluid.specificHeatCapacityCp(state_default_fluid)/5/heatPumpData.mFluid)
          else mFactor,
-    computeFlowResistance=computeFlowResistance)
+    computeFlowResistance=computeFlowResistance,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                                  annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
