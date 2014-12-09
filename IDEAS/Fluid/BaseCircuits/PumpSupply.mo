@@ -55,7 +55,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(revisions="<html>
+            -100},{100,100}}), graphics), Documentation(
+            info="<html><p>
+            This model is the base circuit implementation of a mass-flow controlled pump and makes use of <a href=\"modelica://IDEAS.Fluid.Movers.FlowMachine_m_flow\">IDEAS.Fluid.Movers.FlowMachine_m_flow</a>.
+</p></html>",
+            revisions="<html>
 <p><ul>
 <li>November 2014 by Filip Jorissen:<br> 
 Initial version</li>

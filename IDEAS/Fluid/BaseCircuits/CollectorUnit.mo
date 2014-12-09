@@ -5,7 +5,7 @@ model CollectorUnit "Collector unit"
 
   FixedResistances.LosslessPipe pip(m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-46,50},{-26,70}})));
   FixedResistances.LosslessPipe pip3(m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
@@ -34,15 +34,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a1, pip.port_a) annotation (Line(
-      points={{-100,60},{-60,60}},
+      points={{-100,60},{-46,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_b3, pip.port_a) annotation (Line(
-      points={{-60,100},{-60,60}},
+      points={{-60,100},{-60,60},{-46,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip.port_b, port_b1) annotation (Line(
-      points={{-40,60},{100,60}},
+      points={{-26,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a3, pip3.port_a) annotation (Line(

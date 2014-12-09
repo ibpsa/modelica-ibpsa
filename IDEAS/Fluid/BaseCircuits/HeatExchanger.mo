@@ -69,7 +69,7 @@ model HeatExchanger
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium =Medium,
     m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-34,0},{-14,20}})));
+    annotation (Placement(transformation(extent={{-36,0},{-16,20}})));
 
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTem2(
     redeclare package Medium=Medium,
@@ -88,11 +88,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTem1.T, senT1) annotation (Line(
-      points={{-24,21},{-24,52},{-40,52},{-40,106}},
+      points={{-26,21},{-26,52},{-40,52},{-40,106}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTem1.port_b, hex.port_a1) annotation (Line(
-      points={{-14,10},{-6,10}},
+      points={{-16,10},{-6,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senMasFlo2.m_flow, senMassFlow2) annotation (Line(
@@ -116,7 +116,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTem1.port_a, senMasFlo1.port_b) annotation (Line(
-      points={{-34,10},{-80,10},{-80,32}},
+      points={{-36,10},{-80,10},{-80,32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_b2, hex.port_b1) annotation (Line(
@@ -135,7 +135,8 @@ equation
       points={{6,-10},{6,-60},{60,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (Documentation(info="<html><p>
+  This model is the base circuit implementation of heat exchanger in a pressurized circuit. An heat exchanger can disconnect two hydraulic circuits in wich the flow needs to be controlled.</p></html>"),Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Rectangle(
