@@ -5,7 +5,9 @@ model PumpExample "Example of how a pump can be used"
 
   IDEAS.Fluid.Movers.Pump pump(redeclare package Medium = Medium, m_flow_nominal=
        1,
-    useInput=true)
+    useInput=true,
+    riseTime=500,
+    use_onOffSignal=true)
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
         Medium)
@@ -23,6 +25,8 @@ model PumpExample "Example of how a pump can be used"
     annotation (Placement(transformation(extent={{-42,40},{-22,60}})));
   IDEAS.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
+  Modelica.Blocks.Sources.BooleanPulse booleanPulse(period=5500)
+    annotation (Placement(transformation(extent={{-38,12},{-22,28}})));
 equation
   connect(bou.ports[1], pump.port_a) annotation (Line(
       points={{-38,0},{-10,0}},
@@ -39,6 +43,10 @@ equation
   connect(senMasFlo.port_b, bou1.ports[1]) annotation (Line(
       points={{46,0},{62,0}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(booleanPulse.y, pump.on) annotation (Line(
+      points={{-21.2,20},{-2,20},{-2,10.8}},
+      color={255,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),

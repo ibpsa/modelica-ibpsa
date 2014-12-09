@@ -1,32 +1,42 @@
-within IDEAS.Controls.Control_fixme;
-block Hyst_NoEvent_Var
-  "Hysteresis without events (use with care!), with Real in- and output, and inputs for uLow and uHigh"
-  extends Modelica.Blocks.Interfaces.SISO(y(start=0));
-  parameter Boolean use_input = true;
+within IDEAS.Controls.Discrete;
+block HysteresisRelease
+  "Hysteresis for cooling mode WITH events, with Real in- and output, and inputs for uLow and uHigh"
+  extends Modelica.Blocks.Interfaces.SISO(y(start=if y_start then 1 else 0, min=0, max=1));
+  parameter Boolean revert = false
+    "Set to true if the hysteresis returns true when u < uLow instead of u > uHigh (for example for heating put revert = true)";
+  parameter Boolean use_input = true
+    "If true, use realinput signals for uLow and uHigh instead of fixed parameters";
   parameter Boolean enableRelease=false
     "if true, an additional RealInput will be available for releasing the controller";
   Modelica.Blocks.Interfaces.RealInput uLow if use_input
-    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealInput uHigh if use_input
-    annotation (Placement(transformation(extent={{-140,48},{-100,88}})));
-  parameter Real uLow_val "lower boundary value if the input uLow is not used";
-  parameter Real uHigh_val
-    "higher boundary value if the input uHigh is not used";
-  Modelica.Blocks.Interfaces.RealInput release(start=0) = rel if enableRelease
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+  parameter Real uLow_val = 0
+    "lower boundary value if the input uLow is not used"
+    annotation(dialog(enable=not use_input));
+  parameter Real uHigh_val = 1
+    "higher boundary value if the input uHigh is not used"
+    annotation(dialog(enable=not use_input));
+  Modelica.Blocks.Interfaces.RealInput release(start=0) = rel_internal if enableRelease
     "if < 0.5, the controller is OFF"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={0,-120})));
+  parameter Boolean y_start = false "Output of controller at initial time";
 protected
   Modelica.Blocks.Interfaces.RealInput uLow_internal
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput uHigh_internal
     "Needed to connect to conditional connector";
-  Real rel
+  Real rel_internal
     "release, either 1 ,either from RealInput release if enableRelease is true";
+  Boolean y_boolean "Boolean control signal, will be converted to Real";
+initial equation
+  pre(y_boolean) = y_start;
 equation
   if not enableRelease then
-    rel = 1;
+    rel_internal = 1;
   end if;
   connect(uLow,uLow_internal);
   connect(uHigh,uHigh_internal);
@@ -35,13 +45,16 @@ equation
     uLow_internal = uLow_val;
     uHigh_internal = uHigh_val;
   end if;
-  if noEvent(u >= uHigh_internal and rel > 0.5) then
-    y = 1;
-  elseif noEvent(u > uLow_internal and y > 0.5 and rel>0.5) then
-    y = 1;
+  if rel_internal > 0.5 then
+    if not revert then
+      y_boolean = u > uHigh or pre(y_boolean) and u >= uLow;
+    else
+      y_boolean = u < uLow or pre(y_boolean) and u <= uHigh;
+    end if;
   else
-    y = 0;
+    y_boolean = false;
   end if;
+  y = if y_boolean then 1 else 0;
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics={Polygon(
@@ -125,31 +138,25 @@ equation
            {192,192,192}),Line(points={{-49,-29},{-49,-49}}, color={192,192,192}),
           Rectangle(extent={{2,-49},{91,-92}}, lineColor={192,192,192}),Line(
           points={{41,-29},{41,-49}}, color={192,192,192})}),
-    Documentation(info="<HTML>
-<p>
-This block transforms a <b>Real</b> input signal into a <b>Boolean</b>
-output signal:
-</p>
+    Documentation(info="<html>
+<p>This block transforms a <b>Real</b> input signal into a <b>Real</b> output signal: </p>
 <ul>
-<li> When the output was <b>false</b> and the input becomes
-     <b>greater</b> than parameter <b>uHigh</b>, the output
-     switches to <b>true</b>.</li>
-<li> When the output was <b>true</b> and the input becomes
-     <b>less</b> than parameter <b>uLow</b>, the output
-     switches to <b>false</b>.</li>
+<li>When the output was false and the input becomes greater than parameter uHigh, the output switches to true.</li>
+<li>When the output was true and the input becomes less than parameter uLow, the output switches to false.</li>
+<li>As long as the input stays between uLow and uHigh, the output remains the same.</li>
 </ul>
-<p>
-The start value of the output is defined via parameter
-<b>pre_y_start</b> (= value of pre(y) at initial time).
-The default value of this parameter is <b>false</b>.
-</p>
-</HTML>
-",revisions="<html>
+<p><br>This hysteresic block has several additional features:</p>
 <ul>
-<li>
-May 13, 2014, by Damien Picard:<br/>
-Add possibility to use parameters as boundary values instead of inputs.
-</li>
+<li>When the parameter revert is true, the switching logic changes.  This is typically used for heating-like situations, when the output has to be true when the input is below uLow. </li>
+<li>uLow and uHigh can be realinputs instead of fixed parameters</li>
+<li>a release input can be used to activate (release) or deactivate  the controller</li>
+</ul>
+<p>The initial value of the output is defined via parameter y_start. The default value of this parameter is false. </p>
+</html>",
+  revisions="<html>
+<ul>
+<li>November 2014, Roel De Coninck<br>Switching to real inputs and output</li>
+<li>May 13, 2014, by Damien Picard:<br>Add possibility to use parameters as boundary values instead of inputs. </li>
 </ul>
 </html>"));
-end Hyst_NoEvent_Var;
+end HysteresisRelease;
