@@ -27,9 +27,9 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(extent={{-100,-80},{100,80}}, preserveAspectRatio=true),
+    Diagram(coordinateSystem(extent={{-100,-80},{100,100}},preserveAspectRatio=true),
                    graphics),
-    Icon(coordinateSystem(extent={{-100,-80},{100,80}}, preserveAspectRatio=
+    Icon(coordinateSystem(extent={{-100,-80},{100,100}},preserveAspectRatio=
             true), graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>

@@ -1,18 +1,14 @@
 within IDEAS.Controls.Control_fixme;
 block Hyst_NoEvent_Var
-  "Hysteresis without events, with Real in- and output, and inputs for uLow and uHigh"
-
+  "Hysteresis without events (use with care!), with Real in- and output, and inputs for uLow and uHigh"
   extends Modelica.Blocks.Interfaces.SISO(y(start=0));
-
   parameter Boolean use_input = true;
   parameter Boolean enableRelease=false
     "if true, an additional RealInput will be available for releasing the controller";
-
   Modelica.Blocks.Interfaces.RealInput uLow if use_input
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
   Modelica.Blocks.Interfaces.RealInput uHigh if use_input
     annotation (Placement(transformation(extent={{-140,48},{-100,88}})));
-
   parameter Real uLow_val "lower boundary value if the input uLow is not used";
   parameter Real uHigh_val
     "higher boundary value if the input uHigh is not used";
@@ -28,12 +24,10 @@ protected
     "Needed to connect to conditional connector";
   Real rel
     "release, either 1 ,either from RealInput release if enableRelease is true";
-
 equation
   if not enableRelease then
     rel = 1;
   end if;
-
   connect(uLow,uLow_internal);
   connect(uHigh,uHigh_internal);
   // Needed to connect to conditional connector
@@ -41,7 +35,6 @@ equation
     uLow_internal = uLow_val;
     uHigh_internal = uHigh_val;
   end if;
-
   if noEvent(u >= uHigh_internal and rel > 0.5) then
     y = 1;
   elseif noEvent(u > uLow_internal and y > 0.5 and rel>0.5) then
@@ -49,7 +42,6 @@ equation
   else
     y = 0;
   end if;
-
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics={Polygon(

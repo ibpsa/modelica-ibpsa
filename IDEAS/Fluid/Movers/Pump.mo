@@ -1,5 +1,6 @@
 within IDEAS.Fluid.Movers;
 model Pump "Prescribed mass flow rate, no heat exchange."
+  extends IDEAS.Fluid.Interfaces.OnOffInterface;
   extends IDEAS.Fluid.Interfaces.Partials.PumpTwoPort(idealSource(
         control_m_flow=true, allowFlowReversal=true));
   parameter Boolean useInput=false "Enable / disable MassFlowRate input"
@@ -20,15 +21,18 @@ model Pump "Prescribed mass flow rate, no heat exchange."
         origin={0,104},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=m_flow_pump)
-    annotation (Placement(transformation(extent={{-32,32},{-2,52}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=on_internal_filtered*
+        m_flow_pump)
+    annotation (Placement(transformation(extent={{82,8},{20,28}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-24,108})));
+        origin={80,106})));
   Modelica.Blocks.Sources.RealExpression realExpression2(y=PEl)
-    annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={80,76})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(min=0, max=m_flow_nominal,
                                                  final quantity="MassFlowRate",
                                                   final unit="kg/s",
@@ -40,7 +44,7 @@ model Pump "Prescribed mass flow rate, no heat exchange."
       final unit="kg/s",
       nominal=m_flow_nominal)) if useInput
     "Gain for mass flow rate input signal"
-    annotation (Placement(transformation(extent={{-6,58},{6,70}})));
+    annotation (Placement(transformation(extent={{-12,58},{0,70}})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_filtered(min=0, max=m_flow_nominal,
                                                  final quantity="MassFlowRate",
                                                   final unit="kg/s",
@@ -63,13 +67,40 @@ model Pump "Prescribed mass flow rate, no heat exchange."
     annotation (Placement(transformation(extent={{20,75},{34,89}})));
 protected
   Modelica.SIunits.MassFlowRate m_flow_pump;
+  Modelica.Blocks.Interfaces.RealOutput on_internal_filtered;
+public
+  Modelica.Blocks.Continuous.Filter filter1(
+     order=2,
+     f_cut=5/(2*Modelica.Constants.pi*riseTime),
+     x(each stateSelect=StateSelect.always),
+     u_nominal=m_flow_nominal,
+     u(final quantity="MassFlowRate", final unit="kg/s", nominal=m_flow_nominal),
+     y(final quantity="MassFlowRate", final unit="kg/s", nominal=m_flow_nominal),
+     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
+        useInput and filteredMassFlowRate
+    "Second order filter to approximate valve opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{80,43},{94,57}})));
+  Modelica.Blocks.Math.BooleanToReal booleanToReal if use_onOffSignal
+    annotation (Placement(transformation(extent={{0,34},{12,46}})));
+  Modelica.Blocks.Sources.BooleanExpression realExpression3(y=on_internal) if use_onOffSignal
+    annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
+  Modelica.Blocks.Continuous.Filter filter2(
+     order=2,
+     f_cut=5/(2*Modelica.Constants.pi*riseTime),
+     x(each stateSelect=StateSelect.always),
+     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     final filterType=Modelica.Blocks.Types.FilterType.LowPass,
+    y_start=if onOff then 1 else 0) if use_onOffSignal
+    "Second order filter to approximate valve opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{20,33},{34,47}})));
 equation
   if not useInput then
     m_flow_pump = m_flow_nominal;
   else
       if filteredMassFlowRate then
         connect(gaiFlow.y, filter.u) annotation (Line(
-          points={{6.6,64},{10.6,64},{10.6,82},{18.6,82}},
+          points={{0.6,64},{10.6,64},{10.6,82},{18.6,82}},
           color={0,0,127},
           smooth=Smooth.None));
         connect(filter.y, m_flow_actual) annotation (Line(
@@ -82,25 +113,39 @@ equation
           smooth=Smooth.None));
       else
         connect(gaiFlow.y, m_flow_actual) annotation (Line(
-          points={{6.6,64},{50,64}},
+          points={{0.6,64},{50,64}},
           color={0,0,127},
           smooth=Smooth.None));
       end if;
     end if;
   Q_flow = 0;
   PEl = m_flow_pump/Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), Medium.X_default))*dpFix/etaTot;
-  connect(realExpression1.y, idealSource.m_flow_in) annotation (Line(
-      points={{-0.5,42},{0,42},{0,8},{12,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(realExpression2.y, P) annotation (Line(
-      points={{-31,-80},{-24,-80},{-24,108}},
+      points={{80,87},{80,106}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flowSet, gaiFlow.u) annotation (Line(
-      points={{0,104},{0,82},{-16,82},{-16,64},{-7.2,64}},
+      points={{0,104},{0,82},{-16,82},{-16,64},{-13.2,64}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(realExpression1.y, idealSource.m_flow_in) annotation (Line(
+      points={{16.9,18},{12,18},{12,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  if not use_onOffSignal then
+    on_internal_filtered = if on_internal then 1 else 0;
+  else
+    connect(on_internal_filtered,filter2.y);
+    connect(realExpression3.y, booleanToReal.u) annotation (Line(
+      points={{-7,40},{-1.2,40}},
+      color={255,0,255},
+      smooth=Smooth.None));
+    connect(booleanToReal.y, filter2.u) annotation (Line(
+      points={{12.6,40},{18.6,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  end if;
   annotation (
     Documentation(info="<html>
 <p><b>Description</b> </p>

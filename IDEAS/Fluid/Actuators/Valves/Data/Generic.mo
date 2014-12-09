@@ -11,7 +11,7 @@ Documentation(info="<html>
 <p>
 This is a generic record for the normalized volume flow
 rates for different valve opening positions.
-See the documentation of 
+See the documentation of
 <a href=\"modelica://IDEAS.Fluid.Actuators.Valves.Data\">
 IDEAS.Fluid.Actuators.Valves.Data</a>
 for how to use this record.
