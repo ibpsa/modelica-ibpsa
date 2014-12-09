@@ -2,10 +2,12 @@ within IDEAS.Fluid.BaseCircuits;
 model FlowController
   //Extensions
   extends Interfaces.Circuit;
+  extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters(
+    CvData=IDEAS.Fluid.Types.CvTypes.Kv);
 
   //Parameters
-  parameter Real Kv "Kv value of the balancing valve";
-  parameter Real Kvs "Kv value of the controllable valve";
+  parameter Real KV "Fixed KV value of the balancing valve";
+  parameter Real KVs "Kv value of the controllable valve";
 
   //Interfaces
   Modelica.Blocks.Interfaces.RealInput opening "Valve opening signal"
@@ -20,8 +22,9 @@ model FlowController
   //Components
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = Medium,
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=Kv) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
+    CvData=CvData,
+    m_flow_nominal=m_flow_nominal,
+    Kv=KV) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 
   Modelica.Blocks.Sources.Constant hlift(k=1)
     "Constant opening of the balancing valve"
@@ -31,8 +34,8 @@ model FlowController
     m_flow(nominal=0.1),
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=Kvs) annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    CvData=CvData,
+    Kv=KVs) annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
 equation
   connect(val1.port_b, port_b2) annotation (Line(
@@ -59,7 +62,11 @@ equation
       points={{10,-60},{60,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (
+  Documentation(info="<html><p>
+  This model is the base circuit implementation of a combination of a regulation and balancing valve to control a flow in a pressurizeµd hydraulic circuit. The regulation valve is an equal-percentage opening valve and is modelled using the <a href=\"modelica://IDEAS.Fluid.Actuators.Valves.TwoWayEqualPercentage\">IDEAS.Fluid.Actuators.Valves.TwoWayEqualPercentage</a> model with a variable opening to control the flow. 
+  <p>The balancing valve is characterized by a fixed Kv value which can be adjusted to obtain the desired flow through the circuit dependent on the pressure head of the circuit.</p></html>"),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Polygon(

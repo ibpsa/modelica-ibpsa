@@ -3,7 +3,7 @@ model ActiveMixingCircuit "Active mixing circuit"
 
   //Extensions
   extends Interfaces.Circuit;
-
+  extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters;
   //Interfaces
   Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -95,7 +95,13 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(revisions="<html>
+            -100},{100,100}}), graphics),
+Documentation(
+info="<html><p>
+This model is the base circuit implementation of an active mixing circuit and makes use of <a href=\"modelica://IDEAS.Fluid.Valves.Thermostatic3WayValve\">IDEAS.Fluid.Valves.Thermostatic3WayValve</a>. 
+The flow is regulated by a mass-flow controlled pump after the mixing point.
+</p></html>",
+revisions="<html>
 <p><ul>
 <li>November 2014 by Filip Jorissen:<br> 
 Initial version</li>

@@ -3,9 +3,12 @@ model PumpSupplydP
 
   //Extensions
   extends Interfaces.Circuit;
+  extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters(
+    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+    Kv=KV);
 
   //Parameters
-  parameter Real Kv = 30 "KV value of the balancing valve";
+  parameter Real KV "Fixed KV value of the balancing valve";
 
   //Interfaces
   Modelica.Blocks.Interfaces.RealInput u "Control input signal" annotation (Placement(transformation(
@@ -29,8 +32,10 @@ model PumpSupplydP
 
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = Medium,
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+    CvData=CvData,
     Kv=Kv,
+    rhoStd=rhoStd,
+    deltaM=deltaM,
     m_flow_nominal=m_flow_nominal) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 
   Modelica.Blocks.Sources.Constant hlift(k=1)
@@ -75,8 +80,11 @@ equation
       points={{10,-60},{60,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  annotation (Documentation(info="<html><p>
+            This model is the base circuit implementation of a pressure head controlled pump and makes use of <a href=\"modelica://IDEAS.Fluid.Movers.FlowMachine_dp\">IDEAS.Fluid.Movers.FlowMachine_dp</a>. The flow can be regulated by changing the Kv value of the balancing valve.
+            </p><p>Note that an hydronic optimization might be necessary to obtain a meaningfull value for the Kv parameter.</p></html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics),
+        Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Polygon(
           points={{-10,10},{-10,-22},{22,-6},{-10,10}},
