@@ -1,10 +1,8 @@
 within IDEAS.Fluid.Production.BaseClasses;
 model HeatSource_CondensingGasBurner
   "Burner for use in Boiler, based on interpolation data.  Takes into account losses of the boiler to the environment"
-
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component";
-
   final parameter Real[6] modVector={0,20,40,60,80,100} "6 modulation steps, %";
   Real eta "Instantaneous efficiency of the boiler (higher heating value)";
   Real[6] etaVector
@@ -18,7 +16,6 @@ model HeatSource_CondensingGasBurner
   parameter Modelica.SIunits.Power QNom "The power at nominal conditions";
   final parameter Modelica.SIunits.Power QNom0 = 10100
     "Nominal power of the boiler from which the power data are used in this model";
-
   constant Real etaNom=0.922
     "Nominal efficiency (higher heating value)of the xxx boiler at 50/30degC.  See datafile";
   parameter Real modulationMin(max=29) = 10 "Minimal modulation percentage";
@@ -34,11 +31,9 @@ model HeatSource_CondensingGasBurner
   input Modelica.SIunits.Temperature TEnvironment
     "Temperature of environment for heat losses";
   input Modelica.SIunits.SpecificEnthalpy hIn "Specific enthalpy at the inlet";
-
 protected
   Real m_flowHx_scaled = IDEAS.Utilities.Math.Functions.smoothMax(x1=m_flowHx, x2=0,deltaX=0.001) * QNom0/QNom
     "mass flow rate, scaled with the original and the actual nominal power of the boiler";
-
   constant Real kgps2lph=3600/Medium.density(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))*1000
     "Conversion from kg/s to l/h";
   Modelica.Blocks.Tables.CombiTable2D eta100(smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
@@ -79,15 +74,13 @@ protected
         60.0, 0.8562, 0.857, 0.8575, 0.8576, 0.8577; 70.0, 0.8398, 0.8479,
         0.8481, 0.8482, 0.8483; 80.0, 0.8374, 0.8384, 0.8386, 0.8387, 0.8388])
     annotation (Placement(transformation(extent={{-58,-86},{-38,-66}})));
-
   Modelica.SIunits.HeatFlowRate QLossesToCompensate "Environment losses";
   Integer i "Integer to select data interval";
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
-  Controls.Control_fixme.Hyst_NoEvent_Var onOff(
+  Controls.Discrete.HysteresisRelease     onOff(
     use_input=false,
     enableRelease=true,
     uLow_val=modulationMin,
@@ -95,7 +88,6 @@ public
     y(start=0),
     release(start=0))
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-
   Modelica.Blocks.Sources.RealExpression realExpression(y=modulationInit)
     annotation (Placement(transformation(extent={{-12,20},{8,40}})));
 algorithm
@@ -110,7 +102,6 @@ algorithm
   eta40.u2 :=m_flowHx_scaled*kgps2lph;
   eta20.u1 :=THxIn - 273.15;
   eta20.u2 :=m_flowHx_scaled*kgps2lph;
-
   // all these are in kW
   etaVector[1] :=0;
   etaVector[2] :=eta20.y;
@@ -121,7 +112,6 @@ algorithm
   QVector :=etaVector/etaNom .* modVector/100*QNom;
   // in W
   QMax :=QVector[6];
-
   // Interpolation if  QVector[1]<QAsked<QVector[6], other wise extrapolation with slope = 0
   i := 1;
   for j in 1:6-1 loop
@@ -129,7 +119,6 @@ algorithm
       i := j;
     end if;
   end for;
-
   modulationInit :=
     IDEAS.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
     x=QAsked,
@@ -148,7 +137,6 @@ algorithm
     y2=etaVector[i + 1],
     y1d=0,
     y2d=0);
-
   heatPort.Q_flow :=-
     IDEAS.Utilities.Math.Functions.cubicHermiteLinearExtrapolation(
     x=modulation,
@@ -158,22 +146,16 @@ algorithm
     y2=QVector[i + 1],
     y1d=0,
     y2d=0) - onOff.y*QLossesToCompensate;
-
 equation
   assert(TBoilerSet < 80+273.15 and TBoilerSet > 20 + 273.15, "The given set point temperature is not inside the covered range (20 -> 80 degC)");
   assert(m_flowHx_scaled*kgps2lph < 1300, "The given mass flow rate is outside the allowed range. Make sure that the mass flow
   is positive and not too high. The current mass flow equals " + String(m_flowHx) + " [kg/s] but its maximum value is for the chosen QNom is " + String(1300*QNom/QNom0/kgps2lph));
-
   onOff.release = if noEvent(m_flowHx > Modelica.Constants.eps) then 1.0 else 0.0;
-
   QAsked = IDEAS.Utilities.Math.Functions.smoothMax(0, m_flowHx*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TBoilerSet, Medium.X_default)) -hIn), 10);
-
   // compensation of heat losses (only when the hp is operating)
   QLossesToCompensate = if noEvent(modulation > 0) then UALoss*(heatPort.T -
     TEnvironment) else 0;
-
   PFuel = if onOff.release > 0.5 and noEvent(eta>Modelica.Constants.eps) then -heatPort.Q_flow/eta else 0;
-
   connect(realExpression.y, onOff.u) annotation (Line(
       points={{9,30},{18,30}},
       color={0,0,127},

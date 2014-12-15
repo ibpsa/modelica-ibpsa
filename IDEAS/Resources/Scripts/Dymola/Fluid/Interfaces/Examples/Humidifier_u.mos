@@ -1,4 +1,4 @@
-simulateModel("IDEAS.Fluid.Interfaces.Examples.HumidifierPrescribed", method="dassl", stopTime=3600, tolerance=1e-5, resultFile="InterfacesHumidifierPrescribed");
+simulateModel("IDEAS.Fluid.Interfaces.Examples.Humidifier_u", method="dassl", stopTime=3600, tolerance=1e-5, resultFile="InterfacesHumidifier_u");
 createPlot(id = 1,
  position = {15, 10, 413, 444},
  y = {"hea1.sta_a.T", "hea1.sta_b.T", "hea2.sta_a.T", "hea2.sta_b.T"},
@@ -8,7 +8,7 @@ createPlot(id = 1,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "InterfacesHumidifierPrescribed.mat",
+ filename = "InterfacesHumidifier_u.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 1,
@@ -56,7 +56,7 @@ createPlot(id = 10,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "InterfacesHumidifierPrescribed.mat",
+ filename = "InterfacesHumidifier_u.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 10,
@@ -94,5 +94,3 @@ createPlot(id = 13,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
-

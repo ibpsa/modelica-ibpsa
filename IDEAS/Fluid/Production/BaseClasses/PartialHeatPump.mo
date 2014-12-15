@@ -110,7 +110,7 @@ partial model PartialHeatPump "Heat pump partial"
     "Set to true to switch heat pumps on using a continuous transition"
     annotation(Dialog(tab="Advanced", group="Events"));
 
-  parameter SI.Frequency riseTime=120
+  parameter SI.Time riseTime=120
     "The time it takes to reach full/zero power when switching"
     annotation(Dialog(tab="Advanced", group="Events", enable=avoidEvents));
   Modelica.Blocks.Tables.CombiTable2D powerTable(              table=
@@ -182,9 +182,9 @@ public
     from_dp=from_dp,
     linearizeFlowResistance=linearizeFlowResistance,
     deltaM=deltaM,
-    m=heatPumpData.mBrine,
+    m=heatPumpData.mBrine*sca,
     dp_nominal=heatPumpData.dp_nominal_brine,
-    m_flow_nominal=heatPumpData.m_flow_nominal_brine,
+    m_flow_nominal=heatPumpData.m_flow_nominal_brine*sca,
     mFactor=if avoidEvents then max(mFactor, 1+riseTime*heatPumpData.P_the_nominal
         /MediumBrine.specificHeatCapacityCp(state_default_brine)/5/heatPumpData.mBrine)
          else mFactor,
@@ -205,9 +205,9 @@ public
     X_start=X_start2,
     C_start=C_start2,
     C_nominal=C_nominal2,
-    m=heatPumpData.mFluid,
+    m=heatPumpData.mFluid*sca,
     dp_nominal=heatPumpData.dp_nominal_fluid,
-    m_flow_nominal=heatPumpData.m_flow_nominal_fluid,
+    m_flow_nominal=heatPumpData.m_flow_nominal_fluid*sca,
     mFactor=if avoidEvents then max(mFactor, 1+riseTime*heatPumpData.P_the_nominal
         /MediumFluid.specificHeatCapacityCp(state_default_fluid)/5/heatPumpData.mFluid)
          else mFactor,
@@ -254,7 +254,11 @@ protected
 
 equation
   cop = copTable.y;
-  connect(modulationInternal, modulationRate.y);
+  if avoidEvents then
+    connect(modulationInternal, modulationRate.y);
+  else
+    modulationInternal = if compressorOn then 1 else 0;
+  end if;
   if avoidEvents then
     P_el = powerTable.y * sca*modulationInternal;
   else

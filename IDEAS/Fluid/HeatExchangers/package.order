@@ -1,9 +1,10 @@
-Boreholes
 GroundHeatExchangers
 RadiantSlab
 Radiators
+Validation
 ConstantEffectiveness
-HeaterCoolerPrescribed
+HeaterCooler_T
+HeaterCooler_u
 Examples
 BaseClasses
 Interfaces

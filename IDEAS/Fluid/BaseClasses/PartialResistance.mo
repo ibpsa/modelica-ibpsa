@@ -112,8 +112,8 @@ and model
 <li>
 August 5, 2011, by Michael Wetter:<br/>
 Moved linearized pressure drop equation from the function body to the equation
-section. With the previous implementation, 
-the symbolic processor may not rearrange the equations, which can lead 
+section. With the previous implementation,
+the symbolic processor may not rearrange the equations, which can lead
 to coupled equations instead of an explicit solution.
 </li>
 <li>
@@ -142,7 +142,7 @@ July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
+</html>",
 revisions="<html>
 <ul>
 <li>
@@ -166,5 +166,5 @@ July 20, 2007 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
 end PartialResistance;

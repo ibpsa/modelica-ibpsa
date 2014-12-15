@@ -1,98 +1,89 @@
 within IDEAS.Fluid.Interfaces.Examples;
-model HeaterCoolerPrescribed
+model HeaterCooler_u
   "Model that tests a heat exchanger model with reverse flow"
   extends Modelica.Icons.Example;
 
  package Medium = IDEAS.Media.Water.Simple;
 
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea1(
-                                                         redeclare package
-      Medium =
-        Medium, Q_flow_nominal=5000,
+  IDEAS.Fluid.HeatExchangers.HeaterCooler_u hea1(
+    redeclare package Medium = Medium,
+    Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                  annotation (Placement(
-        transformation(extent={{-14,90},{6,110}},   rotation=0)));
+        transformation(extent={{-14,90},{6,110}})));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
-    annotation (Placement(transformation(extent={{-200,94},{-180,114}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-200,94},{-180,114}})));
   IDEAS.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium,
     use_T_in=true,
     nPorts=4,
     p(displayUnit="Pa") = 101735,
     T=293.15)             annotation (Placement(transformation(extent={{-170,90},
-            {-150,110}}, rotation=0)));
+            {-150,110}})));
     IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_11(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,90},{-80,110}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
     IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_12(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,134},{-80,154}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,134},{-80,154}})));
   IDEAS.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium,
     use_p_in=true,
     T=288.15,
     nPorts=4)             annotation (Placement(transformation(extent={{-168,
-            132},{-148,152}}, rotation=0)));
+            132},{-148,152}})));
     Modelica.Blocks.Sources.Constant POut(k=101325)
-      annotation (Placement(transformation(extent={{-200,140},{-180,160}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
     Modelica.Blocks.Sources.Ramp u(
     height=2,
     duration=3600,
     offset=-1,
     startTime=0) "Control signal"
                  annotation (Placement(transformation(extent={{-148,174},{-128,
-            194}}, rotation=0)));
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea2(
-                                                 redeclare package Medium =
-        Medium, Q_flow_nominal=5000,
+            194}})));
+  IDEAS.Fluid.HeatExchangers.HeaterCooler_u hea2(
+    redeclare package Medium = Medium,
+    Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                                  annotation (Placement(
-        transformation(extent={{28,134},{48,154}}, rotation=0)));
+        transformation(extent={{28,134},{48,154}})));
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
-          extent={{-50,174},{-30,194}}, rotation=0)));
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea3(
-                                                         redeclare package
-      Medium =
-        Medium, Q_flow_nominal=5000,
+          extent={{-50,174},{-30,194}})));
+  IDEAS.Fluid.HeatExchangers.HeaterCooler_u hea3(
+    redeclare package Medium = Medium,
+    Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                   annotation (Placement(
-        transformation(extent={{-14,-30},{6,-10}}, rotation=0)));
+        transformation(extent={{-14,-30},{6,-10}})));
     IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_2(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-30},{-80,-10}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
     IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_3(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,22},{-80,42}},
-          rotation=0)));
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea4(
-                                                 redeclare package Medium =
-        Medium, Q_flow_nominal=5000,
+             annotation (Placement(transformation(extent={{-100,22},{-80,42}})));
+  IDEAS.Fluid.HeatExchangers.HeaterCooler_u hea4(
+    redeclare package Medium = Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                                   annotation (Placement(
-        transformation(extent={{20,22},{40,42}}, rotation=0)));
+        transformation(extent={{20,22},{40,42}})));
     IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_4(
     redeclare package Medium = Medium,
     dp_nominal=5,
@@ -107,76 +98,66 @@ model HeaterCoolerPrescribed
     nPorts=2,
     m_flow_nominal=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                 annotation (Placement(transformation(extent={{62,-20},{82,0}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{62,-20},{82,0}})));
   IDEAS.Utilities.Diagnostics.AssertEquality ass1(               threShold=
         0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,160},{180,180}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{160,160},{180,180}})));
   IDEAS.Utilities.Diagnostics.AssertEquality ass2(               threShold=
         0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,116},{180,136}}, rotation=
-           0)));
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea5(
-                                                         redeclare package
-      Medium =
-        Medium, Q_flow_nominal=5000,
+    annotation (Placement(transformation(extent={{160,116},{180,136}})));
+  IDEAS.Fluid.HeatExchangers.HeaterCooler_u hea5(
+    redeclare package Medium = Medium,
+    Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                  annotation (Placement(
-        transformation(extent={{-10,-190},{10,-170}}, rotation=0)));
+        transformation(extent={{-10,-190},{10,-170}})));
     IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_1(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-190},{-80,-170}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
     IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_5(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-130},{-80,-110}},
-          rotation=0)));
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea6(
-                                                 redeclare package Medium =
+             annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
+  IDEAS.Fluid.HeatExchangers.HeaterCooler_u hea6(
+    redeclare package Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                                  annotation (Placement(
-        transformation(extent={{0,-130},{20,-110}},rotation=0)));
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea7(
-                                                         redeclare package
-      Medium =
-        Medium, Q_flow_nominal=5000,
+        transformation(extent={{0,-130},{20,-110}})));
+  IDEAS.Fluid.HeatExchangers.HeaterCooler_u hea7(
+    redeclare package Medium = Medium,
+    Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Heater and cooler"                                  annotation (Placement(
-        transformation(extent={{-10,-330},{10,-310}},  rotation=0)));
+        transformation(extent={{-10,-330},{10,-310}})));
     IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_6(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-330},{-80,-310}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-100,-330},{-80,-310}})));
     IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_7(
     redeclare package Medium = Medium,
     dp_nominal=5,
     m_flow_nominal=0.5)
-             annotation (Placement(transformation(extent={{-100,-270},{-80,-250}},
-          rotation=0)));
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea8(
-                                                 redeclare package Medium =
-        Medium, Q_flow_nominal=5000,
+             annotation (Placement(transformation(extent={{-100,-270},{-80,-250}})));
+  IDEAS.Fluid.HeatExchangers.HeaterCooler_u hea8(
+    redeclare package Medium = Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
     dp_nominal=200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                                  annotation (Placement(
-        transformation(extent={{0,-270},{20,-250}},  rotation=0)));
+        transformation(extent={{0,-270},{20,-250}})));
     IDEAS.Fluid.FixedResistances.FixedResistanceDpM res_8(
     redeclare package Medium = Medium,
     dp_nominal=5,
@@ -186,21 +167,19 @@ model HeaterCoolerPrescribed
         extent={{-10,-10},{10,10}},
         rotation=180)));
   IDEAS.Fluid.MixingVolumes.MixingVolume mix2(
-                                           redeclare package Medium = Medium, V=
-       0.000001,
+    redeclare package Medium = Medium,
+    V=0.000001,
     nPorts=2,
     m_flow_nominal=0.5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{60,-320},{80,
-            -300}}, rotation=0)));
+            -300}})));
   IDEAS.Utilities.Diagnostics.AssertEquality ass9(
              threShold=0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,-400},{180,-380}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{160,-400},{180,-380}})));
   IDEAS.Utilities.Diagnostics.AssertEquality ass10(
              threShold=0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,-360},{180,-340}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{160,-360},{180,-340}})));
 
   IDEAS.Fluid.Sensors.TemperatureTwoPort
                                       senTem2a(redeclare package Medium = Medium,
@@ -244,21 +223,16 @@ model HeaterCoolerPrescribed
     annotation (Placement(transformation(extent={{50,22},{70,42}})));
   IDEAS.Utilities.Diagnostics.AssertEquality ass3(               threShold=
         0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,0},{180,20}},    rotation=
-           0)));
+    annotation (Placement(transformation(extent={{160,0},{180,20}})));
   IDEAS.Utilities.Diagnostics.AssertEquality ass4(               threShold=
         0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,60},{180,80}},   rotation=
-           0)));
+    annotation (Placement(transformation(extent={{160,60},{180,80}})));
   IDEAS.Utilities.Diagnostics.AssertEquality ass5(               threShold=
         0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,-164},{180,-144}},
-                                                                       rotation=
-           0)));
+    annotation (Placement(transformation(extent={{160,-164},{180,-144}})));
   IDEAS.Utilities.Diagnostics.AssertEquality ass6(               threShold=
         0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,-100},{180,-80}},rotation=
-           0)));
+    annotation (Placement(transformation(extent={{160,-100},{180,-80}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort
                                       senTem6b(redeclare package Medium = Medium,
     m_flow_nominal=0.5,
@@ -281,14 +255,10 @@ model HeaterCoolerPrescribed
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
   IDEAS.Utilities.Diagnostics.AssertEquality ass7(               threShold=
         0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,-284},{180,-264}},
-                                                                       rotation=
-           0)));
+    annotation (Placement(transformation(extent={{160,-284},{180,-264}})));
   IDEAS.Utilities.Diagnostics.AssertEquality ass8(               threShold=
         0.05, startTime=600)
-    annotation (Placement(transformation(extent={{160,-240},{180,-220}},
-                                                                       rotation=
-           0)));
+    annotation (Placement(transformation(extent={{160,-240},{180,-220}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort
                                       senTem8b(redeclare package Medium = Medium,
     m_flow_nominal=0.5,
@@ -593,7 +563,7 @@ equation
           lineColor={0,0,255},
           textString="Same system as above, but with flow reversed")}),
 experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCoolerPrescribed.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HeaterCooler_u.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>Model that tests the basic class that is used for the heater models. It adds and removes heat for forward and reverse flow. The top and bottom models should give similar results, although the sign of the temperature difference over the components differ because of the reverse flow. The model uses assert statements that will be triggered if results that are expected to be close to each other differ by more than a prescribed threshold. All temperature sensors are configured as steady-state sensors to avoid differences in temperature due to the dynamic response of the sensor.</p>
@@ -608,7 +578,7 @@ of equations if the medium model is incompressible.
 <li>
 January 24, 2013, by Michael Wetter:<br/>
 Increased parameter <code>startTime</code> of the assert block
-and set initial conditions to 
+and set initial conditions to
 <code>Modelica.Fluid.Types.Dynamics.FixedInitial</code>.
 </li>
 <li>
@@ -622,4 +592,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeaterCoolerPrescribed;
+end HeaterCooler_u;

@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components.Interfaces;
 partial model StateShading "Window shading"
 
-  parameter Boolean controled=true;
+  parameter Boolean controlled=true;
 
   parameter Modelica.SIunits.Angle azi "window azimuth";
 
@@ -35,7 +35,7 @@ partial model StateShading "Window shading"
   Modelica.Blocks.Interfaces.RealInput angAzi "angle of incidence" annotation (
       Placement(transformation(extent={{-80,-110},{-40,-70}}),
         iconTransformation(extent={{-60,-90},{-40,-70}})));
-  Modelica.Blocks.Interfaces.RealInput Ctrl if controled
+  Modelica.Blocks.Interfaces.RealInput Ctrl if controlled
     "Control signal between 0 and 1, i.e. 1 is fully closed" annotation (
       Placement(transformation(
         extent={{20,-20},{-20,20}},
