@@ -29,7 +29,7 @@ partial model PartialHeatPump "Heat pump partial"
     "scale the performance data based on the nominal power"
     annotation (Dialog(tab="Advanced"));
   parameter Boolean use_modulationSignal=false
-    "Use modulation signal to modulate the heat pump ideally (no change of COP, just scaling of the electrical and thermal power)"
+    "enables an input for modulating the heat pump ideally (no change of COP, just scaling of the electrical and thermal power)"
     annotation (Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Power P_the_nominal=heatPumpData.P_the_nominal
@@ -465,5 +465,4 @@ Initial version
 <h4>Validation</h4>
 <p>Examples of this model can be found in<a href=\"modelica://IDEAS.Fluid.Production.Examples.HeatPump_BrineWater\"> IDEAS.Fluid.Production.Examples.HeatPump_BrineWater</a>, <a href=\"modelica://IDEAS.Fluid.Production.Examples.HeatPump_BrineWaterTset\">IDEAS.Fluid.Production.Examples.HeatPump_BrineWaterTset</a> and <a href=\"modelica://IDEAS.Fluid.Production.Examples.HeatPump_Events\">IDEAS.Fluid.Production.Examples.HeatPump_Events</a></p>
 </html>"));
-
 end PartialHeatPump;
