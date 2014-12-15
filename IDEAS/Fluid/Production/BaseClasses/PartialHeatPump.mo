@@ -125,13 +125,13 @@ partial model PartialHeatPump "Heat pump partial"
       smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     annotation (Placement(transformation(extent={{-60,54},{-40,74}})));
   Boolean compressorOn;
-  Modelica.Blocks.Sources.RealExpression realExpression(y=-P_evap)
+  Modelica.Blocks.Sources.RealExpression Qevap(y=-P_evap)
     annotation (Placement(transformation(extent={{18,0},{0,20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatEvap
     annotation (Placement(transformation(extent={{-12,0},{-32,20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow1
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowCond
     annotation (Placement(transformation(extent={{22,-20},{42,0}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductorLosses(G=
         heatPumpData.G) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -139,7 +139,7 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatLoss
     annotation (Placement(transformation(extent={{16,-110},{36,-90}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=P_cond)
+  Modelica.Blocks.Sources.RealExpression Qcond(y=P_cond)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_evap(
     redeclare package Medium = MediumBrine,
@@ -158,7 +158,7 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.SIunits.Power P_evap "Thermal power of the evaporator (positive)";
   Modelica.SIunits.Power P_cond "Thermal power of the condensor (positive)";
   Real cop "COP of the heat pump";
-  Modelica.Blocks.Sources.RealExpression realExpression2(y=P_el)
+  Modelica.Blocks.Sources.RealExpression Pelec(y=P_el)
     annotation (Placement(transformation(extent={{60,70},{40,90}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
     annotation (Placement(transformation(
@@ -324,15 +324,15 @@ equation
     modulationSignal_internal = 1;
   end if;
 
-  connect(heatLoss, thermalConductor.port_a) annotation (Line(
+  connect(heatLoss, thermalConductorLosses.port_a) annotation (Line(
       points={{26,-100},{26,-80}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(prescribedHeatFlow.Q_flow, realExpression.y) annotation (Line(
+  connect(prescribedHeatEvap.Q_flow, Qevap.y) annotation (Line(
       points={{-12,10},{-0.9,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(prescribedHeatFlow1.Q_flow, realExpression1.y) annotation (Line(
+  connect(prescribedHeatFlowCond.Q_flow, Qcond.y) annotation (Line(
       points={{22,-10},{1,-10}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -344,7 +344,7 @@ equation
       points={{100,-40},{88,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(realExpression2.y, P) annotation (Line(
+  connect(Pelec.y, P) annotation (Line(
       points={{39,80},{20,80},{20,110}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -352,7 +352,7 @@ equation
       points={{-60,20},{-60,40},{-72,40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(evaporator.heatPort, prescribedHeatFlow.port) annotation (Line(
+  connect(evaporator.heatPort,prescribedHeatEvap. port) annotation (Line(
       points={{-50,10},{-32,10}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -368,11 +368,11 @@ equation
       points={{60,0},{60,40},{100,40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(prescribedHeatFlow1.port, condensor.heatPort) annotation (Line(
+  connect(prescribedHeatFlowCond.port, condensor.heatPort) annotation (Line(
       points={{42,-10},{50,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(thermalConductor.port_b, condensor.heatPort) annotation (Line(
+  connect(thermalConductorLosses.port_b, condensor.heatPort) annotation (Line(
       points={{26,-60},{26,-28},{50,-28},{50,-10}},
       color={191,0,0},
       smooth=Smooth.None));
