@@ -8,6 +8,7 @@ dsin.txt
 dslog.txt
 dsmodel.c
 dsmodelext[0-9].c
+dsmodelext[0-9].obj
 dsres.txt
 dymosim.exe
 dymosim.exp
