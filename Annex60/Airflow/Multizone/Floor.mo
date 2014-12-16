@@ -65,6 +65,10 @@ model Floor
     each forceErrorControlOnFlow=forceErrorControlOnFlow,
     each TRoom=TRoom)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_a_vent[nZones](redeclare each
+      package Medium =
+        Medium) "Port to connect mechanical ventilation equipment to each zone"
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
 equation
   connect(staircase.port_a_top, port_a_top) annotation (Line(
       points={{64,10},{40,100}},
@@ -113,6 +117,12 @@ equation
     connect(zoneHallway[i].port_b_toOutside, outsideEnvironment[i].port_b)
     annotation (Line(
       points={{-20,-36},{0,-36}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  end for;
+  for i in 1:nZones loop
+    connect(port_a_vent[i], simpleZone[i].port_a_vent) annotation (Line(
+      points={{-100,60},{-88,60},{-88,-22},{-80,-22}},
       color={0,127,255},
       smooth=Smooth.None));
   end for;
