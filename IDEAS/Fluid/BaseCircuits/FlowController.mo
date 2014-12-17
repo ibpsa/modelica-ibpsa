@@ -4,8 +4,10 @@ model FlowController
   extends Interfaces.Circuit;
 
   //Parameters
-  parameter Real Kv "Fixed KV value of the balancing valve";
-  parameter Real Kvs "Kv value of the controllable valve";
+  parameter Real Kv "Fixed KV value of the balancing valve" annotation(Dialog(
+                   group = "Valve parameters"));
+  parameter Real Kvs "Kv value of the controllable valve" annotation(Dialog(
+                   group = "Valve parameters"));
 
   //Interfaces
   Modelica.Blocks.Interfaces.RealInput opening "Valve opening signal"

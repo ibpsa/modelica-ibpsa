@@ -4,7 +4,8 @@ model BalancingValve
   extends Interfaces.Circuit;
 
   //Parameters
-  parameter Real Kv "Fixed KV value of the balancing valve";
+  parameter Real Kv "Fixed KV value of the balancing valve" annotation(Dialog(
+                   group = "Valve parameters"));
 
   //Components
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
