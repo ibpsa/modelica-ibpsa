@@ -1,7 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
 model PumpSupply "Pump on supply duct"
   //Extensions
-  extends Interfaces.Circuit;
+  extends Interfaces.CircuitWithPump;
 
   //Interfaces
   Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
@@ -24,11 +24,14 @@ model PumpSupply "Pump on supply duct"
     tau=120)
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Movers.FlowMachine_m_flow pump(
-    motorCooledByFluid=false,
+    motorCooledByFluid=motorCooledByFluid,
     m_flow_nominal=m_flow_nominal,
-    addPowerToMedium=false,
-    redeclare package Medium = Medium)
+    addPowerToMedium=addPowerToMedium,
+    redeclare package Medium = Medium,
+    motorEfficiency=motorEfficiency,
+    hydraulicEfficiency=hydraulicEfficiency)
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
+
 equation
   connect(senTem.port_b, port_b1) annotation (Line(
       points={{80,60},{100,60}},

@@ -2,7 +2,7 @@ within IDEAS.Fluid.BaseCircuits;
 model PumpSupplydP
 
   //Extensions
-  extends Interfaces.Circuit;
+  extends Interfaces.CircuitWithPump;
   extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters(
     final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=KV);
@@ -27,7 +27,10 @@ model PumpSupplydP
   IDEAS.Fluid.Movers.FlowMachine_dp fan(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    addPowerToMedium=false)
+    motorCooledByFluid=motorCooledByFluid,
+    motorEfficiency=motorEfficiency,
+    hydraulicEfficiency=hydraulicEfficiency,
+    addPowerToMedium=addPowerToMedium)
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
@@ -49,7 +52,7 @@ model PumpSupplydP
     annotation (Placement(transformation(extent={{50,50},{70,70}})));
 equation
   connect(u, fan.dp_in) annotation (Line(
-      points={{0,114},{0,94},{0,72},{-0.2,72}},
+      points={{0,114},{0,72},{-0.2,72}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hlift.y,val1. y) annotation (Line(
