@@ -116,7 +116,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(senMasFlo1.m_flow, senMassFlow1) annotation (Line(
-      points={{-70,43},{-70,50},{-66,50},{-66,80},{-82,80},{-82,106}},
+      points={{-70,43},{-70,80},{-82,80},{-82,106}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTem1.port_a, senMasFlo1.port_b) annotation (Line(

@@ -10,8 +10,11 @@ package Interfaces
       annotation (__Dymola_choicesAllMatching=true);
 
     //Extensions
-    extends IDEAS.Fluid.Interfaces.FourPort(redeclare package Medium1 = Medium, redeclare
-        package Medium2 =                                                                                   Medium);
+    extends IDEAS.Fluid.Interfaces.FourPort(
+      redeclare package Medium1 = Medium,
+      redeclare package Medium2 = Medium,
+      final allowFlowReversal1 = allowFlowReversal,
+      final allowFlowReversal2 = allowFlowReversal);
     extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
 
     //Parameters
@@ -29,15 +32,19 @@ package Interfaces
     parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
       "Small mass flow rate for regularization of zero flow";
 
-    FixedResistances.LosslessPipe pipeReturn(
+    //Components
+    replaceable FixedResistances.LosslessPipe pipeReturn(
       m_flow_nominal=m_flow_nominal,
-      redeclare package Medium = Medium)
-      annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
-    FixedResistances.LosslessPipe pipeSupply(m_flow_nominal=m_flow_nominal,
-        redeclare package Medium = Medium) annotation (Placement(transformation(
+      redeclare package Medium = Medium) constrainedby
+      IDEAS.Fluid.Interfaces.Partials.PipeTwoPort
+      annotation (Placement(transformation(extent={{80,-70},{60,-50}})), choicesAllMatching=true);
+    replaceable FixedResistances.LosslessPipe pipeSupply(m_flow_nominal=m_flow_nominal,
+        redeclare package Medium = Medium)            constrainedby
+      IDEAS.Fluid.Interfaces.Partials.PipeTwoPort
+                                           annotation (Placement(transformation(
           extent={{10,-10},{-10,10}},
           rotation=180,
-          origin={-70,60})));
+          origin={-70,60})), choicesAllMatching=true);
   equation
     connect(pipeReturn.port_a, port_a2) annotation (Line(
         points={{80,-60},{100,-60}},

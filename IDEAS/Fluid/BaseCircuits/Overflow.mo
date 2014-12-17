@@ -61,7 +61,7 @@ model Overflow "Collector unit"
         rotation=-90,
         origin={0,10})));
   Modelica.Blocks.Sources.Constant const(k=0)
-    annotation (Placement(transformation(extent={{60,0},{40,20}})));
+    annotation (Placement(transformation(extent={{66,0},{46,20}})));
 equation
   connect(port_a1, fan.port_b) annotation (Line(
       points={{-100,60},{0,60},{0,20}},
@@ -72,7 +72,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan.m_flow_in, const.y) annotation (Line(
-      points={{12,9.8},{25,9.8},{25,10},{39,10}},
+      points={{12,9.8},{14,9.8},{14,10},{45,10}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

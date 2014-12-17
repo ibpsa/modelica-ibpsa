@@ -46,12 +46,13 @@ model ActiveMixingCircuit "Active mixing circuit"
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{18,50},{38,70}})));
 
-  FixedResistances.LosslessPipe pip2(
+  replaceable FixedResistances.LosslessPipe mixPipe(
     m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium)              constrainedby
+    IDEAS.Fluid.Interfaces.Partials.PipeTwoPort
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={-20,10})));
+        origin={-20,10})), choicesAllMatching=true);
 
 equation
   connect(senTem.port_b, port_b1) annotation (Line(

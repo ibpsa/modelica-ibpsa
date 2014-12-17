@@ -4,7 +4,7 @@ model PumpSupplydP
   //Extensions
   extends Interfaces.Circuit;
   extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters(
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+    final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=KV);
 
   //Parameters
