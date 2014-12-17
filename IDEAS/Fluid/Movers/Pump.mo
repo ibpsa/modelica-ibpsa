@@ -14,7 +14,7 @@ model Pump "Prescribed mass flow rate, no heat exchange."
     "Fixed pressure drop, used for determining the electricity consumption";
   parameter Real etaTot=0.8 "Fixed total pump efficiency";
   parameter Boolean addResistor = false;
-  parameter Modelica.SIunits.ThermalConductance UA = 0
+  parameter Modelica.SIunits.ThermalConductance UA = 1
     "Thermal conductance of the insulation"
     annotation(Dialog(enable=addResistor));
 
