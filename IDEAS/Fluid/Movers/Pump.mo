@@ -69,23 +69,11 @@ protected
   Modelica.SIunits.MassFlowRate m_flow_pump;
   Modelica.Blocks.Interfaces.RealOutput on_internal_filtered;
 public
-  Modelica.Blocks.Continuous.Filter filter1(
-     order=2,
-     f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     x(each stateSelect=StateSelect.always),
-     u_nominal=m_flow_nominal,
-     u(final quantity="MassFlowRate", final unit="kg/s", nominal=m_flow_nominal),
-     y(final quantity="MassFlowRate", final unit="kg/s", nominal=m_flow_nominal),
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
-        useInput and filteredMassFlowRate
-    "Second order filter to approximate valve opening time, and to improve numerics"
-    annotation (Placement(transformation(extent={{80,43},{94,57}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal if use_onOffSignal
     annotation (Placement(transformation(extent={{0,34},{12,46}})));
   Modelica.Blocks.Sources.BooleanExpression realExpression3(y=on_internal) if use_onOffSignal
     annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
-  Modelica.Blocks.Continuous.Filter filter2(
+  Modelica.Blocks.Continuous.Filter filterOnOff(
      order=2,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
      x(each stateSelect=StateSelect.always),
@@ -136,12 +124,12 @@ equation
   if not use_onOffSignal then
     on_internal_filtered = if on_internal then 1 else 0;
   else
-    connect(on_internal_filtered,filter2.y);
+    connect(on_internal_filtered,filterOnOff.y);
     connect(realExpression3.y, booleanToReal.u) annotation (Line(
       points={{-7,40},{-1.2,40}},
       color={255,0,255},
       smooth=Smooth.None));
-    connect(booleanToReal.y, filter2.u) annotation (Line(
+    connect(booleanToReal.y, filterOnOff.u) annotation (Line(
       points={{12.6,40},{18.6,40}},
       color={0,0,127},
       smooth=Smooth.None));
