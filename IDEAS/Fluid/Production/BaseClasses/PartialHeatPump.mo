@@ -41,7 +41,7 @@ partial model PartialHeatPump "Heat pump partial"
 
   //From LumpedVolumeDeclarations
   // Assumptions
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance"
     annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
@@ -165,6 +165,10 @@ partial model PartialHeatPump "Heat pump partial"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,110})));
+
+initial equation
+  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState, "Energy dynamics cannot be set to steady state!");
+
 public
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Flow resistance"));
@@ -190,8 +194,8 @@ public
         /MediumBrine.specificHeatCapacityCp(state_default_brine)/5/heatPumpData.mBrine)
          else mFactor,
     computeFlowResistance=computeFlowResistance,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics)
               annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -213,9 +217,8 @@ public
         /MediumFluid.specificHeatCapacityCp(state_default_fluid)/5/heatPumpData.mFluid)
          else mFactor,
     computeFlowResistance=computeFlowResistance,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                                 annotation (Placement(transformation(
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics)   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,-10})));
@@ -394,8 +397,9 @@ equation
       smooth=Smooth.None));
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+                    graphics),
     Icon(graphics={
         Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
         Line(
