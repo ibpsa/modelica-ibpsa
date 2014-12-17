@@ -102,16 +102,16 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{0,60},{0,80}},
+          points={{0,40},{0,60}},
           color={0,0,127},
           smooth=Smooth.None),
-        Rectangle(
-          extent={{-4,88},{4,80}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Line(
           points={{0,102},{6,80},{0,60}},
           color={0,255,128},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None),
+        Rectangle(
+          extent={{-4,44},{4,36}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}));
 end FlowController;
