@@ -14,10 +14,10 @@ block HysteresisRelease
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   parameter Real uLow_val = 0
     "lower boundary value if the input uLow is not used"
-    annotation(dialog(enable=not use_input));
+    annotation(Dialog(enable=not use_input));
   parameter Real uHigh_val = 1
     "higher boundary value if the input uHigh is not used"
-    annotation(dialog(enable=not use_input));
+    annotation(Dialog(enable=not use_input));
   Modelica.Blocks.Interfaces.RealInput release(start=0) = rel_internal if enableRelease
     "if < 0.5, the controller is OFF"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
@@ -47,9 +47,9 @@ equation
   end if;
   if rel_internal > 0.5 then
     if not revert then
-      y_boolean = u > uHigh or pre(y_boolean) and u >= uLow;
+      y_boolean = u > uHigh_internal or pre(y_boolean) and u >= uLow_internal;
     else
-      y_boolean = u < uLow or pre(y_boolean) and u <= uHigh;
+      y_boolean = u < uLow_internal or pre(y_boolean) and u <= uHigh_internal;
     end if;
   else
     y_boolean = false;
