@@ -4,8 +4,8 @@ model HeatPumpTset "Heat pump using a temperature setpoint"
       IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData heatPumpData constrainedby
       IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData);
 
-  Modelica.Blocks.Sources.RealExpression realExpression4(y=Tset - condensor.heatPort.T)
-    annotation (Placement(transformation(extent={{-70,-26},{-28,-46}})));
+  Modelica.Blocks.Sources.RealExpression TsetLimit(y=Tset - condensor.heatPort.T)
+    annotation (Placement(transformation(extent={{-70,-46},{-28,-26}})));
   Modelica.Blocks.Interfaces.RealInput Tset "Condensor temperature setpoint"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -15,14 +15,14 @@ model HeatPumpTset "Heat pump using a temperature setpoint"
         rotation=270,
         origin={-50,100})));
 
-  Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=uLow, uHigh=uHigh)
+  Modelica.Blocks.Logical.Hysteresis hysteresisTsetLimit(uLow=uLow, uHigh=uHigh)
     annotation (Placement(transformation(extent={{-16,-46},{4,-26}})));
   parameter Real uLow=-2.5
     "Lower bound of the hysteresis in the tempeature controller";
   parameter Real uHigh=2.5
     "Upper bound of the hysteresis in the tempeature controller";
 equation
-  compressorOn = on_internal and tempProtection.y;
+  compressorOn = on_internal and tempProtection.y and hysteresisTsetLimit.y;
 
   connect(copTable.u2,powerTable. u2) annotation (Line(
       points={{-62,58},{-82,58},{-82,84},{-62,84}},
@@ -40,7 +40,7 @@ equation
       points={{-82,51},{-82,84},{-62,84}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(realExpression4.y, hysteresis.u) annotation (Line(
+  connect(TsetLimit.y, hysteresisTsetLimit.u) annotation (Line(
       points={{-25.9,-36},{-18,-36}},
       color={0,0,127},
       smooth=Smooth.None));
