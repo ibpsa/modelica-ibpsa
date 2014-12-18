@@ -11,30 +11,31 @@ model MixingVolumeMFactor
     mFactor=10,
     m_flow_nominal=1,
     V=1,
-    nPorts=2)
+    nPorts=2) "mixing volume using mFactor = 10"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Annex60.Fluid.MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     V=10,
-    nPorts=2)
+    nPorts=2) "MixingVolume with V = 10 instead of mFactor = 10"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Annex60.Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = Medium,
-    nPorts=2) annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
+    nPorts=2) "Sink"
+              annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
   Annex60.Fluid.Sources.MassFlowSource_T boundaryMFactor(
     redeclare package Medium = Medium,
     T=300,
     nPorts=1,
     m_flow=1,
-    X={0.02,0.98})
+    X={0.02,0.98}) "Flow source for mixing volume using mFactor"
               annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Annex60.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
     T=300,
     nPorts=1,
     m_flow=1,
-    X={0.02,0.98})
+    X={0.02,0.98}) "Flow source for mixing volume using larger volume"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 equation
   connect(vol1.ports[1], bou1.ports[1]) annotation (Line(
@@ -54,11 +55,13 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
-<p>This model contains two verifications for the implementation of mFactor.</p>
-<p>1) </p>
-<p>The mixingVolume temperature vol.T should be constant. This is to check the correct implementation of the parameter mFactor for moist air media.</p>
-<p>2)</p>
-<p>The temperature response of volMFactor.T and vol1.T should be (nearly) identical. Furthermore the response of the species concentration Xi demonstrates the difference between using an mFactor = 10 and multiplying the mixingVolume volume &QUOT;V&QUOT; by 10.</p>
+<p>This model contains two verifications for the implementation of mFactor:</p>
+<p>1)  The mixingVolume temperature vol.T should be constant. 
+This is to check the correct implementation of the parameter mFactor for moist air media.</p>
+<p>2)  The temperature response of volMFactor.T and vol1.T should be (nearly) identical. 
+Furthermore the response of the species concentration Xi demonstrates the 
+difference between using an mFactor = 10 and multiplying the mixingVolume volume 
+&QUOT;V&QUOT; by 10.</p>
 </html>", revisions="<html>
 <ul>
 <li>
