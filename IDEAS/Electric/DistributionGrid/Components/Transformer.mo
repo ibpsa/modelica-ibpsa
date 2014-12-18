@@ -63,16 +63,20 @@ public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[Phases]
     HVpos(i(re(each start=-230/Modelica.ComplexMath.real(Zpar)), im(each start=
             0)))
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
+    annotation (Placement(transformation(extent={{-70,30},{-50,50}}),
+        iconTransformation(extent={{-70,30},{-50,50}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin HVgnd
     "Connect this to the voltage source negative pin / ground"
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
+    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}}),
+        iconTransformation(extent={{-70,-50},{-50,-30}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin LVPos[
-    Phases] annotation (Placement(transformation(extent={{90,30},{110,50}})));
+    Phases] annotation (Placement(transformation(extent={{90,50},{110,70}}),
+        iconTransformation(extent={{90,50},{110,70}})));
 
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin LVgnd
     "This should NOT be connected for single phase equivalent circuits"
-    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
+        iconTransformation(extent={{90,-70},{110,-50}})));
 
 equation
   for i in 1:Phases loop
@@ -82,11 +86,11 @@ equation
         smooth=Smooth.None));
   end for;
   connect(HVgnd, pin_n) annotation (Line(
-      points={{-100,-40},{0,-40}},
+      points={{-60,-40},{0,-40}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(pin_n, LVgnd) annotation (Line(
-      points={{0,-40},{100,-40}},
+      points={{0,-40},{50,-40},{50,-60},{100,-60}},
       color={0,0,255},
       smooth=Smooth.None));
 
@@ -99,11 +103,11 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(HVpos, ZsHV.pin_p) annotation (Line(
-      points={{-100,40},{-60,40}},
+      points={{-60,40},{-60,40}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(ZsLV.pin_n, LVPos) annotation (Line(
-      points={{60,40},{100,40}},
+      points={{60,40},{80,40},{80,60},{100,60}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(pin_p, Zp.pin_p) annotation (Line(
@@ -125,23 +129,33 @@ equation
 <p>Connect the (3 if necessary) positive pin of the voltage source(s) to the HVpos pin(s).</p>
 <p>Connect the LVpos pin(s) to the grid&apos;s pin(s) 0.</p>
 </html>"),
-    Icon(graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+         graphics={
         Line(
-          points={{-10,80},{-10,-80},{-10,-80}},
-          color={95,95,95},
+          points={{10,60},{10,-60},{10,-60}},
+          color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{10,80},{10,-80},{10,-80}},
-          color={95,95,95},
+          points={{20,60},{20,-60},{20,-60}},
+          color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-98,40},{-46,40},{-28,30},{-48,20},{-28,10},{-48,0},{-28,-10},
-              {-48,-20},{-28,-30},{-48,-40},{-98,-40}},
+          points={{-70,40},{-18,40},{0,30},{-20,20},{0,10},{-20,0},{0,-10},{-20,
+              -20},{0,-30},{-20,-40},{-70,-40}},
           color={85,170,255},
           smooth=Smooth.None),
         Line(
-          points={{100,40},{48,40},{30,30},{50,20},{30,10},{50,0},{30,-10},{50,
-              -20},{30,-30},{50,-40},{100,-40}},
+          points={{48,60},{48,40},{30,30},{50,20},{30,10},{50,0},{30,-10},{50,
+              -20},{30,-30},{50,-40},{50,-60}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Line(
+          points={{48,60},{100,60}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Line(
+          points={{50,-60},{100,-60}},
           color={85,170,255},
           smooth=Smooth.None)}));
 end Transformer;

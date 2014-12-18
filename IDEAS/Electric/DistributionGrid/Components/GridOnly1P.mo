@@ -63,11 +63,7 @@ equation
   annotation (Diagram(graphics), Icon(graphics={
         Line(
           points={{-22,36},{30,2},{100,0}},
-          color={85,170,255},
-          smooth=Smooth.Bezier),
-        Line(
-          points={{30,36},{54,18},{100,4}},
-          color={85,170,255},
+          color={0,0,0},
           smooth=Smooth.Bezier),
         Polygon(
           points={{-32,40},{-32,34},{-4,34},{-4,-80},{4,-80},{4,34},{34,34},{34,
@@ -78,10 +74,6 @@ equation
           fillColor={95,95,95}),
         Line(
           points={{-102,4},{-46,12},{-28,36}},
-          color={85,170,255},
-          smooth=Smooth.Bezier),
-        Line(
-          points={{-100,0},{-12,12},{30,36}},
-          color={85,170,255},
+          color={0,0,0},
           smooth=Smooth.Bezier)}));
 end GridOnly1P;

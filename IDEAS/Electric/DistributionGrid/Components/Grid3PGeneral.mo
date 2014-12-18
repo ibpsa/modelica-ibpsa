@@ -135,6 +135,22 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics), Icon(graphics={
+        Line(
+          points={{0,36},{24,12},{100,0}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{0,44},{24,16},{100,0}},
+          color={85,170,255},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{32,36},{56,10},{102,0}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-22,36},{30,2},{100,0}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
         Polygon(
           points={{-32,40},{-32,34},{-4,34},{-4,-80},{4,-80},{4,34},{34,34},{34,
               40},{4,40},{4,46},{-4,46},{-4,40},{-32,40}},
@@ -143,19 +159,19 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={127,0,0}),
         Line(
-          points={{-102,4},{-46,12},{-28,36}},
-          color={127,0,0},
+          points={{-100,60},{-12,12},{30,36}},
+          color={0,0,0},
           smooth=Smooth.Bezier),
         Line(
-          points={{-100,0},{-12,12},{30,36}},
-          color={127,0,0},
+          points={{-100,58},{-46,12},{-28,36}},
+          color={0,0,0},
           smooth=Smooth.Bezier),
         Line(
-          points={{-22,36},{30,2},{100,0}},
-          color={127,0,0},
+          points={{-100,60},{-42,12},{0,36}},
+          color={0,0,0},
           smooth=Smooth.Bezier),
         Line(
-          points={{30,36},{54,18},{100,4}},
-          color={127,0,0},
+          points={{-100,-60},{-42,20},{0,44}},
+          color={85,170,255},
           smooth=Smooth.Bezier)}));
 end Grid3PGeneral;

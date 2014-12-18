@@ -101,35 +101,41 @@ public
 equation
   connect(voltageSource.pin_n, ground.pin) annotation (Line(
       points={{-70,-40},{-70,-57},{0,-57},{0,-60}},
-      color={0,0,255},
+      color={85,170,255},
       smooth=Smooth.None));
 
   if traPre then
     connect(transformer.LVPos[1], gridOnly1P.TraPin) annotation (Line(
-        points={{-20,4},{0,4},{0,0},{20,0}},
-        color={0,0,255},
+        points={{-20,6},{0,6},{0,0},{20,0}},
+        color={85,170,255},
         smooth=Smooth.None));
     connect(voltageSource.pin_p, transformer.HVpos[1]) annotation (Line(
-        points={{-70,-20},{-70,4},{-40,4}},
-        color={0,0,255},
+        points={{-70,-20},{-70,4},{-36,4}},
+        color={85,170,255},
         smooth=Smooth.None));
     connect(ground.pin, transformer.HVgnd) annotation (Line(
-        points={{0,-60},{-2,-60},{-2,-50},{-50,-50},{-50,-4},{-40,-4}},
-        color={0,0,255},
-        smooth=Smooth.None));
+        points={{0,-60},{-8,-60},{-8,-36},{-56,-36},{-56,-4},{-36,-4}},
+        color={85,170,255},
+        smooth=Smooth.None,
+        pattern=LinePattern.Dash));
   else
     connect(voltageSource.pin_p, gridOnly1P.TraPin) annotation (Line(
         points={{-70,-20},{-92,-20},{-92,26},{12,26},{12,0},{20,0}},
-        color={0,0,255},
-        smooth=Smooth.None));
+        color={85,170,255},
+        smooth=Smooth.None,
+        pattern=LinePattern.Dash));
   end if;
 
   connect(gridOnly1P.node, node) annotation (Line(
       points={{40,0},{100,0}},
-      color={0,0,255},
+      color={85,170,255},
       smooth=Smooth.None));
 
   annotation (Diagram(graphics), Icon(graphics={
+        Line(
+          points={{-22,36},{30,2},{100,0}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
         Polygon(
           points={{-32,40},{-32,34},{-4,34},{-4,-80},{4,-80},{4,34},{34,34},{34,
               40},{4,40},{4,46},{-4,46},{-4,40},{-32,40}},
@@ -139,18 +145,6 @@ equation
           fillColor={127,0,0}),
         Line(
           points={{-102,4},{-46,12},{-28,36}},
-          color={127,0,0},
-          smooth=Smooth.Bezier),
-        Line(
-          points={{-100,0},{-12,12},{30,36}},
-          color={127,0,0},
-          smooth=Smooth.Bezier),
-        Line(
-          points={{-22,36},{30,2},{100,0}},
-          color={127,0,0},
-          smooth=Smooth.Bezier),
-        Line(
-          points={{30,36},{54,18},{100,4}},
-          color={127,0,0},
+          color={0,0,0},
           smooth=Smooth.Bezier)}));
 end Grid1PGeneral;
