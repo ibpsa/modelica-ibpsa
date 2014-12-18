@@ -1,25 +1,31 @@
 within IDEAS.Electric.DistributionGrid.Components;
-model TransformerImp "This transfomer can be used for three-phase grids"
+model Transformer_MvLv "Medium to low voltage transfomer for three-phase grids"
 
 replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp
                                                   transformer
     "Choose a transformer"   annotation(choicesAllMatching = true);
 
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
-                  pin_hv_p[3]
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
-                  pin_hv_n
-    "Connect this to the voltage source negative pin / ground"
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
+  parameter Real gridFreq=50
+    "Grid frequency: should normally not be changed when simulating belgian grids!";
+  parameter Modelica.SIunits.ComplexVoltage VSource=230 + 0*Modelica.ComplexMath.j "Voltage"
+              annotation (choices(
+      choice=(230*1) + 0*MCM.j "100% at HVpin of transformer",
+      choice=(230*1.02) + 0*MCM.j "102% at HVpin of transformer",
+      choice=(230*1.05) + 0*MCM.j "105% at HVpin of transformer",
+      choice=(230*1.1) + 0*MCM.j "110% at HVpin of transformer",
+      choice=(230*0.95) + 0*MCM.j "95% at HVpin of transformer",
+      choice=(230*0.9) + 0*MCM.j "90% at HVpin of transformer"));
+
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                   pin_lv_p[3]
-    annotation (Placement(transformation(extent={{90,30},{110,50}})));
+    annotation (Placement(transformation(extent={{90,50},{110,70}}),
+        iconTransformation(extent={{90,50},{110,70}})));
 
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin
                   pin_lv_n
     "This should NOT be connected for single phase equivalent circuits"
-    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
+        iconTransformation(extent={{90,-70},{110,-50}})));
 
   IDEAS.Electric.BaseClasses.Con3PlusNTo3 con3PlusNTo3_HV
     annotation (Placement(transformation(extent={{-60,50},{-40,30}})));
@@ -44,25 +50,28 @@ replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp
   Modelica.SIunits.ActivePower traLosPTot = transformer.P0 + phase1.Plos + phase2.Plos + phase3.Plos
     "Total losses in transformer";
 
+public
+  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
+    voltageSource(
+    V=Modelica.ComplexMath.'abs'(VSource),
+    phi=Modelica.ComplexMath.arg(VSource),
+    f=gridFreq) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-80,14})));
+  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-90,-20})));
 equation
-  connect(pin_hv_p, con3PlusNTo3_HV.fourWire[1:3])
-                                                annotation (Line(
-      points={{-100,40},{-100,39.75},{-60,39.75}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(pin_hv_n, con3PlusNTo3_HV.fourWire[4])
-                                             annotation (Line(
-      points={{-100,-40},{-92,-40},{-92,39.25},{-60,39.25}},
-      color={85,170,255},
-      smooth=Smooth.None));
   connect(pin_lv_p, con3PlusNTo3_LV.fourWire[1:3])
                                                 annotation (Line(
-      points={{100,40},{100,39.75},{60,39.75}},
+      points={{100,60},{100,60},{86,60},{86,40},{74,40},{74,39.75},{60,39.75}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(pin_lv_n, con3PlusNTo3_LV.fourWire[4])
                                              annotation (Line(
-      points={{100,-40},{86,-40},{86,39.25},{60,39.25}},
+      points={{100,-60},{86,-60},{86,39.25},{60,39.25}},
       color={85,170,255},
       smooth=Smooth.None));
 
@@ -96,34 +105,85 @@ equation
       points={{10,30},{30,30},{30,39.3333},{40,39.3333}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(pin_hv_n, pin_lv_n) annotation (Line(
-      points={{-100,-40},{100,-40}},
+
+  connect(voltageSource.pin_n, ground.pin) annotation (Line(
+      points={{-80,4},{-80,-20}},
       color={85,170,255},
       smooth=Smooth.None));
-
+  connect(ground.pin, con3PlusNTo3_HV.fourWire[4]) annotation (Line(
+      points={{-80,-20},{-70,-20},{-70,39.25},{-60,39.25}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(ground.pin, pin_lv_n) annotation (Line(
+      points={{-80,-20},{-80,-20},{-80,-60},{100,-60}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(voltageSource.pin_p, con3PlusNTo3_HV.fourWire[1]) annotation (Line(
+      points={{-80,24},{-80,40.75},{-60,40.75}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(voltageSource.pin_p, con3PlusNTo3_HV.fourWire[2]) annotation (Line(
+      points={{-80,24},{-80,40.25},{-60,40.25}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(voltageSource.pin_p, con3PlusNTo3_HV.fourWire[3]) annotation (Line(
+      points={{-80,24},{-80,39.75},{-60,39.75}},
+      color={85,170,255},
+      smooth=Smooth.None));
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                           graphics), Documentation(info="<html>
       <p>Select the Rated Power for the Transformer as apparent power<b> Sn</b>! Only three-phase transformers!</p>
 <p>This will set the winding impedance, which define the Joule losses and voltage drop over the transformer.</p>
 </html>"),
-    Icon(graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+         graphics={
         Line(
-          points={{-10,80},{-10,-80},{-10,-80}},
-          color={95,95,95},
+          points={{10,60},{10,-60},{10,-60}},
+          color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{10,80},{10,-80},{10,-80}},
-          color={95,95,95},
+          points={{20,60},{20,-60},{20,-60}},
+          color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-98,40},{-46,40},{-28,30},{-48,20},{-28,10},{-48,0},{-28,-10},
-              {-48,-20},{-28,-30},{-48,-40},{-98,-40}},
+          points={{-70,40},{-18,40},{0,30},{-20,20},{0,10},{-20,0},{0,-10},{-20,
+              -20},{0,-30},{-20,-40},{-70,-40}},
           color={85,170,255},
           smooth=Smooth.None),
         Line(
-          points={{100,40},{48,40},{30,30},{50,20},{30,10},{50,0},{30,-10},{50,
-              -20},{30,-30},{50,-40},{100,-40}},
+          points={{48,60},{48,40},{30,30},{50,20},{30,10},{50,0},{30,-10},{50,
+              -20},{30,-30},{50,-40},{50,-60}},
           color={85,170,255},
+          smooth=Smooth.None),
+        Line(
+          points={{48,60},{100,60}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Line(
+          points={{50,-60},{100,-60}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Ellipse(
+          extent={{-90,20},{-50,-20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-70,40},{-70,20}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Line(
+          points={{-70,-20},{-70,-40}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Line(
+          points={{-82,2},{-78,10},{-74,10},{-68,-10}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{-60,-2},{-64,-10},{-68,-10},{-74,10}},
+          color={0,0,0},
           smooth=Smooth.None)}));
-end TransformerImp;
+end Transformer_MvLv;
