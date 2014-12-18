@@ -9,9 +9,9 @@ model GridOnly3P
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin TraPin[
     3](i(im(each start=0)))
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
+    annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin TraGnd
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
+    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 
   IDEAS.Electric.DistributionGrid.BaseClasses.Branch branch[3,Nodes](R=R3, X=X3);
   IDEAS.Electric.DistributionGrid.BaseClasses.Branch neutral[Nodes](R=
@@ -105,7 +105,9 @@ equation
   PGriLosTot = PGriLosPhaTot + PGriLosNeu;
   //end if;
 
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics), Icon(graphics={
         Polygon(
           points={{-32,40},{-32,34},{-4,34},{-4,-80},{4,-80},{4,34},{34,34},{34,
               40},{4,40},{4,46},{-4,46},{-4,40},{-32,40}},

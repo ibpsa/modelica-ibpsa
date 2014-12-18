@@ -3,12 +3,7 @@ model Grid3PGeneral
 
 protected
   IDEAS.Electric.DistributionGrid.Components.GridOnly3P gridOnly3P(grid=grid)
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  IDEAS.Electric.DistributionGrid.Components.Transformer transformer(
-    Phases=3,
-    Vsc=Vsc,
-    Sn=Sn) if traPre
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
   //   IDEAS.Electric.DistributionGrid.Components.CVoltageSource cVoltageSource[3](
@@ -19,24 +14,9 @@ protected
   //         origin={-80,-30})));
   //   IDEAS.Electric.DistributionGrid.Components.CGround cGround
   //     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource[3]
-    voltageSource(
-    each V=Modelica.ComplexMath.'abs'(VSource),
-    phi={Modelica.ComplexMath.arg(VSource),Modelica.ComplexMath.arg(VSource) +
-        2*Modelica.Constants.pi/3,Modelica.ComplexMath.arg(VSource) + 4*
-        Modelica.Constants.pi/3},
-    each f=gridFreq) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-72,-40})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
+
 
 public
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[4,
-    gridOnly3P.grid.nNodes] node4Lines
-    annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-
   replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=3)
     "Choose a grid Layout" annotation (choicesAllMatching=true);
   /*parameter Boolean Loss = true 
@@ -112,64 +92,49 @@ protected
   parameter Integer Nodes=grid.nNodes;
 
   IDEAS.Electric.BaseClasses.Con3PlusNTo3 con3PlusNTo3_1[gridOnly3P.grid.nNodes]
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,
     gridOnly3P.grid.nNodes] nodes3Phase
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+  Transformer_MvLv transformer_MvLv
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 equation
   for i in 1:3 loop
-    connect(voltageSource[i].pin_n, ground.pin) annotation (Line(
-        points={{-72,-50},{-72,-63},{-10,-63},{-10,-70}},
-        color={0,0,255},
-        smooth=Smooth.None));
   end for;
 
   if traPre then
-    connect(transformer.LVPos, gridOnly3P.TraPin) annotation (Line(
-        points={{-20,4},{0,4}},
-        color={0,0,255},
-        smooth=Smooth.None));
-    connect(voltageSource.pin_p, transformer.HVpos) annotation (Line(
-        points={{-72,-30},{-72,4},{-40,4}},
-        color={0,0,255},
-        smooth=Smooth.None));
-    connect(ground.pin, transformer.HVgnd) annotation (Line(
-        points={{-10,-70},{-50,-70},{-50,-4},{-40,-4}},
-        color={0,0,255},
-        smooth=Smooth.None));
-    connect(transformer.LVgnd, gridOnly3P.TraGnd) annotation (Line(
-        points={{-20,-4},{0,-4}},
-        color={0,0,255},
-        smooth=Smooth.None));
   else
-    connect(voltageSource.pin_p, gridOnly3P.TraPin) annotation (Line(
-        points={{-72,-30},{-92,-30},{-92,20},{0,20},{0,4}},
-        color={0,0,255},
-        smooth=Smooth.None));
-    connect(ground.pin, gridOnly3P.TraGnd) annotation (Line(
-        points={{-10,-70},{0,-70},{0,-4}},
-        color={0,0,255},
-        smooth=Smooth.None));
   end if;
 
-  connect(gridOnly3P.node, node4Lines) annotation (Line(
-      points={{20,0},{60,0}},
-      color={0,0,255},
-      smooth=Smooth.None));
 
   for n in 1:gridOnly3P.grid.nNodes loop
-    connect(node4Lines[:, n], con3PlusNTo3_1[n].fourWire) annotation (Line(
-        points={{60,0},{70,0}},
-        color={85,170,255},
-        smooth=Smooth.None));
     connect(con3PlusNTo3_1[n].threeWire, nodes3Phase[:, n]) annotation (Line(
-        points={{90,0},{100,0}},
+        points={{80,0},{100,0}},
         color={85,170,255},
         smooth=Smooth.None));
   end for;
 
-  annotation (Diagram(graphics), Icon(graphics={
+  connect(transformer_MvLv.pin_lv_p, gridOnly3P.TraPin) annotation (Line(
+      points={{0,6},{20,6}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(transformer_MvLv.pin_lv_n, gridOnly3P.TraGnd) annotation (Line(
+      points={{0,-6},{20,-6}},
+      color={85,170,255},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(gridOnly3P.node, con3PlusNTo3_1.fourWire) annotation (Line(
+      points={{40,0},{60,0}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(con3PlusNTo3_1.threeWire, nodes3Phase) annotation (Line(
+      points={{80,0},{100,0}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics), Icon(graphics={
         Polygon(
           points={{-32,40},{-32,34},{-4,34},{-4,-80},{4,-80},{4,34},{34,34},{34,
               40},{4,40},{4,46},{-4,46},{-4,40},{-32,40}},
