@@ -4,7 +4,7 @@ model TestBattery
 
   Modelica.SIunits.Power Pnet;
 
-  DistributionGrid.GridGeneral gridGeneral(redeclare
+  Distribution.GridGeneral gridGeneral(redeclare
       IDEAS.Electric.Data.Grids.TestGrid2Nodes grid)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   BatterySystemGeneral batterySystemGeneral(

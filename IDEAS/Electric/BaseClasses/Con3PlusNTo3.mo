@@ -23,7 +23,6 @@ equation
                    graphics={
         Line(
           points={{12,-20},{38,-20},{40,-20},{50,-18},{60,-10},{70,-4},{90,0}},
-
           color={205,133,63},
           smooth=Smooth.None),
         Line(
@@ -41,7 +40,6 @@ equation
           smooth=Smooth.None),
         Line(
           points={{-12,18},{-38,18},{-40,18},{-50,16},{-60,10},{-70,4},{-90,0}},
-
           color={135,135,135},
           smooth=Smooth.None),
         Line(

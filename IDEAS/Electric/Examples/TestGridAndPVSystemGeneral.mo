@@ -2,7 +2,7 @@ within IDEAS.Electric.Examples;
 model TestGridAndPVSystemGeneral
   "Test to see if Grid and PV(from file) work as it should"
 
-  DistributionGrid.GridGeneral gridGeneral(
+  Distribution.GridGeneral gridGeneral(
     Phases=3,
     redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
     VSource=(230*1.02) + 0*MCM.j,
