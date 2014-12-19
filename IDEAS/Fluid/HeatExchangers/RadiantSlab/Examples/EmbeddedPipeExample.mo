@@ -1,9 +1,9 @@
 within IDEAS.Fluid.HeatExchangers.RadiantSlab.Examples;
 model EmbeddedPipeExample
-  import Buildings;
   extends Modelica.Icons.Example;
+  replaceable package Medium = IDEAS.Media.Water.Simple;
 
-  EmbeddedPipe embeddedPipe(
+  IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe embeddedPipe(
     redeclare package Medium = Medium,
     redeclare
       IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.FH_ValidationEmpa4_6
@@ -19,10 +19,10 @@ model EmbeddedPipeExample
     use_m_flow_in=true,
     T=273.15 + 30)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15 +
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15 +
         10)
     annotation (Placement(transformation(extent={{-34,24},{-14,44}})));
-  replaceable package Medium = IDEAS.Media.Water.Simple;
+
   Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   Modelica.Blocks.Sources.Trapezoid trapezoid(
