@@ -1,9 +1,8 @@
 within IDEAS.Electric.Distribution.Components;
 model Transformer_MvLv "Medium to low voltage transfomer for three-phase grids"
 
-replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp
-                                                  transformer
-    "Choose a transformer"   annotation(choicesAllMatching = true);
+  replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp
+    transformer "Choose a transformer" annotation (choicesAllMatching=true);
 
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
