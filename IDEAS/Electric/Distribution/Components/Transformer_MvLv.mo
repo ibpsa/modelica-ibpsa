@@ -62,6 +62,37 @@ public
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,-20})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCapacitor
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={30,0})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCapacitor1
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={30,-28})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResistor
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={12,-14})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResistor1
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={12,-42})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thermalCollector1
+    annotation (Placement(transformation(extent={{2,4},{22,24}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+    prescribedTemperature annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={12,-68})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
+    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
+  outer SimInfoManager sim
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(pin_lv_p, con3PlusNTo3_LV.fourWire[1:3])
                                                 annotation (Line(
@@ -72,7 +103,8 @@ equation
                                              annotation (Line(
       points={{100,-60},{86,-60},{86,39.25},{60,39.25}},
       color={85,170,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
 
   connect(con3PlusNTo3_HV.threeWire[1], phase1.pin_p)
                                                      annotation (Line(
@@ -112,11 +144,13 @@ equation
   connect(ground.pin, con3PlusNTo3_HV.fourWire[4]) annotation (Line(
       points={{-80,-20},{-70,-20},{-70,39.25},{-60,39.25}},
       color={85,170,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(ground.pin, pin_lv_n) annotation (Line(
-      points={{-80,-20},{-80,-20},{-80,-60},{100,-60}},
+      points={{-80,-20},{-80,-60},{100,-60}},
       color={85,170,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(voltageSource.pin_p, con3PlusNTo3_HV.fourWire[1]) annotation (Line(
       points={{-80,24},{-80,40.75},{-60,40.75}},
       color={85,170,255},
@@ -128,6 +162,42 @@ equation
   connect(voltageSource.pin_p, con3PlusNTo3_HV.fourWire[3]) annotation (Line(
       points={{-80,24},{-80,39.75},{-60,39.75}},
       color={85,170,255},
+      smooth=Smooth.None));
+  connect(heatCapacitor.port, thermalResistor.port_a) annotation (Line(
+      points={{20,1.77636e-015},{12,1.77636e-015},{12,-4}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermalResistor.port_b, heatCapacitor1.port) annotation (Line(
+      points={{12,-24},{12,-28},{20,-28}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heatCapacitor1.port, thermalResistor1.port_a) annotation (Line(
+      points={{20,-28},{12,-28},{12,-32}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermalCollector1.port_b, thermalResistor.port_a) annotation (Line(
+      points={{12,4},{12,-4}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(phase1.port_a, thermalCollector1.port_a[1]) annotation (Line(
+      points={{2,52},{12,52},{12,24.6667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(phase2.port_a, thermalCollector1.port_a[2]) annotation (Line(
+      points={{2,42},{12,42},{12,24}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(phase3.port_a, thermalCollector1.port_a[3]) annotation (Line(
+      points={{2,32},{12,32},{12,23.3333}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermalResistor1.port_b, prescribedTemperature.port) annotation (Line(
+      points={{12,-52},{12,-58}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(realExpression.y, prescribedTemperature.T) annotation (Line(
+      points={{1,-90},{12,-90},{12,-80}},
+      color={0,0,127},
       smooth=Smooth.None));
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
