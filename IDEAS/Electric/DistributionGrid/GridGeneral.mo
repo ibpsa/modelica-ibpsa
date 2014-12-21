@@ -45,7 +45,7 @@ protected
   parameter Integer Nodes=grid.nNodes;
 
 protected
-  IDEAS.Electric.DistributionGrid.GridSubModels.Grid1PGeneral grid1PGeneral(
+  IDEAS.Electric.DistributionGrid.Components.Grid1PGeneral grid1PGeneral(
     grid=grid,
     VSource=VSource,
     traPre=traPre,
@@ -53,7 +53,7 @@ protected
     Vsc=Vsc) if Phases == 1
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  IDEAS.Electric.DistributionGrid.GridSubModels.Grid3PGeneral grid3PGeneral(
+  IDEAS.Electric.DistributionGrid.Components.Grid3PGeneral grid3PGeneral(
     grid=grid,
     VSource=VSource,
     traPre=traPre,
