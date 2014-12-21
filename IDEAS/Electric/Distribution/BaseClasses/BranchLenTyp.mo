@@ -1,8 +1,8 @@
-within IDEAS.Electric.DistributionGrid.Components;
+within IDEAS.Electric.Distribution.BaseClasses;
 model BranchLenTyp
   "A branch specified by its type of cable (ELECTAPub.GridsLib.LVCable) and its length in meters"
-  extends IDEAS.Electric.DistributionGrid.Components.Branch(R=typ.RCha*mulFac*
-        len, X=typ.XCha*mulFac*len);
+  extends IDEAS.Electric.Distribution.BaseClasses.Branch(R=typ.RCha*mulFac*len,
+      X=typ.XCha*mulFac*len);
 
   parameter Real mulFac=1;
 

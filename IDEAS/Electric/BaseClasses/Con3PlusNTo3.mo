@@ -18,72 +18,51 @@ equation
   end for;
   -fourWire[4].i = fourWire[1].i + fourWire[2].i + fourWire[3].i;
 
-  annotation (Icon(graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                   graphics={
         Line(
-          points={{-80,30},{-20,30}},
-          color={0,0,255},
-          smooth=Smooth.None,
-          thickness=0.5),
+          points={{12,-20},{38,-20},{40,-20},{50,-18},{60,-10},{70,-4},{90,0}},
+          color={205,133,63},
+          smooth=Smooth.None),
         Line(
-          points={{-80,10},{-20,10}},
-          color={0,0,255},
-          smooth=Smooth.None,
-          thickness=0.5),
+          points={{8,18},{38,18},{40,18},{50,16},{60,10},{70,4},{90,0}},
+          color={135,135,135},
+          smooth=Smooth.None),
         Line(
-          points={{-80,-10},{-20,-10}},
-          color={0,0,255},
-          smooth=Smooth.None,
-          thickness=0.5),
+          points={{10,-2},{40,-2},{60,0},{90,0}},
+          color={0,0,0},
+          smooth=Smooth.None),
         Line(
-          points={{-80,-30},{-20,-30}},
-          color={0,0,255},
-          smooth=Smooth.None,
-          thickness=0.5),
+          points={{-8,-20},{-38,-20},{-40,-20},{-50,-18},{-60,-10},{-70,-4},{
+              -90,0}},
+          color={205,133,63},
+          smooth=Smooth.None),
         Line(
-          points={{20,20},{80,20}},
-          color={0,0,255},
-          smooth=Smooth.None,
-          thickness=0.5),
+          points={{-12,18},{-38,18},{-40,18},{-50,16},{-60,10},{-70,4},{-90,0}},
+          color={135,135,135},
+          smooth=Smooth.None),
         Line(
-          points={{20,0},{80,0}},
-          color={0,0,255},
-          smooth=Smooth.None,
-          thickness=0.5),
+          points={{-10,-2},{-40,-2},{-60,0},{-90,0}},
+          color={0,0,0},
+          smooth=Smooth.None),
         Line(
-          points={{20,-20},{80,-20}},
-          color={0,0,255},
+          points={{-14,38},{-40,38},{-50,34},{-70,10},{-90,0}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Rectangle(
+          extent={{-70,12},{-100,-12}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{100,12},{70,-12}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-6,60},{6,-60}},
+          color={135,135,135},
           smooth=Smooth.None,
-          thickness=0.5),
-        Text(
-          extent={{-58,-32},{-42,-42}},
-          lineColor={0,0,255},
-          textString="N"),
-        Text(
-          extent={{-60,20},{-44,10}},
-          lineColor={0,0,255},
-          textString="L2"),
-        Text(
-          extent={{-60,2},{-44,-8}},
-          lineColor={0,0,255},
-          textString="L3"),
-        Text(
-          extent={{44,30},{60,20}},
-          lineColor={0,0,255},
-          textString="P1"),
-        Text(
-          extent={{44,10},{60,0}},
-          lineColor={0,0,255},
-          textString="P2"),
-        Text(
-          extent={{44,-10},{60,-20}},
-          lineColor={0,0,255},
-          textString="P3"),
-        Text(
-          extent={{-60,40},{-44,30}},
-          lineColor={0,0,255},
-          textString="L1"),
-        Text(
-          extent={{-60,96},{60,36}},
-          lineColor={0,0,255},
-          textString="3 x L + N => 3 x P")}), Diagram(graphics));
+          pattern=LinePattern.Dash)}),        Diagram(graphics));
 end Con3PlusNTo3;
