@@ -61,7 +61,7 @@ This is to check the correct implementation of the parameter mFactor for moist a
 <p>2)  The temperature response of volMFactor.T and vol1.T should be (nearly) identical. 
 Furthermore the response of the species concentration Xi demonstrates the 
 difference between using an mFactor = 10 and multiplying the mixingVolume volume 
-&QUOT;V&QUOT; by 10.</p>
+V by 10.</p>
 </html>", revisions="<html>
 <ul>
 <li>

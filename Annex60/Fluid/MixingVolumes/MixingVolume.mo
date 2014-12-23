@@ -58,7 +58,7 @@ which may itself be a function of temperature or mass flow rate.
 <li>Parameter <b>mFactor</b> can be used to increase the thermal mass of the MixingVolume
 without increasing its volume. This way species concentrations are still calculated
 correctly even though the thermal mass increases. The additional thermal mass is calculated
-based on the density and &acute;HeatCapacityCp&acute; of &acute;state_default&acute;. <br>
+based on the density and &acute;HeatCapacityCp&acute; of &acute;state_default&acute;. <br/>
 This parameter can for instance be useful in a pipe model when the developer wants to 
 lump the pipe thermal mass to the fluid volume. By default mFactor = 1 so 
 the mass is unchanged. For higher values of mFactor the mass will be scaled proportionally. 
