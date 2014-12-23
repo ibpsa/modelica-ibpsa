@@ -58,10 +58,10 @@ protected
     final fluidVolume = V,
     final initialize_p = initialize_p,
     m(start=V*rho_start),
-    U(start=V*rho_start*Medium.specificInternalEnergy(
-        state_start)+T_start*CSen),
     nPorts=nPorts,
-    CSen=CSen) if
+    CSen=CSen,
+    U(start=V*rho_start*Medium.specificInternalEnergy(state_start) + (T_start
+           - Medium.reference_T)*CSen)) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
