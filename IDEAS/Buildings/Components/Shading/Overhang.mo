@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components.Shading;
 model Overhang "Roof overhangs"
-  extends IDEAS.Buildings.Components.Interfaces.StateShading(final controled=false);
+  extends IDEAS.Buildings.Components.Interfaces.StateShading(final controlled=false);
 
   // Window properties
   parameter Modelica.SIunits.Length hWin "Window height";

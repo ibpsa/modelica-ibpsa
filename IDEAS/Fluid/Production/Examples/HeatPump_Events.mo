@@ -240,9 +240,9 @@ equation
       smooth=Smooth.None));
   connect(pump3.m_flowSet, ramp.y) annotation (Line(
       points={{-14,-86.4},{-16,-86.4},{-16,-90},{-74,-90},{-74,-10},{-77,-10}},
-
       color={0,0,127},
       smooth=Smooth.None));
+
   connect(ramp.y, pump2.m_flowSet) annotation (Line(
       points={{-77,-10},{-22,-10},{-22,-24},{-14,-24},{-14,-29.6}},
       color={0,0,127},
@@ -264,5 +264,4 @@ Initial version
 </li>
 </ul>
 </html>"));
-
 end HeatPump_Events;
