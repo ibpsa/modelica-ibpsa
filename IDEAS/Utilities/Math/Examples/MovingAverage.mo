@@ -1,8 +1,7 @@
 within IDEAS.Utilities.Math.Examples;
 model MovingAverage
   extends Modelica.Icons.Example;
-
-  IDEAS.Utilities.Math.MovingAverage movingAverage(period=3)
+  IDEAS.Utilities.Math.MovingAverage movingAverage(period=3, resetIntegral=16)
     annotation (Placement(transformation(extent={{-16,8},{4,28}})));
   Modelica.Blocks.Sources.Pulse step(
     offset=50,
@@ -13,7 +12,7 @@ model MovingAverage
     T=3,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=50,
-    k=1.5)
+    k=1)
     annotation (Placement(transformation(extent={{-14,-28},{6,-8}})));
 equation
   connect(step.y, movingAverage.u) annotation (Line(
