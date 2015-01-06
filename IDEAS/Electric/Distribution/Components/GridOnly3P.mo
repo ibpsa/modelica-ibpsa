@@ -32,7 +32,7 @@ model GridOnly3P
   output Modelica.SIunits.ActivePower PGriLosPhaTot;
   output Modelica.SIunits.ActivePower PGriLosTot;
 
-  //protected
+protected
   parameter Integer Nodes=grid.nNodes;
   parameter Integer nodeMatrix[Nodes, Nodes]=grid.nodeMatrix;
   parameter Modelica.SIunits.ComplexImpedance[Nodes] Z=grid.Z;
