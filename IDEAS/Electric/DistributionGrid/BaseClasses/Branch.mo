@@ -1,4 +1,4 @@
-within IDEAS.Electric.DistributionGrid.Components;
+within IDEAS.Electric.DistributionGrid.BaseClasses;
 model Branch
 
   extends Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.OnePort(i(
@@ -12,12 +12,14 @@ model Branch
 equation
   v = Z*i;
   Plos = R*Modelica.ComplexMath.'abs'(i)^2;
-  annotation (Icon(graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                   graphics={
         Rectangle(
-          extent={{-70,30},{70,-30}},
-          lineColor={0,0,255},
+          extent={{-40,12},{40,-10}},
+          lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{70,0},{100,0}}),
-        Line(points={{-100,0},{-70,0}})}));
+        Line(points={{40,0},{100,0}}, color={0,0,0}),
+        Line(points={{-100,0},{-40,0}}, color={0,0,0})}));
 end Branch;
