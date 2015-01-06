@@ -37,13 +37,17 @@ equation
             -100},{100,100}}),
                    graphics={
         Rectangle(
-          extent={{-40,20},{40,-10}},
+          extent={{-34,14},{46,-16}},
           lineColor={85,170,255},
+          fillColor={85,170,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-40,20},{40,-10}},
+          lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{40,0},{100,0}}, color={85,170,255}),
-        Line(points={{-100,0},{-40,0}}, color={85,170,255})}),
-                                                          Diagram(
+        Line(points={{40,0},{100,0}}, color={0,0,0}),
+        Line(points={{-100,0},{-40,0}}, color={0,0,0})}), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
 end Branch;
