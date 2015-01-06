@@ -1,14 +1,16 @@
 within Annex60.Fluid.Actuators.Valves.Examples;
-model Thermostatic3WayValve "Example of a thermostatic three way valve"
+model ThermostaticThreeWayValve "Example of a thermostatic three way valve"
   extends Modelica.Icons.Example;
   Annex60.Fluid.Actuators.Valves.ThermostaticThreeWayLinear
     thermostatic3WayValve(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dynamicValve=false,
+    dynamicValve=true,
     dpValve_nominal=6000,
     l={0.05,0.05},
-    tau=1)              annotation (Placement(transformation(extent={{8,8},{28,28}})));
+    tau=1,
+    dynamicBalance=false)
+                        annotation (Placement(transformation(extent={{8,8},{28,28}})));
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=2
@@ -77,10 +79,6 @@ equation
       points={{-10,-20},{18,-20},{18,8}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSet.y, thermostatic3WayValve.y) annotation (Line(
-      points={{1,60},{18,60},{18,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TSou1.y, sou1.T_in) annotation (Line(
       points={{-43,40},{-38,40},{-38,14},{-32,14}},
       color={0,0,127},
@@ -109,10 +107,13 @@ equation
       points={{-43.4,10},{-38,10},{-38,-12},{-32,-12}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(TSet.y, thermostatic3WayValve.TSet) annotation (Line(
+      points={{1,60},{18,60},{18,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -127,4 +128,4 @@ Changed implementation for more flexible 3wayvalve
 </html>"),
     experiment(StopTime=30),
     __Dymola_experimentSetupOutput);
-end Thermostatic3WayValve;
+end ThermostaticThreeWayValve;

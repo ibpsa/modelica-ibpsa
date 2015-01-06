@@ -11,9 +11,19 @@ parameter Modelica.SIunits.Temperature dT_nominal = 50
 parameter Boolean dynamicValve = false
     "Set to true to simulate a valve opening delay: typically slower but more robust"
     annotation(Dialog(tab="Dynamics", group="Filter"));
+
+    Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
+    "Temperature set point"   annotation (Placement(transformation(
+      extent={{-20,-20},{20,20}},
+      rotation=270,
+      origin={-40,120}), iconTransformation(
+      extent={{-20,-20},{20,20}},
+      rotation=270,
+      origin={0,120})));
+
     Real k "Valve opening";
-//protected
-  Modelica.SIunits.SpecificEnthalpy h_set = Medium.specificEnthalpy(Medium.setState_pTX(port_2.p, y, vol.Xi))
+protected
+  Modelica.SIunits.SpecificEnthalpy h_set = Medium.specificEnthalpy(Medium.setState_pTX(port_2.p, TSet, port_2.Xi_outflow))
     "Specific enthalpy of the temperature setpoint";
   Real k_raw(start=0.5)
     "Unbounded help variable for determining fraction of each flow";
@@ -26,6 +36,7 @@ parameter Boolean dynamicValve = false
 public
   Modelica.Blocks.Sources.RealExpression valOpe(y=k) "Valve opening value"
     annotation (Placement(transformation(extent={{-96,16},{-76,36}})));
+
 equation
   der(k_state) = if dynamicValve then (k_raw-k_state)/tau else 0;
   delta_h=inStream(port_3.h_outflow)-inStream(port_1.h_outflow);
