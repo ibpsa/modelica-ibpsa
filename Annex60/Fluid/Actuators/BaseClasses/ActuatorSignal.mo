@@ -3,7 +3,8 @@ model ActuatorSignal
   "Partial model that implements the filtered opening for valves and dampers"
 
   parameter Boolean use_TSet = false
-    "True if use a temperature set poin instead of a position set point";
+    "= true if a temperature set point is used instead of a position set point. In that case the position input and the filter are removed."
+                                                                                                        annotation(Dialog(tab="Dynamics", group="Set point temperature"));
   parameter Boolean filteredOpening=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
@@ -18,8 +19,8 @@ model ActuatorSignal
   parameter Modelica.SIunits.Temperature T_max = 373.15 "Maximum temperature"
     annotation(Dialog(tab="Dynamics", group="Set point temperature",enable=use_TSet));
 
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=y_max, unit=if use_TSet then "K" else "")
-    "If use_TSet is false, y gives the actuator position (0: closed, 1: open). Otherwie a set point temperature."
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) if not use_TSet
+    "If use_TSet is false, y gives the actuator position (0: closed, 1: open). Otherwise the input is removed."
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
           rotation=270,
         origin={0,120}),iconTransformation(
@@ -27,13 +28,12 @@ model ActuatorSignal
         rotation=270,
         origin={0,120})));
 
-  Modelica.Blocks.Interfaces.RealOutput y_actual "Actual valve position"
+  Modelica.Blocks.Interfaces.RealOutput y_actual if not use_TSet
+    "Actual valve position"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
 
   // Classes used to implement the filtered opening
 protected
-  parameter Real y_max = if use_TSet then T_max else 1
-    "Maximum value of the actuator input";
   Modelica.Blocks.Interfaces.RealOutput y_filtered if filteredOpening and not use_TSet
     "Filtered valve position in the range 0..1"
     annotation (Placement(transformation(extent={{40,78},{60,98}}),
@@ -52,10 +52,12 @@ protected
     annotation (Placement(transformation(extent={{6,81},{20,95}})));
 
 equation
- connect(filter.y, y_filtered) annotation (Line(
+  if not use_TSet then
+     connect(filter.y, y_filtered) annotation (Line(
       points={{20.7,88},{50,88}},
       color={0,0,127},
       smooth=Smooth.None));
+  end if;
   if filteredOpening and not use_TSet then
     connect(y, filter.u) annotation (Line(
       points={{1.11022e-15,120},{1.11022e-15,88},{4.6,88}},
