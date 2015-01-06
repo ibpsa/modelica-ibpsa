@@ -17,8 +17,6 @@ model TestGridGeneral
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
 equation
-  for i in 1:3 loop
-  end for;
   connect(gridGeneral.gridNodes[2], risingflankSingle.nodes) annotation (Line(
       points={{-20,10},{40,10}},
       color={0,0,255},
