@@ -5,7 +5,8 @@ partial model HeatingSystem "Partial heating system"
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
 
-  // Building characteristics  //////////////////////////////////////////////////////////////////////////
+  // Building characteristics --------------------------------------------------
+
   parameter Boolean floorHeating "true if the emission has a floor heating";
   parameter Boolean radiators "true if the emission has a radiator";
 
@@ -13,6 +14,10 @@ partial model HeatingSystem "Partial heating system"
     "Number of conditioned thermal zones in the building";
   parameter Integer nEmb(min=1) = nZones
     "Number of embedded systems in the building, not used at the moment?";
+
+  parameter Boolean isHea=true "true if system is able to heat";
+  parameter Boolean isCoo=false "true if system is able to cool";
+
   parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
     "Nominal power, can be seen as the max power of the emission system";
   parameter Real[nZones] VZones "Conditioned volumes of the zones";
@@ -22,34 +27,35 @@ partial model HeatingSystem "Partial heating system"
   final parameter Modelica.SIunits.Temperature[nZones] T_start
     "Operative zonal start temperatures";
 
-  // Electricity consumption or production  //////////////////////////////////////////////////////////////
+  // Electricity consumption or production -------------------------------------
+
   parameter Integer nLoads(min=1) = 1 "Number of electric loads";
   SI.Power[nLoads] P "Active power for each of the loads";
   SI.Power[nLoads] Q "Reactive power for each of the loads";
 
-  // Parameters DHW ///////////////////////////////////////////////////////////////////////////////////////
-  parameter Integer nOcc=2
-    "number of occupants for determination of DHW consumption";
+  // Interfaces ----------------------------------------------------------------
 
-  // Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon if
-    radiators "Nodes for convective heat gains"
+  parameter Integer nConvPorts(min=0) = nZones
+    "Number of ports in building for convective heating/cooling";
+  parameter Integer nRadPorts(min=0) = nZones
+    "Number of ports in building for radiative heating/cooling";
+  parameter Integer nEmbPorts(min=0) = nZones
+    "Number of ports in building for embedded systems";
+  parameter Integer nTemSen(min=0) = nZones
+    "number of temperature inputs for the system";
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nConvPorts] heatPortCon
+    "Nodes for convective heat gains"
     annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortRad if
-    radiators "Nodes for radiative heat gains"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nRadPorts] heatPortRad
+    "Nodes for radiative heat gains"
     annotation (Placement(transformation(extent={{-210,-30},{-190,-10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nZones] heatPortEmb if
-    floorHeating "Construction nodes for heat gains by embedded layers"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nEmbPorts] heatPortEmb
+    "Construction nodes for heat gains by embedded layers"
     annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
     plugLoad(each m=1) "Electricity connection to the Inhome feeder"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
-        nLoads) if nLoads >= 1
-    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
-
-  // --- Sensor
-  Modelica.Blocks.Interfaces.RealInput[nZones] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
+  Modelica.Blocks.Interfaces.RealInput[nTemSen] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
     "Sensor temperature"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -67,8 +73,17 @@ partial model HeatingSystem "Partial heating system"
         rotation=90,
         origin={60,-104})));
 
+  // Output --------------------------------------------------------------------
+
+  Modelica.SIunits.Power QHeaSys if isHea
+    "Total energy use forspace heating + DHW, if present)";
+  Modelica.SIunits.Power QCooTotal if isCoo "Total cooling energy use";
+
 protected
   final parameter Integer nLoads_min = max(1,nLoads);
+  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
+        nLoads) if nLoads >= 1
+    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
 public
   Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
