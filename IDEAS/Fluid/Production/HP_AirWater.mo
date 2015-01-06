@@ -55,54 +55,6 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
          graphics={
-        Rectangle(
-          extent={{-90,-60},{-150,120}},
-          lineColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-180,100},{-150,20}},
-          lineColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-140,-20},{-98,-42}},
-          color={0,127,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-140,0},{-98,-22}},
-          color={0,127,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-140,20},{-98,-2}},
-          color={0,127,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-140,40},{-98,18}},
-          color={0,127,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-142,62},{-100,40}},
-          color={0,127,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-142,80},{-100,58}},
-          color={0,127,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-142,102},{-100,80}},
-          color={0,127,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-180,60},{-174,60},{-170,64},{-170,90},{-168,94},{-160,94},{
-              -158,90},{-158,82}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-180,60},{-174,60},{-170,56},{-170,30},{-168,26},{-160,26},{
-              -158,30},{-158,38}},
-          color={0,0,0},
-          smooth=Smooth.None),
         Polygon(
           points={{-52,100},{-32,100},{-32,80},{28,80},{28,-80},{-2,-80},{-2,
               -72},{-12,-80},{-22,-72},{-22,-80},{-52,-80},{-52,100}},
@@ -131,7 +83,7 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-102,20},{-70,20},{-42,32},{-62,8},{-34,20},{-22,20}},
+          points={{-100,20},{-70,20},{-42,32},{-62,8},{-34,20},{-22,20}},
           color={0,127,255},
           smooth=Smooth.None),
         Ellipse(extent={{-2,-10},{58,-70}},
@@ -151,7 +103,7 @@ equation
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{-22,20},{-12,20},{-32,-40},{-102,-40}},
+          points={{-22,20},{-12,20},{-32,-40},{-100,-40}},
           color={0,127,255},
           smooth=Smooth.None),
         Line(
@@ -190,27 +142,34 @@ equation
           lineColor={95,95,95},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-112,-34},{-100,-46}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={255,255,255}),
-        Line(
-          points={{-80,-40},{-106,-40}},
-          color={0,127,255},
-          smooth=Smooth.None),
-        Ellipse(
-          extent={{-112,26},{-100,14}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          fillColor={255,255,255}),
-        Line(
-          points={{-80,20},{-106,20}},
-          color={0,127,255},
-          smooth=Smooth.None),
         Line(
           points={{40,-60},{78,-60}},
           color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-80,20},{-160,20},{-160,0},{-100,0},{-100,-20},{-160,-20},{
+              -160,-40},{-80,-40}},
+          color={0,127,255},
+          smooth=Smooth.None),
+        Line(
+          points={{-152,30},{-152,-52}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{-142,30},{-142,-52}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{-132,30},{-132,-52}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{-122,30},{-122,-52}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{-112,30},{-112,-52}},
+          color={0,0,0},
           smooth=Smooth.None)}),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">Description </font></h4></p>
