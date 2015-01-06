@@ -49,7 +49,7 @@ partial model HeatingSystem "Partial heating system"
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
 
   // --- Sensor
-  Modelica.Blocks.Interfaces.RealInput[nTemSen] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
+  Modelica.Blocks.Interfaces.RealInput[nZones] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
     "Sensor temperature"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -60,9 +60,6 @@ partial model HeatingSystem "Partial heating system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-104})));
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1,final nLoads=
-        nLoads)
-    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
   Modelica.Blocks.Interfaces.RealInput mDHW60C
     "mFlow for domestic hot water, at 60 degC" annotation (Placement(
         transformation(
@@ -72,26 +69,11 @@ partial model HeatingSystem "Partial heating system"
 
 protected
   final parameter Integer nLoads_min = max(1,nLoads);
-   Modelica.SIunits.Power[nLoads_min] P "Active power for each of the loads";
-   Modelica.SIunits.Power[nLoads_min] Q "Passive power for each of the loads";
 public
   Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
   Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
-  Modelica.Blocks.Interfaces.RealInput[nZones] TSet(
-    final quantity="ThermodynamicTemperature",
-    unit="K",
-    displayUnit="degC",
-    min=0) "Setpoint temperature for the zones" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={20,-106}),
-                         iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-102})));
   outer Modelica.Fluid.System system
   annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 equation
@@ -99,7 +81,7 @@ equation
       points={{190,0},{200,0}},
       color={85,170,255},
       smooth=Smooth.None));
-    connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
+  connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
           points={{161,-10},{166,-10},{166,2},{170,2}},
           color={0,0,127},
           smooth=Smooth.None));
