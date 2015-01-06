@@ -110,9 +110,9 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
   Annex60.Fluid.Sensors.MassFlowRate senMasFlo4(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality
+  Annex60.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-1)
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
-  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1
+  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1(threShold=1E-1)
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 equation
   connect(res11.port_b, res12.port_a)
