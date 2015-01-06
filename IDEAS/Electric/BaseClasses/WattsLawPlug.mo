@@ -39,7 +39,9 @@ equation
                    graphics={
         Ellipse(
           extent={{-80,60},{40,-60}},
-          lineColor={0,0,0}),
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Line(
           points={{40,0},{100,0}},
           color={0,0,0},

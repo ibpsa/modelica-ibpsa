@@ -10,8 +10,8 @@ model WattsLaw
         transformation(extent={{-120,20},{-80,60}}), iconTransformation(extent={{-100,40},
             {-80,60}})));
   Modelica.Blocks.Interfaces.RealInput Q(start=0) annotation (Placement(
-        transformation(extent={{-128,-20},{-88,20}}), iconTransformation(extent={{-108,0},
-            {-88,20}})));
+        transformation(extent={{-130,-20},{-90,20}}), iconTransformation(extent={{-110,0},
+            {-90,20}})));
 equation
   for i in 1:numPha loop
     P/numPha = Modelica.ComplexMath.real(vi[i].v*Modelica.ComplexMath.conj(vi[i].i));
@@ -23,7 +23,9 @@ equation
                    graphics={
         Ellipse(
           extent={{-80,60},{40,-60}},
-          lineColor={0,0,0}),
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Line(
           points={{40,0},{100,0}},
           color={0,0,0},
