@@ -33,6 +33,12 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
   parameter Real modulation_min=20 "Minimal modulation percentage";
   parameter Real modulation_start=35
     "Min estimated modulation level required for start of HP";
+  Modelica.Blocks.Interfaces.BooleanInput u
+    "Temperature setpoint, acts as on/off signal too" annotation (Placement(
+        transformation(extent={{-126,10},{-86,50}}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-10,120})));
 equation
   PFuel = 0;
   PEl = heatSource.PEl;
@@ -56,14 +62,6 @@ equation
           smooth=Smooth.None,
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid),
-        Line(
-          points={{-102,30},{-102,10}},
-          color={0,127,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-102,-30},{-102,-50}},
-          color={0,127,255},
-          smooth=Smooth.None),
         Line(
           points={{78,70},{78,50}},
           color={0,0,127},
@@ -93,14 +91,6 @@ equation
         Line(
           points={{-2,-40},{10,-40},{38,-28},{18,-52},{40,-44},{40,-60}},
           color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-106,30},{-106,10}},
-          color={0,127,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-106,-30},{-106,-50}},
-          color={0,127,255},
           smooth=Smooth.None),
         Line(
           points={{80,-50},{80,-70}},
@@ -151,69 +141,69 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-126,-60},{-186,120}},
+          extent={{-100,-60},{-160,120}},
           lineColor={0,0,0},
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-216,100},{-186,20}},
+          extent={{-190,100},{-160,20}},
           lineColor={0,0,0},
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-176,-20},{-134,-42}},
+          points={{-150,-20},{-108,-42}},
           color={0,0,0},
           smooth=Smooth.None),
         Ellipse(
-          extent={{-152,-34},{-140,-46}},
+          extent={{-126,-34},{-114,-46}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}),
         Line(
-          points={{-106,-40},{-146,-40}},
+          points={{-80,-40},{-120,-40}},
           color={0,127,255},
           smooth=Smooth.None),
         Line(
-          points={{-176,0},{-134,-22}},
+          points={{-150,0},{-108,-22}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-176,20},{-134,-2}},
+          points={{-150,20},{-108,-2}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-176,40},{-134,18}},
+          points={{-150,40},{-108,18}},
           color={0,0,0},
           smooth=Smooth.None),
         Ellipse(
-          extent={{-152,26},{-140,14}},
+          extent={{-126,26},{-114,14}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}),
         Line(
-          points={{-106,20},{-146,20}},
+          points={{-80,20},{-120,20}},
           color={0,127,255},
           smooth=Smooth.None),
         Line(
-          points={{-178,62},{-136,40}},
+          points={{-152,62},{-110,40}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-178,80},{-136,58}},
+          points={{-152,80},{-110,58}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-178,102},{-136,80}},
+          points={{-152,102},{-110,80}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-216,60},{-210,60},{-206,64},{-206,90},{-204,94},{-196,94},{
-              -194,90},{-194,82}},
+          points={{-190,60},{-184,60},{-180,64},{-180,90},{-178,94},{-170,94},{-168,
+              90},{-168,82}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-216,60},{-210,60},{-206,56},{-206,30},{-204,26},{-196,26},{
-              -194,30},{-194,38}},
+          points={{-190,60},{-184,60},{-180,56},{-180,30},{-178,26},{-170,26},{-168,
+              30},{-168,38}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
