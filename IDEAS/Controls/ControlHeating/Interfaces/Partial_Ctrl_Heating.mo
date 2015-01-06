@@ -79,14 +79,15 @@ equation
           textString="%name"),
           Rectangle(
           extent={{120,60},{-80,-60}},
-          lineColor={175,175,175},
+          lineColor={135,135,135},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Polygon(
-          points={{-80,60},{-80,-60},{-20,0},{-80,60}},
+          points={{-80,60},{-80,-60},{-40,0},{-80,60}},
           smooth=Smooth.None,
-          fillColor={175,175,175},
+          fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          lineColor={0,0,0})}),Diagram(coordinateSystem(extent={{-100,-100},{100,
+          lineColor={135,135,135})}),
+                               Diagram(coordinateSystem(extent={{-100,-100},{100,
             100}},preserveAspectRatio=false), graphics));
 end Partial_Ctrl_Heating;

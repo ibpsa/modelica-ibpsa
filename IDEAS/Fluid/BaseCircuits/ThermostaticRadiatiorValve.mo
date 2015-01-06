@@ -22,12 +22,18 @@ model ThermostaticRadiatiorValve
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
-        origin={-20,110})));
+        origin={-20,110}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-20,100})));
   Modelica.Blocks.Interfaces.RealInput TSet "Zone setpoint temperature"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
-        origin={20,112})));
+        origin={20,112}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={20,100})));
 equation
   connect(val1.port_b, port_b2) annotation (Line(
       points={{-10,-60},{-100,-60}},
@@ -62,5 +68,62 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
+        ={
+        Polygon(
+          points={{-20,70},{-20,50},{0,60},{-20,70}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{20,70},{20,50},{0,60},{20,70}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{0,40},{0,60}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Rectangle(
+          extent={{-4,44},{4,36}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{20,100},{6,80},{0,60}},
+          color={0,255,128},
+          smooth=Smooth.None),
+        Line(
+          points={{0,-60},{0,-40}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-10,-40},{10,-40}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Polygon(
+          points={{-20,-50},{-20,-70},{0,-60},{-20,-50}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{20,-50},{20,-70},{0,-60},{20,-50}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{4,44},{24,24}},
+          lineColor={0,0,127},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          textString="T"),
+        Line(
+          points={{-20,100},{-6,80},{0,60}},
+          color={255,0,0},
+          smooth=Smooth.None)}));
 end ThermostaticRadiatiorValve;

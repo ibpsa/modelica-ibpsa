@@ -83,26 +83,26 @@ protected
   final parameter Integer nLoads_min = max(1,nLoads);
   Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
         nLoads) if nLoads >= 1
-    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
+    annotation (Placement(transformation(extent={{172,-10},{192,10}})));
 public
   Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
-    annotation (Placement(transformation(extent={{140,0},{160,20}})));
+    annotation (Placement(transformation(extent={{144,-2},{164,18}})));
   Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
-    annotation (Placement(transformation(extent={{140,-20},{160,0}})));
+    annotation (Placement(transformation(extent={{144,-22},{164,-2}})));
   outer Modelica.Fluid.System system
   annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 equation
   connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-      points={{190,0},{200,0}},
+      points={{192,0},{200,0}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
-          points={{161,-10},{166,-10},{166,2},{170,2}},
+          points={{165,-12},{168,-12},{168,1},{172,1}},
           color={0,0,127},
           smooth=Smooth.None));
 
   connect(P_val.y, wattsLawPlug.P) annotation (Line(
-      points={{161,10},{166,10},{166,6},{170,6}},
+      points={{165,8},{168,8},{168,5},{173,5}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
