@@ -2,13 +2,13 @@ within IDEAS.Electric.Examples;
 model TestGridAndPVSystemGeneral
   "Test to see if Grid and PV(from file) work as it should"
 
-  DistributionGrid.GridGeneral gridGeneral(
+  Distribution.GridGeneral gridGeneral(
     Phases=3,
     redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
     VSource=(230*1.02) + 0*MCM.j,
     traPre=true)
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Photovoltaic.PVSystemGeneral pVSystemGeneral(numPha=3, redeclare
+  Photovoltaics.PVSystemGeneral pVSystemGeneral(numPha=3, redeclare
       IDEAS.Electric.Data.PvPanels.SanyoHIP230HDE1 pvPanel)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Files.min10

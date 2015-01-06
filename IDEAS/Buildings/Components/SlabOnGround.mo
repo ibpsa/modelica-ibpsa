@@ -24,10 +24,10 @@ protected
   final parameter IDEAS.Buildings.Data.Materials.Ground ground2(final d=0.33);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground3(final d=0.17);
 
-  Modelica.SIunits.HeatFlowRate Qm=U*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m
-       - 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta));
+  Modelica.SIunits.HeatFlowRate Qm = U*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta))
+    "Two-dimensionl correction for edge flow";
 
-  Modelica.SIunits.Length B=AWall/(0.5*PWall)
+  Modelica.SIunits.Length B=AWall/(0.5*PWall + 1E-10)
     "Characteristic dimension of the slab on ground";
   Modelica.SIunits.Length dt=sum(constructionType.mats.d) + ground1.k*layMul.R
     "Equivalent thickness";
@@ -64,8 +64,8 @@ public
   //    nMat(T(start={{273.15},{273.15},{273.15}} + {{11.5},{12.2},{12.7}})))
 
 public
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=
-        284.15) annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=284.15)
+                annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-30,-8})));
@@ -75,6 +75,7 @@ public
   outer SimInfoManager sim "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
 equation
+
   periodicFlow.Q_flow = -Qm;
 
   connect(layMul.port_b, intCon.port_a) annotation (Line(

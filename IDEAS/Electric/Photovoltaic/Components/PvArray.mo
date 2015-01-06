@@ -111,23 +111,54 @@ equation
       smooth=Smooth.None));
 
   //Ground reflectantance is not used for now (see Absorption model => SolAbs equation!
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}), graphics={Polygon(
-          points={{-80,60},{-60,80},{60,80},{80,60},{80,-60},{60,-80},{-60,-80},
-            {-80,-60},{-80,60}},
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+            -100},{100,100}}),
+                         graphics={
+        Line(
+          points={{-100,0},{100,0}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Ellipse(
+          extent={{-40,40},{40,-40}},
           lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),Line(
-          points={{-40,80},{-40,-80}},
-          color={0,0,0},
-          smooth=Smooth.None),Line(
-          points={{40,80},{40,-80}},
-          color={0,0,0},
-          smooth=Smooth.None),Text(
-          extent={{-100,98},{100,-102}},
-          lineColor={255,255,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="#")}), Diagram(graphics));
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-4,20},{-4,-20}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Rectangle(
+          extent={{6,10},{4,-10}},
+          lineColor={85,170,255},
+          fillColor={85,170,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-4,0},{-40,0}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Line(
+          points={{40,0},{4,0}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Polygon(
+          points={{28,40},{42,60},{48,54},{28,40}},
+          lineColor={85,170,255},
+          smooth=Smooth.None,
+          fillColor={85,170,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{28,40},{58,70}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Line(
+          points={{40,30},{70,60}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Polygon(
+          points={{40,30},{54,50},{60,44},{40,30}},
+          lineColor={85,170,255},
+          smooth=Smooth.None,
+          fillColor={85,170,255},
+          fillPattern=FillPattern.Solid)}),
+                             Diagram(graphics));
 end PvArray;
