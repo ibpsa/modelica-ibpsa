@@ -1,7 +1,7 @@
 within IDEAS.Utilities.Math.Examples;
 model MovingAverage
   extends Modelica.Icons.Example;
-  IDEAS.Utilities.Math.MovingAverage movingAverage(period=3, resetIntegral=16)
+  IDEAS.Utilities.Math.MovingAverage movingAverage(period=2, resetIntegral=10)
     annotation (Placement(transformation(extent={{-16,8},{4,28}})));
   Modelica.Blocks.Sources.Pulse step(
     offset=50,
@@ -28,6 +28,6 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
             graphics),
-    experiment(StopTime=20),
+    experiment(StopTime=30),
     __Dymola_experimentSetupOutput);
 end MovingAverage;

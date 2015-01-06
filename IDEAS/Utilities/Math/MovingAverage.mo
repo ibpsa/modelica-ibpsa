@@ -6,7 +6,7 @@ block MovingAverage "Calculates the moving average of a Real input"
   parameter Modelica.SIunits.Time period=1
     "Period over wich running average is to be computed";
 
-  parameter Real resetIntegral(min=10) = 10000
+  parameter Real resetIntegral(min=10) = 1000000
     "Number of period before reseting the integral of the moving average"
     annotation(Dialog(tab = "Advanced"));
 
