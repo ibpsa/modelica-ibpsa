@@ -8,7 +8,7 @@ model EmbeddedPipe
     "Properties of the floor heating or TABS, if present"
     annotation (choicesAllMatching=true);
   extends IDEAS.Fluid.Interfaces.Partials.PartialTwoPort(
-    final m=A_pipe*L_r*rho_default, vol(nPorts=2));
+    final m=A_pipe*L_r*rho_default, vol(nPorts=2), m_flow_nominal=abs(Q_flow_nominal/cp_nominal/(T_a_nominal-T_b_nominal)));
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     computeFlowResistance=false,
     final dp_nominal=Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
@@ -23,6 +23,17 @@ model EmbeddedPipe
       m_flow_small=m_flow_small/nParCir));
 
   // General model parameters ////////////////////////////////////////////////////////////////
+
+  parameter Modelica.SIunits.Power Q_flow_nominal
+    "Nominal heating power (positive for heating)"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_a_nominal
+    "Water inlet temperature at nominal condition"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature T_b_nominal
+    "Water outlet temperature at nominal condition"
+    annotation(Dialog(group="Nominal condition"));
+
   parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
     "Absolute roughness of pipe, with a default for a smooth steel pipe"
     annotation(Dialog(tab="Pressure drop"));
@@ -97,6 +108,12 @@ annotation(Dialog(tab="Pressure drop"));
     annotation (Placement(transformation(extent={{-92,40},{-22,60}})));
   Modelica.Thermal.HeatTransfer.Components.Convection R_w
     annotation (Placement(transformation(extent={{-2,14},{-22,34}})));
+
+protected
+   parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=
+      Medium.specificHeatCapacityCp(
+        Medium.setState_pTX(Medium.p_default, T_a_nominal, Medium.X_default))
+    "Specific heat capacity at nominal conditions";
 
 protected
   final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T/nParCir
