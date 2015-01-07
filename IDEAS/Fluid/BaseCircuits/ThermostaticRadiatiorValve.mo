@@ -1,7 +1,11 @@
 within IDEAS.Fluid.BaseCircuits;
 model ThermostaticRadiatiorValve
   "Simple TRV model approximated by a P-control action"
+
+  //Extensions
   extends Interfaces.Circuit;
+
+  //Components
   Actuators.Valves.TwoWayLinear             val1(
     redeclare package Medium = Medium,
     final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
@@ -62,5 +66,27 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
+        ={
+        Polygon(
+          points={{-20,70},{-20,50},{0,60},{-20,70}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{20,70},{20,50},{0,60},{20,70}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{20,102},{26,80},{20,60}},
+          color={0,255,128},
+          smooth=Smooth.None),
+        Line(
+          points={{-20,102},{-14,80},{-20,60}},
+          color={0,255,128},
+          smooth=Smooth.None)}));
 end ThermostaticRadiatiorValve;
