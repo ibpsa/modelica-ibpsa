@@ -28,7 +28,7 @@ model HouseConnector
   /***This creates the branches. TODO:adjust mulfac to cope with single phase connections and single phase equivalent 3 phase connections,
 for 3 phase connections it can stay at default(1)
 Maybe also make sure unused cables have very high impedance so errors will show in results***/
-  IDEAS.Electric.DistributionGrid.Components.BranchLenTyp[numBran] branch(
+  IDEAS.Electric.Distribution.BaseClasses.BranchLenTyp[numBran] branch(
     each len=lenHouBran,
     each typ=typHouBran,
     each mulFac=mulFacZ);

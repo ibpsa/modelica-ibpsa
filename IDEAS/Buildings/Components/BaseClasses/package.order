@@ -15,3 +15,5 @@ ExteriorConvection
 ExteriorSolarAbsorption
 ExteriorHeatRadiation
 SwWindowResponse
+ThermalResistor
+HeatCapacitor

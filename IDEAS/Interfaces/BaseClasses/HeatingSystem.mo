@@ -1,41 +1,48 @@
 within IDEAS.Interfaces.BaseClasses;
-partial model HeatingSystem "Partial heating/cooling system"
+partial model HeatingSystem "Partial heating system"
 
   outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
 
-  // *********** Building characteristics and  interface ***********
-  // --- General
+  // Building characteristics --------------------------------------------------
+
+  parameter Boolean floorHeating "true if the emission has a floor heating";
+  parameter Boolean radiators "true if the emission has a radiator";
+
   parameter Integer nZones(min=1)
     "Number of conditioned thermal zones in the building";
+  parameter Integer nEmb(min=1) = nZones
+    "Number of embedded systems in the building, not used at the moment?";
+
   parameter Boolean isHea=true "true if system is able to heat";
   parameter Boolean isCoo=false "true if system is able to cool";
 
-  // --- Ports
+  parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
+    "Nominal power, can be seen as the max power of the emission system";
+  parameter Real[nZones] VZones "Conditioned volumes of the zones";
+  final parameter Modelica.SIunits.HeatCapacity[nZones] C=1012*1.204*VZones*5
+    "Heat capacity of the conditioned zones";
+
+  final parameter Modelica.SIunits.Temperature[nZones] T_start
+    "Operative zonal start temperatures";
+
+  // Electricity consumption or production -------------------------------------
+
+  parameter Integer nLoads(min=1) = 1 "Number of electric loads";
+  SI.Power[nLoads] P "Active power for each of the loads";
+  SI.Power[nLoads] Q "Reactive power for each of the loads";
+
+  // Interfaces ----------------------------------------------------------------
+
   parameter Integer nConvPorts(min=0) = nZones
     "Number of ports in building for convective heating/cooling";
   parameter Integer nRadPorts(min=0) = nZones
     "Number of ports in building for radiative heating/cooling";
   parameter Integer nEmbPorts(min=0) = nZones
     "Number of ports in building for embedded systems";
-
-  // --- Electrical
-  parameter Integer nLoads(min=0) = 1
-    "Number of electric loads. If zero, all electric equations disappear.";
-
-  // --- Sensor
   parameter Integer nTemSen(min=0) = nZones
     "number of temperature inputs for the system";
-
-  // *********** Outputs ***********
-  // --- Thermal
-  Modelica.SIunits.Power QHeaSys if isHea
-    "Total energy use forspace heating + DHW, if present)";
-  Modelica.SIunits.Power QCooTotal if isCoo "Total cooling energy use";
-
-  // *********** Interface ***********
-  // --- thermal
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nConvPorts] heatPortCon
     "Nodes for convective heat gains"
     annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
@@ -45,76 +52,62 @@ partial model HeatingSystem "Partial heating/cooling system"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nEmbPorts] heatPortEmb
     "Construction nodes for heat gains by embedded layers"
     annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
-
-  // --- Electrical
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
-    plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
+    plugLoad(each m=1) "Electricity connection to the Inhome feeder"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
-        nLoads) if nLoads >= 1
-    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
-
-  // --- Sensor
   Modelica.Blocks.Interfaces.RealInput[nTemSen] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
     "Sensor temperature"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-204,-60})));
+  Modelica.Blocks.Interfaces.RealInput[nZones] TSet
+    "Setpoint temperature for the zones" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,-104})));
   Modelica.Blocks.Interfaces.RealInput mDHW60C
     "mFlow for domestic hot water, at 60 degC" annotation (Placement(
         transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={80,-104}),iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={60,-102})));
+        origin={60,-104})));
+
+  // Output --------------------------------------------------------------------
+
+  Modelica.SIunits.Power QHeaSys if isHea
+    "Total energy use forspace heating + DHW, if present)";
+  Modelica.SIunits.Power QCooTotal if isCoo "Total cooling energy use";
 
 protected
   final parameter Integer nLoads_min = max(1,nLoads);
-   Modelica.SIunits.Power[nLoads_min] P "Active power for each of the loads";
-   Modelica.SIunits.Power[nLoads_min] Q "Passive power for each of the loads";
+  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
+        nLoads) if nLoads >= 1
+    annotation (Placement(transformation(extent={{172,-10},{192,10}})));
 public
   Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
-    annotation (Placement(transformation(extent={{140,0},{160,20}})));
+    annotation (Placement(transformation(extent={{144,-2},{164,18}})));
   Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
-    annotation (Placement(transformation(extent={{140,-20},{160,0}})));
-  Modelica.Blocks.Interfaces.RealInput[nZones] TSet(
-    final quantity="ThermodynamicTemperature",
-    unit="K",
-    displayUnit="degC",
-    min=0) "Setpoint temperature for the zones" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={20,-106}),
-                         iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-102})));
+    annotation (Placement(transformation(extent={{144,-22},{164,-2}})));
   outer Modelica.Fluid.System system
   annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 equation
-  if nLoads >= 1 then
-    connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-      points={{190,0},{200,0}},
+  connect(wattsLawPlug.vi, plugLoad) annotation (Line(
+      points={{192,0},{200,0}},
       color={85,170,255},
       smooth=Smooth.None));
-    connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
-          points={{161,-10},{166,-10},{166,2},{170,2}},
+  connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
+          points={{165,-12},{168,-12},{168,1},{172,1}},
           color={0,0,127},
           smooth=Smooth.None));
-  end if;
 
   connect(P_val.y, wattsLawPlug.P) annotation (Line(
-      points={{161,10},{166,10},{166,6},{170,6}},
+      points={{165,8},{168,8},{168,5},{173,5}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
-            100}}),
-        graphics={
+            100}}), graphics={
         Rectangle(
           extent={{-200,100},{200,-100}},
           fillColor={215,215,215},
@@ -127,8 +120,8 @@ equation
           fillColor={127,0,0},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-46,-32},{-46,-44},{-44,-46},{-24,-34},{-24,-22},{-26,-20},{-46,
-              -32}},
+          points={{-46,-32},{-46,-44},{-44,-46},{-24,-34},{-24,-22},{-26,-20},{
+              -46,-32}},
           lineColor={127,0,0},
           smooth=Smooth.None,
           fillColor={127,0,0},
@@ -161,8 +154,7 @@ equation
           color={85,170,255},
           smooth=Smooth.None)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
-            200,100}}),
-                    graphics),
+            200,100}}), graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Interface model for a complete multi-zone heating system (with our without domestic hot water and solar system).</p>

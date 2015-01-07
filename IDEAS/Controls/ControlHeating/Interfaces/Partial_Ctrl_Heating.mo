@@ -51,22 +51,22 @@ partial model Partial_Ctrl_Heating
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
     annotation (Placement(transformation(extent={{-60,46},{-40,66}})));
   Modelica.Blocks.Sources.RealExpression realExpression2(y=heatingCurve.TSup + dTHeaterSet)
-    annotation (Placement(transformation(extent={{-30,-12},{14,6}})));
+    annotation (Placement(transformation(extent={{-44,0},{0,20}})));
 
   Modelica.Blocks.Interfaces.RealInput TRoo_in1(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
     "Room air temperature set point"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}}),
+    annotation (Placement(transformation(extent={{-120,24},{-80,64}}),
         iconTransformation(extent={{-110,30},{-90,50}})));
   Modelica.Blocks.Sources.RealExpression corHeaCur(y=corFac_val)
     "Correction term on the heating curve"
-    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
   connect(realExpression.y, heatingCurve.TOut) annotation (Line(
       points={{-39,56},{-22,56}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatingCurve.TRoo_in, TRoo_in1) annotation (Line(
-      points={{-21.9,44},{-40,44},{-40,0},{0,0}},
+      points={{-21.9,44},{-100,44}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}},
@@ -79,14 +79,16 @@ equation
           textString="%name"),
           Rectangle(
           extent={{120,60},{-80,-60}},
-          lineColor={175,175,175},
+          lineColor={135,135,135},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Polygon(
-          points={{-80,60},{-80,-60},{-20,0},{-80,60}},
+          points={{-80,60},{-80,-60},{-40,0},{-80,60}},
           smooth=Smooth.None,
-          fillColor={175,175,175},
+          fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          lineColor={0,0,0})}),Diagram(coordinateSystem(extent={{-100,-100},{100,
-            100}},preserveAspectRatio=false), graphics));
+          lineColor={135,135,135})}),
+                               Diagram(coordinateSystem(extent={{-100,-100},{
+            100,100}},
+                  preserveAspectRatio=false), graphics));
 end Partial_Ctrl_Heating;
