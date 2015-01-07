@@ -12,7 +12,7 @@ model Branch
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a annotation (
       Placement(transformation(extent={{10,10},{30,30}}), iconTransformation(
           extent={{10,10},{30,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow(alpha=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -24,7 +24,7 @@ model Branch
         origin={20,-50})));
 equation
   v = Z*i;
-  Plos = R*Modelica.ComplexMath.'abs'(i)^2;
+  Plos = R*Modelica.ComplexMath.'abs'(i)^2+1;
   connect(port_a, prescribedHeatFlow.port) annotation (Line(
       points={{20,20},{20,0}},
       color={191,0,0},

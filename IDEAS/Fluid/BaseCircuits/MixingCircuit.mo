@@ -56,20 +56,21 @@ equation
       points={{10,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pip2.port_b, threeWayValveMotor.port_a2) annotation (Line(
-      points={{1.77636e-015,20},{1.77636e-015,50},{0,50}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pipeReturn.port_b, port_b2) annotation (Line(
       points={{60,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pip2.port_a, port_b2) annotation (Line(
-      points={{0,0},{0,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+
   connect(pipeSupply.port_b, threeWayValveMotor.port_a1) annotation (Line(
       points={{-60,60},{-10,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(mixPipe.port_b, threeWayValveMotor.port_a2) annotation (Line(
+      points={{0,20},{0,50}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(mixPipe.port_a, port_b2) annotation (Line(
+      points={{0,0},{0,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
