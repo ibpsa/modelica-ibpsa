@@ -36,11 +36,11 @@ package Interfaces
     replaceable FixedResistances.LosslessPipe pipeReturn(
       m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium) constrainedby
-      IDEAS.Fluid.Interfaces.Partials.PipeTwoPort
+      IDEAS.Fluid.Interfaces.PartialTwoPortInterface
       annotation (Placement(transformation(extent={{80,-70},{60,-50}})), choicesAllMatching=true);
     replaceable FixedResistances.LosslessPipe pipeSupply(m_flow_nominal=m_flow_nominal,
         redeclare package Medium = Medium)            constrainedby
-      IDEAS.Fluid.Interfaces.Partials.PipeTwoPort
+      IDEAS.Fluid.Interfaces.PartialTwoPortInterface
                                            annotation (Placement(transformation(
           extent={{10,-10},{-10,10}},
           rotation=180,
