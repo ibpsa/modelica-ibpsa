@@ -5,7 +5,7 @@ model PumpSupply "Pump on supply duct"
 
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
     N_nominal = 1500 "Nominal rotational speed for flow characteristic"
-    annotation(Dialog(group="Characteristics"));
+    annotation(Dialog(group="Pump parameters"));
 
   //Interfaces
   Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
