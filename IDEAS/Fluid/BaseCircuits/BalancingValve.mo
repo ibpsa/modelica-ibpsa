@@ -4,8 +4,11 @@ model BalancingValve
   extends Interfaces.Circuit;
 
   //Parameters
-  parameter Real Kv "Fixed KV value of the balancing valve" annotation(Dialog(
-                   group = "Valve parameters"));
+  parameter Real Kv(
+    fixed= if CvData==IDEAS.Fluid.Types.CvTypes.Kv then true else false)
+    "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
+  annotation(Dialog(group = "Valve parameters",
+                    enable = (CvData==IDEAS.Fluid.Types.CvTypes.Kv)));
 
   //Components
   IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(

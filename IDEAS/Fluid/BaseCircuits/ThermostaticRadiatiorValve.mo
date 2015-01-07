@@ -2,6 +2,14 @@ within IDEAS.Fluid.BaseCircuits;
 model ThermostaticRadiatiorValve
   "Simple TRV model approximated by a P-control action"
   extends Interfaces.Circuit;
+
+  parameter Real Kv "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
+  annotation(Dialog(group = "Valve parameters",
+                    enable = (CvData==IDEAS.Fluid.Types.CvTypes.Kv)));
+
+  parameter Real Kvs "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
+  annotation(Dialog(group = "Thermostatic valve parameters",
+                    enable = (CvData==IDEAS.Fluid.Types.CvTypes.Kv)));
   Actuators.Valves.TwoWayLinear             val1(
     redeclare package Medium = Medium,
     final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
@@ -69,8 +77,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
-        ={
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Polygon(
           points={{-20,70},{-20,50},{0,60},{-20,70}},
           lineColor={0,0,127},
