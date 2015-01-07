@@ -34,18 +34,14 @@ model PumpSupply "Pump on supply duct"
     redeclare package Medium = Medium,
     motorEfficiency=motorEfficiency,
     hydraulicEfficiency=hydraulicEfficiency)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
 
-  Modelica.Blocks.Math.BooleanToReal booleanToReal annotation (Placement(
+  Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=pump.N_nominal)
+                                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,60})));
-  Modelica.Blocks.Math.Gain gain(k=pump.N_nominal)
-                                 annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,30})));
   Modelica.Blocks.Interfaces.RealOutput P "Supply temperature" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -64,32 +60,27 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pump.port_b, senTem.port_a) annotation (Line(
-      points={{10,0},{50,0},{50,60},{60,60}},
+      points={{10,30},{50,30},{50,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pipeSupply.port_b, pump.port_a) annotation (Line(
-      points={{-60,60},{-50,60},{-50,0},{-10,0}},
+      points={{-60,60},{-50,60},{-50,30},{-10,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_b2, pipeReturn.port_b) annotation (Line(
       points={{-100,-60},{60,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(booleanToReal.y, gain.u) annotation (Line(
-      points={{-2.22045e-015,49},{-2.22045e-015,48},{2.22045e-015,48},{2.22045e-015,
-          42}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, pump.Nrpm) annotation (Line(
-      points={{-2.22045e-015,19},{-2.22045e-015,18},{0,18},{0,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(u, booleanToReal.u) annotation (Line(
       points={{0,100},{0,80},{2.22045e-015,80},{2.22045e-015,72}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(pump.P, P) annotation (Line(
-      points={{11,8},{40,8},{40,100}},
+      points={{11,38},{40,38},{40,100}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(booleanToReal.y, pump.Nrpm) annotation (Line(
+      points={{0,49},{0,42}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
