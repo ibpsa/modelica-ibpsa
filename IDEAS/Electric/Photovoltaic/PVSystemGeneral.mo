@@ -33,7 +33,7 @@ model PVSystemGeneral "PV system with separate shut-down controller"
     pvPanel=pvPanel) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-70,30})));
+        origin={-70,32})));
   IDEAS.Electric.Photovoltaic.Components.SimpleInverter invertor
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Electrical.Analog.Basic.Ground ground1
@@ -52,48 +52,48 @@ equation
   PInit = pvVoltageCtrl.PInit;
   PFinal = pvVoltageCtrl.PFinal;
   connect(pvArray.p, invertor.p1) annotation (Line(
-      points={{-60,30},{-56,30},{-56,35},{-40,35}},
-      color={0,0,255},
+      points={{-60,32},{-56,32},{-56,35},{-40,35}},
+      color={85,170,255},
       smooth=Smooth.None));
   connect(invertor.n1, ground1.p) annotation (Line(
       points={{-40,25},{-44,25},{-44,6},{-16,6}},
-      color={0,0,255},
+      color={85,170,255},
       smooth=Smooth.None));
   connect(invertor.n2, ground1.p) annotation (Line(
       points={{-20,25},{-16,25},{-16,6}},
-      color={0,0,255},
+      color={85,170,255},
       smooth=Smooth.None));
   connect(pvArray.n, ground1.p) annotation (Line(
-      points={{-80,30},{-84,30},{-84,6},{-16,6}},
-      color={0,0,255},
+      points={{-80,32},{-84,32},{-84,6},{-16,6}},
+      color={85,170,255},
       smooth=Smooth.None));
   connect(wattsLaw.vi, pin) annotation (Line(
       points={{80,30},{92,30},{92,40},{102,40}},
-      color={0,0,255},
+      color={85,170,255},
       smooth=Smooth.None));
   connect(invertor.p2, vi2PQ.pin) annotation (Line(
       points={{-20,35},{-10,35},{-10,36},{-6,36}},
-      color={0,0,255},
+      color={85,170,255},
       smooth=Smooth.None));
   connect(vi2PQ.P, pvVoltageCtrl.PInit) annotation (Line(
-      points={{14,36},{26,36}},
-      color={0,0,127},
+      points={{14,36},{20,36},{20,34},{26,34}},
+      color={135,135,135},
       smooth=Smooth.None));
   connect(vi2PQ.Q, pvVoltageCtrl.QInit) annotation (Line(
-      points={{14,32},{26,32}},
-      color={0,0,127},
+      points={{14,32},{20,32},{20,24},{26,24}},
+      color={135,135,135},
       smooth=Smooth.None));
   connect(pvVoltageCtrl.PFinal, wattsLaw.P) annotation (Line(
-      points={{46,36},{53,36},{53,36},{60.2,36}},
-      color={0,0,127},
+      points={{46,34},{53,34},{53,36},{60.2,36}},
+      color={135,135,135},
       smooth=Smooth.None));
   connect(pvVoltageCtrl.QFinal, wattsLaw.Q) annotation (Line(
-      points={{46,32},{54,32},{54,32},{60.2,32}},
-      color={0,0,127},
+      points={{46,24},{54,24},{54,32},{60.2,32}},
+      color={135,135,135},
       smooth=Smooth.None));
   connect(pin, pvVoltageCtrl.pin) annotation (Line(
       points={{102,40},{92,40},{92,4},{42,4},{42,20}},
-      color={0,0,255},
+      color={85,170,255},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
