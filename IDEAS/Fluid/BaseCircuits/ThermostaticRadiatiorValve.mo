@@ -1,6 +1,8 @@
 within IDEAS.Fluid.BaseCircuits;
 model ThermostaticRadiatiorValve
   "Simple TRV model approximated by a P-control action"
+
+  //Extensions
   extends Interfaces.Circuit;
 
   parameter Real Kv "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
