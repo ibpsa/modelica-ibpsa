@@ -31,27 +31,6 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-        Polygon(
-          points={{-20,70},{-20,50},{0,60},{-20,70}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{20,70},{20,50},{0,60},{20,70}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{0,40},{0,60}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Rectangle(
-          extent={{-4,44},{4,36}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Line(
           points={{0,100},{6,80},{0,60}},
           color={0,255,128},

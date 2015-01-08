@@ -209,7 +209,10 @@ package Interfaces
                                                annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=90,
-          origin={40,108})));
+          origin={40,108}), iconTransformation(
+          extent={{-10,-10},{10,10}},
+          rotation=90,
+          origin={42,104})));
 
   equation
     if not includePipes then
@@ -229,16 +232,13 @@ package Interfaces
         color={0,127,255},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Icon(graphics={
+              -100},{100,100}}), graphics), Icon(coordinateSystem(
+            preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                                                 graphics={
           Line(
             points={{42,100},{48,80},{46,60}},
             color={255,0,0},
             smooth=Smooth.None),
-          Ellipse(
-            extent={{80,62},{84,58}},
-            lineColor={255,0,0},
-            fillColor={255,0,0},
-            fillPattern=FillPattern.Solid),
           Ellipse(
             extent={{44,62},{48,58}},
             lineColor={255,0,0},
@@ -259,6 +259,20 @@ package Interfaces
 
     extends PumpParameters;
 
+    annotation (Icon(graphics={
+          Ellipse(extent={{-20,80},{20,40}},lineColor={0,0,127},
+            fillColor={0,128,255},
+            fillPattern=FillPattern.Solid),
+          Line(
+            points={{0,94},{4,80},{0,64}},
+            color={0,255,128},
+            smooth=Smooth.None),
+          Polygon(
+            points={{-12,76},{-12,44},{20,60},{-12,76}},
+            lineColor={0,0,127},
+            smooth=Smooth.None,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid)}));
   end PartialPumpCircuit;
 
   model PartialValveCircuit
@@ -282,7 +296,32 @@ package Interfaces
         color={0,0,127},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}}), graphics));
+              -100,-100},{100,100}}), graphics), Icon(graphics={
+          Polygon(
+            points={{-20,70},{-20,50},{0,60},{-20,70}},
+            lineColor={0,0,127},
+            smooth=Smooth.None,
+            fillColor={0,128,255},
+            fillPattern=FillPattern.Solid),
+          Polygon(
+            points={{20,70},{20,50},{0,60},{20,70}},
+            lineColor={0,0,127},
+            smooth=Smooth.None,
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
+          Line(
+            points={{0,40},{0,60}},
+            color={0,0,127},
+            smooth=Smooth.None),
+          Line(
+            points={{0,102},{6,80},{0,60}},
+            color={0,255,128},
+            smooth=Smooth.None),
+          Rectangle(
+            extent={{-4,44},{4,36}},
+            lineColor={0,0,127},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid)}));
   end PartialValveCircuit;
 
   model PartialMixingCircuit "Partial for a mixing circuit"

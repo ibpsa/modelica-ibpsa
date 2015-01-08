@@ -2,7 +2,7 @@ within IDEAS.Fluid.BaseCircuits;
 model PumpSupplydP
 
   //Extensions
-  extends Interfaces.PartialFlowCircuit(redeclare Movers.FlowMachine_dp
+  extends Interfaces.PartialPumpCircuit(redeclare Movers.FlowMachine_dp
       flowRegulator);
   extends Interfaces.PumpParameters;
 
@@ -21,19 +21,6 @@ equation
             -100},{100,100}}), graphics),
         Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-        Polygon(
-          points={{-10,10},{-10,-22},{22,-6},{-10,10}},
-          lineColor={0,0,255},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          origin={-2,66},
-          rotation=360),
-        Ellipse(
-          extent={{-20,80},{20,40}},
-          lineColor={0,0,255},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-10,10},{-10,-22},{22,-6},{-10,10}},
           lineColor={0,0,255},
@@ -71,9 +58,5 @@ equation
         Line(
           points={{-6,-44},{6,-44}},
           color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{0,100},{4,86},{0,70}},
-          color={0,255,128},
           smooth=Smooth.None)}));
 end PumpSupplydP;

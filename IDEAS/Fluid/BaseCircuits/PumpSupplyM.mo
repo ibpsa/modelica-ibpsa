@@ -32,18 +32,5 @@ Initial version</li>
 </ul></p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
-        Ellipse(extent={{-20,80},{20,40}},lineColor={0,0,127},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{0,100},{4,86},{0,70}},
-          color={0,255,128},
-          smooth=Smooth.None),
-        Polygon(
-          points={{-12,76},{-12,44},{20,60},{-12,76}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+        graphics));
 end PumpSupplyM;
