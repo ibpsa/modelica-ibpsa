@@ -2,7 +2,7 @@ within IDEAS.Fluid.BaseCircuits;
 model MixingCircuit "Active mixing circuit"
 
   //Extensions
-  extends Interfaces.Circuit;
+  extends Interfaces.Circuit(nPipes=3);
 
   //Interfaces
   Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
@@ -31,14 +31,15 @@ model MixingCircuit "Active mixing circuit"
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
-  replaceable FixedResistances.LosslessPipe mixPipe(
+  FixedResistances.InsulatedPipe pipeMix(
+    UA=UA,
+    m=m/nPipes,
+    dp_nominal=dp,
     m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium)            constrainedby
-    IDEAS.Fluid.Interfaces.Partials.PipeTwoPort
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    redeclare package Medium = Medium) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={0,10})), choicesAllMatching=true);
-
+        origin={0,0})), choicesAllMatching=true);
 equation
   connect(senTem.port_b, port_b1) annotation (Line(
       points={{80,60},{100,60}},
@@ -65,14 +66,21 @@ equation
       points={{-60,60},{-10,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(mixPipe.port_b, threeWayValveMotor.port_a2) annotation (Line(
-      points={{0,20},{0,50}},
+  connect(threeWayValveMotor.port_a2, pipeMix.port_a) annotation (Line(
+      points={{0,50},{0,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(mixPipe.port_a, port_b2) annotation (Line(
-      points={{0,0},{0,-60},{-100,-60}},
+  connect(pipeMix.port_b, port_b2) annotation (Line(
+      points={{0,-10},{0,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
+
+  if heatLosses then
+    connect(pipeMix.heatPort, heatPort) annotation (Line(
+      points={{4,0},{20,0},{20,-100},{0,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  end if;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
             Documentation(

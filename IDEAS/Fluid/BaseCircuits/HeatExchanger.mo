@@ -1,7 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
 model HeatExchanger
   //Extensions
-  extends Interfaces.Circuit;
+  extends Interfaces.Circuit(nPipes=2);
   extends IDEAS.Fluid.Interfaces.FourPortFlowResistanceParameters;
 
   //Parameters

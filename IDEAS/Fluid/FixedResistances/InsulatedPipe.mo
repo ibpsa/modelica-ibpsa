@@ -13,17 +13,17 @@ model InsulatedPipe "Insulated pipe characterized by a UA value"
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Port for heat exchange with mixing volume" annotation (Placement(
-        transformation(extent={{-10,90},{10,110}}), iconTransformation(extent={{-10,90},
-            {10,110}})));
+        transformation(extent={{-10,30},{10,50}}),  iconTransformation(extent={{-10,30},
+            {10,50}})));
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductor(G=
         UA) annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={0,50})));
+        extent={{10,10},{-10,-10}},
+        rotation=0,
+        origin={-18,20})));
 equation
   connect(heatPort,heatPort)  annotation (Line(
-      points={{0,100},{0,100}},
+      points={{0,40},{0,40}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(vol.ports[2], res.port_a) annotation (Line(
@@ -35,11 +35,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(heatPort, thermalConductor.port_a) annotation (Line(
-      points={{0,100},{0,60}},
+      points={{0,40},{0,20},{-8,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(vol.heatPort, thermalConductor.port_b) annotation (Line(
-      points={{-44,10},{0,10},{0,40}},
+      points={{-44,10},{-40,10},{-40,20},{-28,20}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (

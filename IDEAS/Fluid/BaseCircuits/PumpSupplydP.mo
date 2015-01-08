@@ -2,7 +2,7 @@ within IDEAS.Fluid.BaseCircuits;
 model PumpSupplydP
 
   //Extensions
-  extends Interfaces.CircuitWithPump;
+  extends Interfaces.CircuitWithPump(nPipes=2);
   extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters(
     final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     Kv=KV);

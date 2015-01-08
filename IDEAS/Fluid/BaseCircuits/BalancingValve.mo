@@ -1,7 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
 model BalancingValve
   //Extensions
-  extends Interfaces.Circuit;
+  extends Interfaces.Circuit(nPipes=2);
 
   //Parameters
   parameter Real Kv "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"

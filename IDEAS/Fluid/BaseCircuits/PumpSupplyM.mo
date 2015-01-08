@@ -1,7 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
 model PumpSupplyM "Pump on supply duct"
   //Extensions
-  extends Interfaces.CircuitWithPump;
+  extends Interfaces.CircuitWithPump(nPipes=2);
 
   //parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
     //N_nominal = 1500 "Nominal rotational speed for flow characteristic"

@@ -3,7 +3,7 @@ model ThermostaticRadiatiorValve
   "Simple TRV model approximated by a P-control action"
 
   //Extensions
-  extends Interfaces.Circuit;
+  extends Interfaces.Circuit(nPipes=2);
 
   parameter Real Kv "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
   annotation(Dialog(group = "Valve parameters",

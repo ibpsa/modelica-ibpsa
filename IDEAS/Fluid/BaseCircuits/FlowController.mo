@@ -1,7 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
 model FlowController
   //Extensions
-  extends Interfaces.Circuit;
+  extends Interfaces.Circuit(nPipes=2);
 
   //Parameters
   parameter Real Kv "Fixed KV value of the balancing valve" annotation(Dialog(
