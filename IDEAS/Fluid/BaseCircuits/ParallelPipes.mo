@@ -6,7 +6,7 @@ model ParallelPipes
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component";
 
   //Parameters
-  parameter Integer nPipes(min=1) "Number of outgoing connections";
+  parameter Integer n(min=1) "Number of outgoing connections";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal flow rate";
   parameter Modelica.SIunits.Volume V "Volume of the piping";
 
@@ -41,11 +41,11 @@ model ParallelPipes
         rotation=0,
         origin={14,14})));
 equation
-  for i in 1:nPipes loop
+  for i in 1:n loop
     connect(port_bN[i], port_a);
   end for;
 
-  connect(port_aN, vol.ports[1:nPipes]);
+  connect(port_aN, vol.ports[1:n]);
   connect(port_b, vol.ports[end]);
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

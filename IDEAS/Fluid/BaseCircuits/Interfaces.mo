@@ -116,8 +116,14 @@ package Interfaces
         points={{70,31},{70,108}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}), graphics={
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}),
+                           graphics={
+          Rectangle(
+            extent={{-100,100},{100,-100}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
                                  Line(
             points={{-100,-60},{100,-60}},
             color={0,0,127},
