@@ -2,7 +2,8 @@ within IDEAS.Fluid.BaseCircuits;
 model HeatExchanger
   //Extensions
   extends Interfaces.CircuitInterface(
-                             nPipes=2);
+    measureSupplyT=true,
+    includePipes=true);
   extends IDEAS.Fluid.Interfaces.FourPortFlowResistanceParameters;
 
   //Parameters
@@ -14,32 +15,23 @@ model HeatExchanger
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-40,106}), iconTransformation(
+        origin={-40,108}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-54,106})));
-  Modelica.Blocks.Interfaces.RealOutput senMassFlow1
+  Modelica.Blocks.Interfaces.RealOutput massFlow1
     "Massflow at the primary side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-82,106}), iconTransformation(
+        origin={-82,108}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-82,106})));
-  Modelica.Blocks.Interfaces.RealOutput senMassFlow2
-    "Massflow at the secondary side" annotation (Placement(transformation(
+        origin={-82,108})));
+  Modelica.Blocks.Interfaces.RealOutput massFlow2
+    "Massflow on the secondary side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={80,106}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={78,106})));
-  Modelica.Blocks.Interfaces.RealOutput senT2
-    "Temperature of the supply line on the secondary side" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={40,106}), iconTransformation(
+        origin={40,108}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={48,106})));
@@ -69,76 +61,100 @@ model HeatExchanger
     redeclare package Medium=Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={60,34})));
+        origin={40,20})));
 
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium =Medium,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-36,0},{-16,20}})));
 
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem2(
-    redeclare package Medium=Medium,
-    m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{18,24},{38,44}})));
-
   IDEAS.Fluid.Sensors.MassFlowRate senMasFlo1(
     redeclare package Medium=Medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-70,32})));
+        origin={-62,32})));
 
+  FixedResistances.InsulatedPipe pipeSupply2(
+    UA=UA,
+    m=m/2,
+    dp_nominal=dp,
+    m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = Medium) if includePipes
+    "Supply pipe on the secondary side" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={16,20})), choicesAllMatching=true);
+  FixedResistances.InsulatedPipe pipeReturn2(
+    UA=UA,
+    m=m/2,
+    dp_nominal=dp,
+    m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = Medium) if includePipes
+    "Supply pipe on the secondary side" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={28,-60})), choicesAllMatching=true);
 equation
-  connect(senMasFlo2.port_b, port_b1) annotation (Line(
-      points={{70,34},{74,34},{74,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(senTem1.T, senT1) annotation (Line(
-      points={{-26,21},{-26,52},{-40,52},{-40,106}},
+      points={{-26,21},{-26,52},{-40,52},{-40,108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTem1.port_b, hex.port_a1) annotation (Line(
       points={{-16,10},{-6,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senMasFlo2.m_flow, senMassFlow2) annotation (Line(
-      points={{60,45},{60,80},{80,80},{80,106}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(hex.port_b2, senTem2.port_a) annotation (Line(
-      points={{6,10},{6,34},{18,34}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem2.port_b, senMasFlo2.port_a) annotation (Line(
-      points={{38,34},{50,34}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem2.T, senT2) annotation (Line(
-      points={{28,45},{28,80},{40,80},{40,106}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(senMasFlo1.m_flow, senMassFlow1) annotation (Line(
-      points={{-70,43},{-70,80},{-82,80},{-82,106}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(senTem1.port_a, senMasFlo1.port_b) annotation (Line(
-      points={{-36,10},{-80,10},{-80,32}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(port_b2, hex.port_b1) annotation (Line(
-      points={{-100,-60},{-6,-60},{-6,-10}},
+      points={{-36,10},{-72,10},{-72,32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senT1, senT1) annotation (Line(
-      points={{-40,106},{-40,102},{-40,102},{-40,106}},
+      points={{-40,108},{-40,108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pipeSupply.port_b, senMasFlo1.port_a) annotation (Line(
-      points={{-70,60},{-52,60},{-52,32},{-60,32}},
+      points={{-70,60},{-52,60},{-52,32}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hex.port_a2, pipeReturn.port_b) annotation (Line(
-      points={{6,-10},{6,-60},{-90,-60}},
+  connect(senMasFlo2.port_b, senTem.port_a) annotation (Line(
+      points={{50,20},{60,20}},
       color={0,127,255},
+      smooth=Smooth.None));
+
+  connect(pipeReturn.port_a, hex.port_b1) annotation (Line(
+      points={{-70,-60},{-6,-60},{-6,-10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senMasFlo2.port_a, pipeSupply2.port_b) annotation (Line(
+      points={{30,20},{26,20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hex.port_b2, pipeSupply2.port_a) annotation (Line(
+      points={{6,10},{6,20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hex.port_a2, pipeReturn2.port_b) annotation (Line(
+      points={{6,-10},{6,-60},{18,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipeReturn2.port_a, port_a2) annotation (Line(
+      points={{38,-60},{100,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipeSupply2.heatPort, heatPort) annotation (Line(
+      points={{16,16},{16,-100},{0,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(pipeReturn2.heatPort, heatPort) annotation (Line(
+      points={{28,-64},{28,-78},{16,-78},{16,-100},{0,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(senMasFlo2.m_flow, massFlow2) annotation (Line(
+      points={{40,31},{40,31},{40,108}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(senMasFlo1.m_flow, massFlow1) annotation (Line(
+      points={{-62,43},{-62,88},{-82,88},{-82,108}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html><p>
   This model is the base circuit implementation of heat exchanger in a pressurized circuit. An heat exchanger can disconnect two hydraulic circuits in wich the flow needs to be controlled.</p></html>"),Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

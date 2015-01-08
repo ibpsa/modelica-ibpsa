@@ -76,7 +76,8 @@ package Interfaces
       annotation (Placement(transformation(extent={{10,-10},{-10,10}},
           rotation=0,
           origin={-80,-60})),                                            choicesAllMatching=true);
-    Sensors.TemperatureTwoPort senTem if measureSupplyT
+    Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal) if
+                                         measureSupplyT
       annotation (Placement(transformation(extent={{60,10},{80,30}})));
     Modelica.Blocks.Interfaces.RealOutput y if measureSupplyT annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
