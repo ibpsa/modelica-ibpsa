@@ -1,39 +1,26 @@
 within IDEAS.Fluid.BaseCircuits;
 model BalancingValve
   //Extensions
-  extends Interfaces.Circuit(nPipes=2);
-
-  //Parameters
-  parameter Real Kv "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
-  annotation(Dialog(group = "Valve parameters"));
-
-  //Components
-  IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
-    redeclare package Medium = Medium,
-    Kv=Kv,
-    m_flow_nominal=m_flow_nominal,
-    final CvData=IDEAS.Fluid.Types.CvTypes.Kv)
-                                   annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
-
-  Modelica.Blocks.Sources.Constant hlift(k=1)
-    "Constant opening of the balancing valve"
-    annotation (Placement(transformation(extent={{-38,-20},{-18,0}})));
-
+  extends Interfaces.PartialCircuitBalancingValve;
 equation
-  connect(val1.port_b, port_b2) annotation (Line(
-      points={{-10,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(hlift.y, val1.y) annotation (Line(
-      points={{-17,-10},{0,-10},{0,-48}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pipeSupply.port_b, port_b1) annotation (Line(
-      points={{-60,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(val1.port_a, pipeReturn.port_b) annotation (Line(
-      points={{10,-60},{60,-60}},
+  if not includePipes then
+    if not measureSupply then
+      connect(port_a1, port_b1);
+    else
+      connect(port_a1, senTem.port_a);
+      connect(port_b1, senTem.port_b);
+    end if;
+  end if;
+
+  if includePipes then
+    if not measureSupply then
+      connect(port_a1, supplyPipe.port_a);
+      connect(port_b1, supplyPipe.port_b);
+    end if;
+  end if;
+
+  connect(pipeSupply.port_b, senTem.port_a) annotation (Line(
+      points={{-70,60},{-20,60},{-20,20},{60,20}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Documentation(info="<html><p>

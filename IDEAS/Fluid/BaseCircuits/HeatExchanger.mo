@@ -1,7 +1,8 @@
 within IDEAS.Fluid.BaseCircuits;
 model HeatExchanger
   //Extensions
-  extends Interfaces.Circuit(nPipes=2);
+  extends Interfaces.CircuitInterface(
+                             nPipes=2);
   extends IDEAS.Fluid.Interfaces.FourPortFlowResistanceParameters;
 
   //Parameters
@@ -132,11 +133,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pipeSupply.port_b, senMasFlo1.port_a) annotation (Line(
-      points={{-60,60},{-52,60},{-52,32},{-60,32}},
+      points={{-70,60},{-52,60},{-52,32},{-60,32}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hex.port_a2, pipeReturn.port_b) annotation (Line(
-      points={{6,-10},{6,-60},{60,-60}},
+      points={{6,-10},{6,-60},{-90,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Documentation(info="<html><p>

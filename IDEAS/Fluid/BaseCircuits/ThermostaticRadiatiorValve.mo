@@ -3,78 +3,33 @@ model ThermostaticRadiatiorValve
   "Simple TRV model approximated by a P-control action"
 
   //Extensions
-  extends Interfaces.Circuit(nPipes=2);
-
-  parameter Real Kv "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
-  annotation(Dialog(group = "Valve parameters",
-                    enable = (CvData==IDEAS.Fluid.Types.CvTypes.Kv)));
-
-  parameter Real Kvs "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
+  extends Interfaces.PartialFlowCircuit(
+    redeclare Actuators.Valves.TwoWayQuickOpening    flowRegulator);
+  extends Interfaces.ValveParametersTop;
+  Modelica.Blocks.Interfaces.RealInput u1 "measurement signal"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={-40,110})));
   annotation(Dialog(group = "Thermostatic valve parameters",
                     enable = (CvData==IDEAS.Fluid.Types.CvTypes.Kv)));
-  Actuators.Valves.TwoWayLinear             val1(
-    redeclare package Medium = Medium,
-    final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    m_flow_nominal=m_flow_nominal,
-    Kv=Kv) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
-  Modelica.Blocks.Sources.Constant hlift(k=1)
-    "Constant opening of the balancing valve"
-    annotation (Placement(transformation(extent={{-38,-20},{-18,0}})));
-  Actuators.Valves.TwoWayEqualPercentage val(
-    m_flow(nominal=0.1),
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=Kvs) annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Modelica.Blocks.Continuous.LimPID PID(controllerType=Modelica.Blocks.Types.SimpleController.P,
-      k=1) annotation (Placement(transformation(extent={{34,62},{54,82}})));
-  Modelica.Blocks.Interfaces.RealInput TZone "Zone sensor temperature"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={-20,110}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-20,100})));
-  Modelica.Blocks.Interfaces.RealInput TSet "Zone setpoint temperature"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={20,112}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={20,100})));
+      k=1) annotation (Placement(transformation(extent={{6,52},{26,72}})));
 equation
-  connect(val1.port_b, port_b2) annotation (Line(
-      points={{-10,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(hlift.y,val1. y) annotation (Line(
-      points={{-17,-10},{0,-10},{0,-48}},
+  connect(PID.u_m, u1) annotation (Line(
+      points={{16,50},{16,44},{-28,44},{-28,80},{-40,80},{-40,110}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(val.port_b, port_b1) annotation (Line(
-      points={{10,30},{80,30},{80,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pipeSupply.port_b,val. port_a) annotation (Line(
-      points={{-60,60},{-36,60},{-36,30},{-10,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(val1.port_a, pipeReturn.port_b) annotation (Line(
-      points={{10,-60},{60,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(PID.y, val.y) annotation (Line(
-      points={{55,72},{66,72},{66,50},{0,50},{0,42}},
+  connect(u, PID.u_s) annotation (Line(
+      points={{0,108},{0,62},{4,62}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TZone, PID.u_m) annotation (Line(
-      points={{-20,110},{-20,56},{44,56},{44,60}},
+  connect(PID.y, flowRegulator.y) annotation (Line(
+      points={{27,62},{34,62},{34,38},{0,38},{0,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TSet, PID.u_s) annotation (Line(
-      points={{20,112},{20,72},{32,72}},
+  connect(flowRegulator.y_actual, power) annotation (Line(
+      points={{5,27},{40,27},{40,108}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -102,7 +57,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{20,100},{6,80},{0,60}},
+          points={{0,100},{6,80},{0,60}},
           color={0,255,128},
           smooth=Smooth.None),
         Line(
@@ -132,7 +87,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="T"),
         Line(
-          points={{-20,100},{-6,80},{0,60}},
+          points={{-40,100},{-16,86},{0,60}},
           color={255,0,0},
           smooth=Smooth.None)}));
 end ThermostaticRadiatiorValve;

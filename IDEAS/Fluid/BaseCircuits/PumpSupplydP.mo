@@ -2,86 +2,18 @@ within IDEAS.Fluid.BaseCircuits;
 model PumpSupplydP
 
   //Extensions
-  extends Interfaces.CircuitWithPump(nPipes=2);
-  extends IDEAS.Fluid.Actuators.BaseClasses.ValveParameters(
-    final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=KV);
+  extends Interfaces.PartialFlowCircuit(redeclare Movers.FlowMachine_dp
+      flowRegulator);
+  extends Interfaces.PumpParameters;
 
-  //Parameters
-  parameter Real KV "Fixed KV value of the balancing valve";
-
-  //Interfaces
-  Modelica.Blocks.Interfaces.RealInput u "Control input signal" annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,114})));
-  Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={68,106}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={68,106})));
-
-  //Components
-  IDEAS.Fluid.Movers.FlowMachine_dp fan(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    motorCooledByFluid=motorCooledByFluid,
-    motorEfficiency=motorEfficiency,
-    hydraulicEfficiency=hydraulicEfficiency,
-    addPowerToMedium=addPowerToMedium)
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
-
-  IDEAS.Fluid.Actuators.Valves.TwoWayLinear val1(
-    redeclare package Medium = Medium,
-    CvData=CvData,
-    Kv=Kv,
-    rhoStd=rhoStd,
-    deltaM=deltaM,
-    m_flow_nominal=m_flow_nominal) annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
-
-  Modelica.Blocks.Sources.Constant hlift(k=1)
-    "Constant opening of the balancing valve"
-    annotation (Placement(transformation(extent={{-38,-20},{-18,0}})));
-
-  Sensors.TemperatureTwoPort senTem(
-    m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium,
-    tau=120)
-    annotation (Placement(transformation(extent={{50,50},{70,70}})));
 equation
-  connect(u, fan.dp_in) annotation (Line(
-      points={{0,114},{0,72},{-0.2,72}},
+  connect(flowRegulator.P, power) annotation (Line(
+      points={{11,28},{40,28},{40,108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hlift.y,val1. y) annotation (Line(
-      points={{-17,-10},{0,-10},{0,-48}},
+  connect(u, flowRegulator.dp_in) annotation (Line(
+      points={{0,108},{0,70},{0,32},{-0.2,32}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(val1.port_b, port_b2) annotation (Line(
-      points={{-10,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(fan.port_b, senTem.port_a) annotation (Line(
-      points={{10,60},{50,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem.port_b, port_b1) annotation (Line(
-      points={{70,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem.T, T) annotation (Line(
-      points={{60,71},{60,84},{68,84},{68,106}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pipeSupply.port_b, fan.port_a) annotation (Line(
-      points={{-60,60},{-10,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(val1.port_a, pipeReturn.port_b) annotation (Line(
-      points={{10,-60},{60,-60}},
-      color={0,127,255},
       smooth=Smooth.None));
   annotation (Documentation(info="<html><p>
             This model is the base circuit implementation of a pressure head controlled pump and makes use of <a href=\"modelica://IDEAS.Fluid.Movers.FlowMachine_dp\">IDEAS.Fluid.Movers.FlowMachine_dp</a>. The flow can be regulated by changing the Kv value of the balancing valve.

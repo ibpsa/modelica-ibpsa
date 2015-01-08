@@ -1,86 +1,22 @@
 within IDEAS.Fluid.BaseCircuits;
 model PumpSupplyM "Pump on supply duct"
+
   //Extensions
-  extends Interfaces.CircuitWithPump(nPipes=2);
+  extends Interfaces.PartialFlowCircuit(redeclare Movers.FlowMachine_m_flow
+      flowRegulator);
+  extends Interfaces.PumpParameters;
 
-  //parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
-    //N_nominal = 1500 "Nominal rotational speed for flow characteristic"
-
-  //Interfaces
-  Modelica.Blocks.Interfaces.RealOutput T "Supply temperature" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={70,100})));
-  Modelica.Blocks.Interfaces.BooleanInput u "Mass flow setpoint" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,100}),  iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,100})));
-
-  //Components
-  Sensors.TemperatureTwoPort senTem(
-    m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium,
-    tau=120)
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Movers.FlowMachine_m_flow
-                          pump(
-    motorCooledByFluid=motorCooledByFluid,
-    addPowerToMedium=addPowerToMedium,
-    redeclare package Medium = Medium,
-    motorEfficiency=motorEfficiency,
-    hydraulicEfficiency=hydraulicEfficiency,
-    m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-
-  Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=pump.m_flow_nominal)
-                                                   annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,66})));
-  Modelica.Blocks.Interfaces.RealOutput P "Supply temperature" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={40,100}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={40,100})));
 equation
-  connect(senTem.port_b, port_b1) annotation (Line(
-      points={{80,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem.T, T) annotation (Line(
-      points={{70,71},{70,100}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pump.port_b, senTem.port_a) annotation (Line(
-      points={{10,30},{50,30},{50,60},{60,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pipeSupply.port_b, pump.port_a) annotation (Line(
-      points={{-60,60},{-50,60},{-50,30},{-10,30}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(port_b2, pipeReturn.port_b) annotation (Line(
-      points={{-100,-60},{60,-60}},
+      points={{-100,-60},{-90,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(u, booleanToReal.u) annotation (Line(
-      points={{0,100},{0,80},{2.22045e-015,80},{2.22045e-015,78}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(pump.P, P) annotation (Line(
-      points={{11,38},{40,38},{40,100}},
+  connect(u, flowRegulator.m_flow_in) annotation (Line(
+      points={{0,108},{0,70},{0,32},{-0.2,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(booleanToReal.y, pump.m_flow_in) annotation (Line(
-      points={{0,55},{0,42},{-0.2,42}},
+  connect(flowRegulator.P, power) annotation (Line(
+      points={{11,28},{40,28},{40,108}},
       color={0,0,127},
       smooth=Smooth.None));
     annotation(Dialog(group="Pump parameters"),

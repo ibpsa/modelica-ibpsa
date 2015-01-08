@@ -1,7 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
 model CollectorUnit "Collector unit"
 
-  extends Interfaces.Circuit;
+  extends Interfaces.CircuitInterface;
 
   FixedResistances.LosslessPipe pip(m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium)
