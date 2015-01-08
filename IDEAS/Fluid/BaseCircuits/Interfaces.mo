@@ -27,11 +27,17 @@ package Interfaces
 
     //----if includePipes
     parameter SI.Mass m=1 if includePipes
-      "Mass of medium in the supply and return pipes";
+      "Mass of medium in the supply and return pipes"
+      annotation(Dialog(group = "Pipes",
+                       enable = includePipes));
     parameter SI.ThermalConductance UA=10 if includePipes
-      "Thermal conductance of the insulation of the pipes";
+      "Thermal conductance of the insulation of the pipes"
+      annotation(Dialog(group = "Pipes",
+                       enable = includePipes));
     parameter Modelica.SIunits.Pressure dp=0 if includePipes
-      "Pressure drop over a single pipe";
+      "Pressure drop over a single pipe"
+      annotation(Dialog(group = "Pipes",
+                       enable = includePipes));
 
     //----Fluid parameters
     parameter Boolean dynamicBalance=true
@@ -107,9 +113,8 @@ package Interfaces
         points={{70,31},{70,108}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                           graphics={
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+              {100,100}}), graphics={
                                  Line(
             points={{-100,-60},{100,-60}},
             color={0,0,127},
@@ -278,6 +283,7 @@ package Interfaces
   model PartialValveCircuit
 
     //Extensions
+    extends ValveParametersTop;
     extends PartialFlowCircuit(redeclare
         Actuators.BaseClasses.PartialTwoWayValve
         flowRegulator(
@@ -288,15 +294,13 @@ package Interfaces
           deltaM=deltaMTop,
           CvData=IDEAS.Fluid.Types.CvTypes.Kv));
 
-    extends ValveParametersTop;
-
   equation
     connect(flowRegulator.y_actual, power) annotation (Line(
         points={{5,27},{40,27},{40,108}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}}), graphics), Icon(graphics={
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}), graphics), Icon(graphics={
           Polygon(
             points={{-20,70},{-20,50},{0,60},{-20,70}},
             lineColor={0,0,127},
@@ -351,7 +355,7 @@ package Interfaces
     IDEAS.Fluid.Valves.Thermostatic3WayValve thermostatic3WayValve(
       m_flow_nominal=m_flow_nominal,
       m=mValve,
-      Medium)
+      redeclare package Medium = Medium)
       annotation (Placement(transformation(extent={{-10,50},{10,70}})));
     Modelica.Blocks.Interfaces.RealInput TMixedSet
       "Setpoint for the supply temperature"                                              annotation (Placement(
@@ -462,17 +466,17 @@ package Interfaces
       fixed= if CvDataBot==IDEAS.Fluid.Types.CvTypes.Kv then true else false)
       "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
     annotation(Dialog(group = "Flow Coefficient Bot Valve",
-                      enable = (CvData==IDEAS.Fluid.Types.CvTypes.Kv)));
+                      enable = (CvDataBot==IDEAS.Fluid.Types.CvTypes.Kv)));
     parameter Real CvBot(
       fixed= if CvDataBot==IDEAS.Fluid.Types.CvTypes.Cv then true else false)
       "Cv (US) flow coefficient [USG/min/(psi)^(1/2)]"
     annotation(Dialog(group = "Flow Coefficient Bot Valve",
-                      enable = (CvData==IDEAS.Fluid.Types.CvTypes.Cv)));
+                      enable = (CvDataBot==IDEAS.Fluid.Types.CvTypes.Cv)));
     parameter Modelica.SIunits.Area AvBot(
       fixed= if CvDataBot==IDEAS.Fluid.Types.CvTypes.Av then true else false)
       "Av (metric) flow coefficient"
      annotation(Dialog(group = "Flow Coefficient Bot Valve",
-                       enable = (CvData==IDEAS.Fluid.Types.CvTypes.Av)));
+                       enable = (CvDataBot==IDEAS.Fluid.Types.CvTypes.Av)));
 
     parameter Real deltaMBot = 0.02
       "Fraction of nominal flow rate where linearization starts, if y=1"
@@ -539,17 +543,17 @@ Obtained CvData = "   + String(CvDataBot) + ".");
       fixed= if CvDataTop==IDEAS.Fluid.Types.CvTypes.Kv then true else false)
       "Kv (metric) flow coefficient [m3/h/(bar)^(1/2)]"
     annotation(Dialog(group = "Flow Coefficient Top Valve",
-                      enable = (CvData==IDEAS.Fluid.Types.CvTypes.Kv)));
+                      enable = (CvDataTop==IDEAS.Fluid.Types.CvTypes.Kv)));
     parameter Real CvTop(
       fixed= if CvDataTop==IDEAS.Fluid.Types.CvTypes.Cv then true else false)
       "Cv (US) flow coefficient [USG/min/(psi)^(1/2)]"
     annotation(Dialog(group = "Flow Coefficient Top Valve",
-                      enable = (CvData==IDEAS.Fluid.Types.CvTypes.Cv)));
+                      enable = (CvDataTop==IDEAS.Fluid.Types.CvTypes.Cv)));
     parameter Modelica.SIunits.Area AvTop(
       fixed= if CvDataTop==IDEAS.Fluid.Types.CvTypes.Av then true else false)
       "Av (metric) flow coefficient"
      annotation(Dialog(group = "Flow Coefficient Top Valve",
-                       enable = (CvData==IDEAS.Fluid.Types.CvTypes.Av)));
+                       enable = (CvDataTop==IDEAS.Fluid.Types.CvTypes.Av)));
 
     parameter Real deltaMTop = 0.02
       "Fraction of nominal flow rate where linearization starts, if y=1"
