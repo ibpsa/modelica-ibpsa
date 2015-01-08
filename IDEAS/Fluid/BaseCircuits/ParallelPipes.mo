@@ -67,6 +67,6 @@ equation
         Text(
           extent={{80,-40},{20,40}},
           lineColor={0,0,255},
-          textString="%nPipes")}));
+          textString="n")}));
 
 end ParallelPipes;
