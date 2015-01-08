@@ -2,7 +2,7 @@ within IDEAS.Fluid.BaseCircuits;
 model PumpSupplyM "Pump on supply duct"
 
   //Extensions
-  extends Interfaces.PartialFlowCircuit(redeclare Movers.FlowMachine_m_flow
+  extends Interfaces.PartialPumpCircuit(redeclare Movers.FlowMachine_m_flow
       flowRegulator);
   extends Interfaces.PumpParameters;
 

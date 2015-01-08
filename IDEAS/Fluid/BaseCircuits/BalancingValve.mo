@@ -4,7 +4,7 @@ model BalancingValve
   extends Interfaces.PartialCircuitBalancingValve;
 equation
   if not includePipes then
-    if not measureSupply then
+    if not measureSupplyT then
       connect(port_a1, port_b1);
     else
       connect(port_a1, senTem.port_a);
@@ -13,9 +13,9 @@ equation
   end if;
 
   if includePipes then
-    if not measureSupply then
-      connect(port_a1, supplyPipe.port_a);
-      connect(port_b1, supplyPipe.port_b);
+    if not measureSupplyT then
+      connect(port_a1, pipeSupply.port_a);
+      connect(port_b1, pipeSupply.port_b);
     end if;
   end if;
 

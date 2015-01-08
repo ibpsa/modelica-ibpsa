@@ -18,32 +18,38 @@ package Interfaces
     extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
 
     //Parameters
+
+    //----Settings
     parameter Boolean includePipes=false
       "Set to true to include pipes in the basecircuit";
     parameter Boolean measureSupplyT=false
       "Set to true to measure the supply temperature";
+
+    //----if includePipes
     parameter SI.Mass m=1 if includePipes
       "Mass of medium in the supply and return pipes";
     parameter SI.ThermalConductance UA=10 if includePipes
       "Thermal conductance of the insulation of the pipes";
     parameter Modelica.SIunits.Pressure dp=0 if includePipes
       "Pressure drop over a single pipe";
+
+    //----Fluid parameters
     parameter Boolean dynamicBalance=true
       "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
       annotation(Dialog(tab="Dynamics", group="Equations"));
     parameter Boolean allowFlowReversal=true
       "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
       annotation(Dialog(tab="Assumptions"));
-
     parameter Modelica.SIunits.MassFlowRate m_flow_nominal
       "Nominal mass flow rate"
       annotation(Dialog(group = "Nominal condition"));
     parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
       "Small mass flow rate for regularization of zero flow";
 
+    //Components
     FixedResistances.InsulatedPipe pipeSupply(
       UA=UA,
-      m=m/nPipes,
+      m=m/2,
       dp_nominal=dp,
       m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium) if includePipes
@@ -56,7 +62,7 @@ package Interfaces
     FixedResistances.InsulatedPipe pipeReturn(
       UA=UA,
       dp_nominal=dp,
-      m=m/nPipes,
+      m=m/2,
       m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium) if includePipes
       annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -77,7 +83,6 @@ package Interfaces
         points={{-100,60},{-90,60}},
         color={0,127,255},
         smooth=Smooth.None));
-
     connect(pipeSupply.heatPort, heatPort) annotation (Line(
         points={{-80,56},{-80,-50},{-64,-50},{-64,-100},{0,-100}},
         color={191,0,0},
@@ -102,9 +107,8 @@ package Interfaces
         points={{70,31},{70,108}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                           graphics={
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+              {100,100}}), graphics={
                                  Line(
             points={{-100,-60},{100,-60}},
             color={0,0,127},
@@ -127,38 +131,33 @@ package Interfaces
     //Extensions
     extends CircuitInterface;
 
-  equation
-    if not includePipes then
-    end if;
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics), Icon(coordinateSystem(
-            preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-          graphics));
+            preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
   end PartialBaseCircuit;
 
   partial model PartialCircuitBalancingValve
 
     //Extensions
     extends ValveParametersBot;
-    extends PartialBaseCircuit;
+    extends PartialBaseCircuit(senTem(redeclare package Medium = Medium,
+          m_flow_nominal=m_flow_nominal));
 
+    //Components
     Modelica.Blocks.Sources.Constant const(k=1)
       annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-    replaceable Actuators.Valves.TwoWayLinear            balancingValve(
+    replaceable Actuators.Valves.TwoWayLinear balancingValve(
           Kv=KvBot,
           Av=AvBot,
           Cv=CvBot,
           rhoStd=rhoStdBot,
           deltaM=deltaMBot,
-          CvData=IDEAS.Fluid.Types.CvTypes.Kv) constrainedby
-      Actuators.BaseClasses.PartialTwoWayValve(
-          Kv=KvBot,
-          Av=AvBot,
-          Cv=CvBot,
-          rhoStd=rhoStdBot,
-          deltaM=deltaMBot,
-          CvData=IDEAS.Fluid.Types.CvTypes.Kv)
+          CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+      redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal)           constrainedby
+      Actuators.BaseClasses.PartialTwoWayValve
       annotation (Placement(transformation(extent={{-18,-70},{-38,-50}})));
+
   equation
     if not includePipes then
       connect(balancingValve.port_b, port_b2);
@@ -187,10 +186,12 @@ package Interfaces
     extends PartialCircuitBalancingValve;
 
     //Parameters
-    parameter Boolean measuerPower=true
-      "Set to false to remove the power output";
+    parameter Boolean measurePower=true
+      "Set to false to remove the power consumption measurement of the flow regulator";
 
-    replaceable IDEAS.Fluid.Interfaces.PartialTwoPortInterface flowRegulator
+    replaceable IDEAS.Fluid.Interfaces.PartialTwoPortInterface flowRegulator(
+      redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal)
       annotation (Placement(transformation(extent={{-10,10},{10,30}})));
     Modelica.Blocks.Interfaces.RealInput u "Setpoint of the flow regulator"
       annotation (Placement(transformation(
@@ -239,6 +240,38 @@ package Interfaces
             fillPattern=FillPattern.Solid)}));
   end PartialFlowCircuit;
 
+  model PartialPumpCircuit
+
+    //Extensions
+    extends PartialFlowCircuit(redeclare Movers.BaseClasses.PartialFlowMachine
+        flowRegulator(
+          addPowerToMedium=addPowerToMedium,
+          use_powerCharacteristic=use_powerCharacteristic,
+          motorCooledByFluid=motorCooledByFluid,
+          motorEfficiency=motorEfficiency,
+          hydraulicEfficiency=hydraulicEfficiency));
+
+    extends PumpParameters;
+
+  end PartialPumpCircuit;
+
+  model PartialValveCircuit
+
+    //Extensions
+    extends PartialFlowCircuit(redeclare
+        Actuators.BaseClasses.PartialTwoWayValve
+        flowRegulator(
+          Kv=KvTop,
+          Av=AvTop,
+          Cv=CvTop,
+          rhoStd=rhoStdTop,
+          deltaM=deltaMTop,
+          CvData=IDEAS.Fluid.Types.CvTypes.Kv));
+
+    extends ValveParametersTop;
+
+  end PartialValveCircuit;
+
   model PartialMixingCircuit "Partial for a mixing circuit"
     import IDEAS;
 
@@ -247,11 +280,10 @@ package Interfaces
 
     //Parameters
     parameter SI.Mass mValve "Mass of fluid inside the mixing valve";
-    parameter SI.Mass mPipe if includePipe
-      "Mass of fluid inside the mixing valve";
-    parameter SI.ThermalConductance UAMixPipe=10 if includePipe
+    parameter SI.Mass mPipe "Mass of fluid inside the mixing valve";
+    parameter SI.ThermalConductance UAMixPipe=10
       "Thermal conductance of the insulation of the pipes";
-    parameter Modelica.SIunits.Pressure dpMixPipe=0 if includePipe
+    parameter Modelica.SIunits.Pressure dpMixPipe=0
       "Pressure drop over a single pipe";
 
     IDEAS.Fluid.FixedResistances.InsulatedPipe pipeMix(
@@ -259,7 +291,7 @@ package Interfaces
       m=mPipe,
       dp_nominal=dpMixPipe,
       m_flow_nominal=m_flow_nominal,
-      redeclare package Medium = Medium) if includePipe annotation (Placement(
+      redeclare package Medium = Medium) annotation (Placement(
           transformation(
           extent={{10,-10},{-10,10}},
           rotation=90,
@@ -287,10 +319,6 @@ package Interfaces
         points={{0,50},{0,10}},
         color={0,127,255},
         smooth=Smooth.None));
-
-    if not includePipes then
-      connect(thermstatic3WayValve.port_a1, port_a1);
-    end if;
 
     if not measureSupplyT then
       connect(thermostatic3WayValve.port_b, port_b1);

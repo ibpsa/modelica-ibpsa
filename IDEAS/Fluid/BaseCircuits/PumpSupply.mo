@@ -1,7 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
 model PumpSupply "Pump on supply duct"
   //Extensions
-  extends Interfaces.PartialFlowCircuit(
+  extends Interfaces.PartialPumpCircuit(
       redeclare Movers.FlowMachine_Nrpm flowRegulator);
   extends Interfaces.PumpParameters;
 
@@ -22,10 +22,6 @@ equation
       smooth=Smooth.None));
   connect(senTem.port_b, port_b1) annotation (Line(
       points={{80,20},{86,20},{86,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pump.port_b, senTem.port_a) annotation (Line(
-      points={{10,20},{60,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(u, flowRegulator.Nrpm) annotation (Line(

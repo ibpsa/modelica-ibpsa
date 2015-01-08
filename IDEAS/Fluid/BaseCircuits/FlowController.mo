@@ -1,9 +1,8 @@
 within IDEAS.Fluid.BaseCircuits;
 model FlowController
   //Extensions
-  extends Interfaces.PartialFlowCircuit(
+  extends Interfaces.PartialValveCircuit(
     redeclare Actuators.Valves.TwoWayEqualPercentage flowRegulator);
-  extends Interfaces.ValveParametersTop;
 equation
   connect(u, flowRegulator.y) annotation (Line(
       points={{0,108},{0,32}},

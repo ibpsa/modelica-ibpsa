@@ -3,7 +3,7 @@ model ThermostaticRadiatiorValve
   "Simple TRV model approximated by a P-control action"
 
   //Extensions
-  extends Interfaces.PartialFlowCircuit(
+  extends Interfaces.PartialValveCircuit(
     redeclare Actuators.Valves.TwoWayQuickOpening    flowRegulator);
   extends Interfaces.ValveParametersTop;
   Modelica.Blocks.Interfaces.RealInput u1 "measurement signal"
