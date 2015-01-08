@@ -76,7 +76,7 @@ package Interfaces
           origin={70,108}), iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=90,
-          origin={80,102})));
+          origin={76,104})));
       annotation (Placement(transformation(extent={{60,10},{80,30}})));
   equation
     connect(port_a1, pipeSupply.port_a) annotation (Line(
@@ -107,8 +107,9 @@ package Interfaces
         points={{70,31},{70,108}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-              {100,100}}), graphics={
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}),
+                           graphics={
                                  Line(
             points={{-100,-60},{100,-60}},
             color={0,0,127},
@@ -117,10 +118,6 @@ package Interfaces
                                      Line(
             points={{-100,60},{100,60}},
             color={0,0,127},
-            smooth=Smooth.None),
-          Line(
-            points={{78,100},{84,80},{82,60}},
-            color={255,0,0},
             smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}}), graphics));
   end CircuitInterface;
@@ -133,7 +130,16 @@ package Interfaces
 
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics), Icon(coordinateSystem(
-            preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics));
+            preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
+          Line(
+            points={{76,100},{82,80},{80,60}},
+            color={255,0,0},
+            smooth=Smooth.None),
+          Ellipse(
+            extent={{78,62},{82,58}},
+            lineColor={255,0,0},
+            fillColor={255,0,0},
+            fillPattern=FillPattern.Solid)}));
   end PartialBaseCircuit;
 
   partial model PartialCircuitBalancingValve
@@ -176,7 +182,7 @@ package Interfaces
         color={0,127,255},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics));
+              -100},{100,100}}), graphics), Icon(graphics));
   end PartialCircuitBalancingValve;
 
   model PartialFlowCircuit
@@ -270,6 +276,13 @@ package Interfaces
 
     extends ValveParametersTop;
 
+  equation
+    connect(flowRegulator.y_actual, power) annotation (Line(
+        points={{5,27},{40,27},{40,108}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
+              -100,-100},{100,100}}), graphics));
   end PartialValveCircuit;
 
   model PartialMixingCircuit "Partial for a mixing circuit"

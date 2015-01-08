@@ -75,14 +75,5 @@ equation
         Line(
           points={{0,100},{4,86},{0,70}},
           color={0,255,128},
-          smooth=Smooth.None),
-        Line(
-          points={{70,100},{76,80},{74,60}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Ellipse(
-          extent={{72,62},{76,58}},
-          lineColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid)}));
+          smooth=Smooth.None)}));
 end PumpSupplydP;

@@ -20,16 +20,12 @@ equation
       points={{16,50},{16,44},{-28,44},{-28,80},{-40,80},{-40,110}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(u, PID.u_s) annotation (Line(
-      points={{0,108},{0,62},{4,62}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(PID.y, flowRegulator.y) annotation (Line(
       points={{27,62},{34,62},{34,38},{0,38},{0,32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(flowRegulator.y_actual, power) annotation (Line(
-      points={{5,27},{40,27},{40,108}},
+  connect(u, PID.u_s) annotation (Line(
+      points={{0,108},{0,62},{4,62}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
