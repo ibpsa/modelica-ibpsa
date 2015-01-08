@@ -20,88 +20,72 @@ class Contact "Contact"
 <dd>Celestijnenlaan 300A bus 2421</dd>
 <dd>BE-3001 Leuven (Heverlee)</dd>
 <dd>Belgium</dd>
-<dd>email: <a href=\"mailto:kathleen.coenen@mech.kuleuven.ac.be\">kathleen.coenen@mech.kuleuven.ac.be</a></dd>
+<dd>email: <a href=\"mailto:kathleen.coenen@mech.kuleuven.ac.be\">valerie.karlshausen@kuleuven.be</a></dd>
 <dd>web: <a href=\"http://www.kuleuven.be/ei/\">http://www.kuleuven.be/ei/</a></dd>
-</dl>
-<p>Since end of 2011, the development of the sublibraries of the IDEAS tool is organized by personal and/or organizational <b>library officers</b> assigned by the Modelica Association. They are responsible for the maintenance and for the further organization of the development. Other persons may also contribute, but the final decision for library improvements and/or changes is performed by the responsible library officer(s).</p>
-<p>The following library officers are currently assigned:</p>
-
-<table border=1 cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\"><b>Sublibraries</b> </td>
-   <td valign=\"top\"><b>Library officers</b></td>
+</dl><p>Since end of 2011, the development of the sublibraries of the IDEAS tool is organized by personal and/or organizational <b>library officers</b> assigned by the Modelica Association. They are responsible for the maintenance and for the further organization of the development. Other persons may also contribute, but the final decision for library improvements and/or changes is performed by the responsible library officer(s).</p>
+<p>The following library officers are currently assigned: </p>
+<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<td valign=\"top\"><p><b>Sublibraries</b> </p></td>
+<td valign=\"top\"><h4>Library officers</h4></td>
 </tr>
-
-<tr><td valign=\"top\"> IDEAS.Climate </td>
-   <td valign=\"top\"> Ruben Baetens<br>
-        Building Physics Section, Department of Civil Engineering, KU Leuven - University of Leuven </td>
+<tr>
+<td valign=\"top\"><p>IDEAS.Climate </p></td>
+<td valign=\"top\"><p>Ruben Baetens</p><p>Building Physics Section, Department of Civil Engineering, KU Leuven - University of Leuven </p></td>
 </tr>
-
-<tr><td valign=\"top\"> IDEAS.Buildings </td>
-   <td valign=\"top\"> Ruben Baetens<br>
-        Building Physics Section, Department of Civil Engineering, KU Leuven - University of Leuven </td>
+<tr>
+<td valign=\"top\"><p>IDEAS.Buildings </p></td>
+<td valign=\"top\"><p>Ruben Baetens</p><p>Building Physics Section, Department of Civil Engineering, KU Leuven - University of Leuven </p></td>
 </tr>
-
-<tr><td valign=\"top\"> IDEAS.Thermal </td>
-   <td valign=\"top\"> Roel De Coninck<br>
-        Applied Mechanics and Energy Conversion, Department of Mechanical Engineering, KU Leuven - University of Leuven <br> 3E, Belgium </td>
+<tr>
+<td valign=\"top\"><p>IDEAS.Thermal </p></td>
+<td valign=\"top\"><p>Roel De Coninck</p><p>Applied Mechanics and Energy Conversion, Department of Mechanical Engineering, KU Leuven - University of Leuven </p><p>3E, Belgium </p></td>
 </tr>
-
-<tr><td valign=\"top\"> IDEAS.Electric </td>
-   <td valign=\"top\"> Juan Van Roy, Bart Verbruggen<br>
-        Electrical energy & computer architectures, Department of Electrical Engineering, KU Leuven - University of Leuven </td>
+<tr>
+<td valign=\"top\"><p>IDEAS.Electric </p></td>
+<td valign=\"top\"><p>Juan Van Roy, Bart Verbruggen</p><p>Electrical energy &AMP; computer architectures, Department of Electrical Engineering, KU Leuven - University of Leuven </p></td>
 </tr>
-
-<tr><td valign=\"top\"> IDEAS.Occupants </td>
-   <td valign=\"top\"> Ruben Baetens<br>
-        Building Physics Section, Department of Civil Engineering, KU Leuven - University of Leuven </td>
+<tr>
+<td valign=\"top\"><p>IDEAS.Occupants </p></td>
+<td valign=\"top\"><p>Ruben Baetens</p><p>Building Physics Section, Department of Civil Engineering, KU Leuven - University of Leuven </p></td>
 </tr>
 </table>
-
-<p>
-The following people have directly contributed to the implementation
-of the Modelica package (many more people have contributed to the design):
-</p>
-
-<table border=1 cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\"><b>Ruben Baetens</b> </td>
-   <td valign=\"top\"> KU Leuven - University of Leuven, Belgium</td>
-   <td valign=\"top\"> IDEAS.Climate<br>
-                     IDEAS.Buildings<br>
-                     IDEAS.Occupants</td>
+<p><br>The following people have directly contributed to the implementation of the Modelica package (many more people have contributed to the design): </p>
+<table cellspacing=\"0\" cellpadding=\"2\" border=\"1\"><tr>
+<td valign=\"top\"><p><b>Ruben Baetens</b> </p></td>
+<td valign=\"top\"><p>KU Leuven - University of Leuven, Belgium</p></td>
+<td valign=\"top\"><p>IDEAS.Climate</p><p>IDEAS.Buildings</p><p>IDEAS.Occupants</p></td>
 </tr>
-
-<tr><td valign=\"top\"><b>Roel De Coninck</b> </td>
-   <td valign=\"top\"> KU Leuven - University of Leuven, Belgium<br>
-     3E, Belgium</td>
-   <td valign=\"top\"> IDEAS.Thermal </td>
+<tr>
+<td valign=\"top\"><p><b>Roel De Coninck</b> </p></td>
+<td valign=\"top\"><p>KU Leuven - University of Leuven, Belgium</p><p>3E, Belgium</p></td>
+<td valign=\"top\"><p>IDEAS.Thermal </p></td>
 </tr>
-
-<tr><td valign=\"top\"><b>Johan Driesen</b> </td>
-   <td valign=\"top\"> KU Leuven - University of Leuven, Belgium</td>
-   <td valign=\"top\"> IDEAS.Electric </td>
-
-<tr><td valign=\"top\"><b>Lieve Helsen</b> </td>
-   <td valign=\"top\"> KU Leuven - University of Leuven, Belgium</td>
-   <td valign=\"top\"> IDEAS.Thermal</td>
+<tr>
+<td valign=\"top\"><p><b>Johan Driesen</b> </p></td>
+<td valign=\"top\"><p>KU Leuven - University of Leuven, Belgium</p></td>
+<td valign=\"top\"><p>IDEAS.Electric </p></td>
 </tr>
-
-<tr><td valign=\"top\"><b>Dirk Saelens</b> </td>
-   <td valign=\"top\"> KU Leuven - University of Leuven, Belgium</td>
-   <td valign=\"top\"> IDEAS.Buildings<br>
-                            IDEAS.Occupants</td>
+<tr>
+<td valign=\"top\"><p><b>Lieve Helsen</b> </p></td>
+<td valign=\"top\"><p>KU Leuven - University of Leuven, Belgium</p></td>
+<td valign=\"top\"><p>IDEAS.Thermal</p></td>
 </tr>
-
-<tr><td valign=\"top\"><b>Juan Van Roy</b> </td>
-   <td valign=\"top\"> KU Leuven - University of Leuven, Belgium</td>
-   <td valign=\"top\"> IDEAS.Electric</td>
+<tr>
+<td valign=\"top\"><p><b>Dirk Saelens</b> </p></td>
+<td valign=\"top\"><p>KU Leuven - University of Leuven, Belgium</p></td>
+<td valign=\"top\"><p>IDEAS.Buildings</p><p>IDEAS.Occupants</p></td>
 </tr>
-
-<tr><td valign=\"top\"><b>Bart Verbruggen</b> </td>
-   <td valign=\"top\"> KU Leuven - University of Leuven, Belgium</td>
-   <td valign=\"top\"> IDEAS.Electric</td>
+<tr>
+<td valign=\"top\"><p><b>Juan Van Roy</b> </p></td>
+<td valign=\"top\"><p>KU Leuven - University of Leuven, Belgium</p></td>
+<td valign=\"top\"><p>IDEAS.Electric</p></td>
+</tr>
+<tr>
+<td valign=\"top\"><p><b>Bart Verbruggen</b> </p></td>
+<td valign=\"top\"><p>KU Leuven - University of Leuven, Belgium</p></td>
+<td valign=\"top\"><p>IDEAS.Electric</p></td>
 </tr>
 </table>
-
 </html>"));
 
 end Contact;
