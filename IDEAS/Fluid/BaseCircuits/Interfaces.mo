@@ -153,7 +153,7 @@ package Interfaces
 
     //Extensions
     extends ValveParametersBot(
-        rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+        rhoStdBot=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
     extends PartialBaseCircuit(senTem(redeclare package Medium = Medium,
           m_flow_nominal=m_flow_nominal));
 
@@ -197,8 +197,7 @@ package Interfaces
     import IDEAS;
 
     //Extensions
-    extends PartialCircuitBalancingValve(
-        rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+    extends PartialCircuitBalancingValve;
 
     //Parameters
     parameter Boolean measurePower=true
@@ -261,7 +260,6 @@ package Interfaces
     extends PartialFlowCircuit(redeclare Movers.BaseClasses.PartialFlowMachine
         flowRegulator(
           addPowerToMedium=addPowerToMedium,
-          use_powerCharacteristic=use_powerCharacteristic,
           motorCooledByFluid=motorCooledByFluid,
           motorEfficiency=motorEfficiency,
           hydraulicEfficiency=hydraulicEfficiency));
@@ -287,7 +285,8 @@ package Interfaces
   model PartialValveCircuit
 
     //Extensions
-    extends ValveParametersTop;
+    extends ValveParametersTop(
+        rhoStdTot=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
     extends PartialFlowCircuit(redeclare
         Actuators.BaseClasses.PartialTwoWayValve
         flowRegulator(
@@ -339,16 +338,18 @@ package Interfaces
     extends IDEAS.Fluid.BaseCircuits.Interfaces.PartialCircuitBalancingValve;
 
     //Parameters
-    parameter SI.Mass mMix "Mass of fluid inside the mixing valve"
+    parameter SI.Mass mMix=1 "Mass of fluid inside the mixing valve"
     annotation(Dialog(group = "Mixing valve"));
-    parameter SI.Mass mPipe "Mass of fluid inside the middle pipe"
+    parameter SI.Mass mPipe=1 "Mass of fluid inside the middle pipe"
     annotation(Dialog(group = "Mixing valve"));
     parameter Modelica.SIunits.Pressure dpMixPipe=0
       "Pressure drop over the middle single pipe"
       annotation(Dialog(group = "Mixing valve"));
-
+    parameter SI.ThermalConductance UAMix=10 if includePipes
+      "Thermal conductance of the insulation of the middle pipe"
+      annotation(Dialog(group = "Mixing valve"));
     IDEAS.Fluid.FixedResistances.InsulatedPipe pipeMix(
-      UA=UAMixPipe,
+      UA=UAMix,
       m=mPipe,
       dp_nominal=dpMixPipe,
       m_flow_nominal=m_flow_nominal,
@@ -359,7 +360,7 @@ package Interfaces
           origin={0,0})), choicesAllMatching=true);
     IDEAS.Fluid.Valves.Thermostatic3WayValve thermostatic3WayValve(
       m_flow_nominal=m_flow_nominal,
-      m=mValve,
+      m=mMix,
       redeclare package Medium = Medium)
       annotation (Placement(transformation(extent={{-10,50},{10,70}})));
     Modelica.Blocks.Interfaces.RealInput TMixedSet
