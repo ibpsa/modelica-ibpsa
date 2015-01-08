@@ -21,9 +21,11 @@ package Interfaces
 
     //----Settings
     parameter Boolean includePipes=false
-      "Set to true to include pipes in the basecircuit";
+      "Set to true to include pipes in the basecircuit"
+      annotation(Dialog(group = "Settings"));
     parameter Boolean measureSupplyT=false
-      "Set to true to measure the supply temperature";
+      "Set to true to measure the supply temperature"
+      annotation(Dialog(group = "Settings"));
 
     //----if includePipes
     parameter SI.Mass m=1 if includePipes
@@ -150,7 +152,8 @@ package Interfaces
   partial model PartialCircuitBalancingValve
 
     //Extensions
-    extends ValveParametersBot;
+    extends ValveParametersBot(
+        rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
     extends PartialBaseCircuit(senTem(redeclare package Medium = Medium,
           m_flow_nominal=m_flow_nominal));
 
@@ -194,7 +197,8 @@ package Interfaces
     import IDEAS;
 
     //Extensions
-    extends PartialCircuitBalancingValve;
+    extends PartialCircuitBalancingValve(
+        rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
     //Parameters
     parameter Boolean measurePower=true
@@ -335,12 +339,13 @@ package Interfaces
     extends IDEAS.Fluid.BaseCircuits.Interfaces.PartialCircuitBalancingValve;
 
     //Parameters
-    parameter SI.Mass mValve "Mass of fluid inside the mixing valve";
-    parameter SI.Mass mPipe "Mass of fluid inside the mixing valve";
-    parameter SI.ThermalConductance UAMixPipe=10
-      "Thermal conductance of the insulation of the pipes";
+    parameter SI.Mass mMix "Mass of fluid inside the mixing valve"
+    annotation(Dialog(group = "Mixing valve"));
+    parameter SI.Mass mPipe "Mass of fluid inside the middle pipe"
+    annotation(Dialog(group = "Mixing valve"));
     parameter Modelica.SIunits.Pressure dpMixPipe=0
-      "Pressure drop over a single pipe";
+      "Pressure drop over the middle single pipe"
+      annotation(Dialog(group = "Mixing valve"));
 
     IDEAS.Fluid.FixedResistances.InsulatedPipe pipeMix(
       UA=UAMixPipe,
@@ -459,7 +464,7 @@ package Interfaces
 
   model ValveParametersBot
 
-    parameter IDEAS.Fluid.Types.CvTypes CvDataBot=IDEAS.Fluid.Types.CvTypes.OpPoint
+    parameter IDEAS.Fluid.Types.CvTypes CvDataBot=IDEAS.Fluid.Types.CvTypes.Kv
       "Selection of flow coefficient"
      annotation(Dialog(group = "Flow Coefficient Bot Valve"));
     parameter Real KvBot(
