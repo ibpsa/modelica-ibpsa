@@ -9,11 +9,9 @@ partial model PartialCircuitBalancingValve
 
   //Components
   Modelica.Blocks.Sources.Constant const(k=1)
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   replaceable Actuators.Valves.TwoWayLinear balancingValve(
         Kv=KvBot,
-        Av=AvBot,
-        Cv=CvBot,
         rhoStd=rhoStdBot,
         deltaM=deltaMBot,
         CvData=IDEAS.Fluid.Types.CvTypes.Kv,
@@ -22,7 +20,7 @@ partial model PartialCircuitBalancingValve
     dpFixed_nominal=if includePipes then dp else 0)
                                              constrainedby
     Actuators.BaseClasses.PartialTwoWayValve
-    annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
+    annotation (Placement(transformation(extent={{-18,-70},{-38,-50}})));
 
 equation
   if not includePipes then
@@ -30,15 +28,15 @@ equation
   end if;
 
   connect(balancingValve.port_b, pipeReturn.port_a) annotation (Line(
-      points={{-10,-60},{-70,-60}},
+      points={{-38,-60},{-70,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(const.y, balancingValve.y) annotation (Line(
-      points={{-19,-40},{0,-40},{0,-48}},
+      points={{-39,-20},{-28,-20},{-28,-48}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(port_a2, balancingValve.port_a) annotation (Line(
-      points={{100,-60},{10,-60}},
+      points={{100,-60},{-18,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
