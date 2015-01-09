@@ -10,20 +10,20 @@ model ThermostaticRadiatiorValve
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
-        origin={-40,110})));
+        origin={-60,108})));
   Modelica.Blocks.Continuous.LimPID PID(controllerType=Modelica.Blocks.Types.SimpleController.P,
-      k=1) annotation (Placement(transformation(extent={{6,52},{26,72}})));
+      k=1) annotation (Placement(transformation(extent={{20,72},{40,92}})));
 equation
   connect(PID.u_m, u1) annotation (Line(
-      points={{16,50},{16,44},{-28,44},{-28,80},{-40,80},{-40,110}},
+      points={{30,70},{30,66},{-60,66},{-60,108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PID.y, flowRegulator.y) annotation (Line(
-      points={{27,62},{34,62},{34,38},{0,38},{0,32}},
+      points={{41,82},{44,82},{44,62},{18,62},{18,74},{0,74},{0,72}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(u, PID.u_s) annotation (Line(
-      points={{0,108},{0,62},{4,62}},
+      points={{0,108},{0,82},{18,82}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation(Dialog(group = "Thermostatic valve parameters",
