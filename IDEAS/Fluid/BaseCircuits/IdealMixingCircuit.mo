@@ -1,5 +1,5 @@
 within IDEAS.Fluid.BaseCircuits;
-model MixingCircuit "Active mixing circuit"
+model IdealMixingCircuit "Active mixing circuit"
   //Extensions
   extends Interfaces.PartialMixingCircuit;
 
@@ -38,4 +38,4 @@ model MixingCircuit "Active mixing circuit"
           color={0,0,255},
           smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics));
-end MixingCircuit;
+end IdealMixingCircuit;
