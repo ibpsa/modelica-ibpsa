@@ -201,13 +201,9 @@ equation
             100}}), graphics={
         Ellipse(
           extent={{-60,60},{60,-60}},
-          lineColor={135,135,135},
+          lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-40,20},{0,-20}},
-          lineColor={0,0,0},
-          textString="V"),
         Line(
           points={{-100,0},{-60,0}},
           color={0,128,255},
@@ -226,8 +222,8 @@ equation
           smooth=Smooth.None),
         Polygon(
           points={{-38,46},{60,0},{60,0},{-38,-46},{-38,46}},
-          lineColor={135,135,135},
-          fillColor={135,135,135},
+          lineColor={0,0,127},
+          fillColor={0,127,255},
           fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics));

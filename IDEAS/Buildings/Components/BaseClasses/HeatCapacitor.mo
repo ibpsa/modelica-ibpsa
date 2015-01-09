@@ -17,16 +17,26 @@ equation
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={
-        Line(points={{0,-34},{0,-100}},color={255,0,0}),
         Rectangle(
-          extent={{-30,-30},{30,-40}},
-          lineColor={191,0,0},
+          extent={{-22,-36},{34,-52}},
           fillColor={191,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Rectangle(
+          extent={{-22,-10},{34,-26}},
+          fillColor={191,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Line(points={{0,-34},{0,-100}},color={0,0,0}),
+        Rectangle(
+          extent={{-28,-30},{28,-46}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-30,-10},{30,-20}},
-          lineColor={191,0,0},
-          fillColor={191,0,0},
+          extent={{-28,-4},{28,-20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}),      graphics),

@@ -7,52 +7,47 @@ model WattsLaw
     vi annotation (Placement(transformation(extent={{90,-10},{110,10}},
           rotation=0)));
   Modelica.Blocks.Interfaces.RealInput P(start=0) annotation (Placement(
-        transformation(extent={{-128,30},{-88,70}}), iconTransformation(extent=
-            {{-108,50},{-88,70}})));
+        transformation(extent={{-120,20},{-80,60}}), iconTransformation(extent={{-100,40},
+            {-80,60}})));
   Modelica.Blocks.Interfaces.RealInput Q(start=0) annotation (Placement(
-        transformation(extent={{-128,-10},{-88,30}}), iconTransformation(extent=
-           {{-108,10},{-88,30}})));
+        transformation(extent={{-130,-20},{-90,20}}), iconTransformation(extent={{-110,0},
+            {-90,20}})));
 equation
   for i in 1:numPha loop
     P/numPha = Modelica.ComplexMath.real(vi[i].v*Modelica.ComplexMath.conj(vi[i].i));
     Q/numPha = Modelica.ComplexMath.imag(vi[i].v*Modelica.ComplexMath.conj(vi[i].i));
   end for;
 
-  annotation (Icon(graphics={
-        Ellipse(extent={{-60,60},{60,-60}}, lineColor={0,0,127}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                   graphics={
+        Ellipse(
+          extent={{-80,60},{40,-60}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Line(
-          points={{-100,0},{-60,0}},
-          color={0,0,127},
+          points={{40,0},{100,0}},
+          color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{60,0},{100,0}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Text(
-          extent={{-20,40},{20,20}},
-          lineColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="P"),
-        Text(
-          extent={{0,-20},{40,-40}},
-          lineColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="I"),
-        Text(
-          extent={{-40,-20},{0,-40}},
-          lineColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          textString="V"),
-        Line(
-          points={{-40,0},{40,0}},
-          color={135,135,135},
+          points={{-46,0},{-26,0}},
+          color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{0,0},{0,-40}},
-          color={135,135,135},
+          points={{-14,0},{6,0}},
+          color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-100,80},{-100,-80}},
-          color={0,0,127},
+          points={{40,60},{40,-60}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{-26,24},{-26,-26}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{-14,24},{-14,-26}},
+          color={0,0,0},
           smooth=Smooth.None)}), Diagram(graphics));
 end WattsLaw;

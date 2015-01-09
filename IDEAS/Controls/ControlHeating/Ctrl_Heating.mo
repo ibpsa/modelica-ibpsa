@@ -16,7 +16,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(add1.y, THeaCur) annotation (Line(
-      points={{78.8,40},{104,40}},
+      points={{78.8,40},{100,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression2.y, add2.u2) annotation (Line(
@@ -24,7 +24,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(add2.y, THeaterSet) annotation (Line(
-      points={{80.8,0},{104,0}},
+      points={{80.8,0},{86,0},{86,10},{90,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(corHeaCur.y, add1.u2) annotation (Line(
@@ -52,5 +52,7 @@ equation
 <li>2013 May, Roel De Coninck: documentation</li>
 <li>2011, Roel De Coninck: first version and validation</li>
 </ul></p>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end Ctrl_Heating;
