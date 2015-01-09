@@ -11,8 +11,6 @@ model ThermostaticRadiatiorValve
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-40,110})));
-  annotation(Dialog(group = "Thermostatic valve parameters",
-                    enable = (CvData==IDEAS.Fluid.Types.CvTypes.Kv)));
   Modelica.Blocks.Continuous.LimPID PID(controllerType=Modelica.Blocks.Types.SimpleController.P,
       k=1) annotation (Placement(transformation(extent={{6,52},{26,72}})));
 equation
@@ -28,7 +26,9 @@ equation
       points={{0,108},{0,62},{4,62}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation(Dialog(group = "Thermostatic valve parameters",
+                    enable = (CvData==IDEAS.Fluid.Types.CvTypes.Kv)),
+              Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(

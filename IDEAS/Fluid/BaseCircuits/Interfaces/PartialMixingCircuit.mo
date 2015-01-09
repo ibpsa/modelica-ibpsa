@@ -13,7 +13,7 @@ model PartialMixingCircuit "Partial for a mixing circuit"
   parameter Modelica.SIunits.Pressure dpMixPipe=0
     "Pressure drop over the middle single pipe"
     annotation(Dialog(group = "Mixing valve"));
-  parameter SI.ThermalConductance UAMix=10 if includePipes
+  parameter SI.ThermalConductance UAMix=10
     "Thermal conductance of the insulation of the middle pipe"
     annotation(Dialog(group = "Mixing valve"));
   IDEAS.Fluid.FixedResistances.InsulatedPipe pipeMix(
@@ -62,11 +62,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pipeMix.port_b, balancingValve.port_a) annotation (Line(
-      points={{0,-10},{0,-60},{-18,-60}},
+      points={{-6.66134e-16,-10},{-6.66134e-16,-26},{0,-26},{0,-60},{-18,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(thermostatic3WayValve.port_b, senTem.port_a) annotation (Line(
-      points={{10,60},{40,60},{40,20},{60,20}},
+      points={{10,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

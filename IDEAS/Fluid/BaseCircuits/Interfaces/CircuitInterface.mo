@@ -28,12 +28,11 @@ partial model CircuitInterface "Partial circuit for base circuits"
     "Mass of medium in the supply and return pipes"
     annotation(Dialog(group = "Pipes",
                      enable = includePipes));
-  parameter SI.ThermalConductance UA=10 if includePipes
+  parameter SI.ThermalConductance UA=10
     "Thermal conductance of the insulation of the pipes"
     annotation(Dialog(group = "Pipes",
                      enable = includePipes));
-  parameter Modelica.SIunits.Pressure dp=0 if includePipes
-    "Pressure drop over a single pipe"
+  parameter Modelica.SIunits.Pressure dp=0 "Pressure drop over a single pipe"
     annotation(Dialog(group = "Pipes",
                      enable = includePipes));
 
