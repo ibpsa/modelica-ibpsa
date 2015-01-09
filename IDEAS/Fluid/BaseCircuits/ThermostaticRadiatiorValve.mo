@@ -10,7 +10,7 @@ model ThermostaticRadiatiorValve
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
-        origin={-60,108})));
+        origin={-40,110})));
   Modelica.Blocks.Continuous.LimPID PID(controllerType=Modelica.Blocks.Types.SimpleController.P,
       k=1) annotation (Placement(transformation(extent={{20,72},{40,92}})));
 equation

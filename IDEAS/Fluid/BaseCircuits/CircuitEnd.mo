@@ -1,5 +1,5 @@
 within IDEAS.Fluid.BaseCircuits;
-model Overflow "Collector unit"
+model CircuitEnd "Ending circucit"
 //  extends IDEAS.Fluid.Interfaces.FourPort;
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
 
@@ -82,31 +82,48 @@ equation
 Initial version</li>
 </ul></p>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
         graphics={
         Polygon(
-          points={{-40,0},{-50,-20},{-30,-20},{-40,0}},
+          points={{-20,-50},{-20,-70},{-40,-60},{-20,-50}},
           lineColor={0,0,127},
           smooth=Smooth.None,
-          fillColor={0,127,255},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-40,0},{-20,-10},{-20,10},{-40,0}},
+          points={{-20,70},{-20,50},{-40,60},{-20,70}},
           lineColor={0,0,127},
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-100,-60},{-40,-60},{-40,-20}},
+          points={{-40,60},{-100,60}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{-100,60},{0,60},{0,0},{-20,0}},
+          points={{-40,-60},{-100,-60}},
           color={0,0,127},
           smooth=Smooth.None,
           pattern=LinePattern.Dash),
+        Polygon(
+          points={{-60,-50},{-60,-70},{-40,-60},{-60,-50}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-60,70},{-60,50},{-40,60},{-60,70}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Line(
-          points={{-40,0},{-50,4},{-30,8},{-50,12},{-30,16},{-40,20}},
+          points={{-14,70},{-14,50}},
+          color={0,0,127},
+          smooth=Smooth.None),
+        Line(
+          points={{-14,-50},{-14,-70}},
           color={0,0,127},
           smooth=Smooth.None)}));
-end Overflow;
+end CircuitEnd;
