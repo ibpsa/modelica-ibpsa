@@ -66,13 +66,13 @@ model HeatExchanger
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTem1(
     redeclare package Medium =Medium,
     m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-36,0},{-16,20}})));
+    annotation (Placement(transformation(extent={{-50,6},{-30,26}})));
 
   IDEAS.Fluid.Sensors.MassFlowRate senMasFlo1(
     redeclare package Medium=Medium) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-62,32})));
+        origin={-56,40})));
 
   FixedResistances.InsulatedPipe pipeSupply2(
     UA=UA,
@@ -96,15 +96,15 @@ model HeatExchanger
         origin={28,-60})), choicesAllMatching=true);
 equation
   connect(senTem1.T, senT1) annotation (Line(
-      points={{-26,21},{-26,52},{-40,52},{-40,108}},
+      points={{-40,27},{-40,108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTem1.port_b, hex.port_a1) annotation (Line(
-      points={{-16,10},{-6,10}},
+      points={{-30,16},{-6,16},{-6,10},{-6,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTem1.port_a, senMasFlo1.port_b) annotation (Line(
-      points={{-36,10},{-72,10},{-72,32}},
+      points={{-50,16},{-66,16},{-66,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senT1, senT1) annotation (Line(
@@ -112,7 +112,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pipeSupply.port_b, senMasFlo1.port_a) annotation (Line(
-      points={{-70,60},{-52,60},{-52,32}},
+      points={{-70,60},{-46,60},{-46,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senMasFlo2.port_b, senTem.port_a) annotation (Line(
@@ -153,7 +153,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(senMasFlo1.m_flow, massFlow1) annotation (Line(
-      points={{-62,43},{-62,88},{-82,88},{-82,108}},
+      points={{-56,51},{-56,88},{-82,88},{-82,108}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html><p>

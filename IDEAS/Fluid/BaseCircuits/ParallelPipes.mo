@@ -73,5 +73,4 @@ equation
           extent={{80,-40},{20,40}},
           lineColor={0,0,255},
           textString="n")}));
-
 end ParallelPipes;

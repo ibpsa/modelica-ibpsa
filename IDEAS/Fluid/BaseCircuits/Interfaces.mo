@@ -26,6 +26,9 @@ package Interfaces
     parameter Boolean measureSupplyT=false
       "Set to true to measure the supply temperature"
       annotation(Dialog(group = "Settings"));
+    parameter Boolean measureReturnT=false
+      "Set to true to measure the return temperature"
+      annotation(Dialog(group = "Settings"));
 
     //----if includePipes
     parameter SI.Mass m=1 if includePipes
@@ -75,51 +78,80 @@ package Interfaces
       redeclare package Medium = Medium) if includePipes
       annotation (Placement(transformation(extent={{10,-10},{-10,10}},
           rotation=0,
-          origin={-80,-60})),                                            choicesAllMatching=true);
+          origin={-52,-60})),                                            choicesAllMatching=true);
     Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal) if
                                          measureSupplyT
       annotation (Placement(transformation(extent={{60,10},{80,30}})));
-    Modelica.Blocks.Interfaces.RealOutput y if measureSupplyT annotation (Placement(transformation(
+    Modelica.Blocks.Interfaces.RealOutput supplyT if
+                                               measureSupplyT
+      "Measurement of the supply T" annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=90,
           origin={70,108}), iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=90,
           origin={76,104})));
+    Sensors.TemperatureTwoPort senTem1(
+                                      m_flow_nominal=m_flow_nominal) if
+                                         measureReturnT
+      annotation (Placement(transformation(extent={{-70,-70},{-90,-50}})));
+    Modelica.Blocks.Interfaces.RealOutput returnT if
+                                               measureReturnT
+      "measurement of the return temperature" annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=270,
+          origin={-74,-106}), iconTransformation(
+          extent={{-10,-10},{10,10}},
+          rotation=270,
+          origin={-76,-102})));
   equation
+
     connect(port_a1, pipeSupply.port_a) annotation (Line(
         points={{-100,60},{-90,60}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(pipeSupply.heatPort, heatPort) annotation (Line(
-        points={{-80,56},{-80,-50},{-64,-50},{-64,-100},{0,-100}},
+        points={{-80,56},{-80,-34},{-34,-34},{-34,-100},{0,-100}},
         color={191,0,0},
         smooth=Smooth.None));
-    connect(port_b2, pipeReturn.port_b) annotation (Line(
-        points={{-100,-60},{-90,-60}},
-        color={0,127,255},
-        smooth=Smooth.None));
     connect(pipeReturn.heatPort, heatPort) annotation (Line(
-        points={{-80,-56},{-80,-50},{-64,-50},{-64,-100},{0,-100}},
+        points={{-52,-56},{-52,-34},{-34,-34},{-34,-100},{0,-100}},
         color={191,0,0},
         smooth=Smooth.None));
     connect(port_b1, senTem.port_b) annotation (Line(
         points={{100,60},{86,60},{86,20},{80,20}},
         color={0,127,255},
         smooth=Smooth.None));
-    connect(y, y) annotation (Line(
+    connect(supplyT, supplyT) annotation (Line(
         points={{70,108},{70,108}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(senTem.T, y) annotation (Line(
+    connect(senTem.T, supplyT) annotation (Line(
         points={{70,31},{70,108}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(port_b2, senTem1.port_b) annotation (Line(
+        points={{-100,-60},{-90,-60}},
+        color={0,127,255},
+        smooth=Smooth.None));
+    connect(senTem1.port_a, pipeReturn.port_b) annotation (Line(
+        points={{-70,-60},{-62,-60}},
+        color={0,127,255},
+        smooth=Smooth.None));
+    connect(senTem1.T, returnT) annotation (Line(
+        points={{-80,-49},{-80,-44},{-74,-44},{-74,-106}},
         color={0,0,127},
         smooth=Smooth.None));
       annotation (Placement(transformation(extent={{60,10},{80,30}})),
                 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}),
                            graphics={
-          Rectangle(extent={{-100,100},{100,-100}}, lineColor={135,135,135}),
+          Rectangle(
+            extent={{-100,100},{100,-100}},
+            lineColor={0,0,255},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid),
                                  Line(
             points={{-100,-60},{100,-60}},
             color={0,0,127},
@@ -149,6 +181,17 @@ package Interfaces
             extent={{78,62},{82,58}},
             lineColor={255,0,0},
             fillColor={255,0,0},
+            fillPattern=FillPattern.Solid),
+          Line(
+            points={{-3,20},{3,0},{1,-20}},
+            color={255,0,0},
+            smooth=Smooth.None,
+            origin={-77,-80},
+            rotation=180),
+          Ellipse(
+            extent={{-80,-58},{-76,-62}},
+            lineColor={255,0,0},
+            fillColor={255,0,0},
             fillPattern=FillPattern.Solid)}));
   end PartialBaseCircuit;
 
@@ -173,23 +216,27 @@ package Interfaces
       redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal)           constrainedby
       Actuators.BaseClasses.PartialTwoWayValve
-      annotation (Placement(transformation(extent={{-18,-70},{-38,-50}})));
+      annotation (Placement(transformation(extent={{-8,-70},{-28,-50}})));
 
   equation
     if not includePipes then
-      connect(balancingValve.port_b, port_b2);
+      if not measureReturnT then
+        connect(balancingValve.port_b, port_b2);
+      else
+        connect(balancingValve.port_b, senTem1.port_a);
+      end if;
     end if;
 
     connect(balancingValve.port_b, pipeReturn.port_a) annotation (Line(
-        points={{-38,-60},{-70,-60}},
+        points={{-28,-60},{-42,-60}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(const.y, balancingValve.y) annotation (Line(
-        points={{-39,-20},{-28,-20},{-28,-48}},
+        points={{-39,-20},{-18,-20},{-18,-48}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(port_a2, balancingValve.port_a) annotation (Line(
-        points={{100,-60},{-18,-60}},
+        points={{100,-60},{-8,-60}},
         color={0,127,255},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -341,22 +388,29 @@ package Interfaces
     extends IDEAS.Fluid.BaseCircuits.Interfaces.PartialCircuitBalancingValve;
 
     //Parameters
+    parameter Boolean includeMixingPipe=false
+      "Set to true to include mixing pipe"
+      annotation(Dialog(group = "Settings"));
+
     parameter SI.Mass mMix=1 "Mass of fluid inside the mixing valve"
-    annotation(Dialog(group = "Mixing valve"));
+    annotation(Dialog(group = "Mixing"));
     parameter SI.Mass mPipe=1 "Mass of fluid inside the middle pipe"
-    annotation(Dialog(group = "Mixing valve"));
+    annotation(Dialog(group = "Mixing",
+                       enable = includeMixingPipe));
     parameter Modelica.SIunits.Pressure dpMixPipe=0
       "Pressure drop over the middle single pipe"
-      annotation(Dialog(group = "Mixing valve"));
+      annotation(Dialog(group = "Mixing",
+                       enable = includeMixingPipe));
     parameter SI.ThermalConductance UAMix=10 if includePipes
       "Thermal conductance of the insulation of the middle pipe"
-      annotation(Dialog(group = "Mixing valve"));
+      annotation(Dialog(group = "Mixing",
+                       enable = includeMixingPipe));
     IDEAS.Fluid.FixedResistances.InsulatedPipe pipeMix(
       UA=UAMix,
       m=mPipe,
       dp_nominal=dpMixPipe,
       m_flow_nominal=m_flow_nominal,
-      redeclare package Medium = Medium) annotation (Placement(
+      redeclare package Medium = Medium) if includeMixingPipe annotation (Placement(
           transformation(
           extent={{10,-10},{-10,10}},
           rotation=90,
@@ -376,14 +430,14 @@ package Interfaces
           rotation=-90,
           origin={0,100})));
   equation
-    connect(pipeMix.heatPort, pipeReturn.heatPort) annotation (Line(
-        points={{-4,0},{-80,0},{-80,-56}},
-        color={191,0,0},
-        smooth=Smooth.None));
     connect(thermostatic3WayValve.port_a2, pipeMix.port_a) annotation (Line(
         points={{0,50},{0,10}},
         color={0,127,255},
         smooth=Smooth.None));
+
+    if not includeMixingPipe then
+      connect(thermostatic3WayValve.port_a2, balancingValve.port_a);
+    end if;
 
     if not measureSupplyT then
       connect(thermostatic3WayValve.port_b, port_b1);
@@ -397,12 +451,16 @@ package Interfaces
         color={0,127,255},
         smooth=Smooth.None));
     connect(pipeMix.port_b, balancingValve.port_a) annotation (Line(
-        points={{0,-10},{0,-60},{-18,-60}},
+        points={{0,-10},{0,-60},{-8,-60}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(thermostatic3WayValve.port_b, senTem.port_a) annotation (Line(
         points={{10,60},{40,60},{40,20},{60,20}},
         color={0,127,255},
+        smooth=Smooth.None));
+    connect(pipeMix.heatPort, heatPort) annotation (Line(
+        points={{-4,0},{-80,0},{-80,-50},{-64,-50},{-64,-100},{0,-100}},
+        color={191,0,0},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics), Icon(coordinateSystem(
