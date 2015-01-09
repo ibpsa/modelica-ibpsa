@@ -3,7 +3,7 @@ partial model PartialBaseCircuit "Partial for a mixing circuit"
   import IDEAS;
 
   //Extensions
-  extends CircuitInterface;
+  extends CircuitInterface(senTem1(redeclare package Medium = Medium));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(

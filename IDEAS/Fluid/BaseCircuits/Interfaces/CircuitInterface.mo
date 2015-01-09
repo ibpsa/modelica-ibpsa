@@ -88,8 +88,8 @@ partial model CircuitInterface "Partial circuit for base circuits"
         rotation=90,
         origin={76,104})));
   Sensors.TemperatureTwoPort senTem1(
-                                    m_flow_nominal=m_flow_nominal) if
-                                       measureReturnT
+                                    m_flow_nominal=m_flow_nominal, redeclare
+      package Medium = Medium) if      measureReturnT
     annotation (Placement(transformation(extent={{-64,-70},{-84,-50}})));
   Modelica.Blocks.Interfaces.RealOutput Tret if
                                              measureReturnT
@@ -144,9 +144,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     annotation (Placement(transformation(extent={{60,10},{80,30}})),
-              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                         graphics={
+              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics={
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={135,135,135}),
                                Line(
           points={{-100,-60},{100,-60}},
