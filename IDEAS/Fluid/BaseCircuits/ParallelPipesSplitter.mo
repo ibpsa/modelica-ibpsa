@@ -72,7 +72,12 @@ equation
         Text(
           extent={{80,-40},{20,40}},
           lineColor={0,0,255},
-          textString="n")}),
+          textString="n"),
+        Line(
+          points={{-26,-4},{14,-4},{4,-14},{14,-4},{4,6}},
+          color={0,0,255},
+          smooth=Smooth.None,
+          thickness=1)}),
     Documentation(info="<html>
 <p>Model to split a fluid inlet into multiple outlets and back</p>
 </html>"));
