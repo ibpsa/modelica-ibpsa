@@ -1,7 +1,7 @@
 MixingCircuit
-PumpSupply
-PumpSupplyM
-PumpSupplydP
+PumpSupply_Nrpm
+PumpSupply_m_flow
+PumpSupply_dp
 BalancingValve
 FlowController
 ThermostaticRadiatiorValve
