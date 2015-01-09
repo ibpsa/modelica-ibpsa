@@ -1,7 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
-model IdealMixingCircuit "Active mixing circuit"
+model MixingCircuit_y "Active mixing circuit based on valve position input"
   //Extensions
-  extends Interfaces.PartialMixingCircuit;
+  extends MixingCircuit_Tset;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
@@ -38,4 +38,4 @@ model IdealMixingCircuit "Active mixing circuit"
           color={0,0,255},
           smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics));
-end IdealMixingCircuit;
+end MixingCircuit_y;
