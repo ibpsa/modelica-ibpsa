@@ -1,7 +1,7 @@
 within Annex60.Fluid.Movers.Validation;
 model SpeedControlled_Nrpm "Fan with zero mass flow rate and speed as input"
   extends Modelica.Icons.Example;
- extends Annex60.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
+ extends Annex60.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow(
     gain(k=1500),
     redeclare Annex60.Fluid.Movers.SpeedControlled_Nrpm floMacSta(
       redeclare package Medium = Medium,

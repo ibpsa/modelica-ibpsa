@@ -1,7 +1,7 @@
 within Annex60.Fluid.Movers.Validation;
 model FlowControlled_dp "Fan with zero mass flow rate and head as input"
   extends Modelica.Icons.Example;
- extends Annex60.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
+ extends Annex60.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow(
     gain(k=dp_nominal),
     redeclare Annex60.Fluid.Movers.FlowControlled_dp floMacSta(
       redeclare package Medium = Medium,

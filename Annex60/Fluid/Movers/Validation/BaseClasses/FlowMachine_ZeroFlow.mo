@@ -1,4 +1,4 @@
-within Annex60.Fluid.Movers.Examples.BaseClasses;
+within Annex60.Fluid.Movers.Validation.BaseClasses;
 partial model FlowMachine_ZeroFlow
   "Base class to test flow machines with zero flow rate"
 
