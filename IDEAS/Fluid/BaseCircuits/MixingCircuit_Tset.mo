@@ -28,6 +28,11 @@ equation
   if not measureSupplyT then
     connect(thermostatic3WayValve.port_b, port_b1);
   end if;
+
+  if not includePipes then
+    connect(thermostatic3WayValve.port_a1, port_a1);
+  end if;
+
   connect(TMixedSet, thermostatic3WayValve.TMixedSet) annotation (Line(
       points={{0,104},{0,70}},
       color={0,0,127},
@@ -40,9 +45,8 @@ equation
       points={{10,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(thermostatic3WayValve.port_a2, balancingValve.port_a) annotation (
-      Line(
-      points={{0,50},{0,-60},{10,-60}},
+  connect(thermostatic3WayValve.port_a2, port_a2) annotation (Line(
+      points={{0,50},{0,0},{100,0},{100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
