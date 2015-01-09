@@ -41,7 +41,7 @@ equation
   else
     if not includePipes then
       if measureReturnT then
-        connect(senTem.port_a, balancingValve.port_b);
+        connect(senTem1.port_a, balancingValve.port_b);
       end if;
     end if;
   end if;
