@@ -77,7 +77,7 @@ equation
           origin={0,50},
           rotation=90),
         Line(
-          points={{0,40},{0,-60}},
+          points={{0,40},{0,0},{60,0},{60,-60}},
           color={0,0,255},
           smooth=Smooth.None)}));
 end MixingCircuit_Tset;
