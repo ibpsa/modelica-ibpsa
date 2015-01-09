@@ -74,7 +74,9 @@ partial model CircuitInterface "Partial circuit for base circuits"
   Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal) if
                                        measureSupplyT
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Modelica.Blocks.Interfaces.RealOutput y if measureSupplyT annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput Tsup if
+                                             measureSupplyT
+    "Supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,108}), iconTransformation(
@@ -102,11 +104,11 @@ equation
       points={{100,60},{80,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(y, y) annotation (Line(
+  connect(Tsup, Tsup) annotation (Line(
       points={{70,108},{70,108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senTem.T, y) annotation (Line(
+  connect(senTem.T, Tsup) annotation (Line(
       points={{70,71},{70,108}},
       color={0,0,127},
       smooth=Smooth.None));
