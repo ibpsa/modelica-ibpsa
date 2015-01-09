@@ -5,6 +5,13 @@ partial model PartialBaseCircuit "Partial for a mixing circuit"
   //Extensions
   extends CircuitInterface(senTem1(redeclare package Medium = Medium));
 
+equation
+  if includePipes then
+    if not measureReturnT then
+      connect(pipeReturn.port_b, port_b2);
+    end if;
+  end if;
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
