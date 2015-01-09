@@ -1,2 +1,2 @@
 simulateModel("IDEAS.Controls.ControlHeating.Examples.RunningMeanTemperatureEN15251", stopTime=1e+007, numberOfIntervals=50000, method="dassl", resultFile="RunningMeanTemperatureEN15251");
-plot({"runningMeanTemperature_discrete.TRm","runningMeanTemperatureEN15251_continuous.TRm"}, colors={{0,0,255},{255,0,0}});
+plot(y={"runningMeanTemperature_discrete.TRm","runningMeanTemperatureEN15251_continuous.TRm"}, colors={{0,0,255},{255,0,0}});
