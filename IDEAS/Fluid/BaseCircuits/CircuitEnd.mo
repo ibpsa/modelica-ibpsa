@@ -51,36 +51,14 @@ model CircuitEnd "Ending circucit"
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow";
 
-  Movers.FlowMachine_m_flow fan(
-    motorCooledByFluid=false,
-    m_flow_nominal=m_flow_nominal,
-    addPowerToMedium=false,
-    redeclare package Medium = Medium)
-                            annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={0,10})));
-  Modelica.Blocks.Sources.Constant const(k=0)
-    annotation (Placement(transformation(extent={{66,0},{46,20}})));
-equation
-  connect(port_a1, fan.port_b) annotation (Line(
-      points={{-100,60},{0,60},{0,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(port_b2, fan.port_a) annotation (Line(
-      points={{-100,-60},{0,-60},{0,1.77636e-015}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(fan.m_flow_in, const.y) annotation (Line(
-      points={{12,9.8},{14,9.8},{14,10},{45,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(revisions="<html>
 <p><ul>
 <li>November 2014 by Filip Jorissen:<br> 
 Initial version</li>
 </ul></p>
+</html>", info="<html>
+<p>Closed circuit end - no mass flow</p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
