@@ -8,6 +8,6 @@ ThermostaticRadiatiorValve
 HeatExchanger
 ParallelPipes
 CollectorUnit
-Overflow
+CircuitEnd
 PipeSplit_Alternative
 Interfaces
