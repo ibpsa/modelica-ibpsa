@@ -1,0 +1,61 @@
+within IDEAS.Fluid.BaseCircuits.Interfaces;
+model PartialFlowCircuit
+  import IDEAS;
+
+  //Extensions
+  extends PartialCircuitBalancingValve;
+
+  //Parameters
+  parameter Boolean measurePower=true
+    "Set to false to remove the power consumption measurement of the flow regulator";
+
+  replaceable IDEAS.Fluid.Interfaces.PartialTwoPortInterface flowRegulator(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+  Modelica.Blocks.Interfaces.RealInput u "Setpoint of the flow regulator"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={0,108})));
+  Modelica.Blocks.Interfaces.RealOutput power if measurePower
+    "Power consumption of the flow regulator"
+                                             annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={40,108}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={42,104})));
+
+equation
+  if not includePipes then
+    connect(flowRegulator.port_a, port_a1);
+  end if;
+
+  if not measureSupplyT then
+    connect(flowRegulator.port_b, port_b1);
+  end if;
+
+  connect(flowRegulator.port_b, senTem.port_a) annotation (Line(
+      points={{10,20},{60,20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipeSupply.port_b, flowRegulator.port_a) annotation (Line(
+      points={{-70,60},{-40,60},{-40,20},{-10,20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics), Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                                               graphics={
+        Line(
+          points={{42,100},{48,80},{46,60}},
+          color={255,0,0},
+          smooth=Smooth.None),
+        Ellipse(
+          extent={{44,62},{48,58}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid)}));
+end PartialFlowCircuit;
