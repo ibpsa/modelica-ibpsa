@@ -86,7 +86,6 @@ package Interfaces
           extent={{-10,-10},{10,10}},
           rotation=90,
           origin={76,104})));
-      annotation (Placement(transformation(extent={{60,10},{80,30}})));
   equation
     connect(port_a1, pipeSupply.port_a) annotation (Line(
         points={{-100,60},{-90,60}},
@@ -116,14 +115,11 @@ package Interfaces
         points={{70,31},{70,108}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+      annotation (Placement(transformation(extent={{60,10},{80,30}})),
+                Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}),
                            graphics={
-          Rectangle(
-            extent={{-100,100},{100,-100}},
-            lineColor={0,0,255},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),
+          Rectangle(extent={{-100,100},{100,-100}}, lineColor={135,135,135}),
                                  Line(
             points={{-100,-60},{100,-60}},
             color={0,0,127},
