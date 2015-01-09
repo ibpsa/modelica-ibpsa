@@ -9,7 +9,6 @@ HeatExchanger
 ParallelPipesSplitter
 CollectorUnit
 CircuitEnd
-PipeSplit_Alternative
-Interfaces
 MixingCircuit_Linear
 MixingCircuit_EqualPercentage
+Interfaces
