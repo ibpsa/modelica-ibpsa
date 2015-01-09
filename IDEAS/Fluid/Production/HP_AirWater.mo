@@ -33,12 +33,6 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
   parameter Real modulation_min=20 "Minimal modulation percentage";
   parameter Real modulation_start=35
     "Min estimated modulation level required for start of HP";
-  Modelica.Blocks.Interfaces.BooleanInput u
-    "Temperature setpoint, acts as on/off signal too" annotation (Placement(
-        transformation(extent={{-126,10},{-86,50}}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-10,120})));
 equation
   PFuel = 0;
   PEl = heatSource.PEl;
