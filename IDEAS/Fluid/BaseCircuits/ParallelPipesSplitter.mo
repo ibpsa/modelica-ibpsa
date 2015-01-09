@@ -1,5 +1,5 @@
 within IDEAS.Fluid.BaseCircuits;
-model ParallelPipes
+model ParallelPipesSplitter
   "Model to split a fluid inlet into multiple outlets and back"
 
   replaceable package Medium =
@@ -72,5 +72,8 @@ equation
         Text(
           extent={{80,-40},{20,40}},
           lineColor={0,0,255},
-          textString="n")}));
-end ParallelPipes;
+          textString="n")}),
+    Documentation(info="<html>
+<p>Model to split a fluid inlet into multiple outlets and back</p>
+</html>"));
+end ParallelPipesSplitter;

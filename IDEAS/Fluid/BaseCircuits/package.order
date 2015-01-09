@@ -6,7 +6,7 @@ BalancingValve
 FlowController
 ThermostaticRadiatiorValve
 HeatExchanger
-ParallelPipes
+ParallelPipesSplitter
 CollectorUnit
 CircuitEnd
 PipeSplit_Alternative
