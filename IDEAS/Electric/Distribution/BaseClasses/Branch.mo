@@ -5,14 +5,15 @@ model Branch
         re(start=0), im(start=0)));
   Modelica.SIunits.ActivePower Plos;
 
+  parameter Boolean heatLosses=false "Set to true to calculate heatlosses";
   parameter Modelica.SIunits.Resistance R=0.0057;
   parameter Modelica.SIunits.Reactance X=0.0039;
   final parameter Modelica.SIunits.ComplexImpedance Z=Complex(R, X);
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a annotation (
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a if heatLosses annotation (
       Placement(transformation(extent={{10,10},{30,30}}), iconTransformation(
           extent={{10,10},{30,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow(alpha=1)
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if heatLosses
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -25,6 +26,7 @@ model Branch
 equation
   v = Z*i;
   Plos = R*Modelica.ComplexMath.'abs'(i)^2;
+
   connect(port_a, prescribedHeatFlow.port) annotation (Line(
       points={{20,20},{20,0}},
       color={191,0,0},
