@@ -5,17 +5,17 @@ model Building
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Boolean standAlone=true;
 
-  final parameter Modelica.SIunits.Temperature[building.nZones] T_start
+  final parameter Modelica.SIunits.Temperature[building.nZones] T_start = ones(building.nZones)*293.15
     "Operative zonal start temperatures";
 
-  replaceable IDEAS.Interfaces.BaseClasses.Structure building(T_start=T_start)
+  replaceable IDEAS.Interfaces.BaseClasses.Structure building(final T_start=T_start)
     "Building structure" annotation (Placement(transformation(extent={{-66,-10},
             {-36,10}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem(
     nZones=building.nZones,
     VZones=building.VZones,
-    T_start=T_start,
-    nEmb=building.nEmb) "Thermal building heating system" annotation (Placement(
+    final T_start=T_start,
+    final nEmbPorts=building.nEmb) "Thermal building heating system" annotation (Placement(
         transformation(extent={{-20,-10},{20,10}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.Occupant occupant(nZones=building.nZones)
     constrainedby IDEAS.Interfaces.BaseClasses.Occupant(nZones=building.nZones)

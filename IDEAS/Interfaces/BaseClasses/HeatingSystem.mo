@@ -7,13 +7,8 @@ partial model HeatingSystem "Partial heating system"
 
   // Building characteristics --------------------------------------------------
 
-  parameter Boolean floorHeating "true if the emission has a floor heating";
-  parameter Boolean radiators "true if the emission has a radiator";
-
   parameter Integer nZones(min=1)
     "Number of conditioned thermal zones in the building";
-  parameter Integer nEmb(min=1) = nZones
-    "Number of embedded systems in the building, not used at the moment?";
 
   parameter Boolean isHea=true "true if system is able to heat";
   parameter Boolean isCoo=false "true if system is able to cool";
@@ -21,10 +16,10 @@ partial model HeatingSystem "Partial heating system"
   parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
     "Nominal power, can be seen as the max power of the emission system";
   parameter Real[nZones] VZones "Conditioned volumes of the zones";
-  final parameter Modelica.SIunits.HeatCapacity[nZones] C=1012*1.204*VZones*5
+  parameter Modelica.SIunits.HeatCapacity[nZones] C=1012*1.204*VZones*5
     "Heat capacity of the conditioned zones";
 
-  final parameter Modelica.SIunits.Temperature[nZones] T_start
+  parameter Modelica.SIunits.Temperature[nZones] T_start
     "Operative zonal start temperatures";
 
   // Electricity consumption or production -------------------------------------
