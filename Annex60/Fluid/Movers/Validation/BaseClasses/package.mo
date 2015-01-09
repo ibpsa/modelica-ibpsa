@@ -1,6 +1,7 @@
 within Annex60.Fluid.Movers.Validation;
 package BaseClasses "Package with base classes for Annex60.Fluid.Movers.Validation"
-  extends Modelica.Icons.ExamplesPackage;
+  extends Modelica.Icons.BasesPackage;
+
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
