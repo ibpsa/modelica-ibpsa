@@ -12,7 +12,7 @@ model PartialFlowCircuit
   replaceable IDEAS.Fluid.Interfaces.PartialTwoPortInterface flowRegulator(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Modelica.Blocks.Interfaces.RealInput u "Setpoint of the flow regulator"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -38,11 +38,11 @@ equation
   end if;
 
   connect(flowRegulator.port_b, senTem.port_a) annotation (Line(
-      points={{10,20},{60,20}},
+      points={{10,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pipeSupply.port_b, flowRegulator.port_a) annotation (Line(
-      points={{-70,60},{-40,60},{-40,20},{-10,20}},
+      points={{-70,60},{-10,60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
