@@ -7,10 +7,6 @@ model PumpSupply_m_flow "Pump on supply duct"
   extends Interfaces.PumpParameters;
 
 equation
-  connect(port_b2, pipeReturn.port_b) annotation (Line(
-      points={{-100,-60},{-90,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(u, flowRegulator.m_flow_in) annotation (Line(
       points={{0,108},{0,70},{0,72},{-0.2,72}},
       color={0,0,127},
