@@ -101,11 +101,6 @@ partial model CircuitInterface "Partial circuit for base circuits"
         rotation=270,
         origin={-76,-104})));
 equation
-  if not measureReturnT then
-    if includePipes then
-      connect(pipeReturn.port_b, port_b2);
-    end if;
-  end if;
 
   connect(port_a1, pipeSupply.port_a) annotation (Line(
       points={{-100,60},{-90,60}},
