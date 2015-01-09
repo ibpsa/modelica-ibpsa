@@ -1,5 +1,5 @@
 within IDEAS.Fluid.BaseCircuits;
-model PumpSupplydP
+model PumpSupply_dp
 
   //Extensions
   extends Interfaces.PartialPumpCircuit(redeclare Movers.FlowMachine_dp
@@ -8,11 +8,11 @@ model PumpSupplydP
 
 equation
   connect(flowRegulator.P, power) annotation (Line(
-      points={{11,28},{40,28},{40,108}},
+      points={{11,68},{40,68},{40,108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(u, flowRegulator.dp_in) annotation (Line(
-      points={{0,108},{0,70},{0,32},{-0.2,32}},
+      points={{0,108},{0,70},{0,72},{-0.2,72}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html><p>
@@ -59,4 +59,4 @@ equation
           points={{-6,-44},{6,-44}},
           color={0,0,255},
           smooth=Smooth.None)}));
-end PumpSupplydP;
+end PumpSupply_dp;
