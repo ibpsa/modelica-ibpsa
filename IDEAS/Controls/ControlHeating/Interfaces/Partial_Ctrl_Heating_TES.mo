@@ -31,17 +31,16 @@ partial model Partial_Ctrl_Heating_TES
   // --- Interface
   Modelica.Blocks.Interfaces.RealOutput onOff(start=0)
     "onoff signal as Real for the charging of the storage tank"
-    annotation (Placement(transformation(extent={{94,-70},{114,-50}}),
-        iconTransformation(extent={{94,-70},{114,-50}})));
+    annotation (Placement(transformation(extent={{70,-30},{90,-10}}),
+        iconTransformation(extent={{70,-30},{90,-10}})));
   Modelica.Blocks.Interfaces.RealInput TTankTop
     "Top (or near top) tank temperature" annotation (Placement(transformation(
-          extent={{-106,42},{-70,78}}),iconTransformation(extent={{-108,40},{-70,
-            78}})));
+          extent={{-18,42},{18,78}}),  iconTransformation(extent={{-110,-10},{
+            -90,10}})));
   Modelica.Blocks.Interfaces.RealInput TTankBot
     "Bottom (or near bottom) tank temperature" annotation (Placement(
-        transformation(extent={{-108,-80},{-68,-40}}),
-                                                     iconTransformation(extent={{-108,
-            -80},{-68,-40}})));
+        transformation(extent={{-20,-60},{20,-20}}), iconTransformation(extent={{-110,
+            -50},{-90,-30}})));
 
   // --- Variables
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
@@ -74,7 +73,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression1.y, THeaCur) annotation (Line(
-      points={{61,40},{104,40}},
+      points={{61,40},{100,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(corHeaCur.y, add2.u1) annotation (Line(
@@ -86,23 +85,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(add2.y, THeaterSet) annotation (Line(
-      points={{72.8,0},{104,0}},
+      points={{72.8,0},{82,0},{82,10},{90,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(extent={{-80,-80},{100,80}},
-          preserveAspectRatio=false),                             graphics={
-        Rectangle(
-          extent={{100,80},{-80,-80}},
-          lineColor={100,100,100},
-          fillPattern=FillPattern.Solid,
-          fillColor={255,255,255}),
-        Line(
-          points={{20,80},{100,0},{20,-80}},
-          color={100,100,100},
-          smooth=Smooth.None),
-        Text(
-          extent={{-60,40},{60,-40}},
-          lineColor={100,100,100},
-          textString="hp ")}), Diagram(coordinateSystem(extent={{-80,-80},{100,
-            80}}, preserveAspectRatio=false),graphics));
+  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}},
+          preserveAspectRatio=false),                             graphics),
+                               Diagram(coordinateSystem(extent={{-100,-100},{
+            100,100}},
+                  preserveAspectRatio=false),graphics));
 end Partial_Ctrl_Heating_TES;

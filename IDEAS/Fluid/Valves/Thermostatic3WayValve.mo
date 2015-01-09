@@ -64,31 +64,23 @@ equation
          graphics={
         Polygon(
           points={{-60,30},{-60,-30},{0,0},{-60,30}},
-          lineColor={100,100,100},
+          lineColor={0,0,127},
           smooth=Smooth.None,
-          fillColor={0,0,255},
+          fillColor={0,127,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{60,30},{60,-30},{0,0},{60,30}},
-          lineColor={100,100,100},
-          smooth=Smooth.None),
-        Polygon(
           points={{-30,30},{-30,-30},{30,0},{-30,30}},
-          lineColor={100,100,100},
+          lineColor={0,0,127},
           smooth=Smooth.None,
           origin={0,-30},
           rotation=90,
           fillPattern=FillPattern.Solid,
-          fillColor={0,0,255}),
+          fillColor={0,127,255}),
         Ellipse(extent={{-20,80},{20,40}}, lineColor={100,100,100}),
         Line(
           points={{0,0},{0,40}},
           color={100,100,100},
           smooth=Smooth.None),
-        Text(
-          extent={{-10,70},{10,50}},
-          lineColor={100,100,100},
-          textString="M"),
         Line(
           points={{-70,30},{-70,-30}},
           color={0,0,127},
@@ -112,19 +104,7 @@ equation
         Line(
           points={{0,-70},{0,-100}},
           color={0,0,127},
-          smooth=Smooth.None),
-        Text(
-          extent={{-56,18},{-20,-18}},
-          lineColor={100,100,100},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          textString="1"),
-        Text(
-          extent={{-18,-22},{18,-58}},
-          lineColor={100,100,100},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          textString="2")}),
+          smooth=Smooth.None)}),
     Documentation(info="<html>
 <p>This model provides an ideal implementation of a thermostatic three way valve. The mass flow rates are adjusted so that the desired temperature is reached as close as possible. Pressure drops are not considered.</p>
 <p><b>Main equations</b> </p>

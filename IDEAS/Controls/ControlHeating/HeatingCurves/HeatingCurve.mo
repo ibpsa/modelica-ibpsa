@@ -1,4 +1,4 @@
-within IDEAS.Controls.ControlHeating;
+within IDEAS.Controls.ControlHeating.HeatingCurves;
 block HeatingCurve
   "Block to compute the supply and return set point of heating systems"
 
@@ -118,7 +118,9 @@ equation
 <li>February 5, 2009 by Michael Wetter:first implementation. </li>
 </ul></p>
 </html>"),
-    Icon(graphics={Polygon(
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+         graphics={Polygon(
           points={{90,-82},{68,-74},{68,-90},{90,-82}},
           lineColor={192,192,192},
           fillColor={192,192,192},
@@ -128,16 +130,8 @@ equation
           points={{-80,88},{-88,66},{-72,66},{-80,86},{-80,88}},
           lineColor={192,192,192},
           fillColor={192,192,192},
-          fillPattern=FillPattern.Solid),Line(
-          points={{-80,-82},{60,32}},
-          color={0,0,0},
-          smooth=Smooth.None),Line(
-          points={{-80,-82},{-42,-38},{4,2},{60,32}},
-          color={0,0,0},
-          smooth=Smooth.Bezier),Line(
-          points={{-80,-82},{-58,-42},{-4,8},{60,32}},
-          color={0,0,0},
-          smooth=Smooth.Bezier),Text(
+          fillPattern=FillPattern.Solid),
+                                Text(
           extent={{-152,120},{-102,70}},
           lineColor={0,0,127},
           textString="TOut"),Text(
@@ -147,7 +141,37 @@ equation
           textString="TRoo"),Text(
           extent={{40,86},{90,36}},
           lineColor={0,0,127},
-          textString="TSup"),Text(
+          textString="TSup"),
+        Line(
+          points={{-68,38},{8,2},{40,-60}},
+          color={175,175,175},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
+        Line(
+          points={{-64,48},{12,12},{44,-50}},
+          color={175,175,175},
+          smooth=Smooth.None),
+        Line(
+          points={{-60,58},{16,22},{48,-40}},
+          color={175,175,175},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
+        Ellipse(
+          extent={{10,14},{14,10}},
+          lineColor={175,175,175},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-66,50},{-62,46}},
+          lineColor={175,175,175},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{42,-48},{46,-52}},
+          lineColor={175,175,175},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+                             Text(
           extent={{42,-30},{92,-80}},
           lineColor={0,0,127},
           textString="TRet")}),

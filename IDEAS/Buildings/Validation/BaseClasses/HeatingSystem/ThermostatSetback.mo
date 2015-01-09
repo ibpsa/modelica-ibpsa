@@ -2,11 +2,10 @@ within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model ThermostatSetback "BESTEST thermostat setback heating system"
 
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
-    final nLoads=1, final nTemSen = nZones);
+    final nLoads=1, final nTemSen = nZones, C = VZones * corrCV * 1012 * 1.204);
 
   parameter Modelica.SIunits.Volume[nZones] VZones;
   parameter Real corrCV = 5 "Correction factor for thermal mass in zone";
-  final parameter Modelica.SIunits.HeatCapacity[nZones] C = VZones * corrCV  * 1012 * 1.204;
 
 protected
   IDEAS.Occupants.Components.Schedule occ(occupancy=3600*{7,23},
