@@ -7,7 +7,8 @@ model PartialFlowCircuit
 
   //Parameters
   parameter Boolean measurePower=true
-    "Set to false to remove the power consumption measurement of the flow regulator";
+    "Set to false to remove the power consumption measurement of the flow regulator"
+    annotation(Dialog(group = "Settings"));
 
   replaceable IDEAS.Fluid.Interfaces.PartialTwoPortInterface flowRegulator(
     redeclare package Medium = Medium,
@@ -52,10 +53,12 @@ equation
         Line(
           points={{42,100},{48,80},{46,60}},
           color={255,0,0},
-          smooth=Smooth.None),
+          smooth=Smooth.None,
+          visible=measurePower),
         Ellipse(
           extent={{44,62},{48,58}},
           lineColor={255,0,0},
           fillColor={255,0,0},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid,
+          visible=measurePower)}));
 end PartialFlowCircuit;
