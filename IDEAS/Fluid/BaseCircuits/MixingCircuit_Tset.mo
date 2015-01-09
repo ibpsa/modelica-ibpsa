@@ -6,6 +6,9 @@ model MixingCircuit_Tset
   //Extensions
   extends IDEAS.Fluid.BaseCircuits.Interfaces.PartialCircuitBalancingValve;
 
+  //Parameters
+  parameter SI.Mass mMix "Internal mass of the 3 way valve";
+
   IDEAS.Fluid.Valves.Thermostatic3WayValve thermostatic3WayValve(
     m_flow_nominal=m_flow_nominal,
     m=mMix,
@@ -39,7 +42,7 @@ equation
       smooth=Smooth.None));
   connect(thermostatic3WayValve.port_a2, balancingValve.port_a) annotation (
       Line(
-      points={{0,50},{0,-60},{-18,-60}},
+      points={{0,50},{0,-60},{10,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
