@@ -2,7 +2,7 @@ within Annex60.Fluid.Movers.Validation;
 model Pump_stratos "Stratos pum with speed as input"
   extends Modelica.Icons.Example;
  extends Annex60.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
-    redeclare package Medium = Annex60.Media.ConstantPropertyLiquidWater,
+    redeclare package Medium = Annex60.Media.Water.Simple,
     gain(k=floMacSta.per.N_nominal),
     m_flow_nominal=floMacSta.per.pressure.V_flow[3]*1000,
     dp_nominal=floMacSta.per.pressure.dp[3]/2,

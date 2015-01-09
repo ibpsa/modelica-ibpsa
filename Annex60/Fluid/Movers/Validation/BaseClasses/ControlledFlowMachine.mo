@@ -1,7 +1,7 @@
 within Annex60.Fluid.Movers.Validation.BaseClasses;
 model ControlledFlowMachine
 
-  package Medium = Annex60.Media.IdealGases.SimpleAir;
+  package Medium = Annex60.Media.Air;
 
   Modelica.Blocks.Sources.Pulse y(
     startTime=0,
