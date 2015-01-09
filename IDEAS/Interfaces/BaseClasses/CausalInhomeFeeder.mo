@@ -22,7 +22,7 @@ model CausalInhomeFeeder
   Electric.BaseClasses.WattsLaw wattsLaw(numPha=1)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Electric.DistributionGrid.Components.BranchLenTyp branch(len=len)
+  IDEAS.Electric.Distribution.BaseClasses.BranchLenTyp branch(len=len)
     "Cable to district feeder"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   IDEAS.Electric.BaseClasses.PotentialSensor voltageSensor
