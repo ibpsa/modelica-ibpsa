@@ -34,29 +34,5 @@ equation
           lineColor={0,0,255},
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
-          textString="dP"),
-        Polygon(
-          points={{-10,10},{-10,-10},{10,0},{-10,10}},
-          lineColor={0,0,255},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          origin={-10,-60},
-          rotation=360),
-        Polygon(
-          points={{-10,10},{-10,-10},{10,0},{-10,10}},
-          lineColor={0,0,255},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          origin={10,-60},
-          rotation=180),
-        Line(
-          points={{0,-60},{0,-44}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-6,-44},{6,-44}},
-          color={0,0,255},
-          smooth=Smooth.None)}));
+          textString="dP")}));
 end PumpSupply_dp;

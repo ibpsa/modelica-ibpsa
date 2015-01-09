@@ -36,17 +36,17 @@ equation
       points={{10,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(partialThreeWayResistance.port_3, balancingValve.port_a) annotation (
-      Line(
-      points={{0,50},{0,-60},{-18,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(partialThreeWayValve.y, y) annotation (Line(
       points={{0,72},{0,104}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics={
+  connect(partialThreeWayValve.port_3, port_a2) annotation (Line(
+      points={{0,50},{0,0},{58,0},{58,-60},{100,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                         graphics={
         Polygon(
           points={{-20,70},{-20,50},{0,60},{-20,70}},
           lineColor={0,0,127},
@@ -76,7 +76,7 @@ equation
           origin={0,50},
           rotation=90),
         Line(
-          points={{0,40},{0,-60}},
+          points={{0,40},{0,0},{60,0},{60,-60}},
           color={0,0,255},
           smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics));
