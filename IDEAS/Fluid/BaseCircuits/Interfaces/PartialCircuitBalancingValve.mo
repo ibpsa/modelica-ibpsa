@@ -9,7 +9,8 @@ partial model PartialCircuitBalancingValve
 
   //Parameter
   parameter Boolean useBalancingValve=false
-    "Set to true to include a balancing valve";
+    "Set to true to include a balancing valve"
+    annotation(Dialog(group = "Settings"));
 
   //Components
   Modelica.Blocks.Sources.Constant const(k=1) if useBalancingValve
@@ -68,5 +69,29 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics));
+            -100},{100,100}}), graphics), Icon(graphics={
+        Polygon(
+          points={{-20,-50},{-20,-70},{0,-60},{-20,-50}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=useBalancingValve),
+        Polygon(
+          points={{20,-50},{20,-70},{0,-60},{20,-50}},
+          lineColor={0,0,127},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=useBalancingValve),
+        Line(
+          points={{0,-60},{0,-40}},
+          color={0,0,127},
+          smooth=Smooth.None,
+          visible=useBalancingValve),
+        Line(
+          points={{-10,-40},{10,-40}},
+          color={0,0,127},
+          smooth=Smooth.None,
+          visible=useBalancingValve)}));
 end PartialCircuitBalancingValve;
