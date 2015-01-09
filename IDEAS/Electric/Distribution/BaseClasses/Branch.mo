@@ -24,7 +24,7 @@ model Branch
         origin={20,-50})));
 equation
   v = Z*i;
-  Plos = R*Modelica.ComplexMath.'abs'(i)^2+1;
+  Plos = R*Modelica.ComplexMath.'abs'(i)^2;
   connect(port_a, prescribedHeatFlow.port) annotation (Line(
       points={{20,20},{20,0}},
       color={191,0,0},
