@@ -3,7 +3,7 @@ model BranchLenTyp
   "A branch specified by its type of cable (ELECTAPub.GridsLib.LVCable) and its length in meters"
   extends IDEAS.Electric.Distribution.BaseClasses.Branch(R=typ.RCha*mulFac*len,
       X=typ.XCha*mulFac*len,
-    prescribedHeatFlow(alpha=1));
+    prescribedHeatFlow);
 
   parameter Real mulFac=1;
 
