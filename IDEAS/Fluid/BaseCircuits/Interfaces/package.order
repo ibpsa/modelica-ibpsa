@@ -4,7 +4,7 @@ PartialCircuitBalancingValve
 PartialFlowCircuit
 PartialPumpCircuit
 PartialValveCircuit
+PartialMixingCircuit
 PumpParameters
 ValveParametersBot
 ValveParametersTop
-PartialMixingCircuit

@@ -3,16 +3,24 @@ model PartialMixingCircuit "Partial for a circuit containing a three way valve"
   extends IDEAS.Fluid.BaseCircuits.Interfaces.PartialCircuitBalancingValve;
 
   //Parameters
-  parameter SI.Mass mMix=1 "Mass of fluid inside the mixing valve"
-  annotation(Dialog(group = "Mixing valve"));
-  parameter SI.Mass mPipe=1 "Mass of fluid inside the middle pipe"
-  annotation(Dialog(group = "Mixing valve"));
-  parameter Modelica.SIunits.Pressure dpMixPipe=0
-    "Pressure drop over the middle single pipe"
-    annotation(Dialog(group = "Mixing valve"));
+
+    parameter Real deltaMTop = 0.02
+    "Fraction of nominal flow rate where linearization starts, if y=1"
+    annotation(Dialog(group="Pressure-flow linearization"));
+  parameter Real fraKTop(min=0, max=1) = 0.7
+    "Fraction Kv(port_3->port_2)/Kv(port_1->port_2)";
+  parameter Real[2] lTop(each min=0, each max=1) = {0, 0}
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)";
 
   replaceable IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve partialThreeWayValve
-  constrainedby IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve
+  constrainedby IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
+    redeclare package Medium = Medium,
+    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+    Kv=KvTop,
+    deltaM=deltaMTop,
+    m_flow_nominal=m_flow_nominal,
+    fraK=fraKTop,
+    l=lTop)
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Modelica.Blocks.Interfaces.RealInput y "Three way valve position setpoint"
     annotation (Placement(transformation(

@@ -1,5 +1,4 @@
 MixingCircuit_Tset
-MixingCircuit_y
 PumpSupply_Nrpm
 PumpSupply_m_flow
 PumpSupply_dp
@@ -12,3 +11,5 @@ CollectorUnit
 Overflow
 PipeSplit_Alternative
 Interfaces
+MixingCircuit_Linear
+MixingCircuit_EqualPercentage
