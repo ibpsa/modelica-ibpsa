@@ -6,27 +6,6 @@ model MixingCircuit_Tset
   //Extensions
   extends IDEAS.Fluid.BaseCircuits.Interfaces.PartialCircuitBalancingValve;
 
-  //Parameters
-  parameter SI.Mass mMix=1 "Mass of fluid inside the mixing valve"
-  annotation(Dialog(group = "Mixing valve"));
-  parameter SI.Mass mPipe=1 "Mass of fluid inside the middle pipe"
-  annotation(Dialog(group = "Mixing valve"));
-  parameter Modelica.SIunits.Pressure dpMixPipe=0
-    "Pressure drop over the middle single pipe"
-    annotation(Dialog(group = "Mixing valve"));
-  parameter SI.ThermalConductance UAMix=10
-    "Thermal conductance of the insulation of the middle pipe"
-    annotation(Dialog(group = "Mixing valve"));
-  IDEAS.Fluid.FixedResistances.InsulatedPipe pipeMix(
-    UA=UAMix,
-    m=mPipe,
-    dp_nominal=dpMixPipe,
-    m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium) annotation (Placement(
-        transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={0,0})), choicesAllMatching=true);
   IDEAS.Fluid.Valves.Thermostatic3WayValve thermostatic3WayValve(
     m_flow_nominal=m_flow_nominal,
     m=mMix,
@@ -42,14 +21,6 @@ model MixingCircuit_Tset
         rotation=-90,
         origin={0,100})));
 equation
-  connect(pipeMix.heatPort, pipeReturn.heatPort) annotation (Line(
-      points={{-4,0},{-80,0},{-80,-56}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermostatic3WayValve.port_a2, pipeMix.port_a) annotation (Line(
-      points={{0,50},{0,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
 
   if not measureSupplyT then
     connect(thermostatic3WayValve.port_b, port_b1);
@@ -62,12 +33,13 @@ equation
       points={{-10,60},{-70,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipeMix.port_b, balancingValve.port_a) annotation (Line(
-      points={{-6.66134e-16,-10},{-6.66134e-16,-26},{0,-26},{0,-60},{-18,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(thermostatic3WayValve.port_b, senTem.port_a) annotation (Line(
       points={{10,60},{60,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(thermostatic3WayValve.port_a2, balancingValve.port_a) annotation (
+      Line(
+      points={{0,50},{0,-60},{-18,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
