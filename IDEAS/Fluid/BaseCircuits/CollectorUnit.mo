@@ -76,15 +76,5 @@ Initial version</li>
           points={{60,100},{60,-60}},
           color={0,0,127},
           smooth=Smooth.None,
-          pattern=LinePattern.Dash),
-        Rectangle(
-          extent={{-20,-50},{80,-70}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-80,70},{20,50}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          pattern=LinePattern.Dash)}));
 end CollectorUnit;
