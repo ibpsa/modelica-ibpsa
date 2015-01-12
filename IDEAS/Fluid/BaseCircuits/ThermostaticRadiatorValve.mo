@@ -1,5 +1,5 @@
 within IDEAS.Fluid.BaseCircuits;
-model ThermostaticRadiatiorValve
+model ThermostaticRadiatorValve
   "Simple TRV model approximated by a P-control action"
 
   //Extensions
@@ -23,6 +23,10 @@ equation
       smooth=Smooth.None));
   connect(u, PID.u_s) annotation (Line(
       points={{0,108},{0,82},{18,82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(flowRegulator.y_actual, power) annotation (Line(
+      points={{5,67},{40,67},{40,108}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation(Dialog(group = "Thermostatic valve parameters",
@@ -64,4 +68,4 @@ equation
           points={{-40,100},{-16,86},{0,60}},
           color={255,0,0},
           smooth=Smooth.None)}));
-end ThermostaticRadiatiorValve;
+end ThermostaticRadiatorValve;
