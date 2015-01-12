@@ -7,8 +7,6 @@ model PartialValveCircuit
   extends PartialFlowCircuit(redeclare Actuators.BaseClasses.PartialTwoWayValve
       flowRegulator(
         Kv=KvTop,
-        Av=AvTop,
-        Cv=CvTop,
         rhoStd=rhoStdTop,
         deltaM=deltaMTop,
         CvData=IDEAS.Fluid.Types.CvTypes.Kv));
