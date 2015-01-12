@@ -66,18 +66,24 @@ equation
           smooth=Smooth.None,
           pattern=LinePattern.Dash),
         Text(
-          extent={{-20,-40},{-80,40}},
+          extent={{-40,-40},{-100,40}},
           lineColor={0,0,255},
           textString="1"),
         Text(
-          extent={{80,-40},{20,40}},
+          extent={{100,-40},{40,40}},
           lineColor={0,0,255},
           textString="n"),
-        Line(
-          points={{-26,-4},{14,-4},{4,-14},{14,-4},{4,6}},
-          color={0,0,255},
+        Rectangle(
+          extent={{-38,2},{6,-6}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-2,18},{-2,-22},{38,-2},{-2,18}},
+          lineColor={0,0,255},
           smooth=Smooth.None,
-          thickness=0.5)}),
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>Model to split a fluid inlet into multiple outlets and back</p>
 </html>"));
