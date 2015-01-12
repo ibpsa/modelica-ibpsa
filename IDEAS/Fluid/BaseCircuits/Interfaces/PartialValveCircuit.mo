@@ -3,7 +3,7 @@ model PartialValveCircuit
 
   //Extensions
   extends ValveParametersTop(
-      rhoStdTot=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+      rhoStdTop=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends PartialFlowCircuit(redeclare Actuators.BaseClasses.PartialTwoWayValve
       flowRegulator(
         Kv=KvTop,

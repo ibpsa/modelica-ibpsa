@@ -4,8 +4,7 @@ model ThermostaticRadiatiorValve
 
   //Extensions
   extends Interfaces.PartialValveCircuit(
-    redeclare Actuators.Valves.TwoWayQuickOpening    flowRegulator);
-  extends Interfaces.ValveParametersTop;
+    redeclare Actuators.Valves.TwoWayQuickOpening flowRegulator);
   Modelica.Blocks.Interfaces.RealInput u1 "measurement signal"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -15,7 +14,7 @@ model ThermostaticRadiatiorValve
       k=1) annotation (Placement(transformation(extent={{20,72},{40,92}})));
 equation
   connect(PID.u_m, u1) annotation (Line(
-      points={{30,70},{30,66},{-60,66},{-60,108}},
+      points={{30,70},{30,66},{-40,66},{-40,110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PID.y, flowRegulator.y) annotation (Line(
