@@ -4,7 +4,7 @@ PumpSupply_m_flow
 PumpSupply_dp
 BalancingValve
 FlowController
-ThermostaticRadiatiorValve
+ThermostaticRadiatorValve
 HeatExchanger
 ParallelPipesSplitter
 CollectorUnit
