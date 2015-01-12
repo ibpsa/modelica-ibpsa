@@ -44,7 +44,8 @@ equation
         Line(
           points={{10,30},{20,20},{10,10}},
           color={255,0,0},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Rectangle(extent={{-100,100},{100,-100}}, lineColor={135,135,135})}),
     Documentation(revisions="<html>
 <ul>
 <li>November 2014 by Filip Jorissen:<br/> 

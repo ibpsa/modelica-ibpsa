@@ -17,37 +17,55 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
   IDEAS.Fluid.Production.BaseClasses.HeatSource_HP_AW heatSource(
     QNom=QNomFinal,
     TEvaporator=sim.Te,
-    TCondensor_set=TSet,
     TEnvironment=heatPort.T,
     UALoss=UALoss,
     modulation_min=modulation_min,
     modulation_start=modulation_start,
-    TCondensor_in=Tin.T,
-    m_flowCondensor=port_a.m_flow,
     hIn=inStream(port_a.h_outflow),
     redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-60,-16},{-40,4}})));
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
 
   parameter Real modulation_min=20 "Minimal modulation percentage";
   parameter Real modulation_start=35
     "Min estimated modulation level required for start of HP";
+  Modelica.Blocks.Interfaces.BooleanInput on "On/off signal"
+                    annotation (Placement(
+        transformation(extent={{-126,10},{-86,50}}),  iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-10,120})));
 equation
   PFuel = 0;
   PEl = heatSource.PEl;
   COP = if noEvent(PEl > 0) then pipe_HeatPort.heatPort.Q_flow/PEl else 0;
 
   connect(heatSource.heatPort, pipe_HeatPort.heatPort) annotation (Line(
-      points={{-60,30},{28,30},{28,-6}},
+      points={{-40,-6},{30,-6}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(TSet, heatSource.TCondensor_set) annotation (Line(
+      points={{-106,0},{-84,0},{-84,-6},{-60,-6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(on, heatSource.on) annotation (Line(
+      points={{-106,30},{-82,30},{-82,-3},{-60,-3}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(senMasFlo.m_flow, heatSource.m_flowCondensor) annotation (Line(
+      points={{60,-49},{60,-38},{-52,-38},{-52,-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Tin.T, heatSource.TCondensor_in) annotation (Line(
+      points={{80,-49},{80,-40},{-55,-40},{-55,-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
+            graphics),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics={
         Polygon(
           points={{-52,100},{-32,100},{-32,80},{28,80},{28,-80},{-2,-80},{-2,
