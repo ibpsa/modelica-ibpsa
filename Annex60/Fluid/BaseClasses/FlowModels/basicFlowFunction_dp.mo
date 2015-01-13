@@ -72,6 +72,10 @@ March 29, 2010 by Michael Wetter:<br/>
 Changed implementation to allow <code>k=0</code>, which is
 the case for a closed valve with no leakage
 </li>
+<li>
+April 13, 2009, by Micheal Wetter:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end basicFlowFunction_dp;
