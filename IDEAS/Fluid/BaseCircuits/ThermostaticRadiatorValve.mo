@@ -12,7 +12,8 @@ model ThermostaticRadiatorValve
         origin={-40,110})));
   Modelica.Blocks.Continuous.LimPID PID(controllerType=Modelica.Blocks.Types.SimpleController.P,
       k=1,
-    yMax=m_flow_nominal)
+    yMax=1,
+    yMin=0)
            annotation (Placement(transformation(extent={{20,72},{40,92}})));
 equation
   connect(PID.u_m, u1) annotation (Line(
