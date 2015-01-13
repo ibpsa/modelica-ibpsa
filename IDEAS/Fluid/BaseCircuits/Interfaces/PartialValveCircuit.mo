@@ -2,13 +2,13 @@ within IDEAS.Fluid.BaseCircuits.Interfaces;
 model PartialValveCircuit
 
   //Extensions
-  extends ValveParametersTop(
-      rhoStdTop=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+  extends ValveParametersSupply(
+      rhoStdSupply=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends PartialFlowCircuit(redeclare Actuators.BaseClasses.PartialTwoWayValve
       flowRegulator(
-        Kv=KvTop,
-        rhoStd=rhoStdTop,
-        deltaM=deltaMTop,
+        Kv=KvSupply,
+        rhoStd=rhoStdSupply,
+        deltaM=deltaMSupply,
         CvData=IDEAS.Fluid.Types.CvTypes.Kv));
 
 equation
