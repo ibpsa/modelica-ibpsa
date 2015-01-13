@@ -34,15 +34,12 @@ package AirPTDecoupled
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
 
-    Real phi(min=0, start=0.5) "Relative humidity";
-
   protected
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
 
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
-    AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
     Modelica.SIunits.TemperatureDifference dT
       "Temperature difference used to compute enthalpy";
   equation
@@ -53,8 +50,6 @@ Temperature T is not in the allowed range
 required from medium model \""     + mediumName + "\".");
 
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
-
-    p_steam_sat = min(saturationPressure(T),0.999*p);
 
     X_steam  = Xi[Water]; // There is no liquid in this medium model
     X_air    = 1-Xi[Water];
@@ -78,8 +73,6 @@ required from medium model \""     + mediumName + "\".");
     state.p = p;
     state.T = T;
     state.X = X;
-
-    phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
 
 redeclare function density "Gas density"
@@ -105,15 +98,15 @@ This function returns the dynamic viscosity.
 </p>
 <h4>Implementation</h4>
 <p>
-The function is based on the 5th order polynomial 
-of 
+The function is based on the 5th order polynomial
+of
 <a href=\"modelica://Modelica.Media.Air.MoistAir.dynamicViscosity\">
 Modelica.Media.Air.MoistAir.dynamicViscosity</a>.
 However, for the typical range of temperatures encountered
 in building applications, a linear function sufficies.
 This implementation is therefore the above 5th order polynomial,
 linearized around <i>20</i>&deg;C.
-The relative error of this linearization is 
+The relative error of this linearization is
 <i>0.4</i>% at <i>-20</i>&deg;C,
 and less then
 <i>0.2</i>% between  <i>-5</i>&deg;C and  <i>+50</i>&deg;C.
@@ -286,7 +279,7 @@ s = s<sub>s</sub> + s<sub>m</sub>,
 </p>
 <p>
 where
-<i>s<sub>s</sub></i> is the entropy change due to the state change 
+<i>s<sub>s</sub></i> is the entropy change due to the state change
 (relative to the reference temperature) and
 <i>s<sub>m</sub></i> is the entropy change due to mixing
 of the dry air and water vapor.
@@ -297,7 +290,7 @@ The entropy change due to change in state is obtained from
 s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(v/v<sub>0</sub>) <br/>
 = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(&rho;<sub>0</sub>/&rho;)
 </p>
-<p>If we assume <i>&rho; = p<sub>0</sub>/(R T)</i>, 
+<p>If we assume <i>&rho; = p<sub>0</sub>/(R T)</i>,
 and because <i>c<sub>p</sub> = c<sub>v</sub> + R</i>,
 we can write
 </p>
@@ -310,7 +303,7 @@ Next, the entropy of mixing is obtained from a reversible isothermal
 expansion process. Hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  s<sub>m</sub> = -R &sum;<sub>i</sub>( X<sub>i</sub> &frasl; M<sub>i</sub> 
+  s<sub>m</sub> = -R &sum;<sub>i</sub>( X<sub>i</sub> &frasl; M<sub>i</sub>
   ln(Y<sub>i</sub>)),
 </p>
 <p>
@@ -367,7 +360,7 @@ algorithm
   annotation (smoothOrder=99, Documentation(info=
                    "<html>
 <p>
-This function computes the derivative of density with respect to temperature 
+This function computes the derivative of density with respect to temperature
 at constant pressure.
 </p>
 </html>", revisions=
@@ -494,7 +487,7 @@ annotation (
 Inline=false,
 Documentation(info="<html>
 <p>
-This function returns the thermodynamic state based on pressure, 
+This function returns the thermodynamic state based on pressure,
 specific entropy and mass fraction.
 </p>
 <p>
@@ -778,7 +771,7 @@ end der_specificHeatCapacityCv;
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium package models moist air using a gas law in which pressure and temperature
-are independent, which often leads to significantly faster and more robust computations. 
+are independent, which often leads to significantly faster and more robust computations.
 The specific heat capacities at constant pressure and at constant volume are constant.
 The air is assumed to be not saturated.
 </p>
@@ -786,7 +779,7 @@ The air is assumed to be not saturated.
 <ul>
 <li>
 July 24, 2014, by Michael Wetter:<br/>
-Changed implementation to use 
+Changed implementation to use
 <a href=\"modelica://Annex60.Utilities.Psychrometrics.Constants\">
 Annex60.Utilities.Psychrometrics.Constants</a>.
 This was done to use consistent values throughout the library.
@@ -824,7 +817,7 @@ during model check and translation.
 </li>
 <li>
 August 3, 2011, by Michael Wetter:<br/>
-Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases.
 For this medium, the function is <code>u=h-pStd/dStp</code>.
 </li>
 <li>

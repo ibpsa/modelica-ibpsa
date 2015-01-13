@@ -49,8 +49,6 @@ algorithm
     y1d=dMonotone[i],
     y2d=dMonotone[i + 1]);
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
     __Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermite.mos"
         "Simulate and plot"),

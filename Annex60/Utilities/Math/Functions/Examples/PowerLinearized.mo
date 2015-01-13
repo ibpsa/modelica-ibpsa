@@ -10,10 +10,7 @@ equation
   T = Annex60.Utilities.Math.Functions.powerLinearized(x=T4, x0=243.15^4, n=0.25);
   TExact = abs(T4)^(1/4);
 
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-experiment(StopTime=1.0),
+  annotation(experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PowerLinearized.mos"
         "Simulate and plot"),
 Documentation(info="<html>

@@ -1,17 +1,14 @@
 within Annex60.Fluid.Movers.Examples;
 model FlowMachineParallel_y "Two flow machines in parallel"
   extends Modelica.Icons.Example;
-  // fixme. Revisit when Dymola 2015 is available.
-  // The medium has been changed from
-  // Annex60.Media.Water.Simple to
-  // Annex60.Experimental.Media.AirPTDecoupled because
-  // Annex60.Media.Water.Simple and Annex60.Media.Air cause in
-  // Dymola 2014 FD01 a division by zero. This is due to the
-  // bug https://github.com/iea-annex60/modelica-annex60/issues/53
-  package Medium = Annex60.Experimental.Media.AirPTDecoupled "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-     1 "Nominal mass flow rate";
+  package Medium = Annex60.Media.Water.Simple "Medium model";
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+    "Nominal mass flow rate";
+
+  parameter Modelica.SIunits.Density rho_nominal=1000
+    "Density, used to compute fluid mass";
 
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn1(
     redeclare package Medium = Medium,
@@ -34,8 +31,7 @@ model FlowMachineParallel_y "Two flow machines in parallel"
     redeclare package Medium = Medium,
     use_p_in=false,
     nPorts=2,
-    T=293.15) annotation (Placement(transformation(extent={{-92,48},{-72,68}},
-          rotation=0)));
+    T=293.15) annotation (Placement(transformation(extent={{-92,48},{-72,68}})));
 
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn(
     redeclare package Medium = Medium,
@@ -49,9 +45,6 @@ model FlowMachineParallel_y "Two flow machines in parallel"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Sources.Constant const2(k=1) "Constant source"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-
-  parameter Modelica.SIunits.Density rho_nominal=1.2
-    "Density, used to compute fluid mass";
 
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn2(
     redeclare package Medium = Medium,
@@ -131,7 +124,7 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 This example tests the configuration of two flow machines that are installed in parallel.
-Both flow machines start with full speed. 
+Both flow machines start with full speed.
 At <i>t=150</i> second, the speed of the flow machine on the top is reduced to zero.
 As its speed is reduced, the mass flow rate changes its direction in such a way that the flow machine
 at the top has reverse flow.

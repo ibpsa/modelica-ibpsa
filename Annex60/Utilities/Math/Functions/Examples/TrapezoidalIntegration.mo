@@ -14,7 +14,7 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Ma
         "Simulate and plot"),
                      Documentation(info="<html>
 <p>
-Tests the correct implementation of function 
+Tests the correct implementation of function
 <a href=\"modelica://Annex60.Utilities.Math.Functions.trapezoidalIntegration\">
 Annex60.Utilities.Math.Functions.trapezoidalIntegration</a>.
 </p>

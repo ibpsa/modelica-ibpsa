@@ -23,13 +23,12 @@ equation
       points={{-39,50},{-20.5,50},{-20.5,16},{-2,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=2),
+  annotation (experiment(StopTime=2),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Examples/Splice.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests the implementation of 
+This model tests the implementation of
 <a href=\"modelica://Annex60.Utilities.Math.Splice\">
 Annex60.Utilities.Math.Splice</a>
 </p>

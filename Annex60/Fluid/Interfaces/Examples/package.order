@@ -1,6 +1,6 @@
 ConservationEquation
-HeaterCoolerPrescribed
-HumidifierPrescribed
+HeaterCooler_u
+Humidifier_u
 ReverseFlowHumidifier
 ReverseFlowMassExchanger
-
+PrescribedOutletState
