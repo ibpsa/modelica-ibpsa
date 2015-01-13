@@ -2,8 +2,7 @@ within IDEAS.Fluid.BaseCircuits.Interfaces;
 partial model PartialCircuitBalancingValve
 
   //Extensions
-  extends ValveParametersReturn(
-      rhoStdReturn=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+  extends ValveParametersReturn;
   extends PartialBaseCircuit( pipeReturn(dp_nominal=0));
 
   //Parameter
@@ -12,17 +11,11 @@ partial model PartialCircuitBalancingValve
     annotation(Dialog(group = "Settings"));
 
   //Components
-  Modelica.Blocks.Sources.Constant const(k=1) if useBalancingValve
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  replaceable Actuators.Valves.TwoWayLinear balancingValve(
-        final Kv=KvReturn,
-        final rhoStd=rhoStdReturn,
+  FixedResistances.FixedResistanceDpM       balancingValve(
         final deltaM=deltaMReturn,
-        final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     redeclare package Medium = Medium,
-    dpFixed_nominal=if includePipes then dp else 0) if useBalancingValve
-                                             constrainedby
-    Actuators.BaseClasses.PartialTwoWayValve
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=m_flow_nominal^2/KvReturn^2) if         useBalancingValve
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 
 equation
@@ -57,10 +50,6 @@ equation
   connect(balancingValve.port_b, pipeReturn.port_a) annotation (Line(
       points={{-10,-60},{-36,-60}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(const.y, balancingValve.y) annotation (Line(
-      points={{-39,-20},{0,-20},{0,-48}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(port_a2, balancingValve.port_a) annotation (Line(
       points={{100,-60},{10,-60}},
