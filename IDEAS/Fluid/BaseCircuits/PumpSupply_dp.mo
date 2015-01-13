@@ -3,8 +3,9 @@ model PumpSupply_dp
 
   //Extensions
   extends Interfaces.PartialPumpCircuit(redeclare Movers.FlowMachine_dp
-      flowRegulator);
-  extends Interfaces.PumpParameters;
+      flowRegulator(motorCooledByFluid=motorCooledByFluid,
+        motorEfficiency=motorEfficiency,
+        hydraulicEfficiency=hydraulicEfficiency));
 
 equation
   connect(flowRegulator.P, power) annotation (Line(

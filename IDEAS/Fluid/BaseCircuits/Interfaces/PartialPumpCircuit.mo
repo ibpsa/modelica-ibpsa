@@ -4,10 +4,7 @@ model PartialPumpCircuit
   //Extensions
   extends PartialFlowCircuit(redeclare Movers.BaseClasses.PartialFlowMachine
       flowRegulator(
-        addPowerToMedium=addPowerToMedium,
-        motorCooledByFluid=motorCooledByFluid,
-        motorEfficiency=motorEfficiency,
-        hydraulicEfficiency=hydraulicEfficiency));
+        addPowerToMedium=addPowerToMedium));
 
   extends PumpParameters;
 

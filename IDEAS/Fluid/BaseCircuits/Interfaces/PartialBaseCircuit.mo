@@ -3,7 +3,7 @@ partial model PartialBaseCircuit "Partial for a mixing circuit"
   import IDEAS;
 
   //Extensions
-  extends CircuitInterface(senTem1(redeclare package Medium = Medium));
+  extends CircuitInterface;
 
 equation
   if includePipes then

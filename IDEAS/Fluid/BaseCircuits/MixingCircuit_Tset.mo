@@ -41,7 +41,7 @@ equation
       points={{-10,60},{-70,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(thermostatic3WayValve.port_b, senTem.port_a) annotation (Line(
+  connect(thermostatic3WayValve.port_b, senTemSup.port_a) annotation (Line(
       points={{10,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));

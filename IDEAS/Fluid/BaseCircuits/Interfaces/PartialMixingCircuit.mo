@@ -1,47 +1,53 @@
 within IDEAS.Fluid.BaseCircuits.Interfaces;
 model PartialMixingCircuit "Partial for a circuit containing a three way valve"
+
+  //Extensions
+  extends ValveParametersSupply(
+    rhoStdSupply=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends IDEAS.Fluid.BaseCircuits.Interfaces.PartialCircuitBalancingValve;
 
   //Parameters
-
-    parameter Real deltaMTop = 0.02
-    "Fraction of nominal flow rate where linearization starts, if y=1"
-    annotation(Dialog(group="Pressure-flow linearization"));
-  parameter Real fraKTop(min=0, max=1) = 0.7
+  parameter Real fraKSupply(min=0, max=1) = 0.7
     "Fraction Kv(port_3->port_2)/Kv(port_1->port_2)";
-  parameter Real[2] lTop(each min=0, each max=1) = {0, 0}
+  parameter Real[2] lSupply(each min=0, each max=1) = {0.01, 0.01}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
 
+  //Components
   replaceable IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve partialThreeWayValve
   constrainedby IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
     redeclare package Medium = Medium,
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=KvTop,
-    deltaM=deltaMTop,
-    m_flow_nominal=m_flow_nominal,
-    fraK=fraKTop,
-    l=lTop)
+    final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+    final Kv=KvSupply,
+    final deltaM=deltaMSupply,
+    final m_flow_nominal=m_flow_nominal,
+    final fraK=fraKSupply,
+    final l=lSupply)
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+
   Modelica.Blocks.Interfaces.RealInput y "Three way valve position setpoint"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,104})));
 equation
-  connect(partialThreeWayResistance.port_1, pipeSupply.port_b) annotation (Line(
-      points={{-10,60},{-70,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(partialThreeWayResistance.port_2, senTem.port_a) annotation (Line(
-      points={{10,60},{60,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+  if not measureSupplyT then
+    connect(partialThreeWayValve.port_2, port_b1);
+  end if;
+
   connect(partialThreeWayValve.y, y) annotation (Line(
       points={{0,72},{0,104}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(partialThreeWayValve.port_2, senTemSup.port_a) annotation (Line(
+      points={{10,60},{60,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(partialThreeWayValve.port_3, port_a2) annotation (Line(
-      points={{0,50},{0,0},{58,0},{58,-60},{100,-60}},
+      points={{0,50},{0,0},{70,0},{70,-60},{100,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipeSupply.port_b, partialThreeWayValve.port_1) annotation (Line(
+      points={{-70,60},{-10,60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

@@ -2,10 +2,8 @@ within IDEAS.Fluid.BaseCircuits.Interfaces;
 partial model PartialCircuitBalancingValve
 
   //Extensions
-  extends ValveParametersBot(
-      rhoStdBot=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
-  extends PartialBaseCircuit(senTem(redeclare package Medium = Medium,
-        m_flow_nominal=m_flow_nominal), pipeReturn(dp_nominal=0));
+  extends ValveParametersReturn;
+  extends PartialBaseCircuit( pipeReturn(dp_nominal=0));
 
   //Parameter
   parameter Boolean useBalancingValve=false
@@ -13,18 +11,11 @@ partial model PartialCircuitBalancingValve
     annotation(Dialog(group = "Settings"));
 
   //Components
-  Modelica.Blocks.Sources.Constant const(k=1) if useBalancingValve
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  replaceable Actuators.Valves.TwoWayLinear balancingValve(
-        Kv=KvBot,
-        rhoStd=rhoStdBot,
-        deltaM=deltaMBot,
-        CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+  FixedResistances.FixedResistanceDpM       balancingValve(
+        final deltaM=deltaMReturn,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dpFixed_nominal=if includePipes then dp else 0) if useBalancingValve
-                                             constrainedby
-    Actuators.BaseClasses.PartialTwoWayValve
+    dp_nominal=m_flow_nominal^2/KvReturn^2) if         useBalancingValve
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 
 equation
@@ -33,7 +24,7 @@ equation
       connect(pipeReturn.port_a, port_a2);
     else
       if measureReturnT then
-        connect(senTem1.port_a, port_a2);
+        connect(senTemRet.port_a, port_a2);
       else
         connect(port_b2, port_a2);
       end if;
@@ -41,7 +32,7 @@ equation
   else
     if not includePipes then
       if measureReturnT then
-        connect(senTem1.port_a, balancingValve.port_b);
+        connect(senTemRet.port_a, balancingValve.port_b);
       end if;
     end if;
   end if;
@@ -57,12 +48,8 @@ equation
   end if;
 
   connect(balancingValve.port_b, pipeReturn.port_a) annotation (Line(
-      points={{-10,-60},{-36,-60}},
+      points={{-10,-60},{-30,-60}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(const.y, balancingValve.y) annotation (Line(
-      points={{-39,-20},{0,-20},{0,-48}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(port_a2, balancingValve.port_a) annotation (Line(
       points={{100,-60},{10,-60}},

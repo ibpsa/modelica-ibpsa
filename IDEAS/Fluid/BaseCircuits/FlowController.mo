@@ -2,10 +2,11 @@ within IDEAS.Fluid.BaseCircuits;
 model FlowController
   //Extensions
   extends Interfaces.PartialValveCircuit(
-    redeclare Actuators.Valves.TwoWayEqualPercentage flowRegulator);
+    redeclare Actuators.Valves.TwoWayEqualPercentage flowRegulator,
+    final measurePower=false);
 equation
   connect(u, flowRegulator.y) annotation (Line(
-      points={{0,108},{0,32}},
+      points={{0,108},{0,72}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -15,26 +16,6 @@ equation
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),            graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-        Polygon(
-          points={{-20,-50},{-20,-70},{0,-60},{-20,-50}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{20,-50},{20,-70},{0,-60},{20,-50}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{0,-60},{0,-40}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-10,-40},{10,-40}},
-          color={0,0,127},
-          smooth=Smooth.None),
         Line(
           points={{0,102},{6,80},{0,60}},
           color={0,255,128},
