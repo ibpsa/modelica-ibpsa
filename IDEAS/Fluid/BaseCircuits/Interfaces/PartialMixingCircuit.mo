@@ -7,9 +7,9 @@ model PartialMixingCircuit "Partial for a circuit containing a three way valve"
   extends IDEAS.Fluid.BaseCircuits.Interfaces.PartialCircuitBalancingValve;
 
   //Parameters
-  parameter Real fraKReturn(min=0, max=1) = 0.7
+  parameter Real fraKSupply(min=0, max=1) = 0.7
     "Fraction Kv(port_3->port_2)/Kv(port_1->port_2)";
-  parameter Real[2] lReturn(each min=0, each max=1) = {0.01, 0.01}
+  parameter Real[2] lSupply(each min=0, each max=1) = {0.01, 0.01}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
 
   //Components
@@ -17,11 +17,11 @@ model PartialMixingCircuit "Partial for a circuit containing a three way valve"
   constrainedby IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
     redeclare package Medium = Medium,
     final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    final Kv=KvReturn,
-    final deltaM=deltaMReturn,
+    final Kv=KvSupply,
+    final deltaM=deltaMSupply,
     final m_flow_nominal=m_flow_nominal,
-    final fraK=fraKReturn,
-    final l=lReturn)
+    final fraK=fraKSupply,
+    final l=lSupply)
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   Modelica.Blocks.Interfaces.RealInput y "Three way valve position setpoint"
