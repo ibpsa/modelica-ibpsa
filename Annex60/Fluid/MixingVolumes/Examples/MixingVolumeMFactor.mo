@@ -11,13 +11,17 @@ model MixingVolumeMFactor
     mSenFactor=10,
     m_flow_nominal=1,
     V=1,
-    nPorts=2) "mixing volume using mFactor = 10"
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "mixing volume using mFactor = 10"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Annex60.Fluid.MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     V=10,
-    nPorts=2) "MixingVolume with V = 10 instead of mFactor = 10"
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "MixingVolume with V = 10 instead of mFactor = 10"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Annex60.Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = Medium,
