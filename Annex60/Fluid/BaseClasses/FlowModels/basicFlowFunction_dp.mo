@@ -73,7 +73,7 @@ Changed implementation to allow <code>k=0</code>, which is
 the case for a closed valve with no leakage
 </li>
 <li>
-April 13, 2009, by Micheal Wetter:<br/>
+April 13, 2009, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
