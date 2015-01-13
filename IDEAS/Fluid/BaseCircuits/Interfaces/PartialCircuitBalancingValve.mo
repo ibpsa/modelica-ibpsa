@@ -20,8 +20,7 @@ partial model PartialCircuitBalancingValve
         final deltaM=deltaMReturn,
         final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     redeclare package Medium = Medium,
-    dpFixed_nominal=if includePipes then dp else 0,
-    final deltaM=deltaMBot) if                         useBalancingValve
+    dpFixed_nominal=if includePipes then dp else 0) if useBalancingValve
                                              constrainedby
     Actuators.BaseClasses.PartialTwoWayValve
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
