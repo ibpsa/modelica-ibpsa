@@ -48,7 +48,7 @@ equation
   end if;
 
   connect(balancingValve.port_b, pipeReturn.port_a) annotation (Line(
-      points={{-10,-60},{-36,-60}},
+      points={{-10,-60},{-30,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a2, balancingValve.port_a) annotation (Line(

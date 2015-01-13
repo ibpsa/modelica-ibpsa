@@ -121,7 +121,7 @@ equation
       smooth=Smooth.None));
 
   connect(pipeReturn.port_a, hex.port_b1) annotation (Line(
-      points={{-36,-60},{-6,-60},{-6,-10}},
+      points={{-30,-60},{-6,-60},{-6,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senMasFlo2.port_a, pipeSupply2.port_b) annotation (Line(

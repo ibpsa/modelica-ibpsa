@@ -40,26 +40,6 @@ equation
           points={{0,100},{6,80},{0,60}},
           color={0,255,128},
           smooth=Smooth.None),
-        Line(
-          points={{0,-60},{0,-40}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-10,-40},{10,-40}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Polygon(
-          points={{-20,-50},{-20,-70},{0,-60},{-20,-50}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{20,-50},{20,-70},{0,-60},{20,-50}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{4,44},{24,24}},
           lineColor={0,0,127},
