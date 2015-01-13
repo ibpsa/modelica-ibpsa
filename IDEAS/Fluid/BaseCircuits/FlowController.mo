@@ -2,10 +2,11 @@ within IDEAS.Fluid.BaseCircuits;
 model FlowController
   //Extensions
   extends Interfaces.PartialValveCircuit(
-    redeclare Actuators.Valves.TwoWayEqualPercentage flowRegulator);
+    redeclare Actuators.Valves.TwoWayEqualPercentage flowRegulator,
+    final measurePower=false);
 equation
   connect(u, flowRegulator.y) annotation (Line(
-      points={{0,108},{0,32}},
+      points={{0,108},{0,72}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

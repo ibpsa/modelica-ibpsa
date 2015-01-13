@@ -63,7 +63,7 @@ model HeatExchanger
         rotation=0,
         origin={40,20})));
 
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senTem1(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTemRet(
     redeclare package Medium =Medium,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-50,6},{-30,26}})));
@@ -95,15 +95,15 @@ model HeatExchanger
         rotation=180,
         origin={28,-60})), choicesAllMatching=true);
 equation
-  connect(senTem1.T, senT1) annotation (Line(
+  connect(senTemRet.T, senT1) annotation (Line(
       points={{-40,27},{-40,108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senTem1.port_b, hex.port_a1) annotation (Line(
+  connect(senTemRet.port_b, hex.port_a1) annotation (Line(
       points={{-30,16},{-6,16},{-6,10},{-6,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTem1.port_a, senMasFlo1.port_b) annotation (Line(
+  connect(senTemRet.port_a, senMasFlo1.port_b) annotation (Line(
       points={{-50,16},{-66,16},{-66,40}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -115,13 +115,13 @@ equation
       points={{-70,60},{-46,60},{-46,40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senMasFlo2.port_b, senTem.port_a) annotation (Line(
-      points={{50,20},{60,20}},
+  connect(senMasFlo2.port_b, senTemSup.port_a) annotation (Line(
+      points={{50,20},{56,20},{56,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(pipeReturn.port_a, hex.port_b1) annotation (Line(
-      points={{-70,-60},{-6,-60},{-6,-10}},
+      points={{-36,-60},{-6,-60},{-6,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senMasFlo2.port_a, pipeSupply2.port_b) annotation (Line(

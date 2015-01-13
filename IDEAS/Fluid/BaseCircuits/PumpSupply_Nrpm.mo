@@ -10,11 +10,7 @@ model PumpSupply_Nrpm "Pump on supply duct"
     annotation(Dialog(group="Pump parameters"));
 equation
   connect(port_b2, pipeReturn.port_b) annotation (Line(
-      points={{-100,-60},{-90,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTem.port_b, port_b1) annotation (Line(
-      points={{80,60},{86,60},{86,60},{100,60}},
+      points={{-100,-60},{-56,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(u, flowRegulator.Nrpm) annotation (Line(

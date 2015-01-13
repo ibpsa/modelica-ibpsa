@@ -75,8 +75,9 @@ partial model CircuitInterface "Partial circuit for base circuits"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-46,-60})),                                            choicesAllMatching=true);
-  Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal, redeclare
-      package Medium = Medium) if      measureSupplyT
+  Sensors.TemperatureTwoPort senTemSup(m_flow_nominal=m_flow_nominal,
+      redeclare package Medium = Medium) if
+                                       measureSupplyT
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Interfaces.RealOutput Tsup if
                                              measureSupplyT
@@ -87,9 +88,9 @@ partial model CircuitInterface "Partial circuit for base circuits"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={76,104})));
-  Sensors.TemperatureTwoPort senTem1(
-                                    m_flow_nominal=m_flow_nominal, redeclare
-      package Medium = Medium) if      measureReturnT
+  Sensors.TemperatureTwoPort senTemRet(m_flow_nominal=m_flow_nominal,
+      redeclare package Medium = Medium) if
+                                       measureReturnT
     annotation (Placement(transformation(extent={{-64,-70},{-84,-50}})));
   Modelica.Blocks.Interfaces.RealOutput Tret if
                                              measureReturnT
@@ -114,7 +115,7 @@ equation
       points={{-46,-56},{-46,-40},{-24,-40},{-24,-100},{0,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(port_b1, senTem.port_b) annotation (Line(
+  connect(port_b1, senTemSup.port_b) annotation (Line(
       points={{100,60},{80,60}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -122,19 +123,19 @@ equation
       points={{70,108},{70,108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senTem.T, Tsup) annotation (Line(
+  connect(senTemSup.T, Tsup) annotation (Line(
       points={{70,71},{70,108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(port_b2, senTem1.port_b) annotation (Line(
+  connect(port_b2, senTemRet.port_b) annotation (Line(
       points={{-100,-60},{-84,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTem1.port_a, pipeReturn.port_b) annotation (Line(
+  connect(senTemRet.port_a, pipeReturn.port_b) annotation (Line(
       points={{-64,-60},{-56,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTem1.T, Tret) annotation (Line(
+  connect(senTemRet.T, Tret) annotation (Line(
       points={{-74,-49},{-74,-46},{-70,-46},{-70,-108}},
       color={0,0,127},
       smooth=Smooth.None));

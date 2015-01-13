@@ -38,7 +38,7 @@ equation
     connect(flowRegulator.port_b, port_b1);
   end if;
 
-  connect(flowRegulator.port_b, senTem.port_a) annotation (Line(
+  connect(flowRegulator.port_b, senTemSup.port_a) annotation (Line(
       points={{10,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));

@@ -4,8 +4,7 @@ partial model PartialCircuitBalancingValve
   //Extensions
   extends ValveParametersBot(
       rhoStdBot=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
-  extends PartialBaseCircuit(senTem(redeclare package Medium = Medium,
-        m_flow_nominal=m_flow_nominal), pipeReturn(dp_nominal=0));
+  extends PartialBaseCircuit( pipeReturn(dp_nominal=0));
 
   //Parameter
   parameter Boolean useBalancingValve=false
@@ -33,7 +32,7 @@ equation
       connect(pipeReturn.port_a, port_a2);
     else
       if measureReturnT then
-        connect(senTem1.port_a, port_a2);
+        connect(senTemRet.port_a, port_a2);
       else
         connect(port_b2, port_a2);
       end if;
@@ -41,7 +40,7 @@ equation
   else
     if not includePipes then
       if measureReturnT then
-        connect(senTem1.port_a, balancingValve.port_b);
+        connect(senTemRet.port_a, balancingValve.port_b);
       end if;
     end if;
   end if;

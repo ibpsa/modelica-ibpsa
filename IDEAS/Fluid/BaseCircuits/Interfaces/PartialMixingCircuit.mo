@@ -30,11 +30,15 @@ model PartialMixingCircuit "Partial for a circuit containing a three way valve"
         rotation=270,
         origin={0,104})));
 equation
+  if not measureSupplyT then
+    connect(partialThreeWayValve.port_2, port_b1);
+  end if;
+
   connect(partialThreeWayValve.y, y) annotation (Line(
       points={{0,72},{0,104}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(partialThreeWayValve.port_2, senTem.port_a) annotation (Line(
+  connect(partialThreeWayValve.port_2, senTemSup.port_a) annotation (Line(
       points={{10,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
