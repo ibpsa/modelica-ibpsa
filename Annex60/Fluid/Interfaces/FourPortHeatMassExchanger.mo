@@ -78,11 +78,12 @@ model FourPortHeatMassExchanger
     final T_start=T1_start,
     final X_start=X1_start,
     final C_start=C1_start,
-    final C_nominal=C1_nominal) "Volume for fluid 1"
+    final C_nominal=C1_nominal,
+    final mSenFactor=1) "Volume for fluid 1"
                                annotation (Placement(transformation(extent={{-10,70},
             {10,50}})));
 
-  replaceable Annex60.Fluid.MixingVolumes.MixingVolume vol2
+  replaceable Annex60.Fluid.MixingVolumes.MixingVolume vol2(final mSenFactor=1)
     constrainedby Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium2,
     nPorts = 2,
