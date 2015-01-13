@@ -5,16 +5,20 @@ model ThermostaticRadiatorValve
   //Extensions
   extends Interfaces.PartialValveCircuit(
     redeclare Actuators.Valves.TwoWayQuickOpening flowRegulator);
+
+  //Parameters
+  parameter Real K = 1 "Gain of the TRV";
+
+  //Components
   Modelica.Blocks.Interfaces.RealInput u1 "measurement signal"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-40,110})));
   Modelica.Blocks.Continuous.LimPID PID(controllerType=Modelica.Blocks.Types.SimpleController.P,
-      k=1,
+    k=K,
     yMax=1,
-    yMin=0)
-           annotation (Placement(transformation(extent={{20,72},{40,92}})));
+    yMin=0) annotation (Placement(transformation(extent={{20,72},{40,92}})));
 equation
   connect(PID.u_m, u1) annotation (Line(
       points={{30,70},{30,66},{-40,66},{-40,110}},
