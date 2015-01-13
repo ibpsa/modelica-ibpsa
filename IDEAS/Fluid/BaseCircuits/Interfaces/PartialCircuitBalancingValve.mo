@@ -3,7 +3,7 @@ partial model PartialCircuitBalancingValve
 
   //Extensions
   extends ValveParametersReturn(
-      rhoStdBot=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+      rhoStdReturn=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends PartialBaseCircuit( pipeReturn(dp_nominal=0));
 
   //Parameter
