@@ -6,5 +6,5 @@ PartialPumpCircuit
 PartialValveCircuit
 PartialMixingCircuit
 PumpParameters
-ValveParametersBot
-ValveParametersTop
+ValveParametersReturn
+ValveParametersSupply

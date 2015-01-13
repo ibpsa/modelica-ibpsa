@@ -2,7 +2,7 @@ within IDEAS.Fluid.BaseCircuits.Interfaces;
 partial model PartialCircuitBalancingValve
 
   //Extensions
-  extends ValveParametersBot(
+  extends ValveParametersReturn(
       rhoStdBot=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends PartialBaseCircuit(senTem(redeclare package Medium = Medium,
         m_flow_nominal=m_flow_nominal), pipeReturn(dp_nominal=0));
