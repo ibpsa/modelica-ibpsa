@@ -3,7 +3,8 @@ model MixingCircuit_EqualPercentage
   "Mixing circuit with equal percentage three way valve"
   extends Interfaces.PartialMixingCircuit(redeclare
       Actuators.Valves.ThreeWayEqualPercentageLinear
-                                      partialThreeWayValve(R=R, delta0=delta0));
+                                      partialThreeWayValve(final R=R, final
+        delta0=delta0));
   extends IDEAS.Fluid.BaseCircuits.Interfaces.ValveParametersTop;
 
   parameter Real R=50 "Rangeability, R=50...100 typically";

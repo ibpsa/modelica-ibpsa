@@ -16,13 +16,13 @@ partial model PartialCircuitBalancingValve
   Modelica.Blocks.Sources.Constant const(k=1) if useBalancingValve
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   replaceable Actuators.Valves.TwoWayLinear balancingValve(
-        Kv=KvBot,
         rhoStd=rhoStdBot,
-        deltaM=deltaMBot,
-        CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dpFixed_nominal=if includePipes then dp else 0) if useBalancingValve
+    dpFixed_nominal=if includePipes then dp else 0,
+    final m_flow_nominal=m_flow_nominal,
+    final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+    final Kv=KvBot,
+    final deltaM=deltaMBot) if                         useBalancingValve
                                              constrainedby
     Actuators.BaseClasses.PartialTwoWayValve
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));

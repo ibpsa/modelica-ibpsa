@@ -16,12 +16,12 @@ model PartialMixingCircuit "Partial for a circuit containing a three way valve"
   replaceable IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve partialThreeWayValve
   constrainedby IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
     redeclare package Medium = Medium,
-    CvData=IDEAS.Fluid.Types.CvTypes.Kv,
-    Kv=KvTop,
-    deltaM=deltaMTop,
-    m_flow_nominal=m_flow_nominal,
-    fraK=fraKTop,
-    l=lTop)
+    final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
+    final Kv=KvTop,
+    final deltaM=deltaMTop,
+    final m_flow_nominal=m_flow_nominal,
+    final fraK=fraKTop,
+    final l=lTop)
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
   Modelica.Blocks.Interfaces.RealInput y "Three way valve position setpoint"
