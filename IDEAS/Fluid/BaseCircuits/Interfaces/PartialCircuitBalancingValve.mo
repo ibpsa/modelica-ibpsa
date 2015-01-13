@@ -2,7 +2,7 @@ within IDEAS.Fluid.BaseCircuits.Interfaces;
 partial model PartialCircuitBalancingValve
 
   //Extensions
-  extends ValveParametersBot(
+  extends ValveParametersReturn(
       rhoStdBot=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends PartialBaseCircuit( pipeReturn(dp_nominal=0));
 
@@ -15,7 +15,7 @@ partial model PartialCircuitBalancingValve
   Modelica.Blocks.Sources.Constant const(k=1) if useBalancingValve
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   replaceable Actuators.Valves.TwoWayLinear balancingValve(
-        rhoStd=rhoStdBot,
+    rhoStd=rhoStdBot,
     redeclare package Medium = Medium,
     dpFixed_nominal=if includePipes then dp else 0,
     final m_flow_nominal=m_flow_nominal,

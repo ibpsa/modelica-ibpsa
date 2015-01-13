@@ -2,15 +2,20 @@ within IDEAS.Fluid.BaseCircuits.Interfaces;
 model PartialValveCircuit
 
   //Extensions
-  extends ValveParametersTop(
-      rhoStdTop=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+  extends ValveParametersSupply(
+      rhoStdSupply=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends PartialFlowCircuit(redeclare Actuators.BaseClasses.PartialTwoWayValve
       flowRegulator(
-        Kv=KvTop,
-        rhoStd=rhoStdTop,
-        deltaM=deltaMTop,
+        Kv=KvSupply,
+        rhoStd=rhoStdSupply,
+        deltaM=deltaMSupply,
         CvData=IDEAS.Fluid.Types.CvTypes.Kv));
 
+equation
+  connect(flowRegulator.y_actual, power) annotation (Line(
+      points={{5,67},{40,67},{40,108}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Polygon(

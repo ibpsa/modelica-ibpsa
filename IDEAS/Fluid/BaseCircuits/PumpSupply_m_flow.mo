@@ -3,8 +3,9 @@ model PumpSupply_m_flow "Pump on supply duct"
 
   //Extensions
   extends Interfaces.PartialPumpCircuit(redeclare Movers.FlowMachine_m_flow
-      flowRegulator);
-  extends Interfaces.PumpParameters;
+      flowRegulator(motorCooledByFluid=motorCooledByFluid,
+        motorEfficiency=motorEfficiency,
+        hydraulicEfficiency=hydraulicEfficiency));
 
 equation
   connect(u, flowRegulator.m_flow_in) annotation (Line(

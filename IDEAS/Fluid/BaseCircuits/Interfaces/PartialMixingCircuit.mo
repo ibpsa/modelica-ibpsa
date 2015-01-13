@@ -2,8 +2,8 @@ within IDEAS.Fluid.BaseCircuits.Interfaces;
 model PartialMixingCircuit "Partial for a circuit containing a three way valve"
 
   //Extensions
-  extends ValveParametersTop(
-    rhoStdTop=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+  extends ValveParametersSupply(
+    rhoStdSupply=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends IDEAS.Fluid.BaseCircuits.Interfaces.PartialCircuitBalancingValve;
 
   //Parameters
