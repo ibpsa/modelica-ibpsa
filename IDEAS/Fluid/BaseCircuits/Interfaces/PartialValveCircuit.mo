@@ -3,12 +3,12 @@ model PartialValveCircuit
 
   //Extensions
   extends ValveParametersSupply(
-      rhoStdTop=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+      rhoStdSupply=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends PartialFlowCircuit(redeclare Actuators.BaseClasses.PartialTwoWayValve
       flowRegulator(
-        Kv=KvTop,
-        rhoStd=rhoStdTop,
-        deltaM=deltaMTop,
+        Kv=KvSupply,
+        rhoStd=rhoStdSupply,
+        deltaM=deltaMSupply,
         CvData=IDEAS.Fluid.Types.CvTypes.Kv));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
