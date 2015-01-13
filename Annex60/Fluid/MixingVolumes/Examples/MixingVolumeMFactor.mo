@@ -5,10 +5,10 @@ model MixingVolumeMFactor
   extends Annex60.Fluid.MixingVolumes.Examples.MixingVolumeMassFlow(
   sou(X={0.02,0.98},
       T=Medium.T_default),
-  vol(mFactor=10));
+  vol(mSenFactor=10));
   Annex60.Fluid.MixingVolumes.MixingVolume volMFactor(
     redeclare package Medium = Medium,
-    mFactor=10,
+    mSenFactor=10,
     m_flow_nominal=1,
     V=1,
     nPorts=2) "mixing volume using mFactor = 10"
