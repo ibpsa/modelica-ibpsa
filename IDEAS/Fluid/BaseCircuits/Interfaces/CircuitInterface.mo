@@ -74,7 +74,7 @@ partial model CircuitInterface "Partial circuit for base circuits"
     redeclare package Medium = Medium) if includePipes
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-46,-60})),                                            choicesAllMatching=true);
+        origin={-40,-60})),                                            choicesAllMatching=true);
   Sensors.TemperatureTwoPort senTemSup(m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium) if
                                        measureSupplyT
@@ -91,7 +91,7 @@ partial model CircuitInterface "Partial circuit for base circuits"
   Sensors.TemperatureTwoPort senTemRet(m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium) if
                                        measureReturnT
-    annotation (Placement(transformation(extent={{-64,-70},{-84,-50}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-80,-70}})));
   Modelica.Blocks.Interfaces.RealOutput Tret if
                                              measureReturnT
     "Return temperature" annotation (Placement(transformation(
@@ -112,7 +112,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(pipeReturn.heatPort, heatPort) annotation (Line(
-      points={{-46,-56},{-46,-40},{-24,-40},{-24,-100},{0,-100}},
+      points={{-40,-56},{-40,-40},{-24,-40},{-24,-100},{0,-100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(port_b1, senTemSup.port_b) annotation (Line(
@@ -128,15 +128,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(port_b2, senTemRet.port_b) annotation (Line(
-      points={{-100,-60},{-84,-60}},
+      points={{-100,-60},{-80,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemRet.port_a, pipeReturn.port_b) annotation (Line(
-      points={{-64,-60},{-56,-60}},
+      points={{-60,-60},{-50,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemRet.T, Tret) annotation (Line(
-      points={{-74,-49},{-74,-46},{-70,-46},{-70,-108}},
+      points={{-70,-71},{-70,-108}},
       color={0,0,127},
       smooth=Smooth.None));
     annotation (Placement(transformation(extent={{60,10},{80,30}})),
