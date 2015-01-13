@@ -5,7 +5,7 @@ model FlowController
     redeclare Actuators.Valves.TwoWayEqualPercentage flowRegulator);
 equation
   connect(u, flowRegulator.y) annotation (Line(
-      points={{0,108},{0,32}},
+      points={{0,108},{0,72}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

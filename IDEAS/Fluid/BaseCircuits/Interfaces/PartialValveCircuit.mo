@@ -11,6 +11,11 @@ model PartialValveCircuit
         deltaM=deltaMTop,
         CvData=IDEAS.Fluid.Types.CvTypes.Kv));
 
+equation
+  connect(flowRegulator.y_actual, power) annotation (Line(
+      points={{5,67},{40,67},{40,108}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Polygon(
