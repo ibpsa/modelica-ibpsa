@@ -1,4 +1,4 @@
-within Annex60.Fluid.HeatExchangers.Examples;
+within Annex60.Fluid.HeatExchangers.Validation;
 model ConstantEffectiveness
   "Model that demonstrates use of a heat exchanger with constant effectiveness"
   extends Modelica.Icons.Example;
@@ -103,7 +103,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation(experiment(StopTime=360),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/ConstantEffectiveness.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Validation/ConstantEffectiveness.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
