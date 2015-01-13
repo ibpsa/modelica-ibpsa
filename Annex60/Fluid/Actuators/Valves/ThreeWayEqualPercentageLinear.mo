@@ -1,6 +1,8 @@
 within Annex60.Fluid.Actuators.Valves;
 model ThreeWayEqualPercentageLinear
   "Three way valve with equal percentage and linear characteristics"
+    extends Annex60.Fluid.Actuators.BaseClasses.ActuatorSignal;
+
     extends BaseClasses.PartialThreeWayValve(
       redeclare TwoWayEqualPercentage res1(R=R, delta0=delta0),
       redeclare TwoWayLinear res3);
