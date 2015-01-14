@@ -38,7 +38,7 @@ model TwoPortHeatMassExchanger
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
-  replaceable Annex60.Fluid.MixingVolumes.MixingVolume vol
+  replaceable Annex60.Fluid.MixingVolumes.MixingVolume vol(final mSenFactor=1)
   constrainedby Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium,
     nPorts = 2,

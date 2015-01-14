@@ -5,19 +5,23 @@ model MixingVolumeMFactor
   extends Annex60.Fluid.MixingVolumes.Examples.MixingVolumeMassFlow(
   sou(X={0.02,0.98},
       T=Medium.T_default),
-  vol(mFactor=10));
+  vol(mSenFactor=10));
   Annex60.Fluid.MixingVolumes.MixingVolume volMFactor(
     redeclare package Medium = Medium,
-    mFactor=10,
+    mSenFactor=10,
     m_flow_nominal=1,
     V=1,
-    nPorts=2) "mixing volume using mFactor = 10"
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "mixing volume using mFactor = 10"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Annex60.Fluid.MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     V=10,
-    nPorts=2) "MixingVolume with V = 10 instead of mFactor = 10"
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "MixingVolume with V = 10 instead of mFactor = 10"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Annex60.Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = Medium,
@@ -61,7 +65,7 @@ This is to check the correct implementation of the parameter mFactor for moist a
 <p>2)  The temperature response of volMFactor.T and vol1.T should be (nearly) identical. 
 Furthermore the response of the species concentration Xi demonstrates the 
 difference between using an mFactor = 10 and multiplying the mixingVolume volume 
-&QUOT;V&QUOT; by 10.</p>
+V by 10.</p>
 </html>", revisions="<html>
 <ul>
 <li>
