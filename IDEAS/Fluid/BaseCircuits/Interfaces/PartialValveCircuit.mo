@@ -1,7 +1,8 @@
 within IDEAS.Fluid.BaseCircuits.Interfaces;
 model PartialValveCircuit
 
-  //Extensions
+  // Extensions ----------------------------------------------------------------
+
   extends ValveParametersSupply(
       rhoStdSupply=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends PartialFlowCircuit(redeclare Actuators.BaseClasses.PartialTwoWayValve

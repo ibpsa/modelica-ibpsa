@@ -1,18 +1,22 @@
 within IDEAS.Fluid.BaseCircuits.Interfaces;
 model PartialMixingCircuit "Partial for a circuit containing a three way valve"
 
-  //Extensions
+  // Extensions ----------------------------------------------------------------
+
   extends ValveParametersSupply(
     rhoStdSupply=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends IDEAS.Fluid.BaseCircuits.Interfaces.PartialCircuitBalancingValve;
 
-  //Parameters
+  // Parameters ----------------------------------------------------------------
+
   parameter Real fraKSupply(min=0, max=1) = 0.7
     "Fraction Kv(port_3->port_2)/Kv(port_1->port_2)";
   parameter Real[2] lSupply(each min=0, each max=1) = {0.01, 0.01}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
 
-  //Components
+  // Components ----------------------------------------------------------------
+
+protected
   replaceable IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve partialThreeWayValve
   constrainedby IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
     redeclare package Medium = Medium,
