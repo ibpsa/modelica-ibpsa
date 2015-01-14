@@ -102,7 +102,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pipe_HeatPort.heatPort, thermalLosses.port_a) annotation (Line(
-      points={{30,-6},{-30,-6},{-30,-60}},
+      points={{30,-6},{20,-6},{20,-40},{-30,-40},{-30,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(Tin.port_b, senMasFlo.port_a) annotation (Line(
