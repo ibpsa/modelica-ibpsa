@@ -40,7 +40,7 @@ equation
           color={0,255,128},
           smooth=Smooth.None),
         Rectangle(
-          extent={{-4,44},{4,36}},
+          extent={{-6,44},{6,32}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}));

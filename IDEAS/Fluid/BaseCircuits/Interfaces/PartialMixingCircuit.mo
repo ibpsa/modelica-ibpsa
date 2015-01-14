@@ -33,6 +33,11 @@ protected
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,104})));
+public
+  Sensors.MassFlowRate senMasFlo annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={0,10})));
 equation
   if not measureSupplyT then
     connect(partialThreeWayValve.port_2, port_b1);
@@ -46,12 +51,16 @@ equation
       points={{10,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(partialThreeWayValve.port_3, port_a2) annotation (Line(
-      points={{0,50},{0,0},{70,0},{70,-60},{100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pipeSupply.port_b, partialThreeWayValve.port_1) annotation (Line(
       points={{-70,60},{-10,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(partialThreeWayValve.port_3, senMasFlo.port_b) annotation (Line(
+      points={{0,50},{0,20},{1.77636e-015,20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senMasFlo.port_a, balancingValve.port_a) annotation (Line(
+      points={{0,0},{0,-20},{60,-20},{60,-60},{10,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -86,8 +95,9 @@ equation
           origin={0,50},
           rotation=90),
         Line(
-          points={{0,40},{0,0},{60,0},{60,-60}},
-          color={0,0,255},
+          points={{0,40},{0,0},{20,-40},{60,-60}},
+          color={0,0,127},
+          pattern=LinePattern.Dash,
           smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics));
 end PartialMixingCircuit;
