@@ -5,7 +5,7 @@ model PumpSupply_dp
   extends Interfaces.PartialPumpCircuit(redeclare Movers.FlowMachine_dp
       flowRegulator(motorCooledByFluid=motorCooledByFluid,
         motorEfficiency=motorEfficiency,
-        hydraulicEfficiency=hydraulicEfficiency));
+        hydraulicEfficiency=hydraulicEfficiency), final useBalancingValve=true);
 
 equation
   connect(flowRegulator.P, power) annotation (Line(
