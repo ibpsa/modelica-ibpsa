@@ -38,7 +38,7 @@ record LumpedVolumeDeclarations "Declarations for lumped volumes"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   parameter Real mSenFactor(min=1)=1
     "Factor for scaling the sensible thermal mass of the volume"
-    annotation(Dialog(tab="Advanced"));
+    annotation(Dialog(tab="Dynamics"));
 
 annotation (preferredView="info",
 Documentation(info="<html>
