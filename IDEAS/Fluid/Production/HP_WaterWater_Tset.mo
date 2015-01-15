@@ -1,8 +1,9 @@
 within IDEAS.Fluid.Production;
-model HeatPumpTset "Heat pump using a temperature setpoint"
+model HP_WaterWater_Tset
+  "A water (or brine) to water heat pump with temperature setpoint"
   extends IDEAS.Fluid.Production.BaseClasses.PartialHeatPump(redeclare replaceable parameter
-      IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData heatPumpData constrainedby
-      IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData);
+      IDEAS.Fluid.Production.BaseClasses.HeatPumpData heatPumpData constrainedby
+      IDEAS.Fluid.Production.BaseClasses.HeatPumpData);
 
   Modelica.Blocks.Sources.RealExpression TsetLimit(y=Tset - condensor.heatPort.T)
     annotation (Placement(transformation(extent={{-70,-46},{-28,-26}})));
@@ -29,15 +30,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(powerTable.u1, T_in_cond.T) annotation (Line(
-      points={{-62,96},{-94,96},{-94,80},{16,80},{16,56},{78,56},{78,-29}},
+      points={{-62,96},{-94,96},{-94,80},{16,80},{16,56},{78,56},{78,-49}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(copTable.u1, T_in_cond.T) annotation (Line(
-      points={{-62,70},{-94,70},{-94,80},{16,80},{16,56},{78,56},{78,-29}},
+      points={{-62,70},{-94,70},{-94,80},{16,80},{16,56},{78,56},{78,-49}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_in_evap.T,powerTable. u2) annotation (Line(
-      points={{-82,51},{-82,84},{-62,84}},
+      points={{-82,71},{-82,84},{-62,84}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TsetLimit.y, hysteresisTsetLimit.u) annotation (Line(
@@ -57,4 +58,4 @@ Added documentation
 </li>
 </ul>
 </html>"));
-end HeatPumpTset;
+end HP_WaterWater_Tset;

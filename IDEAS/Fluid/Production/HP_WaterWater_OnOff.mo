@@ -1,8 +1,9 @@
 within IDEAS.Fluid.Production;
-model HeatPumpOnOff "A heat pump that can only be switch on or off"
+model HP_WaterWater_OnOff
+  "A water (or brine) to water heat pump with on/off input"
   extends IDEAS.Fluid.Production.BaseClasses.PartialHeatPump(redeclare replaceable parameter
-      IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData heatPumpData constrainedby
-      IDEAS.Fluid.Production.BaseClasses.OnOffHeatPumpData);
+      IDEAS.Fluid.Production.BaseClasses.HeatPumpData heatPumpData constrainedby
+      IDEAS.Fluid.Production.BaseClasses.HeatPumpData);
 
   // check https://github.com/open-ideas/IDEAS/issues/17 for a discussion on why CombiTable2D is used
 
@@ -13,15 +14,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(powerTable.u1, T_in_cond.T) annotation (Line(
-      points={{-62,96},{-94,96},{-94,80},{16,80},{16,56},{78,56},{78,-29}},
+      points={{-62,96},{-94,96},{-94,80},{16,80},{16,56},{78,56},{78,-49}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(copTable.u1, T_in_cond.T) annotation (Line(
-      points={{-62,70},{-94,70},{-94,80},{16,80},{16,56},{78,56},{78,-29}},
+      points={{-62,70},{-94,70},{-94,80},{16,80},{16,56},{78,56},{78,-49}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_in_evap.T, powerTable.u2) annotation (Line(
-      points={{-82,51},{-82,84},{-62,84}},
+      points={{-82,71},{-82,84},{-62,84}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -58,4 +59,4 @@ Initial version
 </html>", info="<html>
 <p>This model implements a heat pump as described in<a href=\"modelica://IDEAS.Fluid.Production.BaseClasses.PartialHeatPump\"> IDEAS.Fluid.Production.BaseClasses.PartialHeatPump</a>. The heat pump can be switching on or off using an external control signal.</p>
 </html>"));
-end HeatPumpOnOff;
+end HP_WaterWater_OnOff;

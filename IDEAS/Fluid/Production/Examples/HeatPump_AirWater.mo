@@ -16,7 +16,7 @@ model HeatPump_AirWater
     m_flow_nominal=m_flow_nominal,
     T_start(displayUnit="K") = 313.15)
     annotation (Placement(transformation(extent={{32,-4},{12,-24}})));
-  Fluid.Production.HP_AirWater heater(
+  HP_AirWater_Tset heater(
     tauHeatLoss=3600,
     cDry=10000,
     mWater=4,
