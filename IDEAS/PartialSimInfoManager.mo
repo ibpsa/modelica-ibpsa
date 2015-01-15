@@ -168,9 +168,11 @@ protected
   Climate.Meteo.Solar.BaseClasses.SkyClearness
                skyClearness
     annotation (Placement(transformation(extent={{-78,70},{-60,88}})));
+public
   Climate.Meteo.Solar.BaseClasses.SkyBrightnessCoefficients
                             skyBrightnessCoefficients
     annotation (Placement(transformation(extent={{-18,60},{0,78}})));
+protected
   Modelica.Blocks.Sources.RealExpression zenithAngle(y=angZen)
     annotation (Placement(transformation(extent={{-110,46},{-90,66}})));
   Modelica.Blocks.Sources.RealExpression solGloHorIn(y=solGloHor)
