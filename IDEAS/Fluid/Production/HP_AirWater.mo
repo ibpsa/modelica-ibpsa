@@ -1,5 +1,6 @@
 within IDEAS.Fluid.Production;
 model HP_AirWater "Modulating air-to-water HP with losses to environment"
+  import IDEAS;
 
   extends IDEAS.Fluid.Production.Interfaces.PartialDynamicHeaterWithLosses(
       final heaterType=BaseClasses.HeaterType.HP_AW);
@@ -14,7 +15,7 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
 
   Real COP "Instanteanous COP";
 
-  Real modulation(min=0, max=100) = heatSource.modulation
+  Real modulation(max=100) = IDEAS.Utilities.Math.Functions.smoothMax(0, heatSource.modulation, 1)
     "Current modulation percentage";
 
 protected
