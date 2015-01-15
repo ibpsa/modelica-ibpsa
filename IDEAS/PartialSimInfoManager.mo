@@ -24,10 +24,13 @@ partial model PartialSimInfoManager
     "put to true if photovoltaics is to be read from files "
     annotation (Dialog(group="Photovoltaics"));
 
+protected
   replaceable IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants
     constrainedby IDEAS.Occupants.Extern.Interfaces.Occ_Files
     "Specifies the files with occupant behavior"
     annotation (Dialog(group="User behaviour", enable=occBeh));
+
+public
   parameter Integer nOcc=33 "Number of occupant profiles to be read"
     annotation (Dialog(group="User behaviour", enable=occBeh));
 
@@ -90,6 +93,7 @@ public
   Real angHou =  (timSol/3600 - 12)*2*Modelica.Constants.pi/24;
   Real angZen = acos(cos(lat)*cos(angDec)*cos(angHou) + sin(lat)*sin(angDec));
 
+protected
   IDEAS.Climate.Time.SimTimes timMan(
     timZonSta=timZonSta,
     lon=lon,
