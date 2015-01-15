@@ -30,17 +30,16 @@ model MultipleBoreholesWithHeatPump
   Modelica.Fluid.Sources.Boundary_pT boundary(          redeclare package
       Medium = Medium, nPorts=1)
     annotation (Placement(transformation(extent={{-94,-68},{-74,-48}})));
-  Production.HeatPumpOnOff heatPumpOnOff(
-    redeclare package MediumBrine = Medium,
-    redeclare package MediumFluid = Medium,
+  Production.HP_WaterWater_OnOff heatPumpOnOff(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
     allowFlowReversal=false,
     onOff=true,
     use_scaling=true,
     redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA45
       heatPumpData,
     use_onOffSignal=true,
-    P_the_nominal=bfData.PThe_nominal/2)
-                     annotation (Placement(transformation(
+    P_the_nominal=bfData.PThe_nominal/2) annotation (Placement(transformation(
         extent={{-15,-17},{15,17}},
         rotation=90,
         origin={1,25})));
@@ -61,7 +60,7 @@ model MultipleBoreholesWithHeatPump
     m_flow_nominal=bfData.m_flow_nominal)
     annotation (Placement(transformation(extent={{12,60},{-8,80}})));
   Sources.Boundary_pT bou(          redeclare package Medium = Medium,
-    nPorts=3,
+    nPorts=2,
     use_T_in=true,
     p=200000)
     annotation (Placement(transformation(extent={{52,58},{32,78}})));
@@ -97,23 +96,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou.ports[1],pump. port_a) annotation (Line(
-      points={{32,70.6667},{22,70.6667},{22,70},{12,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heatPumpOnOff.fluidIn,bou. ports[2]) annotation (Line(
-      points={{7.8,40},{32,40},{32,68}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TSen_sec.port_b, heatPumpOnOff.fluidOut) annotation (Line(
-      points={{-24,44},{-24,40},{-5.8,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pum.port_b, heatPumpOnOff.brineIn) annotation (Line(
-      points={{-18,-6},{-5.8,-6},{-5.8,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heatPumpOnOff.brineOut, multipleBoreholes.port_a) annotation (Line(
-      points={{7.8,10},{8,10},{8,-6},{36,-6},{36,-58},{12,-58}},
+      points={{32,70},{22,70},{22,70},{12,70}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou.T_in, sine.y) annotation (Line(
@@ -126,6 +109,22 @@ equation
       smooth=Smooth.None));
   connect(TSen_pri.port_a, multipleBoreholes.port_b) annotation (Line(
       points={{-62,-36},{-62,-58},{-28,-58}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pum.port_b, heatPumpOnOff.port_a1) annotation (Line(
+      points={{-18,-6},{-9.2,-6},{-9.2,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(multipleBoreholes.port_a, heatPumpOnOff.port_b2) annotation (Line(
+      points={{12,-58},{12,10},{11.2,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatPumpOnOff.port_a2, bou.ports[2]) annotation (Line(
+      points={{11.2,40},{10,40},{10,66},{32,66}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatPumpOnOff.port_b1, TSen_sec.port_b) annotation (Line(
+      points={{-9.2,40},{-16,40},{-16,44},{-24,44}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

@@ -21,10 +21,11 @@ model StorageTank_OneIntHx
     T_start={273.15 + 20 for i in 1:nbrNodes})
     annotation (Placement(transformation(extent={{-30,-64},{42,10}})));
 
-  IDEAS.Fluid.Production.HeatPumpOnOff hp(redeclare
-      IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA08 heatPumpData,
-    redeclare package MediumBrine = Medium,
-    redeclare package MediumFluid = Medium)
+  IDEAS.Fluid.Production.HP_WaterWater_OnOff hp(
+    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA08
+      heatPumpData,
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium)
     annotation (Placement(transformation(extent={{-82,-2},{-62,18}})));
   Fluid.Movers.Pump pump(
     m=1,
@@ -109,27 +110,11 @@ equation
       points={{92,-20},{92,4},{88,4}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(bou1.ports[1], hp.brineOut) annotation (Line(
-      points={{-102,-16},{-102,4},{-82,4}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(bou1.ports[2], pump2.port_a) annotation (Line(
-      points={{-102,-20},{-122,-20},{-122,24},{-114,24}},
+  connect(bou1.ports[1], pump2.port_a) annotation (Line(
+      points={{-102,-16},{-122,-16},{-122,24},{-114,24}},
       color={0,127,255},
       smooth=Smooth.None));
 
-  connect(pump2.port_b, hp.brineIn) annotation (Line(
-      points={{-94,24},{-82,24},{-82,12}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senStoHx_out.port_b, hp.fluidIn) annotation (Line(
-      points={{-58,-16},{-58,4},{-62,4}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(hp.fluidOut, senStoHx_in.port_a) annotation (Line(
-      points={{-62,12},{-54,12},{-54,10},{-46,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(booleanConstant.y, hp.on) annotation (Line(
       points={{-91,60},{-74,60},{-74,18.8}},
       color={255,0,255},
@@ -154,9 +139,25 @@ equation
       points={{58,-58},{50,-58},{50,-58.3077},{42,-58.3077}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(pump2.port_b, hp.port_a1) annotation (Line(
+      points={{-94,24},{-88,24},{-88,14},{-82,14}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hp.port_b2, bou1.ports[2]) annotation (Line(
+      points={{-82,2},{-102,2},{-102,-20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hp.port_a2, senStoHx_out.port_b) annotation (Line(
+      points={{-62,2},{-60,2},{-60,-16},{-58,-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hp.port_b1, senStoHx_in.port_a) annotation (Line(
+      points={{-62,14},{-54,14},{-54,10},{-46,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{
-            120,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{120,
+            100}}),     graphics),
     experiment(StopTime=86400),
     __Dymola_experimentSetupOutput,
     Documentation(revisions="<html>
