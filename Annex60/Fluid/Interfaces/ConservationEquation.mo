@@ -167,7 +167,11 @@ equation
   // Total quantities
   m = fluidVolume*medium.d;
   mXi = m*medium.Xi;
-  U = m*medium.u + (if computeCSen then CSen*(medium.T-Medium.reference_T) else 0);
+  if computeCSen then
+    U = m*medium.u + CSen*(medium.T-Medium.reference_T);
+  else
+    U = m*medium.u;
+  end if;
   mC = m*C;
 
   hOut = medium.h;
