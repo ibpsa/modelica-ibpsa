@@ -61,7 +61,7 @@ protected
     nPorts=nPorts,
     U(start=V*rho_start*Medium.specificInternalEnergy(state_start) + (T_start -
           Medium.reference_T)*dynBal.CSen),
-    final mSenFactor=mSenFactor) if
+    final mSenFac=mSenFac) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 

@@ -43,7 +43,7 @@ model TwoPortHeatMassExchanger
     redeclare final package Medium = Medium,
     nPorts = 2,
     V=m_flow_nominal*tau/rho_default,
-    final mSenFactor=1,
+    final mSenFac=1,
     final m_flow_nominal = m_flow_nominal,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,

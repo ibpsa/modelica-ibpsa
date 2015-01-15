@@ -2,7 +2,7 @@ within Annex60.Fluid.BaseClasses;
 partial model PartialThreeWayResistance
   "Flow splitter with partial resistance model at each port"
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations(
-    final mSenFactor=1);
+    final mSenFac=1);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium =
         Medium, m_flow(min=if (portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Entering) then
@@ -65,7 +65,7 @@ public
     final C_start=C_start,
     final allowFlowReversal=true,
     final prescribedHeatFlowRate=false,
-    final mSenFactor=mSenFactor) if
+    final mSenFac=mSenFac) if
        dynamicBalance "Fluid volume to break algebraic loop"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   parameter Boolean dynamicBalance = true

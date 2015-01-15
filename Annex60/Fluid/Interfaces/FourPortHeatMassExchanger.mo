@@ -79,7 +79,7 @@ model FourPortHeatMassExchanger
     final X_start=X1_start,
     final C_start=C1_start,
     final C_nominal=C1_nominal,
-    final mSenFactor=1) "Volume for fluid 1"
+    final mSenFac=1) "Volume for fluid 1"
                                annotation (Placement(transformation(extent={{-10,70},
             {10,50}})));
 
@@ -88,7 +88,7 @@ model FourPortHeatMassExchanger
     redeclare final package Medium = Medium2,
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,
-    final mSenFactor=1,
+    final mSenFac=1,
     final m_flow_nominal = m2_flow_nominal,
     energyDynamics=if tau2 > Modelica.Constants.eps
                          then energyDynamics else

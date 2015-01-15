@@ -2,7 +2,7 @@ within Annex60.Fluid.Movers.BaseClasses;
 partial model PartialFlowMachine
   "Partial model to interface fan or pump models with the medium"
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations(
-    final mSenFactor=1);
+    final mSenFac=1);
   import Modelica.Constants;
 
   extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(show_T=false,
@@ -28,7 +28,7 @@ partial model PartialFlowMachine
     prescribedHeatFlowRate=true,
     allowFlowReversal=allowFlowReversal,
     nPorts=2,
-    final mSenFactor=mSenFactor) "Fluid volume for dynamic model"
+    final mSenFac=mSenFac) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
    parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
