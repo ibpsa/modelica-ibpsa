@@ -83,11 +83,12 @@ model FourPortHeatMassExchanger
                                annotation (Placement(transformation(extent={{-10,70},
             {10,50}})));
 
-  replaceable Annex60.Fluid.MixingVolumes.MixingVolume vol2(final mSenFactor=1)
+  replaceable Annex60.Fluid.MixingVolumes.MixingVolume vol2
     constrainedby Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium2,
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,
+    final mSenFactor=1,
     final m_flow_nominal = m2_flow_nominal,
     energyDynamics=if tau2 > Modelica.Constants.eps
                          then energyDynamics else
