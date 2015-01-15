@@ -89,7 +89,7 @@ protected
      p=p_start,
      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
 
-  // Parameter for avoiding extra overhead calculations when C_dry==0
+  // Parameter for avoiding extra overhead calculations when CSen==0
   final parameter Boolean computeCSen = CSen > Modelica.Constants.eps
     annotation(Evaluate=true);
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
