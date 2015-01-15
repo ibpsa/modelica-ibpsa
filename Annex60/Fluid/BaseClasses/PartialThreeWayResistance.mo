@@ -1,7 +1,8 @@
 within Annex60.Fluid.BaseClasses;
 partial model PartialThreeWayResistance
   "Flow splitter with partial resistance model at each port"
-  extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final mSenFactor=1);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium =
         Medium, m_flow(min=if (portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Entering) then

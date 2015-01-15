@@ -1,7 +1,8 @@
 within Annex60.Fluid.Delays;
 model DelayFirstOrder
   "Delay element, approximated by a first order differential equation"
-  extends Annex60.Fluid.MixingVolumes.MixingVolume(final V=V_nominal);
+  extends Annex60.Fluid.MixingVolumes.MixingVolume(final V=V_nominal,
+                                                   final mSenFactor=1);
 
   parameter Modelica.SIunits.Time tau = 60 "Time constant at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition"));

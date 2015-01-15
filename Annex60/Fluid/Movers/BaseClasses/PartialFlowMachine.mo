@@ -1,7 +1,8 @@
 within Annex60.Fluid.Movers.BaseClasses;
 partial model PartialFlowMachine
   "Partial model to interface fan or pump models with the medium"
-  extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final mSenFactor=1);
   import Modelica.Constants;
 
   extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(show_T=false,
