@@ -48,7 +48,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   // Inputs that need to be defined by an extending class
   parameter Modelica.SIunits.Volume fluidVolume "Volume";
-  final parameter Modelica.SIunits.HeatCapacity CSen = (mSenFactor - 1)*rho_default*cp_default*fluidVolume
+  final parameter Modelica.SIunits.HeatCapacity CSen=
+    (mSenFactor - 1)*rho_default*cp_default*fluidVolume
     "Aditional heat capacity for implementing mFactor";
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Sensible plus latent heat flow rate transfered into the medium"
