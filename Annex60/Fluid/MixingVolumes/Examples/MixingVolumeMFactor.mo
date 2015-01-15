@@ -74,7 +74,7 @@ difference between using an <code>mSenFactor = 10</code> and multiplying volume 
 <ul>
 <li>
 December, 2014 by Filip Jorissen:<br/>
-Added temperature verification
+Added temperature verification.
 </li>
 <li>
 November 25, 2014 by Filip Jorissen:<br/>
