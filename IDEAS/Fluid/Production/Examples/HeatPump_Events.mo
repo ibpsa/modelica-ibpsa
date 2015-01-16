@@ -52,7 +52,7 @@ model HeatPump_Events
     use_scaling=false,
     avoidEvents=avoidEvents.k,
     use_onOffSignal=true,
-    riseTime=600) constrainedby HP_WaterWater_OnOff
+    riseTime=120) constrainedby HP_WaterWater_OnOff
     annotation (Placement(transformation(extent={{-62,48},{-42,68}})));
   Sensors.TemperatureTwoPort senTemBrine_out(redeclare package Medium = Medium,
       m_flow_nominal=4200/3600)
@@ -114,16 +114,14 @@ model HeatPump_Events
                                              redeclare package Medium = Medium,
       m_flow_nominal=2550/3600)
     annotation (Placement(transformation(extent={{-18,-24},{0,-6}})));
-   Modelica.Blocks.Sources.Step ramp(startTime=15000)
-     annotation (Placement(transformation(extent={{-98,-20},{-78,0}})));
    Modelica.Blocks.Sources.BooleanConstant avoidEvents1(k=true)
     "Switch to see influence on generated events"
-     annotation (Placement(transformation(extent={{-98,-60},{-78,-40}})));
+     annotation (Placement(transformation(extent={{-102,-60},{-82,-40}})));
    Modelica.Blocks.Math.RealToBoolean realToBoolean
      annotation (Placement(transformation(extent={{-60,-20},{-52,-12}})));
    Modelica.Blocks.Sources.BooleanConstant avoidEvents(k=false)
     "Switch to see influence on generated events"
-    annotation (Placement(transformation(extent={{-100,42},{-80,62}})));
+    annotation (Placement(transformation(extent={{-102,42},{-82,62}})));
    Modelica.Blocks.Sources.Step ramp1(
                                      startTime=15000,
     height=-1,
@@ -180,10 +178,6 @@ equation
       points={{0,-15},{8,-15},{8,-36},{40,-36}},
       color={0,127,255},
       smooth=Smooth.None));
-   connect(ramp.y,realToBoolean. u) annotation (Line(
-       points={{-77,-10},{-68,-10},{-68,-16},{-60.8,-16}},
-       color={0,0,127},
-       smooth=Smooth.None));
    connect(realToBoolean.y, heatPump1.on) annotation (Line(
        points={{-51.6,-16},{-48,-16},{-48,-25.2}},
        color={255,0,255},
@@ -201,18 +195,10 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(ramp1.y, pump1.m_flowSet) annotation (Line(
-      points={{-79,90},{-70,90},{-70,6},{-36,6},{-36,6},{-20,6},{-20,7.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pump3.m_flowSet, ramp.y) annotation (Line(
-      points={{-14,-86.4},{-16,-86.4},{-16,-90},{-74,-90},{-74,-10},{-77,-10}},
+      points={{-79,90},{-70,90},{-70,6},{-20,6},{-20,7.6}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(ramp.y, pump2.m_flowSet) annotation (Line(
-      points={{-77,-10},{-22,-10},{-22,-24},{-14,-24},{-14,-29.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(pump1.port_b, heatPump.port_a1) annotation (Line(
       points={{-30,18},{-74,18},{-74,64},{-62,64}},
       color={0,127,255},
@@ -245,14 +231,29 @@ equation
       points={{-42,64},{-32,64},{-32,79},{-24,79}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(pump3.m_flowSet, ramp1.y) annotation (Line(
+      points={{-14,-86.4},{-44,-86.4},{-44,-86},{-79,-86},{-79,90}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realToBoolean.u, ramp1.y) annotation (Line(
+      points={{-60.8,-16},{-79,-16},{-79,90}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pump2.m_flowSet, realToBoolean.u) annotation (Line(
+      points={{-14,-29.6},{-16,-29.6},{-16,-4},{-64,-4},{-64,-16},{-60.8,-16}},
+
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=30000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
-    Commands(file="Scripts/Tester_Boiler.mos" "TestModel"),
+    Commands(file=
+          "modelica://Annex60/Resources/Scripts/Dymola/Fluid/Production/Examples/HeatPump_Events.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>This example demonstrates the use of a heat pump.</p>
 </html>", revisions="<html>
