@@ -105,39 +105,39 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.Blocks.Tables.CombiTable2D powerTable(table=heatPumpData.powerData,
       smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "Interpolation table for finding the electrical power"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-74,10},{-54,30}})));
   Modelica.Blocks.Tables.CombiTable2D copTable(table=heatPumpData.copData,
       smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-    annotation (Placement(transformation(extent={{-60,54},{-40,74}})));
+    annotation (Placement(transformation(extent={{-74,-16},{-54,4}})));
   Boolean compressorOn;
   Modelica.Blocks.Sources.RealExpression Qevap(y=-P_evap)
-    annotation (Placement(transformation(extent={{18,0},{0,20}})));
+    annotation (Placement(transformation(extent={{54,32},{36,52}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatEvap
-    annotation (Placement(transformation(extent={{-12,0},{-32,20}})));
+    annotation (Placement(transformation(extent={{24,32},{4,52}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowCond
-    annotation (Placement(transformation(extent={{22,-20},{42,0}})));
+    annotation (Placement(transformation(extent={{56,-60},{36,-40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductorLosses(G=
         heatPumpData.G) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={26,-70})));
+        origin={26,-76})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatLoss
     annotation (Placement(transformation(extent={{16,-110},{36,-90}})));
 
   Modelica.Blocks.Sources.RealExpression Qcond(y=P_cond)
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{84,-60},{64,-40}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_evap(
     allowFlowReversal=allowFlowReversal,
     tau=10,
     redeclare package Medium = Medium1,
     m_flow_nominal=heatPumpData.m1_flow_nominal) "Evaporator inlet temperature"
-    annotation (Placement(transformation(extent={{-92,50},{-72,70}})));
+    annotation (Placement(transformation(extent={{-90,70},{-70,50}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort T_out_cond(
     tau=10,
     allowFlowReversal=allowFlowReversal,
     redeclare package Medium = Medium2,
     m_flow_nominal=heatPumpData.m2_flow_nominal) "Condensor outlet temperature"
-    annotation (Placement(transformation(extent={{66,50},{86,70}})));
+    annotation (Placement(transformation(extent={{-70,-70},{-90,-50}})));
 
   Modelica.SIunits.Power P_el "Electrical power consumption";
   Modelica.SIunits.Power P_evap "Thermal power of the evaporator (positive)";
@@ -178,9 +178,9 @@ public
     m_flow_nominal=heatPumpData.m1_flow_nominal*sca,
     dp_nominal=heatPumpData.dp1_nominal)         annotation (Placement(
         transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={-60,10})));
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={0,60})));
   FixedResistances.Pipe_HeatPort condensor(
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
@@ -201,9 +201,9 @@ public
     m_flow_nominal=heatPumpData.m2_flow_nominal*sca,
     dp_nominal=heatPumpData.dp2_nominal)         annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={60,-10})));
+        extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={0,-60})));
 
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
@@ -224,36 +224,36 @@ protected
     pre_y_start=true,
     uLow=0,
     uHigh=5) "Temperature protection of the condenser"
-    annotation (Placement(transformation(extent={{-42,-88},{-30,-76}})));
+    annotation (Placement(transformation(extent={{-18,-10},{-6,2}})));
   Modelica.Blocks.Sources.RealExpression limit1(y=heatPumpData.T_cond_max -
         condensor.heatPort.T)
-    annotation (Placement(transformation(extent={{-68,-92},{-48,-72}})));
+    annotation (Placement(transformation(extent={{-44,-14},{-24,6}})));
 
   Modelica.Blocks.Logical.Hysteresis hysteresisEvap(
     pre_y_start=true,
     uLow=0,
     uHigh=5) "Temperature protection of the evaporator"
-    annotation (Placement(transformation(extent={{-42,-102},{-30,-90}})));
+    annotation (Placement(transformation(extent={{-18,-24},{-6,-12}})));
   Modelica.Blocks.Sources.RealExpression limit2(y=evaporator.heatPort.T -
         heatPumpData.T_evap_min)
-    annotation (Placement(transformation(extent={{-68,-106},{-48,-86}})));
+    annotation (Placement(transformation(extent={{-44,-28},{-24,-8}})));
   Modelica.Blocks.Logical.And tempProtection
-    annotation (Placement(transformation(extent={{-24,-90},{-16,-82}})));
+    annotation (Placement(transformation(extent={{0,-12},{8,-4}})));
 
   // ---------------- Smoothing of the temperature protection control and on off control
 
 public
   Modelica.Blocks.Sources.BooleanExpression compressorOnBlock(y=compressorOn) if avoidEvents
-    annotation (Placement(transformation(extent={{-100,-68},{-60,-48}})));
+    annotation (Placement(transformation(extent={{-46,10},{-6,30}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal if avoidEvents
-    annotation (Placement(transformation(extent={{-52,-64},{-40,-52}})));
+    annotation (Placement(transformation(extent={{2,14},{14,26}})));
   Modelica.Blocks.Continuous.Filter modulationRate(f_cut=5/(2*Modelica.Constants.pi
         *riseTime),
     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
     final filterType=Modelica.Blocks.Types.FilterType.LowPass,
     final order=2) if                                                                                   avoidEvents
     "Fictive modulation rate to avoid non-smooth on/off transitions causing events."
-    annotation (Placement(transformation(extent={{-34,-64},{-22,-52}})));
+    annotation (Placement(transformation(extent={{20,14},{32,26}})));
 protected
   Modelica.Blocks.Interfaces.RealInput modulationRate_internal
     " Internal variable for temperature safety modulation";
@@ -288,11 +288,11 @@ equation
   if avoidEvents then
     connect(modulationRate_internal, modulationRate.y);
     connect(compressorOnBlock.y, booleanToReal.u) annotation (Line(
-      points={{-58,-58},{-53.2,-58}},
+      points={{-4,20},{0.8,20}},
       color={255,0,255},
       smooth=Smooth.None));
     connect(modulationRate.u, booleanToReal.y) annotation (Line(
-      points={{-35.2,-58},{-39.4,-58}},
+      points={{18.8,20},{14.6,20}},
       color={0,0,127},
       smooth=Smooth.None));
   else
@@ -310,72 +310,72 @@ equation
   end if;
 
   connect(heatLoss, thermalConductorLosses.port_a) annotation (Line(
-      points={{26,-100},{26,-80}},
+      points={{26,-100},{26,-86}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(prescribedHeatEvap.Q_flow, Qevap.y) annotation (Line(
-      points={{-12,10},{-0.9,10}},
+      points={{24,42},{35.1,42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(prescribedHeatFlowCond.Q_flow, Qcond.y) annotation (Line(
-      points={{22,-10},{1,-10}},
+      points={{56,-50},{63,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Pelec.y, P) annotation (Line(
       points={{39,80},{20,80},{20,110}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(evaporator.port_a, T_in_evap.port_b) annotation (Line(
-      points={{-60,20},{-60,60},{-72,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(evaporator.heatPort,prescribedHeatEvap. port) annotation (Line(
-      points={{-50,10},{-32,10}},
+      points={{-1.33227e-15,50},{0,50},{0,42},{4,42}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(prescribedHeatFlowCond.port, condensor.heatPort) annotation (Line(
-      points={{42,-10},{50,-10}},
+      points={{36,-50},{1.33227e-15,-50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalConductorLosses.port_b, condensor.heatPort) annotation (Line(
-      points={{26,-60},{26,-28},{50,-28},{50,-10}},
+      points={{26,-66},{26,-50},{1.33227e-15,-50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(limit1.y, hysteresisCond.u) annotation (Line(
-      points={{-47,-82},{-43.2,-82}},
+      points={{-23,-4},{-19.2,-4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(limit2.y, hysteresisEvap.u) annotation (Line(
-      points={{-47,-96},{-43.2,-96}},
+      points={{-23,-18},{-19.2,-18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hysteresisCond.y, tempProtection.u1) annotation (Line(
-      points={{-29.4,-82},{-26,-82},{-26,-86},{-24.8,-86}},
+      points={{-5.4,-4},{-2,-4},{-2,-8},{-0.8,-8}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(hysteresisEvap.y, tempProtection.u2) annotation (Line(
-      points={{-29.4,-96},{-26,-96},{-26,-89.2},{-24.8,-89.2}},
+      points={{-5.4,-18},{-2,-18},{-2,-11.2},{-0.8,-11.2}},
       color={255,0,255},
       smooth=Smooth.None));
 
   connect(port_a1, T_in_evap.port_a) annotation (Line(
-      points={{-100,60},{-92,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(evaporator.port_b, port_b2) annotation (Line(
-      points={{-60,0},{-60,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(port_b1, T_out_cond.port_b) annotation (Line(
-      points={{100,60},{86,60}},
+      points={{-100,60},{-90,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(T_out_cond.port_a, condensor.port_b) annotation (Line(
-      points={{66,60},{60,60},{60,0}},
+      points={{-70,-60},{-10,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(condensor.port_a, port_a2) annotation (Line(
-      points={{60,-20},{60,-60},{100,-60}},
+      points={{10,-60},{100,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(evaporator.port_a, T_in_evap.port_b) annotation (Line(
+      points={{-10,60},{-70,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(T_out_cond.port_b, port_b2) annotation (Line(
+      points={{-90,-60},{-100,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(evaporator.port_b, port_b1) annotation (Line(
+      points={{10,60},{56,60},{56,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -385,22 +385,30 @@ equation
     Icon(graphics={
         Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
         Line(
-          points={{-100,40},{-20,40},{-40,20},{-20,0},{-40,-20},{-20,-40},{-100,
-              -40}},
+          points={{8,100},{40,40},{20,20},{40,0},{20,-20},{40,-40},{8,-100}},
           color={0,0,255},
-          smooth=Smooth.None),
+          smooth=Smooth.None,
+          origin={0,-68},
+          rotation=90),
         Line(
-          points={{100,40},{20,40},{40,20},{20,0},{40,-20},{20,-40},{100,-40}},
+          points={{-10,100},{-40,40},{-20,20},{-40,0},{-20,-20},{-40,-40},{-10,
+              -100}},
           color={0,0,255},
-          smooth=Smooth.None),
+          smooth=Smooth.None,
+          origin={0,70},
+          rotation=90),
         Line(
-          points={{-20,20},{20,20}},
+          points={{-20,0},{20,0}},
           color={255,0,0},
-          smooth=Smooth.None),
+          smooth=Smooth.None,
+          origin={0,0},
+          rotation=90),
         Line(
-          points={{10,30},{20,20},{10,10}},
+          points={{-4,13},{6,1},{-4,-11}},
           color={255,0,0},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None,
+          origin={-1,-14},
+          rotation=270)}),
     Documentation(revisions="<html>
     <ul>
     <li>December 2014 by Damien Picard:<br/> 

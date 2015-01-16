@@ -10,42 +10,24 @@ model HP_WaterWater_OnOff
 equation
    compressorOn = on_internal and tempProtection.y;
   connect(copTable.u2, powerTable.u2) annotation (Line(
-      points={{-62,58},{-82,58},{-82,84},{-62,84}},
+      points={{-76,-12},{-82,-12},{-82,14},{-76,14}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_in_evap.T, powerTable.u2) annotation (Line(
-      points={{-82,71},{-82,84},{-62,84}},
+      points={{-80,49},{-80,14},{-76,14}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(T_out_cond.T, powerTable.u1) annotation (Line(
-      points={{76,71},{2,71},{2,76},{-74,76},{-74,96},{-62,96}},
+      points={{-80,-49},{2,-49},{2,76},{-74,76},{-74,26},{-76,26}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(copTable.u1, powerTable.u1) annotation (Line(
-      points={{-62,70},{-74,70},{-74,96},{-62,96}},
+      points={{-76,0},{-74,0},{-74,26},{-76,26}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
-        Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
-        Line(
-          points={{-100,40},{-20,40},{-40,20},{-20,0},{-40,-20},{-20,-40},{-100,
-              -40}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{100,40},{20,40},{40,20},{20,0},{40,-20},{20,-40},{100,-40}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-20,20},{20,20}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{10,30},{20,20},{10,10}},
-          color={255,0,0},
-          smooth=Smooth.None),
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={135,135,135})}),
     Documentation(revisions="<html>
 <ul>

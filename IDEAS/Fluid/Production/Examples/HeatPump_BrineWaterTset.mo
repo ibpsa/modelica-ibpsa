@@ -10,19 +10,19 @@ model HeatPump_BrineWaterTset
       use_onOffSignal=false,
       use_modulationSignal=true));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 35)
-    annotation (Placement(transformation(extent={{2,66},{-16,84}})));
+    annotation (Placement(transformation(extent={{-44,88},{-26,106}})));
   Modelica.Blocks.Sources.Step     const1(
     height=-0.5,
     offset=1,
     startTime=10000)
-    annotation (Placement(transformation(extent={{0,40},{-16,56}})));
+    annotation (Placement(transformation(extent={{8,26},{-8,42}})));
 equation
   connect(const.y, heatPump.Tset) annotation (Line(
-      points={{-16.9,75},{-57,75},{-57,68}},
+      points={{-25.1,97},{-22,97},{-22,75},{-20,75}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const1.y, heatPump.mod) annotation (Line(
-      points={{-16.8,48},{-43.2,48},{-43.2,69}},
+      points={{-8.8,34},{-21,34},{-21,61.2}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

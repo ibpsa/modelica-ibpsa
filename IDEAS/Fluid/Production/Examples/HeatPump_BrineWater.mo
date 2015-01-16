@@ -13,7 +13,7 @@ model HeatPump_BrineWater
     redeclare package Medium = Medium,
     m_flow_nominal=2550/3600,
     dpFix=50000)
-    annotation (Placement(transformation(extent={{-10,44},{-30,64}})));
+    annotation (Placement(transformation(extent={{40,50},{20,70}})));
   inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   Modelica.Blocks.Sources.Sine sine(
@@ -21,29 +21,29 @@ model HeatPump_BrineWater
     amplitude=4,
     offset=273.15 + 30,
     startTime=2000)
-    annotation (Placement(transformation(extent={{88,42},{68,62}})));
+    annotation (Placement(transformation(extent={{100,50},{80,70}})));
   Sources.Boundary_pT bou(          redeclare package Medium = Medium,
-    nPorts=2,
     use_T_in=true,
-    p=200000)
-    annotation (Placement(transformation(extent={{54,66},{34,46}})));
+    p=200000,
+    nPorts=2)
+    annotation (Placement(transformation(extent={{70,72},{50,52}})));
   Fluid.Movers.Pump pump1(
     m=1,
     useInput=false,
     redeclare package Medium = Medium,
     m_flow_nominal=4200/3600)
-    annotation (Placement(transformation(extent={{-10,8},{-30,28}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Sources.Boundary_pT bou1(         redeclare package Medium = Medium,
-    nPorts=2,
     use_T_in=true,
-    p=200000)
-    annotation (Placement(transformation(extent={{54,20},{34,0}})));
+    p=200000,
+    nPorts=2)
+    annotation (Placement(transformation(extent={{-88,72},{-68,52}})));
   Modelica.Blocks.Sources.Sine sine1(
     amplitude=4,
     offset=273.15 + 10,
     startTime=4000,
     freqHz=1/3000)
-    annotation (Placement(transformation(extent={{88,-4},{68,16}})));
+    annotation (Placement(transformation(extent={{-118,50},{-98,70}})));
   replaceable HP_WaterWater_OnOff heatPump(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
@@ -53,43 +53,45 @@ model HeatPump_BrineWater
     onOff=true,
     use_scaling=false,
     avoidEvents=false) constrainedby HP_WaterWater_OnOff
-    annotation (Placement(transformation(extent={{-62,48},{-42,68}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-10,70})));
   Fluid.Movers.Pump pump2(
     m=1,
     useInput=false,
     redeclare package Medium = Medium,
     m_flow_nominal=scaling*2550/3600,
     dpFix=50000)
-    annotation (Placement(transformation(extent={{-6,-40},{-26,-20}})));
+    annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
   Modelica.Blocks.Sources.Sine sine2(
     freqHz=1/5000,
     amplitude=4,
     offset=273.15 + 30,
     startTime=2000)
-    annotation (Placement(transformation(extent={{92,-42},{72,-22}})));
+    annotation (Placement(transformation(extent={{100,-50},{80,-30}})));
   Sources.Boundary_pT bou2(         redeclare package Medium = Medium,
     nPorts=2,
     use_T_in=true,
     p=200000)
-    annotation (Placement(transformation(extent={{58,-18},{38,-38}})));
+    annotation (Placement(transformation(extent={{70,-28},{50,-48}})));
   Fluid.Movers.Pump pump3(
     m=1,
     useInput=false,
     redeclare package Medium = Medium,
     m_flow_nominal=scaling*4200/3600,
     dpFix=50000)
-    annotation (Placement(transformation(extent={{-6,-76},{-26,-56}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Sources.Boundary_pT bou3(         redeclare package Medium = Medium,
-    nPorts=2,
     use_T_in=true,
-    p=200000)
-    annotation (Placement(transformation(extent={{58,-64},{38,-84}})));
+    p=200000,
+    nPorts=2)
+    annotation (Placement(transformation(extent={{-88,-18},{-68,-38}})));
   Modelica.Blocks.Sources.Sine sine3(
     amplitude=4,
     offset=273.15 + 10,
     startTime=4000,
     freqHz=1/3000)
-    annotation (Placement(transformation(extent={{92,-88},{72,-68}})));
+    annotation (Placement(transformation(extent={{-118,-42},{-98,-22}})));
   replaceable HP_WaterWater_OnOff heatPump1(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
@@ -100,103 +102,105 @@ model HeatPump_BrineWater
     onOff=true,
     P_the_nominal=scaling*heatPump1.heatPumpData.P_the_nominal,
     avoidEvents=false) constrainedby HP_WaterWater_OnOff
-    annotation (Placement(transformation(extent={{-58,-36},{-38,-16}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-10,-30})));
   Sensors.TemperatureTwoPort senTemBrine_out(redeclare package Medium = Medium,
       m_flow_nominal=4200/3600)
-    annotation (Placement(transformation(extent={{-58,26},{-42,42}})));
+    annotation (Placement(transformation(extent={{-40,50},{-60,70}})));
   Sensors.TemperatureTwoPort senTemBrine_out1(redeclare package Medium = Medium,
       m_flow_nominal=scaling*4200/3600)
-    annotation (Placement(transformation(extent={{-50,-62},{-34,-46}})));
+    annotation (Placement(transformation(extent={{-40,-48},{-56,-32}})));
   Sensors.TemperatureTwoPort senTemWater_out(redeclare package Medium = Medium,
       m_flow_nominal=2550/3600)
-    annotation (Placement(transformation(extent={{-24,70},{-6,88}})));
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Sensors.TemperatureTwoPort senTemWater_out1(redeclare package Medium = Medium,
       m_flow_nominal=scaling*2550/3600)
-    annotation (Placement(transformation(extent={{-20,-16},{-2,2}})));
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 equation
-  connect(pump.port_a, bou.ports[1]) annotation (Line(
-      points={{-10,54},{34,54}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(sine.y, bou.T_in) annotation (Line(
-      points={{67,52},{56,52}},
+      points={{79,60},{78,60},{78,58},{72,58}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(sine1.y, bou1.T_in) annotation (Line(
-      points={{67,6},{56,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(bou1.ports[1], pump1.port_a) annotation (Line(
-      points={{34,8},{12,8},{12,18},{-10,18}},
-      color={0,127,255},
       smooth=Smooth.None));
   connect(pump2.port_a, bou2.ports[1]) annotation (Line(
-      points={{-6,-30},{38,-30}},
+      points={{40,-40},{50,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sine2.y, bou2.T_in) annotation (Line(
-      points={{71,-32},{60,-32}},
+      points={{79,-40},{72,-40},{72,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sine3.y,bou3. T_in) annotation (Line(
-      points={{71,-78},{60,-78}},
+      points={{-97,-32},{-90,-32}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(bou3.ports[1],pump3. port_a) annotation (Line(
-      points={{38,-76},{16,-76},{16,-66},{-6,-66}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTemBrine_out.port_b, bou1.ports[2]) annotation (Line(
-      points={{-42,34},{34,34},{34,12}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTemBrine_out1.port_b, bou3.ports[2]) annotation (Line(
-      points={{-34,-54},{38,-54},{38,-72}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTemWater_out.port_b, bou.ports[2]) annotation (Line(
-      points={{-6,79},{2,79},{2,58},{34,58}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(senTemWater_out1.port_b, bou2.ports[2]) annotation (Line(
-      points={{-2,-7},{-2,-6},{6,-6},{6,-26},{38,-26}},
+      points={{40,-20},{40,-36},{50,-36}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemBrine_out.port_a, heatPump.port_b2) annotation (Line(
-      points={{-58,34},{-62,34},{-62,52}},
+  connect(heatPump1.port_b2, senTemWater_out1.port_a) annotation (Line(
+      points={{-4,-20},{20,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(heatPump.port_a1, pump1.port_b) annotation (Line(
-      points={{-62,64},{-82,64},{-82,18},{-30,18}},
+  connect(pump2.port_b, heatPump1.port_a2) annotation (Line(
+      points={{20,-40},{-4,-40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pump3.port_b, heatPump1.port_a1) annotation (Line(
+      points={{-40,-20},{-16,-20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTemBrine_out1.port_a, heatPump1.port_b1) annotation (Line(
+      points={{-40,-40},{-16,-40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(bou3.ports[1], senTemBrine_out1.port_b) annotation (Line(
+      points={{-68,-30},{-68,-40},{-56,-40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pump3.port_a, bou3.ports[2]) annotation (Line(
+      points={{-60,-20},{-68,-20},{-68,-26}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatPump.port_b2, senTemWater_out.port_a) annotation (Line(
+      points={{-4,80},{20,80}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pump.port_b, heatPump.port_a2) annotation (Line(
-      points={{-30,54},{-36,54},{-36,52},{-42,52}},
+      points={{20,60},{-4,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(heatPump.port_b1, senTemWater_out.port_a) annotation (Line(
-      points={{-42,64},{-34,64},{-34,79},{-24,79}},
+  connect(pump.port_a, bou.ports[1]) annotation (Line(
+      points={{40,60},{50,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(heatPump1.port_b1, senTemWater_out1.port_a) annotation (Line(
-      points={{-38,-20},{-30,-20},{-30,-7},{-20,-7}},
+  connect(senTemWater_out.port_b, bou.ports[2]) annotation (Line(
+      points={{40,80},{50,80},{50,64}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(heatPump1.port_a2, pump2.port_b) annotation (Line(
-      points={{-38,-32},{-32,-32},{-32,-30},{-26,-30}},
+  connect(sine1.y, bou1.T_in) annotation (Line(
+      points={{-97,60},{-94,60},{-94,58},{-90,58}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pump1.port_b, heatPump.port_a1) annotation (Line(
+      points={{-40,80},{-16,80}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(heatPump1.port_a1, pump3.port_b) annotation (Line(
-      points={{-58,-20},{-80,-20},{-80,-66},{-26,-66}},
+  connect(heatPump.port_b1, senTemBrine_out.port_a) annotation (Line(
+      points={{-16,60},{-40,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemBrine_out1.port_a, heatPump1.port_b2) annotation (Line(
-      points={{-50,-54},{-58,-54},{-58,-32}},
+  connect(senTemBrine_out.port_b, bou1.ports[1]) annotation (Line(
+      points={{-60,60},{-68,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pump1.port_a, bou1.ports[2]) annotation (Line(
+      points={{-60,80},{-68,80},{-68,64}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=15000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

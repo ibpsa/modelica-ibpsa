@@ -26,7 +26,7 @@ equation
   compressorOn = on_internal and tempProtection.y and hysteresisTsetLimit.y;
 
   connect(copTable.u2,powerTable. u2) annotation (Line(
-      points={{-62,58},{-82,58},{-82,84},{-62,84}},
+      points={{-76,-12},{-82,-12},{-82,14},{-76,14}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(powerTable.u1, T_in_cond.T) annotation (Line(
@@ -38,7 +38,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_in_evap.T,powerTable. u2) annotation (Line(
-      points={{-82,71},{-82,84},{-62,84}},
+      points={{-80,49},{-80,14},{-76,14}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TsetLimit.y, hysteresisTsetLimit.u) annotation (Line(

@@ -26,12 +26,14 @@ model StorageTank_OneIntHx
       heatPumpData,
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium)
-    annotation (Placement(transformation(extent={{-82,-2},{-62,18}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-72,8})));
   Fluid.Movers.Pump pump(
     m=1,
     redeclare package Medium = Medium,
-    m_flow_nominal=hp.heatPumpData.m_flow_nominal_fluid*hp.sca,
-    useInput=false)
+    useInput=false,
+    m_flow_nominal=hp.heatPumpData.m2_flow_nominal*hp.sca)
     annotation (Placement(transformation(extent={{-38,-62},{-58,-42}})));
   inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
@@ -42,10 +44,10 @@ model StorageTank_OneIntHx
 
   parameter SI.MassFlowRate m_flow_nominal=3 "Nominal mass flow rate";
   IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_in(redeclare package Medium
-      = Medium, m_flow_nominal=hp.heatPumpData.m_flow_nominal_fluid*hp.sca)
+      = Medium, m_flow_nominal=hp.heatPumpData.m2_flow_nominal*hp.sca)
     annotation (Placement(transformation(extent={{-46,4},{-34,16}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort senStoHx_out(redeclare package Medium
-      = Medium, m_flow_nominal=hp.heatPumpData.m_flow_nominal_fluid*hp.sca)
+      = Medium, m_flow_nominal=hp.heatPumpData.m2_flow_nominal*hp.sca)
                                                annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
@@ -66,7 +68,7 @@ model StorageTank_OneIntHx
     p=300000,
     T=285.15) annotation (Placement(transformation(extent={{-82,-28},{-102,-8}})));
   IDEAS.Fluid.Movers.Pump pump2(redeclare package Medium = Medium,
-      m_flow_nominal=hp.heatPumpData.m_flow_nominal_brine*hp.sca)
+      m_flow_nominal=hp.heatPumpData.m1_flow_nominal*hp.sca)
     annotation (Placement(transformation(extent={{-114,14},{-94,34}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
@@ -116,7 +118,7 @@ equation
       smooth=Smooth.None));
 
   connect(booleanConstant.y, hp.on) annotation (Line(
-      points={{-91,60},{-74,60},{-74,18.8}},
+      points={{-91,60},{-82.8,60},{-82.8,10}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(prescribedTemperature.port, pipe_HeatPort.heatPort) annotation (Line(
@@ -139,25 +141,25 @@ equation
       points={{58,-58},{50,-58},{50,-58.3077},{42,-58.3077}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pump2.port_b, hp.port_a1) annotation (Line(
-      points={{-94,24},{-88,24},{-88,14},{-82,14}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(hp.port_b2, bou1.ports[2]) annotation (Line(
-      points={{-82,2},{-102,2},{-102,-20}},
+  connect(hp.port_b2, senStoHx_in.port_a) annotation (Line(
+      points={{-66,18},{-56,18},{-56,10},{-46,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hp.port_a2, senStoHx_out.port_b) annotation (Line(
-      points={{-62,2},{-60,2},{-60,-16},{-58,-16}},
+      points={{-66,-2},{-62,-2},{-62,-16},{-58,-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hp.port_b1, senStoHx_in.port_a) annotation (Line(
-      points={{-62,14},{-54,14},{-54,10},{-46,10}},
+  connect(hp.port_b1, bou1.ports[2]) annotation (Line(
+      points={{-78,-2},{-92,-2},{-92,-4},{-102,-4},{-102,-20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hp.port_a1, pump2.port_b) annotation (Line(
+      points={{-78,18},{-86,18},{-86,24},{-94,24}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{120,
-            100}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{
+            120,100}}), graphics),
     experiment(StopTime=86400),
     __Dymola_experimentSetupOutput,
     Documentation(revisions="<html>
