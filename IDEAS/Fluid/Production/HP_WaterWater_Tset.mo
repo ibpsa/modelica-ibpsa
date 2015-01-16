@@ -25,22 +25,6 @@ model HP_WaterWater_Tset
 equation
   compressorOn = on_internal and tempProtection.y and hysteresisTsetLimit.y;
 
-  connect(copTable.u2,powerTable. u2) annotation (Line(
-      points={{-76,-12},{-82,-12},{-82,14},{-76,14}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(powerTable.u1, T_in_cond.T) annotation (Line(
-      points={{-62,96},{-94,96},{-94,80},{16,80},{16,56},{78,56},{78,-49}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(copTable.u1, T_in_cond.T) annotation (Line(
-      points={{-62,70},{-94,70},{-94,80},{16,80},{16,56},{78,56},{78,-49}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(T_in_evap.T,powerTable. u2) annotation (Line(
-      points={{-80,49},{-80,14},{-76,14}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TsetLimit.y, hysteresisTsetLimit.u) annotation (Line(
       points={{-25.9,-36},{-18,-36}},
       color={0,0,127},

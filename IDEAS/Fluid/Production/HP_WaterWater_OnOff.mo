@@ -9,23 +9,7 @@ model HP_WaterWater_OnOff
 
 equation
    compressorOn = on_internal and tempProtection.y;
-  connect(copTable.u2, powerTable.u2) annotation (Line(
-      points={{-76,-12},{-82,-12},{-82,14},{-76,14}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(T_in_evap.T, powerTable.u2) annotation (Line(
-      points={{-80,49},{-80,14},{-76,14}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  connect(T_out_cond.T, powerTable.u1) annotation (Line(
-      points={{-80,-49},{2,-49},{2,76},{-74,76},{-74,26},{-76,26}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(copTable.u1, powerTable.u1) annotation (Line(
-      points={{-76,0},{-74,0},{-74,26},{-76,26}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={135,135,135})}),

@@ -144,12 +144,12 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.SIunits.Power P_cond "Thermal power of the condensor (positive)";
   Real cop "COP of the heat pump";
   Modelica.Blocks.Sources.RealExpression Pelec(y=P_el)
-    annotation (Placement(transformation(extent={{60,70},{40,90}})));
+    annotation (Placement(transformation(extent={{62,18},{82,38}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={20,110})));
+        rotation=0,
+        origin={108,28})));
 public
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Flow resistance"));
@@ -322,7 +322,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(Pelec.y, P) annotation (Line(
-      points={{39,80},{20,80},{20,110}},
+      points={{83,28},{108,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(evaporator.heatPort,prescribedHeatEvap. port) annotation (Line(
@@ -377,6 +377,22 @@ equation
   connect(evaporator.port_b, port_b1) annotation (Line(
       points={{10,60},{56,60},{56,60},{100,60}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(powerTable.u2, T_in_evap.T) annotation (Line(
+      points={{-76,14},{-80,14},{-80,49}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(copTable.u2, T_in_evap.T) annotation (Line(
+      points={{-76,-12},{-78,-12},{-78,-14},{-80,-14},{-80,49}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(T_out_cond.T, copTable.u1) annotation (Line(
+      points={{-80,-49},{-80,-40},{-86,-40},{-86,0},{-76,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(powerTable.u1, copTable.u1) annotation (Line(
+      points={{-76,26},{-82,26},{-82,26},{-86,26},{-86,0},{-76,0}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
