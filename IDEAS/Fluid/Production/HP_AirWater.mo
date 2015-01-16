@@ -1,5 +1,6 @@
 within IDEAS.Fluid.Production;
 model HP_AirWater "Modulating air-to-water HP with losses to environment"
+  import IDEAS;
 
   extends IDEAS.Fluid.Production.Interfaces.PartialDynamicHeaterWithLosses(
       final heaterType=BaseClasses.HeaterType.HP_AW);
@@ -14,19 +15,24 @@ model HP_AirWater "Modulating air-to-water HP with losses to environment"
 
   Real COP "Instanteanous COP";
 
+  Real modulation(max=100) = IDEAS.Utilities.Math.Functions.smoothMax(0, heatSource.modulation, 1)
+    "Current modulation percentage";
+
+protected
   IDEAS.Fluid.Production.BaseClasses.HeatSource_HP_AW heatSource(
-    QNom=QNomFinal,
-    TEvaporator=sim.Te,
-    TEnvironment=heatPort.T,
-    UALoss=UALoss,
-    modulation_min=modulation_min,
-    modulation_start=modulation_start,
-    hIn=inStream(port_a.h_outflow),
+    final QNom=QNomFinal,
+    final TEvaporator=sim.Te,
+    final TEnvironment=heatPort.T,
+    final UALoss=UALoss,
+    final modulation_min=modulation_min,
+    final modulation_start=modulation_start,
+    final hIn=inStream(port_a.h_outflow),
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,-16},{-40,4}})));
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
 
+public
   parameter Real modulation_min=20 "Minimal modulation percentage";
   parameter Real modulation_start=35
     "Min estimated modulation level required for start of HP";

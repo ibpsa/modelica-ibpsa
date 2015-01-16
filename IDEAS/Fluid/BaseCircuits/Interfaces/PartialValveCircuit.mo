@@ -1,7 +1,8 @@
 within IDEAS.Fluid.BaseCircuits.Interfaces;
 model PartialValveCircuit
 
-  //Extensions
+  // Extensions ----------------------------------------------------------------
+
   extends ValveParametersSupply(
       rhoStdSupply=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   extends PartialFlowCircuit(redeclare Actuators.BaseClasses.PartialTwoWayValve
@@ -39,7 +40,7 @@ equation
           color={0,255,128},
           smooth=Smooth.None),
         Rectangle(
-          extent={{-4,44},{4,36}},
+          extent={{-6,44},{6,32}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}));

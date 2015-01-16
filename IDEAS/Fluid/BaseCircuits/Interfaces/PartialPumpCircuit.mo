@@ -1,7 +1,8 @@
 within IDEAS.Fluid.BaseCircuits.Interfaces;
 model PartialPumpCircuit
 
-  //Extensions
+  // Extensions ----------------------------------------------------------------
+
   extends PartialFlowCircuit(redeclare Movers.BaseClasses.PartialFlowMachine
       flowRegulator(
         addPowerToMedium=addPowerToMedium));

@@ -2,7 +2,8 @@ within IDEAS.Fluid.BaseCircuits.Interfaces;
 partial model PartialBaseCircuit "Partial for a mixing circuit"
   import IDEAS;
 
-  //Extensions
+  // Extensions ----------------------------------------------------------------
+
   extends CircuitInterface;
 
 equation
