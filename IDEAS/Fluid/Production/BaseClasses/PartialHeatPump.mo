@@ -130,14 +130,14 @@ partial model PartialHeatPump "Heat pump partial"
     allowFlowReversal=allowFlowReversal,
     tau=10,
     redeclare package Medium = Medium1,
-    m_flow_nominal=heatPumpData.m1_flow_nominal)
+    m_flow_nominal=heatPumpData.m1_flow_nominal) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{-92,50},{-72,70}})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_cond(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort T_out_cond(
     tau=10,
     allowFlowReversal=allowFlowReversal,
     redeclare package Medium = Medium2,
-    m_flow_nominal=heatPumpData.m2_flow_nominal)
-    annotation (Placement(transformation(extent={{88,-70},{68,-50}})));
+    m_flow_nominal=heatPumpData.m2_flow_nominal) "Condensor outlet temperature"
+    annotation (Placement(transformation(extent={{66,50},{86,70}})));
 
   Modelica.SIunits.Power P_el "Electrical power consumption";
   Modelica.SIunits.Power P_evap "Thermal power of the evaporator (positive)";
@@ -333,10 +333,6 @@ equation
       points={{-50,10},{-32,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(T_in_cond.port_b, condensor.port_a) annotation (Line(
-      points={{68,-60},{60,-60},{60,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(prescribedHeatFlowCond.port, condensor.heatPort) annotation (Line(
       points={{42,-10},{50,-10}},
       color={191,0,0},
@@ -370,12 +366,16 @@ equation
       points={{-60,0},{-60,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_b1, condensor.port_b) annotation (Line(
-      points={{100,60},{60,60},{60,0}},
+  connect(port_b1, T_out_cond.port_b) annotation (Line(
+      points={{100,60},{86,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(T_in_cond.port_a, port_a2) annotation (Line(
-      points={{88,-60},{100,-60}},
+  connect(T_out_cond.port_a, condensor.port_b) annotation (Line(
+      points={{66,60},{60,60},{60,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(condensor.port_a, port_a2) annotation (Line(
+      points={{60,-20},{60,-60},{100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -419,9 +419,9 @@ Initial version
 </html>", info="<html>
 <p>This partial model provides an implementation for a heat pump. Heat is drawn from the fluid at the &apos;Brine&apos; side and injected into the &apos;Fluid&apos; side. The model uses performance tables to calculate the COP and electrical power.</p>
 <p><b>Main equations</b> </p>
-<p>The COP and electrical power Pel are read from performance tables as a function of the water inlet temperatures:</p>
-<p>COP = f1(T_in_condensor, T_in_evaporator)</p>
-<p>P_el = f2(T_in_condensor, T_in_evaporator)</p>
+<p>The COP and electrical power Pel are read from performance tables as a function of the evaporator inlet temperature and the condensor outlet temperature:</p>
+<p>COP = f1(T_out_condensor, T_in_evaporator)</p>
+<p>P_el = f2(T_out_condensor, T_in_evaporator)</p>
 <p>These values are used to calculate the thermal powers:</p>
 <p>Q_condensor = P_el*COP</p>
 <p>Q_evaporator = P_el*(COP-1)</p>

@@ -13,19 +13,19 @@ equation
       points={{-62,58},{-82,58},{-82,84},{-62,84}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(powerTable.u1, T_in_cond.T) annotation (Line(
-      points={{-62,96},{-94,96},{-94,80},{16,80},{16,56},{78,56},{78,-49}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(copTable.u1, T_in_cond.T) annotation (Line(
-      points={{-62,70},{-94,70},{-94,80},{16,80},{16,56},{78,56},{78,-49}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(T_in_evap.T, powerTable.u2) annotation (Line(
       points={{-82,71},{-82,84},{-62,84}},
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(T_out_cond.T, powerTable.u1) annotation (Line(
+      points={{76,71},{2,71},{2,76},{-74,76},{-74,96},{-62,96}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(copTable.u1, powerTable.u1) annotation (Line(
+      points={{-62,70},{-74,70},{-74,96},{-62,96}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
         Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
