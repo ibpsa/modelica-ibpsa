@@ -1,16 +1,20 @@
 within IDEAS.Fluid.BaseCircuits.Interfaces;
 partial model PartialCircuitBalancingValve
 
-  //Extensions
+  // Extensions ----------------------------------------------------------------
+
   extends ValveParametersReturn;
   extends PartialBaseCircuit( pipeReturn(dp_nominal=0));
 
-  //Parameter
+  // Parameter -----------------------------------------------------------------
+
   parameter Boolean useBalancingValve=false
     "Set to true to include a balancing valve"
     annotation(Dialog(group = "Settings"));
 
-  //Components
+  // Components ----------------------------------------------------------------
+
+protected
   FixedResistances.FixedResistanceDpM       balancingValve(
         final deltaM=deltaMReturn,
     redeclare package Medium = Medium,

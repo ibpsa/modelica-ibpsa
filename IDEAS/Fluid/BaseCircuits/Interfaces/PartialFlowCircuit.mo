@@ -2,18 +2,24 @@ within IDEAS.Fluid.BaseCircuits.Interfaces;
 model PartialFlowCircuit
   import IDEAS;
 
-  //Extensions
+  // Extensions ----------------------------------------------------------------
+
   extends PartialCircuitBalancingValve;
 
-  //Parameters
+  // Parameters ----------------------------------------------------------------
+
   parameter Boolean measurePower=true
     "Set to false to remove the power consumption measurement of the flow regulator"
     annotation(Dialog(group = "Settings"));
+  // Components ----------------------------------------------------------------
 
+protected
   replaceable IDEAS.Fluid.Interfaces.PartialTwoPortInterface flowRegulator(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+
+public
   Modelica.Blocks.Interfaces.RealInput u "Setpoint of the flow regulator"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},

@@ -53,7 +53,30 @@ partial model CircuitInterface "Partial circuit for base circuits"
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow";
 
-  //Components
+  // Components ----------------------------------------------------------------
+
+public
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if includePipes
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.Blocks.Interfaces.RealOutput Tsup if measureSupplyT
+    "Supply temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={70,108}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={76,104})));
+
+  Modelica.Blocks.Interfaces.RealOutput Tret if measureReturnT
+    "Return temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-70,-108}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-76,-104})));
+
+protected
   FixedResistances.InsulatedPipe pipeSupply(
     UA=UA,
     m=m/2,
@@ -64,8 +87,6 @@ partial model CircuitInterface "Partial circuit for base circuits"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-80,60})), choicesAllMatching=true);
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if includePipes
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   FixedResistances.InsulatedPipe pipeReturn(
     UA=UA,
     dp_nominal=dp,
@@ -79,28 +100,10 @@ partial model CircuitInterface "Partial circuit for base circuits"
       redeclare package Medium = Medium) if
                                        measureSupplyT
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Modelica.Blocks.Interfaces.RealOutput Tsup if
-                                             measureSupplyT
-    "Supply temperature" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={70,108}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={76,104})));
   Sensors.TemperatureTwoPort senTemRet(m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium) if
                                        measureReturnT
     annotation (Placement(transformation(extent={{-60,-50},{-80,-70}})));
-  Modelica.Blocks.Interfaces.RealOutput Tret if
-                                             measureReturnT
-    "Return temperature" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-70,-108}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-76,-104})));
 equation
 
   connect(port_a1, pipeSupply.port_a) annotation (Line(

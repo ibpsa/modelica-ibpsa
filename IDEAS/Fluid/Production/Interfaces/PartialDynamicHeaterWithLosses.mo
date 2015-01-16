@@ -6,10 +6,13 @@ model PartialDynamicHeaterWithLosses
   import IDEAS.Fluid.Production.BaseClasses.HeaterType;
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true, dp_nominal = 0);
+
+protected
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=293.15, redeclare
       replaceable package Medium =
         IDEAS.Media.Water.Simple);
 
+public
   parameter HeaterType heaterType
     "Type of the heater, is used mainly for post processing";
   parameter Modelica.SIunits.Power QNom "Nominal power";
@@ -24,6 +27,7 @@ model PartialDynamicHeaterWithLosses
   final parameter Modelica.SIunits.ThermalConductance UALoss=(cDry + mWater*
       Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default,Medium.X_default)))/tauHeatLoss;
 
+protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalLosses(G=
         UALoss) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -33,6 +37,8 @@ model PartialDynamicHeaterWithLosses
     "heatPort for thermal losses to environment" annotation (Placement(
         transformation(extent={{-40,-110},{-20,-90}}), iconTransformation(
           extent={{-40,-110},{-20,-90}})));
+
+public
   Modelica.Blocks.Interfaces.RealInput TSet "Temperature setpoint"
                            annotation (Placement(
         transformation(extent={{-126,-20},{-86,20}}), iconTransformation(
@@ -45,9 +51,10 @@ model PartialDynamicHeaterWithLosses
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-74,-100})));
-
   parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
   parameter SI.Pressure dp_nominal=0 "Pressure";
+
+protected
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -71,6 +78,7 @@ model PartialDynamicHeaterWithLosses
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={40,-6})));
+public
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) "Fluid inlet"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
@@ -102,7 +110,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pipe_HeatPort.heatPort, thermalLosses.port_a) annotation (Line(
-      points={{30,-6},{-30,-6},{-30,-60}},
+      points={{30,-6},{20,-6},{20,-40},{-30,-40},{-30,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(Tin.port_b, senMasFlo.port_a) annotation (Line(

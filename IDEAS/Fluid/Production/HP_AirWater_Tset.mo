@@ -1,6 +1,7 @@
 within IDEAS.Fluid.Production;
 model HP_AirWater_Tset "Air-to-water heat pump with temperature set point"
 
+
   extends IDEAS.Fluid.Production.Interfaces.PartialDynamicHeaterWithLosses(
       final heaterType=BaseClasses.HeaterType.HP_AW);
 
@@ -14,19 +15,24 @@ model HP_AirWater_Tset "Air-to-water heat pump with temperature set point"
 
   Real COP "Instanteanous COP";
 
+  Real modulation(max=100) = IDEAS.Utilities.Math.Functions.smoothMax(0, heatSource.modulation, 1)
+    "Current modulation percentage";
+
+protected
   IDEAS.Fluid.Production.BaseClasses.HeatSource_HP_AW heatSource(
-    QNom=QNomFinal,
-    TEvaporator=sim.Te,
-    TEnvironment=heatPort.T,
-    UALoss=UALoss,
-    modulation_min=modulation_min,
-    modulation_start=modulation_start,
-    hIn=inStream(port_a.h_outflow),
+    final QNom=QNomFinal,
+    final TEvaporator=sim.Te,
+    final TEnvironment=heatPort.T,
+    final UALoss=UALoss,
+    final modulation_min=modulation_min,
+    final modulation_start=modulation_start,
+    final hIn=inStream(port_a.h_outflow),
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,-16},{-40,4}})));
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
 
+public
   parameter Real modulation_min=20 "Minimal modulation percentage";
   parameter Real modulation_start=35
     "Min estimated modulation level required for start of HP";
@@ -36,15 +42,13 @@ model HP_AirWater_Tset "Air-to-water heat pump with temperature set point"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-10,120})));
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
+    annotation (Placement(transformation(extent={{-20,-16},{0,4}})));
 equation
   PFuel = 0;
   PEl = heatSource.PEl;
   COP = if noEvent(PEl > 0) then pipe_HeatPort.heatPort.Q_flow/PEl else 0;
 
-  connect(heatSource.heatPort, pipe_HeatPort.heatPort) annotation (Line(
-      points={{-40,-6},{30,-6}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(TSet, heatSource.TCondensor_set) annotation (Line(
       points={{-106,0},{-84,0},{-84,-6},{-60,-6}},
       color={0,0,127},
@@ -58,12 +62,20 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tin.T, heatSource.TCondensor_in) annotation (Line(
-      points={{80,-49},{80,-40},{-55,-40},{-55,-16}},
+      points={{80,-49},{80,-42},{-55,-42},{-55,-16}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(heatSource.heatPort, heatFlowSensor.port_a) annotation (Line(
+      points={{-40,-6},{-20,-6}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heatFlowSensor.port_b, pipe_HeatPort.heatPort) annotation (Line(
+      points={{0,-6},{30,-6}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics={

@@ -49,7 +49,6 @@ protected
     nin=2,
     k={0.5,0.5})
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
-public
   Fluid.MixingVolumes.MixingVolume         vol(
     V=V,
     m_flow_nominal=m_flow_nominal,
@@ -68,10 +67,12 @@ public
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-10,30})));
+public
   Fluid.Interfaces.FlowPort_b flowPort_Out(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
   Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
+protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
   parameter Boolean allowFlowReversal=system.allowFlowReversal
