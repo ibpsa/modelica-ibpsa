@@ -64,8 +64,7 @@ public
     final X_start=X_start,
     final C_start=C_start,
     final allowFlowReversal=true,
-    final prescribedHeatFlowRate=false,
-    final mSenFac=mSenFac) if
+    final prescribedHeatFlowRate=false) if
        dynamicBalance "Fluid volume to break algebraic loop"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   parameter Boolean dynamicBalance = true

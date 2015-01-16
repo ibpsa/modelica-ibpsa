@@ -27,8 +27,7 @@ partial model PartialFlowMachine
     p_start=p_start,
     prescribedHeatFlowRate=true,
     allowFlowReversal=allowFlowReversal,
-    nPorts=2,
-    final mSenFac=mSenFac) "Fluid volume for dynamic model"
+    nPorts=2) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
    parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
