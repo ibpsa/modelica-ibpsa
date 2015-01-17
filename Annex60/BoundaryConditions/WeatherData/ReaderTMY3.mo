@@ -364,7 +364,7 @@ protected
   // By default, it is enabled. This introduces a nonlinear equation, but
   // we have not observed an increase in computing time because of this equation.
   Annex60.Utilities.Psychrometrics.TWetBul_TDryBulPhi tWetBul_TDryBulXi(
-      redeclare package Medium = Annex60.Media.PerfectGases.MoistAir,
+      redeclare package Medium = Annex60.Media.Air,
       TDryBul(displayUnit="degC")) if computeWetBulbTemperature
     annotation (Placement(transformation(extent={{244,-66},{264,-46}})));
 
@@ -764,8 +764,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
-      points={{265,-56},{280,-56},{280,0},{292,0},{292,0},{300,
-          0}},
+      points={{265,-56},{280,-56},{280,0},{300,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
