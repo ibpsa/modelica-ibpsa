@@ -38,25 +38,55 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             120}}),
             graphics),
-    Icon(graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+         graphics={
         Ellipse(
           extent={{-60,60},{58,-60}},
-          lineColor={127,0,0},
+          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          fillColor={255,255,255}),
-        Ellipse(extent={{-48,46},{46,-46}}, lineColor={95,95,95}),
+          fillColor={95,95,95}),
+        Ellipse(extent={{-48,46},{46,-46}}, lineColor={0,0,0},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
         Line(
           points={{-32,34},{30,-34}},
-          color={95,95,95},
+          color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{98,20},{42,20}},
+          points={{100,60},{44,60}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{100,-40},{68,-40},{68,-80},{-2,-80},{-2,-46}},
+          points={{44,60},{34,48}},
           color={0,0,127},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Polygon(
+          points={{10,-25},{30,35},{-10,-25},{10,-25}},
+          lineColor={0,255,128},
+          smooth=Smooth.None,
+          fillColor={0,255,128},
+          fillPattern=FillPattern.Solid,
+          origin={-25,-10},
+          rotation=90),
+        Polygon(
+          points={{0,-30},{20,30},{-20,-30},{0,-30}},
+          lineColor={0,255,128},
+          smooth=Smooth.None,
+          fillColor={0,255,128},
+          fillPattern=FillPattern.Solid,
+          origin={30,0},
+          rotation=270),
+        Line(
+          points={{44,-60},{34,-48}},
+          color={0,0,127},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
+        Line(
+          points={{100,-60},{44,-60}},
+          color={0,0,127},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash)}),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">Description </font></h4></p>
 <p>Ideal&nbsp;heater,&nbsp;will&nbsp;always&nbsp;make&nbsp;sure&nbsp;to&nbsp;reach&nbsp;the&nbsp;setpoint (no power limitation). This heater has thermal losses to the environment but an energy conversion efficiency of one. The IdealHeatSource will compute the required power and the environmental heat losses, and deliver exactly this heat flux to the heatedFluid so it will reach the set point. </p>

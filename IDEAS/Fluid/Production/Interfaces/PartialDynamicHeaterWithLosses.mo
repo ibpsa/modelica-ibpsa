@@ -6,10 +6,13 @@ model PartialDynamicHeaterWithLosses
   import IDEAS.Fluid.Production.BaseClasses.HeaterType;
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true, dp_nominal = 0);
+
+protected
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=293.15, redeclare
       replaceable package Medium =
         IDEAS.Media.Water.Simple);
 
+public
   parameter HeaterType heaterType
     "Type of the heater, is used mainly for post processing";
   parameter Modelica.SIunits.Power QNom "Nominal power";
@@ -24,6 +27,7 @@ model PartialDynamicHeaterWithLosses
   final parameter Modelica.SIunits.ThermalConductance UALoss=(cDry + mWater*
       Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default,Medium.X_default)))/tauHeatLoss;
 
+protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalLosses(G=
         UALoss) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -33,21 +37,24 @@ model PartialDynamicHeaterWithLosses
     "heatPort for thermal losses to environment" annotation (Placement(
         transformation(extent={{-40,-110},{-20,-90}}), iconTransformation(
           extent={{-40,-110},{-20,-90}})));
-  Modelica.Blocks.Interfaces.RealInput TSet
-    "Temperature setpoint, acts as on/off signal too" annotation (Placement(
+
+public
+  Modelica.Blocks.Interfaces.RealInput TSet "Temperature setpoint"
+                           annotation (Placement(
         transformation(extent={{-126,-20},{-86,20}}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-10,120})));
+        origin={-40,120})));
   Modelica.Blocks.Interfaces.RealOutput PEl "Electrical consumption"
     annotation (Placement(transformation(extent={{-252,10},{-232,30}}),
         iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-74,-100})));
-
   parameter SI.MassFlowRate m_flow_nominal "Nominal mass flow rate";
   parameter SI.Pressure dp_nominal=0 "Pressure";
+
+protected
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -70,21 +77,24 @@ model PartialDynamicHeaterWithLosses
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={38,-6})));
+        origin={40,-6})));
+public
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) "Fluid inlet"
-    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) "Fluid outlet"
-    annotation (Placement(transformation(extent={{90,30},{110,50}})));
+    annotation (Placement(transformation(extent={{90,50},{110,70}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort Tin(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Inlet temperature"
-    annotation (Placement(transformation(extent={{74,-50},{54,-30}})));
+    annotation (Placement(transformation(extent={{90,-70},{70,-50}})));
   parameter Boolean dynamicBalance=true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
     annotation (Dialog(tab="Flow resistance"));
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Flow resistance"));
+  IDEAS.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
 equation
 
   connect(thermalLosses.port_b, heatPort) annotation (Line(
@@ -92,26 +102,30 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(pipe_HeatPort.port_b, port_b) annotation (Line(
-      points={{38,4},{38,40},{100,40}},
+      points={{40,4},{40,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a, Tin.port_a) annotation (Line(
-      points={{100,-40},{74,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(Tin.port_b, pipe_HeatPort.port_a) annotation (Line(
-      points={{54,-40},{38,-40},{38,-16}},
+      points={{100,-60},{90,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pipe_HeatPort.heatPort, thermalLosses.port_a) annotation (Line(
-      points={{28,-6},{-30,-6},{-30,-60}},
+      points={{30,-6},{20,-6},{20,-40},{-30,-40},{-30,-60}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(Tin.port_b, senMasFlo.port_a) annotation (Line(
+      points={{70,-60},{70,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senMasFlo.port_b, pipe_HeatPort.port_a) annotation (Line(
+      points={{50,-60},{40,-60},{40,-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(extent={{-100,-100},{100,120}},
+    Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
           preserveAspectRatio=false), graphics),
-    Icon(coordinateSystem(extent={{-100,-100},{100,120}}, preserveAspectRatio=
-            false), graphics),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=false),
+                    graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>This is a partial model from which most heaters (boilers, heat pumps) will extend. This model is <u>dynamic</u> (there is a water content in the heater and a dry mass lumped to it) and it has <u>thermal losses to the environment</u>. To complete this model and turn it into a heater, a <u>heatSource</u> has to be added, specifying how much heat is injected in the heatedFluid pipe, at which efficiency, if there is a maximum power, etc. HeatSource models are grouped in <a href=\"modelica://IDEAS.Thermal.Components.Production.BaseClasses\">IDEAS.Thermal.Components.Production.BaseClasses.</a></p>

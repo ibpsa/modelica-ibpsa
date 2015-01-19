@@ -2,8 +2,7 @@ within IDEAS.Fluid.Sensors.Examples;
 model VolumeFlowRate "Test model for the volume flow rate sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = IDEAS.Media.Air
-    "Medium model";
+  package Medium = IDEAS.Media.Air "Medium model";
 
   IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,

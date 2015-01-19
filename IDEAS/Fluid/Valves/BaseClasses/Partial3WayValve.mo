@@ -65,26 +65,26 @@ equation
     Icon(graphics={
         Polygon(
           points={{-60,30},{-60,-30},{0,0},{-60,30}},
-          lineColor={100,100,100},
+          lineColor={0,0,127},
           smooth=Smooth.None),
         Polygon(
           points={{60,30},{60,-30},{0,0},{60,30}},
-          lineColor={100,100,100},
+          lineColor={0,0,127},
           smooth=Smooth.None),
         Polygon(
           points={{-30,30},{-30,-30},{30,0},{-30,30}},
-          lineColor={100,100,100},
+          lineColor={0,0,127},
           smooth=Smooth.None,
           origin={0,-30},
           rotation=90),
-        Ellipse(extent={{-20,80},{20,40}}, lineColor={100,100,100}),
+        Ellipse(extent={{-20,80},{20,40}}, lineColor={0,0,127}),
         Line(
           points={{0,0},{0,40}},
-          color={100,100,100},
+          color={0,0,127},
           smooth=Smooth.None),
         Text(
           extent={{-10,70},{10,50}},
-          lineColor={100,100,100},
+          lineColor={0,0,127},
           textString="M"),
         Line(
           points={{-70,30},{-70,-30}},
