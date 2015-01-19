@@ -41,7 +41,7 @@ partial model PartialHeatPump "Heat pump partial"
 
   //From LumpedVolumeDeclarations
   // Assumptions
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance"
     annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
@@ -111,7 +111,7 @@ partial model PartialHeatPump "Heat pump partial"
     "Set to true to switch heat pumps on using a continuous transition"
     annotation (Dialog(tab="Advanced", group="Events"));
 
-  parameter SI.Time riseTime=120
+  parameter Modelica.SIunits.Time riseTime=120
     "The time it takes to reach full/zero power when switching" annotation (
       Dialog(
       tab="Advanced",
@@ -144,12 +144,12 @@ partial model PartialHeatPump "Heat pump partial"
   IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_evap(
     redeclare package Medium = MediumBrine,
     allowFlowReversal=allowFlowReversal,
-    tau=10,
+    tau=riseTime,
     m_flow_nominal=heatPumpData.m_flow_nominal_fluid)
     annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_cond(
     redeclare package Medium = MediumFluid,
-    tau=10,
+    tau=riseTime,
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=heatPumpData.m_flow_nominal_fluid)
     annotation (Placement(transformation(extent={{88,-50},{68,-30}})));
@@ -165,6 +165,10 @@ partial model PartialHeatPump "Heat pump partial"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,110})));
+
+initial equation
+  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState, "Energy dynamics cannot be set to steady state!");
+
 public
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Flow resistance"));
@@ -175,8 +179,6 @@ public
 
   FixedResistances.Pipe_HeatPort evaporator(
     redeclare package Medium = MediumBrine,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
     p_start=p_start,
     T_start=T_start,
     X_start=X_start,
@@ -191,14 +193,14 @@ public
     mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
         /MediumBrine.specificHeatCapacityCp(state_default_brine)/5/heatPumpData.mBrine)
          else mFactor,
-    computeFlowResistance=computeFlowResistance) annotation (Placement(
-        transformation(
+    computeFlowResistance=computeFlowResistance,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics)
+              annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-60,10})));
   FixedResistances.Pipe_HeatPort condensor(
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
     from_dp=from_dp,
     linearizeFlowResistance=linearizeFlowResistance,
     deltaM=deltaM,
@@ -214,8 +216,9 @@ public
     mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
         /MediumFluid.specificHeatCapacityCp(state_default_fluid)/5/heatPumpData.mFluid)
          else mFactor,
-    computeFlowResistance=computeFlowResistance) annotation (Placement(
-        transformation(
+    computeFlowResistance=computeFlowResistance,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics)   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,-10})));
@@ -394,8 +397,9 @@ equation
       smooth=Smooth.None));
 
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+                    graphics),
     Icon(graphics={
         Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
         Line(
