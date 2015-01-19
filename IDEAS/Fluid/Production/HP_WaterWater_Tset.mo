@@ -1,5 +1,5 @@
 within IDEAS.Fluid.Production;
-model HP_WaterWater_Tset
+model HP_WaterWater_TSet
   "A water (or brine) to water heat pump with temperature setpoint"
   extends IDEAS.Fluid.Production.BaseClasses.PartialHeatPump(redeclare replaceable parameter
       IDEAS.Fluid.Production.BaseClasses.HeatPumpData heatPumpData constrainedby
@@ -42,4 +42,4 @@ Added documentation
 </li>
 </ul>
 </html>"));
-end HP_WaterWater_Tset;
+end HP_WaterWater_TSet;

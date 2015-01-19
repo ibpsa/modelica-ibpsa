@@ -110,7 +110,7 @@ partial model PartialHeatPump "Heat pump partial"
       smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     annotation (Placement(transformation(extent={{-74,-16},{-54,4}})));
   Boolean compressorOn;
-  Modelica.Blocks.Sources.RealExpression Qevap(y=-P_evap)
+  Modelica.Blocks.Sources.RealExpression QEvap(y=-P_evap)
     annotation (Placement(transformation(extent={{54,32},{36,52}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatEvap
     annotation (Placement(transformation(extent={{24,32},{4,52}})));
@@ -124,7 +124,7 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatLoss
     annotation (Placement(transformation(extent={{16,-110},{36,-90}})));
 
-  Modelica.Blocks.Sources.RealExpression Qcond(y=P_cond)
+  Modelica.Blocks.Sources.RealExpression QCond(y=P_cond)
     annotation (Placement(transformation(extent={{84,-60},{64,-40}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_evap(
     allowFlowReversal=allowFlowReversal,
@@ -143,7 +143,7 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.SIunits.Power P_evap "Thermal power of the evaporator (positive)";
   Modelica.SIunits.Power P_cond "Thermal power of the condensor (positive)";
   Real cop "COP of the heat pump";
-  Modelica.Blocks.Sources.RealExpression Pelec(y=P_el)
+  Modelica.Blocks.Sources.RealExpression PElec(y=P_el)
     annotation (Placement(transformation(extent={{62,18},{82,38}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
     annotation (Placement(transformation(
@@ -169,9 +169,9 @@ public
     from_dp=from_dp,
     linearizeFlowResistance=linearizeFlowResistance,
     deltaM=deltaM,
-    m=heatPumpData.mBrine*sca,
+    m=heatPumpData.m1*sca,
     mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
-        /Medium1.specificHeatCapacityCp(state_default_brine)/5/heatPumpData.mBrine)
+        /Medium1.specificHeatCapacityCp(state_default1)/5/heatPumpData.m1)
          else mFactor,
     computeFlowResistance=computeFlowResistance,
     redeclare package Medium = Medium1,
@@ -192,9 +192,9 @@ public
     X_start=X_start2,
     C_start=C_start2,
     C_nominal=C_nominal2,
-    m=heatPumpData.mFluid*sca,
+    m=heatPumpData.m2*sca,
     mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
-        /Medium2.specificHeatCapacityCp(state_default_fluid)/5/heatPumpData.mFluid)
+        /Medium2.specificHeatCapacityCp(state_default2)/5/heatPumpData.m2)
          else mFactor,
     computeFlowResistance=computeFlowResistance,
     redeclare package Medium = Medium2,
@@ -208,12 +208,12 @@ public
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 protected
-  parameter Medium1.ThermodynamicState state_default_brine=
+  parameter Medium1.ThermodynamicState state_default1=
       Medium1.setState_pTX(
       Medium1.p_default,
       Medium1.T_default,
       Medium1.X_default);
-  parameter Medium2.ThermodynamicState state_default_fluid=
+  parameter Medium2.ThermodynamicState state_default2=
       Medium2.setState_pTX(
       Medium2.p_default,
       Medium2.T_default,
@@ -313,15 +313,15 @@ equation
       points={{26,-100},{26,-86}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(prescribedHeatEvap.Q_flow, Qevap.y) annotation (Line(
+  connect(prescribedHeatEvap.Q_flow, QEvap.y) annotation (Line(
       points={{24,42},{35.1,42}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(prescribedHeatFlowCond.Q_flow, Qcond.y) annotation (Line(
+  connect(prescribedHeatFlowCond.Q_flow, QCond.y) annotation (Line(
       points={{56,-50},{63,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Pelec.y, P) annotation (Line(
+  connect(PElec.y, P) annotation (Line(
       points={{83,28},{108,28}},
       color={0,0,127},
       smooth=Smooth.None));

@@ -1,5 +1,5 @@
 within IDEAS.Fluid.Production.Examples;
-model HeatPump_BrineWater
+model HeatPump_WaterWater
   "General example and tester for a modulating water-to-water heat pump"
   extends Modelica.Icons.Example;
   parameter Real scaling = 2;
@@ -205,8 +205,8 @@ equation
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
-    Commands(file="Scripts/Tester_Boiler.mos" "TestModel"),
-    Documentation(info="<html>
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Production/Examples/HeatPump_WaterWater.mos"
+        "Simulate and plot"),    Documentation(info="<html>
 <p>This example demonstrates the use of a heat pump.</p>
 </html>", revisions="<html>
 <ul>
@@ -215,4 +215,4 @@ Initial version
 </li>
 </ul>
 </html>"));
-end HeatPump_BrineWater;
+end HeatPump_WaterWater;
