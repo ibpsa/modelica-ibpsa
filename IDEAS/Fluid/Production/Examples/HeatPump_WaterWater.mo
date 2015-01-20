@@ -18,9 +18,9 @@ model HeatPump_WaterWater
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/5000,
-    amplitude=4,
-    offset=273.15 + 30,
-    startTime=2000)
+    startTime=2000,
+    amplitude=15,
+    offset=273.15 + 50)
     annotation (Placement(transformation(extent={{100,50},{80,70}})));
   Sources.Boundary_pT bou(          redeclare package Medium = Medium,
     use_T_in=true,
@@ -52,7 +52,7 @@ model HeatPump_WaterWater
       heatPumpData,
     onOff=true,
     use_scaling=false,
-    avoidEvents=false) constrainedby HP_WaterWater_OnOff
+    use_modulation_security=true)  constrainedby HP_WaterWater_OnOff
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-10,70})));
@@ -65,9 +65,9 @@ model HeatPump_WaterWater
     annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
   Modelica.Blocks.Sources.Sine sine2(
     freqHz=1/5000,
-    amplitude=4,
-    offset=273.15 + 30,
-    startTime=2000)
+    startTime=2000,
+    amplitude=15,
+    offset=273.15 + 50)
     annotation (Placement(transformation(extent={{100,-50},{80,-30}})));
   Sources.Boundary_pT bou2(         redeclare package Medium = Medium,
     nPorts=2,
@@ -96,12 +96,13 @@ model HeatPump_WaterWater
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     use_onOffSignal=false,
-    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA29
+    redeclare
+      IDEAS.Fluid.Production.Data.PerformanceMaps.VitoCal300GBWS301dotA29
       heatPumpData,
     use_scaling=true,
     onOff=true,
     P_the_nominal=scaling*heatPump1.heatPumpData.P_the_nominal,
-    avoidEvents=false) constrainedby HP_WaterWater_OnOff
+    use_modulation_security=false) constrainedby HP_WaterWater_OnOff
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-10,-30})));

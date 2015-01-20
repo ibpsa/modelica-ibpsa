@@ -5,7 +5,8 @@ model HeatPump_WaterWaterTSet
       IDEAS.Fluid.Production.HP_WaterWater_TSet heatPump(
       redeclare package Medium1 = Medium,
       redeclare package Medium2 = Medium,
-      redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA08
+      redeclare
+        IDEAS.Fluid.Production.Data.PerformanceMaps.VitoCal300GBWS301dotA08
         heatPumpData,
       use_onOffSignal=false,
       use_modulationSignal=true));
