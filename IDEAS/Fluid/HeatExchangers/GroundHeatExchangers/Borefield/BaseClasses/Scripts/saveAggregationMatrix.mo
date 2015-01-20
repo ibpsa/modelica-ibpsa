@@ -8,34 +8,36 @@ function saveAggregationMatrix
 
   input Integer lenSim "Simulation length ([s]). By default = 100 days";
 
-  output Real[q_max,p_max] kappaMat "transient resistance for each cell";
+  output Real[q_max,p_max] kappaMat "Transient resistance for each cell";
   output Integer[q_max] rArr=
-      Borefield.BaseClasses.Aggregation.BaseClasses.cellWidth(q_max=q_max,
-      p_max=p_max) "width of aggregation cell for each level";
+      Aggregation.BaseClasses.cellWidth(                      q_max=q_max,
+      p_max=p_max) "Width of aggregation cells for each level";
   output Integer[q_max,p_max] nuMat=
-      Borefield.BaseClasses.Aggregation.BaseClasses.nbPulseAtEndEachLevel(
+      Aggregation.BaseClasses.nbPulseAtEndEachLevel(
       q_max=q_max,
       p_max=p_max,
-      rArr=rArr) "nb of aggregated pulse at end of each aggregation cells";
+      rArr=rArr) "Number of aggregated pulses at end of each aggregation cell";
   output Modelica.SIunits.Temperature TWallSteSta
     "Quasi steady state temperature";
 
-  output Real[1,gen.tBre_d + 1] TResSho;
-  output String sha;
+  output Real[1,gen.tBre_d + 1] TResSho
+    "Short term response temperature vector of the borefield obtained calling the model IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript";
+  output String sha "Pseudo SHA code (unique code) of the record soi and gen";
 
-  output Boolean existShoTerRes;
+  output Boolean existShoTerRes
+    "True if the short term response has already been calculated and stored in the simulation folder";
 
-  output Boolean existAgg;
-  output Boolean writeTWallSteSta;
-  output Boolean writeAgg;
-  output Real q_max_out;
+  output Boolean existAgg
+    "True if the aggregation matrix has already been calculated and stored in the simulation folder";
+  output Boolean writeTWallSteSta
+    "True if the variable TWallSteSta is written in the simulation folder";
+  output Boolean writeAgg
+    "True if the aggregation matrix is written in the simulation folder";
 
 protected
-  String pathSave;
-  String dir;
+  String pathSave "Path of the saving folder";
   Real[1,1] mat;
 algorithm
-  q_max_out := q_max;
   // --------------- Generate SHA-code and path
   sha := shaBorefieldRecords(
     soiPath=Modelica.Utilities.Strings.replace(
@@ -49,23 +51,10 @@ algorithm
       "\\",
       "/"));
 
-  if Modelica.Utilities.Files.exist("C:") then
-    dir := "C://.BfData";
-  elseif Modelica.Utilities.Files.exist("/tmp") then
-    dir := "/tmp/.BfData";
-  else
-    dir := "";
-    assert(false, "\n
-************************************************************************************************************************ \n 
-You do not have the writing permission on the C: or home/ folder. Change the variable dir in
-IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.saveAggregationMatrix to 
-write the temperory file at a different location. \n
-************************************************************************************************************************ \n ");
-  end if;
+ //creation of a folder .BfData in the simulation folder
+  Modelica.Utilities.Files.createDirectory(".BfData");
 
-  Modelica.Utilities.Files.createDirectory(dir);
-
-  pathSave := dir + "/" + sha;
+  pathSave := ".BfData/" + sha;
 
   // --------------- Check if the short term response (TResSho) needs to be calculated or loaded
   if not Modelica.Utilities.Files.exist(pathSave + "ShoTermData.mat") then
@@ -99,14 +88,14 @@ The borefield model with this BfData record has not yet been initialized. Please
       TResSho=TResSho[1, :],
       t_d=gen.tSteSta_d);
 
-    kappaMat := Borefield.BaseClasses.Aggregation.transientFrac(
-      q_max=q_max,
-      p_max=p_max,
-      gen=gen,
-      soi=soi,
-      TResSho=TResSho[1, :],
-      nuMat=nuMat,
-      TWallSteSta=TWallSteSta);
+    kappaMat := Aggregation.transientFrac(
+            q_max=q_max,
+            p_max=p_max,
+            gen=gen,
+            soi=soi,
+            TResSho=TResSho[1, :],
+            nuMat=nuMat,
+            TWallSteSta=TWallSteSta);
 
     writeTWallSteSta := writeMatrix(
       fileName=pathSave + "TWallSteSta.mat",
