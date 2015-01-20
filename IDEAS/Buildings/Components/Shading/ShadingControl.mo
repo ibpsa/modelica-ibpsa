@@ -5,7 +5,7 @@ model ShadingControl "shading control based on irradiation"
     "upper limit above which shading goes down";
   parameter Real uHigh(final quantity="Irradiance", final unit="W/m2")=150
     "lower limit below which shading goes up again";
-  IDEAS.Controls.Control_fixme.Hyst_NoEvent_Var hyst(uLow_val=uHigh, uHigh_val=uLow, use_input=false);
+  IDEAS.Controls.Discrete.HysteresisRelease hyst(uLow_val=uHigh, uHigh_val=uLow, use_input=false);
   Modelica.SIunits.Irradiance irr = sim.irr "Irradiance";
   Modelica.Blocks.Interfaces.RealOutput y "control signal"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
