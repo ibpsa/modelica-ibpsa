@@ -8,15 +8,15 @@ partial model PartialHeatPump "Heat pump partial"
     dp1_nominal=heatPumpData.dp1_nominal,
     dp2_nominal=heatPumpData.dp2_nominal,
     vol1(mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
-          /Medium2.specificHeatCapacityCp(state_default_fluid)/5/heatPumpData.mEvap)
+          /Medium1.specificHeatCapacityCp(state_default1)/5/heatPumpData.m1)
            else mFactor,
-      V=heatPumpData.mEvap/rho1_nominal,
+      V=heatPumpData.m1/rho1_nominal,
       energyDynamics=energyDynamics,
       massDynamics=massDynamics),
     vol2(mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
-          /Medium2.specificHeatCapacityCp(state_default_fluid)/5/heatPumpData.mCond)
+          /Medium2.specificHeatCapacityCp(state_default2)/5/heatPumpData.m2)
            else mFactor,
-      V=heatPumpData.mCond/rho2_nominal,
+      V=heatPumpData.m2/rho2_nominal,
       energyDynamics=energyDynamics,
       massDynamics=massDynamics));
 
@@ -62,8 +62,8 @@ partial model PartialHeatPump "Heat pump partial"
       smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     annotation (Placement(transformation(extent={{-74,-16},{-54,4}})));
   Boolean compressorOn;
-  Modelica.Blocks.Sources.RealExpression Qevap(y=-P_evap)
-    annotation (Placement(transformation(extent={{-80,70},{-62,50}})));
+  Modelica.Blocks.Sources.RealExpression QEvap(y=-P_evap)
+    annotation (Placement(transformation(extent={{-72,70},{-54,50}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatEvap
     annotation (Placement(transformation(extent={{-40,70},{-20,50}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatCond
@@ -76,15 +76,14 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatLoss
     annotation (Placement(transformation(extent={{16,-110},{36,-90}})));
 
-  Modelica.Blocks.Sources.RealExpression Qcond(y=P_cond)
-    annotation (Placement(transformation(extent={{84,-70},{64,-50}})));
-
+  Modelica.Blocks.Sources.RealExpression QCond(y=P_cond)
+    annotation (Placement(transformation(extent={{86,-70},{66,-50}})));
 
   Modelica.SIunits.Power P_el "Electrical power consumption";
   Modelica.SIunits.Power P_evap "Thermal power of the evaporator (positive)";
   Modelica.SIunits.Power P_cond "Thermal power of the condensor (positive)";
   Real cop "COP of the heat pump";
-  Modelica.Blocks.Sources.RealExpression Pelec(y=P_el)
+  Modelica.Blocks.Sources.RealExpression PElec(y=P_el)
     annotation (Placement(transformation(extent={{62,18},{82,38}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
     annotation (Placement(transformation(
@@ -106,12 +105,12 @@ public
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 protected
-  parameter Medium1.ThermodynamicState state_default_brine=
+  parameter Medium1.ThermodynamicState state_default1=
       Medium1.setState_pTX(
       Medium1.p_default,
       Medium1.T_default,
       Medium1.X_default);
-  parameter Medium2.ThermodynamicState state_default_fluid=
+  parameter Medium2.ThermodynamicState state_default2=
       Medium2.setState_pTX(
       Medium2.p_default,
       Medium2.T_default,
@@ -219,15 +218,7 @@ equation
       points={{26,-100},{26,-86}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(prescribedHeatEvap.Q_flow, Qevap.y) annotation (Line(
-      points={{-40,60},{-61.1,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(prescribedHeatCond.Q_flow, Qcond.y) annotation (Line(
-      points={{60,-60},{63,-60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Pelec.y, P) annotation (Line(
+  connect(PElec.y, P) annotation (Line(
       points={{83,28},{108,28}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -280,10 +271,17 @@ equation
       points={{-76,-12},{-80,-12},{-80,14},{-76,14}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(QCond.y, prescribedHeatCond.Q_flow) annotation (Line(
+      points={{65,-60},{60,-60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QEvap.y, prescribedHeatEvap.Q_flow) annotation (Line(
+      points={{-53.1,60},{-40,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics),
     Icon(graphics={
         Line(
           points={{-20,0},{40,2.44929e-15}},

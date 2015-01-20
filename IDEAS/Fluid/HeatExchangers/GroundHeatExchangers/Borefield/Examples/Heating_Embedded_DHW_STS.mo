@@ -252,7 +252,7 @@ model Heating_Embedded_DHW_STS
   Modelica.Fluid.Sources.Boundary_pT boundary(          redeclare package
       Medium = Medium, nPorts=1)
     annotation (Placement(transformation(extent={{-234,-60},{-214,-40}})));
-  IDEAS.Fluid.Production.HP_WaterWater_Tset heatPumpTset(
+  IDEAS.Fluid.Production.HP_WaterWater_TSet heatPumpTset(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA45

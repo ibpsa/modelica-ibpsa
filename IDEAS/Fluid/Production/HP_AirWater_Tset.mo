@@ -1,6 +1,5 @@
 within IDEAS.Fluid.Production;
-model HP_AirWater_Tset "Air-to-water heat pump with temperature set point"
-
+model HP_AirWater_TSet "Air-to-water heat pump with temperature set point"
 
   extends IDEAS.Fluid.Production.Interfaces.PartialDynamicHeaterWithLosses(
       final heaterType=BaseClasses.HeaterType.HP_AW);
@@ -230,4 +229,4 @@ equation
 <li>2011 Roel De Coninck: first version</li>
 </ul></p>
 </html>"));
-end HP_AirWater_Tset;
+end HP_AirWater_TSet;

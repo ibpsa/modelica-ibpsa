@@ -12,7 +12,7 @@ model Heating_Embedded_DHW_STS
                                             heating(
     nZones=nZones,
     dTSupRetNom=5,
-    redeclare IDEAS.Fluid.Production.HP_AirWater_Tset heater,
+    redeclare IDEAS.Fluid.Production.HP_AirWater_TSet heater,
     each RadSlaCha = radSlaCha_ValidationEmpa,
     TSupNom=273.15 + 45,
     corFac_val=5,

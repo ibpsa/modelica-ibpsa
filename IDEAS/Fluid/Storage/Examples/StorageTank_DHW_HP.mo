@@ -24,7 +24,7 @@ model StorageTank_DHW_HP
   Fluid.Domestic_Hot_Water.DHW_RealInput dHW(TDHWSet=273.15 + 45,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{62,8},{82,20}})));
-  IDEAS.Fluid.Production.HP_AirWater_Tset hP_AWMod(
+  IDEAS.Fluid.Production.HP_AirWater_TSet hP_AWMod(
     QNom=10000,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)

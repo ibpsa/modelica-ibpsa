@@ -1,8 +1,8 @@
 within IDEAS.Fluid.Production.Examples;
-model HeatPump_BrineWaterTset
+model HeatPump_WaterWaterTSet
   "Test of a heat pump using a temperature setpoint"
-  extends HeatPump_BrineWater(redeclare
-      IDEAS.Fluid.Production.HP_WaterWater_Tset heatPump(
+  extends HeatPump_WaterWater(redeclare
+      IDEAS.Fluid.Production.HP_WaterWater_TSet heatPump(
       redeclare package Medium1 = Medium,
       redeclare package Medium2 = Medium,
       redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA08
@@ -26,7 +26,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(revisions="<html>
+            -100},{100,100}}), graphics),
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/Production/Examples/HeatPump_WaterWaterTSet.mos"
+        "Simulate and plot"),  Documentation(revisions="<html>
 <ul>
 <li>March 2014 by Filip Jorissen:<br/> 
 Initial version
@@ -37,4 +39,4 @@ Initial version
 </html>"),
     experiment(StopTime=15000),
     __Dymola_experimentSetupOutput);
-end HeatPump_BrineWaterTset;
+end HeatPump_WaterWaterTSet;

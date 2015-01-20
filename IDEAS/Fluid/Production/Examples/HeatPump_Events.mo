@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Production.Examples;
 model HeatPump_Events
   "General example and tester for a modulating water-to-water heat pump"
-  extends IDEAS.Fluid.Production.Examples.HeatPump_BrineWater(
+  extends IDEAS.Fluid.Production.Examples.HeatPump_WaterWater(
     sine(offset=273.15 + 45),
     sine2(offset=273.15 + 45),
     heatPump1(avoidEvents=true));
