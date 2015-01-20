@@ -1,4 +1,4 @@
-within IDEAS.Electric.Distribution;
+within IDEAS.Electric.Distribution.AC;
 package Components 
 
 

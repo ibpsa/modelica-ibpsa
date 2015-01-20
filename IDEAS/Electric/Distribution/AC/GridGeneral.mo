@@ -1,4 +1,4 @@
-within IDEAS.Electric.Distribution;
+within IDEAS.Electric.Distribution.AC;
 model GridGeneral
   "THE General grid to use, look at the documentation for naming etc."
 
@@ -45,7 +45,7 @@ protected
   parameter Integer Nodes=grid.nNodes;
 
 protected
-  IDEAS.Electric.Distribution.Components.Grid1PGeneral grid1PGeneral(
+  IDEAS.Electric.Distribution.AC.Components.Grid1PGeneral grid1PGeneral(
     grid=grid,
     VSource=VSource,
     traPre=traPre,
@@ -53,7 +53,7 @@ protected
     Vsc=Vsc) if Phases == 1
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  IDEAS.Electric.Distribution.Components.Grid3PGeneral grid3PGeneral(
+  IDEAS.Electric.Distribution.AC.Components.Grid3PGeneral grid3PGeneral(
     grid=grid,
     VSource=VSource,
     traPre=traPre,
