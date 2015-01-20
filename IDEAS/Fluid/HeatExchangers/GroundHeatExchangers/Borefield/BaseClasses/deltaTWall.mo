@@ -1,6 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses;
 function deltaTWall
-  "calculate the temperature difference from the inital temperature of the bore hole wall, due to the Load array."
+  "Calculates the temperature difference from the inital temperature of the borehole wall, due to the Load array."
   extends Aggregation.Interface.partialAggFunction;
 
   input Real[q_max,p_max] QMat;
@@ -19,4 +19,14 @@ algorithm
     end for;
   end for;
   deltaTWall := R_ss*q_sum;
+
+    annotation (Documentation(info="<html>
+</html>", revisions="<html>
+<ul>
+<li>
+July 2014, by Damien Picard:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end deltaTWall;

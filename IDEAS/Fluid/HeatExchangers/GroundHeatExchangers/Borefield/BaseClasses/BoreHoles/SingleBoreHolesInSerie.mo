@@ -17,7 +17,8 @@ model SingleBoreHolesInSerie
     each C_start=C_start,
     each C_nominal=C_nominal) "Borehole heat exchanger" annotation (
       Placement(transformation(extent={{-16,-16},{16,16}}, rotation=0)));
-  Modelica.SIunits.Temperature[gen.nbSer] TWallAveSeg;
+  Modelica.SIunits.Temperature[gen.nbSer] TWallAveSeg
+    "Average borehole wall temperature along the depth for each borehole in serie";
 equation
 
   for i in 1:gen.nbSer loop
@@ -205,19 +206,19 @@ The default setting uses the same temperature for the soil and the filling mater
 <h4>Implementation</h4>
 <p>
 Each horizontal layer is modeled using an instance of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment\">
-Buildings.HeatExchangers.Fluid.Boreholes.BaseClasses.BoreholeSegment</a>.
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment\">
+IDEAS.HeatExchangers.Fluid.Boreholes.BaseClasses.BoreholeSegment</a>.
 This model is composed of the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement\">
-Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement</a> which computes
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement\">
+IDEAS.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement</a> which computes
 the heat transfer in the pipes and the borehole filling,
 of the model
-<a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayerCylinder\">
-Buildings.HeatTransfer.Conduction.SingleLayerCylinder</a> which computes
+<a href=\"modelica://IDEAS.HeatTransfer.Conduction.SingleLayerCylinder\">
+IDEAS.HeatTransfer.Conduction.SingleLayerCylinder</a> which computes
 the heat transfer in the soil, and
 of the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.TemperatureBoundaryCondition\">
-Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.TemperatureBoundaryCondition</a> which computes
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Boreholes.BaseClasses.TemperatureBoundaryCondition\">
+IDEAS.Fluid.HeatExchangers.Boreholes.BaseClasses.TemperatureBoundaryCondition</a> which computes
 the far-field temperature boundary condition.
 </p>
 </html>", revisions="<html>

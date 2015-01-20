@@ -1,16 +1,19 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts;
 function initializeModel
+  extends Modelica.Icons.Function;
+
   input Data.Records.Soil soi "Thermal properties of the ground";
   input Data.Records.Filling fil "Thermal properties of the filling material";
   input Data.Records.General gen "General data of the borefield";
 
-  output String sha;
-  output Real[1,gen.tBre_d + 1] TResSho;
-  output Boolean existShoTerRes;
+  output String sha "Pseudo SHA code (unique code) of the record soi and gen";
+  output Real[1,gen.tBre_d + 1] TResSho
+    "Short term response temperature vector of the borefield obtained calling the model IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript";
+  output Boolean existShoTerRes
+    "True if the aggregation matrix has already been calculated and stored in the simulation folder";
 
 protected
-  String pathSave;
-  String dir;
+  String pathSave "Path of the saving folder";
 algorithm
   // --------------- Generate SHA-code and path
   sha := shaBorefieldRecords(
@@ -24,32 +27,19 @@ algorithm
       gen.pathCom,
       "\\",
       "/"));
-  if Modelica.Utilities.Files.exist("C:") then
-    dir :="C://.BfData";
-  elseif Modelica.Utilities.Files.exist("/tmp") then
-    dir :="/tmp/.BfData";
-  else
-    dir :="";
-    assert(false,String(sha) + "\n
-************************************************************************************************************************ \n 
-You do not have the writing permission on the C: or home/ folder. Change the variable dir in
-IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.saveAggregationMatrix to 
-write the temperory file at a different location. \n
-************************************************************************************************************************ \n ");
-  end if;
 
-  Modelica.Utilities.Files.createDirectory(dir);
+ //Creation of a folder .BfData in the simulation folder
+  Modelica.Utilities.Files.createDirectory(".BfData");
 
-  pathSave := dir + "/" + sha;
-
+  pathSave := ".BfData/" + sha;
   // --------------- Check if the short term response (TResSho) needs to be calculated or loaded
   if not Modelica.Utilities.Files.exist(pathSave + "ShoTermData.mat") then
 
-    IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.ShortTimeResponseHX(
-      soi=soi,
-      fil=fil,
-      gen=gen,
-      pathSave=pathSave);
+    ShortTimeResponseHX(
+            soi=soi,
+            fil=fil,
+            gen=gen,
+            pathSave=pathSave);
 
     existShoTerRes := false;
   else

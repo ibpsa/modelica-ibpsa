@@ -3,8 +3,7 @@ package SoilData "Library of Soil Data"
 extends Modelica.Icons.Package;
 
 
-
- annotation (Documentation(info="<html>
+annotation (Documentation(info="<html>
  <p>Library of Soil Data.</p>
 </html>", revisions="<html>
 <ul>

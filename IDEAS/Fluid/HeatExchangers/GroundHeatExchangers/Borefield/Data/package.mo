@@ -6,6 +6,4 @@ extends Modelica.Icons.Package;
 
 
 
-
-
 end Data;

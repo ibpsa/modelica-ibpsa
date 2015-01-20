@@ -3,10 +3,9 @@ package FillingData "Library of Filling Data"
 extends Modelica.Icons.Package;
 
 
- annotation (Documentation(info="<html>
+annotation (Documentation(info="<html>
  <p>Library of Filling Data.</p>
-</html>",
-        revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 2014, by Damien Picard:<br>
