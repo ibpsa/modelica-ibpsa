@@ -11,11 +11,6 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
   outer IDEAS.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  Fluid.Sensors.TemperatureTwoPort senTem(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    tau=tau)
-            annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Fluid.Interfaces.IdealSource       idealSource(
     redeclare package Medium = Medium,
     control_m_flow=true,
@@ -36,10 +31,6 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 equation
 
-  connect(port_a, senTem.port_a) annotation (Line(
-      points={{-100,0},{-90,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(realExpression.y, prescribedTemperature.T) annotation (Line(
       points={{21,70},{38,70}},
       color={0,0,127},
@@ -56,13 +47,13 @@ equation
       points={{20,0},{60,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTem.port_b, idealSource.port_a) annotation (Line(
-      points={{-70,0},{0,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(realExpression1.y, idealSource.m_flow_in) annotation (Line(
       points={{-19,30},{4,30},{4,8}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(port_a, idealSource.port_a) annotation (Line(
+      points={{-100,0},{0,0}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
@@ -70,6 +61,7 @@ equation
           extent={{-60,60},{60,-60}},
           lineColor={0,128,255},
           textString="ACH")}),                                   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
         graphics));
 end AirLeakage;

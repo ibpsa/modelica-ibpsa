@@ -3,20 +3,24 @@ record HeatPumpData "Data record for storing data for an on/off heat pump"
 
   extends Modelica.Icons.Record;
 
-  Modelica.SIunits.Mass mBrine(min=Modelica.Constants.eps)
+  //zeros in powerData and copData indicate that this data is not available
+  //or that the working point is outside of the working range of the device
+  Modelica.SIunits.Power[:,:] powerData "Power map for the heat pump";
+  Real[:,:] copData "Cop map for the heat pump";
+  Modelica.SIunits.Mass m1(min=Modelica.Constants.eps)
     "Fluid content of the evaporator";
 
-  Modelica.SIunits.Mass mFluid(min=Modelica.Constants.eps)
+  Modelica.SIunits.Mass m2(min=Modelica.Constants.eps)
     "Fluid content of the condensor";
 
-  Modelica.SIunits.MassFlowRate m_flow_nominal_brine
+  Modelica.SIunits.MassFlowRate m1_flow_nominal
     "Mass flow rate of the brine (evaporator) for calculation of the pressure drop";
-  Modelica.SIunits.MassFlowRate m_flow_nominal_fluid
+  Modelica.SIunits.MassFlowRate m2_flow_nominal
     "Mass flow rate of the fluid (condensor) for calculation of the pressure drop";
 
-  Modelica.SIunits.Pressure dp_nominal_brine
+  Modelica.SIunits.Pressure dp1_nominal
     "Pressure drop of the evaporator at nominal mass flow rate";
-  Modelica.SIunits.Pressure dp_nominal_fluid
+  Modelica.SIunits.Pressure dp2_nominal
     "Pressure drop of the condensor at nominal mass flow rate";
 
   Modelica.SIunits.ThermalConductance G

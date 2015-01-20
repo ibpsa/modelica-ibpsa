@@ -1,25 +1,26 @@
 within IDEAS.Fluid.Production.BaseClasses;
 partial model PartialHeatPump "Heat pump partial"
+  extends IDEAS.Fluid.Interfaces.FourPortHeatMassExchanger(
+    final tau1=30,
+    final tau2=30,
+    m1_flow_nominal=heatPumpData.m1_flow_nominal*sca,
+    m2_flow_nominal=heatPumpData.m2_flow_nominal*sca,
+    dp1_nominal=heatPumpData.dp1_nominal,
+    dp2_nominal=heatPumpData.dp2_nominal,
+    vol1(mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
+          /Medium1.specificHeatCapacityCp(state_default1)/5/heatPumpData.m1)
+           else mFactor,
+      V=heatPumpData.m1/rho1_nominal,
+      energyDynamics=energyDynamics,
+      massDynamics=massDynamics),
+    vol2(mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
+          /Medium2.specificHeatCapacityCp(state_default2)/5/heatPumpData.m2)
+           else mFactor,
+      V=heatPumpData.m2/rho2_nominal,
+      energyDynamics=energyDynamics,
+      massDynamics=massDynamics));
 
-  Modelica.Fluid.Interfaces.FluidPort_a brineIn(redeclare package Medium =
-        MediumBrine)
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b fluidOut(redeclare package Medium =
-        MediumFluid)
-    annotation (Placement(transformation(extent={{90,30},{110,50}})));
-  Modelica.Fluid.Interfaces.FluidPort_a fluidIn(redeclare package Medium =
-        MediumFluid)
-    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
-  Modelica.Fluid.Interfaces.FluidPort_b brineOut(redeclare package Medium =
-        MediumBrine)
-    annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
-  replaceable package MediumBrine = IDEAS.Media.Water.Simple constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Brine medium at primary side"
-    annotation (choicesAllMatching=true);
-  replaceable package MediumFluid = IDEAS.Media.Water.Simple constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Fluid medium at secondary side"
-    annotation (choicesAllMatching=true);
-  replaceable parameter OnOffHeatPumpData heatPumpData constrainedby
+  replaceable parameter IDEAS.Fluid.Production.BaseClasses.HeatPumpData heatPumpData constrainedby
     HeatPumpData "Record containing heat pump performance data"
                                                    annotation (
       choicesAllMatching=true, Placement(transformation(extent={{-98,-98},{-78,-78}})));
@@ -39,79 +40,15 @@ partial model PartialHeatPump "Heat pump partial"
   final parameter Real sca=if use_scaling then P_the_nominal/heatPumpData.P_the_nominal
        else 1 "scaling factor for the nominal power of the heat pump";
 
-  //From LumpedVolumeDeclarations
-  // Assumptions
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
-    "Formulation of energy balance"
-    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance"
-    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
-  final parameter Modelica.Fluid.Types.Dynamics substanceDynamics=
-      energyDynamics "Formulation of substance balance"
-    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
-  final parameter Modelica.Fluid.Types.Dynamics traceDynamics=energyDynamics
-    "Formulation of trace substance balance"
-    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
-
-  // Initialization
-  parameter MediumBrine.AbsolutePressure p_start=MediumBrine.p_default
-    "Start value of primary circuit pressure"
-    annotation (Dialog(tab="Initialization"));
-  parameter MediumBrine.Temperature T_start=MediumBrine.T_default
-    "Start value of primary circuit temperature"
-    annotation (Dialog(tab="Initialization"));
-  parameter MediumBrine.MassFraction X_start[MediumBrine.nX]=MediumBrine.X_default
-    "Start value of primary circuit mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=MediumBrine.nXi > 0));
-  parameter MediumBrine.ExtraProperty C_start[MediumBrine.nC](quantity=
-        MediumBrine.extraPropertiesNames) = fill(0, MediumBrine.nC)
-    "Start value of primary circuit trace substances"
-    annotation (Dialog(tab="Initialization", enable=MediumBrine.nC > 0));
-  parameter MediumBrine.ExtraProperty C_nominal[MediumBrine.nC](quantity=
-        MediumBrine.extraPropertiesNames) = fill(1E-2, MediumBrine.nC)
-    "Nominal value of trace substances. (Set to typical order of magnitude.)"
-    annotation (Dialog(tab="Initialization", enable=MediumBrine.nC > 0));
-
-  parameter MediumFluid.AbsolutePressure p_start2=MediumFluid.p_default
-    "Start value of secondary circuit pressure"
-    annotation (Dialog(tab="Initialization"));
-  parameter MediumFluid.Temperature T_start2=MediumFluid.T_default
-    "Start value of secondary circuit temperature"
-    annotation (Dialog(tab="Initialization"));
-  parameter MediumFluid.MassFraction X_start2[MediumFluid.nX]=MediumFluid.X_default
-    "Start value of secondary circuit mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=MediumFluid.nXi > 0));
-  parameter MediumFluid.ExtraProperty C_start2[MediumFluid.nC](quantity=
-        MediumFluid.extraPropertiesNames) = fill(0, MediumFluid.nC)
-    "Start value of secondary circuit trace substances"
-    annotation (Dialog(tab="Initialization", enable=MediumFluid.nC > 0));
-  parameter MediumFluid.ExtraProperty C_nominal2[MediumFluid.nC](quantity=
-        MediumFluid.extraPropertiesNames) = fill(1E-2, MediumFluid.nC)
-    "Nominal value of trace substances. (Set to typical order of magnitude.)"
-    annotation (Dialog(tab="Initialization", enable=MediumFluid.nC > 0));
   parameter Real mFactor=1
     "Factor to scale the thermal mass of the evaporator and condensor"
     annotation (Dialog(tab="Advanced"));
 
-  //From TwoPortFlowResistanceParameters:
-  parameter Boolean computeFlowResistance=true
-    "=true, compute flow resistance. Set to false to assume no friction"
-    annotation (Evaluate=true, Dialog(tab="Flow resistance"));
-  parameter Boolean from_dp=false
-    "= true, use m_flow = f(dp) else dp = f(m_flow)" annotation (Evaluate=true,
-      Dialog(enable=computeFlowResistance, tab="Flow resistance"));
-  parameter Boolean linearizeFlowResistance=false
-    "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation (Dialog(enable=computeFlowResistance, tab="Flow resistance"));
-  parameter Real deltaM=0.1
-    "Fraction of nominal flow rate where flow transitions to laminar"
-    annotation (Dialog(enable=computeFlowResistance, tab="Flow resistance"));
   parameter Boolean avoidEvents=false
     "Set to true to switch heat pumps on using a continuous transition"
     annotation (Dialog(tab="Advanced", group="Events"));
 
-  parameter SI.Time riseTime=120
+  parameter Modelica.SIunits.Time riseTime=120
     "The time it takes to reach full/zero power when switching" annotation (
       Dialog(
       tab="Advanced",
@@ -120,51 +57,43 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.Blocks.Tables.CombiTable2D powerTable(table=heatPumpData.powerData,
       smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "Interpolation table for finding the electrical power"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-74,10},{-54,30}})));
   Modelica.Blocks.Tables.CombiTable2D copTable(table=heatPumpData.copData,
       smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-    annotation (Placement(transformation(extent={{-60,54},{-40,74}})));
+    annotation (Placement(transformation(extent={{-74,-16},{-54,4}})));
   Boolean compressorOn;
-  Modelica.Blocks.Sources.RealExpression Qevap(y=-P_evap)
-    annotation (Placement(transformation(extent={{18,0},{0,20}})));
+  Modelica.Blocks.Sources.RealExpression QEvap(y=-P_evap)
+    annotation (Placement(transformation(extent={{-72,70},{-54,50}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatEvap
-    annotation (Placement(transformation(extent={{-12,0},{-32,20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowCond
-    annotation (Placement(transformation(extent={{22,-20},{42,0}})));
+    annotation (Placement(transformation(extent={{-40,70},{-20,50}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatCond
+    annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductorLosses(G=
         heatPumpData.G) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={26,-70})));
+        origin={26,-76})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatLoss
     annotation (Placement(transformation(extent={{16,-110},{36,-90}})));
 
-  Modelica.Blocks.Sources.RealExpression Qcond(y=P_cond)
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_evap(
-    redeclare package Medium = MediumBrine,
-    allowFlowReversal=allowFlowReversal,
-    tau=10,
-    m_flow_nominal=heatPumpData.m_flow_nominal_fluid)
-    annotation (Placement(transformation(extent={{-92,30},{-72,50}})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort T_in_cond(
-    redeclare package Medium = MediumFluid,
-    tau=10,
-    allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=heatPumpData.m_flow_nominal_fluid)
-    annotation (Placement(transformation(extent={{88,-50},{68,-30}})));
+  Modelica.Blocks.Sources.RealExpression QCond(y=P_cond)
+    annotation (Placement(transformation(extent={{86,-70},{66,-50}})));
 
   Modelica.SIunits.Power P_el "Electrical power consumption";
   Modelica.SIunits.Power P_evap "Thermal power of the evaporator (positive)";
   Modelica.SIunits.Power P_cond "Thermal power of the condensor (positive)";
   Real cop "COP of the heat pump";
-  Modelica.Blocks.Sources.RealExpression Pelec(y=P_el)
-    annotation (Placement(transformation(extent={{60,70},{40,90}})));
+  Modelica.Blocks.Sources.RealExpression PElec(y=P_el)
+    annotation (Placement(transformation(extent={{62,18},{82,38}})));
   Modelica.Blocks.Interfaces.RealOutput P "Electrical power consumption"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={20,110})));
+        rotation=0,
+        origin={108,28})));
+
+initial equation
+  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState, "Energy dynamics cannot be set to steady state!");
+
 public
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Flow resistance"));
@@ -173,102 +102,55 @@ public
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"));
 
-  FixedResistances.Pipe_HeatPort evaporator(
-    redeclare package Medium = MediumBrine,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    p_start=p_start,
-    T_start=T_start,
-    X_start=X_start,
-    C_start=C_start,
-    C_nominal=C_nominal,
-    from_dp=from_dp,
-    linearizeFlowResistance=linearizeFlowResistance,
-    deltaM=deltaM,
-    m=heatPumpData.mBrine*sca,
-    dp_nominal=heatPumpData.dp_nominal_brine,
-    m_flow_nominal=heatPumpData.m_flow_nominal_brine*sca,
-    mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
-        /MediumBrine.specificHeatCapacityCp(state_default_brine)/5/heatPumpData.mBrine)
-         else mFactor,
-    computeFlowResistance=computeFlowResistance) annotation (Placement(
-        transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={-60,10})));
-  FixedResistances.Pipe_HeatPort condensor(
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    from_dp=from_dp,
-    linearizeFlowResistance=linearizeFlowResistance,
-    deltaM=deltaM,
-    redeclare package Medium = MediumFluid,
-    p_start=p_start2,
-    T_start=T_start2,
-    X_start=X_start2,
-    C_start=C_start2,
-    C_nominal=C_nominal2,
-    m=heatPumpData.mFluid*sca,
-    dp_nominal=heatPumpData.dp_nominal_fluid,
-    m_flow_nominal=heatPumpData.m_flow_nominal_fluid*sca,
-    mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
-        /MediumFluid.specificHeatCapacityCp(state_default_fluid)/5/heatPumpData.mFluid)
-         else mFactor,
-    computeFlowResistance=computeFlowResistance) annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={60,-10})));
-
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 protected
-  parameter MediumBrine.ThermodynamicState state_default_brine=
-      MediumBrine.setState_pTX(
-      MediumBrine.p_default,
-      MediumBrine.T_default,
-      MediumBrine.X_default);
-  parameter MediumFluid.ThermodynamicState state_default_fluid=
-      MediumFluid.setState_pTX(
-      MediumFluid.p_default,
-      MediumFluid.T_default,
-      MediumFluid.X_default);
+  parameter Medium1.ThermodynamicState state_default1=
+      Medium1.setState_pTX(
+      Medium1.p_default,
+      Medium1.T_default,
+      Medium1.X_default);
+  parameter Medium2.ThermodynamicState state_default2=
+      Medium2.setState_pTX(
+      Medium2.p_default,
+      Medium2.T_default,
+      Medium2.X_default);
 
   // ---------------- Control for temperature protection of evaporator and condenser
   Modelica.Blocks.Logical.Hysteresis hysteresisCond(
     pre_y_start=true,
     uLow=0,
     uHigh=5) "Temperature protection of the condenser"
-    annotation (Placement(transformation(extent={{-42,-88},{-30,-76}})));
+    annotation (Placement(transformation(extent={{-18,-10},{-6,2}})));
   Modelica.Blocks.Sources.RealExpression limit1(y=heatPumpData.T_cond_max -
-        condensor.heatPort.T)
-    annotation (Placement(transformation(extent={{-68,-92},{-48,-72}})));
+        vol2.heatPort.T)
+    annotation (Placement(transformation(extent={{-44,-14},{-24,6}})));
 
   Modelica.Blocks.Logical.Hysteresis hysteresisEvap(
     pre_y_start=true,
     uLow=0,
     uHigh=5) "Temperature protection of the evaporator"
-    annotation (Placement(transformation(extent={{-42,-102},{-30,-90}})));
-  Modelica.Blocks.Sources.RealExpression limit2(y=evaporator.heatPort.T -
+    annotation (Placement(transformation(extent={{-18,-24},{-6,-12}})));
+  Modelica.Blocks.Sources.RealExpression limit2(y=vol1.heatPort.T -
         heatPumpData.T_evap_min)
-    annotation (Placement(transformation(extent={{-68,-106},{-48,-86}})));
+    annotation (Placement(transformation(extent={{-44,-28},{-24,-8}})));
   Modelica.Blocks.Logical.And tempProtection
-    annotation (Placement(transformation(extent={{-24,-90},{-16,-82}})));
+    annotation (Placement(transformation(extent={{0,-12},{8,-4}})));
 
   // ---------------- Smoothing of the temperature protection control and on off control
 
 public
   Modelica.Blocks.Sources.BooleanExpression compressorOnBlock(y=compressorOn) if avoidEvents
-    annotation (Placement(transformation(extent={{-100,-68},{-60,-48}})));
+    annotation (Placement(transformation(extent={{-46,10},{-6,30}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal if avoidEvents
-    annotation (Placement(transformation(extent={{-52,-64},{-40,-52}})));
+    annotation (Placement(transformation(extent={{2,14},{14,26}})));
   Modelica.Blocks.Continuous.Filter modulationRate(f_cut=5/(2*Modelica.Constants.pi
         *riseTime),
     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
     final filterType=Modelica.Blocks.Types.FilterType.LowPass,
     final order=2) if                                                                                   avoidEvents
     "Fictive modulation rate to avoid non-smooth on/off transitions causing events."
-    annotation (Placement(transformation(extent={{-34,-64},{-22,-52}})));
+    annotation (Placement(transformation(extent={{20,14},{32,26}})));
 protected
   Modelica.Blocks.Interfaces.RealInput modulationRate_internal
     " Internal variable for temperature safety modulation";
@@ -293,6 +175,14 @@ public
         extent={{-6,-6},{6,6}},
         rotation=270,
         origin={88,76})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T_out_cond
+    annotation (Placement(transformation(extent={{-12,-52},{-32,-32}})));
+  Modelica.Blocks.Sources.RealExpression T_in_evap(y=Medium1.temperature(
+        Medium1.setState_phX(
+        port_a1.p,
+        inStream(port_a1.h_outflow),
+        inStream(port_a1.Xi_outflow))))
+    annotation (Placement(transformation(extent={{-110,4},{-90,24}})));
 equation
   cop = copTable.y;
   P_evap = P_el*(cop - 1);
@@ -303,11 +193,11 @@ equation
   if avoidEvents then
     connect(modulationRate_internal, modulationRate.y);
     connect(compressorOnBlock.y, booleanToReal.u) annotation (Line(
-      points={{-58,-58},{-53.2,-58}},
+      points={{-4,20},{0.8,20}},
       color={255,0,255},
       smooth=Smooth.None));
     connect(modulationRate.u, booleanToReal.y) annotation (Line(
-      points={{-35.2,-58},{-39.4,-58}},
+      points={{18.8,20},{14.6,20}},
       color={0,0,127},
       smooth=Smooth.None));
   else
@@ -325,96 +215,88 @@ equation
   end if;
 
   connect(heatLoss, thermalConductorLosses.port_a) annotation (Line(
-      points={{26,-100},{26,-80}},
+      points={{26,-100},{26,-86}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(prescribedHeatEvap.Q_flow, Qevap.y) annotation (Line(
-      points={{-12,10},{-0.9,10}},
+  connect(PElec.y, P) annotation (Line(
+      points={{83,28},{108,28}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(prescribedHeatFlowCond.Q_flow, Qcond.y) annotation (Line(
-      points={{22,-10},{1,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(brineIn, T_in_evap.port_a) annotation (Line(
-      points={{-100,40},{-92,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(fluidIn, T_in_cond.port_a) annotation (Line(
-      points={{100,-40},{88,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(Pelec.y, P) annotation (Line(
-      points={{39,80},{20,80},{20,110}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(evaporator.port_a, T_in_evap.port_b) annotation (Line(
-      points={{-60,20},{-60,40},{-72,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(evaporator.heatPort,prescribedHeatEvap. port) annotation (Line(
-      points={{-50,10},{-32,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(evaporator.port_b, brineOut) annotation (Line(
-      points={{-60,0},{-60,-40},{-100,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(T_in_cond.port_b, condensor.port_a) annotation (Line(
-      points={{68,-40},{60,-40},{60,-20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(condensor.port_b, fluidOut) annotation (Line(
-      points={{60,0},{60,40},{100,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(prescribedHeatFlowCond.port, condensor.heatPort) annotation (Line(
-      points={{42,-10},{50,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalConductorLosses.port_b, condensor.heatPort) annotation (Line(
-      points={{26,-60},{26,-28},{50,-28},{50,-10}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(limit1.y, hysteresisCond.u) annotation (Line(
-      points={{-47,-82},{-43.2,-82}},
+      points={{-23,-4},{-19.2,-4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(limit2.y, hysteresisEvap.u) annotation (Line(
-      points={{-47,-96},{-43.2,-96}},
+      points={{-23,-18},{-19.2,-18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hysteresisCond.y, tempProtection.u1) annotation (Line(
-      points={{-29.4,-82},{-26,-82},{-26,-86},{-24.8,-86}},
+      points={{-5.4,-4},{-2,-4},{-2,-8},{-0.8,-8}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(hysteresisEvap.y, tempProtection.u2) annotation (Line(
-      points={{-29.4,-96},{-26,-96},{-26,-89.2},{-24.8,-89.2}},
+      points={{-5.4,-18},{-2,-18},{-2,-11.2},{-0.8,-11.2}},
       color={255,0,255},
       smooth=Smooth.None));
 
+  connect(powerTable.u1, copTable.u1) annotation (Line(
+      points={{-76,26},{-82,26},{-82,26},{-86,26},{-86,0},{-76,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(prescribedHeatEvap.port, vol1.heatPort) annotation (Line(
+      points={{-20,60},{-10,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(prescribedHeatCond.port, vol2.heatPort) annotation (Line(
+      points={{40,-60},{12,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermalConductorLosses.port_b, vol2.heatPort) annotation (Line(
+      points={{26,-66},{26,-60},{12,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(T_out_cond.port, vol2.heatPort) annotation (Line(
+      points={{-12,-42},{12,-42},{12,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(T_out_cond.T, copTable.u1) annotation (Line(
+      points={{-32,-42},{-86,-42},{-86,0},{-76,0}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(T_in_evap.y, powerTable.u2) annotation (Line(
+      points={{-89,14},{-76,14}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(copTable.u2, powerTable.u2) annotation (Line(
+      points={{-76,-12},{-80,-12},{-80,14},{-76,14}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QCond.y, prescribedHeatCond.Q_flow) annotation (Line(
+      points={{65,-60},{60,-60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QEvap.y, prescribedHeatEvap.Q_flow) annotation (Line(
+      points={{-53.1,60},{-40,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics),
     Icon(graphics={
-        Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,255}),
         Line(
-          points={{-100,40},{-20,40},{-40,20},{-20,0},{-40,-20},{-20,-40},{-100,
-              -40}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{100,40},{20,40},{40,20},{20,0},{40,-20},{20,-40},{100,-40}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-20,20},{20,20}},
+          points={{-20,0},{40,2.44929e-15}},
           color={255,0,0},
-          smooth=Smooth.None),
+          smooth=Smooth.None,
+          origin={0,0},
+          rotation=90,
+          thickness=0.5),
         Line(
-          points={{10,30},{20,20},{10,10}},
+          points={{-14,21},{6,1},{-14,-23}},
           color={255,0,0},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None,
+          origin={-1,-14},
+          rotation=270,
+          thickness=0.5)}),
     Documentation(revisions="<html>
     <ul>
     <li>December 2014 by Damien Picard:<br/> 
@@ -433,9 +315,9 @@ Initial version
 </html>", info="<html>
 <p>This partial model provides an implementation for a heat pump. Heat is drawn from the fluid at the &apos;Brine&apos; side and injected into the &apos;Fluid&apos; side. The model uses performance tables to calculate the COP and electrical power.</p>
 <p><b>Main equations</b> </p>
-<p>The COP and electrical power Pel are read from performance tables as a function of the water inlet temperatures:</p>
-<p>COP = f1(T_in_condensor, T_in_evaporator)</p>
-<p>P_el = f2(T_in_condensor, T_in_evaporator)</p>
+<p>The COP and electrical power Pel are read from performance tables as a function of the evaporator inlet temperature and the condensor outlet temperature:</p>
+<p>COP = f1(T_out_condensor, T_in_evaporator)</p>
+<p>P_el = f2(T_out_condensor, T_in_evaporator)</p>
 <p>These values are used to calculate the thermal powers:</p>
 <p>Q_condensor = P_el*COP</p>
 <p>Q_evaporator = P_el*(COP-1)</p>

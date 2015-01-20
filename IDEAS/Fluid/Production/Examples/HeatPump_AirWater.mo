@@ -16,7 +16,7 @@ model HeatPump_AirWater
     m_flow_nominal=m_flow_nominal,
     T_start(displayUnit="K") = 313.15)
     annotation (Placement(transformation(extent={{32,-4},{12,-24}})));
-  Fluid.Production.HP_AirWater heater(
+  HP_AirWater_TSet heater(
     tauHeatLoss=3600,
     cDry=10000,
     mWater=4,
@@ -48,6 +48,8 @@ model HeatPump_AirWater
   constant SI.MassFlowRate m_flow_nominal=0.2 "Nominal mass flow rate";
   inner SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,78},{-80,98}})));
+  Modelica.Blocks.Sources.BooleanConstant HP_on(k=true)
+    annotation (Placement(transformation(extent={{-34,46},{-54,66}})));
 equation
   heater.TSet = 273.15 + 35;
   //   der(PElLossesInt) = HP.PEl;
@@ -69,7 +71,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heater.port_b, pipe.port_a) annotation (Line(
-      points={{-56,26.7273},{-56,36},{48,36},{48,-14},{32,-14}},
+      points={{-56,30},{-56,36},{48,36},{48,-14},{32,-14}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(pipe.port_b, pump.port_a) annotation (Line(
@@ -77,16 +79,20 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(pump.port_b, heater.port_a) annotation (Line(
-      points={{-34,-14},{-56,-14},{-56,19.4545}},
+      points={{-34,-14},{-56,-14},{-56,18}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(bou.ports[1], heater.port_a) annotation (Line(
-      points={{-28,18},{-42,18},{-42,19.4545},{-56,19.4545}},
+      points={{-28,18},{-42,18},{-42,18},{-56,18}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(HP_on.y, heater.on) annotation (Line(
+      points={{-55,56},{-65.9,56},{-65.9,36}},
+      color={255,0,255},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}), graphics),
     experiment(StopTime=15000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
