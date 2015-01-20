@@ -26,7 +26,7 @@ import buildingspy.development.regressiontest as rt
 """
 # os.chdir("E:\work\modelica\IDEAS\IDEAS")
 
-tester=r.Tester(executable='dymola')
+tester=r.Tester(executable='dymola', check_html=False)
 
 """ number of parallel processes started."""
 
