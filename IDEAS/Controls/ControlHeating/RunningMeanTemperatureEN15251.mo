@@ -3,11 +3,11 @@ model RunningMeanTemperatureEN15251
   "Calculate the running mean temperature of 7 days, acccording to norm EN15251"
 
   parameter Real[7] TAveDayIni(unit="K", displayUnit="degC") = ones(7).* 283.15
-    "initial running mean temperature";
+    "Initial running mean temperature";
 
   // Interface
    discrete Modelica.Blocks.Interfaces.RealOutput TRm(unit="K",displayUnit = "degC")
-    "running mean average temperature"
+    "Running mean average temperature"
      annotation (Placement(transformation(extent={{96,-10},{116,10}})));
 
 protected
@@ -75,5 +75,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end RunningMeanTemperatureEN15251;
