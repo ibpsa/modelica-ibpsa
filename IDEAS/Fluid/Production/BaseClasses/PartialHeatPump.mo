@@ -48,7 +48,7 @@ partial model PartialHeatPump "Heat pump partial"
     "Set to true to switch heat pumps on using a continuous transition"
     annotation (Dialog(tab="Advanced", group="Events"));
 
-  parameter SI.Time riseTime=120
+  parameter Modelica.SIunits.Time riseTime=120
     "The time it takes to reach full/zero power when switching" annotation (
       Dialog(
       tab="Advanced",
@@ -79,6 +79,7 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.Blocks.Sources.RealExpression Qcond(y=P_cond)
     annotation (Placement(transformation(extent={{84,-70},{64,-50}})));
 
+
   Modelica.SIunits.Power P_el "Electrical power consumption";
   Modelica.SIunits.Power P_evap "Thermal power of the evaporator (positive)";
   Modelica.SIunits.Power P_cond "Thermal power of the condensor (positive)";
@@ -90,6 +91,10 @@ partial model PartialHeatPump "Heat pump partial"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={108,28})));
+
+initial equation
+  assert(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState, "Energy dynamics cannot be set to steady state!");
+
 public
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Flow resistance"));
