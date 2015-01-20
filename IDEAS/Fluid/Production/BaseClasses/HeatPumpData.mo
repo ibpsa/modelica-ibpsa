@@ -7,10 +7,10 @@ record HeatPumpData "Data record for storing data for an on/off heat pump"
   //or that the working point is outside of the working range of the device
   Modelica.SIunits.Power[:,:] powerData "Power map for the heat pump";
   Real[:,:] copData "Cop map for the heat pump";
-  Modelica.SIunits.Mass mBrine(min=Modelica.Constants.eps)
+  Modelica.SIunits.Mass mEvap(min=Modelica.Constants.eps)
     "Fluid content of the evaporator";
 
-  Modelica.SIunits.Mass mFluid(min=Modelica.Constants.eps)
+  Modelica.SIunits.Mass mCond(min=Modelica.Constants.eps)
     "Fluid content of the condensor";
 
   Modelica.SIunits.MassFlowRate m1_flow_nominal

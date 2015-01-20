@@ -5,7 +5,7 @@ model HP_WaterWater_Tset
       IDEAS.Fluid.Production.BaseClasses.HeatPumpData heatPumpData constrainedby
       IDEAS.Fluid.Production.BaseClasses.HeatPumpData);
 
-  Modelica.Blocks.Sources.RealExpression TsetLimit(y=Tset - condensor.heatPort.T)
+  Modelica.Blocks.Sources.RealExpression TsetLimit(y=Tset - vol2.heatPort.T)
     annotation (Placement(transformation(extent={{-70,-46},{-28,-26}})));
   Modelica.Blocks.Interfaces.RealInput Tset "Condensor temperature setpoint"
     annotation (Placement(transformation(
