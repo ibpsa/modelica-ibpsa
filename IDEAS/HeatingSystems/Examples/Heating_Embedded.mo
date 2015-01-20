@@ -11,7 +11,7 @@ model Heating_Embedded
   IDEAS.HeatingSystems.Heating_Embedded     heating(
     nZones=nZones,
     dTSupRetNom=5,
-    redeclare IDEAS.Fluid.Production.HP_AirWater heater,
+    redeclare IDEAS.Fluid.Production.HP_AirWater_TSet heater,
     each RadSlaCha = radSlaCha_ValidationEmpa,
     QNom={8000 for i in 1:nZones},
     TSupNom=273.15 + 45,

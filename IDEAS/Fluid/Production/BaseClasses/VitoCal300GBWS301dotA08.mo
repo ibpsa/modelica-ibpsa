@@ -1,13 +1,13 @@
 within IDEAS.Fluid.Production.BaseClasses;
 record VitoCal300GBWS301dotA08
   "Viessmann Vitocal 300-G, type BW/BWS/BWC 301.A08 heat pump data"
-  extends OnOffHeatPumpData(
-  mBrine=3.4,
-  mFluid=3.5,
-  m_flow_nominal_brine=2600/3600,
-  m_flow_nominal_fluid=1800/3600,
-  dp_nominal_brine=10000,
-  dp_nominal_fluid=10000,
+  extends HeatPumpData(
+  m1=3.4,
+  m2=3.5,
+  m1_flow_nominal=2600/3600,
+  m2_flow_nominal=1800/3600,
+  dp1_nominal=10000,
+  dp2_nominal=10000,
   G=680/15,
   P_the_nominal = 8000,
   T_evap_min=273.15-5,
