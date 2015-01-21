@@ -164,8 +164,8 @@ model HeatPump_WaterWater
     use_scaling=true,
     onOff=true,
     P_the_nominal=scaling*HP_modSec.heatPumpData.P_the_nominal,
-    use_modulation_security=true,
-    riseTime=60)                  constrainedby HP_WaterWater_OnOff
+    use_modulation_security=true)                  constrainedby
+    HP_WaterWater_OnOff
     "Heat pump using the scaling and the modulation security" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
