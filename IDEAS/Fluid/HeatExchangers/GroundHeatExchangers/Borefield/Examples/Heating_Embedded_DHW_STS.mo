@@ -252,15 +252,17 @@ model Heating_Embedded_DHW_STS
   Modelica.Fluid.Sources.Boundary_pT boundary(          redeclare package
       Medium = Medium, nPorts=1)
     annotation (Placement(transformation(extent={{-234,-60},{-214,-40}})));
-  IDEAS.Fluid.Production.HeatPumpTset heatPumpTset(
-    redeclare package MediumBrine = Medium,
-    redeclare package MediumFluid = Medium,
+  IDEAS.Fluid.Production.HP_WaterWater_TSet heatPumpTset(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
     redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA45
       heatPumpData,
     allowFlowReversal=false,
     use_scaling=true,
     P_the_nominal=bfData.PThe_nominal)
-    annotation (Placement(transformation(extent={{-164,-14},{-138,18}})));
+    annotation (Placement(transformation(extent={{13,-16},{-13,16}},
+        rotation=90,
+        origin={-151,2})));
 
 equation
   connect(nakedTabs.port_a, convectionTabs.solid) annotation (Line(
@@ -318,7 +320,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TSet_max.y, ctrl_Heating.TRoo_in1) annotation (Line(
-      points={{-188.9,45},{-188.9,44},{-166.889,44}},
+      points={{-188.9,45},{-188.9,48},{-166,48}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, heatingControl.u) annotation (Line(
@@ -342,7 +344,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(ctrl_Heating.THeaCur, idealCtrlMixer.TMixedSet) annotation (Line(
-      points={{-145.556,49},{-132,49},{-132,56},{39,56},{39,50}},
+      points={{-146,48},{-132,48},{-132,56},{39,56},{39,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(THigh_val.y, heatingControl.uHigh) annotation (Line(
@@ -382,13 +384,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(tesTank.T[posTTop], ctrl_Heating.TTankTop) annotation (Line(
-      points={{-4,-15.3846},{12,-15.3846},{12,60},{-182,60},{-182,51.375},{-167,
-          51.375}},
+      points={{-4,-15.3846},{12,-15.3846},{12,60},{-182,60},{-182,44},{-166,44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tesTank.T[posTBot], ctrl_Heating.TTankBot) annotation (Line(
       points={{-4,-15.3846},{4,-15.3846},{4,-16},{12,-16},{12,60},{-182,60},{
-          -182,36.5},{-166.889,36.5}},
+          -182,40},{-166,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dHW.port_hot, senTemSto_top.port_b) annotation (Line(
@@ -456,33 +457,35 @@ equation
       points={{-218,-20},{-218,-32},{-198,-32}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pum.port_b, heatPumpTset.brineIn) annotation (Line(
-      points={{-218,0},{-218,14},{-164,14},{-164,8.4}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(multipleBoreholes.port_a, heatPumpTset.brineOut) annotation (Line(
-      points={{-170,-32},{-164,-32},{-164,-4.4}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(ctrl_Heating.THeaterSet, heatPumpTset.Tset) annotation (Line(
-      points={{-145.556,44},{-138,44},{-138,26},{-153.6,26},{-153.6,19.28}},
+      points={{-147,45},{-138,45},{-138,26},{-167,26},{-167,8.5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(heatPumpTset.fluidOut, senTemHea_out.port_a) annotation (Line(
-      points={{-138,8.4},{-118,8.4},{-118,38},{-68,38}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heatPumpTset.fluidIn, senTemStoHX_out.port_b) annotation (Line(
-      points={{-138,-4.4},{-114,-4.4},{-114,-68},{-84,-68}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(heatPumpTset.heatLoss, fixedTemperature.port) annotation (Line(
-      points={{-147.62,-14},{-146,-14},{-146,-24},{-134,-24},{-133,-34}},
+      points={{-135,-1.38},{-146,-1.38},{-146,-4.62},{-133,-4.62},{-133,-34}},
       color={191,0,0},
       smooth=Smooth.None));
+
+  connect(heatPumpTset.port_b2, senTemHea_out.port_a) annotation (Line(
+      points={{-141.4,15},{-104.7,15},{-104.7,38},{-68,38}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatPumpTset.port_a2, senTemStoHX_out.port_b) annotation (Line(
+      points={{-141.4,-11},{-112.7,-11},{-112.7,-68},{-84,-68}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatPumpTset.port_b1, multipleBoreholes.port_a) annotation (Line(
+      points={{-160.6,-11},{-170,-11},{-170,-32}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatPumpTset.port_a1, pum.port_b) annotation (Line(
+      points={{-160.6,15},{-218,15},{-218,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-160},{280,
-            120}}), graphics={Rectangle(
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-160},{
+            280,120}}),
+                    graphics={Rectangle(
           extent={{-104,10},{82,-84}},
           lineColor={135,135,135},
           lineThickness=1), Text(
