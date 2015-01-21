@@ -7,15 +7,11 @@ partial model PartialHeatPump "Heat pump partial"
     m2_flow_nominal=heatPumpData.m2_flow_nominal*sca,
     dp1_nominal=heatPumpData.dp1_nominal,
     dp2_nominal=heatPumpData.dp2_nominal,
-    vol1(mFactor=if use_modulation_security then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
-          /Medium1.specificHeatCapacityCp(state_default1)/5/heatPumpData.m1)
-           else mFactor,
+    vol1(mFactor=mFactor,
       V=heatPumpData.m1/rho1_nominal,
       energyDynamics=energyDynamics,
       massDynamics=massDynamics),
-    vol2(mFactor=if use_modulation_security then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
-          /Medium2.specificHeatCapacityCp(state_default2)/5/heatPumpData.m2)
-           else mFactor,
+    vol2(mFactor=mFactor,
       V=heatPumpData.m2/rho2_nominal,
       energyDynamics=energyDynamics,
       massDynamics=massDynamics));
@@ -47,12 +43,6 @@ partial model PartialHeatPump "Heat pump partial"
     "Factor to scale the thermal mass of the evaporator and condensor"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Time riseTime=120
-    "The time it takes to reach full/zero power when switching" annotation (
-      Dialog(
-      tab="Advanced",
-      group="Events",
-      enable=use_modulation_security));
   Modelica.Blocks.Tables.CombiTable2D powerTable(table=heatPumpData.powerData,
       smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "Interpolation table for finding the electrical power"
@@ -132,16 +122,6 @@ public
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={88,110})));
-  Modelica.Blocks.Continuous.Filter modulationSignal(f_cut=5/(2*Modelica.Constants.pi
-        *riseTime),
-    final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-    final filterType=Modelica.Blocks.Types.FilterType.LowPass,
-    final order=2) if                                                                                   use_modulationSignal
-    "Smoothing of the modulation signal"
-    annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=270,
-        origin={88,76})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T_out_cond
     annotation (Placement(transformation(extent={{-12,-52},{-32,-32}})));
   Modelica.Blocks.Sources.RealExpression T_evap_in(y=Medium1.temperature(
@@ -152,7 +132,7 @@ public
     annotation (Placement(transformation(extent={{-110,4},{-90,24}})));
 
 equation
-  connect(modulationSignal_internal,modulationSignal.y);
+  connect(modulationSignal_internal,mod);
   if not use_modulationSignal then
     modulationSignal_internal = 1;
   end if;
@@ -216,10 +196,6 @@ equation
       smooth=Smooth.None));
   connect(QEvap.y, prescribedHeatEvap.Q_flow) annotation (Line(
       points={{-53.1,60},{-40,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(mod, modulationSignal.u) annotation (Line(
-      points={{88,110},{88,83.2}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

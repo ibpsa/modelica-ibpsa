@@ -4,7 +4,7 @@ partial model ModulationSecurity "Non physical down modulation of the power of a
   parameter Boolean use_modulation_security=false
     "Set to true if power modulation should be used to avoid exceeding temperature."
                                                                                      annotation (Dialog(tab="Advanced", group="Events"));
-  parameter Modelica.SIunits.TemperatureDifference deltaT_security=3
+  parameter Modelica.SIunits.TemperatureDifference deltaT_security= if use_modulation_security then 1 else 5
     "Temperature difference from the boundary at which the security hysteresis will be released";
   parameter Modelica.SIunits.Temperature T_max=373.15
     "Maximum fluid temperature";
@@ -13,10 +13,10 @@ partial model ModulationSecurity "Non physical down modulation of the power of a
 
   Modelica.Blocks.Interfaces.RealOutput modulation_security=
       IDEAS.Utilities.Math.Functions.spliceFunction(
-      x=min(limLow.y, limUp.y)/min(Modelica.Constants.eps,deltaT_security) - 1,
+      x=min(limLow.y, limUp.y)/max(Modelica.Constants.eps,deltaT_security) - 1,
       pos=1,
       neg=0,
-      deltax=deltaT_security/3) if                                                                                                     use_modulation_security
+      deltax=0.5) if                                                                                                     use_modulation_security
     "Modulation to avoid reaching temperature boundaries";
 
 protected
