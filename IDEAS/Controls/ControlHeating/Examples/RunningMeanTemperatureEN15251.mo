@@ -12,6 +12,6 @@ model RunningMeanTemperatureEN15251
     experiment(StopTime=1e+007, __Dymola_NumberOfIntervals=50000),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
-          "../../IDEAS/IDEAS/Resources/Scripts/Dymola/Controls/ControlHeating/Examples/RunningMeanTemperatureEN15251.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Controls/ControlHeating/Examples/RunningMeanTemperatureEN15251.mos"
         "Simulate and Plot"));
 end RunningMeanTemperatureEN15251;
