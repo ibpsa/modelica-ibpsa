@@ -5,8 +5,8 @@ partial model PartialHeatPump "Heat pump partial"
     final tau2=30,
     m1_flow_nominal=heatPumpData.m1_flow_nominal*sca,
     m2_flow_nominal=heatPumpData.m2_flow_nominal*sca,
-    dp1_nominal=heatPumpData.dp1_nominal,
-    dp2_nominal=heatPumpData.dp2_nominal,
+    dp1_nominal=if computeFlowResistance then heatPumpData.dp1_nominal else 0,
+    dp2_nominal=if computeFlowResistance then heatPumpData.dp2_nominal else 0,
     vol1(mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
           /Medium1.specificHeatCapacityCp(state_default1)/5/heatPumpData.m1)
            else mFactor,
@@ -54,6 +54,10 @@ partial model PartialHeatPump "Heat pump partial"
       tab="Advanced",
       group="Events",
       enable=avoidEvents));
+  parameter Boolean computeFlowResistance = true
+    "=true, compute flow resistance. Set to false to assume no friction"
+    annotation (Evaluate=true, Dialog(tab="Flow resistance"));
+
   Modelica.Blocks.Tables.CombiTable2D powerTable(table=heatPumpData.powerData,
       smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     "Interpolation table for finding the electrical power"
