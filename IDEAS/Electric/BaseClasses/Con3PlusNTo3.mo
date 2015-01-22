@@ -1,6 +1,6 @@
 within IDEAS.Electric.BaseClasses;
 model Con3PlusNTo3
-  "Converts the 3 phases plus Neutrol to 3 phases representation to wich powers can be connected"
+  "Converts the 3 phases plus Neutral to 3 phases representation to wich powers can be connected"
 
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
     fourWire[4]
