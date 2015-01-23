@@ -10,6 +10,11 @@ record General "General parameters of the borefield"
       "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/Records/General.mo")
     "Computer record path";
 
+  parameter Boolean use_Rb = false
+    "True if the value borehole thermal resistance Rb should be given and used";
+  parameter Real Rb(unit="(m.K)/W") = 0
+    "Borehole thermal resistance Rb. Only to fill in if known";
+
   parameter SI.Temperature T_start=283.15
     "Initial temperature of the borefield (grout and soil)";
   parameter SI.MassFlowRate m_flow_nominal_bh=0.3
