@@ -104,7 +104,8 @@ public
     final C2_nominal=C_nominal,
     final scaSeg=bfData.gen.nbBh*bfData.gen.nVer,
     final T1_start=T_start,
-    final T2_start=T_start)
+    final T2_start=T_start,
+    final TFil_start=T_start)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(extent={{-12,13},{12,-13}},
         rotation=270,
@@ -160,7 +161,7 @@ algorithm
       p_max=p_max,
       QMat=QMat,
       kappaMat=kappaMat,
-      R_ss=R_ss) + bfData.gen.T_start;
+      R_ss=R_ss) + T_start;
   end when;
 
 equation
