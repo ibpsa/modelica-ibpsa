@@ -293,6 +293,11 @@ connected to the dynamic model of the borehole heat exchanger.</p>
 and in 
 <a href=\"modelica://IDEAS.Fluid.HeatExchangers.Borefield.UsersGuide\">IDEAS.Fluid.HeatExchangers.Borefield.UsersGuide</a>.
 </p>
+<p>
+A verification of this model can be found in 
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Validation.TrtValidation\">TrtValidation</a>
+.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
