@@ -10,7 +10,7 @@ model MultipleBoreHoles
         IDEAS.Media.Water.Simple,
     final allowFlowReversal=false);
 
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = gen.T_start);
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start);
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
       computeFlowResistance=true, dp_nominal=0);
 
