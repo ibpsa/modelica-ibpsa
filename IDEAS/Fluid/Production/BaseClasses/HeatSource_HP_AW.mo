@@ -121,10 +121,11 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort connection to water in condensor"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Controls.Discrete.HysteresisRelease     onOff(
+  Controls.Discrete.HysteresisRelease_boolean
+                                          onOff(
     enableRelease=true,
     y(start=0),
-    release(start=0))
+    release(start=false))
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=modulationInit)
     annotation (Placement(transformation(extent={{-24,70},{-2,90}})));
@@ -150,8 +151,6 @@ public
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,-100})));
-  Modelica.Blocks.Math.BooleanToReal booleanToReal
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
 equation
   QAsked = IDEAS.Utilities.Math.Functions.smoothMax(0, m_flowCondensor*(Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default,TCondensor_set, Medium.X_default)) -hIn), 10);
   P100.u1 = heatPort.T - 273.15;
@@ -183,9 +182,9 @@ equation
   P_vector[5] = P100.y*QNom/QNomRef;
   QMax = 1000*Q100.y*QNom/QNomRef;
   modulationInit = QAsked/QMax*100;
-  modulation = onOff.y*min(modulationInit, 100);
+  modulation = onOff.y*IDEAS.Utilities.Math.Functions.smoothMax(modulationInit, 100,1);
   // compensation of heat losses (only when the hp is operating)
-  QLossesToCompensate = if modulation > 0 then UALoss*(heatPort.T -
+  QLossesToCompensate = if noEvent(modulation > 0) then UALoss*(heatPort.T -
     TEnvironment) else 0;
   heatPort.Q_flow = -1000*Modelica.Math.Vectors.interpolate(
     mod_vector,
@@ -207,13 +206,9 @@ equation
       points={{-50.8,64},{-24,64},{-24,64},{0,64},{0,72},{8,72}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(on, booleanToReal.u) annotation (Line(
-      points={{-100,40},{-62,40}},
+  connect(on, onOff.release) annotation (Line(
+      points={{-100,40},{20,40},{20,68}},
       color={255,0,255},
-      smooth=Smooth.None));
-  connect(booleanToReal.y, onOff.release) annotation (Line(
-      points={{-39,40},{20,40},{20,68}},
-      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),

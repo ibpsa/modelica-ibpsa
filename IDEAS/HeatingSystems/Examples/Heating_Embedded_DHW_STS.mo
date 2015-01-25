@@ -12,7 +12,7 @@ model Heating_Embedded_DHW_STS
                                             heating(
     nZones=nZones,
     dTSupRetNom=5,
-    redeclare IDEAS.Fluid.Production.HP_AirWater heater,
+    redeclare IDEAS.Fluid.Production.HP_AirWater_TSet heater,
     each RadSlaCha = radSlaCha_ValidationEmpa,
     TSupNom=273.15 + 45,
     corFac_val=5,
@@ -110,9 +110,9 @@ equation
       smooth=Smooth.None));
   connect(heating.heatPortRad, building.heatPortRad) annotation (Line(
       points={{12,-10.8},{4,-10.8},{4,-12},{-4,-12},{-4,-26},{-64,-26},{-64,-8}},
-
       color={191,0,0},
       smooth=Smooth.None));
+
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),

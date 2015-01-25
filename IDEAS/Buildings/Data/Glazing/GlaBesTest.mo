@@ -1,12 +1,12 @@
 within IDEAS.Buildings.Data.Glazing;
 record GlaBesTest = IDEAS.Buildings.Data.Interfaces.Glazing (
-    nLay=3,
-    mats={Materials.Glass(d=0.003175),Materials.Air(d=0.013),Materials.Glass(d=
+    final nLay=3,
+    final mats={Materials.Glass(d=0.003175),Materials.Air(d=0.013),Materials.Glass(d=
         0.003175)},
-    SwTrans=[0, 0.747454; 10, 0.746824; 20, 0.744654; 30, 0.739491; 40,
+    final SwTrans=[0, 0.747454; 10, 0.746824; 20, 0.744654; 30, 0.739491; 40,
         0.729832; 45, 0.720922; 50, 0.707331; 60, 0.652331; 70, 0.516754; 80,
         0.263009; 88.9, 0.00; 90, 0.00],
-    SwAbs=[0, 0.0643, 0.0, 0.0522; 20, 0.0659, 0.0, 0.0534; 30, 0.0679, 0.0,
+    final SwAbs=[0, 0.0643, 0.0, 0.0522; 20, 0.0659, 0.0, 0.0534; 30, 0.0679, 0.0,
         0.0548; 40, 0.0708, 0.0, 0.0566; 48, 0.0738, 0.0, 0.058; 55, 0.0769,
         0.0, 0.0587; 57, 0.0779, 0.0, 0.0587; 60, 0.0796, 0.0, 0.0585; 63,
         0.0815, 0.0, 0.0579; 66, 0.0837, 0.0, 0.0568; 68, 0.0852, 0.0, 0.0558;
@@ -16,7 +16,7 @@ record GlaBesTest = IDEAS.Buildings.Data.Interfaces.Glazing (
         0.0854, 0.0, 0.0254; 87, 0.079, 0.0, 0.0205; 88, 0.0671, 0.0, 0.0128;
         89, 0.0473, 0.0, 0.0043; 89.5, 0.304, 0.0, 0.0004; 89.99, 0.001, 0.0,
         0.0; 90, 0.00, 0.0, 0.0],
-    SwTransDif=0.652331,
-    SwAbsDif={0.0796,0.0,0.0585},
-    U_value=2.8,
-    g_value=0.87) "BESTEST, Double pane 4/16/4 mm window(U=2.8,g=0.87)";
+    final SwTransDif=0.652331,
+    final SwAbsDif={0.0796,0.0,0.0585},
+    final U_value=2.8,
+    final g_value=0.87) "BESTEST, Double pane 4/16/4 mm window(U=2.8,g=0.87)";

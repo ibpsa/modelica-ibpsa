@@ -12,7 +12,7 @@ partial model StateZone "Partial model for thermal building zones"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a gainCon
     "Internal zone node for convective heat gains"
     annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput TSensor
+  Modelica.Blocks.Interfaces.RealOutput TSensor(unit="K", displayUnit="degC")
     "Sensor temperature of the zone, i.e. operative temeprature" annotation (
       Placement(transformation(extent={{96,-10},{116,10}}), iconTransformation(
           extent={{96,-10},{116,10}})));

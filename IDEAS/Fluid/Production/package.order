@@ -1,8 +1,8 @@
 IdealHeater
 Boiler
-HP_AirWater
-HeatPumpOnOff
-HeatPumpTset
+HP_AirWater_TSet
+HP_WaterWater_OnOff
+HP_WaterWater_TSet
 BaseClasses
 Interfaces
 Examples

@@ -33,6 +33,8 @@ block HeatingCurve
   parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal=8
     "Offset for heating curve";
 
+  parameter Real x_min = 0.01 "minimal modulation rate between 0 and 1";
+
   Modelica.Blocks.Interfaces.RealInput TRoo_in(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -79,7 +81,7 @@ equation
   end if;
   TOutOffSet = TOut + dTOutHeaBal;
   // Relative heating load, compared to nominal conditions
-  qRel = IDEAS.Utilities.Math.Functions.smoothMax(x1=0, x2=(TRoo_in_internal - TOutOffSet)/(TRoo_nominal -
+  qRel = IDEAS.Utilities.Math.Functions.smoothMax(x1=x_min, x2=(TRoo_in_internal - TOutOffSet)/(TRoo_nominal -
     TOutOffSet_nominal),deltaX=0.1);
   if minSup then
     TSup = IDEAS.Utilities.Math.Functions.smoothMax(x1=TSupMin, x2=TRoo_in_internal + ((TSup_nominal + TRet_nominal)/2 -

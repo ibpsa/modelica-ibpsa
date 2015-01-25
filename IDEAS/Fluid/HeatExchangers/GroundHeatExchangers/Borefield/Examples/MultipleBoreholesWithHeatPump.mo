@@ -11,7 +11,7 @@ model MultipleBoreholesWithHeatPump
 
   parameter Data.BorefieldData.SandStone_Bentonite_c8x1_h110_b5_d600_T283
     bfData
-    annotation (Placement(transformation(extent={{-90,74},{-70,94}})));
+    annotation (Placement(transformation(extent={{74,74},{94,94}})));
   parameter Integer lenSim=3600*24*20 "length of the simulation";
 
   MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData,
@@ -24,15 +24,15 @@ model MultipleBoreholesWithHeatPump
     T_start=bfData.gen.T_start,
     m_flow(start=bfData.m_flow_nominal),
     m_flow_nominal=bfData.m_flow_nominal)
-    annotation (Placement(transformation(extent={{-38,4},{-18,-16}})));
+    annotation (Placement(transformation(extent={{-52,24},{-32,4}})));
   Modelica.Blocks.Sources.Constant mFlo(k=1)
-    annotation (Placement(transformation(extent={{-8,-30},{-20,-18}})));
+    annotation (Placement(transformation(extent={{-14,-18},{-26,-6}})));
   Modelica.Fluid.Sources.Boundary_pT boundary(          redeclare package
       Medium = Medium, nPorts=1)
     annotation (Placement(transformation(extent={{-94,-68},{-74,-48}})));
-  Production.HeatPumpOnOff heatPumpOnOff(
-    redeclare package MediumBrine = Medium,
-    redeclare package MediumFluid = Medium,
+  IDEAS.Fluid.Production.HP_WaterWater_OnOff heatPumpOnOff(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
     allowFlowReversal=false,
     onOff=true,
     use_scaling=true,
@@ -41,47 +41,47 @@ model MultipleBoreholesWithHeatPump
     use_onOffSignal=true,
     P_the_nominal=bfData.PThe_nominal/2)
                      annotation (Placement(transformation(
-        extent={{-15,-17},{15,17}},
-        rotation=90,
+        extent={{15,-17},{-15,17}},
+        rotation=180,
         origin={1,25})));
   Modelica.Blocks.Sources.BooleanPulse booleanPulse(width=50, period=100000)
-    annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
+    annotation (Placement(transformation(extent={{20,-26},{0,-6}})));
   Sensors.TemperatureTwoPort TSen_sec(
     redeclare package Medium = Medium,
     m_flow_nominal=bfData.m_flow_nominal,
     tau=60,
     T_start=bfData.gen.T_start) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={-24,54})));
+        origin={-22,52})));
   Movers.Pump       pump(
     m=1,
     useInput=false,
     redeclare package Medium = Medium,
     m_flow_nominal=bfData.m_flow_nominal)
-    annotation (Placement(transformation(extent={{12,60},{-8,80}})));
+    annotation (Placement(transformation(extent={{30,72},{50,92}})));
   Sources.Boundary_pT bou(          redeclare package Medium = Medium,
-    nPorts=3,
+    nPorts=2,
     use_T_in=true,
     p=200000)
-    annotation (Placement(transformation(extent={{52,58},{32,78}})));
+    annotation (Placement(transformation(extent={{-42,70},{-22,90}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/5000,
     amplitude=4,
     offset=273.15 + 30,
     startTime=2000)
-    annotation (Placement(transformation(extent={{90,62},{70,82}})));
+    annotation (Placement(transformation(extent={{-76,70},{-56,90}})));
   Sensors.TemperatureTwoPort TSen_pri(
     redeclare package Medium = Medium,
     m_flow_nominal=bfData.m_flow_nominal,
     tau=60,
     T_start=bfData.gen.T_start) annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{10,10},{-10,-10}},
         rotation=270,
         origin={-62,-26})));
 equation
   connect(mFlo.y,pum. m_flowSet) annotation (Line(
-      points={{-20.6,-24},{-28,-24},{-28,-16.4}},
+      points={{-26.6,-12},{-42,-12},{-42,3.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(boundary.ports[1], multipleBoreholes.port_b) annotation (Line(
@@ -89,43 +89,43 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(booleanPulse.y,heatPumpOnOff. on) annotation (Line(
-      points={{-59,22},{-17.36,22}},
+      points={{-1,-16},{-2,-16},{-2,2},{-2,6},{-2,6},{-2,6.64}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(pump.port_b,TSen_sec. port_a) annotation (Line(
-      points={{-8,70},{-24,70},{-24,64}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(bou.ports[1],pump. port_a) annotation (Line(
-      points={{32,70.6667},{22,70.6667},{22,70},{12,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heatPumpOnOff.fluidIn,bou. ports[2]) annotation (Line(
-      points={{7.8,40},{32,40},{32,68}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(TSen_sec.port_b, heatPumpOnOff.fluidOut) annotation (Line(
-      points={{-24,44},{-24,40},{-5.8,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pum.port_b, heatPumpOnOff.brineIn) annotation (Line(
-      points={{-18,-6},{-5.8,-6},{-5.8,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(heatPumpOnOff.brineOut, multipleBoreholes.port_a) annotation (Line(
-      points={{7.8,10},{8,10},{8,-6},{36,-6},{36,-58},{12,-58}},
+      points={{-22,82},{30,82}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou.T_in, sine.y) annotation (Line(
-      points={{54,72},{69,72}},
+      points={{-44,84},{-50,84},{-50,80},{-55,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pum.port_a, TSen_pri.port_b) annotation (Line(
-      points={{-38,-6},{-62,-6},{-62,-16}},
+      points={{-52,14},{-62,14},{-62,-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TSen_pri.port_a, multipleBoreholes.port_b) annotation (Line(
       points={{-62,-36},{-62,-58},{-28,-58}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatPumpOnOff.port_a1, pum.port_b) annotation (Line(
+      points={{-14,14.8},{-14,14},{-32,14}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatPumpOnOff.port_b1, multipleBoreholes.port_a) annotation (Line(
+      points={{16,14.8},{60,14.8},{60,-58},{12,-58}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(heatPumpOnOff.port_b2, TSen_sec.port_a) annotation (Line(
+      points={{-14,35.2},{-22,35.2},{-22,42}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TSen_sec.port_b, bou.ports[2]) annotation (Line(
+      points={{-22,62},{-22,78}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pump.port_b, heatPumpOnOff.port_a2) annotation (Line(
+      points={{50,82},{60,82},{60,35.2},{16,35.2}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

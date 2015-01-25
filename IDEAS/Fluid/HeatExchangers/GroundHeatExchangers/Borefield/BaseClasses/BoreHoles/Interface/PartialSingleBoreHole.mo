@@ -1,5 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Interface;
 partial model PartialSingleBoreHole "Single borehole heat exchanger"
+  import Buildings;
   extends PartialBoreHoleElement;
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"

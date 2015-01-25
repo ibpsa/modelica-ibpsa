@@ -5,8 +5,7 @@ Ctrl_Heating_TES
 Ctrl_Heating_TES_SetBack
 Ctrl_Heating_TES_SetBack_MinOffTime
 Ctrl_SolarThermal_Simple
-RunningMeanTemperatureEN15251_continuous
-RunningMeanTemperatureEN15251_discrete
+RunningMeanTemperatureEN15251
 HeatingCurves
 Interfaces
 Examples

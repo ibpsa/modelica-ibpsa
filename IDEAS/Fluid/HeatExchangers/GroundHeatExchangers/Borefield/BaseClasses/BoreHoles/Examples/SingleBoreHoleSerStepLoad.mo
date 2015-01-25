@@ -1,5 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples;
 model SingleBoreHoleSerStepLoad "SingleBoreHoleSer with step input load "
+  import Buildings;
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
@@ -20,16 +21,16 @@ model SingleBoreHoleSerStepLoad "SingleBoreHoleSer with step input load "
     soi=soi,
     fil=fil,
     gen=gen) "Borehole heat exchanger" annotation (Placement(
-        transformation(extent={{-12,-50},{12,-26}}, rotation=0)));
+        transformation(extent={{-12,-58},{12,-34}}, rotation=0)));
 
-  IDEAS.Fluid.Sources.Boundary_ph sin(redeclare package Medium = Medium,
-      nPorts=1) "Sink"
+  IDEAS.Fluid.Sources.Boundary_ph sin(redeclare package Medium =
+        Medium, nPorts=1) "Sink"
     annotation (Placement(transformation(extent={{22,-34},{34,-22}})));
 
   Modelica.Blocks.Sources.Step step(height=1)
     annotation (Placement(transformation(extent={{48,-18},{36,-6}})));
 
-  IDEAS.Fluid.HeatExchangers.HeaterCoolerPrescribed hea(
+  IDEAS.Fluid.HeatExchangers.HeaterCooler_u hea(
     redeclare package Medium = Medium,
     m_flow_nominal=gen.m_flow_nominal_bh,
     dp_nominal=10000,
@@ -40,40 +41,59 @@ model SingleBoreHoleSerStepLoad "SingleBoreHoleSer with step input load "
     Q_flow_nominal=gen.q_ste*gen.hBor*gen.nbSer,
     p_start=100000)
     annotation (Placement(transformation(extent={{26,10},{6,-10}})));
-  Modelica.Blocks.Sources.Constant mFlo(k=1)
-    annotation (Placement(transformation(extent={{-50,-24},{-38,-12}})));
-  Movers.Pump                           pum(
+  Modelica.Blocks.Sources.Constant mFlo(k=gen.m_flow_nominal_bh)
+    annotation (Placement(transformation(extent={{-50,-28},{-38,-16}})));
+
+  IDEAS.Fluid.Movers.FlowMachine_m_flow pum(
     redeclare package Medium = Medium,
     m_flow_nominal=gen.m_flow_nominal_bh,
-    m_flow(start=gen.m_flow_nominal_bh),
-    T_start=gen.T_start,
-    useInput=true)
-    annotation (Placement(transformation(extent={{-12,10},{-32,-10}})));
-
+    dynamicBalance=false,
+    T_start=gen.T_start)
+    annotation (Placement(transformation(extent={{-14,10},{-34,-10}})));
+  Sensors.TemperatureTwoPort             TSen_bor_in(
+    redeclare package Medium = Medium,
+    tau=60,
+    m_flow_nominal=gen.m_flow_nominal_bh,
+    T_start=gen.T_start) "Temperature at the inlet of the borefield"
+    annotation (Placement(transformation(extent={{-54,-54},{-38,-38}})));
+  Sensors.TemperatureTwoPort             TSen_bor_out(
+    redeclare package Medium = Medium,
+    tau=60,
+    m_flow_nominal=gen.m_flow_nominal_bh,
+    T_start=gen.T_start) "Temperature at the outlet of the borefield"
+    annotation (Placement(transformation(extent={{34,-54},{50,-38}})));
 equation
-  connect(pum.port_b, borHolSer.port_a) annotation (Line(
-      points={{-32,0},{-58,0},{-58,-38},{-12,-38}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pum.port_a, hea.port_b) annotation (Line(
-      points={{-12,0},{6,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(hea.port_a, borHolSer.port_b) annotation (Line(
-      points={{26,0},{56,0},{56,-38},{12,-38}},
+      points={{-14,0},{6,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hea.port_a, sin.ports[1]) annotation (Line(
       points={{26,0},{56,0},{56,-28},{34,-28}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(mFlo.y, pum.m_flow_in) annotation (Line(
+      points={{-37.4,-22},{-23.8,-22},{-23.8,-12}},
+      color={0,0,127},
+      smooth=Smooth.None));
   connect(step.y, hea.u) annotation (Line(
       points={{35.4,-12},{34,-12},{34,-6},{28,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mFlo.y, pum.m_flowSet) annotation (Line(
-      points={{-37.4,-18},{-22,-18},{-22,-10.4}},
-      color={0,0,127},
+  connect(pum.port_b, TSen_bor_in.port_a) annotation (Line(
+      points={{-34,0},{-58,0},{-58,-46},{-54,-46}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TSen_bor_in.port_b, borHolSer.port_a) annotation (Line(
+      points={{-38,-46},{-12,-46}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hea.port_a, TSen_bor_out.port_b) annotation (Line(
+      points={{26,0},{56,0},{56,-46},{50,-46}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TSen_bor_out.port_a, borHolSer.port_b) annotation (Line(
+      points={{34,-46},{12,-46}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
