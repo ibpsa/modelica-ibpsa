@@ -50,7 +50,7 @@ partial model HeatingSystem "Partial heating/cooling system"
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
     plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
+  IDEAS.Electric.BaseClasses.AC.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
         nLoads) if nLoads >= 1
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
 
