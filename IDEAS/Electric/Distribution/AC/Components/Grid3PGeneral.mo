@@ -6,24 +6,10 @@ protected
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
-  //   IDEAS.Electric.DistributionGrid.Components.CVoltageSource cVoltageSource[3](
-  //       Vsource={VSource*(cos(Modelica.Constants.pi*2*i/3) + Modelica.ComplexMath.j
-  //         *sin(Modelica.Constants.pi*2*i/3)) for i in 1:3})                                                          annotation (Placement(transformation(
-  //         extent={{-10,-10},{10,10}},
-  //         rotation=270,
-  //         origin={-80,-30})));
-  //   IDEAS.Electric.DistributionGrid.Components.CGround cGround
-  //     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
 
 public
   replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=3)
     "Choose a grid Layout" annotation (choicesAllMatching=true);
-  /*parameter Boolean Loss = true 
-    "if true, PLosBra and PGriLosTot gives branch and Grid cable losses"
-    annotation(choices(
-      choice=true "Calculate Cable Losses",
-      choice=false "Do not Calculate Cable Losses",
-      __Dymola_radioButtons=true));*/
 
   parameter Modelica.SIunits.ComplexVoltage VSource=230 + 0*Modelica.ComplexMath.j "Voltage"
               annotation (choices(
@@ -35,24 +21,11 @@ public
       choice=(230*0.9) + 0*MCM.j "90% at HVpin of transformer"));
 
   /***Everything related to the transfomer***/
-  parameter Boolean traPre=false "Select if transformer is present or not"
-    annotation (choices(
-      choice=false "No Transformer",
-      choice=true "Transformer present",
-      __Dymola_radioButtons=true));
-  parameter Modelica.SIunits.ApparentPower Sn=160000 if traPre
-    "The apparent power of the transformer (if present)" annotation (choices(
-      choice=100000 "100 kVA",
-      choice=160000 "160 kVA",
-      choice=250000 "250 kVA",
-      choice=400000 "400 kVA",
-      choice=630000 "630 kVA"));
-  parameter Real Vsc=4 if traPre
-    "% percentage Short Circuit Voltage of the transformer (if present)"
-    annotation (choices(
-      choice=3 "3%",
-      choice=4 "4%",
-      __Dymola_radioButtons=true));
+//   parameter Boolean traPre=false "Select if transformer is present or not"
+//     annotation (choices(
+//       choice=false "No Transformer",
+//       choice=true "Transformer present",
+//       __Dymola_radioButtons=true));
   /***End of everything related to the transformer***/
 
   /***Output total power***/
@@ -74,9 +47,8 @@ public
   output Modelica.SIunits.ActivePower PGriLosTot=gridOnly3P.PGriLosTot;
 
   /***And the Transformer losses if present***/
-  output Modelica.SIunits.ActivePower traLosP0=transformer.traLosP0 if traPre;
-  output Modelica.SIunits.ActivePower traLosPs=transformer.traLosPs if traPre;
-  output Modelica.SIunits.ActivePower traLosPtot=transformer.traLosPtot if
+  output Modelica.SIunits.ActivePower traLosP0=transformer_MvLv.traLosP0 if traPre;
+  output Modelica.SIunits.ActivePower traLosPtot=transformer_MvLv.traLosPTot if
     traPre;
 
   output Modelica.SIunits.ComplexCurrent[3] Ibranch0={gridOnly3P.branch[p, 1].i
@@ -96,17 +68,22 @@ public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,
     gridOnly3P.grid.nNodes] nodes3Phase
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Transformer3P_MvLv transformer_MvLv
+ Transformer3P_MvLv transformer_MvLv(transformer=transformer)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+     replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp transformer
+    "Choose a grid Layout" annotation (choicesAllMatching=true);
 equation
-  for i in 1:3 loop
-  end for;
 
-  if traPre then
-  else
-  end if;
+//   if traPre then
+//   else
+//   end if;
 
   for n in 1:gridOnly3P.grid.nNodes loop
+    connect(gridOnly3P.node[:,n], con3PlusNTo3_1[n].fourWire)
+                                                             annotation (Line(
+      points={{40,0},{60,0}},
+      color={85,170,255},
+      smooth=Smooth.None));
     connect(con3PlusNTo3_1[n].threeWire, nodes3Phase[:, n]) annotation (Line(
         points={{80,0},{100,0}},
         color={85,170,255},
@@ -122,14 +99,7 @@ equation
       color={85,170,255},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(gridOnly3P.node, con3PlusNTo3_1.fourWire) annotation (Line(
-      points={{40,0},{60,0}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(con3PlusNTo3_1.threeWire, nodes3Phase) annotation (Line(
-      points={{80,0},{100,0}},
-      color={85,170,255},
-      smooth=Smooth.None));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics), Icon(graphics={
