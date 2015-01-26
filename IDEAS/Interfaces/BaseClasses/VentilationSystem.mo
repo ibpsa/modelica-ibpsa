@@ -29,7 +29,7 @@ partial model VentilationSystem
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
     plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
+  Electric.BaseClasses.AC.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
         nLoads) if nLoads >= 1
     annotation (Placement(transformation(extent={{178,-10},{188,10}})));
   Fluid.Interfaces.FlowPort_b[nZones] flowPort_Out(redeclare package Medium = Medium)
@@ -53,11 +53,11 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
      connect(P_val.y, wattsLawPlug.P) annotation (Line(
-      points={{170.7,8},{174,8},{174,6},{178,6}},
+      points={{170.7,8},{174,8},{174,5},{178.5,5}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
-      points={{170.7,-3},{174,-3},{174,2},{178,2}},
+      points={{170.7,-3},{174,-3},{174,1},{178,1}},
       color={0,0,127},
       smooth=Smooth.None));
     end if;

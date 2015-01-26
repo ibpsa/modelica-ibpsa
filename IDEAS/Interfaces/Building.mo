@@ -13,8 +13,6 @@ model Building
             {-36,10}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem(
     nZones=building.nZones,
-    VZones=building.VZones,
-    final T_start=T_start,
     final nEmbPorts=building.nEmb) "Thermal building heating system" annotation (Placement(
         transformation(extent={{-20,-10},{20,10}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.Occupant occupant(nZones=building.nZones)
@@ -48,7 +46,7 @@ model Building
 
 equation
   connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
-      points={{0,-10.4},{0,-22}},
+      points={{0,-10.2},{0,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(building.heatPortEmb, heatingSystem.heatPortEmb) annotation (Line(
@@ -110,7 +108,7 @@ equation
   end if;
 
   connect(heatingSystem.mDHW60C, occupant.mDHW60C) annotation (Line(
-      points={{6,-10.4},{6,-22},{3,-22}},
+      points={{6,-10.2},{6,-22},{3,-22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ventilationSystem.flowPort_In, building.flowPort_Out) annotation (

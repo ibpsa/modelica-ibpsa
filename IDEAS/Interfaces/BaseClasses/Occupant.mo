@@ -29,7 +29,7 @@ partial model Occupant
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
     plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
+  Electric.BaseClasses.AC.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
         nLoads) if nLoads >= 1
     annotation (Placement(transformation(extent={{184,-8},{192,6}})));
 
@@ -62,11 +62,11 @@ equation
         color={85,170,255},
         smooth=Smooth.None));
     connect(P_val.y, wattsLawPlug.P) annotation (Line(
-        points={{180.5,7},{184,7},{184,3.2}},
+        points={{180.5,7},{184.4,7},{184.4,2.5}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
-        points={{180.4,-2},{182,-2},{182,0.4},{184,0.4}},
+        points={{180.4,-2},{182,-2},{182,-0.3},{184,-0.3}},
         color={0,0,127},
         smooth=Smooth.None));
   end if;
