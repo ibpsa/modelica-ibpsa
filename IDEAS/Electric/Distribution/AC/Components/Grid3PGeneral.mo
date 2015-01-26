@@ -90,7 +90,7 @@ public
 protected
   parameter Integer Nodes=grid.nNodes;
 
-  IDEAS.Electric.BaseClasses.Con3PlusNTo3 con3PlusNTo3_1[gridOnly3P.grid.nNodes]
+  IDEAS.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_1[gridOnly3P.grid.nNodes]
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,

@@ -18,7 +18,7 @@ model PvSystemGeneralFromFilePlug
 
   IDEAS.Electric.Photovoltaics.Components.ForInputFiles.SimpleDCAC_effP invertor(PNom=PNom)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  BaseClasses.WattsLawPlug wattsLaw(numPha=numPha)
+  BaseClasses.AC.WattsLawPlug wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   replaceable Components.PvVoltageCtrlGeneral_InputVGrid pvVoltageCtrl(

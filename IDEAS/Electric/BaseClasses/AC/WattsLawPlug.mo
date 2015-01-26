@@ -1,6 +1,5 @@
-within IDEAS.Electric.BaseClasses;
-model WattsLawPlug
-  "For use  with loads. Either symmetrically divided over 3 phases (numPha=3) or single phase (numPha=1)."
+within IDEAS.Electric.BaseClasses.AC;
+model WattsLawPlug "For use  with loads."
   parameter Integer numPha=1 "Choose the number of phases" annotation (choices(
         choice=1 "single phase", choice=3 "symmetrical 3 phase"));
   parameter Integer nLoads=1;
@@ -65,5 +64,16 @@ equation
         Line(
           points={{40,60},{40,-60}},
           color={0,0,0},
-          smooth=Smooth.None)}), Diagram(graphics));
+          smooth=Smooth.None)}), Diagram(graphics),Documentation(info="<html>
+<p>
+This model converts the apparent power to a nodal voltage and current. It can be used for single-phase (numPha=1) loads or three-phase (numPha=3) loads (symmetrically divided over all phases)
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 22, 2015 by Juan Van Roy:<br/>
+Documentation added.
+</li>
+</ul>
+</html>"));
 end WattsLawPlug;
