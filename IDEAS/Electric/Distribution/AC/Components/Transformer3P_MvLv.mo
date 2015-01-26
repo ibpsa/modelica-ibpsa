@@ -16,15 +16,15 @@ model Transformer3P_MvLv
       choice=(230*0.95) + 0*MCM.j "95% at HVpin of transformer",
       choice=(230*0.9) + 0*MCM.j "90% at HVpin of transformer"));
 
-  final parameter Modelica.SIunits.HeatFlowRate traLosQRef=
-      transformer.P0 + Modelica.ComplexMath.real(transformer.Zd)*(transformer.Sn/3/Modelica.ComplexMath.real(VSource))^2
-      + Modelica.ComplexMath.real(transformer.Zi)*(transformer.Sn/3/Modelica.ComplexMath.real(VSource))^2
-      + Modelica.ComplexMath.real(transformer.Z0)*(transformer.Sn/3/Modelica.ComplexMath.real(VSource))^2;
-
-  final parameter Modelica.SIunits.HeatCapacity CHs = transformer.tauHs/(RHs+RTo);
-  final parameter Modelica.SIunits.ThermalResistance RHs = (transformer.THs-transformer.TTo)/traLosQRef;
-  final parameter Modelica.SIunits.HeatCapacity CTo = transformer.tauTo/RTo;
-  final parameter Modelica.SIunits.ThermalResistance RTo = (transformer.TTo-transformer.TRef)/traLosQRef;
+//   final parameter Modelica.SIunits.HeatFlowRate traLosQRef=
+//       transformer.P0 + Modelica.ComplexMath.real(transformer.Zd)*(transformer.Sn/3/Modelica.ComplexMath.real(VSource))^2
+//       + Modelica.ComplexMath.real(transformer.Zi)*(transformer.Sn/3/Modelica.ComplexMath.real(VSource))^2
+//       + Modelica.ComplexMath.real(transformer.Z0)*(transformer.Sn/3/Modelica.ComplexMath.real(VSource))^2;
+//
+//   final parameter Modelica.SIunits.HeatCapacity CHs = transformer.tauHs/(RHs+RTo);
+//   final parameter Modelica.SIunits.ThermalResistance RHs = (transformer.THs-transformer.TTo)/traLosQRef;
+//   final parameter Modelica.SIunits.HeatCapacity CTo = transformer.tauTo/RTo;
+//   final parameter Modelica.SIunits.ThermalResistance RTo = (transformer.TTo-transformer.TRef)/traLosQRef;
 
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                   pin_lv_p[3]
@@ -43,8 +43,8 @@ model Transformer3P_MvLv
     "No-load losses (can be assumed constant)";
   Modelica.SIunits.ActivePower traLosPTot = transformer.P0 + phase1.Plos + phase2.Plos + phase3.Plos
     "Total losses in transformer";
-  Modelica.SIunits.Temperature THs = capHotSpot.T "Hottest spot temperature";
-  Modelica.SIunits.Temperature TTo = capOil.T "Top oil temperature";
+//   Modelica.SIunits.Temperature THs = capHotSpot.T "Hottest spot temperature";
+//   Modelica.SIunits.Temperature TTo = capOil.T "Top oil temperature";
 
 protected
   IDEAS.Electric.BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_HV
@@ -71,7 +71,7 @@ protected
     phi={Modelica.ComplexMath.arg(
         VSource),Modelica.ComplexMath.arg(VSource) + 2*Modelica.Constants.pi/3,
         Modelica.ComplexMath.arg(VSource) + 4*Modelica.Constants.pi/3},
-    f=gridFreq) annotation (Placement(transformation(
+    each f=gridFreq) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-80,14})));
@@ -79,44 +79,44 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,-20})));
-  Buildings.Components.BaseClasses.HeatCapacitor capHotSpot(C=CHs)
-                                                            annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={22,4})));
-  Buildings.Components.BaseClasses.HeatCapacitor capOil(C=CTo)
-                                                        annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={22,-16})));
-  Buildings.Components.BaseClasses.ThermalResistor resOil(R=RHs)
-                                                          annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={12,-6})));
-  Buildings.Components.BaseClasses.ThermalResistor resOut(R=RTo)
-                                                          annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={12,-26})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalCollector thColl
-    annotation (Placement(transformation(extent={{2,4},{22,24}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature T_Bou annotation (
-     Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={12,-46})));
-  Modelica.Blocks.Sources.RealExpression realExpr(y=sim.Te) annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={12,-80})));
-  outer SimInfoManager sim
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+//   Buildings.Components.BaseClasses.HeatCapacitor capHotSpot(C=CHs)
+//                                                             annotation (
+//       Placement(transformation(
+//         extent={{-10,-10},{10,10}},
+//         rotation=-90,
+//         origin={22,4})));
+//   Buildings.Components.BaseClasses.HeatCapacitor capOil(C=CTo)
+//                                                         annotation (Placement(
+//         transformation(
+//         extent={{-10,-10},{10,10}},
+//         rotation=-90,
+//         origin={22,-16})));
+//   Buildings.Components.BaseClasses.ThermalResistor resOil(R=RHs)
+//                                                           annotation (Placement(
+//         transformation(
+//         extent={{-10,-10},{10,10}},
+//         rotation=-90,
+//         origin={12,-6})));
+//   Buildings.Components.BaseClasses.ThermalResistor resOut(R=RTo)
+//                                                           annotation (Placement(
+//         transformation(
+//         extent={{-10,-10},{10,10}},
+//         rotation=-90,
+//         origin={12,-26})));
+//   Modelica.Thermal.HeatTransfer.Components.ThermalCollector thColl
+//     annotation (Placement(transformation(extent={{2,4},{22,24}})));
+//   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature T_Bou annotation (
+//      Placement(transformation(
+//         extent={{10,-10},{-10,10}},
+//         rotation=-90,
+//         origin={12,-46})));
+//   Modelica.Blocks.Sources.RealExpression realExpr(y=sim.Te) annotation (
+//       Placement(transformation(
+//         extent={{-10,-10},{10,10}},
+//         rotation=90,
+//         origin={12,-80})));
+//    outer SimInfoManager sim
+//      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(pin_lv_p, con3PlusNTo3_LV.fourWire[1:3])
                                                 annotation (Line(
@@ -161,10 +161,6 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
 
-  connect(voltageSource.pin_n, ground.pin) annotation (Line(
-      points={{-80,4},{-80,-20}},
-      color={85,170,255},
-      smooth=Smooth.None));
   connect(ground.pin, con3PlusNTo3_HV.fourWire[4]) annotation (Line(
       points={{-80,-20},{-70,-20},{-70,39.25},{-60,39.25}},
       color={85,170,255},
@@ -175,46 +171,46 @@ equation
       color={85,170,255},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(capHotSpot.port, resOil.port_a) annotation (Line(
-      points={{12,4},{12,4}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(resOil.port_b, capOil.port) annotation (Line(
-      points={{12,-16},{12,-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(resOil.port_b, resOut.port_a) annotation (Line(
-      points={{12,-16},{12,-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thColl.port_b, resOil.port_a) annotation (Line(
-      points={{12,4},{12,4}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(phase1.port_a, thColl.port_a[1]) annotation (Line(
-      points={{6,48},{12,48},{12,24.6667}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(phase2.port_a, thColl.port_a[2]) annotation (Line(
-      points={{2,38},{12,38},{12,24}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(phase3.port_a, thColl.port_a[3]) annotation (Line(
-      points={{-2,28},{12,28},{12,23.3333}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(resOut.port_b, T_Bou.port) annotation (Line(
-      points={{12,-36},{12,-36}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(realExpr.y, T_Bou.T) annotation (Line(
-      points={{12,-69},{12,-58}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(resOil.port_b, resOut.port_a) annotation (Line(
-      points={{12,-16},{12,-16}},
-      color={191,0,0},
-      smooth=Smooth.None));
+//   connect(capHotSpot.port, resOil.port_a) annotation (Line(
+//       points={{12,4},{12,4}},
+//       color={191,0,0},
+//       smooth=Smooth.None));
+//   connect(resOil.port_b, capOil.port) annotation (Line(
+//       points={{12,-16},{12,-16}},
+//       color={191,0,0},
+//       smooth=Smooth.None));
+//   connect(resOil.port_b, resOut.port_a) annotation (Line(
+//       points={{12,-16},{12,-16}},
+//       color={191,0,0},
+//       smooth=Smooth.None));
+//   connect(thColl.port_b, resOil.port_a) annotation (Line(
+//       points={{12,4},{12,4}},
+//       color={191,0,0},
+//       smooth=Smooth.None));
+//   connect(phase1.port_a, thColl.port_a[1]) annotation (Line(
+//       points={{6,48},{12,48},{12,24.6667}},
+//       color={191,0,0},
+//       smooth=Smooth.None));
+//   connect(phase2.port_a, thColl.port_a[2]) annotation (Line(
+//       points={{2,38},{12,38},{12,24}},
+//       color={191,0,0},
+//       smooth=Smooth.None));
+//   connect(phase3.port_a, thColl.port_a[3]) annotation (Line(
+//       points={{-2,28},{12,28},{12,23.3333}},
+//       color={191,0,0},
+//       smooth=Smooth.None));
+//   connect(resOut.port_b, T_Bou.port) annotation (Line(
+//       points={{12,-36},{12,-36}},
+//       color={191,0,0},
+//       smooth=Smooth.None));
+//   connect(realExpr.y, T_Bou.T) annotation (Line(
+//       points={{12,-69},{12,-58}},
+//       color={0,0,127},
+//       smooth=Smooth.None));
+//   connect(resOil.port_b, resOut.port_a) annotation (Line(
+//       points={{12,-16},{12,-16}},
+//       color={191,0,0},
+//       smooth=Smooth.None));
   connect(voltageSource[1].pin_p, con3PlusNTo3_HV.fourWire[1]) annotation (Line(
       points={{-80,24},{-80,40.75},{-60,40.75}},
       color={85,170,255},
@@ -225,6 +221,18 @@ equation
       smooth=Smooth.None));
   connect(voltageSource[3].pin_p, con3PlusNTo3_HV.fourWire[3]) annotation (Line(
       points={{-80,24},{-80,39.75},{-60,39.75}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(voltageSource[1].pin_n, ground.pin) annotation (Line(
+      points={{-80,4},{-80,-20}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(voltageSource[2].pin_n, ground.pin) annotation (Line(
+      points={{-80,4},{-80,-20}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(voltageSource[3].pin_n, ground.pin) annotation (Line(
+      points={{-80,4},{-80,-20}},
       color={85,170,255},
       smooth=Smooth.None));
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

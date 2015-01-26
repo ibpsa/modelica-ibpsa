@@ -5,7 +5,7 @@ model Transformer
   parameter Modelica.SIunits.Temperature THsRef = 326.6;
   parameter Modelica.SIunits.Temperature TToRef = 314.44;
 
-  IDEAS.Electric.Distribution.AC.Components.Transformer_MvLv transformer_MvLv(
+  IDEAS.Electric.Distribution.AC.Components.Transformer3P_MvLv transformer_MvLv(
       redeclare IDEAS.Electric.Data.TransformerImp.Transfo_100kVA transformer)
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
   IDEAS.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=3)
