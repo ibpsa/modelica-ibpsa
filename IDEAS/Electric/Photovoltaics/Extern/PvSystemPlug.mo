@@ -33,7 +33,7 @@ model PvSystemPlug
   IDEAS.Electric.Photovoltaics.Components.ForInputFiles.SimpleDCAC_effP invertor(PNom=-
         PNom, P_dc_max=-PNom)
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  BaseClasses.WattsLawPlug wattsLaw(numPha=numPha)
+  BaseClasses.AC.WattsLawPlug wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Modelica.Blocks.Sources.RealExpression PDc(y=sim.tabPPV.y[id]/sim.PNom*PNom)
     annotation (Placement(transformation(extent={{-80,70},{-40,90}})));

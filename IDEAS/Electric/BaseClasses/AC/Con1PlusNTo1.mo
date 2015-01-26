@@ -1,17 +1,19 @@
-within IDEAS.Electric.BaseClasses;
-model Con1PlusNTo1_Dc
+within IDEAS.Electric.BaseClasses.AC;
+model Con1PlusNTo1
   "Converts the single-phase plus Neutral to single-phase representation to wich powers can be connected"
 
-  Modelica.Electrical.Analog.Interfaces.PositivePin
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
     twoWire[2]
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Electrical.Analog.Interfaces.PositivePin
+  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
     oneWire[1]
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 equation
   twoWire[1].v - twoWire[2].v = oneWire[1].v;
   oneWire[1].i = -twoWire[1].i;
+  .Connections.branch(oneWire[1].reference, twoWire[1].reference);
+  oneWire[1].reference.gamma = twoWire[1].reference.gamma;
 
   -twoWire[2].i = twoWire[1].i;
 
@@ -46,7 +48,7 @@ equation
           smooth=Smooth.None,
           pattern=LinePattern.Dash)}),        Diagram(graphics),Documentation(info="<html>
 <p>
-This model converts the 1 phase plus neutral (two-phase system) to a single-phase representation for DC (unipolar) networks to wich powers can be connected.
+This model converts the 1 phase plus neutral (two-phase system) to a single-phase representation for AC networks to wich powers can be connected.
 </p>
 <p>
 This implementation is based upon the Laws of Kirchhoff.
@@ -59,4 +61,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Con1PlusNTo1_Dc;
+end Con1PlusNTo1;

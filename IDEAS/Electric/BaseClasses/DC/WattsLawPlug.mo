@@ -1,5 +1,5 @@
-within IDEAS.Electric.BaseClasses;
-model WattsLawPlugDc "For use  with loads."
+within IDEAS.Electric.BaseClasses.DC;
+model WattsLawPlug "For use  with loads."
   parameter Integer nLoads=1;
   Modelica.Electrical.MultiPhase.Interfaces.NegativePlug vi(m=
         1) annotation (Placement(transformation(extent={{90,-10},{110,10}},
@@ -61,4 +61,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end WattsLawPlugDc;
+end WattsLawPlug;

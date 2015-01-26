@@ -1,5 +1,5 @@
-within IDEAS.Electric.BaseClasses;
-model WattsLawDc "For use  with loads"
+within IDEAS.Electric.BaseClasses.DC;
+model WattsLaw "For use  with loads"
 
 Modelica.Electrical.Analog.Interfaces.NegativePin[1] vi
     annotation (Placement(transformation(extent={{90,10},{110,-10}}),
@@ -57,4 +57,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end WattsLawDc;
+end WattsLaw;

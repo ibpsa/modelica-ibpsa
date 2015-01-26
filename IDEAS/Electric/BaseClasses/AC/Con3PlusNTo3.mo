@@ -1,4 +1,4 @@
-within IDEAS.Electric.BaseClasses;
+within IDEAS.Electric.BaseClasses.AC;
 model Con3PlusNTo3
   "Converts the 3 phases plus Neutral to 3 phases representation to wich powers can be connected"
 
