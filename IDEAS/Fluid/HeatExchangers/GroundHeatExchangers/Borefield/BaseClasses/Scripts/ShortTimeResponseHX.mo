@@ -37,6 +37,7 @@ algorithm
   //To ensure that the same number of data points is written in all result files
   //equidistant time grid is enabled and store variables at events is disabled.
   experimentSetupOutput(equidistant=true, events=false);
+  translateModel("IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.shaBorefieldRecords");
 
   simulateModel(
     modelToSimulate+"( soi=" + soi.pathMod + "(), " +

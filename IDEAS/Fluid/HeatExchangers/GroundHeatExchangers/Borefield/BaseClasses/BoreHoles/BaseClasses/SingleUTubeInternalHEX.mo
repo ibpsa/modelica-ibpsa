@@ -145,7 +145,9 @@ initial equation
     sha=gen.xC,
     kFil=fil.k,
     kSoi=soi.k,
-    kTub=gen.kTub);
+    kTub=gen.kTub,
+    use_Rb=gen.use_Rb,
+    Rb=  gen.Rb);
 
 equation
   connect(vol1.heatPort, RConv1.fluid) annotation (Line(
