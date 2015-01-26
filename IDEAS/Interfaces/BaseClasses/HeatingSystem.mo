@@ -52,7 +52,7 @@ partial model HeatingSystem "Partial heating/cooling system"
     annotation (Placement(transformation(extent={{190,-10},{210,10}})));
   Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
         nLoads) if nLoads >= 1
-    annotation (Placement(transformation(extent={{184,-8},{190,8}})));
+    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
 
   // --- Sensor
   Modelica.Blocks.Interfaces.RealInput[nTemSen] TSensor(
@@ -79,9 +79,9 @@ protected
   Modelica.SIunits.Power[nLoads_min] Q "Passive power for each of the loads";
 public
   Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
-    annotation (Placement(transformation(extent={{172,-2},{180,14}})));
+    annotation (Placement(transformation(extent={{140,-4},{160,16}})));
   Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
-    annotation (Placement(transformation(extent={{172,-12},{180,4}})));
+    annotation (Placement(transformation(extent={{140,-18},{160,2}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSet(
     final quantity="ThermodynamicTemperature",
     unit="K",
@@ -102,16 +102,16 @@ equation
         points={{190,0},{200,0}},
         color={85,170,255},
         smooth=Smooth.None));
-    connect(P_val.y, wattsLawPlug.P) annotation (Line(
-        points={{180.4,6},{182,6},{182,6},{184,6},{184,4},{184.3,4}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
-        points={{180.4,-4},{181.35,-4},{181.35,1.6},{184,0.8}},
-        color={0,0,127},
-        smooth=Smooth.None));
   end if;
 
+  connect(P_val.y, wattsLawPlug.P) annotation (Line(
+      points={{161,6},{166,6},{166,5},{171,5}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
+      points={{161,-8},{164,-8},{164,1},{170,1}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
             100}}), graphics={
@@ -122,7 +122,6 @@ equation
           lineColor={191,0,0}),
         Polygon(
           points={{-46,-8},{-46,-20},{-44,-22},{-24,-10},{-24,2},{-26,4},{-46,-8}},
-
           lineColor={127,0,0},
           smooth=Smooth.None,
           fillColor={127,0,0},
