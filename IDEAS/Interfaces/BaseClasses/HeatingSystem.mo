@@ -103,11 +103,11 @@ equation
         color={85,170,255},
         smooth=Smooth.None));
   end if;
-
   connect(P_val.y, wattsLawPlug.P) annotation (Line(
       points={{161,6},{166,6},{166,5},{171,5}},
       color={0,0,127},
       smooth=Smooth.None));
+
   connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
       points={{161,-8},{164,-8},{164,1},{170,1}},
       color={0,0,127},
