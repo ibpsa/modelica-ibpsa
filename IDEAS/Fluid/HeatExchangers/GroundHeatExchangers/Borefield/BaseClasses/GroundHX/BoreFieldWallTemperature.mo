@@ -19,7 +19,8 @@ algorithm
       nbBh=gen.nbBh,
       cooBh=gen.cooBh),
     lb,
-    ub);
+    ub,
+    10);
 
   deltaT := gen.q_ste/(4*Modelica.Constants.pi*soi.k)*res;
   T := gen.T_start + deltaT;
