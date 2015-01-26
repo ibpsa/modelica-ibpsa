@@ -1,5 +1,6 @@
 within IDEAS.Electric.Distribution.AC.Components;
-model Transformer_MvLv "Medium to low voltage transfomer for three-phase grids"
+model Transformer3P_MvLv
+  "Medium to low-voltage transfomer for three-phase grids"
 
   replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp
     transformer "Choose a transformer" annotation (choicesAllMatching=true);
@@ -63,10 +64,13 @@ protected
   BaseClasses.Branch phase3(R=Modelica.ComplexMath.real(transformer.Z0), X=
         Modelica.ComplexMath.imag(transformer.Z0))
     annotation (Placement(transformation(extent={{-14,40},{6,20}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
+
+  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource[3]
     voltageSource(
-    V=Modelica.ComplexMath.'abs'(VSource),
-    phi=Modelica.ComplexMath.arg(VSource),
+    each V=Modelica.ComplexMath.'abs'(VSource),
+    phi={Modelica.ComplexMath.arg(
+        VSource),Modelica.ComplexMath.arg(VSource) + 2*Modelica.Constants.pi/3,
+        Modelica.ComplexMath.arg(VSource) + 4*Modelica.Constants.pi/3},
     f=gridFreq) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -116,7 +120,7 @@ protected
 equation
   connect(pin_lv_p, con3PlusNTo3_LV.fourWire[1:3])
                                                 annotation (Line(
-      points={{100,60},{100,60},{86,60},{86,40},{74,40},{74,39.75},{60,39.75}},
+      points={{100,60},{86,60},{86,40},{74,40},{74,39.75},{60,39.75}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(pin_lv_n, con3PlusNTo3_LV.fourWire[4])
@@ -171,18 +175,6 @@ equation
       color={85,170,255},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(voltageSource.pin_p, con3PlusNTo3_HV.fourWire[1]) annotation (Line(
-      points={{-80,24},{-80,40.75},{-60,40.75}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(voltageSource.pin_p, con3PlusNTo3_HV.fourWire[2]) annotation (Line(
-      points={{-80,24},{-80,40.25},{-60,40.25}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(voltageSource.pin_p, con3PlusNTo3_HV.fourWire[3]) annotation (Line(
-      points={{-80,24},{-80,39.75},{-60,39.75}},
-      color={85,170,255},
-      smooth=Smooth.None));
   connect(capHotSpot.port, resOil.port_a) annotation (Line(
       points={{12,4},{12,4}},
       color={191,0,0},
@@ -223,11 +215,31 @@ equation
       points={{12,-16},{12,-16}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(voltageSource[1].pin_p, con3PlusNTo3_HV.fourWire[1]) annotation (Line(
+      points={{-80,24},{-80,40.75},{-60,40.75}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(voltageSource[2].pin_p, con3PlusNTo3_HV.fourWire[2]) annotation (Line(
+      points={{-80,24},{-80,40.25},{-60,40.25}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(voltageSource[3].pin_p, con3PlusNTo3_HV.fourWire[3]) annotation (Line(
+      points={{-80,24},{-80,39.75},{-60,39.75}},
+      color={85,170,255},
+      smooth=Smooth.None));
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                           graphics), Documentation(info="<html>
       <p>Select the Rated Power for the Transformer as apparent power<b> Sn</b>! Only three-phase transformers!</p>
-<p>This will set the winding impedance, which define the Joule losses and voltage drop over the transformer.</p>
+      <p>This will set the winding impedance, which define the Joule losses and voltage drop over the transformer.</p>
+      <p>Equivalent scheme of a three-phase transformer, used to define the losses and voltage drops within the transformer. Therefore, the input voltage is the secondary nominal voltage, e.g., 230 V.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 26, 2015 by Juan Van Roy:<br/>
+Small changes.
+</li>
+</ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
@@ -279,4 +291,4 @@ equation
           points={{-60,-2},{-64,-10},{-68,-10},{-74,10}},
           color={0,0,0},
           smooth=Smooth.None)}));
-end Transformer_MvLv;
+end Transformer3P_MvLv;

@@ -96,7 +96,7 @@ public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,
     gridOnly3P.grid.nNodes] nodes3Phase
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Transformer_MvLv transformer_MvLv
+  Transformer3P_MvLv transformer_MvLv
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 equation
   for i in 1:3 loop
