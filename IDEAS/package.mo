@@ -7,10 +7,28 @@ extends Modelica.Icons.Library;
 import SI = Modelica.SIunits;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 annotation (
   uses(Modelica(version="3.2.1")),
   Icon(graphics),
-  version="0.1",
+  version="0.2",
   conversion(noneFromVersion="", noneFromVersion="1"),
   Documentation(info="<html>
 <p>Licensed by KU Leuven and 3E under the Modelica License 2 </p>
