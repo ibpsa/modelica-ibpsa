@@ -1,6 +1,8 @@
 within IDEAS.Interfaces.BaseClasses;
 partial model Occupant
 
+  extends IDEAS.Interfaces.BaseClasses.PartialSystem;
+
   parameter Integer nZones(min=1) "number of conditioned thermal zones";
   parameter Integer nLoads(min=0) = 1 "number of electric loads";
 
@@ -26,12 +28,6 @@ partial model Occupant
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,100})));
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
-    plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
-    annotation (Placement(transformation(extent={{190,-10},{210,10}})));
-  Electric.BaseClasses.AC.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
-        nLoads) if nLoads >= 1
-    annotation (Placement(transformation(extent={{184,-8},{192,6}})));
 
   Modelica.Blocks.Interfaces.RealOutput mDHW60C
     "mFlow for domestic hot water, at 60 degC" annotation (Placement(
@@ -42,34 +38,6 @@ partial model Occupant
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,100})));
-
-protected
-  final parameter Integer nLoads_min=max(1, nLoads);
-  Modelica.SIunits.Power[nLoads_min] P "Active power for each of the loads";
-  Modelica.SIunits.Power[nLoads_min] Q "Passive power for each of the loads";
-public
-  Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
-    annotation (Placement(transformation(extent={{170,0},{180,14}})));
-  Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
-    annotation (Placement(transformation(extent={{172,-8},{180,4}})));
-  outer SimInfoManager       sim
-    "Simulation information manager for climate data"
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-equation
-  if nLoads >= 1 then
-    connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-        points={{192,-1},{194,-1},{194,0},{200,0}},
-        color={85,170,255},
-        smooth=Smooth.None));
-    connect(P_val.y, wattsLawPlug.P) annotation (Line(
-        points={{180.5,7},{184.4,7},{184.4,2.5}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
-        points={{180.4,-2},{182,-2},{182,-0.3},{184,-0.3}},
-        color={0,0,127},
-        smooth=Smooth.None));
-  end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}),

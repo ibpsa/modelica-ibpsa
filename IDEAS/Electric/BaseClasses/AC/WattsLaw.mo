@@ -6,11 +6,11 @@ model WattsLaw "For use  with loads"
     vi annotation (Placement(transformation(extent={{90,-10},{110,10}},
           rotation=0)));
   Modelica.Blocks.Interfaces.RealInput P(start=0) annotation (Placement(
-        transformation(extent={{-130,-10},{-90,30}}),iconTransformation(extent={{-110,10},
-            {-90,30}})));
+        transformation(extent={{-90,20},{-50,60}}),  iconTransformation(extent={{-70,40},
+            {-50,60}})));
   Modelica.Blocks.Interfaces.RealInput Q(start=0) annotation (Placement(
-        transformation(extent={{-130,-50},{-90,-10}}),iconTransformation(extent={{-110,
-            -30},{-90,-10}})));
+        transformation(extent={{-100,-20},{-60,20}}), iconTransformation(extent={{-80,0},
+            {-60,20}})));
 equation
   for i in 1:numPha loop
     P/numPha = Modelica.ComplexMath.real(vi[i].v*Modelica.ComplexMath.conj(vi[i].i));
@@ -21,34 +21,20 @@ equation
             -100},{100,100}}),
                    graphics={
         Ellipse(
-          extent={{-80,60},{40,-60}},
+          extent={{-50,50},{50,-50}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
+        Line(points={{50,0},{90,0}}, color={0,0,0}),
         Line(
-          points={{40,0},{100,0}},
-          color={0,0,0},
+          points={{0,50},{0,-50}},
+          color={175,175,175},
           smooth=Smooth.None),
-        Line(
-          points={{-46,0},{-26,0}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-14,0},{6,0}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{40,60},{40,-60}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-26,24},{-26,-26}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-14,24},{-14,-26}},
-          color={0,0,0},
-          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+        Text(
+          extent={{-38,42},{42,-38}},
+          lineColor={0,0,0},
+          fontName="Symbol",
+          textString="W")}),     Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                          graphics),Documentation(info="<html>
 <p>

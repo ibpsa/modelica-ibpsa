@@ -1,9 +1,9 @@
 within IDEAS.Interfaces.BaseClasses;
 partial model HeatingSystem "Partial heating/cooling system"
 
-  outer IDEAS.SimInfoManager sim
-    "Simulation information manager for climate data"
-    annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
+  extends IDEAS.Interfaces.BaseClasses.PartialSystem;
+  outer Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 
   // *********** Building characteristics and  interface ***********
   // --- General
@@ -19,10 +19,6 @@ partial model HeatingSystem "Partial heating/cooling system"
     "Number of ports in building for radiative heating/cooling";
   parameter Integer nEmbPorts(min=0) = nZones
     "Number of ports in building for embedded systems";
-
-  // --- Electrical
-  parameter Integer nLoads(min=0) = 1
-    "Number of electric loads. If zero, all electric equations disappear.";
 
   // --- Sensor
   parameter Integer nTemSen(min=0) = nZones
@@ -46,14 +42,6 @@ partial model HeatingSystem "Partial heating/cooling system"
     "Construction nodes for heat gains by embedded layers"
     annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
 
-  // --- Electrical
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
-    plugLoad(m=1) if nLoads >= 1 "Electricity connection to the Inhome feeder"
-    annotation (Placement(transformation(extent={{190,-10},{210,10}})));
-  IDEAS.Electric.BaseClasses.AC.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
-        nLoads) if nLoads >= 1
-    annotation (Placement(transformation(extent={{170,-10},{190,10}})));
-
   // --- Sensor
   Modelica.Blocks.Interfaces.RealInput[nTemSen] TSensor(
     final quantity="ThermodynamicTemperature",
@@ -73,15 +61,6 @@ partial model HeatingSystem "Partial heating/cooling system"
         rotation=90,
         origin={60,-102})));
 
-protected
-  final parameter Integer nLoads_min=max(1, nLoads);
-  Modelica.SIunits.Power[nLoads_min] P "Active power for each of the loads";
-  Modelica.SIunits.Power[nLoads_min] Q "Passive power for each of the loads";
-public
-  Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
-    annotation (Placement(transformation(extent={{140,-4},{160,16}})));
-  Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
-    annotation (Placement(transformation(extent={{140,-18},{160,2}})));
   Modelica.Blocks.Interfaces.RealInput[nZones] TSet(
     final quantity="ThermodynamicTemperature",
     unit="K",
@@ -90,28 +69,11 @@ public
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={20,-106}), iconTransformation(
+        origin={20,-104}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-102})));
-  outer Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
-equation
-  if nLoads >= 1 then
-    connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-        points={{190,0},{200,0}},
-        color={85,170,255},
-        smooth=Smooth.None));
-  end if;
-  connect(P_val.y, wattsLawPlug.P) annotation (Line(
-      points={{161,6},{166,6},{166,5},{171,5}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
-      points={{161,-8},{164,-8},{164,1},{170,1}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
             100}}), graphics={
@@ -120,48 +82,94 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           lineColor={191,0,0}),
-        Polygon(
-          points={{-46,-8},{-46,-20},{-44,-22},{-24,-10},{-24,2},{-26,4},{-46,-8}},
-          lineColor={127,0,0},
-          smooth=Smooth.None,
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-46,-32},{-46,-44},{-44,-46},{-24,-34},{-24,-22},{-26,-20},{
-              -46,-32}},
-          lineColor={127,0,0},
-          smooth=Smooth.None,
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid),
         Line(
-          points={{-44,-18},{-50,-22},{-50,-46},{-46,-50},{28,-50},{42,-40}},
-          color={127,0,0},
-          smooth=Smooth.None),
+          points={{50,-20},{30,0}},
+          color={0,0,127}),
         Line(
-          points={{-50,-46},{-44,-42}},
-          color={127,0,0},
-          smooth=Smooth.None),
+          points={{30,0},{0,-30}},
+          color={0,0,127},
+          pattern=LinePattern.Dash),
         Line(
-          points={{-24,0},{-20,2},{-20,-32},{-16,-36},{-16,-36},{40,-36}},
-          color={127,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-24,-24},{-20,-22}},
-          color={127,0,0},
-          smooth=Smooth.None),
-        Polygon(
-          points={{40,-26},{40,-46},{50,-52},{58,-46},{58,-30},{54,-24},{48,-20},
-              {40,-26}},
-          lineColor={127,0,0},
-          smooth=Smooth.None,
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid),
+          points={{30,0},{-8,0}},
+          color={191,0,0},
+          thickness=0.5),
         Line(
           points={{200,100},{200,-100}},
           color={85,170,255},
-          smooth=Smooth.None)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
-            200,100}}), graphics),
+          smooth=Smooth.None),
+        Line(
+          points={{-28,-20},{-128,-20}},
+          color={191,0,0},
+          thickness=0.5),
+        Line(
+          points={{-28,20},{-128,20}},
+          color={191,0,0},
+          thickness=0.5),
+        Line(
+          points={{-8,0},{-28,-20}},
+          color={191,0,0},
+          thickness=0.5),
+        Line(
+          points={{-8,0},{-28,20}},
+          color={191,0,0},
+          thickness=0.5),
+        Polygon(
+          points={{-128,0},{-128,40},{-158,20},{-128,0}},
+          lineColor={191,0,0},
+          fillColor={191,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-128,-40},{-128,0},{-158,-20},{-128,-40}},
+          lineColor={191,0,0},
+          fillColor={191,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-158,40},{-178,-40}},
+          lineColor={191,0,0},
+          fillColor={191,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{200,0},{30,0}},
+          color={85,170,255},
+          smooth=Smooth.None,
+          thickness=0.5),
+        Line(points={{30,70},{30,40}}),
+        Line(points={{52.9,32.8},{70.2,57.3}}),
+        Line(points={{7.1,32.8},{-10.2,57.3}}),
+        Line(points={{67.6,13.7},{95.8,23.9}}),
+        Ellipse(
+          lineColor={64,64,64},
+          fillColor={215,215,215},
+          extent={{18,-12},{42,12}},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          origin={30,0},
+          rotation=-17.5,
+          fillColor={64,64,64},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-5.0,0.0},{-2.0,60.0},{0.0,65.0},{2.0,60.0},{5.0,0.0}}),
+        Ellipse(
+          fillColor={64,64,64},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          extent={{23,-7},{37,7}}),
+        Line(
+          points={{60,-30},{50,-20}},
+          color={0,0,127},
+          pattern=LinePattern.Dash),
+        Line(
+          points={{0,-100},{0,-30}},
+          color={0,0,127},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
+        Line(
+          points={{60,-100},{60,-30}},
+          color={0,0,127},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash)}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
+            100}}),     graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Interface model for a complete multi-zone heating system (with our without domestic hot water and solar system).</p>
