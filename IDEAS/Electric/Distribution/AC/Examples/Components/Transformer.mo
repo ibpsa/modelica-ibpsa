@@ -27,11 +27,11 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(wattsLaw.Q, const.y) annotation (Line(
-      points={{0.2,12},{-20,12},{-20,-10},{-39,-10}},
+      points={{0,8},{-20,8},{-20,-10},{-39,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(wattsLaw.P, step.y) annotation (Line(
-      points={{0.2,16},{-20,16},{-20,30},{-39,30}},
+      points={{0,12},{-20,12},{-20,30},{-39,30}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
