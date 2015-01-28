@@ -1,4 +1,4 @@
-within IDEAS.Electric.Distribution.AC.Components;
+within IDEAS.Electric.Distribution.AC;
 model Grid3PGeneral
 
 protected
@@ -21,11 +21,13 @@ public
       choice=(230*0.9) + 0*MCM.j "90% at HVpin of transformer"));
 
   /***Everything related to the transfomer***/
-//   parameter Boolean traPre=false "Select if transformer is present or not"
-//     annotation (choices(
-//       choice=false "No Transformer",
-//       choice=true "Transformer present",
-//       __Dymola_radioButtons=true));
+  parameter Boolean traPre=true
+    "Select if transformer is present or not (only true is possible for now)";
+//    parameter Boolean traPre=false "Select if transformer is present or not"
+//      annotation (choices(
+//        choice=false "No Transformer",
+//        choice=true "Transformer present",
+//        __Dymola_radioButtons=true));
   /***End of everything related to the transformer***/
 
   /***Output total power***/
@@ -66,12 +68,12 @@ protected
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,
-    gridOnly3P.grid.nNodes] nodes3Phase
+    gridOnly3P.grid.nNodes] gridNodes3P
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
- Transformer3P_MvLv transformer_MvLv(transformer=transformer)
+ Components.Transformer3P_MvLv transformer_MvLv(transformer=transformer)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
      replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp transformer
-    "Choose a grid Layout" annotation (choicesAllMatching=true);
+    "Choose a transformer" annotation (choicesAllMatching=true);
 equation
 
 //   if traPre then
