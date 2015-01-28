@@ -14,11 +14,21 @@ model Zone "thermal building zone"
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
   parameter Real corrCV=5 "Multiplication factor for the zone air capacity";
 
-  parameter Boolean linear=true;
+  parameter Boolean linear=true "Linearized computation of long wave radiation";
 
-  final parameter Modelica.SIunits.Power QNom=1012*1.204*V/3600*n50/20*(273.15
-       + 21 - sim.Tdes) "Design heat losses at reference outdoor temperature";
+  final parameter Modelica.SIunits.Power QInf_design=1012*1.204*V/3600*n50/20*(273.15
+       + 21 - sim.Tdes)
+    "Design heat losses from infiltration at reference outdoor temperature";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1*1.224*V/3600;
+  final parameter Modelica.SIunits.Power QRH_design=A*fRH
+    "Additional power required to compensate for the effects of intermittent heating";
+  parameter Real fRH=11
+    "Reheat factor for calculation of design heat load, (EN 12831, table D.10 Annex D)"
+                                                                                        annotation(Dialog(group="Design heat load"));
+  parameter Modelica.SIunits.Area A "Total conditioned floor area" annotation(Dialog(group="Design heat load"));
+
+  final parameter Modelica.SIunits.Power QDesign
+    "Total design heat losses for the zone";
 
   Modelica.SIunits.Temperature TAir=senTem.T;
   Modelica.SIunits.Temperature TStar=radDistr.TRad;

@@ -11,11 +11,17 @@ model InternalWall "interior opaque wall between two zones"
     "Inclination of the wall, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0deg denotes South";
+  parameter Modelica.SIunits.Temperature T_start=293.15
+    "Start temperature for each of the layers";
+
+  final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
+    "Wall U-value";
+  final parameter Modelica.SIunits.Power QTra_design=U_value*AWall*(273.15 + 21 - 273.15 - 21)
+    "Design heat losses";
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  parameter Modelica.SIunits.Temperature T_start=293.15
-    "Start temperature for each of the layers";
 
 protected
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=

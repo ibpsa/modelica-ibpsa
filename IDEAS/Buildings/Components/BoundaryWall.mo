@@ -19,6 +19,15 @@ model BoundaryWall "Opaque wall with boundary conditions"
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the layers";
 
+  parameter Modelica.SIunits.Temperature TRef=291.15
+    "Reference temperature for calculation of design heat loss";
+
+  final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
+    "Wall U-value";
+
+  final parameter Modelica.SIunits.Power QTra_design=U_value*AWall*(273.15 + 21 - TRef)
+    "Design heat losses at reference temperature of the boundary space";
+
 protected
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     final A=AWall,

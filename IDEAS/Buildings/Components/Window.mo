@@ -12,7 +12,10 @@ model Window "Multipane window"
     "Inclination of the window, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0deg denotes South";
-  final parameter Modelica.SIunits.Power QNom=glazing.U_value*A*(273.15 + 21 -
+
+  final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
+    "Window U-value";
+  final parameter Modelica.SIunits.Power Tra_design=U_value*A*(273.15 + 21 -
       sim.Tdes) "Design heat losses at reference outdoor temperature";
 
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazing
