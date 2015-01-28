@@ -29,7 +29,7 @@ model Zone "thermal building zone"
 
   Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
     "Total design transmission heat losses for the zone";
-  final parameter Modelica.SIunits.Power QDesign( fixed=false)
+  final parameter Modelica.SIunits.Power Q_design( fixed=false)
     "Total design heat losses for the zone";
 
   Modelica.SIunits.Temperature TAir=senTem.T;
@@ -89,7 +89,7 @@ protected
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Assumptions"));
 initial equation
-  QDesign=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
+  Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 equation
 
   connect(radDistr.radGain, gainRad) annotation (Line(
