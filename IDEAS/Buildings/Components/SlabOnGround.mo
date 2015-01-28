@@ -13,7 +13,7 @@ model SlabOnGround "opaque floor on ground slab"
   final parameter Real U_value=1/(1/6 + sum(constructionType.mats.R) + 0)
     "Floor theoretical U-value";
 
-  final parameter Modelica.SIunits.Power Tra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes)
+  final parameter Modelica.SIunits.Power QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes)
     "Design heat losses at reference outdoor temperature, ISO 13370";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
@@ -64,7 +64,8 @@ public
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   //    nMat(T(start={{273.15},{273.15},{273.15}} + {{11.5},{12.2},{12.7}})))
-
+  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 public
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=284.15)
                 annotation (Placement(transformation(
@@ -125,6 +126,13 @@ equation
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
       points={{10,-26},{14,-26},{14,40},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
+      points={{11,50},{24,50},{24,40},{50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",

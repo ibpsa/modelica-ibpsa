@@ -41,7 +41,8 @@ protected
     T_start=ones(constructionType.nLay)*T_start)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-
+  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
+    annotation (Placement(transformation(extent={{16,50},{36,70}})));
 public
   Interfaces.ZoneBus propsBus_b annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
@@ -137,6 +138,13 @@ equation
   connect(iSolDir1.port, propsBus_b.iSolDir) annotation (Line(
       points={{-10,60},{-32,60},{-32,58},{-50,58},{-50,40}},
       color={191,0,0},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
+      points={{37,60},{38,60},{38,40},{50,40}},
+      color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,

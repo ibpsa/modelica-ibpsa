@@ -2,6 +2,7 @@ within IDEAS.Buildings.Components.Interfaces;
 expandable connector ZoneBus
   extends Modelica.Icons.SignalBus;
 
+  Modelica.SIunits.Power QTra_design;
   Modelica.SIunits.Area area;
   Modelica.SIunits.Emissivity epsLw;
   Modelica.SIunits.Emissivity epsSw;

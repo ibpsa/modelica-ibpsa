@@ -42,6 +42,9 @@ protected
         AWall, final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+
+  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 public
   Modelica.Blocks.Interfaces.RealInput T if use_T_in annotation (Placement(transformation(
           extent={{-60,50},{-40,70}}), iconTransformation(extent={{-60,50},{-40,
@@ -92,6 +95,13 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
+      points={{11,50},{24,50},{24,40},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
 
   if use_Q_in then
   connect(Q_flow, prescribedHeatFlow.Q_flow) annotation (Line(
@@ -115,6 +125,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   end if;
+
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),

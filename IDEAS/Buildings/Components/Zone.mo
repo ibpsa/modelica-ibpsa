@@ -27,7 +27,9 @@ model Zone "thermal building zone"
                                                                                         annotation(Dialog(group="Design heat load"));
   parameter Modelica.SIunits.Area A "Total conditioned floor area" annotation(Dialog(group="Design heat load"));
 
-  final parameter Modelica.SIunits.Power QDesign
+  Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
+    "Total design transmission heat losses for the zone";
+  final parameter Modelica.SIunits.Power QDesign( fixed=false)
     "Total design heat losses for the zone";
 
   Modelica.SIunits.Temperature TAir=senTem.T;
@@ -55,9 +57,7 @@ protected
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-54,-10})));
-  Modelica.Blocks.Math.Sum sum(
-    nin=2,
-    k={0.5,0.5})
+  Modelica.Blocks.Math.Sum summation(nin=2, k={0.5,0.5})
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
   Fluid.MixingVolumes.MixingVolume         vol(
     V=V,
@@ -88,6 +88,8 @@ protected
   parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Assumptions"));
+initial equation
+  QDesign=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 equation
 
   connect(radDistr.radGain, gainRad) annotation (Line(
@@ -99,11 +101,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(sum.y, TSensor) annotation (Line(
+  connect(summation.y, TSensor) annotation (Line(
       points={{12.6,-60},{59.3,-60},{59.3,0},{106,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(radDistr.TRad, sum.u[1]) annotation (Line(
+  connect(radDistr.TRad, summation.u[1]) annotation (Line(
       points={{-44,-44},{-22,-44},{-22,-60.6},{-1.2,-60.6}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -174,7 +176,7 @@ end for;
       points={{0,-20},{10,-20},{10,-30},{100,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(senTem.T, sum.u[2]) annotation (Line(
+  connect(senTem.T, summation.u[2]) annotation (Line(
       points={{-16,-20},{-18,-20},{-18,-59.4},{-1.2,-59.4}},
       color={0,0,127},
       smooth=Smooth.None));
