@@ -19,13 +19,13 @@ model CausalInhomeFeeder
 
   // Components  ///////////////////////////////////////////////////////////////////////////////////////
 
-  Electric.BaseClasses.WattsLaw wattsLaw(numPha=1)
+  Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=1)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Electric.Distribution.AC.BaseClasses.BranchLenTyp branch(len=len)
     "Cable to district feeder"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  IDEAS.Electric.BaseClasses.PotentialSensor voltageSensor
+  IDEAS.Electric.BaseClasses.AC.PotentialSensor voltageSensor
     "District feeder voltagesensor" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

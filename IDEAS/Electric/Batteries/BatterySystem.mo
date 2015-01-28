@@ -17,7 +17,7 @@ partial model BatterySystem
   parameter Modelica.SIunits.Efficiency DOD_max=0.80
     "Maximum discharge [%/100]";
 
-  IDEAS.Electric.BaseClasses.WattsLaw wattsLaw(numPha=numPha) annotation (
+  IDEAS.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=numPha) annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

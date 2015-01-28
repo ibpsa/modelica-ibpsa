@@ -16,16 +16,14 @@ model Building
   replaceable Buildings.Validation.BaseClasses.HeatingSystem.None
                                                          heatingSystem(
     nZones=building.nZones,
-    VZones=building.VZones,
-    final T_start=T_start,
     final nEmbPorts=building.nEmb) constrainedby
     IDEAS.Interfaces.BaseClasses.HeatingSystem
     "Thermal building heating system"  annotation (Placement(
         transformation(extent={{-20,-10},{20,10}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.Occupant occupant(nZones=building.nZones)
     constrainedby IDEAS.Interfaces.BaseClasses.Occupant(nZones=building.nZones)
-    "Building occupant" annotation (Placement(transformation(extent={{-10,-42},
-            {10,-22}})), choicesAllMatching=true);
+    "Building occupant" annotation (Placement(transformation(extent={{-20,-40},
+            {20,-20}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid constrainedby
     IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
     "Inhome low-voltage electricity grid system" annotation (Placement(
@@ -33,7 +31,7 @@ model Building
 
   replaceable IDEAS.Interfaces.BaseClasses.VentilationSystem ventilationSystem(
       nZones=building.nZones, VZones=building.VZones) "Ventilation system"
-    annotation (Placement(transformation(extent={{-12,20},{8,40}})),
+    annotation (Placement(transformation(extent={{-20,20},{20,40}})),
       choicesAllMatching=true);
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
     plugFeeder(v(re(start=230), im(start=0))) if not standAlone
@@ -44,18 +42,19 @@ model Building
     f=50,
     V=230,
     phi=0) if standAlone annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-8,-8},{8,8}},
         rotation=90,
-        origin={70,-30})));
+        origin={70,-12})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground if
     standAlone
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+    annotation (Placement(transformation(extent={{62,-40},{78,-24}})));
 
 equation
   connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
-      points={{0,-10.4},{0,-22}},
+      points={{0,-10.2},{0,-20}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(building.heatPortEmb, heatingSystem.heatPortEmb) annotation (Line(
       points={{-37.1538,6},{-20,6}},
       color={191,0,0},
@@ -65,7 +64,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortCon, occupant.heatPortCon) annotation (Line(
-      points={{-37.1538,2},{-26,2},{-26,-30},{-10,-30}},
+      points={{-36,2},{-26,2},{-26,-28},{-20,-28}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortRad, heatingSystem.heatPortRad) annotation (Line(
@@ -73,20 +72,22 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortRad, occupant.heatPortRad) annotation (Line(
-      points={{-37.1538,-2},{-28,-2},{-28,-34},{-10,-34}},
+      points={{-36,-2},{-28,-2},{-28,-32},{-20,-32}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.TSensor, heatingSystem.TSensor) annotation (Line(
       points={{-36.4615,-6},{-20.4,-6}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(building.TSensor, ventilationSystem.TSensor) annotation (Line(
-      points={{-36.4615,-6},{-30,-6},{-30,24},{-12.2,24}},
+      points={{-35.4,-6},{-30,-6},{-30,24},{-20.4,24}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
 
   connect(ventilationSystem.plugLoad, inHomeGrid.nodeSingle) annotation (Line(
-      points={{8,30},{26,30},{26,0},{32,0}},
+      points={{20,30},{26,30},{26,0},{32,0}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(heatingSystem.plugLoad, inHomeGrid.nodeSingle) annotation (Line(
@@ -94,17 +95,17 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(occupant.plugLoad, inHomeGrid.nodeSingle) annotation (Line(
-      points={{10,-32},{26,-32},{26,0},{32,0}},
+      points={{20,-30},{26,-30},{26,0},{32,0}},
       color={85,170,255},
       smooth=Smooth.None));
 
   if standAlone then
     connect(voltageSource.pin_p, ground.pin) annotation (Line(
-        points={{70,-40},{70,-60}},
+        points={{70,-20},{70,-24}},
         color={85,170,255},
         smooth=Smooth.None));
     connect(inHomeGrid.pinSingle, voltageSource.pin_n) annotation (Line(
-        points={{52,0},{70,0},{70,-20}},
+        points={{52,0},{70,0},{70,-4}},
         color={85,170,255},
         smooth=Smooth.None));
   else
@@ -115,17 +116,18 @@ equation
   end if;
 
   connect(heatingSystem.mDHW60C, occupant.mDHW60C) annotation (Line(
-      points={{6,-10.4},{6,-22},{3,-22}},
+      points={{6,-10.2},{6,-20}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(ventilationSystem.flowPort_In, building.flowPort_Out) annotation (
-      Line(
-      points={{-12,32},{-54,32},{-54,30},{-56.7692,30},{-56.7692,10}},
-      color={0,0,0},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(ventilationSystem.flowPort_Out, building.flowPort_In) annotation (
       Line(
-      points={{-12,28},{-52.1538,28},{-52.1538,10}},
+      points={{-20,28},{-49,28},{-49,10}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(building.flowPort_Out, ventilationSystem.flowPort_In) annotation (
+      Line(
+      points={{-53,10},{-52,10},{-52,32},{-20,32}},
       color={0,0,0},
       smooth=Smooth.None));
   annotation (Icon(graphics={

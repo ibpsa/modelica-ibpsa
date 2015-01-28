@@ -5,9 +5,6 @@ package AC "Alternating current"
 extends Modelica.Icons.Package;
 
 
-
-
-
   annotation (Icon(graphics={
         Line(
           origin={10,20},

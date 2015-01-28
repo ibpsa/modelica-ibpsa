@@ -1,6 +1,6 @@
-within IDEAS.Electric.BaseClasses;
+within IDEAS.Electric.BaseClasses.AC;
 model Con3PlusNTo3
-  "Converts the 3 phases plus Neutrol to 3 phases representation to wich powers can be connected"
+  "Converts the 3 phases plus Neutral to 3 phases representation to wich powers can be connected"
 
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
     fourWire[4]
@@ -64,5 +64,19 @@ equation
           points={{-6,60},{6,-60}},
           color={135,135,135},
           smooth=Smooth.None,
-          pattern=LinePattern.Dash)}),        Diagram(graphics));
+          pattern=LinePattern.Dash)}),        Diagram(graphics),Documentation(info="<html>
+<p>
+This model converts the 3 phases plus neutral to 3-phases representation to wich powers can be connected.
+</p>
+<p>
+This implementation is based upon the Laws of Kirchhoff.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 22, 2015 by Juan Van Roy:<br/>
+Check model (+ typo).
+</li>
+</ul>
+</html>"));
 end Con3PlusNTo3;

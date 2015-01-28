@@ -10,7 +10,7 @@ model MultipleBoreHoles
         IDEAS.Media.Water.Simple,
     final allowFlowReversal=false);
 
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start);
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
       computeFlowResistance=true, dp_nominal=0);
 
@@ -95,21 +95,21 @@ public
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p1_start=p_start,
-    T1_start=bfData.gen.TFil0_start,
-    X1_start=X_start,
-    C1_start=C_start,
-    C1_nominal=C_nominal,
+    final X1_start=X_start,
+    final C1_start=C_start,
+    final C1_nominal=C_nominal,
     final p2_start=p_start,
-    T2_start=bfData.gen.TFil0_start,
-    X2_start=X_start,
-    C2_start=C_start,
-    C2_nominal=C_nominal,
-    final scaSeg=bfData.gen.nbBh*bfData.gen.nVer)
+    final X2_start=X_start,
+    final C2_start=C_start,
+    final C2_nominal=C_nominal,
+    final scaSeg=bfData.gen.nbBh*bfData.gen.nVer,
+    final T1_start=T_start,
+    final T2_start=T_start,
+    final TFil_start=T_start)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(extent={{-12,13},{12,-13}},
         rotation=270,
         origin={3,-10})));
-
 initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same lenght as the number of aggregated pulse and cover lenSim
   U := 0;
@@ -161,7 +161,7 @@ algorithm
       p_max=p_max,
       QMat=QMat,
       kappaMat=kappaMat,
-      R_ss=R_ss) + bfData.gen.T_start;
+      R_ss=R_ss) + T_start;
   end when;
 
 equation
@@ -292,6 +292,11 @@ connected to the dynamic model of the borehole heat exchanger.</p>
 <a href=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
 and in 
 <a href=\"modelica://IDEAS.Fluid.HeatExchangers.Borefield.UsersGuide\">IDEAS.Fluid.HeatExchangers.Borefield.UsersGuide</a>.
+</p>
+<p>
+A verification of this model can be found in 
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Validation.TrtValidation\">TrtValidation</a>
+.
 </p>
 </html>", revisions="<html>
 <ul>

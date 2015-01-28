@@ -8,7 +8,7 @@ model Transformer
   IDEAS.Electric.Distribution.AC.Components.Transformer_MvLv transformer_MvLv(
       redeclare IDEAS.Electric.Data.TransformerImp.Transfo_100kVA transformer)
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
-  IDEAS.Electric.BaseClasses.WattsLaw wattsLaw(numPha=3)
+  IDEAS.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=3)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Sine step(
     amplitude=100000,
