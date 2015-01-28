@@ -1,4 +1,4 @@
-within IDEAS.Occupants.StROBe;
+within IDEAS.Occupants.Extern;
 model StrobeInfoManager
   "StROBe information manager for handling occupant data required in each for simulation."
 
