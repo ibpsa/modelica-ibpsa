@@ -7,12 +7,14 @@ model Building
 
   final parameter Modelica.SIunits.Temperature[building.nZones] T_start = ones(building.nZones)*293.15
     "Operative zonal start temperatures";
-
-  replaceable IDEAS.Interfaces.BaseClasses.Structure building(final T_start=T_start)
+  final parameter Modelica.SIunits.Power[building.nZones] Q_design = building.Q_design+ventilationSystem.Q_design
+    "Total design heat load for heating system based on heat losses";
+  replaceable test.rn5g5rn                           building(final T_start=T_start)
     constrainedby IDEAS.Interfaces.BaseClasses.Structure "Building structure"
                          annotation (Placement(transformation(extent={{-66,-10},
             {-36,10}})), choicesAllMatching=true);
-  replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem(
+  replaceable Buildings.Validation.BaseClasses.HeatingSystem.None
+                                                         heatingSystem(
     nZones=building.nZones,
     VZones=building.VZones,
     final T_start=T_start,
@@ -55,31 +57,31 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(building.heatPortEmb, heatingSystem.heatPortEmb) annotation (Line(
-      points={{-36,6},{-20,6}},
+      points={{-37.1538,6},{-20,6}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortCon, heatingSystem.heatPortCon) annotation (Line(
-      points={{-36,2},{-20,2}},
+      points={{-37.1538,2},{-20,2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortCon, occupant.heatPortCon) annotation (Line(
-      points={{-36,2},{-26,2},{-26,-30},{-10,-30}},
+      points={{-37.1538,2},{-26,2},{-26,-30},{-10,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortRad, heatingSystem.heatPortRad) annotation (Line(
-      points={{-36,-2},{-20,-2}},
+      points={{-37.1538,-2},{-20,-2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortRad, occupant.heatPortRad) annotation (Line(
-      points={{-36,-2},{-28,-2},{-28,-34},{-10,-34}},
+      points={{-37.1538,-2},{-28,-2},{-28,-34},{-10,-34}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.TSensor, heatingSystem.TSensor) annotation (Line(
-      points={{-35.4,-6},{-20.4,-6}},
+      points={{-36.4615,-6},{-20.4,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(building.TSensor, ventilationSystem.TSensor) annotation (Line(
-      points={{-35.4,-6},{-30,-6},{-30,24},{-12.2,24}},
+      points={{-36.4615,-6},{-30,-6},{-30,24},{-12.2,24}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -118,12 +120,12 @@ equation
       smooth=Smooth.None));
   connect(ventilationSystem.flowPort_In, building.flowPort_Out) annotation (
       Line(
-      points={{-12,32},{-54,32},{-54,30},{-53,30},{-53,10}},
+      points={{-12,32},{-54,32},{-54,30},{-56.7692,30},{-56.7692,10}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(ventilationSystem.flowPort_Out, building.flowPort_In) annotation (
       Line(
-      points={{-12,28},{-49,28},{-49,10}},
+      points={{-12,28},{-52.1538,28},{-52.1538,10}},
       color={0,0,0},
       smooth=Smooth.None));
   annotation (Icon(graphics={

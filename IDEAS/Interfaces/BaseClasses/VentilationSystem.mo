@@ -19,6 +19,9 @@ partial model VentilationSystem
   parameter Integer nLoads(min=0) = 1 "Number of electric loads";
   parameter Real[nZones] VZones "Conditioned volumes of the zones";
 
+  parameter Modelica.SIunits.Power[ nZones] Q_design=zeros(nZones)
+    "Design heat loss due to ventilation";//must be calculated depending on the case
+
   // Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
 
   Modelica.Blocks.Interfaces.RealInput[nZones] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
@@ -53,11 +56,11 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
      connect(P_val.y, wattsLawPlug.P) annotation (Line(
-      points={{170.7,8},{174,8},{174,6},{178,6}},
+      points={{170.7,8},{174,8},{174,5},{178.5,5}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
-      points={{170.7,-3},{174,-3},{174,2},{178,2}},
+      points={{170.7,-3},{174,-3},{174,1},{178,1}},
       color={0,0,127},
       smooth=Smooth.None));
     end if;
