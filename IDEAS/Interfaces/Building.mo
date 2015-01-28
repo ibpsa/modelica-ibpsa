@@ -8,7 +8,8 @@ model Building
   final parameter Modelica.SIunits.Temperature[building.nZones] T_start = ones(building.nZones)*293.15
     "Operative zonal start temperatures";
 
-  replaceable IDEAS.Interfaces.BaseClasses.Structure building(final T_start=T_start)
+  replaceable IDEAS.Interfaces.BaseClasses.Structure building
+    constrainedby IDEAS.Interfaces.BaseClasses.Structure(final T_start=T_start)
     "Building structure" annotation (Placement(transformation(extent={{-66,-10},
             {-36,10}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem(
