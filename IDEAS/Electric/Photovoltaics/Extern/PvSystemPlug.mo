@@ -2,9 +2,6 @@ within IDEAS.Electric.Photovoltaics.Extern;
 model PvSystemPlug
   "PV system with separate shut-down controller and plug connector"
 
-  outer SimInfoManager sim
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-
   parameter Modelica.SIunits.Power PNom "Nominal power, in Wp";
   parameter Integer id=19
     "Which photovoltaic from the read profiles in the SimInfoManager";
@@ -30,13 +27,16 @@ model PvSystemPlug
   IDEAS.Electric.Photovoltaics.Components.ForInputFiles.SimpleDCAC_effP invertor(PNom=-
         PNom, P_dc_max=-PNom)
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Modelica.Blocks.Sources.RealExpression PDc(y=sim.tabPPV.y[id]/sim.PNom*PNom)
-    annotation (Placement(transformation(extent={{-80,70},{-40,90}})));
+  Modelica.Blocks.Sources.RealExpression PDc(y=strobe.tabPPv.y[id]/strobe.P_nominal
+        *PNom)
+    annotation (Placement(transformation(extent={{-86,50},{-40,70}})));
   BaseClasses.AC.WattsLawPlug            wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug vi(m=
         numPha) annotation (Placement(transformation(extent={{90,30},{110,50}},
           rotation=0)));
+  outer Occupants.Extern.StrobeInfoManager strobe(PPv=true)
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
 
   connect(invertor.P, pvVoltageCtrl.PInit) annotation (Line(
@@ -52,7 +52,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(PDc.y, invertor.P_dc) annotation (Line(
-      points={{-38,80},{-32,80},{-32,40},{-19.8,40}},
+      points={{-37.7,60},{-32,60},{-32,40},{-19.8,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pvVoltageCtrl.PFinal, wattsLaw.P[1]) annotation (Line(
