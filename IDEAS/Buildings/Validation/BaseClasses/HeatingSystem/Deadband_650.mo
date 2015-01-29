@@ -1,10 +1,11 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model Deadband_650 "BESTEST deadband heating system"
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
-    final nLoads=1, final nTemSen = nZones, C = VZones * corrCV * 1012 * 1.204);
+    final nLoads=1, final nTemSen = nZones);
 
   parameter Modelica.SIunits.Volume[nZones] VZones;
   parameter Real corrCV = 5 "Correction factor for thermal mass in zone";
+  parameter Real[nZones] C = VZones * corrCV * 1012 * 1.204;
 
 protected
   parameter Modelica.SIunits.Temperature Theat=0 "No Heating";

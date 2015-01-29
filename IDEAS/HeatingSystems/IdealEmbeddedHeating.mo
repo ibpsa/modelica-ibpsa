@@ -1,7 +1,7 @@
 within IDEAS.HeatingSystems;
 model IdealEmbeddedHeating
   "Ideal heating, no DHW, with embedded system (eg. floor heating) "
-  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating(nZones = nZones);
+  extends IDEAS.HeatingSystems.Interfaces.Partial_IdealHeating;
   extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,

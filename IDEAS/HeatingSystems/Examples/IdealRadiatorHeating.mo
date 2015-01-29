@@ -10,8 +10,7 @@ model IdealRadiatorHeating "Example and test for ideal heating with radiators"
     nLoads=0,
     VZones=building.VZones)
          annotation (Placement(transformation(extent={{-20,-10},{18,12}})));
-  inner IDEAS.SimInfoManager sim(redeclare
-      IDEAS.Occupants.Extern.Interfaces.Occ_Files occupants)
+  inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   IDEAS.HeatingSystems.Examples.DummyBuilding building(nZones=nZones, nEmb=0)
     annotation (Placement(transformation(extent={{-86,-10},{-52,12}})));
@@ -59,7 +58,7 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(building.TSensor, none.TSensor) annotation (Line(
-      points={{-51.32,-5.6},{-46,-5.6},{-46,44},{-20.4,44}},
+      points={{-51.32,-5.6},{-46,-5.6},{-46,44},{-20.2,44}},
       color={0,0,127},
       smooth=Smooth.None));
     connect(voltageSource.pin_p,ground. pin) annotation (Line(
@@ -83,7 +82,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(iSO13790_1.mDHW60C, heating.mDHW60C) annotation (Line(
-      points={{6,-28},{6,-10.22},{4.7,-10.22}},
+      points={{3,-28},{3,-10.22},{4.7,-10.22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(iSO13790_1.plugLoad, causalInhomeFeeder.nodeSingle) annotation (Line(

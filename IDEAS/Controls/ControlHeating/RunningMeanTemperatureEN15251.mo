@@ -1,13 +1,13 @@
 within IDEAS.Controls.ControlHeating;
-model RunningMeanTemperatureEN15251_discrete
+model RunningMeanTemperatureEN15251
   "Calculate the running mean temperature of 7 days, acccording to norm EN15251"
 
   parameter Real[7] TAveDayIni(unit="K", displayUnit="degC") = ones(7).* 283.15
-    "initial running mean temperature";
+    "Initial running mean temperature";
 
   // Interface
    discrete Modelica.Blocks.Interfaces.RealOutput TRm(unit="K",displayUnit = "degC")
-    "running mean average temperature"
+    "Running mean average temperature"
      annotation (Placement(transformation(extent={{96,-10},{116,10}})));
 
 protected
@@ -36,11 +36,14 @@ algorithm
       TAveDay[i] := pre(TAveDay[i-1]);
     end for;
     TAveDay[1] := intTAmb / 24/3600;
-    // reinitialisation of the intTAmb.y
-    reinit(intTAmb,0);
     TRm :=TAveDay*coeTRm;
   end when;
 
+equation
+    // reinitialisation of the intTAmb
+  when sample(24*3600,24*3600) then
+    reinit(intTAmb,0);
+  end when;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
     experiment(StopTime=864000),
@@ -63,5 +66,13 @@ algorithm
         Text(
           extent={{-48,32},{58,-26}},
           lineColor={0,0,255},
-          textString="EN15251")}));
-end RunningMeanTemperatureEN15251_discrete;
+          textString="EN15251")}),
+Documentation(revisions="<html>
+<ul>
+<li>
+January 19, 2015, by Damien Picard:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+end RunningMeanTemperatureEN15251;

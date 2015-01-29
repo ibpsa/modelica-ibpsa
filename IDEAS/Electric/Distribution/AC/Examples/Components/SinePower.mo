@@ -11,8 +11,8 @@ model SinePower
   Real P=wattsLaw.P;
 
 protected
-  IDEAS.Electric.BaseClasses.WattsLaw wattsLaw(numPha=1) annotation (Placement(
-        transformation(
+  IDEAS.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=1) annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-30,50})));

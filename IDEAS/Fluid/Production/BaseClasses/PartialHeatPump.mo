@@ -5,8 +5,8 @@ partial model PartialHeatPump "Heat pump partial"
     final tau2=30,
     m1_flow_nominal=heatPumpData.m1_flow_nominal*sca,
     m2_flow_nominal=heatPumpData.m2_flow_nominal*sca,
-    dp1_nominal=heatPumpData.dp1_nominal,
-    dp2_nominal=heatPumpData.dp2_nominal,
+    dp1_nominal=if computeFlowResistance then heatPumpData.dp1_nominal else 0,
+    dp2_nominal=if computeFlowResistance then heatPumpData.dp2_nominal else 0,
     vol1(mFactor=mFactor,
       V=heatPumpData.m1/rho1_nominal,
       energyDynamics=energyDynamics,
@@ -42,6 +42,11 @@ partial model PartialHeatPump "Heat pump partial"
   parameter Real mFactor=1
     "Factor to scale the thermal mass of the evaporator and condensor"
     annotation (Dialog(tab="Advanced"));
+
+
+  parameter Boolean computeFlowResistance = true
+    "=true, compute flow resistance. Set to false to assume no friction"
+    annotation (Evaluate=true, Dialog(tab="Flow resistance"));
 
   Modelica.Blocks.Tables.CombiTable2D powerTable(table=heatPumpData.powerData,
       smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)

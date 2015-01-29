@@ -38,7 +38,7 @@ model PVSystemGeneral "PV system with separate shut-down controller"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Electrical.Analog.Basic.Ground ground1
     annotation (Placement(transformation(extent={{-26,-14},{-6,6}})));
-  IDEAS.Electric.BaseClasses.WattsLaw wattsLaw(numPha=numPha)
+  IDEAS.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   IDEAS.Electric.Photovoltaics.Components.PvVoltageToPower vi2PQ
     annotation (Placement(transformation(extent={{-6,20},{14,40}})));
