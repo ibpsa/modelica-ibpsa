@@ -12,7 +12,10 @@ model Window "Multipane window"
     "Inclination of the window, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0deg denotes South";
-  final parameter Modelica.SIunits.Power QNom=glazing.U_value*A*(273.15 + 21 -
+
+  final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
+    "Window U-value";
+  final parameter Modelica.SIunits.Power QTra_design=U_value*A*(273.15 + 21 -
       sim.Tdes) "Design heat losses at reference outdoor temperature";
 
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazing
@@ -84,8 +87,10 @@ protected
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,60},{-40,80}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=
-        fraType.U_value*A*frac) if fraType.present
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+        fraType.U_value*A*frac) if fraType.present  annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+
+  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 equation
   connect(eCon.port_a, layMul.port_a) annotation (Line(
       points={{-20,-30},{-10,-30}},
@@ -196,6 +201,13 @@ equation
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBus_a.area) annotation (Line(
       points={{0,-20},{0,40},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
+      points={{11,50},{24,50},{24,40},{50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
