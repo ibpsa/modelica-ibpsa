@@ -131,8 +131,7 @@ partial model HeatingSystem "Partial heating/cooling system"
         Line(
           points={{200,0},{30,0}},
           color={85,170,255},
-          smooth=Smooth.None,
-          thickness=0.5),
+          smooth=Smooth.None),
         Line(points={{30,70},{30,40}}),
         Line(points={{52.9,32.8},{70.2,57.3}}),
         Line(points={{7.1,32.8},{-10.2,57.3}}),
