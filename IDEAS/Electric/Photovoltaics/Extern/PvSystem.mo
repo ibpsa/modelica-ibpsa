@@ -1,6 +1,7 @@
 within IDEAS.Electric.Photovoltaics.Extern;
-model PvSystemPlug
+model PvSystem
   "PV system with separate shut-down controller and plug connector"
+
 
   parameter Modelica.SIunits.Power PNom "Nominal power, in Wp";
   parameter Integer id=19
@@ -29,12 +30,11 @@ model PvSystemPlug
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Modelica.Blocks.Sources.RealExpression PDc(y=strobe.tabPPv.y[id]/strobe.P_nominal
         *PNom)
-    annotation (Placement(transformation(extent={{-86,50},{-40,70}})));
-  BaseClasses.AC.WattsLawPlug            wattsLaw(numPha=numPha)
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.NegativePlug vi(m=
-        numPha) annotation (Placement(transformation(extent={{90,30},{110,50}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-88,50},{-40,70}})));
+  Modelica.Blocks.Interfaces.RealOutput P
+    annotation (Placement(transformation(extent={{96,50},{116,70}})));
+  Modelica.Blocks.Interfaces.RealOutput Q
+    annotation (Placement(transformation(extent={{96,10},{116,30}})));
   outer Occupants.Extern.StrobeInfoManager strobe(PPv=true)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
@@ -52,20 +52,16 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(PDc.y, invertor.P_dc) annotation (Line(
-      points={{-37.7,60},{-32,60},{-32,40},{-19.8,40}},
+      points={{-37.6,60},{-32,60},{-32,40},{-19.8,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pvVoltageCtrl.PFinal, wattsLaw.P[1]) annotation (Line(
-      points={{40.6,46},{52,46},{52,45},{64,45}},
+  connect(pvVoltageCtrl.PFinal, P) annotation (Line(
+      points={{40.6,46},{70,46},{70,60},{106,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pvVoltageCtrl.QFinal, wattsLaw.Q[1]) annotation (Line(
-      points={{40.6,42},{52,42},{52,41},{63,41}},
+  connect(pvVoltageCtrl.QFinal, Q) annotation (Line(
+      points={{40.6,42},{70,42},{70,20},{106,20}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(wattsLaw.vi, vi) annotation (Line(
-      points={{80,40},{100,40}},
-      color={85,170,255},
       smooth=Smooth.None));
   annotation (Icon(graphics={Polygon(
           points={{-80,60},{-60,80},{60,80},{80,60},{80,-60},{60,-80},{-60,-80},
@@ -87,4 +83,4 @@ equation
           textString="#")}), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                      graphics));
-end PvSystemPlug;
+end PvSystem;

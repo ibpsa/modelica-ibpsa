@@ -10,8 +10,6 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
 */
 
   inner IDEAS.SimInfoManager sim(
-    occBeh=false,
-    PV=false,
     filNam="BESTEST.TMY",
     lat=0.69464104229374,
     lon=-1.8308503853421,
