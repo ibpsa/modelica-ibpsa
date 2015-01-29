@@ -15,8 +15,9 @@ partial model PartialHeatPump "Heat pump partial"
       V=heatPumpData.m2/rho2_nominal,
       energyDynamics=energyDynamics,
       massDynamics=massDynamics));
-  extends IDEAS.Fluid.Production.Interfaces.ModulationSecurity(T_max = heatPumpData.T_cond_max,
-      T_min =            heatPumpData.T_evap_min);
+  extends IDEAS.Fluid.Production.Interfaces.ModulationSecurity(
+    T_max = heatPumpData.T_cond_max,
+    T_min = heatPumpData.T_evap_min);
   extends IDEAS.Fluid.Interfaces.OnOffInterface(use_onOffSignal=true);
 
   replaceable parameter IDEAS.Fluid.Production.BaseClasses.HeatPumpData heatPumpData constrainedby
@@ -42,7 +43,6 @@ partial model PartialHeatPump "Heat pump partial"
   parameter Real mFactor=1
     "Factor to scale the thermal mass of the evaporator and condensor"
     annotation (Dialog(tab="Advanced"));
-
 
   parameter Boolean computeFlowResistance = true
     "=true, compute flow resistance. Set to false to assume no friction"
@@ -75,6 +75,7 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.SIunits.Power P_el "Electrical power consumption";
   Modelica.SIunits.Power P_evap "Thermal power of the evaporator (positive)";
   Modelica.SIunits.Power P_cond "Thermal power of the condensor (positive)";
+  Modelica.SIunits.Temperature TEvapIn "Evaporator inlet temperature";
   Real cop "COP of the heat pump";
   Modelica.Blocks.Sources.RealExpression PElec(y=P_el)
     annotation (Placement(transformation(extent={{62,18},{82,38}})));
@@ -90,10 +91,6 @@ initial equation
 public
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Flow resistance"));
-
-  parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation (Dialog(tab="Assumptions"));
 
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{88,-100},{100,-88}})));
@@ -128,15 +125,21 @@ public
         rotation=270,
         origin={88,110})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T_out_cond
-    annotation (Placement(transformation(extent={{-12,-52},{-32,-32}})));
-  Modelica.Blocks.Sources.RealExpression T_evap_in(y=Medium1.temperature(
-        Medium1.setState_phX(
-        port_a1.p,
-        inStream(port_a1.h_outflow),
-        inStream(port_a1.Xi_outflow))))
+    annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
+  Modelica.Blocks.Sources.RealExpression TEvapInExp(y=TEvapIn)
     annotation (Placement(transformation(extent={{-110,4},{-90,24}})));
 
 equation
+  if allowFlowReversal1 then
+    TEvapIn = IDEAS.Utilities.Math.Functions.spliceFunction(
+              x=port_a1.m_flow,
+              pos=Medium1.temperature(Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))),
+              neg=  Medium1.temperature(Medium1.setState_phX(port_b1.p, inStream(port_b1.h_outflow), inStream(port_b1.Xi_outflow))),
+              deltax=  m1_flow_nominal/10);
+  else
+    TEvapIn = Medium1.temperature(Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow)));
+  end if;
+
   connect(modulationSignal_internal,mod);
   if not use_modulationSignal then
     modulationSignal_internal = 1;
@@ -145,8 +148,8 @@ equation
     on_TSetControl_internal = true;
   end if;
 
-  T_high = T_out_cond.T;
-  T_low = T_evap_in.y;
+  T_high = vol2.T;
+  T_low = vol1.T;
 
   cop = copTable.y;
   P_evap = P_el*(cop - 1);
@@ -180,14 +183,14 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(T_out_cond.port, vol2.heatPort) annotation (Line(
-      points={{-12,-42},{12,-42},{12,-60}},
+      points={{-20,-40},{12,-40},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(T_out_cond.T, copTable.u1) annotation (Line(
-      points={{-32,-42},{-86,-42},{-86,0},{-76,0}},
+      points={{-40,-40},{-86,-40},{-86,0},{-76,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(T_evap_in.y, powerTable.u2) annotation (Line(
+  connect(TEvapInExp.y, powerTable.u2) annotation (Line(
       points={{-89,14},{-76,14}},
       color={0,0,127},
       smooth=Smooth.None));
