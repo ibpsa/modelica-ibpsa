@@ -11,7 +11,7 @@ model OuterWall "Opaque building envelope construction"
 
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
-  final parameter Modelica.SIunits.Power QNom=U_value*AWall*(273.15 + 21 - sim.Tdes)
+  final parameter Modelica.SIunits.Power QTra_design=U_value*AWall*(273.15 + 21 - sim.Tdes)
     "Design heat losses at reference outdoor temperature";
 
   parameter Modelica.SIunits.Temperature T_start=293.15
@@ -24,7 +24,7 @@ model OuterWall "Opaque building envelope construction"
   Modelica.SIunits.Power QSolIrr = (radSol.solDir + radSol.solDif)
     "Total solar irradiance";
 
-  //protected
+//protected
   IDEAS.Climate.Meteo.Solar.RadSol radSol(
     final inc=inc,
     final azi=azi,
@@ -56,6 +56,8 @@ model OuterWall "Opaque building envelope construction"
         AWall, inc=inc)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
+  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   outer SimInfoManager sim "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
@@ -121,6 +123,13 @@ equation
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBus_a.area) annotation (Line(
       points={{0,-20},{0,40},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
+      points={{11,50},{24,50},{24,40},{50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",

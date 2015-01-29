@@ -7,15 +7,19 @@ model Building
 
   final parameter Modelica.SIunits.Temperature[building.nZones] T_start = ones(building.nZones)*293.15
     "Operative zonal start temperatures";
-
-  replaceable IDEAS.Interfaces.BaseClasses.Structure building(final T_start=T_start)
+  final parameter Modelica.SIunits.Power[building.nZones] Q_design = building.Q_design+ventilationSystem.Q_design
+    "Total design heat load for heating system based on heat losses";
+  replaceable IDEAS.Interfaces.BaseClasses.Structure building
+    constrainedby IDEAS.Interfaces.BaseClasses.Structure(final T_start=T_start)
     "Building structure" annotation (Placement(transformation(extent={{-66,-10},
             {-36,10}})), choicesAllMatching=true);
-  replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem(
+  replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem constrainedby
+    IDEAS.Interfaces.BaseClasses.HeatingSystem(
     nZones=building.nZones,
-    final nEmbPorts=building.nEmb) "Thermal building heating system" annotation (Placement(
+    final nEmbPorts=building.nEmb) "Thermal building heating system"
+                                       annotation (Placement(
         transformation(extent={{-20,-10},{20,10}})), choicesAllMatching=true);
-  replaceable IDEAS.Interfaces.BaseClasses.Occupant occupant(nZones=building.nZones)
+  replaceable IDEAS.Interfaces.BaseClasses.Occupant occupant
     constrainedby IDEAS.Interfaces.BaseClasses.Occupant(nZones=building.nZones)
     "Building occupant" annotation (Placement(transformation(extent={{-20,-40},
             {20,-20}})), choicesAllMatching=true);
