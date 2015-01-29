@@ -2,9 +2,9 @@ ActuatorSignal
 PartialDamperExponential
 PartialThreeWayValve
 PartialTwoWayValve
+PartialTwoWayValveKv
 ValveParameters
 der_equalPercentage
 equalPercentage
 exponentialDamper
 Examples
-PartialTwoWayValveKv
