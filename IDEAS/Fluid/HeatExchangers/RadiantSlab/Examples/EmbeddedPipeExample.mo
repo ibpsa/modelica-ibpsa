@@ -40,10 +40,6 @@ equation
       points={{-40,0},{-10,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(fixedTemperature.port, embeddedPipe.heatPortEmb) annotation (Line(
-      points={{-14,34},{0,34},{0,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(trapezoid.y, boundary.m_flow_in) annotation (Line(
       points={{-79,0},{-70,0},{-70,8},{-60,8}},
       color={0,0,127},
@@ -55,6 +51,10 @@ equation
   connect(senTem.port_b, bou.ports[1]) annotation (Line(
       points={{46,0},{60,0}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(fixedTemperature.port, embeddedPipe.heatPortEmb[1]) annotation (Line(
+      points={{-14,34},{0,34},{0,32},{0,32},{0,10}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
