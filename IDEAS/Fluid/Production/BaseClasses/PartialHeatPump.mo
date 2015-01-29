@@ -10,11 +10,13 @@ partial model PartialHeatPump "Heat pump partial"
     vol1(mFactor=mFactor,
       V=heatPumpData.m1/rho1_nominal,
       energyDynamics=energyDynamics,
-      massDynamics=massDynamics),
-    vol2(mFactor=mFactor,
+      massDynamics=massDynamics,
+      prescribedHeatFlowRate=true),
+    redeclare IDEAS.Fluid.MixingVolumes.MixingVolume vol2(mFactor=mFactor,
       V=heatPumpData.m2/rho2_nominal,
       energyDynamics=energyDynamics,
-      massDynamics=massDynamics));
+      massDynamics=massDynamics,
+      prescribedHeatFlowRate=true));
   extends IDEAS.Fluid.Production.Interfaces.ModulationSecurity(
     T_max = heatPumpData.T_cond_max,
     T_min = heatPumpData.T_evap_min);
