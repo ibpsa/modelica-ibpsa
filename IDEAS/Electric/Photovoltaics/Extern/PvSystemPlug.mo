@@ -27,30 +27,17 @@ model PvSystemPlug
   Modelica.Blocks.Interfaces.RealInput VGrid "Grid voltage for control"
     annotation (Placement(transformation(extent={{-116,30},{-96,50}})));
 
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug plug(m=
-       numPha) annotation (Placement(transformation(extent={{90,30},{110,50}},
-          rotation=0)));
   IDEAS.Electric.Photovoltaics.Components.ForInputFiles.SimpleDCAC_effP invertor(PNom=-
         PNom, P_dc_max=-PNom)
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  BaseClasses.AC.WattsLawPlug wattsLaw(numPha=numPha)
-    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Modelica.Blocks.Sources.RealExpression PDc(y=sim.tabPPV.y[id]/sim.PNom*PNom)
     annotation (Placement(transformation(extent={{-80,70},{-40,90}})));
+  Modelica.Blocks.Interfaces.RealOutput P
+    annotation (Placement(transformation(extent={{96,50},{116,70}})));
+  Modelica.Blocks.Interfaces.RealOutput Q
+    annotation (Placement(transformation(extent={{96,10},{116,30}})));
 equation
 
-  connect(wattsLaw.vi, plug) annotation (Line(
-      points={{80,40},{100,40}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(pvVoltageCtrl.PFinal, wattsLaw.P[1]) annotation (Line(
-      points={{40.6,46},{60,46}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pvVoltageCtrl.QFinal, wattsLaw.Q[1]) annotation (Line(
-      points={{40.6,42},{60,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(invertor.P, pvVoltageCtrl.PInit) annotation (Line(
       points={{0.6,46},{20.2,46}},
       color={0,0,127},
@@ -65,6 +52,14 @@ equation
       smooth=Smooth.None));
   connect(PDc.y, invertor.P_dc) annotation (Line(
       points={{-38,80},{-32,80},{-32,40},{-19.8,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pvVoltageCtrl.PFinal, P) annotation (Line(
+      points={{40.6,46},{70,46},{70,60},{106,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pvVoltageCtrl.QFinal, Q) annotation (Line(
+      points={{40.6,42},{70,42},{70,20},{106,20}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Icon(graphics={Polygon(
@@ -84,5 +79,7 @@ equation
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="#")}), Diagram(graphics));
+          textString="#")}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}),
+                                     graphics));
 end PvSystemPlug;
