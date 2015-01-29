@@ -1,36 +1,72 @@
-within Annex60.Fluid.Actuators.BaseClasses;
-partial model PartialTwoWayValve "Partial model for a two way valve"
+within Annex60.Fluid.Actuators.Valves;
+model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
 
-  extends Annex60.Fluid.BaseClasses.PartialResistance(
-       final dp_nominal=dpValve_nominal + dpFixed_nominal,
-       dp(nominal=6000),
-       final m_flow_turbulent = deltaM * abs(m_flow_nominal));
+  extends Annex60.Fluid.Actuators.BaseClasses.PartialTwoWayValve(final linearized = false, from_dp=true, phi=l + y_actual*(1 - l));
 
-  extends Annex60.Fluid.Actuators.BaseClasses.ValveParameters(
-      rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+  parameter Real l2(min=1e-10) = 0.01
+    "Percentage of additional mass flow rate for higher than nominal pressures";
+  parameter Real deltax = 0.1 "Transition region interval for flow rate";
 
-  extends Annex60.Fluid.Actuators.BaseClasses.ActuatorSignal;
-  parameter Modelica.SIunits.Pressure dpFixed_nominal(displayUnit="Pa", min=0) = 0
-    "Pressure drop of pipe and other resistances that are in series"
-     annotation(Dialog(group = "Nominal condition"));
-
-  parameter Real l(min=1e-10, max=1) = 0.0001
-    "Valve leakage, l=Kv(y=0)/Kv(y=1)";
-  input Real phi
-    "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
 protected
- parameter Real kFixed(unit="", min=0) = if dpFixed_nominal > Modelica.Constants.eps
-    then m_flow_nominal / sqrt(dpFixed_nominal) else 0
-    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
- Real kVal(unit="", min=Modelica.Constants.small)
-    "Flow coefficient of valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
- Real k(unit="", min=Modelica.Constants.small)
-    "Flow coefficient of valve and pipe in series, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
-initial equation
-  assert(dpFixed_nominal > -Modelica.Constants.small, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
-        + String(dpFixed_nominal) + " Pa.");
+  Modelica.SIunits.MassFlowRate m_flow_set = m_flow_nominal*phi
+    "Requested mass flow rate";
+  Modelica.SIunits.Pressure dp_min = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow_set, k=k, m_flow_turbulent=m_flow_turbulent)
+    "Minimum dp required for delivering requested mass flow rate";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
+equation
+ kVal = Kv_SI;
+ if (dpFixed_nominal > Modelica.Constants.eps) then
+   k = sqrt(1/(1/kFixed^2 + 1/kVal^2));
+ else
+   k = kVal;
+ end if;
+
+   if homotopyInitialization then
+     if from_dp then
+         m_flow=homotopy(actual=Annex60.Utilities.Math.Functions.spliceFunction(
+                            x=dp-dp_min,
+                            pos= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
+                            neg= Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                  dp=dp,
+                                  k=k,
+                                  m_flow_turbulent=m_flow_turbulent),
+                            deltax=dp_nominal_pos*deltax),
+                         simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+     else
+
+         dp=homotopy(actual=Annex60.Utilities.Math.Functions.spliceFunction(
+                            x=m_flow-m_flow_set,
+                            pos= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
+                            neg= Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                  m_flow=m_flow,
+                                  k=k,
+                                  m_flow_turbulent=m_flow_turbulent),
+                            deltax=m_flow_nominal_pos*deltax*l2),
+                     simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+     end if;
+   else // do not use homotopy
+     if from_dp then
+       m_flow=Annex60.Utilities.Math.Functions.spliceFunction(
+                            x=dp-dp_min,
+                            pos= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
+                            neg= Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                  dp=dp,
+                                  k=k,
+                                  m_flow_turbulent=m_flow_turbulent),
+                            deltax=dp_nominal_pos*deltax);
+      else
+        dp=Annex60.Utilities.Math.Functions.spliceFunction(
+                            x=m_flow-m_flow_set,
+                            pos= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
+                            neg= Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                  m_flow=m_flow,
+                                  k=k,
+                                  m_flow_turbulent=m_flow_turbulent),
+                            deltax=m_flow_nominal_pos*deltax*l2);
+      end if;
+    end if; // homotopyInitialization
+  annotation (defaultComponentName="val",
+  Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={
         Polygon(
           points={{2,-2},{-76,60},{-76,-60},{2,-2}},
@@ -190,4 +226,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PartialTwoWayValve;
+end TwoWayPressureIndependent;
