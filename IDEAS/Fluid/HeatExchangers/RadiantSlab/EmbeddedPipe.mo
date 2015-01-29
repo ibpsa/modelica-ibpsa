@@ -29,19 +29,19 @@ model EmbeddedPipe
     annotation(Evaluate=true);
   parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
     "Absolute roughness of pipe, with a default for a smooth steel pipe"
-    annotation(Dialog(tab="Pressure drop"));
+    annotation(Dialog(tab="Flow resistance"));
   parameter Modelica.SIunits.Length L_floor = A_floor^(1/2)
     "Floor length - along the pipe direction"
-    annotation(Dialog(tab="Pressure drop"));
+    annotation(Dialog(tab="Flow resistance"));
   parameter Real N_pipes = A_floor/L_floor/RadSlaCha.T - 1
     "Number of parallel pipes in the slab"
-annotation(Dialog(tab="Pressure drop"));
+annotation(Dialog(tab="Flow resistance"));
   parameter Modelica.SIunits.Length pipeBendEqLen = 2*(N_pipes-1)*(2.48*RadSlaCha.T/2/pipeDiaInt+3.20)*pipeDiaInt
     "Pipe bends equivalent length, default according to Fox and McDonald"
-annotation(Dialog(tab="Pressure drop"));
+annotation(Dialog(tab="Flow resistance"));
   parameter Modelica.SIunits.Length pipeEqLen = pipeBendEqLen + (L_floor-2*RadSlaCha.T)*N_pipes
     "Total pipe equivalent length, default assuming 180 dg turns starting at RadSlaCha.T from the end of the slab"
-annotation(Dialog(tab="Pressure drop"));
+annotation(Dialog(tab="Flow resistance"));
   parameter Modelica.SIunits.MassFlowRate m_flowMin = m_flow_nominal*0.5
     "Minimal flowrate when in operation - used for validity check"
     annotation(Dialog(group="Nominal condition"));
