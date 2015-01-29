@@ -25,7 +25,7 @@ model Zone "thermal building zone"
   parameter Real fRH=11
     "Reheat factor for calculation of design heat load, (EN 12831, table D.10 Annex D)"
                                                                                         annotation(Dialog(group="Design heat load"));
-  parameter Modelica.SIunits.Area A "Total conditioned floor area" annotation(Dialog(group="Design heat load"));
+  parameter Modelica.SIunits.Area A = 0 "Total conditioned floor area" annotation(Dialog(group="Design heat load"));
 
   Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
     "Total design transmission heat losses for the zone";

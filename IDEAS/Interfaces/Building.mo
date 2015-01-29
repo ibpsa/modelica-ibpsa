@@ -9,18 +9,17 @@ model Building
     "Operative zonal start temperatures";
   final parameter Modelica.SIunits.Power[building.nZones] Q_design = building.Q_design+ventilationSystem.Q_design
     "Total design heat load for heating system based on heat losses";
-  replaceable test.rn5g5rn                           building(final T_start=T_start)
-    constrainedby IDEAS.Interfaces.BaseClasses.Structure "Building structure"
-                         annotation (Placement(transformation(extent={{-66,-10},
+  replaceable IDEAS.Interfaces.BaseClasses.Structure building
+    constrainedby IDEAS.Interfaces.BaseClasses.Structure(final T_start=T_start)
+    "Building structure" annotation (Placement(transformation(extent={{-66,-10},
             {-36,10}})), choicesAllMatching=true);
-  replaceable Buildings.Validation.BaseClasses.HeatingSystem.None
-                                                         heatingSystem(
+  replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem constrainedby
+    IDEAS.Interfaces.BaseClasses.HeatingSystem(
     nZones=building.nZones,
-    final nEmbPorts=building.nEmb) constrainedby
-    IDEAS.Interfaces.BaseClasses.HeatingSystem
-    "Thermal building heating system"  annotation (Placement(
+    final nEmbPorts=building.nEmb) "Thermal building heating system"
+                                       annotation (Placement(
         transformation(extent={{-20,-10},{20,10}})), choicesAllMatching=true);
-  replaceable IDEAS.Interfaces.BaseClasses.Occupant occupant(nZones=building.nZones)
+  replaceable IDEAS.Interfaces.BaseClasses.Occupant occupant
     constrainedby IDEAS.Interfaces.BaseClasses.Occupant(nZones=building.nZones)
     "Building occupant" annotation (Placement(transformation(extent={{-20,-40},
             {20,-20}})), choicesAllMatching=true);
@@ -56,11 +55,11 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(building.heatPortEmb, heatingSystem.heatPortEmb) annotation (Line(
-      points={{-37.1538,6},{-20,6}},
+      points={{-36,6},{-20,6}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortCon, heatingSystem.heatPortCon) annotation (Line(
-      points={{-37.1538,2},{-20,2}},
+      points={{-36,2},{-20,2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortCon, occupant.heatPortCon) annotation (Line(
@@ -68,7 +67,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortRad, heatingSystem.heatPortRad) annotation (Line(
-      points={{-37.1538,-2},{-20,-2}},
+      points={{-36,-2},{-20,-2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.heatPortRad, occupant.heatPortRad) annotation (Line(
@@ -76,7 +75,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(building.TSensor, heatingSystem.TSensor) annotation (Line(
-      points={{-36.4615,-6},{-20.4,-6}},
+      points={{-35.4,-6},{-20.4,-6}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
