@@ -66,8 +66,8 @@ initial equation
 Documentation(info="<html>
 <p>
 Partial model for a two way valve. This is the base model for valves
-with different opening characteristics, such as linear, equal percentage
-or quick opening.
+with different opening characteristics, such as linear, equal percentage, 
+quick opening or pressure-independent.
 </p>
 <p>
 To prevent the derivative <code>d/dP (m_flow)</code> to be infinite near
@@ -102,17 +102,18 @@ The two way valve models are implemented using this partial model, as opposed to
 different functions for the valve opening characteristics, because
 each valve opening characteristics has different parameters.
 </p>
-<h4>Implementation</h4>
-<p>
-Models that extend this model need to provide a binding equation
-for the flow function <code>phi</code>.
-An example of such a code can be found in
-<a href=\"modelica://Annex60.Fluid.Actuators.Valves.TwoWayLinear\">
-Annex60.Fluid.Actuators.Valves.TwoWayLinear</a>.
-</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 29, 2015, by Filip Jorissen:<br/>
+Moved the governing equations to 
+<a href=\"modelica://Annex60.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv\">
+PartialTwoWayValveKv</a>
+in order to be able to extend from this partial in 
+<a href=\"modelica://Annex60.Fluid.Actuators.Valves.TwoWayPressureIndependent\">
+TwoWayPressureIndepedent</a>
+</li>
 <li>
 August 8, 2014, by Michael Wetter:<br/>
 Reformulated the computation of <code>k</code> to make the model
