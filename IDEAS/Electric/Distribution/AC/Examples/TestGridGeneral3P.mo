@@ -1,7 +1,6 @@
 within IDEAS.Electric.Distribution.AC.Examples;
 model TestGridGeneral3P
   import IDEAS;
-
   IDEAS.Electric.Distribution.AC.Examples.Components.SinePower risingflankSingle1[3](
       amplitude=4000)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));

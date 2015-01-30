@@ -6,7 +6,6 @@ protected
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
-
 public
   replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=3)
     "Choose a grid Layout" annotation (choicesAllMatching=true);
@@ -86,7 +85,7 @@ equation
       points={{40,0},{60,0}},
       color={85,170,255},
       smooth=Smooth.None));
-    connect(con3PlusNTo3_1[n].threeWire, nodes3Phase[:, n]) annotation (Line(
+    connect(con3PlusNTo3_1[n].threeWire, gridNodes3P[:, n]) annotation (Line(
         points={{80,0},{100,0}},
         color={85,170,255},
         smooth=Smooth.None));
