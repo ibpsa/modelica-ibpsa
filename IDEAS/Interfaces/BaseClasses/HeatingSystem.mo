@@ -5,12 +5,17 @@ partial model HeatingSystem "Partial heating/cooling system"
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 
+  parameter Boolean InInterface = false;
+
   // *********** Building characteristics and  interface ***********
   // --- General
   parameter Integer nZones(min=1)
     "Number of conditioned thermal zones in the building";
   parameter Boolean isHea=true "true if system is able to heat";
   parameter Boolean isCoo=false "true if system is able to cool";
+
+  parameter Modelica.SIunits.Power[nZones] Q_design
+    "Total design heat load for heating system based on heat losses" annotation(Dialog(enable=InInterface));
 
   // --- Ports
   parameter Integer nConvPorts(min=0) = nZones
