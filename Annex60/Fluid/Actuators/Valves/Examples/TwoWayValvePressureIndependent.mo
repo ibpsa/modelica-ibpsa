@@ -9,6 +9,8 @@ model TwoWayValvePressureIndependent
     duration=1,
     offset=0) "Control signal"
                  annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+
+  // fixme: add comments for all instances
   Annex60.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     use_p_in=true,
@@ -63,7 +65,7 @@ model TwoWayValvePressureIndependent
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
   connect(valInd.y, y.y) annotation (Line(
-      points={{0,52},{0,80},{-39,80}},
+      points={{0,52},{0,66},{-20,66},{-20,80},{-39,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[1], valInd.port_a) annotation (Line(
@@ -76,10 +78,6 @@ equation
       smooth=Smooth.None));
   connect(dp.y, sou.p_in) annotation (Line(
       points={{-79,8},{-72,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(valIndDpFix.y, valInd.y) annotation (Line(
-      points={{0,12},{0,52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(valIndDpFix.port_a, sou.ports[2]) annotation (Line(
@@ -98,8 +96,12 @@ equation
       points={{10,-40},{32,-40},{32,-2.66667},{52,-2.66667}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(valIndFromMflow.y, valIndDpFix.y) annotation (Line(
-      points={{0,-28},{0,12}},
+  connect(y.y, valIndDpFix.y) annotation (Line(
+      points={{-39,80},{-20,80},{-20,20},{0,20},{0,12}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(y.y, valIndFromMflow.y) annotation (Line(
+      points={{-39,80},{-20,80},{-20,-20},{0,-20},{0,-28}},
       color={0,0,127},
       smooth=Smooth.None));
     annotation (experiment(StopTime=2),
@@ -117,8 +119,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics),
     __Dymola_experimentSetupOutput);
 end TwoWayValvePressureIndependent;
