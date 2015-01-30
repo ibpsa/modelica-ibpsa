@@ -3,7 +3,7 @@ model InternalWall "interior opaque wall between two zones"
 
   extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
 
-  parameter Modelica.SIunits.Length insulationThickness
+  parameter Modelica.SIunits.Length insulationThickness= 0
     "Thermal insulation thickness"
     annotation (Dialog(group="Construction details"));
   parameter Modelica.SIunits.Area AWall "Total wall area";

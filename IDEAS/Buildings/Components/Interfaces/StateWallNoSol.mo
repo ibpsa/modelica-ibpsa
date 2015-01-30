@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.Interfaces;
 partial model StateWallNoSol
   "Partial model for building envelope components without solar gains"
 
-  parameter Modelica.SIunits.Length insulationThickness
+  parameter Modelica.SIunits.Length insulationThickness= 0
     "Thermal insulation thickness"
     annotation (Dialog(group="Construction details"));
   replaceable IDEAS.Buildings.Data.Constructions.CavityWall constructionType
