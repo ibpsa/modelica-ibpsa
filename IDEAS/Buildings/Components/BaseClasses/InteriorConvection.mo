@@ -44,8 +44,8 @@ equation
       if linearise then
         hCon = IDEAS.Utilities.Math.Functions.spliceFunction(
               x=sign*dT_nominal,
-              pos=max(0.76*abs(dT_nominal)^0.33,0.1),
-              neg=min(1.31*abs(dT_nominal)^0.33,0.1),
+              pos=IDEAS.Utilities.Math.Functions.smoothMax(0.76*abs(dT_nominal)^0.33,0.1,0.1),
+              neg=IDEAS.Utilities.Math.Functions.smoothMax(1.31*abs(dT_nominal)^0.33,0.1,0.1),
               deltax=  dT_hCon);
       else
         hCon = IDEAS.Utilities.Math.Functions.spliceFunction(
@@ -55,11 +55,11 @@ equation
               deltax=  dT_hCon);
       end if;
     else
-      hCon = max(A*1.310*abs(dT)^1.33,0.1*A*abs(dT));
+      hCon = IDEAS.Utilities.Math.Functions.smoothMax(A*1.310*abs(dT)^1.33,0.1*A*abs(dT),0.1);
     end if;
 
-//hcon=3.076;
-//port_a.Q_flow = sign(dT)*max(A*1.310*abs(dT)^1.33,0.1*A*abs(dT));
+    // If fixed then
+    // hcon=3.076;
 
   port_a.Q_flow = hConState*dT*A;
 
