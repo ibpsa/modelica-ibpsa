@@ -55,8 +55,11 @@ equation
               deltax=  dT_hCon);
       end if;
     else
-      hCon = 3.076;
+      hCon = max(A*1.310*abs(dT)^1.33,0.1*A*abs(dT));
     end if;
+
+//hcon=3.076;
+//port_a.Q_flow = sign(dT)*max(A*1.310*abs(dT)^1.33,0.1*A*abs(dT));
 
   port_a.Q_flow = hConState*dT*A;
 
