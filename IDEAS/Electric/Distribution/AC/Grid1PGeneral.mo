@@ -79,7 +79,7 @@ equation
       points={{0,4},{10,4},{10,0},{20,0}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(gridOnly1P.node, node) annotation (Line(
+  connect(gridOnly1P.node, gridNodes1P) annotation (Line(
       points={{40,0},{100,0}},
       color={85,170,255},
       smooth=Smooth.None));
