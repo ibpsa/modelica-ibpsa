@@ -117,7 +117,7 @@ public
     tableOnFile=true,
     tableName="data",
     fileName=filDir + FilNam_PHp,
-    columns=2:nPHp + 1) if PHp
+    columns=2:nOcc + 1) if PHp
     annotation (Placement(transformation(extent={{-36,-12},{-22,2}})));
 equation
   connect(timMan.timCal, tabQCon.u) annotation (Line(
