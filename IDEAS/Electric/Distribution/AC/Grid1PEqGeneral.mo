@@ -1,29 +1,15 @@
 within IDEAS.Electric.Distribution.AC;
-model Grid1PGeneral
+model Grid1PEqGeneral
 
 protected
-  Components.GridOnly1P gridOnly1P(grid=grid)
+  Components.GridOnly1PEq gridOnly1P(grid=grid)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
-  //   IDEAS.Electric.DistributionGrid.Components.CVoltageSource cVoltageSource[3](
-  //       Vsource={VSource*(cos(Modelica.Constants.pi*2*i/3) + Modelica.ComplexMath.j
-  //         *sin(Modelica.Constants.pi*2*i/3)) for i in 1:3})                                                          annotation (Placement(transformation(
-  //         extent={{-10,-10},{10,10}},
-  //         rotation=270,
-  //         origin={-80,-30})));
-  //   IDEAS.Electric.DistributionGrid.Components.CGround cGround
-  //     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
 
 public
   replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=1)
     "Choose a grid Layout" annotation (choicesAllMatching=true);
-  /*parameter Boolean Loss = true 
-    "if true, PLosBra and PGriLosTot gives branch and Grid cable losses"
-    annotation(choices(
-      choice=true "Calculate Cable Losses",
-      choice=false "Do not Calculate Cable Losses",
-      __Dymola_radioButtons=true));*/
 
   parameter Modelica.SIunits.ComplexVoltage VSource=230 + 0*Modelica.ComplexMath.j "Voltage"
               annotation (choices(
@@ -34,14 +20,17 @@ public
       choice=(230*0.95) + 0*MCM.j "95% at HVpin of transformer",
       choice=(230*0.9) + 0*MCM.j "90% at HVpin of transformer"));
 
+Components.Transformer1P_MvLv transformer_MvLv(transformer=transformer, traTCal=
+        traTCal)
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp transformer
+    "Choose a transformer" annotation (choicesAllMatching=true);
+    parameter Boolean traTCal = true "Calculate transformer hot spot?" annotation (choices(
+        choice=false "No hot spot calculations",
+        choice=true "Hot spot calculations",
+        __Dymola_radioButtons=true));
+
   /***Everything related to the transfomer***/
-  parameter Boolean traPre=true
-    "Select if transformer is present or not (only true possible for now)";
-//    parameter Boolean traPre=false "Select if transformer is present or not"
-//      annotation (choices(
-//        choice=false "No Transformer",
-//        choice=true "Transformer present",
-//        __Dymola_radioButtons=true));
 
   /***Output the cable losses of the grid***/
   Modelica.SIunits.ActivePower PLosBra[Nodes]=gridOnly1P.PLosBra;
@@ -50,8 +39,8 @@ public
   Modelica.SIunits.Voltage Vabs[Nodes]=gridOnly1P.Vabs;
 
   /***Output the losses of the trafo if presen***/
-  Modelica.SIunits.ActivePower traLosP0=transformer_MvLv.traLosP0 if traPre;
-  Modelica.SIunits.ActivePower traLosPtot=transformer_MvLv.traLosPTot if traPre;
+  Modelica.SIunits.ActivePower traLosP0=transformer_MvLv.traLosP0;
+  Modelica.SIunits.ActivePower traLosPtot=transformer_MvLv.traLosPTot;
 
   /***Output the total power exchange of the grid***/
   Modelica.SIunits.ActivePower PGriTot=gridOnly1P.PGriTot;
@@ -66,15 +55,8 @@ protected
 public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[gridOnly1P.grid.nNodes] gridNodes1P
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Components.Transformer1P_MvLv transformer_MvLv(transformer=transformer)
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-    replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp transformer
-    "Choose a transformer" annotation (choicesAllMatching=true);
+
 equation
-
-  for n in 1:gridOnly1P.grid.nNodes loop
-  end for;
-
   connect(transformer_MvLv.pin_lv_p,gridOnly1P. TraPin) annotation (Line(
       points={{0,4},{10,4},{10,0},{20,0}},
       color={85,170,255},
@@ -125,4 +107,4 @@ equation
           points={{-100,-60},{-42,20},{0,44}},
           color={85,170,255},
           smooth=Smooth.Bezier)}));
-end Grid1PGeneral;
+end Grid1PEqGeneral;

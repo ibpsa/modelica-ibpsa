@@ -1,5 +1,5 @@
 within IDEAS.Electric.Distribution.AC.Components;
-model GridOnly1P
+model GridOnly1PEq
 
 public
   replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=1)
@@ -76,4 +76,4 @@ equation
           points={{-102,4},{-46,12},{-28,36}},
           color={0,0,0},
           smooth=Smooth.Bezier)}));
-end GridOnly1P;
+end GridOnly1PEq;

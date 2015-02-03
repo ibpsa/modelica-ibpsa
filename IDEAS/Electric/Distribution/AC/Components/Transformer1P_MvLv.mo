@@ -5,6 +5,11 @@ model Transformer1P_MvLv
   replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp
     transformer "Choose a transformer" annotation (choicesAllMatching=true);
 
+ parameter Boolean traTCal = true "Calculate transformer hot spot?" annotation (choices(
+        choice=false "No hot spot calculations",
+        choice=true "Hot spot calculations",
+        __Dymola_radioButtons=true));
+
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
   parameter Modelica.SIunits.ComplexVoltage VSource=230 + 0*Modelica.ComplexMath.j "Voltage"
@@ -19,12 +24,12 @@ model Transformer1P_MvLv
    final parameter Modelica.SIunits.HeatFlowRate traLosQRef=
        transformer.P0 + Modelica.ComplexMath.real(transformer.Zd)*(transformer.Sn/3/Modelica.ComplexMath.real(VSource))^2
        + Modelica.ComplexMath.real(transformer.Zi)*(transformer.Sn/3/Modelica.ComplexMath.real(VSource))^2
-       + Modelica.ComplexMath.real(transformer.Z0)*(transformer.Sn/3/Modelica.ComplexMath.real(VSource))^2;
+       + Modelica.ComplexMath.real(transformer.Z0)*(transformer.Sn/3/Modelica.ComplexMath.real(VSource))^2 if  traTCal;
 
-   final parameter Modelica.SIunits.HeatCapacity CHs = transformer.tauHs/(RHs+RTo);
-   final parameter Modelica.SIunits.ThermalResistance RHs = (transformer.THs-transformer.TTo)/traLosQRef;
-   final parameter Modelica.SIunits.HeatCapacity CTo = transformer.tauTo/RTo;
-   final parameter Modelica.SIunits.ThermalResistance RTo = (transformer.TTo-transformer.TRef)/traLosQRef;
+   final parameter Modelica.SIunits.HeatCapacity CHs = transformer.tauHs/(RHs+RTo) if  traTCal;
+   final parameter Modelica.SIunits.ThermalResistance RHs = (transformer.THs-transformer.TTo)/traLosQRef if  traTCal;
+   final parameter Modelica.SIunits.HeatCapacity CTo = transformer.tauTo/RTo if  traTCal;
+   final parameter Modelica.SIunits.ThermalResistance RTo = (transformer.TTo-transformer.TRef)/traLosQRef if  traTCal;
 
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                   pin_lv_p
@@ -37,13 +42,18 @@ model Transformer1P_MvLv
     "No-load losses (can be assumed constant)";
   Modelica.SIunits.ActivePower traLosPTot = transformer.P0 + phase1.Plos
     "Total losses in transformer";
-   Modelica.SIunits.Temperature THs = capHotSpot.T "Hottest spot temperature";
-   Modelica.SIunits.Temperature TTo = capOil.T "Top oil temperature";
+   Modelica.SIunits.Temperature THs = capHotSpot.T if  traTCal
+    "Hottest spot temperature";
+   Modelica.SIunits.Temperature TTo = capOil.T if  traTCal
+    "Top oil temperature";
 
 protected
+  parameter Boolean traHeatLosses = traTCal
+    "Calculate heatlosses if hot spot temperature is calculated";
+
   BaseClasses.Branch phase1(R=Modelica.ComplexMath.real(transformer.Zd)/3, X=
         Modelica.ComplexMath.imag(transformer.Zd)/3,
-    heatLosses=true)
+    heatLosses=traHeatLosses)
     annotation (Placement(transformation(extent={{-10,50},{10,30}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
     voltageSource(
@@ -57,37 +67,37 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-90,-20})));
-   IDEAS.HeatTransfer.HeatCapacitor capHotSpot(C=CHs)        annotation (
+   IDEAS.HeatTransfer.HeatCapacitor capHotSpot(C=CHs) if  traTCal        annotation (
        Placement(transformation(
          extent={{-10,-10},{10,10}},
          rotation=-90,
          origin={22,4})));
-   IDEAS.HeatTransfer.HeatCapacitor capOil(C=CTo)        annotation (Placement(
+   IDEAS.HeatTransfer.HeatCapacitor capOil(C=CTo) if  traTCal        annotation (Placement(
          transformation(
          extent={{-10,-10},{10,10}},
          rotation=-90,
          origin={22,-16})));
-   IDEAS.HeatTransfer.ThermalResistor resOil(R=RHs)        annotation (Placement(
+   IDEAS.HeatTransfer.ThermalResistor resOil(R=RHs) if  traTCal        annotation (Placement(
          transformation(
          extent={{-10,-10},{10,10}},
          rotation=-90,
          origin={12,-6})));
-   IDEAS.HeatTransfer.ThermalResistor resOut(R=RTo)        annotation (Placement(
+   IDEAS.HeatTransfer.ThermalResistor resOut(R=RTo) if  traTCal        annotation (Placement(
          transformation(
          extent={{-10,-10},{10,10}},
          rotation=-90,
          origin={12,-26})));
-   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature T_Bou annotation (
+   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature T_Bou if  traTCal annotation (
       Placement(transformation(
          extent={{10,-10},{-10,10}},
          rotation=-90,
          origin={12,-46})));
-   Modelica.Blocks.Sources.RealExpression realExpr(y=sim.Te) annotation (
+   Modelica.Blocks.Sources.RealExpression realExpr(y=sim.Te) if  traTCal annotation (
        Placement(transformation(
          extent={{-10,-10},{10,10}},
          rotation=90,
          origin={12,-80})));
-   outer SimInfoManager sim
+   outer SimInfoManager sim if  traTCal
      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
 
@@ -95,6 +105,16 @@ equation
       points={{-80,4},{-80,-20}},
       color={85,170,255},
       smooth=Smooth.None));
+  connect(voltageSource.pin_p, phase1.pin_p) annotation (Line(
+      points={{-80,24},{-80,40},{-10,40}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(phase1.pin_n, pin_lv_p) annotation (Line(
+      points={{10,40},{100,40}},
+      color={85,170,255},
+      smooth=Smooth.None));
+
+  if   traTCal then
    connect(capHotSpot.port, resOil.port_a) annotation (Line(
        points={{12,4},{12,4}},
        color={191,0,0},
@@ -119,18 +139,11 @@ equation
        points={{12,-16},{12,-16}},
        color={191,0,0},
        smooth=Smooth.None));
-  connect(voltageSource.pin_p, phase1.pin_p) annotation (Line(
-      points={{-80,24},{-80,40},{-10,40}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(phase1.pin_n, pin_lv_p) annotation (Line(
-      points={{10,40},{100,40}},
-      color={85,170,255},
-      smooth=Smooth.None));
   connect(phase1.port_a, capHotSpot.port) annotation (Line(
       points={{2,38},{12,38},{12,4}},
       color={191,0,0},
       smooth=Smooth.None));
+  end if;
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                           graphics), Documentation(info="<html>
