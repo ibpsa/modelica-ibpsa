@@ -6,6 +6,7 @@ protected
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
+
 public
   replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=3)
     "Choose a grid Layout" annotation (choicesAllMatching=true);
@@ -20,6 +21,11 @@ public
       choice=(230*0.9) + 0*MCM.j "90% at HVpin of transformer"));
 
   /***Everything related to the transfomer***/
+    Components.Transformer3P_MvLv transformer_MvLv(transformer=transformer, traTCal=
+        traTCal)
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+     replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp transformer
+    "Choose a transformer" annotation (choicesAllMatching=true);
   parameter Boolean traPre=true
     "Select if transformer is present or not (only true is possible for now)";
 //    parameter Boolean traPre=false "Select if transformer is present or not"
@@ -27,7 +33,10 @@ public
 //        choice=false "No Transformer",
 //        choice=true "Transformer present",
 //        __Dymola_radioButtons=true));
-  /***End of everything related to the transformer***/
+  parameter Boolean traTCal = true "Calculate transformer hot spot?" annotation (choices(
+        choice=false "No hot spot calculations",
+        choice=true "Hot spot calculations",
+        __Dymola_radioButtons=true));
 
   /***Output total power***/
   output Modelica.SIunits.ActivePower PGriTot=gridOnly3P.PGriTot;
@@ -69,16 +78,8 @@ public
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin[3,
     gridOnly3P.grid.nNodes] gridNodes3P
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
- Components.Transformer3P_MvLv transformer_MvLv(transformer=transformer)
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-     replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp transformer
-    "Choose a transformer" annotation (choicesAllMatching=true);
+
 equation
-
-//   if traPre then
-//   else
-//   end if;
-
   for n in 1:gridOnly3P.grid.nNodes loop
     connect(gridOnly3P.node[:,n], con3PlusNTo3_1[n].fourWire)
                                                              annotation (Line(

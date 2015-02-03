@@ -13,7 +13,6 @@ model GridOnly3P
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin TraGnd
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 
-
   IDEAS.Electric.Distribution.AC.BaseClasses.Branch branch[3,Nodes](R=R3, X=X3);
   IDEAS.Electric.Distribution.AC.BaseClasses.Branch neutral[Nodes](R=
         Modelica.ComplexMath.real(Z), X=Modelica.ComplexMath.imag(Z));
