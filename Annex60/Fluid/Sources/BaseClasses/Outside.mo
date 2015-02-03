@@ -12,13 +12,13 @@ partial model Outside
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if use_C_in
     "Prescribed boundary trace substances"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
+  Annex60.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-120,-18},{-80,22}})));
 protected
   final parameter Boolean singleSubstance = ( Medium.nX == 1)
     "True if single substance medium";
-  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi if
+  Annex60.Utilities.Psychrometrics.X_pTphi x_pTphi if
        not singleSubstance "Block to compute water vapor concentration";
   Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX]
     "Needed to connect to conditional connector";

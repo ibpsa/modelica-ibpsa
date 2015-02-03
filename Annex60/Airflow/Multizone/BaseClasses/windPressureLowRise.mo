@@ -43,14 +43,14 @@ algorithm
   // Implementation of the wind pressure coefficient that is once
   // continuously differentiable for all incidence angles
   if aR < aRDel then
-    Cp :=Cp0*Buildings.Utilities.Math.Functions.spliceFunction(
+    Cp :=Cp0*Annex60.Utilities.Math.Functions.spliceFunction(
         pos=  Modelica.Math.log(1.248 - 0.703*sinA2 - 1.175*Modelica.Math.sin(aR)^2 +
         0.131*Modelica.Math.sin(2*aR*G)^3 + 0.769*cosA2 + 0.071*G^2*sinA2^2 + 0.717*cosA2^2),
         neg=1,
         x=aR-aRDel2,
         deltax=aRDel2);
   elseif aR > aRMax then
-    Cp := Cp0*Buildings.Utilities.Math.Functions.spliceFunction(
+    Cp := Cp0*Annex60.Utilities.Math.Functions.spliceFunction(
         pos=  a180,
         neg=Modelica.Math.log(1.248 - 0.703*sinA2 - 1.175*Modelica.Math.sin(aR)^2 +
         0.131*Modelica.Math.sin(2*aR*G)^3 + 0.769*cosA2 + 0.071*G^2*sinA2^2 + 0.717*cosA2^2),

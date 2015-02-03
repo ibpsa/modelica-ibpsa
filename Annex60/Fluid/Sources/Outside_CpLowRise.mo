@@ -1,7 +1,7 @@
 within Annex60.Fluid.Sources;
 model Outside_CpLowRise
   "Boundary that takes weather data as an input and computes wind pressure for low-rise buildings"
-  extends Buildings.Fluid.Sources.BaseClasses.Outside;
+  extends Annex60.Fluid.Sources.BaseClasses.Outside;
 
   parameter Real Cp0(min=0, max=1) = 0.6
     "Wind pressure coefficient for wind normal to wall";
@@ -30,7 +30,7 @@ protected
     "Angle of surface that is used to compute angle of attack of wind";
 equation
   alpha = winDir-surOut;
-  CpAct = Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise(
+  CpAct = Annex60.Airflow.Multizone.BaseClasses.windPressureLowRise(
             Cp0=Cp0, incAng=alpha, G=G);
   pWin = 0.5*CpAct*medium.d*vWin*vWin;
   pTot = pWea + pWin;
