@@ -2,7 +2,6 @@ within IDEAS.Electric.Photovoltaics.Extern;
 model PvSystem
   "PV system with separate shut-down controller and plug connector"
 
-
   parameter Modelica.SIunits.Power PNom "Nominal power, in Wp";
   parameter Integer id=19
     "Which photovoltaic from the read profiles in the SimInfoManager";
@@ -35,7 +34,7 @@ model PvSystem
     annotation (Placement(transformation(extent={{96,50},{116,70}})));
   Modelica.Blocks.Interfaces.RealOutput Q
     annotation (Placement(transformation(extent={{96,10},{116,30}})));
-  outer Occupants.Extern.StrobeInfoManager strobe(PPv=true)
+  outer IDEAS.Occupants.Extern.StrobeInfoManager strobe(final PPv=true)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
 
