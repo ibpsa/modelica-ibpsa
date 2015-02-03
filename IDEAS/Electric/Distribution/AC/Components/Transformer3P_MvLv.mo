@@ -114,7 +114,7 @@ protected
          extent={{-10,-10},{10,10}},
          rotation=90,
          origin={12,-80})));
-    outer SimInfoManager sim
+   outer SimInfoManager sim
       annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(pin_lv_p, con3PlusNTo3_LV.fourWire[1:3])

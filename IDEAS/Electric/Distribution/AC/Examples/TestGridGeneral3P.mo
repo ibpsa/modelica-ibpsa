@@ -10,6 +10,8 @@ model TestGridGeneral3P
     traPre=true,
     redeclare IDEAS.Electric.Data.TransformerImp.Transfo_160kVA transformer)
     annotation (Placement(transformation(extent={{-36,0},{-16,20}})));
+  inner IDEAS.SimInfoManager sim
+    annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
 equation
 
   connect(grid3PGeneral.gridNodes3P[:, 2], risingflankSingle1.nodes)
