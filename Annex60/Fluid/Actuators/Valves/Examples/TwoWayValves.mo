@@ -20,13 +20,13 @@ model TwoWayValves "Two way valves with different opening characteristics"
     nPorts=4,
     use_p_in=false,
     p(displayUnit="Pa") = 306000,
-    T=293.15)                                       annotation (Placement(
+    T=293.15) "Boundary condition for flow source"  annotation (Placement(
         transformation(extent={{-70,-10},{-50,10}})));
   Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=4,
     p(displayUnit="Pa") = 3E5,
-    T=293.15)                                       annotation (Placement(
+    T=293.15) "Boundary condition for flow sink"    annotation (Placement(
         transformation(extent={{72,-10},{52,10}})));
   Annex60.Fluid.Actuators.Valves.TwoWayQuickOpening valQui(
     redeclare package Medium = Medium,

@@ -15,13 +15,13 @@ model TwoWayValvesMotor
       = Medium,
     nPorts=4,
     use_p_in=true,
-    T=293.15)                                       annotation (Placement(
+    T=293.15) "Boundary condition for flow source"  annotation (Placement(
         transformation(extent={{-60,-10},{-40,10}})));
   Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=4,
     use_p_in=true,
-    T=293.15)                                       annotation (Placement(
+    T=293.15) "Boundary condition for flow sink"    annotation (Placement(
         transformation(extent={{70,-10},{50,10}})));
     Modelica.Blocks.Sources.Constant PSin(k=3E5)
       annotation (Placement(transformation(extent={{60,60},{80,80}})));
