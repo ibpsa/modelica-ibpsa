@@ -6,7 +6,7 @@ model TestGridGeneral1PEq
        12000)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
-  IDEAS.Electric.Distribution.AC.Grid1PEqGeneral grid1PGeneral(
+  IDEAS.Electric.Distribution.AC.Grid_1PEq grid1PGeneral(
     redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
     redeclare IDEAS.Electric.Data.TransformerImp.Transfo_160kVA transformer,
     traTCal=true)

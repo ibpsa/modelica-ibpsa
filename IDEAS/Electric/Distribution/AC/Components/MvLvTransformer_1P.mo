@@ -1,6 +1,6 @@
 within IDEAS.Electric.Distribution.AC.Components;
-model Transformer1P_MvLv
-  "Medium to low-voltage transfomer for three-phase grids"
+model MvLvTransformer_1P
+  "Single-phase equivalent of medium to low-voltage transfomer for three-phase grids"
 
   replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp
     transformer "Choose a transformer" annotation (choicesAllMatching=true);
@@ -33,8 +33,8 @@ model Transformer1P_MvLv
 
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
                   pin_lv_p
-    annotation (Placement(transformation(extent={{90,30},{110,50}}),
-        iconTransformation(extent={{90,30},{110,50}})));
+    annotation (Placement(transformation(extent={{90,50},{110,70}}),
+        iconTransformation(extent={{90,50},{110,70}})));
 
 // Output ----------------------------------------------------------------------
 
@@ -110,7 +110,7 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(phase1.pin_n, pin_lv_p) annotation (Line(
-      points={{10,40},{100,40}},
+      points={{10,40},{56,40},{56,60},{100,60}},
       color={85,170,255},
       smooth=Smooth.None));
 
@@ -177,7 +177,7 @@ equation
           color={85,170,255},
           smooth=Smooth.None),
         Line(
-          points={{50,-60},{100,-60}},
+          points={{50,-60},{50,-60}},
           color={85,170,255},
           smooth=Smooth.None),
         Ellipse(
@@ -200,5 +200,10 @@ equation
         Line(
           points={{-60,-2},{-64,-10},{-68,-10},{-74,10}},
           color={0,0,0},
-          smooth=Smooth.None)}));
-end Transformer1P_MvLv;
+          smooth=Smooth.None),
+        Line(
+          points={{50,-60},{80,-60},{80,40},{140,40}},
+          color={85,170,255},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash)}));
+end MvLvTransformer_1P;

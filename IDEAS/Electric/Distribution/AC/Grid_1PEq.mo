@@ -1,8 +1,8 @@
 within IDEAS.Electric.Distribution.AC;
-model Grid1PEqGeneral
+model Grid_1PEq "General model for single-phase equivalent of three-phase grid"
 
 protected
-  Components.GridOnly1PEq gridOnly1P(grid=grid)
+  Components.Grid_1PEq gridOnly1P(grid=grid)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
@@ -20,7 +20,7 @@ public
       choice=(230*0.95) + 0*MCM.j "95% at HVpin of transformer",
       choice=(230*0.9) + 0*MCM.j "90% at HVpin of transformer"));
 
-Components.Transformer1P_MvLv transformer_MvLv(transformer=transformer, traTCal=
+Components.MvLvTransformer_1P transformer_MvLv(transformer=transformer, traTCal=
         traTCal)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
     replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp transformer
@@ -58,7 +58,7 @@ public
 
 equation
   connect(transformer_MvLv.pin_lv_p,gridOnly1P. TraPin) annotation (Line(
-      points={{0,4},{10,4},{10,0},{20,0}},
+      points={{0,6},{10,6},{10,0},{20,0}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(gridOnly1P.node, gridNodes1P) annotation (Line(
@@ -107,4 +107,4 @@ equation
           points={{-100,-60},{-42,20},{0,44}},
           color={85,170,255},
           smooth=Smooth.Bezier)}));
-end Grid1PEqGeneral;
+end Grid_1PEq;

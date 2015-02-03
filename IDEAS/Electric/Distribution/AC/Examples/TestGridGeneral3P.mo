@@ -5,7 +5,7 @@ model TestGridGeneral3P
       amplitude=4000)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
-  IDEAS.Electric.Distribution.AC.Grid3PGeneral grid3PGeneral(
+  IDEAS.Electric.Distribution.AC.Grid_3P grid3PGeneral(
     redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
     redeclare IDEAS.Electric.Data.TransformerImp.Transfo_250kVA transformer,
     traTCal=true)

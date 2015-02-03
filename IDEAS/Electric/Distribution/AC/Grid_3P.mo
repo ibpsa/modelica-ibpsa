@@ -1,8 +1,8 @@
 within IDEAS.Electric.Distribution.AC;
-model Grid3PGeneral
+model Grid_3P "General model for three-phase grid"
 
 protected
-  IDEAS.Electric.Distribution.AC.Components.GridOnly3P gridOnly3P(grid=grid)
+  IDEAS.Electric.Distribution.AC.Components.Grid_3P gridOnly3P(grid=grid)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter Real gridFreq=50
     "Grid frequency: should normally not be changed when simulating belgian grids!";
@@ -21,7 +21,7 @@ public
       choice=(230*0.9) + 0*MCM.j "90% at HVpin of transformer"));
 
   /***Everything related to the transfomer***/
-    Components.Transformer3P_MvLv transformer_MvLv(transformer=transformer, traTCal=
+    Components.MvLvTransformer_3P transformer_MvLv(transformer=transformer, traTCal=
         traTCal)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
      replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp transformer
@@ -102,10 +102,6 @@ equation
           color={0,0,0},
           smooth=Smooth.Bezier),
         Line(
-          points={{0,44},{24,16},{100,0}},
-          color={85,170,255},
-          smooth=Smooth.Bezier),
-        Line(
           points={{32,36},{56,10},{102,0}},
           color={0,0,0},
           smooth=Smooth.Bezier),
@@ -131,9 +127,5 @@ equation
         Line(
           points={{-100,60},{-42,12},{0,36}},
           color={0,0,0},
-          smooth=Smooth.Bezier),
-        Line(
-          points={{-100,-60},{-42,20},{0,44}},
-          color={85,170,255},
           smooth=Smooth.Bezier)}));
-end Grid3PGeneral;
+end Grid_3P;
