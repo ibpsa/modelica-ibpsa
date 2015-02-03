@@ -4,7 +4,7 @@ model InteriorConvection "interior surface convection"
   parameter Modelica.SIunits.Area A "surface area";
   parameter Modelica.SIunits.Angle inc "inclination";
 
-  parameter Boolean linearise = false
+  parameter Boolean linearise = true
     "Fixed convective heat transfer coefficient or dT-dependent."
     annotation(Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dT_nominal = 3
