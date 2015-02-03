@@ -13,14 +13,13 @@ model InteriorConvection "interior surface convection"
   parameter Modelica.SIunits.TemperatureDifference dT_hCon = dT_nominal/10
     "Regularization temperature difference"
     annotation(Dialog(tab="Advanced"), Evaluate=true);
+
+  parameter Boolean use_hConState = false
+    "Introduce state to avoid non-linear systems when linearise = false"
+    annotation(Dialog(tab="Advanced"), Evaluate = true);
   parameter Modelica.SIunits.Time tau = 600
     "Time constant for heat transfer coefficient state when linearise = false"
     annotation(Dialog(tab="Advanced", enable = use_hConState));
-
-  parameter Boolean use_hConState = not linearise
-    "Introduce state to avoid non-linear systems when linearise = false"
-    annotation(Dialog(tab="Advanced"), Evaluate = true);
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
@@ -44,12 +43,12 @@ equation
     if isCeiling or isFloor then
       if linearise then
         hCon = IDEAS.Utilities.Math.Functions.spliceFunction(
-              x=sign*dT,
+              x=sign*dT_nominal,
               pos=max(0.76*abs(dT_nominal)^0.33,0.1),
               neg=min(1.31*abs(dT_nominal)^0.33,0.1),
               deltax=  dT_hCon);
       else
-      hCon = IDEAS.Utilities.Math.Functions.spliceFunction(
+        hCon = IDEAS.Utilities.Math.Functions.spliceFunction(
               x=sign*dT,
               pos=max(0.76*abs(dT)^0.33,0.1),
               neg=min(1.31*abs(dT)^0.33,0.1),
