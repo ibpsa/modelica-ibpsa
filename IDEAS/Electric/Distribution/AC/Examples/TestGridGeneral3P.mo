@@ -7,8 +7,8 @@ model TestGridGeneral3P
 
   IDEAS.Electric.Distribution.AC.Grid3PGeneral grid3PGeneral(
     redeclare IDEAS.Electric.Data.Grids.TestGrid2Nodes grid,
-    traPre=true,
-    redeclare IDEAS.Electric.Data.TransformerImp.Transfo_160kVA transformer)
+    redeclare IDEAS.Electric.Data.TransformerImp.Transfo_250kVA transformer,
+    traTCal=true)
     annotation (Placement(transformation(extent={{-36,0},{-16,20}})));
   inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));

@@ -26,13 +26,6 @@ public
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
      replaceable parameter IDEAS.Electric.Data.Interfaces.TransformerImp transformer
     "Choose a transformer" annotation (choicesAllMatching=true);
-  parameter Boolean traPre=true
-    "Select if transformer is present or not (only true is possible for now)";
-//    parameter Boolean traPre=false "Select if transformer is present or not"
-//      annotation (choices(
-//        choice=false "No Transformer",
-//        choice=true "Transformer present",
-//        __Dymola_radioButtons=true));
   parameter Boolean traTCal = true "Calculate transformer hot spot?" annotation (choices(
         choice=false "No hot spot calculations",
         choice=true "Hot spot calculations",
@@ -57,9 +50,8 @@ public
   output Modelica.SIunits.ActivePower PGriLosTot=gridOnly3P.PGriLosTot;
 
   /***And the Transformer losses if present***/
-  output Modelica.SIunits.ActivePower traLosP0=transformer_MvLv.traLosP0 if traPre;
-  output Modelica.SIunits.ActivePower traLosPtot=transformer_MvLv.traLosPTot if
-    traPre;
+  output Modelica.SIunits.ActivePower traLosP0=transformer_MvLv.traLosP0;
+  output Modelica.SIunits.ActivePower traLosPtot=transformer_MvLv.traLosPTot;
 
   output Modelica.SIunits.ComplexCurrent[3] Ibranch0={gridOnly3P.branch[p, 1].i
       for p in 1:3};
