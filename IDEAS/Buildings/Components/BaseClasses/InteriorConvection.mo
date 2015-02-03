@@ -4,45 +4,71 @@ model InteriorConvection "interior surface convection"
   parameter Modelica.SIunits.Area A "surface area";
   parameter Modelica.SIunits.Angle inc "inclination";
 
-  parameter Boolean fixed = true
-    "Fixed convective heat transfer coefficient or DT-dependent.";
+  parameter Boolean linearise = false
+    "Fixed convective heat transfer coefficient or dT-dependent."
+    annotation(Evaluate=true);
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal = 3
+    "Nominal temperature difference, used for linearisation"
+    annotation(Evaluate=true, enable = linearise);
+  parameter Modelica.SIunits.TemperatureDifference dT_hCon = dT_nominal/10
+    "Regularization temperature difference"
+    annotation(Dialog(tab="Advanced"), Evaluate=true);
+  parameter Modelica.SIunits.Time tau = 600
+    "Time constant for heat transfer coefficient state when linearise = false"
+    annotation(Dialog(tab="Advanced", enable = use_hConState));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=293.15))
+  parameter Boolean use_hConState = not linearise
+    "Introduce state to avoid non-linear systems when linearise = false"
+    annotation(Dialog(tab="Advanced"), Evaluate = true);
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=293.15))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 protected
   Modelica.SIunits.TemperatureDifference dT;
-  final parameter Boolean Ceiling=abs(sin(inc)) < 10E-5 and cos(inc) > 0
-    "true if ceiling";
-  final parameter Boolean Floor=abs(sin(inc)) < 10E-5 and cos(inc) < 0
-    "true if floor";
+  final parameter Boolean isCeiling=abs(sin(inc)) < 10E-5 and cos(inc) > 0
+    "true if ceiling"
+    annotation(Evaluate=true);
+  final parameter Boolean isFloor=abs(sin(inc)) < 10E-5 and cos(inc) < 0
+    "true if floor"
+    annotation(Evaluate=true);
+  final parameter Real sign = if isCeiling then 1 else -1
+    "Coefficient for buoyancy direction"
+    annotation(Evaluate=true);
+  Real hCon "Convective heat transfer coefficient";
+  Real hConState "Convective heat transfer coefficient state";
 
 equation
-if not fixed then
-  if Ceiling then
-    port_a.Q_flow = if noEvent(dT > 0) then max(A*1.31*abs(dT)^1.33,0.1*A*abs(dT)) else min(-A*0.76*
-      abs(dT)^1.33,-A*0.1*abs(dT));
-  elseif Floor then
-    port_a.Q_flow = if noEvent(dT > 0) then max(A*0.76*abs(dT)^1.33,0.1*A*abs(dT)) else min(-A*1.31*
-      abs(dT)^1.33,-0.1*A*abs(dT));
-  else
-    port_a.Q_flow = sign(dT)*max(A*1.310*abs(dT)^1.33,0.1*A*abs(dT));
-  end if;
-else
-//  if Ceiling then
-//    port_a.Q_flow = if noEvent(dT > 0) then 4.040*A*dT else 0.948*A*dT;
-//  elseif Floor then
-//    port_a.Q_flow = if noEvent(dT > 0) then 0.948*A*dT else 4.040*A*dT;
-//  else
-//    port_a.Q_flow = 3.076*A*dT;
-//  end if;
-    port_a.Q_flow = 3.076*A*dT;
-end if;
+    if isCeiling or isFloor then
+      if linearise then
+        hCon = IDEAS.Utilities.Math.Functions.spliceFunction(
+              x=sign*dT,
+              pos=max(0.76*abs(dT_nominal)^0.33,0.1),
+              neg=min(1.31*abs(dT_nominal)^0.33,0.1),
+              deltax=  dT_hCon);
+      else
+      hCon = IDEAS.Utilities.Math.Functions.spliceFunction(
+              x=sign*dT,
+              pos=max(0.76*abs(dT)^0.33,0.1),
+              neg=min(1.31*abs(dT)^0.33,0.1),
+              deltax=  dT_hCon);
+      end if;
+    else
+      hCon = 3.076;
+    end if;
 
-  port_a.Q_flow + port_b.Q_flow = 0 "no heat is stored";
+  port_a.Q_flow = hConState*dT*A;
+
+  port_a.Q_flow + port_b.Q_flow = 0;
   dT = port_a.T - port_b.T;
+
+  if use_hConState then
+    der(hConState) = (hCon-hConState)/tau;
+  else
+    hConState=hCon;
+  end if;
 
   annotation (Icon(graphics={
         Rectangle(
