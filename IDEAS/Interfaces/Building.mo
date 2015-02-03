@@ -15,8 +15,10 @@ model Building
             {-36,10}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem constrainedby
     IDEAS.Interfaces.BaseClasses.HeatingSystem(
-    nZones=building.nZones,
-    final nEmbPorts=building.nEmb) "Thermal building heating system"
+    final nZones = building.nZones,
+    final nEmbPorts = building.nEmb,
+    final InInterface = InInterface,
+    final Q_design = Q_design) "Thermal building heating system"
                                        annotation (Placement(
         transformation(extent={{-20,-10},{20,10}})), choicesAllMatching=true);
   replaceable IDEAS.Interfaces.BaseClasses.Occupant occupant
@@ -28,8 +30,10 @@ model Building
     "Inhome low-voltage electricity grid system" annotation (Placement(
         transformation(extent={{32,-10},{52,10}})), __Dymola_choicesAllMatching=true);
 
-  replaceable IDEAS.Interfaces.BaseClasses.VentilationSystem ventilationSystem(
-      nZones=building.nZones, VZones=building.VZones) "Ventilation system"
+  replaceable IDEAS.Interfaces.BaseClasses.VentilationSystem ventilationSystem
+    constrainedby IDEAS.Interfaces.BaseClasses.VentilationSystem(
+      final nZones = building.nZones,
+      final VZones = building.VZones) "Ventilation system"
     annotation (Placement(transformation(extent={{-20,20},{20,40}})),
       choicesAllMatching=true);
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
@@ -47,6 +51,8 @@ model Building
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground if
     standAlone
     annotation (Placement(transformation(extent={{62,-40},{78,-24}})));
+
+  final parameter Boolean InInterface = true;
 
 equation
   connect(heatingSystem.TSet, occupant.TSet) annotation (Line(
