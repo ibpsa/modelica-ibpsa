@@ -15,7 +15,7 @@ model MultipleFloors "Test case for air flow between multiple floors"
       Medium = Medium)
     annotation (Placement(transformation(extent={{72,-94},{92,-74}})));
   inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+    annotation (Placement(transformation(extent={{-90,100},{-70,120}})));
   Airflow.Multizone.ZoneHallway zoneHallway1(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{42,-54},{62,-34}})));
@@ -90,6 +90,9 @@ model MultipleFloors "Test case for air flow between multiple floors"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-52,70})));
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        "modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    annotation (Placement(transformation(extent={{-24,100},{-4,120}})));
 equation
   connect(simpleZone4.port_a, zoneHallway4.port_a_toZone) annotation (Line(
       points={{-72,-78},{-62,-78}},
@@ -307,8 +310,49 @@ equation
       points={{32,2},{42,2}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment7.weaBus1) annotation (Line(
+      points={{-4,110},{0,110},{0,36},{-12,36}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment6.weaBus1) annotation (Line(
+      points={{-4,110},{0,110},{0,-4},{-12,-4}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment5.weaBus1) annotation (Line(
+      points={{-4,110},{0,110},{0,-44},{-12,-44}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment4.weaBus1) annotation (Line(
+      points={{-4,110},{0,110},{0,-84},{-12,-84}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment3.weaBus1) annotation (Line(
+      points={{-4,110},{98,110},{98,36},{92,36}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment2.weaBus1) annotation (Line(
+      points={{-4,110},{98,110},{98,-4},{92,-4}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment1.weaBus1) annotation (Line(
+      points={{-4,110},{98,110},{98,-44},{92,-44}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment.weaBus1) annotation (Line(
+      points={{-4,110},{98,110},{98,-84},{92,-84}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
+            -100},{100,120}}), graphics),
     experiment(StopTime=3600),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Icon(coordinateSystem(extent={{-100,-100},{100,120}})));
 end MultipleFloors;

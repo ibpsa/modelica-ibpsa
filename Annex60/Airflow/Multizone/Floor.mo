@@ -69,6 +69,8 @@ model Floor
       package Medium =
         Medium) "Port to connect mechanical ventilation equipment to each zone"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+  BoundaryConditions.WeatherData.Bus weaBus1 "Bus with weather data"
+    annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
 equation
   connect(staircase.port_a_top, port_a_top) annotation (Line(
       points={{64,10},{40,100}},
@@ -125,6 +127,17 @@ equation
       points={{-100,60},{-88,60},{-88,-22},{-80,-22}},
       color={0,127,255},
       smooth=Smooth.None));
+  end for;
+
+  for i in 1:nZones loop
+    connect(outsideEnvironment[i].weaBus1, weaBus1) annotation (Line(
+      points={{20,-30},{34,-30},{34,-72},{-40,-72},{-40,-100}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   end for;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));

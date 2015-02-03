@@ -39,10 +39,19 @@ model MultipleFloorsVectors
     each forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   for i in 1:(nFloors-1) loop
     connect(floor[i].port_a_top, floor[i+1].port_a_bot);
     connect(floor[i].port_b_top, floor[i+1].port_b_bot);
+  end for;
+  for i in 1:(nFloors) loop
+    connect(weaDat.weaBus, floor[i].weaBus1) annotation (Line(
+      points={{-60,-30},{-14,-30},{-14,-20}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
   end for;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),

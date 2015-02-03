@@ -15,7 +15,7 @@ model MultipleZones "Test case for air flow between multiple zones"
       Medium = Medium)
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{70,70},{90,90}})));
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Airflow.Multizone.ZoneHallway zoneHallway1(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
@@ -43,6 +43,9 @@ model MultipleZones "Test case for air flow between multiple zones"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Airflow.Multizone.OutsideEnvironment outsideEnvironment3
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        "modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    annotation (Placement(transformation(extent={{70,70},{90,90}})));
 equation
   connect(zoneHallway3.port_b_toOutside, outsideEnvironment3.port_b)
     annotation (Line(
@@ -139,6 +142,26 @@ equation
   connect(simpleZone3.port_a, zoneHallway3.port_a_toZone) annotation (Line(
       points={{-60,56},{-10,56}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment3.weaBus1) annotation (Line(
+      points={{90,80},{96,80},{96,50},{80,50}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment2.weaBus1) annotation (Line(
+      points={{90,80},{96,80},{96,10},{80,10}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment1.weaBus1) annotation (Line(
+      points={{90,80},{96,80},{96,-30},{80,-30}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, outsideEnvironment.weaBus1) annotation (Line(
+      points={{90,80},{96,80},{96,-70},{80,-70}},
+      color={255,204,51},
+      thickness=0.5,
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
