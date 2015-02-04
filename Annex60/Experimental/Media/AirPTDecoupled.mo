@@ -29,7 +29,6 @@ package AirPTDecoupled
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
-    T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
@@ -777,6 +776,12 @@ The air is assumed to be not saturated.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2015, by Michael Wetter:<br/>
+Removed <code>stateSelect.prefer</code> for temperature.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/160\">#160</a>.
+</li>
 <li>
 July 24, 2014, by Michael Wetter:<br/>
 Changed implementation to use
