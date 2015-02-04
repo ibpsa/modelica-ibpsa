@@ -55,7 +55,11 @@ equation
               deltax=  dT_hCon);
       end if;
     else
-      hCon = IDEAS.Utilities.Math.Functions.smoothMax(A*1.310*abs(dT)^1.33,0.1*A*abs(dT),0.1);
+      if linearise then
+        hCon = IDEAS.Utilities.Math.Functions.smoothMax(1.310*abs(dT_nominal)^1.33,0.1,0.1);
+      else
+        hCon = IDEAS.Utilities.Math.Functions.smoothMax(1.310*abs(dT)^1.33,0.1,0.1);
+      end if;
     end if;
 
     // If fixed then
