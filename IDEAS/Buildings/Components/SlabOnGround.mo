@@ -4,39 +4,41 @@ model SlabOnGround "opaque floor on ground slab"
   extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
-  parameter Modelica.SIunits.Area PWall "Total wall perimeter";
+  parameter Modelica.SIunits.Length PWall "Total wall perimeter";
   parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0deg denotes South";
 
-  final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
-    "Wall U-value";
-  final parameter Modelica.SIunits.Power QNom=U_value*AWall*(273.15 + 21 - sim.TdesGround)
-    "Design heat losses at reference outdoor temperature";
+  final parameter Real U_value=1/(1/6 + sum(constructionType.mats.R) + 0)
+    "Floor theoretical U-value";
 
+  final parameter Modelica.SIunits.Power QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes)
+    "Design heat losses at reference outdoor temperature, ISO 13370";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
+//Calculation of heat loss based on ISO 13370
 protected
   final parameter IDEAS.Buildings.Data.Materials.Ground ground1(final d=0.50);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground2(final d=0.33);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground3(final d=0.17);
 
-  Modelica.SIunits.HeatFlowRate Qm = U*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta))
+  Modelica.SIunits.HeatFlowRate Qm = UEqui*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta))
     "Two-dimensionl correction for edge flow";
 
-  Modelica.SIunits.Length B=AWall/(0.5*PWall + 1E-10)
+  final parameter Modelica.SIunits.Length B=AWall/(0.5*PWall + 1E-10)
     "Characteristic dimension of the slab on ground";
-  Modelica.SIunits.Length dt=sum(constructionType.mats.d) + ground1.k*layMul.R
-    "Equivalent thickness";
-  Real U=ground1.k/(0.457*B + dt);
-  Real alfa=1.5 - 12/(2*3.14)*atan(dt/(dt + delta));
-  Real beta=1.5 - 0.42*log(delta/(dt + 1));
-  Real delta=sqrt(3.15*10^7*ground1.k/3.14/ground1.rho/ground1.c);
-  Real Lpi=AWall*ground1.k/dt*sqrt(1/((1 + delta/dt)^2 + 1));
-  Real Lpe=0.37*PWall*ground1.k*log(delta/dt + 1);
+  final parameter Modelica.SIunits.Length dt=sum(constructionType.mats.d) + ground1.k*1/U_value
+    "Equivalent thickness";//Thickness of basement walls assumed to be as the thickness of the slab
+  final parameter Real UEqui=if (dt<B) then (2*ground1.k/(Modelica.Constants.pi*B+dt)*Modelica.Math.log(Modelica.Constants.pi*B/dt+1)) else (ground1.k/(0.457*B + dt))
+    "Equivalent thermal transmittance coefficient";
+  final parameter Real alfa=1.5 - 12/(2*3.14)*atan(dt/(dt + delta));
+  final parameter Real beta=1.5 - 0.42*log(delta/(dt + 1));
+  final parameter Real delta=sqrt(3.15*10^7*ground1.k/3.14/ground1.rho/ground1.c);
+  final parameter Real Lpi=AWall*ground1.k/dt*sqrt(1/((1 + delta/dt)^2 + 1));
+  final parameter Real Lpe=0.37*PWall*ground1.k*log(delta/dt + 1);
   Real m=12*time/31536000;
 
   //protected
@@ -62,7 +64,8 @@ public
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   //    nMat(T(start={{273.15},{273.15},{273.15}} + {{11.5},{12.2},{12.7}})))
-
+  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 public
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=284.15)
                 annotation (Placement(transformation(
@@ -123,6 +126,13 @@ equation
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
       points={{10,-26},{14,-26},{14,40},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
+      points={{11,50},{24,50},{24,40},{50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",

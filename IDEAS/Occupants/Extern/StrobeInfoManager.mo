@@ -103,7 +103,7 @@ public
     tableOnFile=true,
     tableName="data",
     fileName=filDir + FilNam_PPv,
-    columns=2:nPPv + 1) if PPv
+    columns=2:nPv + 1) if PPv
     annotation (Placement(transformation(extent={{-40,-8},{-26,6}})));
   Modelica.Blocks.Tables.CombiTable1Ds tabTSet2(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
@@ -117,7 +117,7 @@ public
     tableOnFile=true,
     tableName="data",
     fileName=filDir + FilNam_PHp,
-    columns=2:nPHp + 1) if PHp
+    columns=2:nOcc + 1) if PHp
     annotation (Placement(transformation(extent={{-36,-12},{-22,2}})));
 equation
   connect(timMan.timCal, tabQCon.u) annotation (Line(

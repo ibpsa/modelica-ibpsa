@@ -1,2 +1,4 @@
 VariableThermalConductor
 Data
+ThermalResistor
+HeatCapacitor

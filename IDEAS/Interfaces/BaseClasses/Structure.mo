@@ -27,6 +27,9 @@ partial model Structure "Partial model for building structure models"
   parameter Modelica.SIunits.Temperature[nZones] T_start
     "Operative zonal start temperatures";
 
+  parameter Modelica.SIunits.Power[ nZones] Q_design=zeros(nZones)
+    "Design heat loss of zones";//must be filled in in the Building interface, e.g.: QDesign={building.zone1.Q_design,building.zone2.Q_design}
+
   // Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
