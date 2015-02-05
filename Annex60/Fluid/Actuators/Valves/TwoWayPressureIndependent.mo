@@ -1,24 +1,29 @@
 within Annex60.Fluid.Actuators.Valves;
 model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
-   // fixme: shorten the line
-  extends Annex60.Fluid.Actuators.BaseClasses.PartialTwoWayValve(final linearized = false, from_dp=true, phi=l + y_actual*(1 - l));
+  extends Annex60.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
+            final linearized = false,
+            from_dp=true,
+            phi=l + y_actual*(1 - l));
 
-  // fixme: This is not a percentage, it is a fraction.
-  // I think clearer would be "Gain for mass flow increase if pressure is above nominal pressure"
-  // This should probably be on the "Advanced" tag
   parameter Real l2(min=1e-10) = 0.01
-    "Percentage of additional mass flow rate for higher than nominal pressures";
+    "Gain for mass flow increase if pressure is above nominal pressure"
+    annotation(Dialog(tab="Advanced"));
   parameter Real deltax = 0.1 "Transition region interval for flow rate"
     annotation(Dialog(tab="Advanced"));
 
-  // fixme: Move these to the equation section
 protected
-  Modelica.SIunits.MassFlowRate m_flow_set = m_flow_nominal*phi
-    "Requested mass flow rate";
-  Modelica.SIunits.Pressure dp_min = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow_set, k=k, m_flow_turbulent=m_flow_turbulent)
+  Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
+  Modelica.SIunits.Pressure dp_min
     "Minimum dp required for delivering requested mass flow rate";
 
 equation
+  m_flow_set = m_flow_nominal*phi;
+
+  dp_min = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+              m_flow=m_flow_set,
+              k=k,
+              m_flow_turbulent=m_flow_turbulent);
+
  kVal = Kv_SI;
  if (dpFixed_nominal > Modelica.Constants.eps) then
    k = sqrt(1/(1/kFixed^2 + 1/kVal^2));
@@ -127,22 +132,18 @@ these two flow regimes happens in a smooth way.
 This model is configured by setting <code>m_flow_nominal</code> 
 to the mass flow rate that the valve should supply when it is 
 completely open, i.e., <code>y = 1</code>. The pressure drop corresponding 
-to this working point can be set using <code>dp_nominal</code>,
+to this working point can be set using <code>dpValve_nominal</code>,
 or using a <code>Kv</code>, <code>Cv</code> or <code>Av</code> 
-value. The parameter <code>dp_fixed</code> can be used to add 
-additional pressure drops, although it is equivalent to 
-add these to <code>dp_nominal</code>. 
-<!-- fixme: I disagree with the above sentence because 
-k = sqrt(1/(1/kFixed^2 + 1/kVal^2))
-Also, this model has no parameter dp_fixed or dp_nominal.
--->
+value. The parameter <code>dpValve_fixed</code> can be used to add 
+additional pressure drops, although in this valve it is equivalent to 
+add these to <code>dpValve_nominal</code>. 
 </p>
 <p>
 The parameter <code>l2</code> represents the non-ideal 
 leakage behaviour of this valve for high pressures. 
 It is assumed that the mass flow rate will rise beyond 
 the requested mass flow rate <code>y*m_flow_nominal</code>
-if <code>dp &gt; dpValve_nominal+dpFixed_fixed</code>.
+if <code>dp &gt; dpValve_nominal+dpFixed_nominal</code>.
 The parameter <code>l2</code> represents the slope 
 of this rise: 
 <code>d(m_flow)/d(dp) = l2* m_flow_nominal/dp_nominal</code>. 
@@ -152,12 +153,10 @@ connecting this component with a fixed mass flow source.
 </p>
 <h4>Options</h4>
 <p>
-<!-- fixme: I thought deltax is a fraction of the nominal mass flow rate,
-note of pressure. It is also not a percentage.
--->
 Parameter <code>deltax</code> sets the duration of 
 the transition region between the two flow regimes 
-as a percentage of <code>dp_nominal</code>. 
+as a fraction of <code>dp_nominal</code> or <code>m_flow_nominal</code>, 
+depending on the value of <code>from_dp</code>. 
 </p>
 <h4>Implementation</h4>
 <p>

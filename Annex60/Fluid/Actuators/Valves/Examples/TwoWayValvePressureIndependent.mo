@@ -10,18 +10,17 @@ model TwoWayValvePressureIndependent
     offset=0) "Control signal"
                  annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
-  // fixme: add comments for all instances
   Annex60.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     use_p_in=true,
     T=293.15,
-    nPorts=3)                                       annotation (Placement(
+    nPorts=3) "Boundary condition for flow source"  annotation (Placement(
         transformation(extent={{-70,-10},{-50,10}})));
   Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     p(displayUnit="Pa") = 3E5,
     T=293.15,
-    nPorts=3)                                       annotation (Placement(
+    nPorts=3) "Boundary condition for flow sink"    annotation (Placement(
         transformation(extent={{72,-10},{52,10}})));
 
   TwoWayPressureIndependent valInd(
