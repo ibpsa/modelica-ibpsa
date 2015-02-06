@@ -61,7 +61,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(volRoom.ports[1], door.port_b2) annotation (Line(
-      points={{27.3333,-10},{28,-34},{52,-34},{52,-6},{60,-6}},
+      points={{27.3333,-10},{27.3333,-34},{52,-34},{52,-6},{60,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volRoom.ports[2], door.port_a1) annotation (Line(
@@ -81,9 +81,43 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(port_a_vent, volRoom.ports[3]) annotation (Line(
-      points={{-100,80},{-84,80},{-84,-54},{36,-54},{32.6667,-10}},
+      points={{-100,80},{-84,80},{-84,-54},{32.6667,-54},{32.6667,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Documentation(info="<html>
+<p>
+An air volume to represent a zone/room within a building that can be connected
+to a hallway element and to ventilation equipment.
+</p>
+<h4>Assumptions and limitations</h4>
+<p>
+This is a very simple room representation with a constant room temperature.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+port_a and port_b should be connected to the corresponding ports of ZoneHallway
+so that there is an air exchange through the door connecting the room to the 
+hallway element.
+</p>
+<h4>Validation</h4>
+<p>
+This model is following the approach used in 
+Buildings.Airflow.Multizone.Examples.Validation3Rooms, only in a more 
+modularized way in order to be part of a scalable benchmark. First tests 
+indicated a reasonable behavior, but it should be checked again against that 
+test case and/or other validation cases.
+</p>
+<h4>References</h4>
+<p>
+Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 2015 by Marcus Fuchs:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end SimpleZone;

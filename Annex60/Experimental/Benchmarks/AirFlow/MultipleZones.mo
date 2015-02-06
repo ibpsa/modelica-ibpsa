@@ -166,5 +166,29 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
     experiment(StopTime=3600),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
+<p>
+A reference model to compare to the floor model for a scalable air flow 
+benchmark.
+</p>
+
+<h4>Validation</h4>
+<p>
+This model should give the same results compared to the floor model with 
+nZones = 4.
+</p>
+
+<h4>References</h4>
+<p>
+Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 2015 by Marcus Fuchs:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end MultipleZones;

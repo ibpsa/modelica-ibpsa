@@ -154,7 +154,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(doo.port_b2, volumeStairs.ports[1]) annotation (Line(
-      points={{-70,6},{-56,6},{-56,-24},{24,-24},{26.6667,-10}},
+      points={{-70,6},{-56,6},{-56,-24},{26.6667,-24},{26.6667,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(doo.port_a1, volumeStairs.ports[2]) annotation (Line(
@@ -162,11 +162,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(col2.port_a, volumeStairs.ports[3]) annotation (Line(
-      points={{-30,-50},{-30,-28},{28,-28},{29.3333,-10}},
+      points={{-30,-50},{-30,-28},{29.3333,-28},{29.3333,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(col.port_a, volumeStairs.ports[4]) annotation (Line(
-      points={{10,-50},{10,-30},{30,-30},{30.6667,-10}},
+      points={{10,-50},{10,-30},{30.6667,-30},{30.6667,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(col3.port_b, volumeStairs.ports[5]) annotation (Line(
@@ -174,10 +174,45 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(col1.port_b, volumeStairs.ports[6]) annotation (Line(
-      points={{-30,40},{-30,32},{62,32},{62,-26},{38,-26},{33.3333,-10}},
+      points={{-30,40},{-30,32},{62,32},{62,-26},{33.3333,-26},{33.3333,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
           preserveAspectRatio=false), graphics),                         Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+        coordinateSystem(extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+An air volume to represent a staircase element for a scalable air flow benchmark.
+</p>
+<h4>Assumptions and limitations</h4>
+<p>
+This is a very simple room representation with a constant room temperature.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+port_a_toHallway and port_b_toHallway should be connected to the corresponding 
+ports of a hallway model.
+
+port_a_top and port_b_top can be connected to another staircase model via its 
+respective port_a_bot and port_b_bot.
+</p>
+
+<h4>Validation</h4>
+<p>
+No validation has been conducted so far.
+</p>
+
+<h4>References</h4>
+<p>
+Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms
+</p>
+</html>
+", revisions="<html>
+<ul>
+<li>
+February 2015 by Marcus Fuchs:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end Staircase;

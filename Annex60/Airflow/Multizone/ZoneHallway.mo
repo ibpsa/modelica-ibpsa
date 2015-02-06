@@ -173,5 +173,44 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
           preserveAspectRatio=false), graphics),                         Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+        coordinateSystem(extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+An air volume to represent a hallway element for a scalable air flow benchmark.
+</p>
+<h4>Assumptions and limitations</h4>
+<p>
+This is a very simple room representation with a constant room temperature.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+port_a_toZone and port_b_toZone should be connected to the corresponding ports 
+of a zone model, port_a_toOutside and port_b_toOutside should be connected to 
+the corresponding ports of the OutsideEnvironment. 
+
+port_a2 and port_b2 can be connected to either a staircase model or to further 
+hallway elements via their respective port_a1 and port_b2.
+</p>
+
+<h4>Validation</h4>
+<p>
+This model is following the approach used in 
+Buildings.Airflow.Multizone.Examples.Validation3Rooms, only in a more 
+modularized way in order to be part of a scalable benchmark. First tests 
+indicated a reasonable behavior, but it should be checked again against that 
+test case and/or other validation cases. 
+</p>
+
+<h4>References</h4>
+<p>
+Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 2015 by Marcus Fuchs:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end ZoneHallway;

@@ -59,5 +59,37 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Documentation(info="<html>
+<p>
+An air volume to represent the outside environment for air flow benchmark.
+</p>
+<h4>Assumptions and limitations</h4>
+<p>
+So far, the side ratio for the building is set to 1 for testing the general 
+modeling approach. It may be necessary to calculate this parameter depending on 
+the scale of the test.
+</p>
+<h4>Typical use and important parameters</h4>
+<p>
+port_a and port_b should be connected to the corresponding ports of ZoneHallway
+so that there is an air exchange through the orifices of the hallway element.
+</p>
+
+<h4>Validation</h4>
+<p>
+No validation has been conducted so far.
+</p>
+
+<h4>References</h4>
+<p>
+Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 2015 by Marcus Fuchs:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
 end OutsideEnvironment;
