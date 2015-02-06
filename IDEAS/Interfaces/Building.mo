@@ -15,9 +15,8 @@ model Building
     constrainedby IDEAS.Interfaces.BaseClasses.Structure(final T_start=T_start)
     "Building structure" annotation (Placement(transformation(extent={{-66,-10},
             {-36,10}})), choicesAllMatching=true);
-  replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem(isDH=false)
-                                                                       constrainedby
-    IDEAS.Interfaces.BaseClasses.HeatingSystem(
+  replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem
+    constrainedby IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isDH=isDH,
     final nZones = building.nZones,
     final nEmbPorts = building.nEmb,
@@ -143,16 +142,14 @@ equation
       points={{-53,10},{-52,10},{-52,32},{-20,32}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(heatingSystem.flowPort_supply, flowPort_supply) annotation (Line(
-      points={{16,-10},{16,-18},{40,-18},{40,-80},{20,-80},{20,-100}},
-      color={0,0,0},
-      smooth=Smooth.None,
-      visible=isDH));
   connect(heatingSystem.flowPort_return, flowPort_return) annotation (Line(
-      points={{12,-10},{12,-22},{36,-22},{36,-76},{-20,-76},{-20,-100}},
+      points={{12,-10},{12,-24},{32,-24},{32,-60},{-20,-60},{-20,-100}},
       color={0,0,0},
-      smooth=Smooth.None,
-      visible=isDH));
+      smooth=Smooth.None));
+  connect(heatingSystem.flowPort_supply, flowPort_supply) annotation (Line(
+      points={{16,-10},{16,-20},{40,-20},{40,-70},{20,-70},{20,-100}},
+      color={0,0,0},
+      smooth=Smooth.None));
   annotation (Icon(graphics={
         Line(
           points={{60,22},{0,74},{-60,24},{-60,-46},{60,-46}},
