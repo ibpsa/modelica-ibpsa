@@ -23,10 +23,10 @@ model HeatExchanger
     "Massflow at the primary side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-82,108}), iconTransformation(
+        origin={-80,108}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-82,108})));
+        origin={-80,108})));
   Modelica.Blocks.Interfaces.RealOutput massFlow2
     "Massflow on the secondary side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -142,7 +142,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(senMasFlo1.m_flow, massFlow1) annotation (Line(
-      points={{-56,51},{-56,88},{-82,88},{-82,108}},
+      points={{-56,51},{-56,88},{-80,88},{-80,108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTemRet1.T, senT1) annotation (Line(
@@ -175,15 +175,6 @@ equation
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Forward),
-        Line(
-          points={{78,100},{84,80},{82,60}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Ellipse(
-          extent={{80,62},{84,58}},
-          lineColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
         Line(
           points={{48,100},{54,80},{52,60}},
           color={255,0,0},
