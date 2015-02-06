@@ -1,5 +1,5 @@
 within IDEAS.Electric.Distribution.AC.Components;
-model GridOnly3P
+model Grid_3P "Three-fase grid cable-structure"
   replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid
     "Choose a grid Layout (with 3 phaze values)"
     annotation (choicesAllMatching=true);
@@ -117,7 +117,8 @@ equation
         Line(
           points={{0,44},{24,16},{100,0}},
           color={85,170,255},
-          smooth=Smooth.Bezier),
+          smooth=Smooth.Bezier,
+          pattern=LinePattern.Dash),
         Line(
           points={{32,36},{56,10},{102,0}},
           color={0,0,0},
@@ -148,5 +149,6 @@ equation
         Line(
           points={{-100,-60},{-42,20},{0,44}},
           color={85,170,255},
-          smooth=Smooth.Bezier)}));
-end GridOnly3P;
+          smooth=Smooth.Bezier,
+          pattern=LinePattern.Dash)}));
+end Grid_3P;
