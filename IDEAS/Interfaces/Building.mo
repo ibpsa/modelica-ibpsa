@@ -15,6 +15,7 @@ model Building
     constrainedby IDEAS.Interfaces.BaseClasses.Structure(final T_start=T_start)
     "Building structure" annotation (Placement(transformation(extent={{-66,-10},
             {-36,10}})), choicesAllMatching=true);
+
   replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem
     constrainedby IDEAS.Interfaces.BaseClasses.HeatingSystem(
     final isDH=isDH,

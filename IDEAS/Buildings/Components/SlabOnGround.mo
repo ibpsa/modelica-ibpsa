@@ -4,7 +4,7 @@ model SlabOnGround "opaque floor on ground slab"
   extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
-  parameter Modelica.SIunits.Area PWall "Total wall perimeter";
+  parameter Modelica.SIunits.Length PWall "Total wall perimeter";
   parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
