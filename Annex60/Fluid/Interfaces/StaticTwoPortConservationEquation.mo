@@ -7,15 +7,18 @@ model StaticTwoPortConservationEquation
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
 
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
-    "Heat transfered into the medium"
+    "Sensible plus latent heat flow rate transfered into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
   // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput TOut(unit="K",
-                                             start=Medium.T_default)
+  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
+                                             start=Medium.specificEnthalpy_pTX(
+                                                     p=Medium.p_default,
+                                                     T=Medium.T_default,
+                                                     X=Medium.X_default))
     "Leaving temperature of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -70,10 +73,10 @@ equation
  end if;
 
  if allowFlowReversal then
-   // Formulate TOut using spliceFunction. This avoids an event iteration.
+   // Formulate hOut using spliceFunction. This avoids an event iteration.
    // The introduced error is small because deltax=m_flow_small/1e3
-   TOut = Annex60.Utilities.Math.Functions.spliceFunction(pos=port_b.T_outflow,
-                                                            neg=port_a.T_outflow,
+   hOut = Annex60.Utilities.Math.Functions.spliceFunction(pos=port_b.h_outflow,
+                                                            neg=port_a.h_outflow,
                                                             x=port_a.m_flow,
                                                             deltax=m_flow_small/1E3);
    XiOut = Annex60.Utilities.Math.Functions.spliceFunction(pos=port_b.Xi_outflow,
@@ -85,7 +88,7 @@ equation
                                                             x=port_a.m_flow,
                                                             deltax=m_flow_small/1E3);
  else
-   TOut =  port_b.T_outflow;
+   hOut =  port_b.h_outflow;
    XiOut = port_b.Xi_outflow;
    COut =  port_b.C_outflow;
  end if;
@@ -95,25 +98,13 @@ equation
   if sensibleOnly then
     // Mass balance
     port_a.m_flow = -port_b.m_flow;
-    // Energy balance: Q = m c dT
+    // Energy balance
     if use_safeDivision then
-      port_b.T_outflow = inStream(port_a.T_outflow) + Q_flow * m_flowInv / 
-        Medium.specificHeatCapacityCp(Medium.setState_pTX(p=port_a.p, 
-                                                          T=inStream(port_a.T_outflow),
-                                                          X=inStream(port_a.Xi_outflow)));
-      port_a.T_outflow = inStream(port_b.T_outflow) - Q_flow * m_flowInv / 
-        Medium.specificHeatCapacityCp(Medium.setState_pTX(p=port_b.p, 
-                                                          T=inStream(port_b.T_outflow),
-                                                          X=inStream(port_b.Xi_outflow)));
+      port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
+      port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
     else
-      -Q_flow = port_a.m_flow * (inStream(port_a.T_outflow) - port_b.T_outflow) * 
-        Medium.specificHeatCapacityCp(Medium.setState_pTX(p=port_a.p, 
-                                                          T=inStream(port_a.T_outflow),
-                                                          X=inStream(port_a.Xi_outflow)));
-      +Q_flow = port_a.m_flow * (inStream(port_b.T_outflow) - port_a.T_outflow) * 
-        Medium.specificHeatCapacityCp(Medium.setState_pTX(p=port_b.p, 
-                                                          T=inStream(port_b.T_outflow),
-                                                          X=inStream(port_b.Xi_outflow)));
+      port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
+      port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
     end if;
     // Transport of species
     port_a.Xi_outflow = inStream(port_b.Xi_outflow);
@@ -128,32 +119,14 @@ equation
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
     // at both ports. Since mWat_flow << m_flow, the error is small.
     if use_safeDivision then
-      // Here, we solve directly for the outgoing temperature. Note that the term "+ Q_flow * m_flowInv" changes
-      // its sign for the computation of port_a.T_outflow because m_flowInv < 0 in this situation.
-      port_b.T_outflow = Medium.temperature_phX(
-            p=port_b.p, 
-            h=Medium.specificEnthalpy_pTX(p=port_a.p, T=inStream(port_a.T_outflow), X=inStream(port_a.Xi_outflow)) + Q_flow * m_flowInv, 
-            X=port_b.Xi_outflow);
-      port_a.T_outflow = Medium.temperature_phX(
-            p=port_a.p,
-            h=Medium.specificEnthalpy_pTX(p=port_b.p, T=inStream(port_b.T_outflow), X=inStream(port_b.Xi_outflow)) - Q_flow * m_flowInv,
-            X=port_a.Xi_outflow);
+      port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
+      port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
       // Transport of species
       port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
       port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
      else
-      //port_a.m_flow * (inStream(port_a.T_outflow) - port_b.T_outflow) = -Q_flow;
-      //port_a.m_flow * (inStream(port_b.T_outflow) - port_a.T_outflow) = +Q_flow;
-
-      // fixme: The two equations below should probably be changed so that T_outflow appears in explicit form.
-      //        Maybe it would be easier if parent classes declare dT and dX, rather than QSen_flow and QLat_flow.
-      port_a.m_flow * Medium.specificEnthalpy_pTX(port_b.p, port_b.T_outflow, port_b.Xi_outflow) = 
-      port_a.m_flow * Medium.specificEnthalpy_pTX(port_a.p, inStream(port_a.T_outflow), inStream(port_a.Xi_outflow)) + Q_flow;
-
-      port_a.m_flow * Medium.specificEnthalpy_pTX(port_a.p, port_a.T_outflow, port_a.Xi_outflow) = 
-      port_a.m_flow * Medium.specificEnthalpy_pTX(port_b.p, inStream(port_b.T_outflow), inStream(port_b.Xi_outflow)) -Q_flow;
-
-
+      port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
+      port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
       // Transport of species
       port_a.m_flow * (inStream(port_a.Xi_outflow) - port_b.Xi_outflow) = -mXi_flow;
       port_a.m_flow * (inStream(port_b.Xi_outflow) - port_a.Xi_outflow) = +mXi_flow;
@@ -171,13 +144,9 @@ equation
 
   annotation (
     preferredView="info",
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
-This model transports fluid between its two ports, without storing mass or energy. 
+This model transports fluid between its two ports, without storing mass or energy.
 It implements a steady-state conservation equation for energy and mass fractions.
 The model has zero pressure drop between its ports.
 </p>
@@ -206,8 +175,8 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 revisions="<html>
 <ul>
 <li>
-January 23, 2014, by Michael Wetter:<br/>
-Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+February 11, 2014 by Michael Wetter:<br/>
+Improved documentation for <code>Q_flow</code> input.
 </li>
 <li>
 October 21, 2013 by Michael Wetter:<br/>
@@ -229,7 +198,7 @@ Removed unrequired parameter <code>i_w</code>.
 </li>
 <li>
 May 7, 2013 by Michael Wetter:<br/>
-Removed <code>for</code> loops for species balance and trace substance balance, 
+Removed <code>for</code> loops for species balance and trace substance balance,
 as they cause the error <code>Error: Operand port_a.Xi_outflow[1] to operator inStream is not a stream variable.</code>
 in OpenModelica.
 </li>
@@ -241,7 +210,7 @@ and added min and max attributes for <code>XiOut</code>.
 <li>
 June 22, 2012 by Michael Wetter:<br/>
 Reformulated implementation with <code>m_flowInv</code> to use <code>port_a.m_flow * ...</code>
-if <code>use_safeDivision=false</code>. This avoids a division by zero if 
+if <code>use_safeDivision=false</code>. This avoids a division by zero if
 <code>port_a.m_flow=0</code>.
 </li>
 <li>
@@ -251,10 +220,10 @@ Revised base classes for conservation equations in <code>Annex60.Fluid.Interface
 <li>
 December 14, 2011 by Michael Wetter:<br/>
 Changed assignment of <code>hOut</code>, <code>XiOut</code> and
-<code>COut</code> to no longer declare that it is continuous. 
-The declaration of continuity, i.e, the 
+<code>COut</code> to no longer declare that it is continuous.
+The declaration of continuity, i.e, the
 <code>smooth(0, if (port_a.m_flow >= 0) then ...</code> declaration,
-was required for Dymola 2012 to simulate, but it is no longer needed 
+was required for Dymola 2012 to simulate, but it is no longer needed
 for Dymola 2012 FD01.
 </li>
 <li>
@@ -265,8 +234,8 @@ Changed assignment of <code>hOut</code>, <code>XiOut</code> and
 <li>
 August 4, 2011, by Michael Wetter:<br/>
 Moved linearized pressure drop equation from the function body to the equation
-section. With the previous implementation, 
-the symbolic processor may not rearrange the equations, which can lead 
+section. With the previous implementation,
+the symbolic processor may not rearrange the equations, which can lead
 to coupled equations instead of an explicit solution.
 </li>
 <li>
@@ -280,9 +249,9 @@ Added <code>homotopy</code> operator.
 <li>
 August 19, 2010, by Michael Wetter:<br/>
 Fixed bug in energy and moisture balance that affected results if a component
-adds or removes moisture to the air stream. 
+adds or removes moisture to the air stream.
 In the old implementation, the enthalpy and species
-outflow at <code>port_b</code> was multiplied with the mass flow rate at 
+outflow at <code>port_b</code> was multiplied with the mass flow rate at
 <code>port_a</code>. The old implementation led to small errors that were proportional
 to the amount of moisture change. For example, if the moisture added by the component
 was <code>0.005 kg/kg</code>, then the error was <code>0.5%</code>.
@@ -291,7 +260,7 @@ With the new implementation, the energy and moisture balance is exact.
 </li>
 <li>
 March 22, 2010, by Michael Wetter:<br/>
-Added constant <code>sensibleOnly</code> to 
+Added constant <code>sensibleOnly</code> to
 simplify species balance equation.
 </li>
 <li>
@@ -327,7 +296,7 @@ First implementation.
         Text(
           extent={{-41,103},{-10,117}},
           lineColor={0,0,127},
-          textString="TOut"),
+          textString="hOut"),
         Text(
           extent={{10,103},{41,117}},
           lineColor={0,0,127},

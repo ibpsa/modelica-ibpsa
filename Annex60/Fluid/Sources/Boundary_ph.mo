@@ -1,7 +1,7 @@
 within Annex60.Fluid.Sources;
 model Boundary_ph
   "Boundary with prescribed pressure, specific enthalpy, composition and trace substances"
-  extends Annex60.Fluid.Sources.BaseClasses.PartialSource;
+  extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_p_in = false
     "Get the pressure from the input connector"
     annotation(Evaluate=true, HideResult=true);
@@ -16,39 +16,31 @@ model Boundary_ph
     annotation(Evaluate=true, HideResult=true);
   parameter Medium.AbsolutePressure p = Medium.p_default
     "Fixed value of pressure"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_p_in));
+    annotation (Dialog(enable = not use_p_in));
   parameter Medium.SpecificEnthalpy h = Medium.h_default
     "Fixed value of specific enthalpy"
-    annotation (Evaluate = true,
-                Dialog(enable = not use_h_in));
+    annotation (Dialog(enable = not use_h_in));
   parameter Medium.MassFraction X[Medium.nX] = Medium.X_default
     "Fixed value of composition"
-    annotation (Evaluate = true,
-                Dialog(enable = (not use_X_in) and Medium.nXi > 0));
+    annotation (Dialog(enable = (not use_X_in) and Medium.nXi > 0));
   parameter Medium.ExtraProperty C[Medium.nC](
        quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Fixed values of trace substances"
-    annotation (Evaluate=true,
-                Dialog(enable = (not use_C_in) and Medium.nC > 0));
+    annotation (Dialog(enable = (not use_C_in) and Medium.nC > 0));
   Modelica.Blocks.Interfaces.RealInput p_in if              use_p_in
     "Prescribed boundary pressure"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput h_in if              use_h_in
     "Prescribed boundary specific enthalpy"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if
                                                         use_X_in
     "Prescribed boundary composition"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if
                                                         use_C_in
     "Prescribed boundary trace substances"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
   Modelica.Blocks.Interfaces.RealInput p_in_internal
     "Needed to connect to conditional connector";
@@ -149,7 +141,7 @@ Defines prescribed values for boundary conditions:
 <li> Boundary composition (only for multi-substance or trace-substance flow).</li>
 </ul>
 <p>If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
-is used as boundary pressure, and the <code>p_in</code> input connector is disabled; if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored, and the value provided by the input connector is used instead.</p> 
+is used as boundary pressure, and the <code>p_in</code> input connector is disabled; if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored, and the value provided by the input connector is used instead.</p>
 <p>The same applies to the temperature, composition and trace substances.</p>
 <p>
 Note, that boundary temperature,
@@ -162,8 +154,8 @@ with exception of boundary pressure, do not have an effect.
 revisions="<html>
 <ul>
 <li>
-January 23, 2014, by Michael Wetter:<br/>
-Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
 </li>
 <li>
 September 29, 2009, by Michael Wetter:<br/>

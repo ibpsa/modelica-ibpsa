@@ -1,6 +1,9 @@
+average
 bicubic
 biquadratic
+booleanReplicator
 cubicHermiteLinearExtrapolation
+integerReplicator
 polynomial
 powerLinearized
 quadraticLinear

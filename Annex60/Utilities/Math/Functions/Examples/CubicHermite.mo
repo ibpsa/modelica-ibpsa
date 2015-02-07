@@ -49,8 +49,6 @@ algorithm
     y1d=dMonotone[i],
     y2d=dMonotone[i + 1]);
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
     __Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermite.mos"
         "Simulate and plot"),
@@ -66,5 +64,12 @@ The resulting plot should look as shown below, where for better visibility, the 
 Notice that the red curve is monotone increasing.
 </p>
 <p align=\"center\"><img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png\"/></p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 8, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end CubicHermite;

@@ -1,7 +1,7 @@
 within Annex60.Fluid.MixingVolumes.BaseClasses;
 partial model PartialMixingVolume
   "Partial mixing volume with inlet and outlet ports (flow reversal is allowed)"
-  outer Modelica.Fluid.System system "System properties";
+
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
@@ -12,7 +12,7 @@ partial model PartialMixingVolume
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Boolean allowFlowReversal = system.allowFlowReversal
+  parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.Volume V "Volume";
@@ -21,13 +21,14 @@ partial model PartialMixingVolume
    annotation(Evaluate=true, Dialog(tab="Assumptions",
       enable=use_HeatTransfer,
       group="Heat transfer"));
-  Annex60.Fluid.Interfaces.FluidPorts_b ports[nPorts](
+  parameter Boolean initialize_p = not Medium.singleState
+    "= true to set up initial equations for pressure";
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{-10,-40},{10,40}},
-      origin={0,-100},
-        rotation=90)));
+    annotation (Placement(transformation(extent={{-40,-10},{40,10}},
+      origin={0,-100})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port connected to outflowing medium"
+    "Heat port for sensible heat input"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.SIunits.Temperature T "Temperature of the fluid";
   Modelica.SIunits.Pressure p "Pressure of the fluid";
@@ -55,30 +56,25 @@ protected
     final C_start=C_start,
     final C_nominal=C_nominal,
     final fluidVolume = V,
+    final initialize_p = initialize_p,
     m(start=V*rho_start),
-    U(start=V*rho_start*u_start),
-    nPorts=nPorts) if
+    nPorts=nPorts,
+    U(start=V*rho_start*Medium.specificInternalEnergy(state_start) + (T_start -
+          Medium.reference_T)*dynBal.CSen),
+    final mSenFac=mSenFac) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
-  // Density at medium default values, used to compute the size of control volumes
-  parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass"
-  annotation (Evaluate=true);
   // Density at start values, used to compute initial values and start guesses
   parameter Modelica.SIunits.Density rho_start=Medium.density(
-   state=state_start) "Density, used to compute start and guess values"
-  annotation (Evaluate=true);
-
-  parameter Modelica.SIunits.SpecificInternalEnergy u_start=
-    Medium.specificInternalEnergy(Medium.setState_pTX(
-      T=T_start,
-      p=p_start,
-      X=X_start[1:Medium.nXi])) "Start value for specific internal energy";
+   state=state_start) "Density, used to compute start and guess values";
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+  // Density at medium default values, used to compute the size of control volumes
+  final parameter Modelica.SIunits.Density rho_default=Medium.density(
+    state=state_default) "Density, used to compute fluid mass";
   final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
       T=T_start,
       p=p_start,
@@ -91,15 +87,17 @@ protected
       traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Flag, true if the model has two ports only and uses a steady state balance"
     annotation (Evaluate=true);
-  Modelica.SIunits.HeatFlowRate Q_flow
-    "Heat flow across boundaries or energy source/sink";
   // Outputs that are needed to assign the medium properties
-  Modelica.Blocks.Interfaces.RealOutput TOut_internal(unit="K")
+  Modelica.Blocks.Interfaces.RealOutput hOut_internal(unit="J/kg")
     "Internal connector for leaving temperature of the component";
   Modelica.Blocks.Interfaces.RealOutput XiOut_internal[Medium.nXi](each unit="1")
     "Internal connector for leaving species concentration of the component";
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
+
+  Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
+    "Block to set sensible heat input into volume"
+    annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
 
 equation
   ///////////////////////////////////////////////////////////////////////////
@@ -111,7 +109,8 @@ equation
   ports[1].m_flow = " + String(ports[1].m_flow) + "
 ");
   end if;
-  // actual definition of port variables
+  // Actual definition of port variables.
+  //
   // If the model computes the energy and mass balances as steady-state,
   // and if it has only two ports,
   // then we use the same base class as for all other steady state models.
@@ -126,7 +125,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
 
-    connect(TOut_internal,  steBal.TOut);
+    connect(hOut_internal,  steBal.hOut);
     connect(XiOut_internal, steBal.XiOut);
     connect(COut_internal,  steBal.COut);
   else
@@ -135,18 +134,17 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
 
-    connect(TOut_internal,  dynBal.TOut);
+    connect(hOut_internal,  dynBal.hOut);
     connect(XiOut_internal, dynBal.XiOut);
     connect(COut_internal,  dynBal.COut);
   end if;
   // Medium properties
   p = if nPorts > 0 then ports[1].p else p_start;
-  T = TOut_internal;
+  T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}));
   Xi = XiOut_internal;
   C = COut_internal;
   // Port properties
   heatPort.T = T;
-  heatPort.Q_flow = Q_flow;
 
   annotation (
 defaultComponentName="vol",
@@ -173,8 +171,34 @@ Annex60.Fluid.MixingVolumes</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 23, 2014, by Michael Wetter:<br/>
-Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+October 29, 2014, by Michael Wetter:<br/>
+Made assignment of <code>mFactor</code> final, and changed computation of
+density to use default medium states as are also used to compute the
+specific heat capacity.
+</li>
+<li>
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> to increase the thermal capacity.
+</li>
+<li>
+July 3, 2014, by Michael Wetter:<br/>
+Added parameter <code>initialize_p</code>. This is required
+to enable the coil models to initialize the pressure in the first
+volume, but not in the downstream volumes. Otherwise,
+the initial equations will be overdetermined, but consistent.
+This change was done to avoid a long information message that appears
+when translating models.
+</li>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+February 11, 2014 by Michael Wetter:<br/>
+Removed <code>Q_flow</code> and added <code>QSen_flow</code>.
+This was done to clarify what is sensible and total heat flow rate
+as part of the correction of issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>.
 </li>
 <li>
 October 8, 2013 by Michael Wetter:<br/>
@@ -201,7 +225,7 @@ Revised base classes for conservation equations in <code>Annex60.Fluid.Interface
 September 17, 2011 by Michael Wetter:<br/>
 Removed instance <code>medium</code> as this is already used in <code>dynBal</code>.
 Removing the base properties led to 30% faster computing time for a solar thermal system
-that contains many fluid volumes. 
+that contains many fluid volumes.
 </li>
 <li>
 September 13, 2011 by Michael Wetter:<br/>
@@ -226,14 +250,14 @@ model.
 May 25, 2011 by Michael Wetter:<br/>
 <ul>
 <li>
-Changed implementation of balance equation. The new implementation uses a different model if 
+Changed implementation of balance equation. The new implementation uses a different model if
 exactly two fluid ports are connected, and in addition, the model is used as a steady-state
 component. For this model configuration, the same balance equations are used as were used
 for steady-state component models, i.e., instead of <code>actualStream(...)</code>, the
 <code>inStream(...)</code> formulation is used.
 This changed required the introduction of a new parameter <code>m_flow_nominal</code> which
 is used for smoothing in the steady-state balance equations of the model with two fluid ports.
-This implementation also simplifies the implementation of 
+This implementation also simplifies the implementation of
 <a href=\"modelica://Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort\">
 Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort</a>,
 which now uses the same equations as this model.
@@ -246,7 +270,7 @@ no noticable overhead in always having the <code>heatPort</code> connector prese
 </li>
 <li>
 July 30, 2010 by Michael Wetter:<br/>
-Added nominal value for <code>mC</code> to avoid wrong trajectory 
+Added nominal value for <code>mC</code> to avoid wrong trajectory
 when concentration is around 1E-7.
 See also <a href=\"https://trac.modelica.org/Modelica/ticket/393\">
 https://trac.modelica.org/Modelica/ticket/393</a>.

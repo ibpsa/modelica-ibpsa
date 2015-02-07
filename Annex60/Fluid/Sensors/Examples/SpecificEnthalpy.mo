@@ -8,15 +8,13 @@ model SpecificEnthalpy "Test model for the enthalpy flow rate sensors"
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     use_h_in=false,
-    nPorts=2,
-    X={0,1}) "Flow boundary condition"
+    nPorts=2) "Flow boundary condition"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Annex60.Fluid.Sources.Boundary_ph sin(
     redeclare package Medium = Medium,
     use_h_in=false,
     h=20,
-    nPorts=1,
-    X={0,1}) "Flow boundary condition"
+    nPorts=1) "Flow boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -26,8 +24,7 @@ model SpecificEnthalpy "Test model for the enthalpy flow rate sensors"
     offset=1,
     duration=60)
     annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
   Annex60.Fluid.Sensors.SpecificEnthalpy senFloSou(
     redeclare package Medium = Medium) "Sensor at the flow source"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
@@ -55,15 +52,16 @@ equation
     annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/SpecificEnthalpy.mos"
-        "Simulate and plot"),  Diagram(
-        coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
-        graphics),
-    Documentation(info="<html>
+        "Simulate and plot"),    Documentation(info="<html>
 <p>
 This example tests the specific enthalpy sensors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 8, 2014, by Michael Wetter:<br/>
+Set species concentration to the default value of the medium.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 First implementation.

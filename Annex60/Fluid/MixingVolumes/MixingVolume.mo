@@ -5,32 +5,29 @@ model MixingVolume
 protected
   Modelica.Blocks.Sources.Constant masExc(k=0)
     "Block to set mass exchange in volume"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.RealExpression heaInp(y=heatPort.Q_flow)
-    "Block to set heat input into volume"
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
-  connect(heaInp.y, steBal.Q_flow) annotation (Line(
-      points={{-59,90},{-30,90},{-30,18},{-22,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(heaInp.y, dynBal.Q_flow) annotation (Line(
-      points={{-59,90},{28,90},{28,16},{38,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(masExc.y, dynBal.mWat_flow) annotation (Line(
-      points={{-59,70},{20,70},{20,12},{38,12}},
+      points={{-59,60},{20,60},{20,12},{38,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(masExc.y, steBal.mWat_flow) annotation (Line(
-      points={{-59,70},{-40,70},{-40,14},{-22,14}},
+      points={{-59,60},{-40,60},{-40,14},{-22,14}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QSen_flow.y, steBal.Q_flow) annotation (Line(
+      points={{-59,88},{-30,88},{-30,18},{-22,18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QSen_flow.y, dynBal.Q_flow) annotation (Line(
+      points={{-59,88},{28,88},{28,16},{38,16}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
 defaultComponentName="vol",
 Documentation(info="<html>
 <p>
-This model represents an instantaneously mixed volume. 
+This model represents an instantaneously mixed volume.
 Potential and kinetic energy at the port are neglected,
 and there is no pressure drop at the ports.
 The volume can exchange heat through its <code>heatPort</code>.
@@ -40,7 +37,7 @@ The volume can be parameterized as a steady-state model or as
 dynamic model.</p>
 <p>
 To increase the numerical robustness of the model, the parameter
-<code>prescribedHeatFlowRate</code> can be set by the user. 
+<code>prescribedHeatFlowRate</code> can be set by the user.
 This parameter only has an effect if the model has exactly two fluid ports connected,
 and if it is used as a steady-state model.
 Use the following settings:
@@ -56,7 +53,18 @@ is computed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some
 which may itself be a function of temperature or mass flow rate.
 </li>
 </ul>
-
+<h4>Options</h4>
+<ul>
+<li>Parameter <code>mSenFac</code> can be used to increase the thermal mass of this model
+without increasing its volume. This way, species concentrations are still calculated
+correctly even though the thermal mass increases. The additional thermal mass is calculated
+based on the density and the value of the function <code>HeatCapacityCp</code>
+of the medium state <code>state_default</code>. <br/>
+This parameter can for instance be useful in a pipe model when the developer wants to 
+lump the pipe thermal mass to the fluid volume. By default <code>mSenFac = 1</code>, hence
+the mass is unchanged. For higher values of <code>mSenFac</code>, the mass will be scaled proportionally. 
+</li>
+</ul>
 <h4>Implementation</h4>
 <p>
 If the model is operated in steady-state and has two fluid ports connected,
@@ -93,6 +101,12 @@ Annex60.Fluid.MassExchangers.HumidifierPrescribed</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+February 11, 2014 by Michael Wetter:<br/>
+Redesigned implementation of latent and sensible heat flow rates
+as port of the correction of issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/197\">#197</a>.
+</li>
+<li>
 February 7, 2012 by Michael Wetter:<br/>
 Revised base classes for conservation equations in <code>Annex60.Fluid.Interfaces</code>.
 </li>
@@ -100,7 +114,7 @@ Revised base classes for conservation equations in <code>Annex60.Fluid.Interface
 September 17, 2011 by Michael Wetter:<br/>
 Removed instance <code>medium</code> as this is already used in <code>dynBal</code>.
 Removing the base properties led to 30% faster computing time for a solar thermal system
-that contains many fluid volumes. 
+that contains many fluid volumes.
 </li>
 <li>
 September 13, 2011 by Michael Wetter:<br/>
@@ -125,7 +139,7 @@ model.
 May 25, 2011 by Michael Wetter:<br/>
 <ul>
 <li>
-Changed implementation of balance equation. The new implementation uses a different model if 
+Changed implementation of balance equation. The new implementation uses a different model if
 exactly two fluid ports are connected, and in addition, the model is used as a steady-state
 component. For this model configuration, the same balance equations are used as were used
 for steady-state component models, i.e., instead of <code>actualStream(...)</code>, the
@@ -141,7 +155,7 @@ no noticable overhead in always having the <code>heatPort</code> connector prese
 </li>
 <li>
 July 30, 2010 by Michael Wetter:<br/>
-Added nominal value for <code>mC</code> to avoid wrong trajectory 
+Added nominal value for <code>mC</code> to avoid wrong trajectory
 when concentration is around 1E-7.
 See also <a href=\"https://trac.modelica.org/Modelica/ticket/393\">
 https://trac.modelica.org/Modelica/ticket/393</a>.
@@ -171,7 +185,5 @@ Annex60.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
           textString="V=%V"),         Text(
           extent={{-152,100},{148,140}},
           textString="%name",
-          lineColor={0,0,255})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics));
+          lineColor={0,0,255})}));
 end MixingVolume;

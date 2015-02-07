@@ -6,14 +6,12 @@ model SpecificEnthalpy "Ideal one port specific enthalpy sensor"
                                               final unit="J/kg")
     "Specific enthalpy in port medium"
     annotation (defaultComponentName="senSpeEnt",
-        Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+        Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   h_out = Medium.specificEnthalpy(Medium.setState_pTX(p=port.p,
                                                       T=inStream(port.T_outflow),
                                                       X=inStream(port.Xi_outflow)));
 annotation (defaultComponentName="senSpeEnt",
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),
@@ -28,17 +26,16 @@ annotation (defaultComponentName="senSpeEnt",
         Line(points={{70,0},{100,0}}, color={0,0,127})}),
   Documentation(info="<html>
 <p>
-This model outputs the specific enthalpy of the fluid connected to its port. 
+This model outputs the specific enthalpy of the fluid connected to its port.
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 <p>
-Read the 
+Read the
 <a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
 Annex60.Fluid.Sensors.UsersGuide</a>
 prior to using this model with one fluid port.
 </p>
-</html>
-",
+</html>",
 revisions="<html>
 <ul>
 <li>

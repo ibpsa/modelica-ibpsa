@@ -1,6 +1,6 @@
 within Annex60.Utilities.Diagnostics.BaseClasses;
 block PartialInputCheck "Assert when condition is violated"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Time startTime = 0
     "Start time for activating the assert";
   parameter Real threShold(min=0)=1E-2 "Threshold for equality comparison";
@@ -9,11 +9,9 @@ protected
   parameter Modelica.SIunits.Time t0( fixed=false) "Simulation start time";
 public
   Modelica.Blocks.Interfaces.RealInput u1 "Value to check"
-       annotation (Placement(transformation(extent={{-140,40},{-100,80}},
-          rotation=0)));
+       annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput u2 "Value to check"
-       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
-          rotation=0)));
+       annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 initial equation
   t0 = time + startTime;
 
@@ -32,7 +30,7 @@ revisions="<html>
 <ul>
 <li>
 April 18, 2013, by Michael Wetter:<br/>
-Removed <code>cardinality</code> function as this is 
+Removed <code>cardinality</code> function as this is
 deprecated in the MSL specification and not correctly implemented in omc.
 </li>
 <li>

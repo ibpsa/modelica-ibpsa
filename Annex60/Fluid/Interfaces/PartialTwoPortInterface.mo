@@ -2,10 +2,8 @@ within Annex60.Fluid.Interfaces;
 partial model PartialTwoPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
   extends Annex60.Fluid.Interfaces.PartialTwoPort(
-    port_a(p(start=Medium.p_default,
-             nominal=Medium.p_default)),
-    port_b(p(start=Medium.p_default,
-           nominal=Medium.p_default)));
+    port_a(p(start=Medium.p_default)),
+    port_b(p(start=Medium.p_default)));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
@@ -24,32 +22,28 @@ partial model PartialTwoPortInterface
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=
-      Medium.setState_pTX(port_a.p,
-                          noEvent(actualStream(port_a.T_outflow)),
+      Medium.setState_phX(port_a.p,
+                          noEvent(actualStream(port_a.h_outflow)),
                           noEvent(actualStream(port_a.Xi_outflow))) if
          show_T "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b=
-      Medium.setState_pTX(port_b.p,
-                          noEvent(actualStream(port_b.T_outflow)),
+      Medium.setState_phX(port_b.p,
+                          noEvent(actualStream(port_b.h_outflow)),
                           noEvent(actualStream(port_b.Xi_outflow))) if
           show_T "Medium properties in port_b";
 equation
   dp = port_a.p - port_b.p;
   annotation (
     preferredView="info",
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
-This component defines the interface for models that 
-transports a fluid between two ports. It is similar to 
-<a href=\"Modelica://Annex60.Fluid.Interfaces.PartialTwoPortTransport\">
-Annex60.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not 
+This component defines the interface for models that
+transports a fluid between two ports. It is similar to
+<a href=\"Modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
+Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not
 include the species balance
-</p> 
+</p>
 <pre>
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
 </pre>
@@ -65,8 +59,9 @@ Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-January 23, 2014, by Michael Wetter:<br/>
-Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+October 3, 2014, by Michael Wetter:<br/>
+Changed assignment of nominal value to avoid in OpenModelica the warning
+alias set with different nominal values.
 </li>
 <li>
 November 12, 2013 by Michael Wetter:<br/>
@@ -90,8 +85,8 @@ the use of the homotopy operator is not needed here.
 October 10, 2013 by Michael Wetter:<br/>
 Added <code>noEvent</code> to the computation of the states at the port.
 This is correct, because the states are only used for reporting, but not
-to compute any other variable. 
-Use of the states to compute other variables would violate the Modelica 
+to compute any other variable.
+Use of the states to compute other variables would violate the Modelica
 language, as conditionally removed variables must not be used in any equation.
 </li>
 <li>
@@ -99,12 +94,12 @@ October 8, 2013 by Michael Wetter:<br/>
 Removed the computation of <code>V_flow</code> and removed the parameter
 <code>show_V_flow</code>.
 The reason is that the computation of <code>V_flow</code> required
-the use of <code>sta_a</code> (to compute the density), 
+the use of <code>sta_a</code> (to compute the density),
 but <code>sta_a</code> is also a variable that is conditionally
-enabled. However, this was not correct Modelica syntax as conditional variables 
+enabled. However, this was not correct Modelica syntax as conditional variables
 can only be used in a <code>connect</code>
 statement, not in an assignment. Dymola 2014 FD01 beta3 is checking
-for this incorrect syntax. Hence, <code>V_flow</code> was removed as its 
+for this incorrect syntax. Hence, <code>V_flow</code> was removed as its
 conditional implementation would require a rather cumbersome implementation
 that uses a new connector that carries the state of the medium.
 </li>
@@ -115,7 +110,7 @@ Moved the definition of <code>dp</code> because it causes some problem with PyFM
 <li>
 March 27, 2012 by Michael Wetter:<br/>
 Changed condition to remove <code>sta_a</code> to also
-compute the state at the inlet port if <code>show_V_flow=true</code>. 
+compute the state at the inlet port if <code>show_V_flow=true</code>.
 The previous implementation resulted in a translation error
 if <code>show_V_flow=true</code>, but worked correctly otherwise
 because the erroneous function call is removed if  <code>show_V_flow=false</code>.
@@ -127,7 +122,7 @@ Added <code>homotopy</code> operator.
 <li>
 March 21, 2010 by Michael Wetter:<br/>
 Changed pressure start value from <code>system.p_start</code>
-to <code>Medium.p_default</code> since HVAC models may have water and 
+to <code>Medium.p_default</code> since HVAC models may have water and
 air, which are typically at different pressures.
 </li>
 <li>

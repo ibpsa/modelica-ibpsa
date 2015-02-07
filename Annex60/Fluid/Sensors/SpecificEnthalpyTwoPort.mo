@@ -55,8 +55,6 @@ equation
     h_out = hMed_out;
   end if;
 annotation (defaultComponentName="senSpeEnt",
-  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}})),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Text(
@@ -68,10 +66,10 @@ annotation (defaultComponentName="senSpeEnt",
         Line(points={{70,0},{100,0}}, color={0,128,255})}),
   Documentation(info="<html>
 <p>
-This model outputs the specific enthalpy of a passing fluid. 
+This model outputs the specific enthalpy of a passing fluid.
 The sensor is ideal, i.e. it does not influence the fluid.
 If the parameter <code>tau</code> is non-zero, then its output
-is computed using a first order differential equation. 
+is computed using a first order differential equation.
 Setting <code>tau=0</code> is <i>not</i> recommend. See
 <a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
 Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
@@ -85,7 +83,7 @@ Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
 </li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
-Revised implementation to add dynamics in such a way that 
+Revised implementation to add dynamics in such a way that
 the time constant increases as the mass flow rate tends to zero.
 This significantly improves the numerics.
 </li>

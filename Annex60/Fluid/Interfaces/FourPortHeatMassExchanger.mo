@@ -2,17 +2,17 @@ within Annex60.Fluid.Interfaces;
 model FourPortHeatMassExchanger
   "Model transporting two fluid streams between four ports with storing mass or energy"
   extends Annex60.Fluid.Interfaces.PartialFourPortInterface(
-    final T_outflow_a1_start = T1_outflow_start,
-    final T_outflow_b1_start = T1_outflow_start,
-    final T_outflow_a2_start = T2_outflow_start,
-    final T_outflow_b2_start = T2_outflow_start);
+    final h_outflow_a1_start = h1_outflow_start,
+    final h_outflow_b1_start = h1_outflow_start,
+    final h_outflow_a2_start = h2_outflow_start,
+    final h_outflow_b2_start = h2_outflow_start);
   extends Annex60.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true);
 
   parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow"
-     annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
+     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
   parameter Modelica.SIunits.Time tau2 = 30 "Time constant at nominal flow"
-     annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
+     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
 
   // Advanced
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -78,15 +78,17 @@ model FourPortHeatMassExchanger
     final T_start=T1_start,
     final X_start=X1_start,
     final C_start=C1_start,
-    final C_nominal=C1_nominal) "Volume for fluid 1"
+    final C_nominal=C1_nominal,
+    final mSenFac=1) "Volume for fluid 1"
                                annotation (Placement(transformation(extent={{-10,70},
-            {10,50}},         rotation=0)));
+            {10,50}})));
 
   replaceable Annex60.Fluid.MixingVolumes.MixingVolume vol2
     constrainedby Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium2,
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,
+    final mSenFac=1,
     final m_flow_nominal = m2_flow_nominal,
     energyDynamics=if tau2 > Modelica.Constants.eps
                          then energyDynamics else
@@ -110,7 +112,7 @@ model FourPortHeatMassExchanger
     "Heat flow rate into medium 2";
 
   Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro1(
-    redeclare package Medium = Medium1,
+    redeclare final package Medium = Medium1,
     final use_dh=false,
     final m_flow_nominal=m1_flow_nominal,
     final deltaM=deltaM1,
@@ -125,7 +127,7 @@ model FourPortHeatMassExchanger
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro2(
-    redeclare package Medium = Medium2,
+    redeclare final package Medium = Medium2,
     final use_dh=false,
     final m_flow_nominal=m2_flow_nominal,
     final deltaM=deltaM2,
@@ -151,13 +153,37 @@ protected
 
   parameter Medium1.ThermodynamicState sta1_start=Medium1.setState_pTX(
       T=T1_start, p=p1_start, X=X1_start);
-  parameter Modelica.SIunits.Temperature T1_outflow_start = Medium1.temperature(sta1_start)
+  parameter Modelica.SIunits.SpecificEnthalpy h1_outflow_start = Medium1.specificEnthalpy(sta1_start)
     "Start value for outflowing enthalpy";
   parameter Medium2.ThermodynamicState sta2_start=Medium2.setState_pTX(
       T=T2_start, p=p2_start, X=X2_start);
-  parameter Modelica.SIunits.Temperature T2_outflow_start = Medium2.temperature(sta2_start)
+  parameter Modelica.SIunits.SpecificEnthalpy h2_outflow_start = Medium2.specificEnthalpy(sta2_start)
     "Start value for outflowing enthalpy";
 
+initial algorithm
+  // Check for tau1
+  assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau1 > Modelica.Constants.eps,
+"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.
+ You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau1 = " + String(tau1) + "\n");
+  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau1 > Modelica.Constants.eps,
+"The parameter tau1, or the volume of the model from which tau may be derived, is unreasonably small.
+ You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau1 = " + String(tau1) + "\n");
+
+ // Check for tau2
+  assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau2 > Modelica.Constants.eps,
+"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
+ You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau2 = " + String(tau2) + "\n");
+  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau2 > Modelica.Constants.eps,
+"The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
+ You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau2 = " + String(tau2) + "\n");
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
@@ -184,18 +210,14 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={1,1})),
     Documentation(info="<html>
 <p>
-This component transports two fluid streams between four ports. 
+This component transports two fluid streams between four ports.
 It provides the basic model for implementing a dynamic heat exchanger.
 </p>
 <p>
 The model can be used as-is, although there will be no heat or mass transfer
-between the two fluid streams. 
+between the two fluid streams.
 To add heat transfer, heat flow can be added to the heat port of the two volumes.
 See for example
 <a href=\"Annex60.Fluid.Chillers.Carnot\">
@@ -207,15 +229,21 @@ Annex60.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 </p>
 <h4>Implementation</h4>
 <p>
-The variable names follow the conventions used in 
+The variable names follow the conventions used in
 <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
 Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 23, 2014, by Michael Wetter:<br/>
-Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in pressure drop elements to be final.
+</li>
+<li>
+May 28, 2014, by Michael Wetter:<br/>
+Removed <code>annotation(Evaluate=true)</code> for parameters <code>tau1</code>
+and <code>tau2</code>.
+This is needed to allow changing the time constant after translation.
 </li>
 <li>
 November 12, 2013, by Michael Wetter:<br/>
@@ -242,11 +270,11 @@ longer used in its base class.
 July 29, 2011, by Michael Wetter:
 <ul>
 <li>
-Changed values of 
+Changed values of
 <code>h_outflow_a1_start</code>,
 <code>h_outflow_b1_start</code>,
 <code>h_outflow_a2_start</code> and
-<code>h_outflow_b2_start</code>, and 
+<code>h_outflow_b2_start</code>, and
 declared them as final.
 </li>
 <li>

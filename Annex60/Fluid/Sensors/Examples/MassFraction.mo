@@ -9,7 +9,7 @@ model MassFraction "Test model for the mass fraction sensor"
     redeclare package Medium = Medium,
     nPorts=1,
     T=293.15) "Flow boundary condition" annotation (Placement(
-        transformation(extent={{90,-10},{70,10}},rotation=0)));
+        transformation(extent={{90,-10},{70,10}})));
   Annex60.Fluid.Sources.MassFlowSource_T masFloRat(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -17,9 +17,8 @@ model MassFraction "Test model for the mass fraction sensor"
     X={0.02,0.98},
     m_flow=10,
     nPorts=1) "Flow boundary condition"  annotation (Placement(transformation(
-          extent={{-80,0},{-60,20}},  rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+          extent={{-80,0},{-60,20}})));
+
   Annex60.Fluid.Sensors.MassFraction senMasFra2(
     redeclare package Medium = Medium) "Mass fraction sensor for the volume"
     annotation (Placement(transformation(extent={{20,36},{40,56}})));
@@ -27,7 +26,8 @@ model MassFraction "Test model for the mass fraction sensor"
     redeclare package Medium = Medium,
     V=1,
     nPorts=3,
-    m_flow_nominal=10) "Volume"
+    m_flow_nominal=10,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Volume"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dp(
     redeclare package Medium = Medium,
@@ -59,9 +59,7 @@ equation
       points={{12.6667,10},{30,10},{30,36}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}})),
-experiment(StopTime=10),
+    annotation (experiment(StopTime=10),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos"
         "Simulate and plot"),
     Documentation(info="<html>

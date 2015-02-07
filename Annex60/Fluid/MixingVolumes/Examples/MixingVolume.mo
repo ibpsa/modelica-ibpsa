@@ -2,34 +2,32 @@ within Annex60.Fluid.MixingVolumes.Examples;
 model MixingVolume
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air "Medium model";
+  package Medium = Annex60.Media.Air;
 
     Modelica.Blocks.Sources.Ramp P(
     duration=0.5,
     startTime=0.5,
     height=-10,
     offset=101330)
-                 annotation (Placement(transformation(extent={{-100,60},{-80,80}},
-          rotation=0)));
+                 annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Annex60.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium, T=293.15,
     use_p_in=true,
     nPorts=3)                                       annotation (Placement(
-        transformation(extent={{-70,48},{-50,68}}, rotation=0)));
+        transformation(extent={{-70,48},{-50,68}})));
   Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=3,
     use_p_in=false,
     p=101325,
     T=283.15)                                       annotation (Placement(
-        transformation(extent={{130,48},{110,68}}, rotation=0)));
+        transformation(extent={{130,48},{110,68}})));
     Annex60.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{-36,50},{-16,70}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-36,50},{-16,70}})));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     V=0.1,
@@ -37,47 +35,44 @@ model MixingVolume
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
-          annotation (Placement(transformation(extent={{0,10},{20,30}},
-          rotation=0)));
+          annotation (Placement(transformation(extent={{0,10},{20,30}})));
     Annex60.Fluid.FixedResistances.FixedResistanceDpM res2(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{80,50},{100,70}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{80,50},{100,70}})));
     Annex60.Fluid.FixedResistances.FixedResistanceDpM res11(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{-40,0},{-20,20}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
     Annex60.Fluid.FixedResistances.FixedResistanceDpM res12(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{80,0},{100,20}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{80,0},{100,20}})));
   Modelica.Fluid.Vessels.ClosedVolume vol(
     redeclare package Medium = Medium,
     V=0.1,
+    nPorts=2,
     h_start=45300.945,
     use_portsData=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nPorts=2)
-         annotation (Placement(transformation(extent={{0,60},{22,80}}, rotation=
-           0)));
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+         annotation (Placement(transformation(extent={{0,60},{22,80}})));
+  Annex60.Utilities.Diagnostics.AssertEquality assertEquality
+    annotation (Placement(transformation(extent={{160,72},{180,92}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium =
         Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{40,50},{60,70}}, rotation=0)));
+          extent={{40,50},{60,70}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium =
         Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{40,0},{60,20}},  rotation=0)));
+          extent={{40,0},{60,20}})));
   Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
     redeclare package Medium = Medium,
     V=0.1,
@@ -85,45 +80,40 @@ model MixingVolume
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=2)
-          annotation (Placement(transformation(extent={{0,-82},{20,-62}},
-          rotation=0)));
+          annotation (Placement(transformation(extent={{0,-82},{20,-62}})));
     Annex60.Fluid.FixedResistances.FixedResistanceDpM res21(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{-40,-92},{-20,-72}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
     Annex60.Fluid.FixedResistances.FixedResistanceDpM res22(
     redeclare each package Medium = Medium,
     from_dp=true,
     m_flow_nominal=2,
     dp_nominal=2.5)
-             annotation (Placement(transformation(extent={{80,-92},{100,-72}},
-          rotation=0)));
+             annotation (Placement(transformation(extent={{80,-92},{100,-72}})));
+  Annex60.Utilities.Diagnostics.AssertEquality assertEquality1
+    annotation (Placement(transformation(extent={{156,10},{176,30}})));
   Annex60.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium =
         Medium, m_flow_nominal=2) "Enthalpy flow rate"
                                      annotation (Placement(transformation(
-          extent={{40,-92},{60,-72}}, rotation=0)));
+          extent={{40,-92},{60,-72}})));
     Modelica.Blocks.Sources.Constant zero(k=0)
-      annotation (Placement(transformation(extent={{-40,-30},{-20,-10}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
     Modelica.Blocks.Sources.Constant TLiq(k=283.15)
-      annotation (Placement(transformation(extent={{-40,-60},{-20,-40}},
-          rotation=0)));
+      annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+
   inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Interfaces.AdaptorModelicaFluid ada1(redeclare package MediumAnnex60 = Medium)
-    "Adaptor to Modelica Standard Library connector"
-    annotation (Placement(transformation(extent={{-10,52},{-2,68}})));
-  Interfaces.AdaptorModelicaFluid ada2(redeclare package MediumAnnex60 = Medium)
-    "Adaptor to Modelica Standard Library connector"
-    annotation (Placement(transformation(extent={{32,52},{24,68}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 equation
   connect(P.y, sou.p_in) annotation (Line(points={{-79,70},{-72,70},{-72,66}},
                     color={0,0,127}));
   connect(res2.port_a, entFloRat.port_b) annotation (Line(points={{80,60},{60,
           60}}, color={0,127,255}));
+  connect(entFloRat2.H_flow, assertEquality1.u2) annotation (Line(points={{50,-71},
+          {50,-24},{140,-24},{140,14},{154,14}},
+                                    color={0,0,127}));
   connect(zero.y, vol2.mWat_flow) annotation (Line(points={{-19,-20},{-12,-20},
           {-12,-64},{-2,-64}}, color={0,0,127}));
   connect(TLiq.y, vol2.TWat) annotation (Line(points={{-19,-50},{-14,-50},{-14,
@@ -153,20 +143,28 @@ equation
       points={{100,-82},{106,-82},{106,55.3333},{110,55.3333}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(res1.port_b, vol.ports[1]) annotation (Line(
+      points={{-16,60},{8.8,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(vol.ports[2], entFloRat.port_a) annotation (Line(
+      points={{13.2,60},{40,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
   connect(res11.port_b, vol1.ports[1]) annotation (Line(
-      points={{-20,10},{-6,10},{-6,8},{10,8}},
+      points={{-20,10},{8,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol1.ports[2], entFloRat1.port_a) annotation (Line(
-      points={{10,12},{26,12},{26,10},{40,10}},
+      points={{12,10},{40,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res21.port_b, vol2.ports[1]) annotation (Line(
-      points={{-20,-82},{-6,-82},{-6,-84},{10,-84}},
+      points={{-20,-82},{8,-82}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol2.ports[2], entFloRat2.port_a) annotation (Line(
-      points={{10,-80},{26,-80},{26,-82},{40,-82}},
+      points={{12,-82},{40,-82}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(entFloRat2.port_b, res22.port_a) annotation (Line(
@@ -177,25 +175,20 @@ equation
       points={{60,10},{80,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res1.port_b, ada1.portAnnex60) annotation (Line(
-      points={{-16,60},{-10,60}},
-      color={0,127,0},
+  connect(entFloRat.H_flow, assertEquality.u1) annotation (Line(
+      points={{50,71},{50,88},{158,88}},
+      color={0,0,127},
       smooth=Smooth.None));
-  connect(ada1.portMSL, vol.ports[1]) annotation (Line(
-      points={{-2,60},{8.8,60}},
-      color={0,127,255},
+  connect(entFloRat.H_flow, assertEquality1.u1) annotation (Line(
+      points={{50,71},{50,88},{140,88},{140,26},{154,26}},
+      color={0,0,127},
       smooth=Smooth.None));
-  connect(vol.ports[2], ada2.portMSL) annotation (Line(
-      points={{13.2,60},{24,60}},
-      color={0,127,255},
+  connect(entFloRat1.H_flow, assertEquality.u2) annotation (Line(
+      points={{50,21},{50,40},{146,40},{146,76},{158,76}},
+      color={0,0,127},
       smooth=Smooth.None));
-  connect(ada2.portAnnex60, entFloRat.port_a) annotation (Line(
-      points={{32,60},{40,60}},
-      color={0,127,0},
-      smooth=Smooth.None));
-    annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false,
-       extent={{-100,-100},{140,100}}),      graphics),
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -100},{180,100}}),      graphics),
 experiment(StopTime=2),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolume.mos"
         "Simulate and plot"),
@@ -204,20 +197,16 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Mixing
 This model tests the implementation of the mixing volumes.
 It compares the results from the mixing volume of the Modelica
 Standard Library with the implementation in the <code>Annex60</code>
-library. If the changes are bigger than a prescribed limit, 
+library. If the changes are bigger than a prescribed limit,
 the simulation stops with an error.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 23, 2014, by Michael Wetter:<br/>
-Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
-</li>
-<li>
 October 24, 2013, by Michael Wetter:<br/>
 Set <code>vol(h_start=45300.945)</code>.
 This avoids a cyclic assignment of <code>vol.T_start</code>
-and <code>vol.h_start</code> in 
+and <code>vol.h_start</code> in
 <code>Modelica.Fluid.Vessels.ClosedVolume</code>.
 </li>
 <li>

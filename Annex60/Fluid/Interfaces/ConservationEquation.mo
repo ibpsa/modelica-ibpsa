@@ -1,30 +1,31 @@
 within Annex60.Fluid.Interfaces;
 model ConservationEquation "Lumped volume with mass and energy balance"
 
-//  outer Modelica.Fluid.System system "System properties";
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  Annex60.Fluid.Interfaces.FluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{-10,-40},{10,40}},
-      origin={0,-100},
-        rotation=90)));
+  parameter Boolean initialize_p = not Medium.singleState
+    "= true to set up initial equations for pressure";
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
+      redeclare each final package Medium = Medium) "Fluid inlets and outlets"
+    annotation (Placement(transformation(extent={{-40,-10},{40,10}},
+      origin={0,-100})));
 
   // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
     preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
     p(start=p_start,
-      nominal=Medium.p_default),
+      stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+                     then StateSelect.prefer else StateSelect.default),
+    h(start=hStart),
     T(start=T_start,
-      nominal=Medium.T_default,
       stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
-                     then StateSelect.always else StateSelect.default),
+                     then StateSelect.prefer else StateSelect.default),
     Xi(start=X_start[1:Medium.nXi],
-       nominal=Medium.X_default[1:Medium.nXi],
        each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
+    X(start=X_start),
     d(start=rho_nominal)) "Medium properties";
 
   Modelica.SIunits.Energy U "Internal energy of fluid";
@@ -46,21 +47,20 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     "Enthalpy flow across boundaries or energy source/sink";
 
   // Inputs that need to be defined by an extending class
-  input Modelica.SIunits.Volume fluidVolume "Volume";
-
+  parameter Modelica.SIunits.Volume fluidVolume "Volume";
+  final parameter Modelica.SIunits.HeatCapacity CSen=
+    (mSenFac - 1)*rho_default*cp_default*fluidVolume
+    "Aditional heat capacity for implementing mFactor";
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
-    "Heat transfered into the medium"
+    "Sensible plus latent heat flow rate transfered into the medium"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
 
   // Outputs that are needed in models that extend this model
-  Modelica.Blocks.Interfaces.RealOutput TOut(unit="K",
-                                             nominal=300,
-                                             min=100,
-                                             max=500,
-                                             start=T_start)
+  Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
+                                             start=hStart)
     "Leaving enthalpy of the component"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -78,28 +78,37 @@ model ConservationEquation "Lumped volume with mass and energy balance"
         rotation=90,
         origin={50,110})));
 protected
-  parameter Boolean initialize_p = not Medium.singleState
-    "= true to set up initial equations for pressure";
-
   Medium.EnthalpyFlowRate ports_H_flow[nPorts];
   Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
   Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts,Medium.nC];
-
-  final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
-     p=p_start,
-     T=T_start,
-     X=X_start[1:Medium.nXi]) "Start value of medium state";
-
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+  Medium.specificHeatCapacityCp(state=state_default)
+    "Heat capacity, to compute additional dry mass";
   parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-    state=state_start) "Density, used to compute fluid mass"
-  annotation (Evaluate=true);
+   Medium.setState_pTX(
+     T=T_start,
+     p=p_start,
+     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
 
+  // Parameter for avoiding extra overhead calculations when CSen==0
+  final parameter Boolean computeCSen = CSen > Modelica.Constants.eps
+    annotation(Evaluate=true);
+  final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+  // Density at medium default values, used to compute the size of control volumes
+  final parameter Modelica.SIunits.Density rho_default=Medium.density(
+    state=state_default) "Density, used to compute fluid mass";
   // Parameter that is used to construct the vector mXi_flow
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="Water",
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
+  parameter Modelica.SIunits.SpecificEnthalpy hStart=
+    Medium.specificEnthalpy_pTX(p_start, T_start, X_start)
+    "Start value for specific enthalpy";
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
@@ -112,7 +121,7 @@ initial equation
   // Otherwise, the system of ordinary differential equations may be inconsistent.
   if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     assert(massDynamics == energyDynamics, "
-         If 'massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState', then it is 
+         If 'massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState', then it is
          required that 'energyDynamics==Modelica.Fluid.Types.Dynamics.SteadyState'.
          Otherwise, the system of equations may not be consistent.
          You need to select other parameter values.");
@@ -159,18 +168,19 @@ equation
   // Total quantities
   m = fluidVolume*medium.d;
   mXi = m*medium.Xi;
-  U = m*medium.u;
+  if computeCSen then
+    U = m*medium.u + CSen*(medium.T-Medium.reference_T);
+  else
+    U = m*medium.u;
+  end if;
   mC = m*C;
 
-  TOut = medium.T;
+  hOut = medium.h;
   XiOut = medium.Xi;
   COut = C;
 
   for i in 1:nPorts loop
-    ports_H_flow[i]     = ports[i].m_flow * Medium.specificEnthalpy_pTX(
-                                   p=medium.p,
-                                   T=actualStream(ports[i].T_outflow),
-                                   X=actualStream(ports[i].Xi_outflow))
+    ports_H_flow[i]     = ports[i].m_flow * actualStream(ports[i].h_outflow)
       "Enthalpy flow";
     ports_mXi_flow[i,:] = ports[i].m_flow * actualStream(ports[i].Xi_outflow)
       "Component mass flow";
@@ -217,7 +227,7 @@ equation
   // Properties of outgoing flows
   for i in 1:nPorts loop
       ports[i].p          = medium.p;
-      ports[i].T_outflow  = medium.T;
+      ports[i].h_outflow  = medium.h;
       ports[i].Xi_outflow = medium.Xi;
       ports[i].C_outflow  = C;
   end for;
@@ -231,11 +241,10 @@ The model has zero pressure drop between its ports.
 </p>
 <h4>Implementation</h4>
 <p>
-When extending or instantiating this model, the input 
+When extending or instantiating this model, the input
 <code>fluidVolume</code>, which is the actual volume occupied by the fluid,
 needs to be assigned.
-For most components, this can be set to a parameter. However, for components such as 
-expansion vessels, the fluid volume can change in time.
+For most components, this can be set to a parameter.
 </p>
 Input connectors of the model are
 <ul>
@@ -248,24 +257,53 @@ Input connectors of the model are
 </ul>
 <p>
 The model can be used as a dynamic model or as a steady-state model.
-However, for a steady-state model with exactly two fluid ports connected, 
+However, for a steady-state model with exactly two fluid ports connected,
 the model
 <a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation\">
 Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
 provides a more efficient implementation.
 </p>
 <p>
-For models that instantiates this model, see
+For a model that instantiates this model, see
 <a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolume\">
-Annex60.Fluid.MixingVolumes.MixingVolume</a> and
-<a href=\"modelica://Annex60.Fluid.Storage.ExpansionVessel\">
-Annex60.Fluid.Storage.ExpansionVessel</a>.
+Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-January 23, 2014, by Michael Wetter:<br/>
-Changed fluid port from using <code>h_outflow</code> to <code>T_outflow</code>.
+October 21, 2014, by Filip Jorissen:<br/>
+Added parameter <code>mFactor</code> to increase the thermal capacity.
+</li>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in ports to be final.
+</li>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Set start attributes in <code>medium</code> to avoid in OpenModelica the warning
+alias set with several free start values.
+</li>
+<li>
+October 3, 2014, by Michael Wetter:<br/>
+Changed assignment of nominal value to avoid in OpenModelica the warning
+alias set with different nominal values.
+</li>
+<li>
+July 3, 2014, by Michael Wetter:<br/>
+Added parameter <code>initialize_p</code>. This is required
+to enable the coil models to initialize the pressure in the first
+volume, but not in the downstream volumes. Otherwise,
+the initial equations will be overdetermined, but consistent.
+This change was done to avoid a long information message that appears
+when translating models.
+</li>
+<li>
+May 29, 2014, by Michael Wetter:<br/>
+Removed undesirable annotation <code>Evaluate=true</code>.
+</li>
+<li>
+February 11, 2014 by Michael Wetter:<br/>
+Improved documentation for <code>Q_flow</code> input.
 </li>
 <li>
 September 17, 2013 by Michael Wetter:<br/>
@@ -277,7 +315,7 @@ Corrected the syntax error
 <code>Medium.ExtraProperty C[Medium.nC](each nominal=C_nominal)</code>
 to
 <code>Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)</code>
-because <code>C_nominal</code> is a vector. 
+because <code>C_nominal</code> is a vector.
 This syntax error caused a compilation error in OpenModelica.
 </li>
 <li>
@@ -304,9 +342,9 @@ can lead to inconsistent equations.
 <li>
 July 26, 2011 by Michael Wetter:<br/>
 Removed the option to use <code>h_start</code>, as this
-is not needed for building simulation. 
+is not needed for building simulation.
 Also removed the reference to <code>Modelica.Fluid.System</code>.
-Moved parameters and medium to 
+Moved parameters and medium to
 <a href=\"Annex60.Fluid.Interfaces.LumpedVolumeDeclarations\">
 Annex60.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
 <li>
@@ -334,24 +372,21 @@ Without this value, the ODE solver gives wrong results for concentrations around
 <li>
 March 21, 2010 by Michael Wetter:<br/>
 Changed pressure start value from <code>system.p_start</code>
-to <code>Medium.p_default</code> since HVAC models may have water and 
+to <code>Medium.p_default</code> since HVAC models may have water and
 air, which are typically at different pressures.
 </li>
 <li><i>February 6, 2010</i> by Michael Wetter:<br/>
-Added to <code>Medium.BaseProperties</code> the initialization 
+Added to <code>Medium.BaseProperties</code> the initialization
 <code>X(start=X_start[1:Medium.nX])</code>. Previously, the initialization
 was only done for <code>Xi</code> but not for <code>X</code>, which caused the
 medium to be initialized to <code>reference_X</code>, ignoring the value of <code>X_start</code>.
 </li>
 <li><i>October 12, 2009</i> by Michael Wetter:<br/>
-Implemented first version in <code>Buildings</code> library, based on model from
+Implemented first version in <code>Annex60</code> library, based on model from
 <code>Modelica.Fluid 1.0</code>.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics),
     Icon(graphics={            Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={135,135,135},

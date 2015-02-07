@@ -1,3 +1,4 @@
+Phi_pTX
 pW_TDewPoi
 pW_X
 SaturationPressure
@@ -11,6 +12,8 @@ TWetBul_TDryBulXi
 X_pTphi
 X_pW
 WetBul_pTX
+Constants
 Functions
 Examples
 BaseClasses
+
