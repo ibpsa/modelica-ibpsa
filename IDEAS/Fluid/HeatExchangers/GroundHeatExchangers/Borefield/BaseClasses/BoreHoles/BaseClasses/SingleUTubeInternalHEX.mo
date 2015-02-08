@@ -20,13 +20,15 @@ model SingleUTubeInternalHEX
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal1,
       final m_flow_small=m1_flow_small,
-      V=gen.volOneLegSeg*scaSeg),
+      V=gen.volOneLegSeg*scaSeg,
+      mFactor=mFactor),
     redeclare IDEAS.Fluid.MixingVolumes.MixingVolume vol2(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m2_flow_small,
-      V=gen.volOneLegSeg*scaSeg));
+      V=gen.volOneLegSeg*scaSeg,
+      mFactor=mFactor));
 
   parameter Modelica.SIunits.Temperature TFil_start=gen.TFil0_start
     "Initial temperature of the filling material"
@@ -136,6 +138,8 @@ public
     "Convective and thermal resistance at fluid 2"
      annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
 
+  parameter Real mFactor=1
+    "Factor for scaling the thermal mass of the bore field fluid";
 initial equation
   (Rgb_val, Rgg_val, RCondGro_val, x) =
     singleUTubeResistances(hSeg=gen.hSeg,

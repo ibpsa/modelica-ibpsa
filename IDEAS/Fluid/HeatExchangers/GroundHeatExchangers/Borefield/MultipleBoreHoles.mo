@@ -105,7 +105,8 @@ public
     final scaSeg=bfData.gen.nbBh*bfData.gen.nVer,
     final T1_start=T_start,
     final T2_start=T_start,
-    final TFil_start=T_start)
+    final TFil_start=T_start,
+    mFactor=mFactor)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(extent={{-12,13},{12,-13}},
         rotation=270,
