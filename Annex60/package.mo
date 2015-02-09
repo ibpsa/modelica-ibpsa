@@ -74,48 +74,49 @@ in addition to the ones of the Modelica Standard Library:
 
 <ol>
 <li>
-The nomenclature used in the package
-<a href=\"modelica://Annex60.Utilities.Psychrometrics\">
-Annex60.Utilities.Psychrometrics</a>
- is as follows,
-<ul>
-<li>
-Uppercase <code>X</code> denotes mass fraction per total mass.
+  The nomenclature used in the package
+  <a href=\"modelica://Annex60.Utilities.Psychrometrics\">
+  Annex60.Utilities.Psychrometrics</a>
+   is as follows,
+  <ul>
+    <li>
+      Uppercase <code>X</code> denotes mass fraction per total mass.
+    </li>
+    <li>
+      Lowercase <code>x</code> denotes mass fraction per mass of dry air.
+    </li>
+    <li>
+      The notation <code>z_xy</code> denotes that the function or block has output
+      <code>z</code> and inputs <code>x</code> and <code>y</code>.
+      </li>
+    <li>
+      The symbol <code>pW</code> denotes water vapor pressure, <code>TDewPoi</code>
+      denotes dew point temperature, <code>TWetBul</code> denotes wet bulb temperature,
+      and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature.
+    </li>
+  </ul>
 </li>
 <li>
-Lowercase <code>x</code> denotes mass fraction per mass of dry air.
+  Names of models, blocks and packages should start with an upper-case letter and be a
+  noun or a noun with a combination of adjectives and nouns.
+  Use camel-case notation to combine multiple words, such as <code>HeatTransfer</code>.
 </li>
 <li>
-The notation <code>z_xy</code> denotes that the function or block has output
-<code>z</code> and inputs <code>x</code> and <code>y</code>.
+  Parameter and variables names are usually a character, such as <code>T</code>
+  for temperature and <code>p</code> for pressure, or a combination of the first three
+  characters of a word, such as <code>higPreSetPoi</code> for high pressure set point.
 </li>
 <li>
-The symbol <code>pW</code> denotes water vapor pressure, <code>TDewPoi</code>
-denotes dew point temperature, <code>TWetBul</code> denotes wet bulb temperature,
-and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature.
-</li>
-</ul>
-<li>
-Names of models, blocks and packages should start with an upper-case letter and be a
-noun or a noun with a combination of adjectives and nouns.
-Use camel-case notation to combine multiple words, such as <code>HeatTransfer</code>.
+  Comments should be added to each class (package, model, function etc.).
+  The first character should be upper case.
+  For one-line comments of parameters, variables and classes, no period should be used at the end of the comment.
 </li>
 <li>
-Parameter and variables names are usually a character, such as <code>T</code>
-for temperature and <code>p</code> for pressure, or a combination of the first three
-characters of a word, such as <code>higPreSetPoi</code> for high pressure set point.
+  Where applicable, all variable must have units, also if the variable is protected.
 </li>
 <li>
-Comments should be added to each class (package, model, function etc.).
-The first character should be upper case.
-For one-line comments of parameters, variables and classes, no period should be used at the end of the comment.
-</li>
-<li>
-Where applicable, all variable must have units, also if the variable is protected.
-</li>
-<li>
-To indicate that a class (i.e., a package, model, block etc.) has not been extensively tested or validated,
-its class name ends with the string <code>Beta</code>.
+  To indicate that a class (i.e., a package, model, block etc.) has not been extensively tested or validated,
+  its class name ends with the string <code>Beta</code>.
 </li>
 </ol>
 </html>"));
