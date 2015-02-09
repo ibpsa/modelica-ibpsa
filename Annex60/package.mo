@@ -186,6 +186,7 @@ Library point of contact<br/>
   Energy Efficiency and Renewable Energy, Office of Building
   Technologies of the U.S. Department of Energy, under
   contract No. DE-AC02-05CH11231.
+ </li>
  <li>
  fixme: add other funding agencies as appropriate.
  </li>
