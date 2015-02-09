@@ -461,6 +461,7 @@ The library has the following <i>User's Guides</i>:
 <tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">Fluid.Sensors</a>
    </td>
    <td valign=\"top\">Package with sensors.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.Interfaces.UsersGuide\">Fluid.Interfaces</a>
    </td>
    <td valign=\"top\">Base models that can be used by developers to implement new models.</td>
