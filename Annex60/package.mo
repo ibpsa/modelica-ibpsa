@@ -375,6 +375,7 @@ Furthermore, add the list of authors and contributors under
 For example, sublibrary Modelica.Blocks of the Modelica Standard Library may have the following notices:</p>
 <ul><li style=\"list-style-type:none\">
 Licensed by Modelica Association under the Modelica License 2 Copyright (c) 1998-2008, Modelica Association.
+</li>
 <li style=\"list-style-type:none\"><i>
 This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at
 <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>.
