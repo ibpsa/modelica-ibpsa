@@ -1,13 +1,11 @@
 within IDEAS.Fluid.Production;
 model HP_WaterWater_TSet
   "A water (or brine) to water heat pump with temperature setpoint"
-  extends IDEAS.Fluid.Production.BaseClasses.PartialHeatPump(redeclare replaceable parameter
-      IDEAS.Fluid.Production.BaseClasses.HeatPumpData heatPumpData constrainedby
-      IDEAS.Fluid.Production.BaseClasses.HeatPumpData);
+  extends IDEAS.Fluid.Production.BaseClasses.PartialHeatPump(final use_TSet = true);
 
-  Modelica.Blocks.Sources.RealExpression TsetLimit(y=Tset - vol2.heatPort.T)
-    annotation (Placement(transformation(extent={{-70,-46},{-28,-26}})));
-  Modelica.Blocks.Interfaces.RealInput Tset "Condensor temperature setpoint"
+  Modelica.Blocks.Sources.RealExpression TSetLimit(y=TSet - vol2.heatPort.T)
+    annotation (Placement(transformation(extent={{-34,-10},{8,10}})));
+  Modelica.Blocks.Interfaces.RealInput TSet "Condensor temperature setpoint"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
@@ -16,17 +14,17 @@ model HP_WaterWater_TSet
         rotation=270,
         origin={-50,100})));
 
-  Modelica.Blocks.Logical.Hysteresis hysteresisTsetLimit(uLow=uLow, uHigh=uHigh)
-    annotation (Placement(transformation(extent={{-16,-46},{4,-26}})));
+  Modelica.Blocks.Logical.Hysteresis hysteresisTSetLimit(uLow=uLow, uHigh=uHigh)
+    annotation (Placement(transformation(extent={{22,-10},{42,10}})));
   parameter Real uLow=-2.5
     "Lower bound of the hysteresis in the tempeature controller";
   parameter Real uHigh=2.5
     "Upper bound of the hysteresis in the tempeature controller";
 equation
-  compressorOn = on_internal and tempProtection.y and hysteresisTsetLimit.y;
+  connect(on_TSetControl_internal, hysteresisTSetLimit.y);
 
-  connect(TsetLimit.y, hysteresisTsetLimit.u) annotation (Line(
-      points={{-25.9,-36},{-18,-36}},
+  connect(TSetLimit.y, hysteresisTSetLimit.u) annotation (Line(
+      points={{10.1,0},{20,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

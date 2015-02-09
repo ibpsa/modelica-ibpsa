@@ -4,6 +4,7 @@ HeatSource_CondensingGasBurner
 HeatSource_HP_AW
 PartialHeatPump
 HeatPumpData
-VitoCal300GBWS301dotA08
-VitoCal300GBWS301dotA29
-VitoCal300GBWS301dotA45
+HeatSources
+PartialData
+PartialHeatSource
+PartialProduction
