@@ -152,7 +152,7 @@ on the <code>Annex60</code> library.
     extends Modelica.Icons.Contact;
     annotation (preferredView="info",
     Documentation(info="<html>
-<h4><font color=\"#008000\" size=5>Contact</font></h4>
+<h4><font color=\"#008000\" size=\"5\">Contact</font></h4>
 <p>
 The development of the <code>Annex60</code> library is done through the
 <a href=\"http://www.iea-annex60.org\">Annex 60</a> project of the
@@ -177,7 +177,7 @@ Library point of contact<br/>
     extends Modelica.Icons.Information;
     annotation (preferredView="info",
     Documentation(info="<html>
-<h4><font color=\"#008000\" size=5>Acknowledgements</font></h4>
+<h4><font color=\"#008000\" size=\"5\">Acknowledgements</font></h4>
 <p>
  The development of this library was supported
 </p>
@@ -210,7 +210,7 @@ xxx add contributors for the first version in alphabetical order.
     extends Modelica.Icons.Information;
     annotation (preferredView="info",
     Documentation(info="<html>
-<h4><font color=\"#008000\" size=5>The Modelica License 2</font></h4>
+<h4><font color=\"#008000\" size=\"5\">The Modelica License 2</font></h4>
 <p>
 <strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work.
 </p>
@@ -398,7 +398,7 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
     extends Modelica.Icons.Information;
     annotation (preferredView="info",
     Documentation(info="<html>
-<h4><font color=\"#008000\" size=5>Copyright</font></h4>
+<h4><font color=\"#008000\" size=\"5\">Copyright</font></h4>
 <p>
 Copyright (c) 2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
 </p>
@@ -444,7 +444,7 @@ to solve specific problems.
 <p>
 The library has the following <i>User's Guides</i>:
 </p>
-<table summary=\"summary\" border=1 cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.UsersGuide\">Fluid</a>
    </td>
    <td valign=\"top\">Package for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
