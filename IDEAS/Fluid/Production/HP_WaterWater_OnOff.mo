@@ -1,14 +1,7 @@
 within IDEAS.Fluid.Production;
 model HP_WaterWater_OnOff
   "A water (or brine) to water heat pump with on/off input"
-  extends IDEAS.Fluid.Production.BaseClasses.PartialHeatPump(redeclare replaceable parameter
-      IDEAS.Fluid.Production.BaseClasses.HeatPumpData heatPumpData constrainedby
-      IDEAS.Fluid.Production.BaseClasses.HeatPumpData);
-
-  // check https://github.com/open-ideas/IDEAS/issues/17 for a discussion on why CombiTable2D is used
-
-equation
-   compressorOn = on_internal and tempProtection.y;
+  extends IDEAS.Fluid.Production.BaseClasses.PartialHeatPump(final use_TSet = false);
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(graphics={
