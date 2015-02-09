@@ -73,7 +73,7 @@ Fluid ports declare the variables listed in the table below.
       Users who need to access the actual enthalpy for the given flow
       direction can do so using the sensor
       <a href=\"modelica://Annex60.Fluid.Sensors.SpecificEnthalpyTwoPort\">
-      Annex60.Fluid.Sensors.SpecificEnthalpyTwoPort</a>.
+      Annex60.Fluid.Sensors.SpecificEnthalpyTwoPort</a>.</td>
 </tr>
 <tr>
   <td><code>Xi_outflow[Medium.nXi]</code></td>
