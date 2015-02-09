@@ -394,6 +394,7 @@ This function computes the specific entropy.
 </p>
 <p>
 The specific entropy of the mixture is obtained from
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 s = s<sub>s</sub> + s<sub>m</sub>,
 </p>
@@ -406,6 +407,7 @@ of the dry air and water vapor.
 </p>
 <p>
 The entropy change due to change in state is obtained from
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(v/v<sub>0</sub>) <br/>
 = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(&rho;<sub>0</sub>/&rho;)
