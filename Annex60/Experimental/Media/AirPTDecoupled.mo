@@ -274,6 +274,7 @@ This function computes the specific entropy.
 </p>
 <p>
 The specific entropy of the mixture is obtained from
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 s = s<sub>s</sub> + s<sub>m</sub>,
 </p>
