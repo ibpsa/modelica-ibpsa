@@ -18,7 +18,8 @@ partial model StateWallNoSol
     __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
-  ZoneBus propsBus_a annotation (Placement(transformation(
+  ZoneBus propsBus_a(numAng=incidenceAngles.numAng)
+                     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={50,40}), iconTransformation(
@@ -29,6 +30,13 @@ partial model StateWallNoSol
     annotation (Placement(transformation(extent={{80,54},{60,74}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif(Q_flow=0)
     annotation (Placement(transformation(extent={{80,72},{60,92}})));
+  inner IncidenceAngles incidenceAngles(
+    offset=sim.incidenceAngles.offset,
+    numAng=sim.incidenceAngles.numAng,
+    lat=sim.incidenceAngles.lat)
+    annotation (Placement(transformation(extent={{-100,82},{-80,102}})));
+  outer SimInfoManager       sim
+    annotation (Placement(transformation(extent={{-66,78},{-46,98}})));
 equation
   connect(iSolDif.port, propsBus_a.iSolDif) annotation (Line(
       points={{60,82},{46,82},{46,40},{50,40}},

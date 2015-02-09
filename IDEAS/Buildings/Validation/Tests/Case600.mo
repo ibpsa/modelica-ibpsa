@@ -26,6 +26,8 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
+  inner Components.IncidenceAngles incidenceAngles
+    annotation (Placement(transformation(extent={{-80,82},{-60,102}})));
   annotation (
     experiment(
       StopTime=3.1536e+007,
