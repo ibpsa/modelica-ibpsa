@@ -42,8 +42,7 @@ model OuterWall "Opaque building envelope construction"
         AWall, final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs(final A=
-       AWall)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation extRad(final A=
@@ -143,7 +142,7 @@ equation
       smooth=Smooth.None));
 
   connect(radSolData.solDir, gainDir.u) annotation (Line(
-      points={{-71.4,-24},{-64,-24},{-64,-24},{-58.8,-24}},
+      points={{-71.4,-24},{-58.8,-24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gainDif.u, radSolData.solDif) annotation (Line(
