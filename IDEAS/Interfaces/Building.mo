@@ -60,9 +60,11 @@ model Building
     standAlone
     annotation (Placement(transformation(extent={{62,-40},{78,-24}})));
 
-  Fluid.Interfaces.FlowPort_a flowPort_supply if isDH
+  Fluid.Interfaces.FlowPort_a flowPort_supply(redeclare package Medium = Medium)
+    if                                           isDH
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-  Fluid.Interfaces.FlowPort_b flowPort_return if isDH
+  Fluid.Interfaces.FlowPort_b flowPort_return(redeclare package Medium = Medium)
+    if                                           isDH
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
   final parameter Boolean InInterface = true;
 
