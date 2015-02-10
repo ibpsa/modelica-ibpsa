@@ -2,6 +2,9 @@ within IDEAS.Interfaces.BaseClasses;
 partial model HeatingSystem "Partial heating/cooling system"
 
   extends IDEAS.Interfaces.BaseClasses.PartialSystem;
+
+  replaceable package Medium=IDEAS.Media.Water.Simple;
+
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 
