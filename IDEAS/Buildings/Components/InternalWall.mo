@@ -44,7 +44,7 @@ protected
   Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
     annotation (Placement(transformation(extent={{16,50},{36,70}})));
 public
-  Interfaces.ZoneBus propsBus_b(numAng=incidenceAngles.numAng)
+  Interfaces.ZoneBus propsBus_b(numAzi=sim.numAzi)
                                 annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,
