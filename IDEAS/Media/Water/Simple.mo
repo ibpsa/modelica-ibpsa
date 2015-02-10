@@ -16,9 +16,7 @@ package Simple "Package with model for liquid water with constant density"
   end ThermodynamicState;
 
   redeclare model BaseProperties "Base properties"
-    Modelica.SIunits.Temperature T(stateSelect=if
-          preferredMediumStates then StateSelect.prefer else StateSelect.default)
-      "Temperature of medium";
+    Modelica.SIunits.Temperature T "Temperature of medium";
     InputAbsolutePressure p(stateSelect=if
           preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Absolute pressure of medium";

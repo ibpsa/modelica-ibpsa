@@ -74,20 +74,20 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
     m_flow=1,
     nPorts=1)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  IDEAS.Fluid.Sources.Boundary_pT sin1(            redeclare package Medium =
-               Medium, T=273.15 + 10,
+  IDEAS.Fluid.Sources.Boundary_pT sin1(            redeclare package Medium
+      =        Medium, T=273.15 + 10,
     nPorts=2,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
           extent={{120,-40},{100,-20}})));
-  IDEAS.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium =
-               Medium,
+  IDEAS.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium
+      =        Medium,
     nPorts=1,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
           extent={{120,50},{100,70}})));
-  IDEAS.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium =
-               Medium,
+  IDEAS.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium
+      =        Medium,
     nPorts=1,
     p(displayUnit="Pa") = 101335,
     use_p_in=true)                    annotation (Placement(transformation(
@@ -110,9 +110,9 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
   IDEAS.Fluid.Sensors.MassFlowRate senMasFlo4(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  IDEAS.Utilities.Diagnostics.AssertEquality assertEquality
+  IDEAS.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-1)
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
-  IDEAS.Utilities.Diagnostics.AssertEquality assertEquality1
+  IDEAS.Utilities.Diagnostics.AssertEquality assertEquality1(threShold=1E-1)
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 equation
   connect(res11.port_b, res12.port_a)
