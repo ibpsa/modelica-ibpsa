@@ -2,8 +2,7 @@ within IDEAS.Buildings.Components;
 model Zone "thermal building zone"
   import Buildings;
 
-  extends IDEAS.Buildings.Components.Interfaces.StateZone(propsBus(each numAng=
-          sim.incidenceAngles.numAng));
+  extends IDEAS.Buildings.Components.Interfaces.StateZone;
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
       Medium =
         IDEAS.Media.Air);

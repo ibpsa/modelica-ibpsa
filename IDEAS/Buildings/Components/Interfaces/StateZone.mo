@@ -16,7 +16,8 @@ partial model StateZone "Partial model for thermal building zones"
     "Sensor temperature of the zone, i.e. operative temeprature" annotation (
       Placement(transformation(extent={{96,-10},{116,10}}), iconTransformation(
           extent={{96,-10},{116,10}})));
-  ZoneBus[nSurf] propsBus annotation (Placement(transformation(
+  ZoneBus[nSurf] propsBus(each final numAzi=sim.numAzi)
+                          annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,
         origin={-100,40}), iconTransformation(
@@ -70,6 +71,14 @@ partial model StateZone "Partial model for thermal building zones"
           fontName="Calibri",
           origin={-2,3},
           rotation=0,
-          textString="%name")}));
+          textString="%name")}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+February 10, 2015 by Filip Jorissen:<br/>
+Adjusted implementation for grouping of solar calculations.
+</li>
+</ul>
+</html>"));
 
 end StateZone;

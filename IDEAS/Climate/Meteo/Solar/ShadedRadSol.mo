@@ -61,5 +61,13 @@ equation
           extent={{88,84},{40,38}},
           lineColor={255,255,0},
           fillColor={255,255,0},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+February 10, 2015 by Filip Jorissen:<br/>
+Adjusted implementation for grouping of solar calculations.
+</li>
+</ul>
+</html>"));
 end ShadedRadSol;

@@ -9,7 +9,10 @@ partial model PartialSimInfoManager
     "latitude of the locatioin";
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 0.075921822461753;
   parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = 3600
-    "standard time zone";
+    "standard time zone"
+    annotation(Dialog(tab="Incidence angles"));
+  parameter Integer numAzi=4 "Number of azimuth angles that are calculated"
+    annotation(Dialog(tab="Incidence angles"));
 
   final parameter String filNamClim=filDir + filNam;
 
@@ -28,8 +31,7 @@ protected
 
   final parameter Boolean BesTest = Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
     "boolean to determine if this simulation is a BESTEST simulation";
-  parameter Integer numAng=4
-    "Number of vertical incidence angles that are calculated";
+
 public
   Modelica.SIunits.Irradiance solDirPer
     "direct irradiation on normal to solar zenith";
@@ -102,11 +104,8 @@ protected
     annotation (Placement(transformation(extent={{-110,78},{-90,98}})));
   Modelica.Blocks.Sources.RealExpression solDifHorIn(y=solDifHor)
     annotation (Placement(transformation(extent={{-110,62},{-90,82}})));
+
 public
-  Buildings.Components.IncidenceAngles       incidenceAngles(lat=lat,
-    offset=offset,
-    numAng=numAng)
-    annotation (Placement(transformation(extent={{80,82},{100,102}})));
   Modelica.Blocks.Sources.RealExpression hour(y=angHou) "Hour angle"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
   Modelica.Blocks.Sources.RealExpression dec(y=angDec) "declination angle"
@@ -115,21 +114,21 @@ public
     "Perpendicular direct solar radiation"
     annotation (Placement(transformation(extent={{60,74},{34,94}})));
 protected
-  parameter SI.Angle inc[numAng + 1]=cat(
+  parameter SI.Angle inc[numAzi + 1]=cat(
       1,
-      fill(incidenceAngles.roofInc,1),
-      fill(Modelica.Constants.pi/2, numAng)) "surface inclination";
+      fill(ceilingInc,1),
+      fill(Modelica.Constants.pi/2, numAzi)) "surface inclination";
 public
-  BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAng + 1)
+  BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAzi + 1)
     annotation (Placement(transformation(extent={{4,62},{24,82}})));
   Climate.Meteo.Solar.ShadedRadSol[
-                             numAng+1] radSol(
+                             numAzi+1] radSol(
     inc=inc,
     azi=cat(
         1,
         fill(0,1),
-        fill(Modelica.Constants.pi/2, numAng)),
-    each numAng=numAng,
+        fill(Modelica.Constants.pi/2, numAzi)),
+    each numAzi=numAzi,
     each lat=lat)
              annotation (Placement(transformation(extent={{44,54},{64,74}})));
 public
@@ -144,7 +143,9 @@ public
     annotation (Placement(transformation(extent={{66,24},{40,44}})));
   Modelica.Blocks.Sources.RealExpression TdesExpr(y=Tdes)
     annotation (Placement(transformation(extent={{66,-20},{40,0}})));
-  parameter SI.Angle offset=0 "Offset for the incidence angle series";
+  parameter SI.Angle offsetAzi=0 "Offset for the azimuth angle series";
+  parameter SI.Angle ceilingInc = IDEAS.Constants.Ceiling
+    "Ceiling inclination angle";
 equation
 
   connect(timMan.timSol, weaDat.sol) annotation (Line(
@@ -208,7 +209,7 @@ equation
       points={{38.7,4},{14,4},{14,72}},
       color={0,0,127},
       smooth=Smooth.None));
-  for i in 1:numAng+1 loop
+  for i in 1:numAzi+1 loop
     connect(radSol[i].weaBus, weaBus) annotation (Line(
       points={{44,72},{14,72}},
       color={255,204,51},
@@ -345,5 +346,12 @@ equation
             100,100}}),
             graphics),
     Documentation(info="<html>
+</html>", revisions="<html>
+<ul>
+<li>
+February 10, 2015 by Filip Jorissen:<br/>
+Adjusted implementation for grouping of solar calculations.
+</li>
+</ul>
 </html>"));
 end PartialSimInfoManager;

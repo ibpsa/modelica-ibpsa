@@ -4,12 +4,12 @@ model RadSol "solar angle to surface"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
   parameter Boolean remDefVals = false "Remove default signal values";
-  parameter Integer numAng;
+  parameter Integer numAzi;
   parameter Modelica.SIunits.Angle inc(displayUnit="degree") "inclination";
   parameter Modelica.SIunits.Angle azi(displayUnit="degree") "azimuth";
   parameter Modelica.SIunits.Angle lat(displayUnit="degree") "latitude";
 
-  BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAng + 1)
+  BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAzi + 1)
     annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
   Buildings.Components.Interfaces.SolBus solBus
     annotation (Placement(transformation(extent={{80,-20},{120,20}})));
@@ -74,7 +74,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(perez.solDifTil, solBus.iSolDif) annotation (Line(
-      points={{20,8},{96,8},{96,0},{96,0},{96,0},{100,0}},
+      points={{20,8},{96,8},{96,0},{100,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angSolar.angInc, solBus.angInc) annotation (Line(
@@ -110,5 +110,13 @@ equation
           extent={{88,84},{40,38}},
           lineColor={255,255,0},
           fillColor={255,255,0},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+February 10, 2015 by Filip Jorissen:<br/>
+Adjusted implementation for grouping of solar calculations.
+</li>
+</ul>
+</html>"));
 end RadSol;
