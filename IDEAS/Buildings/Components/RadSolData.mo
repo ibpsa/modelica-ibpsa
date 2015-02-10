@@ -8,7 +8,7 @@ model RadSolData
   parameter SI.Angle inc "inclination";
   parameter SI.Angle azi "azimuth";
   parameter SI.Angle lat "latitude";
-  parameter Integer solDataIndex = 1+integer(floor(mod((azi-incidenceAngles.offset)/Modelica.Constants.pi/2,1)*incidenceAngles.numAng));
+  parameter Integer solDataIndex = if incidenceAngles.roofInc == inc then 1 else  2+integer(floor(mod((azi-incidenceAngles.offset)/Modelica.Constants.pi/2,1)*incidenceAngles.numAng));
 protected
   Climate.Meteo.Solar.ShadedRadSol radSol(
     final inc=inc,
