@@ -106,7 +106,7 @@ public
     final T1_start=T_start,
     final T2_start=T_start,
     final TFil_start=T_start,
-    mFactor=mFactor)
+    mSenFac=mSenFac)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(extent={{-12,13},{12,-13}},
         rotation=270,
