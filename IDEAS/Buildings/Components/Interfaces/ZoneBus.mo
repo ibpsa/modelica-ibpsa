@@ -14,5 +14,5 @@ expandable connector ZoneBus
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir;
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif;
   BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAzi+1)
-    annotation(HideResuls=true);
+    annotation(HideResult=true);
 end ZoneBus;
