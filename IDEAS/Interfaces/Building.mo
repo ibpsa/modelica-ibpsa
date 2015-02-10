@@ -21,7 +21,7 @@ model Building
 
   replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem
     constrainedby IDEAS.Interfaces.BaseClasses.HeatingSystem(
-    final Medium=Medium,
+    redeclare package Medium=Medium,
     final isDH=isDH,
     final nZones = building.nZones,
     final nEmbPorts = building.nEmb,
