@@ -98,11 +98,6 @@ public
     annotation (Placement(transformation(extent={{-70,-62},{-62,-54}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  inner IncidenceAngles incidenceAngles(
-    offset=sim.incidenceAngles.offset,
-    numAng=sim.incidenceAngles.numAng,
-    lat=sim.incidenceAngles.lat)
-    annotation (Placement(transformation(extent={{-100,82},{-80,102}})));
 initial equation
   QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
