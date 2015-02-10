@@ -68,7 +68,7 @@ protected
     linearizeFlowResistance=linearizeFlowResistance,
     deltaM=deltaM,
     homotopyInitialization=homotopyInitialization,
-    mFactor= if mWater > Modelica.Constants.eps then 1 + cDry/Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))/mWater else 0)
+    mSenFac= if mWater > Modelica.Constants.eps then 1 + cDry/Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))/mWater else 0)
          annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -126,7 +126,8 @@ equation
   connect(pipe_HeatPort.port_b, TOut.port_a) annotation (Line(
       points={{40,4},{40,60},{70,60}},
       color={0,127,255},
-      smooth=Smooth.None));  annotation (
+      smooth=Smooth.None));
+                             annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
           preserveAspectRatio=false), graphics),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=false),

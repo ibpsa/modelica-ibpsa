@@ -9,23 +9,9 @@ partial model PartialTwoPort
         IDEAS.Media.Water.Simple);
 
   parameter Modelica.SIunits.Mass m(start=1) = 1 "Mass of medium";
-  // I remove this parameter completely because it can lead to wrong models!!!
-  // See note in evernote of RDC
-  //parameter Real tapT(final min=0, final max=1)=1
-  //  "Defines temperature of heatPort between inlet and outlet temperature";
-
- // Modelica.SIunits.Temperature T(start=TInitial) "Outlet temperature of medium";
-//  Modelica.SIunits.Temperature T_a(start=TInitial) = flowPort_a.h/medium.cp
- //   "Temperature at flowPort_a";
- // Modelica.SIunits.Temperature T_b(start=TInitial) = flowPort_b.h/medium.cp
-  //  "Temperature at flowPort_b";
-
- // Modelica.SIunits.TemperatureDifference dT(start=0) = if noEvent(flowPort_a.m_flow
-  //   >= 0) then T - T_a else T_b - T
-  //  "Outlet temperature minus inlet temperature";
-
-  //Modelica.SIunits.SpecificEnthalpy h(start=Medium.specificEnthalpy(Medium.setState_pTX(Medium.p_default, TInitial, Medium.X_default)))
-    //"Medium's specific enthalpy";
+  parameter Boolean dynamicBalance = true
+    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
+    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
 
   IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
@@ -40,13 +26,9 @@ partial model PartialTwoPort
     nPorts=1,
     final V=m/Medium.density(Medium.setState_phX(Medium.p_default, Medium.h_default, Medium.X_default)),
     C_nominal=C_nominal,
-    mFactor=mFactor,
+    mSenFac=mSenFac,
     m_flow_small=m_flow_small)
     annotation (Placement(transformation(extent={{-44,0},{-64,20}})));
-
-  parameter Boolean dynamicBalance = true
-    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
 
 equation
   connect(port_a, vol.ports[1]) annotation (Line(

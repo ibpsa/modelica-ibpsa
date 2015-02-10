@@ -74,7 +74,7 @@ protected
     C_start=C_start,
     C_nominal=C_nominal,
     allowFlowReversal=allowFlowReversal,
-    mFactor=corrCV)                            annotation (Placement(
+    mSenFac=corrCV)                            annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,

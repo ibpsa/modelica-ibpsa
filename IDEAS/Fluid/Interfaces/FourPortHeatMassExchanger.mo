@@ -78,8 +78,7 @@ model FourPortHeatMassExchanger
     final T_start=T1_start,
     final X_start=X1_start,
     final C_start=C1_start,
-    final C_nominal=C1_nominal,
-    final mSenFac=1) "Volume for fluid 1"
+    final C_nominal=C1_nominal) "Volume for fluid 1"
                                annotation (Placement(transformation(extent={{-10,70},
             {10,50}})));
 
@@ -88,7 +87,6 @@ model FourPortHeatMassExchanger
     redeclare final package Medium = Medium2,
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,
-    final mSenFac=1,
     final m_flow_nominal = m2_flow_nominal,
     energyDynamics=if tau2 > Modelica.Constants.eps
                          then energyDynamics else
@@ -184,6 +182,7 @@ initial algorithm
 "The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
+
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
