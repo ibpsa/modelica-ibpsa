@@ -5,7 +5,7 @@ partial model Structure "Partial model for building structure models"
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{130,-100},{150,-80}})));
 
-  replaceable package Medium = IDEAS.Media.Air
+  replaceable package Medium = IDEAS.Experimental.Media.AirPTDecoupled
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
       annotation (choicesAllMatching = true);

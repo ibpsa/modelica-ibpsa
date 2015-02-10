@@ -33,10 +33,6 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-30,-70})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "heatPort for thermal losses to environment" annotation (Placement(
-        transformation(extent={{-40,-110},{-20,-90}}), iconTransformation(
-          extent={{-40,-110},{-20,-90}})));
 
 public
   Modelica.Blocks.Interfaces.RealInput TSet "Temperature setpoint"
@@ -46,7 +42,7 @@ public
         rotation=-90,
         origin={-40,120})));
   Modelica.Blocks.Interfaces.RealOutput PEl "Electrical consumption"
-    annotation (Placement(transformation(extent={{-252,10},{-232,30}}),
+    annotation (Placement(transformation(extent={{-94,46},{-114,66}}),
         iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -95,16 +91,15 @@ public
     annotation (Dialog(tab="Flow resistance"));
   IDEAS.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "heatPort for thermal losses to environment"
+    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+  IDEAS.Fluid.Sensors.TemperatureTwoPort TOut(
+                                             redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal) "Inlet temperature"
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
 equation
 
-  connect(thermalLosses.port_b, heatPort) annotation (Line(
-      points={{-30,-80},{-30,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(pipe_HeatPort.port_b, port_b) annotation (Line(
-      points={{40,4},{40,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(port_a, Tin.port_a) annotation (Line(
       points={{100,-60},{90,-60}},
       color={0,127,255},
@@ -121,7 +116,17 @@ equation
       points={{50,-60},{40,-60},{40,-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (
+  connect(thermalLosses.port_b, heatPort) annotation (Line(
+      points={{-30,-80},{-30,-100},{-30,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));  connect(port_b, TOut.port_b) annotation (Line(
+      points={{100,60},{90,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipe_HeatPort.port_b, TOut.port_a) annotation (Line(
+      points={{40,4},{40,60},{70,60}},
+      color={0,127,255},
+      smooth=Smooth.None));  annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
           preserveAspectRatio=false), graphics),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=false),
