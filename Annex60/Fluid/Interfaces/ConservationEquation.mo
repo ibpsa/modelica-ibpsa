@@ -21,9 +21,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
       stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
                      then StateSelect.prefer else StateSelect.default),
     h(start=hStart),
-    T(start=T_start,
-      stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
-                     then StateSelect.prefer else StateSelect.default),
+    T(start=T_start),
     Xi(start=X_start[1:Medium.nXi],
        each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
@@ -280,7 +278,12 @@ of heat exchangers (to avoid consistent but redundant initial conditions)
 and hence it should be set as a <code>constant</code>.
 </li>
 <li>
-October 21, 2014, by Filip Jorissen:<br/>
+February 3, 2015, by Michael Wetter:<br/>
+Removed <code>stateSelect.prefer</code> for temperature.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/160\">#160</a>.
+</li>
+<li>October 21, 2014, by Filip Jorissen:<br/>
 Added parameter <code>mFactor</code> to increase the thermal capacity.
 </li>
 <li>
