@@ -2,11 +2,13 @@ within Annex60.Fluid.Interfaces;
 model ConservationEquation "Lumped volume with mass and energy balance"
 
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
+  constant Boolean initialize_p = not Medium.singleState
+    "= true to set up initial equations for pressure"
+    annotation(HideResult=true);
+
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  parameter Boolean initialize_p = not Medium.singleState
-    "= true to set up initial equations for pressure";
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -269,13 +271,19 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+February 5, 2015, by Michael Wetter:<br/>
+Changed <code>initalize_p</code> from a <code>parameter</code> to a
+<code>constant</code>. This is only required in finite volume models
+of heat exchangers (to avoid consistent but redundant initial conditions)
+and hence it should be set as a <code>constant</code>.
+</li>
+<li>
 February 3, 2015, by Michael Wetter:<br/>
 Removed <code>stateSelect.prefer</code> for temperature.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/160\">#160</a>.
 </li>
-<li>
-October 21, 2014, by Filip Jorissen:<br/>
+<li>October 21, 2014, by Filip Jorissen:<br/>
 Added parameter <code>mFactor</code> to increase the thermal capacity.
 </li>
 <li>
