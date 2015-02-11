@@ -4,10 +4,7 @@ model BoundaryWall "Opaque wall with boundary conditions"
   extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
-  parameter Modelica.SIunits.Angle inc
-    "Inclination of the wall, i.e. 90deg denotes vertical";
-  parameter Modelica.SIunits.Angle azi
-    "Azimuth of the wall, i.e. 0deg denotes South";
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "Port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));

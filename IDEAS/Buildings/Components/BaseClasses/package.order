@@ -17,3 +17,6 @@ ExteriorHeatRadiation
 SwWindowResponse
 ThermalResistor
 HeatCapacitor
+ZoneLwDistributionViewFactor
+viewFactorRectRectPerp
+viewFactorRectRectPar

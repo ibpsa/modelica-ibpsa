@@ -1,16 +1,13 @@
 within IDEAS.Buildings.Components;
 model InternalWall "interior opaque wall between two zones"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(incExp(y=inc +
+          Modelica.Constants.pi), aziExp(y=azi));
 
   parameter Modelica.SIunits.Length insulationThickness
     "Thermal insulation thickness"
     annotation (Dialog(group="Construction details"));
   parameter Modelica.SIunits.Area AWall "Total wall area";
-  parameter Modelica.SIunits.Angle inc
-    "Inclination of the wall, i.e. 90deg denotes vertical";
-  parameter Modelica.SIunits.Angle azi
-    "Azimuth of the wall, i.e. 0deg denotes South";
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the layers";
 
@@ -34,11 +31,11 @@ protected
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     final A=AWall,
-    final inc=inc,
     final nLay=constructionType.nLay,
     final mats=constructionType.mats,
     final locGain=constructionType.locGain,
-    T_start=ones(constructionType.nLay)*T_start)
+    T_start=ones(constructionType.nLay)*T_start,
+    inc=inc)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
@@ -57,6 +54,11 @@ public
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDir1(
                                                               Q_flow=0)
     annotation (Placement(transformation(extent={{10,50},{-10,70}})));
+  Modelica.Blocks.Sources.RealExpression incExp1(y=inc) "Inclination angle"
+    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
+  Modelica.Blocks.Sources.RealExpression aziExp1(y=azi)
+    "Azimuth angle expression"
+    annotation (Placement(transformation(extent={{-90,54},{-70,74}})));
 equation
   connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
       points={{10,-30},{14,-30},{14,40},{50,40}},
@@ -156,6 +158,14 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(incExp1.y, propsBus_b.inc) annotation (Line(
+      points={{-69,80},{-50,80},{-50,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(aziExp1.y, propsBus_b.azi) annotation (Line(
+      points={{-69,64},{-60,64},{-60,40},{-50,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
         graphics={
@@ -190,8 +200,8 @@ equation
           smooth=Smooth.None,
           color={0,0,0},
           thickness=0.5)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
+                    graphics),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>

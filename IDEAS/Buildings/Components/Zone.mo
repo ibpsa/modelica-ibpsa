@@ -10,6 +10,8 @@ model Zone "thermal building zone"
   parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Assumptions"));
+  parameter Boolean calculateViewFactor = true
+    "Explicit calculation of view factors: only for simple zones!";
 
   parameter Modelica.SIunits.Volume V "Total zone air volume";
   parameter Real n50(min=0.01)=0.4
@@ -27,7 +29,9 @@ model Zone "thermal building zone"
   parameter Real fRH=11
     "Reheat factor for calculation of design heat load, (EN 12831, table D.10 Annex D)"
                                                                                         annotation(Dialog(group="Design heat load"));
-  parameter Modelica.SIunits.Area A = 0 "Total conditioned floor area" annotation(Dialog(group="Design heat load"));
+  parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area" annotation(Dialog(group="Design heat load"));
+  parameter Modelica.SIunits.Length hZone = 2.8
+    "Zone height: distance between floor and ceiling";
 
   Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
     "Total design transmission heat losses for the zone";
@@ -53,7 +57,7 @@ protected
     show_T=false)
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final
-      nSurf=nSurf, final linear=linear)
+      nSurf=nSurf, final linear=linear) if not calculateViewFactor
     "internal longwave radiative heat exchange" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -88,6 +92,14 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
 
+public
+  BaseClasses.ZoneLwDistributionViewFactor zoneLwDistributionViewFactor(
+    final nSurf=nSurf,
+    final hZone=hZone) if calculateViewFactor
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=270,
+        origin={-32,-10})));
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 equation
@@ -96,8 +108,8 @@ equation
       points={{-50.2,-54},{-50,-54},{-50,-72},{80,-72},{80,-60},{100,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(propsBus[:].surfRad, radDistrLw.port_a) annotation (Line(
-      points={{-100,40},{-74,40},{-74,-26},{-54,-26},{-54,-20}},
+  connect(propsBus[:].surfRad, radDistr.radSurfTot) annotation (Line(
+      points={{-100,40},{-74,40},{-74,-26},{-54,-26},{-54,-34}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -126,6 +138,20 @@ equation
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, radDistrLw.epsLw) annotation (Line(
       points={{-100,40},{-82,40},{-82,-10},{-64,-10}},
+      color={127,0,0},
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(propsBus.epsLw, zoneLwDistributionViewFactor.epsLw) annotation (Line(
+      points={{-100,40},{-82,40},{-82,-10},{-42,-10}},
+      color={127,0,0},
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(propsBus.area, zoneLwDistributionViewFactor.A) annotation (Line(
+      points={{-100,40},{-82,40},{-82,-14},{-42,-14}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -201,6 +227,19 @@ end for;
       end if;
   connect(radDistr.radSurfTot, radDistrLw.port_a) annotation (Line(
       points={{-54,-34},{-54,-20}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(zoneLwDistributionViewFactor.inc, propsBus.inc) annotation (Line(
+      points={{-36,0},{-38,0},{-38,40},{-100,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(zoneLwDistributionViewFactor.azi, propsBus.azi) annotation (Line(
+      points={{-28,-1.77636e-15},{-28,40},{-100,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(zoneLwDistributionViewFactor.port_a, radDistr.radSurfTot) annotation (
+     Line(
+      points={{-32,-20},{-32,-26},{-54,-26},{-54,-34}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (

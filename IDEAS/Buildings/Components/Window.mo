@@ -8,11 +8,6 @@ model Window "Multipane window"
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
 
-  parameter Modelica.SIunits.Angle inc
-    "Inclination of the window, i.e. 90deg denotes vertical";
-  parameter Modelica.SIunits.Angle azi
-    "Azimuth of the wall, i.e. 0deg denotes South";
-
   final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
     "Window U-value";
   final parameter Modelica.SIunits.Power QTra_design=U_value*A*(273.15 + 21 -

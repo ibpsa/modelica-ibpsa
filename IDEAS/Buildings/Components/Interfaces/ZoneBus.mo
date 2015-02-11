@@ -10,4 +10,6 @@ expandable connector ZoneBus
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b surfRad;
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir;
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif;
+  Modelica.SIunits.Angle inc;
+  Modelica.SIunits.Angle azi;
 end ZoneBus;
