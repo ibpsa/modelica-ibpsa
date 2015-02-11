@@ -25,9 +25,18 @@ protected
         perez(inc=inc)
     annotation (Placement(transformation(extent={{0,-8},{20,12}})));
 
-  Modelica.Blocks.Sources.Constant dummyVal(k=0) if  not remDefVals
-    "Tenv and angInc value when not needed"
-    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
+  Modelica.Blocks.Sources.Constant dummyValAzi(k=0) if
+                                                     not remDefVals
+    "angAzi value when not needed"
+    annotation (Placement(transformation(extent={{-20,-100},{-8,-88}})));
+public
+  Modelica.Blocks.Routing.RealPassThrough angZenPassThrough
+    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
+protected
+  Modelica.Blocks.Sources.Constant dummyValTenv(k=Modelica.Constants.inf) if
+                                                     not remDefVals
+    "Tenv value when not needed"
+    annotation (Placement(transformation(extent={{-20,-84},{-8,-72}})));
 equation
   connect(angSolar.angInc, solDirTil.angSol) annotation (Line(
       points={{-20,36},{0,36}},
@@ -81,16 +90,20 @@ equation
       points={{-20,36},{-18,36},{-18,52},{60,52},{60,0},{100,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(perez.angZen, solBus.angZen) annotation (Line(
-      points={{0,7},{-6,7},{-6,0},{100,0}},
+  connect(dummyValAzi.y, solBus.angAzi) annotation (Line(
+      points={{-7.4,-94},{100,-94},{100,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dummyVal.y, solBus.Tenv) annotation (Line(
-      points={{1,-90},{100,-90},{100,0}},
+  connect(angZenPassThrough.y, solBus.angZen) annotation (Line(
+      points={{1,-60},{100,-60},{100,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dummyVal.y, solBus.angAzi) annotation (Line(
-      points={{1,-90},{0,-90},{0,-86},{100,-86},{100,0}},
+  connect(angZenPassThrough.u, weaBus.angZen) annotation (Line(
+      points={{-22,-60},{-100,-60},{-100,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dummyValTenv.y, solBus.Tenv) annotation (Line(
+      points={{-7.4,-78},{100,-78},{100,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
