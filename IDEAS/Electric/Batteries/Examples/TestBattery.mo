@@ -22,7 +22,7 @@ model TestBattery
     duration=1500,
     startTime=600)
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  BaseClasses.WattsLaw wattsLaw
+  BaseClasses.AC.WattsLaw wattsLaw
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Modelica.Blocks.Sources.Constant const(k=0)
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));

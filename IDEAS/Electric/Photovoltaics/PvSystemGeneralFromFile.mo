@@ -17,7 +17,7 @@ model PvSystemGeneralFromFile "PV system with separate shut-down controller"
 
   IDEAS.Electric.Photovoltaics.Components.ForInputFiles.SimpleDCAC_effP inverter(PNom=PNom)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  IDEAS.Electric.BaseClasses.WattsLaw wattsLaw(numPha=numPha)
+  IDEAS.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=numPha)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   IDEAS.Electric.Photovoltaics.Components.PvVoltageCtrlGeneral pvVoltageCtrl(

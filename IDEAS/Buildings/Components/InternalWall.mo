@@ -11,11 +11,17 @@ model InternalWall "interior opaque wall between two zones"
     "Inclination of the wall, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0deg denotes South";
+  parameter Modelica.SIunits.Temperature T_start=293.15
+    "Start temperature for each of the layers";
+
+  final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
+    "Wall U-value";
+  final parameter Modelica.SIunits.Power QTra_design=U_value*AWall*(273.15 + 21 - 273.15 - 21)
+    "Design heat losses";
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  parameter Modelica.SIunits.Temperature T_start=293.15
-    "Start temperature for each of the layers";
 
 protected
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=
@@ -35,7 +41,8 @@ protected
     T_start=ones(constructionType.nLay)*T_start)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-
+  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
+    annotation (Placement(transformation(extent={{16,50},{36,70}})));
 public
   Interfaces.ZoneBus propsBus_b annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
@@ -131,6 +138,20 @@ equation
   connect(iSolDir1.port, propsBus_b.iSolDir) annotation (Line(
       points={{-10,60},{-32,60},{-32,58},{-50,58},{-50,40}},
       color={191,0,0},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
+      points={{37,60},{38,60},{38,40},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(QDesign.y, propsBus_b.QTra_design) annotation (Line(
+      points={{37,60},{38,60},{38,40},{-50,40}},
+      color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,

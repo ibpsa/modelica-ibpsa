@@ -5,7 +5,7 @@ partial model Structure "Partial model for building structure models"
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{130,-100},{150,-80}})));
 
-  replaceable package Medium = IDEAS.Media.Air
+  replaceable package Medium = IDEAS.Experimental.Media.AirPTDecoupled
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
       annotation (choicesAllMatching = true);
@@ -26,6 +26,9 @@ partial model Structure "Partial model for building structure models"
 
   parameter Modelica.SIunits.Temperature[nZones] T_start
     "Operative zonal start temperatures";
+
+  parameter Modelica.SIunits.Power[ nZones] Q_design=zeros(nZones)
+    "Design heat loss of zones";//must be filled in in the Building interface, e.g.: QDesign={building.zone1.Q_design,building.zone2.Q_design}
 
   // Interfaces  ///////////////////////////////////////////////////////////////////////////////////////
 

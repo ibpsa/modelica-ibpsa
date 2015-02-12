@@ -5,10 +5,10 @@ model Transformer
   parameter Modelica.SIunits.Temperature THsRef = 326.6;
   parameter Modelica.SIunits.Temperature TToRef = 314.44;
 
-  IDEAS.Electric.Distribution.AC.Components.Transformer_MvLv transformer_MvLv(
+  IDEAS.Electric.Distribution.AC.Components.MvLvTransformer_3P transformer_MvLv(
       redeclare IDEAS.Electric.Data.TransformerImp.Transfo_100kVA transformer)
     annotation (Placement(transformation(extent={{60,0},{40,20}})));
-  IDEAS.Electric.BaseClasses.WattsLaw wattsLaw(numPha=3)
+  IDEAS.Electric.BaseClasses.AC.WattsLaw wattsLaw(numPha=3)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Sine step(
     amplitude=100000,
@@ -18,8 +18,7 @@ model Transformer
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Constant const
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Files.min60
-      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
+  inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(transformer_MvLv.pin_lv_p, wattsLaw.vi) annotation (Line(
@@ -27,11 +26,11 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(wattsLaw.Q, const.y) annotation (Line(
-      points={{0.2,12},{-20,12},{-20,-10},{-39,-10}},
+      points={{0,8},{-20,8},{-20,-10},{-39,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(wattsLaw.P, step.y) annotation (Line(
-      points={{0.2,16},{-20,16},{-20,30},{-39,30}},
+      points={{0,12},{-20,12},{-20,30},{-39,30}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

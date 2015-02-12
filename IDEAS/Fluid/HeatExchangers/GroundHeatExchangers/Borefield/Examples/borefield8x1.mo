@@ -5,9 +5,11 @@ model borefield8x1
 
   extends Modelica.Icons.Example;
 
+  parameter Modelica.SIunits.Temperature T_start = 283.15;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  parameter Data.BorefieldData.SandStone_Bentonite_c8x1_h110_b5_d3600_T283
+  replaceable parameter
+    Data.BorefieldData.SandStone_Bentonite_c8x1_h110_b5_d3600_T283
     bfData
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Integer lenSim=3600*24*366 "length of the simulation";
@@ -15,7 +17,8 @@ model borefield8x1
   MultipleBoreHoles multipleBoreholes(
     lenSim=lenSim,
     redeclare package Medium = Medium,
-    bfData=bfData) "borefield"
+    bfData=bfData,
+    T_start=T_start) "borefield"
     annotation (Placement(transformation(extent={{-20,-60},{20,-20}})));
   Modelica.Blocks.Sources.Step load(height=1, startTime=36000)
     "load for the borefield"
@@ -26,11 +29,11 @@ model borefield8x1
     dp_nominal=10000,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    T_start=bfData.gen.T_start,
     m_flow_nominal=bfData.m_flow_nominal,
     m_flow(start=bfData.m_flow_nominal),
     Q_flow_nominal=bfData.gen.q_ste*bfData.gen.nbBh*bfData.gen.hBor,
-    p_start=100000)
+    p_start=100000,
+    T_start=T_start)
     annotation (Placement(transformation(extent={{30,22},{10,2}})));
   Modelica.Fluid.Sources.Boundary_pT boundary(          redeclare package
       Medium = Medium, nPorts=1)
@@ -38,13 +41,13 @@ model borefield8x1
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     m_flow_nominal=bfData.m_flow_nominal,
-    T_start=bfData.gen.T_start)
+    T_start=T_start)
     annotation (Placement(transformation(extent={{38,-50},{58,-30}})));
   IDEAS.Fluid.Movers.FlowMachine_m_flow pum(
     redeclare package Medium = Medium,
     dynamicBalance=false,
-    T_start=bfData.gen.T_start,
-    m_flow_nominal=bfData.m_flow_nominal)
+    m_flow_nominal=bfData.m_flow_nominal,
+    T_start=T_start)
     annotation (Placement(transformation(extent={{-16,22},{-36,2}})));
   Modelica.Blocks.Sources.Constant mFlo(k=bfData.m_flow_nominal)
     annotation (Placement(transformation(extent={{-60,-18},{-48,-6}})));

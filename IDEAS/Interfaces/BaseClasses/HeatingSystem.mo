@@ -1,43 +1,43 @@
 within IDEAS.Interfaces.BaseClasses;
-partial model HeatingSystem "Partial heating system"
+partial model HeatingSystem "Partial heating/cooling system"
 
-  outer IDEAS.SimInfoManager sim
-    "Simulation information manager for climate data"
-    annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
+  extends IDEAS.Interfaces.BaseClasses.PartialSystem;
+  outer Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 
-  // Building characteristics --------------------------------------------------
-
+  // *********** Building characteristics and  interface ***********
+  // --- General
   parameter Integer nZones(min=1)
     "Number of conditioned thermal zones in the building";
-
+  // --- Boolean declarations
   parameter Boolean isHea=true "true if system is able to heat";
   parameter Boolean isCoo=false "true if system is able to cool";
+  parameter Boolean isDH=false "true if the system is connected to a DH grid";
+  parameter Boolean InInterface = false;
 
-  parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
-    "Nominal power, can be seen as the max power of the emission system";
-  parameter Real[nZones] VZones "Conditioned volumes of the zones";
-  parameter Modelica.SIunits.HeatCapacity[nZones] C=1012*1.204*VZones*5
-    "Heat capacity of the conditioned zones";
+  parameter Modelica.SIunits.Power[nZones] Q_design
+    "Total design heat load for heating system based on heat losses" annotation(Dialog(enable=InInterface));
 
-  parameter Modelica.SIunits.Temperature[nZones] T_start
-    "Operative zonal start temperatures";
-
-  // Electricity consumption or production -------------------------------------
-
-  parameter Integer nLoads(min=1) = 1 "Number of electric loads";
-  SI.Power[nLoads] P "Active power for each of the loads";
-  SI.Power[nLoads] Q "Reactive power for each of the loads";
-
-  // Interfaces ----------------------------------------------------------------
-
+  // --- Ports
   parameter Integer nConvPorts(min=0) = nZones
     "Number of ports in building for convective heating/cooling";
   parameter Integer nRadPorts(min=0) = nZones
     "Number of ports in building for radiative heating/cooling";
   parameter Integer nEmbPorts(min=0) = nZones
     "Number of ports in building for embedded systems";
+
+  // --- Sensor
   parameter Integer nTemSen(min=0) = nZones
     "number of temperature inputs for the system";
+
+  // *********** Outputs ***********
+  // --- Thermal
+  Modelica.SIunits.Power QHeaSys if isHea
+    "Total energy use forspace heating + DHW, if present)";
+  Modelica.SIunits.Power QCooTotal if isCoo "Total cooling energy use";
+
+  // *********** Interface ***********
+  // --- thermal
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nConvPorts] heatPortCon
     "Nodes for convective heat gains"
     annotation (Placement(transformation(extent={{-210,10},{-190,30}})));
@@ -47,59 +47,46 @@ partial model HeatingSystem "Partial heating system"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nEmbPorts] heatPortEmb
     "Construction nodes for heat gains by embedded layers"
     annotation (Placement(transformation(extent={{-210,50},{-190,70}})));
-  Modelica.Electrical.QuasiStationary.MultiPhase.Interfaces.PositivePlug
-    plugLoad(each m=1) "Electricity connection to the Inhome feeder"
-    annotation (Placement(transformation(extent={{190,-10},{210,10}})));
-  Modelica.Blocks.Interfaces.RealInput[nTemSen] TSensor(final quantity="ThermodynamicTemperature",unit="K",displayUnit="degC", min=0)
-    "Sensor temperature"
-    annotation (Placement(transformation(
+
+  // --- Sensor
+  Modelica.Blocks.Interfaces.RealInput[nTemSen] TSensor(
+    final quantity="ThermodynamicTemperature",
+    unit="K",
+    displayUnit="degC",
+    min=0) "Sensor temperature" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-204,-60})));
-  Modelica.Blocks.Interfaces.RealInput[nZones] TSet
-    "Setpoint temperature for the zones" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-104})));
   Modelica.Blocks.Interfaces.RealInput mDHW60C
     "mFlow for domestic hot water, at 60 degC" annotation (Placement(
         transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=270,
+        origin={80,-104}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={60,-104})));
+        origin={60,-102})));
 
-  // Output --------------------------------------------------------------------
+  Modelica.Blocks.Interfaces.RealInput[nZones] TSet(
+    final quantity="ThermodynamicTemperature",
+    unit="K",
+    displayUnit="degC",
+    min=0) "Setpoint temperature for the zones" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={20,-104}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,-102})));
 
-  Modelica.SIunits.Power QHeaSys if isHea
-    "Total energy use forspace heating + DHW, if present)";
-  Modelica.SIunits.Power QCooTotal if isCoo "Total cooling energy use";
-
-protected
-  final parameter Integer nLoads_min = max(1,nLoads);
-  Electric.BaseClasses.WattsLawPlug wattsLawPlug(each numPha=1, final nLoads=
-        nLoads) if nLoads >= 1
-    annotation (Placement(transformation(extent={{172,-10},{192,10}})));
-public
-  Modelica.Blocks.Sources.RealExpression[nLoads_min] P_val(y=P)
-    annotation (Placement(transformation(extent={{144,-2},{164,18}})));
-  Modelica.Blocks.Sources.RealExpression[nLoads_min] Q_val(y=Q)
-    annotation (Placement(transformation(extent={{144,-22},{164,-2}})));
-  outer Modelica.Fluid.System system
-  annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
-equation
-  connect(wattsLawPlug.vi, plugLoad) annotation (Line(
-      points={{192,0},{200,0}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(Q_val.y, wattsLawPlug.Q) annotation (Line(
-          points={{165,-12},{168,-12},{168,1},{172,1}},
-          color={0,0,127},
-          smooth=Smooth.None));
-
-  connect(P_val.y, wattsLawPlug.P) annotation (Line(
-      points={{165,8},{168,8},{168,5},{173,5}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  // --- fluid
+  Fluid.Interfaces.FlowPort_a flowPort_supply if isDH
+    "Supply water connection to the DH grid"
+    annotation (Placement(transformation(extent={{150,-110},{170,-90}})));
+  Fluid.Interfaces.FlowPort_b flowPort_return if isDH
+    "Return water connection to the DH grid"
+    annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
             100}}), graphics={
@@ -108,48 +95,93 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           lineColor={191,0,0}),
-        Polygon(
-          points={{-46,-8},{-46,-20},{-44,-22},{-24,-10},{-24,2},{-26,4},{-46,-8}},
-          lineColor={127,0,0},
-          smooth=Smooth.None,
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-46,-32},{-46,-44},{-44,-46},{-24,-34},{-24,-22},{-26,-20},{
-              -46,-32}},
-          lineColor={127,0,0},
-          smooth=Smooth.None,
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid),
         Line(
-          points={{-44,-18},{-50,-22},{-50,-46},{-46,-50},{28,-50},{42,-40}},
-          color={127,0,0},
-          smooth=Smooth.None),
+          points={{50,-20},{30,0}},
+          color={0,0,127}),
         Line(
-          points={{-50,-46},{-44,-42}},
-          color={127,0,0},
-          smooth=Smooth.None),
+          points={{30,0},{0,-30}},
+          color={0,0,127},
+          pattern=LinePattern.Dash),
         Line(
-          points={{-24,0},{-20,2},{-20,-32},{-16,-36},{-16,-36},{40,-36}},
-          color={127,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{-24,-24},{-20,-22}},
-          color={127,0,0},
-          smooth=Smooth.None),
-        Polygon(
-          points={{40,-26},{40,-46},{50,-52},{58,-46},{58,-30},{54,-24},{48,-20},
-              {40,-26}},
-          lineColor={127,0,0},
-          smooth=Smooth.None,
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid),
+          points={{30,0},{-8,0}},
+          color={191,0,0},
+          thickness=0.5),
         Line(
           points={{200,100},{200,-100}},
           color={85,170,255},
-          smooth=Smooth.None)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
-            200,100}}), graphics),
+          smooth=Smooth.None),
+        Line(
+          points={{-28,-20},{-128,-20}},
+          color={191,0,0},
+          thickness=0.5),
+        Line(
+          points={{-28,20},{-128,20}},
+          color={191,0,0},
+          thickness=0.5),
+        Line(
+          points={{-8,0},{-28,-20}},
+          color={191,0,0},
+          thickness=0.5),
+        Line(
+          points={{-8,0},{-28,20}},
+          color={191,0,0},
+          thickness=0.5),
+        Polygon(
+          points={{-128,0},{-128,40},{-158,20},{-128,0}},
+          lineColor={191,0,0},
+          fillColor={191,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-128,-40},{-128,0},{-158,-20},{-128,-40}},
+          lineColor={191,0,0},
+          fillColor={191,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-158,40},{-178,-40}},
+          lineColor={191,0,0},
+          fillColor={191,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{200,0},{30,0}},
+          color={85,170,255},
+          smooth=Smooth.None),
+        Line(points={{30,70},{30,40}}),
+        Line(points={{52.9,32.8},{70.2,57.3}}),
+        Line(points={{7.1,32.8},{-10.2,57.3}}),
+        Line(points={{67.6,13.7},{95.8,23.9}}),
+        Ellipse(
+          lineColor={64,64,64},
+          fillColor={215,215,215},
+          extent={{18,-12},{42,12}},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          origin={30,0},
+          rotation=-17.5,
+          fillColor={64,64,64},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-5.0,0.0},{-2.0,60.0},{0.0,65.0},{2.0,60.0},{5.0,0.0}}),
+        Ellipse(
+          fillColor={64,64,64},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          extent={{23,-7},{37,7}}),
+        Line(
+          points={{60,-30},{50,-20}},
+          color={0,0,127},
+          pattern=LinePattern.Dash),
+        Line(
+          points={{0,-100},{0,-30}},
+          color={0,0,127},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
+        Line(
+          points={{60,-100},{60,-30}},
+          color={0,0,127},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash)}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
+            100}}),     graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Interface model for a complete multi-zone heating system (with our without domestic hot water and solar system).</p>

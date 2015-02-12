@@ -3,22 +3,36 @@ model Zone "thermal building zone"
 
   extends IDEAS.Buildings.Components.Interfaces.StateZone;
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
-      Medium =
-        IDEAS.Media.Air);
+      Medium = IDEAS.Experimental.Media.AirPTDecoupled);
 
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  parameter Boolean allowFlowReversal=system.allowFlowReversal
+    "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
+    annotation(Dialog(tab="Assumptions"));
 
   parameter Modelica.SIunits.Volume V "Total zone air volume";
   parameter Real n50(min=0.01)=0.4
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
   parameter Real corrCV=5 "Multiplication factor for the zone air capacity";
 
-  parameter Boolean linear=true;
+  parameter Boolean linear=true "Linearized computation of long wave radiation";
 
-  final parameter Modelica.SIunits.Power QNom=1012*1.204*V/3600*n50/20*(273.15
-       + 21 - sim.Tdes) "Design heat losses at reference outdoor temperature";
+  final parameter Modelica.SIunits.Power QInf_design=1012*1.204*V/3600*n50/20*(273.15
+       + 21 - sim.Tdes)
+    "Design heat losses from infiltration at reference outdoor temperature";
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.1*1.224*V/3600;
+  final parameter Modelica.SIunits.Power QRH_design=A*fRH
+    "Additional power required to compensate for the effects of intermittent heating";
+  parameter Real fRH=11
+    "Reheat factor for calculation of design heat load, (EN 12831, table D.10 Annex D)"
+                                                                                        annotation(Dialog(group="Design heat load"));
+  parameter Modelica.SIunits.Area A = 0 "Total conditioned floor area" annotation(Dialog(group="Design heat load"));
+
+  Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
+    "Total design transmission heat losses for the zone";
+  final parameter Modelica.SIunits.Power Q_design( fixed=false)
+    "Total design heat losses for the zone";
 
   Modelica.SIunits.Temperature TAir=senTem.T;
   Modelica.SIunits.Temperature TStar=radDistr.TRad;
@@ -45,9 +59,7 @@ protected
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-54,-10})));
-  Modelica.Blocks.Math.Sum sum(
-    nin=2,
-    k={0.5,0.5})
+  Modelica.Blocks.Math.Sum summation(nin=2, k={0.5,0.5})
     annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
   Fluid.MixingVolumes.MixingVolume         vol(
     V=V,
@@ -75,9 +87,9 @@ public
 protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
-  parameter Boolean allowFlowReversal=system.allowFlowReversal
-    "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
-    annotation(Dialog(tab="Assumptions"));
+
+initial equation
+  Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 equation
 
   connect(radDistr.radGain, gainRad) annotation (Line(
@@ -89,11 +101,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(sum.y, TSensor) annotation (Line(
+  connect(summation.y, TSensor) annotation (Line(
       points={{12.6,-60},{59.3,-60},{59.3,0},{106,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(radDistr.TRad, sum.u[1]) annotation (Line(
+  connect(radDistr.TRad, summation.u[1]) annotation (Line(
       points={{-44,-44},{-22,-44},{-22,-60.6},{-1.2,-60.6}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -164,7 +176,7 @@ end for;
       points={{0,-20},{10,-20},{10,-30},{100,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(senTem.T, sum.u[2]) annotation (Line(
+  connect(senTem.T, summation.u[2]) annotation (Line(
       points={{-16,-20},{-18,-20},{-18,-59.4},{-1.2,-59.4}},
       color={0,0,127},
       smooth=Smooth.None));
