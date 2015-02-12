@@ -22,7 +22,8 @@ model StorageTank_OneIntHx
     annotation (Placement(transformation(extent={{-30,-64},{42,10}})));
 
   IDEAS.Fluid.Production.HP_WaterWater_OnOff hp(
-    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA08
+    redeclare
+      IDEAS.Fluid.Production.Data.PerformanceMaps.VitoCal300GBWS301dotA08
       heatPumpData,
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium)

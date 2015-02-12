@@ -3,11 +3,13 @@ model Zone "thermal building zone"
 
   extends IDEAS.Buildings.Components.Interfaces.StateZone;
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
-      Medium =
-        IDEAS.Media.Air);
+      Medium = IDEAS.Experimental.Media.AirPTDecoupled);
 
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  parameter Boolean allowFlowReversal=system.allowFlowReversal
+    "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
+    annotation(Dialog(tab="Assumptions"));
 
   parameter Modelica.SIunits.Volume V "Total zone air volume";
   parameter Real n50(min=0.01)=0.4
@@ -85,9 +87,7 @@ public
 protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
-  parameter Boolean allowFlowReversal=system.allowFlowReversal
-    "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
-    annotation(Dialog(tab="Assumptions"));
+
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 equation

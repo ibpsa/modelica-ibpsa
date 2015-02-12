@@ -36,11 +36,11 @@ model MultipleBoreholesWithHeatPump
     allowFlowReversal=false,
     onOff=true,
     use_scaling=true,
-    redeclare IDEAS.Fluid.Production.BaseClasses.VitoCal300GBWS301dotA45
-      heatPumpData,
     use_onOffSignal=true,
-    P_the_nominal=bfData.PThe_nominal/2)
-                     annotation (Placement(transformation(
+    P_the_nominal=bfData.PThe_nominal/2,
+    redeclare
+      IDEAS.Fluid.Production.Data.PerformanceMaps.VitoCal300GBWS301dotA45
+      heatPumpData)  annotation (Placement(transformation(
         extent={{15,-17},{-15,17}},
         rotation=180,
         origin={1,25})));
@@ -89,7 +89,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(booleanPulse.y,heatPumpOnOff. on) annotation (Line(
-      points={{-1,-16},{-2,-16},{-2,2},{-2,6},{-2,6},{-2,6.64}},
+      points={{-1,-16},{-2,-16},{-2,6.64}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(bou.ports[1],pump. port_a) annotation (Line(
