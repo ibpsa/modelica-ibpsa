@@ -121,14 +121,15 @@ equation
       points={{-44,-44},{-22,-44},{-22,-60.6},{-1.2,-60.6}},
       color={0,0,127},
       smooth=Smooth.None));
-
-  connect(propsBus.area, radDistr.area) annotation (Line(
+  if not calculateViewFactor then
+    connect(propsBus.area, radDistr.area) annotation (Line(
       points={{-100,40},{-82,40},{-82,-40},{-64,-40}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  end if;
   connect(propsBus.area, radDistrLw.A) annotation (Line(
       points={{-100,40},{-82,40},{-82,-14},{-64,-14}},
       color={127,0,0},
@@ -241,6 +242,11 @@ end for;
      Line(
       points={{-32,-20},{-32,-26},{-54,-26},{-54,-34}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(zoneLwDistributionViewFactor.floorArea, radDistr.area) annotation (
+      Line(
+      points={{-21.6,-4},{-20,-4},{-20,-32},{-64,-32},{-64,-40}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

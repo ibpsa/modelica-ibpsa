@@ -15,6 +15,7 @@ model ZoneLwDistributionViewFactor
   parameter Real[nSurf,nSurf] vieFac(each fixed=false)
     "Emissivity weighted viewfactor from surface to surface"
     annotation(Dialog(tab="Advanced"));
+
 Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -39,7 +40,12 @@ Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,100})));
-
+  Modelica.Blocks.Interfaces.RealOutput[nSurf] floorArea
+    "Amount of floor area for each surface" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-60,-104})));
 protected
   parameter Real[2+numAzi] Atot(each fixed=false)
     "Total surface area per orientation";
@@ -54,6 +60,7 @@ protected
   parameter Real[nSurf,nSurf] Umat(each fixed=false);
   parameter Integer index1(fixed=false);
   parameter Integer index2(fixed=false);
+  parameter Modelica.SIunits.Area[nSurf] Afloor(each fixed = false);
 
 initial algorithm
   //initialise surface area to zero
@@ -137,25 +144,30 @@ initial algorithm
 
   //view factors for real surfaces are calculated from the total surfaces
   for i in 1:nSurf loop
+      //set floor area
+      Afloor[i]:=0;
+
+       //determine orientation of first plane
+      if IDEAS.Utilities.Math.Functions.isAngle(inc[i], incCeiling) then
+         index1:=1;
+      elseif IDEAS.Utilities.Math.Functions.isAngle(inc[i], incFloor) then
+         index1:=2;
+         Afloor[i]:=A[i];
+      elseif IDEAS.Utilities.Math.Functions.isAngle(inc[i], incWall) then
+         for k in 0:numAzi-1 loop
+           if IDEAS.Utilities.Math.Functions.isAngle(azi[i], aziSouth + k*Modelica.Constants.pi*2/numAzi) then
+             index1:=2+k;
+           break;
+           end if;
+           //warning
+         end for;
+      end if;
+
         for j in i:nSurf loop
           if i==j then
             vieFac[i,j]:=0;
           else
 
-          //determine orientation of first plane
-          if IDEAS.Utilities.Math.Functions.isAngle(inc[i], incCeiling) then
-            index1:=1;
-          elseif IDEAS.Utilities.Math.Functions.isAngle(inc[i], incFloor) then
-            index1:=2;
-          elseif IDEAS.Utilities.Math.Functions.isAngle(inc[i], incWall) then
-            for k in 0:numAzi-1 loop
-              if IDEAS.Utilities.Math.Functions.isAngle(azi[i], aziSouth + k*Modelica.Constants.pi*2/numAzi) then
-                index1:=2+k;
-              break;
-              end if;
-              //warning
-            end for;
-          end if;
               //determine orientation of second plane
           if IDEAS.Utilities.Math.Functions.isAngle(inc[j], incCeiling) then
             index2:=1;
@@ -181,6 +193,7 @@ end for;
 
 equation
   port_a.Q_flow=-Umat*port_a.T;
+  floorArea=Afloor;
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
