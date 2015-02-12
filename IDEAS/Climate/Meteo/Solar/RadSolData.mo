@@ -12,7 +12,8 @@ model RadSolData "Selects or generates correct solar data for this surface"
    isRoof or
     (inc==IDEAS.Constants.Wall
       and abs(sin((azi-offsetAzi)*numAzi))<0.05)
-    "True if solBus contains correct data for this surface";
+    "True if solBus contains correct data for this surface"
+    annotation(Evaluate=true);
   final parameter Integer solDataIndex=
     if isRoof then
       1 else
@@ -46,47 +47,64 @@ model RadSolData "Selects or generates correct solar data for this surface"
 protected
       parameter Boolean isRoof = ceilingInc == inc
     "Surface is a horizontal surface";
-  Buildings.Components.Interfaces.SolBus solBus annotation (HideResults=true,
-      Placement(transformation(extent={{-80,14},{-40,54}})));
+protected
+  output Buildings.Components.Interfaces.SolBus
+                                         solBusDummy1
+    "Required for avoiding warnings?"
+                                     annotation (HideResults=true, Placement(
+        transformation(extent={{-78,10},{-38,50}})));
+protected
+  input Buildings.Components.Interfaces.SolBus
+                                         solBusDummy2 if solDataInBus
+    "Required for avoiding warnings?"
+                                     annotation (HideResults=true, Placement(
+        transformation(extent={{-78,40},{-38,80}})));
 equation
 
-  if solDataInBus then
-    connect(solBus,weaBus.solBus[solDataIndex]);
-  end if;
-  connect(solDir, solBus.iSolDir) annotation (Line(
-      points={{106,20},{-60,20},{-60,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solDif, solBus.iSolDif) annotation (Line(
-      points={{106,0},{-60,0},{-60,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angInc, solBus.angInc) annotation (Line(
-      points={{106,-40},{-60,-40},{-60,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angZen, solBus.angZen) annotation (Line(
-      points={{106,-60},{-60,-60},{-60,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(angAzi, solBus.angAzi) annotation (Line(
-      points={{106,-80},{-60,-80},{-60,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Tenv, solBus.Tenv) annotation (Line(
-      points={{106,-20},{-60,-20},{-60,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(radSol.weaBus, weaBus) annotation (Line(
       points={{-94,42},{-94,80},{100,80}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
 
-  connect(radSol.solBus, solBus) annotation (Line(
-      points={{-74,34},{-60,34}},
+  connect(radSol.solBus, solBusDummy1) annotation (Line(
+      points={{-74,34},{-66,34},{-66,30},{-58,30}},
       color={255,204,51},
       thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaBus.solBus[1], solBusDummy2) annotation (Line(
+      points={{100,80},{102,80},{102,60},{-58,60}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(solBusDummy1, solBusDummy2) annotation (Line(
+      points={{-58,30},{-58,60}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(solDir, solBusDummy1.iSolDir) annotation (Line(
+      points={{106,20},{24,20},{24,30},{-58,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(solDif, solBusDummy1.iSolDif) annotation (Line(
+      points={{106,0},{30,0},{30,2},{-58,2},{-58,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Tenv, solBusDummy1.Tenv) annotation (Line(
+      points={{106,-20},{46,-20},{46,-16},{-58,-16},{-58,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(angInc, solBusDummy1.angInc) annotation (Line(
+      points={{106,-40},{46,-40},{46,-42},{-58,-42},{-58,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(angZen, solBusDummy1.angZen) annotation (Line(
+      points={{106,-60},{-58,-60},{-58,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(angAzi, solBusDummy1.angAzi) annotation (Line(
+      points={{106,-80},{-58,-80},{-58,30}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>
