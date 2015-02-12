@@ -33,7 +33,8 @@ model RadSolData "Selects or generates correct solar data for this surface"
   Modelica.Blocks.Interfaces.RealOutput solDif
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
 
-  BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAzi + 1)
+  input BoundaryConditions.WeatherData.Bus
+                                     weaBus(numSolBus=numAzi + 1)
     annotation (HideResults=true,Placement(transformation(extent={{90,70},{110,90}})));
 
   Modelica.Blocks.Interfaces.RealOutput angInc
@@ -53,12 +54,6 @@ protected
     "Required for avoiding warnings?"
                                      annotation (HideResults=true, Placement(
         transformation(extent={{-78,10},{-38,50}})));
-protected
-  input Buildings.Components.Interfaces.SolBus
-                                         solBusDummy2 if solDataInBus
-    "Required for avoiding warnings?"
-                                     annotation (HideResults=true, Placement(
-        transformation(extent={{-78,40},{-38,80}})));
 equation
 
   connect(radSol.weaBus, weaBus) annotation (Line(
@@ -72,16 +67,13 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaBus.solBus[1], solBusDummy2) annotation (Line(
-      points={{100,80},{102,80},{102,60},{-58,60}},
+      if solDataInBus then
+  connect(weaBus.solBus[solDataIndex], solBusDummy1) annotation (Line(
+      points={{100,80},{102,80},{102,30},{-58,30}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(solBusDummy1, solBusDummy2) annotation (Line(
-      points={{-58,30},{-58,60}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      end if;
   connect(solDir, solBusDummy1.iSolDir) annotation (Line(
       points={{106,20},{24,20},{24,30},{-58,30}},
       color={0,0,127},

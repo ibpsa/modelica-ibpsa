@@ -9,9 +9,11 @@ model RadSol "solar angle to surface"
   parameter Modelica.SIunits.Angle azi(displayUnit="degree") "azimuth";
   parameter Modelica.SIunits.Angle lat(displayUnit="degree") "latitude";
 
-  BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAzi + 1)
+  input BoundaryConditions.WeatherData.Bus
+                                     weaBus(numSolBus=numAzi + 1)
     annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
-  Buildings.Components.Interfaces.SolBus solBus
+  output Buildings.Components.Interfaces.SolBus
+                                         solBus
     annotation (Placement(transformation(extent={{80,-20},{120,20}})));
 
 protected
