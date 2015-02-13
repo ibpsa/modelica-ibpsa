@@ -9,8 +9,7 @@ partial model PartialSimInfoManager
     "latitude of the locatioin";
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 0.075921822461753;
   parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = 3600
-    "standard time zone"
-    annotation(Dialog(tab="Incidence angles"));
+    "standard time zone";
   parameter Integer numAzi=4 "Number of azimuth angles that are calculated"
     annotation(Dialog(tab="Incidence angles"));
 
@@ -117,7 +116,7 @@ protected
   parameter SI.Angle inc[numAzi + 1]=cat(
       1,
       fill(ceilingInc,1),
-      fill(Modelica.Constants.pi/2, numAzi)) "surface inclination";
+      fill(IDEAS.Constants.Wall, numAzi)) "surface inclination";
 public
   BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAzi + 1)
     annotation (Placement(transformation(extent={{4,62},{24,82}})));
@@ -126,8 +125,8 @@ public
     inc=inc,
     azi=cat(
         1,
-        fill(0,1),
-        fill(Modelica.Constants.pi/2, numAzi)),
+        fill(ceilingInc,1),
+        fill(offsetAzi, numAzi) + (0:numAzi-1)*Modelica.Constants.pi*2/numAzi),
     each numAzi=numAzi,
     each lat=lat)
              annotation (Placement(transformation(extent={{44,54},{64,74}})));
@@ -143,9 +142,11 @@ public
     annotation (Placement(transformation(extent={{66,24},{40,44}})));
   Modelica.Blocks.Sources.RealExpression TdesExpr(y=Tdes)
     annotation (Placement(transformation(extent={{66,-20},{40,0}})));
-  parameter SI.Angle offsetAzi=0 "Offset for the azimuth angle series";
+  parameter SI.Angle offsetAzi=0 "Offset for the azimuth angle series"
+    annotation(Dialog(tab="Incidence angles"));
   parameter SI.Angle ceilingInc = IDEAS.Constants.Ceiling
-    "Ceiling inclination angle";
+    "Ceiling inclination angle"
+    annotation(Dialog(tab="Incidence angles"));
 equation
 
   connect(timMan.timSol, weaDat.sol) annotation (Line(
