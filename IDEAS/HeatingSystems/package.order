@@ -1,8 +1,8 @@
-None
-IdealRadiatorHeating
-IdealEmbeddedHeating
-Heating_Radiators
 Heating_Embedded
 Heating_Embedded_DHW_STS
-Interfaces
+Heating_Radiators
+IdealEmbeddedHeating
+IdealRadiatorHeating
+None
 Examples
+Interfaces
