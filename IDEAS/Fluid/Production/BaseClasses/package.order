@@ -4,7 +4,5 @@ HeatSource_CondensingGasBurner
 HeatSource_HP_AW
 PartialHeatPump
 HeatPumpData
-HeatSources
-PartialData
-PartialHeatSource
-PartialProduction
+HeatSource_HP_AW_On
+HeatSource_HP_AW2
