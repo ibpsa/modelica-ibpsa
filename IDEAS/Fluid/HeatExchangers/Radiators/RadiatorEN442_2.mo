@@ -108,7 +108,7 @@ protected
 
    Modelica.SIunits.TemperatureDifference dTCon[nEle] = heatPortCon.T .- vol.T
     "Temperature difference for convective heat transfer";
-   Modelica.SIunits.TemperatureDifference dTRad[nEle] = heatPortRad.T .- vol.T
+   Modelica.SIunits.TemperatureDifference dTRad[nEle] = (heatPortCon.T-2) .- vol.T
     "Temperature difference for radiative heat transfer";
 
   Modelica.Blocks.Sources.RealExpression QCon[nEle](y=if homotopyInitialization
