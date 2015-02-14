@@ -1,7 +1,8 @@
 within IDEAS.Fluid.Movers.BaseClasses;
 partial model PartialFlowMachine
   "Partial model to interface fan or pump models with the medium"
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final mSenFac=1);
   import Modelica.Constants;
 
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(show_T=false,
