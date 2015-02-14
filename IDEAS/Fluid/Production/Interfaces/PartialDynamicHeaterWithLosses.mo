@@ -94,10 +94,6 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "heatPort for thermal losses to environment"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
-  IDEAS.Fluid.Sensors.TemperatureTwoPort TOut(
-                                             redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal) "Inlet temperature"
-    annotation (Placement(transformation(extent={{70,50},{90,70}})));
 equation
 
   connect(port_a, Tin.port_a) annotation (Line(
@@ -119,14 +115,12 @@ equation
   connect(thermalLosses.port_b, heatPort) annotation (Line(
       points={{-30,-80},{-30,-100},{-30,-100}},
       color={191,0,0},
-      smooth=Smooth.None));  connect(port_b, TOut.port_b) annotation (Line(
-      points={{100,60},{90,60}},
+      smooth=Smooth.None));
+  connect(pipe_HeatPort.port_b, port_b) annotation (Line(
+      points={{40,4},{40,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pipe_HeatPort.port_b, TOut.port_a) annotation (Line(
-      points={{40,4},{40,60},{70,60}},
-      color={0,127,255},
-      smooth=Smooth.None));  annotation (
+                             annotation (
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
           preserveAspectRatio=false), graphics),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=false),
