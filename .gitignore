@@ -7,8 +7,8 @@ dsfinal.txt
 dsin.txt
 dslog.txt
 dsmodel.c
-dsmodelext[0-9].c
-dsmodelext[0-9].obj
+dsmodelext*.c
+dsmodelext*.obj
 dsres.txt
 dymosim.exe
 dymosim.exp
