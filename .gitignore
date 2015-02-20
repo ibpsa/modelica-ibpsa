@@ -18,6 +18,7 @@ request
 stat
 status
 stop
+success
 # Ignore files created by the unit tests.
 simulator.log
 unitTests.log
