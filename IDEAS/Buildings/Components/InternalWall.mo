@@ -14,10 +14,19 @@ model InternalWall "interior opaque wall between two zones"
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the layers";
 
+  parameter Modelica.SIunits.Temperature TRef_a=291.15
+    "Reference temperature of zone on side of propsBus_a, for calculation of design heat loss"
+                                                                                               annotation (Dialog(group="Design heat loss"));
+
+  parameter Modelica.SIunits.Temperature TRef_b=291.15
+    "Reference temperature of zone on side of propsBus_b, for calculation of design heat loss"
+                                                                                               annotation (Dialog(group="Design heat loss"));
+
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
     "Wall U-value";
-  final parameter Modelica.SIunits.Power QTra_design=U_value*AWall*(273.15 + 21 - 273.15 - 21)
-    "Design heat losses";
+
+  final parameter Modelica.SIunits.Power QTra_design=U_value*AWall*(TRef_a - TRef_b)
+    "Design heat losses (or gains) at reference temperatures";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
@@ -41,10 +50,14 @@ protected
     T_start=ones(constructionType.nLay)*T_start)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
-    annotation (Placement(transformation(extent={{16,50},{36,70}})));
+  Modelica.Blocks.Sources.RealExpression QDesign_a(y=QTra_design)
+    annotation (Placement(transformation(extent={{16,50},{36,70}}))); //Positive because it's losses from zone side a to zone side b as in calculation of QTra_design
+  Modelica.Blocks.Sources.RealExpression QDesign_b(y=-QTra_design)  annotation (Placement(transformation(extent={{-16,36},{-36,56}})));
+  //Negative, because it's losses from zone side b to zone side a, oposite of calculation of QTra_design
+
 public
-  Interfaces.ZoneBus propsBus_b annotation (Placement(transformation(
+  Interfaces.ZoneBus propsBus_b "Outer side (1st layer)"
+                                annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,
         origin={-50,40}), iconTransformation(
@@ -142,15 +155,15 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
+  connect(QDesign_a.y, propsBus_a.QTra_design) annotation (Line(
       points={{37,60},{38,60},{38,40},{50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(QDesign.y, propsBus_b.QTra_design) annotation (Line(
-      points={{37,60},{38,60},{38,40},{-50,40}},
+  connect(QDesign_b.y, propsBus_b.QTra_design) annotation (Line(
+      points={{-37,46},{-44,46},{-44,40},{-50,40}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -190,8 +203,8 @@ equation
           smooth=Smooth.None,
           color={0,0,0},
           thickness=0.5)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
+                    graphics),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>
