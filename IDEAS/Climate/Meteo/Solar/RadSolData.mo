@@ -8,7 +8,7 @@ model RadSolData "Selects or generates correct solar data for this surface"
   parameter SI.Angle offsetAzi
     "Offset azimuth angle of irradation data calculated in solBus";
 
-  final parameter Boolean solDataInBus=
+  parameter Boolean solDataInBus=
    isRoof or
     (inc==IDEAS.Constants.Wall
       and abs(sin((azi-offsetAzi)*numAzi))<0.05)
