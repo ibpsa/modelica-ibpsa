@@ -39,6 +39,7 @@ See
 <a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.Heater_T\">
 Annex60.Fluid.HeatExchangers.Examples.Heater_T</a>
 for a model that takes the leaving air temperature as an input.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
