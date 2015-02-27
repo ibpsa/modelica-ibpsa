@@ -28,7 +28,6 @@ package Air
   end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
-    T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     p(stateSelect=StateSelect.never),
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
@@ -1110,6 +1109,12 @@ per unit mass of dry air.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 3, 2015, by Michael Wetter:<br/>
+Removed <code>stateSelect.prefer</code> for temperature.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/160\">#160</a>.
+</li>
 <li>
 December 2, 2013, by Michael Wetter:<br/>
 First implementation.
