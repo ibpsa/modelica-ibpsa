@@ -27,5 +27,7 @@ February 25, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    experiment(StopTime=1e+06, __Dymola_NumberOfIntervals=1000),
+    __Dymola_experimentSetupOutput);
 end SolarBusValidation;
