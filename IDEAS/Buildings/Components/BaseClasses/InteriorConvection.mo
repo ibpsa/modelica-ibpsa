@@ -4,7 +4,7 @@ model InteriorConvection "interior surface convection"
   parameter Modelica.SIunits.Area A "surface area";
   parameter Modelica.SIunits.Angle inc "inclination";
 
-  parameter Boolean linearise = true
+  parameter Boolean linearise = false
     "Fixed convective heat transfer coefficient or dT-dependent."
     annotation(Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dT_nominal = 3
@@ -17,9 +17,15 @@ model InteriorConvection "interior surface convection"
   parameter Boolean use_hConState = false
     "Introduce state to avoid non-linear systems when linearise = false"
     annotation(Dialog(tab="Advanced"), Evaluate = true);
-  parameter Modelica.SIunits.Time tau = 600
+  parameter Modelica.SIunits.Time tau = 3600
     "Time constant for heat transfer coefficient state when linearise = false"
     annotation(Dialog(tab="Advanced", enable = use_hConState));
+  parameter Modelica.SIunits.Length hZone = 2.7
+    "Zone height, for calculation of hydraulic diameter"
+    annotation(Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Length Dh = 4*A/(2*A/hZone+2*hZone)
+    "Hydraulic diameter for walls"
+    annotation(Dialog(tab="Advanced"));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
@@ -27,6 +33,8 @@ model InteriorConvection "interior surface convection"
 
 protected
   Modelica.SIunits.TemperatureDifference dT;
+  final parameter Real DhPow = Dh^0.121
+    "For avoiding calculation of power at every time step";
   final parameter Boolean isCeiling=abs(sin(inc)) < 10E-5 and cos(inc) > 0
     "true if ceiling"
     annotation(Evaluate=true);
@@ -36,8 +44,8 @@ protected
   final parameter Real sign = if isCeiling then 1 else -1
     "Coefficient for buoyancy direction"
     annotation(Evaluate=true);
-  Real hCon "Convective heat transfer coefficient";
-  Real hConState "Convective heat transfer coefficient state";
+  Real hCon(nominal = 3) "Convective heat transfer coefficient";
+  Real hConState(nominal = 3) "Convective heat transfer coefficient state";
 
 equation
     if isCeiling or isFloor then
@@ -56,14 +64,11 @@ equation
       end if;
     else
       if linearise then
-        hCon = IDEAS.Utilities.Math.Functions.smoothMax(1.310*abs(dT_nominal)^1.33,0.1,0.1);
+        hCon = 1.823*abs(dT_nominal)^0.293/DhPow;
       else
-        hCon = IDEAS.Utilities.Math.Functions.smoothMax(1.310*abs(dT)^1.33,0.1,0.1);
+        hCon = 1.823*abs(dT)^0.293/DhPow;
       end if;
     end if;
-
-    // If fixed then
-    // hcon=3.076;
 
   port_a.Q_flow = hConState*dT*A;
 
@@ -110,6 +115,7 @@ equation
           thickness=0.5)}), Documentation(info="<html>
 <p>The interior natural convective heat transfer coefficient <img src=\"modelica://IDEAS/Images/equations/equation-eZGZlJrg.png\"/> is computed for each interior surface as </p>
 <p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-KNBSKUDK.png\"/></p>
-<p>where <img src=\"modelica://IDEAS/Images/equations/equation-W5kvS3SS.png\"/> is the characteristic length of the surface, <img src=\"modelica://IDEAS/Images/equations/equation-jhC1rqax.png\"/> is the indoor air temperature and <img src=\"modelica://IDEAS/Images/equations/equation-sbXAgHuQ.png\"/> are correlation coefficients. These parameters {<img src=\"modelica://IDEAS/Images/equations/equation-nHmmePq5.png\"/>,<img src=\"modelica://IDEAS/Images/equations/equation-zJZmNUzp.png\"/>,<img src=\"modelica://IDEAS/Images/equations/equation-7nwXbcLp.png\"/>} are identical to {1.823,-0.121,0.293} for vertical surfaces <a href=\"IDEAS.Buildings.UsersGuide.References\">[Khalifa 2001]</a>, {2.175,-0.076,0.308} for horizontal surfaces wherefore the heat flux is in the same direction as the buoyancy force <a href=\"IDEAS.Buildings.UsersGuide.References\">[Khalifa 2001]</a>, and {2.72,-,0.13} for horizontal surfaces wherefore the heat flux is in the opposite direction as the buoyancy force <a href=\"IDEAS.Buildings.UsersGuide.References\">[Awbi 1999]</a>. The interior natural convective heat transfer coefficient is only described as function of the temperature difference. Similar to the thermal model for heat transfer through a wall, a thermal circuit formulation for the direct radiant exchange between surfaces can be derived <a href=\"IDEAS.Buildings.UsersGuide.References\">[ Buchberg 1955, Oppenheim 1956]</a>.</p>
+<p>where <img src=\"modelica://IDEAS/Images/equations/equation-W5kvS3SS.png\"/> is the characteristic length of the surface, <img src=\"modelica://IDEAS/Images/equations/equation-jhC1rqax.png\"/> is the indoor air temperature and <img src=\"modelica://IDEAS/Images/equations/equation-sbXAgHuQ.png\"/> are correlation coefficients. These parameters {<img src=\"modelica://IDEAS/Images/equations/equation-nHmmePq5.png\"/>,<img src=\"modelica://IDEAS/Images/equations/equation-zJZmNUzp.png\"/>,<img src=\"modelica://IDEAS/Images/equations/equation-7nwXbcLp.png\"/>} are identical to {1.823,-0.121,0.293} for vertical surfaces [Awbi 1999], {2.175,-0.076,0.308} for horizontal surfaces wherefore the heat flux is in the same direction as the buoyancy force <a href=\"IDEAS.Buildings.UsersGuide.References\">[Khalifa 2001]</a>, and {2.72,-,0.13} for horizontal surfaces wherefore the heat flux is in the opposite direction as the buoyancy force <a href=\"IDEAS.Buildings.UsersGuide.References\">[Awbi 1999]</a>. The interior natural convective heat transfer coefficient is only described as function of the temperature difference. Similar to the thermal model for heat transfer through a wall, a thermal circuit formulation for the direct radiant exchange between surfaces can be derived <a href=\"IDEAS.Buildings.UsersGuide.References\">[ Buchberg 1955, Oppenheim 1956]</a>.</p>
+<p><br>[Awbi 1999]: H.B. Awbi, A. Hatton, Natural convection from heated room surfaces, Energy and Buildings 30 (1999) 233&ndash;244.</p>
 </html>"));
 end InteriorConvection;
