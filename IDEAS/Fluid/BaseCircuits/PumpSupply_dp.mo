@@ -3,9 +3,15 @@ model PumpSupply_dp
 
   //Extensions
   extends Interfaces.PartialPumpCircuit(redeclare Movers.FlowMachine_dp
-      flowRegulator(motorCooledByFluid=motorCooledByFluid,
-        motorEfficiency=motorEfficiency,
-        hydraulicEfficiency=hydraulicEfficiency), final useBalancingValve=true);
+      flowRegulator(
+      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      tau=120,
+      motorCooledByFluid=false,
+      addPowerToMedium=false,
+      filteredSpeed=true,
+      riseTime=120,
+      allowFlowReversal=true),                  final useBalancingValve=true,
+    balancingValve(show_T=true));
 
 equation
   connect(flowRegulator.P, power) annotation (Line(

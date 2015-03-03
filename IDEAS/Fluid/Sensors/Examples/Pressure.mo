@@ -2,7 +2,8 @@ within IDEAS.Fluid.Sensors.Examples;
 model Pressure "Test model for the pressure sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = IDEAS.Media.Air "Medium model";
+  package Medium = IDEAS.Media.Air
+    "Medium model";
 
   IDEAS.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,

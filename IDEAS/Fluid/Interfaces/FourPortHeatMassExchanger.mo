@@ -182,6 +182,7 @@ initial algorithm
 "The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
+
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},

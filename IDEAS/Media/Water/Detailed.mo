@@ -27,8 +27,6 @@ package Detailed
     "Specific heat capacity at constant pressure";
 
   redeclare model extends BaseProperties(
-     T(stateSelect=if
-          preferredMediumStates then StateSelect.prefer else StateSelect.default),
      p(stateSelect=if
           preferredMediumStates then StateSelect.prefer else StateSelect.default),
      preferredMediumStates=true) "Base properties"
@@ -778,6 +776,12 @@ There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2015, by Michael Wetter:<br/>
+Removed <code>stateSelect.prefer</code> for temperature.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/160\">#160</a>.
+</li>
 <li>
 October 15, 2014, by Michael Wetter:<br/>
 Renamed from <code>IDEAS.Media.Water</code> to

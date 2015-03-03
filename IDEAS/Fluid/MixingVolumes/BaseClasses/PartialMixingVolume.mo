@@ -59,29 +59,22 @@ protected
     final initialize_p = initialize_p,
     m(start=V*rho_start),
     nPorts=nPorts,
-    final mFactor=mFactor,
-    U(start=V*rho_start*Medium.specificInternalEnergy(state_start) + T_start*
-          C_dry),
-    C_dry=C_dry) if
+    U(start=V*rho_start*Medium.specificInternalEnergy(state_start) + (T_start -
+          Medium.reference_T)*dynBal.CSen),
+    final mSenFac=mSenFac) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
-  // Density at medium default values, used to compute the size of control volumes
-  parameter Modelica.SIunits.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass";
   // Density at start values, used to compute initial values and start guesses
   parameter Modelica.SIunits.Density rho_start=Medium.density(
    state=state_start) "Density, used to compute start and guess values";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-  Medium.specificHeatCapacityCp(state=state_default)
-    "Heat capacity, to compute additional dry mass";
-  parameter Modelica.SIunits.HeatCapacity C_dry = (mFactor - 1)*rho_default*cp_default*V
-    "Aditional heat capacity for implementing mFactor";
-
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+  // Density at medium default values, used to compute the size of control volumes
+  final parameter Modelica.SIunits.Density rho_default=Medium.density(
+    state=state_default) "Density, used to compute fluid mass";
   final parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
       T=T_start,
       p=p_start,

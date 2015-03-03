@@ -2,7 +2,9 @@ within IDEAS.Fluid.Production;
 model HP_AirWater_TSet "Air-to-water heat pump with temperature set point"
 
   extends IDEAS.Fluid.Production.Interfaces.PartialDynamicHeaterWithLosses(
-      final heaterType=BaseClasses.HeaterType.HP_AW);
+      final heaterType=BaseClasses.HeaterType.HP_AW,
+    Tin(tau=120, allowFlowReversal=false),
+    senMasFlo(allowFlowReversal=false));
 
   parameter Modelica.SIunits.Power QDesign=0
     "Overrules QNom if different from 0. Design heat load, typically at -8 or -10 degC in Belgium.  ";
@@ -17,7 +19,6 @@ model HP_AirWater_TSet "Air-to-water heat pump with temperature set point"
   Real modulation(max=100) = IDEAS.Utilities.Math.Functions.smoothMax(0, heatSource.modulation, 1)
     "Current modulation percentage";
 
-protected
   IDEAS.Fluid.Production.BaseClasses.HeatSource_HP_AW heatSource(
     final QNom=QNomFinal,
     final TEvaporator=sim.Te,
@@ -35,14 +36,10 @@ public
   parameter Real modulation_min=20 "Minimal modulation percentage";
   parameter Real modulation_start=35
     "Min estimated modulation level required for start of HP";
-  Modelica.Blocks.Interfaces.BooleanInput on "On/off signal"
-                    annotation (Placement(
-        transformation(extent={{-126,10},{-86,50}}),  iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-10,120})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
     annotation (Placement(transformation(extent={{-20,-16},{0,4}})));
+  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=true)
+    annotation (Placement(transformation(extent={{-42,48},{-22,68}})));
 equation
   PFuel = 0;
   PEl = heatSource.PEl;
@@ -51,10 +48,6 @@ equation
   connect(TSet, heatSource.TCondensor_set) annotation (Line(
       points={{-106,0},{-84,0},{-84,-6},{-60,-6}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(on, heatSource.on) annotation (Line(
-      points={{-106,30},{-82,30},{-82,-3},{-60,-3}},
-      color={255,0,255},
       smooth=Smooth.None));
   connect(senMasFlo.m_flow, heatSource.m_flowCondensor) annotation (Line(
       points={{60,-49},{60,-38},{-52,-38},{-52,-16}},
@@ -72,9 +65,13 @@ equation
       points={{0,-6},{30,-6}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(booleanExpression.y, heatSource.on) annotation (Line(
+      points={{-21,58},{-76,58},{-76,-3},{-60,-3}},
+      color={255,0,255},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics={

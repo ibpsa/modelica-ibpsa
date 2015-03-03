@@ -18,7 +18,7 @@ partial model StateWallNoSol
     __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
-  ZoneBus propsBus_a(numAzi=sim.numAzi)
+  ZoneBus propsBus_a(numAzi=sim.numAzi) "Inner side (last layer)"
                      annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,

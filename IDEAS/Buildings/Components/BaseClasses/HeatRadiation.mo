@@ -15,7 +15,7 @@ equation
   port_a.Q_flow = -port_b.Q_flow;
 
   if linear then
-    port_a.Q_flow = 0.8*5.67*dT/R;
+    port_a.Q_flow = 5.67*dT/R;
   else
     port_a.Q_flow = Modelica.Constants.sigma/R*dT*(port_a.T + port_b.T)*(port_a.T^2 + port_b.T^2);
 
