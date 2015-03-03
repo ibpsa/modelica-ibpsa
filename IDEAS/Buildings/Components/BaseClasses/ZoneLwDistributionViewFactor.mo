@@ -46,7 +46,7 @@ Modelica.Blocks.Interfaces.RealInput[nSurf] inc "Surface inclination angles"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-60,-104})));
-protected
+
   parameter Real[2+numAzi] Atot(each fixed=false)
     "Total surface area per orientation";
 
@@ -88,6 +88,8 @@ initial algorithm
           ". Avoid this error by disabling explicit view factor calculation in the zone model");
     end if;
   end for;
+  assert(Atot[1]>0, "Zone contains no ceiling surfaces. This needs to be fixed or explicit view factor calculation should be disabled.");
+  assert(Atot[2]>0, "Zone contains no floor surfaces. This needs to be fixed or explicit view factor calculation should be disabled.");
 
   //view factor from ceiling/floor to floor/ceiling
   vieFacTot[1,1] :=0;
@@ -105,6 +107,13 @@ initial algorithm
     lWall :=Atot[i]/hZone;
 
     //view factor for walls to ceiling and floor
+    if lWall == 0 then
+      for j in 1:numAzi+2 loop
+        vieFacTot[j,i]:=0;
+        vieFacTot[i,j]:=0;
+      end for;
+    else
+
     vieFacTot[1,i]:=IDEAS.Buildings.Components.BaseClasses.viewFactorRectRectPerp(
       lCommon=lWall,
       W1=hZone,
@@ -120,7 +129,10 @@ initial algorithm
           if i==j then
             //a wall does not interchange radiant heat with itself
              vieFacTot[i,i] := 0;
-          elseif abs(i-j)==1 then
+          elseif Atot[i]==0 or Atot[j]==0 then
+            vieFacTot[i,j] := 0;
+            vieFacTot[j,i] := 0;
+          elseif abs(i-j)==1 or abs(i-j)==3 then
             //surfaces are perpendicular
             vieFacTot[i,j] := IDEAS.Buildings.Components.BaseClasses.viewFactorRectRectPerp(
                   lCommon=hZone,
@@ -139,7 +151,8 @@ initial algorithm
           else
             //fixme warning
           end if;
-      end for;
+        end for;
+    end if;
   end for;
 
   //view factors for real surfaces are calculated from the total surfaces
