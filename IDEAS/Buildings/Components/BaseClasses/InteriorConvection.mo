@@ -7,7 +7,7 @@ model InteriorConvection "interior surface convection"
   parameter Boolean linearise = false
     "Fixed convective heat transfer coefficient or dT-dependent."
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal = 3
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal = 2
     "Nominal temperature difference, used for linearisation"
     annotation(Evaluate=true, enable = linearise);
   parameter Modelica.SIunits.TemperatureDifference dT_hCon = dT_nominal/10
