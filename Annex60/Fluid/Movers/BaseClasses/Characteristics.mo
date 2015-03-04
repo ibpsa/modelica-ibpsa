@@ -6,7 +6,7 @@ package Characteristics "Functions for fan or pump characteristics"
 
     parameter Modelica.SIunits.VolumeFlowRate V_flow[:](each min=0)
       "Volume flow rate at user-selected operating points";
-    parameter Modelica.SIunits.Pressure dp[:](
+    parameter Modelica.SIunits.Pressure dp[size(V_flow,1)](
        each min=0, each displayUnit="Pa")
       "Fan or pump total pressure at these flow rates";
 
@@ -138,8 +138,7 @@ First implementation.
     "Flow vs. head characteristics for fan or pump pressure raise"
     extends Modelica.Icons.Function;
     input
-      Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
-                                                                                per
+      Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal   per
       "Pressure performance data";
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
@@ -401,8 +400,7 @@ First implementation.
 
   function efficiency "Flow vs. efficiency characteristics for fan or pump"
     extends Modelica.Icons.Function;
-    input
-      Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    input Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
       per "Efficiency performance data";
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real d[:] "Derivatives at support points for spline interpolation";
