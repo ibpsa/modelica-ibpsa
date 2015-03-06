@@ -60,13 +60,13 @@ equation
       if linearise then
         hCon = IDEAS.Utilities.Math.Functions.spliceFunction(
               x=sign*dT_nominal,
-              pos=coeffCeiling*abs(dT_nominal)^0.133*10,
+              pos=coeffCeiling*abs(dT_nominal)^0.133,
               neg=coeffFloor*abs(dT_nominal)^0.308,
               deltax=  dT_hCon);
       else
         hCon = IDEAS.Utilities.Math.Functions.spliceFunction(
               x=sign*dT,
-              pos=coeffCeiling*abs(dT)^0.133*10,
+              pos=coeffCeiling*abs(dT)^0.133,
               neg=coeffFloor*abs(dT)^0.308,
               deltax=  dT_hCon);
       end if;
