@@ -48,7 +48,7 @@ equation
   etaHyd = cha.efficiency(per=per.hydraulicEfficiency, V_flow=VMachine_flow, d=hydDer, r_N=1, delta=1E-4);
   etaMot = cha.efficiency(per=per.motorEfficiency,     V_flow=VMachine_flow, d=motDer, r_N=1, delta=1E-4);
   dpMachine = -dp;
-  VMachine_flow = -port_b.m_flow/rho_in;
+  VMachine_flow = port_a.m_flow/rho_in;
   // To compute the electrical power, we set a lower bound for eta to avoid
   // a division by zero.
   P = WFlo / Annex60.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
