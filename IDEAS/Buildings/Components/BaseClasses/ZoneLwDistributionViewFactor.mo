@@ -74,7 +74,7 @@ initial algorithm
     elseif IDEAS.Utilities.Math.Functions.isAngle(inc[i], incFloor) then
       // floor area: index 2
       Atot[2]:=Atot[2] + A[i];
-    elseif IDEAS.Utilities.Math.Functions.isAngle(inc[i], incWall) then
+    elseif IDEAS.Utilities.Math.Functions.isAngle(inc[i], incWall) or IDEAS.Utilities.Math.Functions.isAngle(inc[i], incWall+Modelica.Constants.pi) then
         for j in (0:numAzi-1) loop
           // numAzi wall areas: indices 3 through 6
           if IDEAS.Utilities.Math.Functions.isAngle(azi[i], aziSouth + j*Modelica.Constants.pi*2/numAzi) then
