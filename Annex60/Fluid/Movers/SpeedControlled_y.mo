@@ -1,7 +1,7 @@
 within Annex60.Fluid.Movers;
 model SpeedControlled_y
   "Fan or pump with ideally controlled normalized speed y as input signal"
-  extends Annex60.Fluid.Movers.BaseClasses.FlowControlledMachine(
+  extends Annex60.Fluid.Movers.BaseClasses.SpeedControlled(
     _per_y(hydraulicEfficiency=per.hydraulicEfficiency,
             motorEfficiency=per.motorEfficiency,
             power=per.power,

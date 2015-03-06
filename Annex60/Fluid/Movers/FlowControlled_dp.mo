@@ -1,7 +1,7 @@
 within Annex60.Fluid.Movers;
 model FlowControlled_dp
   "Fan or pump with ideally controlled head dp as input signal"
-  extends Annex60.Fluid.Movers.BaseClasses.ControlledFlowMachine(
+  extends Annex60.Fluid.Movers.BaseClasses.FlowControlled(
   final control_m_flow = false,
   preSou(dp_start=dp_start));
 
