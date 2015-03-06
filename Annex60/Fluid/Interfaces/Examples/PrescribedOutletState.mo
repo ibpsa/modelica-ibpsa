@@ -3,7 +3,7 @@ model PrescribedOutletState "Test model for prescribed outlet state"
   import Annex60;
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water.Simple;
+  package Medium = Annex60.Media.Water;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";

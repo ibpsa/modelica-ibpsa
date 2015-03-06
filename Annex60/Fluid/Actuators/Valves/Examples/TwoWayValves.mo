@@ -1,7 +1,7 @@
 within Annex60.Fluid.Actuators.Valves.Examples;
 model TwoWayValves "Two way valves with different opening characteristics"
   extends Modelica.Icons.Example;
-  package Medium = Annex60.Media.Water.Simple;
+  package Medium = Annex60.Media.Water;
 
   Annex60.Fluid.Actuators.Valves.TwoWayLinear valLin(
     redeclare package Medium = Medium,
