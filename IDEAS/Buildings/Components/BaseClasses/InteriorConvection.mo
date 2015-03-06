@@ -23,9 +23,13 @@ model InteriorConvection "interior surface convection"
   parameter Modelica.SIunits.Length hZone = 2.7
     "Zone height, for calculation of hydraulic diameter"
     annotation(Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.Length Dh = 4*A/(2*A/hZone+2*hZone)
+  parameter Modelica.SIunits.Length DhWall = 4*A/(2*A/hZone+2*hZone)
     "Hydraulic diameter for walls"
     annotation(Dialog(tab="Advanced"));
+  parameter Modelica.SIunits.Length DhFloor = sqrt(A)
+    "Hydraulic diameter for ceiling/floor"
+    annotation(Dialog(tab="Advanced"));
+  Real hCon(nominal = 3) "Convective heat transfer coefficient";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
@@ -33,8 +37,12 @@ model InteriorConvection "interior surface convection"
 
 protected
   Modelica.SIunits.TemperatureDifference dT;
-  final parameter Real DhPow = Dh^0.121
+  final parameter Real coeffWall = 1.823/DhWall^0.121
     "For avoiding calculation of power at every time step";
+  final parameter Real coeffFloor = 2.175/DhFloor^0.076
+    "For avoiding calculations at every time step";
+  final parameter Real coeffCeiling = 0.704/DhFloor^0.601
+    "For avoiding calculations at every time step";
   final parameter Boolean isCeiling=abs(sin(inc)) < 10E-5 and cos(inc) > 0
     "true if ceiling"
     annotation(Evaluate=true);
@@ -44,7 +52,7 @@ protected
   final parameter Real sign = if isCeiling then 1 else -1
     "Coefficient for buoyancy direction"
     annotation(Evaluate=true);
-  Real hCon(nominal = 3) "Convective heat transfer coefficient";
+
   Real hConState(nominal = 3) "Convective heat transfer coefficient state";
 
 equation
@@ -52,21 +60,21 @@ equation
       if linearise then
         hCon = IDEAS.Utilities.Math.Functions.spliceFunction(
               x=sign*dT_nominal,
-              pos=IDEAS.Utilities.Math.Functions.smoothMax(0.76*abs(dT_nominal)^0.33,0.1,0.1),
-              neg=IDEAS.Utilities.Math.Functions.smoothMax(1.31*abs(dT_nominal)^0.33,0.1,0.1),
+              pos=coeffCeiling*abs(dT_nominal)^0.133*10,
+              neg=coeffFloor*abs(dT_nominal)^0.308,
               deltax=  dT_hCon);
       else
         hCon = IDEAS.Utilities.Math.Functions.spliceFunction(
               x=sign*dT,
-              pos=max(0.76*abs(dT)^0.33,0.1),
-              neg=min(1.31*abs(dT)^0.33,0.1),
+              pos=coeffCeiling*abs(dT)^0.133*10,
+              neg=coeffFloor*abs(dT)^0.308,
               deltax=  dT_hCon);
       end if;
     else
       if linearise then
-        hCon = 1.823*abs(dT_nominal)^0.293/DhPow;
+        hCon = coeffWall*abs(dT_nominal)^0.293;
       else
-        hCon = 1.823*abs(dT)^0.293/DhPow;
+        hCon = coeffWall*abs(dT)^0.293;
       end if;
     end if;
 
