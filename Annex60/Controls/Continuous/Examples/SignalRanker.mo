@@ -30,7 +30,7 @@ Note that
 </p>
 <p align=\"center\">
 <img src=\"modelica://Annex60/Resources/Images/Controls/Continuous/Examples/SignalRankerU.png\" border=\"1\" alt=\"Input to signal ranker.\"/><br/>
-		  <img src=\"modelica://Annex60/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png\" border=\"1\" alt=\"Output of signal ranker.\"/>
+<img src=\"modelica://Annex60/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png\" border=\"1\" alt=\"Output of signal ranker.\"/>
 </p>
 </html>", revisions="<html>
 <ul>
