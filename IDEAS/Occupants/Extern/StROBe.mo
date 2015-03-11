@@ -19,7 +19,7 @@ protected
     annotation (Placement(transformation(extent={{-170,-30},{-190,-10}})));
   Modelica.Blocks.Sources.RealExpression[nZones] QRad(y=fV*strobe.tabQRad.y[id])
     annotation (Placement(transformation(extent={{-120,-30},{-160,-10}})));
-  Modelica.Blocks.Sources.RealExpression mDHW(y=strobe.tabDHW.y[id])
+  Modelica.Blocks.Sources.RealExpression mDHW(y=strobe.tabDHW.y[id]/60)
     annotation (Placement(transformation(extent={{20,-10},{-20,10}},
         rotation=-90,
         origin={60,60})));
