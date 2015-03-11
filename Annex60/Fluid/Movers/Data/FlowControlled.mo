@@ -65,9 +65,7 @@ Annex60.Fluid.Movers.SpeedControlled_Nrpm</a>,
 use the record
 <a href=\"modelica://Annex60.Fluid.Movers.Data.Generic_Nrpm\">
 Annex60.Fluid.Movers.Data.Generic_Nrpm</a>
-
-
-
+</p>
 </html>",
 revisions="<html>
 <ul>
