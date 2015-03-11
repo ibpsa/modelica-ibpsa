@@ -1,5 +1,7 @@
 within Annex60.Fluid.Actuators.Valves;
 model ThreeWayLinear "Three way valve with linear characteristics"
+    extends Annex60.Fluid.Actuators.BaseClasses.ActuatorSignal;
+
     extends BaseClasses.PartialThreeWayValve(
       redeclare TwoWayLinear res1,
       redeclare TwoWayLinear res3);

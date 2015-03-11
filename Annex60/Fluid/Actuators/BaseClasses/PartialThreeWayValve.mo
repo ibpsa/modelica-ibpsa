@@ -36,7 +36,6 @@ partial model PartialThreeWayValve "Partial three way valve"
                final dpValve_nominal=dpValve_nominal/fraK^2,
                final dpFixed_nominal=dpFixed_nominal[2],
                final filteredOpening=false));
-    extends Annex60.Fluid.Actuators.BaseClasses.ActuatorSignal;
     extends Annex60.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
   parameter Modelica.SIunits.Pressure dpFixed_nominal[2](each displayUnit="Pa",
