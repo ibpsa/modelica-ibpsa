@@ -72,6 +72,7 @@ It is similar to
 <a href=\"modelica://Annex60.Fluid.Interfaces.PartialTwoPortInterface\">
 Annex60.Fluid.Interfaces.PartialTwoPortInterface</a>,
 but it has four ports instead of two.
+</p>
 <p>
 The model is used by other models in this package that add heat transfer,
 mass transfer and pressure drop equations.
