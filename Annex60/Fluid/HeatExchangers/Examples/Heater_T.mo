@@ -47,6 +47,7 @@ See
 <a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.Heater_u\">
 Annex60.Fluid.HeatExchangers.Examples.Heater_u</a>
 for a model that takes the heating power as an input.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
