@@ -9,7 +9,6 @@ partial model FlowMachineInterface
             power=_per_y.power,
             motorCooledByFluid=_per_y.motorCooledByFluid,
             use_powerCharacteristic=_per_y.use_powerCharacteristic));
-    // fixme    redeclare replaceable Data.SpeedControlled_y per);
 
   import Modelica.Constants;
   import cha = Annex60.Fluid.Movers.BaseClasses.Characteristics;
