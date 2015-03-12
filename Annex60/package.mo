@@ -26,7 +26,8 @@ In the Modelica package the following conventions are used:
 
 <ol>
 <li> Class and instance names are written in upper and lower case
-  letters, e.g., \"ElectricCurrent\". An underscore is only used
+  letters, e.g., \"ElectricCurrent\", and may contain numbers.
+  An underscore is only used
   at the end of a name to characterize a lower or upper index,
   e.g., \"pin_a\".</li>
 
@@ -41,7 +42,8 @@ In the Modelica package the following conventions are used:
 <li> <b>Constant names</b>, i.e., names of variables declared with the
   \"constant\" prefix, follow the usual naming conventions
   (= upper and lower case letters) and start usually with an
-  upper case letter, e.g. UniformGravity, SteadyState.</li>
+  upper case letter, e.g. UniformGravity, SteadyState,
+  with only few exceptions such as \"pi\" and \"h_fg\".</li>
 <li> The two connectors of a domain that have identical declarations
   and different icons are usually distinguished by \"_a\", \"_b\"
   or \"_p\", \"_n\", e.g., Flange_a/Flange_b, HeatPort_a, HeatPort_b.</li>
@@ -49,11 +51,11 @@ In the Modelica package the following conventions are used:
 <li> The <b>instance name</b> of a component is always displayed in its icon
   (= text string \"%name\") in <b>blue color</b>. A connector class has the instance
   name definition in the diagram layer and not in the icon layer.
-  <b>Parameter</b> values, e.g., resistance, mass, gear ratio, are displayed
+  If displayed, <b>parameter</b> values, e.g., resistance, mass, gear ratio, are displayed
   in the icon in <b>black color</b> in a smaller font size as the instance name.
  </li>
 
-<li> A main package has usually the following subpackages:
+<li>Packages have usually the following subpackages:
   <ul>
   <li><b>UsersGuide</b> containing an overall description of the library
    and how to use it.</li>
@@ -112,7 +114,9 @@ in addition to the ones of the Modelica Standard Library:
   For one-line comments of parameters, variables and classes, no period should be used at the end of the comment.
 </li>
 <li>
-  Where applicable, all variable must have units, also if the variable is protected.
+All variables that have a physical correspondence, including physical ratios, must have a unit.
+Use (derived) SI units.
+Non-SI units are to be kept at an absolute minimum, and they must be declared as <code>protected</code>.
 </li>
 <li>
   To indicate that a class (i.e., a package, model, block etc.) has not been extensively tested or validated,
