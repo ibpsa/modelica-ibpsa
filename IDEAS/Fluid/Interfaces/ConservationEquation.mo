@@ -52,7 +52,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   input Modelica.SIunits.Volume fluidVolume "Volume";
 
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
-    "Sensible plus latent heat flow rate transfered into the medium"
+    "Sensible plus latent heat flow rate transferred into the medium"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"

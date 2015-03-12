@@ -28,7 +28,7 @@ equation
 <li>The buoyancy heat flux Q_flow[i] between node i+1 and node i equals </li>
 <p><br/><i>Q_flow[i]&nbsp;=&nbsp;powBuo&nbsp;*&nbsp;dT[i]&nbsp;* nbrNodes^expNodes</i></p>
 <p><br/>where:</p>
-<p><i>powBuo</i> = equivalent thermal conductivity for buoancy</p>
+<p><i>powBuo</i> = equivalent thermal conductivity for buoyancy</p>
 <p><i>dT[i]</i> = <i>max(T[i+1]-T[i],&nbsp;0)</i>, so this is the temperature&nbsp;difference&nbsp;between&nbsp;layer&nbsp;i+1&nbsp;and&nbsp;i in case of temperature inversion</p>
 <p><i>nbrNodes</i> = number of nodes</p>
 <p><i>expNodes</i> = parameter, exponent of the number of nodes</p>

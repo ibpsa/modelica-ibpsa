@@ -29,7 +29,7 @@ model StorageTank_OneIntHX
       nbrNodes} "Initial temperature of all Temperature states";
 
   /* 
-    A validation excercise has shown that TO BE COMPLETED.
+    A validation exercise has shown that TO BE COMPLETED.
     */
   parameter Boolean preventNaturalDestratification=true
     "if true, this automatically increases the insulation of the top layer";
@@ -352,10 +352,10 @@ equation
 <p><ol>
 <li>Set the obvious tank parameters (geometry and insulation properties). </li>
 <li>The diameter of the tank is computed from volume and height</li>
-<li>Set the number of nodes. It is not adviced to go below 10 nodes, whereas more than 40 nodes will not be useful either for most cases. </li>
+<li>Set the number of nodes. It is not advised to go below 10 nodes, whereas more than 40 nodes will not be useful either for most cases. </li>
 <li>If the tank is substantially different from the Viesmann Vitocell100V 390 liter (Viessmann, 2011), adapt the buoyancy model parameters <i>powBuo</i> and <i>expNodes. </i>The default values are 24 and 1.5 respectively, they ware identified according to De Coninck et al. (2013).</li>
 <li>If needed, choose a different <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.Partial_Buoyancy\">Buoyancy</a> model.</li>
-<li>If a <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet\">stratified inlet</a> is desired, add this seperately to your model and connect the two arrays of <i>ports</i>. </li>
+<li>If a <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet\">stratified inlet</a> is desired, add this separately to your model and connect the two arrays of <i>ports</i>. </li>
 <li>Model the internal coil: specify inlet and outlet node, it&apos;s length and water content</li>
 <li>Set the three heat transfer coefficients for internal convection, conduction and external convection of the coil.</li>
 <li>A realOutput <i>T[nbrNodes]</i> is available</li>

@@ -722,7 +722,7 @@ made propagation of parameter final.
 <li>
 October 27, 2011, by Wangda Zuo:<br/>
 1. Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br/>
-2. Separate the unit convertion for TMY3 data and data validity check. 
+2. Separate the unit conversion for TMY3 data and data validity check. 
 </li>
 <li>
 October 3, 2011, by Michael Wetter:<br/>
