@@ -1,7 +1,7 @@
 within Annex60.Fluid.MixingVolumes.Examples;
 model MixingVolumeSteadyStateMass "Test model for steady state mass dynamics"
   extends Modelica.Icons.Example;
-  package Medium = Annex60.Experimental.Media.AirPTDecoupled;
+  package Medium = Annex60.Media.Air;
   Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
