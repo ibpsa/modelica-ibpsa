@@ -1,6 +1,5 @@
 within Annex60.Fluid.Interfaces.Examples;
 model PrescribedOutletState "Test model for prescribed outlet state"
-  import Annex60;
   extends Modelica.Icons.Example;
 
   package Medium = Annex60.Media.Water;
