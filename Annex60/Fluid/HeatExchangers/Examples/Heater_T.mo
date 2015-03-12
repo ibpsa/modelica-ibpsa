@@ -60,6 +60,5 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Radau"));
+      Tolerance=1e-05));
 end Heater_T;
