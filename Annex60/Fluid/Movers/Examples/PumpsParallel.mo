@@ -2,7 +2,7 @@ within Annex60.Fluid.Movers.Examples;
 model PumpsParallel "Two flow machines in parallel"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water.Simple "Medium model";
+  package Medium = Annex60.Media.Water "Medium model";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1
     "Nominal mass flow rate";
