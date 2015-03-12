@@ -62,9 +62,7 @@ protected
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
 
-  parameter Data.SpeedControlled_y _per_y "Record with performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,-80},{80,-60}})));
+  parameter Data.SpeedControlled_y _per_y "Record with performance data";
 
   parameter Modelica.SIunits.VolumeFlowRate V_flow_max=
     if haveVMax then
