@@ -74,48 +74,49 @@ in addition to the ones of the Modelica Standard Library:
 
 <ol>
 <li>
-The nomenclature used in the package
-<a href=\"modelica://Annex60.Utilities.Psychrometrics\">
-Annex60.Utilities.Psychrometrics</a>
- is as follows,
-<ul>
-<li>
-Uppercase <code>X</code> denotes mass fraction per total mass.
+  The nomenclature used in the package
+  <a href=\"modelica://Annex60.Utilities.Psychrometrics\">
+  Annex60.Utilities.Psychrometrics</a>
+   is as follows,
+  <ul>
+    <li>
+      Uppercase <code>X</code> denotes mass fraction per total mass.
+    </li>
+    <li>
+      Lowercase <code>x</code> denotes mass fraction per mass of dry air.
+    </li>
+    <li>
+      The notation <code>z_xy</code> denotes that the function or block has output
+      <code>z</code> and inputs <code>x</code> and <code>y</code>.
+      </li>
+    <li>
+      The symbol <code>pW</code> denotes water vapor pressure, <code>TDewPoi</code>
+      denotes dew point temperature, <code>TWetBul</code> denotes wet bulb temperature,
+      and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature.
+    </li>
+  </ul>
 </li>
 <li>
-Lowercase <code>x</code> denotes mass fraction per mass of dry air.
+  Names of models, blocks and packages should start with an upper-case letter and be a
+  noun or a noun with a combination of adjectives and nouns.
+  Use camel-case notation to combine multiple words, such as <code>HeatTransfer</code>.
 </li>
 <li>
-The notation <code>z_xy</code> denotes that the function or block has output
-<code>z</code> and inputs <code>x</code> and <code>y</code>.
+  Parameter and variables names are usually a character, such as <code>T</code>
+  for temperature and <code>p</code> for pressure, or a combination of the first three
+  characters of a word, such as <code>higPreSetPoi</code> for high pressure set point.
 </li>
 <li>
-The symbol <code>pW</code> denotes water vapor pressure, <code>TDewPoi</code>
-denotes dew point temperature, <code>TWetBul</code> denotes wet bulb temperature,
-and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature.
-</li>
-</ul>
-<li>
-Names of models, blocks and packages should start with an upper-case letter and be a
-noun or a noun with a combination of adjectives and nouns.
-Use camel-case notation to combine multiple words, such as <code>HeatTransfer</code>.
+  Comments should be added to each class (package, model, function etc.).
+  The first character should be upper case.
+  For one-line comments of parameters, variables and classes, no period should be used at the end of the comment.
 </li>
 <li>
-Parameter and variables names are usually a character, such as <code>T</code>
-for temperature and <code>p</code> for pressure, or a combination of the first three
-characters of a word, such as <code>higPreSetPoi</code> for high pressure set point.
+  Where applicable, all variable must have units, also if the variable is protected.
 </li>
 <li>
-Comments should be added to each class (package, model, function etc.).
-The first character should be upper case.
-For one-line comments of parameters, variables and classes, no period should be used at the end of the comment.
-</li>
-<li>
-Where applicable, all variable must have units, also if the variable is protected.
-</li>
-<li>
-To indicate that a class (i.e., a package, model, block etc.) has not been extensively tested or validated,
-its class name ends with the string <code>Beta</code>.
+  To indicate that a class (i.e., a package, model, block etc.) has not been extensively tested or validated,
+  its class name ends with the string <code>Beta</code>.
 </li>
 </ol>
 </html>"));
@@ -152,7 +153,7 @@ on the <code>Annex60</code> library.
     extends Modelica.Icons.Contact;
     annotation (preferredView="info",
     Documentation(info="<html>
-<h4><font color=\"#008000\" size=5>Contact</font></h4>
+<h4><font color=\"#008000\" size=\"5\">Contact</font></h4>
 <p>
 The development of the <code>Annex60</code> library is done through the
 <a href=\"http://www.iea-annex60.org\">Annex 60</a> project of the
@@ -168,7 +169,7 @@ Library point of contact<br/>
     Bldg. 90-3147<br/>
     Berkeley, CA 94720<br/>
     USA<br/>
-    email: <A HREF=\"mailto:MWetter@lbl.gov\">MWetter@lbl.gov</A><br/>
+    email: <a href=\"mailto:MWetter@lbl.gov\">MWetter@lbl.gov</a><br/>
 </p>
 </html>"));
   end Contact;
@@ -177,7 +178,7 @@ Library point of contact<br/>
     extends Modelica.Icons.Information;
     annotation (preferredView="info",
     Documentation(info="<html>
-<h4><font color=\"#008000\" size=5>Acknowledgements</font></h4>
+<h4><font color=\"#008000\" size=\"5\">Acknowledgements</font></h4>
 <p>
  The development of this library was supported
 </p>
@@ -186,6 +187,7 @@ Library point of contact<br/>
   Energy Efficiency and Renewable Energy, Office of Building
   Technologies of the U.S. Department of Energy, under
   contract No. DE-AC02-05CH11231.
+ </li>
  <li>
  fixme: add other funding agencies as appropriate.
  </li>
@@ -210,7 +212,7 @@ xxx add contributors for the first version in alphabetical order.
     extends Modelica.Icons.Information;
     annotation (preferredView="info",
     Documentation(info="<html>
-<h4><font color=\"#008000\" size=5>The Modelica License 2</font></h4>
+<h4><font color=\"#008000\" size=\"5\">The Modelica License 2</font></h4>
 <p>
 <strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work.
 </p>
@@ -375,6 +377,7 @@ Furthermore, add the list of authors and contributors under
 For example, sublibrary Modelica.Blocks of the Modelica Standard Library may have the following notices:</p>
 <ul><li style=\"list-style-type:none\">
 Licensed by Modelica Association under the Modelica License 2 Copyright (c) 1998-2008, Modelica Association.
+</li>
 <li style=\"list-style-type:none\"><i>
 This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at
 <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>.
@@ -398,13 +401,13 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
     extends Modelica.Icons.Information;
     annotation (preferredView="info",
     Documentation(info="<html>
-<h4><font color=\"#008000\" size=5>Copyright</font></h4>
+<h4><font color=\"#008000\" size=\"5\">Copyright</font></h4>
 <p>
 Copyright (c) 2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
 </p>
 <p>
 If you have questions about your rights to use or distribute this software, please contact Berkeley Lab's Technology Transfer Department at
-<A HREF=\"mailto:TTD@lbl.gov\">TTD@lbl.gov</A>
+<a href=\"mailto:TTD@lbl.gov\">TTD@lbl.gov</a>
 </p>
 <p>
 NOTICE. This software was developed under partial funding from the U.S. Department of Energy. As such, the U.S. Government has been granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, and perform publicly and display publicly. Beginning five (5) years after the date permission to assert copyright is obtained from the U.S. Department of Energy, and subject to any subsequent five (5) year renewals, the U.S. Government is granted for itself and others acting on its behalf a paid-up, nonexclusive, irrevocable, worldwide license in the Software to reproduce, prepare derivative works, distribute copies to the public, perform publicly and display publicly, and to permit others to do so.
@@ -444,7 +447,7 @@ to solve specific problems.
 <p>
 The library has the following <i>User's Guides</i>:
 </p>
-<table summary=\"summary\" border=1 cellspacing=0 cellpadding=2>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.UsersGuide\">Fluid</a>
    </td>
    <td valign=\"top\">Package for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
@@ -460,6 +463,7 @@ The library has the following <i>User's Guides</i>:
 <tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">Fluid.Sensors</a>
    </td>
    <td valign=\"top\">Package with sensors.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Annex60.Fluid.Interfaces.UsersGuide\">Fluid.Interfaces</a>
    </td>
    <td valign=\"top\">Base models that can be used by developers to implement new models.</td>
