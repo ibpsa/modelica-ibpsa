@@ -16,7 +16,7 @@ partial model Heater "Base class for example model for the heater and cooler"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     mSenFac=2,
-    nPorts=3)
+    nPorts=2)
          annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(
     G=Q_flow_nominal/20) "Thermal conductance to the outside"
@@ -52,9 +52,6 @@ partial model Heater "Base class for example model for the heater and cooler"
   Modelica.Blocks.Sources.Constant mFan_flow(k=m_flow_nominal)
     "Mass flow rate of the fan"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
-  Sources.FixedBoundary bou(redeclare package Medium = Medium, nPorts=1)
-    "Fixed pressure boundary condition, required to set a reference pressure"
-    annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
   Sensors.TemperatureTwoPort THeaOut(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Outlet temperature of the heater"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
@@ -88,15 +85,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(THeaOut.port_b, vol.ports[1]) annotation (Line(
-      points={{40,-40},{48,-40},{48,-10},{47.3333,-10}},
+      points={{40,-40},{48,-40},{48,-10},{48,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol.ports[2], fan.port_a) annotation (Line(
-      points={{50,-10},{50,-70},{-80,-70},{-80,-40},{-70,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(bou.ports[1], vol.ports[3]) annotation (Line(
-      points={{70,-20},{52,-20},{52,-10},{52.6667,-10}},
+      points={{52,-10},{52,-70},{-80,-70},{-80,-40},{-70,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation ( Documentation(info="<html>
@@ -117,6 +110,15 @@ for system models in which the air is modelled as an incompressible fluid.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 16, 2015, by Michael Wetter:<br/>
+Removed expansion vessel, as OpenModelica fails to solve for the initial conditions
+with an error <pre>
+vol.dynBal.medium.p = bou.p_start;
+vol.dynBal.medium.p = 101325.0
+</pre>.
+This is for issue <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/188\">188</a>.
+</li>
 <li>
 November 12, 2014, by Michael Wetter:<br/>
 First implementation.
