@@ -1,6 +1,5 @@
 within Annex60.Utilities.Math.Examples;
 model SmoothMin "Test model for smooth minimum"
-  import Annex60;
   extends Modelica.Icons.Example;
   Annex60.Utilities.Math.SmoothMin smoLim[2](deltaX={0.1,0.02}) "Smooth limit"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
