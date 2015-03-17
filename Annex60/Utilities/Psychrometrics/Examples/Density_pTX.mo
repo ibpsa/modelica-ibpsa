@@ -1,6 +1,5 @@
 within Annex60.Utilities.Psychrometrics.Examples;
 model Density_pTX "Model to test the density computation"
-  import Annex60;
   extends Modelica.Icons.Example;
 
  package Medium = Annex60.Media.Air "Medium model"
