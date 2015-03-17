@@ -1,17 +1,19 @@
 within Annex60.Fluid.HeatExchangers.Examples.BaseClasses;
 partial model Heater "Base class for example model for the heater and cooler"
 
-  package Medium = Annex60.Media.Air "Medium model";
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      annotation (choicesAllMatching = true);
 
-  parameter Modelica.SIunits.Volume VRoo = 6*6*2.7 "Room volume";
+  parameter Modelica.SIunits.Volume V "Volume to be heated";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = VRoo*1.2*6/3600
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 30*6*6
-    "Nominal heat loss of the room";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+    "Nominal heat loss of the volume";
 
   Annex60.Fluid.MixingVolumes.MixingVolume vol(
-    V=VRoo,
+    V=V,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -49,8 +51,7 @@ partial model Heater "Base class for example model for the heater and cooler"
     yMin=0,
     Ti=120) "Controller"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Blocks.Sources.Constant mFan_flow(k=m_flow_nominal)
-    "Mass flow rate of the fan"
+  Modelica.Blocks.Sources.Constant mFan_flow(k=m_flow_nominal) "Mass flow rate"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Sensors.TemperatureTwoPort THeaOut(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Outlet temperature of the heater"
@@ -95,18 +96,17 @@ equation
   annotation ( Documentation(info="<html>
 <p>
 This partial model is used to construct the models
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.Heater_T\">
-Annex60.Fluid.HeatExchangers.Examples.Heater_T</a>
-and
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.Heater_u\">
-Annex60.Fluid.HeatExchangers.Examples.Heater_u</a>.
-It consists of an air volume with heat loss to the ambient,
-a fan,
-a set point for the room air temperature and a PI controller.
-</p>
-<p>
-The instance <code>bou</code> is required to set a reference pressure
-for system models in which the air is modelled as an incompressible fluid.
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.AirHeater_T\">
+Annex60.Fluid.HeatExchangers.Examples.AirHeater_T</a>,
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.AirHeater_u\">
+Annex60.Fluid.HeatExchangers.Examples.AirHeater_u</a>,
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.WaterHeater_T\">
+Annex60.Fluid.HeatExchangers.Examples.WaterHeater_T</a>,
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.WaterHeater_u\"> and
+Annex60.Fluid.HeatExchangers.Examples.WaterHeater_u</a>.
+It consists of a volume with heat loss to the ambient,
+a fan or pump,
+a set point for the temperature of the volume and a PI controller.
 </p>
 </html>", revisions="<html>
 <ul>

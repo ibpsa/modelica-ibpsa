@@ -1,8 +1,12 @@
 within Annex60.Fluid.HeatExchangers.Examples;
-model Heater_T
-  "Example model for the heater with prescribed outlet temperature"
+model AirHeater_T
+  "Example model for the heater with prescribed outlet temperature and air as the medium"
   extends Modelica.Icons.Example;
-  extends Annex60.Fluid.HeatExchangers.Examples.BaseClasses.Heater;
+  extends Annex60.Fluid.HeatExchangers.Examples.BaseClasses.Heater(
+    redeclare package Medium = Annex60.Media.Air,
+    V=6*6*2.7,
+    m_flow_nominal=V*1.2*6/3600,
+    Q_flow_nominal=30*6*6);
 
   Annex60.Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare package Medium = Medium,
@@ -44,8 +48,8 @@ which the air temperature is above the set point.
 </p>
 <p>
 See
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.Heater_u\">
-Annex60.Fluid.HeatExchangers.Examples.Heater_u</a>
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.AirHeater_u\">
+Annex60.Fluid.HeatExchangers.Examples.AirHeater_u</a>
 for a model that takes the heating power as an input.
 </p>
 </html>", revisions="<html>
@@ -56,10 +60,10 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file= "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/Heater_T.mos"
+    __Dymola_Commands(file= "modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/AirHeater_T.mos"
         "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-05,
       __Dymola_Algorithm="Radau"));
-end Heater_T;
+end AirHeater_T;
