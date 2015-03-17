@@ -1,7 +1,6 @@
 within Annex60.Utilities.Psychrometrics.Examples;
 model Phi_pTX "Model to test the relative humidity computation"
-  import Annex60;
-  extends Modelica.Icons.Example;
+ extends Modelica.Icons.Example;
 
  package Medium = Annex60.Media.Air "Medium model"
            annotation (choicesAllMatching = true);
