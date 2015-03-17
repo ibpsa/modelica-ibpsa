@@ -1,6 +1,5 @@
 within Annex60.Utilities.Time.Examples;
 model ModelTime "Test model for the ModelTime block"
-  import Annex60;
   extends Modelica.Icons.Example;
   Annex60.Utilities.Time.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-12,-10},{8,10}})));

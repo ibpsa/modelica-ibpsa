@@ -12,16 +12,16 @@ model DiffuseIsotropic
         transformation(extent={{-11,-1},{9,21}}),iconTransformation(extent={{1,
             -1},{2,-2}})));
   Annex60.BoundaryConditions.SolarIrradiation.DiffuseIsotropic
-        HDifRoo(til=Annex60.HeatTransfer.Types.Tilt.Ceiling,
+        HDifRoo(til=Annex60.Types.Tilt.Ceiling,
                 rho=rho) "Diffuse irradiation on roof"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Annex60.BoundaryConditions.SolarIrradiation.DiffuseIsotropic
-        HDifFlo(til=Annex60.HeatTransfer.Types.Tilt.Floor,
+        HDifFlo(til=Annex60.Types.Tilt.Floor,
                 rho=rho) "Diffuse irradiation on floor"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Annex60.BoundaryConditions.SolarIrradiation.DiffuseIsotropic
         HDifWal(
-        til=Annex60.HeatTransfer.Types.Tilt.Wall,
+        til=Annex60.Types.Tilt.Wall,
         rho=rho) "Diffuse irradiation on wall"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 

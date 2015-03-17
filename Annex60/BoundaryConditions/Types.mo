@@ -1,7 +1,6 @@
 within Annex60.BoundaryConditions;
 package Types "Package with type definitions"
-  extends Modelica.Icons.TypesPackage;
-
+ extends Modelica.Icons.TypesPackage;
   type DataSource = enumeration(
       File "Use data from file",
       Parameter "Use parameter",

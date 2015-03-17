@@ -764,7 +764,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
-      points={{265,-56},{280,-56},{280,0},{300,0}},
+      points={{265,-56},{280,-56},{280,0},{292,0},{292,0},{300,
+          0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
