@@ -2,7 +2,7 @@ within Annex60.Fluid.FixedResistances.Examples;
 model FixedResistancesParallel
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Water.Simple;
+ package Medium = Annex60.Media.Water;
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{66,76},{86,96}})));
     Modelica.Blocks.Sources.Ramp P(
