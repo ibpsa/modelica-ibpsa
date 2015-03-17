@@ -1,4 +1,4 @@
-within Buildings.Types;
+within Annex60.Types;
 package Tilt "Enumeration for surface tilt"
   extends Modelica.Icons.TypesPackage;
 
@@ -13,12 +13,12 @@ annotation(preferredView="info", Documentation(info="<html>
 <p>
 numeration to define the tilt of a surface.
 For example, for a construction that is a floor, use
-<code>Buildings.Types.Tilt.Floor</code>.
+<code>Annex60.Types.Tilt.Floor</code>.
 </p>
 <p>
 Note that a ceiling has a tilt of <i>0</i>, and also the solar collector models
 in
-<a href=\"Buildings.Fluid.SolarCollectors\">Buildings.Fluid.SolarCollectors</a>
+<a href=\"Annex60.Fluid.SolarCollectors\">Annex60.Fluid.SolarCollectors</a>
 require a tilt of <i>0</i> if they are facing straight upwards.
 This is correct because
 the solar irradiation on a ceiling construction is on the other-side surface,

@@ -1,4 +1,4 @@
-within Buildings.Types;
+within Annex60.Types;
 package Azimuth "Enumeration for surface azimuth"
    extends Modelica.Icons.TypesPackage;
 
@@ -17,7 +17,7 @@ Documentation(info="<html>
 Enumeration to define the azimuth of a surface.
 For example, if an exterior wall is South oriented, i.e., its outside-facing
 surface is towards South, use
- <code>Buildings.Types.Azimuth.S</code>.
+ <code>Annex60.Types.Azimuth.S</code>.
 </p>
 </html>",
   revisions="<html>
