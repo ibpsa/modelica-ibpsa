@@ -16,7 +16,7 @@ public
 
   Modelica.Blocks.Interfaces.RealOutput HGroDifTil(final quantity="RadiantEnergyFluenceRate",
       final unit="W/m2")
-    "Diffuse solar irradiation on a tilted surfce from the ground"
+    "Diffuse solar irradiation on a tilted surface from the ground"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 protected
   Real til_c "Cosine of tilt angle";
@@ -24,7 +24,7 @@ protected
 public
   Modelica.Blocks.Interfaces.RealOutput HSkyDifTil(final quantity="RadiantEnergyFluenceRate",
       final unit="W/m2")
-    "Diffuse solar irradiation on a tilted surfce from the sky"
+    "Diffuse solar irradiation on a tilted surface from the sky"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 equation
   til_c = Modelica.Math.cos(til);

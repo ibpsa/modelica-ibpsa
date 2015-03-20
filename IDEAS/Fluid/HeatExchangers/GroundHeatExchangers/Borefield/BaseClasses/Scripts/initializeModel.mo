@@ -62,7 +62,7 @@ algorithm
     <li> simulation of model</li>
     <li> writing the data </li>
     </ul>
-    <p> If not, an error has occured!
+    <p> If not, an error has occurred!
     </p>
 </html>", revisions="<html>
 <ul>

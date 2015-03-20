@@ -9,7 +9,7 @@ record Material "Properties of building materials"
   parameter Modelica.SIunits.Density rho "Density";
   parameter Modelica.SIunits.Emissivity epsLw = 0.85 "Longwave emisivity";
   parameter Modelica.SIunits.Emissivity epsSw = 0.85 "Shortwave emissivity";
-  parameter Boolean gas=false "Boolean wether the material is a gas";
+  parameter Boolean gas=false "Boolean whether the material is a gas";
   parameter Real mhu(unit="m2/s") = 0
     "Viscosity, i.e. if the material is a fluid";
 

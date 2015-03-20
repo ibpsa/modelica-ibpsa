@@ -21,7 +21,7 @@ model StorageTank "1D multinode stratified storage tank"
   parameter SI.MassFlowRate m_flow_nominal=0.1 "Nominal mass flow rate";
 
   /* 
-  A validation excercise has shown that TO BE COMPLETED. //fixme
+  A validation exercise has shown that TO BE COMPLETED. //fixme
     */
 
   parameter Boolean preventNaturalDestratification=true
@@ -224,10 +224,10 @@ equation
 <p><ol>
 <li>Set the obvious tank parameters (geometry and insulation properties). </li>
 <li>The diameter of the tank is computed from volume and height</li>
-<li>Set the number of nodes. It is not adviced to go below 10 nodes, whereas more than 40 nodes will not be useful either for most cases. </li>
+<li>Set the number of nodes. It is not advised to go below 10 nodes, whereas more than 40 nodes will not be useful either for most cases. </li>
 <li>If the tank is substantially different from the Viesmann Vitocell100V 390 liter (Viessmann, 2011), adapt the buoyancy model parameters <i>powBuo</i> and <i>expNodes. </i>The default values are 24 and 1.5 respectively, they ware identified according to De Coninck et al. (2013).</li>
 <li>If needed, choose a different <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.Partial_Buoyancy\">Buoyancy</a> model.</li>
-<li>If a <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet\">stratified inlet</a> is desired, add this seperately to your model and connect the two arrays of <i>ports</i>. </li>
+<li>If a <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet\">stratified inlet</a> is desired, add this separately to your model and connect the two arrays of <i>ports</i>. </li>
 </ol></p>
 <p><h4>Validation </h4></p>
 <p>This model has been validated to some extent by fitting powBuo and expNodes on catalogue data of a Viesmann Vitocell100V 390 liter storage tank with internal heat exchanger (Viessmann, 2011). See De Coninck et al. (2013) for more information.</p>

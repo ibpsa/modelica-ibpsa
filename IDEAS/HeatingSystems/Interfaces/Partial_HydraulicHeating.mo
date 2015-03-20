@@ -10,7 +10,7 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     nEmbPorts=0,
     nLoads=1,
     nZones=1);
-  // --- Paramter: General parameters for the design (nominal) conditions and heat curve
+  // --- Parameter: General parameters for the design (nominal) conditions and heat curve
   parameter Modelica.SIunits.Power[nZones] QNom(each min=0) = ones(nZones)*5000
     "Nominal power, can be seen as the max power of the emission system per zone";
   parameter Boolean minSup=true
