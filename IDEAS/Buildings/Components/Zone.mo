@@ -11,7 +11,8 @@ model Zone "thermal building zone"
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Assumptions"));
   parameter Boolean calculateViewFactor = true
-    "Explicit calculation of view factors: only for simple zones!";
+    "Explicit calculation of view factors: only for rectangular zones!"
+    annotation(Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Volume V "Total zone air volume";
   parameter Real n50(min=0.01)=0.4
@@ -121,15 +122,15 @@ equation
       points={{-44,-44},{-22,-44},{-22,-60.6},{-1.2,-60.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  if not calculateViewFactor then
-    connect(propsBus.area, radDistr.area) annotation (Line(
+
+  connect(propsBus.area, radDistr.area) annotation (Line(
       points={{-100,40},{-82,40},{-82,-40},{-64,-40}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  end if;
+
   connect(propsBus.area, radDistrLw.A) annotation (Line(
       points={{-100,40},{-82,40},{-82,-14},{-64,-14}},
       color={127,0,0},
@@ -243,11 +244,6 @@ end for;
       points={{-32,-20},{-32,-26},{-54,-26},{-54,-34}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(zoneLwDistributionViewFactor.floorArea, radDistr.area) annotation (
-      Line(
-      points={{-21.6,-4},{-20,-4},{-20,-32},{-64,-32},{-64,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -260,9 +256,22 @@ end for;
 <p>Infiltration and ventilation systems provide air to the zones, undesirably or to meet heating or cooling loads. The thermal energy provided to the zone by this air change rate can be formulated from the difference between the supply air enthalpy and the enthalpy of the air leaving the zone <img src=\"modelica://IDEAS/Images/equations/equation-jiSQ22c0.png\" alt=\"h_a\"/>. It is assumed that the zone supply air mass flow rate is exactly equal to the sum of the air flow rates leaving the zone, and all air streams exit the zone at the zone mean air temperature. The moisture dependence of the air enthalpy is neglected.</p>
 <p>A multiplier for the zone capacitance f_{ca} is included. A f_{ca} equaling unity represents just the capacitance of the air volume in the specified zone. This multiplier can be greater than unity if the zone air capacitance needs to be increased for stability of the simulation. This multiplier increases the capacitance of the air volume by increasing the zone volume and can be done for numerical reasons or to account for the additional capacitances in the zone to see the effect on the dynamics of the simulation. This multiplier is constant throughout the simulation and is set to 5.0 if the value is not defined <a href=\"IDEAS.Buildings.UsersGuide.References\">[Masy 2008]</a>.</p>
 <p>The exchange of longwave radiation in a zone has been previously described in the building component models and further considering the heat balance of the interior surface. Here, an expression based on <i>radiant interchange configuration factors</i> or <i>view factors</i> is avoided based on a delta-star transformation and by definition of a <i>radiant star temperature</i> T_{rs}. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. ThisT_{rs} can be derived from the law of energy conservation in the radiant star node as sum(Q_{si,rs}) must equal zero. Long wave radiation from internal sources are dealt with by including them in the heat balance of the radiant star node resulting in a diffuse distribution of the radiative source.</p>
+<p>
+An option exist that calculates view factors explicitly and derives the thermal resistances 
+between individual surfaces. The implementation however assumes that the zone is rectangular. 
+This is often not the case and therefore the implementation is disabled by default.
+It can be enabled using parameter <code>calculateViewFactor</code>.
+</p>
 <p>Transmitted shortwave solar radiation is distributed over all surfaces in the zone in a prescribed scale. This scale is an input value which may be dependent on the shape of the zone and the location of the windows, but literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption.</p>
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March, 2015, by Filip Jorissen:<br/>
+Added view factor implementation.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),     graphics));
