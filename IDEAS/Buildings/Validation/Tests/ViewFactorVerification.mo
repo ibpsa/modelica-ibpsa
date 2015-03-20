@@ -42,24 +42,8 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
           fontName="Calibri",
           textStyle={TextStyle.Bold},
           textString="BESTEST 900 Series")}),
-    __Dymola_Commands(executeCall(ensureSimulated=true) = {createPlot(
-        id=1,
-        position={0,0,1065,643},
-        y={"CaseVf.building.TSensor[1]","CaseNoVf.building.TSensor[1]"},
-        range={0.0,32000000.0,293.0,301.0},
-        grid=true,
-        leftTitleType=1,
-        bottomTitleType=1,
-        colors={{0,0,255},{255,0,0}}),createPlot(
-        id=1,
-        position={0,0,1065,318},
-        y={"CaseVf.PHea","CaseNoVf.PHea"},
-        range={0.0,32000000.0,-4000.0,500.0},
-        grid=true,
-        subPlot=2,
-        leftTitleType=1,
-        bottomTitleType=1,
-        colors={{0,0,255},{255,0,0}})} "Verification"),
+    __Dymola_Commands(file="modelica://Resources/Scripts/Dymola/Buildings/Validation/Tests/ViewFactorVerification.mos"
+        "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>
