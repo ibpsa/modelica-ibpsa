@@ -10,7 +10,7 @@ model Zone "thermal building zone"
   parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Assumptions"));
-  parameter Boolean calculateViewFactor = true
+  parameter Boolean calculateViewFactor = false
     "Explicit calculation of view factors: only for rectangular zones!"
     annotation(Dialog(tab="Advanced"));
 
