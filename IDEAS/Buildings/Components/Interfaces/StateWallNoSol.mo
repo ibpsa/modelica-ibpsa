@@ -18,7 +18,7 @@ partial model StateWallNoSol
     __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
-  ZoneBus propsBus_a "Inner side (last layer)"
+  ZoneBus propsBus_a(numAzi=sim.numAzi) "Inner side (last layer)"
                      annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
@@ -30,6 +30,8 @@ partial model StateWallNoSol
     annotation (Placement(transformation(extent={{80,54},{60,74}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif(Q_flow=0)
     annotation (Placement(transformation(extent={{80,72},{60,92}})));
+  outer SimInfoManager       sim
+    annotation (Placement(transformation(extent={{-66,78},{-46,98}})));
 equation
   connect(iSolDif.port, propsBus_a.iSolDif) annotation (Line(
       points={{60,82},{46,82},{46,40},{50,40}},
@@ -47,5 +49,13 @@ equation
       extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-50,-100},{50,100}}), graphics));
+          preserveAspectRatio=false, extent={{-50,-100},{50,100}}), graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+February 10, 2015 by Filip Jorissen:<br/>
+Adjusted implementation for grouping of solar calculations.
+</li>
+</ul>
+</html>"));
 end StateWallNoSol;

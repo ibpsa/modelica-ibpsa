@@ -56,7 +56,7 @@ protected
   //Negative, because it's losses from zone side b to zone side a, oposite of calculation of QTra_design
 
 public
-  Interfaces.ZoneBus propsBus_b "Outer side (1st layer)"
+  Interfaces.ZoneBus propsBus_b(numAzi=sim.numAzi) "Outer side (1st layer)"
                                 annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,

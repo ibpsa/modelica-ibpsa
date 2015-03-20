@@ -11,7 +11,7 @@ model OuterWall "Opaque building envelope construction"
 
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
-  final parameter Modelica.SIunits.Power QTra_design=U_value*AWall*(273.15 + 21 - sim.Tdes)
+  final parameter Modelica.SIunits.Power QTra_design(fixed=false)
     "Design heat losses at reference outdoor temperature";
 
   parameter Modelica.SIunits.Temperature T_start=293.15
@@ -21,16 +21,10 @@ model OuterWall "Opaque building envelope construction"
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-  Modelica.SIunits.Power QSolIrr = (radSol.solDir + radSol.solDif)
+  Modelica.SIunits.Power QSolIrr = (gainDir.y + gainDif.y)
     "Total solar irradiance";
 
 //protected
-  IDEAS.Climate.Meteo.Solar.RadSol radSol(
-    final inc=inc,
-    final azi=azi,
-    final A=AWall)
-    "determination of incident solar radiation on wall based on inclination and azimuth"
-    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     final A=AWall,
     final inc=inc,
@@ -48,28 +42,34 @@ model OuterWall "Opaque building envelope construction"
         AWall, final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs(final A=
-       AWall)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation extRad(final A=
-        AWall, inc=inc)
+        AWall)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
   Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
-  outer SimInfoManager sim "Simulation information manager for climate data"
-    annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
+  Modelica.Blocks.Math.Gain gainDir(k=AWall)
+    annotation (Placement(transformation(extent={{-58,-28},{-50,-20}})));
+  Modelica.Blocks.Math.Gain gainDif(k=AWall)
+    annotation (Placement(transformation(extent={{-58,-32},{-50,-24}})));
+  Climate.Meteo.Solar.RadSolData radSolData(
+    inc=inc,
+    azi=azi,
+    numAzi=sim.numAzi,
+    offsetAzi=sim.offsetAzi,
+    ceilingInc=sim.ceilingInc,
+    lat=sim.lat)
+    annotation (Placement(transformation(extent={{-92,-36},{-72,-16}})));
+  Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
+    annotation (Placement(transformation(extent={{20,60},{0,80}})));
+initial equation
+  QTra_design =U_value*AWall*(273.15 + 21 - Tdes.y);
+
 equation
-  connect(radSol.solDir, solAbs.solDir) annotation (Line(
-      points={{-50,-24},{-40,-24}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSol.solDif, solAbs.solDif) annotation (Line(
-      points={{-50,-28},{-40,-28}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(extCon.port_a, layMul.port_a) annotation (Line(
       points={{-20,-50},{-16,-50},{-16,-30},{-10,-30}},
       color={191,0,0},
@@ -91,7 +91,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(layMul.iEpsLw_a, extRad.epsLw) annotation (Line(
-      points={{-10,-22},{-14,-22},{-14,-4},{-20,-4}},
+      points={{-10,-22},{-14,-22},{-14,-6.6},{-20,-6.6}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -135,6 +135,44 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(gainDir.y, solAbs.solDir) annotation (Line(
+      points={{-49.6,-24},{-40,-24}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gainDif.y, solAbs.solDif) annotation (Line(
+      points={{-49.6,-28},{-40,-28}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  connect(radSolData.solDir, gainDir.u) annotation (Line(
+      points={{-71.4,-24},{-58.8,-24}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gainDif.u, radSolData.solDif) annotation (Line(
+      points={{-58.8,-28},{-66,-28},{-66,-26},{-71.4,-26}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
+      points={{-72,-18},{-72,40},{50,40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(radSolData.Tenv, extRad.Tenv) annotation (Line(
+      points={{-71.4,-28},{-68,-28},{-68,6},{-20,6},{-20,-4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extCon.Te, propsBus_a.weaBus.Te) annotation (Line(
+      points={{-20,-54.8},{50,-54.8},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extCon.hConExt, propsBus_a.weaBus.hConExt) annotation (Line(
+      points={{-20,-59},{50,-59},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Tdes.u, propsBus_a.weaBus.Tdes) annotation (Line(
+      points={{22,70},{22,56},{50,56},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
@@ -195,5 +233,12 @@ equation
 <p>Similar to the thermal model for heat transfer through a wall, a thermal circuit formulation for the direct radiant exchange between surfaces can be derived <a href=\"IDEAS.Buildings.UsersGuide.References\">[Buchberg 1955, Oppenheim 1956]</a>. The resulting heat exchange by longwave radiation between two surface s_{i} and s_{j} can be described as Q_{si,sj} = sigma.A_{si}.(T_{si}^{4}-T_{sj}^{4})/((1-e_{si})/e_{si} + 1/F_{si,sj} + A_{si}/sum(A_{si}) ) as derived from the Stefan-Boltzmann law wherefore e_{si} and e_{sj} are the emissivity of surfaces s_{i} and s_{j} respectively, F_{si,sj} is radiant-interchange configuration factor <a href=\"IDEAS.Buildings.UsersGuide.References\">[Hamilton 1952]</a> between surfaces s_{i} and s_{j} , A_{i} and A_{j} are the areas of surfaces s_{i} and s_{j} respectively, sigma is the Stefan-Boltzmann constant <a href=\"IDEAS.Buildings.UsersGuide.References\">[Mohr 2008]</a> and R_{i} and T_{j} are the surface temperature of surfaces s_{i} and s_{j} respectively. The above description of longwave radiation for a room or thermal zone results in the necessity of a very detailed input, i.e. the configuration between all surfaces needs to be described by their shape, position and orientation in order to define F_{si,sj}, and difficulties to introduce windows and internal gains in the zone of interest. Simplification is achieved by means of a delta-star transformation <a href=\"IDEAS.Buildings.UsersGuide.References\">[Kenelly 1899]</a> and by definition of a (fictive) radiant star node in the zone model. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. The heat exchange by longwave radiation between surface <img src=\"modelica://IDEAS/Images/equations/equation-Mjd7rCtc.png\" alt=\"s_i\"/> and the radiant star node in the zone model can be described as Q_{si,sj} = sigma.A_{si}.(T_{si}^{4}-T_{sr}^{4})/((1-e_{si})/e_{si} + A_{si}/sum(A_{si}) ) = sigma where e_{si} is the emissivity of surface s_{i}, A_{si} is the area of surface s_{i}, sum(A_{si}) is the sum of areas for all surfaces s_{i} of the thermal zone, sigma is the Stefan-Boltzmann constant <a href=\"IDEAS.Buildings.UsersGuide.References\">[Mohr 2008]</a> and T_{si} and T_{sr} are the temperatures of surfaces <img src=\"modelica://IDEAS/Images/equations/equation-olgnuMEg.png\" alt=\"s_i\"/> and the radiant star node respectively. Absorption of shortwave solar radiation on the interior surface is handled equally as for the outside surface. Determination of the receiving solar radiation on the interior surface after passing through windows is dealt with in the zone model.</p>
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 10, 2015 by Filip Jorissen:<br/>
+Adjusted implementation for grouping of solar calculations.
+</li>
+</ul>
 </html>"));
 end OuterWall;

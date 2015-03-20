@@ -15,8 +15,8 @@ model Window "Multipane window"
 
   final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
     "Window U-value";
-  final parameter Modelica.SIunits.Power QTra_design=U_value*A*(273.15 + 21 -
-      sim.Tdes) "Design heat losses at reference outdoor temperature";
+  final parameter Modelica.SIunits.Power QTra_design(fixed=false)
+    "Design heat losses at reference outdoor temperature";
 
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazing
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
@@ -41,12 +41,6 @@ model Window "Multipane window"
         origin={-30,-100})));
 
 protected
-  IDEAS.Climate.Meteo.Solar.ShadedRadSol radSol(
-    final inc=inc,
-    final azi=azi,
-    final A=A*(1 - frac))
-    "determination of incident solar radiation on wall based on inclination and azimuth"
-    annotation (Placement(transformation(extent={{-72,-70},{-52,-50}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerLucent layMul(
     final A=A*(1 - frac),
     final inc=inc,
@@ -63,7 +57,7 @@ protected
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation skyRad(final A=A
-        *(1 - frac), final inc=inc)
+        *(1 - frac))
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
   IDEAS.Buildings.Components.BaseClasses.SwWindowResponse solWin(
@@ -79,7 +73,7 @@ protected
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation skyRadFra(final
-      A=A*frac, final inc=inc) if       fraType.present
+      A=A*frac) if       fraType.present
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,80},{-40,100}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorConvection eConFra(final A=A*
@@ -91,6 +85,24 @@ protected
 
   Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+public
+  Climate.Meteo.Solar.RadSolData radSolData(
+    inc=inc,
+    azi=azi,
+    numAzi=sim.numAzi,
+    offsetAzi=sim.offsetAzi,
+    ceilingInc=sim.ceilingInc,
+    lat=sim.lat)
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+  Modelica.Blocks.Math.Gain gainDir(k=A*(1 - frac))
+    annotation (Placement(transformation(extent={{-70,-52},{-62,-44}})));
+  Modelica.Blocks.Math.Gain gainDif(k=A*(1 - frac))
+    annotation (Placement(transformation(extent={{-70,-62},{-62,-54}})));
+  Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
+initial equation
+  QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
+
 equation
   connect(eCon.port_a, layMul.port_a) annotation (Line(
       points={{-20,-30},{-10,-30}},
@@ -113,7 +125,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsLw_a, skyRad.epsLw) annotation (Line(
-      points={{-10,-22},{-14,-22},{-14,-4},{-20,-4}},
+      points={{-10,-22},{-14,-22},{-14,-6.6},{-20,-6.6}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -128,26 +140,6 @@ equation
   connect(layMul.port_b, iCon.port_a) annotation (Line(
       points={{10,-30},{20,-30}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(radSol.solDir, shaType.solDir) annotation (Line(
-      points={{-52,-54},{-36,-54}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSol.solDif, shaType.solDif) annotation (Line(
-      points={{-52,-58},{-36,-58}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSol.angInc, shaType.angInc) annotation (Line(
-      points={{-52,-64},{-36,-64}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSol.angZen, shaType.angZen) annotation (Line(
-      points={{-52,-66},{-36,-66}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(radSol.angAzi, shaType.angAzi) annotation (Line(
-      points={{-52,-68},{-36,-68}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(shaType.iSolDir, solWin.solDir) annotation (Line(
       points={{-26,-54},{-10,-54}},
@@ -182,7 +174,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsLw_a, skyRadFra.epsLw) annotation (Line(
-      points={{-10,-22},{-14,-22},{-14,96},{-20,96}},
+      points={{-10,-22},{-14,-22},{-14,93.4},{-20,93.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
@@ -213,6 +205,67 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(radSolData.angInc, shaType.angInc) annotation (Line(
+      points={{-79.4,-64},{-36,-64}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSolData.angAzi, shaType.angAzi) annotation (Line(
+      points={{-79.4,-68},{-36,-68}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSolData.angZen, shaType.angZen) annotation (Line(
+      points={{-79.4,-66},{-36,-66}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
+      points={{-80,-52},{-78,-52},{-78,40},{50,40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(shaType.solDif, gainDif.y) annotation (Line(
+      points={{-36,-58},{-61.6,-58}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gainDif.u, radSolData.solDif) annotation (Line(
+      points={{-70.8,-58},{-76,-58},{-76,-60},{-79.4,-60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSolData.solDir, gainDir.u) annotation (Line(
+      points={{-79.4,-58},{-76,-58},{-76,-48},{-70.8,-48}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gainDir.y, shaType.solDir) annotation (Line(
+      points={{-61.6,-48},{-36,-48},{-36,-54}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSolData.Tenv, skyRad.Tenv) annotation (Line(
+      points={{-79.4,-62},{-58,-62},{-58,0},{-20,0},{-20,-4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(skyRadFra.Tenv, skyRad.Tenv) annotation (Line(
+      points={{-20,96},{-12,96},{-12,-4},{-20,-4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(eConFra.Te, eCon.Te) annotation (Line(
+      points={{-20,65.2},{-20,-34.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(eCon.hConExt, eConFra.hConExt) annotation (Line(
+      points={{-20,-39},{-20,61}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(eCon.Te, propsBus_a.weaBus.Te) annotation (Line(
+      points={{-20,-34.8},{50,-34.8},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(eCon.hConExt, propsBus_a.weaBus.hConExt) annotation (Line(
+      points={{-20,-39},{50,-39},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Tdes.u, propsBus_a.weaBus.Tdes) annotation (Line(
+      points={{58,80},{50,80},{50,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
@@ -259,5 +312,12 @@ equation
 <p>Similar to the thermal model for heat transfer through a wall, a thermal circuit formulation for the direct radiant exchange between surfaces can be derived <a href=\"IDEAS.Buildings.UsersGuide.References\">[Buchberg 1955, Oppenheim 1956]</a>. The resulting heat exchange by longwave radiation between two surface s_{i} and s_{j} can be described as Q_{si,sj} = sigma.A_{si}.(T_{si}^{4}-T_{sj}^{4})/((1-e_{si})/e_{si} + 1/F_{si,sj} + A_{si}/sum(A_{si}) ) as derived from the Stefan-Boltzmann law wherefore e_{si} and e_{sj} are the emissivity of surfaces s_{i} and s_{j} respectively, F_{si,sj} is radiant-interchange configuration factor <a href=\"IDEAS.Buildings.UsersGuide.References\">[Hamilton 1952]</a> between surfaces s_{i} and s_{j} , A_{i} and A_{j} are the areas of surfaces s_{i} and s_{j} respectively, sigma is the Stefan-Boltzmann constant <a href=\"IDEAS.Buildings.UsersGuide.References\">[Mohr 2008]</a> and R_{i} and T_{j} are the surface temperature of surfaces s_{i} and s_{j} respectively. The above description of longwave radiation for a room or thermal zone results in the necessity of a very detailed input, i.e. the configuration between all surfaces needs to be described by their shape, position and orientation in order to define F_{si,sj}, and difficulties to introduce windows and internal gains in the zone of interest. Simplification is achieved by means of a delta-star transformation <a href=\"IDEAS.Buildings.UsersGuide.References\">[Kenelly 1899]</a> and by definition of a (fictive) radiant star node in the zone model. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. The heat exchange by longwave radiation between surface <img src=\"modelica://IDEAS/Images/equations/equation-Mjd7rCtc.png\"/> and the radiant star node in the zone model can be described as Q_{si,sj} = sigma.A_{si}.(T_{si}^{4}-T_{sr}^{4})/((1-e_{si})/e_{si} + A_{si}/sum(A_{si}) ) = sigma where e_{si} is the emissivity of surface s_{i}, A_{si} is the area of surface s_{i}, sum(A_{si}) is the sum of areas for all surfaces s_{i} of the thermal zone, sigma is the Stefan-Boltzmann constant <a href=\"IDEAS.Buildings.UsersGuide.References\">[Mohr 2008]</a> and T_{si} and T_{sr} are the temperatures of surfaces <img src=\"modelica://IDEAS/Images/equations/equation-olgnuMEg.png\"/> and the radiant star node respectively. Absorption of shortwave solar radiation on the interior surface is handled equally as for the outside surface. Determination of the receiving solar radiation on the interior surface after passing through windows is dealt with in the zone model.</p>
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 10, 2015 by Filip Jorissen:<br/>
+Adjusted implementation for grouping of solar calculations.
+</li>
+</ul>
 </html>"));
 end Window;
