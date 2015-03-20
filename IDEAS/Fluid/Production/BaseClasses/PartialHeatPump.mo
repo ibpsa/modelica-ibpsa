@@ -7,12 +7,12 @@ partial model PartialHeatPump "Heat pump partial"
     m2_flow_nominal=heatPumpData.m2_flow_nominal*sca,
     dp1_nominal=if computeFlowResistance then heatPumpData.dp1_nominal else 0,
     dp2_nominal=if computeFlowResistance then heatPumpData.dp2_nominal else 0,
-    vol1(mFactor=mFactor,
+    vol1(mSenFac=mSenFac,
       V=heatPumpData.m1/rho1_nominal,
       energyDynamics=energyDynamics,
       massDynamics=massDynamics,
       prescribedHeatFlowRate=true),
-    redeclare IDEAS.Fluid.MixingVolumes.MixingVolume vol2(mFactor=mFactor,
+    redeclare IDEAS.Fluid.MixingVolumes.MixingVolume vol2(mSenFac=mSenFac,
       V=heatPumpData.m2/rho2_nominal,
       energyDynamics=energyDynamics,
       massDynamics=massDynamics,
@@ -42,7 +42,7 @@ partial model PartialHeatPump "Heat pump partial"
   final parameter Real sca=if use_scaling then P_the_nominal/heatPumpData.P_the_nominal
        else 1 "scaling factor for the nominal power of the heat pump";
 
-  parameter Real mFactor=1
+  parameter Real mSenFac=1
     "Factor to scale the thermal mass of the evaporator and condensor"
     annotation (Dialog(tab="Advanced"));
 

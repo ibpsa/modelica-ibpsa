@@ -1,6 +1,6 @@
 CheckCeilingHeight
-CheckRadiation
 CheckPressure
+CheckRadiation
 CheckRelativeHumidity
 CheckSkyCover
 CheckTemperature

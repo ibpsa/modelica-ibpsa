@@ -40,12 +40,16 @@ model CollectorUnit "Collector unit"
   FixedResistances.SplitterFixedResistanceDpM spl_supply(redeclare package
       Medium =                                                                      Medium,
     m_flow_nominal={m_flow_nominal,-m_flow_nominal,-m_flow_nominal},
-    dp_nominal={0,0,0})
+    dp_nominal={0,0,0},
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     annotation (Placement(transformation(extent={{-70,70},{-50,50}})));
   FixedResistances.SplitterFixedResistanceDpM spl_return(redeclare package
       Medium =                                                                      Medium,
     m_flow_nominal={-m_flow_nominal,m_flow_nominal,m_flow_nominal},
-    dp_nominal={0,0,0})
+    dp_nominal={0,0,0},
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     annotation (Placement(transformation(extent={{50,-50},{70,-70}})));
 equation
   connect(port_a1, spl_supply.port_1) annotation (Line(

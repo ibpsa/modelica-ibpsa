@@ -116,43 +116,43 @@ equation
             false), graphics={
         Line(
           points={{-20,30},{20,-30},{-20,-30},{20,30},{-20,30}},
-          color={100,100,100},
+          color={0,0,127},
           smooth=Smooth.None,
           origin={-30,0},
           rotation=-90),
         Line(
           points={{-70,0},{-70,0},{-100,0}},
-          color={0,0,127},
+          color={0,128,255},
           smooth=Smooth.None),
         Line(
           points={{20,40},{20,0},{20,0}},
-          color={100,100,100},
+          color={0,0,127},
           smooth=Smooth.None),
         Line(
           points={{0,40},{40,40},{34,80},{4,80},{0,40}},
-          color={100,100,100},
+          color={0,0,127},
           smooth=Smooth.None),
         Line(
           points={{-70,20},{-70,-20}},
-          color={0,0,127},
+          color={0,128,255},
           smooth=Smooth.None),
         Line(
           points={{140,0},{140,0},{110,0}},
-          color={0,0,127},
+          color={0,128,255},
           smooth=Smooth.None),
         Line(
           points={{110,18},{110,-22}},
-          color={0,0,127},
+          color={0,128,255},
           smooth=Smooth.None),
         Line(
           points={{-20,30},{20,-30},{-20,-30},{20,30},{-20,30}},
-          color={100,100,100},
+          color={0,0,127},
           smooth=Smooth.None,
           origin={70,0},
           rotation=-90),
         Line(
           points={{0,0},{40,0},{40,-2}},
-          color={100,100,100},
+          color={0,0,127},
           smooth=Smooth.None)}),
     Documentation(info="<html>
 <p><b>Description</b> </p>

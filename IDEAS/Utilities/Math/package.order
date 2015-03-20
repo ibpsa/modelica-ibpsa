@@ -1,4 +1,3 @@
-Functions
 Average
 Bicubic
 Biquadratic
@@ -19,4 +18,5 @@ SmoothMax
 SmoothMin
 Splice
 TrapezoidalIntegration
+Functions
 Examples

@@ -183,7 +183,7 @@ equation
 <li>the number of phases using <b>Phases</b></li>
 <li>the grid layout using <b>grid</b></li>
 <li>the voltage at node 1 using <b>VSource</b></li>
-<li>Wether or not to implement a transformer using <b>traPre</b></li>
+<li>Whether or not to implement a transformer using <b>traPre</b></li>
 <li>If transformer: The nominal Power <b>Sn</b></li>
 <li>If transformer: The percentage short circuit voltage <b>Vsc</b> (if needed to be changed)</li>
 </ul></p>

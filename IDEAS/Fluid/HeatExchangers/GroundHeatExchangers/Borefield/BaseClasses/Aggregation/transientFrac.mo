@@ -6,7 +6,7 @@ function transientFrac
   input Data.Records.General gen "General parameter of the borefield";
   input Data.Records.Soil soi "Soil charachteristics";
   input Modelica.SIunits.Temperature[:] TResSho
-    "Vector containing the short term step-reponse wall temperature in function of the time";
+    "Vector containing the short term step-response wall temperature in function of the time";
 
   input Integer[q_max,p_max] nuMat "Number of pulse at the end of each cell";
 

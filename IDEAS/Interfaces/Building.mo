@@ -3,6 +3,9 @@ model Building
 
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
+  replaceable package Medium=IDEAS.Media.Water.Simple;
+
   parameter Boolean standAlone=true;
   parameter Boolean isDH=false "True if the building is connected to a DH grid";
 
@@ -18,6 +21,7 @@ model Building
 
   replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem
     constrainedby IDEAS.Interfaces.BaseClasses.HeatingSystem(
+    redeclare package Medium=Medium,
     final isDH=isDH,
     final nZones = building.nZones,
     final nEmbPorts = building.nEmb,
@@ -56,9 +60,11 @@ model Building
     standAlone
     annotation (Placement(transformation(extent={{62,-40},{78,-24}})));
 
-  Fluid.Interfaces.FlowPort_a flowPort_supply if isDH
+  Fluid.Interfaces.FlowPort_a flowPort_supply(redeclare package Medium = Medium)
+    if                                           isDH
     annotation (Placement(transformation(extent={{10,-110},{30,-90}})));
-  Fluid.Interfaces.FlowPort_b flowPort_return if isDH
+  Fluid.Interfaces.FlowPort_b flowPort_return(redeclare package Medium = Medium)
+    if                                           isDH
     annotation (Placement(transformation(extent={{-30,-110},{-10,-90}})));
   final parameter Boolean InInterface = true;
 

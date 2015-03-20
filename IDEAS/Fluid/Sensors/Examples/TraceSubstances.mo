@@ -1,7 +1,8 @@
 within IDEAS.Fluid.Sensors.Examples;
 model TraceSubstances "Test model for the extra property sensor"
   extends Modelica.Icons.Example;
- package Medium = IDEAS.Media.Air(extraPropertiesNames={"CO2"}) "Medium model";
+ package Medium = IDEAS.Media.Air(extraPropertiesNames={"CO2"})
+    "Medium model";
 
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 15*1.2/3600
     "Mass flow rate into and out of the volume";
@@ -51,6 +52,8 @@ model TraceSubstances "Test model for the extra property sensor"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal) "Sensor at exhaust air"
     annotation (Placement(transformation(extent={{50,-62},{30,-42}})));
+
+
 
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,

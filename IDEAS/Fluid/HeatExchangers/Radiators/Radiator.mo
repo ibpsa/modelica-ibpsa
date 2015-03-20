@@ -4,7 +4,7 @@ model Radiator "Simple 1-node radiator model according to EN 442"
    extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(
      final m=mMedium,
      final m_flow_nominal=QNom/Medium.specificHeatCapacityCp(state_default)/(TInNom -TOutNom),
-    vol(final mFactor=mDry*cpDry/Medium.specificHeatCapacityCp(state_default)/mMedium +
+    vol(final mSenFac=mDry*cpDry/Medium.specificHeatCapacityCp(state_default)/mMedium +
           1));
 
   parameter Modelica.SIunits.Temperature TInNom=75 + 273.15

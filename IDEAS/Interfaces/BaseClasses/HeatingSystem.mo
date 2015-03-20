@@ -2,6 +2,9 @@ within IDEAS.Interfaces.BaseClasses;
 partial model HeatingSystem "Partial heating/cooling system"
 
   extends IDEAS.Interfaces.BaseClasses.PartialSystem;
+
+  replaceable package Medium=IDEAS.Media.Water.Simple;
+
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 
@@ -81,10 +84,12 @@ partial model HeatingSystem "Partial heating/cooling system"
         origin={0,-102})));
 
   // --- fluid
-  Fluid.Interfaces.FlowPort_a flowPort_supply if isDH
+  Fluid.Interfaces.FlowPort_a flowPort_supply(redeclare package Medium = Medium)
+    if                                           isDH
     "Supply water connection to the DH grid"
     annotation (Placement(transformation(extent={{150,-110},{170,-90}})));
-  Fluid.Interfaces.FlowPort_b flowPort_return if isDH
+  Fluid.Interfaces.FlowPort_b flowPort_return(redeclare package Medium = Medium)
+    if                                           isDH
     "Return water connection to the DH grid"
     annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
   annotation (
@@ -180,8 +185,8 @@ partial model HeatingSystem "Partial heating/cooling system"
           color={0,0,127},
           smooth=Smooth.None,
           pattern=LinePattern.Dash)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
-            100}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
+            200,100}}), graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Interface model for a complete multi-zone heating system (with our without domestic hot water and solar system).</p>
