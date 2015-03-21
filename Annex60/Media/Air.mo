@@ -251,7 +251,7 @@ redeclare function extends saturationPressure
 
 algorithm
   psat := Annex60.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
-  annotation(Inline=false,smoothOrder=5);
+  annotation(smoothOrder=5);
 end saturationPressure;
 
 redeclare function extends specificEntropy
@@ -267,7 +267,6 @@ algorithm
          sum(state.X[i]/MMX[i]*
              Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2);
   annotation (
-    Inline=false,
     Documentation(info="<html>
 <p>
 This function computes the specific entropy.
@@ -486,7 +485,6 @@ algorithm
                                 X=X_int);
 
 annotation (
-Inline=false,
 Documentation(info="<html>
 <p>
 This function returns the thermodynamic state based on pressure,
@@ -513,7 +511,7 @@ redeclare replaceable function extends specificEnthalpy
 algorithm
   h := (state.T - reference_T)*dryair.cp * (1 - state.X[Water]) +
        ((state.T-reference_T) * steam.cp + h_fg) * state.X[Water];
-  annotation(Inline=false,smoothOrder=5);
+  annotation(smoothOrder=5);
 end specificEnthalpy;
 
 redeclare replaceable function specificEnthalpy_pTX "Specific enthalpy"

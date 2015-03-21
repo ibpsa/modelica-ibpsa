@@ -596,7 +596,6 @@ algorithm
   // s := cv_const*Modelica.Math.log(state.T/reference_T)
   state := ThermodynamicState(p=p, T=reference_T * Modelica.Math.exp(s/cv_const));
   annotation (
-Inline=false,
 Documentation(info="<html>
 <p>
 This function returns the thermodynamic state based on pressure,
