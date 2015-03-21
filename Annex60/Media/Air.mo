@@ -265,7 +265,7 @@ algorithm
     s := specificHeatCapacityCp(state) * Modelica.Math.log(state.T/reference_T)
          - Modelica.Constants.R *
          sum(state.X[i]/MMX[i]*
-             Modelica.Math.log(max(Y[i], Modelica.Constants.eps)) for i in 1:2);
+             Modelica.Math.log(max(Y[i], Modelica.Constants.eps)*state.p/reference_p) for i in 1:2);
   annotation (
     Inline=false,
     Documentation(info="<html>
@@ -306,7 +306,7 @@ expansion process. Hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   s<sub>m</sub> = -R &sum;<sub>i</sub>( X<sub>i</sub> &frasl; M<sub>i</sub>
-  ln(Y<sub>i</sub>)),
+  ln(Y<sub>i</sub> p/p<sub>0</sub>)),
 </p>
 <p>
 where <i>R</i> is the gas constant,
@@ -840,6 +840,12 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 20, 2015, by Michael Wetter:<br/>
+Added missing term <code>state.p/reference_p</code> in function
+<code>specificEntropy</code>.
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/193\">#193</a>.
+</li>
 <li>
 February 3, 2015, by Michael Wetter:<br/>
 Removed <code>stateSelect.prefer</code> for temperature.
