@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.Shading;
-model ShadingControl "shading control based on irradiation"
+model ShadingControl_timer "shading control based on irradiation"
 
   parameter Real uLow(final quantity="Irradiance", final unit="W/m2")=250
     "upper limit above which shading goes down";
@@ -16,7 +16,12 @@ model ShadingControl "shading control based on irradiation"
 equation
 
   hyst.u = irr;
-  hyst.y = y;
+
+  if noEvent(time<2.5e7) and noEvent(time>1.0e7) then
+    y = hyst.y;
+  else
+    y=0;
+  end if;
 
   annotation (
     Diagram(graphics),
@@ -70,4 +75,4 @@ equation
 <p><h4>Goal</h4></p>
 <p>The <code>ShadingControl.mo</code> model describes the shadeing controller lwoering the shadeing at a default irradiance level of 250 W/m2 and raising again at 150 W/m2 (values are input parameters).</p>
 </html>"));
-end ShadingControl;
+end ShadingControl_timer;
