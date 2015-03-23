@@ -11,8 +11,10 @@ MixedAir
 MonoLayerLucent
 MonoLayerOpaque
 MonoLayerOpaqueNf
+MonoLayerGround
 MultiLayerLucent
 MultiLayerOpaque
+MultiLayerGround
 SwWindowResponse
 ThermalResistor
 ZoneLwDistribution

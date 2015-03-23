@@ -39,7 +39,7 @@ protected
   final parameter Real delta=sqrt(3.15*10^7*ground1.k/3.14/ground1.rho/ground1.c);
   final parameter Real Lpi=AWall*ground1.k/dt*sqrt(1/((1 + delta/dt)^2 + 1));
   final parameter Real Lpe=0.37*PWall*ground1.k*log(delta/dt + 1);
-  Real m=12*time/31536000;
+  parameter Integer m = 7;
 
   //protected
 public
@@ -55,7 +55,7 @@ public
         AWall, final inc=inc)
     "Convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layGro(
+  BaseClasses.MultiLayerGround                            layGro(
     final A=AWall,
     final inc=inc,
     final nLay=3,
@@ -72,8 +72,9 @@ public
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-30,-8})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=0,
-      T_ref=284.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
+                                                      fixedHeatFlow(T=273.15 +
+        12)
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   outer SimInfoManager sim "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
