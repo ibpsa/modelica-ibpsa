@@ -5,12 +5,13 @@ model IncidenceAngle "Test model for incidence angle"
     "Declination angle"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Annex60.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
-    solHouAng "Solar hour angle" annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+    solHouAng "Solar hour angle"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Annex60.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(
-    azi=0,
-    til=90,
+    azi=Annex60.Types.Azimuth.S,
+    til=Annex60.Types.Tilt.Wall,
     lat=0.73268921998722) "Incidence angle"
-                              annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Annex60.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="modelica://Annex60/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
@@ -62,6 +63,12 @@ Annex60.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 24, 2015, by Michael Wetter:<br/>
+Assigned azimuth and tilt using the types from
+<a href=\"modelica://Annex60.Types.Tilt\">
+Annex60.Types.Tilt</a>.
+</li>
 <li>
 May 19, 2010, by Wangda Zuo:<br/>
 First implementation.
