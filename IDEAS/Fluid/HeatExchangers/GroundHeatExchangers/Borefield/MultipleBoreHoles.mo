@@ -75,8 +75,6 @@ public
   BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX
                                      intHEX(
     redeclare final package Medium = Medium,
-    final m1_flow_nominal=bfData.gen.m_flow_nominal_bh,
-    final m2_flow_nominal=bfData.gen.m_flow_nominal_bh,
     final dp1_nominal=dp_nominal,
     final dp2_nominal=0,
     final from_dp1=from_dp,
@@ -106,7 +104,9 @@ public
     final T1_start=T_start,
     final T2_start=T_start,
     final TFil_start=T_start,
-    mSenFac=mSenFac)
+    mSenFac=mSenFac,
+    final m1_flow_nominal=bfData.m_flow_nominal,
+    final m2_flow_nominal=bfData.m_flow_nominal)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(extent={{-12,13},{12,-13}},
         rotation=270,
