@@ -8,53 +8,73 @@ model MixingVolumeMFactor
   Annex60.Fluid.MixingVolumes.MixingVolume volMFactor(
     redeclare package Medium = Medium,
     mSenFac=10,
-    m_flow_nominal=1,
     V=1,
     nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Mixing volume using mSenFac = 10"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=m_flow_nominal) "Mixing volume using mSenFac = 10"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Annex60.Fluid.MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
     V=10,
     nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=m_flow_nominal)
     "MixingVolume with V = 10 instead of mSenFac = 10"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Annex60.Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = Medium,
+    p=Medium.p_default - dp_nominal,
     nPorts=2) "Sink"
-              annotation (Placement(transformation(extent={{60,-70},{40,-50}})));
+              annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
   Annex60.Fluid.Sources.MassFlowSource_T boundaryMFactor(
     redeclare package Medium = Medium,
     T=300,
     nPorts=1,
     m_flow=1,
     X={0.02,0.98}) "Flow source for mixing volume using mSenFac"
-              annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+              annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Annex60.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
     T=300,
     nPorts=1,
     m_flow=1,
     X={0.02,0.98}) "Flow source for mixing volume using larger volume"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
+  FixedResistances.FixedResistanceDpM res1(
+    redeclare package Medium = Medium,
+    dp_nominal=dp_nominal,
+    m_flow_nominal=m_flow_nominal)
+    "Fixed resistance to separate the pressure state of the volume from the constant pressure of the sink"
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+  FixedResistances.FixedResistanceDpM res2(
+    redeclare package Medium = Medium,
+    dp_nominal=dp_nominal,
+    m_flow_nominal=m_flow_nominal)
+    "Fixed resistance to separate the pressure state of the volume from the constant pressure of the sink"
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 equation
-  connect(vol1.ports[1], bou1.ports[1]) annotation (Line(
-      points={{-12,-80},{40,-80},{40,-58}},
+  connect(boundaryMFactor.ports[1],volMFactor. ports[1]) annotation (Line(
+      points={{-40,-40},{-12,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(volMFactor.ports[1], bou1.ports[2]) annotation (Line(
-      points={{-12,-40},{40,-40},{40,-62}},
+  connect(boundary.ports[1], vol1.ports[1]) annotation (Line(
+      points={{-40,-80},{-12,-80}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(boundaryMFactor.ports[1],volMFactor. ports[2]) annotation (Line(
-      points={{-60,-40},{-8,-40}},
+  connect(res1.port_a, volMFactor.ports[2]) annotation (Line(
+      points={{20,-40},{-8,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(boundary.ports[1], vol1.ports[2]) annotation (Line(
-      points={{-60,-80},{-8,-80}},
+  connect(res2.port_a, vol1.ports[2]) annotation (Line(
+      points={{20,-80},{-8,-80}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res1.port_b, bou1.ports[1]) annotation (Line(
+      points={{40,-40},{50,-40},{50,-58},{60,-58}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res2.port_b, bou1.ports[2]) annotation (Line(
+      points={{40,-80},{50,-80},{50,-62},{60,-62}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -73,6 +93,13 @@ difference between using an <code>mSenFac = 10</code> and multiplying volume by 
 </html>", revisions="<html>
 <ul>
 <li>
+March 26, 2015 by Michael Wetter:<br/>
+Added resistance between the volume and the pressure boundary
+condition to avoid an overspecified by consistent initial value problem.
+This caused a warning in Dymola 2015 FD01, and caused
+in Dymola 2016 beta 2 to not translate the model.
+</li>
+<li>
 December, 2014 by Filip Jorissen:<br/>
 Added temperature verification.
 </li>
@@ -83,5 +110,7 @@ First implementation.
 </ul>
 </html>"), __Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMFactor.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end MixingVolumeMFactor;
