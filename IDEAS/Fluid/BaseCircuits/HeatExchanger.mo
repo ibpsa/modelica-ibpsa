@@ -65,6 +65,7 @@ model HeatExchanger
 
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTemRet1(
     redeclare package Medium =Medium,
+    tau=tauTSensor,
     m_flow_nominal=m_flow_nominal)
     "Return temperature measurement of the primary side"
     annotation (Placement(transformation(extent={{-50,6},{-30,26}})));

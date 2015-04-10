@@ -14,6 +14,7 @@ partial model CircuitInterface "Partial circuit for base circuits"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
 
   //Parameters
+  parameter Integer tauTSensor = 120 "Time constant of the temperature sensors";
 
   //----Settings
   parameter Boolean includePipes=false
@@ -102,16 +103,18 @@ protected
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,-60})),                                            choicesAllMatching=true);
-  Sensors.TemperatureTwoPort senTemSup(m_flow_nominal=m_flow_nominal,
-      redeclare package Medium = Medium) if
-                                       measureSupplyT
+  Sensors.TemperatureTwoPort senTemSup(
+    m_flow_nominal=m_flow_nominal,
+    tau=tauTSensor,
+    redeclare package Medium = Medium) if measureSupplyT
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Sensors.TemperatureTwoPort senTemRet(m_flow_nominal=m_flow_nominal,
-      redeclare package Medium = Medium) if
-                                       measureReturnT
+  Sensors.TemperatureTwoPort senTemRet(
+    m_flow_nominal=m_flow_nominal,
+    tau=tauTSensor,
+    redeclare package Medium = Medium) if measureReturnT
     annotation (Placement(transformation(extent={{-60,-50},{-80,-70}})));
-equation
 
+equation
   connect(port_a1, pipeSupply.port_a) annotation (Line(
       points={{-100,60},{-90,60}},
       color={0,127,255},
