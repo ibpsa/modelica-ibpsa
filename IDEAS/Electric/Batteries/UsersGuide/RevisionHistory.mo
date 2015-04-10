@@ -12,6 +12,13 @@ class RevisionHistory "Revision History"
       <th>Date</th>
       <th>Author</th>
       <th>Comment</th>
+      </tr>
+      <tr>
+      <td valign=\"top\">2.0.0</td>
+      <td valign=\"top\">/</td>
+      <td valign=\"top\">2015-04-09</td>
+      <td valign=\"top\">J. Van Roy</td>
+      <td valign=\"top\">Implementation changes</td>
     </tr>
     <tr>
       <td valign=\"top\">1.0.0</td>

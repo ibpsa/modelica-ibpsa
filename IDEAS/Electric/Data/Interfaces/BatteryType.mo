@@ -16,11 +16,15 @@ record BatteryType
    systems at the end consumer lever", PhD Thesis, 23 February 2010, Karlsuher Institut fur Technologie
 */
 
-  parameter Modelica.SIunits.Efficiency eta_in "Efficiency Grid --> Invertor";
-  parameter Modelica.SIunits.Efficiency eta_out "Efficiency Invertor --> Grid";
-  parameter Modelica.SIunits.Efficiency eta_c "Efficiency Invertor --> Battery";
-  parameter Modelica.SIunits.Efficiency eta_d "Efficiency Battery --> Invertor";
-  parameter Modelica.SIunits.Efficiency alpha_sd
+  parameter Modelica.SIunits.Efficiency eta_in(min=0,max=1)
+    "Efficiency Grid --> Invertor";
+  parameter Modelica.SIunits.Efficiency eta_out(min=0,max=1)
+    "Efficiency Invertor --> Grid";
+  parameter Modelica.SIunits.Efficiency eta_c(min=0,max=1)
+    "Efficiency Invertor --> Battery";
+  parameter Modelica.SIunits.Efficiency eta_d(min=0,max=1)
+    "Efficiency Battery --> Invertor";
+  parameter Modelica.SIunits.Efficiency alpha_sd(min=0,max=1)
     "Self-discharge (%/100) per month";
   parameter Modelica.SIunits.Efficiency delta_sd=alpha_sd/(365.25/12*24*3600)
     "Standby SOC-loss in time interval";
