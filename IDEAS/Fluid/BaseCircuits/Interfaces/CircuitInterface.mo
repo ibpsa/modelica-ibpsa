@@ -81,6 +81,9 @@ protected
     UA=UA,
     m=m/2,
     dp_nominal=dp,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    dynamicBalance=dynamicBalance,
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium) if includePipes
     annotation (Placement(transformation(
@@ -91,6 +94,9 @@ protected
     UA=UA,
     dp_nominal=dp,
     m=m/2,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    dynamicBalance=dynamicBalance,
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium) if includePipes
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},

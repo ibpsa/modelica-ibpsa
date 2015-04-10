@@ -5,6 +5,8 @@ model ParallelPipesSplitter
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component";
 
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+
   //Parameters
   parameter Integer n(min=1) "Number of outgoing connections";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal flow rate";
@@ -35,6 +37,8 @@ model ParallelPipesSplitter
   IDEAS.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
     nPorts=n + 1,
     V=V) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
