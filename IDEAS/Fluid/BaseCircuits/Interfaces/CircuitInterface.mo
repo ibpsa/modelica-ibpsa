@@ -11,7 +11,8 @@ partial model CircuitInterface "Partial circuit for base circuits"
     redeclare package Medium2 = Medium,
     final allowFlowReversal1 = allowFlowReversal,
     final allowFlowReversal2 = allowFlowReversal);
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);
 
   //Parameters
   parameter Integer tauTSensor = 120 "Time constant of the temperature sensors";
@@ -83,10 +84,11 @@ protected
     m=m/2,
     dp_nominal=dp,
     energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
     dynamicBalance=dynamicBalance,
     m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium) if includePipes
+    redeclare package Medium = Medium,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if
+                                          includePipes
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,

@@ -5,7 +5,8 @@ model ParallelPipesSplitter
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component";
 
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);
 
   //Parameters
   parameter Integer n(min=1) "Number of outgoing connections";
