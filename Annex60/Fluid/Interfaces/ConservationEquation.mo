@@ -184,7 +184,7 @@ equation
   COut = C;
 
   for i in 1:nPorts loop
-    ports_H_flow[i]     = ports[i].m_flow * actualStream(ports[i].h_outflow)
+    ports_H_flow[i]     = semiLinear(ports[i].m_flow, inStream(ports[i].h_outflow), ports[i].h_outflow)
       "Enthalpy flow";
     ports_mXi_flow[i,:] = ports[i].m_flow * actualStream(ports[i].Xi_outflow)
       "Component mass flow";
@@ -274,6 +274,11 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2015, by Filip Jorissen:<br/>
+Now using <code>semiLinear()</code> function for calculation of
+<code>ports_H_flow</code>. This enables Dymola to simplify based on min/max.
+</li>
 <li>
 February 16, 2015, by Filip Jorissen:<br/>
 Fixed SteadyState massDynamics implementation for compressible media.
