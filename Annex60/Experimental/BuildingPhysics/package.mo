@@ -2,6 +2,7 @@ within Annex60.Experimental;
 package BuildingPhysics "Models for BuildingPhysics"
     extends Modelica.Icons.Package;
 
+
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
           {100,100}}), graphics={
       Rectangle(
