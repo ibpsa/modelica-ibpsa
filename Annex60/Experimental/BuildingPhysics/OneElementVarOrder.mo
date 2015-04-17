@@ -1,16 +1,11 @@
 within Annex60.Experimental.BuildingPhysics;
-partial model ROM1stOrder "First Order Model"
+partial model OneElementVarOrder
+  "One element for thermal mass with variable order"
 
   parameter Modelica.SIunits.Volume VAir "Air Volume of the zone" annotation(Dialog(group="Thermal zone"));
   package Medium = Annex60.Media.Air;
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  parameter Modelica.SIunits.HeatCapacity CExt
-    "Heat capacity of thermal masses" annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.ThermalResistance RExt1
-    "Resistor between thermal mass and indoor wall surface" annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.ThermalResistance RExt2
-    "Resistor between thermal mass and outdoor wall surface" annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.ThermalResistance RWin
     "Resistor for elements without notable thermal mass" annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.Area AExtInd "Indoor surface area of thermal mass"
@@ -25,6 +20,13 @@ partial model ROM1stOrder "First Order Model"
     "Total energy transmittance of windows" annotation(Dialog(group="Windows"));
   parameter Real ratioWinConRad
     "Ratio for windows between indoor convective and radiative heat emission" annotation(Dialog(group="Windows"));
+  parameter Integer nExt(min = 1) "Number of RC-elements for thermal mass" annotation(Dialog(group="Thermal mass"));
+  parameter Modelica.SIunits.ThermalResistance RExt[nExt]
+    "Vector of resistances for each RC-element" annotation(Dialog(group="Thermal mass"));
+  parameter Modelica.SIunits.ThermalResistance RExtLast
+    "Resistance of remaining resistor RExtLast" annotation(Dialog(group="Thermal mass"));
+  parameter Modelica.SIunits.HeatCapacity CExt[nExt]
+    "Vector of heat capacity of thermal masses for each RC-element" annotation(Dialog(group="Thermal mass"));
 
   Fluid.MixingVolumes.MixingVolume volAir(m_flow_nominal=0.00001, V=VAir,
     redeclare package Medium = Medium,
@@ -39,12 +41,6 @@ partial model ROM1stOrder "First Order Model"
         extent={{-30.5,-8},{30.5,8}},
         rotation=0,
         origin={0,-79.5})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResExt1(R=RExt1)
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResExt2(R=RExt2)
-    annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor thermalCapExt
-    annotation (Placement(transformation(extent={{-62,-18},{-42,-38}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portExtAmb annotation (
       Placement(transformation(extent={{-100,-32},{-80,-12}}),
         iconTransformation(extent={{-100,-32},{-80,-12}})));
@@ -58,8 +54,8 @@ partial model ROM1stOrder "First Order Model"
         origin={0,-31})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portIntGainsConv
     "Heat port for sensible internal gains" annotation (Placement(
-        transformation(extent={{80,18},{100,38}}), iconTransformation(extent={{
-            80,18},{100,38}})));
+        transformation(extent={{80,18},{100,38}}), iconTransformation(extent={{80,
+            18},{100,38}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResWin(R=RWin)
     annotation (Placement(transformation(extent={{-62,26},{-42,46}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portWinAmb annotation (
@@ -91,26 +87,16 @@ partial model ROM1stOrder "First Order Model"
     annotation (Placement(transformation(extent={{68,-64},{48,-44}})));
   BaseClasses.ThermSplitter thermSplitterSolRad(dimension=1)
     annotation (Placement(transformation(extent={{-34,80},{-18,96}})));
+  BaseClasses.ExtMassVarRC extMassVarRC(
+    n=nExt,
+    RExt=RExt,
+    RExtLast=RExtLast,
+    CExt=CExt)
+    annotation (Placement(transformation(extent={{-62,-10},{-42,12}})));
 equation
   connect(volAir.ports, ports) annotation (Line(
       points={{28,-10},{28,-94},{27,-94}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(thermalResExt1.port_a, thermalResExt2.port_b) annotation (Line(
-      points={{-40,0},{-62,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalCapExt.port, thermalResExt2.port_b) annotation (Line(
-      points={{-52,-18},{-52,0},{-62,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalResExt2.port_a, portExtAmb) annotation (Line(
-      points={{-82,0},{-90,0},{-90,-22}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalResExt1.port_b, heatConExt.solid) annotation (Line(
-      points={{-20,0},{-10,0}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(heatConExt.fluid, volAir.heatPort) annotation (Line(
       points={{10,0},{18,0}},
@@ -177,6 +163,14 @@ equation
   connect(thermSplitterSolRad.signalOutput[1], heatConExt.solid) annotation (
       Line(
       points={{-18,88},{-14,88},{-14,0},{-10,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(portExtAmb, extMassVarRC.port_a) annotation (Line(
+      points={{-90,-22},{-90,0},{-61.4,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(extMassVarRC.port_b, heatConExt.solid) annotation (Line(
+      points={{-42.8,0},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -256,4 +250,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ROM1stOrder;
+end OneElementVarOrder;
