@@ -126,7 +126,8 @@ This model was created for demonstrating the influence of a new implementation o
 The old implementation used <code>actualStream()</code> whereas the new implementation uses the <code>semiLinear()</code>
 function. This change allows Dymola to exploit knowledge about the min/max value of <code>m_flow</code>.
 When Dymola knows in which way the medium will flow, nonlinear systems can be simplified or completely removed. 
-This is illustrated by the results below. <br/>
+This is illustrated by the results below. 
+See <a href='https://github.com/iea-annex60/modelica-annex60/issues/216'>issue 216 </a> for a discussion. <br/>
 Note that Dymola can only reliable solve the last case. For the other
 two cases the Newton solver of the nonlinear system does not converge.
 </p>
