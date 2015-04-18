@@ -84,7 +84,7 @@ partial model OneElementVarOrder
     annotation (Placement(transformation(extent={{80,-34},{100,-14}}),
         iconTransformation(extent={{80,-34},{100,-14}})));
   BaseClasses.ThermSplitter thermSplitterIntGains(dimension=1)
-    annotation (Placement(transformation(extent={{68,-64},{48,-44}})));
+    annotation (Placement(transformation(extent={{88,-64},{68,-44}})));
   BaseClasses.ThermSplitter thermSplitterSolRad(dimension=1)
     annotation (Placement(transformation(extent={{-34,80},{-18,96}})));
   BaseClasses.ExtMassVarRC extMassVarRC(
@@ -147,12 +147,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(thermSplitterIntGains.signalInput, portIntGainsRad) annotation (Line(
-      points={{68,-54},{90,-54},{90,-24}},
+      points={{88,-54},{90,-54},{90,-24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermSplitterIntGains.signalOutput[1], heatConExt.solid) annotation (
       Line(
-      points={{48,-54},{-14,-54},{-14,0},{-10,0}},
+      points={{68,-54},{-14,-54},{-14,0},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solRadToHeatRad.port, thermSplitterSolRad.signalInput) annotation (
