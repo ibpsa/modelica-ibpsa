@@ -24,7 +24,7 @@ partial model ThermalZoneOneElement
   parameter Modelica.SIunits.ThermalResistance RExt[nExt]
     "Vector of resistances for each RC-element, from inside to outside" annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.ThermalResistance RExtRem
-    "Resistance of remaining resistor RExtLast between capacitance n and ouside"
+    "Resistance of remaining resistor RExtLast between capacitance n and outside"
                                                                                  annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.HeatCapacity CExt[nExt]
     "Vector of heat capacity of thermal masses for each RC-element, from inside to outside"
