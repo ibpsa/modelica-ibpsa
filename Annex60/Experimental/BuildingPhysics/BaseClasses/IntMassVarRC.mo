@@ -2,25 +2,30 @@ within Annex60.Experimental.BuildingPhysics.BaseClasses;
 model IntMassVarRC "Wall consisting of variable number of RC elements"
   parameter Integer n(min = 1) "Number of RC-elements";
   parameter Modelica.SIunits.ThermalResistance RInt[n]
-    "Vector of resistances for each RC-element" annotation(Dialog(group="Thermal mass"));
+    "Vector of resistances for each RC-element for internal mass, from port to capacitances"
+                                                                                             annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.HeatCapacity CInt[n]
-    "Vector of heat capacity of thermal masses for each RC-element" annotation(Dialog(group="Thermal mass"));
+    "Vector of heat capacity of thermal masses for each RC-element, from port to central mass"
+                                                                                               annotation(Dialog(group="Thermal mass"));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResInt[n](R=RInt)
-    annotation (Placement(transformation(extent={{42,-10},{62,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
-    annotation (Placement(transformation(extent={{82,-10},{102,10}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor thermCapInt[n](C=CInt)
     annotation (Placement(transformation(extent={{-10,-12},{10,-32}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
+    annotation (Placement(transformation(extent={{-102,-10},{-82,10}})));
 equation
-  // connecting inner elements thermCapExt[i]--thermResExt[i] to n-1 groups
-  for i in 1:n-1 loop
-    connect(thermCapInt[i].port,thermResInt [i].port_a);
-    connect(thermResInt[i].port_b,thermCapInt [i+1].port);
+  // connecting inner elements thermResInt[i]--thermCapInt[i] to n groups
+  for i in 1:n loop
+    connect(thermResInt[i].port_b,thermCapInt[i].port);
   end for;
-  // connecting last RC elements to outmost resistors and to connectors: port_a--thermResExtLast...thermResExt[n]--port_b
-  connect(thermCapInt[n].port,thermResInt [n].port_a);
-  connect(thermResInt[n].port_b, port_b);
-  annotation(Diagram(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 120}}), graphics), Documentation(info="<html>
+  // connecting groups between each other thermCapInt[i] -- thermResInt[i+1]
+  for i in 1:n-1 loop
+    connect(thermCapInt[i].port,thermResInt[i+1].port_a);
+  end for;
+  // connecting first RC element to port_a port_a--thermResInt[1]
+  connect(port_a,thermResInt[1].port_a);
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=false,   extent={{-100,
+            -100},{100,120}}),                                                                           graphics), Documentation(info="<html>
 </html>",  revisions="<html>
 <ul>
 <li>April 17, 2015,&nbsp; by Moritz Lauster:<br>Implemented. </li>
@@ -47,8 +52,8 @@ equation
               -88,120},{-120,-100}},                                                                                                    fillColor = {255, 255, 255},
             fillPattern =                                                                                                   FillPattern.Solid, pattern = LinePattern.None), Rectangle(extent = {{120, 120}, {89, -100}}, fillColor = {255, 255, 255},
             fillPattern =                                                                                                   FillPattern.Solid, pattern = LinePattern.None), Line(points={{
-              -2,0},{86,0}},                                                                                                    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None), Rectangle(extent={{
-              18,12},{66,-10}},                                                                                                    lineColor = {0, 0, 0},
+              -90,0},{-2,0}},                                                                                                   color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None), Rectangle(extent={{
+              -66,12},{-18,-10}},                                                                                                  lineColor = {0, 0, 0},
             lineThickness =                                                                                                   0.5, fillColor = {255, 255, 255},
             fillPattern =                                                                                                   FillPattern.Solid), Line(points = {{-2, 0}, {-2, -32}}, color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None), Rectangle(extent = {{15, -32}, {-19, -44}},
             lineThickness =                                                                                                   0.5, fillColor = {255, 255, 255},
