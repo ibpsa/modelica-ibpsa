@@ -511,7 +511,9 @@ redeclare replaceable function extends specificEnthalpy
 algorithm
   h := (state.T - reference_T)*dryair.cp * (1 - state.X[Water]) +
        ((state.T-reference_T) * steam.cp + h_fg) * state.X[Water];
-  annotation(smoothOrder=5);
+  annotation (
+   smoothOrder=5,
+   Inline=true);
 end specificEnthalpy;
 
 redeclare replaceable function specificEnthalpy_pTX "Specific enthalpy"
@@ -524,7 +526,23 @@ redeclare replaceable function specificEnthalpy_pTX "Specific enthalpy"
 algorithm
   h := specificEnthalpy(setState_pTX(p, T, X));
   annotation(smoothOrder=5,
-             inverse(T=temperature_phX(p, h, X)));
+             Inline=true,
+             inverse(T=temperature_phX(p, h, X)),
+             Documentation(info="<html>
+Specific enthalpy as a function of temperature and species concentration.
+The pressure is input for compatibility with the medium models, but the specific enthalpy
+is independent of the pressure.
+</html>",
+revisions="<html>
+<ul>
+<li>
+April 30, 2015, by Filip Jorissen and Michael Wetter:<br/>
+Added <code>Inline=true</code> for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/227\">
+issue 227</a>.
+</li>
+</ul>
+</html>"));
 end specificEnthalpy_pTX;
 
 redeclare replaceable function extends specificGibbsEnergy
@@ -610,11 +628,22 @@ algorithm
   T := reference_T + (h - h_fg * X[Water])
        /((1 - X[Water])*dryair.cp + X[Water] * steam.cp);
   annotation(smoothOrder=5,
+             Inline=true,
              inverse(h=specificEnthalpy_pTX(p, T, X)),
              Documentation(info="<html>
 Temperature as a function of specific enthalpy and species concentration.
 The pressure is input for compatibility with the medium models, but the temperature
 is independent of the pressure.
+</html>",
+revisions="<html>
+<ul>
+<li>
+April 30, 2015, by Filip Jorissen and Michael Wetter:<br/>
+Added <code>Inline=true</code> for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/227\">
+issue 227</a>.
+</li>
+</ul>
 </html>"));
 end temperature_phX;
 
