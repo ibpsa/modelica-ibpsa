@@ -69,40 +69,21 @@ equation
           fillPattern=FillPattern.Solid)}),
 defaultComponentName="hea",
 Documentation(info="<html>
-<p>
-Model for an ideal heater or cooler with prescribed heat flow rate to the medium.
-</p>
-<p>
-This model adds heat in the amount of <code>Q_flow = u Q_flow_nominal</code> to the medium.
-The input signal <code>u</code> and the nominal heat flow rate <code>Q_flow_nominal</code>
-can be positive or negative.
-</p>
-<p>
-Optionally, this model can have a flow resistance.
-If no flow resistance is requested, set <code>dp_nominal=0</code>.
-</p>
-<p>
-For a model that uses a an input the fluid temperature leaving at
-<code>port_b</code>, use
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.HeaterCooler_T\">
-Annex60.Fluid.HeatExchangers.HeaterCooler_T</a>
-</p>
+<p>Model for an ideal heater or cooler with prescribed heat flow rate to the medium. </p>
+<p>This model adds heat in the amount of <code>Q_flow = u Q_flow_nominal</code> to the medium. The input signal <code>u</code> and the nominal heat flow rate <code>Q_flow_nominal</code> can be positive or negative. </p>
+<p>Optionally, this model can have a flow resistance. If no flow resistance is requested, set <code>dp_nominal=0</code>. </p>
+<p>For a model that uses as an input the fluid temperature leaving at <code>port_b</code>, use <a href=\"modelica://Annex60.Fluid.HeatExchangers.HeaterCooler_T\">Annex60.Fluid.HeatExchangers.HeaterCooler_T</a> </p>
 <h4>Limitations</h4>
-<p>
-This model does not affect the humidity of the air. Therefore,
-if used to cool air below the dew point temperature, the water mass fraction
-will not change.
-</p>
+<p>This model does not affect the humidity of the air. Therefore, if used to cool air below the dew point temperature, the water mass fraction will not change. </p>
 <h4>Validation</h4>
-<p>
-The model has been validated against the analytical solution in
-the example
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_u\">
-Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_u</a>.
-</p>
+<p>The model has been validated against the analytical solution in the example <a href=\"modelica://Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_u\">Annex60.Fluid.HeatExchangers.Validation.HeaterCooler_u</a>. </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2015, by Marcus Fuchs:<br/>
+Correct typo in documentation
+</li>
 <li>
 November 12, 2014, by Michael Wetter:<br/>
 Added output signal <code>Q_flow</code> so that it has
