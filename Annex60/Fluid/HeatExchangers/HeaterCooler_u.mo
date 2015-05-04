@@ -105,7 +105,7 @@ revisions="<html>
 <ul>
 <li>
 May 1, 2015, by Marcus Fuchs:<br/>
-Correct typo in documentation
+Corrected typo in documentation.
 </li>
 <li>
 November 12, 2014, by Michael Wetter:<br/>
