@@ -123,18 +123,13 @@ For models that extend this model, see for example
 <ul>
 <li>
 the ideal heater or cooler
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
-Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed</a>,
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.HeaterCooler_u\">
+Annex60.Fluid.HeatExchangers.HeaterCooler_u</a>, and
 </li>
 <li>
 the ideal humidifier
-<a href=\"modelica://Annex60.Fluid.MassExchangers.HumidifierPrescribed\">
-Annex60.Fluid.MassExchangers.HumidifierPrescribed</a>, and
-</li>
-<li>
-the boiler
-<a href=\"modelica://Annex60.Fluid.Boilers.BoilerPolynomial\">
-Annex60.Fluid.Boilers.BoilerPolynomial</a>.
+<a href=\"modelica://Annex60.Fluid.MassExchangers.Humidifier_u\">
+Annex60.Fluid.MassExchangers.Humidifier_u</a>.
 </li>
 </ul>
 
@@ -147,6 +142,10 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 1, 2015, by Marcus Fuchs:<br/>
+Fixed links in documentation.
+</li>
 <li>
 October 6, 2014, by Michael Wetter:<br/>
 Changed medium declaration in pressure drop element to be final.
