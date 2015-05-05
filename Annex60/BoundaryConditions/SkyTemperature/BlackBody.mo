@@ -59,6 +59,11 @@ Otherwise, it uses dry buld temperature, dew point temperature and opaque sky co
 </html>", revisions="<html>
 <ul>
 <li>
+May 5, 2015, by Filip Jorissen:<br/>
+Converted <code>algorithm</code> section into
+<code>equation</code> section for easier differentiability.
+</li>
+<li>
 August 11, 2012, by Wangda Zuo:<br/>
 Renamed <code>radHor</code> to <code>radHorIR</code>.
 </li>
