@@ -20,10 +20,10 @@ public
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   Real tmp1 "Intermediate variable";
-algorithm
-  tmp1 := 5.534e-6*(zen*180/Modelica.Constants.pi)^3;
+equation
+  tmp1 =  5.534e-6*(zen*180/Modelica.Constants.pi)^3;
 
-  skyCle := smooth(1, if (HGloHor < Modelica.Constants.small) then 1 else
+  skyCle =  smooth(1, if (HGloHor < Modelica.Constants.small) then 1 else
     Annex60.Utilities.Math.Functions.smoothLimit(
     (HGloHor/Annex60.Utilities.Math.Functions.smoothMax(
       HDifHor,
@@ -40,6 +40,11 @@ This component computes the sky clearness.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 5, 2015, by Filip Jorissen:<br/>
+Converted <code>algorithm</code> section into
+<code>equation</code> section for easier differentiability.
+</li>
 <li>
 July 07, 2010, by Wangda Zuo:<br/>
 First implementation.
