@@ -8,16 +8,16 @@ model Example1v2 "Example 1 model with mixing volume"
     each allowFlowReversal=allowFlowReversal.k,
     each nPorts=2,
     each tau=tau) "Mixing volumes for enthalpy circuit"
-    annotation (Placement(transformation(extent={{80,-16},{60,4}})));
+    annotation (Placement(transformation(extent={{80,-8},{60,12}})));
   parameter Modelica.SIunits.Time tau=10 "Time constant at nominal flow";
 equation
   for i in 1:nRes.k loop
     connect(vol[i].ports[1], res[i].port_b) annotation (Line(
-      points={{72,-16},{72,-20},{90,-20},{90,30}},
+      points={{72,-8},{72,-10},{100,-10},{100,30},{90,30},{90,30}},
       color={0,127,255},
       smooth=Smooth.None));
     connect(vol[i].ports[2], val.port_3) annotation (Line(
-      points={{68,-16},{68,-20},{20,-20},{20,20}},
+      points={{68,-8},{68,-10},{20,-10},{20,20}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -26,51 +26,29 @@ equation
       StopTime=10000,
       __Dymola_NumberOfIntervals=10,
       __Dymola_Algorithm="Radau"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-40},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},{100,
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This model demonstrates the impact of the <code>allowFlowReversal</code> parameter on the sizes
-of nonlinear systems of equations. The user can change the parameter value in the <code>allowFlowReversal</code>
-block to rerun the simulation. The results are also demonstrated below for <code>nRes.k = 10</code>, 
-the number of parallel branches containing one pressure drop element and one mixing volume each.
+This example is an extension of Example1v1 and demonstrates the use of 
+mixing volumes for decoupling the algebraic loop that solves for the enthalpy of the system.
+</p>
+<h3>Example1v1:</h3>
+<p>
+Sizes of nonlinear systems of equations: {6, 21, <b>46</b>}
 </p>
 <p>
-This model was created for demonstrating the influence of a new implementation of <code>ConservationEquation</code>.
-The old implementation used <code>actualStream()</code> whereas the new implementation uses the <code>semiLinear()</code>
-function. This change allows Dymola to exploit knowledge about the min/max value of <code>m_flow</code>.
-When Dymola knows in which way the medium will flow, nonlinear systems can be simplified or completely removed. 
-This is illustrated by the results below. 
-See <a href='https://github.com/iea-annex60/modelica-annex60/issues/216'>issue 216 </a> for a discussion. <br/>
-Note that Dymola can only reliable solve the last case. For the other
-two cases the Newton solver of the nonlinear system does not converge.
+Sizes after manipulation of the nonlinear systems: {1, 19, <b>22</b>} 
+</p>
+<h3>Example1v2 using mixing volumes: </h3>
+<p>
+Sizes of nonlinear systems of equations: {6, 21, <b>4</b>}
 </p>
 <p>
-These results were generated using Dymola 2015FD01 64 bit on Ubuntu 14.04.
-</p>
-<h3>
-AllowFlowReversal = true
-</h3>
-<p>
-Sizes of nonlinear systems of equations: {7, 21, <b>56</b>}<br/>
-Sizes after manipulation of the nonlinear systems: {2, 10, <b>12</b>}
-</p>
-<h3>
-AllowFlowReversal = false
-</h3>
-<p>
-<b>Old implementation</b>
+Sizes after manipulation of the nonlinear systems: {1, 19, <b>1</b>} 
 </p>
 <p>
-Sizes of nonlinear systems of equations: {7, 21, <b>56</b>}<br/>
-Sizes after manipulation of the nonlinear systems: {2, 10, <b>12</b>}
-</p>
-<p>
-<b>New implementation</b>
-</p>
-<p>
-Sizes of nonlinear systems of equations: {7, 21, <b>4</b>}<br/>
-Sizes after manipulation of the nonlinear systems: {2, 10, <b>1</b>}
+See fixme paper for a discussion.
 </p>
 </html>", revisions="<html>
 <ul>
