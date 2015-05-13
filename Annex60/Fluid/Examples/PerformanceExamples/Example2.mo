@@ -1,0 +1,66 @@
+within Annex60.Fluid.Examples.PerformanceExamples;
+model Example2
+  extends Modelica.Icons.Example;
+
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+    "Nominal mass flow rate";
+  parameter Modelica.SIunits.Pressure dp_nominal=1
+    "Pressure drop at nominal mass flow rate";
+  Movers.FlowControlled_dp pump_dp(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    filteredSpeed=false,
+    allowFlowReversal=false) "Pump model with unidirectional flow"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Sources.Boundary_pT               bou(
+    redeclare package Medium = Medium,
+    nPorts=1) "Boundary for pressure boundary condition"
+    annotation (Placement(transformation(extent={{-100,10},{-80,-10}})));
+  Modelica.Blocks.Sources.Pulse pulse(period=1) "Pulse input"
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+
+  FixedResistances.FixedResistanceDpM[nRes.k] res(
+    redeclare each package Medium = Medium,
+    each m_flow_nominal=m_flow_nominal,
+    each from_dp=from_dp.k,
+    each allowFlowReversal=false,
+    dp_nominal={dp_nominal*(1 + mod(i, 3)) for i in 1:nRes.k})
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+  Modelica.Blocks.Sources.BooleanConstant from_dp(k=false)
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+  Modelica.Blocks.Sources.IntegerConstant nRes(k=6)
+    "Number of parallel branches"
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
+equation
+  connect(pump_dp.port_a, bou.ports[1]) annotation (Line(
+      points={{-60,0},{-80,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
+  connect(pump_dp.dp_in, pulse.y) annotation (Line(
+      points={{-50.2,12},{-50.2,30},{-79,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(res[1].port_a, pump_dp.port_b) annotation (Line(
+      points={{-20,0},{-40,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  for i in 1:nRes.k-1 loop
+    connect(res[i].port_b, res[i+1].port_a) annotation (Line(
+      points={{0,0},{-20,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  end for;
+
+  connect(res[nRes.k].port_b, pump_dp.port_a) annotation (Line(
+      points={{0,0},{10,0},{10,-18},{-60,-18},{-60,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+            -40},{40,60}}),    graphics),
+    experiment(StopTime=1000),
+    __Dymola_experimentSetupOutput,
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
+            false)));
+end Example2;
