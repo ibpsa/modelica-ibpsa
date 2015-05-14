@@ -1,4 +1,4 @@
-within Annex60.HeatTransfer.Types;
+within Annex60.Types;
 package Azimuth "Enumeration for surface azimuth"
    extends Modelica.Icons.TypesPackage;
 
@@ -14,10 +14,10 @@ package Azimuth "Enumeration for surface azimuth"
   annotation(preferredView="info",
 Documentation(info="<html>
 <p>
- Enumeration to define the azimuth of a surface for the room model.
- For example, if an exterior wall is South oriented, i.e., its outside-facing
+Enumeration to define the azimuth of a surface.
+For example, if an exterior wall is South oriented, i.e., its outside-facing
 surface is towards South, use
- <code>Annex60.HeatTransfer.Types.Azimuth.S</code>.
+ <code>Annex60.Types.Azimuth.S</code>.
 </p>
 </html>",
   revisions="<html>

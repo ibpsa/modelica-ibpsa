@@ -61,7 +61,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   // Outputs that are needed in models that extend this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
                                              start=hStart)
-    "Leaving enthalpy of the component"
+    "Leaving specific enthalpy of the component"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,110})));
@@ -275,8 +275,12 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+May 6, 2015, by Michael Wetter:<br/>
+Corrected documentation.
+</li>
+<li>
 February 16, 2015, by Filip Jorissen:<br/>
-Fixed SteadyState massDynamics implementation for compressible media. 
+Fixed SteadyState massDynamics implementation for compressible media.
 Mass <code>m</code> is now constant.
 </li>
 <li>

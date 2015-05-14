@@ -7,17 +7,17 @@ model DirectTiltedSurface
         "modelica://Annex60/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Annex60.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirRoo(
-    til=Annex60.HeatTransfer.Types.Tilt.Ceiling,
+    til=Annex60.Types.Tilt.Ceiling,
     lat=0.6457718232379,
     azi=0.78539816339745) "Direct irradiation on roof"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Annex60.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirFlo(
-    til=Annex60.HeatTransfer.Types.Tilt.Floor,
+    til=Annex60.Types.Tilt.Floor,
     lat=0.6457718232379,
     azi=0.78539816339745) "Direct irradiation on floor"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Annex60.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirWal(
-    til=Annex60.HeatTransfer.Types.Tilt.Wall,
+    til=Annex60.Types.Tilt.Wall,
     lat=0.6457718232379,
     azi=0.78539816339745) "Direct irradiation on wall"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
@@ -68,7 +68,5 @@ May 24, 2010, by Wangda Zuo:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+</html>"));
 end DirectTiltedSurface;

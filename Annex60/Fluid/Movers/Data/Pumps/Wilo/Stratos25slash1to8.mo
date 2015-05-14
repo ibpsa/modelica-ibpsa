@@ -1,5 +1,5 @@
-within Annex60.Fluid.Movers.Data.Pumps;
-record Stratos30slash1to8 "Pump data for a Wilo Stratos 30/1-8 pump"
+within Annex60.Fluid.Movers.Data.Pumps.Wilo;
+record Stratos25slash1to8 "Pump data for a Wilo Stratos 25/1-8 pump"
   extends SpeedControlled_Nrpm(
     N_nominal=3040,
     use_powerCharacteristic=true,
@@ -16,13 +16,13 @@ defaultComponentPrefixes="parameter",
 defaultComponentName="per",
 Documentation(info="<html>
   <p>Data from:
-  <a href=\"http://productfinder.wilo.com/en/COM/product/00000018000029420002003a/fc_product_datasheet\">
+  <a href=\"http://productfinder.wilo.com/en/COM/product/00000018000028650002003a/fc_product_datasheet\">
   http://productfinder.wilo.com/en/COM/product/0000000e000379df0002003a/fc_product_datasheet
   </a>
   </p>
   <p>See
-  <a href=\"modelica://Annex60.Fluid.Movers.Data.Pumps.Stratos25slash1to6\">
-  Annex60.Fluid.Movers.Data.Pumps.Stratos25slash1to6
+  <a href=\"modelica://Annex60.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">
+  Annex60.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6
   </a>
   for more information about how the data is derived.
   </p>
@@ -39,4 +39,4 @@ Added <code>defaultComponentPrefixes</code> and
 </li>
 </ul>
 </html>"));
-end Stratos30slash1to8;
+end Stratos25slash1to8;

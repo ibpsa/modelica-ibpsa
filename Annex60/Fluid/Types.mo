@@ -1,5 +1,6 @@
 within Annex60.Fluid;
 package Types "Package with type definitions"
+  extends Modelica.Icons.TypesPackage;
 
   type EfficiencyCurves = enumeration(
       Constant "constant",

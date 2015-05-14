@@ -66,11 +66,11 @@ with your model.
 <p align=\"center\"><img alt=\"image\" src=\"modelica://Annex60/Resources/Images/BoundaryConditions/zen_pla.png\"/> </p>
 <p>
 For the surface azimuth and tilt, the enumerations
-<a href=\"modelica://Annex60.HeatTransfer.Types.Azimuth\">
-Annex60.HeatTransfer.Types.Azimuth</a>
+<a href=\"modelica://Annex60.Types.Azimuth\">
+Annex60.Types.Azimuth</a>
 and
-<a href=\"modelica://Annex60.HeatTransfer.Types.Tilt\">
-Annex60.HeatTransfer.Types.Tilt</a>
+<a href=\"modelica://Annex60.Types.Tilt\">
+Annex60.Types.Tilt</a>
 can be used.
 </p>
 <p>

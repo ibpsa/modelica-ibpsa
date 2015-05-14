@@ -1,4 +1,4 @@
-within Annex60.HeatTransfer;
+within Annex60;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 
