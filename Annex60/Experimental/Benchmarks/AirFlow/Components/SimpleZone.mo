@@ -1,4 +1,4 @@
-within Annex60.Airflow.Multizone;
+within Annex60.Experimental.Benchmarks.AirFlow.Components;
 model SimpleZone "A room as a thermal zone represented by its air volume"
 
   parameter Modelica.SIunits.Temperature TRoom = 298.15
@@ -33,17 +33,17 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  DoorDiscretizedOperable door(
-  redeclare package Medium = Medium,
-  LClo=20*1E-4,
-  wOpe=1,
-  hOpe=2.2,
-  CDOpe=0.78,
-  CDClo=0.78,
-  nCom=10,
-  hA=3/2,
-  hB=3/2,
-  dp_turbulent(displayUnit="Pa") = 0.01,
+  Airflow.Multizone.DoorDiscretizedOperable door(
+    redeclare package Medium = Medium,
+    LClo=20*1E-4,
+    wOpe=1,
+    hOpe=2.2,
+    CDOpe=0.78,
+    CDClo=0.78,
+    nCom=10,
+    hA=3/2,
+    hB=3/2,
+    dp_turbulent(displayUnit="Pa") = 0.01,
     forceErrorControlOnFlow=forceErrorControlOnFlow) "Discretized door"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Sources.Constant const(k=doorOpening)

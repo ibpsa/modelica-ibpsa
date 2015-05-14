@@ -1,4 +1,4 @@
-within Annex60.Airflow.Multizone;
+within Annex60.Experimental.Benchmarks.AirFlow.Components;
 model ZoneHallway
   "Zone representing a hallway connecting multiple SimpleZone models"
 
@@ -27,12 +27,12 @@ model ZoneHallway
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=1E9)
     "Thermal conductor between fixed T and Volume"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  MediumColumn col(
+  Airflow.Multizone.MediumColumn col(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
-  MediumColumn col1(
+  Airflow.Multizone.MediumColumn col1(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
@@ -55,10 +55,14 @@ model ZoneHallway
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium =
         Medium) "Direct connection to air volume without orifice"
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
-  Orifice oriOutTop(redeclare package Medium = Medium, A=0.01,
+  Airflow.Multizone.Orifice oriOutTop(
+    redeclare package Medium = Medium,
+    A=0.01,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{68,50},{88,70}})));
-  Orifice oriOutBottom(redeclare package Medium = Medium, A=0.01,
+  Airflow.Multizone.Orifice oriOutBottom(
+    redeclare package Medium = Medium,
+    A=0.01,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{68,-70},{88,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium =
@@ -67,30 +71,35 @@ model ZoneHallway
   Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium =
         Medium) "Direct connection to air volume without orifice"
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
-  MediumColumn col2(
+  Airflow.Multizone.MediumColumn col2(
     redeclare package Medium = Medium,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom,
+
     h=heightRoom/2) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,-60})));
 
-  MediumColumn col3(
+  Airflow.Multizone.MediumColumn col3(
     redeclare package Medium = Medium,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop,
     h=heightRoom/2) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-60})));
-  Orifice ori(redeclare package Medium = Medium, A=widthRoom*heightRoom/2,
-    forceErrorControlOnFlow=forceErrorControlOnFlow)
-    annotation (Placement(transformation(
+  Airflow.Multizone.Orifice ori(
+    redeclare package Medium = Medium,
+    A=widthRoom*heightRoom/2,
+    forceErrorControlOnFlow=forceErrorControlOnFlow) annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-40,-80})));
-  Orifice ori1(redeclare package Medium = Medium, A=widthRoom*heightRoom/2,
-    forceErrorControlOnFlow=forceErrorControlOnFlow)
-    annotation (Placement(transformation(
+  Airflow.Multizone.Orifice ori1(
+    redeclare package Medium = Medium,
+    A=widthRoom*heightRoom/2,
+    forceErrorControlOnFlow=forceErrorControlOnFlow) annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={40,-80})));

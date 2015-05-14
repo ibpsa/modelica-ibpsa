@@ -1,4 +1,4 @@
-within Annex60.Experimental.Benchmarks.AirFlow;
+within Annex60.Experimental.Benchmarks.AirFlow.Examples;
 model MultipleFloorsVectors
   "Test case for air flow between multiple floors in vector design"
   extends Modelica.Icons.Example;
@@ -26,7 +26,7 @@ model MultipleFloorsVectors
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Airflow.Multizone.Floor floor[nFloors](
+  Components.Floor floor[nFloors](
     each nZones=nZones,
     each TRoom=TRoom,
     each THallway=THallway,

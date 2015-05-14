@@ -1,4 +1,4 @@
-within Annex60.Airflow.Multizone;
+within Annex60.Experimental.Benchmarks.AirFlow.Components;
 model Staircase
   "Zone representing a staircase connecting multiple floor models"
 
@@ -46,57 +46,57 @@ model Staircase
   Modelica.Fluid.Interfaces.FluidPort_b port_b_top(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
-  MediumColumn col2(
+  Airflow.Multizone.MediumColumn col2(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
-                    annotation (Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-60})));
 
-  MediumColumn col(
+  Airflow.Multizone.MediumColumn col(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  MediumColumn col1(
+  Airflow.Multizone.MediumColumn col1(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  MediumColumn col3(
+  Airflow.Multizone.MediumColumn col3(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Orifice ori(
+  Airflow.Multizone.Orifice ori(
     redeclare package Medium = Medium,
     forceErrorControlOnFlow=forceErrorControlOnFlow,
     A=widthRoom*lengthRoom/2) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-60,80})));
-  Orifice ori1(
+  Airflow.Multizone.Orifice ori1(
     redeclare package Medium = Medium,
     forceErrorControlOnFlow=forceErrorControlOnFlow,
     A=widthRoom*lengthRoom/2) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,80})));
-  DoorDiscretizedOperable doo(
-      redeclare package Medium = Medium,
-      LClo=20*1E-4,
-      wOpe=1,
-      hOpe=2.2,
-      CDOpe=0.78,
-      CDClo=0.78,
-      nCom=10,
-      hA=3/2,
-      hB=3/2,
-      dp_turbulent(displayUnit="Pa") = 0.01,
-      forceErrorControlOnFlow=forceErrorControlOnFlow)
-                              annotation (Placement(transformation(
+  Airflow.Multizone.DoorDiscretizedOperable doo(
+    redeclare package Medium = Medium,
+    LClo=20*1E-4,
+    wOpe=1,
+    hOpe=2.2,
+    CDOpe=0.78,
+    CDClo=0.78,
+    nCom=10,
+    hA=3/2,
+    hB=3/2,
+    dp_turbulent(displayUnit="Pa") = 0.01,
+    forceErrorControlOnFlow=forceErrorControlOnFlow) annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-80,0})));

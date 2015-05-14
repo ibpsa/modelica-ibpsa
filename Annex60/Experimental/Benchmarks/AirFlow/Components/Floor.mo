@@ -1,4 +1,4 @@
-within Annex60.Airflow.Multizone;
+within Annex60.Experimental.Benchmarks.AirFlow.Components;
 model Floor
   "Floor element for air flow benchmark, consisting of zones, hallway, outdoor environment, and staircase"
 
@@ -22,7 +22,7 @@ model Floor
   parameter Boolean forceErrorControlOnFlow = true
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
 
-  Staircase staircase(
+  Experimental.Benchmarks.AirFlow.Components.Staircase staircase(
     heightRoom=heightRooms,
     widthRoom=widthHallway,
     redeclare package Medium = Medium,
@@ -43,21 +43,21 @@ model Floor
     annotation (Placement(transformation(extent={{70,-110},{90,-90}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  ZoneHallway zoneHallway[nZones](
+  Experimental.Benchmarks.AirFlow.Components.ZoneHallway zoneHallway[nZones](
     each heightRoom=heightRooms,
     each lengthRoom=lengthZone,
     each widthRoom=widthHallway,
     redeclare each package Medium = Medium,
     each forceErrorControlOnFlow=forceErrorControlOnFlow,
-    each TRoom=THallway)       annotation (Placement(transformation(
+    each TRoom=THallway) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-30})));
-  OutsideEnvironment outsideEnvironment[nZones](redeclare each package Medium
-      =                                                                         Medium,
-      each heightRoom=heightRooms)
+  Experimental.Benchmarks.AirFlow.Components.OutsideEnvironment
+    outsideEnvironment[nZones](redeclare each package Medium = Medium, each
+      heightRoom=heightRooms)
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  SimpleZone simpleZone[nZones](
+  Experimental.Benchmarks.AirFlow.Components.SimpleZone simpleZone[nZones](
     each heightRoom=heightRooms,
     each lengthRoom=lengthZone,
     each widthRoom=widthZone,

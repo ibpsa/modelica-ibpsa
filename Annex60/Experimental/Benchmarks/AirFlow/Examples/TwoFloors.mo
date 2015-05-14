@@ -1,92 +1,95 @@
-within Annex60.Experimental.Benchmarks.AirFlow;
-model MultipleFloors "Test case for air flow between multiple floors"
+within Annex60.Experimental.Benchmarks.AirFlow.Examples;
+model TwoFloors "Test case for air flow between two floors"
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Air.SimpleAir;
   parameter Boolean forceErrorControlOnFlow = true;
 
-  Airflow.Multizone.ZoneHallway zoneHallway(redeclare package Medium = Medium,
+  Components.ZoneHallway zoneHallway(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{42,-94},{62,-74}})));
-  Airflow.Multizone.SimpleZone simpleZone(redeclare package Medium = Medium,
+  Components.SimpleZone simpleZone(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{12,-94},{32,-74}})));
-  Airflow.Multizone.OutsideEnvironment outsideEnvironment(redeclare package
-      Medium = Medium)
+  Components.OutsideEnvironment outsideEnvironment(redeclare package Medium =
+        Medium)
     annotation (Placement(transformation(extent={{72,-94},{92,-74}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-90,100},{-70,120}})));
-  Airflow.Multizone.ZoneHallway zoneHallway1(redeclare package Medium = Medium,
+  Components.ZoneHallway zoneHallway1(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{42,-54},{62,-34}})));
-  Airflow.Multizone.ZoneHallway zoneHallway2(redeclare package Medium = Medium,
+  Components.ZoneHallway zoneHallway2(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{42,-14},{62,6}})));
-  Airflow.Multizone.ZoneHallway zoneHallway3(redeclare package Medium = Medium,
+  Components.ZoneHallway zoneHallway3(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{42,26},{62,46}})));
-  Airflow.Multizone.SimpleZone simpleZone1(TRoom=293.15, redeclare package
-      Medium = Medium,
+  Components.SimpleZone simpleZone1(
+    TRoom=293.15,
+    redeclare package Medium = Medium,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{12,-54},{32,-34}})));
-  Airflow.Multizone.SimpleZone simpleZone2(TRoom=303.15, redeclare package
-      Medium = Medium,
+  Components.SimpleZone simpleZone2(
+    TRoom=303.15,
+    redeclare package Medium = Medium,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{12,-14},{32,6}})));
-  Airflow.Multizone.SimpleZone simpleZone3(TRoom=300.15, redeclare package
-      Medium = Medium,
+  Components.SimpleZone simpleZone3(
+    TRoom=300.15,
+    redeclare package Medium = Medium,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{12,26},{32,46}})));
-  Airflow.Multizone.OutsideEnvironment outsideEnvironment1
+  Components.OutsideEnvironment outsideEnvironment1
     annotation (Placement(transformation(extent={{72,-54},{92,-34}})));
-  Airflow.Multizone.OutsideEnvironment outsideEnvironment2
+  Components.OutsideEnvironment outsideEnvironment2
     annotation (Placement(transformation(extent={{72,-14},{92,6}})));
-  Airflow.Multizone.OutsideEnvironment outsideEnvironment3
+  Components.OutsideEnvironment outsideEnvironment3
     annotation (Placement(transformation(extent={{72,26},{92,46}})));
-  Airflow.Multizone.ZoneHallway zoneHallway4(
-                                            redeclare package Medium = Medium,
+  Components.ZoneHallway zoneHallway4(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-62,-94},{-42,-74}})));
-  Airflow.Multizone.SimpleZone simpleZone4(
-                                          redeclare package Medium = Medium,
+  Components.SimpleZone simpleZone4(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-92,-94},{-72,-74}})));
-  Airflow.Multizone.OutsideEnvironment outsideEnvironment4(
-                                                          redeclare package
-      Medium = Medium)
+  Components.OutsideEnvironment outsideEnvironment4(redeclare package Medium =
+        Medium)
     annotation (Placement(transformation(extent={{-32,-94},{-12,-74}})));
-  Airflow.Multizone.ZoneHallway zoneHallway5(redeclare package Medium = Medium,
+  Components.ZoneHallway zoneHallway5(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-62,-54},{-42,-34}})));
-  Airflow.Multizone.ZoneHallway zoneHallway6(redeclare package Medium = Medium,
+  Components.ZoneHallway zoneHallway6(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-62,-14},{-42,6}})));
-  Airflow.Multizone.ZoneHallway zoneHallway7(redeclare package Medium = Medium,
+  Components.ZoneHallway zoneHallway7(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-62,26},{-42,46}})));
-  Airflow.Multizone.SimpleZone simpleZone5(TRoom=293.15, redeclare package
-      Medium = Medium,
+  Components.SimpleZone simpleZone5(
+    TRoom=293.15,
+    redeclare package Medium = Medium,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-92,-54},{-72,-34}})));
-  Airflow.Multizone.SimpleZone simpleZone6(TRoom=303.15, redeclare package
-      Medium = Medium,
+  Components.SimpleZone simpleZone6(
+    TRoom=303.15,
+    redeclare package Medium = Medium,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-92,-14},{-72,6}})));
-  Airflow.Multizone.SimpleZone simpleZone7(TRoom=300.15, redeclare package
-      Medium = Medium,
+  Components.SimpleZone simpleZone7(
+    TRoom=300.15,
+    redeclare package Medium = Medium,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-92,26},{-72,46}})));
-  Airflow.Multizone.OutsideEnvironment outsideEnvironment5
+  Components.OutsideEnvironment outsideEnvironment5
     annotation (Placement(transformation(extent={{-32,-54},{-12,-34}})));
-  Airflow.Multizone.OutsideEnvironment outsideEnvironment6
+  Components.OutsideEnvironment outsideEnvironment6
     annotation (Placement(transformation(extent={{-32,-14},{-12,6}})));
-  Airflow.Multizone.OutsideEnvironment outsideEnvironment7
+  Components.OutsideEnvironment outsideEnvironment7
     annotation (Placement(transformation(extent={{-32,26},{-12,46}})));
-  Airflow.Multizone.Staircase staircase annotation (Placement(transformation(
+  Components.Staircase staircase annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={52,70})));
-  Airflow.Multizone.Staircase staircase1 annotation (Placement(transformation(
+  Components.Staircase staircase1 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-52,70})));
@@ -354,5 +357,29 @@ equation
             -100},{100,120}}), graphics),
     experiment(StopTime=3600),
     __Dymola_experimentSetupOutput,
-    Icon(coordinateSystem(extent={{-100,-100},{100,120}})));
-end MultipleFloors;
+    Icon(coordinateSystem(extent={{-100,-100},{100,120}})),
+    Documentation(info="<html>
+<p>
+A reference model to compare to the floor model for a scalable air flow 
+benchmark.
+</p>
+
+<h4>Validation</h4>
+<p>
+This model should give the same results as the MultipleFloorsVector model with 
+nZones = 4 and nFloors = 2.
+</p>
+
+<h4>References</h4>
+<p>
+Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 2015 by Marcus Fuchs:<br/>
+First implementation
+</li>
+</ul>
+</html>"));
+end TwoFloors;

@@ -1,4 +1,4 @@
-within Annex60.Airflow.Multizone;
+within Annex60.Experimental.Benchmarks.AirFlow.Components;
 model OutsideEnvironment
   "Outside Environment air volume for simple air flow benchmark"
 
@@ -7,12 +7,12 @@ model OutsideEnvironment
   parameter Modelica.SIunits.Height heightRoom = 3
     "Height of room connected to outdoor air in m";
 
-  MediumColumn colOutBot(
+  Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  MediumColumn colOutTop(
+  Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
