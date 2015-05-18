@@ -16,7 +16,10 @@ equation
   der(T[nTem])= (T[nTem-1]-T[nTem])*tauInv;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -40},{40,60}}),    graphics),
+            -40},{40,60}}),    graphics={Text(
+          extent={{-62,24},{-18,-4}},
+          lineColor={0,0,255},
+          textString="See code")}),
     experiment(
       StopTime=100,
       __Dymola_NumberOfIntervals=1,

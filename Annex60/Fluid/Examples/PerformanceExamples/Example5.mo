@@ -12,7 +12,10 @@ equation
   der(c) = sin(time)*(if efficient then b else sum(a));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -40},{40,60}}),    graphics),
+            -40},{40,60}}),    graphics={Text(
+          extent={{-62,24},{-18,-4}},
+          lineColor={0,0,255},
+          textString="See code")}),
     experiment(StopTime=100000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
