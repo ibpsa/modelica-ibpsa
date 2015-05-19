@@ -2,6 +2,7 @@
 *.bak-mo
 *.mat
 *.mof
+*.pyc
 buildlog.txt
 dsfinal.txt
 dsin.txt
