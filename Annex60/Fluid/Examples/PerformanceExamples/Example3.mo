@@ -72,5 +72,13 @@ equation
     experiment(StopTime=1000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)));
+            false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+April 17, 2015, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Example3;

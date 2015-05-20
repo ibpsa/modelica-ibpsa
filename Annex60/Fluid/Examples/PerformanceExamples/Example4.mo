@@ -121,5 +121,13 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-80,-20},
             {80,60}}),         graphics), Icon(coordinateSystem(extent={{-100,-100},
-            {100,100}}, preserveAspectRatio=false)));
+            {100,100}}, preserveAspectRatio=false)),
+    Documentation(revisions="<html>
+<ul>
+<li>
+April 17, 2015, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Example4;

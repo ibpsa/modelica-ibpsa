@@ -27,7 +27,7 @@ model Example2
     each allowFlowReversal=false,
     dp_nominal={dp_nominal*(1 + mod(i, 3)) for i in 1:nRes.k})
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Modelica.Blocks.Sources.BooleanConstant from_dp(k=false)
+  Modelica.Blocks.Sources.BooleanConstant from_dp(k=true)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Blocks.Sources.IntegerConstant nRes(k=6)
     "Number of parallel branches"
@@ -62,5 +62,32 @@ equation
     experiment(StopTime=1000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)));
+            false)),
+    Documentation(info="<html>
+<p>
+This example demonstrates that the use of parameter <code>from_dp</code>
+can be important for reducing the size of algebraic loops in hydraulic
+circuits with many pressure drop components connected in series and
+a pump setting the pressure head.
+</p>
+<p>
+When <code>from_dp=true</code> then we get: <br />
+
+Sizes of nonlinear systems of equations: {7}<br />
+Sizes after manipulation of the nonlinear systems: {<b>5</b>}<br />
+else<br />
+Sizes of nonlinear systems of equations: {7}<br />
+Sizes after manipulation of the nonlinear systems: {<b>1</b>}<br />
+</p>
+<p>
+This can have a large impact on computational speed.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 20, 2015, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Example2;
