@@ -35,5 +35,12 @@ April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+See 
+<a href=\"modelica://Annex60/Fluid/Examples/PerformanceExamples/Example6.mo\"> 
+Example 6
+</a>
+</p>
 </html>"));
 end Example7;
