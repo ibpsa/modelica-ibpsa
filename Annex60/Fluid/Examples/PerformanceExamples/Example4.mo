@@ -70,7 +70,7 @@ model Example4
     tau=0) annotation (Placement(transformation(extent={{-16,10},{-4,22}})));
 equation
 
-  m_condens=min(0, -vol.ports[1].m_flow*(bou.X[1] - phi_sat.X[1]));
+  m_condens=min(0, -vol.ports[1].m_flow*(bou.X[1] - xSat.X[1]));
   connect(phiSat.y, xSat.phi) annotation (Line(
       points={{-11.2,48},{28,48}},
       color={0,0,127},
@@ -129,5 +129,14 @@ April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This example generates a non-linear algebraic loop 
+of 12 equations before manipulation. 
+This loop can be decoupled by changing equation
+<code>0 = mb_flow + mWat_flow;</code>
+into 
+<code>0 = mb_flow;</code>.
+</p>
 </html>"));
 end Example4;
