@@ -133,10 +133,14 @@ First implementation.
 <p>
 This example generates a non-linear algebraic loop 
 of 12 equations before manipulation. 
-This loop can be decoupled by changing equation
-<code>0 = mb_flow + mWat_flow;</code>
-into 
-<code>0 = mb_flow;</code>.
+This loop can be decoupled and removed by changing equation 
+</p>
+<p>
+<code>port_a.m_flow + port_b.m_flow = -mWat_flow;</code> <br />
+in<br />
+<code>Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation</code><br />
+into <br />
+<code>port_a.m_flow + port_b.m_flow = 0;</code>.
 </p>
 </html>"));
 end Example4;
