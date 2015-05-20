@@ -80,5 +80,17 @@ April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This example demonstrates the importance of merging 
+pressure drop components that are connected in series, 
+into one pressure drop component. 
+Parameter <code>mergeDp.k</code> can be used to merge two components 
+that are connected in series. 
+Parameter <code>from_dp</code> also has an influence of the computational speed. 
+</p>
+<p>
+See paper for results and a discussion.
+</p>
 </html>"));
 end Example3;
