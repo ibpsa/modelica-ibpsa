@@ -1,5 +1,5 @@
-translateModel("Buildings.Airflow.Multizone.Validation.ThreeRoomsContam");
-simulateModel("Buildings.Airflow.Multizone.Validation.ThreeRoomsContam", stopTime=3600,
+translateModel("Annex60.Airflow.Multizone.Validation.ThreeRoomsContam");
+simulateModel("Annex60.Airflow.Multizone.Validation.ThreeRoomsContam", stopTime=3600,
  method="radau", tolerance=1e-06, resultFile="ThreeRoomsContam");
 
 createPlot(id = 1,
