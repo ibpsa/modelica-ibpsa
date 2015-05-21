@@ -41,7 +41,7 @@ model AllowFlowReversalExample
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Modelica.Blocks.Sources.Constant const(k=0.5) "Constant valve set point"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Sources.BooleanConstant allowFlowReversal(k=true)
+  Modelica.Blocks.Sources.BooleanConstant allowFlowReversal(k=false)
     "Block for setting allowFlowReversal in components"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Annex60.Fluid.FixedResistances.FixedResistanceDpM[nRes.k] res(
