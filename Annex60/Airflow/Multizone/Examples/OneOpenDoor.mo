@@ -8,15 +8,15 @@ model OneOpenDoor "Model with one open and one closed door"
       = Medium) "Discretized door"
     annotation (Placement(transformation(extent={{10,-8},{30,12}})));
 
-  Buildings.Fluid.MixingVolumes.MixingVolume volA(
+  Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=4,
     m_flow_nominal=0.01)
-              annotation (Placement(transformation(extent={{-32,14},{-12,34}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume volB(
+    annotation (Placement(transformation(extent={{-32,14},{-12,34}})));
+  Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -24,7 +24,7 @@ model OneOpenDoor "Model with one open and one closed door"
     nPorts=4,
     m_flow_nominal=0.01)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{14,60},{34,80}})));
   Modelica.Blocks.Sources.Sine heaSou(freqHz=1/3600) annotation (Placement(
         transformation(extent={{-60,60},{-40,80}})));

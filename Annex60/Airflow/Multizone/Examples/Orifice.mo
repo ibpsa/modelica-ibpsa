@@ -1,15 +1,15 @@
 within Annex60.Airflow.Multizone.Examples;
 model Orifice "Model with an orifice"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air;
+  package Medium = Media.Air;
   Annex60.Airflow.Multizone.Orifice ori(redeclare package Medium = Medium, A=
         0.2) annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Fluid.Sources.Boundary_pT roo1(
+  Fluid.Sources.Boundary_pT roo1(
     redeclare package Medium = Medium,
     use_p_in=true,
     nPorts=1,
     T=278.15) annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Fluid.Sources.Boundary_pT roo2(
+  Fluid.Sources.Boundary_pT roo2(
     redeclare package Medium = Medium,
     use_p_in=true,
     nPorts=1,
@@ -26,12 +26,12 @@ model Orifice "Model with an orifice"
         transformation(extent={{-100,-20},{-80,0}})));
   Modelica.Blocks.Math.Add Add1 annotation (Placement(transformation(extent={{
             44,-30},{64,-10}})));
-  Buildings.Fluid.Sensors.DensityTwoPort den1(
+  Fluid.Sensors.DensityTwoPort den1(
     redeclare package Medium = Medium,
     m_flow_nominal=0.1,
     initType=Modelica.Blocks.Types.Init.InitialState) "Density sensor"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
-  Buildings.Fluid.Sensors.DensityTwoPort den2(
+  Fluid.Sensors.DensityTwoPort den2(
     redeclare package Medium = Medium,
     m_flow_nominal=0.1,
     initType=Modelica.Blocks.Types.Init.InitialState) "Density sensor"

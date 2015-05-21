@@ -3,9 +3,9 @@ model NaturalVentilation
   "Test model for flow reversal due to density difference"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Air;
+  package Medium = Media.Air;
 
-  Buildings.Fluid.MixingVolumes.MixingVolume volA(
+  Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
     V=2.5*10*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -37,7 +37,7 @@ model NaturalVentilation
     h=3,
     densitySelection=Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-30,10},{-9,30}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume volOut(
+  Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -45,9 +45,9 @@ model NaturalVentilation
     T_start=273.15 + 20,
     nPorts=2,
     m_flow_nominal=0.001)
-              annotation (Placement(transformation(extent={{53,-20},{73,0}})));
+    annotation (Placement(transformation(extent={{53,-20},{73,0}})));
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{-49,-20},{-29,0}})));
   Modelica.Blocks.Sources.Step q_flow(
     height=-100,

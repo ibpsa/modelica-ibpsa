@@ -2,9 +2,9 @@ within Annex60.Airflow.Multizone.Examples;
 model ChimneyShaftWithVolume
   "Model that demonstrates the chimney effect with a dynamic model of a shaft"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air;
+  package Medium = Media.Air;
 
-  Buildings.Fluid.MixingVolumes.MixingVolume roo(
+  Fluid.MixingVolumes.MixingVolume roo(
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -21,17 +21,17 @@ model ChimneyShaftWithVolume
         origin={70,11},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  Buildings.Fluid.Sources.MassFlowSource_T boundary(
+  Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=293.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Fluid.Sources.Boundary_pT bou0(
+  Fluid.Sources.Boundary_pT bou0(
     redeclare package Medium = Medium,
     T=273.15,
-    nPorts=2)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    nPorts=2) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,50})));
   Annex60.Airflow.Multizone.Orifice oriBot(
@@ -57,12 +57,12 @@ model ChimneyShaftWithVolume
         origin={70,-49},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,10})));
-  Buildings.Controls.Continuous.LimPID con(
+  Modelica.Blocks.Continuous.LimPID con(
     Td=10,
     yMax=1,
     yMin=-1,

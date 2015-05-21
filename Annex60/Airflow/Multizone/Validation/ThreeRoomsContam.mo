@@ -3,17 +3,16 @@ model ThreeRoomsContam
   "Model with three rooms for the validation of the multizone air exchange models"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"});
+  package Medium = Media.Air (         extraPropertiesNames={"CO2"});
 
-  Buildings.Fluid.MixingVolumes.MixingVolume volEas(
+  Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,
     T_start=273.15 + 20,
     V=2.5*5*5*1,
     nPorts=5,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                           annotation (Placement(transformation(extent={{80,-20},
-            {100,0}})));
+    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
   Annex60.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
@@ -33,7 +32,7 @@ model ThreeRoomsContam
     h=1.5,
     densitySelection=Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{121,-10},{141,10}})));
-  Buildings.Fluid.Sources.FixedBoundary volOut(
+  Fluid.Sources.FixedBoundary volOut(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 101325,
@@ -80,7 +79,7 @@ model ThreeRoomsContam
     hB=3/2,
     dp_turbulent(displayUnit="Pa") = 0.01) "Discretized door"
     annotation (Placement(transformation(extent={{-1,-55},{19,-35}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume volWes(
+  Fluid.MixingVolumes.MixingVolume volWes(
     redeclare package Medium = Medium,
     T_start=273.15 + 25,
     nPorts=3,
@@ -107,23 +106,22 @@ model ThreeRoomsContam
     h=1.5,
     densitySelection=Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{100,71},{120,91}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume volTop(
+  Fluid.MixingVolumes.MixingVolume volTop(
     redeclare package Medium = Medium,
     T_start=273.15 + 20,
     V=2.5*5*10*1,
     nPorts=2,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                           annotation (Placement(transformation(extent={{-20,120},
-            {0,140}})));
+    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
 
-  Buildings.HeatTransfer.Sources.FixedTemperature TTop(T=293.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TTop(T=293.15)
     "Fixed temperature"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TWes(T=298.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TWes(T=298.15)
     "Fixed temperature"
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TEas(T=293.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TEas(T=293.15)
     "Fixed temperature"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conTop(G=1E9)

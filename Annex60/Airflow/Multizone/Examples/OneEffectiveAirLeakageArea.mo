@@ -1,25 +1,25 @@
 within Annex60.Airflow.Multizone.Examples;
 model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air;
+  package Medium = Media.Air;
 
-  Buildings.Fluid.MixingVolumes.MixingVolume volA(
+  Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=0.01)                                     annotation (
-      Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume volB(
+    m_flow_nominal=0.01)
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=0.01)                                     annotation (
-      Placement(transformation(extent={{70,20},{90,40}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+    m_flow_nominal=0.01)
+    annotation (Placement(transformation(extent={{70,20},{90,40}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Sine Sine1(freqHz=1/3600) annotation (Placement(
         transformation(extent={{-80,20},{-60,40}})));
@@ -28,11 +28,11 @@ model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
   Annex60.Airflow.Multizone.EffectiveAirLeakageArea cra(redeclare package
       Medium = Medium, L=20E-4)
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
-  Buildings.Fluid.Sources.MassFlowSource_T sou(
+  Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,
-    use_m_flow_in=true) annotation (Placement(transformation(extent={{-20,-40},{
-            0,-20}})));
+    use_m_flow_in=true)
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Modelica.Blocks.Sources.Ramp ramSou(
     duration=3600,
     height=0.01,
