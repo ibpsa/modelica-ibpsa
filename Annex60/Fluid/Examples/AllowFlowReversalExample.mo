@@ -122,7 +122,7 @@ which is the number of parallel branches containing one pressure drop element an
 </p>
 <p>
 This model was created to demonstrate the influence of a new implementation of 
-<href=\"modelica://Annex60.Fluid.Interfaces.ConservationEquationcode\">
+<a href=\"modelica://Annex60.Fluid.Interfaces.ConservationEquationcode\">
 Annex60.Fluid.Interfaces.ConservationEquationcode</a>.
 The old implementation used the <code>actualStream()</code> function
 whereas the new implementation uses the <code>semiLinear()</code>
