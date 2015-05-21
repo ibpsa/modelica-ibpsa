@@ -8,14 +8,14 @@ model AllowFlowReversalExample
   Annex60.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     nPorts=1) "Boundary for pressure boundary condition"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
     allowFlowReversal=allowFlowReversal.k)
     "Pump model with unidirectional flow"
-    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Annex60.Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare package Medium = Medium,
     dp_nominal=1000,
@@ -24,11 +24,11 @@ model AllowFlowReversalExample
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=allowFlowReversal.k) "Heater"
-    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Blocks.Sources.Pulse pulse(period=1000) "Pulse input"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Math.Gain gain(k=m_flow_nominal) "Gain for m_flow_nominal"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Annex60.Fluid.Actuators.Valves.ThreeWayLinear val(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -37,21 +37,21 @@ model AllowFlowReversalExample
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false) "Three way valve with constant input"
-    annotation (Placement(transformation(extent={{10,20},{30,40}})));
+    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Modelica.Blocks.Sources.Constant const(k=0.5) "Constant valve set point"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Sources.BooleanConstant allowFlowReversal(k=true)
     "Block for setting allowFlowReversal in components"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Annex60.Fluid.FixedResistances.FixedResistanceDpM[nRes.k] res(
     redeclare package Medium = Medium,
     each allowFlowReversal=allowFlowReversal.k,
     each m_flow_nominal=m_flow_nominal,
     each dp_nominal=1000) "Fluid resistance for splitting flow"
-    annotation (Placement(transformation(extent={{76,20},{96,40}})));
+    annotation (Placement(transformation(extent={{56,-40},{76,-20}})));
   Modelica.Blocks.Sources.IntegerConstant nRes(k=10)
     "Number of parallel branches"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Delays.DelayFirstOrder[nRes.k] vol(
     redeclare each package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
@@ -60,51 +60,51 @@ model AllowFlowReversalExample
     each massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     each allowFlowReversal=allowFlowReversal.k)
     "Mixing volumes for enthalpy circuit"
-    annotation (Placement(transformation(extent={{80,-16},{60,4}})));
+    annotation (Placement(transformation(extent={{60,-76},{40,-56}})));
 equation
   connect(bou.ports[1],hea. port_a) annotation (Line(
-      points={{-40,10},{-40,30},{-20,30}},
+      points={{-60,-30},{-40,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pulse.y,hea. TSet) annotation (Line(
-      points={{-39,90},{-22,90},{-22,36}},
+      points={{-59,40},{-50,40},{-50,-24},{-42,-24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pump.m_flow_in, gain.y) annotation (Line(
-      points={{49.8,42},{49.8,90},{21,90}},
+      points={{29.8,-18},{29.8,40},{-19,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.u,pulse. y) annotation (Line(
-      points={{-2,90},{-39,90}},
+      points={{-42,40},{-59,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hea.port_b,val. port_1) annotation (Line(
-      points={{0,30},{10,30}},
+      points={{-20,-30},{-10,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(val.port_2, pump.port_a) annotation (Line(
-      points={{30,30},{40,30}},
+      points={{10,-30},{20,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(const.y,val. y) annotation (Line(
-      points={{-39,50},{20,50},{20,42}},
+      points={{-19,0},{0,0},{0,-18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(val.port_3,hea. port_a) annotation (Line(
-      points={{20,20},{20,-20},{-30,-20},{-30,30},{-20,30}},
+      points={{0,-40},{0,-80},{-50,-80},{-50,-30},{-40,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   for i in 1:nRes.k loop
     connect(pump.port_b, res[i].port_a) annotation (Line(
-        points={{60,30},{76,30}},
+        points={{40,-30},{56,-30}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(res[i].port_b, vol[i].ports[1]) annotation (Line(
-      points={{96,30},{100,30},{100,-20},{72,-20},{72,-16}},
+      points={{76,-30},{80,-30},{80,-80},{52,-80},{52,-76}},
       color={0,127,255},
       smooth=Smooth.None));
     connect(vol[i].ports[2], val.port_3) annotation (Line(
-      points={{68,-16},{68,-20},{20,-20},{20,20}},
+      points={{48,-76},{48,-80},{0,-80},{0,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   end for;
