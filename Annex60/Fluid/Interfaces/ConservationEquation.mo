@@ -186,7 +186,7 @@ equation
   for i in 1:nPorts loop
     //The semiLinear function should be used for the equations below
     //for allowing min/max simplifications.
-    //See issue 216 on github for a discussion and motivation
+    //See https://github.com/iea-annex60/modelica-annex60/issues/216 for a discussion and motivation
     ports_H_flow[i]     = semiLinear(ports[i].m_flow, inStream(ports[i].h_outflow), ports[i].h_outflow)
       "Enthalpy flow";
     for j in 1:Medium.nXi loop
