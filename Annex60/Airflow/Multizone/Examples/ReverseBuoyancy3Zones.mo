@@ -220,7 +220,7 @@ equation
           lineColor={135,135,135},
           lineThickness=1)}),
 experiment(StopTime=3600),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ReverseBuoyancy3Zones.mos"
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ReverseBuoyancy3Zones.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -238,8 +238,8 @@ Added documentation.
 </html>", info="<html>
 <p>
 This model is similar than
-<a href=\"modelica://Buildings.Airflow.Multizone.Validation.ThreeRoomsContam\">
-Buildings.Airflow.Multizone.Validation.ThreeRoomsContam</a>.
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a>.
 However, the initial temperatures are such that at the start of the
 simulation, the flow direction between the three rooms reverses direction.
 </p>

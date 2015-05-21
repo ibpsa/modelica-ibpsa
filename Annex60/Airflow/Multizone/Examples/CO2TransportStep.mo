@@ -51,7 +51,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-150},{300,
             250}})),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/CO2TransportStep.mos"
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/Examples/CO2TransportStep.mos"
         "Simulate and plot"),
     experiment(
       StopTime=86400,

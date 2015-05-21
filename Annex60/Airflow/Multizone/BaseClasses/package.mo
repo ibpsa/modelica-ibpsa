@@ -1,6 +1,16 @@
 within Annex60.Airflow.Multizone;
-package BaseClasses "Package with base classes for Buildings.Airflow.Multizone"
+package BaseClasses "Package with base classes for Annex60.Airflow.Multizone"
   extends Modelica.Icons.BasesPackage;
+
+
+
+
+
+
+
+
+
+
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

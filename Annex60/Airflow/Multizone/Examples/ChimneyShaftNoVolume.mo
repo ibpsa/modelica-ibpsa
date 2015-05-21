@@ -156,7 +156,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {140,100}})),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ChimneyShaftNoVolume.mos"
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ChimneyShaftNoVolume.mos"
         "Simulate and plot"),
     experiment(
       StopTime=3600,

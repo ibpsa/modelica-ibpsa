@@ -49,7 +49,7 @@ equation
       smooth=Smooth.None));
   annotation (
 experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ZonalFlow.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ZonalFlow.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

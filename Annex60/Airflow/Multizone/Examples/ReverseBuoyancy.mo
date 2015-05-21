@@ -261,13 +261,13 @@ equation
           lineColor={135,135,135},
           lineThickness=1)}),
 experiment(StopTime=3600),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ReverseBuoyancy.mos"
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ReverseBuoyancy.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model is similar than
-<a href=\"modelica://Buildings.Airflow.Multizone.Validation.ThreeRoomsContam\">
-Buildings.Airflow.Multizone.Validation.ThreeRoomsContam</a> but it has four
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> but it has four
 instead of three rooms.
 The outdoor conditions are held constant at <i>10</i>&deg;C and
 atmospheric pressure.

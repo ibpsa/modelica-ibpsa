@@ -83,7 +83,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneOpenDoor.mos"
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneOpenDoor.mos"
         "Simulate and plot"),
     experiment(
       StopTime=7200,

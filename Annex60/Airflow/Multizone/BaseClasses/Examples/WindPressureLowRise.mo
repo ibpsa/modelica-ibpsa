@@ -14,12 +14,12 @@ equation
     incAng=incAng);
   annotation (
 experiment(StartTime=-2, StopTime=2),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos"
+  __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/WindPressureLowRise.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This examples demonstrates the
-<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise\">
-Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise</a>
+<a href=\"modelica://Annex60.Airflow.Multizone.BaseClasses.windPressureLowRise\">
+Annex60.Airflow.Multizone.BaseClasses.windPressureLowRise</a>
 function.
 </p>
 </html>", revisions="<html>
