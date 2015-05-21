@@ -2,6 +2,7 @@ within ;
 package Annex60 "Library with models for building energy and control systems"
   extends Modelica.Icons.Package;
 
+
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   class Conventions "Conventions"
@@ -210,7 +211,6 @@ xxx add contributors for the first version in alphabetical order.
 </ul>
 </html>"));
   end Acknowledgements;
-
 
   class License "Modelica License 2"
     extends Modelica.Icons.Information;
@@ -483,7 +483,7 @@ version="0.1",
 versionBuild=0,
 versionDate="2013-09-20",
 dateModified = "2013-09-20",
-uses(Modelica(version="3.2.1")),
+uses(Modelica(version="3.2.1"), Buildings(version="2.0.1")),
 preferredView="info",
 Documentation(info="<html>
 <p>
