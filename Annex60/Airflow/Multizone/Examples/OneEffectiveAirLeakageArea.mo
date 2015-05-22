@@ -68,7 +68,7 @@ equation
       points={{-42,30},{-59,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneEffectiveAirLeakageArea.mos"
+  annotation (__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneEffectiveAirLeakageArea.mos"
         "Simulate and plot"),
         experiment(
       StopTime=7200,

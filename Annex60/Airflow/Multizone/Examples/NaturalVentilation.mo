@@ -89,7 +89,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             100}})),
 experiment(StopTime=7200),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/NaturalVentilation.mos"
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/Examples/NaturalVentilation.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
