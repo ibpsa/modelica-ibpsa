@@ -19,7 +19,7 @@ equation
     dp_turbulent=dp_turbulent);
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This examples demonstrates the

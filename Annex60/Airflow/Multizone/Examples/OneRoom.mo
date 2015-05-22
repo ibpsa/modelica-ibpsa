@@ -3,17 +3,17 @@ model OneRoom
   "Model with one room for the validation of the multizone air exchange models"
 
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air;
+  package Medium = Media.Air;
 
-  Buildings.Fluid.MixingVolumes.MixingVolume volEas(
+  Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 20,
     V=2.5*5*5,
     nPorts=2,
     m_flow_nominal=0.001,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
-              annotation (Placement(transformation(
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial) annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-10})));
@@ -36,7 +36,7 @@ model OneRoom
     h=1.5,
     densitySelection=Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-27,10},{-7,30}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume volOut(
+  Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 10,
@@ -44,8 +44,8 @@ model OneRoom
     p_start=Medium.p_default,
     nPorts=2,
     m_flow_nominal=0.001,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-              annotation (Placement(transformation(
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={51,-10})));
@@ -99,7 +99,7 @@ equation
           lineColor={0,0,0},
           lineThickness=1)}),
 experiment(StopTime=1),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneRoom.mos"
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneRoom.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

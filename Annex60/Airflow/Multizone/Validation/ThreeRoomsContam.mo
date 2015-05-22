@@ -3,17 +3,16 @@ model ThreeRoomsContam
   "Model with three rooms for the validation of the multizone air exchange models"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Air(extraPropertiesNames={"CO2"});
+  package Medium = Media.Air (         extraPropertiesNames={"CO2"});
 
-  Buildings.Fluid.MixingVolumes.MixingVolume volEas(
+  Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,
     T_start=273.15 + 20,
     V=2.5*5*5*1,
     nPorts=5,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                           annotation (Placement(transformation(extent={{80,-20},
-            {100,0}})));
+    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
   Annex60.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
@@ -33,7 +32,7 @@ model ThreeRoomsContam
     h=1.5,
     densitySelection=Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{121,-10},{141,10}})));
-  Buildings.Fluid.Sources.FixedBoundary volOut(
+  Fluid.Sources.FixedBoundary volOut(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 101325,
@@ -80,7 +79,7 @@ model ThreeRoomsContam
     hB=3/2,
     dp_turbulent(displayUnit="Pa") = 0.01) "Discretized door"
     annotation (Placement(transformation(extent={{-1,-55},{19,-35}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume volWes(
+  Fluid.MixingVolumes.MixingVolume volWes(
     redeclare package Medium = Medium,
     T_start=273.15 + 25,
     nPorts=3,
@@ -107,23 +106,22 @@ model ThreeRoomsContam
     h=1.5,
     densitySelection=Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{100,71},{120,91}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume volTop(
+  Fluid.MixingVolumes.MixingVolume volTop(
     redeclare package Medium = Medium,
     T_start=273.15 + 20,
     V=2.5*5*10*1,
     nPorts=2,
     m_flow_nominal=0.001,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                           annotation (Placement(transformation(extent={{-20,120},
-            {0,140}})));
+    annotation (Placement(transformation(extent={{-20,120},{0,140}})));
 
-  Buildings.HeatTransfer.Sources.FixedTemperature TTop(T=293.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TTop(T=293.15)
     "Fixed temperature"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TWes(T=298.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TWes(T=298.15)
     "Fixed temperature"
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TEas(T=293.15)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TEas(T=293.15)
     "Fixed temperature"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conTop(G=1E9)
@@ -259,7 +257,7 @@ equation
           lineColor={135,135,135},
           lineThickness=1)}),
 experiment(StopTime=3600),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Validation/ThreeRoomsContam.mos"
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Multizone/Validation/ThreeRoomsContam.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -267,7 +265,7 @@ This is a model of three rooms that exchange air among each based
 on density difference between the air in the rooms and the outside.
 The model implements the configuration shown below.</p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png\" border=\"1\" alt=\"Configuration of the three rooms.\"/>
+<img src=\"modelica://Annex60/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png\" border=\"1\" alt=\"Configuration of the three rooms.\"/>
 </p>
 <p>
 This model has been used for a comparative model validation between CONTAM and
@@ -276,7 +274,7 @@ See Wetter (2006) for details of the validation.
 <h4>References</h4>
 <p>
 Michael Wetter.
-<a href=\"modelica://Buildings/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">
+<a href=\"modelica://Annex60/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">
 Multizone Airflow Model in Modelica.</a>
 Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006.
 </p>
