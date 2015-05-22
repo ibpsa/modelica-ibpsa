@@ -139,6 +139,16 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   end for;
+  for i in 1:nZones loop
+    connect(weaBus1, simpleZone[i].weaBus) annotation (Line(
+      points={{-40,-100},{-40,-72},{-90,-72},{-90,-26},{-81.8,-26}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  end for;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>
 <p>

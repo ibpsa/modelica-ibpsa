@@ -8,6 +8,9 @@ model ZoneHallway
   parameter Modelica.SIunits.Length lengthRoom = 5 "Length of room in m";
   parameter Modelica.SIunits.Length widthRoom = 3 "Width of room in m";
 
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer UValue = 1
+    "Heat transfer coefficient for outside wall";
+
   replaceable package Medium = Modelica.Media.Air.SimpleAir;
   parameter Boolean forceErrorControlOnFlow = true
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
@@ -21,10 +24,8 @@ model ZoneHallway
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Air volume of hallway element"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAir(T=TRoom)
-    "Fixed air temperature for room"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=1E9)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=
+        heightRoom*lengthRoom*UValue)
     "Thermal conductor between fixed T and Volume"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Airflow.Multizone.MediumColumn col(
@@ -74,8 +75,7 @@ model ZoneHallway
   Airflow.Multizone.MediumColumn col2(
     redeclare package Medium = Medium,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom,
-
-    h=heightRoom/2) annotation (Placement(transformation(
+    h=heightRoom/4) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,-60})));
@@ -83,7 +83,7 @@ model ZoneHallway
   Airflow.Multizone.MediumColumn col3(
     redeclare package Medium = Medium,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop,
-    h=heightRoom/2) annotation (Placement(transformation(
+    h=heightRoom/4) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-60})));
@@ -103,11 +103,15 @@ model ZoneHallway
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={40,-80})));
+
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemp
+    "Dry bulb air temperature"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+        transformation(extent={{-20,80},{20,120}}), iconTransformation(extent={{
+            -128,30},{-108,50}})));
 equation
-  connect(TAir.port, conRoom.port_a) annotation (Line(
-      points={{-40,0},{-20,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+  connect(weaBus.TDryBul, preTemp.T);
   connect(conRoom.port_b, volumeHall.heatPort) annotation (Line(
       points={{0,0},{20,0}},
       color={191,0,0},
@@ -179,6 +183,10 @@ equation
   connect(volumeHall.ports[8],port_a2)  annotation (Line(
       points={{33.5,-10},{42,-28},{44,-28},{44,80},{-60,80},{-60,100}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(preTemp.port, conRoom.port_a) annotation (Line(
+      points={{-40,0},{-20,0}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
           preserveAspectRatio=false), graphics),                         Icon(

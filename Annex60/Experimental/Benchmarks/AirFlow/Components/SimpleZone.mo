@@ -1,11 +1,15 @@
 within Annex60.Experimental.Benchmarks.AirFlow.Components;
 model SimpleZone "A room as a thermal zone represented by its air volume"
 
-  parameter Modelica.SIunits.Temperature TRoom = 298.15
+  parameter Modelica.SIunits.Temperature TRoom = 293.15
     "Indoor air temperature of room in K";
   parameter Modelica.SIunits.Height heightRoom = 3 "Height of room in m";
   parameter Modelica.SIunits.Length lengthRoom = 5 "Length of room in m";
   parameter Modelica.SIunits.Length widthRoom = 5 "Width of room in m";
+
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer UValue = 1
+    "Heat transfer coefficient for outside wall";
+
   parameter Real doorOpening = 1
     "Opening of door (between 0:closed and 1:open)";
 
@@ -13,10 +17,8 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   parameter Boolean forceErrorControlOnFlow = true
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAir(T=TRoom)
-    "Fixed air temperature for room"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=1E9)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=
+        heightRoom*lengthRoom*UValue)
     "Thermal conductor between fixed T and Volume"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Fluid.MixingVolumes.MixingVolume volRoom(
@@ -51,11 +53,14 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   Modelica.Fluid.Interfaces.FluidPort_a port_a_vent(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemp
+    "Dry bulb air temperature"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+        transformation(extent={{-20,80},{20,120}}), iconTransformation(extent={{
+            -128,30},{-108,50}})));
 equation
-  connect(TAir.port, conRoom.port_a) annotation (Line(
-      points={{-40,0},{-20,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+  connect(weaBus.TDryBul, preTemp.T);
   connect(conRoom.port_b, volRoom.heatPort) annotation (Line(
       points={{0,0},{20,0}},
       color={191,0,0},
@@ -83,6 +88,10 @@ equation
   connect(port_a_vent, volRoom.ports[3]) annotation (Line(
       points={{-100,80},{-84,80},{-84,-54},{32.6667,-54},{32.6667,-10}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(preTemp.port, conRoom.port_a) annotation (Line(
+      points={{-40,0},{-20,0}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>
