@@ -1,5 +1,5 @@
 within Annex60.Fluid.MixingVolumes.Validation;
-model TracesubstanceConservation
+model TraceSubstanceConservation
   "This test checks if trace substance mass flow rates are conserved"
   extends Modelica.Icons.Example;
   constant String substanceName="CO2";
@@ -23,9 +23,9 @@ model TracesubstanceConservation
     "Mixing volume for adding moisture"
               annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Modelica.Blocks.Sources.Constant Twat(k=273.15) "Water supply temperature"
-    annotation (Placement(transformation(extent={{-80,9},{-70,19}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Constant mWatFlo(k=0.001) "Water mass flow rate "
-    annotation (Placement(transformation(extent={{-80,30},{-70,40}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Annex60.Utilities.Diagnostics.AssertEquality assEquTra2(threShold=1E-10,
       message="Measured trace quantities are not equal")
     "Assert equality of trace substances"
@@ -50,17 +50,17 @@ model TracesubstanceConservation
   Annex60.Utilities.Diagnostics.AssertEquality assEquTra1(threShold=1E-10,
       message="Measured trace quantity does not equal set point")
     "Assert equality of trace substances"
-    annotation (Placement(transformation(extent={{40,-40},{60,-60}})));
+    annotation (Placement(transformation(extent={{40,-48},{60,-68}})));
   Modelica.Blocks.Sources.Constant const(k=source.m_flow*source.C[1])
     "Set point of trace substance concentration"
-    annotation (Placement(transformation(extent={{8,-62},{20,-50}})));
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 equation
   connect(vol1.TWat, Twat.y) annotation (Line(
-      points={{-22,14.8},{-68,14.8},{-68,14},{-69.5,14}},
+      points={{-22,14.8},{-30,14.8},{-30,14},{-36,14},{-36,30},{-59,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWatFlo.y, vol1.mWat_flow) annotation (Line(
-      points={{-69.5,35},{-40,35},{-40,18},{-22,18}},
+      points={{-59,70},{-30,70},{-30,18},{-22,18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(source.ports[1], senTraSubIn.port_a) annotation (Line(
@@ -88,11 +88,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(assEquTra1.u2, senTraSubIn.C) annotation (Line(
-      points={{38,-44},{-50,-44},{-50,-11}},
+      points={{38,-52},{-50,-52},{-50,-11}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, assEquTra1.u1) annotation (Line(
-      points={{20.6,-56},{38,-56}},
+      points={{21,-70},{30,-70},{30,-64},{38,-64}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -109,4 +109,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TracesubstanceConservation;
+end TraceSubstanceConservation;
