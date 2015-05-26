@@ -4,7 +4,7 @@ model TraceSubstanceConservation
   extends Modelica.Icons.Example;
   constant String substanceName="CO2";
   package Medium = Annex60.Media.Air(extraPropertiesNames=fill(substanceName, 1));
-  Annex60.Fluid.Sources.MassFlowSource_h source(
+  Annex60.Fluid.Sources.MassFlowSource_h sou(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=1,
@@ -22,7 +22,7 @@ model TraceSubstanceConservation
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mixing volume for adding moisture"
               annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Modelica.Blocks.Sources.Constant Twat(k=273.15) "Water supply temperature"
+  Modelica.Blocks.Sources.Constant TWat(k=273.15) "Water supply temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Constant mWatFlo(k=0.001) "Water mass flow rate "
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -55,7 +55,7 @@ model TraceSubstanceConservation
     "Set point of trace substance concentration"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 equation
-  connect(vol1.TWat, Twat.y) annotation (Line(
+  connect(vol1.TWat,TWat. y) annotation (Line(
       points={{-22,14.8},{-30,14.8},{-30,14},{-36,14},{-36,30},{-59,30}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -63,7 +63,7 @@ equation
       points={{-59,70},{-30,70},{-30,18},{-22,18}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(source.ports[1], senTraSubIn.port_a) annotation (Line(
+  connect(sou.ports[1], senTraSubIn.port_a) annotation (Line(
       points={{-80,0},{-60,0}},
       color={0,127,255},
       smooth=Smooth.None));

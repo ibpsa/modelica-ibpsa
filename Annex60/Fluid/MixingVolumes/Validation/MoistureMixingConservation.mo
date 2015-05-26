@@ -9,7 +9,7 @@ model MoistureMixingConservation
     m_flow=2,
     X={mWatFloSol.k,1 - mWatFloSol.k}) "Air source"
     annotation (Placement(transformation(extent={{-100,38},{-80,18}})));
-  Annex60.Fluid.Sources.MassFlowSource_h source2(
+  Annex60.Fluid.Sources.MassFlowSource_h sou2(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=1,
@@ -50,7 +50,7 @@ model MoistureMixingConservation
               annotation (Placement(transformation(extent={{-6,0},{14,20}})));
   Modelica.Blocks.Sources.Constant mWatFlo1(k=0.001) "Water mass flow rate 1"
     annotation (Placement(transformation(extent={{-100,50},{-90,60}})));
-  Modelica.Blocks.Sources.Constant Twat(k=273.15) "Watter supply temperature"
+  Modelica.Blocks.Sources.Constant TWat(k=273.15) "Watter supply temperature"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.Constant mWatFlo3(k=-(mWatFlo1.k + mWatFlo2.k))
     "Withdrawn moisture rate"
@@ -60,7 +60,7 @@ model MoistureMixingConservation
   Annex60.Utilities.Diagnostics.AssertEquality assertEqualityMoisture(threShold=
        1E-10, message="Water vapor mass is not conserved")
     annotation (Placement(transformation(extent={{84,-24},{98,-38}})));
-  Buildings.Fluid.Sensors.MassFractionTwoPort senMasFra(
+  Annex60.Fluid.Sensors.MassFractionTwoPort senMasFra(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     tau=0,
@@ -70,20 +70,21 @@ protected
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) "Fluid port for using fluid stream mixing implementation"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+         // fixme list all public instances prior to protected
 public
   Modelica.Blocks.Sources.Constant mWatFloSol(k=0.01)
     "Solution mass fraction water"
     annotation (Placement(transformation(extent={{60,-40},{70,-30}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
+  Annex60.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium, allowFlowReversal=false) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{44,10},{64,-10}})));
   Annex60.Utilities.Diagnostics.AssertEquality assertEquality1(threShold=1E-10,
       message="Water vapor mass is not conserved")
     annotation (Placement(transformation(extent={{84,-44},{98,-58}})));
-  Modelica.Blocks.Sources.Constant mFloSol(k=source1.m_flow + source2.m_flow)
+  Modelica.Blocks.Sources.Constant mFloSol(k=sou1.m_flow + sou2.m_flow)
     "Solution mass flow rate"
     annotation (Placement(transformation(extent={{60,-60},{70,-50}})));
-  Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senSpeEnt(
+  Annex60.Fluid.Sensors.SpecificEnthalpyTwoPort senSpeEnt(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=1,
@@ -96,11 +97,11 @@ public
     "Solution mass flow rate"
     annotation (Placement(transformation(extent={{60,-80},{70,-70}})));
 equation
-  connect(source1.ports[1], vol.ports[1]) annotation (Line(
+  connect(sou1.ports[1], vol.ports[1]) annotation (Line(
       points={{-80,28},{-52,28}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(source2.ports[1], vol1.ports[1]) annotation (Line(
+  connect(sou2.ports[1], vol1.ports[1]) annotation (Line(
       points={{-80,-40},{-52,-40}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -108,11 +109,11 @@ equation
       points={{-89.5,55},{-62,55},{-62,46}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(vol1.TWat, Twat.y) annotation (Line(
+  connect(vol1.TWat,TWat. y) annotation (Line(
       points={{-62,-25.2},{-68,-25.2},{-68,90},{-79,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(vol.TWat, Twat.y) annotation (Line(
+  connect(vol.TWat,TWat. y) annotation (Line(
       points={{-62,42.8},{-66,42.8},{-66,42},{-68,42},{-68,90},{-79,90}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -120,7 +121,7 @@ equation
       points={{-29.5,55},{-8,55},{-8,18}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(vol2.TWat, Twat.y) annotation (Line(
+  connect(vol2.TWat,TWat. y) annotation (Line(
       points={{-8,14.8},{-6,14.8},{-6,90},{-79,90}},
       color={0,0,127},
       smooth=Smooth.None));
