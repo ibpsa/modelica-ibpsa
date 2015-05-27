@@ -197,5 +197,12 @@ In this example no vapour is extracted.
 <code>Integral</code> blocks are used to verify if air mass,
 vapour mass and enthalpy are conserved.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 22 2015 by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end MoistureMixingConservationDynamicBalance;
