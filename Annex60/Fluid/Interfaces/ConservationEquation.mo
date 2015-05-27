@@ -29,7 +29,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     d(start=rho_nominal)) "Medium properties";
 
   Modelica.SIunits.Energy U "Internal energy of fluid";
-  Modelica.SIunits.Mass m "Mass of fluid";
+  Modelica.SIunits.Mass m
+    "Mass of fluid, without independent components or trace substances";
   Modelica.SIunits.Mass[Medium.nXi] mXi
     "Masses of independent components in the fluid";
   Modelica.SIunits.Mass[Medium.nC] mC "Masses of trace substances in the fluid";
@@ -218,9 +219,9 @@ equation
   end if;
 
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    0 = mb_flow + mWat_flow;
+    0 = mb_flow;
   else
-    der(m) = mb_flow + mWat_flow;
+    der(m) = mb_flow;
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
@@ -281,6 +282,13 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 27, 2015, by Filip Jorissen:<br/>
+Improved conservation of mass:
+<code>mWat_flow</code> was removed from the fluid mass balance.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Corrected documentation.

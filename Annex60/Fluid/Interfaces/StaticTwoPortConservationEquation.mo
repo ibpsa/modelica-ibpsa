@@ -114,10 +114,8 @@ equation
     port_b.C_outflow = inStream(port_a.C_outflow);
   else
     // Mass balance (no storage)
-    port_a.m_flow + port_b.m_flow = -mWat_flow;
+    port_a.m_flow + port_b.m_flow = 0;
     // Energy balance.
-    // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
-    // at both ports. Since mWat_flow << m_flow, the error is small.
     if use_safeDivision then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
       port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
@@ -174,6 +172,13 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 27, 2015, by Filip Jorissen:<br/>
+Improved conservation of mass:
+<code>mWat_flow</code> was removed from the fluid mass balance.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Corrected documentation.
