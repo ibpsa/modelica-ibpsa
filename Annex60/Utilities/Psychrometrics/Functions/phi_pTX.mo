@@ -2,14 +2,14 @@ within Annex60.Utilities.Psychrometrics.Functions;
 function phi_pTX
   "Relative humidity for given pressure, dry bulb temperature and moisture mass fraction"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Pressure p "Absolute pressure of the medium";
+  input Modelica.SIunits.Pressure p=101325 "Absolute pressure of the medium";
   input Modelica.SIunits.Temperature T "Dry bulb temperature";
   input Modelica.SIunits.MassFraction X_w
-    "Water vapor mass fraction per unit mass total air";
+    "Water vapor mass fraction per unit mass of dry air";
   output Real phi(unit="1") "Relative humidity";
 algorithm
-  phi :=p/saturationPressure(T)*X_w/(X_w +
-    Annex60.Utilities.Psychrometrics.Constants.k_mair*(1-X_w));
+  phi :=Annex60.Utilities.Psychrometrics.Functions.pW_X(X_w=X_w, p=p)/
+        Annex60.Utilities.Psychrometrics.Functions.saturationPressure(T);
   annotation (
     smoothOrder=1,
     Documentation(info="<html>
@@ -24,6 +24,13 @@ total air, and not dry air.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 28, 2015 by Filip Jorissen:<br/>
+Revised implementation due to new convention for definition of
+<code>X_w</code>. 
+This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
+</li>
 <li>
 November 17, 2014 by Michael Wetter:<br/>
 Removed test that constrains the saturation pressure to be

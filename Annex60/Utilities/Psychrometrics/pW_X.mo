@@ -16,7 +16,7 @@ block pW_X "Water vapor pressure for given humidity ratio"
 
 equation
   p_w = Annex60.Utilities.Psychrometrics.Functions.pW_X(X_w=X_w, p=p_in_internal);
-  x_w = X_w/(1-X_w);
+  x_w = X_w;
   annotation (
     defaultComponentName="pWat",
     Documentation(info="<html>
@@ -31,6 +31,13 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 28, 2015 by Filip Jorissen:<br/>
+Revised implementation due to new convention for definition of
+<code>X_w</code>. 
+This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
+</li>
 <li>
 October 3, 2014, by Michael Wetter:<br/>
 Changed assignment of nominal value to avoid in OpenModelica the warning

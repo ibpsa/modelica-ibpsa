@@ -7,13 +7,10 @@ function X_pSatpphi "Humidity ratio for given water vapor pressure"
   output Modelica.SIunits.MassFraction X_w(
     min=0,
     max=1,
-    nominal=0.01) "Water vapor concentration per total mass of air";
+    nominal=0.01) "Water vapor mass fraction per unit mass of dry air";
 
-protected
-  constant Real k = 0.621964713077499 "Ratio of molar masses";
 algorithm
-  X_w := phi*k/(k*phi+p/pSat-phi);
-
+  X_w := Annex60.Utilities.Psychrometrics.Constants.k_mair*phi/(p/pSat-phi);
   annotation (
     smoothOrder=99,
     Inline=true,
@@ -24,6 +21,13 @@ saturation pressure, absolute pressure and relative humidity.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 28, 2015 by Filip Jorissen:<br/>
+Revised implementation due to new convention for definition of
+<code>X_w</code>. 
+This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
+</li>
 <li>
 August 21, 2012 by Michael Wetter:<br/>
 First implementation.

@@ -8,14 +8,10 @@ function X_pW "Humidity ratio for given water vapor pressure"
   output Modelica.SIunits.MassFraction X_w(
     min=0,
     max=1,
-    nominal=0.01) "Species concentration at dry bulb temperature";
+    nominal=0.01) "Water vapor mass fraction per unit mass of dry air";
 
-protected
-  Modelica.SIunits.MassFraction x_w(nominal=0.01)
-    "Water mass fraction per mass of dry air";
 algorithm
-  x_w := 0.62198*p_w/(p - p_w);
-  X_w := x_w/(1 + x_w);
+  X_w := Annex60.Utilities.Psychrometrics.Constants.k_mair*p_w/(p - p_w);
   annotation (
     smoothOrder=99,
     Inline=true,
@@ -25,6 +21,13 @@ Function to compute the humidity ratio for a given water vapor partial pressure.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 28, 2015 by Filip Jorissen:<br/>
+Revised implementation due to new convention for definition of
+<code>X_w</code>. 
+This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
+</li>
 <li>
 September 16, 2013 by Michael Wetter:<br/>
 Added attributes to variable <code>p_w</code>.

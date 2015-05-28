@@ -10,7 +10,7 @@ block Phi_pTX
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Interfaces.RealInput X_w(
     final unit="1",
-    min=0) "Water vapor mass fraction per unit mass total air"
+    min=0) "Water vapor mass fraction per unit mass of dry air"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Modelica.Blocks.Interfaces.RealInput p(final quantity="Pressure",
@@ -43,6 +43,13 @@ total air, and not dry air.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 28, 2015 by Filip Jorissen:<br/>
+Revised comment due to new convention for definition of
+<code>X_w</code>. 
+This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
+</li>
 <li>
 November 13, 2014, by Michael Wetter:<br/>
 First implementation.
