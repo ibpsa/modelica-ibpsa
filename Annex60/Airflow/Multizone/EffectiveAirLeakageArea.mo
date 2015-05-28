@@ -1,7 +1,8 @@
 within Annex60.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
-  extends Annex60.Airflow.Multizone.Orifice(m=0.65, final A=CD/CDRat*L*dpRat^(
-        0.5 - m));
+  extends Buildings.Airflow.Multizone.Orifice(
+    m=0.65,
+    final A=CD/CDRat * L * dpRat^(0.5-m));
 
   parameter Modelica.SIunits.Pressure dpRat(min=0)=4
     "|Rating conditions|Pressure drop at rating condition";

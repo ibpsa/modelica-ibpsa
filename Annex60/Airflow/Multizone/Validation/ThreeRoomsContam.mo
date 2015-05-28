@@ -3,9 +3,9 @@ model ThreeRoomsContam
   "Model with three rooms for the validation of the multizone air exchange models"
   extends Modelica.Icons.Example;
 
-  package Medium = Media.Air (         extraPropertiesNames={"CO2"});
+  package Medium = Annex60.Media.Air(extraPropertiesNames={"CO2"});
 
-  Fluid.MixingVolumes.MixingVolume volEas(
+  Annex60.Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,
     T_start=273.15 + 20,
     V=2.5*5*5*1,
@@ -21,7 +21,7 @@ model ThreeRoomsContam
   Annex60.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{191,-8},{211,12}})));
   Annex60.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
@@ -30,9 +30,9 @@ model ThreeRoomsContam
   Annex60.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{121,-10},{141,10}})));
-  Fluid.Sources.FixedBoundary volOut(
+  Annex60.Fluid.Sources.FixedBoundary volOut(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 101325,
@@ -42,17 +42,17 @@ model ThreeRoomsContam
   Annex60.Airflow.Multizone.MediumColumn colEasInBot(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromTop)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{122,-70},{142,-50}})));
   Annex60.Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromTop)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{190,-68},{210,-48}})));
   Annex60.Airflow.Multizone.MediumColumn colWesBot(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-70,9},{-50,29}})));
   Annex60.Airflow.Multizone.Orifice oriWesTop(
     redeclare package Medium = Medium,
@@ -65,7 +65,7 @@ model ThreeRoomsContam
   Annex60.Airflow.Multizone.MediumColumn colWesTop(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromTop)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{-70,71},{-50,91}})));
   Annex60.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(
     redeclare package Medium = Medium,
@@ -79,7 +79,7 @@ model ThreeRoomsContam
     hB=3/2,
     dp_turbulent(displayUnit="Pa") = 0.01) "Discretized door"
     annotation (Placement(transformation(extent={{-1,-55},{19,-35}})));
-  Fluid.MixingVolumes.MixingVolume volWes(
+  Annex60.Fluid.MixingVolumes.MixingVolume volWes(
     redeclare package Medium = Medium,
     T_start=273.15 + 25,
     nPorts=3,
@@ -92,7 +92,7 @@ model ThreeRoomsContam
   Annex60.Airflow.Multizone.MediumColumn col1EasBot(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{100,9},{120,29}})));
   Annex60.Airflow.Multizone.Orifice oriEasTop(
     redeclare package Medium = Medium,
@@ -104,9 +104,9 @@ model ThreeRoomsContam
   Annex60.Airflow.Multizone.MediumColumn colEasTop(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromTop)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{100,71},{120,91}})));
-  Fluid.MixingVolumes.MixingVolume volTop(
+  Annex60.Fluid.MixingVolumes.MixingVolume volTop(
     redeclare package Medium = Medium,
     T_start=273.15 + 20,
     V=2.5*5*10*1,

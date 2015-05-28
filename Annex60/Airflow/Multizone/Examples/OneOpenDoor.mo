@@ -8,7 +8,7 @@ model OneOpenDoor "Model with one open and one closed door"
       = Medium) "Discretized door"
     annotation (Placement(transformation(extent={{10,-8},{30,12}})));
 
-  Fluid.MixingVolumes.MixingVolume volA(
+  Annex60.Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -16,7 +16,7 @@ model OneOpenDoor "Model with one open and one closed door"
     nPorts=4,
     m_flow_nominal=0.01)
     annotation (Placement(transformation(extent={{-32,14},{-12,34}})));
-  Fluid.MixingVolumes.MixingVolume volB(
+  Annex60.Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

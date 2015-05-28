@@ -49,7 +49,7 @@ model MediumColumnDynamic
 
   MediumColumn colTop(
     redeclare final package Medium = Medium,
-    final densitySelection=Types.densitySelection.fromBottom,
+    final densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom,
     h=h/2,
     final allowFlowReversal=allowFlowReversal)
     "Medium column that connects to top port"
@@ -57,7 +57,7 @@ model MediumColumnDynamic
 
   MediumColumn colBot(
     redeclare final package Medium = Medium,
-    final densitySelection=Types.densitySelection.fromTop,
+    final densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop,
     h=h/2,
     final allowFlowReversal=allowFlowReversal)
     "Medium colum that connects to bottom port"

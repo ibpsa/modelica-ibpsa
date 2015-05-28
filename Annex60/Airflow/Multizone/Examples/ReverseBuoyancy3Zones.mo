@@ -2,8 +2,8 @@ within Annex60.Airflow.Multizone.Examples;
 model ReverseBuoyancy3Zones
   "Model with three rooms and buoyancy-driven air circulation that reverses direction"
   extends Modelica.Icons.Example;
-  package Medium = Media.Air;
-  Fluid.MixingVolumes.MixingVolume volEas(
+  package Medium = Annex60.Media.Air;
+  Annex60.Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -21,7 +21,7 @@ model ReverseBuoyancy3Zones
   Annex60.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{91,-30},{111,-10}})));
   Annex60.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
@@ -32,9 +32,9 @@ model ReverseBuoyancy3Zones
   Annex60.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{11,-30},{31,-10}})));
-  Fluid.MixingVolumes.MixingVolume volOut(
+  Annex60.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -46,17 +46,17 @@ model ReverseBuoyancy3Zones
   Annex60.Airflow.Multizone.MediumColumn colEasInBot(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromTop)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
   Annex60.Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromTop)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Annex60.Airflow.Multizone.MediumColumn colWesBot(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-130,11},{-110,31}})));
   Annex60.Airflow.Multizone.Orifice oriWesTop(
     redeclare package Medium = Medium,
@@ -69,7 +69,7 @@ model ReverseBuoyancy3Zones
   Annex60.Airflow.Multizone.MediumColumn colWesTop(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromTop)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{-130,79},{-110,99}})));
   Annex60.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(
     redeclare package Medium = Medium,
@@ -89,7 +89,7 @@ model ReverseBuoyancy3Zones
   Annex60.Airflow.Multizone.MediumColumn col1EasBot(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-20,11},{0,31}})));
   Annex60.Airflow.Multizone.Orifice oriEasTop(
     redeclare package Medium = Medium,
@@ -102,9 +102,9 @@ model ReverseBuoyancy3Zones
   Annex60.Airflow.Multizone.MediumColumn colEasTop(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromTop)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{-20,79},{0,99}})));
-  Fluid.MixingVolumes.MixingVolume volTop(
+  Annex60.Fluid.MixingVolumes.MixingVolume volTop(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -113,7 +113,7 @@ model ReverseBuoyancy3Zones
     V=2.5*10*10,
     nPorts=2)
     annotation (Placement(transformation(extent={{-70,120},{-50,140}})));
-  Fluid.MixingVolumes.MixingVolume volWes(
+  Annex60.Fluid.MixingVolumes.MixingVolume volWes(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

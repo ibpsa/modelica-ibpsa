@@ -2,9 +2,9 @@ within Annex60.Airflow.Multizone.Examples;
 model ChimneyShaftWithVolume
   "Model that demonstrates the chimney effect with a dynamic model of a shaft"
   extends Modelica.Icons.Example;
-  package Medium = Media.Air;
+  package Medium = Annex60.Media.Air;
 
-  Fluid.MixingVolumes.MixingVolume roo(
+  Annex60.Fluid.MixingVolumes.MixingVolume roo(
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -21,13 +21,13 @@ model ChimneyShaftWithVolume
         origin={70,11},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  Fluid.Sources.MassFlowSource_T boundary(
+  Annex60.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=293.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Fluid.Sources.Boundary_pT bou0(
+  Annex60.Fluid.Sources.Boundary_pT bou0(
     redeclare package Medium = Medium,
     T=273.15,
     nPorts=2) annotation (Placement(transformation(
@@ -47,7 +47,7 @@ model ChimneyShaftWithVolume
     annotation (Placement(transformation(extent={{-90,-82},{-70,-62}})));
   MediumColumn staOut(
     redeclare package Medium = Medium,
-    densitySelection=Types.densitySelection.fromTop,
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop,
     h=1.5) "Model for stack effect outside the room"
     annotation (Placement(transformation(extent={{100,-1},{120,19}})));
   Annex60.Airflow.Multizone.Orifice oriChiBot(
@@ -87,7 +87,7 @@ model ChimneyShaftWithVolume
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   MediumColumn staIn(
     redeclare package Medium = Medium,
-    densitySelection=Types.densitySelection.fromBottom,
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom,
     h=1.5) "Model for stack effect inside the room"
     annotation (Placement(transformation(extent={{100,-59},{120,-39}})));
 
