@@ -204,5 +204,8 @@ May 22 2015 by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservationDynamicBalance.mos"
+        "Simulate and plot"));
 end MoistureMixingConservationDynamicBalance;
