@@ -38,7 +38,8 @@ pressure, temperature and water vapor mass fraction.
 </p>
 <p>
 Note that the water vapor mass fraction must be in <i>kg/kg</i>
-total air, and not dry air.
+dry air, and not total air.
+I.e. using fluid variable <code>Xi</code> as input is correct.
 </p>
 </html>",
 revisions="<html>

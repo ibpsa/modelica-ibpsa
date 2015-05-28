@@ -17,12 +17,12 @@ algorithm
 
   annotation (Documentation(info="<html>
 <p>
-Function to compute the density of moist air for given
-pressure, temperature and water vapor mass fraction.
+Function to compute the density of moist air for given pressure, 
+temperature and water vapor mass fraction. 
 </p>
 <p>
-Note that the water vapor mass fraction is in <i>kg/kg</i>
-total air.
+Note that the water vapor mass fraction is in <i>kg/kg</i> dry air. 
+I.e. using fluid variable <code>Xi</code> as input is correct.
 </p>
 </html>", revisions="<html>
 <ul>
