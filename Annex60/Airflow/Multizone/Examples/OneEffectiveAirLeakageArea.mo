@@ -1,9 +1,9 @@
 within Annex60.Airflow.Multizone.Examples;
 model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
   extends Modelica.Icons.Example;
-  package Medium = Media.Air;
+  package Medium = Annex60.Media.Air;
 
-  Fluid.MixingVolumes.MixingVolume volA(
+  Annex60.Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=2,
@@ -11,7 +11,7 @@ model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Fluid.MixingVolumes.MixingVolume volB(
+  Annex60.Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=1,
@@ -28,7 +28,7 @@ model OneEffectiveAirLeakageArea "Model with an effective air leakage area"
   Annex60.Airflow.Multizone.EffectiveAirLeakageArea cra(redeclare package
       Medium = Medium, L=20E-4)
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
-  Fluid.Sources.MassFlowSource_T sou(
+  Annex60.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,
     use_m_flow_in=true)

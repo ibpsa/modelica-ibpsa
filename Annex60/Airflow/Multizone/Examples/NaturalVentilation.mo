@@ -3,9 +3,9 @@ model NaturalVentilation
   "Test model for flow reversal due to density difference"
   extends Modelica.Icons.Example;
 
-  package Medium = Media.Air;
+  package Medium = Annex60.Media.Air;
 
-  Fluid.MixingVolumes.MixingVolume volA(
+  Annex60.Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
     V=2.5*10*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -24,7 +24,7 @@ model NaturalVentilation
   Annex60.Airflow.Multizone.MediumColumn colOut(
     redeclare package Medium = Medium,
     h=3,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{71,10},{91,30}})));
   Annex60.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
@@ -35,9 +35,9 @@ model NaturalVentilation
   Annex60.Airflow.Multizone.MediumColumn colRooTop(
     redeclare package Medium = Medium,
     h=3,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-30,10},{-9,30}})));
-  Fluid.MixingVolumes.MixingVolume volOut(
+  Annex60.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

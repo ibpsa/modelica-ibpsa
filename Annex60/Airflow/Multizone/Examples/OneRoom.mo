@@ -3,9 +3,9 @@ model OneRoom
   "Model with one room for the validation of the multizone air exchange models"
 
   extends Modelica.Icons.Example;
-  package Medium = Media.Air;
+  package Medium = Annex60.Media.Air;
 
-  Fluid.MixingVolumes.MixingVolume volEas(
+  Annex60.Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 20,
@@ -25,7 +25,7 @@ model OneRoom
   Annex60.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{31,10},{51,30}})));
   Annex60.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
@@ -34,9 +34,9 @@ model OneRoom
   Annex60.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromBottom)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-27,10},{-7,30}})));
-  Fluid.MixingVolumes.MixingVolume volOut(
+  Annex60.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 10,
@@ -53,12 +53,12 @@ model OneRoom
   Annex60.Airflow.Multizone.MediumColumn colEasInBot(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromTop)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{-28,-50},{-8,-30}})));
   Annex60.Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=1.5,
-    densitySelection=Types.densitySelection.fromTop)
+    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{32,-52},{52,-32}})));
 equation
   connect(colEasInTop.port_a, oriOutTop.port_a) annotation (Line(

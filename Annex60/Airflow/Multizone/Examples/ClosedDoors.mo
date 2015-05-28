@@ -1,7 +1,7 @@
 within Annex60.Airflow.Multizone.Examples;
 model ClosedDoors "Model with three closed doors"
   extends Modelica.Icons.Example;
-  package Medium = Media.Specialized.Air.PerfectGas;
+  package Medium = Annex60.Media.Specialized.Air.PerfectGas;
 
   Annex60.Airflow.Multizone.DoorDiscretizedOperable dooAB(
     redeclare package Medium = Medium,
@@ -9,7 +9,7 @@ model ClosedDoors "Model with three closed doors"
     forceErrorControlOnFlow=true) "Discretized door"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
-  Fluid.MixingVolumes.MixingVolume volA(
+  Annex60.Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=4,
@@ -17,7 +17,7 @@ model ClosedDoors "Model with three closed doors"
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=0.01)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Fluid.MixingVolumes.MixingVolume volB(
+  Annex60.Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=4,
@@ -31,7 +31,7 @@ model ClosedDoors "Model with three closed doors"
         transformation(extent={{-68,40},{-48,60}})));
   Modelica.Blocks.Math.Gain Gain1(k=100) annotation (Placement(transformation(
           extent={{-28,40},{-8,60}})));
-  Fluid.MixingVolumes.MixingVolume volC(
+  Annex60.Fluid.MixingVolumes.MixingVolume volC(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     nPorts=4,
