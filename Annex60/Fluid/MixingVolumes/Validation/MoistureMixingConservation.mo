@@ -3,7 +3,7 @@ model MoistureMixingConservation
   "This test checks if mass and energy is conserved when mixing fluid streams"
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Air;
-  Annex60.Fluid.Sources.MassFlowSource_h source1(
+  Annex60.Fluid.Sources.MassFlowSource_h sou1(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=2,
