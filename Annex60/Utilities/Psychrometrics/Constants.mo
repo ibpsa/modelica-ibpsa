@@ -10,7 +10,8 @@ package Constants "Library of constants for psychometric functions"
     "Specific heat capacity of liquid water";
   constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
     "Enthalpy of evaporator of water";
-  constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
+  constant Real k_mair = 0.6219647130774989
+    "Ratio of molar weights of water and air";
 
   annotation (
     Documentation(info="<html>
