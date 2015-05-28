@@ -1,6 +1,6 @@
 within Annex60.Airflow.Multizone;
 model EffectiveAirLeakageArea "Effective air leakage area"
-  extends Buildings.Airflow.Multizone.Orifice(
+  extends Annex60.Airflow.Multizone.Orifice(
     m=0.65,
     final A=CD/CDRat * L * dpRat^(0.5-m));
 
