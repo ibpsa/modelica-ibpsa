@@ -8,22 +8,10 @@ model MoistureMixingConservationDynamicBalance
     vol1(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
         massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
     vol2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-        massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial));
-    // Annex60.Fluid.MixingVolumes.Validation.BaseClasses.MoistureMixingConservation
-    // (
-    // mWatFloSol(k={vol.X_start[1],vol1.X_start[1],vol2.X_start[1]}*m_start),
-    // vol(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial, massDynamics=
-    //      Modelica.Fluid.Types.Dynamics.FixedInitial),
-    // vol1(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    //     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    // vol2(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    //     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
-    // assSpeEnt(threShold=1E-6),
-    // mFloSol(k=sum(m_start)),
-    // hSol(k=sum(U_start)),
-    // assMasFlo(threShold=1E-8),
-    // assMasFra(threShold=1E-8),
-    // mWatFlo3(k=0));
+        massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial),
+    mFloSol(k=sum(m_start)),
+    hSol(k=sum(U_start)),
+    mWatFlo3(k=0));
 
     parameter Real[3] m_start(each fixed=false)
     "Initial mass of the mixing volumes";
@@ -43,15 +31,6 @@ model MoistureMixingConservationDynamicBalance
         extent={{-10,-9},{10,9}},
         rotation=0,
         origin={30,-19})));
-  Modelica.Blocks.Continuous.Integrator intMasFloMoiOut(
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    k=sou1.m_flow + sou2.m_flow) "Integral of leaving vapour mass"
-                                              annotation (Placement(
-        transformation(
-        extent={{-6,6},{6,-6}},
-        rotation=270,
-        origin={68,6})));
   Modelica.Blocks.Math.Add3 add3Vap(k3=-1)
     "Sum of vapour mass should be conserved"
     annotation (Placement(transformation(extent={{60,-24},{70,-14}})));
@@ -103,6 +82,19 @@ model MoistureMixingConservationDynamicBalance
         sou2.h + Medium.enthalpyOfLiquid(TWat.k)*(mWatFlo1.k + mWatFlo2.k))
     "Added enthalpy"
     annotation (Placement(transformation(extent={{-14,-92},{-2,-80}})));
+  Modelica.Blocks.Math.Product pro "Water vapor flow rate" annotation (
+      Placement(transformation(
+        extent={{-5,-5},{5,5}},
+        rotation=270,
+        origin={65,11})));
+  Modelica.Blocks.Continuous.Integrator intMasVapOut(
+    k=1,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=0) "Integral of leaving vapor mass" annotation (Placement(
+        transformation(
+        extent={{-5,5},{5,-5}},
+        rotation=270,
+        origin={65,-1})));
 initial equation
   m_start = {vol.dynBal.m, vol1.dynBal.m,vol2.dynBal.m};
   U_start = {vol.dynBal.U, vol1.dynBal.U,vol2.dynBal.U};
@@ -119,16 +111,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(senMasFra.X, intMasFloMoiOut.u) annotation (Line(
-      points={{68,19},{68,13.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(add3Vap.y, assMasFra.u2) annotation (Line(
       points={{70.5,-19},{76.25,-19},{76.25,-24.8},{82.6,-24.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add3Vap.u1, intMasFloMoiOut.y) annotation (Line(
-      points={{59,-15},{59,-0.6},{68,-0.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(masVapVol.y,add3Vap. u2) annotation (Line(
@@ -193,6 +177,22 @@ equation
       smooth=Smooth.None));
   connect(add.u3, mWatFlo3.y) annotation (Line(
       points={{-15.2,-19.2},{-23.2,-19.2},{-23.2,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pro.u1, senMasFra.X) annotation (Line(
+      points={{68,17},{68,19}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pro.u2, senMasFlo.m_flow) annotation (Line(
+      points={{62,17},{62,19},{44,19}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pro.y, intMasVapOut.u) annotation (Line(
+      points={{65,5.5},{65,5}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(intMasVapOut.y, add3Vap.u1) annotation (Line(
+      points={{65,-6.5},{65,-10},{54,-10},{54,-15},{59,-15}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
