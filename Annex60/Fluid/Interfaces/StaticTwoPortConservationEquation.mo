@@ -7,9 +7,9 @@ model StaticTwoPortConservationEquation
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
 
   // Constants
-  parameter Boolean approximateMoistureBalance = false
+  constant Boolean approximateMoistureBalance = true
     "Set to true to neglect moisture addition in mass balance, which can give smaller equations"
-     annotation(HideResult=true,Evaluate=true);
+     annotation(HideResult=true);
 
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Sensible plus latent heat flow rate transferred into the medium"
