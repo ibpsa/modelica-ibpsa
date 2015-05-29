@@ -27,7 +27,8 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
     m_flow_nominal=0.001,
     V=heightRoom*lengthRoom*widthRoom,
     redeclare package Medium = Medium,
-    nPorts=3) "Indoor air volume of room"
+    nPorts=3,
+    mSenFac=75) "Indoor air volume of room"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium)
