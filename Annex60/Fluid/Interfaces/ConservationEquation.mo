@@ -279,7 +279,7 @@ this component couples
 the energy calculation to the
 pressure drop versus mass flow rate calculations.
 However, in typical building HVAC systems,
-<i>&Delta; X<sub>w</sub></i> &lt; 0.005</i> kg/kg.
+<i>&Delta; X<sub>w</sub></i> &lt; <i>0.005</i> kg/kg.
 Hence, by tolerating a relative error of <i>0.005</i> in the mass balance,
 one can decouple these equations.
 Decoupling these equations avoids having
