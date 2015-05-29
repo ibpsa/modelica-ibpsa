@@ -2,6 +2,12 @@ within Annex60.Fluid.Interfaces;
 model ConservationEquation "Lumped volume with mass and energy balance"
 
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
+
+  // Constants
+  constant Boolean approximateMoistureBalance = true
+    "Set to true to neglect moisture addition in mass balance, which can give smaller equations"
+     annotation(HideResult=true);
+
   constant Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure"
     annotation(HideResult=true);
@@ -167,7 +173,17 @@ equation
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     m = fluidVolume*rho_nominal;
   else
-    m = fluidVolume*medium.d;
+    if approximateMoistureBalance then
+      // If moisture is neglected in mass balance, assume for computation
+      // of the mass of air that the air is at Medium.X_default.
+      m = fluidVolume*Medium.density(Medium.set_state_phX(
+        p=  p,
+        h=  hOut,
+        X=  Medium.X_default));
+    else
+      // Use actual density
+      m = fluidVolume*medium.d;
+    end if;
   end if;
   mXi = m*medium.Xi;
   if computeCSen then
@@ -216,9 +232,9 @@ equation
   end if;
 
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    0 = mb_flow + mWat_flow;
+    0 = if approximateMoistureBalance then mb_flow else mb_flow + mWat_flow;
   else
-    der(m) = mb_flow + mWat_flow;
+    der(m) = if approximateMoistureBalance then mb_flow else mb_flow + mWat_flow;
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
@@ -247,6 +263,30 @@ equation
 Basic model for an ideally mixed fluid volume with the ability to store mass and energy.
 It implements a dynamic or a steady-state conservation equation for energy and mass fractions.
 The model has zero pressure drop between its ports.
+</p>
+<p>
+If the constant <code>approximateMoistureBalance = true</code> then adding
+moisture does not increase the mass of the volume or the leaving mass flow rate.
+It does however change the mass fraction <code>medium.Xi</code>.
+This allows to decouple the moisture balance from the pressure drop equations.
+If <code>approximateMoistureBalance = false</code>, then
+the outlet mass flow rate is
+<i>m<sub>out</sub> = m<sub>in</sub>  (1 + &Delta; X<sub>w</sub>)</i>,
+where 
+<i>&Delta; X<sub>w</sub></i> is the change in water vapor mass
+fraction across the component. In this case,
+this component couples
+the energy calculation to the
+pressure drop versus mass flow rate calculations.
+However, in typical building HVAC systems,
+<i>&Delta; X<sub>w</sub></i> &lt; 0.005</i> kg/kg.
+Hence, by tolerating a relative error of <i>0.005</i> in the mass balance,
+one can decouple these equations.
+Decoupling these equations avoids having
+to compute the energy balance of the humidifier
+and its upstream components when solving for the
+pressure drop of downstream components.
+Therefore, the default value is <code>approximateMoistureBalance = true</code>.
 </p>
 <h4>Implementation</h4>
 <p>

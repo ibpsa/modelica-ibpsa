@@ -6,6 +6,11 @@ model StaticTwoPortConservationEquation
 
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
 
+  // Constants
+  constant Boolean approximateMoistureBalance = true
+    "Set to true to neglect moisture addition in mass balance, which can give smaller equations"
+     annotation(HideResult=true);
+
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Sensible plus latent heat flow rate transferred into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
@@ -114,7 +119,7 @@ equation
     port_b.C_outflow = inStream(port_a.C_outflow);
   else
     // Mass balance (no storage)
-    port_a.m_flow + port_b.m_flow = -mWat_flow;
+    port_a.m_flow + port_b.m_flow = if approximateMoistureBalance then 0 else -mWat_flow;
     // Energy balance.
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
     // at both ports. Since mWat_flow << m_flow, the error is small.
