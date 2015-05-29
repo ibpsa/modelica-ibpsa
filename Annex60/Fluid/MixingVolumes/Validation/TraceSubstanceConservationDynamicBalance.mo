@@ -12,18 +12,18 @@ model TraceSubstanceConservationDynamicBalance
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-50,-30})));
+        rotation=0,
+        origin={-30,-60})));
   Modelica.Blocks.Continuous.Integrator intTraSubOut(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={30,-30})));
+        rotation=0,
+        origin={10,-40})));
   Modelica.Blocks.Sources.RealExpression reaExp(y=vol.dynBal.m*vol.dynBal.C[1])
     "Mixing volume total species mass"
-    annotation (Placement(transformation(extent={{-38,-58},{0,-78}})));
+    annotation (Placement(transformation(extent={{-8,-58},{30,-78}})));
   Utilities.Diagnostics.AssertEquality assZer(threShold=1E-10)
     "Assert conservation of mass"
     annotation (Placement(transformation(extent={{80,-88},{100,-68}})));
@@ -35,24 +35,16 @@ model TraceSubstanceConservationDynamicBalance
   Modelica.Blocks.Sources.Constant zero(k=0) "Zero input"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 equation
-  connect(intTraSubIn.u, senTraSubIn.C) annotation (Line(
-      points={{-50,-18},{-50,-11}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(intTraSubOut.u, senTraSubOut.C) annotation (Line(
-      points={{30,-18},{30,-11}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(reaExp.y, add3.u3) annotation (Line(
-      points={{1.9,-68},{38,-68}},
+      points={{31.9,-68},{38,-68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intTraSubIn.y, add3.u2) annotation (Line(
-      points={{-50,-41},{-50,-60},{38,-60}},
+      points={{-19,-60},{38,-60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intTraSubOut.y, add3.u1) annotation (Line(
-      points={{30,-41},{30,-52},{38,-52}},
+      points={{21,-40},{21,-52},{38,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add3.y, assZer.u1) annotation (Line(
@@ -61,6 +53,14 @@ equation
       smooth=Smooth.None));
   connect(zero.y, assZer.u2) annotation (Line(
       points={{61,-90},{70,-90},{70,-84},{78,-84}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(intTraSubIn.u, CfloIn.y) annotation (Line(
+      points={{-42,-60},{-46,-60},{-46,-41},{-46,-41}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(CfloOut.y, intTraSubOut.u) annotation (Line(
+      points={{46,-41},{42,-41},{42,-42},{30,-42},{30,-22},{-2,-22},{-2,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,

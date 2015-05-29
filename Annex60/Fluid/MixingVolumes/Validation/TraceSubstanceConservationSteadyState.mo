@@ -7,29 +7,29 @@ model TraceSubstanceConservationSteadyState
   Annex60.Utilities.Diagnostics.AssertEquality assEquTra2(threShold=1E-10,
       message="Measured trace quantities are not equal")
     "Assert equality of trace substances"
-    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
   Annex60.Utilities.Diagnostics.AssertEquality assEquTra1(threShold=1E-10,
       message="Measured trace quantity does not equal set point")
     "Assert equality of trace substances"
-    annotation (Placement(transformation(extent={{40,-48},{60,-68}})));
+    annotation (Placement(transformation(extent={{80,-70},{100,-90}})));
   Modelica.Blocks.Sources.Constant const(k=sou.m_flow*sou.C[1])
     "Set point of trace substance concentration"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 equation
   connect(const.y, assEquTra1.u1) annotation (Line(
-      points={{21,-70},{30,-70},{30,-64},{38,-64}},
+      points={{61,-90},{70,-90},{70,-86},{78,-86}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(assEquTra2.u1, senTraSubOut.C) annotation (Line(
-      points={{38,-24},{30,-24},{30,-11}},
+  connect(assEquTra1.u2, CfloIn.y) annotation (Line(
+      points={{78,-74},{-46,-74},{-46,-41}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(assEquTra2.u2, senTraSubIn.C) annotation (Line(
-      points={{38,-36},{-50,-36},{-50,-11}},
+  connect(assEquTra2.u2, CfloIn.y) annotation (Line(
+      points={{78,-56},{-46,-56},{-46,-41}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(assEquTra1.u2, senTraSubIn.C) annotation (Line(
-      points={{38,-52},{-50,-52},{-50,-11}},
+  connect(assEquTra2.u1, CfloOut.y) annotation (Line(
+      points={{78,-44},{46,-44},{46,-41}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,

@@ -21,7 +21,7 @@ model TraceSubstanceConservation
     allowFlowReversal=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mixing volume for adding moisture"
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Blocks.Sources.Constant TWat(k=273.15) "Water supply temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Constant mWatFlo(k=0.001) "Water mass flow rate "
@@ -31,41 +31,83 @@ model TraceSubstanceConservation
     m_flow_nominal=1,
     tau=0,
     allowFlowReversal=false,
-    substanceName=substanceName) "Measured inlet trace substances"
-    annotation (Placement(transformation(extent={{-60,10},{-40,-10}})));
+    substanceName=substanceName) "Measured inlet trace substance concentration"
+    annotation (Placement(transformation(extent={{-70,10},{-50,-10}})));
   Annex60.Fluid.Sensors.TraceSubstancesTwoPort senTraSubOut(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     tau=0,
     allowFlowReversal=false,
-    substanceName=substanceName) "Measured outlet trace substances"
+    substanceName=substanceName)
+    "Measured outlet trace substance concentration"
     annotation (Placement(transformation(extent={{20,10},{40,-10}})));
   Annex60.Fluid.Sources.Boundary_pT sin(redeclare package Medium = Medium,
       nPorts=1) "Air sink"
     annotation (Placement(transformation(extent={{100,-10},{80,10}})));
+  Sensors.MassFlowRate senMasFloIn(redeclare package Medium = Medium,
+      allowFlowReversal=false) "Fluid mass flow rate at inlet"
+    annotation (Placement(transformation(extent={{-40,10},{-20,-10}})));
+  Sensors.MassFlowRate senMasFloOut(redeclare package Medium = Medium,
+      allowFlowReversal=false) "Fluid mass flow rate at outlet"
+    annotation (Placement(transformation(extent={{50,10},{70,-10}})));
+  Modelica.Blocks.Math.Product CfloIn "Trace substance mass flow rate at inlet"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-46,-30})));
+  Modelica.Blocks.Math.Product CfloOut
+    "Trace substance mass flow rate at outlet" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={46,-30})));
 equation
   connect(vol.TWat, TWat.y) annotation (Line(
-      points={{-22,14.8},{-40,14.8},{-40,30},{-59,30}},
+      points={{-12,14.8},{-40,14.8},{-40,30},{-59,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWatFlo.y, vol.mWat_flow) annotation (Line(
-      points={{-59,70},{-30,70},{-30,18},{-22,18}},
+      points={{-59,70},{-30,70},{-30,18},{-12,18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[1], senTraSubIn.port_a) annotation (Line(
-      points={{-80,0},{-60,0}},
+      points={{-80,0},{-70,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTraSubIn.port_b, vol.ports[1]) annotation (Line(
-      points={{-40,0},{-12,0}},
+  connect(senTraSubIn.port_b, senMasFloIn.port_a) annotation (Line(
+      points={{-50,0},{-40,0}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(senMasFloIn.port_b, vol.ports[1]) annotation (Line(
+      points={{-20,0},{-2,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sin.ports[1], senMasFloOut.port_b) annotation (Line(
+      points={{80,0},{70,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senMasFloOut.port_a, senTraSubOut.port_b) annotation (Line(
+      points={{50,0},{40,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(CfloIn.u2, senTraSubIn.C) annotation (Line(
+      points={{-52,-18},{-60,-18},{-60,-11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(CfloIn.u1, senMasFloIn.m_flow) annotation (Line(
+      points={{-40,-18},{-30,-18},{-30,-11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(CfloOut.u1, senMasFloOut.m_flow) annotation (Line(
+      points={{52,-18},{60,-18},{60,-11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(CfloOut.u2, senTraSubOut.C) annotation (Line(
+      points={{40,-18},{30,-18},{30,-11}},
+      color={0,0,127},
       smooth=Smooth.None));
   connect(vol.ports[2], senTraSubOut.port_a) annotation (Line(
-      points={{-8,0},{20,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sin.ports[1], senTraSubOut.port_b) annotation (Line(
-      points={{80,0},{40,0}},
+      points={{2,0},{20,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
