@@ -5,7 +5,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   // Constants
   constant Boolean approximateMoistureBalance = true
-    "Set to true to neglect moisture addition in mass balance, which can give smaller equations"
+    "Set to true to neglect moisture addition in mass balance, which can give smaller algebraic loops"
      annotation(HideResult=true);
 
   constant Boolean initialize_p = not Medium.singleState
@@ -176,8 +176,8 @@ equation
     if approximateMoistureBalance then
       // If moisture is neglected in mass balance, assume for computation
       // of the mass of air that the air is at Medium.X_default.
-      m = fluidVolume*Medium.density(Medium.set_state_phX(
-        p=  p,
+      m = fluidVolume*Medium.density(Medium.setState_phX(
+        p=  medium.p,
         h=  hOut,
         X=  Medium.X_default));
     else
@@ -319,6 +319,14 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2015, by Filip Jorissen and Michael Wetter:<br/>
+Revised implementation for allowing moisture mass flow rate 
+to be approximated using parameter <code>approximateMoistureBalance</code>. 
+This may lead to smaller algebraic loops.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
+</li>
 <li>
 May 22, 2015 by Michael Wetter:<br/>
 Removed <pre>
