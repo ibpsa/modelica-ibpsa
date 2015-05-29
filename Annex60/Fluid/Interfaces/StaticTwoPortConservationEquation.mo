@@ -7,9 +7,9 @@ model StaticTwoPortConservationEquation
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
 
   // Constants
-  constant Boolean approximateMoistureBalance = true
+  parameter Boolean approximateMoistureBalance = false
     "Set to true to neglect moisture addition in mass balance, which can give smaller equations"
-     annotation(HideResult=true);
+     annotation(HideResult=true,Evaluate=true);
 
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Sensible plus latent heat flow rate transferred into the medium"
@@ -48,7 +48,10 @@ model StaticTwoPortConservationEquation
   constant Boolean use_safeDivision=true
     "Set to true to improve numerical robustness";
 protected
-  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
+  Real m_flowInv(unit="s/kg") = Annex60.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3) if
+      use_safeDivision "Regularization of 1/m_flow of port_a";
+  Real m_flowInv_b(unit="s/kg") = Annex60.Utilities.Math.Functions.inverseXRegularized(x=port_b.m_flow, delta=m_flow_small/1E3) if
+      use_safeDivision "Regularization of 1/m_flow of port_b";
 
   Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
@@ -71,11 +74,6 @@ equation
  // Species flow rate from connector mWat_flow
  mXi_flow = mWat_flow * s;
   // Regularization of m_flow around the origin to avoid a division by zero
- if use_safeDivision then
-    m_flowInv = Annex60.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
- else
-     m_flowInv = 0; // m_flowInv is not used if use_safeDivision = false.
- end if;
 
  if allowFlowReversal then
    // Formulate hOut using spliceFunction. This avoids an event iteration.
@@ -127,8 +125,8 @@ equation
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
       port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
       // Transport of species
-      port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
-      port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
+      port_b.Xi_outflow = -(inStream(port_a.Xi_outflow)*port_a.m_flow + mXi_flow) * m_flowInv_b;
+      port_a.Xi_outflow = -(inStream(port_b.Xi_outflow)*port_b.m_flow + mXi_flow) * m_flowInv;
      else
       port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
       port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
@@ -179,6 +177,14 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 29, 2015, by Filip Jorissen:<br/>
+Revised implementation of conservation of vapor mass.
+Created conditional declaration for <code>mFlow_inv</code>
+and added new variable <code>mFlow_inv_b</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Corrected documentation.
