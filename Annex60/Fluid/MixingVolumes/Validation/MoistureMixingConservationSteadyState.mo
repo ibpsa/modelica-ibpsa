@@ -1,5 +1,5 @@
 within Annex60.Fluid.MixingVolumes.Validation;
-model MoistureMixingConservation
+model MoistureMixingConservationSteadyState
   "This test checks if mass and energy is conserved when mixing fluid streams"
   extends
     Annex60.Fluid.MixingVolumes.Validation.BaseClasses.MoistureMixingConservation(
@@ -45,4 +45,4 @@ First implementation.
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservation.mos"
         "Simulate and plot"));
-end MoistureMixingConservation;
+end MoistureMixingConservationSteadyState;
