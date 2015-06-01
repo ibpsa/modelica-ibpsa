@@ -62,7 +62,9 @@ equation
       extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
-    experiment(StopTime=86400),
+    experiment(StopTime=6e+006, __Dymola_NumberOfIntervals=5000),
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Benchmarks/AirFlow/Examples/ZoneStepResponse.mos"
+        "Simulate and plot"),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>This example tests the step response of the SimpleZone model for the airflow benchmark. It uses the weather file STEP_TMY.mos, that implements a 5 K step at 400 000 s. In the Buildings library, the Room model in BESTEST 600 FF needs around 4-5 hours in order to reach 2/3 of the maximum step response to this weather file. This time constant is approximated with a value of mSenFac = 75 for the Zone&apos;s mixing volume.</p>
