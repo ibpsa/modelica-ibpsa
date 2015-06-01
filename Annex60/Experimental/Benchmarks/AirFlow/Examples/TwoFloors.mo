@@ -8,8 +8,9 @@ model TwoFloors "Test case for air flow between two floors"
   Components.ZoneHallway zoneHallway(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{42,-94},{62,-74}})));
-  Components.SimpleZone simpleZone(redeclare package Medium = Medium,
-      forceErrorControlOnFlow=forceErrorControlOnFlow)
+  Components.SimpleZone simpleZone1_4(redeclare package Medium = Medium,
+      forceErrorControlOnFlow=forceErrorControlOnFlow,
+      TRoom = 298.15)
     annotation (Placement(transformation(extent={{12,-94},{32,-74}})));
   Components.OutsideEnvironment outsideEnvironment(redeclare package Medium =
         Medium)
@@ -25,20 +26,20 @@ model TwoFloors "Test case for air flow between two floors"
   Components.ZoneHallway zoneHallway3(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{42,26},{62,46}})));
-  Components.SimpleZone simpleZone1(
-    TRoom=293.15,
+  Components.SimpleZone simpleZone1_3(
     redeclare package Medium = Medium,
-    forceErrorControlOnFlow=forceErrorControlOnFlow)
+    forceErrorControlOnFlow=forceErrorControlOnFlow,
+    TRoom = 298.15)
     annotation (Placement(transformation(extent={{12,-54},{32,-34}})));
-  Components.SimpleZone simpleZone2(
-    TRoom=303.15,
+  Components.SimpleZone simpleZone1_2(
     redeclare package Medium = Medium,
-    forceErrorControlOnFlow=forceErrorControlOnFlow)
+    forceErrorControlOnFlow=forceErrorControlOnFlow,
+    TRoom = 298.15)
     annotation (Placement(transformation(extent={{12,-14},{32,6}})));
-  Components.SimpleZone simpleZone3(
-    TRoom=300.15,
+  Components.SimpleZone simpleZone1_1(
     redeclare package Medium = Medium,
-    forceErrorControlOnFlow=forceErrorControlOnFlow)
+    forceErrorControlOnFlow=forceErrorControlOnFlow,
+    TRoom = 298.15)
     annotation (Placement(transformation(extent={{12,26},{32,46}})));
   Components.OutsideEnvironment outsideEnvironment1
     annotation (Placement(transformation(extent={{72,-54},{92,-34}})));
@@ -49,8 +50,9 @@ model TwoFloors "Test case for air flow between two floors"
   Components.ZoneHallway zoneHallway4(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-62,-94},{-42,-74}})));
-  Components.SimpleZone simpleZone4(redeclare package Medium = Medium,
-      forceErrorControlOnFlow=forceErrorControlOnFlow)
+  Components.SimpleZone simpleZone2_4(redeclare package Medium = Medium,
+      forceErrorControlOnFlow=forceErrorControlOnFlow,
+      TRoom = 298.15)
     annotation (Placement(transformation(extent={{-92,-94},{-72,-74}})));
   Components.OutsideEnvironment outsideEnvironment4(redeclare package Medium =
         Medium)
@@ -64,20 +66,20 @@ model TwoFloors "Test case for air flow between two floors"
   Components.ZoneHallway zoneHallway7(redeclare package Medium = Medium,
       forceErrorControlOnFlow=forceErrorControlOnFlow)
     annotation (Placement(transformation(extent={{-62,26},{-42,46}})));
-  Components.SimpleZone simpleZone5(
-    TRoom=293.15,
+  Components.SimpleZone simpleZone2_3(
     redeclare package Medium = Medium,
-    forceErrorControlOnFlow=forceErrorControlOnFlow)
+    forceErrorControlOnFlow=forceErrorControlOnFlow,
+    TRoom = 298.15)
     annotation (Placement(transformation(extent={{-92,-54},{-72,-34}})));
-  Components.SimpleZone simpleZone6(
-    TRoom=303.15,
+  Components.SimpleZone simpleZone2_2(
     redeclare package Medium = Medium,
-    forceErrorControlOnFlow=forceErrorControlOnFlow)
+    forceErrorControlOnFlow=forceErrorControlOnFlow,
+    TRoom = 298.15)
     annotation (Placement(transformation(extent={{-92,-14},{-72,6}})));
-  Components.SimpleZone simpleZone7(
-    TRoom=300.15,
+  Components.SimpleZone simpleZone2_1(
     redeclare package Medium = Medium,
-    forceErrorControlOnFlow=forceErrorControlOnFlow)
+    forceErrorControlOnFlow=forceErrorControlOnFlow,
+    TRoom = 298.15)
     annotation (Placement(transformation(extent={{-92,26},{-72,46}})));
   Components.OutsideEnvironment outsideEnvironment5
     annotation (Placement(transformation(extent={{-32,-54},{-12,-34}})));
@@ -85,11 +87,11 @@ model TwoFloors "Test case for air flow between two floors"
     annotation (Placement(transformation(extent={{-32,-14},{-12,6}})));
   Components.OutsideEnvironment outsideEnvironment7
     annotation (Placement(transformation(extent={{-32,26},{-12,46}})));
-  Components.Staircase staircase annotation (Placement(transformation(
+  Components.Staircase staircase1 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={52,70})));
-  Components.Staircase staircase1 annotation (Placement(transformation(
+  Components.Staircase staircase2 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-52,70})));
@@ -97,11 +99,11 @@ model TwoFloors "Test case for air flow between two floors"
         "modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-24,100},{-4,120}})));
 equation
-  connect(simpleZone4.port_a, zoneHallway4.port_a_toZone) annotation (Line(
+  connect(simpleZone2_4.port_a, zoneHallway4.port_a_toZone) annotation (Line(
       points={{-72,-78},{-62,-78}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone4.port_b, zoneHallway4.port_b_toZone) annotation (Line(
+  connect(simpleZone2_4.port_b, zoneHallway4.port_b_toZone) annotation (Line(
       points={{-72,-90},{-62,-90}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -133,11 +135,11 @@ equation
       points={{-42,-38},{-32,-38}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone5.port_b, zoneHallway5.port_b_toZone) annotation (Line(
+  connect(simpleZone2_3.port_b, zoneHallway5.port_b_toZone) annotation (Line(
       points={{-72,-50},{-62,-50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone5.port_a, zoneHallway5.port_a_toZone) annotation (Line(
+  connect(simpleZone2_3.port_a, zoneHallway5.port_a_toZone) annotation (Line(
       points={{-72,-38},{-62,-38}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -149,11 +151,11 @@ equation
       points={{-46,-34},{-46,-14}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone6.port_b, zoneHallway6.port_b_toZone) annotation (Line(
+  connect(simpleZone2_2.port_b, zoneHallway6.port_b_toZone) annotation (Line(
       points={{-72,-10},{-62,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone6.port_a, zoneHallway6.port_a_toZone) annotation (Line(
+  connect(simpleZone2_2.port_a, zoneHallway6.port_a_toZone) annotation (Line(
       points={{-72,2},{-62,2}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -185,43 +187,43 @@ equation
       points={{-42,42},{-32,42}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone7.port_b, zoneHallway7.port_b_toZone) annotation (Line(
+  connect(simpleZone2_1.port_b, zoneHallway7.port_b_toZone) annotation (Line(
       points={{-72,30},{-62,30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone7.port_a, zoneHallway7.port_a_toZone) annotation (Line(
+  connect(simpleZone2_1.port_a, zoneHallway7.port_a_toZone) annotation (Line(
       points={{-72,42},{-62,42}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(zoneHallway7.port_a2, staircase1.port_a_toHallway) annotation (Line(
+  connect(zoneHallway7.port_a2,staircase2. port_a_toHallway) annotation (Line(
       points={{-58,46},{-58,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(zoneHallway7.port_b2, staircase1.port_b_toHallway) annotation (Line(
+  connect(zoneHallway7.port_b2,staircase2. port_b_toHallway) annotation (Line(
       points={{-46,46},{-46,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(staircase1.port_a_bot, staircase.port_a_top) annotation (Line(
+  connect(staircase2.port_a_bot, staircase1.port_a_top) annotation (Line(
       points={{-42,64},{42,64}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(staircase1.port_b_bot, staircase.port_b_top) annotation (Line(
+  connect(staircase2.port_b_bot, staircase1.port_b_top) annotation (Line(
       points={{-42,76},{42,76}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(staircase.port_a_toHallway, zoneHallway3.port_a2) annotation (Line(
+  connect(staircase1.port_a_toHallway, zoneHallway3.port_a2) annotation (Line(
       points={{46,60},{46,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(staircase.port_b_toHallway, zoneHallway3.port_b2) annotation (Line(
+  connect(staircase1.port_b_toHallway, zoneHallway3.port_b2) annotation (Line(
       points={{58,60},{58,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone3.port_a, zoneHallway3.port_a_toZone) annotation (Line(
+  connect(simpleZone1_1.port_a, zoneHallway3.port_a_toZone) annotation (Line(
       points={{32,42},{42,42}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone3.port_b, zoneHallway3.port_b_toZone) annotation (Line(
+  connect(simpleZone1_1.port_b, zoneHallway3.port_b_toZone) annotation (Line(
       points={{32,30},{42,30}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -261,11 +263,11 @@ equation
       points={{58,-14},{58,-34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone1.port_a, zoneHallway1.port_a_toZone) annotation (Line(
+  connect(simpleZone1_3.port_a, zoneHallway1.port_a_toZone) annotation (Line(
       points={{32,-38},{42,-38}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone1.port_b, zoneHallway1.port_b_toZone) annotation (Line(
+  connect(simpleZone1_3.port_b, zoneHallway1.port_b_toZone) annotation (Line(
       points={{32,-50},{42,-50}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -287,11 +289,11 @@ equation
       points={{58,-54},{58,-74}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone.port_a, zoneHallway.port_a_toZone) annotation (Line(
+  connect(simpleZone1_4.port_a, zoneHallway.port_a_toZone) annotation (Line(
       points={{32,-78},{42,-78}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone.port_b, zoneHallway.port_b_toZone) annotation (Line(
+  connect(simpleZone1_4.port_b, zoneHallway.port_b_toZone) annotation (Line(
       points={{32,-90},{42,-90}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -305,11 +307,11 @@ equation
       points={{62,-90},{72,-90}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone2.port_b, zoneHallway2.port_b_toZone) annotation (Line(
+  connect(simpleZone1_2.port_b, zoneHallway2.port_b_toZone) annotation (Line(
       points={{32,-10},{42,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(simpleZone2.port_a, zoneHallway2.port_a_toZone) annotation (Line(
+  connect(simpleZone1_2.port_a, zoneHallway2.port_a_toZone) annotation (Line(
       points={{32,2},{42,2}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -353,27 +355,27 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, simpleZone3.weaBus) annotation (Line(
+  connect(weaDat.weaBus, simpleZone1_1.weaBus) annotation (Line(
       points={{-4,110},{0,110},{0,40},{10.2,40}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, simpleZone2.weaBus) annotation (Line(
+  connect(weaDat.weaBus, simpleZone1_2.weaBus) annotation (Line(
       points={{-4,110},{0,110},{0,0},{10.2,0}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, simpleZone1.weaBus) annotation (Line(
+  connect(weaDat.weaBus, simpleZone1_3.weaBus) annotation (Line(
       points={{-4,110},{0,110},{0,-40},{10.2,-40}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, simpleZone.weaBus) annotation (Line(
+  connect(weaDat.weaBus, simpleZone1_4.weaBus) annotation (Line(
       points={{-4,110},{0,110},{0,-80},{10.2,-80}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, staircase.weaBus) annotation (Line(
+  connect(weaDat.weaBus, staircase1.weaBus) annotation (Line(
       points={{-4,110},{0,110},{0,52},{48,52},{48,58.2}},
       color={255,204,51},
       thickness=0.5,
@@ -398,27 +400,27 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, simpleZone7.weaBus) annotation (Line(
+  connect(weaDat.weaBus, simpleZone2_1.weaBus) annotation (Line(
       points={{-4,110},{0,110},{0,52},{-98,52},{-98,40},{-93.8,40}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, simpleZone6.weaBus) annotation (Line(
+  connect(weaDat.weaBus, simpleZone2_2.weaBus) annotation (Line(
       points={{-4,110},{0,110},{0,52},{-98,52},{-98,0},{-93.8,0}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, simpleZone5.weaBus) annotation (Line(
+  connect(weaDat.weaBus, simpleZone2_3.weaBus) annotation (Line(
       points={{-4,110},{0,110},{0,52},{-98,52},{-98,-40},{-93.8,-40}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, simpleZone4.weaBus) annotation (Line(
+  connect(weaDat.weaBus, simpleZone2_4.weaBus) annotation (Line(
       points={{-4,110},{0,110},{0,52},{-98,52},{-98,-80},{-93.8,-80}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaDat.weaBus, staircase1.weaBus) annotation (Line(
+  connect(weaDat.weaBus, staircase2.weaBus) annotation (Line(
       points={{-4,110},{0,110},{0,52},{-56,52},{-56,58.2}},
       color={255,204,51},
       thickness=0.5,
@@ -446,6 +448,8 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,120}}), graphics),
     experiment(StopTime=3600),
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Benchmarks/AirFlow/Examples/TwoFloors.mos"
+        "Simulate and plot"),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{100,120}})),
     Documentation(info="<html>
