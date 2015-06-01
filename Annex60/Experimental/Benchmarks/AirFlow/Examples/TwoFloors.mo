@@ -353,6 +353,96 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
+  connect(weaDat.weaBus, simpleZone3.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,40},{10.2,40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, simpleZone2.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,0},{10.2,0}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, simpleZone1.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,-40},{10.2,-40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, simpleZone.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,-80},{10.2,-80}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, staircase.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{48,52},{48,58.2}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, zoneHallway3.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{36,52},{36,40},{40.2,40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, zoneHallway2.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{36,52},{36,0},{40.2,0}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, zoneHallway1.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{36,52},{36,-40},{40.2,-40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, zoneHallway.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{36,52},{36,-80},{40.2,-80}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, simpleZone7.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{-98,52},{-98,40},{-93.8,40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, simpleZone6.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{-98,52},{-98,0},{-93.8,0}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, simpleZone5.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{-98,52},{-98,-40},{-93.8,-40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, simpleZone4.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{-98,52},{-98,-80},{-93.8,-80}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, staircase1.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{-56,52},{-56,58.2}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, zoneHallway7.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{-68,52},{-68,40},{-63.8,40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, zoneHallway6.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{-68,52},{-68,0},{-63.8,0}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, zoneHallway5.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{-68,52},{-68,-40},{-63.8,-40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, zoneHallway4.weaBus) annotation (Line(
+      points={{-4,110},{0,110},{0,52},{-68,52},{-68,-80},{-63.8,-80}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,120}}), graphics),
     experiment(StopTime=3600),

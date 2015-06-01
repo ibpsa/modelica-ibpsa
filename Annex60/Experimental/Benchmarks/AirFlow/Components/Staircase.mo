@@ -10,6 +10,9 @@ model Staircase
   parameter Real doorOpening = 1
     "Opening of door (between 0:closed and 1:open)";
 
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer UValue = 1
+    "Heat transfer coefficient for outside wall";
+
   replaceable package Medium = Modelica.Media.Air.SimpleAir;
   parameter Boolean forceErrorControlOnFlow = true
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
@@ -20,12 +23,11 @@ model Staircase
     V=heightRoom*lengthRoom*widthRoom,
     T_start=TRoom,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nPorts=6) "Air volume of staircase element"
+    nPorts=6,
+    mSenFac=60) "Air volume of staircase element"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAir(T=TRoom)
-    "Fixed air temperature for room"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=1E9)
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=
+        heightRoom*widthRoom*UValue)
     "Thermal conductor between fixed T and Volume"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_toHallway(redeclare package
@@ -104,11 +106,15 @@ model Staircase
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=270,
         origin={-60,30})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemp
+    "Dry bulb air temperature"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+        transformation(extent={{80,-20},{120,20}}), iconTransformation(extent={{
+            -128,30},{-108,50}})));
 equation
-  connect(TAir.port, conRoom.port_a) annotation (Line(
-      points={{-20,0},{-10,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+  connect(weaBus.TDryBul, preTemp.T);
+
   connect(conRoom.port_b, volumeStairs.heatPort) annotation (Line(
       points={{10,0},{20,0}},
       color={191,0,0},
@@ -177,37 +183,25 @@ equation
       points={{-30,40},{-30,32},{62,32},{62,-26},{33.3333,-26},{33.3333,-10}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(preTemp.port, conRoom.port_a) annotation (Line(
+      points={{-20,0},{-10,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
           preserveAspectRatio=false), graphics),                         Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
-<p>
-An air volume to represent a staircase element for a scalable air flow benchmark.
-</p>
+<p>An air volume to represent a staircase element for a scalable air flow benchmark. </p>
 <h4>Assumptions and limitations</h4>
-<p>
-This is a very simple room representation with a constant room temperature.
-</p>
+<p>This is a very simple room representation. The model is intended to roughly approximate a first order response of the zone to changes in outdoor air temperature. This is achieved by a thermal resistance in model conRoom and the capitancy of the mixing volume represented by the value for mSenFac. The G-Value of conRoom is approximated by the area of one outside wall multiplied with a U-Value of 1 W/(m**2*K). The value for mSenFac has been estimated from comparisons with other room models as shown in <a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse\">Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse</a>. For this model, a value for mSenFac slightly lower than in <a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone\">Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone</a> has been chosen.</p>
 <h4>Typical use and important parameters</h4>
-<p>
-port_a_toHallway and port_b_toHallway should be connected to the corresponding 
-ports of a hallway model.
-
-port_a_top and port_b_top can be connected to another staircase model via its 
-respective port_a_bot and port_b_bot.
-</p>
-
+<p>port_a_toHallway and port_b_toHallway should be connected to the corresponding ports of a hallway model. port_a_top and port_b_top can be connected to another staircase model via its respective port_a_bot and port_b_bot. </p>
 <h4>Validation</h4>
-<p>
-No validation has been conducted so far.
-</p>
-
+<p>No validation has been conducted so far. </p>
 <h4>References</h4>
-<p>
-Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms
-</p>
-</html>
-", revisions="<html>
+<p>Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms </p>
+</html>",
+   revisions="<html>
 <ul>
 <li>
 February 2015 by Marcus Fuchs:<br/>

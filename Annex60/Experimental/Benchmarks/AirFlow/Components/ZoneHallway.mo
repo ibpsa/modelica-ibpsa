@@ -21,8 +21,8 @@ model ZoneHallway
     V=heightRoom*lengthRoom*widthRoom,
     nPorts=8,
     T_start=TRoom,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Air volume of hallway element"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    mSenFac=60) "Air volume of hallway element"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=
         heightRoom*lengthRoom*UValue)
@@ -192,36 +192,15 @@ equation
           preserveAspectRatio=false), graphics),                         Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
-<p>
-An air volume to represent a hallway element for a scalable air flow benchmark.
-</p>
+<p>An air volume to represent a hallway element for a scalable air flow benchmark. </p>
 <h4>Assumptions and limitations</h4>
-<p>
-This is a very simple room representation with a constant room temperature.
-</p>
+<p>This is a very simple room representation. The model is intended to roughly approximate a first order response of the zone to changes in outdoor air temperature. This is achieved by a thermal resistance in model conRoom and the capitancy of the mixing volume represented by the value for mSenFac. The G-Value of conRoom is approximated by the area of one outside wall multiplied with a U-Value of 1 W/(m**2*K). The value for mSenFac has been estimated from comparisons with other room models as shown in <a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse\">Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse</a>. For this model, a value for mSenFac slightly lower than in <a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone\"> Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone</a> has been chosen.</p>
 <h4>Typical use and important parameters</h4>
-<p>
-port_a_toZone and port_b_toZone should be connected to the corresponding ports 
-of a zone model, port_a_toOutside and port_b_toOutside should be connected to 
-the corresponding ports of the OutsideEnvironment. 
-
-port_a2 and port_b2 can be connected to either a staircase model or to further 
-hallway elements via their respective port_a1 and port_b2.
-</p>
-
+<p>port_a_toZone and port_b_toZone should be connected to the corresponding ports of a zone model, port_a_toOutside and port_b_toOutside should be connected to the corresponding ports of the OutsideEnvironment. port_a2 and port_b2 can be connected to either a staircase model or to further hallway elements via their respective port_a1 and port_b2. </p>
 <h4>Validation</h4>
-<p>
-This model is following the approach used in 
-Buildings.Airflow.Multizone.Examples.Validation3Rooms, only in a more 
-modularized way in order to be part of a scalable benchmark. First tests 
-indicated a reasonable behavior, but it should be checked again against that 
-test case and/or other validation cases. 
-</p>
-
+<p>This model is following the approach used in Buildings.Airflow.Multizone.Examples.Validation3Rooms, only in a more modularized way in order to be part of a scalable benchmark. First tests indicated a reasonable behavior, but it should be checked again against that test case and/or other validation cases. </p>
 <h4>References</h4>
-<p>
-Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms
-</p>
+<p>Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms </p>
 </html>", revisions="<html>
 <ul>
 <li>
