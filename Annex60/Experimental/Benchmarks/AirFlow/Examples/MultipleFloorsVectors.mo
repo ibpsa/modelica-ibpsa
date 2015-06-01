@@ -56,6 +56,8 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
     experiment(StopTime=3600),
+    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Benchmarks/AirFlow/Examples/MultipleFloorsVectors.mos"
+        "Simulate and plot"),
     __Dymola_experimentSetupOutput,
     Documentation(revisions="<html>
 <ul>
