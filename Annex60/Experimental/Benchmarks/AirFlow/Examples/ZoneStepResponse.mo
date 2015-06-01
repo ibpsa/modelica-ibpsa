@@ -71,8 +71,10 @@ equation
 <p>The mass flow rate of air to the zone at 0.05 kg/s approximates an air exchange rate of 3 times the air volume per hour.</p>
 </html>", revisions="<html>
 <ul>
-<li>May 28, 2015, Marcus Fuchs:</li>
-implemented.
+<li>
+May 28, 2015, by Marcus Fuchs:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end ZoneStepResponse;
