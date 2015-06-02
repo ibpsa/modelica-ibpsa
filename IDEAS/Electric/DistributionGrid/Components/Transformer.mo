@@ -4,7 +4,7 @@ model Transformer
 
   // Input parameters //////////////////////////////////////////////////////////////////////////////////////////////
   parameter Modelica.SIunits.ApparentPower Sn=160000
-    "Apparant transformer power" annotation (choices(
+    "Apparent transformer power" annotation (choices(
       choice=100000 "100 kVA",
       choice=160000 "160 kVA",
       choice=250000 "250 kVA",

@@ -2,7 +2,7 @@ within IDEAS.Electric.Data.Interfaces;
 record GridType
   "Describes a grid using the layout matrix T_matrix and lengths and cable type vectors"
   extends IDEAS.Electric.Data.Interfaces.GridImp(R=CabTyp.RCha .* LenVec*Pha/3,
-      X=CabTyp.XCha .* LenVec);
+      X=CabTyp.XCha .* LenVec*Pha/3);
   parameter Integer Pha;
 
   parameter Modelica.SIunits.Length LenVec[nNodes]

@@ -2,9 +2,9 @@ CircuitInterface
 PartialBaseCircuit
 PartialCircuitBalancingValve
 PartialFlowCircuit
+PartialMixingCircuit
 PartialPumpCircuit
 PartialValveCircuit
-PartialMixingCircuit
 PumpParameters
 ValveParametersReturn
 ValveParametersSupply

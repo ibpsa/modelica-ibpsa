@@ -7,25 +7,27 @@ partial model PartialHeatPump "Heat pump partial"
     m2_flow_nominal=heatPumpData.m2_flow_nominal*sca,
     dp1_nominal=if computeFlowResistance then heatPumpData.dp1_nominal else 0,
     dp2_nominal=if computeFlowResistance then heatPumpData.dp2_nominal else 0,
-    vol1(mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
-          /Medium1.specificHeatCapacityCp(state_default1)/5/heatPumpData.m1)
-           else mFactor,
+    vol1(mSenFac=mSenFac,
       V=heatPumpData.m1/rho1_nominal,
       energyDynamics=energyDynamics,
-      massDynamics=massDynamics),
-    vol2(mFactor=if avoidEvents then max(mFactor, 1 + riseTime*heatPumpData.P_the_nominal
-          /Medium2.specificHeatCapacityCp(state_default2)/5/heatPumpData.m2)
-           else mFactor,
+      massDynamics=massDynamics,
+      prescribedHeatFlowRate=true),
+    redeclare IDEAS.Fluid.MixingVolumes.MixingVolume vol2(mSenFac=mSenFac,
       V=heatPumpData.m2/rho2_nominal,
       energyDynamics=energyDynamics,
-      massDynamics=massDynamics));
+      massDynamics=massDynamics,
+      prescribedHeatFlowRate=true));
+  extends IDEAS.Fluid.Production.Interfaces.ModulationSecurity(
+    T_max = heatPumpData.T_cond_max,
+    T_min = heatPumpData.T_evap_min);
+  extends IDEAS.Fluid.Interfaces.OnOffInterface(use_onOffSignal=true);
 
   replaceable parameter IDEAS.Fluid.Production.BaseClasses.HeatPumpData heatPumpData constrainedby
     HeatPumpData "Record containing heat pump performance data"
                                                    annotation (
-      choicesAllMatching=true, Placement(transformation(extent={{-98,-98},{-78,-78}})));
-  extends IDEAS.Fluid.Interfaces.OnOffInterface(use_onOffSignal=true);
-
+      choicesAllMatching=true, Placement(transformation(extent={{-98,86},{-86,98}})));
+  parameter Boolean use_TSet = false
+    "True if the heat pump uses a set point temperature control";
   parameter Boolean use_scaling=false
     "scale the performance data based on the nominal power"
     annotation (Dialog(tab="Advanced"));
@@ -40,20 +42,10 @@ partial model PartialHeatPump "Heat pump partial"
   final parameter Real sca=if use_scaling then P_the_nominal/heatPumpData.P_the_nominal
        else 1 "scaling factor for the nominal power of the heat pump";
 
-  parameter Real mFactor=1
+  parameter Real mSenFac=1
     "Factor to scale the thermal mass of the evaporator and condensor"
     annotation (Dialog(tab="Advanced"));
 
-  parameter Boolean avoidEvents=false
-    "Set to true to switch heat pumps on using a continuous transition"
-    annotation (Dialog(tab="Advanced", group="Events"));
-
-  parameter Modelica.SIunits.Time riseTime=120
-    "The time it takes to reach full/zero power when switching" annotation (
-      Dialog(
-      tab="Advanced",
-      group="Events",
-      enable=avoidEvents));
   parameter Boolean computeFlowResistance = true
     "=true, compute flow resistance. Set to false to assume no friction"
     annotation (Evaluate=true, Dialog(tab="Flow resistance"));
@@ -65,7 +57,6 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.Blocks.Tables.CombiTable2D copTable(table=heatPumpData.copData,
       smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     annotation (Placement(transformation(extent={{-74,-16},{-54,4}})));
-  Boolean compressorOn;
   Modelica.Blocks.Sources.RealExpression QEvap(y=-P_evap)
     annotation (Placement(transformation(extent={{-72,70},{-54,50}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatEvap
@@ -86,6 +77,7 @@ partial model PartialHeatPump "Heat pump partial"
   Modelica.SIunits.Power P_el "Electrical power consumption";
   Modelica.SIunits.Power P_evap "Thermal power of the evaporator (positive)";
   Modelica.SIunits.Power P_cond "Thermal power of the condensor (positive)";
+  Modelica.SIunits.Temperature TEvapIn "Evaporator inlet temperature";
   Real cop "COP of the heat pump";
   Modelica.Blocks.Sources.RealExpression PElec(y=P_el)
     annotation (Placement(transformation(extent={{62,18},{82,38}})));
@@ -102,12 +94,8 @@ public
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Flow resistance"));
 
-  parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation (Dialog(tab="Assumptions"));
-
   outer Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+    annotation (Placement(transformation(extent={{88,-100},{100,-88}})));
 protected
   parameter Medium1.ThermodynamicState state_default1=
       Medium1.setState_pTX(
@@ -121,43 +109,12 @@ protected
       Medium2.X_default);
 
   // ---------------- Control for temperature protection of evaporator and condenser
-  Modelica.Blocks.Logical.Hysteresis hysteresisCond(
-    pre_y_start=true,
-    uLow=0,
-    uHigh=5) "Temperature protection of the condenser"
-    annotation (Placement(transformation(extent={{-18,-10},{-6,2}})));
-  Modelica.Blocks.Sources.RealExpression limit1(y=heatPumpData.T_cond_max -
-        vol2.heatPort.T)
-    annotation (Placement(transformation(extent={{-44,-14},{-24,6}})));
-
-  Modelica.Blocks.Logical.Hysteresis hysteresisEvap(
-    pre_y_start=true,
-    uLow=0,
-    uHigh=5) "Temperature protection of the evaporator"
-    annotation (Placement(transformation(extent={{-18,-24},{-6,-12}})));
-  Modelica.Blocks.Sources.RealExpression limit2(y=vol1.heatPort.T -
-        heatPumpData.T_evap_min)
-    annotation (Placement(transformation(extent={{-44,-28},{-24,-8}})));
-  Modelica.Blocks.Logical.And tempProtection
-    annotation (Placement(transformation(extent={{0,-12},{8,-4}})));
 
   // ---------------- Smoothing of the temperature protection control and on off control
 
-public
-  Modelica.Blocks.Sources.BooleanExpression compressorOnBlock(y=compressorOn) if avoidEvents
-    annotation (Placement(transformation(extent={{-46,10},{-6,30}})));
-  Modelica.Blocks.Math.BooleanToReal booleanToReal if avoidEvents
-    annotation (Placement(transformation(extent={{2,14},{14,26}})));
-  Modelica.Blocks.Continuous.Filter modulationRate(f_cut=5/(2*Modelica.Constants.pi
-        *riseTime),
-    final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-    final filterType=Modelica.Blocks.Types.FilterType.LowPass,
-    final order=2) if                                                                                   avoidEvents
-    "Fictive modulation rate to avoid non-smooth on/off transitions causing events."
-    annotation (Placement(transformation(extent={{20,14},{32,26}})));
 protected
-  Modelica.Blocks.Interfaces.RealInput modulationRate_internal
-    " Internal variable for temperature safety modulation";
+  Modelica.Blocks.Interfaces.BooleanOutput on_TSetControl_internal
+    "On/off controll variable which can be used for set temperature control";
   Modelica.Blocks.Interfaces.RealOutput modulationSignal_internal
     " Internal variable for the modulation signal";
 
@@ -169,54 +126,38 @@ public
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={88,110})));
-  Modelica.Blocks.Continuous.Filter modulationSignal(f_cut=5/(2*Modelica.Constants.pi
-        *riseTime),
-    final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-    final filterType=Modelica.Blocks.Types.FilterType.LowPass,
-    final order=2) if                                                                                   use_modulationSignal
-    "Smoothing of the modulation signal"
-    annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=270,
-        origin={88,76})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T_out_cond
-    annotation (Placement(transformation(extent={{-12,-52},{-32,-32}})));
-  Modelica.Blocks.Sources.RealExpression T_in_evap(y=Medium1.temperature(
-        Medium1.setState_phX(
-        port_a1.p,
-        inStream(port_a1.h_outflow),
-        inStream(port_a1.Xi_outflow))))
+    annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
+  Modelica.Blocks.Sources.RealExpression TEvapInExp(y=TEvapIn)
     annotation (Placement(transformation(extent={{-110,4},{-90,24}})));
+
 equation
+  if allowFlowReversal1 then
+    TEvapIn = IDEAS.Utilities.Math.Functions.spliceFunction(
+              x=port_a1.m_flow,
+              pos=Medium1.temperature(Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))),
+              neg=  Medium1.temperature(Medium1.setState_phX(port_b1.p, inStream(port_b1.h_outflow), inStream(port_b1.Xi_outflow))),
+              deltax=  m1_flow_nominal/10);
+  else
+    TEvapIn = Medium1.temperature(Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow)));
+  end if;
+
+  connect(modulationSignal_internal,mod);
+  if not use_modulationSignal then
+    modulationSignal_internal = 1;
+  end if;
+  if not use_TSet then
+    on_TSetControl_internal = true;
+  end if;
+
+  T_high = vol2.T;
+  T_low = vol1.T;
+
   cop = copTable.y;
   P_evap = P_el*(cop - 1);
   P_cond = P_el*cop;
 
-  P_el = powerTable.y*sca*modulationRate_internal*modulationSignal_internal;
-
-  if avoidEvents then
-    connect(modulationRate_internal, modulationRate.y);
-    connect(compressorOnBlock.y, booleanToReal.u) annotation (Line(
-      points={{-4,20},{0.8,20}},
-      color={255,0,255},
-      smooth=Smooth.None));
-    connect(modulationRate.u, booleanToReal.y) annotation (Line(
-      points={{18.8,20},{14.6,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  else
-    modulationRate_internal = if compressorOn then 1 else 0;
-  end if;
-
-  if use_modulationSignal then
-    connect(mod, modulationSignal.u) annotation (Line(
-        points={{88,110},{88,83.2}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(modulationSignal_internal, modulationSignal.y);
-  else
-    modulationSignal_internal = 1;
-  end if;
+  P_el = powerTable.y*sca*modulationSignal_internal*modulation_security_internal*( if on_internal and on_security.y and on_TSetControl_internal then 1 else 0);
 
   connect(heatLoss, thermalConductorLosses.port_a) annotation (Line(
       points={{26,-100},{26,-86}},
@@ -225,22 +166,6 @@ equation
   connect(PElec.y, P) annotation (Line(
       points={{83,28},{108,28}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(limit1.y, hysteresisCond.u) annotation (Line(
-      points={{-23,-4},{-19.2,-4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(limit2.y, hysteresisEvap.u) annotation (Line(
-      points={{-23,-18},{-19.2,-18}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(hysteresisCond.y, tempProtection.u1) annotation (Line(
-      points={{-5.4,-4},{-2,-4},{-2,-8},{-0.8,-8}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(hysteresisEvap.y, tempProtection.u2) annotation (Line(
-      points={{-5.4,-18},{-2,-18},{-2,-11.2},{-0.8,-11.2}},
-      color={255,0,255},
       smooth=Smooth.None));
 
   connect(powerTable.u1, copTable.u1) annotation (Line(
@@ -260,14 +185,14 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(T_out_cond.port, vol2.heatPort) annotation (Line(
-      points={{-12,-42},{12,-42},{12,-60}},
+      points={{-20,-40},{12,-40},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(T_out_cond.T, copTable.u1) annotation (Line(
-      points={{-32,-42},{-86,-42},{-86,0},{-76,0}},
+      points={{-40,-40},{-86,-40},{-86,0},{-76,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(T_in_evap.y, powerTable.u2) annotation (Line(
+  connect(TEvapInExp.y, powerTable.u2) annotation (Line(
       points={{-89,14},{-76,14}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -303,11 +228,14 @@ equation
           thickness=0.5)}),
     Documentation(revisions="<html>
     <ul>
+        <li>January 2014 by Damien Picard:<br/> 
+        Remove unnecessary filters + add modulation temperature security to avoid overheating and undercooling and limit number of events.
+</li>
     <li>December 2014 by Damien Picard:<br/> 
     Make filter parameters final to avoid warning durings compilation.
 </li>
 <li>December 2014 by Damien Picard:<br/> 
-Add value to internal variable modulationRate_internal to close the equations when avoidEvents is false. Add a modulation input.
+Add value to internal variable modulationRate_internal to close the equations when use_modulation_security is false. Add a modulation input.
 </li>
 <li>November 2014 by Filip Jorissen:<br/> 
 Added 'AvoidEvents' parameter, temperature protection and documentation.

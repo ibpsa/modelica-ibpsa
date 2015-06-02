@@ -1,9 +1,9 @@
 FixedResistanceDpM
+InsulatedPipe
 LosslessPipe
 ParallelFixedResistanceDpM
 Pipe
 Pipe_HeatPort
-InsulatedPipe
 Pipe_Insulated
 SplitterFixedResistanceDpM
 Examples

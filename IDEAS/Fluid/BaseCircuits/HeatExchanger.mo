@@ -1,7 +1,7 @@
 within IDEAS.Fluid.BaseCircuits;
 model HeatExchanger
   //Extensions
-  extends Interfaces.CircuitInterface(
+  extends Interfaces.PartialBaseCircuit(
     measureSupplyT=true,
     includePipes=true);
   extends IDEAS.Fluid.Interfaces.FourPortFlowResistanceParameters;
@@ -23,10 +23,10 @@ model HeatExchanger
     "Massflow at the primary side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-82,108}), iconTransformation(
+        origin={-80,108}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-82,108})));
+        origin={-80,108})));
   Modelica.Blocks.Interfaces.RealOutput massFlow2
     "Massflow on the secondary side" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -63,9 +63,10 @@ model HeatExchanger
         rotation=0,
         origin={40,20})));
 
-  IDEAS.Fluid.Sensors.TemperatureTwoPort senTemRet(
+  IDEAS.Fluid.Sensors.TemperatureTwoPort senTemRet1(
     redeclare package Medium =Medium,
     m_flow_nominal=m_flow_nominal)
+    "Return temperature measurement of the primary side"
     annotation (Placement(transformation(extent={{-50,6},{-30,26}})));
 
   IDEAS.Fluid.Sensors.MassFlowRate senMasFlo1(
@@ -95,18 +96,6 @@ model HeatExchanger
         rotation=180,
         origin={28,-60})), choicesAllMatching=true);
 equation
-  connect(senTemRet.T, senT1) annotation (Line(
-      points={{-40,27},{-40,108}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(senTemRet.port_b, hex.port_a1) annotation (Line(
-      points={{-30,16},{-6,16},{-6,10},{-6,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senTemRet.port_a, senMasFlo1.port_b) annotation (Line(
-      points={{-50,16},{-66,16},{-66,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(senT1, senT1) annotation (Line(
       points={{-40,108},{-40,108}},
       color={0,0,127},
@@ -153,8 +142,20 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(senMasFlo1.m_flow, massFlow1) annotation (Line(
-      points={{-56,51},{-56,88},{-82,88},{-82,108}},
+      points={{-56,51},{-56,88},{-80,88},{-80,108}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(senTemRet1.T, senT1) annotation (Line(
+      points={{-40,27},{-40,108}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(senMasFlo1.port_b, senTemRet1.port_a) annotation (Line(
+      points={{-66,40},{-72,40},{-72,16},{-50,16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTemRet1.port_b, hex.port_a1) annotation (Line(
+      points={{-30,16},{-6,16},{-6,10}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Documentation(info="<html><p>
   This model is the base circuit implementation of heat exchanger in a pressurized circuit. An heat exchanger can disconnect two hydraulic circuits in wich the flow needs to be controlled.</p></html>"),Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -174,15 +175,6 @@ equation
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Forward),
-        Line(
-          points={{78,100},{84,80},{82,60}},
-          color={255,0,0},
-          smooth=Smooth.None),
-        Ellipse(
-          extent={{80,62},{84,58}},
-          lineColor={255,0,0},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
         Line(
           points={{48,100},{54,80},{52,60}},
           color={255,0,0},

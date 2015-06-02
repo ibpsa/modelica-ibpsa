@@ -1,5 +1,6 @@
 within IDEAS.Media;
-package Air "Incompressible moist air model with constant specific heat capacities and Charle's law for density versus temperature"
+package Air
+  "Incompressible moist air model with constant specific heat capacities and Charle's law for density versus temperature"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
      mediumName="Moist air unsaturated gas",
      final substanceNames={"water", "air"},
@@ -10,47 +11,43 @@ package Air "Incompressible moist air model with constant specific heat capaciti
                              Modelica.Media.IdealGases.Common.FluidData.N2},
      final reference_T=273.15,
      reference_p=101325);
+  extends Modelica.Icons.Package;
 
   final constant Integer Water=1
-  "Index of water (in substanceNames, massFractions X, etc.)";
+    "Index of water (in substanceNames, massFractions X, etc.)";
   final constant Integer Air=2
-  "Index of air (in substanceNames, massFractions X, etc.)";
+    "Index of air (in substanceNames, massFractions X, etc.)";
 
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
-  // during model check
-
-  redeclare record extends ThermodynamicState
-  "ThermodynamicState record for moist air"
+  // during model check, and to set the start values.
+  redeclare record extends ThermodynamicState(
+    p(start=p_default),
+    T(start=T_default),
+    X(start=X_default))
   end ThermodynamicState;
 
-
   redeclare replaceable model extends BaseProperties(
-    T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     p(stateSelect=StateSelect.never),
     Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true) "Base properties"
 
-    Real phi(min=0, start=0.5) "Relative humidity";
-
-protected
+  protected
     constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
-    "Molar masses of components";
+      "Molar masses of components";
+
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
-    AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
 
   equation
+    MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
+
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
 200.0 K <= (T =" + String(T) + " K) <= 423.15 K
 required from medium model \""     + mediumName + "\".");
 
-    MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
-
-    p_steam_sat = min(saturationPressure(T),0.999*p);
-
-    X_steam  = Xi[Water];
+    X_steam  = Xi[Water]; // There is no liquid in this medium model
     X_air    = 1-Xi[Water];
 
     h = T_degC*dryair.cp * X_air +
@@ -64,14 +61,12 @@ required from medium model \""     + mediumName + "\".");
     state.T = T;
     state.X = X;
 
-    phi = p/p_steam_sat*X_steam/(X_steam + k_mair*X_air);
     annotation (Documentation(info="<html>
     <p>
     Base properties of the medium.
     </p>
 </html>"));
   end BaseProperties;
-
 
 redeclare function extends density "Return the gas density"
 
@@ -93,9 +88,8 @@ First implementation.
 </html>"));
 end density;
 
-
 redeclare function extends dynamicViscosity
-  "Return the dynamic viscosity of dry air"
+    "Return the dynamic viscosity of dry air"
 algorithm
   eta := 4.89493640395e-08 * state.T + 3.88335940547e-06;
   annotation (
@@ -106,15 +100,15 @@ This function returns the dynamic viscosity.
 </p>
 <h4>Implementation</h4>
 <p>
-The function is based on the 5th order polynomial 
-of 
+The function is based on the 5th order polynomial
+of
 <a href=\"modelica://Modelica.Media.Air.MoistAir.dynamicViscosity\">
 Modelica.Media.Air.MoistAir.dynamicViscosity</a>.
 However, for the typical range of temperatures encountered
 in building applications, a linear function sufficies.
 This implementation is therefore the above 5th order polynomial,
 linearized around <i>20</i>&deg;C.
-The relative error of this linearization is 
+The relative error of this linearization is
 <i>0.4</i>% at <i>-20</i>&deg;C,
 and less then
 <i>0.2</i>% between  <i>-5</i>&deg;C and  <i>+50</i>&deg;C.
@@ -130,9 +124,8 @@ First implementation.
 </html>"));
 end dynamicViscosity;
 
-
 redeclare function enthalpyOfCondensingGas
-  "Returns the enthalpy of steam per unit mass of steam"
+    "Returns the enthalpy of steam per unit mass of steam"
   extends Modelica.Icons.Function;
 
   input Temperature T "temperature";
@@ -157,9 +150,8 @@ First implementation.
 </html>"));
 end enthalpyOfCondensingGas;
 
-
 redeclare replaceable function extends enthalpyOfGas
-  "Return the enthalpy of the gas mixture per unit mass of the gas mixture"
+    "Return the enthalpy of the gas mixture per unit mass of the gas mixture"
 algorithm
   h := enthalpyOfCondensingGas(T)*X[Water]
        + enthalpyOfDryAir(T)*(1.0-X[Water]);
@@ -180,9 +172,8 @@ First implementation.
 </html>"));
 end enthalpyOfGas;
 
-
 redeclare replaceable function extends enthalpyOfLiquid
-  "Return the enthalpy of liquid per unit mass of liquid"
+    "Return the enthalpy of liquid per unit mass of liquid"
 algorithm
   h := (T - reference_T)*cpWatLiq;
   annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid,
@@ -201,9 +192,8 @@ First implementation.
 </html>"));
 end enthalpyOfLiquid;
 
-
 redeclare function enthalpyOfNonCondensingGas
-  "Return the enthalpy of the non-condensing gas per unit mass of steam"
+    "Return the enthalpy of the non-condensing gas per unit mass of steam"
   extends Modelica.Icons.Function;
 
   input Temperature T "Temperature";
@@ -226,9 +216,8 @@ First implementation.
 </html>"));
 end enthalpyOfNonCondensingGas;
 
-
 redeclare function extends enthalpyOfVaporization
-  "Return the enthalpy of vaporization of water"
+    "Return the enthalpy of vaporization of water"
 algorithm
   r0 := h_fg;
   annotation(smoothOrder=99,
@@ -247,9 +236,8 @@ First implementation.
 </html>"));
 end enthalpyOfVaporization;
 
-
 redeclare function extends gasConstant
-  "Return the ideal gas constant as a function of the thermodynamic state, only valid for phi<1"
+    "Return the ideal gas constant as a function of the thermodynamic state, only valid for phi<1"
 
 algorithm
     R := dryair.R*(1 - state.X[Water]) + steam.R*state.X[Water];
@@ -273,9 +261,8 @@ First implementation.
 </html>"));
 end gasConstant;
 
-
 redeclare function extends isobaricExpansionCoefficient
-  "Return the isobaric expansion coefficient"
+    "Return the isobaric expansion coefficient"
 algorithm
   beta := 1/state.T;
 annotation (
@@ -304,9 +291,8 @@ First implementation.
 </html>"));
 end isobaricExpansionCoefficient;
 
-
 redeclare function extends isothermalCompressibility
-  "Return the isothermal compressibility factor"
+    "Return the isothermal compressibility factor"
 algorithm
   kappa := 0;
 annotation (
@@ -336,7 +322,6 @@ First implementation.
 </html>"));
 end isothermalCompressibility;
 
-
 redeclare function extends pressure "Return the pressure"
 algorithm
   p := state.p;
@@ -357,12 +342,19 @@ First implementation.
 </html>"));
 end pressure;
 
-
 redeclare function extends saturationPressure "Return the saturation pressure"
 
 algorithm
-  psat := IDEAS.Utilities.Psychrometrics.Functions.saturationPressure(Tsat);
-  annotation(Inline=false,smoothOrder=5,
+  // Calling saturationPressure as below causes the commands
+  // simulate(IDEAS.Utilities.Psychrometrics.Functions.Examples.X_pSatpphi);
+  // in OpenModelica to never return. 2014-10-04
+  //psat := IDEAS.Utilities.Psychrometrics.Functions.saturationPressure(Tsat=Tsat);
+  psat := IDEAS.Utilities.Math.Functions.spliceFunction(
+             IDEAS.Utilities.Psychrometrics.Functions.saturationPressureLiquid(Tsat),
+             IDEAS.Utilities.Psychrometrics.Functions.sublimationPressureIce(Tsat),
+             Tsat-273.16,
+             1.0);
+  annotation(Inline=true,smoothOrder=5,
 Documentation(info="<html>
 <p>
 This function computes the saturation pressure of the water vapor for a given temperature,
@@ -381,11 +373,10 @@ First implementation.
 </html>"));
 end saturationPressure;
 
-
 redeclare function extends specificEntropy
-  "Return the specific entropy, only valid for phi<1"
+    "Return the specific entropy, only valid for phi<1"
 
-protected
+  protected
     Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
 algorithm
     Y := massToMoleFractions(
@@ -407,7 +398,7 @@ s = s<sub>s</sub> + s<sub>m</sub>,
 </p>
 <p>
 where
-<i>s<sub>s</sub></i> is the entropy change due to the state change 
+<i>s<sub>s</sub></i> is the entropy change due to the state change
 (relative to the reference temperature) and
 <i>s<sub>m</sub></i> is the entropy change due to mixing
 of the dry air and water vapor.
@@ -418,7 +409,7 @@ The entropy change due to change in state is obtained from
 s<sub>s</sub> = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(v/v<sub>0</sub>) <br/>
 = c<sub>v</sub> ln(T/T<sub>0</sub>) + R ln(&rho;<sub>0</sub>/&rho;)
 </p>
-<p>Because <i>&rho; = p<sub>0</sub>/(R T)</i> for this medium model, 
+<p>Because <i>&rho; = p<sub>0</sub>/(R T)</i> for this medium model,
 and because <i>c<sub>p</sub> = c<sub>v</sub> + R</i>,
 we can write
 </p>
@@ -431,7 +422,7 @@ Next, the entropy of mixing is obtained from a reversible isothermal
 expansion process. Hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  s<sub>m</sub> = -R &sum;<sub>i</sub>( X<sub>i</sub> &frasl; M<sub>i</sub> 
+  s<sub>m</sub> = -R &sum;<sub>i</sub>( X<sub>i</sub> &frasl; M<sub>i</sub>
   ln(Y<sub>i</sub>)),
 </p>
 <p>
@@ -459,16 +450,15 @@ First implementation.
 </html>"));
 end specificEntropy;
 
-
 redeclare function extends density_derp_T
-  "Return the partial derivative of density with respect to pressure at constant temperature"
+    "Return the partial derivative of density with respect to pressure at constant temperature"
 algorithm
   ddpT := 0;
 annotation (
 Documentation(info="<html>
 <p>
 This function returns the partial derivative of density
-with respect to pressure at constant temperature, 
+with respect to pressure at constant temperature,
 which is zero as the medium is incompressible.
 </p>
 </html>",
@@ -482,16 +472,15 @@ First implementation.
 </html>"));
 end density_derp_T;
 
-
 redeclare function extends density_derT_p
-  "Return the partial derivative of density with respect to temperature at constant pressure"
+    "Return the partial derivative of density with respect to temperature at constant pressure"
 algorithm
   ddTp := -reference_p / gasConstant(state) / (state.T)^2;
 
   annotation (smoothOrder=1, Documentation(info=
                    "<html>
 <p>
-This function computes the derivative of density with respect to temperature 
+This function computes the derivative of density with respect to temperature
 at constant pressure.
 </p>
 </html>", revisions=
@@ -499,16 +488,15 @@ at constant pressure.
 <ul>
 <li>
 December 18, 2013, by Michael Wetter:<br/>
-First implementation, based on the IDA implementation in <code>therpro.nmf</code>, 
+First implementation, based on the IDA implementation in <code>therpro.nmf</code>,
 but converted from Celsius to Kelvin.
 </li>
 </ul>
 </html>"));
 end density_derT_p;
 
-
 redeclare function extends density_derX
-  "Return the partial derivative of density with respect to mass fractions at constant pressure and temperature"
+    "Return the partial derivative of density with respect to mass fractions at constant pressure and temperature"
 algorithm
   dddX[Water] := reference_p*(steam.R - dryair.R)/((steam.R - dryair.R)
       *state.X[Water]*temperature(state) + dryair.R*temperature(state))^2;
@@ -532,9 +520,8 @@ First implementation.
 </html>"));
 end density_derX;
 
-
 redeclare replaceable function extends specificHeatCapacityCp
-  "Return the specific heat capacity at constant pressure"
+    "Return the specific heat capacity at constant pressure"
 algorithm
   cp := dryair.cp*(1-state.X[Water]) +steam.cp*state.X[Water];
     annotation(derivative=der_specificHeatCapacityCp,
@@ -554,9 +541,8 @@ First implementation.
 </html>"));
 end specificHeatCapacityCp;
 
-
 redeclare replaceable function extends specificHeatCapacityCv
-  "Return the specific heat capacity at constant volume"
+    "Return the specific heat capacity at constant volume"
 algorithm
   cv:= dryair.cv*(1-state.X[Water]) +steam.cv*state.X[Water];
     annotation(derivative=der_specificHeatCapacityCv,
@@ -576,9 +562,8 @@ First implementation.
 </html>"));
 end specificHeatCapacityCv;
 
-
 redeclare function setState_dTX
-  "Return the thermodynamic state as function of density d, temperature T and composition X or Xi"
+    "Return the thermodynamic state as function of density d, temperature T and composition X or Xi"
   extends Modelica.Icons.Function;
   input Density d "Density";
   input Temperature T "Temperature";
@@ -612,9 +597,8 @@ First implementation.
 </html>"));
 end setState_dTX;
 
-
 redeclare function extends setState_phX
-  "Return the thermodynamic state as function of pressure p, specific enthalpy h and composition X or Xi"
+    "Return the thermodynamic state as function of pressure p, specific enthalpy h and composition X or Xi"
 algorithm
   state := if size(X, 1) == nX then
     ThermodynamicState(p=p, T=temperature_phX(p, h, X), X=X)
@@ -636,9 +620,8 @@ First implementation.
 </html>"));
 end setState_phX;
 
-
 redeclare function extends setState_pTX
-  "Return the thermodynamic state as function of p, T and composition X or Xi"
+    "Return the thermodynamic state as function of p, T and composition X or Xi"
 algorithm
     state := if size(X, 1) == nX then
                 ThermodynamicState(p=p, T=T, X=X)
@@ -660,10 +643,9 @@ First implementation.
 </html>"));
 end setState_pTX;
 
-
 redeclare function extends setState_psX
-  "Return the thermodynamic state as function of p, s and composition X or Xi"
-protected
+    "Return the thermodynamic state as function of p, s and composition X or Xi"
+  protected
     Modelica.SIunits.MassFraction[2] X_int=
       if size(X, 1) == nX then X else cat(1, X, {1 - sum(X)}) "Mass fraction";
     Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
@@ -690,7 +672,7 @@ annotation (
 Inline=false,
 Documentation(info="<html>
 <p>
-This function returns the thermodynamic state based on pressure, 
+This function returns the thermodynamic state based on pressure,
 specific entropy and mass fraction.
 </p>
 <p>
@@ -709,12 +691,11 @@ First implementation.
 </html>"));
 end setState_psX;
 
-
 redeclare replaceable function extends specificEnthalpy
-  "Return the specific enthalpy from pressure, temperature and mass fraction"
-protected
+    "Return the specific enthalpy from pressure, temperature and mass fraction"
+  protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
-    "Celsius temperature";
+      "Celsius temperature";
 algorithm
   T_degC :=state.T + Modelica.Constants.T_zero;
   h := T_degC*dryair.cp * (1 - state.X[Water]) +
@@ -735,9 +716,8 @@ First implementation.
 </html>"));
 end specificEnthalpy;
 
-
 redeclare replaceable function specificEnthalpy_pTX
-  "Return the specific enthalpy"
+    "Return the specific enthalpy"
   extends Modelica.Icons.Function;
   input Modelica.SIunits.Pressure p "Pressure";
   input Modelica.SIunits.Temperature T "Temperature";
@@ -763,9 +743,8 @@ First implementation.
 </html>"));
 end specificEnthalpy_pTX;
 
-
 redeclare replaceable function extends specificGibbsEnergy
-  "Return the specific Gibbs energy"
+    "Return the specific Gibbs energy"
 algorithm
   g := specificEnthalpy(state) - state.T*specificEntropy(state);
 annotation (
@@ -784,9 +763,8 @@ First implementation.
 </html>"));
 end specificGibbsEnergy;
 
-
 redeclare replaceable function extends specificHelmholtzEnergy
-  "Return the specific Helmholtz energy"
+    "Return the specific Helmholtz energy"
 algorithm
   f := specificEnthalpy(state) - gasConstant(state)*state.T - state.T*specificEntropy(state);
 annotation (
@@ -804,7 +782,6 @@ First implementation.
 </ul>
 </html>"));
 end specificHelmholtzEnergy;
-
 
 redeclare function extends isentropicEnthalpy "Return the isentropic enthalpy"
 algorithm
@@ -831,9 +808,8 @@ First implementation.
 </html>"));
 end isentropicEnthalpy;
 
-
 redeclare replaceable function extends specificInternalEnergy
-  "Return the specific internal energy"
+    "Return the specific internal energy"
 algorithm
   u := specificEnthalpy(state) - gasConstant(state)*state.T;
 annotation (
@@ -851,7 +827,6 @@ First implementation.
 </ul>
 </html>"));
 end specificInternalEnergy;
-
 
 redeclare function extends temperature "Return the temperature from the state"
 algorithm
@@ -873,7 +848,6 @@ First implementation.
 </html>"));
 end temperature;
 
-
 redeclare function extends molarMass "Return the molar mass"
 algorithm
     MM := 1/(state.X[Water]/MMX[Water]+(1.0-state.X[Water])/MMX[Air]);
@@ -894,9 +868,8 @@ First implementation.
 </html>"));
 end molarMass;
 
-
 redeclare replaceable function temperature_phX
-  "Return the temperature from pressure, the specific enthalpy and mass fraction"
+    "Return the temperature from pressure, the specific enthalpy and mass fraction"
     extends Modelica.Icons.Function;
   input AbsolutePressure p "Pressure";
   input SpecificEnthalpy h "Specific enthalpy";
@@ -927,9 +900,8 @@ First implementation.
 </html>"));
 end temperature_phX;
 
-
 redeclare function extends thermalConductivity
-  "Return the thermal conductivity"
+    "Return the thermal conductivity"
 algorithm
   lambda := Modelica.Media.Incompressible.TableBased.Polynomials_Temp.evaluate(
       {(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},
@@ -957,32 +929,38 @@ end thermalConductivity;
 // Therefore, they are made protected. This also allows to redeclare the
 // medium model with another medium model that does not provide an
 // implementation of these classes.
-
-protected 
+protected
   record GasProperties
-  "Coefficient data record for properties of perfect gases"
+    "Coefficient data record for properties of perfect gases"
     extends Modelica.Icons.Record;
 
     Modelica.SIunits.MolarMass MM "Molar mass";
     Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
     Modelica.SIunits.SpecificHeatCapacity cp
-    "Specific heat capacity at constant pressure";
+      "Specific heat capacity at constant pressure";
     Modelica.SIunits.SpecificHeatCapacity cv = cp-R
-    "Specific heat capacity at constant volume";
+      "Specific heat capacity at constant volume";
     annotation (
+      preferredView="info",
       defaultComponentName="gas",
-      Documentation(preferredView="info", info="<html>
+      Documentation(info="<html>
 <p>
 This data record contains the coefficients for perfect gases.
 </p>
-</html>"), revisions="<html>
+</html>", revisions=
+          "<html>
 <ul>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Corrected the wrong location of the <code>preferredView</code>
+and the <code>revisions</code> annotation.
+</li>
 <li>
 November 21, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
   end GasProperties;
 
   // In the assignments below, we compute cv as OpenModelica
@@ -990,29 +968,32 @@ First implementation.
   constant GasProperties dryair(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM,
-    cp =   1006,
-    cv =   1006-Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
-  "Dry air properties";
+    cp =   IDEAS.Utilities.Psychrometrics.Constants.cpAir,
+    cv =   IDEAS.Utilities.Psychrometrics.Constants.cpAir
+             -Modelica.Media.IdealGases.Common.SingleGasesData.Air.R)
+    "Dry air properties";
   constant GasProperties steam(
     R =    Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R,
     MM =   Modelica.Media.IdealGases.Common.SingleGasesData.H2O.MM,
-    cp =   1860,
-    cv =   1860-Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
-  "Steam properties";
+    cp =   IDEAS.Utilities.Psychrometrics.Constants.cpSte,
+    cv =   IDEAS.Utilities.Psychrometrics.Constants.cpSte
+            -Modelica.Media.IdealGases.Common.SingleGasesData.H2O.R)
+    "Steam properties";
 
   constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
 
   constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
-  "Molar masses of components";
+    "Molar masses of components";
 
-  constant Modelica.SIunits.SpecificEnergy h_fg = 2501014.5
-  "Latent heat of evaporation of water";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
-  "Specific heat capacity of liquid water";
-
+  constant Modelica.SIunits.SpecificEnergy h_fg=
+    IDEAS.Utilities.Psychrometrics.Constants.h_fg
+    "Latent heat of evaporation of water";
+  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
+    IDEAS.Utilities.Psychrometrics.Constants.cpWatLiq
+    "Specific heat capacity of liquid water";
 
 replaceable function der_enthalpyOfLiquid
-  "Return the temperature derivative of enthalpy of liquid per unit mass of liquid"
+    "Return the temperature derivative of enthalpy of liquid per unit mass of liquid"
   extends Modelica.Icons.Function;
   input Temperature T "Temperature";
   input Real der_T "Temperature derivative";
@@ -1037,9 +1018,8 @@ First implementation.
 </html>"));
 end der_enthalpyOfLiquid;
 
-
 function der_enthalpyOfCondensingGas
-  "Return the derivative of enthalpy of steam per unit mass of steam"
+    "Return the derivative of enthalpy of steam per unit mass of steam"
   extends Modelica.Icons.Function;
   input Temperature T "Temperature";
   input Real der_T "Temperature derivative";
@@ -1063,9 +1043,8 @@ First implementation.
 </html>"));
 end der_enthalpyOfCondensingGas;
 
-
 replaceable function enthalpyOfDryAir
-  "Return the enthalpy of dry air per unit mass of dry air"
+    "Return the enthalpy of dry air per unit mass of dry air"
   extends Modelica.Icons.Function;
 
   input Temperature T "Temperature";
@@ -1075,7 +1054,7 @@ algorithm
   annotation(smoothOrder=5, derivative=der_enthalpyOfDryAir,
 Documentation(info="<html>
 <p>
-This function computes the specific enthalpy of dry air. 
+This function computes the specific enthalpy of dry air.
 </p>
 </html>",
 revisions="<html>
@@ -1088,9 +1067,8 @@ First implementation.
 </html>"));
 end enthalpyOfDryAir;
 
-
 replaceable function der_enthalpyOfDryAir
-  "Return the derivative of enthalpy of dry air per unit mass of dry air"
+    "Return the derivative of enthalpy of dry air per unit mass of dry air"
   extends Modelica.Icons.Function;
   input Temperature T "Temperature";
   input Real der_T "Temperature derivative";
@@ -1114,9 +1092,8 @@ First implementation.
 </html>"));
 end der_enthalpyOfDryAir;
 
-
 replaceable function der_enthalpyOfNonCondensingGas
-  "Return the derivative of enthalpy of dry air per unit mass of dry air"
+    "Return the derivative of enthalpy of dry air per unit mass of dry air"
   extends Modelica.Icons.Function;
   input Temperature T "Temperature";
   input Real der_T "Temperature derivative";
@@ -1133,6 +1110,12 @@ per unit mass of dry air.
 revisions="<html>
 <ul>
 <li>
+February 3, 2015, by Michael Wetter:<br/>
+Removed <code>stateSelect.prefer</code> for temperature.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/160\">#160</a>.
+</li>
+<li>
 December 2, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
@@ -1140,9 +1123,8 @@ First implementation.
 </html>"));
 end der_enthalpyOfNonCondensingGas;
 
-
 replaceable function der_specificHeatCapacityCp
-  "Return the derivative of the specific heat capacity at constant pressure"
+    "Return the derivative of the specific heat capacity at constant pressure"
   extends Modelica.Icons.Function;
   input ThermodynamicState state "Thermodynamic state";
   input ThermodynamicState der_state "Derivative of thermodynamic state";
@@ -1166,9 +1148,8 @@ First implementation.
 </html>"));
 end der_specificHeatCapacityCp;
 
-
 replaceable function der_specificHeatCapacityCv
-  "Return the derivative of the specific heat capacity at constant volume"
+    "Return the derivative of the specific heat capacity at constant volume"
   extends Modelica.Icons.Function;
   input ThermodynamicState state "Thermodynamic state";
   input ThermodynamicState der_state "Derivative of thermodynamic state";
@@ -1192,11 +1173,10 @@ First implementation.
 </html>"));
 end der_specificHeatCapacityCv;
 
-
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This medium package models moist air. 
-The specific heat capacities at constant pressure and at constant volume are 
+This medium package models moist air.
+The specific heat capacities at constant pressure and at constant volume are
 constant for the individual species dry air, water vapor and liquid water.
 The gas law is
 </p>
@@ -1207,7 +1187,7 @@ d = p<sub>0</sub>/(R T)
 where
 <i>&rho;</i> is the mass density,
 <i>p<sub>0</sub></i> is the atmospheric pressure, which is equal to the constant
-<code>reference_p</code>, with a default value of 
+<code>reference_p</code>, with a default value of
 <i>101325</i> Pascals,
 <i>R</i> is the gas constant of the mixture
 and
@@ -1220,7 +1200,7 @@ if <i>T=0</i> &deg;C and the water vapor content is zero.
 <h4>Limitations</h4>
 <p>
 This medium is modeled as incompressible. The pressure that is used
-to compute the physical properties is constant, and equal to 
+to compute the physical properties is constant, and equal to
 <code>reference_p</code>.
 </p>
 <p>
@@ -1230,6 +1210,27 @@ water were present in the form of vapor.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 4, 2014, by Michael Wetter:<br/>
+Reformulated <code>saturationPressure</code> as the previous implementation
+caused OpenModelica to never return when executing
+<code>IDEAS.Utilities.Psychrometrics.Functions.Examples.X_pSatpphi</code>.
+</li>
+<li>
+September 12, 2014, by Michael Wetter:<br/>
+Set <code>T(start=T_default)</code> and <code>p(start=p_default)</code> in the
+<code>ThermodynamicState</code> record. Setting the start value for
+<code>T</code> is required to avoid an error due to conflicting start values
+when checking <a href=\"modelica://Buildings.Examples.VAVReheat.ClosedLoop\">
+Buildings.Examples.VAVReheat.ClosedLoop</a> in pedantic mode.
+</li>
+<li>
+July 24, 2014, by Michael Wetter:<br/>
+Changed implementation to use
+<a href=\"modelica://IDEAS.Utilities.Psychrometrics.Constants\">
+IDEAS.Utilities.Psychrometrics.Constants</a>.
+This was done to use consistent values throughout the library.
+</li>
 <li>
 December 10, 2013, by Michael Wetter:<br/>
 Replaced <code>reference_p</code> by <code>p</code> in the <code>setState_pXX</code> functions.
@@ -1241,7 +1242,7 @@ to translate.
 <li>
 November 27, 2013, by Michael Wetter:<br/>
 Changed the gas law.
-</li> 
+</li>
 <li>
 November 15, 2013, by Michael Wetter:<br/>
 Revised and simplified the implementation.
@@ -1286,5 +1287,42 @@ August 18, 2008, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
+        Ellipse(
+          extent={{-72,74},{-28,30}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-30,-34},{14,-78}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-12,82},{32,38}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-84,-10},{-40,-54}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{-16,28},{28,-16}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{42,-36},{86,-80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120}),
+        Ellipse(
+          extent={{54,54},{98,10}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={120,120,120})}));
 end Air;

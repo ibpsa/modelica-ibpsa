@@ -4,7 +4,10 @@ model ThermostaticRadiatorValve
 
   //Extensions
   extends Interfaces.PartialValveCircuit(
-    redeclare Actuators.Valves.TwoWayQuickOpening flowRegulator);
+    redeclare Actuators.Valves.TwoWayQuickOpening flowRegulator(
+      allowFlowReversal=false,
+      show_T=false,
+      filteredOpening=true));
 
   //Parameters
   parameter Real K = 1 "Gain of the TRV";

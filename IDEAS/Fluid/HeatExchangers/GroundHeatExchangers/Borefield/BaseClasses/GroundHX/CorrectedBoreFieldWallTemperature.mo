@@ -4,7 +4,7 @@ function CorrectedBoreFieldWallTemperature "Return the corrected average borehol
   extends BaseClasses.partialBoreFieldTemperature;
 
   input Modelica.SIunits.Temperature[:] TResSho
-    "Vector containing the short term  borehole wall step-reponse temperature in function of the time";
+    "Vector containing the short term  borehole wall step-response temperature in function of the time";
 
 protected
   SI.TemperatureDifference deltaTWallCorBre

@@ -24,7 +24,7 @@ equation
 <li>The buoyancy heat flux Q_flow[i] between node i+1 and node i equals </li>
 <p><br/><i>Q_flow[i]&nbsp;=&nbsp;lamBuo&nbsp;*&nbsp;surCroSec&nbsp;*&nbsp;dT[i]&nbsp;/&nbsp;(h/nbrNodes)</i></p>
 <p><br/>where:</p>
-<p>        <i>lamBuo</i> = equivalent thermal conductivity for buoancy</p>
+<p>        <i>lamBuo</i> = equivalent thermal conductivity for buoyancy</p>
 <p>        <i>surCroSec</i> = surface of the cross-section of the tank</p>
 <p>        <i>dT[i]</i> = <i>max(T[i+1]-T[i],&nbsp;0)</i>, so this is the temperature&nbsp;difference&nbsp;between&nbsp;layer&nbsp;i+1&nbsp;and&nbsp;i in case of temperature inversion</p>
 <p>        <i>h/nbrNodes</i> = node height</p>

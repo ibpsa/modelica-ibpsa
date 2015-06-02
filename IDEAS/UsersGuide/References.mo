@@ -18,7 +18,7 @@ class References "References"
 </tr>
 <tr>
 <td valign=\"top\"><p>[Hamilton 1952]</p></td>
-<td valign=\"top\"><p>D. C. Hamilton, and W. R. Morgan, &QUOT;<a href=\"http://naca.central.cranfield.ac.uk/reports/1952/naca-tn-2836.pdf\">Radiant-interchange configuration factors</a>,&QUOT; <i>Technical report National Advisory Comittee for Aeronautics</i>, Washington, 1952.</p></td>
+<td valign=\"top\"><p>D. C. Hamilton, and W. R. Morgan, &QUOT;<a href=\"http://naca.central.cranfield.ac.uk/reports/1952/naca-tn-2836.pdf\">Radiant-interchange configuration factors</a>,&QUOT; <i>Technical report National Advisory Committee for Aeronautics</i>, Washington, 1952.</p></td>
 </tr>
 <tr>
 <td valign=\"top\"><p>[ISO 13370]</p></td>

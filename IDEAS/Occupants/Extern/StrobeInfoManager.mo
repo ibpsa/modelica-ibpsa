@@ -2,14 +2,8 @@ within IDEAS.Occupants.Extern;
 model StrobeInfoManager
   "StROBe information manager for handling occupant data required in each for simulation."
 
-  outer SimInfoManager sim
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-
   parameter String filDir = Modelica.Utilities.Files.loadResource("modelica://IDEAS") + "/Inputs/"
     "Directory containing the data files, default under IDEAS/Inputs/";
-  final parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = sim.timZonSta
-    "standard time zone";
-  final parameter Modelica.SIunits.Angle lon(displayUnit="deg") = sim.lon;
 
   parameter Integer nOcc=33 "Number of occupant profiles to be read";
 
@@ -48,114 +42,70 @@ model StrobeInfoManager
     "Nominal power of the photovoltaic profiles"
     annotation (Dialog(group="Photovoltaics", enable=PPv));
 
-protected
-  IDEAS.Climate.Time.SimTimes timMan(
-    timZonSta=timZonSta,
-    lon=lon,
-    DST=false,
-    ifSolCor=true)
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 public
-  Modelica.Blocks.Tables.CombiTable1Ds tabQCon(
+  Modelica.Blocks.Sources.CombiTimeTable tabQCon(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_QCon,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_QCon),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-40,-34},{-26,-20}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabQRad(
+  Modelica.Blocks.Sources.CombiTimeTable tabQRad(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_QRad,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_QRad),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-36,-38},{-22,-24}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabTSet(
+  Modelica.Blocks.Sources.CombiTimeTable tabTSet(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_TSet,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_TSet),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-40,18},{-26,32}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabP(
+  Modelica.Blocks.Sources.CombiTimeTable tabP(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_P,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_P),
     columns=2:nOcc + 1) if StROBe_P
     annotation (Placement(transformation(extent={{-40,-58},{-26,-44}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabQ(
+  Modelica.Blocks.Sources.CombiTimeTable tabQ(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir +FilNam_Q,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_Q),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-36,-62},{-22,-48}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabDHW(
+  Modelica.Blocks.Sources.CombiTimeTable tabDHW(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_mDHW,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_mDHW),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-40,40},{-26,54}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabPPv(
+  Modelica.Blocks.Sources.CombiTimeTable tabPPv(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_PPv,
-    columns=2:nPPv + 1) if PPv
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_PPv),
+    columns=2:nPv + 1) if PPv
     annotation (Placement(transformation(extent={{-40,-8},{-26,6}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabTSet2(
+  Modelica.Blocks.Sources.CombiTimeTable tabTSet2(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_TSet2,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_TSet2),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-36,14},{-22,28}})));
-  Modelica.Blocks.Tables.CombiTable1Ds tabPHp(
+  Modelica.Blocks.Sources.CombiTimeTable tabPHp(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_PHp,
-    columns=2:nPHp + 1) if PHp
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_PHp),
+    columns=2:nOcc + 1) if PHp
     annotation (Placement(transformation(extent={{-36,-12},{-22,2}})));
-equation
-  connect(timMan.timCal, tabQCon.u) annotation (Line(
-      points={{-60,6},{-52,6},{-52,-27},{-41.4,-27}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabQRad.u) annotation (Line(
-      points={{-60,6},{-50,6},{-50,-31},{-37.4,-31}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabP.u) annotation (Line(
-      points={{-60,6},{-52,6},{-52,-51},{-41.4,-51}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabQ.u) annotation (Line(
-      points={{-60,6},{-50,6},{-50,-55},{-37.4,-55}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabTSet.u) annotation (Line(
-      points={{-60,6},{-52,6},{-52,25},{-41.4,25}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabTSet2.u) annotation (Line(
-      points={{-60,6},{-50,6},{-50,21},{-37.4,21}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabPHp.u) annotation (Line(
-      points={{-60,6},{-50,6},{-50,-5},{-37.4,-5}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabDHW.u) annotation (Line(
-      points={{-60,6},{-52,6},{-52,47},{-41.4,47}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(timMan.timCal, tabPPv.u) annotation (Line(
-      points={{-60,6},{-52,6},{-52,-1},{-41.4,-1}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (
     defaultComponentName="strobe",
     defaultComponentPrefixes="inner",

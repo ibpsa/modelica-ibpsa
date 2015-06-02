@@ -3,7 +3,7 @@ function nbOfLevelAgg
   "Calculate the number of level necessary to aggregate the whole load and set the value of v_max, q_max and rArr"
   extends Modelica.Icons.Function;
 
-  input Integer n_max "Number of load steps to aggreagate";
+  input Integer n_max "Number of load steps to aggregate";
   input Integer p_max "Number of cells by level";
   output Integer q_max "Number of levels";
   output Integer v_max "Number of pulses covered by aggregation";
