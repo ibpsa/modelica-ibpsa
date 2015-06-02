@@ -240,7 +240,7 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 <ul>
 <li>
 June 2, 2015, by Filip Jorissen:<br/>
-Removed final modifier from mSenFac in 
+Removed final modifier from <code>mSenFac</code> in 
 <code>vol1</code> and <code>vol2</code>.
 This is for issue
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/258=\">#258</a>.
