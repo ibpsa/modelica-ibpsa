@@ -102,7 +102,7 @@ equation
 <h4>Typical use and important parameters</h4>
 <p>port_a and port_b should be connected to the corresponding ports of ZoneHallway so that there is an air exchange through the door connecting the room to the hallway element. </p>
 <h4>Validation</h4>
-<p>This model is following the approach used in Buildings.Airflow.Multizone.Examples.Validation3Rooms, only in a more modularized way in order to be part of a scalable benchmark. First tests indicated a reasonable behavior, but it should be checked again against that test case and/or other validation cases. </p>
+<p>This model is following the approach used in Buildings.Airflow.Multizone.Examples.Validation3Rooms, only in a more modularized way in order to be part of a scalable benchmark. </p>
 <h4>References</h4>
 <p>Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms </p>
 </html>", revisions="<html>
