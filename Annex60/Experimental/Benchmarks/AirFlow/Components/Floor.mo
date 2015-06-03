@@ -31,16 +31,10 @@ model Floor
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_top(redeclare package Medium =
         Medium)
-    annotation (Placement(transformation(extent={{30,90},{50,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b_top(redeclare package Medium =
-        Medium)
-    annotation (Placement(transformation(extent={{70,90},{90,110}})));
+    annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_bot(redeclare package Medium =
         Medium)
-    annotation (Placement(transformation(extent={{30,-110},{50,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b_bot(redeclare package Medium =
-        Medium)
-    annotation (Placement(transformation(extent={{70,-110},{90,-90}})));
+    annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Experimental.Benchmarks.AirFlow.Components.ZoneHallway zoneHallway[nZones](
@@ -73,19 +67,11 @@ model Floor
     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}})));
 equation
   connect(staircase.port_a_top, port_a_top) annotation (Line(
-      points={{64,10},{40,100}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(staircase.port_b_top, port_b_top) annotation (Line(
-      points={{76,10},{80,100}},
+      points={{70,9.8},{70,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(staircase.port_a_bot, port_a_bot) annotation (Line(
-      points={{64,-10},{40,-100}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(staircase.port_b_bot, port_b_bot) annotation (Line(
-      points={{76,-10},{80,-100}},
+      points={{70,-10},{70,-100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(staircase.port_a_toHallway, zoneHallway[1].port_a2) annotation (Line(

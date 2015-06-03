@@ -204,11 +204,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(staircase2.port_a_bot, staircase1.port_a_top) annotation (Line(
-      points={{-42,64},{42,64}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(staircase2.port_b_bot, staircase1.port_b_top) annotation (Line(
-      points={{-42,76},{42,76}},
+      points={{-42,70},{-20,70},{-20,70},{0.2,70},{0.2,70},{42.2,70}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(staircase1.port_a_toHallway, zoneHallway3.port_a2) annotation (Line(

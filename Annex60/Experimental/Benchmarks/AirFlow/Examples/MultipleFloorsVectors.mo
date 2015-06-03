@@ -44,7 +44,6 @@ model MultipleFloorsVectors
 equation
   for i in 1:(nFloors-1) loop
     connect(floor[i].port_a_top, floor[i+1].port_a_bot);
-    connect(floor[i].port_b_top, floor[i+1].port_b_bot);
   end for;
   for i in 1:(nFloors) loop
     connect(weaDat.weaBus, floor[i].weaBus1) annotation (Line(

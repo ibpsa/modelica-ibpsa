@@ -23,7 +23,7 @@ model Staircase
     V=heightRoom*lengthRoom*widthRoom,
     T_start=TRoom,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nPorts=6,
+    nPorts=4,
     mSenFac=60) "Air volume of staircase element"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=
@@ -38,16 +38,10 @@ model Staircase
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_bot(redeclare package Medium =
         Medium)
-    annotation (Placement(transformation(extent={{-70,-110},{-50,-90}})));
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_top(redeclare package Medium =
         Medium)
-    annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b_bot(redeclare package Medium =
-        Medium)
-    annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b_top(redeclare package Medium =
-        Medium)
-    annotation (Placement(transformation(extent={{50,90},{70,110}})));
+    annotation (Placement(transformation(extent={{-10,88},{10,108}})));
   Airflow.Multizone.MediumColumn col2(
     redeclare package Medium = Medium,
     h=heightRoom/2,
@@ -55,37 +49,20 @@ model Staircase
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-30,-60})));
+        origin={0,-60})));
 
-  Airflow.Multizone.MediumColumn col(
-    redeclare package Medium = Medium,
-    h=heightRoom/2,
-    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Airflow.Multizone.MediumColumn col1(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Airflow.Multizone.MediumColumn col3(
-    redeclare package Medium = Medium,
-    h=heightRoom/2,
-    densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Airflow.Multizone.Orifice ori(
     redeclare package Medium = Medium,
     forceErrorControlOnFlow=forceErrorControlOnFlow,
-    A=widthRoom*lengthRoom/2) annotation (Placement(transformation(
+    A=widthRoom*lengthRoom)   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-60,80})));
-  Airflow.Multizone.Orifice ori1(
-    redeclare package Medium = Medium,
-    forceErrorControlOnFlow=forceErrorControlOnFlow,
-    A=widthRoom*lengthRoom/2) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={60,80})));
+        origin={0,78})));
   Airflow.Multizone.DoorDiscretizedOperable doo(
     redeclare package Medium = Medium,
     LClo=20*1E-4,
@@ -120,15 +97,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(port_a_bot, port_a_bot) annotation (Line(
-      points={{-60,-100},{-60,-100}},
+      points={{0,-100},{0,-100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a_bot, col2.port_b) annotation (Line(
-      points={{-60,-100},{-60,-80},{-30,-80},{-30,-70}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(port_b_bot, col.port_b) annotation (Line(
-      points={{60,-100},{60,-80},{10,-80},{10,-70}},
+      points={{0,-100},{0,-70}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(doo.port_b1, port_b_toHallway) annotation (Line(
@@ -144,43 +117,27 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(ori.port_b, port_a_top) annotation (Line(
-      points={{-60,90},{-60,100}},
+      points={{4.44089e-016,88},{4.44089e-016,96},{0,96},{0,98}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(ori.port_a, col1.port_a) annotation (Line(
-      points={{-60,70},{-60,64},{-30,64},{-30,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(col3.port_a, ori1.port_a) annotation (Line(
-      points={{10,60},{10,62},{60,62},{60,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(ori1.port_b, port_b_top) annotation (Line(
-      points={{60,90},{60,100}},
+      points={{-6.66134e-016,68},{-6.66134e-016,64},{0,64},{0,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(doo.port_b2, volumeStairs.ports[1]) annotation (Line(
-      points={{-70,6},{-56,6},{-56,-24},{26.6667,-24},{26.6667,-10}},
+      points={{-70,6},{-56,6},{-56,-24},{27,-24},{27,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(doo.port_a1, volumeStairs.ports[2]) annotation (Line(
-      points={{-70,-6},{-62,-6},{-62,-26},{26,-26},{28,-10}},
+      points={{-70,-6},{-62,-6},{-62,-26},{29,-26},{29,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(col2.port_a, volumeStairs.ports[3]) annotation (Line(
-      points={{-30,-50},{-30,-28},{29.3333,-28},{29.3333,-10}},
+      points={{0,-50},{0,-28},{31,-28},{31,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(col.port_a, volumeStairs.ports[4]) annotation (Line(
-      points={{10,-50},{10,-30},{30.6667,-30},{30.6667,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(col3.port_b, volumeStairs.ports[5]) annotation (Line(
-      points={{10,40},{10,34},{64,34},{64,-30},{36,-30},{32,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(col1.port_b, volumeStairs.ports[6]) annotation (Line(
-      points={{-30,40},{-30,32},{62,32},{62,-26},{33.3333,-26},{33.3333,-10}},
+  connect(col1.port_b, volumeStairs.ports[4]) annotation (Line(
+      points={{0,40},{0,32},{62,32},{62,-26},{33,-26},{33,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(preTemp.port, conRoom.port_a) annotation (Line(
