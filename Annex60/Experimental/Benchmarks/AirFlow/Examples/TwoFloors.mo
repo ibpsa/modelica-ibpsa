@@ -450,7 +450,6 @@ equation
     experiment(StopTime=3600),
     __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Benchmarks/AirFlow/Examples/TwoFloors.mos"
         "Simulate and plot"),
-    __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{100,120}})),
     Documentation(info="<html>
 <p>
