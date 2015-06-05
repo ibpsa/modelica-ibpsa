@@ -12,7 +12,7 @@ model RadiatorEN442_2 "Test model for radiator"
     "Radiator outlet temperature at nominal condition"
     annotation (Evaluate=false);
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
-    Q_flow_nominal/(T_a_nominal-T_b_nominal)/Medium.cp_const
+    0.0119503
     "Nominal mass flow rate";
  parameter Modelica.SIunits.Pressure dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
