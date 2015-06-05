@@ -66,8 +66,17 @@ equation
     __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Benchmarks/AirFlow/Examples/ZoneStepResponse.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>This example tests the step response of the SimpleZone model for the airflow benchmark. It uses the weather file STEP_TMY.mos, that implements a 5 K step at 400 000 s. In the Buildings library, the Room model in BESTEST 600 FF needs around 4-5 hours in order to reach 2/3 of the maximum step response to this weather file. This time constant is approximated with a value of mSenFac = 75 for the Zone&apos;s mixing volume.</p>
-<p>The mass flow rate of air to the zone at 0.05 kg/s approximates an air exchange rate of 3 times the air volume per hour.</p>
+<p>This example tests the step response of the SimpleZone model for the airflow benchmark.
+It uses the weather file <code>STEP_TMY.mos</code>, that implements a <i>5</i> Kelving
+tep at <i>t=400 000</i> seconds.
+In the Buildings library, the room model of BESTEST 600 FF needs around <i>4-5</i> hours
+in order to reach <i>2/3</i> of the maximum step response to this weather file.
+This time constant is approximated with a value of <code>mSenFac = 75</code>
+for the mixing volume of the zone.</p>
+<p>
+The mass flow rate of air to the zone is <i>0.05</i> kg/s, which
+approximates an air exchange rate of <i>3</i> times the air volume per hour.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
