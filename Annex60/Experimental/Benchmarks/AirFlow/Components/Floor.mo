@@ -35,8 +35,6 @@ model Floor
   Modelica.Fluid.Interfaces.FluidPort_a port_a_bot(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Experimental.Benchmarks.AirFlow.Components.ZoneHallway zoneHallway[nZones](
     each heightRoom=heightRooms,
     each lengthRoom=lengthZone,
