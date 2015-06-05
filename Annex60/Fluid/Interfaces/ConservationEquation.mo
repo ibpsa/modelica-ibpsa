@@ -16,7 +16,6 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
-    preferredMediumStates= false,
     p(start=p_start),
     h(start=hStart),
     T(start=T_start),
@@ -270,6 +269,14 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 5, 2015 by Michael Wetter:<br/>
+Removed <code>preferredMediumStates= false</code> in
+the instance <code>medium</code> as the default
+is already <code>false</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.
+</li>
 <li>
 June 5, 2015 by Filip Jorissen:<br/>
 Removed <pre>
