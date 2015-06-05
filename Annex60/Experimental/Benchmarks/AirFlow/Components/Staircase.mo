@@ -2,6 +2,9 @@ within Annex60.Experimental.Benchmarks.AirFlow.Components;
 model Staircase
   "Zone representing a staircase connecting multiple floor models"
 
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component";
+
   parameter Modelica.SIunits.Temperature TRoom = 293.15
     "Indoor air temperature of room in K";
   parameter Modelica.SIunits.Height heightRoom = 3 "Height of room in m";
@@ -13,7 +16,6 @@ model Staircase
   parameter Modelica.SIunits.CoefficientOfHeatTransfer UValue = 1
     "Heat transfer coefficient for outside wall";
 
-  replaceable package Medium = Modelica.Media.Air.SimpleAir;
   parameter Boolean forceErrorControlOnFlow = true
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
 

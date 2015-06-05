@@ -3,6 +3,8 @@ model MultipleFloorsVectors
   "Test case for air flow between multiple floors in vector design"
   extends Modelica.Icons.Example;
 
+  replaceable package Medium = Annex60.Media.Air;
+
   parameter Integer nZones(min=1) = 4 "Number of zone elements per floor";
   parameter Integer nFloors(min=2) = 2 "Number of floors";
 
@@ -20,7 +22,6 @@ model MultipleFloorsVectors
   parameter Real doorOpening = 1
     "Opening of door (between 0:closed and 1:open)";
 
-  replaceable package Medium = Modelica.Media.Air.SimpleAir;
   parameter Boolean forceErrorControlOnFlow = true
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
 

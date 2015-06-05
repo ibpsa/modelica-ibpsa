@@ -1,6 +1,9 @@
 within Annex60.Experimental.Benchmarks.AirFlow.Components;
 model SimpleZone "A room as a thermal zone represented by its air volume"
 
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component";
+
   parameter Modelica.SIunits.Temperature TRoom = 293.15
     "Indoor air temperature of room in K";
   parameter Modelica.SIunits.Height heightRoom = 3 "Height of room in m";
@@ -13,7 +16,6 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   parameter Real doorOpening = 1
     "Opening of door (between 0:closed and 1:open)";
 
-  replaceable package Medium = Modelica.Media.Air.SimpleAir;
   parameter Boolean forceErrorControlOnFlow = true
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
 

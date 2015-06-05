@@ -2,7 +2,8 @@ within Annex60.Experimental.Benchmarks.AirFlow.Components;
 model OutsideEnvironment
   "Outside Environment air volume for simple air flow benchmark"
 
-  replaceable package Medium = Modelica.Media.Air.SimpleAir;
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component";
 
   parameter Modelica.SIunits.Height heightRoom = 3
     "Height of room connected to outdoor air in m";

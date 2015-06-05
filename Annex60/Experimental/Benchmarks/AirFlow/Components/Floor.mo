@@ -2,6 +2,9 @@ within Annex60.Experimental.Benchmarks.AirFlow.Components;
 model Floor
   "Floor element for air flow benchmark, consisting of zones, hallway, outdoor environment, and staircase"
 
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component";
+
   parameter Integer nZones(min=1) = 4 "Number of zone elements";
 
   parameter Modelica.SIunits.Temperature TRoom = 298.15
@@ -18,7 +21,6 @@ model Floor
   parameter Real doorOpening = 1
     "Opening of door (between 0:closed and 1:open)";
 
-  replaceable package Medium = Modelica.Media.Air.SimpleAir;
   parameter Boolean forceErrorControlOnFlow = true
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
 

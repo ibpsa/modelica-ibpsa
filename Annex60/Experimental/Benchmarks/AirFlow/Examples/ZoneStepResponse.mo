@@ -3,7 +3,7 @@ model ZoneStepResponse
   "Example to test the thermal step response of a SimpleZone"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Modelica.Media.Air.SimpleAir;
+  replaceable package Medium = Annex60.Media.Air;
 
   output Modelica.SIunits.Temperature TRoom
     "Room temperature at volume's therm port";
