@@ -72,11 +72,11 @@ this model, and <i>y</i> is the length of the adjacent wall.
 The wind direction is computed relative to the azimuth of this surface,
 which is equal to the parameter <code>azi</code>.
 The surface azimuth is defined in
-<a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
-Buildings.HeatTransfer.Types.Azimuth</a>.
+<a href=\"modelica://Annex60.Types.Azimuth\">
+Annex60.Types.Azimuth</a>.
 For example, if an exterior wall is South oriented, i.e., its outside-facing
 surface is towards South, use
-<code>Buildings.HeatTransfer.Types.Azimuth.S</code>.
+<code>Annex60.Types.Azimuth.S</code>.
 </p>
 <p>
 Based on the surface azimuth, the wind direction and the side ratio
