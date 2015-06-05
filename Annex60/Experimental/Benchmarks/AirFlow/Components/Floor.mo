@@ -157,11 +157,19 @@ equation
             -100},{100,100}}), graphics), Documentation(info="<html>
 <p>A floor model for a scalable air flow benchmark. </p>
 <h4>Assumptions and limitations</h4>
-<p>See e.g. <a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone\">Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone</a> for limitations and assumptions on the zone level representation.</p>
+<p>See e.g. <a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone\">
+Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone</a> for limitations and assumptions on
+ the zone level representation.</p>
 <h4>Typical use and important parameters</h4>
-<p>This floor model consists of a staircase element connected to at least one hallway element. The hallway is connected to a simple zone model through a door model, and to the outside environment via orifice models. Zone, hallway and outside environment are vectorized. Thus, by setting the number of zones nZones, the floor model can be scaled to represent a floor with varying numbers of rooms. In addition, the staircase element can be connected to other floor models in order to also scale the model representation of air flows in a building regarding the number of floors on top of each other. </p>
+<p>This floor model consists of a staircase element connected to at least one hallway element. The 
+hallway is connected to a simple zone model through a door model, and to the outside environment via 
+orifice models. Zone, hallway and outside environment are vectorized. Thus, by setting the number of 
+zones <code>nZones</code>, the floor model can be scaled to represent a floor with varying numbers of rooms. In 
+addition, the staircase element can be connected to other floor models in order to also scale the 
+model representation of air flows in a building regarding the number of floors on top of each 
+other. </p>
 <h4>References</h4>
-<p>Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms </p>
+<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
 </html>", revisions="<html>
 <ul>
 <li>

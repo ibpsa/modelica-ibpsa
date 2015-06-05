@@ -150,11 +150,24 @@ equation
     Documentation(info="<html>
 <p>An air volume to represent a staircase element for a scalable air flow benchmark. </p>
 <h4>Assumptions and limitations</h4>
-<p>This is a very simple room representation. The model is intended to roughly approximate a first order response of the zone to changes in outdoor air temperature. This is achieved by a thermal resistance in model conRoom and the capitancy of the mixing volume represented by the value for mSenFac. The G-Value of conRoom is approximated by the area of one outside wall multiplied with a U-Value of 1 W/(m**2*K). The value for mSenFac has been estimated from comparisons with other room models as shown in <a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse\">Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse</a>. For this model, a value for mSenFac slightly lower than in <a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone\">Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone</a> has been chosen.</p>
+<p>This is a very simple room representation. The model is intended to roughly approximate a first 
+order response of the zone to changes in outdoor air temperature. This is achieved by a thermal 
+resistance in model <code>conRoom</code> and the capitancy of the mixing volume represented by the 
+value for <code>mSenFac</code>. The G-Value of <code>conRoom</code> is approximated by the area of 
+one outside wall multiplied with a U-Value of<i> 1 W/(m&sup2; K)</i>. The value for <code>mSenFac</code> 
+has been estimated from comparisons with other room models as shown in 
+<a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse\">
+Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse</a>. For this model, a value for 
+<code>mSenFac</code> slightly lower than in 
+<a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone\">
+Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone</a> has been chosen.</p>
 <h4>Typical use and important parameters</h4>
-<p>port_a_toHallway and port_b_toHallway should be connected to the corresponding ports of a hallway model. port_a_top and port_b_top can be connected to another staircase model via its respective port_a_bot and port_b_bot. </p>
+<p><code>port_a_toHallway</code> and <code>port_b_toHallway</code> should be connected to the 
+corresponding ports of a hallway model. <code>port_a_top</code> and <code>port_b_top</code> can be 
+connected to another staircase model via its respective <code>port_a_bot</code> and 
+<code>port_b_bot</code>. </p>
 <h4>References</h4>
-<p>Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms </p>
+<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
 </html>",
    revisions="<html>
 <ul>

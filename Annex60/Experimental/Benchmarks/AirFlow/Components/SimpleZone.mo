@@ -96,15 +96,27 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>
-<p>An air volume to represent a zone/room within a building that can be connected to a hallway element and to ventilation equipment. </p>
+<p>An air volume to represent a zone/room within a building that can be connected to a hallway 
+element and to ventilation equipment. </p>
 <h4>Assumptions and limitations</h4>
-<p>This is a very simple room representation. The model is intended to roughly approximate a first order response of the zone to changes in outdoor air temperature. This is achieved by a thermal resistance in model conRoom and the capitancy of the mixing volume represented by the value for mSenFac. The G-Value of conRoom is approximated by the area of one outside wall multiplied with a U-Value of 1 W/(m**2*K). The value for mSenFac has been estimated from comparisons with other room models as shown in <a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse\">Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse</a>.</p>
+<p>This is a very simple room representation. The model is intended to roughly approximate a first 
+order response of the zone to changes in outdoor air temperature. This is achieved by a thermal 
+resistance in model <code>conRoom</code> and the capitancy of the mixing volume represented by the 
+value for <code>mSenFac</code>. The G-Value of <code>conRoom</code> is approximated by the area of 
+one outside wall multiplied with a U-Value of <i>1 W/(m&sup2; K)</i>. The value for <code>mSenFac</code> 
+has been estimated from comparisons with other room models as shown in 
+<a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse\">
+Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse</a>.</p>
 <h4>Typical use and important parameters</h4>
-<p>port_a and port_b should be connected to the corresponding ports of ZoneHallway so that there is an air exchange through the door connecting the room to the hallway element. </p>
+<p><code>port_a</code> and <code>port_b</code> should be connected to the corresponding ports of 
+<code>ZoneHallway</code> so that there is an air exchange through the door connecting the room to 
+the hallway element. </p>
 <h4>Validation</h4>
-<p>This model is following the approach used in Buildings.Airflow.Multizone.Examples.Validation3Rooms, only in a more modularized way in order to be part of a scalable benchmark. </p>
+<p>This model is following the approach used in 
+<code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code>, only in a more modularized way 
+in order to be part of a scalable benchmark. </p>
 <h4>References</h4>
-<p>Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms </p>
+<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
 </html>", revisions="<html>
 <ul>
 <li>

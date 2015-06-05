@@ -62,11 +62,14 @@ equation
             -100},{100,100}}), graphics), Documentation(info="<html>
 <p>An air volume to represent the outside environment for air flow benchmark. </p>
 <h4>Assumptions and limitations</h4>
-<p>So far, the side ratio for the building is set to 1 for testing the general modeling approach. It may be necessary to calculate this parameter depending on the scale of the test. </p>
+<p>So far, the side ratio for the building is set to <i>1</i> for testing the general modeling 
+approach. It may be necessary to calculate this parameter depending on the scale of the test. </p>
 <h4>Typical use and important parameters</h4>
-<p>port_a and port_b should be connected to the corresponding ports of ZoneHallway so that there is an air exchange through the orifices of the hallway element. </p>
+<p><code>port_a</code> and <code>port_b</code> should be connected to the corresponding ports of 
+<code>ZoneHallway</code> so that there is an air exchange through the orifices of the hallway 
+element. </p>
 <h4>References</h4>
-<p>Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms </p>
+<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -448,21 +448,12 @@ equation
         "Simulate and plot"),
     Icon(coordinateSystem(extent={{-100,-100},{100,120}})),
     Documentation(info="<html>
-<p>
-A reference model to compare to the floor model for a scalable air flow 
-benchmark.
-</p>
-
+<p>A reference model to compare to the floor model for a scalable air flow benchmark. </p>
 <h4>Validation</h4>
-<p>
-This model should give the same results as the MultipleFloorsVector model with 
-nZones = 4 and nFloors = 2.
-</p>
-
+<p>This model should give the same results as the <code>MultipleFloorsVector</code> model with 
+<code>nZones</code> = <i>4</i> and <code>nFloors</code> = <i>2</i>. </p>
 <h4>References</h4>
-<p>
-Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms
-</p>
+<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
 </html>", revisions="<html>
 <ul>
 <li>

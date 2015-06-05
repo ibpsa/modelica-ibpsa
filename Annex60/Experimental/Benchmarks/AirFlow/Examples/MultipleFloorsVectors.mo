@@ -67,8 +67,8 @@ First implementation
 </html>", info="<html>
 <p>A fully scalable air flow benchmark model </p>
 <h4>Typical use and important parameters</h4>
-<p>With nZones and nFloors, this vectorized model can be scaled to represent a simple building of any size. </p>
+<p>With <code>nZones</code> and <code>nFloors</code>, this vectorized model can be scaled to represent a simple building of any size. </p>
 <h4>References</h4>
-<p>Inspired by Buildings.Airflow.Multizone.Examples.Validation3Rooms </p>
+<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
 </html>"));
 end MultipleFloorsVectors;
