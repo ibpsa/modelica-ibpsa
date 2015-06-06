@@ -9,13 +9,6 @@ package Water "Package with model for liquid water with constant density"
   // cp_const and cv_const have been made final because the model sets u=h.
   extends Modelica.Icons.Package;
 
-  // For the ThermodynamicState, we set start values to the default medium states
-  // to provide better guesses for solvers
-  record extends ThermodynamicState(
-      T(start=T_default),
-      p(start=p_default)) "Thermodynamic state variables"
-  end ThermodynamicState;
-
   redeclare model BaseProperties "Base properties"
     Modelica.SIunits.Temperature T "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";
@@ -83,7 +76,7 @@ function enthalpyOfLiquid "Return the specific enthalpy of liquid"
   output Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
 algorithm
   h := cp_const*(T-reference_T);
-annotation(
+annotation (
   smoothOrder=5,
   Inline=true,
 Documentation(info="<html>
@@ -136,6 +129,13 @@ There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 5, 2015, by Michael Wetter:<br/>
+Removed <code>ThermodynamicState</code> declaration as this lead to
+the error
+\"Attempting to redeclare record ThermodynamicState when the original was not replaceable.\"
+in Dymola 2016 using the pedantic model check.
+</li>
 <li>
 May 1, 2015, by Michael Wetter:<br/>
 Added <code>Inline=true</code> for
