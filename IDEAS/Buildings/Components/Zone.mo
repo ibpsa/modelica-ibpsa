@@ -1,10 +1,10 @@
 within IDEAS.Buildings.Components;
 model Zone "thermal building zone"
+  import Buildings;
 
   extends IDEAS.Buildings.Components.Interfaces.StateZone;
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
-      Medium =
-        IDEAS.Media.Air);
+      Medium = IDEAS.Experimental.Media.AirPTDecoupled);
 
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
@@ -75,7 +75,7 @@ protected
     C_start=C_start,
     C_nominal=C_nominal,
     allowFlowReversal=allowFlowReversal,
-    mFactor=corrCV)                            annotation (Placement(
+    mSenFac=corrCV)                            annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -204,6 +204,15 @@ end for;
       points={{-54,-34},{-54,-20}},
       color={191,0,0},
       smooth=Smooth.None));
+
+for i in 1:nSurf loop
+connect(sim.weaBus, propsBus[i].weaBus) annotation (Line(
+       points={{-88.6,97.2},{-88.6,100},{-100,100},{-100,40}},
+       color={255,204,51},
+       thickness=0.5,
+       smooth=Smooth.None));
+end for;
+
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),

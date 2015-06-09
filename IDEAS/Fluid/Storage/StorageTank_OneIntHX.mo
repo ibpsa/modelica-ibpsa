@@ -29,7 +29,7 @@ model StorageTank_OneIntHX
       nbrNodes} "Initial temperature of all Temperature states";
 
   /* 
-    A validation excercise has shown that TO BE COMPLETED.
+    A validation exercise has shown that TO BE COMPLETED.
     */
   parameter Boolean preventNaturalDestratification=true
     "if true, this automatically increases the insulation of the top layer";
@@ -73,7 +73,7 @@ model StorageTank_OneIntHX
       Medium = Medium)
     "Array of nbrNodes+1 ports. ports[i] is connected to the upper port of node i"
     annotation (Placement(transformation(extent={{68,28},{88,48}}),
-        iconTransformation(extent={{74,20},{86,60}})));
+        iconTransformation(extent={{76,20},{86,60}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatExchEnv
     "HeatPort for conduction between tank and environment" annotation (
       Placement(transformation(extent={{48,-16},{68,4}}), iconTransformation(
@@ -120,8 +120,8 @@ public
   Modelica.Fluid.Interfaces.FluidPort_b portHXLower(redeclare package Medium =
         MediumHX) "Lower connection to the HX"
                                  annotation (Placement(transformation(extent={{
-            -116,-134},{-96,-114}}), iconTransformation(extent={{-106,-126},{-94,
-            -114}})));
+            -116,-134},{-96,-114}}), iconTransformation(extent={{-106,-146},{
+            -94,-134}})));
   Modelica.Fluid.Interfaces.FluidPort_a portHXUpper(redeclare package Medium =
         MediumHX) "Upper connection to the internal HX"
                                           annotation (Placement(transformation(
@@ -191,100 +191,40 @@ equation
           lineColor={100,100,100},
           smooth=Smooth.None,
           fillPattern=FillPattern.Solid,
-          fillColor={255,255,255},
+          fillColor={215,215,215},
           lineThickness=0.5),
         Line(
-          points={{-100,-80},{-84,-80}},
+          points={{-100,-80},{-50,-80}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{-80,-80},{-50,-80}},
+          points={{-100,-140},{-38,-140}},
           color={0,0,127},
-          smooth=Smooth.None),
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
         Line(
-          points={{-84,-90},{-84,-70}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-80,-90},{-80,-70}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-100,-120},{-84,-120}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-80,-120},{-38,-120}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-84,-130},{-84,-110}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{-80,-130},{-80,-110}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{80,-140},{64,-140}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{60,-140},{-10,-140}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{60,-150},{60,-130}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{64,-150},{64,-130}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{80,80},{64,80}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{60,80},{50,80}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{60,70},{60,90}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{64,70},{64,90}},
-          color={0,0,127},
-          smooth=Smooth.None),
+          points={{80,-140},{-10,-140}},
+          color={0,128,255},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
         Ellipse(extent={{-50,-40},{30,-120}}, lineColor={100,100,100}),
         Line(
           points={{-50,-80},{-30,-80},{0,-60},{-20,-100},{10,-80},{30,-80}},
           color={0,0,127},
           smooth=Smooth.None),
         Line(
-          points={{30,-80},{40,-80},{40,-120},{16,-120}},
+          points={{30,-80},{40,-80},{40,-120},{-38,-140}},
           color={0,0,127},
-          smooth=Smooth.None),
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
         Line(
           points={{-10,-140},{-10,-126}},
-          color={0,0,127},
-          smooth=Smooth.None),
+          color={0,128,255},
+          smooth=Smooth.None,
+          pattern=LinePattern.Dash),
         Line(
-          points={{-10,-36},{-10,80},{50,80}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{80,40},{64,40}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{60,30},{60,50}},
-          color={0,0,127},
-          smooth=Smooth.None),
-        Line(
-          points={{64,30},{64,50}},
-          color={0,0,127},
+          points={{-10,-36},{-10,80},{80,80}},
+          color={0,128,255},
           smooth=Smooth.None),
         Text(
           extent={{18,10},{38,-10}},
@@ -302,11 +242,11 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={255,255,255}),
         Line(
-          points={{60,40},{32,40}},
+          points={{78,40},{32,40}},
           color={0,0,127},
           smooth=Smooth.None)}),
-    Diagram(coordinateSystem(extent={{-100,-160},{80,100}}, preserveAspectRatio=
-           false),                                           graphics),
+    Diagram(coordinateSystem(extent={{-100,-160},{80,100}}, preserveAspectRatio=false),
+                                                             graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>1-dimensional thermal energy storage (TES) tank model with internal heat exchanger (HX) for stratified water tanks. For a model without internal heat exchanger, see <a href=\"modelica://IDEAS.Thermal.Components.Storage.StorageTank\">here</a>.</p>
@@ -352,10 +292,10 @@ equation
 <p><ol>
 <li>Set the obvious tank parameters (geometry and insulation properties). </li>
 <li>The diameter of the tank is computed from volume and height</li>
-<li>Set the number of nodes. It is not adviced to go below 10 nodes, whereas more than 40 nodes will not be useful either for most cases. </li>
+<li>Set the number of nodes. It is not advised to go below 10 nodes, whereas more than 40 nodes will not be useful either for most cases. </li>
 <li>If the tank is substantially different from the Viesmann Vitocell100V 390 liter (Viessmann, 2011), adapt the buoyancy model parameters <i>powBuo</i> and <i>expNodes. </i>The default values are 24 and 1.5 respectively, they ware identified according to De Coninck et al. (2013).</li>
 <li>If needed, choose a different <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.Partial_Buoyancy\">Buoyancy</a> model.</li>
-<li>If a <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet\">stratified inlet</a> is desired, add this seperately to your model and connect the two arrays of <i>ports</i>. </li>
+<li>If a <a href=\"modelica://IDEAS.Thermal.Components.Storage.BaseClasses.StratifiedInlet\">stratified inlet</a> is desired, add this separately to your model and connect the two arrays of <i>ports</i>. </li>
 <li>Model the internal coil: specify inlet and outlet node, it&apos;s length and water content</li>
 <li>Set the three heat transfer coefficients for internal convection, conduction and external convection of the coil.</li>
 <li>A realOutput <i>T[nbrNodes]</i> is available</li>

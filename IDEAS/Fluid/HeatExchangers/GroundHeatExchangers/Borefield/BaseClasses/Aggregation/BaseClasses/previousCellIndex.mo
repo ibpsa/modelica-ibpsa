@@ -9,9 +9,9 @@ function previousCellIndex "Calculates the index [q,p] of the previous cell "
 
 algorithm
   assert((q > 0 and p > 0) and (q > 1 or p > 1),
-    "The choosen index is 1. No previous index is possible");
+    "The chosen index is 1. No previous index is possible");
   assert((q <= q_max and p <= p_max),
-    "The choosen index is out of the boundary.");
+    "The chosen index is out of the boundary.");
 
   if p == 1 then
     q_pre := q - 1;

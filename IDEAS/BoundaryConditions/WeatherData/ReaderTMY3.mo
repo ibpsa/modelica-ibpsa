@@ -7,7 +7,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
   parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone";
-  Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
+  Bus weaBus(numSolBus=0) "Weather Data Bus"
+                                annotation (Placement(transformation(extent={{
             294,-10},{314,10}}), iconTransformation(extent={{190,-10},{210,10}})));
   BaseClasses.SolarSubBus solBus "Sub bus with solar position"
     annotation (Placement(transformation(extent={{-2,-304},{18,-284}}),
@@ -263,19 +264,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[14], cheOpaSkyCov.nIn) annotation (Line(
-      points={{-59,-30},{20,-30},{20,-150},{158,-150}},
+      points={{-59,-29.92},{20,-29.92},{20,-150},{158,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[16], cheCeiHei.ceiHeiIn) annotation (Line(
-      points={{-59,-30},{20,-30},{20,-110},{158,-110}},
+      points={{-59,-29.76},{20,-29.76},{20,-110},{158,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[11], conWinDir.u) annotation (Line(
-      points={{-59,-30},{20,-30},{20,-270},{118,-270}},
+      points={{-59,-30.16},{20,-30.16},{20,-270},{118,-270}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea1.y[1], conHorRad.HIn) annotation (Line(
-      points={{-59,170},{20,170},{20,250},{118,250}},
+      points={{-59,169.25},{20,169.25},{20,250},{118,250}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conHorRad.HOut, cheHorRad.HIn) annotation (Line(
@@ -287,11 +288,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[1], conTDryBul.u) annotation (Line(
-      points={{-59,-30},{20,-30},{20,-190},{118,-190}},
+      points={{-59,-30.96},{20,-30.96},{20,-190},{118,-190}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[2], conTDewPoi.u) annotation (Line(
-      points={{-59,-30},{20,-30},{20,-230},{118,-230}},
+      points={{-59,-30.88},{20,-30.88},{20,-230},{118,-230}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conTDewPoi.y, cheTemDewPoi.TIn) annotation (Line(
@@ -310,19 +311,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea1.y[3], conDirNorRad.HIn) annotation (Line(
-      points={{-59,170},{20,170},{20,210},{118,210}},
+      points={{-59,170.25},{20,170.25},{20,210},{118,210}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea1.y[2], conGloHorRad.HIn) annotation (Line(
-      points={{-59,170},{30,170},{30,170},{118,170}},
+      points={{-59,169.75},{30,169.75},{30,170},{118,170}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea1.y[4], conDifHorRad.HIn) annotation (Line(
-      points={{-59,170},{20,170},{20,130},{118,130}},
+      points={{-59,170.75},{20,170.75},{20,130},{118,130}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conRelHum.relHumIn, datRea.y[3]) annotation (Line(
-      points={{118,30},{20,30},{20,-30},{-59,-30}},
+      points={{118,30},{20,30},{20,-30.8},{-59,-30.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheRelHum.relHumOut, weaBus.relHum) annotation (Line(
@@ -722,7 +723,7 @@ made propagation of parameter final.
 <li>
 October 27, 2011, by Wangda Zuo:<br/>
 1. Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br/>
-2. Separate the unit convertion for TMY3 data and data validity check. 
+2. Separate the unit conversion for TMY3 data and data validity check. 
 </li>
 <li>
 October 3, 2011, by Michael Wetter:<br/>

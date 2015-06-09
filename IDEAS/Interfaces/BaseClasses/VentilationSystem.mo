@@ -6,7 +6,7 @@ partial model VentilationSystem
   outer Modelica.Fluid.System system
   annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
 
-  replaceable package Medium = IDEAS.Media.Air
+  replaceable package Medium = IDEAS.Experimental.Media.AirPTDecoupled
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
       annotation (choicesAllMatching = true);

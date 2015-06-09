@@ -47,63 +47,63 @@ public
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_QCon,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_QCon),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-40,-34},{-26,-20}})));
   Modelica.Blocks.Sources.CombiTimeTable tabQRad(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_QRad,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_QRad),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-36,-38},{-22,-24}})));
   Modelica.Blocks.Sources.CombiTimeTable tabTSet(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_TSet,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_TSet),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-40,18},{-26,32}})));
   Modelica.Blocks.Sources.CombiTimeTable tabP(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_P,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_P),
     columns=2:nOcc + 1) if StROBe_P
     annotation (Placement(transformation(extent={{-40,-58},{-26,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable tabQ(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir +FilNam_Q,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_Q),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-36,-62},{-22,-48}})));
   Modelica.Blocks.Sources.CombiTimeTable tabDHW(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_mDHW,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_mDHW),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-40,40},{-26,54}})));
   Modelica.Blocks.Sources.CombiTimeTable tabPPv(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_PPv,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_PPv),
     columns=2:nPv + 1) if PPv
     annotation (Placement(transformation(extent={{-40,-8},{-26,6}})));
   Modelica.Blocks.Sources.CombiTimeTable tabTSet2(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_TSet2,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_TSet2),
     columns=2:nOcc + 1) if StROBe
     annotation (Placement(transformation(extent={{-36,14},{-22,28}})));
   Modelica.Blocks.Sources.CombiTimeTable tabPHp(
     final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     tableOnFile=true,
     tableName="data",
-    fileName=filDir + FilNam_PHp,
+    fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filDir + FilNam_PHp),
     columns=2:nOcc + 1) if PHp
     annotation (Placement(transformation(extent={{-36,-12},{-22,2}})));
   annotation (

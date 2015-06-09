@@ -29,7 +29,7 @@ record Glazing
   generated using the 
   <a href=\"http://windows.lbl.gov/software/window/window.html\">Window software from LBNL</a>. 
   In the software open the &QUOT;glazing system&QUOT; library. 
-  On this page choose the number of layers (typicall two or three) and 
+  On this page choose the number of layers (typical two or three) and 
   fill in the glazing types. Make sure to &QUOT;flip&QUOT; the glass sheet 
   when necessary so that the coating is on the correct side of the glass. 
   Press calc to calculate the parameters.
