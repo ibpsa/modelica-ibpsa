@@ -13,7 +13,9 @@ package Water "Package with model for liquid water with constant density"
   extends Modelica.Icons.Package;
 
   redeclare model BaseProperties "Base properties"
-    Temperature T "Temperature of medium";
+    Temperature T(stateSelect=
+      if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+      "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";
     InputMassFraction[nXi] Xi=fill(0, 0)
       "Structurally independent mass fractions";
@@ -29,7 +31,7 @@ package Water "Package with model for liquid water with constant density"
       "Molar mass (of mixture or single fluid)";
     ThermodynamicState state
       "Thermodynamic state record for optional functions";
-    parameter Boolean preferredMediumStates=true
+    parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
       annotation(Evaluate=true, Dialog(tab="Advanced"));
     final parameter Boolean standardOrderComponents=true
@@ -160,6 +162,18 @@ Annex60.Media.Examples.WaterProperties</a>
 is translated in pedantic mode.
 This fixes
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
+<li>
+June 5, 2015, by Michael Wetter:<br/>
+Added <code>stateSelect</code> attribute in <code>BaseProperties.T</code>
+to allow correct use of <code>preferredMediumState</code> as
+described in
+<a href=\"modelica://Modelica.Media.Interfaces.PartialMedium\">
+Modelica.Media.Interfaces.PartialMedium</a>,
+and set <code>preferredMediumState=false</code>
+to keep the same states as were used before.
+This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/260\">#260</a>.
 </li>
 <li>
 June 5, 2015, by Michael Wetter:<br/>
