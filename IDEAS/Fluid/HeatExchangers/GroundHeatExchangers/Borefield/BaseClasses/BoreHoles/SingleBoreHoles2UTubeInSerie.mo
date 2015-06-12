@@ -22,7 +22,8 @@ model SingleBoreHoles2UTubeInSerie
     each final C_start=C_start,
     redeclare each final package Medium = Medium,
     each final C_nominal=C_nominal,
-    dynFil=dynFil)                  constrainedby
+    dynFil=dynFil,
+    mSenFac=mSenFac)                constrainedby
     Interface.PartialSingleBoreHole(
     each m_flow_nominal=m_flow_nominal,
     each T_start=T_start,

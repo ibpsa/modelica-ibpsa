@@ -27,26 +27,30 @@ model InternalHEX2UTube
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal1,
       final m_flow_small=m1_flow_small,
-      final V=gen.volOneLegSeg*scaSeg),
+      final V=gen.volOneLegSeg*scaSeg,
+      mSenFac=mSenFac),
     vol2(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m2_flow_small,
-      final V=gen.volOneLegSeg*scaSeg),
+      final V=gen.volOneLegSeg*scaSeg,
+      mSenFac=mSenFac),
     vol3(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal3,
       final m_flow_small=m3_flow_small,
-      final V=gen.volOneLegSeg*scaSeg),
+      final V=gen.volOneLegSeg*scaSeg,
+      mSenFac=mSenFac),
     vol4(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m4_flow_small,
-      final V=gen.volOneLegSeg*scaSeg));
+      final V=gen.volOneLegSeg*scaSeg,
+      mSenFac=mSenFac));
 
   parameter Modelica.SIunits.Temperature T_start
     "Initial temperature of the filling material"
@@ -264,6 +268,9 @@ public
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-68,12},{-54,28}})));
 
+  parameter Real mSenFac=1
+    "Factor for scaling the sensible thermal mass of the volume"
+    annotation (Dialog(tab="Dynamics"));
 initial equation
   (x,Rgb_val,Rgg1_val,Rgg2_val,RCondGro_val) = doubleUTubeResistances(
     hSeg=gen.hSeg,

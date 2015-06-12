@@ -73,7 +73,8 @@ model BoreHoleSegmentHeightPort "Vertical segment of a borehole"
     final C4_start=C_start,
     final C4_nominal=C_nominal,
     final T_start=T_start,
-    dynFil=dynFil)
+    dynFil=dynFil,
+    mSenFac=mSenFac)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 

@@ -8,10 +8,10 @@ model MultipleBoreHoles2UTube
 
   BaseClasses.BoreHoles.BaseClasses.InternalHEX2UTube intHEX(
     redeclare final package Medium = Medium,
-    final m1_flow_nominal=bfData.gen.m_flow_nominal_bh/2,
-    final m2_flow_nominal=bfData.gen.m_flow_nominal_bh/2,
-    final m3_flow_nominal=bfData.gen.m_flow_nominal_bh/2,
-    final m4_flow_nominal=bfData.gen.m_flow_nominal_bh/2,
+    final m1_flow_nominal=bfData.m_flow_nominal/2,
+    final m2_flow_nominal=bfData.m_flow_nominal/2,
+    final m3_flow_nominal=bfData.m_flow_nominal/2,
+    final m4_flow_nominal=bfData.m_flow_nominal/2,
     final from_dp1=from_dp,
     final from_dp2=from_dp,
     final from_dp3=from_dp,
@@ -37,13 +37,14 @@ model MultipleBoreHoles2UTube
     final allowFlowReversal4=bfData.gen.allowFlowReversal,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
-    final dp1_nominal=1,
-    final dp2_nominal=1,
-    final dp3_nominal=1,
-    final dp4_nominal=1,
+    final dp1_nominal=dp_nominal,
+    final dp2_nominal=0,
+    final dp3_nominal=dp_nominal,
+    final dp4_nominal=0,
     final T_start = T_start,
     final scaSeg=bfData.gen.nbBh*bfData.gen.nVer,
-    dynFil=dynFil)
+    dynFil=dynFil,
+    mSenFac=mSenFac)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(
         extent={{-12,13},{12,-13}},

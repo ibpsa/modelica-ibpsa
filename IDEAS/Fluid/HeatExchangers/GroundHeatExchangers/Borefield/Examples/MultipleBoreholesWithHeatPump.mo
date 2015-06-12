@@ -17,7 +17,8 @@ model MultipleBoreholesWithHeatPump
   MultipleBoreHolesUTube multipleBoreholes(
     lenSim=lenSim,
     bfData=bfData,
-    redeclare package Medium = Medium) "borefield"
+    redeclare package Medium = Medium,
+    dp_nominal=1000) "borefield"
     annotation (Placement(transformation(extent={{12,-78},{-28,-38}})));
 
   Movers.Pump                           pum(

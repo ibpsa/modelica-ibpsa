@@ -23,7 +23,8 @@ model SingleBoreHoleUTube "Single U-tube borehole heat exchanger"
     each final X_start=X_start,
     each final C_start=C_start,
     each final C_nominal=C_nominal,
-    dynFil=dynFil) "Discretized borehole segments"
+    dynFil=dynFil,
+    mSenFac=mSenFac) "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-18,-10},{2,10}})));
   Modelica.SIunits.Temperature TDown[gen.nVer] "Medium temperature in pipe 1";
   Modelica.SIunits.Temperature TUp[gen.nVer] "Medium temperature in pipe 2";

@@ -44,7 +44,8 @@ model SingleBoreHole2UTube "Single 2U-tube borehole heat exchanger"
          else gen.m_flow_small,
     each final m4_flow_small=if gen.parallel2UTube then gen.m_flow_small/2
          else gen.m_flow_small,
-    dynFil=dynFil) "Discretized borehole segments"
+    dynFil=dynFil,
+    mSenFac=mSenFac) "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-18,-30},{2,10}})));
 
   Modelica.SIunits.Temperature TDown[gen.nVer] "Medium temperature in pipe 1";
