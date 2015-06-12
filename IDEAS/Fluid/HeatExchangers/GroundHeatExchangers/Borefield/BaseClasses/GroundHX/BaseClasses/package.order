@@ -1,8 +1,8 @@
+q_gamma
+p_gamma
 erf
 ierf
-integrandBf_bt
 integrandBh_rt
-p_gamma
+integrandBf_bt
 partialBoreFieldTemperature
-q_gamma
 Examples

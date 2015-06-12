@@ -1,7 +1,6 @@
 ﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
-model MultipleBoreHoles
+partial model partial_multipleBoreHoles
   "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
-  import Buildings;
 
   // Medium in borefield
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
@@ -34,9 +33,6 @@ model MultipleBoreHoles
   Modelica.Blocks.Sources.RealExpression TWall_val(y=TWall)
     "Average borehole wall temperature"
     annotation (Placement(transformation(extent={{-80,-54},{-58,-34}})));
-
-  Modelica.SIunits.Power Q_flow
-    "Thermal power extracted or injected in the borefield";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TWallBou
     "Borehole wall temperature"
@@ -72,45 +68,9 @@ protected
   Modelica.SIunits.Time startTime "Start time of the simulation";
 
 public
-  BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX
-                                     intHEX(
-    redeclare final package Medium = Medium,
-    final dp1_nominal=dp_nominal,
-    final dp2_nominal=0,
-    final from_dp1=from_dp,
-    final from_dp2=from_dp,
-    final linearizeFlowResistance1=linearizeFlowResistance,
-    final linearizeFlowResistance2=linearizeFlowResistance,
-    final deltaM1=deltaM,
-    final deltaM2=deltaM,
-    final m1_flow_small=bfData.gen.m_flow_small,
-    final m2_flow_small=bfData.gen.m_flow_small,
-    final soi=bfData.soi,
-    final fil=bfData.fil,
-    final gen=bfData.gen,
-    final allowFlowReversal1=bfData.gen.allowFlowReversal,
-    final allowFlowReversal2=bfData.gen.allowFlowReversal,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final p1_start=p_start,
-    final X1_start=X_start,
-    final C1_start=C_start,
-    final C1_nominal=C_nominal,
-    final p2_start=p_start,
-    final X2_start=X_start,
-    final C2_start=C_start,
-    final C2_nominal=C_nominal,
-    final scaSeg=bfData.gen.nbBh*bfData.gen.nVer,
-    final T1_start=T_start,
-    final T2_start=T_start,
-    final TFil_start=T_start,
-    mSenFac=mSenFac,
-    final m1_flow_nominal=bfData.m_flow_nominal,
-    final m2_flow_nominal=bfData.m_flow_nominal)
-    "Internal part of the borehole including the pipes and the filling material"
-    annotation (Placement(transformation(extent={{-12,13},{12,-13}},
-        rotation=270,
-        origin={3,-10})));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
+    "Thermal power extracted or injected in the borefield"
+    annotation (Placement(transformation(extent={{100,42},{120,62}})));
 initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same length as the number of aggregated pulse and cover lenSim
   U := 0;
@@ -131,8 +91,6 @@ initial algorithm
 
 equation
   assert(time < lenSim, "The chosen value for lenSim is too small. It cannot cover the whole simulation time!");
-
-  Q_flow = port_a.m_flow*(actualStream(port_a.h_outflow) - actualStream(port_b.h_outflow));
 
   der(U) = Q_flow
     "Integration of load to calculate below the average load/(discrete time step)";
@@ -170,26 +128,7 @@ equation
       points={{-56.9,-44},{-46,-44}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TWallBou.port, intHEX.port) annotation (Line(
-      points={{-24,-44},{-20,-44},{-20,-12},{-10,-12},{-10,-11.1818},{-8.81818,
-          -11.1818}},
-      color={191,0,0},
-      smooth=Smooth.None));
 
-  connect(intHEX.port_b1, intHEX.port_a2) annotation (Line(
-      points={{-4.09091,-23.1818},{-4.09091,-30},{10.0909,-30},{10.0909,
-          -23.1818}},
-      color={0,127,255},
-      smooth=Smooth.None));
-
-  connect(port_a, intHEX.port_a1) annotation (Line(
-      points={{-100,0},{-52,0},{-52,0.818182},{-4.09091,0.818182}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(port_b, intHEX.port_b2) annotation (Line(
-      points={{100,0},{54,0},{54,2},{10.0909,2},{10.0909,0.818182}},
-      color={0,127,255},
-      smooth=Smooth.None));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,
@@ -260,9 +199,8 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics),
                     Documentation(info="<html>
   <p>The proposed model is a so-called hybrid step-response
 model (HSRM). This type of model uses the
@@ -290,7 +228,7 @@ abrut temperature changes, the aggregation method is used to calculate the avera
 temperature instead of the average fluid temperature. The calculated borehole wall temperature is then
 connected to the dynamic model of the borehole heat exchanger.</p>
 <p>More detailed documentation can be found in 
-<a href=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
+<a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
 and in 
 <a href=\"modelica://IDEAS.Fluid.HeatExchangers.Borefield.UsersGuide\">IDEAS.Fluid.HeatExchangers.Borefield.UsersGuide</a>.
 </p>
@@ -307,4 +245,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end MultipleBoreHoles;
+end partial_multipleBoreHoles;

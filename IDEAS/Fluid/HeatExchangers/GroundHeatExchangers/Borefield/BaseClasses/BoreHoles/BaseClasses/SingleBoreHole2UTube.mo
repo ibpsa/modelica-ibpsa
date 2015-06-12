@@ -1,33 +1,58 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses;
-model SingleBoreHole "Single U-tube borehole heat exchanger"
+model SingleBoreHole2UTube "Single 2U-tube borehole heat exchanger"
 
-  extends Interface.PartialSingleBoreHole(final m_flow_nominal = gen.m_flow_nominal_bh,final T_start=gen.T_start,final dp_nominal=gen.dp_nominal);
+  extends Interface.PartialSingleBoreHole(
+    m_flow_nominal=gen.m_flow_nominal_bh,
+    T_start=gen.T_start,
+    dp_nominal=gen.dp_nominal);
 
-  BaseClasses.BoreHoleSegmentFourPort borHolSeg[gen.nVer](
-    redeclare each package Medium =  Medium,
-    each final   soi=soi,
-    each final   fil=fil,
-    each final   gen=gen,
-    final dp_nominal={if i == 1 then gen.dp_nominal else 0 for i in 1:gen.nVer},
-    TExt_start=gen.TExt_start,
-    TFil_start=gen.TExt_start,
-    each final   show_T=show_T,
-    each final   computeFlowResistance=computeFlowResistance,
-    each final   from_dp=from_dp,
-    each final   linearizeFlowResistance=linearizeFlowResistance,
-    each final   deltaM=deltaM,
-    each final   energyDynamics=energyDynamics,
-    each final   massDynamics=massDynamics,
-    each final   p_start=p_start,
-    each T_start=gen.T_start,
-    each X_start=X_start,
-    each C_start=C_start,
-    each C_nominal=C_nominal) "Discretized borehole segments"
-    annotation (Placement(transformation(extent={{-18,-10},{2,10}})));
+  BoreHoleSegmentHeightPort borHolSeg[gen.nVer](
+    redeclare each final package Medium = Medium,
+    each final soi=soi,
+    each final fil=fil,
+    each final gen=gen,
+    final dp_nominal={if i == 1 and gen.parallel2UTube then gen.dp_nominal
+         elseif i == 1 and not gen.parallel2UTube then gen.dp_nominal/2 else 0
+        for i in 1:gen.nVer},
+    each final TExt_start=T_start,
+    each final TFil_start=T_start,
+    each final show_T=show_T,
+    each final computeFlowResistance=computeFlowResistance,
+    each final from_dp=from_dp,
+    each final linearizeFlowResistance=linearizeFlowResistance,
+    each final deltaM=deltaM,
+    each final energyDynamics=energyDynamics,
+    each final massDynamics=massDynamics,
+    each final p_start=p_start,
+    each final T_start=T_start,
+    each final X_start=X_start,
+    each final C_start=C_start,
+    each final C_nominal=C_nominal,
+    each final m1_flow_nominal=if gen.parallel2UTube then m_flow_nominal/2
+         else m_flow_nominal,
+    each final m2_flow_nominal=if gen.parallel2UTube then m_flow_nominal/2
+         else m_flow_nominal,
+    each final m3_flow_nominal=if gen.parallel2UTube then m_flow_nominal/2
+         else m_flow_nominal,
+    each final m4_flow_nominal=if gen.parallel2UTube then m_flow_nominal/2
+         else m_flow_nominal,
+    each final m1_flow_small=if gen.parallel2UTube then gen.m_flow_small/2
+         else gen.m_flow_small,
+    each final m2_flow_small=if gen.parallel2UTube then gen.m_flow_small/2
+         else gen.m_flow_small,
+    each final m3_flow_small=if gen.parallel2UTube then gen.m_flow_small/2
+         else gen.m_flow_small,
+    each final m4_flow_small=if gen.parallel2UTube then gen.m_flow_small/2
+         else gen.m_flow_small,
+    dynFil=dynFil) "Discretized borehole segments"
+    annotation (Placement(transformation(extent={{-18,-30},{2,10}})));
 
   Modelica.SIunits.Temperature TDown[gen.nVer] "Medium temperature in pipe 1";
   Modelica.SIunits.Temperature TUp[gen.nVer] "Medium temperature in pipe 2";
 
+  parameter Boolean dynFil=true
+    "Set to false to remove the dynamics of the filling material."
+    annotation (Dialog(tab="Dynamics"));
 equation
   TWallAve = sum(borHolSeg[:].intHEX.port.T)/gen.nVer;
 
@@ -37,26 +62,65 @@ equation
       points={{-100,5.55112e-016},{-60,5.55112e-016},{-60,6},{-18,6}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_b, borHolSeg[1].port_b2) annotation (Line(
-      points={{100,5.55112e-016},{20,5.55112e-016},{20,-40},{-40,-40},{-40,-6},
-          {-18,-6}},
+  connect(port_b, borHolSeg[1].port_b4) annotation (Line(
+      points={{100,5.55112e-016},{20,5.55112e-016},{20,-40},{-40,-40},{-40,-27},
+          {-18,-27}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(borHolSeg[gen.nVer].port_b1, borHolSeg[gen.nVer].port_a2) annotation (
-     Line(
-      points={{5.55112e-16,6},{10,6},{10,-6},{5.55112e-16,-6}},
-      color={0,127,255},
-      smooth=Smooth.None));
+  if gen.parallel2UTube then
+    connect(port_a, borHolSeg[1].port_a3) annotation (Line(
+        points={{-100,5.55112e-016},{-60,5.55112e-016},{-60,-16.4},{-18,-16.4}},
+        color={0,127,255},
+        smooth=Smooth.None));
+
+    connect(port_b, borHolSeg[gen.nVer].port_b2) annotation (Line(
+        points={{100,5.55112e-016},{20,5.55112e-016},{20,-40},{-40,-40},{-40,-4},
+            {-18,-4}},
+        color={0,127,255},
+        smooth=Smooth.None));
+  else
+    connect(borHolSeg[1].port_b2, borHolSeg[1].port_a3) annotation (Line(
+        points={{-18,-4},{-32,-4},{-32,-16},{-26,-16},{-26,-16.4},{-18,-16.4}},
+        color={0,127,255},
+        smooth=Smooth.None));
+
+    connect(borHolSeg[gen.nVer].port_a3, borHolSeg[gen.nVer].port_b2)
+      annotation (Line(
+        points={{100,5.55112e-016},{20,5.55112e-016},{20,-40},{-40,-40},{-40,-4},
+            {-18,-4}},
+        color={0,127,255},
+        smooth=Smooth.None));
+  end if;
+
   for i in 1:gen.nVer - 1 loop
     connect(borHolSeg[i].port_b1, borHolSeg[i + 1].port_a1) annotation (Line(
-        points={{2,6},{2,20},{-18,20},{-18,6}},
+        points={{2,6},{2,10},{-18,10},{-18,6}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(borHolSeg[i].port_a2, borHolSeg[i + 1].port_b2) annotation (Line(
-        points={{2,-6},{2,-20},{-18,-20},{-18,-6}},
+        points={{2,-4},{2,0},{-18,0},{-18,-4}},
+        color={0,127,255},
+        smooth=Smooth.None));
+    connect(borHolSeg[i].port_b3, borHolSeg[i + 1].port_a3) annotation (Line(
+        points={{2,-16.2},{2,-12},{-18,-12},{-18,-16.4}},
+        color={0,127,255},
+        smooth=Smooth.None));
+    connect(borHolSeg[i].port_a4, borHolSeg[i + 1].port_b4) annotation (Line(
+        points={{2,-26},{2,-22},{-18,-22},{-18,-27}},
         color={0,127,255},
         smooth=Smooth.None));
   end for;
+  connect(borHolSeg[gen.nVer].port_b1, borHolSeg[gen.nVer].port_a2) annotation (
+     Line(
+      points={{2,6},{8,6},{8,-4},{2,-4}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(borHolSeg[gen.nVer].port_b3, borHolSeg[gen.nVer].port_a4) annotation (
+     Line(
+      points={{2,-16.2},{6,-16.2},{6,-16},{10,-16},{10,-26},{2,-26}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
   annotation (
     Dialog(group="Borehole"),
     Dialog(group="Borehole"),
@@ -119,7 +183,7 @@ equation
         initialScale=0.5), graphics={Text(
           extent={{60,72},{84,58}},
           lineColor={0,0,255},
-          textString=""),Text(
+          textString=""), Text(
           extent={{50,-32},{90,-38}},
           lineColor={0,0,255},
           textString="")}),
@@ -128,7 +192,7 @@ equation
 Model of a single U-tube borehole heat exchanger. 
 The borehole heat exchanger is vertically discretized into <i>n<sub>seg</sub></i>
 elements of height <i>h=h<sub>Bor</sub>&frasl;n<sub>seg</sub></i>.
-Each segment contains a model for the heat transfer in the borehole, 
+each final segment contains a model for the heat transfer in the borehole, 
 for heat transfer in the soil and for the far-field boundary condition.
 </p>
 <p>
@@ -144,7 +208,7 @@ The heat transfer in the soil is computed using transient heat conduction in cyl
 coordinates for the spatial domain <i>r<sub>bor</sub> &le; r &le; r<sub>ext</sub></i>. 
 In the radial direction, the spatial domain is discretized into 
 <i>n<sub>hor</sub></i> segments with uniform material properties.
-Thermal properties can be specified separately for each horizontal layer.
+Thermal properties can be specified separately for each final horizontal layer.
 The vertical heat flow is assumed to be zero, and there is assumed to be 
 no ground water flow. 
 </p>
@@ -156,7 +220,7 @@ temperature response of the borehole.
 
 <h4>Implementation</h4>
 <p>
-Each horizontal layer is modeled using an instance of
+each final horizontal layer is modeled using an instance of
 <a href=\"modelica://IDEAS.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.BoreHoleSegmentFourPort\">
 IDEAS.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.BoreHoleSegmentFourPort</a>.
 This model is composed of the model
@@ -176,4 +240,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SingleBoreHole;
+end SingleBoreHole2UTube;

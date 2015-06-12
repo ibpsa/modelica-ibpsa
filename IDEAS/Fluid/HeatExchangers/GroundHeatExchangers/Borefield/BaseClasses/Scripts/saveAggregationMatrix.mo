@@ -39,6 +39,7 @@ protected
   Real[1,1] mat;
 algorithm
   // --------------- Generate SHA-code and path
+
   sha := shaBorefieldRecords(
     soiPath=Modelica.Utilities.Strings.replace(
       soi.pathCom,

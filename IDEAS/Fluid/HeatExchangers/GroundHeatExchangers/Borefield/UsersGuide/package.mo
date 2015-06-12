@@ -2,6 +2,7 @@
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
+
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
@@ -50,7 +51,7 @@ is used to define the number and size and the aggregation cells.
 <h4>Model description</h4>
 <p>A detailed description of the model can be
 found in
-<a href=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
+<a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
 Below, the model is briefly described.
 </p>
 <p>
@@ -98,18 +99,18 @@ to simplify the calculation, Javed and Claesson
 obtain the following compact expression for the mean
 borehole wall temperature:
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/analyticalSolution.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/analyticalSolution.png\" />
 </p>
 
 where q<sub>0</sub> is the heat flux per meter length, lambda is the
 ground heat conductivity, alpha is the ground heat diffusivity, N is the number of boreholes and H
 is the depth of the borefield. I<sub>ls</sub> and r<sub>i</sub> are defined by the following equations:
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/analyticalSolution2.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/analyticalSolution2.png\" />
 </p>
 with erf the error function.
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/analyticalSolution3.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/analyticalSolution3.png\" />
 </p>
 where r<sub>b</sub> is the borehole radius and (x<sub>i</sub>,y<sub>i</sub>) are the spatial
 coordinates of the center of each borehole from an arbitrary
@@ -132,7 +133,7 @@ borehole model is used.
 <p>
 The model is composed of a resistance-capacitive network as shown by the following figure:
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/RC-model.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/RC-model.png\" />
 </p>
 
 The different thermal resistances present in a single-U-tube borehole are calculated using the method of Bauer et al. (2010). 
@@ -156,7 +157,7 @@ as well as serial connection of boreholes but these features are not yet impleme
 
 <h5>Aggregation method</h5>
 <p> The following paragraphs briefly explain the aggregation method of Claessons and Javed (2012). More details can be found in 
-<a href=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>
+<a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>
 or in Claessons and Javed (2012).
 </p>
 <p>
@@ -165,7 +166,7 @@ Assume that the discrete load input to the borefield
 is <i>Q</i> and the HCF temperature is <i>T<sub>f</sub></i> . <i>Q</i> and <i>T<sub>f</sub></i> can be
 written as:
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/discreteLoad.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/discreteLoad.png\" />
 </p>
 with <i>v<sub>max</sub></i> >= <i>n</i>, <i>h</i> the discrete time-step, <i>Q</i> the discrete
 load and <i>T<sub>f,step</sub></i> the response function from HSRM with
@@ -202,12 +203,12 @@ and each cell of a same level contains the same amount
 of load pulses <i>R<sub>q</sub></i>. The following figure illustrates the concept grafically.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/aggregationCells.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/aggregationCells.png\" />
 </p>
 After several manipulations, the wall temperature can be written as followed:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/wallTemperature.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/wallTemperature.png\" />
 </p>
 with
 <span style=\"text-decoration: overline\">Q</span><sub>v(p,q)</sub> the average load in the aggregation cell <i>(p,q)</i>, 
@@ -218,7 +219,7 @@ temperature differences gives the temperature at time <i>nh</i>.
 
 Finally, the aggregated load has to be updated at each time step <i>n</i>. This is done as described by the following equation:
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/loadAggregation.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/loadAggregation.png\" />
 </p>
 with <span style=\"text-decoration: overline\">Q</span><sub>v(p,q)</sub><sup>(n)</sup> the average load in the aggregation cell <i>(p,q)</i> 
 at time <i>nh</i> and <i>r<sub>q</sub></i> the cell width at the <i>q</i> aggregation level.
@@ -227,7 +228,7 @@ at time <i>nh</i> and <i>r<sub>q</sub></i> the cell width at the <i>q</i> aggreg
 <h4>References</h4>
 <p>
 D. Picard, L. Helsen.
-<i> <a href=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">
+<i> <a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">
 Advanced Hybrid Model for Borefield Heat Exchanger
 Performance Evaluation, an Implementation in Modelica</a></i>
 Proc. of the 10th International ModelicaConference, p. 857-866. Lund, Sweden. March 2014.

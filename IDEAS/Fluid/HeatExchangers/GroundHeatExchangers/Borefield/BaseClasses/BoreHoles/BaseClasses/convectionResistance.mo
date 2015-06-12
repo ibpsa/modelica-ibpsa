@@ -1,7 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses;
 function convectionResistance
   "Thermal resistance from the fluid in pipes and the grout zones (Bauer et al. 2011)"
-  import Buildings;
 
   // Geometry of the borehole
   input Modelica.SIunits.Height hSeg "Height of the element";

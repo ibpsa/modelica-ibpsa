@@ -1,7 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Examples;
 model borefield8x8WithVariableLoad
   "Model of a borefield in a 8x8 boreholes with variable load."
-  import Buildings;
 
   extends Modelica.Icons.Example;
 
@@ -12,7 +11,7 @@ model borefield8x8WithVariableLoad
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   parameter Integer lenSim=3600*24*366 "length of the simulation";
 
-  MultipleBoreHoles multipleBoreholes(
+  MultipleBoreHolesUTube multipleBoreholes(
     lenSim=lenSim,
     redeclare package Medium = Medium,
     bfData=bfData) "borefield"

@@ -14,7 +14,9 @@ model MultipleBoreholesWithHeatPump
     annotation (Placement(transformation(extent={{74,74},{94,94}})));
   parameter Integer lenSim=3600*24*20 "length of the simulation";
 
-  MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData,
+  MultipleBoreHolesUTube multipleBoreholes(
+    lenSim=lenSim,
+    bfData=bfData,
     redeclare package Medium = Medium) "borefield"
     annotation (Placement(transformation(extent={{12,-78},{-28,-38}})));
 

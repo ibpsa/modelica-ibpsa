@@ -10,9 +10,14 @@ record General "General parameters of the borefield"
       "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/Records/General.mo")
     "Computer record path";
 
+  parameter Boolean singleUTube = true
+    "True if use single U-tube, false if use double U-tube";
+  parameter Boolean parallel2UTube = true
+    "True if the double u-tube is connected in parallel in each borehole.";
+
   parameter Boolean use_Rb = false
     "True if the value borehole thermal resistance Rb should be given and used";
-  parameter Real Rb(unit="(m.K)/W") = 0
+  parameter Real Rb(unit="(m.K)/W") = 0.14
     "Borehole thermal resistance Rb. Only to fill in if known";
 
   parameter SI.Temperature T_start=283.15
@@ -40,7 +45,7 @@ record General "General parameters of the borefield"
     annotation (Dialog(group="Borehole"));
 
   // -- Tube
-  parameter SI.Radius rTub=0.02 "Radius of the tubes"
+  parameter SI.Radius rTub=0.02 "Outer radius of the tubes"
     annotation (Dialog(group="Tubes"));
   parameter SI.ThermalConductivity kTub=0.5 "Thermal conductivity of the tube"
     annotation (Dialog(group="Tubes"));
@@ -52,7 +57,7 @@ record General "General parameters of the borefield"
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole"
     annotation (Dialog(group="Tubes"));
 
-  //------------------------- Step response parameters -----------------------------------------------------------------------------------------------------------------------------
+  //------------------------- Step reponse parameters -----------------------------------------------------------------------------------------------------------------------------
   parameter SI.Time tStep=3600 "Time resolution of the step-response [s]";
   final parameter Integer tSteSta_d=integer(3600*24*365*30/tStep)
     "Discrete time to reach steady state [-] (default = 30 years)";

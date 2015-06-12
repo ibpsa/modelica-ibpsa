@@ -1,27 +1,29 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples;
-model SingleBoreHoleSerStepLoadScriptTest
+model SingleBoreHoleUTubeSerStepLoadScript
   "SingleBoreHoleSer with step input load "
-  import Buildings;
   extends Modelica.Icons.Example;
 
-  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-  Modelica.SIunits.Temperature T_measured = 3.307*log(time+1)-6.2715+273.15;
+  package Medium = IDEAS.Media.Water.Simple;
 
-  parameter Data.SoilData.SoilTrt   soi
+  replaceable parameter Data.SoilData.WetSand_validation
+                                    soi
      annotation (Placement(transformation(extent={{14,-46},{24,-36}})));
-  parameter Data.FillingData.FillingTrt fil
+  replaceable parameter Data.FillingData.Bentonite_validation
+                                        fil
     "Thermal properties of the filling material"
      annotation (Placement(transformation(extent={{30,-46},{40,-36}})));
-  parameter Data.GeneralData.GeneralTrt              gen
+  replaceable parameter Data.GeneralData.SandBox_validation
+                                                     gen
     "General charachteristic of the borehole"
     annotation (Placement(transformation(extent={{46,-46},{56,-36}})));
 
-  BoreHoles.SingleBoreHolesInSerie borHolSer(
+  replaceable SingleBoreHolesUTubeInSerie borHolSer(
     redeclare each package Medium = Medium,
     soi=soi,
     fil=fil,
-    gen=gen) "Borehole heat exchanger" annotation (Placement(
-        transformation(extent={{-12,-20},{12,4}},   rotation=0)));
+    gen=gen) "Borehole heat exchanger"
+                              annotation (Placement(transformation(extent={{-12,
+            -20},{12,4}}, rotation=0)));
 
   IDEAS.Fluid.Sources.Boundary_ph sin(redeclare package Medium =
         Medium, nPorts=1) "Sink"
@@ -59,10 +61,15 @@ model SingleBoreHoleSerStepLoadScriptTest
     redeclare package Medium = Medium,
     m_flow_nominal=gen.m_flow_nominal_bh,
     dynamicBalance=false,
-    T_start=gen.T_start)
+    T_start=gen.T_start,
+    motorCooledByFluid=false,
+    addPowerToMedium=false,
+    filteredSpeed=false)
     annotation (Placement(transformation(extent={{-26,44},{-46,24}})));
   Modelica.Blocks.Sources.Constant mFlo(k=gen.m_flow_nominal_bh)
     annotation (Placement(transformation(extent={{-62,6},{-50,18}})));
+
+  Real Rb_sim = ((TSen_bor_out.T + TSen_bor_in.T)/2 - borHolSer.TWallAve)/gen.q_ste;
 equation
   connect(hea.port_a, sin.ports[1]) annotation (Line(
       points={{30,30},{66,30},{66,4},{34,4}},
@@ -98,7 +105,7 @@ equation
       smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/Examples/UTube.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/Examples/UTube.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
@@ -114,10 +121,10 @@ equation
 </ul>
 </html>"),
     experiment(
-      StopTime=3.1536e+007,
+      StopTime=360000,
       Tolerance=1e-005,
       __Dymola_Algorithm="Dassl"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
         graphics));
-end SingleBoreHoleSerStepLoadScriptTest;
+end SingleBoreHoleUTubeSerStepLoadScript;

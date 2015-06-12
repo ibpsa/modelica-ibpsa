@@ -24,7 +24,8 @@ function ShortTimeResponseHX
     "Matrix with the time and the Short-term temperature vectors";
 
 protected
-  final parameter String modelToSimulate="IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleSerStepLoadScript"
+  final parameter String modelToSimulate= if gen.singleUTube then "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHoleUTubeSerStepLoadScript"
+ else "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples.SingleBoreHole2UTubeSerStepLoadScript"
     "model to simulate";
 
   String[1] varToStore={"borHolSer.TWallAve"}

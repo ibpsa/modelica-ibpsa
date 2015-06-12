@@ -1,27 +1,36 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples;
-model SingleBoreHoleSerStepLoad "SingleBoreHoleSer with step input load "
-  import Buildings;
+model SingleBoreHoleUTubeSerStepLoad "SingleBoreHoleSer with step input load "
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  redeclare replaceable parameter Data.Records.Soil soi=
-      Data.SoilData.SandStone()
+  replaceable parameter Data.SoilData.WetSand_validation
+                                          soi constrainedby Data.Records.Soil
     annotation (Placement(transformation(extent={{14,-76},{24,-66}})));
-  redeclare replaceable parameter Data.Records.Filling fil=
-      Data.FillingData.Bentonite() "Thermal properties of the filling material"
+  replaceable parameter Data.FillingData.Bentonite_validation
+                                             fil constrainedby
+    Data.Records.Filling "Thermal properties of the filling material"
     annotation (Placement(transformation(extent={{30,-76},{40,-66}})));
-  redeclare replaceable parameter Data.Records.General gen=
-      Data.GeneralData.c8x1_h110_b5_d3600_T283()
-    "General charachteristic of the borefield"
+  replaceable parameter Data.GeneralData.SandBox_validation
+                                             gen constrainedby
+    Data.Records.General "General charachteristic of the borefield"
     annotation (Placement(transformation(extent={{46,-76},{56,-66}})));
 
-  SingleBoreHolesInSerie borHolSer(
-    redeclare each package Medium = Medium,
+  redeclare replaceable SingleBoreHolesUTubeInSerie borHolSer(
+    redeclare package Medium = Medium,
     soi=soi,
     fil=fil,
-    gen=gen) "Borehole heat exchanger" annotation (Placement(
-        transformation(extent={{-12,-58},{12,-34}}, rotation=0)));
+    gen=gen) "Borehole heat exchanger" annotation (Placement(transformation(
+          extent={{-12,-58},{12,-34}}, rotation=0)));
+
+    //       ,
+    // redeclare replaceable
+    //   IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.SingleBoreHoleUTube
+    //   borHol) constrainedby SingleBoreHolesUTubeInSerie(
+    // redeclare package Medium = Medium,
+    // soi=soi,
+    // fil=fil,
+    // gen=gen)
 
   IDEAS.Fluid.Sources.Boundary_ph sin(redeclare package Medium =
         Medium, nPorts=1) "Sink"
@@ -48,7 +57,10 @@ model SingleBoreHoleSerStepLoad "SingleBoreHoleSer with step input load "
     redeclare package Medium = Medium,
     m_flow_nominal=gen.m_flow_nominal_bh,
     dynamicBalance=false,
-    T_start=gen.T_start)
+    T_start=gen.T_start,
+    motorCooledByFluid=false,
+    addPowerToMedium=false,
+    filteredSpeed=false)
     annotation (Placement(transformation(extent={{-14,10},{-34,-10}})));
   Sensors.TemperatureTwoPort             TSen_bor_in(
     redeclare package Medium = Medium,
@@ -62,7 +74,12 @@ model SingleBoreHoleSerStepLoad "SingleBoreHoleSer with step input load "
     m_flow_nominal=gen.m_flow_nominal_bh,
     T_start=gen.T_start) "Temperature at the outlet of the borefield"
     annotation (Placement(transformation(extent={{34,-54},{50,-38}})));
+
+    Real Rb_sim;
+    Real Q;
 equation
+    Q = max(TSen_bor_in.port_a.m_flow*4180*(TSen_bor_in.T-TSen_bor_out.T),1);
+    Rb_sim = (TSen_bor_in.T+TSen_bor_out.T - 2*borHolSer.borHol[1].borHolSeg[1].intHEX.port.T)/2/(Q/gen.hSeg);
   connect(pum.port_a, hea.port_b) annotation (Line(
       points={{-14,0},{6,0}},
       color={0,127,255},
@@ -97,7 +114,7 @@ equation
       smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/Examples/UTube.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/Examples/UTube.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
@@ -113,10 +130,10 @@ equation
 </ul>
 </html>"),
     experiment(
-      StopTime=3.1536e+007,
+      StopTime=360000,
       Tolerance=1e-005,
       __Dymola_Algorithm="Dassl"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
         graphics));
-end SingleBoreHoleSerStepLoad;
+end SingleBoreHoleUTubeSerStepLoad;

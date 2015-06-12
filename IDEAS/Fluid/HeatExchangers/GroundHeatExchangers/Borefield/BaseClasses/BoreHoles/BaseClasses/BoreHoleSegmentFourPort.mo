@@ -1,7 +1,9 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses;
 model BoreHoleSegmentFourPort "Vertical segment of a borehole"
-  import Buildings;
   extends Interface.PartialBoreHoleElement;
+
+  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends IDEAS.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -11,20 +13,15 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
     final m2_flow_small=gen.m_flow_small,
     final allowFlowReversal1=gen.allowFlowReversal,
     final allowFlowReversal2=gen.allowFlowReversal);
-  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters;
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=gen.TFil0_start);
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-                              annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Temperature TExt_start=gen.TExt0_start
+  parameter Modelica.SIunits.Temperature TExt_start=T_start
     "Initial far field temperature"
     annotation (Dialog(tab="Boundary conditions",group="T_start: ground"));
-  parameter Modelica.SIunits.Temperature TFil_start=gen.TFil0_start
+  parameter Modelica.SIunits.Temperature TFil_start=T_start
     "Initial far field temperature"
     annotation (Dialog(tab="Boundary conditions",group="T_start: ground"));
 
-  replaceable SingleUTubeInternalHEX intHEX(
+  InternalHEXUTube intHEX(
     redeclare final package Medium = Medium,
     final m1_flow_nominal=gen.m_flow_nominal_bh,
     final m2_flow_nominal=gen.m_flow_nominal_bh,
@@ -46,15 +43,17 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p1_start=p_start,
-    T1_start=gen.TFil0_start,
-    X1_start=X_start,
-    C1_start=C_start,
-    C1_nominal=C_nominal,
+    final T1_start=T_start,
+    final X1_start=X_start,
+    final C1_start=C_start,
+    final C1_nominal=C_nominal,
     final p2_start=p_start,
-    T2_start=gen.TFil0_start,
-    X2_start=X_start,
-    C2_start=C_start,
-    C2_nominal=C_nominal) constrainedby Interface.PartialBoreHoleInternalHEX
+    final T2_start=T_start,
+    final X2_start=X_start,
+    final C2_start=C_start,
+    final C2_nominal=C_nominal,
+    final T_start=T_start,
+    dynFil=dynFil)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
@@ -80,6 +79,9 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
+public
+  parameter Boolean dynFil=true
+    "Set to false to remove the dynamics of the filling material." annotation (Dialog(tab="Dynamics"));
 equation
   connect(intHEX.port_b1, port_b1) annotation (Line(
       points={{-50,6.36364},{-40,6.36364},{-40,60},{100,60}},

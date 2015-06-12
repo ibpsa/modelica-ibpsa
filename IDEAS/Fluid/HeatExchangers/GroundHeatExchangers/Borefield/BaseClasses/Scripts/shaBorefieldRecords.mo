@@ -1,7 +1,6 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts;
 function shaBorefieldRecords
   "Return a pseudo sha code of the combination of the record soi, fil and gen of the borefield"
-  import Buildings;
   extends Modelica.Icons.Function;
     input String soiPath "Computer path of the soil record";
     input String filPath "Computer path of the fil record";

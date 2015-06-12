@@ -1,14 +1,12 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses;
-model SingleUTubeInternalHEX
-  "Internal part of a borehole for a U-Tube configuration"
-  import Buildings;
+model InternalHEXUTube "Internal part of a borehole for a U-Tube configuration"
   extends Interface.PartialBoreHoleInternalHEX;
 
   extends IDEAS.Fluid.Interfaces.FourPortHeatMassExchanger(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
-    T1_start=TFil_start,
-    T2_start=TFil_start,
+    T1_start=T_start,
+    T2_start=T_start,
     final tau1=Modelica.Constants.pi*gen.rTub^2*gen.hSeg*rho1_nominal/
         m1_flow_nominal,
     final tau2=Modelica.Constants.pi*gen.rTub^2*gen.hSeg*rho2_nominal/
@@ -20,17 +18,15 @@ model SingleUTubeInternalHEX
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal1,
       final m_flow_small=m1_flow_small,
-      V=gen.volOneLegSeg*scaSeg,
-      mSenFac=mSenFac),
+      V=gen.volOneLegSeg*scaSeg),
     redeclare IDEAS.Fluid.MixingVolumes.MixingVolume vol2(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m2_flow_small,
-      V=gen.volOneLegSeg*scaSeg,
-      mSenFac=mSenFac));
+      V=gen.volOneLegSeg*scaSeg));
 
-  parameter Modelica.SIunits.Temperature TFil_start=gen.TFil0_start
+  parameter Modelica.SIunits.Temperature T_start
     "Initial temperature of the filling material"
     annotation (Dialog(group="Filling material"));
 
@@ -59,8 +55,8 @@ model SingleUTubeInternalHEX
         origin={20,2})));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(C=Co_fil/2*scaSeg, T(
-        start=TFil_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-        der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+        start=T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+        der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if dynFil
     "Heat capacity of the filling material"
                                          annotation (
       Placement(transformation(
@@ -69,26 +65,16 @@ model SingleUTubeInternalHEX
         origin={80,0})));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(C=Co_fil/2*scaSeg, T(
-        start=TFil_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
-        der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)))
+        start=T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
+        der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if   dynFil
     "Heat capacity of the filling material"                                                                                        annotation (
       Placement(transformation(
         extent={{-90,-36},{-70,-16}},
         rotation=0,
-        origin={80,6})));
+        origin={80,12})));
 
-  parameter Real scaSeg = 1
-    "scaling factor used by Borefield.MultipleBoreHoles to represent the whole borefield by one single segment"
-                                                                                                        annotation (Dialog(group="Advanced"));
 protected
-  final parameter Modelica.SIunits.SpecificHeatCapacity cpFil=fil.c
-    "Specific heat capacity of the filling material";
-  final parameter Modelica.SIunits.ThermalConductivity kFil=fil.k
-    "Thermal conductivity of the filling material";
-  final parameter Modelica.SIunits.Density dFil=fil.d
-    "Density of the filling material";
-
-  parameter Modelica.SIunits.HeatCapacity Co_fil=dFil*cpFil*gen.hSeg*Modelica.Constants.pi
+  parameter Modelica.SIunits.HeatCapacity Co_fil=fil.d*fil.c*gen.hSeg*Modelica.Constants.pi
       *(gen.rBor^2 - 2*(gen.rTub + gen.eTub)^2)
     "Heat capacity of the whole filling material";
 
@@ -138,10 +124,8 @@ public
     "Convective and thermal resistance at fluid 2"
      annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
 
-  parameter Real mSenFac=1
-    "Factor for scaling the thermal mass of the bore field fluid";
 initial equation
-  (Rgb_val, Rgg_val, RCondGro_val, x) =
+  (x, Rgb_val, Rgg_val, RCondGro_val) =
     singleUTubeResistances(hSeg=gen.hSeg,
     rBor=gen.rBor,
     rTub=gen.rTub,
@@ -151,7 +135,12 @@ initial equation
     kSoi=soi.k,
     kTub=gen.kTub,
     use_Rb=gen.use_Rb,
-    Rb=  gen.Rb);
+    Rb=  gen.Rb,
+    kMed=kMed,
+    mueMed=mueMed,
+    cpMed=cpMed,
+    m_flow_nominal=gen.m_flow_nominal_bh,
+    printDebug=true);
 
 equation
   connect(vol1.heatPort, RConv1.fluid) annotation (Line(
@@ -162,18 +151,16 @@ equation
       points={{-58,28},{-50,28}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(Rpg1.port_b, capFil1.port) annotation (Line(
-      points={{-26,28},{-20,28},{-20,36},{0,36}},
+  if dynFil then
+    connect(capFil1.port, Rgb1.port_a) annotation (Line(
+      points={{0,36},{0,38},{52,38}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(capFil1.port, Rgb1.port_a) annotation (Line(
-      points={{0,36},{26,36},{26,38},{52,38}},
+    connect(capFil2.port, Rgb2.port_a) annotation (Line(
+      points={{0,-24},{0,-28},{52,-28}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(capFil1.port, Rgg.port_a) annotation (Line(
-      points={{0,36},{20,36},{20,14}},
-      color={191,0,0},
-      smooth=Smooth.None));
+  end if;
   connect(Rgb1.port_b, port) annotation (Line(
       points={{76,38},{86,38},{86,100},{0,100}},
       color={191,0,0},
@@ -182,20 +169,8 @@ equation
       points={{-56,-28},{-48,-28}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(Rpg2.port_b, capFil2.port) annotation (Line(
-      points={{-24,-28},{-12,-28},{-12,-30},{0,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(RConv2.fluid, vol2.heatPort) annotation (Line(
       points={{-80,-28},{-86,-28},{-86,-46},{20,-46},{20,-60},{12,-60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(capFil2.port, Rgb2.port_a) annotation (Line(
-      points={{0,-30},{26,-30},{26,-28},{52,-28}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(Rgg.port_b, capFil2.port) annotation (Line(
-      points={{20,-10},{20,-30},{0,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(Rgb2.port_b, port) annotation (Line(
@@ -211,10 +186,25 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(Rpg1.port_b, Rgb1.port_a) annotation (Line(
+      points={{-26,28},{-16,28},{-16,38},{52,38}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(Rgg.port_a, Rgb1.port_a) annotation (Line(
+      points={{20,14},{20,38},{52,38}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(Rpg2.port_b, Rgb2.port_a) annotation (Line(
+      points={{-24,-28},{52,-28}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(Rgg.port_b, Rgb2.port_a) annotation (Line(
+      points={{20,-10},{20,-28},{52,-28}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -120},{100,100}}),
-                        graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,
+            100}}),     graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,
             100}}), graphics={Rectangle(
           extent={{88,54},{-88,64}},
@@ -237,7 +227,7 @@ and the heat storage within the fluid and the borehole filling.
 <p>
 This model computes the different thermal resistances present 
 in a single-U-tube borehole using the method of Bauer et al. (2011) 
-and computing explicitly the fluid-to-ground thermal resistance 
+and computing explicitely the fluid-to-ground thermal resistance 
 <i>R<sub>b</sub></i> and the 
 grout-to-grout resistance
 <i>R<sub>a</sub></i> as defined by Hellstroem (1991)
@@ -255,7 +245,7 @@ IDEAS.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance</a>.
 The figure below shows the thermal network set up by Bauer et al. (2010).
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Boreholes/BaseClasses/Bauer_singleUTube.png\"/>
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Boreholes/BaseClasses/Bauer_singleUTube.png\"/>
 </p>
 <h4>References</h4>
 <p>
@@ -299,4 +289,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics));
-end SingleUTubeInternalHEX;
+end InternalHEXUTube;
