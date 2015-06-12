@@ -35,7 +35,6 @@ model MultipleBoreholesWithHeatPump
   IDEAS.Fluid.Production.HP_WaterWater_OnOff heatPumpOnOff(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
-    allowFlowReversal=false,
     onOff=true,
     use_scaling=true,
     use_onOffSignal=true,

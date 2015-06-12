@@ -13,7 +13,7 @@ model TrtValidation "Validation based on thermal response test"
     mFlo(k=1225/3600),
     load(startTime=0),
     T_start=273.15+11.28,
-    redeclare replaceable MultipleBoreHoles2UTube multipleBoreholes(
+    redeclare replaceable MultipleBoreHoles2UTube borFie(
                       lenSim=350000, m_flow_nominal=1225/3600));
 
     Modelica.SIunits.Temperature T_measured = 3.307*log(time+1)-6.2715+273.15;
