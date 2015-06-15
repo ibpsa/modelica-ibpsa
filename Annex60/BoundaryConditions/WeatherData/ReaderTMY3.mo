@@ -33,8 +33,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     final unit="m",
     displayUnit="m") if (ceiHeiSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input ceiling height"
-    annotation (Placement(transformation(extent={{-242,24},{-202,64}}),
-        iconTransformation(extent={{-242,24},{-202,64}})));
+    annotation (Placement(transformation(extent={{-242,-14},{-202,26}}),
+        iconTransformation(extent={{-242,-14},{-202,26}})));
   //--------------------------------------------------------------
   // Total sky cover
   parameter Annex60.BoundaryConditions.Types.DataSource totSkyCovSou=Annex60.BoundaryConditions.Types.DataSource.File
@@ -50,8 +50,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     max=1,
     unit="1") if (totSkyCovSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input total sky cover"
-    annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
-        iconTransformation(extent={{-240,-20},{-200,20}})));
+    annotation (Placement(transformation(extent={{-240,-58},{-200,-18}}),
+        iconTransformation(extent={{-240,-58},{-200,-18}})));
   // Opaque sky cover
   parameter Annex60.BoundaryConditions.Types.DataSource opaSkyCovSou=Annex60.BoundaryConditions.Types.DataSource.File
     "Opaque sky cover" annotation (Evaluate=true, Dialog(group="Data source"));
@@ -66,8 +66,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     max=1,
     unit="1") if (opaSkyCovSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input opaque sky cover"
-    annotation (Placement(transformation(extent={{-240,70},{-200,110}}),
-        iconTransformation(extent={{-240,70},{-200,110}})));
+    annotation (Placement(transformation(extent={{-240,32},{-200,72}}),
+        iconTransformation(extent={{-240,32},{-200,72}})));
   //--------------------------------------------------------------
   // Dry bulb temperature
   parameter Annex60.BoundaryConditions.Types.DataSource TDryBulSou=Annex60.BoundaryConditions.Types.DataSource.File
@@ -82,6 +82,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     displayUnit="degC") if (TDryBulSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input dry bulb temperature"
     annotation (Placement(transformation(extent={{-240,160},{-200,200}})));
+
   //--------------------------------------------------------------
   // Dew point temperature
   parameter Annex60.BoundaryConditions.Types.DataSource TDewPoiSou=Annex60.BoundaryConditions.Types.DataSource.File
@@ -96,6 +97,23 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     displayUnit="degC") if (TDewPoiSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input dew point temperature"
     annotation (Placement(transformation(extent={{-240,204},{-200,244}})));
+
+  //--------------------------------------------------------------
+  // Black body sky temperature
+  parameter Annex60.BoundaryConditions.Types.DataSource TBlaSkySou=Annex60.BoundaryConditions.Types.DataSource.File
+    "Black-body sky temperature" annotation (Evaluate=true, Dialog(group="Data source"));
+  parameter Modelica.SIunits.Temperature TBlaSky=273.15
+    "Black-body sky temperature (used if TBlaSkySou=Parameter)"
+    annotation (Dialog(group="Data source"));
+  Modelica.Blocks.Interfaces.RealInput TBlaSky_in(
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC",
+    final unit="K") if
+    (TBlaSkySou == Annex60.BoundaryConditions.Types.DataSource.Input)
+    "Black-body sky temperature"
+    annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
+        iconTransformation(extent={{-240,120},{-200,160}})));
+
   //--------------------------------------------------------------
   // Relative humidity
   parameter Annex60.BoundaryConditions.Types.DataSource relHumSou=Annex60.BoundaryConditions.Types.DataSource.File
@@ -110,8 +128,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     max=1,
     unit="1") if (relHumSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input relative humidity"
-    annotation (Placement(transformation(extent={{-240,118},{-200,158}}),
-        iconTransformation(extent={{-240,118},{-200,158}})));
+    annotation (Placement(transformation(extent={{-240,80},{-200,120}}),
+        iconTransformation(extent={{-240,80},{-200,120}})));
   //--------------------------------------------------------------
   // Wind speed
   parameter Annex60.BoundaryConditions.Types.DataSource winSpeSou=Annex60.BoundaryConditions.Types.DataSource.File
@@ -124,8 +142,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     final unit="m/s",
     min=0) if (winSpeSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input wind speed"
-    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
-        iconTransformation(extent={{-240,-60},{-200,-20}})));
+    annotation (Placement(transformation(extent={{-240,-98},{-200,-58}}),
+        iconTransformation(extent={{-240,-98},{-200,-58}})));
   //--------------------------------------------------------------
   // Wind direction
   parameter Annex60.BoundaryConditions.Types.DataSource winDirSou=Annex60.BoundaryConditions.Types.DataSource.File
@@ -138,8 +156,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     final unit="rad",
     displayUnit="deg") if (winDirSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input wind direction"
-    annotation (Placement(transformation(extent={{-240,-102},{-200,-62}}),
-        iconTransformation(extent={{-240,-102},{-200,-62}})));
+    annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
+        iconTransformation(extent={{-240,-140},{-200,-100}})));
   //--------------------------------------------------------------
   // Infrared horizontal radiation
   parameter Annex60.BoundaryConditions.Types.DataSource HInfHorSou=Annex60.BoundaryConditions.Types.DataSource.File
@@ -151,8 +169,8 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") if (HInfHorSou == Annex60.BoundaryConditions.Types.DataSource.Input)
     "Input infrared horizontal radiation"
-    annotation (Placement(transformation(extent={{-240,-146},{-200,-106}}),
-        iconTransformation(extent={{-240,-146},{-200,-106}})));
+    annotation (Placement(transformation(extent={{-240,-210},{-200,-170}}),
+        iconTransformation(extent={{-240,-210},{-200,-170}})));
 
    parameter Annex60.BoundaryConditions.Types.RadiationDataSource HSou=Annex60.BoundaryConditions.Types.RadiationDataSource.File
     "Global, diffuse, and direct normal radiation"
@@ -163,15 +181,15 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") if (HSou == Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor)
     "Input global horizontal radiation"
-    annotation (Placement(transformation(extent={{-240,-192},{-200,-152}}),
-        iconTransformation(extent={{-240,-192},{-200,-152}})));
+    annotation (Placement(transformation(extent={{-240,-280},{-200,-240}}),
+        iconTransformation(extent={{-240,-280},{-200,-240}})));
   //--------------------------------------------------------------
   // Diffuse horizontal radiation
   Modelica.Blocks.Interfaces.RealInput HDifHor_in(
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") if (HSou == Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor)
     "Input diffuse horizontal radiation"
-    annotation (Placement(transformation(extent={{-240,-238},{-200,-198}}),
+    annotation (Placement(transformation(extent={{-240,-276},{-200,-236}}),
         iconTransformation(extent={{-240,-172},{-200,-132}})));
   //--------------------------------------------------------------
   // Direct normal radiation
@@ -179,9 +197,10 @@ block ReaderTMY3 "Reader for TMY3 weather data"
       final unit="W/m2") if
                           (HSou == Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor or HSou == Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor)
     "Input direct normal radiation"
-    annotation (Placement(transformation(extent={{-240,-282},{-200,-242}}),
-        iconTransformation(extent={{-240,-220},{-200,-180}})));
+    annotation (Placement(transformation(extent={{-240,-320},{-200,-280}}),
+        iconTransformation(extent={{-240,-240},{-200,-200}})));
 
+  //--------------------------------------------------------------
   parameter String filNam="" "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
@@ -246,8 +265,10 @@ protected
     annotation (Placement(transformation(extent={{160,240},{180,260}})));
   BaseClasses.CheckWindDirection cheWinDir "Check the wind direction"
     annotation (Placement(transformation(extent={{160,-280},{180,-260}})));
-  SkyTemperature.BlackBody TBlaSky(final calTSky=calTSky)
-    "Check the sky black-body temperature"
+  SkyTemperature.BlackBody TBlaSkyCom(final calTSky=calTSky) if
+       not (TBlaSkySou == Annex60.BoundaryConditions.Types.DataSource.Parameter or
+            TBlaSkySou == Annex60.BoundaryConditions.Types.DataSource.Input)
+    "Computation of the sky black-body temperature"
     annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
   Utilities.Time.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
@@ -298,6 +319,10 @@ protected
     final unit="K",
     displayUnit="degC") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput TDewPoi_in_internal(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput TBlaSky_in_internal(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Needed to connect to conditional connector";
@@ -450,6 +475,16 @@ equation
   end if;
   connect(TDryBul_in_internal, cheTemDryBul.TIn);
   //---------------------------------------------------------------------------
+  // Select sky black body temperature connector
+  if TBlaSkySou == Annex60.BoundaryConditions.Types.DataSource.Parameter then
+    TBlaSky_in_internal = TBlaSky;
+  elseif TBlaSkySou == Annex60.BoundaryConditions.Types.DataSource.Input then
+    connect(TBlaSky_in, TBlaSky_in_internal);
+  else
+    connect(TBlaSkyCom.TBlaSky, TBlaSky_in_internal);
+  end if;
+  connect(TBlaSky_in_internal, weaBus.TBlaSky);
+  //---------------------------------------------------------------------------
   // Select relative humidity connector
   if relHumSou == Annex60.BoundaryConditions.Types.DataSource.Parameter then
     relHum_in_internal = relHum;
@@ -601,22 +636,14 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(cheOpaSkyCov.nOut, TBlaSky.nOpa) annotation (Line(
+  connect(cheOpaSkyCov.nOut,TBlaSkyCom. nOpa) annotation (Line(
       points={{183,-150},{220,-150},{220,-213},{238,-213}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(cheHorRad.HOut, TBlaSky.radHorIR) annotation (Line(
+  connect(cheHorRad.HOut,TBlaSkyCom. radHorIR) annotation (Line(
       points={{181,250},{220,250},{220,-218},{238,-218}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TBlaSky.TBlaSky, weaBus.TBlaSky) annotation (Line(
-      points={{261,-210},{280,-210},{280,0},{292,0},{292,0},{300,
-          0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(modTim.y, weaBus.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{124.5,
           0},{300,0}},
@@ -681,7 +708,7 @@ equation
       points={{-59,169.25},{20,169.25},{20,250},{118,250}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(cheTemDryBul.TOut, TBlaSky.TDryBul) annotation (Line(
+  connect(cheTemDryBul.TOut,TBlaSkyCom. TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-202},{238,-202}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -700,7 +727,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(TBlaSky.TDewPoi, cheTemDewPoi.TOut) annotation (Line(
+  connect(TBlaSkyCom.TDewPoi, cheTemDewPoi.TOut) annotation (Line(
       points={{238,-207},{220,-207},{220,-230},{181,-230}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -964,6 +991,9 @@ the dry bulb temperature,
 the dew point temperature,
 </li>
 <li>
+the sky black body temperature,
+</li>
+<li>
 the relative humidity,
 </li>
 <li>
@@ -987,7 +1017,7 @@ parameter <code>pAtm=101325</code> Pascals.
 </p>
 <p>
 The parameter <code>*Sou</code> configures the source of the data.
-For the atmospheric pressure, dry bulb temperature, relative humidity, wind speed and wind direction,
+For the atmospheric pressure, temperatures, relative humidity, wind speed and wind direction,
 the enumeration
 <a href=\"modelica://Annex60.BoundaryConditions.Types.DataSource\">
 Annex60.BoundaryConditions.Types.DataSource</a>
@@ -1183,7 +1213,27 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>", revisions="<html>
 <ul>
 <li>
-October 17, 2014, by Michael Wetter<br/>
+June 6, 2015, by Michael Wetter:<br/>
+Removed redundant but consistent
+<code>connect(TBlaSkyCom.TBlaSky, weaBus.TBlaSky)</code>
+statement.
+This avoids a warning if 
+<a href=\"modelica://Annex60.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness\">
+Annex60.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness</a>
+is translated in pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
+<li>
+March 26, 2015, by Michael Wetter:<br/>
+Added option to obtain the black body sky temperature
+from a parameter or an input signal.
+This is required for
+<a href=\"modelica://Buildings.Rooms.Validation.MixedAirInitialization\">
+Buildings.Rooms.Validation.MixedAirInitialization</a>.
+</li>
+<li>
+October 17, 2014, by Michael Wetter:<br/>
 Corrected error that led the total and opaque sky cover to be ten times
 too low if its value was obtained from the parameter or the input connector.
 For the standard configuration in which the sky cover is obtained from
