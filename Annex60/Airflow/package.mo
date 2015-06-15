@@ -10,7 +10,7 @@ This package provides
 models to compute the air flow between different rooms and between
 a room and the exterior environment.
 For models that compute airflow in duct networks, see
-<a href=\"modelica://Buildings.Fluid\">
+<a href=\"modelica://Annex60.Fluid\">
 Buildings.Fluid</a>.
 </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
