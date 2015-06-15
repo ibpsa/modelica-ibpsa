@@ -54,6 +54,7 @@ Building and Fire Research Laboratory,
 National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
+</li>
 </ul>
 </html>",
 revisions="<html>

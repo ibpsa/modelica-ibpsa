@@ -90,6 +90,7 @@ reported with the test results.
 <i>ASHRAE Fundamentals</i>,
 American Society of Heating, Refrigeration and Air-Conditioning
 Engineers, 1997.
+</li>
 <li>
 <b>Dols and Walton, 2002.</b>
 W. Stuart Dols and George N. Walton, <i>CONTAMW 2.0 User Manual,
@@ -98,6 +99,7 @@ Building and Fire Research Laboratory,
 National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
+</li>
 </ul>
 </html>",
 revisions="<html>
