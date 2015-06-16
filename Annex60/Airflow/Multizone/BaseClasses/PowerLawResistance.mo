@@ -124,8 +124,10 @@ where <code>k</code> is a variable and
 <code>m</code> a parameter.
 For turbulent flow, set <code>m=1/2</code> and
 for laminar flow, set <code>m=1</code>.
+</p>
 <p>
 The model is used as a base for the interzonal air flow models.
+</p>
 </html>",
 revisions="<html>
 <ul>

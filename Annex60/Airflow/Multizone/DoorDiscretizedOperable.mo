@@ -90,9 +90,10 @@ The door can be either open or closed, depending on the input signal
 Set <i>y=0</i> if the door is closed, and <i>y=1</i>
 if the door is open.
 Use the model
-<a href=\"modelica://Buildings.Airflow.Multizone.Crack\">
+<a href=\"modelica://Annex60.Airflow.Multizone.Crack\">
 Buildings.Airflow.Multizone.Crack
 </a> for a door that is always closed.
+</p>
 </html>",
 revisions="<html>
 <ul>
@@ -108,7 +109,7 @@ Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li><i>August 12, 2011</i> by Michael Wetter:<br/>
        Changed model to use the new function
-       <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
+       <a href=\"modelica://Annex60.Airflow.Multizone.BaseClasses.powerLawFixedM\">
        Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
 </li>
 <li><i>July 20, 2010</i> by Michael Wetter:<br/>

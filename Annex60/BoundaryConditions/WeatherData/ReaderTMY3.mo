@@ -1229,7 +1229,7 @@ March 26, 2015, by Michael Wetter:<br/>
 Added option to obtain the black body sky temperature
 from a parameter or an input signal.
 This is required for
-<a href=\"modelica://Buildings.Rooms.Validation.MixedAirInitialization\">
+<a href=\"modelica://Annex60.Rooms.Validation.MixedAirInitialization\">
 Buildings.Rooms.Validation.MixedAirInitialization</a>.
 </li>
 <li>

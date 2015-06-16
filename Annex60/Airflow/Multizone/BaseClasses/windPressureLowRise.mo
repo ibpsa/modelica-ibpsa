@@ -85,7 +85,7 @@ this model, and <i>y</i> is the length of the adjacent wall as shown
 in the figure below.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png\" border=\"1\" alt=\"Definition of the aspect ratio.\"/>
+<img src=\"modelica://Annex60/Resources/Images/Airflow/Multizone/BaseClasses/windPressureLowRise.png\" border=\"1\" alt=\"Definition of the aspect ratio.\"/>
 </p>
 <p>
 Based on the wind incidence angle <i>&alpha;</i> and the side ratio
@@ -114,7 +114,7 @@ the current angle of incidence.
 </p>
 <p>
 This function is used in
-<a href=\"modelica://Buildings.Fluid.Sources.Outside_CpLowRise\">
+<a href=\"modelica://Annex60.Fluid.Sources.Outside_CpLowRise\">
 Buildings.Fluid.Sources.Outside_CpLowRise</a>
 which can be used directly with components of this package.
 </p>

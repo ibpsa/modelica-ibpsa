@@ -5,6 +5,7 @@ model ErrorControl "Interface that defines parameters for error control"
   annotation (Documentation(info="<html>
 <p>
 This is an interface that defines parameters used for error control.
+</p>
 <p>
 Dymola does error control on state variables, such as temperature, pressure and
 species concentration.
@@ -18,6 +19,7 @@ on the exchanged mass, which can be defined as
 </pre>
 By setting <code>enforceErrorControlOnFlow = true</code>, such an equation is imposed
 by models that extend this class.
+</p>
 </html>",
 revisions="<html>
 <ul>

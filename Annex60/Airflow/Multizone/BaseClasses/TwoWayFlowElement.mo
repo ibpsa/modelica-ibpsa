@@ -118,6 +118,7 @@ equation
 <p>
 This is a partial model for models that describe the bi-directional
 air flow through large openings.
+</p>
 <p>
 Models that extend this model need to compute
 <code>mAB_flow</code> and <code>mBA_flow</code>,
@@ -125,17 +126,18 @@ or alternatively <code>VAB_flow</code> and <code>VBA_flow</code>,
 and the face area <code>area</code>.
 The face area is a variable to allow this partial model to be used
 for doors that can be open or closed as a function of an input signal.
+</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
 February 24, 2015 by Michael Wetter:<br/>
 Changed model to use
-<a href=\"modelica://Buildings.Utilities.Psychrometrics.Functions.density_pTX\">
+<a href=\"modelica://Annex60.Utilities.Psychrometrics.Functions.density_pTX\">
 Buildings.Utilities.Psychrometrics.Functions.density_pTX</a>
 for the density computation
 as
-<a href=\"modelica://Buildings.Media.Air.density\">
+<a href=\"modelica://Annex60.Media.Air.density\">
 Buildings.Media.Air.density</a>
 does not depend on temperature.
 </li>

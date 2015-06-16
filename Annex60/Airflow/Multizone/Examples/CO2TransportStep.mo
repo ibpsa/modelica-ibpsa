@@ -59,7 +59,7 @@ equation
     Documentation(info="<html>
 <p>
 This model is based on
-<a href=\"modelica://Buildings.Airflow.Multizone.Validation.ThreeRoomsContam\">
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
 Buildings.Airflow.Multizone.Validation.ThreeRoomsContam</a>.
 In addition, a CO<sub>2</sub> source has been added to the left room
 in the bottom floor.
@@ -73,7 +73,7 @@ the other rooms, and eventually its concentration decays.
 <li>
 November 10, 2011, by Michael Wetter:<br/>
 Extended model from
-<a href=\"modelica://Buildings.Airflow.Multizone.Validation.ThreeRoomsContam\">
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
 Buildings.Airflow.Multizone.Validation.ThreeRoomsContam</a>
 and added documentation.
 </li>
