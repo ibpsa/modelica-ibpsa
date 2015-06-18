@@ -24,7 +24,7 @@ equation
       StopTime=100,
       __Dymola_NumberOfIntervals=1,
       __Dymola_fixedstepsize=0.001,
-      __Dymola_Algorithm="Rkfix4"),
+      __Dymola_Algorithm="Euler"),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false)),
