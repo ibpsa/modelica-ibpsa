@@ -33,10 +33,10 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
     mSenFac=75) "Indoor air volume of room"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        Medium)
+        Medium) "Fluid port that connects to the top of the door"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
-        Medium)
+        Medium) "Fluid port that connects to the bottom of the door"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
   Airflow.Multizone.DoorDiscretizedOperable door(
     redeclare package Medium = Medium,
@@ -54,7 +54,7 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   Modelica.Blocks.Sources.Constant const(k=doorOpening)
     annotation (Placement(transformation(extent={{28,40},{48,60}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_vent(redeclare package Medium =
-        Medium)
+        Medium) "Port that connects to the room volume"
     annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemp
     "Dry bulb air temperature"
@@ -63,7 +63,6 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
         transformation(extent={{-20,80},{20,120}}), iconTransformation(extent={{
             -128,30},{-108,50}})));
 equation
-  connect(weaBus.TDryBul, preTemp.T);
   connect(conRoom.port_b, volRoom.heatPort) annotation (Line(
       points={{0,0},{20,0}},
       color={191,0,0},
@@ -96,8 +95,10 @@ equation
       points={{-40,0},{-20,0}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(preTemp.T, weaBus.TDryBul) annotation (Line(points={{-62,0},{-62,0},{
+          -70,0},{-70,80},{0,80},{0,100}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+            -100},{100,100}})),           Documentation(info="<html>
 <p>An air volume to represent a zone/room within a building that can be connected to a hallway 
 element and to ventilation equipment. </p>
 <h4>Assumptions and limitations</h4>

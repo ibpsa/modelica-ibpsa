@@ -19,10 +19,10 @@ model OutsideEnvironment
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        Medium)
+        Medium) "Fluid port at the top of the room"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
-        Medium)
+        Medium) "Fluid port at the bottom of the room"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Fluid.Sources.Outside_CpLowRise out(
     nPorts=2,
@@ -60,7 +60,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+            -100},{100,100}})),           Documentation(info="<html>
 <p>An air volume to represent the outside environment for air flow benchmark. </p>
 <h4>Assumptions and limitations</h4>
 <p>So far, the side ratio for the building is set to <i>1</i> for testing the general modeling 

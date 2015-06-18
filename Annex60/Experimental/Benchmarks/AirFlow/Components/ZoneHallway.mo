@@ -113,7 +113,6 @@ model ZoneHallway
         transformation(extent={{-20,80},{20,120}}), iconTransformation(extent={{
             -128,30},{-108,50}})));
 equation
-  connect(weaBus.TDryBul, preTemp.T);
   connect(conRoom.port_b, volumeHall.heatPort) annotation (Line(
       points={{0,0},{20,0}},
       color={191,0,0},
@@ -190,8 +189,10 @@ equation
       points={{-40,0},{-20,0}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(preTemp.T, weaBus.TDryBul) annotation (Line(points={{-62,0},{-70,0},{
+          -70,60},{0,60},{0,100}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
-          preserveAspectRatio=false), graphics),                         Icon(
+          preserveAspectRatio=false)),                                   Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>An air volume to represent a hallway element for a scalable air flow benchmark. </p>

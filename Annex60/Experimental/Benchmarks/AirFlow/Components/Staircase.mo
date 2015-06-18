@@ -92,8 +92,6 @@ model Staircase
         transformation(extent={{80,-20},{120,20}}), iconTransformation(extent={{
             -128,30},{-108,50}})));
 equation
-  connect(weaBus.TDryBul, preTemp.T);
-
   connect(conRoom.port_b, volumeStairs.heatPort) annotation (Line(
       points={{10,0},{20,0}},
       color={191,0,0},
@@ -146,8 +144,10 @@ equation
       points={{-20,0},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(preTemp.T, weaBus.TDryBul) annotation (Line(points={{-42,0},{-48,0},{
+          -48,20},{80,20},{80,0},{100,0}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
-          preserveAspectRatio=false), graphics),                         Icon(
+          preserveAspectRatio=false)),                                   Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>An air volume to represent a staircase element for a scalable air flow benchmark. </p>

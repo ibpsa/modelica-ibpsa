@@ -5,7 +5,7 @@ model ZoneStepResponse
 
   replaceable package Medium = Annex60.Media.Air;
 
-  output Modelica.SIunits.Temperature TRoom
+  output Modelica.SIunits.Temperature TRoom = simpleZone.volRoom.heatPort.T
     "Room temperature at volume's therm port";
 
   Components.SimpleZone simpleZone(redeclare package Medium = Medium)
@@ -20,14 +20,13 @@ model ZoneStepResponse
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,0})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Annex60/Resources/weatherdata/STEP_TMY3.mos")
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Annex60/Resources/weatherdata/STEP_TMY3.mos",
+      TDryBulSou=Annex60.BoundaryConditions.Types.DataSource.Input)
     annotation (Placement(transformation(extent={{-62,-52},{-42,-32}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-104,14},{-64,54}}), iconTransformation(extent=
             {{-116,30},{-96,50}})));
 equation
-  TRoom = simpleZone.volRoom.heatPort.T;
-
   connect(boundary.ports[1], simpleZone.port_a_vent) annotation (Line(
       points={{-40,8},{-10,8}},
       color={0,127,255},
