@@ -15,7 +15,21 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
 
+  parameter Boolean enableThermalLosses = false
+    "Set to true if temperature reading should decay to ambient temperature when no flow"
+    annotation(Evaluate=true, Dialog(group="Thermal losses"));
+  parameter Modelica.SIunits.Temperature TAmb=Medium.T_default
+    "Ambient temperature for thermal losses"
+    annotation(Dialog(enable=enableThermalLosses, group="Thermal losses"));
+  parameter Modelica.SIunits.Temperature tauLoss=1200
+    "Time constant for thermal losses, default 20 minutes"
+    annotation(Dialog(enable=enableThermalLosses, group="Thermal losses"));
+
 protected
+  parameter Real tauLossInv = if tauLoss==0 then 0 else 1/tauLoss
+    "Dummy parameter for avoiding division by tauLoss";
+  parameter Real tauInv = if tau==0 then 0 else 1/tau
+    "Dummy parameter for avoiding division by tau";
   Medium.Temperature TMed(start=T_start)
     "Medium temperature to which the sensor is exposed";
   Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
@@ -49,7 +63,11 @@ equation
   end if;
   // Output signal of sensor
   if dynamic then
-    der(T) = (TMed-T)*k/tau;
+    if enableThermalLosses then
+      der(T) = (TMed-T)*k*tauInv + (TAmb-T)*tauLossInv;
+    else
+      der(T) = (TMed-T)*k*tauInv;
+    end if;
   else
     T = TMed;
   end if;
@@ -100,6 +118,10 @@ Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 18, 2015 by Filip Jorissen:<br/>
+Added option for simulating thermal losses.
+</li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
 Revised implementation to add dynamics in such a way that
