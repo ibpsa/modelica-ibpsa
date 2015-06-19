@@ -1,5 +1,5 @@
 within Annex60.Fluid.Examples;
-model AllowFlowReversalExample
+model AllowFlowReversal
   "System demonstrating impact of allowFlowReversal on number/size of non-linear systems"
   extends Modelica.Icons.Example;
 
@@ -171,4 +171,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AllowFlowReversalExample;
+end AllowFlowReversal;
