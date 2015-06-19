@@ -116,6 +116,15 @@ Setting <code>tau=0</code> is <i>not</i> recommend. See
 <a href=\"modelica://Annex60.Fluid.Sensors.UsersGuide\">
 Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
+<h4>Typical use and important parameters</h4>
+<p>
+When setting <code>enableThermalLosses = true</code> thermal losses will be 
+simulated by a first order decay towards temperature <code>TAmb</code> at
+a rate with a time constant of <code>tauLoss</code>.
+Note that no energy is drawn from the fluid for these losses. 
+If it is the user's intent to simulate the loss of thermal energy then
+a different model should be used.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
