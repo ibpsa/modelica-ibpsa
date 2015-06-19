@@ -1,5 +1,5 @@
 within Annex60.Fluid.Examples;
-model AllowFlowReversal
+model ResistanceVolumeFlowReversal
   "System demonstrating impact of allowFlowReversal on number/size of non-linear systems"
   extends Modelica.Icons.Example;
 
@@ -110,6 +110,8 @@ equation
   end for;
   annotation (experiment(
       StopTime=10000),
+       __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Examples/ResistanceVolumeFlowReversal.mos"
+        "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
@@ -140,14 +142,14 @@ These results were generated using Dymola 2015FD01 64 bit on Ubuntu 14.04
 and with <code>Evaluate=false</code>.
 </p>
 <h3>
-AllowFlowReversal = true
+ResistanceVolumeFlowReversal = true
 </h3>
 <p>
 Sizes of nonlinear systems of equations: {6, 11, <b>56</b>}<br/>
 Sizes after manipulation of the nonlinear systems: {1, 9, <b>12</b>}
 </p>
 <h3>
-AllowFlowReversal = false
+ResistanceVolumeFlowReversal = false
 </h3>
 <p>
 <b>Old implementation</b>
@@ -171,4 +173,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AllowFlowReversal;
+end ResistanceVolumeFlowReversal;
