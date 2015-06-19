@@ -21,14 +21,14 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
   parameter Modelica.SIunits.Temperature TAmb=Medium.T_default
     "Ambient temperature for thermal losses"
     annotation(Dialog(enable=enableThermalLosses, group="Thermal losses"));
-  parameter Modelica.SIunits.Temperature tauLoss=1200
+  parameter Modelica.SIunits.Time tauLoss=1200
     "Time constant for thermal losses, default 20 minutes"
     annotation(Dialog(enable=enableThermalLosses, group="Thermal losses"));
 
 protected
-  parameter Real tauLossInv = if tauLoss==0 then 0 else 1/tauLoss
+  parameter Real tauLossInv(final unit = "1/s") = if tauLoss==0 then 0 else 1/tauLoss
     "Dummy parameter for avoiding division by tauLoss";
-  parameter Real tauInv = if tau==0 then 0 else 1/tau
+  parameter Real tauInv(final unit = "1/s") = if tau==0 then 0 else 1/tau
     "Dummy parameter for avoiding division by tau";
   Medium.Temperature TMed(start=T_start)
     "Medium temperature to which the sensor is exposed";
