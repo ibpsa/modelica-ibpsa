@@ -65,7 +65,6 @@ equation
   // Output signal of sensor
   if dynamic then
     if transferHeat then
-      // Note that Dymola will remove the term (TAmb-T)*tauHeaTraInv if tauHeaTraInv=0.
       der(T) = (TMed-T)*k*tauInv + (TAmb-T)*tauHeaTraInv;
     else
       der(T) = (TMed-T)*k*tauInv;
