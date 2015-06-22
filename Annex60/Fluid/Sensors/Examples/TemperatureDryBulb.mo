@@ -67,10 +67,10 @@ model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    enableThermalLosses=true,
+    transferHeat=true,
     T_start=293.15,
     TAmb=293.15,
-    tauLoss=30) "Dynamic temperature sensor with thermal losses"
+    tauHeaTra=30) "Dynamic temperature sensor with heat transfer"
     annotation (Placement(transformation(extent={{56,-2},{76,18}})));
   Modelica.Blocks.Math.Add add_m_flow
     "Add two pulse functions for mass flow rate"
@@ -125,7 +125,7 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensor
 This example tests the dry bulb temperature sensors.
 One sensor is configured to be a steady-state model,
 a second sensor is configured to be a dynamic sensor and
-the third sensors is a dynamic sensor with thermal losses.
+the third sensors is a dynamic sensor with heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
