@@ -3,7 +3,7 @@ model ValveParameterization
   "Model to test and illustrate different parameterization for valves"
   extends Modelica.Icons.Example;
 
- package Medium = Annex60.Media.Water.Simple;
+ package Medium = Annex60.Media.Water;
 
   Annex60.Fluid.Actuators.Valves.TwoWayLinear valOPPoi(
     redeclare package Medium = Medium,
@@ -18,14 +18,14 @@ model ValveParameterization
       = Medium,
     use_p_in=true,
     nPorts=3,
-    T=293.15)                                       annotation (Placement(
+    T=293.15) "Boundary condition for flow source"  annotation (Placement(
         transformation(extent={{-70,-10},{-50,10}})));
   Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=3,
     use_p_in=false,
     p=300000,
-    T=293.15)                                       annotation (Placement(
+    T=293.15) "Boundary condition for flow sink"    annotation (Placement(
         transformation(extent={{90,-10},{70,10}})));
     Modelica.Blocks.Sources.Ramp PSou(
     duration=1,
@@ -47,8 +47,8 @@ model ValveParameterization
     Cv=0.84,
     filteredOpening=false) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Annex60.Fluid.Sensors.MassFlowRate senM_flowOpPoi(redeclare package Medium
-      = Medium) annotation (Placement(transformation(extent={{20,30},{40,50}})));
+  Annex60.Fluid.Sensors.MassFlowRate senM_flowOpPoi(redeclare package Medium =
+        Medium) annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Annex60.Fluid.Sensors.MassFlowRate senM_flowKv(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Annex60.Fluid.Sensors.MassFlowRate senM_flowCv(redeclare package Medium =
@@ -62,15 +62,13 @@ equation
   connect(y.y, valOPPoi.y)
                          annotation (Line(
       points={{-39,70},{-20,70},{6.66134e-16,70},{6.66134e-16,52}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(PSou.y, sou.p_in)
     annotation (Line(points={{-79,26},{-74.5,26},{-74.5,8},{-72,8}},
                                                  color={0,0,127}));
   connect(y.y, valKv.y)  annotation (Line(
       points={{-39,70},{-20,70},{-20,20},{6.66134e-16,20},{6.66134e-16,12}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(valKv.port_a, sou.ports[2])  annotation (Line(
       points={{-10,6.10623e-16},{-30,6.10623e-16},{-30,5.55112e-16},{-50,5.55112e-16}},
       color={0,127,255},

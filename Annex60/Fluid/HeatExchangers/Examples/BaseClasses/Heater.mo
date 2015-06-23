@@ -15,7 +15,7 @@ partial model Heater "Base class for example model for the heater and cooler"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    mFactor=2,
+    mSenFac=2,
     nPorts=3)
          annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(
@@ -27,7 +27,7 @@ partial model Heater "Base class for example model for the heater and cooler"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Sensor for volume temperature"
     annotation (Placement(transformation(extent={{20,-10},{0,10}})));
-  Annex60.Fluid.Movers.FlowMachine_m_flow fan(
+  Annex60.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,
