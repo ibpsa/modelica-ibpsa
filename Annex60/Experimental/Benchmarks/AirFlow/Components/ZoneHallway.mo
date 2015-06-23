@@ -34,11 +34,13 @@ model ZoneHallway
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Lower air column between bottom orifice to outside and indoor air volume"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   Airflow.Multizone.MediumColumn col1(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Upper air column between top orifice to outside and indoor air volume"
     annotation (Placement(transformation(extent={{50,20},{70,40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_toZone(redeclare package Medium
       = Medium) "Direct connection to air volume without orifice"
@@ -62,11 +64,13 @@ model ZoneHallway
     redeclare package Medium = Medium,
     A=0.01,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
+    "Upper orifice to outdoor environment"
     annotation (Placement(transformation(extent={{68,50},{88,70}})));
   Airflow.Multizone.Orifice oriOutBottom(
     redeclare package Medium = Medium,
     A=0.01,
     forceErrorControlOnFlow=forceErrorControlOnFlow)
+    "Lower orifice to outdoor environment"
     annotation (Placement(transformation(extent={{68,-70},{88,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium =
         Medium) "Indirect connection to air volume with orifice"
@@ -77,7 +81,9 @@ model ZoneHallway
   Airflow.Multizone.MediumColumn col2(
     redeclare package Medium = Medium,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom,
-    h=heightRoom/4) annotation (Placement(transformation(
+    h=heightRoom/4)
+    "Upper air column between this hallway element and subsequent hallway element"
+     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,-60})));
@@ -85,14 +91,18 @@ model ZoneHallway
   Airflow.Multizone.MediumColumn col3(
     redeclare package Medium = Medium,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop,
-    h=heightRoom/4) annotation (Placement(transformation(
+    h=heightRoom/4)
+    "Lower air column between this hallway element and subsequent hallway element"
+     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-60})));
   Airflow.Multizone.Orifice ori(
     redeclare package Medium = Medium,
     A=widthRoom*heightRoom/2,
-    forceErrorControlOnFlow=forceErrorControlOnFlow) annotation (Placement(
+    forceErrorControlOnFlow=forceErrorControlOnFlow)
+    "Upper orifice between this hallway element and subsequent hallway element"
+                                                                                annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -100,7 +110,9 @@ model ZoneHallway
   Airflow.Multizone.Orifice ori1(
     redeclare package Medium = Medium,
     A=widthRoom*heightRoom/2,
-    forceErrorControlOnFlow=forceErrorControlOnFlow) annotation (Placement(
+    forceErrorControlOnFlow=forceErrorControlOnFlow)
+    "Lower orifice between this hallway element and subsequent hallway element"
+     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -109,7 +121,9 @@ model ZoneHallway
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemp
     "Dry bulb air temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+  BoundaryConditions.WeatherData.Bus weaBus
+    "Weather data connection for outdoor air temperature"
+   annotation (Placement(
         transformation(extent={{-20,80},{20,120}}), iconTransformation(extent={{
             -128,30},{-108,50}})));
 equation

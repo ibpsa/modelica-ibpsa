@@ -2,117 +2,119 @@ within Annex60.Experimental.Benchmarks.AirFlow.Examples;
 model TwoFloors "Test case for air flow between two floors"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Annex60.Media.Air;
-  parameter Boolean forceErrorControlOnFlow = true;
+  replaceable package Medium = Annex60.Media.Air "Medium in the components";
+  parameter Boolean forceErrorControlOnFlow = true
+    "Optional forcing of error control";
 
   Components.ZoneHallway zoneHallway(
       forceErrorControlOnFlow=forceErrorControlOnFlow, redeclare package Medium
-      = Medium)
+      = Medium) "Single hallway element"
     annotation (Placement(transformation(extent={{42,-94},{62,-74}})));
   Components.SimpleZone simpleZone1_4(
       forceErrorControlOnFlow=forceErrorControlOnFlow,
       TRoom = 298.15,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium) "Single simple zone element"
     annotation (Placement(transformation(extent={{12,-94},{32,-74}})));
   Components.OutsideEnvironment outsideEnvironment(redeclare package Medium =
-        Medium)
+        Medium) "Single outside environment element"
     annotation (Placement(transformation(extent={{72,-94},{92,-74}})));
   Components.ZoneHallway zoneHallway1(
       forceErrorControlOnFlow=forceErrorControlOnFlow, redeclare package Medium
-      = Medium)
+      = Medium) "Single hallway element"
     annotation (Placement(transformation(extent={{42,-54},{62,-34}})));
   Components.ZoneHallway zoneHallway2(
       forceErrorControlOnFlow=forceErrorControlOnFlow, redeclare package Medium
-      = Medium)
+      = Medium) "Single hallway element"
     annotation (Placement(transformation(extent={{42,-14},{62,6}})));
   Components.ZoneHallway zoneHallway3(
       forceErrorControlOnFlow=forceErrorControlOnFlow, redeclare package Medium
-      = Medium)
+      = Medium) "Single hallway element"
     annotation (Placement(transformation(extent={{42,26},{62,46}})));
   Components.SimpleZone simpleZone1_3(
     forceErrorControlOnFlow=forceErrorControlOnFlow,
     TRoom = 298.15,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium) "Single simple zone element"
     annotation (Placement(transformation(extent={{12,-54},{32,-34}})));
   Components.SimpleZone simpleZone1_2(
     forceErrorControlOnFlow=forceErrorControlOnFlow,
     TRoom = 298.15,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium) "Single simple zone element"
     annotation (Placement(transformation(extent={{12,-14},{32,6}})));
   Components.SimpleZone simpleZone1_1(
     forceErrorControlOnFlow=forceErrorControlOnFlow,
     TRoom = 298.15,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium) "Single simple zone element"
     annotation (Placement(transformation(extent={{12,26},{32,46}})));
   Components.OutsideEnvironment outsideEnvironment1(redeclare package Medium =
-        Medium)
+        Medium) "Single outside environment element"
     annotation (Placement(transformation(extent={{72,-54},{92,-34}})));
   Components.OutsideEnvironment outsideEnvironment2(redeclare package Medium =
-        Medium)
+        Medium) "Single outside environment element"
     annotation (Placement(transformation(extent={{72,-14},{92,6}})));
   Components.OutsideEnvironment outsideEnvironment3(redeclare package Medium =
-        Medium)
+        Medium) "Single outside environment element"
     annotation (Placement(transformation(extent={{72,26},{92,46}})));
   Components.ZoneHallway zoneHallway4(
       forceErrorControlOnFlow=forceErrorControlOnFlow, redeclare package Medium
-      = Medium)
+      = Medium) "Single hallway element"
     annotation (Placement(transformation(extent={{-62,-94},{-42,-74}})));
   Components.SimpleZone simpleZone2_4(
       forceErrorControlOnFlow=forceErrorControlOnFlow,
       TRoom = 298.15,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium) "Single simple zone element"
     annotation (Placement(transformation(extent={{-92,-94},{-72,-74}})));
   Components.OutsideEnvironment outsideEnvironment4(redeclare package Medium =
-        Medium)
+        Medium) "Single outside environment element"
     annotation (Placement(transformation(extent={{-32,-94},{-12,-74}})));
   Components.ZoneHallway zoneHallway5(
       forceErrorControlOnFlow=forceErrorControlOnFlow, redeclare package Medium
-      = Medium)
+      = Medium) "Single hallway element"
     annotation (Placement(transformation(extent={{-62,-54},{-42,-34}})));
   Components.ZoneHallway zoneHallway6(
       forceErrorControlOnFlow=forceErrorControlOnFlow, redeclare package Medium
-      = Medium)
+      = Medium) "Single hallway element"
     annotation (Placement(transformation(extent={{-62,-14},{-42,6}})));
   Components.ZoneHallway zoneHallway7(
       forceErrorControlOnFlow=forceErrorControlOnFlow, redeclare package Medium
-      = Medium)
+      = Medium) "Single hallway element"
     annotation (Placement(transformation(extent={{-62,26},{-42,46}})));
   Components.SimpleZone simpleZone2_3(
     forceErrorControlOnFlow=forceErrorControlOnFlow,
     TRoom = 298.15,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium) "Single simple zone element"
     annotation (Placement(transformation(extent={{-92,-54},{-72,-34}})));
   Components.SimpleZone simpleZone2_2(
     forceErrorControlOnFlow=forceErrorControlOnFlow,
     TRoom = 298.15,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium) "Single simple zone element"
     annotation (Placement(transformation(extent={{-92,-14},{-72,6}})));
   Components.SimpleZone simpleZone2_1(
     forceErrorControlOnFlow=forceErrorControlOnFlow,
     TRoom = 298.15,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium) "Single simple zone element"
     annotation (Placement(transformation(extent={{-92,26},{-72,46}})));
   Components.OutsideEnvironment outsideEnvironment5(redeclare package Medium =
-        Medium)
+        Medium) "Single outside environment element"
     annotation (Placement(transformation(extent={{-32,-54},{-12,-34}})));
   Components.OutsideEnvironment outsideEnvironment6(redeclare package Medium =
-        Medium)
+        Medium) "Single outside environment element"
     annotation (Placement(transformation(extent={{-32,-14},{-12,6}})));
   Components.OutsideEnvironment outsideEnvironment7(redeclare package Medium =
-        Medium)
+        Medium) "Single outside environment element"
     annotation (Placement(transformation(extent={{-32,26},{-12,46}})));
   Components.Staircase staircase1(redeclare package Medium = Medium)
-                                  annotation (Placement(transformation(
+    "First staircase element"     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={52,70})));
   Components.Staircase staircase2(redeclare package Medium = Medium)
-                                  annotation (Placement(transformation(
+    "Second staircase element"    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-52,70})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "Weather file reader for input to air flow models"
     annotation (Placement(transformation(extent={{-24,100},{-4,120}})));
 equation
   connect(simpleZone2_4.port_a, zoneHallway4.port_a_toZone) annotation (Line(

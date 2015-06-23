@@ -36,9 +36,11 @@ model MultipleFloorsVectors
     each widthHallway=widthHallway,
     redeclare each package Medium = Medium,
     each forceErrorControlOnFlow=forceErrorControlOnFlow)
+    "Vector of floor elements"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    "Weather data reader for input into floor models"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   for i in 1:(nFloors-1) loop

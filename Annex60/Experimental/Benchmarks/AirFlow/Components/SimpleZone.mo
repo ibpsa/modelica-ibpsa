@@ -52,6 +52,7 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
     forceErrorControlOnFlow=forceErrorControlOnFlow) "Discretized door"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Sources.Constant const(k=doorOpening)
+    "Input for the door opening"
     annotation (Placement(transformation(extent={{28,40},{48,60}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_vent(redeclare package Medium =
         Medium) "Port that connects to the room volume"
@@ -59,7 +60,9 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemp
     "Dry bulb air temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+  BoundaryConditions.WeatherData.Bus weaBus
+    "Weather data connection for outdoor air temperature"
+    annotation (Placement(
         transformation(extent={{-20,80},{20,120}}), iconTransformation(extent={{
             -128,30},{-108,50}})));
 equation
@@ -98,7 +101,7 @@ equation
   connect(preTemp.T, weaBus.TDryBul) annotation (Line(points={{-62,0},{-62,0},{
           -70,0},{-70,80},{0,80},{0,100}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),           Documentation(info="<html>
+            -100},{100,100}}), graphics), Documentation(info="<html>
 <p>An air volume to represent a zone/room within a building that can be connected to a hallway 
 element and to ventilation equipment. </p>
 <h4>Assumptions and limitations</h4>

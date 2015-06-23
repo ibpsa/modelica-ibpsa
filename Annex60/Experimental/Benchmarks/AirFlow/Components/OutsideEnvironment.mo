@@ -12,11 +12,13 @@ model OutsideEnvironment
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Lower air column"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Upper air column"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) "Fluid port at the top of the room"
@@ -28,7 +30,8 @@ model OutsideEnvironment
     nPorts=2,
     redeclare package Medium = Medium,
     s=1,
-    azi=0) annotation (Placement(transformation(
+    azi=0) "Outdoor air volume"
+                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,0})));

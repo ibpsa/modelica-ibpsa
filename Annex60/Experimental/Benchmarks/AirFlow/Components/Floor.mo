@@ -29,13 +29,13 @@ model Floor
     widthRoom=widthHallway,
     redeclare package Medium = Medium,
     forceErrorControlOnFlow=forceErrorControlOnFlow,
-    TRoom=TStaircase)
+    TRoom=TStaircase) "Staircase element for connection to other floors"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_top(redeclare package Medium =
-        Medium)
+        Medium) "Fluid port for connection to higher floors"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_bot(redeclare package Medium =
-        Medium)
+        Medium) "Fluid port for connection to lower floors"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   Experimental.Benchmarks.AirFlow.Components.ZoneHallway zoneHallway[nZones](
     each heightRoom=heightRooms,
@@ -43,13 +43,15 @@ model Floor
     each widthRoom=widthHallway,
     redeclare each package Medium = Medium,
     each forceErrorControlOnFlow=forceErrorControlOnFlow,
-    each TRoom=THallway) annotation (Placement(transformation(
+    each TRoom=THallway) "Vector of hallway elements"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-30})));
   Experimental.Benchmarks.AirFlow.Components.OutsideEnvironment
     outsideEnvironment[nZones](redeclare each package Medium = Medium, each
       heightRoom=heightRooms)
+    "Vector of outside environments connected to Hallway elements"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Experimental.Benchmarks.AirFlow.Components.SimpleZone simpleZone[nZones](
     each heightRoom=heightRooms,
@@ -57,7 +59,7 @@ model Floor
     each widthRoom=widthZone,
     redeclare each package Medium = Medium,
     each forceErrorControlOnFlow=forceErrorControlOnFlow,
-    each TRoom=TRoom)
+    each TRoom=TRoom) "Vector of zone elements"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_vent[nZones](redeclare each
       package Medium =

@@ -3,18 +3,20 @@ model ZoneStepResponse
   "Example to test the thermal step response of a SimpleZone"
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Annex60.Media.Air;
+  replaceable package Medium = Annex60.Media.Air "Medium in the component";
 
   output Modelica.SIunits.Temperature TRoom = simpleZone.volRoom.heatPort.T
     "Room temperature at volume's therm port";
 
   Components.SimpleZone simpleZone(redeclare package Medium = Medium)
+    "Simple zone element for step response test"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Sources.MassFlowSource_T boundary(nPorts=1, m_flow=0.05,
     redeclare package Medium = Medium,
-    use_T_in=true)
+    use_T_in=true) "Mass flow source for air exchange in the zone"
     annotation (Placement(transformation(extent={{-60,-2},{-40,18}})));
   Fluid.Sources.FixedBoundary bou(nPorts=2, redeclare package Medium = Medium)
+    "Boundary condition for air exchange in the zone"
                                             annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -22,8 +24,10 @@ model ZoneStepResponse
         origin={50,0})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Annex60/Resources/weatherdata/STEP_TMY3.mos",
       TDryBulSou=Annex60.BoundaryConditions.Types.DataSource.Input)
+    "Weather data reader for input data"
     annotation (Placement(transformation(extent={{-62,-52},{-42,-32}})));
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+  BoundaryConditions.WeatherData.Bus weaBus "Weather bus for temperature input"
+                                      annotation (Placement(
         transformation(extent={{-104,14},{-64,54}}), iconTransformation(extent=
             {{-116,30},{-96,50}})));
 equation

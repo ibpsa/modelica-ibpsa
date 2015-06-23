@@ -33,21 +33,22 @@ model Staircase
     "Thermal conductor between fixed T and Volume"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_toHallway(redeclare package
-      Medium = Medium)
+      Medium = Medium) "Upper fluid port to hallway element"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b_toHallway(redeclare package
-      Medium = Medium)
+      Medium = Medium) "Lower fluid port to hallway element"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_bot(redeclare package Medium =
-        Medium)
+        Medium) "Fluid port to lower staircase element"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a_top(redeclare package Medium =
-        Medium)
+        Medium) "Fluid port to higher staircase element"
     annotation (Placement(transformation(extent={{-10,88},{10,108}})));
   Airflow.Multizone.MediumColumn col2(
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromTop)
+    "Air column between staircase air volume and lower staircase element"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -57,11 +58,13 @@ model Staircase
     redeclare package Medium = Medium,
     h=heightRoom/2,
     densitySelection=Annex60.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Air column between staircase air volume and higher staircase element"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Airflow.Multizone.Orifice ori(
     redeclare package Medium = Medium,
     forceErrorControlOnFlow=forceErrorControlOnFlow,
-    A=widthRoom*lengthRoom)   annotation (Placement(transformation(
+    A=widthRoom*lengthRoom) "Orifice to higher staircase element"
+      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,78})));
@@ -76,19 +79,23 @@ model Staircase
     hA=3/2,
     hB=3/2,
     dp_turbulent(displayUnit="Pa") = 0.01,
-    forceErrorControlOnFlow=forceErrorControlOnFlow) annotation (Placement(
+    forceErrorControlOnFlow=forceErrorControlOnFlow)
+    "Door for connection to hallway element"
+     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-80,0})));
   Modelica.Blocks.Sources.Constant const(k=doorOpening)
+    "Input for door openign"
     annotation (Placement(transformation(extent={{-6,-6},{6,6}},
         rotation=270,
         origin={-60,30})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemp
     "Dry bulb air temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+  BoundaryConditions.WeatherData.Bus weaBus "Weather data connection"
+                            annotation (Placement(
         transformation(extent={{80,-20},{120,20}}), iconTransformation(extent={{
             -128,30},{-108,50}})));
 equation
