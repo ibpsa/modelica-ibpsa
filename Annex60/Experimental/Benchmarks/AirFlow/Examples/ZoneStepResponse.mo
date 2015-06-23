@@ -22,14 +22,20 @@ model ZoneStepResponse
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,0})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://Annex60/Resources/weatherdata/STEP_TMY3.mos",
-      TDryBulSou=Annex60.BoundaryConditions.Types.DataSource.Input)
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+      TDryBulSou=Annex60.BoundaryConditions.Types.DataSource.Input, filNam=
+        "modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data reader for input data"
     annotation (Placement(transformation(extent={{-62,-52},{-42,-32}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather bus for temperature input"
                                       annotation (Placement(
         transformation(extent={{-104,14},{-64,54}}), iconTransformation(extent=
             {{-116,30},{-96,50}})));
+  Modelica.Blocks.Sources.Step step(
+    height=5,
+    startTime=4000000,
+    offset=5 + 273.15)
+    annotation (Placement(transformation(extent={{-98,-42},{-80,-24}})));
 equation
   connect(boundary.ports[1], simpleZone.port_a_vent) annotation (Line(
       points={{-40,8},{-10,8}},
@@ -63,6 +69,10 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(step.y, weaDat.TDryBul_in) annotation (Line(
+      points={{-79.1,-33},{-63,-33}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
     experiment(StopTime=6e+006, __Dymola_NumberOfIntervals=5000),
