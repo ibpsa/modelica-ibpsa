@@ -70,6 +70,8 @@ First implementation
 <h4>Typical use and important parameters</h4>
 <p>With <code>nZones</code> and <code>nFloors</code>, this vectorized model can be scaled to represent a simple building of any size. </p>
 <h4>References</h4>
-<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
+<p>Inspired by 
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>"));
 end MultipleFloorsVectors;

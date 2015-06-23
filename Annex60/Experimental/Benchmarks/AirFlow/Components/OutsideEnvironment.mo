@@ -70,7 +70,9 @@ approach. It may be necessary to calculate this parameter depending on the scale
 <code>ZoneHallway</code> so that there is an air exchange through the orifices of the hallway 
 element. </p>
 <h4>References</h4>
-<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
+<p>Inspired by 
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>", revisions="<html>
 <ul>
 <li>

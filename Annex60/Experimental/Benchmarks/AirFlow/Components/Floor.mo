@@ -169,7 +169,9 @@ addition, the staircase element can be connected to other floor models in order 
 model representation of air flows in a building regarding the number of floors on top of each 
 other. </p>
 <h4>References</h4>
-<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
+<p>Inspired by 
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>", revisions="<html>
 <ul>
 <li>

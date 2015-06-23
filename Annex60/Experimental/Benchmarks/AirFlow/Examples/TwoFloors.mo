@@ -468,10 +468,14 @@ equation
     Documentation(info="<html>
 <p>A reference model to compare to the floor model for a scalable air flow benchmark. </p>
 <h4>Validation</h4>
-<p>This model should give the same results as the <code>MultipleFloorsVector</code> model with 
+<p>This model should give the same results as the 
+<a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Examples.MultipleFloorsVectors\">
+Annex60.Experimental.Benchmarks.AirFlow.Examples.MultipleFloorsVectors</a> model with 
 <code>nZones</code> = <i>4</i> and <code>nFloors</code> = <i>2</i>. </p>
 <h4>References</h4>
-<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
+<p>Inspired by 
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>", revisions="<html>
 <ul>
 <li>

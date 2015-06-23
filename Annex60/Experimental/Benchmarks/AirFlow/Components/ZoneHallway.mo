@@ -216,10 +216,13 @@ and <code>port_b2</code> can be connected to either a staircase model or to furt
 via their respective <code>port_a1</code> and <code>port_b2</code>. </p>
 <h4>Validation</h4>
 <p>This model is following the approach used in 
-<code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code>, only in a more modularized way 
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a>, only in a more modularized way 
 in order to be part of a scalable benchmark. </p>
 <h4>References</h4>
-<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
+<p>Inspired by 
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>", revisions="<html>
 <ul>
 <li>

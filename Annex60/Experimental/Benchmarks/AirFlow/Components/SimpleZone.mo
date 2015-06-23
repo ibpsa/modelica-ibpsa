@@ -116,10 +116,13 @@ Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse</a>.</p>
 the hallway element. </p>
 <h4>Validation</h4>
 <p>This model is following the approach used in 
-<code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code>, only in a more modularized way 
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a>, only in a more modularized way 
 in order to be part of a scalable benchmark. </p>
 <h4>References</h4>
-<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
+<p>Inspired by 
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>", revisions="<html>
 <ul>
 <li>

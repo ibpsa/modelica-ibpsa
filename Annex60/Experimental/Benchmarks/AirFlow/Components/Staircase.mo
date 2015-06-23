@@ -169,7 +169,9 @@ corresponding ports of a hallway model. <code>port_a_top</code> and <code>port_b
 connected to another staircase model via its respective <code>port_a_bot</code> and 
 <code>port_b_bot</code>. </p>
 <h4>References</h4>
-<p>Inspired by <code>Buildings.Airflow.Multizone.Examples.Validation3Rooms</code> </p>
+<p>Inspired by 
+<a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
+Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>",
    revisions="<html>
 <ul>
