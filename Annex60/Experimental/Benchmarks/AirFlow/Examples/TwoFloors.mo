@@ -17,8 +17,6 @@ model TwoFloors "Test case for air flow between two floors"
   Components.OutsideEnvironment outsideEnvironment(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{72,-94},{92,-74}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-90,100},{-70,120}})));
   Components.ZoneHallway zoneHallway1(
       forceErrorControlOnFlow=forceErrorControlOnFlow, redeclare package Medium
       = Medium)

@@ -25,8 +25,6 @@ model MultipleFloorsVectors
   parameter Boolean forceErrorControlOnFlow = true
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Components.Floor floor[nFloors](
     each nZones=nZones,
     each TRoom=TRoom,
