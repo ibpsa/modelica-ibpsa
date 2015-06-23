@@ -8,7 +8,7 @@ model TempDelaySD "Temperature delay using spatialDistribution operator"
                                                               Medium.h_default}
     "Inital enthalpy values for spatialDistribution";
 
-  Modelica.SIunits.Length x
+  Modelica.SIunits.Length x(start=0)
     "Spatial coordiante for spatialDistribution operator";
   Modelica.SIunits.Velocity v "Flow velocity of medium in pipe in m/s";
 
@@ -40,27 +40,42 @@ equation
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Line(
-          points={{-80,80},{-80,-40},{80,-40}},
-          color={0,0,0},
-          smooth=Smooth.None,
-          thickness=0.5,
-          arrow={Arrow.Filled,Arrow.Filled}),
-        Line(
-          points={{-80,-20},{-60,-20},{-60,40},{80,40}},
-          color={0,0,0},
-          pattern=LinePattern.Dash,
-          thickness=0.5,
-          smooth=Smooth.None),
-        Line(
           points={{-72,-28}},
           color={0,0,0},
           pattern=LinePattern.Dash,
           thickness=0.5,
           smooth=Smooth.None),
+        Rectangle(
+          extent={{-80,80},{80,-60}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Line(
-          points={{-80,-20},{4,-20},{8,-18},{16,36},{20,40},{80,40}},
+          points={{-80,-40},{-60,-40},{-60,20},{80,20}},
+          color={0,0,0},
+          pattern=LinePattern.Dash,
+          thickness=0.5,
+          smooth=Smooth.None),
+        Line(
+          points={{-80,-40},{4,-40},{8,-38},{16,16},{20,20},{80,20}},
           color={255,0,0},
           pattern=LinePattern.Dot,
           thickness=0.5,
-          smooth=Smooth.None)}));
+          smooth=Smooth.None),
+        Line(
+          points={{-80,60},{-80,-60},{80,-60}},
+          color={0,0,0},
+          smooth=Smooth.None,
+          thickness=0.5,
+          arrow={Arrow.Filled,Arrow.Filled})}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 23, 2015 by Marcus Fuchs:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>A simple model to account for the effect of the temperature delay for a fluid flow throurgh a pipe. It uses the spatialDistribution operator to delay changes in input enthalpy depending on the flow velocity.</p>
+</html>"));
 end TempDelaySD;

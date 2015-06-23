@@ -1,20 +1,54 @@
 within Annex60.Experimental.Pipe.Examples.PipeAdiabatic;
-model PipeAdiabatic_TStep
-  "Test of adiabatic pipe model with temperature step, zero-mass-flow and flow reversal"
+model FixedRes_TStep
+  "Test of fixed resistances with zero-mass-flow and flow reversal"
   extends Modelica.Icons.Example;
 
   package Medium = Annex60.Media.Water;
 
-  parameter Modelica.SIunits.Pressure dp_test = 200
+  parameter Modelica.SIunits.Diameter D = 0.1 "Pipe diameter in m";
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
+    "Nominal mass flow rate"
+  annotation(Dialog(group = "Nominal condition"));
+
+  final parameter Modelica.SIunits.Pressure dpStraightPipe1_nominal=
+      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+      m_flow=m_flow_nominal,
+      rho_a=rho_nominal,
+      rho_b=rho_nominal,
+      mu_a=mu_nominal,
+      mu_b=mu_nominal,
+      length=100,
+      diameter=D,
+      roughness=2.5e-5,
+      m_flow_small=1e-04) "Pressure loss of a straight pipe at m_flow_nominal";
+
+  final parameter Modelica.SIunits.Pressure dpStraightPipe2_nominal=
+      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+      m_flow=m_flow_nominal,
+      rho_a=rho_nominal,
+      rho_b=rho_nominal,
+      mu_a=mu_nominal,
+      mu_b=mu_nominal,
+      length=50,
+      diameter=D,
+      roughness=2.5e-5,
+      m_flow_small=1e-04) "Pressure loss of a straight pipe at m_flow_nominal";
+
+  parameter Modelica.SIunits.Pressure dp_test = 20
     "Differential pressure for the test used in ramps";
 
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{126,76},{146,96}})));
 
-  Annex60.Experimental.Pipe.PipeAdiabatic pipe50_1(
+  Fluid.FixedResistances.FixedResistanceDpM
+                                          pipe50_1(
     redeclare package Medium = Medium,
-    L=50,
-    m_flow_nominal=0.5) "Pipe 1 in series of two 50 m pipes"
+    m_flow_nominal=0.5,
+    dp_nominal=2*dpStraightPipe2_nominal,
+    dp(nominal=10*50),
+    use_dh=true,
+    dh=0.1) "Pipe 1 in series of two 50 m pipes"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Annex60.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
         Medium,
@@ -57,10 +91,14 @@ model PipeAdiabatic_TStep
     annotation (Placement(transformation(extent={{-156,40},{-136,60}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
-    Annex60.Experimental.Pipe.PipeAdiabatic pipe50_2(
+    Fluid.FixedResistances.FixedResistanceDpM
+                                            pipe50_2(
     redeclare package Medium = Medium,
-    L=50,
-    m_flow_nominal=0.5) "Pipe 2 of two 50 m pipes in series"
+    m_flow_nominal=0.5,
+    dp_nominal=2*dpStraightPipe2_nominal,
+    dp(nominal=10*50),
+    use_dh=true,
+    dh=0.1) "Pipe 2 of two 50 m pipes in series"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemSerOut(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
@@ -70,10 +108,14 @@ model PipeAdiabatic_TStep
       = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the two pipes in series"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-    Annex60.Experimental.Pipe.PipeAdiabatic pipe100(
+    Fluid.FixedResistances.FixedResistanceDpM
+                                            pipe100(
     redeclare package Medium = Medium,
-    L=100,
-    m_flow_nominal=0.5) "Pipe with 100 m length in parallel to 2 x 50 m pipes"
+    m_flow_nominal=0.5,
+    dp_nominal=2*dpStraightPipe1_nominal,
+    dp(nominal=10*100),
+    use_dh=true,
+    dh=0.1) "Pipe with 100 m length in parallel to 2 x 50 m pipes"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -90,6 +132,21 @@ model PipeAdiabatic_TStep
       = Medium, m_flow_nominal=0.5)
     "Temperature sensor of the inflow to the single pipe"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+
+protected
+  parameter Medium.ThermodynamicState sta_default=
+     Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
+
+  parameter Modelica.SIunits.Density rho_nominal = Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
+    "Nominal density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
+    annotation(Dialog(group="Advanced", enable=use_rho_nominal));
+
+  parameter Modelica.SIunits.DynamicViscosity mu_nominal = Medium.dynamicViscosity(
+                                                 Medium.setState_pTX(
+                                                     Medium.p_default, Medium.T_default, Medium.X_default))
+    "Nominal dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
+    annotation(Dialog(group="Advanced", enable=use_mu_nominal));
+
 equation
   connect(PAtm.y, sin1.p_in)
                             annotation (Line(points={{147,86},{154,86},{154,46},
@@ -163,8 +220,7 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedR
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-160,-100},{160,100}})),
     Documentation(info="<html>
-<p>This first test implementation tests two pipes of 50 m length each against one single pipe with 100 m length.
-The pressure is controlled to decrease from an initial difference of <code>dp_test</code> between the two boundaries to a phase of zero-mass-flow. After this, the flow reverses due to a pressure difference of -<code>dp_test</code>. In addition, the input temperature at the source follows a step increase at the beginning to test the propagation of the temperature wave through the pipes. </p>
+<p>This test is to further look into the differences in mass flow between 2 hydraulic resistances representing pipes of 50 m length each and a single hydraulic resistance for a pipe of length 100 m. These differences occur at low mass flow rates, so dp_test has been lowered to 20 Pa in this example.</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -173,4 +229,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PipeAdiabatic_TStep;
+end FixedRes_TStep;

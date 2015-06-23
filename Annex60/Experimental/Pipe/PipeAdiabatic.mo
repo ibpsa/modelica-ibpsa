@@ -103,5 +103,15 @@ equation
           extent={{22,24},{64,-22}},
           lineColor={255,255,255},
           lineThickness=0.5,
-          textString="dt")}));
+          textString="dt")}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 23, 2015 by Marcus Fuchs:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
+</html>"));
 end PipeAdiabatic;
