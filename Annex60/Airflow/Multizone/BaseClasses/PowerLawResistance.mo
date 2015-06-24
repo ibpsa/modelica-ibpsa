@@ -117,7 +117,7 @@ equation
 <p>
 This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
-<\p>
+</p>
 <pre>
     V_flow = k * dp^m,
 </pre>
