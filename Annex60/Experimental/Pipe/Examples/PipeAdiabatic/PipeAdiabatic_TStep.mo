@@ -156,12 +156,10 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
     annotation (experiment(StopTime=20000, __Dymola_NumberOfIntervals=5000),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesParallel.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{160,
-            100}}),     graphics),
-    __Dymola_experimentSetupOutput,
-    Icon(coordinateSystem(extent={{-160,-100},{160,100}})),
+            100}})),
     Documentation(info="<html>
 <p>This first test implementation tests two pipes of 50 m length each against one single pipe with 100 m length.
 The pressure is controlled to decrease from an initial difference of <code>dp_test</code> between the two boundaries to a phase of zero-mass-flow. After this, the flow reverses due to a pressure difference of -<code>dp_test</code>. In addition, the input temperature at the source follows a step increase at the beginning to test the propagation of the temperature wave through the pipes. </p>

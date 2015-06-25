@@ -41,8 +41,7 @@ model FixedRes_TStep
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{126,76},{146,96}})));
 
-  Fluid.FixedResistances.FixedResistanceDpM
-                                          pipe50_1(
+  Fluid.FixedResistances.FixedResistanceDpM pipe50_1(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
     dp_nominal=2*dpStraightPipe2_nominal,
@@ -91,8 +90,7 @@ model FixedRes_TStep
     annotation (Placement(transformation(extent={{-156,40},{-136,60}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
-    Fluid.FixedResistances.FixedResistanceDpM
-                                            pipe50_2(
+    Fluid.FixedResistances.FixedResistanceDpM pipe50_2(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
     dp_nominal=2*dpStraightPipe2_nominal,
@@ -121,7 +119,7 @@ model FixedRes_TStep
         rotation=0,
         origin={10,-20})));
   Annex60.Fluid.Sensors.MassFlowRate masFloSin(
-                                              redeclare package Medium = Medium)
+    redeclare package Medium = Medium)
     "Mass flow rate sensor for the single pipe"
     annotation (Placement(transformation(extent={{88,-30},{108,-10}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemSinOut(redeclare package
@@ -213,12 +211,10 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
     annotation (experiment(StopTime=20000, __Dymola_NumberOfIntervals=5000),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesParallel.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/FixedRes_TStep.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{160,
-            100}}),     graphics),
-    __Dymola_experimentSetupOutput,
-    Icon(coordinateSystem(extent={{-160,-100},{160,100}})),
+            100}})),
     Documentation(info="<html>
 <p>This test is to further look into the differences in mass flow between 2 hydraulic resistances representing pipes of 50 m length each and a single hydraulic resistance for a pipe of length 100 m. These differences occur at low mass flow rates, so dp_test has been lowered to 20 Pa in this example.</p>
 </html>", revisions="<html>
