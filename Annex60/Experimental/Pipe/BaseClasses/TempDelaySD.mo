@@ -9,10 +9,10 @@ model TempDelaySD "Temperature delay using spatialDistribution operator"
      {Medium.h_default, Medium.h_default}
     "Inital enthalpy values for spatialDistribution";
 
-  parameter Modelica.SIunits.Diameter D = 0.1 "Pipe diameter";
-  parameter Modelica.SIunits.Length L = 100 "Pipe length";
+  parameter Modelica.SIunits.Diameter D "Pipe diameter"; // fixme call it diameter
+  parameter Modelica.SIunits.Length L "Pipe length";   // fixme: call it lenghth
   final parameter Modelica.SIunits.Area A = Modelica.Constants.pi * (D/2)^2
-    "Cross-sectional area of pipe in m*m";
+    "Cross-sectional area of pipe";
   Modelica.SIunits.Length x(start=0)
     "Spatial coordiante for spatialDistribution operator";
   Modelica.SIunits.Velocity v "Flow velocity of medium in pipe";
