@@ -3,9 +3,9 @@ model FixedRes_TStep
   "Test of fixed resistances with zero-mass-flow and flow reversal"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Water;
+  package Medium = Annex60.Media.Water "Medium";
 
-  parameter Modelica.SIunits.Diameter D = 0.1 "Pipe diameter in m";
+  parameter Modelica.SIunits.Diameter diameter = 0.1 "Pipe diameter";
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate"
@@ -19,7 +19,7 @@ model FixedRes_TStep
       mu_a=mu_nominal,
       mu_b=mu_nominal,
       length=100,
-      diameter=D,
+      diameter=diameter,
       roughness=2.5e-5,
       m_flow_small=1e-04) "Pressure loss of a straight pipe at m_flow_nominal";
 
@@ -31,7 +31,7 @@ model FixedRes_TStep
       mu_a=mu_nominal,
       mu_b=mu_nominal,
       length=50,
-      diameter=D,
+      diameter=diameter,
       roughness=2.5e-5,
       m_flow_small=1e-04) "Pressure loss of a straight pipe at m_flow_nominal";
 
@@ -49,6 +49,28 @@ model FixedRes_TStep
     use_dh=true,
     dh=0.1) "Pipe 1 in series of two 50 m pipes"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+
+  Fluid.FixedResistances.FixedResistanceDpM pipe50_2(
+    redeclare package Medium = Medium,
+    m_flow_nominal=0.5,
+    dp_nominal=2*dpStraightPipe2_nominal,
+    dp(nominal=10*50),
+    use_dh=true,
+    dh=0.1) "Pipe 2 of two 50 m pipes in series"
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+
+  Fluid.FixedResistances.FixedResistanceDpM pipe100(
+    redeclare package Medium = Medium,
+    m_flow_nominal=0.5,
+    dp_nominal=2*dpStraightPipe1_nominal,
+    dp(nominal=10*100),
+    use_dh=true,
+    dh=0.1) "Pipe with 100 m length in parallel to 2 x 50 m pipes"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={10,-20})));
+
   Annex60.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium =
         Medium,
     use_p_in=true,
@@ -90,14 +112,7 @@ model FixedRes_TStep
     annotation (Placement(transformation(extent={{-156,40},{-136,60}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
-    Fluid.FixedResistances.FixedResistanceDpM pipe50_2(
-    redeclare package Medium = Medium,
-    m_flow_nominal=0.5,
-    dp_nominal=2*dpStraightPipe2_nominal,
-    dp(nominal=10*50),
-    use_dh=true,
-    dh=0.1) "Pipe 2 of two 50 m pipes in series"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemSerOut(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
     "Temperature sensor for the outflow of the two pipes in series"
@@ -106,18 +121,7 @@ model FixedRes_TStep
       = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the two pipes in series"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-    Fluid.FixedResistances.FixedResistanceDpM
-                                            pipe100(
-    redeclare package Medium = Medium,
-    m_flow_nominal=0.5,
-    dp_nominal=2*dpStraightPipe1_nominal,
-    dp(nominal=10*100),
-    use_dh=true,
-    dh=0.1) "Pipe with 100 m length in parallel to 2 x 50 m pipes"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={10,-20})));
+
   Annex60.Fluid.Sensors.MassFlowRate masFloSin(
     redeclare package Medium = Medium)
     "Mass flow rate sensor for the single pipe"
@@ -175,7 +179,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(masFloSer.port_a, senTemSerOut.port_b) annotation (Line(
-      points={{88,40},{86,40},{86,40},{82,40},{82,40},{76,40}},
+      points={{88,40},{76,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou1.ports[1], senTemSerIn.port_a) annotation (Line(

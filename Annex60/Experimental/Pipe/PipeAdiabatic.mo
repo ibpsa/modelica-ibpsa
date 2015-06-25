@@ -4,10 +4,10 @@ model PipeAdiabatic
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
-  parameter Modelica.SIunits.Length length = 100 "Pipe length";
+  parameter Modelica.SIunits.Length length "Pipe length";
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
-    "Heat conductivity of pipe's surroundings in W/(m*K)";*/
+    "Heat conductivity of pipe's surroundings";*/
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
@@ -39,13 +39,15 @@ model PipeAdiabatic
     "Pressure loss of a straight pipe at m_flow_nominal";
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
+  // fixme: propagate use_dh and set default to false
   Annex60.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare final package Medium = Medium,
     use_dh=true,
     final dh=diameter,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
-    dp(nominal=10*length)) "Pressure drop calculation for this pipe"
+    dp(nominal=if Medium.nXi == 0 then 100*length else 5*length))
+    "Pressure drop calculation for this pipe"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 protected
