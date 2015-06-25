@@ -3,8 +3,8 @@ model PipeAdiabatic
   "Pipe model using spatialDistribution for temperature delay without heat losses"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Modelica.SIunits.Diameter D = 0.1 "Pipe diameter in m";
-  parameter Modelica.SIunits.Length L = 100 "Pipe length in m";
+  parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
+  parameter Modelica.SIunits.Length length = 100 "Pipe length";
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings in W/(m*K)";*/
@@ -12,36 +12,6 @@ model PipeAdiabatic
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
   annotation(Dialog(group = "Nominal condition"));
-
-  final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
-      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-      m_flow=m_flow_nominal,
-      rho_a=rho_nominal,
-      rho_b=rho_nominal,
-      mu_a=mu_nominal,
-      mu_b=mu_nominal,
-      length=L,
-      diameter=D,
-      roughness=roughness,
-      m_flow_small=m_flow_small)
-    "Pressure loss of a straight pipe at m_flow_nominal";
-
-  Annex60.Fluid.FixedResistances.FixedResistanceDpM res(
-    redeclare package Medium = Medium,
-    use_dh=true,
-    dh=D,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal,
-    dp(nominal=10*L)) "Pressure drop calculation for this pipe"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
-  BaseClasses.TempDelaySD
-                   temperatureDelay(redeclare package Medium = Medium,
-      m_flow_small=1e-5,
-    D=D,
-    L=L)
-    "Model for temperature wave propagation with spatialDistribution operator"
-    annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
@@ -55,20 +25,60 @@ model PipeAdiabatic
     "Pressure drop at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
 
+  final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
+      Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+      m_flow=m_flow_nominal,
+      rho_a=rho_default,
+      rho_b=rho_default,
+      mu_a=mu_default,
+      mu_b=mu_default,
+      length=length,
+      diameter=diameter,
+      roughness=roughness,
+      m_flow_small=m_flow_small)
+    "Pressure loss of a straight pipe at m_flow_nominal";
+
+  // fixme: shouldn't dp(nominal) be around 100 Pa/m?
+  Annex60.Fluid.FixedResistances.FixedResistanceDpM res(
+    redeclare final package Medium = Medium,
+    use_dh=true,
+    final dh=diameter,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dp_nominal,
+    dp(nominal=10*length)) "Pressure drop calculation for this pipe"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+
 protected
   parameter Medium.ThermodynamicState sta_default=
-     Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
+     Medium.setState_pTX(
+       T=Medium.T_default,
+       p=Medium.p_default,
+       X=Medium.X_default) "Default medium state";
 
- parameter Modelica.SIunits.Density rho_nominal = Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
-    "Nominal density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
+ parameter Modelica.SIunits.Density rho_default=
+      Medium.density_pTX(
+       p=Medium.p_default,
+       T=Medium.T_default,
+       X=Medium.X_default)
+    "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
     annotation(Dialog(group="Advanced", enable=use_rho_nominal));
 
- parameter Modelica.SIunits.DynamicViscosity mu_nominal = Medium.dynamicViscosity(
-                                                 Medium.setState_pTX(
-                                                     Medium.p_default, Medium.T_default, Medium.X_default))
-    "Nominal dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
-    annotation(Dialog(group="Advanced", enable=use_mu_nominal));
+ parameter Modelica.SIunits.DynamicViscosity mu_default=
+    Medium.dynamicViscosity(Medium.setState_pTX(
+      p=  Medium.p_default,
+      T=  Medium.T_default,
+      X=  Medium.X_default))
+    "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
+    annotation(Dialog(group="Advanced", enable=use_mu_default));
 
+  Annex60.Experimental.Pipe.BaseClasses.TempDelaySD temperatureDelay(
+    redeclare final package Medium = Medium,
+    final m_flow_small=m_flow_small,
+    final D=diameter,
+    final L=length,
+    final allowFlowReversal=allowFlowReversal)
+    "Model for temperature wave propagation with spatialDistribution operator"
+    annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 equation
   connect(port_a, res.port_a) annotation (Line(
       points={{-100,0},{-60,0}},

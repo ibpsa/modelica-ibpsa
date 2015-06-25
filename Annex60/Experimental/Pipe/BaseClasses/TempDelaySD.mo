@@ -4,30 +4,33 @@ model TempDelaySD "Temperature delay using spatialDistribution operator"
 
   parameter Real initialPoints[:](each min=0, each max=1) = {0.0, 1.0}
     "Initial points for spatialDistribution";
-  parameter Modelica.SIunits.Temperature initialValuesH[:] = {Medium.h_default,
-                                                              Medium.h_default}
+    // fixme: use T_start[:] and propagate to top level, then use it to assign h_start (or initialValuesH)
+  parameter Modelica.SIunits.SpecificEnthalpy initialValuesH[:]=
+     {Medium.h_default, Medium.h_default}
     "Inital enthalpy values for spatialDistribution";
 
+  parameter Modelica.SIunits.Diameter D = 0.1 "Pipe diameter";
+  parameter Modelica.SIunits.Length L = 100 "Pipe length";
+  final parameter Modelica.SIunits.Area A = Modelica.Constants.pi * (D/2)^2
+    "Cross-sectional area of pipe in m*m";
   Modelica.SIunits.Length x(start=0)
     "Spatial coordiante for spatialDistribution operator";
-  Modelica.SIunits.Velocity v "Flow velocity of medium in pipe in m/s";
-
-  parameter Modelica.SIunits.Diameter D = 0.1 "Pipe diameter in m";
-  parameter Modelica.SIunits.Length L = 100 "Pipe length in m";
-  Modelica.SIunits.Area A "Cross-sectional area of pipe in m*m";
+  Modelica.SIunits.Velocity v "Flow velocity of medium in pipe";
 
 protected
-  parameter Modelica.SIunits.Enthalpy h_default=Medium.specificEnthalpy(sta_default)
-    "Density, used to compute flow velocity";
+  parameter Modelica.SIunits.SpecificEnthalpy h_default=Medium.specificEnthalpy(sta_default)
+    "Specific enthalpy";
   parameter Medium.ThermodynamicState sta_default=
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
 equation
   dp = 0;
-  A = Modelica.Constants.pi * (D/2)^2;
 
   der(x) = v;
   v = V_flow / A;
 
+  // fixme: this also need to be applied on Xi_outflow and C_outflow.
+  // Otherwise, for air, it can give wrong temperatures at the outlet.
+  // To assign Xi_outflow and C_outflow, you will need to use Annex60.Fluid.Interfaces.PartialTwoPort
   (port_a.h_outflow,
    port_b.h_outflow) = spatialDistribution(inStream(port_a.h_outflow),
                                            inStream(port_b.h_outflow),
