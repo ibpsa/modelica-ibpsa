@@ -40,8 +40,8 @@ model ZoneExample
     inc=0,
     azi=0,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
-    redeclare parameter IDEAS.Buildings.Data.Interfaces.Frame fraType,
-    redeclare parameter IDEAS.Buildings.Components.Shading.Screen shaType)
+    redeclare IDEAS.Buildings.Data.Interfaces.Frame fraType,
+    redeclare IDEAS.Buildings.Components.Shading.Screen shaType)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
   SlabOnGround slabOnGround(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.LightWall
@@ -109,7 +109,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(shadingControl.y, window.Ctrl) annotation (Line(
-      points={{-60,-84},{-58,-84},{-58,-86},{-52,-86},{-52,-82}},
+      points={{-60,-84},{-58,-84},{-58,-86},{-53,-86},{-53,-82}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
