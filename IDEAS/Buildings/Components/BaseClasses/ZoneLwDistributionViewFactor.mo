@@ -196,8 +196,8 @@ initial algorithm
             end for;
           end if;
 
-          Umat[i,j] := if vieFacTot[index1, index2]  < Modelica.Constants.small then 0 else 5.68/(1/A[i]/vieFacTot[index1, index2]+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j])  *A[j]/Atot[index2];
-          Umat[j,i] := if vieFacTot[index2, index1]  < Modelica.Constants.small then 0 else 5.68/(1/A[j]/vieFacTot[index2, index1]+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j])  *A[i]/Atot[index1];
+          Umat[i,j] := if vieFacTot[index1, index2]  < Modelica.Constants.small then 0 else 5.68/(1/A[i]/(vieFacTot[index1, index2]*A[j]/Atot[index2])+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j]);
+          Umat[j,i] := if vieFacTot[index2, index1]  < Modelica.Constants.small then 0 else 5.68/(1/A[j]/(vieFacTot[index2, index1]*A[i]/Atot[index1])+(1-epsLw[i])/A[i]/epsLw[i]+(1-epsLw[j])/A[j]/epsLw[j]);
           end if;
 
         end for;
