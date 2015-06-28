@@ -101,5 +101,8 @@ Changed implementation for more flexible 3wayvalve
 </ul>
 </html>"),
     experiment(StopTime=15),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Valves/Examples/Thermostatic3WayValve.mos"
+        "Simulate and plot"));
 end Thermostatic3WayValve;
