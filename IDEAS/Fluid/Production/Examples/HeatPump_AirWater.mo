@@ -27,13 +27,7 @@ model HeatPump_AirWater
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
     annotation (Placement(transformation(extent={{-94,-20},{-80,-6}})));
-  //  Real PElLossesInt( start = 0, fixed = true);
-  //  Real PElNoLossesInt( start = 0, fixed = true);
-  //  Real QUsefulLossesInt( start = 0, fixed = true);
-  //  Real QUsefulNoLossesInt( start = 0, fixed = true);
-  //  Real SPFLosses( start = 0);
-  //  Real SPFNoLosses( start = 0);
-  //
+
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TReturn
     annotation (Placement(transformation(extent={{-40,-62},{-20,-42}})));
   Modelica.Blocks.Sources.Sine sine(
@@ -45,19 +39,14 @@ model HeatPump_AirWater
   Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = Medium,
     p=200000)
     annotation (Placement(transformation(extent={{-8,8},{-28,28}})));
-  constant SI.MassFlowRate m_flow_nominal=0.2 "Nominal mass flow rate";
+  constant Modelica.SIunits.MassFlowRate m_flow_nominal=0.2
+    "Nominal mass flow rate";
   inner SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,78},{-80,98}})));
-  Modelica.Blocks.Sources.BooleanConstant HP_on(k=true)
-    annotation (Placement(transformation(extent={{-34,46},{-54,66}})));
+  Modelica.Blocks.Sources.Constant Tset(k=273.15 + 35) "Temperature set point"
+    annotation (Placement(transformation(extent={{-22,44},{-42,64}})));
 equation
-  heater.TSet = 273.15 + 35;
-  //   der(PElLossesInt) = HP.PEl;
-  //   der(PElNoLossesInt) = HP_NoLosses.PEl;
-  //   der(QUsefulLossesInt) =thermalConductor.port_b.Q_flow;
-  //   der(QUsefulNoLossesInt) = thermalConductor1.port_b.Q_flow;
-  //   SPFLosses = if noEvent(PElLossesInt > 0) then QUsefulLossesInt/PElLossesInt else 0;
-  //   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
+
   connect(heater.heatPort, fixedTemperature.port) annotation (Line(
       points={{-67.7,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
       color={191,0,0},
@@ -86,13 +75,11 @@ equation
       points={{-28,18},{-42,18},{-42,18},{-56,18}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(HP_on.y, heater.on) annotation (Line(
-      points={{-55,56},{-65.9,56},{-65.9,36}},
-      color={255,0,255},
-      smooth=Smooth.None));
+  connect(Tset.y, heater.TSet) annotation (Line(points={{-43,54},{-68.6,54},{-68.6,
+          36}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     experiment(StopTime=15000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
