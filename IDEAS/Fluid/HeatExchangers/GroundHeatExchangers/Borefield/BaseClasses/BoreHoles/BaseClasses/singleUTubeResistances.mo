@@ -99,6 +99,7 @@ algorithm
            kSoi = " + String(kSoi) + " W/m/K
            kFil = " + String(kFil) + " W/m/K
            kTub = " + String(kTub) + " W/m/K
+           i = "  + String(i) + "
   Computed x    = " + String(x) + " K/W
            Rgb  = " + String(Rgb) + " K/W
            Rgg  = " + String(Rgg) + " K/W");
@@ -114,7 +115,8 @@ RConv = " +String(RConv) +"m K / W
 hSeg = " + String(hSeg) + " m
 Rg = "+String(Rg) + " K / W
 Ra = " + String(Ra)  + " m K / W
-x = " + String(x));
+x = " + String(x) + "
+i = "  + String(i));
   end if;
                                                         annotation (Diagram(graphics), Documentation(info="<html>
 <p>

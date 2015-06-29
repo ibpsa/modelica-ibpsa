@@ -287,7 +287,7 @@ initial equation
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh,
-    printDebug=true);
+    printDebug=false);
 
 equation
   assert(not gen.singleUTube,

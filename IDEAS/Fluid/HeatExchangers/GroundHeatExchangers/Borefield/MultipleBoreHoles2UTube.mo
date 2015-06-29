@@ -1,6 +1,6 @@
 ﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
 model MultipleBoreHoles2UTube
-  "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
+  "Borefield model using double U-tube borehole heat exchanger configuration."
 
   // Medium in borefield
   extends
@@ -142,9 +142,9 @@ abrut temperature changes, the aggregation method is used to calculate the avera
 temperature instead of the average fluid temperature. The calculated borehole wall temperature is then
 connected to the dynamic model of the borehole heat exchanger.</p>
 <p>More detailed documentation can be found in 
-<a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
+<a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GrouhdHeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
 and in 
-<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Borefield.UsersGuide\">IDEAS.Fluid.HeatExchangers.Borefield.UsersGuide</a>.
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.UsersGuide\">IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.UsersGuide</a>.
 </p>
 <p>
 A verification of this model can be found in 

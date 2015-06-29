@@ -144,7 +144,7 @@ initial equation
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow_nominal=gen.m_flow_nominal_bh,
-    printDebug=true);
+    printDebug=false);
 
 equation
     assert(gen.singleUTube,

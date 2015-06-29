@@ -157,13 +157,13 @@ of a borehole heat exchanger.
 <p>
 The instance <code>intHEX</code> computes the heat transfer in the pipes and the filling material. 
 This computation is done using the model
-<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX\">
-IDEAS.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX</a>.
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX\">
+IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.SingleUTubeInternalHEX</a>.
 </p>
 <p>
 The instance <code>soiLay</code> computes transient and steady state heat transfer in the soil using a vertical cylinder.
-The computation is done using the model <a href=\"modelica://IDEAS.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.CylindricalGroundLayer\">
-IDEAS.Fluid.HeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.CylindricalGroundLayer</a>.
+The computation is done using the model <a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.CylindricalGroundLayer\">
+IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.CylindricalGroundLayer</a>.
 </p>
 <p>
 The model <code>TBouCon</code> is a constant temperature equal to the initial ground temperature.</a>.

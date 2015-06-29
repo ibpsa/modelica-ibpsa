@@ -4,7 +4,8 @@ partial model partial_SingleBoreHoleStepLoad
 
   extends Modelica.Icons.Example;
 
-  replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+  replaceable package Medium =
+      Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   replaceable parameter Data.SoilData.WetSand_validation
                                           soi constrainedby Data.Records.Soil
@@ -115,5 +116,4 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
         graphics));
-
 end partial_SingleBoreHoleStepLoad;

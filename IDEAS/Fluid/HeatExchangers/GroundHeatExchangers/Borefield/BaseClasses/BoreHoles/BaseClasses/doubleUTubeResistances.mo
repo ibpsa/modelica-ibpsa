@@ -71,8 +71,6 @@ R13 :=1/2/pi/kFil*(log(rBor/(2*sha)) - (kFil - kSoi)/(kFil +
       x := Modelica.Math.log(sqrt(rBor^2 + 4*(rTub + eTub)^2)/(2*sqrt(2)*(rTub + eTub)))/
         Modelica.Math.log(rBor/(2*(rTub + eTub)))*((15 - i + 1)/15);
 
-      Modelica.Utilities.Streams.print("i=" + String(i));
-
      //Thermal resistance between the grout zone and bore hole wall
      Rgb := (1 - x)*Rg;
 
@@ -115,7 +113,8 @@ RConv = " +String(RConv) +"m K / W
 hSeg = " + String(hSeg) + " m
 Rg = "+String(Rg) + " K / W
 Ra = " + String(Ra)  + " m K / W
-x = " + String(x));
+x = " + String(x) + "
+i = "  + String(i));
   end if;
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
