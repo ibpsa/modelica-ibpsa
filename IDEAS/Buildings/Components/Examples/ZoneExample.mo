@@ -109,9 +109,11 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(shadingControl.y, window.Ctrl) annotation (Line(
-      points={{-60,-84},{-58,-84},{-58,-86},{-52,-86},{-52,-82}},
+      points={{-60,-84},{-58,-84},{-58,-86},{-53,-86},{-53,-82}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Buildings/Components/Examples/ZoneExample.mos"
+        "Simulate and plot"));
 end ZoneExample;
