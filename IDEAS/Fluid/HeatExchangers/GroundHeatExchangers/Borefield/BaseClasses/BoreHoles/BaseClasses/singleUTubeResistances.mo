@@ -57,7 +57,7 @@ algorithm
 
   //Conversion of Rb (resp. Ra) to Rg (resp. Rar) of Bauer:
   Rg  :=(2*Rb_internal-RCondPipe-RConv)/hSeg;
-  Rar :=Ra/hSeg;
+  Rar :=(Ra-2*(RCondPipe + RConv))/hSeg;
 
 /* **************** Simplification of Bauer for single U-tube ************************
   //Thermal resistance between: Outer wall and one tube

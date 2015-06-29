@@ -3,9 +3,6 @@ package Records
 extends Modelica.Icons.Package;
 
 
-
-
-
 annotation (Documentation(info="<html>
   <p>This package contains the different record structures used by the borefield model. Each record of 
   <a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.SoilData\">IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.SoilData</a>,

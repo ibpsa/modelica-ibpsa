@@ -3,8 +3,6 @@ model correctedBoreFieldWallTemperature
   "Test for the function correctedBoreFieldWallTemperature"
   extends Modelica.Icons.Example;
 
-  parameter Integer lenSim=3600*24*365 "length of the simulation";
-
   parameter Modelica.SIunits.Temperature[:] TResSho={283.1499938964844, 284.28900146484375, 284.8553161621094, 285.1809387207031,
   285.410400390625, 285.5829772949219, 285.7174987792969, 285.8280029296875,
   285.9212951660156, 286.001953125, 286.0731506347656, 286.1373291015625,
@@ -54,6 +52,7 @@ model correctedBoreFieldWallTemperature
       TResSho=TResSho)
     "Steady state temperature of the boreholes wall, corrected by the short-term model";
 
+    Integer t_d;
 protected
   Integer timeSca "time step size for simulation";
   Integer timeSca_old;
@@ -68,7 +67,8 @@ public
     annotation (Placement(transformation(extent={{-90,-92},{-70,-72}})));
   Data.FillingData.Bentonite fil "Filing parameters"
     annotation (Placement(transformation(extent={{-58,-92},{-38,-72}})));
-  Data.GeneralData.c8x1_h110_b5_d3600_T283 gen
+  //Data.GeneralData.c8x1_h110_b5_d3600_T283
+  Data.GeneralData.c1x1_h110_b5_d3600_T283 gen
     annotation (Placement(transformation(extent={{-28,-92},{-8,-72}})));
 algorithm
   t_old := t_new;
@@ -88,13 +88,14 @@ algorithm
   end when;
 
 equation
+  t_d = max(t_old, integer(integer(time/timeSca)*timeSca/gen.tStep));
   TWallCor =CorrectedBoreFieldWallTemperature(
     t_d=max(t_old, integer(integer(time/timeSca)*timeSca/gen.tStep)),
     gen=gen,
     soi=soi,
     TResSho=TResSho);
 
-  annotation (experiment(StopTime=720000, __Dymola_NumberOfIntervals=100),
+  annotation (experiment(StopTime=7.2e+006, __Dymola_NumberOfIntervals=100),
       __Dymola_experimentSetupOutput, Documentation(info="<html>
         <p>Test implementation of boreFieldWallTemperature function.</p>
 </html>", revisions="<html>

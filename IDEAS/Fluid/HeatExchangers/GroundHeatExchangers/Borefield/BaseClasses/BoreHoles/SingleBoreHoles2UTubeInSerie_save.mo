@@ -1,5 +1,5 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles;
-model SingleBoreHoles2UTubeInSerie
+model SingleBoreHoles2UTubeInSerie_save
   "Double U-tube borehole heat exchanger model. If more than one borehole is given, they are assumed to be connected in series"
 
   extends Interface.PartialSingleBoreHole(m_flow_nominal = gen.m_flow_nominal_bh,T_start=gen.T_start,dp_nominal=gen.dp_nominal);
@@ -22,8 +22,9 @@ model SingleBoreHoles2UTubeInSerie
     each final C_start=C_start,
     redeclare each final package Medium = Medium,
     each final C_nominal=C_nominal,
-    dynFil=dynFil,
-    mSenFac=mSenFac)                constrainedby
+    each final dynFil=dynFil,
+    each final mSenFac=mSenFac,
+    each final use_TWall=use_TWall)                       constrainedby
     Interface.PartialSingleBoreHole(
     each m_flow_nominal=m_flow_nominal,
     each T_start=T_start,
@@ -42,38 +43,16 @@ model SingleBoreHoles2UTubeInSerie
     each p_start=p_start,
     each X_start=X_start,
     each C_start=C_start,
-    each C_nominal=C_nominal) "Borehole heat exchanger" annotation (Placement(
+    each C_nominal=C_nominal,
+    each  dynFil=dynFil,
+    each  mSenFac=mSenFac,
+    each use_TWall=use_TWall) "Borehole heat exchanger" annotation (Placement(
         transformation(extent={{-16,-16},{16,16}}, rotation=0)),
       choicesAllMatching=true);
 
-  Modelica.SIunits.Temperature[gen.nbSer] TWallAveSeg
-    "Average borehole wall temperature along the depth for borehole in serie";
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material."
-    annotation (Dialog(tab="Dynamics"));
 equation
   assert(not gen.singleUTube, "This borefield model is for double U-Tube configuration but you chose single U-Tube configuration in the general borefield record.");
 
-  for i in 1:gen.nbSer loop
-    TWallAveSeg[i] = sum(borHol[i].borHolSeg[:].intHEX.port.T)/gen.nVer;
-  end for;
-
-  TWallAve = sum(TWallAveSeg)/gen.nbSer;
-
-    connect(port_a, borHol[1].port_a) annotation (Line(
-      points={{-100,0},{-16,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-    connect(borHol[gen.nbSer].port_b, port_b) annotation (Line(
-      points={{16,0},{100,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-    for i in 1:gen.nbSer - 1 loop
-      connect(borHol[i].port_b, borHol[i + 1].port_a) annotation (Line(
-      points={{16,0},{16,28},{-16,28},{-16,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-    end for;
   annotation (
     Dialog(group="Borehole"),
     Dialog(group="Borehole"),
@@ -270,4 +249,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SingleBoreHoles2UTubeInSerie;
+end SingleBoreHoles2UTubeInSerie_save;

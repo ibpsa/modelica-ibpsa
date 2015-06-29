@@ -37,9 +37,9 @@ model doubleUTubeResistances "Validation of singleUTubeResistance by comparing t
   Real RCondGro_val(fixed=false);
   Real x(fixed=false);
 
-  parameter Real Rb_ref =  0.1465;
-  parameter Real Ra_ref =  0.62;
-  parameter Real RConv_ref =  0.003;
+  parameter Real Rb_ref =  0.08328;
+  parameter Real Ra_ref =  0.3;
+  parameter Real RConv_ref =  0.00531;
   parameter Real RCondPipe_ref =  0.07868;
 equation
     (x, Rgb_val, Rgg_val, RCondGro_val) =

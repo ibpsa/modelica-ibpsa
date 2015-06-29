@@ -4,75 +4,45 @@ model MultipleBoreHolesUTube
 
   // Medium in borefield
   extends
-    IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.partial_multipleBoreHoles;
-
-  BaseClasses.BoreHoles.BaseClasses.InternalHEXUTube intHEX(
+    IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Interfaces.partial_multipleBoreHoles;
+      replaceable BaseClasses.BoreHoles.SingleBoreHolesInSerie
+                                               borHolSer(
     redeclare final package Medium = Medium,
-    final m1_flow_nominal=bfData.m_flow_nominal,
-    final m2_flow_nominal=bfData.m_flow_nominal,
-    final dp1_nominal=dp_nominal,
-    final dp2_nominal=0,
-    final from_dp1=from_dp,
-    final from_dp2=from_dp,
-    final linearizeFlowResistance1=linearizeFlowResistance,
-    final linearizeFlowResistance2=linearizeFlowResistance,
-    final deltaM1=deltaM,
-    final deltaM2=deltaM,
-    final m1_flow_small=bfData.gen.m_flow_small,
-    final m2_flow_small=bfData.gen.m_flow_small,
     final soi=bfData.soi,
     final fil=bfData.fil,
     final gen=bfData.gen,
-    final allowFlowReversal1=bfData.gen.allowFlowReversal,
-    final allowFlowReversal2=bfData.gen.allowFlowReversal,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
-    final p1_start=p_start,
-    final X1_start=X_start,
-    final C1_start=C_start,
-    final C1_nominal=C_nominal,
-    final p2_start=p_start,
-    final X2_start=X_start,
-    final C2_start=C_start,
-    final C2_nominal=C_nominal,
-    final scaSeg=bfData.gen.nbBh*bfData.gen.nVer,
-    final T1_start=T_start,
-    final T2_start=T_start,
     final T_start=T_start,
-    dynFil=dynFil,
-    mSenFac=mSenFac)
-    "Internal part of the borehole including the pipes and the filling material"
-    annotation (Placement(transformation(
-        extent={{-12,13},{12,-13}},
-        rotation=270,
-        origin={3,-10})));
+    final dynFil=dynFil,
+    final mSenFac=mSenFac,
+    final use_TWall=true,
+    final m_flow_nominal=m_flow_nominal/bfData.gen.nbBh*bfData.gen.nbSer,
+    final dp_nominal=dp_nominal) constrainedby
+    BaseClasses.BoreHoles.Interface.PartialSingleBoreholeSerie(
+    redeclare package Medium = Medium,
+     soi=bfData.soi,
+     fil=bfData.fil,
+     gen=bfData.gen,
+     energyDynamics=energyDynamics,
+     massDynamics=massDynamics,
+     T_start=T_start,
+     dynFil=dynFil,
+     mSenFac=mSenFac,
+     use_TWall=true,
+     m_flow_nominal=m_flow_nominal/bfData.gen.nbBh*bfData.gen.nbSer,
+     dp_nominal=dp_nominal) "NbSer boreholes in series"      annotation (Placement(transformation(
+        extent={{12,13},{-12,-13}},
+        rotation=180,
+        origin={-1,0})));
 
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material."
-    annotation (Dialog(tab="Dynamics"));
 equation
-  Q_flow = port_a.m_flow*(actualStream(port_a.h_outflow) - actualStream(port_b.h_outflow));
-
-  connect(TWallBou.port, intHEX.port) annotation (Line(
-      points={{-24,-44},{-20,-44},{-20,-12},{-10,-12},{-10,-11.1818},{-8.81818,
-          -11.1818}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
-  connect(intHEX.port_b1, intHEX.port_a2) annotation (Line(
-      points={{-4.09091,-23.1818},{-4.09091,-30},{10.0909,-30},{10.0909,
-          -23.1818}},
-      color={0,127,255},
-      smooth=Smooth.None));
-
-  connect(port_a, intHEX.port_a1) annotation (Line(
-      points={{-100,0},{-52,0},{-52,0.818182},{-4.09091,0.818182}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(port_b, intHEX.port_b2) annotation (Line(
-      points={{100,0},{54,0},{54,2},{10.0909,2},{10.0909,0.818182}},
-      color={0,127,255},
-      smooth=Smooth.None));
+  connect(massFlowRateMultiplier.port_b, borHolSer.port_a)
+    annotation (Line(points={{-60,0},{-13,0},{-13,0}}, color={0,127,255}));
+  connect(borHolSer.port_b, massFlowRateMultiplier1.port_a)
+    annotation (Line(points={{11,0},{60,0},{60,0}}, color={0,127,255}));
+  connect(TWall_val.y, borHolSer.TWall)
+    annotation (Line(points={{-18.9,40},{-1,40},{-1,14.3}}, color={0,0,127}));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,
@@ -143,10 +113,8 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
-                    Documentation(info="<html>
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),Documentation(info="<html>
   <p>The proposed model is a so-called hybrid step-response
 model (HSRM). This type of model uses the
 borefield’s temperature response to a step load input.

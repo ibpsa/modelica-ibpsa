@@ -1,9 +1,7 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses;
 model BoreHoleSegmentFourPort "Vertical segment of a borehole"
-  extends Interface.PartialBoreHoleElement;
+  extends Interface.PartialBoreHoleSegment;
 
-  extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters;
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends IDEAS.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -13,13 +11,6 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
     final m2_flow_small=gen.m_flow_small,
     final allowFlowReversal1=gen.allowFlowReversal,
     final allowFlowReversal2=gen.allowFlowReversal);
-
-  parameter Modelica.SIunits.Temperature TExt_start=T_start
-    "Initial far field temperature"
-    annotation (Dialog(tab="Boundary conditions",group="T_start: ground"));
-  parameter Modelica.SIunits.Temperature TFil_start=T_start
-    "Initial far field temperature"
-    annotation (Dialog(tab="Boundary conditions",group="T_start: ground"));
 
   InternalHEXUTube intHEX(
     redeclare final package Medium = Medium,
@@ -53,36 +44,11 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
     final C2_start=C_start,
     final C2_nominal=C_nominal,
     final T_start=T_start,
-    dynFil=dynFil,
-    mSenFac=mSenFac)
+    final dynFil=dynFil,
+    final mSenFac=mSenFac)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
-    CylindricalGroundLayer soilLay(
-    final material=soi,
-    final h=gen.hSeg,
-    final nSta=gen.nHor,
-    final r_a=gen.rBor,
-    final r_b=gen.rExt,
-    final TInt_start=TFil_start,
-    final TExt_start=TExt_start,
-    final steadyStateInitial=false) "Heat conduction in the soil layers"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBouCon
-    "Thermal boundary condition for the far-field"
-    annotation (Placement(transformation(extent={{68,-10},{48,10}})));
-public
-  Modelica.Blocks.Sources.RealExpression realExpression(final y=gen.TExt0_start)
-    annotation (Placement(transformation(extent={{50,-42},{70,-22}})));
-
-protected
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo
-    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-
-public
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material." annotation (Dialog(tab="Dynamics"));
 equation
   connect(intHEX.port_b1, port_b1) annotation (Line(
       points={{-50,6.36364},{-40,6.36364},{-40,60},{100,60}},
@@ -96,31 +62,21 @@ equation
       points={{-70,-4.54545},{-80,-4.54545},{-80,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(intHEX.port, heaFlo.port_a) annotation (Line(
-      points={{-60,10},{-45,10},{-45,1.22125e-015},{-40,1.22125e-015},{-40,0},{
-          -30,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(heaFlo.port_b, soilLay.port_a) annotation (Line(
-      points={{-10,0},{-7.5,0},{-7.5,1.22125e-015},{-5,1.22125e-015},{-5,0},{0,
-          0}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(port_a1, intHEX.port_a1) annotation (Line(
       points={{-100,60},{-80,60},{-80,6.36364},{-70,6.36364}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(soilLay.port_b, TBouCon.port) annotation (Line(
-      points={{20,0},{48,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(realExpression.y, TBouCon.T) annotation (Line(
-      points={{71,-32},{84,-32},{84,0},{70,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  if not use_TWall then
+    connect(intHEX.port, soilLay.port_a)
+    annotation (Line(points={{-60,10},{-60,10},{-60,30}},color={191,0,0}));
+  else
+    connect(TBouCon.port, intHEX.port) annotation (Line(points={{-60,60},{-46,
+            60},{-46,10},{-60,10}},
+                                  color={191,0,0}));
+  end if;
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
+            100}})),
     Icon(graphics={
         Rectangle(
           extent={{-72,80},{68,-80}},

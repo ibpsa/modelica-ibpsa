@@ -57,7 +57,7 @@ R13 :=1/2/pi/kFil*(log(rBor/(2*sha)) - (kFil - kSoi)/(kFil +
   // ------ Calculation according to Bauer et al. (2010)
   Rg :=(4*Rb_internal - RCondPipe - RConv)/hSeg;
   Rar1 :=((2 + sqrt(2))*Rg*hSeg*(Ra - RCondPipe)/(Rg*hSeg + Ra - RCondPipe))/hSeg;
-  Rar2 :=sqrt(2)*Rar1  * 100;
+  Rar2 :=sqrt(2)*Rar1;
 
 //   1/2/pi/kFil*(Modelica.Math.log(rBor/(rTub +
 //     eTub)) + 0.5*Modelica.Math.log(sqrt(2)*sha/(rTub + eTub)) - 0.25*

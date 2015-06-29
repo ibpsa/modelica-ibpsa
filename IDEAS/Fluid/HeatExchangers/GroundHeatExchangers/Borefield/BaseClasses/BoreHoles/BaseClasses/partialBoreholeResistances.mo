@@ -37,19 +37,22 @@ partial function partialBoreholeResistances
 
   output Real x "Capacity location";
 
+protected
+  parameter Real pi = 3.141592653589793;
+
+  parameter Real rTub_in = rTub-eTub "Inner radius of tube";
+
   Real RConv(unit="(m.K)/W") = convectionResistance(
     hSeg=hSeg,
     rBor=rBor,
-    rTub=rTub_in,
+    rTub=rTub,
+    eTub=eTub,
     kMed=kMed,
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow=m_flow_nominal,
     m_flow_nominal=m_flow_nominal)*hSeg;
-protected
-  parameter Real pi = 3.141592653589793;
 
-  parameter Real rTub_in = rTub-eTub "Inner radius of tube";
   Boolean test=false "thermodynamic test for R and x value";
 
   Real RCondPipe(unit="(m.K)/W") =  Modelica.Math.log((rTub)/rTub_in)/(2*Modelica.Constants.pi*kTub)

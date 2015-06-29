@@ -4,95 +4,51 @@ model MultipleBoreHoles2UTube
 
   // Medium in borefield
   extends
-    IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.partial_multipleBoreHoles;
+    IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Interfaces.partial_multipleBoreHoles;
 
-  BaseClasses.BoreHoles.BaseClasses.InternalHEX2UTube intHEX(
+  replaceable BaseClasses.BoreHoles.SingleBoreHolesInSerie2UTube
+                                               borHolSer(
     redeclare final package Medium = Medium,
-    final m1_flow_nominal=bfData.m_flow_nominal/2,
-    final m2_flow_nominal=bfData.m_flow_nominal/2,
-    final m3_flow_nominal=bfData.m_flow_nominal/2,
-    final m4_flow_nominal=bfData.m_flow_nominal/2,
-    final from_dp1=from_dp,
-    final from_dp2=from_dp,
-    final from_dp3=from_dp,
-    final from_dp4=from_dp,
-    final linearizeFlowResistance1=linearizeFlowResistance,
-    final linearizeFlowResistance2=linearizeFlowResistance,
-    final linearizeFlowResistance3=linearizeFlowResistance,
-    final linearizeFlowResistance4=linearizeFlowResistance,
-    final deltaM1=deltaM,
-    final deltaM2=deltaM,
-    final deltaM3=deltaM,
-    final deltaM4=deltaM,
-    final m1_flow_small=bfData.gen.m_flow_small/2,
-    final m2_flow_small=bfData.gen.m_flow_small/2,
-    final m3_flow_small=bfData.gen.m_flow_small/2,
-    final m4_flow_small=bfData.gen.m_flow_small/2,
     final soi=bfData.soi,
     final fil=bfData.fil,
     final gen=bfData.gen,
-    final allowFlowReversal1=bfData.gen.allowFlowReversal,
-    final allowFlowReversal2=bfData.gen.allowFlowReversal,
-    final allowFlowReversal3=bfData.gen.allowFlowReversal,
-    final allowFlowReversal4=bfData.gen.allowFlowReversal,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
-    final dp1_nominal=dp_nominal,
-    final dp2_nominal=0,
-    final dp3_nominal=dp_nominal,
-    final dp4_nominal=0,
-    final T_start = T_start,
-    final scaSeg=bfData.gen.nbBh*bfData.gen.nVer,
-    dynFil=dynFil,
-    mSenFac=mSenFac)
-    "Internal part of the borehole including the pipes and the filling material"
-    annotation (Placement(transformation(
-        extent={{-12,13},{12,-13}},
-        rotation=270,
-        origin={3,-8})));
+    final T_start=T_start,
+    final dynFil=dynFil,
+    final mSenFac=mSenFac,
+    final use_TWall=true,
+    final m_flow_nominal=m_flow_nominal/bfData.gen.nbBh*bfData.gen.nbSer,
+    final dp_nominal=dp_nominal)  constrainedby
+    BaseClasses.BoreHoles.Interface.PartialSingleBoreholeSerie(
+    redeclare package Medium = Medium,
+     soi=bfData.soi,
+     fil=bfData.fil,
+     gen=bfData.gen,
+     energyDynamics=energyDynamics,
+     massDynamics=massDynamics,
+     T_start=T_start,
+     dynFil=dynFil,
+     mSenFac=mSenFac,
+     use_TWall=true,
+     m_flow_nominal=m_flow_nominal/bfData.gen.nbBh*bfData.gen.nbSer,
+     dp_nominal=dp_nominal) "NbSer boreholes in series"      annotation (Placement(transformation(
+        extent={{12,13},{-12,-13}},
+        rotation=180,
+        origin={-1,0})));
 
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material."
-    annotation (Dialog(tab="Dynamics"));
 equation
-  Q_flow = intHEX.port_a1.m_flow*(actualStream(intHEX.port_a1.h_outflow) - actualStream(intHEX.port_b2.h_outflow)) + intHEX.port_a3.m_flow*(actualStream(intHEX.port_a3.h_outflow) - actualStream(intHEX.port_b4.h_outflow));
-
-  connect(port_a, intHEX.port_a1) annotation (Line(
-      points={{-100,0},{-52,0},{-52,2.81818},{-6.45455,2.81818}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(port_a, intHEX.port_a3) annotation (Line(
-      points={{-100,0},{-52,0},{-52,14},{6.78182,14},{6.78182,2.81818}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(intHEX.port_b2, port_b) annotation (Line(
-      points={{-0.545455,2.81818},{-0.545455,8},{72,8},{72,0},{100,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(intHEX.port_b4, port_b) annotation (Line(
-      points={{13.0455,2.81818},{55.5228,2.81818},{55.5228,0},{100,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(intHEX.port, TWallBou.port) annotation (Line(
-      points={{-8.81818,-9.18182},{-20,-9.18182},{-20,-44},{-24,-44}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(intHEX.port_b1, intHEX.port_a2) annotation (Line(
-      points={{-6.45455,-21.1818},{-6.45455,-30},{-0.545455,-30},{-0.545455,
-          -21.1818}},
-      color={0,127,255},
-      smooth=Smooth.None));
-
-  connect(intHEX.port_b3, intHEX.port_a4) annotation (Line(
-      points={{6.66364,-21.1818},{6.66364,-30},{12.4545,-30},{12.4545,-21.1818}},
-      color={0,127,255},
-      smooth=Smooth.None));
+  connect(massFlowRateMultiplier.port_b, borHolSer.port_a)
+    annotation (Line(points={{-60,0},{-13,0},{-13,0}}, color={0,127,255}));
+  connect(borHolSer.port_b, massFlowRateMultiplier1.port_a)
+    annotation (Line(points={{11,0},{60,0},{60,0}}, color={0,127,255}));
+  connect(TWall_val.y, borHolSer.TWall)
+    annotation (Line(points={{-18.9,40},{-1,40},{-1,14.3}}, color={0,0,127}));
 
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,60},{100,-66}},
           lineColor={0,0,0},
@@ -158,9 +114,8 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
-                    Documentation(info="<html>
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
   <p>The proposed model is a so-called hybrid step-response
 model (HSRM). This type of model uses the
 borefield’s temperature response to a step load input.

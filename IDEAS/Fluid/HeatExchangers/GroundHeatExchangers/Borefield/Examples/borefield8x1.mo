@@ -4,7 +4,7 @@ model borefield8x1
 
   extends Modelica.Icons.Example;
 
-  parameter Modelica.SIunits.Temperature T_start = 283.15;
+  parameter Modelica.SIunits.Temperature T_start = bfData.gen.T_start;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   replaceable parameter
@@ -31,8 +31,8 @@ model borefield8x1
     m_flow_nominal=bfData.m_flow_nominal,
     m_flow(start=bfData.m_flow_nominal),
     Q_flow_nominal=bfData.gen.q_ste*bfData.gen.nbBh*bfData.gen.hBor,
-    p_start=100000,
-    T_start=T_start)
+    T_start=T_start,
+    p_start=100000)
     annotation (Placement(transformation(extent={{30,22},{10,2}})));
   Modelica.Fluid.Sources.Boundary_pT boundary(          redeclare package
       Medium = Medium, nPorts=1)

@@ -18,14 +18,14 @@ model InternalHEXUTube "Internal part of a borehole for a U-Tube configuration"
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal1,
       final m_flow_small=m1_flow_small,
-      V=gen.volOneLegSeg*scaSeg,
+      V=gen.volOneLegSeg,
       mSenFac=mSenFac),
     redeclare IDEAS.Fluid.MixingVolumes.MixingVolume vol2(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m2_flow_small,
-      V=gen.volOneLegSeg*scaSeg,
+      V=gen.volOneLegSeg,
       mSenFac=mSenFac));
 
   parameter Modelica.SIunits.Temperature T_start
@@ -39,24 +39,24 @@ model InternalHEXUTube "Internal part of a borehole for a U-Tube configuration"
     "Pipe convective resistance"
     annotation (Placement(transformation(extent={{-56,-40},{-80,-16}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg1(
-    R=RCondGro_val/scaSeg) "Grout thermal resistance"
+    R=RCondGro_val) "Grout thermal resistance"
     annotation (Placement(transformation(extent={{-50,16},{-26,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg2(
-    R=RCondGro_val/scaSeg) "Grout thermal resistance"
+    R=RCondGro_val) "Grout thermal resistance"
     annotation (Placement(transformation(extent={{-48,-40},{-24,-16}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb1(
-    R=Rgb_val/scaSeg) "Grout thermal resistance"
+    R=Rgb_val) "Grout thermal resistance"
     annotation (Placement(transformation(extent={{52,26},{76,50}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb2(
-    R=Rgb_val/scaSeg) "Grout thermal resistance"
+    R=Rgb_val) "Grout thermal resistance"
     annotation (Placement(transformation(extent={{52,-40},{76,-16}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg(
-    R=Rgg_val/scaSeg) "Grout thermal resistance"
+    R=Rgg_val) "Grout thermal resistance"
     annotation (Placement(transformation(extent={{-12,-12},{12,12}},
         rotation=-90,
         origin={20,2})));
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(C=Co_fil/2*scaSeg, T(
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(C=Co_fil/2, T(
         start=T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
         der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if dynFil
     "Heat capacity of the filling material"
@@ -66,7 +66,7 @@ model InternalHEXUTube "Internal part of a borehole for a U-Tube configuration"
         rotation=0,
         origin={80,0})));
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(C=Co_fil/2*scaSeg, T(
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(C=Co_fil/2, T(
         start=T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
         der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial))) if   dynFil
     "Heat capacity of the filling material"                                                                                        annotation (
@@ -107,28 +107,27 @@ public
     hSeg=gen.hSeg,
     rBor=gen.rBor,
     rTub=gen.rTub,
+    eTub=gen.eTub,
     kMed=kMed,
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow=m1_flow,
-    m_flow_nominal=gen.m_flow_nominal_bh)/scaSeg)
+    m_flow_nominal=gen.m_flow_nominal_bh))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
   Modelica.Blocks.Sources.RealExpression RVol2(y=
     convectionResistance(hSeg=gen.hSeg,
     rBor=gen.rBor,
     rTub=gen.rTub,
+    eTub=gen.eTub,
     kMed=kMed,
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow=m2_flow,
-    m_flow_nominal=gen.m_flow_nominal_bh)/scaSeg)
+    m_flow_nominal=gen.m_flow_nominal_bh))
     "Convective and thermal resistance at fluid 2"
      annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
 
-  parameter Real mSenFac=1
-    "Factor for scaling the sensible thermal mass of the volume"
-    annotation (Dialog(tab="Dynamics"));
 initial equation
   (x, Rgb_val, Rgg_val, RCondGro_val) =
     singleUTubeResistances(hSeg=gen.hSeg,
@@ -148,6 +147,9 @@ initial equation
     printDebug=true);
 
 equation
+    assert(gen.singleUTube,
+  "This model should be used for single U-type borefield, not double U-type. 
+  Check that the record General has been correctly parametrized");
   connect(vol1.heatPort, RConv1.fluid) annotation (Line(
       points={{-10,60},{-60,60},{-60,50},{-90,50},{-90,28},{-82,28}},
       color={191,0,0},
@@ -207,7 +209,7 @@ equation
       points={{20,-10},{20,-28},{52,-28}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (
+    annotation (Dialog(tab="Dynamics"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,
             100}}),     graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,

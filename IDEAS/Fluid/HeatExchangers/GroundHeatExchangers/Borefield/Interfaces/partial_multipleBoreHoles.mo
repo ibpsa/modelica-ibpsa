@@ -1,15 +1,16 @@
-﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
+﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Interfaces;
 partial model partial_multipleBoreHoles
   "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
-
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component" annotation (choicesAllMatching=true);
   // Medium in borefield
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal=bfData.m_flow_nominal,
-    redeclare package Medium =
-        IDEAS.Media.Water.Simple,
+    redeclare package Medium = Medium,
     final allowFlowReversal=false);
 
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start);
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start,
+    redeclare package Medium = Medium);
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
       computeFlowResistance=true, dp_nominal=0);
 
@@ -24,6 +25,10 @@ partial model partial_multipleBoreHoles
   parameter Integer lenSim=3600*24*100
     "Simulation length ([s]). By default = 100 days";
 
+  parameter Boolean dynFil=true
+    "Set to false to remove the dynamics of the filling material."
+    annotation (Dialog(tab="Dynamics"));
+
   // Load of borefield
   Modelica.SIunits.HeatFlowRate QAve_flow
     "Average heat flux over a time period";
@@ -32,14 +37,12 @@ partial model partial_multipleBoreHoles
 
   Modelica.Blocks.Sources.RealExpression TWall_val(y=TWall)
     "Average borehole wall temperature"
-    annotation (Placement(transformation(extent={{-80,-54},{-58,-34}})));
-
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TWallBou
-    "Borehole wall temperature"
-    annotation (Placement(transformation(extent={{-44,-54},{-24,-34}})));
+    annotation (Placement(transformation(extent={{-42,30},{-20,50}})));
 
   // Parameters for the aggregation technic
 protected
+  parameter Integer nbHEX = bfData.gen.nVer * bfData.gen.nbSer;
+  parameter Integer indexFirstLayerHEX[:] = {1 + (i-1)*bfData.gen.nVer for i in 1:bfData.gen.nbSer};
   final parameter Integer p_max=5
     "Number of aggregation cells within one aggregation level";
   final parameter Integer q_max=
@@ -71,6 +74,13 @@ public
   Modelica.Blocks.Interfaces.RealOutput Q_flow(unit="W")
     "Thermal power extracted or injected in the borefield"
     annotation (Placement(transformation(extent={{100,42},{120,62}})));
+  BaseClasses.MassFlowRateMultiplier massFlowRateMultiplier(redeclare package
+      Medium = Medium, k=1/bfData.gen.nbBh)
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+  BaseClasses.MassFlowRateMultiplier massFlowRateMultiplier1(redeclare package
+      Medium = Medium, k=bfData.gen.nbBh)
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
 initial algorithm
   // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same length as the number of aggregated pulse and cover lenSim
   U := 0;
@@ -90,6 +100,8 @@ initial algorithm
     "Steady state resistance";
 
 equation
+  Q_flow = port_a.m_flow*(actualStream(port_a.h_outflow) - actualStream(port_b.h_outflow));
+
   assert(time < lenSim, "The chosen value for lenSim is too small. It cannot cover the whole simulation time!");
 
   der(U) = Q_flow
@@ -124,11 +136,11 @@ algorithm
   end when;
 
 equation
-  connect(TWall_val.y, TWallBou.T) annotation (Line(
-      points={{-56.9,-44},{-46,-44}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
+  connect(massFlowRateMultiplier1.port_b, port_b)
+    annotation (Line(points={{80,0},{86,0},{100,0}}, color={0,127,255}));
+  connect(port_a, massFlowRateMultiplier.port_a)
+    annotation (Line(points={{-100,0},{-96,0},{-80,0}}, color={0,127,255}));
   annotation (
     experiment(StopTime=70000, __Dymola_NumberOfIntervals=50),
     __Dymola_experimentSetupOutput,
@@ -200,8 +212,7 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Forward)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
-                    Documentation(info="<html>
+            100}})),Documentation(info="<html>
   <p>The proposed model is a so-called hybrid step-response
 model (HSRM). This type of model uses the
 borefield’s temperature response to a step load input.

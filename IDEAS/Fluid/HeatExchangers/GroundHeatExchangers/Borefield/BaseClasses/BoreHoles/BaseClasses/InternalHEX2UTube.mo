@@ -27,14 +27,14 @@ model InternalHEX2UTube
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal1,
       final m_flow_small=m1_flow_small,
-      final V=gen.volOneLegSeg*scaSeg,
+      final V=gen.volOneLegSeg,
       mSenFac=mSenFac),
     vol2(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m2_flow_small,
-      final V=gen.volOneLegSeg*scaSeg,
+      final V=gen.volOneLegSeg,
       mSenFac=mSenFac),
     vol3(
       final energyDynamics=energyDynamics,
@@ -42,19 +42,15 @@ model InternalHEX2UTube
       final prescribedHeatFlowRate=false,
       final allowFlowReversal=allowFlowReversal3,
       final m_flow_small=m3_flow_small,
-      final V=gen.volOneLegSeg*scaSeg,
+      final V=gen.volOneLegSeg,
       mSenFac=mSenFac),
     vol4(
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
       final m_flow_small=m4_flow_small,
-      final V=gen.volOneLegSeg*scaSeg,
+      final V=gen.volOneLegSeg,
       mSenFac=mSenFac));
-
-  parameter Modelica.SIunits.Temperature T_start
-    "Initial temperature of the filling material"
-    annotation (Dialog(group="Filling material"));
 
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor RConv1
     "Pipe convective resistance" annotation (Placement(transformation(
@@ -74,83 +70,83 @@ model InternalHEX2UTube
         extent={{-4,4},{4,-4}},
         rotation=180,
         origin={-42,10})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg1(R=RCondGro_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg1(R=RCondGro_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={-1,45})));
 
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb1(R=Rgb_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb1(R=Rgb_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={-1,21})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg2(R=RCondGro_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg2(R=RCondGro_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{-7,7},{7,-7}},
         rotation=180,
         origin={33,-1})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb2(R=Rgb_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb2(R=Rgb_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=0,
         origin={15,-1})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg3(R=RCondGro_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg3(R=RCondGro_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{-7,-7},{7,7}},
         rotation=90,
         origin={-1,-35})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb3(R=Rgb_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb3(R=Rgb_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{-7,-7},{7,7}},
         rotation=90,
         origin={-1,-15})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg4(R=RCondGro_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rpg4(R=RCondGro_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=180,
         origin={-31,1})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb4(R=Rgb_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgb4(R=Rgb_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=180,
         origin={-13,1})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg11(R=Rgg1_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg11(R=Rgg1_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={21,21})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg21(R=Rgg2_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg21(R=Rgg2_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=180,
         origin={43,45})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg12(R=Rgg1_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg12(R=Rgg1_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={21,-19})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg22(R=Rgg2_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg22(R=Rgg2_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={49,-21})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg14(R=Rgg1_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg14(R=Rgg1_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={-21,19})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg24(R=Rgg2_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg24(R=Rgg2_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{-7,-7},{7,7}},
         rotation=90,
         origin={-39,23})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg13(R=Rgg1_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg13(R=Rgg1_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={-19,-19})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg23(R=Rgg2_val/scaSeg)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor Rgg23(R=Rgg2_val)
     "Grout thermal resistance" annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=180,
@@ -159,7 +155,7 @@ model InternalHEX2UTube
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil1(T(start=
           T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
       der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)),
-    C=Co_fil/4*scaSeg) if  dynFil "Heat capacity of the filling material"
+    C=Co_fil/4) if  dynFil "Heat capacity of the filling material"
                                             annotation (Placement(
         transformation(
         extent={{-54,21.6},{-42,9.6}},
@@ -169,7 +165,7 @@ model InternalHEX2UTube
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil2(T(start=
           T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
       der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)),
-    C=Co_fil/4*scaSeg) if   dynFil "Heat capacity of the filling material"
+    C=Co_fil/4) if   dynFil "Heat capacity of the filling material"
                                             annotation (Placement(
         transformation(
         extent={{54,-21.6},{42,-9.6}},
@@ -178,7 +174,7 @@ model InternalHEX2UTube
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil3(T(start=
           T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
       der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)),
-    C=Co_fil/4*scaSeg) if  dynFil "Heat capacity of the filling material"
+    C=Co_fil/4) if  dynFil "Heat capacity of the filling material"
                                             annotation (Placement(
         transformation(
         extent={{54,-21.6},{42,-9.6}},
@@ -187,7 +183,7 @@ model InternalHEX2UTube
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor capFil4(T(start=
           T_start, fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial)),
       der_T(fixed=(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial)),
-    C=Co_fil/4*scaSeg) if  dynFil "Heat capacity of the filling material"
+    C=Co_fil/4) if  dynFil "Heat capacity of the filling material"
                                             annotation (Placement(
         transformation(
         extent={{54,-21.6},{42,-9.6}},
@@ -226,33 +222,36 @@ public
         hSeg=gen.hSeg,
         rBor=gen.rBor,
         rTub=gen.rTub,
+        eTub=gen.eTub,
         kMed=kMed,
         mueMed=mueMed,
         cpMed=cpMed,
         m_flow=m1_flow,
-        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh)/scaSeg)
+        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-56,56},{-42,72}})));
   Modelica.Blocks.Sources.RealExpression RVol2(y=convectionResistance(
         hSeg=gen.hSeg,
         rBor=gen.rBor,
         rTub=gen.rTub,
+        eTub=gen.eTub,
         kMed=kMed,
         mueMed=mueMed,
         cpMed=cpMed,
         m_flow=m2_flow,
-        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh)/scaSeg)
+        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh))
     "Convective and thermal resistance at fluid 2"
     annotation (Placement(transformation(extent={{88,18},{72,0}})));
   Modelica.Blocks.Sources.RealExpression RVol3(y=convectionResistance(
         hSeg=gen.hSeg,
         rBor=gen.rBor,
         rTub=gen.rTub,
+        eTub=gen.eTub,
         kMed=kMed,
         mueMed=mueMed,
         cpMed=cpMed,
         m_flow=m3_flow,
-        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh)/scaSeg)
+        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-12,-60},{-26,-76}})));
 
@@ -260,11 +259,12 @@ public
         hSeg=gen.hSeg,
         rBor=gen.rBor,
         rTub=gen.rTub,
+        eTub=gen.eTub,
         kMed=kMed,
         mueMed=mueMed,
         cpMed=cpMed,
         m_flow=m1_flow,
-        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh)/scaSeg)
+        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-68,12},{-54,28}})));
 
@@ -290,6 +290,9 @@ initial equation
     printDebug=true);
 
 equation
+  assert(not gen.singleUTube,
+  "This model should be used for double U-type borefield, not single U-type. 
+  Check that the record General has been correctly parametrized");
   connect(RVol1.y, RConv1.Rc) annotation (Line(
       points={{-41.3,64},{-24,64}},
       color={0,0,127},

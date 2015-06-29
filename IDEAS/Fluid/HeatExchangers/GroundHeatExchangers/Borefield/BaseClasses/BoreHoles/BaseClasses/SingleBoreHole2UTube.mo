@@ -44,83 +44,78 @@ model SingleBoreHole2UTube "Single 2U-tube borehole heat exchanger"
          else gen.m_flow_small,
     each final m4_flow_small=if gen.parallel2UTube then gen.m_flow_small/2
          else gen.m_flow_small,
-    dynFil=dynFil,
-    mSenFac=mSenFac) "Discretized borehole segments"
-    annotation (Placement(transformation(extent={{-18,-30},{2,10}})));
+    each final dynFil=dynFil,
+    each final mSenFac=mSenFac,
+    each final use_TWall=use_TWall) "Discretized borehole segments"
+    annotation (Placement(transformation(extent={{-10,-30},{10,10}})));
 
-  Modelica.SIunits.Temperature TDown[gen.nVer] "Medium temperature in pipe 1";
-  Modelica.SIunits.Temperature TUp[gen.nVer] "Medium temperature in pipe 2";
-
-  parameter Boolean dynFil=true
-    "Set to false to remove the dynamics of the filling material."
-    annotation (Dialog(tab="Dynamics"));
 equation
   TWallAve = sum(borHolSeg[:].intHEX.port.T)/gen.nVer;
 
-  TDown[:] = borHolSeg[:].intHEX.vol1.heatPort.T;
-  TUp[:] = borHolSeg[:].intHEX.vol2.heatPort.T;
+  // Couple borehole port_a and port_b to first borehole segment.
   connect(port_a, borHolSeg[1].port_a1) annotation (Line(
-      points={{-100,5.55112e-016},{-60,5.55112e-016},{-60,6},{-18,6}},
+      points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,6},{-10,6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_b, borHolSeg[1].port_b4) annotation (Line(
-      points={{100,5.55112e-016},{20,5.55112e-016},{20,-40},{-40,-40},{-40,-27},
-          {-18,-27}},
+      points={{100,5.55112e-016},{28,5.55112e-016},{28,-40},{-32,-40},{-32,-27},
+          {-10,-27}},
       color={0,127,255},
       smooth=Smooth.None));
   if gen.parallel2UTube then
     connect(port_a, borHolSeg[1].port_a3) annotation (Line(
-        points={{-100,5.55112e-016},{-60,5.55112e-016},{-60,-16.4},{-18,-16.4}},
+        points={{-100,5.55112e-016},{-52,5.55112e-016},{-52,-16.4},{-10,-16.4}},
         color={0,127,255},
         smooth=Smooth.None));
-
-    connect(port_b, borHolSeg[gen.nVer].port_b2) annotation (Line(
-        points={{100,5.55112e-016},{20,5.55112e-016},{20,-40},{-40,-40},{-40,-4},
-            {-18,-4}},
+    connect(port_b, borHolSeg[1].port_b2) annotation (Line(
+        points={{100,5.55112e-016},{28,5.55112e-016},{28,-40},{-32,-40},{-32,-4},
+            {-10,-4}},
         color={0,127,255},
         smooth=Smooth.None));
   else
+    // U-tube in serie: couple both U-tube to each other.
     connect(borHolSeg[1].port_b2, borHolSeg[1].port_a3) annotation (Line(
-        points={{-18,-4},{-32,-4},{-32,-16},{-26,-16},{-26,-16.4},{-18,-16.4}},
-        color={0,127,255},
-        smooth=Smooth.None));
-
-    connect(borHolSeg[gen.nVer].port_a3, borHolSeg[gen.nVer].port_b2)
-      annotation (Line(
-        points={{100,5.55112e-016},{20,5.55112e-016},{20,-40},{-40,-40},{-40,-4},
-            {-18,-4}},
+        points={{-10,-4},{-24,-4},{-24,-16},{-18,-16},{-18,-16.4},{-10,-16.4}},
         color={0,127,255},
         smooth=Smooth.None));
   end if;
 
+  // Couple each layer to the next one
   for i in 1:gen.nVer - 1 loop
     connect(borHolSeg[i].port_b1, borHolSeg[i + 1].port_a1) annotation (Line(
-        points={{2,6},{2,10},{-18,10},{-18,6}},
+        points={{10,6},{10,10},{-10,10},{-10,6}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(borHolSeg[i].port_a2, borHolSeg[i + 1].port_b2) annotation (Line(
-        points={{2,-4},{2,0},{-18,0},{-18,-4}},
+        points={{10,-4},{10,0},{-10,0},{-10,-4}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(borHolSeg[i].port_b3, borHolSeg[i + 1].port_a3) annotation (Line(
-        points={{2,-16.2},{2,-12},{-18,-12},{-18,-16.4}},
+        points={{10,-16.2},{10,-12},{-10,-12},{-10,-16.4}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(borHolSeg[i].port_a4, borHolSeg[i + 1].port_b4) annotation (Line(
-        points={{2,-26},{2,-22},{-18,-22},{-18,-27}},
+        points={{10,-26},{10,-22},{-10,-22},{-10,-27}},
         color={0,127,255},
         smooth=Smooth.None));
+    if use_TWall then
+      connect(TWall, borHolSeg[i].TWall) annotation (Line(points={{0,110},{0,12}},        color={0,0,127}));
+    end if;
   end for;
+
+  // Close U-tube at bottom layer
   connect(borHolSeg[gen.nVer].port_b1, borHolSeg[gen.nVer].port_a2) annotation (
      Line(
-      points={{2,6},{8,6},{8,-4},{2,-4}},
+      points={{10,6},{16,6},{16,-4},{10,-4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(borHolSeg[gen.nVer].port_b3, borHolSeg[gen.nVer].port_a4) annotation (
      Line(
-      points={{2,-16.2},{6,-16.2},{6,-16},{10,-16},{10,-26},{2,-26}},
+      points={{10,-16.2},{14,-16.2},{14,-16},{18,-16},{18,-26},{10,-26}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(TWall, borHolSeg[gen.nVer].TWall) annotation (Line(points={{0,110},{0,
+          12}},                                                                              color={0,0,127}));
 
   annotation (
     Dialog(group="Borehole"),
@@ -130,53 +125,7 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         grid={2,2},
-        initialScale=0.5), graphics={
-        Rectangle(
-          extent={{-70,80},{70,-80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-62,-52},{62,-60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-62,58},{62,54}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-62,6},{62,0}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{54,92},{46,-88}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-54,-88},{-46,92}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-72,80},{-62,-80}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Rectangle(
-          extent={{62,80},{72,-80}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward)}),
+        initialScale=0.5)),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
