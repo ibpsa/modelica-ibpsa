@@ -46,7 +46,7 @@ protected
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal = allowFlowReversal,
     final m_flow_small = m_flow_small,
-    final use_safeDivision=prescribedHeatFlowRate) if
+    final prescribedHeatFlowRate=prescribedHeatFlowRate) if
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Annex60.Fluid.Interfaces.ConservationEquation dynBal(
@@ -246,7 +246,7 @@ Annex60.Fluid.MixingVolumes</a>.
 <ul>
 <li>
 July 1, 2015, by Filip Jorissen:<br/>
-Set <code>use_safeDivision=prescribedHeatflowRate</code> for 
+Set <code>prescribedHeatFlowRate=prescribedHeatflowRate</code> for 
 <a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation\">
 Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation</a>.
 This results in equations that are solved more easily. 

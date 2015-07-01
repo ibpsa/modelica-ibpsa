@@ -40,7 +40,7 @@ model StaticTwoPortConservationEquation
         rotation=90,
         origin={50,110})));
 
-  parameter Boolean use_safeDivision=true
+  parameter Boolean prescribedHeatFlowRate=true
     "Set to true to improve numerical robustness"
     annotation(Evaluate=true);
 protected
@@ -97,7 +97,7 @@ equation
     // Mass balance
     port_a.m_flow = -port_b.m_flow;
     // Energy balance
-    if use_safeDivision then
+    if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
       port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
     else
@@ -122,7 +122,7 @@ equation
     // Energy balance.
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
     // at both ports. Since mWat_flow << m_flow, the error is small.
-    if use_safeDivision then
+    if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
       port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
       // Transport of species
@@ -184,7 +184,7 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 <p>
 If <code>Q_flow</code> is an input 
 (i.e. it is not computed from the temperature/enthalpy) 
-set <code>use_safeDivision = true</code>.
+set <code>prescribedHeatFlowRate = true</code>.
 See 
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">#282</a>
 for a further discussion and motivation.
@@ -198,6 +198,7 @@ Revised implementation so that equations are always consistent
 and do not lead to division by zero,
 also when connecting a <code>prescribedHeatFlowRate</code>
 to <code>MixingVolume</code> instances.
+Renamed <code>use_safeDivision</code> into <code>prescribedHeatFlowRate</code>.
 See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">#282</a>
 for a discussion.
 </li>
