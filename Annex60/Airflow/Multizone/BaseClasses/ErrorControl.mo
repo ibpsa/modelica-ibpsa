@@ -14,9 +14,11 @@ This can give large errors in flow variables, as long as the error on the volume
 that are coupled to the flow variables is small.
 Obtaining accurate flow variables can be achieved by imposing an error control
 on the exchanged mass, which can be defined as
+</p>
 <pre>
   dm/dt = m_flow.
 </pre>
+<p>
 By setting <code>enforceErrorControlOnFlow = true</code>, such an equation is imposed
 by models that extend this class.
 </p>
