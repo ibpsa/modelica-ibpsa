@@ -105,7 +105,9 @@ equation
       if allowFlowReversal then
         port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
       else
-        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+        //When allowFlowReversal = false the downstream enthalpy should not matter
+        //therefore a dummy value is used to avoid the creating of algebraic loops
+        port_a.h_outflow = Medium.h_default;
       end if;
     end if;
     // Transport of species
@@ -131,7 +133,9 @@ equation
       if allowFlowReversal then
         port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
       else
-        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+        //When allowFlowReversal = false the downstream enthalpy should not matter
+        //therefore a dummy value is used to avoid the creating of algebraic loops
+        port_a.h_outflow = Medium.h_default;
       end if;
       // Transport of species
       port_a.m_flow * (inStream(port_a.Xi_outflow) - port_b.Xi_outflow) = -mXi_flow;

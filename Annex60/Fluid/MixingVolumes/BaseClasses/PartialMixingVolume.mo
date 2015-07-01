@@ -81,6 +81,9 @@ protected
       p=p_start,
       X=X_start[1:Medium.nXi]) "Medium state at start values";
   // See info section for why prescribedHeatFlowRate is used here.
+  // The condition below may only be changed if StaticTwoPortConservationEquation
+  // contains a correct solution for all foreseeable parameters/inputs.
+  // See issue 282 for a discussion.
   final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and
       (prescribedHeatFlowRate or (not allowFlowReversal)) and (
       energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
