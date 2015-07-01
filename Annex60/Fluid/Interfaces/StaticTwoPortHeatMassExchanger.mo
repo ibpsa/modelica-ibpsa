@@ -6,6 +6,12 @@ model StaticTwoPortHeatMassExchanger
   extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
+  constant Boolean sensibleOnly "Set to true if sensible exchange only";
+  parameter Boolean prescribedHeatFlowRate=true
+    "Set to true if the heat flow rate is not a function of the component temperature."
+   annotation(Evaluate=true,
+     Dialog(tab="Assumptions",
+      group="Heat transfer"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
@@ -17,7 +23,7 @@ model StaticTwoPortHeatMassExchanger
   // Models for conservation equations and pressure drop
   Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation vol(
     sensibleOnly = sensibleOnly,
-    use_safeDivision = use_safeDivision,
+    prescribedHeatFlowRate = prescribedHeatFlowRate,
     redeclare final package Medium = Medium,
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
@@ -48,9 +54,6 @@ model StaticTwoPortHeatMassExchanger
   Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
     "Leaving trace substances of the component";
 
-  constant Boolean sensibleOnly "Set to true if sensible exchange only";
-  constant Boolean use_safeDivision=true
-    "Set to true to improve numerical robustness";
 protected
   Modelica.Blocks.Sources.RealExpression heaInp(y=Q_flow)
     "Block to set heat input into volume"
@@ -122,8 +125,24 @@ The following inputs need to be assigned:
 Set the constant <code>sensibleOnly=true</code> if the model that extends
 or instantiates this model sets <code>mWat_flow = 0</code>.
 </p>
+<p>
+Parameter <code>prescribedHeatFlow</code> should be true if the calculation of <code>Q_flow</code> 
+is prescribed, i.e., it is computed not as a function of the outlet temperature.
+When the heat flow rate is calculated as a function of the inlet temperatures only then 
+<code>prescribedHeatFlow</code> should therefore be true.
+This parameter reformulates the equations
+such that in this specific case no division by zero will occur.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 1, 2015 by Filip Jorissen:<br/>
+Renamed <code>use_safeDivision</code> into
+<code>prescribedHeatFlowRate</code>.
+See
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
+issue 282</a> for a discussion.
+</li>
 <li>
 November 13, 2013 by Michael Wetter:<br/>
 Added parameter <code>homotopyInitialization</code> as
