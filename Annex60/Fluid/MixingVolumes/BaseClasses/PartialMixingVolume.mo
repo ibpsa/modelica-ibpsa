@@ -45,7 +45,8 @@ protected
     redeclare final package Medium=Medium,
     final m_flow_nominal = m_flow_nominal,
     final allowFlowReversal = allowFlowReversal,
-    final m_flow_small = m_flow_small) if
+    final m_flow_small = m_flow_small,
+    final use_safeDivision=prescribedHeatFlowRate) if
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Annex60.Fluid.Interfaces.ConservationEquation dynBal(
@@ -184,8 +185,8 @@ the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
 <p>
 If the model is (i) operated in steady-state,
 (ii) has two fluid ports connected, and
-(iii) <code>prescribedHeatFlowRate=true</code>, then
-the model uses
+(iii) <code>prescribedHeatFlowRate=true</code> or <code>allowFlowReversal=false</code>, 
+then the model uses
 <a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation\">
 Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
 in order to use
@@ -240,6 +241,16 @@ Annex60.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 1, 2015, by Filip Jorissen:<br/>
+Set <code>use_safeDivision=prescribedHeatflowRate</code> for 
+<a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation\">
+Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation</a>.
+This results in equations that are solved more easily. 
+See
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
+issue 282</a> for a discussion.
+</li>
 <li>
 June 5, 2015, by Michael Wetter:<br/>
 Moved assignment of <code>dynBal.U.start</code>
