@@ -41,7 +41,7 @@ model StaticTwoPortConservationEquation
         origin={50,110})));
 
   parameter Boolean prescribedHeatFlowRate=true
-    "Set to true to improve numerical robustness"
+    "Set to true if the heat flow rate is not a function of the component temperature."
     annotation(Evaluate=true);
 protected
   Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
@@ -182,12 +182,12 @@ Set the constant <code>sensibleOnly=true</code> if the model that extends
 or instantiates this model sets <code>mWat_flow = 0</code>. 
 </p>
 <p>
-If <code>Q_flow</code> is an input 
-(i.e. it is not computed from the temperature/enthalpy) 
-set <code>prescribedHeatFlowRate = true</code>.
-See 
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">#282</a>
-for a further discussion and motivation.
+Parameter <code>prescribedHeatFlow</code> should be true if input <code>Q_flow</code> 
+is prescribed, i.e., it is computed from a control input and not from a heat transfer 
+in which the enthalpy <code>hOut</code> or its derived temperature is 
+part of the driving temperature difference. 
+This parameter reformulates the equations
+such that in this specific case no division by zero will occur.
 </p>
 </html>",
 revisions="<html>
