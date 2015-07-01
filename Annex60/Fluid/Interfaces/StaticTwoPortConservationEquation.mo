@@ -40,8 +40,9 @@ model StaticTwoPortConservationEquation
         rotation=90,
         origin={50,110})));
 
-  constant Boolean use_safeDivision=true
-    "Set to true to improve numerical robustness";
+  parameter Boolean use_safeDivision=true
+    "Set to true to improve numerical robustness"
+    annotation(Evaluate=true);
 protected
   Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
 
@@ -66,11 +67,8 @@ equation
  // Species flow rate from connector mWat_flow
  mXi_flow = mWat_flow * s;
   // Regularization of m_flow around the origin to avoid a division by zero
- if use_safeDivision then
-    m_flowInv = Annex60.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
- else
-     m_flowInv = 0; // m_flowInv is not used if use_safeDivision = false.
- end if;
+
+ m_flowInv = Annex60.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
 
  if allowFlowReversal then
    // Formulate hOut using spliceFunction. This avoids an event iteration.
@@ -104,7 +102,11 @@ equation
       port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
     else
       port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
-      port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
+      if allowFlowReversal then
+        port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
+      else
+        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+      end if;
     end if;
     // Transport of species
     port_a.Xi_outflow = inStream(port_b.Xi_outflow);
@@ -126,7 +128,11 @@ equation
       port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
      else
       port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
-      port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
+      if allowFlowReversal then
+        port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
+      else
+        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+      end if;
       // Transport of species
       port_a.m_flow * (inStream(port_a.Xi_outflow) - port_b.Xi_outflow) = -mXi_flow;
       port_a.m_flow * (inStream(port_b.Xi_outflow) - port_a.Xi_outflow) = +mXi_flow;
@@ -169,11 +175,28 @@ Annex60.Fluid.Interfaces.ConservationEquation</a>.
 </p>
 <p>
 Set the constant <code>sensibleOnly=true</code> if the model that extends
-or instantiates this model sets <code>mWat_flow = 0</code>.
+or instantiates this model sets <code>mWat_flow = 0</code>. 
+</p>
+<p>
+If <code>Q_flow</code> is an input 
+(i.e. it is not computed from the temperature/enthalpy) 
+set <code>use_safeDivision = true</code>.
+See 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">#282</a>
+for a further discussion and motivation.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 1, 2015, by Filip Jorissen:<br/>
+Revised implementation so that equations are always consistent
+and do not lead to division by zero,
+also when connecting a <code>prescribedHeatFlowRate</code>
+to <code>MixingVolume</code> instances.
+See <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">#282</a>
+for a discussion.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Corrected documentation.
