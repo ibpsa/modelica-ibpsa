@@ -52,7 +52,7 @@ for laminar flow, set <i>m=1</i>.
 <p>
 The model is used for the interzonal air flow models.
 It is identical to
-<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLaw\">
+<a href=\"modelica://Annex60.Airflow.Multizone.BaseClasses.powerLaw\">
 Buildings.Airflow.Multizone.BaseClasses.powerLaw</a> but it
 requires the polynomial coefficients as an input.
 This allows a more efficient simulation if <i>m</i> and therefore also
@@ -68,7 +68,7 @@ has an infinite number of continuous derivatives in <i>m</i> and in <i>k</i>.
 If <i>m</i>, and therefore also
 <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i>, change with time, then
 it is more convenient and efficient to use
-<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLaw\">
+<a href=\"modelica://Annex60.Airflow.Multizone.BaseClasses.powerLaw\">
 Buildings.Airflow.Multizone.BaseClasses.powerLaw</a>.
 </p>
 </html>",

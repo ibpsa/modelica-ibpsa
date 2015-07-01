@@ -37,7 +37,7 @@ in Costola <i>et al.</i> (2009), Persily and Ivy (2001), and Swami and Chandra (
 <p>
 The models in this package are as described in Wetter (2005),
 except for the addition of the model
-<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise\">
+<a href=\"modelica://Annex60.Airflow.Multizone.BaseClasses.windPressureLowRise\">
 Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise</a>
 that computes the wind pressure on facades, and
 some changes that have been done when migrating
@@ -80,7 +80,7 @@ Gaithersburg, MD.
 </p>
 <p>
 Michael Wetter.
-<a href=\"modelica://Buildings/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">
+<a href=\"modelica://Annex60/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">
 Multizone Airflow Model in Modelica.</a>
 Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006.
 </p>
