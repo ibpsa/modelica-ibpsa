@@ -42,7 +42,9 @@ model StaticTwoPortConservationEquation
 
   parameter Boolean prescribedHeatFlowRate=true
     "Set to true if the heat flow rate is not a function of the component temperature."
-    annotation(Evaluate=true);
+       annotation(Evaluate=true,
+     Dialog(tab="Assumptions",
+      group="Heat transfer"));
 protected
   Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
 
