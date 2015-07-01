@@ -32,16 +32,16 @@ model MixingVolumeZeroFlow
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Blocks.Sources.RealExpression reaExp(y=(290 - volNonLinSys.heatPort.T)
-        *10*volNonLinSys.heatPort.T^(3/5)*time)
+        /100*volNonLinSys.heatPort.T^(3/5)*time)
     "Non-linear thermal resistance equation"
     annotation (Placement(transformation(extent={{-100,46},{-48,74}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
     "Prescribed temperature"
     annotation (Placement(transformation(extent={{-56,34},{-44,46}})));
   Modelica.Blocks.Sources.Cosine cos1(
-    amplitude=1,
     freqHz=1,
-    offset=283.15) "Cosine input"
+    offset=283.15,
+    amplitude=0.001) "Cosine input"
     annotation (Placement(transformation(extent={{-76,34},{-64,46}})));
   Annex60.Fluid.MixingVolumes.MixingVolume volT(
     nPorts=2,
@@ -77,16 +77,16 @@ model MixingVolumeZeroFlow
     use_m_flow_in=true,
     use_T_in=true) "Source"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor theRes(R=1)
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor theRes(R=0.001)
     "Thermal resistor for creating linear system" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-22,-64})));
   Modelica.Blocks.Sources.Ramp ramp_T(
-    height=-1,
     duration=2,
-    offset=283.15) "Temperature ramp input"
+    offset=283.15,
+    height=0) "Temperature ramp input"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea1
     "Prescribed heat flow"
@@ -204,6 +204,9 @@ See
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
 issue 282</a> for a discussion.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeZeroFlow.mos"
+        "Simulate and plot"));
 
 end MixingVolumeZeroFlow;
