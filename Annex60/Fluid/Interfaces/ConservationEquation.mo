@@ -340,7 +340,8 @@ Corrected documentation.
 <li>
 April 13, 2015, by Filip Jorissen:<br/>
 Now using <code>semiLinear()</code> function for calculation of
-<code>ports_H_flow</code>. This enables Dymola to simplify based on min/max.
+<code>ports_H_flow</code>. This enables Dymola to simplify based on
+the <code>min</code> and <code>max</code> attribute of the mass flow rate.
 </li>
 <li>
 February 16, 2015, by Filip Jorissen:<br/>
