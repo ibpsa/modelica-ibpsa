@@ -118,8 +118,6 @@ equation
   connect(volNonLinSys.ports[2], sin.ports[1]) annotation (Line(points={{2,-20},
           {2,-20},{20,-20},{20,-31}},
                                     color={0,127,255}));
-  connect(ramp_m_flow.y, sou2.m_flow_in)
-    annotation (Line(points={{-79,-10},{-60,-10},{-60,-14}}, color={0,0,127}));
   connect(reaExp.y, preHea2.Q_flow) annotation (Line(points={{-45.4,60},{-45.4,
           60},{-40,60}},
                      color={0,0,127}));
@@ -127,15 +125,11 @@ equation
           -63.4,40}}, color={0,0,127}));
   connect(volT.ports[1],sou3. ports[1])
     annotation (Line(points={{-2,-50},{-2,-50},{-40,-50}}, color={0,127,255}));
-  connect(sou3.m_flow_in, sou2.m_flow_in)
-    annotation (Line(points={{-60,-42},{-60,-14}}, color={0,0,127}));
   connect(volT.ports[2], sin.ports[2])
     annotation (Line(points={{2,-50},{20,-50},{20,-33}}, color={0,127,255}));
   connect(volT.heatPort, preTem.port) annotation (Line(points={{-10,-40},{-18,
           -40},{-18,40},{-44,40}},
                               color={191,0,0}));
-  connect(sou4.m_flow_in,sou3. m_flow_in)
-    annotation (Line(points={{-60,-82},{-60,-42}},           color={0,0,127}));
   connect(sou4.ports[1], volLinSys.ports[1])
     annotation (Line(points={{-40,-90},{-2,-90}}, color={0,127,255}));
   connect(volLinSys.ports[2], sin.ports[3]) annotation (Line(points={{2,-90},{
@@ -144,12 +138,6 @@ equation
     annotation (Line(points={{-22,-74},{-22,-80},{-10,-80}}, color={191,0,0}));
   connect(theRes.port_b, preTem.port)
     annotation (Line(points={{-22,-54},{-22,40},{-44,40}}, color={191,0,0}));
-  connect(ramp_T.y, sou2.T_in) annotation (Line(points={{-79,-50},{-72,-50},{
-          -62,-50},{-62,-18}}, color={0,0,127}));
-  connect(sou3.T_in, sou2.T_in)
-    annotation (Line(points={{-62,-46},{-62,-18}}, color={0,0,127}));
-  connect(sou4.T_in,sou3. T_in)
-    annotation (Line(points={{-62,-86},{-62,-86},{-62,-46}}, color={0,0,127}));
   connect(volNonLinSys.heatPort, preHea2.port) annotation (Line(points={{-10,-10},
           {-10,-10},{-14,-10},{-14,60},{-20,60}},
                                               color={191,0,0}));
@@ -161,13 +149,25 @@ equation
           -28,10},{-2,10}},      color={0,127,255}));
   connect(volQflow.ports[2], sin.ports[4])
     annotation (Line(points={{2,10},{20,10},{20,-37}}, color={0,127,255}));
-  connect(sou2.m_flow_in, sou1.m_flow_in)
-    annotation (Line(points={{-60,-14},{-60,-14},{-60,18}}, color={0,0,127}));
-  connect(sou1.T_in, sou2.T_in)
-    annotation (Line(points={{-62,14},{-62,14},{-62,-18}}, color={0,0,127}));
+  connect(ramp_m_flow.y, sou1.m_flow_in) annotation (Line(points={{-79,-10},{-72,
+          -10},{-72,18},{-60,18}}, color={0,0,127}));
+  connect(ramp_m_flow.y, sou2.m_flow_in) annotation (Line(points={{-79,-10},{-72,
+          -10},{-72,-14},{-60,-14}}, color={0,0,127}));
+  connect(ramp_m_flow.y, sou3.m_flow_in) annotation (Line(points={{-79,-10},{-72,
+          -10},{-72,-42},{-60,-42}}, color={0,0,127}));
+  connect(ramp_m_flow.y, sou4.m_flow_in) annotation (Line(points={{-79,-10},{-72,
+          -10},{-72,-82},{-60,-82}}, color={0,0,127}));
+  connect(ramp_T.y, sou1.T_in) annotation (Line(points={{-79,-50},{-74,-50},{-68,
+          -50},{-68,14},{-62,14}}, color={0,0,127}));
+  connect(ramp_T.y, sou2.T_in) annotation (Line(points={{-79,-50},{-68,-50},{-68,
+          -18},{-62,-18}}, color={0,0,127}));
+  connect(ramp_T.y, sou3.T_in) annotation (Line(points={{-79,-50},{-68,-50},{-68,
+          -46},{-62,-46}}, color={0,0,127}));
+  connect(ramp_T.y, sou4.T_in) annotation (Line(points={{-79,-50},{-68,-50},{-68,
+          -86},{-62,-86}}, color={0,0,127}));
   annotation (                                                         Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Text(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                    graphics={Text(
           extent={{12,30},{106,10}},
           lineColor={28,108,200},
           textString="<- vol.prescribedHeatFlowRate = true")}),
@@ -175,17 +175,23 @@ equation
       StopTime=2,
       __Dymola_fixedstepsize=20,
       __Dymola_Algorithm="Dassl"),
-    __Dymola_experimentSetupOutput,
     Documentation(revisions="<html>
-<ul>
+    <ul>
+<li>
+July 2, 2015 by Michael Wetter:<br/>
+Revised example.
+</li>    
 <li>
 June 30, 2015 by Filip Jorissen:<br/>
-First implementation.
+First implementation
+to test
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
+issue 282</a>.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This model verifies if the equations in 
+This model verifies whether the equations in 
 <a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation\">
 Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation</a> 
 are consisent for all foreseeable cases.
@@ -196,17 +202,11 @@ This error either is a non-physical solution to the (non-)linear system
 or a division by zero, which halts the simulation.
 </p>
 <p>
-Set <code>Advanced.Define.AimForHighAccuracy = false</code> to 
+If you use Dymola, set <code>Advanced.Define.AimForHighAccuracy = false</code> to 
 increase the chance of the error being produced for this simple example. 
-</p>
-<p>
-See
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">
-issue 282</a> for a discussion.
 </p>
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeZeroFlow.mos"
         "Simulate and plot"));
-
 end MixingVolumeZeroFlow;
