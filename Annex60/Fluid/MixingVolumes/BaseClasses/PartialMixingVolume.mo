@@ -20,11 +20,13 @@ partial model PartialMixingVolume
     "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports."
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.SIunits.Volume V "Volume";
-  parameter Boolean prescribedHeatFlowRate=false
+  // We set prescribedHeatFlowRate(start=false) so that the
+  // volume works without the user having to set this advanced parameter,
+  // but to get high robustness, a user can set it to the approriate value
+  // as described in the info section.
+  parameter Boolean prescribedHeatFlowRate(start=false)
     "Set to true if the model has a prescribed heat flow at its heatPort. If the heat flow rate at the heatPort is only based on temperature difference, then set to false."
-   annotation(Evaluate=true,
-     Dialog(tab="Assumptions",
-      group="Heat transfer"));
+   annotation(Evaluate=true);
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
