@@ -1,11 +1,7 @@
 
-//translateModel("IDEAS.Fluid.Valves.Examples.Thermostatic3WayValveExample");
+simulateModel("IDEAS.Fluid.Valves.Examples.Thermostatic3WayValve", stopTime=10000, method="dassl", resultFile="Thermostatic3WayValve");
 
-// experiment StopTime=3600
-
-simulateModel("IDEAS.Fluid.Valves.Examples.Thermostatic3WayValveExample", stopTime=10000, method="dassl", resultFile="Thermostatic3WayValveExample");
-
-plot(id=1,y={"T_out.T", "T_in.T", "const.k"});
-createPlot(id=2,y={"thermostatic3WayValve.port_a1.m_flow"});
+createPlot(id=1,y={"T_out.T", "T_in.T", "const.k"});
+createPlot(id=1,y={"thermostatic3WayValve.port_a1.m_flow"}, subPlot=2);
 
 
