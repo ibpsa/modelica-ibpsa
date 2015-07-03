@@ -1,4 +1,4 @@
-﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
+within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
 model MultipleBoreHoles
   "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
   import Buildings;
