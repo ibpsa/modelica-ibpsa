@@ -41,7 +41,7 @@ protected
   Real delta_h "Enthalpy difference between port_a2 and port_a1";
   Real inv_delta_h "Regularized inverse of delta_h";
 
-  parameter Real delta_h_reg=dT_nominal/10*Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default,Medium.T_default,Medium.X_default))
+  parameter Real delta_h_reg=dT_nominal/25*Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default,Medium.T_default,Medium.X_default))
     "Enthalpy difference where regularization starts";
 
 equation
