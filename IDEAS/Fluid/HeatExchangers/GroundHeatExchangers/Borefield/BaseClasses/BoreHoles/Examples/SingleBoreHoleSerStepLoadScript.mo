@@ -1,6 +1,5 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Examples;
 model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
-  import Buildings;
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
