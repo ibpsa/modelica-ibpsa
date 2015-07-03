@@ -1,13 +1,12 @@
 within IDEAS.BoundaryConditions.WeatherData.Examples;
 model ReaderTMY3 "Test model for reading weather data"
-  import IDEAS;
   extends Modelica.Icons.Example;
-  IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+  IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam="modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data reader"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDatInpCon(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+        "modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
       HSou=IDEAS.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor)
     "Weather data reader with radiation data obtained from input connector"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
@@ -18,7 +17,7 @@ model ReaderTMY3 "Test model for reading weather data"
 equation
   connect(HGloHor.y, weaDatInpCon.HGloHor_in)
                                          annotation (Line(
-      points={{-59,-10},{-28,-10},{-28,-55},{-21,-55}},
+      points={{-59,-10},{-28,-10},{-28,-58.6},{-21,-58.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifHor.y, weaDatInpCon.HDifHor_in)
@@ -26,16 +25,23 @@ equation
       points={{-59,-50},{-40,-50},{-40,-57.6},{-21,-57.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=8640000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/ReaderTMY3.mos"
+  annotation (experiment(StopTime=8640000),
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/Examples/ReaderTMY3.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This model tests the TMY3 data reader.
 The instance <code>weaDat</code> obtains all weather data from the weather file,
-whereas the instance <code>weaDatInpCon</code> obtains the global horizontal and 
+whereas the instance <code>weaDatInpCon</code> obtains the global horizontal and
 the diffuse horizontal solar radiation from its input connectors.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+June 25, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ReaderTMY3;

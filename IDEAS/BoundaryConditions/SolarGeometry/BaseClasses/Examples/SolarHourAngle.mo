@@ -1,12 +1,11 @@
 within IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model SolarHourAngle "Test model for solar hour angle"
-  import IDEAS;
   extends Modelica.Icons.Example;
-  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle solHouAng
-    "Solar hour Angle"
+  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
+    solHouAng "Solar hour Angle"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   WeatherData.Bus weaBus "Weather bus"
@@ -30,8 +29,22 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Diagram(graphics),
-experiment(StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/SolarHourAngle.mos"
+  annotation (experiment(StopTime=86400),
+Documentation(info="<html>
+<p>
+This example computes the solar hour angle,
+which is defined as the angle between the circle
+that passes through an observer, the north pole and the south pole,
+and the circle that passes through the sun, the north and the south pole.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 17, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/SolarHourAngle.mos"
         "Simulate and plot"));
 end SolarHourAngle;
