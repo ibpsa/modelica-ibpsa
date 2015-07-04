@@ -75,7 +75,13 @@ protected
     ifSolCor=true)
     annotation (Placement(transformation(extent={{-52,18},{-34,36}})));
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=filNamClim, lat=lat, lon=lon, timZon=timZonSta) if useTmy3Reader
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+  filNam=filNamClim,
+  lat=lat,
+  lon=lon,
+  timZon=timZonSta,
+  datRea1(tableName="data"),
+  datRea(tableName="data")) if useTmy3Reader
     annotation (Placement(transformation(extent={{-18,36},{0,54}})));
   Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
     annotation (Placement(transformation(extent={{-30,-96},{-10,-76}})));
