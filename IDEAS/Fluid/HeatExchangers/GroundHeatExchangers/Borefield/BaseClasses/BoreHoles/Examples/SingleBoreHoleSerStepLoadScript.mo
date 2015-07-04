@@ -52,7 +52,7 @@ model SingleBoreHoleSerStepLoadScript "SingleBoreHoleSer with step input load "
     annotation (Placement(transformation(extent={{40,-16},{56,0}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  IDEAS.Fluid.Movers.FlowMachine_m_flow pum(
+  Movers.FlowControlled_m_flow          pum(
     redeclare package Medium = Medium,
     m_flow_nominal=gen.m_flow_nominal_bh,
     dynamicBalance=false,
