@@ -4,7 +4,7 @@ model Zone "thermal building zone"
 
   extends IDEAS.Buildings.Components.Interfaces.StateZone;
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
-      Medium = IDEAS.Experimental.Media.AirPTDecoupled);
+      Medium = IDEAS.Media.Air);
 
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
@@ -98,7 +98,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(propsBus[:].surfRad, radDistrLw.port_a) annotation (Line(
-      points={{-100,40},{-74,40},{-74,-26},{-54,-26},{-54,-20}},
+      points={{-100.1,39.9},{-74,39.9},{-74,-26},{-54,-26},{-54,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -112,35 +112,35 @@ equation
       smooth=Smooth.None));
 
   connect(propsBus.area, radDistr.area) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-40},{-64,-40}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-40},{-64,-40}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.area, radDistrLw.A) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-14},{-64,-14}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-14},{-64,-14}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, radDistrLw.epsLw) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-10},{-64,-10}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-10},{-64,-10}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, radDistr.epsLw) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-44},{-64,-44}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-44},{-64,-44}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsSw, radDistr.epsSw) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-48},{-64,-48}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-48},{-64,-48}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -153,15 +153,15 @@ equation
 
 for i in 1:nSurf loop
   connect(radDistr.iSolDir, propsBus[i].iSolDir) annotation (Line(
-      points={{-58,-54},{-58,-80},{-100,-80},{-100,40}},
+      points={{-58,-54},{-58,-80},{-100.1,-80},{-100.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(radDistr.iSolDif, propsBus[i].iSolDif) annotation (Line(
-      points={{-54,-54},{-54,-76},{-100,-76},{-100,40}},
+      points={{-54,-54},{-54,-76},{-100.1,-76},{-100.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(propsBus[i].surfCon, vol.heatPort) annotation (Line(
-      points={{-100,40},{-46,40},{-46,12},{10,12},{10,30},{4.44089e-16,30}},
+      points={{-100.1,39.9},{-46,39.9},{-46,12},{10,12},{10,30},{4.44089e-16,30}},
       color={191,0,0},
       smooth=Smooth.None));
 end for;
@@ -207,7 +207,7 @@ end for;
 
 for i in 1:nSurf loop
 connect(sim.weaBus, propsBus[i].weaBus) annotation (Line(
-       points={{-88.6,97.2},{-88.6,100},{-100,100},{-100,40}},
+       points={{-88.6,97.2},{-88.6,100},{-100.1,100},{-100.1,39.9}},
        color={255,204,51},
        thickness=0.5,
        smooth=Smooth.None));
