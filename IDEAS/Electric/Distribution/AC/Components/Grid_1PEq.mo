@@ -1,5 +1,5 @@
 within IDEAS.Electric.Distribution.AC.Components;
-model GridOnly1P
+model Grid_1PEq "One-phase equivalent of three fase grid cable-structure"
 
 public
   replaceable parameter IDEAS.Electric.Data.Interfaces.GridType grid(Pha=1)
@@ -76,4 +76,4 @@ equation
           points={{-102,4},{-46,12},{-28,36}},
           color={0,0,0},
           smooth=Smooth.Bezier)}));
-end GridOnly1P;
+end Grid_1PEq;

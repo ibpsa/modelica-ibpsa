@@ -14,12 +14,13 @@ partial model PartialCircuitBalancingValve
 
   // Components ----------------------------------------------------------------
 
-protected
+//protected
   FixedResistances.FixedResistanceDpM       balancingValve(
         final deltaM=deltaMReturn,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=m_flow_nominal^2/KvReturn^2) if         useBalancingValve
+    dp_nominal=m_flow_nominal^2/KvReturn^2*1e5,
+    allowFlowReversal=false) if                            useBalancingValve
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 
 equation

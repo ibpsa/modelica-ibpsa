@@ -52,7 +52,7 @@ record General "General parameters of the borefield"
     "Shank spacing, defined as the distance between the center of a pipe and the center of the borehole"
     annotation (Dialog(group="Tubes"));
 
-  //------------------------- Step reponse parameters -----------------------------------------------------------------------------------------------------------------------------
+  //------------------------- Step response parameters -----------------------------------------------------------------------------------------------------------------------------
   parameter SI.Time tStep=3600 "Time resolution of the step-response [s]";
   final parameter Integer tSteSta_d=integer(3600*24*365*30/tStep)
     "Discrete time to reach steady state [-] (default = 30 years)";

@@ -10,7 +10,7 @@ annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>
 <p>The PV array itself is modeled, this exists of:</p>
 <p><ol>
 <li>Reflection calculations</li>
-<li>Absorbtion calculations</li>
+<li>Absorption calculations</li>
 <li>5 parameter model of a PV panel, which can be found in <a href=\"modelica://IDEAS.Electric.Photovoltaic.Components.Elements.PV5.mo\">Components.Elements.PV5</a></li>
 </ol></p>
 <p><br/>The inverter is modeled in <a href=\"modelica://IDEAS.Electric.Photovoltaic.Components.SimpleInverter\">SimpleInverter</a>.</p>

@@ -4,16 +4,16 @@ model ZoneLwGainDistribution "distribution of radiative internal gains"
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir
-    "direct solar radiation gains recieved through windows"
+    "direct solar radiation gains received through windows"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDif
-    "difuse solar radiation gains recieved through windows"
+    "difuse solar radiation gains received through windows"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a radGain
     "longwave internal gains"
     annotation (Placement(transformation(extent={{-110,-48},{-90,-28}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nSurf] radSurfTot
-    "total recieved radiation by surface"
+    "total received radiation by surface"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealOutput TRad "radiative zonetemperature"
     annotation (Placement(transformation(

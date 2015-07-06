@@ -10,6 +10,8 @@ partial model PartialSimInfoManager
   parameter Modelica.SIunits.Angle lon(displayUnit="deg") = 0.075921822461753;
   parameter Modelica.SIunits.Time timZonSta(displayUnit="h") = 3600
     "standard time zone";
+  parameter Integer numAzi=4 "Number of azimuth angles that are calculated"
+    annotation(Dialog(tab="Incidence angles"));
 
   final parameter String filNamClim=filDir + filNam;
 
@@ -90,17 +92,61 @@ protected
   Climate.Meteo.Solar.BaseClasses.SkyClearness
                skyClearness
     annotation (Placement(transformation(extent={{-78,70},{-60,88}})));
-public
+
   Climate.Meteo.Solar.BaseClasses.SkyBrightnessCoefficients
                             skyBrightnessCoefficients
     annotation (Placement(transformation(extent={{-18,60},{0,78}})));
-protected
+
   Modelica.Blocks.Sources.RealExpression zenithAngle(y=angZen)
     annotation (Placement(transformation(extent={{-110,46},{-90,66}})));
   Modelica.Blocks.Sources.RealExpression solGloHorIn(y=solGloHor)
     annotation (Placement(transformation(extent={{-110,78},{-90,98}})));
   Modelica.Blocks.Sources.RealExpression solDifHorIn(y=solDifHor)
     annotation (Placement(transformation(extent={{-110,62},{-90,82}})));
+
+public
+  Modelica.Blocks.Sources.RealExpression hour(y=angHou) "Hour angle"
+    annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
+  Modelica.Blocks.Sources.RealExpression dec(y=angDec) "declination angle"
+    annotation (Placement(transformation(extent={{62,86},{34,106}})));
+  Modelica.Blocks.Sources.RealExpression solDirPerExp(y=solDirPer)
+    "Perpendicular direct solar radiation"
+    annotation (Placement(transformation(extent={{60,74},{34,94}})));
+protected
+  parameter SI.Angle inc[numAzi + 1]=cat(
+      1,
+      fill(ceilingInc,1),
+      fill(IDEAS.Constants.Wall, numAzi)) "surface inclination";
+public
+  BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAzi + 1)
+    annotation (Placement(transformation(extent={{4,62},{24,82}})));
+  Climate.Meteo.Solar.ShadedRadSol[
+                             numAzi+1] radSol(
+    inc=inc,
+    azi=cat(
+        1,
+        fill(ceilingInc,1),
+        fill(offsetAzi, numAzi) + (0:numAzi-1)*Modelica.Constants.pi*2/numAzi),
+    each numAzi=numAzi,
+    each lat=lat)
+             annotation (Placement(transformation(extent={{44,54},{64,74}})));
+public
+  Modelica.Blocks.Sources.RealExpression TskyPow4Expr(y=TskyPow4)
+    "Power 4 of sky temperature"
+    annotation (Placement(transformation(extent={{66,10},{40,30}})));
+  Modelica.Blocks.Sources.RealExpression TePow4Expr(y=TePow4)
+    "Power 4 of ambient temperature"
+    annotation (Placement(transformation(extent={{66,-6},{40,14}})));
+  Modelica.Blocks.Sources.RealExpression hConExpr(y=hCon)
+    "Exterior convective heat transfer coefficient"
+    annotation (Placement(transformation(extent={{66,24},{40,44}})));
+  Modelica.Blocks.Sources.RealExpression TdesExpr(y=Tdes)
+    annotation (Placement(transformation(extent={{66,-20},{40,0}})));
+  parameter SI.Angle offsetAzi=0 "Offset for the azimuth angle series"
+    annotation(Dialog(tab="Incidence angles"));
+  parameter SI.Angle ceilingInc = IDEAS.Constants.Ceiling
+    "Ceiling inclination angle"
+    annotation(Dialog(tab="Incidence angles"));
 equation
 
   connect(timMan.timSol, weaDat.sol) annotation (Line(
@@ -154,6 +200,72 @@ equation
   connect(skyClearness.solDifHor, skyBrightness.solDifHor) annotation (Line(
       points={{-78,73.6},{-80,73.6},{-80,66},{-56,66},{-56,51},{-52,51}},
       color={0,0,127},
+      smooth=Smooth.None));
+
+    connect(TskyPow4Expr.y, weaBus.TskyPow4) annotation (Line(
+      points={{38.7,20},{14,20},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TePow4Expr.y, weaBus.TePow4) annotation (Line(
+      points={{38.7,4},{14,4},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  for i in 1:numAzi+1 loop
+    connect(radSol[i].weaBus, weaBus) annotation (Line(
+      points={{44,72},{14,72}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  end for;
+  connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
+      points={{0,74.4},{20,74.4},{20,72},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(skyBrightnessCoefficients.F2, weaBus.F2) annotation (Line(
+      points={{0,70.8},{26,70.8},{26,72},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(solGloHorIn.y, weaBus.solGloHor) annotation (Line(
+      points={{-89,88},{-88,88},{-88,98},{14,98},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(solDifHorIn.y, weaBus.solDifHor) annotation (Line(
+      points={{-89,72},{-88,72},{-88,100},{14,100},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(zenithAngle.y, weaBus.angZen) annotation (Line(
+      points={{-89,56},{-88,56},{-88,104},{14,104},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(hour.y, weaBus.angHou) annotation (Line(
+      points={{-89,100},{-32,100},{-32,72},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dec.y, weaBus.angDec) annotation (Line(
+      points={{32.6,96},{26,96},{26,94},{14,94},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(solDirPerExp.y, weaBus.solDirPer) annotation (Line(
+      points={{32.7,84},{14,84},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TEnv.y, weaBus.Te) annotation (Line(
+      points={{-49,-76},{-50,-76},{-50,-56},{14,-56},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      visible=false));
+  connect(hConExpr.y, weaBus.hConExt) annotation (Line(
+      points={{38.7,34},{14,34},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TdesExpr.y, weaBus.Tdes) annotation (Line(
+      points={{38.7,-10},{14,-10},{14,72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSol.solBus, weaBus.solBus) annotation (Line(
+      points={{64,64},{74,64},{74,50},{14,50},{14,72}},
+      color={255,204,51},
+      thickness=0.5,
       smooth=Smooth.None));
   annotation (
     defaultComponentName="sim",
@@ -231,9 +343,16 @@ equation
           textStyle={TextStyle.Italic},
           fontName="Bookman Old Style",
           textString="i")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
             graphics),
     Documentation(info="<html>
+</html>", revisions="<html>
+<ul>
+<li>
+February 10, 2015 by Filip Jorissen:<br/>
+Adjusted implementation for grouping of solar calculations.
+</li>
+</ul>
 </html>"));
 end PartialSimInfoManager;

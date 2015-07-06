@@ -2,17 +2,21 @@ within IDEAS.Interfaces.BaseClasses;
 partial model HeatingSystem "Partial heating/cooling system"
 
   extends IDEAS.Interfaces.BaseClasses.PartialSystem;
+
+  replaceable package Medium=IDEAS.Media.Water.Simple;
+
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
-
-  parameter Boolean InInterface = false;
 
   // *********** Building characteristics and  interface ***********
   // --- General
   parameter Integer nZones(min=1)
     "Number of conditioned thermal zones in the building";
+  // --- Boolean declarations
   parameter Boolean isHea=true "true if system is able to heat";
   parameter Boolean isCoo=false "true if system is able to cool";
+  parameter Boolean isDH=false "true if the system is connected to a DH grid";
+  parameter Boolean InInterface = false;
 
   parameter Modelica.SIunits.Power[nZones] Q_design
     "Total design heat load for heating system based on heat losses" annotation(Dialog(enable=InInterface));
@@ -79,6 +83,15 @@ partial model HeatingSystem "Partial heating/cooling system"
         rotation=90,
         origin={0,-102})));
 
+  // --- fluid
+  Fluid.Interfaces.FlowPort_a flowPort_supply(redeclare package Medium = Medium)
+    if                                           isDH
+    "Supply water connection to the DH grid"
+    annotation (Placement(transformation(extent={{150,-110},{170,-90}})));
+  Fluid.Interfaces.FlowPort_b flowPort_return(redeclare package Medium = Medium)
+    if                                           isDH
+    "Return water connection to the DH grid"
+    annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
             100}}), graphics={
@@ -172,8 +185,8 @@ partial model HeatingSystem "Partial heating/cooling system"
           color={0,0,127},
           smooth=Smooth.None,
           pattern=LinePattern.Dash)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
-            100}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{
+            200,100}}), graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Interface model for a complete multi-zone heating system (with our without domestic hot water and solar system).</p>

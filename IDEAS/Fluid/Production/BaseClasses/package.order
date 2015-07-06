@@ -1,9 +1,8 @@
-HeaterType
-HeatSource_Ideal
 HeatSource_CondensingGasBurner
 HeatSource_HP_AW
+HeatSource_Ideal
+HeaterType
 PartialHeatPump
 HeatPumpData
-VitoCal300GBWS301dotA08
-VitoCal300GBWS301dotA29
-VitoCal300GBWS301dotA45
+HeatSource_HP_AW_On
+HeatSource_HP_AW2

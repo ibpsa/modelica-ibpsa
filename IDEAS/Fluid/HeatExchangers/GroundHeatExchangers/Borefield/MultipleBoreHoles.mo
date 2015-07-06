@@ -111,7 +111,7 @@ public
         rotation=270,
         origin={3,-10})));
 initial algorithm
-  // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same lenght as the number of aggregated pulse and cover lenSim
+  // Initialisation of the internal energy (zeros) and the load vector. Load vector have the same length as the number of aggregated pulse and cover lenSim
   U := 0;
   UOld := 0;
 
