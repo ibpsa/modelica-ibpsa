@@ -17,7 +17,18 @@ model InternalWall "interior opaque wall between two zones"
   parameter Modelica.SIunits.Temperature TRef_a=291.15
     "Reference temperature of zone on side of propsBus_a, for calculation of design heat loss"
                                                                                                annotation (Dialog(group="Design heat loss"));
-
+  parameter Boolean linearise_a=true
+    "= true, if convective heat transfer should be linearised"
+    annotation(Dialog(tab="Convection"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal_a=1
+    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
+    annotation(Dialog(tab="Convection"));
+  parameter Boolean linearise_b=true
+    "= true, if convective heat transfer should be linearised"
+    annotation(Dialog(tab="Convection"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal_b=1
+    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
+    annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.Temperature TRef_b=291.15
     "Reference temperature of zone on side of propsBus_b, for calculation of design heat loss"
                                                                                                annotation (Dialog(group="Design heat loss"));
@@ -34,11 +45,15 @@ model InternalWall "interior opaque wall between two zones"
 
 protected
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=
-        AWall, final inc=inc)
+        AWall, final inc=inc,
+    linearise=linearise_b,
+    dT_nominal=dT_nominal_b)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(final A=
-        AWall, final inc=inc + Modelica.Constants.pi)
+        AWall, final inc=inc + Modelica.Constants.pi,
+    linearise=linearise_a,
+    dT_nominal=dT_nominal_a)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
@@ -72,19 +87,19 @@ public
     annotation (Placement(transformation(extent={{10,50},{-10,70}})));
 equation
   connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
-      points={{10,-30},{14,-30},{14,40},{50,40}},
+      points={{10,-30},{14,-30},{14,39.9},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_a, propsBus_b.surfRad) annotation (Line(
-      points={{-10,-30},{-12,-30},{-12,40},{-50,40}},
+      points={{-10,-30},{-12,-30},{-12,39.9},{-50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(propsBus_b.surfCon, intCon_b.port_b) annotation (Line(
-      points={{-50,40},{-46,40},{-46,-30},{-40,-30}},
+      points={{-50.1,39.9},{-46,39.9},{-46,-30},{-40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(propsBus_a.surfCon, intCon_a.port_b) annotation (Line(
-      points={{50,40},{46,40},{46,-30},{40,-30}},
+      points={{50.1,39.9},{46,39.9},{46,-30},{40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_gain, port_emb) annotation (Line(
@@ -100,70 +115,70 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
-      points={{10,-26},{18,-26},{18,40},{50,40}},
+      points={{10,-26},{18,-26},{18,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
-      points={{10,-22},{14,-22},{14,40},{50,40}},
+      points={{10,-22},{14,-22},{14,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBus_a.area) annotation (Line(
-      points={{0,-20},{0,40},{50,40}},
+      points={{0,-20},{0,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBus_b.area) annotation (Line(
-      points={{0,-20},{0,40},{-50,40}},
+      points={{0,-20},{0,39.9},{-50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsSw_a, propsBus_b.epsSw) annotation (Line(
-      points={{-10,-26},{-18,-26},{-18,40},{-50,40}},
+      points={{-10,-26},{-18,-26},{-18,39.9},{-50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsLw_a, propsBus_b.epsLw) annotation (Line(
-      points={{-10,-22},{-14,-22},{-14,40},{-50,40}},
+      points={{-10,-22},{-14,-22},{-14,39.9},{-50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(iSolDif1.port, propsBus_b.iSolDif) annotation (Line(
-      points={{-10,78},{-30,78},{-30,56},{-50,56},{-50,40}},
+      points={{-10,78},{-30,78},{-30,56},{-50.1,56},{-50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(iSolDir1.port, propsBus_b.iSolDir) annotation (Line(
-      points={{-10,60},{-32,60},{-32,58},{-50,58},{-50,40}},
+      points={{-10,60},{-32,60},{-32,58},{-50.1,58},{-50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(QDesign_a.y, propsBus_a.QTra_design) annotation (Line(
-      points={{37,60},{38,60},{38,40},{50,40}},
+      points={{37,60},{38,60},{38,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(QDesign_b.y, propsBus_b.QTra_design) annotation (Line(
-      points={{-37,46},{-44,46},{-44,40},{-50,40}},
+      points={{-37,46},{-44,46},{-44,39.9},{-50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",

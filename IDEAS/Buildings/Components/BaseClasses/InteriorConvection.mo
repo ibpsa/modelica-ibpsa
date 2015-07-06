@@ -4,11 +4,11 @@ model InteriorConvection "interior surface convection"
   parameter Modelica.SIunits.Area A "surface area";
   parameter Modelica.SIunits.Angle inc "inclination";
 
-  parameter Boolean linearise = true
-    "Fixed convective heat transfer coefficient or dT-dependent."
+  parameter Boolean linearise = false
+    "= true, if convective heat transfer should be linearised"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal = 2
-    "Nominal temperature difference, used for linearisation"
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal = -2
+    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Evaluate=true, enable = linearise);
   parameter Modelica.SIunits.TemperatureDifference dT_hCon = dT_nominal/10
     "Regularization temperature difference"
