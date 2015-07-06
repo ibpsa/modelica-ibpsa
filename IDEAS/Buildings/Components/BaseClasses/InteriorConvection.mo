@@ -4,7 +4,7 @@ model InteriorConvection "interior surface convection"
   parameter Modelica.SIunits.Area A "surface area";
   parameter Modelica.SIunits.Angle inc "inclination";
 
-  parameter Boolean linearise = false
+  parameter Boolean linearise = true
     "Fixed convective heat transfer coefficient or dT-dependent."
     annotation(Evaluate=true);
   parameter Modelica.SIunits.TemperatureDifference dT_nominal = 2
@@ -14,10 +14,10 @@ model InteriorConvection "interior surface convection"
     "Regularization temperature difference"
     annotation(Dialog(tab="Advanced"), Evaluate=true);
 
-  parameter Boolean use_hConState = false
+  parameter Boolean use_hConState = true
     "Introduce state to avoid non-linear systems when linearise = false"
     annotation(Dialog(tab="Advanced"), Evaluate = true);
-  parameter Modelica.SIunits.Time tau = 3600
+  parameter Modelica.SIunits.Time tau = 120
     "Time constant for heat transfer coefficient state when linearise = false"
     annotation(Dialog(tab="Advanced", enable = use_hConState));
   parameter Modelica.SIunits.Length hZone = 2.7
