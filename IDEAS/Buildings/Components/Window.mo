@@ -54,7 +54,7 @@ protected
          - frac))
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvectionWindow iCon(final A=
+  BaseClasses.InteriorConvection                                  iCon(final A=
         A*(1 - frac), final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
