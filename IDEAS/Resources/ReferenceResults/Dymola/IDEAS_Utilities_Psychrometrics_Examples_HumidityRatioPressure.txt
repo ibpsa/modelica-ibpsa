@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 last-generated=2015-07-03
-=======
-last-generated=2015-06-28
->>>>>>> OMcompatibility
 statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
 humRat.p=[101325., 101325.]
 time=[0., 1.]
