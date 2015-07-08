@@ -147,8 +147,12 @@ public
   parameter SI.Angle ceilingInc = IDEAS.Constants.Ceiling
     "Ceiling inclination angle"
     annotation(Dialog(tab="Incidence angles"));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=10e6)
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a Qgai
+    "Thermal gains in model"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 equation
-
   connect(timMan.timSol, weaDat.sol) annotation (Line(
       points={{-34,27},{-22,27},{-22,37.8},{-18,37.8}},
       color={0,0,127},
@@ -250,23 +254,25 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEnv.y, weaBus.Te) annotation (Line(
-      points={{-49,-76},{-50,-76},{-50,-56},{14,-56},{14,72}},
+      points={{-49,-76},{-50,-76},{-50,-56},{14.05,-56},{14.05,72.05}},
       color={0,0,127},
       smooth=Smooth.None,
       visible=false));
   connect(hConExpr.y, weaBus.hConExt) annotation (Line(
-      points={{38.7,34},{14,34},{14,72}},
+      points={{38.7,34},{14.05,34},{14.05,72.05}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TdesExpr.y, weaBus.Tdes) annotation (Line(
-      points={{38.7,-10},{14,-10},{14,72}},
+      points={{38.7,-10},{14.05,-10},{14.05,72.05}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSol.solBus, weaBus.solBus) annotation (Line(
-      points={{64,64},{74,64},{74,50},{14,50},{14,72}},
+      points={{64,64},{74,64},{74,50},{14.05,50},{14.05,72.05}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
+  connect(fixedTemperature.port, Qgai)
+    annotation (Line(points={{-20,-10},{0,-10},{0,-100}}, color={191,0,0}));
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
@@ -343,9 +349,8 @@ equation
           textStyle={TextStyle.Italic},
           fontName="Bookman Old Style",
           textString="i")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>

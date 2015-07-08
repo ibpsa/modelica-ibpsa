@@ -45,9 +45,9 @@ protected
   Real areaAbsTotGain=sum(areaAbsGain)
     "sum of shortwave emissivity weighted areas";
 
-  Real[nSurf] weightFactorDir = 0.96 * area ./ (ones(nSurf)*sum(area))
+  Real[nSurf] weightFactorDir = area ./ (ones(nSurf)*sum(area))
     "weightfactor for received direct shortwave solar radiation";
-  Real[nSurf] weightFactorDif = 0.96 * areaAbsDifSol ./ (ones(nSurf)*areaAbsDifTotSol)
+  Real[nSurf] weightFactorDif = areaAbsDifSol ./ (ones(nSurf)*areaAbsDifTotSol)
     "weightfactor for received direct shortwave solar radiation";
   Real[nSurf] weightFactorGain = areaAbsGain ./ (ones(nSurf)*areaAbsTotGain)
     "weightfactor for received direct shortwave solar radiation";

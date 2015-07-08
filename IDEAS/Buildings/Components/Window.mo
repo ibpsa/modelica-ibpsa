@@ -291,6 +291,21 @@ equation
     annotation (Line(points={{-18,-58},{-10,-58}}, color={0,0,127}));
   connect(shaType2.iAngInc, solWin.angInc) annotation (Line(points={{-18,-64},{
           -14,-64},{-14,-66},{-10,-66}}, color={0,0,127}));
+  connect(skyRad.Qgai, propsBus_a.Qgai) annotation (Line(points={{-40,-10},
+          {-50,-10},{-50,39.9},{50.1,39.9}},
+                                  color={191,0,0}));
+  connect(eCon.Qgai, propsBus_a.Qgai) annotation (Line(points={{-40,-30},
+          {-52,-30},{-52,39.9},{50.1,39.9}},
+                             color={191,0,0}));
+  connect(solWin.Qgai, propsBus_a.Qgai) annotation (Line(points={{10,-60},
+          {20,-60},{44,-60},{44,39.9},{50.1,39.9}},
+                                     color={191,0,0}));
+  connect(skyRadFra.Qgai, propsBus_a.Qgai) annotation (Line(points={{-40,90},
+          {-52,90},{-52,39.9},{50.1,39.9}},
+                                 color={191,0,0}));
+  connect(eConFra.Qgai, propsBus_a.Qgai) annotation (Line(points={{-40,70},
+          {-50,70},{-50,39.9},{50.1,39.9}},
+                                 color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={

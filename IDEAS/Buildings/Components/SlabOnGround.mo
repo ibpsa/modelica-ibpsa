@@ -78,6 +78,11 @@ public
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   outer SimInfoManager sim "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+  Modelica.Blocks.Sources.RealExpression Qgai(y=layMul.port_a.Q_flow)
+    "Heat gains in model"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
 
   periodicFlow.Q_flow = -Qm;
@@ -92,11 +97,11 @@ equation
       smooth=Smooth.None));
 
   connect(intCon.port_b, propsBus_a.surfCon) annotation (Line(
-      points={{40,-30},{46,-30},{46,40},{50,40}},
+      points={{40,-30},{46,-30},{46,39.9},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
-      points={{10,-30},{16,-30},{16,40},{50,40}},
+      points={{10,-30},{16,-30},{16,39.9},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_gain, port_emb) annotation (Line(
@@ -112,33 +117,38 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.area, propsBus_a.area) annotation (Line(
-      points={{0,-20},{0,40},{50,40}},
+      points={{0,-20},{0,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
-      points={{10,-22},{12,-22},{12,40},{50,40}},
+      points={{10,-22},{12,-22},{12,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
-      points={{10,-26},{14,-26},{14,40},{50,40}},
+      points={{10,-26},{14,-26},{14,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
-      points={{11,50},{24,50},{24,40},{50,40}},
+      points={{11,50},{24,50},{24,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(Qgai.y, prescribedHeatFlow.Q_flow)
+    annotation (Line(points={{-59,40},{-40,40}},            color={0,0,127}));
+  connect(prescribedHeatFlow.port, propsBus_a.Qgai)
+    annotation (Line(points={{-20,40},{50.1,40},{50.1,39.9}},
+                                                        color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
@@ -174,7 +184,7 @@ equation
           thickness=0.5,
           smooth=Smooth.None)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>

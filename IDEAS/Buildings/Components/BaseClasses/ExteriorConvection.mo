@@ -11,7 +11,11 @@ model ExteriorConvection "exterior surface convection"
   Modelica.Blocks.Interfaces.RealInput hConExt
     "Exterior convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-120,-110},{-80,-70}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b Qgai
+    "Heat gains in model"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
+  port_a.Q_flow + Qgai.Q_flow =0;
   port_a.Q_flow = hConExt*A*(port_a.T - Te);
 
   annotation (Icon(graphics={
@@ -51,5 +55,5 @@ equation
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-pvb42RGk.png\"/> is the surface area, <img src=\"modelica://IDEAS/Images/equations/equation-EFr6uClx.png\"/> is the dry-bulb exterior air temperature, <img src=\"modelica://IDEAS/Images/equations/equation-9BU57cj4.png\"/> is the surface temperature and <img src=\"modelica://IDEAS/Images/equations/equation-HvwkeunV.png\"/> is the wind speed in the undisturbed flow at 10 meter above the ground and where the stated correlation is valid for a <img src=\"modelica://IDEAS/Images/equations/equation-HvwkeunV.png\"/> range of [0.15,7.5] meter per second <a href=\"IDEAS.Buildings.UsersGuide.References\">[Defraeye 2011]</a>. The <img src=\"modelica://IDEAS/Images/equations/equation-HvwkeunV.png\"/>-dependent term denoting the exterior convective heat transfer coefficient <img src=\"modelica://IDEAS/Images/equations/equation-W7Ft8vaa.png\"/> is determined as <img src=\"modelica://IDEAS/Images/equations/equation-aZcbMNkz.png\"/> in order to take into account buoyancy effects at low wind speeds <a href=\"IDEAS.Buildings.UsersGuide.References\">[Jurges 1924]</a>.</p>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+            100}})));
 end ExteriorConvection;

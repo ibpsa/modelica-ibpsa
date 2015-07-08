@@ -70,21 +70,25 @@ public
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDir1(
                                                               Q_flow=0)
     annotation (Placement(transformation(extent={{10,50},{-10,70}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow Qgai(Q_flow=0)
+    annotation (Placement(transformation(extent={{104,36},{84,56}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow Qgai1(Q_flow=0)
+    annotation (Placement(transformation(extent={{-102,24},{-82,44}})));
 equation
   connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
-      points={{10,-30},{14,-30},{14,40},{50,40}},
+      points={{10,-30},{14,-30},{14,39.9},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_a, propsBus_b.surfRad) annotation (Line(
-      points={{-10,-30},{-12,-30},{-12,40},{-50,40}},
+      points={{-10,-30},{-12,-30},{-12,39.9},{-50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(propsBus_b.surfCon, intCon_b.port_b) annotation (Line(
-      points={{-50,40},{-46,40},{-46,-30},{-40,-30}},
+      points={{-50.1,39.9},{-46,39.9},{-46,-30},{-40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(propsBus_a.surfCon, intCon_a.port_b) annotation (Line(
-      points={{50,40},{46,40},{46,-30},{40,-30}},
+      points={{50.1,39.9},{46,39.9},{46,-30},{40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_gain, port_emb) annotation (Line(
@@ -100,75 +104,79 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
-      points={{10,-26},{18,-26},{18,40},{50,40}},
+      points={{10,-26},{18,-26},{18,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
-      points={{10,-22},{14,-22},{14,40},{50,40}},
+      points={{10,-22},{14,-22},{14,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBus_a.area) annotation (Line(
-      points={{0,-20},{0,40},{50,40}},
+      points={{0,-20},{0,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBus_b.area) annotation (Line(
-      points={{0,-20},{0,40},{-50,40}},
+      points={{0,-20},{0,39.9},{-50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsSw_a, propsBus_b.epsSw) annotation (Line(
-      points={{-10,-26},{-18,-26},{-18,40},{-50,40}},
+      points={{-10,-26},{-18,-26},{-18,39.9},{-50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsLw_a, propsBus_b.epsLw) annotation (Line(
-      points={{-10,-22},{-14,-22},{-14,40},{-50,40}},
+      points={{-10,-22},{-14,-22},{-14,39.9},{-50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(iSolDif1.port, propsBus_b.iSolDif) annotation (Line(
-      points={{-10,78},{-30,78},{-30,56},{-50,56},{-50,40}},
+      points={{-10,78},{-30,78},{-30,56},{-50.1,56},{-50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(iSolDir1.port, propsBus_b.iSolDir) annotation (Line(
-      points={{-10,60},{-32,60},{-32,58},{-50,58},{-50,40}},
+      points={{-10,60},{-32,60},{-32,58},{-50.1,58},{-50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(QDesign_a.y, propsBus_a.QTra_design) annotation (Line(
-      points={{37,60},{38,60},{38,40},{50,40}},
+      points={{37,60},{38,60},{38,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(QDesign_b.y, propsBus_b.QTra_design) annotation (Line(
-      points={{-37,46},{-44,46},{-44,40},{-50,40}},
+      points={{-37,46},{-44,46},{-44,39.9},{-50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(Qgai.port, propsBus_a.Qgai)
+    annotation (Line(points={{84,46},{50.1,46},{50.1,39.9}}, color={191,0,0}));
+  connect(Qgai1.port, propsBus_b.Qgai) annotation (Line(points={{-82,34},{-66,
+          34},{-66,39.9},{-50.1,39.9}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
         graphics={
@@ -203,8 +211,8 @@ equation
           smooth=Smooth.None,
           color={0,0,0},
           thickness=0.5)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
-                    graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,
+            100}})),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>
