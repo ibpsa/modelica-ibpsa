@@ -69,14 +69,6 @@ model ZoneExample
          annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Shading.ShadingControl shadingControl
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Qgai.Q_flow)
-    annotation (Placement(transformation(extent={{-102,44},{-82,64}})));
-  Modelica.Blocks.Continuous.Integrator integrator(k=1/3600000)
-    annotation (Placement(transformation(extent={{-62,44},{-42,64}})));
-  Modelica.Blocks.Continuous.Integrator integrator1(k=1/3600000)
-    annotation (Placement(transformation(extent={{-82,-6},{-62,14}})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=abs(sim.Qgai.Q_flow))
-    annotation (Placement(transformation(extent={{-104,20},{-84,40}})));
 equation
   connect(commonWall.propsBus_a, zone.propsBus[1]) annotation (Line(
       points={{-44,12},{-12,12},{-12,-4.5},{20,-4.5}},
@@ -120,10 +112,6 @@ equation
       points={{-60,-84},{-58,-84},{-58,-86},{-53,-86},{-53,-82}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(realExpression.y, integrator.u)
-    annotation (Line(points={{-81,54},{-76,54},{-64,54}}, color={0,0,127}));
-  connect(realExpression1.y, integrator1.u) annotation (Line(points={{-83,30},{
-          -78,30},{-78,18},{-92,18},{-92,4},{-84,4}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Components/Examples/ZoneExample.mos"

@@ -1,0 +1,8 @@
+simulateModel("IDEAS.Buildings.Validation.Tests.EnergyConservationValidation", stopTime=3.15e7, method="dassl",
+tolerance=1e-6, resultFile="EnergyConservationValidation");
+createPlot(id=1, 
+position={0, 0, 804, 518}, 
+y={"intAbsQgai.y", "intQgai.y"}, 
+range={0.0, 32000000.0, -200.0, 2200.0}, 
+grid=true, 
+colors={{28,108,200}, {238,46,47}});
