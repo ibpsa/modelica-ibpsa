@@ -46,7 +46,6 @@ protected
   final parameter Real Lpe=0.37*PWall*ground1.k*log(delta/dt + 1);
   parameter Integer m = 7;
 
-  //protected
 public
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     final A=AWall,
@@ -70,7 +69,6 @@ public
     final locGain=1)
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  //    nMat(T(start={{273.15},{273.15},{273.15}} + {{11.5},{12.2},{12.7}})))
   Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 public
@@ -79,9 +77,8 @@ public
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-30,-8})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
-                                                      fixedHeatFlow(T=273.15 +
-        12)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15
+         + 12)
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   outer SimInfoManager sim "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
@@ -90,9 +87,9 @@ public
   Modelica.Blocks.Sources.RealExpression Qgai(y=layMul.port_a.Q_flow)
     "Heat gains in model"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Modelica.Blocks.Sources.RealExpression QmExp(y=-Qm) "Real expression for Qm"
+    annotation (Placement(transformation(extent={{-80,-18},{-60,2}})));
 equation
-
-  periodicFlow.Q_flow = -Qm;
 
   connect(layMul.port_b, intCon.port_a) annotation (Line(
       points={{10,-30},{20,-30}},
@@ -119,7 +116,7 @@ equation
       points={{-10,-30},{-14,-30},{-14,-8},{-20,-8}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(fixedHeatFlow.port, layGro.port_a) annotation (Line(
+  connect(fixedTemperature.port, layGro.port_a) annotation (Line(
       points={{-50,-30},{-40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -156,6 +153,8 @@ equation
   connect(prescribedHeatFlow.port, propsBus_a.Qgai)
     annotation (Line(points={{-20,40},{50.1,40},{50.1,39.9}},
                                                         color={191,0,0}));
+  connect(QmExp.y, periodicFlow.Q_flow)
+    annotation (Line(points={{-59,-8},{-40,-8}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
