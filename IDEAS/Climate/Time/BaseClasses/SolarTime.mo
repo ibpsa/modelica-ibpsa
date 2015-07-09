@@ -15,11 +15,11 @@ protected
   Modelica.SIunits.Time delta "difference of solar time to local time";
   Modelica.SIunits.Time nDay "Zero-based day number in seconds";
 
-algorithm
-  nDay := timSim;
-  Bt := Modelica.Constants.pi*((nDay + 86400)/86400 - 81)/182;
-  delta := 60*(9.87*sin(2*Bt) - 7.53*cos(Bt) - 1.5*sin(Bt));
-  timSol := timLoc + delta;
+equation
+  nDay = timSim;
+  Bt = Modelica.Constants.pi*((nDay + 86400)/86400 - 81)/182;
+  delta = 60*(9.87*sin(2*Bt) - 7.53*cos(Bt) - 1.5*sin(Bt));
+  timSol = timLoc + delta;
 
   annotation (Diagram(graphics));
 end SolarTime;
