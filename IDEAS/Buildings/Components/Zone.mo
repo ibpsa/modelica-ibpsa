@@ -37,6 +37,7 @@ model Zone "thermal building zone"
 
   Modelica.SIunits.Temperature TAir=senTem.T;
   Modelica.SIunits.Temperature TStar=radDistr.TRad;
+  Modelica.SIunits.Energy E = vol.dynBal.U;
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(final
