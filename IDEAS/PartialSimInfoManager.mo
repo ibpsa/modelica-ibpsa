@@ -75,7 +75,13 @@ protected
     ifSolCor=true)
     annotation (Placement(transformation(extent={{-52,18},{-34,36}})));
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=filNamClim, lat=lat, lon=lon, timZon=timZonSta) if useTmy3Reader
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+  filNam=filNamClim,
+  lat=lat,
+  lon=lon,
+  timZon=timZonSta,
+  datRea1(tableName="data"),
+  datRea(tableName="data")) if useTmy3Reader
     annotation (Placement(transformation(extent={{-18,36},{0,54}})));
   Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
     annotation (Placement(transformation(extent={{-30,-96},{-10,-76}})));
@@ -118,7 +124,8 @@ protected
       fill(ceilingInc,1),
       fill(IDEAS.Constants.Wall, numAzi)) "surface inclination";
 public
-  BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAzi + 1)
+  Buildings.Components.Interfaces.WeaBus
+                                     weaBus(numSolBus=numAzi + 1)
     annotation (Placement(transformation(extent={{4,62},{24,82}})));
   Climate.Meteo.Solar.ShadedRadSol[
                              numAzi+1] radSol(
@@ -149,10 +156,6 @@ public
     annotation(Dialog(tab="Incidence angles"));
 equation
 
-  connect(timMan.timSol, weaDat.sol) annotation (Line(
-      points={{-34,27},{-22,27},{-22,37.8},{-18,37.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TEnv.y,XiEnv. T) annotation (Line(
       points={{-49,-76},{-32,-76},{-32,-86}},
       color={0,0,127},
@@ -250,20 +253,20 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEnv.y, weaBus.Te) annotation (Line(
-      points={{-49,-76},{-50,-76},{-50,-56},{14,-56},{14,72}},
+      points={{-49,-76},{-50,-76},{-50,-56},{14.05,-56},{14.05,72.05}},
       color={0,0,127},
       smooth=Smooth.None,
       visible=false));
   connect(hConExpr.y, weaBus.hConExt) annotation (Line(
-      points={{38.7,34},{14,34},{14,72}},
+      points={{38.7,34},{14.05,34},{14.05,72.05}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TdesExpr.y, weaBus.Tdes) annotation (Line(
-      points={{38.7,-10},{14,-10},{14,72}},
+      points={{38.7,-10},{14.05,-10},{14.05,72.05}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSol.solBus, weaBus.solBus) annotation (Line(
-      points={{64,64},{74,64},{74,50},{14,50},{14,72}},
+      points={{64,64},{74,64},{74,50},{14.05,50},{14.05,72.05}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

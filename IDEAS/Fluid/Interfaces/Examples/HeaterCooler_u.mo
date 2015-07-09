@@ -3,7 +3,7 @@ model HeaterCooler_u
   "Model that tests a heat exchanger model with reverse flow"
   extends Modelica.Icons.Example;
 
- package Medium = IDEAS.Media.Water.Simple;
+ package Medium = IDEAS.Media.Water;
 
   IDEAS.Fluid.HeatExchangers.HeaterCooler_u hea1(
     redeclare package Medium = Medium,
@@ -282,12 +282,10 @@ model HeaterCooler_u
 equation
   connect(POut.y,sin_1. p_in) annotation (Line(
       points={{-179,150},{-170,150}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(TDb.y,sou_1. T_in) annotation (Line(
       points={{-179,104},{-176,104},{-172,104}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(u.y, hea1.u)
                       annotation (Line(points={{-127,184},{-70,184},{-70,160},{
           -28,160},{-28,106},{-16,106}},
@@ -558,7 +556,7 @@ equation
             -400},{200,240}}), graphics={Text(
           extent={{30,234},{158,192}},
           lineColor={0,0,255},
-          textString="Asserts for temperature check"), Text(
+          textString="Asserts for temperture check"), Text(
           extent={{-188,-20},{-38,-84}},
           lineColor={0,0,255},
           textString="Same system as above, but with flow reversed")}),

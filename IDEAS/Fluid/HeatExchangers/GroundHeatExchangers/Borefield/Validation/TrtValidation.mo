@@ -29,6 +29,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Validation/TrtValidation.mos"
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Validation/TrtValidation.mos"
         "Simulate and plot"));
 end TrtValidation;

@@ -13,8 +13,8 @@ model WattsLaw "For use  with loads"
             {-60,20}})));
 equation
   for i in 1:numPha loop
-    P/numPha = Modelica.ComplexMath.real(vi[i].v*Modelica.ComplexMath.conj(vi[i].i));
-    Q/numPha = Modelica.ComplexMath.imag(vi[i].v*Modelica.ComplexMath.conj(vi[i].i));
+    P/numPha =  vi[i].v.re*vi[i].i.re+vi[i].v.im*vi[i].i.im;
+    Q/numPha = -vi[i].v.re*vi[i].i.im+vi[i].v.im*vi[i].i.re;
   end for;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

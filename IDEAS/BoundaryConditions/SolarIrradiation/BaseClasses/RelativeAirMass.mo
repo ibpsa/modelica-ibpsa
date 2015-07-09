@@ -1,7 +1,6 @@
 within IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses;
 block RelativeAirMass "Relative air mass"
-
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
@@ -11,8 +10,8 @@ public
   Modelica.Blocks.Interfaces.RealOutput relAirMas "Relative air mass"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  Real zenLim;
-  Real zenDeg;
+  Real zenLim "Zenith angle bounded from above by 90 degree";
+  Real zenDeg "Zenith angle in degree";
 equation
   zenLim = IDEAS.Utilities.Math.Functions.smoothMin(
     zen,
@@ -30,8 +29,7 @@ This component computes the relative air mass for sky brightness.
 R. Perez (1999).
 <i>Fortran Function irrpz.f</i>,
 Emailed by R. Perez to F.C. Winkelmann on May 21, 1999.<br/>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 07, 2010, by Wangda Zuo:<br/>
@@ -39,8 +37,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

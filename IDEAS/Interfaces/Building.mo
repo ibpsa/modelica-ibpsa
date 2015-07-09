@@ -4,7 +4,7 @@ model Building
   outer IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
-  replaceable package Medium=IDEAS.Media.Water.Simple;
+  replaceable package Medium=IDEAS.Media.Water;
 
   parameter Boolean standAlone=true;
   parameter Boolean isDH=false "True if the building is connected to a DH grid";

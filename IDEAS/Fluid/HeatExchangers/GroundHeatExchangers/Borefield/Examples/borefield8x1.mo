@@ -43,7 +43,7 @@ model borefield8x1
     m_flow_nominal=bfData.m_flow_nominal,
     T_start=T_start)
     annotation (Placement(transformation(extent={{38,-50},{58,-30}})));
-  IDEAS.Fluid.Movers.FlowMachine_m_flow pum(
+  Movers.FlowControlled_m_flow          pum(
     redeclare package Medium = Medium,
     dynamicBalance=false,
     m_flow_nominal=bfData.m_flow_nominal,
