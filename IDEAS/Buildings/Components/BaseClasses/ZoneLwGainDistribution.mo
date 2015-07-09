@@ -38,19 +38,29 @@ model ZoneLwGainDistribution "distribution of radiative internal gains"
         origin={40,100})));
 
 protected
-  Real[nSurf] areaAbsDifSol=area .* epsSw "shortwave emissivity weighted areas";
-  Real areaAbsDifTotSol=sum(areaAbsDifSol)
-    "sum of shortwave emissivity weighted areas";
-  Real[nSurf] areaAbsGain=area .* epsLw "longwave emissivity weighted areas";
-  Real areaAbsTotGain=sum(areaAbsGain)
+  parameter Real[nSurf] areaAbsDifSol = zeros(nSurf)
+    "longwave emissivity weighted areas" annotation(fixed=false);
+  final parameter Real areaAbsDifTotSol=sum(areaAbsDifSol)
+    "sum of longwave emissivity weighted areas";
+  parameter Real[nSurf] areaAbsGain = zeros(nSurf)
+    "shortwave emissivity weighted areas" annotation(fixed=false);
+  final parameter Real areaAbsTotGain = sum(areaAbsGain)
     "sum of shortwave emissivity weighted areas";
 
-  Real[nSurf] weightFactorDir = 0.96 * area ./ (ones(nSurf)*sum(area))
-    "weightfactor for received direct shortwave solar radiation";
-  Real[nSurf] weightFactorDif = 0.96 * areaAbsDifSol ./ (ones(nSurf)*areaAbsDifTotSol)
-    "weightfactor for received direct shortwave solar radiation";
-  Real[nSurf] weightFactorGain = areaAbsGain ./ (ones(nSurf)*areaAbsTotGain)
-    "weightfactor for received direct shortwave solar radiation";
+  parameter Real[nSurf] weightFactorDir = zeros(nSurf)
+    "weightfactor for received direct shortwave solar radiation" annotation(fixed=false);
+  parameter Real[nSurf] weightFactorDif = zeros(nSurf)
+    "weightfactor for received direct shortwave solar radiation" annotation(fixed=false);
+  parameter Real[nSurf] weightFactorGain = zeros(nSurf)
+    "weightfactor for received direct shortwave solar radiation" annotation(fixed=false);
+
+initial algorithm
+
+  areaAbsDifSol := area .* epsSw;
+  areaAbsGain := area .* epsLw;
+  weightFactorDir :=0.96*area ./ (ones(nSurf)*sum(area));
+  weightFactorDif :=0.96*areaAbsDifSol ./ (ones(nSurf)*areaAbsDifTotSol);
+  weightFactorGain :=areaAbsGain ./ (ones(nSurf)*areaAbsTotGain);
 
 equation
   for k in 1:nSurf loop
