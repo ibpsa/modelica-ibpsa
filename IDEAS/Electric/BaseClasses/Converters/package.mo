@@ -1,11 +1,10 @@
 within IDEAS.Electric.BaseClasses;
-package DC 
+package Converters "Package including power electronic converters"
 extends Modelica.Icons.Package;
 
-
 annotation (Icon(graphics={      Text(
-        extent={{-80,80},{80,-82}},
+        extent={{-100,-100},{120,95}},
         lineColor={0,0,0},
-        textString="V",
+        textString="/",
         fontName="Calibri")}));
-end DC;
+end Converters;
