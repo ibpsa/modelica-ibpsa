@@ -15,9 +15,9 @@ record Material "Properties of building materials"
 
   final parameter Real R=d/k;
 
-  parameter Modelica.SIunits.Emissivity epsLw_a=0.84
+  parameter Modelica.SIunits.Emissivity epsLw_a = epsLw
     "Longwave emisivity for surface a if different";
-  parameter Modelica.SIunits.Emissivity epsLw_b=0.84
+  parameter Modelica.SIunits.Emissivity epsLw_b = epsLw
     "Longwave emisivity for surface a if different";
 
   final parameter Modelica.SIunits.ThermalDiffusivity alpha=k/(c*rho)
