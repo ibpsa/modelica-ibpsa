@@ -1,6 +1,6 @@
 within IDEAS.BoundaryConditions.SolarGeometry.BaseClasses;
 block SolarAzimuth "Solar azimuth"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   parameter Modelica.SIunits.Angle lat "Latitude";
   Modelica.Blocks.Interfaces.RealInput zen(quantity="Angle", unit="rad")
@@ -54,16 +54,15 @@ algorithm
 <p>
 This component computes the solar azimuth angle.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
 Changed model to avoid an event at solar noon.
 </li>
 <li>
-Feburary 28, 2012, by Wangda Zuo:<br/>
-Add solar time conversion since it is removed from <code>solTim</code>.
+February 28, 2012, by Wangda Zuo:<br/>
+Add solar time convertion since it is removed from <code>solTim</code>.
 </li>
 <li>
 May 18, 2010, by Wangda Zuo:<br/>
@@ -71,8 +70,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,100}}),
-                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
@@ -89,5 +86,7 @@ First implementation.
         Text(
           extent={{-102,6},{-60,-4}},
           lineColor={0,0,127},
-          textString="decAng")}));
+          textString="decAng"),
+        Bitmap(extent={{-90,90},{90,-92}}, fileName=
+              "modelica://IDEAS/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/SolarAzimuth.png")}));
 end SolarAzimuth;

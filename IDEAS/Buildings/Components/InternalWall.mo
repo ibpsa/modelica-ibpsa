@@ -17,7 +17,18 @@ model InternalWall "interior opaque wall between two zones"
   parameter Modelica.SIunits.Temperature TRef_a=291.15
     "Reference temperature of zone on side of propsBus_a, for calculation of design heat loss"
                                                                                                annotation (Dialog(group="Design heat loss"));
-
+  parameter Boolean linearise_a=true
+    "= true, if convective heat transfer should be linearised"
+    annotation(Dialog(tab="Convection"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal_a=1
+    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
+    annotation(Dialog(tab="Convection"));
+  parameter Boolean linearise_b=true
+    "= true, if convective heat transfer should be linearised"
+    annotation(Dialog(tab="Convection"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal_b=1
+    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
+    annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.Temperature TRef_b=291.15
     "Reference temperature of zone on side of propsBus_b, for calculation of design heat loss"
                                                                                                annotation (Dialog(group="Design heat loss"));
@@ -34,11 +45,15 @@ model InternalWall "interior opaque wall between two zones"
 
 protected
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=
-        AWall, final inc=inc)
+        AWall, final inc=inc,
+    linearise=linearise_b,
+    dT_nominal=dT_nominal_b)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(final A=
-        AWall, final inc=inc + Modelica.Constants.pi)
+        AWall, final inc=inc + Modelica.Constants.pi,
+    linearise=linearise_a,
+    dT_nominal=dT_nominal_a)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(

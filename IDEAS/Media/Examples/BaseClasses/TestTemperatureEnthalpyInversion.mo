@@ -18,19 +18,23 @@ equation
     annotation (preferredView="info", Documentation(info="<html>
 This model computes <code>h=f(T0)</code> and
 <code>T=g(h)</code>. It then checks whether <code>T=T0</code>.
-Hence, it checks whether the function <code>temperature_phX</code> is
+Hence, it checks whether the function <code>T_phX</code> is
 implemented correctly.
 </html>", revisions="<html>
 <ul>
 <li>
-November 14, 2013 by Michael Wetter:<br/>
-Replaced function calls
-<code>h_pTX</code> and
-<code>T_phX</code> with
-<code>specificEnthalpy_pTX</code> and
-<code>temperature_phX</code>
-as these are the declarations defined in
-<code>Modelica.Media.Interfaces.PartialMedium</code>.
+June 6, 2015 by Michael Wetter:<br/>
+Changed <code>Medium</code> base class to avoid a translation error
+in Dymola 2016 using pedantic mode.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
+<li>
+February 12, 2015 by Michael Wetter:<br/>
+Replaced <code>h_pTX</code> with <code>specificEnthalpy_pTX</code>
+and
+<code>T_phX</code> with <code>temperature_phX</code>
+as the old names are not present in all media.
 </li>
 <li>
 January 21, 2010 by Michael Wetter:<br/>

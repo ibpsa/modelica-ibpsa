@@ -26,13 +26,13 @@ algorithm
       // try modelica://+uri
       path := loadResource("modelica://" + uri);
       if not Modelica.Utilities.Files.exist(path) then
-        // try modelica://Buildings/+uri
-        path := loadResource("modelica://Buildings/" + uri);
+        // try modelica://IDEAS/+uri
+        path := loadResource("modelica://IDEAS/" + uri);
 
         assert(Modelica.Utilities.Files.exist(path), "File '" + uri + "' does not exist.
   Expected to find either 'file://" + uri + "
                        or 'modelica://" + uri + " +
-                       or 'modelica://Buildings/" + uri);
+                       or 'modelica://IDEAS/" + uri);
       end if;
     end if;
   else
@@ -51,7 +51,7 @@ by searching for a file with the name
 <pre>
 file://uri
 modelica://uri
-modelica://Buildings/uri
+modelica://IDEAS/uri
 </pre>
 <p>
 The function returns the absolute path of the first file that is found, using the above search order.
@@ -62,13 +62,13 @@ This function has been introduced to allow users to specify the name of weather 
 files with a path that is relative to the library path.
 This allows users to change the current working directory while still being able to read
 the files.
-</p>                       
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
 October 8, 2013, by Michael Wetter:<br/>
 Improved algorithm that determines the absolute path of the file.
-Now the function works from any directory as long as the <code>Buildings</code> library
+Now the function works from any directory as long as the <code>IDEAS</code> library
 is on the <code>MODELICAPATH</code>.
 </li>
 <li>

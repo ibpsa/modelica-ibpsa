@@ -75,7 +75,13 @@ protected
     ifSolCor=true)
     annotation (Placement(transformation(extent={{-52,18},{-34,36}})));
 
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=filNamClim, lat=lat, lon=lon, timZon=timZonSta) if useTmy3Reader
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+  filNam=filNamClim,
+  lat=lat,
+  lon=lon,
+  timZon=timZonSta,
+  datRea1(tableName="data"),
+  datRea(tableName="data")) if useTmy3Reader
     annotation (Placement(transformation(extent={{-18,36},{0,54}})));
   Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
     annotation (Placement(transformation(extent={{-30,-96},{-10,-76}})));
@@ -118,7 +124,8 @@ protected
       fill(ceilingInc,1),
       fill(IDEAS.Constants.Wall, numAzi)) "surface inclination";
 public
-  BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAzi + 1)
+  Buildings.Components.Interfaces.WeaBus
+                                     weaBus(numSolBus=numAzi + 1)
     annotation (Placement(transformation(extent={{4,62},{24,82}})));
   Climate.Meteo.Solar.ShadedRadSol[
                              numAzi+1] radSol(
@@ -153,10 +160,6 @@ public
     "Thermal gains in model"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 equation
-  connect(timMan.timSol, weaDat.sol) annotation (Line(
-      points={{-34,27},{-22,27},{-22,37.8},{-18,37.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TEnv.y,XiEnv. T) annotation (Line(
       points={{-49,-76},{-32,-76},{-32,-86}},
       color={0,0,127},

@@ -4,7 +4,7 @@ model Zone "thermal building zone"
 
   extends IDEAS.Buildings.Components.Interfaces.StateZone;
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
-      Medium = IDEAS.Experimental.Media.AirPTDecoupled);
+      Medium = IDEAS.Media.Air);
 
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));

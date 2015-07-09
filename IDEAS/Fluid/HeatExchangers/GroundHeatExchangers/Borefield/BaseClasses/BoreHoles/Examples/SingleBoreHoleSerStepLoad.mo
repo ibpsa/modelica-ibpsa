@@ -5,13 +5,13 @@ model SingleBoreHoleSerStepLoad "SingleBoreHoleSer with step input load "
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
-  redeclare replaceable parameter Data.Records.Soil soi=
+  replaceable parameter Data.Records.Soil soi=
       Data.SoilData.SandStone()
     annotation (Placement(transformation(extent={{14,-76},{24,-66}})));
-  redeclare replaceable parameter Data.Records.Filling fil=
+  replaceable parameter Data.Records.Filling fil=
       Data.FillingData.Bentonite() "Thermal properties of the filling material"
     annotation (Placement(transformation(extent={{30,-76},{40,-66}})));
-  redeclare replaceable parameter Data.Records.General gen=
+  replaceable parameter Data.Records.General gen=
       Data.GeneralData.c8x1_h110_b5_d3600_T283()
     "General charachteristic of the borefield"
     annotation (Placement(transformation(extent={{46,-76},{56,-66}})));

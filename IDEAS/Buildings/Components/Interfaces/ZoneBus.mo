@@ -5,15 +5,15 @@ expandable connector ZoneBus
   parameter Integer numAzi
     "Number of calculated azimuth angles, set to sim.numAzi";
 
-  Modelica.SIunits.Power QTra_design annotation ();
-  Modelica.SIunits.Area area annotation ();
-  Modelica.SIunits.Emissivity epsLw annotation ();
-  Modelica.SIunits.Emissivity epsSw annotation ();
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surfCon annotation ();
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b surfRad annotation ();
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir annotation ();
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif annotation ();
-  BoundaryConditions.WeatherData.Bus weaBus(numSolBus=numAzi+1)
+  Modelica.SIunits.Power QTra_design;
+  Modelica.SIunits.Area area;
+  Modelica.SIunits.Emissivity epsLw;
+  Modelica.SIunits.Emissivity epsSw;
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surfCon;
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b surfRad;
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a iSolDir;
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b iSolDif;
+  IDEAS.Buildings.Components.Interfaces.WeaBus weaBus(numSolBus=numAzi+1)
     annotation(HideResult=true);
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b Qgai
     "Heat gains in model" annotation ();

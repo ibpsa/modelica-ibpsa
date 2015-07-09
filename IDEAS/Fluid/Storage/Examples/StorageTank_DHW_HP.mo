@@ -74,8 +74,6 @@ model StorageTank_DHW_HP
         origin={-58,-22})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant
     annotation (Placement(transformation(extent={{170,14},{190,34}})));
-  Modelica.Blocks.Sources.BooleanConstant hpOn(k=true)
-    annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
 equation
 
   connect(storageTank.T[10], HPControl.TTankBot) annotation (Line(
@@ -104,7 +102,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(product.y, dHW.mDHW60C) annotation (Line(
-      points={{46.5,53},{62,53},{62,18.8}},
+      points={{46.5,53},{72,53},{72,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(storageTank.port_b, dHW.port_cold) annotation (Line(
@@ -116,7 +114,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pump.port_a, storageTank.portHXLower) annotation (Line(
-      points={{-38,-52},{-34,-52},{-34,-52.6154},{-30,-52.6154}},
+      points={{-38,-52},{-34,-52},{-34,-58.3077},{-30,-58.3077}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(storageTank.port_b, bou.ports[2]) annotation (Line(
@@ -146,10 +144,6 @@ equation
   connect(senStoHx_out.port_a, pump.port_b) annotation (Line(
       points={{-58,-28},{-58,-52}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(hpOn.y, hP_AWMod.on) annotation (Line(
-      points={{-41,30},{-79,30},{-79,20}},
-      color={255,0,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

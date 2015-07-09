@@ -10,9 +10,9 @@ model ZoneExample
          annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   BoundaryWall
              commonWall(
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
+    redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
+    redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
     insulationThickness=0.1,
     AWall=10,
     inc=0,
@@ -25,9 +25,9 @@ model ZoneExample
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
   InternalWall
              commonWall1(
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
+    redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
+    redeclare parameter IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
     insulationThickness=0.1,
     AWall=10,
     inc=0,
@@ -39,14 +39,14 @@ model ZoneExample
     A=1,
     inc=0,
     azi=0,
-    redeclare IDEAS.Buildings.Data.Glazing.Ins2 glazing,
+    redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Interfaces.Frame fraType,
     redeclare IDEAS.Buildings.Components.Shading.Screen shaType)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
   SlabOnGround slabOnGround(
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.LightWall
+    redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.LightWall
       constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Pir insulationType,
+    redeclare parameter IDEAS.Buildings.Data.Insulation.Pir insulationType,
     insulationThickness=0.1,
     AWall=20,
     PWall=3,
@@ -55,9 +55,9 @@ model ZoneExample
   OuterWall outerWall(
     inc=0,
     azi=0,
-    redeclare IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
+    redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.HeavyWall
       constructionType,
-    redeclare IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
+    redeclare parameter IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
     AWall=10,
     insulationThickness=0)
     annotation (Placement(transformation(extent={{-54,-58},{-44,-38}})));

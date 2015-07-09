@@ -11,7 +11,12 @@ model BoundaryWall "Opaque wall with boundary conditions"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "Port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-
+  parameter Boolean linearise=true
+    "= true, if convective heat transfer should be linearised"
+    annotation(Dialog(tab="Convection"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal=-1
+    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
+    annotation(Dialog(tab="Convection"));
   parameter Boolean use_T_in = false
     "Get the boundary temperature from the input connector";
   parameter Boolean use_Q_in = false
@@ -39,7 +44,9 @@ protected
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=
-        AWall, final inc=inc)
+        AWall, final inc=inc,
+    linearise=linearise,
+    dT_nominal=dT_nominal)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 
@@ -63,6 +70,7 @@ protected
   Modelica.Blocks.Sources.RealExpression Qgai(y=layMul.port_a.Q_flow)
     "Thermal gains model"
     annotation (Placement(transformation(extent={{-68,30},{-48,50}})));
+
 equation
   connect(layMul.port_b, intCon_b.port_a) annotation (Line(
       points={{4.44089e-16,-30},{20,-30}},

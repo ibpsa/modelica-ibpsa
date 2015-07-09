@@ -1,6 +1,5 @@
 within IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model ZenithAngle "Test model for zenith angle"
-  import IDEAS;
   extends Modelica.Icons.Example;
   IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(lat=
         0.73268921998722) "Zenith angle"
@@ -8,11 +7,11 @@ model ZenithAngle "Test model for zenith angle"
   IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle solHouAng
-    "Solar hour angle"
+  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
+    solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   IDEAS.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
@@ -51,8 +50,21 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Diagram(graphics),
+  annotation (
+  Documentation(info="<html>
+<p>
+This example computes the zenith angle,
+which is the angle between the earth surface normal and the sun's beam.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 17, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
 experiment(StartTime=100000, StopTime=300000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/ZenithAngle.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/ZenithAngle.mos"
         "Simulate and plot"));
 end ZenithAngle;

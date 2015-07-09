@@ -1,7 +1,6 @@
 within IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses;
 block BrighteningCoefficient "Circumsolar and horizon brightening coefficients"
-
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   import H = IDEAS.Utilities.Math.Functions.spliceFunction;
 public
   Modelica.Blocks.Interfaces.RealInput zen(
@@ -118,8 +117,7 @@ equation
 <p>
 This component computes the circumsolar and horizon brightening coefficients.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 May 25, 2010, by Wangda Zuo:<br/>
@@ -127,8 +125,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(

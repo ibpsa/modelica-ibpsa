@@ -1,8 +1,7 @@
 within IDEAS.BoundaryConditions.SolarGeometry.BaseClasses;
 block WallSolarAzimuth
   "Angle measured in a horizontal plane between the projection of the sun's rays and the normal to a vertical surface"
-
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 
   Modelica.Blocks.Interfaces.RealInput incAng(quantity="Angle",
                                               unit="rad",
@@ -29,11 +28,8 @@ protected
   Real alt_c "Cosine of altitude, bounded away from zero";
   Real rat "Ratio of cosines";
 equation
-  alt_c = Modelica.Math.cos(IDEAS.Utilities.Math.Functions.smoothLimit(
-    x=alt,
-    l=-ninety,
-    u=ninety,
-    deltaX=delta));
+  alt_c=Modelica.Math.cos(IDEAS.Utilities.Math.Functions.smoothLimit(
+        x=alt, l=-ninety, u=ninety, deltaX=delta));
   rat = Modelica.Math.cos(incAng)/alt_c;
   // Due to the smoothLimit, rat can be about 1E-3 greater than 1 or smaller than -1.
   // Hence, below we use another call to smoothLimit to ensure that the argument of
@@ -41,24 +37,24 @@ equation
   verAzi=Modelica.Math.acos(
        IDEAS.Utilities.Math.Functions.smoothLimit(x=rat, l=-1+deltaX, u=1-deltaX, deltaX=deltaX/10));
 
-  annotation (Icon(graphics),
+  annotation (Icon(graphics={Bitmap(extent={{-92,92},{92,-92}}, fileName=
+              "modelica://IDEAS/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/WallSolarAzimuth.png")}),
 defaultComponentName="wallSolAzi",
 Documentation(info="<html>
 <p>
-This block computes the wall solar azimuth angle. 
-It is the angle between the projection of the sun ray on a horizontal surface 
-and the line perpendicular to the wall. The value of this angle varies from <i>0</i> to <i>180</i> degrees. 
+This block computes the wall solar azimuth angle.
+It is the angle between the projection of the sun ray on a horizontal surface
+and the line perpendicular to the wall. The value of this angle varies from <i>0</i> to <i>180</i> degrees.
 In the northern hemisphere at solar noon, the value of the wall solar azimuth angle is zero if the wall is facing south.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 5, 2012, by Michael Wetter:<br/>
 Decreased <code>deltaX</code> from <i>1e-3</i> to <i>1e-4</i>, as
-the looser tolerance gives sharp changes in 
-<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang\">
-Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>.
+the looser tolerance gives sharp changes in
+<a href=\"modelica://IDEAS.HeatTransfer.Windows.BaseClasses.Examples.Overhang\">
+IDEAS.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>.
 </li>
 <li>
 February 23, 2012, by Michael Wetter:<br/>

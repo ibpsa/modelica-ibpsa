@@ -10,7 +10,7 @@ model PartialDynamicHeaterWithLosses
 protected
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=293.15, redeclare
       replaceable package Medium =
-        IDEAS.Media.Water.Simple);
+        IDEAS.Media.Water);
 
 public
   parameter HeaterType heaterType

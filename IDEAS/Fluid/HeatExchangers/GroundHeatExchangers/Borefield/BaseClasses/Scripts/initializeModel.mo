@@ -15,6 +15,7 @@ function initializeModel
 protected
   String pathSave "Path of the saving folder";
 algorithm
+  translateModel("IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Scripts.shaBorefieldRecords");
   // --------------- Generate SHA-code and path
   sha := shaBorefieldRecords(
     soiPath=Modelica.Utilities.Strings.replace(

@@ -24,7 +24,7 @@ equation
     Fc = 0.2;
     Va = 2.5;
   else
-    Tsky = weaDat.TBlaSky.TBlaSky;
+    Tsky = weaDat.TBlaSkyCom.TBlaSky;
     Fc = weaDat.cheOpaSkyCov.nOut*0.87;
     Va = weaDat.cheWinSpe.winSpeOut;
   end if;

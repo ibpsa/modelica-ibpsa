@@ -1,7 +1,6 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses;
 block CheckWindSpeed "Ensures that the wind speed is non-negative"
-
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput winSpeIn(final quantity="Velocity",
       final unit="m/s") "Input wind speed"
@@ -16,9 +15,9 @@ equation
   // Modelica Table will interpolate data when it reads the weather data file.
   // It can generate negative values due to the interpolation.
   winSpeOut = IDEAS.Utilities.Math.Functions.smoothMax(
-      x1=winSpeIn,
-      x2=winSpeMin,
-      deltaX=winSpeMin/10);
+    x1=winSpeIn,
+    x2=winSpeMin,
+    deltaX=winSpeMin/10);
 
   annotation (
     defaultComponentName="cheWinSpe",
@@ -26,8 +25,7 @@ equation
 <p>
 This component ensures that the wind speed is non-negative.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 14, 2010, by Wangda Zuo:<br/>
@@ -35,8 +33,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-28,42},{26,-34}},

@@ -7,7 +7,12 @@ model Window "Multipane window"
   parameter Real frac(
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
-
+  parameter Boolean linearise=true
+    "= true, if convective heat transfer should be linearised"
+    annotation(Dialog(tab="Convection"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal=-3
+    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
+    annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.Angle inc
     "Inclination of the window, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
@@ -54,8 +59,10 @@ protected
          - frac))
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvectionWindow iCon(final A=
-        A*(1 - frac), final inc=inc)
+  BaseClasses.InteriorConvection                                  iCon(final A=
+        A*(1 - frac), final inc=inc,
+    linearise=linearise,
+    dT_nominal=dT_nominal)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation skyRad(final A=A

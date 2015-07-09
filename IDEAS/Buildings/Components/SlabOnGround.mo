@@ -9,7 +9,12 @@ model SlabOnGround "opaque floor on ground slab"
     "Inclination of the wall, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0deg denotes South";
-
+  parameter Boolean linearise=true
+    "= true, if convective heat transfer should be linearised"
+    annotation(Dialog(tab="Convection"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal=-3
+    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
+    annotation(Dialog(tab="Convection"));
   final parameter Real U_value=1/(1/6 + sum(constructionType.mats.R) + 0)
     "Floor theoretical U-value";
 
@@ -52,7 +57,9 @@ public
     "Declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(final A=
-        AWall, final inc=inc)
+        AWall, final inc=inc,
+    linearise=linearise,
+    dT_nominal=dT_nominal)
     "Convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   BaseClasses.MultiLayerGround                            layGro(

@@ -9,7 +9,7 @@ model RadSol "solar angle to surface"
   parameter Modelica.SIunits.Angle azi(displayUnit="degree") "azimuth";
   parameter Modelica.SIunits.Angle lat(displayUnit="degree") "latitude";
 
-  input BoundaryConditions.WeatherData.Bus
+  input IDEAS.Buildings.Components.Interfaces.WeaBus
                                      weaBus(numSolBus=numAzi + 1)
     annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
   output Buildings.Components.Interfaces.SolBus
@@ -81,23 +81,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(solDirTil.solDirTil, solBus.iSolDir) annotation (Line(
-      points={{20,36},{60,36},{60,0},{100,0}},
+      points={{20,36},{60,36},{60,0.1},{100.1,0.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(perez.solDifTil, solBus.iSolDif) annotation (Line(
-      points={{20,8},{96,8},{96,0},{100,0}},
+      points={{20,8},{96,8},{96,0.1},{100.1,0.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angSolar.angInc, solBus.angInc) annotation (Line(
-      points={{-20,36},{-18,36},{-18,52},{60,52},{60,0},{100,0}},
+      points={{-20,36},{-18,36},{-18,52},{60,52},{60,0.1},{100.1,0.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dummyValAzi.y, solBus.angAzi) annotation (Line(
-      points={{-7.4,-94},{100,-94},{100,0}},
+      points={{-7.4,-94},{100.1,-94},{100.1,0.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angZenPassThrough.y, solBus.angZen) annotation (Line(
-      points={{1,-60},{100,-60},{100,0}},
+      points={{1,-60},{100.1,-60},{100.1,0.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angZenPassThrough.u, weaBus.angZen) annotation (Line(
@@ -105,7 +105,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(dummyValTenv.y, solBus.Tenv) annotation (Line(
-      points={{-7.4,-78},{100,-78},{100,0}},
+      points={{-7.4,-78},{100.1,-78},{100.1,0.1}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
