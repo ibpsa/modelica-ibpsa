@@ -1,19 +1,19 @@
 within IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model IncidenceAngle "Test model for incidence angle"
-  import IDEAS;
   extends Modelica.Icons.Example;
   IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle solHouAng
-    "Solar hour angle"           annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
+    solHouAng "Solar hour angle"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(
-    azi=0,
-    til=90,
-    lat=0.73268921998722) "incidence angle"
-                              annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    azi=IDEAS.Types.Azimuth.S,
+    til=IDEAS.Types.Tilt.Wall,
+    lat=0.73268921998722) "Incidence angle"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam="modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   IDEAS.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
@@ -52,8 +52,30 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Diagram(graphics),
-experiment(StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/IncidenceAngle.mos"
+  annotation (
+  Documentation(info="<html>
+<p>
+This example computes the solar incidence angle on a tilted surface.
+This model is also part of more extensive tests that run the
+model for different orientations. These tests are at
+<a href=\"modelica://IDEAS.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle\">
+IDEAS.BoundaryConditions.SolarGeometry.Examples.IncidenceAngle</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 24, 2015, by Michael Wetter:<br/>
+Assigned azimuth and tilt using the types from
+<a href=\"modelica://IDEAS.Types.Tilt\">
+IDEAS.Types.Tilt</a>.
+</li>
+<li>
+May 19, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+  experiment(StopTime=86400),
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/IncidenceAngle.mos"
         "Simulate and plot"));
 end IncidenceAngle;

@@ -9,7 +9,12 @@ model SlabOnGround "opaque floor on ground slab"
     "Inclination of the wall, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0deg denotes South";
-
+  parameter Boolean linearise=true
+    "= true, if convective heat transfer should be linearised"
+    annotation(Dialog(tab="Convection"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal=-3
+    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
+    annotation(Dialog(tab="Convection"));
   final parameter Real U_value=1/(1/6 + sum(constructionType.mats.R) + 0)
     "Floor theoretical U-value";
 
@@ -52,7 +57,9 @@ public
     "Declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(final A=
-        AWall, final inc=inc)
+        AWall, final inc=inc,
+    linearise=linearise,
+    dT_nominal=dT_nominal)
     "Convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   BaseClasses.MultiLayerGround                            layGro(
@@ -92,11 +99,11 @@ equation
       smooth=Smooth.None));
 
   connect(intCon.port_b, propsBus_a.surfCon) annotation (Line(
-      points={{40,-30},{46,-30},{46,40},{50,40}},
+      points={{40,-30},{46,-30},{46,39.9},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
-      points={{10,-30},{16,-30},{16,40},{50,40}},
+      points={{10,-30},{16,-30},{16,39.9},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_gain, port_emb) annotation (Line(
@@ -112,28 +119,28 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.area, propsBus_a.area) annotation (Line(
-      points={{0,-20},{0,40},{50,40}},
+      points={{0,-20},{0,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
-      points={{10,-22},{12,-22},{12,40},{50,40}},
+      points={{10,-22},{12,-22},{12,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
-      points={{10,-26},{14,-26},{14,40},{50,40}},
+      points={{10,-26},{14,-26},{14,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
-      points={{11,50},{24,50},{24,40},{50,40}},
+      points={{11,50},{24,50},{24,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",

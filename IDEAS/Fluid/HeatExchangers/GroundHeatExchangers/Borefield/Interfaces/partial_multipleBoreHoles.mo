@@ -1,4 +1,4 @@
-﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Interfaces;
+within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Interfaces;
 partial model partial_multipleBoreHoles
   "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
@@ -12,7 +12,8 @@ partial model partial_multipleBoreHoles
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start,
     redeclare package Medium = Medium);
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
-      computeFlowResistance=true, dp_nominal=0);
+    computeFlowResistance=true, 
+	dp_nominal=0);
 
   // General parameters of borefield
   replaceable parameter Data.Records.BorefieldData bfData constrainedby

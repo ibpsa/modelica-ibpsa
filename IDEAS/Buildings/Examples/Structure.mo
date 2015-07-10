@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Examples;
-model structure "Example detailed building structure model"
+model Structure "Example detailed building structure model"
   extends Modelica.Icons.Example;
   BaseClasses.structure structure
     annotation (Placement(transformation(extent={{-36,-20},{-6,0}})));
@@ -25,4 +25,4 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));
-end structure;
+end Structure;

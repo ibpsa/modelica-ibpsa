@@ -16,7 +16,6 @@ model InternalHEXUTube "Internal part of a borehole for a U-Tube configuration"
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
-      final allowFlowReversal=allowFlowReversal1,
       final m_flow_small=m1_flow_small,
       V=gen.volOneLegSeg,
       mSenFac=mSenFac),

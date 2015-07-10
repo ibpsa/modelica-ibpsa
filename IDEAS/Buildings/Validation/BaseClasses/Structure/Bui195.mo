@@ -13,7 +13,8 @@ protected
     n50=0,
     corrCV=0.822,
     linear=true,
-    T_start=293.15)
+    T_start=293.15,
+    redeclare package Medium = Medium)
                 annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
@@ -86,11 +87,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(flowPort_Out[1], gF.flowPort_Out) annotation (Line(
-      points={{-20,100},{-20,60},{56,60},{56,40},{56,40}},
+      points={{-20,100},{-20,60},{56,60},{56,40}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(flowPort_In[1], gF.flowPort_In) annotation (Line(
-      points={{20,100},{20,100},{20,62},{64,62},{64,40}},
+      points={{20,100},{20,62},{64,62},{64,40}},
       color={0,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-150,

@@ -25,8 +25,7 @@ January 2015, by Filip Jorissen:<br>
 First implementation.
 </li>
 </ul>
-</html>"),
-    __Dymola_Commands(file="modelica://Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Validation/TrtValidation.mos"
+</html>"), __Dymola_Commands(file="modelica://Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Validation/TrtValidation.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));

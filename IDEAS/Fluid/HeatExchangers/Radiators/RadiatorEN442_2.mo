@@ -64,7 +64,7 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     each V=VWat/nEle,
     each final m_flow_nominal = m_flow_nominal,
     each final energyDynamics=energyDynamics,
-    each final massDynamics=energyDynamics,
+    each final massDynamics=massDynamics,
     each final p_start=p_start,
     each final T_start=T_start,
     each final X_start=X_start,
@@ -108,7 +108,7 @@ protected
 
    Modelica.SIunits.TemperatureDifference dTCon[nEle] = heatPortCon.T .- vol.T
     "Temperature difference for convective heat transfer";
-   Modelica.SIunits.TemperatureDifference dTRad[nEle] = (heatPortCon.T-2) .- vol.T
+   Modelica.SIunits.TemperatureDifference dTRad[nEle] = heatPortRad.T .- vol.T
     "Temperature difference for radiative heat transfer";
 
   Modelica.Blocks.Sources.RealExpression QCon[nEle](y=if homotopyInitialization
@@ -351,6 +351,11 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2015, by Filip Jorissen:<br/>
+Propagated <code>vol.massDynamics</code> to  
+top level parameter <code>massDynamics</code> instead of <code>energyDynamics</code>.
+</li>
 <li>
 November 25, 2014, by Carles Ribas Tugores:<br/>
 Interchange position of <code>fraRad</code> parameter and the complementary <code>(1-fraRad)</code>

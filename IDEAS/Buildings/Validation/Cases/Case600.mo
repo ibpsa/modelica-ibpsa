@@ -1,7 +1,5 @@
 within IDEAS.Buildings.Validation.Cases;
 model Case600
-  import IDEAS;
-
 Modelica.SIunits.Power PHea = min(heatingSystem.heatPortCon[1].Q_flow,0);
 Modelica.SIunits.Power PCoo = max(heatingSystem.heatPortCon[1].Q_flow,0);
 

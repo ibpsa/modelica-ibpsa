@@ -1,8 +1,7 @@
 within IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses;
 block DiffusePerez
   "Hemispherical diffuse irradiation on a tilted surface with Perez's anisotropic model"
-
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   parameter Real rho=0.2 "Ground reflectance";
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt angle";
@@ -31,11 +30,11 @@ public
 
   Modelica.Blocks.Interfaces.RealOutput HGroDifTil(final quantity=
         "RadiantEnergyFluenceRate", final unit="W/m2")
-    "Hemispherical diffuse solar irradiation on a tilted surface from the ground"
+    "Hemispherical diffuse solar irradiation on a tilted surfce from the ground"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.RealOutput HSkyDifTil(final quantity=
         "RadiantEnergyFluenceRate", final unit="W/m2")
-    "Hemispherical diffuse solar irradiation on a tilted surface from the sky"
+    "Hemispherical diffuse solar irradiation on a tilted surfce from the sky"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 protected
   Real a;
@@ -59,7 +58,7 @@ equation
     defaultComponentName="HDifTil",
     Documentation(info="<html>
 <p>
-This component computes the hemispherical diffuse irradiation on a tilted surface by using an anisotropic model proposed by Perez. 
+This component computes the hemispherical diffuse irradiation on a tilted surface by using an anisotropic model proposed by Perez.
 </p>
 <h4>References</h4>
 <ul>
@@ -79,8 +78,7 @@ R. Perez, P. Ineichen, R. Seals, J. Michalsky and R. Stewart (1990).
 Solar Energy, 44(5):271-289.
 </li>
 </ul>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 June 6, 2012, by Wangda Zuo:<br/>
@@ -94,8 +92,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(

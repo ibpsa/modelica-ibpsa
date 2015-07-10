@@ -1,14 +1,13 @@
 within IDEAS.BoundaryConditions.SkyTemperature.Examples;
 model BlackBody "Test model for black body sky temperature"
-  import IDEAS;
   extends Modelica.Icons.Example;
 
-  WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+  IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        "modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   IDEAS.BoundaryConditions.SkyTemperature.BlackBody TBlaSky
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  IDEAS.BoundaryConditions.WeatherData.Bus weaBus     annotation (
+  IDEAS.BoundaryConditions.WeatherData.Bus weaBus annotation (
       Placement(transformation(extent={{0,0},{20,20}}), iconTransformation(
           extent={{0,0},{2,2}})));
 equation
@@ -46,8 +45,20 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
+  Documentation(info="<html>
+<p>
+This example computes the black-body sky temperature
+for Chicago.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 1, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
 experiment(StopTime=86400),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SkyTemperature/Examples/BlackBody.mos"
-        "Simulate and plot"),
-    Icon(graphics));
+    __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/BoundaryConditions/SkyTemperature/Examples/BlackBody.mos"
+        "Simulate and plot"));
 end BlackBody;

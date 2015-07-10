@@ -1,11 +1,12 @@
 within IDEAS.BoundaryConditions.SolarIrradiation;
 block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
-  extends BaseClasses.PartialSolarIrradiation;
+  extends
+    IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
-  WeatherData.Bus weaBus
+  IDEAS.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput inc(
@@ -20,8 +21,8 @@ protected
     final til=til,
     final lat=lat)
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-  BaseClasses.DirectTiltedSurface HDirTil
-            annotation (Placement(transformation(extent={{0,-20},{40,20}})));
+  IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses.DirectTiltedSurface
+    HDirTil annotation (Placement(transformation(extent={{0,-20},{40,20}})));
 
 equation
   connect(incAng.y, HDirTil.incAng) annotation (Line(
@@ -60,11 +61,10 @@ equation
     Documentation(info="<html>
 <p>
 This component computes the direct solar irradiation on a tilted surface.
-For a definition of the parameters, see the 
-<a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
+For a definition of the parameters, see the
+<a href=\"modelica://IDEAS.BoundaryConditions.UsersGuide\">User's Guide</a>.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 December 12, 2010, by Michael Wetter:<br/>
@@ -76,8 +76,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

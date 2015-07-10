@@ -38,10 +38,10 @@ model ZoneLwGainDistribution "distribution of radiative internal gains"
         origin={40,100})));
 
 protected
-  Real[nSurf] areaAbsDifSol=area .* epsSw "longwave emissivity weighted areas";
+  Real[nSurf] areaAbsDifSol=area .* epsSw "shortwave emissivity weighted areas";
   Real areaAbsDifTotSol=sum(areaAbsDifSol)
-    "sum of longwave emissivity weighted areas";
-  Real[nSurf] areaAbsGain=area .* epsLw "shortwave emissivity weighted areas";
+    "sum of shortwave emissivity weighted areas";
+  Real[nSurf] areaAbsGain=area .* epsLw "longwave emissivity weighted areas";
   Real areaAbsTotGain=sum(areaAbsGain)
     "sum of shortwave emissivity weighted areas";
 
