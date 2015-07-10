@@ -78,5 +78,8 @@ First implementation.
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false)),
-    __Dymola_experimentSetupOutput(events=false));
+    __Dymola_experimentSetupOutput(events=false),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example1v1.mos"
+        "Simulate and plot"));
 end Example1v1;

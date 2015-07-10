@@ -63,5 +63,8 @@ F_[0] = helpvar[0]*W_[1];
 </p>
 The last option requires much less operations to be performed and is therefore more efficient.
 </html>
-"));
+"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example5.mos"
+        "Simulate and plot"));
 end Example5;

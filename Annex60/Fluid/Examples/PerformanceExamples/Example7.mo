@@ -42,5 +42,8 @@ See
 Example 6
 </a>
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example7.mos"
+        "Simulate and plot"));
 end Example7;

@@ -36,5 +36,8 @@ W_[1] = W_[0];
 <p>
 I.e. the sine and addition are not evaluated twice, which is more efficient.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example8.mos"
+        "Simulate and plot"));
 end Example8;

@@ -51,11 +51,11 @@ Running following commands allows comparing the CPU times of the two models,
 disregarding as much as possible the influence of the integrator:
 </p>
 <p>
-simulateModel(&QUOT;Annex60.Fluid.Examples.PerformanceExamples.Example6&QUOT;, stopTime=100, numberOfIntervals=1, method=&QUOT;Rkfix4&QUOT;, fixedstepsize=0.001, resultFile=&QUOT;Example6&QUOT;);<br />
-simulateModel(&QUOT;Annex60.Fluid.Examples.PerformanceExamples.Example7&QUOT;, stopTime=100, numberOfIntervals=1, method=&QUOT;Rkfix4&QUOT;, fixedstepsize=0.001, resultFile=&QUOT;Example7&QUOT;);
+simulateModel(\"Annex60.Fluid.Examples.PerformanceExamples.Example6\", stopTime=100, numberOfIntervals=1, method=\"Rkfix4\", fixedstepsize=0.001, resultFile=\"Example6\");<br />
+simulateModel(\"Annex60.Fluid.Examples.PerformanceExamples.Example7\", stopTime=100, numberOfIntervals=1, method=\"Rkfix4\", fixedstepsize=0.001, resultFile=\"Example7\");
 </p>
 <p>
-Comparing the CPUtimes indicates a speed improvement of 56&percnt;. 
+Comparing the CPUtimes indicates a speed improvement of 56%. 
 This difference almost disappears when adding annotation(Evaluate=true) 
 to R and C in Example 6. 
 </p>
@@ -63,13 +63,16 @@ to R and C in Example 6.
 In dsmodel.c we find:
 </p>
 <code>DynamicsSection<br />
-W_[2] = divmacro(X_[0]-X_[1],&QUOT;T[1]-T[2]&QUOT;,DP_[0],&QUOT;R&QUOT;);<br />
-F_[0] = divmacro(W_[1]-W_[2],&QUOT;Q_flow[1]-Q_flow[2]&QUOT;,DP_[1],&QUOT;C&QUOT;);
+W_[2] = divmacro(X_[0]-X_[1],\"T[1]-T[2]\",DP_[0],\"R\");<br />
+F_[0] = divmacro(W_[1]-W_[2],\"Q_flow[1]-Q_flow[2]\",DP_[1],\"C\");
 </code>
 <p>
 This suggests that the parameter division needs to be handled during 
 each function evaluation, probably causing the increased overhead. 
 Setting Evaluate = true removes this overhead.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example6.mos"
+        "Simulate and plot"));
 end Example6;

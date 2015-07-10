@@ -92,5 +92,8 @@ Parameter <code>from_dp</code> also has an influence of the computational speed.
 <p>
 See paper for results and a discussion.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example3.mos"
+        "Simulate and plot"));
 end Example3;

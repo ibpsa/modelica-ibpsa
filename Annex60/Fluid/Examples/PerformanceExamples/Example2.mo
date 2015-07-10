@@ -89,5 +89,8 @@ May 20, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example2.mos"
+        "Simulate and plot"));
 end Example2;
