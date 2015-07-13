@@ -25,6 +25,8 @@ initial equation
   consEne.y=0;
 equation
 
+  assert(abs(consEne.y)<1e-6, "Conservation of energy is violated!");
+
   connect(Qgai.y, intQgai.u)
     annotation (Line(points={{61,70},{61,70},{78,70}}, color={0,0,127}));
   connect(absQgai.y, intAbsQgai.u)
