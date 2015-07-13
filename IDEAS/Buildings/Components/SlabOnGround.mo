@@ -84,7 +84,7 @@ public
     annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Modelica.Blocks.Sources.RealExpression Qgai(y=layMul.port_a.Q_flow)
+  Modelica.Blocks.Sources.RealExpression Qgai(y=-layMul.port_a.Q_flow)
     "Heat gains in model"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.RealExpression QmExp(y=-Qm) "Real expression for Qm"
