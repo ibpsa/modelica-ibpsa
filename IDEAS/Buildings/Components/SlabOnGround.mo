@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Components;
 model SlabOnGround "opaque floor on ground slab"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(Qgai(y=layMul.port_a.Q_flow),
+      E(y=layMul.E));
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
   parameter Modelica.SIunits.Length PWall "Total wall perimeter";
@@ -82,11 +83,6 @@ public
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   outer SimInfoManager sim "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Modelica.Blocks.Sources.RealExpression Qgai(y=-layMul.port_a.Q_flow)
-    "Heat gains in model"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.RealExpression QmExp(y=-Qm) "Real expression for Qm"
     annotation (Placement(transformation(extent={{-80,-18},{-60,2}})));
 equation
@@ -148,11 +144,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(Qgai.y, prescribedHeatFlow.Q_flow)
-    annotation (Line(points={{-59,40},{-40,40}},            color={0,0,127}));
-  connect(prescribedHeatFlow.port, propsBus_a.Qgai)
-    annotation (Line(points={{-20,40},{50.1,40},{50.1,39.9}},
-                                                        color={191,0,0}));
   connect(QmExp.y, periodicFlow.Q_flow)
     annotation (Line(points={{-59,-8},{-40,-8}}, color={0,0,127}));
   annotation (

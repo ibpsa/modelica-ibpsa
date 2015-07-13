@@ -29,9 +29,10 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Modelica.Blocks.Sources.RealExpression realExpression1(y=V/3600*n50/20)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if  sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-40,50},{-60,70}})));
-  Modelica.Blocks.Sources.RealExpression Qgai(y=prescribedTemperature.port.Q_flow)
+  Modelica.Blocks.Sources.RealExpression Qgai(y=-prescribedTemperature.port.Q_flow)
+    if                                                                                 sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{0,50},{-20,70}})));
 equation
 

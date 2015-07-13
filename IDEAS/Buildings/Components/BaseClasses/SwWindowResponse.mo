@@ -96,12 +96,7 @@ model SwWindowResponse "shortwave window respones"
         rotation=-90,
         origin={-32,48})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b Qgai
-    "Thermal gains in model"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
-   sum(iSolAbs.Q_flow) + iSolDir.Q_flow + iSolDif.Q_flow + Qgai.Q_flow = 0;
-
   SwAbsDifProd.u2 = SwAbsDif;
   SwTransDifProd.u2 = SwTransDif;
 

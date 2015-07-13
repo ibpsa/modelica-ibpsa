@@ -13,12 +13,9 @@ model ExteriorSolarAbsorption
   Modelica.Blocks.Interfaces.RealInput epsSw
     "shortwave emissivity of the surface"
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b Qgai
-    "Heat gains in model"
-    annotation (Placement(transformation(extent={{90,-12},{110,8}})));
+
 equation
   port_a.Q_flow = -(solDir + solDif)*epsSw;
-  port_a.Q_flow + Qgai.Q_flow=0;
 
   annotation (Icon(graphics={
         Rectangle(

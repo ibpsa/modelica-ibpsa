@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Components;
 model BoundaryWall "Opaque wall with boundary conditions"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(E(y=layMul.E),
+      Qgai(y=layMul.port_a.Q_flow));
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
   parameter Modelica.SIunits.Angle inc
@@ -64,12 +65,6 @@ public
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature if use_T_in
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai
-    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-protected
-  Modelica.Blocks.Sources.RealExpression Qgai(y=layMul.port_a.Q_flow)
-    "Thermal gains model"
-    annotation (Placement(transformation(extent={{-68,30},{-48,50}})));
 
 equation
   connect(layMul.port_b, intCon_b.port_a) annotation (Line(
@@ -140,10 +135,6 @@ equation
       smooth=Smooth.None));
   end if;
 
-  connect(Qgai.y, prescribedHeatFlowQgai.Q_flow)
-    annotation (Line(points={{-47,40},{-40,40}},            color={0,0,127}));
-  connect(prescribedHeatFlowQgai.port, propsBus_a.Qgai) annotation (Line(
-        points={{-20,40},{16,40},{16,39.9},{50.1,39.9}}, color={191,0,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}})),

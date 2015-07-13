@@ -15,12 +15,8 @@ model ExteriorHeatRadiation
     "shortwave emissivity of the surface"
     annotation (Placement(transformation(extent={{-120,14},{-80,54}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b Qgai
-    "Thermal heat gains in model"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
   port_a.Q_flow = A*5.67*epsLw*(port_a.T - Tenv);
-  Qgai.Q_flow + port_a.Q_flow=0;
 
   annotation (Icon(graphics={
         Line(points={{-40,10},{40,10}}, color={191,0,0}),

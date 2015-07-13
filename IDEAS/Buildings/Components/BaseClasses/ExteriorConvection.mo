@@ -11,11 +11,8 @@ model ExteriorConvection "exterior surface convection"
   Modelica.Blocks.Interfaces.RealInput hConExt
     "Exterior convective heat transfer coefficient"
     annotation (Placement(transformation(extent={{-120,-110},{-80,-70}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b Qgai
-    "Heat gains in model"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
 equation
-  port_a.Q_flow + Qgai.Q_flow =0;
   port_a.Q_flow = hConExt*A*(port_a.T - Te);
 
   annotation (Icon(graphics={

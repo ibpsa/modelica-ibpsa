@@ -12,7 +12,15 @@ partial model PartialSimInfoManager
     "standard time zone";
   parameter Integer numAzi=4 "Number of azimuth angles that are calculated"
     annotation(Dialog(tab="Incidence angles"));
-
+  parameter Boolean computeConservationOfEnergy = false
+    "Add equations for verifying conservation of energy"
+    annotation(Evaluate=true,Dialog(tab="Conservation of energy"));
+  parameter Boolean strictConservationOfEnergy = true
+    "This adds an assert statement to make sure that energy is conserved"
+    annotation(Evaluate=true,Dialog(tab="Conservation of energy", enable = computeConservationOfEnergy));
+  parameter Modelica.SIunits.Energy Emax = 1
+    "Error bound for violation of energy"
+    annotation(Evaluate=true,Dialog(tab="Conservation of energy", enable = strictConservationOfEnergy));
   final parameter String filNamClim=filDir + filNam;
 
   parameter Boolean useTmy3Reader = true
@@ -58,6 +66,9 @@ public
   Modelica.SIunits.Time timLoc "Local time";
   Modelica.SIunits.Time timSol "Solar time";
   Modelica.SIunits.Time timCal "Calendar time";
+
+  Modelica.SIunits.Energy Etot "Total internal energy";
+  Modelica.SIunits.Energy Qint "Total energy from boundary";
 
   Real hCon=IDEAS.Utilities.Math.Functions.spliceFunction(x=Va-5, pos= 7.1*abs(Va)^(0.78), neg=  4.0*Va + 5.6, deltax=0.5);
   Real TePow4 = Te^4;
@@ -155,11 +166,22 @@ public
     "Ceiling inclination angle"
     annotation(Dialog(tab="Incidence angles"));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=10e6)
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a Qgai
     "Thermal gains in model"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a E
+    "Q_flow = Model internal energy"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+
+initial equation
+  Etot=0;
 equation
+  assert(abs(Etot)<Emax, "Conservation of energy violation > Emax J!");
+
+  der(Qint) = Qgai.Q_flow;
+  Etot=  Qint-E.Q_flow;
+
   connect(TEnv.y,XiEnv. T) annotation (Line(
       points={{-49,-76},{-32,-76},{-32,-86}},
       color={0,0,127},
@@ -275,7 +297,10 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(fixedTemperature.port, Qgai)
-    annotation (Line(points={{-20,-10},{0,-10},{0,-100}}, color={191,0,0}));
+    annotation (Line(points={{20,-70},{0,-70},{0,-100}},  color={191,0,0}));
+  connect(fixedTemperature.port, E)
+    annotation (Line(points={{20,-70},{0,-70},{0,-100}},  color={191,0,0}));
+
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",

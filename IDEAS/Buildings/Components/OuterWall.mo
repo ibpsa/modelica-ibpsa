@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(E(y=layMul.E),
+      Qgai(y=layMul.port_a.Q_flow));
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
   parameter Modelica.SIunits.Angle inc
@@ -72,7 +73,7 @@ model OuterWall "Opaque building envelope construction"
     lat=sim.lat)
     annotation (Placement(transformation(extent={{-92,-36},{-72,-16}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
-    annotation (Placement(transformation(extent={{20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{80,0},{60,20}})));
 initial equation
   QTra_design =U_value*AWall*(273.15 + 21 - Tdes.y);
 
@@ -177,16 +178,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBus_a.weaBus.Tdes) annotation (Line(
-      points={{22,70},{22,56},{50.1,56},{50.1,39.9}},
+      points={{82,10},{82,56},{50.1,56},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(extCon.Qgai, propsBus_a.Qgai) annotation (Line(points={{-40,-50},
-          {-54,-50},{-54,39.9},{50.1,39.9}}, color={191,0,0}));
-  connect(extRad.Qgai, propsBus_a.Qgai) annotation (Line(points={{-40,-10},
-          {-52,-10},{-52,39.9},{50.1,39.9}}, color={191,0,0}));
-  connect(solAbs.Qgai, propsBus_a.Qgai) annotation (Line(points={{-40,-30.2},{
-          -46,-30.2},{-46,-30},{-54,-30},{-54,39.9},{50.1,39.9}}, color={191,0,
-          0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
