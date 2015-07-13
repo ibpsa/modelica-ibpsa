@@ -31,7 +31,7 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
     annotation (Placement(transformation(extent={{-40,50},{-60,70}})));
-  Modelica.Blocks.Sources.RealExpression Qgai(y=-prescribedTemperature.port.Q_flow)
+  Modelica.Blocks.Sources.RealExpression Qgai(y=prescribedTemperature.port.Q_flow)
     annotation (Placement(transformation(extent={{0,50},{-20,70}})));
 equation
 
