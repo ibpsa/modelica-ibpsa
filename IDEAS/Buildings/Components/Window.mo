@@ -109,21 +109,6 @@ public
     annotation (Placement(transformation(extent={{-70,-56},{-62,-48}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  replaceable IDEAS.Buildings.Components.Shading.None shaType2 constrainedby
-    Interfaces.StateShading(final azi=azi) "Second shading type"
-                                                          annotation (Placement(transformation(extent={{-28,-70},
-            {-18,-50}})),
-      __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
-  Modelica.Blocks.Interfaces.RealInput Ctrl2 if shaType2.controlled
-    "Control signal for second shading object, between 0 and 1, i.e. 1 is fully closed"
-                                                             annotation (
-      Placement(transformation(
-        extent={{20,-20},{-20,20}},
-        rotation=-90,
-        origin={-22,-110}), iconTransformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={-34,-100})));
 protected
   Modelica.Blocks.Sources.RealExpression Qgai(y=-(skyRad.port_a.Q_flow + eCon.port_a.Q_flow
          + skyRadFra.port_a.Q_flow + eConFra.port_a.Q_flow + sum(solWin.iSolAbs.Q_flow)
@@ -298,26 +283,6 @@ equation
       points={{58,80},{50.1,80},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shaType.iSolDir,shaType2. solDir)
-    annotation (Line(points={{-40,-54},{-28,-54}}, color={0,0,127}));
-  connect(shaType2.solDif, shaType.iSolDif)
-    annotation (Line(points={{-28,-58},{-28,-58},{-40,-58}}, color={0,0,127}));
-  connect(shaType.iAngInc, shaType2.angInc)
-    annotation (Line(points={{-40,-64},{-28,-64}}, color={0,0,127}));
-  connect(shaType2.angZen, radSolData.angZen) annotation (Line(points={{-28,-66},
-          {-28,-66},{-79.4,-66}},           color={0,0,127}));
-  connect(shaType2.angAzi, radSolData.angAzi) annotation (Line(points={{-28,-68},
-          {-28,-68},{-79.4,-68}},   color={0,0,127}));
-  connect(shaType2.Ctrl,Ctrl2)  annotation (Line(
-      points={{-23,-70},{-22,-70},{-22,-110}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(shaType2.iSolDir, solWin.solDir)
-    annotation (Line(points={{-18,-54},{-10,-54}}, color={0,0,127}));
-  connect(shaType2.iSolDif, solWin.solDif)
-    annotation (Line(points={{-18,-58},{-10,-58}}, color={0,0,127}));
-  connect(shaType2.iAngInc, solWin.angInc) annotation (Line(points={{-18,-64},{
-          -14,-64},{-14,-66},{-10,-66}}, color={0,0,127}));
   connect(Qgai.y,prescribedHeatFlowQgai. Q_flow)
     annotation (Line(points={{-95,50},{-92,50},{-90,50},{-86,50}},
                                               color={0,0,127}));
@@ -327,6 +292,12 @@ equation
     annotation (Line(points={{-66,50},{50.1,50},{50.1,39.9}},color={191,0,0}));
   connect(E1.y, prescribedHeatFlowE.E)
     annotation (Line(points={{-95,70},{-90.5,70},{-86,70}}, color={0,0,127}));
+  connect(shaType.iSolDir, solWin.solDir)
+    annotation (Line(points={{-40,-54},{-26,-54},{-10,-54}}, color={0,0,127}));
+  connect(shaType.iSolDif, solWin.solDif)
+    annotation (Line(points={{-40,-58},{-25,-58},{-10,-58}}, color={0,0,127}));
+  connect(shaType.iAngInc, solWin.angInc) annotation (Line(points={{-40,-64},{
+          -26,-64},{-26,-66},{-10,-66}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
@@ -375,6 +346,11 @@ equation
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 14, 2015, Filip Jorissen:<br/>
+Removed second shading device since a new partial was created
+for handling this.
+</li>
 <li>
 June 14, 2015, Filip Jorissen:<br/>
 Adjusted implementation for computing conservation of energy.
