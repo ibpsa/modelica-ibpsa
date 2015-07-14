@@ -1,7 +1,6 @@
-within IDEAS.Electric.BaseClasses;
+within IDEAS.Electric.Batteries;
 package AC 
 extends Modelica.Icons.Package;
-
 
 annotation (Icon(graphics={
         Line(

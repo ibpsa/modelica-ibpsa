@@ -1,7 +1,6 @@
-within IDEAS.Electric.BaseClasses;
+within IDEAS.Electric.Batteries;
 package DC 
 extends Modelica.Icons.Package;
-
 
 annotation (Icon(graphics={      Text(
         extent={{-80,80},{80,-82}},
