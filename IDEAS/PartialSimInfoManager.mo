@@ -384,6 +384,10 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
+<li>
 February 10, 2015 by Filip Jorissen:<br/>
 Adjusted implementation for grouping of solar calculations.
 </li>

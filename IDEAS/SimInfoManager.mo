@@ -98,5 +98,12 @@ that all internal energy of the system is added to <code>sim.E.E</code>.
 </li>
 </ul>
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Added documentation
+</li>
+</ul>
 </html>"));
 end SimInfoManager;

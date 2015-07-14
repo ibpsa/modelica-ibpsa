@@ -115,5 +115,13 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Components/Examples/ZoneExample.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+By Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ZoneExample;

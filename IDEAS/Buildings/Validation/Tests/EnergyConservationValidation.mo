@@ -15,5 +15,13 @@ model EnergyConservationValidation
             100}})),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Buildings/Validation/Tests/EnergyConservationValidation.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EnergyConservationValidation;

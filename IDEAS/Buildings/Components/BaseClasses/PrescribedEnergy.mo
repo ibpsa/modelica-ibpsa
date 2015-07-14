@@ -62,6 +62,13 @@ if the input signal is positive.
 If parameter alpha is &lt;&gt; 0, the heat flow is multiplied by (1 + alpha*(port.T - T_ref))
 in order to simulate temperature dependent losses (which are given with respect to reference temperature T_ref).
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
 </html>"), Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}), graphics={
         Line(

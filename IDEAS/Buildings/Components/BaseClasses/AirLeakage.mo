@@ -70,5 +70,13 @@ equation
           lineColor={0,128,255},
           textString="ACH")}),                                   Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+            100}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
+</ul>
+</html>"));
 end AirLeakage;
