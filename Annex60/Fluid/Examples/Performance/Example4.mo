@@ -149,6 +149,6 @@ port_a.m_flow + port_b.m_flow = 0;
 </pre>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example4.mos"
+          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example4.mos"
         "Simulate and plot"));
 end Example4;

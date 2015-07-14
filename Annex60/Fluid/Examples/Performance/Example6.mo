@@ -28,7 +28,6 @@ equation
       __Dymola_NumberOfIntervals=1,
       __Dymola_fixedstepsize=0.001,
       __Dymola_Algorithm="Euler"),
-    __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false)),
     Documentation(revisions="<html>
@@ -86,6 +85,6 @@ Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example6.mos"
+          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example6.mos"
         "Simulate and plot"));
 end Example6;

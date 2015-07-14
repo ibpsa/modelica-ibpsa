@@ -59,7 +59,6 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -40},{40,60}}),    graphics),
     experiment(StopTime=1000),
-    __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false)),
     Documentation(info="<html>
@@ -94,6 +93,6 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example2.mos"
+          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example2.mos"
         "Simulate and plot"));
 end Example2;

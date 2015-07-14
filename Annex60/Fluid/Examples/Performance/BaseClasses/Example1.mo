@@ -110,11 +110,20 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This partial model is extended in Example1v1 and Example1v2 
-and is created for avoid errors in the implementation of the two depending examples.
+This partial model is extended by
+<a href=\"modelica://Annex60.Fluid.Examples.Performance.Example1v1\">
+Annex60.Fluid.Examples.Performance.Example1v1</a>
+and
+<a href=\"modelica://Annex60.Fluid.Examples.Performance.Example1v2\">
+Annex60.Fluid.Examples.Performance.Example1v2</a>
+and is created to avoid errors in the implementation of the two depending examples.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 14, 2015, by Michael Wetter:<br/>
+Revised documentation.
+</li>
 <li>
 April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
@@ -122,6 +131,5 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
-            false)),
-    __Dymola_experimentSetupOutput(events=false));
+            false)));
 end Example1;

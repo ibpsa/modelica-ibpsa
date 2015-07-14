@@ -14,7 +14,6 @@ model Example8 "Common subexpression elimination example"
       __Dymola_NumberOfIntervals=1,
       __Dymola_fixedstepsize=0.001,
       __Dymola_Algorithm="Euler"),
-    __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false)),
     Documentation(revisions="<html>
@@ -42,6 +41,6 @@ Hence, the sine and addition are evaluated once only, which is more efficient.
 </p>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example8.mos"
+          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example8.mos"
         "Simulate and plot"));
 end Example8;

@@ -17,7 +17,6 @@ equation
           lineColor={0,0,255},
           textString="See code")}),
     experiment(StopTime=100000),
-    __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false)),
     Documentation(revisions="<html>
@@ -64,6 +63,6 @@ The last option requires much less operations to be performed and is therefore m
 </p>
 </html>
 "), __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example5.mos"
+          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example5.mos"
         "Simulate and plot"));
 end Example5;
