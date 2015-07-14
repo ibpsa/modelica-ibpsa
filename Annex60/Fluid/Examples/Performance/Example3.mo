@@ -76,6 +76,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+July 14, 2015, by Michael Wetter:<br/>
+Revised documentation.
+</li>
+<li>
 April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
@@ -90,8 +94,17 @@ that are connected in series.
 Parameter <code>from_dp</code> also has an influence of the computational speed. 
 </p>
 <p>
-See paper for results and a discussion.
+See Jorissen et al. (2015) for a discussion.
 </p>
+<h4>References</h4>
+<ul>
+<li>
+Filip Jorissen, Michael Wetter and Lieve Helsen.<br/>
+Simulation speed analysis and improvements of Modelica
+models for building energy simulation.<br/>
+Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
+</li>
+</ul>
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example3.mos"

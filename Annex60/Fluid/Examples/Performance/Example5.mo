@@ -23,6 +23,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+July 14, 2015, by Michael Wetter:<br/>
+Revised documentation.
+</li>
+<li>
 April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
@@ -30,38 +34,34 @@ First implementation.
 </html>", info="<html>
 <p>
 This example illustrates the impact of 
-Modelica code formulations on the c-code.
+Modelica code formulations on the C-code.
 </p>
 <p>
-Compare the c-code in dsmodel.c when setting parameter 
-<code>efficient</code> to  <code>true</code> or <code>false</code> 
-and when adding <code>annotation(Evaluate=true)</code> to parameter <code>efficient</code>.
+Compare the C-code in dsmodel.c when setting the parameter 
+<code>efficient</code> to <code>true</code> or <code>false</code> 
+and when adding <code>annotation(Evaluate=true)</code> to the parameter <code>efficient</code>.
 </p>
 <p>
 This produces:
 </p>
-<h3>Efficient = false and Evaluate = false</h3>
-<p>
-<code>
-helpvar[0] = sin(Time); <br />
+<h4>Efficient = false and Evaluate = false</h4>
+<pre>
+helpvar[0] = sin(Time);
 F_[0] = helpvar[0]*(IF DP_[0] THEN W_[0] ELSE DP_[1]+DP_[2]+DP_[3]);
-</code>
-</p>
-<h3>Efficient = false and Evaluate = true</h3>
-<p>
-<code>
-helpvar[0] = sin(Time);<br />
+</pre>
+<h4>Efficient = false and Evaluate = true</h4>
+<pre>
+helpvar[0] = sin(Time);
 F_[0] = helpvar[0]*(DP_[0]+DP_[1]+DP_[2]);
-</code>
-</p>
-<h3>Efficient = true and Evaluate = true</h3>
-<p>
-<code>
-helpvar[0] = sin(Time);<br />
+</pre>
+<h4>Efficient = true and Evaluate = true</h4>
+<pre>
+helpvar[0] = sin(Time);
 F_[0] = helpvar[0]*W_[1];
-</code>
-</p>
+</pre>
+<p>
 The last option requires much less operations to be performed and is therefore more efficient.
+</p>
 </html>
 "), __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example5.mos"

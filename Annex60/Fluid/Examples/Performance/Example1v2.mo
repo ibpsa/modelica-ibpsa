@@ -30,17 +30,20 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This example is an extension of Example1v1 and demonstrates the use of 
+This example is an extension of
+<a href=\"modelica://Annex60.Fluid.Examples.Performance.Example1v1\">
+Annex60.Fluid.Examples.Performance.Example1v1</a>
+and demonstrates the use of 
 mixing volumes for decoupling the algebraic loop that solves for the enthalpy of the system.
 </p>
-<h3>Example1v1:</h3>
+<h4>Example1v1:</h4>
 <p>
 Sizes of nonlinear systems of equations: {6, 21, <b>46</b>}
 </p>
 <p>
 Sizes after manipulation of the nonlinear systems: {1, 19, <b>22</b>} 
 </p>
-<h3>Example1v2 using mixing volumes: </h3>
+<h4>Example1v2 using mixing volumes: </h4>
 <p>
 Sizes of nonlinear systems of equations: {6, 21, <b>4</b>}
 </p>
@@ -48,10 +51,23 @@ Sizes of nonlinear systems of equations: {6, 21, <b>4</b>}
 Sizes after manipulation of the nonlinear systems: {1, 19, <b>1</b>} 
 </p>
 <p>
-See fixme paper for a discussion.
+See Jorissen et al. (2015) for a discussion.
 </p>
+<h4>References</h4>
+<ul>
+<li>
+Filip Jorissen, Michael Wetter and Lieve Helsen.<br/>
+Simulation speed analysis and improvements of Modelica
+models for building energy simulation.<br/>
+Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 14, 2015, by Michael Wetter:<br/>
+Revised documentation.
+</li>
 <li>
 April 17, 2015, by Filip Jorissen:<br/>
 First implementation.

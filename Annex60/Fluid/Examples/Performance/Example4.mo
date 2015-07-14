@@ -121,6 +121,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+July 14, 2015, by Michael Wetter:<br/>
+Revised documentation.
+</li>
+<li>
 April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
@@ -128,16 +132,21 @@ First implementation.
 </html>", info="<html>
 <p>
 This example generates a non-linear algebraic loop 
-of 12 equations before manipulation. 
-This loop can be decoupled and removed by changing equation 
+that consists of <i>12</i> equations before manipulation. 
+This loop can be decoupled and removed by changing the equation 
 </p>
+<pre>
+port_a.m_flow + port_b.m_flow = -mWat_flow;
+</pre>
 <p>
-<code>port_a.m_flow + port_b.m_flow = -mWat_flow;</code> <br />
-in<br />
-<code>Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation</code><br />
-into <br />
-<code>port_a.m_flow + port_b.m_flow = 0;</code>.
+in
+<a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation\">
+Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
+to
 </p>
+<pre>
+port_a.m_flow + port_b.m_flow = 0;
+</pre>
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example4.mos"

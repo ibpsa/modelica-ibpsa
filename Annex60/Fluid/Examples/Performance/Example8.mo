@@ -20,6 +20,10 @@ model Example8 "Common subexpression elimination example"
     Documentation(revisions="<html>
 <ul>
 <li>
+July 14, 2015, by Michael Wetter:<br/>
+Revised documentation.
+</li>
+<li>
 June 18, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
@@ -27,14 +31,14 @@ First implementation.
 </html>", info="<html>
 <p>
 This is a very simple example demonstrating common subexpression elimination. 
-The Dymola C-code of this model is:
+The Dymola generated <code>C-code</code> of this model is:
 </p>
-<p>
-W_[0] = sin(Time+1);<br/>
+<pre>
+W_[0] = sin(Time+1);
 W_[1] = W_[0];
-</p>
+</pre>
 <p>
-I.e. the sine and addition are not evaluated twice, which is more efficient.
+Hence, the sine and addition are evaluated once only, which is more efficient.
 </p>
 </html>"),
     __Dymola_Commands(file=

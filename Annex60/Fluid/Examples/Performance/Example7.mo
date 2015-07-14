@@ -31,6 +31,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+July 14, 2015, by Michael Wetter:<br/>
+Revised documentation.
+</li>
+<li>
 April 17, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
@@ -38,9 +42,8 @@ First implementation.
 </html>", info="<html>
 <p>
 See 
-<a href=\"modelica://Annex60/Fluid/Examples/PerformanceExamples/Example6.mo\"> 
-Example 6
-</a>
+<a href=\"modelica://Annex60.Fluid.Examples.PerformanceExamples.Example6\"> 
+Annex60.Fluid.Examples.PerformanceExamples.Example6</a>.
 </p>
 </html>"),
     __Dymola_Commands(file=

@@ -64,25 +64,29 @@ equation
             false)),
     Documentation(info="<html>
 <p>
-This example demonstrates that the use of parameter <code>from_dp</code>
+This example demonstrates that the use of the parameter <code>from_dp</code>
 can be important for reducing the size of algebraic loops in hydraulic
 circuits with many pressure drop components connected in series and
 a pump setting the pressure head.
 </p>
 <p>
-When <code>from_dp=true</code> then we get: <br />
+If <code>from_dp=true</code>, we obtain: <br/>
 
+Sizes of nonlinear systems of equations: {7}<br/>
+Sizes after manipulation of the nonlinear systems: {<b>5</b>}<br/>
+If <code>from_dp=false</code>, we obtain: <br/>
 Sizes of nonlinear systems of equations: {7}<br />
-Sizes after manipulation of the nonlinear systems: {<b>5</b>}<br />
-else<br />
-Sizes of nonlinear systems of equations: {7}<br />
-Sizes after manipulation of the nonlinear systems: {<b>1</b>}<br />
+Sizes after manipulation of the nonlinear systems: {<b>1</b>}<br/>
 </p>
 <p>
 This can have a large impact on computational speed.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 14, 2015, by Michael Wetter:<br/>
+Revised documentation.
+</li>
 <li>
 May 20, 2015, by Filip Jorissen:<br/>
 First implementation.
