@@ -10,11 +10,14 @@ model MonoLayerOpaqueNf "Non-fictive single material layer"
 
   final parameter Boolean present = mat.d <> 0;
 
-  final parameter Integer nSta=mat.nSta;
-  final parameter Integer nFlo=mat.nSta + 1;
+  final parameter Integer nSta=mat.nSta "Number of states";
   final parameter Real R = mat.R "Total specific thermal resistance";
-  final parameter Modelica.SIunits.ThermalConductance G = (A*mat.k*nSta)/mat.d;
-  final parameter Modelica.SIunits.HeatCapacity C = (A*mat.rho*mat.c*mat.d)/nSta;
+  final parameter Real Ctot =  mat.rho*mat.c*mat.d
+    "Total specific heat capacity";
+
+protected
+  final parameter Modelica.SIunits.ThermalConductance G = nSta*A/R;
+  final parameter Modelica.SIunits.HeatCapacity C = A*Ctot/max(nSta-1,1);
 
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") = sum(T)*C;
 
@@ -23,29 +26,33 @@ public
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.SIunits.Temperature[nSta] T(start=ones(nSta)*T_start)
-    "Temperature at the states";
-  Modelica.SIunits.HeatFlowRate[nFlo] Q_flow
-    "Heat flow rate from state i to i+1";
+  Modelica.SIunits.Temperature[nSta] T "Temperature at the states";
+  Modelica.SIunits.HeatFlowRate[max(nSta-1,1)] Q_flow
+    "Heat flow rate from state i to i-1";
+initial equation
+  T = ones(nSta)*T_start;
 
+  assert(nSta>=1, "Number of states needs to be higher than zero.");
 equation
-  // connectors
-  port_a.Q_flow = +Q_flow[1];
-  port_b.Q_flow = -Q_flow[nFlo];
+  port_a.T=T[1];
 
-  // edge resistances
-  port_a.T - T[1] = Q_flow[1]/(G*2);
-  T[nSta] - port_b.T = Q_flow[nSta + 1]/(G*2);
+  if nSta > 1 then
+    der(T[1])=(port_a.Q_flow-Q_flow[1])/C*2;
+    der(T[nSta])=(Q_flow[nSta-1]+port_b.Q_flow)/C*2;
+    port_b.T=T[nSta];
 
-  // Q_flow[i] is heat flowing from (i-1) to (i)
-  for i in 2:nSta loop
-    T[i - 1] - T[i] = Q_flow[i]/G;
-  end for;
-
-  // Heat storages in the masses
-  for i in 1:nSta loop
-    der(T[i]) = (Q_flow[i] - Q_flow[i + 1])/C;
-  end for;
+    // Q_flow[i] is heat flowing from (i-1) to (i)
+    for i in 1:nSta-1 loop
+      (T[i] - T[i+1])*G = Q_flow[i];
+    end for;
+    for i in 2:nSta-1 loop
+      der(T[i]) = (Q_flow[i-1]-Q_flow[i])/C;
+    end for;
+  else
+    der(port_a.T)=(port_a.Q_flow+port_b.Q_flow)/C;
+    Q_flow[1]=-port_b.Q_flow;
+    Q_flow[1]=(port_a.T-port_b.T)*G;
+  end if;
 
   annotation (
     Diagram(graphics),
