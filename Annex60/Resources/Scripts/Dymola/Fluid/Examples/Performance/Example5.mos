@@ -1,7 +1,7 @@
-simulateModel("Annex60.Fluid.Examples.PerformanceExamples.Example1v2", stopTime=20, method="dassl", resultFile="Example1v2");
+simulateModel("Annex60.Fluid.Examples.Performance.Example5", stopTime=20, method="dassl", resultFile="Example5");
 createPlot(id=1, 
 position={15, 10, 592, 421}, 
-y={"pump.m_flow"}, 
+y={"c"}, 
 range={0.0, 20.0, 0.0, 0.30000000000000004}, 
 autoscale=false, 
 grid=true, 
