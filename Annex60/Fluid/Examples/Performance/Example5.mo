@@ -1,4 +1,4 @@
-within Annex60.Fluid.Examples.PerformanceExamples;
+within Annex60.Fluid.Examples.Performance;
 model Example5
   extends Modelica.Icons.Example;
   parameter Boolean efficient = false
@@ -63,8 +63,7 @@ F_[0] = helpvar[0]*W_[1];
 </p>
 The last option requires much less operations to be performed and is therefore more efficient.
 </html>
-"),
-    __Dymola_Commands(file=
+"), __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example5.mos"
         "Simulate and plot"));
 end Example5;

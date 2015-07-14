@@ -1,4 +1,4 @@
-within Annex60.Fluid.Examples.PerformanceExamples;
+within Annex60.Fluid.Examples.Performance;
 model Example6 "Example model demonstrating performance of basic equations"
   extends Modelica.Icons.Example;
   parameter Integer nCapacitors = 500;

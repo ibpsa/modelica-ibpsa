@@ -1,11 +1,10 @@
-within Annex60.Fluid.Examples.PerformanceExamples;
+within Annex60.Fluid.Examples.Performance;
 model Example4
   extends Modelica.Icons.Example;
 
-  MixingVolumes.MixingVolumeMoistAir vol(
+  Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     nPorts=2,
-    ports(
-    m_flow(      min={0,-Modelica.Constants.inf})),
+    ports(m_flow(min={0,-Modelica.Constants.inf})),
     redeclare package Medium = Medium,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=1,
@@ -13,7 +12,7 @@ model Example4
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{0,16},{20,36}})));
-  HeatExchangers.ConstantEffectiveness hex(
+  Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     m1_flow_nominal=1,
@@ -23,15 +22,14 @@ model Example4
     allowFlowReversal1=allowFlowReversal,
     allowFlowReversal2=allowFlowReversal)
     annotation (Placement(transformation(extent={{-20,20},{-40,0}})));
-  Sources.Boundary_pT bou(
+  Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     p=Medium.p_default + 1000,
     use_p_in=false,
     use_T_in=true,
     X={0.02,0.98},
-    nPorts=2)
-    annotation (Placement(transformation(extent={{-70,-4},{-50,16}})));
-  Sources.MassFlowSource_T source(
+    nPorts=2) annotation (Placement(transformation(extent={{-70,-4},{-50,16}})));
+  Fluid.Sources.MassFlowSource_T source(
     redeclare package Medium = Medium,
     m_flow=1,
     T=273.15,
@@ -39,9 +37,7 @@ model Example4
   package Medium = Annex60.Media.Air;
 
   Real m_condens;
-  Sources.Boundary_pT sink(
-   redeclare package Medium = Medium,
-   nPorts=1)
+  Fluid.Sources.Boundary_pT sink(redeclare package Medium = Medium, nPorts=1)
     annotation (Placement(transformation(extent={{78,6},{58,26}})));
   Modelica.Blocks.Sources.RealExpression mCond(y=m_condens)
     annotation (Placement(transformation(extent={{-40,40},{-20,20}})));
@@ -54,7 +50,7 @@ model Example4
     height=20,
     offset=293.15)
     annotation (Placement(transformation(extent={{-52,30},{-72,50}})));
-  FixedResistances.FixedResistanceDpM res(
+  Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=100,
@@ -63,7 +59,7 @@ model Example4
     annotation (Placement(transformation(extent={{30,6},{50,26}})));
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)";
-  Sensors.TemperatureTwoPort senTem(
+  Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=1,

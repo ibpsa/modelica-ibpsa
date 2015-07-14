@@ -1,19 +1,8 @@
-within Annex60.Fluid.Examples.PerformanceExamples;
-model Example7
+within Annex60.Fluid.Examples.Performance;
+model Example8 "Common subexpression elimination example"
   extends Modelica.Icons.Example;
-  parameter Integer nTem = 500;
-  parameter Real R = 0.001;
-  parameter Real C = 1000;
-  parameter Real tauInv = 1/(R*C);
-
-  Real[nTem] T;
-
-equation
-  der(T[1])= ((273.15+sin(time))-2*T[1] + T[2])*tauInv;
-  for i in 2:nTem-1 loop
-    der(T[i])=(T[i+1]+T[i-1]-2*T[i])*tauInv;
-  end for;
-  der(T[nTem])= (T[nTem-1]-T[nTem])*tauInv;
+  Real a = sin(time+1);
+  Real b = sin(time+1);
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -40},{40,60}}),    graphics={Text(
@@ -31,19 +20,24 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-April 17, 2015, by Filip Jorissen:<br/>
+June 18, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-See 
-<a href=\"modelica://Annex60/Fluid/Examples/PerformanceExamples/Example6.mo\"> 
-Example 6
-</a>
+This is a very simple example demonstrating common subexpression elimination. 
+The Dymola C-code of this model is:
+</p>
+<p>
+W_[0] = sin(Time+1);<br/>
+W_[1] = W_[0];
+</p>
+<p>
+I.e. the sine and addition are not evaluated twice, which is more efficient.
 </p>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example7.mos"
+          "Resources/Scripts/Dymola/Fluid/Examples/PerformanceExamples/Example8.mos"
         "Simulate and plot"));
-end Example7;
+end Example8;

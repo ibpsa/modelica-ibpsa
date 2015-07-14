@@ -1,5 +1,5 @@
 within Annex60.Fluid.Examples;
-package PerformanceExamples "Package of examples allowing to debug performance"
+package Performance "Package of examples that demonstrate computation speed performance"
 extends Modelica.Icons.ExamplesPackage;
 
 
@@ -9,4 +9,4 @@ This package contains examples that illustrate the Modelica conference paper
 about speed optimization. See: fixme: add pdf
 </p>
 </html>"));
-end PerformanceExamples;
+end Performance;

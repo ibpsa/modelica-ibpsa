@@ -1,4 +1,4 @@
-within Annex60.Fluid.Examples.PerformanceExamples.BaseClasses;
+within Annex60.Fluid.Examples.Performance.BaseClasses;
 partial model Example1 "Example 1 partial model"
   extends Modelica.Icons.Example;
 
@@ -11,7 +11,7 @@ partial model Example1 "Example 1 partial model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,20})));
-  Movers.FlowControlled_m_flow pump(
+  Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,

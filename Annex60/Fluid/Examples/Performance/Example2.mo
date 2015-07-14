@@ -1,4 +1,4 @@
-within Annex60.Fluid.Examples.PerformanceExamples;
+within Annex60.Fluid.Examples.Performance;
 model Example2
   extends Modelica.Icons.Example;
 
@@ -7,20 +7,19 @@ model Example2
     "Nominal mass flow rate";
   parameter Modelica.SIunits.Pressure dp_nominal=1
     "Pressure drop at nominal mass flow rate";
-  Movers.FlowControlled_dp pump_dp(
+  Fluid.Movers.FlowControlled_dp pump_dp(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
     allowFlowReversal=false) "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Sources.Boundary_pT               bou(
-    redeclare package Medium = Medium,
-    nPorts=1) "Boundary for pressure boundary condition"
+  Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=1)
+    "Boundary for pressure boundary condition"
     annotation (Placement(transformation(extent={{-100,10},{-80,-10}})));
   Modelica.Blocks.Sources.Pulse pulse(period=1) "Pulse input"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
-  FixedResistances.FixedResistanceDpM[nRes.k] res(
+  Fluid.FixedResistances.FixedResistanceDpM[nRes.k] res(
     redeclare each package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
     each from_dp=from_dp.k,

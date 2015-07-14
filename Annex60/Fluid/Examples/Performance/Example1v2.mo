@@ -1,8 +1,8 @@
-within Annex60.Fluid.Examples.PerformanceExamples;
+within Annex60.Fluid.Examples.Performance;
 model Example1v2 "Example 1 model with mixing volume"
-  extends Annex60.Fluid.Examples.PerformanceExamples.BaseClasses.Example1;
+  extends Annex60.Fluid.Examples.Performance.BaseClasses.Example1;
 
-  Delays.DelayFirstOrder[nRes.k] vol(
+  Fluid.Delays.DelayFirstOrder[nRes.k] vol(
     redeclare each package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
     each allowFlowReversal=allowFlowReversal.k,

@@ -1,6 +1,6 @@
-within Annex60.Fluid.Examples.PerformanceExamples;
+within Annex60.Fluid.Examples.Performance;
 model Example1v1 "Example 1 model without mixing volume"
-  extends Annex60.Fluid.Examples.PerformanceExamples.BaseClasses.Example1(
+  extends Annex60.Fluid.Examples.Performance.BaseClasses.Example1(
       allowFlowReversal(k=false), from_dp(k=true));
 
 equation
