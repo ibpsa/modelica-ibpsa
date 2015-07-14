@@ -1,7 +1,9 @@
 within IDEAS.Buildings.Components;
 model BoundaryWall "Opaque wall with boundary conditions"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(E(y=layMul.E),
+      Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
+           then 0 else port_emb.Q_flow)));
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
   parameter Modelica.SIunits.Angle inc
@@ -136,7 +138,7 @@ equation
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
         graphics={
         Line(
@@ -184,5 +186,12 @@ equation
 </ol></p>
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
+</ul>
 </html>"));
 end BoundaryWall;

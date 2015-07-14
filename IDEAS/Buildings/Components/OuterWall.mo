@@ -1,7 +1,9 @@
 within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(E(y=layMul.E),
+      Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
+           then 0 else port_emb.Q_flow)));
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
   parameter Modelica.SIunits.Angle inc
@@ -72,7 +74,7 @@ model OuterWall "Opaque building envelope construction"
     lat=sim.lat)
     annotation (Placement(transformation(extent={{-92,-36},{-72,-16}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
-    annotation (Placement(transformation(extent={{20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{80,0},{60,20}})));
 initial equation
   QTra_design =U_value*AWall*(273.15 + 21 - Tdes.y);
 
@@ -177,7 +179,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBus_a.weaBus.Tdes) annotation (Line(
-      points={{22,70},{22,56},{50.1,56},{50.1,39.9}},
+      points={{82,10},{82,56},{50.1,56},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -227,7 +229,7 @@ equation
           smooth=Smooth.None,
           color={175,175,175})}),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>
@@ -242,6 +244,14 @@ equation
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
 <li>
 February 10, 2015 by Filip Jorissen:<br/>
 Adjusted implementation for grouping of solar calculations.

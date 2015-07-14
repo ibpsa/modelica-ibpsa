@@ -124,6 +124,26 @@ public
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-34,-100})));
+protected
+  Modelica.Blocks.Sources.RealExpression Qgai(y=-(skyRad.port_a.Q_flow + eCon.port_a.Q_flow
+         + skyRadFra.port_a.Q_flow + eConFra.port_a.Q_flow + sum(solWin.iSolAbs.Q_flow)
+         + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow)) if
+                                                           sim.computeConservationOfEnergy
+    "Heat gains in model"
+    annotation (Placement(transformation(extent={{-116,40},{-96,60}})));
+protected
+  Modelica.Blocks.Sources.RealExpression E1(y=0) if        sim.computeConservationOfEnergy
+    "Internal energy model"
+    annotation (Placement(transformation(extent={{-116,60},{-96,80}})));
+public
+  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if  sim.computeConservationOfEnergy
+    "Component for computing conservation of energy"
+    annotation (Placement(transformation(extent={{-86,60},{-66,80}})));
+public
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
+                                                                                   sim.computeConservationOfEnergy
+    "Component for computing conservation of energy"
+    annotation (Placement(transformation(extent={{-86,40},{-66,60}})));
 initial equation
   QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
@@ -298,6 +318,15 @@ equation
     annotation (Line(points={{-18,-58},{-10,-58}}, color={0,0,127}));
   connect(shaType2.iAngInc, solWin.angInc) annotation (Line(points={{-18,-64},{
           -14,-64},{-14,-66},{-10,-66}}, color={0,0,127}));
+  connect(Qgai.y,prescribedHeatFlowQgai. Q_flow)
+    annotation (Line(points={{-95,50},{-92,50},{-90,50},{-86,50}},
+                                              color={0,0,127}));
+  connect(prescribedHeatFlowE.port, propsBus_a.E) annotation (Line(points={{-66,70},
+          {-52,70},{-52,39.9},{50.1,39.9}},   color={191,0,0}));
+  connect(prescribedHeatFlowQgai.port, propsBus_a.Qgai)
+    annotation (Line(points={{-66,50},{50.1,50},{50.1,39.9}},color={191,0,0}));
+  connect(E1.y, prescribedHeatFlowE.E)
+    annotation (Line(points={{-95,70},{-90.5,70},{-86,70}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
@@ -346,6 +375,10 @@ equation
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
 <li>
 February 10, 2015 by Filip Jorissen:<br/>
 Adjusted implementation for grouping of solar calculations.

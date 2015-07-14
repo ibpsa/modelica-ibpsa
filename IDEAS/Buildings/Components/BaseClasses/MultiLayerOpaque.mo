@@ -19,6 +19,8 @@ model MultiLayerOpaque "multiple material layers in series"
 
   final parameter Real R=sum(nMat.R) "total specific thermal resistance";
 
+  Modelica.SIunits.Energy E = sum(nMat.E);
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_gain
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
