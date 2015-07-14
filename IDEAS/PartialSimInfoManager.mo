@@ -15,14 +15,15 @@ partial model PartialSimInfoManager
   parameter Boolean computeConservationOfEnergy = false
     "Add equations for verifying conservation of energy"
     annotation(Evaluate=true,Dialog(tab="Conservation of energy"));
-  parameter Boolean strictConservationOfEnergy = true
+  parameter Boolean strictConservationOfEnergy = false
     "This adds an assert statement to make sure that energy is conserved"
     annotation(Evaluate=true,Dialog(tab="Conservation of energy", enable = computeConservationOfEnergy));
   parameter Boolean openSystemConservationOfEnergy = false
-    "Compute conservation of energy for open system";
+    "Compute conservation of energy for open system"
+    annotation(Evaluate=true,Dialog(tab="Conservation of energy", enable = computeConservationOfEnergy));
 
   parameter Modelica.SIunits.Energy Emax = 1
-    "Error bound for violation of energy"
+    "Error bound for violation of conservation of energy"
     annotation(Evaluate=true,Dialog(tab="Conservation of energy", enable = strictConservationOfEnergy));
   final parameter String filNamClim=filDir + filNam;
 
