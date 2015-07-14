@@ -18,6 +18,8 @@ model MonoLayerOpaqueNf "Non-fictive single material layer"
 protected
   final parameter Modelica.SIunits.ThermalConductance G = nSta*A/R;
   final parameter Modelica.SIunits.HeatCapacity C = A*Ctot/max(nSta-1,1);
+  final parameter Real Cinv(unit="K/J") = 1/C
+    "Dummy parameter for efficiently handling check for division by zero";
 
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") = sum(T)*C;
 
@@ -30,6 +32,7 @@ public
   Modelica.SIunits.HeatFlowRate[max(nSta-1,1)] Q_flow
     "Heat flow rate from state i to i-1";
 initial equation
+
   T = ones(nSta)*T_start;
 
   assert(nSta>=1, "Number of states needs to be higher than zero.");
@@ -37,8 +40,8 @@ equation
   port_a.T=T[1];
 
   if nSta > 1 then
-    der(T[1])=(port_a.Q_flow-Q_flow[1])/C*2;
-    der(T[nSta])=(Q_flow[nSta-1]+port_b.Q_flow)/C*2;
+    der(T[1])=(port_a.Q_flow-Q_flow[1])*Cinv*2;
+    der(T[nSta])=(Q_flow[nSta-1]+port_b.Q_flow)*Cinv*2;
     port_b.T=T[nSta];
 
     // Q_flow[i] is heat flowing from (i-1) to (i)
@@ -46,10 +49,10 @@ equation
       (T[i] - T[i+1])*G = Q_flow[i];
     end for;
     for i in 2:nSta-1 loop
-      der(T[i]) = (Q_flow[i-1]-Q_flow[i])/C;
+      der(T[i]) = (Q_flow[i-1]-Q_flow[i])*Cinv;
     end for;
   else
-    der(port_a.T)=(port_a.Q_flow+port_b.Q_flow)/C;
+    der(port_a.T)=(port_a.Q_flow+port_b.Q_flow)*Cinv;
     Q_flow[1]=-port_b.Q_flow;
     Q_flow[1]=(port_a.T-port_b.T)*G;
   end if;
