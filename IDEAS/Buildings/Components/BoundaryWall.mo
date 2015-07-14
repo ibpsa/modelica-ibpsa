@@ -2,7 +2,8 @@ within IDEAS.Buildings.Components;
 model BoundaryWall "Opaque wall with boundary conditions"
 
   extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(E(y=layMul.E),
-      Qgai(y=layMul.port_a.Q_flow));
+      Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
+           then 0 else port_emb.Q_flow)));
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
   parameter Modelica.SIunits.Angle inc

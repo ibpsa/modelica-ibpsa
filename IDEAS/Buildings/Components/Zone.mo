@@ -104,6 +104,18 @@ protected
   IDEAS.Buildings.Components.BaseClasses.EnergyPort dummy2 if   sim.computeConservationOfEnergy
     "Dummy emergy port for avoiding error by dymola translator";
 
+protected
+  Modelica.Blocks.Sources.RealExpression Qgai(y=(if sim.openSystemConservationOfEnergy
+         then 0 else gainCon.Q_flow + gainRad.Q_flow + flowPort_In.m_flow*
+        actualStream(flowPort_In.h_outflow) + flowPort_Out.m_flow*actualStream(
+        flowPort_Out.h_outflow))) if                       sim.computeConservationOfEnergy
+    "Heat gains in model"
+    annotation (Placement(transformation(extent={{-28,58},{-48,78}})));
+public
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
+                                                                                   sim.computeConservationOfEnergy
+    "Component for computing conservation of energy"
+    annotation (Placement(transformation(extent={{-56,58},{-76,78}})));
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 equation
@@ -242,6 +254,11 @@ end for;
                                                  color={0,0,127}));
   connect(prescribedHeatFlowE.port, sim.E) annotation (Line(points={{-76,54},{-90,
           54},{-90,80}},                      color={191,0,0}));
+  connect(Qgai.y,prescribedHeatFlowQgai. Q_flow)
+    annotation (Line(points={{-49,68},{-49,68},{-56,68}},
+                                              color={0,0,127}));
+  connect(prescribedHeatFlowQgai.port, sim.Qgai)
+    annotation (Line(points={{-76,68},{-90,68},{-90,80}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -258,6 +275,6 @@ end for;
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end Zone;

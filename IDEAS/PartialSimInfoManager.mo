@@ -18,6 +18,9 @@ partial model PartialSimInfoManager
   parameter Boolean strictConservationOfEnergy = true
     "This adds an assert statement to make sure that energy is conserved"
     annotation(Evaluate=true,Dialog(tab="Conservation of energy", enable = computeConservationOfEnergy));
+  parameter Boolean openSystemConservationOfEnergy = false
+    "Compute conservation of energy for open system";
+
   parameter Modelica.SIunits.Energy Emax = 1
     "Error bound for violation of energy"
     annotation(Evaluate=true,Dialog(tab="Conservation of energy", enable = strictConservationOfEnergy));

@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Components;
 model SlabOnGround "opaque floor on ground slab"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(Qgai(y=layMul.port_a.Q_flow),
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(Qgai(y=layMul.port_a.Q_flow
+           + (if sim.openSystemConservationOfEnergy then 0 else port_emb.Q_flow)),
       E(y=layMul.E));
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
