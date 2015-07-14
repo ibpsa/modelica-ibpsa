@@ -95,13 +95,15 @@ protected
     "Internal energy model"
     annotation (Placement(transformation(extent={{-28,44},{-48,64}})));
 public
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowE if  sim.computeConservationOfEnergy
+  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if  sim.computeConservationOfEnergy
     "Dummy that allows computing total internal energy"
     annotation (Placement(transformation(extent={{-56,44},{-76,64}})));
 protected
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[2] dummy if  sim.computeConservationOfEnergy
-    "Dummy heat port for avoiding error by dymola translator"
-    annotation (Placement(transformation(extent={{-78,60},{-58,80}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a dummy if  sim.computeConservationOfEnergy
+    "Dummy heat port for avoiding error by dymola translator";
+  IDEAS.Buildings.Components.BaseClasses.EnergyPort dummy2 if   sim.computeConservationOfEnergy
+    "Dummy emergy port for avoiding error by dymola translator";
+
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 equation
@@ -224,18 +226,18 @@ for i in 1:nSurf loop
        color={255,204,51},
        thickness=0.5,
        smooth=Smooth.None));
-  connect(dummy[1], propsBus[i].Qgai) annotation (Line(points={{-68,65},{-68,39.9},
+  connect(dummy, propsBus[i].Qgai) annotation (Line(points={{-68,65},{-68,39.9},
             {-100.1,39.9}},
                           color={191,0,0}));
-  connect(dummy[2], propsBus[i].E) annotation (Line(points={{-68,75},{-68,39.9},
+  connect(dummy2, propsBus[i].E) annotation (Line(points={{-68,75},{-68,39.9},
             {-100.1,39.9}},
                           color={191,0,0}));
 end for;
-  connect(sim.Qgai, dummy[1]) annotation (Line(points={{-90,80},{-90,65},{-68,65}},
+  connect(sim.Qgai, dummy) annotation (Line(points={{-90,80},{-90,65},{-68,65}},
                           color={191,0,0}));
-  connect(sim.E, dummy[2]) annotation (Line(points={{-90,80},{-90,75},{-68,75}},
+  connect(sim.E, dummy2) annotation (Line(points={{-90,80},{-90,75},{-68,75}},
                           color={191,0,0}));
-  connect(Eexpr.y, prescribedHeatFlowE.Q_flow)
+  connect(Eexpr.y, prescribedHeatFlowE.E)
     annotation (Line(points={{-49,54},{-49,54},{-56,54}},
                                                  color={0,0,127}));
   connect(prescribedHeatFlowE.port, sim.E) annotation (Line(points={{-76,54},{-90,

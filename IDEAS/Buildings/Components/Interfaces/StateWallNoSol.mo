@@ -38,7 +38,7 @@ protected
     "Internal energy model"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
 public
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowE if  sim.computeConservationOfEnergy
+  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if  sim.computeConservationOfEnergy
     "Component for computing conservation of energy"
     annotation (Placement(transformation(extent={{10,80},{30,100}})));
 protected
@@ -65,9 +65,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(E.y,prescribedHeatFlowE. Q_flow)
-    annotation (Line(points={{1,90},{4,90},{4,90},{6,90},{6,90},{10,90}},
-                                                 color={0,0,127}));
   connect(prescribedHeatFlowE.port, propsBus_a.E) annotation (Line(points={{30,90},
           {44,90},{44,39.9},{50.1,39.9}},     color={191,0,0}));
   connect(Qgai.y, prescribedHeatFlowQgai.Q_flow)
@@ -75,6 +72,8 @@ equation
                                               color={0,0,127}));
   connect(prescribedHeatFlowQgai.port, propsBus_a.Qgai)
     annotation (Line(points={{30,70},{50.1,70},{50.1,39.9}}, color={191,0,0}));
+  connect(E.y, prescribedHeatFlowE.E)
+    annotation (Line(points={{1,90},{10,90},{10,90}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-50,-100},{50,100}}), graphics),

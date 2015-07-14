@@ -170,8 +170,7 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a Qgai
     "Thermal gains in model"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a E
-    "Q_flow = Model internal energy"
+  IDEAS.Buildings.Components.BaseClasses.EnergyPort E "Model internal energy"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
 initial equation
@@ -180,7 +179,7 @@ equation
   assert(abs(Etot)<Emax, "Conservation of energy violation > Emax J!");
 
   der(Qint) = Qgai.Q_flow;
-  Etot=  Qint-E.Q_flow;
+  Etot=  Qint-E.E;
 
   connect(TEnv.y,XiEnv. T) annotation (Line(
       points={{-49,-76},{-32,-76},{-32,-86}},
@@ -297,8 +296,6 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(fixedTemperature.port, Qgai)
-    annotation (Line(points={{20,-70},{0,-70},{0,-100}},  color={191,0,0}));
-  connect(fixedTemperature.port, E)
     annotation (Line(points={{20,-70},{0,-70},{0,-100}},  color={191,0,0}));
 
   annotation (

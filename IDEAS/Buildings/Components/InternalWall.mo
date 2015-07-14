@@ -89,8 +89,11 @@ public
     annotation (Placement(transformation(extent={{-102,56},{-82,76}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow Qgai_b(Q_flow=0) if  sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-102,24},{-82,44}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow E_b(Q_flow=0) if   sim.computeConservationOfEnergy
+  BaseClasses.PrescribedEnergy                        E_b if             sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-102,42},{-82,62}})));
+  Modelica.Blocks.Sources.Constant E0(k=0)
+    "All internal energy is assigned to right side"
+    annotation (Placement(transformation(extent={{-126,42},{-106,62}})));
 equation
   connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
       points={{10,-30},{14,-30},{14,39.9},{50.1,39.9}},
@@ -194,6 +197,8 @@ equation
           34},{-66,39.9},{-50.1,39.9}}, color={191,0,0}));
   connect(E_b.port, propsBus_b.E) annotation (Line(points={{-82,52},{-50.1,52},
           {-50.1,39.9}}, color={191,0,0}));
+  connect(E_b.E, E0.y)
+    annotation (Line(points={{-102,52},{-105,52}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
         graphics={
