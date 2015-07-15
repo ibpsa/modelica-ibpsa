@@ -163,5 +163,13 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Rad Exch")}),              Icon(coordinateSystem(extent={{-120,
-            -120},{120,100}}, preserveAspectRatio=false), graphics));
+            -120},{120,100}}, preserveAspectRatio=false), graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+July 15, 2015 by Moritz Lauster:<br/>
+First Implementation.
+</li>
+</ul>
+</html>"));
 end ThermalZoneThreeElements;

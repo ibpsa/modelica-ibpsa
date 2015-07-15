@@ -99,11 +99,11 @@ model ThermalZoneOneElement
 equation
     if ratioWinConRad > 0 then
       connect(emiCoeffWinConv.y, solRadToHeatConv.Q_flow) annotation (Line(points={{-79.5,66},{-72,66}},color={0,0,127},smooth=Smooth.None,
-
         pattern=LinePattern.Dash));
+
       connect(emiCoeffWinConv.u, solRad) annotation (Line(points={{-91,66},{-94,66},{-94,44},{-120,44}},color={0,0,127},smooth=Smooth.None,
-
         pattern=LinePattern.Dash));
+
       connect(solRadToHeatConv.port, volAir.heatPort) annotation (Line(points={{-52,66},{-40,66},{-40,14},{18,14},{18,0}},color={191,0,0},smooth=Smooth.
             None,
         pattern=LinePattern.Dash));
@@ -292,10 +292,9 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
-April 17, 2014, by Moritz Lauster:<br/>
+April 17, 2015, by Moritz Lauster:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-
 end ThermalZoneOneElement;

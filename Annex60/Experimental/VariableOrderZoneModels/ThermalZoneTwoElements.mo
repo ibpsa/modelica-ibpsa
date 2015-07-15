@@ -92,7 +92,6 @@ equation
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{42,20},{120,20},{120,-12},{64,-12},{64,-30},{42,-30},{42,20}},
-
           lineColor={0,0,255},
           smooth=Smooth.None,
           fillColor={215,215,215},
@@ -117,7 +116,7 @@ equation
           textString="Radiation Exchange")}),
                                           Documentation(revisions="<html>
 <ul>
-<li>April 18, 2014, by Moritz Lauster:<br>First implementation. </li>
+<li>April 18, 2015, by Moritz Lauster:<br>First implementation. </li>
 </ul>
 </html>"),
     Icon(coordinateSystem(extent={{-120,-120},{120,100}})));
