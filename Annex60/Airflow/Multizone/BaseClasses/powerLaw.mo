@@ -69,7 +69,7 @@ has an infinite number of continuous derivatives in <i>m</i> and in <i>k</i>.
 If <i>m</i> is not a function of time, then
 <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i> can be pre-computed.
 In this situation, use
-<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
+<a href=\"modelica://Annex60.Airflow.Multizone.BaseClasses.powerLawFixedM\">
 Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>, which allows
 to compute these values outside of this function, for example as parameters
 of a model.
