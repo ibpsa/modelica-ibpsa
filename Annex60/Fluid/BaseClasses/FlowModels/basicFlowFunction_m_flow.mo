@@ -8,15 +8,14 @@ function basicFlowFunction_m_flow "Basic class for flow models"
   input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0) "Mass flow rate";
   output Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-protected
- Real kSquInv(unit="1/(kg.m)") "Flow coefficient";
 algorithm
- kSquInv:=1/k^2;
- dp :=Modelica.Fluid.Utilities.regSquare2(x=m_flow, x_small=m_flow_turbulent, k1=kSquInv, k2=kSquInv);
+ dp :=smooth(1, if noEvent(m_flow>m_flow_turbulent) then (m_flow/k)^2 else
+                if noEvent(m_flow<-m_flow_turbulent) then -(m_flow/k)^2 else
+                   (m_flow_turbulent/k)^2*asin(m_flow/m_flow_turbulent)/(Modelica.Constants.pi/2));
 
  annotation (LateInline=true,
              inverse(m_flow=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
-             smoothOrder=2,
+             smoothOrder=1,
              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
@@ -49,6 +48,12 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 revisions="<html>
 <ul>
 <li>
+July 15, 2015, by Filip Jorissen:<br/>
+New, more efficient implementation based on regularisation using <code>asin()</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">#279</a>.
+</li>
+<li>
 August 10, 2011, by Michael Wetter:<br/>
 Removed <code>if-then</code> optimization that set <code>dp=0</code> if <code>m_flow=0</code>,
 as this causes the derivative to be discontinuous at <code>m_flow=0</code>.
@@ -66,4 +71,5 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
 end basicFlowFunction_m_flow;
