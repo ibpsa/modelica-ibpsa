@@ -1,4 +1,4 @@
-within Annex60.Experimental.VariableOrderBuildingModels.BaseClasses;
+within Annex60.Experimental.VariableOrderZoneModels.BaseClasses;
 model ExtMassVarRC "Wall consisting of variable number of RC elements"
   parameter Integer n(min = 1) "Number of RC-elements";
   parameter Modelica.SIunits.ThermalResistance RExt[n]
@@ -49,15 +49,19 @@ equation
             fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{0, -60}, {54, -94}}, fillColor = {255, 213, 170},
             fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{-60, 100}, {-6, 66}}, fillColor = {255, 213, 170},
             fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{0, 100}, {54, 66}}, fillColor = {255, 213, 170},
-            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{60, -60}, {114, -94}}, fillColor = {255, 213, 170},
-            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{60, 20}, {116, -14}}, fillColor = {255, 213, 170},
-            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{60, 100}, {116, 66}}, fillColor = {255, 213, 170},
-            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{-120, -60}, {-66, -94}}, fillColor = {255, 213, 170},
-            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{-120, 20}, {-66, -14}}, fillColor = {255, 213, 170},
-            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{-120, 100}, {-66, 66}}, fillColor = {255, 213, 170},
-            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{-90, 120}, {-120, -100}}, fillColor = {255, 255, 255},
-            fillPattern =                                                                                                   FillPattern.Solid, pattern = LinePattern.None), Rectangle(extent = {{120, 120}, {89, -100}}, fillColor = {255, 255, 255},
-            fillPattern =                                                                                                   FillPattern.Solid, pattern = LinePattern.None), Line(points = {{-90, 0}, {90, 0}}, color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None), Rectangle(extent = {{-74, 12}, {-26, -10}}, lineColor = {0, 0, 0},
+            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent={{
+              60,-60},{86,-92}},                                                                                                    fillColor = {255, 213, 170},
+            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent={{
+              60,20},{86,-14}},                                                                                                    fillColor = {255, 213, 170},
+            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent={{
+              60,100},{86,66}},                                                                                                    fillColor = {255, 213, 170},
+            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent={{
+              -86,-60},{-66,-94}},                                                                                                    fillColor = {255, 213, 170},
+            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent={{
+              -86,20},{-66,-14}},                                                                                                    fillColor = {255, 213, 170},
+            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent={{
+              -86,100},{-66,66}},                                                                                                    fillColor = {255, 213, 170},
+            fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}),Line(points = {{-90, 0}, {90, 0}}, color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None), Rectangle(extent = {{-74, 12}, {-26, -10}}, lineColor = {0, 0, 0},
             lineThickness =                                                                                                   0.5, fillColor = {255, 255, 255},
             fillPattern =                                                                                                   FillPattern.Solid), Rectangle(extent = {{28, 12}, {76, -10}}, lineColor = {0, 0, 0},
             lineThickness =                                                                                                   0.5, fillColor = {255, 255, 255},
