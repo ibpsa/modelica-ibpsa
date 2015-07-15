@@ -1,5 +1,6 @@
 within Annex60.Fluid.Examples.Performance;
 model Example7
+  "Example 7 model of Modelica code that is more efficiently compiled into C-code"
   extends Modelica.Icons.Example;
   parameter Integer nTem = 500;
   parameter Real R = 0.001;
@@ -21,10 +22,7 @@ equation
           lineColor={0,0,255},
           textString="See code")}),
     experiment(
-      StopTime=100,
-      __Dymola_NumberOfIntervals=1,
-      __Dymola_fixedstepsize=0.001,
-      __Dymola_Algorithm="Euler"),
+      StopTime=100),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false)),
     Documentation(revisions="<html>

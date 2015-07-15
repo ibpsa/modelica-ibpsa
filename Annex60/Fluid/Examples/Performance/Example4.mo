@@ -1,7 +1,12 @@
 within Annex60.Fluid.Examples.Performance;
-model Example4
+model Example4 "Example 4 model of simple condensing heat exchanger"
   extends Modelica.Icons.Example;
 
+  package Medium = Annex60.Media.Air;
+  parameter Boolean allowFlowReversal=false
+    "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)";
+
+  Real m_condens;
   Fluid.MixingVolumes.MixingVolumeMoistAir vol(
     nPorts=2,
     ports(m_flow(min={0,-Modelica.Constants.inf})),
@@ -11,6 +16,7 @@ model Example4
     V=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     allowFlowReversal=allowFlowReversal)
+    "Mixing volume for extracting moisture"
     annotation (Placement(transformation(extent={{0,16},{20,36}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = Medium,
@@ -20,7 +26,7 @@ model Example4
     dp1_nominal=0,
     dp2_nominal=0,
     allowFlowReversal1=allowFlowReversal,
-    allowFlowReversal2=allowFlowReversal)
+    allowFlowReversal2=allowFlowReversal) "Heat exchanger"
     annotation (Placement(transformation(extent={{-20,20},{-40,0}})));
   Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
@@ -28,42 +34,42 @@ model Example4
     use_p_in=false,
     use_T_in=true,
     X={0.02,0.98},
-    nPorts=2) annotation (Placement(transformation(extent={{-70,-4},{-50,16}})));
-  Fluid.Sources.MassFlowSource_T source(
+    nPorts=2) "Sink and source"
+              annotation (Placement(transformation(extent={{-70,-4},{-50,16}})));
+  Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     m_flow=1,
     T=273.15,
-    nPorts=1) annotation (Placement(transformation(extent={{20,14},{0,-6}})));
-  package Medium = Annex60.Media.Air;
-
-  Real m_condens;
-  Fluid.Sources.Boundary_pT sink(redeclare package Medium = Medium, nPorts=1)
-    annotation (Placement(transformation(extent={{78,6},{58,26}})));
+    nPorts=1) "Air source"
+    annotation (Placement(transformation(extent={{20,14},{0,-6}})));
+  Fluid.Sources.Boundary_pT sin(redeclare package Medium = Medium, nPorts=1)
+    "Air sink" annotation (Placement(transformation(extent={{78,6},{58,26}})));
   Modelica.Blocks.Sources.RealExpression mCond(y=m_condens)
     annotation (Placement(transformation(extent={{-40,40},{-20,20}})));
   Utilities.Psychrometrics.X_pTphi xSat(use_p_in=false)
+    "Block for converting relative humidity into absolute humidity"
     annotation (Placement(transformation(extent={{30,52},{50,32}})));
-  Modelica.Blocks.Sources.Constant phiSat(k=1)
+  Modelica.Blocks.Sources.Constant phiSat(k=1) "Humidity of 100%"
     annotation (Placement(transformation(extent={{-28,40},{-12,56}})));
   Modelica.Blocks.Sources.Ramp Tin(
     duration=1,
     height=20,
-    offset=293.15)
+    offset=293.15) "Inlet temperature ramp"
     annotation (Placement(transformation(extent={{-52,30},{-72,50}})));
   Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     dp_nominal=100,
     allowFlowReversal=allowFlowReversal,
-    from_dp=true)
+    from_dp=true) "Pressure drop component"
     annotation (Placement(transformation(extent={{30,6},{50,26}})));
-  parameter Boolean allowFlowReversal=false
-    "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)";
+
   Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=1,
-    tau=0) annotation (Placement(transformation(extent={{-16,10},{-4,22}})));
+    tau=0) "Temperature sensor"
+           annotation (Placement(transformation(extent={{-16,10},{-4,22}})));
 equation
 
   m_condens=min(0, -vol.ports[1].m_flow*(bou.X[1] - xSat.X[1]));
@@ -79,7 +85,7 @@ equation
       points={{-73,40},{-80,40},{-80,10},{-72,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(res.port_b,sink. ports[1]) annotation (Line(
+  connect(res.port_b, sin.ports[1]) annotation (Line(
       points={{50,16},{58,16}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -99,7 +105,7 @@ equation
       points={{12,16},{30,16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(hex.port_a1, source.ports[1]) annotation (Line(
+  connect(hex.port_a1, sou.ports[1]) annotation (Line(
       points={{-20,4},{0,4}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -147,6 +153,18 @@ to
 <pre>
 port_a.m_flow + port_b.m_flow = 0;
 </pre>
+<p>
+See Jorissen et al. (2015) for a discussion.
+</p>
+<h4>References</h4>
+<ul>
+<li>
+Filip Jorissen, Michael Wetter and Lieve Helsen.<br/>
+Simulation speed analysis and improvements of Modelica
+models for building energy simulation.<br/>
+Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
+</li>
+</ul>
 </html>"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example4.mos"

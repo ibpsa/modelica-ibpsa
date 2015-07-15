@@ -10,10 +10,7 @@ model Example8 "Common subexpression elimination example"
           lineColor={0,0,255},
           textString="See code")}),
     experiment(
-      StopTime=100,
-      __Dymola_NumberOfIntervals=1,
-      __Dymola_fixedstepsize=0.001,
-      __Dymola_Algorithm="Euler"),
+      StopTime=100),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false)),
     Documentation(revisions="<html>

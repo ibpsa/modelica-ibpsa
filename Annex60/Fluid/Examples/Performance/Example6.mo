@@ -1,11 +1,12 @@
 within Annex60.Fluid.Examples.Performance;
-model Example6 "Example model demonstrating performance of basic equations"
+model Example6
+  "Example 6 model of Modelica code that is inefficiently compiled into C-code"
   extends Modelica.Icons.Example;
   parameter Integer nCapacitors = 500;
   parameter Real R = 0.001;
-  //  annotation(Evaluate=true);
+   //annotation(Evaluate=true);
   parameter Real C = 1000;
-  // annotation(Evaluate=true);
+   //annotation(Evaluate=true);
 
   Real[nCapacitors] T;
   Real[nCapacitors+1] Q_flow;
@@ -24,10 +25,7 @@ equation
           lineColor={0,0,255},
           textString="See code")}),
     experiment(
-      StopTime=100,
-      __Dymola_NumberOfIntervals=1,
-      __Dymola_fixedstepsize=0.001,
-      __Dymola_Algorithm="Euler"),
+      StopTime=100),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}, preserveAspectRatio=
             false)),
     Documentation(revisions="<html>
@@ -72,7 +70,17 @@ F_[0] = divmacro(W_[1]-W_[2],\"Q_flow[1]-Q_flow[2]\",DP_[1],\"C\");
 <p>
 This suggests that the parameter division needs to be handled during 
 each function evaluation, probably causing the increased overhead. 
-Setting <code>Evaluate = true</code> removes this overhead.
+</p>
+<p>
+The following command allows comparing the CPU times objectively.
+</p>
+<p>
+<code>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example6\", stopTime=100, numberOfIntervals=1, method=\"Euler\", fixedstepsize=0.001, resultFile=\"Example6\");
+</code>
+</p>
+<p>
+See Jorissen et al. (2015) for a discussion.
 </p>
 <h4>References</h4>
 <ul>

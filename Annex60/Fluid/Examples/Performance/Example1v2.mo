@@ -1,19 +1,20 @@
 within Annex60.Fluid.Examples.Performance;
 model Example1v2 "Example 1 model with mixing volume"
   extends Annex60.Fluid.Examples.Performance.BaseClasses.Example1;
+  parameter Modelica.SIunits.Time tau=10 "Time constant at nominal flow";
 
   Fluid.Delays.DelayFirstOrder[nRes.k] vol(
     redeclare each package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
     each allowFlowReversal=allowFlowReversal.k,
     each nPorts=2,
-    each tau=tau) "Mixing volumes for enthalpy circuit"
+    each tau=tau) "Mixing volumes for adding states in enthalpy circuit"
     annotation (Placement(transformation(extent={{80,-8},{60,12}})));
-  parameter Modelica.SIunits.Time tau=10 "Time constant at nominal flow";
+
 equation
   for i in 1:nRes.k loop
     connect(vol[i].ports[1], res[i].port_b) annotation (Line(
-      points={{72,-8},{72,-10},{100,-10},{100,30},{90,30},{90,30}},
+      points={{72,-8},{72,-10},{100,-10},{100,30},{90,30}},
       color={0,127,255},
       smooth=Smooth.None));
     connect(vol[i].ports[2], val.port_3) annotation (Line(
@@ -23,9 +24,7 @@ equation
 
   end for;
   annotation (experiment(
-      StopTime=10000,
-      __Dymola_NumberOfIntervals=10,
-      __Dymola_Algorithm="Radau"),
+      StopTime=10000),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},{100,
             100}}), graphics),
     Documentation(info="<html>

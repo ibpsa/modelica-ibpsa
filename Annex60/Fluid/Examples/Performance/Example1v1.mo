@@ -11,9 +11,7 @@ equation
       smooth=Smooth.None));
   end for;
   annotation (experiment(
-      StopTime=10000,
-      __Dymola_NumberOfIntervals=10,
-      __Dymola_Algorithm="Radau"),
+      StopTime=10000),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},{100,
             100}}), graphics={Ellipse(
           extent={{66,0},{74,-8}},
@@ -63,7 +61,28 @@ Sizes of nonlinear systems of equations: {6, 21}
 Sizes after manipulation of the nonlinear systems: {1, <b>1</b>} 
 </p>
 <p>
-These changes also have a significant impact on the computational speed. 
+These changes also have a significant impact on the computational speed.
+</p> 
+<p>
+Following script can be used in Dymola to compare the CPU times. 
+For this script to work, make sure that Dymola stores at least 4 results.
+</p>
+<p>
+<code>
+cpuOld=OutputCPUtime;<br/>
+evaluateOld=Evaluate;<br/>
+OutputCPUtime:=true;<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v1(allowFlowReversal.k=true, from_dp.k=false)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example1v1\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v2(from_dp.k=true, allowFlowReversal.k=true)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example1v2\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v1(allowFlowReversal.k=false, from_dp.k=false)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example1v1\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v1(allowFlowReversal.k=false, from_dp.k=true)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example1v1\");<br/>
+createPlot(id=1, position={15, 10, 592, 421}, range={0.0, 10000.0, -0.01, 0.35}, autoscale=false, grid=true);<br/>
+plotExpression(apply(Example1v1[end-2].CPUtime), false, \"Default case\", 1);<br/>
+plotExpression(apply(Example1v2[end].CPUtime), false, \"Adding dummy states\", 1);<br/>
+plotExpression(apply(Example1v1[end-1].CPUtime), false, \"allowFlowReversal=false\", 1);<br/>
+plotExpression(apply(Example1v1[end].CPUtime), false, \"allowFlowReversal=false, from_dp=true\", 1);<br/>
+OutputCPUtime=cpuOld;<br/>
+Evaluate=evaluateOld;</code>
 </p>
 <p>
 See Jorissen et al. (2015) for a discussion.

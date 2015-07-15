@@ -102,11 +102,7 @@ equation
         color={0,127,255},
         smooth=Smooth.None));
   end for;
-  annotation (experiment(
-      StopTime=1000,
-      __Dymola_NumberOfIntervals=5000,
-      __Dymola_Algorithm="Radau"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},{100,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-20},{100,
             100}}), graphics),
     Documentation(info="<html>
 <p>

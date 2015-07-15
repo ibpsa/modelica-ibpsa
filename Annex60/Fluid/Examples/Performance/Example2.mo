@@ -1,5 +1,5 @@
 within Annex60.Fluid.Examples.Performance;
-model Example2
+model Example2 "Example 2 model with series pressure components"
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
@@ -14,7 +14,7 @@ model Example2
     allowFlowReversal=false) "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=1)
-    "Boundary for pressure boundary condition"
+    "Boundary for absolute pressure boundary condition"
     annotation (Placement(transformation(extent={{-100,10},{-80,-10}})));
   Modelica.Blocks.Sources.Pulse pulse(period=1) "Pulse input"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
@@ -27,6 +27,7 @@ model Example2
     dp_nominal={dp_nominal*(1 + mod(i, 3)) for i in 1:nRes.k})
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.BooleanConstant from_dp(k=true)
+    "Block for easily changing parameter from_dp.k"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Blocks.Sources.IntegerConstant nRes(k=6)
     "Number of parallel branches"
@@ -80,6 +81,35 @@ Sizes after manipulation of the nonlinear systems: {<b>1</b>}<br/>
 <p>
 This can have a large impact on computational speed.
 </p>
+<p>
+Following script can be used in Dymola to compare the CPU times. 
+</p>
+<p>
+<code>
+cpuOld=OutputCPUtime;<br/>
+evaluateOld=Evaluate;<br/>
+OutputCPUtime:=true;<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example2(from_dp.k=false)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example2\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example2(from_dp.k=true)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example2\");<br/>
+createPlot(id=1, position={15, 10, 592, 421}, range={0.0, 10000.0, -0.01, 25}, autoscale=false, grid=true);<br/>
+plotExpression(apply(Example2[end-1].CPUtime), false, \"from_dp=false\", 1);<br/>
+plotExpression(apply(Example2[end].CPUtime), false, \"from_dp=true\", 1);<br/>
+OutputCPUtime=cpuOld;<br/>
+Evaluate=evaluateOld;<br/>
+</code>
+</p>
+<p>
+See Jorissen et al. (2015) for a discussion.
+</p>
+<h4>References</h4>
+<ul>
+<li>
+Filip Jorissen, Michael Wetter and Lieve Helsen.<br/>
+Simulation speed analysis and improvements of Modelica
+models for building energy simulation.<br/>
+Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

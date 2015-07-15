@@ -1,5 +1,6 @@
 within Annex60.Fluid.Examples.Performance;
 model Example5
+  "Example 5 model of Modelica code that is inefficiently compiled into C-code"
   extends Modelica.Icons.Example;
   parameter Boolean efficient = false
   annotation(Evaluate=true);
@@ -61,6 +62,18 @@ F_[0] = helpvar[0]*W_[1];
 <p>
 The last option requires much less operations to be performed and is therefore more efficient.
 </p>
+<p>
+See Jorissen et al. (2015) for a discussion.
+</p>
+<h4>References</h4>
+<ul>
+<li>
+Filip Jorissen, Michael Wetter and Lieve Helsen.<br/>
+Simulation speed analysis and improvements of Modelica
+models for building energy simulation.<br/>
+Submitted: 11th Modelica Conference. Paris, France. Sep. 2015.
+</li>
+</ul>
 </html>
 "), __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example5.mos"
