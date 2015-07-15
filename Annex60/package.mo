@@ -2,6 +2,7 @@ within ;
 package Annex60 "Library with models for building energy and control systems"
   extends Modelica.Icons.Package;
 
+
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   class Conventions "Conventions"
@@ -210,7 +211,6 @@ xxx add contributors for the first version in alphabetical order.
 </ul>
 </html>"));
   end Acknowledgements;
-
 
   class License "Modelica License 2"
     extends Modelica.Icons.Information;
