@@ -20,6 +20,11 @@ record Material "Properties of building materials"
   parameter Modelica.SIunits.Emissivity epsLw_b = epsLw
     "Longwave emisivity for surface a if different";
 
+  parameter Modelica.SIunits.Emissivity epsSw_a = epsSw
+    "Shortwave emisivity for surface a if different";
+  parameter Modelica.SIunits.Emissivity epsSw_b = epsSw
+    "Shortwave emisivity for surface a if different";
+
   final parameter Modelica.SIunits.ThermalDiffusivity alpha=k/(c*rho)
     "Thermal diffusivity";
   final parameter Integer nStaRef=3

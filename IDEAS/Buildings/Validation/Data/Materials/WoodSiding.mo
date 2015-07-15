@@ -4,4 +4,4 @@ record WoodSiding = IDEAS.Buildings.Data.Interfaces.Material (
     final c=900,
     final rho=530,
     epsLw=0.9,
-    final epsSw=0.6);
+    epsSw=0.6);

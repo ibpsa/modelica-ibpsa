@@ -55,9 +55,9 @@ equation
   connect(port_b, nMat[nLay].port_b);
 
   iEpsLw_a = mats[1].epsLw_a;
-  iEpsSw_a = mats[1].epsSw;
+  iEpsSw_a = mats[1].epsSw_a;
   iEpsLw_b = mats[nLay].epsLw_b;
-  iEpsSw_b = mats[nLay].epsSw;
+  iEpsSw_b = mats[nLay].epsSw_b;
 
   annotation (
     Diagram(graphics),

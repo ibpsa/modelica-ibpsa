@@ -4,4 +4,4 @@ record ConcreteBlock = IDEAS.Buildings.Data.Interfaces.Material (
     final c=1000,
     final rho=1400,
     epsLw=0.9,
-    final epsSw=0.6);
+    epsSw=0.6);
