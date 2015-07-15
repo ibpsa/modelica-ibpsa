@@ -11,7 +11,9 @@ model Example2 "Example 2 model with series pressure components"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     filteredSpeed=false,
-    allowFlowReversal=false) "Pump model with unidirectional flow"
+    allowFlowReversal=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Pump model with unidirectional flow"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=1)
     "Boundary for absolute pressure boundary condition"

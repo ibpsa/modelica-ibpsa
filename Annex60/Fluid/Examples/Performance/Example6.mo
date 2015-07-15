@@ -10,6 +10,8 @@ model Example6
 
   Real[nCapacitors] T;
   Real[nCapacitors+1] Q_flow;
+initial equation
+  T = fill(273.15,nCapacitors);
 equation
   Q_flow[1]=((273.15+sin(time))-T[1])/R;
   der(T[1])=(Q_flow[1]-Q_flow[2])/C;

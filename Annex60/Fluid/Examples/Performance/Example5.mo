@@ -9,6 +9,9 @@ model Example5
   parameter Real b=sum(a);
 
   Real c;
+initial equation
+  c=0;
+
 equation
   der(c) = sin(time)*(if efficient then b else sum(a));
 

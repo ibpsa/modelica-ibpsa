@@ -8,7 +8,8 @@ model Example7
   parameter Real tauInv = 1/(R*C);
 
   Real[nTem] T;
-
+initial equation
+  T = fill(273.15, nTem);
 equation
   der(T[1])= ((273.15+sin(time))-2*T[1] + T[2])*tauInv;
   for i in 2:nTem-1 loop
