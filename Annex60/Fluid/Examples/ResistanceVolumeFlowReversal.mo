@@ -141,16 +141,16 @@ two cases the Newton solver of the nonlinear system does not converge.
 These results were generated using Dymola 2015FD01 64 bit on Ubuntu 14.04
 and with <code>Evaluate=false</code>.
 </p>
-<h3>
+<h4>
 ResistanceVolumeFlowReversal = true
-</h3>
+</h4>
 <p>
 Sizes of nonlinear systems of equations: {6, 11, <b>56</b>}<br/>
 Sizes after manipulation of the nonlinear systems: {1, 9, <b>12</b>}
 </p>
-<h3>
+<h4>
 ResistanceVolumeFlowReversal = false
-</h3>
+</h4>
 <p>
 <b>Old implementation</b>
 </p>
