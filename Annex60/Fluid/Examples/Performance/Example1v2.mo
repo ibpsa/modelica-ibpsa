@@ -8,7 +8,9 @@ model Example1v2 "Example 1 model with mixing volume"
     each m_flow_nominal=m_flow_nominal,
     each allowFlowReversal=allowFlowReversal.k,
     each nPorts=2,
-    each tau=tau) "Mixing volumes for adding states in enthalpy circuit"
+    each tau=tau,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Mixing volumes for adding states in enthalpy circuit"
     annotation (Placement(transformation(extent={{80,-8},{60,12}})));
 
 equation
