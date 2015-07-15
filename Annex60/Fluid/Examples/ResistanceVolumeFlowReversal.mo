@@ -116,7 +116,7 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This model demonstrates the impact of the <code>allowFlowReversal</code> parameter on the sizes
+This model demonstrates the impact of the <code>allowFlowReversal</code> parameter on the size
 of nonlinear systems of equations. The user can change the parameter value in the <code>allowFlowReversal</code>
 block and rerun the simulation. The results are also demonstrated below for <code>nRes.k = 10</code>, 
 which is the number of parallel branches containing one pressure drop element and one mixing volume each.
