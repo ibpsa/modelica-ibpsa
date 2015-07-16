@@ -11,11 +11,11 @@ function basicFlowFunction_m_flow "Basic class for flow models"
 algorithm
  dp :=smooth(1, if noEvent(m_flow>m_flow_turbulent) then (m_flow/k)^2 else
                 if noEvent(m_flow<-m_flow_turbulent) then -(m_flow/k)^2 else
-                   (m_flow_turbulent/k)^2*asin(m_flow/m_flow_turbulent)/(Modelica.Constants.pi/2));
+                   (m_flow_turbulent*m_flow+m_flow^3/m_flow_turbulent)/2/k^2);
 
- annotation (LateInline=true,
+ annotation (Inline=true,
              inverse(m_flow=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
-             smoothOrder=1,
+             smoothOrder=2,
              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
@@ -49,7 +49,7 @@ revisions="<html>
 <ul>
 <li>
 July 15, 2015, by Filip Jorissen:<br/>
-New, more efficient implementation based on regularisation using <code>asin()</code>.
+New, more efficient implementation based on regularisation using simple polynomial.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">#279</a>.
 </li>
