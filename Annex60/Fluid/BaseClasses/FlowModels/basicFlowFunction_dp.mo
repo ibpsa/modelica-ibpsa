@@ -12,8 +12,8 @@ function basicFlowFunction_dp "Basic class for flow models"
 algorithm
       m_flow := smooth(1, if noEvent(dp>m_flow_turbulent^2/k/k) then k*sqrt(dp) else
                           if noEvent(dp<-m_flow_turbulent^2/k/k) then -k*sqrt(-dp) else
-                             k*sqrt(m_flow_turbulent^2/k/k)*sin(dp/(m_flow_turbulent^2/k/k)*Modelica.Constants.pi/2));
-annotation(LateInline=true,
+                          (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3);
+annotation(Inline=true,
            inverse(dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
            smoothOrder=1,
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
