@@ -9,7 +9,7 @@ function basicFlowFunction_m_flow "Basic class for flow models"
   output Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 algorithm
- dp :=smooth(1, if noEvent(m_flow>m_flow_turbulent) then (m_flow/k)^2 else
+ dp :=smooth(2, if noEvent(m_flow>m_flow_turbulent) then (m_flow/k)^2 else
                 if noEvent(m_flow<-m_flow_turbulent) then -(m_flow/k)^2 else
                    (m_flow_turbulent*m_flow+m_flow^3/m_flow_turbulent)/2/k^2);
 
@@ -50,6 +50,8 @@ revisions="<html>
 <li>
 July 15, 2015, by Filip Jorissen:<br/>
 New, more efficient implementation based on regularisation using simple polynomial.
+Expanded common subexpressions for function inlining to be possible.
+Set <code>Inline=true</code> for inlining to occur.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">#279</a>.
 </li>

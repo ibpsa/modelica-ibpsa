@@ -10,7 +10,7 @@ function basicFlowFunction_dp "Basic class for flow models"
     "Mass flow rate in design flow direction";
 
 algorithm
-      m_flow := smooth(1, if noEvent(dp>m_flow_turbulent^2/k/k) then k*sqrt(dp) else
+      m_flow := smooth(2, if noEvent(dp>m_flow_turbulent^2/k/k) then k*sqrt(dp) else
                           if noEvent(dp<-m_flow_turbulent^2/k/k) then -k*sqrt(-dp) else
                           (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3);
 annotation(Inline=true,
@@ -49,6 +49,8 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 <li>
 July 15, 2015, by Filip Jorissen:<br/>
 New, more efficient implementation based on regularisation using simple polynomial.
+Expanded common subexpressions for function inlining to be possible.
+Set <code>Inline=true</code> for inlining to occur.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/279\">#279</a>.
 </li>
