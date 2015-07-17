@@ -15,8 +15,8 @@ model Example4 "Example 4 model of simple condensing heat exchanger"
     m_flow_nominal=1,
     V=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=allowFlowReversal)
-    "Mixing volume for extracting moisture"
+    allowFlowReversal=allowFlowReversal,
+    prescribedHeatFlowRate=true) "Mixing volume for extracting moisture"
     annotation (Placement(transformation(extent={{0,16},{20,36}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = Medium,
