@@ -7,6 +7,9 @@ partial model PartialMixingVolume
     "= true to set up initial equations for pressure"
     annotation(HideResult=true);
 
+  constant Boolean simplify_mWat_flow = true
+    "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -43,6 +46,7 @@ partial model PartialMixingVolume
    // Models for the steady-state and dynamic energy balance.
 protected
   Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation steBal(
+    final simplify_mWat_flow = simplify_mWat_flow,
     sensibleOnly = true,
     redeclare final package Medium=Medium,
     final m_flow_nominal = m_flow_nominal,
@@ -52,6 +56,7 @@ protected
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Annex60.Fluid.Interfaces.ConservationEquation dynBal(
+    final simplify_mWat_flow = simplify_mWat_flow,
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
@@ -137,7 +142,7 @@ equation
     connect(COut_internal,  steBal.COut);
   else
       connect(dynBal.ports, ports) annotation (Line(
-      points={{50,-5.55112e-16},{50,-34},{2.22045e-15,-34},{2.22045e-15,-100}},
+      points={{50,0},{50,-34},{2.22045e-15,-34},{2.22045e-15,-100}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -162,6 +167,31 @@ It is used as the base class for all fluid volumes of the package
 <a href=\"modelica://Annex60.Fluid.MixingVolumes\">
 Annex60.Fluid.MixingVolumes</a>.
 </p>
+
+
+<h4>Typical use and important parameters</h4>
+<p>
+Set the constant <code>sensibleOnly=true</code> if the model that extends
+or instantiates this model sets <code>mWat_flow = 0</code>.
+</p>
+<p>
+Set the constant <code>simplify_mWat_flow = true</code> to simplify the equation
+</p>
+<pre>
+  port_a.m_flow + port_b.m_flow = - mWat_flow;
+</pre>
+<p>
+to
+</p>
+<pre>
+  port_a.m_flow + port_b.m_flow = 0;
+</pre>
+<p>
+This causes an error in the mass balance of about <i>0.5%</i>, but generally leads to
+simpler equations because the pressure drop equations are then decoupled from the
+mass exchange in this component.
+</p>
+
 <p>
 To increase the numerical robustness of the model, the parameter
 <code>prescribedHeatFlowRate</code> can be set by the user.
@@ -246,6 +276,11 @@ Annex60.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 17, 2015, by Michael Wetter:<br/>
+Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
+calculation on the moisture balance.
+</li>
 <li>
 July 1, 2015, by Filip Jorissen:<br/>
 Set <code>prescribedHeatFlowRate=prescribedHeatflowRate</code> for 

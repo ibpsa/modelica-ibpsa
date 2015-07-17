@@ -5,6 +5,8 @@ model StaticTwoPortConservationEquation
   showDesignFlowDirection = false);
 
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
+  constant Boolean simplify_mWat_flow = true
+    "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
 
   parameter Boolean prescribedHeatFlowRate(start=false)
     "Set to true if the heat flow rate is not a function of a temperature difference to the fluid temperature."
@@ -143,7 +145,7 @@ equation
     // Case with latent heat exchange
 
     // Mass balance (no storage)
-    port_a.m_flow + port_b.m_flow = -mWat_flow;
+    port_a.m_flow + port_b.m_flow = if simplify_mWat_flow then 0 else -mWat_flow;
     // Energy balance.
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
     // at both ports. Since mWat_flow << m_flow, the error is small.
@@ -197,27 +199,26 @@ This model transports fluid between its two ports, without storing mass or energ
 It implements a steady-state conservation equation for energy and mass fractions.
 The model has zero pressure drop between its ports.
 </p>
-<h4>Implementation</h4>
-Input connectors of the model are
-<ul>
-<li>
-<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
-</li>
-<li>
-<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
-</li>
-</ul>
 
+<h4>Typical use and important parameters</h4>
 <p>
-The model can only be used as a steady-state model with two fluid ports.
-For a model with a dynamic balance, and more fluid ports, use
-<a href=\"modelica://Annex60.Fluid.Interfaces.ConservationEquation\">
-Annex60.Fluid.Interfaces.ConservationEquation</a>.
+Set the constant <code>simplify_mWat_flow = true</code> to simplify the equation
 </p>
+<pre>
+  port_a.m_flow + port_b.m_flow = - mWat_flow;
+</pre>
 <p>
-Set the constant <code>sensibleOnly=true</code> if the model that extends
-or instantiates this model sets <code>mWat_flow = 0</code>.
+to
 </p>
+<pre>
+  port_a.m_flow + port_b.m_flow = 0;
+</pre>
+<p>
+This causes an error in the mass balance of about <i>0.5%</i>, but generally leads to
+simpler equations because the pressure drop equations are then decoupled from the
+mass exchange in this component.
+</p>
+
 <p>
 To increase the numerical robustness of the model, the parameter
 <code>prescribedHeatFlowRate</code> must be set.
@@ -246,9 +247,31 @@ equations are formulated to guard against numerical problems near
 zero flow that can occur if <code>Q_flow</code> or <code>m_flow</code>
 are the results of an iterative solver.
 </p>
+<h4>Implementation</h4>
+Input connectors of the model are
+<ul>
+<li>
+<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
+</li>
+<li>
+<code>mWat_flow</code>, which is the moisture mass flow rate added to the medium.
+</li>
+</ul>
+
+<p>
+The model can only be used as a steady-state model with two fluid ports.
+For a model with a dynamic balance, and more fluid ports, use
+<a href=\"modelica://Annex60.Fluid.Interfaces.ConservationEquation\">
+Annex60.Fluid.Interfaces.ConservationEquation</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 17, 2015, by Michael Wetter:<br/>
+Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
+calculation on the moisture balance.
+</li>
 <li>
 July 2, 2015 by Michael Wetter:<br/>
 Revised implementation of conservation equations,
