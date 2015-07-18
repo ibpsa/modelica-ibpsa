@@ -43,29 +43,6 @@ equation
           70},{-36,58},{-11,58}}, color={0,0,127}));
   connect(mWat_flow.y, modWatRev.mWat_flow) annotation (Line(points={{-59,30},{-40,
           30},{-40,54},{-10.8,54}}, color={0,0,127}));
-  annotation (
-  experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/StaticTwoPortConservationEquation.mos"
-        "Simulate and plot"),
-Documentation(info="<html>
-<p>
-Model that tests the conservation equations that are used
-for the heat and mass balance.
-The instances have either water or air, and either allow or prohibit
-flow reversal.
-This example tests the implementation of the steady-state balance.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-July 17, 2015, by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
 protected
   model SubModel
     replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
@@ -123,4 +100,27 @@ equation
           70},{-36,-52},{-11,-52}}, color={0,0,127}));
   connect(mWat_flow.y, modAirNoRev.mWat_flow) annotation (Line(points={{-59,30},
           {-40,30},{-40,-56},{-10.8,-56}}, color={0,0,127}));
+  annotation (
+  experiment(StopTime=3600),
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/StaticTwoPortConservationEquation.mos"
+        "Simulate and plot"),
+Documentation(info="<html>
+<p>
+Model that tests the conservation equations that are used
+for the heat and mass balance.
+The instances have either water or air, and either allow or prohibit
+flow reversal.
+This example tests the implementation of the steady-state balance.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 17, 2015, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end StaticTwoPortConservationEquation;
