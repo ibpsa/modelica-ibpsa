@@ -156,8 +156,8 @@ equation
         port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
         port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
       else
+        port_a.h_outflow =  Medium.h_default;
         port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
-        port_a.C_outflow =  zeros(Medium.nC);
       end if;
     else
       // Case with prescribedHeatFlowRate == false.
@@ -166,13 +166,13 @@ equation
       // Q_flow * m_flowInv = 0.
       // The same applies for port_b.Xi_outflow and mXi_flow.
       port_a.m_flow * (inStream(port_a.h_outflow)  - port_b.h_outflow)  = -Q_flow;
-      port_a.m_flow * (inStream(port_b.Xi_outflow) - port_a.Xi_outflow) = +mXi_flow;
+      port_a.m_flow * (inStream(port_a.Xi_outflow) - port_b.Xi_outflow) = -mXi_flow;
       if allowFlowReversal then
         port_a.m_flow * (inStream(port_b.h_outflow)  - port_a.h_outflow)  = +Q_flow;
-        port_a.m_flow * (inStream(port_a.Xi_outflow) - port_b.Xi_outflow) = -mXi_flow;
+        port_a.m_flow * (inStream(port_b.Xi_outflow) - port_a.Xi_outflow) = +mXi_flow;
       else
         //When allowFlowReversal = false the downstream enthalpy should not matter
-        //therefore a dummy value is used to avoid the creating of algebraic loops
+        //therefore a dummy value is used to avoid algebraic loops
         port_a.h_outflow = Medium.h_default;
         port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
       end if;
@@ -267,6 +267,15 @@ Annex60.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 17, 2015, by Michael Wetter:<br/>
+Corrected bug for situation with latent heat exchange and flow reversal not
+allowed.
+The previous formulation was singular.
+This caused some models to not translate.
+The error was introduced in
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/282\">#282</a>.
+</li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
 Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
