@@ -51,6 +51,9 @@ Documentation(info="<html>
 <p>
 Model that tests the conservation equations that are used
 for the heat and mass balance.
+The instances have either water or air, and either allow or prohibit
+flow reversal.
+This example tests the implementation of the steady-state balance.
 </p>
 </html>",
 revisions="<html>
