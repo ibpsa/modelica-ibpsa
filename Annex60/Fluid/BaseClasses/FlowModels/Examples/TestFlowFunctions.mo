@@ -17,11 +17,11 @@ equation
   m1_flow = m2_flow;
   p2-p1 = dp1 + dp2;
   if from_dp then
-  m1_flow=FlowModels.basicFlowFunction_dp(dp=dp1, k=k, m_flow_turbulent=m_flow_nominal*0.3);
-  m2_flow=FlowModels.basicFlowFunction_dp(dp=dp2, k=k, m_flow_turbulent=m_flow_nominal*0.3);
+    m1_flow=FlowModels.basicFlowFunction_dp(dp=dp1, k=k, m_flow_turbulent=m_flow_nominal*0.3);
+    m2_flow=FlowModels.basicFlowFunction_dp(dp=dp2, k=k, m_flow_turbulent=m_flow_nominal*0.3);
   else
-  dp1=FlowModels.basicFlowFunction_m_flow(m_flow=m1_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3);
-  dp2=FlowModels.basicFlowFunction_m_flow(m_flow=m2_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3);
+    dp1=FlowModels.basicFlowFunction_m_flow(m_flow=m1_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3);
+    dp2=FlowModels.basicFlowFunction_m_flow(m_flow=m2_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3);
   end if;
   assert(abs(dp1-dp2) < 1E-5, "Error in implementation.");
 annotation (
