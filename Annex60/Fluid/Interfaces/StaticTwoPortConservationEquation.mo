@@ -8,11 +8,8 @@ model StaticTwoPortConservationEquation
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
 
-  parameter Boolean prescribedHeatFlowRate(start=false)
-    "Set to true if the heat flow rate is not a function of a temperature difference to the fluid temperature."
-       annotation(Evaluate=true,
-     Dialog(tab="Assumptions",
-      group="Heat transfer"));
+  constant Boolean prescribedHeatFlowRate = false
+    "Set to true if the heat flow rate is not a function of a temperature difference to the fluid temperature";
 
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Sensible plus latent heat flow rate transferred into the medium"
@@ -220,8 +217,8 @@ mass exchange in this component.
 </p>
 
 <p>
-To increase the numerical robustness of the model, the parameter
-<code>prescribedHeatFlowRate</code> must be set.
+To increase the numerical robustness of the model, the constant
+<code>prescribedHeatFlowRate</code> can be set.
 Use the following settings:
 </p>
 <ul>

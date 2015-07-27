@@ -1,8 +1,7 @@
 within Annex60.Fluid.HeatExchangers.Examples;
 model Heater_u "Example model for the heater with prescribed heat input"
   extends Modelica.Icons.Example;
-  extends Annex60.Fluid.HeatExchangers.Examples.BaseClasses.Heater(vol(
-        prescribedHeatFlowRate=false));
+  extends Annex60.Fluid.HeatExchangers.Examples.BaseClasses.Heater;
 
   HeaterCooler_u hea(
     redeclare package Medium = Medium,
