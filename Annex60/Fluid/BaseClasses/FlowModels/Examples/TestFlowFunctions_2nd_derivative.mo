@@ -34,11 +34,11 @@ equation
   m1_flow = m2_flow;
   p2-p1 = dp1 + dp2;
   if from_dp then
-  m1_flow=FlowModels.basicFlowFunction_dp(dp=dp1, k=k, m_flow_turbulent=m_flow_nominal*0.3);
-  m2_flow=FlowModels.basicFlowFunction_dp(dp=dp2, k=k, m_flow_turbulent=m_flow_nominal*0.3);
+    m1_flow=FlowModels.basicFlowFunction_dp(dp=dp1, k=k, m_flow_turbulent=m_flow_nominal*0.3);
+    m2_flow=FlowModels.basicFlowFunction_dp(dp=dp2, k=k, m_flow_turbulent=m_flow_nominal*0.3);
   else
-  dp1=FlowModels.basicFlowFunction_m_flow(m_flow=m1_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3);
-  dp2=FlowModels.basicFlowFunction_m_flow(m_flow=m2_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3);
+    dp1=FlowModels.basicFlowFunction_m_flow(m_flow=m1_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3);
+    dp2=FlowModels.basicFlowFunction_m_flow(m_flow=m2_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3);
   end if;
   assert(abs(dp1-dp2) < 1E-5, "Error in implementation.");
 
@@ -60,12 +60,16 @@ equation
 
 annotation (
 experiment(StartTime=-1, StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/TestFlowFunctions.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/TestFlowFunctions_2nd_derivative.mos"
         "Simulate and plot"),
               Documentation(info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">This model tests the second-order derivative of the flow functions.</span></p>
+<p>This model tests the second-order derivative of the flow functions.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 27, 2015, by Michael Wetter:<br/>
+Corrected wrong <code>.mos</code> script name.
+</li>
 <li>
 July 20, 2015, by Marcus Fuchs:<br/>
 First implementation.
