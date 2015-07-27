@@ -1,5 +1,5 @@
-within Annex60.Fluid.BaseClasses.FlowModels.Examples;
-model TestFlowFunctions_2nd_derivative
+within Annex60.Fluid.BaseClasses.FlowModels.Validation;
+model SecondDerivative
   "Test model for flow functions for 2nd order differentiability"
   extends Modelica.Icons.Example;
   Modelica.SIunits.MassFlowRate m1_flow "Direct function input/output for dp1";
@@ -60,7 +60,7 @@ equation
 
 annotation (
 experiment(StartTime=-1, StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/TestFlowFunctions_2nd_derivative.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/SecondDerivative.mos"
         "Simulate and plot"),
               Documentation(info="<html>
 <p>This model tests the second-order derivative of the flow functions.</p>
@@ -76,4 +76,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TestFlowFunctions_2nd_derivative;
+end SecondDerivative;

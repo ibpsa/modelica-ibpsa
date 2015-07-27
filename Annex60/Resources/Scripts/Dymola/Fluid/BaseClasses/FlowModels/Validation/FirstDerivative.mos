@@ -1,7 +1,7 @@
-simulateModel("Annex60.Fluid.BaseClasses.FlowModels.Examples.TestFlowFunctions_1st_derivative", startTime=-1, method="dassl", resultFile="TestFlowFunctions_1st_derivative");
+simulateModel("Annex60.Fluid.BaseClasses.FlowModels.Validation.FirstDerivative", startTime=-1, method="dassl", resultFile="FirstDerivative");
 createPlot(id=1, position={75, 70, 592, 521}, 
 y={"m1_flow"},
-range={-1.0, 1.0, -2.0, 2.0}, grid=true, filename="TestFlowFunctions_1st_derivative.mat", colors={{28,108,200}});
+range={-1.0, 1.0, -2.0, 2.0}, grid=true, filename="FirstDerivative.mat", colors={{28,108,200}});
 createPlot(id=1, position={75, 70, 592, 169}, 
 y={"der(m1_flow)"},
  range={-1.0, 1.0, -15.0, 0.0}, grid=true, subPlot=2, colors={{28,108,200}});

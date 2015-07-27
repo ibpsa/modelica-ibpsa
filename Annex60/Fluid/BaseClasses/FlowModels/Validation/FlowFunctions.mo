@@ -1,5 +1,5 @@
-within Annex60.Fluid.BaseClasses.FlowModels.Examples;
-model TestFlowFunctions "Test model for flow functions"
+within Annex60.Fluid.BaseClasses.FlowModels.Validation;
+model FlowFunctions "Test model for flow functions"
   extends Modelica.Icons.Example;
  Modelica.SIunits.MassFlowRate m1_flow;
  Modelica.SIunits.MassFlowRate m2_flow;
@@ -26,11 +26,11 @@ equation
   assert(abs(dp1-dp2) < 1E-5, "Error in implementation.");
 annotation (
 experiment(StartTime=-1, StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/TestFlowFunctions.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/FlowFunctions.mos"
         "Simulate and plot"),
               Documentation(info="<html>
 This model test the inverse functions. When translating this model in
 Dymola 7.2, there should be no numerical solution be required to solve
 the nonlinear equation system.
 </html>"));
-end TestFlowFunctions;
+end FlowFunctions;
