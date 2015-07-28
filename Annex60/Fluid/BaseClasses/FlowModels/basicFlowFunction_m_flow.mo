@@ -9,13 +9,13 @@ function basicFlowFunction_m_flow "Basic class for flow models"
   output Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 algorithm
- dp :=smooth(2, if noEvent(m_flow>m_flow_turbulent) then (m_flow/k)^2 else
-                if noEvent(m_flow<-m_flow_turbulent) then -(m_flow/k)^2 else
-                   (m_flow_turbulent*m_flow+m_flow^3/m_flow_turbulent)/2/k^2);
+ dp :=if noEvent(m_flow>m_flow_turbulent) then (m_flow/k)^2 else
+         if noEvent(m_flow<-m_flow_turbulent) then -(m_flow/k)^2 else
+            (m_flow_turbulent*m_flow+m_flow^3/m_flow_turbulent)/2/k^2;
 
- annotation (Inline=true,
-             inverse(m_flow=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
+ annotation (LateInline=true,
              smoothOrder=2,
+             inverse(m_flow=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
@@ -47,6 +47,13 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 28, 2015, by Michael Wetter:<br/>
+Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
+and changed <code>Inline=true</code> to <code>LateInline=true</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/301\">issue 301</code>.
+</li>
 <li>
 July 15, 2015, by Filip Jorissen:<br/>
 New, more efficient implementation based on regularisation using simple polynomial.

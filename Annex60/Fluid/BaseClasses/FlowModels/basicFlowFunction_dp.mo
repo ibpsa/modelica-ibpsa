@@ -10,10 +10,11 @@ function basicFlowFunction_dp "Basic class for flow models"
     "Mass flow rate in design flow direction";
 
 algorithm
-      m_flow := smooth(2, if noEvent(dp>m_flow_turbulent^2/k/k) then k*sqrt(dp) else
-                          if noEvent(dp<-m_flow_turbulent^2/k/k) then -k*sqrt(-dp) else
-                          (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3);
-annotation(Inline=true,
+      m_flow := if noEvent(dp>m_flow_turbulent^2/k/k) then k*sqrt(dp) else
+                   if noEvent(dp<-m_flow_turbulent^2/k/k) then -k*sqrt(-dp) else
+                      (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3;
+annotation(LateInline=true,
+           smoothOrder=2,
            inverse(dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
            smoothOrder=2,
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -46,6 +47,13 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 28, 2015, by Michael Wetter:<br/>
+Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
+and changed <code>Inline=true</code> to <code>LateInline=true</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/301\">issue 301</code>.
+</li>
 <li>
 July 15, 2015, by Filip Jorissen:<br/>
 New, more efficient implementation based on regularisation using simple polynomial.
