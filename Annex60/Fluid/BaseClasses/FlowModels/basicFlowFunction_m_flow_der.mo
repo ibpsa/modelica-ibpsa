@@ -9,9 +9,9 @@ function basicFlowFunction_m_flow_der "Derivative of flow function"
   output Real dp_der
     "Derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 algorithm
- dp_der :=if (m_flow>m_flow_turbulent) then 2 * m_flow/k^2 else
+ dp_der :=(if (m_flow>m_flow_turbulent) then 2 * m_flow/k^2 else
          if (m_flow<-m_flow_turbulent) then -2 * m_flow/k^2 else
-            (m_flow_turbulent+3*m_flow^2/m_flow_turbulent)/2/k^2;
+            (m_flow_turbulent+3*m_flow^2/m_flow_turbulent)/2/k^2) * m_flow_der;
 
  annotation (LateInline=true,
              smoothOrder=1,

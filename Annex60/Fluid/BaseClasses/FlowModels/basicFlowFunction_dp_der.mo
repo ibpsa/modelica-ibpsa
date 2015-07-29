@@ -10,9 +10,9 @@ function basicFlowFunction_dp_der "Derivative of flow function"
   output Real m_flow_der(unit="kg/s2")
     "Derivative of mass flow rate in design flow direction";
 algorithm
- m_flow_der := if noEvent(dp>m_flow_turbulent^2/k/k) then 0.5*k/sqrt(dp) else
+ m_flow_der := (if noEvent(dp>m_flow_turbulent^2/k/k) then 0.5*k/sqrt(dp) else
                    if noEvent(dp<-m_flow_turbulent^2/k/k) then 0.5*k/sqrt(-dp) else
-                     (k^2*5/4/m_flow_turbulent)-3*k/4/(m_flow_turbulent/k)^5*dp^2;
+                     (k^2*5/4/m_flow_turbulent)-3*k/4/(m_flow_turbulent/k)^5*dp^2)*dp_der;
 
  annotation (LateInline=true,
              smoothOrder=1,
