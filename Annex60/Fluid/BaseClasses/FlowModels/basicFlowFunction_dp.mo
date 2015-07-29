@@ -15,8 +15,8 @@ algorithm
                       (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3;
 annotation(LateInline=true,
            smoothOrder=2,
+           derivative(zeroDerivative=k, zeroDerivative=m_flow_turbulent)=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der,
            inverse(dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
-           smoothOrder=2,
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},

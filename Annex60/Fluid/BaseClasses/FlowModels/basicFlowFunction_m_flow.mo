@@ -9,12 +9,13 @@ function basicFlowFunction_m_flow "Basic class for flow models"
   output Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 algorithm
- dp :=if noEvent(m_flow>m_flow_turbulent) then (m_flow/k)^2 else
-         if noEvent(m_flow<-m_flow_turbulent) then -(m_flow/k)^2 else
+ dp :=if (m_flow>m_flow_turbulent) then (m_flow/k)^2 else
+         if (m_flow<-m_flow_turbulent) then -(m_flow/k)^2 else
             (m_flow_turbulent*m_flow+m_flow^3/m_flow_turbulent)/2/k^2;
 
  annotation (LateInline=true,
              smoothOrder=2,
+             derivative(zeroDerivative=k, zeroDerivative=m_flow_turbulent)=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der,
              inverse(m_flow=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent)),
              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Line(
