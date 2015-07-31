@@ -50,7 +50,9 @@ equation
   assert(abs(dp1-dp1_comp) < 1E-2, "Model has an error for dp1");
   assert(abs(dp2-dp2_comp) < 1E-2, "Model has an error for dp2");
 annotation (
-experiment(StartTime=-1, StopTime=1.0),
+experiment(StartTime=-1,
+           StopTime=1.0,
+           Tolerance=1e-08),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Validation/FirstDerivative.mos"
         "Simulate and plot"),
               Documentation(info="<html>

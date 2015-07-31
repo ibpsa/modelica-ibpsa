@@ -1,9 +1,9 @@
 within Annex60.Fluid.BaseClasses.FlowModels.Validation;
 model BasicFlowFunction_m_flow_DerivativeCheck
-  "Model that checks the correct implementation of the derivative of the flow function"
+  "Model that checks the correct implementation of the 1st order derivative of the flow function"
   extends Modelica.Icons.Example;
 
-  constant Real gain = 1 "Gain for computing the mass flow rate";
+  constant Real gain = 0.5 "Gain for computing the mass flow rate";
 
   parameter Real k = 0.35 "Flow coefficient";
   parameter Modelica.SIunits.MassFlowRate m_flow_turbulent = 0.36

@@ -1,5 +1,5 @@
 within Annex60.Fluid.BaseClasses.FlowModels;
-function basicFlowFunction_m_flow_der "Derivative of flow function"
+function basicFlowFunction_m_flow_der2 "2nd derivative of flow function"
   input Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
   input Real k(unit="")
@@ -7,19 +7,26 @@ function basicFlowFunction_m_flow_der "Derivative of flow function"
   input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
   input Real m_flow_der(unit="kg/s2")
-    "Derivative of mass flow rate in design flow direction";
-  output Real dp_der
-    "Derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
+    "1st derivative of mass flow rate in design flow direction";
+  input Real m_flow_der2(unit="kg/s3")
+    "2nd derivative of mass flow rate in design flow direction";
+  output Real dp_der2
+    "2nd derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
+protected
+  Real m_k = m_flow_turbulent/k "Auxiliary variable";
+  Modelica.SIunits.Pressure dp_turbulent = (m_k)^2
+    "Pressure where flow changes to turbulent";
 algorithm
- dp_der :=(if (m_flow>m_flow_turbulent) then 2 * m_flow/k^2
-           elseif (m_flow<-m_flow_turbulent) then -2 * m_flow/k^2
-           else (m_flow_turbulent+3*m_flow^2/m_flow_turbulent)/2/k^2) * m_flow_der;
+ dp_der2 :=if (m_flow>m_flow_turbulent) then
+             2/k^2 * (m_flow_der^2 + m_flow * m_flow_der2)
+            elseif (m_flow<-m_flow_turbulent) then
+             -2/k^2 * (m_flow_der^2 + m_flow * m_flow_der2)
+            else
+            0.5/k^2 * ((m_flow_turbulent+3*m_flow^2/m_flow_turbulent) * m_flow_der2
+                       + 6*m_flow/m_flow_turbulent * m_flow_der^2);
 
  annotation (LateInline=true,
-             smoothOrder=1,
-             derivative(order=2, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
-               Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2,
-            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+             Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
           color={0,0,255},
@@ -32,7 +39,7 @@ algorithm
           textString="%name")}),
 Documentation(info="<html>
 <p>
-Function that implements the first order derivative of
+Function that implements the second order derivative of
 <a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
 Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>
 with respect to the mass flow rate.
@@ -42,9 +49,8 @@ revisions="<html>
 <ul>
 <li>
 July 29, 2015, by Michael Wetter:<br/>
-First implementation to avoid in Dymola 2016 the warning
-\"Differentiating ... under the assumption that it is continuous at switching\".
+First implementation.
 </li>
 </ul>
 </html>"));
-end basicFlowFunction_m_flow_der;
+end basicFlowFunction_m_flow_der2;

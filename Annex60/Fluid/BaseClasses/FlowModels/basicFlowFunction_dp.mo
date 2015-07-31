@@ -5,18 +5,24 @@ function basicFlowFunction_dp "Basic class for flow models"
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real k(min=0, unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0) "Mass flow rate";
+  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+    "Mass flow rate where transition to turbulent flow occurs";
   output Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
-
+protected
+  Modelica.SIunits.Pressure dp_turbulent = m_flow_turbulent^2/k/k
+    "Pressure where flow changes to turbulent";
 algorithm
-      m_flow := if noEvent(dp>m_flow_turbulent^2/k/k) then k*sqrt(dp) else
-                   if noEvent(dp<-m_flow_turbulent^2/k/k) then -k*sqrt(-dp) else
-                      (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3;
-annotation(LateInline=true,
+   m_flow := if noEvent(dp>dp_turbulent) then k*sqrt(dp)
+             elseif noEvent(dp<-dp_turbulent) then -k*sqrt(-dp)
+             else (k^2*5/4/m_flow_turbulent)*dp-k/4/(m_flow_turbulent/k)^5*dp^3;
+
+  annotation(LateInline=true,
            smoothOrder=2,
-           derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der,
-           inverse(dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
+           derivative(order=1, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
+             Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der,
+           inverse(dp=Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+             m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},

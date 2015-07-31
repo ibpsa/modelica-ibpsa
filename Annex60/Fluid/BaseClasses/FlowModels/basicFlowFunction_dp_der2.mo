@@ -4,20 +4,26 @@ function basicFlowFunction_dp_der2 "2nd derivative of flow function"
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real k(min=0, unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0) "Mass flow rate";
+  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+    "Mass flow rate where transition to turbulent flow occurs";
   input Real dp_der
     "1st derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real dp_der2
     "2nd derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   output Real m_flow_der2
     "2nd derivative of mass flow rate in design flow direction";
+protected
+  Real m_k = m_flow_turbulent/k "Auxiliary variable";
+  Modelica.SIunits.Pressure dp_turbulent = (m_k)^2
+    "Pressure where flow changes to turbulent";
 algorithm
- m_flow_der2 := (if noEvent(dp>m_flow_turbulent^2/k/k) then -0.25*k*dp^(-1.5) else
-                   if noEvent(dp<-m_flow_turbulent^2/k/k) then 0.25*k*(-dp)^(-1.5) else
-                     -6*k/4/(m_flow_turbulent/k)^5*dp)*dp_der
-                +(if noEvent(dp>m_flow_turbulent^2/k/k) then 0.5*k/sqrt(dp) else
-                   if noEvent(dp<-m_flow_turbulent^2/k/k) then 0.5*k/sqrt(-dp) else
-                     (k^2*5/4/m_flow_turbulent)-3*k/4/(m_flow_turbulent/k)^5*dp^2)*dp_der2;
+ m_flow_der2 := if noEvent(dp>dp_turbulent) then
+                  -0.25*k*dp^(-3/2) * dp_der^2 + 0.5*k*dp^(-1/2)*dp_der2
+                 elseif noEvent(dp<-dp_turbulent) then
+                   0.25*k*(-dp)^(-3/2) * dp_der^2 - 0.5*k*(-dp)^(-1/2)*dp_der2
+                 else
+                   (1.25*k/m_k-0.75*k/m_k^5*dp^2)*dp_der2
+                   -1.5/m_k^5*k*dp*dp_der^2;
 
  annotation (LateInline=true,
              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -33,7 +39,7 @@ algorithm
           textString="%name")}),
 Documentation(info="<html>
 <p>
-Function that implements the first order derivative of
+Function that implements the second order derivative of
 <a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
 Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
 with respect to the mass flow rate.
