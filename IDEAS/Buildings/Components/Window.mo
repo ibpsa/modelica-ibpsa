@@ -7,7 +7,12 @@ model Window "Multipane window"
   parameter Real frac(
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
-
+  parameter Boolean linearise=true
+    "= true, if convective heat transfer should be linearised"
+    annotation(Dialog(tab="Convection"));
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal=-3
+    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
+    annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.Angle inc
     "Inclination of the window, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
@@ -27,7 +32,9 @@ model Window "Multipane window"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
   replaceable IDEAS.Buildings.Components.Shading.None shaType constrainedby
-    Interfaces.StateShading(final azi=azi) "Shading type" annotation (Placement(transformation(extent={{-36,-70},{-26,-50}})),
+    Interfaces.StateShading(final azi=azi) "First shading type"
+                                                          annotation (Placement(transformation(extent={{-50,-70},
+            {-40,-50}})),
       __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
 
   Modelica.Blocks.Interfaces.RealInput Ctrl if shaType.controlled
@@ -35,10 +42,10 @@ model Window "Multipane window"
       Placement(transformation(
         extent={{20,-20},{-20,20}},
         rotation=-90,
-        origin={-30,-110}), iconTransformation(
+        origin={-50,-110}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-30,-100})));
+        origin={-40,-100})));
 
 protected
   IDEAS.Buildings.Components.BaseClasses.MultiLayerLucent layMul(
@@ -52,8 +59,10 @@ protected
          - frac))
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvectionWindow iCon(final A=
-        A*(1 - frac), final inc=inc)
+  BaseClasses.InteriorConvection                                  iCon(final A=
+        A*(1 - frac), final inc=inc,
+    linearise=linearise,
+    dT_nominal=dT_nominal)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation skyRad(final A=A
@@ -95,11 +104,46 @@ public
     lat=sim.lat)
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Modelica.Blocks.Math.Gain gainDir(k=A*(1 - frac))
-    annotation (Placement(transformation(extent={{-70,-52},{-62,-44}})));
+    annotation (Placement(transformation(extent={{-70,-44},{-62,-36}})));
   Modelica.Blocks.Math.Gain gainDif(k=A*(1 - frac))
-    annotation (Placement(transformation(extent={{-70,-62},{-62,-54}})));
+    annotation (Placement(transformation(extent={{-70,-56},{-62,-48}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
+  replaceable IDEAS.Buildings.Components.Shading.None shaType2 constrainedby
+    Interfaces.StateShading(final azi=azi) "Second shading type"
+                                                          annotation (Placement(transformation(extent={{-28,-70},
+            {-18,-50}})),
+      __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
+  Modelica.Blocks.Interfaces.RealInput Ctrl2 if shaType2.controlled
+    "Control signal for second shading object, between 0 and 1, i.e. 1 is fully closed"
+                                                             annotation (
+      Placement(transformation(
+        extent={{20,-20},{-20,20}},
+        rotation=-90,
+        origin={-22,-110}), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={-34,-100})));
+protected
+  Modelica.Blocks.Sources.RealExpression Qgai(y=-(skyRad.port_a.Q_flow + eCon.port_a.Q_flow
+         + skyRadFra.port_a.Q_flow + eConFra.port_a.Q_flow + sum(solWin.iSolAbs.Q_flow)
+         + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow)) if
+                                                           sim.computeConservationOfEnergy
+    "Heat gains in model"
+    annotation (Placement(transformation(extent={{-116,40},{-96,60}})));
+protected
+  Modelica.Blocks.Sources.RealExpression E1(y=0) if        sim.computeConservationOfEnergy
+    "Internal energy model"
+    annotation (Placement(transformation(extent={{-116,60},{-96,80}})));
+public
+  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if  sim.computeConservationOfEnergy
+    "Component for computing conservation of energy"
+    annotation (Placement(transformation(extent={{-86,60},{-66,80}})));
+public
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
+                                                                                   sim.computeConservationOfEnergy
+    "Component for computing conservation of energy"
+    annotation (Placement(transformation(extent={{-86,40},{-66,60}})));
 initial equation
   QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
@@ -113,11 +157,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolDir, propsBus_a.iSolDir) annotation (Line(
-      points={{-2,-70},{-2,-80},{50,-80},{50,40}},
+      points={{-2,-70},{-2,-80},{50.1,-80},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolDif, propsBus_a.iSolDif) annotation (Line(
-      points={{2,-70},{0,-70},{0,-80},{50,-80},{50,40}},
+      points={{2,-70},{2,-80},{50.1,-80},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolAbs, layMul.port_gain) annotation (Line(
@@ -130,35 +174,23 @@ equation
       smooth=Smooth.None));
 
   connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
-      points={{10,-30},{16,-30},{16,40},{50,40}},
+      points={{10,-30},{16,-30},{16,39.9},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(iCon.port_b, propsBus_a.surfCon) annotation (Line(
-      points={{40,-30},{46,-30},{46,40},{50,40}},
+      points={{40,-30},{46,-30},{46,39.9},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_b, iCon.port_a) annotation (Line(
       points={{10,-30},{20,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(shaType.iSolDir, solWin.solDir) annotation (Line(
-      points={{-26,-54},{-10,-54}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(shaType.iSolDif, solWin.solDif) annotation (Line(
-      points={{-26,-58},{-10,-58}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(shaType.iAngInc, solWin.angInc) annotation (Line(
-      points={{-26,-66},{-10,-66}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(shaType.Ctrl, Ctrl) annotation (Line(
-      points={{-31,-70},{-30,-70},{-30,-110}},
+      points={{-45,-70},{-50,-70},{-50,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(iConFra.port_b, propsBus_a.surfCon) annotation (Line(
-      points={{40,80},{44,80},{44,40},{50,40}},
+      points={{40,80},{44,80},{44,39.9},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layFra.port_b, iConFra.port_a) annotation (Line(
@@ -178,64 +210,64 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
-      points={{10,-26},{14,-26},{14,40},{50,40}},
+      points={{10,-26},{14,-26},{14,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
-      points={{10,-22},{12,-22},{12,40},{50,40}},
+      points={{10,-22},{12,-22},{12,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBus_a.area) annotation (Line(
-      points={{0,-20},{0,40},{50,40}},
+      points={{0,-20},{0,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
-      points={{11,50},{24,50},{24,40},{50,40}},
+      points={{11,50},{24,50},{24,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(radSolData.angInc, shaType.angInc) annotation (Line(
-      points={{-79.4,-64},{-36,-64}},
+      points={{-79.4,-64},{-50,-64}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.angAzi, shaType.angAzi) annotation (Line(
-      points={{-79.4,-68},{-36,-68}},
+      points={{-79.4,-68},{-50,-68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.angZen, shaType.angZen) annotation (Line(
-      points={{-79.4,-66},{-36,-66}},
+      points={{-79.4,-66},{-50,-66}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
-      points={{-80,-52},{-78,-52},{-78,40},{50,40}},
+      points={{-80,-52},{-78,-52},{-78,39.9},{50.1,39.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(shaType.solDif, gainDif.y) annotation (Line(
-      points={{-36,-58},{-61.6,-58}},
+      points={{-50,-58},{-56,-58},{-56,-52},{-61.6,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gainDif.u, radSolData.solDif) annotation (Line(
-      points={{-70.8,-58},{-76,-58},{-76,-60},{-79.4,-60}},
+      points={{-70.8,-52},{-76,-52},{-76,-60},{-79.4,-60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.solDir, gainDir.u) annotation (Line(
-      points={{-79.4,-58},{-76,-58},{-76,-48},{-70.8,-48}},
+      points={{-79.4,-58},{-76,-58},{-76,-40},{-70.8,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gainDir.y, shaType.solDir) annotation (Line(
-      points={{-61.6,-48},{-36,-48},{-36,-54}},
+      points={{-61.6,-40},{-50,-40},{-50,-54}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.Tenv, skyRad.Tenv) annotation (Line(
@@ -255,17 +287,46 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(eCon.Te, propsBus_a.weaBus.Te) annotation (Line(
-      points={{-20,-34.8},{50,-34.8},{50,40}},
+      points={{-20,-34.8},{50.1,-34.8},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eCon.hConExt, propsBus_a.weaBus.hConExt) annotation (Line(
-      points={{-20,-39},{50,-39},{50,40}},
+      points={{-20,-39},{50.1,-39},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBus_a.weaBus.Tdes) annotation (Line(
-      points={{58,80},{50,80},{50,40}},
+      points={{58,80},{50.1,80},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(shaType.iSolDir,shaType2. solDir)
+    annotation (Line(points={{-40,-54},{-28,-54}}, color={0,0,127}));
+  connect(shaType2.solDif, shaType.iSolDif)
+    annotation (Line(points={{-28,-58},{-28,-58},{-40,-58}}, color={0,0,127}));
+  connect(shaType.iAngInc, shaType2.angInc)
+    annotation (Line(points={{-40,-64},{-28,-64}}, color={0,0,127}));
+  connect(shaType2.angZen, radSolData.angZen) annotation (Line(points={{-28,-66},
+          {-28,-66},{-79.4,-66}},           color={0,0,127}));
+  connect(shaType2.angAzi, radSolData.angAzi) annotation (Line(points={{-28,-68},
+          {-28,-68},{-79.4,-68}},   color={0,0,127}));
+  connect(shaType2.Ctrl,Ctrl2)  annotation (Line(
+      points={{-23,-70},{-22,-70},{-22,-110}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(shaType2.iSolDir, solWin.solDir)
+    annotation (Line(points={{-18,-54},{-10,-54}}, color={0,0,127}));
+  connect(shaType2.iSolDif, solWin.solDif)
+    annotation (Line(points={{-18,-58},{-10,-58}}, color={0,0,127}));
+  connect(shaType2.iAngInc, solWin.angInc) annotation (Line(points={{-18,-64},{
+          -14,-64},{-14,-66},{-10,-66}}, color={0,0,127}));
+  connect(Qgai.y,prescribedHeatFlowQgai. Q_flow)
+    annotation (Line(points={{-95,50},{-92,50},{-90,50},{-86,50}},
+                                              color={0,0,127}));
+  connect(prescribedHeatFlowE.port, propsBus_a.E) annotation (Line(points={{-66,70},
+          {-52,70},{-52,39.9},{50.1,39.9}},   color={191,0,0}));
+  connect(prescribedHeatFlowQgai.port, propsBus_a.Qgai)
+    annotation (Line(points={{-66,50},{50.1,50},{50.1,39.9}},color={191,0,0}));
+  connect(E1.y, prescribedHeatFlowE.E)
+    annotation (Line(points={{-95,70},{-90.5,70},{-86,70}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
@@ -298,7 +359,7 @@ equation
           thickness=0.5,
           smooth=Smooth.None)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>
@@ -314,6 +375,10 @@ equation
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
 <li>
 February 10, 2015 by Filip Jorissen:<br/>
 Adjusted implementation for grouping of solar calculations.

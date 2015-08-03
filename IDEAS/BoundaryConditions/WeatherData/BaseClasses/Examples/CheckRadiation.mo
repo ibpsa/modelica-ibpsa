@@ -1,7 +1,7 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckRadiation "Test model for CheckRadiation"
-  import IDEAS;
-  extends ConvertRadiation;
+  extends
+    IDEAS.BoundaryConditions.WeatherData.BaseClasses.Examples.ConvertRadiation;
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation cheGloRad
     "Check global horizontal radiation"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
@@ -18,9 +18,22 @@ equation
       points={{41,-10},{58,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  annotation (
+  Documentation(info="<html>
+<p>
+This example tests the model that constrains the radiation.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+July 14, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
 experiment(StopTime=8640000),
 __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckRadiation.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/CheckRadiation.mos"
         "Simulate and plot"));
 end CheckRadiation;

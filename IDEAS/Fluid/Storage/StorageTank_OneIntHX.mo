@@ -1,10 +1,10 @@
 within IDEAS.Fluid.Storage;
 model StorageTank_OneIntHX
   "1D multinode stratified storage tank with one internal heat exchanger (HX)"
-  replaceable package MediumHX = IDEAS.Media.Water.Simple constrainedby
+  replaceable package MediumHX = IDEAS.Media.Water constrainedby
     Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
-  replaceable package Medium = IDEAS.Media.Water.Simple constrainedby
+  replaceable package Medium = IDEAS.Media.Water constrainedby
     Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);
   //Tank geometry and composition

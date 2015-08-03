@@ -9,10 +9,11 @@ protected
  Integer nexInd "Next index, used for error handling";
  String element "String representation of the returned element";
 algorithm
-  element := getHeaderElementTMY3(
+  element :=
+    IDEAS.BoundaryConditions.WeatherData.BaseClasses.getHeaderElementTMY3(
       filNam=filNam,
       start="#LOCATION",
-      name="longitude",
+      name=  "longitude",
       position=7);
    (nexInd, lat) :=Modelica.Utilities.Strings.Advanced.scanReal(
     string=element,

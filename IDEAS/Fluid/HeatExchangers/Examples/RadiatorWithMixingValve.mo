@@ -109,5 +109,8 @@ equation
 Annex60 compatibility
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/RadiatorWithMixingValve.mos"
+        "Simulate and plot"));
 end RadiatorWithMixingValve;

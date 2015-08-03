@@ -1,8 +1,7 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses;
 block CheckCeilingHeight
   "Ensures that the ceiling height is above a lower bound"
-
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput ceiHeiIn(final quantity="Height", final unit=
            "m") "Input ceiling height"
@@ -12,11 +11,10 @@ public
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   constant Modelica.SIunits.Height ceiHeiMin=0 "Minimum allowed ceiling height";
 equation
-
   ceiHeiOut = IDEAS.Utilities.Math.Functions.smoothMax(
-      ceiHeiIn,
-      ceiHeiMin,
-      0.1);
+    ceiHeiIn,
+    ceiHeiMin,
+    0.1);
 
   annotation (
     defaultComponentName="cheCeiHei",
@@ -24,8 +22,7 @@ equation
 <p>
 This component ensures that the ceiling height is at least <i>0</i> meters.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 July 14, 2010, by Wangda Zuo:<br/>
@@ -33,8 +30,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-28,42},{26,-34}},

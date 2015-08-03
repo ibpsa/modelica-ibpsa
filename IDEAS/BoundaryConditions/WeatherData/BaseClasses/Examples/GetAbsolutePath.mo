@@ -2,10 +2,10 @@ within IDEAS.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model GetAbsolutePath "Test model to get the absolute path of a URI"
   extends Modelica.Icons.Example;
   parameter String f[:] = {"file://legal.html",
-                           "modelica://Buildings/legal.html",
+                           "modelica://IDEAS/legal.html",
                            "legal.html"} "Name of a file that exists";
   parameter String fAbs[:]=
-    getAbsolutePath(                                                     uri=f)
+    IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(uri=f)
     "Absolute path of f";
   final parameter Integer dummy = size(f, 1)
     "Dummy variable, used have a result needed for the unit tests";
@@ -16,10 +16,12 @@ initial algorithm
 
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAbsolutePath.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAbsolutePath.mos"
         "Simulate and plot"),
     Documentation(info="<html>
+<p>
 This model tests the function that gets the absolute path of a URI.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

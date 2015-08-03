@@ -1,6 +1,7 @@
 UsersGuide
 PartialSimInfoManager
 SimInfoManager
+Airflow
 BoundaryConditions
 Buildings
 Climate
@@ -14,6 +15,7 @@ Media
 Occupants
 Utilities
 VentilationSystems
+Types
 Examples
 Experimental
 Interfaces

@@ -16,6 +16,8 @@ model MonoLayerOpaqueNf "Non-fictive single material layer"
   final parameter Modelica.SIunits.ThermalConductance G = (A*mat.k*nSta)/mat.d;
   final parameter Modelica.SIunits.HeatCapacity C = (A*mat.rho*mat.c*mat.d)/nSta;
 
+  Modelica.Blocks.Interfaces.RealOutput E(unit="J") = sum(T)*C;
+
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));

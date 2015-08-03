@@ -33,7 +33,7 @@ model RadSolData "Selects or generates correct solar data for this surface"
   Modelica.Blocks.Interfaces.RealOutput solDif
     annotation (Placement(transformation(extent={{96,-10},{116,10}})));
 
-  input BoundaryConditions.WeatherData.Bus
+  input IDEAS.Buildings.Components.Interfaces.WeaBus
                                      weaBus(numSolBus=numAzi + 1)
     annotation (HideResults=true,Placement(transformation(extent={{90,70},{110,90}})));
 
@@ -69,33 +69,33 @@ equation
       smooth=Smooth.None));
       if solDataInBus then
   connect(weaBus.solBus[solDataIndex], solBusDummy1) annotation (Line(
-      points={{100,80},{102,80},{102,30},{-58,30}},
+      points={{100.05,80.05},{102,80.05},{102,30},{-58,30}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
       end if;
   connect(solDir, solBusDummy1.iSolDir) annotation (Line(
-      points={{106,20},{24,20},{24,30},{-58,30}},
+      points={{106,20},{24,20},{24,30.1},{-57.9,30.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solDif, solBusDummy1.iSolDif) annotation (Line(
-      points={{106,0},{30,0},{30,2},{-58,2},{-58,30}},
+      points={{106,0},{30,0},{30,2},{-57.9,2},{-57.9,30.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tenv, solBusDummy1.Tenv) annotation (Line(
-      points={{106,-20},{46,-20},{46,-16},{-58,-16},{-58,30}},
+      points={{106,-20},{46,-20},{46,-16},{-57.9,-16},{-57.9,30.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angInc, solBusDummy1.angInc) annotation (Line(
-      points={{106,-40},{46,-40},{46,-42},{-58,-42},{-58,30}},
+      points={{106,-40},{46,-40},{46,-42},{-57.9,-42},{-57.9,30.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angZen, solBusDummy1.angZen) annotation (Line(
-      points={{106,-60},{-58,-60},{-58,30}},
+      points={{106,-60},{-57.9,-60},{-57.9,30.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(angAzi, solBusDummy1.angAzi) annotation (Line(
-      points={{106,-80},{-58,-80},{-58,30}},
+      points={{106,-80},{-57.9,-80},{-57.9,30.1}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

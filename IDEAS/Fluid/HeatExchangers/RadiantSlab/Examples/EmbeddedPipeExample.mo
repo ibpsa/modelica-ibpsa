@@ -1,7 +1,7 @@
 within IDEAS.Fluid.HeatExchangers.RadiantSlab.Examples;
 model EmbeddedPipeExample
   extends Modelica.Icons.Example;
-  replaceable package Medium = IDEAS.Media.Water.Simple;
+  replaceable package Medium = IDEAS.Media.Water;
 
   IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe embeddedPipe(
     redeclare package Medium = Medium,

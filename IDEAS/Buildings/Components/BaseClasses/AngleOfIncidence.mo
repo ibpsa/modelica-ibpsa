@@ -7,7 +7,7 @@ model AngleOfIncidence "angle of incidence"
     "angle of incidence in degrees for lookup table"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-algorithm
-  angIncDeg := Modelica.SIunits.Conversions.to_deg(angInc);
+equation
+  angIncDeg = Modelica.SIunits.Conversions.to_deg(angInc);
 
 end AngleOfIncidence;

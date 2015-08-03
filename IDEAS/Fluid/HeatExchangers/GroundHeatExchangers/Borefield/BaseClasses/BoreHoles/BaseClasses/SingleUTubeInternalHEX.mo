@@ -18,7 +18,6 @@ model SingleUTubeInternalHEX
       final energyDynamics=energyDynamics,
       final massDynamics=massDynamics,
       final prescribedHeatFlowRate=false,
-      final allowFlowReversal=allowFlowReversal1,
       final m_flow_small=m1_flow_small,
       V=gen.volOneLegSeg*scaSeg),
     redeclare IDEAS.Fluid.MixingVolumes.MixingVolume vol2(
