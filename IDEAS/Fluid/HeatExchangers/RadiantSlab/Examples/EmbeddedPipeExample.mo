@@ -1,7 +1,7 @@
 within IDEAS.Fluid.HeatExchangers.RadiantSlab.Examples;
 model EmbeddedPipeExample
   extends Modelica.Icons.Example;
-  replaceable package Medium = IDEAS.Media.Water;
+  package Medium = IDEAS.Media.Water;
 
   IDEAS.Fluid.HeatExchangers.RadiantSlab.EmbeddedPipe embeddedPipe(
     redeclare package Medium = Medium,
@@ -14,7 +14,8 @@ model EmbeddedPipeExample
     computeFlowResistance=true,
     m_flowMin=0.2,
     nDiscr=2,
-    R_c=0.05)
+    R_c=0.05,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Sources.MassFlowSource_T boundary(
     nPorts=1,
@@ -36,7 +37,8 @@ model EmbeddedPipeExample
     period=5000)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Sensors.TemperatureTwoPort senTem(redeclare package Medium = Medium,
-      m_flow_nominal=1)
+      m_flow_nominal=1,
+    initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResistor(R=
         embeddedPipe.R_c/embeddedPipe.A_floor*embeddedPipe.nDiscr) annotation (
@@ -88,6 +90,6 @@ equation
     experiment(StopTime=10000),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
-          "modelica://Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlab/Examples/EmbeddedPipeExample.mos"
+          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlab/Examples/EmbeddedPipeExample.mos"
         "Simulate and plot"));
 end EmbeddedPipeExample;
