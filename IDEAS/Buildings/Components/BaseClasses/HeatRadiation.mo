@@ -3,22 +3,32 @@ model HeatRadiation "radiative heat exchange between two temperatures"
 
   input Real R "heat resistance for longwave radiative heat exchange";
 
-  parameter Boolean linear=true;
+  parameter Boolean linearise = true "Linearise radiative heat transfer"
+    annotation(Evaluate=true, Dialog(group="Linearisation"));
+  parameter Modelica.SIunits.Temperature Tzone_nom = 295.15
+    "Nominal temperature of environment"
+    annotation(Dialog(group="Linearisation", enable=linearise));
+  parameter Modelica.SIunits.TemperatureDifference dT_nom = -2
+    "Nominal temperature difference between wall and zone"
+    annotation(Dialog(group="Linearisation", enable=linearise));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=293.15))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=293.15))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.SIunits.TemperatureDifference dT=port_a.T - port_b.T;
+
+protected
+  Real coeffLin = Modelica.Constants.sigma/R*(2*Tzone_nom+dT_nom)*(Tzone_nom^2+(Tzone_nom+dT_nom)^2)
+    "Coefficient allowing less overhead";
+  Real coeffNonLin = Modelica.Constants.sigma/R
+    "Coefficient allowing less overhead";
 
 equation
-  port_a.Q_flow = -port_b.Q_flow;
-
-  if linear then
-    port_a.Q_flow = 5.67*dT/R;
+  port_a.Q_flow+port_b.Q_flow=0;
+  if linearise then
+    port_a.Q_flow = coeffLin*(port_a.T - port_b.T);
   else
-    port_a.Q_flow = Modelica.Constants.sigma/R*dT*(port_a.T + port_b.T)*(port_a.T^2 + port_b.T^2);
-
+    port_a.Q_flow = coeffNonLin*(port_a.T^4 - port_b.T^4);
   end if;
   annotation (Icon(graphics={Line(points={{-40,10},{40,10}}, color={191,0,0}),
           Line(points={{-40,10},{-30,16}}, color={191,0,0}),Line(points={{-40,
