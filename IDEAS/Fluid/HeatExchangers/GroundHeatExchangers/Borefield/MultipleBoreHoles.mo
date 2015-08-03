@@ -1,13 +1,12 @@
-﻿within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
+within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield;
 model MultipleBoreHoles
   "Calculates the average fluid temperature T_fts of the borefield for a given (time dependent) load Q_flow"
-  import Buildings;
 
   // Medium in borefield
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     m_flow_nominal=bfData.m_flow_nominal,
     redeclare package Medium =
-        IDEAS.Media.Water.Simple,
+        IDEAS.Media.Water,
     final allowFlowReversal=false);
 
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start = bfData.gen.T_start);

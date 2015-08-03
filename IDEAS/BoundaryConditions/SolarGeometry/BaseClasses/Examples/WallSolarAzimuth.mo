@@ -1,6 +1,5 @@
 within IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model WallSolarAzimuth "Test model for wall solar azimuth angle"
-  import IDEAS;
 extends Modelica.Icons.Example;
   IDEAS.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
     azi=0,
@@ -8,13 +7,13 @@ extends Modelica.Icons.Example;
     til=1.5707963267949) "solar incidence angle"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   IDEAS.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
     annotation (Placement(transformation(extent={{-72,-2},{-48,22}})));
-  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth walSolAzi
-    "Vertical wall solar azimuth angle"           annotation (Placement(transformation(extent={{70,0},{90,20}})));
+  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth
+    walSolAzi "Vertical wall solar azimuth angle" annotation (Placement(transformation(extent={{70,0},{90,20}})));
   IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle altAng
     "Altitude angle"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
@@ -42,7 +41,7 @@ equation
       points={{1,30},{60,30},{60,14.8},{68,14.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.sol.zen, altAng.zen) annotation (Line(
+  connect(weaBus.solZen, altAng.zen) annotation (Line(
       points={{-60,10},{-40,10},{-40,30},{-22,30}},
       color={255,204,51},
       thickness=0.5,
@@ -50,10 +49,8 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (                                                         Diagram(
-        graphics),
-experiment(StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/WallSolarAzimuth.mos"
+  annotation (experiment(StopTime=86400),
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/WallSolarAzimuth.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>

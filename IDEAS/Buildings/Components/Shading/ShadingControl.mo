@@ -14,6 +14,7 @@ model ShadingControl "shading control based on irradiation"
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 equation
+
   hyst.u = irr;
   hyst.y = y;
 

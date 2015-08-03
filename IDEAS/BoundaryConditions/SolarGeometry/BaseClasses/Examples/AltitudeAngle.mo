@@ -1,6 +1,5 @@
 within IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model AltitudeAngle "Test model for altitude angle"
-  import IDEAS;
   extends Modelica.Icons.Example;
   IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(lat=
         0.73268921998722) "Zenith angle"
@@ -8,11 +7,10 @@ model AltitudeAngle "Test model for altitude angle"
   IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle solHouAng
-    "Solar hour angle"
+  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
+    solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+  IDEAS.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   IDEAS.BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
@@ -59,9 +57,8 @@ equation
           1.27676e-15},{61.5,6.66134e-16},{66,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-experiment(StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/AltitudeAngle.mos"
+  annotation (experiment(StopTime=86400),
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/AltitudeAngle.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
@@ -73,13 +70,13 @@ Components used in this model are:
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination</a>
+<a href=\"modelica://IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.Declination\">IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.Declination</a>
 </li>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle</a>
+<a href=\"modelica://IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle\">IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle</a>
 </li>
 <li>
-<a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle</a>
+<a href=\"modelica://IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle\">IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle</a>
 </li>
 </ul>
 <br/>

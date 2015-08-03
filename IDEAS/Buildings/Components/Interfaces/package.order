@@ -4,3 +4,6 @@ StateWall
 StateWallNoSol
 StateZone
 ZoneBus
+SolBus
+WeaBus
+DoubleShading

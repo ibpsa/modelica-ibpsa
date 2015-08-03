@@ -1,9 +1,8 @@
 within IDEAS.Buildings.Components;
 model Zone "thermal building zone"
-
-  extends IDEAS.Buildings.Components.Interfaces.StateZone;
+  extends IDEAS.Buildings.Components.Interfaces.StateZone(Eexpr(y=E));
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
-      Medium = IDEAS.Experimental.Media.AirPTDecoupled);
+      Medium = IDEAS.Media.Air);
 
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
@@ -36,11 +35,12 @@ model Zone "thermal building zone"
 
   Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
     "Total design transmission heat losses for the zone";
-  final parameter Modelica.SIunits.Power Q_design( fixed=false)
+  final parameter Modelica.SIunits.Power Q_design(fixed=false)
     "Total design heat losses for the zone";
 
   Modelica.SIunits.Temperature TAir=senTem.T;
   Modelica.SIunits.Temperature TStar=radDistr.TRad;
+  Modelica.SIunits.Energy E = vol.dynBal.U;
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(final
@@ -84,11 +84,7 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-10,30})));
-public
-  Fluid.Interfaces.FlowPort_b flowPort_Out(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
-  Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{10,90},{30,110}})));
+
 protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
@@ -111,9 +107,6 @@ equation
       smooth=Smooth.None));
   connect(propsBus[:].surfRad, radDistr.radSurfTot) annotation (Line(
       points={{-100,40},{-74,40},{-74,-26},{-54,-26},{-54,-34}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
   connect(summation.y, TSensor) annotation (Line(
       points={{12.6,-60},{59.3,-60},{59.3,0},{106,0}},
       color={0,0,127},
@@ -124,7 +117,7 @@ equation
       smooth=Smooth.None));
 
   connect(propsBus.area, radDistr.area) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-40},{-64,-40}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-40},{-64,-40}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -132,14 +125,14 @@ equation
       extent={{-6,3},{-6,3}}));
 
   connect(propsBus.area, radDistrLw.A) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-14},{-64,-14}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-14},{-64,-14}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, radDistrLw.epsLw) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-10},{-64,-10}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-10},{-64,-10}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -160,14 +153,14 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, radDistr.epsLw) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-44},{-64,-44}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-44},{-64,-44}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsSw, radDistr.epsSw) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-48},{-64,-48}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-48},{-64,-48}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -180,15 +173,15 @@ equation
 
 for i in 1:nSurf loop
   connect(radDistr.iSolDir, propsBus[i].iSolDir) annotation (Line(
-      points={{-58,-54},{-58,-80},{-100,-80},{-100,40}},
+      points={{-58,-54},{-58,-80},{-100.1,-80},{-100.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(radDistr.iSolDif, propsBus[i].iSolDif) annotation (Line(
-      points={{-54,-54},{-54,-76},{-100,-76},{-100,40}},
+      points={{-54,-54},{-54,-76},{-100.1,-76},{-100.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(propsBus[i].surfCon, vol.heatPort) annotation (Line(
-      points={{-100,40},{-46,40},{-46,12},{10,12},{10,30},{4.44089e-16,30}},
+      points={{-100.1,39.9},{-46,39.9},{-46,12},{10,12},{10,30},{4.44089e-16,30}},
       color={191,0,0},
       smooth=Smooth.None));
 end for;
@@ -274,5 +267,5 @@ Added view factor implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics));
+            100}})));
 end Zone;

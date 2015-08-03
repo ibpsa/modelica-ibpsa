@@ -10,9 +10,7 @@ equation
   // Check the implementation of the base properties
   basPro.state.p=p;
   basPro.state.T=T;
-   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
-experiment(StopTime=1),
+   annotation(experiment(StopTime=1),
 __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Media/Examples/WaterProperties.mos"
         "Simulate and plot"),
       Documentation(info="<html>

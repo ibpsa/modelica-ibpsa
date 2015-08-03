@@ -8,9 +8,11 @@ HeatRadiation
 InteriorConvection
 InteriorConvectionWindow
 MixedAir
+MonoLayerGround
 MonoLayerLucent
 MonoLayerOpaque
 MonoLayerOpaqueNf
+MultiLayerGround
 MultiLayerLucent
 MultiLayerOpaque
 SwWindowResponse
@@ -20,3 +22,5 @@ viewFactorRectRectPar
 ZoneLwDistributionViewFactor
 ZoneLwDistribution
 ZoneLwGainDistribution
+EnergyPort
+PrescribedEnergy
