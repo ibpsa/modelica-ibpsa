@@ -12,6 +12,8 @@ model MonoLayerOpaque "single material layer"
 
   final parameter Boolean notFictive = (mat.d <> 0);
 
+  Modelica.SIunits.Energy E = E_internal;
+
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -20,7 +22,15 @@ public
 
   MonoLayerOpaqueNf monoLayerOpaqueNf(A=A, mat=mat, inc=inc, T_start=T_start) if notFictive
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+
+protected
+  Modelica.Blocks.Interfaces.RealInput E_internal;
+
 equation
+  connect(E_internal, monoLayerOpaqueNf.E);
+  if not notFictive then
+    E_internal=0;
+  end if;
   connect(port_a, monoLayerOpaqueNf.port_a) annotation (Line(
       points={{-100,0},{-56,0},{-56,-40},{-10,-40}},
       color={191,0,0},

@@ -65,6 +65,7 @@ model HeatExchanger
 
   IDEAS.Fluid.Sensors.TemperatureTwoPort senTemRet1(
     redeclare package Medium =Medium,
+    tau=tauTSensor,
     m_flow_nominal=m_flow_nominal)
     "Return temperature measurement of the primary side"
     annotation (Placement(transformation(extent={{-50,6},{-30,26}})));
@@ -79,6 +80,9 @@ model HeatExchanger
     UA=UA,
     m=m/2,
     dp_nominal=dp,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    dynamicBalance=dynamicBalance,
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium) if includePipes
     "Supply pipe on the secondary side" annotation (Placement(transformation(
@@ -89,6 +93,9 @@ model HeatExchanger
     UA=UA,
     m=m/2,
     dp_nominal=dp,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    dynamicBalance=dynamicBalance,
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium) if includePipes
     "Supply pipe on the secondary side" annotation (Placement(transformation(

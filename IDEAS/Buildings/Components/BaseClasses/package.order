@@ -19,3 +19,5 @@ SwWindowResponse
 ThermalResistor
 ZoneLwDistribution
 ZoneLwGainDistribution
+EnergyPort
+PrescribedEnergy

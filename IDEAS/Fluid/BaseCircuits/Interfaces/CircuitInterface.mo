@@ -11,9 +11,11 @@ partial model CircuitInterface "Partial circuit for base circuits"
     redeclare package Medium2 = Medium,
     final allowFlowReversal1 = allowFlowReversal,
     final allowFlowReversal2 = allowFlowReversal);
-  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);
 
   //Parameters
+  parameter Integer tauTSensor = 120 "Time constant of the temperature sensors";
 
   //----Settings
   parameter Boolean includePipes=false
@@ -81,8 +83,12 @@ protected
     UA=UA,
     m=m/2,
     dp_nominal=dp,
+    energyDynamics=energyDynamics,
+    dynamicBalance=dynamicBalance,
     m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium) if includePipes
+    redeclare package Medium = Medium,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if
+                                          includePipes
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -91,21 +97,26 @@ protected
     UA=UA,
     dp_nominal=dp,
     m=m/2,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    dynamicBalance=dynamicBalance,
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium) if includePipes
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,-60})),                                            choicesAllMatching=true);
-  Sensors.TemperatureTwoPort senTemSup(m_flow_nominal=m_flow_nominal,
-      redeclare package Medium = Medium) if
-                                       measureSupplyT
+  Sensors.TemperatureTwoPort senTemSup(
+    m_flow_nominal=m_flow_nominal,
+    tau=tauTSensor,
+    redeclare package Medium = Medium) if measureSupplyT
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Sensors.TemperatureTwoPort senTemRet(m_flow_nominal=m_flow_nominal,
-      redeclare package Medium = Medium) if
-                                       measureReturnT
+  Sensors.TemperatureTwoPort senTemRet(
+    m_flow_nominal=m_flow_nominal,
+    tau=tauTSensor,
+    redeclare package Medium = Medium) if measureReturnT
     annotation (Placement(transformation(extent={{-60,-50},{-80,-70}})));
-equation
 
+equation
   connect(port_a1, pipeSupply.port_a) annotation (Line(
       points={{-100,60},{-90,60}},
       color={0,127,255},

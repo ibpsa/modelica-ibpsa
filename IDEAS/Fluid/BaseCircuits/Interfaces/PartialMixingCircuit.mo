@@ -20,6 +20,9 @@ protected
   replaceable IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve partialThreeWayValve
   constrainedby IDEAS.Fluid.Actuators.BaseClasses.PartialThreeWayValve(
     redeclare package Medium = Medium,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    dynamicBalance=dynamicBalance,
     final CvData=IDEAS.Fluid.Types.CvTypes.Kv,
     final Kv=KvSupply,
     final deltaM=deltaMSupply,

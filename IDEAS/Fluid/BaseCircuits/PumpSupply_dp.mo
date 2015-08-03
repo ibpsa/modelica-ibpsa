@@ -1,15 +1,26 @@
 within IDEAS.Fluid.BaseCircuits;
 model PumpSupply_dp
 
+  //Parameters
+  parameter Boolean filteredSpeed=true
+    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+  parameter Modelica.SIunits.Time riseTime=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+
   //Extensions
   extends Interfaces.PartialPumpCircuit(redeclare Movers.FlowMachine_dp
       flowRegulator(
+      filteredSpeed=filteredSpeed,
+      riseTime=riseTime,
+      init=init,
       massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      tau=120,
       motorCooledByFluid=false,
       addPowerToMedium=false,
-      filteredSpeed=true,
-      riseTime=120,
       allowFlowReversal=true),                  final useBalancingValve=true,
     balancingValve(show_T=true));
 

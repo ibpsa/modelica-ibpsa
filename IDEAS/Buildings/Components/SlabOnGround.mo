@@ -1,7 +1,9 @@
 within IDEAS.Buildings.Components;
 model SlabOnGround "opaque floor on ground slab"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(Qgai(y=layMul.port_a.Q_flow
+           + (if sim.openSystemConservationOfEnergy then 0 else port_emb.Q_flow)),
+      E(y=layMul.E));
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
   parameter Modelica.SIunits.Length PWall "Total wall perimeter";
@@ -46,7 +48,6 @@ protected
   final parameter Real Lpe=0.37*PWall*ground1.k*log(delta/dt + 1);
   parameter Integer m = 7;
 
-  //protected
 public
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     final A=AWall,
@@ -70,7 +71,6 @@ public
     final locGain=1)
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  //    nMat(T(start={{273.15},{273.15},{273.15}} + {{11.5},{12.2},{12.7}})))
   Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 public
@@ -79,15 +79,14 @@ public
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-30,-8})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
-                                                      fixedHeatFlow(T=273.15 +
-        12)
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15
+         + 12)
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   outer SimInfoManager sim "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
+  Modelica.Blocks.Sources.RealExpression QmExp(y=-Qm) "Real expression for Qm"
+    annotation (Placement(transformation(extent={{-80,-18},{-60,2}})));
 equation
-
-  periodicFlow.Q_flow = -Qm;
 
   connect(layMul.port_b, intCon.port_a) annotation (Line(
       points={{10,-30},{20,-30}},
@@ -114,7 +113,7 @@ equation
       points={{-10,-30},{-14,-30},{-14,-8},{-20,-8}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(fixedHeatFlow.port, layGro.port_a) annotation (Line(
+  connect(fixedTemperature.port, layGro.port_a) annotation (Line(
       points={{-50,-30},{-40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -146,6 +145,8 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(QmExp.y, periodicFlow.Q_flow)
+    annotation (Line(points={{-59,-8},{-40,-8}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
@@ -181,7 +182,7 @@ equation
           thickness=0.5,
           smooth=Smooth.None)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
 <p><h5>Goal</h5></p>
@@ -194,5 +195,12 @@ equation
 <p>Similar to the thermal model for heat transfer through a wall, a thermal circuit formulation for the direct radiant exchange between surfaces can be derived <a href=\"IDEAS.Buildings.UsersGuide.References\">[Buchberg 1955, Oppenheim 1956]</a>. The resulting heat exchange by longwave radiation between two surface s_{i} and s_{j} can be described as Q_{si,sj} = sigma.A_{si}.(T_{si}^{4}-T_{sj}^{4})/((1-e_{si})/e_{si} + 1/F_{si,sj} + A_{si}/sum(A_{si}) ) as derived from the Stefan-Boltzmann law wherefore e_{si} and e_{sj} are the emissivity of surfaces s_{i} and s_{j} respectively, F_{si,sj} is radiant-interchange configuration factor <a href=\"IDEAS.Buildings.UsersGuide.References\">[Hamilton 1952]</a> between surfaces s_{i} and s_{j} , A_{i} and A_{j} are the areas of surfaces s_{i} and s_{j} respectively, sigma is the Stefan-Boltzmann constant <a href=\"IDEAS.Buildings.UsersGuide.References\">[Mohr 2008]</a> and R_{i} and T_{j} are the surface temperature of surfaces s_{i} and s_{j} respectively. The above description of longwave radiation for a room or thermal zone results in the necessity of a very detailed input, i.e. the configuration between all surfaces needs to be described by their shape, position and orientation in order to define F_{si,sj}, and difficulties to introduce windows and internal gains in the zone of interest. Simplification is achieved by means of a delta-star transformation <a href=\"IDEAS.Buildings.UsersGuide.References\">[Kenelly 1899]</a> and by definition of a (fictive) radiant star node in the zone model. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. The heat exchange by longwave radiation between surface <img src=\"modelica://IDEAS/Images/equations/equation-Mjd7rCtc.png\"/> and the radiant star node in the zone model can be described as Q_{si,sj} = sigma.A_{si}.(T_{si}^{4}-T_{sr}^{4})/((1-e_{si})/e_{si} + A_{si}/sum(A_{si}) ) = sigma where e_{si} is the emissivity of surface s_{i}, A_{si} is the area of surface s_{i}, sum(A_{si}) is the sum of areas for all surfaces s_{i} of the thermal zone, sigma is the Stefan-Boltzmann constant <a href=\"IDEAS.Buildings.UsersGuide.References\">[Mohr 2008]</a> and T_{si} and T_{sr} are the temperatures of surfaces <img src=\"modelica://IDEAS/Images/equations/equation-olgnuMEg.png\"/> and the radiant star node respectively. Absorption of shortwave solar radiation on the interior surface is handled equally as for the outside surface. Determination of the receiving solar radiation on the interior surface after passing through windows is dealt with in the zone model.</p>
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
+</ul>
 </html>"));
 end SlabOnGround;
