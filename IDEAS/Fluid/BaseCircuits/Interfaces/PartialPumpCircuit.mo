@@ -5,6 +5,10 @@ model PartialPumpCircuit
 
   extends PartialFlowCircuit(redeclare Movers.BaseClasses.PartialFlowMachine
       flowRegulator(
+        tau=tauPump,
+        energyDynamics=energyDynamics,
+        massDynamics=massDynamics,
+        dynamicBalance=dynamicBalance,
         addPowerToMedium=addPowerToMedium));
 
   extends PumpParameters;
