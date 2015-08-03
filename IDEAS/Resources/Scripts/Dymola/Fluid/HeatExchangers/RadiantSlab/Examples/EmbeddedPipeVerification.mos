@@ -1,0 +1,7 @@
+simulateModel("IDEAS.Fluid.HeatExchangers.RadiantSlab.Examples.EmbeddedPipeVerification", stopTime=1, method="dassl", resultFile="IDEAS.Fluid.HeatExchangers.RadiantSlab.Examples.EmbeddedPipeVerification");
+createPlot(id=1, 
+position={0, 0, 1070, 835}, 
+y={"embeddedPipe.heatPortEmb[1].T", "embeddedPipe.heatPortEmb[2].T"}, 
+range={0.0, 1.0, 250.0, 315.0}, 
+grid=true, 
+colors={{28,108,200}, {238,46,47}});
