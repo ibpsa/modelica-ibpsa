@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components.Interfaces;
 partial model StateWallNoSol
   "Partial model for building envelope components without solar gains"
-
+  extends IDEAS.Buildings.Components.Interfaces.StateWall;
   parameter Modelica.SIunits.Length insulationThickness
     "Thermal insulation thickness"
     annotation (Dialog(group="Construction details"));
@@ -18,36 +18,24 @@ partial model StateWallNoSol
     __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-38,84},{-34,88}})),
     Dialog(group="Construction details"));
-  ZoneBus propsBus_a(numAzi=sim.numAzi, computeConservationOfEnergy=sim.computeConservationOfEnergy)
-    "Inner side (last layer)"
-                     annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={50,40}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=-90,
-        origin={50,40})));
+  parameter Modelica.SIunits.Area AWall "Total wall area";
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDir(Q_flow=0)
     annotation (Placement(transformation(extent={{80,54},{60,74}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif(Q_flow=0)
     annotation (Placement(transformation(extent={{80,72},{60,92}})));
-  outer SimInfoManager       sim
-    annotation (Placement(transformation(extent={{-66,78},{-46,98}})));
 protected
-  Modelica.Blocks.Sources.RealExpression E if              sim.computeConservationOfEnergy
-    "Internal energy model"
+  Modelica.Blocks.Sources.RealExpression E if
+       sim.computeConservationOfEnergy "Internal energy model"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-public
-  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if  sim.computeConservationOfEnergy
+  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if
+       sim.computeConservationOfEnergy
     "Component for computing conservation of energy"
     annotation (Placement(transformation(extent={{10,80},{30,100}})));
-protected
-  Modelica.Blocks.Sources.RealExpression Qgai if           sim.computeConservationOfEnergy
-    "Heat gains in model"
+  Modelica.Blocks.Sources.RealExpression Qgai if
+     sim.computeConservationOfEnergy "Heat gains in model"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-public
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
-                                                                                   sim.computeConservationOfEnergy
+     sim.computeConservationOfEnergy
     "Component for computing conservation of energy"
     annotation (Placement(transformation(extent={{10,60},{30,80}})));
 equation
