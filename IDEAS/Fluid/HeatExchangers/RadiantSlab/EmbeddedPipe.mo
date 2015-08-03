@@ -290,12 +290,30 @@ equation
           fillColor={95,95,95},
           fillPattern=FillPattern.Forward)}),
     Documentation(info="<html>
-<p>Dynamic model of an embedded pipe for a concrete core activation. This&nbsp;model&nbsp;is&nbsp;based&nbsp;on&nbsp;(Koschenz,&nbsp;2000).&nbsp; In addition the model provides the options to simulate the concrete core activation as if there were multiple parallel branches. </p>
+<p>
+Dynamic model of an embedded pipe for a concrete core activation. 
+This model is based on (Koschenz, 2000). 
+In addition the model provides the options to simulate the concrete 
+core activation as if there were multiple parallel branches. 
+This affects the pressure drop calculation and also the thermal calculations.
+</p>
 <h4>Assumptions and limitations</h4>
-<p>The model has a limited validity range. Its validity will be checked using assert statements. Possibly the discretization needs to be increased using parameter <code>nDiscr</code>.</p>
+<p>
+The model has a limited validity range. 
+Its validity will be checked using assert statements. 
+Possibly the discretization needs to be 
+increased using parameter <code>nDiscr</code>.
+An alternative is to increase <code>m_flow_min</code>, 
+but this limits the validity range of the model.
+</p>
 <h4>Typical use and important parameters</h4>
-<p>The embeddedPipe model is to be used together with an InternalWall component. Multiple InternalWalls may be required if the EmbeddedPipe is discretized (using <code>nDiscr</code>).</p>
-<p><br>The following parameters have to be set:</p>
+<p>
+The embeddedPipe model is to be used together with an InternalWall component. 
+Multiple InternalWalls may be required if the EmbeddedPipe is discretized (using <code>nDiscr</code>).
+</p>
+<p>
+Following parameters need to be set:
+</p>
 <ul>
 <li>RadSlaCha is a record with all the parameters of the geometry, materials and even number of discretization layers in the nakedTabs model.</li>
 <li>mFlow_min is used to check the validity of the operating conditions and is by default half of the nominal mass flow rate.</li>
@@ -305,9 +323,18 @@ equation
 <li><code>R_C</code> is the thermal resistivity from the center of the tabs to the zones. Note that the upper and lower resistivities need to be calculated as if they were in parallel. This parameter has a default value based on RadSlaCha but it may be improved if necessary. The impact of the value of this parameter on the model performance is low except in cases of very low mass flow rates.</li>
 </ul>
 <h4>Options</h4>
-<p>By default pressure drops are not calculated (<code>dp = 0</code>). These can be enabled by setting parameter <code>computeFlowResistance = true. </code>Pressure drops are then calculated by making an estimate of the total pipe length. This pressure drop can however still be a large underestimation of the real pressure drop. The used pipe lengths can be changed in the Pressure drop tab.</p>
+<p>
+By default pressure drops are not calculated (<code>dp = 0</code>). 
+These can be enabled by setting parameter <code>computeFlowResistance = true</code>. 
+Pressure drops are then calculated by default by making an estimate of the total pipe length. 
+This pressure drop can be a large underestimation of the real pressure drop. 
+The used pipe lengths can be changed in the Pressure drop tab.
+Parameter <code>dp_nominal</code> can be used to override the default calculation.
+</p>
 <h4>Validation </h4>
-<p>No validation has been performed.</p>
+<p>
+A limited verification has been performed in IDEAS.Fluid.HeatExchangers.RadiantSlab.Examples.EmbeddedPipeVerification.
+</p>
 <h4>References</h4>
 <p>[Koshenz, 2000] - Koschenz, Markus, and Beat Lehmann. 2000. <i>Thermoaktive Bauteilsysteme - Tabs</i>. D&uuml;bendorf: EMPA D&uuml;bendorf. </p>
 <p>[TRNSYS, 2007] - Multizone Building modeling with Type 56 and TRNBuild.</p>
