@@ -11,7 +11,7 @@ model EmbeddedPipe
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     computeFlowResistance=false,
-    final dp_nominal=Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
+    dp_nominal=Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
       m_flow=m_flow_nominal/nParCir,
       rho_a=rho_default,
       rho_b=rho_default,
@@ -101,35 +101,38 @@ annotation(Dialog(tab="Flow resistance"));
     each C_start=C_start,
     each C_nominal=C_nominal,
     each allowFlowReversal=allowFlowReversal,
-    each mFactor=mFactor,
-    each m_flow_small=m_flow_small)
+    each mSenFac=mSenFac,
+    each m_flow_small=m_flow_small,
+    each final prescribedHeatFlowRate=true,
+    each energyDynamics=energyDynamics,
+    each massDynamics=massDynamics)
     annotation (Placement(transformation(extent={{-50,0},{-70,20}})));
 
   IDEAS.Fluid.FixedResistances.ParallelFixedResistanceDpM res(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
-    nParCir=nParCir,
     final use_dh=true,
-    dh=pipeDiaInt,
-    ReC=reyHi,
     allowFlowReversal=allowFlowReversal,
     from_dp=from_dp,
     homotopyInitialization=homotopyInitialization,
     linearized=linearized,
     dp(nominal=L_r*10),
-    computeFlowResistance=computeFlowResistance)
+    computeFlowResistance=computeFlowResistance,
+    final nParCir=nParCir,
+    final dh=pipeDiaInt,
+    final ReC=reyHi)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   IDEAS.Fluid.Sensors.Temperature senTemIn(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,18},{-90,38}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nDiscr] heatFlowWater
-    annotation (Placement(transformation(extent={{-40,28},{-20,48}})));
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nDiscr] heatFlowSolid
-    annotation (Placement(transformation(extent={{-40,68},{-20,88}})));
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Modelica.Blocks.Math.Gain[nDiscr] negate(each k=-1)
-    annotation (Placement(transformation(extent={{-56,34},{-48,42}})));
+    annotation (Placement(transformation(extent={{-56,36},{-48,44}})));
   Modelica.Blocks.Sources.RealExpression[nDiscr] Q_tabs(y=Q)
-    annotation (Placement(transformation(extent={{-100,48},{-72,68}})));
+    annotation (Placement(transformation(extent={{-100,50},{-72,70}})));
 
 protected
   final parameter Modelica.SIunits.Length L_r=A_floor/RadSlaCha.T/nParCir
@@ -219,30 +222,29 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(heatFlowWater.port, vol.heatPort) annotation (Line(
-      points={{-20,38},{-20,10},{-50,10}},
+      points={{-20,40},{-20,10},{-50,10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatFlowWater.Q_flow, negate.y) annotation (Line(
-      points={{-40,38},{-47.6,38}},
+      points={{-40,40},{-47.6,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(negate.u, Q_tabs.y) annotation (Line(
-      points={{-56.8,38},{-60,38},{-60,58},{-70.6,58}},
+      points={{-56.8,40},{-60,40},{-60,60},{-70.6,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatFlowSolid.Q_flow, Q_tabs.y) annotation (Line(
-      points={{-40,78},{-60,78},{-60,58},{-70.6,58}},
+      points={{-40,80},{-60,80},{-60,60},{-70.6,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatFlowSolid.port, heatPortEmb) annotation (Line(
-      points={{-20,78},{0,78},{0,100}},
+      points={{-20,80},{0,80},{0,100}},
       color={191,0,0},
       smooth=Smooth.None));
 
    annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics),
+            100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
          graphics={
