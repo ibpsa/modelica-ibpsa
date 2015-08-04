@@ -1,8 +1,13 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Interface;
 partial model PartialSingleBoreHole "Single borehole heat exchanger"
+//   replaceable package Medium =
+//       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+//       annotation (choicesAllMatching = true);
   extends PartialBoreHoleElement;
   extends PartialTWall;
-  extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(m_flow_nominal = gen.m_flow_nominal_bh);
+   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(m_flow_nominal = gen.m_flow_nominal_bh);
+  //  (redeclare package
+//       Medium =                                                                                   Medium);
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
       computeFlowResistance=false, linearizeFlowResistance=false, dp_nominal=gen.dp_nominal);
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=gen.T_start);
