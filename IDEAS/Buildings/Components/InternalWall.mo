@@ -1,17 +1,14 @@
 within IDEAS.Buildings.Components;
 model InternalWall "interior opaque wall between two zones"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(E(y=layMul.E),
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(
+    final QTra_design=U_value*AWall*(TRef_a - TRef_b),
+    E(y=layMul.E),
       Qgai(y=if sim.openSystemConservationOfEnergy then 0 else port_emb.Q_flow));
 
   parameter Modelica.SIunits.Length insulationThickness
     "Thermal insulation thickness"
     annotation (Dialog(group="Construction details"));
-  parameter Modelica.SIunits.Area AWall "Total wall area";
-  parameter Modelica.SIunits.Angle inc
-    "Inclination of the wall, i.e. 90deg denotes vertical";
-  parameter Modelica.SIunits.Angle azi
-    "Azimuth of the wall, i.e. 0deg denotes South";
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the layers";
 
@@ -33,26 +30,30 @@ model InternalWall "interior opaque wall between two zones"
   parameter Modelica.SIunits.Temperature TRef_b=291.15
     "Reference temperature of zone on side of propsBus_b, for calculation of design heat loss"
                                                                                                annotation (Dialog(group="Design heat loss"));
-
-  final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
-    "Wall U-value";
-
-  final parameter Modelica.SIunits.Power QTra_design=U_value*AWall*(TRef_a - TRef_b)
-    "Design heat losses (or gains) at reference temperatures";
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Interfaces.ZoneBus propsBus_b(numAzi=sim.numAzi,
+    computeConservationOfEnergy=sim.computeConservationOfEnergy)
+    "Outer side (1st layer)"
+        annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-50,40})));
 
 protected
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=
-        AWall, final inc=inc,
+  final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
+    "Wall U-value";
+
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(
+    final A=AWall,
+    final inc=inc,
     linearise=linearise_b,
     dT_nominal=dT_nominal_b)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(final A=
-        AWall, final inc=inc + Modelica.Constants.pi,
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_a(
+    final A=AWall,
+    final inc=inc + Modelica.Constants.pi,
     linearise=linearise_a,
     dT_nominal=dT_nominal_a)
     "convective surface heat transimission on the interior side of the wall"
@@ -66,30 +67,17 @@ protected
     T_start=ones(constructionType.nLay)*T_start)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  Modelica.Blocks.Sources.RealExpression QDesign_a(y=QTra_design)
-    annotation (Placement(transformation(extent={{80,86},{60,106}})));//Positive because it's losses from zone side a to zone side b as in calculation of QTra_design
   Modelica.Blocks.Sources.RealExpression QDesign_b(y=-QTra_design)  annotation (Placement(transformation(extent={{-16,36},{-36,56}})));
   //Negative, because it's losses from zone side b to zone side a, oposite of calculation of QTra_design
-
-public
-  Interfaces.ZoneBus propsBus_b(numAzi=sim.numAzi, computeConservationOfEnergy=
-        sim.computeConservationOfEnergy) "Outer side (1st layer)"
-                                annotation (Placement(transformation(
-        extent={{-20,20},{20,-20}},
-        rotation=-90,
-        origin={-50,40}), iconTransformation(
-        extent={{-20,20},{20,-20}},
-        rotation=-90,
-        origin={-50,40})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif1(
-                                                              Q_flow=0)
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif1(Q_flow=0)
     annotation (Placement(transformation(extent={{-102,70},{-82,90}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDir1(
-                                                              Q_flow=0)
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDir1(Q_flow=0)
     annotation (Placement(transformation(extent={{-102,56},{-82,76}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow Qgai_b(Q_flow=0) if  sim.computeConservationOfEnergy
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow Qgai_b(Q_flow=0) if
+       sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-102,24},{-82,44}})));
-  BaseClasses.PrescribedEnergy                        E_b if             sim.computeConservationOfEnergy
+  BaseClasses.PrescribedEnergy E_b if
+       sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-102,42},{-82,62}})));
   Modelica.Blocks.Sources.Constant E0(k=0)
     "All internal energy is assigned to right side"
@@ -100,11 +88,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_a, propsBus_b.surfRad) annotation (Line(
-      points={{-10,-30},{-12,-30},{-12,39.9},{-50.1,39.9}},
+      points={{-10,-30},{-12,-30},{-12,40.1},{-50.1,40.1}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(propsBus_b.surfCon, intCon_b.port_b) annotation (Line(
-      points={{-50.1,39.9},{-46,39.9},{-46,-30},{-40,-30}},
+      points={{-50.1,40.1},{-46,40.1},{-46,-30},{-40,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(propsBus_a.surfCon, intCon_a.port_b) annotation (Line(
@@ -145,58 +133,52 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBus_b.area) annotation (Line(
-      points={{0,-20},{0,39.9},{-50.1,39.9}},
+      points={{0,-20},{0,40.1},{-50.1,40.1}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsSw_a, propsBus_b.epsSw) annotation (Line(
-      points={{-10,-26},{-18,-26},{-18,39.9},{-50.1,39.9}},
+      points={{-10,-26},{-18,-26},{-18,40.1},{-50.1,40.1}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsLw_a, propsBus_b.epsLw) annotation (Line(
-      points={{-10,-22},{-14,-22},{-14,39.9},{-50.1,39.9}},
+      points={{-10,-22},{-14,-22},{-14,40.1},{-50.1,40.1}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(iSolDif1.port, propsBus_b.iSolDif) annotation (Line(
-      points={{-82,80},{-50,80},{-50,56},{-50.1,56},{-50.1,39.9}},
+      points={{-82,80},{-50,80},{-50,56},{-50.1,56},{-50.1,40.1}},
       color={191,0,0},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(iSolDir1.port, propsBus_b.iSolDir) annotation (Line(
-      points={{-82,66},{-50,66},{-50,58},{-50.1,58},{-50.1,39.9}},
+      points={{-82,66},{-50,66},{-50,58},{-50.1,58},{-50.1,40.1}},
       color={191,0,0},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(QDesign_a.y, propsBus_a.QTra_design) annotation (Line(
-      points={{59,96},{50,96},{50,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
+
   connect(QDesign_b.y, propsBus_b.QTra_design) annotation (Line(
-      points={{-37,46},{-44,46},{-44,39.9},{-50.1,39.9}},
+      points={{-37,46},{-44,46},{-44,40.1},{-50.1,40.1}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(Qgai_b.port, propsBus_b.Qgai) annotation (Line(points={{-82,34},{-66,
-          34},{-66,39.9},{-50.1,39.9}}, color={191,0,0}));
+          34},{-66,40.1},{-50.1,40.1}}, color={191,0,0}));
   connect(E_b.port, propsBus_b.E) annotation (Line(points={{-82,52},{-50.1,52},
-          {-50.1,39.9}}, color={191,0,0}));
+          {-50.1,40.1}}, color={191,0,0}));
   connect(E_b.E, E0.y)
     annotation (Line(points={{-102,52},{-105,52}}, color={0,0,127}));
   annotation (
