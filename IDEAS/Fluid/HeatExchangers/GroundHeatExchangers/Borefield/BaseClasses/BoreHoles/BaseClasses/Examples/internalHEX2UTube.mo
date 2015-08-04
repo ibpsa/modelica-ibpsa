@@ -3,7 +3,7 @@ model internalHEX2UTube
   "Comparison of the effective borehole thermal resistance from the thermal network of Bauer et al. with the resistance calculated by doubleUTubeResistances (ref)"
 
   extends Modelica.Icons.Example;
-  package Medium = IDEAS.Media.Water.Simple;
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   InternalHEX2UTube intHex(
     redeclare package Medium = Medium,
     m1_flow_nominal=intHex.gen.m_flow_nominal_bh,
