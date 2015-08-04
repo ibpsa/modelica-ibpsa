@@ -36,8 +36,8 @@ model EmbeddedPipe
   parameter Real N_pipes = A_floor/L_floor/RadSlaCha.T - 1
     "Number of parallel pipes in the slab"
 annotation(Dialog(tab="Flow resistance"));
-  parameter Modelica.SIunits.Length pipeBendEqLen = 2*(N_pipes-1)*(2.48*RadSlaCha.T/2/pipeDiaInt+3.20)*pipeDiaInt
-    "Pipe bends equivalent length, default according to Fox and McDonald"
+  parameter Modelica.SIunits.Length pipeBendEqLen = 2*(N_pipes-1)*(2.267*RadSlaCha.T/2/pipeDiaInt+6.18)*pipeDiaInt
+    "Pipe bends equivalent length, default according to Fox and McDonald (chapter 8.7, twice the linearized losses of a 90 degree bend)"
 annotation(Dialog(tab="Flow resistance"));
   parameter Modelica.SIunits.Length pipeEqLen = pipeBendEqLen + (L_floor-2*RadSlaCha.T)*N_pipes
     "Total pipe equivalent length, default assuming 180 dg turns starting at RadSlaCha.T from the end of the slab"
@@ -51,7 +51,7 @@ annotation(Dialog(tab="Flow resistance"));
     "Fix resistance value of thermal conduction through pipe wall * surface of floor between 2 pipes (see RadSlaCha documentation)";
   //Calculation of the resistance from the outer pipe wall to the center of the tabs / floorheating. eqn 4-25 Koschenz
   final parameter Modelica.SIunits.ThermalInsulance R_x_val=RadSlaCha.T*(log(RadSlaCha.T
-      /(3.14*RadSlaCha.d_a)) + corr)/(2*3.14*RadSlaCha.lambda_b)
+      /(3.14*RadSlaCha.d_a)) + corr)/(2*Modelica.Constants.pi*RadSlaCha.lambda_b)
     "Fix resistance value of thermal conduction from pipe wall to layer";
   final parameter Real corr = if RadSlaCha.tabs then 0 else
     sum( -(RadSlaCha.alp2/RadSlaCha.lambda_b * RadSlaCha.T - 2*3.14*s)/(RadSlaCha.alp2/RadSlaCha.lambda_b * RadSlaCha.T + 2*3.14*s)*exp(-4*3.14*s/RadSlaCha.T*RadSlaCha.S_2)/s for s in 1:10) "correction factor for the floor heating according to Multizone Building modeling with Type56 and TRNBuild (see documentation). 
@@ -67,13 +67,13 @@ annotation(Dialog(tab="Flow resistance"));
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean useSimplifiedRt = m_flowMin/A_floor > 5/3600
-    "Use a simplified calculation for Rt? default: if specific mass flow rate is higher than 5 kg/hm2"
+    "Use a simplified calculation for Rt? default: if specific mass flow rate is higher than 5 kg/hm2 (see Koschenz p.25)"
     annotation(Evaluate=true, Dialog(tab="Assumptions"));
   parameter Modelica.SIunits.ThermalInsulance R_c = 1/(RadSlaCha.lambda_b/RadSlaCha.S_1 + RadSlaCha.lambda_b/RadSlaCha.S_2)
     "Specific thermal resistivity of (parallel) slabs connected to top and bottom of tabs"
     annotation(Dialog(group="Thermal"));
 
-  Modelica.SIunits.Temperature[nDiscr] Tin = cat(1, fill(senTemIn.T,1), vol[1:nDiscr-1].heatPort.T);
+  Modelica.SIunits.Temperature[nDiscr] Tin = cat(1, {senTemIn.T}, vol[1:nDiscr-1].heatPort.T);
   Modelica.SIunits.Power[nDiscr] Q "Thermal power going into tabs";
   //For high flow rates see [Koshenz, 2000] eqn 4.37 in between
   // for laminar flow Nu_D = 4 is assumed: correlation for heat transfer constant heat flow and constant wall temperature
@@ -191,8 +191,10 @@ initial equation
 equation
   // simplify expression for sufficiently large mass flow rates
   if useSimplifiedRt then
+    // Koschenz eq 4-60
     R_t = (IDEAS.Utilities.Math.Functions.inverseXRegularized(2*m_flowSpLimit*cp_default*nDiscr, deltaXR) + R_w_val + R_r_val + R_x_val);
   else
+    // Koschenz eq 4-59
     R_t = (IDEAS.Utilities.Math.Functions.inverseXRegularized(m_flowSpLimit*cp_default*nDiscr*(1-exp(-1/((R_w_val+R_r_val+R_x_val+R_c)*m_flowSpLimit*cp_default*nDiscr))), deltaXR)-R_c);
   end if;
   Q = IDEAS.Utilities.Math.Functions.spliceFunction(x=m_flow - m_flow_nominal/100, pos=1, neg=0, deltax=m_flow_nominal/100)*(Tin - heatPortEmb.T)/R_t*A_floor/nDiscr;
