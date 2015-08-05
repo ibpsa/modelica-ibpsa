@@ -1,0 +1,6 @@
+last-generated=2015-08-03
+statistics-initialization={'numerical Jacobians': '0', 'nonlinear': '5'}
+statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
+embeddedPipe.heatPortEmb[2].T=[293.149993896484375, 293.149993896484375]
+embeddedPipe.heatPortEmb[1].T=[293.149993896484375, 293.149993896484375]
+time=[0., 1.]
