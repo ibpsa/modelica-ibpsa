@@ -1,7 +1,7 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses;
 block ConvertRadiation
   "Convert the unit of solar radiation received from the TMY3 data file"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput HIn(final unit="W.h/m2")
     "Input radiation"
@@ -22,8 +22,7 @@ equation
 The TMY3 data for solar radiation is the radiation accumulated in one hour. Thus, it used a unit of <code>Wh/m2</code>.
 This component converts <code>Wh/m2</code> to <code>W/m2</code> that is the standard unit in Modelica.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>
@@ -35,8 +34,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-24,44},{30,-32}},

@@ -4,7 +4,7 @@ model Zone "thermal building zone"
 
   extends IDEAS.Buildings.Components.Interfaces.StateZone;
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
-      Medium = IDEAS.Experimental.Media.AirPTDecoupled);
+      Medium = IDEAS.Media.Air);
 
   outer Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
@@ -37,6 +37,7 @@ model Zone "thermal building zone"
 
   Modelica.SIunits.Temperature TAir=senTem.T;
   Modelica.SIunits.Temperature TStar=radDistr.TRad;
+  Modelica.SIunits.Energy E = vol.dynBal.U;
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(final
@@ -89,6 +90,32 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
 
+protected
+  Modelica.Blocks.Sources.RealExpression Eexpr(y=E) if        sim.computeConservationOfEnergy
+    "Internal energy model"
+    annotation (Placement(transformation(extent={{-28,44},{-48,64}})));
+public
+  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if  sim.computeConservationOfEnergy
+    "Dummy that allows computing total internal energy"
+    annotation (Placement(transformation(extent={{-56,44},{-76,64}})));
+protected
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a dummy if  sim.computeConservationOfEnergy
+    "Dummy heat port for avoiding error by dymola translator";
+  IDEAS.Buildings.Components.BaseClasses.EnergyPort dummy2 if   sim.computeConservationOfEnergy
+    "Dummy emergy port for avoiding error by dymola translator";
+
+protected
+  Modelica.Blocks.Sources.RealExpression Qgai(y=(if sim.openSystemConservationOfEnergy
+         then 0 else gainCon.Q_flow + gainRad.Q_flow + flowPort_In.m_flow*
+        actualStream(flowPort_In.h_outflow) + flowPort_Out.m_flow*actualStream(
+        flowPort_Out.h_outflow))) if                       sim.computeConservationOfEnergy
+    "Heat gains in model"
+    annotation (Placement(transformation(extent={{-28,58},{-48,78}})));
+public
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
+                                                                                   sim.computeConservationOfEnergy
+    "Component for computing conservation of energy"
+    annotation (Placement(transformation(extent={{-56,58},{-76,78}})));
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 equation
@@ -98,7 +125,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(propsBus[:].surfRad, radDistrLw.port_a) annotation (Line(
-      points={{-100,40},{-74,40},{-74,-26},{-54,-26},{-54,-20}},
+      points={{-100.1,39.9},{-74,39.9},{-74,-26},{-54,-26},{-54,-20}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -112,35 +139,35 @@ equation
       smooth=Smooth.None));
 
   connect(propsBus.area, radDistr.area) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-40},{-64,-40}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-40},{-64,-40}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.area, radDistrLw.A) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-14},{-64,-14}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-14},{-64,-14}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, radDistrLw.epsLw) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-10},{-64,-10}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-10},{-64,-10}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, radDistr.epsLw) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-44},{-64,-44}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-44},{-64,-44}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsSw, radDistr.epsSw) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-48},{-64,-48}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-48},{-64,-48}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -153,15 +180,15 @@ equation
 
 for i in 1:nSurf loop
   connect(radDistr.iSolDir, propsBus[i].iSolDir) annotation (Line(
-      points={{-58,-54},{-58,-80},{-100,-80},{-100,40}},
+      points={{-58,-54},{-58,-80},{-100.1,-80},{-100.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(radDistr.iSolDif, propsBus[i].iSolDif) annotation (Line(
-      points={{-54,-54},{-54,-76},{-100,-76},{-100,40}},
+      points={{-54,-54},{-54,-76},{-100.1,-76},{-100.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(propsBus[i].surfCon, vol.heatPort) annotation (Line(
-      points={{-100,40},{-46,40},{-46,12},{10,12},{10,30},{4.44089e-16,30}},
+      points={{-100.1,39.9},{-46,39.9},{-46,12},{10,12},{10,30},{4.44089e-16,30}},
       color={191,0,0},
       smooth=Smooth.None));
 end for;
@@ -206,13 +233,32 @@ end for;
       smooth=Smooth.None));
 
 for i in 1:nSurf loop
-connect(sim.weaBus, propsBus[i].weaBus) annotation (Line(
-       points={{-88.6,97.2},{-88.6,100},{-100,100},{-100,40}},
+  connect(sim.weaBus, propsBus[i].weaBus) annotation (Line(
+       points={{-88.6,97.2},{-88.6,100},{-100.1,100},{-100.1,39.9}},
        color={255,204,51},
        thickness=0.5,
        smooth=Smooth.None));
+  connect(dummy, propsBus[i].Qgai) annotation (Line(points={{-68,65},{-68,39.9},
+            {-100.1,39.9}},
+                          color={191,0,0}));
+  connect(dummy2, propsBus[i].E) annotation (Line(points={{-68,75},{-68,39.9},
+            {-100.1,39.9}},
+                          color={191,0,0}));
 end for;
-
+  connect(sim.Qgai, dummy) annotation (Line(points={{-90,80},{-90,65},{-68,65}},
+                          color={191,0,0}));
+  connect(sim.E, dummy2) annotation (Line(points={{-90,80},{-90,75},{-68,75}},
+                          color={191,0,0}));
+  connect(Eexpr.y, prescribedHeatFlowE.E)
+    annotation (Line(points={{-49,54},{-49,54},{-56,54}},
+                                                 color={0,0,127}));
+  connect(prescribedHeatFlowE.port, sim.E) annotation (Line(points={{-76,54},{-90,
+          54},{-90,80}},                      color={191,0,0}));
+  connect(Qgai.y,prescribedHeatFlowQgai. Q_flow)
+    annotation (Line(points={{-49,68},{-49,68},{-56,68}},
+                                              color={0,0,127}));
+  connect(prescribedHeatFlowQgai.port, sim.Qgai)
+    annotation (Line(points={{-76,68},{-90,68},{-90,80}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -228,7 +274,14 @@ end for;
 <p>Transmitted shortwave solar radiation is distributed over all surfaces in the zone in a prescribed scale. This scale is an input value which may be dependent on the shape of the zone and the location of the windows, but literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption.</p>
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
+</ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end Zone;

@@ -10,7 +10,7 @@ __Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/Media/Examples
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model tests whether the inversion of temperature and enthalpy 
+This model tests whether the inversion of temperature and enthalpy
 is implemented correctly.
 If <i>T &ne; T(h(T))</i>, the model stops with an error.
 </p>

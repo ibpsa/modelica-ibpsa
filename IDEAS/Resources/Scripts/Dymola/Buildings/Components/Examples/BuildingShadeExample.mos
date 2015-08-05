@@ -1,0 +1,16 @@
+simulateModel("IDEAS.Buildings.Components.Examples.BuildingShadeExample", 
+startTime=2e+06, 
+stopTime=3e+06, 
+numberOfIntervals=5000, 
+method="dassl", 
+resultFile="BuildingShadeExample");
+
+createPlot(id=1, 
+position={0, 0, 1156, 757}, 
+y={"buildingShade.iSolDir", "none.iSolDir"}, 
+range={2480000.0, 3020000.0, 0.0, 800.0}, 
+autoscale=false, 
+grid=true, 
+colors={{28,108,200}, {238,46,47}});
+
+

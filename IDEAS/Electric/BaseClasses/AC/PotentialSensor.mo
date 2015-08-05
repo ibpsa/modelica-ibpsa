@@ -8,10 +8,11 @@ model PotentialSensor
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin vi
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
            0)));
-algorithm
+equation
 
-  VGrid := Modelica.ComplexMath.'abs'(vi.v);
-  vi.i := Complex(0);
+  VGrid =  (vi.v.re^2 + vi.v.im^2)^0.5;
+  vi.i.re=0;
+  vi.i.im=0;
 
   annotation (Icon(graphics={
         Ellipse(

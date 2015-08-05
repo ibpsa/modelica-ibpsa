@@ -7,7 +7,8 @@ model Bui910 "BESTEST Building model case 910"
     VZones={gF.V});
 
 protected
-  IDEAS.Buildings.Components.Zone gF(nSurf=8, V=129.6, n50=0.5*20)
+  IDEAS.Buildings.Components.Zone gF(nSurf=8, V=129.6, n50=0.5*20,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));

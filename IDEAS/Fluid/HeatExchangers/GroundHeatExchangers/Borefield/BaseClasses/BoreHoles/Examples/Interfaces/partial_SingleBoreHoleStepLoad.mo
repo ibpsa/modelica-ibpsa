@@ -40,7 +40,7 @@ partial model partial_SingleBoreHoleStepLoad
   Modelica.Blocks.Sources.Constant mFlo(k=gen.m_flow_nominal_bh)
     annotation (Placement(transformation(extent={{-50,-28},{-38,-16}})));
 
-  IDEAS.Fluid.Movers.FlowMachine_m_flow pum(
+  Movers.FlowControlled_m_flow          pum(
     redeclare package Medium = Medium,
     m_flow_nominal=gen.m_flow_nominal_bh,
     dynamicBalance=false,

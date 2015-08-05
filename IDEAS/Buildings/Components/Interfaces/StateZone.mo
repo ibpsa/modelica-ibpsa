@@ -16,7 +16,8 @@ partial model StateZone "Partial model for thermal building zones"
     "Sensor temperature of the zone, i.e. operative temeprature" annotation (
       Placement(transformation(extent={{96,-10},{116,10}}), iconTransformation(
           extent={{96,-10},{116,10}})));
-  ZoneBus[nSurf] propsBus(each final numAzi=sim.numAzi)
+  ZoneBus[nSurf] propsBus(each final numAzi=sim.numAzi,
+      each final computeConservationOfEnergy=sim.computeConservationOfEnergy)
                           annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=-90,
@@ -25,7 +26,7 @@ partial model StateZone "Partial model for thermal building zones"
         rotation=-90,
         origin={-100,40})));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+            -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-90,90},{90,-90}},
@@ -74,6 +75,10 @@ partial model StateZone "Partial model for thermal building zones"
           textString="%name")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
 <li>
 February 10, 2015 by Filip Jorissen:<br/>
 Adjusted implementation for grouping of solar calculations.

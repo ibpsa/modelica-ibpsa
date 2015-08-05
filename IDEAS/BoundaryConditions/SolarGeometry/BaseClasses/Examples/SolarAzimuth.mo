@@ -1,11 +1,10 @@
 within IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model SolarAzimuth "Test model for zenith angle"
-  import IDEAS;
   extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Angle lat= 41.98*Modelica.Constants.pi/180
     "Latitude";
-  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle solHouAng
-    "Solar hour angle"
+  IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
+    solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   IDEAS.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(lat=lat)
     "Zenith angle"
@@ -17,7 +16,7 @@ model SolarAzimuth "Test model for zenith angle"
     "Solar azimuth"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   WeatherData.ReaderTMY3 weaDat(
-    filNam="modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    filNam="modelica://IDEAS/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   WeatherData.Bus weaBus "Weather bus"
@@ -74,7 +73,19 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{150,
             100}})),
+Documentation(info="<html>
+<p>
+This example computes the solar azimuth angle.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 18, 2010, by Wangda Zuo:<br/>
+First implementation.
+</li>
+</ul>
+</html>"),
 experiment(StopTime=864000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/SolarAzimuth.mos"
+__Dymola_Commands(file="modelica://IDEAS/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/SolarAzimuth.mos"
         "Simulate and plot"));
 end SolarAzimuth;

@@ -1,13 +1,12 @@
 within IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses;
 partial block PartialSolarIrradiation
   "Partial model that is used to compute the direct and diffuse solar irradiation"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt";
   Modelica.Blocks.Interfaces.RealOutput H(
      final quantity="RadiantEnergyFluenceRate",
      final unit="W/m2") "Radiation per unit area"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-        rotation=0)));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -17,8 +16,7 @@ partial block PartialSolarIrradiation
 <p>
 This is a partial model that is used to implement the direct and diffuse irradiation.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 Dec. 12, 2010, by Michael Wetter:<br/>
@@ -31,8 +29,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

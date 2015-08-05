@@ -2,7 +2,7 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Bor
 model internalHEXUTube
   "Comparison of the effective borehole thermal resistance  from the thermal network of Bauer et al. with the resistance calculated by singleUTubeResistances (ref)"
   extends Modelica.Icons.Example;
-  package Medium = IDEAS.Media.Water.Simple;
+  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
   InternalHEXUTube intHex(
     redeclare package Medium = Medium,
     soi=IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.SoilData.WetSand_validation(),

@@ -1,7 +1,7 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses;
 block ConvertRelativeHumidity
   "Convert the relative humidity from percentage to real"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput relHumIn(unit="1")
     "Value of relative humidity in percentage"
@@ -19,8 +19,7 @@ This component converts the relative humidity from percentage to real.
 Input is the relative humidity in percentage, as this is the data
 format that is used in the Typical Meteorological Year weather data.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 October 27, 2011, by Wangda Zuo:<br/>
@@ -32,8 +31,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics));
+            100}}), graphics={Bitmap(extent={{-74,74},{76,-78}}, fileName=
+              "modelica://IDEAS/Resources/Images/BoundaryConditions/WeatherData/BaseClasses/relativeHumidity.png")}));
 end ConvertRelativeHumidity;

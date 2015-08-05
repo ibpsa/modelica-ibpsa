@@ -39,7 +39,7 @@ public
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
-    dynamicBalance=false,
+    dynamicBalance=true,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{80,10},{100,-10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature

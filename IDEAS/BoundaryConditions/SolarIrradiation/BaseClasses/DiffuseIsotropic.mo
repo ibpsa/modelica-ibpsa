@@ -1,7 +1,7 @@
 within IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses;
 block DiffuseIsotropic
   "Diffuse solar irradiation on a tilted surface with an isotropic model"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   parameter Real rho=0.2 "Ground reflectance";
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt angle";
@@ -16,7 +16,7 @@ public
 
   Modelica.Blocks.Interfaces.RealOutput HGroDifTil(final quantity="RadiantEnergyFluenceRate",
       final unit="W/m2")
-    "Diffuse solar irradiation on a tilted surface from the ground"
+    "Diffuse solar irradiation on a tilted surfce from the ground"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 protected
   Real til_c "Cosine of tilt angle";
@@ -24,7 +24,7 @@ protected
 public
   Modelica.Blocks.Interfaces.RealOutput HSkyDifTil(final quantity="RadiantEnergyFluenceRate",
       final unit="W/m2")
-    "Diffuse solar irradiation on a tilted surface from the sky"
+    "Diffuse solar irradiation on a tilted surfce from the sky"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 equation
   til_c = Modelica.Math.cos(til);
@@ -43,8 +43,7 @@ the tilt of the receiving surface.
 P. Ineichen, R. Perez and R. Seals (1987).
 <i>The Importance of Correct Albedo Determination for Adequately Modeling Energy Received by Tilted Surface</i>,
 Solar Energy, 39(4): 301-305.
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 June 6, 2012, by Wangda Zuo:<br/>
@@ -56,8 +55,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,100}}),
-                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

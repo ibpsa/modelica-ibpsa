@@ -1,6 +1,6 @@
 within IDEAS.BoundaryConditions.SolarGeometry.BaseClasses;
 block Declination "Declination angle"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
 public
   Modelica.Blocks.Interfaces.RealInput nDay(quantity="Time", unit="s")
     "One-based day number in seconds"
@@ -18,10 +18,10 @@ equation
     defaultComponentName="decAng",
     Documentation(info="<html>
 <p>
-This component computes the angle between the equatorial plane and the solar beam.
+This component computes the solar declinatino, which is
+the angle between the equatorial plane and the solar beam.
 </p>
-</html>
-", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 Dec 7, 2010, by Michael Wetter:<br/>
@@ -33,11 +33,10 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          lineColor={0,0,255}), Bitmap(extent={{-92,92},{92,-92}}, fileName=
+              "modelica://IDEAS/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/Declination.png")}));
 end Declination;
