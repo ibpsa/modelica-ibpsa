@@ -20,7 +20,7 @@ algorithm
  m_flow_der2 := if noEvent(dp>dp_turbulent) then
                   -0.25*k*dp^(-3/2) * dp_der^2 + 0.5*k*dp^(-1/2)*dp_der2
                  elseif noEvent(dp<-dp_turbulent) then
-                   0.25*k*(-dp)^(-3/2) * dp_der^2 - 0.5*k*(-dp)^(-1/2)*dp_der2
+                   0.25*k*(-dp)^(-3/2) * dp_der^2 + 0.5*k*(-dp)^(-1/2)*dp_der2
                  else
                    (1.25*k/m_k-0.75*k/m_k^5*dp^2)*dp_der2
                    -1.5/m_k^5*k*dp*dp_der^2;

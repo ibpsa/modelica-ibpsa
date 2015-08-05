@@ -12,6 +12,7 @@ model InverseFlowFunctions "Test model for flow function and its inverse"
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1 "Nominal flow rate";
 equation
   dp = (time-0.5)/dTime * 20;
+  // fixme: only one function gets inverted here
   m_flow=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_nominal*0.3);
   dpCalc=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3);
   deltaDp = dp - dpCalc;

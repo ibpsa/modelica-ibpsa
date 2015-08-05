@@ -33,6 +33,7 @@ equation
   p1 = p1_nominal + (time-0.5)/dTime * 20;
   m1_flow = m2_flow;
   p2-p1 = dp1 + dp2;
+  // fixme: from_dp causes only half of the function to be tested.
   if from_dp then
     m1_flow=FlowModels.basicFlowFunction_dp(dp=dp1, k=k, m_flow_turbulent=m_flow_nominal*0.3);
     m2_flow=FlowModels.basicFlowFunction_dp(dp=dp2, k=k, m_flow_turbulent=m_flow_nominal*0.3);
@@ -52,12 +53,12 @@ equation
 
   der(dp1_comp_2) = der(dp1_comp);
   der(dp2_comp_2) = der(dp2_comp);
-  /* fixme
+
   assert(abs(m1_flow_comp-m1_flow_comp_2) < 1E-2, "Model has an error for m1_flow");
   assert(abs(m2_flow_comp-m2_flow_comp_2) < 1E-2, "Model has an error for m2_flow");
   assert(abs(dp1_comp-dp1_comp_2) < 1E-2, "Model has an error for dp1");
   assert(abs(dp2_comp-dp2_comp_2) < 1E-2, "Model has an error for dp2");
-*/
+
 annotation (
 experiment(StartTime=-1,
            StopTime=1.0,

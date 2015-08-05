@@ -19,8 +19,10 @@ initial equation
   m_flow = m_flow_comp;
   der_m_flow = der_m_flow_comp;
 equation
-  // Multiply by 2 to avoid a warning due to unit mismatch
-  dp = time*2;
+  // Multiply by 1 to avoid a warning due to unit mismatch,
+  // and raise to third power so that dp_der2 has positive and negative sign
+  // in Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2
+  dp = 1*time^3;
 
   m_flow = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
     dp=dp,
@@ -53,6 +55,15 @@ and its second order derivative
 <a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2\">
 Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2</a>.
 If the derivative implementation is wrong, the simulation will stop with an error.
+</p>
+<h4>Implementation</h4>
+<p>
+The pressure drop <code>dp</code> is increased non-linearly in order
+for the first and second derivatives in
+<a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2\">
+Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2</a>
+to be non-zero during part of the simulation. This will ensure
+full code coverage of this function.
 </p>
 </html>",
 revisions="<html>

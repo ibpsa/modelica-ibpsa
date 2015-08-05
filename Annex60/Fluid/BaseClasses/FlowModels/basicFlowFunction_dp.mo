@@ -58,7 +58,7 @@ July 28, 2015, by Michael Wetter:<br/>
 Removed double declaration of <code>smooth(..)</code> and <code>smoothOrder</code>
 and changed <code>Inline=true</code> to <code>LateInline=true</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/301\">issue 301</code>.
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/301\">issue 301</a>.
 </li>
 <li>
 July 15, 2015, by Filip Jorissen:<br/>

@@ -20,8 +20,10 @@ initial equation
   dp = dp_comp;
   der_dp = der_dp_comp;
 equation
-  // Multiply by 2 to avoid a warning due to unit mismatch
-  m_flow = time*2;
+  // Divide by 8 to avoid a warning due to unit mismatch, and
+  // and raise to third power so that m_flow_der2 has positive and negative sign
+  // in Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2
+  m_flow = time^3/8;
 
   dp = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
     m_flow=m_flow,
@@ -54,6 +56,15 @@ and its second order derivative
 <a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2\">
 Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2</a>.
 If the derivative implementation is wrong, the simulation will stop with an error.
+</p>
+<h4>Implementation</h4>
+<p>
+The mass flow rate <code>m_flow</code> is increased non-linearly in order
+for the first and second derivatives in
+<a href=\"modelica://Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2\">
+Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2</a>
+to be non-zero during part of the simulation. This will ensure
+full code coverage of this function.
 </p>
 </html>",
 revisions="<html>
