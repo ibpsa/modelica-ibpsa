@@ -26,7 +26,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="modelica://Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Validation/TrtValidation.mos"
+    __Dymola_Commands(file="../../IDEAS/IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Validation/TrtValidationMultipleBoreholeUTube.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));

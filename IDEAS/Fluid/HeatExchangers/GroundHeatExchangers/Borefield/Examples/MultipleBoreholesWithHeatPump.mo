@@ -68,10 +68,10 @@ model MultipleBoreholesWithHeatPump
     p=200000)
     annotation (Placement(transformation(extent={{-42,70},{-22,90}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=1/5000,
     amplitude=4,
     offset=273.15 + 30,
-    startTime=2000)
+    startTime=2000,
+    freqHz=1/50000)
     annotation (Placement(transformation(extent={{-76,70},{-56,90}})));
   Sensors.TemperatureTwoPort TSen_pri(
     redeclare package Medium = Medium,
@@ -134,5 +134,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
     experiment(StopTime=1.7e+006, __Dymola_NumberOfIntervals=100),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    __Dymola_Commands(file="../../IDEAS/IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Examples/MultipleBoreholesWithHeatPump.mos"
+        "Simulate and plot"));
 end MultipleBoreholesWithHeatPump;
