@@ -29,8 +29,6 @@ algorithm
                    -1.5/m_k^5*k*dp*dp_der^2;
 
  annotation (LateInline=true,
-             Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
 Documentation(info="<html>
 <p>
 Function that implements the second order derivative of

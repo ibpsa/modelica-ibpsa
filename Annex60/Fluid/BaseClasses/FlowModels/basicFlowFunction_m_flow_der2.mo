@@ -29,8 +29,6 @@ algorithm
                        + 6*m_flow/m_flow_turbulent * m_flow_der^2);
 
  annotation (LateInline=true,
-             Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
 Documentation(info="<html>
 <p>
 Function that implements the second order derivative of

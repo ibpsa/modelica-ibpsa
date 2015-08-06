@@ -22,8 +22,6 @@ algorithm
              smoothOrder=1,
              derivative(order=2, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
                Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der2,
-            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),
 Documentation(info="<html>
 <p>
 Function that implements the first order derivative of
