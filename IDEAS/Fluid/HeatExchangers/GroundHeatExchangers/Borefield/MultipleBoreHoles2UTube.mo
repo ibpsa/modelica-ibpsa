@@ -39,9 +39,9 @@ model MultipleBoreHoles2UTube
 
 equation
   connect(massFlowRateMultiplier.port_b, borHolSer.port_a)
-    annotation (Line(points={{-60,0},{-13,0},{-13,0}}, color={0,127,255}));
+    annotation (Line(points={{-60,0},{-13,0}},         color={0,127,255}));
   connect(borHolSer.port_b, massFlowRateMultiplier1.port_a)
-    annotation (Line(points={{11,0},{60,0},{60,0}}, color={0,127,255}));
+    annotation (Line(points={{11,0},{60,0}},        color={0,127,255}));
   connect(TWall_val.y, borHolSer.TWall)
     annotation (Line(points={{-18.9,40},{-1,40},{-1,14.3}}, color={0,0,127}));
 

@@ -1,7 +1,7 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses;
 model SingleBoreHoleUTube "Single U-tube borehole heat exchanger"
 
-  extends Interface.PartialSingleBoreHole(m_flow_nominal = gen.m_flow_nominal_bh,T_start=gen.T_start,dp_nominal=gen.dp_nominal);
+  extends Interface.PartialSingleBoreHole(T_start=gen.T_start);
 
   BaseClasses.BoreHoleSegmentFourPort borHolSeg[gen.nVer](
     redeclare each final package Medium =   Medium,
@@ -25,8 +25,9 @@ model SingleBoreHoleUTube "Single U-tube borehole heat exchanger"
     each final dynFil=dynFil,
     each final mSenFac=mSenFac,
     each final use_TWall=use_TWall,
-    final dp_nominal={if i == 1 then dp_nominal else 0 for i in 1:gen.nVer})
-    "Discretized borehole segments"
+    final dp_nominal={if i == 1 then dp_nominal else 0 for i in 1:gen.nVer},
+    each final m1_flow_nominal=m_flow_nominal,
+    each final m2_flow_nominal=m_flow_nominal) "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

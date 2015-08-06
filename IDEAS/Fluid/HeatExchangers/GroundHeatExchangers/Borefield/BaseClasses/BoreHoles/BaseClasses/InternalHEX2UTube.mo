@@ -227,7 +227,7 @@ public
         mueMed=mueMed,
         cpMed=cpMed,
         m_flow=m1_flow,
-        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh))
+        m_flow_nominal=m1_flow_nominal))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-56,56},{-42,72}})));
   Modelica.Blocks.Sources.RealExpression RVol2(y=convectionResistance(
@@ -239,7 +239,7 @@ public
         mueMed=mueMed,
         cpMed=cpMed,
         m_flow=m2_flow,
-        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh))
+        m_flow_nominal=m2_flow_nominal))
     "Convective and thermal resistance at fluid 2"
     annotation (Placement(transformation(extent={{88,18},{72,0}})));
   Modelica.Blocks.Sources.RealExpression RVol3(y=convectionResistance(
@@ -251,7 +251,7 @@ public
         mueMed=mueMed,
         cpMed=cpMed,
         m_flow=m3_flow,
-        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh))
+        m_flow_nominal=m3_flow_nominal))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-12,-60},{-26,-76}})));
 
@@ -264,7 +264,7 @@ public
         mueMed=mueMed,
         cpMed=cpMed,
         m_flow=m1_flow,
-        m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh))
+        m_flow_nominal=m4_flow_nominal))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-68,12},{-54,28}})));
 
@@ -286,7 +286,7 @@ initial equation
     kMed=kMed,
     mueMed=mueMed,
     cpMed=cpMed,
-    m_flow_nominal=if gen.parallel2UTube then gen.m_flow_nominal_bh/2 else gen.m_flow_nominal_bh,
+    m_flow_nominal=m1_flow_nominal,
     printDebug=false);
 
 equation
