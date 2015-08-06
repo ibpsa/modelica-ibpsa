@@ -9,8 +9,8 @@ model SingleBoreHoleUTubeSerStepLoadScript
     soi=soi,
     fil=fil,
     gen=gen,
-    m_flow_nominal=gen.m_flow_nominal,
-    dp_nominal=gen.dp_nominal)
+    dp_nominal=gen.dp_nominal,
+    m_flow_nominal=gen.m_flow_nominal_bh)
              constrainedby
     Borefield.BaseClasses.BoreHoles.Interface.PartialSingleBoreholeSerie(
     redeclare package Medium = Medium,
