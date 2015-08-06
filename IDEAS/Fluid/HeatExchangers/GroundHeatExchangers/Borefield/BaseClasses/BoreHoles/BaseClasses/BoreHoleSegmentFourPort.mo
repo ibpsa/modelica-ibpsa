@@ -5,8 +5,6 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
   extends IDEAS.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
-    final m1_flow_nominal=gen.m_flow_nominal_bh,
-    final m2_flow_nominal=gen.m_flow_nominal_bh,
     final m1_flow_small=gen.m_flow_small,
     final m2_flow_small=gen.m_flow_small,
     final allowFlowReversal1=gen.allowFlowReversal,
@@ -14,8 +12,6 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
 
   InternalHEXUTube intHEX(
     redeclare final package Medium = Medium,
-    final m1_flow_nominal=gen.m_flow_nominal_bh,
-    final m2_flow_nominal=gen.m_flow_nominal_bh,
     final dp1_nominal=dp_nominal,
     final dp2_nominal=0,
     final from_dp1=from_dp,
@@ -45,7 +41,9 @@ model BoreHoleSegmentFourPort "Vertical segment of a borehole"
     final C2_nominal=C_nominal,
     final T_start=T_start,
     final dynFil=dynFil,
-    final mSenFac=mSenFac)
+    final mSenFac=mSenFac,
+    final m1_flow_nominal=m1_flow_nominal,
+    final m2_flow_nominal=m2_flow_nominal)
     "Internal part of the borehole including the pipes and the filling material"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 

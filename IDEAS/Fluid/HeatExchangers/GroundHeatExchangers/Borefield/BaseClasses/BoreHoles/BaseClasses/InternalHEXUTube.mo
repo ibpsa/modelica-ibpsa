@@ -111,7 +111,7 @@ public
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow=m1_flow,
-    m_flow_nominal=gen.m_flow_nominal_bh))
+    m_flow_nominal=m1_flow_nominal))
     "Convective and thermal resistance at fluid 1"
     annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
   Modelica.Blocks.Sources.RealExpression RVol2(y=
@@ -123,7 +123,7 @@ public
     mueMed=mueMed,
     cpMed=cpMed,
     m_flow=m2_flow,
-    m_flow_nominal=gen.m_flow_nominal_bh))
+    m_flow_nominal=m2_flow_nominal))
     "Convective and thermal resistance at fluid 2"
      annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
 
@@ -142,7 +142,7 @@ initial equation
     kMed=kMed,
     mueMed=mueMed,
     cpMed=cpMed,
-    m_flow_nominal=gen.m_flow_nominal_bh,
+    m_flow_nominal=m1_flow_nominal,
     printDebug=false);
 
 equation
