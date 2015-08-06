@@ -7,7 +7,10 @@ model SingleBoreHoleUTubeSerStepLoad "SingleBoreHoleSer with step input load "
     redeclare package Medium = Medium,
     soi=soi,
     fil=fil,
-    gen=gen) constrainedby
+    gen=gen,
+    m_flow_nominal=gen.m_flow_nominal_bh,
+    dp_nominal=gen.dp_nominal)
+             constrainedby
     Borefield.BaseClasses.BoreHoles.Interface.PartialSingleBoreholeSerie(
     redeclare package Medium = Medium,
      soi=soi,
