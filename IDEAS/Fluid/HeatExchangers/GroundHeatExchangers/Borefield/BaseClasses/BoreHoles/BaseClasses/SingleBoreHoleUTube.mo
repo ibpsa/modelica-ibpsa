@@ -8,7 +8,6 @@ model SingleBoreHoleUTube "Single U-tube borehole heat exchanger"
     each final    soi=soi,
     each final    fil=fil,
     each final    gen=gen,
-    final dp_nominal={if i == 1 then gen.dp_nominal else 0 for i in 1:gen.nVer},
     each final TExt_start=T_start,
     each final TFil_start=T_start,
     each final    show_T=show_T,
@@ -25,7 +24,9 @@ model SingleBoreHoleUTube "Single U-tube borehole heat exchanger"
     each final C_nominal=C_nominal,
     each final dynFil=dynFil,
     each final mSenFac=mSenFac,
-    each final use_TWall=use_TWall) "Discretized borehole segments"
+    each final use_TWall=use_TWall,
+    final dp_nominal={if i == 1 then dp_nominal else 0 for i in 1:gen.nVer})
+    "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
