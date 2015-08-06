@@ -1,5 +1,8 @@
 within Annex60.Fluid.BaseClasses.FlowModels;
-function basicFlowFunction_dp_der "Derivative of flow function"
+function basicFlowFunction_dp_der
+  "1st derivative of function that computes mass flow rate for given pressure drop"
+  extends Modelica.Icons.Function;
+
   input Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real k(min=0, unit="")
@@ -24,16 +27,7 @@ algorithm
              derivative(order=2, zeroDerivative=k, zeroDerivative=m_flow_turbulent)=
                Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der2,
              Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={Line(
-          points={{-80,-40},{-80,60},{80,-40},{80,60}},
-          color={0,0,255},
-          smooth=Smooth.None,
-          thickness=1), Text(
-          extent={{-40,-40},{40,-80}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={232,0,0},
-          textString="%name")}),
+            -100},{100,100}})),
 Documentation(info="<html>
 <p>
 Function that implements the first order derivative of

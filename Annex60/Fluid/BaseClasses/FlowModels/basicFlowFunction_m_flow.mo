@@ -1,5 +1,6 @@
 within Annex60.Fluid.BaseClasses.FlowModels;
-function basicFlowFunction_m_flow "Basic class for flow models"
+function basicFlowFunction_m_flow
+  "Function that computes pressure drop for given mass flow rate"
 
   input Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";

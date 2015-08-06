@@ -1,5 +1,6 @@
 within Annex60.Fluid.BaseClasses.FlowModels;
-function basicFlowFunction_dp "Basic class for flow models"
+function basicFlowFunction_dp
+  "Function that computes mass flow rate for given pressure drop"
 
   input Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
