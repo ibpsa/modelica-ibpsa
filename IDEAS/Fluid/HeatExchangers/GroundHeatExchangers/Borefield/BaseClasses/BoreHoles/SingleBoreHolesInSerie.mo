@@ -1,37 +1,12 @@
 within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles;
 model SingleBoreHolesInSerie
-  "Single U-tube borehole heat exchanger model. If more than one borehole is given, they are assumed to be connected in series"
-  extends Interface.PartialSingleBoreHole(final m_flow_nominal = gen.m_flow_nominal_bh,final T_start=gen.T_start,final dp_nominal=gen.dp_nominal);
-  BaseClasses.SingleBoreHole[gen.nbSer] borHol(
-    redeclare each final package Medium = Medium,
-    each final soi=soi,
-    each final fil=fil,
-    each final gen=gen,
-    each final show_T=show_T,
-    each final from_dp=from_dp,
-    each final deltaM=deltaM,
-    each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics,
-    each final p_start=p_start,
-    each X_start=X_start,
-    each C_start=C_start,
-    each C_nominal=C_nominal) "Borehole heat exchanger" annotation (
-      Placement(transformation(extent={{-16,-16},{16,16}}, rotation=0)));
-  Modelica.SIunits.Temperature[gen.nbSer] TWallAveSeg
-    "Average borehole wall temperature along the depth for each borehole in serie";
+  "Single or double U-tube borehole heat exchanger model. If more than one borehole is given, they are assumed to be connected in series"
+  extends
+    IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.Interface.PartialSingleBoreholeSerie(
+     redeclare BaseClasses.SingleBoreHoleUTube borHol);
+
 equation
-
-  for i in 1:gen.nbSer loop
-    TWallAveSeg[i] = sum(borHol[i].borHolSeg[:].intHEX.port.T)/gen.nVer;
-  end for;
-
-  TWallAve = sum(TWallAveSeg)/gen.nbSer;
-
-    connect(port_a, borHol[1].port_a);
-    connect(borHol[gen.nbSer].port_b, port_b);
-    for i in 1:gen.nbSer - 1 loop
-      connect(borHol[i].port_b, borHol[i + 1].port_a);
-    end for;
+  assert(gen.singleUTube, "This borefield model is for single U-Tube configuration but you chose double U-Tube configuration in the general borefield record.");
 
   annotation (
     Dialog(group="Borehole"),
@@ -41,99 +16,7 @@ equation
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={2,2},
-        initialScale=0.5), graphics={
-        Rectangle(
-          extent={{-68,60},{-60,-80}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Rectangle(
-          extent={{-40,60},{-32,-80}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Rectangle(
-          extent={{32,60},{40,-80}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Rectangle(
-          extent={{60,60},{68,-80}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Rectangle(
-          extent={{-40,-72},{-60,-80}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Rectangle(
-          extent={{60,-72},{40,-80}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Rectangle(
-          extent={{-56,68},{-52,-72}},
-          lineColor={0,0,0},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-48,68},{-44,-72}},
-          lineColor={0,0,0},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{52,68},{56,-72}},
-          lineColor={0,0,0},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{44,68},{48,-72}},
-          lineColor={0,0,0},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-2,15},{2,-15}},
-          lineColor={0,0,0},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          origin={-33,66},
-          rotation=90),
-        Rectangle(
-          extent={{-2,15},{2,-15}},
-          lineColor={0,0,0},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          origin={33,66},
-          rotation=90),
-        Rectangle(
-          extent={{-2,15},{2,-15}},
-          lineColor={0,0,0},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          origin={67,66},
-          rotation=90),
-        Rectangle(
-          extent={{-2,15},{2,-15}},
-          lineColor={0,0,0},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          origin={-67,66},
-          rotation=90),
-        Line(
-          points={{0,80},{-20,20},{0,-40},{-12,-82},{-12,-82}},
-          color={0,0,0},
-          smooth=Smooth.Bezier),
-        Line(
-          points={{12,80},{-8,20},{12,-40},{0,-82},{0,-82}},
-          color={0,0,0},
-          smooth=Smooth.Bezier),
-        Text(
-          extent={{-30,102},{38,66}},
-          lineColor={0,0,0},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          textString="nbSer")}),
+        initialScale=0.5)),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
@@ -150,7 +33,7 @@ equation
 Model of a single U-tube borehole heat exchanger. 
 The borehole heat exchanger is vertically discretized into <i>n<sub>seg</sub></i>
 elements of height <i>h=h<sub>Bor</sub>&frasl;n<sub>seg</sub></i>.
-Each segment contains a model for the heat transfer in the borehole, 
+segment contains a model for the heat transfer in the borehole, 
 for heat transfer in the soil and for the far-field boundary condition.
 </p>
 <p>
@@ -166,7 +49,7 @@ The heat transfer in the soil is computed using transient heat conduction in cyl
 coordinates for the spatial domain <i>r<sub>bor</sub> &le; r &le; r<sub>ext</sub></i>. 
 In the radial direction, the spatial domain is discretized into 
 <i>n<sub>hor</sub></i> segments with uniform material properties.
-Thermal properties can be specified separately for each horizontal layer.
+Thermal properties can be specified separately for horizontal layer.
 The vertical heat flow is assumed to be zero, and there is assumed to be 
 no ground water flow. 
 </p>
@@ -205,7 +88,7 @@ The default setting uses the same temperature for the soil and the filling mater
 </p>
 <h4>Implementation</h4>
 <p>
-Each horizontal layer is modeled using an instance of
+horizontal layer is modeled using an instance of
 <a href=\"modelica://IDEAS.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment\">
 IDEAS.HeatExchangers.Fluid.Boreholes.BaseClasses.BoreholeSegment</a>.
 This model is composed of the model
