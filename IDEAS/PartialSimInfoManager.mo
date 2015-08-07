@@ -180,7 +180,9 @@ public
 initial equation
   Etot=0;
 equation
-  assert(abs(Etot)<Emax, "Conservation of energy violation > Emax J!");
+  if strictConservationOfEnergy and computeConservationOfEnergy then
+    assert(abs(Etot)<Emax, "Conservation of energy violation > Emax J!");
+  end if;
 
   der(Qint) = Qgai.Q_flow;
   Etot=  Qint-E.E;
