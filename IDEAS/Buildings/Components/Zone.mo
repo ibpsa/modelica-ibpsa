@@ -105,12 +105,6 @@ equation
       points={{-50.2,-54},{-50,-54},{-50,-72},{80,-72},{80,-60},{100,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(propsBus[:].surfRad, radDistr.radSurfTot) annotation (Line(
-      points={{-100,40},{-74,40},{-74,-26},{-54,-26},{-54,-34}},
-  connect(summation.y, TSensor) annotation (Line(
-      points={{12.6,-60},{59.3,-60},{59.3,0},{106,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(radDistr.TRad, summation.u[1]) annotation (Line(
       points={{-44,-44},{-22,-44},{-22,-60.6},{-1.2,-60.6}},
       color={0,0,127},
@@ -139,14 +133,14 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, zoneLwDistributionViewFactor.epsLw) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-10},{-42,-10}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-10},{-42,-10}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.area, zoneLwDistributionViewFactor.A) annotation (Line(
-      points={{-100,40},{-82,40},{-82,-14},{-42,-14}},
+      points={{-100.1,39.9},{-82,39.9},{-82,-14},{-42,-14}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -225,11 +219,11 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(zoneLwDistributionViewFactor.inc, propsBus.inc) annotation (Line(
-      points={{-36,0},{-38,0},{-38,40},{-100,40}},
+      points={{-36,0},{-38,0},{-38,39.9},{-100.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zoneLwDistributionViewFactor.azi, propsBus.azi) annotation (Line(
-      points={{-28,-1.77636e-15},{-28,40},{-100,40}},
+      points={{-28,-1.77636e-15},{-28,39.9},{-100.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zoneLwDistributionViewFactor.port_a, radDistr.radSurfTot) annotation (
@@ -237,6 +231,10 @@ end for;
       points={{-32,-20},{-32,-26},{-54,-26},{-54,-34}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(summation.y, TSensor) annotation (Line(points={{12.6,-60},{30,-60},{30,
+          0},{106,0}}, color={0,0,127}));
+  connect(radDistr.radSurfTot, propsBus.surfRad) annotation (Line(points={{-54,
+          -34},{-70,-34},{-82,-34},{-82,39.9},{-100.1,39.9}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -266,6 +264,6 @@ Added view factor implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end Zone;
