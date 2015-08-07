@@ -42,7 +42,7 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
           fontName="Calibri",
           textStyle={TextStyle.Bold},
           textString="BESTEST 900 Series")}),
-    __Dymola_Commands(file="modelica://Resources/Scripts/Dymola/Buildings/Validation/Tests/ViewFactorVerification.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Buildings/Validation/Tests/ViewFactorVerification.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
