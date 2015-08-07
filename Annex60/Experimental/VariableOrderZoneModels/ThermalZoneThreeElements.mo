@@ -26,27 +26,27 @@ model ThermalZoneThreeElements
     n=nGround,
     RExt=RGround,
     RExtRem=RGroundRem,
-    CExt=CGround)    annotation (Placement(transformation(
+    CExt=CGround) if AGroundInd > 0   annotation (Placement(transformation(
         extent={{10,-11},{-10,11}},
         rotation=90,
         origin={46,-91})));
-  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor heatConGround
+  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor heatConGround if AGroundInd > 0
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={46,-64})));
-  Modelica.Blocks.Sources.Constant alphaGround(k=1/(AGroundInd*alphaGroundInd))
+  Modelica.Blocks.Sources.Constant alphaGround(k=1/(AGroundInd*alphaGroundInd)) if AGroundInd > 0
     annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=180,
         origin={80,-68})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadExtGround(R=1/(min(
-        AExtInd, AGroundInd)*alphaRad))
+        AExtInd, AGroundInd)*alphaRad)) if AExtInd > 0 and AGroundInd > 0
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-80,-49})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadIntGround(R=1/(min(
-        AGroundInd, AInt)*alphaRad))
+        AGroundInd, AInt)*alphaRad)) if AInt > 0 and AGroundInd > 0
                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -55,7 +55,7 @@ model ThermalZoneThreeElements
      Placement(transformation(extent={{36,-122},{56,-102}}), iconTransformation(
           extent={{36,-122},{56,-102}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadWinGround(R=1/(min(
-        AWinInd, AGroundInd)*alphaRad)) annotation (Placement(transformation(
+        AWinInd, AGroundInd)*alphaRad)) if AWindInd > 0 and AGroundInd > 0 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-44,-50})));
@@ -70,7 +70,7 @@ equation
       smooth=Smooth.None));
   connect(thermSplitterIntGains.signalOutput[3], groundMassVarRC.port_a)
     annotation (Line(
-      points={{70,-36},{70,-82.6},{46,-82.6}},
+      points={{72,-36},{72,-82.6},{46,-82.6}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[3])
@@ -135,7 +135,7 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{29,-52},{88,-106}},
+          extent={{30,-52},{88,-106}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),

@@ -58,7 +58,10 @@ equation
               -90,0},{-2,0}},                                                                                                   color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None), Rectangle(extent={{
               -66,12},{-18,-10}},                                                                                                  lineColor = {0, 0, 0},
             lineThickness =                                                                                                   0.5, fillColor = {255, 255, 255},
-            fillPattern =                                                                                                   FillPattern.Solid), Line(points = {{-2, 0}, {-2, -32}}, color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None), Rectangle(extent = {{15, -32}, {-19, -44}},
-            lineThickness =                                                                                                   0.5, fillColor = {255, 255, 255},
-            fillPattern =                                                                                                   FillPattern.Solid, pattern = LinePattern.None), Line(points = {{-19, -32}, {15, -32}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Line(points = {{-19, -44}, {15, -44}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Text(extent = {{-90, 142}, {90, 104}}, lineColor = {0, 0, 255}, textString = "%name")}));
+            fillPattern =                                                                                                   FillPattern.Solid), Line(points = {{-2, 0}, {-2, -32}}, color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
+                                                                                                    Line(points = {{-19, -32}, {15, -32}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Line(points = {{-19, -44}, {15, -44}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Text(extent = {{-90, 142}, {90, 104}}, lineColor = {0, 0, 255}, textString = "%name"),
+                                                                                                    Line(points={{
+              18,-32},{-20,-32}},                                                                                                    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
+                                                                                                    Line(points={{
+              14,-44},{-15,-44}},                                                                                                    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None)}));
 end IntMassVarRC;

@@ -23,21 +23,21 @@ model ThermalZoneTwoElements
   BaseClasses.IntMassVarRC intMassVarRC(
     n=nInt,
     RInt=RInt,
-    CInt=CInt)
+    CInt=CInt) if AInt > 0
     annotation (Placement(transformation(extent={{96,-10},{116,12}})));
-  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor heatConInt
+  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor heatConInt if AInt > 0
     annotation (Placement(transformation(extent={{62,10},{42,-10}})));
-  Modelica.Blocks.Sources.Constant alphaInt(k=1/(AInt*alphaIntInd))
+  Modelica.Blocks.Sources.Constant alphaInt(k=1/(AInt*alphaIntInd)) if AInt > 0
                                                                    annotation (
       Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=-90,
         origin={52,-21})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadExtInt(R=1/(min(
-        AExtInd, AInt)*alphaRad))
+        AExtInd, AInt)*alphaRad)) if AExtInd > 0 and AInt > 0
     annotation (Placement(transformation(extent={{-6,-60},{14,-40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadWinInt(R=1/(min(
-        AWinInd, AInt)*alphaRad))
+        AWinInd, AInt)*alphaRad)) if AWinInd > 0 and AInt > 0
     annotation (Placement(transformation(extent={{36,40},{56,60}})));
 equation
   connect(heatConInt.fluid, portIntGainsConv) annotation (Line(
@@ -62,12 +62,12 @@ equation
       smooth=Smooth.None));
   connect(thermSplitterIntGains.signalOutput[2], intMassVarRC.port_a)
     annotation (Line(
-      points={{70,-36},{70,-18},{82,-18},{82,0},{96.8,0}},
+      points={{72,-36},{72,-18},{72,-18},{72,0},{96.8,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermSplitterSolRad.signalOutput[2], intMassVarRC.port_a) annotation (
      Line(
-      points={{-30,88},{82,88},{82,0},{96.8,0}},
+      points={{-30,88},{72,88},{72,0},{96.8,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalResRadWinInt.port_b, intMassVarRC.port_a) annotation (Line(

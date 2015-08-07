@@ -37,7 +37,8 @@ equation
 <ul>
 <li>April 17, 2015,&nbsp; by Moritz Lauster:<br>Implemented. </li>
 </ul>
-</html>"),  Icon(coordinateSystem(preserveAspectRatio = true, extent = {{-100, -100}, {100, 120}}), graphics={  Rectangle(extent = {{-86, 60}, {-34, 26}}, fillColor = {255, 213, 170},
+</html>"),  Icon(coordinateSystem(preserveAspectRatio=false,  extent={{-100,
+            -100},{100,120}}),                                                                      graphics={  Rectangle(extent = {{-86, 60}, {-34, 26}}, fillColor = {255, 213, 170},
             fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{-28, 60}, {26, 26}}, fillColor = {255, 213, 170},
             fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{32, 60}, {86, 26}}, fillColor = {255, 213, 170},
             fillPattern =                                                                                                   FillPattern.Solid, lineColor = {175, 175, 175}), Rectangle(extent = {{0, 20}, {54, -14}}, fillColor = {255, 213, 170},
@@ -65,7 +66,10 @@ equation
             lineThickness =                                                                                                   0.5, fillColor = {255, 255, 255},
             fillPattern =                                                                                                   FillPattern.Solid), Rectangle(extent = {{28, 12}, {76, -10}}, lineColor = {0, 0, 0},
             lineThickness =                                                                                                   0.5, fillColor = {255, 255, 255},
-            fillPattern =                                                                                                   FillPattern.Solid), Line(points = {{-1, 0}, {-1, -32}}, color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None), Rectangle(extent = {{16, -32}, {-18, -44}},
-            lineThickness =                                                                                                   0.5, fillColor = {255, 255, 255},
-            fillPattern =                                                                                                   FillPattern.Solid, pattern = LinePattern.None), Line(points = {{-18, -32}, {16, -32}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Line(points = {{-18, -44}, {16, -44}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Text(extent = {{-90, 142}, {90, 104}}, lineColor = {0, 0, 255}, textString = "%name")}));
+            fillPattern =                                                                                                   FillPattern.Solid), Line(points = {{-1, 0}, {-1, -32}}, color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
+                                                                                                    Line(points = {{-18, -32}, {16, -32}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Line(points = {{-18, -44}, {16, -44}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Text(extent = {{-90, 142}, {90, 104}}, lineColor = {0, 0, 255}, textString = "%name"),
+                                                                                                    Line(points={{
+              18,-32},{-20,-32}},                                                                                                    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
+                                                                                                    Line(points={{
+              14,-44},{-15,-44}},                                                                                                    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None)}));
 end ExtMassVarRC;
