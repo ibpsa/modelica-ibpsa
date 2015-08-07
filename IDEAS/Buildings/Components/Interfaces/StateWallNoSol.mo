@@ -24,11 +24,6 @@ partial model StateWallNoSol
     annotation (Placement(transformation(extent={{80,54},{60,74}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif(Q_flow=0)
     annotation (Placement(transformation(extent={{80,72},{60,92}})));
-  Modelica.Blocks.Sources.RealExpression incExp(y=inc) "Inclination angle"
-    annotation (Placement(transformation(extent={{100,42},{80,62}})));
-  Modelica.Blocks.Sources.RealExpression aziExp(y=azi)
-    "Azimuth angle expression"
-    annotation (Placement(transformation(extent={{100,26},{80,46}})));
 protected
   Modelica.Blocks.Sources.RealExpression E if
        sim.computeConservationOfEnergy "Internal energy model"
@@ -59,14 +54,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(aziExp.y, propsBus_a.azi) annotation (Line(
-      points={{79,36},{50,36},{50,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(incExp.y, propsBus_a.inc) annotation (Line(
-      points={{79,52},{50,52},{50,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(prescribedHeatFlowE.port, propsBus_a.E) annotation (Line(points={{30,90},
           {44,90},{44,39.9},{50.1,39.9}},     color={191,0,0}));
   connect(Qgai.y, prescribedHeatFlowQgai.Q_flow)
