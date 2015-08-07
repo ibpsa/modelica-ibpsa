@@ -14,8 +14,11 @@ model MultipleBoreholesWithHeatPump
     annotation (Placement(transformation(extent={{74,74},{94,94}})));
   parameter Integer lenSim=3600*24*20 "length of the simulation";
 
-  MultipleBoreHoles multipleBoreholes(lenSim=lenSim, bfData=bfData,
-    redeclare package Medium = Medium) "borefield"
+  MultipleBoreHolesUTube multipleBoreholes(
+    lenSim=lenSim,
+    bfData=bfData,
+    redeclare package Medium = Medium,
+    dp_nominal=1000) "borefield"
     annotation (Placement(transformation(extent={{12,-78},{-28,-38}})));
 
   Movers.Pump                           pum(
@@ -33,7 +36,6 @@ model MultipleBoreholesWithHeatPump
   IDEAS.Fluid.Production.HP_WaterWater_OnOff heatPumpOnOff(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
-    allowFlowReversal=false,
     onOff=true,
     use_scaling=true,
     use_onOffSignal=true,
@@ -66,10 +68,10 @@ model MultipleBoreholesWithHeatPump
     p=200000)
     annotation (Placement(transformation(extent={{-42,70},{-22,90}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=1/5000,
     amplitude=4,
     offset=273.15 + 30,
-    startTime=2000)
+    startTime=2000,
+    freqHz=1/50000)
     annotation (Placement(transformation(extent={{-76,70},{-56,90}})));
   Sensors.TemperatureTwoPort TSen_pri(
     redeclare package Medium = Medium,
@@ -132,5 +134,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
     experiment(StopTime=1.7e+006, __Dymola_NumberOfIntervals=100),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    __Dymola_Commands(file="../../IDEAS/IDEAS/Resources/Scripts/Dymola/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Examples/MultipleBoreholesWithHeatPump.mos"
+        "Simulate and plot"));
 end MultipleBoreholesWithHeatPump;

@@ -100,11 +100,10 @@ protected
     annotation (Placement(transformation(extent={{-70,-56},{-62,-48}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Modelica.Blocks.Sources.RealExpression Qgai(y=-(skyRad.port_a.Q_flow + eCon.port_a.Q_flow
-         + skyRadFra.port_a.Q_flow + eConFra.port_a.Q_flow + sum(solWin.iSolAbs.Q_flow)
-         + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow)) if
-                                                           sim.computeConservationOfEnergy
-    "Heat gains in model"
+  Modelica.Blocks.Sources.RealExpression Qgai(y=-(propsBus_a.surfCon.Q_flow +
+        propsBus_a.surfRad.Q_flow + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow))
+    if                                                     sim.computeConservationOfEnergy
+    "Heat gains in model (using propsbus since frame can be conditionally removed)"
     annotation (Placement(transformation(extent={{-116,40},{-96,60}})));
   Modelica.Blocks.Sources.RealExpression E1(y=0) if        sim.computeConservationOfEnergy
     "Internal energy model"
