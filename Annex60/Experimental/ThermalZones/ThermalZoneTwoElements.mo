@@ -1,12 +1,13 @@
-within Annex60.Experimental.VariableOrderZoneModels;
+within Annex60.Experimental.ThermalZones;
 model ThermalZoneTwoElements
   "Thermal Zone with two elements for thermal masses (external and internal) with variable order"
   extends ThermalZoneOneElement(
-                             thermSplitterIntGains(dimension=2, splitFactor={
-          AExtInd/(AExtInd + AInt),AInt/(AExtInd + AInt)}),
-      thermSplitterSolRad(dimension=2, splitFactor={AExtInd/(AExtInd + AInt),
-          AInt/(AExtInd + AInt)}));
-  parameter Modelica.SIunits.Area AInt "Surface area of internal thermal mass"  annotation(Dialog(group="Thermal mass"));
+          thermSplitterIntGainsExtMass(splitFactor={AExtInd/(
+          AExtInd + AInt)}),
+          thermSplitterSolRadExtMass(splitFactor={AExtInd/(AExtInd + AInt)}),
+          ASum = AExtInd + AInt);
+  parameter Modelica.SIunits.Area AInt = 0
+    "Surface area of internal thermal mass"                                               annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaIntInd
     "Coefficient of heat transfer for surface of internal thermal mass" annotation(Dialog(group="Thermal mass"));
   parameter Integer nInt(min = 1)
@@ -35,10 +36,16 @@ model ThermalZoneTwoElements
         origin={52,-21})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadExtInt(R=1/(min(
         AExtInd, AInt)*alphaRad)) if AExtInd > 0 and AInt > 0
-    annotation (Placement(transformation(extent={{-6,-60},{14,-40}})));
+    annotation (Placement(transformation(extent={{-6,-66},{14,-46}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadWinInt(R=1/(min(
         AWinInd, AInt)*alphaRad)) if AWinInd > 0 and AInt > 0
     annotation (Placement(transformation(extent={{36,40},{56,60}})));
+  BaseClasses.ThermSplitter thermSplitterIntGainsIntMass(splitFactor={AInt/(
+        AExtInd + AInt)}, dimension=1) if AInt > 0
+    annotation (Placement(transformation(extent={{92,-30},{72,-10}})));
+  BaseClasses.ThermSplitter thermSplitterSolRadIntMass(dimension=1, splitFactor=
+       {AInt/(AExtInd + AInt)}) if            AInt > 0
+    annotation (Placement(transformation(extent={{-36,80},{-20,96}})));
 equation
   connect(heatConInt.fluid, portIntGainsConv) annotation (Line(
       points={{42,0},{42,14},{18,14},{18,28},{110,28}},
@@ -49,7 +56,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(thermalResRadExtInt.port_a, heatConExt.solid) annotation (Line(
-      points={{-6,-50},{-24,-50},{-24,0},{-10,0}},
+      points={{-6,-56},{-24,-56},{-24,0},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatConInt.solid, intMassVarRC.port_a) annotation (Line(
@@ -57,17 +64,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(intMassVarRC.port_a, thermalResRadExtInt.port_b) annotation (Line(
-      points={{96.8,0},{66,0},{66,-50},{14,-50}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermSplitterIntGains.signalOutput[2], intMassVarRC.port_a)
-    annotation (Line(
-      points={{72,-36},{72,-18},{72,-18},{72,0},{96.8,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermSplitterSolRad.signalOutput[2], intMassVarRC.port_a) annotation (
-     Line(
-      points={{-30,88},{72,88},{72,0},{96.8,0}},
+      points={{96.8,0},{66,0},{66,-56},{14,-56}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalResRadWinInt.port_b, intMassVarRC.port_a) annotation (Line(
@@ -78,6 +75,16 @@ equation
       points={{36,50},{-44,50},{-44,36},{-10,36}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(thermSplitterIntGainsIntMass.signalOutput[1], intMassVarRC.port_a)
+    annotation (Line(points={{72,-20},{72,-20},{72,0},{96.8,0}}, color={191,0,0}));
+  connect(thermSplitterIntGainsIntMass.signalInput, portIntGainsRad)
+    annotation (Line(points={{92,-20},{98,-20},{100,-20},{100,-24},{110,-24}},
+        color={191,0,0}));
+  connect(solRadToHeatRad.port, thermSplitterSolRadIntMass.signalInput)
+    annotation (Line(points={{-52,88},{-44,88},{-36,88}}, color={191,0,0}));
+  connect(thermSplitterSolRadIntMass.signalOutput[1], intMassVarRC.port_a)
+    annotation (Line(points={{-20,88},{26,88},{72,88},{72,0},{96.8,0}}, color={191,
+          0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,100}}), graphics={
         Rectangle(
@@ -86,7 +93,7 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-22,-37},{26,-72}},
+          extent={{-22,-43},{26,-78}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
@@ -103,7 +110,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Internal Mass"),
         Text(
-          extent={{-16,-55},{22,-81}},
+          extent={{-16,-59},{22,-85}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,

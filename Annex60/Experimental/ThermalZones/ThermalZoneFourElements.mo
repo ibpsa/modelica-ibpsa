@@ -1,4 +1,4 @@
-within Annex60.Experimental.VariableOrderZoneModels;
+within Annex60.Experimental.ThermalZones;
 model ThermalZoneFourElements
   extends ThermalZoneThreeElements;
   BaseClasses.ExtMassVarRC groundMassVarRC1(

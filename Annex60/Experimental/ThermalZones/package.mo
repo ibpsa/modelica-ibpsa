@@ -1,5 +1,5 @@
 within Annex60.Experimental;
-package VariableOrderZoneModels "Models for BuildingPhysics"
+package ThermalZones "Variable Order Models for Building Physics"
     extends Modelica.Icons.Package;
 
 
@@ -26,4 +26,4 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100}
         points={{22,-52},{70,-52}},
         color={0,0,0},
         smooth=Smooth.None)}));
-end VariableOrderZoneModels;
+end ThermalZones;

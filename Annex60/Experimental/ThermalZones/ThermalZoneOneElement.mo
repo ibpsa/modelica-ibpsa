@@ -1,4 +1,4 @@
-within Annex60.Experimental.VariableOrderZoneModels;
+within Annex60.Experimental.ThermalZones;
 model ThermalZoneOneElement
   "Thermal Zone with one element for thermal mass with variable order"
 
@@ -8,17 +8,17 @@ model ThermalZoneOneElement
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Modelica.SIunits.ThermalResistance RWin
     "Resistor for elements without notable thermal mass" annotation(Dialog(group="Windows"));
-  parameter Modelica.SIunits.Area AExtInd = 0.1
+  parameter Modelica.SIunits.Area AExtInd = 0
     "Indoor surface area of thermal mass"                                       annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtInd
     "Coefficient of heat transfer for indoor surface of thermal mass" annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.Area AWinInd = 0.1
+  parameter Modelica.SIunits.Area AWinInd = 0
     "Indoor surface area of elements without notable thermal mass" annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWinInd
     "Coefficient of heat transfer for elements without notable thermal mass" annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.TransmissionCoefficient gWin
     "Total energy transmittance of windows" annotation(Dialog(group="Windows"));
-  parameter Real ratioWinConRad=0
+  parameter Real ratioWinConRad=0.09
     "Ratio for windows between indoor convective and radiative heat emission" annotation(Dialog(group="Windows"));
   parameter Integer nExt(min = 1)=1 "Number of RC-elements for thermal mass" annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.ThermalResistance RExt[nExt]
@@ -29,7 +29,11 @@ model ThermalZoneOneElement
   parameter Modelica.SIunits.HeatCapacity CExt[nExt]
     "Vector of heat capacity of thermal masses for each RC-element, from inside to outside"
                                                                                            annotation(Dialog(group="Thermal mass"));
+protected
+    parameter Modelica.SIunits.Area ASum = AExtInd
+    "Sum of areas exluding windows";
 
+public
   Fluid.MixingVolumes.MixingVolume volAir(m_flow_nominal=0.00001, V=VAir,
     redeclare package Medium = Medium,
     nPorts=nPorts)
@@ -44,7 +48,7 @@ model ThermalZoneOneElement
         extent={{-30.5,-8},{30.5,8}},
         rotation=0,
         origin={0,-111.5})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portExtAmb annotation (
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portExtAmb if AExtInd > 0 annotation (
       Placement(transformation(extent={{-120,-32},{-100,-12}}),
         iconTransformation(extent={{-120,-32},{-100,-12}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor heatConExt if AExtInd > 0
@@ -61,7 +65,7 @@ model ThermalZoneOneElement
             {120,38}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResWin(R=RWin) if AWinInd > 0
     annotation (Placement(transformation(extent={{-74,26},{-54,46}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portWinAmb annotation (
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portWinAmb if AWinInd > 0 annotation (
       Placement(transformation(extent={{-120,8},{-100,28}}),iconTransformation(
           extent={{-120,8},{-100,28}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor heatConWin if AWinInd > 0
@@ -83,13 +87,13 @@ model ThermalZoneOneElement
   Modelica.Blocks.Interfaces.RealInput solRad annotation (Placement(
         transformation(extent={{-140,24},{-100,64}}),iconTransformation(extent={{-120,44},
             {-100,64}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portIntGainsRad
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portIntGainsRad if ASum > 0
     annotation (Placement(transformation(extent={{100,-34},{120,-14}}),
         iconTransformation(extent={{100,-34},{120,-14}})));
-  BaseClasses.ThermSplitter thermSplitterIntGains(dimension=1)
-    annotation (Placement(transformation(extent={{92,-46},{72,-26}})));
-  BaseClasses.ThermSplitter thermSplitterSolRad(dimension=1)
-    annotation (Placement(transformation(extent={{-46,80},{-30,96}})));
+  BaseClasses.ThermSplitter thermSplitterIntGainsExtMass(dimension=1) if AExtInd > 0
+    annotation (Placement(transformation(extent={{92,-50},{72,-30}})));
+  BaseClasses.ThermSplitter thermSplitterSolRadExtMass(dimension=1) if AExtInd > 0
+    annotation (Placement(transformation(extent={{-34,62},{-18,78}})));
   BaseClasses.ExtMassVarRC extMassVarRC(
     n=nExt,
     RExt=RExt,
@@ -98,24 +102,60 @@ model ThermalZoneOneElement
     annotation (Placement(transformation(extent={{-54,-10},{-74,12}})));
 equation
   connect(volAir.ports, ports) annotation (Line(
-      points={{28,-10},{28,-74},{-26,-74},{-26,-114},{-23,-114}},
+      points={{28,-10},{28,-80},{-26,-80},{-26,-114},{-23,-114}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(heatConExt.fluid, volAir.heatPort) annotation (Line(
-      points={{10,0},{18,0}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(volAir.heatPort, portIntGainsConv) annotation (Line(
       points={{18,0},{18,28},{110,28}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(thermalResWin.port_a, portWinAmb) annotation (Line(
-      points={{-74,36},{-78,36},{-78,18},{-110,18}},
+  connect(emiCoeffWinRad.y, solRadToHeatRad.Q_flow) annotation (Line(
+      points={{-79.5,88},{-72,88}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(emiCoeffWinRad.u, solRad) annotation (Line(
+      points={{-91,88},{-96,88},{-96,44},{-120,44}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(thermSplitterIntGainsExtMass.signalInput, portIntGainsRad)
+    annotation (Line(
+      points={{92,-40},{110,-40},{110,-24}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(solRadToHeatRad.port, thermSplitterSolRadExtMass.signalInput)
+    annotation (Line(
+      points={{-52,88},{-50,88},{-50,70},{-34,70}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heatConExt.fluid, volAir.heatPort) annotation (Line(
+      points={{10,0},{18,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(alphaExt.y, heatConExt.Rc) annotation (Line(
       points={{0,-15.5},{0,-10}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(thermSplitterSolRadExtMass.signalOutput[1], heatConExt.solid)
+    annotation (Line(
+      points={{-18,70},{-14,70},{-14,0},{-10,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(extMassVarRC.port_b, portExtAmb) annotation (Line(
+      points={{-73.2,0},{-110,0},{-110,-22}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(extMassVarRC.port_a, heatConExt.solid) annotation (Line(
+      points={{-54.6,0},{-10,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermSplitterIntGainsExtMass.signalOutput[1], heatConExt.solid)
+    annotation (Line(
+      points={{72,-40},{-20,-40},{-20,0},{-10,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermalResWin.port_a, portWinAmb) annotation (Line(
+      points={{-74,36},{-78,36},{-78,18},{-110,18}},
+      color={191,0,0},
       smooth=Smooth.None));
   connect(thermalResWin.port_b, heatConWin.solid) annotation (Line(
       points={{-54,36},{-10,36}},
@@ -129,41 +169,6 @@ equation
       points={{10,36},{18,36},{18,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(emiCoeffWinRad.y, solRadToHeatRad.Q_flow) annotation (Line(
-      points={{-79.5,88},{-72,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(emiCoeffWinRad.u, solRad) annotation (Line(
-      points={{-91,88},{-96,88},{-96,44},{-120,44}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(thermSplitterIntGains.signalInput, portIntGainsRad) annotation (Line(
-      points={{92,-36},{110,-36},{110,-24}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermSplitterIntGains.signalOutput[1], heatConExt.solid) annotation (
-      Line(
-      points={{72,-36},{-20,-36},{-20,0},{-10,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(solRadToHeatRad.port, thermSplitterSolRad.signalInput) annotation (
-      Line(
-      points={{-52,88},{-46,88}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermSplitterSolRad.signalOutput[1], heatConExt.solid) annotation (
-      Line(
-      points={{-30,88},{-14,88},{-14,0},{-10,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(extMassVarRC.port_b, portExtAmb) annotation (Line(
-      points={{-73.2,0},{-110,0},{-110,-22}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(extMassVarRC.port_a, heatConExt.solid) annotation (Line(
-      points={{-54.6,0},{-10,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(emiCoeffWinConv.y, solRadToHeatConv.Q_flow) annotation (Line(points={{-79.5,66},{-72,66}},color={0,0,127},smooth=Smooth.None,
         pattern=LinePattern.Dash));
   connect(emiCoeffWinConv.u, solRad) annotation (Line(points={{-91,66},{-94,66},{-94,44},{-120,44}},color={0,0,127},smooth=Smooth.None,
@@ -171,7 +176,7 @@ equation
   connect(solRadToHeatConv.port, volAir.heatPort) annotation (Line(points={{-52,66},{-40,66},{-40,14},{18,14},{18,0}},color={191,0,0},smooth=Smooth.
             None,
         pattern=LinePattern.Dash));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,100}}),
                       graphics={
         Rectangle(
