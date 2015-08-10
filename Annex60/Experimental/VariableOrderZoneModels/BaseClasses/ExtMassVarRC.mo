@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.BaseClasses;
+within Annex60.Experimental.VariableOrderZoneModels.BaseClasses;
 model ExtMassVarRC "Wall consisting of variable number of RC elements"
   parameter Integer n(min = 1) "Number of RC-elements";
   parameter Modelica.SIunits.ThermalResistance RExt[n]

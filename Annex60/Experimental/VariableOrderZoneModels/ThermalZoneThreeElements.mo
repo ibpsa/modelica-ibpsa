@@ -1,16 +1,14 @@
-within Annex60.Experimental.ThermalZones;
+within Annex60.Experimental.VariableOrderZoneModels;
 model ThermalZoneThreeElements
   "Thermal Zone with three elements for thermal masses (two times external and one internal) with variable order"
     extends ThermalZoneTwoElements(
-    thermSplitterSolRadExtMass(splitFactor={AExtInd/(AExtInd + AInt +
-          AGroundInd)}),
-    thermSplitterIntGainsExtMass(splitFactor={AExtInd/(AExtInd + AInt +
-          AGroundInd)}),
-    thermSplitterIntGainsIntMass(splitFactor={AInt/(AExtInd + AInt + AGroundInd)}),
-    thermSplitterSolRadIntMass(splitFactor={AInt/(AExtInd + AInt + AGroundInd)}),
-    ASum=AExtInd+AInt+AGroundInd);
-
-  parameter Modelica.SIunits.Area AGroundInd = 0
+    thermSplitterSolRad(dimension=3, splitFactor={AExtInd/(AExtInd + AInt +
+          AGroundInd),AInt/(AExtInd + AInt + AGroundInd),AGroundInd/(AExtInd +
+          AInt + AGroundInd)}),
+    thermSplitterIntGains(dimension=3, splitFactor={AExtInd/(AExtInd + AInt +
+          AGroundInd),AInt/(AExtInd + AInt + AGroundInd),AGroundInd/(AExtInd +
+          AInt + AGroundInd)}));
+  parameter Modelica.SIunits.Area AGroundInd
     "Indoor surface area of ground thermal mass" annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaGroundInd
     "Coefficient of heat transfer for surface of ground thermal mass" annotation(Dialog(group="Thermal mass"));
@@ -52,21 +50,15 @@ model ThermalZoneThreeElements
                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={104,-92})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portGroundAmb if AGroundInd > 0 annotation (
+        origin={102,-62})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portGroundAmb annotation (
      Placement(transformation(extent={{36,-122},{56,-102}}), iconTransformation(
           extent={{36,-122},{56,-102}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadWinGround(R=1/(min(
-        AWinInd, AGroundInd)*alphaRad)) if AWinInd > 0 and AGroundInd > 0 annotation (Placement(transformation(
+        AWinInd, AGroundInd)*alphaRad)) if AWindInd > 0 and AGroundInd > 0 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-44,-50})));
-  BaseClasses.ThermSplitter thermSplitterIntGainsGroundPlate(dimension=1,
-      splitFactor={AGroundInd/(AExtInd + AInt + AGroundInd)}) if AGroundInd > 0
-    annotation (Placement(transformation(extent={{114,-68},{94,-48}})));
-  BaseClasses.ThermSplitter thermSplitterSolRadGroundPlate(dimension=1,
-      splitFactor={AGroundInd/(AExtInd + AInt + AGroundInd)}) if AGroundInd > 0
-    annotation (Placement(transformation(extent={{-4,86},{12,102}})));
 equation
   connect(groundMassVarRC.port_a, heatConGround.solid) annotation (Line(
       points={{46,-82.6},{46,-74}},
@@ -74,6 +66,18 @@ equation
       smooth=Smooth.None));
   connect(heatConGround.fluid, volAir.heatPort) annotation (Line(
       points={{46,-54},{46,-48},{22,-48},{22,-18},{18,-18},{18,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(thermSplitterIntGains.signalOutput[3], groundMassVarRC.port_a)
+    annotation (Line(
+      points={{72,-36},{72,-82.6},{46,-82.6}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[3])
+    annotation (Line(
+      points={{46,-82.6},{46,-82},{-28,-82},{-28,4},{-28,4},{-28,46},{-28,46},{
+          -28,68},{-28,68},{-28,78},{-28,78},{-28,86},{-28,86},{-28,88},{-30,88},
+          {-30,88}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(alphaGround.y, heatConGround.Rc) annotation (Line(
@@ -87,11 +91,11 @@ equation
       smooth=Smooth.None));
   connect(groundMassVarRC.port_a, thermalResRadIntGround.port_b) annotation (
       Line(
-      points={{46,-82.6},{46,-102},{104,-102}},
+      points={{46,-82.6},{46,-78},{102,-78},{102,-72}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalResRadIntGround.port_a, intMassVarRC.port_a) annotation (Line(
-      points={{104,-82},{104,-24},{90,-24},{90,0},{96.8,0}},
+      points={{102,-52},{102,-24},{90,-24},{90,0},{96.8,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(groundMassVarRC.port_b, portGroundAmb) annotation (Line(
@@ -111,17 +115,6 @@ equation
       points={{-44,-60},{-44,-78},{-80,-78},{-80,-59}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(portIntGainsRad, thermSplitterIntGainsGroundPlate.signalInput)
-    annotation (Line(points={{110,-24},{118,-24},{118,-58},{114,-58}}, color={191,
-          0,0}));
-  connect(thermSplitterIntGainsGroundPlate.signalOutput[1], groundMassVarRC.port_a)
-    annotation (Line(points={{94,-58},{88,-58},{88,-82.6},{46,-82.6}}, color={191,
-          0,0}));
-  connect(thermSplitterSolRadGroundPlate.signalOutput[1], groundMassVarRC.port_a)
-    annotation (Line(points={{12,94},{20,94},{20,80},{-12,80},{-12,-82.6},{46,-82.6}},
-        color={191,0,0}));
-  connect(thermSplitterSolRadGroundPlate.signalInput, solRadToHeatRad.port)
-    annotation (Line(points={{-4,94},{-26,94},{-52,94},{-52,88}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,100}},
           preserveAspectRatio=false), graphics={
         Rectangle(
@@ -134,7 +127,7 @@ equation
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          origin={104,-93},
+          origin={104,-65},
           rotation=90),
         Rectangle(
           extent={{-100,-32},{-60,-72}},
@@ -159,7 +152,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Radiation Exchange"),
         Text(
-          extent={{96,-106},{114,-115}},
+          extent={{96,-78},{114,-87}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
