@@ -1,4 +1,4 @@
-within Annex60.Experimental.VariableOrderZoneModels;
+within Annex60.Experimental.ThermalZones;
 model ThermalZoneTwoElements
   "Thermal Zone with two elements for thermal masses (external and internal) with variable order"
   extends ThermalZoneOneElement(
@@ -6,7 +6,8 @@ model ThermalZoneTwoElements
           AExtInd/(AExtInd + AInt),AInt/(AExtInd + AInt)}),
       thermSplitterSolRad(dimension=2, splitFactor={AExtInd/(AExtInd + AInt),
           AInt/(AExtInd + AInt)}));
-  parameter Modelica.SIunits.Area AInt "Surface area of internal thermal mass"  annotation(Dialog(group="Thermal mass"));
+  parameter Modelica.SIunits.Area AInt = 0.1
+    "Surface area of internal thermal mass"                                           annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaIntInd
     "Coefficient of heat transfer for surface of internal thermal mass" annotation(Dialog(group="Thermal mass"));
   parameter Integer nInt(min = 1)

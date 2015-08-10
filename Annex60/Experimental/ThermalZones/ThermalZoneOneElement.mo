@@ -1,4 +1,4 @@
-within Annex60.Experimental.VariableOrderZoneModels;
+within Annex60.Experimental.ThermalZones;
 model ThermalZoneOneElement
   "Thermal Zone with one element for thermal mass with variable order"
 
@@ -12,7 +12,7 @@ model ThermalZoneOneElement
     "Indoor surface area of thermal mass"                                       annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtInd
     "Coefficient of heat transfer for indoor surface of thermal mass" annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.Area AWinInd = 0
+  parameter Modelica.SIunits.Area AWinInd = 0.1
     "Indoor surface area of elements without notable thermal mass" annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWinInd
     "Coefficient of heat transfer for elements without notable thermal mass" annotation(Dialog(group="Windows"));
@@ -44,7 +44,7 @@ model ThermalZoneOneElement
         extent={{-30.5,-8},{30.5,8}},
         rotation=0,
         origin={0,-111.5})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portExtAmb annotation (
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portExtAmb if AExtInd > 0 annotation (
       Placement(transformation(extent={{-120,-32},{-100,-12}}),
         iconTransformation(extent={{-120,-32},{-100,-12}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor heatConExt if AExtInd > 0
@@ -61,7 +61,7 @@ model ThermalZoneOneElement
             {120,38}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResWin(R=RWin) if AWinInd > 0
     annotation (Placement(transformation(extent={{-74,26},{-54,46}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portWinAmb annotation (
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portWinAmb if AWinInd > 0 annotation (
       Placement(transformation(extent={{-120,8},{-100,28}}),iconTransformation(
           extent={{-120,8},{-100,28}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor heatConWin if AWinInd > 0

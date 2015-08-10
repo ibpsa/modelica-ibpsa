@@ -1,4 +1,4 @@
-within Annex60.Experimental.VariableOrderZoneModels;
+within Annex60.Experimental.ThermalZones;
 model ThermalZoneThreeElements
   "Thermal Zone with three elements for thermal masses (two times external and one internal) with variable order"
     extends ThermalZoneTwoElements(
@@ -51,11 +51,11 @@ model ThermalZoneThreeElements
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={102,-62})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portGroundAmb annotation (
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portGroundAmb if AGroundInd > 0 annotation (
      Placement(transformation(extent={{36,-122},{56,-102}}), iconTransformation(
           extent={{36,-122},{56,-102}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadWinGround(R=1/(min(
-        AWinInd, AGroundInd)*alphaRad)) if AWindInd > 0 and AGroundInd > 0 annotation (Placement(transformation(
+        AWinInd, AGroundInd)*alphaRad)) if AWinInd > 0 and AGroundInd > 0 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-44,-50})));
