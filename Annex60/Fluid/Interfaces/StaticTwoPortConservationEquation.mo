@@ -55,6 +55,29 @@ protected
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
 
+  // Parameters for inverseXRegularized.
+  // These are assigned here for efficiency reason.
+  // Otherwise, they would need to be computed each time
+  // the function is invocated.
+  final parameter Real deltaReg = m_flow_small/1E3
+    "Smoothing region for inverseXRegularized";
+
+  final parameter Real deltaInvReg = 1/deltaReg
+    "Inverse value of delta for inverseXRegularized";
+
+  final parameter Real aReg = -15*deltaInvReg
+    "Polynomial coefficient for inverseXRegularized";
+  final parameter Real bReg = 119*deltaInvReg^2
+    "Polynomial coefficient for inverseXRegularized";
+  final parameter Real cReg = -361*deltaInvReg^3
+    "Polynomial coefficient for inverseXRegularized";
+  final parameter Real dReg = 534*deltaInvReg^4
+    "Polynomial coefficient for inverseXRegularized";
+  final parameter Real eReg = -380*deltaInvReg^5
+    "Polynomial coefficient for inverseXRegularized";
+  final parameter Real fReg = 104*deltaInvReg^6
+    "Polynomial coefficient for inverseXRegularized";
+
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
@@ -67,7 +90,9 @@ equation
  mXi_flow = mWat_flow * s;
   // Regularization of m_flow around the origin to avoid a division by zero
  if use_safeDivision then
-    m_flowInv = Annex60.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
+    m_flowInv = Annex60.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow,
+      delta=deltaReg, deltaInv=deltaInvReg,
+       a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg);
  else
      m_flowInv = 0; // m_flowInv is not used if use_safeDivision = false.
  end if;
@@ -174,6 +199,16 @@ or instantiates this model sets <code>mWat_flow = 0</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 11, 2015, by Michael Wetter:<br/>
+Refactored implementation of
+<a href=\"modelica://Annex60.Utilities.Math.Functions.inverseXRegularized\">
+Annex60.Utilities.Math.Functions.inverseXRegularized</a>
+to allow function to be inlined and to factor out the computation
+of arguments that only depend on parameters.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/302\">issue 302</a>.
+</li>
 <li>
 May 6, 2015, by Michael Wetter:<br/>
 Corrected documentation.

@@ -4,31 +4,23 @@ function inverseXRegularized
  input Real x "Abscissa value";
  input Real delta(min=Modelica.Constants.eps)
     "Abscissa value below which approximation occurs";
+ input Real deltaInv = 1/delta "Inverse value of delta";
+
+ input Real a = -15*deltaInv "Polynomial coefficient";
+ input Real b = 119*deltaInv^2 "Polynomial coefficient";
+ input Real c = -361*deltaInv^3 "Polynomial coefficient";
+ input Real d = 534*deltaInv^4 "Polynomial coefficient";
+ input Real e = -380*deltaInv^5 "Polynomial coefficient";
+ input Real f = 104*deltaInv^6 "Polynomial coefficient";
+
  output Real y "Function value";
-protected
-   Real x2 "= x^2";
-   Real x4 "= x^2";
-   Real dInv "= 1/delta";
-   Real dInv2 "= 1/delta^2";
-   Real dInv4 "= 1/delta^4";
-   Real ex "Common subexpression";
+
 algorithm
-  if (abs(x) > delta) then
-    y := 1/x;
-  else
-    // Evaluate the following equation:
-    // a := 7/(2*delta^5);
-    // b := -6/delta^7;
-    // c := 5/(2*delta^9);
-    // y := x/delta^2 + sign(x)*(a*x^4 + b*x^6 + c*x^8);
-    x2    := x*x;
-    x4    := x2*x2;
-    dInv  := 1/delta;
-    dInv2 := dInv*dInv;
-    dInv4 := dInv2*dInv2;
-    ex    := dInv*dInv4*x4*(3.5 - 6*x2*dInv2 + 2.5*x4*dInv4);
-    y     := x*dInv2 + (if x > 0 then ex else -ex);
-  end if;
+  y :=if (x > delta or x < -delta) then 1/x elseif (x < delta/2 and x > -delta/2) then x/delta/delta else
+    Annex60.Utilities.Math.Functions.BaseClasses.smoothTransition(
+       x=x,
+       delta=delta, deltaInv=deltaInv,
+       a=a, b=b, c=c, d=d, e=e, f=f);
 
   annotation (smoothOrder=2,
               Inline=true,
@@ -44,6 +36,25 @@ See the plot of
 <a href=\"modelica://Annex60.Utilities.Math.Functions.Examples.InverseXRegularized\">
 Annex60.Utilities.Math.Functions.Examples.InverseXRegularized</a>
 for the graph.
+</p>
+<p>
+For efficiency, the polynomial coefficients
+<code>a, b, c, d, e, f</code> and
+the inverse of the smoothing parameter <code>deltaInv</code>
+are exposed as arguments to this function.
+Typically, these coefficients only depend on parameters and hence
+can be computed once. By exposing them as function arguments, models
+that call this function can compute them as parameters, and
+assign these parameter values in the function call.
+This avoids that the coefficients are evaluated for each time step,
+as they would otherwise be if they were to be computed inside the
+body of the function. However, assigning the values is optional
+as otherwise, at the expense of efficiency, the values will be
+computed each time the function is invoked.
+See
+<a href=\"modelica://Annex60.Utilities.Math.Functions.Examples.InverseXRegularized\">
+Annex60.Utilities.Math.Functions.Examples.InverseXRegularized</a>
+for how to efficiently call this function.
 </p>
 </html>", revisions="<html>
 <ul>
