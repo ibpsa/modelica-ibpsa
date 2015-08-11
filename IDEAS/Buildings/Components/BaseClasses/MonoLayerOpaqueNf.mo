@@ -11,8 +11,8 @@ model MonoLayerOpaqueNf "Non-fictive single material layer"
   final parameter Boolean present = mat.d <> 0;
   final parameter Integer nSta=max(nStaMin, mat.nSta) "Number of states";
   final parameter Real R = mat.R "Total specific thermal resistance";
-  final parameter Real Ctot =  A*mat.rho*mat.c*mat.d
-    "Total specific heat capacity";
+  final parameter Modelica.SIunits.HeatCapacity Ctot =  A*mat.rho*mat.c*mat.d
+    "Total heat capacity";
   Modelica.Blocks.Interfaces.RealOutput E(unit="J")= sum(T.*C);
 
 protected
@@ -34,9 +34,7 @@ public
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 initial equation
-
   T = ones(nSta)*T_start;
-
   assert(nSta>=1, "Number of states needs to be higher than zero.");
   assert(abs(sum(C)-A*mat.rho*mat.c*mat.d)<1e-6, "Verification error in MonLayerOpaqueNf");
   assert(abs(sum(ones(size(G,1))./G)-R/A)<1e-6, "Verification error in MonLayerOpaqueNf");
