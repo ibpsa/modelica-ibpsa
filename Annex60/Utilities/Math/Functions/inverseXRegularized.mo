@@ -16,7 +16,7 @@ function inverseXRegularized
  output Real y "Function value";
 
 algorithm
-  y :=if (x > delta or x < -delta) then 1/x elseif (x < delta/2 and x > -delta/2) then x/delta/delta else
+  y :=if (x > delta or x < -delta) then 1/x elseif (x < delta/2 and x > -delta/2) then x/(delta*delta) else
     Annex60.Utilities.Math.Functions.BaseClasses.smoothTransition(
        x=x,
        delta=delta, deltaInv=deltaInv,

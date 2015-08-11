@@ -20,7 +20,7 @@ protected
   Real aX "Absolute value of x";
 algorithm
  aX:= abs(x);
- y_der := (b + 2*c*aX + 3*d*aX^2 + 4*e*aX^3 + 5*f*aX^4)*x_der;
+ y_der := (b + aX*(2*c + aX*(3*d + aX*(4*e + aX*5*f))))*x_der;
  annotation(smoothOrder=1,
           derivative(order=2,
           zeroDerivative=delta,

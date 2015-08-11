@@ -21,8 +21,8 @@ protected
   Real ex "Intermediate expression";
 algorithm
  aX:= abs(x);
- ex     := (2*c + 6*d*aX + 12*e*aX^2 + 20*f*aX^3);
- y_der2 := (b + 2*c*aX + 3*d*aX^2 + 4*e*aX^3 + 5*f*aX^4)*x_der2
+ ex     := 2*c + aX*(6*d + aX*(12*e + aX*20*f));
+ y_der2 := (b + aX*(2*c + aX*(3*d + aX*(4*e + aX*5*f))))*x_der2
          + x_der*x_der*( if x > 0 then ex else -ex);
 
 annotation (

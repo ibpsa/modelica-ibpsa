@@ -23,7 +23,7 @@ protected
 
 algorithm
  aX:= abs(x);
- y := a + b*aX + c*aX^2 + d*aX^3 + e*aX^4 + f*aX^5;
+ y := a + aX*(b + aX*(c + aX*(d + aX*(e + aX*f))));
  if x < 0 then
     y := -y;
  end if;
