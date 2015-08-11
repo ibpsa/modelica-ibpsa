@@ -22,7 +22,8 @@ model EmbeddedPipeDp "Testing pressure drop of embeddedpipe"
     redeclare package Medium = Medium,
     m_flow_nominal=12*24/3600,
     m_flowMin=0.1,
-    A_floor=10)
+    A_floor=10,
+    computeFlowResistance=true)
     annotation (Placement(transformation(extent={{64,-16},{84,4}})));
   BaseClasses.RadSlaCha_ValidationEmpa radSlaCha_ValidationEmpa
     annotation (Placement(transformation(extent={{-90,-96},{-70,-76}})));

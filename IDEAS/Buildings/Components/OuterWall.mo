@@ -1,20 +1,13 @@
 within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(E(y=layMul.E),
-      Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(
+    QTra_design(fixed=false),
+    E(y=layMul.E),
+    Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
            then 0 else port_emb.Q_flow)));
-
-  parameter Modelica.SIunits.Area AWall "Total wall area";
-  parameter Modelica.SIunits.Angle inc
-    "Inclination of the wall, i.e. 90deg denotes vertical";
-  parameter Modelica.SIunits.Angle azi
-    "Azimuth of the wall, i.e. 0deg denotes South";
-
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
-  final parameter Modelica.SIunits.Power QTra_design(fixed=false)
-    "Design heat losses at reference outdoor temperature";
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
@@ -23,15 +16,13 @@ model OuterWall "Opaque building envelope construction"
     annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the layers";
-
+  Modelica.SIunits.Power QSolIrr = (gainDir.y + gainDif.y)
+    "Total solar irradiance";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-  Modelica.SIunits.Power QSolIrr = (gainDir.y + gainDif.y)
-    "Total solar irradiance";
-
-//protected
+protected
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     final A=AWall,
     final inc=inc,
@@ -41,30 +32,30 @@ model OuterWall "Opaque building envelope construction"
     T_start=ones(constructionType.nLay)*T_start)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(final A=
-        AWall)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(
+    final A=AWall)
     "convective surface heat transimission on the exterior side of the wall"
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(final A=
-        AWall, final inc=inc,
-    linearise=linearise,
-    dT_nominal=dT_nominal)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(
+    final A=AWall,
+    final inc=inc,
+    final linearise=linearise,
+    final dT_nominal=dT_nominal)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs
     "determination of absorbed solar radiation by wall based on incident radiation"
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation extRad(final A=
-        AWall)
+  IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation extRad(
+    final A=AWall)
     "determination of radiant heat exchange with the environment and sky"
     annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
-  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-
   Modelica.Blocks.Math.Gain gainDir(k=AWall)
     annotation (Placement(transformation(extent={{-58,-28},{-50,-20}})));
   Modelica.Blocks.Math.Gain gainDif(k=AWall)
     annotation (Placement(transformation(extent={{-58,-32},{-50,-24}})));
+  Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
+    annotation (Placement(transformation(extent={{80,0},{60,20}})));
   Climate.Meteo.Solar.RadSolData radSolData(
     inc=inc,
     azi=azi,
@@ -73,8 +64,6 @@ model OuterWall "Opaque building envelope construction"
     ceilingInc=sim.ceilingInc,
     lat=sim.lat)
     annotation (Placement(transformation(extent={{-92,-36},{-72,-16}})));
-  Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
-    annotation (Placement(transformation(extent={{80,0},{60,20}})));
 initial equation
   QTra_design =U_value*AWall*(273.15 + 21 - Tdes.y);
 
@@ -132,13 +121,6 @@ equation
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBus_a.area) annotation (Line(
       points={{0,-20},{0,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
-      points={{11,50},{24,50},{24,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",

@@ -2,9 +2,12 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Bor
 partial model PartialBoreHoleInternalHEX
   extends PartialBoreHoleElement;
 
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-                              annotation (choicesAllMatching=true);
+  parameter Modelica.SIunits.Temperature T_start
+    "Initial temperature of the filling material"
+    annotation (Dialog(group="Filling material"));
+  parameter Real mSenFac=1
+    "Factor for scaling the sensible thermal mass of the volume"
+    annotation (Dialog(group="Advanced"));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port
     "Heat port that connects to filling material" annotation (Placement(
