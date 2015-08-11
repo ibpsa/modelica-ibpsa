@@ -95,11 +95,9 @@ initial algorithm
   vieFacTot[1,1] :=0;
   vieFacTot[2,2] :=0;
   vieFacTot[1,2] :=IDEAS.Buildings.Components.BaseClasses.viewFactorRectRectPar(
-                      A1=Atot[1],
-                      A2=Atot[2],
+                      A=(Atot[1]+Atot[2])/2,
                       d= hZone,
-                      l1=(A[3]+A[5])/hZone/2,
-                      l2=(A[3]+A[5])/hZone/2);
+                      l=(A[3]+A[5])/hZone/2);
   vieFacTot[2,1] := vieFacTot[1,2]*Atot[1]/Atot[2];
 
   for i in 3:numAzi+2 loop
@@ -136,17 +134,15 @@ initial algorithm
             //surfaces are perpendicular
             vieFacTot[i,j] := IDEAS.Buildings.Components.BaseClasses.viewFactorRectRectPerp(
                   lCommon=hZone,
-                  W1=Atot[i]/hZone,
-                  W2=Atot[j]/hZone);
+                  W1=Atot[j]/hZone,
+                  W2=Atot[i]/hZone);
             vieFacTot[j,i]:=vieFacTot[i,j]*Atot[i]/Atot[j];
           elseif abs(i-j) == 2 then
             //surfaces are parallel
             vieFacTot[i,j] := IDEAS.Buildings.Components.BaseClasses.viewFactorRectRectPar(
-                  A1=Atot[i],
-                  A2=Atot[j],
-                  d= A[integer((i+j)/2)]/hZone,
-                  l1=hZone,
-                  l2=hZone);
+                  A=(Atot[i]+Atot[j])/2,
+                  d= Atot[integer((i+j)/2)]/hZone,
+                  l=hZone);
             vieFacTot[j,i]:=vieFacTot[i,j]*Atot[i]/Atot[j];
           else
             //fixme warning
