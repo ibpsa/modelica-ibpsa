@@ -43,7 +43,10 @@ For efficiency, the polynomial coefficients
 the inverse of the smoothing parameter <code>deltaInv</code>
 are exposed as arguments to this function.
 Typically, these coefficients only depend on parameters and hence
-can be computed once. By exposing them as function arguments, models
+can be computed once.
+They must be equal to their default values, otherwise the function
+is not twice continuously differentiable.
+By exposing these coefficients as function arguments, models
 that call this function can compute them as parameters, and
 assign these parameter values in the function call.
 This avoids that the coefficients are evaluated for each time step,
