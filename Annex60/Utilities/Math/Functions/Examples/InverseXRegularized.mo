@@ -6,10 +6,14 @@ model InverseXRegularized
   parameter Real delta = 0.5 "Small value for approximation";
   Real y "Function value";
   Real xInv "Function value";
+  Real dy_dt "First derivative of y with respect to t";
+  Real d2y_dt2 "Second derivative of y with respect to t";
 equation
   x=2*time-1;
   xInv = if ( abs(x) > 0.1)   then 1 / x else 0;
   y = Annex60.Utilities.Math.Functions.inverseXRegularized(x=x, delta=delta);
+  dy_dt=der(y);
+  d2y_dt2=der(dy_dt);
   annotation(experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXRegularized.mos"
         "Simulate and plot"),
