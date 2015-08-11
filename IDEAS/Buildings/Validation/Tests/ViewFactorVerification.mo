@@ -54,4 +54,10 @@ First implementation.
 </html>", info="<html>
 <p>This model simulates Bestest case 900 two times. Once with and once without explicit view factor implementation. Use the added command to plot the difference in results between the two implementations.</p>
 </html>"));
+initial equation
+
+for i in 1:6 loop
+    assert( abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1) < Modelica.Constants.eps*1000, "View factors do not sum up to one for row " + String(i) +  "!: "+ String(abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1)));
+end for;
+
 end ViewFactorVerification;
