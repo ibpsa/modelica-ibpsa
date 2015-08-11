@@ -2,25 +2,37 @@ within Annex60.Utilities.Math.Functions;
 function inverseXRegularized
   "Function that approximates 1/x by a twice continuously differentiable function"
  input Real x "Abscissa value";
- input Real delta(min=0) "Abscissa value below which approximation occurs";
+ input Real delta(min=Modelica.Constants.eps)
+    "Abscissa value below which approximation occurs";
  output Real y "Function value";
-// Real delta2 "Delta^2";
-// Real x_d "=x/delta";
-// Real x2_d2 "=x^2/delta^2";
 protected
-   Real a = 7/(2*delta^5);
-   Real b = -6/delta^7;
-   Real c = 5/(2*delta^9);
+   Real x2 "= x^2";
+   Real x4 "= x^2";
+   Real dInv "= 1/delta";
+   Real dInv2 "= 1/delta^2";
+   Real dInv4 "= 1/delta^4";
+   Real ex "Common subexpression";
 algorithm
   if (abs(x) > delta) then
     y := 1/x;
   else
-    // fixme: This should be made more efficient.
-    y      := x/delta^2 + sign(x)*(a*x^4 + b*x^6 + c*x^8);
+    // Evaluate the following equation:
+    // a := 7/(2*delta^5);
+    // b := -6/delta^7;
+    // c := 5/(2*delta^9);
+    // y := x/delta^2 + sign(x)*(a*x^4 + b*x^6 + c*x^8);
+    x2    := x*x;
+    x4    := x2*x2;
+    dInv  := 1/delta;
+    dInv2 := dInv*dInv;
+    dInv4 := dInv2*dInv2;
+    ex    := dInv*dInv4*x4*(3.5 - 6*x2*dInv2 + 2.5*x4*dInv4);
+    y     := x*dInv2 + (if x > 0 then ex else -ex);
   end if;
 
-  annotation (
-    Documentation(info="<html>
+  annotation (smoothOrder=2,
+              Inline=true,
+Documentation(info="<html>
 <p>
 Function that approximates <i>y=1 &frasl; x</i>
 inside the interval <i>-&delta; &le; x &le; &delta;</i>.
@@ -55,5 +67,5 @@ April 18, 2011, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),  smoothOrder=2, Inline=true);
+</html>"));
 end inverseXRegularized;
