@@ -8,9 +8,11 @@ model MonoLayerOpaqueNf "Non-fictive single material layer"
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the states";
 
+  parameter Integer nStaMin(min=1) = 2 "Minimum number of states";
+
   final parameter Boolean present = mat.d <> 0;
 
-  final parameter Integer nSta=mat.nSta "Number of states";
+  final parameter Integer nSta=max(nStaMin, mat.nSta) "Number of states";
   final parameter Real R = mat.R "Total specific thermal resistance";
   final parameter Real Ctot =  mat.rho*mat.c*mat.d
     "Total specific heat capacity";
