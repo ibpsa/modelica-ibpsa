@@ -24,7 +24,7 @@ model MonoLayerOpaqueNf "Non-fictive single material layer"
     else T[1]*C/2 + T[nSta]*C/2 + sum(T[i]*C for i in 2:nSta-1);
 
 protected
-  final parameter Modelica.SIunits.ThermalConductance G = nSta*A/R;
+  final parameter Modelica.SIunits.ThermalConductance G = max(nSta-1,1)*A/R;
   final parameter Modelica.SIunits.HeatCapacity C = A*Ctot/max(nSta-1,1);
   final parameter Real Cinv(unit="K/J") = 1/C
     "Dummy parameter for efficiently handling check for division by zero";
