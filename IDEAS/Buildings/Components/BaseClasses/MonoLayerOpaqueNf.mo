@@ -4,63 +4,61 @@ model MonoLayerOpaqueNf "Non-fictive single material layer"
   parameter Modelica.SIunits.Area A "Layer area";
   parameter IDEAS.Buildings.Data.Interfaces.Material mat "Layer material";
   parameter Modelica.SIunits.Angle inc "Inclination";
-
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the states";
-
   parameter Integer nStaMin(min=1) = 2 "Minimum number of states";
 
   final parameter Boolean present = mat.d <> 0;
-
   final parameter Integer nSta=max(nStaMin, mat.nSta) "Number of states";
   final parameter Real R = mat.R "Total specific thermal resistance";
-  final parameter Real Ctot =  mat.rho*mat.c*mat.d
+  final parameter Real Ctot =  A*mat.rho*mat.c*mat.d
     "Total specific heat capacity";
-  Modelica.Blocks.Interfaces.RealOutput E(unit="J")=
-    if nSta == 1
-      then T[1]*C
-    elseif nSta==2
-      then (T[1]+T[2])*C/2
-    else T[1]*C/2 + T[nSta]*C/2 + sum(T[i]*C for i in 2:nSta-1);
+  Modelica.Blocks.Interfaces.RealOutput E(unit="J")= sum(T.*C);
 
 protected
-  final parameter Modelica.SIunits.ThermalConductance G = max(nSta-1,1)*A/R;
-  final parameter Modelica.SIunits.HeatCapacity C = A*Ctot/max(nSta-1,1);
-  final parameter Real Cinv(unit="K/J") = 1/C
+  final parameter Modelica.SIunits.ThermalConductance[max(nSta-1,1)] G = fill(max(nSta-1,1)*A/R,max(nSta-1,1));
+  final parameter Modelica.SIunits.HeatCapacity[nSta] C = Ctot *
+    (if nSta <= 2
+      then ones(nSta)/nSta
+    else cat(1,{0.5}, ones(nSta-2), {0.5})/(nSta-1));
+  final parameter Real[nSta] Cinv(unit="K/J") = ones(nSta)./C
     "Dummy parameter for efficiently handling check for division by zero";
+  Modelica.SIunits.Temperature[nSta] T "Temperature at the states";
+  Modelica.SIunits.HeatFlowRate[max(nSta-1,1)] Q_flow
+    "Heat flow rate from state i to i-1";
 
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.SIunits.Temperature[nSta] T "Temperature at the states";
-  Modelica.SIunits.HeatFlowRate[max(nSta-1,1)] Q_flow
-    "Heat flow rate from state i to i-1";
+
 initial equation
 
   T = ones(nSta)*T_start;
 
   assert(nSta>=1, "Number of states needs to be higher than zero.");
+  assert(abs(sum(C)-A*mat.rho*mat.c*mat.d)<1e-6, "Verification error in MonLayerOpaqueNf");
+  assert(abs(sum(ones(size(G,1))./G)-R/A)<1e-6, "Verification error in MonLayerOpaqueNf");
 equation
   port_a.T=T[1];
 
   if nSta > 1 then
-    der(T[1])=(port_a.Q_flow-Q_flow[1])*Cinv*2;
-    der(T[nSta])=(Q_flow[nSta-1]+port_b.Q_flow)*Cinv*2;
+    der(T[1])=(port_a.Q_flow-Q_flow[1])*Cinv[1];
+    der(T[nSta])=(Q_flow[nSta-1]+port_b.Q_flow)*Cinv[nSta];
     port_b.T=T[nSta];
 
     // Q_flow[i] is heat flowing from (i-1) to (i)
     for i in 1:nSta-1 loop
-      (T[i] - T[i+1])*G = Q_flow[i];
+      (T[i] - T[i+1])*G[i] = Q_flow[i];
     end for;
     for i in 2:nSta-1 loop
-      der(T[i]) = (Q_flow[i-1]-Q_flow[i])*Cinv;
+      der(T[i]) = (Q_flow[i-1]-Q_flow[i])*Cinv[i];
     end for;
   else
-    der(port_a.T)=(port_a.Q_flow+port_b.Q_flow)*Cinv;
+    der(port_a.T)=(port_a.Q_flow+port_b.Q_flow)*Cinv[1];
     Q_flow[1]=-port_b.Q_flow;
-    Q_flow[1]=(port_a.T-port_b.T)*G;
+    Q_flow[1]=(port_a.T-port_b.T)*G[1];
   end if;
 
   annotation (
