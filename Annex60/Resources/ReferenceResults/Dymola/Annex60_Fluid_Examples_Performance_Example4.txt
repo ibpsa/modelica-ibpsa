@@ -1,8 +1,8 @@
-last-generated=2015-07-21
+last-generated=2015-07-27
 statistics-simulation=
 {
-  "numerical Jacobians": "1", 
-  "nonlinear": "1", 
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
   "linear": " "
 }
 res.m_flow=[3.16227769851684570312, 3.16227769851684570312]
