@@ -25,7 +25,7 @@ model ExteriorHeatRadiation
 
 protected
   Real coeffLin = Modelica.Constants.sigma*A*epsLw*(2*Tenv_nom+dT_nom)*(Tenv_nom^2+(Tenv_nom+dT_nom)^2)
-    "Coefficient allowing less overhead";
+    "Coefficient allowing less overhead. This implementation is an approximation of the real linearization f(u)_lin = df/du|(u=u_bar) * (u-u_bar) + f|u_bar. The accuracy of it has been checked.";
   Real coeffNonLin = Modelica.Constants.sigma*A*epsLw
     "Coefficient allowing less overhead";
 
