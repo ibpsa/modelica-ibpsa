@@ -2,11 +2,11 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Bor
 partial model PartialSingleBoreholeSerie
   extends PartialBoreHoleElement;
   extends PartialTWall;
-   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(m_flow_nominal = gen.m_flow_nominal_bh);
+   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
   //  (redeclare package
 //       Medium =                                                                                   Medium);
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
-      computeFlowResistance=false, linearizeFlowResistance=false, dp_nominal=gen.dp_nominal);
+      computeFlowResistance=false, linearizeFlowResistance=false);
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(T_start=gen.T_start);
 
     replaceable Interface.PartialSingleBoreHole[
@@ -74,11 +74,11 @@ equation
       smooth=Smooth.None));
       if use_TWall then
         connect(TWall, borHol[1].TWall)
-        annotation (Line(points={{0,110},{0,17.6},{0,17.6}}, color={0,0,127}));
+        annotation (Line(points={{0,110},{0,17.6}},          color={0,0,127}));
       end if;
     end for;
     connect(TWall, borHol[gen.nbSer].TWall)
-      annotation (Line(points={{0,110},{0,17.6},{0,17.6}}, color={0,0,127}));
+      annotation (Line(points={{0,110},{0,17.6}},          color={0,0,127}));
 
   TWallAve = sum(borHol.TWallAve)/gen.nbSer;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})), Icon(
