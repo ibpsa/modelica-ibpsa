@@ -4,10 +4,9 @@ record c8x8_h110_b5_d600_T283
   extends Records.General(
     pathMod=
         "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData.c8x8_h110_b5_d600_T283",
-
     pathCom=Modelica.Utilities.Files.loadResource(
         "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/GeneralData/c8x8_h110_b5_d600_T283.mo"),
-
+    singleUTube = true,
     m_flow_nominal_bh=0.3,
     T_start=283.15,
     rBor=0.055,
@@ -30,4 +29,5 @@ record c8x8_h110_b5_d600_T283
     q_ste=21.99,
     nHor=10,
     rExt=3);
+
 end c8x8_h110_b5_d600_T283;

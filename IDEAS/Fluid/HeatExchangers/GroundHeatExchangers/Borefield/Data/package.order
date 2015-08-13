@@ -1,10 +1,5 @@
-Advanced
-AggregationMatrix
-BorefieldData
+Records
+SoilData
 FillingData
 GeneralData
-GeometricData
-Records
-ShortTermResponse
-SoilData
-StepResponse
+BorefieldData

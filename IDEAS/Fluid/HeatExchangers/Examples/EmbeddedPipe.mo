@@ -40,7 +40,8 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
     redeclare package Medium = Medium,
     m_flow_nominal=12*24/3600,
     m_flowMin=0.1,
-    A_floor=1)
+    A_floor=1,
+    computeFlowResistance=true)
     annotation (Placement(transformation(extent={{64,-16},{84,4}})));
   BaseClasses.RadSlaCha_ValidationEmpa radSlaCha_ValidationEmpa
     annotation (Placement(transformation(extent={{-90,-96},{-70,-76}})));
@@ -93,10 +94,6 @@ equation
       points={{112,2.2},{112,-6},{130,-6},{130,36},{78,36}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(embeddedPipe.heatPortEmb, nakedTabs.portCore) annotation (Line(
-      points={{74,4},{74,12},{102,12}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(convTabs.y, convection.Gc) annotation (Line(
       points={{49,46},{68,46}},
       color={0,0,127},
@@ -136,6 +133,10 @@ equation
   connect(firstOrder1.y, pump.m_flowSet) annotation (Line(
       points={{-33,40},{-26,40},{-26,6.4}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(embeddedPipe.heatPortEmb[1], nakedTabs.portCore) annotation (Line(
+      points={{74,4},{74,12},{102,12}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{140,100}}),

@@ -1,8 +1,6 @@
 within IDEAS.Buildings.Components;
 model Zone "thermal building zone"
-  import Buildings;
-
-  extends IDEAS.Buildings.Components.Interfaces.StateZone;
+  extends IDEAS.Buildings.Components.Interfaces.StateZone(Eexpr(y=E));
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
       Medium = IDEAS.Media.Air);
 
@@ -33,7 +31,7 @@ model Zone "thermal building zone"
 
   Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
     "Total design transmission heat losses for the zone";
-  final parameter Modelica.SIunits.Power Q_design( fixed=false)
+  final parameter Modelica.SIunits.Power Q_design(fixed=false)
     "Total design heat losses for the zone";
 
   Modelica.SIunits.Temperature TAir=senTem.T;
@@ -82,41 +80,11 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-10,30})));
-public
-  Fluid.Interfaces.FlowPort_b flowPort_Out(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
-  Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{10,90},{30,110}})));
+
 protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
 
-protected
-  Modelica.Blocks.Sources.RealExpression Eexpr(y=E) if        sim.computeConservationOfEnergy
-    "Internal energy model"
-    annotation (Placement(transformation(extent={{-28,44},{-48,64}})));
-public
-  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if  sim.computeConservationOfEnergy
-    "Dummy that allows computing total internal energy"
-    annotation (Placement(transformation(extent={{-56,44},{-76,64}})));
-protected
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a dummy if  sim.computeConservationOfEnergy
-    "Dummy heat port for avoiding error by dymola translator";
-  IDEAS.Buildings.Components.BaseClasses.EnergyPort dummy2 if   sim.computeConservationOfEnergy
-    "Dummy emergy port for avoiding error by dymola translator";
-
-protected
-  Modelica.Blocks.Sources.RealExpression Qgai(y=(if sim.openSystemConservationOfEnergy
-         then 0 else gainCon.Q_flow + gainRad.Q_flow + flowPort_In.m_flow*
-        actualStream(flowPort_In.h_outflow) + flowPort_Out.m_flow*actualStream(
-        flowPort_Out.h_outflow))) if                       sim.computeConservationOfEnergy
-    "Heat gains in model"
-    annotation (Placement(transformation(extent={{-28,58},{-48,78}})));
-public
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
-                                                                                   sim.computeConservationOfEnergy
-    "Component for computing conservation of energy"
-    annotation (Placement(transformation(extent={{-56,58},{-76,78}})));
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 equation
@@ -129,7 +97,6 @@ equation
       points={{-100.1,39.9},{-74,39.9},{-74,-26},{-54,-26},{-54,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-
   connect(summation.y, TSensor) annotation (Line(
       points={{12.6,-60},{59.3,-60},{59.3,0},{106,0}},
       color={0,0,127},
@@ -160,6 +127,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+
   connect(propsBus.epsLw, radDistr.epsLw) annotation (Line(
       points={{-100.1,39.9},{-82,39.9},{-82,-44},{-64,-44}},
       color={127,0,0},
@@ -233,33 +201,6 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
 
-for i in 1:nSurf loop
-  connect(sim.weaBus, propsBus[i].weaBus) annotation (Line(
-       points={{-88.6,97.2},{-88.6,100},{-100.1,100},{-100.1,39.9}},
-       color={255,204,51},
-       thickness=0.5,
-       smooth=Smooth.None));
-  connect(dummy, propsBus[i].Qgai) annotation (Line(points={{-68,65},{-68,39.9},
-            {-100.1,39.9}},
-                          color={191,0,0}));
-  connect(dummy2, propsBus[i].E) annotation (Line(points={{-68,75},{-68,39.9},
-            {-100.1,39.9}},
-                          color={191,0,0}));
-end for;
-  connect(sim.Qgai, dummy) annotation (Line(points={{-90,80},{-90,65},{-68,65}},
-                          color={191,0,0}));
-  connect(sim.E, dummy2) annotation (Line(points={{-90,80},{-90,75},{-68,75}},
-                          color={191,0,0}));
-  connect(Eexpr.y, prescribedHeatFlowE.E)
-    annotation (Line(points={{-49,54},{-49,54},{-56,54}},
-                                                 color={0,0,127}));
-  connect(prescribedHeatFlowE.port, sim.E) annotation (Line(points={{-76,54},{-90,
-          54},{-90,80}},                      color={191,0,0}));
-  connect(Qgai.y,prescribedHeatFlowQgai. Q_flow)
-    annotation (Line(points={{-49,68},{-49,68},{-56,68}},
-                                              color={0,0,127}));
-  connect(prescribedHeatFlowQgai.port, sim.Qgai)
-    annotation (Line(points={{-76,68},{-90,68},{-90,80}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -276,13 +217,7 @@ end for;
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
-<ul>
-<li>
-June 14, 2015, Filip Jorissen:<br/>
-Adjusted implementation for computing conservation of energy.
-</li>
-</ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end Zone;

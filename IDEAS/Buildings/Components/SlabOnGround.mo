@@ -1,39 +1,32 @@
 within IDEAS.Buildings.Components;
 model SlabOnGround "opaque floor on ground slab"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(Qgai(y=layMul.port_a.Q_flow
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(
+    QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes),
+    Qgai(y=layMul.port_a.Q_flow
            + (if sim.openSystemConservationOfEnergy then 0 else port_emb.Q_flow)),
-      E(y=layMul.E));
+    E(y=layMul.E));
 
-  parameter Modelica.SIunits.Area AWall "Total wall area";
   parameter Modelica.SIunits.Length PWall "Total wall perimeter";
-  parameter Modelica.SIunits.Angle inc
-    "Inclination of the wall, i.e. 90deg denotes vertical";
-  parameter Modelica.SIunits.Angle azi
-    "Azimuth of the wall, i.e. 0deg denotes South";
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal=-3
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Dialog(tab="Convection"));
-  final parameter Real U_value=1/(1/6 + sum(constructionType.mats.R) + 0)
-    "Floor theoretical U-value";
-
-  final parameter Modelica.SIunits.Power QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes)
-    "Design heat losses at reference outdoor temperature, ISO 13370";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  Modelica.SIunits.HeatFlowRate Qm = UEqui*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta))
+    "Two-dimensionl correction for edge flow";
 
 //Calculation of heat loss based on ISO 13370
 protected
   final parameter IDEAS.Buildings.Data.Materials.Ground ground1(final d=0.50);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground2(final d=0.33);
   final parameter IDEAS.Buildings.Data.Materials.Ground ground3(final d=0.17);
-
-  Modelica.SIunits.HeatFlowRate Qm = UEqui*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta))
-    "Two-dimensionl correction for edge flow";
+  final parameter Real U_value=1/(1/6 + sum(constructionType.mats.R) + 0)
+    "Floor theoretical U-value";
 
   final parameter Modelica.SIunits.Length B=AWall/(0.5*PWall + 1E-10)
     "Characteristic dimension of the slab on ground";
@@ -48,7 +41,6 @@ protected
   final parameter Real Lpe=0.37*PWall*ground1.k*log(delta/dt + 1);
   parameter Integer m = 7;
 
-public
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     final A=AWall,
     final inc=inc,
@@ -57,13 +49,14 @@ public
     final locGain=constructionType.locGain)
     "Declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(final A=
-        AWall, final inc=inc,
-    linearise=linearise,
-    dT_nominal=dT_nominal)
+  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(
+    final A=AWall,
+    final inc=inc,
+    final linearise=linearise,
+    final dT_nominal=dT_nominal)
     "Convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  BaseClasses.MultiLayerGround                            layGro(
+  BaseClasses.MultiLayerGround layGro(
     final A=AWall,
     final inc=inc,
     final nLay=3,
@@ -71,9 +64,6 @@ public
     final locGain=1)
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-public
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=284.15)
                 annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -82,8 +72,6 @@ public
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15
          + 12)
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
-  outer SimInfoManager sim "Simulation information manager for climate data"
-    annotation (Placement(transformation(extent={{36,-102},{56,-82}})));
   Modelica.Blocks.Sources.RealExpression QmExp(y=-Qm) "Real expression for Qm"
     annotation (Placement(transformation(extent={{-80,-18},{-60,2}})));
 equation

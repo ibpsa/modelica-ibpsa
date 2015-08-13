@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components;
 model Window "Multipane window"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWall;
+  extends IDEAS.Buildings.Components.Interfaces.StateWall(QTra_design(fixed=false));
 
   parameter Modelica.SIunits.Area A "Total window and windowframe area";
   parameter Real frac(
@@ -13,16 +13,6 @@ model Window "Multipane window"
   parameter Modelica.SIunits.TemperatureDifference dT_nominal=-3
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Dialog(tab="Convection"));
-  parameter Modelica.SIunits.Angle inc
-    "Inclination of the window, i.e. 90deg denotes vertical";
-  parameter Modelica.SIunits.Angle azi
-    "Azimuth of the wall, i.e. 0deg denotes South";
-
-  final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
-    "Window U-value";
-  final parameter Modelica.SIunits.Power QTra_design(fixed=false)
-    "Design heat losses at reference outdoor temperature";
-
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazing
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
@@ -48,6 +38,9 @@ model Window "Multipane window"
         origin={-40,-100})));
 
 protected
+  final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
+    "Window U-value";
+
   IDEAS.Buildings.Components.BaseClasses.MultiLayerLucent layMul(
     final A=A*(1 - frac),
     final inc=inc,
@@ -92,9 +85,6 @@ protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=
         fraType.U_value*A*frac) if fraType.present  annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
-  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-public
   Climate.Meteo.Solar.RadSolData radSolData(
     inc=inc,
     azi=azi,
@@ -109,22 +99,17 @@ public
     annotation (Placement(transformation(extent={{-70,-56},{-62,-48}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-protected
-  Modelica.Blocks.Sources.RealExpression Qgai(y=-(skyRad.port_a.Q_flow + eCon.port_a.Q_flow
-         + skyRadFra.port_a.Q_flow + eConFra.port_a.Q_flow + sum(solWin.iSolAbs.Q_flow)
-         + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow)) if
-                                                           sim.computeConservationOfEnergy
-    "Heat gains in model"
+  Modelica.Blocks.Sources.RealExpression Qgai(y=-(propsBus_a.surfCon.Q_flow +
+        propsBus_a.surfRad.Q_flow + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow))
+    if                                                     sim.computeConservationOfEnergy
+    "Heat gains in model (using propsbus since frame can be conditionally removed)"
     annotation (Placement(transformation(extent={{-116,40},{-96,60}})));
-protected
   Modelica.Blocks.Sources.RealExpression E1(y=0) if        sim.computeConservationOfEnergy
     "Internal energy model"
     annotation (Placement(transformation(extent={{-116,60},{-96,80}})));
-public
   IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if  sim.computeConservationOfEnergy
     "Component for computing conservation of energy"
     annotation (Placement(transformation(extent={{-86,60},{-66,80}})));
-public
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
                                                                                    sim.computeConservationOfEnergy
     "Component for computing conservation of energy"
@@ -210,13 +195,6 @@ equation
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBus_a.area) annotation (Line(
       points={{0,-20},{0,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
-      points={{11,50},{24,50},{24,39.9},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
