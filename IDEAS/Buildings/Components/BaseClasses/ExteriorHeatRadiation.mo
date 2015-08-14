@@ -2,9 +2,17 @@ within IDEAS.Buildings.Components.BaseClasses;
 model ExteriorHeatRadiation
   "longwave radiative heat exchange of an exterior surface with the environment"
 
-  parameter Modelica.SIunits.Area A "surface area";
+  parameter Modelica.SIunits.Area A "Surface area";
+  parameter Boolean linearise = true "Linearise radiative heat transfer"
+    annotation(Evaluate=true, Dialog(group="Linearisation"));
+  parameter Modelica.SIunits.Temperature Tenv_nom = 280
+    "Nominal temperature of environment"
+    annotation(Dialog(group="Linearisation", enable=linearise));
+  parameter Modelica.SIunits.TemperatureDifference dT_nom = 5
+    "Nominal temperature difference between wall and environment"
+    annotation(Dialog(group="Linearisation", enable=linearise));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Blocks.Interfaces.RealInput Tenv
@@ -12,12 +20,22 @@ model ExteriorHeatRadiation
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));
 
   Modelica.Blocks.Interfaces.RealInput epsLw
-    "shortwave emissivity of the surface"
+    "Longwave emissivity of the surface"
     annotation (Placement(transformation(extent={{-120,14},{-80,54}})));
 
-equation
-  port_a.Q_flow = A*5.67*epsLw*(port_a.T - Tenv);
+protected
+  Real coeffLin = Modelica.Constants.sigma*A*epsLw*(2*Tenv_nom+dT_nom)*(Tenv_nom^2+(Tenv_nom+dT_nom)^2)
+    "Coefficient allowing less overhead. This implementation is an approximation of the real linearization f(u)_lin = df/du|(u=u_bar) * (u-u_bar) + f|u_bar. The accuracy of it has been checked.";
+  Real coeffNonLin = Modelica.Constants.sigma*A*epsLw
+    "Coefficient allowing less overhead";
 
+equation
+  if linearise then
+    port_a.Q_flow = coeffLin*(port_a.T - Tenv);
+  else
+    port_a.Q_flow = coeffNonLin*(port_a.T^4 - Tenv^4);
+
+  end if;
   annotation (Icon(graphics={
         Line(points={{-40,10},{40,10}}, color={191,0,0}),
         Line(points={{-40,10},{-30,16}}, color={191,0,0}),
@@ -55,6 +73,7 @@ equation
 <p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-cISf3Itz.png\"/></p>
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-IKuIUMef.png\"/> is the shortwave absorption of the surface and <img src=\"modelica://IDEAS/Images/equations/equation-Vuo4fgcb.png\"/> the total irradiation on the depicted surface. </p>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+                    graphics));
 end ExteriorHeatRadiation;
