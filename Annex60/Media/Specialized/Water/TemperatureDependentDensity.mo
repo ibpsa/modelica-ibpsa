@@ -396,7 +396,7 @@ at constant pressure.
 <ul>
 <li>
 August 17, 2015, by Michael Wetter:<br/>
-Removed dublicate entry of <code>smooth<code> and <code>smoothOrder</code>.
+Removed dublicate entry of <code>smooth</code> and <code>smoothOrder</code>.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/303\">issue 303</a>.
 </li>
