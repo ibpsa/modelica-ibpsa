@@ -1,9 +1,9 @@
 Boiler
-HP_AirWater_TSet
 HP_AirWater_TSet2
+HP_AirWater_Tset
 HP_GroundWater_TSet2
 HP_WaterWater_OnOff
-HP_WaterWater_TSet
+HP_WaterWater_Tset
 IdealHeater
 Data
 Examples
