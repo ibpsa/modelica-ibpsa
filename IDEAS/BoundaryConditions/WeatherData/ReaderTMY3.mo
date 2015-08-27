@@ -228,7 +228,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
-    final tableName="tab1",
+    tableName="tab1",
     final fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
@@ -283,7 +283,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Modelica.Blocks.Tables.CombiTable1Ds datRea1(
     final tableOnFile=true,
-    final tableName="tab1",
+    tableName="tab1",
     final fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns=8:11) "Data reader"
