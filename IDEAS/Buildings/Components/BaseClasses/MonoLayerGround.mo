@@ -12,7 +12,8 @@ model MonoLayerGround "Non-fictive single material layer"
 
   final parameter Integer nSta=mat.nSta;
   final parameter Integer nFlo=mat.nSta + 1;
-  final parameter Real R = mat.R "Total specific thermal resistance";
+  final parameter Modelica.SIunits.ThermalInsulance R = mat.R
+    "Total specific thermal resistance";
   final parameter Modelica.SIunits.ThermalConductance G = (A*mat.k*nSta)/mat.d;
   final parameter Modelica.SIunits.HeatCapacity C = (A*mat.rho*mat.c*mat.d)/nSta;
 
