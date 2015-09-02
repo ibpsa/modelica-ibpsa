@@ -43,11 +43,8 @@ model HeatPump_AirWater
     "Nominal mass flow rate";
   inner SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,78},{-80,98}})));
-<<<<<<< HEAD
-=======
   Modelica.Blocks.Sources.Constant Tset(k=273.15 + 35) "Temperature set point"
     annotation (Placement(transformation(extent={{-22,44},{-42,64}})));
->>>>>>> OMcompatibility
 equation
 
   connect(heater.heatPort, fixedTemperature.port) annotation (Line(
@@ -78,11 +75,8 @@ equation
       points={{-28,18},{-42,18},{-42,18},{-56,18}},
       color={0,127,255},
       smooth=Smooth.None));
-<<<<<<< HEAD
-=======
   connect(Tset.y, heater.TSet) annotation (Line(points={{-43,54},{-68.6,54},{-68.6,
           36}}, color={0,0,127}));
->>>>>>> OMcompatibility
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
