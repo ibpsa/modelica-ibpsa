@@ -7,7 +7,9 @@ model PumpExample "Example of how a pump can be used"
        1,
     useInput=true,
     riseTime=500,
-    use_onOffSignal=true)
+    use_onOffSignal=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
         Medium)

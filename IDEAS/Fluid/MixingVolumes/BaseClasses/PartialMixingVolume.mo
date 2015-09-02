@@ -55,6 +55,7 @@ protected
     final prescribedHeatFlowRate=prescribedHeatFlowRate) if
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
         annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+public
   IDEAS.Fluid.Interfaces.ConservationEquation dynBal(
     final simplify_mWat_flow = simplify_mWat_flow,
     redeclare final package Medium = Medium,
@@ -74,6 +75,7 @@ protected
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
   // Density at start values, used to compute initial values and start guesses
+protected
   parameter Modelica.SIunits.Density rho_start=Medium.density(
    state=state_start) "Density, used to compute start and guess values";
   final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(

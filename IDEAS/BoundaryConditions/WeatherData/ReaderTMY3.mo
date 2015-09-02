@@ -204,13 +204,13 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter String filNam="" "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
-  final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     IDEAS.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
     filNam) "Longitude";
-  final parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
+  parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
     IDEAS.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
     filNam) "Latitude";
-  final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
+  parameter Modelica.SIunits.Time timZon(displayUnit="h")=
     IDEAS.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{
@@ -225,7 +225,13 @@ block ReaderTMY3 "Reader for TMY3 weather data"
 
   constant Real epsCos = 1e-6 "Small value to avoid division by 0";
 
-protected
+  Modelica.Blocks.Tables.CombiTable1Ds datRea1(
+    final tableOnFile=true,
+    tableName="tab1",
+    final fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
+    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    final columns=8:11) "Data reader"
+    annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
     tableName="tab1",
@@ -234,6 +240,7 @@ protected
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
         28,29,30}) "Data reader"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+protected
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
     cheTemDryBul "Check dry bulb temperature "
     annotation (Placement(transformation(extent={{160,-200},{180,-180}})));
@@ -281,13 +288,7 @@ protected
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(
       final lon=lon, final timZon=timZon) "Local civil time"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Modelica.Blocks.Tables.CombiTable1Ds datRea1(
-    final tableOnFile=true,
-    tableName="tab1",
-    final fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    final columns=8:11) "Data reader"
-    annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
+
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1
     "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-110,160},{-90,180}})));

@@ -11,7 +11,8 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
     redeclare package Medium = Medium,
     m_flow(start=12*24/3600),
     m_flow_nominal=12*24/3600,
-    T_start=303.15)
+    T_start=303.15,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-36,-14},{-16,6}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(
       T=293.15) annotation (Placement(transformation(extent={{8,64},{28,84}})));
@@ -20,7 +21,8 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
     redeclare package Medium = Medium,
     m_flow_nominal=12*24/3600,
     dynamicBalance=false,
-    T_start=303.15)
+    T_start=303.15,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{0,6},{20,-16}})));
   Modelica.Thermal.HeatTransfer.Components.Convection convection annotation (
       Placement(transformation(
@@ -34,14 +36,17 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
     offset=0,
     startTime=0)
     annotation (Placement(transformation(extent={{-88,30},{-68,50}})));
-  BaseClasses.NakedTabs nakedTabs(radSlaCha=radSlaCha_ValidationEmpa)
+  BaseClasses.NakedTabs nakedTabs(radSlaCha=radSlaCha_ValidationEmpa,
+    C1(each T(fixed=true)),
+    C2(each T(fixed=true)))
     annotation (Placement(transformation(extent={{102,2},{122,22}})));
   RadiantSlab.EmbeddedPipe embeddedPipe(
     redeclare package Medium = Medium,
     m_flow_nominal=12*24/3600,
     m_flowMin=0.1,
     A_floor=1,
-    computeFlowResistance=true)
+    computeFlowResistance=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{64,-16},{84,4}})));
   BaseClasses.RadSlaCha_ValidationEmpa radSlaCha_ValidationEmpa
     annotation (Placement(transformation(extent={{-90,-96},{-70,-76}})));
@@ -59,7 +64,8 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
     startTime=5*3600,
     offset=273.15 + 30)
     annotation (Placement(transformation(extent={{-66,-14},{-86,6}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=60, y_start=273.15 + 30)
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=60, y_start=273.15 + 30,
+    initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{-86,-50},{-66,-30}})));
   Sensors.TemperatureTwoPort TSen_emb_sup(redeclare package Medium = Medium,
       m_flow_nominal=12*24/3600)
@@ -70,7 +76,8 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
         rotation=-90,
         origin={100,-32})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(
-                                                   T=60, y_start=1)
+                                                   T=60, y_start=1,
+    initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{-54,30},{-34,50}})));
 equation
 
