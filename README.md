@@ -18,7 +18,12 @@ developers of libraries that will be distributed to end-users.
 
 ## Current release
 
-Download [Annex60 Library v0.1 build 1 (2013-xx-xx)](https://github.com/iea-annex60/modelica-annex60/archive/v0.1_build1.zip)
+Download [Annex60 Library v0.1 build 1 (2013-xx-xx)](https://github.com/iea-annex60/modelica-annex60/archive/v0.1_build1.zip).
+
+### License
+
+The Modelica _Annex60_ library is available under the terms of the license at
+[Annex60/legal.html](https://github.com/iea-annex60/modelica-annex60/blob/master/Annex60/legal.html).
 
 ## Development and contribution
 You may report any issues by using the [Issues](https://github.com/iea-annex60/modelica-annex60/issues) button.
