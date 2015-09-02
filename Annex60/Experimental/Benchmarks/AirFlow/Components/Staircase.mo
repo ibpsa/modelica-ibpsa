@@ -185,7 +185,10 @@ Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 <ul>
 <li>
 September, 2, 2015 by Marcus Fuchs:<br/>
-Add start values to the ports and temperature in the <code>ThermalConductor</code> and the <code>PrescripedTemperature</code> model. This is for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\"> #266</a>, to work with Dymola 2016 in pedantic mode.
+Add start values to the ports and temperature in the <code>ThermalConductor</code> and the 
+<code>PrescripedTemperature</code> model. This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\"> #266</a>, 
+to work with Dymola 2016 in pedantic mode.
 </li>
 <li>
 February 2015 by Marcus Fuchs:<br/>
