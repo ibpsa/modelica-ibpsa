@@ -39,6 +39,7 @@ protected
   Real[1,1] mat;
 algorithm
   // --------------- Generate SHA-code and path
+
   sha := shaBorefieldRecords(
     soiPath=Modelica.Utilities.Strings.replace(
       soi.pathCom,
@@ -128,7 +129,7 @@ The borefield model with this BfData record has not yet been initialized. Please
 
     annotation (Documentation(info="<html>
     <p>  This function calculates aggregation matrix and the steady state temperature of a simulation with given simulation length (lenSim) with given borefield parameters 
-    and saves it in a hidden folder C:\.BfData\ for windows and C:\.tmp\ for Linux.</p>
+    and saves it in a hidden folder C:\\.BfData\\ for windows and C:\\.tmp\\ for Linux.</p>
     <p> Firstly, a SHA-code of the records soi, fil and gen are computed and summed by the function shaBorefieldRecords. The algorithm checks then if aggregation matrix already
     exists for these parameters and this simulation length in the temperory file. If not, the aggregation matrix and the steady state temperature are calculated using the function
     Borefield.BaseClasses.Aggregation.transientFrac and GroundHX.CorrectedBoreFieldWallTemperature and saved under the name SHA+Agg or TWallSteSta+lenSim+.mat.</p>

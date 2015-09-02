@@ -10,7 +10,7 @@ model InteriorConvection "interior surface convection"
   parameter Modelica.SIunits.TemperatureDifference dT_nominal = -2
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Evaluate=true, enable = linearise);
-  parameter Modelica.SIunits.TemperatureDifference dT_hCon = dT_nominal/10
+  parameter Modelica.SIunits.TemperatureDifference dT_hCon = abs(dT_nominal)/10
     "Regularization temperature difference"
     annotation(Dialog(tab="Advanced"), Evaluate=true);
 
@@ -83,7 +83,7 @@ equation
   port_a.Q_flow + port_b.Q_flow = 0;
   dT = port_a.T - port_b.T;
 
-  if use_hConState then
+  if use_hConState and not linearise then
     der(hConState) = (hCon-hConState)/tau;
   else
     hConState=hCon;

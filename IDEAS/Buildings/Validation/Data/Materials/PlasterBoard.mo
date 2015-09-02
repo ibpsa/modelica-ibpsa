@@ -4,4 +4,4 @@ record PlasterBoard = IDEAS.Buildings.Data.Interfaces.Material (
     final c=840,
     final rho=950,
     epsLw=0.9,
-    final epsSw=0.6);
+    epsSw=0.6);

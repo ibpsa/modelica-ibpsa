@@ -12,7 +12,8 @@ model HeatPump_WaterWater
     useInput=false,
     redeclare package Medium = Medium,
     m_flow_nominal=2550/3600,
-    dpFix=50000)
+    dpFix=50000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{40,42},{20,62}})));
   inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -31,7 +32,8 @@ model HeatPump_WaterWater
     m=1,
     useInput=false,
     redeclare package Medium = Medium,
-    m_flow_nominal=4200/3600)
+    m_flow_nominal=4200/3600,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
   Sources.Boundary_pT bou1(         redeclare package Medium = Medium,
     use_T_in=true,
@@ -53,7 +55,9 @@ model HeatPump_WaterWater
     redeclare
       IDEAS.Fluid.Production.Data.PerformanceMaps.VitoCal300GBWS301dotA29
       heatPumpData,
-    use_modulation_security=false) constrainedby HP_WaterWater_OnOff
+    use_modulation_security=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                                   constrainedby HP_WaterWater_OnOff
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-10,70})));
@@ -62,14 +66,16 @@ model HeatPump_WaterWater
     useInput=false,
     redeclare package Medium = Medium,
     m_flow_nominal=scaling*2550/3600,
-    dpFix=50000)
+    dpFix=50000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{40,-78},{20,-58}})));
   Fluid.Movers.Pump pump3(
     m=1,
     useInput=false,
     redeclare package Medium = Medium,
     m_flow_nominal=scaling*4200/3600,
-    dpFix=50000)
+    dpFix=50000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-58,-52},{-38,-32}})));
   replaceable HP_WaterWater_OnOff HP_scaling(
     redeclare package Medium1 = Medium,
@@ -81,7 +87,9 @@ model HeatPump_WaterWater
     use_scaling=true,
     onOff=true,
     P_the_nominal=scaling*HP_scaling.heatPumpData.P_the_nominal,
-    use_modulation_security=false) constrainedby HP_WaterWater_OnOff
+    use_modulation_security=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                                   constrainedby HP_WaterWater_OnOff
     "Heat pump using the scaling" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -103,13 +111,15 @@ model HeatPump_WaterWater
     useInput=false,
     redeclare package Medium = Medium,
     m_flow_nominal=2550/3600,
-    dpFix=50000)
+    dpFix=50000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{38,-22},{18,-2}})));
   Fluid.Movers.Pump pump5(
     m=1,
     useInput=false,
     redeclare package Medium = Medium,
-    m_flow_nominal=4200/3600)
+    m_flow_nominal=4200/3600,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-62,14},{-42,34}})));
   replaceable HP_WaterWater_OnOff HP_onOff_mod(
     redeclare package Medium1 = Medium,
@@ -121,7 +131,9 @@ model HeatPump_WaterWater
       heatPumpData,
     use_modulation_security=false,
     use_onOffSignal=true,
-    use_modulationSignal=true) constrainedby HP_WaterWater_OnOff
+    use_modulationSignal=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                               constrainedby HP_WaterWater_OnOff
     "Heat pump using the onOff and the modulation" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -145,14 +157,16 @@ model HeatPump_WaterWater
     useInput=false,
     redeclare package Medium = Medium,
     m_flow_nominal=scaling*2550/3600,
-    dpFix=50000)
+    dpFix=50000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{44,-134},{24,-114}})));
   Fluid.Movers.Pump pump7(
     m=1,
     useInput=false,
     redeclare package Medium = Medium,
     m_flow_nominal=scaling*4200/3600,
-    dpFix=50000)
+    dpFix=50000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-54,-108},{-34,-88}})));
   replaceable HP_WaterWater_OnOff HP_modSec(
     redeclare package Medium1 = Medium,
@@ -164,7 +178,9 @@ model HeatPump_WaterWater
     use_scaling=true,
     onOff=true,
     P_the_nominal=scaling*HP_modSec.heatPumpData.P_the_nominal,
-    use_modulation_security=true)                  constrainedby
+    use_modulation_security=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+                                                   constrainedby
     HP_WaterWater_OnOff
     "Heat pump using the scaling and the modulation security" annotation (
       Placement(transformation(

@@ -7,7 +7,8 @@ model IdealHeater "Very basic hydraulic circuit with an IdealHeater"
     m=1,
     useInput=true,
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-14,-24},{-34,-4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe(
     m=5,
@@ -18,7 +19,8 @@ model IdealHeater "Very basic hydraulic circuit with an IdealHeater"
   Fluid.Production.IdealHeater heater(
   tauHeatLoss=3600,
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
               annotation (Placement(transformation(extent={{-76,14},{-56,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
@@ -71,7 +73,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heater.port_b, pipe.port_a) annotation (Line(
-      points={{-56,26.7273},{-56,36},{48,36},{48,-14},{32,-14}},
+      points={{-56,30},{-56,36},{48,36},{48,-14},{32,-14}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(pipe.port_b, pump.port_a) annotation (Line(
@@ -79,11 +81,11 @@ equation
       color={0,0,255},
       smooth=Smooth.None));
   connect(pump.port_b, heater.port_a) annotation (Line(
-      points={{-34,-14},{-56,-14},{-56,19.4545}},
+      points={{-34,-14},{-56,-14},{-56,18}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(bou.ports[1], heater.port_a) annotation (Line(
-      points={{-34,20},{-34,19.4545},{-56,19.4545}},
+      points={{-34,20},{-34,18},{-56,18}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(gain.u, pulse.y) annotation (Line(
@@ -91,7 +93,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, heater.TSet) annotation (Line(
-      points={{-87.4,54},{-78,54},{-78,34},{-67,34}},
+      points={{-87.4,54},{-78,54},{-78,36},{-70,36}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, firstOrder.u) annotation (Line(

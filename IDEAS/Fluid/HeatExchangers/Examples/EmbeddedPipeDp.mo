@@ -11,7 +11,8 @@ model EmbeddedPipeDp "Testing pressure drop of embeddedpipe"
     redeclare package Medium = Medium,
     m_flow(start=12*24/3600),
     T_start=303.15,
-    m_flow_nominal=0.1)
+    m_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-36,-14},{-16,6}})));
   Modelica.Blocks.Sources.Pulse pulse(
     period=7200,
@@ -22,7 +23,9 @@ model EmbeddedPipeDp "Testing pressure drop of embeddedpipe"
     redeclare package Medium = Medium,
     m_flow_nominal=12*24/3600,
     m_flowMin=0.1,
-    A_floor=10)
+    A_floor=10,
+    computeFlowResistance=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{64,-16},{84,4}})));
   BaseClasses.RadSlaCha_ValidationEmpa radSlaCha_ValidationEmpa
     annotation (Placement(transformation(extent={{-90,-96},{-70,-76}})));
@@ -33,7 +36,8 @@ model EmbeddedPipeDp "Testing pressure drop of embeddedpipe"
   Sources.Boundary_ph bou(nPorts=2, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{120,-70},{100,-50}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(
-                                                   T=60, y_start=1)
+                                                   T=60, y_start=1,
+    initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{-54,30},{-34,50}})));
 equation
 

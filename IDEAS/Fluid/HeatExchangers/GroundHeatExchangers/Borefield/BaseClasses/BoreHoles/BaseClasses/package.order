@@ -1,7 +1,12 @@
 BoreHoleSegmentFourPort
+BoreHoleSegmentHeightPort
 CylindricalGroundLayer
-SingleBoreHole
-SingleUTubeInternalHEX
+InternalHEX2UTube
+InternalHEXUTube
+SingleBoreHole2UTube
+SingleBoreHoleUTube
 convectionResistance
+doubleUTubeResistances
+partialBoreholeResistances
 singleUTubeResistances
 Examples

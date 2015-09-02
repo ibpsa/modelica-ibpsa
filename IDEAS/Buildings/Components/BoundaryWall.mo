@@ -1,39 +1,43 @@
 within IDEAS.Buildings.Components;
 model BoundaryWall "Opaque wall with boundary conditions"
-
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol;
-
-  parameter Modelica.SIunits.Area AWall "Total wall area";
-  parameter Modelica.SIunits.Angle inc
-    "Inclination of the wall, i.e. 90deg denotes vertical";
-  parameter Modelica.SIunits.Angle azi
-    "Azimuth of the wall, i.e. 0deg denotes South";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
-    "Port for gains by embedded active layers"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(
+    final QTra_design=U_value*AWall*(273.15 + 21 - TRef),
+    E(y=layMul.E),
+      Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
+           then 0 else port_emb.Q_flow)));
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal=-1
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Dialog(tab="Convection"));
+  parameter Modelica.SIunits.Temperature TRef=291.15
+    "Reference temperature for calculation of design heat loss";
   parameter Boolean use_T_in = false
     "Get the boundary temperature from the input connector";
   parameter Boolean use_Q_in = false
     "Get the boundary heat flux from the input connector";
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the layers";
+  Modelica.Blocks.Interfaces.RealInput T if use_T_in annotation (Placement(transformation(
+          extent={{-60,50},{-40,70}}), iconTransformation(extent={{-60,50},{-40,
+            70}})));
+  Modelica.Blocks.Interfaces.RealInput Q_flow if use_Q_in annotation (Placement(
+        transformation(extent={{-60,10},{-40,30}}), iconTransformation(extent={{
+            -60,10},{-40,30}})));
 
-  parameter Modelica.SIunits.Temperature TRef=291.15
-    "Reference temperature for calculation of design heat loss";
-
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
+    "Port for gains by embedded active layers"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+protected
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if use_Q_in
+    annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+    prescribedTemperature if use_T_in
+    annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/8)
     "Wall U-value";
 
-  final parameter Modelica.SIunits.Power QTra_design=U_value*AWall*(273.15 + 21 - TRef)
-    "Design heat losses at reference temperature of the boundary space";
-
-protected
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     final A=AWall,
     final inc=inc,
@@ -49,21 +53,6 @@ protected
     dT_nominal=dT_nominal)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-
-  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-public
-  Modelica.Blocks.Interfaces.RealInput T if use_T_in annotation (Placement(transformation(
-          extent={{-60,50},{-40,70}}), iconTransformation(extent={{-60,50},{-40,
-            70}})));
-  Modelica.Blocks.Interfaces.RealInput Q_flow if use_Q_in annotation (Placement(
-        transformation(extent={{-60,10},{-40,30}}), iconTransformation(extent={{
-            -60,10},{-40,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if use_Q_in
-    annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature if use_T_in
-    annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
 
 equation
   connect(layMul.port_b, intCon_b.port_a) annotation (Line(
@@ -103,13 +92,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
-      points={{11,50},{24,50},{24,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
 
   if use_Q_in then
   connect(Q_flow, prescribedHeatFlow.Q_flow) annotation (Line(
@@ -136,7 +118,7 @@ equation
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-50,-100},{50,100}}),
         graphics={
         Line(
@@ -184,5 +166,12 @@ equation
 </ol></p>
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
+</ul>
 </html>"));
 end BoundaryWall;

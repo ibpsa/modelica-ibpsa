@@ -15,17 +15,17 @@ record BorefieldData
       __Dymola_choicesAllMatching=true);
   Gen gen;
 
-  Real loaPerMBor_nominal(unit="W/m") = 40
+  parameter Real loaPerMBor_nominal(unit="W/m") = 40
     "Nominal thermal load per meter borhole depth";
-  Modelica.SIunits.MassFlowRate m_flow_nominal=gen.m_flow_nominal_bh*gen.nbBh/
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=gen.m_flow_nominal_bh*gen.nbBh/
       gen.nbSer "Total nominal flow to the borefield";
-  Modelica.SIunits.Power PThe_nominal=gen.hBor*gen.nbBh*loaPerMBor_nominal
+  parameter Modelica.SIunits.Power PThe_nominal=gen.hBor*gen.nbBh*loaPerMBor_nominal
     "Nominal thermal power of the borefield";
 
-  String pathMod=
+  parameter String pathMod=
       "IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.BorefieldData"
     "Modelica path of the record";
-  String pathCom=Modelica.Utilities.Files.loadResource(
+  parameter String pathCom=Modelica.Utilities.Files.loadResource(
       "modelica://IDEAS/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/Data/Records")
     "Computer path of the record";
 

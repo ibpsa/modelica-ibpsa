@@ -9,13 +9,16 @@ model Radiator_NominalPower
     redeclare package Medium = Medium,
     T_start=293.15,
     m_flow_nominal=radiator.m_flow_nominal,
-    useInput=false)
+    useInput=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort boiler(
     m=5,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    T_start=293.15)
+    T_start=293.15,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     annotation (Placement(transformation(extent={{12,4},{32,-16}})));
   Fluid.HeatExchangers.Radiators.Radiator radiator(
     QNom=3000,
@@ -23,7 +26,10 @@ model Radiator_NominalPower
     redeclare package Medium = Medium,
     TInNom=318.15,
     TOutNom=308.15,
-    show_T=true) "Hydraulic radiator model"
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Hydraulic radiator model"
     annotation (Placement(transformation(extent={{50,-8},{70,12}})));
   inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));

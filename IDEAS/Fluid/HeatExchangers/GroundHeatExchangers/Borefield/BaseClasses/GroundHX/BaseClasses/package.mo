@@ -2,4 +2,11 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.Gro
 package BaseClasses 
     extends Modelica.Icons.Package;
 
+
+
+
+
+
+
+
 end BaseClasses;
