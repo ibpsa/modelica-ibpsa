@@ -6,9 +6,13 @@ FlowPort_b
 FluidStreamConversionWater
 FourPort
 FourPortHeatMassExchanger
+HeightPort
+HeightPortFlowResistanceParameters
+HeightPortHeatMassExchanger
 IdealSource
 OnOffInterface
 PartialFourPortInterface
+PartialHeightPortInterface
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
