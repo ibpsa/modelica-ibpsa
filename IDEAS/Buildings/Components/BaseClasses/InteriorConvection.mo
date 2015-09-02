@@ -10,7 +10,7 @@ model InteriorConvection "interior surface convection"
   parameter Modelica.SIunits.TemperatureDifference dT_nominal = -2
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Evaluate=true, enable = linearise);
-  parameter Modelica.SIunits.TemperatureDifference dT_hCon = dT_nominal/10
+  parameter Modelica.SIunits.TemperatureDifference dT_hCon = abs(dT_nominal)/10
     "Regularization temperature difference"
     annotation(Dialog(tab="Advanced"), Evaluate=true);
 
