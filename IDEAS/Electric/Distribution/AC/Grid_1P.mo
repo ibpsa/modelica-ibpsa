@@ -58,5 +58,4 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-1
           points={{-102,4},{-46,12},{-28,36}},
           color={0,0,0},
           smooth=Smooth.Bezier)}));
-
 end Grid_1P;
