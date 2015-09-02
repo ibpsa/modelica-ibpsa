@@ -3,6 +3,7 @@ model Radiator "Simple 1-node radiator model according to EN 442"
   extends IDEAS.Fluid.HeatExchangers.Interfaces.EmissionTwoPort;
    extends IDEAS.Fluid.Interfaces.Partials.PipeTwoPort(
      final m=mMedium,
+     res(m_flow(nominal=QNom/4000/(TInNom -TOutNom))),
      final m_flow_nominal=QNom/Medium.specificHeatCapacityCp(state_default)/(TInNom -TOutNom),
     vol(final mSenFac=mDry*cpDry/Medium.specificHeatCapacityCp(state_default)/mMedium +
           1));

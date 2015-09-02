@@ -1,9 +1,9 @@
 BoreholeSegment
 SingleBoreHole
-SingleBoreHolesInSerie
-singleLayerCylinder_MLB
 SingleBoreHole2UTUbe
-singleUTubeResistances
+SingleBoreHolesInSerie
 doubleUTubeResistances
-internalHEXUTube
 internalHEX2UTube
+internalHEXUTube
+singleLayerCylinder_MLB
+singleUTubeResistances

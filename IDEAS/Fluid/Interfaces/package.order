@@ -7,7 +7,6 @@ FluidStreamConversionWater
 FourPort
 FourPortHeatMassExchanger
 HeightPort
-HeightPortFlowResistanceParameters
 HeightPortHeatMassExchanger
 IdealSource
 OnOffInterface
@@ -22,6 +21,7 @@ StaticTwoPortConservationEquation
 StaticTwoPortHeatMassExchanger
 TwoPortHeatMassExchanger
 FourPortFlowResistanceParameters
+HeightPortFlowResistanceParameters
 LumpedVolumeDeclarations
 PrescribedOutletStateParameters
 TwoPortFlowResistanceParameters
