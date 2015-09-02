@@ -57,6 +57,7 @@ def _runUnitTests():
     import buildingspy.development.regressiontest as u
     ut = u.Tester()
     ut.batchMode(batch)
+    ut.pedanticModelica(True)
 #    ut.setNumberOfThreads(1)
 #    ut.deleteTemporaryDirectories(False)
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
