@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components;
 model Window "Multipane window"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWall;
+  extends IDEAS.Buildings.Components.Interfaces.StateWall(QTra_design(fixed=false));
 
   parameter Modelica.SIunits.Area A "Total window and windowframe area";
   parameter Real frac(
@@ -13,16 +13,6 @@ model Window "Multipane window"
   parameter Modelica.SIunits.TemperatureDifference dT_nominal=-3
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Dialog(tab="Convection"));
-  parameter Modelica.SIunits.Angle inc
-    "Inclination of the window, i.e. 90deg denotes vertical";
-  parameter Modelica.SIunits.Angle azi
-    "Azimuth of the wall, i.e. 0deg denotes South";
-
-  final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
-    "Window U-value";
-  final parameter Modelica.SIunits.Power QTra_design(fixed=false)
-    "Design heat losses at reference outdoor temperature";
-
   replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazing
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
@@ -48,6 +38,9 @@ model Window "Multipane window"
         origin={-40,-100})));
 
 protected
+  final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
+    "Window U-value";
+
   IDEAS.Buildings.Components.BaseClasses.MultiLayerLucent layMul(
     final A=A*(1 - frac),
     final inc=inc,
@@ -92,9 +85,6 @@ protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor layFra(final G=
         fraType.U_value*A*frac) if fraType.present  annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
-  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design)
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-public
   Climate.Meteo.Solar.RadSolData radSolData(
     inc=inc,
     azi=azi,
@@ -109,21 +99,21 @@ public
     annotation (Placement(transformation(extent={{-70,-56},{-62,-48}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  replaceable IDEAS.Buildings.Components.Shading.None shaType2 constrainedby
-    Interfaces.StateShading(final azi=azi) "Second shading type"
-                                                          annotation (Placement(transformation(extent={{-28,-70},
-            {-18,-50}})),
-      __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
-  Modelica.Blocks.Interfaces.RealInput Ctrl2 if shaType2.controlled
-    "Control signal for second shading object, between 0 and 1, i.e. 1 is fully closed"
-                                                             annotation (
-      Placement(transformation(
-        extent={{20,-20},{-20,20}},
-        rotation=-90,
-        origin={-22,-110}), iconTransformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={-34,-100})));
+  Modelica.Blocks.Sources.RealExpression Qgai(y=-(propsBus_a.surfCon.Q_flow +
+        propsBus_a.surfRad.Q_flow + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow))
+    if                                                     sim.computeConservationOfEnergy
+    "Heat gains in model (using propsbus since frame can be conditionally removed)"
+    annotation (Placement(transformation(extent={{-116,40},{-96,60}})));
+  Modelica.Blocks.Sources.RealExpression E1(y=0) if        sim.computeConservationOfEnergy
+    "Internal energy model"
+    annotation (Placement(transformation(extent={{-116,60},{-96,80}})));
+  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if  sim.computeConservationOfEnergy
+    "Component for computing conservation of energy"
+    annotation (Placement(transformation(extent={{-86,60},{-66,80}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
+                                                                                   sim.computeConservationOfEnergy
+    "Component for computing conservation of energy"
+    annotation (Placement(transformation(extent={{-86,40},{-66,60}})));
 initial equation
   QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
@@ -210,13 +200,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
-      points={{11,50},{24,50},{24,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(radSolData.angInc, shaType.angInc) annotation (Line(
       points={{-79.4,-64},{-50,-64}},
       color={0,0,127},
@@ -278,26 +261,21 @@ equation
       points={{58,80},{50.1,80},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shaType.iSolDir,shaType2. solDir)
-    annotation (Line(points={{-40,-54},{-28,-54}}, color={0,0,127}));
-  connect(shaType2.solDif, shaType.iSolDif)
-    annotation (Line(points={{-28,-58},{-28,-58},{-40,-58}}, color={0,0,127}));
-  connect(shaType.iAngInc, shaType2.angInc)
-    annotation (Line(points={{-40,-64},{-28,-64}}, color={0,0,127}));
-  connect(shaType2.angZen, radSolData.angZen) annotation (Line(points={{-28,-66},
-          {-28,-66},{-79.4,-66}},           color={0,0,127}));
-  connect(shaType2.angAzi, radSolData.angAzi) annotation (Line(points={{-28,-68},
-          {-28,-68},{-79.4,-68}},   color={0,0,127}));
-  connect(shaType2.Ctrl,Ctrl2)  annotation (Line(
-      points={{-23,-70},{-22,-70},{-22,-110}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(shaType2.iSolDir, solWin.solDir)
-    annotation (Line(points={{-18,-54},{-10,-54}}, color={0,0,127}));
-  connect(shaType2.iSolDif, solWin.solDif)
-    annotation (Line(points={{-18,-58},{-10,-58}}, color={0,0,127}));
-  connect(shaType2.iAngInc, solWin.angInc) annotation (Line(points={{-18,-64},{
-          -14,-64},{-14,-66},{-10,-66}}, color={0,0,127}));
+  connect(Qgai.y,prescribedHeatFlowQgai. Q_flow)
+    annotation (Line(points={{-95,50},{-92,50},{-90,50},{-86,50}},
+                                              color={0,0,127}));
+  connect(prescribedHeatFlowE.port, propsBus_a.E) annotation (Line(points={{-66,70},
+          {-52,70},{-52,39.9},{50.1,39.9}},   color={191,0,0}));
+  connect(prescribedHeatFlowQgai.port, propsBus_a.Qgai)
+    annotation (Line(points={{-66,50},{50.1,50},{50.1,39.9}},color={191,0,0}));
+  connect(E1.y, prescribedHeatFlowE.E)
+    annotation (Line(points={{-95,70},{-90.5,70},{-86,70}}, color={0,0,127}));
+  connect(shaType.iSolDir, solWin.solDir)
+    annotation (Line(points={{-40,-54},{-26,-54},{-10,-54}}, color={0,0,127}));
+  connect(shaType.iSolDif, solWin.solDif)
+    annotation (Line(points={{-40,-58},{-25,-58},{-10,-58}}, color={0,0,127}));
+  connect(shaType.iAngInc, solWin.angInc) annotation (Line(points={{-40,-64},{
+          -26,-64},{-26,-66},{-10,-66}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
@@ -346,6 +324,15 @@ equation
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 14, 2015, Filip Jorissen:<br/>
+Removed second shading device since a new partial was created
+for handling this.
+</li>
+<li>
+June 14, 2015, Filip Jorissen:<br/>
+Adjusted implementation for computing conservation of energy.
+</li>
 <li>
 February 10, 2015 by Filip Jorissen:<br/>
 Adjusted implementation for grouping of solar calculations.

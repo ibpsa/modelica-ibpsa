@@ -2,34 +2,53 @@
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
+
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains a borefield model. The model is able to simulate any arbitrary configuration of boreholes with both short and long-term accuracy. 
-An aggregation method is used to speed up the calculations. 
+This package contains a borefield model. The model is able to simulate any arbitrary configuration of boreholes with both short and 
+long-term accuracy and an aggregation method is used to speed up the calculations. 
+</p>
+<p>
+The major degrees of freedom currently supported are:
+<ul>
+<li> single U-tube, double U-tube in parallel, double U-tube in serie borehole heat exchangers for which the geometry
+is defined by the user (borehole radius, pipe radius, shank spacing, ...). </li>
+<li> the resistances <i>Rb</i> and <i>Ra</i> are either automatically calculated using the Multipole method, 
+or they can be directly provided by the user.</li>
+<li> vertical discretization of each borehole is possible. However, the borehole wall temperature is identical for each borehole and along the 
+depth, as the analytical solution only computes the average borehole wall temperature.
+<li> multiple boreholes can be connected in parallel or in series.</li>
+<li> each borehole can be positioned arbitrarly in the field.</li>
+<li> the resolution of the aggregation technic can be adapted.</li>
+<li> pressure losses can be calculated if the <i>dp_nominal</i> is provided. </li>
+</ul>
 </p>
 
 <h4>How to use the model</h4>
 <p>
 The following paragrahs briefly describe how to use the model 
-<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Borefield.MultipleBoreHoles\">IDEAS.Fluid.HeatExchangers.Borefield.MultipleBoreHoles</a>.
-</p>
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.MultipleBoreHolesUTube\">IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.MultipleBoreHolesUTube</a>
+and 
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.MultipleBoreHoles2UTube\">IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.MultipleBoreHoles2UTube</a>
+.</p>
 <p>
 All the parameter values of the model are contained in the record called <i>BfData</i>. This record is composed of three subrecords, 
 namely <i>soi</i> (containing the ground thermal charachteristics), <i>fill</i> (containing the grout thermal charachteristics), 
 and <i>gen</i> (containing all others parameters). The record structures and default values are in the package: 
-<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Boreholes.Data.Records\">IDEAS.Fluid.HeatExchangers.Boreholes.Data.Records</a>.
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records\">IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records</a>.
 Examples of <i>soi</i>, <i>fill</i> and <i>gen</i> records 
 can be found in
-<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Boreholes.Data.SoilData\">IDEAS.Fluid.HeatExchangers.Boreholes.Data.SoilData</a>,
-<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Boreholes.Data.FillingData\">IDEAS.Fluid.HeatExchangers.Boreholes.Data.FillingData</a> and 
-<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Boreholes.Data.GeneralData\">IDEAS.Fluid.HeatExchangers.Boreholes.Data.GeneralData</a>
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.SoilData\">IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.SoilData</a>,
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.FillingData\">IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.FillingData</a> and 
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData\">IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.GeneralData</a>
 , respectively.
 </p>
 
 <p>
 In order to use the model with the desired parameters, create and save in your own library a new <i>BfData</i> record as an extension 
-of <a href=\"modelica://IDEAS.Fluid.HeatExchangers.Boreholes.Data.Records.BorefieldData\">IDEAS.Fluid.HeatExchangers.Boreholes.Data.Records.BorefieldData</a>. 
+of <a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.BorefieldData\">
+IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Data.Records.BorefieldData</a>. 
 This records call the subrecords <i>soi</i>, <i>fill</i> and <i>gen</i>. 
 Create and save also these subrecords if they do not exist yet with the right parameter values.
 <b>Do not use modifiers for the records</b> as the model computes a SHA-code of the records and compare it with the 
@@ -50,7 +69,7 @@ is used to define the number and size and the aggregation cells.
 <h4>Model description</h4>
 <p>A detailed description of the model can be
 found in
-<a href=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
+<a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>.
 Below, the model is briefly described.
 </p>
 <p>
@@ -98,18 +117,18 @@ to simplify the calculation, Javed and Claesson
 obtain the following compact expression for the mean
 borehole wall temperature:
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/analyticalSolution.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/analyticalSolution.png\" />
 </p>
 
 where q<sub>0</sub> is the heat flux per meter length, lambda is the
 ground heat conductivity, alpha is the ground heat diffusivity, N is the number of boreholes and H
 is the depth of the borefield. I<sub>ls</sub> and r<sub>i</sub> are defined by the following equations:
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/analyticalSolution2.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/analyticalSolution2.png\" />
 </p>
 with erf the error function.
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/analyticalSolution3.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/analyticalSolution3.png\" />
 </p>
 where r<sub>b</sub> is the borehole radius and (x<sub>i</sub>,y<sub>i</sub>) are the spatial
 coordinates of the center of each borehole from an arbitrary
@@ -130,23 +149,25 @@ for these short times can be neglected, therefore a single
 borehole model is used.
 </p>
 <p>
-The model is composed of a resistance-capacitive network as shown by the following figure:
+The model is composed of a resistance-capacitive network as shown by the following figure (single U-tube case):
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/RC-model.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/RC-model.png\" />
 </p>
 
-The different thermal resistances present in a single-U-tube borehole are calculated using the method of Bauer et al. (2010). 
+The different thermal resistances present in the single-U-tube and in the double-U-tube borehole are calculated using the method of Bauer et al. (2010). 
 The fluid-to-ground thermal resistance R<sub>b</sub> and the grout-to-grout thermal resistance R<sub>a</sub> 
 as defined by Hellstroem (1991) are calculated
 using the multipole method. The multipole method is implemented in
-<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances\">
-IDEAS.Fluid.HeatExchangers.Boreholes.BaseClasses.singleUTubeResistances</a>. 
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.singleUTubeResistances\">
+IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.singleUTubeResistances</a> and in 
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.doubleUTubeResistances\">
+IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.doubleUTubeResistances</a>. 
 The convection resistance is calculated using the 
 Dittus-Boelter correlation
 as implemented in
-<a href=\"modelica://IDEAS.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance\">
-IDEAS.Fluid.HeatExchangers.Boreholes.BaseClasses.convectionResistance</a>. Finally, the surrounding ground 
-is approximated by cylindrical layers
+<a href=\"modelica://IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.convectionResistance\">
+IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.BaseClasses.BoreHoles.BaseClasses.convectionResistance</a>. 
+Finally, the surrounding ground is approximated by cylindrical layers
 of a total thickness of three meters. The external side of the layer is connected to a constant temperature 
 (equal to the initial ground temperature). Vertical discretization of the borehole is possible for the short-term model
 as well as serial connection of boreholes but these features are not yet implemented for the hybrid borefield model.
@@ -156,7 +177,7 @@ as well as serial connection of boreholes but these features are not yet impleme
 
 <h5>Aggregation method</h5>
 <p> The following paragraphs briefly explain the aggregation method of Claessons and Javed (2012). More details can be found in 
-<a href=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>
+<a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">Picard (2014)</a>
 or in Claessons and Javed (2012).
 </p>
 <p>
@@ -165,7 +186,7 @@ Assume that the discrete load input to the borefield
 is <i>Q</i> and the HCF temperature is <i>T<sub>f</sub></i> . <i>Q</i> and <i>T<sub>f</sub></i> can be
 written as:
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/discreteLoad.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/discreteLoad.png\" />
 </p>
 with <i>v<sub>max</sub></i> >= <i>n</i>, <i>h</i> the discrete time-step, <i>Q</i> the discrete
 load and <i>T<sub>f,step</sub></i> the response function from HSRM with
@@ -202,12 +223,12 @@ and each cell of a same level contains the same amount
 of load pulses <i>R<sub>q</sub></i>. The following figure illustrates the concept grafically.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/aggregationCells.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/aggregationCells.png\" />
 </p>
 After several manipulations, the wall temperature can be written as followed:
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/wallTemperature.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/wallTemperature.png\" />
 </p>
 with
 <span style=\"text-decoration: overline\">Q</span><sub>v(p,q)</sub> the average load in the aggregation cell <i>(p,q)</i>, 
@@ -218,7 +239,7 @@ temperature differences gives the temperature at time <i>nh</i>.
 
 Finally, the aggregated load has to be updated at each time step <i>n</i>. This is done as described by the following equation:
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/Images/loadAggregation.png\" />
+<img alt=\"image\" src=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/Images/loadAggregation.png\" />
 </p>
 with <span style=\"text-decoration: overline\">Q</span><sub>v(p,q)</sub><sup>(n)</sup> the average load in the aggregation cell <i>(p,q)</i> 
 at time <i>nh</i> and <i>r<sub>q</sub></i> the cell width at the <i>q</i> aggregation level.
@@ -227,7 +248,7 @@ at time <i>nh</i> and <i>r<sub>q</sub></i> the cell width at the <i>q</i> aggreg
 <h4>References</h4>
 <p>
 D. Picard, L. Helsen.
-<i> <a href=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">
+<i> <a href=\"modelica://IDEAS/Resources/Images/Fluid/HeatExchangers/GroundHeatExchangers/Borefield/UsersGuide/2014-10thModelicaConference-Picard.pdf\">
 Advanced Hybrid Model for Borefield Heat Exchanger
 Performance Evaluation, an Implementation in Modelica</a></i>
 Proc. of the 10th International ModelicaConference, p. 857-866. Lund, Sweden. March 2014.

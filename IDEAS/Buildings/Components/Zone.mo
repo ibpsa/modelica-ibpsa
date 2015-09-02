@@ -1,8 +1,6 @@
 within IDEAS.Buildings.Components;
 model Zone "thermal building zone"
-  import Buildings;
-
-  extends IDEAS.Buildings.Components.Interfaces.StateZone;
+  extends IDEAS.Buildings.Components.Interfaces.StateZone(Eexpr(y=E));
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
       Medium = IDEAS.Media.Air);
 
@@ -17,7 +15,8 @@ model Zone "thermal building zone"
     "n50 value cfr airtightness, i.e. the ACH at a pressure diffence of 50 Pa";
   parameter Real corrCV=5 "Multiplication factor for the zone air capacity";
 
-  parameter Boolean linear=true "Linearized computation of long wave radiation";
+  parameter Boolean linearise=true
+    "Linearized computation of long wave radiation";
 
   final parameter Modelica.SIunits.Power QInf_design=1012*1.204*V/3600*n50/20*(273.15
        + 21 - sim.Tdes)
@@ -32,11 +31,12 @@ model Zone "thermal building zone"
 
   Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
     "Total design transmission heat losses for the zone";
-  final parameter Modelica.SIunits.Power Q_design( fixed=false)
+  final parameter Modelica.SIunits.Power Q_design(fixed=false)
     "Total design heat losses for the zone";
 
   Modelica.SIunits.Temperature TAir=senTem.T;
   Modelica.SIunits.Temperature TStar=radDistr.TRad;
+  Modelica.SIunits.Energy E = vol.dynBal.U;
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(final
@@ -54,7 +54,7 @@ protected
     show_T=false)
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final
-      nSurf=nSurf, final linear=linear)
+      nSurf=nSurf, final linearise=linearise)
     "internal longwave radiative heat exchange" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -80,11 +80,7 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-10,30})));
-public
-  Fluid.Interfaces.FlowPort_b flowPort_Out(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
-  Fluid.Interfaces.FlowPort_a flowPort_In(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{10,90},{30,110}})));
+
 protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
@@ -101,7 +97,6 @@ equation
       points={{-100.1,39.9},{-74,39.9},{-74,-26},{-54,-26},{-54,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-
   connect(summation.y, TSensor) annotation (Line(
       points={{12.6,-60},{59.3,-60},{59.3,0},{106,0}},
       color={0,0,127},
@@ -132,6 +127,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+
   connect(propsBus.epsLw, radDistr.epsLw) annotation (Line(
       points={{-100.1,39.9},{-82,39.9},{-82,-44},{-64,-44}},
       color={127,0,0},
@@ -205,14 +201,6 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
 
-for i in 1:nSurf loop
-connect(sim.weaBus, propsBus[i].weaBus) annotation (Line(
-       points={{-88.6,97.2},{-88.6,100},{-100.1,100},{-100.1,39.9}},
-       color={255,204,51},
-       thickness=0.5,
-       smooth=Smooth.None));
-end for;
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -228,7 +216,8 @@ end for;
 <p>Transmitted shortwave solar radiation is distributed over all surfaces in the zone in a prescribed scale. This scale is an input value which may be dependent on the shape of the zone and the location of the windows, but literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption.</p>
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
+</html>", revisions="<html>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics));
+            100}})));
 end Zone;

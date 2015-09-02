@@ -83,7 +83,7 @@ equation
   port_a.Q_flow + port_b.Q_flow = 0;
   dT = port_a.T - port_b.T;
 
-  if use_hConState then
+  if use_hConState and not linearise then
     der(hConState) = (hCon-hConState)/tau;
   else
     hConState=hCon;
