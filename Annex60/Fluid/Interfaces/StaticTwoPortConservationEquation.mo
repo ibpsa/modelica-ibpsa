@@ -45,10 +45,6 @@ model StaticTwoPortConservationEquation
         rotation=90,
         origin={50,110})));
 
-protected
-  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow of port_a";
-  Real m_flowInv_b(unit="s/kg") "Regularization of 1/m_flow of port_b";
-
   // Parameters that is used to construct the vector mXi_flow
 protected
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
@@ -56,6 +52,9 @@ protected
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
+
+  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow of port_a";
+  Real m_flowInv_b(unit="s/kg") "Regularization of 1/m_flow of port_b";
 
   Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
