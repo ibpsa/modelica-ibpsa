@@ -23,7 +23,7 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Airflow/Mult
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This examples demonstrates the
-<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLaw\">
+<a href=\"modelica://Annex60.Airflow.Multizone.BaseClasses.powerLaw\">
 Buildings.Airflow.Multizone.BaseClasses.powerLaw</a>
 function.
 </p>
