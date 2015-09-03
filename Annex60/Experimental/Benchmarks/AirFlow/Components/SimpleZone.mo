@@ -4,7 +4,7 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component";
 
-  parameter Modelica.SIunits.Temperature TRoom = 293.15
+  parameter Medium.Temperature TRoom(start=293.15) = 293.15
     "Indoor air temperature of room in K";
   parameter Modelica.SIunits.Height heightRoom = 3 "Height of room in m";
   parameter Modelica.SIunits.Length lengthRoom = 5 "Length of room in m";
@@ -20,7 +20,8 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=
-        heightRoom*lengthRoom*UValue)
+        heightRoom*lengthRoom*UValue,
+        port_a(T(start=Medium.T_default)))
     "Thermal conductor between fixed T and Volume"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Fluid.MixingVolumes.MixingVolume volRoom(
@@ -57,8 +58,8 @@ model SimpleZone "A room as a thermal zone represented by its air volume"
   Modelica.Fluid.Interfaces.FluidPort_a port_a_vent(redeclare package Medium =
         Medium) "Port that connects to the room volume"
     annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemp
-    "Dry bulb air temperature"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemp(T(start=Medium.T_default),
+        port(T(start=Medium.T_default))) "Dry bulb air temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data connection for outdoor air temperature"
@@ -128,6 +129,13 @@ in order to be part of a scalable benchmark. </p>
 Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September, 2, 2015 by Marcus Fuchs:<br/>
+Add start values to the ports and temperature in the <code>ThermalConductor</code> and the 
+<code>PrescripedTemperature</code> model. This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\"> #266</a>, to work with 
+Dymola 2016 in pedantic mode.
+</li>
 <li>
 February 2015 by Marcus Fuchs:<br/>
 First implementation
