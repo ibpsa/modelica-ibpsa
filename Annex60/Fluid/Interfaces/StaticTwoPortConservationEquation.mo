@@ -48,7 +48,7 @@ model StaticTwoPortConservationEquation
 
 protected
   Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow of port_a";
-  Real m_flowInv_b(unit="s/kg") = Annex60.Utilities.Math.Functions.inverseXRegularized(x=port_b.m_flow, delta=m_flow_small/1E3) "Regularization of 1/m_flow of port_b";
+  Real m_flowInv_b(unit="s/kg") "Regularization of 1/m_flow of port_b";
 
   // Parameters that is used to construct the vector mXi_flow
 protected
@@ -57,7 +57,6 @@ protected
                                             caseSensitive=false)
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
-
 
   Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
@@ -96,15 +95,16 @@ equation
  // Species flow rate from connector mWat_flow
  mXi_flow = mWat_flow * s;
   // Regularization of m_flow around the origin to avoid a division by zero
-  
+
  // m_flowInv is only used if prescribedHeatFlowRate == true
- m_flowInv = if prescribedHeatFlowRate
-             then Annex60.Utilities.Math.Functions.inverseXRegularized(
+ m_flowInv = Annex60.Utilities.Math.Functions.inverseXRegularized(
                     x=port_a.m_flow,
                     delta=deltaReg, deltaInv=deltaInvReg,
-                    a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg)
-             else 0;
-
+                    a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg);
+ m_flowInv_b = Annex60.Utilities.Math.Functions.inverseXRegularized(
+                    x=port_b.m_flow,
+                    delta=deltaReg, deltaInv=deltaInvReg,
+                    a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg);
 
  if allowFlowReversal then
    // Formulate hOut using spliceFunction. This avoids an event iteration.
@@ -175,17 +175,12 @@ equation
     // Mass balance (no storage)
     port_a.m_flow + port_b.m_flow = if simplify_mWat_flow then 0 else -mWat_flow;
     // Energy balance.
-    // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
-    // at both ports. Since mWat_flow << m_flow, the error is small.
     if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-      port_b.Xi_outflow = -(inStream(port_a.Xi_outflow)*port_a.m_flow + mXi_flow) * m_flowInv_b;
       if allowFlowReversal then
         port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
-        port_a.Xi_outflow = -(inStream(port_b.Xi_outflow)*port_b.m_flow + mXi_flow) * m_flowInv;
       else
         port_a.h_outflow =  Medium.h_default;
-        port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
       end if;
     else
       // Case with prescribedHeatFlowRate == false.
@@ -194,16 +189,22 @@ equation
       // Q_flow * m_flowInv = 0.
       // The same applies for port_b.Xi_outflow and mXi_flow.
       port_a.m_flow * (inStream(port_a.h_outflow)  - port_b.h_outflow)  = -Q_flow;
-      port_a.m_flow * (inStream(port_a.Xi_outflow) - port_b.Xi_outflow) = -mXi_flow;
       if allowFlowReversal then
         port_a.m_flow * (inStream(port_b.h_outflow)  - port_a.h_outflow)  = +Q_flow;
-        port_a.m_flow * (inStream(port_b.Xi_outflow) - port_a.Xi_outflow) = +mXi_flow;
       else
         //When allowFlowReversal = false the downstream enthalpy should not matter
         //therefore a dummy value is used to avoid algebraic loops
         port_a.h_outflow = Medium.h_default;
-        port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
       end if;
+    end if;
+
+    // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
+    // at both ports. Since mWat_flow << m_flow, the error is small.
+    port_b.Xi_outflow = -(inStream(port_a.Xi_outflow)*port_a.m_flow + mXi_flow) * m_flowInv_b;
+    if allowFlowReversal then
+        port_a.Xi_outflow = -(inStream(port_b.Xi_outflow)*port_b.m_flow + mXi_flow) * m_flowInv;
+      else
+        port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
     end if;
 
     // Transport of trace substances
@@ -296,10 +297,9 @@ Annex60.Fluid.Interfaces.ConservationEquation</a>.
 revisions="<html>
 <ul>
 <li>
-May 29, 2015, by Filip Jorissen:<br/>
+September 3, 2015, by Filip Jorissen:<br/>
 Revised implementation of conservation of vapor mass.
-Created conditional declaration for <code>mFlow_inv</code>
-and added new variable <code>mFlow_inv_b</code>.
+Added new variable <code>mFlow_inv_b</code>.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
 August 11, 2015, by Michael Wetter:<br/>
