@@ -4,10 +4,6 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations;
 
   // Constants
-  constant Boolean approximateMoistureBalance = true
-    "Set to true to neglect moisture addition in mass balance, which can give smaller algebraic loops"
-     annotation(HideResult=true);
-
   constant Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure"
     annotation(HideResult=true);
@@ -179,7 +175,7 @@ equation
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     m = fluidVolume*rho_start;
   else
-    if approximateMoistureBalance then
+    if simplify_mWat_flow then
       // If moisture is neglected in mass balance, assume for computation
       // of the mass of air that the air is at Medium.X_default.
       m = fluidVolume*Medium.density(Medium.setState_phX(
@@ -271,11 +267,11 @@ It implements a dynamic or a steady-state conservation equation for energy and m
 The model has zero pressure drop between its ports.
 </p>
 <p>
-If the constant <code>approximateMoistureBalance = true</code> then adding
+If the constant <code>simplify_mWat_flow = true</code> then adding
 moisture does not increase the mass of the volume or the leaving mass flow rate.
 It does however change the mass fraction <code>medium.Xi</code>.
 This allows to decouple the moisture balance from the pressure drop equations.
-If <code>approximateMoistureBalance = false</code>, then
+If <code>simplify_mWat_flow = false</code>, then
 the outlet mass flow rate is
 <i>m<sub>out</sub> = m<sub>in</sub>  (1 + &Delta; X<sub>w</sub>)</i>,
 where 
@@ -292,7 +288,7 @@ Decoupling these equations avoids having
 to compute the energy balance of the humidifier
 and its upstream components when solving for the
 pressure drop of downstream components.
-Therefore, the default value is <code>approximateMoistureBalance = true</code>.
+Therefore, the default value is <code>simplify_mWat_flow = true</code>.
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
@@ -349,12 +345,14 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-May 29, 2015, by Filip Jorissen and Michael Wetter:<br/>
+September 3, 2015, by Filip Jorissen and Michael Wetter:<br/>
 Revised implementation for allowing moisture mass flow rate 
-to be approximated using parameter <code>approximateMoistureBalance</code>. 
+to be approximated using parameter <code>simplify_mWat_flow</code>. 
 This may lead to smaller algebraic loops.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
+</li>
+<li>
 July 17, 2015, by Michael Wetter:<br/>
 Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
 calculation on the moisture balance.
