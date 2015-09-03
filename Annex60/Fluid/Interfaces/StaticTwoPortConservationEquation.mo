@@ -11,7 +11,6 @@ model StaticTwoPortConservationEquation
   constant Boolean prescribedHeatFlowRate = false
     "Set to true if the heat flow rate is not a function of a temperature difference to the fluid temperature";
 
-  // Constants
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Sensible plus latent heat flow rate transferred into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
