@@ -8,7 +8,7 @@ model ThermalZoneThreeElements
     thermSplitterIntGains(dimension=3, splitFactor={AExtInd/(AExtInd + AInt +
           AGroundInd),AInt/(AExtInd + AInt + AGroundInd),AGroundInd/(AExtInd +
           AInt + AGroundInd)}));
-  parameter Modelica.SIunits.Area AGroundInd
+  parameter Modelica.SIunits.Area AGroundInd = 0.1
     "Indoor surface area of ground thermal mass" annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaGroundInd
     "Coefficient of heat transfer for surface of ground thermal mass" annotation(Dialog(group="Thermal mass"));

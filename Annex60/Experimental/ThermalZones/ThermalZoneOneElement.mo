@@ -12,7 +12,7 @@ model ThermalZoneOneElement
     "Indoor surface area of thermal mass"                                       annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtInd
     "Coefficient of heat transfer for indoor surface of thermal mass" annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.Area AWinInd = 0.1
+  parameter Modelica.SIunits.Area AWinInd = 0
     "Indoor surface area of elements without notable thermal mass" annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWinInd
     "Coefficient of heat transfer for elements without notable thermal mass" annotation(Dialog(group="Windows"));
@@ -29,7 +29,10 @@ model ThermalZoneOneElement
   parameter Modelica.SIunits.HeatCapacity CExt[nExt]
     "Vector of heat capacity of thermal masses for each RC-element, from inside to outside"
                                                                                            annotation(Dialog(group="Thermal mass"));
+protected
+            parameter Modelica.SIunits.Area ASum=AExtInd + AWinInd;
 
+public
   Fluid.MixingVolumes.MixingVolume volAir(m_flow_nominal=0.00001, V=VAir,
     redeclare package Medium = Medium,
     nPorts=nPorts)
@@ -83,12 +86,14 @@ model ThermalZoneOneElement
   Modelica.Blocks.Interfaces.RealInput solRad annotation (Placement(
         transformation(extent={{-140,24},{-100,64}}),iconTransformation(extent={{-120,44},
             {-100,64}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portIntGainsRad
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portIntGainsRad if ASum > 0
     annotation (Placement(transformation(extent={{100,-34},{120,-14}}),
         iconTransformation(extent={{100,-34},{120,-14}})));
-  BaseClasses.ThermSplitter thermSplitterIntGains(dimension=1)
+  BaseClasses.ThermSplitter thermSplitterIntGains(splitFactor=if not AExtInd > 0 and AWinInd > 0 then {AWinInd/(AExtInd + AWinInd)} else if not AWinInd > 0 and AExtInd > 0 then {AExtInd/(AExtInd + AWinInd)} else {
+          AExtInd/(AExtInd + AWinInd),AWinInd/(AExtInd + AWinInd)}, dimension=if not AExtInd > 0 and not AWinInd > 0 then 0 else if not AExtInd > 0 and AWinInd > 0 then 1 else if not AWinInd > 0 and AExtInd > 0 then 1 else 2) if ASum > 0
     annotation (Placement(transformation(extent={{92,-46},{72,-26}})));
-  BaseClasses.ThermSplitter thermSplitterSolRad(dimension=1)
+  BaseClasses.ThermSplitter thermSplitterSolRad(splitFactor=if not AExtInd > 0 and AWinInd > 0 then {AWinInd/(AExtInd + AWinInd)} else if not AWinInd > 0 and AExtInd > 0 then {AExtInd/(AExtInd + AWinInd)} else {
+          AExtInd/(AExtInd + AWinInd),AWinInd/(AExtInd + AWinInd)}, dimension=if not AExtInd > 0 and not AWinInd > 0 then 0 else if not AExtInd > 0 and AWinInd > 0 then 1 else if not AWinInd > 0 and AExtInd > 0 then 1 else 2) if ASum > 0
     annotation (Placement(transformation(extent={{-46,80},{-30,96}})));
   BaseClasses.ExtMassVarRC extMassVarRC(
     n=nExt,
@@ -138,24 +143,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(thermSplitterIntGains.signalInput, portIntGainsRad) annotation (Line(
-      points={{92,-36},{110,-36},{110,-24}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermSplitterIntGains.signalOutput[1], heatConExt.solid) annotation (
-      Line(
-      points={{72,-36},{-20,-36},{-20,0},{-10,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+        points={{92,-36},{110,-36},{110,-24}},
+        color={191,0,0},
+        smooth=Smooth.None));
   connect(solRadToHeatRad.port, thermSplitterSolRad.signalInput) annotation (
       Line(
-      points={{-52,88},{-46,88}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermSplitterSolRad.signalOutput[1], heatConExt.solid) annotation (
-      Line(
-      points={{-30,88},{-14,88},{-14,0},{-10,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+        points={{-52,88},{-46,88}},
+        color={191,0,0},
+        smooth=Smooth.None));
   connect(extMassVarRC.port_b, portExtAmb) annotation (Line(
       points={{-73.2,0},{-110,0},{-110,-22}},
       color={191,0,0},
@@ -171,6 +166,42 @@ equation
   connect(solRadToHeatConv.port, volAir.heatPort) annotation (Line(points={{-52,66},{-40,66},{-40,14},{18,14},{18,0}},color={191,0,0},smooth=Smooth.
             None,
         pattern=LinePattern.Dash));
+  if AExtInd > 0 and AWinInd > 0 then
+    connect(thermSplitterSolRad.signalOutput[1], heatConExt.solid) annotation (
+      Line(
+      points={{-30,88},{-14,88},{-14,0},{-10,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+    connect(thermSplitterIntGains.signalOutput[1], heatConExt.solid) annotation (
+      Line(
+        points={{72,-36},{-20,-36},{-20,0},{-10,0}},
+        color={191,0,0},
+        smooth=Smooth.None));
+    connect(thermSplitterSolRad.signalOutput[2], heatConWin.solid) annotation (
+      Line(points={{-30,88},{-22,88},{-14,88},{-14,44},{-10,44},{-10,36}},
+        color={191,0,0}));
+    connect(thermSplitterIntGains.signalOutput[2], heatConWin.solid) annotation (
+      Line(points={{72,-36},{22,-36},{-30,-36},{-30,32},{-10,32},{-10,36}},
+        color={191,0,0}));
+  elseif not AExtInd > 0 and AWinInd > 0 then
+    connect(thermSplitterSolRad.signalOutput[1], heatConWin.solid) annotation (
+      Line(points={{-30,88},{-22,88},{-14,88},{-14,44},{-10,44},{-10,36}},
+        color={191,0,0}));
+    connect(thermSplitterIntGains.signalOutput[1], heatConWin.solid) annotation (
+      Line(points={{72,-36},{22,-36},{-30,-36},{-30,32},{-10,32},{-10,36}},
+        color={191,0,0}));
+  elseif AExtInd > 0 and not AWinInd > 0 then
+    connect(thermSplitterSolRad.signalOutput[1], heatConExt.solid) annotation (
+      Line(
+      points={{-30,88},{-14,88},{-14,0},{-10,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+    connect(thermSplitterIntGains.signalOutput[1], heatConExt.solid) annotation (
+      Line(
+        points={{72,-36},{-20,-36},{-20,0},{-10,0}},
+        color={191,0,0},
+        smooth=Smooth.None));
+  end if;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -120},{120,100}}),
                       graphics={
