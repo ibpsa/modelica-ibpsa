@@ -1,7 +1,6 @@
 within Annex60.Experimental.ThermalZones;
-model ThermalZoneTwoElements "Thermal Zone with two elements for thermal masses (external and internal) with variable order(splitFactor=if not AExtInd > 0 and AWinInd > 0 then {AWinInd/(AExtInd + AWinInd)} else if not AWinInd > 0 and AExtInd > 0 then {AExtInd/(AExtInd + AWinInd)} else {
-  AExtInd/(AExtInd + AWinInd),AWinInd/(AExtInd + AWinInd)}, dimension=if not AExtInd > 0 and not AWinInd > 0 then 0 else if not AExtInd > 0 and AWinInd > 0 then 1 else if not AWinInd > 0 and AExtInd > 0 then 1 else 2)(splitFactor=if not AExtInd > 0 then {AInt/(AExtInd + AInt)} else if not AInt > 0 then {AExtInd/(AExtInd + AInt)} else {
-          AExtInd/(AExtInd + AInt),AInt/(AExtInd + AInt)}, dimension=if not AExtInd > 0 or  not AInt > 0 then 1 else 2)"
+model ThermalZoneTwoElements
+  "Thermal Zone with two elements for thermal masses (external and internal) with variable order"
   extends ThermalZoneOneElement(ASum=AExtInd+AWinInd+AInt,
                              thermSplitterIntGains(splitFactor=if not AExtInd > 0 and AWinInd > 0 and not AInt > 0 then {AWinInd/(AExtInd + AWinInd + AInt)} else if not AWinInd > 0 and AExtInd > 0 and not AInt > 0 then {AExtInd/(AExtInd + AWinInd + AInt)} else if not AWinInd > 0 and not AExtInd > 0 and AInt > 0 then {AInt/(AExtInd + AWinInd + AInt)} else if not AExtInd > 0 and AWinInd > 0 and AInt > 0 then {
   AWinInd/(AExtInd + AWinInd + AInt),AInt/(AExtInd + AWinInd + AInt)} else if AExtInd > 0 and not AWinInd > 0 and AInt > 0 then {
@@ -13,7 +12,7 @@ model ThermalZoneTwoElements "Thermal Zone with two elements for thermal masses 
   AExtInd/(AExtInd + AWinInd + AInt),AInt/(AExtInd + AWinInd + AInt)} else if AExtInd > 0 and AWinInd > 0 and not AInt > 0 then {
   AExtInd/(AExtInd + AWinInd + AInt),AWinInd/(AExtInd + AWinInd + AInt)} else {
   AExtInd/(AExtInd + AWinInd + AInt),AWinInd/(AExtInd + AWinInd + AInt),AInt/(AExtInd + AWinInd + AInt)}, dimension=if not AExtInd > 0 and not AWinInd > 0 and not AInt > 0 then 0 else if not AExtInd > 0 and AWinInd > 0 and not AInt > 0 then 1 else if not AWinInd > 0 and AExtInd > 0 and not AInt > 0 then 1 else if not AExtInd > 0 and not AWinInd > 0 and AInt > 0 then 1 else if AExtInd > 0 and AWinInd > 0 and not AInt > 0 then 2 else if not AExtInd > 0 and AWinInd > 0 and AInt > 0 then 2 else if AExtInd > 0 and not AWinInd > 0 and AInt > 0 then 2 else 3));
-  parameter Modelica.SIunits.Area AInt = 0
+  parameter Modelica.SIunits.Area AInt = 0.1
     "Surface area of internal thermal mass"                                           annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaIntInd
     "Coefficient of heat transfer for surface of internal thermal mass" annotation(Dialog(group="Thermal mass"));

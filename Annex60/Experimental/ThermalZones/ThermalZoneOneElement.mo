@@ -8,11 +8,11 @@ model ThermalZoneOneElement
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Modelica.SIunits.ThermalResistance RWin
     "Resistor for elements without notable thermal mass" annotation(Dialog(group="Windows"));
-  parameter Modelica.SIunits.Area AExtInd = 0
+  parameter Modelica.SIunits.Area AExtInd = 0.1
     "Indoor surface area of thermal mass"                                       annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtInd
     "Coefficient of heat transfer for indoor surface of thermal mass" annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.Area AWinInd = 0
+  parameter Modelica.SIunits.Area AWinInd = 0.1
     "Indoor surface area of elements without notable thermal mass" annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWinInd
     "Coefficient of heat transfer for elements without notable thermal mass" annotation(Dialog(group="Windows"));

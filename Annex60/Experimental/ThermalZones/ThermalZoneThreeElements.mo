@@ -1,13 +1,31 @@
 within Annex60.Experimental.ThermalZones;
 model ThermalZoneThreeElements
   "Thermal Zone with three elements for thermal masses (two times external and one internal) with variable order"
-    extends ThermalZoneTwoElements(
-    thermSplitterSolRad(dimension=3, splitFactor={AExtInd/(AExtInd + AInt +
-          AGroundInd),AInt/(AExtInd + AInt + AGroundInd),AGroundInd/(AExtInd +
-          AInt + AGroundInd)}),
-    thermSplitterIntGains(dimension=3, splitFactor={AExtInd/(AExtInd + AInt +
-          AGroundInd),AInt/(AExtInd + AInt + AGroundInd),AGroundInd/(AExtInd +
-          AInt + AGroundInd)}));
+    extends ThermalZoneTwoElements(ASum=AExtInd+AWinInd+AInt+AGroundInd,
+                             thermSplitterIntGains(splitFactor=if not AExtInd > 0 and AWinInd > 0 and not AInt > 0 and not AGroundInd > 0 then {AWinInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AWinInd > 0 and AExtInd > 0 and not AInt > 0 and not AGroundInd > 0 then {AExtInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AWinInd > 0 and not AExtInd > 0 and AInt > 0 and not AGroundInd > 0 then {AInt/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then {AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AExtInd > 0 and AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then {
+  AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and not AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and AWinInd > 0 and not AInt > 0 and not AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AWinInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then {
+  AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 then {
+  AInt/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AExtInd > 0 and AWinInd > 0 and AInt > 0 and AGroundInd > 0 then {
+  AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd)} else {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)}, dimension=if not AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and not AGroundInd > 0 then 0 else if not AExtInd > 0 and AWinInd > 0 and not AInt > 0 and not AGroundInd > 0 then 1 else if not AWinInd > 0 and AExtInd > 0 and not AInt > 0 and not AGroundInd > 0 then 1 else if not AExtInd > 0 and not AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then 1 else if not AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then 1 else if AExtInd > 0 and AWinInd > 0 and not AInt > 0 and not AGroundInd > 0 then 2 else if not AExtInd > 0 and AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then 2 else if AExtInd > 0 and not AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then 2 else if not AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 then 2 else if not AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then 2 else if AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then 2 else if not AExtInd > 0 and AWinInd > 0 and AInt > 0 and AGroundInd > 0 then 3 else if AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 then 3 else if AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then 3 else if AExtInd > 0 and AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then 3 else 4),
+      thermSplitterSolRad(splitFactor=if not AExtInd > 0 and AWinInd > 0 and not AInt > 0 and not AGroundInd > 0 then {AWinInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AWinInd > 0 and AExtInd > 0 and not AInt > 0 and not AGroundInd > 0 then {AExtInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AWinInd > 0 and not AExtInd > 0 and AInt > 0 and not AGroundInd > 0 then {AInt/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then {AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AExtInd > 0 and AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then {
+  AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and not AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and AWinInd > 0 and not AInt > 0 and not AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AWinInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then {
+  AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 then {
+  AInt/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if not AExtInd > 0 and AWinInd > 0 and AInt > 0 and AGroundInd > 0 then {
+  AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)} else if AExtInd > 0 and AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd)} else {
+  AExtInd/(AExtInd + AWinInd + AInt + AGroundInd),AWinInd/(AExtInd + AWinInd + AInt + AGroundInd),AInt/(AExtInd + AWinInd + AInt + AGroundInd),AGroundInd/(AExtInd + AWinInd + AInt + AGroundInd)}, dimension=if not AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and not AGroundInd > 0 then 0 else if not AExtInd > 0 and AWinInd > 0 and not AInt > 0 and not AGroundInd > 0 then 1 else if not AWinInd > 0 and AExtInd > 0 and not AInt > 0 and not AGroundInd > 0 then 1 else if not AExtInd > 0 and not AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then 1 else if not AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then 1 else if AExtInd > 0 and AWinInd > 0 and not AInt > 0 and not AGroundInd > 0 then 2 else if not AExtInd > 0 and AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then 2 else if AExtInd > 0 and not AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then 2 else if not AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 then 2 else if not AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then 2 else if AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then 2 else if not AExtInd > 0 and AWinInd > 0 and AInt > 0 and AGroundInd > 0 then 3 else if AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 then 3 else if AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then 3 else if AExtInd > 0 and AWinInd > 0 and AInt > 0 and not AGroundInd > 0 then 3 else 4));
   parameter Modelica.SIunits.Area AGroundInd = 0.1
     "Indoor surface area of ground thermal mass" annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaGroundInd
@@ -68,18 +86,6 @@ equation
       points={{46,-54},{46,-48},{22,-48},{22,-18},{18,-18},{18,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(thermSplitterIntGains.signalOutput[3], groundMassVarRC.port_a)
-    annotation (Line(
-      points={{72,-36},{72,-82.6},{46,-82.6}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[3])
-    annotation (Line(
-      points={{46,-82.6},{46,-82},{-28,-82},{-28,4},{-28,4},{-28,46},{-28,46},{
-          -28,68},{-28,68},{-28,78},{-28,78},{-28,86},{-28,86},{-28,88},{-30,88},
-          {-30,88}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(alphaGround.y, heatConGround.Rc) annotation (Line(
       points={{74.5,-68},{66,-68},{66,-64},{56,-64}},
       color={0,0,127},
@@ -115,6 +121,59 @@ equation
       points={{-44,-60},{-44,-78},{-80,-78},{-80,-59}},
       color={191,0,0},
       smooth=Smooth.None));
+  if not AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then
+    connect(thermSplitterIntGains.signalOutput[1], groundMassVarRC.port_a)
+      annotation (Line(
+        points={{72,-36},{72,-82.6},{46,-82.6}},
+        color={191,0,0},
+        smooth=Smooth.None));
+    connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[1])
+      annotation (Line(
+        points={{46,-82.6},{46,-82},{-28,-82},{-28,4},{-28,4},{-28,46},{-28,46},{
+            -28,68},{-28,68},{-28,78},{-28,78},{-28,86},{-28,86},{-28,88},{-30,88},
+            {-30,88}},
+        color={191,0,0},
+        smooth=Smooth.None));
+  elseif AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 or not AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 or not AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 then
+    connect(thermSplitterIntGains.signalOutput[2], groundMassVarRC.port_a)
+      annotation (Line(
+        points={{72,-36},{72,-82.6},{46,-82.6}},
+        color={191,0,0},
+        smooth=Smooth.None));
+    connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[2])
+      annotation (Line(
+        points={{46,-82.6},{46,-82},{-28,-82},{-28,4},{-28,4},{-28,46},{-28,46},{
+            -28,68},{-28,68},{-28,78},{-28,78},{-28,86},{-28,86},{-28,88},{-30,88},
+            {-30,88}},
+        color={191,0,0},
+        smooth=Smooth.None));
+  elseif not AExtInd > 0 and AWinInd > 0 and AInt > 0 and AGroundInd > 0 or AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 or AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then
+    connect(thermSplitterIntGains.signalOutput[3], groundMassVarRC.port_a)
+      annotation (Line(
+        points={{72,-36},{72,-82.6},{46,-82.6}},
+        color={191,0,0},
+        smooth=Smooth.None));
+    connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[3])
+      annotation (Line(
+        points={{46,-82.6},{46,-82},{-28,-82},{-28,4},{-28,4},{-28,46},{-28,46},{
+            -28,68},{-28,68},{-28,78},{-28,78},{-28,86},{-28,86},{-28,88},{-30,88},
+            {-30,88}},
+        color={191,0,0},
+        smooth=Smooth.None));
+  elseif AExtInd > 0 and AWinInd > 0 and AInt > 0 and AGroundInd > 0 then
+    connect(thermSplitterIntGains.signalOutput[4], groundMassVarRC.port_a)
+      annotation (Line(
+        points={{72,-36},{72,-82.6},{46,-82.6}},
+        color={191,0,0},
+        smooth=Smooth.None));
+    connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[4])
+      annotation (Line(
+        points={{46,-82.6},{46,-82},{-28,-82},{-28,4},{-28,4},{-28,46},{-28,46},{
+            -28,68},{-28,68},{-28,78},{-28,78},{-28,86},{-28,86},{-28,88},{-30,88},
+            {-30,88}},
+        color={191,0,0},
+        smooth=Smooth.None));
+  end if;
   annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,100}},
           preserveAspectRatio=false), graphics={
         Rectangle(
