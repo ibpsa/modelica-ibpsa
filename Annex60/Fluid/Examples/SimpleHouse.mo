@@ -21,10 +21,11 @@ model SimpleHouse
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={130,70})));
-  IDEAS.Fluid.HeatExchangers.Radiators.Radiator radiator(
+  HeatExchangers.Radiators.RadiatorEN442_2      radiator(
     redeclare package Medium = MediumWater,
-    dp_nominal=2000,
-    QNom=3000)
+    Q_flow_nominal=3000,
+    T_a_nominal=273.15 + 70,
+    T_b_nominal=273.15 + 50)
     annotation (Placement(transformation(extent={{104,-128},{124,-108}})));
 
   Sources.Boundary_pT bouAir(redeclare package Medium = MediumAir, nPorts=2,
@@ -53,7 +54,7 @@ model SimpleHouse
     dp_nominal=1000,
     Q_flow_nominal=5000)
     annotation (Placement(transformation(extent={{44,-128},{64,-108}})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=radiator.m_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3*radiator.m_flow_nominal
     "Nominal mass flow rate";
   Buildings.Fluid.Movers.FlowControlled_m_flow pump2(
     redeclare package Medium = MediumWater,
@@ -126,10 +127,10 @@ equation
                                                              color={191,0,0}));
   connect(convRes.port_a, zone.heatPort) annotation (Line(points={{130,80},{130,
           126},{102,126},{102,130}}, color={191,0,0}));
-  connect(radiator.heatPortCon, zone.heatPort) annotation (Line(points={{119,
-          -108},{160,-108},{160,130},{102,130}}, color={191,0,0}));
+  connect(radiator.heatPortCon, zone.heatPort) annotation (Line(points={{112,-110.8},
+          {160,-110.8},{160,130},{102,130}},     color={191,0,0}));
   connect(radiator.heatPortRad, walCap.port)
-    annotation (Line(points={{123,-108},{132,-108},{132,20}},
+    annotation (Line(points={{116,-110.8},{132,-110.8},{132,20}},
                                                            color={191,0,0}));
   connect(weaDat.weaBus, weaBus1) annotation (Line(
       points={{-180,20},{-180,20},{-120,20}},
