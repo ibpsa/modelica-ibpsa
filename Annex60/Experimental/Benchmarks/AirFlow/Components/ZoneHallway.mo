@@ -27,7 +27,8 @@ model ZoneHallway
     mSenFac=60) "Air volume of hallway element"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conRoom(G=
-        heightRoom*lengthRoom*UValue)
+        heightRoom*lengthRoom*UValue,
+        port_a(T(start=Medium.T_default)))
     "Thermal conductor between fixed T and Volume"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Airflow.Multizone.MediumColumn col(
@@ -118,8 +119,8 @@ model ZoneHallway
         rotation=270,
         origin={40,-80})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemp
-    "Dry bulb air temperature"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTemp(T(start=Medium.T_default),
+        port(T(start=Medium.T_default))) "Dry bulb air temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   BoundaryConditions.WeatherData.Bus weaBus
     "Weather data connection for outdoor air temperature"
@@ -239,6 +240,13 @@ in order to be part of a scalable benchmark. </p>
 Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September, 2, 2015 by Marcus Fuchs:<br/>
+Add start values to the ports and temperature in the <code>ThermalConductor</code> and the 
+<code>PrescripedTemperature</code> model. This is for 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\"> #266</a>, 
+to work with Dymola 2016 in pedantic mode.
+</li>
 <li>
 February 2015 by Marcus Fuchs:<br/>
 First implementation
