@@ -13,7 +13,7 @@ model SimpleHouse
   MixingVolumes.MixingVolume zone(
     redeclare package Medium = MediumAir,
     V=V_zone,
-    nPorts=2,
+    nPorts=3,
     m_flow_nominal=0.01)
     annotation (Placement(transformation(extent={{102,120},{82,140}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor convRes(R=1/2/A_wall)
@@ -127,11 +127,6 @@ equation
                                                              color={191,0,0}));
   connect(convRes.port_a, zone.heatPort) annotation (Line(points={{130,80},{130,
           126},{102,126},{102,130}}, color={191,0,0}));
-  connect(radiator.heatPortCon, zone.heatPort) annotation (Line(points={{112,-110.8},
-          {160,-110.8},{160,130},{102,130}},     color={191,0,0}));
-  connect(radiator.heatPortRad, walCap.port)
-    annotation (Line(points={{116,-110.8},{132,-110.8},{132,20}},
-                                                           color={191,0,0}));
   connect(weaDat.weaBus, weaBus1) annotation (Line(
       points={{-180,20},{-180,20},{-120,20}},
       color={255,204,51},
@@ -191,11 +186,17 @@ equation
   connect(bouAir.ports[2], hexRecup.port_b1) annotation (Line(points={{-20,118},
           {-20,119.6},{48,119.6}}, color={0,127,255}));
   connect(hexRecup.port_a1, zone.ports[1]) annotation (Line(points={{78,119.6},
-          {85,119.6},{85,120},{94,120}}, color={0,127,255}));
+          {85,119.6},{85,120},{94.6667,120}},
+                                         color={0,127,255}));
   connect(fan2.port_b, hexRecup.port_a2) annotation (Line(points={{40,100},{44,
           100},{44,100.4},{48,100.4}}, color={0,127,255}));
   connect(hexRecup.port_b2, zone.ports[2]) annotation (Line(points={{78,100.4},
-          {90,100.4},{90,120}}, color={0,127,255}));
+          {92,100.4},{92,120}}, color={0,127,255}));
+  connect(radiator.heatPortCon, zone.heatPort) annotation (Line(points={{112,
+          -110.8},{112,-110.8},{112,64},{112,132},{112,130},{102,130}}, color={
+          191,0,0}));
+  connect(radiator.heatPortRad, walCap.port) annotation (Line(points={{116,
+          -110.8},{118,-110.8},{118,-110},{132,-110},{132,20}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}})),
     experiment(StopTime=1e+06),
