@@ -265,41 +265,21 @@ equation
           fillColor={230,230,230},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-94,-94},{-36,-34},{-36,34},{-94,76}},
+          points={{-94,-94},{-40,-34},{-40,26},{-94,76}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-36,34},{6,34},{38,34},{94,76}},
+          points={{-40,26},{6,26},{42,26},{94,76}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{38,34},{38,-34},{94,-94}},
+          points={{42,26},{42,-34},{94,-94}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-36,-34},{38,-34}},
+          points={{-40,-34},{42,-34}},
           color={0,0,0},
           smooth=Smooth.None),
-        Rectangle(
-          extent={{0,12},{16,0}},
-          lineColor={0,0,0},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-16,12},{0,0}},
-          lineColor={0,0,0},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{0,0},{16,-12}},
-          lineColor={0,0,0},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-16,0},{0,-12}},
-          lineColor={0,0,0},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-76,110},{70,74}},
           lineColor={0,0,255},
