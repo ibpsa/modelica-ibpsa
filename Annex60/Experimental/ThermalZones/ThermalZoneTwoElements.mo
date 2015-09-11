@@ -24,131 +24,92 @@ model ThermalZoneTwoElements
   parameter Modelica.SIunits.HeatCapacity CInt[nInt]
     "Vector of heat capacity of thermal masses for each RC-element, from port to central mass"
                                                                                                annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
-    "Coefficient of heat transfer for linearized radiation exchange between thermal masses"
-                                                                                            annotation(Dialog(group="Thermal mass"));
+
   BaseClasses.IntMassVarRC intMassVarRC(
     n=nInt,
     RInt=RInt,
     CInt=CInt) if AInt > 0
-    annotation (Placement(transformation(extent={{96,-10},{116,12}})));
+    annotation (Placement(transformation(extent={{182,-48},{202,-26}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor heatConInt if AInt > 0
-    annotation (Placement(transformation(extent={{62,10},{42,-10}})));
+    annotation (Placement(transformation(extent={{148,-28},{128,-48}})));
   Modelica.Blocks.Sources.Constant alphaInt(k=1/(AInt*alphaIntInd)) if AInt > 0
                                                                    annotation (
       Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=-90,
-        origin={52,-21})));
+        origin={138,-59})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadExtInt(R=1/(min(
         AExtInd, AInt)*alphaRad)) if AExtInd > 0 and AInt > 0
-    annotation (Placement(transformation(extent={{-6,-60},{14,-40}})));
+    annotation (Placement(transformation(extent={{138,-116},{158,-96}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadWinInt(R=1/(min(
         AWinInd, AInt)*alphaRad)) if AWinInd > 0 and AInt > 0
-    annotation (Placement(transformation(extent={{36,40},{56,60}})));
+    annotation (Placement(transformation(extent={{74,-118},{94,-98}})));
 equation
   connect(heatConInt.fluid, portIntGainsConv) annotation (Line(
-      points={{42,0},{42,14},{18,14},{18,28},{110,28}},
+      points={{128,-38},{128,0},{64,0},{64,38},{228,38}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(alphaInt.y, heatConInt.Rc) annotation (Line(
-      points={{52,-15.5},{52,-10}},
+      points={{138,-53.5},{138,-48}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(thermalResRadExtInt.port_a, heatConExt.solid) annotation (Line(
-      points={{-6,-50},{-24,-50},{-24,0},{-10,0}},
+      points={{138,-106},{110,-106},{110,-86},{-144,-86},{-144,-36},{-114,-36}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatConInt.solid, intMassVarRC.port_a) annotation (Line(
-      points={{62,0},{96.8,0}},
+      points={{148,-38},{182.8,-38}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(intMassVarRC.port_a, thermalResRadExtInt.port_b) annotation (Line(
-      points={{96.8,0},{66,0},{66,-50},{14,-50}},
+      points={{182.8,-38},{168,-38},{168,-106},{158,-106}},
       color={191,0,0},
       smooth=Smooth.None));
   if not AExtInd > 0 and not AWinInd > 0 and AInt > 0 then
-    connect(thermSplitterIntGains.signalOutput[1], intMassVarRC.port_a)
-      annotation (Line(
-        points={{72,-36},{72,-18},{72,-18},{72,0},{96.8,0}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    connect(thermSplitterSolRad.signalOutput[1], intMassVarRC.port_a) annotation (
-       Line(
-        points={{-30,88},{72,88},{72,0},{96.8,0}},
-        color={191,0,0},
-        smooth=Smooth.None));
+    connect(thermSplitterIntGains.signalOutput[1], intMassVarRC.port_a);
+    connect(thermSplitterSolRad.signalOutput[1], intMassVarRC.port_a);
   elseif AExtInd > 0 and not AWinInd > 0 and AInt > 0 or not AExtInd > 0 and AWinInd > 0 and AInt > 0 then
-    connect(thermSplitterIntGains.signalOutput[2], intMassVarRC.port_a)
-      annotation (Line(
-        points={{72,-36},{72,-18},{72,-18},{72,0},{96.8,0}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    connect(thermSplitterSolRad.signalOutput[2], intMassVarRC.port_a) annotation (
-       Line(
-        points={{-30,88},{72,88},{72,0},{96.8,0}},
-        color={191,0,0},
-        smooth=Smooth.None));
+    connect(thermSplitterIntGains.signalOutput[2], intMassVarRC.port_a);
+    connect(thermSplitterSolRad.signalOutput[2], intMassVarRC.port_a);
   elseif AExtInd > 0 and AWinInd > 0 and AInt > 0 then
     connect(thermSplitterIntGains.signalOutput[3], intMassVarRC.port_a)
       annotation (Line(
-        points={{72,-36},{72,-18},{72,-18},{72,0},{96.8,0}},
+        points={{190,88},{190,80},{164,80},{164,-38},{182.8,-38}},
         color={191,0,0},
         smooth=Smooth.None));
     connect(thermSplitterSolRad.signalOutput[3], intMassVarRC.port_a) annotation (
        Line(
-        points={{-30,88},{72,88},{72,0},{96.8,0}},
+        points={{-136,146},{-60,146},{-60,100},{160,100},{160,-38},{182.8,-38}},
         color={191,0,0},
         smooth=Smooth.None));
   end if;
   connect(thermalResRadWinInt.port_b, intMassVarRC.port_a) annotation (Line(
-      points={{56,50},{66,50},{66,0},{96.8,0}},
+      points={{94,-108},{118,-108},{118,-86},{168,-86},{168,-38},{182.8,-38}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalResRadWinInt.port_a, heatConWin.solid) annotation (Line(
-      points={{36,50},{-44,50},{-44,36},{-10,36}},
+      points={{74,-108},{68,-108},{68,-94},{-46,-94},{-46,20},{-146,20},{-146,
+          38},{-116,38}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
-            -120},{120,100}}), graphics={
-        Rectangle(
-          extent={{22,65},{70,30}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-22,-37},{26,-72}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+            -180},{240,180}}), graphics={
         Polygon(
-          points={{42,20},{120,20},{120,-12},{64,-12},{64,-30},{42,-30},{42,20}},
+          points={{116,-16},{230,-16},{230,-78},{140,-78},{138,-78},{116,-78},{
+              116,-16}},
           lineColor={0,0,255},
           smooth=Smooth.None,
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{93,25},{120,8}},
+          extent={{173,-63},{224,-80}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          textString="Internal Mass"),
-        Text(
-          extent={{-16,-55},{22,-81}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          textString="Radiation Exchange"),
-        Text(
-          extent={{28,47},{66,21}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          textString="Radiation Exchange")}),
-                                          Documentation(revisions="<html>
+          textString="Internal Mass")}),  Documentation(revisions="<html>
 <ul>
 <li>April 18, 2015, by Moritz Lauster:<br>First implementation. </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-120,-120},{120,100}})));
+    Icon(coordinateSystem(extent={{-240,-180},{240,180}}, preserveAspectRatio=false)));
 end ThermalZoneTwoElements;

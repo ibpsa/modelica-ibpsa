@@ -47,182 +47,110 @@ model ThermalZoneThreeElements
     CExt=CGround) if AGroundInd > 0   annotation (Placement(transformation(
         extent={{10,-11},{-10,11}},
         rotation=90,
-        origin={46,-91})));
+        origin={-12,-152})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor heatConGround if AGroundInd > 0
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={46,-64})));
+        origin={-12,-116})));
   Modelica.Blocks.Sources.Constant alphaGround(k=1/(AGroundInd*alphaGroundInd)) if AGroundInd > 0
     annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=180,
-        origin={80,-68})));
+        origin={22,-116})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadExtGround(R=1/(min(
         AExtInd, AGroundInd)*alphaRad)) if AExtInd > 0 and AGroundInd > 0
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-80,-49})));
+        origin={-144,-111})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadIntGround(R=1/(min(
         AGroundInd, AInt)*alphaRad)) if AInt > 0 and AGroundInd > 0
                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={102,-62})));
+        rotation=0,
+        origin={204,-104})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portGroundAmb if AGroundInd > 0 annotation (
-     Placement(transformation(extent={{36,-122},{56,-102}}), iconTransformation(
-          extent={{36,-122},{56,-102}})));
+     Placement(transformation(extent={{-22,-184},{-2,-164}}),iconTransformation(
+          extent={{-22,-184},{-2,-164}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadWinGround(R=1/(min(
         AWinInd, AGroundInd)*alphaRad)) if AWinInd > 0 and AGroundInd > 0 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-44,-50})));
+        origin={-80,-112})));
 equation
   connect(groundMassVarRC.port_a, heatConGround.solid) annotation (Line(
-      points={{46,-82.6},{46,-74}},
+      points={{-12,-143.6},{-12,-126}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heatConGround.fluid, volAir.heatPort) annotation (Line(
-      points={{46,-54},{46,-48},{22,-48},{22,-18},{18,-18},{18,0}},
+      points={{-12,-106},{-12,-36},{64,-36},{64,0},{38,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(alphaGround.y, heatConGround.Rc) annotation (Line(
-      points={{74.5,-68},{66,-68},{66,-64},{56,-64}},
+      points={{16.5,-116},{-2,-116}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(groundMassVarRC.port_a, thermalResRadExtGround.port_b) annotation (
       Line(
-      points={{46,-82.6},{46,-78},{-80,-78},{-80,-59}},
+      points={{-12,-143.6},{-12,-132},{-144,-132},{-144,-121}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(groundMassVarRC.port_a, thermalResRadIntGround.port_b) annotation (
       Line(
-      points={{46,-82.6},{46,-78},{102,-78},{102,-72}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalResRadIntGround.port_a, intMassVarRC.port_a) annotation (Line(
-      points={{102,-52},{102,-24},{90,-24},{90,0},{96.8,0}},
+      points={{-12,-143.6},{-12,-132},{224,-132},{224,-104},{214,-104}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(groundMassVarRC.port_b, portGroundAmb) annotation (Line(
-      points={{46,-101.2},{46,-112}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalResRadExtGround.port_a, extMassVarRC.port_a) annotation (Line(
-      points={{-80,-39},{-80,-30},{-54.6,-30},{-54.6,0}},
+      points={{-12,-162.2},{-12,-174}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalResRadWinGround.port_a, heatConWin.solid) annotation (Line(
-      points={{-44,-40},{-44,36},{-10,36}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(thermalResRadWinGround.port_b, thermalResRadExtGround.port_b)
-    annotation (Line(
-      points={{-44,-60},{-44,-78},{-80,-78},{-80,-59}},
+      points={{-80,-102},{-80,20},{-146,20},{-146,38},{-116,38}},
       color={191,0,0},
       smooth=Smooth.None));
   if not AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then
-    connect(thermSplitterIntGains.signalOutput[1], groundMassVarRC.port_a)
-      annotation (Line(
-        points={{72,-36},{72,-82.6},{46,-82.6}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[1])
-      annotation (Line(
-        points={{46,-82.6},{46,-82},{-28,-82},{-28,4},{-28,4},{-28,46},{-28,46},{
-            -28,68},{-28,68},{-28,78},{-28,78},{-28,86},{-28,86},{-28,88},{-30,88},
-            {-30,88}},
-        color={191,0,0},
-        smooth=Smooth.None));
+    connect(thermSplitterIntGains.signalOutput[1], groundMassVarRC.port_a);
+    connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[1]);
   elseif AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 or not AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 or not AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 then
-    connect(thermSplitterIntGains.signalOutput[2], groundMassVarRC.port_a)
-      annotation (Line(
-        points={{72,-36},{72,-82.6},{46,-82.6}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[2])
-      annotation (Line(
-        points={{46,-82.6},{46,-82},{-28,-82},{-28,4},{-28,4},{-28,46},{-28,46},{
-            -28,68},{-28,68},{-28,78},{-28,78},{-28,86},{-28,86},{-28,88},{-30,88},
-            {-30,88}},
-        color={191,0,0},
-        smooth=Smooth.None));
+    connect(thermSplitterIntGains.signalOutput[2], groundMassVarRC.port_a);
+    connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[2]);
   elseif not AExtInd > 0 and AWinInd > 0 and AInt > 0 and AGroundInd > 0 or AExtInd > 0 and not AWinInd > 0 and AInt > 0 and AGroundInd > 0 or AExtInd > 0 and AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then
-    connect(thermSplitterIntGains.signalOutput[3], groundMassVarRC.port_a)
-      annotation (Line(
-        points={{72,-36},{72,-82.6},{46,-82.6}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[3])
-      annotation (Line(
-        points={{46,-82.6},{46,-82},{-28,-82},{-28,4},{-28,4},{-28,46},{-28,46},{
-            -28,68},{-28,68},{-28,78},{-28,78},{-28,86},{-28,86},{-28,88},{-30,88},
-            {-30,88}},
-        color={191,0,0},
-        smooth=Smooth.None));
+    connect(thermSplitterIntGains.signalOutput[3], groundMassVarRC.port_a);
+    connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[3]);
   elseif AExtInd > 0 and AWinInd > 0 and AInt > 0 and AGroundInd > 0 then
     connect(thermSplitterIntGains.signalOutput[4], groundMassVarRC.port_a)
       annotation (Line(
-        points={{72,-36},{72,-82.6},{46,-82.6}},
+        points={{190,88},{190,80},{-38,80},{-38,-136},{-12,-136},{-12,-143.6}},
         color={191,0,0},
         smooth=Smooth.None));
     connect(groundMassVarRC.port_a, thermSplitterSolRad.signalOutput[4])
       annotation (Line(
-        points={{46,-82.6},{46,-82},{-28,-82},{-28,4},{-28,4},{-28,46},{-28,46},{
-            -28,68},{-28,68},{-28,78},{-28,78},{-28,86},{-28,86},{-28,88},{-30,88},
-            {-30,88}},
+        points={{-12,-143.6},{-12,-140},{-42,-140},{-42,146},{-136,146}},
         color={191,0,0},
         smooth=Smooth.None));
   end if;
-  annotation (Diagram(coordinateSystem(extent={{-120,-120},{120,100}},
+  connect(intMassVarRC.port_a, thermalResRadIntGround.port_a) annotation (Line(
+        points={{182.8,-38},{176,-38},{176,-38},{168,-38},{168,-86},{184,-86},{
+          184,-104},{194,-104}}, color={191,0,0}));
+  connect(thermalResRadWinGround.port_b, thermalResRadExtGround.port_b)
+    annotation (Line(points={{-80,-122},{-80,-122},{-80,-132},{-144,-132},{-144,
+          -121}}, color={191,0,0}));
+  connect(thermalResRadExtGround.port_a, heatConExt.solid) annotation (Line(
+        points={{-144,-101},{-144,-36},{-114,-36}}, color={191,0,0}));
+  annotation (Diagram(coordinateSystem(extent={{-240,-180},{240,180}},
           preserveAspectRatio=false), graphics={
         Rectangle(
-          extent={{-58,-32},{-29,-72}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-21,14},{21,-14}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          origin={104,-65},
-          rotation=90),
-        Rectangle(
-          extent={{-100,-32},{-60,-72}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{30,-52},{88,-106}},
+          extent={{-32,-100},{50,-166}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{61,-94},{86,-110}},
+          extent={{1,-150},{48,-166}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          textString="Ground Plate"),
-        Text(
-          extent={{-98,-55},{-60,-81}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          textString="Radiation Exchange"),
-        Text(
-          extent={{96,-78},{114,-87}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          textString="Rad Exch"),
-        Text(
-          extent={{-52,-65},{-34,-74}},
-          lineColor={0,0,255},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          textString="Rad Exch")}),              Icon(coordinateSystem(extent={{-120,
-            -120},{120,100}}, preserveAspectRatio=false), graphics),
+          textString="Ground Plate")}),          Icon(coordinateSystem(extent={{-240,
+            -180},{240,180}}, preserveAspectRatio=false), graphics),
     Documentation(revisions="<html>
 <ul>
 <li>
