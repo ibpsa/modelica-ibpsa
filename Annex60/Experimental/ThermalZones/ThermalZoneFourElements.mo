@@ -34,7 +34,8 @@ model ThermalZoneFourElements
         rotation=180,
         origin={22,120})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portRoofAmb
-    annotation (Placement(transformation(extent={{-22,166},{-2,186}})));
+    annotation (Placement(transformation(extent={{-22,160},{-2,180}}),
+        iconTransformation(extent={{-22,160},{-2,180}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadIntRoof(R=1/(min(
         AInt, ARoofInd)*alphaRad)) if   AInt > 0 and AGroundInd > 0 annotation (
      Placement(transformation(
@@ -66,7 +67,7 @@ equation
   connect(heatConRoof.solid, roofMassVarRC.port_b)
     annotation (Line(points={{-12,130},{-12,144.8}}, color={191,0,0}));
   connect(roofMassVarRC.port_a, portRoofAmb)
-    annotation (Line(points={{-12,163.4},{-12,176}}, color={191,0,0}));
+    annotation (Line(points={{-12,163.4},{-12,170}}, color={191,0,0}));
   connect(heatConRoof.fluid, volAir.heatPort) annotation (Line(points={{-12,110},
           {-12,94},{64,94},{64,0},{38,0}}, color={191,0,0}));
   connect(thermSplitterSolRad.signalOutput[5], roofMassVarRC.port_b)
@@ -110,5 +111,13 @@ equation
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          textString="Roof")}));
+          textString="Roof")}), Icon(coordinateSystem(preserveAspectRatio=false,
+          extent={{-240,-180},{240,180}}), graphics={Rectangle(
+          extent={{-38,42},{28,-44}},
+          pattern=LinePattern.None,
+          fillColor={230,230,230},
+          fillPattern=FillPattern.Solid), Text(
+          extent={{-64,60},{60,-64}},
+          lineColor={0,0,0},
+          textString="4")}));
 end ThermalZoneFourElements;

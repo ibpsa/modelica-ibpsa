@@ -46,7 +46,7 @@ model ThermalZoneTwoElements
     annotation (Placement(transformation(extent={{74,-118},{94,-98}})));
 equation
   connect(heatConInt.fluid, portIntGainsConv) annotation (Line(
-      points={{128,-38},{128,0},{64,0},{64,38},{228,38}},
+      points={{128,-38},{128,0},{64,0},{64,38},{230,38}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(alphaInt.y, heatConInt.Rc) annotation (Line(
@@ -111,5 +111,13 @@ equation
 <li>April 18, 2015, by Moritz Lauster:<br>First implementation. </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-240,-180},{240,180}}, preserveAspectRatio=false)));
+    Icon(coordinateSystem(extent={{-240,-180},{240,180}}, preserveAspectRatio=false),
+        graphics={Rectangle(
+          extent={{-36,40},{32,-38}},
+          fillColor={230,230,230},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None), Text(
+          extent={{-62,62},{62,-62}},
+          lineColor={0,0,0},
+          textString="2")}));
 end ThermalZoneTwoElements;

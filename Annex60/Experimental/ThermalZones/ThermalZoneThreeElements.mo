@@ -70,8 +70,8 @@ model ThermalZoneThreeElements
         rotation=0,
         origin={204,-104})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a portGroundAmb if AGroundInd > 0 annotation (
-     Placement(transformation(extent={{-22,-184},{-2,-164}}),iconTransformation(
-          extent={{-22,-184},{-2,-164}})));
+     Placement(transformation(extent={{-22,-180},{-2,-160}}),iconTransformation(
+          extent={{-22,-180},{-2,-160}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermalResRadWinGround(R=1/(min(
         AWinInd, AGroundInd)*alphaRad)) if AWinInd > 0 and AGroundInd > 0 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -101,7 +101,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(groundMassVarRC.port_b, portGroundAmb) annotation (Line(
-      points={{-12,-162.2},{-12,-174}},
+      points={{-12,-162.2},{-12,-170}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalResRadWinGround.port_a, heatConWin.solid) annotation (Line(
@@ -150,7 +150,14 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Ground Plate")}),          Icon(coordinateSystem(extent={{-240,
-            -180},{240,180}}, preserveAspectRatio=false), graphics),
+            -180},{240,180}}, preserveAspectRatio=false), graphics={Rectangle(
+          extent={{-32,40},{34,-40}},
+          pattern=LinePattern.None,
+          fillColor={230,230,230},
+          fillPattern=FillPattern.Solid), Text(
+          extent={{-64,60},{60,-64}},
+          lineColor={0,0,0},
+          textString="3")}),
     Documentation(revisions="<html>
 <ul>
 <li>
