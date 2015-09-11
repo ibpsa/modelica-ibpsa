@@ -110,7 +110,7 @@ public
                                      AExtInd > 0 and AWinInd > 0
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-146,4})));
+        origin={-146,8})));
 equation
   connect(volAir.ports, ports) annotation (Line(
       points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-172},{85,-172}},
@@ -166,12 +166,12 @@ equation
   if AExtInd > 0 and AWinInd > 0 then
     connect(thermSplitterSolRad.signalOutput[1], heatConExt.solid) annotation (
       Line(
-      points={{-136,146},{-68,146},{-68,6},{-126,6},{-126,-36},{-114,-36}},
+      points={{-136,146},{-68,146},{-68,-8},{-126,-8},{-126,-36},{-114,-36}},
       color={191,0,0},
       smooth=Smooth.None));
     connect(thermSplitterIntGains.signalOutput[1], heatConExt.solid) annotation (
       Line(
-        points={{190,88},{-62,88},{-62,-4},{-120,-4},{-120,-36},{-114,-36}},
+        points={{190,88},{-62,88},{-62,-12},{-120,-12},{-120,-36},{-114,-36}},
         color={191,0,0},
         smooth=Smooth.None));
     connect(thermSplitterSolRad.signalOutput[2], heatConWin.solid) annotation (
@@ -199,10 +199,10 @@ equation
           64,38},{64,0},{38,0}}, color={191,0,0}));
   connect(volAir.heatPort, heatConExt.fluid) annotation (Line(points={{38,0},{64,
           0},{64,-36},{-94,-36}}, color={191,0,0}));
-  connect(thermalResRadExtWin.port_b, heatConExt.solid) annotation (Line(points=
-         {{-146,-6},{-144,-6},{-144,-36},{-114,-36}}, color={191,0,0}));
+  connect(thermalResRadExtWin.port_b, heatConExt.solid) annotation (Line(points={{-146,-2},
+          {-144,-2},{-144,-36},{-114,-36}},           color={191,0,0}));
   connect(thermalResRadExtWin.port_a, heatConWin.solid)
-    annotation (Line(points={{-146,14},{-146,38},{-116,38}}, color={191,0,0}));
+    annotation (Line(points={{-146,18},{-146,38},{-116,38}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}},
         grid={2,2}),  graphics={

@@ -76,7 +76,7 @@ model ThermalZoneThreeElements
         AWinInd, AGroundInd)*alphaRad)) if AWinInd > 0 and AGroundInd > 0 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-80,-112})));
+        origin={-82,-112})));
 equation
   connect(groundMassVarRC.port_a, heatConGround.solid) annotation (Line(
       points={{-12,-143.6},{-12,-126}},
@@ -105,7 +105,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(thermalResRadWinGround.port_a, heatConWin.solid) annotation (Line(
-      points={{-80,-102},{-80,20},{-146,20},{-146,38},{-116,38}},
+      points={{-82,-102},{-82,20},{-146,20},{-146,38},{-116,38}},
       color={191,0,0},
       smooth=Smooth.None));
   if not AExtInd > 0 and not AWinInd > 0 and not AInt > 0 and AGroundInd > 0 then
@@ -133,7 +133,7 @@ equation
         points={{182.8,-38},{176,-38},{176,-38},{168,-38},{168,-86},{184,-86},{
           184,-104},{194,-104}}, color={191,0,0}));
   connect(thermalResRadWinGround.port_b, thermalResRadExtGround.port_b)
-    annotation (Line(points={{-80,-122},{-80,-122},{-80,-132},{-144,-132},{-144,
+    annotation (Line(points={{-82,-122},{-80,-122},{-80,-132},{-144,-132},{-144,
           -121}}, color={191,0,0}));
   connect(thermalResRadExtGround.port_a, heatConExt.solid) annotation (Line(
         points={{-144,-101},{-144,-36},{-114,-36}}, color={191,0,0}));
