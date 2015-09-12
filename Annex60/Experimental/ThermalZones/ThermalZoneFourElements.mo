@@ -111,13 +111,22 @@ equation
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          textString="Roof")}), Icon(coordinateSystem(preserveAspectRatio=false,
-          extent={{-240,-180},{240,180}}), graphics={Rectangle(
+          textString="Roof")}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-240,-180},{240,
+            180}}), graphics={Rectangle(
           extent={{-38,42},{28,-44}},
           pattern=LinePattern.None,
           fillColor={230,230,230},
           fillPattern=FillPattern.Solid), Text(
           extent={{-64,60},{60,-64}},
           lineColor={0,0,0},
-          textString="4")}));
+          textString="4")}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+September 11, 2015 by Moritz Lauster:<br/>
+First Implementation.
+</li>
+</ul>
+</html>"));
 end ThermalZoneFourElements;
