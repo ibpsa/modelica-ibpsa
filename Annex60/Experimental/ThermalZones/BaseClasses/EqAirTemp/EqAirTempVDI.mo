@@ -2,10 +2,10 @@ within Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp;
 model EqAirTempVDI
   extends
     .Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp.partialEqAirTemp;
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaowo=20
-    "Outer wall's coefficient of heat transfer (outer side)";
-  parameter Real orientationswallshorizontal[n]={90,90,90,90}
-    "orientations of the walls against the vertical (wall,roof)";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtOut=20
+    "Exterior walls' coefficient of heat transfer (outdoor)";
+  parameter Real orientationsWallsHorizontal[n]={90,90,90,90}
+    "Orientations of the walls against the vertical (wall,roof)";
 
 protected
   Real phiprivate[n];
@@ -15,10 +15,10 @@ equation
   T_earth=((-E_earth/(0.93*5.67))^0.25)*100;//-273.15
   T_sky=((E_sky/(0.93*5.67))^0.25)*100;//-273.15
 
-  phiprivate = (unitvec+Modelica.Math.cos(orientationswallshorizontal*Modelica.Constants.pi/180))/2;
+  phiprivate = (unitvec+Modelica.Math.cos(orientationsWallsHorizontal*Modelica.Constants.pi/180))/2;
 
-  T_eqLW=((T_earth-T_air)*(unitvec-phiprivate)+(T_sky-T_air)*phiprivate)*(eowo*alpharad/alphaowo);
-  T_eqSW=solarRad_in*aowo/(alphaowo);
+  T_eqLW=((T_earth-T_air)*(unitvec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alpharad/alphaExtOut);
+  T_eqSW=solarRad_in*aExt/(alphaExtOut);
 
   if withLongwave then
     T_eqWin=T_air*unitvec+T_eqLW.*abs(sunblindsig-unitvec);

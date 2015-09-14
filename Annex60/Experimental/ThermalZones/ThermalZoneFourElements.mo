@@ -2,73 +2,70 @@ within Annex60.Experimental.ThermalZones;
 model ThermalZoneFourElements
   "Thermal Zone with four elements for exterior walls, interior walls, floor plate and roof"
   extends ThermalZoneThreeElements;
-  parameter Modelica.SIunits.Area ARoofInd = 0.1
-    "Indoor surface area of ground thermal mass" annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRoofInd
-    "Coefficient of heat transfer for surface of ground thermal mass" annotation(Dialog(group="Thermal mass"));
-  parameter Integer nRoof(min = 1) "Number of RC-elements for thermal mass" annotation(Dialog(group="Thermal mass"));
+  parameter Modelica.SIunits.Area ARoof = 0.1 "Area of roof"
+                   annotation(Dialog(group="Roof"));
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRoof
+    "Coefficient of heat transfer of roof (indoor)" annotation(Dialog(group="Roof"));
+  parameter Integer nRoof(min = 1) "Number of RC-elements of roof" annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.ThermalResistance RRoof[nExt]
-    "Vector of resistances for each RC-element fpr ground, from inside to outside"
-                                                                                   annotation(Dialog(group="Thermal mass"));
+    "Vector of resistances of roof, from inside to outside"                        annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.ThermalResistance RRoofRem
-    "Resistance of remaining resistor RGroundRem between capacitance n and outside"
-                                                                                    annotation(Dialog(group="Thermal mass"));
+    "Resistance of remaining resistor RRoofRem between capacitance n and outside"
+                                                                                    annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.HeatCapacity CRoof[nExt]
-    "Vector of heat capacity of ground thermal masses for each RC-element, from inside to outside"
-                                                                                                   annotation(Dialog(group="Thermal mass"));
+    "Vector of heat capacities of roof, from inside to outside"                                    annotation(Dialog(group="Roof"));
   BaseClasses.ExtMassVarRC roofRC(
     RExt=RRoof,
     RExtRem=RRoofRem,
     CExt=CRoof,
-    n=nRoof) if      ARoofInd > 0 annotation (Placement(transformation(
+    n=nRoof) if      ARoof > 0 annotation (Placement(transformation(
         extent={{10,-11},{-10,11}},
         rotation=90,
         origin={-12,155})));
-  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convRoof if      ARoofInd > 0
+  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convRoof if      ARoof > 0
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-12,120})));
-  Modelica.Blocks.Sources.Constant alphaRoof(k=1/(ARoofInd*alphaRoofInd)) if       ARoofInd > 0
+  Modelica.Blocks.Sources.Constant alphaRoofConst(k=1/(ARoof*alphaRoof)) if        ARoof > 0
     annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=180,
         origin={22,120})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a roof if        ARoofInd > 0
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a roof if        ARoof > 0
     "ambient port for roof" annotation (Placement(transformation(extent={{-22,
             160},{-2,180}}), iconTransformation(extent={{-22,160},{-2,180}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resIntRoof(R=1/(min(
-        AInt, ARoofInd)*alphaRad)) if   AInt > 0 and ARoofInd > 0
+        AInt, ARoof)*alphaRad)) if   AInt > 0 and ARoof > 0
     "resistor between interior walls and roof" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={186,10})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resRoofWin(R=1/(min(
-        ARoofInd, AWinInd)*alphaRad)) if
-                                     ARoofInd > 0 and AWinInd > 0
+        ARoof, AWinInd)*alphaRad)) if
+                                     ARoof > 0 and AWinInd > 0
     "resistor between roof and windows" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-154,100})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resRoofFloor(R=1/(min(
-        ARoofInd, AGroundInd)*alphaRad)) if
-                                           ARoofInd > 0 and AGroundInd > 0
+        ARoof, AGroundInd)*alphaRad)) if   ARoof > 0 and AGroundInd > 0
     "resistor between floor plate and roof" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-56,-112})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resExtWallRoof(R=1/(min(
-        AExtInd, ARoofInd)*alphaRad)) if
-                                     AExtInd > 0 and ARoofInd > 0
+        AExtInd, ARoof)*alphaRad)) if
+                                     AExtInd > 0 and ARoof > 0
     "resistor between exterior walls and roof" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-108,6})));
 equation
-  connect(convRoof.Rc, alphaRoof.y)
+  connect(convRoof.Rc, alphaRoofConst.y)
     annotation (Line(points={{-2,120},{8,120},{16.5,120}}, color={0,0,127}));
   connect(convRoof.solid, roofRC.port_b)
     annotation (Line(points={{-12,130},{-12,144.8}}, color={191,0,0}));

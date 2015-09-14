@@ -21,18 +21,17 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Total energy transmittance of windows" annotation(Dialog(group="Windows"));
   parameter Real ratioWinConRad=0
     "Ratio for windows between indoor convective and radiative heat emission" annotation(Dialog(group="Windows"));
-  parameter Integer nExt(min = 1)=1 "Number of RC-elements for exterior walls" annotation(Dialog(group="Thermal mass"));
+  parameter Integer nExt(min = 1)=1 "Number of RC-elements of exterior walls" annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.ThermalResistance RExt[nExt]
-    "Vector of resistances for exterior walls, from inside to outside" annotation(Dialog(group="Thermal mass"));
+    "Vector of resistances of exterior walls, from inside to outside" annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.ThermalResistance RExtRem
     "Resistance of remaining resistor RExtRem between capacitance n and outside"
-                                                                                 annotation(Dialog(group="Thermal mass"));
+                                                                                 annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.HeatCapacity CExt[nExt]
-    "Vector of heat capacity of thermal masses for each RC-element, from inside to outside"
-                                                                                           annotation(Dialog(group="Thermal mass"));
+    "Vector of heat capacities of exterior walls, from inside to outside"                  annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
-    "Coefficient of heat transfer for linearized radiation exchange between thermal masses"
-                                                                                            annotation(Dialog(group="Thermal mass"));
+    "Coefficient of heat transfer for linearized radiation exchange between walls"
+                                                                                            annotation(Dialog(group="Thermal zone"));
 protected
             parameter Modelica.SIunits.Area ASum=AExt + AWin;
 
@@ -57,7 +56,8 @@ public
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convExtWall if
                                                                             AExt > 0
     annotation (Placement(transformation(extent={{-114,-26},{-94,-46}})));
-  Modelica.Blocks.Sources.Constant alphaExtWall(k=1/(AExt*alphaExt)) if   AExt > 0
+  Modelica.Blocks.Sources.Constant alphaExtWallConst(k=1/(AExt*alphaExt)) if
+                                                                          AExt > 0
     annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=-90,
@@ -131,7 +131,7 @@ equation
       points={{-180,38},{-230,38}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(alphaExtWall.y, convExtWall.Rc) annotation (Line(
+  connect(alphaExtWallConst.y, convExtWall.Rc) annotation (Line(
       points={{-104,-51.5},{-104,-46}},
       color={0,0,127},
       smooth=Smooth.None));

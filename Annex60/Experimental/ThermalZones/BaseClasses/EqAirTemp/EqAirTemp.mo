@@ -2,13 +2,13 @@ within Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp;
 model EqAirTemp
   extends
     .Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp.partialEqAirTemp;
-parameter Real orientationswallshorizontal[n]={90,90,90,90}
-    "orientations of the walls against the vertical (wall,roof)";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaconv_wall=24.67
-    "Outer walls coefficient of heat transfer (outerside)";
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaconv_win=16.37
-    "Outer walls coefficient of heat transfer (outerside)";
-parameter Real awin=0.0 "Coefficient of absorption of the window";
+parameter Real orientationsWallsHorizontal[n]={90,90,90,90}
+    "Orientations of the walls against the vertical (wall,roof)";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtOut=24.67
+    "Exterior walls' coefficient of heat transfer (outdoor)";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWinOut=16.37
+    "Windows' coefficient of heat transfer (outdoor)";
+parameter Real aWin=0.0 "Coefficient of absorption of the windows";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a equalAirTempWindow
     annotation (Placement(transformation(extent={{80,58},{100,78}}),
@@ -27,12 +27,12 @@ equation
   T_earth=((-E_earth/(0.93*5.67))^0.25)*100;//-273.15
   T_sky=((E_sky/(5.67))^0.25)*100;//-273.15
 
-  phiprivate = (unitvec+Modelica.Math.cos(orientationswallshorizontal*Modelica.Constants.pi/180))/2;
+  phiprivate = (unitvec+Modelica.Math.cos(orientationsWallsHorizontal*Modelica.Constants.pi/180))/2;
 
-  T_eqLW=((T_earth-T_air)*(unitvec-phiprivate)+(T_sky-T_air)*phiprivate)*(eowo*alpharad/(alpharad+alphaconv_wall));
-  T_eqLW_win=((T_earth-T_air)*(unitvec-phiprivate)+(T_sky-T_air)*phiprivate)*(eowo*alpharad/(alpharad+alphaconv_win)).*abs(sunblindsig-unitvec);
-  T_eqSW=solarRad_in*aowo/(alpharad+alphaconv_wall);
-  T_eqSW_win=solarRad_in*awin/(alpharad+alphaconv_win);
+  T_eqLW=((T_earth-T_air)*(unitvec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alpharad/(alpharad+alphaExtOut));
+  T_eqLW_win=((T_earth-T_air)*(unitvec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alpharad/(alpharad+alphaWinOut)).*abs(sunblindsig-unitvec);
+  T_eqSW=solarRad_in*aExt/(alpharad+alphaExtOut);
+  T_eqSW_win=solarRad_in*aWin/(alpharad+alphaWinOut);
 
   if withLongwave then
     T_eqWin=T_air*unitvec+T_eqLW_win+T_eqSW_win;

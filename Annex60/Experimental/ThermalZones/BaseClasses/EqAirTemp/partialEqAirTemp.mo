@@ -1,8 +1,8 @@
 within Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp;
 partial model partialEqAirTemp
 
-parameter Real aowo=0.6 "Coefficient of absorption of the outer walls";
-parameter Real eowo=0.9 "Coefficient of emission of the outer walls";
+parameter Real aExt=0.6 "Coefficient of absorption of exterior walls (outdoor)";
+parameter Real eExt=0.9 "Coefficient of emission of exterior walls (outdoor)";
 parameter Integer n=4 "Number of orientations (without ground)";
 parameter Real wf_wall[n]={0.5,0.2,0.2,0.1} "Weight factors of the walls";
 parameter Real wf_win[n]={0,0,0,0} "Weight factors of the windows";
