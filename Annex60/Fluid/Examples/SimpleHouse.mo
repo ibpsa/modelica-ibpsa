@@ -11,6 +11,75 @@ model SimpleHouse
     "Nominal mass flow rate";
   parameter Modelica.SIunits.Pressure dp_nominal=200
     "Pressure drop at nominal mass flow rate";
+model Controller
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=radiator.m_flow_nominal
+      "Nominal mass flow rate";
+  Modelica.Blocks.Math.BooleanToReal booleanToReal1(realTrue=m_flow_nominal)
+    annotation (Placement(transformation(extent={{40,54},{52,66}})));
+  Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=1)
+    annotation (Placement(transformation(extent={{-6,120},{14,140}})));
+  Modelica.Blocks.Logical.Or or1
+    annotation (Placement(transformation(extent={{-6,94},{14,114}})));
+  Modelica.Blocks.Logical.And and2
+    annotation (Placement(transformation(extent={{-66,138},{-54,126}})));
+  Modelica.Blocks.Logical.And and1
+    annotation (Placement(transformation(extent={{-86,118},{-74,106}})));
+  Modelica.Blocks.Logical.Not not1
+    annotation (Placement(transformation(extent={{-88,146},{-78,156}})));
+  Modelica.Blocks.Logical.Hysteresis hysTout(uLow=273.15 + 5, uHigh=273.15 + 2)
+    annotation (Placement(transformation(extent={{-120,140},{-100,160}})));
+  Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=-(273.15 + 23), uHigh=-(
+        273.15 + 21))
+    annotation (Placement(transformation(extent={{-120,140},{-100,120}})));
+
+  Modelica.Blocks.Interfaces.BooleanOutput y annotation (Placement(
+        transformation(rotation=0, extent={{-65,-115},{-35,-85}})));
+  Modelica.Blocks.Interfaces.RealOutput y1 annotation (Placement(transformation(
+          rotation=0, extent={{85,65},{115,95}})));
+  Modelica.Blocks.Interfaces.RealOutput y2 annotation (Placement(transformation(
+          rotation=0, extent={{85,-115},{115,-85}})));
+  Modelica.Blocks.Interfaces.RealInput u annotation (Placement(transformation(
+          rotation=0, extent={{-215,125},{-185,155}})));
+  Modelica.Blocks.Interfaces.RealInput u1 annotation (Placement(transformation(
+          rotation=0, extent={{-215,65},{-185,95}})));
+  Modelica.Blocks.Math.Gain gain(k=-1)
+    annotation (Placement(transformation(extent={{-154,120},{-134,140}})));
+equation
+  connect(and1.u2, hysTout.y) annotation (Line(points={{-87.2,116.8},{-92,116.8},
+          {-92,150},{-99,150}}, color={255,0,255}));
+  connect(and1.u1, hysteresis.y) annotation (Line(points={{-87.2,112},{-96,112},
+          {-96,130},{-99,130}}, color={255,0,255}));
+  connect(not1.u, hysTout.y) annotation (Line(points={{-89,151},{-94,150},{-99,150}},
+        color={255,0,255}));
+  connect(and2.u1, hysteresis.y) annotation (Line(points={{-67.2,132},{-82,132},
+          {-82,130},{-99,130}}, color={255,0,255}));
+  connect(and2.u2, not1.y) annotation (Line(points={{-67.2,136.8},{-67.2,151},{-77.5,
+          151}}, color={255,0,255}));
+  connect(and2.y, booleanToReal.u) annotation (Line(points={{-53.4,132},{-16,132},
+          {-16,130},{-8,130}}, color={255,0,255}));
+  connect(or1.u1, booleanToReal.u)
+    annotation (Line(points={{-8,104},{-8,117},{-8,130}}, color={255,0,255}));
+  connect(booleanToReal1.u, or1.y) annotation (Line(points={{38.8,60},{24,60},{
+          24,104},{15,104}},
+                          color={255,0,255}));
+  connect(y, and1.y) annotation (Line(points={{-50,-100},{-50,112},{-70,112},{
+          -73.4,112}}, color={255,0,255}));
+  connect(y1, booleanToReal.y) annotation (Line(points={{100,80},{58,80},{58,
+          130},{15,130}}, color={0,0,127}));
+  connect(y2, booleanToReal1.y) annotation (Line(points={{100,-100},{52.6,-100},
+          {52.6,60}}, color={0,0,127}));
+  connect(y, or1.u2)
+    annotation (Line(points={{-50,-100},{-50,96},{-8,96}}, color={255,0,255}));
+  connect(u1, gain.u) annotation (Line(points={{-200,80},{-162,80},{-162,130},{
+          -156,130}}, color={0,0,127}));
+  connect(gain.y, hysteresis.u)
+    annotation (Line(points={{-133,130},{-122,130}}, color={0,0,127}));
+  connect(u, hysTout.u) annotation (Line(points={{-200,140},{-166,140},{-166,
+          154},{-122,154},{-122,150}}, color={0,0,127}));
+  annotation (Diagram(coordinateSystem(extent={{-200,-100},{100,200}},
+          preserveAspectRatio=false)), Icon(coordinateSystem(extent={{-200,-100},
+            {100,200}})));
+end Controller;
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor walCap(C=10*A_wall*0.1
         *1000*1000)
