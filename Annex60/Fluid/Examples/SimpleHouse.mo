@@ -1,9 +1,16 @@
 within Annex60.Fluid.Examples;
 model SimpleHouse
-  replaceable package MediumAir = Annex60.Media.Air;
-  replaceable package MediumWater = Annex60.Media.Water;
+  extends Modelica.Icons.Example;
+
+  package MediumAir = Annex60.Media.Air;
+  package MediumWater = Annex60.Media.Water;
+
   parameter Modelica.SIunits.Area A_wall = 100 "Wall area";
   parameter Modelica.SIunits.Volume V_zone = A_wall*3 "Wall area";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3*radiator.m_flow_nominal
+    "Nominal mass flow rate";
+  parameter Modelica.SIunits.Pressure dp_nominal=200
+    "Pressure drop at nominal mass flow rate";
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor walCap(C=10*A_wall*0.1
         *1000*1000)
@@ -33,7 +40,7 @@ model SimpleHouse
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-30,120})));
+        origin={-50,120})));
   Sources.Boundary_pT bouWater(redeclare package Medium = MediumWater, nPorts=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -54,8 +61,7 @@ model SimpleHouse
     dp_nominal=1000,
     Q_flow_nominal=5000)
     annotation (Placement(transformation(extent={{44,-128},{64,-108}})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3*radiator.m_flow_nominal
-    "Nominal mass flow rate";
+
   Buildings.Fluid.Movers.FlowControlled_m_flow pump2(
     redeclare package Medium = MediumWater,
     filteredSpeed=false,
@@ -95,8 +101,7 @@ model SimpleHouse
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={0,100})));
-  parameter Modelica.SIunits.Pressure dp_nominal=200
-    "Pressure drop at nominal mass flow rate";
+
   Buildings.Fluid.Movers.FlowControlled_dp fan2(
     redeclare package Medium = MediumAir,
     m_flow_nominal=0.01,
@@ -170,7 +175,7 @@ equation
   connect(vavDam.port_b, fan2.port_a)
     annotation (Line(points={{10,100},{10,100},{20,100}}, color={0,127,255}));
   connect(vavDam.port_a, bouAir.ports[1]) annotation (Line(points={{-10,100},{
-          -10,122},{-20,122}}, color={0,127,255}));
+          -10,122},{-40,122}}, color={0,127,255}));
   connect(hysteresis.y, booleanToReal.u)
     annotation (Line(points={{-59,90},{-59,90},{-52,90}}, color={255,0,255}));
   connect(booleanToReal.y, vavDam.y)
@@ -183,8 +188,8 @@ equation
           -100,150},{-100,-120},{-26,-120}}, color={0,0,127}));
   connect(hysteresis.u, heatCon.u1) annotation (Line(points={{-82,90},{-100,90},
           {-100,-120},{-26,-120}}, color={0,0,127}));
-  connect(bouAir.ports[2], hexRecup.port_b1) annotation (Line(points={{-20,118},
-          {-20,119.6},{48,119.6}}, color={0,127,255}));
+  connect(bouAir.ports[2], hexRecup.port_b1) annotation (Line(points={{-40,118},
+          {-40,119.6},{48,119.6}}, color={0,127,255}));
   connect(hexRecup.port_a1, zone.ports[1]) annotation (Line(points={{78,119.6},
           {85,119.6},{85,120},{94.6667,120}},
                                          color={0,127,255}));
@@ -192,8 +197,8 @@ equation
           100},{44,100.4},{48,100.4}}, color={0,127,255}));
   connect(hexRecup.port_b2, zone.ports[2]) annotation (Line(points={{78,100.4},
           {92,100.4},{92,120}}, color={0,127,255}));
-  connect(radiator.heatPortCon, zone.heatPort) annotation (Line(points={{112,
-          -110.8},{112,-110.8},{112,64},{112,132},{112,130},{102,130}}, color={
+  connect(radiator.heatPortCon, zone.heatPort) annotation (Line(points={{112,-110.8},
+          {112,-110.8},{112,64},{112,130},{112,130},{102,130}},         color={
           191,0,0}));
   connect(radiator.heatPortRad, walCap.port) annotation (Line(points={{116,
           -110.8},{118,-110.8},{118,-110},{132,-110},{132,20}}, color={191,0,0}));
