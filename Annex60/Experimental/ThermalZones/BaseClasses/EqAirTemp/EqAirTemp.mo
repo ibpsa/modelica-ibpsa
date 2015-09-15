@@ -27,19 +27,19 @@ equation
   T_earth=((-E_earth/(0.93*5.67))^0.25)*100;//-273.15
   T_sky=((E_sky/(5.67))^0.25)*100;//-273.15
 
-  phiprivate = (unitvec+Modelica.Math.cos(orientationsWallsHorizontal*Modelica.Constants.pi/180))/2;
+  phiprivate = (unitVec+Modelica.Math.cos(orientationsWallsHorizontal*Modelica.Constants.pi/180))/2;
 
-  T_eqLW=((T_earth-T_air)*(unitvec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alpharad/(alpharad+alphaExtOut));
-  T_eqLW_win=((T_earth-T_air)*(unitvec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alpharad/(alpharad+alphaWinOut)).*abs(sunblindsig-unitvec);
-  T_eqSW=solarRad_in*aExt/(alpharad+alphaExtOut);
-  T_eqSW_win=solarRad_in*aWin/(alpharad+alphaWinOut);
+  T_eqLW=((T_earth-T_air)*(unitVec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alphaRad/(alphaRad+alphaExtOut));
+  T_eqLW_win=((T_earth-T_air)*(unitVec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alphaRad/(alphaRad+alphaWinOut)).*abs(sunblindsig-unitVec);
+  T_eqSW=solarRad_in*aExt/(alphaRad+alphaExtOut);
+  T_eqSW_win=solarRad_in*aWin/(alphaRad+alphaWinOut);
 
   if withLongwave then
-    T_eqWin=T_air*unitvec+T_eqLW_win+T_eqSW_win;
-    T_eqWall=T_air*unitvec+T_eqLW+T_eqSW;
+    T_eqWin=T_air*unitVec+T_eqLW_win+T_eqSW_win;
+    T_eqWall=T_air*unitVec+T_eqLW+T_eqSW;
   else
-    T_eqWin=T_air*unitvec+T_eqSW_win;
-    T_eqWall=T_air*unitvec+T_eqSW;
+    T_eqWin=T_air*unitVec+T_eqSW_win;
+    T_eqWall=T_air*unitVec+T_eqSW;
   end if;
 
   equalAirTemp.T = T_eqWall*wf_wall + T_ground*wf_ground;

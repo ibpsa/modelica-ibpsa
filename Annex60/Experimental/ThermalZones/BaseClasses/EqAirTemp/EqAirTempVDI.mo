@@ -12,20 +12,20 @@ protected
 initial equation
   assert(noEvent(abs(sum(wf_wall) + sum(wf_win) + wf_ground - 1) < 0.1), "The sum of the weightfactors (walls,windows and ground) in eqairtemp is <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
 equation
-  T_earth=((-E_earth/(0.93*5.67))^0.25)*100;//-273.15
-  T_sky=((E_sky/(0.93*5.67))^0.25)*100;//-273.15
+  T_earth=((-E_earth/(0.93*5.67))^0.25)*100;
+  T_sky=((E_sky/(0.93*5.67))^0.25)*100;
 
-  phiprivate = (unitvec+Modelica.Math.cos(orientationsWallsHorizontal*Modelica.Constants.pi/180))/2;
+  phiprivate = (unitVec+Modelica.Math.cos(orientationsWallsHorizontal*Modelica.Constants.pi/180))/2;
 
-  T_eqLW=((T_earth-T_air)*(unitvec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alpharad/alphaExtOut);
+  T_eqLW=((T_earth-T_air)*(unitVec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alphaRad/alphaExtOut);
   T_eqSW=solarRad_in*aExt/(alphaExtOut);
 
   if withLongwave then
-    T_eqWin=T_air*unitvec+T_eqLW.*abs(sunblindsig-unitvec);
-    T_eqWall=T_air*unitvec+T_eqLW+T_eqSW;
+    T_eqWin=T_air*unitVec+T_eqLW.*abs(sunblindsig-unitVec);
+    T_eqWall=T_air*unitVec+T_eqLW+T_eqSW;
   else
-    T_eqWin=T_air*unitvec;
-    T_eqWall=T_air*unitvec+T_eqSW;
+    T_eqWin=T_air*unitVec;
+    T_eqWall=T_air*unitVec+T_eqSW;
   end if;
 
   equalAirTemp.T = T_eqWall*wf_wall + T_eqWin*wf_win + T_ground*wf_ground;

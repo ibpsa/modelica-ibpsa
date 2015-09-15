@@ -8,7 +8,7 @@ parameter Real wf_wall[n]={0.5,0.2,0.2,0.1} "Weight factors of the walls";
 parameter Real wf_win[n]={0,0,0,0} "Weight factors of the windows";
 parameter Real wf_ground=0 "Weight factor of the ground (0 if not considered)";
 parameter Modelica.SIunits.Temp_K T_ground=284.15
-    "Temperature of the ground in contact with ground slab";
+    "Temperature of the ground in contact with floor plate";
 parameter Boolean withLongwave=true
     "If longwave radiation exchange is considered"                                 annotation(choices(checkBox = true));
 
@@ -44,9 +44,9 @@ protected
   Modelica.SIunits.TemperatureDifference T_eqLW[n] "equal long wave";
   Modelica.SIunits.TemperatureDifference T_eqSW[n] "equal short wave";
 
-  Modelica.SIunits.CoefficientOfHeatTransfer alpharad;
+  Modelica.SIunits.CoefficientOfHeatTransfer alphaRad;
 
-  parameter Real unitvec[n]=ones(n);
+  parameter Real unitVec[n]=ones(n);
 
 public
   Modelica.Blocks.Interfaces.RealInput solarRad_in[n] annotation (Placement(
@@ -61,9 +61,9 @@ equation
   E_earth=weatherData[3];
 
   if (abs(E_sky+E_earth)<0.1) then
-    alpharad=5.0;
+    alphaRad=5.0;
   else
-    alpharad=(E_sky+E_earth)/(T_sky-T_earth);
+    alphaRad=(E_sky+E_earth)/(T_sky-T_earth);
   end if;
 
 annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
