@@ -1,5 +1,7 @@
 within Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp;
 model EqAirTempVDI
+  "model for equivalent air temperature as defined in VDI 6007-1"
+
   extends
     .Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp.partialEqAirTemp;
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtOut=20
@@ -21,7 +23,7 @@ equation
   T_eqSW=solarRad_in*aExt/(alphaExtOut);
 
   if withLongwave then
-    T_eqWin=T_air*unitVec+T_eqLW.*abs(sunblindsig-unitVec);
+    T_eqWin=T_air*unitVec+T_eqLW.*abs(sunblind-unitVec);
     T_eqWall=T_air*unitVec+T_eqLW+T_eqSW;
   else
     T_eqWin=T_air*unitVec;
@@ -43,12 +45,6 @@ equation
 <ul>
 <li>The convective heat transfer coefficient alpha is weighted over the areas per each direction. In VDI 6007, alpha is considered for each element and not averaged per direction. This may cause deviations if the alphas of the single elements are considerabely different. </li>
 </ul>
-<h4>Typical use and important parameters</h4>
-<p>This component was written for usage in combination with the <a href=\"AixLib.Building.LowOrder.BaseClasses.ReducedOrderModel\">ReducedOrderModel</a> (see <a href=\"AixLib.Building.LowOrder.BaseClasses.ThermalZonePhysics\">ThermalZonePhysics</a>).</p>
-<h4>Options</h4>
-<h4>Validation</h4>
-<p>The model is verified with the VDI 6007, see <a href=\"AixLib.Building.LowOrder.Validation.VDI6007\">Validation.VDI6007</a>. A validation with the use of the standard ASHRAE 140 is in progress </p>
-<h4>Implementation</h4>
 <h4>References</h4>
 <ul>
 <li>German Association of Engineers: Guideline VDI 6007-1, March 2012: Calculation of transient thermal response of rooms and buildings - Modelling of rooms.</li>

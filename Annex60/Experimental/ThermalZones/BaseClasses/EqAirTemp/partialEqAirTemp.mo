@@ -1,5 +1,6 @@
 within Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp;
 partial model partialEqAirTemp
+  "partial model for equivalent air temperature as defined in VDI 6007-1"
 
 parameter Real aExt=0.6 "Coefficient of absorption of exterior walls (outdoor)";
 parameter Real eExt=0.9 "Coefficient of emission of exterior walls (outdoor)";
@@ -20,11 +21,12 @@ parameter Boolean withLongwave=true
       Placement(transformation(extent={{98,-56},{118,-36}}),
                                                            iconTransformation(
           extent={{78,-76},{118,-36}})));
-  Modelica.Blocks.Interfaces.RealInput sunblindsig[n]
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+  Modelica.Blocks.Interfaces.RealInput sunblind[n] annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={-10,100}),
-        iconTransformation(extent={{-20,-20},{20,20}},
+        origin={-10,100}), iconTransformation(
+        extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,80})));
 
@@ -66,8 +68,8 @@ equation
     alphaRad=(E_sky+E_earth)/(T_sky-T_earth);
   end if;
 
-annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),  Icon(coordinateSystem(
+annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})),        Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                       graphics={
         Rectangle(
@@ -145,7 +147,7 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
 <p>First, a temperature of the earth (not the ground temperature!) and temperature of the sky are computed. The difference is taken into account for the longwave radiance term. </p>
 <p>For the windows, the shading input is considered on the longwave term. </p>
 <p>For the walls, the shortwave radiance term is computed with the beam of the radiance input. </p>
-<p>The n temperature of the walls, the n temperature of the windows and the ground temperature are weighted with the weightfactors and summed up.</p>
+<p>The n temperatures of the walls, the n temperatures of the windows and the ground temperature are weighted with the weightfactors and summed up.</p>
 <h4>Main equations</h4>
 <p>The concept is described in VDI 6007. All equations can be found in VDI 6007. </p>
 <h4>Assumption and limitations</h4>
@@ -153,18 +155,13 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
 <li>The computed temperature is the temperature near the wall surface. The radiant and convective heat transfer is considered in the model. The next component connected to the heat port should be the description of the heat conductance through the wall. </li>
 <li>The heat transfer through the radiance is considered by an alpha. It is computed and is somewhere around 5. In cases of exorbitant high radiance values, this alpha could be not as accurate as a real T^4 equation.</li>
 </ul>
-<h4>Typical use and important parameters</h4>
-<p>This component was written for usage in combination with the <a href=\"AixLib.Building.LowOrder.BaseClasses.ReducedOrderModel\">ReducedOrderModel</a> (see <a href=\"AixLib.Building.LowOrder.BaseClasses.ThermalZonePhysics\">ThermalZonePhysics</a>).</p>
+<h4>Parameters</h4>
 <p>Inputs: weather data, radiance (beam) by the radiance input and longwave sky radiation, longwave terrestric radiation and air temperature by the Real WeatherData input. There is the possibility to link a <a href=\"AixLib.Building.Components.Weather.Sunblind\">Sunblind</a> by the sunblindsig input. This takes the changes in radiation on the windows through a closed shading into account. </p>
 <p>Parameters: </p>
 <ul>
 <li>Weightfactors: The different equivalent temperatures for the different directions (due to shortwave radiance and the ground) are weighted and summed up with the weightfactors. See VDI 6007 for more information about the weightfactors (equation: U_i*A_i/sum(U*A)). As the equivalent temperature is a weighted temperature for all surfaces and it was originally written for building zones, the temperature of the ground under the thermal zone can be considered (weightfactorgound &GT; 0). The sum of all weightfactors should be 1. </li>
 <li>Additionally, you need the coefficient of heat transfer and the coefficient of absorption on the outer side of the walls and windows for all directions (weighted scalars) . The coefficient of absorption is different to the emissivity due to the spectrum of the sunlight (0.6 might be a good choice). </li>
 </ul>
-<h4>Options</h4>
-<h4>Validation</h4>
-<p>The model is verified with the VDI 6007, see <a href=\"AixLib.Building.LowOrder.Validation.VDI6007\">Validation.VDI6007</a>. A validation with the use of the standard ASHRAE 140 is in progress </p>
-<h4>Implementation</h4>
 <h4>References</h4>
 <ul>
 <li>German Association of Engineers: Guideline VDI 6007-1, March 2012: Calculation of transient thermal response of rooms and buildings - Modelling of rooms.</li>
