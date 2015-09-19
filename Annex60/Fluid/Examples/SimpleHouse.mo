@@ -243,5 +243,20 @@ equation
           fillPattern=FillPattern.Solid,
           textString="Weather inputs")}),
     experiment(StopTime=1e+06),
-    __Dymola_experimentSetupOutput(events=false));
+    __Dymola_experimentSetupOutput(events=false),
+    Documentation(revisions="<html>
+<ul>
+<li>
+September 19, 2015, by Filip Jorissen:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model contains a very simple model of a house, 
+with a heating system, ventilation and weather boundary conditions. 
+It servers as a demonstration case of how the Annex 60 library can be used. 
+This model was demonstrated at the joint Annex 60 meeting in Leuven on 18 september 2015.
+</p>
+</html>"));
 end SimpleHouse;
