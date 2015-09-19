@@ -25,7 +25,7 @@ model SimpleHouse
     nPorts=2,
     m_flow_nominal=0.01,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Zone air volume"
+    "Very based zone air model"
     annotation (Placement(transformation(extent={{102,120},{82,140}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor convRes(R=1/2/A_wall)
     "Thermal resistance for convective heat transfer with h=2"
@@ -118,7 +118,7 @@ model SimpleHouse
     dp1_nominal=0,
     dp2_nominal=0) "Heat exchanger for heat recuperation"
     annotation (Placement(transformation(extent={{78,94},{48,126}})));
-  Modelica.Blocks.Logical.Hysteresis hysRad(uLow=273.15 + 22, uHigh=273.15 + 20)
+  Modelica.Blocks.Logical.Hysteresis hysRad(uLow=273.15 + 20, uHigh=273.15 + 22)
     "Hysteresis controller for radiator"
     annotation (Placement(transformation(extent={{-74,-116},{-54,-96}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal1 "Boolean to real"
@@ -258,5 +258,8 @@ with a heating system, ventilation and weather boundary conditions.
 It servers as a demonstration case of how the Annex 60 library can be used. 
 This model was demonstrated at the joint Annex 60 meeting in Leuven on 18 september 2015.
 </p>
-</html>"));
+</html>"),
+    __Dymola_Commands(file=
+          "modelica://Annex60/Resources/Scripts/Dymola/Fluid/Examples/SimpleHouse.mos"
+        "Simulate and plot"));
 end SimpleHouse;
