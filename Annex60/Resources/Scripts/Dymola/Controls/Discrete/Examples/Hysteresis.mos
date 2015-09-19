@@ -1,0 +1,29 @@
+simulateModel("Annex60.Controls.Discrete.Examples.Hysteresis", method="dassl", resultFile="Hysteresis");
+
+createPlot(id=1, 
+position={0, 0, 839, 577}, 
+y={"hysteresis.y", "hysteresis.u", "hysteresis.uLow_val", "hysteresis.uHigh_val"}, 
+range={0.0, 1.0, -5.0, 5.0}, 
+grid=true, 
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=1, 
+position={0, 0, 839, 140}, 
+y={"hysteresisInvert.uLow_val", "hysteresisInvert.uHigh_val", "hysteresisInvert.y", "hysteresisInvert.u"}, 
+range={0.0, 1.0, -5.0, 5.0}, 
+grid=true, 
+subPlot=2, 
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=1, 
+position={0, 0, 839, 139}, 
+y={"hysteresisVariableBounds.uLow", "hysteresisVariableBounds.uHigh", "hysteresisVariableBounds.y", "hysteresisVariableBounds.u"}, 
+range={0.0, 1.0, -5.0, 5.0}, 
+grid=true, 
+subPlot=3, 
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=1, 
+position={0, 0, 839, 140}, 
+y={"hysteresisHysDelta.uLow_val", "hysteresisHysDelta.uHigh_val", "hysteresisHysDelta.u", "hysteresisHysDelta.y"}, 
+range={0.0, 1.0, -5.0, 5.0}, 
+grid=true, 
+subPlot=4, 
+colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
