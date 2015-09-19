@@ -1,0 +1,7 @@
+simulateModel("Annex60.Controls.Continuous.Examples.HeatingCurve", method="dassl", resultFile="HeatingCurve");
+
+createPlot(id=1, 
+y={"heatingCurve.y", "heatingCurve.u", "heatingCurveSetBack.y"}, 
+range={0.0, 1.0, 282.0, 304.0}, 
+grid=true, 
+colors={{28,108,200}, {238,46,47}, {0,140,72}});
