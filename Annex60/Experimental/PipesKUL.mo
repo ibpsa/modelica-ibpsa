@@ -3,107 +3,6 @@ package PipesKUL
   "Pipes for the modelling of district heating, according to the KU Leuven model"
   // Originally at https://github.com/arnoutaertgeerts/DistrictHeating
   // First implementation by Arnout Aertgeerts
-  model Pipe
-    "Pipe from Buildings, but adapted to use diameter instead of nominal flow as an input"
-    extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
-     diameter=dh,
-     dp_nominal=2*dpStraightPipe_nominal,
-     preDro(dp(nominal=length*10)));
-    // Because dp_nominal is a non-literal value, we set
-    // dp.nominal=100 instead of the default dp.nominal=dp_nominal,
-    // because the latter is ignored by Dymola 2012 FD 01.
-
-    parameter Modelica.SIunits.Length dh = 0.05 "Hydraulic diameter of pipe";
-    parameter Modelica.SIunits.Length roughness(min=0) = 2.5e-5
-      "Absolute roughness of pipe, with a default for a smooth steel pipe (dummy if use_roughness = false)";
-    final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
-        Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
-        m_flow=m_flow_nominal,
-        rho_a=rho_default,
-        rho_b=rho_default,
-        mu_a=mu_default,
-        mu_b=mu_default,
-        length=length,
-        diameter=dh,
-        roughness=roughness,
-        m_flow_small=m_flow_small)
-      "Pressure loss of a straight pipe at m_flow_nominal";
-
-    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-      "Single heat port that connects to outside of pipe wall (default, enabled when useMultipleHeatPorts=false)"
-      annotation (Placement(transformation(extent={{-10,40},{10,20}}),
-          iconTransformation(extent={{-10,60},{10,40}})));
-  equation
-
-    connect(vol.heatPort, heatPort) annotation (Line(
-        points={{-1,-28},{-46,-28},{-46,30},{0,30}},
-        color={191,0,0},
-        smooth=Smooth.None));
-    annotation (
-      defaultComponentName="pip",
-      Documentation(info="<html>
-<p>
-Model of a pipe with flow resistance and optional heat exchange with environment.
-</p>
-<p>
-If <code>useMultipleHeatPorts=false</code> (default option), the pipe uses a single heat port
-for the heat exchange with the environment.
-If <code>useMultipleHeatPorts=true</code>, then one heat port for each segment of the pipe is
-used for the heat exchange with the environment.
-If the heat port is unconnected, then the pipe has no heat loss.
-</p>
-<p>
-The default value for the parameter <code>diameter</code> is computed such that the flow velocity
-is equal to <code>v_nominal=0.15</code> for a mass flow rate of <code>m_flow_nominal</code>.
-Both parameters, <code>diameter</code> and <code>v_nominal</code>, can be overwritten
-by the user.
-The default value for <code>dp_nominal</code> is two times the pressure drop that the pipe
-would have if it were straight with no fittings.
-The factor of two that takes into account the pressure loss of fittings can be overwritten.
-These fittings could also be explicitly modeled outside of this component using models from
-the package
-<a href=\"modelica://Modelica.Fluid.Fittings\">
-Modelica.Fluid.Fittings</a>.
-For mass flow rates other than <code>m_flow_nominal</code>, the model
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> is used to
-compute the pressure drop.
-</p>
-<p>
-For a steady-state model of a flow resistance, use
-<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
-Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
-</p>
-</html>",   revisions="<html>
-<ul>
-<li>
-February 5, 2015, by Michael Wetter:<br/>
-Renamed <code>res</code> to <code>preDro</code> for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/292\">#292</a>.
-</li>
-<li>
-September 13, 2013 by Michael Wetter:<br/>
-Replaced <code>nominal</code> with <code>default</code> values
-as they are computed using the default Medium values.
-</li>
-<li>
-February 22, 2012 by Michael Wetter:<br/>
-Renamed <code>useMultipleHeatPort</code> to <code>useMultipleHeatPorts</code> and
-used heat port connector from <code>Modelica.Fluid</code> package for vector of heat ports.
-</li>
-<li>
-February 15, 2012 by Michael Wetter:<br/>
-Revised implementation and added default values.
-</li>
-<li>
-February 12, 2012 by Wangda Zuo:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}), graphics));
-  end Pipe;
 
   model PlugFlowLosslessPipe
     "Pipe with a temperature plug flow without pressure losses"
@@ -168,6 +67,7 @@ First implementation.
   end PlugFlowLosslessPipe;
 
   model PlugFlowPipe
+    "Adiabatic pipe model with a temperature plug flow and pressure losses"
     //Extensions
     extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
     extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters;
@@ -415,8 +315,15 @@ First implementation.
             extent={{-100,-100},{100,100}})));
   end PlugFlowHeatLosses;
 
-  model PlugFlowHeatLossTwinPipe
-    "Pipe model with a temperature plug flow, pressure losses and heat exchange to the environment"
+  model PlugFlowHeatLossTwinPipe "Pipe model for double pipes (supply and return in counterflow) with a 
+  temperature plug flow, pressure losses and heat exchange to the environment (i.e. ambient temperature)"
+    /* This model implements heat losses for double district heating pipes, based
+  on Wallentén's steady-state heat loss equations. The solution is exact for steady-state
+  flow. In case of temperature discontinuities, limited instantaneous errors in the heat
+  losses occur, but they cancel out in case of periodic behaviour. 
+  
+  The boundary temperature that needs to be supplied to the model is the 
+  temperature at the outer surface of the pipe system. */
 
     //Extensions
     extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
@@ -679,135 +586,14 @@ First implementation.
             extent={{-100,-100},{100,100}})));
   end PlugFlowHeatLossTwinPipe;
 
-  model AvgTempPlugFlowPipe
-    "Calculates average temperature inside a pipe with a certain plug flow profile"
-    extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
-
-    parameter Modelica.SIunits.Length pipeLength;
-    parameter Modelica.SIunits.Length pipeDiameter;
-    parameter Modelica.SIunits.MassFlowRate m_flow_nominal;
-
-    parameter Modelica.SIunits.Density rho = 1000;
-    final parameter Modelica.SIunits.Area pipeArea = Modelica.Constants.pi*pipeDiameter^2/4
-      "Cross section of pipe";
-
-    parameter Modelica.SIunits.Temperature TInit = 273+70
-      "Initial temperature of the water in the pipe";
-
-    PlugFlowLosslessPipe plug(
-      L=pipeLength,
-      D=pipeDiameter,
-      m_flow_nominal=m_flow_nominal,
-      redeclare package Medium = Medium)
-      annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-    Annex60.Fluid.Sensors.MassFlowRate senMasFlo(
-        redeclare package Medium = Medium)
-      annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
-    Annex60.Fluid.Sensors.TemperatureTwoPort senTemIn(m_flow_nominal=m_flow_nominal,
-        redeclare package Medium = Medium,
-      T_start=TInit)
-      annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-    Annex60.Fluid.Sensors.TemperatureTwoPort senTemOut(m_flow_nominal=m_flow_nominal,
-        redeclare package Medium = Medium,
-      T_start=TInit)
-      annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-    Modelica.Blocks.Continuous.Integrator integrator(k=1, initType=Modelica.Blocks.Types.Init.InitialOutput)
-      annotation (Placement(transformation(extent={{28,60},{48,80}})));
-    Modelica.Blocks.Math.Product product
-      annotation (Placement(transformation(extent={{-6,60},{14,80}})));
-    Modelica.Blocks.Sources.RealExpression NormalizedVelocity(y=senMasFlo.m_flow/(
-          rho*pipeArea)/pipeLength) "Calculates normalized velocity v/L"
-      annotation (Placement(transformation(extent={{-80,66},{-60,86}})));
-    Modelica.Blocks.Math.Add add(k2=-1) annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=90,
-          origin={-30,50})));
-    Modelica.Blocks.Interfaces.RealOutput TAvg "Average temperature in degC"
-      annotation (Placement(transformation(extent={{96,46},{116,66}})));
-    Modelica.Blocks.Math.Add add1       annotation (Placement(transformation(
-          extent={{-10,-10},{10,10}},
-          rotation=0,
-          origin={74,56})));
-    Modelica.Blocks.Sources.RealExpression InitialT(y=TInit - 273.15)
-      "Initial temperature in pipe"
-      annotation (Placement(transformation(extent={{24,32},{44,52}})));
-  equation
-    connect(port_a, senMasFlo.port_a) annotation (Line(
-        points={{-100,0},{-80,0}},
-        color={0,127,255},
-        smooth=Smooth.None));
-    connect(senTemIn.port_b, plug.port_a) annotation (Line(
-        points={{-20,0},{0,0}},
-        color={0,127,255},
-        smooth=Smooth.None));
-    connect(senMasFlo.port_b, senTemIn.port_a) annotation (Line(
-        points={{-60,0},{-40,0}},
-        color={0,127,255},
-        smooth=Smooth.None));
-    connect(plug.port_b, senTemOut.port_a) annotation (Line(
-        points={{20,0},{40,0}},
-        color={0,127,255},
-        smooth=Smooth.None));
-    connect(senTemOut.port_b, port_b) annotation (Line(
-        points={{60,0},{100,0}},
-        color={0,127,255},
-        smooth=Smooth.None));
-    connect(NormalizedVelocity.y, product.u1) annotation (Line(
-        points={{-59,76},{-8,76}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(product.y, integrator.u) annotation (Line(
-        points={{15,70},{26,70}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(add.y, product.u2) annotation (Line(
-        points={{-30,61},{-30,64},{-8,64}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(senTemIn.T, add.u1) annotation (Line(
-        points={{-30,11},{-30,24},{-36,24},{-36,38}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(senTemOut.T, add.u2) annotation (Line(
-        points={{50,11},{50,28},{-24,28},{-24,38}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(integrator.y, add1.u1) annotation (Line(
-        points={{49,70},{54,70},{54,62},{62,62}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(add1.u2, InitialT.y) annotation (Line(
-        points={{62,50},{54,50},{54,42},{45,42}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(add1.y, TAvg) annotation (Line(
-        points={{85,56},{106,56}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Icon(coordinateSystem(
-            preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-          Rectangle(
-            extent={{-100,60},{100,-60}},
-            lineColor={0,0,0},
-            fillPattern=FillPattern.HorizontalCylinder,
-            fillColor={192,192,192}),
-          Rectangle(
-            extent={{-100,50},{100,-48}},
-            lineColor={0,0,0},
-            fillPattern=FillPattern.HorizontalCylinder,
-            fillColor={217,236,256}),
-          Rectangle(
-            extent={{-20,50},{20,-48}},
-            lineColor={175,175,175},
-            fillPattern=FillPattern.HorizontalCylinder,
-            fillColor={175,175,175})}));
-  end AvgTempPlugFlowPipe;
 
   package DoublePipes
 
-    model DHWallenten "District heating pipe based on Wallenten"
+    model DHWallenten "District heating pipe based on Wallenten, using the old 
+  implementation with a single or multiple (in case of discretization) fluid 
+  volumes. The volume-averaged temperature is used as an input to the heat loss 
+  equations. Different lay-outs (shared insulation, separate insulation, ground or air)
+  are allowed."
 
       //Extensions
       extends BaseClasses.PartialDistrictHeatingPipe;
@@ -968,8 +754,9 @@ First implementation.
                 -120},{100,120}}), graphics));
     end DHWallenten;
 
-    model DHDeltaCircuit
-      "District heating pipe model based on the resistor delta circuit"
+    model DHDeltaCircuit "District heating pipe model based on the resistor delta circuit, still using 
+  fluid volumes with an average temperature based heat loss calculation. Different lay-outs (shared insulation, separate insulation, ground or air)
+  are allowed."
 
       //Extensions
       extends BaseClasses.PartialDistrictHeatingPipe(
@@ -1105,7 +892,10 @@ First implementation.
                 -120},{100,120}}), graphics));
     end DHDeltaCircuit;
 
-    model DHPlugWallenten "Wallenten based DH pipe with plug flow"
+    model DHPlugWallenten "Wallenten based DH pipe with plug flow. Heat losses are
+  calculated using decoupled pipe equations, i.e. the other pipe only influences
+  the heat loss of one pipe by means of an average temperature. Different lay-outs (shared insulation, separate insulation, ground or air)
+  are allowed."
 
       //Extensions
       extends BaseClasses.PartialDistrictHeatingPipe(
@@ -1248,7 +1038,10 @@ First implementation.
                 -140},{100,140}}, preserveAspectRatio=false)));
     end DHPlugWallenten;
 
-    model DHPlugDelta "Delta circuit DH pipe with plug flow"
+    model DHPlugDelta "District heating pipe with plug flow. The heat losses are 
+  calculated according to the solution of Wallentén's equation applied to a coupled
+  system of equations for the two pipes. Exact solution for steady-state flow. Different lay-outs (shared insulation, separate insulation, ground or air)
+  are allowed."
 
       //Extensions
       extends BaseClasses.PartialDistrictHeatingPipe(
@@ -1456,182 +1249,6 @@ First implementation.
 
   package Examples
     extends Modelica.Icons.ExamplesPackage;
-
-    model AverageTTest
-      "Unit test for pipe with average temperature calculation - Changing T, same m_flow"
-      extends Modelica.Icons.Example;
-
-      AvgTempPlugFlowPipe averageTempPlugFlowPipe(
-        pipeLength=40,
-        m_flow_nominal=4.5,
-        redeclare package Medium = Annex60.Media.Water,
-        TInit(displayUnit="degC") = 343.15,
-        pipeDiameter=0.05)
-        annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-      IDEAS.Fluid.Sources.FixedBoundary sink(
-        redeclare package Medium = Annex60.Media.Water,
-        nPorts=1,
-        T=343.15) annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=180,
-            origin={92,0})));
-      IDEAS.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
-            Annex60.Media.Water, m_flow_nominal=4.5,
-        T_start=343.15)
-        annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
-      IDEAS.Fluid.Sensors.TemperatureTwoPort TOut(redeclare package Medium =
-            Annex60.Media.Water, m_flow_nominal=4.5,
-        T_start=343.15)
-        annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-      IDEAS.Fluid.Sources.FixedBoundary bou(
-        redeclare package Medium = Annex60.Media.Water,
-        T=343.15,
-        nPorts=1)
-        annotation (Placement(transformation(extent={{-104,-10},{-84,10}})));
-      IDEAS.Fluid.HeatExchangers.HeaterCooler_T hea(
-        redeclare package Medium = Annex60.Media.Water,
-        m_flow_nominal=4.5,
-        dp_nominal=0)
-        annotation (Placement(transformation(extent={{-54,34},{-34,54}})));
-      IDEAS.Fluid.Movers.Pump pump(
-        use_onOffSignal=false,
-        redeclare package Medium = Buildings.Media.Water,
-        m_flow_nominal=4.5,
-        m_flow(start=4.5))
-        annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-      Modelica.Blocks.Sources.Pulse pulse(
-        amplitude=20,
-        width=40,
-        offset=273 + 70,
-        period=200,
-        startTime=200)
-        annotation (Placement(transformation(extent={{-92,40},{-72,60}})));
-    equation
-      connect(averageTempPlugFlowPipe.port_a, TIn.port_b) annotation (Line(
-          points={{0,0},{-14,0}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(averageTempPlugFlowPipe.port_b, TOut.port_a) annotation (Line(
-          points={{20,0},{40,0}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(sink.ports[1], TOut.port_b) annotation (Line(
-          points={{82,1.33227e-015},{54,1.33227e-015},{54,0},{60,0}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(TIn.port_a, hea.port_b) annotation (Line(
-          points={{-34,0},{-34,44}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(bou.ports[1], pump.port_a) annotation (Line(
-          points={{-84,0},{-70,0}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(pump.port_b, hea.port_a) annotation (Line(
-          points={{-50,0},{-48,0},{-48,24},{-60,24},{-60,44},{-54,44}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(pulse.y, hea.TSet) annotation (Line(
-          points={{-71,50},{-56,50}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics), __Dymola_Commands(file=
-              "Pipes/Examples/Simulate and plot.mos" "Simulate and plot"));
-    end AverageTTest;
-
-    model AverageTTest2
-      "Unit test for pipe with average temperature calculation - Step T, changing m_flow"
-      extends Modelica.Icons.Example;
-      parameter Modelica.SIunits.Temperature TInit = 273+40
-        "Initial temperature in system, including step signal";
-
-      AvgTempPlugFlowPipe averageTempPlugFlowPipe(
-        pipeLength=40,
-        m_flow_nominal=4.5,
-        redeclare package Medium = Annex60.Media.Water,
-        pipeDiameter=0.2,
-        TInit(displayUnit="degC") = TInit)
-        annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-      IDEAS.Fluid.Sources.FixedBoundary sink(
-        redeclare package Medium = Annex60.Media.Water,
-        nPorts=1,
-        T=TInit)  annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=180,
-            origin={92,0})));
-      IDEAS.Fluid.Sensors.TemperatureTwoPort TIn(redeclare package Medium =
-            Annex60.Media.Water, m_flow_nominal=4.5,
-        T_start=TInit)
-        annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
-      IDEAS.Fluid.Sensors.TemperatureTwoPort TOut(redeclare package Medium =
-            Annex60.Media.Water, m_flow_nominal=4.5,
-        T_start=TInit)
-        annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-      IDEAS.Fluid.Sources.FixedBoundary bou(
-        redeclare package Medium = Annex60.Media.Water,
-        nPorts=1,
-        T=TInit)
-        annotation (Placement(transformation(extent={{-104,-10},{-84,10}})));
-      IDEAS.Fluid.HeatExchangers.HeaterCooler_T hea(
-        redeclare package Medium = Annex60.Media.Water,
-        m_flow_nominal=4.5,
-        dp_nominal=0)
-        annotation (Placement(transformation(extent={{-54,34},{-34,54}})));
-      IDEAS.Fluid.Movers.Pump pump(
-        use_onOffSignal=false,
-        redeclare package Medium = Buildings.Media.Water,
-        m_flow_nominal=4.5,
-        m_flow(start=4.5),
-        useInput=true)
-        annotation (Placement(transformation(extent={{-72,-10},{-52,10}})));
-      Modelica.Blocks.Sources.Step step(
-        height=40,
-        startTime=200,
-        offset=TInit)
-        annotation (Placement(transformation(extent={{-100,52},{-80,72}})));
-      Modelica.Blocks.Sources.Step step1(
-        offset=4.5,
-        startTime=220,
-        height=-3)
-        annotation (Placement(transformation(extent={{-100,22},{-80,42}})));
-    equation
-      connect(averageTempPlugFlowPipe.port_a, TIn.port_b) annotation (Line(
-          points={{0,0},{-14,0}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(averageTempPlugFlowPipe.port_b, TOut.port_a) annotation (Line(
-          points={{20,0},{40,0}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(sink.ports[1], TOut.port_b) annotation (Line(
-          points={{82,1.33227e-015},{54,1.33227e-015},{54,0},{60,0}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(TIn.port_a, hea.port_b) annotation (Line(
-          points={{-34,0},{-34,44}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(bou.ports[1], pump.port_a) annotation (Line(
-          points={{-84,0},{-72,0}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(pump.port_b, hea.port_a) annotation (Line(
-          points={{-52,0},{-48,0},{-48,24},{-60,24},{-60,44},{-54,44}},
-          color={0,127,255},
-          smooth=Smooth.None));
-      connect(step.y, hea.TSet) annotation (Line(
-          points={{-79,62},{-68,62},{-68,50},{-56,50}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(step1.y, pump.m_flowSet) annotation (Line(
-          points={{-79,32},{-62,32},{-62,10.4}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics), __Dymola_Commands(file=
-              "Pipes/Examples/Simulate and plot.mos" "Simulate and plot"));
-    end AverageTTest2;
 
     model MassflowPulse
       import DistrictHeating;
@@ -3076,7 +2693,7 @@ First implementation.
   package BaseClasses "Base-classes for the pipe models"
     extends Modelica.Icons.BasesPackage;
     partial model PartialDistrictHeatingPipe
-      "Partial model for a district heating pipe"
+      "Partial model for a district heating pipe. Different configurations are allowed (influence the calculation of the model resistances). Standard IsoPlus pipes added (see PipeConfig) for easy insertion of pipe dimensions."
 
       //Extensions
       extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);
@@ -3669,8 +3286,13 @@ First implementation.
 </html>"));
     end Pipe;
 
-    model ExponentialDecay
-      "Calculates decay in temperature for given inlet, delay and boundary conditions"
+    model ExponentialDecay "Calculates decay in temperature for given inlet, delay and boundary conditions 
+  for a single pipe"
+      /* Tb is a generic boundary temperature. For one single pipe, this will be the ambient temperature.
+  To account for the presence of a second pipe, Tb will be a combination of the ambient temperature
+  and the temperature of the other pipe (average pipe temperature over its length). However,
+  in this case calculation with TwinExponentialDecay is advisable to calculate a more accurate
+  temperature change. */
 
       parameter Real C;
       parameter Real R;
@@ -3737,8 +3359,9 @@ First implementation.
               textString="exp(-t/tau)")}));
     end ExponentialDecay;
 
-    model TwinExponentialDecay
-      "Calculates decay in temperature for given inlet, delay and boundary conditions"
+    model TwinExponentialDecay "Calculates decay in temperature for given inlet, delay and boundary conditions. 
+  Calculation based on coupled calculation for two pipes, integrating Wallentén's 
+  equations over the length of the pipes"
 
       //Parameters
       parameter Real C;

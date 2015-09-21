@@ -1,8 +1,7 @@
 within Annex60.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model ConvertTime "Test model for converting time"
   extends Modelica.Icons.Example;
-  Annex60.Utilities.Time.ModelTime modTim
-    "Block that outputs simulation time"
+  Annex60.Utilities.Time.ModelTime modTim "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Annex60.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
     "Block that converts time"

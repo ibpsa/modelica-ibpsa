@@ -2,8 +2,7 @@ within Annex60.Fluid.Sensors.Examples;
 model MassFraction "Test model for the mass fraction sensor"
   extends Modelica.Icons.Example;
 
-  package Medium = Annex60.Media.Air
-    "Medium model";
+  package Medium = Annex60.Media.Air "Medium model";
 
   Annex60.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,

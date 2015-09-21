@@ -7,8 +7,7 @@ model ConvertRadiation "Test model for ConvertRadiation"
   Annex60.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
     conDifRad "Convert units for diffuse horizontal radiation"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Annex60.Utilities.Time.ModelTime modTim
-    "Block that outputs simulation time"
+  Annex60.Utilities.Time.ModelTime modTim "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Annex60.BoundaryConditions.WeatherData.BaseClasses.ConvertTime timCon
     "Convert simmulation time to calendar time"

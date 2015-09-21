@@ -483,7 +483,9 @@ version="0.1",
 versionBuild=0,
 versionDate="2013-09-20",
 dateModified = "2013-09-20",
-uses(Modelica(version="3.2.1")),
+uses(Modelica(version="3.2.1"),
+    Buildings(version="2.0.1"),
+    IDEAS(version="0.2")),
 preferredView="info",
 Documentation(info="<html>
 <p>

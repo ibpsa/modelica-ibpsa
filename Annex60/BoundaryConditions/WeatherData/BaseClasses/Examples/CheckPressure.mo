@@ -5,8 +5,7 @@ model CheckPressure "Test model for pressure check"
   Annex60.BoundaryConditions.WeatherData.BaseClasses.CheckPressure chePre
     "Block that checks the pressure"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Annex60.Utilities.Time.ModelTime modTim
-    "Block that outputs simulation time"
+  Annex60.Utilities.Time.ModelTime modTim "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(

@@ -1,8 +1,7 @@
 within Annex60.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model LocalCivilTime "Test model for calculate local civil time"
   extends Modelica.Icons.Example;
-  Annex60.Utilities.Time.ModelTime modTim
-    "Block that outputs the model time"
+  Annex60.Utilities.Time.ModelTime modTim "Block that outputs the model time"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Annex60.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(
       timZon=-21600, lon=-1.5293932423067)

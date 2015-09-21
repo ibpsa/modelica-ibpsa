@@ -1,8 +1,7 @@
 within Annex60.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckWindSpeed "Test model for wind speed check"
   extends Modelica.Icons.Example;
-  Annex60.Utilities.Time.ModelTime modTim
-    "Block that outputs simulation time"
+  Annex60.Utilities.Time.ModelTime modTim "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Annex60.BoundaryConditions.WeatherData.BaseClasses.CheckWindSpeed cheWinSpe
     "Block that constrains the wind speed"
