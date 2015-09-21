@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Examples.PipeAdiabatic;
+within Annex60.Experimental.Pipe.Examples.PipeHeatTransfer;
 model PipeHeatLoss_TStep
   "Test of pipe model with heat loss with temperature step, zero-mass-flow and flow reversal"
   extends Modelica.Icons.Example;
@@ -11,7 +11,7 @@ model PipeHeatLoss_TStep
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{126,76},{146,96}})));
 
-  PipeHeatLoss                            pipe50_1(
+  .Annex60.Experimental.Pipe.PipeHeatLoss pipe50_1(
     redeclare package Medium = Medium,
     diameter=0.1,
     length=50,
@@ -60,7 +60,7 @@ model PipeHeatLoss_TStep
     annotation (Placement(transformation(extent={{-156,40},{-136,60}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
-    PipeHeatLoss                            pipe50_2(
+    .Annex60.Experimental.Pipe.PipeHeatLoss pipe50_2(
     redeclare package Medium = Medium,
     diameter=0.1,
     length=50,
@@ -76,15 +76,15 @@ model PipeHeatLoss_TStep
       = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the two pipes in series"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-    PipeHeatLoss                            pipe100(
+    .Annex60.Experimental.Pipe.PipeHeatLoss pipe100(
     redeclare package Medium = Medium,
     diameter=0.1,
     length=100,
     m_flow_nominal=0.5,
     thicknessIns=0.03,
     thermTransmissionCoeff=0.05)
-    "Pipe with 100 m length in parallel to 2 x 50 m pipes"
-    annotation (Placement(transformation(
+    "Pipe with 100 m length in parallel to 2 x 50 m pipes" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-20})));
@@ -171,12 +171,12 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{160,
             100}})),
     Documentation(info="<html>
-<p>This first test implementation tests two pipes of 50 m length each against one single pipe with 100 m length.
-The pressure is controlled to decrease from an initial difference of <code>dp_test</code> between the two boundaries to a phase of zero-mass-flow. After this, the flow reverses due to a pressure difference of -<code>dp_test</code>. In addition, the input temperature at the source follows a step increase at the beginning to test the propagation of the temperature wave through the pipes. </p>
+<p>This first test implementation tests two pipes of 50 m length each against one single pipe with 100 m length. The pressure is controlled to decrease from an initial difference of <code><span style=\"font-family: Courier New,courier;\">dp_test</span></code> between the two boundaries to a phase of zero-mass-flow. After this, the flow reverses due to a pressure difference of -<code><span style=\"font-family: Courier New,courier;\">dp_test</span></code>. In addition, the input temperature at the source follows a step increase at the beginning to test the propagation of the temperature wave through the pipes. </p>
+<p>In this simple example, the first implementation of a pipe with heat losses is tested. This can serve as a benchmark for more sophisticated models.</p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 23, 2015 by Marcus Fuchs:<br/>
+September, 2015 by Marcus Fuchs:<br/>
 First implementation.
 </li>
 </ul>

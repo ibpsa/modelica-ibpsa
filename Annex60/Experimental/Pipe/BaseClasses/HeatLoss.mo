@@ -63,7 +63,14 @@ equation
           lineColor={0,0,0},
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid)}), Documentation(info="<html>
-<p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code>TempDelaySD</code> model</p>
+<p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code><span style=\"font-family: Courier New,courier;\">TempDelaySD</span></code> model.</p>
+<p>This is a simple reference model for more sophisticated implementations and does not work correctly with zero-mass flow.</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September, 2015 by Marcus Fuchs:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
-
 end HeatLoss;
