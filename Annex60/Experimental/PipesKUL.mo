@@ -200,7 +200,7 @@ package PipesKUL
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={2,50})));
-    DistrictHeating.TimeDelays.PDETime pDETime
+    Annex60.Experimental.TimeDelays.PDETime pDETime
       annotation (Placement(transformation(extent={{-28,24},{-8,44}})));
     Modelica.Blocks.Sources.RealExpression realExpression(y=u)
       annotation (Placement(transformation(extent={{-58,24},{-38,44}})));
@@ -392,7 +392,7 @@ package PipesKUL
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={0,100})));
-    DistrictHeating.TimeDelays.PDETime pDETime
+    Annex60.Experimental.TimeDelays.PDETime pDETime
       annotation (Placement(transformation(extent={{-50,8},{-30,28}})));
     Modelica.Blocks.Sources.RealExpression realExpression(y=u)
       annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
@@ -585,7 +585,6 @@ package PipesKUL
                              Diagram(coordinateSystem(preserveAspectRatio=false,
             extent={{-100,-100},{100,100}})));
   end PlugFlowHeatLossTwinPipe;
-
 
   package DoublePipes
 
