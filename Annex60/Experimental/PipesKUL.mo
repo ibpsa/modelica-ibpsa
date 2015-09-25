@@ -2697,9 +2697,8 @@ package PipesKUL
       //Extensions
       extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);
 
-      extends DistrictHeatingPipeParameters;
       extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(dp_nominal=
-            dp_nominal_meter*L);
+            dp_nominal_meter*par.L);
 
       extends IDEAS.Fluid.Interfaces.PartialFourPortInterface(
         redeclare final package Medium1 = Medium,
@@ -2717,7 +2716,7 @@ package PipesKUL
       parameter Boolean allowFlowReversal=false
         annotation (Dialog(tab="Assumptions"), Evaluate=true);
 
-      final parameter Modelica.SIunits.Mass m=Modelica.Constants.pi*Di*Di/4*L*rho;
+      final parameter Modelica.SIunits.Mass m=Modelica.Constants.pi*par.Di*par.Di/4*par.L*rho;
 
       parameter Modelica.SIunits.Time tau=120
         "Time constant of the temperature sensors";
@@ -2727,9 +2726,9 @@ package PipesKUL
         "Heat loss factor fot the anti-symmetrical problem";
 
       final parameter Types.ThermalResistanceLength Rs=1/(2*Modelica.Constants.pi*
-          lambdaI*hs);
+          par.lambdaI*hs);
       final parameter Types.ThermalResistanceLength Ra=1/(2*Modelica.Constants.pi*
-          lambdaI*ha);
+          par.lambdaI*ha);
 
       Modelica.SIunits.Power Q1;
       Modelica.SIunits.Power Q2;
@@ -2746,23 +2745,24 @@ package PipesKUL
             origin={0,-142})));
 
       //Components
+      inner DistrictHeatingPipeParameters par(redeclare PipeConfig.PipeData dim);
       replaceable DoublePipes.Configurations.TwinPipeSeparate baseConfiguration(
-        H=H,
-        E=E,
-        Do=Do,
-        Di=Di,
-        Dc=Dc,
-        lambdaG=lambdaG,
-        lambdaI=lambdaI,
-        lambdaGS=lambdaGS) constrainedby BaseConfiguration(
-        H=H,
-        E=E,
-        Do=Do,
-        Di=Di,
-        Dc=Dc,
-        lambdaG=lambdaG,
-        lambdaI=lambdaI,
-        lambdaGS=lambdaGS) annotation (Placement(transformation(extent={{70,108},{90,
+        H=par.H,
+        E=par.E,
+        Do=par.Do,
+        Di=par.Di,
+        Dc=par.Dc,
+        lambdaG=par.lambdaG,
+        lambdaI=par.lambdaI,
+        lambdaGS=par.lambdaGS) constrainedby BaseConfiguration(
+        H=par.H,
+        E=par.E,
+        Do=par.Do,
+        Di=par.Di,
+        Dc=par.Dc,
+        lambdaG=par.lambdaG,
+        lambdaI=par.lambdaI,
+        lambdaGS=par.lambdaGS) annotation (Placement(transformation(extent={{70,108},{90,
                 128}})), choicesAllMatching=true);
 
     equation
@@ -2846,7 +2846,7 @@ package PipesKUL
        parameter Modelica.SIunits.Length Dc=dim.Dc
         "Diameter of circumscribing pipe";
 
-      replaceable parameter PipeConfig.PipeData dim
+      replaceable PipeConfig.PipeData dim constrainedby PipeConfig.PipeData
         "Standard pipe measurements" annotation (choicesAllMatching=true);
 
       parameter Modelica.SIunits.ThermalConductivity lambdaG=2
