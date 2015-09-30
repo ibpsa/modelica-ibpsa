@@ -1,18 +1,8 @@
 within Annex60.Experimental.ThermalZones;
 model ThermalZoneTwoElements
   "Thermal Zone with two elements for exterior and interior walls"
-  extends ThermalZoneOneElement(ASum=AExt+AWin+AInt,
-                             thermSplitterIntGains(splitFactor=if not AExt > 0 and AWin > 0 and not AInt > 0 then {AWin/(AExt + AWin + AInt)} else if not AWin > 0 and AExt > 0 and not AInt > 0 then {AExt/(AExt + AWin + AInt)} else if not AWin > 0 and not AExt > 0 and AInt > 0 then {AInt/(AExt + AWin + AInt)} else if not AExt > 0 and AWin > 0 and AInt > 0 then {
-  AWin/(AExt + AWin + AInt),AInt/(AExt + AWin + AInt)} else if AExt > 0 and not AWin > 0 and AInt > 0 then {
-  AExt/(AExt + AWin + AInt),AInt/(AExt + AWin + AInt)} else if AExt > 0 and AWin > 0 and not AInt > 0 then {
-  AExt/(AExt + AWin + AInt),AWin/(AExt + AWin + AInt)} else {
-  AExt/(AExt + AWin + AInt),AWin/(AExt + AWin + AInt),AInt/(AExt + AWin + AInt)}, dimension=if not AExt > 0 and not AWin > 0 and not AInt > 0 then 0 else if not AExt > 0 and AWin > 0 and not AInt > 0 then 1 else if not AWin > 0 and AExt > 0 and not AInt > 0 then 1 else if not AExt > 0 and not AWin > 0 and AInt > 0 then 1 else if AExt > 0 and AWin > 0 and not AInt > 0 then 2 else if not AExt > 0 and AWin > 0 and AInt > 0 then 2 else if AExt > 0 and not AWin > 0 and AInt > 0 then 2 else 3),
-      thermSplitterSolRad(splitFactor=if not AExt > 0 and AWin > 0 and not AInt > 0 then {AWin/(AExt + AWin + AInt)} else if not AWin > 0 and AExt > 0 and not AInt > 0 then {AExt/(AExt + AWin + AInt)} else if not AWin > 0 and not AExt > 0 and AInt > 0 then {AInt/(AExt + AWin + AInt)} else if not AExt > 0 and AWin > 0 and AInt > 0 then {
-  AWin/(AExt + AWin + AInt),AInt/(AExt + AWin + AInt)} else if AExt > 0 and not AWin > 0 and AInt > 0 then {
-  AExt/(AExt + AWin + AInt),AInt/(AExt + AWin + AInt)} else if AExt > 0 and AWin > 0 and not AInt > 0 then {
-  AExt/(AExt + AWin + AInt),AWin/(AExt + AWin + AInt)} else {
-  AExt/(AExt + AWin + AInt),AWin/(AExt + AWin + AInt),AInt/(AExt + AWin + AInt)}, dimension=if not AExt > 0 and not AWin > 0 and not AInt > 0 then 0 else if not AExt > 0 and AWin > 0 and not AInt > 0 then 1 else if not AWin > 0 and AExt > 0 and not AInt > 0 then 1 else if not AExt > 0 and not AWin > 0 and AInt > 0 then 1 else if AExt > 0 and AWin > 0 and not AInt > 0 then 2 else if not AExt > 0 and AWin > 0 and AInt > 0 then 2 else if AExt > 0 and not AWin > 0 and AInt > 0 then 2 else 3));
-  parameter Modelica.SIunits.Area AInt = 0 "Area of interior walls"    annotation(Dialog(group="Interior walls"));
+  extends ThermalZoneOneElement(AArray = {AExt, AWin, AInt});
+  parameter Modelica.SIunits.Area AInt = 0.1 "Area of interior walls"    annotation(Dialog(group="Interior walls"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaInt
     "Coefficient of heat transfer of interior walls (indoor)" annotation(Dialog(group="Interior walls"));
   parameter Integer nInt(min = 1) "Number of RC-elements of interior walls" annotation(Dialog(group="Interior walls"));

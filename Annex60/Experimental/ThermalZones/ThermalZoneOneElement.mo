@@ -1,5 +1,6 @@
 within Annex60.Experimental.ThermalZones;
-model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
+model ThermalZoneOneElement
+  "Thermal Zone with one element for exterior walls,parameter Real splitFactor[dimension]= {if A>0 then A/ATot else AEmpty for A in AArray};"
 
   parameter Modelica.SIunits.Volume VAir "Air volume of the zone" annotation(Dialog(group="Thermal zone"));
   package Medium = Annex60.Media.Air;
@@ -8,7 +9,7 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
   parameter Modelica.SIunits.ThermalResistance RWin "Resistor for windows"
                            annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.Area AExt = 0.1 "Area of exterior walls"
-                                                                   annotation(Dialog(group="Exterior walls"));
+                                                                     annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExt
     "Coefficient of heat transfer of exterior walls (indoor)" annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.Area AWin = 0.1 "Area of windows"
@@ -26,14 +27,18 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Vector of resistances of exterior walls, from inside to outside" annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.ThermalResistance RExtRem
     "Resistance of remaining resistor RExtRem between capacitance n and outside"
-                                                                                 annotation(Dialog(group="Exterior walls"));
+                                                                                    annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.HeatCapacity CExt[nExt]
     "Vector of heat capacities of exterior walls, from inside to outside"                  annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
     "Coefficient of heat transfer for linearized radiation exchange between walls"
-                                                                                            annotation(Dialog(group="Thermal zone"));
+                                                                                        annotation(Dialog(group="Thermal zone"));
 protected
-            parameter Modelica.SIunits.Area ASum=AExt + AWin;
+  parameter Modelica.SIunits.Area ATot=sum(AArray);
+  parameter Modelica.SIunits.Area[:] AArray = {AExt, AWin};
+  parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray});
+  parameter Real splitFactor[:](fixed = false);
+  parameter Integer j(fixed = false);
 
 public
   Fluid.MixingVolumes.MixingVolume volAir(m_flow_nominal=0.00001, V=VAir,
@@ -95,15 +100,13 @@ public
         transformation(extent={{-260,118},{-220,158}}),
                                                      iconTransformation(extent={{-240,
             138},{-220,158}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsRad if     ASum > 0
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsRad if     ATot > 0
     "auxilliary port for internal radiative gains" annotation (Placement(
         transformation(extent={{220,90},{240,110}}), iconTransformation(extent={
             {220,90},{240,110}})));
-  BaseClasses.ThermSplitter thermSplitterIntGains(splitFactor=if not AExt > 0 and AWin > 0 then {AWin/(AExt + AWin)} else if not AWin > 0 and AExt > 0 then {AExt/(AExt + AWin)} else {
-          AExt/(AExt + AWin),AWin/(AExt + AWin)}, dimension=if not AExt > 0 and not AWin > 0 then 0 else if not AExt > 0 and AWin > 0 then 1 else if not AWin > 0 and AExt > 0 then 1 else 2) if ASum > 0
+  BaseClasses.ThermSplitter thermSplitterIntGains(splitFactor=splitFactor, dimension=dimension) if ATot > 0
     annotation (Placement(transformation(extent={{210,78},{190,98}})));
-  BaseClasses.ThermSplitter thermSplitterSolRad(splitFactor=if not AExt > 0 and AWin > 0 then {AWin/(AExt + AWin)} else if not AWin > 0 and AExt > 0 then {AExt/(AExt + AWin)} else {
-          AExt/(AExt + AWin),AWin/(AExt + AWin)}, dimension=if not AExt > 0 and not AWin > 0 then 0 else if not AExt > 0 and AWin > 0 then 1 else if not AWin > 0 and AExt > 0 then 1 else 2) if ASum > 0
+  BaseClasses.ThermSplitter thermSplitterSolRad(splitFactor=splitFactor, dimension=dimension) if ATot > 0
     annotation (Placement(transformation(extent={{-152,138},{-136,154}})));
   BaseClasses.ExtMassVarRC extWallRC(
     n=nExt,
@@ -118,6 +121,15 @@ public
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-146,8})));
+initial algorithm
+    j :=1;
+      for A in AArray loop
+        if A > 0 then
+          splitFactor[j] :=A/ATot;
+          j :=j + 1;
+        end if;
+      end for;
+
 equation
   connect(volAir.ports, ports) annotation (Line(
       points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-172},{85,-172}},

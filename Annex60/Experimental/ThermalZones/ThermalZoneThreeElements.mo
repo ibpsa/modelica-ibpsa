@@ -1,48 +1,23 @@
 within Annex60.Experimental.ThermalZones;
 model ThermalZoneThreeElements
   "Thermal Zone with three elements for exterior walls, interior walls and floor plate"
-    extends ThermalZoneTwoElements(ASum=AExt+AWin+AInt+AFloor,
-                             thermSplitterIntGains(splitFactor=if not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then {AWin/(AExt + AWin + AInt + AFloor)} else if not AWin > 0 and AExt > 0 and not AInt > 0 and not AFloor > 0 then {AExt/(AExt + AWin + AInt + AFloor)} else if not AWin > 0 and not AExt > 0 and AInt > 0 and not AFloor > 0 then {AInt/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then {AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)}, dimension=if not AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0 then 0 else if not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then 1 else if not AWin > 0 and AExt > 0 and not AInt > 0 and not AFloor > 0 then 1 else if not AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then 1 else if not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then 1 else if AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then 2 else if AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then 2 else if not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then 2 else if AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then 3 else 4),
-      thermSplitterSolRad(splitFactor=if not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then {AWin/(AExt + AWin + AInt + AFloor)} else if not AWin > 0 and AExt > 0 and not AInt > 0 and not AFloor > 0 then {AExt/(AExt + AWin + AInt + AFloor)} else if not AWin > 0 and not AExt > 0 and AInt > 0 and not AFloor > 0 then {AInt/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then {AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)}, dimension=if not AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0 then 0 else if not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then 1 else if not AWin > 0 and AExt > 0 and not AInt > 0 and not AFloor > 0 then 1 else if not AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then 1 else if not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then 1 else if AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then 2 else if AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then 2 else if not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then 2 else if AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then 3 else 4));
-  parameter Modelica.SIunits.Area AFloor = 0.1 "Area of floor plate"
-                          annotation(Dialog(group="Floor plate"));
+    extends ThermalZoneTwoElements(AArray = {AExt, AWin, AInt, AFloor});
+  parameter Modelica.SIunits.Area AFloor = 0.1 "Area of floor plate" annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaFloor
     "Coefficient of heat transfer of floor plate (indoor)" annotation(Dialog(group="Floor plate"));
-  parameter Integer nGround(min = 1) "Number of RC-elements of floor plate" annotation(Dialog(group="Floor plate"));
+  parameter Integer nFloor(min = 1) "Number of RC-elements of floor plate" annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.ThermalResistance RFloor[nExt]
     "Vector of resistances of floor plate, from inside to outside"                 annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.ThermalResistance RFloorRem
     "Resistance of remaining resistor RFloorRem between capacitance n and outside"
-                                                                                    annotation(Dialog(group="Floor plate"));
-  parameter Modelica.SIunits.HeatCapacity CGround[nExt]
-    "Vector of heat capacities of floor plate, from inside to outside"                             annotation(Dialog(group="Floor plate"));
+                                                                                   annotation(Dialog(group="Floor plate"));
+  parameter Modelica.SIunits.HeatCapacity CFloor[nExt]
+    "Vector of heat capacities of floor plate, from inside to outside"  annotation(Dialog(group="Floor plate"));
   BaseClasses.ExtMassVarRC floorRC(
-    n=nGround,
+    n=nFloor,
     RExt=RFloor,
     RExtRem=RFloorRem,
-    CExt=CGround) if AFloor > 0 "RC-element for floor plate" annotation (
+    CExt=CFloor) if AFloor > 0 "RC-element for floor plate" annotation (
       Placement(transformation(
         extent={{10,-11},{-10,11}},
         rotation=90,
@@ -115,10 +90,14 @@ equation
   if not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then
     connect(thermSplitterIntGains.signalOutput[1], floorRC.port_a);
     connect(floorRC.port_a, thermSplitterSolRad.signalOutput[1]);
-  elseif AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 or not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 or not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then
+  elseif AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0
+    or not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0
+    or not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then
     connect(thermSplitterIntGains.signalOutput[2], floorRC.port_a);
     connect(floorRC.port_a, thermSplitterSolRad.signalOutput[2]);
-  elseif not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 or AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 or AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then
+  elseif not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0
+    or AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0
+    or AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then
     connect(thermSplitterIntGains.signalOutput[3], floorRC.port_a);
     connect(floorRC.port_a, thermSplitterSolRad.signalOutput[3]);
   elseif AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 then

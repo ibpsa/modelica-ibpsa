@@ -1,43 +1,18 @@
 within Annex60.Experimental.ThermalZones;
 model ThermalZoneFourElements
   "Thermal Zone with four elements for exterior walls, interior walls, floor plate and roof"
-  extends ThermalZoneThreeElements(ASum=AExt+AWin+AInt+AFloor,
-                             thermSplitterIntGains(splitFactor=if not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then {AWin/(AExt + AWin + AInt + AFloor)} else if not AWin > 0 and AExt > 0 and not AInt > 0 and not AFloor > 0 then {AExt/(AExt + AWin + AInt + AFloor)} else if not AWin > 0 and not AExt > 0 and AInt > 0 and not AFloor > 0 then {AInt/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then {AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)}, dimension=if not AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0 then 0 else if not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then 1 else if not AWin > 0 and AExt > 0 and not AInt > 0 and not AFloor > 0 then 1 else if not AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then 1 else if not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then 1 else if AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then 2 else if AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then 2 else if not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then 2 else if AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then 3 else 4),
-      thermSplitterSolRad(splitFactor=if not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then {AWin/(AExt + AWin + AInt + AFloor)} else if not AWin > 0 and AExt > 0 and not AInt > 0 and not AFloor > 0 then {AExt/(AExt + AWin + AInt + AFloor)} else if not AWin > 0 and not AExt > 0 and AInt > 0 and not AFloor > 0 then {AInt/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then {AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)} else if AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor)} else {
-  AExt/(AExt + AWin + AInt + AFloor),AWin/(AExt + AWin + AInt + AFloor),AInt/(AExt + AWin + AInt + AFloor),AFloor/(AExt + AWin + AInt + AFloor)}, dimension=if not AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0 then 0 else if not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then 1 else if not AWin > 0 and AExt > 0 and not AInt > 0 and not AFloor > 0 then 1 else if not AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then 1 else if not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then 1 else if AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then 2 else if AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 then 2 else if not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then 2 else if AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then 2 else if not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then 3 else if AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 then 3 else 4));
-  parameter Modelica.SIunits.Area ARoof = 0.1 "Area of roof"
-                   annotation(Dialog(group="Roof"));
+  extends ThermalZoneThreeElements(AArray = {AExt, AWin, AInt, AFloor, ARoof});
+  parameter Modelica.SIunits.Area ARoof = 0.1 "Area of roof" annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRoof
     "Coefficient of heat transfer of roof (indoor)" annotation(Dialog(group="Roof"));
   parameter Integer nRoof(min = 1) "Number of RC-elements of roof" annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.ThermalResistance RRoof[nExt]
-    "Vector of resistances of roof, from inside to outside"                        annotation(Dialog(group="Roof"));
+    "Vector of resistances of roof, from inside to outside" annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.ThermalResistance RRoofRem
     "Resistance of remaining resistor RRoofRem between capacitance n and outside"
-                                                                                    annotation(Dialog(group="Roof"));
+                                                                                  annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.HeatCapacity CRoof[nExt]
-    "Vector of heat capacities of roof, from inside to outside"                                    annotation(Dialog(group="Roof"));
+    "Vector of heat capacities of roof, from inside to outside" annotation(Dialog(group="Roof"));
   BaseClasses.ExtMassVarRC roofRC(
     RExt=RRoof,
     RExtRem=RRoofRem,
@@ -67,22 +42,20 @@ model ThermalZoneFourElements
         rotation=-90,
         origin={186,10})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resRoofWin(R=1/(min(
-        ARoof, AWinInd)*alphaRad)) if
-                                     ARoof > 0 and AWinInd > 0
+        ARoof, AWin)*alphaRad)) if   ARoof > 0 and AWin > 0
     "resistor between roof and windows" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-154,100})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resRoofFloor(R=1/(min(
-        ARoof, AGroundInd)*alphaRad)) if   ARoof > 0 and AGroundInd > 0
+        ARoof, AFloor)*alphaRad)) if   ARoof > 0 and AFloor > 0
     "resistor between floor plate and roof" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-56,-112})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor resExtWallRoof(R=1/(min(
-        AExtInd, ARoof)*alphaRad)) if
-                                     AExtInd > 0 and ARoof > 0
+        AExt, ARoof)*alphaRad)) if   AExt > 0 and ARoof > 0
     "resistor between exterior walls and roof" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -97,30 +70,56 @@ equation
     annotation (Line(points={{-12,163.4},{-12,170}}, color={191,0,0}));
   connect(convRoof.fluid, volAir.heatPort) annotation (Line(points={{-12,110},{
           -12,94},{64,94},{64,0},{38,0}}, color={191,0,0}));
-  connect(thermSplitterSolRad.signalOutput[5], roofRC.port_b) annotation (Line(
-        points={{-136,146},{-88,146},{-38,146},{-38,142},{-12,142},{-12,144.8}},
-        color={191,0,0}));
-  connect(thermSplitterIntGains.signalOutput[5], roofRC.port_b) annotation (
-      Line(points={{190,88},{190,88},{190,138},{-12,138},{-12,144.8}}, color={
-          191,0,0}));
-  connect(resRoofWin.port_a, heatConWin.solid) annotation (Line(points={{-164,
+
+  connect(resRoofWin.port_a, convWin.solid) annotation (Line(points={{-164,
           100},{-174,100},{-174,82},{-146,82},{-146,38},{-116,38}}, color={191,
           0,0}));
   connect(resRoofWin.port_b, convRoof.solid) annotation (Line(points={{-144,100},
           {-114,100},{-82,100},{-82,132},{-12,132},{-12,130}}, color={191,0,0}));
   connect(resRoofFloor.port_a, convRoof.solid) annotation (Line(points={{-56,-102},
           {-54,-102},{-54,132},{-12,132},{-12,130}}, color={191,0,0}));
-  connect(resRoofFloor.port_b, thermalResRadExtGround.port_b) annotation (Line(
+  connect(resRoofFloor.port_b, resExtWallFloor.port_b) annotation (Line(
         points={{-56,-122},{-56,-132},{-144,-132},{-144,-121}}, color={191,0,0}));
-  connect(resIntRoof.port_b, intMassVarRC.port_a) annotation (Line(points={{186,
+  connect(resIntRoof.port_b, intWallRC.port_a) annotation (Line(points={{186,
           0},{186,-10},{168,-10},{168,-38},{182.8,-38}}, color={191,0,0}));
   connect(resIntRoof.port_a, convRoof.solid) annotation (Line(points={{186,20},
           {186,20},{186,132},{-12,132},{-12,130}}, color={191,0,0}));
-  connect(resExtWallRoof.port_a, heatConExt.solid) annotation (Line(points={{-118,
+  connect(resExtWallRoof.port_a, convExtWall.solid) annotation (Line(points={{-118,
           6},{-130,6},{-130,-12},{-144,-12},{-144,-36},{-114,-36}}, color={191,
           0,0}));
   connect(resExtWallRoof.port_b, convRoof.solid) annotation (Line(points={{-98,
           6},{-54,6},{-54,132},{-12,132},{-12,130}}, color={191,0,0}));
+  if not AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0 and ARoof > 0 then
+    connect(thermSplitterIntGains.signalOutput[1], roofRC.port_a);
+    connect(roofRC.port_a, thermSplitterSolRad.signalOutput[1]);
+  elseif AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0 and ARoof > 0
+     or not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 and ARoof > 0
+     or not AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0
+     or not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0 then
+    connect(thermSplitterIntGains.signalOutput[2], roofRC.port_a);
+    connect(roofRC.port_a, thermSplitterSolRad.signalOutput[2]);
+  elseif AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 and ARoof > 0
+     or AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0
+     or AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
+     or not AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0
+     or not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
+     or not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0 then
+    connect(thermSplitterIntGains.signalOutput[3], roofRC.port_a);
+    connect(roofRC.port_a, thermSplitterSolRad.signalOutput[3]);
+  elseif not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0
+     or AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0
+     or AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
+     or AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0 then
+    connect(thermSplitterIntGains.signalOutput[4], roofRC.port_a);
+    connect(roofRC.port_a, thermSplitterSolRad.signalOutput[4]);
+  elseif AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0 then
+    connect(thermSplitterSolRad.signalOutput[5], roofRC.port_b) annotation (Line(
+      points={{-136,146},{-88,146},{-38,146},{-38,142},{-12,142},{-12,144.8}},
+      color={191,0,0}));
+    connect(thermSplitterIntGains.signalOutput[5], roofRC.port_b) annotation (Line(
+      points={{190,88},{190,88},{190,138},{-12,138},{-12,144.8}},
+      color={191,0,0}));
+  end if;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}}), graphics={
         Rectangle(
