@@ -1,5 +1,6 @@
 within Annex60.Experimental.Pipe.Examples.Comparisons;
-model Comp_Lossless_Pipe "Comparison of KUL lossless pipe and A60 TDelay"
+model CompHeatLossPipe "Comparison of KUL A60 pipes with heat loss"
+  import Annex60;
   extends Modelica.Icons.Example;
 
   package Medium = Annex60.Media.Water;
@@ -54,11 +55,14 @@ model Comp_Lossless_Pipe "Comparison of KUL lossless pipe and A60 TDelay"
     annotation (Placement(transformation(extent={{-156,40},{-136,60}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
-    BaseClasses.TempDelaySD A60TDelay(
+    Annex60.Experimental.Pipe.PipeHeatLoss  A60Adiabatic(
     redeclare package Medium = Medium,
-    D=diameter,
-    L=length,
-    m_flow_small=1e-4*0.5) "Annex 60 temperature delay"
+    m_flow_small=1e-4*0.5,
+    diameter=diameter,
+    length=length,
+    m_flow_nominal=0.5,
+    thicknessIns=0.02,
+    thermTransmissionCoeff=0.003) "Annex 60 adiabatic pipe"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
@@ -68,12 +72,14 @@ model Comp_Lossless_Pipe "Comparison of KUL lossless pipe and A60 TDelay"
       = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-    PipesKUL.PlugFlowLosslessPipe KULPipeLossless(
+    Annex60.Experimental.PipesKUL.PlugFlowHeatLosses
+                          KULPlugFlow(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
+    dp_nominal=144.786,
     L=length,
-    D=diameter) "KUL implementation of lossless pipe" annotation (Placement(
-        transformation(
+    D=diameter) "KUL implementation of plug flow pipe"         annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,-20})));
@@ -89,22 +95,8 @@ model Comp_Lossless_Pipe "Comparison of KUL lossless pipe and A60 TDelay"
       = Medium, m_flow_nominal=0.5)
     "Temperature sensor of the inflow to the KUL lossless pipe"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Fluid.FixedResistances.FixedResistanceDpM         res(
-    redeclare final package Medium = Medium,
-    use_dh=true,
-    final dh=diameter,
-    dp(nominal=if Medium.nXi == 0 then 100*length else 5*length),
-    final m_flow_nominal=0.5,
-    final dp_nominal=100) "Pressure drop calculation for pipe"
-    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
-  Fluid.FixedResistances.FixedResistanceDpM         res1(
-    redeclare final package Medium = Medium,
-    use_dh=true,
-    final dh=diameter,
-    dp(nominal=if Medium.nXi == 0 then 100*length else 5*length),
-    final m_flow_nominal=0.5,
-    final dp_nominal=100) "Pressure drop calculation for pipe"
-    annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
+  Modelica.Blocks.Sources.Constant const(k=273.15 + 5)
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 equation
   connect(PAtm.y, sin1.p_in)
                             annotation (Line(points={{147,86},{154,86},{154,46},
@@ -130,7 +122,7 @@ equation
       points={{-97,70},{-94,70},{-94,46},{-90,46}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(A60TDelay.port_b, senTemA60Out.port_a) annotation (Line(
+  connect(A60Adiabatic.port_b, senTemA60Out.port_a) annotation (Line(
       points={{40,40},{56,40}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -154,36 +146,27 @@ equation
       points={{108,-20},{114,-20},{114,36},{120,36}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(KULPipeLossless.port_b, senTemKULOut.port_a) annotation (Line(
+  connect(KULPlugFlow.port_b, senTemKULOut.port_a) annotation (Line(
       points={{40,-20},{56,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemA60In.port_b, res.port_a)
-    annotation (Line(points={{-40,40},{-30,40}}, color={0,127,255}));
-  connect(res.port_b, A60TDelay.port_a)
-    annotation (Line(points={{-10,40},{18,40},{20,40}}, color={0,127,255}));
-  connect(senTemKULIn.port_b, res1.port_a)
-    annotation (Line(points={{-40,-20},{-30,-20}}, color={0,127,255}));
-  connect(res1.port_b, KULPipeLossless.port_a)
-    annotation (Line(points={{-10,-20},{20,-20}}, color={0,127,255}));
+  connect(senTemA60In.port_b, A60Adiabatic.port_a)
+    annotation (Line(points={{-40,40},{20,40}}, color={0,127,255}));
+  connect(senTemKULIn.port_b, KULPlugFlow.port_a)
+    annotation (Line(points={{-40,-20},{20,-20}}, color={0,127,255}));
+  connect(const.y, KULPlugFlow.TBoundary)
+    annotation (Line(points={{1,10},{30,10},{30.2,-15}}, color={0,0,127}));
     annotation (experiment(StopTime=20000, __Dymola_NumberOfIntervals=5000),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{
             160,100}})),
     Documentation(info="<html>
-<p>This example compares the KUL lossless pipe implementation 
-with the A60 temperature delay. Both are based on the 
-spatialDistribution operator. </p>
-<p>The KUL implementation provides a more readable code due 
-to the use of the <code>PartialTwoPortInterface</code> base 
-class instead of the <code>PartialTwoPort</code>. Yet, the 
-<code>PartialTwoPortInterface</code> would not allow for using 
-the spatialDistribution also on X and C of the medium. </p>
-<p>For the results, the models seem to give similar results for 
-forward flow. The only difference is in the initial temperatures, 
-which the A60 model set at the medium&apos;s default. For flow 
-reversal, the A60 model seems to give more plausible results.</p>
+<p>This example compares the KUL and A60 pipe with heat loss implementations.</p>
+<p>This is only a first glimpse at the general behavior. Next step is to parameterize 
+both models with comparable heat insulation properties. In general, the KUL pipe seems 
+to react better to changes in mass flow rate, but also does not show cooling effects at 
+the period of zero-mass flow.</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -192,4 +175,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Comp_Lossless_Pipe;
+end CompHeatLossPipe;

@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.Examples.Comparisons;
-model Comp_Adiabatic_Pipe
+model CompAdiabaticPipe
   "Comparison of KUL plug flow pipe and A60 adiabatic pipe"
   import Annex60;
   extends Modelica.Icons.Example;
@@ -171,4 +171,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Comp_Adiabatic_Pipe;
+end CompAdiabaticPipe;
