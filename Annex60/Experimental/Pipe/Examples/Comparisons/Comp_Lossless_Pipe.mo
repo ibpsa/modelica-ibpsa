@@ -172,12 +172,22 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{
             160,100}})),
     Documentation(info="<html>
-<p>This first test implementation tests two pipes of 50 m length each against one single pipe with 100 m length.
-The pressure is controlled to decrease from an initial difference of <code>dp_test</code> between the two boundaries to a phase of zero-mass-flow. After this, the flow reverses due to a pressure difference of -<code>dp_test</code>. In addition, the input temperature at the source follows a step increase at the beginning to test the propagation of the temperature wave through the pipes. </p>
+<p>This example compares the KUL lossless pipe implementation 
+with the A60 temperature delay. Both are based on the 
+spatialDistribution operator. </p>
+<p>The KUL implementation provides a more readable code due 
+to the use of the <code>PartialTwoPortInterface</code> base 
+class instead of the <code>PartialTwoPort</code>. Yet, the 
+<code>PartialTwoPortInterface</code> would not allow for using 
+the spatialDistribution also on X and C of the medium. </p>
+<p>For the results, the models seem to give similar results for 
+forward flow. The only difference is in the initial temperatures, 
+which the A60 model set at the medium&apos;s default. For flow 
+reversal, the A60 model seems to give more plausible results.</p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 23, 2015 by Marcus Fuchs:<br/>
+October 1, 2015 by Marcus Fuchs:<br/>
 First implementation.
 </li>
 </ul>
