@@ -1,4 +1,4 @@
 within Annex60.Fluid.Examples.Performance;
-package BaseClasses 
+package BaseClasses
 extends Modelica.Icons.BasesPackage;
 end BaseClasses;
