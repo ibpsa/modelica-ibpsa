@@ -6,7 +6,7 @@ model EqAirTempVDI
     .Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp.partialEqAirTemp;
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtOut=20
     "Exterior walls' coefficient of heat transfer (outdoor)";
-  parameter Real orientationsWallsHorizontal[n]={90,90,90,90}
+  parameter Modelica.SIunits.Angle orientationsWallsHorizontal[n]={1.570796327,1.570796327,1.570796327,1.570796327}
     "Orientations of the walls against the vertical (wall,roof)";
 
 protected
@@ -17,7 +17,7 @@ equation
   T_earth=((-E_earth/(0.93*5.67))^0.25)*100;
   T_sky=((E_sky/(0.93*5.67))^0.25)*100;
 
-  phiprivate = (unitVec+Modelica.Math.cos(orientationsWallsHorizontal*Modelica.Constants.pi/180))/2;
+  phiprivate = (unitVec+Modelica.Math.cos(orientationsWallsHorizontal))/2;
 
   T_eqLW=((T_earth-T_air)*(unitVec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alphaRad/alphaExtOut);
   T_eqSW=solarRad_in*aExt/(alphaExtOut);
@@ -30,7 +30,7 @@ equation
     T_eqWall=T_air*unitVec+T_eqSW;
   end if;
 
-  equalAirTemp.T = T_eqWall*wf_wall + T_eqWin*wf_win + T_ground*wf_ground;
+  eqAirTemp.T = T_eqWall*wf_wall + T_eqWin*wf_win + T_ground*wf_ground;
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br/>Implemented.</li>

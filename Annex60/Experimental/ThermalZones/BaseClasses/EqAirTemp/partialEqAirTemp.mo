@@ -3,7 +3,8 @@ partial model partialEqAirTemp
   "partial model for equivalent air temperature as defined in VDI 6007-1"
 
 parameter Real aExt=0.6 "Coefficient of absorption of exterior walls (outdoor)";
-parameter Real eExt=0.9 "Coefficient of emission of exterior walls (outdoor)";
+parameter Modelica.SIunits.Emissivity eExt=0.9
+    "Coefficient of emission of exterior walls (outdoor)";
 parameter Integer n=4 "Number of orientations (without ground)";
 parameter Real wf_wall[n]={0.5,0.2,0.2,0.1} "Weight factors of the walls";
 parameter Real wf_win[n]={0,0,0,0} "Weight factors of the windows";
@@ -34,8 +35,8 @@ parameter Boolean withLongwave=true
   Modelica.SIunits.Temp_K T_earth "radiative temperature of the land surface";
   Modelica.SIunits.Temp_K T_sky "radiative temperature of the sky";
 
-  Modelica.SIunits.Temp_K T_eqWall[n] "temperature equal wall";
-  Modelica.SIunits.Temp_K T_eqWin[n] "temperature equal window";
+  Modelica.SIunits.Temp_K T_eqWall[n] "equivalent wall temperature";
+  Modelica.SIunits.Temp_K T_eqWin[n] "equivalent window temperature";
 
 protected
   Modelica.SIunits.RadiantEnergyFluenceRate E_earth
@@ -44,10 +45,13 @@ protected
 
   Modelica.SIunits.Temp_K T_air "outdoor air temperature";
 
-  Modelica.SIunits.TemperatureDifference T_eqLW[n] "equal long wave";
-  Modelica.SIunits.TemperatureDifference T_eqSW[n] "equal short wave";
+  Modelica.SIunits.TemperatureDifference T_eqLW[n]
+    "equivalent long wave temperature";
+  Modelica.SIunits.TemperatureDifference T_eqSW[n]
+    "equivalent short wave temperature";
 
-  Modelica.SIunits.CoefficientOfHeatTransfer alphaRad;
+  Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
+    "coefficient of heat transfer for linearized radiation";
 
   parameter Real unitVec[n]=ones(n);
 
@@ -69,8 +73,8 @@ equation
     alphaRad=(E_sky+E_earth)/(T_sky-T_earth);
   end if;
 
-annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),  Icon(coordinateSystem(
+annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})),        Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                       graphics={
         Rectangle(
