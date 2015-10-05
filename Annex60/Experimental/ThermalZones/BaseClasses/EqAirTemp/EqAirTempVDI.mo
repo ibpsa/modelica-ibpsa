@@ -37,7 +37,7 @@ equation
 <li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality and used assert for warnings.</li>
 </ul></p>
 </html>", info="<html>
-<p>EqAirTempVDI extends from partianEqAirTemp</p>
+<p>EqAirTempVDI extends from partialEqAirTemp</p>
 <p>The longwave radiation is considered for each direction seperately.</p>
 <h4>Main equations</h4>
 <p>The concept is described in VDI 6007. All equations can be found in VDI 6007. </p>

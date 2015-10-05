@@ -52,7 +52,7 @@ equation
 <li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality and used assert for warnings.</li>
 </ul></p>
 </html>", info="<html>
-<p>EqAirTempEBCMod extends from partianEqAirTemp</p>
+<p>EqAirTemp extends from partialEqAirTemp</p>
 <p>An output equivalent air temperature is calculated for the window.</p>
 <p>The longwave radiation is considered for each direction seperately. The sky temperature is adjusted. The combined heat transfer coefficient is replaced by a heat transfer coefficient for convection and radiation, respectively.</p>
 <h4>Main equations</h4>

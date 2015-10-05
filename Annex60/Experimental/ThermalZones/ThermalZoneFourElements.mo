@@ -17,16 +17,19 @@ model ThermalZoneFourElements
     RExt=RRoof,
     RExtRem=RRoofRem,
     CExt=CRoof,
-    n=nRoof) if      ARoof > 0 annotation (Placement(transformation(
+    n=nRoof) if      ARoof > 0 "RC-element for roof"
+                               annotation (Placement(transformation(
         extent={{10,-11},{-10,11}},
         rotation=90,
         origin={-12,155})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convRoof if      ARoof > 0
+    "convective heat transfer of roof"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-12,120})));
   Modelica.Blocks.Sources.Constant alphaRoofConst(k=1/(ARoof*alphaRoof)) if        ARoof > 0
+    "coefficient of convective heat transfer for roof"
     annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=180,

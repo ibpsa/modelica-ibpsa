@@ -17,11 +17,12 @@ parameter Boolean withLongwave=true
     "[1]: Air temperature<br>[2]: Horizontal radiation of sky<br>[3]: Horizontal radiation of earth"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
         iconTransformation(extent={{-100,-20},{-60,20}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a equalAirTemp annotation (
-      Placement(transformation(extent={{98,-56},{118,-36}}),
-                                                           iconTransformation(
-          extent={{78,-76},{118,-36}})));
-  Modelica.Blocks.Interfaces.RealInput sunblind[n] annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a eqAirTemp
+    "equivalent air temperature" annotation (Placement(transformation(extent={{98,
+            -56},{118,-36}}), iconTransformation(extent={{78,-76},{118,-36}})));
+  Modelica.Blocks.Interfaces.RealInput sunblind[n]
+    "opening factor of sunblinds for each direction ( 0 - open to 1 - closed)"
+                                                   annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
@@ -55,7 +56,7 @@ public
         transformation(extent={{-120,40},{-80,80}}), iconTransformation(extent=
             {{-100,-20},{-60,20}})));
 initial equation
-  assert(noEvent(abs(sum(wf_wall) + sum(wf_win) + wf_ground) > 0.1), "The sum of the weightfactors (walls,windows and ground) in eqairtemp is close to 0. If there are no walls, windows and ground at all, this might be irrelevant.", level=AssertionLevel.warning);
+  assert(noEvent(abs(sum(wf_wall) + sum(wf_win) + wf_ground) > 0.1), "The sum of the weightfactors (walls,windows and ground) in eqAirTemp is close to 0. If there are no walls, windows and ground at all, this might be irrelevant.", level=AssertionLevel.warning);
 equation
 
   T_air=weatherData[1];
@@ -68,8 +69,8 @@ equation
     alphaRad=(E_sky+E_earth)/(T_sky-T_earth);
   end if;
 
-annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),        Icon(coordinateSystem(
+annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}})),  Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                       graphics={
         Rectangle(

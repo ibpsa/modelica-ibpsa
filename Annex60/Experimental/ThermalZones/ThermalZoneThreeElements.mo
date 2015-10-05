@@ -23,12 +23,14 @@ model ThermalZoneThreeElements
         rotation=90,
         origin={-12,-152})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convFloor if     AFloor > 0
+    "convective heat transfer of floor"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-12,-116})));
   Modelica.Blocks.Sources.Constant alphaFloorConst(k=1/(AFloor*alphaFloor)) if
                                                                              AFloor > 0
+    "coefficient of convective heat transfer for floor"
     annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=180,

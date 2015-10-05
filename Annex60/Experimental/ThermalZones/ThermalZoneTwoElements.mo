@@ -18,9 +18,11 @@ model ThermalZoneTwoElements
     annotation (Placement(transformation(extent={{182,-48},{202,-26}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convIntWall if
                                                                             AInt > 0
+    "convective heat transfer of interior walls"
     annotation (Placement(transformation(extent={{148,-28},{128,-48}})));
   Modelica.Blocks.Sources.Constant alphaIntWall(k=1/(AInt*alphaInt)) if
                                                                        AInt > 0
+    "coefficient of convective heat transfer for interior walls"
     annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=-90,

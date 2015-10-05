@@ -4,8 +4,9 @@ partial model PartialCorG
 
    parameter Integer n = 1 "vector size for input and output";
 
-  Modelica.Blocks.Interfaces.RealOutput solarRadWinTrans[n](unit="W/m2")
-    "transmitted solar radiation through window"
+  Modelica.Blocks.Interfaces.RealOutput solarRadWinTrans[n](
+    final quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") "transmitted solar radiation through windows"
     annotation (Placement(transformation(extent={{80,-10},{100,10}}),
         iconTransformation(extent={{80,-10},{100,10}})));
   Modelica.Blocks.Interfaces.RealInput I[n]
@@ -30,9 +31,7 @@ partial model PartialCorG
           lineColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
-<h4><span style=\"color:#008000\">Overview</span></h4>
+<h4><span style=\"color: #000000\">Overview</span></h4>
 <p>Partial model for correction cofficient for transmitted solar radiation through a window.</p>
-<h4><span style=\"color:#008000\">Level of Development</span></h4>
-<p><img src=\"modelica://AixLib/Images/stars3.png\"/> </p>
 </html>"));
 end PartialCorG;

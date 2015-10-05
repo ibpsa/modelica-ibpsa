@@ -1,6 +1,5 @@
 within Annex60.Experimental.ThermalZones;
-model ThermalZoneOneElement
-  "Thermal Zone with one element for exterior walls,parameter Real splitFactor[dimension]= {if A>0 then A/ATot else AEmpty for A in AArray};"
+model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
 
   parameter Modelica.SIunits.Volume VAir "Air volume of the zone" annotation(Dialog(group="Thermal zone"));
   package Medium = Annex60.Media.Air;
@@ -43,10 +42,12 @@ protected
 public
   Fluid.MixingVolumes.MixingVolume volAir(m_flow_nominal=0.00001, V=VAir,
     redeclare package Medium = Medium,
-    nPorts=nPorts)
+    nPorts=nPorts) "indoor air volume"
     annotation (Placement(transformation(extent={{38,-10},{18,10}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-    redeclare package Medium = Medium) annotation (
+    redeclare package Medium = Medium)
+    "auxilliary fluid inlets and outlets to indoor air volume"
+                                       annotation (
       Placement(transformation(
         extent={{-45,-12},{45,12}},
         rotation=0,
@@ -60,9 +61,11 @@ public
             {-220,-26}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convExtWall if
                                                                             AExt > 0
+    "convective heat transfer of exterior walls"
     annotation (Placement(transformation(extent={{-114,-26},{-94,-46}})));
   Modelica.Blocks.Sources.Constant alphaExtWallConst(k=1/(AExt*alphaExt)) if
                                                                           AExt > 0
+    "coefficient of convective heat transfer for exterior walls"
     annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=-90,
@@ -78,8 +81,10 @@ public
     "ambient port for windows" annotation (Placement(transformation(extent={{-240,
             28},{-220,48}}), iconTransformation(extent={{-240,28},{-220,48}})));
   Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convWin if    AWin > 0
+    "convective heat transfer of windows"
     annotation (Placement(transformation(extent={{-116,28},{-96,48}})));
   Modelica.Blocks.Sources.Constant alphaWinConst(k=1/(AWin*alphaWin)) if AWin > 0
+    "coefficient of convective heat transfer for windows"
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,
@@ -96,7 +101,9 @@ public
   Modelica.Blocks.Math.Gain eConvSol(k=gWin*ratioWinConRad*ATransparent) if   ratioWinConRad > 0
     "emission coefficient of solar radiation considered as convection"
     annotation (Placement(transformation(extent={{-196,119},{-186,129}})));
-  Modelica.Blocks.Interfaces.RealInput solRad annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput solRad(
+    final quantity="RadiantPower",
+    final unit="W") "solar radiation transmitted through aggregated window" annotation (Placement(
         transformation(extent={{-260,118},{-220,158}}),
                                                      iconTransformation(extent={{-240,
             138},{-220,158}})));
@@ -105,8 +112,10 @@ public
         transformation(extent={{220,90},{240,110}}), iconTransformation(extent={
             {220,90},{240,110}})));
   BaseClasses.ThermSplitter thermSplitterIntGains(splitFactor=splitFactor, dimension=dimension) if ATot > 0
+    "splits incoming internal gains into seperate gains for each wall element, weighted by their area"
     annotation (Placement(transformation(extent={{210,78},{190,98}})));
   BaseClasses.ThermSplitter thermSplitterSolRad(splitFactor=splitFactor, dimension=dimension) if ATot > 0
+    "splits incoming solar radiation into seperate gains for each wall element, weighted by their area"
     annotation (Placement(transformation(extent={{-152,138},{-136,154}})));
   BaseClasses.ExtMassVarRC extWallRC(
     n=nExt,
@@ -319,11 +328,14 @@ equation
     Documentation(info="<html>
 <h4>Main equations</h4>
 <h4>Assumption and limitations</h4>
-<h4>Typical use and important parameters</h4>
-<h4>Options</h4>
-<h4>Validation</h4>
-<h4>Implementation</h4>
-<h4>References</h4>
+<ul>
+<li>Linearized indoor radiative heat exchange</li>
+</ul>
+<h4>Design decisions</h4>
+<ul>
+<li>Regarding different handling of internal gains and solar radiation: Although internal as well as external gains count as simple heat flows, solar radiation uses a real input, while internal gains utilize two heat ports, one for convective and one for radiative gains. Considering solar radiation typically requires several models upstream to calculate anlge-dependent irradiation or window models. We decided to keep that seperately to this thermal zone model. Thus, solar radiation is handled as a basic radiant power. For internal gains, the user might need to distinguish between convective and radiative heat sources. In addition, it might help to have access to the indoor air temperature and the mean radiation temperature. To this purpose, we introduced two heat ports for internal gains.</li>
+<li>Consideration indoor radiative heat gains: For an exact consideration, each element participating at radiative heat exchange need to have a temperature and an area. For solar radiation and radiative internal gains, it is common to define the heat flow independently of temperature and thus of area as well, assuming that that the temperature of the source is high compared to the wall surface temperatures. By using a ThermSplitter that distributes the heat flow of the source over the walls according to their area, we support this simplified approach.</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
