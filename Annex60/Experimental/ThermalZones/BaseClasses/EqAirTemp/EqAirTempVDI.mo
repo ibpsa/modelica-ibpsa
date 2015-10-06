@@ -12,25 +12,20 @@ model EqAirTempVDI
 protected
   Real phiprivate[n];
 initial equation
-  assert(noEvent(abs(sum(wf_wall) + sum(wf_win) + wf_ground - 1) < 0.1), "The sum of the weightfactors (walls,windows and ground) in eqairtemp is <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
+  assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround - 1) < 0.1), "The sum of the weightfactors (walls,windows and ground) in eqairtemp is <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
 equation
-  T_earth=((-E_earth/(0.93*5.67))^0.25)*100;
-  T_sky=((E_sky/(0.93*5.67))^0.25)*100;
-
-  phiprivate = (unitVec+Modelica.Math.cos(orientationsWallsHorizontal))/2;
-
-  T_eqLW=((T_earth-T_air)*(unitVec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alphaRad/alphaExtOut);
-  T_eqSW=solarRad_in*aExt/(alphaExtOut);
+  TEqLW=TBlaSky-TDryBul;
+  TEqSW=HSol*aExt/(alphaExtOut);
 
   if withLongwave then
-    T_eqWin=T_air*unitVec+T_eqLW.*abs(sunblind-unitVec);
-    T_eqWall=T_air*unitVec+T_eqLW+T_eqSW;
+    TEqWin=TDryBul*unitVec+TEqLW.*abs(sunblind-unitVec);
+    TEqWall=TDryBul*unitVec+TEqLW+TEqSW;
   else
-    T_eqWin=T_air*unitVec;
-    T_eqWall=T_air*unitVec+T_eqSW;
+    TEqWin=TDryBul*unitVec;
+    TEqWall=TDryBul*unitVec+TEqSW;
   end if;
 
-  eqAirTemp.T = T_eqWall*wf_wall + T_eqWin*wf_win + T_ground*wf_ground;
+  eqAirTemp.T = TEqWall*wfWall + TEqWin*wfWin + TGround*wfGround;
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br/>Implemented.</li>
@@ -50,5 +45,6 @@ equation
 <li>German Association of Engineers: Guideline VDI 6007-1, March 2012: Calculation of transient thermal response of rooms and buildings - Modelling of rooms.</li>
 <li>Lauster, M.; Teichmann, J.; Fuchs, M.; Streblow, R.; Mueller, D. (2014): Low order thermal network models for dynamic simulations of buildings on city district scale. In: Building and Environment 73, p. 223&ndash;231. DOI: 10.1016/j.buildenv.2013.12.016.</li>
 </ul>
-</html>"));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})));
 end EqAirTempVDI;

@@ -6,24 +6,20 @@ parameter Real aExt=0.6 "Coefficient of absorption of exterior walls (outdoor)";
 parameter Modelica.SIunits.Emissivity eExt=0.9
     "Coefficient of emission of exterior walls (outdoor)";
 parameter Integer n=4 "Number of orientations (without ground)";
-parameter Real wf_wall[n]={0.5,0.2,0.2,0.1} "Weight factors of the walls";
-parameter Real wf_win[n]={0,0,0,0} "Weight factors of the windows";
-parameter Real wf_ground=0 "Weight factor of the ground (0 if not considered)";
-parameter Modelica.SIunits.Temp_K T_ground=284.15
+parameter Real wfWall[n]={0.5,0.2,0.2,0.1} "Weight factors of the walls";
+parameter Real wfWin[n]={0,0,0,0} "Weight factors of the windows";
+parameter Real wfGround=0 "Weight factor of the ground (0 if not considered)";
+parameter Modelica.SIunits.Temp_K TGround=284.15
     "Temperature of the ground in contact with floor plate";
 parameter Boolean withLongwave=true
-    "If longwave radiation exchange is considered"                                 annotation(choices(checkBox = true));
+    "If longwave radiation exchange is considered" annotation(choices(checkBox = true));
+parameter Real unitVec[n]=ones(n);
 
-  Modelica.Blocks.Interfaces.RealInput weatherData[3]
-    "[1]: Air temperature<br>[2]: Horizontal radiation of sky<br>[3]: Horizontal radiation of earth"
-    annotation (Placement(transformation(extent={{-120,-20},{-80,20}}),
-        iconTransformation(extent={{-100,-20},{-60,20}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a eqAirTemp
     "equivalent air temperature" annotation (Placement(transformation(extent={{98,
             -56},{118,-36}}), iconTransformation(extent={{78,-76},{118,-36}})));
   Modelica.Blocks.Interfaces.RealInput sunblind[n]
-    "opening factor of sunblinds for each direction ( 0 - open to 1 - closed)"
-                                                   annotation (Placement(
+    "opening factor of sunblinds for each direction ( 0 - open to 1 - closed)"   annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
@@ -31,48 +27,36 @@ parameter Boolean withLongwave=true
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,80})));
-
-  Modelica.SIunits.Temp_K T_earth "radiative temperature of the land surface";
-  Modelica.SIunits.Temp_K T_sky "radiative temperature of the sky";
-
-  Modelica.SIunits.Temp_K T_eqWall[n] "equivalent wall temperature";
-  Modelica.SIunits.Temp_K T_eqWin[n] "equivalent window temperature";
-
-protected
-  Modelica.SIunits.RadiantEnergyFluenceRate E_earth
-    "Iradiation from land surface";
-  Modelica.SIunits.RadiantEnergyFluenceRate E_sky "Iradiation from sky";
-
-  Modelica.SIunits.Temp_K T_air "outdoor air temperature";
-
-  Modelica.SIunits.TemperatureDifference T_eqLW[n]
+  Modelica.SIunits.Temp_K TEqWall[n] "equivalent wall temperature";
+  Modelica.SIunits.Temp_K TEqWin[n] "equivalent window temperature";
+  Modelica.SIunits.TemperatureDifference TEqLW[n]
     "equivalent long wave temperature";
-  Modelica.SIunits.TemperatureDifference T_eqSW[n]
+  Modelica.SIunits.TemperatureDifference TEqSW[n]
     "equivalent short wave temperature";
 
-  Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
+  Modelica.SIunits.CoefficientOfHeatTransfer alphaRad=5.0
     "coefficient of heat transfer for linearized radiation";
 
-  parameter Real unitVec[n]=ones(n);
-
 public
-  Modelica.Blocks.Interfaces.RealInput solarRad_in[n] annotation (Placement(
-        transformation(extent={{-120,40},{-80,80}}), iconTransformation(extent=
-            {{-100,-20},{-60,20}})));
+  Modelica.Blocks.Interfaces.RealInput HSol[n](
+    final quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") "Solar radiation per unit area" annotation (Placement(
+        transformation(extent={{-120,40},{-80,80}}), iconTransformation(extent={
+            {-100,-20},{-60,20}})));
+  Modelica.Blocks.Interfaces.RealInput TBlaSky(
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC",
+    final unit="K") "Black-body sky temperature" annotation (Placement(
+        transformation(extent={{-120,-10},{-80,30}}),iconTransformation(extent={
+            {-100,-20},{-60,20}})));
+  Modelica.Blocks.Interfaces.RealInput TDryBul(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Dry bulb temperature" annotation (Placement(
+        transformation(extent={{-120,-44},{-80,-4}}),  iconTransformation(
+          extent={{-100,-20},{-60,20}})));
 initial equation
-  assert(noEvent(abs(sum(wf_wall) + sum(wf_win) + wf_ground) > 0.1), "The sum of the weightfactors (walls,windows and ground) in eqAirTemp is close to 0. If there are no walls, windows and ground at all, this might be irrelevant.", level=AssertionLevel.warning);
-equation
-
-  T_air=weatherData[1];
-  E_sky=weatherData[2];
-  E_earth=weatherData[3];
-
-  if (abs(E_sky+E_earth)<0.1) then
-    alphaRad=5.0;
-  else
-    alphaRad=(E_sky+E_earth)/(T_sky-T_earth);
-  end if;
-
+  assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround) > 0.1), "The sum of the weightfactors (walls,windows and ground) in eqAirTemp is close to 0. If there are no walls, windows and ground at all, this might be irrelevant.", level=AssertionLevel.warning);
 annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),        Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
