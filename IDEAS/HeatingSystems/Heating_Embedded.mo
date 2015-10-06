@@ -23,18 +23,18 @@ model Heating_Embedded
       m_flowMin=m_flow_nominal/3,
       RadSlaCha = RadSlaCha,
       A_floor=AEmb,
-      nParCir=1));
+      each nParCir=1));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[
-    nConvPorts](Q_flow=0)
+    nConvPorts](each Q_flow=0)
     annotation (Placement(transformation(extent={{-164,10},{-184,30}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow1[
-    nRadPorts](Q_flow=0)
+    nRadPorts](each Q_flow=0)
     annotation (Placement(transformation(extent={{-162,-30},{-182,-10}})));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow);
   P[1] = heater.PEl + sum(pumpRad.PEl);
   Q[1] = 0;
-  connect(emission.heatPortEmb, heatPortEmb) annotation (Line(
+  connect(emission[:].heatPortEmb[1], heatPortEmb[:]) annotation (Line(
       points={{135,44},{136,44},{136,98},{-176,98},{-176,60},{-200,60}},
       color={191,0,0},
       smooth=Smooth.None));
