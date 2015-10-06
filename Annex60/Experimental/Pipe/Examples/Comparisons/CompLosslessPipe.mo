@@ -54,7 +54,7 @@ model CompLosslessPipe "Comparison of KUL lossless pipe and A60 TDelay"
     annotation (Placement(transformation(extent={{-156,40},{-136,60}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
-    BaseClasses.TempDelaySD A60TDelay(
+  PipeLosslessPlugFlow A60TDelay(
     redeclare package Medium = Medium,
     D=diameter,
     L=length,

@@ -1,4 +1,6 @@
-PipeAdiabatic
-PipeHeatLoss
+PipeLosslessPlugFlow
+PipeAdiabaticPlugFlow
+PipeHeatLossA60Ref
+PipeHeatLossKUL
 BaseClasses
 Examples

@@ -56,7 +56,7 @@ model CompAdiabaticPipe
     annotation (Placement(transformation(extent={{-156,40},{-136,60}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
-    Annex60.Experimental.Pipe.PipeAdiabatic A60Adiabatic(
+  Annex60.Experimental.Pipe.PipeAdiabaticPlugFlow A60Adiabatic(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,

@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe;
-model PipeAdiabatic
+model PipeAdiabaticPlugFlow
   "Pipe model using spatialDistribution for temperature delay without heat losses"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
@@ -73,7 +73,7 @@ protected
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation(Dialog(group="Advanced", enable=use_mu_default));
 
-  Annex60.Experimental.Pipe.BaseClasses.TempDelaySD temperatureDelay(
+  Annex60.Experimental.Pipe.PipeLosslessPlugFlow temperatureDelay(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final D=diameter,
@@ -96,28 +96,28 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-          Rectangle(
-          extent={{-70,30},{-10,-30}},
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
+        ={
+        Rectangle(
+          extent={{-100,40},{100,-42}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-100,30},{100,-28}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          extent={{-26,30},{30,-28}},
           lineColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          fillColor={0,0,255}), Rectangle(
-          extent={{12,30},{72,-30}},
-          lineColor={0,0,255},
-          fillPattern=FillPattern.Solid,
-          fillColor={0,0,255}),
-        Text(
-          extent={{-62,24},{-20,-22}},
-          lineColor={255,255,255},
-          lineThickness=0.5,
-          textString="dp"),
-        Text(
-          extent={{22,24},{64,-22}},
-          lineColor={255,255,255},
-          lineThickness=0.5,
-          textString="dt")}),
+          fillPattern=FillPattern.HorizontalCylinder)}),
     Documentation(revisions="<html>
 <ul>
+<li>
+October 10, 2015 by Marcus Fuchs:<br/>
+Copy Icon from KUL implementation and rename model.
+</li>
 <li>
 June 23, 2015 by Marcus Fuchs:<br/>
 First implementation.
@@ -126,4 +126,4 @@ First implementation.
 </html>", info="<html>
 <p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
 </html>"));
-end PipeAdiabatic;
+end PipeAdiabaticPlugFlow;

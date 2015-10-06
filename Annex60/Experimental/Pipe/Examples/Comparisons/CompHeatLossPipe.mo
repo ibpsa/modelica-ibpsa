@@ -37,32 +37,32 @@ model CompHeatLossPipe "Comparison of KUL A60 pipes with heat loss"
 
   Modelica.Blocks.Sources.Step stepT(
     height=10,
-    startTime=20,
-    offset=273.15 + 20)
+    offset=273.15 + 20,
+    startTime=10000)
     "Step temperature increase to test propagation of temperature wave"
     annotation (Placement(transformation(extent={{-118,10},{-98,30}})));
   Modelica.Blocks.Sources.Ramp decreaseP(
     duration=1800,
-    startTime=5000,
     height=-dp_test,
-    offset=101325 + dp_test) "Decreasing pressure difference to zero-mass-flow"
+    offset=101325 + dp_test,
+    startTime=50000) "Decreasing pressure difference to zero-mass-flow"
     annotation (Placement(transformation(extent={{-156,80},{-136,100}})));
   Modelica.Blocks.Sources.Ramp reverseDP(
     duration=1800,
     offset=0,
-    startTime=10000,
-    height=-dp_test) "Reverse the flow after a period of zero-mass-flow"
+    height=-dp_test,
+    startTime=140000) "Reverse the flow after a period of zero-mass-flow"
     annotation (Placement(transformation(extent={{-156,40},{-136,60}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
-    Annex60.Experimental.Pipe.PipeHeatLoss  A60Adiabatic(
+  Annex60.Experimental.Pipe.PipeHeatLossA60Ref A60PipeHeatLoss(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
     length=length,
     m_flow_nominal=0.5,
     thicknessIns=0.02,
-    thermTransmissionCoeff=0.003) "Annex 60 adiabatic pipe"
+    thermTransmissionCoeff=0.03) "Annex 60 pipe with heat losses"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
@@ -72,13 +72,15 @@ model CompHeatLossPipe "Comparison of KUL A60 pipes with heat loss"
       = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-    Annex60.Experimental.PipesKUL.PlugFlowHeatLosses
-                          KULPlugFlow(
+    Annex60.Experimental.Pipe.PipeHeatLossKUL
+                          KULHeatLoss(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
-    dp_nominal=144.786,
-    L=length,
-    D=diameter) "KUL implementation of plug flow pipe"         annotation (
+    diameter=diameter,
+    length=length,
+    thicknessIns=0.02,
+    lambdaI=0.01) "KUL implementation of plug flow pipe with heat losses"
+                                                               annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -122,7 +124,7 @@ equation
       points={{-97,70},{-94,70},{-94,46},{-90,46}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(A60Adiabatic.port_b, senTemA60Out.port_a) annotation (Line(
+  connect(A60PipeHeatLoss.port_b, senTemA60Out.port_a) annotation (Line(
       points={{40,40},{56,40}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -146,17 +148,17 @@ equation
       points={{108,-20},{114,-20},{114,36},{120,36}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(KULPlugFlow.port_b, senTemKULOut.port_a) annotation (Line(
+  connect(KULHeatLoss.port_b, senTemKULOut.port_a) annotation (Line(
       points={{40,-20},{56,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemA60In.port_b, A60Adiabatic.port_a)
+  connect(senTemA60In.port_b, A60PipeHeatLoss.port_a)
     annotation (Line(points={{-40,40},{20,40}}, color={0,127,255}));
-  connect(senTemKULIn.port_b, KULPlugFlow.port_a)
+  connect(senTemKULIn.port_b,KULHeatLoss. port_a)
     annotation (Line(points={{-40,-20},{20,-20}}, color={0,127,255}));
-  connect(const.y, KULPlugFlow.TBoundary)
+  connect(const.y,KULHeatLoss. TBoundary)
     annotation (Line(points={{1,10},{30,10},{30.2,-15}}, color={0,0,127}));
-    annotation (experiment(StopTime=20000, __Dymola_NumberOfIntervals=5000),
+    annotation (experiment(StopTime=200000, __Dymola_NumberOfIntervals=5000),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{
@@ -174,5 +176,6 @@ October 1, 2015 by Marcus Fuchs:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    __Dymola_experimentSetupOutput);
 end CompHeatLossPipe;

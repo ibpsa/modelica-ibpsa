@@ -1,5 +1,6 @@
-within Annex60.Experimental.Pipe.BaseClasses;
-model TempDelaySD "Temperature delay using spatialDistribution operator"
+within Annex60.Experimental.Pipe;
+model PipeLosslessPlugFlow
+  "Lossless pipe model with spatialDistribution plug flow implementation"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
   parameter Real initialPoints[:](each min=0, each max=1) = {0.0, 1.0}
@@ -133,30 +134,26 @@ equation
           thickness=0.5,
           smooth=Smooth.None),
         Rectangle(
-          extent={{-80,80},{80,-60}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-80,-40},{-60,-40},{-60,20},{80,20}},
-          color={0,0,0},
-          pattern=LinePattern.Dash,
-          thickness=0.5,
-          smooth=Smooth.None),
-        Line(
-          points={{-80,-40},{4,-40},{8,-38},{16,16},{20,20},{80,20}},
-          color={255,0,0},
-          pattern=LinePattern.Dot,
-          thickness=0.5,
-          smooth=Smooth.None),
-        Line(
-          points={{-80,60},{-80,-60},{80,-60}},
-          color={0,0,0},
-          smooth=Smooth.None,
-          thickness=0.5,
-          arrow={Arrow.Filled,Arrow.Filled})}),
+          extent={{-100,60},{100,-60}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-100,50},{100,-48}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={217,236,256}),
+        Rectangle(
+          extent={{-20,50},{20,-48}},
+          lineColor={175,175,175},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={175,175,175})}),
     Documentation(revisions="<html>
 <ul>
+<li>
+October 10, 2015 by Marcus Fuchs:<br/>
+Copy Icon from KUL implementation and rename model.
+</li>
 <li>
 June 23, 2015 by Marcus Fuchs:<br/>
 First implementation.
@@ -165,4 +162,4 @@ First implementation.
 </html>", info="<html>
 <p>A simple model to account for the effect of the temperature delay for a fluid flow throurgh a pipe. It uses the spatialDistribution operator to delay changes in input enthalpy depending on the flow velocity.</p>
 </html>"));
-end TempDelaySD;
+end PipeLosslessPlugFlow;

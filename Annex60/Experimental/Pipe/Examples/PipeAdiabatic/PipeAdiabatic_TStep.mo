@@ -11,7 +11,7 @@ model PipeAdiabatic_TStep
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{126,76},{146,96}})));
 
-  Annex60.Experimental.Pipe.PipeAdiabatic pipe50_1(
+  Annex60.Experimental.Pipe.PipeAdiabaticPlugFlow pipe50_1(
     redeclare package Medium = Medium,
     diameter=0.1,
     length=50,
@@ -58,7 +58,7 @@ model PipeAdiabatic_TStep
     annotation (Placement(transformation(extent={{-156,40},{-136,60}})));
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
-    Annex60.Experimental.Pipe.PipeAdiabatic pipe50_2(
+  Annex60.Experimental.Pipe.PipeAdiabaticPlugFlow pipe50_2(
     redeclare package Medium = Medium,
     diameter=0.1,
     length=50,
@@ -72,7 +72,7 @@ model PipeAdiabatic_TStep
       = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the two pipes in series"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-    Annex60.Experimental.Pipe.PipeAdiabatic pipe100(
+  Annex60.Experimental.Pipe.PipeAdiabaticPlugFlow pipe100(
     redeclare package Medium = Medium,
     diameter=0.1,
     length=100,
