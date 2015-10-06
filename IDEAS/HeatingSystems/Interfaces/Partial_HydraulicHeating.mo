@@ -109,17 +109,10 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     dTSupRetNom=dTSupRetNom)
     "Controller for the heater and the emission set point "
     annotation (Placement(transformation(extent={{-160,54},{-140,74}})));
-  replaceable IDEAS.Controls.Control_fixme.Hyst_NoEvent_Var[
-                                                nZones] heatingControl(each uLow_val=
-        22, each uHigh_val=20)
-    "onoff controller for the pumps of the emission circuits"
+
+  Modelica.Blocks.Logical.Hysteresis[nZones] heatingControl(each uLow=-0.5,
+      each uHigh=0.5) "onoff controller for the pumps of the emission circuits"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Modelica.Blocks.Sources.RealExpression THigh_val[nZones](y=0.5*ones(nZones))
-    "Higher boudary for set point temperature"
-    annotation (Placement(transformation(extent={{-174,-62},{-162,-42}})));
-  Modelica.Blocks.Sources.RealExpression TLow_val[nZones](y=-0.5*ones(nZones))
-    "Lower boundary for set point temperature"
-    annotation (Placement(transformation(extent={{-174,-102},{-160,-82}})));
   Modelica.Blocks.Sources.RealExpression TSet_max(y=max(TSet))
     "maximum value of set point temperature" annotation (Placement(
         transformation(
@@ -160,6 +153,8 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     V=sum(m_flow_nominal)*30/1000,
     nPorts=1+nZones)
     annotation (Placement(transformation(extent={{104,-92},{124,-72}})));
+  Modelica.Blocks.Math.BooleanToReal booleanToReal[nZones]
+    annotation (Placement(transformation(extent={{-104,-80},{-84,-60}})));
 equation
     // connections that are function of the number of circuits
   for i in 1:nZones loop
@@ -174,10 +169,6 @@ equation
         smooth=Smooth.None));
   end for;
   // general connections for any configuration
-  connect(heatingControl.y, pumpRad.m_flowSet) annotation (Line(
-      points={{-119,-70},{100,-70},{100,39.52}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(fixedTemperature.port, heater.heatPort) annotation (Line(
       points={{-127,-14},{-127,12}},
       color={191,0,0},
@@ -238,14 +229,6 @@ equation
       points={{-141,65},{-128,65},{-128,34}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(THigh_val.y, heatingControl.uHigh) annotation (Line(
-      points={{-161.4,-52},{-152,-52},{-152,-63.2},{-142,-63.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TLow_val.y, heatingControl.uLow) annotation (Line(
-      points={{-159.3,-92},{-152,-92},{-152,-77},{-142,-77}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(senTemEm_out.port_b, spl.port_1) annotation (Line(
       points={{82,-92},{76,-92}},
       color={0,127,255},
@@ -274,6 +257,10 @@ equation
       points={{-175.4,-75.2},{-194,-75.2},{-194,-104},{20,-104}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(heatingControl.y, booleanToReal.u) annotation (Line(points={{-119,-70},
+          {-112.5,-70},{-106,-70}}, color={255,0,255}));
+  connect(booleanToReal.y, pumpRad.m_flowSet) annotation (Line(points={{-83,-70},
+          {-2,-70},{100,-70},{100,39.52}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}), graphics={Rectangle(
           extent={{-98,30},{88,-64}},
