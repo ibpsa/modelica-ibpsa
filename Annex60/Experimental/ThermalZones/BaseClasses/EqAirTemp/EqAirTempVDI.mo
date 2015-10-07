@@ -9,12 +9,10 @@ model EqAirTempVDI
   parameter Modelica.SIunits.Angle orientationsWallsHorizontal[n]={1.570796327,1.570796327,1.570796327,1.570796327}
     "Orientations of the walls against the vertical (wall,roof)";
 
-protected
-  Real phiprivate[n];
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround - 1) < 0.1), "The sum of the weightfactors (walls,windows and ground) in eqairtemp is <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
 equation
-  TEqLW=TBlaSky-TDryBul;
+  TEqLW=(TBlaSky-TDryBul)*(eExt*alphaRad/alphaExtOut);
   TEqSW=HSol*aExt/(alphaExtOut);
 
   if withLongwave then
@@ -25,7 +23,7 @@ equation
     TEqWall=TDryBul*unitVec+TEqSW;
   end if;
 
-  eqAirTemp.T = TEqWall*wfWall + TEqWin*wfWin + TGround*wfGround;
+  TEqAir.T = TEqWall*wfWall + TEqWin*wfWin + TGround*wfGround;
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br/>Implemented.</li>

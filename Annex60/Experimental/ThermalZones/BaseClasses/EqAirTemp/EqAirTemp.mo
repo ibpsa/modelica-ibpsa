@@ -4,50 +4,40 @@ model EqAirTemp
 
   extends
     .Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp.partialEqAirTemp;
-parameter Modelica.SIunits.Angle orientationsWallsHorizontal[n]={1.570796327,1.570796327,1.570796327,1.570796327}
+  parameter Modelica.SIunits.Angle orientationsWallsHorizontal[n]={1.570796327,1.570796327,1.570796327,1.570796327}
     "Orientations of the walls against the vertical (wall,roof)";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtOut=24.67
     "Exterior walls' coefficient of heat transfer (outdoor)";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWinOut=16.37
     "Windows' coefficient of heat transfer (outdoor)";
-parameter Real aWin=0.0 "Coefficient of absorption of the windows";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a eqAirTempWindow
+  parameter Real aWin=0.0 "Coefficient of absorption of the windows";
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TEqAirWindow
     "equivalent air temperature for windows (no short-wave radiation)"
     annotation (Placement(transformation(extent={{80,58},{100,78}}),
         iconTransformation(extent={{78,6},{118,46}})));
-
-protected
-    Modelica.SIunits.TemperatureDifference T_eqLW_win[n]
+  Modelica.SIunits.TemperatureDifference TEqLWWin[n]
     "equivalent long wave temperature for windows";
-    Modelica.SIunits.TemperatureDifference T_eqSW_win[n]
+  Modelica.SIunits.TemperatureDifference TEqSWWin[n]
     "eqiuvalent short wave temperature for windows";
-  Real phiprivate[n];
 initial equation
-  assert(noEvent(abs(sum(wf_wall) + wf_ground - 1) < 0.1), "The sum of the weightfactors (walls and ground) in eqairtemp is <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
-  assert(noEvent(abs(sum(wf_win) - 1) < 0.1), "The sum of the weightfactors (windows) in eqairtemp is <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
+  assert(noEvent(abs(sum(wfWall) + wfGround - 1) < 0.1), "The sum of the weightfactors (walls and ground) in eqairtemp is <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
+  assert(noEvent(abs(sum(wfWin) - 1) < 0.1), "The sum of the weightfactors (windows) in eqairtemp is <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
 equation
-
-  T_earth=((-E_earth/(0.93*5.67))^0.25)*100;
-  T_sky=((E_sky/(5.67))^0.25)*100;
-
-  phiprivate = (unitVec+Modelica.Math.cos(orientationsWallsHorizontal))/2;
-
-  T_eqLW=((T_earth-T_air)*(unitVec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alphaRad/(alphaRad+alphaExtOut));
-  T_eqLW_win=((T_earth-T_air)*(unitVec-phiprivate)+(T_sky-T_air)*phiprivate)*(eExt*alphaRad/(alphaRad+alphaWinOut)).*abs(sunblind-unitVec);
-  T_eqSW=solarRad_in*aExt/(alphaRad+alphaExtOut);
-  T_eqSW_win=solarRad_in*aWin/(alphaRad+alphaWinOut);
+  TEqLW=((T_earth-TDryBul)*(unitVec-phiprivate)+(T_sky-TDryBul)*phiprivate)*(eExt*alphaRad/(alphaRad+alphaExtOut));
+  TEqLWWin=((T_earth-TDryBul)*(unitVec-phiprivate)+(T_sky-TDryBul)*phiprivate)*(eExt*alphaRad/(alphaRad+alphaWinOut)).*abs(sunblind-unitVec);
+  TEqSW=HSol*aExt/(alphaRad+alphaExtOut);
+  TEqSWWin=HSol*aWin/(alphaRad+alphaWinOut);
 
   if withLongwave then
-    T_eqWin=T_air*unitVec+T_eqLW_win+T_eqSW_win;
-    T_eqWall=T_air*unitVec+T_eqLW+T_eqSW;
+    TEqWin=TDryBul*unitVec+TEqLWWin+TEqSWWin;
+    TEqWall=TDryBul*unitVec+TEqLW+TEqSW;
   else
-    T_eqWin=T_air*unitVec+T_eqSW_win;
-    T_eqWall=T_air*unitVec+T_eqSW;
+    TEqWin=TDryBul*unitVec+TEqSWWin;
+    TEqWall=TDryBul*unitVec+TEqSW;
   end if;
 
-  eqAirTemp.T = T_eqWall*wf_wall + T_ground*wf_ground;
-  eqAirTempWindow.T = T_eqWin*wf_win;
+  TEqAir.T = TEqWall*wfWall + T_ground*wfGround;
+  TEqAirWindow.T = TEqWin*wfWin;
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br/>Implemented.</li>
@@ -71,6 +61,6 @@ equation
 </ul>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end EqAirTemp;

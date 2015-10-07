@@ -15,9 +15,9 @@ parameter Boolean withLongwave=true
     "If longwave radiation exchange is considered" annotation(choices(checkBox = true));
 parameter Real unitVec[n]=ones(n);
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a eqAirTemp
-    "equivalent air temperature" annotation (Placement(transformation(extent={{98,
-            -56},{118,-36}}), iconTransformation(extent={{78,-76},{118,-36}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TEqAir
+    "equivalent air temperature" annotation (Placement(transformation(extent={{
+            98,-56},{118,-36}}), iconTransformation(extent={{78,-76},{118,-36}})));
   Modelica.Blocks.Interfaces.RealInput sunblind[n]
     "opening factor of sunblinds for each direction ( 0 - open to 1 - closed)"   annotation (Placement(
         transformation(
@@ -57,8 +57,8 @@ public
           extent={{-100,-20},{-60,20}})));
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround) > 0.1), "The sum of the weightfactors (walls,windows and ground) in eqAirTemp is close to 0. If there are no walls, windows and ground at all, this might be irrelevant.", level=AssertionLevel.warning);
-annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),        Icon(coordinateSystem(
+annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}})),  Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                       graphics={
         Rectangle(
