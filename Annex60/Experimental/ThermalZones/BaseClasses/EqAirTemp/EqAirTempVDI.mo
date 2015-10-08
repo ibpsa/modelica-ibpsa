@@ -1,29 +1,25 @@
 within Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp;
 model EqAirTempVDI
-  "model for equivalent air temperature as defined in VDI 6007-1"
+  "Model for equivalent air temperature as defined in VDI 6007-1"
 
   extends
     .Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp.partialEqAirTemp;
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtOut=20
-    "Exterior walls' coefficient of heat transfer (outdoor)";
-  parameter Modelica.SIunits.Angle orientationsWallsHorizontal[n]={1.570796327,1.570796327,1.570796327,1.570796327}
-    "Orientations of the walls against the vertical (wall,roof)";
 
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround - 1) < 0.1), "The sum of the weightfactors (walls,windows and ground) in eqairtemp is <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
 equation
-  TEqLW=(TBlaSky-TDryBul)*(eExt*alphaRad/alphaExtOut);
-  TEqSW=HSol*aExt/(alphaExtOut);
+  TEqLW=(TBlaSky-TDryBul)*(eExt*alphaRad/(alphaRad+alphaExtOut));
+  TEqSW=HSol*aExt/(alphaRad+alphaExtOut);
 
   if withLongwave then
-    TEqWin=TDryBul*unitVec+TEqLW.*abs(sunblind-unitVec);
-    TEqWall=TDryBul*unitVec+TEqLW+TEqSW;
+    TEqWin=TDryBul.+TEqLW*abs(sunblind.-1);
+    TEqWall=TDryBul.+TEqLW.+TEqSW;
   else
-    TEqWin=TDryBul*unitVec;
-    TEqWall=TDryBul*unitVec+TEqSW;
+    TEqWin=TDryBul*ones(n);
+    TEqWall=TDryBul.+TEqSW;
   end if;
 
-  TEqAir.T = TEqWall*wfWall + TEqWin*wfWin + TGround*wfGround;
+  TEqAir = TEqWall*wfWall + TEqWin*wfWin + TGround*wfGround;
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br/>Implemented.</li>

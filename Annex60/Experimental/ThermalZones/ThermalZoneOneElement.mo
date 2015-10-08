@@ -282,8 +282,6 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Indoor Air")}),
-    experiment(StopTime=864000),
-    experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-240,-180},{240,
             180}},
         grid={2,2}),

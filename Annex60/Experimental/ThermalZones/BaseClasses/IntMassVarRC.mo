@@ -14,15 +14,15 @@ model IntMassVarRC "Interior wall consisting of variable number of RC elements"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a "interior port"
     annotation (Placement(transformation(extent={{-102,-10},{-82,10}})));
 equation
-  // connecting inner elements thermResInt[i]--thermCapInt[i] to n groups
+  // Connecting inner elements thermResInt[i]--thermCapInt[i] to n groups
   for i in 1:n loop
     connect(thermResInt[i].port_b,thermCapInt[i].port);
   end for;
-  // connecting groups between each other thermCapInt[i] -- thermResInt[i+1]
+  // Connecting groups between each other thermCapInt[i] -- thermResInt[i+1]
   for i in 1:n-1 loop
     connect(thermCapInt[i].port,thermResInt[i+1].port_a);
   end for;
-  // connecting first RC element to port_a port_a--thermResInt[1]
+  // Connecting first RC element to port_a port_a--thermResInt[1]
   connect(port_a,thermResInt[1].port_a);
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false,   extent={{-100,
             -100},{100,120}}),                                                                           graphics), Documentation(info="<html>

@@ -1,25 +1,52 @@
 within Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp;
 partial model partialEqAirTemp
-  "partial model for equivalent air temperature as defined in VDI 6007-1"
+  "Partial model for equivalent air temperature as defined in VDI 6007-1"
 
-parameter Real aExt=0.6 "Coefficient of absorption of exterior walls (outdoor)";
-parameter Modelica.SIunits.Emissivity eExt=0.9
+  parameter Real aExt "Coefficient of absorption of exterior walls (outdoor)";
+  parameter Modelica.SIunits.Emissivity eExt
     "Coefficient of emission of exterior walls (outdoor)";
-parameter Integer n=4 "Number of orientations (without ground)";
-parameter Real wfWall[n]={0.5,0.2,0.2,0.1} "Weight factors of the walls";
-parameter Real wfWin[n]={0,0,0,0} "Weight factors of the windows";
-parameter Real wfGround=0 "Weight factor of the ground (0 if not considered)";
-parameter Modelica.SIunits.Temp_K TGround=284.15
+  parameter Integer n "Number of orientations (without ground)";
+  parameter Real wfWall[n] "Weight factors of the walls";
+  parameter Real wfWin[n] "Weight factors of the windows";
+  parameter Real wfGround "Weight factor of the ground (0 if not considered)";
+  parameter Modelica.SIunits.Temp_K TGround
     "Temperature of the ground in contact with floor plate";
-parameter Boolean withLongwave=true
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtOut
+    "Exterior walls' convective coefficient of heat transfer (outdoor)";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
+    "Coefficient of heat transfer for linearized radiation";
+  parameter Boolean withLongwave=true
     "If longwave radiation exchange is considered" annotation(choices(checkBox = true));
-parameter Real unitVec[n]=ones(n);
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a TEqAir
-    "equivalent air temperature" annotation (Placement(transformation(extent={{
-            98,-56},{118,-36}}), iconTransformation(extent={{78,-76},{118,-36}})));
+  Modelica.SIunits.Temp_K TEqWall[n] "Equivalent wall temperature";
+  Modelica.SIunits.Temp_K TEqWin[n] "Equivalent window temperature";
+  Modelica.SIunits.TemperatureDifference TEqLW
+    "Equivalent long wave temperature";
+  Modelica.SIunits.TemperatureDifference TEqSW[n]
+    "Equivalent short wave temperature";
+  Modelica.Blocks.Interfaces.RealInput HSol[n](
+    final quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") "Solar radiation per unit area" annotation (Placement(
+        transformation(extent={{-120,40},{-80,80}}), iconTransformation(extent={{-100,24},
+            {-60,64}})));
+  Modelica.Blocks.Interfaces.RealInput TBlaSky(
+    final quantity="ThermodynamicTemperature",
+    displayUnit="degC",
+    final unit="K") "Black-body sky temperature" annotation (Placement(
+        transformation(extent={{-120,-10},{-80,30}}),iconTransformation(extent={{-100,
+            -26},{-60,14}})));
+  Modelica.Blocks.Interfaces.RealInput TDryBul(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Dry bulb temperature" annotation (Placement(
+        transformation(extent={{-120,-44},{-80,-4}}),  iconTransformation(
+          extent={{-100,-78},{-60,-38}})));
+  Modelica.Blocks.Interfaces.RealOutput TEqAir(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC") "Equivalent air temperature" annotation (Placement(transformation(extent={{98,
+            -56},{118,-36}}), iconTransformation(extent={{78,-76},{118,-36}})));
   Modelica.Blocks.Interfaces.RealInput sunblind[n]
-    "opening factor of sunblinds for each direction ( 0 - open to 1 - closed)"   annotation (Placement(
+    "Opening factor of sunblinds for each direction ( 0 - open to 1 - closed)"   annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
@@ -27,78 +54,23 @@ parameter Real unitVec[n]=ones(n);
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,80})));
-  Modelica.SIunits.Temp_K TEqWall[n] "equivalent wall temperature";
-  Modelica.SIunits.Temp_K TEqWin[n] "equivalent window temperature";
-  Modelica.SIunits.TemperatureDifference TEqLW[n]
-    "equivalent long wave temperature";
-  Modelica.SIunits.TemperatureDifference TEqSW[n]
-    "equivalent short wave temperature";
-
-  Modelica.SIunits.CoefficientOfHeatTransfer alphaRad=5.0
-    "coefficient of heat transfer for linearized radiation";
-
-public
-  Modelica.Blocks.Interfaces.RealInput HSol[n](
-    final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "Solar radiation per unit area" annotation (Placement(
-        transformation(extent={{-120,40},{-80,80}}), iconTransformation(extent={
-            {-100,-20},{-60,20}})));
-  Modelica.Blocks.Interfaces.RealInput TBlaSky(
-    final quantity="ThermodynamicTemperature",
-    displayUnit="degC",
-    final unit="K") "Black-body sky temperature" annotation (Placement(
-        transformation(extent={{-120,-10},{-80,30}}),iconTransformation(extent={
-            {-100,-20},{-60,20}})));
-  Modelica.Blocks.Interfaces.RealInput TDryBul(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="degC") "Dry bulb temperature" annotation (Placement(
-        transformation(extent={{-120,-44},{-80,-4}}),  iconTransformation(
-          extent={{-100,-20},{-60,20}})));
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround) > 0.1), "The sum of the weightfactors (walls,windows and ground) in eqAirTemp is close to 0. If there are no walls, windows and ground at all, this might be irrelevant.", level=AssertionLevel.warning);
-annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),  Icon(coordinateSystem(
+annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})),        Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                       graphics={
         Rectangle(
           extent={{-70,70},{78,-76}},
           lineColor={170,213,255},
           lineThickness=1,
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={170,213,255}),
-        Rectangle(
-          extent={{-70,70},{78,0}},
-          lineColor={170,213,255},
-          lineThickness=1,
           fillPattern=FillPattern.Solid,
           fillColor={170,213,255}),
-        Rectangle(
-          extent={{38,46},{78,-76}},
-          lineColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Polygon(
-          points={{79,46},{21,46},{79,70},{79,70},{79,46}},
-          smooth=Smooth.None,
-          fillColor={236,99,92},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
         Ellipse(
           extent={{-70,70},{-16,18}},
           lineColor={255,221,0},
           fillColor={255,225,0},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-70,-76},{78,-90}},
-          lineColor={0,127,0},
-          fillColor={0,127,0},
-          fillPattern=FillPattern.HorizontalCylinder),
-        Rectangle(
-          extent={{-70,-82},{78,-90}},
-          lineColor={0,127,0},
-          fillColor={0,127,0},
-          fillPattern=FillPattern.Forward),
         Text(
           extent={{-70,-92},{76,-128}},
           lineColor={0,0,255},
@@ -107,29 +79,23 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
           fillPattern=FillPattern.Solid,
           textString="%name"),
         Rectangle(
-          extent={{38,46},{78,-14}},
+          extent={{4,46},{78,-76}},
           fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
+          fillPattern=FillPattern.Backward,
           lineColor={0,0,0}),
-        Rectangle(
-          extent={{52,28},{80,-12}},
-          lineColor={0,0,0},
-          fillColor={230,230,230},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{78,32},{84,-18}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Line(
-          points={{52,8},{68,8},{78,8}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Line(
-          points={{72,28},{72,-12}},
-          color={0,0,0},
-          smooth=Smooth.None)}),
+        Rectangle(
+          extent={{8,42},{78,-72}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Line(points={{8,42},{30,14},{78,14}}, color={0,0,0}),
+        Line(points={{10,-72},{30,-40},{78,-40}}, color={0,0,0}),
+        Line(points={{30,14},{30,-40}}, color={0,0,0})}),
     Documentation(info="<html>
 <p>EqAirTemp is a component to compute the so called &QUOT;equivalent outdoor air temperature&QUOT;. Basically, this includes a correction for the longwave radiation for windows and walls and absorption of shortwave radiation only for walls.</p>
 <p>To the air temperature is added (or substracted) a term for longwave radiation and one term for shortwave radiation. As the shortwave radiation is taken into account only for the walls and the windows can be equipped with a shading, the equal temperatures are computed separately for the windows and for the walls. Due to the different beams in different directions, the temperatures are also computed separately for each direction. You need one weightfactor per direction and wall or window, e.g. 4 directions means 8 weightfactors (4 windows, 4 walls). Additionally, one weightfactor for the ground (for the ground temperature) . </p>

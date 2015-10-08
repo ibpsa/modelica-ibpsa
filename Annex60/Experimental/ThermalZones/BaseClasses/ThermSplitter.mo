@@ -5,7 +5,7 @@ model ThermSplitter
 parameter Integer dimension=6 "Dimension of the splitter";
 
 parameter Real splitFactor[dimension]= fill(1/dimension, dimension)
-    "split factor for outputs (between 0 and 1)";
+    "Split factor for outputs (between 0 and 1)";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a signalInput
     "single thermal input"

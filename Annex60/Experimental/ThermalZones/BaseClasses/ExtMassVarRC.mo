@@ -21,15 +21,15 @@ model ExtMassVarRC "Exterior wall consisting of variable number of RC elements"
     "vector of thermal capacitors"
     annotation (Placement(transformation(extent={{-10,-12},{10,-32}})));
 equation
-  // connecting inner elements thermResExt[i]--thermCapExt[i] to n groups
+  // Connecting inner elements thermResExt[i]--thermCapExt[i] to n groups
   for i in 1:n loop
     connect(thermResExt[i].port_b,thermCapExt[i].port);
   end for;
-  // connecting groups between each other thermCapExt[i] -- thermResExt[i+1]
+  // Connecting groups between each other thermCapExt[i] -- thermResExt[i+1]
   for i in 1:n-1 loop
     connect(thermCapExt[i].port,thermResExt[i+1].port_a);
   end for;
-  // connecting first RC element to port_a , last RC-element to RExtRem and RExtRem to port_b
+  // Connecting first RC element to port_a , last RC-element to RExtRem and RExtRem to port_b
   connect(port_a,thermResExt[1].port_a);
   connect(thermCapExt[n].port,thermResExtRem.port_a);
   connect(thermResExtRem.port_b,port_b);
