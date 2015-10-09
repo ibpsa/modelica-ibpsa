@@ -1,8 +1,9 @@
 within Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp;
 partial model partialEqAirTemp
-  "Partial model for equivalent air temperature as defined in VDI 6007-1"
+  "Partial model for equivalent air temperature as defined in VDI 6007 Part 1"
 
-  parameter Real aExt "Coefficient of absorption of exterior walls (outdoor)";
+  parameter Modelica.SIunits.Emissivity aExt
+    "Coefficient of absorption of exterior walls (outdoor)";
   parameter Modelica.SIunits.Emissivity eExt
     "Coefficient of emission of exterior walls (outdoor)";
   parameter Integer n "Number of orientations (without ground)";
@@ -126,7 +127,7 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-1
         revisions="<html>
 <ul>
 <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br>Implemented.</li>
-<li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality and used assert for warnings.</li>
+<li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality and used assert for warnings.<br>Adapted to Annex 60 requirements.</li>
 </ul>
 </html>"));
 end partialEqAirTemp;

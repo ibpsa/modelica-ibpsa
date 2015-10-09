@@ -1,12 +1,13 @@
 within Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp;
 model EqAirTemp
-  "Model for equivalent air temperature as defined in VDI 6007-1 with modifications"
+  "Model for equivalent air temperature as defined in VDI 6007 Part 1 with modifications"
 
   extends
     .Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp.partialEqAirTemp;
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWinOut
     "Windows' convective coefficient of heat transfer (outdoor)";
-  parameter Real aWin "Coefficient of absorption of the windows";
+  parameter Modelica.SIunits.Emissivity aWin
+    "Coefficient of absorption of the windows";
   Modelica.SIunits.TemperatureDifference TEqLWWin
     "Equivalent long wave temperature for windows";
   Modelica.SIunits.TemperatureDifference TEqSWWin[n]
@@ -36,7 +37,7 @@ equation
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br/>Implemented.</li>
-<li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality and used assert for warnings.</li>
+<li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality and used assert for warnings.<br>Adapted to Annex 60 requirements.</li>
 </ul></p>
 </html>", info="<html>
 <p>EqAirTemp extends from partialEqAirTemp</p>

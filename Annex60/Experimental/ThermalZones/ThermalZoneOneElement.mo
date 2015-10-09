@@ -102,8 +102,8 @@ public
     "emission coefficient of solar radiation considered as convection"
     annotation (Placement(transformation(extent={{-196,119},{-186,129}})));
   Modelica.Blocks.Interfaces.RealInput solRad(
-    final quantity="RadiantPower",
-    final unit="W") "solar radiation transmitted through aggregated window" annotation (Placement(
+    final quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") "solar radiation transmitted through aggregated window" annotation (Placement(
         transformation(extent={{-260,118},{-220,158}}),
                                                      iconTransformation(extent={{-240,
             138},{-220,158}})));
@@ -331,8 +331,9 @@ equation
 </ul>
 <h4>Design decisions</h4>
 <ul>
-<li>Regarding different handling of internal gains and solar radiation: Although internal as well as external gains count as simple heat flows, solar radiation uses a real input, while internal gains utilize two heat ports, one for convective and one for radiative gains. Considering solar radiation typically requires several models upstream to calculate anlge-dependent irradiation or window models. We decided to keep that seperately to this thermal zone model. Thus, solar radiation is handled as a basic radiant power. For internal gains, the user might need to distinguish between convective and radiative heat sources. In addition, it might help to have access to the indoor air temperature and the mean radiation temperature. To this purpose, we introduced two heat ports for internal gains.</li>
+<li>Regarding different handling of internal gains and solar radiation: Although internal as well as external gains count as simple heat flows, solar radiation uses a real input, while internal gains utilize two heat ports, one for convective and one for radiative gains. Considering solar radiation typically requires several models upstream to calculate angle-dependent irradiation or window models. We decided to keep that seperately to this thermal zone model. Thus, solar radiation is handled as a basic <code><span style=\"font-family: Courier New,courier;\">RadiantEnergyFluenceRate</span></code>. For internal gains, the user might need to distinguish between convective and radiative heat sources. In addition, it might help to have access to the indoor air temperature and the mean radiation temperature. To this purpose, we introduced two heat ports for internal gains.</li>
 <li>Consideration indoor radiative heat gains: For an exact consideration, each element participating at radiative heat exchange need to have a temperature and an area. For solar radiation and radiative internal gains, it is common to define the heat flow independently of temperature and thus of area as well, assuming that that the temperature of the source is high compared to the wall surface temperatures. By using a ThermSplitter that distributes the heat flow of the source over the walls according to their area, we support this simplified approach.</li>
+<li>For solar radiation through windows, the area <code><span style=\"font-family: Courier New,courier;\">ATransparent </span></code>is used. In most cases, this should be equal to  <code><span style=\"font-family: Courier New,courier;\">AWin,</span></code>but there might be cases (e.g. windows are lumped with exterior walls and solar radiation is present) where the areas differ.</li>
 </ul>
 </html>", revisions="<html>
 <ul>

@@ -1,6 +1,6 @@
 within Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp;
 model EqAirTempVDI
-  "Model for equivalent air temperature as defined in VDI 6007-1"
+  "Model for equivalent air temperature as defined in VDI 6007 Part 1"
 
   extends
     .Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp.partialEqAirTemp;
@@ -23,7 +23,7 @@ equation
   annotation (Documentation(revisions="<html>
 <p><ul>
 <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br/>Implemented.</li>
-<li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality and used assert for warnings.</li>
+<li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality and used assert for warnings.<br>Adapted to Annex 60 requirements.</li>
 </ul></p>
 </html>", info="<html>
 <p>EqAirTempVDI extends from partialEqAirTemp</p>
