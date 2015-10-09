@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.BaseClasses;
+within Annex60.Experimental.ThermalZones.ROM;
 model IntMassVarRC "Interior wall consisting of variable number of RC elements"
   parameter Integer n(min = 1) "Number of RC-elements";
   parameter Modelica.SIunits.ThermalResistance RInt[n]
@@ -59,9 +59,9 @@ equation
               -66,12},{-18,-10}},                                                                                                  lineColor = {0, 0, 0},
             lineThickness =                                                                                                   0.5, fillColor = {255, 255, 255},
             fillPattern =                                                                                                   FillPattern.Solid), Line(points = {{-2, 0}, {-2, -32}}, color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
-                                                                                                    Line(points = {{-19, -32}, {15, -32}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Line(points = {{-19, -44}, {15, -44}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Text(extent = {{-90, 142}, {90, 104}}, lineColor = {0, 0, 255}, textString = "%name"),
-                                                                                                    Line(points={{
+                                                                                                  Line(points = {{-19, -32}, {15, -32}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Line(points = {{-19, -44}, {15, -44}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Text(extent = {{-90, 142}, {90, 104}}, lineColor = {0, 0, 255}, textString = "%name"),
+                                                                                                  Line(points={{
               18,-32},{-20,-32}},                                                                                                    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
-                                                                                                    Line(points={{
+                                                                                                  Line(points={{
               14,-44},{-15,-44}},                                                                                                    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None)}));
 end IntMassVarRC;

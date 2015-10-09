@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones;
+within Annex60.Experimental.ThermalZones.ROM;
 model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
 
   parameter Modelica.SIunits.Volume VAir "Air volume of the zone" annotation(Dialog(group="Thermal zone"));
@@ -111,13 +111,15 @@ public
     "auxilliary port for internal radiative gains" annotation (Placement(
         transformation(extent={{220,90},{240,110}}), iconTransformation(extent={
             {220,90},{240,110}})));
-  BaseClasses.ThermSplitter thermSplitterIntGains(splitFactor=splitFactor, dimension=dimension) if ATot > 0
+  ThermSplitter thermSplitterIntGains(splitFactor=splitFactor, dimension=
+        dimension) if                                                                              ATot > 0
     "splits incoming internal gains into seperate gains for each wall element, weighted by their area"
     annotation (Placement(transformation(extent={{210,78},{190,98}})));
-  BaseClasses.ThermSplitter thermSplitterSolRad(splitFactor=splitFactor, dimension=dimension) if ATot > 0
+  ThermSplitter thermSplitterSolRad(splitFactor=splitFactor, dimension=
+        dimension) if                                                                            ATot > 0
     "splits incoming solar radiation into seperate gains for each wall element, weighted by their area"
     annotation (Placement(transformation(extent={{-152,138},{-136,154}})));
-  BaseClasses.ExtMassVarRC extWallRC(
+  ExtMassVarRC extWallRC(
     n=nExt,
     RExt=RExt,
     CExt=CExt,

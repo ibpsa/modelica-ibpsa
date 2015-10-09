@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.BaseClasses;
+within Annex60.Experimental.ThermalZones.ROM;
 model AggWindow "Aggregates radiation through multiple windows to one window"
   parameter Integer n "number of inputs and weightfactors";
   parameter Real weightfactors[n]

@@ -1,9 +1,8 @@
-within Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp;
+within Annex60.Experimental.ThermalZones.ROM.EqAirTemp;
 model EqAirTempVDI
   "Model for equivalent air temperature as defined in VDI 6007 Part 1"
 
-  extends
-    .Annex60.Experimental.ThermalZones.BaseClasses.EqAirTemp.partialEqAirTemp;
+  extends BaseClasses.partialEqAirTemp;
 
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround - 1) < 0.1), "The sum of the weightfactors (walls,windows and ground) in eqairtemp is <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);

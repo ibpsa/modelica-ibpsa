@@ -1,7 +1,8 @@
-within Annex60.Experimental.ThermalZones;
+within Annex60.Experimental.ThermalZones.ROM;
 model ThermalZoneThreeElements
   "Thermal Zone with three elements for exterior walls, interior walls and floor plate"
-    extends ThermalZoneTwoElements(AArray = {AExt, AWin, AInt, AFloor});
+    extends ROM.ThermalZoneTwoElements(
+                                   AArray = {AExt, AWin, AInt, AFloor});
   parameter Modelica.SIunits.Area AFloor = 0.1 "Area of floor plate" annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaFloor
     "Coefficient of heat transfer of floor plate (indoor)" annotation(Dialog(group="Floor plate"));
@@ -13,7 +14,7 @@ model ThermalZoneThreeElements
                                                                                    annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.HeatCapacity CFloor[nExt]
     "Vector of heat capacities of floor plate, from inside to outside"  annotation(Dialog(group="Floor plate"));
-  BaseClasses.ExtMassVarRC floorRC(
+  ExtMassVarRC floorRC(
     n=nFloor,
     RExt=RFloor,
     RExtRem=RFloorRem,

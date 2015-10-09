@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.BaseClasses;
+within Annex60.Experimental.ThermalZones.ROM;
 model ExtMassVarRC "Exterior wall consisting of variable number of RC elements"
   parameter Integer n(min = 1) "Number of RC-elements";
   parameter Modelica.SIunits.ThermalResistance RExt[n]
@@ -68,9 +68,9 @@ equation
             fillPattern =                                                                                                   FillPattern.Solid), Rectangle(extent = {{28, 12}, {76, -10}}, lineColor = {0, 0, 0},
             lineThickness =                                                                                                   0.5, fillColor = {255, 255, 255},
             fillPattern =                                                                                                   FillPattern.Solid), Line(points = {{-1, 0}, {-1, -32}}, color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
-                                                                                                    Line(points = {{-18, -32}, {16, -32}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Line(points = {{-18, -44}, {16, -44}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Text(extent = {{-90, 142}, {90, 104}}, lineColor = {0, 0, 255}, textString = "%name"),
-                                                                                                    Line(points={{
+                                                                                                  Line(points = {{-18, -32}, {16, -32}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Line(points = {{-18, -44}, {16, -44}}, pattern = LinePattern.None, thickness = 0.5, smooth = Smooth.None), Text(extent = {{-90, 142}, {90, 104}}, lineColor = {0, 0, 255}, textString = "%name"),
+                                                                                                  Line(points={{
               18,-32},{-20,-32}},                                                                                                    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None),
-                                                                                                    Line(points={{
+                                                                                                  Line(points={{
               14,-44},{-15,-44}},                                                                                                    color = {0, 0, 0}, thickness = 0.5, smooth = Smooth.None)}));
 end ExtMassVarRC;

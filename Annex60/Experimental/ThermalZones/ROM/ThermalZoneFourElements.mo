@@ -1,7 +1,8 @@
-within Annex60.Experimental.ThermalZones;
+within Annex60.Experimental.ThermalZones.ROM;
 model ThermalZoneFourElements
   "Thermal Zone with four elements for exterior walls, interior walls, floor plate and roof"
-  extends ThermalZoneThreeElements(AArray = {AExt, AWin, AInt, AFloor, ARoof});
+  extends ROM.ThermalZoneThreeElements(
+                                   AArray = {AExt, AWin, AInt, AFloor, ARoof});
   parameter Modelica.SIunits.Area ARoof = 0.1 "Area of roof" annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRoof
     "Coefficient of heat transfer of roof (indoor)" annotation(Dialog(group="Roof"));
@@ -13,12 +14,12 @@ model ThermalZoneFourElements
                                                                                   annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.HeatCapacity CRoof[nExt]
     "Vector of heat capacities of roof, from inside to outside" annotation(Dialog(group="Roof"));
-  BaseClasses.ExtMassVarRC roofRC(
+  ExtMassVarRC roofRC(
     RExt=RRoof,
     RExtRem=RRoofRem,
     CExt=CRoof,
-    n=nRoof) if      ARoof > 0 "RC-element for roof"
-                               annotation (Placement(transformation(
+    n=nRoof) if      ARoof > 0 "RC-element for roof" annotation (Placement(
+        transformation(
         extent={{10,-11},{-10,11}},
         rotation=90,
         origin={-12,155})));

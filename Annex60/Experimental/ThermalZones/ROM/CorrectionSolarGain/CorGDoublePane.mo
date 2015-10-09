@@ -1,7 +1,7 @@
-within Annex60.Experimental.ThermalZones.BaseClasses.CorrectionSolarGain;
-model CorG_VDI6007
+within Annex60.Experimental.ThermalZones.ROM.CorrectionSolarGain;
+model CorGDoublePane
   "Correction of the solar gain factor according to VDI6007 Part 3"
-  extends PartialCorG;
+  extends BaseClasses.PartialCorG;
   import Modelica.SIunits.Conversions.to_deg;
   parameter Modelica.SIunits.CoefficientOfHeatTransfer Uw
     "Thermal transmission coefficient of whole window";
@@ -93,4 +93,4 @@ annotation (
 <p><i><span style=\"font-family: MS Shell Dlg 2;\">September 12, 2015 </span></i>by Moritz Lauster:</p>
 <p><span style=\"font-family: MS Shell Dlg 2;\">Adapted to Annex 60 requirements.</span></p>
 </html>"));
-end CorG_VDI6007;
+end CorGDoublePane;

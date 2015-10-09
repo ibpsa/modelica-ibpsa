@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.BaseClasses;
+within Annex60.Experimental.ThermalZones.ROM;
 model ThermSplitter
   "A simple model which weights a given set of therm inputs to calculate an average temperature or heat flow and the other way around"
 
