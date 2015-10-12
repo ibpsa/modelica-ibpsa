@@ -96,8 +96,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
-        ={
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,40},{100,-42}},
           lineColor={0,0,0},
