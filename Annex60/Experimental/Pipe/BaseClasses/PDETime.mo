@@ -1,15 +1,11 @@
 within Annex60.Experimental.Pipe.BaseClasses;
-model PDETime "Calculates time delay as the difference between the current simulation time and 
-  the inlet time. The inlet time is propagated with the corresponding fluid parcel 
-  using the spatialDistribution function."
+model PDETime "Delay time for given normalized velocity"
 
-  Modelica.SIunits.Time tin;
-  Modelica.SIunits.Time tout;
-  Modelica.SIunits.Time td;
+  Modelica.SIunits.Time time_out "Virtual time after delay";
 
   Real x "Normalized transport quantity";
 
-  Modelica.Blocks.Interfaces.RealInput u "Normalized speed"
+  Modelica.Blocks.Interfaces.RealInput u "Normalized fluid velocity"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
@@ -17,22 +13,18 @@ model PDETime "Calculates time delay as the difference between the current simul
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   //Speed
-  der(x) = u;
-
-  tin = time;
-  td = time - tout;
+  der(x) = abs(u);
 
   //Spatial distribution of the time
-  (,tout) =
-    spatialDistribution(
-      time,
-      0,
-      x,
-      true,
-      {0.0, 0.5, 1},
-      {0.0, -0.5, -1});
+  (,
+   time_out) = spatialDistribution(time,
+                                    time,
+                                    x,
+                                    true,
+                                    {0.0, 1.0},
+                                    {0.0, 0.0});
 
-  tau = td;
+  tau = time - time_out;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
@@ -66,5 +58,19 @@ equation
         Text(
           extent={{-60,140},{60,100}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}),
+    Documentation(info="<html>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Calculates time delay as the difference between the current simulation time and the inlet time. The inlet time is propagated with the corresponding fluid parcel using the spatialDistribution function.</span></p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 13, 2015 by Marcus Fuchs:<br/>
+Use <code>abs()</code> of normalized velocity input in order to avoid negative delay times.
+</li>
+<li>
+2015 by Bram van der Heijde:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PDETime;
