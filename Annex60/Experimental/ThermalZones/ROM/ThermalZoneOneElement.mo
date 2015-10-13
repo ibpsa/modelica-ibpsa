@@ -7,11 +7,11 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Modelica.SIunits.ThermalResistance RWin "Resistor for windows"
                            annotation(Dialog(group="Windows"));
-  parameter Modelica.SIunits.Area AExt = 0.1 "Area of exterior walls"
-                                                                     annotation(Dialog(group="Exterior walls"));
+  parameter Modelica.SIunits.Area AExt "Area of exterior walls"
+                                                               annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExt
     "Coefficient of heat transfer of exterior walls (indoor)" annotation(Dialog(group="Exterior walls"));
-  parameter Modelica.SIunits.Area AWin = 0.1 "Area of windows"
+  parameter Modelica.SIunits.Area AWin "Area of windows"
                       annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.Area ATransparent
     "Surface area of transparent (solar radiation transmittend) elements" annotation(Dialog(group="Windows"));
@@ -19,9 +19,9 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Coefficient of heat transfer of windows (indoor)" annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.TransmissionCoefficient gWin
     "Total energy transmittance of windows" annotation(Dialog(group="Windows"));
-  parameter Real ratioWinConRad=0
+  parameter Real ratioWinConRad
     "Ratio for windows between indoor convective and radiative heat emission" annotation(Dialog(group="Windows"));
-  parameter Integer nExt(min = 1)=1 "Number of RC-elements of exterior walls" annotation(Dialog(group="Exterior walls"));
+  parameter Integer nExt(min = 1) "Number of RC-elements of exterior walls" annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.ThermalResistance RExt[nExt]
     "Vector of resistances of exterior walls, from inside to outside" annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.ThermalResistance RExtRem

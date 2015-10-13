@@ -3,7 +3,7 @@ model ThermalZoneFourElements
   "Thermal Zone with four elements for exterior walls, interior walls, floor plate and roof"
   extends ROM.ThermalZoneThreeElements(
                                    AArray = {AExt, AWin, AInt, AFloor, ARoof});
-  parameter Modelica.SIunits.Area ARoof = 0.1 "Area of roof" annotation(Dialog(group="Roof"));
+  parameter Modelica.SIunits.Area ARoof "Area of roof" annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRoof
     "Coefficient of heat transfer of roof (indoor)" annotation(Dialog(group="Roof"));
   parameter Integer nRoof(min = 1) "Number of RC-elements of roof" annotation(Dialog(group="Roof"));

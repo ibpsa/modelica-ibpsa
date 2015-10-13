@@ -3,7 +3,7 @@ model ThermalZoneThreeElements
   "Thermal Zone with three elements for exterior walls, interior walls and floor plate"
     extends ROM.ThermalZoneTwoElements(
                                    AArray = {AExt, AWin, AInt, AFloor});
-  parameter Modelica.SIunits.Area AFloor = 0.1 "Area of floor plate" annotation(Dialog(group="Floor plate"));
+  parameter Modelica.SIunits.Area AFloor "Area of floor plate" annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaFloor
     "Coefficient of heat transfer of floor plate (indoor)" annotation(Dialog(group="Floor plate"));
   parameter Integer nFloor(min = 1) "Number of RC-elements of floor plate" annotation(Dialog(group="Floor plate"));

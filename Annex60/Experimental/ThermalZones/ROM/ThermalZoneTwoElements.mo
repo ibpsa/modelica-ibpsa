@@ -3,7 +3,7 @@ model ThermalZoneTwoElements
   "Thermal Zone with two elements for exterior and interior walls"
   extends ROM.ThermalZoneOneElement(
                                 AArray = {AExt, AWin, AInt});
-  parameter Modelica.SIunits.Area AInt = 0.1 "Area of interior walls"    annotation(Dialog(group="Interior walls"));
+  parameter Modelica.SIunits.Area AInt "Area of interior walls"    annotation(Dialog(group="Interior walls"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaInt
     "Coefficient of heat transfer of interior walls (indoor)" annotation(Dialog(group="Interior walls"));
   parameter Integer nInt(min = 1) "Number of RC-elements of interior walls" annotation(Dialog(group="Interior walls"));
