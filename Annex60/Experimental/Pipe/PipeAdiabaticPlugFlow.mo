@@ -1,13 +1,10 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLoss
-  "Pipe model using spatialDistribution for temperature delay with heat losses"
+model PipeAdiabaticPlugFlow
+  "Pipe model using spatialDistribution for temperature delay without heat losses"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
-
-  output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
@@ -27,9 +24,6 @@ model PipeHeatLoss
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")= 2*dpStraightPipe_nominal
     "Pressure drop at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-
-  parameter Real thermTransmissionCoeff(unit="W/(m2/K)")
-    "Thermal transmission coefficient between pipe medium and surrounding";
 
   final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
       Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
@@ -79,86 +73,56 @@ protected
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation(Dialog(group="Advanced", enable=use_mu_default));
 
-  Annex60.Experimental.Pipe.BaseClasses.TempDelaySD temperatureDelay(
+  Annex60.Experimental.Pipe.PipeLosslessPlugFlow temperatureDelay(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final D=diameter,
     final L=length,
     final allowFlowReversal=allowFlowReversal)
     "Model for temperature wave propagation with spatialDistribution operator"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-public
-  BaseClasses.HeatLoss heatLoss(
-    redeclare package Medium = Medium,
-    m_flow_small=m_flow_small,
-    diameter=diameter,
-    length=length,
-    thicknessIns=thicknessIns,
-    thermTransmissionCoeff=thermTransmissionCoeff)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-10,0})));
-public
-  BaseClasses.HeatLoss heatLoss1(
-    redeclare package Medium = Medium,
-    m_flow_small=m_flow_small,
-    diameter=diameter,
-    length=length,
-    thicknessIns=thicknessIns,
-    thermTransmissionCoeff=thermTransmissionCoeff)
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{26,-10},{46,10}})));
 equation
-  heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
-
   connect(port_a, res.port_a) annotation (Line(
       points={{-100,0},{-60,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res.port_b, heatLoss.port_b)
-    annotation (Line(points={{-40,0},{-20,0}}, color={0,127,255}));
-  connect(heatLoss.port_a, temperatureDelay.port_a)
-    annotation (Line(points={{0,0},{20,0}}, color={0,127,255}));
-  connect(temperatureDelay.port_b, heatLoss1.port_a)
-    annotation (Line(points={{40,0},{60,0}}, color={0,127,255}));
-  connect(heatLoss1.port_b, port_b)
-    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),                 Icon(coordinateSystem(
+  connect(res.port_b, temperatureDelay.port_a) annotation (Line(
+      points={{-40,0},{26,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_b, temperatureDelay.port_b) annotation (Line(
+      points={{100,0},{46,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-          Rectangle(
-          extent={{-70,30},{-10,-30}},
-          lineColor={238,46,47},
-          fillPattern=FillPattern.Solid,
-          fillColor={238,46,47}),
-                                Rectangle(
-          extent={{12,30},{72,-30}},
-          lineColor={238,46,47},
-          fillPattern=FillPattern.Solid,
-          fillColor={238,46,47}),
-        Text(
-          extent={{-62,24},{-20,-22}},
-          lineColor={255,255,255},
-          lineThickness=0.5,
-          textString="dp"),
-        Text(
-          extent={{22,24},{64,-22}},
-          lineColor={255,255,255},
-          lineThickness=0.5,
-          textString="dt"),               Polygon(
-          points={{0,98},{40,60},{20,60},{20,36},{-20,36},{-20,60},{-40,60},{0,98}},
+        Rectangle(
+          extent={{-100,40},{100,-42}},
           lineColor={0,0,0},
-          fillColor={238,46,47},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-100,30},{100,-28}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          extent={{-26,30},{30,-28}},
+          lineColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder)}),
     Documentation(revisions="<html>
 <ul>
 <li>
-September, 2015 by Marcus Fuchs:<br/>
+October 10, 2015 by Marcus Fuchs:<br/>
+Copy Icon from KUL implementation and rename model.
+</li>
+<li>
+June 23, 2015 by Marcus Fuchs:<br/>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>First implementation of a pipe with heat loss using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
-<p>This setup is meant as a benchmark for more sophisticated implementations. It seems to generally work ok except for the cooling effects on the standing fluid in case of zero mass flow.</p>
-<p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used before and after the time delay.</p>
+<p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
 </html>"));
-end PipeHeatLoss;
+end PipeAdiabaticPlugFlow;

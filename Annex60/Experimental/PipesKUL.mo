@@ -7,7 +7,7 @@ package PipesKUL
   model PlugFlowLosslessPipe
     "Pipe with a temperature plug flow without pressure losses"
      //Extensions
-    extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
+    extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
 
     //Parameters
     parameter Modelica.SIunits.Length L "Pipe length";
@@ -69,8 +69,8 @@ package PipesKUL
   model PlugFlowPipe
     "Adiabatic pipe model with a temperature plug flow and pressure losses"
     //Extensions
-    extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
-    extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters;
+    extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
+    extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters;
 
     //Parameters
     parameter Modelica.SIunits.Length pipeLength;
@@ -148,10 +148,10 @@ package PipesKUL
     "Pipe model with a temperature plug flow, pressure losses and heat exchange to the environment"
 
     //Extensions
-    extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
-    extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
+    extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
+    extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations(
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);
-    extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters;
+    extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters;
 
     //Parameters
     parameter Modelica.SIunits.Length L;
@@ -206,7 +206,7 @@ package PipesKUL
       annotation (Placement(transformation(extent={{-58,24},{-38,44}})));
     BaseClasses.ExponentialDecay tempDecay(C=C, R=R)
       annotation (Placement(transformation(extent={{12,20},{32,40}})));
-    IDEAS.Fluid.Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal,
+    Annex60.Fluid.Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal,
         redeclare package Medium = Medium,
       tau=0)
       annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -219,7 +219,7 @@ package PipesKUL
       massDynamics=massDynamics,
       allowFlowReversal=allowFlowReversal)
       annotation (Placement(transformation(extent={{62,0},{82,20}})));
-    Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature1
+    Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature1
       annotation (Placement(transformation(extent={{46,4},{58,16}})));
   equation
     //Normalized speed of the fluid [1/s]
@@ -326,12 +326,12 @@ package PipesKUL
   temperature at the outer surface of the pipe system. */
 
     //Extensions
-    extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(
+    extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations(
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);
 
-    extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters;
+    extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters;
 
-    extends IDEAS.Fluid.Interfaces.PartialFourPortInterface(
+    extends Annex60.Fluid.Interfaces.PartialFourPortInterface(
       redeclare final package Medium1=Medium,
       redeclare final package Medium2=Medium,
       final m1_flow_nominal=m_flow_nominal,
@@ -396,7 +396,7 @@ package PipesKUL
       annotation (Placement(transformation(extent={{-50,8},{-30,28}})));
     Modelica.Blocks.Sources.RealExpression realExpression(y=u)
       annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
-    IDEAS.Fluid.Sensors.TemperatureTwoPort senTem1(
+    Annex60.Fluid.Sensors.TemperatureTwoPort senTem1(
       m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium,
       tau=0,
@@ -422,7 +422,7 @@ package PipesKUL
       linearizeFlowResistance=linearizeFlowResistance,
       deltaM=deltaM)
       annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
-    IDEAS.Fluid.Sensors.TemperatureTwoPort senTem2(
+    Annex60.Fluid.Sensors.TemperatureTwoPort senTem2(
                                                   m_flow_nominal=m_flow_nominal,
         redeclare package Medium = Medium,
       tau=0,
@@ -442,9 +442,9 @@ package PipesKUL
       Ra=Ra,
       Rs=Rs)
       annotation (Placement(transformation(extent={{12,0},{32,20}})));
-    Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
+    Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
       annotation (Placement(transformation(extent={{-44,-56},{-56,-44}})));
-    Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature1
+    Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature1
       annotation (Placement(transformation(extent={{44,44},{56,56}})));
   equation
     //Normalized speed of the fluid [1/s]
