@@ -32,8 +32,8 @@ model ReverseFlow
         origin={-70,0})));
   Modelica.Blocks.Sources.Step stepT(
     height=10,
-    startTime=20,
-    offset=273.15 + 20)
+    offset=273.15 + 20,
+    startTime=200)
     "Step temperature increase to test propagation of temperature wave"
     annotation (Placement(transformation(extent={{60,72},{80,92}})));
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
@@ -64,5 +64,7 @@ equation
   connect(senTemOut.port_b, sin1.ports[1])
     annotation (Line(points={{40,0},{60,0}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})));
+            -100},{100,100}})),
+    experiment(StopTime=20000, __Dymola_NumberOfIntervals=5000),
+    __Dymola_experimentSetupOutput);
 end ReverseFlow;
