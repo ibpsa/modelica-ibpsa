@@ -123,7 +123,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(masFloSer.port_a, senTemSerOut.port_b) annotation (Line(
-      points={{88,40},{86,40},{86,40},{82,40},{82,40},{76,40}},
+      points={{88,40},{76,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou1.ports[1], senTemSerIn.port_a) annotation (Line(
