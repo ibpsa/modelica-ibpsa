@@ -26,7 +26,7 @@ equation
                                     {0.0, 1.0},
                                     {0.0, 0.0});
 
-  if u > 0 then
+  if u >= 0 then
     tau = time - time_out_b;
   else
     tau = time - time_out_a;
