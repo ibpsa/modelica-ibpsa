@@ -18,14 +18,14 @@ model CompHeatLossPipe "Comparison of KUL A60 pipes with heat loss"
         Medium,
     use_p_in=true,
     use_T_in=true,
-    nPorts=2,
+    nPorts=4,
     T=293.15)
     "Source with high pressure at beginning and lower pressure at end of experiment"
                           annotation (Placement(transformation(extent={{-88,28},
             {-68,48}})));
   Annex60.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
         Medium,
-    nPorts=2,
+    nPorts=4,
     use_p_in=true,
     T=283.15)
     "Sink at with constant pressure, turns into source at the end of experiment"
@@ -99,13 +99,69 @@ model CompHeatLossPipe "Comparison of KUL A60 pipes with heat loss"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 5)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    Annex60.Experimental.Pipe.PipeHeatLossKUL_modified KULHeatLoss_mod(
+    redeclare package Medium = Medium,
+    m_flow_nominal=0.5,
+    diameter=diameter,
+    length=length,
+    thicknessIns=0.02,
+    lambdaI=0.01) "KUL implementation of plug flow pipe with heat losses"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={30,-70})));
+  Annex60.Fluid.Sensors.MassFlowRate masFloKUL1(
+                                              redeclare package Medium = Medium)
+    "Mass flow rate sensor for the KUL lossless pipe"
+    annotation (Placement(transformation(extent={{88,-80},{108,-60}})));
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULOut1(
+                                                        redeclare package
+      Medium = Medium, m_flow_nominal=0.5)
+    "Temperature sensor for the outflow from the KUL lossless pipe"
+    annotation (Placement(transformation(extent={{56,-80},{76,-60}})));
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULIn1(
+                                                       redeclare package Medium
+      = Medium, m_flow_nominal=0.5)
+    "Temperature sensor of the inflow to the KUL lossless pipe"
+    annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
+  Modelica.Blocks.Sources.Constant const1(
+                                         k=273.15 + 5)
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+    Annex60.Experimental.Pipe.PipeHeatLossKUL_Reverse KULHeatLoss_reverse(
+    redeclare package Medium = Medium,
+    m_flow_nominal=0.5,
+    diameter=diameter,
+    length=length,
+    thicknessIns=0.02,
+    lambdaI=0.01) "KUL implementation of plug flow pipe with heat losses"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={28,-128})));
+  Annex60.Fluid.Sensors.MassFlowRate masFloKUL2(
+                                              redeclare package Medium = Medium)
+    "Mass flow rate sensor for the KUL lossless pipe"
+    annotation (Placement(transformation(extent={{86,-138},{106,-118}})));
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULOut2(
+                                                        redeclare package
+      Medium = Medium, m_flow_nominal=0.5)
+    "Temperature sensor for the outflow from the KUL lossless pipe"
+    annotation (Placement(transformation(extent={{54,-138},{74,-118}})));
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemKULIn2(
+                                                       redeclare package Medium
+      = Medium, m_flow_nominal=0.5)
+    "Temperature sensor of the inflow to the KUL lossless pipe"
+    annotation (Placement(transformation(extent={{-62,-138},{-42,-118}})));
+  Modelica.Blocks.Sources.Constant const2(
+                                         k=273.15 + 5)
+    annotation (Placement(transformation(extent={{-22,-108},{-2,-88}})));
 equation
   connect(PAtm.y, sin1.p_in)
                             annotation (Line(points={{147,86},{154,86},{154,46},
           {142,46}},
                    color={0,0,127}));
   connect(sin1.ports[1],masFloA60. port_b) annotation (Line(
-      points={{120,40},{108,40}},
+      points={{120,41},{114,41},{114,40},{108,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(stepT.y, sou1.T_in) annotation (Line(
@@ -133,7 +189,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou1.ports[1],senTemA60In. port_a) annotation (Line(
-      points={{-68,40},{-60,40}},
+      points={{-68,41},{-64,41},{-64,40},{-60,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(masFloKUL.port_a,senTemKULOut. port_b) annotation (Line(
@@ -141,11 +197,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou1.ports[2],senTemKULIn. port_a) annotation (Line(
-      points={{-68,36},{-66,36},{-66,-20},{-60,-20}},
+      points={{-68,39},{-66,39},{-66,-20},{-60,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(masFloKUL.port_b, sin1.ports[2]) annotation (Line(
-      points={{108,-20},{114,-20},{114,36},{120,36}},
+      points={{108,-20},{114,-20},{114,39},{120,39}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(KULHeatLoss.port_b, senTemKULOut.port_a) annotation (Line(
@@ -158,11 +214,51 @@ equation
     annotation (Line(points={{-40,-20},{20,-20}}, color={0,127,255}));
   connect(const.y,KULHeatLoss. TBoundary)
     annotation (Line(points={{1,10},{30,10},{30.2,-15}}, color={0,0,127}));
+  connect(masFloKUL1.port_a, senTemKULOut1.port_b) annotation (Line(
+      points={{88,-70},{76,-70}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(KULHeatLoss_mod.port_b, senTemKULOut1.port_a) annotation (Line(
+      points={{40,-70},{56,-70}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTemKULIn1.port_b, KULHeatLoss_mod.port_a)
+    annotation (Line(points={{-40,-70},{20,-70}}, color={0,127,255}));
+  connect(const1.y, KULHeatLoss_mod.TBoundary)
+    annotation (Line(points={{1,-40},{30,-40},{30.2,-65}}, color={0,0,127}));
+  connect(masFloKUL2.port_a, senTemKULOut2.port_b) annotation (Line(
+      points={{86,-128},{74,-128}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(KULHeatLoss_reverse.port_b, senTemKULOut2.port_a) annotation (Line(
+      points={{38,-128},{54,-128}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTemKULIn2.port_b, KULHeatLoss_reverse.port_a)
+    annotation (Line(points={{-42,-128},{18,-128}}, color={0,127,255}));
+  connect(const2.y, KULHeatLoss_reverse.TBoundary)
+    annotation (Line(points={{-1,-98},{28,-98},{28.2,-123}}, color={0,0,127}));
+  connect(masFloKUL1.port_b, sin1.ports[3]) annotation (Line(
+      points={{108,-70},{118,-70},{118,-72},{120,-72},{120,37}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(masFloKUL2.port_b, sin1.ports[4]) annotation (Line(
+      points={{106,-128},{116,-128},{116,35},{120,35}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTemKULIn2.port_a, sou1.ports[3]) annotation (Line(
+      points={{-62,-128},{-68,-128},{-68,-124},{-68,-124},{-68,37}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTemKULIn1.port_a, sou1.ports[4]) annotation (Line(
+      points={{-60,-70},{-68,-70},{-68,35}},
+      color={0,127,255},
+      smooth=Smooth.None));
     annotation (experiment(StopTime=200000, __Dymola_NumberOfIntervals=5000),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{
-            160,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-180},{
+            160,100}}), graphics),
     Documentation(info="<html>
 <p>This example compares the KUL and A60 pipe with heat loss implementations.</p>
 <p>This is only a first glimpse at the general behavior. Next step is to parameterize 
