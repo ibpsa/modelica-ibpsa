@@ -14,8 +14,30 @@ record PipeDataULgBaseDefinition
 <p>Column 4: Outlet water temperature in C</p>
 <p><span style=\"font-family: MS Shell Dlg 2;\">Column 5: Inlet pipe temperature in C</span></p>
 <p><span style=\"font-family: MS Shell Dlg 2;\">Column 6: Inlet water temperature in C</span></p>
+<p><b><span style=\"color: #008000;\">Pipe characteristics</span></b> </p>
+<ul>
+<li>Metal density about 7800 kg/m³</li>
+<li>Specific heat capacity about 480 J/kg/K</li>
+<li>Thickness 3.91 mm</li>
+<li>Inside diameter: 0.05248 m</li>
+<li>Roughness is currently neglected</li>
+<li>Initial temperature of the pipe is considered equal to the initial temperature of the water (cooliing before test)</li>
+<li>Heat transfer coefficient between the pipe and the ambient is assumed at 5 W/m²/K (from internal model) due to insulation</li><!-- TODO find again the insulation thickness and the thermal conductivity-->
+<li>Heat transfer coefficient between water and pipe is a function of the fluid temperature (determined by EES software)</li>
+</ul>
+<p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
+<p><img src=\"modelica://Annex60/Resources/Images/Experimental/ULgTestBench.png\" border=\"1\"/></p>
+<p>Notice: length are approximative</p>
+<p><b><span style=\"color: #008000;\">Test procedure</span></b> </p>
+<p>Before to perform a test, the water city network is pushed inside the studied pipe during about 10 minutes to be sure that it is at the same temperature. During this time period, valves V3 and V1 are opened, the boiler is off and the valve V2 is closed.
+Then, the valve V1 is closed and the valve V2 and V3 are opened. The boiler is started to reach the setpoint hot water temperature. When the temperature setpoint is achieved, the valve V1 is opened and the valve V2 is closed at the same time to supply the studied pipe in hot water.
+After the outlet pipe temperature is stabilized, the boiler is shut off.</p>
 </html>",  revisions="<html>
 <ul>
+<li>
+October 14, 2015 by Kevin Sartor:<br/>
+Add documentation about the test bench and how is conducted the experiment
+</li>
 <li>
 October 12, 2015 by Marcus Fuchs:<br/>
 Add rudimentary documentation and integrate into experimental pipe package

@@ -278,7 +278,11 @@ record PipeDataULg150801
       871.8,1.245,30.62113,31.155243,30.130763,30.13868;
       874.88,1.245,30.604182,31.133348,30.108369,30.109726]);
   annotation (Documentation(revisions="<html>
-<ul>
+  <ul>
+<li>
+October 14, 2015 by Kevin Sartor:<br/>
+Add some information about the test.
+</li>
 <li>
 October 12, 2015 by Marcus Fuchs:<br/>
 Add rudimentary documentation and integrate into experimental pipe package
@@ -289,6 +293,7 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
+<p>The ambient temperature is equal to 18°C</p>
 <p>The mass flow rate for this test was set to 1.245 kg/s.</p>
 <p>Pipe properties were:</p>
 <p>-<span style=\"font-family: Times New Roman; font-size: 7pt;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Density about 7800 kg/m&sup3; </p>
@@ -297,6 +302,6 @@ First implementation.
 <p>-<span style=\"font-family: Times New Roman; font-size: 7pt;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Inside diameter: 0.05248m </p>
 <p>-<span style=\"font-family: Times New Roman; font-size: 7pt;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Roughness is currently neglected </p>
 <p>-<span style=\"font-family: Times New Roman; font-size: 7pt;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Initial temperature of the pipe is considered equal to the initial temperature of the water </p>
-<p>-<span style=\"font-family: Times New Roman; font-size: 7pt;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Heat transfer coefficient between the pipe and the ambient of 5 W/m&sup2;/K (from internal model) </p>
+<p>-<span style=\"font-family: Times New Roman; font-size: 7pt;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Heat transfer coefficient between the pipe and the ambient of 5 W/m&sup2;/K (from internal model). The pipe is insulated by Tubollt 60/13 (13mm of thickness) whose the nominal thermal coefficient is inferior 0.04. Notice the insulation is quite aged therefore the nominal thermal coefficient could be higher </p>
 </html>"));
 end PipeDataULg150801;
