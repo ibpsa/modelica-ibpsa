@@ -74,7 +74,7 @@ annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
+        grid={2,2})),
     Documentation(info="<html>
 <h4><span style=\"color: #000000\">Overview</span></h4>
 <p>This model computes the transmission correction factors for solar radiation through a double pane window depending on the incidence angle, based on the VDI 6007 Part 3.</p>

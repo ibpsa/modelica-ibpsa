@@ -12,20 +12,24 @@ partial model PartialCorG
   Modelica.Blocks.Interfaces.RealInput HSkyDifTil[n](final quantity="RadiantEnergyFluenceRate",
       final unit="W/m2")
     "Hemispherical diffuse solar irradiation on a tilted surfce from the sky"
-    annotation (Placement(transformation(extent={{-120,-30},{-80,10}})));
+    annotation (Placement(transformation(extent={{-120,-2},{-80,38}}),
+        iconTransformation(extent={{-120,-2},{-80,38}})));
   Modelica.Blocks.Interfaces.RealInput HDirTil[n](
      final quantity="RadiantEnergyFluenceRate",
      final unit="W/m2")
     "Direct solar radiation on a tilted surface per unit area"
-    annotation (Placement(transformation(extent={{-120,10},{-80,50}})));
+    annotation (Placement(transformation(extent={{-120,40},{-80,80}}),
+        iconTransformation(extent={{-120,40},{-80,80}})));
   Modelica.Blocks.Interfaces.RealInput HGroDifTil[n](final quantity=
     "RadiantEnergyFluenceRate", final unit="W/m2")
     "Hemispherical diffuse solar irradiation on a tilted surfce from the ground"
-    annotation (Placement(transformation(extent={{-120,-70},{-80,-30}})));
+    annotation (Placement(transformation(extent={{-120,-44},{-80,-4}}),
+        iconTransformation(extent={{-120,-44},{-80,-4}})));
   Modelica.Blocks.Interfaces.RealInput inc[n](final quantity="Angle",
     final unit="rad",
     displayUnit="deg") "Incidence angles"
-    annotation (Placement(transformation(extent={{-120,-110},{-80,-70}})));
+    annotation (Placement(transformation(extent={{-120,-86},{-80,-46}}),
+        iconTransformation(extent={{-120,-86},{-80,-46}})));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
