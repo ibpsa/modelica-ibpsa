@@ -45,7 +45,7 @@ An orifice equation is used to compute the flow for each compartment.
 <p>
 In this model, the door is always open.
 Use the model
-<a href=\"modelica://Buildings.Airflow.Multizone.DoorDiscretizedOperable\">
+<a href=\"modelica://Annex60.Airflow.Multizone.DoorDiscretizedOperable\">
 Buildings.Airflow.Multizone.DoorDiscretizedOperable</a>
 for a door that can either be open or closed.
 </p>
@@ -64,7 +64,7 @@ Renamed protected parameters for consistency with the naming conventions.
 </li>
 <li><i>August 12, 2011</i> by Michael Wetter:<br/>
        Changed model to use the new function
-       <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
+       <a href=\"modelica://Annex60.Airflow.Multizone.BaseClasses.powerLawFixedM\">
        Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
 </li>
 <li><i>July 20, 2010</i> by Michael Wetter:<br/>

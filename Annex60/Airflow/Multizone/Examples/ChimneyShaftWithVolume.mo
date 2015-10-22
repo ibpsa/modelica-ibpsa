@@ -168,7 +168,7 @@ equation
     Documentation(info="<html>
 <p>
 This model is identical to
-<a href=\"modelica://Buildings.Airflow.Multizone.Examples.ChimneyShaftNoVolume\">
+<a href=\"modelica://Annex60.Airflow.Multizone.Examples.ChimneyShaftNoVolume\">
 Buildings.Airflow.Multizone.Examples.ChimneyShaftNoVolume</a>,
 except that the chimney model is not steady-state, but rather dynamic
 as it contains an air volume. The air volume is approximated

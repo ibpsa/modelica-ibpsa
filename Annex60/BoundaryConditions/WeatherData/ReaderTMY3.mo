@@ -202,7 +202,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
 
   //--------------------------------------------------------------
   parameter String filNam="" "Name of weather data file" annotation (Dialog(
-        __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
+        loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     Annex60.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
@@ -1213,6 +1213,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>", revisions="<html>
 <ul>
 <li>
+September 24, 2015, by Marcus Fuchs:<br/>
+Replace annotation <code>__Dymola_loadSelector</code> by <code>loadSelector</code> 
+for MSL compliancy as reported by @tbeu at 
+<a href=\"https://github.com/RWTH-EBC/AixLib/pull/107\">RWTH-EBC/AixLib#107</a>
+</li>
+<li>
 June 6, 2015, by Michael Wetter:<br/>
 Removed redundant but consistent
 <code>connect(TBlaSkyCom.TBlaSky, weaBus.TBlaSky)</code>
@@ -1229,7 +1235,7 @@ March 26, 2015, by Michael Wetter:<br/>
 Added option to obtain the black body sky temperature
 from a parameter or an input signal.
 This is required for
-<a href=\"modelica://Buildings.Rooms.Validation.MixedAirInitialization\">
+<a href=\"modelica://Annex60.Rooms.Validation.MixedAirInitialization\">
 Buildings.Rooms.Validation.MixedAirInitialization</a>.
 </li>
 <li>
