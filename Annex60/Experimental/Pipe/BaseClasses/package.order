@@ -3,3 +3,4 @@ ExponentialDecay
 PDETime
 PDETime_modified
 HeatLossMod
+HeatLossDouble
