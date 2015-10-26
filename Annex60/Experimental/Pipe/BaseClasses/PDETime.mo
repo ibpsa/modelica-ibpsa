@@ -1,9 +1,11 @@
 within Annex60.Experimental.Pipe.BaseClasses;
 model PDETime "Delay time for given normalized velocity"
 
-  Modelica.SIunits.Time time_out "Virtual time after delay";
+  Modelica.SIunits.Time time_out_a "Virtual time after delay at port a";
+  Modelica.SIunits.Time time_out_b "Virtual time after delay at port b";
 
-  Real x "Normalized transport quantity";
+  Real x "Spatial coordinate for spatialDistribution";
+  Real tau2= abs(time_out_a-time_out_b);
 
   Modelica.Blocks.Interfaces.RealInput u "Normalized fluid velocity"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -13,18 +15,22 @@ model PDETime "Delay time for given normalized velocity"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   //Speed
-  der(x) = abs(u);
+  der(x) = u;
 
   //Spatial distribution of the time
-  (,
-   time_out) = spatialDistribution(time,
+  (time_out_a,
+   time_out_b) = spatialDistribution(time,
                                     time,
                                     x,
-                                    true,
+                                    u>=0,
                                     {0.0, 1.0},
                                     {0.0, 0.0});
 
-  tau = time - time_out;
+  if u >= 0 then
+    tau = time - time_out_b;
+  else
+    tau = time - time_out_a;
+  end if;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
@@ -64,11 +70,15 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+October 15, 2015 by Bram van der Heijde:<br/>
+Implementation that allows flow reversal and a correct computation of the delay time.
+</li>
+<li>
 October 13, 2015 by Marcus Fuchs:<br/>
 Use <code>abs()</code> of normalized velocity input in order to avoid negative delay times.
 </li>
 <li>
-2015 by Bram van der Heijde:<br/>
+2015 by Arnout Aertgeerts:<br/>
 First implementation.
 </li>
 </ul>

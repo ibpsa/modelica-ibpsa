@@ -1,5 +1,6 @@
 within Annex60.Experimental.Pipe.Examples.Comparisons;
-model CompHeatLossPipe "Comparison of KUL A60 pipes with heat loss"
+model NoReverseCompHeatLossPipe
+  "Comparison of KUL A60 pipes with heat loss without reverse flow"
   import Annex60;
   extends Modelica.Icons.Example;
 
@@ -40,21 +41,7 @@ model CompHeatLossPipe "Comparison of KUL A60 pipes with heat loss"
     offset=273.15 + 20,
     startTime=10000)
     "Step temperature increase to test propagation of temperature wave"
-    annotation (Placement(transformation(extent={{-118,10},{-98,30}})));
-  Modelica.Blocks.Sources.Ramp decreaseP(
-    duration=1800,
-    height=-dp_test,
-    offset=101325 + dp_test,
-    startTime=50000) "Decreasing pressure difference to zero-mass-flow"
-    annotation (Placement(transformation(extent={{-156,80},{-136,100}})));
-  Modelica.Blocks.Sources.Ramp reverseDP(
-    duration=1800,
-    offset=0,
-    height=-dp_test,
-    startTime=140000) "Reverse the flow after a period of zero-mass-flow"
-    annotation (Placement(transformation(extent={{-156,40},{-136,60}})));
-  Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
-    annotation (Placement(transformation(extent={{-118,60},{-98,80}})));
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Annex60.Experimental.Pipe.PipeHeatLossA60Ref A60PipeHeatLoss(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
@@ -155,6 +142,18 @@ model CompHeatLossPipe "Comparison of KUL A60 pipes with heat loss"
   Modelica.Blocks.Sources.Constant const2(
                                          k=273.15 + 5)
     annotation (Placement(transformation(extent={{-22,-108},{-2,-88}})));
+  Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+      table=[0,1; 3000,1; 5000,0; 10000,0; 12000,1; 17000,1; 19000,0; 30000,0;
+        32000,1; 50000,1; 52000,0; 80000,0; 82000,1; 100000,1; 102000,0; 150000,
+        0; 152000,1; 160000,1; 162000,0; 163500,0; 165500,1; 200000,1])
+    annotation (Placement(transformation(extent={{-190,60},{-170,80}})));
+  Modelica.Blocks.Math.Gain gain(k=dp_test)
+    annotation (Placement(transformation(extent={{-150,60},{-130,80}})));
+  Modelica.Blocks.Math.Add add
+    annotation (Placement(transformation(extent={{-118,66},{-98,86}})));
+  Modelica.Blocks.Sources.Constant PAtm1(
+                                        k=101325) "Atmospheric pressure"
+      annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
   Annex60.Fluid.Sensors.MassFlowRate masFloA60Mod(redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 modified temperature delay"
     annotation (Placement(transformation(extent={{88,70},{108,90}})));
@@ -187,19 +186,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(stepT.y, sou1.T_in) annotation (Line(
-      points={{-97,20},{-90,20},{-90,42}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(decreaseP.y, add.u1) annotation (Line(
-      points={{-135,90},{-130,90},{-130,76},{-120,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(reverseDP.y, add.u2) annotation (Line(
-      points={{-135,50},{-128,50},{-128,64},{-120,64}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add.y, sou1.p_in) annotation (Line(
-      points={{-97,70},{-94,70},{-94,46},{-90,46}},
+      points={{-99,30},{-90,30},{-90,42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(A60PipeHeatLoss.port_b, senTemA60Out.port_a) annotation (Line(
@@ -276,27 +263,36 @@ equation
       points={{-60,-70},{-68,-70},{-68,36.4}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(A60PipeHeatLossMod.port_b, senTemA60ModOut.port_a) annotation (Line(
+  connect(combiTimeTable.y[1], gain.u)
+    annotation (Line(points={{-169,70},{-152,70}}, color={0,0,127}));
+  connect(gain.y, add.u2)
+    annotation (Line(points={{-129,70},{-120,70}},        color={0,0,127}));
+  connect(PAtm1.y, add.u1) annotation (Line(points={{-137,98},{-124,98},{-124,
+          82},{-120,82}},
+                     color={0,0,127}));
+  connect(add.y, sou1.p_in) annotation (Line(points={{-97,76},{-88,76},{-98,56},
+          {-98,56},{-98,46},{-90,46}}, color={0,0,127}));
+  connect(A60PipeHeatLossMod.port_b,senTemA60ModOut. port_a) annotation (Line(
       points={{40,80},{56,80}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(masFloA60Mod.port_a, senTemA60ModOut.port_b) annotation (Line(
+  connect(masFloA60Mod.port_a,senTemA60ModOut. port_b) annotation (Line(
       points={{88,80},{76,80}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemA60ModIn.port_b, A60PipeHeatLossMod.port_a)
+  connect(senTemA60ModIn.port_b,A60PipeHeatLossMod. port_a)
     annotation (Line(points={{-40,80},{20,80}}, color={0,127,255}));
+  connect(const3.y,A60PipeHeatLossMod. T_amb)
+    annotation (Line(points={{1,110},{30,110},{30,90}}, color={0,0,127}));
   connect(sou1.ports[5], senTemA60ModIn.port_a)
     annotation (Line(points={{-68,34.8},{-60,80}}, color={0,127,255}));
-  connect(sin1.ports[5], masFloA60Mod.port_b)
-    annotation (Line(points={{120,34.8},{108,80}}, color={0,127,255}));
-  connect(const3.y, A60PipeHeatLossMod.T_amb)
-    annotation (Line(points={{1,110},{30,110},{30,90}}, color={0,0,127}));
+  connect(sin1.ports[5], masFloA60Mod.port_b) annotation (Line(points={{120,
+          34.8},{118,80},{108,80}}, color={0,127,255}));
     annotation (experiment(StopTime=200000, __Dymola_NumberOfIntervals=5000),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-180},{160,
-            140}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{
+            160,140}})),
     Documentation(info="<html>
 <p>This example compares the KUL and A60 pipe with heat loss implementations.</p>
 <p>This is only a first glimpse at the general behavior. Next step is to parameterize 
@@ -312,4 +308,4 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_experimentSetupOutput);
-end CompHeatLossPipe;
+end NoReverseCompHeatLossPipe;
