@@ -52,7 +52,6 @@ model Staircase
     "Air column between staircase air volume and lower staircase element"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
         origin={0,-60})));
 
   Airflow.Multizone.MediumColumn col1(
@@ -102,82 +101,66 @@ model Staircase
 equation
   connect(conRoom.port_b, volumeStairs.heatPort) annotation (Line(
       points={{10,0},{20,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(port_a_bot, port_a_bot) annotation (Line(
       points={{0,-100},{0,-100}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_a_bot, col2.port_b) annotation (Line(
       points={{0,-100},{0,-70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(doo.port_b1, port_b_toHallway) annotation (Line(
       points={{-90,-6},{-92,-6},{-92,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(doo.port_a2, port_a_toHallway) annotation (Line(
       points={{-90,6},{-92,6},{-92,60},{-100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(const.y, doo.y) annotation (Line(
       points={{-60,23.4},{-60,0},{-69,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(ori.port_b, port_a_top) annotation (Line(
       points={{4.44089e-016,88},{4.44089e-016,96},{0,96},{0,98}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(ori.port_a, col1.port_a) annotation (Line(
       points={{-6.66134e-016,68},{-6.66134e-016,64},{0,64},{0,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(doo.port_b2, volumeStairs.ports[1]) annotation (Line(
       points={{-70,6},{-56,6},{-56,-24},{27,-24},{27,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(doo.port_a1, volumeStairs.ports[2]) annotation (Line(
       points={{-70,-6},{-62,-6},{-62,-26},{29,-26},{29,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(col2.port_a, volumeStairs.ports[3]) annotation (Line(
       points={{0,-50},{0,-28},{31,-28},{31,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(col1.port_b, volumeStairs.ports[4]) annotation (Line(
       points={{0,40},{0,32},{62,32},{62,-26},{33,-26},{33,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preTemp.port, conRoom.port_a) annotation (Line(
       points={{-20,0},{-10,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(preTemp.T, weaBus.TDryBul) annotation (Line(points={{-42,0},{-48,0},{
           -48,20},{80,20},{80,0},{100,0}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}},
-          preserveAspectRatio=false)),                                   Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})),
-    Documentation(info="<html>
+  annotation (    Documentation(info="<html>
 <p>An air volume to represent a staircase element for a scalable air flow benchmark. </p>
 <h4>Assumptions and limitations</h4>
-<p>This is a very simple room representation. The model is intended to roughly approximate a first 
-order response of the zone to changes in outdoor air temperature. This is achieved by a thermal 
-resistance in model <code>conRoom</code> and the capitancy of the mixing volume represented by the 
-value for <code>mSenFac</code>. The G-Value of <code>conRoom</code> is approximated by the area of 
-one outside wall multiplied with a U-Value of<i> 1 W/(m&sup2; K)</i>. The value for <code>mSenFac</code> 
-has been estimated from comparisons with other room models as shown in 
+<p>This is a very simple room representation. The model is intended to roughly approximate a first
+order response of the zone to changes in outdoor air temperature. This is achieved by a thermal
+resistance in model <code>conRoom</code> and the capitancy of the mixing volume represented by the
+value for <code>mSenFac</code>. The G-Value of <code>conRoom</code> is approximated by the area of
+one outside wall multiplied with a U-Value of<i> 1 W/(m&sup2; K)</i>. The value for <code>mSenFac</code>
+has been estimated from comparisons with other room models as shown in
 <a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse\">
-Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse</a>. For this model, a value for 
-<code>mSenFac</code> slightly lower than in 
+Annex60.Experimental.Benchmarks.AirFlow.Examples.ZoneStepResponse</a>. For this model, a value for
+<code>mSenFac</code> slightly lower than in
 <a href=\"modelica://Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone\">
 Annex60.Experimental.Benchmarks.AirFlow.Components.SimpleZone</a> has been chosen.</p>
 <h4>Typical use and important parameters</h4>
-<p><code>port_a_toHallway</code> and <code>port_b_toHallway</code> should be connected to the 
-corresponding ports of a hallway model. <code>port_a_top</code> and <code>port_b_top</code> can be 
-connected to another staircase model via its respective <code>port_a_bot</code> and 
+<p><code>port_a_toHallway</code> and <code>port_b_toHallway</code> should be connected to the
+corresponding ports of a hallway model. <code>port_a_top</code> and <code>port_b_top</code> can be
+connected to another staircase model via its respective <code>port_a_bot</code> and
 <code>port_b_bot</code>. </p>
 <h4>References</h4>
-<p>Inspired by 
+<p>Inspired by
 <a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
 Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>",
@@ -185,9 +168,9 @@ Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 <ul>
 <li>
 September, 2, 2015 by Marcus Fuchs:<br/>
-Add start values to the ports and temperature in the <code>ThermalConductor</code> and the 
-<code>PrescripedTemperature</code> model. This is for 
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\"> #266</a>, 
+Add start values to the ports and temperature in the <code>ThermalConductor</code> and the
+<code>PrescripedTemperature</code> model. This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\"> #266</a>,
 to work with Dymola 2016 in pedantic mode.
 </li>
 <li>
