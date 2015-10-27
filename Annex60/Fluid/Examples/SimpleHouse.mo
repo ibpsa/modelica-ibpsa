@@ -253,10 +253,10 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This model contains a very simple model of a house, 
+This model contains a simple model of a house
 with a heating system, ventilation and weather boundary conditions. 
-It servers as a demonstration case of how the Annex 60 library can be used. 
-This model was demonstrated at the joint Annex 60 meeting in Leuven on 18 september 2015.
+It servers as a demonstration case of how the <code>Annex60</code> library can be used. 
+This model was demonstrated at the joint Annex 60 meeting in Leuven on 18 September 2015.
 </p>
 </html>"),
     __Dymola_Commands(file=
