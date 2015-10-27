@@ -1,5 +1,6 @@
 within Annex60.Fluid.Examples;
 model SimpleHouse
+  "Illustrative example of a simple heating, ventilation and room model"
   extends Modelica.Icons.Example;
 
   package MediumAir = Annex60.Media.Air;
