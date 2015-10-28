@@ -61,7 +61,7 @@ equation
                                        v>=0,
                                        {0.0, 1.0},
                                        {0.0, 0.0});
-  tau = time - time_out_b;
+  tau = max(0,time - time_out_b);
 
   // Heat losses
   Tin_a = inStream(port_a.h_outflow) / cp_default;
