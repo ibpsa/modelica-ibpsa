@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.BaseClasses;
-model HeatLossMod "Heat loss model for pipe"
+model HeatLossMod_noAbs "Heat loss model for pipe"
   extends Fluid.Interfaces.PartialTwoPortTransport;
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
@@ -54,7 +54,7 @@ equation
 
   // Time delay
   der(x) = v;
-  v = abs(V_flow / A_cross);
+  v = (V_flow / A_cross);
   (, time_out_b) = spatialDistribution(time,
                                        time,
                                        x/length,
@@ -87,4 +87,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end HeatLossMod;
+end HeatLossMod_noAbs;
