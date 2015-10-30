@@ -75,6 +75,10 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </html>", revisions="<html>
 <ul>
 <li>
+October 30, 2015, by Matthis Thorade:<br/>
+Added <code>partial</code> keyword to model declaration.
+</li>
+<li>
 October 6, 2014, by Michael Wetter:<br/>
 Changed medium declaration in ports to be final.
 </li>
