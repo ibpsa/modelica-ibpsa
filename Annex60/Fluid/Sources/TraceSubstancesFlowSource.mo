@@ -62,6 +62,12 @@ component has a carbon dioxide concentration of <i>1</i>.
 </html>", revisions="<html>
 <ul>
 <li>
+October 30, 2015, by Matthis Thorade:<br/>
+Removed <code>nPorts=1</code> in extension of the base class
+as the default must be <i>0</i>.
+This avoids a warning in the pedantic model check of Dymola 2016.
+</li>
+<li>
 May 29, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
 </li>
