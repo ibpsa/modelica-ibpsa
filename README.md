@@ -11,14 +11,15 @@ best practices for the implementation of models for building and community energ
 The library is developed within the Annex 60 project (http://www.iea-annex60.org)
 of the International Energy Agency's Energy in Buildings and Communities Programme.
 
-The intent is that classes of this library will be extended by implementations of 
-Modelica libraries that are targeted to end-users.
-Hence, this library is typically not used directly by end-users, but rather by
-developers of libraries that will be distributed to end-users.
+This library is typically not used directly by end-users, but rather it
+is integrated by developers of other Modelica libraries for buildings and
+community energy systems, who then distribute it to end-users.
+Currently, the Annex60 library is used as the core of these libraries:
 
-## Current release
-
-Download [Annex60 Library v0.1 build 1 (2013-xx-xx)](https://github.com/iea-annex60/modelica-annex60/archive/v0.1_build1.zip).
+ * _AixLib_ from RWTH Aachen, Germany: https://github.com/RWTH-EBC/AixLib
+ * _Buildings_, from Lawrence Berkeley National Laboratory, USA: http://simulationresearch.lbl.gov/modelica
+ * _BuildingSystems_, from UdK Berlin, Germany: http://www.modelica-buildingsystems.de
+ * _IDEAS_ from KU Leuven, Belgium: https://github.com/open-ideas/IDEAS
 
 ## License
 
