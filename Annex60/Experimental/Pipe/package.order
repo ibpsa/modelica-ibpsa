@@ -5,7 +5,11 @@ PipeHeatLossKUL
 PipeHeatLossKUL_modified
 PipeHeatLossKUL_Reverse
 PipeHeatLossA60Mod
+<<<<<<< HEAD
 DoublePipe
+=======
+PipeHeatLossA60Mod2
+>>>>>>> 66effb2d94dbe49a70ffcf2d5cfbfe603602a37e
 BaseClasses
 Examples
 Data
