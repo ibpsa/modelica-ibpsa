@@ -17,7 +17,7 @@ community energy systems, who then distribute it to end-users as part of their
 respective library.
 Currently, the _Annex60_ library is used as the core of these libraries:
 
- * _AixLib_ from RWTH Aachen University, Germany: https://github.com/RWTH-EBC/AixLib
+ * _AixLib_, from RWTH Aachen University, Germany: https://github.com/RWTH-EBC/AixLib
  * _Buildings_, from LBNL, Berkeley, CA, USA: http://simulationresearch.lbl.gov/modelica
  * _BuildingSystems_, from UdK Berlin, Germany: http://www.modelica-buildingsystems.de
  * _IDEAS_ from KU Leuven, Belgium: https://github.com/open-ideas/IDEAS
