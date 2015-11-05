@@ -252,7 +252,7 @@ package TimeDelays
       import Annex60;
       Annex60.Experimental.TimeDelays.PDETime pDETime
         annotation (Placement(transformation(extent={{0,40},{20,60}})));
-      Annex60.Experimental.TimeDelays.DiffTime diffTime
+      Annex60.Experimental.Pipe.BaseClasses.DiffTime_modified diffTime
         annotation (Placement(transformation(extent={{0,0},{20,20}})));
       Modelica.Blocks.Sources.Pulse pulse(
         amplitude=-1,
@@ -263,10 +263,10 @@ package TimeDelays
         startTime=20)
         annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
     equation
-      connect(pulse.y, pDETime.u) annotation (Line(points={{-39,30},{-14,30},{
-              -14,50},{-2,50}}, color={0,0,127}));
-      connect(pulse.y, diffTime.u) annotation (Line(points={{-39,30},{-14,30},{
-              -14,10},{-2,10}}, color={0,0,127}));
+      connect(pulse.y, pDETime.u) annotation (Line(points={{-39,30},{-14,30},{-14,50},
+              {-2,50}}, color={0,0,127}));
+      connect(pulse.y, diffTime.u) annotation (Line(points={{-39,30},{-14,30},{-14,10},
+              {-2,10}}, color={0,0,127}));
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                 -100},{100,100}})),                __Dymola_Commands(
             executeCall=simulateModel(

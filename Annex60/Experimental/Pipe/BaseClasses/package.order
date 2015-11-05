@@ -2,9 +2,8 @@ HeatLoss
 ExponentialDecay
 PDETime
 PDETime_modified
+DiffTime_onedirection
+DiffTime_modified
 HeatLossMod
-<<<<<<< HEAD
 HeatLossDouble
-=======
 HeatLossMod_noAbs
->>>>>>> 66effb2d94dbe49a70ffcf2d5cfbfe603602a37e
