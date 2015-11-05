@@ -2,8 +2,8 @@ within Annex60.Airflow.Multizone.Examples;
 model ZonalFlow "Model with prescribed air exchange between two volumes"
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Air;
-  parameter Modelica.SIunits.Volume volA=100 "Volume of room A";
-  parameter Modelica.SIunits.Volume volB=1 "Volume of room B";
+  parameter SI.Volume volA=100 "Volume of room A";
+  parameter SI.Volume volB=1 "Volume of room B";
   Annex60.Fluid.MixingVolumes.MixingVolume rooA(
     V=volA,
     redeclare package Medium = Medium,

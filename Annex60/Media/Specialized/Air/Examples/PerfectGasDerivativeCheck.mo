@@ -4,13 +4,13 @@ model PerfectGasDerivativeCheck
 
    package Medium = Annex60.Media.Specialized.Air.PerfectGas;
 
-    Modelica.SIunits.Temperature T "Temperature";
-    Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hSteSym "Water vapor enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hSteCod "Water vapor enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hAirSym "Dry air enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hAirCod "Dry air enthalpy";
+    SI.Temperature T "Temperature";
+    SI.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
+    SI.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
+    SI.SpecificEnthalpy hSteSym "Water vapor enthalpy";
+    SI.SpecificEnthalpy hSteCod "Water vapor enthalpy";
+    SI.SpecificEnthalpy hAirSym "Dry air enthalpy";
+    SI.SpecificEnthalpy hAirCod "Dry air enthalpy";
     constant Real convT(unit="K/s3") = 270
     "Conversion factor to satisfy unit check";
 initial equation

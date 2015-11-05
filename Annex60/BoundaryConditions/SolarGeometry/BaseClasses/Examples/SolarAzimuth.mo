@@ -1,7 +1,7 @@
 within Annex60.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model SolarAzimuth "Test model for zenith angle"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Angle lat= 41.98*Modelica.Constants.pi/180
+  parameter SI.Angle lat= 41.98*Modelica.Constants.pi/180
     "Latitude";
   Annex60.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
     solHouAng "Solar hour angle"

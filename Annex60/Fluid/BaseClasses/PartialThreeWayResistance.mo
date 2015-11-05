@@ -25,10 +25,10 @@ partial model PartialThreeWayResistance
   parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
     annotation (Dialog(tab="Dynamics", group="Equations"));
-  parameter Modelica.SIunits.Time tau=10
+  parameter SI.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
     annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
-  parameter Modelica.SIunits.MassFlowRate mDyn_flow_nominal
+  parameter SI.MassFlowRate mDyn_flow_nominal
     "Nominal mass flow rate for dynamic momentum and energy balance"
     annotation (Dialog(tab="Dynamics", group="Equations", enable=dynamicBalance));
   parameter Boolean from_dp = true

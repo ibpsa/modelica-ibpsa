@@ -2,13 +2,13 @@ within Annex60.Utilities.Psychrometrics;
 package Constants "Library of constants for psychometric functions"
   extends Modelica.Icons.Package;
 
-  constant Modelica.SIunits.SpecificHeatCapacity cpAir=1006
+  constant SI.SpecificHeatCapacity cpAir=1006
     "Specific heat capacity of air";
-  constant Modelica.SIunits.SpecificHeatCapacity cpSte=1860
+  constant SI.SpecificHeatCapacity cpSte=1860
     "Specific heat capacity of water vapor";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq = 4184
+  constant SI.SpecificHeatCapacity cpWatLiq = 4184
     "Specific heat capacity of liquid water";
-  constant Modelica.SIunits.SpecificEnthalpy h_fg = 2501014.5
+  constant SI.SpecificEnthalpy h_fg = 2501014.5
     "Enthalpy of evaporator of water";
   constant Real k_mair = 0.6219647130774989 "Ratio of molar weights";
 

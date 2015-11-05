@@ -3,7 +3,7 @@ model HeaterCooler_T
   "Model that demonstrates the ideal heater/cooler model for a prescribed outlet temperature, configured as steady-state"
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Water;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
+  parameter SI.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
   Annex60.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,

@@ -4,9 +4,9 @@ model SpeedControlled_y_pumpCurves
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
+  parameter SI.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 10000 "Nominal pressure";
+  parameter SI.Pressure dp_nominal = 10000 "Nominal pressure";
 
    model pumpModel = Annex60.Fluid.Movers.SpeedControlled_y (
     redeclare package Medium = Medium,

@@ -5,8 +5,8 @@ public
   Modelica.Blocks.Interfaces.RealInput cloTim(final quantity="Time", final unit=
        "s") "Clock time"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone";
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
+  parameter SI.Time timZon(displayUnit="h") "Time zone";
+  parameter SI.Angle lon(displayUnit="deg") "Longitude";
   Modelica.Blocks.Interfaces.RealOutput locTim(final quantity="Time", final unit=
            "s") "Local civil time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));

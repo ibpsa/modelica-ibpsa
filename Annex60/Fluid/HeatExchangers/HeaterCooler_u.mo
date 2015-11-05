@@ -5,7 +5,7 @@ model HeaterCooler_u "Heater or cooler with prescribed heat flow rate"
     final prescribedHeatFlowRate=true),
     final showDesignFlowDirection=false);
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+  parameter SI.HeatFlowRate Q_flow_nominal
     "Heat flow rate at u=1, positive for heating";
   Modelica.Blocks.Interfaces.RealInput u "Control input"
     annotation (Placement(transformation(

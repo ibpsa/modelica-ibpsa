@@ -5,22 +5,22 @@ partial model PartialEffectiveness
 
   Medium1.Temperature T_in1 "Inlet temperature medium 1";
   Medium2.Temperature T_in2 "Inlet temperature medium 2";
-  Modelica.SIunits.ThermalConductance C1_flow
+  SI.ThermalConductance C1_flow
     "Heat capacity flow rate medium 1";
-  Modelica.SIunits.ThermalConductance C2_flow
+  SI.ThermalConductance C2_flow
     "Heat capacity flow rate medium 2";
-  Modelica.SIunits.ThermalConductance CMin_flow(min=0)
+  SI.ThermalConductance CMin_flow(min=0)
     "Minimum heat capacity flow rate";
-  Modelica.SIunits.HeatFlowRate QMax_flow
+  SI.HeatFlowRate QMax_flow
     "Maximum heat flow rate into medium 1";
 protected
   parameter Real delta=1E-3 "Parameter used for smoothing";
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cp1_default(fixed=false)
+  parameter SI.SpecificHeatCapacity cp1_default(fixed=false)
     "Specific heat capacity of medium 1 at default medium state";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp2_default(fixed=false)
+  parameter SI.SpecificHeatCapacity cp2_default(fixed=false)
     "Specific heat capacity of medium 2 at default medium state";
-  parameter Modelica.SIunits.ThermalConductance CMin_flow_small(fixed=false)
+  parameter SI.ThermalConductance CMin_flow_small(fixed=false)
     "Small value for smoothing of minimum heat capacity flow rate";
   Real fra_a1(min=0, max=1)
     "Fraction of incoming state taken from port a2 (used to avoid excessive calls to regStep)";

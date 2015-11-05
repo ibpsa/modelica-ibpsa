@@ -5,10 +5,10 @@ partial model PartialTwoPortInterface
     port_a(p(start=Medium.p_default)),
     port_b(p(start=Medium.p_default)));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+  parameter SI.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   // Diagnostics
@@ -16,9 +16,9 @@ partial model PartialTwoPortInterface
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Modelica.SIunits.MassFlowRate m_flow(start=0) = port_a.m_flow
+  SI.MassFlowRate m_flow(start=0) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
+  SI.Pressure dp(start=0, displayUnit="Pa")
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=

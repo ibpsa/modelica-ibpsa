@@ -12,34 +12,34 @@ partial model TwoWayFlowElement "Flow resistance that uses the power law"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Velocity vZer=0.001
+  parameter SI.Velocity vZer=0.001
     "Minimum velocity to prevent zero flow. Recommended: 0.001";
 
-  Modelica.SIunits.VolumeFlowRate VAB_flow(nominal=0.001)
+  SI.VolumeFlowRate VAB_flow(nominal=0.001)
     "Volume flow rate from A to B if positive";
-  Modelica.SIunits.VolumeFlowRate VBA_flow(nominal=0.001)
+  SI.VolumeFlowRate VBA_flow(nominal=0.001)
     "Volume flow rate from B to A if positive";
-  Modelica.SIunits.MassFlowRate mAB_flow(nominal=0.001)
+  SI.MassFlowRate mAB_flow(nominal=0.001)
     "Mass flow rate from A to B if positive";
-  Modelica.SIunits.MassFlowRate mBA_flow(nominal=0.001)
+  SI.MassFlowRate mBA_flow(nominal=0.001)
     "Mass flow rate from B to A if positive";
 
-  Modelica.SIunits.Velocity vAB(nominal=0.01) "Average velocity from A to B";
-  Modelica.SIunits.Velocity vBA(nominal=0.01) "Average velocity from B to A";
+  SI.Velocity vAB(nominal=0.01) "Average velocity from A to B";
+  SI.Velocity vBA(nominal=0.01) "Average velocity from B to A";
 
-  Modelica.SIunits.Density rho_a1_inflow(start=1.2)
+  SI.Density rho_a1_inflow(start=1.2)
     "Density of air flowing in from port_a1";
-  Modelica.SIunits.Density rho_a2_inflow(start=1.2)
+  SI.Density rho_a2_inflow(start=1.2)
     "Density of air flowing in from port_a2";
 
-  Modelica.SIunits.Area A "Face area";
+  SI.Area A "Face area";
 protected
-  Modelica.SIunits.VolumeFlowRate VZer_flow(fixed=false)
+  SI.VolumeFlowRate VZer_flow(fixed=false)
     "Minimum net volume flow rate to prevent zero flow";
 
-  Modelica.SIunits.Mass mExcAB(start=0, fixed=true)
+  SI.Mass mExcAB(start=0, fixed=true)
     "Air mass exchanged (for purpose of error control only)";
-  Modelica.SIunits.Mass mExcBA(start=0, fixed=true)
+  SI.Mass mExcBA(start=0, fixed=true)
     "Air mass exchanged (for purpose of error control only)";
 
   Medium.MassFraction Xi_a1_inflow[Medium1.nXi]

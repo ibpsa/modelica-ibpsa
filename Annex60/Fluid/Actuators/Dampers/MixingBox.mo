@@ -41,7 +41,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     annotation(Dialog(enable=use_deltaM));
   parameter Boolean use_v_nominal = true
     "Set to true to use face velocity to compute area";
-  parameter Modelica.SIunits.Velocity v_nominal=1 "Nominal face velocity"
+  parameter SI.Velocity v_nominal=1 "Nominal face velocity"
     annotation(Dialog(enable=use_v_nominal));
 
   parameter Boolean roundDuct = false
@@ -51,7 +51,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "Reynolds number where transition to turbulent starts"
     annotation(Dialog(enable=not use_deltaM));
 
-  parameter Modelica.SIunits.Area AOut=mOut_flow_nominal/rho_default/v_nominal
+  parameter SI.Area AOut=mOut_flow_nominal/rho_default/v_nominal
     "Face area outside air damper"
     annotation(Dialog(enable=not use_v_nominal));
   VAVBoxExponential damExh(A=AExh,
@@ -77,7 +77,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     allowFlowReversal=allowFlowReversal,
     final filteredOpening=false) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
-  parameter Modelica.SIunits.Area AExh=mExh_flow_nominal/rho_default/v_nominal
+  parameter SI.Area AExh=mExh_flow_nominal/rho_default/v_nominal
     "Face area exhaust air damper"
     annotation(Dialog(enable=not use_v_nominal));
   VAVBoxExponential damRec(A=ARec,
@@ -106,7 +106,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
         origin={30,0},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  parameter Modelica.SIunits.Area ARec=mRec_flow_nominal/rho_default/v_nominal
+  parameter SI.Area ARec=mRec_flow_nominal/rho_default/v_nominal
     "Face area recirculation air damper"
     annotation(Dialog(enable=not use_v_nominal));
 
@@ -114,24 +114,24 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "set to true if dp_nominal includes the pressure loss of the open damper"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate mOut_flow_nominal
+  parameter SI.MassFlowRate mOut_flow_nominal
     "Mass flow rate outside air damper"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpOut_nominal(min=0, displayUnit="Pa")
+  parameter SI.Pressure dpOut_nominal(min=0, displayUnit="Pa")
     "Pressure drop outside air leg"
      annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate mRec_flow_nominal
+  parameter SI.MassFlowRate mRec_flow_nominal
     "Mass flow rate recirculation air damper"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpRec_nominal(min=0, displayUnit="Pa")
+  parameter SI.Pressure dpRec_nominal(min=0, displayUnit="Pa")
     "Pressure drop recirculation air leg"
      annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate mExh_flow_nominal
+  parameter SI.MassFlowRate mExh_flow_nominal
     "Mass flow rate exhaust air damper"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpExh_nominal(min=0, displayUnit="Pa")
+  parameter SI.Pressure dpExh_nominal(min=0, displayUnit="Pa")
     "Pressure drop exhaust air leg"
      annotation (Dialog(group="Nominal condition"));
 

@@ -4,10 +4,10 @@ model PumpsParallel "Two flow machines in parallel"
 
   package Medium = Annex60.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1
+  parameter SI.MassFlowRate m_flow_nominal= 1
     "Nominal mass flow rate";
 
-  parameter Modelica.SIunits.Density rho_nominal=1000
+  parameter SI.Density rho_nominal=1000
     "Density, used to compute fluid mass";
 
   Annex60.Fluid.FixedResistances.FixedResistanceDpM dpIn1(

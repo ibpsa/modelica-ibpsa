@@ -2,10 +2,10 @@ within Annex60.Fluid.Interfaces;
 partial model PartialFourPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
   extends Annex60.Fluid.Interfaces.FourPort;
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
+  parameter SI.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)
+  parameter SI.MassFlowRate m2_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
@@ -20,11 +20,11 @@ partial model PartialFourPortInterface
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
   Medium1.MassFlowRate m1_flow(start=0) = port_a1.m_flow
     "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp1(start=0, displayUnit="Pa")
+  SI.Pressure dp1(start=0, displayUnit="Pa")
     "Pressure difference between port_a1 and port_b1";
   Medium2.MassFlowRate m2_flow(start=0) = port_a2.m_flow
     "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp2(start=0, displayUnit="Pa")
+  SI.Pressure dp2(start=0, displayUnit="Pa")
     "Pressure difference between port_a2 and port_b2";
   Medium1.ThermodynamicState sta_a1=
       Medium1.setState_phX(port_a1.p,

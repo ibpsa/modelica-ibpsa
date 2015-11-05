@@ -11,7 +11,7 @@ block pW_X "Water vapor pressure for given humidity ratio"
                                            min = 0) "Water vapor pressure"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,10}})));
 
-  output Modelica.SIunits.MassFraction x_w(min=0, max=1, nominal=0.1, start=0.001)
+  output SI.MassFraction x_w(min=0, max=1, nominal=0.1, start=0.001)
     "Water mass fraction per mass of dry air";
 
 equation

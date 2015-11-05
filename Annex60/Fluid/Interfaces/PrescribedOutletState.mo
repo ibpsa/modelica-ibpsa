@@ -17,7 +17,7 @@ model PrescribedOutletState
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
 protected
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+  parameter SI.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(
         Medium.setState_pTX(
           p=Medium.p_default,
@@ -29,26 +29,26 @@ protected
   parameter Boolean restrictCool = Q_flow_maxCool <> -Modelica.Constants.inf
     "Flag, true if maximum cooling power is restricted";
 
-  parameter Modelica.SIunits.SpecificEnthalpy deltah=
+  parameter SI.SpecificEnthalpy deltah=
     cp_default*m_flow_small*0.01
     "Small value for deltah used for regularization";
 
   final parameter Boolean dynamic = tau > 1E-10 or tau < -1E-10
     "Flag, true if the sensor is a dynamic sensor";
 
-  Modelica.SIunits.MassFlowRate m_flow_pos
+  SI.MassFlowRate m_flow_pos
     "Mass flow rate, or zero if reverse flow";
 
-  Modelica.SIunits.MassFlowRate m_flow_limited
+  SI.MassFlowRate m_flow_limited
     "Mass flow rate bounded away from zero";
 
-  Modelica.SIunits.SpecificEnthalpy hSet
+  SI.SpecificEnthalpy hSet
     "Set point for enthalpy leaving port_b";
 
-  Modelica.SIunits.Temperature T
+  SI.Temperature T
     "Temperature of outlet state assuming unlimited capacity and taking dynamics into account";
 
-  Modelica.SIunits.SpecificEnthalpy dhSetAct
+  SI.SpecificEnthalpy dhSetAct
     "Actual enthalpy difference from port_a to port_b";
 
   Real k(start=1)

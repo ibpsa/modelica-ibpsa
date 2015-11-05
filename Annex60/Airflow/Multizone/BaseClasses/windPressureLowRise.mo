@@ -2,22 +2,22 @@ within Annex60.Airflow.Multizone.BaseClasses;
 function windPressureLowRise "Wind pressure coefficient for low-rise buildings"
   input Real Cp0(min=0)
     "Wind pressure coefficient for normal wind incidence angle";
-  input Modelica.SIunits.Angle incAng
+  input SI.Angle incAng
     "Wind incidence angle (0: normal to wall)";
   input Real G "Natural logarithm of side ratio";
   output Real Cp "Wind pressure coefficient";
 protected
-  Modelica.SIunits.Angle aR "alpha, restricted to 0...pi";
-  Modelica.SIunits.Angle incAng2 "0.5*wind incidence angle";
+  SI.Angle aR "alpha, restricted to 0...pi";
+  SI.Angle incAng2 "0.5*wind incidence angle";
   Real sinA2 "=sin(alpha/2)";
   Real cosA2 "=cos(alpha/2)";
   Real a "Attenuation factor";
-  constant Modelica.SIunits.Angle pi2 = 2*Modelica.Constants.pi;
-  constant Modelica.SIunits.Angle aRDel = 5*Modelica.Constants.pi/180
+  constant SI.Angle pi2 = 2*Modelica.Constants.pi;
+  constant SI.Angle aRDel = 5*Modelica.Constants.pi/180
     "Lower bound where transition occurs";
-  constant Modelica.SIunits.Angle aRDel2 = aRDel/2
+  constant SI.Angle aRDel2 = aRDel/2
     "Half-width of transition interval";
-  constant Modelica.SIunits.Angle aRMax = 175*Modelica.Constants.pi/180
+  constant SI.Angle aRMax = 175*Modelica.Constants.pi/180
     "Upper bound where transition occurs";
   constant Real a180 = Modelica.Math.log(1.248 - 0.703 +
       0.131*Modelica.Math.sin(2*Modelica.Constants.pi*G)^3

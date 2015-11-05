@@ -5,40 +5,40 @@ partial model DoorDiscretized
 
   parameter Integer nCom=10 "Number of compartments for the discretization";
 
-  parameter Modelica.SIunits.Pressure dp_turbulent(min=0) = 0.01
+  parameter SI.Pressure dp_turbulent(min=0) = 0.01
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended: 0.01";
   parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
 
-  Modelica.SIunits.Pressure dpAB[nCom](each nominal=1)
+  SI.Pressure dpAB[nCom](each nominal=1)
     "Pressure difference between compartments";
-  Modelica.SIunits.Velocity v[nCom](each nominal=0.01)
+  SI.Velocity v[nCom](each nominal=0.01)
     "Velocity in compartment from A to B";
-  Modelica.SIunits.Velocity vTop "Velocity at top of opening from A to B";
-  Modelica.SIunits.Velocity vBot "Velocity at bottom of opening from A to B";
+  SI.Velocity vTop "Velocity at top of opening from A to B";
+  SI.Velocity vBot "Velocity at bottom of opening from A to B";
 
 protected
-  parameter Modelica.SIunits.Length dh=hOpe/nCom "Height of each compartment";
-  Modelica.SIunits.AbsolutePressure pA[nCom](each nominal=101325)
+  parameter SI.Length dh=hOpe/nCom "Height of each compartment";
+  SI.AbsolutePressure pA[nCom](each nominal=101325)
     "Pressure in compartments of room A";
-  Modelica.SIunits.AbsolutePressure pB[nCom](each nominal=101325)
+  SI.AbsolutePressure pB[nCom](each nominal=101325)
     "Pressure in compartments of room B";
 
-  Modelica.SIunits.VolumeFlowRate dV_flow[nCom]
+  SI.VolumeFlowRate dV_flow[nCom]
     "Volume flow rate through compartment from A to B";
-  Modelica.SIunits.VolumeFlowRate dVAB_flow[nCom]
+  SI.VolumeFlowRate dVAB_flow[nCom]
     "Volume flow rate through compartment from A to B if positive";
-  Modelica.SIunits.VolumeFlowRate dVBA_flow[nCom]
+  SI.VolumeFlowRate dVBA_flow[nCom]
     "Volume flow rate through compartment from B to A if positive";
 
   Real m(min=0.5, max=1) "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
   Real kVal "Flow coefficient for each compartment, k = V_flow/ dp^m";
-  Modelica.SIunits.Area dA "Compartment area";
+  SI.Area dA "Compartment area";
 
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+  parameter SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
 
 equation

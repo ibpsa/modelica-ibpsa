@@ -6,13 +6,13 @@ model VolumeFlowRate "Ideal sensor for volume flow rate"
     d_start=Medium.density(Medium.setState_pTX(p_start, T_start, X_start))
     "Initial or guess value of density"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+  parameter SI.Temperature T_start=Medium.T_default
     "Temperature used to compute d_start"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Pressure p_start=Medium.p_default
+  parameter SI.Pressure p_start=Medium.p_default
     "Pressure used to compute d_start"
     annotation (Dialog(group="Initialization"));
-  parameter Modelica.SIunits.MassFraction X_start[Medium.nX]=Medium.X_default
+  parameter SI.MassFraction X_start[Medium.nX]=Medium.X_default
     "Mass fraction used to compute d_start"
     annotation (Dialog(group="Initialization"));
   Modelica.Blocks.Interfaces.RealOutput V_flow(final quantity="VolumeFlowRate",

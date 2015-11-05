@@ -4,7 +4,7 @@ block DiffuseIsotropic
   extends Modelica.Blocks.Icons.Block;
 public
   parameter Real rho=0.2 "Ground reflectance";
-  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt angle";
+  parameter SI.Angle til(displayUnit="deg") "Surface tilt angle";
 
   Modelica.Blocks.Interfaces.RealInput HDifHor(quantity=
         "RadiantEnergyFluenceRate", unit="W/m2")

@@ -14,7 +14,7 @@ model MassFlowSource_h
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
     annotation(Evaluate=true, HideResult=true);
-  parameter Modelica.SIunits.MassFlowRate m_flow = 0
+  parameter SI.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Dialog(enable = not use_m_flow_in));
   parameter Medium.SpecificEnthalpy h = Medium.h_default

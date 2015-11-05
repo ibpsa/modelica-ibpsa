@@ -15,36 +15,36 @@ partial model PowerInterface
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.Density rho_default
+  parameter SI.Density rho_default
     "Fluid density at medium default state";
 
-  Modelica.Blocks.Interfaces.RealOutput P(quantity="Modelica.SIunits.Power",
+  Modelica.Blocks.Interfaces.RealOutput P(quantity="SI.Power",
    unit="W") "Electrical power consumed"
   annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
-  Modelica.SIunits.Power WHyd
+  SI.Power WHyd
     "Hydraulic power input (converted to flow work and heat)";
-  Modelica.SIunits.Power WFlo "Flow work";
-  Modelica.SIunits.HeatFlowRate Q_flow "Heat input from fan or pump to medium";
+  SI.Power WFlo "Flow work";
+  SI.HeatFlowRate Q_flow "Heat input from fan or pump to medium";
   Real eta(min=0, max=1) "Global efficiency";
   Real etaHyd(min=0, max=1) "Hydraulic efficiency";
   Real etaMot(min=0, max=1) "Motor efficiency";
 
-  Modelica.SIunits.Pressure dpMachine(displayUnit="Pa") "Pressure increase";
-  Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
-  //Modelica.SIunits.HeatFlowRate QThe_flow "Heat input into the medium";
+  SI.Pressure dpMachine(displayUnit="Pa") "Pressure increase";
+  SI.VolumeFlowRate VMachine_flow "Volume flow rate";
+  //SI.HeatFlowRate QThe_flow "Heat input into the medium";
 protected
   parameter Data.FlowControlled _perPow
     "Record with performance data for power";
 
-  parameter Modelica.SIunits.VolumeFlowRate delta_V_flow
+  parameter SI.VolumeFlowRate delta_V_flow
     "Factor used for setting heat input into medium to zero at very small flows";
   final parameter Real motDer[size(_perPow.motorEfficiency.V_flow, 1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate";
   final parameter Real hydDer[size(_perPow.hydraulicEfficiency.V_flow,1)](each fixed=false)
     "Coefficients for polynomial of pressure vs. flow rate";
 
-  Modelica.SIunits.HeatFlowRate QThe_flow
+  SI.HeatFlowRate QThe_flow
     "Heat input from fan or pump to medium";
 
 initial algorithm

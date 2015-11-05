@@ -7,12 +7,12 @@ model Outside_CpLowRise
     "Wind pressure coefficient for wind normal to wall";
   parameter Real s(min=0)
     "Side ratio, s=length of this wall/length of adjacent wall";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth (South:0, West:pi/2)"
+  parameter SI.Angle azi "Surface azimuth (South:0, West:pi/2)"
     annotation (choicesAllMatching=true);
 
-  Modelica.SIunits.Angle alpha "Wind incidence angle (0: normal to wall)";
+  SI.Angle alpha "Wind incidence angle (0: normal to wall)";
   Real CpAct "Actual wind pressure coefficient";
-  Modelica.SIunits.Pressure pWin(displayUnit="Pa")
+  SI.Pressure pWin(displayUnit="Pa")
     "Change in pressure due to wind force";
 protected
   Modelica.Blocks.Interfaces.RealInput pWea(min=0, nominal=1E5, unit="Pa")
@@ -26,7 +26,7 @@ protected
 
   Modelica.Blocks.Interfaces.RealInput winDir(unit="rad")
     "Wind direction from weather bus";
-  Modelica.SIunits.Angle surOut = azi-Modelica.Constants.pi
+  SI.Angle surOut = azi-Modelica.Constants.pi
     "Angle of surface that is used to compute angle of attack of wind";
 equation
   alpha = winDir-surOut;

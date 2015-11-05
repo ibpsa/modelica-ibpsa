@@ -55,7 +55,7 @@ protected
 
   Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
 
-  Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
+  SI.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
 
   // Parameters for inverseXRegularized.

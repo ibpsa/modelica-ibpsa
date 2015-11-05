@@ -7,7 +7,7 @@ model TwoPortHeatMassExchanger
   extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=true);
 
-  parameter Modelica.SIunits.Time tau = 30
+  parameter SI.Time tau = 30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
 
@@ -70,11 +70,11 @@ model TwoPortHeatMassExchanger
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+  parameter SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
   parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
       T=T_start, p=p_start, X=X_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
+  parameter SI.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
 
 initial algorithm

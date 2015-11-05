@@ -2,7 +2,7 @@ within Annex60.Fluid.Movers.Data;
 record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
   extends SpeedControlled_y;
 
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_nominal = 1500
+  parameter SI.Conversions.NonSIunits.AngularVelocity_rpm N_nominal = 1500
     "Nominal rotational speed for flow characteristic";
 
   annotation (

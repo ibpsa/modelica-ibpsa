@@ -4,7 +4,7 @@ model Power "Power calculation comparison among three mover types"
 
   package Medium = Annex60.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3
+  parameter SI.MassFlowRate m_flow_nominal=3
     "Nominal mass flow rate";
 
   parameter Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"

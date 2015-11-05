@@ -4,9 +4,9 @@ model Example3
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal=1
+  parameter SI.Pressure dp_nominal=1
     "Pressure drop at nominal mass flow rate";
   Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,

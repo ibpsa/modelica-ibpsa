@@ -3,7 +3,7 @@ partial model PartialDynamicFlowSensor
   "Partial component to model sensors that measure flow properties using a dynamic model"
   extends PartialFlowSensor;
 
-  parameter Modelica.SIunits.Time tau(min=0) = 1
+  parameter SI.Time tau(min=0) = 1
     "Time constant at nominal flow rate";
   parameter Modelica.Blocks.Types.Init initType = Modelica.Blocks.Types.Init.InitialState
 "Type of initialization (InitialState and InitialOutput are identical)"

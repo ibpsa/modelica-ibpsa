@@ -4,17 +4,17 @@ model BasicFlowFunction_m_flow_DerivativeCheck2
   extends Modelica.Icons.Example;
 
   parameter Real k = 0.35 "Flow coefficient";
-  parameter Modelica.SIunits.MassFlowRate m_flow_turbulent = 0.36
+  parameter SI.MassFlowRate m_flow_turbulent = 0.36
     "Mass flow rate where transition to turbulent flow occurs";
-  Modelica.SIunits.PressureDifference dp "Pressure drop";
-  Modelica.SIunits.PressureDifference dp_comp "Comparison value for dp";
+  SI.PressureDifference dp "Pressure drop";
+  SI.PressureDifference dp_comp "Comparison value for dp";
   Real der_dp(unit="Pa/s") "1st order derivative of pressure drop";
   Real der_dp_comp(unit="Pa/s")
     "2nd order derivative of comparison value for pressure drop";
 
-  Modelica.SIunits.MassFlowRate m_flow "Mass flow rate";
+  SI.MassFlowRate m_flow "Mass flow rate";
 
-  Modelica.SIunits.PressureDifference err_dp "Integration error for dp";
+  SI.PressureDifference err_dp "Integration error for dp";
   Real err_der_dp(unit="Pa/s") "Integration error for der_dp";
 initial equation
   dp = dp_comp;

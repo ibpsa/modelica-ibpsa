@@ -4,9 +4,9 @@ model ClosedLoop_y "Flow machine with feedback control"
 
   package Medium = Annex60.Media.Air;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 0.1
+  parameter SI.MassFlowRate m_flow_nominal= 0.1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 500
+  parameter SI.Pressure dp_nominal = 500
     "Nominal pressure difference";
 
   Modelica.Blocks.Sources.Pulse y(

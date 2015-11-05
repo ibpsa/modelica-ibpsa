@@ -4,7 +4,7 @@ block DiffusePerez
   extends Modelica.Blocks.Icons.Block;
 public
   parameter Real rho=0.2 "Ground reflectance";
-  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt angle";
+  parameter SI.Angle til(displayUnit="deg") "Surface tilt angle";
   Modelica.Blocks.Interfaces.RealInput briCof1 "Brightening Coeffcient F1"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput briCof2 "Brightening Coeffcient F2"

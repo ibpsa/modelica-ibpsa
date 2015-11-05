@@ -9,13 +9,13 @@ model FlowControlled_m_flow
   parameter Boolean filteredSpeed=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-  parameter Modelica.SIunits.Time riseTime=30
+  parameter SI.Time riseTime=30
     "Rise time of the filter (time to reach 99.6 % of the speed)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
+  parameter SI.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
 

@@ -1,8 +1,8 @@
 within Annex60.Fluid.Sensors.Conversions;
 model To_VolumeFraction "Conversion from mass fraction to volume fraction"
 
-  parameter Modelica.SIunits.MolarMass MMMea "Molar mass of measured substance";
-  parameter Modelica.SIunits.MolarMass MMBul=Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
+  parameter SI.MolarMass MMMea "Molar mass of measured substance";
+  parameter SI.MolarMass MMBul=Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
     "Molar mass of bulk medium";
 
   Modelica.Blocks.Interfaces.RealInput m "Mass fraction"

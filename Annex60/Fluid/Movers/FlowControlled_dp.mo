@@ -9,16 +9,16 @@ model FlowControlled_dp
   parameter Boolean filteredSpeed=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-  parameter Modelica.SIunits.Time riseTime=30
+  parameter SI.Time riseTime=30
     "Rise time of the filter (time to reach 99.6 % of the speed)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  parameter Modelica.SIunits.Pressure dp_start(min=0, displayUnit="Pa")=0
+  parameter SI.Pressure dp_start(min=0, displayUnit="Pa")=0
     "Initial value of pressure raise"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-  parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")=10000
+  parameter SI.Pressure dp_nominal(min=0, displayUnit="Pa")=10000
     "Nominal pressure raise, used to normalize filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
   Modelica.Blocks.Interfaces.RealInput dp_in(min=0, final unit="Pa")

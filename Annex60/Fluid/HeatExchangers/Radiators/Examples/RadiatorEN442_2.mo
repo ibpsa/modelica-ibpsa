@@ -2,17 +2,17 @@ within Annex60.Fluid.HeatExchangers.Radiators.Examples;
 model RadiatorEN442_2 "Test model for radiator"
   extends Modelica.Icons.Example;
  package Medium = Annex60.Media.Water "Medium model";
- parameter Modelica.SIunits.Temperature TRoo = 20+273.15 "Room temperature"
+ parameter SI.Temperature TRoo = 20+273.15 "Room temperature"
     annotation (Evaluate=false);
- parameter Modelica.SIunits.Power Q_flow_nominal = 500 "Nominal power";
-  parameter Modelica.SIunits.Temperature T_a_nominal=313.15
+ parameter SI.Power Q_flow_nominal = 500 "Nominal power";
+  parameter SI.Temperature T_a_nominal=313.15
     "Radiator inlet temperature at nominal condition";
- parameter Modelica.SIunits.Temperature T_b_nominal = 303.15
+ parameter SI.Temperature T_b_nominal = 303.15
     "Radiator outlet temperature at nominal condition";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
+ parameter SI.MassFlowRate m_flow_nominal=
     Q_flow_nominal/(T_a_nominal-T_b_nominal)/Medium.cp_const
     "Nominal mass flow rate";
- parameter Modelica.SIunits.Pressure dp_nominal = 3000
+ parameter SI.Pressure dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
 
   Annex60.Fluid.Sources.Boundary_pT sou(

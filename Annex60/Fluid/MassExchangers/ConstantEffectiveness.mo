@@ -18,9 +18,9 @@ model ConstantEffectiveness
   Medium1.MassFraction X_w_in1 "Inlet water mass fraction of medium 1";
   Medium2.MassFraction X_w_in2 "Inlet water mass fraction of medium 2";
 
-  Modelica.SIunits.MassFlowRate mWat_flow
+  SI.MassFlowRate mWat_flow
     "Water flow rate from medium 2 to medium 1";
-  Modelica.SIunits.MassFlowRate mMax_flow
+  SI.MassFlowRate mMax_flow
     "Maximum water flow rate from medium 2 to medium 1";
 
 protected

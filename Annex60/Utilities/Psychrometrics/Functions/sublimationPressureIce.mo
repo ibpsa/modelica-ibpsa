@@ -2,14 +2,14 @@ within Annex60.Utilities.Psychrometrics.Functions;
 function sublimationPressureIce
   "Return sublimation pressure of water as a function of temperature T between 190 and 273.16 K"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature TSat(displayUnit="degC",
+  input SI.Temperature TSat(displayUnit="degC",
                                           nominal=300) "Saturation temperature";
-  output Modelica.SIunits.AbsolutePressure pSat(
+  output SI.AbsolutePressure pSat(
                                       displayUnit="Pa",
                                       nominal=1000) "Saturation pressure";
 protected
-  Modelica.SIunits.Temperature TTriple=273.16 "Triple point temperature";
-  Modelica.SIunits.AbsolutePressure pTriple=611.657 "Triple point pressure";
+  SI.Temperature TTriple=273.16 "Triple point temperature";
+  SI.AbsolutePressure pTriple=611.657 "Triple point pressure";
   Real r1=TSat/TTriple "Common subexpression";
   Real a[2]={-13.9281690,34.7078238} "Coefficients a[:]";
   Real n[2]={-1.5,-1.25} "Coefficients n[:]";

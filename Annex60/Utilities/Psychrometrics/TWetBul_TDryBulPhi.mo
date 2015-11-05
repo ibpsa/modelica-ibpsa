@@ -32,12 +32,12 @@ block TWetBul_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+  SI.Conversions.NonSIunits.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
-  Modelica.SIunits.MassFraction XiDryBul
+  SI.MassFraction XiDryBul
     "Water vapor mass fraction at dry bulb state";
-  Modelica.SIunits.MassFraction XiSat "Water vapor mass fraction at saturation";
+  SI.MassFraction XiSat "Water vapor mass fraction at saturation";
 equation
   if approximateWetBulb then
     TDryBul_degC = TDryBul - 273.15;

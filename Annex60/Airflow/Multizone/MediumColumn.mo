@@ -6,7 +6,7 @@ model MediumColumn
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
+  parameter SI.Length h(min=0) = 3 "Height of shaft";
   parameter Annex60.Airflow.Multizone.Types.densitySelection densitySelection
     "Select how to pick density" annotation (Evaluate=true);
   parameter Boolean allowFlowReversal=true
@@ -27,13 +27,13 @@ model MediumColumn
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}}), iconTransformation(extent={{10,-110},{-10,-90}})));
 
-  Modelica.SIunits.VolumeFlowRate V_flow
+  SI.VolumeFlowRate V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
-  Modelica.SIunits.MassFlowRate m_flow(start=0)
+  SI.MassFlowRate m_flow(start=0)
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
+  SI.Pressure dp(start=0, displayUnit="Pa")
     "Pressure difference between port_a and port_b";
-  Modelica.SIunits.Density rho "Density in medium column";
+  SI.Density rho "Density in medium column";
 protected
   Medium.ThermodynamicState sta_a=Medium.setState_phX(
       port_a.p,

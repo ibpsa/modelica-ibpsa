@@ -1,7 +1,7 @@
 within Annex60.Fluid.Movers.BaseClasses.Characteristics;
 record efficiencyParameters "Record for efficiency parameters"
   extends Modelica.Icons.Record;
-  parameter Modelica.SIunits.VolumeFlowRate V_flow[:](
+  parameter SI.VolumeFlowRate V_flow[:](
     each min=0) "Volumetric flow rate at user-selected operating points";
   parameter Real eta[size(V_flow,1)](
      each min=0,

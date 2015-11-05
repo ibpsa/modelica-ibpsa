@@ -5,8 +5,8 @@ block DiffusePerez
     Annex60.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
   parameter Real rho=0.2 "Ground reflectance";
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter SI.Angle lat "Latitude";
+  parameter SI.Angle azi "Surface azimuth";
   parameter Boolean outSkyCon=false
     "Output contribution of diffuse irradiation from sky";
   parameter Boolean outGroCon=false

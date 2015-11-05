@@ -9,7 +9,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter Annex60.BoundaryConditions.Types.DataSource pAtmSou=Annex60.BoundaryConditions.Types.DataSource.Parameter
     "Atmospheric pressure"
     annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Pressure pAtm=101325
+  parameter SI.Pressure pAtm=101325
     "Atmospheric pressure (used if pAtmSou=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput pAtm_in(
@@ -73,7 +73,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter Annex60.BoundaryConditions.Types.DataSource TDryBulSou=Annex60.BoundaryConditions.Types.DataSource.File
     "Dry bulb temperature"
     annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Temperature TDryBul(displayUnit="degC") = 293.15
+  parameter SI.Temperature TDryBul(displayUnit="degC") = 293.15
     "Dry bulb temperature (used if TDryBul=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput TDryBul_in(
@@ -88,7 +88,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter Annex60.BoundaryConditions.Types.DataSource TDewPoiSou=Annex60.BoundaryConditions.Types.DataSource.File
     "Dew point temperature"
     annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Temperature TDewPoi(displayUnit="degC") = 283.15
+  parameter SI.Temperature TDewPoi(displayUnit="degC") = 283.15
     "Dew point temperature (used if TDewPoi=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput TDewPoi_in(
@@ -102,7 +102,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // Black body sky temperature
   parameter Annex60.BoundaryConditions.Types.DataSource TBlaSkySou=Annex60.BoundaryConditions.Types.DataSource.File
     "Black-body sky temperature" annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Temperature TBlaSky=273.15
+  parameter SI.Temperature TBlaSky=273.15
     "Black-body sky temperature (used if TBlaSkySou=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput TBlaSky_in(
@@ -134,7 +134,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // Wind speed
   parameter Annex60.BoundaryConditions.Types.DataSource winSpeSou=Annex60.BoundaryConditions.Types.DataSource.File
     "Wind speed" annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Velocity winSpe(min=0) = 1
+  parameter SI.Velocity winSpe(min=0) = 1
     "Wind speed (used if winSpe=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput winSpe_in(
@@ -148,7 +148,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // Wind direction
   parameter Annex60.BoundaryConditions.Types.DataSource winDirSou=Annex60.BoundaryConditions.Types.DataSource.File
     "Wind direction" annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.Angle winDir=1.0
+  parameter SI.Angle winDir=1.0
     "Wind direction (used if winDir=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput winDir_in(
@@ -162,7 +162,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   // Infrared horizontal radiation
   parameter Annex60.BoundaryConditions.Types.DataSource HInfHorSou=Annex60.BoundaryConditions.Types.DataSource.File
     "Infrared horizontal radiation" annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.HeatFlux HInfHor=0.0
+  parameter SI.HeatFlux HInfHor=0.0
     "Infrared horizontal radiation (used if HInfHorSou=Parameter)"
     annotation (Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput HInfHor_in(
@@ -204,13 +204,13 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   parameter String filNam="" "Name of weather data file" annotation (Dialog(
         loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
-  final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
+  final parameter SI.Angle lon(displayUnit="deg")=
     Annex60.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
     filNam) "Longitude";
-  final parameter Modelica.SIunits.Angle lat(displayUnit="deg")=
+  final parameter SI.Angle lat(displayUnit="deg")=
     Annex60.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(
     filNam) "Latitude";
-  final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
+  final parameter SI.Time timZon(displayUnit="h")=
     Annex60.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
   Bus weaBus "Weather data bus" annotation (Placement(transformation(extent={{

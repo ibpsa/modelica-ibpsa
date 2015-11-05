@@ -10,7 +10,7 @@ record FourPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance1,
                 tab="Flow resistance", group="Medium 1"));
-  parameter Modelica.SIunits.Pressure dp1_nominal(min=0, displayUnit="Pa")
+  parameter SI.Pressure dp1_nominal(min=0, displayUnit="Pa")
     "Pressure difference"
     annotation(Dialog(group = "Nominal condition"));
   parameter Boolean linearizeFlowResistance1 = false
@@ -29,7 +29,7 @@ record FourPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance2,
                 tab="Flow resistance", group="Medium 2"));
-  parameter Modelica.SIunits.Pressure dp2_nominal(min=0, displayUnit="Pa")
+  parameter SI.Pressure dp2_nominal(min=0, displayUnit="Pa")
     "Pressure difference"
     annotation(Dialog(group = "Nominal condition"));
   parameter Boolean linearizeFlowResistance2 = false

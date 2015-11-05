@@ -12,9 +12,9 @@ partial model PartialDamperExponential
    annotation(Dialog(enable=use_deltaM));
  parameter Boolean use_v_nominal = true
     "Set to true to use face velocity to compute area";
- parameter Modelica.SIunits.Velocity v_nominal=1 "Nominal face velocity"
+ parameter SI.Velocity v_nominal=1 "Nominal face velocity"
    annotation(Dialog(enable=use_v_nominal));
- parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
+ parameter SI.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area"
    annotation(Dialog(enable=not use_v_nominal));
  parameter Boolean roundDuct = false
@@ -59,7 +59,7 @@ protected
     (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)}
     "Polynomial coefficients for curve fit for y > yu";
  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
- parameter Modelica.SIunits.Area area=
+ parameter SI.Area area=
     if use_v_nominal then m_flow_nominal/rho_default/v_nominal else A
     "Face velocity used in the computation";
 initial equation

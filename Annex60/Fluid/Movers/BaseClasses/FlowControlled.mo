@@ -31,7 +31,7 @@ protected
   final parameter Medium.AbsolutePressure p_a_default(displayUnit="Pa") = Medium.p_default
     "Nominal inlet pressure for predefined fan or pump characteristics";
 
- parameter Modelica.SIunits.VolumeFlowRate V_flow_max=m_flow_nominal/rho_default
+ parameter SI.VolumeFlowRate V_flow_max=m_flow_nominal/rho_default
     "Maximum volume flow rate";
 
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(

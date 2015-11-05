@@ -4,11 +4,11 @@ model InvertingBasicFlowFunction_m_flow
   extends Modelica.Icons.Example;
 
  parameter Real k = 0.5 "Flow coefficient";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
+ parameter SI.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
 
- Modelica.SIunits.MassFlowRate m_flow "Mass flow rate";
- Modelica.SIunits.Pressure dp(displayUnit="Pa") "Pressure difference";
+ SI.MassFlowRate m_flow "Mass flow rate";
+ SI.Pressure dp(displayUnit="Pa") "Pressure difference";
 equation
   dp = 4*(time-0.5);
   dp = FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3);

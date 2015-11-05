@@ -5,9 +5,9 @@ partial model FlowMachine_ZeroFlow
   replaceable package Medium = Annex60.Media.Air
       constrainedby Modelica.Media.Interfaces.PartialMedium "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= 1
+  parameter SI.MassFlowRate m_flow_nominal= 1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 500
+  parameter SI.Pressure dp_nominal = 500
     "Nominal pressure difference";
 
   Modelica.Blocks.Sources.Ramp y(

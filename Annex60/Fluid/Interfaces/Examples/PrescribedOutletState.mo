@@ -4,7 +4,7 @@ model PrescribedOutletState "Test model for prescribed outlet state"
 
   package Medium = Annex60.Media.Water;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.1
+  parameter SI.MassFlowRate m_flow_nominal=0.1
     "Nominal mass flow rate";
 
   Annex60.Fluid.Sources.Boundary_pT sin(

@@ -14,7 +14,7 @@ partial model ValveParameters "Model with parameters for valves"
     "Cv (US) flow coefficient [USG/min/(psi)^(1/2)]"
   annotation(Dialog(group = "Flow Coefficient",
                     enable = (CvData==Annex60.Fluid.Types.CvTypes.Cv)));
-  parameter Modelica.SIunits.Area Av(
+  parameter SI.Area Av(
     fixed= if CvData==Annex60.Fluid.Types.CvTypes.Av then true else false)
     "Av (metric) flow coefficient"
    annotation(Dialog(group = "Flow Coefficient",
@@ -23,17 +23,17 @@ partial model ValveParameters "Model with parameters for valves"
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
     annotation(Dialog(group="Pressure-flow linearization"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpValve_nominal(displayUnit="Pa",
+  parameter SI.Pressure dpValve_nominal(displayUnit="Pa",
                                                       min=0,
                                                       fixed= if CvData==Annex60.Fluid.Types.CvTypes.OpPoint then true else false)
     "Nominal pressure drop of fully open valve, used if CvData=Annex60.Fluid.Types.CvTypes.OpPoint"
     annotation(Dialog(group="Nominal condition",
                enable = (CvData==Annex60.Fluid.Types.CvTypes.OpPoint)));
 
-  parameter Modelica.SIunits.Density rhoStd
+  parameter SI.Density rhoStd
     "Inlet density for which valve coefficients are defined"
   annotation(Dialog(group="Nominal condition", tab="Advanced"));
 

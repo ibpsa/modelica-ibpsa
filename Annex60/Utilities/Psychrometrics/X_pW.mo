@@ -12,7 +12,7 @@ block X_pW "Humidity ratio for given water vapor pressure"
                                            start=2000,
                                            nominal=1000) "Water vapor pressure"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  output Modelica.SIunits.MassFraction x_w(min=0, max=1, nominal=0.01, start=0.001)
+  output SI.MassFraction x_w(min=0, max=1, nominal=0.01, start=0.001)
     "Water mass fraction per mass of dry air";
 equation
   X_w = Annex60.Utilities.Psychrometrics.Functions.X_pW(p_w=p_w, p=p_in_internal);

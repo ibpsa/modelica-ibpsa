@@ -2,14 +2,14 @@ within Annex60.Fluid.Movers.BaseClasses.Characteristics;
 function flowApproximationAtOrigin
   "Approximation for fan or pump pressure raise at origin"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
+  input SI.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
-  input Modelica.SIunits.VolumeFlowRate VDelta_flow "Small volume flow rate";
-  input Modelica.SIunits.Pressure dpDelta "Small pressure";
+  input SI.VolumeFlowRate VDelta_flow "Small volume flow rate";
+  input SI.Pressure dpDelta "Small pressure";
   input Real delta "Small value used to transition to other fan curve";
   input Real cBar[2]
     "Coefficients for linear approximation of pressure vs. flow rate";
-  output Modelica.SIunits.Pressure dp "Pressure raise";
+  output SI.Pressure dp "Pressure raise";
 algorithm
 
   // see equation 20 in  Annex60/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
