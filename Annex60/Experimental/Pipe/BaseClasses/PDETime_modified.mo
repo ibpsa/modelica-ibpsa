@@ -1,7 +1,7 @@
 within Annex60.Experimental.Pipe.BaseClasses;
 model PDETime_modified "Delay time for given normalized velocity"
 
-  Real x( start = 0) "Normalized transport quantity";
+  Real x( start = 0) "Normalized transport distance";
   Modelica.SIunits.Time TimeOut_a
     "Time at which the fluid is leaving the pipe at port_a";
   Modelica.SIunits.Time TimeOut_b
