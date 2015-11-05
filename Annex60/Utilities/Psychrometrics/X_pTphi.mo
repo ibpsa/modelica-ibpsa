@@ -5,8 +5,6 @@ block X_pTphi
     Annex60.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
 
   package Medium = Annex60.Media.Air "Medium model";
-
-public
   Modelica.Blocks.Interfaces.RealInput T(final unit="K",
                                            displayUnit="degC",
                                            min = 0) "Temperature"
