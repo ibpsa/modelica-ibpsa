@@ -1,11 +1,11 @@
 within Annex60.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model GetHeaderElement "Test model to get header element"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Angle longitude(fixed=false, displayUnit="deg")
+  parameter SI.Angle longitude(fixed=false, displayUnit="deg")
     "Longitude";
-  parameter Modelica.SIunits.Angle latitude(fixed=false, displayUnit="deg")
+  parameter SI.Angle latitude(fixed=false, displayUnit="deg")
     "Latitude";
-  parameter Modelica.SIunits.Time timeZone(fixed=false, displayUnit="h")
+  parameter SI.Time timeZone(fixed=false, displayUnit="h")
     "Time zone";
 
 initial equation

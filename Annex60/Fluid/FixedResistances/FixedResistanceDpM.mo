@@ -10,7 +10,7 @@ model FixedResistanceDpM
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
        annotation(Evaluate=true,
                   Dialog(enable = not linearized));
-  parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
+  parameter SI.Length dh=1 "Hydraulic diameter"
        annotation(Dialog(enable = use_dh and not linearized));
   parameter Real ReC(min=0)=4000
     "Reynolds number where transition to turbulent starts"

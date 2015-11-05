@@ -9,8 +9,8 @@ public
   Modelica.Blocks.Interfaces.RealOutput POut(final quantity="Pressure", final unit=
            "Pa") "Atmospheric pressure"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  constant Modelica.SIunits.Pressure PMin=3100 "Minimum allowed pressure";
-  constant Modelica.SIunits.Pressure PMax=120000 "Maximum allowed pressure";
+  constant SI.Pressure PMin=3100 "Minimum allowed pressure";
+  constant SI.Pressure PMax=120000 "Maximum allowed pressure";
 equation
   assert(PIn > PMin, "Pressure out of bounds.\n" + "   PIn = " + String(PIn));
   assert(PIn < PMax, "Pressure out of bounds.\n" + "   PIn = " + String(PIn));

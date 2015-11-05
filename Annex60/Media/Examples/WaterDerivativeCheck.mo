@@ -4,13 +4,13 @@ model WaterDerivativeCheck "Model that tests the derivative implementation"
 
    package Medium = Annex60.Media.Water;
 
-    Modelica.SIunits.Temperature T "Temperature";
-    Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
-    Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
-    Modelica.SIunits.SpecificHeatCapacity cpSym "Specific heat capacity";
-    Modelica.SIunits.SpecificHeatCapacity cpCod "Specific heat capacity";
-    Modelica.SIunits.SpecificHeatCapacity cvSym "Specific heat capacity";
-    Modelica.SIunits.SpecificHeatCapacity cvCod "Specific heat capacity";
+    SI.Temperature T "Temperature";
+    SI.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
+    SI.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
+    SI.SpecificHeatCapacity cpSym "Specific heat capacity";
+    SI.SpecificHeatCapacity cpCod "Specific heat capacity";
+    SI.SpecificHeatCapacity cvSym "Specific heat capacity";
+    SI.SpecificHeatCapacity cvCod "Specific heat capacity";
     constant Real convT(unit="K/s3") = 270
     "Conversion factor to satisfy unit check";
 initial equation

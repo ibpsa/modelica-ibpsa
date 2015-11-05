@@ -7,12 +7,12 @@ model MediumColumnDynamic
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
 
-  parameter Modelica.SIunits.Length h(min=0) = 3 "Height of shaft";
+  parameter SI.Length h(min=0) = 3 "Height of shaft";
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"),Evaluate=true);
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
+  parameter SI.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition, used only for steady-state model"));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
@@ -63,7 +63,7 @@ model MediumColumnDynamic
     "Medium colum that connects to bottom port"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
-  parameter Modelica.SIunits.Volume V "Volume in medium shaft";
+  parameter SI.Volume V "Volume in medium shaft";
 
   // Heat transfer through boundary
   parameter Boolean use_HeatTransfer = false

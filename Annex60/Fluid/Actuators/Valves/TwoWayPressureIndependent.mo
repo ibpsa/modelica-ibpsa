@@ -12,8 +12,8 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
     annotation(Dialog(tab="Advanced"));
 
 protected
-  Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
-  Modelica.SIunits.Pressure dp_min
+  SI.MassFlowRate m_flow_set "Requested mass flow rate";
+  SI.Pressure dp_min
     "Minimum dp required for delivering requested mass flow rate";
 
 equation

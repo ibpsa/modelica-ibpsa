@@ -5,7 +5,7 @@ model HeaterCooler_u "Model that demonstrates the ideal heater model"
   package Medium = Annex60.Media.Air;
 
 
-  parameter Modelica.SIunits.MassFlowRate
+  parameter SI.MassFlowRate
     m_flow_nominal=3000/1000/20 "Nominal mass flow rate";
 
   Annex60.Fluid.Sources.Boundary_pT sin(

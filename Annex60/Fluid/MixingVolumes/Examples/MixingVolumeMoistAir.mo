@@ -4,7 +4,7 @@ model MixingVolumeMoistAir
 
   package Medium = Annex60.Media.Air;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.001
+  parameter SI.MassFlowRate m_flow_nominal = 0.001
     "Nominal mass flow rate";
 
   Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir vol1(

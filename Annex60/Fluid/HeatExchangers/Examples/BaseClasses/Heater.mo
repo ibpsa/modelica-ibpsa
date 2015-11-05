@@ -3,11 +3,11 @@ partial model Heater "Base class for example model for the heater and cooler"
 
   package Medium = Annex60.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.Volume VRoo = 6*6*2.7 "Room volume";
+  parameter SI.Volume VRoo = 6*6*2.7 "Room volume";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = VRoo*1.2*6/3600
+  parameter SI.MassFlowRate m_flow_nominal = VRoo*1.2*6/3600
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 30*6*6
+  parameter SI.HeatFlowRate Q_flow_nominal = 30*6*6
     "Nominal heat loss of the room";
 
   Annex60.Fluid.MixingVolumes.MixingVolume vol(

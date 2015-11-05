@@ -9,9 +9,9 @@ model FourPortHeatMassExchanger
   extends Annex60.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true);
 
-  parameter Modelica.SIunits.Time tau1 = 30 "Time constant at nominal flow"
+  parameter SI.Time tau1 = 30 "Time constant at nominal flow"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau2 = 30 "Time constant at nominal flow"
+  parameter SI.Time tau2 = 30 "Time constant at nominal flow"
      annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
 
   // Advanced
@@ -108,9 +108,9 @@ model FourPortHeatMassExchanger
         extent={{-10,10},{10,-10}},
         rotation=180)));
 
-  Modelica.SIunits.HeatFlowRate Q1_flow = vol1.heatPort.Q_flow
+  SI.HeatFlowRate Q1_flow = vol1.heatPort.Q_flow
     "Heat flow rate into medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
+  SI.HeatFlowRate Q2_flow = vol2.heatPort.Q_flow
     "Heat flow rate into medium 2";
 
   Annex60.Fluid.FixedResistances.FixedResistanceDpM preDro1(
@@ -146,20 +146,20 @@ model FourPortHeatMassExchanger
 protected
   parameter Medium1.ThermodynamicState sta1_nominal=Medium1.setState_pTX(
       T=Medium1.T_default, p=Medium1.p_default, X=Medium1.X_default);
-  parameter Modelica.SIunits.Density rho1_nominal=Medium1.density(sta1_nominal)
+  parameter SI.Density rho1_nominal=Medium1.density(sta1_nominal)
     "Density, used to compute fluid volume";
   parameter Medium2.ThermodynamicState sta2_nominal=Medium2.setState_pTX(
       T=Medium2.T_default, p=Medium2.p_default, X=Medium2.X_default);
-  parameter Modelica.SIunits.Density rho2_nominal=Medium2.density(sta2_nominal)
+  parameter SI.Density rho2_nominal=Medium2.density(sta2_nominal)
     "Density, used to compute fluid volume";
 
   parameter Medium1.ThermodynamicState sta1_start=Medium1.setState_pTX(
       T=T1_start, p=p1_start, X=X1_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h1_outflow_start = Medium1.specificEnthalpy(sta1_start)
+  parameter SI.SpecificEnthalpy h1_outflow_start = Medium1.specificEnthalpy(sta1_start)
     "Start value for outflowing enthalpy";
   parameter Medium2.ThermodynamicState sta2_start=Medium2.setState_pTX(
       T=T2_start, p=p2_start, X=X2_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h2_outflow_start = Medium2.specificEnthalpy(sta2_start)
+  parameter SI.SpecificEnthalpy h2_outflow_start = Medium2.specificEnthalpy(sta2_start)
     "Start value for outflowing enthalpy";
 
 initial algorithm

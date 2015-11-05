@@ -18,13 +18,13 @@ protected
     "Relative humidity to which the sensor is exposed to";
 
 protected
-  Modelica.SIunits.Temperature T_a
+  SI.Temperature T_a
     "Temperature of the medium flowing from port_a to port_b";
   Medium.MassFraction Xi_a[Medium.nXi]
     "Mass fraction of the medium flowing from port_a to port_b";
   Real phi_a(unit="1")
     "Relative humidity of the medium flowing from port_a to port_b";
-  Modelica.SIunits.Temperature T_b
+  SI.Temperature T_b
     "Temperature of the medium flowing from port_b to port_a";
   Medium.MassFraction Xi_b[Medium.nXi]
     "Mass fraction of the medium flowing from port_b to port_a";

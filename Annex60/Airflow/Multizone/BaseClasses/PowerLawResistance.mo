@@ -5,25 +5,25 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
     final showDesignFlowDirection=false);
   extends Annex60.Airflow.Multizone.BaseClasses.ErrorControl;
 
-  parameter Modelica.SIunits.Area A "|Orifice characteristics|Area of orifice";
+  parameter SI.Area A "|Orifice characteristics|Area of orifice";
 
   parameter Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
   parameter Boolean useDefaultProperties=true
     "Set to false to use density and viscosity based on actual medium state, rather than using default values"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.Pressure dp_turbulent(min=0, displayUnit="Pa") = 0.1
+  parameter SI.Pressure dp_turbulent(min=0, displayUnit="Pa") = 0.1
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1";
-  parameter Modelica.SIunits.Length lWet=sqrt(A)
+  parameter SI.Length lWet=sqrt(A)
     "Wetted perimeter used for Reynolds number calculation";
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  Modelica.SIunits.VolumeFlowRate V_flow
+  SI.VolumeFlowRate V_flow
     "Volume flow rate through the component";
-  Modelica.SIunits.Velocity v(nominal=1) "Average velocity";
-  Modelica.SIunits.Density rho "Fluid density at port_a";
+  SI.Velocity v(nominal=1) "Average velocity";
+  SI.Density rho "Fluid density at port_a";
   Real Re "Reynolds number";
 
 protected
@@ -37,9 +37,9 @@ protected
       p=Medium.p_default,
       X=Medium.X_default)
     "State of the medium at the medium default properties";
-  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+  parameter SI.Density rho_default=Medium.density(sta_default)
     "Density at the medium default properties";
-  parameter Modelica.SIunits.DynamicViscosity dynVis_default=
+  parameter SI.DynamicViscosity dynVis_default=
     Medium.dynamicViscosity(sta_default)
     "Dynamic viscosity at the medium default properties";
 
@@ -53,7 +53,7 @@ protected
     "Polynomial coefficient for regularized implementation of flow resistance";
 
   Medium.ThermodynamicState sta "State of the medium in the component";
-  Modelica.SIunits.DynamicViscosity dynVis "Dynamic viscosity";
+  SI.DynamicViscosity dynVis "Dynamic viscosity";
   Real mExc(quantity="Mass", final unit="kg")
     "Air mass exchanged (for purpose of error control only)";
 initial equation
@@ -135,7 +135,7 @@ revisions="<html>
 <ul>
 <li>
 January 21, 2015 by Michael Wetter:<br/>
-Changed type of <code>mExc</code> as <code>Modelica.SIunits.Mass</code>
+Changed type of <code>mExc</code> as <code>SI.Mass</code>
 sets <code>min=0</code>, but <code>mExc</code> can be negative.
 </li>
 <li>

@@ -37,7 +37,7 @@ package PerfectGas "Model for air as a perfect gas"
      is no longer possible and non-linear algebraic equations occur.
       */
   protected
-    constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
+    constant SI.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
 
     MassFraction X_steam "Mass fraction of steam water";
@@ -139,8 +139,8 @@ function saturationPressureLiquid
     "Return saturation pressure of water as a function of temperature T in the range of 273.16 to 373.16 K"
 
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature Tsat "saturation temperature";
-  output Modelica.SIunits.AbsolutePressure psat "saturation pressure";
+  input SI.Temperature Tsat "saturation temperature";
+  output SI.AbsolutePressure psat "saturation pressure";
   // This function is declared here explicitly, instead of referencing the function in its
   // base class, since otherwise Dymola 7.3 does not find the derivative for the model
   // Annex60.Fluid.Sensors.Examples.MassFraction
@@ -160,7 +160,7 @@ function saturationPressureLiquid_der
     "Time derivative of saturationPressureLiquid"
 
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature Tsat "Saturation temperature";
+  input SI.Temperature Tsat "Saturation temperature";
   input Real dTsat(unit="K/s") "Saturation temperature derivative";
   output Real psat_der(unit="Pa/s") "Saturation pressure";
 
@@ -425,7 +425,7 @@ redeclare function extends thermalConductivity
 algorithm
   lambda := Modelica.Media.Incompressible.TableBased.Polynomials_Temp.evaluate(
       {(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},
-   Modelica.SIunits.Conversions.to_degC(state.T));
+   SI.Conversions.to_degC(state.T));
   annotation (
     Inline=true);
 end thermalConductivity;
@@ -439,13 +439,13 @@ end specificEnthalpy;
 
 redeclare replaceable function specificEnthalpy_pTX "Specific enthalpy"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Pressure p "Pressure";
-  input Modelica.SIunits.Temperature T "Temperature";
-  input Modelica.SIunits.MassFraction X[:] "Mass fractions of moist air";
-  output Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy at p, T, X";
+  input SI.Pressure p "Pressure";
+  input SI.Temperature T "Temperature";
+  input SI.MassFraction X[:] "Mass fractions of moist air";
+  output SI.SpecificEnthalpy h "Specific enthalpy at p, T, X";
 
   protected
-  Modelica.SIunits.SpecificEnthalpy hDryAir "Enthalpy of dry air";
+  SI.SpecificEnthalpy hDryAir "Enthalpy of dry air";
 algorithm
   hDryAir := (T - reference_T)*dryair.cp;
   h := hDryAir * (1 - X[Water]) +
@@ -511,11 +511,11 @@ protected
     "Coefficient data record for properties of perfect gases"
     extends Modelica.Icons.Record;
 
-    Modelica.SIunits.MolarMass MM "Molar mass";
-    Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
-    Modelica.SIunits.SpecificHeatCapacity cp
+    SI.MolarMass MM "Molar mass";
+    SI.SpecificHeatCapacity R "Gas constant";
+    SI.SpecificHeatCapacity cp
       "Specific heat capacity at constant pressure";
-    Modelica.SIunits.SpecificHeatCapacity cv = cp-R
+    SI.SpecificHeatCapacity cv = cp-R
       "Specific heat capacity at constant volume";
     annotation (
       preferredView="info",
@@ -575,11 +575,11 @@ First implementation.
 
   constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
 
-  constant Modelica.SIunits.SpecificEnergy h_fg=
+  constant SI.SpecificEnergy h_fg=
     Annex60.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of evaporation of water";
 
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
+  constant SI.SpecificHeatCapacity cpWatLiq=
     Annex60.Utilities.Psychrometrics.Constants.cpWatLiq
     "Specific heat capacity of liquid water";
 

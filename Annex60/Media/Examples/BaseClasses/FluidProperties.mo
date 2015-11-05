@@ -4,49 +4,49 @@ partial model FluidProperties
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium;
 
-  parameter Modelica.SIunits.Temperature TMin
+  parameter SI.Temperature TMin
     "Minimum temperature for the simulation";
-  parameter Modelica.SIunits.Temperature TMax
+  parameter SI.Temperature TMax
     "Maximum temperature for the simulation";
-  parameter Modelica.SIunits.Pressure p = Medium.p_default "Pressure";
-  parameter Modelica.SIunits.MassFraction X[Medium.nX]=
+  parameter SI.Pressure p = Medium.p_default "Pressure";
+  parameter SI.MassFraction X[Medium.nX]=
     Medium.X_default "Mass fraction";
   Medium.Temperature T "Temperature";
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC
+  SI.Conversions.NonSIunits.Temperature_degC T_degC
     "Celsius temperature";
 
   Medium.ThermodynamicState state_pTX "Medium state";
   Medium.ThermodynamicState state_phX "Medium state";
   Medium.ThermodynamicState state_psX "Medium state";
 
-  Modelica.SIunits.Density d "Density";
-  Modelica.SIunits.DynamicViscosity eta "Dynamic viscosity";
-  Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
-  Modelica.SIunits.SpecificInternalEnergy u "Specific internal energy";
-  Modelica.SIunits.SpecificEntropy s "Specific entropy";
-  Modelica.SIunits.SpecificEnergy g "Specific Gibbs energy";
-  Modelica.SIunits.SpecificEnergy f "Specific Helmholtz energy";
+  SI.Density d "Density";
+  SI.DynamicViscosity eta "Dynamic viscosity";
+  SI.SpecificEnthalpy h "Specific enthalpy";
+  SI.SpecificInternalEnergy u "Specific internal energy";
+  SI.SpecificEntropy s "Specific entropy";
+  SI.SpecificEnergy g "Specific Gibbs energy";
+  SI.SpecificEnergy f "Specific Helmholtz energy";
 
-  Modelica.SIunits.SpecificEnthalpy hIse "Isentropic enthalpy";
+  SI.SpecificEnthalpy hIse "Isentropic enthalpy";
 
   Modelica.Media.Interfaces.Types.IsobaricExpansionCoefficient beta
     "Isobaric expansion coefficient";
-  Modelica.SIunits.IsothermalCompressibility kappa "Isothermal compressibility";
+  SI.IsothermalCompressibility kappa "Isothermal compressibility";
 
   Modelica.Media.Interfaces.Types.DerDensityByPressure ddpT
     "Density derivative w.r.t. pressure";
   Modelica.Media.Interfaces.Types.DerDensityByTemperature ddTp
     "Density derivative w.r.t. temperature";
-  Modelica.SIunits.Density[Medium.nX] dddX
+  SI.Density[Medium.nX] dddX
     "Density derivative w.r.t. mass fraction";
 
-  Modelica.SIunits.SpecificHeatCapacity cp "Specific heat capacity";
-  Modelica.SIunits.SpecificHeatCapacity cv "Specific heat capacity";
-  Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity";
+  SI.SpecificHeatCapacity cp "Specific heat capacity";
+  SI.SpecificHeatCapacity cv "Specific heat capacity";
+  SI.ThermalConductivity lambda "Thermal conductivity";
 
-  Modelica.SIunits.AbsolutePressure pMed "Pressure";
+  SI.AbsolutePressure pMed "Pressure";
   Medium.Temperature TMed "Temperature";
-  Modelica.SIunits.MolarMass MM "Mixture molar mass";
+  SI.MolarMass MM "Mixture molar mass";
 
   Medium.BaseProperties basPro "Medium base properties";
 protected
@@ -65,7 +65,7 @@ protected
 equation
     // Compute temperatures that are used as input to the functions
     T = TMin + conv*time * (TMax-TMin);
-    T_degC = Modelica.SIunits.Conversions.to_degC(T);
+    T_degC = SI.Conversions.to_degC(T);
 
     // Check setting the states
     state_pTX = Medium.setState_pTX(p=p, T=T, X=X);
@@ -114,7 +114,7 @@ revisions="<html>
 <li>
 June 6, 2015, by Michael Wetter:<br/>
 Changed type of <code>T</code> from
-<code>Modelica.SIunits.Temperature</code> to <code>Medium.Temperature</code>.
+<code>SI.Temperature</code> to <code>Medium.Temperature</code>.
 Otherwise, it has a different start value than <code>BaseProperties.T</code>, which
 causes an error if
 <a href=\"Annex60.Media.Examples.WaterProperties\">

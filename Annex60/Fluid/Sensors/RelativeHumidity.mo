@@ -8,7 +8,7 @@ model RelativeHumidity "Ideal one port relative humidity sensor"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  Modelica.SIunits.Temperature T "Temperature of the medium";
+  SI.Temperature T "Temperature of the medium";
   Medium.MassFraction Xi[Medium.nXi] "Mass fraction of the medium";
 equation
   Xi = inStream(port.Xi_outflow);

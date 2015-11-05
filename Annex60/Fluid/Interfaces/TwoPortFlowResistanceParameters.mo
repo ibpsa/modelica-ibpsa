@@ -10,7 +10,7 @@ record TwoPortFlowResistanceParameters
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(enable = computeFlowResistance,
                 tab="Flow resistance"));
-  parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")
+  parameter SI.Pressure dp_nominal(min=0, displayUnit="Pa")
     "Pressure difference"
     annotation(Dialog(group = "Nominal condition"));
   parameter Boolean linearizeFlowResistance = false

@@ -11,11 +11,11 @@ model Humidifier_u
     "Get the temperature from the input connector"
     annotation(Evaluate=true, HideResult=true);
 
-  parameter Modelica.SIunits.Temperature T = 293.15
+  parameter SI.Temperature T = 293.15
     "Temperature of water that is added to the fluid stream (used if use_T_in=false)"
     annotation (Dialog(enable = not use_T_in));
 
-  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
+  parameter SI.MassFlowRate mWat_flow_nominal
     "Water mass flow rate at u=1, positive for humidification";
 
   Modelica.Blocks.Interfaces.RealInput T_in if use_T_in

@@ -3,12 +3,12 @@ model DoorDiscretizedOperable
   "Door model using discretization along height coordinate"
   extends Annex60.Airflow.Multizone.BaseClasses.DoorDiscretized;
 
-   parameter Modelica.SIunits.Pressure dpCloRat(min=0)=4
+   parameter SI.Pressure dpCloRat(min=0)=4
     "|Closed aperture rating conditions|Pressure drop at rating condition";
   parameter Real CDCloRat(min=0, max=1)=1
     "|Closed aperture rating conditions|Discharge coefficient";
 
-  parameter Modelica.SIunits.Area LClo(min=0)
+  parameter SI.Area LClo(min=0)
     "|Closed aperture|Effective leakage area";
 
   parameter Real CDOpe=0.65 "|Open aperture|Discharge coefficient";
@@ -20,8 +20,8 @@ model DoorDiscretizedOperable
     "Opening signal, 0=closed, 1=open"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}), iconTransformation(extent={{-120,-10},{-100,10}})));
 protected
- parameter Modelica.SIunits.Area AOpe=wOpe*hOpe "Open aperture area";
- parameter Modelica.SIunits.Area AClo(fixed=false) "Closed aperture area";
+ parameter SI.Area AOpe=wOpe*hOpe "Open aperture area";
+ parameter SI.Area AClo(fixed=false) "Closed aperture area";
 
  Real kOpe "Open aperture flow coefficient, k = V_flow/ dp^m";
  Real kClo "Closed aperture flow coefficient, k = V_flow/ dp^m";

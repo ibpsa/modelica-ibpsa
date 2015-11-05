@@ -9,7 +9,7 @@ public
         "RadiantEnergyFluenceRate", final unit="W/m2") "Radiation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  constant Modelica.SIunits.RadiantEnergyFluenceRate HMin=0.0001
+  constant SI.RadiantEnergyFluenceRate HMin=0.0001
     "Minimum value for radiation";
 equation
   HOut = Annex60.Utilities.Math.Functions.smoothMax(

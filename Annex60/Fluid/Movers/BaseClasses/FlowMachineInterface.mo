@@ -13,7 +13,7 @@ partial model FlowMachineInterface
   import Modelica.Constants;
   import cha = Annex60.Fluid.Movers.BaseClasses.Characteristics;
 
-  final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
+  final parameter SI.VolumeFlowRate V_flow_nominal=
     _per_y.pressure.V_flow[nOri] "Nominal volume flow rate, used for homotopy";
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -23,7 +23,7 @@ partial model FlowMachineInterface
   parameter Boolean filteredSpeed=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-  parameter Modelica.SIunits.Time riseTime=30
+  parameter SI.Time riseTime=30
     "Rise time of the filter (time to reach 99.6 % of the speed)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
@@ -64,7 +64,7 @@ protected
 
   parameter Data.SpeedControlled_y _per_y "Record with performance data";
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_max=
+  parameter SI.VolumeFlowRate V_flow_max=
     if haveVMax then
       _per_y.pressure.V_flow[nOri]
      else
@@ -72,10 +72,10 @@ protected
       nOri - 1])/((_per_y.pressure.dp[nOri] - _per_y.pressure.dp[nOri - 1]))*_per_y.pressure.dp[nOri]
     "Maximum volume flow rate, used for smoothing";
 
-  parameter Modelica.SIunits.VolumeFlowRate VDelta_flow(
+  parameter SI.VolumeFlowRate VDelta_flow(
     fixed=false,
     start=delta*V_flow_nominal) "Small volume flow rate";
-  parameter Modelica.SIunits.Pressure dpDelta(
+  parameter SI.Pressure dpDelta(
     fixed=false,
     start=100) "Small pressure";
   parameter Real delta = 0.05
@@ -83,7 +83,7 @@ protected
   parameter Real cBar[2](each fixed=false)
     "Coefficients for linear approximation of pressure vs. flow rate";
 
-  parameter Modelica.SIunits.Pressure dpMax = if haveDPMax then
+  parameter SI.Pressure dpMax = if haveDPMax then
     _per_y.pressure.dp[1] else
     _per_y.pressure.dp[1] - ((_per_y.pressure.dp[2] - _per_y.pressure.dp[1])/(
       _per_y.pressure.V_flow[2] - _per_y.pressure.V_flow[1]))*_per_y.pressure.V_flow[1]
@@ -179,7 +179,7 @@ protected
     "Flag, true if user specified data that contain V_flow_max";
 
   // Variables
-  Modelica.SIunits.Density rho "Medium density";
+  SI.Density rho "Medium density";
 
 function getPerformanceDataAsString
   input Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure

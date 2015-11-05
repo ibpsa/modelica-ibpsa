@@ -14,8 +14,8 @@ model StaticTwoPortHeatMassExchanger
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Model inputs
-  input Modelica.SIunits.HeatFlowRate Q_flow "Heat transferred into the medium";
-  input Modelica.SIunits.MassFlowRate mWat_flow
+  input SI.HeatFlowRate Q_flow "Heat transferred into the medium";
+  input SI.MassFlowRate mWat_flow
     "Moisture mass flow rate added to the medium";
 
   // Models for conservation equations and pressure drop

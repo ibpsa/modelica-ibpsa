@@ -2,16 +2,16 @@ within Annex60.Fluid.BaseClasses.FlowModels;
 function basicFlowFunction_dp
   "Function that computes mass flow rate for given pressure drop"
 
-  input Modelica.SIunits.Pressure dp(displayUnit="Pa")
+  input SI.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   input Real k(min=0, unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+  input SI.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
-  output Modelica.SIunits.MassFlowRate m_flow
+  output SI.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
 protected
-  Modelica.SIunits.Pressure dp_turbulent = m_flow_turbulent^2/k/k
+  SI.Pressure dp_turbulent = m_flow_turbulent^2/k/k
     "Pressure where flow changes to turbulent";
 algorithm
    m_flow := if noEvent(dp>dp_turbulent) then k*sqrt(dp)

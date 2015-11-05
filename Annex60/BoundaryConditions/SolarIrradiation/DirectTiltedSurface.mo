@@ -3,8 +3,8 @@ block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
   extends
     Annex60.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
-  parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter SI.Angle lat "Latitude";
+  parameter SI.Angle azi "Surface azimuth";
 
   Annex60.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));

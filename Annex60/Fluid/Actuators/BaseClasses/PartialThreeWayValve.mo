@@ -39,7 +39,7 @@ partial model PartialThreeWayValve "Partial three way valve"
     extends Annex60.Fluid.Actuators.BaseClasses.ActuatorSignal;
     extends Annex60.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
-  parameter Modelica.SIunits.Pressure dpFixed_nominal[2](each displayUnit="Pa",
+  parameter SI.Pressure dpFixed_nominal[2](each displayUnit="Pa",
                                                          each min=0) = {0, 0}
     "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
     annotation(Dialog(group="Nominal condition"));

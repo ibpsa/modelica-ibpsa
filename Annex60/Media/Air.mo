@@ -52,12 +52,12 @@ package Air
     final standardOrderComponents=true) "Base properties"
 
   protected
-    constant Modelica.SIunits.MolarMass[2] MMX = {steam.MM,dryair.MM}
+    constant SI.MolarMass[2] MMX = {steam.MM,dryair.MM}
       "Molar masses of components";
 
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
-    Modelica.SIunits.TemperatureDifference dT
+    SI.TemperatureDifference dT
       "Temperature difference used to compute enthalpy";
   equation
     assert(T >= 200.0 and T <= 423.15, "
@@ -302,7 +302,7 @@ redeclare function extends specificEntropy
     "Return the specific entropy, only valid for phi<1"
 
   protected
-    Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
+    SI.MoleFraction[2] Y "Molar fraction";
 algorithm
     Y := massToMoleFractions(
          state.X, {steam.MM,dryair.MM});
@@ -531,10 +531,10 @@ end setState_pTX;
 redeclare function extends setState_psX
     "Return the thermodynamic state as function of p, s and composition X or Xi"
   protected
-    Modelica.SIunits.MassFraction[2] X_int=
+    SI.MassFraction[2] X_int=
       if size(X, 1) == nX then X else cat(1, X, {1 - sum(X)}) "Mass fraction";
-    Modelica.SIunits.MoleFraction[2] Y "Molar fraction";
-    Modelica.SIunits.Temperature T "Temperature";
+    SI.MoleFraction[2] Y "Molar fraction";
+    SI.Temperature T "Temperature";
 algorithm
    Y := massToMoleFractions(
          X_int, {steam.MM,dryair.MM});
@@ -588,10 +588,10 @@ end specificEnthalpy;
 
 redeclare replaceable function specificEnthalpy_pTX "Specific enthalpy"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Pressure p "Pressure";
-  input Modelica.SIunits.Temperature T "Temperature";
-  input Modelica.SIunits.MassFraction X[:] "Mass fractions of moist air";
-  output Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy at p, T, X";
+  input SI.Pressure p "Pressure";
+  input SI.Temperature T "Temperature";
+  input SI.MassFraction X[:] "Mass fractions of moist air";
+  output SI.SpecificEnthalpy h "Specific enthalpy at p, T, X";
 
 algorithm
   h := specificEnthalpy(setState_pTX(p, T, X));
@@ -733,7 +733,7 @@ redeclare function extends thermalConductivity
 algorithm
   lambda := Modelica.Media.Incompressible.TableBased.Polynomials_Temp.evaluate(
       {(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},
-   Modelica.SIunits.Conversions.to_degC(state.T));
+   SI.Conversions.to_degC(state.T));
 annotation(LateInline=true);
 end thermalConductivity;
 
@@ -749,11 +749,11 @@ protected
     "Coefficient data record for properties of perfect gases"
     extends Modelica.Icons.Record;
 
-    Modelica.SIunits.MolarMass MM "Molar mass";
-    Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
-    Modelica.SIunits.SpecificHeatCapacity cp
+    SI.MolarMass MM "Molar mass";
+    SI.SpecificHeatCapacity R "Gas constant";
+    SI.SpecificHeatCapacity cp
       "Specific heat capacity at constant pressure";
-    Modelica.SIunits.SpecificHeatCapacity cv = cp-R
+    SI.SpecificHeatCapacity cv = cp-R
       "Specific heat capacity at constant volume";
     annotation (
       preferredView="info",
@@ -796,13 +796,13 @@ First implementation.
 
   constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
 
-  constant Modelica.SIunits.MolarMass[2] MMX={steam.MM,dryair.MM}
+  constant SI.MolarMass[2] MMX={steam.MM,dryair.MM}
     "Molar masses of components";
 
-  constant Modelica.SIunits.SpecificEnergy h_fg=
+  constant SI.SpecificEnergy h_fg=
     Annex60.Utilities.Psychrometrics.Constants.h_fg
     "Latent heat of evaporation of water";
-  constant Modelica.SIunits.SpecificHeatCapacity cpWatLiq=
+  constant SI.SpecificHeatCapacity cpWatLiq=
     Annex60.Utilities.Psychrometrics.Constants.cpWatLiq
     "Specific heat capacity of liquid water";
 

@@ -6,11 +6,11 @@ model SimpleHouse
   package MediumAir = Annex60.Media.Air;
   package MediumWater = Annex60.Media.Water;
 
-  parameter Modelica.SIunits.Area A_wall = 100 "Wall area";
-  parameter Modelica.SIunits.Volume V_zone = A_wall*3 "Wall area";
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=3*rad.m_flow_nominal
+  parameter SI.Area A_wall = 100 "Wall area";
+  parameter SI.Volume V_zone = A_wall*3 "Wall area";
+  parameter SI.MassFlowRate m_flow_nominal=3*rad.m_flow_nominal
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal=200
+  parameter SI.Pressure dp_nominal=200
     "Pressure drop at nominal mass flow rate";
   parameter Boolean allowFlowReversal=false
     "= false because flow will not reverse in these circuits";

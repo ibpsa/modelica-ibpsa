@@ -30,8 +30,8 @@ block BlackBody "Calculate black body sky temperature"
     nominal=100) "Horizontal infrared irradiation"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
-  Modelica.SIunits.Temperature TDewPoiK "Dewpoint temperature";
-  Modelica.SIunits.Emissivity epsSky "Black-body absorptivity of sky";
+  SI.Temperature TDewPoiK "Dewpoint temperature";
+  SI.Emissivity epsSky "Black-body absorptivity of sky";
   Real nOpa10(min=0, max=10) "Opaque sky cover";
 equation
   if calTSky == Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover then

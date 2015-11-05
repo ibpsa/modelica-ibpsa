@@ -2,7 +2,7 @@ within Annex60.BoundaryConditions.SolarIrradiation.Examples;
 model DirectTiltedSurface
   "Test model for direct solar irradiation on a tilted surface"
   extends Modelica.Icons.Example;
-  parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
+  parameter SI.Angle lat=37/180*Modelica.Constants.pi "Latitude";
   Annex60.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "modelica://Annex60/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));

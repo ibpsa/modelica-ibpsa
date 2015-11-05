@@ -14,11 +14,11 @@ model StaticFourPortHeatMassExchanger
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  input Modelica.SIunits.HeatFlowRate Q1_flow
+  input SI.HeatFlowRate Q1_flow
     "Heat transferred into the medium 1";
   input Medium1.MassFlowRate mWat1_flow
     "Moisture mass flow rate added to the medium 1";
-  input Modelica.SIunits.HeatFlowRate Q2_flow
+  input SI.HeatFlowRate Q2_flow
     "Heat transferred into the medium 2";
   input Medium2.MassFlowRate mWat2_flow
     "Moisture mass flow rate added to the medium 2";

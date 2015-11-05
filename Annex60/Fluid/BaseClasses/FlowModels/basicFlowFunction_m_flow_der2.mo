@@ -3,11 +3,11 @@ function basicFlowFunction_m_flow_der2
   "2nd derivative of function that computes pressure drop for given mass flow rate"
   extends Modelica.Icons.Function;
 
-  input Modelica.SIunits.MassFlowRate m_flow
+  input SI.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
   input Real k(unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+  input SI.MassFlowRate m_flow_turbulent(min=0)
     "Mass flow rate where transition to turbulent flow occurs";
   input Real m_flow_der(unit="kg/s2")
     "1st derivative of mass flow rate in design flow direction";
@@ -17,7 +17,7 @@ function basicFlowFunction_m_flow_der2
     "2nd derivative of pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 protected
   Real m_k = m_flow_turbulent/k "Auxiliary variable";
-  Modelica.SIunits.Pressure dp_turbulent = (m_k)^2
+  SI.Pressure dp_turbulent = (m_k)^2
     "Pressure where flow changes to turbulent";
 algorithm
  dp_der2 :=if (m_flow>m_flow_turbulent) then

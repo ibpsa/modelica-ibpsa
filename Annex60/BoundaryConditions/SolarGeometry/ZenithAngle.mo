@@ -2,7 +2,7 @@ within Annex60.BoundaryConditions.SolarGeometry;
 block ZenithAngle "Zenith angle"
   extends Modelica.Blocks.Icons.Block;
 public
-  parameter Modelica.SIunits.Angle lat "Latitude";
+  parameter SI.Angle lat "Latitude";
   Modelica.Blocks.Interfaces.RealOutput y(
     final quantity="Angle",
     final unit="rad",

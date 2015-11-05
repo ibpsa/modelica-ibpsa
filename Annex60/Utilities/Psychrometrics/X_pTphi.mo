@@ -18,7 +18,7 @@ public
     "Steam mass fraction"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  Modelica.SIunits.AbsolutePressure pSat "Saturation pressure";
+  SI.AbsolutePressure pSat "Saturation pressure";
  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
  parameter Integer i_nw(min=1, fixed=false) "Index for non-water substance";
  parameter Boolean found(fixed=false) "Flag, used for error checking";

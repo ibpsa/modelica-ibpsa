@@ -4,12 +4,12 @@ model EffectiveAirLeakageArea "Effective air leakage area"
     m=0.65,
     final A=CD/CDRat * L * dpRat^(0.5-m));
 
-  parameter Modelica.SIunits.Pressure dpRat(min=0)=4
+  parameter SI.Pressure dpRat(min=0)=4
     "|Rating conditions|Pressure drop at rating condition";
   parameter Real CDRat(min=0, max=1)=1
     "|Rating conditions|Discharge coefficient";
 
-  parameter Modelica.SIunits.Area L(min=0) "Effective leakage area";
+  parameter SI.Area L(min=0) "Effective leakage area";
 
   annotation (                       Icon(graphics={
         Rectangle(

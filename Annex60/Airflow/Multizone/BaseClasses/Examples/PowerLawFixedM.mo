@@ -5,13 +5,13 @@ model PowerLawFixedM "Test model for power law function"
 
   constant Real m(min=0.5, max=1) = 0.5
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
-  parameter Modelica.SIunits.Pressure dp_turbulent(min=0)=5
+  parameter SI.Pressure dp_turbulent(min=0)=5
     "Pressure difference where regularization starts";
 
-  Modelica.SIunits.Pressure dp "Pressure difference";
-  Modelica.SIunits.VolumeFlowRate V_flow
+  SI.Pressure dp "Pressure difference";
+  SI.VolumeFlowRate V_flow
     "Volume flow rate computed with model powerLaw";
-  Modelica.SIunits.VolumeFlowRate VFixed_flow
+  SI.VolumeFlowRate VFixed_flow
     "Volume flow rate computed with model powerLawFixed";
 
   constant Real gamma(min=1) = 1.5

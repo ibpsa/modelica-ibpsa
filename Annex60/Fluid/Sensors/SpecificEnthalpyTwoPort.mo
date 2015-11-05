@@ -2,7 +2,7 @@ within Annex60.Fluid.Sensors;
 model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
   extends Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-  parameter Modelica.SIunits.SpecificEnthalpy h_out_start=
+  parameter SI.SpecificEnthalpy h_out_start=
     Medium.specificEnthalpy_pTX(p=Medium.p_default, T=Medium.T_default, X=Medium.X_default)
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
@@ -15,7 +15,7 @@ model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
         extent={{10,-10},{-10,10}},
         rotation=270)));
 protected
-  Modelica.SIunits.SpecificEnthalpy hMed_out(start=h_out_start)
+  SI.SpecificEnthalpy hMed_out(start=h_out_start)
     "Medium enthalpy to which the sensor is exposed";
 initial equation
   if dynamic then

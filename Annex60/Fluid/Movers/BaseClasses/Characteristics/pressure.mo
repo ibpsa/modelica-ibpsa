@@ -4,14 +4,14 @@ function pressure
   extends Modelica.Icons.Function;
   input Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
     per "Pressure performance data";
-  input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
+  input SI.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
-  input Modelica.SIunits.VolumeFlowRate VDelta_flow "Small volume flow rate";
-  input Modelica.SIunits.Pressure dpDelta "Small pressure";
+  input SI.VolumeFlowRate VDelta_flow "Small volume flow rate";
+  input SI.Pressure dpDelta "Small pressure";
 
-  input Modelica.SIunits.VolumeFlowRate V_flow_max
+  input SI.VolumeFlowRate V_flow_max
     "Maximum volume flow rate at r_N=1 and dp=0";
-  input Modelica.SIunits.Pressure dpMax(min=0)
+  input SI.Pressure dpMax(min=0)
     "Maximum pressure at r_N=1 and V_flow=0";
 
   input Real d[:] "Derivatives at support points for spline interpolation";
@@ -20,13 +20,13 @@ function pressure
     "Coefficients for linear approximation of pressure vs. flow rate";
   input Real kRes(unit="kg/(s.m4)")
     "Linear coefficient for fan-internal pressure drop";
-  output Modelica.SIunits.Pressure dp "Pressure raise";
+  output SI.Pressure dp "Pressure raise";
 
 protected
    Integer dimD(min=2)=size(per.V_flow, 1) "Dimension of data vector";
 
   function performanceCurve "Performance curve away from the origin"
-    input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
+    input SI.VolumeFlowRate V_flow "Volumetric flow rate";
     input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
     input Real d[dimD] "Coefficients for polynomial of pressure vs. flow rate";
     input
@@ -34,10 +34,10 @@ protected
       "Pressure performance data";
     input Integer dimD "Dimension of data vector";
 
-    output Modelica.SIunits.Pressure dp "Pressure raise";
+    output SI.Pressure dp "Pressure raise";
 
   protected
-    Modelica.SIunits.VolumeFlowRate rat "Ratio of V_flow/r_N";
+    SI.VolumeFlowRate rat "Ratio of V_flow/r_N";
     Integer i "Integer to select data interval";
   algorithm
     rat := V_flow/r_N;

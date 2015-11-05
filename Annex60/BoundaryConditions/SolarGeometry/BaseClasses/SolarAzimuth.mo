@@ -2,7 +2,7 @@ within Annex60.BoundaryConditions.SolarGeometry.BaseClasses;
 block SolarAzimuth "Solar azimuth"
   extends Modelica.Blocks.Icons.Block;
 public
-  parameter Modelica.SIunits.Angle lat "Latitude";
+  parameter SI.Angle lat "Latitude";
   Modelica.Blocks.Interfaces.RealInput zen(quantity="Angle", unit="rad")
     "Zenith angle"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
@@ -21,8 +21,8 @@ public
 protected
   Real arg "cos(solAzi) after data validity check";
   Real tmp "cos(solAzi) before data validity check";
-  constant Modelica.SIunits.Time day=86400 "Number of seconds in a day";
-  constant Modelica.SIunits.Angle polarCircle = 1.1617
+  constant SI.Time day=86400 "Number of seconds in a day";
+  constant SI.Angle polarCircle = 1.1617
     "Latitude of polar circle (66 degree 33 min 44 sec)";
   final parameter Boolean outsidePolarCircle = lat < polarCircle and lat > -polarCircle
     "Flag, true if latitude is outside polar region";

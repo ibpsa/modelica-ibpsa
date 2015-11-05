@@ -3,9 +3,9 @@ record flowParametersInternal "Record for flow parameters with prescribed size"
   extends Modelica.Icons.Record;
   parameter Integer n "Number of elements in each array"
    annotation(Evaluate=true);
-  parameter Modelica.SIunits.VolumeFlowRate V_flow[n](each min=0)
+  parameter SI.VolumeFlowRate V_flow[n](each min=0)
     "Volume flow rate at user-selected operating points";
-  parameter Modelica.SIunits.Pressure dp[n](
+  parameter SI.Pressure dp[n](
      each min=0, each displayUnit="Pa")
     "Fan or pump total pressure at these flow rates";
   annotation (Documentation(info="<html>

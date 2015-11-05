@@ -20,9 +20,9 @@ model PIDHysteresisTimer
       annotation (Dialog(group="Set point tracking"));
   parameter Real k=1 "Gain of controller"
       annotation (Dialog(group="Set point tracking"));
-  parameter Modelica.SIunits.Time Ti "Time constant of Integrator block"
+  parameter SI.Time Ti "Time constant of Integrator block"
       annotation (Dialog(group="Set point tracking"));
-  parameter Modelica.SIunits.Time Td "Time constant of Derivative block"
+  parameter SI.Time Td "Time constant of Derivative block"
       annotation (Dialog(group="Set point tracking"));
   parameter Real yMax=1 "Upper limit of modulating output"
       annotation (Dialog(group="Set point tracking"));

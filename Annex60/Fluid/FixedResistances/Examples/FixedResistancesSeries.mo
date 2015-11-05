@@ -6,7 +6,7 @@ model FixedResistancesSeries "Test of multiple resistances in series"
 
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{40,60},{60,80}})));
-   parameter Modelica.SIunits.Pressure dp_nominal = 5
+   parameter SI.Pressure dp_nominal = 5
     "Nominal pressure drop for each resistance";
     Modelica.Blocks.Sources.Ramp P(
       duration=1,

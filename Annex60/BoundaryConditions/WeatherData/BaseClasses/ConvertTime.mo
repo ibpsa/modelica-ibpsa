@@ -11,8 +11,8 @@ public
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  constant Modelica.SIunits.Time year=31536000 "Number of seconds in a year";
-  discrete Modelica.SIunits.Time tStart "Start time of period";
+  constant SI.Time year=31536000 "Number of seconds in a year";
+  discrete SI.Time tStart "Start time of period";
 
 initial equation
   tStart = integer(modTim/year)*year;

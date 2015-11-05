@@ -37,7 +37,7 @@ partial model PartialFlowMachine
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
 
-  parameter Modelica.SIunits.Time tau=1
+  parameter SI.Time tau=1
     "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
     annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
 
@@ -48,7 +48,7 @@ partial model PartialFlowMachine
         iconTransformation(extent={{-10,-78},{10,-58}})));
 
 protected
-  Modelica.SIunits.Density rho_in "Density of inflowing fluid";
+  SI.Density rho_in "Density of inflowing fluid";
 
   Annex60.Fluid.Movers.BaseClasses.IdealSource preSou(
     redeclare final package Medium = Medium,
@@ -62,7 +62,7 @@ protected
 
   parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
       T=T_start, p=p_start, X=X_start) "Medium state at start values";
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
+  parameter SI.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
 
 equation

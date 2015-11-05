@@ -5,7 +5,7 @@ model ZoneStepResponse
 
   replaceable package Medium = Annex60.Media.Air "Medium in the component";
 
-  output Modelica.SIunits.Temperature TRoom = simpleZone.volRoom.heatPort.T
+  output SI.Temperature TRoom = simpleZone.volRoom.heatPort.T
     "Room temperature at volume's therm port";
 
   Components.SimpleZone simpleZone(redeclare package Medium = Medium)
