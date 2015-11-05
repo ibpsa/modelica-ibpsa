@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLossA60Mod2
+model PipeHeatLossA60Mod_noAbs
   "Pipe model using spatialDistribution for temperature delay with heat losses modified"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
@@ -49,7 +49,8 @@ model PipeHeatLossA60Mod2
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
 
-  BaseClasses.HeatLossMod2 heatLossReverse(
+  BaseClasses.HeatLossMod_noAbs
+                          heatLossReverse(
     redeclare package Medium = Medium,
     m_flow_small=m_flow_small,
     diameter=diameter,
@@ -61,7 +62,8 @@ model PipeHeatLossA60Mod2
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-50,0})));
-  BaseClasses.HeatLossMod2 heatLoss(
+  BaseClasses.HeatLossMod_noAbs
+                          heatLoss(
     redeclare package Medium = Medium,
     m_flow_small=m_flow_small,
     diameter=diameter,
@@ -178,4 +180,4 @@ First implementation.
 <p>This setup is meant as a benchmark for more sophisticated implementations. It seems to generally work ok except for the cooling effects on the standing fluid in case of zero mass flow.</p>
 <p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used before and after the time delay.</p>
 </html>"));
-end PipeHeatLossA60Mod2;
+end PipeHeatLossA60Mod_noAbs;
