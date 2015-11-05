@@ -1,6 +1,7 @@
 within ;
 package Annex60 "Library with models for building energy and control systems"
   extends Modelica.Icons.Package;
+  import SI = Modelica.SIunits;
 
 
 package UsersGuide "User's Guide"
