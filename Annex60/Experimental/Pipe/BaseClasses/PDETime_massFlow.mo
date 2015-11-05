@@ -9,8 +9,8 @@ model PDETime_massFlow "Delay time for given normalized velocity"
   parameter Modelica.SIunits.Length len=100 "length";
   parameter Modelica.SIunits.Length diameter=0.05 "diameter of pipe";
   parameter Modelica.SIunits.Density rho=1000 "Standard density of fluid";
-  Modelica.SIunits.Time track1;
-  Modelica.SIunits.Time track2;
+  //Modelica.SIunits.Time track1;
+  //Modelica.SIunits.Time track2;
   Modelica.SIunits.Time tau_a;
   Modelica.SIunits.Time tau_b;
   Boolean v_a "Is the fluid flowing from a to b?";
@@ -44,19 +44,16 @@ equation
     1);*/
   tau_b = time - timeOut_b;
 
-  tau = Annex60.Utilities.Math.Functions.smoothMax(tau_a, tau_b,100);
-
   v_a = u > 0;
   v_b = u < 0;
-  when change(v_a) then
-    track1 = pre(time);
+  tau = max(tau_a, tau_b);
+
+  when edge(v_a) then
+    reinit(tau_b,pre(tau_a));
   end when;
-  when change(v_b) then
-    track2 = pre(time);
-  end when;
-  when time - timeOut_a > (track2 - track1) and v_b then
-    reinit(track1, 0);
-    reinit(track2, 0);
+
+  when edge(v_b) then
+    reinit(tau_a, pre(tau_b));
   end when;
 
   annotation (
