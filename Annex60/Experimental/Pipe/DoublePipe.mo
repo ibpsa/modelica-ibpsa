@@ -1,6 +1,6 @@
 within Annex60.Experimental.Pipe;
 model DoublePipe "Pipe model for double pipe case"
-  extends Annex60.Fluid.Interfaces.PartialFourPortInterface;
+  extends BaseClasses.PartialFourPort;
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
