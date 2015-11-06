@@ -57,21 +57,21 @@ protected
             100}}),
         graphics={
         Polygon(
-          points={{20,96},{60,81},{20,66},{20,96}},
+          points={{20,110},{60,95},{20,80},{20,110}},
           lineColor={0,128,255},
           smooth=Smooth.None,
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=showDesignFlowDirection),
         Polygon(
-          points={{20,91},{50,81},{20,71},{20,91}},
+          points={{20,105},{50,95},{20,85},{20,105}},
           lineColor={255,255,255},
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=allowFlowReversal),
         Line(
-          points={{55,81},{-60,81}},
+          points={{55,95},{-60,95}},
           color={0,128,255},
           smooth=Smooth.None,
           visible=showDesignFlowDirection),
@@ -110,7 +110,7 @@ protected
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
           visible=showDesignFlowDirection,
-          origin={-38,-79},
+          origin={-38,-95},
           rotation=180),
         Polygon(
           points={{-15,10},{15,0},{-15,-10},{-15,10}},
@@ -119,14 +119,14 @@ protected
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=allowFlowReversal,
-          origin={-33,-79},
+          origin={-33,-95},
           rotation=180),
         Line(
           points={{57.5,0},{-57.5,0}},
           color={0,128,255},
           smooth=Smooth.None,
           visible=showDesignFlowDirection,
-          origin={3.5,-79},
+          origin={3.5,-95},
           rotation=180)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));

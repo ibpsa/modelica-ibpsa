@@ -193,35 +193,74 @@ equation
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
-          extent={{-100,40},{100,-40}},
+          extent={{-100,80},{100,40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={192,192,192}),
         Rectangle(
-          extent={{-100,30},{100,-30}},
+          extent={{-100,74},{100,46}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Rectangle(
-          extent={{-26,30},{30,-30}},
+          extent={{-28,74},{28,46}},
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder),
         Rectangle(
-          extent={{-100,50},{100,40}},
+          extent={{-100,84},{100,80}},
           lineColor={175,175,175},
           fillColor={255,255,255},
           fillPattern=FillPattern.Backward),
         Rectangle(
-          extent={{-100,-40},{100,-50}},
+          extent={{-100,40},{100,36}},
           lineColor={175,175,175},
           fillColor={255,255,255},
           fillPattern=FillPattern.Backward),
                                           Polygon(
-          points={{0,100},{40,62},{20,62},{20,38},{-20,38},{-20,62},{-40,62},{0,
-              100}},
+          points={{0,31},{40,-7},{20,-7},{20,-31},{-20,-31},{-20,-7},{-40,-7},{
+              0,31}},
           lineColor={0,0,0},
           fillColor={238,46,47},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid,
+          origin={-40,15},
+          rotation=180),
+        Line(
+          points={{55,-39},{-60,-39}},
+          color={0,128,255},
+          smooth=Smooth.None,
+          visible=showDesignFlowDirection),
+        Rectangle(
+          extent={{-100,-40},{100,-80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-100,-46},{100,-74}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          extent={{-28,-46},{28,-74}},
+          lineColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder),
+        Rectangle(
+          extent={{-100,-36},{100,-40}},
+          lineColor={175,175,175},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Backward),
+        Rectangle(
+          extent={{-100,-80},{100,-84}},
+          lineColor={175,175,175},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Backward),
+                                          Polygon(
+          points={{0,31},{40,-7},{20,-7},{20,-31},{-20,-31},{-20,-7},{-40,-7},{
+              0,31}},
+          lineColor={0,0,0},
+          fillColor={238,46,47},
+          fillPattern=FillPattern.Solid,
+          origin={40,-15},
+          rotation=360)}),
     Documentation(revisions="<html>
 <ul>
 <li>
