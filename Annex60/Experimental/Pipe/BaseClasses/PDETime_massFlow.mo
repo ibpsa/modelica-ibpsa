@@ -13,9 +13,13 @@ model PDETime_massFlow "Delay time for given normalized velocity"
   Modelica.SIunits.Time track_b;
   Modelica.SIunits.Time tau_a;
   Modelica.SIunits.Time tau_b;
+  Modelica.SIunits.Time inp_a;
+  Modelica.SIunits.Time inp_b;
   Boolean v_a "Is the fluid flowing from a to b?";
   Boolean v_b "Is the fluid flowing from b to a?";
   Boolean v_0 "Is the fluid standing still?";
+  //Boolean fr "Did flow reversal occur?";
+  //Boolean ff "Memory for positive (t) or negative flow (f)";
   Real u=m_flow/(len*rho*diameter^2/4*Modelica.Constants.pi)
     "Normalized fluid velocity";
   Real t=time;
@@ -27,13 +31,15 @@ model PDETime_massFlow "Delay time for given normalized velocity"
 
   Modelica.Blocks.Interfaces.RealOutput tau "Time delay"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  //initial equation
+  //fr = false;
+  //ff = true;
 equation
   //Speed
   der(x) = u;
-
   (timeOut_a,timeOut_b) = spatialDistribution(
-    time,
-    time,
+    inp_a,
+    inp_b,
     x,
     u >= 0,
     {0.0,1.0},
@@ -49,28 +55,34 @@ equation
   v_0 = abs(u) < eps;
   //not (v_a or v_b);
 
-  when v_0 then
+  when edge(v_0) then
     track_a = pre(timeOut_a);
     track_b = pre(timeOut_b);
   end when;
+  when v_a then
+    reinit(inp_b, pre(track_b));
+    /*ff = true;
+    fr = (ff and not pre(ff)) or (not ff and pre(ff));*/
+  end when;
+  when v_b then
+    reinit(inp_a, pre(track_a));
+    /*ff = false;
+    fr = (ff and not pre(ff)) or (not ff and pre(ff));*/
+  end when;
 
-  // Debugging if statement
   if v_0 then
+    inp_a = track_a;
+    inp_b = track_b;
     tau_a = time - track_a;
     tau_b = time - track_b;
   else
+    inp_a = time;
+    inp_b = time;
     tau_a = time - timeOut_a;
     tau_b = time - timeOut_b;
   end if;
-  // End debugging
 
-  if v_a then
-      tau = time - max(timeOut_b,track_b);
-  elseif v_b then
-    tau = time - max(timeOut_a,track_a);
-  else
-    tau = 0;
-  end if;
+  tau = max(tau_a, tau_b);
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
