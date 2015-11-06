@@ -229,14 +229,9 @@ package TimeDelay
     Annex60.Fluid.Sensors.MassFlowRate masFloA1( redeclare package Medium =
           Medium) "Mass flow rate sensor for the A60 temperature delay"
       annotation (Placement(transformation(extent={{78,-26},{98,-6}})));
-    Annex60.Experimental.Pipe.BaseClasses.PDETime_massFlow pDETime_massFlow(len
-        =length, diameter=diameter)
+    Annex60.Experimental.Pipe.BaseClasses.PDETime_massFlow pDETime_massFlow(len=
+         length, diameter=diameter)
       annotation (Placement(transformation(extent={{114,-78},{134,-58}})));
-    Annex60.Experimental.Pipe.BaseClasses.PDETime_modified pDETime_modified
-      annotation (Placement(transformation(extent={{114,-114},{134,-94}})));
-    Modelica.Blocks.Math.Gain gain1(k=1/(1000*length*diameter^2*Modelica.Constants.pi
-          /4))
-      annotation (Placement(transformation(extent={{82,-114},{102,-94}})));
   equation
     connect(PAtm.y, sin1.p_in)
                               annotation (Line(points={{147,86},{154,86},{154,46},
@@ -322,10 +317,6 @@ package TimeDelay
         smooth=Smooth.None));
     connect(masFloA1.m_flow, pDETime_massFlow.m_flow) annotation (Line(points={
             {88,-5},{100,-5},{100,-68},{112,-68}}, color={0,0,127}));
-    connect(pDETime_modified.u, gain1.y) annotation (Line(points={{112,-104},{
-            108,-104},{103,-104}}, color={0,0,127}));
-    connect(pDETime_massFlow.m_flow, gain1.u) annotation (Line(points={{112,-68},
-            {88,-68},{66,-68},{66,-104},{80,-104}}, color={0,0,127}));
       annotation (experiment(StopTime=200000, __Dymola_NumberOfIntervals=5000),
   __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
           "Simulate and plot"),

@@ -9,15 +9,17 @@ model PDETime_massFlow "Delay time for given normalized velocity"
   parameter Modelica.SIunits.Length len=100 "length";
   parameter Modelica.SIunits.Length diameter=0.05 "diameter of pipe";
   parameter Modelica.SIunits.Density rho=1000 "Standard density of fluid";
-  //Modelica.SIunits.Time track1;
-  //Modelica.SIunits.Time track2;
+  Modelica.SIunits.Time track_a;
+  Modelica.SIunits.Time track_b;
   Modelica.SIunits.Time tau_a;
   Modelica.SIunits.Time tau_b;
   Boolean v_a "Is the fluid flowing from a to b?";
   Boolean v_b "Is the fluid flowing from b to a?";
+  Boolean v_0 "Is the fluid standing still?";
   Real u=m_flow/(len*rho*diameter^2/4*Modelica.Constants.pi)
     "Normalized fluid velocity";
   Real t=time;
+  Real eps=1e-10 "Dead band for zero flow criterium";
 
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -37,24 +39,38 @@ equation
     {0.0,1.0},
     {0.0,0.0});
 
-  tau_a = time - timeOut_a;
   /*Annex60.Utilities.Math.Functions.smoothMax(
     time - TimeOut_a,
     track2 - track1,
     1);*/
-  tau_b = time - timeOut_b;
 
-  v_a = u > 0;
-  v_b = u < 0;
-  tau = max(tau_a, tau_b);
+  v_a = u > eps;
+  v_b = u < -eps;
+  v_0 = abs(u) < eps;
+  //not (v_a or v_b);
 
-  when edge(v_a) then
-    reinit(tau_b,pre(tau_a));
+  when v_0 then
+    track_a = pre(timeOut_a);
+    track_b = pre(timeOut_b);
   end when;
 
-  when edge(v_b) then
-    reinit(tau_a, pre(tau_b));
-  end when;
+  // Debugging if statement
+  if v_0 then
+    tau_a = time - track_a;
+    tau_b = time - track_b;
+  else
+    tau_a = time - timeOut_a;
+    tau_b = time - timeOut_b;
+  end if;
+  // End debugging
+
+  if v_a then
+      tau = time - max(timeOut_b,track_b);
+  elseif v_b then
+    tau = time - max(timeOut_a,track_a);
+  else
+    tau = 0;
+  end if;
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
