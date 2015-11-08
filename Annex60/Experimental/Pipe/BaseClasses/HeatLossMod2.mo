@@ -95,7 +95,11 @@ September, 2015 by Marcus Fuchs:<br/>
 First implementation.
 </li>
 </ul>
+<<<<<<< HEAD
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})));
+=======
+</html>"));
+>>>>>>> origin/patch-1
 end HeatLossMod2;

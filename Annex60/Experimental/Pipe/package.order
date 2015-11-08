@@ -7,11 +7,15 @@ PipeHeatLossKUL_Reverse
 PipeHeatLossA60Mod
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 DoublePipe
 =======
 =======
 PipeHeatLossA60Mod_noAbs
 >>>>>>> 443ff7c1586808e61ebf7860da6056141d92b611
+=======
+PipeHeatLossA60Mod_noAbs
+>>>>>>> origin/patch-1
 PipeHeatLossA60Mod2
 >>>>>>> 66effb2d94dbe49a70ffcf2d5cfbfe603602a37e
 BaseClasses
