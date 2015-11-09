@@ -55,13 +55,35 @@ In a first step, the two existing versions in Modelica (referred to as the Annex
 .. image:: img/FirstTest.png
 	:width: 12cm
 
+The problems encountered included an inability to represent the cooling effects during zero flow for both pipes, a wrong solution when the KUL pipe was operated in reverse flow due to negative delay times, strange initialization behaviour for the KUL pipe. 
+
+The negative delay times were attended by changing the initial code for the delay calculation [#f2]_: ::
+
+	der(x) = velocity;
+	(,tout) =    spatialDistribution(      time,     0,      x/length,      true,      {0.0, 1},      {0.0, 0});
+	tau = td;
+	td = time - tout ;
+
+to a version that keeps track of the entrance time from both sides of the pipe: ::
+
+	der(x) = velocity;
+    (TimeOut_a,TimeOut_b) = spatialDistribution(tin,tin,x/L,velocity>=0,{0, 1},{0, 0});
+    if velocity>=0 then
+      delay = tin - TimeOut_b;
+    else
+      delay = tin- TimeOut_a;
+    end if;
+
+
+
 
 
 Problems still to be addressed
 ---------------------
 
 * Initialization of time delay ``spatialDistribution`` operator
-* ...
+* Comparison of results for two pipes modelled independently or jointly (coupled solition of DoublePipe)
+* Assess influence of axial diffusion during zero flow
 
 
 
@@ -78,6 +100,6 @@ Footnotes
 ---------
 
 .. [#f1] Fixmes can be found in the source text.
-
+.. [#f2] This delay operator stores the entrance time for each fluid parcel that flows into the pipe. The ``spatialDistribution`` operator makes the entrance time propagate through the pipe in the same way as the fluid does. When the fluid parcel exits the pipe, this tracked entrance time is compared to the current time, which is the delay ``tau``. 
 
 
