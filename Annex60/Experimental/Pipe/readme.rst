@@ -123,7 +123,7 @@ In a next step, the ``HeatLoss`` operator, originally in the A60 model, was upda
 .. image:: img/HeatLossZero.png
 	:width: 12cm
 
-The red line shows a decreasing output temperature after increasingly longer zero flow periods. The previous A60 implementation does not show this behaviour yet because of the instantaneous delay time calculation :math:`T_{out} = T_env + (T_{in} - T_{env})*exp(UA/(mass_flow*cp))`, but this has been adapted.
+The red line shows a decreasing output temperature after increasingly longer zero flow periods. The previous A60 implementation does not show this behaviour yet because of the instantaneous delay time calculation :math:`T_{out} = T_env + (T_{in} - T_{env})*exp(-UA/(mass_flow*cp))`, but this has been adapted.
 
 Temperature update at outlet
 ''''''''''''''''''''''''''''
@@ -153,7 +153,99 @@ As mentioned before, the A60 implementation was altered in order to take the act
 	
 	Tout_b = T_env + (Tin_a - T_env) * Modelica.Math.exp(-tau/tau_char);
 
+In this last equation, ``tau_char`` is the time constant of the pipe, namely :math:`R*C` over the length of the pipe.
 
+Bumps in delay time
+'''''''''''''''''''
+
+The new implementation of the delay time operator introduced a number of bumps in the output of the ``spatialDistribution`` function that are difficult to explain, as can be seen in following figure:
+
+.. image:: img/TimeOutBump.png
+	:width: 12cm
+
+This problem was attended by using a small threshold value ``epsilon`` for (nearly) zero mass flow. [#f3]_ ::
+
+	epsilon = 1000000*Modelica.Constants.eps;
+  	if v  >= -epsilon then
+	    vBoolean = true;
+  	else
+	    vBoolean = false;
+  	end if;
+  	der(x) = v;
+  	v = (V_flow / A_cross); 	// flow speed = volume flow/cross area
+  	(, time_out_b) = spatialDistribution(time,time,x/length,vBoolean,{0.0, 1.0},{0.0, 0.0});
+
+However, this was no complete solution for the problem, as can be seen by the sudden drop to zero of the time delay built up during zero flow periods: 
+
+.. image:: img/Epsilon.png
+	:width: 12cm
+
+A large improvement came from a slightly different implementation of the ``epsilon`` test: ::
+
+	if abs(v) >= epsilon then
+		flat_v = v;
+	else
+		flat_v = 0;
+	end if;
+	der(x) = flat_v;
+
+.. image:: img/EpsilonImpr.png
+	:width: 12cm
+
+Although the solution looks better now, there are still some instabilities which cause the delay to drop to 0 during one time step at certain times. 
+
+One delay operator per pipe ensemble
+''''''''''''''''''''''''''''''''''''
+
+It appeared better to use only one delay operator per pipe ensemble. Since the mass flow is the same for both sides of the pipe and even for the supply and return pipe for double pipe systems, only one time delay operator is necessary,  whereas previously each ``HeatLoss`` module included a delay operator. Because of the memory needed for the ``spatialDistribution`` function, it is predicted that this might reduce the needed calculation power. 
+
+The pipe level time delay operator is implemented with the following code: ::
+
+	//Speed
+	der(x) = velocity;
+	(timeOut_a,timeOut_b) = spatialDistribution(
+					inp_a,
+					inp_b,
+					x/length,
+					velocity >= 0,
+					{0.0,1.0},
+					{0.0,0.0});
+
+	v_a = velocity > eps;
+	v_b = velocity < -eps;
+	v_0 = abs(velocity) < eps;
+
+	when edge(v_0) then
+		track_a = pre(timeOut_a);
+		track_b = pre(timeOut_b);
+	end when;
+	when v_a then
+		reinit(inp_b, pre(track_b));
+	end when;
+	when v_b then
+		reinit(inp_a, pre(track_a));
+	end when;
+
+	if v_0 then
+		inp_a = track_a;
+		inp_b = track_b;
+		tau_a = time - track_a;
+		tau_b = time - track_b;
+	else
+		inp_a = time;
+		inp_b = time;
+		tau_a = time - timeOut_a;
+		tau_b = time - timeOut_b;
+	end if;
+
+	tau = max(tau_a, tau_b);
+
+It requires only input for the mass flow in the entire pipe section. However, the influence on the computational speed due to the relatively large amount of if- and when-clauses remains to be seen. The result of this block can be seen below:
+
+.. image:: img/PipeLevel.png
+	:width: 12cm
+
+Although the example is not exactly the same, the right half of above image can be easily compared to the previous figure, and it can be seen that the current model combines the forward and reverse flow delays. 
 
 Problems still to be addressed
 ------------------------------
@@ -178,5 +270,6 @@ Footnotes
 
 .. [#f1] Fixmes can be found in the source text.
 .. [#f2] This delay operator stores the entrance time for each fluid parcel that flows into the pipe. The ``spatialDistribution`` operator makes the entrance time propagate through the pipe in the same way as the fluid does. When the fluid parcel exits the pipe, this tracked entrance time is compared to the current time, which is the delay ``tau``. 
+.. [#f3] This code was included in each ``HeatLoss`` block, which means that only the delay time in one flow direction needs to be logged in this block.
 
 
