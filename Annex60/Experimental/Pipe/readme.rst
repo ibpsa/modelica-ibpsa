@@ -13,7 +13,8 @@ This file contains information about the aim of the ``Annex60.Experimental.Pipe`
 
 
 Aim
-===
+======
+
 The ``Pipe`` package is intended as an improvement of the Modelica Standard Library pipes for the specific case of thermal network (district heating and cooling) simulations. The pipe model aims at improving the representation of the delay effects in longer pipes and at accelerating the simulation of such pipes.
 
 Problems that were previously encountered with the existing pipe models include the inability to represent the delay of temperature changes at the inlet of the pipe and the corresponding heat losses.
@@ -55,31 +56,107 @@ In a first step, the two existing versions in Modelica (referred to as the Annex
 .. image:: img/FirstTest.png
 	:width: 12cm
 
+Delay after reverse flow
+''''''''''''''''''''''''
+
 The problems encountered included an inability to represent the cooling effects during zero flow for both pipes, a wrong solution when the KUL pipe was operated in reverse flow due to negative delay times, strange initialization behaviour for the KUL pipe. 
 
 The negative delay times were attended by changing the initial code for the delay calculation [#f2]_: ::
 
 	der(x) = velocity;
-	(,tout) =    spatialDistribution(      time,     0,      x/length,      true,      {0.0, 1},      {0.0, 0});
+	(  ,tout) = spatialDistribution(time,     
+					0,      
+					x/length,      
+					true,      
+					{0.0, 1},      
+					{0.0, 0});
 	tau = td;
 	td = time - tout ;
 
 to a version that keeps track of the entrance time from both sides of the pipe: ::
 
-	der(x) = velocity;
-    (TimeOut_a,TimeOut_b) = spatialDistribution(tin,tin,x/L,velocity>=0,{0, 1},{0, 0});
+    der(x) = velocity;
+    (TimeOut_a,TimeOut_b) = spatialDistribution(tin,
+    						tin,
+    						x/L,
+    						velocity>=0,
+    						{0, 1},
+    						{0, 0});
     if velocity>=0 then
       delay = tin - TimeOut_b;
     else
       delay = tin- TimeOut_a;
     end if;
 
+This last implementation allowed to account for flow in two directions, however on flow reversal, a jump to a delay of 0 seconds appeared, as shown in the figure below:
 
+.. image:: img/ZeroDrop.png
+	:width: 12cm
+
+In order to avoid this jump to 0s delay, a tracking value was added to the delay operator: ::
+
+	v_a =  u >0; 			// True if flow is positive
+  	v_b =  u <0; 			// True if flow is negative
+  	when change(v_a) then		// Save time at which flow drops to 0
+    	    track1 = pre(time);
+  	end when;
+  	when change(v_b) then		// Save time at which flow drops to 0
+    	    track2 = pre(time);
+  	end when;
+  	when time-TimeOut_a > (track2-track1) and v_b then
+  					// Reinitialize track values when current delay for 
+  					// negative flow is greater than the difference 
+  					// between tracked values
+    	    reinit(track1,0);
+    	    reinit(track2,0);
+  	end when;
+
+  	tau_a = Annex60.Utilities.Math.Functions.smoothMax(time - TimeOut_a,track2-track1,1);
+
+These changes imply that when the flow becomes negative, the simulation should take the tracked delay instead of calculating the delay based on the difference between the input time and the current time, which are the same as a consequence of the definition of the ``spatialDelay`` operator. 
+
+Outlet temperature after zero flow
+''''''''''''''''''''''''''''''''''
+
+In a next step, the ``HeatLoss`` operator, originally in the A60 model, was updated so as to use the tracked delay instead of the propagation time based on the instantaneous velocity. The difference with the previous version can be seen in the graph below:
+
+.. image:: img/HeatLossZero.png
+	:width: 12cm
+
+The red line shows a decreasing output temperature after increasingly longer zero flow periods. The previous A60 implementation does not show this behaviour yet because of the instantaneous delay time calculation :math:`T_{out} = T_env + (T_{in} - T_{env})*exp(UA/(mass_flow*cp))`, but this has been adapted.
+
+Temperature update at outlet
+''''''''''''''''''''''''''''
+
+In the original A60 pipe, the temperature change at the outlet was implemented as a change of the outlet enthalpy by means of the equations below: ::
+
+	a = Annex60.Utilities.Math.Functions.inverseXRegularized(
+                                          (m_flow * cp_default)/
+                                          (thermTransmissionCoeff * A_surf), 1e-5);
+  	theta = Annex60.Utilities.Math.Functions.smoothExponential(a, 1e-5);
+
+  	Tin_a * cp_default = inStream(port_a.h_outflow);
+
+  	Tout_b - Tenv = theta * (Tin_a - Tenv);
+
+ 	port_a.h_outflow = inStream(port_b.h_outflow);
+  	port_b.h_outflow = Tout_b * cp_default;
+
+While the ``inStream`` operator enables reverse flow to pass through the ``HeatLoss`` module without any change, the outlet temperature for forward flow is updated using an exponential difference in function of the mass flow. 
+
+In the KUL pipe, the temperature change was actuated with a mixing volume with a calculated outlet temperature (using a prescribed temperature block at the Mixing Volume heat port) as in the figure below. The downside of this implementation was the difficulty to make it operate in two directions, which made the balance tip in the direction of the A60 implementation with its ``inStream`` operator.
+
+.. image:: img/KULVolume.png
+	:width: 12cm
+
+As mentioned before, the A60 implementation was altered in order to take the actual delay after zero flow into account as well, namely with the following equation: ::
+	
+	Tout_b = T_env + (Tin_a - T_env) * Modelica.Math.exp(-tau/tau_char);
 
 
 
 Problems still to be addressed
----------------------
+------------------------------
 
 * Initialization of time delay ``spatialDistribution`` operator
 * Comparison of results for two pipes modelled independently or jointly (coupled solition of DoublePipe)
