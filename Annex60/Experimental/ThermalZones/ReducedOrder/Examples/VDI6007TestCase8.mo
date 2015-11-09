@@ -47,6 +47,9 @@ model VDI6007TestCase8 "Illustrates the use of ThermalZoneTwoElements"
     annotation (Placement(transformation(extent={{6,-62},{22,-46}})));
   Modelica.Blocks.Sources.Constant const(k=0)
     annotation (Placement(transformation(extent={{-20,14},{-14,20}})));
+  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+        transformation(extent={{-100,-4},{-66,28}}), iconTransformation(extent=
+            {{-176,-8},{-156,12}})));
 equation
   connect(weaDat.weaBus, HDirTil.weaBus) annotation (Line(
       points={{-78,62},{-68,62}},
@@ -102,6 +105,48 @@ equation
   connect(aggWindow.y, thermalZoneTwoElements.solRad) annotation (Line(points={
           {58.7,64},{66,64},{66,44},{26,44},{26,30.8},{45,30.8}}, color={0,0,
           127}));
+  connect(weaDat.weaBus, weaBus) annotation (Line(
+      points={{-78,62},{-74,62},{-74,20},{-83,20},{-83,12}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(weaBus.TDewPoi, TBlaSky.TDewPoi) annotation (Line(
+      points={{-83,12},{-82,12},{-82,-18},{-74,-18},{-74,-17},{-68,-17}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(weaBus.TDryBul, TBlaSky.TDryBul) annotation (Line(
+      points={{-83,12},{-83,-12},{-68,-12}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(weaBus.TDryBul, eqAirTemp.TDryBul) annotation (Line(
+      points={{-83,12},{-83,-2},{-38,-2},{-38,-9.8},{-22,-9.8}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(weaBus.radHorIR, TBlaSky.radHorIR) annotation (Line(
+      points={{-83,12},{-82,12},{-82,-30},{-82,-28},{-68,-28}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(weaBus.nOpa, TBlaSky.nOpa) annotation (Line(
+      points={{-83,12},{-82,12},{-82,-22},{-82,-23},{-68,-23}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})));
 end VDI6007TestCase8;
