@@ -8,7 +8,9 @@ Annex60 Pipe models
 Introduction
 ============
 
-This file contains information about the aim of the ``Annex60.Experimental.Pipe`` subpackage and an overview of the development history of the plug flow pipe models. The ``Pipe`` package is developed within the IEA EBC Annex 60. [1]_
+This file contains information about the aim of the ``Annex60.Experimental.Pipe`` subpackage and an overview of the development history of the plug flow pipe models. The ``Pipe`` package is developed within the IEA EBC Annex 60. [#f1]_
+
+
 
 Aim
 ===
@@ -41,11 +43,25 @@ The first version in the Annex 60 library, developed at *RWTH Aachen* comprised 
 
 At *ULg*, the focus was on the improvement of the pipe model irrespective of the modelling language. A numerical scheme was implemented in MatLab and here the necessity of accounting for the heat capacity of the pipe material and surroundings was realized. 
 
-At *KU Leuven*, the focus lied on a supply and return pipe ensemble. The numerical and computational issues with the current models were pinpointed during a study of the behaviour of a district heating network with time modulation of the supply temperature (temporarily increasing the temperature in the low temperature network in order to charge the DHW buffers). This implementation based its heat loss calculations on the multipole method of Wallentén [Source needed], while calculating the time delay by keeping track of the previous mass flows for each fluid parcel. This model however lacked the ability of modelling reverse flows.
+At *KU Leuven*, the focus lied on a supply and return pipe ensemble. The numerical and computational issues with the current models were pinpointed during a study of the behaviour of a district heating network with time modulation of the supply temperature (temporarily increasing the temperature in the low temperature network in order to charge the DHW buffers). This implementation based its heat loss calculations on the multipole method of Wallentén [Wal1991]_, while calculating the time delay by keeping track of the previous mass flows for each fluid parcel. This model however lacked the ability of modelling reverse flows.
 
 During the Annex 60 Expert Meeting of September 2015 in Leuven, it was decided to gather these contributions and combine them into one model for the Annex 60 Modelica Library.
 
+Joint development
+-----------------
 
+In a first step, the two existing versions in Modelica (referred to as the Annex60 or A60 and KUL model, see above) were compared. The first tests that were run identified a number of problems. The test firstly applied a forward flow, then a period of zero flow, and finally a reverse flow, as can be seen in the figure below.
+
+.. image:: img/FirstTest.png
+	:width: 12cm
+
+
+
+Problems still to be addressed
+---------------------
+
+* Initialization of time delay ``spatialDistribution`` operator
+* ...
 
 
 
@@ -54,5 +70,14 @@ File history
 
 - First version by Bram van der Heijde, November 8 2015.
 
-.. [1] Fixmes can be found in the source text.
+References
+==========
+.. [Wal1991] Wallentén, P. (1991). Steady-state heat loss from insulated pipes. Lund Institute of Technology, Sweden.
+
+Footnotes
+---------
+
+.. [#f1] Fixmes can be found in the source text.
+
+
 
