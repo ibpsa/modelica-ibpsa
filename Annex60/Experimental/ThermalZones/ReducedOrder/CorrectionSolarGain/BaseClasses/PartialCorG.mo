@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ROM.CorrectionSolarGain.BaseClasses;
+within Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain.BaseClasses;
 partial model PartialCorG
   "Partial model for correction of the solar gain factor"
 

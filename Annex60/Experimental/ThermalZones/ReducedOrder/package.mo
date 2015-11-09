@@ -1,5 +1,5 @@
 within Annex60.Experimental.ThermalZones;
-package ROM "ReducedOrderModels based on VDI 6007"
+package ReducedOrder "Reduced order models based on VDI 6007"
   extends Modelica.Icons.Package;
 
 
@@ -26,4 +26,4 @@ package ROM "ReducedOrderModels based on VDI 6007"
         points={{22,-52},{70,-52}},
         color={0,0,0},
         smooth=Smooth.None)}));
-end ROM;
+end ReducedOrder;

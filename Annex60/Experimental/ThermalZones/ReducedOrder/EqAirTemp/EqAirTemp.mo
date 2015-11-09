@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ROM.EqAirTemp;
+within Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp;
 model EqAirTemp
   "Model for equivalent air temperature as defined in VDI 6007 Part 1 with modifications"
 

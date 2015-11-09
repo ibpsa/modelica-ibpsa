@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ROM;
+within Annex60.Experimental.ThermalZones.ReducedOrder.BaseClasses;
 model IntMassVarRC "Interior wall consisting of variable number of RC elements"
   parameter Integer n(min = 1) "Number of RC-elements";
   parameter Modelica.SIunits.ThermalResistance RInt[n]

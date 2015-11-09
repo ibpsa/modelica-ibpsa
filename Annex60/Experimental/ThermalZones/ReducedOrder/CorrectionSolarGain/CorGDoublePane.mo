@@ -1,9 +1,9 @@
-within Annex60.Experimental.ThermalZones.ROM.CorrectionSolarGain;
+within Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain;
 model CorGDoublePane
   "Correction of the solar gain factor according to VDI6007 Part 3"
   extends BaseClasses.PartialCorG;
   import Modelica.SIunits.Conversions.to_deg;
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer Uw
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer UWin
     "Thermal transmission coefficient of whole window";
 
   // Parameters for calculating the transmission correction factor based on VDI 6007 Part 3
@@ -26,8 +26,8 @@ protected
   parameter Modelica.SIunits.ReflectionCoefficient XN2_diff=1-rho_1_diff^2;
   parameter Modelica.SIunits.TransmissionCoefficient Ta2_diff=(Ta1_diff^2)/XN2_diff;
   parameter Modelica.SIunits.Emissivity a1_diff=1-Ta1_diff-rho_1_diff; // Degree of absorption for single panel clear glass
-  parameter Real Q21_diff=a1_diff*(1+(Ta1_diff*rho_1_diff/XN2_diff))*Uw/25;
-  parameter Real Q22_diff=a1_diff*(Ta1_diff/XN2_diff)*(1-(Uw/7.7));
+  parameter Real Q21_diff=a1_diff*(1+(Ta1_diff*rho_1_diff/XN2_diff))*UWin/25;
+  parameter Real Q22_diff=a1_diff*(Ta1_diff/XN2_diff)*(1-(UWin/7.7));
   parameter Real Qsek2_diff=Q21_diff+Q22_diff;
   parameter Modelica.SIunits.TransmissionCoefficient CorG_diff=(Ta2_diff+Qsek2_diff)/g_dir0; // Transmission coefficient correction factor for diffuse irradiations
   parameter Modelica.SIunits.TransmissionCoefficient CorG_gr=(Ta2_diff+Qsek2_diff)/g_dir0;   // Transmission coefficient correction factor for irradiations from ground
@@ -56,8 +56,8 @@ equation
     rho_1_dir[i]=rho_11_dir[i]+(((1-rho_11_dir[i])*Tai_dir[i])^2*rho_11_dir[i])/(1-(rho_11_dir[i]*Tai_dir[i])^2);
     a1_dir[i]= 1-Ta1_dir[i]-rho_1_dir[i];
     XN2_dir[i]= 1+10^(-20)-rho_1_dir[i]^2;
-    Q21_dir[i]=a1_dir[i]*(1+(Ta1_dir[i]*rho_1_dir[i]/XN2_dir[i]))*Uw/25;
-    Q22_dir[i]= a1_dir[i]*(Ta1_dir[i]/XN2_dir[i])*(1-(Uw/7.7));
+    Q21_dir[i]=a1_dir[i]*(1+(Ta1_dir[i]*rho_1_dir[i]/XN2_dir[i]))*UWin/25;
+    Q22_dir[i]= a1_dir[i]*(Ta1_dir[i]/XN2_dir[i])*(1-(UWin/7.7));
     Qsek2_dir[i]=Q21_dir[i]+Q22_dir[i];
     Ta2_dir[i]= Ta1_dir[i]^2/XN2_dir[i];
     CorG_dir[i]= (Ta2_dir[i]+Qsek2_dir[i])/g_dir0;

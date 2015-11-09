@@ -1,8 +1,8 @@
-within Annex60.Experimental.ThermalZones.ROM;
+within Annex60.Experimental.ThermalZones.ReducedOrder.ROM;
 model ThermalZoneTwoElements
   "Thermal Zone with two elements for exterior and interior walls"
   extends ROM.ThermalZoneOneElement(
-                                AArray = {AExt, AWin, AInt});
+                                AArray={AExt,AWin,AInt});
   parameter Modelica.SIunits.Area AInt "Area of interior walls"    annotation(Dialog(group="Interior walls"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaInt
     "Coefficient of heat transfer of interior walls (indoor)" annotation(Dialog(group="Interior walls"));
@@ -12,7 +12,7 @@ model ThermalZoneTwoElements
   parameter Modelica.SIunits.HeatCapacity CInt[nInt]
     "Vector of heat capacities of interior walls, from port to center"                       annotation(Dialog(group="Interior walls"));
 
-  IntMassVarRC intWallRC(
+  BaseClasses.IntMassVarRC intWallRC(
     n=nInt,
     RInt=RInt,
     CInt=CInt) if AInt > 0 "RC-element for interior walls"
