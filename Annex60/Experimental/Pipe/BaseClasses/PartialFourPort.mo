@@ -90,19 +90,19 @@ protected
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          visible=port_b1_exposesState),
+          visible=port_a2_exposesState),
         Ellipse(
           extent={{-110,-36},{-90,-86}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          visible=port_a2_exposesState),
+          visible=port_b2_exposesState),
         Ellipse(
           extent={{90,85},{110,35}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          visible=port_b2_exposesState),
+          visible=port_b1_exposesState),
         Polygon(
           points={{-20,15},{20,0},{-20,-15},{-20,15}},
           lineColor={0,128,255},
