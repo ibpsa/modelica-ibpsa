@@ -16,6 +16,7 @@ model HeatLossMod2 "Heat loss model for pipe"
 
   Boolean vBoolean;
   Real epsilon;
+  Real flat_v;
   parameter Real C;
   parameter Real R;
   final parameter Real tau_char=R*C;
@@ -62,7 +63,13 @@ equation
     vBoolean = false;
   end if;
 
-  der(x) = v;
+  if abs(v) >= epsilon then
+    flat_v = v;
+  else
+    flat_v = 0;
+  end if;
+
+  der(x) = flat_v;
   v = (V_flow / A_cross);
   (, time_out_b) = spatialDistribution(time,
                                        time,
