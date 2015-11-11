@@ -14,10 +14,10 @@ model VDI6007TestCase8 "Illustrates the use of ThermalZoneTwoElements"
     TDewPoiSou=Annex60.BoundaryConditions.Types.DataSource.Parameter,
     relHumSou=Annex60.BoundaryConditions.Types.DataSource.Parameter,
     HInfHorSou=Annex60.BoundaryConditions.Types.DataSource.Input,
-    HSou=Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor,
     TBlaSkySou=Annex60.BoundaryConditions.Types.DataSource.Input,
     filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
+        "modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
+    HSou=Annex60.BoundaryConditions.Types.RadiationDataSource.File)
     annotation (Placement(transformation(extent={{-98,52},{-78,72}})));
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](each outSkyCon=true,
       each outGroCon=true,
@@ -156,7 +156,7 @@ model VDI6007TestCase8 "Illustrates the use of ThermalZoneTwoElements"
         61200,58,58; 64800,58,58; 64800,24,24; 68400,24,24; 68400,0,0; 72000,0,
         0; 82800,0,0; 86400,0,0])
     annotation (Placement(transformation(extent={{-80,20},{-94,34}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor indoorTemp
+  Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor indoorTemp
     annotation (Placement(transformation(extent={{96,-20},{88,-12}})));
   Modelica.Blocks.Sources.Constant TBlaSkyInput(each k=273.15)
     annotation (Placement(transformation(extent={{-68,76},{-74,82}})));
@@ -177,11 +177,6 @@ equation
   connect(thermalConductorWall.port_b, thermalZoneTwoElements.extWall)
     annotation (Line(points={{36,1},{38,1},{38,2},{40,2},{40,12.4},{45,12.4}},
         color={191,0,0}));
-  connect(personsRad.port, thermalZoneTwoElements.intGainsRad) annotation (Line(
-        points={{68,-32},{84,-32},{98,-32},{98,26},{91,26}}, color={191,0,0}));
-  connect(personsConv.port, thermalZoneTwoElements.intGainsConv) annotation (
-      Line(points={{68,-52},{82,-52},{96,-52},{96,19.8},{91,19.8}}, color={191,0,
-          0}));
   connect(corGDoublePane.solarRadWinTrans, aggWindow.u)
     annotation (Line(points={{25,64},{42.6,64}}, color={0,0,127}));
   connect(aggWindow.y, thermalZoneTwoElements.solRad) annotation (Line(points={
@@ -229,8 +224,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(machinesConv.port, thermalZoneTwoElements.intGainsConv) annotation (
-      Line(points={{68,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,0,0}));
   connect(internalGains.y[1], personsRad.Q_flow) annotation (Line(points={{22.8,
           -52},{28,-52},{28,-32},{48,-32}}, color={0,0,127}));
   connect(internalGains.y[2], personsConv.Q_flow)
@@ -273,14 +266,16 @@ equation
           87},{-106,87},{-106,71},{-99,71}}, color={0,0,127}));
   connect(infrared.y, weaDat.HInfHor_in) annotation (Line(points={{-92.3,45},{
           -106,45},{-106,52.5},{-99,52.5}}, color={0,0,127}));
-  connect(tableSolRad.y[1], weaDat.HGloHor_in) annotation (Line(points={{-94.7,
-          27},{-102,27},{-102,49},{-99,49}}, color={0,0,127}));
-  connect(tableSolRad.y[2], weaDat.HDifHor_in) annotation (Line(points={{-94.7,
-          27},{-102,27},{-102,54.4},{-99,54.4}}, color={0,0,127}));
   connect(indoorTemp.port, thermalZoneTwoElements.intGainsConv)
     annotation (Line(points={{96,-16},{96,19.8},{91,19.8}}, color={191,0,0}));
   connect(TBlaSkyInput.y, weaDat.TBlaSky_in) annotation (Line(points={{-74.3,79},
           {-104,79},{-104,69},{-99,69}}, color={0,0,127}));
+  connect(personsRad.port, thermalZoneTwoElements.intGainsRad) annotation (Line(
+        points={{68,-32},{84,-32},{100,-32},{100,26},{91,26}}, color={191,0,0}));
+  connect(personsConv.port, indoorTemp.port) annotation (Line(points={{68,-52},
+          {84,-52},{96,-52},{96,-16}}, color={191,0,0}));
+  connect(machinesConv.port, indoorTemp.port)
+    annotation (Line(points={{68,-74},{96,-74},{96,-16}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>
