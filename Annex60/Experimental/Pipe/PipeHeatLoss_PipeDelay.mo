@@ -113,7 +113,7 @@ public
     annotation (Placement(transformation(extent={{38,-10},{58,10}})));
   BaseClasses.PDETime_massFlow pDETime_massFlow(len=length, diameter=diameter)
     annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
-  Fluid.Sensors.MassFlowRate senMasFlo
+  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
