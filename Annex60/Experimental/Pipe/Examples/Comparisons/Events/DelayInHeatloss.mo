@@ -22,16 +22,16 @@ model DelayInHeatloss
     nPorts=1,
     T=293.15)
     "Source with high pressure at beginning and lower pressure at end of experiment"
-                          annotation (Placement(transformation(extent={{-88,28},
-            {-68,48}})));
+                          annotation (Placement(transformation(extent={{-88,30},
+            {-68,50}})));
   Annex60.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium =
         Medium,
     nPorts=1,
     use_p_in=true,
     T=283.15)
     "Sink at with constant pressure, turns into source at the end of experiment"
-                          annotation (Placement(transformation(extent={{140,28},
-            {120,48}})));
+                          annotation (Placement(transformation(extent={{140,30},
+            {120,50}})));
   Annex60.Fluid.Sensors.MassFlowRate masFloA60(redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 temperature delay"
     annotation (Placement(transformation(extent={{88,30},{108,50}})));
@@ -74,21 +74,22 @@ model DelayInHeatloss
     thicknessIns=0.02,
     m_flow_small=m_flow_small,
     lambdaI=0.01,
-    m_flow_nominal=0.5)
-    annotation (Placement(transformation(extent={{-2,30},{18,50}})));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    m_flow_nominal=0.5,
+    redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
 equation
   connect(PAtm.y, sin1.p_in)
-                            annotation (Line(points={{147,86},{154,86},{154,46},
-          {142,46}},
+                            annotation (Line(points={{147,86},{154,86},{154,48},
+          {142,48}},
                    color={0,0,127}));
   connect(sin1.ports[1],masFloA60. port_b) annotation (Line(
-      points={{120,38},{114,38},{114,40},{108,40}},
+      points={{120,40},{108,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(stepT.y, sou1.T_in) annotation (Line(
-      points={{-99,30},{-90,30},{-90,42}},
+      points={{-99,30},{-90,30},{-90,44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(masFloA60.port_a,senTemA60Out. port_b) annotation (Line(
@@ -96,7 +97,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou1.ports[1],senTemA60In. port_a) annotation (Line(
-      points={{-68,38},{-64,38},{-64,40},{-60,40}},
+      points={{-68,40},{-60,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(combiTimeTable.y[1], gain.u)
@@ -106,17 +107,18 @@ equation
   connect(PAtm1.y, add.u1) annotation (Line(points={{-137,98},{-124,98},{-124,
           82},{-120,82}},
                      color={0,0,127}));
-  connect(add.y, sou1.p_in) annotation (Line(points={{-97,76},{-88,76},{-98,56},
-          {-98,56},{-98,46},{-90,46}}, color={0,0,127}));
+  connect(add.y, sou1.p_in) annotation (Line(points={{-97,76},{-88,76},{-88,56},
+          {-98,56},{-98,48},{-90,48}}, color={0,0,127}));
   connect(senTemA60In.port_b, pipeHeatLossA60Mod2.port_a)
-    annotation (Line(points={{-40,40},{-22,40},{-2,40}}, color={0,127,255}));
+    annotation (Line(points={{-40,40},{0,40}},           color={0,127,255}));
   connect(senTemA60Out.port_a, pipeHeatLossA60Mod2.port_b)
-    annotation (Line(points={{56,40},{38,40},{18,40}}, color={0,127,255}));
+    annotation (Line(points={{56,40},{20,40}},         color={0,127,255}));
+  connect(const3.y, pipeHeatLossA60Mod2.T_amb)
+    annotation (Line(points={{-7,106},{10,106},{10,50}}, color={0,0,127}));
     annotation (experiment(StopTime=200000, __Dymola_NumberOfIntervals=5000),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{
-            160,140}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,0},{160,140}})),
     Documentation(info="<html>
 <p>This example compares the KUL and A60 pipe with heat loss implementations.</p>
 <p>This is only a first glimpse at the general behavior. Next step is to parameterize 

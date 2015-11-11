@@ -67,7 +67,8 @@ model DelayInPipe
     thicknessIns=0.02,
     m_flow_small=1E-4*abs(m_flow_nominal),
     lambdaI=0.01,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5
     "Nominal mass flow rate";
@@ -109,8 +110,8 @@ equation
     __Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{
-            160,140}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,0},{160,
+            140}})),
     Documentation(info="<html>
 <p>This example compares the KUL and A60 pipe with heat loss implementations.</p>
 <p>This is only a first glimpse at the general behavior. Next step is to parameterize 
