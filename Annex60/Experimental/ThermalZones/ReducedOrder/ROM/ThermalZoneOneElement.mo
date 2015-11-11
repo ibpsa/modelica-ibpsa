@@ -36,7 +36,7 @@ protected
   parameter Modelica.SIunits.Area ATot=sum(AArray);
   parameter Modelica.SIunits.Area[:] AArray = {AExt, AWin};
   parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray});
-  parameter Real splitFactor[:](fixed = false);
+  parameter Real splitFactor[size(AArray,1)](fixed = false);
   parameter Integer j(fixed = false);
 
 public

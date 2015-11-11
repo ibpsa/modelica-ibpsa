@@ -12,10 +12,12 @@ model VDI6007TestCase8 "Illustrates the use of ThermalZoneTwoElements"
     computeWetBulbTemperature=false,
     TDryBulSou=Annex60.BoundaryConditions.Types.DataSource.Input,
     TDewPoiSou=Annex60.BoundaryConditions.Types.DataSource.Parameter,
-    TBlaSkySou=Annex60.BoundaryConditions.Types.DataSource.Parameter,
     relHumSou=Annex60.BoundaryConditions.Types.DataSource.Parameter,
     HInfHorSou=Annex60.BoundaryConditions.Types.DataSource.Input,
-    HSou=Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor)
+    HSou=Annex60.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor,
+    TBlaSkySou=Annex60.BoundaryConditions.Types.DataSource.Input,
+    filNam=Modelica.Utilities.Files.loadResource(
+        "modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     annotation (Placement(transformation(extent={{-98,52},{-78,72}})));
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](each outSkyCon=true,
       each outGroCon=true,
@@ -30,14 +32,44 @@ model VDI6007TestCase8 "Illustrates the use of ThermalZoneTwoElements"
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
   BoundaryConditions.SkyTemperature.BlackBody TBlaSky(calTSky=Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation)
     annotation (Placement(transformation(extent={{-66,-30},{-46,-10}})));
-  CorrectionSolarGain.CorGDoublePane corGDoublePane(n=2)
+  CorrectionSolarGain.CorGDoublePane corGDoublePane(n=2, UWin=2.1)
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
   Modelica.Blocks.Math.Sum
-            aggWindow(nin=2)
+            aggWindow(nin=2, k={0.5,0.5})
     annotation (Placement(transformation(extent={{44,57},{58,71}})));
-  ROM.ThermalZoneTwoElements thermalZoneTwoElements
+  ROM.ThermalZoneTwoElements thermalZoneTwoElements(
+    VAir=52.5,
+    AExt=11.5,
+    alphaExt=2.7,
+    AWin=14,
+    ATransparent=14,
+    alphaWin=2.7,
+    gWin=1,
+    ratioWinConRad=0.09,
+    nExt=1,
+    RExt={0.00331421908725},
+    CExt={5259932.23},
+    alphaRad=5,
+    AInt=60.5,
+    alphaInt=2.12,
+    nInt=1,
+    RInt={0.000668895639141},
+    CInt={12391363.86},
+    RWin=0.01642857143,
+    RExtRem=0.1265217391)
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  EqAirTemp.EqAirTemp eqAirTemp(n=2)
+  EqAirTemp.EqAirTemp eqAirTemp(n=2,
+    wfGround=0,
+    wfWall={0.3043478260869566,0.6956521739130435},
+    wfWin={0.5,0.5},
+    withLongwave=true,
+    aExt=0.7,
+    alphaExtOut=20,
+    alphaRad=5,
+    alphaWinOut=20,
+    aWin=0.03,
+    eExt=0.9,
+    TGround=285.15)
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
     annotation (Placement(transformation(extent={{-38,6},{-28,16}})));
@@ -47,9 +79,11 @@ model VDI6007TestCase8 "Illustrates the use of ThermalZoneTwoElements"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature1
     annotation (Placement(transformation(extent={{8,14},{20,26}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductorWin
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor  thermalConductorWin(R=
+        0.003571428571)
     annotation (Placement(transformation(extent={{28,16},{38,26}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor thermalConductorWall
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor  thermalConductorWall(R=
+        0.00347826087)
     annotation (Placement(transformation(extent={{26,-4},{36,6}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad
     annotation (Placement(transformation(extent={{48,-42},{68,-22}})));
@@ -68,7 +102,7 @@ model VDI6007TestCase8 "Illustrates the use of ThermalZoneTwoElements"
   Modelica.Blocks.Sources.Constant const[2](each k=0)
     annotation (Placement(transformation(extent={{-20,14},{-14,20}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{-100,-4},{-66,28}}), iconTransformation(extent=
+        transformation(extent={{-100,-10},{-66,22}}),iconTransformation(extent=
             {{-176,-8},{-156,12}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -103,12 +137,29 @@ model VDI6007TestCase8 "Illustrates the use of ThermalZoneTwoElements"
         64800,302.05,0,0; 68400,302.05,0,0; 68400,300.15,0,0; 72000,300.15,0,0;
         72000,297.85,0,0; 75600,297.85,0,0; 75600,296.05,0,0; 79200,296.05,0,0;
         79200,295.05,0,0; 82800,295.05,0,0; 82800,294.05,0,0; 86400,294.05,0,0],
-
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-80,80},{-94,94}})));
+
   Modelica.Blocks.Sources.Constant infrared(each k=0)
-    annotation (Placement(transformation(extent={{-88,34},{-94,40}})));
+    annotation (Placement(transformation(extent={{-86,42},{-92,48}})));
+  Modelica.Blocks.Sources.CombiTimeTable tableSolRad(
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    tableOnFile=false,
+    columns={2,3},
+    table=[0,0,0; 3600,0,0; 10800,0,0; 14400,0,0; 14400,24,24; 18000,24,24;
+        18000,58,58; 21600,58,58; 21600,91,91; 25200,91,91; 25200,203,124;
+        28800,203,124; 28800,348,153; 32400,348,153; 32400,472,177; 36000,472,
+        177; 36000,553,191; 39600,553,191; 39600,581,196; 43200,581,196; 43200,
+        553,191; 46800,553,191; 46800,472,177; 50400,472,177; 50400,348,153;
+        54000,348,153; 54000,203,124; 57600,203,124; 57600,91,91; 61200,91,91;
+        61200,58,58; 64800,58,58; 64800,24,24; 68400,24,24; 68400,0,0; 72000,0,
+        0; 82800,0,0; 86400,0,0])
+    annotation (Placement(transformation(extent={{-80,20},{-94,34}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor indoorTemp
+    annotation (Placement(transformation(extent={{96,-20},{88,-12}})));
+  Modelica.Blocks.Sources.Constant TBlaSkyInput(each k=273.15)
+    annotation (Placement(transformation(extent={{-68,76},{-74,82}})));
 equation
   connect(eqAirTemp.TEqAirWindow, prescribedTemperature1.T) annotation (Line(
         points={{-4.2,-1.4},{0,-1.4},{0,20},{6.8,20}}, color={0,0,127}));
@@ -137,42 +188,42 @@ equation
           {58.7,64},{66,64},{66,44},{26,44},{26,30.8},{45,30.8}}, color={0,0,
           127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-78,62},{-74,62},{-74,20},{-83,20},{-83,12}},
+      points={{-78,62},{-74,62},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.TDewPoi, TBlaSky.TDewPoi) annotation (Line(
-      points={{-83,12},{-82,12},{-82,-18},{-74,-18},{-74,-17},{-68,-17}},
+      points={{-83,6},{-82,6},{-82,-18},{-74,-18},{-74,-17},{-68,-17}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.TDryBul, TBlaSky.TDryBul) annotation (Line(
-      points={{-83,12},{-83,-12},{-68,-12}},
+      points={{-83,6},{-83,-12},{-68,-12}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.TDryBul, eqAirTemp.TDryBul) annotation (Line(
-      points={{-83,12},{-83,-2},{-38,-2},{-38,-9.8},{-22,-9.8}},
+      points={{-83,6},{-83,-2},{-38,-2},{-38,-9.8},{-22,-9.8}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.radHorIR, TBlaSky.radHorIR) annotation (Line(
-      points={{-83,12},{-82,12},{-82,-30},{-82,-28},{-68,-28}},
+      points={{-83,6},{-82,6},{-82,-30},{-82,-28},{-68,-28}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.nOpa, TBlaSky.nOpa) annotation (Line(
-      points={{-83,12},{-82,12},{-82,-22},{-82,-23},{-68,-23}},
+      points={{-83,6},{-82,6},{-82,-22},{-82,-23},{-68,-23}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -220,8 +271,16 @@ equation
       thickness=0.5));
   connect(dryBulbTemp.y[1], weaDat.TDryBul_in) annotation (Line(points={{-94.7,
           87},{-106,87},{-106,71},{-99,71}}, color={0,0,127}));
-  connect(infrared.y, weaDat.HInfHor_in) annotation (Line(points={{-94.3,37},{
-          -106,37},{-106,52.5},{-99,52.5}}, color={0,0,127}));
+  connect(infrared.y, weaDat.HInfHor_in) annotation (Line(points={{-92.3,45},{
+          -106,45},{-106,52.5},{-99,52.5}}, color={0,0,127}));
+  connect(tableSolRad.y[1], weaDat.HGloHor_in) annotation (Line(points={{-94.7,
+          27},{-102,27},{-102,49},{-99,49}}, color={0,0,127}));
+  connect(tableSolRad.y[2], weaDat.HDifHor_in) annotation (Line(points={{-94.7,
+          27},{-102,27},{-102,54.4},{-99,54.4}}, color={0,0,127}));
+  connect(indoorTemp.port, thermalZoneTwoElements.intGainsConv)
+    annotation (Line(points={{96,-16},{96,19.8},{91,19.8}}, color={191,0,0}));
+  connect(TBlaSkyInput.y, weaDat.TBlaSky_in) annotation (Line(points={{-74.3,79},
+          {-104,79},{-104,69},{-99,69}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>
@@ -234,6 +293,7 @@ equation
 <li><span style=\"font-family: MS Shell Dlg 2;\">Internal convective gains from persons</span></li>
 <li><span style=\"font-family: MS Shell Dlg 2;\">Internal convective gains from machines</span></li>
 </ul>
-<p><br><span style=\"font-family: MS Shell Dlg 2;\">The guideline is also the source of the building physics, orientations, areas, set temperatures and reference values. As global and diffuse radiation are given in the Guideline as values behind the glazing within the room (incorporating g-value, tilt and azimuth) and taken here as normal values outside of the room, this example cannot be taken for validation. It&apos;s just to show a typical application.</span></p>
-</html>"));
+<p><br><span style=\"font-family: MS Shell Dlg 2;\">The guideline is also the source of the building physics, orientations, areas, set temperatures and reference values. As global and diffuse radiation are given in the guideline normal to the facades and are here used as normal to the sun, this example cannot be taken for validation. In addition, the calculation core is not configured to be exactly the VDI 6007 core. In this example, the windows are not merged with the exterior walls. The reference values are taken from test case 8. This case doesn&apos;t consider outdoor longwave radiation exchange but this example does. Furthermore, the test case considers sunblinds (closing at 100 w/m2) what is not included in this example. It&apos;s just to show a typical application.</span></p>
+</html>"),
+    experiment(StopTime=5.184e+006));
 end VDI6007TestCase8;
