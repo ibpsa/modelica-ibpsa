@@ -1,7 +1,7 @@
 UsersGuide
 ConservationEquation
-FourPort
 FourPortHeatMassExchanger
+PartialFourPort
 PartialFourPortInterface
 PartialTwoPort
 PartialTwoPortInterface
@@ -16,4 +16,3 @@ LumpedVolumeDeclarations
 PrescribedOutletStateParameters
 TwoPortFlowResistanceParameters
 Examples
-PartialFourPort
