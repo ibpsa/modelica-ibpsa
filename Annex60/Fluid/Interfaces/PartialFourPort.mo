@@ -1,132 +1,134 @@
 within Annex60.Fluid.Interfaces;
-partial model PartialFourPort "Partial component with four ports"
-  import Modelica.Constants;
+partial model PartialFourPort "Partial model with four ports"
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component" annotation (choicesAllMatching=true);
+  replaceable package Medium1 =
+      Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component"
+      annotation (choicesAllMatching = true);
+  replaceable package Medium2 =
+      Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component"
+      annotation (choicesAllMatching = true);
 
-  parameter Boolean allowFlowReversal=true
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation (Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Boolean allowFlowReversal1 = true
+    "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+  parameter Boolean allowFlowReversal2 = true
+    "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a1(redeclare final package Medium
-      = Medium, m_flow(min=if allowFlowReversal then -Constants.inf else 0))
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1(
+                     redeclare final package Medium = Medium1,
+                     m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0))
+    "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare final package Medium
-      = Medium, m_flow(max=if allowFlowReversal then +Constants.inf else 0))
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,50},{90,70}}),
-        iconTransformation(extent={{110,50},{90,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a2(redeclare final package Medium
-      = Medium, m_flow(min=if allowFlowReversal then -Constants.inf else 0))
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1(
+                     redeclare final package Medium = Medium1,
+                     m_flow(max=if allowFlowReversal1 then +Modelica.Constants.inf else 0))
+    "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
+    annotation (Placement(transformation(extent={{110,50},{90,70}})));
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_a2(
+                     redeclare final package Medium = Medium2,
+                     m_flow(min=if allowFlowReversal2 then -Modelica.Constants.inf else 0))
+    "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b2(redeclare final package Medium
-      = Medium, m_flow(max=if allowFlowReversal then +Constants.inf else 0))
-    "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}}),
-        iconTransformation(extent={{-90,-70},{-110,-50}})));
-  // Model structure, e.g., used for visualization
+  Modelica.Fluid.Interfaces.FluidPort_b port_b2(
+                     redeclare final package Medium = Medium2,
+                     m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0))
+    "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
+    annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
+
+    // Model structure, e.g., used for visualization
 protected
-  parameter Boolean port_a1_exposesState=false
-    "= true if port_a exposes the state of a fluid volume";
-  parameter Boolean port_b1_exposesState=false
-    "= true if port_b.p exposes the state of a fluid volume";
-  parameter Boolean port_a2_exposesState=false
-    "= true if port_a exposes the state of a fluid volume";
-  parameter Boolean port_b2_exposesState=false
-    "= true if port_b.p exposes the state of a fluid volume";
-  parameter Boolean showDesignFlowDirection=true
+    parameter Boolean showDesignFlowDirection = true
     "= false to hide the arrow in the model icon";
 
   annotation (
+    preferredView="info",
     Documentation(info="<html>
-<p>This partial model defines an interface for components with four ports. The treatment of the design flow direction and of flow reversal are predefined based on the parameter <code><span style=\"font-family: Courier New,courier;\">allowFlowReversal</span></code>. The component may transport fluid and may have internal storage for a given fluid <code><span style=\"font-family: Courier New,courier;\">Medium</span></code>. </p>
-<p>An extending model providing direct access to internal storage of mass or energy through <code><span style=\"font-family: Courier New,courier;\">port_a1/2</span></code> or <code><span style=\"font-family: Courier New,courier;\">port_b1/2</span></code> should redefine the protected parameters <code><span style=\"font-family: Courier New,courier;\">port_a1/2_exposesState</span></code> and <code><span style=\"font-family: Courier New,courier;\">port_b1/2_exposesState</span></code> appropriately. This will be visualized at the port icons, in order to improve the understanding of fluid model diagrams. </p>
-<h4>Implementation</h4>
-<p>This model is is based on <a href=\"modelica://Annex60/Fluid/Interfaces/PartialTwoPort.mo\">Annex60.Fluid.Interfaces.PartialTwoPort</a>. It uses four ports instead of two.</p>
+<p>
+This model defines an interface for components with four ports.
+The parameters <code>allowFlowReversal1</code> and
+<code>allowFlowReversal2</code> may be used by models that extend
+this model to treat flow reversal.
+</p>
+<p>
+This model is identical to
+<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPort\">
+Modelica.Fluid.Interfaces.PartialTwoPort</a>, except for the
+fowllowing:
+</p>
+<ol>
+<li>it has four ports, and
+</li>
+<li>
+the parameters <code>port_a_exposesState</code> and
+<code>port_b_exposesState</code> are not implemented as
+they are not yet used by other models.
+</li>
+</ol>
 </html>", revisions="<html>
 <ul>
-<li>November 6, 2015, by Bram van der Heijde:<br>Adapted to <code><span style=\"font-family: Courier New,courier;\">PartialFourPort</span></code>.</li>
-<li>October 21, 2014, by Michael Wetter:<br>Revised implementation. Declared medium in ports to be <code><span style=\"font-family: Courier New,courier;\">final</span></code>. </li>
-<li>October 20, 2014, by Filip Jorissen:<br>First implementation as <code><span style=\"font-family: Courier New,courier;\">PartialTwoPort</span></code>. </li>
+<li>
+November 12, 2015, by Michael Wetter:<br/>
+Renamed model from <code>FourPort</code> to
+<code>PartialFourPort</code>.
+Removed parameters
+<code>h_outflow_a1_start</code>,
+<code>h_outflow_b1_start</code>,
+<code>h_outflow_a2_start</code> and
+<code>h_outflow_b2_start</code>.
+</li>
+<li>
+October 30, 2015, by Matthis Thorade:<br/>
+Added <code>partial</code> keyword to model declaration.
+</li>
+<li>
+October 6, 2014, by Michael Wetter:<br/>
+Changed medium declaration in ports to be final.
+</li>
+<li>
+October 3, 2014, by Michael Wetter:<br/>
+Changed assignment of nominal value to avoid in OpenModelica the warning
+alias set with different nominal values.
+</li>
+<li>
+November 12, 2013, by Michael Wetter:<br/>
+Removed <code>import Modelica.Constants</code> statement.
+</li>
+<li>
+September 26, 2013 by Michael Wetter:<br/>
+Added missing <code>each</code> keyword in declaration of nominal value for
+<code>Xi_outflow</code>.
+</li>
+<li>
+September 17, 2010 by Michael Wetter:<br/>
+Fixed bug: The start value for <code>port_b1.h_outflow</code>
+was set to <code>h_outflow_b2_start</code> instead of <code>h_outflow_b1_start</code>.
+</li>
+<li>
+February 26, 2010 by Michael Wetter:<br/>
+Added start values for outflowing enthalpy because they
+are often iteration variables in nonlinear equation systems.
+</li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
-        Polygon(
-          points={{20,110},{60,95},{20,80},{20,110}},
-          lineColor={0,128,255},
-          smooth=Smooth.None,
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          visible=showDesignFlowDirection),
-        Polygon(
-          points={{20,105},{50,95},{20,85},{20,105}},
-          lineColor={255,255,255},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=allowFlowReversal),
-        Line(
-          points={{55,95},{-60,95}},
-          color={0,128,255},
-          smooth=Smooth.None,
-          visible=showDesignFlowDirection),
-        Text(
-          extent={{-149,-114},{151,-154}},
+    Icon(coordinateSystem(
+          preserveAspectRatio=true,
+          extent={{-100,-100},{100,100}},
+          grid={1,1}), graphics={Text(
+          extent={{-151,147},{149,107}},
           lineColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
           textString="%name"),
-        Ellipse(
-          extent={{-110,84},{-90,34}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          visible=port_a1_exposesState),
-        Ellipse(
-          extent={{90,-35},{110,-85}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          visible=port_a2_exposesState),
-        Ellipse(
-          extent={{-110,-36},{-90,-86}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          visible=port_b2_exposesState),
-        Ellipse(
-          extent={{90,85},{110,35}},
-          lineColor={0,0,0},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          visible=port_b1_exposesState),
-        Polygon(
-          points={{-20,15},{20,0},{-20,-15},{-20,15}},
+         Polygon(
+          points={{20,-70},{60,-85},{20,-100},{20,-70}},
           lineColor={0,128,255},
-          smooth=Smooth.None,
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid,
-          visible=showDesignFlowDirection,
-          origin={-38,-95},
-          rotation=180),
-        Polygon(
-          points={{-15,10},{15,0},{-15,-10},{-15,10}},
-          lineColor={255,255,255},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=allowFlowReversal,
-          origin={-33,-95},
-          rotation=180),
+          visible=showDesignFlowDirection),
         Line(
-          points={{57.5,0},{-57.5,0}},
+          points={{55,-85},{-60,-85}},
           color={0,128,255},
-          smooth=Smooth.None,
-          visible=showDesignFlowDirection,
-          origin={3.5,-95},
-          rotation=180)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+          visible=showDesignFlowDirection)}));
 end PartialFourPort;
