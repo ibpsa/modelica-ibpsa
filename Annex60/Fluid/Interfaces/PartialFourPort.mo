@@ -37,11 +37,6 @@ partial model PartialFourPort "Partial model with four ports"
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}})));
 
-    // Model structure, e.g., used for visualization
-protected
-    parameter Boolean showDesignFlowDirection = true
-    "= false to hide the arrow in the model icon";
-
   annotation (
     preferredView="info",
     Documentation(info="<html>
@@ -61,8 +56,10 @@ fowllowing:
 <li>it has four ports, and
 </li>
 <li>
-the parameters <code>port_a_exposesState</code> and
-<code>port_b_exposesState</code> are not implemented as
+the parameters <code>port_a_exposesState</code>,
+<code>port_b_exposesState</code> and
+<code>showDesignFlowDirection</code>
+are not implemented as
 they are not yet used by other models.
 </li>
 </ol>
@@ -120,15 +117,5 @@ are often iteration variables in nonlinear equation systems.
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},
-          textString="%name"),
-         Polygon(
-          points={{20,-70},{60,-85},{20,-100},{20,-70}},
-          lineColor={0,128,255},
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          visible=showDesignFlowDirection),
-        Line(
-          points={{55,-85},{-60,-85}},
-          color={0,128,255},
-          visible=showDesignFlowDirection)}));
+          textString="%name")}));
 end PartialFourPort;
