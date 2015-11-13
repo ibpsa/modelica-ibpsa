@@ -3,7 +3,6 @@ block DiffuseIsotropic
   "Diffuse solar irradiation on a tilted surface with an isotropic sky model"
   extends
     Annex60.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
-public
   parameter Real rho=0.2 "Ground reflectance";
   parameter Boolean outSkyCon=false
     "Output contribution of diffuse irradiation from sky";

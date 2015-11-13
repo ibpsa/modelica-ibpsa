@@ -1,7 +1,6 @@
 within Annex60.BoundaryConditions.SolarGeometry.BaseClasses;
 block SolarAzimuth "Solar azimuth"
   extends Modelica.Blocks.Icons.Block;
-public
   parameter Modelica.SIunits.Angle lat "Latitude";
   Modelica.Blocks.Interfaces.RealInput zen(quantity="Angle", unit="rad")
     "Zenith angle"
