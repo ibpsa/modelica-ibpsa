@@ -36,7 +36,7 @@ protected
   parameter Modelica.SIunits.Area ATot=sum(AArray);
   parameter Modelica.SIunits.Area[:] AArray = {AExt, AWin};
   parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray});
-  parameter Real splitFactor[size(AArray,1)](fixed = false);
+  parameter Real splitFactor[dimension](fixed = false);
   parameter Integer j(fixed = false);
 
 public
@@ -59,12 +59,11 @@ public
     "ambient port for exterior walls" annotation (Placement(transformation(
           extent={{-240,-46},{-220,-26}}), iconTransformation(extent={{-240,-46},
             {-220,-26}})));
-  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convExtWall if
+  Modelica.Thermal.HeatTransfer.Components.Convection         convExtWall if
                                                                             AExt > 0
     "convective heat transfer of exterior walls"
     annotation (Placement(transformation(extent={{-114,-26},{-94,-46}})));
-  Modelica.Blocks.Sources.Constant alphaExtWallConst(k=1/(AExt*alphaExt)) if
-                                                                          AExt > 0
+  Modelica.Blocks.Sources.Constant alphaExtWallConst(k=AExt*alphaExt) if  AExt > 0
     "coefficient of convective heat transfer for exterior walls"
     annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
@@ -80,10 +79,10 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a window if     AWin > 0
     "ambient port for windows" annotation (Placement(transformation(extent={{-240,
             28},{-220,48}}), iconTransformation(extent={{-240,28},{-220,48}})));
-  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convWin if    AWin > 0
+  Modelica.Thermal.HeatTransfer.Components.Convection         convWin if    AWin > 0
     "convective heat transfer of windows"
     annotation (Placement(transformation(extent={{-116,28},{-96,48}})));
-  Modelica.Blocks.Sources.Constant alphaWinConst(k=1/(AWin*alphaWin)) if AWin > 0
+  Modelica.Blocks.Sources.Constant alphaWinConst(k=AWin*alphaWin) if     AWin > 0
     "coefficient of convective heat transfer for windows"
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
@@ -125,8 +124,8 @@ public
     CExt=CExt,
     RExtRem=RExtRem) if AExt > 0 "RC-element for exterior walls"
     annotation (Placement(transformation(extent={{-158,-46},{-178,-24}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor resExtWallWin(R=1/(min(
-        AExt, AWin)*alphaRad)) if    AExt > 0 and AWin > 0
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallWin(G=min(
+        AExt, AWin)*alphaRad) if     AExt > 0 and AWin > 0
     "resistor between exterior walls and windows" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -154,17 +153,9 @@ equation
       points={{-180,38},{-230,38}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(alphaExtWallConst.y, convExtWall.Rc) annotation (Line(
-      points={{-104,-51.5},{-104,-46}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(resWin.port_b, convWin.solid) annotation (Line(
       points={{-160,38},{-116,38}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(alphaWinConst.y, convWin.Rc) annotation (Line(
-      points={{-106,59.4},{-106,48}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(eRadSol.y, radHeatSol.Q_flow) annotation (Line(
       points={{-185.5,146},{-178,146}},
@@ -235,6 +226,10 @@ equation
           -2},{-144,-2},{-144,-36},{-114,-36}}, color={191,0,0}));
   connect(resExtWallWin.port_a, convWin.solid)
     annotation (Line(points={{-146,18},{-146,38},{-116,38}}, color={191,0,0}));
+  connect(alphaWinConst.y, convWin.Gc) annotation (Line(points={{-106,59.4},{
+          -106,53.7},{-106,48}}, color={0,0,127}));
+  connect(alphaExtWallConst.y, convExtWall.Gc) annotation (Line(points={{-104,
+          -51.5},{-104,-46},{-104,-46}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}},
         grid={2,2}),  graphics={

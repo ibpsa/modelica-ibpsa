@@ -17,33 +17,28 @@ model ThermalZoneTwoElements
     RInt=RInt,
     CInt=CInt) if AInt > 0 "RC-element for interior walls"
     annotation (Placement(transformation(extent={{182,-48},{202,-26}})));
-  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convIntWall if
+  Modelica.Thermal.HeatTransfer.Components.Convection         convIntWall if
                                                                             AInt > 0
     "convective heat transfer of interior walls"
     annotation (Placement(transformation(extent={{148,-28},{128,-48}})));
-  Modelica.Blocks.Sources.Constant alphaIntWall(k=1/(AInt*alphaInt)) if
-                                                                       AInt > 0
+  Modelica.Blocks.Sources.Constant alphaIntWall(k=AInt*alphaInt) if    AInt > 0
     "coefficient of convective heat transfer for interior walls"
     annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=-90,
         origin={138,-59})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor resExtWallIntWall(R=1/(min(
-        AExt, AInt)*alphaRad)) if AExt > 0 and AInt > 0
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallIntWall(G=min(
+        AExt, AInt)*alphaRad) if  AExt > 0 and AInt > 0
     "resistor between exterior walls and interior walls"
     annotation (Placement(transformation(extent={{138,-116},{158,-96}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor resIntWallsWin(R=1/(min(
-        AWin, AInt)*alphaRad)) if AWin > 0 and AInt > 0
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntWallsWin(G=min(
+        AWin, AInt)*alphaRad) if  AWin > 0 and AInt > 0
     "resistor between interior walls and windows"
     annotation (Placement(transformation(extent={{74,-118},{94,-98}})));
 equation
   connect(convIntWall.fluid, intGainsConv) annotation (Line(
       points={{128,-38},{128,0},{64,0},{64,38},{230,38}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(alphaIntWall.y, convIntWall.Rc) annotation (Line(
-      points={{138,-53.5},{138,-48}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(resExtWallIntWall.port_a, convExtWall.solid) annotation (Line(
       points={{138,-106},{110,-106},{110,-86},{-144,-86},{-144,-36},{-114,-36}},
@@ -86,6 +81,8 @@ equation
           {-116,38}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(alphaIntWall.y, convIntWall.Gc) annotation (Line(points={{138,-53.5},
+          {138,-51.75},{138,-51.75},{138,-48}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}}), graphics={
         Polygon(

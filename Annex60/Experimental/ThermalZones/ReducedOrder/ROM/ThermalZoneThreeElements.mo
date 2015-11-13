@@ -23,28 +23,27 @@ model ThermalZoneThreeElements
         extent={{10,-11},{-10,11}},
         rotation=90,
         origin={-12,-152})));
-  Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor convFloor if     AFloor > 0
+  Modelica.Thermal.HeatTransfer.Components.Convection         convFloor if     AFloor > 0
     "convective heat transfer of floor"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-12,-116})));
-  Modelica.Blocks.Sources.Constant alphaFloorConst(k=1/(AFloor*alphaFloor)) if
-                                                                             AFloor > 0
+  Modelica.Blocks.Sources.Constant alphaFloorConst(k=AFloor*alphaFloor) if   AFloor > 0
     "coefficient of convective heat transfer for floor"
     annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=180,
         origin={22,-116})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor resExtWallFloor(R=1/(min(
-        AExt, AFloor)*alphaRad)) if AExt > 0 and AFloor > 0
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallFloor(G=min(
+        AExt, AFloor)*alphaRad) if  AExt > 0 and AFloor > 0
     "resistor between exterior walls and floor" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-144,-111})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor resIntWallFloor(R=1/(min(
-        AFloor, AInt)*alphaRad)) if AInt > 0 and AFloor > 0
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntWallFloor(G=min(
+        AFloor, AInt)*alphaRad) if  AInt > 0 and AFloor > 0
     "resistor between interior walls and floor" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -54,8 +53,8 @@ model ThermalZoneThreeElements
     "ambient port for floor plate" annotation (Placement(transformation(extent=
             {{-22,-180},{-2,-160}}), iconTransformation(extent={{-22,-180},{-2,
             -160}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor resFloorWin(R=1/(min(
-        AWin, AFloor)*alphaRad)) if AWin > 0 and AFloor > 0
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resFloorWin(G=min(
+        AWin, AFloor)*alphaRad) if  AWin > 0 and AFloor > 0
     "resistor between floor plate and windows" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -69,10 +68,6 @@ equation
   connect(convFloor.fluid, volAir.heatPort) annotation (Line(
       points={{-12,-106},{-12,-36},{64,-36},{64,0},{38,0}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(alphaFloorConst.y, convFloor.Rc) annotation (Line(
-      points={{16.5,-116},{-2,-116}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(floorRC.port_a, resExtWallFloor.port_b) annotation (Line(
       points={{-12,-143.6},{-12,-132},{-144,-132},{-144,-121}},
@@ -124,6 +119,8 @@ equation
           0}));
   connect(resExtWallFloor.port_a, convExtWall.solid) annotation (Line(points={{-144,
           -101},{-144,-36},{-114,-36}}, color={191,0,0}));
+  connect(alphaFloorConst.y, convFloor.Gc) annotation (Line(points={{16.5,-116},
+          {-2,-116},{-2,-116}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-240,-180},{240,180}},
           preserveAspectRatio=false), graphics={
         Rectangle(
