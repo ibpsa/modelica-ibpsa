@@ -153,6 +153,10 @@ model VDI6007TestCase8 "Illustrates the use of ThermalZoneTwoElements"
         extent={{-5,-5},{5,5}},
         rotation=-90,
         origin={-53,29})));
+  Modelica.Blocks.Math.Product product
+    annotation (Placement(transformation(extent={{-6,74},{4,84}})));
+  Modelica.Blocks.Math.Product product1
+    annotation (Placement(transformation(extent={{-6,56},{4,66}})));
 equation
   connect(eqAirTemp.TEqAir, prescribedTemperature.T) annotation (Line(points={{
           -4.2,-9.6},{4,-9.6},{4,0},{6.8,0}}, color={0,0,127}));
@@ -185,8 +189,6 @@ equation
           {-34,7},{-34,0.4},{-22,0.4}}, color={0,0,127}));
   connect(const.y, eqAirTemp.TBlaSky) annotation (Line(points={{-45.7,-5},{-33.85,
           -5},{-33.85,-4.6},{-22,-4.6}}, color={0,0,127}));
-  connect(tableSolRadWindow.y, aggWindow.u) annotation (Line(points={{-69.3,63},
-          {33.35,63},{33.35,64},{42.6,64}},color={0,0,127}));
   connect(switch1.y, eqAirTemp.sunblind[1])
     annotation (Line(points={{-14,21.4},{-14,5}}, color={0,0,127}));
   connect(switch1.y, eqAirTemp.sunblind[2])
@@ -205,6 +207,19 @@ equation
           43.5},{-53,35}}, color={255,0,255}));
   connect(or1.y, switch1.u2) annotation (Line(points={{-53,23.5},{-53,20},{-32,
           20},{-32,56},{-14,56},{-14,35.2}}, color={255,0,255}));
+  connect(tableSolRadWindow.y[1], product.u1) annotation (Line(points={{-69.3,
+          63},{-18,63},{-18,82},{-7,82}}, color={0,0,127}));
+  connect(switch1.y, product.u2) annotation (Line(points={{-14,21.4},{-14,21.4},
+          {-14,14},{-14,16},{12,16},{12,72},{-14,72},{-14,76},{-7,76}}, color={
+          0,0,127}));
+  connect(tableSolRadWindow.y[2], product1.u1)
+    annotation (Line(points={{-69.3,63},{-7,63},{-7,64}}, color={0,0,127}));
+  connect(switch1.y, product1.u2) annotation (Line(points={{-14,21.4},{-14,16},
+          {12,16},{12,54},{-12,54},{-12,58},{-7,58}}, color={0,0,127}));
+  connect(product.y, aggWindow.u[1]) annotation (Line(points={{4.5,79},{22,79},
+          {22,63.3},{42.6,63.3}}, color={0,0,127}));
+  connect(product1.y, aggWindow.u[2]) annotation (Line(points={{4.5,61},{23.25,
+          61},{23.25,64.7},{42.6,64.7}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>
@@ -219,5 +234,8 @@ equation
 </ul>
 <p><br><span style=\"font-family: MS Shell Dlg 2;\">The guideline is also the source of the building physics, orientations, areas, set temperatures and reference values. As global and diffuse radiation are given in the guideline normal to the facades and are here used as normal to the sun, this example cannot be taken for validation. In addition, the calculation core is not configured to be exactly the VDI 6007 core. In this example, the windows are not merged with the exterior walls. The reference values are taken from test case 8. This case doesn&apos;t consider outdoor longwave radiation exchange but this example does. Furthermore, the test case considers sunblinds (closing at 100 w/m2) what is not included in this example. It&apos;s just to show a typical application.</span></p>
 </html>"),
-    experiment(StopTime=5.184e+006));
+    experiment(
+      StopTime=5.184e+006,
+      Interval=3600,
+      __Dymola_Algorithm="Lsodar"));
 end VDI6007TestCase8;
