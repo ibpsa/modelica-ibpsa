@@ -6,7 +6,7 @@ block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
-  Annex60.BoundaryConditions.WeatherData.Bus weaBus
+  Annex60.BoundaryConditions.WeatherData.Bus weaBus "Weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput inc(
@@ -19,10 +19,11 @@ protected
   SolarGeometry.IncidenceAngle incAng(
     final azi=azi,
     final til=til,
-    final lat=lat)
+    final lat=lat) "Incidence angle"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Annex60.BoundaryConditions.SolarIrradiation.BaseClasses.DirectTiltedSurface
-    HDirTil annotation (Placement(transformation(extent={{0,-20},{40,20}})));
+    HDirTil "Direct irradition on tilted surface"
+    annotation (Placement(transformation(extent={{0,-20},{40,20}})));
 
 equation
   connect(incAng.y, HDirTil.incAng) annotation (Line(
