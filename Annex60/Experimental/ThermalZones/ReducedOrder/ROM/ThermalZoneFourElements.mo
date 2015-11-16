@@ -18,7 +18,9 @@ model ThermalZoneFourElements
     RExt=RRoof,
     RExtRem=RRoofRem,
     CExt=CRoof,
-    n=nRoof) if      ARoof > 0 "RC-element for roof" annotation (Placement(
+    n=nRoof,
+    T_start=T_start) if
+                     ARoof > 0 "RC-element for roof" annotation (Placement(
         transformation(
         extent={{10,-11},{-10,11}},
         rotation=90,

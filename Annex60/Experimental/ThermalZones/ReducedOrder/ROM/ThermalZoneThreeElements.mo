@@ -18,7 +18,9 @@ model ThermalZoneThreeElements
     n=nFloor,
     RExt=RFloor,
     RExtRem=RFloorRem,
-    CExt=CFloor) if AFloor > 0 "RC-element for floor plate" annotation (
+    CExt=CFloor,
+    T_start=T_start) if
+                    AFloor > 0 "RC-element for floor plate" annotation (
       Placement(transformation(
         extent={{10,-11},{-10,11}},
         rotation=90,

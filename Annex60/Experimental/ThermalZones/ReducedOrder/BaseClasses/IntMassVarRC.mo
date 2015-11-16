@@ -5,11 +5,13 @@ model IntMassVarRC "Interior wall consisting of variable number of RC elements"
     "Vector of resistors, from port to capacitor"                                       annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.HeatCapacity CInt[n]
     "Vector of heat capacitors, from port to center"                                           annotation(Dialog(group="Thermal mass"));
+  parameter Modelica.SIunits.Temperature T_start
+    "Initial temperature of capacitances"                                              annotation(Dialog(group="Thermal mass"));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResInt[n](R=RInt)
     "vector of resistors connecting port and capacitors"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor thermCapInt[n](C=CInt)
-    "vector of capacitors"
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor thermCapInt[n](C=CInt, each T(start=
+          T_start)) "vector of capacitors"
     annotation (Placement(transformation(extent={{-10,-12},{10,-32}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a "interior port"
     annotation (Placement(transformation(extent={{-102,-10},{-82,10}})));

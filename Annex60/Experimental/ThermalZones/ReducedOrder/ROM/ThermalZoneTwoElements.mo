@@ -15,7 +15,9 @@ model ThermalZoneTwoElements
   BaseClasses.IntMassVarRC intWallRC(
     n=nInt,
     RInt=RInt,
-    CInt=CInt) if AInt > 0 "RC-element for interior walls"
+    CInt=CInt,
+    T_start=T_start) if
+                  AInt > 0 "RC-element for interior walls"
     annotation (Placement(transformation(extent={{182,-48},{202,-26}})));
   Modelica.Thermal.HeatTransfer.Components.Convection         convIntWall if
                                                                             AInt > 0

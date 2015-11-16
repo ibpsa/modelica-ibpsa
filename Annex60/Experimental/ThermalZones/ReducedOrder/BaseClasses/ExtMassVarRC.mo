@@ -7,6 +7,8 @@ model ExtMassVarRC "Exterior wall consisting of variable number of RC elements"
     "Resistance of remaining resistor RExtRem between capacitor n and port_b"    annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.HeatCapacity CExt[n]
     "Vector of heat capacities, from port_a to port_b"                                     annotation(Dialog(group="Thermal mass"));
+  parameter Modelica.SIunits.Temperature T_start
+    "Initial temperature of capacitances"                                              annotation(Dialog(group="Thermal mass"));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResExt[n](R=RExt)
     "vector of thermal resistors connecting port_a and capacitors"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -17,8 +19,8 @@ model ExtMassVarRC "Exterior wall consisting of variable number of RC elements"
     annotation (Placement(transformation(extent={{-104,-10},{-84,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b "exterior port"
     annotation (Placement(transformation(extent={{82,-10},{102,10}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor thermCapExt[n](C=CExt)
-    "vector of thermal capacitors"
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor thermCapExt[n](C=CExt, each T(start=
+          T_start)) "vector of thermal capacitors"
     annotation (Placement(transformation(extent={{-10,-12},{10,-32}})));
 equation
   // Connecting inner elements thermResExt[i]--thermCapExt[i] to n groups

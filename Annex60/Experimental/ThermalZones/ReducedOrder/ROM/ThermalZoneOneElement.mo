@@ -32,6 +32,8 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
     "Coefficient of heat transfer for linearized radiation exchange between walls"
                                                                                         annotation(Dialog(group="Thermal zone"));
+  parameter Modelica.SIunits.Temperature T_start
+    "Initial temperature for thermal masses (incl. indoor air)";
 protected
   parameter Modelica.SIunits.Area ATot=sum(AArray);
   parameter Modelica.SIunits.Area[:] AArray = {AExt, AWin};
@@ -42,7 +44,8 @@ protected
 public
   Fluid.MixingVolumes.MixingVolume volAir(m_flow_nominal=0.00001, V=VAir,
     redeclare package Medium = Medium,
-    nPorts=nPorts) "indoor air volume"
+    nPorts=nPorts,
+    T_start=T_start) "indoor air volume"
     annotation (Placement(transformation(extent={{38,-10},{18,10}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
     redeclare package Medium = Medium)
@@ -122,7 +125,8 @@ public
     n=nExt,
     RExt=RExt,
     CExt=CExt,
-    RExtRem=RExtRem) if AExt > 0 "RC-element for exterior walls"
+    RExtRem=RExtRem,
+    T_start=T_start) if AExt > 0 "RC-element for exterior walls"
     annotation (Placement(transformation(extent={{-158,-46},{-178,-24}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallWin(G=min(
         AExt, AWin)*alphaRad) if     AExt > 0 and AWin > 0

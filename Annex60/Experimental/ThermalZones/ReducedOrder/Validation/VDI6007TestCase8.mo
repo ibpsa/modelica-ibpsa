@@ -1,5 +1,5 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation;
-model VDI6007TestCase8 "Illustrates the use of ThermalZoneTwoElements"
+model VDI6007TestCase8 "VDI 6007 Test Case 8 model"
 
   Modelica.Blocks.Math.Sum
             aggWindow(nin=2, k={0.5,0.5})
