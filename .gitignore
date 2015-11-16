@@ -2,7 +2,6 @@
 *.bak-mo
 *.mat
 *.mof
-*.pyc
 buildlog.txt
 dsfinal.txt
 dsin.txt
@@ -20,6 +19,7 @@ stat
 status
 stop
 success
-# Ignore files created by the unit tests.
+# Ignore files created by BuildingsPy
+*.py[cod]
 simulator.log
 unitTests.log
