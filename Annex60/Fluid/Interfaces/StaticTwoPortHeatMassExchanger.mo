@@ -1,8 +1,7 @@
 within Annex60.Fluid.Interfaces;
 model StaticTwoPortHeatMassExchanger
   "Partial model transporting fluid between two ports without storing mass or energy"
-  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
-  showDesignFlowDirection = false);
+  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
   extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
@@ -148,6 +147,13 @@ are the results of an iterative solver.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignment of parameter
+<code>showDesignFlowDirection</code> in <code>extends</code> statement.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+</li>
 <li>
 July 2, 2015 by Michael Wetter:<br/>
 Revised implementation of conservation equations,

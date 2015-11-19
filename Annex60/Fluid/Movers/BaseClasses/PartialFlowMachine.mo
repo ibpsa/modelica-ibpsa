@@ -12,8 +12,7 @@ partial model PartialFlowMachine
     port_b(
       h_outflow(start=h_outflow_start),
       p(start=p_start),
-      final m_flow(max = if allowFlowReversal then +Constants.inf else 0)),
-      final showDesignFlowDirection=false);
+      final m_flow(max = if allowFlowReversal then +Constants.inf else 0)));
 
   Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
@@ -161,6 +160,13 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignment of parameter
+<code>showDesignFlowDirection</code> in <code>extends</code> statement.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+</li>
 <li>
 January 24, 2015, by Michael Wetter:<br/>
 Propagated <code>m_flow_small</code> of instance <code>vol</code> and made
