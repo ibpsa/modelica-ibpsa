@@ -3,8 +3,6 @@ model CorGDoublePane
   "Correction of the solar gain factor according to VDI6007 Part 3"
   extends BaseClasses.PartialCorG;
   import Modelica.SIunits.Conversions.to_deg;
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer UWin
-    "Thermal transmission coefficient of whole window";
 
   // Parameters for calculating the transmission correction factor based on VDI 6007 Part 3
   // A0 to A6 are experimental constants VDI 6007 Part 3 page 20
