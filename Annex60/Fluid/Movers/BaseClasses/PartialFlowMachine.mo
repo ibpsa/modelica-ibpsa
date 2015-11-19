@@ -105,7 +105,7 @@ protected
     final allowFlowReversal=allowFlowReversal) "Pressure source"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
-  Annex60.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
