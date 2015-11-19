@@ -56,7 +56,8 @@ model VDI6007Room8 "Illustrates the use of ThermalZoneTwoElements"
     RInt={0.000668895639141},
     CInt={12391363.86},
     RWin=0.01642857143,
-    RExtRem=0.1265217391)
+    RExtRem=0.1265217391,
+    T_start=561.3)
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   EqAirTemp.EqAirTemp eqAirTemp(n=2,
     wfGround=0,

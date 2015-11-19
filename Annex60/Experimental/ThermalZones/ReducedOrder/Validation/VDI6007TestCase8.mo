@@ -23,7 +23,8 @@ model VDI6007TestCase8 "VDI 6007 Test Case 8 model"
     AWin=0,
     AExt=25.5,
     RExt={0.0017362530106},
-    RExtRem=0.01843137255)
+    RExtRem=0.01843137255,
+    T_start=561.3)
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   EqAirTemp.EqAirTempVDI
                       eqAirTemp(n=2,

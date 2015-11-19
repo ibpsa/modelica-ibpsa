@@ -38,8 +38,7 @@ protected
   parameter Modelica.SIunits.Area ATot=sum(AArray);
   parameter Modelica.SIunits.Area[:] AArray = {AExt, AWin};
   parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray});
-  parameter Real splitFactor[dimension](fixed = false);
-  parameter Integer j(fixed = false);
+  parameter Real splitFactor[dimension]=Annex60.Experimental.ThermalZones.ReducedOrder.BaseClasses.splitFacVal(dimension,AArray);
 
 public
   Fluid.MixingVolumes.MixingVolume volAir(m_flow_nominal=0.00001, V=VAir,
@@ -135,14 +134,6 @@ public
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-146,8})));
-initial algorithm
-    j :=1;
-      for A in AArray loop
-        if A > 0 then
-          splitFactor[j] :=A/ATot;
-          j :=j + 1;
-        end if;
-      end for;
 
 equation
   connect(volAir.ports, ports) annotation (Line(
