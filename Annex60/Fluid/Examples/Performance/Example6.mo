@@ -51,8 +51,8 @@ Running the following commands allows comparing the CPU times of the two models,
 disregarding as much as possible the influence of the integrator:
 </p>
 <pre>
-simulateModel(\"Annex60.Fluid.Examples.PerformanceExamples.Example6\", stopTime=100, numberOfIntervals=1, method=\"Rkfix4\", fixedstepsize=0.001, resultFile=\"Example6\");
-simulateModel(\"Annex60.Fluid.Examples.PerformanceExamples.Example7\", stopTime=100, numberOfIntervals=1, method=\"Rkfix4\", fixedstepsize=0.001, resultFile=\"Example7\");
+simulateModel(\"Annex60.Fluid.Examples.PerformanceExamples.Example6\", stopTime=100, interval=100, method=\"Rkfix4\", fixedstepsize=0.001, resultFile=\"Example6\");
+simulateModel(\"Annex60.Fluid.Examples.PerformanceExamples.Example7\", stopTime=100, interval=100, method=\"Rkfix4\", fixedstepsize=0.001, resultFile=\"Example7\");
 </pre>
 <p>
 Comparing the CPU times indicates a speed improvement of <i>56%</i>.
@@ -76,7 +76,7 @@ The following command allows comparing the CPU times objectively.
 </p>
 <p>
 <code>
-simulateModel(\"Annex60.Fluid.Examples.Performance.Example6\", stopTime=100, numberOfIntervals=1, method=\"Euler\", fixedstepsize=0.001, resultFile=\"Example6\");
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example6\", stopTime=100, interval=100, method=\"Euler\", fixedstepsize=0.001, resultFile=\"Example6\");
 </code>
 </p>
 <p>

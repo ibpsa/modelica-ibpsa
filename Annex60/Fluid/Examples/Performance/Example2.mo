@@ -84,8 +84,8 @@ Following script can be used in Dymola to compare the CPU times.
 cpuOld=OutputCPUtime;<br/>
 evaluateOld=Evaluate;<br/>
 OutputCPUtime:=true;<br/>
-simulateModel(\"Annex60.Fluid.Examples.Performance.Example2(from_dp.k=false)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example2\");<br/>
-simulateModel(\"Annex60.Fluid.Examples.Performance.Example2(from_dp.k=true)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example2\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example2(from_dp.k=false)\", stopTime=10000, interval=1000, method=\"dassl\", resultFile=\"Example2\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example2(from_dp.k=true)\", stopTime=10000, interval=1000, method=\"dassl\", resultFile=\"Example2\");<br/>
 createPlot(id=1, position={15, 10, 592, 421}, range={0.0, 10000.0, -0.01, 25}, autoscale=false, grid=true);<br/>
 plotExpression(apply(Example2[end-1].CPUtime), false, \"from_dp=false\", 1);<br/>
 plotExpression(apply(Example2[end].CPUtime), false, \"from_dp=true\", 1);<br/>
