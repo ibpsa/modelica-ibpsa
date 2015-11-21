@@ -71,10 +71,10 @@ For this script to work, make sure that Dymola stores at least 4 results.
 cpuOld=OutputCPUtime;<br/>
 evaluateOld=Evaluate;<br/>
 OutputCPUtime:=true;<br/>
-simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v1(allowFlowReversal.k=true, from_dp.k=false)\", stopTime=10000, Interval=1000, method=\"dassl\", resultFile=\"Example1v1\");<br/>
-simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v2(from_dp.k=true, allowFlowReversal.k=true)\", stopTime=10000, Interval=1000, method=\"dassl\", resultFile=\"Example1v2\");<br/>
-simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v1(allowFlowReversal.k=false, from_dp.k=false)\", stopTime=10000, Interval=1000, method=\"dassl\", resultFile=\"Example1v1\");<br/>
-simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v1(allowFlowReversal.k=false, from_dp.k=true)\", stopTime=10000, Interval=1000, method=\"dassl\", resultFile=\"Example1v1\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v1(allowFlowReversal.k=true, from_dp.k=false)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example1v1\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v2(from_dp.k=true, allowFlowReversal.k=true)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example1v2\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v1(allowFlowReversal.k=false, from_dp.k=false)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example1v1\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example1v1(allowFlowReversal.k=false, from_dp.k=true)\", stopTime=10000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example1v1\");<br/>
 createPlot(id=1, position={15, 10, 592, 421}, range={0.0, 10000.0, -0.01, 0.35}, autoscale=false, grid=true);<br/>
 plotExpression(apply(Example1v1[end-2].CPUtime), false, \"Default case\", 1);<br/>
 plotExpression(apply(Example1v2[end].CPUtime), false, \"Adding dummy states\", 1);<br/>

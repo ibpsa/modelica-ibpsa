@@ -101,10 +101,10 @@ For this script to work, make sure that Dymola stores at least 4 results.
 cpuOld=OutputCPUtime;<br/>
 evaluateOld=Evaluate;<br/>
 OutputCPUtime:=true;<br/>
-simulateModel(\"Annex60.Fluid.Examples.Performance.Example3(from_dp.k=false, mergeDp.k=false, nRes.k=10)\", stopTime=1000, interval=1000, method=\"dassl\", resultFile=\"Example3\");<br/>
-simulateModel(\"Annex60.Fluid.Examples.Performance.Example3(from_dp.k=false, mergeDp.k=true, nRes.k=10)\", stopTime=1000, interval=1000, method=\"dassl\", resultFile=\"Example3\");<br/>
-simulateModel(\"Annex60.Fluid.Examples.Performance.Example3(from_dp.k=true, mergeDp.k=false, nRes.k=10)\", stopTime=1000, interval=1000, method=\"dassl\", resultFile=\"Example3\");<br/>
-simulateModel(\"Annex60.Fluid.Examples.Performance.Example3(from_dp.k=true, mergeDp.k=true, nRes.k=10)\", stopTime=1000, interval=1000, method=\"dassl\", resultFile=\"Example3\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example3(from_dp.k=false, mergeDp.k=false, nRes.k=10)\", stopTime=1000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example3\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example3(from_dp.k=false, mergeDp.k=true, nRes.k=10)\", stopTime=1000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example3\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example3(from_dp.k=true, mergeDp.k=false, nRes.k=10)\", stopTime=1000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example3\");<br/>
+simulateModel(\"Annex60.Fluid.Examples.Performance.Example3(from_dp.k=true, mergeDp.k=true, nRes.k=10)\", stopTime=1000, numberOfIntervals=10, method=\"dassl\", resultFile=\"Example3\");<br/>
 createPlot(id=1, position={15, 10, 592, 421}, range={0.0, 1000.0, -0.01, 8}, autoscale=false, grid=true);<br/>
 plotExpression(apply(Example3[end-3].CPUtime), false, \"from_dp=false, mergeDp=false\", 1);<br/>
 plotExpression(apply(Example3[end-2].CPUtime), false, \"from_dp=false, mergeDp=true\", 1);<br/>
