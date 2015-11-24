@@ -6,10 +6,8 @@ PDETime_massFlow
 DiffTime_onedirection
 DiffTime_modified
 HeatLossMod
-<<<<<<< HEAD
 HeatLossDouble
-=======
->>>>>>> origin/patch-1
 HeatLossMod2
 HeatLossMod_noAbs
 PartialFourPort
+HeatLossPipeDelay
