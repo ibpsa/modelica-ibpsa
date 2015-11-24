@@ -4,3 +4,4 @@ OffTimer
 PIDHysteresis
 PIDHysteresisTimer
 SignalRanker
+HeatingCurve
