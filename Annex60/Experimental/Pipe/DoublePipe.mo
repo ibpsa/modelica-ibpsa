@@ -174,48 +174,38 @@ equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
 
-  connect(port_a1, heatLossSupplyReverse.port_b)
-    annotation (Line(points={{-100,60},{-80,60},{-60,60}}, color={0,127,255}));
   connect(heatLossSupplyReverse.port_a, pipeSupplyAdiabaticPlugFlow.port_a)
     annotation (Line(points={{-40,60},{-10,60}}, color={0,127,255}));
   connect(pipeSupplyAdiabaticPlugFlow.port_b, heatLossSupply.port_a)
     annotation (Line(points={{10,60},{26,60},{40,60}}, color={0,127,255}));
-  connect(heatLossSupply.port_b, port_b1)
-    annotation (Line(points={{60,60},{80,60},{100,60}}, color={0,127,255}));
-  connect(port_b2, heatLossReturn.port_b) annotation (Line(points={{-100,-60},{
-          -80,-60},{-60,-60}}, color={0,127,255}));
   connect(heatLossReturn.port_a, pipeReturnAdiabaticPlugFlow.port_b)
     annotation (Line(points={{-40,-60},{-26,-60},{-10,-60}}, color={0,127,255}));
   connect(pipeReturnAdiabaticPlugFlow.port_a, heatLossReturnReverse.port_a)
     annotation (Line(points={{10,-60},{26,-60},{40,-60}}, color={0,127,255}));
-  connect(heatLossReturnReverse.port_b, port_a2)
-    annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
   connect(heatLossSupplyReverse.T_amb, T_amb) annotation (Line(points={{-50,70},
           {-50,76},{0,76},{0,100}}, color={0,0,127}));
   connect(heatLossSupply.T_amb, T_amb) annotation (Line(points={{50,70},{50,76},
           {0,76},{0,100}}, color={0,0,127}));
   connect(heatLossReturn.T_amb, T_amb) annotation (Line(points={{-50,-70},{-50,
-          -78},{-70,-78},{-70,76},{0,76},{0,100}}, color={0,0,127}));
+          -78},{-64,-78},{-64,76},{0,76},{0,100}}, color={0,0,127}));
   connect(heatLossReturnReverse.T_amb, T_amb) annotation (Line(points={{50,-70},
-          {50,-78},{68,-78},{68,76},{0,76},{0,100}}, color={0,0,127}));
-  connect(heatLossSupplyReverse.T_2out, heatLossReturnReverse.T_2in)
-    annotation (Line(
-      points={{-56,50},{-56,50},{-56,28},{-56,-4},{44,-4},{44,-50}},
-      color={0,0,127},
-      smooth=Smooth.Bezier));
-  connect(heatLossSupplyReverse.T_2in, heatLossReturnReverse.T_2out)
-    annotation (Line(
-      points={{-44,50},{-44,4},{56,4},{56,-50}},
-      color={0,0,127},
-      smooth=Smooth.Bezier));
-  connect(heatLossReturn.T_2out, heatLossSupply.T_2in) annotation (Line(
-      points={{-56,-50},{-56,4},{44,4},{44,50}},
-      color={0,0,127},
-      smooth=Smooth.Bezier));
-  connect(heatLossSupply.T_2out, heatLossReturn.T_2in) annotation (Line(
-      points={{56,50},{56,-4},{-44,-4},{-44,-50}},
-      color={0,0,127},
-      smooth=Smooth.Bezier));
+          {50,-78},{64,-78},{64,76},{0,76},{0,100}}, color={0,0,127}));
+  connect(port_a1, heatLossSupplyReverse.port_b)
+    annotation (Line(points={{-100,60},{-60,60},{-60,60}}, color={0,127,255}));
+  connect(heatLossSupply.port_b, port_b1)
+    annotation (Line(points={{60,60},{80,60},{100,60}}, color={0,127,255}));
+  connect(port_b2, heatLossReturn.port_b) annotation (Line(points={{-100,-60},{
+          -80,-60},{-60,-60}}, color={0,127,255}));
+  connect(heatLossReturnReverse.port_b, port_a2) annotation (Line(points={{60,
+          -60},{100,-60},{100,-60}}, color={0,127,255}));
+  connect(heatLossReturnReverse.T_2out, heatLossSupply.T_2in) annotation (Line(
+        points={{56,-50},{56,0},{44,0},{44,50}}, color={0,0,127}));
+  connect(heatLossSupplyReverse.T_2out, heatLossReturn.T_2in) annotation (Line(
+        points={{-56,50},{-56,0},{-44,0},{-44,-50}}, color={0,0,127}));
+  connect(heatLossReturn.T_2out, heatLossSupplyReverse.T_2in) annotation (Line(
+        points={{-56,-50},{-56,8},{-44,8},{-44,50}}, color={0,0,127}));
+  connect(heatLossSupply.T_2out, heatLossReturnReverse.T_2in) annotation (Line(
+        points={{56,50},{56,6},{56,-6},{44,-6},{44,-50}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

@@ -57,9 +57,9 @@ model DoublePipe "Simple test of double pipe component"
     m_flow_nominal=m_flow_nominal,
     lambdaI=lambdaI,
     Ra=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 +
-        thicknessIns)/(diameter/2)))/length,
+        thicknessIns)/(diameter/2)))/length/100,
     Rs=2/1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 +
-        thicknessIns)/(diameter/2)))/length)
+        thicknessIns)/(diameter/2)))/length/100)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Constant const3(k=5) annotation (Placement(
         transformation(
