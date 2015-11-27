@@ -1,6 +1,6 @@
 within Annex60.Fluid.Movers.Examples;
 model MoverParameter
-  "Example model of movers using a paramater for setting the stage"
+  "Example model of movers using a parameter for setting the stage"
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Water;
 
