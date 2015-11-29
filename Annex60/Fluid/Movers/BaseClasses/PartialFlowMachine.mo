@@ -11,7 +11,7 @@ partial model PartialFlowMachine
     port_b(
       h_outflow(start=h_outflow_start),
       p(start=p_start),
-      final m_flow(max = if allowFlowReversal then +Constants.inf else 0)));
+      final m_flow(max = if allowFlowReversal then +Modelica.Constants.inf else 0)));
 
   parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
