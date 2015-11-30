@@ -62,7 +62,6 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Polygon(
           points={{0,60},{38,2},{20,2},{20,-46},{-18,-46},{-18,2},{-36,2},{0,60}},
-
           lineColor={0,0,0},
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid)}),
