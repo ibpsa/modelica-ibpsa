@@ -4,8 +4,7 @@ record efficiencyParameters "Record for efficiency parameters"
   parameter Modelica.SIunits.VolumeFlowRate V_flow[:](
     each min=0) "Volumetric flow rate at user-selected operating points";
   parameter Modelica.SIunits.Efficiency eta[size(V_flow,1)](
-     each min=0,
-     each max=1) "Fan or pump efficiency at these flow rates";
+    each max=1) "Fan or pump efficiency at these flow rates";
   annotation (Documentation(info="<html>
 <p>
 Data record for performance data that describe volume flow rate versus
