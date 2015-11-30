@@ -59,7 +59,11 @@ model DoublePipe "Simple test of double pipe component"
     Ra=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 +
         thicknessIns)/(diameter/2)))/length/100,
     Rs=2/1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 +
-        thicknessIns)/(diameter/2)))/length/100)
+        thicknessIns)/(diameter/2)))/length/100,
+    redeclare
+      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR150S
+      pipeData,
+    H=2)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Constant const3(k=5) annotation (Placement(
         transformation(
