@@ -1,7 +1,7 @@
 within Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard;
 record IsoPlusDR40S "Standard DN 40 IsoPlus double pipe"
-  import DistrictHeating;
-  extends DistrictHeating.Pipes.BaseClasses.PipeConfig.IsoPlusDouble(
+
+  extends IsoPlusDouble(
     h=20e-3,
     Di=40e-3,
     Do=48.3e-3,

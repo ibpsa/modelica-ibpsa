@@ -1,9 +1,9 @@
 within Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleReinforced;
-record IsoPlusDR32S "Reinforced DN 32 IsoPlus double pipe"
+record IsoPlusDR80R "Reinforced DN 80 IsoPlus double pipe"
   import DistrictHeating;
   extends DistrictHeating.Pipes.BaseClasses.PipeConfig.IsoPlusDouble(
-    h=20e-3,
-    Di=32e-3,
-    Do=42.4e-3,
-    Dc=180e-3);
-end IsoPlusDR32S;
+    Di=80e-3,
+    Do=88.9e-3,
+    h=25e-3,
+    Dc=280e-3);
+end IsoPlusDR80R;

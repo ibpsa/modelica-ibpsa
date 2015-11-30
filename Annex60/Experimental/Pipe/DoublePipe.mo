@@ -43,11 +43,9 @@ model DoublePipe "Pipe model for double pipe case"
     "Pressure loss of a straight pipe at m_flow_nominal";
 
   // FIXME: Resistances must be calculated according to pipe lay-out
-  parameter Types.ThermalResistanceLength Ra=1/(lambdaI*2*Modelica.Constants.pi
-      /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)))
+  parameter Types.ThermalResistanceLength Ra=pipeData.Ra
     "Resistance for asymmetric problem, in K/W";
-  parameter Types.ThermalResistanceLength Rs=2/(lambdaI*2*Modelica.Constants.pi
-      /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)))
+  parameter Types.ThermalResistanceLength Rs=pipeData.Rs
     "Resistance for symmetric problem, in K/W";
   final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*
       cp_default;
@@ -170,6 +168,12 @@ public
   //     T_2in(start=T_start),
   //     T_2out(start=T_start)
 
+  replaceable parameter
+    BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR20S pipeData
+    constrainedby BaseClasses.DoublePipeConfig.PipeData(H=H) annotation (
+      choicesAllMatching=true, Placement(transformation(extent={{-96,-96},{-76,
+            -76}})));
+  parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
