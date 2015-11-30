@@ -27,8 +27,8 @@ model PipeHeatLossKUL_Reverse
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
 
-  parameter Modelica.SIunits.ThermalConductivity R=1/(lambdaI*2*pi/Modelica.Math.log((diameter/2+thicknessIns)/(diameter/2)));
-  final parameter Real C=rho_default*pi*(diameter/2)^2*cp_default;
+  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*pi/Modelica.Math.log((diameter/2+thicknessIns)/(diameter/2)));
+  final parameter Types.ThermalCapacityPerLength C=rho_default*pi*(diameter/2)^2*cp_default;
 
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
     Medium.specificHeatCapacityCp(state=sta_default) "Heat capacity of medium";

@@ -12,10 +12,13 @@ model HeatLossDouble "Heat loss model for pipe when second pipe is present"
   parameter Modelica.SIunits.Area A_cross=Modelica.Constants.pi*diameter*
       diameter/4 "Cross sectional area";
 
-  parameter Real C "Capacitance of the water volume in J/K";
-  parameter Real Ra "Resistance for asymmetric problem, in K/W";
-  parameter Real Rs "Resistance for symmetric problem, in K/W";
-  final parameter Real tau_char=sqrt(Ra*Rs)*C;
+  parameter Types.ThermalCapacityPerLength C
+    "Capacitance of the water volume in J/K";
+  parameter Types.ThermalResistanceLength Ra
+    "Resistance for asymmetric problem, in K/W";
+  parameter Types.ThermalResistanceLength Rs
+    "Resistance for symmetric problem, in K/W";
+  final parameter Modelica.SIunits.Time tau_char=sqrt(Ra*Rs)*C;
 
   Modelica.SIunits.Time time_out_b "Virtual time after delay at port b";
   Modelica.SIunits.Time tau "Time delay for input time";

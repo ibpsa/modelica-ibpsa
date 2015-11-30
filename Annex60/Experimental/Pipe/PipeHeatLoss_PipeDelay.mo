@@ -40,10 +40,10 @@ model PipeHeatLoss_PipeDelay
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  parameter Modelica.SIunits.ThermalConductivity R=1/(lambdaI*2*Modelica.Constants.pi
+  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi
       /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  final parameter Real C=rho_default*Modelica.Constants.pi*(diameter/2)^2*
-      cp_default;
+  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi
+      *(diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
 
@@ -126,23 +126,23 @@ equation
     annotation (Line(points={{100,0},{80,0},{58,0}}, color={0,127,255}));
   connect(T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{0,100},{0,100},
           {0,54},{0,40},{-70,40},{-70,10}}, color={0,0,127}));
-  connect(heatLoss.T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{48,
-          10},{48,40},{-70,40},{-70,10}}, color={0,0,127}));
+  connect(heatLoss.T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{48,10},
+          {48,40},{-70,40},{-70,10}}, color={0,0,127}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
     annotation (Line(points={{-10,0},{-24,0}}, color={0,127,255}));
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
     annotation (Line(points={{-44,0},{-60,0}}, color={0,127,255}));
   connect(pDETime_massFlow.tau, heatLoss.tau) annotation (Line(points={{11,-42},
           {11,-42},{22,-42},{22,28},{42,28},{42,10}}, color={0,0,127}));
-  connect(reverseHeatLoss.tau, heatLoss.tau) annotation (Line(points={{-64,10},
-          {-64,28},{42,28},{42,10}}, color={0,0,127}));
+  connect(reverseHeatLoss.tau, heatLoss.tau) annotation (Line(points={{-64,10},{
+          -64,28},{42,28},{42,10}}, color={0,0,127}));
   connect(senMasFlo.m_flow, pDETime_massFlow.m_flow)
     annotation (Line(points={{-34,-11},{-34,-42},{-12,-42}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
         Rectangle(
           extent={{-100,40},{100,-40}},
           lineColor={0,0,0},

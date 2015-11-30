@@ -17,9 +17,9 @@ model HeatLossMod2 "Heat loss model for pipe"
   Boolean vBoolean;
   Real epsilon;
   Real flat_v;
-  parameter Real C;
-  parameter Real R;
-  final parameter Real tau_char=R*C;
+  parameter Types.ThermalCapacityPerLength C;
+  parameter Types.ThermalResistanceLength R;
+  final parameter Modelica.SIunits.Time tau_char=R*C;
 
   Modelica.SIunits.Time time_out_b "Virtual time after delay at port b";
   Modelica.SIunits.Time tau "Time delay for input time";

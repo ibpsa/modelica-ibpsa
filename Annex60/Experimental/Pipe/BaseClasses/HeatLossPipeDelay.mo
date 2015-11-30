@@ -15,9 +15,9 @@ model HeatLossPipeDelay
   parameter Modelica.SIunits.Area A_cross = Modelica.Constants.pi * diameter * diameter / 4
     "Cross sectional area";
 
-  parameter Real C;
-  parameter Real R;
-  final parameter Real tau_char=R*C;
+  parameter Types.ThermalCapacityPerLength C;
+  parameter Types.ThermalResistanceLength R;
+  final parameter Modelica.SIunits.Time tau_char=R*C;
 
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Tin_a
     "Temperature at port_a for in-flowing fluid";

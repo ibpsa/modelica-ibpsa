@@ -43,13 +43,13 @@ model DoublePipe "Pipe model for double pipe case"
     "Pressure loss of a straight pipe at m_flow_nominal";
 
   // FIXME: Resistances must be calculated according to pipe lay-out
-  parameter Modelica.SIunits.ThermalConductivity Ra=1/(lambdaI*2*Modelica.Constants.pi
+  parameter Types.ThermalResistanceLength Ra=1/(lambdaI*2*Modelica.Constants.pi
       /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)))
     "Resistance for asymmetric problem, in K/W";
-  parameter Modelica.SIunits.ThermalConductivity Rs=2/1/(lambdaI*2*Modelica.Constants.pi
+  parameter Types.ThermalResistanceLength Rs=2/(lambdaI*2*Modelica.Constants.pi
       /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)))
     "Resistance for symmetric problem, in K/W";
-  final parameter Real C=rho_default*Modelica.Constants.pi*(diameter/2)^2*
+  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*
       cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
