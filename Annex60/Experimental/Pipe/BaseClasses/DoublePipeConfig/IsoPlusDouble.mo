@@ -1,11 +1,8 @@
 within Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig;
 partial record IsoPlusDouble "IsoPlus double pipes"
   // Pipes in shared insulation buried underground
-  extends PipeData(lambdaI=0.028,
-  final Rs = hsInvers/(lambdaI*2*Modelica.Constants.pi),
-  final Ra = haInvers/(lambdaI*2*Modelica.Constants.pi));
+  extends PipeData(lambdaI=0.028);
 
-protected
   final parameter Real hsInvers=
     2*lambdaI/lambdaG*Modelica.Math.log(2*Heff/rc) +
     Modelica.Math.log(rc^2/(2*e*ri)) +

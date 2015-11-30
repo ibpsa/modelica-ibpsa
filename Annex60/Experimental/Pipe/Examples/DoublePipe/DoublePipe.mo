@@ -53,17 +53,11 @@ model DoublePipe "Simple test of double pipe component"
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
-    thicknessIns=thicknessIns,
     m_flow_nominal=m_flow_nominal,
-    lambdaI=lambdaI,
-    Ra=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 +
-        thicknessIns)/(diameter/2)))/length/100,
-    Rs=2/1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 +
-        thicknessIns)/(diameter/2)))/length/100,
+    H=2,
     redeclare
       Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR150S
-      pipeData,
-    H=2)
+      pipeData)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Constant const3(k=5) annotation (Placement(
         transformation(
@@ -102,8 +96,6 @@ model DoublePipe "Simple test of double pipe component"
   parameter Modelica.SIunits.Length length=100 "Pipe length";
   parameter Modelica.SIunits.Length thicknessIns=0.01
     "Thickness of pipe insulation";
-  parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
-    "Heat conductivity";
   Annex60.Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,

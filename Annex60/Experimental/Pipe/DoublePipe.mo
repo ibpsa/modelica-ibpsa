@@ -4,31 +4,29 @@ model DoublePipe "Pipe model for double pipe case"
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
+  // Geometric parameters
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
+  parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
 
-  /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
-    "Heat conductivity of pipe's surroundings";*/
+  replaceable parameter
+    BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR20S pipeData
+    constrainedby BaseClasses.DoublePipeConfig.PipeData(H=H)
+    "Select pipe dimensions"                                                          annotation (
+      choicesAllMatching=true, Placement(transformation(extent={{-96,-96},{-76,-76}})));
 
+  // Mass flow and pressure drop related
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
-
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
     m_flow_nominal) "Small mass flow rate for regularization of zero flow"
     annotation (Dialog(tab="Advanced"));
-
   parameter Modelica.SIunits.Height roughness=2.5e-5
     "Average height of surface asperities (default: smooth steel pipe)"
     annotation (Dialog(group="Geometry"));
-
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") = 2*
     dpStraightPipe_nominal "Pressure drop at nominal mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.SIunits.Temperature T_start=393.15
-    "Start temperature to initialize the problem";
-
   final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
       Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
       m_flow=m_flow_nominal,
@@ -42,15 +40,20 @@ model DoublePipe "Pipe model for double pipe case"
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  // FIXME: Resistances must be calculated according to pipe lay-out
-  parameter Types.ThermalResistanceLength Ra=pipeData.Ra
-    "Resistance for asymmetric problem, in K/W";
-  parameter Types.ThermalResistanceLength Rs=pipeData.Rs
-    "Resistance for symmetric problem, in K/W";
-  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*
-      cp_default;
-  parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
-    "Heat conductivity";
+  parameter Modelica.SIunits.Temperature T_start=393.15
+    "Start temperature to initialize the problem";
+
+  // Heat transfer coefficients
+  parameter Types.ThermalResistanceLength Ra= pipeData.haInvers/(pipeData.lambdaI*2*Modelica.Constants.pi)
+    "Resistance for asymmetric problem, in Km/W";
+  parameter Types.ThermalResistanceLength Rs= pipeData.hsInvers/(pipeData.lambdaI*2*Modelica.Constants.pi)
+    "Resistance for symmetric problem, in Km/W";
+  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi
+      *(diameter/2)^2*cp_default;
+
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=sta_default)
+    "Heat capacity of medium";
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
@@ -86,10 +89,6 @@ protected
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-      Medium.specificHeatCapacityCp(state=sta_default)
-    "Heat capacity of medium";
-
 public
   Modelica.Blocks.Interfaces.RealInput T_amb
     "Ambient temperature for pipe's surroundings" annotation (Placement(
@@ -101,28 +100,22 @@ public
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
-    thicknessIns=thicknessIns,
     C=C,
     Ra=Ra,
     Rs=Rs,
     m_flow_small=m_flow_small)
     annotation (Placement(transformation(extent={{-40,50},{-60,70}})));
-  //,
-  //T_2in(start=T_start),
-  //T_2out(start=T_start)
+
   BaseClasses.HeatLossDouble heatLossSupply(
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
-    thicknessIns=thicknessIns,
     C=C,
     Ra=Ra,
     Rs=Rs,
     m_flow_small=m_flow_small)
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  //,
-  //T_2in(start=T_start),
-  //T_2out(start=T_start))
+
 protected
   PipeAdiabaticPlugFlow pipeReturnAdiabaticPlugFlow(
     redeclare final package Medium = Medium,
@@ -141,7 +134,6 @@ public
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
-    thicknessIns=thicknessIns,
     C=C,
     Ra=Ra,
     Rs=Rs,
@@ -149,14 +141,11 @@ public
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,-60})));
-  //,
-  //T_2in(start=T_start),
-  //T_2out(start=T_start))
+
   BaseClasses.HeatLossDouble heatLossReturnReverse(
     redeclare package Medium = Medium,
     diameter=diameter,
     length=length,
-    thicknessIns=thicknessIns,
     C=C,
     Ra=Ra,
     Rs=Rs,
@@ -164,16 +153,7 @@ public
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={50,-60})));
-  //,
-  //     T_2in(start=T_start),
-  //     T_2out(start=T_start)
 
-  replaceable parameter
-    BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR20S pipeData
-    constrainedby BaseClasses.DoublePipeConfig.PipeData(H=H) annotation (
-      choicesAllMatching=true, Placement(transformation(extent={{-96,-96},{-76,
-            -76}})));
-  parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
@@ -190,18 +170,18 @@ equation
           {-50,76},{0,76},{0,100}}, color={0,0,127}));
   connect(heatLossSupply.T_amb, T_amb) annotation (Line(points={{50,70},{50,76},
           {0,76},{0,100}}, color={0,0,127}));
-  connect(heatLossReturn.T_amb, T_amb) annotation (Line(points={{-50,-70},{-50,
-          -78},{-64,-78},{-64,76},{0,76},{0,100}}, color={0,0,127}));
+  connect(heatLossReturn.T_amb, T_amb) annotation (Line(points={{-50,-70},{-50,-78},
+          {-64,-78},{-64,76},{0,76},{0,100}}, color={0,0,127}));
   connect(heatLossReturnReverse.T_amb, T_amb) annotation (Line(points={{50,-70},
           {50,-78},{64,-78},{64,76},{0,76},{0,100}}, color={0,0,127}));
   connect(port_a1, heatLossSupplyReverse.port_b)
     annotation (Line(points={{-100,60},{-60,60},{-60,60}}, color={0,127,255}));
   connect(heatLossSupply.port_b, port_b1)
     annotation (Line(points={{60,60},{80,60},{100,60}}, color={0,127,255}));
-  connect(port_b2, heatLossReturn.port_b) annotation (Line(points={{-100,-60},{
-          -80,-60},{-60,-60}}, color={0,127,255}));
-  connect(heatLossReturnReverse.port_b, port_a2) annotation (Line(points={{60,
-          -60},{100,-60},{100,-60}}, color={0,127,255}));
+  connect(port_b2, heatLossReturn.port_b) annotation (Line(points={{-100,-60},{-80,
+          -60},{-60,-60}}, color={0,127,255}));
+  connect(heatLossReturnReverse.port_b, port_a2) annotation (Line(points={{60,-60},
+          {100,-60},{100,-60}}, color={0,127,255}));
   connect(heatLossReturnReverse.T_2out, heatLossSupply.T_2in) annotation (Line(
         points={{56,-50},{56,0},{44,0},{44,50}}, color={0,0,127}));
   connect(heatLossSupplyReverse.T_2out, heatLossReturn.T_2in) annotation (Line(
@@ -211,10 +191,10 @@ equation
   connect(heatLossSupply.T_2out, heatLossReturnReverse.T_2in) annotation (Line(
         points={{56,50},{56,6},{56,-6},{44,-6},{44,-50}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
         Rectangle(
           extent={{-100,80},{100,40}},
           lineColor={0,0,0},
@@ -240,8 +220,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Backward),
         Polygon(
-          points={{0,31},{40,-7},{20,-7},{20,-31},{-20,-31},{-20,-7},{-40,-7},{
-              0,31}},
+          points={{0,31},{40,-7},{20,-7},{20,-31},{-20,-31},{-20,-7},{-40,-7},{0,
+              31}},
           lineColor={0,0,0},
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
@@ -277,8 +257,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Backward),
         Polygon(
-          points={{0,31},{40,-7},{20,-7},{20,-31},{-20,-31},{-20,-7},{-40,-7},{
-              0,31}},
+          points={{0,31},{40,-7},{20,-7},{20,-31},{-20,-31},{-20,-7},{-40,-7},{0,
+              31}},
           lineColor={0,0,0},
           fillColor={238,46,47},
           fillPattern=FillPattern.Solid,

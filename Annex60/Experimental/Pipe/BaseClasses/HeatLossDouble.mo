@@ -2,23 +2,19 @@ within Annex60.Experimental.Pipe.BaseClasses;
 model HeatLossDouble "Heat loss model for pipe when second pipe is present"
   extends Fluid.Interfaces.PartialTwoPortTransport;
 
-  parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length thicknessIns "Thickness of pipe insulation";
-
-  parameter Modelica.SIunits.Area A_surf=2*Modelica.Constants.pi*(diameter/2 +
-      thicknessIns)*length "Outer surface area of the pipe";
-
-  parameter Modelica.SIunits.Area A_cross=Modelica.Constants.pi*diameter*
-      diameter/4 "Cross sectional area";
+  parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
 
   parameter Types.ThermalCapacityPerLength C
-    "Capacitance of the water volume in J/K";
+    "Capacitance of the water volume in J/(K.m)";
   parameter Types.ThermalResistanceLength Ra
-    "Resistance for asymmetric problem, in K/W";
+    "Resistance for asymmetric problem, in Km/W";
   parameter Types.ThermalResistanceLength Rs
-    "Resistance for symmetric problem, in K/W";
+    "Resistance for symmetric problem, in Km/W";
   final parameter Modelica.SIunits.Time tau_char=sqrt(Ra*Rs)*C;
+
+  parameter Modelica.SIunits.Area A_cross = Modelica.Constants.pi * diameter * diameter / 4
+    "Cross sectional area";
 
   Modelica.SIunits.Time time_out_b "Virtual time after delay at port b";
   Modelica.SIunits.Time tau "Time delay for input time";

@@ -15,7 +15,7 @@ partial record PipeData "Contains pipe properties from catalogs"
     "Thermal conductivity of pipe insulation material";
   parameter Modelica.SIunits.ThermalConductivity lambdaG=2
     "Thermal conductivity of ground layers";
-  parameter Modelica.SIunits.ThermalConductivity lambdaGS=2
+  parameter Modelica.SIunits.ThermalConductivity lambdaGS=14.6
     "Equivalent conductivity of ground surface";
 
   parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
@@ -27,9 +27,6 @@ partial record PipeData "Contains pipe properties from catalogs"
   final parameter Modelica.SIunits.Length rc=Dc/2 "Circumscribing radius";
   final parameter Modelica.SIunits.Length e=E/2
     "Half the distance between the center of the pipes";
-
-  parameter Types.ThermalResistanceLength Rs = 1/(2*Modelica.Constants.pi*lambdaI);
-  parameter Types.ThermalResistanceLength Ra = 1/(2*Modelica.Constants.pi*lambdaI);
 
   annotation (Icon(graphics={
         Text(
