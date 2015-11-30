@@ -203,7 +203,7 @@ equation
   connect(heatLossSupplyReverse.T_2out, heatLossReturn.T_2in) annotation (Line(
         points={{-56,50},{-56,0},{-44,0},{-44,-50}}, color={0,0,127}));
   connect(heatLossReturn.T_2out, heatLossSupplyReverse.T_2in) annotation (Line(
-        points={{-56,-50},{-56,8},{-44,8},{-44,50}}, color={0,0,127}));
+        points={{-56,-50},{-56,6},{-44,6},{-44,50}}, color={0,0,127}));
   connect(heatLossSupply.T_2out, heatLossReturnReverse.T_2in) annotation (Line(
         points={{56,50},{56,6},{56,-6},{44,-6},{44,-50}}, color={0,0,127}));
   annotation (
