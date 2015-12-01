@@ -15,26 +15,12 @@ model DoublePipe "Simple test of double pipe component"
     "Source with high pressure at beginning and lower pressure at end of experiment"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Step stepT(
-    height=10,
-    startTime=10000,
-    offset=273.15 + 30)
+    height=20,
+    offset=273.15 + 30,
+    startTime=10000)
     "Step temperature increase to test propagation of temperature wave"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Modelica.Blocks.Sources.Ramp decreaseP(
-    duration=1800,
-    height=-dp_test,
-    offset=101325 + dp_test,
-    startTime=50000) "Decreasing pressure difference to zero-mass-flow"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Modelica.Blocks.Sources.Ramp reverseDP(
-    duration=1800,
-    offset=0,
-    height=-dp_test,
-    startTime=140000) "Reverse the flow after a period of zero-mass-flow"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
-    annotation (Placement(transformation(extent={{-72,58},{-52,78}})));
-  Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
+  Modelica.Blocks.Sources.Constant PAtm(k=0) "Atmospheric pressure"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -42,8 +28,9 @@ model DoublePipe "Simple test of double pipe component"
   Fluid.Sources.Boundary_pT sin1(
     redeclare package Medium = Medium,
     use_p_in=true,
-    T=283.15,
-    nPorts=1)
+    nPorts=1,
+    use_T_in=true,
+    T=283.15)
     "Sink at with constant pressure, turns into source at the end of experiment"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -101,21 +88,30 @@ model DoublePipe "Simple test of double pipe component"
     m_flow_nominal=m_flow_nominal,
     dp_nominal=10)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  Modelica.Blocks.Sources.Constant TSink(k=273.15 + 25) "Atmospheric pressure"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-90,-18})));
+  Modelica.Blocks.Sources.Ramp decreaseP(
+    duration=1800,
+    height=-dp_test,
+    startTime=50000,
+    offset=dp_test) "Decreasing pressure difference to zero-mass-flow"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Modelica.Blocks.Sources.Ramp reverseDP(
+    duration=1800,
+    offset=0,
+    height=-dp_test,
+    startTime=140000) "Reverse the flow after a period of zero-mass-flow"
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+  Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-52,70})));
 equation
   connect(stepT.y, sou1.T_in) annotation (Line(
       points={{-79,10},{-62,10},{-62,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(decreaseP.y, add.u1) annotation (Line(
-      points={{-79,90},{-78,90},{-78,74},{-74,74}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(reverseDP.y, add.u2) annotation (Line(
-      points={{-79,50},{-78,50},{-78,62},{-74,62}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add.y, sou1.p_in) annotation (Line(
-      points={{-51,68},{-46,68},{-46,50},{-70,50},{-70,38},{-62,38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PAtm.y, sin1.p_in) annotation (Line(points={{-79,-50},{-70,-50},{-70,-18},
@@ -142,6 +138,18 @@ equation
           {96,30},{96,-18},{80,-18}}, color={0,127,255}));
   connect(realExpression.y, hea.TSet) annotation (Line(points={{49,70},{52,70},
           {52,68},{58,68},{58,36}}, color={0,0,127}));
+  connect(TSink.y, sin1.T_in) annotation (Line(points={{-79,-18},{-74,-18},{-74,
+          -14},{-62,-14}}, color={0,0,127}));
+  connect(decreaseP.y,add. u1) annotation (Line(
+      points={{-79,90},{-46,90},{-46,82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(reverseDP.y,add. u2) annotation (Line(
+      points={{-79,50},{-72,50},{-72,82},{-58,82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(add.y, sou1.p_in) annotation (Line(points={{-52,59},{-52,59},{-52,52},
+          {-52,42},{-62,42},{-62,38}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), experiment(StopTime=200000),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"

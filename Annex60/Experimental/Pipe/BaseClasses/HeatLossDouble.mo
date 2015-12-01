@@ -81,7 +81,7 @@ equation
   lambda = Modelica.Math.exp(tau/tau_char);
 
   Tin_a = inStream(port_a.h_outflow)/cp_default;
-  Tout_b = T_amb + (4*lambda*sqrt(Ra*Rs)*(T_2in-T_amb) + (lambda^2-1)*(Rs-Ra)*(Tin_a-T_amb))/(lambda^2*(Rs+Ra+2*sqrt(Rs*Ra))-(Rs+Ra-2*sqrt(Rs*Ra)));
+  Tout_b = T_amb + (4*lambda*sqrt(Ra*Rs)*(Tin_a-T_amb) + (lambda^2-1)*(Rs-Ra)*(T_2in-T_amb))/(lambda^2*(Rs+Ra+2*sqrt(Rs*Ra))-(Rs+Ra-2*sqrt(Rs*Ra)));
 
   T_2out = Tin_a;
 
