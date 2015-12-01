@@ -12,3 +12,4 @@ HeatLossMod_noAbs
 PartialFourPort
 HeatLossPipeDelay
 DoublePipeConfig
+HeatLossDoublePipeDelay

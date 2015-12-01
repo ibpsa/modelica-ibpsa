@@ -9,6 +9,7 @@ DoublePipe
 PipeHeatLossA60Mod_noAbs
 PipeHeatLossA60Mod2
 PipeHeatLoss_PipeDelay
+DoublePipe_PipeDelay
 BaseClasses
 Examples
 Data

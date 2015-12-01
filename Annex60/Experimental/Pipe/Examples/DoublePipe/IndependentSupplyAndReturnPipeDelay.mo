@@ -1,6 +1,6 @@
 within Annex60.Experimental.Pipe.Examples.DoublePipe;
-model IndependentSupplyAndReturn
-  "Example in which supply and return circuit are hydraulically separated"
+model IndependentSupplyAndReturnPipeDelay
+  "Example in which supply and return circuit are hydraulically separated and delay time is calculated once at pipe level"
   import Annex60;
   extends Modelica.Icons.Example;
 
@@ -32,7 +32,8 @@ model IndependentSupplyAndReturn
     use_p_in=true,
     use_T_in=true,
     nPorts=1) annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
-  Annex60.Experimental.Pipe.DoublePipe doublePipe(
+  Annex60.Experimental.Pipe.DoublePipe_PipeDelay
+                                       doublePipe(
     redeclare package Medium = Medium,
     length=100,
     H=2,
@@ -154,4 +155,4 @@ equation
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file="Experimental/Pipe/Simulate and plot.mos"
         "Simulate and plot"));
-end IndependentSupplyAndReturn;
+end IndependentSupplyAndReturnPipeDelay;

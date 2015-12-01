@@ -143,6 +143,9 @@ equation
             100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
+        Ellipse(extent={{-90,92},{-48,50}}, lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-100,40},{100,-40}},
           lineColor={0,0,0},
@@ -172,6 +175,13 @@ equation
               100}},
           lineColor={0,0,0},
           fillColor={238,46,47},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-90,92},{-48,50}},
+          lineColor={28,108,200},
+          startAngle=30,
+          endAngle=90,
+          fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
