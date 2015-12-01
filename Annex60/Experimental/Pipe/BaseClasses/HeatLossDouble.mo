@@ -5,6 +5,10 @@ model HeatLossDouble "Heat loss model for pipe when second pipe is present"
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
 
+  Boolean vBoolean;
+  Real epsilon;
+  Real flat_v;
+
   parameter Types.ThermalCapacityPerLength C
     "Capacitance of the water volume in J/(K.m)";
   parameter Types.ThermalResistanceLength Ra
