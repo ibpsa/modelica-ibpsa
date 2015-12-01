@@ -20,7 +20,7 @@ model DoublePipe "Simple test of double pipe component"
     startTime=10000)
     "Step temperature increase to test propagation of temperature wave"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Modelica.Blocks.Sources.Constant PAtm(k=0) "Atmospheric pressure"
+  Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -97,7 +97,7 @@ model DoublePipe "Simple test of double pipe component"
     duration=1800,
     height=-dp_test,
     startTime=50000,
-    offset=dp_test) "Decreasing pressure difference to zero-mass-flow"
+    offset=101325 + dp_test) "Decreasing pressure difference to zero-mass-flow"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.Ramp reverseDP(
     duration=1800,

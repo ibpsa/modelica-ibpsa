@@ -66,16 +66,28 @@ equation
   port_b.h_outflow = Tout_b*cp_default;
 
   // Time delay
-  der(x) = v;
-  v = abs(V_flow/A_cross);
-  (,time_out_b) = spatialDistribution(
-    time,
-    time,
-    x/length,
-    v >= 0,
-    {0.0,1.0},
-    {0.0,0.0});
-  tau = time - time_out_b;
+  epsilon = 1000000*Modelica.Constants.eps;
+  if v  >= -epsilon then
+    vBoolean = true;
+  else
+    vBoolean = false;
+  end if;
+
+  if abs(v) >= epsilon then
+    flat_v = v;
+  else
+    flat_v = 0;
+  end if;
+
+  der(x) = flat_v;
+  v = (V_flow / A_cross);
+  (, time_out_b) = spatialDistribution(time,
+                                       time,
+                                       x/length,
+                                       vBoolean,
+                                       {0.0, 1.0},
+                                       {0.0, 0.0});
+  tau = max(0,time - time_out_b);
 
   // Heat losses
   lambda = Modelica.Math.exp(tau/tau_char);

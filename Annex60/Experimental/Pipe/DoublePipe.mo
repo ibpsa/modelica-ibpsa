@@ -5,7 +5,8 @@ model DoublePipe "Pipe model for double pipe case"
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
   // Geometric parameters
-  parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
+  final parameter Modelica.SIunits.Diameter diameter = pipeData.Di
+    "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
 
@@ -44,9 +45,9 @@ model DoublePipe "Pipe model for double pipe case"
     "Start temperature to initialize the problem";
 
   // Heat transfer coefficients
-  parameter Types.ThermalResistanceLength Ra= pipeData.haInvers/(pipeData.lambdaI*2*Modelica.Constants.pi)
+  final parameter Types.ThermalResistanceLength Ra= pipeData.haInvers/(pipeData.lambdaI*2*Modelica.Constants.pi)
     "Resistance for asymmetric problem, in Km/W";
-  parameter Types.ThermalResistanceLength Rs= pipeData.hsInvers/(pipeData.lambdaI*2*Modelica.Constants.pi)
+  final parameter Types.ThermalResistanceLength Rs= pipeData.hsInvers/(pipeData.lambdaI*2*Modelica.Constants.pi)
     "Resistance for symmetric problem, in Km/W";
   final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi
       *(diameter/2)^2*cp_default;
