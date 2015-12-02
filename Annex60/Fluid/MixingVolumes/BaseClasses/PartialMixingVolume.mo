@@ -16,7 +16,7 @@ partial model PartialMixingVolume
 
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
-
+  parameter Boolean use_C_flow_in = false;
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -107,10 +107,16 @@ protected
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow(unit="kg/s") if use_C_flow_in
+    "Trace substance mass flow rate added to the medium"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
     "Block to set sensible heat input into volume"
     annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
-
+protected
+  Modelica.Blocks.Sources.Constant masExc(final k=0)
+    "Block to set mass exchange in volume"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 equation
   ///////////////////////////////////////////////////////////////////////////
   // asserts
@@ -154,6 +160,20 @@ equation
   C = COut_internal;
   // Port properties
   heatPort.T = T;
+
+  connect(steBal.C_flow, C_flow) annotation (Line(points={{-22,6},{-82,6},{-82,
+          -60},{-120,-60}},
+                      color={0,0,127}));
+  connect(dynBal.C_flow, C_flow) annotation (Line(points={{38,8},{10,8},{10,-60},
+          {-120,-60}},color={0,0,127}));
+
+  for i in 1:Medium.nC loop
+    connect(masExc.y, steBal.C_flow[i]) annotation (Line(points={{-59,50},{-40,50},
+          {-40,6},{-22,6}}, color={0,0,127}));
+    connect(masExc.y, dynBal.C_flow[i]) annotation (Line(points={{-59,50},{10,
+            50},{10,8},{38,8}},
+                           color={0,0,127}));
+  end for;
 
   annotation (
 defaultComponentName="vol",
@@ -273,6 +293,10 @@ Annex60.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 2, 2015, by Filip Jorissen:<br/>
+Added conditional input <code>C_flow</code> for handling trace substance insertions.
+</li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
 Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
@@ -469,5 +493,7 @@ Annex60.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
           textString="V=%V"),         Text(
           extent={{-152,100},{148,140}},
           textString="%name",
-          lineColor={0,0,255})}));
+          lineColor={0,0,255})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end PartialMixingVolume;

@@ -17,6 +17,9 @@ model StaticTwoPortConservationEquation
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow(unit="kg/s")
+    "Trace substance mass flow rate added to the medium"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
   // Outputs that are needed in models that extend this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
@@ -188,9 +191,9 @@ equation
     end if;
 
     // Transport of trace substances
-    port_b.m_flow*port_b.C_outflow = -port_a.m_flow*inStream(port_a.C_outflow);
+    port_b.C_outflow = inStream(port_a.C_outflow) + C_flow* m_flowInv;
     if allowFlowReversal then
-      port_a.m_flow*port_a.C_outflow = -port_b.m_flow*inStream(port_b.C_outflow);
+      port_b.C_outflow = inStream(port_b.C_outflow) + C_flow* m_flowInv;
     else
       port_a.C_outflow = zeros(Medium.nC);
     end if;
@@ -276,6 +279,10 @@ Annex60.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 2, 2015, by Filip Jorissen:<br/>
+Added input <code>C_flow</code> and code for handling trace substance insertions.
+</li>
 <li>
 September 14, 2015, by Filip Jorissen:<br/>
 Rewrote some equations for better readability.
@@ -473,5 +480,7 @@ First implementation.
         Line(points={{-56,-73},{81,-73}}, color={255,255,255}),
         Line(points={{6,14},{6,-37}},     color={255,255,255}),
         Line(points={{54,14},{6,14}},     color={255,255,255}),
-        Line(points={{6,-37},{-42,-37}},  color={255,255,255})}));
+        Line(points={{6,-37},{-42,-37}},  color={255,255,255})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end StaticTwoPortConservationEquation;
