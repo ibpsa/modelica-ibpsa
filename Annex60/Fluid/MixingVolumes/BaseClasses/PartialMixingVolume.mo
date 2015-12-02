@@ -44,6 +44,10 @@ partial model PartialMixingVolume
   Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
     "Trace substance mixture content";
    // Models for the steady-state and dynamic energy balance.
+
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow(unit="kg/s") if use_C_flow_in
+    "Trace substance mass flow rate added to the medium"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 protected
   Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation steBal(
     final simplify_mWat_flow = simplify_mWat_flow,
@@ -107,9 +111,6 @@ protected
   Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
-  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow(unit="kg/s") if use_C_flow_in
-    "Trace substance mass flow rate added to the medium"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
     "Block to set sensible heat input into volume"
     annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
@@ -167,6 +168,7 @@ equation
   connect(dynBal.C_flow, C_flow) annotation (Line(points={{38,8},{10,8},{10,-60},
           {-120,-60}},color={0,0,127}));
 
+  if not use_C_flow_in then
   for i in 1:Medium.nC loop
     connect(masExc.y, steBal.C_flow[i]) annotation (Line(points={{-59,50},{-40,50},
           {-40,6},{-22,6}}, color={0,0,127}));
@@ -174,6 +176,7 @@ equation
             50},{10,8},{38,8}},
                            color={0,0,127}));
   end for;
+  end if;
 
   annotation (
 defaultComponentName="vol",
