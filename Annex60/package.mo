@@ -206,7 +206,7 @@ The following people have directly contributed to the implementation of the <cod
 Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>
-xxx add contributors for the first version in alphabetical order.
+Filip Jorissen, KU Leuven, Belgium
 </li>
 </ul>
 </html>"));
@@ -418,6 +418,44 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
 </p>
 </html>"));
   end Copyright;
+
+  class ComputingTime "Tips and tricks for improving simulation speed"
+    extends Modelica.Icons.Information;
+    annotation (preferredView="info",
+    Documentation(info="<html>
+<p>
+Creating computationally fast models in Modelica can be challenging, 
+especially as the model size grows. Many tips and tricks are explained in: 
+</p>
+<p>
+<code>
+F. Jorissen, M. Wetter, and L. Helsen, \"Simulation Speed Analysis and Improvements of Modelica Models for Building Energy Simulation\", in 11th International Modelica Conference 2015, (Paris), 2015.
+</code> 
+</p>
+<p>
+<code>
+The example models used in this paper can be found under 
+<a href=\"Annex60.Fluid.Examples.Performance\">Annex60.Fluid.Examples.Performance</a>
+. 
+</code>
+</p>
+<p>
+Further tips are provided below.
+</p>
+<p>
+<ul>
+<li>Most air media simulate air as a compressible fluid. 
+In many cases this leads to small time constants that need to be tracked by the integrator. 
+When setting <code>massDynamics=steadyState</code> air will be simulated as 
+if it is incompressible, 
+since this option removes all dynamics pressure states. 
+Therefore the small time constants are removed. 
+This may speed up simulations, but may also introduce large algebraic loops, 
+which may deteriorate simulation performance.</li>
+</ul>
+</p>
+</html>"));
+  end ComputingTime;
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
