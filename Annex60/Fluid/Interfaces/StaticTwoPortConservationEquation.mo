@@ -192,7 +192,7 @@ equation
     // Transport of trace substances
     port_b.C_outflow = inStream(port_a.C_outflow) + C_flow* m_flowInv;
     if allowFlowReversal then
-      port_b.C_outflow = inStream(port_b.C_outflow) + C_flow* m_flowInv;
+      port_a.C_outflow = inStream(port_b.C_outflow) + C_flow* m_flowInv;
     else
       port_a.C_outflow = zeros(Medium.nC);
     end if;
