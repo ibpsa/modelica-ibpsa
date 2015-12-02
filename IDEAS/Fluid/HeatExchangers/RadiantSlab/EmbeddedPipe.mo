@@ -197,7 +197,8 @@ equation
     // Koschenz eq 4-59
     R_t = (IDEAS.Utilities.Math.Functions.inverseXRegularized(m_flowSpLimit*cp_default*nDiscr*(1-exp(-1/((R_w_val+R_r_val+R_x_val+R_c)*m_flowSpLimit*cp_default*nDiscr))), deltaXR)-R_c);
   end if;
-  Q = (Tin - heatPortEmb.T)*IDEAS.Utilities.Math.Functions.smoothMin(1/R_t*A_floor/nDiscr, m_flow*cp_default, deltaX=m_flow_nominal/10*cp_default);
+  // no smoothmin since this undershoots for near-zero values
+  Q = (Tin - heatPortEmb.T)*min(1/R_t*A_floor/nDiscr, abs(m_flow)*cp_default);
 
   connect(res.port_b, port_b) annotation (Line(
          points={{40,0},{100,0}},
@@ -342,6 +343,7 @@ A limited verification has been performed in IDEAS.Fluid.HeatExchangers.RadiantS
 <p>[TRNSYS, 2007] - Multizone Building modeling with Type 56 and TRNBuild.</p>
 </html>", revisions="<html>
 <p><ul>
+<li>2015 November, Filip Jorissen: Revised implementation for small flow rates: v3: replaced SmoothMin by min function</li>
 <li>2015 November, Filip Jorissen: Revised implementation for small flow rates: v2</li>
 <li>2015 November, Filip Jorissen: Revised implementation for small flow rates</li>
 <li>2015, Filip Jorissen: Revised implementation</li>
