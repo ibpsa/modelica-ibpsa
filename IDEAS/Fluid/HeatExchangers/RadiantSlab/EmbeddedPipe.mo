@@ -8,6 +8,8 @@ model EmbeddedPipe
     IDEAS.Fluid.HeatExchangers.RadiantSlab.BaseClasses.RadiantSlabChar
     "Properties of the floor heating or TABS, if present"
     annotation (choicesAllMatching=true);
+  final parameter Modelica.SIunits.Length pipeDiaInt = RadSlaCha.d_a - 2*RadSlaCha.s_r
+    "Pipe internal diameter";
   extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
   extends IDEAS.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     computeFlowResistance=false,
@@ -56,8 +58,7 @@ annotation(Dialog(tab="Flow resistance"));
   final parameter Real corr = if RadSlaCha.tabs then 0 else
     sum( -(RadSlaCha.alp2/RadSlaCha.lambda_b * RadSlaCha.T - 2*3.14*s)/(RadSlaCha.alp2/RadSlaCha.lambda_b * RadSlaCha.T + 2*3.14*s)*exp(-4*3.14*s/RadSlaCha.T*RadSlaCha.S_2)/s for s in 1:10) "correction factor for the floor heating according to Multizone Building modeling with Type56 and TRNBuild (see documentation). 
     If tabs is used, corr=0 - fixme: deprecated?";
-  final parameter Modelica.SIunits.Length pipeDiaInt = RadSlaCha.d_a - 2*RadSlaCha.s_r
-    "Pipe internal diameter";
+
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
