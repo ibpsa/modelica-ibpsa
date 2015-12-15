@@ -113,7 +113,6 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Black-body sky temperature"
     annotation (Placement(transformation(extent={{-240,120},{-200,160}}),
         iconTransformation(extent={{-240,120},{-200,160}})));
-
   //--------------------------------------------------------------
   // Relative humidity
   parameter Annex60.BoundaryConditions.Types.DataSource relHumSou=Annex60.BoundaryConditions.Types.DataSource.File
@@ -403,6 +402,9 @@ protected
        opaSkyCovSou == Annex60.BoundaryConditions.Types.DataSource.File
     "Convert sky cover from [0...10] to [0...1]"
     annotation (Placement(transformation(extent={{120,-158},{140,-138}})));
+  Annex60.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature cheTemBlaSky(TMin=0)
+    "Check black body sky temperature"
+    annotation (Placement(transformation(extent={{240,-260},{260,-240}})));
 equation
   //---------------------------------------------------------------------------
   // Select atmospheric pressure connector
@@ -481,7 +483,7 @@ equation
   else
     connect(TBlaSkyCom.TBlaSky, TBlaSky_in_internal);
   end if;
-  connect(TBlaSky_in_internal, weaBus.TBlaSky);
+  connect(TBlaSky_in_internal, cheTemBlaSky.TIn);
   //---------------------------------------------------------------------------
   // Select relative humidity connector
   if relHumSou == Annex60.BoundaryConditions.Types.DataSource.Parameter then
@@ -624,10 +626,10 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(cheOpaSkyCov.nOut,TBlaSkyCom. nOpa) annotation (Line(
+  connect(cheOpaSkyCov.nOut, TBlaSkyCom.nOpa) annotation (Line(
       points={{183,-150},{220,-150},{220,-213},{238,-213}},
       color={0,0,127}));
-  connect(cheHorRad.HOut,TBlaSkyCom. radHorIR) annotation (Line(
+  connect(cheHorRad.HOut, TBlaSkyCom.radHorIR) annotation (Line(
       points={{181,250},{220,250},{220,-218},{238,-218}},
       color={0,0,127}));
   connect(modTim.y, weaBus.cloTim) annotation (Line(
@@ -779,6 +781,8 @@ equation
   connect(latitude.y, weaBus.lat) annotation (Line(
       points={{-159,-270},{-150,-270},{-150,-290},{290,-290},{290,0},{300,0}},
       color={0,0,127}));
+  connect(cheTemBlaSky.TOut, weaBus.TBlaSky) annotation (Line(points={{261,-250},
+          {261,-250},{280,-250},{280,0},{300,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
@@ -1159,6 +1163,15 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>", revisions="<html>
 <ul>
 <li>
+December 15, 2015, by Michael Wetter:<br/>
+Added the block <code>cheTemBlaSky</code>. This also allows to graphically
+connect the black body sky temperature to the weather bus, which is required
+in Dymola 2016 for the variable <code>weaBus.TBlaSky</code> to appear
+in the graphical editor.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/377\">#377</a>.
+</li>
+<li>
 September 24, 2015, by Marcus Fuchs:<br/>
 Replace annotation <code>__Dymola_loadSelector</code> by <code>loadSelector</code>
 for MSL compliancy as reported by @tbeu at
@@ -1301,6 +1314,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-     extent={{-200,-300},{300,300}}),
-        graphics));
+     extent={{-200,-300},{300,300}})));
 end ReaderTMY3;
