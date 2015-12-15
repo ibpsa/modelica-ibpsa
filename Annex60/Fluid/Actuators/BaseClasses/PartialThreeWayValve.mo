@@ -46,7 +46,7 @@ partial model PartialThreeWayValve "Partial three way valve"
 
   parameter Real fraK(min=0, max=1) = 0.7
     "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)";
-  parameter Real[2] l(each min=0, each max=1) = {0, 0}
+  parameter Real[2] l(each min=0, each max=1) = {0.0001, 0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)";
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
@@ -73,9 +73,7 @@ equation
   annotation (                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Line(
-          points={{0,70},{40,70}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{0,70},{40,70}}),
         Rectangle(
           extent={{-100,44},{100,-36}},
           lineColor={0,0,0},
@@ -124,13 +122,9 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-30,46},{30,46}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{-30,46},{30,46}}),
         Line(
-          points={{0,100},{0,-2}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{0,100},{0,-2}}),
         Rectangle(
           visible=filteredOpening,
           extent={{-36,36},{36,100}},
@@ -180,6 +174,10 @@ for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 23, 2015 by Filip Jorissen:<br/>
+Corrected valve leakage value to avoid warnings.
+</li>
 <li>
 February 28, 2013, by Michael Wetter:<br/>
 Reformulated assignment of parameters.

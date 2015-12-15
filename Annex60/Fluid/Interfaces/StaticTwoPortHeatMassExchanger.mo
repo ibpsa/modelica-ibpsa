@@ -1,8 +1,7 @@
 within Annex60.Fluid.Interfaces;
 model StaticTwoPortHeatMassExchanger
   "Partial model transporting fluid between two ports without storing mass or energy"
-  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
-  showDesignFlowDirection = false);
+  extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
   extends Annex60.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
 
@@ -65,26 +64,21 @@ equation
   connect(vol.COut, COut);
   connect(port_a,preDro. port_a) annotation (Line(
       points={{-100,0},{-50,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro.port_b, vol.port_a) annotation (Line(
       points={{-30,0},{15,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
   connect(vol.port_b, port_b) annotation (Line(
       points={{35,0},{67,0},{100,5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
 
   connect(heaInp.y, vol.Q_flow) annotation (Line(
       points={{1,50},{6,50},{6,8},{13,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(masExc.y, vol.mWat_flow) annotation (Line(
       points={{1,30},{4,30},{4,4},{13,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     preferredView="info",
     Documentation(info="<html>
@@ -153,6 +147,13 @@ are the results of an iterative solver.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 19, 2015, by Michael Wetter:<br/>
+Removed assignment of parameter
+<code>showDesignFlowDirection</code> in <code>extends</code> statement.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/349\">#349</a>.
+</li>
 <li>
 July 2, 2015 by Michael Wetter:<br/>
 Revised implementation of conservation equations,
