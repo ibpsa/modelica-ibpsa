@@ -60,7 +60,9 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow(unit="kg/s")
+    "Trace substance mass flow rate added to the medium"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
   // Outputs that are needed in models that extend this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
                                              start=hStart)
@@ -113,6 +115,7 @@ protected
   parameter Modelica.SIunits.SpecificEnthalpy hStart=
     Medium.specificEnthalpy_pTX(p_start, T_start, X_start)
     "Start value for specific enthalpy";
+
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
@@ -236,7 +239,7 @@ equation
   if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     zeros(Medium.nC)  = mbC_flow;
   else
-    der(mC)  = mbC_flow;
+    der(mC)  = mbC_flow + C_flow;
   end if;
 
   // Properties of outgoing flows
@@ -309,6 +312,10 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 2, 2015, by Filip Jorissen:<br/>
+Added input <code>C_flow</code> and code for handling trace substance insertions.
+</li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
 Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
@@ -541,5 +548,7 @@ Implemented first version in <code>Annex60</code> library, based on model from
         Text(
           extent={{-155,-120},{145,-160}},
           lineColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end ConservationEquation;

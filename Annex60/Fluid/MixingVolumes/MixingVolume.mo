@@ -2,16 +2,13 @@ within Annex60.Fluid.MixingVolumes;
 model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
   extends Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
-protected
-  Modelica.Blocks.Sources.Constant masExc(final k=0)
-    "Block to set mass exchange in volume"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+
 equation
   connect(masExc.y, dynBal.mWat_flow) annotation (Line(
-      points={{-59,60},{20,60},{20,12},{38,12}},
+      points={{-59,50},{20,50},{20,12},{38,12}},
       color={0,0,127}));
   connect(masExc.y, steBal.mWat_flow) annotation (Line(
-      points={{-59,60},{-40,60},{-40,14},{-22,14}},
+      points={{-59,50},{-40,50},{-40,14},{-22,14}},
       color={0,0,127}));
   connect(QSen_flow.y, steBal.Q_flow) annotation (Line(
       points={{-39,88},{-30,88},{-30,18},{-22,18}},
@@ -19,6 +16,7 @@ equation
   connect(QSen_flow.y, dynBal.Q_flow) annotation (Line(
       points={{-39,88},{28,88},{28,16},{38,16}},
       color={0,0,127}));
+
   annotation (
 defaultComponentName="vol",
 Documentation(info="<html>
@@ -106,6 +104,10 @@ Annex60.Fluid.MassExchangers.HumidifierPrescribed</a>.
 
 </html>", revisions="<html>
 <ul>
+<li>
+December 2, 2015, by Filip Jorissen:<br/>
+Changed code for handling trace substance insertions using input <code>C_flow</code>.
+</li>
 <li>
 May 1, 2015 by Michael Wetter<br/>
 Set <code>final</code> keyword for <code>masExc(final k=0)</code>.
@@ -198,5 +200,7 @@ Annex60.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
           textString="V=%V"),         Text(
           extent={{-152,100},{148,140}},
           textString="%name",
-          lineColor={0,0,255})}));
+          lineColor={0,0,255})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end MixingVolume;
