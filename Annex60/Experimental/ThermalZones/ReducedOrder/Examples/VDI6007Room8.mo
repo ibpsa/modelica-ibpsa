@@ -13,11 +13,11 @@ model VDI6007Room8 "Illustrates the use of ThermalZoneTwoElements"
     opaSkyCovSou=Annex60.BoundaryConditions.Types.DataSource.File,
     TDryBulSou=Annex60.BoundaryConditions.Types.DataSource.File,
     TDewPoiSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    TBlaSkySou=Annex60.BoundaryConditions.Types.DataSource.File,
     relHumSou=Annex60.BoundaryConditions.Types.DataSource.File,
     winSpeSou=Annex60.BoundaryConditions.Types.DataSource.File,
     winDirSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    HInfHorSou=Annex60.BoundaryConditions.Types.DataSource.File)
+    HInfHorSou=Annex60.BoundaryConditions.Types.DataSource.File,
+    TBlaSkySou=Annex60.BoundaryConditions.Types.DataSource.File)
     annotation (Placement(transformation(extent={{-98,52},{-78,72}})));
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](each outSkyCon=true,
       each outGroCon=true,
@@ -30,8 +30,6 @@ model VDI6007Room8 "Illustrates the use of ThermalZoneTwoElements"
     each lat=0.87266462599716,
     azi={3.1415926535898,4.7123889803847})
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
-  BoundaryConditions.SkyTemperature.BlackBody TBlaSky(calTSky=Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation)
-    annotation (Placement(transformation(extent={{-66,-30},{-46,-10}})));
   CorrectionSolarGain.CorGDoublePane corGDoublePane(n=2, UWin=2.1)
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
   Modelica.Blocks.Math.Sum
@@ -57,7 +55,8 @@ model VDI6007Room8 "Illustrates the use of ThermalZoneTwoElements"
     CInt={12391363.86},
     RWin=0.01642857143,
     RExtRem=0.1265217391,
-    T_start=561.3)
+    volAir(T_start=295.15),
+    T_start=295.15)
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   EqAirTemp.EqAirTemp eqAirTemp(n=2,
     wfGround=0,
@@ -127,8 +126,6 @@ equation
         points={{-4.2,-1.4},{0,-1.4},{0,20},{6.8,20}}, color={0,0,127}));
   connect(eqAirTemp.TEqAir, prescribedTemperature.T) annotation (Line(points={{
           -4.2,-9.6},{4,-9.6},{4,0},{6.8,0}}, color={0,0,127}));
-  connect(TBlaSky.TBlaSky, eqAirTemp.TBlaSky) annotation (Line(points={{-45,-20},
-          {-34,-20},{-34,-4.6},{-22,-4.6}}, color={0,0,127}));
   connect(corGDoublePane.solarRadWinTrans, aggWindow.u)
     annotation (Line(points={{25,64},{42.6,64}}, color={0,0,127}));
   connect(aggWindow.y, thermalZoneTwoElements.solRad) annotation (Line(points={{58.7,64},
@@ -141,36 +138,8 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(weaBus.TDewPoi, TBlaSky.TDewPoi) annotation (Line(
-      points={{-83,6},{-82,6},{-82,-18},{-74,-18},{-74,-17},{-68,-17}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(weaBus.TDryBul, TBlaSky.TDryBul) annotation (Line(
-      points={{-83,6},{-83,-12},{-68,-12}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   connect(weaBus.TDryBul, eqAirTemp.TDryBul) annotation (Line(
       points={{-83,6},{-83,-2},{-38,-2},{-38,-9.8},{-22,-9.8}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(weaBus.radHorIR, TBlaSky.radHorIR) annotation (Line(
-      points={{-83,6},{-82,6},{-82,-30},{-82,-28},{-68,-28}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(weaBus.nOpa, TBlaSky.nOpa) annotation (Line(
-      points={{-83,6},{-82,6},{-82,-22},{-82,-23},{-68,-23}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -234,6 +203,13 @@ equation
     annotation (Line(points={{30,-11.6},{30,-4},{31,-4}}, color={0,0,127}));
   connect(alphaWin.y, thermalConductorWin.Gc)
     annotation (Line(points={{32,33.6},{32,26},{33,26}}, color={0,0,127}));
+  connect(weaBus.TBlaSky, eqAirTemp.TBlaSky) annotation (Line(
+      points={{-83,6},{-58,6},{-58,2},{-32,2},{-32,-4.6},{-22,-4.6}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>
