@@ -5,16 +5,16 @@ model MixingVolume
 
 equation
   connect(masExc.y, dynBal.mWat_flow) annotation (Line(
-      points={{-59,50},{20,50},{20,12},{38,12}},
+      points={{-59,56},{50,56},{50,12},{58,12}},
       color={0,0,127}));
   connect(masExc.y, steBal.mWat_flow) annotation (Line(
-      points={{-59,50},{-40,50},{-40,14},{-22,14}},
+      points={{-59,56},{-34,56},{-34,14},{8,14}},
       color={0,0,127}));
   connect(QSen_flow.y, steBal.Q_flow) annotation (Line(
-      points={{-39,88},{-30,88},{-30,18},{-22,18}},
+      points={{-19,88},{0,88},{0,18},{8,18}},
       color={0,0,127}));
   connect(QSen_flow.y, dynBal.Q_flow) annotation (Line(
-      points={{-39,88},{28,88},{28,16},{38,16}},
+      points={{-19,88},{54,88},{54,16},{58,16}},
       color={0,0,127}));
 
   annotation (
