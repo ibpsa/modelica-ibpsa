@@ -24,10 +24,12 @@ model spatialDistributionTwoDirectionsAndTrack
   Boolean track_b_evaluate "used to reinit trackEnd ";
   Boolean v_a "fluid is flowing from a to b";
   Boolean v_b "flud is flowing from b to a";
+  Boolean trackEnd_NotNeeded "check if this value is needed";
   Modelica.SIunits.Time trackBegin "start time of a zero mass flow rate period";
   Modelica.SIunits.Time trackEnd
     "Delay time of a mass flow rate period is stored";
   Modelica.SIunits.Time track "time delay during zero mass flow rate periods";
+
   Real epsilon = 0.000001;
 
 equation
@@ -80,10 +82,11 @@ equation
   tau_a = time-time_out_a;
   tau_b = time-time_out_b;
 
+  trackEnd_NotNeeded = track_b_evaluate <> track_a_evaluate;
   track_b_evaluate = trackEnd <= tau_b;
   track_a_evaluate = trackEnd <= tau_a;
 
-  when  edge(track_a_evaluate) or edge(track_b_evaluate) then
+  when (edge(track_a_evaluate) or edge(track_b_evaluate)) or edge(trackEnd_NotNeeded) then
     reinit(trackEnd,0);
   end when;
 
