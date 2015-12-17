@@ -16,7 +16,9 @@ partial model PartialMixingVolume
 
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
-  parameter Boolean use_C_flow_in = false;
+  parameter Boolean use_C_flow_in = false
+    "Set to true to enable connector for trace substance input"
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -37,15 +39,17 @@ partial model PartialMixingVolume
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort(
     T(start=T_start)) "Heat port for sensible heat input"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Medium.Temperature T "Temperature of the fluid";
-  Modelica.SIunits.Pressure p "Pressure of the fluid";
-  Modelica.SIunits.MassFraction Xi[Medium.nXi]
+  Medium.Temperature T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}))
+    "Temperature of the fluid";
+  Modelica.SIunits.Pressure p = if nPorts > 0 then ports[1].p else p_start
+    "Pressure of the fluid";
+  Modelica.SIunits.MassFraction Xi[Medium.nXi] = XiOut_internal
     "Species concentration of the fluid";
-  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
+  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal) = COut_internal
     "Trace substance mixture content";
    // Models for the steady-state and dynamic energy balance.
 
-  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow(unit="kg/s") if use_C_flow_in
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow_in
     "Trace substance mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 protected
@@ -58,7 +62,7 @@ protected
     final m_flow_small = m_flow_small,
     final prescribedHeatFlowRate=prescribedHeatFlowRate) if
         useSteadyStateTwoPort "Model for steady-state balance if nPorts=2"
-        annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+        annotation (Placement(transformation(extent={{10,0},{30,20}})));
   Annex60.Fluid.Interfaces.ConservationEquation dynBal(
     final simplify_mWat_flow = simplify_mWat_flow,
     redeclare final package Medium = Medium,
@@ -75,7 +79,7 @@ protected
     nPorts=nPorts,
     final mSenFac=mSenFac) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
   // Density at start values, used to compute initial values and start guesses
   parameter Modelica.SIunits.Density rho_start=Medium.density(
@@ -113,11 +117,15 @@ protected
 
   Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
     "Block to set sensible heat input into volume"
-    annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
-protected
-  Modelica.Blocks.Sources.Constant masExc(final k=0)
-    "Block to set mass exchange in volume"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-40,78},{-20,98}})));
+  Modelica.Blocks.Sources.Constant masExc(final k=0) if
+       not use_C_flow_in "Block to set mass exchange in volume"
+    annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
+    "Port temperature"
+    annotation (Placement(transformation(extent={{-68,10},{-88,30}})));
+  Modelica.Blocks.Sources.RealExpression portT(y=T) "Port temperature"
+    annotation (Placement(transformation(extent={{-40,10},{-60,30}})));
 equation
   ///////////////////////////////////////////////////////////////////////////
   // asserts
@@ -135,11 +143,11 @@ equation
   // then we use the same base class as for all other steady state models.
   if useSteadyStateTwoPort then
   connect(steBal.port_a, ports[1]) annotation (Line(
-      points={{-20,10},{-22,10},{-22,-60},{0,-60},{0,-100}},
+      points={{10,10},{0,10},{0,-60},{0,-100}},
       color={0,127,255}));
 
   connect(steBal.port_b, ports[2]) annotation (Line(
-      points={{5.55112e-16,10},{8,10},{8,-88},{0,-88},{0,-100}},
+      points={{30,10},{40,10},{40,-20},{0,-20},{0,-100}},
       color={0,127,255}));
 
     connect(hOut_internal,  steBal.hOut);
@@ -147,37 +155,33 @@ equation
     connect(COut_internal,  steBal.COut);
   else
       connect(dynBal.ports, ports) annotation (Line(
-      points={{50,0},{50,-34},{2.22045e-15,-34},{2.22045e-15,-100}},
+      points={{70,0},{70,-20},{2.22045e-15,-20},{2.22045e-15,-100}},
       color={0,127,255}));
 
     connect(hOut_internal,  dynBal.hOut);
     connect(XiOut_internal, dynBal.XiOut);
     connect(COut_internal,  dynBal.COut);
   end if;
-  // Medium properties
-  p = if nPorts > 0 then ports[1].p else p_start;
-  T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}));
-  Xi = XiOut_internal;
-  C = COut_internal;
-  // Port properties
-  heatPort.T = T;
 
-  connect(steBal.C_flow, C_flow) annotation (Line(points={{-22,6},{-82,6},{-82,
-          -60},{-120,-60}},
-                      color={0,0,127}));
-  connect(dynBal.C_flow, C_flow) annotation (Line(points={{38,8},{10,8},{10,-60},
+  connect(steBal.C_flow, C_flow) annotation (Line(points={{8,6},{-80,6},{-80,
+          -60},{-120,-60}}, color={0,0,127}));
+  connect(dynBal.C_flow, C_flow) annotation (Line(points={{58,8},{50,8},{50,-60},
           {-120,-60}},color={0,0,127}));
 
-  if not use_C_flow_in then
   for i in 1:Medium.nC loop
-    connect(masExc.y, steBal.C_flow[i]) annotation (Line(points={{-59,50},{-40,50},
-          {-40,6},{-22,6}}, color={0,0,127}));
-    connect(masExc.y, dynBal.C_flow[i]) annotation (Line(points={{-59,50},{10,
-            50},{10,8},{38,8}},
+    connect(masExc.y, steBal.C_flow[i]) annotation (Line(points={{-59,56},{-6,
+            56},{-6,6},{8,6}},
+                            color={0,0,127}));
+    connect(masExc.y, dynBal.C_flow[i]) annotation (Line(points={{-59,56},{50,
+            56},{50,8},{58,8}},
                            color={0,0,127}));
   end for;
-  end if;
 
+  connect(portT.y, preTem.T)
+    annotation (Line(points={{-61,20},{-66,20}}, color={0,0,127}));
+  connect(preTem.port, heatPort)
+    annotation (Line(points={{-88,20},{-92,20},{-92,0},{-100,0}},
+                                                           color={191,0,0}));
   annotation (
 defaultComponentName="vol",
 Documentation(info="<html>
@@ -497,6 +501,6 @@ Annex60.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
           extent={{-152,100},{148,140}},
           textString="%name",
           lineColor={0,0,255})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end PartialMixingVolume;
