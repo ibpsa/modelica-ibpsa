@@ -1,5 +1,5 @@
 within Annex60.Fluid.Sensors;
-model TraceSubstancesPpm
+model PPM
   "Ideal one port trace substances sensor outputting in parts per million"
   extends Annex60.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
@@ -98,4 +98,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
-end TraceSubstancesPpm;
+end PPM;

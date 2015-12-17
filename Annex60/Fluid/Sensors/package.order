@@ -20,7 +20,7 @@ Temperature
 TemperatureTwoPort
 TemperatureWetBulbTwoPort
 TraceSubstances
-TraceSubstancesPpm
+PPM
 TraceSubstancesTwoPort
 VolumeFlowRate
 Conversions
