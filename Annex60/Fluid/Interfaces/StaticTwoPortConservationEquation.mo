@@ -16,7 +16,7 @@ model StaticTwoPortConservationEquation
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow(unit="kg/s")
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow
     "Trace substance mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
@@ -278,6 +278,10 @@ Annex60.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 16, 2015, by Michael Wetter:<br/>
+Removed the units of <code>C_flow</code> to allow for PPM.
+</li>
 <li>
 December 2, 2015, by Filip Jorissen:<br/>
 Added input <code>C_flow</code> and code for handling trace substance insertions.
