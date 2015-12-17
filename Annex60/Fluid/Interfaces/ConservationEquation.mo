@@ -60,7 +60,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
     "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
-  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow(unit="kg/s")
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow
     "Trace substance mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
   // Outputs that are needed in models that extend this model
@@ -237,7 +237,7 @@ equation
   end if;
 
   if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
-    zeros(Medium.nC)  = mbC_flow;
+    zeros(Medium.nC)  = mbC_flow + C_flow;
   else
     der(mC)  = mbC_flow + C_flow;
   end if;
@@ -312,6 +312,11 @@ Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 16, 2015, by Michael Wetter:<br/>
+Added <code>C_flow</code> to the steady-state trace substance balance,
+and removed the units of <code>C_flow</code> to allow for PPM.
+</li>
 <li>
 December 2, 2015, by Filip Jorissen:<br/>
 Added input <code>C_flow</code> and code for handling trace substance insertions.
