@@ -1,8 +1,13 @@
 within Annex60.Fluid.Sensors;
 model PPM
   "Ideal one port trace substances sensor outputting in parts per million"
-  extends Annex60.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+  extends Annex60.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor(
+    port(C_outflow(final quantity="MassFraction",
+                   final unit="1",
+                   min=0,
+                   max=1)));
   extends Modelica.Icons.RotationalSensor;
+
   parameter String substanceName = "CO2" "Name of trace substance";
 
   parameter Modelica.SIunits.MolarMass MM=
@@ -27,7 +32,11 @@ protected
       h=Medium.h_default,
       X=Medium.X_default)) "Molar mass of bulk medium";
 
-  final parameter Real MMFraction(min=0, unit="1")=MMBul/MM
+  final parameter Real MMFraction(
+    min=0,
+    max=1,
+    final unit="1",
+    final quantity="MassFraction")=MMBul/MM
     "Molar mass of the medium divided by the molar mass of the trace substance";
 
   final parameter Real coeff = MMFraction*1e6
