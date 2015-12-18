@@ -49,7 +49,8 @@ model TraceSubstances "Test model for the extra property sensor"
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
   Annex60.Fluid.Sensors.TraceSubstancesTwoPort senTraSub(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal) "Sensor at exhaust air"
+    m_flow_nominal=m_flow_nominal,
+    tau=0) "Sensor at exhaust air"
     annotation (Placement(transformation(extent={{50,-62},{30,-42}})));
 
   FixedResistances.FixedResistanceDpM res(
@@ -64,8 +65,9 @@ model TraceSubstances "Test model for the extra property sensor"
     allowFlowReversal=false,
     tau=0) "Sensor at exhaust air, configured to not allow flow reversal"
     annotation (Placement(transformation(extent={{18,-62},{-2,-42}})));
-  TraceSubstancesPpm senPPM(redeclare package Medium = Medium) "PPM sensor"
-    annotation (Placement(transformation(extent={{98,10},{118,30}})));
+  Annex60.Fluid.Sensors.PPM senPPM(redeclare package Medium = Medium)
+    "PPM sensor"
+    annotation (Placement(transformation(extent={{100,10},{120,30}})));
 equation
   connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{0,-4}}, color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{45,100},{45,100},{139,
@@ -99,8 +101,8 @@ equation
   connect(senTraSubNoFlorRev.port_b, mSin.ports[1]) annotation (Line(
       points={{-2,-52},{-22,-52}},
       color={0,127,255}));
-  connect(senPPM.port, vol.ports[5]) annotation (Line(points={{108,10},{108,4},
-          {86,4},{86,50},{87.2,50}}, color={0,127,255}));
+  connect(senPPM.port, vol.ports[5]) annotation (Line(points={{110,10},{110,4},{
+          86,4},{86,50},{87.2,50}},  color={0,127,255}));
     annotation (
 experiment(StopTime=7200),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TraceSubstances.mos"
