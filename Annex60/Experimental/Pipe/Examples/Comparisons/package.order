@@ -4,3 +4,4 @@ CompHeatLossPipe
 NoReverseCompHeatLossPipe
 Events
 A60pipe
+SpatialDistributionOperator

@@ -7,6 +7,10 @@ PipeHeatLossKUL_Reverse
 PipeHeatLossA60Mod
 PipeHeatLossA60Mod_noAbs
 PipeHeatLossA60Mod2
+spatialDistributionOneDirection
+spatialDistributionTwoDirections
+spatialDist_testBothDirections_andTrack
+spatialDistributionTwoDirectionsAndTrack
 BaseClasses
 Examples
 Data
