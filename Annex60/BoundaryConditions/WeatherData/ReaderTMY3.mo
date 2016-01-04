@@ -748,8 +748,7 @@ equation
       points={{181,70},{220,70},{220,-64},{243,-64}},
       color={0,0,127}));
   connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
-      points={{265,-56},{280,-56},{280,0},{292,0},{292,0},{300,
-          0}},
+      points={{265,-56},{280,-56},{280,0},{292,0},{300,0}},
       color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -863,6 +862,298 @@ http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm</a>. Thes
 data, which are in the EnergyPlus format, need to be converted as described
 in the next paragraph.
 </p>
+<!-- ============================================== -->
+<h4>Output to weaBus</h4>
+<p>
+The following variables serve as output and are accessible via <code>weaBus</code>:
+<\\p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<!-- ============================================== -->
+<tr>
+  <th>Name
+  </th>
+  <th>Unit
+  </th>
+  <th>Description
+  </th>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>HDifHor<\\code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Horizontal diffuse solar radiation.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>HDifNor<\\code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Direct normal radiation.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>HGloHor<\\code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Horizontal global radiation.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>TBlaSky<\\code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Output temperature.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>TDewPoi<\\code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Dew point temperature.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>TDryBul<\\code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Dry bulb temperature at ground level.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>TWetBul<\\code>
+  </td>
+  <td>
+    K
+  </td>
+  <td>
+    Wet bulb temperature.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>celHei<\\code>
+  </td>
+  <td>
+    m
+  </td>
+  <td>
+    Ceiling height.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>cloTim<\\code>
+  </td>
+  <td>
+    s
+  </td>
+  <td>
+    One-based day number in seconds.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>lat<\\code>
+  </td>
+  <td>
+     
+  </td>
+  <td>
+    Connector of Real output signal.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>lon<\\code>
+  </td>
+  <td>
+     
+  </td>
+  <td>
+    Connector of Real output signal.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>nOpa<\\code>
+  </td>
+  <td>
+     
+  </td>
+  <td>
+    Opaque sky cover.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>nTot<\\code>
+  </td>
+  <td>
+    1
+  </td>
+  <td>
+    Sky Cover [0,1].
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>pAtm<\\code>
+  </td>
+  <td>
+    Pa
+  </td>
+  <td>
+    Atmospheric pressure.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>radHorIR<\\code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Horizontal infrared irradiation.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>relHum<\\code>
+  </td>
+  <td>
+    1
+  </td>
+  <td>
+    Relative humidity.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>solAlt<\\code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Altitude angle.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>solDec<\\code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Declination angle.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>solHouAng<\\code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Solar hour angle.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>solTim<\\code>
+  </td>
+  <td>
+    s
+  </td>
+  <td>
+    Solar time.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>solZen<\\code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Zenith angle.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>winDir<\\code>
+  </td>
+  <td>
+    rad
+  </td>
+  <td>
+    Wind direction.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
+    <code>winSpe<\\code>
+  </td>
+  <td>
+    m/s
+  </td>
+  <td>
+    Wind speed.
+  </td>
+</tr>
+</table>
 <!-- ============================================== -->
 <h4>Adding new weather data</h4>
 <p>
@@ -1162,6 +1453,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+January 4, 2016, by Moritz Lauster:<br/>
+Added a table in documentation with output variables accessible via <code>weaBus</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">#376</a>.
+</li>
 <li>
 December 15, 2015, by Michael Wetter:<br/>
 Added the block <code>cheTemBlaSky</code>. This also allows to graphically
