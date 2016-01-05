@@ -247,7 +247,7 @@ protected
   BaseClasses.CheckSkyCover cheTotSkyCov "Check the total sky cover"
     annotation (Placement(transformation(extent={{160,-40},{180,-20}})));
   BaseClasses.CheckSkyCover cheOpaSkyCov "Check the opaque sky cover"
-    annotation (Placement(transformation(extent={{162,-160},{182,-140}})));
+    annotation (Placement(transformation(extent={{160,-160},{180,-140}})));
   BaseClasses.CheckRadiation cheGloHorRad
     "Check the global horizontal radiation"
     annotation (Placement(transformation(extent={{160,160},{180,180}})));
@@ -377,9 +377,9 @@ protected
    SolarGeometry.BaseClasses.SolarHourAngle
     solHouAng
     annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
-  Modelica.Blocks.Sources.Constant latitude(final k=lat) "Latitude"
+  Latitude latitude(final latitude=lat) "Latitude"
     annotation (Placement(transformation(extent={{-180,-280},{-160,-260}})));
-  Modelica.Blocks.Sources.Constant longitude(final k=lon) "Longitude"
+  Longitude longitude(final longitude=lon) "Longitude"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
 
   //---------------------------------------------------------------------------
@@ -405,6 +405,103 @@ protected
   Annex60.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature cheTemBlaSky(TMin=0)
     "Check black body sky temperature"
     annotation (Placement(transformation(extent={{240,-260},{260,-240}})));
+
+  // Blocks that are added in order to set the name of the output signal,
+  // which then is displayed in the GUI of the weather data connector.
+  block Latitude "Generate constant signal of type Real"
+    extends Modelica.Blocks.Icons.Block;
+
+    parameter Modelica.SIunits.Angle latitude "Latitude";
+
+    Modelica.Blocks.Interfaces.RealOutput y(
+      unit="rad",
+      displayUnit="deg") "Latitude of the location"
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  equation
+    y = latitude;
+    annotation (
+    Icon(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
+        Text(
+          extent={{-81,32},{84,-24}},
+          lineColor={0,0,0},
+            textString="Latitude")}),
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+Block to output the latitude of the location.
+This block is added so that the latitude is displayed
+with a comment in the GUI of the weather bus connector.
+</p>
+<h4>Implementation</h4>
+<p>
+If
+<a href=\"modelica://Modelica.Blocks.Sources.Constant\">
+Modelica.Blocks.Sources.Constant</a> where used, then
+the comment for the latitude would be \"Connector of Real output signal\".
+As this documentation string cannot be overwritten, a new block
+was implemented.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 4, 2016, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end Latitude;
+
+  block Longitude "Generate constant signal of type Real"
+    extends Modelica.Blocks.Icons.Block;
+
+    parameter Modelica.SIunits.Angle longitude "Longitude";
+
+    Modelica.Blocks.Interfaces.RealOutput y(
+      unit="rad",
+      displayUnit="deg") "Longitude of the location"
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  equation
+    y = longitude;
+    annotation (
+    Icon(coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}), graphics={
+        Text(
+          extent={{-81,32},{84,-24}},
+          lineColor={0,0,0},
+            textString="Longitude")}),
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+Block to output the longitude of the location.
+This block is added so that the longitude is displayed
+with a comment in the GUI of the weather bus connector.
+</p>
+<h4>Implementation</h4>
+<p>
+If
+<a href=\"modelica://Modelica.Blocks.Sources.Constant\">
+Modelica.Blocks.Sources.Constant</a> where used, then
+the comment for the longitude would be \"Connector of Real output signal\".
+As this documentation string cannot be overwritten, a new block
+was implemented.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 4, 2016, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  end Longitude;
+
 equation
   //---------------------------------------------------------------------------
   // Select atmospheric pressure connector
@@ -579,7 +676,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, weaBus.nOpa) annotation (Line(
-      points={{183,-150},{220,-150},{220,0},{300,0}},
+      points={{181,-150},{220,-150},{220,0},{300,0}},
       color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -627,7 +724,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, TBlaSkyCom.nOpa) annotation (Line(
-      points={{183,-150},{220,-150},{220,-213},{238,-213}},
+      points={{181,-150},{220,-150},{220,-213},{238,-213}},
       color={0,0,127}));
   connect(cheHorRad.HOut, TBlaSkyCom.radHorIR) annotation (Line(
       points={{181,250},{220,250},{220,-218},{238,-218}},
@@ -991,10 +1088,10 @@ The following variables serve as output and are accessible via <code>weaBus</cod
     <code>lat<\\code>
   </td>
   <td>
-     
+    rad
   </td>
   <td>
-    Connector of Real output signal.
+  Latitude of the location.
   </td>
 </tr>
 <!-- ============================================== -->
@@ -1003,10 +1100,10 @@ The following variables serve as output and are accessible via <code>weaBus</cod
     <code>lon<\\code>
   </td>
   <td>
-     
+    rad
   </td>
   <td>
-    Connector of Real output signal.
+  Longitude of the location.
   </td>
 </tr>
 <!-- ============================================== -->
@@ -1015,10 +1112,10 @@ The following variables serve as output and are accessible via <code>weaBus</cod
     <code>nOpa<\\code>
   </td>
   <td>
-     
+    1
   </td>
   <td>
-    Opaque sky cover.
+  Opaque sky cover [0, 1].
   </td>
 </tr>
 <!-- ============================================== -->
@@ -1030,7 +1127,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
     1
   </td>
   <td>
-    Sky Cover [0,1].
+   Total sky Cover [0, 1].
   </td>
 </tr>
 <!-- ============================================== -->
