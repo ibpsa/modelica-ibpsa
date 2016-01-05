@@ -267,7 +267,7 @@ protected
   SkyTemperature.BlackBody TBlaSkyCom(final calTSky=calTSky) if
        not (TBlaSkySou == Annex60.BoundaryConditions.Types.DataSource.Parameter or
             TBlaSkySou == Annex60.BoundaryConditions.Types.DataSource.Input)
-    "Computation of the sky black-body temperature"
+    "Computation of the black-body sky temperature"
     annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
   Utilities.Time.ModelTime modTim "Model time"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
@@ -402,7 +402,8 @@ protected
        opaSkyCovSou == Annex60.BoundaryConditions.Types.DataSource.File
     "Convert sky cover from [0...10] to [0...1]"
     annotation (Placement(transformation(extent={{120,-158},{140,-138}})));
-  Annex60.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature cheTemBlaSky(TMin=0)
+  Annex60.BoundaryConditions.WeatherData.BaseClasses.CheckBlackBodySkyTemperature
+                                                                                  cheTemBlaSky(TMin=0)
     "Check black body sky temperature"
     annotation (Placement(transformation(extent={{240,-260},{260,-240}})));
 
@@ -730,8 +731,7 @@ equation
       points={{181,250},{220,250},{220,-218},{238,-218}},
       color={0,0,127}));
   connect(modTim.y, weaBus.cloTim) annotation (Line(
-      points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{124.5,
-          0},{300,0}},
+      points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{300,0}},
       color={0,0,127}), Text(
       string="%second",
       index=1,
@@ -779,7 +779,7 @@ equation
   connect(datRea1.y[1], conHorRad.HIn) annotation (Line(
       points={{-59,169.25},{20,169.25},{20,250},{118,250}},
       color={0,0,127}));
-  connect(cheTemDryBul.TOut,TBlaSkyCom. TDryBul) annotation (Line(
+  connect(cheTemDryBul.TOut, TBlaSkyCom.TDryBul) annotation (Line(
       points={{181,-190},{220,-190},{220,-202},{238,-202}},
       color={0,0,127}));
   connect(datRea.y[1], conTDryBul.u) annotation (Line(
@@ -825,7 +825,7 @@ equation
                                   annotation (Line(
       points={{-119,-210},{-82,-210},{-82,-210.6}},
       color={0,0,127}));
-  connect(solHouAng.solHouAng, zenAng.solHouAng)                                              annotation (Line(
+  connect(solHouAng.solHouAng, zenAng.solHouAng)  annotation (Line(
       points={{-119,-240},{-100,-240},{-100,-220.8},{-82,-220.8}},
       color={0,0,127}));
   connect(solHouAng.solTim, solTim.solTim) annotation (Line(
