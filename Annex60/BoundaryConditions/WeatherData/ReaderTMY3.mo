@@ -963,7 +963,7 @@ in the next paragraph.
 <h4>Output to weaBus</h4>
 <p>
 The following variables serve as output and are accessible via <code>weaBus</code>:
-<\\p>
+</p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
 <!-- ============================================== -->
 <tr>
@@ -977,7 +977,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>HDifHor<\\code>
+    <code>HDifHor</code>
   </td>
   <td>
     W/m2
@@ -989,7 +989,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>HDifNor<\\code>
+    <code>HDifNor</code>
   </td>
   <td>
     W/m2
@@ -1001,7 +1001,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>HGloHor<\\code>
+    <code>HGloHor</code>
   </td>
   <td>
     W/m2
@@ -1013,7 +1013,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>TBlaSky<\\code>
+    <code>TBlaSky</code>
   </td>
   <td>
     K
@@ -1025,7 +1025,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>TDewPoi<\\code>
+    <code>TDewPoi</code>
   </td>
   <td>
     K
@@ -1037,7 +1037,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>TDryBul<\\code>
+    <code>TDryBul</code>
   </td>
   <td>
     K
@@ -1049,7 +1049,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>TWetBul<\\code>
+    <code>TWetBul</code>
   </td>
   <td>
     K
@@ -1061,7 +1061,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>celHei<\\code>
+    <code>celHei</code>
   </td>
   <td>
     m
@@ -1073,7 +1073,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>cloTim<\\code>
+    <code>cloTim</code>
   </td>
   <td>
     s
@@ -1085,7 +1085,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>lat<\\code>
+    <code>lat</code>
   </td>
   <td>
     rad
@@ -1097,7 +1097,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>lon<\\code>
+    <code>lon</code>
   </td>
   <td>
     rad
@@ -1109,7 +1109,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>nOpa<\\code>
+    <code>nOpa</code>
   </td>
   <td>
     1
@@ -1121,7 +1121,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>nTot<\\code>
+    <code>nTot</code>
   </td>
   <td>
     1
@@ -1133,7 +1133,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>pAtm<\\code>
+    <code>pAtm</code>
   </td>
   <td>
     Pa
@@ -1145,7 +1145,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>radHorIR<\\code>
+    <code>radHorIR</code>
   </td>
   <td>
     W/m2
@@ -1157,7 +1157,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>relHum<\\code>
+    <code>relHum</code>
   </td>
   <td>
     1
@@ -1169,7 +1169,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>solAlt<\\code>
+    <code>solAlt</code>
   </td>
   <td>
     rad
@@ -1181,7 +1181,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>solDec<\\code>
+    <code>solDec</code>
   </td>
   <td>
     rad
@@ -1193,7 +1193,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>solHouAng<\\code>
+    <code>solHouAng</code>
   </td>
   <td>
     rad
@@ -1205,7 +1205,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>solTim<\\code>
+    <code>solTim</code>
   </td>
   <td>
     s
@@ -1217,7 +1217,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>solZen<\\code>
+    <code>solZen</code>
   </td>
   <td>
     rad
@@ -1229,7 +1229,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>winDir<\\code>
+    <code>winDir</code>
   </td>
   <td>
     rad
@@ -1241,7 +1241,7 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
-    <code>winSpe<\\code>
+    <code>winSpe</code>
   </td>
   <td>
     m/s
