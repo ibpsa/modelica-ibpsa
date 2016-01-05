@@ -32,7 +32,7 @@ block BlackBody "Calculate black body sky temperature"
 protected
   Modelica.SIunits.Temperature TDewPoiK "Dewpoint temperature";
   Modelica.SIunits.Emissivity epsSky "Black-body absorptivity of sky";
-  Real nOpa10(min=0, max=10) "Opaque sky cover";
+  Real nOpa10(min=0, max=10) "Opaque sky cover in [0, 10]";
 equation
   if calTSky == Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover then
     TDewPoiK =  Annex60.Utilities.Math.Functions.smoothMin(TDryBul, TDewPoi, 0.1);
