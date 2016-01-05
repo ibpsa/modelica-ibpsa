@@ -29,7 +29,6 @@ model spatialDistributionTwoDirectionsAndTrack
   Modelica.SIunits.Time trackEnd
     "Delay time of a mass flow rate period is stored";
   Modelica.SIunits.Time track "time delay during zero mass flow rate periods";
-
   Real epsilon = 0.000001;
 
 equation
@@ -78,7 +77,6 @@ equation
 
   tau_a_lim = max(trackEnd,max(track,tau_a));
   tau_b_lim = max(trackEnd,max(track,tau_b));
-
   tau_a = time-time_out_a;
   tau_b = time-time_out_b;
 

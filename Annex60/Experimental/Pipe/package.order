@@ -11,6 +11,7 @@ spatialDistributionOneDirection
 spatialDistributionTwoDirections
 spatialDist_testBothDirections_andTrack
 spatialDistributionTwoDirectionsAndTrack
+PipeHeatLoss_PipeDelay
 BaseClasses
 Examples
 Data

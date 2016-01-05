@@ -5,3 +5,6 @@ PDETime_modified
 HeatLossMod
 HeatLossMod2
 HeatLossMod_noAbs
+HeatLossPipeDelay
+PDETime_massFlow
+Track
