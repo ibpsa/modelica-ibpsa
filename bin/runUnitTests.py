@@ -2,19 +2,19 @@
 #######################################################
 # Script that runs all unit tests.
 #
-# This script 
-# - creates temporary directories for each processors, 
+# This script
+# - creates temporary directories for each processors,
 # - copies the library directory into these
 #   temporary directories,
 # - creates run scripts that run all unit tests,
 # - runs these unit tests,
 # - collects the dymola log files from each process,
 # - writes the combined log file 'unitTests.log'
-#   in the current directory, 
+#   in the current directory,
 # - checks whether all unit tests run successfully,
 #   and produced the same results as the reference
 #   results, and
-# - exits with the message 
+# - exits with the message
 #    'Unit tests completed successfully.' or with
 #   an error message.
 #
@@ -24,21 +24,6 @@
 #
 # MWetter@lbl.gov                            2011-02-23
 #######################################################
-import getopt
-import sys
-import os
-
-def usage():
-    ''' Print the usage statement
-    '''
-    print "runUnitTests.py [-b|-h|--help]"
-    print ""
-    print "  Runs the unit tests."
-    print ""
-    print "  -b         Batch mode, without user interaction"
-    print "  -h, --help Print this help"
-    print ""
-
 
 def _setEnvironmentVariables(var, value):
     ''' Add to the environment variable `var` the value `value`
@@ -53,18 +38,24 @@ def _setEnvironmentVariables(var, value):
     else:
         os.environ[var] = value
 
-def _runUnitTests():
+def _runUnitTests(batch, single_package, n_pro):
     import buildingspy.development.regressiontest as u
+
     ut = u.Tester()
     ut.batchMode(batch)
-    ut.pedanticModelica(True)
+    if single_package is not None:
+        ut.setSinglePackage(single_package)
+    ut.setNumberOfThreads(n_pro)
+
+    # Below are some option that may occassionally be used.
+    # These are currently not exposed as command line arguments.
 #    ut.setNumberOfThreads(1)
 #    ut.deleteTemporaryDirectories(False)
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
-#    #print ut.getDataDictionary()
-#    ut.setSinglePackage("Annex60.Fluid.Interfaces.Examples")
+
+    # Run the regression tests
     retVal = ut.run()
-    exit(retVal)
+    return retVal
 
 def _runOpenModelicaUnitTests():
     import buildingspy.development.regressiontest as u
@@ -74,39 +65,50 @@ def _runOpenModelicaUnitTests():
                          packages=['Examples'], number=-1)
 
 if __name__ == '__main__':
+    import multiprocessing
     import platform
-    batch = False
+    import argparse
+    import os
+    import sys
 
-    try:
-        opts, args=getopt.getopt(sys.argv[1:], "hb", ["help", "batch"])
-    except getopt.GetoptError, err:
-        print str(err)
-        usage()
-        sys.exit(2)
+    # Configure the argument parser
+    parser = argparse.ArgumentParser(description='Run the unit tests.')
+    parser.add_argument("-b", "--batch", 
+                        action="store_true",
+                        help="Run in batch mode without user interaction.")
+    parser.add_argument('-s', "--single-package", 
+                        metavar="Modelica.Package", 
+                        help="Test only the Modelica package Modelica.Package.")
+    parser.add_argument("-n", "--number-of-processors",
+                        type=int,
+                        default = multiprocessing.cpu_count(),
+                        help='Maximum number of processors to be used.')
 
-    for o, a in opts:
-        if (o == "-b" or o == "--batch"):
-            batch=True
-            print "Running in batch mode."
-        elif (o == "-h" or o == "--help"):
-            usage()
-            sys.exit()
-        else:
-            assert False, "Unhandled option."
+    # Parse the arguments
+    args = parser.parse_args()
+
+    if args.single_package:
+        single_package = args.single_package
+    else:
+        single_package = None
 
     # Set environment variables
     if platform.system() == "Windows":
-        _setEnvironmentVariables("PATH", 
-                                 os.path.join(os.path.abspath('.'), "Resources", "Library", "win32"))
+        _setEnvironmentVariables("PATH",
+                                 os.path.join(os.path.abspath('.'), 
+                                              "Resources", "Library", "win32"))
     else:
-        _setEnvironmentVariables("LD_LIBRARY_PATH", 
-                                 os.path.join(os.path.abspath('.'), "Resources", "Library", "linux32"))
+        _setEnvironmentVariables("LD_LIBRARY_PATH",
+                                 os.path.join(os.path.abspath('.'), 
+                                              "Resources", "Library", "linux32"))
 
     # The path to buildingspy must be added to sys.path to work on Linux.
     # If only added to os.environ, the Python interpreter won't find buildingspy
     sys.path.append(os.path.join(os.path.abspath('.'), "..", "..", "BuildingsPy"))
 
+    retVal = _runUnitTests(batch = args.batch,
+                           single_package = single_package,
+                           n_pro = args.number_of_processors)
+    exit(retVal)
 
-    _runUnitTests()
 #   _runOpenModelicaUnitTests()
-
