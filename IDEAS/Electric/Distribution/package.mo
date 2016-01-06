@@ -5,7 +5,6 @@ package Distribution "This gives an electrical distribution grid model for a dis
 extends Modelica.Icons.Package;
 
 
-
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
                  graphics={Ellipse(extent={{-58,26},{-8,-24}},  lineColor={0,0,0}),
