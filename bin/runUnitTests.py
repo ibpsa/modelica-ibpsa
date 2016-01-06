@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 #######################################################
-# Script that runs all unit tests.
+# Script that runs all unit tests or, optionally,
+# only checks the html syntax.
 #
-# This script
+# To run the unit tests, this script
 # - creates temporary directories for each processors,
 # - copies the library directory into these
 #   temporary directories,
@@ -24,6 +25,23 @@
 #
 # MWetter@lbl.gov                            2011-02-23
 #######################################################
+
+def _validate_html():
+    import buildingspy.development.validator as v
+
+    val = v.Validator()
+    errMsg = val.validateHTMLInPackage(".")
+    n_msg = len(errMsg)
+    for i in range(n_msg):
+        if i == 0:
+            print "The following malformed html syntax has been found:\n%s" % errMsg[i]
+        else:
+            print errMsg[i]
+
+    if n_msg == 0:
+        return 0
+    else:
+        return 1
 
 def _setEnvironmentVariables(var, value):
     ''' Add to the environment variable `var` the value `value`
@@ -72,39 +90,52 @@ if __name__ == '__main__':
     import sys
 
     # Configure the argument parser
-    parser = argparse.ArgumentParser(description='Run the unit tests.')
-    parser.add_argument("-b", "--batch", 
+    parser = argparse.ArgumentParser(description='Run the unit tests or the html validation only.')
+    unit_test_group = parser.add_argument_group("arguments to run unit tests")
+
+    unit_test_group.add_argument("-b", "--batch",
                         action="store_true",
-                        help="Run in batch mode without user interaction.")
-    parser.add_argument('-s', "--single-package", 
-                        metavar="Modelica.Package", 
-                        help="Test only the Modelica package Modelica.Package.")
-    parser.add_argument("-n", "--number-of-processors",
+                        help="Run in batch mode without user interaction")
+    unit_test_group.add_argument('-s', "--single-package",
+                        metavar="Modelica.Package",
+                        help="Test only the Modelica package Modelica.Package")
+    unit_test_group.add_argument("-n", "--number-of-processors",
                         type=int,
                         default = multiprocessing.cpu_count(),
-                        help='Maximum number of processors to be used.')
+                        help='Maximum number of processors to be used')
 
-    # Parse the arguments
-    args = parser.parse_args()
+    html_group = parser.add_argument_group("arguments to check html syntax only")
+    html_group.add_argument("--validate-html-only",
+                           action="store_true")
 
-    if args.single_package:
-        single_package = args.single_package
-    else:
-        single_package = None
 
     # Set environment variables
     if platform.system() == "Windows":
         _setEnvironmentVariables("PATH",
-                                 os.path.join(os.path.abspath('.'), 
+                                 os.path.join(os.path.abspath('.'),
                                               "Resources", "Library", "win32"))
     else:
         _setEnvironmentVariables("LD_LIBRARY_PATH",
-                                 os.path.join(os.path.abspath('.'), 
+                                 os.path.join(os.path.abspath('.'),
                                               "Resources", "Library", "linux32"))
 
     # The path to buildingspy must be added to sys.path to work on Linux.
     # If only added to os.environ, the Python interpreter won't find buildingspy
     sys.path.append(os.path.join(os.path.abspath('.'), "..", "..", "BuildingsPy"))
+
+
+    # Parse the arguments
+    args = parser.parse_args()
+
+    if args.validate_html_only:
+        # Validate the html syntax only, and then exit
+        ret_val = _validate_html()
+        exit(ret_val)
+
+    if args.single_package:
+        single_package = args.single_package
+    else:
+        single_package = None
 
     retVal = _runUnitTests(batch = args.batch,
                            single_package = single_package,
