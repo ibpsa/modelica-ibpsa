@@ -17,7 +17,8 @@ block BlackBody "Calculate black body sky temperature"
     final unit="K",
     displayUnit="degC") "Dew point temperature"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput nOpa "Opaque sky cover"
+  Modelica.Blocks.Interfaces.RealInput nOpa( min=0, max=1, unit="1")
+    "Opaque sky cover [0, 1]"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealOutput TBlaSky(
     final quantity="ThermodynamicTemperature",
@@ -58,6 +59,10 @@ Otherwise, it uses dry buld temperature, dew point temperature and opaque sky co
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 6, 2016, by Moritz Lauster:<br/>
+Changed unit and comment of input <code>nOpa</code> for correct display of units in weaBus for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">#376</a>.
+</li>
 <li>
 May 5, 2015, by Filip Jorissen:<br/>
 Converted <code>algorithm</code> section into
