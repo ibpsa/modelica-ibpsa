@@ -712,7 +712,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(cheHorRad.HOut, weaBus.radHorIR) annotation (Line(
+  connect(cheHorRad.HOut, weaBus.HHorIR) annotation (Line(
       points={{181,250},{220,250},{220,0},{300,0}},
       color={0,0,127}), Text(
       string="%second",
@@ -727,7 +727,7 @@ equation
   connect(cheOpaSkyCov.nOut, TBlaSkyCom.nOpa) annotation (Line(
       points={{181,-150},{220,-150},{220,-213},{238,-213}},
       color={0,0,127}));
-  connect(cheHorRad.HOut, TBlaSkyCom.radHorIR) annotation (Line(
+  connect(cheHorRad.HOut, TBlaSkyCom.HHorIR) annotation (Line(
       points={{181,250},{220,250},{220,-218},{238,-218}},
       color={0,0,127}));
   connect(modTim.y, weaBus.cloTim) annotation (Line(
@@ -1550,6 +1550,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+January 6, 2016, by Moritz Lauster:<br/>
+Changed output <code>radHorIR</code> to <code>HHorIR</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">#376</a>.
+</li>
 <li>
 January 4, 2016, by Moritz Lauster:<br/>
 Added a table in documentation with output variables accessible via <code>weaBus</code>.

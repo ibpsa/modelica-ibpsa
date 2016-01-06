@@ -25,7 +25,7 @@ block BlackBody "Calculate black body sky temperature"
     displayUnit="degC",
     final unit="K") "Black-body sky temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput radHorIR(
+  Modelica.Blocks.Interfaces.RealInput HHorIR(
     unit="W/m2",
     min=0,
     nominal=100) "Horizontal infrared irradiation"
@@ -45,7 +45,7 @@ equation
     TDewPoiK =  273.15;
     nOpa10   =  0.0;
     epsSky   =  0.0;
-    TBlaSky  =  (radHorIR/Modelica.Constants.sigma)^0.25;
+    TBlaSky  =  (HHorIR/Modelica.Constants.sigma)^0.25;
   end if;
   annotation (
     defaultComponentName="TBlaSky",
@@ -61,7 +61,7 @@ Otherwise, it uses dry buld temperature, dew point temperature and opaque sky co
 <ul>
 <li>
 January 6, 2016, by Moritz Lauster:<br/>
-Changed unit and comment of input <code>nOpa</code> for correct display of units in weaBus for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">#376</a>.
+Changed unit and comment of input <code>nOpa</code> for correct display of units in weaBus and input <code>radHorIR</code> to <code>HHorIR</code> for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">#376</a>.
 </li>
 <li>
 May 5, 2015, by Filip Jorissen:<br/>
@@ -122,5 +122,7 @@ First implementation.
         Text(
           extent={{-88,-24},{-64,-36}},
           lineColor={0,0,127},
-          textString="nOpa")}));
+          textString="nOpa")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end BlackBody;
