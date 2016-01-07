@@ -3,7 +3,6 @@ model TwoWayValvePressureIndependent
   "Two way valves with pressure independent opening characteristic"
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Water;
-
     Modelica.Blocks.Sources.Ramp y(
     height=1,
     duration=1,
@@ -31,8 +30,8 @@ model TwoWayValvePressureIndependent
     l=0.05,
     from_dp=true,
     dpFixed_nominal=0,
-    l2=0.1,
-    dpValve_nominal=10000) "Pressure independent valve"
+    dpValve_nominal=10000,
+    l2=0.01) "Pressure independent valve"
              annotation (Placement(transformation(extent={{-10,30},{10,50}})));
     Modelica.Blocks.Sources.Ramp dp(
     duration=1,
@@ -48,8 +47,8 @@ model TwoWayValvePressureIndependent
     l=0.05,
     dpFixed_nominal=5000,
     from_dp=true,
-    l2=0.1,
-    dpValve_nominal=10000) "Pressure independent valve using dp_Fixed_nominal"
+    dpValve_nominal=10000,
+    l2=0.01) "Pressure independent valve using dp_Fixed_nominal"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   TwoWayPressureIndependent valIndFromMflow(
     redeclare package Medium = Medium,
@@ -59,8 +58,8 @@ model TwoWayValvePressureIndependent
     l=0.05,
     from_dp=false,
     dpFixed_nominal=0,
-    l2=0.1,
-    dpValve_nominal=10000) "Pressure independent valve using from_dp = false"
+    dpValve_nominal=10000,
+    l2=0.01) "Pressure independent valve using from_dp = false"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
   connect(valInd.y, y.y) annotation (Line(
@@ -102,6 +101,11 @@ __Dymola_Commands(file=
 <p>The parameter <code>filterOpening</code> is set to <code>false</code>, as this model is used to plot the flow at different opening signals without taking into account the travel time of the actuator. </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 7, 2016 by Filip Jorissen:<br/>
+Updated example according to new implementation of 
+<code>PressureIndependentValve</code>.
+</li>
 <li>
 January 29, 2015 by Filip Jorissen:<br/>
 First implementation.
