@@ -260,7 +260,9 @@ protected
     annotation (Placement(transformation(extent={{160,-120},{180,-100}})));
   BaseClasses.CheckWindSpeed cheWinSpe "Check the wind speed"
     annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
-  BaseClasses.CheckRadiation cheHorRad "Check the horizontal radiation"
+  BaseClasses.CheckIRRadiation
+                             cheHorRad
+    "Check the horizontal infrared irradiation"
     annotation (Placement(transformation(extent={{160,240},{180,260}})));
   BaseClasses.CheckWindDirection cheWinDir "Check the wind direction"
     annotation (Placement(transformation(extent={{160,-280},{180,-260}})));
@@ -1013,6 +1015,18 @@ The following variables serve as output and are accessible via <code>weaBus</cod
 <!-- ============================================== -->
 <tr>
   <td>
+    <code>HHorIR</code>
+  </td>
+  <td>
+    W/m2
+  </td>
+  <td>
+    Horizontal infrared irradiation.
+  </td>
+</tr>
+<!-- ============================================== -->
+<tr>
+  <td>
     <code>TBlaSky</code>
   </td>
   <td>
@@ -1140,18 +1154,6 @@ The following variables serve as output and are accessible via <code>weaBus</cod
   </td>
   <td>
     Atmospheric pressure.
-  </td>
-</tr>
-<!-- ============================================== -->
-<tr>
-  <td>
-    <code>radHorIR</code>
-  </td>
-  <td>
-    W/m2
-  </td>
-  <td>
-    Horizontal infrared irradiation.
   </td>
 </tr>
 <!-- ============================================== -->
