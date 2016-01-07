@@ -49,12 +49,12 @@ equation
        m_flow=m_flow_set + (Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
                                   dp=dp,
                                   k=k,
-                                  m_flow_turbulent=m_flow_turbulent)-m_flow_set)/sqrt(max(1+(dp-dp_min)/dp_nominal/l2,1));
+                                  m_flow_turbulent=m_flow_turbulent)-m_flow_set)/sqrt(max(1+(dp-dp_min)/dp_min/l2,1));
       else
         dp=dp_min + (Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
                                    m_flow=m_flow,
                                    k=k,
-                                   m_flow_turbulent=m_flow_turbulent)-dp_min)*(max(1+(m_flow-m_flow_set)/m_flow_nominal/l2,1));
+                                   m_flow_turbulent=m_flow_turbulent)-dp_min)*(max(1+(m_flow-m_flow_set)/m_flow_set/l2,1));
       end if;
     end if; // homotopyInitialization
   annotation (defaultComponentName="val",
