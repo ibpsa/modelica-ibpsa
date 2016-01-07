@@ -4,7 +4,6 @@ model AirHeater_u
   extends Modelica.Icons.Example;
   extends Annex60.Fluid.HeatExchangers.Examples.BaseClasses.Heater(
     redeclare package Medium = Annex60.Media.Air,
-    V=6*6*2.7,
     m_flow_nominal=V*1.2*6/3600,
     Q_flow_nominal=30*6*6);
 
@@ -44,6 +43,10 @@ for a model that takes the leaving air temperature as an input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Revised implementation.
+</li>
 <li>
 November 12, 2014, by Michael Wetter:<br/>
 First implementation.
