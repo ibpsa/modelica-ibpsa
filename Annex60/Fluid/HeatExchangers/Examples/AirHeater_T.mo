@@ -18,9 +18,6 @@ model AirHeater_T
   Controls.SetPoints.Table tab(table=[0,273.15 + 15; 1,273.15 + 30])
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 equation
-  connect(fan.port_b, hea.port_a) annotation (Line(
-      points={{-50,-40},{-20,-40}},
-      color={0,127,255}));
   connect(hea.port_b, THeaOut.port_a) annotation (Line(
       points={{0,-40},{20,-40}},
       color={0,127,255}));
@@ -30,6 +27,8 @@ equation
   connect(tab.y, hea.TSet) annotation (Line(
       points={{-9,30},{-6,30},{-6,-20},{-32,-20},{-32,-34},{-22,-34}},
       color={0,0,127}));
+  connect(mov.port_b, hea.port_a) annotation (Line(points={{-50,-40},{-35,-40},
+          {-20,-40}}, color={0,127,255}));
   annotation ( Documentation(info="<html>
 <p>
 This example illustrates how to use the heater model that takes as an
@@ -63,5 +62,7 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-05));
+      Tolerance=1e-05),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end AirHeater_T;

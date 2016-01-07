@@ -28,10 +28,11 @@ partial model Heater "Base class for example model for the heater and cooler"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Sensor for volume temperature"
     annotation (Placement(transformation(extent={{20,-10},{0,10}})));
-  Annex60.Fluid.Movers.FlowControlled_m_flow fan(
+  Annex60.Fluid.Movers.FlowControlled_m_flow mov(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    addPowerToMedium=false) "Fan"
+    addPowerToMedium=false,
+    dynamicBalance=false) "Fan or pump"
     annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
   Modelica.Blocks.Sources.RealExpression TOut(y=273.15 + 16 - 5*cos(time/86400*
         2*Modelica.Constants.pi)) "Outdoor temperature"
@@ -83,13 +84,13 @@ equation
   connect(TSet.y, conPI.u_s) annotation (Line(
       points={{-69,30},{-62,30}},
       color={0,0,127}));
-  connect(mFan_flow.y, fan.m_flow_in) annotation (Line(
+  connect(mFan_flow.y,mov. m_flow_in) annotation (Line(
       points={{-69,-10},{-60.2,-10},{-60.2,-28}},
       color={0,0,127}));
   connect(THeaOut.port_b, vol.ports[1]) annotation (Line(
       points={{40,-40},{48,-40},{48,-10},{47.3333,-10}},
       color={0,127,255}));
-  connect(vol.ports[2], fan.port_a) annotation (Line(
+  connect(vol.ports[2],mov. port_a) annotation (Line(
       points={{50,-10},{50,-70},{-80,-70},{-80,-40},{-70,-40}},
       color={0,127,255}));
   connect(res.port_b, bou.ports[1])

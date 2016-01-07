@@ -17,10 +17,6 @@ model WaterHeater_u
     Q_flow_nominal=10*Q_flow_nominal) "Heater"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 equation
-  connect(fan.port_b, hea.port_a) annotation (Line(
-      points={{-50,-40},{-20,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(hea.port_b, THeaOut.port_a) annotation (Line(
       points={{0,-40},{20,-40}},
       color={0,127,255},
@@ -29,6 +25,8 @@ equation
       points={{-39,30},{-30,30},{-30,-34},{-22,-34}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(mov.port_b, hea.port_a) annotation (Line(points={{-50,-40},{-35,-40},
+          {-20,-40}}, color={0,127,255}));
   annotation ( Documentation(info="<html>
 <p>
 This example illustrates how to use the heater model that takes as an
@@ -65,5 +63,5 @@ First implementation.
       Tolerance=1e-05,
       __Dymola_Algorithm="Radau"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+            100,100}})));
 end WaterHeater_u;
