@@ -2,7 +2,7 @@ within Annex60.BoundaryConditions.SolarGeometry.BaseClasses;
 block Declination "Declination angle"
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput nDay(quantity="Time", unit="s")
-    "One-based day number in seconds"
+    "Day number with units of seconds"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput decAng(
     final quantity="Angle",
@@ -21,9 +21,26 @@ equation
 <p>
 This component computes the solar declination, which is
 the angle between the equatorial plane and the solar beam.
+The input signal <code>nDay</code> is the one-based number of the day, but in seconds.
+Hence, during January 1, we should have <code>nDay = 86400</code> seconds.
+Since the effect of using a continuous number rather than an integer is small,
+we approximate this so that <code>nDay = 0</code> at the start of January 1,
+and <code>nDay = 86400</code> at the end of January 1.
+</p>
+<h4>Validation</h4>
+<p>
+A validation with a more detailed calculation can be found at
+<a href=\"modelica://Annex60.BoundaryConditions.SolarGeometry.BaseClasses.Examples.Declination\">
+Annex60.BoundaryConditions.SolarGeometry.BaseClasses.Examples.Declination</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 6, 2015, by Michael Wetter:<br/>
+Updated documentation and added validation.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/382\">issue 382</a>.
+</li>
 <li>
 January 5, 2015, by Michael Wetter:<br/>
 Updated comment of output signal as this is used in the weather bus connector.
