@@ -1,5 +1,5 @@
 Advanced.StoreProtectedVariables:=true;
-simulateModel("Annex60.Fluid.Actuators.Valves.Examples.TwoWayValvePressureIndependent", method="dassl", resultFile="TwoWayValvePressureIndependent");
+simulateModel("Annex60.Fluid.Actuators.Valves.Examples.TwoWayValvePressureIndependent", method="dassl", stopTime=2, resultFile="TwoWayValvePressureIndependent");
 createPlot(id=1, 
 position={0, 0, 757, 518}, 
 y={"valInd.m_flow", "valIndDpFix.m_flow", "valIndFromMflow.m_flow", "valIndFromMflow.m_flow_set"}, 
