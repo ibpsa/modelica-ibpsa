@@ -2,10 +2,10 @@ within Annex60.Fluid.Interfaces;
 model FourPortHeatMassExchanger
   "Model transporting two fluid streams between four ports with storing mass or energy"
   extends Annex60.Fluid.Interfaces.PartialFourPortInterface(
-    final h_outflow_a1_start = h1_outflow_start,
-    final h_outflow_b1_start = h1_outflow_start,
-    final h_outflow_a2_start = h2_outflow_start,
-    final h_outflow_b2_start = h2_outflow_start);
+    port_a1(h_outflow(start=h1_outflow_start)),
+    port_b1(h_outflow(start=h1_outflow_start)),
+    port_a2(h_outflow(start=h2_outflow_start)),
+    port_b2(h_outflow(start=h2_outflow_start)));
   extends Annex60.Fluid.Interfaces.FourPortFlowResistanceParameters(
      final computeFlowResistance1=true, final computeFlowResistance2=true);
 
@@ -67,6 +67,7 @@ model FourPortHeatMassExchanger
     redeclare final package Medium = Medium1,
     nPorts = 2,
     V=m1_flow_nominal*tau1/rho1_nominal,
+    final allowFlowReversal=allowFlowReversal1,
     final m_flow_nominal=m1_flow_nominal,
     energyDynamics=if tau1 > Modelica.Constants.eps
                          then energyDynamics else
@@ -79,7 +80,7 @@ model FourPortHeatMassExchanger
     final X_start=X1_start,
     final C_start=C1_start,
     final C_nominal=C1_nominal,
-    final mSenFac=1) "Volume for fluid 1"
+    mSenFac=1) "Volume for fluid 1"
                                annotation (Placement(transformation(extent={{-10,70},
             {10,50}})));
 
@@ -88,7 +89,8 @@ model FourPortHeatMassExchanger
     redeclare final package Medium = Medium2,
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,
-    final mSenFac=1,
+    final allowFlowReversal=allowFlowReversal2,
+    mSenFac=1,
     final m_flow_nominal = m2_flow_nominal,
     energyDynamics=if tau2 > Modelica.Constants.eps
                          then energyDynamics else
@@ -184,31 +186,26 @@ initial algorithm
 "The parameter tau2, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau2 = " + String(tau2) + "\n");
+
 equation
   connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(vol2.ports[2], port_b2) annotation (Line(
       points={{2,-70},{-30,-70},{-30,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_a1, preDro1.port_a) annotation (Line(
       points={{-100,60},{-90,60},{-90,80},{-80,80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro1.port_b, vol1.ports[1]) annotation (Line(
       points={{-60,80},{-2,80},{-2,70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_a2, preDro2.port_a) annotation (Line(
       points={{100,-60},{90,-60},{90,-80},{80,-80}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro2.port_b, vol2.ports[1]) annotation (Line(
       points={{60,-80},{2,-80},{2,-70}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -235,6 +232,26 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 13, 2015, by Michael Wetter:<br/>
+Changed assignments of start values in <code>extends</code> statement.
+This is for issue
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/299\">#299</a>.
+</li>
+<li>
+June 2, 2015, by Filip Jorissen:<br/>
+Removed final modifier from <code>mSenFac</code> in
+<code>vol1</code> and <code>vol2</code>.
+This is for issue
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/258=\">#258</a>.
+</li>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Added missing propagation of <code>allowFlowReversal</code> to
+instances <code>vol1</code> and <code>vol2</code>.
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/412\">#412</a>.
+</li>
 <li>
 October 6, 2014, by Michael Wetter:<br/>
 Changed medium declaration in pressure drop elements to be final.

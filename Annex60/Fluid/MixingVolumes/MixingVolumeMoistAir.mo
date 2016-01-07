@@ -52,40 +52,31 @@ initial algorithm
 equation
   connect(mWat_flow, steBal.mWat_flow) annotation (Line(
       points={{-120,80},{-80,80},{-80,14},{-22,14}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mWat_flow, dynBal.mWat_flow) annotation (Line(
       points={{-120,80},{-80,80},{-80,26},{24,26},{24,12},{38,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mWat_flow,QLat_flow. u2) annotation (Line(
       points={{-120,80},{-80,80},{-80,60},{-2,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(hLiq.y,QLat_flow. u1) annotation (Line(
       points={{-18,72},{-2,72}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(Q_flow.y, steBal.Q_flow) annotation (Line(
       points={{89,74},{94,74},{94,40},{-32,40},{-32,18},{-22,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(Q_flow.y, dynBal.Q_flow) annotation (Line(
       points={{89,74},{94,74},{94,40},{30,40},{30,16},{38,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(XLiq.y, X_w) annotation (Line(
       points={{83.1,-40},{120,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(QLat_flow.y, Q_flow.u2) annotation (Line(
       points={{21,66},{50,66},{50,68},{66,68}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(QSen_flow.y, Q_flow.u1) annotation (Line(
       points={{-39,88},{50,88},{50,80},{66,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (defaultComponentName="vol",
 Documentation(info="<html>
 Model for an ideally mixed fluid volume and the ability
@@ -112,6 +103,30 @@ functionality, use
 <a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolume\">
 Annex60.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
+<p>
+To increase the numerical robustness of the model, the constant
+<code>prescribedHeatFlowRate</code> can be set by the user.
+This constant only has an effect if the model has exactly two fluid ports connected,
+and if it is used as a steady-state model.
+Use the following settings:
+</p>
+<ul>
+<li>Set <code>prescribedHeatFlowRate=true</code> if the <i>only</i> means of heat transfer
+at the <code>heatPort</code> is a prescribed heat flow rate that
+is <i>not</i> a function of the temperature difference
+between the medium and an ambient temperature. Examples include an ideal electrical heater,
+a pump that rejects heat into the fluid stream, or a chiller that removes heat based on a performance curve.
+If the <code>heatPort</code> is not connected, then set <code>prescribedHeatFlowRate=true</code> as
+in this case, <code>heatPort.Q_flow=0</code>.
+</li>
+<li>Set <code>prescribedHeatFlowRate=false</code> if there is heat flow at the <code>heatPort</code>
+computed as <i>K * (T-heatPort.T)</i>, for some temperature <i>T</i> and some conductance <i>K</i>,
+which may itself be a function of temperature or mass flow rate.<br/>
+If there is a combination of <i>K * (T-heatPort.T)</i> and a prescribed heat flow rate,
+for example a solar collector that dissipates heat to the ambient and receives heat from
+the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>

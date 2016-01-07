@@ -43,6 +43,7 @@ model TwoPortHeatMassExchanger
     redeclare final package Medium = Medium,
     nPorts = 2,
     V=m_flow_nominal*tau/rho_default,
+    final allowFlowReversal=allowFlowReversal,
     final mSenFac=1,
     final m_flow_nominal = m_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -91,16 +92,13 @@ initial algorithm
 equation
   connect(vol.ports[2], port_b) annotation (Line(
       points={{1,0},{100,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_a, preDro.port_a) annotation (Line(
       points={{-100,0},{-90,0},{-90,0},{-80,0},{-80,0},{-60,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(preDro.port_b, vol.ports[1]) annotation (Line(
       points={{-40,0},{1,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -123,18 +121,13 @@ For models that extend this model, see for example
 <ul>
 <li>
 the ideal heater or cooler
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
-Annex60.Fluid.HeatExchangers.HeaterCoolerPrescribed</a>,
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.HeaterCooler_u\">
+Annex60.Fluid.HeatExchangers.HeaterCooler_u</a>, and
 </li>
 <li>
 the ideal humidifier
-<a href=\"modelica://Annex60.Fluid.MassExchangers.HumidifierPrescribed\">
-Annex60.Fluid.MassExchangers.HumidifierPrescribed</a>, and
-</li>
-<li>
-the boiler
-<a href=\"modelica://Annex60.Fluid.Boilers.BoilerPolynomial\">
-Annex60.Fluid.Boilers.BoilerPolynomial</a>.
+<a href=\"modelica://Annex60.Fluid.MassExchangers.Humidifier_u\">
+Annex60.Fluid.MassExchangers.Humidifier_u</a>.
 </li>
 </ul>
 
@@ -147,6 +140,17 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 6, 2015, by Michael Wetter:<br/>
+Added missing propagation of <code>allowFlowReversal</code> to
+instance <code>vol</code>.
+This is for issue
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/412\">#412</a>.
+</li>
+<li>
+May 1, 2015, by Marcus Fuchs:<br/>
+Fixed links in documentation.
+</li>
 <li>
 October 6, 2014, by Michael Wetter:<br/>
 Changed medium declaration in pressure drop element to be final.

@@ -1,24 +1,22 @@
 within Annex60.Fluid.HeatExchangers.Examples.BaseClasses;
 partial model Heater "Base class for example model for the heater and cooler"
 
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+  package Medium = Annex60.Media.Air "Medium model";
 
-  parameter Modelica.SIunits.Volume V "Volume to be heated";
+  parameter Modelica.SIunits.Volume VRoo = 6*6*2.7 "Room volume";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = VRoo*1.2*6/3600
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
-    "Nominal heat loss of the volume";
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 30*6*6
+    "Nominal heat loss of the room";
 
   Annex60.Fluid.MixingVolumes.MixingVolume vol(
-    V=V,
+    V=VRoo,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     mSenFac=2,
-    nPorts=2)
+    nPorts=3)
          annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(
     G=Q_flow_nominal/20) "Thermal conductance to the outside"
@@ -51,74 +49,64 @@ partial model Heater "Base class for example model for the heater and cooler"
     yMin=0,
     Ti=120) "Controller"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Blocks.Sources.Constant mFan_flow(k=m_flow_nominal) "Mass flow rate"
+  Modelica.Blocks.Sources.Constant mFan_flow(k=m_flow_nominal)
+    "Mass flow rate of the fan"
     annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
+  Sources.FixedBoundary bou(redeclare package Medium = Medium, nPorts=1)
+    "Fixed pressure boundary condition, required to set a reference pressure"
+    annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
   Sensors.TemperatureTwoPort THeaOut(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Outlet temperature of the heater"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 equation
   connect(theCon.port_a, TBou.port) annotation (Line(
       points={{0,70},{-20,70}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(vol.heatPort, theCon.port_b) annotation (Line(
       points={{40,0},{30,0},{30,70},{20,70}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(vol.heatPort, TVol.port) annotation (Line(
       points={{40,0},{20,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
+      color={191,0,0}));
   connect(TOut.y, TBou.T) annotation (Line(
       points={{-59,70},{-42,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(TVol.T, conPI.u_m) annotation (Line(
       points={{0,0},{-50,0},{-50,18}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(TSet.y, conPI.u_s) annotation (Line(
       points={{-69,30},{-62,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(mFan_flow.y, fan.m_flow_in) annotation (Line(
       points={{-69,-10},{-60.2,-10},{-60.2,-28}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(THeaOut.port_b, vol.ports[1]) annotation (Line(
-      points={{40,-40},{48,-40},{48,-10},{48,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      points={{40,-40},{48,-40},{48,-10},{47.3333,-10}},
+      color={0,127,255}));
   connect(vol.ports[2], fan.port_a) annotation (Line(
-      points={{52,-10},{52,-70},{-80,-70},{-80,-40},{-70,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      points={{50,-10},{50,-70},{-80,-70},{-80,-40},{-70,-40}},
+      color={0,127,255}));
+  connect(bou.ports[1], vol.ports[3]) annotation (Line(
+      points={{70,-20},{52,-20},{52,-10},{52.6667,-10}},
+      color={0,127,255}));
   annotation ( Documentation(info="<html>
 <p>
 This partial model is used to construct the models
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.AirHeater_T\">
-Annex60.Fluid.HeatExchangers.Examples.AirHeater_T</a>,
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.AirHeater_u\">
-Annex60.Fluid.HeatExchangers.Examples.AirHeater_u</a>,
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.WaterHeater_T\">
-Annex60.Fluid.HeatExchangers.Examples.WaterHeater_T</a>,
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.WaterHeater_u\"> and
-Annex60.Fluid.HeatExchangers.Examples.WaterHeater_u</a>.
-It consists of a volume with heat loss to the ambient,
-a fan or pump,
-a set point for the temperature of the volume and a PI controller.
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.Heater_T\">
+Annex60.Fluid.HeatExchangers.Examples.Heater_T</a>
+and
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.Examples.Heater_u\">
+Annex60.Fluid.HeatExchangers.Examples.Heater_u</a>.
+It consists of an air volume with heat loss to the ambient,
+a fan,
+a set point for the room air temperature and a PI controller.
+</p>
+<p>
+The instance <code>bou</code> is required to set a reference pressure
+for system models in which the air is modelled as an incompressible fluid.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-March 16, 2015, by Michael Wetter:<br/>
-Removed expansion vessel, as OpenModelica fails to solve for the initial conditions
-with an error <pre>
-vol.dynBal.medium.p = bou.p_start;
-vol.dynBal.medium.p = 101325.0
-</pre>.
-This is for issue <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/188\">188</a>.
-</li>
 <li>
 November 12, 2014, by Michael Wetter:<br/>
 First implementation.

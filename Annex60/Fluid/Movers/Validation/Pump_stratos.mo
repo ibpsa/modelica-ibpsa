@@ -14,17 +14,15 @@ model Pump_stratos "Stratos pumps with speed as input"
       redeclare package Medium = Medium,
       filteredSpeed=false,
       per=per));
-  parameter Data.Pumps.Stratos25slash1to6 per
+  parameter Data.Pumps.Wilo.Stratos25slash1to6 per
     annotation (Placement(transformation(extent={{100,100},{120,120}})));
 equation
   connect(gain.y, floMacSta.Nrpm) annotation (Line(
       points={{-25,100},{30,100},{30,92}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(gain.y, floMacDyn.Nrpm) annotation (Line(
       points={{-25,100},{10,100},{10,30},{30,30},{30,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{160,

@@ -1,5 +1,5 @@
 within Annex60.Fluid.Actuators.Valves;
-model TwoWayTable "Two way valve with linear flow characteristics"
+model TwoWayTable "Two way valve with table-specified flow characteristics"
   extends BaseClasses.PartialTwoWayValveKv(
     phi=phiLooUp.y[1],
     final l = phiLooUp.table[1, 2]);
@@ -40,8 +40,7 @@ initial equation
 equation
   connect(phiLooUp.u[1], y_actual) annotation (Line(
       points={{68,70},{50,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (
     defaultComponentName="val",
     Documentation(info="<html>
@@ -154,15 +153,9 @@ First implementation.
           extent={{-12,-11},{12,11}},
           radius=5.0),
         Line(
-          points={{-70,94},{-70,72}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{-70,94},{-70,72}}),
         Line(
-          points={{-82,86},{-58,86}},
-          color={0,0,0},
-          smooth=Smooth.None),
+          points={{-82,86},{-58,86}}),
         Line(
-          points={{-82,78},{-58,78}},
-          color={0,0,0},
-          smooth=Smooth.None)}));
+          points={{-82,78},{-58,78}})}));
 end TwoWayTable;
