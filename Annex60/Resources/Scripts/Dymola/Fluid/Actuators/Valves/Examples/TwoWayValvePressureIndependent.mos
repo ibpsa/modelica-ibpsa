@@ -1,4 +1,4 @@
-simulateModel("Annex60.Fluid.Actuators.Valves.Examples.TwoWayValvePressureIndependent", method="dassl", resultFile="TwoWayValvePressureIndependent");
+simulateModel("Annex60.Fluid.Actuators.Valves.Examples.TwoWayValvePressureIndependent", stopTime=2, method="dassl", resultFile="TwoWayValvePressureIndependent");
 removePlots();
 createPlot(id=1,
 y={"valInd.m_flow", "valIndDpFix.m_flow", "valIndFromMflow.m_flow"},
