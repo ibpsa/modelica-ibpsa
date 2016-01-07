@@ -61,7 +61,9 @@ Otherwise, it uses dry buld temperature, dew point temperature and opaque sky co
 <ul>
 <li>
 January 6, 2016, by Moritz Lauster:<br/>
-Changed unit and comment of input <code>nOpa</code> for correct display of units in weaBus and input <code>radHorIR</code> to <code>HHorIR</code> for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">#376</a>.
+Changed unit and comment of input <code>nOpa</code> for correct display of units
+in <code>weaBus</code> and input <code>radHorIR</code> to <code>HHorIR</code>
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">#376</a>.
 </li>
 <li>
 May 5, 2015, by Filip Jorissen:<br/>
