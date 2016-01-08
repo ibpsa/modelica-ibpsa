@@ -34,7 +34,7 @@ equation
         m_flow=homotopy(actual=m_flow_set + (Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
                                   dp=dp,
                                   k=k,
-                                  m_flow_turbulent=m_flow_turbulent)-m_flow_set)/sqrt(max(1+(dp-dp_min)/dp_min/l2,1)),
+                                  m_flow_turbulent=m_flow_turbulent)-m_flow_set)/sqrt(min(1/l2,max(1+(dp-dp_min)/dp_min/l2,1))),
                           simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
 
      else
