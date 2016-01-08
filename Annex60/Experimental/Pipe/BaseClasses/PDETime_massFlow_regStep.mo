@@ -1,9 +1,10 @@
 within Annex60.Experimental.Pipe.BaseClasses;
-model PDETime_massFlow "Delay time for given normalized velocity"
+model PDETime_massFlow_regStep "Delay time for given normalized velocity"
 
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.RealOutput tau "Time delay" annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.Length diameter=0.05 "diameter of pipe";
   parameter Modelica.SIunits.Density rho=1000 "Standard density of fluid";
@@ -16,7 +17,7 @@ model PDETime_massFlow "Delay time for given normalized velocity"
   Modelica.SIunits.Length x(start=0)
     "Spatial coordiante for spatialDistribution operator";
   Modelica.SIunits.Velocity v "Fluid velocity";
-  Modelica.Blocks.Interfaces.RealOutput tau "Time delay"
+  Modelica.Blocks.Interfaces.RealOutput y=tau "Time delay"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   Boolean zeroPeriod "true if the mass flow rate is quasi 0";
   Boolean NonZeroPeriod "true if the flow velocity is >epsilon or <-epsilon";
@@ -77,8 +78,8 @@ equation
     trackEnd = pre(track);
   end when;
 
-  tau_a_lim = max(trackEnd,max(track,tau_a));
-  tau_b_lim = max(trackEnd,max(track,tau_b));
+  tau_a_lim = Modelica.Fluid.Utilities.regStep(trackEnd-Modelica.Fluid.Utilities.regStep(track-tau_a,track,tau_a),trackEnd,Modelica.Fluid.Utilities.regStep(track-tau_a,track,tau_a));
+  tau_b_lim = Modelica.Fluid.Utilities.regStep(trackEnd-Modelica.Fluid.Utilities.regStep(track-tau_b,track,tau_b),trackEnd,Modelica.Fluid.Utilities.regStep(track-tau_b,track,tau_b));
   tau_a = time-time_out_a;
   tau_b = time-time_out_b;
 
@@ -139,4 +140,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PDETime_massFlow;
+end PDETime_massFlow_regStep;

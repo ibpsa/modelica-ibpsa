@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLoss_PipeDelay
+model PipeHeatLoss_PipeDelay2
   "Pipe model using spatialDistribution for temperature delay with heat losses modified and one delay operator at pipe level"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
@@ -11,6 +11,7 @@ model PipeHeatLoss_PipeDelay
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
+  final parameter Modelica.SIunits.Time tau_char=R*C;
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
@@ -90,71 +91,83 @@ public
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,100})));
-  BaseClasses.HeatLossPipeDelay reverseHeatLoss(
-    redeclare package Medium = Medium,
-    diameter=diameter,
-    length=length,
-    thicknessIns=thicknessIns,
-    C=C,
-    R=R,
-    m_flow_small=m_flow_small)
-    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 
-  BaseClasses.HeatLossPipeDelay heatLoss(
-    redeclare package Medium = Medium,
-    diameter=diameter,
-    length=length,
-    thicknessIns=thicknessIns,
-    C=C,
-    R=R,
-    m_flow_small=m_flow_small)
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  BaseClasses.PDETime_massFlow pDETime_massFlow(diameter=diameter, length=
-        length)
-    annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
-  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow pDETime_massFlow1(diameter=diameter, length=
-        length)
-    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
-  BaseClasses.PDETime_massFlow_regStep pDETime_massFlow_regStep(length=length,
-      diameter=diameter)
+  BaseClasses.PDETime_massFlow tau(diameter=diameter, length=length)    annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
+  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
+  BaseClasses.PDETime_massFlow tau1(diameter=diameter, length=length)
+    annotation (Placement(transformation(extent={{-26,-80},{-6,-60}})));
+  BaseClasses.PDETime_massFlow_regStep tau2(length=length, diameter=diameter)
     annotation (Placement(transformation(extent={{-10,-108},{10,-88}})));
+  Fluid.HeatExchangers.HeaterCooler_T hea(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
+    dp_nominal=0)
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Fluid.HeatExchangers.HeaterCooler_T hea1(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
+    dp_nominal=0)
+    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=T_amb + (senTema.T -
+        T_amb)*Modelica.Math.exp(-taus.y/tau_char))
+    annotation (Placement(transformation(extent={{-80,40},{0,60}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=T_amb + (senTemb.T
+         - T_amb)*Modelica.Math.exp(-taus.y/tau_char))
+    annotation (Placement(transformation(extent={{-80,60},{0,80}})));
+  Fluid.Sensors.Temperature senTema(redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+  Fluid.Sensors.Temperature senTemb(redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{14,22},{34,42}})));
+  Modelica.Blocks.Sources.RealExpression taus(y=if tau.zeroPeriod then tau.tau_b_lim
+         else tau.tau)
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 equation
+
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
-  connect(port_a, reverseHeatLoss.port_b)
-    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
-  connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
-  connect(port_b, heatLoss.port_b)
-    annotation (Line(points={{100,0},{60,0}},        color={0,127,255}));
-  connect(T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{0,100},{0,100},
-          {0,54},{0,40},{-70,40},{-70,10}}, color={0,0,127}));
-  connect(heatLoss.T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{50,10},
-          {50,40},{-70,40},{-70,10}}, color={0,0,127}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
     annotation (Line(points={{-10,0},{-18,0},{-24,0}},
                                                color={0,127,255}));
-  connect(senMasFlo.port_a, reverseHeatLoss.port_a)
-    annotation (Line(points={{-44,0},{-52,0},{-60,0}},
-                                               color={0,127,255}));
-  connect(senMasFlo.m_flow, pDETime_massFlow.m_flow)
+  connect(senMasFlo.m_flow, tau.m_flow)
     annotation (Line(points={{-34,-11},{-34,-42},{-12,-42}}, color={0,0,127}));
-  connect(senMasFlo.m_flow, pDETime_massFlow1.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-70},{-12,-70}},
+  connect(senMasFlo.m_flow, tau1.m_flow) annotation (Line(
+      points={{-34,-11},{-34,-70},{-28,-70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senMasFlo.m_flow, pDETime_massFlow_regStep.m_flow) annotation (Line(
+  connect(senMasFlo.m_flow, tau2.m_flow) annotation (Line(
       points={{-34,-11},{-34,-98},{-12,-98}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pDETime_massFlow_regStep.tau, heatLoss.tau) annotation (Line(
-      points={{11,-98},{20,-98},{20,24},{42,24},{42,10},{44,10}},
+  connect(hea.port_b, port_b) annotation (Line(
+      points={{60,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pipeAdiabaticPlugFlow.port_b, hea.port_a) annotation (Line(
+      points={{10,0},{40,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hea1.port_a, senMasFlo.port_a) annotation (Line(
+      points={{-60,0},{-44,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_a, hea1.port_b) annotation (Line(
+      points={{-100,0},{-80,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTema.port, senMasFlo.port_a) annotation (Line(
+      points={{-90,20},{-44,20},{-44,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTemb.port, hea.port_a) annotation (Line(
+      points={{24,22},{28,22},{28,0},{40,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(realExpression.y, hea.TSet) annotation (Line(
+      points={{4,50},{6,50},{6,6},{38,6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pDETime_massFlow_regStep.tau, reverseHeatLoss.tau) annotation (Line(
-      points={{11,-98},{20,-98},{20,30},{-64,30},{-64,10}},
+  connect(realExpression1.y, hea1.TSet) annotation (Line(
+      points={{4,70},{16,70},{16,28},{-58,28},{-58,6}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -219,4 +232,4 @@ First implementation.
 <p>This setup is meant as a benchmark for more sophisticated implementations. It seems to generally work ok except for the cooling effects on the standing fluid in case of zero mass flow.</p>
 <p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used before and after the time delay.</p>
 </html>"));
-end PipeHeatLoss_PipeDelay;
+end PipeHeatLoss_PipeDelay2;

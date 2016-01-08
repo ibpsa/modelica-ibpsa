@@ -44,15 +44,16 @@ public
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-60,100})));
+
 equation
-  dp = 0;
+dp = 0;
 
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = Tout_b*cp_default;
 
-  // Heat losses
-  Tin_a = inStream(port_a.h_outflow)/cp_default;
-  Tout_b = T_amb + (Tin_a - T_amb)*Modelica.Math.exp(-tau/tau_char);
+// Heat losses
+   Tin_a = inStream(port_a.h_outflow)/cp_default;
+   Tout_b = T_amb + (Tin_a - T_amb)*Modelica.Math.exp(-tau/tau_char);
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -84,6 +85,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end HeatLossPipeDelay;

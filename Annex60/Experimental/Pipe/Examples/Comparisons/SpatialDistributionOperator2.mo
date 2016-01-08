@@ -14,7 +14,6 @@ model SpatialDistributionOperator2
   Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{122,-34},{142,-14}})));
 
-
   Modelica.Blocks.Sources.Step stepT(
     height=10,
     offset=273.15 + 20,
@@ -52,7 +51,7 @@ model SpatialDistributionOperator2
             {104,56}})));
   Modelica.Blocks.Sources.Constant const1(k=5)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay
+  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay2
                                                 A60PipeHeatLossMod1(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
