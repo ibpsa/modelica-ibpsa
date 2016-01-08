@@ -3,8 +3,6 @@ ExponentialDecay
 PDETime
 PDETime_modified
 HeatLossMod
-HeatLossMod2
 HeatLossMod_noAbs
-HeatLossPipeDelay
 PDETime_massFlow1
 PDETime_massFlow_regStep
