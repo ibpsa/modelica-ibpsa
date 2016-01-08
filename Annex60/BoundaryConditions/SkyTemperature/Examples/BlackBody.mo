@@ -34,7 +34,7 @@ equation
       points={{10,10},{24,10},{24,18},{38,18}},
       color={255,204,51},
       thickness=0.5));
-  connect(weaBus.radHorIR, TBlaSky.HHorIR) annotation (Line(
+  connect(weaBus.HHorIR, TBlaSky.HHorIR) annotation (Line(
       points={{10,10},{24,10},{24,2},{38,2}},
       color={255,204,51},
       thickness=0.5), Text(
@@ -64,5 +64,7 @@ First implementation.
 </html>"),
 experiment(StopTime=86400),
     __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/SkyTemperature/Examples/BlackBody.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end BlackBody;
