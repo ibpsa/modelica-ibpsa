@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLoss_PipeDelay1
+model PipeHeatLoss_PipeDelayMod
   "Pipe model using spatialDistribution for temperature delay with heat losses modified and one delay operator at pipe level"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
@@ -109,17 +109,20 @@ public
     R=R,
     m_flow_small=m_flow_small)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  BaseClasses.PDETime_massFlow1 pDETime_massFlow(diameter=diameter, length=
-        length)
-    annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow1 pDETime_massFlow1(diameter=diameter, length=
+  BaseClasses.PDETime_massFlowMod tau_unused_maxClause(diameter=diameter,
+      length=length)
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+  BaseClasses.PDETime_massFlow_regStep tau_used(length=length, diameter=
+        diameter)
+    annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
+  BaseClasses.PDETime_massFlowMod tau_unused_regStep(diameter=diameter, length=
         length)
-    annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
-  BaseClasses.PDETime_massFlow_regStep pDETime_massFlow_regStep(length=length,
-      diameter=diameter)
-    annotation (Placement(transformation(extent={{-10,-108},{10,-88}})));
+    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
+  BaseClasses.PDETime_massFlow_regStep tau_used_regStep(length=length, diameter
+      =diameter)
+    annotation (Placement(transformation(extent={{24,-80},{44,-60}})));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
@@ -139,22 +142,28 @@ equation
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
     annotation (Line(points={{-44,0},{-52,0},{-60,0}},
                                                color={0,127,255}));
-  connect(senMasFlo.m_flow, pDETime_massFlow.m_flow)
-    annotation (Line(points={{-34,-11},{-34,-42},{-12,-42}}, color={0,0,127}));
-  connect(senMasFlo.m_flow, pDETime_massFlow1.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-70},{-12,-70}},
+  connect(senMasFlo.m_flow, tau_unused_maxClause.m_flow) annotation (Line(
+      points={{-34,-11},{-34,-40},{-22,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senMasFlo.m_flow, pDETime_massFlow_regStep.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-98},{-12,-98}},
+  connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
+      points={{-34,-11},{-34,-54},{0,-54}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pDETime_massFlow_regStep.tau, heatLoss.tau) annotation (Line(
-      points={{11,-98},{20,-98},{20,24},{42,24},{42,10},{44,10}},
+  connect(tau_used.tau, reverseHeatLoss.tau) annotation (Line(
+      points={{23,-54},{28,-54},{28,32},{-64,32},{-64,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pDETime_massFlow_regStep.tau, reverseHeatLoss.tau) annotation (Line(
-      points={{11,-98},{20,-98},{20,30},{-64,30},{-64,10}},
+  connect(senMasFlo.m_flow, tau_unused_regStep.m_flow) annotation (Line(
+      points={{-34,-11},{-34,-90},{-22,-90}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(senMasFlo.m_flow, tau_used_regStep.m_flow) annotation (Line(
+      points={{-34,-11},{-34,-70},{22,-70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(tau_used_regStep.tau, heatLoss.tau) annotation (Line(
+      points={{45,-70},{54,-70},{54,-22},{34,-22},{34,24},{44,24},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -219,4 +228,4 @@ First implementation.
 <p>This setup is meant as a benchmark for more sophisticated implementations. It seems to generally work ok except for the cooling effects on the standing fluid in case of zero mass flow.</p>
 <p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used before and after the time delay.</p>
 </html>"));
-end PipeHeatLoss_PipeDelay1;
+end PipeHeatLoss_PipeDelayMod;

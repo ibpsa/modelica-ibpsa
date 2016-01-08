@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.BaseClasses;
-model HeatLossMod2 "Heat loss model for pipe"
+model HeatLossMod_epsilon "Heat loss model for pipe"
   extends Fluid.Interfaces.PartialTwoPortTransport;
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
@@ -105,4 +105,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})));
-end HeatLossMod2;
+end HeatLossMod_epsilon;

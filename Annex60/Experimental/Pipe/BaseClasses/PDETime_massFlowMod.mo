@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.BaseClasses;
-model PDETime_massFlow1 "Delay time for given normalized velocity"
+model PDETime_massFlowMod "Delay time for given normalized velocity"
 
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow of fluid" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -139,4 +139,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PDETime_massFlow1;
+end PDETime_massFlowMod;

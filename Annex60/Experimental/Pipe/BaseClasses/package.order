@@ -1,21 +1,15 @@
-HeatLoss
 ExponentialDecay
 PDETime
-PDETime_modified
-PDETime_massFlow
 DiffTime_onedirection
 DiffTime_modified
-HeatLossMod
-<<<<<<< HEAD
-HeatLossMod_noAbs
-PDETime_massFlow1
+PDETime_massFlow
+PDETime_massFlowMod
 PDETime_massFlow_regStep
-=======
-HeatLossDouble
-HeatLossMod2
-HeatLossMod_noAbs
 PartialFourPort
+HeatLoss
+HeatLossMod_noAbs
+HeatLossDouble
+HeatLossMod_epsilon
 HeatLossPipeDelay
-DoublePipeConfig
 HeatLossDoublePipeDelay
->>>>>>> Bram_annex60/issue264_pipe
+DoublePipeConfig

@@ -1,24 +1,16 @@
 PipeLosslessPlugFlow
 PipeAdiabaticPlugFlow
 PipeHeatLossA60Ref
-PipeHeatLossKUL
-PipeHeatLossKUL_modified
-PipeHeatLossKUL_Reverse
-PipeHeatLossA60Mod
-DoublePipe
 PipeHeatLossA60Mod_noAbs
-PipeHeatLossA60Mod2
-<<<<<<< HEAD
+PipeHeatLossA60Mod_epsilon
+PipeHeatLossKUL
+PipeHeatLoss_PipeDelay
+PipeHeatLoss_PipeDelayMod
+DoublePipe
+DoublePipe_PipeDelay
 spatialDistributionOneDirection
 spatialDistributionTwoDirections
-spatialDist_testBothDirections_andTrack
 spatialDistributionTwoDirectionsAndTrack
-PipeHeatLoss_PipeDelay1
-PipeHeatLoss_PipeDelay2
-=======
-PipeHeatLoss_PipeDelay
-DoublePipe_PipeDelay
->>>>>>> Bram_annex60/issue264_pipe
 BaseClasses
 Examples
 Data
