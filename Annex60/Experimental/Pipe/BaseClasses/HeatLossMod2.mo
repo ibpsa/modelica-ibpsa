@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe.BaseClasses;
-model HeatLossMod_noAbs "Heat loss model for pipe"
+model HeatLossMod2 "Heat loss model for pipe"
   extends Fluid.Interfaces.PartialTwoPortTransport;
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
@@ -14,6 +14,9 @@ model HeatLossMod_noAbs "Heat loss model for pipe"
   parameter Modelica.SIunits.Area A_cross = Modelica.Constants.pi * diameter * diameter / 4
     "Cross sectional area";
 
+  Boolean vBoolean;
+  Real epsilon;
+  Real flat_v;
   parameter Types.ThermalCapacityPerLength C;
   parameter Types.ThermalResistanceLength R;
   final parameter Modelica.SIunits.Time tau_char=R*C;
@@ -53,12 +56,25 @@ equation
   port_b.h_outflow = Tout_b * cp_default;
 
   // Time delay
-  der(x) = v;
+  epsilon = 1000000*Modelica.Constants.eps;
+  if v  >= -epsilon then
+    vBoolean = true;
+  else
+    vBoolean = false;
+  end if;
+
+  if abs(v) >= epsilon then
+    flat_v = v;
+  else
+    flat_v = 0;
+  end if;
+
+  der(x) = flat_v;
   v = (V_flow / A_cross);
   (, time_out_b) = spatialDistribution(time,
                                        time,
                                        x/length,
-                                       v>=0,
+                                       vBoolean,
                                        {0.0, 1.0},
                                        {0.0, 0.0});
   tau = max(0,time - time_out_b);
@@ -86,5 +102,7 @@ September, 2015 by Marcus Fuchs:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
-end HeatLossMod_noAbs;
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
+end HeatLossMod2;

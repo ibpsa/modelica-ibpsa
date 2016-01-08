@@ -41,8 +41,8 @@ model PipeHeatLossA60Mod2
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  parameter Modelica.SIunits.ThermalConductivity R = 1 / (lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2+thicknessIns)/(diameter/2)));
-  final parameter Real C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
+  parameter Types.ThermalResistanceLength R = 1 / (lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2+thicknessIns)/(diameter/2)));
+  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
 
