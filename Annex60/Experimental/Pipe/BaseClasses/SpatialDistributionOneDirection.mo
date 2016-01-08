@@ -1,5 +1,5 @@
-within Annex60.Experimental.Pipe;
-model spatialDistributionOneDirection
+within Annex60.Experimental.Pipe.BaseClasses;
+model SpatialDistributionOneDirection
 
   parameter Modelica.SIunits.Length length "Pipe length";
   Modelica.SIunits.Time time_out_b "Virtual time after delay at port b";
@@ -33,4 +33,4 @@ equation
 Simple model to test the <code>spatialDistribution</code> operator in one direction
 </p>
 </html>"));
-end spatialDistributionOneDirection;
+end SpatialDistributionOneDirection;

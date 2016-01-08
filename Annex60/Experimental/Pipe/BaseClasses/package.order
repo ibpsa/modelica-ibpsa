@@ -13,3 +13,6 @@ HeatLossMod_epsilon
 HeatLossPipeDelay
 HeatLossDoublePipeDelay
 DoublePipeConfig
+SpatialDistributionOneDirection
+SpatialDistributionTwoDirections
+SpatialDistributionTwoDirectionsAndTrack

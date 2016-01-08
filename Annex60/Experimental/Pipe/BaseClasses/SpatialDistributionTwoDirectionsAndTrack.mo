@@ -1,5 +1,5 @@
-within Annex60.Experimental.Pipe;
-model spatialDistributionTwoDirectionsAndTrack
+within Annex60.Experimental.Pipe.BaseClasses;
+model SpatialDistributionTwoDirectionsAndTrack
 
   parameter Modelica.SIunits.Length length "Pipe length";
   Modelica.SIunits.Time time_out_a "Virtual time after delay at port a";
@@ -94,4 +94,4 @@ equation
 Model to test the <code>spatialDistribution</code> operator in two directions together with different <code>when</code> and <code>if</code> clauses to first, calculate duration time of the zero mass flow rate periods and second, use this information to lower limit the values of the delay <code>tau</code>.
 </p>
 </html>"));
-end spatialDistributionTwoDirectionsAndTrack;
+end SpatialDistributionTwoDirectionsAndTrack;

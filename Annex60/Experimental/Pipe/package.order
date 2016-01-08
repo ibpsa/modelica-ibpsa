@@ -8,9 +8,6 @@ PipeHeatLoss_PipeDelay
 PipeHeatLoss_PipeDelayMod
 DoublePipe
 DoublePipe_PipeDelay
-spatialDistributionOneDirection
-spatialDistributionTwoDirections
-spatialDistributionTwoDirectionsAndTrack
 BaseClasses
 Examples
 Data

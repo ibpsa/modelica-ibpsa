@@ -74,22 +74,22 @@ model SpatialDistributionOperator
   Annex60.Fluid.Sensors.MassFlowRate masFloA1( redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 temperature delay"
     annotation (Placement(transformation(extent={{78,-26},{98,-6}})));
-  Annex60.Experimental.Pipe.spatialDistributionOneDirection
+  Annex60.Experimental.Pipe.BaseClasses.SpatialDistributionOneDirection
     spatialDist_test_Reverse(length=length)
     annotation (Placement(transformation(extent={{-80,-60},{-40,-40}})));
   Modelica.Blocks.Sources.RealExpression v_reverse(y=-PipeDelayMod2.tau_used.v)
     "Atmospheric pressure"
     annotation (Placement(transformation(extent={{-200,-60},{-120,-40}})));
-  Annex60.Experimental.Pipe.spatialDistributionOneDirection spatialDist_test(
-      length=length)
+  Annex60.Experimental.Pipe.BaseClasses.SpatialDistributionOneDirection
+    spatialDist_test(length=length)
     annotation (Placement(transformation(extent={{-80,-80},{-40,-60}})));
   Modelica.Blocks.Sources.RealExpression v(y=PipeDelayMod2.tau_used.v)
     "Atmospheric pressure"
     annotation (Placement(transformation(extent={{-200,-80},{-120,-60}})));
-  Annex60.Experimental.Pipe.spatialDistributionTwoDirections
+  Annex60.Experimental.Pipe.BaseClasses.SpatialDistributionTwoDirections
     spatialDist_testBothDirections(length=length)
     annotation (Placement(transformation(extent={{-82,-110},{-22,-90}})));
-  Annex60.Experimental.Pipe.spatialDistributionTwoDirectionsAndTrack
+  Annex60.Experimental.Pipe.BaseClasses.SpatialDistributionTwoDirectionsAndTrack
     spatialDist_testBothDirections_andTrack(length=length)
     annotation (Placement(transformation(extent={{-80,-140},{-20,-120}})));
   Annex60.Fluid.Sources.Boundary_pT sou2(          redeclare package Medium =

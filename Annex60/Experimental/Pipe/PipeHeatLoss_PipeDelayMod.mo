@@ -120,8 +120,8 @@ public
   BaseClasses.PDETime_massFlowMod tau_unused_regStep(diameter=diameter, length=
         length)
     annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
-  BaseClasses.PDETime_massFlow_regStep tau_used_regStep(length=length, diameter
-      =diameter)
+  BaseClasses.PDETime_massFlow_regStep tau_used_regStep(length=length, diameter=
+       diameter)
     annotation (Placement(transformation(extent={{24,-80},{44,-60}})));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
