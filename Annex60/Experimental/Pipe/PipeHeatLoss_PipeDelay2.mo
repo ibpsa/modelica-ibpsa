@@ -92,9 +92,10 @@ public
         rotation=270,
         origin={0,100})));
 
-  BaseClasses.PDETime_massFlow tau(diameter=diameter, length=length)    annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
+  BaseClasses.PDETime_massFlow1 tau(diameter=diameter, length=length)
+    annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium) annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow tau1(diameter=diameter, length=length)
+  BaseClasses.PDETime_massFlow1 tau1(diameter=diameter, length=length)
     annotation (Placement(transformation(extent={{-26,-80},{-6,-60}})));
   BaseClasses.PDETime_massFlow_regStep tau2(length=length, diameter=diameter)
     annotation (Placement(transformation(extent={{-10,-108},{10,-88}})));

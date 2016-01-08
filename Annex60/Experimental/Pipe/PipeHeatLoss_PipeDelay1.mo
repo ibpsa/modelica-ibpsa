@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLoss_PipeDelay
+model PipeHeatLoss_PipeDelay1
   "Pipe model using spatialDistribution for temperature delay with heat losses modified and one delay operator at pipe level"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
@@ -109,12 +109,12 @@ public
     R=R,
     m_flow_small=m_flow_small)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  BaseClasses.PDETime_massFlow pDETime_massFlow(diameter=diameter, length=
+  BaseClasses.PDETime_massFlow1 pDETime_massFlow(diameter=diameter, length=
         length)
     annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow pDETime_massFlow1(diameter=diameter, length=
+  BaseClasses.PDETime_massFlow1 pDETime_massFlow1(diameter=diameter, length=
         length)
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
   BaseClasses.PDETime_massFlow_regStep pDETime_massFlow_regStep(length=length,
@@ -219,4 +219,4 @@ First implementation.
 <p>This setup is meant as a benchmark for more sophisticated implementations. It seems to generally work ok except for the cooling effects on the standing fluid in case of zero mass flow.</p>
 <p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used before and after the time delay.</p>
 </html>"));
-end PipeHeatLoss_PipeDelay;
+end PipeHeatLoss_PipeDelay1;

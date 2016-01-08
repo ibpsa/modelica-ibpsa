@@ -112,8 +112,7 @@ model SpatialDistributionOperator
             {108,166}})));
   Modelica.Blocks.Sources.Constant const1(k=5)
     annotation (Placement(transformation(extent={{-12,178},{8,198}})));
-  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay
-                                                A60PipeHeatLossMod1(
+  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay1 A60PipeHeatLossMod1(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
