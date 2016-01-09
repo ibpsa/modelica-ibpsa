@@ -14,6 +14,8 @@ protected
   Modelica.SIunits.Pressure dp_min
     "Minimum dp required for delivering requested mass flow rate";
 
+  Modelica.SIunits.MassFlowRate m_flow_cor "Correction for mass flow rate";
+  Modelica.SIunits.Pressure dp_cor "Correction for dp";
 equation
   m_flow_set = m_flow_nominal*phi;
 
@@ -29,28 +31,47 @@ equation
    k = kVal;
  end if;
 
+ // Compute the correction in mass flow rate or pressure drop
+ // for the situation where the pressure is not sufficiently large.
+ // For too large pressure, this correction increases the flow rate slightly
+ // to avoid zero derivative of the mass flow rate vs. the pressure drop.
+ if from_dp then
+   m_flow_cor = (m_flow_set- Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                               dp=dp,
+                               k=k,
+                               m_flow_turbulent=m_flow_turbulent))
+                  /sqrt(min(1/l2,max(1+(dp-dp_min)/dp_min/l2,1)));
+   dp_cor     = 0;
+ else
+   m_flow_cor = 0;
+   // fixme: m_flow_cor uses min(...,(max(..., ...)), whereas
+   //        dp_cor only uses max(..., ...).
+   //        If one is the inverse implementation of the other, you need to explain
+   //        why one needs limits, but not the other.
+   //        I suggest you update the implementation notes and explain there your
+   //        implementation. Otherwise I don't understand what you wanted to achieve,
+   //        what is implemented, and what the (now wrong/outdated) model documentation says to the user.
+   dp_cor     = (dp_min-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                               m_flow=m_flow,
+                               k=k,
+                               m_flow_turbulent=m_flow_turbulent))
+                 *(max(1+(m_flow-m_flow_set)/m_flow_set/l2,1));
+ end if;
+
  if homotopyInitialization then
    if from_dp then
-      m_flow=homotopy(actual=m_flow_set -
-                             (m_flow_set- Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp,k=k,m_flow_turbulent=m_flow_turbulent))
-                             /sqrt(min(1/l2,max(1+(dp-dp_min)/dp_min/l2,1))),
-                        simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+      m_flow=homotopy(actual=m_flow_set-m_flow_cor,
+                      simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
 
    else
-      dp=homotopy(actual=dp_min -
-                          (dp_min-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent))
-                          *(max(1+(m_flow-m_flow_set)/m_flow_set/l2,1)),
-                    simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+      dp=homotopy(actual=dp_min-dp_cor,
+                  simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
    end if;
  else // do not use homotopy
    if from_dp then
-     m_flow=m_flow_set -
-            (m_flow_set- Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp,k=k,m_flow_turbulent=m_flow_turbulent))
-            /sqrt(min(1/l2,max(1+(dp-dp_min)/dp_min/l2,1)));
+     m_flow=m_flow_set-m_flow_cor;
     else
-      dp=dp_min -
-         (dp_min-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent))
-         *(max(1+(m_flow-m_flow_set)/m_flow_set/l2,1));
+      dp=dp_min-dp_cor;
     end if;
   end if; // homotopyInitialization
   annotation (defaultComponentName="val",

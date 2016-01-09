@@ -35,9 +35,9 @@ model TwoWayValvePressureIndependent
              annotation (Placement(transformation(extent={{-10,30},{10,50}})));
     Modelica.Blocks.Sources.Ramp dp(
     duration=1,
-    startTime=1,
     offset=303000,
-    height=12000) "Pressure ramp"
+    height=12000,
+    startTime=1) "Pressure ramp"
                  annotation (Placement(transformation(extent={{-100,-2},{-80,18}})));
   TwoWayPressureIndependent valIndDpFix(
     redeclare package Medium = Medium,
