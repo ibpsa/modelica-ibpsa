@@ -29,30 +29,30 @@ equation
    k = kVal;
  end if;
 
-   if homotopyInitialization then
-     if from_dp then
-        m_flow=homotopy(actual=m_flow_set -
-                               (m_flow_set- Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp,k=k,m_flow_turbulent=m_flow_turbulent))
-                               /sqrt(min(1/l2,max(1+(dp-dp_min)/dp_min/l2,1))),
-                          simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+ if homotopyInitialization then
+   if from_dp then
+      m_flow=homotopy(actual=m_flow_set -
+                             (m_flow_set- Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp,k=k,m_flow_turbulent=m_flow_turbulent))
+                             /sqrt(min(1/l2,max(1+(dp-dp_min)/dp_min/l2,1))),
+                        simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
 
-     else
-        dp=homotopy(actual=dp_min -
-                            (dp_min-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent))
-                            *(max(1+(m_flow-m_flow_set)/m_flow_set/l2,1)),
-                      simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-     end if;
-   else // do not use homotopy
-     if from_dp then
-       m_flow=m_flow_set -
-              (m_flow_set- Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp,k=k,m_flow_turbulent=m_flow_turbulent))
-              /sqrt(min(1/l2,max(1+(dp-dp_min)/dp_min/l2,1)));
-      else
-        dp=dp_min -
-           (dp_min-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent))
-           *(max(1+(m_flow-m_flow_set)/m_flow_set/l2,1));
-      end if;
-    end if; // homotopyInitialization
+   else
+      dp=homotopy(actual=dp_min -
+                          (dp_min-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent))
+                          *(max(1+(m_flow-m_flow_set)/m_flow_set/l2,1)),
+                    simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+   end if;
+ else // do not use homotopy
+   if from_dp then
+     m_flow=m_flow_set -
+            (m_flow_set- Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp,k=k,m_flow_turbulent=m_flow_turbulent))
+            /sqrt(min(1/l2,max(1+(dp-dp_min)/dp_min/l2,1)));
+    else
+      dp=dp_min -
+         (dp_min-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent))
+         *(max(1+(m_flow-m_flow_set)/m_flow_set/l2,1));
+    end if;
+  end if; // homotopyInitialization
   annotation (defaultComponentName="val",
   Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={
