@@ -14,7 +14,7 @@ model TwoWayValvePressureIndependent2
     T=293.15,
     nPorts=1,
     use_m_flow_in=true) "Boundary condition for flow source"
-    annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Annex60.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     p(displayUnit="Pa") = 3E5,
@@ -66,19 +66,19 @@ model TwoWayValvePressureIndependent2
     T=293.15,
     nPorts=1,
     use_m_flow_in=true) "Boundary condition for flow source"
-    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Sources.MassFlowSource_T souValIndFromMflow(
     redeclare package Medium = Medium,
     T=293.15,
     nPorts=1,
     use_m_flow_in=true) "Boundary condition for flow source"
-    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 equation
   connect(valInd.y, y.y) annotation (Line(
       points={{0,52},{0,66},{-20,66},{-20,80},{-39,80}},
       color={0,0,127}));
   connect(souValInd.ports[1], valInd.port_a)
-    annotation (Line(points={{-50,40},{-50,40},{-10,40}}, color={0,127,255}));
+    annotation (Line(points={{-40,40},{-40,40},{-10,40}}, color={0,127,255}));
   connect(valInd.port_b, sin.ports[1]) annotation (Line(
       points={{10,40},{32,40},{32,2.66667},{52,2.66667}},
       color={0,127,255}));
@@ -95,15 +95,17 @@ equation
       points={{-39,80},{-20,80},{-20,-20},{0,-20},{0,-28}},
       color={0,0,127}));
   connect(dp.y, souValInd.m_flow_in)
-    annotation (Line(points={{-79,8},{-70,8},{-70,48}}, color={0,0,127}));
+    annotation (Line(points={{-79,8},{-70,8},{-70,48},{-60,48}},
+                                                        color={0,0,127}));
   connect(dp.y, souValIndDpFix.m_flow_in)
-    annotation (Line(points={{-79,8},{-70,8}}, color={0,0,127}));
+    annotation (Line(points={{-79,8},{-60,8}}, color={0,0,127}));
   connect(souValIndFromMflow.ports[1], valIndFromMflow.port_a) annotation (Line(
-        points={{-50,-40},{-30,-40},{-10,-40}}, color={0,127,255}));
+        points={{-40,-40},{-10,-40}},           color={0,127,255}));
   connect(souValIndDpFix.ports[1], valIndDpFix.port_a)
-    annotation (Line(points={{-50,0},{-50,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-40,0},{-40,0},{-10,0}}, color={0,127,255}));
   connect(souValIndFromMflow.m_flow_in, dp.y)
-    annotation (Line(points={{-70,-32},{-70,8},{-79,8}}, color={0,0,127}));
+    annotation (Line(points={{-60,-32},{-60,-32},{-62,-32},{-70,-32},{-70,8},{
+          -79,8}},                                       color={0,0,127}));
     annotation (experiment(StopTime=2),
 __Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/Fluid/Actuators/Valves/Examples/TwoWayValvePressureIndependent2.mos"
@@ -120,5 +122,14 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+            100,100}}), graphics={Text(
+          extent={{14,84},{36,64}},
+          lineColor={238,46,47},
+          horizontalAlignment=TextAlignment.Left,
+          textString="fixme:
+I don't understand this test.
+You have a ramp dp.y, which says \"Pressure ramp\", 
+but then you use it to set the mass flow rate
+of the mass flow sources?
+What do you want to test with this unit test?")}));
 end TwoWayValvePressureIndependent2;
