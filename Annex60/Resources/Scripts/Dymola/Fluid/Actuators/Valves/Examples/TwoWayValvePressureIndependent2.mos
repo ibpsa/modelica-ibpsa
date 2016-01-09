@@ -1,0 +1,5 @@
+Advanced.StoreProtectedVariables:=true;
+simulateModel("Annex60.Fluid.Actuators.Valves.Examples.TwoWayValvePressureIndependent2", method="dassl", stopTime=2, resultFile="TwoWayValvePressureIndependent2");
+createPlot(id=1, position={0, 0, 1387, 702}, y={"valInd.dp", "valIndDpFix.dp", "valIndFromMflow.dp"}, range={0.0, 2.0, -50000.0, 200000.0}, grid=true, filename="TwoWayValvePressureIndependent2.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={0, 0, 1387, 230}, y={"valInd.m_flow", "valInd.m_flow_set"}, range={0.0, 2.0, -0.2, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+Advanced.StoreProtectedVariables:=false;

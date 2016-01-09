@@ -5,10 +5,8 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
             from_dp=true,
             phi=l + y_actual*(1 - l));
 
-  parameter Real l2(min=1e-10) = 0.01
+  parameter Real l2(min=1e-10) = 0.001
     "Gain for mass flow increase if pressure is above nominal pressure"
-    annotation(Dialog(tab="Advanced"));
-  parameter Real deltax = 0.1 "Transition interval for flow rate"
     annotation(Dialog(tab="Advanced"));
 
 protected
@@ -33,46 +31,26 @@ equation
 
    if homotopyInitialization then
      if from_dp then
-         m_flow=homotopy(actual=Annex60.Utilities.Math.Functions.spliceFunction(
-                            x=dp-dp_min,
-                            pos= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
-                            neg= Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                  dp=dp,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            deltax=dp_nominal_pos*deltax),
-                         simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-     else
+        m_flow=homotopy(actual=m_flow_set -
+                               (m_flow_set- Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp,k=k,m_flow_turbulent=m_flow_turbulent))
+                               /sqrt(min(1/l2,max(1+(dp-dp_min)/dp_min/l2,1))),
+                          simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
 
-         dp=homotopy(actual=Annex60.Utilities.Math.Functions.spliceFunction(
-                            x=m_flow-m_flow_set,
-                            pos= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
-                            neg= Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                  m_flow=m_flow,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            deltax=m_flow_nominal_pos*deltax*l2),
-                     simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+     else
+        dp=homotopy(actual=dp_min -
+                            (dp_min-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent))
+                            *(max(1+(m_flow-m_flow_set)/m_flow_set/l2,1)),
+                      simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
      end if;
    else // do not use homotopy
      if from_dp then
-       m_flow=Annex60.Utilities.Math.Functions.spliceFunction(
-                            x=dp-dp_min,
-                            pos= m_flow_set + l2*(dp-dp_min)/dp_nominal*m_flow_nominal,
-                            neg= Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                  dp=dp,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            deltax=dp_nominal_pos*deltax);
+       m_flow=m_flow_set -
+              (m_flow_set- Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp,k=k,m_flow_turbulent=m_flow_turbulent))
+              /sqrt(min(1/l2,max(1+(dp-dp_min)/dp_min/l2,1)));
       else
-        dp=Annex60.Utilities.Math.Functions.spliceFunction(
-                            x=m_flow-m_flow_set,
-                            pos= dp_min + (m_flow-m_flow_set)/m_flow_nominal*dp_nominal/l2,
-                            neg= Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                  m_flow=m_flow,
-                                  k=k,
-                                  m_flow_turbulent=m_flow_turbulent),
-                            deltax=m_flow_nominal_pos*deltax*l2);
+        dp=dp_min -
+           (dp_min-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow,k=k,m_flow_turbulent=m_flow_turbulent))
+           *(max(1+(m_flow-m_flow_set)/m_flow_set/l2,1));
       end if;
     end if; // homotopyInitialization
   annotation (defaultComponentName="val",
@@ -140,9 +118,8 @@ leakage behaviour of this valve for high pressures.
 It is assumed that the mass flow rate will rise beyond
 the requested mass flow rate <code>y*m_flow_nominal</code>
 if <code>dp &gt; dpValve_nominal+dpFixed_nominal</code>.
-The parameter <code>l2</code> represents the slope
-of this rise:
-<code>d(m_flow)/d(dp) = l2* m_flow_nominal/dp_nominal</code>.
+The parameter <code>l2</code> can be used to control
+the control the magnitude of this leakage.
 In the ideal case <code>l2=0</code>, but
 this may introduce singularities, for instance when
 connecting this component with a fixed mass flow source.
@@ -163,6 +140,12 @@ the result when using <code>from_dp = false</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 7, 2016, by Filip Jorissen:<br/>
+Changed implementation such that <code>dp(m_flow)</code> is strictly
+increasing and has a continuous derivative.
+Removed parameter <code>deltax</code>.
+</li>
 <li>
 January 29, 2015, by Filip Jorissen:<br/>
 First implementation.
