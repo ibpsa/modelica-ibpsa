@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLossA60Mod
+model PipeHeatLossA60Mod_epsilon
   "Pipe model using spatialDistribution for temperature delay with heat losses modified"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
@@ -41,27 +41,26 @@ model PipeHeatLossA60Mod
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  parameter Modelica.SIunits.ThermalConductivity R = 1 / (lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2+thicknessIns)/(diameter/2)));
-  final parameter Real C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
+  parameter Types.ThermalResistanceLength R = 1 / (lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2+thicknessIns)/(diameter/2)));
+  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
 
-  BaseClasses.HeatLossMod heatLossReverse(
+  BaseClasses.HeatLossMod_epsilon heatLossReverse(
     redeclare package Medium = Medium,
     m_flow_small=m_flow_small,
     diameter=diameter,
     length=length,
     thicknessIns=thicknessIns,
     C=C,
-    R=R) "Heat losses for reverse flow"
-                                   annotation (Placement(transformation(
+    R=R) "Heat losses for reverse flow" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-50,0})));
-  BaseClasses.HeatLossMod heatLoss(
+  BaseClasses.HeatLossMod_epsilon heatLoss(
     redeclare package Medium = Medium,
     m_flow_small=m_flow_small,
     diameter=diameter,
@@ -178,4 +177,4 @@ First implementation.
 <p>This setup is meant as a benchmark for more sophisticated implementations. It seems to generally work ok except for the cooling effects on the standing fluid in case of zero mass flow.</p>
 <p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used before and after the time delay.</p>
 </html>"));
-end PipeHeatLossA60Mod;
+end PipeHeatLossA60Mod_epsilon;

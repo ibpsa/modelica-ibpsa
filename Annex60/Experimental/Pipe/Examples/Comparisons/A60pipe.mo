@@ -64,7 +64,8 @@ model A60pipe "Comparison of KUL A60 pipes with heat loss without reverse flow"
   Annex60.Fluid.Sensors.MassFlowRate masFloA60Mod(redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 modified temperature delay"
     annotation (Placement(transformation(extent={{88,70},{108,90}})));
-  Annex60.Experimental.Pipe.PipeHeatLossA60Mod A60PipeHeatLossMod(
+  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay
+                                               A60PipeHeatLossMod(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -83,7 +84,7 @@ model A60pipe "Comparison of KUL A60 pipes with heat loss without reverse flow"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Sources.Constant const3(k=5)
     annotation (Placement(transformation(extent={{-28,96},{-8,116}})));
-  Annex60.Experimental.Pipe.PipeHeatLossA60Mod2 A60PipeHeatLossMod_noabs(
+  Annex60.Experimental.Pipe.PipeHeatLossA60Mod_epsilon A60PipeHeatLossMod_noabs(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -92,7 +93,7 @@ model A60pipe "Comparison of KUL A60 pipes with heat loss without reverse flow"
     thicknessIns=0.02,
     lambdaI=0.01) "Annex 60 modified pipe with heat losses"
     annotation (Placement(transformation(extent={{8,28},{28,48}})));
-  Annex60.Experimental.Pipe.PipeHeatLossA60Mod2 A60PipeHeatLossMod2(
+  Annex60.Experimental.Pipe.PipeHeatLossA60Mod_epsilon A60PipeHeatLossMod2(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
