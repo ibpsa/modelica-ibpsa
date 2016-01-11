@@ -1,7 +1,9 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.Validation;
-model VDI6007TestCase2 "VDI 6007 Test Case 2 model"
+within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
+model TestCase2Star4El
+  "VDI 6007 Test Case 2 model with star network and 4 element model"
 
-  ROM.ThermalZoneTwoElements thermalZoneTwoElements(
+  ROM.Star.ThermalZoneFourElements
+                             thermalZoneTwoElements(
     VAir=52.5,
     alphaExt=2.7,
     alphaWin=2.7,
@@ -22,7 +24,23 @@ model VDI6007TestCase2 "VDI 6007 Test Case 2 model"
     CInt={14836200.63},
     volAir(X_start={0,0}),
     alphaRad=5,
-    T_start=295.15)
+    radExtWallStar(G=min(thermalZoneTwoElements.AExt, thermalZoneTwoElements.AInt)
+          *thermalZoneTwoElements.alphaRad*2),
+    radIntWallStar(G=min(thermalZoneTwoElements.AExt, thermalZoneTwoElements.AInt)
+          *thermalZoneTwoElements.alphaRad*2),
+    T_start=295.15,
+    AFloor=10.5,
+    alphaFloor=2.7,
+    nFloor=1,
+    RFloor={0.004367913},
+    RFloorRem=0.03895919719,
+    CFloor={1600800},
+    ARoof=10.5,
+    alphaRoof=2.7,
+    nRoof=1,
+    RRoof={0.004367913},
+    RRoofRem=0.03895919719,
+    CRoof={1600800})
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
     prescribedTemperature(T=295.15)
@@ -83,6 +101,10 @@ equation
       Line(points={{68,-74},{84,-74},{98,-74},{98,26},{91,26}}, color={191,0,0}));
   connect(thermalZoneTwoElements.intGainsConv, indoorTemp.port)
     annotation (Line(points={{91,19.8},{96,19.8},{96,-16}}, color={191,0,0}));
+  connect(thermalConductorWall.solid, thermalZoneTwoElements.floor) annotation (
+     Line(points={{36,1},{40,1},{40,-20},{66.8,-20},{66.8,-1}}, color={191,0,0}));
+  connect(thermalConductorWall.solid, thermalZoneTwoElements.roof) annotation (
+      Line(points={{36,1},{40,1},{40,46},{66.8,46},{66.8,33}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>
@@ -98,7 +120,8 @@ equation
 <p><br><span style=\"font-family: MS Shell Dlg 2;\">The guideline is also the source of the building physics, orientations, areas, set temperatures and reference values. As global and diffuse radiation are given in the guideline normal to the facades and are here used as normal to the sun, this example cannot be taken for validation. In addition, the calculation core is not configured to be exactly the VDI 6007 core. In this example, the windows are not merged with the exterior walls. The reference values are taken from test case 8. This case doesn&apos;t consider outdoor longwave radiation exchange but this example does. Furthermore, the test case considers sunblinds (closing at 100 w/m2) what is not included in this example. It&apos;s just to show a typical application.</span></p>
 </html>"),
     experiment(
-      StopTime=5.184e+006,
+      StopTime=3.1536e+007,
       Interval=3600,
-      __Dymola_Algorithm="Lsodar"));
-end VDI6007TestCase2;
+      __Dymola_Algorithm="Lsodar"),
+    __Dymola_experimentSetupOutput);
+end TestCase2Star4El;

@@ -1,5 +1,5 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Examples;
-model VDI6007Room8 "Illustrates the use of ThermalZoneTwoElements"
+model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     calTSky=Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
@@ -102,8 +102,8 @@ model VDI6007Room8 "Illustrates the use of ThermalZoneTwoElements"
   Modelica.Blocks.Sources.Constant const[2](each k=0)
     annotation (Placement(transformation(extent={{-20,14},{-14,20}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{-100,-10},{-66,22}}),iconTransformation(extent=
-            {{-176,-8},{-156,12}})));
+        transformation(extent={{-100,-10},{-66,22}}),iconTransformation(extent={{-70,-12},
+            {-50,8}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
 
@@ -224,5 +224,7 @@ equation
 </ul>
 <p><br><span style=\"font-family: MS Shell Dlg 2;\">The guideline is also the source of the building physics, orientations, areas, set temperatures and reference values. As global and diffuse radiation are given in the guideline normal to the facades and are here used as normal to the sun, this example cannot be taken for validation. In addition, the calculation core is not configured to be exactly the VDI 6007 core. In this example, the windows are not merged with the exterior walls. The reference values are taken from test case 8. This case doesn&apos;t consider outdoor longwave radiation exchange but this example does. Furthermore, the test case considers sunblinds (closing at 100 w/m2) what is not included in this example. It&apos;s just to show a typical application.</span></p>
 </html>"),
-    experiment(StopTime=3.1536e+007, Interval=3600));
-end VDI6007Room8;
+    experiment(StopTime=3.1536e+007, Interval=3600),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
+end SimpleRoomTwoElements;

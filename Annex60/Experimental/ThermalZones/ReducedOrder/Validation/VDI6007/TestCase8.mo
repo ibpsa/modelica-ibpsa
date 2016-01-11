@@ -1,5 +1,5 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.Validation;
-model VDI6007TestCase8 "VDI 6007 Test Case 8 model"
+within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
+model TestCase8 "VDI 6007 Test Case 8 model"
 
   Modelica.Blocks.Math.Sum
             aggWindow(nin=2, k={0.5,0.5})
@@ -239,4 +239,4 @@ equation
       StopTime=5.184e+006,
       Interval=3600,
       __Dymola_Algorithm="Lsodar"));
-end VDI6007TestCase8;
+end TestCase8;

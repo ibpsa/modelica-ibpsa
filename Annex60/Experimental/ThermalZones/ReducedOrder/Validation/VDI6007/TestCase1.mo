@@ -1,13 +1,13 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.Validation;
-model VDI6007TestCase1Star "VDI 6007 Test Case 1 model"
+within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
+model TestCase1 "VDI 6007 Test Case 1 model"
 
-  ROM.Star.ThermalZoneTwoElements
-                             thermalZoneTwoElements(
+  ROM.ThermalZoneTwoElements thermalZoneTwoElements(
     VAir=52.5,
     alphaExt=2.7,
     alphaWin=2.7,
     gWin=1,
     nExt=1,
+    alphaRad=5,
     nInt=1,
     AWin=0,
     AExt=10.5,
@@ -21,13 +21,8 @@ model VDI6007TestCase1Star "VDI 6007 Test Case 1 model"
     CExt={1600800},
     RInt={0.000595515},
     CInt={14836200.63},
-    volAir(X_start={0,0}),
-    alphaRad=5,
     T_start=295.15,
-    radExtWallStar(G=min(thermalZoneTwoElements.AExt, thermalZoneTwoElements.AInt)
-          *thermalZoneTwoElements.alphaRad*2),
-    radIntWallStar(G=min(thermalZoneTwoElements.AExt, thermalZoneTwoElements.AInt)
-          *thermalZoneTwoElements.alphaRad*2))
+    volAir(X_start={0,0}))
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
     prescribedTemperature(T=295.15)
@@ -106,4 +101,4 @@ equation
       StopTime=5.184e+006,
       Interval=3600,
       __Dymola_Algorithm="Lsodar"));
-end VDI6007TestCase1Star;
+end TestCase1;
