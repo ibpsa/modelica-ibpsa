@@ -1,8 +1,8 @@
 last-generated=2015-08-05
 statistics-simulation=
 {
-  "numerical Jacobians": "0", 
-  "nonlinear": "0", 
+  "numerical Jacobians": "0",
+  "nonlinear": "0",
   "linear": " "
 }
 m_flow_nominal=[0.5, 0.5]

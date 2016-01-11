@@ -1,13 +1,13 @@
 last-generated=2015-07-17
 statistics-initialization=
 {
-  "numerical Jacobians": "0", 
+  "numerical Jacobians": "0",
   "nonlinear": "1, 1, 1, 1, 1, 1, 1, 1"
 }
 statistics-simulation=
 {
-  "numerical Jacobians": "0", 
-  "nonlinear": " ", 
+  "numerical Jacobians": "0",
+  "nonlinear": " ",
   "linear": " "
 }
 senEnt1.h_out=[53417.265625, 53417.265625]
