@@ -40,7 +40,7 @@ equation
                                dp=dp,
                                k=k,
                                m_flow_turbulent=m_flow_turbulent))
-                  /max(1+(dp-dp_min)/k/dp_min/l2,1)^(1/3);
+                  /max(1+(dp-dp_min)/dp_min/l2,1)^(1/3);
    dp_cor     = 0;
  else
    m_flow_cor = 0;
@@ -51,7 +51,7 @@ equation
                                m_flow=m_flow,
                                k=k,
                                m_flow_turbulent=m_flow_turbulent))
-                 *max(1+(m_flow-m_flow_set)/k/m_flow_set/l2,1);
+                 *max(1+(m_flow-m_flow_set)/m_flow_set/l2,1);
  end if;
 
  if homotopyInitialization then
