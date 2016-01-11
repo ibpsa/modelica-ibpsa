@@ -16,13 +16,13 @@ model TestCase1 "VDI 6007 Test Case 1 model"
     AInt=75.5,
     alphaInt=2.24,
     RWin=0.00000001,
-    RExt={0.004367913},
-    RExtRem=0.03895919719,
-    CExt={1600800},
-    RInt={0.000595515},
-    CInt={14836200.63},
-    T_start=295.15,
-    volAir(X_start={0,0}))
+    volAir(X_start={0,0}),
+    RExt={0.00436791293674},
+    RExtRem=0.03895919557,
+    CExt={1600848.94},
+    RInt={0.000595693407511},
+    CInt={14836354.6282},
+    T_start=295.15)
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
     prescribedTemperature(T=295.15)
