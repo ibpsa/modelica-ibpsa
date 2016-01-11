@@ -40,14 +40,10 @@ equation
                                dp=dp,
                                k=k,
                                m_flow_turbulent=m_flow_turbulent))
-                  /sqrt(min(1/l2,max(1+(dp-dp_min)/dp_min/l2,1)));
+                  /max(1+(dp-dp_min)/k/dp_min/l2,1)^(1/3);
    dp_cor     = 0;
  else
    m_flow_cor = 0;
-   // fixme: m_flow_cor uses min(...,(max(..., ...)), whereas
-   //        dp_cor only uses max(..., ...).
-   //        If one is the inverse implementation of the other, you need to explain
-   //        why one needs limits, but not the other.
    //        I suggest you update the implementation notes and explain there your
    //        implementation. Otherwise I don't understand what you wanted to achieve,
    //        what is implemented, and what the (now wrong/outdated) model documentation says to the user.
@@ -55,7 +51,7 @@ equation
                                m_flow=m_flow,
                                k=k,
                                m_flow_turbulent=m_flow_turbulent))
-                 *(max(1+(m_flow-m_flow_set)/m_flow_set/l2,1));
+                 *max(1+(m_flow-m_flow_set)/k/m_flow_set/l2,1);
  end if;
 
  if homotopyInitialization then
