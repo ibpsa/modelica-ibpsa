@@ -11,7 +11,7 @@ record LumpedVolumeDeclarations "Declarations for lumped volumes"
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Formulation of mass balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  final parameter Modelica.Fluid.Types.Dynamics substanceDynamics=energyDynamics
+  parameter Modelica.Fluid.Types.Dynamics substanceDynamics=energyDynamics
     "Formulation of substance balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   final parameter Modelica.Fluid.Types.Dynamics traceDynamics=energyDynamics
@@ -61,6 +61,12 @@ Annex60.Rooms.BaseClasses.MixedAir</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 11, 2016, by Filip Jorissen:<br/>
+Removed <code>final</code> modifier of <code>substanceDynamics</code>.
+This is for issue
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/390\">#390</a>.
+</li>
 <li>
 October 21, 2014, by Filip Jorissen:<br/>
 Added parameter <code>mFactor</code> to increase the thermal capacity.
