@@ -18,7 +18,7 @@ record PrescribedOutletStateParameters
     "Initial or guess value of set point"
     annotation (Dialog(tab = "Dynamics", group="Initialization"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
-    "Formulation of energy balance"
+    "Type of energy balance: dynamic (3 initialisation options) or static"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   annotation (Documentation(info="<html>
