@@ -29,10 +29,10 @@ model ThermalZoneTwoElements
         extent={{5,-5},{-5,5}},
         rotation=-90,
         origin={138,-59})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntWallRad(G=AInt*
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor radIntWallStar(G=AInt*
         alphaRad) if              AInt > 0
-    "resistor between exterior walls and interior walls"
-    annotation (Placement(transformation(extent={{86,-110},{106,-90}})));
+    "resistor between interior walls and star network"
+    annotation (Placement(transformation(extent={{106,10},{86,30}})));
 equation
   connect(convIntWall.fluid, intGainsConv) annotation (Line(
       points={{128,-38},{128,0},{64,0},{64,38},{230,38}},
@@ -41,10 +41,6 @@ equation
 
   connect(convIntWall.solid, intWallRC.port_a) annotation (Line(
       points={{148,-38},{182.8,-38}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(intWallRC.port_a, resIntWallRad.port_b) annotation (Line(
-      points={{182.8,-38},{168,-38},{168,-100},{106,-100}},
       color={191,0,0},
       smooth=Smooth.None));
   if not AExt > 0 and not AWin > 0 and AInt > 0 then
@@ -68,8 +64,11 @@ equation
   end if;
   connect(alphaIntWall.y, convIntWall.Gc) annotation (Line(points={{138,-53.5},
           {138,-51.75},{138,-51.75},{138,-48}}, color={0,0,127}));
-  connect(resIntWallRad.port_a, temperatureSensor.port) annotation (Line(points=
-         {{86,-100},{42,-100},{0,-100},{0,52},{4,52},{4,60}}, color={191,0,0}));
+  connect(radIntWallStar.port_a, intWallRC.port_a) annotation (Line(points={{106,20},
+          {168,20},{168,-38},{182.8,-38}},     color={191,0,0}));
+  connect(radIntWallStar.port_b, TRadStar.port) annotation (Line(points={{86,20},
+          {76,20},{76,20},{76,44},{16,44},{16,60}},
+                                            color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}}), graphics={
         Polygon(

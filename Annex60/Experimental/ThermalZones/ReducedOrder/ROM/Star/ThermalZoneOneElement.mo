@@ -128,22 +128,22 @@ public
     T_start=T_start) if AExt > 0 "RC-element for exterior walls"
     annotation (Placement(transformation(extent={{-158,-46},{-178,-24}})));
 
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor if ATot > 0
-    annotation (Placement(transformation(extent={{4,50},{24,70}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallRad(G=AExt*
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRadStar if          ATot > 0
+    "radiant star temperature"
+    annotation (Placement(transformation(extent={{16,50},{36,70}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor radExtWallStar(G=AExt*
         alphaRad) if                 AExt > 0
     "resistor between exterior walls and windows" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-38,12})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resWinRad(G=AWin*
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={-30,0})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor radWinStar(G=AWin*
         alphaRad) if                 AWin > 0
-    "resistor between exterior walls and windows" annotation (Placement(
-        transformation(
+    "resistor windows and star network" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-42,64})));
+        origin={-30,64})));
 equation
   connect(volAir.ports, ports) annotation (Line(
       points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-172},{85,-172}},
@@ -230,19 +230,23 @@ equation
           -106,53.7},{-106,48}}, color={0,0,127}));
   connect(alphaExtWallConst.y, convExtWall.Gc) annotation (Line(points={{-104,
           -51.5},{-104,-46},{-104,-46}}, color={0,0,127}));
-  connect(extWallRC.port_a, resExtWallRad.port_b) annotation (Line(points={{-158.6,
-          -36},{-152,-36},{-144,-36},{-144,-4},{-36,-4},{-36,2},{-38,2}}, color=
-         {191,0,0}));
-  connect(resExtWallRad.port_a, temperatureSensor.port) annotation (Line(points=
-         {{-38,22},{-18,22},{-18,60},{4,60}}, color={191,0,0}));
-  connect(resWin.port_b, resWinRad.port_a) annotation (Line(points={{-160,38},{-154,
-          38},{-146,38},{-146,28},{-120,28},{-120,20},{-74,20},{-74,64},{-52,64}},
+  connect(resWin.port_b, radWinStar.port_a) annotation (Line(points={{-160,38},
+          {-154,38},{-146,38},{-146,20},{-120,20},{-74,20},{-74,64},{-40,64}},
         color={191,0,0}));
-  connect(resWinRad.port_b, temperatureSensor.port) annotation (Line(points={{-32,
-          64},{-16,64},{4,64},{4,60}}, color={191,0,0}));
+  connect(radWinStar.port_b, TRadStar.port) annotation (Line(points={{-20,64},{
+          -20,64},{16,64},{16,60}}, color={191,0,0}));
+  connect(radExtWallStar.port_a, convExtWall.solid) annotation (Line(points={{
+          -40,0},{-146,0},{-146,-36},{-114,-36}}, color={191,0,0}));
+  connect(radExtWallStar.port_b, TRadStar.port) annotation (Line(points={{-20,0},
+          {-14,0},{-14,60},{16,60}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}},
         grid={2,2}),  graphics={
+        Rectangle(
+          extent={{-206,78},{-92,22}},
+          lineColor={0,0,255},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-206,174},{-118,115}},
           lineColor={0,0,255},
@@ -265,13 +269,6 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Exterior Walls"),
-        Polygon(
-          points={{-86,25},{-86,79},{-116,79},{-116,78},{-206,78},{-206,25},{-86,
-              25}},
-          lineColor={0,0,255},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-202,80},{-168,62}},
           lineColor={0,0,255},

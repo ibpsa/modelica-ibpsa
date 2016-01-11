@@ -229,6 +229,11 @@ equation
             -180},{240,180}},
         grid={2,2}),  graphics={
         Rectangle(
+          extent={{-206,78},{-92,24}},
+          lineColor={0,0,255},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
           extent={{-206,174},{-118,115}},
           lineColor={0,0,255},
           fillColor={215,215,215},
@@ -250,13 +255,6 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Exterior Walls"),
-        Polygon(
-          points={{-86,25},{-86,79},{-116,79},{-116,78},{-206,78},{-206,25},{-86,
-              25}},
-          lineColor={0,0,255},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-202,80},{-168,62}},
           lineColor={0,0,255},
