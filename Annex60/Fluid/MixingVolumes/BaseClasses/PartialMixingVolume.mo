@@ -69,7 +69,8 @@ protected
     final initialize_p = initialize_p,
     m(start=V*rho_start),
     nPorts=nPorts,
-    final mSenFac=mSenFac) if
+    final mSenFac=mSenFac,
+    final substanceDynamics=substanceDynamics) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
@@ -273,6 +274,12 @@ Annex60.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2016, by Filip Jorissen:<br/>
+Propagated <code>substanceDynamics</code>
+for issue <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/390\">
+#390</a>.
+</li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
 Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
