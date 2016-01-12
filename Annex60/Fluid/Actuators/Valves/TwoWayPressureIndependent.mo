@@ -5,7 +5,7 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
             from_dp=true,
             phi=l + y_actual*(1 - l));
 
-  parameter Real l2(min=1e-10) = 0.001
+  parameter Real l2(min=1e-10) = 0.0001
     "Gain for mass flow increase if pressure is above nominal pressure"
     annotation(Dialog(tab="Advanced"));
 
