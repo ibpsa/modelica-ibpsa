@@ -15,7 +15,7 @@ protected
     "Flag, true if the sensor is a dynamic sensor"
     annotation(Evaluate=true);
   Real mNor_flow "Normalized mass flow rate";
-  final parameter Real tauInv(unit="s-1")= if dynamic then 1/tau else 0
+  final parameter Real tauInv(final unit="s-1")= if dynamic then 1/tau else 0
     "Inverse of tau";
 equation
   if dynamic then
