@@ -1,0 +1,124 @@
+within Annex60.Fluid.Sensors.Examples;
+model PPM "Test model for the extra property sensor outputting PPM"
+  extends Modelica.Icons.Example;
+  package Medium = Annex60.Media.Air(extraPropertiesNames={"CO2"})
+    "Medium model";
+
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = vol.V*senPPMTwoPort.tau*3*rho_default
+    "Mass flow rate into and out of the volume";
+
+  Annex60.Fluid.MixingVolumes.MixingVolume vol(
+    redeclare package Medium = Medium,
+    nPorts=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    V=1,
+    use_C_flow_in=true,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal=m_flow_nominal) "Mixing volume"
+    annotation (Placement(transformation(extent={{74,50}, {94,70}})));
+  Annex60.Fluid.Sources.MassFlowSource_T mSou(
+    redeclare package Medium = Medium,
+    nPorts=2,
+    m_flow=m_flow_nominal) "Fresh air supply"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+  Annex60.Fluid.Sources.FixedBoundary sin(redeclare package Medium = Medium, nPorts=1)
+    "Exhaust air"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+
+  Annex60.Fluid.Sensors.PPM senPPMVol(redeclare package Medium = Medium)
+    "PPM sensor for mixing volume"
+    annotation (Placement(transformation(extent={{120,40},{140,60}})));
+  Modelica.Blocks.Sources.Constant CO2In(k=m_flow_nominal/100)
+    "CO2 mass flow rate entering mixing volume"
+    annotation (Placement(transformation(extent={{0,60},{20,80}})));
+  Annex60.Fluid.Sensors.PPMTwoPort senPPMTwoPort(
+    redeclare package Medium = Medium,
+    allowFlowReversal=true,
+    m_flow_nominal=m_flow_nominal) "PPM sensor" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={84,10})));
+  Annex60.Fluid.Sensors.PPM senPPMIn(redeclare package Medium = Medium)
+    "PPM sensor for inlet"
+    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+  Annex60.Fluid.Sensors.PPMTwoPort senPPMNoRev(
+    redeclare package Medium = Medium,
+    allowFlowReversal=false,
+    m_flow_nominal=m_flow_nominal) "PPM sensor without flow reversal disabled"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={84,-30})));
+  Annex60.Fluid.Sensors.PPMTwoPort senPPMRev(
+    redeclare package Medium = Medium,
+    allowFlowReversal=true,
+    m_flow_nominal=m_flow_nominal) "PPM sensor with flow in reverse direction"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={50,-50})));
+  Annex60.Fluid.Sensors.PPMTwoPort senPPMSta(
+    redeclare package Medium = Medium,
+    allowFlowReversal=true,
+    tau=0,
+    m_flow_nominal=m_flow_nominal) "Static PPM sensor" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={10,-50})));
+protected
+     final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+  // Density at medium default values, used to compute the size of control volumes
+  final parameter Modelica.SIunits.Density rho_default=Medium.density(
+    state=state_default) "Density, used to compute fluid mass";
+
+equation
+  connect(mSou.ports[1], vol.ports[1]) annotation (Line(
+      points={{-20,42},{81.3333,42},{81.3333,50}},
+      color={0,127,255}));
+  connect(CO2In.y, vol.C_flow[1]) annotation (Line(points={{21,70},{32,70},{32,54},
+          {72,54}}, color={0,0,127}));
+  connect(senPPMVol.port, vol.ports[2]) annotation (Line(points={{130,40},{114,40},
+          {84,40},{84,50}}, color={0,127,255}));
+  connect(senPPMIn.port, mSou.ports[2])
+    annotation (Line(points={{-10,80},{-10,38},{-20,38}}, color={0,127,255}));
+  connect(senPPMTwoPort.port_a, vol.ports[3]) annotation (Line(points={{84,20},
+          {84,20},{84,50},{86.6667,50}},color={0,127,255}));
+  connect(senPPMNoRev.port_a, senPPMTwoPort.port_b)
+    annotation (Line(points={{84,-20},{84,0}}, color={0,127,255}));
+  connect(senPPMRev.port_b, senPPMNoRev.port_b) annotation (Line(points={{60,-50},
+          {78,-50},{84,-50},{84,-40}}, color={0,127,255}));
+  connect(senPPMSta.port_a, senPPMRev.port_a)
+    annotation (Line(points={{20,-50},{30,-50},{40,-50}}, color={0,127,255}));
+  connect(senPPMSta.port_b, sin.ports[1])
+    annotation (Line(points={{0,-50},{-20,-50}}, color={0,127,255}));
+    annotation (
+experiment(StopTime=3),
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Sensors/Examples/PPM.mos"
+        "Simulate and plot"),
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{180,
+            180}})),
+    Documentation(info="<html>
+<p>
+This example tests the sensors that measure trace substances
+using an output in parts per million.
+Various configurations with and without flow reversal
+and with or without dynamics are tested.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+January 12, 2016, by Filip Jorissen:<br/>
+First implementation.
+See issue 
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>
+</li>
+</ul>
+</html>"),
+    __Dymola_experimentSetupOutput(events=false));
+end PPM;

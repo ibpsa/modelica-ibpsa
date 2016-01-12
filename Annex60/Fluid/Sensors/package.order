@@ -6,6 +6,8 @@ LatentEnthalpyFlowRate
 MassFlowRate
 MassFraction
 MassFractionTwoPort
+PPM
+PPMTwoPort
 Pressure
 RelativeHumidity
 RelativeHumidityTwoPort
@@ -20,7 +22,6 @@ Temperature
 TemperatureTwoPort
 TemperatureWetBulbTwoPort
 TraceSubstances
-PPM
 TraceSubstancesTwoPort
 VolumeFlowRate
 Conversions
