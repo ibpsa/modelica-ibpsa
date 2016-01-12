@@ -118,8 +118,8 @@ protected
   Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
     "Block to set sensible heat input into volume"
     annotation (Placement(transformation(extent={{-40,78},{-20,98}})));
-  Modelica.Blocks.Sources.Constant masExc(final k=0) if
-       not use_C_flow_in "Block to set mass exchange in volume"
+  Modelica.Blocks.Sources.Constant masExc(final k=0)
+    "Block to set mass exchange in volume"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
     "Port temperature"
@@ -168,14 +168,16 @@ equation
   connect(dynBal.C_flow, C_flow) annotation (Line(points={{58,8},{50,8},{50,-60},
           {-120,-60}},color={0,0,127}));
 
-  for i in 1:Medium.nC loop
-    connect(masExc.y, steBal.C_flow[i]) annotation (Line(points={{-59,56},{-6,
+  if not use_C_flow_in then
+    for i in 1:Medium.nC loop
+      connect(masExc.y, steBal.C_flow[i]) annotation (Line(points={{-59,56},{-6,
             56},{-6,6},{8,6}},
                             color={0,0,127}));
-    connect(masExc.y, dynBal.C_flow[i]) annotation (Line(points={{-59,56},{50,
+      connect(masExc.y, dynBal.C_flow[i]) annotation (Line(points={{-59,56},{50,
             56},{50,8},{58,8}},
                            color={0,0,127}));
-  end for;
+    end for;
+  end if;
 
   connect(portT.y, preTem.T)
     annotation (Line(points={{-61,20},{-66,20}}, color={0,0,127}));
