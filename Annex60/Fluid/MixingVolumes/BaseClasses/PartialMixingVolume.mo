@@ -18,7 +18,7 @@ partial model PartialMixingVolume
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
   parameter Boolean use_C_flow_in = false
     "Set to true to enable connector for trace substance input"
-    annotation(Evaluate=true);
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
