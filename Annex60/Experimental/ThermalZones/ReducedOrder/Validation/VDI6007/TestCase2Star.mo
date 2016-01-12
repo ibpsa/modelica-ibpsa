@@ -24,9 +24,9 @@ model TestCase2Star "VDI 6007 Test Case 2 model with star network"
     volAir(X_start={0,0}),
     alphaRad=5,
     T_start=295.15,
-    resExtWallRad(G=min(thermalZoneTwoElements.AExt, thermalZoneTwoElements.AInt)
+    radExtWallStar(G=min(thermalZoneTwoElements.AExt, thermalZoneTwoElements.AInt)
           *thermalZoneTwoElements.alphaRad*2),
-    resIntWallRad(G=min(thermalZoneTwoElements.AExt, thermalZoneTwoElements.AInt)
+    radIntWallStar(G=min(thermalZoneTwoElements.AExt, thermalZoneTwoElements.AInt)
           *thermalZoneTwoElements.alphaRad*2))
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature

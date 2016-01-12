@@ -7,7 +7,7 @@ model EqAirTempVDI
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround - 1) < 0.1), "The sum of the weightfactors (walls,windows and ground) in eqairtemp is <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
 equation
-  TEqLW=(TBlaSky-TDryBul)*(eExt*alphaRad/(alphaRad+alphaExtOut));
+  TEqLW=(TBlaSky-TDryBul)*(eExt*alphaRad/(alphaRad+alphaExtOut*0.93));
   TEqSW=HSol*aExt/(alphaRad+alphaExtOut);
 
   if withLongwave then

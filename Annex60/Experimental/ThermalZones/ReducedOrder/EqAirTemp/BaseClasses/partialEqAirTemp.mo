@@ -47,7 +47,7 @@ partial model partialEqAirTemp
     displayUnit="degC") "Equivalent air temperature" annotation (Placement(transformation(extent={{98,
             -56},{118,-36}}), iconTransformation(extent={{78,-76},{118,-36}})));
   Modelica.Blocks.Interfaces.RealInput sunblind[n]
-    "Opening factor of sunblinds for each direction ( 0 - open to 1 - closed)"   annotation (Placement(
+    "Opening factor of sunblinds for each direction (0 - open to 1 - closed)"   annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
