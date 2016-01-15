@@ -1,5 +1,7 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase7 "VDI 6007 Test Case 7 model"
+  package Medium = Modelica.Media.Air.SimpleAir "Medium model";
+  parameter Real m_flow_nominal = 10 "nominal mass flow";
 
   ROM.ThermalZoneTwoElements thermalZoneTwoElements(
     VAir=52.5,
@@ -41,19 +43,18 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     tableOnFile=false,
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-    table=[3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 25200,-500;
-        28800,-500; 32400,-500; 36000,-500; 39600,-500; 43200,-481; 46800,-426;
-        50400,-374; 54000,-324; 57600,-276; 61200,-230; 64800,-186; 68400,500;
-        72000,500; 75600,500; 79200,500; 82800,500; 86400,500; 781200,500;
-        784800,500; 788400,500; 792000,500; 795600,500; 799200,500; 802800,142;
-        806400,172; 810000,201; 813600,228; 817200,254; 820800,278; 824400,302;
-        828000,324; 831600,345; 835200,366; 838800,385; 842400,404; 846000,500;
-        849600,500; 853200,500; 856800,500; 860400,500; 864000,500; 5101200,500;
-        5104800,500; 5108400,500; 5112000,500; 5115600,500; 5119200,500;
-        5122800,149; 5126400,179; 5130000,207; 5133600,234; 5137200,259;
-        5140800,284; 5144400,307; 5148000,329; 5151600,350; 5155200,371;
-        5158800,390; 5162400,409; 5166000,500; 5169600,500; 5173200,500;
-        5176800,500; 5180400,500; 5184000,500])
+    table=[3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 25200,500; 28800,
+        500; 32400,500; 36000,500; 39600,500; 43200,481; 46800,426; 50400,374; 54000,
+        324; 57600,276; 61200,230; 64800,186; 68400,-500; 72000,-500; 75600,-500;
+        79200,-500; 82800,-500; 86400,-500; 781200,-500; 784800,-500; 788400,-500;
+        792000,-500; 795600,-500; 799200,-500; 802800,-142; 806400,-172; 810000,
+        -201; 813600,-228; 817200,-254; 820800,-278; 824400,-302; 828000,-324; 831600,
+        -345; 835200,-366; 838800,-385; 842400,-404; 846000,-500; 849600,-500; 853200,
+        -500; 856800,-500; 860400,-500; 864000,-500; 5101200,-500; 5104800,-500;
+        5108400,-500; 5112000,-500; 5115600,-500; 5119200,-500; 5122800,-149; 5126400,
+        -179; 5130000,-207; 5133600,-234; 5137200,-259; 5140800,-284; 5144400,-307;
+        5148000,-329; 5151600,-350; 5155200,-371; 5158800,-390; 5162400,-409; 5166000,
+        -500; 5169600,-500; 5173200,-500; 5176800,-500; 5180400,-500; 5184000,-500])
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     annotation (Placement(transformation(extent={{48,-98},{68,-78}})));
@@ -68,11 +69,33 @@ model TestCase7 "VDI 6007 Test Case 7 model"
         origin={30,-18})));
   Modelica.Blocks.Sources.Constant const(k=0)
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
-    annotation (Placement(transformation(extent={{-4,-24},{-16,-12}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature1
-    annotation (Placement(transformation(extent={{-38,-24},{-26,-12}})));
+  Fluid.Movers.FlowControlled_m_flow         fan(
+    m_flow_nominal=m_flow_nominal,
+    addPowerToMedium=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    redeclare package Medium = Medium) "Fan"
+    annotation (Placement(transformation(extent={{-74,-52},{-54,-32}})));
+  Modelica.Blocks.Sources.Constant mFan_flow(k=m_flow_nominal)
+    "Mass flow rate of the fan"
+    annotation (Placement(transformation(extent={{-94,-30},{-74,-10}})));
+  Fluid.Sensors.TemperatureTwoPort
+                             THeaOut(
+      m_flow_nominal=m_flow_nominal, redeclare package Medium = Medium)
+    "Outlet temperature of the heater"
+    annotation (Placement(transformation(extent={{16,-52},{36,-32}})));
+  Fluid.HeatExchangers.HeaterCooler_T         hea(
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=1000,
+    Q_flow_maxHeat=500,
+    Q_flow_maxCool=-500,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    redeclare package Medium = Medium) "Heater"
+    annotation (Placement(transformation(extent={{-24,-52},{-4,-32}})));
+  Fluid.Sources.FixedBoundary
+                        bou(                                   nPorts=1,
+      redeclare package Medium = Medium)
+    "Fixed pressure boundary condition, required to set a reference pressure"
+    annotation (Placement(transformation(extent={{-58,-98},{-78,-78}})));
   Modelica.Blocks.Sources.CombiTimeTable setTemp(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     columns={2},
@@ -81,45 +104,17 @@ model TestCase7 "VDI 6007 Test Case 7 model"
         39600,300.1; 43200,300.1; 46800,300.1; 50400,300.1; 54000,300.1; 57600,
         300.1; 61200,300.1; 64800,300.1; 68400,295.1; 72000,295.1; 75600,295.1;
         79200,295.1; 82800,295.1; 86400,295.1])
-    annotation (Placement(transformation(extent={{-92,-26},{-76,-10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow maxHeat
-    annotation (Placement(transformation(extent={{-46,-56},{-26,-36}})));
-  Modelica.Blocks.Logical.Switch switch1 annotation (Placement(transformation(
-        extent={{-6,6},{6,-6}},
-        rotation=0,
-        origin={-54,2})));
-  Modelica.Blocks.Logical.Switch switch2 annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=0,
-        origin={-62,-46})));
-  Modelica.Blocks.Sources.Constant const1(
-                                         k=0)
-    annotation (Placement(transformation(extent={{-94,-42},{-84,-32}})));
-  Modelica.Blocks.Sources.Constant const2(k=500)
-    annotation (Placement(transformation(extent={{-94,-60},{-84,-50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow maxCool
-    annotation (Placement(transformation(extent={{-46,-92},{-26,-72}})));
-  Modelica.Blocks.Logical.Switch switch3 annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=0,
-        origin={-62,-82})));
-  Modelica.Blocks.Sources.Constant const3(
-                                         k=0)
-    annotation (Placement(transformation(extent={{-94,-78},{-84,-68}})));
-  Modelica.Blocks.Sources.Constant const4(k=-500)
-    annotation (Placement(transformation(extent={{-94,-96},{-84,-86}})));
-  Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold=500)
-    annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=-90,
-        origin={-10,-54})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=-500)
-    annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=-90,
-        origin={6,-54})));
-  Modelica.Blocks.Logical.And and1
-    annotation (Placement(transformation(extent={{-85,-3},{-75,7}})));
+    annotation (Placement(transformation(extent={{-58,-8},{-42,8}})));
+  Fluid.HeatExchangers.HeaterCooler_T         hea1(
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=1000,
+    Q_flow_maxHeat=500,
+    Q_flow_maxCool=-500,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    redeclare package Medium = Medium) "Heater"
+    annotation (Placement(transformation(extent={{-4,-82},{-24,-62}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heatCool
+    annotation (Placement(transformation(extent={{46,-38},{66,-18}})));
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -135,48 +130,30 @@ equation
       Line(points={{68,-88},{84,-88},{98,-88},{98,26},{91,26}}, color={191,0,0}));
   connect(thermalZoneTwoElements.intGainsConv, indoorTemp.port)
     annotation (Line(points={{91,19.8},{96,19.8},{96,-16}}, color={191,0,0}));
-  connect(prescribedTemperature1.port, heatFlowSensor.port_b)
-    annotation (Line(points={{-26,-18},{-21,-18},{-16,-18}}, color={191,0,0}));
-  connect(switch1.y, prescribedTemperature1.T) annotation (Line(points={{-47.4,
-          2},{-44,2},{-44,-18},{-39.2,-18}}, color={0,0,127}));
-  connect(switch2.y, maxHeat.Q_flow) annotation (Line(points={{-55.4,-46},{-50,
-          -46},{-46,-46}}, color={0,0,127}));
-  connect(maxHeat.port, heatFlowSensor.port_b) annotation (Line(points={{-26,
-          -46},{-20,-46},{-20,-18},{-16,-18}}, color={191,0,0}));
-  connect(const1.y, switch2.u1) annotation (Line(points={{-83.5,-37},{-75.75,
-          -37},{-75.75,-41.2},{-69.2,-41.2}}, color={0,0,127}));
-  connect(const2.y, switch2.u3) annotation (Line(points={{-83.5,-55},{-76,-55},
-          {-76,-50.8},{-69.2,-50.8}}, color={0,0,127}));
-  connect(heatFlowSensor.port_a, indoorTemp.port) annotation (Line(points={{-4,
-          -18},{-4,-18},{-4,-36},{96,-36},{96,-16}}, color={191,0,0}));
-  connect(switch3.y, maxCool.Q_flow) annotation (Line(points={{-55.4,-82},{-50,
-          -82},{-46,-82}}, color={0,0,127}));
-  connect(maxCool.port, heatFlowSensor.port_b) annotation (Line(points={{-26,
-          -82},{-20,-82},{-20,-18},{-16,-18}}, color={191,0,0}));
-  connect(const3.y, switch3.u1) annotation (Line(points={{-83.5,-73},{-75.75,
-          -73},{-75.75,-77.2},{-69.2,-77.2}}, color={0,0,127}));
-  connect(const4.y, switch3.u3) annotation (Line(points={{-83.5,-91},{-76,-91},
-          {-76,-86.8},{-69.2,-86.8}}, color={0,0,127}));
-  connect(heatFlowSensor.Q_flow, lessThreshold.u)
-    annotation (Line(points={{-10,-24},{-10,-46.8}}, color={0,0,127}));
-  connect(lessThreshold.y, switch2.u2) annotation (Line(points={{-10,-60.6},{
-          -10,-64},{-96,-64},{-96,-46},{-69.2,-46}}, color={255,0,255}));
-  connect(heatFlowSensor.Q_flow, greaterThreshold.u) annotation (Line(points={{
-          -10,-24},{-10,-24},{-10,-40},{-10,-42},{6,-42},{6,-46.8}}, color={0,0,
-          127}));
-  connect(greaterThreshold.y, switch3.u2) annotation (Line(points={{6,-60.6},{0,
-          -60.6},{0,-100},{-96,-100},{-96,-82},{-69.2,-82}}, color={255,0,255}));
-  connect(setTemp.y[1], switch1.u1) annotation (Line(points={{-75.2,-18},{-70,
-          -18},{-70,-2.8},{-61.2,-2.8}}, color={0,0,127}));
-  connect(indoorTemp.T, switch1.u3) annotation (Line(points={{88,-16},{44,-16},
-          {44,-30},{0,-30},{0,12},{-66,12},{-66,6.8},{-61.2,6.8}}, color={0,0,
-          127}));
-  connect(and1.y, switch1.u2) annotation (Line(points={{-74.5,2},{-74.5,2},{
-          -61.2,2}}, color={255,0,255}));
-  connect(lessThreshold.y, and1.u1) annotation (Line(points={{-10,-60.6},{-10,
-          -64},{-96,-64},{-96,2},{-86,2}}, color={255,0,255}));
-  connect(greaterThreshold.y, and1.u2) annotation (Line(points={{6,-60.6},{0,
-          -60.6},{0,-100},{-98,-100},{-98,-2},{-86,-2}}, color={255,0,255}));
+  connect(mFan_flow.y,fan. m_flow_in) annotation (Line(
+      points={{-73,-20},{-64.2,-20},{-64.2,-30}},
+      color={0,0,127}));
+  connect(fan.port_b,hea. port_a) annotation (Line(
+      points={{-54,-42},{-24,-42}},
+      color={0,127,255}));
+  connect(hea.port_b,THeaOut. port_a) annotation (Line(
+      points={{-4,-42},{16,-42}},
+      color={0,127,255}));
+  connect(fan.port_a, bou.ports[1]) annotation (Line(points={{-74,-42},{-96,-42},
+          {-96,-88},{-78,-88}}, color={0,127,255}));
+
+  connect(setTemp.y[1], hea.TSet) annotation (Line(points={{-41.2,0},{-32,0},{-32,
+          -36},{-26,-36}}, color={0,0,127}));
+  connect(THeaOut.port_b, hea1.port_a) annotation (Line(points={{36,-42},{38,-42},
+          {38,-72},{2,-72},{-4,-72}}, color={0,127,255}));
+  connect(fan.port_a, hea1.port_b) annotation (Line(points={{-74,-42},{-96,-42},
+          {-96,-72},{-24,-72}}, color={0,127,255}));
+  connect(hea.Q_flow, heatCool.Q_flow) annotation (Line(points={{-3,-36},{6,-36},
+          {6,-28},{46,-28}}, color={0,0,127}));
+  connect(heatCool.port, indoorTemp.port)
+    annotation (Line(points={{66,-28},{96,-28},{96,-16}}, color={191,0,0}));
+  connect(indoorTemp.T, hea1.TSet) annotation (Line(points={{88,-16},{74,-16},{74,
+          -66},{-2,-66}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>
