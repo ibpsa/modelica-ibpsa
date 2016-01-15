@@ -57,38 +57,30 @@ equation
             -100},{100,100}}), graphics),
                                  Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
                                    Line(
           points={{-100,60},{100,60}},
-          color={0,0,127},
-          smooth=Smooth.None), Line(
+          color={0,127,255}),  Line(
           points={{-100,-60},{100,-60}},
-          color={0,0,127},
-          smooth=Smooth.None,
+          color={0,127,255},
           pattern=LinePattern.Dash),
         Text(
           extent={{-40,-40},{-100,40}},
-          lineColor={0,0,255},
+          lineColor={0,127,255},
           textString="1"),
         Text(
           extent={{100,-40},{40,40}},
-          lineColor={0,0,255},
+          lineColor={0,127,255},
           textString="n"),
         Rectangle(
           extent={{-38,2},{6,-6}},
-          lineColor={0,0,255},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
+          fillColor={0,127,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
         Polygon(
           points={{-2,18},{-2,-22},{38,-2},{-2,18}},
-          lineColor={0,0,255},
-          smooth=Smooth.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}),
+          fillColor={0,127,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None)}),
     Documentation(info="<html>
 <p>Model to split a fluid inlet into multiple outlets and back</p>
 </html>"));

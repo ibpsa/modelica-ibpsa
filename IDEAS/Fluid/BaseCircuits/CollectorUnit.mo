@@ -91,21 +91,17 @@ Initial version</li>
         graphics={
         Line(
           points={{-100,-60},{100,-60}},
-          color={0,0,127},
-          smooth=Smooth.None,
+          color={0,127,255},
           pattern=LinePattern.Dash),
         Line(
           points={{-100,60},{-60,60},{-60,100}},
-          color={0,0,127},
-          smooth=Smooth.None),
+          color={0,127,255}),
         Line(
           points={{-60,60},{100,60}},
-          color={0,0,127},
-          smooth=Smooth.None),
+          color={0,127,255}),
         Line(
           points={{60,100},{60,-60}},
-          color={0,0,127},
-          smooth=Smooth.None,
+          color={0,127,255},
           pattern=LinePattern.Dash),
         Polygon(
           points={{-80,68},{-68,68},{-68,80},{-52,80},{-52,68},{-20,68},{-20,52},

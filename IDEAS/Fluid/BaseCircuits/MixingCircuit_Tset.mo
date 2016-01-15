@@ -81,7 +81,7 @@ equation
           origin={0,50},
           rotation=90),
         Line(
-          points={{0,40},{0,0},{60,0},{60,-60}},
-          color={0,0,255},
-          smooth=Smooth.None)}));
+          points={{0,40},{0,0},{20,-40},{60,-60}},
+          color={0,127,255},
+          pattern=LinePattern.Dash)}));
 end MixingCircuit_Tset;
