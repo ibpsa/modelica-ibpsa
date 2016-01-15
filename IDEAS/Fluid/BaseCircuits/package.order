@@ -1,7 +1,6 @@
 BalancingValve
 CollectorUnit
 FlowController
-HeatExchanger
 MixingCircuit_EqualPercentage
 MixingCircuit_Linear
 MixingCircuit_Tset
