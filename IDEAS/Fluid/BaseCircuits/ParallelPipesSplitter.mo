@@ -80,7 +80,8 @@ equation
           points={{-2,18},{-2,-22},{38,-2},{-2,18}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None)}),
+          pattern=LinePattern.None),
+        Rectangle(extent={{-100,100},{100,-100}}, lineColor={135,135,135})}),
     Documentation(info="<html>
 <p>Model to split a fluid inlet into multiple outlets and back</p>
 </html>"));

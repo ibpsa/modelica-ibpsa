@@ -13,7 +13,8 @@ model PumpSupply_m_flow "Pump on supply duct"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
 
   //Extensions
-  extends Interfaces.PartialPumpCircuit(redeclare Movers.FlowMachine_m_flow
+  extends Interfaces.PartialPumpCircuit(redeclare
+      IDEAS.Fluid.Movers.FlowControlled_m_flow
       flowRegulator(
         filteredSpeed=filteredSpeed,
         riseTime=riseTime,
