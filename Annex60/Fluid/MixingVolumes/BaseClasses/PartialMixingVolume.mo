@@ -60,6 +60,7 @@ protected
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
+    final substanceDynamics=substanceDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -69,8 +70,7 @@ protected
     final initialize_p = initialize_p,
     m(start=V*rho_start),
     nPorts=nPorts,
-    final mSenFac=mSenFac,
-    final substanceDynamics=substanceDynamics) if
+    final mSenFac=mSenFac) if
         not useSteadyStateTwoPort "Model for dynamic energy balance"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
