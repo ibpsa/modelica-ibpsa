@@ -48,7 +48,7 @@ equation
   end if;
   // Output signal of sensor
   if dynamic then
-    der(C) = (CMed-C)*k/tau;
+    der(C) = (CMed-C)*k*tauInv;
   else
     C = CMed;
   end if;
@@ -74,6 +74,13 @@ Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 18, 2016 by Filip Jorissen:<br/>
+Using parameter <code>tauInv</code> 
+since this now exists in <code>PartialDynamicFlowSensor</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
 <li>
 June 10, 2015, by Michael Wetter:<br/>
 Reformulated assignment of <code>s</code> and <code>assert</code>
