@@ -16,8 +16,8 @@ partial model PartialMixingVolume
 
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
-  parameter Boolean use_C_flow_in = false
-    "Set to true to enable connector for trace substance input"
+  parameter Boolean use_C_flow = false
+    "Set to true to enable input connector for trace substance"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
@@ -49,12 +49,13 @@ partial model PartialMixingVolume
     "Trace substance mixture content";
    // Models for the steady-state and dynamic energy balance.
 
-  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow_in
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
     "Trace substance mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 protected
   Annex60.Fluid.Interfaces.StaticTwoPortConservationEquation steBal(
     final simplify_mWat_flow = simplify_mWat_flow,
+    final use_C_flow = use_C_flow,
     sensibleOnly = true,
     redeclare final package Medium=Medium,
     final m_flow_nominal = m_flow_nominal,
@@ -65,6 +66,7 @@ protected
         annotation (Placement(transformation(extent={{10,0},{30,20}})));
   Annex60.Fluid.Interfaces.ConservationEquation dynBal(
     final simplify_mWat_flow = simplify_mWat_flow,
+    final use_C_flow = use_C_flow,
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
@@ -118,9 +120,7 @@ protected
   Modelica.Blocks.Sources.RealExpression QSen_flow(y=heatPort.Q_flow)
     "Block to set sensible heat input into volume"
     annotation (Placement(transformation(extent={{-40,78},{-20,98}})));
-  Modelica.Blocks.Sources.Constant masExc(final k=0)
-    "Block to set mass exchange in volume"
-    annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
+
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
     "Port temperature"
     annotation (Placement(transformation(extent={{-68,10},{-88,30}})));
@@ -165,19 +165,9 @@ equation
 
   connect(steBal.C_flow, C_flow) annotation (Line(points={{8,6},{-80,6},{-80,
           -60},{-120,-60}}, color={0,0,127}));
-  connect(dynBal.C_flow, C_flow) annotation (Line(points={{58,8},{50,8},{50,-60},
-          {-120,-60}},color={0,0,127}));
-
-  if not use_C_flow_in then
-    for i in 1:Medium.nC loop
-      connect(masExc.y, steBal.C_flow[i]) annotation (Line(points={{-59,56},{-6,
-            56},{-6,6},{8,6}},
-                            color={0,0,127}));
-      connect(masExc.y, dynBal.C_flow[i]) annotation (Line(points={{-59,56},{50,
-            56},{50,8},{58,8}},
-                           color={0,0,127}));
-    end for;
-  end if;
+  connect(dynBal.C_flow, C_flow) annotation (Line(points={{58,6},{50,6},{50,
+          -60},{-120,-60}},
+                      color={0,0,127}));
 
   connect(portT.y, preTem.T)
     annotation (Line(points={{-61,20},{-66,20}}, color={0,0,127}));
@@ -242,6 +232,10 @@ for example a solar collector that dissipates heat to the ambient and receives h
 the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
 </li>
 </ul>
+<p>
+Set the parameter <code>use_C_flow = true</code> to enable an input connector
+for the trace substance flow rate.
+</p>
 <h4>Implementation</h4>
 <p>
 If the model is (i) operated in steady-state,
@@ -303,8 +297,17 @@ Annex60.Fluid.MixingVolumes</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+January 17, 2016, by Michael Wetter:<br/>
+Removed <code>protected</code> block <code>masExc</code> as
+this revision introduces a conditional connector for the
+moisture flow rate in the energy and mass balance models.
+This change was done to use the same modeling concept for the
+moisture input as is used for the trace substance input.
+</li>
+<li>
 December 2, 2015, by Filip Jorissen:<br/>
-Added conditional input <code>C_flow</code> for handling trace substance insertions.
+Added conditional input <code>C_flow</code> for
+handling trace substance insertions.
 </li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>

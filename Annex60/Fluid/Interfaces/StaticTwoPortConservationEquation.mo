@@ -10,14 +10,23 @@ model StaticTwoPortConservationEquation
   constant Boolean prescribedHeatFlowRate = false
     "Set to true if the heat flow rate is not a function of a temperature difference to the fluid temperature";
 
+  parameter Boolean use_mWat_flow = false
+    "Set to true to enable input connector for moisture mass flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
+  parameter Boolean use_C_flow = false
+    "Set to true to enable input connector for trace substance"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Sensible plus latent heat flow rate transferred into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s")
-    "Moisture mass flow rate added to the medium"
+  Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
+                                                 unit="kg/s") if
+       use_mWat_flow "Moisture mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow
-    "Trace substance mass flow rate added to the medium"
+  Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if
+       use_C_flow "Trace substance mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
   // Outputs that are needed in models that extend this model
@@ -83,6 +92,11 @@ protected
   final parameter Real fReg = 104*deltaInvReg^6
     "Polynomial coefficient for inverseXRegularized";
 
+  // Conditional connectors
+  Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput C_flow_internal[Medium.nC]
+    "Needed to connect to conditional connector";
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
@@ -91,8 +105,19 @@ initial equation
          + "Check medium model.");
 
 equation
+  // Conditional connectors
+  connect(mWat_flow, mWat_flow_internal);
+  if not use_mWat_flow then
+    mWat_flow_internal = 0;
+  end if;
+
+  connect(C_flow, C_flow_internal);
+  if not use_C_flow then
+    C_flow_internal = zeros(Medium.nC);
+  end if;
+
  // Species flow rate from connector mWat_flow
- mXi_flow = mWat_flow * s;
+ mXi_flow = mWat_flow_internal * s;
   // Regularization of m_flow around the origin to avoid a division by zero
 
  // m_flowInv is only used if prescribedHeatFlowRate == true
@@ -161,10 +186,10 @@ equation
     // Case with latent heat exchange
 
     // Mass balance (no storage)
-    port_a.m_flow + port_b.m_flow = if simplify_mWat_flow then 0 else -mWat_flow;
+    port_a.m_flow + port_b.m_flow = if simplify_mWat_flow then 0 else -mWat_flow_internal;
     // Energy balance.
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
-    // at both ports. Since mWat_flow << m_flow, the error is small.
+    // at both ports. Since mWat_flow_internal << m_flow, the error is small.
     if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
       port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
@@ -190,9 +215,9 @@ equation
     end if;
 
     // Transport of trace substances
-    port_b.C_outflow = inStream(port_a.C_outflow) + C_flow* m_flowInv;
+    port_b.C_outflow = inStream(port_a.C_outflow) + C_flow_internal * m_flowInv;
     if allowFlowReversal then
-      port_a.C_outflow = inStream(port_b.C_outflow) + C_flow* m_flowInv;
+      port_a.C_outflow = inStream(port_b.C_outflow) + C_flow_internal * m_flowInv;
     else
       port_a.C_outflow = zeros(Medium.nC);
     end if;
@@ -212,6 +237,11 @@ The model has zero pressure drop between its ports.
 </p>
 
 <h4>Typical use and important parameters</h4>
+<p>
+Set the parameter <code>use_mWat_flow_in=true</code> to enable an
+input connector for <code>mWat_flow</code>.
+Otherwise, the model uses <code>mWat_flow = 0</code>.
+</p>
 <p>
 Set the constant <code>simplify_mWat_flow = true</code> to simplify the equation
 </p>
@@ -278,6 +308,13 @@ Annex60.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 17, 2016, by Michael Wetter:<br/>
+Added parameter <code>use_C_flow</code> and converted <code>C_flow</code>
+to a conditionally removed connector.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
 <li>
 December 16, 2015, by Michael Wetter:<br/>
 Removed the units of <code>C_flow</code> to allow for PPM.

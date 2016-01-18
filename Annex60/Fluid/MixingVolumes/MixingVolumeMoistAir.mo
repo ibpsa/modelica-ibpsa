@@ -4,7 +4,9 @@ model MixingVolumeMoistAir
   extends BaseClasses.PartialMixingVolume(
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases,
-    steBal(final sensibleOnly = false));
+    dynBal(final use_mWat_flow = true),
+    steBal(final sensibleOnly = false,
+           final use_mWat_flow = true));
 
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")

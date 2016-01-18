@@ -4,12 +4,6 @@ model MixingVolume
   extends Annex60.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
 
 equation
-  connect(masExc.y, dynBal.mWat_flow) annotation (Line(
-      points={{-59,56},{50,56},{50,12},{58,12}},
-      color={0,0,127}));
-  connect(masExc.y, steBal.mWat_flow) annotation (Line(
-      points={{-59,56},{-34,56},{-34,14},{8,14}},
-      color={0,0,127}));
   connect(QSen_flow.y, steBal.Q_flow) annotation (Line(
       points={{-19,88},{0,88},{0,18},{8,18}},
       color={0,0,127}));
@@ -104,6 +98,14 @@ Annex60.Fluid.MassExchangers.HumidifierPrescribed</a>.
 
 </html>", revisions="<html>
 <ul>
+<li>
+January 17, 2016, by Michael Wetter:<br/>
+Removed <code>protected</code> block <code>masExc</code> as
+this revision introduces a conditional connector for the
+moisture flow rate in the energy and mass balance models.
+This change was done to use the same modeling concept for the
+moisture input as is used for the trace substance input.
+</li>
 <li>
 December 2, 2015, by Filip Jorissen:<br/>
 Changed code for handling trace substance insertions using input <code>C_flow</code>.
