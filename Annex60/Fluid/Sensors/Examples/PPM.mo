@@ -12,7 +12,7 @@ model PPM "Test model for the extra property sensor outputting PPM"
     nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=1,
-    use_C_flow_in=true,
+    use_C_flow=true,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_nominal) "Mixing volume"
     annotation (Placement(transformation(extent={{74,50}, {94,70}})));
