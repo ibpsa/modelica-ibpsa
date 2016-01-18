@@ -1,5 +1,5 @@
 within Annex60.Fluid.MixingVolumes.Examples;
-model MixingVolume
+model MixingVolume "Test model for mixing volumes"
   extends Modelica.Icons.Example;
 
   package Medium = Annex60.Media.Air;
