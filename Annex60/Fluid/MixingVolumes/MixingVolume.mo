@@ -58,6 +58,14 @@ This parameter can for instance be useful in a pipe model when the developer wan
 lump the pipe thermal mass to the fluid volume. By default <code>mSenFac = 1</code>, hence
 the mass is unchanged. For higher values of <code>mSenFac</code>, the mass will be scaled proportionally.
 </p>
+<p>
+Set the parameter <code>use_C_flow = true</code> to enable an input connector for the trace substance flow rate.
+This allows to directly add or subtract trace substances such as
+CO2 to the volume.
+See
+<a href=\"modelica://Annex60.Fluid.Sensors.Examples.PPM\">Annex60.Fluid.Sensors.Examples.PPM</a>
+for an example.
+</p>
 <h4>Implementation</h4>
 <p>
 If the model is operated in steady-state and has two fluid ports connected,
@@ -98,6 +106,14 @@ Annex60.Fluid.MassExchangers.HumidifierPrescribed</a>.
 
 </html>", revisions="<html>
 <ul>
+<li>
+January 19, 2016, by Michael Wetter:<br/>
+Updated documentation due to the addition of an input for trace substance
+in the mixing volume.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">
+issue 372</a>.
+</li>
 <li>
 January 17, 2016, by Michael Wetter:<br/>
 Removed <code>protected</code> block <code>masExc</code> as

@@ -129,8 +129,35 @@ for example a solar collector that dissipates heat to the ambient and receives h
 the solar radiation, then set <code>prescribedHeatFlowRate=false</code>.
 </li>
 </ul>
+<h4>Options</h4>
+<p>
+The parameter <code>mSenFac</code> can be used to increase the thermal mass of this model
+without increasing its volume. This way, species concentrations are still calculated
+correctly even though the thermal mass increases. The additional thermal mass is calculated
+based on the density and the value of the function <code>HeatCapacityCp</code>
+of the medium state <code>state_default</code>. <br/>
+This parameter can for instance be useful in a pipe model when the developer wants to
+lump the pipe thermal mass to the fluid volume. By default <code>mSenFac = 1</code>, hence
+the mass is unchanged. For higher values of <code>mSenFac</code>, the mass will be scaled proportionally.
+</p>
+<p>
+Set the parameter <code>use_C_flow = true</code> to enable an input connector for the trace substance flow rate.
+This allows to directly add or subtract trace substances such as
+CO2 to the volume.
+See
+<a href=\"modelica://Annex60.Fluid.Sensors.Examples.PPM\">Annex60.Fluid.Sensors.Examples.PPM</a>
+for an example.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 19, 2016, by Michael Wetter:<br/>
+Updated documentation due to the addition of an input for trace substance
+in the mixing volume.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">
+issue 372</a>.
+</li>
 <li>
 February 11, 2014 by Michael Wetter:<br/>
 Redesigned implementation of latent and sensible heat flow rates
