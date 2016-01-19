@@ -28,7 +28,7 @@ model PPM "Test model for the extra property sensor outputting PPM"
   Annex60.Fluid.Sensors.PPM senPPMVol(redeclare package Medium = Medium)
     "PPM sensor for mixing volume"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
-  Modelica.Blocks.Sources.Constant CO2In(k=m_flow_nominal/100)
+  Modelica.Blocks.Sources.Constant CO2In(k=m_flow_nominal/1000)
     "CO2 mass flow rate entering mixing volume"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Annex60.Fluid.Sensors.PPMTwoPort senPPMTwoPort(
