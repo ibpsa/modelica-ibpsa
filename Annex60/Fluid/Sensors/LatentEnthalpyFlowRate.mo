@@ -142,7 +142,8 @@ revisions="<html>
 <li>
 January 18, 2016 by Filip Jorissen:<br/>
 Using parameter <code>tauInv</code> 
-since this now exists in <a href=\"modelica://Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+since this now exists in
+<a href=\"modelica://Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
 </li>
