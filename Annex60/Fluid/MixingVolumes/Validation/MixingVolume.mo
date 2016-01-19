@@ -1,4 +1,4 @@
-within Annex60.Fluid.MixingVolumes.Examples;
+within Annex60.Fluid.MixingVolumes.Validation;
 model MixingVolume "Test model for mixing volumes"
   extends Modelica.Icons.Example;
 
@@ -173,7 +173,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
 experiment(StopTime=2),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolume.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolume.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

@@ -1,4 +1,4 @@
-within Annex60.Fluid.MixingVolumes.Examples;
+within Annex60.Fluid.MixingVolumes.Validation;
 model MixingVolumeInitialization "Test model for mixing volume initialization"
   extends Modelica.Icons.Example;
  package Medium = Annex60.Media.Air;
@@ -52,7 +52,7 @@ equation
             -100},{180,100}}),      graphics),
 experiment(StopTime=0.001,
            Tolerance=1e-6),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeInitialization.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeInitialization.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

@@ -148,7 +148,7 @@ equation
             -160},{180,160}}),      graphics),
 experiment(StopTime=600,
            Tolerance=1e-6),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeMoistAir.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
