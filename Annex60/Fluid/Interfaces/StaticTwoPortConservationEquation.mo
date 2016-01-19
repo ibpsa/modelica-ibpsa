@@ -120,8 +120,9 @@ equation
  mXi_flow = mWat_flow_internal * s;
   // Regularization of m_flow around the origin to avoid a division by zero
 
- // m_flowInv is only used if prescribedHeatFlowRate == true
- m_flowInv = if prescribedHeatFlowRate
+ // m_flowInv is only used if prescribedHeatFlowRate == true, or
+ // if the input connector C_flow is enabled.
+ m_flowInv = if (prescribedHeatFlowRate or use_C_flow)
              then Annex60.Utilities.Math.Functions.inverseXRegularized(
                     x=port_a.m_flow,
                     delta=deltaReg, deltaInv=deltaInvReg,
