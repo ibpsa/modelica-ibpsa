@@ -16,7 +16,7 @@ model SpeedControlled_Nrpm
   parameter Real speed(final unit="1/min") = 0
     "Speed set point when using constant set point"
     annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Constant));
-  parameter Real[:] speeds(each final unit="1/min") = {0}
+  parameter Real[:] speeds(each final unit="1/min") = per.speeds
     "Vector of speed set points when using stages"
     annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Stages));
   replaceable parameter Data.SpeedControlled_Nrpm per
@@ -104,6 +104,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 19, 2016, by Filip Jorissen:<br/>
+Set default value of parameter: <code>speeds=per.speeds</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
 Added code for supporting stage input and constant input.

@@ -5,11 +5,20 @@ record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_nominal = 1500
     "Nominal rotational speed for flow characteristic";
 
+  parameter Real[:] speeds(each final unit="1/min") = {0}
+    "Vector of speed set points when using stages";
+
   annotation (
   defaultComponentPrefixes = "parameter",
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
+<li>
+January 19, 2016, by Filip Jorissen:<br/>
+Added parameter <code>speeds</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
 <li>
 February 13, 2015, by Michael Wetter:<br/>
 Updated documentation.
