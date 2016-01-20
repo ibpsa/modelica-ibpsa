@@ -1,6 +1,7 @@
 within Annex60.Experimental.Pipe.Validation;
 model ValidationPipeULg "Validation against data from Université de Liège"
-extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example;
+  // R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi
 package Medium = Annex60.Media.Water;
   Fluid.Sources.MassFlowSource_T WaterCityNetwork(
     redeclare package Medium = Medium,
@@ -16,8 +17,8 @@ package Medium = Annex60.Media.Water;
     diameter=0.05248,
     length=39,
     thicknessIns(displayUnit="mm") = 0.013,
-    lambdaI=0.04)
-               annotation (Placement(transformation(
+    lambdaI=0.12,
+    R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi)                                                                                                     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,30})));
@@ -41,13 +42,13 @@ package Medium = Annex60.Media.Water;
   Modelica.Blocks.Sources.CombiTimeTable TestDataReader(
     table=pipeDataULg150801.data,
     offset={1.245,5,5,5,16.8},
-    startTime=1000)
+    startTime=100)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Data.PipeDataULg150801 pipeDataULg150801
     annotation (Placement(transformation(extent={{-32,-60},{-12,-40}})));
   Modelica.Blocks.Sources.RealExpression Tin(y=273.15 + TestDataReader.y[5])
     annotation (Placement(transformation(extent={{80,60},{40,80}})));
-  Modelica.Blocks.Sources.Constant Tamb(k=273.15 + 18)
+  Modelica.Blocks.Sources.Constant Tamb(k=18) "Ambient temperature in degrees"
     annotation (Placement(transformation(extent={{0,70},{-20,90}})));
 equation
   connect(Sewer1.ports[1], pipe.port_b) annotation (Line(
@@ -88,6 +89,14 @@ experimental data</a> for more information. This data is used to validate a pipe
 <p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
 <p><img src=\"modelica://Annex60/Resources/Images/Experimental/ULgTestBench.png\" border=\"1\"/></p>
 
+<p><b><span style=\"color: #008000;\">Calibration</span></b> </p>
+<p>
+There are some incertainties about the heat loss coefficient between pipe and surrounding air as weel as regarding the heat conductivity of the insulation. With the given data, the length specific thermal resistance <code>R = 1.21315 </code> (mK/W). <code>R</code> calculated as follows:  <code>R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi</code>  
+</p>
+<p>
+However, it is with <code> R = 0.028 </code> (mK/W) that good results for the outlet temperature when the inlet temperature is close to 68 °C are obtained. Furthermore, a value of <code> R = 0.0155 </code> (mK/W) gives better results for the outlet temperature when the inlet temperature is close to 48 °C.</p>
+<p> It seems that a correct value for <code>R</code> should be between 0.0155 (mK/W) and 0.028 (mK/W).
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -96,6 +105,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=875),
+    experiment(StopTime=975),
     __Dymola_experimentSetupOutput);
 end ValidationPipeULg;
