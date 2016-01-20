@@ -1,21 +1,21 @@
 within Annex60.Fluid.HeatPumps;
 model Carnot_y
   "Reversible heat pump with performance curve adjusted based on Carnot efficiency"
- extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
+ extends Annex60.Fluid.Interfaces.FourPortHeatMassExchanger(
     m1_flow_nominal=QCon_flow_nominal/cp1_default/dTCon_nominal,
     m2_flow_nominal=-QEva_flow_nominal/cp2_default/abs(dTEva_nominal),
     vol1(prescribedHeatFlowRate=true),
-    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+    redeclare final Annex60.Fluid.MixingVolumes.MixingVolume vol2(
         prescribedHeatFlowRate=true));
    // Above, we use -abs(dTEva_nominal) because in Buildings 2.1,
    // dTEva_nominal was a positive quantity.
 
-  parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=
-    Buildings.Fluid.Types.EfficiencyInput.volume
+  parameter Annex60.Fluid.Types.EfficiencyInput effInpEva=
+    Annex60.Fluid.Types.EfficiencyInput.volume
     "Temperatures of evaporator fluid used to compute Carnot efficiency"
     annotation (Dialog(tab="Advanced", group="Temperature dependence"));
-  parameter Buildings.Fluid.Types.EfficiencyInput effInpCon=
-    Buildings.Fluid.Types.EfficiencyInput.port_a
+  parameter Annex60.Fluid.Types.EfficiencyInput effInpCon=
+    Annex60.Fluid.Types.EfficiencyInput.port_a
     "Temperatures of condenser fluid used to compute Carnot efficiency"
     annotation (Dialog(tab="Advanced", group="Temperature dependence"));
   parameter Modelica.SIunits.Power P_nominal
@@ -85,10 +85,10 @@ protected
       X=  Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
 
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
   Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
@@ -113,7 +113,7 @@ initial equation
 
   COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
 
-  assert(abs(Buildings.Utilities.Math.Functions.polynomial(
+  assert(abs(Annex60.Utilities.Math.Functions.polynomial(
          a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
   assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
   assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
@@ -134,29 +134,29 @@ equation
                                port_b2.Xi_outflow);
 
   // Set temperatures that will be used to compute Carnot efficiency
-  if effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
+  if effInpCon == Annex60.Fluid.Types.EfficiencyInput.volume then
     TCon = vol1.heatPort.T;
-  elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_a then
+  elseif effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_a then
     TCon = Medium1.temperature(staA1);
-  elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_b then
+  elseif effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_b then
     TCon = Medium1.temperature(staB1);
   else
     TCon = 0.5 * (Medium1.temperature(staA1)+Medium1.temperature(staB1));
   end if;
 
-  if effInpEva == Buildings.Fluid.Types.EfficiencyInput.volume then
+  if effInpEva == Annex60.Fluid.Types.EfficiencyInput.volume then
     TEva = vol2.heatPort.T;
-  elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_a then
+  elseif effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_a then
     TEva = Medium2.temperature(staA2);
-  elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_b then
+  elseif effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_b then
     TEva = Medium2.temperature(staB2);
   else
     TEva = 0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2));
   end if;
 
-  etaPL  = Buildings.Utilities.Math.Functions.polynomial(a=a, x=y);
+  etaPL  = Annex60.Utilities.Math.Functions.polynomial(a=a, x=y);
   P = y * P_nominal;
-  COPCar = TEva / Buildings.Utilities.Math.Functions.smoothMax(x1=1, x2=TCon-TEva, deltaX=0.25);
+  COPCar = TEva / Annex60.Utilities.Math.Functions.smoothMax(x1=1, x2=TCon-TEva, deltaX=0.25);
   COP = etaCar * COPCar * etaPL;
   -QEva_flow = COP * P;
   QCon_flow = P - QEva_flow;
