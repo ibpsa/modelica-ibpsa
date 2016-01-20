@@ -1,5 +1,5 @@
-within Annex60.Experimental.Pipe.BaseClasses;
-model HeatLossMod_epsilon "Heat loss model for pipe"
+within Annex60.Experimental.Pipe.Archive;
+model HeatLoss "Heat loss model for pipe"
   extends Fluid.Interfaces.PartialTwoPortTransport;
 
   parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
@@ -11,27 +11,23 @@ model HeatLossMod_epsilon "Heat loss model for pipe"
                                            length
     "Outer surface area of the pipe";
 
-  parameter Modelica.SIunits.Area A_cross = Modelica.Constants.pi * diameter * diameter / 4
-    "Cross sectional area";
+  parameter Real thermTransmissionCoeff(unit="W/(m2/K)")
+    "Thermal transmission coefficient between pipe medium and surrounding";
 
-  Boolean vBoolean;
-  Real epsilon;
-  Real flat_v;
-  parameter Types.ThermalCapacityPerLength C;
-  parameter Types.ThermalResistanceLength R;
-  final parameter Modelica.SIunits.Time tau_char=R*C;
+  Real theta(min=0) "Dimensionless temperature";
 
-  Modelica.SIunits.Time time_out_b "Virtual time after delay at port b";
-  Modelica.SIunits.Time tau "Time delay for input time";
-
-  Modelica.SIunits.Length x(start=0)
-    "Spatial coordiante for spatialDistribution operator";
-  Modelica.SIunits.Velocity v "Flow velocity of medium in pipe";
+  Real a "Argument for theta exponential: kM/(m'c)";
 
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Tin_a
     "Temperature at port_a for in-flowing fluid";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Tout_b
     "Temperature at port_b for out-flowing fluid";
+
+  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Tenv = 5
+    "Temperature of pipe's environment";
+
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(state=sta_default) "Heat capacity of medium";
 
 protected
   parameter Medium.ThermodynamicState sta_default=
@@ -39,49 +35,23 @@ protected
        T=Medium.T_default,
        p=Medium.p_default,
        X=Medium.X_default) "Default medium state";
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(state=sta_default) "Heat capacity of medium";
+  /*parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+    Medium.specificHeatCapacityCp(state=sta_default) "Heat capacity of medium";*/
 
-public
-  Modelica.Blocks.Interfaces.RealInput T_amb
-    "Ambient temperature of pipe's surroundings" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,100})));
 equation
   dp = 0;
 
+  a = Annex60.Utilities.Math.Functions.inverseXRegularized(
+                                          (m_flow * cp_default)/
+                                          (thermTransmissionCoeff * A_surf), 1e-5);
+  theta = Annex60.Utilities.Math.Functions.smoothExponential(a, 1e-5);
+
+  Tin_a * cp_default = inStream(port_a.h_outflow);
+
+  Tout_b - Tenv = theta * (Tin_a - Tenv);
+
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = Tout_b * cp_default;
-
-  // Time delay
-  epsilon = 1000000*Modelica.Constants.eps;
-  if v  >= -epsilon then
-    vBoolean = true;
-  else
-    vBoolean = false;
-  end if;
-
-  if abs(v) >= epsilon then
-    flat_v = v;
-  else
-    flat_v = 0;
-  end if;
-
-  der(x) = flat_v;
-  v = (V_flow / A_cross);
-  (, time_out_b) = spatialDistribution(time,
-                                       time,
-                                       x/length,
-                                       vBoolean,
-                                       {0.0, 1.0},
-                                       {0.0, 0.0});
-  tau = max(0,time - time_out_b);
-
-  // Heat losses
-  Tin_a = inStream(port_a.h_outflow) / cp_default;
-  Tout_b = T_amb + (Tin_a - T_amb) * Modelica.Math.exp(-tau/tau_char);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(
@@ -102,7 +72,5 @@ September, 2015 by Marcus Fuchs:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
-end HeatLossMod_epsilon;
+</html>"));
+end HeatLoss;

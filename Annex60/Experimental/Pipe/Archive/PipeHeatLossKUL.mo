@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe;
+within Annex60.Experimental.Pipe.Archive;
 model PipeHeatLossKUL
   "Pipe model with a temperature plug flow, pressure losses and heat exchange to the environment"
 
@@ -74,7 +74,7 @@ model PipeHeatLossKUL
     annotation (Placement(transformation(extent={{-28,24},{-8,44}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=u)
     annotation (Placement(transformation(extent={{-58,24},{-38,44}})));
-  BaseClasses.ExponentialDecay          tempDecay(C=C, R=R)
+  ExponentialDecay tempDecay(C=C, R=R)
     annotation (Placement(transformation(extent={{12,20},{32,40}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium,

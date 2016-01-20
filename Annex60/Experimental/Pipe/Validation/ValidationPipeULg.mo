@@ -10,14 +10,13 @@ package Medium = Annex60.Media.Water;
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={70,30})));
-  PipeHeatLoss_PipeDelayMod pipe(
+  PipeHeatLoss_PipeDelay pipe(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
     diameter=0.05248,
     length=39,
     thicknessIns(displayUnit="mm") = 0.013,
-    lambdaI=0.04)
-               annotation (Placement(transformation(
+    lambdaI=0.04) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,30})));

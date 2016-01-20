@@ -1,15 +1,10 @@
 PipeLosslessPlugFlow
 PipeAdiabaticPlugFlow
-PipeHeatLossA60Ref
-PipeHeatLossA60Mod_noAbs
-PipeHeatLossA60Mod_epsilon
-PipeHeatLossKUL
 PipeHeatLoss_PipeDelay
-PipeHeatLoss_PipeDelayMod
-DoublePipe
 DoublePipe_PipeDelay
 BaseClasses
 Examples
 Data
 Types
 Validation
+Archive

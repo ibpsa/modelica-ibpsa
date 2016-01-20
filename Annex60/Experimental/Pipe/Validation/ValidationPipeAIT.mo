@@ -33,14 +33,14 @@ extends Modelica.Icons.Example;
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-70,70})));
-  PipeHeatLoss_PipeDelayMod pip1(
+  PipeHeatLoss_PipeDelay pip1(
     redeclare package Medium = Medium,
     length=135,
     m_flow_nominal=1,
     diameter=0.2,
     thicknessIns=0.1)
     annotation (Placement(transformation(extent={{52,0},{32,20}})));
-  PipeHeatLoss_PipeDelayMod pip4(
+  PipeHeatLoss_PipeDelay pip4(
     redeclare package Medium = Medium,
     length=29,
     m_flow_nominal=1,
@@ -49,14 +49,14 @@ extends Modelica.Icons.Example;
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
-  PipeHeatLoss_PipeDelayMod pip5(
+  PipeHeatLoss_PipeDelay pip5(
     redeclare package Medium = Medium,
     length=20,
     m_flow_nominal=1,
     diameter=0.2,
     thicknessIns=0.01)
     annotation (Placement(transformation(extent={{-2,0},{-22,20}})));
-  PipeHeatLoss_PipeDelayMod pip2(
+  PipeHeatLoss_PipeDelay pip2(
     redeclare package Medium = Medium,
     length=76,
     m_flow_nominal=1,
@@ -65,7 +65,7 @@ extends Modelica.Icons.Example;
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,40})));
-  PipeHeatLoss_PipeDelayMod pip3(
+  PipeHeatLoss_PipeDelay pip3(
     redeclare package Medium = Medium,
     length=38,
     m_flow_nominal=1,
