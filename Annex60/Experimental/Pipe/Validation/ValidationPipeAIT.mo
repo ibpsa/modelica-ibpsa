@@ -75,7 +75,7 @@ extends Modelica.Icons.Example;
         rotation=90,
         origin={-46,-10})));
   Modelica.Blocks.Sources.CombiTimeTable TestDataReader(table=pipeDataAIT151218.data)
-    annotation (Placement(transformation(extent={{-4,-100},{16,-80}})));
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Data.PipeDataAIT151218 pipeDataAIT151218
     annotation (Placement(transformation(extent={{-30,-100},{-10,-80}})));
   Modelica.Blocks.Sources.RealExpression m_flow_p3(y=-TestDataReader.y[6])
@@ -86,7 +86,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-16,80},{-56,100}})));
   Modelica.Blocks.Sources.RealExpression T_p1(y=TestDataReader.y[1])
     annotation (Placement(transformation(extent={{20,-60},{60,-40}})));
-  Modelica.Blocks.Sources.Constant Tamb(k=273.15 + 10)
+  Modelica.Blocks.Sources.Constant Tamb(k=10) "Ambient temperature in degrees"
     annotation (Placement(transformation(extent={{80,40},{60,60}})));
   Fluid.Sensors.Temperature senTem_p3(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-90,-32},{-70,-12}})));
