@@ -323,8 +323,8 @@ First implementation.
 <p><img src=\"modelica://Annex60/Resources/Images/Experimental/ULgTestBench.png\" border=\"1\"/></p>
 <p>Notice: length are approximative</p>
 <p><b><span style=\"color: #008000;\">Test procedure</span></b> </p>
-<p>Before to perform a test, the water city network is pushed inside the studied pipe during about 10 minutes to be sure that it is at the same temperature. During this time period, valves V3 and V1 are opened, the boiler is off and the valve V2 is closed.
-Then, the valve V1 is closed and the valve V2 and V3 are opened. The boiler is started to reach the setpoint hot water temperature. When the temperature setpoint is achieved, the valve V1 is opened and the valve V2 is closed at the same time to supply the studied pipe in hot water.
-After the outlet pipe temperature is stabilized, the boiler is shut off.</p>
+<p>Before to perform a test, the water city network is pushed inside the studied pipe during about 10 minutes to be sure that it is at the same temperature. During this time period, valves V3 and V1 are opened, the boiler is off and the valve V2 is closed.</p>
+<p>
+Then, the valve V1 is closed and the valve V2 and V3 are opened. The boiler is started to reach the setpoint hot water temperature. When the temperature setpoint is achieved, data starts to be recorded, the valve V1 is opened and the valve V2 is closed at the same time to supply the studied pipe in hot water. After the outlet pipe temperature is stabilized, the boiler is shut off.</p>
 </html>"));
 end PipeDataULg150801;
