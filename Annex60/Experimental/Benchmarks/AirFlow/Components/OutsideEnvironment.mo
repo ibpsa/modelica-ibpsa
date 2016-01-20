@@ -40,40 +40,34 @@ model OutsideEnvironment
 equation
   connect(port_a, colOutTop.port_a) annotation (Line(
       points={{-100,60},{0,60},{0,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(port_b, colOutBot.port_b) annotation (Line(
       points={{-100,-60},{0,-60},{0,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colOutBot.port_a, out.ports[1]) annotation (Line(
       points={{0,-20},{0,-2},{40,-2}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(colOutTop.port_b, out.ports[2]) annotation (Line(
       points={{0,20},{0,2},{40,2}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(out.weaBus, weaBus1) annotation (Line(
       points={{60,-0.2},{76,-0.2},{76,0},{100,0}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),           Documentation(info="<html>
+  annotation (           Documentation(info="<html>
 <p>An air volume to represent the outside environment for air flow benchmark. </p>
 <h4>Assumptions and limitations</h4>
-<p>So far, the side ratio for the building is set to <i>1</i> for testing the general modeling 
+<p>So far, the side ratio for the building is set to <i>1</i> for testing the general modeling
 approach. It may be necessary to calculate this parameter depending on the scale of the test. </p>
 <h4>Typical use and important parameters</h4>
-<p><code>port_a</code> and <code>port_b</code> should be connected to the corresponding ports of 
-<code>ZoneHallway</code> so that there is an air exchange through the orifices of the hallway 
+<p><code>port_a</code> and <code>port_b</code> should be connected to the corresponding ports of
+<code>ZoneHallway</code> so that there is an air exchange through the orifices of the hallway
 element. </p>
 <h4>References</h4>
-<p>Inspired by 
+<p>Inspired by
 <a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
 Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>", revisions="<html>

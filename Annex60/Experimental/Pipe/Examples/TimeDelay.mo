@@ -89,8 +89,6 @@ package TimeDelay
       annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
     TimeDelays.DiffTime diffTime
       annotation (Placement(transformation(extent={{10,0},{30,20}})));
-    BaseClasses.PDETime_modified modified
-      annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
     BaseClasses.PDETime pDETime
       annotation (Placement(transformation(extent={{10,-62},{30,-42}})));
   equation
@@ -100,8 +98,6 @@ package TimeDelay
             {-30,4}}, color={0,0,127}));
     connect(add.y, diffTime.u)
       annotation (Line(points={{-7,10},{0,10},{8,10}}, color={0,0,127}));
-    connect(add.y, modified.u) annotation (Line(points={{-7,10},{0,10},{0,-20},
-            {8,-20}}, color={0,0,127}));
     connect(add.y, pDETime.u) annotation (Line(points={{-7,10},{0,10},{0,-52},{
             8,-52}}, color={0,0,127}));
     annotation (experiment(StopTime=1000, Interval=1),
@@ -129,14 +125,14 @@ package TimeDelay
         = Medium,
       use_p_in=true,
       use_T_in=true,
-      nPorts=3,
+      nPorts=2,
       T=293.15)
       "Source with high pressure at beginning and lower pressure at end of experiment"
                             annotation (Placement(transformation(extent={{-88,28},
               {-68,48}})));
     Annex60.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium
         = Medium,
-      nPorts=3,
+      nPorts=2,
       use_p_in=true,
       T=283.15)
       "Sink at with constant pressure, turns into source at the end of experiment"
@@ -174,30 +170,10 @@ package TimeDelay
     Modelica.Blocks.Sources.Constant PAtm1(
                                           k=101325) "Atmospheric pressure"
         annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
-    Annex60.Fluid.Sensors.MassFlowRate masFloA60Mod(redeclare package Medium =
-          Medium)
-      "Mass flow rate sensor for the A60 modified temperature delay"
-      annotation (Placement(transformation(extent={{88,70},{108,90}})));
-    Annex60.Experimental.Pipe.PipeHeatLossA60Mod A60PipeHeatLossMod(
-      redeclare package Medium = Medium,
-      m_flow_small=1e-4*0.5,
-      diameter=diameter,
-      length=length,
-      m_flow_nominal=0.5,
-      thicknessIns=0.02,
-      lambdaI=0.01) "Annex 60 modified pipe with heat losses"
-      annotation (Placement(transformation(extent={{20,70},{40,90}})));
-    Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60ModOut(redeclare package
-        Medium = Medium, m_flow_nominal=0.5)
-      "Temperature sensor for the outflow of the A60 modified temperature delay"
-      annotation (Placement(transformation(extent={{56,70},{76,90}})));
-    Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60ModIn(redeclare package
-        Medium = Medium, m_flow_nominal=0.5)
-      "Temperature of the inflow to the A60 modified temperature delay"
-      annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
     Modelica.Blocks.Sources.Constant const3(k=5)
       annotation (Placement(transformation(extent={{-28,96},{-8,116}})));
-    Annex60.Experimental.Pipe.PipeHeatLossA60Mod2 A60PipeHeatLossMod_noabs(
+    Annex60.Experimental.Pipe.PipeHeatLossA60Mod_epsilon
+      A60PipeHeatLossMod_noabs(
       redeclare package Medium = Medium,
       m_flow_small=1e-4*0.5,
       diameter=diameter,
@@ -206,7 +182,7 @@ package TimeDelay
       thicknessIns=0.02,
       lambdaI=0.01) "Annex 60 modified pipe with heat losses"
       annotation (Placement(transformation(extent={{8,28},{28,48}})));
-    Annex60.Experimental.Pipe.PipeHeatLossA60Mod2 A60PipeHeatLossMod2(
+    Annex60.Experimental.Pipe.PipeHeatLossA60Mod_epsilon A60PipeHeatLossMod2(
       redeclare package Medium = Medium,
       m_flow_small=1e-4*0.5,
       diameter=diameter,
@@ -238,7 +214,7 @@ package TimeDelay
             {142,46}},
                      color={0,0,127}));
     connect(sin1.ports[1],masFloA60. port_b) annotation (Line(
-        points={{120,40.6667},{114,40.6667},{114,40},{108,40}},
+        points={{120,40},{114,40},{114,40},{108,40}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(stepT.y, sou1.T_in) annotation (Line(
@@ -250,7 +226,7 @@ package TimeDelay
         color={0,127,255},
         smooth=Smooth.None));
     connect(sou1.ports[1],senTemA60In. port_a) annotation (Line(
-        points={{-68,40.6667},{-64,40.6667},{-64,40},{-60,40}},
+        points={{-68,40},{-64,40},{-64,40},{-60,40}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(combiTimeTable.y[1], gain.u)
@@ -262,22 +238,6 @@ package TimeDelay
                        color={0,0,127}));
     connect(add.y, sou1.p_in) annotation (Line(points={{-97,76},{-88,76},{-98,56},
             {-98,56},{-98,46},{-90,46}}, color={0,0,127}));
-    connect(A60PipeHeatLossMod.port_b,senTemA60ModOut. port_a) annotation (Line(
-        points={{40,80},{56,80}},
-        color={0,127,255},
-        smooth=Smooth.None));
-    connect(masFloA60Mod.port_a,senTemA60ModOut. port_b) annotation (Line(
-        points={{88,80},{76,80}},
-        color={0,127,255},
-        smooth=Smooth.None));
-    connect(senTemA60ModIn.port_b,A60PipeHeatLossMod. port_a)
-      annotation (Line(points={{-40,80},{20,80}}, color={0,127,255}));
-    connect(const3.y,A60PipeHeatLossMod. T_amb)
-      annotation (Line(points={{-7,106},{30,106},{30,90}},color={0,0,127}));
-    connect(sou1.ports[2], senTemA60ModIn.port_a)
-      annotation (Line(points={{-68,38},{-60,80}},   color={0,127,255}));
-    connect(sin1.ports[2], masFloA60Mod.port_b) annotation (Line(points={{120,38},
-            {120,80},{108,80}},       color={0,127,255}));
     connect(senTemA60In.port_b, A60PipeHeatLossMod_noabs.port_a) annotation (Line(
         points={{-40,40},{-16,40},{-16,38},{8,38}},
         color={0,127,255},
@@ -299,8 +259,8 @@ package TimeDelay
         points={{14,-12},{-36,-12}},
         color={0,127,255},
         smooth=Smooth.None));
-    connect(sou1.ports[3], senTemA60In1.port_a) annotation (Line(
-        points={{-68,35.3333},{-66,35.3333},{-66,-12},{-56,-12}},
+    connect(sou1.ports[2], senTemA60In1.port_a) annotation (Line(
+        points={{-68,36},{-66,36},{-66,-12},{-56,-12}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(A60PipeHeatLossMod2.port_b, senTemA60Out1.port_a) annotation (Line(
@@ -311,8 +271,8 @@ package TimeDelay
         points={{70,-12},{74,-12},{74,-16},{78,-16}},
         color={0,127,255},
         smooth=Smooth.None));
-    connect(masFloA1.port_b, sin1.ports[3]) annotation (Line(
-        points={{98,-16},{110,-16},{110,-18},{120,-18},{120,35.3333}},
+    connect(masFloA1.port_b, sin1.ports[2]) annotation (Line(
+        points={{98,-16},{110,-16},{110,-18},{120,-18},{120,36}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(masFloA1.m_flow, pDETime_massFlow.m_flow) annotation (Line(points={
