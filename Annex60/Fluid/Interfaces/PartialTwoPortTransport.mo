@@ -121,6 +121,12 @@ users have not used this global definition to assign parameters.
 </html>", revisions="<html>
 <ul>
 <li>
+January 22, 2016, by Henning Francke:<br/>
+Corrected type declaration of pressure.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+<li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignments of parameters
 <code>port_a_exposesState</code> and
