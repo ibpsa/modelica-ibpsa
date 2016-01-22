@@ -152,50 +152,20 @@ equation
 
   //////////////////////////////////////////////////////////////////////////////////////////
   // Energy balance and mass balance
-  if sensibleOnly then
-    //////////////////////////////////////////////////////////////////////////
-    // Case with sensible heat exchange only
-
-    // Mass balance
-    port_a.m_flow = -port_b.m_flow;
-    // Energy balance
-    if prescribedHeatFlowRate then
-      port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-      port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) - Q_flow * m_flowInv else Medium.h_default;
-    else
-      // Case with prescribedHeatFlowRate == false.
-      // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
-      // Hence, we cannot use m_flowInv as for m_flow=0, any Q_flow would satisfiy
-      // Q_flow * m_flowInv = 0.
-      port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = -Q_flow;
-      if allowFlowReversal then
-        port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = +Q_flow;
-      else
-        // If allowFlowReversal == false, the downstream enthalpy does not matter.
-        // Therefore a dummy value is used to avoid the creating of algebraic loops.
-        // See https://github.com/iea-annex60/modelica-annex60/issues/281
-        port_a.h_outflow = Medium.h_default;
-      end if;
-    end if;
-    // Transport of species and trace substances
-    port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-    port_b.C_outflow = inStream(port_a.C_outflow);
-    port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) else  Medium.X_default[1:Medium.nXi];
-    port_a.C_outflow = if allowFlowReversal then inStream(port_b.C_outflow) else zeros(Medium.nC);
-  else
-    //////////////////////////////////////////////////////////////////////////
-    // Case with latent heat exchange
 
     // Mass balance (no storage)
     port_a.m_flow + port_b.m_flow = if simplify_mWat_flow then 0 else -mWat_flow_internal;
+
+    // Substance balance
+    port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
+    port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv else Medium.X_default[1:Medium.nXi];
+
     // Energy balance.
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
     // at both ports. Since mWat_flow_internal << m_flow, the error is small.
     if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-      port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
       port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) - Q_flow * m_flowInv else Medium.h_default;
-      port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv else Medium.X_default[1:Medium.nXi];
     else
       // Case with prescribedHeatFlowRate == false.
       // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
@@ -203,26 +173,22 @@ equation
       // Q_flow * m_flowInv = 0.
       // The same applies for port_b.Xi_outflow and mXi_flow.
       port_a.m_flow * (inStream(port_a.h_outflow)  - port_b.h_outflow)  = -Q_flow;
-      port_a.m_flow * (inStream(port_a.Xi_outflow) - port_b.Xi_outflow) = -mXi_flow;
       if allowFlowReversal then
         port_a.m_flow * (inStream(port_b.h_outflow)  - port_a.h_outflow)  = +Q_flow;
-        port_a.m_flow * (inStream(port_b.Xi_outflow) - port_a.Xi_outflow) = +mXi_flow;
       else
         //When allowFlowReversal = false the downstream enthalpy should not matter
         //therefore a dummy value is used to avoid algebraic loops
         port_a.h_outflow = Medium.h_default;
-        port_a.Xi_outflow = Medium.X_default[1:Medium.nXi];
       end if;
     end if;
 
-    // Transport of trace substances
-    port_b.C_outflow = inStream(port_a.C_outflow) + C_flow_internal * m_flowInv;
-    if allowFlowReversal then
-      port_a.C_outflow = inStream(port_b.C_outflow) + C_flow_internal * m_flowInv;
-    else
-      port_a.C_outflow = zeros(Medium.nC);
-    end if;
-  end if; // sensibleOnly
+  // Transport of trace substances
+  port_b.C_outflow =  inStream(port_a.C_outflow) + C_flow_internal * m_flowInv;
+  if allowFlowReversal then
+    port_a.C_outflow = inStream(port_b.C_outflow) + C_flow_internal * m_flowInv;
+  else
+    port_a.C_outflow = zeros(Medium.nC);
+  end if;
 
   ////////////////////////////////////////////////////////////////////////////
   // No pressure drop in this model
@@ -309,6 +275,13 @@ Annex60.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 20, 2016, by Filip Jorissen:<br/>
+Removed if-else block in code for parameter <code>sensibleOnly</code> 
+since this is no longer needed to simplify the equations.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
+</li>
 <li>
 January 17, 2016, by Michael Wetter:<br/>
 Added parameter <code>use_C_flow</code> and converted <code>C_flow</code>
