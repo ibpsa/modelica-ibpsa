@@ -7,7 +7,7 @@ function pressure
   input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Modelica.SIunits.VolumeFlowRate VDelta_flow "Small volume flow rate";
-  input Modelica.SIunits.Pressure dpDelta "Small pressure";
+  input Modelica.SIunits.PressureDifference dpDelta(displayUnit="Pa") "Small pressure";
 
   input Modelica.SIunits.VolumeFlowRate V_flow_max
     "Maximum volume flow rate at r_N=1 and dp=0";
@@ -36,7 +36,7 @@ protected
       "Pressure performance data";
     input Integer dimD "Dimension of data vector";
 
-    output Modelica.SIunits.Pressure dp "Pressure raise";
+    output Modelica.SIunits.PressureDifference dp(displayUnit="Pa") "Pressure raise";
 
   protected
     Modelica.SIunits.VolumeFlowRate rat "Ratio of V_flow/r_N";
@@ -132,6 +132,12 @@ in all input variables.
         revisions="<html>
 
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

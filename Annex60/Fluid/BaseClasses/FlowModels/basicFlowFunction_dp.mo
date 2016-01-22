@@ -11,7 +11,7 @@ function basicFlowFunction_dp
   output Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
 protected
-  Modelica.SIunits.Pressure dp_turbulent = m_flow_turbulent^2/k/k
+  Modelica.SIunits.PressureDifference dp_turbulent = m_flow_turbulent^2/k/k
     "Pressure where flow changes to turbulent";
 algorithm
    m_flow := if noEvent(dp>dp_turbulent) then k*sqrt(dp)
@@ -53,6 +53,12 @@ The input <code>m_flow_turbulent</code> determines the location of the regulariz
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

@@ -17,7 +17,7 @@ function basicFlowFunction_dp_der2
     "2nd derivative of mass flow rate in design flow direction";
 protected
   Real m_k = m_flow_turbulent/k "Auxiliary variable";
-  Modelica.SIunits.Pressure dp_turbulent = (m_k)^2
+  Modelica.SIunits.PressureDifference dp_turbulent = (m_k)^2
     "Pressure where flow changes to turbulent";
 algorithm
  m_flow_der2 := if noEvent(dp>dp_turbulent) then
@@ -39,6 +39,12 @@ with respect to the mass flow rate.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
