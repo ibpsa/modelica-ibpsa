@@ -6,7 +6,7 @@ partial model PartialTwoPortTransport
   // Advanced
   // Note: value of dp_start shall be refined by derived model,
   // based on local dp_nominal
-  parameter Modelica.SIunits.PressureDifference dp_start = 0
+  parameter Modelica.SIunits.PressureDifference dp_start(displayUnit="Pa") = 0
     "Guess value of dp = port_a.p - port_b.p"
     annotation(Dialog(tab = "Advanced", enable=from_dp));
   parameter Medium.MassFlowRate m_flow_start = 0
@@ -30,7 +30,8 @@ partial model PartialTwoPortTransport
   Medium.MassFlowRate m_flow(
      min=if allowFlowReversal then -Modelica.Constants.inf else 0,
      start = m_flow_start) "Mass flow rate in design flow direction";
-  Modelica.SIunits.PressureDifference dp(start=dp_start)
+  Modelica.SIunits.PressureDifference dp(start=dp_start,
+                                         displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 
   Modelica.SIunits.VolumeFlowRate V_flow=

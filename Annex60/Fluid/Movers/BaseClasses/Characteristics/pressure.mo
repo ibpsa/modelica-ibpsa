@@ -11,7 +11,8 @@ function pressure
 
   input Modelica.SIunits.VolumeFlowRate V_flow_max
     "Maximum volume flow rate at r_N=1 and dp=0";
-  input Modelica.SIunits.Pressure dpMax(min=0)
+  input Modelica.SIunits.PressureDifference dpMax(min=0,
+                                                  displayUnit="Pa")
     "Maximum pressure at r_N=1 and V_flow=0";
 
   input Real d[:] "Derivatives at support points for spline interpolation";
@@ -20,7 +21,8 @@ function pressure
     "Coefficients for linear approximation of pressure vs. flow rate";
   input Real kRes(unit="kg/(s.m4)")
     "Linear coefficient for fan-internal pressure drop";
-  output Modelica.SIunits.Pressure dp "Pressure raise";
+  output Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
+    "Pressure raise";
 
 protected
    Integer dimD(min=2)=size(per.V_flow, 1) "Dimension of data vector";
@@ -130,6 +132,12 @@ in all input variables.
         revisions="<html>
 
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 April 22, by Filip Jorissen:<br/>
 Added more documentation references to paper
