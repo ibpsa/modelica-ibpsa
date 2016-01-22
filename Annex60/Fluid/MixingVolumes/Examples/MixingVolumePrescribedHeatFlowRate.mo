@@ -84,6 +84,6 @@ First implementation.
 </ul>
 </html>"),
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumePrescribedHeatFlowRate.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mos"
         "Simulate and plot"));
 end MixingVolumePrescribedHeatFlowRate;
