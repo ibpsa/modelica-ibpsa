@@ -29,8 +29,8 @@ model StaticFourPortHeatMassExchanger
 
 protected
   Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal1(
-    final sensibleOnly = sensibleOnly1,
     redeclare final package Medium=Medium1,
+    final sensibleOnly = sensibleOnly1,
     final prescribedHeatFlowRate=prescribedHeatFlowRate1,
     final m_flow_nominal = m1_flow_nominal,
     final dp_nominal = dp1_nominal,
@@ -44,8 +44,8 @@ protected
     final mWat_flow = mWat1_flow)
     "Model for heat, mass, species, trace substance and pressure balance of stream 1";
   Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger bal2(
-    final sensibleOnly = sensibleOnly2,
     redeclare final package Medium=Medium2,
+    final sensibleOnly = sensibleOnly2,
     final prescribedHeatFlowRate=prescribedHeatFlowRate2,
     final m_flow_nominal = m2_flow_nominal,
     final dp_nominal = dp2_nominal,
