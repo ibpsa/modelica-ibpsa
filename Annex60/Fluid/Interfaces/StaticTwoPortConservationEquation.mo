@@ -3,7 +3,6 @@ model StaticTwoPortConservationEquation
   "Partial model for static energy and mass conservation equations"
   extends Annex60.Fluid.Interfaces.PartialTwoPortInterface;
 
-  constant Boolean sensibleOnly "Set to true if sensible exchange only";
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
 
@@ -122,7 +121,7 @@ equation
 
  // m_flowInv is only used if prescribedHeatFlowRate == true, or
  // if the input connector C_flow is enabled.
- m_flowInv = if (prescribedHeatFlowRate or use_C_flow)
+ m_flowInv = if (prescribedHeatFlowRate or use_mWat_flow or use_C_flow)
              then Annex60.Utilities.Math.Functions.inverseXRegularized(
                     x=port_a.m_flow,
                     delta=deltaReg, deltaInv=deltaInvReg,
@@ -275,6 +274,15 @@ Annex60.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Removed <code>constant sensibleOnly</code> as this is no longer used because
+the model uses <code>use_mWat_flow</code>.<br/>
+Changed condition that determines whether <code>m_flowInv</code> needs to be
+computed because the change from January 20 introduced an error in
+<a href=\"modelica://Annex60.Fluid.MassExchangers.Examples.ConstantEffectiveness\">
+Annex60.Fluid.MassExchangers.Examples.ConstantEffectiveness</a>.
+</li>
 <li>
 January 20, 2016, by Filip Jorissen:<br/>
 Removed if-else block in code for parameter <code>sensibleOnly</code> 
