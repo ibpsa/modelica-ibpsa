@@ -113,6 +113,13 @@ or instantiates this model sets <code>mWat<i>N</i>_flow = 0</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+January 22, 2016 by Michael Wetter:<br/>
+Removed assignment of <code>sensibleOnly</code> in <code>bal1</code> and <code>bal2</code>
+as this constant has been removed in
+<a href=\"modelica://Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
+Annex60.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
+</li>
+<li>
 November 13, 2013 by Michael Wetter:<br/>
 Added parameter <code>homotopyInitialization</code> as
 it has been removed in the base class.
