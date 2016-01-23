@@ -5,8 +5,7 @@ model MixingVolumeMoistAir
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases,
     dynBal(final use_mWat_flow = true),
-    steBal(final sensibleOnly = false,
-           final use_mWat_flow = true));
+    steBal(final use_mWat_flow = true));
 
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
@@ -150,6 +149,11 @@ for an example.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 22, 2016 by Michael Wetter:<br/>
+Removed assignment of <code>sensibleOnly</code> in <code>steBal</code>
+as this constant is no longer used.
+</li>
 <li>
 January 19, 2016, by Michael Wetter:<br/>
 Updated documentation due to the addition of an input for trace substance
