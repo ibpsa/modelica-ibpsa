@@ -3,14 +3,15 @@ model ValidationPipeAIT
   "Validation pipe against data from Austrian Institute of Technology"
 extends Modelica.Icons.Example;
 
-  Fluid.Sources.Boundary_pT      Point1(
+  Fluid.Sources.MassFlowSource_T Point1(
     redeclare package Medium = Medium,
-    nPorts=1,
-    use_T_in=true)
+    use_T_in=true,
+    nPorts=2,
+    use_m_flow_in=true)
               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={88,-28})));
+        origin={82,-42})));
   package Medium = Annex60.Media.Water;
   Fluid.Sources.MassFlowSource_T Point4(
     nPorts=1,
@@ -35,13 +36,13 @@ extends Modelica.Icons.Example;
         origin={-70,70})));
   PipeHeatLoss_PipeDelayMod pip1(
     redeclare package Medium = Medium,
-    length=135,
     m_flow_nominal=1,
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18))
-    annotation (Placement(transformation(extent={{52,0},{32,20}})));
+    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+    length=115)
+    annotation (Placement(transformation(extent={{36,0},{16,20}})));
   PipeHeatLoss_PipeDelayMod pip4(
     redeclare package Medium = Medium,
     length=29,
@@ -91,14 +92,14 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Data.PipeDataAIT151218 pipeDataAIT151218
     annotation (Placement(transformation(extent={{-30,-100},{-10,-80}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_p3(y=-DataReader.y[6])
+  Modelica.Blocks.Sources.RealExpression m_flow_p3(y=-DataReader.y[7])
     annotation (Placement(transformation(extent={{-100,-80},{-60,-60}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_p4(y=-DataReader.y[7])
+  Modelica.Blocks.Sources.RealExpression m_flow_p4(y=-DataReader.y[8])
     annotation (Placement(transformation(extent={{64,80},{24,100}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_p2(y=-DataReader.y[5])
+  Modelica.Blocks.Sources.RealExpression m_flow_p2(y=-DataReader.y[6])
     annotation (Placement(transformation(extent={{-16,80},{-56,100}})));
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
-    annotation (Placement(transformation(extent={{20,-60},{60,-40}})));
+    annotation (Placement(transformation(extent={{18,-74},{58,-54}})));
   Fluid.Sensors.Temperature senTem_p3(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-90,-32},{-70,-12}})));
   Fluid.Sensors.Temperature senTem_p2(redeclare package Medium = Medium)
@@ -106,14 +107,26 @@ extends Modelica.Icons.Example;
   Fluid.Sensors.Temperature senTem_p4(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{30,56},{50,76}})));
   Fluid.Sensors.Temperature senTem_p1(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{64,-36},{44,-16}})));
+    annotation (Placement(transformation(extent={{48,-38},{28,-18}})));
   Modelica.Blocks.Math.UnitConversions.To_degC Tamb
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
+  PipeHeatLoss_PipeDelayMod pip0(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
+    diameter=0.0825,
+    thicknessIns=0.045,
+    lambdaI=0.024,
+    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+    length=20)
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={80,-10})));
+  Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium
+      = Medium) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={68,60})));
 equation
-  connect(pip1.port_a, Point1.ports[1]) annotation (Line(
-      points={{52,10},{88,10},{88,-18}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pip3.port_a, pip5.port_b) annotation (Line(
       points={{-46,0},{-46,10},{-22,10}},
       color={0,127,255},
@@ -131,11 +144,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip5.port_a, pip1.port_b) annotation (Line(
-      points={{-2,10},{32,10}},
+      points={{-2,10},{16,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip4.port_a, pip1.port_b) annotation (Line(
-      points={{10,30},{10,10},{32,10}},
+      points={{10,30},{10,10},{16,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip3.port_b, Point3.ports[1]) annotation (Line(
@@ -155,7 +168,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(T_p1.y, Point1.T_in) annotation (Line(
-      points={{62,-50},{84,-50},{84,-40}},
+      points={{60,-64},{78,-64},{78,-54}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTem_p3.port, pip3.port_b) annotation (Line(
@@ -170,16 +183,8 @@ equation
       points={{-70,50},{-40,50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTem_p1.port, pip1.port_a) annotation (Line(
-      points={{54,-36},{66,-36},{66,10},{52,10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(DataReader.y[8], Tamb.u) annotation (Line(
-      points={{21,-90},{38,-90}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(Tamb.y, pip1.T_amb) annotation (Line(
-      points={{61,-90},{100,-90},{100,40},{42,40},{42,20}},
+      points={{61,-90},{100,-90},{100,40},{26,40},{26,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tamb.y, pip4.T_amb) annotation (Line(
@@ -196,6 +201,34 @@ equation
       smooth=Smooth.None));
   connect(Tamb.y, pip2.T_amb) annotation (Line(
       points={{61,-90},{68,-90},{68,-74},{-28,-74},{-28,40},{-60,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pip0.port_a, Point1.ports[1]) annotation (Line(
+      points={{80,-20},{80,-32}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pip0.port_b, pip1.port_a) annotation (Line(
+      points={{80,0},{80,10},{36,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senTem_p1.port, pip0.port_a) annotation (Line(
+      points={{38,-38},{64,-38},{64,-20},{80,-20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(Tamb.y, pip0.T_amb) annotation (Line(
+      points={{61,-90},{100,-90},{100,-10},{90,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Tamb.u, DataReader.y[9]) annotation (Line(
+      points={{38,-90},{21,-90}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
+      points={{80,0},{80,60},{78,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(
+      points={{21,-90},{26,-90},{26,-72},{74,-72},{74,-52}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
