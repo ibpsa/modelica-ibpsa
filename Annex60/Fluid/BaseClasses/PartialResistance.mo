@@ -89,12 +89,6 @@ This is
 for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
 </li>
 <li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
-</li>
-<li>
 August 15, 2015, by Filip Jorissen:<br/>
 Implemented more efficient computation of <code>port_a.Xi_outflow</code>,
 <code>port_a.h_outflow</code>
