@@ -98,7 +98,7 @@ model NoReverseCompHeatLossPipe
       annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
   Modelica.Blocks.Sources.Constant const3(k=5)
     annotation (Placement(transformation(extent={{-26,92},{-6,112}})));
-  Annex60.Experimental.Pipe.PipeHeatLossA60Mod_epsilon A60PipeHeatLossMod2(
+  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay     A60PipeHeatLossMod2(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,

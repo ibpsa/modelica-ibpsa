@@ -3,3 +3,5 @@ CompAdiabaticPipe
 CompHeatLossPipe
 Events
 SpatialDistributionOperator
+A60pipe
+NoReverseCompHeatLossPipe

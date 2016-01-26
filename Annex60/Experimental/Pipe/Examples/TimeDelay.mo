@@ -172,7 +172,7 @@ package TimeDelay
         annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
     Modelica.Blocks.Sources.Constant const3(k=5)
       annotation (Placement(transformation(extent={{-28,96},{-8,116}})));
-    Annex60.Experimental.Pipe.PipeHeatLossA60Mod_epsilon
+    Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay
       A60PipeHeatLossMod_noabs(
       redeclare package Medium = Medium,
       m_flow_small=1e-4*0.5,
@@ -182,7 +182,7 @@ package TimeDelay
       thicknessIns=0.02,
       lambdaI=0.01) "Annex 60 modified pipe with heat losses"
       annotation (Placement(transformation(extent={{8,28},{28,48}})));
-    Annex60.Experimental.Pipe.PipeHeatLossA60Mod_epsilon A60PipeHeatLossMod2(
+    Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelayMod  A60PipeHeatLossMod2(
       redeclare package Medium = Medium,
       m_flow_small=1e-4*0.5,
       diameter=diameter,
@@ -190,7 +190,7 @@ package TimeDelay
       m_flow_nominal=0.5,
       thicknessIns=0.02,
       lambdaI=0.01) "Annex 60 modified pipe with heat losses"
-      annotation (Placement(transformation(extent={{14,-22},{34,-2}})));
+      annotation (Placement(transformation(extent={{16,-22},{36,-2}})));
     Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
                                                          redeclare package
         Medium =
@@ -252,11 +252,11 @@ package TimeDelay
         color={0,0,127},
         smooth=Smooth.None));
     connect(const3.y, A60PipeHeatLossMod2.T_amb) annotation (Line(
-        points={{-7,106},{-7,-2},{24,-2}},
+        points={{-7,106},{-7,-2},{26,-2}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(A60PipeHeatLossMod2.port_a, senTemA60In1.port_b) annotation (Line(
-        points={{14,-12},{-36,-12}},
+        points={{16,-12},{-36,-12}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(sou1.ports[2], senTemA60In1.port_a) annotation (Line(
@@ -264,7 +264,7 @@ package TimeDelay
         color={0,127,255},
         smooth=Smooth.None));
     connect(A60PipeHeatLossMod2.port_b, senTemA60Out1.port_a) annotation (Line(
-        points={{34,-12},{50,-12}},
+        points={{36,-12},{50,-12}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(senTemA60Out1.port_b, masFloA1.port_a) annotation (Line(

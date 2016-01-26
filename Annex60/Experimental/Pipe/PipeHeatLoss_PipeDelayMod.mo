@@ -1,5 +1,5 @@
 within Annex60.Experimental.Pipe;
-model PipeHeatLoss_PipeDelay
+model PipeHeatLoss_PipeDelayMod
   "Pipe model using spatialDistribution for temperature delay with heat losses modified and one delay operator at pipe level"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
@@ -111,9 +111,10 @@ public
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
-  BaseClasses.PDETime_massFlow    tau_unused_maxClause(diameter=diameter)
+  BaseClasses.PDETime_massFlowMod tau_unused_maxClause(diameter=diameter,
+      length=length)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  BaseClasses.PDETime_massFlow         tau_used(               diameter=
+  BaseClasses.PDETime_massFlowMod tau_used(length=length, diameter=
         diameter)
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
 equation
@@ -152,8 +153,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Ellipse(extent={{-90,92},{-48,50}}, lineColor={28,108,200},
@@ -212,4 +214,4 @@ First implementation.
 <p>This setup is meant as a benchmark for more sophisticated implementations. It seems to generally work ok except for the cooling effects on the standing fluid in case of zero mass flow.</p>
 <p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used before and after the time delay.</p>
 </html>"));
-end PipeHeatLoss_PipeDelay;
+end PipeHeatLoss_PipeDelayMod;
