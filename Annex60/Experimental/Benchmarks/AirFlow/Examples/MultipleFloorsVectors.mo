@@ -50,12 +50,9 @@ equation
     connect(weaDat.weaBus, floor[i].weaBus1) annotation (Line(
       points={{-60,-30},{-14,-30},{-14,-20}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   end for;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-    experiment(StopTime=3600),
+  annotation (    experiment(StopTime=3600),
     __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Benchmarks/AirFlow/Examples/MultipleFloorsVectors.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
@@ -70,7 +67,7 @@ First implementation
 <h4>Typical use and important parameters</h4>
 <p>With <code>nZones</code> and <code>nFloors</code>, this vectorized model can be scaled to represent a simple building of any size. </p>
 <h4>References</h4>
-<p>Inspired by 
+<p>Inspired by
 <a href=\"modelica://Annex60.Airflow.Multizone.Validation.ThreeRoomsContam\">
 Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
 </html>"));

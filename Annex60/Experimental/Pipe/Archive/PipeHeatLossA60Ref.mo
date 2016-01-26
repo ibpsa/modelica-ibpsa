@@ -1,6 +1,6 @@
-within Annex60.Experimental.Pipe;
-model PipeHeatLossA60Mod_noAbs
-  "Pipe model using spatialDistribution for temperature delay with heat losses modified"
+within Annex60.Experimental.Pipe.Archive;
+model PipeHeatLossA60Ref
+  "Pipe model using spatialDistribution for temperature delay with heat losses"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
@@ -28,6 +28,9 @@ model PipeHeatLossA60Mod_noAbs
     "Pressure drop at nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
 
+  parameter Real thermTransmissionCoeff(unit="W/(m2/K)")
+    "Thermal transmission coefficient between pipe medium and surrounding";
+
   final parameter Modelica.SIunits.Pressure dpStraightPipe_nominal=
       Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
       m_flow=m_flow_nominal,
@@ -41,36 +44,27 @@ model PipeHeatLossA60Mod_noAbs
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  parameter Types.ThermalResistanceLength R = 1 / (lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2+thicknessIns)/(diameter/2)));
-  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
-  parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
-    "Heat conductivity";
-
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
 
-  BaseClasses.HeatLossMod_noAbs
-                          heatLossReverse(
+  HeatLoss heatLoss(
     redeclare package Medium = Medium,
     m_flow_small=m_flow_small,
     diameter=diameter,
     length=length,
     thicknessIns=thicknessIns,
-    C=C,
-    R=R) "Heat losses for reverse flow"
-                                   annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
+    thermTransmissionCoeff=thermTransmissionCoeff) annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,0})));
-  BaseClasses.HeatLossMod_noAbs
-                          heatLoss(
+  HeatLoss heatLoss1(
     redeclare package Medium = Medium,
     m_flow_small=m_flow_small,
     diameter=diameter,
     length=length,
     thicknessIns=thicknessIns,
-    C=C,
-    R=R) "Heat losses in design flow direction"
+    thermTransmissionCoeff=thermTransmissionCoeff)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
@@ -106,31 +100,17 @@ protected
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
-    Medium.specificHeatCapacityCp(state=sta_default) "Heat capacity of medium";
-
-public
-  Modelica.Blocks.Interfaces.RealInput T_amb
-    "Ambient temperature for pipe's surroundings" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,100})));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
-  connect(heatLossReverse.port_a, pipeAdiabaticPlugFlow.port_a)
+  connect(heatLoss.port_a, pipeAdiabaticPlugFlow.port_a)
     annotation (Line(points={{-40,-1.33227e-015},{-10,0}}, color={0,127,255}));
-  connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
+  connect(pipeAdiabaticPlugFlow.port_b, heatLoss1.port_a)
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  connect(heatLoss.port_b, port_b)
+  connect(heatLoss1.port_b, port_b)
     annotation (Line(points={{60,0},{100,0}}, color={0,127,255}));
-  connect(port_a, heatLossReverse.port_b)
+  connect(port_a, heatLoss.port_b)
     annotation (Line(points={{-100,0},{-60,1.33227e-015}}, color={0,127,255}));
-  connect(T_amb, heatLoss.T_amb) annotation (Line(points={{0,100},{0,40},{50,40},
-          {50,10}}, color={0,0,127}));
-  connect(T_amb, heatLossReverse.T_amb) annotation (Line(points={{0,100},{0,40},
-          {-50,40},{-50,10}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
@@ -180,4 +160,4 @@ First implementation.
 <p>This setup is meant as a benchmark for more sophisticated implementations. It seems to generally work ok except for the cooling effects on the standing fluid in case of zero mass flow.</p>
 <p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used before and after the time delay.</p>
 </html>"));
-end PipeHeatLossA60Mod_noAbs;
+end PipeHeatLossA60Ref;

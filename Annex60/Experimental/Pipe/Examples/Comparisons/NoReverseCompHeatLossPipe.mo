@@ -42,7 +42,7 @@ model NoReverseCompHeatLossPipe
     startTime=10000)
     "Step temperature increase to test propagation of temperature wave"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Annex60.Experimental.Pipe.PipeHeatLossA60Ref A60PipeHeatLoss(
+  Annex60.Experimental.Pipe.Archive.PipeHeatLossA60Ref A60PipeHeatLoss(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -59,16 +59,14 @@ model NoReverseCompHeatLossPipe
       = Medium, m_flow_nominal=0.5)
     "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-    Annex60.Experimental.Pipe.PipeHeatLossKUL
-                          KULHeatLoss(
+  Annex60.Experimental.Pipe.Archive.PipeHeatLossKUL KULHeatLoss(
     redeclare package Medium = Medium,
     m_flow_nominal=0.5,
     diameter=diameter,
     length=length,
     thicknessIns=0.02,
     lambdaI=0.01) "KUL implementation of plug flow pipe with heat losses"
-                                                               annotation (
-      Placement(transformation(
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,-20})));
