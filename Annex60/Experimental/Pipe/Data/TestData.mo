@@ -12,7 +12,7 @@ equation
       annotation (experiment(StopTime=603900, Interval=900),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-40,-40},{60,40}})),
       Documentation(info="<html>
-    <p>To be edited </p>
+    <p>Model used to visualize and check data of district heating networks</p>
 </html>",   revisions="<html>
 <ul>
 <li>

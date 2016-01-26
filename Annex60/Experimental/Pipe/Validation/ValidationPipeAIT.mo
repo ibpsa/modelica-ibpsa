@@ -42,7 +42,7 @@ extends Modelica.Icons.Example;
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
     length=115)
-    annotation (Placement(transformation(extent={{36,0},{16,20}})));
+    annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PipeHeatLoss_PipeDelayMod pip4(
     redeclare package Medium = Medium,
     length=29,
@@ -63,7 +63,7 @@ extends Modelica.Icons.Example;
     lambdaI=0.024,
     thicknessIns=0.045,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18))
-    annotation (Placement(transformation(extent={{-2,0},{-22,20}})));
+    annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   PipeHeatLoss_PipeDelayMod pip2(
     redeclare package Medium = Medium,
     length=76,
@@ -101,13 +101,15 @@ extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.RealExpression T_p1(y=DataReader.y[1])
     annotation (Placement(transformation(extent={{18,-74},{58,-54}})));
   Fluid.Sensors.Temperature senTem_p3(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-90,-32},{-70,-12}})));
+    annotation (Placement(transformation(extent={{-70,-32},{-90,-12}})));
   Fluid.Sensors.Temperature senTem_p2(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
   Fluid.Sensors.Temperature senTem_p4(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{30,56},{50,76}})));
   Fluid.Sensors.Temperature senTem_p1(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{48,-38},{28,-18}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={50,-20})));
   Modelica.Blocks.Math.UnitConversions.To_degC Tamb
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   PipeHeatLoss_PipeDelayMod pip0(
@@ -124,15 +126,15 @@ extends Modelica.Icons.Example;
   Fluid.Sources.FixedBoundary ExcludedBranch(nPorts=1, redeclare package Medium
       = Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={68,60})));
+        rotation=-90,
+        origin={80,70})));
 equation
   connect(pip3.port_a, pip5.port_b) annotation (Line(
-      points={{-46,0},{-46,10},{-22,10}},
+      points={{-46,0},{-46,10},{-20,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip5.port_b, pip2.port_a) annotation (Line(
-      points={{-22,10},{-70,10},{-70,30}},
+      points={{-20,10},{-70,10},{-70,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip2.port_b, Point2.ports[1]) annotation (Line(
@@ -144,11 +146,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip5.port_a, pip1.port_b) annotation (Line(
-      points={{-2,10},{16,10}},
+      points={{0,10},{30,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip4.port_a, pip1.port_b) annotation (Line(
-      points={{10,30},{10,10},{16,10}},
+      points={{10,30},{10,10},{30,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip3.port_b, Point3.ports[1]) annotation (Line(
@@ -184,7 +186,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(Tamb.y, pip1.T_amb) annotation (Line(
-      points={{61,-90},{100,-90},{100,40},{26,40},{26,20}},
+      points={{61,-90},{100,-90},{100,40},{40,40},{40,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tamb.y, pip4.T_amb) annotation (Line(
@@ -192,7 +194,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tamb.y, pip5.T_amb) annotation (Line(
-      points={{61,-90},{100,-90},{100,26},{-12,26},{-12,20}},
+      points={{61,-90},{100,-90},{100,26},{-10,26},{-10,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tamb.y, pip3.T_amb) annotation (Line(
@@ -208,11 +210,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pip0.port_b, pip1.port_a) annotation (Line(
-      points={{80,0},{80,10},{36,10}},
+      points={{80,0},{80,10},{50,10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTem_p1.port, pip0.port_a) annotation (Line(
-      points={{38,-38},{64,-38},{64,-20},{80,-20}},
+      points={{60,-20},{80,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(Tamb.y, pip0.T_amb) annotation (Line(
@@ -224,7 +226,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
-      points={{80,0},{80,60},{78,60}},
+      points={{80,0},{80,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(DataReader.y[5], Point1.m_flow_in) annotation (Line(
@@ -237,7 +239,7 @@ equation
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
-The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDatauAIT151218\">
+The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataAIT151218\">
 experimental data</a> from a real district heating network. This data is used to validate a pipe model.</p>
 <p>
 Pipes' temperatures are not initialized, thus results of outflow temperature before apprixmately the first 10000 seconds should no be considered.
@@ -260,7 +262,7 @@ Where the thermal conductivity of the ground <code>lambda_g = 2.4 </code> W/mK.
 </html>", revisions="<html>
 <ul>
 <li>
-Januar 19, 2016 by Carles Ribas:<br/>
+Januar 26, 2016 by Carles Ribas:<br/>
 First implementation.
 </li>
 </ul>

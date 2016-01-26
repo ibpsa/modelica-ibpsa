@@ -48,6 +48,9 @@ package Medium = Annex60.Media.Water;
   Modelica.Blocks.Math.UnitConversions.From_degC Tin
     "Ambient temperature in degrees"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+  Modelica.Blocks.Math.UnitConversions.From_degC Tout
+    "Ambient temperature in degrees"
+    annotation (Placement(transformation(extent={{40,-88},{60,-68}})));
 equation
   connect(Sewer1.ports[1], pipe.port_b) annotation (Line(
       points={{-74,0},{-44,0}},
@@ -81,11 +84,15 @@ equation
       points={{61,-50},{90,-50},{90,30},{34,30},{34,6},{28,6}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(DataReader.y[3], Tout.u) annotation (Line(
+      points={{21,-50},{21,-78},{38,-78}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
     Documentation(info="<html>
 <p>
-The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDatauLg150801\">
+The example contains <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataULg150801\">
 experimental data</a> from a real district heating network. This data is used to validate pipe models.</p>
 <p>Pipe's temperature is not initialized, thus the first 70 seconds should be disregarded.</p>
 
@@ -94,7 +101,7 @@ experimental data</a> from a real district heating network. This data is used to
 
 <p><b><span style=\"color: #008000;\">Calibration</span></b> </p>
 <p>
-There are some incertainties about the heat loss coefficient between pipe and surrounding air as well as regarding the heat conductivity of the insulation material. With the <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDatauLg150801\">
+There are some incertainties about the heat loss coefficient between pipe and surrounding air as well as regarding the heat conductivity of the insulation material. With the <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataULg150801\">
 given data</a>, the length specific thermal resistance <code>R = 1.21315 </code> (mK/W). <code>R</code> calculated as follows:
 </p>
 <p>
@@ -106,7 +113,7 @@ However, it is with <code> R = 0.028 </code> (mK/W) that good results for the ou
 </html>", revisions="<html>
 <ul>
 <li>
-Januar 19, 2016 by Carles Ribas:<br/>
+Januar 26, 2016 by Carles Ribas:<br/>
 First implementation.
 </li>
 </ul>
