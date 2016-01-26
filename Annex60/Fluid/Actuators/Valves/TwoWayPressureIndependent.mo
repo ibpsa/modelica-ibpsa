@@ -5,24 +5,60 @@ model TwoWayPressureIndependent "Model of a pressure-independent two way valve"
             from_dp=true,
             phi=l + y_actual*(1 - l));
 
-  parameter Real l2(min=1e-10) = 0.0001
+  parameter Real l2(min=1e-10) = 0.0005
     "Gain for mass flow increase if pressure is above nominal pressure"
     annotation(Dialog(tab="Advanced"));
 
 protected
+  Modelica.SIunits.PressureDifference dpTraLow(displayUnit="Pa")
+    "Pressure drop for lower transition";
+  Modelica.SIunits.PressureDifference dpTraHig(displayUnit="Pa")
+    "Pressure drop for upper transition";
+
+  Modelica.SIunits.MassFlowRate mTraLow_flow
+    "Mass flow rate for lower transition";
+  Modelica.SIunits.MassFlowRate mTraHig_flow
+    "Mass flow rate for upper transition";
+
   Modelica.SIunits.MassFlowRate m_flow_set "Requested mass flow rate";
   Modelica.SIunits.Pressure dp_min
     "Minimum dp required for delivering requested mass flow rate";
 
-  Modelica.SIunits.MassFlowRate m_flow_cor "Correction for mass flow rate";
-  Modelica.SIunits.Pressure dp_cor "Correction for dp";
+  //Modelica.SIunits.MassFlowRate m_flow_cor "Correction for mass flow rate";
+  //Modelica.SIunits.Pressure dp_cor "Correction for dp";
 equation
   m_flow_set = m_flow_nominal*phi;
 
-  dp_min = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+  // Compute the region in which the model transitions to
+  // setting m_flow_set. In theory, this should be at dp = dp_min.
+  // However, as the model typically often operates around dp_min
+  // in a well designed and well controlled system, we are bounding
+  // the transition slightly away from this region so that for this
+  // operating area, we will only need to evaluate a linear equation
+  // rather than the cubic spline interpolation that is used in this transition.
+  if from_dp then
+    dp_min = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
               m_flow=m_flow_set,
               k=k,
               m_flow_turbulent=m_flow_turbulent);
+
+    dpTraLow = 0.925*dp_min;
+    dpTraHig = 0.975*dp_min;
+    mTraLow_flow = 0;
+    mTraHig_flow = 0;
+  else // Fixme: The implementation for from_dp = false seems wrong
+    dp_min   = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+              m_flow=m_flow_set,
+              k=k,
+              m_flow_turbulent=m_flow_turbulent);
+    dpTraLow = 0.925*dp_min;
+    dpTraHig = 0.975*dp_min;
+    mTraLow_flow = Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+              dp=dpTraLow,
+              k=k,
+              m_flow_turbulent=m_flow_turbulent);
+    mTraHig_flow = m_flow_set + (dp-dp_min)/dp_nominal*m_flow_nominal*l2;
+    end if;
 
  kVal = Kv_SI;
  if (dpFixed_nominal > Modelica.Constants.eps) then
@@ -31,45 +67,72 @@ equation
    k = kVal;
  end if;
 
- // Compute the correction in mass flow rate or pressure drop
- // for the situation where the pressure is not sufficiently large.
- // For too large pressure, this correction increases the flow rate slightly
- // to avoid zero derivative of the mass flow rate vs. the pressure drop.
- if from_dp then
-   m_flow_cor = (m_flow_set- Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+ // fixme: if we agree with the implementation,
+ // then this also needs to be implemented for homotopyInitialization = false
+// if homotopyInitialization then
+  if from_dp then
+    m_flow=homotopy(
+      actual=
+        if dp < dpTraLow then
+          Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
                                dp=dp,
                                k=k,
-                               m_flow_turbulent=m_flow_turbulent))
-                  /max(1+(dp-dp_min)/dp_min/l2,1)^(1/3);
-   dp_cor     = 0;
- else
-   m_flow_cor = 0;
-   //        I suggest you update the implementation notes and explain there your
-   //        implementation. Otherwise I don't understand what you wanted to achieve,
-   //        what is implemented, and what the (now wrong/outdated) model documentation says to the user.
-   dp_cor     = (dp_min-Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                               m_flow_turbulent=m_flow_turbulent)
+        elseif dp > dpTraHig then
+          m_flow_set + (dp-dp_min)/dp_nominal*m_flow_nominal*l2
+        else
+          Modelica.Fluid.Utilities.cubicHermite(
+          x=   dp,
+          x1=  dpTraLow,
+          x2=  dpTraHig,
+          y1=  Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                  dp=dpTraLow,
+                                  k=k,
+                                  m_flow_turbulent=m_flow_turbulent),
+          y2=  m_flow_set + (dpTraHig-dp_min)/dp_nominal*m_flow_nominal*l2,
+          y1d=  Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp_der(
+                                  dp=dpTraLow,
+                                  k=k,
+                                  m_flow_turbulent=m_flow_turbulent,
+                                  dp_der=  1),
+          y2d=  m_flow_nominal*l2/dp_nominal),
+      simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+  else
+    dp=homotopy(
+      actual=
+        if m_flow < mTraLow_flow then
+          Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
                                m_flow=m_flow,
                                k=k,
-                               m_flow_turbulent=m_flow_turbulent))
-                 *max(1+(m_flow-m_flow_set)/m_flow_set/l2,1);
- end if;
-
- if homotopyInitialization then
-   if from_dp then
-      m_flow=homotopy(actual=m_flow_set-m_flow_cor,
-                      simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-
-   else
-      dp=homotopy(actual=dp_min-dp_cor,
-                  simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-   end if;
- else // do not use homotopy
-   if from_dp then
-     m_flow=m_flow_set-m_flow_cor;
-    else
-      dp=dp_min-dp_cor;
+                               m_flow_turbulent=m_flow_turbulent)
+        elseif m_flow > mTraHig_flow then
+          dp_min + (m_flow-m_flow_set)*dp_nominal/(m_flow_nominal*l2)
+        else
+          Modelica.Fluid.Utilities.cubicHermite(
+          x=   m_flow,
+          x1=  mTraLow_flow,
+          x2=  mTraHig_flow,
+          y1=  Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                  m_flow=mTraLow_flow,
+                                  k=k,
+                                  m_flow_turbulent=m_flow_turbulent),
+          y2=  dp_min + (mTraHig_flow-m_flow_set)*dp_nominal/(m_flow_nominal*l2),
+          y1d=  Annex60.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow_der(
+                                  m_flow=mTraLow_flow,
+                                  k=k,
+                                  m_flow_turbulent=m_flow_turbulent,
+                                  m_flow_der=  1),
+          y2d=  dp_nominal/(m_flow_nominal*l2)),
+      simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
     end if;
-  end if; // homotopyInitialization
+
+// else // do not use homotopy
+//   if from_dp then
+//     m_flow=m_flow_set-m_flow_cor;
+ //   else
+//      dp=0; // fixme: not yet implemented dp_min-dp_cor;
+//    end if;
+//  end if; // homotopyInitialization
   annotation (defaultComponentName="val",
   Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),       graphics={

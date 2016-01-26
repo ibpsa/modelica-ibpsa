@@ -6,3 +6,4 @@ TwoWayValvesMotor
 TwoWayValvesTable
 ValveParameterization
 TwoWayValvePressureIndependent2
+TwoWayValvePressureIndependentFixedResistance

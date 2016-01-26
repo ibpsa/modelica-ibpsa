@@ -1,0 +1,8 @@
+simulateModel("Annex60.Fluid.Actuators.Valves.Examples.TwoWayValvePressureIndependentFixedResistance", stopTime=2, method="dassl", resultFile="TwoWayValvePressureIndependentFixedResistance");
+createPlot(id=1, position={27, 28, 641, 304}, x="valIndDpFix_from_dp.dp", y={"valInd_from_dp.m_flow", "valIndDpFix_from_dp.m_flow", "valInd_from_m_flow.m_flow",
+ "valIndDpFix_from_m_flow.m_flow"}, range={2000.0, 24000.0, 0.0, 1.2000000000000002}, grid=true, filename="TwoWayValvePressureIndependentFixedResistance.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=2, position={234, 337, 1121, 849}, y={"valInd_from_dp.m_flow", "valInd_from_m_flow.m_flow", "valIndDpFix_from_m_flow.m_flow",
+ "valIndDpFix_from_dp.m_flow"}, range={0.0, 2.0, 0.0, 1.2000000000000002}, grid=true, filename="TwoWayValvePressureIndependentFixedResistance.mat", colors={{28,108,200}, {238,46,47}, {0,140,72}, {180,56,148}});
+createPlot(id=2, position={234, 337, 1121, 279}, y={"y.y"}, range={0.0, 2.0, -0.2, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={234, 337, 1121, 279}, y={"dp.y"}, range={0.0, 2.0, 300000.0, 325000.0}, grid=true, subPlot=3, colors={{28,108,200}});
+
