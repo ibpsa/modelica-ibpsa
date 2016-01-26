@@ -117,12 +117,6 @@ public
   BaseClasses.PDETime_massFlow_regStep tau_used(length=length, diameter=
         diameter)
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
-  BaseClasses.PDETime_massFlowMod tau_unused_regStep(diameter=diameter, length=
-        length)
-    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
-  BaseClasses.PDETime_massFlow_regStep tau_used_regStep(length=length, diameter=
-       diameter)
-    annotation (Placement(transformation(extent={{24,-80},{44,-60}})));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
@@ -152,18 +146,6 @@ equation
       smooth=Smooth.None));
   connect(tau_used.tau, reverseHeatLoss.tau) annotation (Line(
       points={{23,-54},{28,-54},{28,32},{-64,32},{-64,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(senMasFlo.m_flow, tau_unused_regStep.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-90},{-22,-90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(senMasFlo.m_flow, tau_used_regStep.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-70},{22,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(tau_used_regStep.tau, heatLoss.tau) annotation (Line(
-      points={{45,-70},{54,-70},{54,-22},{34,-22},{34,24},{44,24},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
