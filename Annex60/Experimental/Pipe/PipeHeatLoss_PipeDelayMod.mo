@@ -114,7 +114,7 @@ public
   BaseClasses.PDETime_massFlowMod tau_unused_maxClause(diameter=diameter,
       length=length)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  BaseClasses.PDETime_massFlow_regStep tau_used(length=length, diameter=
+  BaseClasses.PDETime_massFlowMod tau_used(length=length, diameter=
         diameter)
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
 equation
@@ -146,6 +146,10 @@ equation
       smooth=Smooth.None));
   connect(tau_used.tau, reverseHeatLoss.tau) annotation (Line(
       points={{23,-54},{28,-54},{28,32},{-64,32},{-64,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(tau_used.tau, heatLoss.tau) annotation (Line(
+      points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
