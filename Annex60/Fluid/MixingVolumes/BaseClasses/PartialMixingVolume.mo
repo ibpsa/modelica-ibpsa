@@ -60,6 +60,7 @@ protected
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
+    final substanceDynamics=substanceDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -273,6 +274,12 @@ Annex60.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2016, by Filip Jorissen:<br/>
+Propagated <code>substanceDynamics</code>
+for issue <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/390\">
+#390</a>.
+</li>
 <li>
 July 17, 2015, by Michael Wetter:<br/>
 Added constant <code>simplify_mWat_flow</code> to remove dependencies of the pressure drop
