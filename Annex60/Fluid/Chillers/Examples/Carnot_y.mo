@@ -19,7 +19,7 @@ model Carnot_y "Test model for chiller based on Carnot_y efficiency"
     m2_flow_nominal*(COPc_nominal+1)/COPc_nominal
     "Nominal mass flow rate at condenser water wide";
 
-  Annex60.Fluid.Chillers.Carnot chi(
+  Annex60.Fluid.Chillers.Carnot_y chi(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     P_nominal=P_nominal,

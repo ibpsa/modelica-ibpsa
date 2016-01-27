@@ -1,5 +1,5 @@
 within Annex60.Fluid.Chillers;
-model Carnot
+model Carnot_y
   "Chiller with performance curve adjusted based on Carnot efficiency"
  extends Interfaces.FourPortHeatMassExchanger(
    m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
@@ -407,4 +407,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Carnot;
+end Carnot_y;
