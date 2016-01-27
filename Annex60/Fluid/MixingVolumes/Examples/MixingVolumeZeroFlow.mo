@@ -170,11 +170,13 @@ equation
           lineColor={28,108,200},
           textString="<- vol.prescribedHeatFlowRate = true")}),
     experiment(
-      StopTime=2,
-      __Dymola_fixedstepsize=20,
-      __Dymola_Algorithm="Dassl"),
+      StopTime=2),
     Documentation(revisions="<html>
-    <ul>
+<ul>
+<li>
+January 27, 2016, by Michael Wetter;<br/>
+Removed algorithm specification in experiment annotation.
+</li>
 <li>
 July 2, 2015 by Michael Wetter:<br/>
 Revised example.
