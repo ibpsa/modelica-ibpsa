@@ -1,5 +1,5 @@
 within Annex60.Fluid.Chillers.Examples;
-model Carnot "Test model for chiller based on Carnot efficiency"
+model Carnot_y "Test model for chiller based on Carnot_y efficiency"
   extends Modelica.Icons.Example;
  package Medium1 = Annex60.Media.Water "Medium model";
  package Medium2 = Annex60.Media.Water "Medium model";
@@ -106,7 +106,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (experiment(StopTime=3600),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Carnot.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Carnot_y.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
@@ -135,4 +135,4 @@ Example that simulates a chiller whose efficiency is scaled based on the
 Carnot cycle.
 </p>
 </html>"));
-end Carnot;
+end Carnot_y;
