@@ -31,12 +31,6 @@ model Carnot_TCon
     final homotopyInitialization=homotopyInitialization,
     final Q_flow_nominal=QEva_flow_nominal));
 
-  // Efficiency
-  parameter Real COP_nominal(
-    fixed=not use_eta_Carnot,
-    final unit="1") "Coefficient of performance"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-
   parameter Modelica.SIunits.HeatFlowRate QCon_flow_max(
     min=0)=Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";

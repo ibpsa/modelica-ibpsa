@@ -10,6 +10,8 @@ partial model PartialCarnot_y
    // Above, we use -abs(dTEva_nominal) because in Annex60 2.1,
    // dTEva_nominal was a positive quantity.
 
+  // fixme: Most parameters are the same for PartialCarnot_y and PartialCarnot_T.
+  //        Maybe they should be put in a record.
   parameter Annex60.Fluid.Types.EfficiencyInput effInpEva=
     Annex60.Fluid.Types.EfficiencyInput.volume
     "Temperatures of evaporator fluid used to compute Carnot efficiency"
@@ -38,19 +40,19 @@ partial model PartialCarnot_y
     annotation (Dialog(group="Nominal condition"));
   // Efficiency
   parameter Boolean use_eta_Carnot = true
-    "Set to true to use Carnot efficiency"
+    "Set to true to use etaCar to compute Carnot effectiveness"
     annotation(Dialog(group="Efficiency"));
-  parameter Real etaCar(fixed=use_eta_Carnot)
+  parameter Real etaCar(unit="1", fixed=use_eta_Carnot)
     "Carnot effectiveness (=COP/COP_Carnot)"
     annotation (Dialog(group="Efficiency", enable=use_eta_Carnot));
-  parameter Real COP_nominal(fixed=not use_eta_Carnot)
-    "Coefficient of performance"
+  parameter Real COP_nominal(unit="1", fixed=not use_eta_Carnot)
+    "Coefficient of performance at TCon_nominal and TEva_nominal. Used if use_eta_Carnot=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
   parameter Modelica.SIunits.Temperature TCon_nominal = 303.15
-    "Condenser temperature"
+    "Condenser temperature used to compute COP_nominal if use_eta_Carnot=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
   parameter Modelica.SIunits.Temperature TEva_nominal = 278.15
-    "Evaporator temperature"
+    "Evaporator temperature used to compute COP_nominal if use_eta_Carnot=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
 
   parameter Real a[:] = {1}
@@ -60,15 +62,20 @@ partial model PartialCarnot_y
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
     "Part load ratio"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
+
+  input Real COPCar(min=0) "Carnot efficiency";
+
   Real etaPL "Efficiency due to part load of compressor (etaPL(y=1)=1";
   Real COP(min=0) "Coefficient of performance";
-  Real COPCar(min=0) "Carnot efficiency";
-  Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
-  Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
+
   Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
     "Electric power consumed by compressor"
     annotation (Placement(transformation(extent={{100,80},{120,100}}),
         iconTransformation(extent={{100,80},{120,100}})));
+
+  Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
+  Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
+
   Medium1.Temperature TCon "Condenser temperature used to compute efficiency";
   Medium2.Temperature TEva "Evaporator temperature used to compute efficiency";
 protected

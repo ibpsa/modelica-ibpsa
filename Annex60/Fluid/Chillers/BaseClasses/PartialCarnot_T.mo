@@ -25,15 +25,20 @@ partial model PartialCarnot_T
 
   // Efficiency
   parameter Boolean use_eta_Carnot = true
-    "Set to true to use Carnot efficiency"
+    "Set to true to use Carnot effectiveness etaCar rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
   parameter Real etaCar(unit="1", fixed=use_eta_Carnot)
-    "Carnot effectiveness (=COP/COP_Carnot)"
+    "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot = true"
     annotation (Dialog(group="Efficiency", enable=use_eta_Carnot));
-
-  parameter Modelica.SIunits.Temperature TCon_nominal "Condenser temperature"
+  parameter Real COP_nominal(unit="1", fixed=not use_eta_Carnot)
+    "Coefficient of performance at TEva_nominal and TCon_nominal, used if use_eta_Carnot = false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-  parameter Modelica.SIunits.Temperature TEva_nominal "Evaporator temperature"
+
+  parameter Modelica.SIunits.Temperature TCon_nominal
+    "Condenser temperature used to compute COP_nominal if use_eta_Carnot=false"
+    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
+  parameter Modelica.SIunits.Temperature TEva_nominal
+    "Evaporator temperature used to compute COP_nominal if use_eta_Carnot=false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
 
   parameter Real a[:] = {1}

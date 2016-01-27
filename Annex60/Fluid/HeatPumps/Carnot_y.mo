@@ -2,96 +2,15 @@ within Annex60.Fluid.HeatPumps;
 model Carnot_y
   "Reversible heat pump with performance curve adjusted based on Carnot efficiency"
  extends Annex60.Fluid.Chillers.BaseClasses.PartialCarnot_y(
-  final QEva_flow_nominal = -P_nominal * (COP_nominal-1));
+  final QEva_flow_nominal = -P_nominal * (COP_nominal-1),
+  COPCar = TCon / Annex60.Utilities.Math.Functions.smoothMax(
+    x1=1,
+    x2=TCon-TEva,
+    deltaX=0.25));
 
 initial equation
   COP_nominal = etaCar * TCon_nominal/(TCon_nominal-TEva_nominal);
-
-
-equation
-  COPCar = TCon / Annex60.Utilities.Math.Functions.smoothMax(x1=1, x2=TCon-TEva, deltaX=0.25);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics={
-        Rectangle(
-          extent={{-56,68},{58,50}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-56,-52},{58,-70}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-103,64},{98,54}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-2,54},{98,64}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-101,-56},{100,-66}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,-66},{0,-56}},
-          lineColor={0,0,127},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-42,0},{-52,-12},{-32,-12},{-42,0}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-42,0},{-52,10},{-32,10},{-42,0}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-44,50},{-40,10}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-44,-12},{-40,-52}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{38,50},{42,-52}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{18,22},{62,-20}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{40,22},{22,-10},{58,-10},{40,22}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-144,146},{-88,104}},
-          lineColor={0,0,127},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="y"),
-        Text(extent={{64,96},{114,82}},   textString="P",
-          lineColor={0,0,127})}),
+  annotation (
 defaultComponentName="heaPum",
 Documentation(info="<html>
 <p>

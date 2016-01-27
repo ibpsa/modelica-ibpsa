@@ -31,11 +31,6 @@ model Carnot_TEva
     final energyDynamics=energyDynamics2,
     final homotopyInitialization=homotopyInitialization));
 
-  // Efficiency
-  parameter Real COP_nominal(fixed=not use_eta_Carnot)
-    "Coefficient of performance"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-
   parameter Modelica.SIunits.HeatFlowRate QEva_flow_min(max=0)=-Modelica.Constants.inf
     "Maximum heat flow rate for cooling (negative)";
 
