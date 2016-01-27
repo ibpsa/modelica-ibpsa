@@ -109,8 +109,10 @@ model MixingVolumeZeroFlow
     use_T_in=true) "Source"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
-    assert(abs(volNonLinSys.heatPort.Q_flow)<Modelica.Constants.small or time<1, "Heat flow leakage around zero flow!");
-    assert(abs(volLinSys.heatPort.Q_flow)<Modelica.Constants.small or time<1, "Heat flow leakage around zero flow!");
+  assert(abs(volNonLinSys.heatPort.Q_flow)<Modelica.Constants.small or time<1,
+    "Heat flow leakage around zero flow.");
+  assert(abs(volLinSys.heatPort.Q_flow)<Modelica.Constants.small or time<1,
+    "Heat flow leakage around zero flow.");
   connect(sou2.ports[1], volNonLinSys.ports[1]) annotation (Line(points={{-40,-22},
           {-40,-20},{-2,-20}}, color={0,127,255}));
   connect(volNonLinSys.ports[2], sin.ports[1]) annotation (Line(points={{2,-20},
