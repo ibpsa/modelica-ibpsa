@@ -157,65 +157,20 @@ initial equation
   assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
 
 equation
-  if allowFlowReversal1 then
-    if homotopyInitialization then
-      staA1=Medium1.setState_phX(port_a1.p,
-                          homotopy(actual=actualStream(port_a1.h_outflow),
-                                   simplified=inStream(port_a1.h_outflow)),
-                          homotopy(actual=actualStream(port_a1.Xi_outflow),
-                                   simplified=inStream(port_a1.Xi_outflow)));
-      staB1=Medium1.setState_phX(port_b1.p,
-                          homotopy(actual=actualStream(port_b1.h_outflow),
-                                   simplified=port_b1.h_outflow),
-                          homotopy(actual=actualStream(port_b1.Xi_outflow),
-                                   simplified=port_b1.Xi_outflow));
-
-    else
-      staA1=Medium1.setState_phX(port_a1.p,
-                          actualStream(port_a1.h_outflow),
-                          actualStream(port_a1.Xi_outflow));
-      staB1=Medium1.setState_phX(port_b1.p,
-                          actualStream(port_b1.h_outflow),
-                          actualStream(port_b1.Xi_outflow));
-    end if; // homotopyInitialization
-  else // reverse flow not allowed
-    staA1=Medium1.setState_phX(port_a1.p,
-                              inStream(port_a1.h_outflow),
-                              inStream(port_a1.Xi_outflow));
-    staB1=Medium1.setState_phX(port_b1.p,
-                               port_b1.h_outflow,
-                               port_b1.Xi_outflow);
-  end if;
-  if allowFlowReversal2 then
-    if homotopyInitialization then
-      staA2=Medium2.setState_phX(port_a2.p,
-                          homotopy(actual=actualStream(port_a2.h_outflow),
-                                   simplified=inStream(port_a2.h_outflow)),
-                          homotopy(actual=actualStream(port_a2.Xi_outflow),
-                                   simplified=inStream(port_a2.Xi_outflow)));
-      staB2=Medium2.setState_phX(port_b2.p,
-                          homotopy(actual=actualStream(port_b2.h_outflow),
-                                   simplified=port_b2.h_outflow),
-                          homotopy(actual=actualStream(port_b2.Xi_outflow),
-                                   simplified=port_b2.Xi_outflow));
-
-    else
-      staA2=Medium2.setState_phX(port_a2.p,
-                          actualStream(port_a2.h_outflow),
-                          actualStream(port_a2.Xi_outflow));
-      staB2=Medium2.setState_phX(port_b2.p,
-                          actualStream(port_b2.h_outflow),
-                          actualStream(port_b2.Xi_outflow));
-    end if; // homotopyInitialization
-  else // reverse flow not allowed
-    staA2=Medium2.setState_phX(port_a2.p,
-                               inStream(port_a2.h_outflow),
-                               inStream(port_a2.Xi_outflow));
-    staB2=Medium2.setState_phX(port_b2.p,
-                               port_b2.h_outflow,
-                               port_b2.Xi_outflow);
-  end if;
-
+  // State are calculated according to the design condition, as using the Carnot machine
+  // in reverse flow is not meaningful.
+  staA1=Medium1.setState_phX(port_a1.p,
+                             inStream(port_a1.h_outflow),
+                             inStream(port_a1.Xi_outflow));
+  staB1=Medium1.setState_phX(port_b1.p,
+                             port_b1.h_outflow,
+                             port_b1.Xi_outflow);
+  staA2=Medium2.setState_phX(port_a2.p,
+                             inStream(port_a2.h_outflow),
+                             inStream(port_a2.Xi_outflow));
+  staB2=Medium2.setState_phX(port_b2.p,
+                             port_b2.h_outflow,
+                             port_b2.Xi_outflow);
   // Set temperatures that will be used to compute Carnot efficiency
   if effInpCon == Annex60.Fluid.Types.EfficiencyInput.volume then
     TCon = Medium1.temperature( Medium1.setState_phX(
@@ -352,36 +307,8 @@ and accordingly assign <code>COPc</code>.
 revisions="<html>
 <ul>
 <li>
-December 18, 2015, by Michael Wetter:<br/>
-Corrected wrong computation of <code>staB1</code> and <code>staB2</code>
-which mistakenly used the <code>inStream</code> operator
-for the configuration without flow reversal.
-</li>
-<li>
-September 3, 2015 by Michael Wetter:<br/>
-Expanded documentation.
-</li>
-<li>
-May 6, 2015 by Michael Wetter:<br/>
-Added <code>prescribedHeatFlowRate=true</code> for <code>vol2</code>.
-</li>
-<li>
-October 9, 2013 by Michael Wetter:<br/>
-Reimplemented the computation of the port states to avoid using
-the conditionally removed variables <code>sta_a1</code>,
-<code>sta_a2</code>, <code>sta_b1</code> and <code>sta_b2</code>.
-</li>
-<li>
-May 10, 2013 by Michael Wetter:<br/>
-Added electric power <code>P</code> as an output signal.
-</li>
-<li>
-October 11, 2010 by Michael Wetter:<br/>
-Fixed bug in energy balance.
-</li>
-<li>
-March 3, 2009 by Michael Wetter:<br/>
-First implementation.
+January 26, 2016, by Michael Wetter:<br/>
+First implementation of this base class.
 </li>
 </ul>
 </html>"),

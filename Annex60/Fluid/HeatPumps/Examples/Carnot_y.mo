@@ -3,7 +3,6 @@ model Carnot_y "Test model for heat pump based on Carnot efficiency"
   extends Modelica.Icons.Example;
  package Medium1 = Annex60.Media.Water "Medium model";
  package Medium2 = Annex60.Media.Water "Medium model";
-
   parameter Modelica.SIunits.Power P_nominal=10E3
     "Nominal compressor power (at y=1)";
   parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
@@ -11,14 +10,12 @@ model Carnot_y "Test model for heat pump based on Carnot efficiency"
   parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal = 3 "Heat pump COP";
-
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
      -P_nominal*COPc_nominal/dTEva_nominal/4200
     "Nominal mass flow rate at chilled water side";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
     m2_flow_nominal*(COPc_nominal+1)/COPc_nominal
     "Nominal mass flow rate at condenser water wide";
-
   Annex60.Fluid.HeatPumps.Carnot_y heaPum(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,

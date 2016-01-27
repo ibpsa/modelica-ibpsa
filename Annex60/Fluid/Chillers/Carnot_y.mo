@@ -1,225 +1,17 @@
 within Annex60.Fluid.Chillers;
 model Carnot_y
   "Chiller with performance curve adjusted based on Carnot efficiency"
- extends Interfaces.FourPortHeatMassExchanger(
-   m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
-   m2_flow_nominal = -QEva_flow_nominal/cp2_default/abs(dTEva_nominal),
-   vol1(prescribedHeatFlowRate = true),
-   redeclare final Annex60.Fluid.MixingVolumes.MixingVolume vol2(
-     prescribedHeatFlowRate = true));
-   // Above, we use -abs(dTEva_nominal) because in Annex60 2.1,
-   // dTEva_nominal was a positive quantity.
+ extends Annex60.Fluid.Chillers.BaseClasses.PartialCarnot_y(
+  final QEva_flow_nominal = -P_nominal * COP_nominal);
 
-  parameter Annex60.Fluid.Types.EfficiencyInput effInpEva=
-    Annex60.Fluid.Types.EfficiencyInput.volume
-    "Temperatures of evaporator fluid used to compute Carnot efficiency"
-    annotation (Dialog(tab="Advanced", group="Temperature dependence"));
-  parameter Annex60.Fluid.Types.EfficiencyInput effInpCon=
-    Annex60.Fluid.Types.EfficiencyInput.port_a
-    "Temperatures of condenser fluid used to compute Carnot efficiency"
-    annotation (Dialog(tab="Advanced", group="Temperature dependence"));
-  parameter Modelica.SIunits.Power P_nominal
-    "Nominal compressor power (at y=1)"
-    annotation (Dialog(group="Nominal condition"));
-
-  final parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)=
-    -P_nominal * COP_nominal
-    "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
-    annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal(min=0)=
     P_nominal - QEva_flow_nominal "Nominal heating flow rate";
 
-  // fixme: the change in sign convention for dTEva_nominal need to be added
-  //        to the revision notes if this parameter is not removed
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal(max=0) = -10
-    "Temperature difference evaporator outlet-inlet"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal(min=0) = 10
-    "Temperature difference condenser outlet-inlet"
-    annotation (Dialog(group="Nominal condition"));
-  // Efficiency
-  parameter Boolean use_eta_Carnot = true
-    "Set to true to use Carnot efficiency"
-    annotation(Dialog(group="Efficiency"));
-  parameter Real etaCar(fixed=use_eta_Carnot)
-    "Carnot effectiveness (=COP/COP_Carnot)"
-    annotation (Dialog(group="Efficiency", enable=use_eta_Carnot));
-  parameter Real COP_nominal(fixed=not use_eta_Carnot)
-    "Coefficient of performance"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-  parameter Modelica.SIunits.Temperature TCon_nominal = 303.15
-    "Condenser temperature"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-  parameter Modelica.SIunits.Temperature TEva_nominal = 278.15
-    "Evaporator temperature"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-
-  parameter Real a[:] = {1}
-    "Coefficients for efficiency curve (need p(a=a, y=1)=1)"
-    annotation (Dialog(group="Efficiency"));
-
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
-    annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
-  Real etaPL "Efficiency due to part load of compressor (etaPL(y=1)=1";
-  Real COP(min=0) "Coefficient of performance";
-  Real COPCar(min=0) "Carnot efficiency";
-  Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
-  Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
-  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
-    "Electric power consumed by compressor"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
-  Medium1.Temperature TCon "Condenser temperature used to compute efficiency";
-  Medium2.Temperature TEva "Evaporator temperature used to compute efficiency";
-protected
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
-    Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
-      p=  Medium1.p_default,
-      T=  Medium1.T_default,
-      X=  Medium1.X_default))
-    "Specific heat capacity of medium 1 at default medium state";
-  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
-    Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
-      p=  Medium2.p_default,
-      T=  Medium2.T_default,
-      X=  Medium2.X_default))
-    "Specific heat capacity of medium 2 at default medium state";
-
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
-    "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
-    "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
-  Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
-    "Evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
-    "Condenser heat flow rate"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-
-  Medium1.ThermodynamicState staA1 "Medium properties in port_a1";
-  Medium1.ThermodynamicState staB1 "Medium properties in port_b1";
-  Medium2.ThermodynamicState staA2 "Medium properties in port_a2";
-  Medium2.ThermodynamicState staB2 "Medium properties in port_b2";
-
 initial equation
-  // Because in Annex60 2.1, dTEve_nominal was positive, we just
-  // write a warning for now.
-  assert(dTEva_nominal < 0,
-        "Parameter dTEva_nominal must be negative. In the future, this will trigger  an error.",
-        level=AssertionLevel.warning);
-  assert(dTCon_nominal > 0, "Parameter dTCon_nominal must be positive.");
-
   COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
 
-  assert(abs(Annex60.Utilities.Math.Functions.polynomial(
-         a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
-  assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
-  assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
 equation
-  if allowFlowReversal1 then
-    if homotopyInitialization then
-      staA1=Medium1.setState_phX(port_a1.p,
-                          homotopy(actual=actualStream(port_a1.h_outflow),
-                                   simplified=inStream(port_a1.h_outflow)),
-                          homotopy(actual=actualStream(port_a1.Xi_outflow),
-                                   simplified=inStream(port_a1.Xi_outflow)));
-      staB1=Medium1.setState_phX(port_b1.p,
-                          homotopy(actual=actualStream(port_b1.h_outflow),
-                                   simplified=port_b1.h_outflow),
-                          homotopy(actual=actualStream(port_b1.Xi_outflow),
-                                   simplified=port_b1.Xi_outflow));
-
-    else
-      staA1=Medium1.setState_phX(port_a1.p,
-                          actualStream(port_a1.h_outflow),
-                          actualStream(port_a1.Xi_outflow));
-      staB1=Medium1.setState_phX(port_b1.p,
-                          actualStream(port_b1.h_outflow),
-                          actualStream(port_b1.Xi_outflow));
-    end if; // homotopyInitialization
-  else // reverse flow not allowed
-    staA1=Medium1.setState_phX(port_a1.p,
-                             inStream(port_a1.h_outflow),
-                             inStream(port_a1.Xi_outflow));
-    staB1=Medium1.setState_phX(port_b1.p,
-                               port_b1.h_outflow,
-                               port_b1.Xi_outflow);
-  end if;
-  if allowFlowReversal2 then
-    if homotopyInitialization then
-      staA2=Medium2.setState_phX(port_a2.p,
-                          homotopy(actual=actualStream(port_a2.h_outflow),
-                                   simplified=inStream(port_a2.h_outflow)),
-                          homotopy(actual=actualStream(port_a2.Xi_outflow),
-                                   simplified=inStream(port_a2.Xi_outflow)));
-      staB2=Medium2.setState_phX(port_b2.p,
-                          homotopy(actual=actualStream(port_b2.h_outflow),
-                                   simplified=port_b2.h_outflow),
-                          homotopy(actual=actualStream(port_b2.Xi_outflow),
-                            simplified=port_b2.Xi_outflow));
-
-    else
-      staA2=Medium2.setState_phX(port_a2.p,
-                          actualStream(port_a2.h_outflow),
-                          actualStream(port_a2.Xi_outflow));
-      staB2=Medium2.setState_phX(port_b2.p,
-                          actualStream(port_b2.h_outflow),
-                          actualStream(port_b2.Xi_outflow));
-    end if; // homotopyInitialization
-  else // reverse flow not allowed
-    staA2=Medium2.setState_phX(port_a2.p,
-                               inStream(port_a2.h_outflow),
-                               inStream(port_a2.Xi_outflow));
-    staB2=Medium2.setState_phX(port_b2.p,
-                               port_b2.h_outflow,
-                               port_b2.Xi_outflow);
-  end if;
-  // Set temperatures that will be used to compute Carnot efficiency
-  if effInpCon == Annex60.Fluid.Types.EfficiencyInput.volume then
-    TCon = vol1.heatPort.T;
-  elseif effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_a then
-    TCon = Medium1.temperature(staA1);
-  elseif effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_b then
-    TCon = Medium1.temperature(staB1);
-  else
-    TCon = 0.5 * (Medium1.temperature(staA1)+Medium1.temperature(staB1));
-  end if;
-
-  if effInpEva == Annex60.Fluid.Types.EfficiencyInput.volume then
-    TEva = vol2.heatPort.T;
-  elseif effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_a then
-    TEva = Medium2.temperature(staA2);
-  elseif effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_b then
-    TEva = Medium2.temperature(staB2);
-  else
-    TEva = 0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2));
-  end if;
-
-  etaPL  = Annex60.Utilities.Math.Functions.polynomial(a=a, x=y);
-  P = y * P_nominal;
   COPCar = TEva / Annex60.Utilities.Math.Functions.smoothMax(x1=1, x2=TCon-TEva, deltaX=0.25);
-  COP = etaCar * COPCar * etaPL;
-  -QEva_flow = COP * P;
-  QCon_flow = P - QEva_flow;
-
-  connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
-      points={{-59,40},{-39,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(preHeaFloCon.port, vol1.heatPort) annotation (Line(
-      points={{-19,40},{-10,40},{-10,60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(
-      points={{-59,-40},{-39,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(preHeaFloEva.port, vol2.heatPort) annotation (Line(
-      points={{-19,-40},{12,-40},{12,-60}},
-      color={191,0,0},
-      smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -355,9 +147,18 @@ The transient response of the model is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>
+<p>
+For a similar model that can be used as a heat pump, see
+<a href=\"modelica://Annex60.Fluid.HeatPumps.Carnot_y\">Annex60.Fluid.HeatPumps.Carnot_y</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Refactored model to use the same base class as
+<a href=\"modelica://Annex60.Fluid.HeatPumps.Carnot_y\">Annex60.Fluid.HeatPumps.Carnot_y</a>.
+</li>
 <li>
 December 18, 2015, by Michael Wetter:<br/>
 Corrected wrong computation of <code>staB1</code> and <code>staB2</code>
