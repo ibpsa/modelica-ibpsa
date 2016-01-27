@@ -9,10 +9,7 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-  // fixme: this parameter name is wrong (but at least consistently).
-  // substanceName are the names of the components in Medium.X,
-  // whereas extraPropertiesNames are the names of the components in Medium.C.
-  // Hence, this parameter should be renamed to extraPropertyName.
+
   parameter String substanceName = "CO2" "Name of trace substance";
   parameter Real C_start(min=0) = 0
     "Initial or guess value of output (= state)"

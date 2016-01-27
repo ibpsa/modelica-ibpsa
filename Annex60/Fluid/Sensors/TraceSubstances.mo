@@ -2,10 +2,7 @@ within Annex60.Fluid.Sensors;
 model TraceSubstances "Ideal one port trace substances sensor"
   extends Annex60.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
-  // fixme: this parameter name is wrong (but at least consistently).
-  // substanceName are the names of the components in Medium.X,
-  // whereas extraPropertiesNames are the names of the components in Medium.C.
-  // Hence, this parameter should be renamed to extraPropertyName.
+
   parameter String substanceName = "CO2" "Name of trace substance";
 
   Modelica.Blocks.Interfaces.RealOutput C(min=0)
