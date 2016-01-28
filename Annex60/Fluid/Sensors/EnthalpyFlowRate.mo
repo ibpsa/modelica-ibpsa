@@ -2,7 +2,7 @@ within Annex60.Fluid.Sensors;
 model EnthalpyFlowRate "Ideal enthalphy flow rate sensor"
   extends Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-  Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput H_flow(final unit="W")
     "Enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
@@ -78,6 +78,10 @@ Annex60.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+Made unit assignment of output signal final.
+</li>
 <li>
 August 31, 2013, by Michael Wetter:<br/>
 Removed default value <code>tau=0</code> as the base class
