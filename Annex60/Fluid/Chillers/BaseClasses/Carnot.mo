@@ -71,8 +71,19 @@ partial model Carnot
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
 
-  input Real etaPL(final unit = "1")
-    "Efficiency due to part load of compressor (etaPL(yPL=1)=1)";
+  Real yPL(final unit="1") = if COP_is_for_cooling
+     then QEva_flow/QEva_flow_nominal
+     else QCon_flow/QCon_flow_nominal "Part load ratio";
+
+  Real etaPL(final unit = "1")=
+    if true
+      then 1
+      else Annex60.Utilities.Math.Functions.polynomial(
+               a=a,
+               x=yPL) "Efficiency due to part load (etaPL(yPL=1)=1)";
+
+  Real COP(min=0, final unit="1") = etaCar * COPCar * etaPL
+    "Coefficient of performance";
 
   Real COPCar(min=0) = TUse / Annex60.Utilities.Math.Functions.smoothMax(
     x1=1,
@@ -82,6 +93,13 @@ partial model Carnot
 protected
   constant Boolean COP_is_for_cooling
     "Set to true if the specified COP is for cooling";
+  // For Carnot_y, computing etaPL = f(yPL) introduces a nonlinear equation.
+  // The parameter below avoids this if a = {1}.
+  final parameter Boolean evaluate_etaPL=
+    (size(a, 1) == 1 and abs(a[1] - 1)  < Modelica.Constants.eps)
+    "Flag, true if etaPL should be computed as it depends on yPL"
+    annotation(Evaluate=true);
+
   final parameter Modelica.SIunits.Temperature TUse_nominal=
    if COP_is_for_cooling then TEva_nominal else TCon_nominal
     "Nominal evaporator temperature for chiller or condenser temperature for heat pump";

@@ -7,7 +7,6 @@ model Carnot_TEva
    effInpEva=Annex60.Fluid.Types.EfficiencyInput.volume,
    effInpCon=Annex60.Fluid.Types.EfficiencyInput.port_a,
    PEle(y=-QEva_flow/COP),
-   yPL = eva.Q_flow/QEva_flow_nominal,
    redeclare HeatExchangers.HeaterCooler_u con(
     final from_dp=from_dp1,
     final dp_nominal=dp1_nominal,

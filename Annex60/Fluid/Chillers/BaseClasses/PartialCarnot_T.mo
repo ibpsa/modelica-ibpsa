@@ -1,13 +1,10 @@
 within Annex60.Fluid.Chillers.BaseClasses;
 partial model PartialCarnot_T
   "Partial model for chiller with performance curve adjusted based on Carnot efficiency"
-  extends Carnot(
-    etaPL=Annex60.Utilities.Math.Functions.polynomial(
-            a=a,
-            x=yPL));
- extends Annex60.Fluid.Interfaces.PartialFourPortInterface(
-   m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
-   m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
+  extends Carnot;
+  extends Annex60.Fluid.Interfaces.PartialFourPortInterface(
+    m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
+    m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal);
 
   parameter Modelica.SIunits.Pressure dp1_nominal(displayUnit="Pa")
     "Pressure difference over condenser"
@@ -60,17 +57,6 @@ partial model PartialCarnot_T
   parameter Modelica.Fluid.Types.Dynamics energyDynamics2=Modelica.Fluid.Types.Dynamics.SteadyState
     "Formulation of energy balance"
     annotation (Dialog(tab="Dynamics", group="Evaporator"));
-
-  input Real yPL(final unit="1") "Part load ratio";
-
-  Real COP(min=0, final unit="1") = etaCar * COPCar * etaPL
-    "Coefficient of performance";
-
-  // This partial model has not QCon_flow or QEva_flow, but PartialCarnot_y has.
-  // Check whether they should be introduced and moved to the base class
-  //  Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
-  //  Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
-
 protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
@@ -85,9 +71,6 @@ protected
       X=  Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
 
-  // fixme: make sure this does not clash with sta used if show_T = true.
-  // State are calculated according to the design condition, as using the Carnot machine
-  // in reverse flow is not meaningful.
   Medium1.ThermodynamicState staA1 = Medium1.setState_phX(
     port_a1.p,
     inStream(port_a1.h_outflow),

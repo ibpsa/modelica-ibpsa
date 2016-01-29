@@ -5,10 +5,7 @@ partial model PartialCarnot_y
     final QCon_flow_nominal= P_nominal - QEva_flow_nominal,
     final QEva_flow_nominal = if COP_is_for_cooling
       then -P_nominal * COP_nominal
-      else -P_nominal * (COP_nominal-1),
-    etaPL =  Annex60.Utilities.Math.Functions.polynomial(
-               a=a,
-               x=y));
+      else -P_nominal * (COP_nominal-1));
  extends Interfaces.FourPortHeatMassExchanger(
    m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
    m2_flow_nominal = -QEva_flow_nominal/cp2_default/abs(dTEva_nominal),
@@ -23,10 +20,8 @@ partial model PartialCarnot_y
     annotation (Dialog(group="Nominal condition"));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
-    "Part load ratio"
+    "Part load ratio of compressor"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
-
-  Real COP(min=0) = etaCar * COPCar * etaPL "Coefficient of performance";
 
 protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
