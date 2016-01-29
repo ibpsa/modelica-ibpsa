@@ -2,14 +2,8 @@ within Annex60.Fluid.HeatPumps;
 model Carnot_y
   "Reversible heat pump with performance curve adjusted based on Carnot efficiency"
  extends Annex60.Fluid.Chillers.BaseClasses.PartialCarnot_y(
-  final QEva_flow_nominal = -P_nominal * (COP_nominal-1),
-  COPCar = TCon / Annex60.Utilities.Math.Functions.smoothMax(
-    x1=1,
-    x2=TCon-TEva,
-    deltaX=0.25));
+  final COP_is_for_cooling = false);
 
-initial equation
-  COP_nominal = etaCar * TCon_nominal/(TCon_nominal-TEva_nominal);
   annotation (
 defaultComponentName="heaPum",
 Documentation(info="<html>
@@ -131,5 +125,10 @@ March 3, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
+    Icon(graphics={
+        Line(points={{0,68},{0,90},{90,90},{90,90},{100,90}},
+                                                 color={0,0,255})}));
 end Carnot_y;

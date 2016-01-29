@@ -1,18 +1,8 @@
 within Annex60.Fluid.Chillers;
 model Carnot_y
   "Chiller with performance curve adjusted based on Carnot efficiency"
- extends Annex60.Fluid.Chillers.BaseClasses.PartialCarnot_y(
-  final QEva_flow_nominal = -P_nominal * COP_nominal,
-  COPCar = TEva / Annex60.Utilities.Math.Functions.smoothMax(
-    x1=1,
-    x2=TCon-TEva,
-    deltaX=0.25));
-
-  final parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal(min=0)=
-    P_nominal - QEva_flow_nominal "Nominal heating flow rate";
-
-initial equation
-  COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
+  extends Annex60.Fluid.Chillers.BaseClasses.PartialCarnot_y(
+    final COP_is_for_cooling = true);
 
   annotation (
 defaultComponentName="chi",
@@ -128,5 +118,9 @@ March 3, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
+    Icon(graphics={
+        Line(points={{0,-70},{0,-90},{100,-90}}, color={0,0,255})}));
 end Carnot_y;

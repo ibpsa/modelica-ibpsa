@@ -2,13 +2,12 @@ within Annex60.Fluid.HeatPumps;
 model Carnot_TCon
   "Heat pump with prescribed condenser leaving temperature and performance curve adjusted based on Carnot efficiency"
  extends Annex60.Fluid.Chillers.BaseClasses.PartialCarnot_T(
-   QEva_flow_nominal = -QCon_flow_nominal*(COP_nominal-1)/COP_nominal,
-   PEle(y=QCon_flow/COP),
-   TCon_nominal = 303.15,
-   TEva_nominal = 278.15,
-   yPL = con.Q_flow/QCon_flow_nominal,
+   final COP_is_for_cooling = false,
+   final QEva_flow_nominal = -QCon_flow_nominal*(COP_nominal-1)/COP_nominal,
    effInpEva=Annex60.Fluid.Types.EfficiencyInput.port_a,
    effInpCon=Annex60.Fluid.Types.EfficiencyInput.volume,
+   PEle(y=QCon_flow/COP),
+   yPL = con.Q_flow/QCon_flow_nominal,
    redeclare HeatExchangers.HeaterCooler_T con(
     final from_dp=from_dp1,
     final dp_nominal=dp1_nominal,
@@ -32,46 +31,39 @@ model Carnot_TCon
     final Q_flow_nominal=QEva_flow_nominal));
 
   parameter Modelica.SIunits.HeatFlowRate QCon_flow_max(
-    min=0)=Modelica.Constants.inf
+    min=0) = Modelica.Constants.inf
     "Maximum heat flow rate for heating (positive)";
 
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K")
     "Condenser leaving water temperature"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
-    final quantity="HeatFlowRate",
-    final unit="W") "Actual heating heat flow rate added to fluid 1"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
-
-  Real COP(min=0, unit="1") = etaCar * COPCar * etaPL
-    "Coefficient of performance";
-
-  Real COPCar(min=0, unit="1") = TCon /
-    Annex60.Utilities.Math.Functions.smoothMax(
-      x1=1,
-      x2=TCon-TEva,
-      deltaX=0.25) "Carnot efficiency";
-  Modelica.SIunits.HeatFlowRate QEva_flow = P - QCon_flow
-    "Evaporator heat input";
-
 protected
-  Modelica.Blocks.Sources.RealExpression yEva(final y=QEva_flow/
-        QEva_flow_nominal) "Normalized evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+  Modelica.Blocks.Math.Gain yEva(final k=1/QEva_flow_nominal)
+    "Normalized evaporator heat flow rate"
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
+  Modelica.Blocks.Math.Add QEva_flow_internal(final k1=-1)
+    "Heat removed by evaporator"
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 initial equation
   assert(QCon_flow_nominal > 0, "Parameter QCon_flow_nominal must be positive.");
-
-  COP_nominal = etaCar * TCon_nominal/(TCon_nominal-TEva_nominal);
 
 equation
   connect(TSet, con.TSet) annotation (Line(points={{-120,90},{-80,90},{-80,90},{
           -80,66},{-12,66}}, color={0,0,127}));
   connect(con.Q_flow, QCon_flow) annotation (Line(points={{11,66},{80,66},{80,90},
           {110,90}}, color={0,0,127}));
-  connect(yEva.y, eva.u) annotation (Line(points={{41,-40},{52,-40},{52,-54},{
-          12,-54}}, color={0,0,127}));
+  connect(QEva_flow_internal.u1, con.Q_flow) annotation (Line(points={{-2,-24},{
+          -10,-24},{-10,0},{30,0},{30,66},{11,66}},   color={0,0,127}));
+  connect(QEva_flow_internal.u2, PEle.y) annotation (Line(points={{-2,-36},{-2,-36},
+          {-20,-36},{-20,-14},{90,-14},{90,0},{61,0}}, color={0,0,127}));
+  connect(QEva_flow_internal.y, yEva.u)
+    annotation (Line(points={{21,-30},{30,-30},{38,-30}},
+                                                 color={0,0,127}));
+  connect(QEva_flow, QEva_flow_internal.y) annotation (Line(points={{110,-90},{78,
+          -90},{28,-90},{28,-30},{21,-30}}, color={0,0,127}));
+  connect(yEva.y, eva.u) annotation (Line(points={{61,-30},{70,-30},{70,-54},{12,
+          -54}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
             {100,100}}),
             graphics={
@@ -81,10 +73,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="TCon"),
-        Line(points={{-100,90},{-82,90},{80,90},{80,64}},
-                                                    color={0,0,255}),
-        Line(points={{0,80},{0,84},{90,84},{90,90},{100,90}},
-                                                 color={0,0,255})}),
+        Line(points={{-100,90},{-80,90},{-80,84},{80,84},{80,64}},
+                                                    color={0,0,255})}),
 defaultComponentName="heaPum",
 Documentation(info="<html>
 <p>

@@ -1,6 +1,14 @@
 within Annex60.Fluid.Chillers.BaseClasses;
 partial model PartialCarnot_y
   "Partial chiller model with performance curve adjusted based on Carnot efficiency"
+  extends Carnot(
+    final QCon_flow_nominal= P_nominal - QEva_flow_nominal,
+    final QEva_flow_nominal = if COP_is_for_cooling
+      then -P_nominal * COP_nominal
+      else -P_nominal * (COP_nominal-1),
+    etaPL =  Annex60.Utilities.Math.Functions.polynomial(
+               a=a,
+               x=y));
  extends Interfaces.FourPortHeatMassExchanger(
    m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
    m2_flow_nominal = -QEva_flow_nominal/cp2_default/abs(dTEva_nominal),
@@ -10,74 +18,16 @@ partial model PartialCarnot_y
    // Above, we use -abs(dTEva_nominal) because in Annex60 2.1,
    // dTEva_nominal was a positive quantity.
 
-  // fixme: Most parameters are the same for PartialCarnot_y and PartialCarnot_T.
-  //        Maybe they should be put in a record.
-  parameter Annex60.Fluid.Types.EfficiencyInput effInpEva=
-    Annex60.Fluid.Types.EfficiencyInput.volume
-    "Temperatures of evaporator fluid used to compute Carnot efficiency"
-    annotation (Dialog(tab="Advanced", group="Temperature dependence"));
-  parameter Annex60.Fluid.Types.EfficiencyInput effInpCon=
-    Annex60.Fluid.Types.EfficiencyInput.port_a
-    "Temperatures of condenser fluid used to compute Carnot efficiency"
-    annotation (Dialog(tab="Advanced", group="Temperature dependence"));
   parameter Modelica.SIunits.Power P_nominal
     "Nominal compressor power (at y=1)"
     annotation (Dialog(group="Nominal condition"));
-
-  parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
-    "Nominal cooling heat flow rate (QEva_flow_nominal < 0)"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal(min=0)=
-    P_nominal - QEva_flow_nominal "Nominal heating flow rate";
-
-  // fixme: the change in sign convention for dTEva_nominal need to be added
-  //        to the revision notes if this parameter is not removed
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal(max=0) = -10
-    "Temperature difference evaporator outlet-inlet"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal(min=0) = 10
-    "Temperature difference condenser outlet-inlet"
-    annotation (Dialog(group="Nominal condition"));
-  // Efficiency
-  parameter Boolean use_eta_Carnot = true
-    "Set to true to use etaCar to compute Carnot effectiveness"
-    annotation(Dialog(group="Efficiency"));
-  parameter Real etaCar(unit="1", fixed=use_eta_Carnot)
-    "Carnot effectiveness (=COP/COP_Carnot)"
-    annotation (Dialog(group="Efficiency", enable=use_eta_Carnot));
-  parameter Real COP_nominal(unit="1", fixed=not use_eta_Carnot)
-    "Coefficient of performance at TCon_nominal and TEva_nominal. Used if use_eta_Carnot=false"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-  parameter Modelica.SIunits.Temperature TCon_nominal = 303.15
-    "Condenser temperature used to compute COP_nominal if use_eta_Carnot=false"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-  parameter Modelica.SIunits.Temperature TEva_nominal = 278.15
-    "Evaporator temperature used to compute COP_nominal if use_eta_Carnot=false"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-
-  parameter Real a[:] = {1}
-    "Coefficients for efficiency curve (need p(a=a, y=1)=1)"
-    annotation (Dialog(group="Efficiency"));
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
     "Part load ratio"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}})));
 
-  input Real COPCar(min=0) "Carnot efficiency";
+  Real COP(min=0) = etaCar * COPCar * etaPL "Coefficient of performance";
 
-  Real etaPL "Efficiency due to part load of compressor (etaPL(y=1)=1";
-  Real COP(min=0) "Coefficient of performance";
-
-  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
-    "Electric power consumed by compressor"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
-
-  Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
-  Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
-
-  Medium1.Temperature TCon "Condenser temperature used to compute efficiency";
-  Medium2.Temperature TEva "Evaporator temperature used to compute efficiency";
 protected
   final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
     Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
@@ -92,24 +42,46 @@ protected
       X=  Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
 
+  // State are calculated according to the design condition, as using the Carnot machine
+  // in reverse flow is not meaningful.
+  Medium1.ThermodynamicState staA1 = Medium1.setState_phX(
+    port_a1.p,
+    inStream(port_a1.h_outflow),
+    inStream(port_a1.Xi_outflow)) "Medium properties in port_a1";
+  Medium1.ThermodynamicState staB1 = Medium1.setState_phX(
+    port_b1.p,
+    port_b1.h_outflow,
+    port_b1.Xi_outflow) "Medium properties in port_b1";
+  Medium2.ThermodynamicState staA2 = Medium2.setState_phX(
+    port_a2.p,
+    inStream(port_a2.h_outflow),
+    inStream(port_a2.Xi_outflow)) "Medium properties in port_a2";
+  Medium2.ThermodynamicState staB2 = Medium2.setState_phX(
+    port_b2.p,
+    port_b2.h_outflow,
+    port_b2.Xi_outflow) "Medium properties in port_b2";
+
+  Modelica.SIunits.HeatFlowRate QCon_flow_internal = P - QEva_flow_internal
+    "Condenser heat input";
+  Modelica.SIunits.HeatFlowRate QEva_flow_internal = -COP * P
+    "Evaporator heat input";
+
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
-  Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
+  Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow_internal)
     "Evaporator heat flow rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
+  Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow_internal)
     "Condenser heat flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Medium1.ThermodynamicState staA1 "Medium properties in port_a1";
-  Medium1.ThermodynamicState staB1 "Medium properties in port_b1";
-  Medium2.ThermodynamicState staA2 "Medium properties in port_a2";
-  Medium2.ThermodynamicState staB2 "Medium properties in port_b2";
-
+  Modelica.Blocks.Math.Gain PEle(final k=P_nominal)
+    "Electrical power consumption"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 initial equation
   // Because in Annex60 2.1, dTEve_nominal was positive, we just
   // write a warning for now.
@@ -123,20 +95,7 @@ initial equation
   assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
   assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
 equation
-  // State are calculated according to the design condition, as using the Carnot machine
-  // in reverse flow is not meaningful.
-  staA1=Medium1.setState_phX(port_a1.p,
-                             inStream(port_a1.h_outflow),
-                             inStream(port_a1.Xi_outflow));
-  staB1=Medium1.setState_phX(port_b1.p,
-                             port_b1.h_outflow,
-                             port_b1.Xi_outflow);
-  staA2=Medium2.setState_phX(port_a2.p,
-                             inStream(port_a2.h_outflow),
-                             inStream(port_a2.Xi_outflow));
-  staB2=Medium2.setState_phX(port_b2.p,
-                             port_b2.h_outflow,
-                             port_b2.Xi_outflow);
+
   // Set temperatures that will be used to compute Carnot efficiency
   if effInpCon == Annex60.Fluid.Types.EfficiencyInput.volume then
     TCon = vol1.heatPort.T;
@@ -158,12 +117,6 @@ equation
     TEva = 0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2));
   end if;
 
-  etaPL  = Annex60.Utilities.Math.Functions.polynomial(a=a, x=y);
-  P = y * P_nominal;
-  COP = etaCar * COPCar * etaPL;
-  -QEva_flow = COP * P;
-  QCon_flow = P - QEva_flow;
-
   connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
       points={{-59,40},{-39,40}},
       color={0,0,127},
@@ -180,6 +133,14 @@ equation
       points={{-19,-40},{12,-40},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(PEle.y, P)
+    annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
+  connect(PEle.u, y) annotation (Line(points={{58,0},{58,0},{40,0},{40,90},{-92,
+          90},{-92,90},{-120,90}}, color={0,0,127}));
+  connect(QCon_flow, QCon_flow_in.y) annotation (Line(points={{110,90},{60,90},
+          {60,86},{-50,86},{-50,40},{-59,40}}, color={0,0,127}));
+  connect(QEva_flow, QEva_flow_in.y) annotation (Line(points={{110,-90},{44,-90},
+          {-50,-90},{-50,-40},{-59,-40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -255,13 +216,16 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-144,146},{-88,104}},
+          extent={{-130,128},{-78,106}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="y"),
-        Text(extent={{64,96},{114,82}},   textString="P",
-          lineColor={0,0,127})}),
+        Text(extent={{66,28},{116,14}},   textString="P",
+          lineColor={0,0,127}),
+        Line(points={{-100,90},{-80,90},{-80,14},{22,14}},
+                                                    color={0,0,255}),
+        Line(points={{62,0},{100,0}},                 color={0,0,255})}),
 defaultComponentName="chi",
 Documentation(info="<html>
 <p>
@@ -389,5 +353,7 @@ March 3, 2009 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end PartialCarnot_y;
