@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model AirLeakage "air leakage due to limied air tightness"
 
-extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
+extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(final allowFlowReversal=false);
 
   parameter Modelica.SIunits.Volume V "zone air volume";
   parameter Real n50(min=0)=0.4 "n50-value of airtightness";
@@ -36,8 +36,10 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface;
     control_m_flow=true,
     allowFlowReversal=false)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+protected
   Interfaces.WeaBus weaBus(numSolBus=sim.numAzi + 1)
     annotation (Placement(transformation(extent={{-50,76},{-30,96}})));
+public
   Modelica.Blocks.Sources.RealExpression reaExpX_air(y=1 - bou.X_in[1])
     annotation (Placement(transformation(extent={{-42,56},{-22,76}})));
 equation
