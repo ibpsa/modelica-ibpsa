@@ -177,7 +177,7 @@ public
   IDEAS.Buildings.Components.BaseClasses.EnergyPort E "Model internal energy"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-protected
+public
   Modelica.Blocks.Sources.RealExpression CEnv(y=0)
     "Concentration of trace substance in surroundings"
     annotation (Placement(transformation(extent={{-70,-58},{-50,-38}})));
