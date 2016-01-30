@@ -126,6 +126,9 @@ The chiller takes as an input the evaporator leaving water temperature.
 The condenser mass flow rate is computed in such a way that it has
 a temperature difference equal to <code>dTEva_nominal</code>.
 </p>
+<p>
+This example checks the correct behavior if a mass flow rate attains zero.
+</p>
 </html>",
 revisions="<html>
 <ul>
