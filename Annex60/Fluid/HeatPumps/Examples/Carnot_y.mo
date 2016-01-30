@@ -3,18 +3,19 @@ model Carnot_y "Test model for heat pump based on Carnot efficiency"
   extends Modelica.Icons.Example;
  package Medium1 = Annex60.Media.Water "Medium model";
  package Medium2 = Annex60.Media.Water "Medium model";
+  parameter Real COP_nominal = 6 "Nominal COP";
+
   parameter Modelica.SIunits.Power P_nominal=10E3
     "Nominal compressor power (at y=1)";
   parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=-10
     "Temperature difference evaporator outlet-inlet";
   parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
-  parameter Real COPc_nominal = 3 "Heat pump COP";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-     -P_nominal*COPc_nominal/dTEva_nominal/4200
+     -P_nominal*(COP_nominal-1)/cp2_default/dTEva_nominal
     "Nominal mass flow rate at chilled water side";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
-    m2_flow_nominal*(COPc_nominal+1)/COPc_nominal
+      P_nominal*COP_nominal/cp1_default/dTCon_nominal
     "Nominal mass flow rate at condenser water wide";
   Annex60.Fluid.HeatPumps.Carnot_y heaPum(
     redeclare package Medium1 = Medium1,
@@ -22,12 +23,12 @@ model Carnot_y "Test model for heat pump based on Carnot efficiency"
     P_nominal=P_nominal,
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
-    use_eta_Carnot=true,
-    etaCar=0.3,
     dp1_nominal=6000,
     dp2_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    show_T=true) "Heat pump model"
+    show_T=true,
+    use_eta_Carnot=false,
+    COP_nominal=COP_nominal) "Heat pump model"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Annex60.Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,
@@ -73,6 +74,19 @@ model Carnot_y "Test model for heat pump based on Carnot efficiency"
     startTime=900,
     offset=273.15 + 15) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp1_default=
+    Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
+      Medium1.p_default,
+      Medium1.T_default,
+      Medium1.X_default))
+    "Specific heat capacity of medium 2 at default medium state";
+
+  final parameter Modelica.SIunits.SpecificHeatCapacity cp2_default=
+    Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
+      Medium2.p_default,
+      Medium2.T_default,
+      Medium2.X_default))
+    "Specific heat capacity of medium 2 at default medium state";
 equation
   connect(sou1.ports[1], heaPum.port_a1) annotation (Line(
       points={{-40,16},{-5.55112e-16,16}},
@@ -130,6 +144,7 @@ First implementation.
 <p>
 Example that simulates a heat pump whose efficiency is scaled based on the
 Carnot cycle.
+The control signal of the heat pump is the compressor speed.
 </p>
 </html>"));
 end Carnot_y;
