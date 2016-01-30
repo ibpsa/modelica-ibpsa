@@ -8,7 +8,7 @@ partial model PartialCarnot_y
       else -P_nominal * (COP_nominal-1));
  extends Interfaces.FourPortHeatMassExchanger(
    m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
-   m2_flow_nominal = -QEva_flow_nominal/cp2_default/abs(dTEva_nominal),
+   m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal,
    vol1(prescribedHeatFlowRate = true),
    redeclare final Annex60.Fluid.MixingVolumes.MixingVolume vol2(
      prescribedHeatFlowRate = true));
