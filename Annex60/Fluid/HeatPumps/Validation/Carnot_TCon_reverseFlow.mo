@@ -111,8 +111,11 @@ info="<html>
 Example that simulates a heat pump whose efficiency is scaled based on the
 Carnot cycle.
 The heat pump takes as an input the condenser leaving water temperature.
-The evaporator mass flow rate is computed in such a way that it has
-a temperature difference equal to <code>dTEva_nominal</code>.
+The condenser mass flow rate is computed in such a way that it has
+a temperature difference equal to <code>dTCon_nominal</code>.
+</p>
+<p>
+This example checks the correct behavior if a mass flow rate attains zero.
 </p>
 </html>",
 revisions="<html>
