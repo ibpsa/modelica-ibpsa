@@ -9,13 +9,13 @@ partial model Carnot
 
   parameter Annex60.Fluid.Types.EfficiencyInput effInpEva
     "Temperatures of evaporator fluid used to compute Carnot efficiency"
-    annotation (Dialog(tab="Advanced", group="Temperature dependence"));
+    annotation (Dialog(tab="Advanced", group="Temperature dependence"),
+                evaluate=True);
   parameter Annex60.Fluid.Types.EfficiencyInput effInpCon
     "Temperatures of condenser fluid used to compute Carnot efficiency"
-    annotation (Dialog(tab="Advanced", group="Temperature dependence"));
+    annotation (Dialog(tab="Advanced", group="Temperature dependence"),
+                evaluate=True);
 
-  // fixme: the change in sign convention for dTEva_nominal need to be added
-  //        to the revision notes if this parameter is not removed
   parameter Modelica.SIunits.TemperatureDifference dTEva_nominal(max=0) = -10
     "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
@@ -74,7 +74,7 @@ partial model Carnot
      else QCon_flow/QCon_flow_nominal "Part load ratio";
 
   Real etaPL(final unit = "1")=
-    if size(a, 1) == 1 and abs(a[1] - 1) < Modelica.Constants.eps
+    if evaluate_etaPL
       then 1
       else Annex60.Utilities.Math.Functions.polynomial(
                a=a,
@@ -105,12 +105,10 @@ protected
     "Temperature of useful heat (evaporator for chiller, condenser for heat pump";
 
 initial equation
-  // Because in Annex60 2.1, dTEve_nominal was positive, we just
-  // write a warning for now.
   assert(dTEva_nominal < 0,
-        "Parameter dTEva_nominal must be negative. In the future, this will trigger  an error.",
-        level=AssertionLevel.warning);
-  assert(dTCon_nominal > 0, "Parameter dTCon_nominal must be positive.");
+    "Parameter dTEva_nominal must be negative.");
+  assert(dTCon_nominal > 0,
+    "Parameter dTCon_nominal must be positive.");
 
   assert(abs(Annex60.Utilities.Math.Functions.polynomial(
          a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
@@ -256,5 +254,12 @@ the boolean constant <code>COP_is_for_cooling</code>.
 Depending on its value, the equations for the coefficient of performance
 and the part load ratio are set up.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 26, 2016, by Michael Wetter:<br/>
+First implementation of this base class.
+</li>
+</ul>
 </html>"));
 end Carnot;

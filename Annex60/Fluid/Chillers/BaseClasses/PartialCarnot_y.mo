@@ -89,24 +89,22 @@ initial equation
          a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
   assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
   assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
-equation
 
+equation
   // Set temperatures that will be used to compute Carnot efficiency
-  if effInpCon == Annex60.Fluid.Types.EfficiencyInput.volume then
-    TCon = vol1.heatPort.T;
-  elseif effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_a then
+  if effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_a then
     TCon = Medium1.temperature(staA1);
-  elseif effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_b then
+  elseif effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_b or
+         effInpCon == Annex60.Fluid.Types.EfficiencyInput.volume then
     TCon = Medium1.temperature(staB1);
   else
     TCon = 0.5 * (Medium1.temperature(staA1)+Medium1.temperature(staB1));
   end if;
 
-  if effInpEva == Annex60.Fluid.Types.EfficiencyInput.volume then
-    TEva = vol2.heatPort.T;
-  elseif effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_a then
+  if effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_a then
     TEva = Medium2.temperature(staA2);
-  elseif effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_b then
+  elseif effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_b or
+         effInpEva == Annex60.Fluid.Types.EfficiencyInput.volume then
     TEva = Medium2.temperature(staB2);
   else
     TEva = 0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2));

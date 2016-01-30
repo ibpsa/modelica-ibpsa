@@ -97,7 +97,9 @@ Refactored model to use the same base class as
 <a href=\"modelica://Annex60.Fluid.HeatPumps.Carnot_y\">Annex60.Fluid.HeatPumps.Carnot_y</a>.
 <br/>
 Changed part load efficiency to depend on cooling part load ratio rather than on the compressor
-part load ratio.
+part load ratio.<br/>
+Changed sign convention of <code>dTEva_nominal</code> to be negative rather than positive.
+For positive values, the simulation will stop with an assertion.
 </li>
 <li>
 December 18, 2015, by Michael Wetter:<br/>

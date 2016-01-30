@@ -119,31 +119,20 @@ initial equation
   assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
 
 equation
-
-  // fixme: is EfficiencyInput.volume meaningful as we no longer have reverse flow?
-
   // Set temperatures that will be used to compute Carnot efficiency
-  if effInpCon == Annex60.Fluid.Types.EfficiencyInput.volume then
-    TCon = Medium1.temperature( Medium1.setState_phX(
-      p=  con.port_b.p,
-      h=  con.port_b.h_outflow,
-      X=  cat(1, con.port_b.Xi_outflow, {1-sum({con.port_b.Xi_outflow})})));
-  elseif effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_a then
+  if effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_a then
     TCon = Medium1.temperature(staA1);
-  elseif effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_b then
+  elseif effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_b or
+         effInpCon == Annex60.Fluid.Types.EfficiencyInput.volume then
     TCon = Medium1.temperature(staB1);
   else
     TCon = 0.5 * (Medium1.temperature(staA1)+Medium1.temperature(staB1));
   end if;
 
-  if effInpEva == Annex60.Fluid.Types.EfficiencyInput.volume then
-    TEva = Medium2.temperature( Medium2.setState_phX(
-      p=  eva.port_b.p,
-      h=  eva.port_b.h_outflow,
-      X=  cat(1, eva.port_b.Xi_outflow, {1-sum({eva.port_b.Xi_outflow})})));
-  elseif effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_a then
+  if effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_a then
     TEva = Medium2.temperature(staA2);
-  elseif effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_b then
+  elseif effInpEva == Annex60.Fluid.Types.EfficiencyInput.port_b or
+         effInpEva == Annex60.Fluid.Types.EfficiencyInput.volume then
     TEva = Medium2.temperature(staB2);
   else
     TEva = 0.5 * (Medium2.temperature(staA2)+Medium2.temperature(staB2));
