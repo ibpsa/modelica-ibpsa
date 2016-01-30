@@ -4,7 +4,7 @@ model Carnot_TEva
  extends Annex60.Fluid.Chillers.BaseClasses.PartialCarnot_T(
    final COP_is_for_cooling = true,
    final QCon_flow_nominal = -QEva_flow_nominal*(1 + COP_nominal)/COP_nominal,
-   effInpEva=Annex60.Fluid.Types.EfficiencyInput.volume,
+   effInpEva=Annex60.Fluid.Types.EfficiencyInput.port_b,
    effInpCon=Annex60.Fluid.Types.EfficiencyInput.port_a,
    PEle(y=-QEva_flow/COP),
    redeclare HeatExchangers.HeaterCooler_u con(
@@ -91,11 +91,8 @@ case
 <p>
 where <i>T<sub>eva</sub></i> is the evaporator temperature
 and <i>T<sub>con</sub></i> is the condenser temperature.
-On the <code>Advanced</code> tab, a user can specify the temperature that
-will be used as the evaporator (or condenser) temperature. The options
-are the temperature of the fluid volume, of <code>port_a</code>, of
-<code>port_b</code>, or the average temperature of <code>port_a</code> and
-<code>port_b</code>.
+On the <code>Advanced</code> tab, a user can specify the temperatures that
+will be used as the evaporator (or condenser) temperature.
 </p>
 <p>
 The chiller COP is computed as the product
@@ -106,16 +103,16 @@ The chiller COP is computed as the product
 <p>
 where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
 <i>COP<sub>car</sub></i> is the Carnot efficiency and
-<i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
+<i>&eta;<sub>PL</sub></i> is a polynomial in the cooling part load ratio <i>y<sub>PL</sub></i>
 that can be used to take into account a change in <i>COP</i> at part load
 conditions.
 This polynomial has the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...
+  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y<sub>PL</sub> + a<sub>3</sub> y<sub>PL</sub><sup>2</sup> + ...
 </p>
 <p>
-where <i>y &isin; [0, 1]</i> is the control input and the coefficients <i>a<sub>i</sub></i>
+where the coefficients <i>a<sub>i</sub></i>
 are declared by the parameter <code>a</code>.
 </p>
 <p>

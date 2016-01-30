@@ -2,6 +2,8 @@ within Annex60.Fluid.HeatPumps;
 model Carnot_y
   "Reversible heat pump with performance curve adjusted based on Carnot efficiency"
  extends Annex60.Fluid.Chillers.BaseClasses.PartialCarnot_y(
+  effInpEva=Annex60.Fluid.Types.EfficiencyInput.port_a,
+  effInpCon=Annex60.Fluid.Types.EfficiencyInput.port_b,
   final COP_is_for_cooling = false);
 
   annotation (
@@ -10,7 +12,7 @@ Documentation(info="<html>
 <p>
 This is model of a heat pump whose coefficient of performance COP changes
 with temperatures in the same way as the Carnot efficiency changes.
-The input signal is the control signal for the compressor.
+The input signal <i>y</i> is the control signal for the compressor.
 </p>
 <p>
 The COP at the nominal conditions can be specified by a parameter, or
@@ -24,11 +26,8 @@ case
 <p>
 where <i>T<sub>eva</sub></i> is the evaporator temperature
 and <i>T<sub>con</sub></i> is the condenser temperature.
-On the <code>Advanced</code> tab, a user can specify the temperature that
-will be used as the evaporator (or condenser) temperature. The options
-are the temperature of the fluid volume, of <code>port_a</code>, of
-<code>port_b</code>, or the average temperature of <code>port_a</code> and
-<code>port_b</code>.
+On the <code>Advanced</code> tab, a user can specify the temperatures that
+will be used as the evaporator (or condenser) temperature.
 </p>
 <p>
 The heat pump COP is computed as the product
@@ -39,17 +38,16 @@ The heat pump COP is computed as the product
 <p>
 where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
 <i>COP<sub>car</sub></i> is the Carnot efficiency and
-<i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
+<i>&eta;<sub>PL</sub></i> is a polynomial in the heating part load ratio <i>y<sub>PL</sub></i>
 that can be used to take into account a change in <i>COP</i> at part load
 conditions.
 This polynomial has the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...
+  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y<sub>PL</sub> + a<sub>3</sub> y<sub>PL</sub><sup>2</sup> + ...
 </p>
 <p>
-where <i>y &isin; [0, 1]</i> is the control input and the coefficients <i>a<sub>i</sub></i>
-are declared by the parameter <code>a</code>.
+where the coefficients <i>a<sub>i</sub></i> are declared by the parameter <code>a</code>.
 </p>
 <p>
 On the <code>Dynamics</code> tag, the model can be parametrized to compute a transient
@@ -58,6 +56,33 @@ The transient response of the model is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The heat pump outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>
+<h4>Typical use and important parameters</h4>
+<p>
+When using this component, make sure that the evaporator and the condenser have sufficient mass flow rate.
+Based on the mass flow rates, the compressor power, temperature difference and the efficiencies,
+the model computes how much heat will be added to the condenser and removed at the evaporator.
+If the mass flow rates are too small, very high temperature differences can result.
+</p>
+<p>
+The condenser heat flow rate <code>QCon_flow_nominal</code> is used to assign
+the default value for the mass flow rates, which are used for the pressure drop
+calculations.
+It is also used to compute the part load efficiency.
+Hence, make sure that <code>QCon_flow_nominal</code> is set to a reasonable value.
+</p>
+<p>
+The maximum heating capacity is set by the parameter <code>QCon_flow_max</code>,
+which is by default set to infinity.
+</p>
+<p>
+By default, the coefficient of performance depends on the
+evaporator entering temperature and the condenser leaving
+temperature.
+This can be changed with the parameters
+<code>effInpEva</code> and
+<code>effInpCon</code>.
+</p>
+<h4>Notes</h4>
 <p>
 For a similar model that can be used as a chiller, see
 <a href=\"modelica://Annex60.Fluid.Chillers.Carnot_y\">Annex60.Fluid.Chillers.Carnot_y</a>.
@@ -68,7 +93,9 @@ revisions="<html>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Refactored model to use the same base class as
-<a href=\"modelica://Annex60.Fluid.Chillers.Carnot_y\">Annex60.Fluid.Chillers.Carnot_y</a>.
+<a href=\"modelica://Annex60.Fluid.Chillers.Carnot_y\">Annex60.Fluid.Chillers.Carnot_y</a>.<br/>
+Changed part load efficiency to depend on heating part load ratio rather than on the compressor
+part load ratio.
 </li>
 <li>
 January 20, 2015, by Damien Picard:<br/>

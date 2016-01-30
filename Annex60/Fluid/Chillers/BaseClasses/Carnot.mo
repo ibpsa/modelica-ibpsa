@@ -7,12 +7,10 @@ partial model Carnot
   parameter Modelica.SIunits.HeatFlowRate QCon_flow_nominal(min=0)
     "Nominal heating flow rate";
 
-  parameter Annex60.Fluid.Types.EfficiencyInput effInpEva=
-    Annex60.Fluid.Types.EfficiencyInput.volume
+  parameter Annex60.Fluid.Types.EfficiencyInput effInpEva
     "Temperatures of evaporator fluid used to compute Carnot efficiency"
     annotation (Dialog(tab="Advanced", group="Temperature dependence"));
-  parameter Annex60.Fluid.Types.EfficiencyInput effInpCon=
-    Annex60.Fluid.Types.EfficiencyInput.port_a
+  parameter Annex60.Fluid.Types.EfficiencyInput effInpCon
     "Temperatures of condenser fluid used to compute Carnot efficiency"
     annotation (Dialog(tab="Advanced", group="Temperature dependence"));
 
@@ -76,7 +74,7 @@ partial model Carnot
      else QCon_flow/QCon_flow_nominal "Part load ratio";
 
   Real etaPL(final unit = "1")=
-    if true
+    if size(a, 1) == 1 and abs(a[1] - 1) < Modelica.Constants.eps
       then 1
       else Annex60.Utilities.Math.Functions.polynomial(
                a=a,
@@ -205,5 +203,58 @@ initial equation
         Line(points={{0,68},{0,90},{90,90},{100,90}},
                                                  color={0,0,255}),
         Line(points={{0,-70},{0,-90},{100,-90}}, color={0,0,255}),
-        Line(points={{62,0},{100,0}},                 color={0,0,255})}));
+        Line(points={{62,0},{100,0}},                 color={0,0,255})}),
+      Documentation(info="<html>
+<p>
+This is the base class for the Carnot chiller and the Carnot heat pump
+whose coefficient of performance COP changes
+with temperatures in the same way as the Carnot efficiency changes.
+</p>
+<p>
+The COP at the nominal conditions can be specified by a parameter, or
+it can be computed by the model based on the Carnot effectiveness, in which
+case
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
+= &eta;<sub>car</sub> T<sub>use</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
+</p>
+<p>
+where
+<i>T<sub>use</sub></i> is the temperature of the the useful heat,
+e.g., the evaporator temperature for a chiller or the condenser temperature
+for a heat pump,
+<i>T<sub>eva</sub></i> is the evaporator temperature
+and <i>T<sub>con</sub></i> is the condenser temperature.
+</p>
+<p>
+The chiller COP is computed as the product
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
+</p>
+<p>
+where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
+<i>COP<sub>car</sub></i> is the Carnot efficiency and
+<i>&eta;<sub>PL</sub></i> is the part load efficiency, expressed using
+a polynomial.
+This polynomial has the form
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...
+</p>
+<p>
+where <i>y &isin; [0, 1]</i> is
+either the part load for cooling in case of a chiller, or the part load of heating in
+case of a heat pump, and the coefficients <i>a<sub>i</sub></i>
+are declared by the parameter <code>a</code>.
+</p>
+<h4>Implementation</h4>
+<p>
+To make this base class applicable to chiller or heat pumps, it uses
+the boolean constant <code>COP_is_for_cooling</code>.
+Depending on its value, the equations for the coefficient of performance
+and the part load ratio are set up.
+</p>
+</html>"));
 end Carnot;

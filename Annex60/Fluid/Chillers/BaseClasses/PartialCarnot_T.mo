@@ -164,12 +164,8 @@ Documentation(info="<html>
 <p>
 This is a partial model of a chiller whose coefficient of performance (COP) changes
 with temperatures in the same way as the Carnot efficiency changes.
-</p>
-<h4>Implementation</h4>
-<p>
-This model uses the Carnot efficiency for cooling <code>COPc</code>.
-This allows Carnot chillers and heat pumps to use this base class
-and accordingly assign <code>COPc</code>.
+This base class is used for the Carnot chiller and Carnot heat pump
+that uses the compressor part load ratio as the control signal.
 </p>
 </html>",
 revisions="<html>

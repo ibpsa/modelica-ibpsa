@@ -5,7 +5,7 @@ model Carnot_TCon
    final COP_is_for_cooling = false,
    final QEva_flow_nominal = -QCon_flow_nominal*(COP_nominal-1)/COP_nominal,
    effInpEva=Annex60.Fluid.Types.EfficiencyInput.port_a,
-   effInpCon=Annex60.Fluid.Types.EfficiencyInput.volume,
+   effInpCon=Annex60.Fluid.Types.EfficiencyInput.port_b,
    PEle(y=QCon_flow/COP),
    redeclare HeatExchangers.HeaterCooler_T con(
     final from_dp=from_dp1,
@@ -94,11 +94,8 @@ case
 <p>
 where <i>T<sub>eva</sub></i> is the evaporator temperature
 and <i>T<sub>con</sub></i> is the condenser temperature.
-On the <code>Advanced</code> tab, a user can specify the temperature that
-will be used as the evaporator and condenser temperatures. The options
-are the temperature of the fluid volume, of <code>port_a</code>, of
-<code>port_b</code>, or the average temperature of <code>port_a</code> and
-<code>port_b</code>.
+On the <code>Advanced</code> tab, a user can specify the temperatures that
+will be used as the evaporator and condenser temperatures.
 </p>
 <p>
 The heat pump COP is computed as the product
@@ -109,16 +106,16 @@ The heat pump COP is computed as the product
 <p>
 where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
 <i>COP<sub>car</sub></i> is the Carnot efficiency and
-<i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
+<i>&eta;<sub>PL</sub></i> is a polynomial in heating part load ratio <i>y<sub>PL</sub></i>
 that can be used to take into account a change in <i>COP</i> at part load
 conditions.
 This polynomial has the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...
+  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y<sub>PL</sub> + a<sub>3</sub> y<sub>PL</sub><sup>2</sup> + ...
 </p>
 <p>
-where <i>y &isin; [0, 1]</i> is the control input and the coefficients <i>a<sub>i</sub></i>
+where the coefficients <i>a<sub>i</sub></i>
 are declared by the parameter <code>a</code>.
 </p>
 <p>
@@ -130,9 +127,9 @@ The heat pump outlet temperatures are equal to the temperatures of these lumped 
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-When using this component, make sure that the evaporater has sufficient mass flow rate.
-Based on the condenser mass flow rate, temperature difference and the efficiencies,
-the model computes how much heat will be removed from the evaporator.
+When using this component, make sure that the condenser has sufficient mass flow rate.
+Based on the evaporator mass flow rate, temperature difference and the efficiencies,
+the model computes how much heat will be removed by to the evaporator.
 If the mass flow rate is too small, very low outlet temperatures can result, possibly below freezing.
 </p>
 <p>
@@ -148,7 +145,7 @@ which is by default set to infinity.
 </p>
 <p>
 By default, the coefficient of performance depends on the
-evaporator leaving temperature and the condenser entering
+evaporator entering temperature and the condenser leaving
 temperature.
 This can be changed with the parameters
 <code>effInpEva</code> and

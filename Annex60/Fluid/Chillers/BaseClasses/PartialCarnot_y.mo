@@ -224,66 +224,10 @@ equation
 defaultComponentName="chi",
 Documentation(info="<html>
 <p>
-This is a partial model of a chiller or a heat pump
-whose coefficient of performance COP changes
+This is a partial model of a chiller whose coefficient of performance (COP) changes
 with temperatures in the same way as the Carnot efficiency changes.
-The input signal is the control signal for the compressor.
-</p>
-<p>
-The COP at the nominal conditions can be specified by a parameter, or
-it can be computed by the model based on the Carnot effectiveness, in which
-case
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
-= &eta;<sub>car</sub> T<sub>use</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
-</p>
-<p>
-where 
-where <i>T<sub>use</sub></i> is the useful heat, which is the heat of the
-evaporator for a chiller and the heat of the condenser for a heat pump,
-<i>T<sub>eva</sub></i> is the evaporator temperature
-and <i>T<sub>con</sub></i> is the condenser temperature.
-On the <code>Advanced</code> tab, a user can specify the temperature that
-will be used as the evaporator (or condenser) temperature. The options
-are the temperature of the fluid volume, of <code>port_a</code>, of
-<code>port_b</code>, or the average temperature of <code>port_a</code> and
-<code>port_b</code>.
-</p>
-<p>
-The chiller COP is computed as the product
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
-</p>
-<p>
-where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
-<i>COP<sub>car</sub></i> is the Carnot efficiency and
-<i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
-that can be used to take into account a change in <i>COP</i> at part load
-conditions.
-This polynomial has the form
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...
-</p>
-<p>
-where <i>y &isin; [0, 1]</i> is the control input and the coefficients <i>a<sub>i</sub></i>
-are declared by the parameter <code>a</code>.
-</p>
-<p>
-On the <code>Dynamics</code> tag, the model can be parametrized to compute a transient
-or steady-state response.
-The transient response of the model is computed using a first
-order differential equation for the evaporator and condenser fluid volumes.
-The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
-</p>
-<h4>Implementation</h4>
-<p>
-The computation of the Carnot efficiency based on power or temperatures
-is done in the models that extend this model, because the useful heat
-is for chillers the evaporator heat, while
-for heat pumps it is the condenser heat.
+This base class is used for the Carnot chiller and Carnot heat pump
+that uses the leaving fluid temperature as the control signal.
 </p>
 </html>",
 revisions="<html>
