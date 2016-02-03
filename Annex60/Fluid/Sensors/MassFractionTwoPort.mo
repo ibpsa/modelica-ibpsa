@@ -49,7 +49,7 @@ equation
   XMed = if i_x > Medium.nXi then (1-sum(XiVec)) else XiVec[i_x];
   // Output signal of sensor
   if dynamic then
-    der(X)  = (XMed-X)*k/tau;
+    der(X)  = (XMed-X)*k*tauInv;
   else
     X = XMed;
   end if;
@@ -84,6 +84,14 @@ to
 <code>XiVec[Medium.nXi](quantity=Medium.substanceNames[1:Medium.nXi])</code>.<br/>
 Changed unit of output signal from <code>1</code> to <code>kg/kg</code>
 to indicate that it is a mass fraction, and declared the assignment final.
+</li>
+<li>
+January 18, 2016 by Filip Jorissen:<br/>
+Using parameter <code>tauInv</code>
+since this now exists in
+<a href=\"modelica://Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
 </li>
 <li>
 September 10, 2013, by Michael Wetter:<br/>

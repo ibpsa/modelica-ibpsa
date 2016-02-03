@@ -81,7 +81,7 @@ equation
   end if;
   // Output signal of sensor
   if dynamic then
-    der(phi) = (phiMed-phi)*k/tau;
+    der(phi) = (phiMed-phi)*k*tauInv;
   else
     phi = phiMed;
   end if;
@@ -118,6 +118,14 @@ Annex60.Fluid.Sensors.UsersGuide</a> for an explanation.
 January 26, 2016 by Michael Wetter:<br/>
 Added <code>quantity</code> attribute for mass fraction variables.<br/>
 Made unit assignment of output signal final.
+</li>
+<li>
+January 18, 2016 by Filip Jorissen:<br/>
+Using parameter <code>tauInv</code>
+since this now exists in
+<a href=\"modelica://Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor\">Annex60.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor</a>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/372\">#372</a>.
 </li>
 <li>
 June 3, 2011 by Michael Wetter:<br/>
