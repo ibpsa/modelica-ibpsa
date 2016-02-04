@@ -6,6 +6,7 @@ Modelica model environment for Integrated District Energy Assessment Simulations
 ### Current release
 
 The current release is v0.3, which has been pushed on 2 september 2015. Major changes compared to v0.2 are:
+
 1. Added code for checking conservation of energy
 2. Added options for linear / non-linear radiative heat exchange and convection for exterior and interior faces of walls and floors/ceilings. Respective correlations have been changed.
 3. Overall improvements resulting in more efficient code and less warnings.
