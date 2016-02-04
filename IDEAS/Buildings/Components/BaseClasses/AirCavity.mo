@@ -11,7 +11,7 @@ model AirCavity
   parameter Modelica.SIunits.Emissivity epsLw_b
     "Longwave emissivity on material connected at port_b";
   parameter Modelica.SIunits.TemperatureDifference dT_nominal = 1
-    "Nominal temperature difference, if < 0 then R=d/kA for hor. surfaces"
+    "Nominal temperature difference, used for linearising Rayleigh number"
     annotation(Evaluate=true);
   parameter Modelica.SIunits.ThermalConductivity k = 0.026
     "Thermal conductivity of medium, default for air, T=20C";
@@ -35,10 +35,11 @@ model AirCavity
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.SIunits.ThermalConductance G=h*A + A*5.86*(1/((1/epsLw_a) + (1/epsLw_b) - 1));
+  //when linearising we assume that Nu is the average of Nu for positive and negative temperature differences
   Real Nu=
     if ceiling or floor then
-      if (if linearise then dT_nominal>0 else port_a.T-port_b.T>0) then
-        1 + 1.44*(1-1708/Ra)+((Ra/5830)^(1/3)-1)
+      if linearise or (port_a.T-port_b.T>0 and floor or port_a.T-port_b.T<=0 and ceiling) then
+        1 + 1.44*(1-1708/Ra)+((Ra/5830)^(1/3)-1)*(if linearise then 0.5 else 1)
       else 1
     elseif vertical then
       (if Ra>5e4
@@ -50,12 +51,15 @@ model AirCavity
 
 protected
   final parameter Boolean ceiling=abs(sin(inc)) < 10E-5 and cos(inc) > 0
-    "true if ceiling";
+    "true if ceiling"
+    annotation(Evaluate=true);
   final parameter Boolean floor=abs(sin(inc)) < 10E-5 and cos(inc) < 0
-    "true if floor";
-  final parameter Boolean vertical=abs(inc - IDEAS.Constants.Wall) < 10E-5;
+    "true if floor"
+    annotation(Evaluate=true);
+  final parameter Boolean vertical=abs(inc - IDEAS.Constants.Wall) < 10E-5
+    annotation(Evaluate=true);
 
-  Real Ra = Modelica.Constants.g_n*beta*(if linearise then abs(dT_nominal) else abs(port_a.T-port_b.T))*d^3/nu/alpha;
+  Real Ra = max(1,Modelica.Constants.g_n*beta*(if linearise then abs(dT_nominal) else abs(port_a.T-port_b.T))*d^3/nu/alpha);
   Modelica.SIunits.CoefficientOfHeatTransfer h = Nu*k/d;
 
 public
