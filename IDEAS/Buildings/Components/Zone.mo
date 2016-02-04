@@ -45,12 +45,11 @@ protected
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-54,-44})));
-  BaseClasses.AirLeakage airLeakage(
+  IDEAS.Buildings.Components.BaseClasses.AirLeakage airLeakage(
     redeclare package Medium = Medium,
     m_flow_nominal=V/3600*n50/20,
     V=V,
     n50=n50,
-    allowFlowReversal=allowFlowReversal,
     show_T=false)
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final

@@ -177,6 +177,10 @@ public
   IDEAS.Buildings.Components.BaseClasses.EnergyPort E "Model internal energy"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
+public
+  Modelica.Blocks.Sources.RealExpression CEnv(y=0)
+    "Concentration of trace substance in surroundings"
+    annotation (Placement(transformation(extent={{-70,-58},{-50,-38}})));
 initial equation
   Etot=0;
 equation
@@ -304,6 +308,10 @@ equation
   connect(fixedTemperature.port, Qgai)
     annotation (Line(points={{20,-70},{0,-70},{0,-100}},  color={191,0,0}));
 
+  connect(CEnv.y, weaBus.CEnv) annotation (Line(points={{-49,-48},{-32,-48},{14,
+          -48},{14,72}}, color={0,0,127}));
+  connect(XiEnv.X[1], weaBus.X_wEnv)
+    annotation (Line(points={{-9,-86},{14,-86},{14,72}}, color={0,0,127}));
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
@@ -385,6 +393,10 @@ equation
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+January 29, 2015, Filip Jorissen:<br/>
+Made changes for allowing a proper implementation of <code>airLeakage</code>.
+</li>
 <li>
 June 14, 2015, Filip Jorissen:<br/>
 Adjusted implementation for computing conservation of energy.
