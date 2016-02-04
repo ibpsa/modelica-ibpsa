@@ -41,10 +41,14 @@ model ConstantAirFlowRecup
     redeclare package Medium = Medium,
     use_T_in=true) "Ambient air"
     annotation (Placement(transformation(extent={{-80,-30},{-100,-10}})));
-  Fluid.Movers.FlowMachine_m_flow
+  Fluid.Movers.FlowControlled_m_flow
                     pump[nZones](
     m_flow_nominal=n ./ 3600.*1.204,
-    redeclare each package Medium = Medium)
+    redeclare each package Medium = Medium,
+    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    each massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    each dynamicBalance=false,
+    each filteredSpeed=false)
     annotation (Placement(transformation(extent={{-160,-10},{-180,-30}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
     annotation (Placement(transformation(extent={{-40,-26},{-60,-6}})));

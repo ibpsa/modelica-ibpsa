@@ -1,9 +1,9 @@
+DoubleShading
 PropsBus
+SolBus
 StateShading
 StateWall
 StateWallNoSol
 StateZone
-ZoneBus
-SolBus
 WeaBus
-DoubleShading
+ZoneBus

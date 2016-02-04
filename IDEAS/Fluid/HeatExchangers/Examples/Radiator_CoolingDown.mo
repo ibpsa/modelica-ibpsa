@@ -9,12 +9,14 @@ model Radiator_CoolingDown "Test the cooling down of radiators"
   Fluid.HeatExchangers.Radiators.Radiator radiator_new(
     QNom=1000,
     redeclare package Medium = Medium,
-    T_start=333.15)
+    T_start=333.15,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-64,76},{-44,56}})));
   IDEAS.Fluid.HeatExchangers.Radiators.Radiator radiator_new1(
     QNom=2000,
     redeclare package Medium = Medium,
-    T_start=333.15)
+    T_start=333.15,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=294.15)
     annotation (Placement(transformation(extent={{-14,20},{-34,40}})));
@@ -22,13 +24,15 @@ model Radiator_CoolingDown "Test the cooling down of radiators"
     m_flow_nominal=0.05,
     m=1,
     useInput=true,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-20,56},{0,76}})));
   Fluid.Movers.Pump pump1(
     m=1,
     m_flow_nominal=0.05,
     useInput=true,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-18,-10},{2,10}})));
   IDEAS.Fluid.HeatExchangers.Radiators.Radiator radiator_new2(
     QNom=1000,
@@ -36,13 +40,15 @@ model Radiator_CoolingDown "Test the cooling down of radiators"
     redeclare package Medium = Medium,
     T_start=333.15,
     TInNom=318.15,
-    TOutNom=308.15)
+    TOutNom=308.15,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Fluid.Movers.Pump pump2(
     m=1,
     m_flow_nominal=0.05,
     useInput=true,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-14,-50},{6,-30}})));
   IDEAS.Fluid.Sources.Boundary_pT
                       bou(redeclare package Medium = Medium, nPorts=3,
@@ -78,15 +84,15 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(radiator_new1.port_b, pump1.port_a) annotation (Line(
-      points={{-44,0},{-32,0},{-32,0},{-18,0}},
+      points={{-44,0},{-18,0}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(radiator_new.port_b, pump.port_a) annotation (Line(
-      points={{-44,66},{-32,66},{-32,66},{-20,66}},
+      points={{-44,66},{-20,66}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(radiator_new2.port_b, pump2.port_a) annotation (Line(
-      points={{-40,-40},{-28,-40},{-28,-40},{-14,-40}},
+      points={{-40,-40},{-14,-40}},
       color={255,0,0},
       smooth=Smooth.None));
   connect(fixedTemperature.port, radiator_new2.heatPortCon) annotation (Line(

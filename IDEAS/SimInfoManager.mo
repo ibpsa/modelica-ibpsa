@@ -3,18 +3,29 @@ model SimInfoManager
   "Simulation information manager for handling time and climate data required in each for simulation."
   extends PartialSimInfoManager(final useTmy3Reader = true);
 
+protected
+  BoundaryConditions.WeatherData.Bus weaBus1 "Weather data bus";
+  Modelica.Blocks.Routing.RealPassThrough HDirNorData;
+  Modelica.Blocks.Routing.RealPassThrough HGloHorData;
+  Modelica.Blocks.Routing.RealPassThrough HDiffHorData;
+  Modelica.Blocks.Routing.RealPassThrough TDryBulData;
+  Modelica.Blocks.Routing.RealPassThrough relHumData;
+  Modelica.Blocks.Routing.RealPassThrough TDewPoiData;
+  Modelica.Blocks.Routing.RealPassThrough nOpaData;
+  Modelica.Blocks.Routing.RealPassThrough winSpeData;
+  Modelica.Blocks.Routing.RealPassThrough TBlaSkyData;
 equation
-  solDirPer=weaDat.cheDirNorRad.HOut;
-  solDirHor = weaDat.cheGloHorRad.HOut - solDifHor;
-  solDifHor = weaDat.cheDifHorRad.HOut;
+  solDirPer=HDirNorData.y;
+  solDirHor = HGloHorData.y - solDifHor;
+  solDifHor = HDiffHorData.y;
   solGloHor = solDirHor + solDifHor;
-  Te = weaDat.cheTemDryBul.TOut;
+  Te = TDryBulData.y;
   TeAv = Te;
   Tground=TdesGround;
-  irr = weaDat.cheGloHorRad.HOut;
+  irr = HGloHorData.y;
   summer = timMan.summer;
-  relHum = weaDat.cheRelHum.relHumOut;
-  TDewPoi = weaDat.cheTemDewPoi.TOut;
+  relHum = relHumData.y;
+  TDewPoi = TDewPoiData.y;
   timLoc = timMan.timLoc;
   timSol = timMan.timSol;
   timCal = timMan.timCal;
@@ -24,11 +35,21 @@ equation
     Fc = 0.2;
     Va = 2.5;
   else
-    Tsky = weaDat.TBlaSkyCom.TBlaSky;
-    Fc = weaDat.cheOpaSkyCov.nOut*0.87;
-    Va = weaDat.cheWinSpe.winSpeOut;
+    Tsky = TBlaSkyData.y;
+    Fc = nOpaData.y*0.87;
+    Va = winSpeData.y;
   end if;
 
+  connect(weaDat.weaBus, weaBus1);
+  connect(HDirNorData.u, weaBus1.HDirNor);
+  connect(HGloHorData.u, weaBus1.HGloHor);
+  connect(HDiffHorData.u, weaBus1.HDifHor);
+  connect(TDryBulData.u, weaBus1.TDryBul);
+  connect(relHumData.u, weaBus1.relHum);
+  connect(TDewPoiData.u, weaBus1.TDewPoi);
+  connect(nOpaData.u, weaBus1.nOpa);
+  connect(winSpeData.u, weaBus1.winSpe);
+  connect(TBlaSkyData.u, weaBus1.TBlaSky);
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
@@ -36,9 +57,8 @@ equation
         "Your model is using an outer \"sim\" component. An inner \"sim\" component is not defined. For simulation drag IDEAS.SimInfoManager into your model.",
     Icon(graphics={
         Bitmap(extent={{22,-8},{20,-8}}, fileName="")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     Documentation(info="<html>
 <p>
 The SimInfoManager manages all simulation information. 

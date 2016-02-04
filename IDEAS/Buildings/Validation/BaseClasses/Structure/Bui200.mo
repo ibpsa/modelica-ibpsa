@@ -11,7 +11,6 @@ protected
     V=129.6,
     n50=0,
     corrCV=0.822,
-    linear=true,
     nSurf=8,
     T_start=293.15,
     redeclare package Medium = Medium)

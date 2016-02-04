@@ -225,14 +225,20 @@ block ReaderTMY3 "Reader for TMY3 weather data"
 
   constant Real epsCos = 1e-6 "Small value to avoid division by 0";
 
-public
+  Modelica.Blocks.Tables.CombiTable1Ds datRea1(
+    final tableOnFile=true,
+    tableName="tab1",
+    final fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
+    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    final columns=8:11) "Data reader"
+    annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
+    tableName="tab1",
     final fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
     final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     final columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
-        28,29,30},
-    tableName="tab1") "Data reader"
+        28,29,30}) "Data reader"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 protected
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature
@@ -282,15 +288,7 @@ protected
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(
       final lon=lon, final timZon=timZon) "Local civil time"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-public
-  Modelica.Blocks.Tables.CombiTable1Ds datRea1(
-    final tableOnFile=true,
-    final fileName=IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(filNam),
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
-    final columns=8:11,
-    tableName="tab1") "Data reader"
-    annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-protected
+
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1
     "Convert simulation time to calendar time"
     annotation (Placement(transformation(extent={{-110,160},{-90,180}})));
@@ -647,13 +645,6 @@ equation
       points={{181,250},{220,250},{220,-218},{238,-218}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TBlaSkyCom.TBlaSky, weaBus.TBlaSky) annotation (Line(
-      points={{261,-210},{280,-210},{280,0},{300,0}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(modTim.y, weaBus.cloTim) annotation (Line(
       points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{124.5,
           0},{300,0}},
@@ -1223,11 +1214,23 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>", revisions="<html>
 <ul>
 <li>
+June 6, 2015, by Michael Wetter:<br/>
+Removed redundant but consistent
+<code>connect(TBlaSkyCom.TBlaSky, weaBus.TBlaSky)</code>
+statement.
+This avoids a warning if 
+<a href=\"modelica://IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness\">
+IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses.Examples.SkyClearness</a>
+is translated in pedantic mode in Dymola 2016.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/266\">#266</a>.
+</li>
+<li>
 March 26, 2015, by Michael Wetter:<br/>
 Added option to obtain the black body sky temperature
 from a parameter or an input signal.
 This is required for
-<a href=\"modelica://Buildings.Rooms.Validation.MixedAirInitialization\">
+<a href=\"modelica://IDEAS.Rooms.Validation.MixedAirInitialization\">
 Buildings.Rooms.Validation.MixedAirInitialization</a>.
 </li>
 <li>
@@ -1347,5 +1350,6 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false,
-     extent={{-200,-300},{300,300}})));
+     extent={{-200,-300},{300,300}}),
+        graphics));
 end ReaderTMY3;

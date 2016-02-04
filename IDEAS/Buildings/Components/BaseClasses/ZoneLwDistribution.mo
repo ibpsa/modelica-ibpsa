@@ -3,12 +3,13 @@ model ZoneLwDistribution "internal longwave radiative heat exchange"
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
 
-  parameter Boolean linear=true;
+  parameter Boolean linearise=true "Linearise radiative heat exchange";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSurf] port_a
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  IDEAS.Buildings.Components.BaseClasses.HeatRadiation[nSurf] radRes(R=R, each
-      linear=linear);
+  IDEAS.Buildings.Components.BaseClasses.HeatRadiation[nSurf] radRes(
+    R=R,
+    each linearise=linearise);
 
   Modelica.Blocks.Interfaces.RealInput[nSurf] A "surface areas" annotation (
       Placement(transformation(

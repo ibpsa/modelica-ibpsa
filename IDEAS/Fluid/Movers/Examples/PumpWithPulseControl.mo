@@ -7,7 +7,8 @@ model PumpWithPulseControl "Example of how a pump can be used"
        1,
     useInput=true,
     riseTime=60,
-    filteredMassFlowRate=true)
+    filteredMassFlowRate=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
           annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
         Medium)
