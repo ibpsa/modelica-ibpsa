@@ -40,8 +40,8 @@ model ZoneExample
     inc=0,
     azi=0,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
-    redeclare IDEAS.Buildings.Data.Interfaces.Frame fraType,
-    redeclare IDEAS.Buildings.Components.Shading.Screen shaType)
+    redeclare IDEAS.Buildings.Components.Shading.Screen shaType,
+    redeclare IDEAS.Buildings.Data.Frames.Pvc fraType)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
   SlabOnGround slabOnGround(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.LightWall

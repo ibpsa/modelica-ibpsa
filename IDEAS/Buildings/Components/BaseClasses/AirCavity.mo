@@ -26,14 +26,18 @@ model AirCavity
     "Thermal diffusivity of medium, default for air, T=300K"
     annotation(Dialog(group="Advanced"));
 
+  constant Boolean linearise = true
+    "Linearise Grashoff number around expected nominal temperature difference"
+    annotation(Evaluate=true);
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  final parameter Modelica.SIunits.ThermalConductance G=h*A + A*5.86*(1/((1/epsLw_a) + (1/epsLw_b) - 1));
-  final parameter Real Nu=
+  Modelica.SIunits.ThermalConductance G=h*A + A*5.86*(1/((1/epsLw_a) + (1/epsLw_b) - 1));
+  Real Nu=
     if ceiling or floor then
-      if dT_nominal>0 then
+      if (if linearise then dT_nominal>0 else port_a.T-port_b.T>0) then
         1 + 1.44*(1-1708/Ra)+((Ra/5830)^(1/3)-1)
       else 1
     elseif vertical then
@@ -51,8 +55,8 @@ protected
     "true if floor";
   final parameter Boolean vertical=abs(inc - IDEAS.Constants.Wall) < 10E-5;
 
-  final parameter Real Ra = Modelica.Constants.g_n*beta*abs(dT_nominal)*d^3/nu/alpha;
-  final parameter Modelica.SIunits.CoefficientOfHeatTransfer h = Nu*k/d;
+  Real Ra = Modelica.Constants.g_n*beta*(if linearise then abs(dT_nominal) else abs(port_a.T-port_b.T))*d^3/nu/alpha;
+  Modelica.SIunits.CoefficientOfHeatTransfer h = Nu*k/d;
 
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb "Internal port"

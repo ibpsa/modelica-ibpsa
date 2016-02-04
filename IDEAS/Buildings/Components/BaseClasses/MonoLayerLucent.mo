@@ -27,7 +27,7 @@ model MonoLayerLucent "single non-opaque layer"
     epsLw_a=epsLw_a,
     epsLw_b=epsLw_b,
     d=mat.d,
-    dT_nominal=10,
+    dT_nominal=5,
     k=mat.k) if mat.gas
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
