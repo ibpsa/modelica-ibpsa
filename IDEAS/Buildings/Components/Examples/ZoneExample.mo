@@ -37,11 +37,11 @@ model ZoneExample
         origin={11,-38})));
   Window window(
     A=1,
-    inc=0,
-    azi=0,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Components.Shading.Screen shaType,
-    redeclare IDEAS.Buildings.Data.Frames.Pvc fraType)
+    redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
+    inc=IDEAS.Constants.Wall,
+    azi=IDEAS.Constants.South)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
   SlabOnGround slabOnGround(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.LightWall
