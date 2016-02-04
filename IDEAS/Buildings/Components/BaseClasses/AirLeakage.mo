@@ -15,7 +15,7 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(final allowFlowReversal=f
     allowFlowReversal=false)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Sources.RealExpression reaExpMflo(y=V/3600*n50/20)
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-86,20},{-40,40}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if  sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
   Modelica.Blocks.Sources.RealExpression Qgai(y=-reaExpMflo.y*(inStream(port_a.h_outflow)
@@ -24,10 +24,11 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(final allowFlowReversal=f
   Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     use_T_in=true,
-    use_X_in=true,
-    use_C_in=true,
     nPorts=2,
-    use_p_in=false) annotation (Placement(transformation(
+    use_p_in=false,
+    use_X_in=Medium.nXi == 2,
+    use_C_in=Medium.nC == 1)
+                    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={10,30})));
@@ -40,12 +41,17 @@ protected
   Interfaces.WeaBus weaBus(numSolBus=sim.numAzi + 1)
     annotation (Placement(transformation(extent={{-50,76},{-30,96}})));
 public
-  Modelica.Blocks.Sources.RealExpression reaExpX_air(y=1 - bou.X_in[1])
-    annotation (Placement(transformation(extent={{-42,56},{-22,76}})));
+  Modelica.Blocks.Sources.RealExpression reaExpX_air(y=1 - reaPasThr.y)
+    annotation (Placement(transformation(extent={{-40,56},{-20,76}})));
+  Modelica.Blocks.Routing.RealPassThrough reaPasThr annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={14,68})));
 equation
 
   connect(reaExpMflo.y, idealSourceOut.m_flow_in) annotation (Line(
-      points={{-39,30},{-36,30},{-36,8}},
+      points={{-37.7,30},{-36,30},{-36,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(port_a, idealSourceOut.port_a) annotation (Line(
@@ -57,8 +63,9 @@ equation
   connect(Qgai.y, prescribedHeatFlow.Q_flow)
     annotation (Line(points={{-18.1,44},{-18.1,60},{-60,60}},
                                                  color={0,0,127}));
-  connect(reaExpMflo.y, idealSourceIn.m_flow_in) annotation (Line(points={{-39,30},
-          {4,30},{44,30},{44,8}}, color={0,0,127}));
+  connect(reaExpMflo.y, idealSourceIn.m_flow_in) annotation (Line(points={{-37.7,
+          30},{-37.7,30},{44,30},{44,8}},
+                                  color={0,0,127}));
   connect(idealSourceOut.port_b, bou.ports[1])
     annotation (Line(points={{-20,0},{8,0},{8,20}}, color={0,127,255}));
   connect(idealSourceIn.port_a, bou.ports[2])
@@ -71,15 +78,17 @@ equation
       thickness=0.5));
   connect(bou.T_in, weaBus.Te) annotation (Line(points={{6,42},{6,86.05},{-39.95,
           86.05}}, color={0,0,127}));
-  connect(bou.X_in[1], weaBus.X_wEnv)
-    annotation (Line(points={{14,42},{14,86},{-40,86}}, color={0,0,127}));
+
   connect(reaExpX_air.y, bou.X_in[2])
-    annotation (Line(points={{-21,66},{14,66},{14,42}}, color={0,0,127}));
-  if Medium.nC  == 1 then
+    annotation (Line(points={{-19,66},{14,66},{14,42}}, color={0,0,127}));
+
   connect(bou.C_in[1], weaBus.CEnv)
     annotation (Line(points={{18,42},{18,86},{-40,86}}, color={0,0,127}));
-  end if;
 
+  connect(reaPasThr.u, weaBus.X_wEnv)
+    annotation (Line(points={{14,80},{14,86},{-40,86}}, color={0,0,127}));
+  connect(reaPasThr.y, bou.X_in[1]) annotation (Line(points={{14,57},{14,57},{14,
+          52},{14,42}}, color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                    graphics={Text(

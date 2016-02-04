@@ -45,7 +45,7 @@ protected
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-54,-44})));
-  BaseClasses.airLeakage airLeakage(
+  IDEAS.Buildings.Components.BaseClasses.AirLeakage airLeakage(
     redeclare package Medium = Medium,
     m_flow_nominal=V/3600*n50/20,
     V=V,
