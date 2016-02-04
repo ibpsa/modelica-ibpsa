@@ -29,10 +29,7 @@ public
       redeclare package Medium = Medium,
     m=0.1)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{160,40},{180,60}})));
+
   Modelica.Fluid.Sensors.TemperatureTwoPort temperature(redeclare package
       Medium = Medium, m_flow_nominal=1)
     annotation (Placement(transformation(extent={{-24,-10},{-44,10}})));

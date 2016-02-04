@@ -18,8 +18,7 @@ model Heating_Radiators
     annotation (Placement(transformation(extent={{-78,-22},{-48,-2}})));
   inner SimInfoManager       sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{64,84},{78,94}})));
+
   VentilationSystems.None       none(nZones=nZones, VZones=building.VZones)
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Occupants.Standards.ISO13790 occ(

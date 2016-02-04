@@ -32,8 +32,7 @@ package Examples
       plugFeeder(v(re(start=230), im(start=0))) if not standAlone
       "Electricity connection to the district feeder"
       annotation (Placement(transformation(extent={{78,-10},{98,10}})));
-    inner Modelica.Fluid.System system
-      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
     inner SimInfoManager       sim
       "Simulation information manager for climate data"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
@@ -103,8 +102,7 @@ package Examples
       plugFeeder(v(re(start=230), im(start=0))) if not standAlone
       "Electricity connection to the district feeder"
       annotation (Placement(transformation(extent={{78,-10},{98,10}})));
-    inner Modelica.Fluid.System system
-      annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
     inner SimInfoManager       sim
       "Simulation information manager for climate data"
       annotation (Placement(transformation(extent={{-80,80},{-60,100}})));

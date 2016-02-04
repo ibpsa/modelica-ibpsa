@@ -1,8 +1,5 @@
 within IDEAS.Fluid.Storage.Examples;
 model StorageTank_OneIntHx
-  import IDEAS;
-  import Buildings;
-
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
@@ -73,7 +70,7 @@ model StorageTank_OneIntHx
     annotation (Placement(transformation(extent={{-114,14},{-94,34}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=
         293.15) annotation (Placement(transformation(extent={{68,30},{88,50}})));
   IDEAS.Fluid.Sensors.TemperatureTwoPort senSto_in(redeclare package Medium =
         Medium, m_flow_nominal=m_flow_nominal) annotation (Placement(
@@ -94,7 +91,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pump.port_a, storageTank.portHXLower) annotation (Line(
-      points={{-38,-52},{-34,-52},{-34,-52.6154},{-30,-52.6154}},
+      points={{-38,-52},{-34,-52},{-34,-58.3077},{-30,-58.3077}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(storageTank.port_b, bou.ports[2]) annotation (Line(
