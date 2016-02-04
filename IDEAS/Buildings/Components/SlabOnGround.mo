@@ -7,7 +7,8 @@ model SlabOnGround "opaque floor on ground slab"
            + (if sim.openSystemConservationOfEnergy then 0 else port_emb.Q_flow)),
     E(y=layMul.E));
 
-  parameter Modelica.SIunits.Length PWall "Total wall perimeter";
+  parameter Modelica.SIunits.Length PWall = 4*sqrt(AWall)
+    "Total wall perimeter";
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
