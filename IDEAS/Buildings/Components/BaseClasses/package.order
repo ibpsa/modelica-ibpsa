@@ -21,3 +21,4 @@ SwWindowResponse
 ThermalResistor
 ZoneLwDistribution
 ZoneLwGainDistribution
+WindowStateType

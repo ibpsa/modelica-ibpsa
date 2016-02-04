@@ -114,6 +114,13 @@ protected
                                                                                    sim.computeConservationOfEnergy
     "Component for computing conservation of energy"
     annotation (Placement(transformation(extent={{-86,40},{-66,60}})));
+public
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(C=layMul.C)
+    "Heat capacitor for glazing"
+    annotation (Placement(transformation(extent={{6,-38},{26,-58}})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapFra(C=layMul.C)
+    "Heat capacitor for frame"
+    annotation (Placement(transformation(extent={{4,68},{24,48}})));
 initial equation
   QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
@@ -276,8 +283,8 @@ equation
     annotation (Line(points={{-40,-58},{-25,-58},{-10,-58}}, color={0,0,127}));
   connect(shaType.iAngInc, solWin.angInc) annotation (Line(points={{-40,-64},{
           -26,-64},{-26,-66},{-10,-66}}, color={0,0,127}));
-  connect(layFra.port_b, layMul.port_b)
-    annotation (Line(points={{10,80},{10,80},{10,-30}}, color={191,0,0}));
+  connect(heaCapGla.port, layMul.port_b)
+    annotation (Line(points={{16,-38},{16,-30},{10,-30}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
