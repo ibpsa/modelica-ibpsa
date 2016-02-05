@@ -39,7 +39,7 @@ model AirCavity
   Real Nu=
     if ceiling or floor then
       if linearise or (port_a.T-port_b.T>0 and floor or port_a.T-port_b.T<=0 and ceiling) then
-        1 + 1.44*(1-1708/Ra)+((Ra/5830)^(1/3)-1)*(if linearise then 0.5 else 1)
+        1 + (1.44*(1-1708/Ra)+((Ra/5830)^(1/3)-1))*(if linearise then 0.5 else 1)
       else 1
     elseif vertical then
       (if Ra>5e4
