@@ -36,7 +36,16 @@ model Window "Multipane window"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-40,-100})));
-
+  parameter IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType
+    windowDynamicsType = IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two
+    "Type of dynamics for glazing and frame: using zero, one combined or two states"
+    annotation(Dialog(tab="Dynamics"));
+  parameter Real fraC = if windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two then frac else 0
+    "Fraction of thermal mass C that is attributed to frame"
+    annotation(Dialog(tab="Dynamics", enable=windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two));
+  parameter Modelica.SIunits.Temperature T_start=293.15
+    "Start temperature for the temperature states"
+    annotation(Dialog(tab="Dynamics"));
 protected
   final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
     "Window U-value";
@@ -115,10 +124,12 @@ protected
     "Component for computing conservation of energy"
     annotation (Placement(transformation(extent={{-86,40},{-66,60}})));
 public
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(C=layMul.C)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(C=layMul.C*(1
+         - fraC)) if                                                              not windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None
     "Heat capacitor for glazing"
     annotation (Placement(transformation(extent={{6,-38},{26,-58}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapFra(C=layMul.C)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapFra(C=layMul.C*
+        fraC) if                                                                  windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two
     "Heat capacitor for frame"
     annotation (Placement(transformation(extent={{4,68},{24,48}})));
 initial equation
@@ -285,7 +296,13 @@ equation
           -26,-64},{-26,-66},{-10,-66}}, color={0,0,127}));
   connect(heaCapGla.port, layMul.port_b)
     annotation (Line(points={{16,-38},{16,-30},{10,-30}}, color={191,0,0}));
-  annotation (
+  connect(heaCapFra.port, layFra.port_b)
+    annotation (Line(points={{14,68},{14,80},{10,80}}, color={191,0,0}));
+  if windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Combined then
+    connect(heaCapGla.port, layFra.port_b) annotation (Line(points={{16,-38},{16,
+            -38},{16,80},{10,80}},  color={191,0,0}));
+  end if;
+    annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
         Polygon(
