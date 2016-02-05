@@ -1,7 +1,24 @@
-IDEAS v0.2
+IDEAS v0.3
 ==========
 
 Modelica model environment for Integrated District Energy Assessment Simulations (IDEAS), allowing simultaneous transient simulation of thermal and electrical systems at both building and feeder level.
+
+### Current release
+
+The current release is v0.3, which has been pushed on 2 september 2015. Major changes compared to v0.2 are:
+
+1. Added code for checking conservation of energy
+2. Added options for linear / non-linear radiative heat exchange and convection for exterior and interior faces of walls and floors/ceilings. Respective correlations have been changed.
+3. Overall improvements resulting in more efficient code and less warnings.
+4. The emissivity of window coatings must now be specified as a property of the solid (glass sheet) and not as a property of the gas between the glass sheets. This is only relevant if you create your own glazing.
+5. Merged Annex 60 library up to commit d7749e3
+6. Expanded unit tests
+7. More correct implementation of Koschenz's model for TABS. Also added the option for discretising TABS sections.
+8. Added new building shade components.
+9. Removed inefficient code that would lead to numerical Jacobians in grid.
+10. Added new AC and DC electrical models.
+
+
 
 ### License
 

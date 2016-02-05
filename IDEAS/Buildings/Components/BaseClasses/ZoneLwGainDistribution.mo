@@ -38,20 +38,29 @@ model ZoneLwGainDistribution "distribution of radiative internal gains"
         origin={40,100})));
 
 protected
-  Real[nSurf] areaAbsDifSol=area .* epsSw
-    "Short wave emissivity weighted areas";
-  Real areaAbsDifTotSol=sum(areaAbsDifSol)
-    "Sum of longwave emissivity weighted areas";
-  Real[nSurf] areaAbsGain=area .* epsLw "Long wave emissivity weighted areas";
-  Real areaAbsTotGain=sum(areaAbsGain)
-    "Sum of shortwave emissivity weighted areas";
+  final parameter Real[nSurf] areaAbsDifSol(fixed=false)
+    "longwave emissivity weighted areas";
+  final parameter Real areaAbsDifTotSol=sum(areaAbsDifSol)
+    "sum of longwave emissivity weighted areas";
+  final parameter Real[nSurf] areaAbsGain(fixed=false)
+    "shortwave emissivity weighted areas";
+  final parameter Real areaAbsTotGain = sum(areaAbsGain)
+    "sum of shortwave emissivity weighted areas";
 
-  Real[nSurf] weightFactorDir = area ./ (ones(nSurf)*sum(area))
+  final parameter Real[nSurf] weightFactorDir(fixed=false)
     "weightfactor for received direct shortwave solar radiation";
-  Real[nSurf] weightFactorDif = areaAbsDifSol ./ (ones(nSurf)*areaAbsDifTotSol)
+  final parameter Real[nSurf] weightFactorDif(fixed=false)
     "weightfactor for received direct shortwave solar radiation";
-  Real[nSurf] weightFactorGain = areaAbsGain ./ (ones(nSurf)*areaAbsTotGain)
+  final parameter Real[nSurf] weightFactorGain(fixed=false)
     "weightfactor for received direct shortwave solar radiation";
+
+initial equation
+
+  areaAbsDifSol = area .* epsSw;
+  areaAbsGain = area .* epsLw;
+  weightFactorDir = area ./ (ones(nSurf)*sum(area));
+  weightFactorDif = areaAbsDifSol ./ (ones(nSurf)*areaAbsDifTotSol);
+  weightFactorGain = areaAbsGain ./ (ones(nSurf)*areaAbsTotGain);
 
 equation
   for k in 1:nSurf loop

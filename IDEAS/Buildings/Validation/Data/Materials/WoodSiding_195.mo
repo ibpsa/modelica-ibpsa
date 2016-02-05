@@ -4,5 +4,5 @@ record WoodSiding_195 =
     final k=0.14,
     final c=900,
     final rho=530,
-    final epsLw=0.1,
-    final epsSw=0.1);
+    epsLw=0.1,
+    epsSw=0.1);

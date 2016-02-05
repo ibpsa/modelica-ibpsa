@@ -12,7 +12,6 @@ protected
     nSurf=6,
     n50=0,
     corrCV=0.822,
-    linear=true,
     T_start=293.15,
     redeclare package Medium = Medium)
                 annotation (Placement(transformation(extent={{40,0},{80,40}})));

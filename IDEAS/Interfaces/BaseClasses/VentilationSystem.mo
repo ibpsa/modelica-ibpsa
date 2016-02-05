@@ -3,8 +3,7 @@ partial model VentilationSystem
 
   extends IDEAS.Interfaces.BaseClasses.PartialSystem;
 
-  outer Modelica.Fluid.System system
-  annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
+
 
   replaceable package Medium = IDEAS.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium

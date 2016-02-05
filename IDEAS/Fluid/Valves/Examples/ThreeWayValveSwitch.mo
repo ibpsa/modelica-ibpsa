@@ -6,7 +6,8 @@ model ThreeWayValveSwitch "Test the new component ThreeWayValveSwitch"
   Fluid.Movers.Pump pumpEmission(
     redeclare package Medium = Medium,
     m=0.1,
-    m_flow_nominal=1)
+    m_flow_nominal=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{58,0},{78,20}})));
   Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(m=5, redeclare package
       Medium =                                                                       Medium,
@@ -20,7 +21,8 @@ model ThreeWayValveSwitch "Test the new component ThreeWayValveSwitch"
     annotation (Placement(transformation(extent={{-12,34},{2,48}})));
   IDEAS.Fluid.Valves.ThreeWayValveSwitch threeWayValveSwitch(redeclare package
       Medium =                                                                          Medium,
-      m_flow_nominal=1)
+      m_flow_nominal=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{6,0},{26,20}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=3,          redeclare package
       Medium =                                                                      Medium,
@@ -31,9 +33,10 @@ model ThreeWayValveSwitch "Test the new component ThreeWayValveSwitch"
     annotation (Placement(transformation(extent={{-86,-22},{-66,-2}})));
   Modelica.Blocks.Sources.Constant pulse2(k=273.15 + 40)
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  IDEAS.Fluid.MixingVolumes.MixingVolume vol(nPorts=3, m_flow_nominal=1,redeclare
+  IDEAS.Fluid.MixingVolumes.MixingVolume vol(nPorts=2, m_flow_nominal=1,redeclare
       package Medium =                                                                             Medium,
-    V=0.01)
+    V=0.01,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -47,10 +50,7 @@ model ThreeWayValveSwitch "Test the new component ThreeWayValveSwitch"
   IDEAS.Fluid.Sensors.TemperatureTwoPort T_leg1(redeclare package Medium =
         Medium, m_flow_nominal=1)
     annotation (Placement(transformation(extent={{-20,-54},{0,-34}})));
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
 equation
   connect(pulse1.y, realToBoolean.u) annotation (Line(
       points={{-31,42},{-22.2,42},{-22.2,41},{-13.4,41}},
@@ -73,7 +73,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(pumpEmission.port_b, vol.ports[1]) annotation (Line(
-      points={{78,10},{80,10},{80,-23.3333}},
+      points={{78,10},{80,10},{80,-24}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(threeWayValveSwitch.port_b, T_mix.port_a) annotation (Line(
@@ -101,7 +101,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol.ports[2], bou.ports[3]) annotation (Line(
-      points={{80,-26},{80,-62.6667},{-48,-62.6667}},
+      points={{80,-28},{80,-62.6667},{-48,-62.6667}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

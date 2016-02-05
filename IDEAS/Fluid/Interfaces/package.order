@@ -6,9 +6,12 @@ FlowPort_b
 FluidStreamConversionWater
 FourPort
 FourPortHeatMassExchanger
+HeightPort
+HeightPortHeatMassExchanger
 IdealSource
 OnOffInterface
 PartialFourPortInterface
+PartialHeightPortInterface
 PartialTwoPort
 PartialTwoPortInterface
 PartialTwoPortTransport
@@ -18,6 +21,7 @@ StaticTwoPortConservationEquation
 StaticTwoPortHeatMassExchanger
 TwoPortHeatMassExchanger
 FourPortFlowResistanceParameters
+HeightPortFlowResistanceParameters
 LumpedVolumeDeclarations
 PrescribedOutletStateParameters
 TwoPortFlowResistanceParameters

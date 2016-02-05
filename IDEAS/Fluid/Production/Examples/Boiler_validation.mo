@@ -10,13 +10,15 @@ model Boiler_validation "Validation model for the boiler"
     m=1,
     m_flow_nominal=1300/3600,
     useInput=true,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{8,-56},{-12,-36}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe(
     m=5,
     redeclare package Medium = Medium,
     m_flow_nominal=1300/3600,
-    T_start=313.15)
+    T_start=313.15,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
   IDEAS.Fluid.Production.Boiler heater(
     tauHeatLoss=3600,
@@ -24,7 +26,8 @@ model Boiler_validation "Validation model for the boiler"
     cDry=10000,
     redeclare package Medium = Medium,
     m_flow_nominal=1300/3600,
-    QNom=20000)
+    QNom=20000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-70,-16},{-50,4}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
@@ -93,7 +96,7 @@ equation
       smooth=Smooth.None));
 
   connect(bou.ports[1], heater.port_a) annotation (Line(
-      points={{-32,-22},{-42,-22},{-42,-10.5455},{-50,-10.5455}},
+      points={{-32,-22},{-42,-22},{-42,-12},{-50,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pulse.y, gain.u) annotation (Line(
@@ -105,11 +108,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression.y, heater.TSet) annotation (Line(
-      points={{-71,6},{-61,6},{-61,4}},
+      points={{-71,6},{-64,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heater.port_b, senTemBoiler_out.port_a) annotation (Line(
-      points={{-50,-3.27273},{-50,8},{-44,8}},
+      points={{-50,0},{-50,8},{-44,8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemBoiler_out.port_b, pipe.port_a) annotation (Line(
@@ -121,7 +124,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(senTemBoiler_in.port_b, heater.port_a) annotation (Line(
-      points={{-44,-46},{-50,-46},{-50,-10.5455}},
+      points={{-44,-46},{-50,-46},{-50,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

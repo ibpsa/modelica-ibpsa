@@ -5,7 +5,8 @@ model PumpWithPipeHeatPorts "Example of Pipe_heatPort usage"
 
   IDEAS.Fluid.Movers.Pump pump(redeclare package Medium = Medium, m_flow_nominal=
        1,
-    useInput=true)
+    useInput=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
           annotation (Placement(transformation(extent={{-52,-12},{-32,8}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium =
         Medium)
@@ -16,10 +17,7 @@ model PumpWithPipeHeatPorts "Example of Pipe_heatPort usage"
       Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
+
   Modelica.Blocks.Sources.Sine sine(freqHz=0.001)
     annotation (Placement(transformation(extent={{-80,26},{-60,46}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(redeclare package
@@ -48,7 +46,8 @@ model PumpWithPipeHeatPorts "Example of Pipe_heatPort usage"
                                                         redeclare package
       Medium = Medium)
     annotation (Placement(transformation(extent={{42,-72},{22,-52}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=60, y_start=273.15 + 30)
+  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=60, y_start=273.15 + 30,
+    initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{18,66},{38,86}})));
   Modelica.Blocks.Sources.Step step(
     height=-10,

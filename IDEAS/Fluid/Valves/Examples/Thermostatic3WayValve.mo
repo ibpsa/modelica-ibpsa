@@ -25,10 +25,7 @@ model Thermostatic3WayValve "Example of a thermostatic three way valve"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     tau=0.01) annotation (Placement(transformation(extent={{64,12},{76,24}})));
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
   Modelica.Blocks.Sources.Ramp TSou1(
     height=30,
     duration=10,
@@ -103,10 +100,6 @@ Changed implementation for more flexible 3wayvalve
     experiment(StopTime=15),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
-<<<<<<< HEAD
-          "Resources/Scripts/Dymola/Fluid/Valves/Examples/Thermostatic3WayValveExample.mos"
-=======
           "Resources/Scripts/Dymola/Fluid/Valves/Examples/Thermostatic3WayValve.mos"
->>>>>>> OMcompatibility
         "Simulate and plot"));
 end Thermostatic3WayValve;

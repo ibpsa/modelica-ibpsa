@@ -62,9 +62,7 @@ model HydraulicCircuit
     p=200000) "Absolute pressure"
     annotation (Placement(transformation(extent={{88,28},{68,48}})));
 
-  inner Modelica.Fluid.System system(p_ambient=101325)
-                                   annotation (Placement(transformation(extent={{80,-100},
-            {100,-80}},        rotation=0)));
+
 equation
   connect(pump1.port_b, pipe1.port_a) annotation (Line(
       points={{-16,38},{10,38}},

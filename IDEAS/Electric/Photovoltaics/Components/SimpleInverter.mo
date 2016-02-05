@@ -1,5 +1,5 @@
 within IDEAS.Electric.Photovoltaics.Components;
-class SimpleInverter
+model SimpleInverter
 
   extends Modelica.Electrical.Analog.Interfaces.TwoPort;
   //v1,i1 =DC  <-> v2,i2 = AC
@@ -57,5 +57,12 @@ equation
         Line(
           points={{-40,40},{-20,40}},
           color={0,0,0},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}), Documentation(revisions="<html>
+<ul>
+<li>
+October 21, 2015 by Filip Jorissen:<br/>
+Changed class declaration to model declaration for issue 398.
+</li>
+</ul>
+</html>"));
 end SimpleInverter;

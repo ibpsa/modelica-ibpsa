@@ -1,5 +1,6 @@
 AirLeakage
 AngleOfIncidence
+EnergyPort
 ExteriorConvection
 ExteriorHeatRadiation
 ExteriorSolarAbsorption
@@ -7,6 +8,7 @@ HeatCapacitor
 HeatRadiation
 InteriorConvection
 InteriorConvectionWindow
+AirCavity
 MixedAir
 MonoLayerGround
 MonoLayerLucent
@@ -15,6 +17,7 @@ MonoLayerOpaqueNf
 MultiLayerGround
 MultiLayerLucent
 MultiLayerOpaque
+PrescribedEnergy
 SwWindowResponse
 ThermalResistor
 viewFactorRectRectPerp
@@ -22,5 +25,4 @@ viewFactorRectRectPar
 ZoneLwDistributionViewFactor
 ZoneLwDistribution
 ZoneLwGainDistribution
-EnergyPort
-PrescribedEnergy
+WindowDynamicsType

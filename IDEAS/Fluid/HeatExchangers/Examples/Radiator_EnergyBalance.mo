@@ -2,29 +2,36 @@ within IDEAS.Fluid.HeatExchangers.Examples;
 model Radiator_EnergyBalance "Test for energy balance of the radiator model"
 
   extends Modelica.Icons.Example;
+  package Medium = IDEAS.Media.Water
+    annotation (__Dymola_choicesAllMatching=true);
+  parameter SI.MassFlowRate m_flow_nominal=0.05 "Nominal mass flow rate";
 
-  Real QBoiler(start=0);
-  Real QRadiator(start=0);
+  Real QBoiler;
+  Real QRadiator;
 
   Fluid.Movers.Pump volumeFlow1(
     m=4,
     useInput=true,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    T_start=293.15)
+    T_start=293.15,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort boiler(
     m=5,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    T_start=293.15)
+    T_start=293.15,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{12,4},{32,-16}})));
   Fluid.HeatExchangers.Radiators.Radiator radiator(
     QNom=3000,
     powerFactor=3.37,
     redeclare package Medium = Medium,
     TInNom=318.15,
-    TOutNom=308.15) "Hydraulic radiator model"
+    TOutNom=308.15,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Hydraulic radiator model"
     annotation (Placement(transformation(extent={{50,-8},{70,12}})));
   inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-84,68},{-64,88}})));
@@ -52,9 +59,11 @@ model Radiator_EnergyBalance "Test for energy balance of the radiator model"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={42,-44})));
-  package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
-    annotation (__Dymola_choicesAllMatching=true);
-  parameter SI.MassFlowRate m_flow_nominal=0.05 "Nominal mass flow rate";
+
+initial equation
+    QBoiler=0;
+    QRadiator=0;
+
 equation
   der(QBoiler) = boilerHeatFlow.Q_flow;
   der(QRadiator) = -radiator.heatPortCon.Q_flow - radiator.heatPortRad.Q_flow;

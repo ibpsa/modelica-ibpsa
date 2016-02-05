@@ -94,8 +94,7 @@ public
   parameter Boolean homotopyInitialization=true "= true, use homotopy method"
     annotation (Dialog(tab="Flow resistance"));
 
-  outer Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{88,-100},{100,-88}})));
+
 protected
   parameter Medium1.ThermodynamicState state_default1=
       Medium1.setState_pTX(
