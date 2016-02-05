@@ -4,6 +4,11 @@ model MultiLayerLucent "multiple non-opaque layers"
   parameter Modelica.SIunits.Area A "surface area";
   parameter Modelica.SIunits.Angle inc "inclination";
   parameter Integer nLay(min=1) "input: number of layers";
+  parameter Real mSenFac = 1 "Correction factor for window thermal mass"
+    annotation(Evaluate=true);
+  parameter Modelica.SIunits.HeatCapacity C = sum(mats.d.*mats.rho.*mats.c*A)
+    "Total heat capacity of the glazing sheets"
+    annotation(Evaluate=true);
   parameter IDEAS.Buildings.Data.Interfaces.Material mats[nLay] "input";
 
   final parameter Modelica.SIunits.ThermalInsulance R=sum(nMat.R)
@@ -41,6 +46,9 @@ model MultiLayerLucent "multiple non-opaque layers"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={0,100})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heatCapacitor(C=mSenFac
+        *C) "A single lumped state for all sheets of glass"
+    annotation (Placement(transformation(extent={{70,0},{90,-20}})));
 equation
   connect(port_a, nMat[1].port_a);
 
@@ -55,8 +63,9 @@ equation
   iEpsSw_a = mats[1].epsSw_a;
   iEpsLw_b = mats[nLay].epsLw_b;
   iEpsSw_b = mats[nLay].epsSw_b;
+  connect(port_b, heatCapacitor.port)
+    annotation (Line(points={{100,0},{80,0}}, color={191,0,0}));
   annotation (
-    Diagram(graphics),
     Icon(graphics={
         Rectangle(
           extent={{-90,80},{20,-80}},
@@ -105,10 +114,17 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+December 17, 2015, by Filip Jorissen:<br/>
+Added a temperature state for decoupling non-linear systems of equations.
+This is for issue <a href=https://github.com/open-ideas/IDEAS/issues/412>412</a>.
+</li>
+<li>
 September 2, 2015, by Filip Jorissen:<br/>
 epsLw is now defined as part of the material property of the solid layer, 
 instead of the gas layer.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end MultiLayerLucent;
