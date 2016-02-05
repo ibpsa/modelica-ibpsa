@@ -54,13 +54,13 @@ protected
   final parameter Real[nSurf] weightFactorGain(fixed=false)
     "weightfactor for received direct shortwave solar radiation";
 
-initial algorithm
+initial equation
 
-  areaAbsDifSol :=area .* epsSw;
-  areaAbsGain :=area .* epsLw;
-  weightFactorDir :=0.96*area ./ (ones(nSurf)*sum(area));
-  weightFactorDif :=0.96*areaAbsDifSol ./ (ones(nSurf)*areaAbsDifTotSol);
-  weightFactorGain :=areaAbsGain ./ (ones(nSurf)*areaAbsTotGain);
+  areaAbsDifSol = area .* epsSw;
+  areaAbsGain = area .* epsLw;
+  weightFactorDir = area ./ (ones(nSurf)*sum(area));
+  weightFactorDif = areaAbsDifSol ./ (ones(nSurf)*areaAbsDifTotSol);
+  weightFactorGain = areaAbsGain ./ (ones(nSurf)*areaAbsTotGain);
 
 equation
   for k in 1:nSurf loop

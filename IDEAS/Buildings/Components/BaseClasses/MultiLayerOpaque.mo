@@ -17,7 +17,9 @@ model MultiLayerOpaque "multiple material layers in series"
     each final A=A,
     each final inc=inc,
     final T_start=T_start,
-    final mat=mats) "layers";
+    final mat=mats,
+    epsLw_a=cat(1, {0.85}, mats[1:nLay-1].epsLw_b),
+    epsLw_b=cat(1, mats[2:nLay].epsLw_a, {0.85})) "layers";
 
   final parameter Modelica.SIunits.ThermalInsulance R=sum(nMat.R)
     "total specific thermal resistance";
