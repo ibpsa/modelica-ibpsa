@@ -3,7 +3,7 @@ model AirCavity
   "Heat transfer correlations (convection and radiation) for air cavities"
 
   parameter Modelica.SIunits.Area A "Surface area";
-  parameter Modelica.SIunits.Angle inc "inclination";
+  parameter Modelica.SIunits.Angle inc "Inclination off surface at port a";
   parameter Modelica.SIunits.Length d "Cavity width";
 
   parameter Modelica.SIunits.Emissivity epsLw_a
@@ -50,13 +50,13 @@ model AirCavity
     else 1 "Correlations from Hollands et al. and Wright et al.";
 
 protected
-  final parameter Boolean ceiling=abs(sin(inc)) < 10E-5 and cos(inc) > 0
+  final parameter Boolean ceiling=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Constants.Ceiling)
     "true if ceiling"
     annotation(Evaluate=true);
-  final parameter Boolean floor=abs(sin(inc)) < 10E-5 and cos(inc) < 0
+  final parameter Boolean floor=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Constants.Floor)
     "true if floor"
     annotation(Evaluate=true);
-  final parameter Boolean vertical=abs(inc - IDEAS.Constants.Wall) < 10E-5
+  final parameter Boolean vertical=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Constants.Wall)
     annotation(Evaluate=true);
 
   Real Ra = max(1,Modelica.Constants.g_n*beta*(if linearise then abs(dT_nominal) else abs(port_a.T-port_b.T))*d^3/nu/alpha);
