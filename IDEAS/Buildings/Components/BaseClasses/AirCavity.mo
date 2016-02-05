@@ -26,7 +26,7 @@ model AirCavity
     "Thermal diffusivity of medium, default for air, T=300K"
     annotation(Dialog(group="Advanced"));
 
-  constant Boolean linearise = true
+  parameter Boolean linearise = true
     "Linearise Grashoff number around expected nominal temperature difference"
     annotation(Evaluate=true);
 
