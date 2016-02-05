@@ -9,11 +9,14 @@ model structure "Example detailed building structure model"
     AZones={gF_floor.AWall,fF_floor.AWall,sF_floor.AWall});
 
   //Definition of the thermal zones
-  Components.Zone gF(V=216.0, nSurf=8) "second floor (sF) with sleeping area"
+  Components.Zone gF(V=216.0, nSurf=8,
+    redeclare package Medium = Medium) "second floor (sF) with sleeping area"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Components.Zone fF(V=216.0, nSurf=8) "second floor (sF) with sleeping area"
+  Components.Zone fF(V=216.0, nSurf=8,
+    redeclare package Medium = Medium) "second floor (sF) with sleeping area"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Components.Zone sF(V=216.0, nSurf=8) "second floor (sF) with sleeping area"
+  Components.Zone sF(V=216.0, nSurf=8,
+    redeclare package Medium = Medium) "second floor (sF) with sleeping area"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   //Definition of the building envelope for gF
   Components.OuterWall[3] gF_ext(
@@ -38,13 +41,14 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,-75.5})));
   Components.SlabOnGround gF_floor(
-    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
     insulationThickness=0.14,
     AWall=72,
     PWall=26,
     inc=IDEAS.Constants.Floor,
-    azi=IDEAS.Constants.South) annotation (Placement(transformation(
+    azi=IDEAS.Constants.South,
+    redeclare IDEAS.Buildings.Data.Constructions.FloorOnGround constructionType)
+                               annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-47,-76})));
@@ -71,12 +75,13 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,-15.5})));
   Components.InternalWall fF_floor(
-    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
     insulationThickness=0.04,
     AWall=74,
     inc=IDEAS.Constants.Floor,
-    azi=IDEAS.Constants.South) annotation (Placement(transformation(
+    azi=IDEAS.Constants.South,
+    redeclare IDEAS.Buildings.Data.Constructions.TABS constructionType)
+                               annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-47,-16})));
@@ -103,12 +108,13 @@ model structure "Example detailed building structure model"
         rotation=90,
         origin={10.5,44.5})));
   Components.InternalWall sF_floor(
-    redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
     insulationThickness=0.04,
     AWall=74,
     inc=IDEAS.Constants.Floor,
-    azi=IDEAS.Constants.South) annotation (Placement(transformation(
+    azi=IDEAS.Constants.South,
+    redeclare IDEAS.Buildings.Data.Constructions.TABS constructionType)
+                               annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-47,44})));
@@ -251,20 +257,18 @@ equation
       points={{52,80},{52,88},{20,88},{20,106.667}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(gF_floor.port_emb, heatPortEmb[1]) annotation (Line(
-      points={{-37,-76},{-32,-76},{-32,-92},{114,-92},{114,53.3333},{150,
+  connect(gF_floor.port_emb[1], heatPortEmb[1]) annotation (Line(
+      points={{-37.2,-76},{-32,-76},{-32,-92},{114,-92},{114,53.3333},{150,
           53.3333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(fF_floor.port_emb, heatPortEmb[2]) annotation (Line(
-      points={{-37,-16},{-32,-16},{-32,-28},{114,-28},{114,60},{150,60}},
+  connect(fF_floor.port_emb[1], heatPortEmb[2]) annotation (Line(
+      points={{-37.2,-16},{-32,-16},{-32,-28},{114,-28},{114,60},{150,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(sF_floor.port_emb, heatPortEmb[3]) annotation (Line(
-      points={{-37,44},{-34,44},{-34,40},{-32,40},{-32,32},{114,32},{114,
-          66.6667},{150,66.6667}},
-      color={191,0,0},
-      smooth=Smooth.None));
+  connect(sF_floor.port_emb[1], heatPortEmb[3]) annotation (Line(points={{-37.2,
+          44},{-32,44},{-32,36},{112,36},{112,66.6667},{150,66.6667}}, color={
+          191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-150,
-            -100},{150,100}}), graphics));
+            -100},{150,100}})));
 end structure;

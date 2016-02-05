@@ -6,7 +6,9 @@ model MultiLayerOpaque "multiple material layers in series"
   parameter Integer nLay(min=1) "number of layers";
   parameter IDEAS.Buildings.Data.Interfaces.Material[nLay] mats
     "array of layer materials";
-  parameter Integer locGain(min=1) "location of the internal gain";
+  parameter Integer nGain = 1 "Number of gains";
+  parameter Integer locGain[max(nGain,1)](each min=1)
+    "location of the internal gains";
 
   parameter Modelica.SIunits.Temperature T_start[nLay]=ones(nLay)*293.15
     "Start temperature for each of the layers";
