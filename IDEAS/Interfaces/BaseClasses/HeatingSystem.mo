@@ -5,8 +5,7 @@ partial model HeatingSystem "Partial heating/cooling system"
 
   replaceable package Medium=IDEAS.Media.Water;
 
-  outer Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-180,80},{-160,100}})));
+
 
   // *********** Building characteristics and  interface ***********
   // --- General

@@ -30,8 +30,7 @@ model SingleBoreHolesInSerie "Test for the SingleBoreHole model"
     p=101330,
     T=283.15) annotation (Placement(transformation(extent={{-60,10},{-40,30}},
           rotation=0)));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,60},{100,80}})));
+
 equation
   connect(sou_1.ports[1], seg.port_a) annotation (Line(
       points={{-40,50},{9,50},{9,46}},
