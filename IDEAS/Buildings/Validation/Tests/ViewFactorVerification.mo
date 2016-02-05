@@ -24,11 +24,15 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
   replaceable Cases.Case900 CaseVf(building(gF(calculateViewFactor=true)))
     constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{-76,4},{-64,16}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
   replaceable Cases.Case900 CaseNoVf(building(gF(calculateViewFactor=false)))
     constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{-76,-16},{-64,-4}})));
+initial equation
+
+for i in 1:6 loop
+    assert( abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1) < Modelica.Constants.eps*1000, "View factors do not sum up to one for row " + String(i) +  "!: "+ String(abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1)));
+end for;
+
   annotation (
     experiment(
       StopTime=3.1536e+007,
@@ -54,10 +58,4 @@ First implementation.
 </html>", info="<html>
 <p>This model simulates Bestest case 900 two times. Once with and once without explicit view factor implementation. Use the added command to plot the difference in results between the two implementations.</p>
 </html>"));
-initial equation
-
-for i in 1:6 loop
-    assert( abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1) < Modelica.Constants.eps*1000, "View factors do not sum up to one for row " + String(i) +  "!: "+ String(abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1)));
-end for;
-
 end ViewFactorVerification;
