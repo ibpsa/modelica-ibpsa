@@ -26,7 +26,7 @@ model BoundaryWall "Opaque wall with boundary conditions"
         transformation(extent={{-60,10},{-40,30}}), iconTransformation(extent={{
             -60,10},{-40,30}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
     "Port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 protected
@@ -44,7 +44,8 @@ protected
     final nLay=constructionType.nLay,
     final mats=constructionType.mats,
     final locGain=constructionType.locGain,
-    T_start=ones(constructionType.nLay)*T_start)
+    T_start=ones(constructionType.nLay)*T_start,
+    final nGain=constructionType.nGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=
