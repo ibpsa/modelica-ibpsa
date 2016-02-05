@@ -124,14 +124,14 @@ protected
     "Component for computing conservation of energy"
     annotation (Placement(transformation(extent={{-86,40},{-66,60}})));
 public
-  IDEAS.HeatTransfer.HeatCapacitor heaCapGla(C=Cgla, T(fixed=true, start=T_start),
-    outputE=true) if                                                            addCapGla
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(C=Cgla, T(fixed=true, start=T_start)) if
+                                                                                addCapGla
     "Heat capacitor for glazing"
     annotation (Placement(transformation(extent={{6,-38},{26,-58}})));
-  IDEAS.HeatTransfer.HeatCapacitor heaCapFra(C=Cfra, T(fixed=true, start=T_start),
-    outputE=true) if                                                            addCapFra
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapFra(C=Cfra, T(fixed=true, start=T_start)) if
+                                                                                addCapFra
     "Heat capacitor for frame"
-    annotation (Placement(transformation(extent={{4,68},{24,48}})));
+    annotation (Placement(transformation(extent={{6,88},{26,108}})));
 protected
   final parameter Boolean addCapGla =  not windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None;
   final parameter Boolean addCapFra =  fraType.present and windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two;
@@ -306,7 +306,7 @@ equation
   connect(heaCapGla.port, layMul.port_b)
     annotation (Line(points={{16,-38},{16,-30},{10,-30}}, color={191,0,0}));
   connect(heaCapFra.port, layFra.port_b)
-    annotation (Line(points={{14,68},{14,80},{10,80}}, color={191,0,0}));
+    annotation (Line(points={{16,88},{16,80},{10,80}}, color={191,0,0}));
   if windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Combined then
     connect(heaCapGla.port, layFra.port_b) annotation (Line(points={{16,-38},{16,
             -38},{16,80},{10,80}},  color={191,0,0}));
