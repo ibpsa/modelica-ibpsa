@@ -5,7 +5,9 @@ record Construction "Layers from outer to inner"
 
   parameter Integer nLay(min=1)
     "Number of layers of the construction, including gaps";
-  parameter Integer locGain(min=1) = 1 "Location of possible embedded system";
+  parameter Integer nGain = 0 "Number of gains";
+  parameter Integer locGain[max(nGain,1)](each min=1) = {1}
+    "Location of possible embedded system";
   replaceable parameter IDEAS.Buildings.Data.Interfaces.Insulation
     insulationType(final d=insulationTickness) constrainedby
     IDEAS.Buildings.Data.Interfaces.Insulation "Type of thermal insulation";
