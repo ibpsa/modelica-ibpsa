@@ -46,7 +46,7 @@ protected
 
 equation
   connect(E_internal, monoLayerOpaqueNf.E);
-  if not realLayer then
+  if not realLayer or airLayer then
     E_internal=0;
   end if;
   connect(port_a, monoLayerOpaqueNf.port_a) annotation (Line(
@@ -58,7 +58,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-if not realLayer or airLayer then
+if not realLayer then
   connect(port_a, port_b) annotation (Line(
       points={{-100,0},{100,0}},
       color={191,0,0},
