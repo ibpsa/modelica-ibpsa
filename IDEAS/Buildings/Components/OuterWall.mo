@@ -5,7 +5,7 @@ model OuterWall "Opaque building envelope construction"
     QTra_design(fixed=false),
     E(y=layMul.E),
     Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
-           then 0 else port_emb.Q_flow)));
+           then 0 else sum(port_emb.Q_flow))));
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
   parameter Boolean linearise=true

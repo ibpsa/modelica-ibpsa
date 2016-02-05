@@ -4,7 +4,7 @@ model InternalWall "interior opaque wall between two zones"
   extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(
     final QTra_design=U_value*AWall*(TRef_a - TRef_b),
     E(y=layMul.E),
-      Qgai(y=if sim.openSystemConservationOfEnergy then 0 else port_emb.Q_flow));
+      Qgai(y=if sim.openSystemConservationOfEnergy then 0 else sum(port_emb.Q_flow)));
 
   parameter Modelica.SIunits.Length insulationThickness
     "Thermal insulation thickness"

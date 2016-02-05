@@ -4,7 +4,7 @@ model BoundaryWall "Opaque wall with boundary conditions"
     final QTra_design=U_value*AWall*(273.15 + 21 - TRef),
     E(y=layMul.E),
       Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
-           then 0 else port_emb.Q_flow)));
+           then 0 else sum(port_emb.Q_flow))));
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));

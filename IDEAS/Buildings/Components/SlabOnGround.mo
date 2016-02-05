@@ -4,7 +4,7 @@ model SlabOnGround "opaque floor on ground slab"
   extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(
     QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes),
     Qgai(y=layMul.port_a.Q_flow
-           + (if sim.openSystemConservationOfEnergy then 0 else port_emb.Q_flow)),
+           + (if sim.openSystemConservationOfEnergy then 0 else sum(port_emb.Q_flow))),
     E(y=layMul.E));
 
   parameter Modelica.SIunits.Length PWall = 4*sqrt(AWall)
