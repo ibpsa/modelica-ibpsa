@@ -6,7 +6,7 @@ model MultiLayerLucent "multiple non-opaque layers"
   parameter Integer nLay(min=1) "input: number of layers";
   parameter Real mSenFac = 1 "Correction factor for window thermal mass"
     annotation(Evaluate=true);
-  parameter Modelica.SIunits.HeatCapacity C = sum(mats.d*mats.rho*mats.c*A)
+  parameter Modelica.SIunits.HeatCapacity C = sum(mats.d.*mats.rho.*mats.c*A)
     "Total heat capacity of the glazing sheets"
     annotation(Evaluate=true);
   parameter IDEAS.Buildings.Data.Interfaces.Material mats[nLay] "input";
