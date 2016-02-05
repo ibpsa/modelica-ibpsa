@@ -14,7 +14,8 @@ model MultiLayerGround "multiple ground layers in series"
   IDEAS.Buildings.Components.BaseClasses.MonoLayerGround[nLay] nMat(
     each final A=A,
     each final inc=inc,
-    final mat=mats) "layers";
+    final mat=mats,
+    final T_start=T_start) "layers";
 
   final parameter Modelica.SIunits.ThermalInsulance R=sum(nMat.R)
     "total specific thermal resistance";
