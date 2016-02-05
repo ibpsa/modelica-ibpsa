@@ -40,12 +40,12 @@ model Window "Multipane window"
     windowDynamicsType = IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two
     "Type of dynamics for glazing and frame: using zero, one combined or two states"
     annotation(Dialog(tab="Dynamics"));
-  parameter Real fraC = if windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two then frac else 0
+  parameter Real fraC = if windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two and fraType.present then frac else 0
     "Fraction of thermal mass C that is attributed to frame"
     annotation(Dialog(tab="Dynamics", enable=windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two));
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for the temperature states"
-    annotation(Dialog(tab="Dynamics"));
+    annotation(Dialog(tab="Dynamics", enable= not windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None));
 protected
   final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
     "Window U-value";
@@ -125,11 +125,12 @@ protected
     annotation (Placement(transformation(extent={{-86,40},{-66,60}})));
 public
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(C=layMul.C*(1
-         - fraC)) if                                                              not windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None
+         - fraC), T(fixed=true, start=T_start)) if                                not windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None
     "Heat capacitor for glazing"
     annotation (Placement(transformation(extent={{6,-38},{26,-58}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapFra(C=layMul.C*
-        fraC) if                                                                  windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two
+        fraC, T(fixed=true, start=T_start)) if
+                 fraType.present and windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two
     "Heat capacitor for frame"
     annotation (Placement(transformation(extent={{4,68},{24,48}})));
 initial equation
