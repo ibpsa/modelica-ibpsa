@@ -21,5 +21,7 @@ expandable connector ZoneBus
     "Heat gains in model" annotation ();
   IDEAS.Buildings.Components.BaseClasses.EnergyPort E if  computeConservationOfEnergy
     "Internal energy in model" annotation ();
+  Modelica.SIunits.Angle inc;
+  Modelica.SIunits.Angle azi;
 
 end ZoneBus;

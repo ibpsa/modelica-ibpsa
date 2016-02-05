@@ -20,6 +20,9 @@ MultiLayerOpaque
 PrescribedEnergy
 SwWindowResponse
 ThermalResistor
+viewFactorRectRectPerp
+viewFactorRectRectPar
+ZoneLwDistributionViewFactor
 ZoneLwDistribution
 ZoneLwGainDistribution
 WindowDynamicsType

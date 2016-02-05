@@ -13,6 +13,7 @@ model BoundaryWall "Opaque wall with boundary conditions"
     annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.Temperature TRef=291.15
     "Reference temperature for calculation of design heat loss";
+
   parameter Boolean use_T_in = false
     "Get the boundary temperature from the input connector";
   parameter Boolean use_Q_in = false
