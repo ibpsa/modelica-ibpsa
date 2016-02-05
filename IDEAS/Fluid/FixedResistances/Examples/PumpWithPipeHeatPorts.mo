@@ -17,10 +17,7 @@ model PumpWithPipeHeatPorts "Example of Pipe_heatPort usage"
       Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
+
   Modelica.Blocks.Sources.Sine sine(freqHz=0.001)
     annotation (Placement(transformation(extent={{-80,26},{-60,46}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(redeclare package

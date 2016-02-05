@@ -17,8 +17,7 @@ model IdealRadiatorHeating "Example and test for ideal heating with radiators"
   IDEAS.VentilationSystems.None none(nZones=nZones, VZones=building.VZones)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
-      inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder causalInhomeFeeder
     annotation (Placement(transformation(extent={{44,-10},{64,10}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource

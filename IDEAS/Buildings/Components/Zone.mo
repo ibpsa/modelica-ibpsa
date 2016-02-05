@@ -4,9 +4,8 @@ model Zone "thermal building zone"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
       Medium = IDEAS.Media.Air);
 
-  outer Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  parameter Boolean allowFlowReversal=system.allowFlowReversal
+
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Assumptions"));
 
@@ -45,12 +44,11 @@ protected
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-54,-44})));
-  BaseClasses.AirLeakage airLeakage(
+  IDEAS.Buildings.Components.BaseClasses.AirLeakage airLeakage(
     redeclare package Medium = Medium,
     m_flow_nominal=V/3600*n50/20,
     V=V,
     n50=n50,
-    allowFlowReversal=allowFlowReversal,
     show_T=false)
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final

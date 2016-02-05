@@ -22,8 +22,7 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
 
   replaceable Cases.Case940 Case940 constrainedby Interfaces.BesTestCase
     annotation (Placement(transformation(extent={{24,4},{36,16}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
+
   annotation (
     experiment(
       StopTime=3.1536e+007,
