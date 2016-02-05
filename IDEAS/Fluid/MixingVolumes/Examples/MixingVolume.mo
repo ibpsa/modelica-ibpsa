@@ -104,8 +104,7 @@ model MixingVolume
     Modelica.Blocks.Sources.Constant TLiq(k=283.15)
       annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+
 equation
   connect(P.y, sou.p_in) annotation (Line(points={{-79,70},{-72,70},{-72,66}},
                     color={0,0,127}));

@@ -41,10 +41,7 @@ public
     nPorts=1,
     p=100000,
     T=283.15) annotation (Placement(transformation(extent={{80,-70},{60,-50}})));
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
   Modelica.Fluid.Sensors.TemperatureTwoPort temperature(redeclare package
       Medium = Medium, m_flow_nominal=1)
     annotation (Placement(transformation(extent={{-24,-10},{-44,10}})));
