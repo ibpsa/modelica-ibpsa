@@ -68,7 +68,7 @@ equation
     annotation (Line(points={{32,-50},{32,90},{-40,90}}, color={0,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Buildings/Components/Examples/ZoneExample.mos"
+          "Resources/Scripts/Dymola/Buildings/Components/Examples/WindowDynamics.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
