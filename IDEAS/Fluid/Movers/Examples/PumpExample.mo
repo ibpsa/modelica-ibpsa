@@ -19,10 +19,7 @@ model PumpExample "Example of how a pump can be used"
     annotation (Placement(transformation(extent={{82,-10},{62,10}})));
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
+
   Modelica.Blocks.Sources.Sine sine(freqHz=0.001)
     annotation (Placement(transformation(extent={{-42,40},{-22,60}})));
   IDEAS.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)

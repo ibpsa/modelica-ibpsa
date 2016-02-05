@@ -5,8 +5,8 @@ model ZoneExample
   Zone zone(
     nSurf=4,
     redeclare package Medium = Medium,
-    V=2,
-    allowFlowReversal=true)
+    allowFlowReversal=true,
+    V=20)
          annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   BoundaryWall
              commonWall(
@@ -64,8 +64,8 @@ model ZoneExample
   Zone zone1(
     nSurf=2,
     redeclare package Medium = Medium,
-    V=2,
-    allowFlowReversal=true)
+    allowFlowReversal=true,
+    V=20)
          annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Shading.ShadingControl shadingControl
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));

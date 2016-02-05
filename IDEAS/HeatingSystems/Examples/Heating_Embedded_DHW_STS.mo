@@ -40,8 +40,7 @@ model Heating_Embedded_DHW_STS
   Modelica.Blocks.Sources.RealExpression[nZones] realExpression(y=11*
         building.AZones)
     annotation (Placement(transformation(extent={{-20,28},{-40,48}})));
-  inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{64,84},{78,94}})));
+
   IDEAS.VentilationSystems.None none(nZones=nZones, VZones=building.VZones)
     annotation (Placement(transformation(extent={{-32,74},{-12,94}})));
   IDEAS.Occupants.Standards.ISO13790 occ(

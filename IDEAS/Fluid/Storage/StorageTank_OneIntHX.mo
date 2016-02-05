@@ -52,7 +52,7 @@ model StorageTank_OneIntHX
   parameter SI.Area AHX=4.1 "Total HX area (outside pipe area)";
   parameter SI.Mass mHX=27 "HX water content";
 
-  parameter Boolean allowFlowReversal = system.allowFlowReversal
+  parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort[nbrNodes] nodes(
     redeclare each package Medium = Medium,
@@ -134,8 +134,7 @@ public
     annotation (Placement(transformation(extent={{70,-10},{90,10}}),
         iconTransformation(extent={{70,-10},{90,10}})));
 
-  outer Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
 equation
   // Connection of upper and lower node to external ports
   connect(port_a, nodes[1].port_a);

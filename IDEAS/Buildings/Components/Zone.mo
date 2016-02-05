@@ -2,11 +2,9 @@ within IDEAS.Buildings.Components;
 model Zone "thermal building zone"
   extends IDEAS.Buildings.Components.Interfaces.StateZone(Eexpr(y=E));
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
-      Medium = IDEAS.Media.Air);
+      Medium = IDEAS.Media.Air, final mSenFac = corrCV);
 
-  outer Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  parameter Boolean allowFlowReversal=system.allowFlowReversal
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Assumptions"));
 

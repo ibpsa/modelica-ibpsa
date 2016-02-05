@@ -25,6 +25,10 @@ model OverhangAndScreen "Roof overhangs and screen shading"
         dep=dep,
         gap=gap));
 
+initial equation
+
+    assert(dep > 0, "The depth of the overhang must be larger than zero, if this is not the case: just use Shading.Screen.");
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),  Documentation(info="<html>
 <p>This model describes the transient behaviour of solar irradiance on a window below a non-fixed horizontal or vertical overhang combined with a controllable screen.</p>

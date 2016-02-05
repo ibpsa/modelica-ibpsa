@@ -29,10 +29,7 @@ model EmbeddedPipeDp "Testing pressure drop of embeddedpipe"
     annotation (Placement(transformation(extent={{64,-16},{84,4}})));
   BaseClasses.RadSlaCha_ValidationEmpa radSlaCha_ValidationEmpa
     annotation (Placement(transformation(extent={{-90,-96},{-70,-76}})));
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
+
   Sources.Boundary_ph bou(nPorts=2, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{120,-70},{100,-50}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(
