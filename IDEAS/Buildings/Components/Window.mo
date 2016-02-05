@@ -124,15 +124,23 @@ protected
     "Component for computing conservation of energy"
     annotation (Placement(transformation(extent={{-86,40},{-66,60}})));
 public
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(C=layMul.C*(1
-         - fraC), T(fixed=true, start=T_start)) if                                not windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None
+  IDEAS.HeatTransfer.HeatCapacitor heaCapGla(C=Cgla, T(fixed=true, start=T_start),
+    outputE=true) if                                                            addCapGla
     "Heat capacitor for glazing"
     annotation (Placement(transformation(extent={{6,-38},{26,-58}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapFra(C=layMul.C*
-        fraC, T(fixed=true, start=T_start)) if
-                 fraType.present and windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two
+  IDEAS.HeatTransfer.HeatCapacitor heaCapFra(C=Cfra, T(fixed=true, start=T_start),
+    outputE=true) if                                                            addCapFra
     "Heat capacitor for frame"
     annotation (Placement(transformation(extent={{4,68},{24,48}})));
+protected
+  final parameter Boolean addCapGla =  not windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None;
+  final parameter Boolean addCapFra =  fraType.present and windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two;
+
+  final parameter Modelica.SIunits.HeatCapacity Cgla = layMul.C*(1- fraC)
+    "Heat capacity of glazing state";
+  final parameter Modelica.SIunits.HeatCapacity Cfra = layMul.C*fraC
+    "Heat capacity of frame state";
+
 initial equation
   QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
