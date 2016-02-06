@@ -11,8 +11,9 @@ partial model StateWall "Partial model for building envelope components"
     "Design heat losses at reference temperature of the boundary space"
     annotation(Dialog(tab="Design power"));
 
-  ZoneBus propsBus_a(numAzi=sim.numAzi, computeConservationOfEnergy=sim.computeConservationOfEnergy)
-    "Inner side (last layer)"
+  ZoneBus propsBus_a(numAzi=sim.numAzi, computeConservationOfEnergy=sim.computeConservationOfEnergy) "If inc = floor, propsbus_a should be connected to the zone above.
+    If inc = ceiling, propsbus_a should be connected to the zone below.
+    If component is an outerWall, porpsBus_a should be connect to the zone."
                      annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,

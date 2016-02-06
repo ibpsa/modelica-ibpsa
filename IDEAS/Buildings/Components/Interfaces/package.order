@@ -7,3 +7,5 @@ StateWallNoSol
 StateZone
 WeaBus
 ZoneBus
+partial_buildingSurface
+partial_opaqueBuildingSurface
