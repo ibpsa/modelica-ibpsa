@@ -7,6 +7,7 @@ model Window "Multipane window"
   parameter Real frac(
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
+
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
