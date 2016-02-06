@@ -96,5 +96,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 end partial_buildingSurface;
