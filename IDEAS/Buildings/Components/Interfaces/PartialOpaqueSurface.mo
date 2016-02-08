@@ -53,10 +53,11 @@ public
     "Port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 initial equation
-  assert(constructionType.incLastLay == IDEAS.Types.Tilt.None or
+  assert(constructionType.incLastLay == IDEAS.Types.Tilt.Other or
     constructionType.incLastLay >= inc - Modelica.Constants.pi/2 - Modelica.Constants.eps and
     constructionType.incLastLay <= inc + Modelica.Constants.pi/2 + Modelica.Constants.eps,
     "The inclination of a wall, a floor or a ceiling does not correspond to its record.");
+
 equation
   connect(iSolDif.port, propsBus_a.iSolDif) annotation (Line(
       points={{62,94},{50,94},{50,39.9},{50.1,39.9}},
