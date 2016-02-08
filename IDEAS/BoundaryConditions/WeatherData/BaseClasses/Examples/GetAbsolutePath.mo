@@ -1,9 +1,9 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model GetAbsolutePath "Test model to get the absolute path of a URI"
   extends Modelica.Icons.Example;
-  parameter String f[:] = {"file://legal.html",
-                           "modelica://IDEAS/legal.html",
-                           "legal.html"} "Name of a file that exists";
+  parameter String f[:] = {"file://package.mo",
+                           "modelica://IDEAS/package.mo",
+                           "package.mo"} "Name of a file that exists";
   parameter String fAbs[:]=
     IDEAS.BoundaryConditions.WeatherData.BaseClasses.getAbsolutePath(uri=f)
     "Absolute path of f";
