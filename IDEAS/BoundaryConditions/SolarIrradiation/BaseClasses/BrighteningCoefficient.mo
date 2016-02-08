@@ -2,7 +2,6 @@ within IDEAS.BoundaryConditions.SolarIrradiation.BaseClasses;
 block BrighteningCoefficient "Circumsolar and horizon brightening coefficients"
   extends Modelica.Blocks.Icons.Block;
   import H = IDEAS.Utilities.Math.Functions.spliceFunction;
-public
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
