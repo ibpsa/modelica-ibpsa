@@ -12,7 +12,7 @@ record Construction "Layers from outer to inner"
     insulationType(final d=insulationTickness) constrainedby
     IDEAS.Buildings.Data.Interfaces.Insulation "Type of thermal insulation";
   parameter IDEAS.Buildings.Data.Interfaces.Material[nLay] mats
-    "Array of materials";
+    "Array of materials. The last layer is connected to propsBus_a.";
   parameter Modelica.SIunits.Length insulationTickness=0
     "Thermal insulation thickness";
 
