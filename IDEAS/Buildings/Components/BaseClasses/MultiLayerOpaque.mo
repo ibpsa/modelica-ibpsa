@@ -3,8 +3,8 @@ model MultiLayerOpaque "multiple material layers in series"
 
   parameter Modelica.SIunits.Area A "total multilayer area";
   parameter Modelica.SIunits.Angle inc "inclination";
-  parameter Integer nLay(min=1) "number of layers";
-  parameter IDEAS.Buildings.Data.Interfaces.Material[nLay] mats
+  parameter Integer nLay(min=1) = 1 "number of layers";
+  parameter IDEAS.Buildings.Data.Interfaces.Material[nLay] mats = {IDEAS.Buildings.Data.Materials.Concrete()}
     "array of layer materials";
   parameter Integer nGain = 0 "Number of gains";
   parameter Integer locGain[max(nGain,1)](each min=1)

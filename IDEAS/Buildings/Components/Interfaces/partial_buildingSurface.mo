@@ -44,45 +44,14 @@ protected
     final inc=inc)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  replaceable BaseClasses.MultiLayerOpaque                layMul(
-    final inc=inc)
-    "declaration of array of resistances and capacitances for wall simulation"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
+
 equation
   connect(QDesign.y, propsBus_a.QTra_design);
-  connect(layMul.port_a, propsBus_a.surfRad) annotation (Line(
-      points={{10,0},{14,0},{14,39.9},{50.1,39.9}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(propsBus_a.surfCon,intCon_a. port_b) annotation (Line(
       points={{50.1,39.9},{46,39.9},{46,0},{40,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.port_a,intCon_a. port_a) annotation (Line(
-      points={{10,0},{20,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(layMul.iEpsSw_a, propsBus_a.epsSw) annotation (Line(
-      points={{10,4},{18,4},{18,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(layMul.iEpsLw_a, propsBus_a.epsLw) annotation (Line(
-      points={{10,8},{14,8},{14,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(layMul.area, propsBus_a.area) annotation (Line(
-      points={{0,10},{0,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
+
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

@@ -1,13 +1,7 @@
 within IDEAS.Buildings.Components.Interfaces;
 partial model partial_opaqueBuildingSurface
   "Partial component for the opaque surfaces of the building envelope"
-  extends partial_buildingSurface(redeclare BaseClasses.MultiLayerOpaque layMul(
-    final A=AWall,
-    final nLay=constructionType.nLay,
-    final mats=constructionType.mats,
-    final locGain=constructionType.locGain,
-    T_start=ones(constructionType.nLay)*T_start,
-      nGain=constructionType.nGain),              intCon_a(A=AWall));
+  extends partial_buildingSurface(intCon_a(A=AWall));
 
   parameter Modelica.SIunits.Area AWall "Total wall area";
 
@@ -33,6 +27,17 @@ partial model partial_opaqueBuildingSurface
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif(Q_flow=0)
     annotation (Placement(transformation(extent={{82,84},{62,104}})));
 protected
+  BaseClasses.MultiLayerOpaque                layMul(
+    final inc=inc,
+    final A=AWall,
+    final nLay=constructionType.nLay,
+    final mats=constructionType.mats,
+    final locGain=constructionType.locGain,
+    T_start=ones(constructionType.nLay)*T_start,
+      nGain=constructionType.nGain)
+    "declaration of array of resistances and capacitances for wall simulation"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
+
   Modelica.Blocks.Sources.RealExpression E(y=layMul.E) if
        sim.computeConservationOfEnergy "Internal energy model"
     annotation (Placement(transformation(extent={{-16,84},{4,104}})));
@@ -58,6 +63,35 @@ public
     "Azimuth angle expression"
     annotation (Placement(transformation(extent={{84,104},{64,124}})));
 equation
+      connect(layMul.port_a, propsBus_a.surfRad) annotation (Line(
+      points={{10,0},{14,0},{14,39.9},{50.1,39.9}},
+      color={191,0,0},
+      smooth=Smooth.None));
+    connect(layMul.port_a,intCon_a. port_a) annotation (Line(
+      points={{10,0},{20,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(layMul.iEpsSw_a, propsBus_a.epsSw) annotation (Line(
+      points={{10,4},{18,4},{18,39.9},{50.1,39.9}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.iEpsLw_a, propsBus_a.epsLw) annotation (Line(
+      points={{10,8},{14,8},{14,39.9},{50.1,39.9}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(layMul.area, propsBus_a.area) annotation (Line(
+      points={{0,10},{0,39.9},{50.1,39.9}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   connect(iSolDif.port, propsBus_a.iSolDif) annotation (Line(
       points={{62,94},{50,94},{50,39.9},{50.1,39.9}},
       color={191,0,0},
