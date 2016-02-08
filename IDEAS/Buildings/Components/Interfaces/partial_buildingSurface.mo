@@ -17,13 +17,13 @@ partial model partial_buildingSurface
 
   parameter Modelica.SIunits.Temperature TRef_a=291.15
     "Reference temperature of zone on side of propsBus_a, for calculation of design heat loss"
-                                                                                               annotation (Dialog(group="Design heat loss"));
+    annotation (Dialog(group="Design heat loss"));
   parameter Boolean linearise_a=true
     "= true, if convective heat transfer should be linearised"
-    annotation(Dialog(tab="Convection"));
+    annotation (Dialog(tab="Convection"));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal_a=1
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
-    annotation(Dialog(tab="Convection"));
+    annotation (Dialog(tab="Convection"));
 
   ZoneBus propsBus_a(numAzi=sim.numAzi, computeConservationOfEnergy=sim.computeConservationOfEnergy) "If inc = floor, propsbus_a should be connected to the zone above.
     If inc = ceiling, propsbus_a should be connected to the zone below.
@@ -38,7 +38,7 @@ partial model partial_buildingSurface
 
 protected
   Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design);
-  BaseClasses.InteriorConvection                            intCon_a(
+  BaseClasses.InteriorConvection intCon_a(
     linearise=linearise_a,
     dT_nominal=dT_nominal_a,
     final inc=inc)
@@ -46,13 +46,13 @@ protected
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
-  BaseClasses.MultiLayer                      layMul(
-    final inc=inc)
+  BaseClasses.MultiLayer layMul(final inc=inc)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
+
 equation
   connect(QDesign.y, propsBus_a.QTra_design);
-  connect(propsBus_a.surfCon,intCon_a. port_b) annotation (Line(
+  connect(propsBus_a.surfCon, intCon_a.port_b) annotation (Line(
       points={{50.1,39.9},{46,39.9},{46,0},{40,0}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -61,7 +61,7 @@ equation
       points={{10,0},{14,0},{14,39.9},{50.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.port_a,intCon_a. port_a) annotation (Line(
+  connect(layMul.port_a, intCon_a.port_a) annotation (Line(
       points={{10,0},{20,0}},
       color={191,0,0},
       smooth=Smooth.None));

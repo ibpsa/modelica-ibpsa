@@ -258,16 +258,16 @@ equation
       color={0,0,0},
       smooth=Smooth.None));
   connect(gF_floor.port_emb[1], heatPortEmb[1]) annotation (Line(
-      points={{-37.2,-76},{-32,-76},{-32,-92},{114,-92},{114,53.3333},{150,
+      points={{-37,-76},{-32,-76},{-32,-92},{114,-92},{114,53.3333},{150,
           53.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(fF_floor.port_emb[1], heatPortEmb[2]) annotation (Line(
-      points={{-37.2,-16},{-32,-16},{-32,-28},{114,-28},{114,60},{150,60}},
+      points={{-37,-16},{-32,-16},{-32,-28},{114,-28},{114,60},{150,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(sF_floor.port_emb[1], heatPortEmb[3]) annotation (Line(points={{-37.2,
-          44},{-32,44},{-32,36},{112,36},{112,66.6667},{150,66.6667}}, color={
+  connect(sF_floor.port_emb[1], heatPortEmb[3]) annotation (Line(points={{-37,44},
+          {-32,44},{-32,36},{112,36},{112,66.6667},{150,66.6667}},     color={
           191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-150,
             -100},{150,100}})));

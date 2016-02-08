@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.BaseClasses;
-model MonoLayerSolidDynamic "Dynamic layer for uniform solid."
+model MonoLayerDynamic "Dynamic layer for uniform solid."
 
   parameter Modelica.SIunits.Area A "Layer area";
   parameter IDEAS.Buildings.Data.Interfaces.Material mat "Layer material";
@@ -7,6 +7,8 @@ model MonoLayerSolidDynamic "Dynamic layer for uniform solid."
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the states";
   parameter Integer nStaMin(min=1) = 2 "Minimum number of states";
+  parameter Boolean placeCapacityAtSurf_b = true
+    "Set to true to place last capacity at the surface b of the layer.";
   final parameter Boolean present=mat.d <> 0;
   final parameter Integer nSta=max(nStaMin, mat.nSta) "Number of states";
   final parameter Real R=mat.R "Total specific thermal resistance";
@@ -15,9 +17,11 @@ model MonoLayerSolidDynamic "Dynamic layer for uniform solid."
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") = sum(T .* C);
 
 protected
-  final parameter Modelica.SIunits.ThermalConductance[max(nSta - 1, 1)] G=fill(
-      max(nSta - 1, 1)*A/R, max(nSta - 1, 1));
-  final parameter Modelica.SIunits.HeatCapacity[nSta] C=Ctot*(if nSta <= 2
+  final parameter Integer nRes = if placeCapacityAtSurf_b then max(nSta - 1, 1) else nSta
+    "Number of thermal resistances";
+  final parameter Modelica.SIunits.ThermalConductance[nRes] G=fill(
+     nRes*A/R, nRes);
+  final parameter Modelica.SIunits.HeatCapacity[nSta] C=Ctot*(if nSta <= 2 or not placeCapacityAtSurf_b
        then ones(nSta)/nSta else cat(
       1,
       {0.5},
@@ -26,7 +30,7 @@ protected
   final parameter Real[nSta] Cinv(unit="K/J") = ones(nSta) ./ C
     "Dummy parameter for efficiently handling check for division by zero";
   Modelica.SIunits.Temperature[nSta] T "Temperature at the states";
-  Modelica.SIunits.HeatFlowRate[max(nSta - 1, 1)] Q_flow
+  Modelica.SIunits.HeatFlowRate[nRes] Q_flow
     "Heat flow rate from state i to i-1";
 
 public
@@ -43,7 +47,7 @@ initial equation
 equation
   port_a.T = T[1];
 
-  if nSta > 1 then
+  if nSta > 1 and placeCapacityAtSurf_b then
     der(T[1]) = (port_a.Q_flow - Q_flow[1])*Cinv[1];
     der(T[nSta]) = (Q_flow[nSta - 1] + port_b.Q_flow)*Cinv[nSta];
     port_b.T = T[nSta];
@@ -53,6 +57,17 @@ equation
       (T[i] - T[i + 1])*G[i] = Q_flow[i];
     end for;
     for i in 2:nSta - 1 loop
+      der(T[i]) = (Q_flow[i - 1] - Q_flow[i])*Cinv[i];
+    end for;
+  elseif nSta > 1 and not placeCapacityAtSurf_b then
+    der(T[1]) = (port_a.Q_flow - Q_flow[1])*Cinv[1];
+    // Q_flow[i] is heat flowing from (i-1) to (i)
+    for i in 1:nSta - 1 loop
+      (T[i] - T[i + 1])*G[i] = Q_flow[i];
+    end for;
+    (T[end] - port_b.T)*G[end] = Q_flow[end];
+    port_b.Q_flow = - Q_flow[end];
+    for i in 2:nSta loop
       der(T[i]) = (Q_flow[i - 1] - Q_flow[i])*Cinv[i];
     end for;
   else
@@ -90,4 +105,4 @@ equation
 <p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-pqp0E04K.png\"/></p>
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-I7KXJhSH.png\"/> is the added energy to the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-B0HPmGTu.png\"/> is the temperature of the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-t7aqbnLB.png\"/> is the thermal capacity of the lumped capacity equal to<img src=\"modelica://IDEAS/Images/equations/equation-JieDs0oi.png\"/> for which rho denotes the density and <img src=\"modelica://IDEAS/Images/equations/equation-ml5CM4zK.png\"/> is the specific heat capacity of the material and <img src=\"modelica://IDEAS/Images/equations/equation-hOGNA6h5.png\"/> the equivalent thickness of the lumped element, where <img src=\"modelica://IDEAS/Images/equations/equation-1pDREAb7.png\"/> the heat flux through the lumped resistance and <img src=\"modelica://IDEAS/Images/equations/equation-XYf3O3hw.png\"/> is the total thermal resistance of the lumped resistance and where <img src=\"modelica://IDEAS/Images/equations/equation-dgS5sGAN.png\"/> are internal thermal source.</p>
 </html>"));
-end MonoLayerSolidDynamic;
+end MonoLayerDynamic;

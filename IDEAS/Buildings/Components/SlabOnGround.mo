@@ -2,7 +2,8 @@ within IDEAS.Buildings.Components;
 model SlabOnGround "opaque floor on ground slab"
 
    extends IDEAS.Buildings.Components.Interfaces.partial_opaqueBuildingSurface(
-     QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes));
+     QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes), layMul(
+        placeCapacityAtSurf_b=false));
 
   parameter Modelica.SIunits.Length PWall = 4*sqrt(AWall)
     "Total wall perimeter";
@@ -48,7 +49,7 @@ protected
     final mats={ground1,ground2,ground3},
     final T_start={TeAvg, TeAvg, TeAvg})
     "Declaration of array of resistances and capacitances for ground simulation"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=284.15)
                 annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -61,16 +62,14 @@ protected
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
 equation
 
-  connect(adiabaticBoundary.port, layGro.port_a) annotation (Line(
-      points={{-50,0},{-40,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(QmExp.y, periodicFlow.Q_flow)
     annotation (Line(points={{-59,22},{-40,22}}, color={0,0,127}));
-  connect(layGro.port_b, layMul.port_b)
-    annotation (Line(points={{-20,0},{-16,0},{-10,0}}, color={191,0,0}));
   connect(periodicFlow.port, layMul.port_b) annotation (Line(points={{-20,22},{
           -14,22},{-14,0},{-10,0}}, color={191,0,0}));
+  connect(layGro.port_a, layMul.port_b)
+    annotation (Line(points={{-20,0},{-15,0},{-10,0}}, color={191,0,0}));
+  connect(layGro.port_b, adiabaticBoundary.port)
+    annotation (Line(points={{-40,0},{-45,0},{-50,0}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={

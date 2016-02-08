@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.BaseClasses;
-model AirCavity
+model MonoLayerAir
   "Heat transfer correlations (convection and radiation) for air cavities"
 
   parameter Modelica.SIunits.Area A "Surface area";
@@ -134,4 +134,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end AirCavity;
+end MonoLayerAir;

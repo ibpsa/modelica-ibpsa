@@ -57,6 +57,11 @@ public
   Modelica.Blocks.Sources.RealExpression aziExp(y=azi)
     "Azimuth angle expression"
     annotation (Placement(transformation(extent={{84,104},{64,124}})));
+initial equation
+  assert(constructionType.incLastLay == IDEAS.Types.Tilt.None or
+    constructionType.incLastLay >= inc - Modelica.Constants.pi/2 - Modelica.Constants.eps and
+    constructionType.incLastLay <= inc + Modelica.Constants.pi/2 + Modelica.Constants.eps,
+    "The inclination of a wall, a floor or a ceiling does not correspond to its record.");
 equation
   connect(iSolDif.port, propsBus_a.iSolDif) annotation (Line(
       points={{62,94},{50,94},{50,39.9},{50.1,39.9}},

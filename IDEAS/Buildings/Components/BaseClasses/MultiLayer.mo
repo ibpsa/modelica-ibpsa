@@ -12,8 +12,10 @@ model MultiLayer "multiple material layers in series"
 
   parameter Modelica.SIunits.Temperature T_start[nLay]=ones(nLay)*293.15
     "Start temperature for each of the layers";
-
-  IDEAS.Buildings.Components.BaseClasses.MonoLayerAllTypes[nLay] nMat(
+  parameter Boolean placeCapacityAtSurf_b=true
+    "Set to true to place last capacity at the surface b of the layer."
+    annotation (Dialog(tab="Dynamics"), enable=dynamicModel and realLayer and not airLayer);
+  IDEAS.Buildings.Components.BaseClasses.MonoLayer[nLay] nMat(
     each final A=A,
     each final inc=inc,
     final T_start=T_start,
@@ -26,7 +28,9 @@ model MultiLayer "multiple material layers in series"
     epsLw_b=cat(
         1,
         mats[2:nLay].epsLw_a,
-        {0.85})) "layers" annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+        {0.85}),
+    each placeCapacityAtSurf_b=placeCapacityAtSurf_b) "layers"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   final parameter Modelica.SIunits.ThermalInsulance R=sum(nMat.R)
     "total specific thermal resistance";

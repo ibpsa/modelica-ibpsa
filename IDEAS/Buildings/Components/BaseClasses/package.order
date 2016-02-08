@@ -8,7 +8,7 @@ HeatCapacitor
 HeatRadiation
 InteriorConvection
 InteriorConvectionWindow
-AirCavity
+MonoLayerAir
 MixedAir
 PrescribedEnergy
 SwWindowResponse
@@ -19,6 +19,8 @@ ZoneLwDistributionViewFactor
 ZoneLwDistribution
 ZoneLwGainDistribution
 WindowDynamicsType
-MonoLayerSolidDynamic
-MonoLayerAllTypes
+MonoLayerStatic
+MonoLayerDynamic
+MonoLayer
 MultiLayer
+test

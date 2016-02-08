@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.BaseClasses;
-model MonoLayerAllTypes "single material layer"
+model MonoLayer "single material layer"
 
   parameter Boolean dynamicModel=not mat.glass
     "Set to true to model the layer dynamically and to false to model steady state."
@@ -31,14 +31,16 @@ model MonoLayerAllTypes "single material layer"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  MonoLayerSolidDynamic monoLaySolDyn(
+  MonoLayerDynamic monoLaySolDyn(
     A=A,
     mat=mat,
     inc=inc,
-    T_start=T_start) if     dynamicModel and realLayer and not airLayer
+    T_start=T_start,
+    placeCapacityAtSurf_b=placeCapacityAtSurf_b) if
+                            dynamicModel and realLayer and not airLayer
     "Dynamic monolayer for solid"
     annotation (Placement(transformation(extent={{-10,-42},{10,-22}})));
-  IDEAS.Buildings.Components.BaseClasses.AirCavity airCavity(
+  IDEAS.Buildings.Components.BaseClasses.MonoLayerAir airCavity(
     A=A,
     inc=inc,
     d=mat.d,
@@ -49,13 +51,9 @@ model MonoLayerAllTypes "single material layer"
     linearise=linIntCon) if
                      realLayer and airLayer
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor monoLaySolSta_a if not dynamicModel and realLayer and not airLayer
-    "Static monolayer for solid"
-    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor monoLaySolSta_b if  not dynamicModel and realLayer and not airLayer
-    "Static monolayer for solid"
-    annotation (Placement(transformation(extent={{30,70},{50,90}})));
+  MonoLayerStatic monoLayerStatic if
+                     realLayer and not dynamicModel and not airLayer
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
    Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_gain
     "port for gains by embedded active layers"
@@ -63,6 +61,10 @@ model MonoLayerAllTypes "single material layer"
 protected
   Modelica.Blocks.Interfaces.RealInput E_internal;
 
+public
+  parameter Boolean placeCapacityAtSurf_b=true
+    "Set to true to place last capacity at the surface b of the layer."
+    annotation (Dialog(tab="Dynamics"), enable=dynamicModel and realLayer and not airLayer);
 equation
   connect(E_internal, monoLaySolDyn.E);
   if not realLayer or airLayer or not dynamicModel then
@@ -88,24 +90,24 @@ end if;
           {-100,0}},         color={191,0,0}));
   connect(airCavity.port_b, port_b) annotation (Line(points={{10,40},{100,40},{
           100,0}},        color={191,0,0}));
-  connect(monoLaySolSta_a.port_b, monoLaySolSta_b.port_a)
-    annotation (Line(points={{-30,80},{-30,80},{30,80}}, color={191,0,0}));
-  connect(monoLaySolSta_b.port_b, port_b) annotation (Line(points={{50,80},{50,80},
-          {100,80},{100,0}}, color={191,0,0}));
-  connect(port_a, monoLaySolSta_a.port_a)
-    annotation (Line(points={{-100,0},{-100,80},{-50,80}}, color={191,0,0}));
 
   if realLayer and (airLayer or not dynamicModel) then
     // For static monolayer or air monolayer, connect port_gain in the middle of the layer.
-    connect(airCavity.port_emb, monoLaySolSta_b.port_a) annotation (Line(points={{
-          0,50},{0,50},{0,76},{0,80},{30,80}}, color={191,0,0}));
-    connect(monoLaySolSta_b.port_a, port_gain)
-    annotation (Line(points={{30,80},{0,80},{0,100}}, color={191,0,0}));
+      connect(airCavity.port_emb, port_gain) annotation (Line(points={{0,50},{0,60},
+          {20,60},{20,100},{0,100}}, color={191,0,0}));
+      connect(port_gain, monoLayerStatic.port_gain)
+    annotation (Line(points={{0,100},{0,90}}, color={191,0,0}));
   else
     // For dynamic monolayer or air monolayer, connect port_gain at port_b of the layer.
     connect(port_b, port_gain) annotation (Line(points={{100,0},{100,0},{100,100},
           {0,100}}, color={191,0,0}));
   end if;
+
+  connect(port_a, monoLayerStatic.port_a) annotation (Line(points={{-100,0},{-100,
+          0},{-100,78},{-100,80},{-10,80}}, color={191,0,0}));
+  connect(monoLayerStatic.port_b, port_b) annotation (Line(points={{10,80},{54,80},
+          {100,80},{100,0}}, color={191,0,0}));
+
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
@@ -132,4 +134,4 @@ end if;
 <p align=\"center\"><img src=\"modelica://IDEAS/Images/equations/equation-pqp0E04K.png\"/></p>
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-I7KXJhSH.png\"/> is the added energy to the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-B0HPmGTu.png\"/> is the temperature of the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-t7aqbnLB.png\"/> is the thermal capacity of the lumped capacity equal to<img src=\"modelica://IDEAS/Images/equations/equation-JieDs0oi.png\"/> for which rho denotes the density and <img src=\"modelica://IDEAS/Images/equations/equation-ml5CM4zK.png\"/> is the specific heat capacity of the material and <img src=\"modelica://IDEAS/Images/equations/equation-hOGNA6h5.png\"/> the equivalent thickness of the lumped element, where <img src=\"modelica://IDEAS/Images/equations/equation-1pDREAb7.png\"/> the heat flux through the lumped resistance and <img src=\"modelica://IDEAS/Images/equations/equation-XYf3O3hw.png\"/> is the total thermal resistance of the lumped resistance and where <img src=\"modelica://IDEAS/Images/equations/equation-dgS5sGAN.png\"/> are internal thermal source.</p>
 </html>"));
-end MonoLayerAllTypes;
+end MonoLayer;
