@@ -12,6 +12,8 @@ model MonoLayerOpaque "single material layer"
 
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the states";
+  parameter Boolean linIntCon=false
+    "Linearise interior convection inside air layers / cavities in walls";
 
   final parameter Modelica.SIunits.ThermalInsulance R = mat.R
     "Total specific thermal resistance";
@@ -34,7 +36,8 @@ model MonoLayerOpaque "single material layer"
     k=mat.k,
     dT_nominal=1,
     epsLw_a=epsLw_a,
-    epsLw_b=epsLw_b) if
+    epsLw_b=epsLw_b,
+    linearise=linIntCon) if
                      realLayer and airLayer
     annotation (Placement(transformation(extent={{-10,50},{10,30}})));
 
@@ -43,7 +46,7 @@ protected
 
 equation
   connect(E_internal, monoLayerOpaqueNf.E);
-  if not realLayer then
+  if not realLayer or airLayer then
     E_internal=0;
   end if;
   connect(port_a, monoLayerOpaqueNf.port_a) annotation (Line(

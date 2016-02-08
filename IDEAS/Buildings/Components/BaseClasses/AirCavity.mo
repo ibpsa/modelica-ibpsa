@@ -3,7 +3,7 @@ model AirCavity
   "Heat transfer correlations (convection and radiation) for air cavities"
 
   parameter Modelica.SIunits.Area A "Surface area";
-  parameter Modelica.SIunits.Angle inc "inclination";
+  parameter Modelica.SIunits.Angle inc "Inclination off surface at port a";
   parameter Modelica.SIunits.Length d "Cavity width";
 
   parameter Modelica.SIunits.Emissivity epsLw_a
@@ -26,7 +26,7 @@ model AirCavity
     "Thermal diffusivity of medium, default for air, T=300K"
     annotation(Dialog(group="Advanced"));
 
-  constant Boolean linearise = true
+  parameter Boolean linearise = true
     "Linearise Grashoff number around expected nominal temperature difference"
     annotation(Evaluate=true);
 
@@ -39,7 +39,7 @@ model AirCavity
   Real Nu=
     if ceiling or floor then
       if linearise or (port_a.T-port_b.T>0 and floor or port_a.T-port_b.T<=0 and ceiling) then
-        1 + 1.44*(1-1708/Ra)+((Ra/5830)^(1/3)-1)*(if linearise then 0.5 else 1)
+        1 + (1.44*(1-1708/Ra)+((Ra/5830)^(1/3)-1))*(if linearise then 0.5 else 1)
       else 1
     elseif vertical then
       (if Ra>5e4
@@ -50,13 +50,13 @@ model AirCavity
     else 1 "Correlations from Hollands et al. and Wright et al.";
 
 protected
-  final parameter Boolean ceiling=abs(sin(inc)) < 10E-5 and cos(inc) > 0
+  final parameter Boolean ceiling=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Constants.Ceiling)
     "true if ceiling"
     annotation(Evaluate=true);
-  final parameter Boolean floor=abs(sin(inc)) < 10E-5 and cos(inc) < 0
+  final parameter Boolean floor=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Constants.Floor)
     "true if floor"
     annotation(Evaluate=true);
-  final parameter Boolean vertical=abs(inc - IDEAS.Constants.Wall) < 10E-5
+  final parameter Boolean vertical=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Constants.Wall)
     annotation(Evaluate=true);
 
   Real Ra = max(1,Modelica.Constants.g_n*beta*(if linearise then abs(dT_nominal) else abs(port_a.T-port_b.T))*d^3/nu/alpha);

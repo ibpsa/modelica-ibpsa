@@ -9,6 +9,8 @@ model MultiLayerOpaque "multiple material layers in series"
   parameter Integer nGain = 0 "Number of gains";
   parameter Integer locGain[max(nGain,1)](each min=1)
     "location of the internal gains";
+  parameter Boolean linIntCon=false
+    "Linearise interior convection inside air layers / cavities in walls";
 
   parameter Modelica.SIunits.Temperature T_start[nLay]=ones(nLay)*293.15
     "Start temperature for each of the layers";
@@ -18,6 +20,7 @@ model MultiLayerOpaque "multiple material layers in series"
     each final inc=inc,
     final T_start=T_start,
     final mat=mats,
+    each linIntCon=linIntCon,
     epsLw_a=cat(1, {0.85}, mats[1:nLay-1].epsLw_b),
     epsLw_b=cat(1, mats[2:nLay].epsLw_a, {0.85})) "layers";
 
