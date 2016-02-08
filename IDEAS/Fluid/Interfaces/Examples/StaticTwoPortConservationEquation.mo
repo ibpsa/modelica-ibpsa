@@ -19,24 +19,24 @@ extends Modelica.Icons.Example;
 
   SubModel modWatRev(
     redeclare package Medium = MediumW,
-    sensibleOnly=true,
-    allowFlowReversal=true) "Submodel for energy and mass balance" annotation (
-      Placement(transformation(rotation=0, extent={{-10,40},{10,60}})));
+    allowFlowReversal=true,
+    use_mWat_flow = false) "Submodel for energy and mass balance" annotation (
+      Placement(transformation(extent={{-10,40},{10,60}})));
   SubModel modWatNoRev(
     redeclare package Medium = MediumW,
-    sensibleOnly=true,
-    allowFlowReversal=false) "Submodel for energy and mass balance" annotation (
-     Placement(transformation(rotation=0, extent={{-10,10},{10,30}})));
+    allowFlowReversal=false,
+    use_mWat_flow = false) "Submodel for energy and mass balance" annotation (
+     Placement(transformation(extent={{-10,10},{10,30}})));
   SubModel modAirRev(
     redeclare package Medium = MediumA,
     allowFlowReversal=true,
-    sensibleOnly=false) "Submodel for energy and mass balance"     annotation (
-      Placement(transformation(rotation=0, extent={{-10,-40},{10,-20}})));
+    use_mWat_flow = true) "Submodel for energy and mass balance"     annotation (
+      Placement(transformation(extent={{-10,-40},{10,-20}})));
   SubModel modAirNoRev(
     redeclare package Medium = MediumA,
     allowFlowReversal=false,
-    sensibleOnly=false) "Submodel for energy and mass balance"      annotation (
-     Placement(transformation(rotation=0, extent={{-10,-70},{10,-50}})));
+    use_mWat_flow = true) "Submodel for energy and mass balance"      annotation (
+     Placement(transformation(extent={{-10,-70},{10,-50}})));
 equation
 
   connect(QSen_flow.y, modWatRev.Q_flow) annotation (Line(points={{-59,70},{-36,
@@ -57,7 +57,7 @@ protected
       m_flow_nominal=0.01,
       show_T=true,
       allowFlowReversal=allowFlowReversal,
-      sensibleOnly=sensibleOnly,
+      use_mWat_flow=use_mWat_flow,
       prescribedHeatFlowRate=true) "Steady-state conservation equation"
       annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
     IDEAS.Fluid.Sources.Boundary_pT sin(
@@ -69,10 +69,11 @@ protected
       annotation (Placement(transformation(extent={{82,-8},{62,12}})));
 
     Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W") annotation (Placement(
-          transformation(rotation=0, extent={{-120,70},{-100,90}})));
+          transformation(extent={{-120,70},{-100,90}})));
     Modelica.Blocks.Interfaces.RealInput mWat_flow(unit="kg/s") annotation (
-        Placement(transformation(rotation=0, extent={{-118,30},{-98,50}})));
-    constant Boolean sensibleOnly "Set to true if sensible exchange only";
+        Placement(transformation(extent={{-118,30},{-98,50}})));
+    parameter Boolean use_mWat_flow
+      "Set to true to enable exchange of moisture";
     parameter Boolean allowFlowReversal=true
       "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
   equation
@@ -80,8 +81,7 @@ protected
       annotation (Line(points={{12,0},{62,0},{62,2}}, color={0,127,255}));
     connect(conEqn.port_a, bou.ports[1]) annotation (Line(
         points={{-8,0},{-58,0}},
-        color={0,127,255},
-        smooth=Smooth.None));
+        color={0,127,255}));
     connect(Q_flow, conEqn.Q_flow) annotation (Line(points={{-110,80},{-110,80},
             {-20,80},{-10,80},{-10,8}}, color={0,0,127}));
     connect(mWat_flow, conEqn.mWat_flow) annotation (Line(points={{-108,40},{-108,
@@ -116,11 +116,14 @@ This example tests the implementation of the steady-state balance.
 revisions="<html>
 <ul>
 <li>
+January 22, 2016 by Michael Wetter:<br/>
+Updated model to use the new parameter <code>use_mWat_flow</code>
+rather than <code>sensibleOnly</code>.
+</li>
+<li>
 July 17, 2015, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+</html>"));
 end StaticTwoPortConservationEquation;
