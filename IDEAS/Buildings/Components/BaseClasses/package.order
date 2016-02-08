@@ -10,13 +10,6 @@ InteriorConvection
 InteriorConvectionWindow
 AirCavity
 MixedAir
-MonoLayerGround
-MonoLayerLucent
-MonoLayerOpaque
-MonoLayerOpaqueNf
-MultiLayerGround
-MultiLayerLucent
-MultiLayerOpaque
 PrescribedEnergy
 SwWindowResponse
 ThermalResistor

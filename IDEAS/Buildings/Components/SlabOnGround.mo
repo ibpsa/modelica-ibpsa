@@ -41,12 +41,11 @@ protected
   final parameter Real Lpe=0.37*PWall*ground1.k*log(delta/dt + 1);
   Real m = sim.timCal/3.1536e7*12 "time in months";
 
-  BaseClasses.MultiLayerGround layGro(
+  BaseClasses.MultiLayer layGro(
     final A=AWall,
     final inc=inc,
     final nLay=3,
     final mats={ground1,ground2,ground3},
-    final locGain=1,
     final T_start={TeAvg, TeAvg, TeAvg})
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
