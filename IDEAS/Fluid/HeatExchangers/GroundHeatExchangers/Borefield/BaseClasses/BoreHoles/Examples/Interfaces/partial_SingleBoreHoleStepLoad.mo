@@ -45,7 +45,6 @@ partial model partial_SingleBoreHoleStepLoad
     m_flow_nominal=gen.m_flow_nominal_bh,
     dynamicBalance=false,
     T_start=gen.T_start,
-    motorCooledByFluid=false,
     addPowerToMedium=false,
     filteredSpeed=false)
     annotation (Placement(transformation(extent={{-14,10},{-34,-10}})));
