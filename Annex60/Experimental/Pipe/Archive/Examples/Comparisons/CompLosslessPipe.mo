@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Examples.Comparisons;
+within Annex60.Experimental.Pipe.Archive.Examples.Comparisons;
 model CompLosslessPipe "Comparison of KUL lossless pipe and A60 TDelay"
   extends Modelica.Icons.Example;
 

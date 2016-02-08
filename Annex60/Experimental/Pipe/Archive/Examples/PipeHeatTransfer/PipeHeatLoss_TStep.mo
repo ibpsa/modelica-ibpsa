@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe.Examples.PipeHeatTransfer;
+within Annex60.Experimental.Pipe.Archive.Examples.PipeHeatTransfer;
 model PipeHeatLoss_TStep
   "Test of pipe model with heat loss with temperature step, zero-mass-flow and flow reversal"
   extends Modelica.Icons.Example;

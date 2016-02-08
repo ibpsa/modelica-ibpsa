@@ -1,0 +1,29 @@
+translateModel("Annex60.Experimental.Pipe.Validation.ValidationPipeULg");
+simulateModel("Annex60.Experimental.Pipe.Validation.ValidationPipeULg", stopTime=875, method="dassl", resultFile="ValidationPipeULg");
+createPlot(id = 1,
+ position = {55, 50, 697, 502},
+ x = "time",
+ y = {"DataReader.y[5]","senTem_in.T"},
+ range = {0, 600, 1, 0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot=1,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+ createPlot(id = 1,
+ position = {55, 50, 697, 502},
+ x = "time",
+ y = {"DataReader.y[3]","senTem_out.T"},
+ range = {0, 600, 1, 0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot=2,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+

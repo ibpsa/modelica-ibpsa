@@ -1,110 +1,9 @@
 within Annex60.Experimental.Pipe.Examples;
 package TimeDelay
   extends Modelica.Icons.ExamplesPackage;
-  model FlowReversal
-    extends Modelica.Icons.Example;
 
-    BaseClasses.PDETime timeDelay
-      annotation (Placement(transformation(extent={{0,0},{20,20}})));
-    Modelica.Blocks.Sources.Step velocityStep(
-      startTime=100,
-      height=-2*offset,
-      offset=offset)
-      annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-    parameter Real offset=0.1 "Offset of output signal y";
-  equation
-    connect(timeDelay.u, velocityStep.y)
-      annotation (Line(points={{-2,10},{-20,10},{-39,10}}, color={0,0,127}));
-    annotation (experiment(StopTime=1000, Interval=1),
-        __Dymola_experimentSetupOutput);
-  end FlowReversal;
 
-  model ContinuouslyVaryingFlow
-    extends Modelica.Icons.Example;
 
-    BaseClasses.PDETime timeDelay
-      annotation (Placement(transformation(extent={{0,0},{20,20}})));
-    parameter Real offset=0.1 "Offset of output signal y";
-    Modelica.Blocks.Sources.Sine sine(amplitude=0.1, freqHz=0.001)
-      annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  equation
-    connect(timeDelay.u, sine.y)
-      annotation (Line(points={{-2,10},{-20,10},{-39,10}}, color={0,0,127}));
-    annotation (experiment(StopTime=1000, Interval=1),
-        __Dymola_experimentSetupOutput);
-  end ContinuouslyVaryingFlow;
-
-  model ZeroFlow
-    "Unit test for PDETime operator for the case where zero flow occurs for a longer time"
-    extends Modelica.Icons.Example;
-
-    BaseClasses.PDETime timeDelay
-      annotation (Placement(transformation(extent={{0,0},{20,20}})));
-    parameter Real offset=0.1 "Offset of output signal y";
-    Modelica.Blocks.Math.Add add
-      annotation (Placement(transformation(extent={{-28,0},{-8,20}})));
-    Modelica.Blocks.Sources.Pulse pulse(
-      amplitude=offset,
-      period=500,
-      nperiod=1,
-      width=20) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-    Modelica.Blocks.Sources.Pulse pulse1(
-      amplitude=-offset,
-      width=50,
-      period=500,
-      nperiod=1,
-      startTime=500)
-      annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  equation
-    connect(timeDelay.u, add.y)
-      annotation (Line(points={{-2,10},{-7,10}}, color={0,0,127}));
-    connect(pulse.y, add.u1) annotation (Line(points={{-59,30},{-42,30},{-42,16},{
-            -30,16}}, color={0,0,127}));
-    connect(pulse1.y, add.u2) annotation (Line(points={{-59,-10},{-42,-10},{-42,4},
-            {-30,4}}, color={0,0,127}));
-    annotation (experiment(StopTime=1000, Interval=1),
-        __Dymola_experimentSetupOutput,
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}})));
-  end ZeroFlow;
-
-  model DiffTimeZeroFlow
-    "Unit test for PDETime operator for the case where zero flow occurs for a longer time"
-    extends Modelica.Icons.Example;
-
-    parameter Real offset=0.1 "Offset of output signal y";
-    Modelica.Blocks.Math.Add add
-      annotation (Placement(transformation(extent={{-28,0},{-8,20}})));
-    Modelica.Blocks.Sources.Pulse pulse(
-      amplitude=offset,
-      period=500,
-      nperiod=1,
-      width=20) annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-    Modelica.Blocks.Sources.Pulse pulse1(
-      amplitude=-offset,
-      width=50,
-      period=500,
-      nperiod=1,
-      startTime=500)
-      annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-    TimeDelays.DiffTime diffTime
-      annotation (Placement(transformation(extent={{10,0},{30,20}})));
-    BaseClasses.PDETime pDETime
-      annotation (Placement(transformation(extent={{10,-62},{30,-42}})));
-  equation
-    connect(pulse.y, add.u1) annotation (Line(points={{-59,30},{-42,30},{-42,16},{
-            -30,16}}, color={0,0,127}));
-    connect(pulse1.y, add.u2) annotation (Line(points={{-59,-10},{-42,-10},{-42,4},
-            {-30,4}}, color={0,0,127}));
-    connect(add.y, diffTime.u)
-      annotation (Line(points={{-7,10},{0,10},{8,10}}, color={0,0,127}));
-    connect(add.y, pDETime.u) annotation (Line(points={{-7,10},{0,10},{0,-52},{
-            8,-52}}, color={0,0,127}));
-    annotation (experiment(StopTime=1000, Interval=1),
-        __Dymola_experimentSetupOutput,
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}})));
-  end DiffTimeZeroFlow;
 
   model PipeLevelDelay "Comparison of different ways to calculate time delays"
     import Annex60;
@@ -172,7 +71,7 @@ package TimeDelay
         annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
     Modelica.Blocks.Sources.Constant const3(k=5)
       annotation (Placement(transformation(extent={{-28,96},{-8,116}})));
-    Annex60.Experimental.Pipe.PipeHeatLossA60Mod_epsilon
+    Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay
       A60PipeHeatLossMod_noabs(
       redeclare package Medium = Medium,
       m_flow_small=1e-4*0.5,
@@ -182,7 +81,7 @@ package TimeDelay
       thicknessIns=0.02,
       lambdaI=0.01) "Annex 60 modified pipe with heat losses"
       annotation (Placement(transformation(extent={{8,28},{28,48}})));
-    Annex60.Experimental.Pipe.PipeHeatLossA60Mod_epsilon A60PipeHeatLossMod2(
+    Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelayMod  A60PipeHeatLossMod2(
       redeclare package Medium = Medium,
       m_flow_small=1e-4*0.5,
       diameter=diameter,
@@ -190,7 +89,7 @@ package TimeDelay
       m_flow_nominal=0.5,
       thicknessIns=0.02,
       lambdaI=0.01) "Annex 60 modified pipe with heat losses"
-      annotation (Placement(transformation(extent={{14,-22},{34,-2}})));
+      annotation (Placement(transformation(extent={{16,-22},{36,-2}})));
     Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In1(
                                                          redeclare package
         Medium =
@@ -252,11 +151,11 @@ package TimeDelay
         color={0,0,127},
         smooth=Smooth.None));
     connect(const3.y, A60PipeHeatLossMod2.T_amb) annotation (Line(
-        points={{-7,106},{-7,-2},{24,-2}},
+        points={{-7,106},{-7,-2},{26,-2}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(A60PipeHeatLossMod2.port_a, senTemA60In1.port_b) annotation (Line(
-        points={{14,-12},{-36,-12}},
+        points={{16,-12},{-36,-12}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(sou1.ports[2], senTemA60In1.port_a) annotation (Line(
@@ -264,7 +163,7 @@ package TimeDelay
         color={0,127,255},
         smooth=Smooth.None));
     connect(A60PipeHeatLossMod2.port_b, senTemA60Out1.port_a) annotation (Line(
-        points={{34,-12},{50,-12}},
+        points={{36,-12},{50,-12}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(senTemA60Out1.port_b, masFloA1.port_a) annotation (Line(

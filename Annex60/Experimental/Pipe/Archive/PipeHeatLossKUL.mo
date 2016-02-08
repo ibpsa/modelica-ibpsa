@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe;
+within Annex60.Experimental.Pipe.Archive;
 model PipeHeatLossKUL
   "Pipe model with a temperature plug flow, pressure losses and heat exchange to the environment"
 
@@ -70,11 +70,11 @@ model PipeHeatLossKUL
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={2,50})));
-  BaseClasses.PDETime                     pDETime
+  BaseClasses.PDETime_massFlow            pDETime
     annotation (Placement(transformation(extent={{-28,24},{-8,44}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=u)
     annotation (Placement(transformation(extent={{-58,24},{-38,44}})));
-  BaseClasses.ExponentialDecay          tempDecay(C=C, R=R)
+  ExponentialDecay tempDecay(C=C, R=R)
     annotation (Placement(transformation(extent={{12,20},{32,40}})));
   Annex60.Fluid.Sensors.TemperatureTwoPort senTem(m_flow_nominal=m_flow_nominal,
       redeclare package Medium = Medium,
@@ -124,10 +124,6 @@ equation
       points={{-100,0},{-60,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pDETime.u, realExpression.y) annotation (Line(
-      points={{-30,34},{-37,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(pipeAdiabaticPlugFlow.port_b, senTem.port_a) annotation (Line(
       points={{-40,0},{-10,0}},
       color={0,127,255},
@@ -152,6 +148,8 @@ equation
     annotation (Line(points={{74,0},{74,0},{100,0}}, color={0,127,255}));
   connect(tempDecay.TOut, prescribedTemperature1.T) annotation (Line(points={{33,
           30},{40,30},{40,10},{44.8,10}}, color={0,0,127}));
+  connect(realExpression.y, pDETime.m_flow)
+    annotation (Line(points={{-37,34},{-30,34}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
                    graphics={
