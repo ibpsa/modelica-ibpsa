@@ -81,10 +81,8 @@ equation
 <p>This is a simple reference model for more sophisticated implementations and does not work correctly with zero-mass flow.</p>
 </html>", revisions="<html>
 <ul>
-<li>
-September, 2015 by Marcus Fuchs:<br/>
-First implementation.
-</li>
+<li>October, 2015</li>
+<li>September, 2015 by Marcus Fuchs:<br>First implementation. </li>
 </ul>
 </html>"));
 end HeatLossMod_noAbs;

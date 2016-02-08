@@ -123,6 +123,6 @@ First implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
+<p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. The temperature propagation is handled by the PipeLosslessPlugFlow component. </p>
 </html>"));
 end PipeAdiabaticPlugFlow;
