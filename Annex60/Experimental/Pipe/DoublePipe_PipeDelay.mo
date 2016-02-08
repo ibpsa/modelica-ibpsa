@@ -1,7 +1,7 @@
 within Annex60.Experimental.Pipe;
 model DoublePipe_PipeDelay
   "Pipe model for double pipe case with single delay calculation"
-  extends BaseClasses.PartialFourPort;
+  extends Annex60.Fluid.Interfaces.PartialFourPort;
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 

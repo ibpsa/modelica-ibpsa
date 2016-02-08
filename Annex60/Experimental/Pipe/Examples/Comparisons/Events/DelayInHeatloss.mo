@@ -68,7 +68,7 @@ model DelayInHeatloss
   parameter Modelica.SIunits.MassFlowRate m_flow_small=1E-4*abs(
       pipeHeatLossA60Mod2.m_flow_nominal)
     "Small mass flow rate for regularization of zero flow";
-  Annex60.Experimental.Pipe.PipeHeatLossA60Mod_epsilon pipeHeatLossA60Mod2(
+  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelayMod  pipeHeatLossA60Mod2(
     diameter=diameter,
     length=length,
     thicknessIns=0.02,

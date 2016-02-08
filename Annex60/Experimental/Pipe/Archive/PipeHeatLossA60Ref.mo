@@ -1,4 +1,4 @@
-within Annex60.Experimental.Pipe;
+within Annex60.Experimental.Pipe.Archive;
 model PipeHeatLossA60Ref
   "Pipe model using spatialDistribution for temperature delay with heat losses"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
@@ -47,17 +47,18 @@ model PipeHeatLossA60Ref
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
 
-  BaseClasses.HeatLoss heatLoss(
+  HeatLoss heatLoss(
     redeclare package Medium = Medium,
     m_flow_small=m_flow_small,
     diameter=diameter,
     length=length,
     thicknessIns=thicknessIns,
-    thermTransmissionCoeff=thermTransmissionCoeff)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    thermTransmissionCoeff=thermTransmissionCoeff) annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,0})));
-  BaseClasses.HeatLoss heatLoss1(
+  HeatLoss heatLoss1(
     redeclare package Medium = Medium,
     m_flow_small=m_flow_small,
     diameter=diameter,

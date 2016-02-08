@@ -40,8 +40,8 @@ model PipeHeatLoss_PipeDelayMod
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  parameter Real R=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  parameter Real C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
+  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
+  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
 
@@ -114,15 +114,9 @@ public
   BaseClasses.PDETime_massFlowMod tau_unused_maxClause(diameter=diameter,
       length=length)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  BaseClasses.PDETime_massFlow_regStep tau_used(length=length, diameter=
+  BaseClasses.PDETime_massFlowMod tau_used(length=length, diameter=
         diameter)
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
-  BaseClasses.PDETime_massFlowMod tau_unused_regStep(diameter=diameter, length=
-        length)
-    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
-  BaseClasses.PDETime_massFlow_regStep tau_used_regStep(length=length, diameter=
-       diameter)
-    annotation (Placement(transformation(extent={{24,-80},{44,-60}})));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
@@ -154,16 +148,8 @@ equation
       points={{23,-54},{28,-54},{28,32},{-64,32},{-64,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senMasFlo.m_flow, tau_unused_regStep.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-90},{-22,-90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(senMasFlo.m_flow, tau_used_regStep.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-70},{22,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(tau_used_regStep.tau, heatLoss.tau) annotation (Line(
-      points={{45,-70},{54,-70},{54,-22},{34,-22},{34,24},{44,24},{44,10}},
+  connect(tau_used.tau, heatLoss.tau) annotation (Line(
+      points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

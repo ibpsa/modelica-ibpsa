@@ -40,10 +40,8 @@ model PipeHeatLoss_PipeDelay
       m_flow_small=m_flow_small)
     "Pressure loss of a straight pipe at m_flow_nominal";
 
-  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi
-      /Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
-  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi
-      *(diameter/2)^2*cp_default;
+  parameter Types.ThermalResistanceLength R=1/(lambdaI*2*Modelica.Constants.pi/Modelica.Math.log((diameter/2 + thicknessIns)/(diameter/2)));
+  parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi*(diameter/2)^2*cp_default;
   parameter Modelica.SIunits.ThermalConductivity lambdaI=0.026
     "Heat conductivity";
 
@@ -110,37 +108,52 @@ public
     C=C,
     R=R,
     m_flow_small=m_flow_small)
-    annotation (Placement(transformation(extent={{38,-10},{58,10}})));
-  BaseClasses.PDETime_massFlow pDETime_massFlow(len=length, diameter=diameter)
-    annotation (Placement(transformation(extent={{-10,-52},{10,-32}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
+  BaseClasses.PDETime_massFlow    tau_unused_maxClause(diameter=diameter)
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+  BaseClasses.PDETime_massFlow         tau_used(               diameter=
+        diameter)
+    annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
   connect(port_a, reverseHeatLoss.port_b)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(pipeAdiabaticPlugFlow.port_b, heatLoss.port_a)
-    annotation (Line(points={{10,0},{24,0},{38,0}}, color={0,127,255}));
+    annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
   connect(port_b, heatLoss.port_b)
-    annotation (Line(points={{100,0},{80,0},{58,0}}, color={0,127,255}));
+    annotation (Line(points={{100,0},{60,0}},        color={0,127,255}));
   connect(T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{0,100},{0,100},
           {0,54},{0,40},{-70,40},{-70,10}}, color={0,0,127}));
-  connect(heatLoss.T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{48,10},
-          {48,40},{-70,40},{-70,10}}, color={0,0,127}));
+  connect(heatLoss.T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{50,10},
+          {50,40},{-70,40},{-70,10}}, color={0,0,127}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
-    annotation (Line(points={{-10,0},{-24,0}}, color={0,127,255}));
+    annotation (Line(points={{-10,0},{-18,0},{-24,0}},
+                                               color={0,127,255}));
   connect(senMasFlo.port_a, reverseHeatLoss.port_a)
-    annotation (Line(points={{-44,0},{-60,0}}, color={0,127,255}));
-  connect(pDETime_massFlow.tau, heatLoss.tau) annotation (Line(points={{11,-42},
-          {11,-42},{22,-42},{22,28},{42,28},{42,10}}, color={0,0,127}));
-  connect(reverseHeatLoss.tau, heatLoss.tau) annotation (Line(points={{-64,10},{
-          -64,28},{42,28},{42,10}}, color={0,0,127}));
-  connect(senMasFlo.m_flow, pDETime_massFlow.m_flow)
-    annotation (Line(points={{-34,-11},{-34,-42},{-12,-42}}, color={0,0,127}));
+    annotation (Line(points={{-44,0},{-52,0},{-60,0}},
+                                               color={0,127,255}));
+  connect(senMasFlo.m_flow, tau_unused_maxClause.m_flow) annotation (Line(
+      points={{-34,-11},{-34,-40},{-22,-40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
+      points={{-34,-11},{-34,-54},{0,-54}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(tau_used.tau, reverseHeatLoss.tau) annotation (Line(
+      points={{23,-54},{28,-54},{28,32},{-64,32},{-64,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(tau_used.tau, heatLoss.tau) annotation (Line(
+      points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
+            100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Ellipse(extent={{-90,92},{-48,50}}, lineColor={28,108,200},
