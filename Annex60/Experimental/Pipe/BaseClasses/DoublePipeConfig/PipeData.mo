@@ -50,5 +50,11 @@ partial record PipeData "Contains pipe properties from catalogs"
         Line(
           origin={0,-25},
           points={{0.0,75.0},{0.0,-75.0}},
-          color={64,64,64})}));
+          color={64,64,64})}), Documentation(revisions="<html>
+<ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">November 30, 2015 by Bram van der Heijde:<br>First implementation.</span></li>
+</ul>
+</html>", info="<html>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Basic record structure for pipe dimensions and insulation parameters.</span></p>
+</html>"));
 end PipeData;

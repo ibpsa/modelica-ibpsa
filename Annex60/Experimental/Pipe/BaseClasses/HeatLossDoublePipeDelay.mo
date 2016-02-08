@@ -89,14 +89,12 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
-<p>Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code><span style=\"font-family: Courier New,courier;\">TempDelaySD</span></code> model.</p>
-<p>This is a simple reference model for more sophisticated implementations and does not work correctly with zero-mass flow.</p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code></span><span style=\"font-family: Courier New,courier;\">PipeAdiabaticPlugFlow</code></span><span style=\"font-family: MS Shell Dlg 2;\"> model.</span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">This component requires the delay time and the instantaneous ambient temperature as an input. This component is to be used in double pipes and models influence from other pipes for flow in both directions. </span></p>
 </html>", revisions="<html>
 <ul>
-<li>
-September, 2015 by Marcus Fuchs:<br/>
-First implementation.
-</li>
+<li>December 1, 2015 by Bram van der Heijde:<br>First implementation as double pipe version with delay as input.</li>
+<li>September, 2015 by Marcus Fuchs:<br>First implementation. </li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

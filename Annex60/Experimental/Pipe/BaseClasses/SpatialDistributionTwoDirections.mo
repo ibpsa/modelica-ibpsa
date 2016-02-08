@@ -29,8 +29,10 @@ equation
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>
-<p>
-Simple model to test the <code>spatialDistribution</code> operator in two direction
-</p>
+<p>Simple model to test the <code><span style=\"font-family: Courier New,courier;\">spatialDistribution</span></code> operator in two directions.</p>
+</html>", revisions="<html>
+<ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">January 2016:<br>First implementation by Carles Ribas Tugores.</span></li>
+</ul>
 </html>"));
 end SpatialDistributionTwoDirections;

@@ -99,4 +99,11 @@ package IsoPlusDoubleReinforced
       h=45e-3,
       Dc=630e-3);
   end IsoPlusDR200R;
+  annotation (Documentation(revisions="<html>
+<ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">November 30, 2015 by Bram van der Heijde:<br>First implementation.</span></li>
+</ul>
+</html>", info="<html>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Pipe dimensions and insulation parameters for IsoPlus Double Reinforced pipes. </span></p>
+</html>"));
 end IsoPlusDoubleReinforced;

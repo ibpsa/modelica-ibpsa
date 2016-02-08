@@ -299,18 +299,12 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
-<li>
-October 10, 2015 by Marcus Fuchs:<br/>
-Copy Icon from KUL implementation and rename model; Replace resistance and temperature delay by an adiabatic pipe;
-</li>
-<li>
-September, 2015 by Marcus Fuchs:<br/>
-First implementation.
-</li>
+<li>December 1, 2015 by Bram van der Heijde:<br>First implementation using Annex 60 components, based on the single pipe model lay-out. </li>
+<li>July 2015 by Arnout Aertgeerts:<br>First implementation (outside Annex 60) of double heat loss pipe. Flow reversal not possible.</li>
 </ul>
 </html>", info="<html>
-<p>First implementation of a pipe with heat loss using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. </p>
-<p>This setup is meant as a benchmark for more sophisticated implementations. It seems to generally work ok except for the cooling effects on the standing fluid in case of zero mass flow.</p>
-<p>The heat loss component adds a heat loss in design direction, and leaves the enthalpy unchanged in opposite flow direction. Therefore it is used before and after the time delay.</p>
+<p>Implementation of twin or double pipe (supply and return in the same ensemble) using delay dependent heat losses for opposite flow of supply and return. </p>
+<p>Because of the way in which the temperature change is calculated, input information from one pipe must be supplied to the opposite pipe, hence the cross-connections. </p>
+<p>The delay time is calculated once for the whole setup, since equal but opposite flow in both pipes is assumed. </p>
 </html>"));
 end DoublePipe_PipeDelay;
