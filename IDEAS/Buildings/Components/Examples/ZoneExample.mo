@@ -5,8 +5,8 @@ model ZoneExample
   Zone zone(
     nSurf=4,
     redeclare package Medium = Medium,
-    V=2,
-    allowFlowReversal=true)
+    allowFlowReversal=true,
+    V=20)
          annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   BoundaryWall
              commonWall(
@@ -37,11 +37,11 @@ model ZoneExample
         origin={11,-38})));
   Window window(
     A=1,
-    inc=0,
-    azi=0,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
-    redeclare IDEAS.Buildings.Data.Interfaces.Frame fraType,
-    redeclare IDEAS.Buildings.Components.Shading.Screen shaType)
+    redeclare IDEAS.Buildings.Components.Shading.Screen shaType,
+    redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
+    inc=IDEAS.Constants.Wall,
+    azi=IDEAS.Constants.South)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
   SlabOnGround slabOnGround(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.LightWall
@@ -64,8 +64,8 @@ model ZoneExample
   Zone zone1(
     nSurf=2,
     redeclare package Medium = Medium,
-    V=2,
-    allowFlowReversal=true)
+    allowFlowReversal=true,
+    V=20)
          annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Shading.ShadingControl shadingControl
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));

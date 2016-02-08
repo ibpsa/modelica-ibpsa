@@ -5,7 +5,7 @@ model OuterWall "Opaque building envelope construction"
     QTra_design(fixed=false),
     E(y=layMul.E),
     Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
-           then 0 else port_emb.Q_flow)));
+           then 0 else sum(port_emb.Q_flow))));
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
   parameter Boolean linearise=true
@@ -18,7 +18,7 @@ model OuterWall "Opaque building envelope construction"
     "Start temperature for each of the layers";
   Modelica.SIunits.Power QSolIrr = (gainDir.y + gainDif.y)
     "Total solar irradiance";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
@@ -29,7 +29,8 @@ protected
     final nLay=constructionType.nLay,
     final mats=constructionType.mats,
     final locGain=constructionType.locGain,
-    T_start=ones(constructionType.nLay)*T_start)
+    T_start=ones(constructionType.nLay)*T_start,
+    final nGain=constructionType.nGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(

@@ -21,32 +21,35 @@ model MonoLayerLucent "single non-opaque layer"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
-  /*
-  The effective Nusselt nuber is to be calculated as :
-  
-  Real beta=1/((port_a.T + port_b.T)/2) 
-    "thermal expansion coefficient of the mterial, if a gas";
-  Real Gr=if mat.gas then 9.81*beta*(mat.rho^2)*(mat.d^3)/(mat.mhu^2)*abs(
-      port_a.T - port_b.T) else 0 "Grrashof number";
-  Real Nu = if mat.gas then IDEAS.BaseClasses.Math.MaxSmooth(1,0.0384*abs(Gr)^(0.37),0.01) else 1 
-    "Nusselt number";
-  Real h =  mat.k/mat.d*Nu;
-
-  But no influence is found on the results of the simulation, whereas removing this equation and 
-  setting Nu equal to 1 speeds up the simuation significantly (eg. by 30 per cent)
-  */
+  IDEAS.Buildings.Components.BaseClasses.AirCavity airCavity(
+    A=A,
+    inc=inc,
+    epsLw_a=epsLw_a,
+    epsLw_b=epsLw_b,
+    d=mat.d,
+    dT_nominal=5,
+    k=mat.k) if mat.gas
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 protected
-  final parameter Modelica.SIunits.ThermalConductance G = A/R + (if mat.gas then A*5.86*(1/((1/epsLw_a) + (1/epsLw_b) - 1)) else 0)
+  final parameter Modelica.SIunits.ThermalConductance G = A/R
     "Thermal conductance";
-
 equation
-  port_gain.T = (port_a.T + port_b.T)/2;
-  port_a.Q_flow + port_b.Q_flow + port_gain.Q_flow = 0;
-  port_a.Q_flow = G*(port_a.T - port_b.T);
+  if not mat.gas then
+    port_gain.T=(port_a.T+port_b.T)/2;
+    port_a.Q_flow + port_b.Q_flow + port_gain.Q_flow = 0;
+    port_a.Q_flow = G*(port_a.T - port_b.T);
+  end if;
 
+  connect(airCavity.port_emb, port_gain)
+    annotation (Line(points={{0,10},{0,100}},         color={191,0,0}));
+  connect(airCavity.port_a, port_a)
+    annotation (Line(points={{-10,0},{-60,0},{-100,0}}, color={191,0,0}));
+  connect(airCavity.port_b, port_b)
+    annotation (Line(points={{10,0},{100,0}},         color={191,0,0}));
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     Icon(graphics={Rectangle(
           extent={{-90,80},{90,-80}},
           fillColor={192,192,192},

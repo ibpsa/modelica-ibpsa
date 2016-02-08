@@ -28,7 +28,7 @@ public
 
 initial equation
 
-      der(T)=zeros(nSta);
+      T = ones(nSta)*T_start;
 
 equation
   // connectors

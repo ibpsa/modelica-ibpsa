@@ -52,8 +52,7 @@ model ConstantAirFlowRecup
     annotation (Placement(transformation(extent={{-160,-10},{-180,-30}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=sim.Te)
     annotation (Placement(transformation(extent={{-40,-26},{-60,-6}})));
-  outer Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
   Modelica.Blocks.Sources.RealExpression[nZones] realExpressionPump(y=pump.m_flow_nominal)
     annotation (Placement(transformation(extent={{-40,-60},{-60,-40}})));
 equation

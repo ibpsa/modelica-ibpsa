@@ -31,6 +31,12 @@ model Box "Both side fins and overhang"
     annotation (Placement(transformation(extent={{-2,60},{8,80}})));
   SideFins sideFins(azi=azi,hWin=hWin,wWin=wWin,hFin=hFin,dep=finDep,gap=finGap)
     annotation (Placement(transformation(extent={{-18,20},{-8,40}})));
+
+initial equation
+
+    assert(ovDep > 0, "The depth of the overhang must be larger than zero. If this is not the case, just use Shading.SideFins");
+    assert(finDep > 0, "The depth of the side fins must be larger than zero. If this is not the case, just use Shading.Overhang");
+
 equation
 
   fraSun = 1-(1-overhang.fraSun)-(1-sideFins.fraSun);
@@ -41,7 +47,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(angInc, iAngInc) annotation (Line(
-      points={{-60,-50},{-16,-50},{-16,-70},{40,-70}},
+      points={{-60,-50},{-16,-50},{-16,-50},{40,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solDir, overhang.solDir) annotation (Line(

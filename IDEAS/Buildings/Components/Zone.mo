@@ -2,13 +2,14 @@ within IDEAS.Buildings.Components;
 model Zone "thermal building zone"
   extends IDEAS.Buildings.Components.Interfaces.StateZone(Eexpr(y=E));
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations(redeclare package
-      Medium = IDEAS.Media.Air);
+      Medium = IDEAS.Media.Air, final mSenFac = corrCV);
 
-  outer Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  parameter Boolean allowFlowReversal=system.allowFlowReversal
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal in zone, false restricts to design direction (port_a -> port_b)."
     annotation(Dialog(tab="Assumptions"));
+  parameter Boolean calculateViewFactor = false
+    "Explicit calculation of view factors: only for rectangular zones!"
+    annotation(Dialog(tab="Advanced"));
 
   parameter Modelica.SIunits.Volume V "Total zone air volume";
   parameter Real n50(min=0.01)=0.4
@@ -27,7 +28,9 @@ model Zone "thermal building zone"
   parameter Real fRH=11
     "Reheat factor for calculation of design heat load, (EN 12831, table D.10 Annex D)"
                                                                                         annotation(Dialog(group="Design heat load"));
-  parameter Modelica.SIunits.Area A = 0 "Total conditioned floor area" annotation(Dialog(group="Design heat load"));
+  parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area" annotation(Dialog(group="Design heat load"));
+  parameter Modelica.SIunits.Length hZone = 2.8
+    "Zone height: distance between floor and ceiling";
 
   Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
     "Total design transmission heat losses for the zone";
@@ -45,16 +48,15 @@ protected
         extent={{10,10},{-10,-10}},
         rotation=-90,
         origin={-54,-44})));
-  BaseClasses.AirLeakage airLeakage(
+  IDEAS.Buildings.Components.BaseClasses.AirLeakage airLeakage(
     redeclare package Medium = Medium,
     m_flow_nominal=V/3600*n50/20,
     V=V,
     n50=n50,
-    allowFlowReversal=allowFlowReversal,
     show_T=false)
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final
-      nSurf=nSurf, final linearise=linearise)
+      nSurf=nSurf, final linearise=linearise) if not calculateViewFactor
     "internal longwave radiative heat exchange" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -85,6 +87,14 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
     annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
 
+public
+  BaseClasses.ZoneLwDistributionViewFactor zoneLwDistributionViewFactor(
+    final nSurf=nSurf,
+    final hZone=hZone) if calculateViewFactor
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=270,
+        origin={-32,-10})));
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 equation
@@ -92,14 +102,6 @@ equation
   connect(radDistr.radGain, gainRad) annotation (Line(
       points={{-50.2,-54},{-50,-54},{-50,-72},{80,-72},{80,-60},{100,-60}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(propsBus[:].surfRad, radDistrLw.port_a) annotation (Line(
-      points={{-100.1,39.9},{-74,39.9},{-74,-26},{-54,-26},{-54,-20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(summation.y, TSensor) annotation (Line(
-      points={{12.6,-60},{59.3,-60},{59.3,0},{106,0}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(radDistr.TRad, summation.u[1]) annotation (Line(
       points={{-44,-44},{-22,-44},{-22,-60.6},{-1.2,-60.6}},
@@ -113,6 +115,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+
   connect(propsBus.area, radDistrLw.A) annotation (Line(
       points={{-100.1,39.9},{-82,39.9},{-82,-14},{-64,-14}},
       color={127,0,0},
@@ -127,7 +130,20 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-
+  connect(propsBus.epsLw, zoneLwDistributionViewFactor.epsLw) annotation (Line(
+      points={{-100.1,39.9},{-82,39.9},{-82,-10},{-42,-10}},
+      color={127,0,0},
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(propsBus.area, zoneLwDistributionViewFactor.A) annotation (Line(
+      points={{-100.1,39.9},{-82,39.9},{-82,-14},{-42,-14}},
+      color={127,0,0},
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, radDistr.epsLw) annotation (Line(
       points={{-100.1,39.9},{-82,39.9},{-82,-44},{-64,-44}},
       color={127,0,0},
@@ -200,7 +216,23 @@ end for;
       points={{-54,-34},{-54,-20}},
       color={191,0,0},
       smooth=Smooth.None));
-
+  connect(zoneLwDistributionViewFactor.inc, propsBus.inc) annotation (Line(
+      points={{-36,0},{-38,0},{-38,39.9},{-100.1,39.9}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(zoneLwDistributionViewFactor.azi, propsBus.azi) annotation (Line(
+      points={{-28,-1.77636e-15},{-28,39.9},{-100.1,39.9}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(zoneLwDistributionViewFactor.port_a, radDistr.radSurfTot) annotation (
+     Line(
+      points={{-32,-20},{-32,-26},{-54,-26},{-54,-34}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(summation.y, TSensor) annotation (Line(points={{12.6,-60},{30,-60},{30,
+          0},{106,0}}, color={0,0,127}));
+  connect(radDistr.radSurfTot, propsBus.surfRad) annotation (Line(points={{-54,
+          -34},{-70,-34},{-82,-34},{-82,39.9},{-100.1,39.9}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -213,11 +245,23 @@ end for;
 <p>Infiltration and ventilation systems provide air to the zones, undesirably or to meet heating or cooling loads. The thermal energy provided to the zone by this air change rate can be formulated from the difference between the supply air enthalpy and the enthalpy of the air leaving the zone <img src=\"modelica://IDEAS/Images/equations/equation-jiSQ22c0.png\" alt=\"h_a\"/>. It is assumed that the zone supply air mass flow rate is exactly equal to the sum of the air flow rates leaving the zone, and all air streams exit the zone at the zone mean air temperature. The moisture dependence of the air enthalpy is neglected.</p>
 <p>A multiplier for the zone capacitance f_{ca} is included. A f_{ca} equaling unity represents just the capacitance of the air volume in the specified zone. This multiplier can be greater than unity if the zone air capacitance needs to be increased for stability of the simulation. This multiplier increases the capacitance of the air volume by increasing the zone volume and can be done for numerical reasons or to account for the additional capacitances in the zone to see the effect on the dynamics of the simulation. This multiplier is constant throughout the simulation and is set to 5.0 if the value is not defined <a href=\"IDEAS.Buildings.UsersGuide.References\">[Masy 2008]</a>.</p>
 <p>The exchange of longwave radiation in a zone has been previously described in the building component models and further considering the heat balance of the interior surface. Here, an expression based on <i>radiant interchange configuration factors</i> or <i>view factors</i> is avoided based on a delta-star transformation and by definition of a <i>radiant star temperature</i> T_{rs}. Literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption. ThisT_{rs} can be derived from the law of energy conservation in the radiant star node as sum(Q_{si,rs}) must equal zero. Long wave radiation from internal sources are dealt with by including them in the heat balance of the radiant star node resulting in a diffuse distribution of the radiative source.</p>
+<p>
+An option exist that calculates view factors explicitly and derives the thermal resistances 
+between individual surfaces. The implementation however assumes that the zone is rectangular. 
+This is often not the case and therefore the implementation is disabled by default.
+It can be enabled using parameter <code>calculateViewFactor</code>.
+</p>
 <p>Transmitted shortwave solar radiation is distributed over all surfaces in the zone in a prescribed scale. This scale is an input value which may be dependent on the shape of the zone and the location of the windows, but literature <a href=\"IDEAS.Buildings.UsersGuide.References\">[Liesen 1997]</a> shows that the overall model is not significantly sensitive to this assumption.</p>
 <p><h4><font color=\"#008000\">Validation </font></h4></p>
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
+<ul>
+<li>
+March, 2015, by Filip Jorissen:<br/>
+Added view factor implementation.
+</li>
+</ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end Zone;

@@ -4,7 +4,7 @@ model BoundaryWall "Opaque wall with boundary conditions"
     final QTra_design=U_value*AWall*(273.15 + 21 - TRef),
     E(y=layMul.E),
       Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
-           then 0 else port_emb.Q_flow)));
+           then 0 else sum(port_emb.Q_flow))));
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
@@ -13,6 +13,7 @@ model BoundaryWall "Opaque wall with boundary conditions"
     annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.Temperature TRef=291.15
     "Reference temperature for calculation of design heat loss";
+
   parameter Boolean use_T_in = false
     "Get the boundary temperature from the input connector";
   parameter Boolean use_Q_in = false
@@ -26,7 +27,7 @@ model BoundaryWall "Opaque wall with boundary conditions"
         transformation(extent={{-60,10},{-40,30}}), iconTransformation(extent={{
             -60,10},{-40,30}})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
     "Port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 protected
@@ -44,7 +45,8 @@ protected
     final nLay=constructionType.nLay,
     final mats=constructionType.mats,
     final locGain=constructionType.locGain,
-    T_start=ones(constructionType.nLay)*T_start)
+    T_start=ones(constructionType.nLay)*T_start,
+    final nGain=constructionType.nGain)
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(final A=

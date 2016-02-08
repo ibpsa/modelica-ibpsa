@@ -40,9 +40,7 @@ model SplitterFixedResistanceDpM
     startTime=0.5)
                  annotation (Placement(transformation(extent={{-100,-60},{-80,
             -40}}, rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325)
-                                   annotation (Placement(transformation(extent={{60,-80},
-            {80,-60}},         rotation=0)));
+
 equation
   connect(P1.y, bou1.p_in)
     annotation (Line(points={{-79,6},{-74.25,6},{-69.5,6},{-69.5,8},{-60,8}},

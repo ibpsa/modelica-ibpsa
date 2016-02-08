@@ -50,10 +50,7 @@ model ThreeWayValveSwitch "Test the new component ThreeWayValveSwitch"
   IDEAS.Fluid.Sensors.TemperatureTwoPort T_leg1(redeclare package Medium =
         Medium, m_flow_nominal=1)
     annotation (Placement(transformation(extent={{-20,-54},{0,-34}})));
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+
 equation
   connect(pulse1.y, realToBoolean.u) annotation (Line(
       points={{-31,42},{-22.2,42},{-22.2,41},{-13.4,41}},

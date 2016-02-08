@@ -24,7 +24,7 @@ partial model Structure "Partial model for building structure models"
   final parameter Modelica.SIunits.Length C=sum(VZones)/ATrans
     "Building compactness";
 
-  parameter Modelica.SIunits.Temperature[nZones] T_start
+  parameter Modelica.SIunits.Temperature[nZones] T_start = fill(Medium.T_default,nZones)
     "Operative zonal start temperatures";
 
   parameter Modelica.SIunits.Power[ nZones] Q_design=zeros(nZones)
@@ -51,8 +51,7 @@ partial model Structure "Partial model for building structure models"
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
   Fluid.Interfaces.FlowPort_a[nZones] flowPort_In(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
-  outer Modelica.Fluid.System system
-  annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-150,-100},
             {150,100}}), graphics={
         Rectangle(

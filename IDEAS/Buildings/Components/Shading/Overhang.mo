@@ -51,6 +51,10 @@ protected
   Modelica.SIunits.Angle verAzi
     "Angle between projection of sun's rays and normal to vertical surface";
 
+initial equation
+
+    assert(dep > 0, "The depth of the overhang must be larger than zero.");
+
 initial algorithm
 
   for i in 1:4 loop
@@ -90,7 +94,7 @@ equation
       smooth=Smooth.None));
 
   connect(angInc, iAngInc) annotation (Line(
-      points={{-60,-50},{-14,-50},{-14,-70},{40,-70}},
+      points={{-60,-50},{-14,-50},{-14,-50},{40,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Documentation(info="<html>

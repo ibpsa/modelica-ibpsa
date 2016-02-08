@@ -6,7 +6,11 @@ model MultiLayerOpaque "multiple material layers in series"
   parameter Integer nLay(min=1) "number of layers";
   parameter IDEAS.Buildings.Data.Interfaces.Material[nLay] mats
     "array of layer materials";
-  parameter Integer locGain(min=1) "location of the internal gain";
+  parameter Integer nGain = 0 "Number of gains";
+  parameter Integer locGain[max(nGain,1)](each min=1)
+    "location of the internal gains";
+  parameter Boolean linIntCon=false
+    "Linearise interior convection inside air layers / cavities in walls";
 
   parameter Modelica.SIunits.Temperature T_start[nLay]=ones(nLay)*293.15
     "Start temperature for each of the layers";
@@ -15,14 +19,17 @@ model MultiLayerOpaque "multiple material layers in series"
     each final A=A,
     each final inc=inc,
     final T_start=T_start,
-    final mat=mats) "layers";
+    final mat=mats,
+    each linIntCon=linIntCon,
+    epsLw_a=cat(1, {0.85}, mats[1:nLay-1].epsLw_b),
+    epsLw_b=cat(1, mats[2:nLay].epsLw_a, {0.85})) "layers";
 
   final parameter Modelica.SIunits.ThermalInsulance R=sum(nMat.R)
     "total specific thermal resistance";
 
   Modelica.SIunits.Energy E = sum(nMat.E);
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_gain
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_gain[nGain]
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=289.15))
@@ -54,7 +61,9 @@ equation
     connect(nMat[j].port_b, nMat[j + 1].port_a);
   end for;
 
-  connect(nMat[locGain].port_b, port_gain);
+  for i in 1:nGain loop
+    connect(nMat[locGain[i]].port_b, port_gain[i]);
+  end for;
   connect(port_b, nMat[nLay].port_b);
 
   iEpsLw_a = mats[1].epsLw_a;

@@ -4,20 +4,29 @@ model SlabOnGround "opaque floor on ground slab"
   extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(
     QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes),
     Qgai(y=layMul.port_a.Q_flow
-           + (if sim.openSystemConservationOfEnergy then 0 else port_emb.Q_flow)),
+           + (if sim.openSystemConservationOfEnergy then 0 else sum(port_emb.Q_flow))),
     E(y=layMul.E));
 
-  parameter Modelica.SIunits.Length PWall "Total wall perimeter";
+  parameter Modelica.SIunits.Length PWall = 4*sqrt(AWall)
+    "Total wall perimeter";
+  parameter Modelica.SIunits.Temperature TeAvg = 273.15+10.8
+    "Annual average outdoor temperature";
+  parameter Modelica.SIunits.Temperature TiAvg = 273.15+22
+    "Annual average indoor temperature";
+  parameter Modelica.SIunits.TemperatureDifference dTeAvg = 4
+    "Amplitude of variation of monthly average outdoor temperature";
+  parameter Modelica.SIunits.TemperatureDifference dTiAvg = 2
+    "Amplitude of variation of monthly average indoor temperature";
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal=-3
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation(Dialog(tab="Convection"));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
     "port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  Modelica.SIunits.HeatFlowRate Qm = UEqui*AWall*(22 - 9) - Lpi*4*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*9*cos(2*3.1415/12*(m - 1 - beta))
+  Modelica.SIunits.HeatFlowRate Qm = UEqui*AWall*(TiAvg - TeAvg) - Lpi*dTiAvg*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*dTeAvg*cos(2*3.1415/12*(m - 1 - beta))
     "Two-dimensionl correction for edge flow";
 
 //Calculation of heat loss based on ISO 13370
@@ -39,14 +48,15 @@ protected
   final parameter Real delta=sqrt(3.15*10^7*ground1.k/3.14/ground1.rho/ground1.c);
   final parameter Real Lpi=AWall*ground1.k/dt*sqrt(1/((1 + delta/dt)^2 + 1));
   final parameter Real Lpe=0.37*PWall*ground1.k*log(delta/dt + 1);
-  parameter Integer m = 7;
+  Real m = sim.timCal/3.1536e7*12 "time in months";
 
   IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
     final A=AWall,
     final inc=inc,
     final nLay=constructionType.nLay,
     final mats=constructionType.mats,
-    final locGain=constructionType.locGain)
+    final locGain=constructionType.locGain,
+    final nGain=constructionType.nGain)
     "Declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(
@@ -61,7 +71,8 @@ protected
     final inc=inc,
     final nLay=3,
     final mats={ground1,ground2,ground3},
-    final locGain=1)
+    final locGain=1,
+    final T_start={TeAvg, TeAvg, TeAvg})
     "Declaration of array of resistances and capacitances for ground simulation"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=284.15)
@@ -69,8 +80,8 @@ protected
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-30,-8})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15
-         + 12)
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow adiabaticBoundary(Q_flow=0,
+      T_ref=285.15)
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   Modelica.Blocks.Sources.RealExpression QmExp(y=-Qm) "Real expression for Qm"
     annotation (Placement(transformation(extent={{-80,-18},{-60,2}})));
@@ -101,7 +112,7 @@ equation
       points={{-10,-30},{-14,-30},{-14,-8},{-20,-8}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(fixedTemperature.port, layGro.port_a) annotation (Line(
+  connect(adiabaticBoundary.port, layGro.port_a) annotation (Line(
       points={{-50,-30},{-40,-30}},
       color={191,0,0},
       smooth=Smooth.None));

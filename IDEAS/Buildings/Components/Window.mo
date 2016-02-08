@@ -7,6 +7,7 @@ model Window "Multipane window"
   parameter Real frac(
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
+
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
@@ -36,7 +37,16 @@ model Window "Multipane window"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-40,-100})));
-
+  parameter IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType
+    windowDynamicsType = IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two
+    "Type of dynamics for glazing and frame: using zero, one combined or two states"
+    annotation(Dialog(tab="Dynamics"));
+  parameter Real fraC = if windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two and fraType.present then frac else 0
+    "Fraction of thermal mass C that is attributed to frame"
+    annotation(Dialog(tab="Dynamics", enable=windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two));
+  parameter Modelica.SIunits.Temperature T_start=293.15
+    "Start temperature for the temperature states"
+    annotation(Dialog(tab="Dynamics", enable= not windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None));
 protected
   final parameter Real U_value=glazing.U_value*(1-frac)+fraType.U_value*frac
     "Window U-value";
@@ -100,8 +110,8 @@ protected
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Modelica.Blocks.Sources.RealExpression Qgai(y=-(propsBus_a.surfCon.Q_flow +
-        propsBus_a.surfRad.Q_flow + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow))
-    if                                                     sim.computeConservationOfEnergy
+        propsBus_a.surfRad.Q_flow + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow)) if
+                                                           sim.computeConservationOfEnergy
     "Heat gains in model (using propsbus since frame can be conditionally removed)"
     annotation (Placement(transformation(extent={{-116,40},{-96,60}})));
   Modelica.Blocks.Sources.RealExpression E1(y=0) if        sim.computeConservationOfEnergy
@@ -114,6 +124,24 @@ protected
                                                                                    sim.computeConservationOfEnergy
     "Component for computing conservation of energy"
     annotation (Placement(transformation(extent={{-86,40},{-66,60}})));
+public
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(C=Cgla, T(fixed=true, start=T_start)) if
+                                                                                addCapGla
+    "Heat capacitor for glazing"
+    annotation (Placement(transformation(extent={{6,-38},{26,-58}})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapFra(C=Cfra, T(fixed=true, start=T_start)) if
+                                                                                addCapFra
+    "Heat capacitor for frame"
+    annotation (Placement(transformation(extent={{6,88},{26,108}})));
+protected
+  final parameter Boolean addCapGla =  not windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None;
+  final parameter Boolean addCapFra =  fraType.present and windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two;
+
+  final parameter Modelica.SIunits.HeatCapacity Cgla = layMul.C*(1- fraC)
+    "Heat capacity of glazing state";
+  final parameter Modelica.SIunits.HeatCapacity Cfra = layMul.C*fraC
+    "Heat capacity of frame state";
+
 initial equation
   QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
 
@@ -276,7 +304,15 @@ equation
     annotation (Line(points={{-40,-58},{-25,-58},{-10,-58}}, color={0,0,127}));
   connect(shaType.iAngInc, solWin.angInc) annotation (Line(points={{-40,-64},{
           -26,-64},{-26,-66},{-10,-66}}, color={0,0,127}));
-  annotation (
+  connect(heaCapGla.port, layMul.port_b)
+    annotation (Line(points={{16,-38},{16,-30},{10,-30}}, color={191,0,0}));
+  connect(heaCapFra.port, layFra.port_b)
+    annotation (Line(points={{16,88},{16,80},{10,80}}, color={191,0,0}));
+  if windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Combined then
+    connect(heaCapGla.port, layFra.port_b) annotation (Line(points={{16,-38},{16,
+            -38},{16,80},{10,80}},  color={191,0,0}));
+  end if;
+    annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
         Polygon(
@@ -324,6 +360,12 @@ equation
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 17, 2015, Filip Jorissen:<br/>
+Added thermal connection between frame and glazing state. 
+This is required for decoupling steady state thermal dynamics
+without adding a second state for the window.
+</li>
 <li>
 July 14, 2015, Filip Jorissen:<br/>
 Removed second shading device since a new partial was created

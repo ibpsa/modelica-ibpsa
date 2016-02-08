@@ -34,12 +34,12 @@ model Partial3WayValve "Partial for 3-way valves"
 
   Interfaces.IdealSource idealSource(redeclare package Medium = Medium,
       control_m_flow=true,
-    allowFlowReversal=allowFlowReversal)
-                           annotation (Placement(transformation(
+    allowFlowReversal=allowFlowReversal,
+    m_flow_small=0)        annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,-44})));
-  parameter Boolean allowFlowReversal=false
+  parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports.";
 equation
   connect(port_a1, vol.ports[1]) annotation (Line(

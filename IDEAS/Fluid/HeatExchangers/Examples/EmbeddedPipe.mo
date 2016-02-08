@@ -32,10 +32,7 @@ model EmbeddedPipe "Testing the floorheating according to Koschenz, par. 4.5.1"
   Modelica.Blocks.Sources.RealExpression convTabs(y=11)
     "\"convection coefficient for the tabs\""
     annotation (Placement(transformation(extent={{-22,40},{-2,60}})));
-  inner Modelica.Fluid.System system(
-    p_ambient=300000,
-    T_ambient=313.15)
-    annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
+
   Sources.Boundary_ph bou(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{140,-10},{120,10}})));
   Sensors.TemperatureTwoPort TSen_emb_sup(redeclare package Medium = Medium,

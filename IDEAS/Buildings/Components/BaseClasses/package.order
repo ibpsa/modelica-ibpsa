@@ -8,6 +8,7 @@ HeatCapacitor
 HeatRadiation
 InteriorConvection
 InteriorConvectionWindow
+AirCavity
 MixedAir
 MonoLayerGround
 MonoLayerLucent
@@ -19,5 +20,9 @@ MultiLayerOpaque
 PrescribedEnergy
 SwWindowResponse
 ThermalResistor
+viewFactorRectRectPerp
+viewFactorRectRectPar
+ZoneLwDistributionViewFactor
 ZoneLwDistribution
 ZoneLwGainDistribution
+WindowDynamicsType

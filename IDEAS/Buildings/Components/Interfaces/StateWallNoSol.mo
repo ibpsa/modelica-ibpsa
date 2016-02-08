@@ -2,6 +2,7 @@ within IDEAS.Buildings.Components.Interfaces;
 partial model StateWallNoSol
   "Partial model for building envelope components without solar gains"
   extends IDEAS.Buildings.Components.Interfaces.StateWall;
+
   parameter Modelica.SIunits.Length insulationThickness
     "Thermal insulation thickness"
     annotation (Dialog(group="Construction details"));
