@@ -1,6 +1,5 @@
 within IDEAS.Buildings.Components.Interfaces;
-partial model partial_buildingSurface
-  "Partial model for building envelope component"
+partial model PartialSurface "Partial model for building envelope component"
   parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
@@ -50,6 +49,12 @@ protected
     "declaration of array of resistances and capacitances for wall simulation"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
+public
+  Modelica.Blocks.Sources.RealExpression aziExp(y=azi)
+    "Azimuth angle expression"
+    annotation (Placement(transformation(extent={{94,114},{74,134}})));
+  Modelica.Blocks.Sources.RealExpression incExp(y=inc) "Inclination angle"
+    annotation (Placement(transformation(extent={{94,128},{74,148}})));
 equation
   connect(QDesign.y, propsBus_a.QTra_design);
   connect(propsBus_a.surfCon, intCon_a.port_b) annotation (Line(
@@ -86,6 +91,14 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(incExp.y, propsBus_a.inc) annotation (Line(
+      points={{73,138},{50.1,138},{50.1,39.9}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(aziExp.y, propsBus_a.azi) annotation (Line(
+      points={{73,124},{50.1,124},{50.1,39.9}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
@@ -99,4 +112,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end partial_buildingSurface;
+end PartialSurface;

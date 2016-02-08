@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Components;
 model InternalWall "interior opaque wall between two zones"
-  extends IDEAS.Buildings.Components.Interfaces.partial_opaqueBuildingSurface(
+  extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
   final QTra_design=U_value*AWall*(TRef_a - TRef_b));
 
   parameter Boolean linearise_b=true

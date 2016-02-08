@@ -4,7 +4,7 @@ model Window "Multipane window"
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
-  extends Interfaces.partial_buildingSurface(intCon_a(final A=
+  extends Interfaces.PartialSurface(         intCon_a(final A=
          A*(1 - frac),
      linearise=linearise_a,
      dT_nominal=dT_nominal_a), QTra_design(fixed=false),

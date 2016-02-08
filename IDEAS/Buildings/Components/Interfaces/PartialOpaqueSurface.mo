@@ -1,5 +1,5 @@
 within IDEAS.Buildings.Components.Interfaces;
-partial model partial_opaqueBuildingSurface
+partial model PartialOpaqueSurface
   "Partial component for the opaque surfaces of the building envelope"
 
   replaceable Data.Constructions.CavityWall                 constructionType
@@ -10,7 +10,7 @@ partial model partial_opaqueBuildingSurface
     __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
     Dialog(group="Construction details"));
-  extends partial_buildingSurface(intCon_a(A=AWall), layMul(    final A=AWall,     final nLay=constructionType.nLay,
+  extends PartialSurface(         intCon_a(A=AWall), layMul(    final A=AWall,     final nLay=constructionType.nLay,
     final mats=constructionType.mats,
     T_start=ones(constructionType.nLay)*T_start,
       nGain=constructionType.nGain));
@@ -52,11 +52,6 @@ public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
     "Port for gains by embedded active layers"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  Modelica.Blocks.Sources.RealExpression incExp(y=inc) "Inclination angle"
-    annotation (Placement(transformation(extent={{84,118},{64,138}})));
-  Modelica.Blocks.Sources.RealExpression aziExp(y=azi)
-    "Azimuth angle expression"
-    annotation (Placement(transformation(extent={{84,104},{64,124}})));
 initial equation
   assert(constructionType.incLastLay == IDEAS.Types.Tilt.None or
     constructionType.incLastLay >= inc - Modelica.Constants.pi/2 - Modelica.Constants.eps and
@@ -84,14 +79,6 @@ equation
     connect(layMul.port_gain[constructionType.locGain[i]], port_emb[i])
     annotation (Line(points={{0,-10},{0,-10},{0,-100}}, color={191,0,0}));
   end for;
-  connect(aziExp.y, propsBus_a.azi) annotation (Line(
-      points={{63,114},{50.1,114},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(incExp.y, propsBus_a.inc) annotation (Line(
-      points={{63,128},{50.1,128},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
     annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-60,-100},{60,100}})),
@@ -105,4 +92,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end partial_opaqueBuildingSurface;
+end PartialOpaqueSurface;

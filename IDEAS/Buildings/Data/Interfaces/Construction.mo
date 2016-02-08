@@ -15,8 +15,8 @@ record Construction "Layers from outer to inner"
     "Array of materials. The last layer is connected to propsBus_a.";
   parameter Modelica.SIunits.Length insulationTickness=0
     "Thermal insulation thickness";
-  parameter Modelica.SIunits.Angle incLastLay = IDEAS.Types.Tilt.None
-    "Set to IDEAS.Types.Tilt.Floor if the last layer of mats is a floor, to .Ceiling if it is a ceiling and to .None if other.";
+  parameter Modelica.SIunits.Angle incLastLay = IDEAS.Types.Tilt.Other
+    "Set to IDEAS.Types.Tilt.Floor if the last layer of mats is a floor, to .Ceiling if it is a ceiling and to .Other if other.";
 
   annotation (Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>

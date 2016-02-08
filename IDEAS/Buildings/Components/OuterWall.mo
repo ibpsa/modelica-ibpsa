@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
 
-   extends IDEAS.Buildings.Components.Interfaces.partial_opaqueBuildingSurface(
+   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
      QTra_design(fixed=false),
      E(y=layMul.E),
      Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy

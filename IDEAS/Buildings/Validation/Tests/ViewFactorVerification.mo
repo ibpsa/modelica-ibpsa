@@ -29,9 +29,9 @@ Simulation of all so far modeled BESTEST cases in a single simulation.
     annotation (Placement(transformation(extent={{-76,-16},{-64,-4}})));
 initial equation
 
-// for i in 1:6 loop
-//     assert( abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1) < Modelica.Constants.eps*1000, "View factors do not sum up to one for row " + String(i) +  "!: "+ String(abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1)));
-// end for;
+ for i in 1:6 loop
+     assert( abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1) < Modelica.Constants.eps*1000, "View factors do not sum up to one for row " + String(i) +  "!: "+ String(abs(sum(CaseVf.building.gF.zoneLwDistributionViewFactor.vieFacTot[i,:])-1)));
+ end for;
 
   annotation (
     experiment(
