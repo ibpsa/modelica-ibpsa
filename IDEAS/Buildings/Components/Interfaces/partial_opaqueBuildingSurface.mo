@@ -1,13 +1,7 @@
 within IDEAS.Buildings.Components.Interfaces;
 partial model partial_opaqueBuildingSurface
   "Partial component for the opaque surfaces of the building envelope"
-  extends partial_buildingSurface(intCon_a(A=AWall));
 
-  parameter Modelica.SIunits.Area AWall "Total wall area";
-
-  parameter Modelica.SIunits.Length insulationThickness
-    "Thermal insulation thickness"
-    annotation (Dialog(group="Construction details"));
   replaceable Data.Constructions.CavityWall                 constructionType
     constrainedby Data.Constructions.CavityWall(
                                                final insulationType=
@@ -16,6 +10,17 @@ partial model partial_opaqueBuildingSurface
     __Dymola_choicesAllMatching=true,
     Placement(transformation(extent={{-34,78},{-30,82}})),
     Dialog(group="Construction details"));
+  extends partial_buildingSurface(intCon_a(A=AWall), layMul(    final A=AWall,     final nLay=constructionType.nLay,
+    final mats=constructionType.mats,
+    T_start=ones(constructionType.nLay)*T_start,
+      nGain=constructionType.nGain));
+
+  parameter Modelica.SIunits.Area AWall "Total wall area";
+
+  parameter Modelica.SIunits.Length insulationThickness
+    "Thermal insulation thickness"
+    annotation (Dialog(group="Construction details"));
+
   replaceable Data.Insulation.Rockwool                 insulationType
     constrainedby Data.Insulation.Rockwool(  final d=insulationThickness)
     "Type of thermal insulation" annotation (
@@ -26,18 +31,8 @@ partial model partial_opaqueBuildingSurface
     annotation (Placement(transformation(extent={{82,66},{62,86}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif(Q_flow=0)
     annotation (Placement(transformation(extent={{82,84},{62,104}})));
-protected
-  BaseClasses.MultiLayerOpaque                layMul(
-    final inc=inc,
-    final A=AWall,
-    final nLay=constructionType.nLay,
-    final mats=constructionType.mats,
-    final locGain=constructionType.locGain,
-    T_start=ones(constructionType.nLay)*T_start,
-      nGain=constructionType.nGain)
-    "declaration of array of resistances and capacitances for wall simulation"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
+protected
   Modelica.Blocks.Sources.RealExpression E(y=layMul.E) if
        sim.computeConservationOfEnergy "Internal energy model"
     annotation (Placement(transformation(extent={{-16,84},{4,104}})));
@@ -63,35 +58,6 @@ public
     "Azimuth angle expression"
     annotation (Placement(transformation(extent={{84,104},{64,124}})));
 equation
-      connect(layMul.port_a, propsBus_a.surfRad) annotation (Line(
-      points={{10,0},{14,0},{14,39.9},{50.1,39.9}},
-      color={191,0,0},
-      smooth=Smooth.None));
-    connect(layMul.port_a,intCon_a. port_a) annotation (Line(
-      points={{10,0},{20,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(layMul.iEpsSw_a, propsBus_a.epsSw) annotation (Line(
-      points={{10,4},{18,4},{18,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(layMul.iEpsLw_a, propsBus_a.epsLw) annotation (Line(
-      points={{10,8},{14,8},{14,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(layMul.area, propsBus_a.area) annotation (Line(
-      points={{0,10},{0,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(iSolDif.port, propsBus_a.iSolDif) annotation (Line(
       points={{62,94},{50,94},{50,39.9},{50.1,39.9}},
       color={191,0,0},
@@ -109,8 +75,10 @@ equation
     annotation (Line(points={{34,76},{50.1,76},{50.1,39.9}}, color={191,0,0}));
   connect(E.y,prescribedHeatFlowE. E)
     annotation (Line(points={{5,94},{14,94}},         color={0,0,127}));
-  connect(port_emb, layMul.port_gain)
-    annotation (Line(points={{0,-100},{0,-100},{0,-10}}, color={191,0,0}));
+  for i in 1:constructionType.nGain loop
+    connect(layMul.port_gain[constructionType.locGain[i]], port_emb[i])
+    annotation (Line(points={{0,-10},{0,-10},{0,-100}}, color={191,0,0}));
+  end for;
   connect(aziExp.y, propsBus_a.azi) annotation (Line(
       points={{63,114},{50.1,114},{50.1,39.9}},
       color={0,0,127},
@@ -119,9 +87,9 @@ equation
       points={{63,128},{50.1,128},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
+
     annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-60,-100},{60,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-60,-100},{60,100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-50,-100},{50,100}}),
         graphics),
     Documentation(revisions="<html>

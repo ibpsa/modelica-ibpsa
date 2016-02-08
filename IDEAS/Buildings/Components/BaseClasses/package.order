@@ -26,3 +26,6 @@ ZoneLwDistributionViewFactor
 ZoneLwDistribution
 ZoneLwGainDistribution
 WindowDynamicsType
+MonoLayerSolidDynamic
+MonoLayerAllTypes
+MultiLayer

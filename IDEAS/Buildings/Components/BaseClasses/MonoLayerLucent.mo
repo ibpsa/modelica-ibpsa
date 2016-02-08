@@ -48,8 +48,8 @@ equation
   connect(airCavity.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}},         color={191,0,0}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
     Icon(graphics={Rectangle(
           extent={{-90,80},{90,-80}},
           fillColor={192,192,192},

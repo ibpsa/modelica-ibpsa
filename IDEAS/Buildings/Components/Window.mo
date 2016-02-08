@@ -1,7 +1,26 @@
 within IDEAS.Buildings.Components;
 model Window "Multipane window"
+  replaceable IDEAS.Buildings.Data.Glazing.Ins2 glazing
+    constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
+    annotation (__Dymola_choicesAllMatching=true, Dialog(group=
+          "Construction details"));
+  extends Interfaces.partial_buildingSurface(intCon_a(final A=
+         A*(1 - frac),
+     linearise=linearise_a,
+     dT_nominal=dT_nominal_a), QTra_design(fixed=false),
+    layMul(
+      A=A*(1 - frac),
+      nLay=glazing.nLay,
+      mats=glazing.mats));
 
-  extends IDEAS.Buildings.Components.Interfaces.partial_lucentBuildingSurface(QTra_design(fixed=false));
+   parameter Modelica.SIunits.Area A "Total window and windowframe area";
+   parameter Real frac(
+    min=0,
+    max=1) = 0.15 "Area fraction of the window frame";
+  replaceable IDEAS.Buildings.Data.Frames.None fraType
+    constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
+    annotation (__Dymola_choicesAllMatching=true, Dialog(group=
+          "Construction details"));
 
   replaceable IDEAS.Buildings.Components.Shading.None shaType constrainedby
     Interfaces.StateShading(final azi=azi) "First shading type"

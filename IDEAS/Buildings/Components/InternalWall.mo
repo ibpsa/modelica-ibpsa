@@ -67,7 +67,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_b, intCon_b.port_a) annotation (Line(
-      points={{-10,0},{-22,0}},
+      points={{-10,0},{-12,0},{-12,0},{-22,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsSw_b, propsBus_b.epsSw) annotation (Line(
