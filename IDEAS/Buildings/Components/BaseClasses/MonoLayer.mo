@@ -1,112 +1,123 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model MonoLayer "single material layer"
 
-  parameter Boolean dynamicModel=not mat.glass
-    "Set to true to model the layer dynamically and to false to model steady state."
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-
-  parameter Modelica.SIunits.Area A "Layer area";
-  parameter IDEAS.Buildings.Data.Interfaces.Material mat "Layer material";
-  parameter Modelica.SIunits.Angle inc "Inclination";
-
+  parameter Modelica.SIunits.Area A "Layer surface area";
+  parameter IDEAS.Buildings.Data.Interfaces.Material mat
+    "Layer material properties";
+  parameter Modelica.SIunits.Angle inc
+    "Inclinination angle of the layer at port_a";
   parameter Modelica.SIunits.Emissivity epsLw_a
     "Longwave emissivity of material connected at port_a";
   parameter Modelica.SIunits.Emissivity epsLw_b
     "Longwave emissivity on material connected at port_b";
 
-  parameter Modelica.SIunits.Temperature T_start=293.15
-    "Start temperature for each of the states";
   parameter Boolean linIntCon=false
     "Linearise interior convection inside air layers / cavities in walls";
-
+  parameter Boolean placeCapacityAtSurf_b=true
+    "Set to true to place last capacity at the surface b of the layer."
+    annotation (Dialog(tab="Dynamics"), enable=dynamicLayer and realLayer and not airLayer);
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=if mat.glass then Modelica.Fluid.Types.Dynamics.SteadyState else Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Static (steady state) or transient (dynamic) thermal conduction model"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter Modelica.SIunits.Temperature T_start=293.15
+    "Start temperature for each of the states";
   final parameter Modelica.SIunits.ThermalInsulance R = mat.R
     "Total specific thermal resistance";
-
-  final parameter Boolean realLayer = (mat.d <> 0);
-  final parameter Boolean airLayer = mat.gas;
 
   Modelica.SIunits.Energy E = E_internal;
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
+    "Port for connections between layers"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
+    "Port for connections between layers"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  MonoLayerDynamic monoLaySolDyn(
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_gain
+    "Port for heat gains in layers"
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  IDEAS.Buildings.Components.BaseClasses.MonoLayerDynamic monLayDyn(
     A=A,
     mat=mat,
-    inc=inc,
     T_start=T_start,
     placeCapacityAtSurf_b=placeCapacityAtSurf_b) if
-                            dynamicModel and realLayer and not airLayer
+                            dynamicLayer and realLayer and not airLayer
     "Dynamic monolayer for solid"
     annotation (Placement(transformation(extent={{-10,-42},{10,-22}})));
-  IDEAS.Buildings.Components.BaseClasses.MonoLayerAir airCavity(
+  IDEAS.Buildings.Components.BaseClasses.MonoLayerAir monLayAir(
     A=A,
     inc=inc,
     d=mat.d,
     k=mat.k,
-    dT_nominal=1,
     epsLw_a=epsLw_a,
     epsLw_b=epsLw_b,
-    linearise=linIntCon) if
-                     realLayer and airLayer
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  MonoLayerStatic monoLayerStatic if
-                     realLayer and not dynamicModel and not airLayer
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+    linearise=linIntCon,
+    dT_nominal=dT_nom_air) if
+                            realLayer and airLayer
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+  IDEAS.Buildings.Components.BaseClasses.MonoLayerStatic monLaySta(R=R) if
+       realLayer and not dynamicLayer and not airLayer
+    annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
-   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_gain
-    "port for gains by embedded active layers"
-    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 protected
   Modelica.Blocks.Interfaces.RealInput E_internal;
-
+  final parameter Boolean dynamicLayer= not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
+    "True when modelling thermal dynamics"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  final parameter Boolean realLayer = (mat.d <> 0)
+    "True when the layer has a non-zero thickness";
+  final parameter Boolean airLayer = mat.gas
+    "True when a convection + radiation equation should be used to model the layer instead of conduction";
 public
-  parameter Boolean placeCapacityAtSurf_b=true
-    "Set to true to place last capacity at the surface b of the layer."
-    annotation (Dialog(tab="Dynamics"), enable=dynamicModel and realLayer and not airLayer);
+  parameter SI.TemperatureDifference dT_nom_air=1
+    "Nominal temperature difference for air layers, used for linearising Rayleigh number";
 equation
-  connect(E_internal, monoLaySolDyn.E);
-  if not realLayer or airLayer or not dynamicModel then
+  connect(E_internal, monLayDyn.E);
+  if not realLayer or airLayer or not dynamicLayer then
     E_internal=0;
   end if;
-  connect(port_a, monoLaySolDyn.port_a) annotation (Line(
+
+  // Connections for fictive layers
+  if not realLayer then
+    connect(port_a, port_b) annotation (Line(
+      points={{-100,0},{100,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  end if;
+
+  // Connections for dynamic layers
+  connect(port_a, monLayDyn.port_a) annotation (Line(
       points={{-100,0},{-100,-32},{-10,-32}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(monoLaySolDyn.port_b, port_b) annotation (Line(
+  connect(monLayDyn.port_b, port_b) annotation (Line(
       points={{10,-32},{100,-32},{100,0}},
       color={191,0,0},
       smooth=Smooth.None));
 
-if not realLayer then
-  connect(port_a, port_b) annotation (Line(
-      points={{-100,0},{100,0}},
-      color={191,0,0},
-      smooth=Smooth.None));
-end if;
-
-  connect(airCavity.port_a, port_a) annotation (Line(points={{-10,40},{-100,40},
+  // Connections for air layers
+  connect(monLayAir.port_a, port_a) annotation (Line(points={{-20,40},{-100,40},
           {-100,0}},         color={191,0,0}));
-  connect(airCavity.port_b, port_b) annotation (Line(points={{10,40},{100,40},{
-          100,0}},        color={191,0,0}));
+  connect(monLayAir.port_b, port_b) annotation (Line(points={{0,40},{100,40},{100,
+          0}},            color={191,0,0}));
 
-  if realLayer and (airLayer or not dynamicModel) then
-    // For static monolayer or air monolayer, connect port_gain in the middle of the layer.
-      connect(airCavity.port_emb, port_gain) annotation (Line(points={{0,50},{0,60},
-          {20,60},{20,100},{0,100}}, color={191,0,0}));
-      connect(port_gain, monoLayerStatic.port_gain)
-    annotation (Line(points={{0,100},{0,90}}, color={191,0,0}));
-  else
-    // For dynamic monolayer or air monolayer, connect port_gain at port_b of the layer.
+  // Connections for static layers
+  connect(port_a, monLaySta.port_a) annotation (Line(points={{-100,0},{-100,0},{
+          -100,78},{-100,80},{0,80}},   color={191,0,0}));
+  connect(monLaySta.port_b, port_b) annotation (Line(points={{20,80},{20,80},{100,
+          80},{100,0}}, color={191,0,0}));
+
+  // For static monolayers or air monolayer, connect port_gain in the middle of the layer.
+  connect(monLayAir.port_emb, port_gain)
+    annotation (Line(points={{-10,50},{-10,50},{-10,100},{0,100}},
+                                     color={191,0,0}));
+  connect(port_gain, monLaySta.port_gain)
+    annotation (Line(points={{0,100},{8,100},{10,100},{10,90}},
+                                              color={191,0,0}));
+  // For dynamic monolayers or fictive monolayers, connect port_gain at port_b of the layer.
+  if not realLayer or realLayer and dynamicLayer then
     connect(port_b, port_gain) annotation (Line(points={{100,0},{100,0},{100,100},
           {0,100}}, color={191,0,0}));
   end if;
-
-  connect(port_a, monoLayerStatic.port_a) annotation (Line(points={{-100,0},{-100,
-          0},{-100,78},{-100,80},{-10,80}}, color={191,0,0}));
-  connect(monoLayerStatic.port_b, port_b) annotation (Line(points={{10,80},{54,80},
-          {100,80},{100,0}}, color={191,0,0}));
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

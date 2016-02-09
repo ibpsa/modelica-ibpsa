@@ -3,17 +3,20 @@ model MonoLayerDynamic "Dynamic layer for uniform solid."
 
   parameter Modelica.SIunits.Area A "Layer area";
   parameter IDEAS.Buildings.Data.Interfaces.Material mat "Layer material";
-  parameter Modelica.SIunits.Angle inc "Inclination";
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the states";
   parameter Integer nStaMin(min=1) = 2 "Minimum number of states";
   parameter Boolean placeCapacityAtSurf_b = true
     "Set to true to place last capacity at the surface b of the layer.";
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics= Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Static (steady state) or transient (dynamic) thermal conduction model"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   final parameter Boolean present=mat.d <> 0;
   final parameter Integer nSta=max(nStaMin, mat.nSta) "Number of states";
   final parameter Real R=mat.R "Total specific thermal resistance";
   final parameter Modelica.SIunits.HeatCapacity Ctot=A*mat.rho*mat.c*mat.d
     "Total heat capacity";
+
   Modelica.Blocks.Interfaces.RealOutput E(unit="J") = sum(T .* C);
 
 protected
@@ -40,10 +43,15 @@ public
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
 initial equation
-  T = ones(nSta)*T_start;
+  if energyDynamics== Modelica.Fluid.Types.Dynamics.FixedInitial then
+    T = ones(nSta)*T_start;
+  elseif energyDynamics== Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
+    der(T)=zeros(nSta);
+  end if;
   assert(nSta >= 1, "Number of states needs to be higher than zero.");
-  assert(abs(sum(C) - A*mat.rho*mat.c*mat.d) < 1e-6, "Verification error in MonLayerOpaqueNf");
-  assert(abs(sum(ones(size(G, 1)) ./ G) - R/A) < 1e-6, "Verification error in MonLayerOpaqueNf");
+  assert(abs(sum(C) - A*mat.rho*mat.c*mat.d) < 1e-6, "Verification error in MonLayerDynamic");
+  assert(abs(sum(ones(size(G, 1)) ./ G) - R/A) < 1e-6, "Verification error in MonLayerDynamic");
+  assert(not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState, "MonoLayerDynamic is configured to steady state, which is not the scope of this model!");
 equation
   port_a.T = T[1];
 

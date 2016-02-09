@@ -28,9 +28,9 @@ protected
 
   IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon_b(
     final A=AWall,
-    final inc=inc,
     linearise=linearise_b,
-    dT_nominal=dT_nominal_b)
+    dT_nominal=dT_nominal_b,
+    final inc=inc + Modelica.Constants.pi)
     "convective surface heat transimission on the interior side of the wall"
     annotation (Placement(transformation(extent={{-22,-10},{-42,10}})));
  Modelica.Blocks.Sources.RealExpression QDesign_b(y=-QTra_design)  annotation (Placement(transformation(extent={{-18,50},
@@ -67,7 +67,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_b, intCon_b.port_a) annotation (Line(
-      points={{-10,0},{-12,0},{-12,0},{-22,0}},
+      points={{-10,0},{-22,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsSw_b, propsBus_b.epsSw) annotation (Line(

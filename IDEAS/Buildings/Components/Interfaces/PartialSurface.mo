@@ -1,16 +1,17 @@
 within IDEAS.Buildings.Components.Interfaces;
 partial model PartialSurface "Partial model for building envelope component"
+
+  outer IDEAS.SimInfoManager sim
+    "Simulation information manager for climate data"
+    annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
+
   parameter Modelica.SIunits.Angle inc
     "Inclination of the wall, i.e. 90deg denotes vertical";
   parameter Modelica.SIunits.Angle azi
     "Azimuth of the wall, i.e. 0deg denotes South";
-  outer IDEAS.SimInfoManager sim
-    "Simulation information manager for climate data"
-    annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
   parameter Modelica.SIunits.Power QTra_design
     "Design heat losses at reference temperature of the boundary space"
     annotation (Dialog(tab="Design power"));
-
   parameter Modelica.SIunits.Temperature T_start=293.15
     "Start temperature for each of the layers";
 
@@ -24,8 +25,10 @@ partial model PartialSurface "Partial model for building envelope component"
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation (Dialog(tab="Convection"));
 
-  ZoneBus propsBus_a(numAzi=sim.numAzi, computeConservationOfEnergy=sim.computeConservationOfEnergy) "If inc = floor, propsbus_a should be connected to the zone above.
-    If inc = ceiling, propsbus_a should be connected to the zone below.
+  IDEAS.Buildings.Components.Interfaces.ZoneBus propsBus_a(
+    numAzi=sim.numAzi,
+    computeConservationOfEnergy=sim.computeConservationOfEnergy) "If inc = Floor, then propsbus_a should be connected to the zone above this floor.
+    If inc = ceiling, then propsbus_a should be connected to the zone below this ceiling.
     If component is an outerWall, porpsBus_a should be connect to the zone."
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -34,27 +37,24 @@ partial model PartialSurface "Partial model for building envelope component"
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={50,40})));
+  Modelica.Blocks.Sources.RealExpression aziExp(y=azi)
+    "Azimuth angle expression";
+  Modelica.Blocks.Sources.RealExpression incExp(y=inc)
+    "Inclination angle expression";
 
 protected
   Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design);
   BaseClasses.InteriorConvection intCon_a(
     linearise=linearise_a,
     dT_nominal=dT_nominal_a,
-    final inc=inc)
-    "convective surface heat transimission on the interior side of the wall"
+    final inc=inc) "Convective heat transfer correlation for port_a"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
-  BaseClasses.MultiLayer layMul(final inc=inc)
-    "declaration of array of resistances and capacitances for wall simulation"
+  IDEAS.Buildings.Components.BaseClasses.MultiLayer layMul(final inc=inc)
+    "Multilayer component that allows simulating walls, windows and other surfaces"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
-public
-  Modelica.Blocks.Sources.RealExpression aziExp(y=azi)
-    "Azimuth angle expression"
-    annotation (Placement(transformation(extent={{94,114},{74,134}})));
-  Modelica.Blocks.Sources.RealExpression incExp(y=inc) "Inclination angle"
-    annotation (Placement(transformation(extent={{94,128},{74,148}})));
 equation
   connect(QDesign.y, propsBus_a.QTra_design);
   connect(propsBus_a.surfCon, intCon_a.port_b) annotation (Line(
@@ -91,14 +91,8 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(incExp.y, propsBus_a.inc) annotation (Line(
-      points={{73,138},{50.1,138},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(aziExp.y, propsBus_a.azi) annotation (Line(
-      points={{73,124},{50.1,124},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(incExp.y, propsBus_a.inc);
+  connect(aziExp.y, propsBus_a.azi);
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

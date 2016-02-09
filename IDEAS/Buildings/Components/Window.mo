@@ -4,14 +4,16 @@ model Window "Multipane window"
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
-  extends Interfaces.PartialSurface(         intCon_a(final A=
+  extends IDEAS.Buildings.Components.Interfaces.PartialSurface(intCon_a(final A=
          A*(1 - frac),
      linearise=linearise_a,
      dT_nominal=dT_nominal_a), QTra_design(fixed=false),
     layMul(
       A=A*(1 - frac),
       nLay=glazing.nLay,
-      mats=glazing.mats));
+      mats=glazing.mats,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      dT_nom_air=5));
 
    parameter Modelica.SIunits.Area A "Total window and windowframe area";
    parameter Real frac(

@@ -6,16 +6,9 @@ model OuterWall "Opaque building envelope construction"
      E(y=layMul.E),
      Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
             then 0 else sum(port_emb.Q_flow))));
+
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
-  parameter Boolean linearise=true
-    "= true, if convective heat transfer should be linearised"
-    annotation(Dialog(tab="Convection"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal=-3
-    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
-    annotation(Dialog(tab="Convection"));
-  parameter Modelica.SIunits.Temperature T_start=293.15
-    "Start temperature for each of the layers";
   Modelica.SIunits.Power QSolIrr = (gainDir.y + gainDif.y)
     "Total solar irradiance";
 

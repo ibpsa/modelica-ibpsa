@@ -2,7 +2,8 @@ within IDEAS.Buildings.Components.BaseClasses;
 model MultiLayer "multiple material layers in series"
 
   parameter Modelica.SIunits.Area A "total multilayer area";
-  parameter Modelica.SIunits.Angle inc "inclination";
+  parameter Modelica.SIunits.Angle inc
+    "Inclinination angle of the multilayer at port_a";
   parameter Integer nLay(min=1) "number of layers";
   parameter IDEAS.Buildings.Data.Interfaces.Material[nLay] mats
     "array of layer materials";
@@ -14,7 +15,20 @@ model MultiLayer "multiple material layers in series"
     "Start temperature for each of the layers";
   parameter Boolean placeCapacityAtSurf_b=true
     "Set to true to place last capacity at the surface b of the layer."
-    annotation (Dialog(tab="Dynamics"), enable=dynamicModel and realLayer and not airLayer);
+    annotation (Dialog(tab="Dynamics"));
+  final parameter Modelica.SIunits.ThermalInsulance R=sum(nMat.R)
+    "total specific thermal resistance";
+  parameter Modelica.SIunits.HeatCapacity C = sum(mats.d.*mats.rho.*mats.c*A)
+    "Total heat capacity of the layers"
+    annotation(Evaluate=true);
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Static (steady state) or transient (dynamic) thermal conduction model"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+  parameter SI.TemperatureDifference dT_nom_air=1
+    "Nominal temperature difference for air layers, used for linearising Rayleigh number";
+
+  Modelica.SIunits.Energy E = sum(nMat.E);
+
   IDEAS.Buildings.Components.BaseClasses.MonoLayer[nLay] nMat(
     each final A=A,
     each final inc=inc,
@@ -29,15 +43,10 @@ model MultiLayer "multiple material layers in series"
         1,
         mats[2:nLay].epsLw_a,
         {0.85}),
-    each placeCapacityAtSurf_b=placeCapacityAtSurf_b) "layers"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-  final parameter Modelica.SIunits.ThermalInsulance R=sum(nMat.R)
-    "total specific thermal resistance";
-  parameter Modelica.SIunits.HeatCapacity C = sum(mats.d.*mats.rho.*mats.c*A)
-    "Total heat capacity of the layers"
-    annotation(Evaluate=true);
-  Modelica.SIunits.Energy E = sum(nMat.E);
+    each placeCapacityAtSurf_b=placeCapacityAtSurf_b,
+    each final energyDynamics=energyDynamics,
+    each dT_nom_air=dT_nom_air) "layers"
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_gain[nLay]
     "port for gains by embedded active layers"
@@ -67,13 +76,17 @@ model MultiLayer "multiple material layers in series"
 
 equation
   // Last layer of nMat is connected to port_a
-  connect(port_a, nMat[nLay].port_a);
+  connect(port_a, nMat[nLay].port_a)
+    annotation (Line(points={{-100,0},{-100,0},{-10,0}}, color={191,0,0}));
   for j in 1:nLay - 1 loop
     connect(nMat[nLay-j+1].port_b, nMat[nLay - j].port_a);
   end for;
-  connect(port_b, nMat[1].port_b);
+  connect(port_b, nMat[1].port_b)
+    annotation (Line(points={{100,0},{10,0}},            color={191,0,0}));
 
-  connect(nMat.port_b, port_gain);
+  connect(nMat.port_gain, port_gain)
+    annotation (Line(points={{0,-10},{0,-10},{0,-60},{0,-100}},
+                                                         color={191,0,0}));
 
   iEpsLw_a = mats[1].epsLw_a;
   iEpsSw_a = mats[1].epsSw_a;
@@ -81,7 +94,8 @@ equation
   iEpsSw_b = mats[nLay].epsSw_b;
 
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     Icon(graphics={
         Rectangle(
           extent={{-90,80},{20,-80}},
