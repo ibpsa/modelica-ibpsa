@@ -36,8 +36,7 @@ protected
     ceilingInc=sim.ceilingInc,
     lat=sim.lat)
     annotation (Placement(transformation(extent={{-94,-4},{-74,16}})));
-  Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
-    annotation (Placement(transformation(extent={{80,0},{60,20}})));
+  Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough";
 initial equation
   QTra_design =U_value*AWall*(273.15 + 21 - Tdes.y);
 
@@ -96,11 +95,7 @@ equation
       points={{-22,-27},{50.1,-27},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Tdes.u, propsBus_a.weaBus.Tdes) annotation (Line(points={{82,10},{86,10},
-          {90,10},{90,39.9},{50.1,39.9}}, color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
+  connect(Tdes.u, propsBus_a.weaBus.Tdes);
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={

@@ -37,18 +37,29 @@ partial model PartialSurface "Partial model for building envelope component"
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={50,40})));
-  Modelica.Blocks.Sources.RealExpression aziExp(y=azi)
-    "Azimuth angle expression";
-  Modelica.Blocks.Sources.RealExpression incExp(y=inc)
-    "Inclination angle expression";
 
-protected
-  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design);
   BaseClasses.InteriorConvection intCon_a(
     linearise=linearise_a,
     dT_nominal=dT_nominal_a,
     final inc=inc) "Convective heat transfer correlation for port_a"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+protected
+  Modelica.Blocks.Sources.RealExpression QDesign(y=QTra_design);
+
+  Modelica.Blocks.Sources.RealExpression aziExp(y=azi)
+    "Azimuth angle expression";
+  Modelica.Blocks.Sources.RealExpression incExp(y=inc)
+    "Inclination angle expression";
+  Modelica.Blocks.Sources.RealExpression E if
+       sim.computeConservationOfEnergy "Model internal energy";
+  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if
+       sim.computeConservationOfEnergy
+    "Component for computing conservation of energy";
+  Modelica.Blocks.Sources.RealExpression Qgai if
+     sim.computeConservationOfEnergy "Heat gains across model boundary";
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
+     sim.computeConservationOfEnergy
+    "Component for computing conservation of energy";
 
 protected
   IDEAS.Buildings.Components.BaseClasses.MultiLayer layMul(final inc=inc)
@@ -56,6 +67,10 @@ protected
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
 equation
+  connect(prescribedHeatFlowE.port, propsBus_a.E);
+  connect(Qgai.y,prescribedHeatFlowQgai. Q_flow);
+  connect(prescribedHeatFlowQgai.port, propsBus_a.Qgai);
+  connect(E.y,prescribedHeatFlowE. E);
   connect(QDesign.y, propsBus_a.QTra_design);
   connect(propsBus_a.surfCon, intCon_a.port_b) annotation (Line(
       points={{50.1,39.9},{46,39.9},{46,0},{40,0}},

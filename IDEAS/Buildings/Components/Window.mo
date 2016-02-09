@@ -4,10 +4,14 @@ model Window "Multipane window"
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
-  extends IDEAS.Buildings.Components.Interfaces.PartialSurface(intCon_a(final A=
-         A*(1 - frac),
-     linearise=linearise_a,
-     dT_nominal=dT_nominal_a), QTra_design(fixed=false),
+  extends IDEAS.Buildings.Components.Interfaces.PartialSurface(
+    intCon_a(final A=
+           A*(1 - frac),
+           linearise=linearise_a,
+           dT_nominal=dT_nominal_a), QTra_design(fixed=false),
+    Qgai(y=-(propsBus_a.surfCon.Q_flow +
+        propsBus_a.surfRad.Q_flow + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow)),
+    E(y=0),
     layMul(
       A=A*(1 - frac),
       nLay=glazing.nLay,
@@ -98,22 +102,6 @@ protected
     annotation (Placement(transformation(extent={{-70,-46},{-62,-38}})));
   Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Modelica.Blocks.Sources.RealExpression Qgai(y=-(propsBus_a.surfCon.Q_flow +
-        propsBus_a.surfRad.Q_flow + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow)) if
-                                                           sim.computeConservationOfEnergy
-    "Heat gains in model (using propsbus since frame can be conditionally removed)"
-    annotation (Placement(transformation(extent={{-116,40},{-96,60}})));
-  Modelica.Blocks.Sources.RealExpression E1(y=0) if        sim.computeConservationOfEnergy
-    "Internal energy model"
-    annotation (Placement(transformation(extent={{-116,60},{-96,80}})));
-  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if  sim.computeConservationOfEnergy
-    "Component for computing conservation of energy"
-    annotation (Placement(transformation(extent={{-86,60},{-66,80}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
-                                                                                   sim.computeConservationOfEnergy
-    "Component for computing conservation of energy"
-    annotation (Placement(transformation(extent={{-86,40},{-66,60}})));
-public
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapGla(C=Cgla, T(fixed=true, start=T_start)) if
                                                                                 addCapGla
     "Heat capacitor for glazing"
@@ -218,7 +206,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.Tenv, skyRad.Tenv) annotation (Line(
-      points={{-79.4,-52},{-58,-52},{-58,6},{-20,6},{-20,6}},
+      points={{-79.4,-52},{-54,-52},{-54,10},{-20,10},{-20,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyRadFra.Tenv, skyRad.Tenv) annotation (Line(
@@ -245,15 +233,7 @@ equation
       points={{58,80},{50.1,80},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Qgai.y,prescribedHeatFlowQgai. Q_flow)
-    annotation (Line(points={{-95,50},{-92,50},{-90,50},{-86,50}},
-                                              color={0,0,127}));
-  connect(prescribedHeatFlowE.port, propsBus_a.E) annotation (Line(points={{-66,70},
-          {-52,70},{-52,39.9},{50.1,39.9}},   color={191,0,0}));
-  connect(prescribedHeatFlowQgai.port, propsBus_a.Qgai)
-    annotation (Line(points={{-66,50},{50.1,50},{50.1,39.9}},color={191,0,0}));
-  connect(E1.y, prescribedHeatFlowE.E)
-    annotation (Line(points={{-95,70},{-90.5,70},{-86,70}}, color={0,0,127}));
+
   connect(shaType.iSolDir, solWin.solDir)
     annotation (Line(points={{-40,-44},{-26,-44},{-10,-44}}, color={0,0,127}));
   connect(shaType.iSolDif, solWin.solDif)

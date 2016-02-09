@@ -10,6 +10,9 @@ partial model PartialOpaqueSurface
     Placement(transformation(extent={{-34,78},{-30,82}})),
     Dialog(group="Construction details"));
   extends IDEAS.Buildings.Components.Interfaces.PartialSurface(
+    E(y=layMul.E),
+    Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
+         then 0 else sum(port_emb.Q_flow))),
     intCon_a(A=AWall),
     layMul(final A=AWall,
       final nLay=constructionType.nLay,
@@ -36,17 +39,6 @@ partial model PartialOpaqueSurface
 protected
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDir(final Q_flow=0);
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif(final Q_flow=0);
-  Modelica.Blocks.Sources.RealExpression E(y=layMul.E) if
-       sim.computeConservationOfEnergy "Model internal energy";
-  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy prescribedHeatFlowE if
-       sim.computeConservationOfEnergy
-    "Component for computing conservation of energy";
-  Modelica.Blocks.Sources.RealExpression Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
-         then 0 else sum(port_emb.Q_flow))) if
-     sim.computeConservationOfEnergy "Heat gains across model boundary";
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlowQgai if
-     sim.computeConservationOfEnergy
-    "Component for computing conservation of energy";
 
 initial equation
   assert(constructionType.incLastLay == IDEAS.Types.Tilt.Other or
@@ -57,10 +49,7 @@ initial equation
 equation
   connect(iSolDif.port, propsBus_a.iSolDif);
   connect(iSolDir.port, propsBus_a.iSolDir);
-  connect(prescribedHeatFlowE.port, propsBus_a.E);
-  connect(Qgai.y,prescribedHeatFlowQgai. Q_flow);
-  connect(prescribedHeatFlowQgai.port, propsBus_a.Qgai);
-  connect(E.y,prescribedHeatFlowE. E);
+
   for i in 1:constructionType.nGain loop
     connect(layMul.port_gain[constructionType.locGain[i]], port_emb[i])
     annotation (Line(points={{0,-10},{0,-10},{0,-100}}, color={191,0,0}));

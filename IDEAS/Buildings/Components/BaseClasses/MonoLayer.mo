@@ -54,7 +54,7 @@ model MonoLayer "single material layer"
     dT_nominal=dT_nom_air) if
                             realLayer and airLayer
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  IDEAS.Buildings.Components.BaseClasses.MonoLayerStatic monLaySta(R=R) if
+  IDEAS.Buildings.Components.BaseClasses.MonoLayerStatic monLaySta(R=R/A) if
        realLayer and not dynamicLayer and not airLayer
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 
