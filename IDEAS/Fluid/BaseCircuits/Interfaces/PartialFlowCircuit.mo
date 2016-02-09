@@ -11,6 +11,10 @@ model PartialFlowCircuit
   parameter Boolean measurePower=true
     "Set to false to remove the power consumption measurement of the flow regulator"
     annotation(Dialog(group = "Settings"));
+
+  parameter Boolean realInput = true;
+  parameter Boolean booleanInput = false;
+
   // Components ----------------------------------------------------------------
 
 protected
@@ -20,7 +24,14 @@ protected
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
 public
-  Modelica.Blocks.Interfaces.RealInput u "Setpoint of the flow regulator"
+  Modelica.Blocks.Interfaces.RealInput u if realInput
+    "Setpoint of the flow regulator"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={0,108})));
+  Modelica.Blocks.Interfaces.BooleanInput u1 if booleanInput
+    "Setpoint of the flow regulator"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
