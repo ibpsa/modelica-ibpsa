@@ -34,7 +34,7 @@ equation
       smooth=Smooth.None));
   connect(booleanToReal.y, flowRegulator.m_flow_in) annotation (Line(points={{-41,
           100},{-50,100},{-50,80},{-0.2,80},{-0.2,72}}, color={0,0,127}));
-  connect(u1, booleanToReal.u) annotation (Line(points={{0,108},{0,108},{0,100},
+  connect(u2, booleanToReal.u) annotation (Line(points={{0,108},{0,108},{0,100},
           {-18,100}}, color={255,0,255}));
     annotation(Dialog(group="Pump parameters"),
               Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

@@ -30,7 +30,7 @@ public
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,108})));
-  Modelica.Blocks.Interfaces.BooleanInput u1 if booleanInput
+  Modelica.Blocks.Interfaces.BooleanInput u2 if booleanInput
     "Setpoint of the flow regulator"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
