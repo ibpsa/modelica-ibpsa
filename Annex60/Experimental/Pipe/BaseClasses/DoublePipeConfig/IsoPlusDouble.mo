@@ -16,4 +16,11 @@ partial record IsoPlusDouble "IsoPlus double pipes"
 
   final parameter Real sigma = (lambdaI-lambdaG)/(lambdaI+lambdaG);
   final parameter Real gamma = 2*(1-sigma^2)/(1-sigma*(rc/(2*Heff))^2);
+  annotation (Documentation(revisions="<html>
+<ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">November 30, 2015 by Bram van der Heijde:<br>First implementation.</span></li>
+</ul>
+</html>", info="<html>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Basic record structure for pipe dimensions and insulation parameters, in the specific case of IsoPlus double pipes. Data from IsoPlus catalogue. </span></p>
+</html>"));
 end IsoPlusDouble;

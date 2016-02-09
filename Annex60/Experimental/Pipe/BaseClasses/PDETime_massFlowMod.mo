@@ -126,17 +126,14 @@ equation
           lineColor={0,0,255},
           textString="%name")}),
     Documentation(info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Calculates time delay as the difference between the current simulation time and the inlet time. The inlet time is propagated with the corresponding fluid parcel using the spatialDistribution function.</span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Calculates time delay as the difference between the current simulation time and the inlet time. The inlet time is propagated with the corresponding fluid parcel using the spatialDistribution function. Calculates time delay as the difference between the current simulation time and the inlet time. The inlet time is propagated with the corresponding fluid parcel using the spatialDistribution function. This components requires the mass flow through (one of) the pipe(s) and the pipe dimensions in order to derive information about the fluid propagation. </span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">This component has a different handling of zero flow periods in order to prevent glitches in the output delay time. </span></p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 13, 2015 by Marcus Fuchs:<br/>
-Use <code>abs()</code> of normalized velocity input in order to avoid negative delay times.
-</li>
-<li>
-2015 by Bram van der Heijde:<br/>
-First implementation.
-</li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">December 2015 by Carles Ribas Tugores:<br>Modification in delay calculation to fix issues.</span></li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">November 6, 2015 by Bram van der Heijde:<br>Adapted flow parameter to mass flow rate instead of velocity. This change should also fix the reverse and zero flow issues.</span></li>
+<li>October 13, 2015 by Marcus Fuchs:<br>Use <code><span style=\"font-family: Courier New,courier;\">abs()</span></code> of normalized velocity input in order to avoid negative delay times. </li>
+<li>July 2015 by Arnout Aertgeerts:<br>First implementation. </li>
 </ul>
 </html>"));
 end PDETime_massFlowMod;

@@ -2,9 +2,6 @@ within Annex60.Experimental.Pipe.Examples;
 package TimeDelay
   extends Modelica.Icons.ExamplesPackage;
 
-
-
-
   model PipeLevelDelay "Comparison of different ways to calculate time delays"
     import Annex60;
     extends Modelica.Icons.Example;

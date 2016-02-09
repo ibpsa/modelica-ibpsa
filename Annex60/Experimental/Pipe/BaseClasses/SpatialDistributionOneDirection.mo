@@ -29,8 +29,10 @@ equation
   tau = max(0,time - time_out_b);
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>
-<p>
-Simple model to test the <code>spatialDistribution</code> operator in one direction
-</p>
+<p>Simple model to test the <code><span style=\"font-family: Courier New,courier;\">spatialDistribution</span></code> operator in one direction.</p>
+</html>", revisions="<html>
+<ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">January 2016:<br>First implementation by Carles Ribas Tugores.</span></li>
+</ul>
 </html>"));
 end SpatialDistributionOneDirection;

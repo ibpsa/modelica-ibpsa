@@ -93,5 +93,9 @@ equation
 <p>
 Model to test the <code>spatialDistribution</code> operator in two directions together with different <code>when</code> and <code>if</code> clauses to first, calculate duration time of the zero mass flow rate periods and second, use this information to lower limit the values of the delay <code>tau</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li><span style=\"font-family: MS Shell Dlg 2;\">January 2016:<br>First implementation by Carles Ribas Tugores.</span></li>
+</ul>
 </html>"));
 end SpatialDistributionTwoDirectionsAndTrack;
