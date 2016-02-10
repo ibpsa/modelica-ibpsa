@@ -6,7 +6,7 @@ model CollectorUnit "Collector unit"
     annotation (__Dymola_choicesAllMatching=true);
 
   //Extensions
-  extends IDEAS.Fluid.Interfaces.FourPort(
+  extends IDEAS.Fluid.Interfaces.PartialFourPort(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     final allowFlowReversal1 = allowFlowReversal,
@@ -25,14 +25,14 @@ model CollectorUnit "Collector unit"
   Modelica.Fluid.Interfaces.FluidPort_a port_a3(
                      redeclare final package Medium = Medium,
                      m_flow(min=if allowFlowReversal1 then -Modelica.Constants.inf else 0),
-                     h_outflow(start=h_outflow_a1_start))
+                     h_outflow(start=Medium.h_default))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{50,90},{70,110}},
             rotation=0)));
   Modelica.Fluid.Interfaces.FluidPort_b port_b3(
                      redeclare final package Medium = Medium,
                      m_flow(max=if allowFlowReversal2 then +Modelica.Constants.inf else 0),
-                     h_outflow(start=h_outflow_b2_start))
+                     h_outflow(start=Medium.h_default))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-50,90},{-70,110}},
                           rotation=0),
