@@ -129,6 +129,10 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
+Revised implementation.
+</li>
+<li>
 November 15, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>

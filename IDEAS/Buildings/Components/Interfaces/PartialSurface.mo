@@ -116,6 +116,10 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
+Revised implementation: cleaned up connections and partials.
+</li>
+<li>
 February 6, 2016 by Damien Picard:<br/>
 First implementation.
 </li>

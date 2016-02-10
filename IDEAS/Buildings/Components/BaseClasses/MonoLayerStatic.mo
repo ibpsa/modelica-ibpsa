@@ -70,5 +70,13 @@ equation
           fontName="Calibri",
           origin={4,-1},
           rotation=90,
-          textString="S")}));
+          textString="S")}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MonoLayerStatic;

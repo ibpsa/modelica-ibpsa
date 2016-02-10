@@ -297,6 +297,10 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
+Revised implementation: cleaned up connections and partials.
+</li>
+<li>
 December 17, 2015, Filip Jorissen:<br/>
 Added thermal connection between frame and glazing state. 
 This is required for decoupling steady state thermal dynamics

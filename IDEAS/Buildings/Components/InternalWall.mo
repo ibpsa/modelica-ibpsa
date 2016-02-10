@@ -134,6 +134,10 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
+Revised implementation: cleaned up connections and partials.
+</li>
+<li>
 June 14, 2015, Filip Jorissen:<br/>
 Adjusted implementation for computing conservation of energy.
 </li>
