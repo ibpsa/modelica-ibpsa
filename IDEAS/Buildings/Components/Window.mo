@@ -17,7 +17,8 @@ model Window "Multipane window"
       nLay=glazing.nLay,
       mats=glazing.mats,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      dT_nom_air=5));
+      dT_nom_air=5,
+      linIntCon=true));
 
    parameter Modelica.SIunits.Area A "Total window and windowframe area";
    parameter Real frac(
