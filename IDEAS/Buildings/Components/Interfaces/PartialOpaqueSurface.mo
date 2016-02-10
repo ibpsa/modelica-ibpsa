@@ -11,7 +11,7 @@ partial model PartialOpaqueSurface
     Dialog(group="Construction details"));
   extends IDEAS.Buildings.Components.Interfaces.PartialSurface(
     E(y=layMul.E),
-    Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
+    Qgai(y=layMul.port_b.Q_flow + (if sim.openSystemConservationOfEnergy
          then 0 else sum(port_emb.Q_flow))),
     intCon_a(A=AWall),
     layMul(final A=AWall,

@@ -1,6 +1,9 @@
 within IDEAS.Buildings.Components;
 model InternalWall "interior opaque wall between two zones"
   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
+  E(y=layMul.E),
+  Qgai(y=(if sim.openSystemConservationOfEnergy
+         then 0 else sum(port_emb.Q_flow))),
   final QTra_design=U_value*AWall*(TRef_a - TRef_b));
 
   parameter Boolean linearise_b=true
@@ -43,11 +46,11 @@ protected
     "Azimuth angle expression";
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDif1(Q_flow=0);
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow iSolDir1(Q_flow=0);
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow Qgai_b(Q_flow=0) if
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow Qgai_b(final Q_flow=0) if
        sim.computeConservationOfEnergy;
-  BaseClasses.PrescribedEnergy E_b if
+  IDEAS.Buildings.Components.BaseClasses.PrescribedEnergy E_b if
        sim.computeConservationOfEnergy;
-  Modelica.Blocks.Sources.Constant E0(k=0)
+  Modelica.Blocks.Sources.Constant E0(final k=0)
     "All internal energy is assigned to right side";
 
 equation
