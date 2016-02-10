@@ -2,6 +2,7 @@ within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
 
    extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
+     dT_nominal_a=-3,
      QTra_design(fixed=false));
 
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)

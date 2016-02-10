@@ -5,6 +5,7 @@ model Window "Multipane window"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
   extends IDEAS.Buildings.Components.Interfaces.PartialSurface(
+    dT_nominal_a=-3,
     intCon_a(final A=
            A*(1 - frac),
            linearise=linearise_a,
@@ -17,7 +18,8 @@ model Window "Multipane window"
       nLay=glazing.nLay,
       mats=glazing.mats,
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      dT_nom_air=5));
+      dT_nom_air=5,
+      linIntCon=true));
 
    parameter Modelica.SIunits.Area A "Total window and windowframe area";
    parameter Real frac(
