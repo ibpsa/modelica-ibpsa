@@ -50,7 +50,7 @@ model Carnot_y "Test model for heat pump based on Carnot efficiency"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        origin={70,40})));
+        origin={50,40})));
   Annex60.Fluid.Sources.FixedBoundary sin2(
     nPorts=1,
     redeclare package Medium = Medium2)
@@ -99,7 +99,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaPum.port_b1, sin1.ports[1]) annotation (Line(
-      points={{20,16},{30,16},{30,40},{60,40}},
+      points={{20,16},{30,16},{30,40},{40,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin2.ports[1], heaPum.port_b2) annotation (Line(
