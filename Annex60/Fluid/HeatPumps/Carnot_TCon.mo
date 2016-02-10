@@ -47,6 +47,7 @@ protected
 initial equation
   assert(QCon_flow_nominal > 0, "Parameter QCon_flow_nominal must be positive.");
   assert(COP_nominal > 1, "The nominal COP of a heat pump must be bigger than one.");
+
 equation
   connect(TSet, con.TSet) annotation (Line(points={{-120,90},{-80,90},{-80,90},{
           -80,66},{-12,66}}, color={0,0,127}));
@@ -83,29 +84,27 @@ The control input is the setpoint of the condenser leaving temperature, which
 is met exactly at steady state if the heat pump has sufficient capacity.
 </p>
 <p>
-The COP at the nominal conditions can be specified by a parameter, or
-it can be computed by the model based on the Carnot effectiveness, in which
-case
+The model allows to either specify the Carnot effectivness
+<i>&eta;<sub>Carnot,0</sub></i>, or
+a <i>COP<sub>0</sub></i>
+at the nominal conditions, together with
+the evaporator temperature <i>T<sub>eva,0</sub></i> and
+the condenser temperature <i>T<sub>con,0</sub></i>, in which
+case the model computes the Carnot effectivness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
-= &eta;<sub>car</sub> T<sub>con</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
-</p>
-<p>
-where <i>T<sub>eva</sub></i> is the evaporator temperature
-and <i>T<sub>con</sub></i> is the condenser temperature.
-On the <code>Advanced</code> tab, a user can specify the temperatures that
-will be used as the evaporator and condenser temperatures.
+&eta;<sub>Carnot,0</sub> = 
+  COP<sub>0</sub>
+&frasl;  (T<sub>con,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)).
 </p>
 <p>
 The heat pump COP is computed as the product
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
+  COP = &eta;<sub>Carnot,0</sub> COP<sub>Carnot</sub> &eta;<sub>PL</sub>,
 </p>
 <p>
-where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
-<i>COP<sub>car</sub></i> is the Carnot efficiency and
+where <i>COP<sub>Carnot</sub></i> is the Carnot efficiency and
 <i>&eta;<sub>PL</sub></i> is a polynomial in heating part load ratio <i>y<sub>PL</sub></i>
 that can be used to take into account a change in <i>COP</i> at part load
 conditions.

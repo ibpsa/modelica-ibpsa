@@ -17,29 +17,27 @@ with temperatures in the same way as the Carnot efficiency changes.
 The input signal <i>y</i> is the control signal for the compressor.
 </p>
 <p>
-The COP at the nominal conditions can be specified by a parameter, or
-it can be computed by the model based on the Carnot effectiveness, in which
-case
+The model allows to either specify the Carnot effectivness
+<i>&eta;<sub>Carnot,0</sub></i>, or
+a <i>COP<sub>0</sub></i>
+at the nominal conditions, together with
+the evaporator temperature <i>T<sub>eva,0</sub></i> and
+the condenser temperature <i>T<sub>con,0</sub></i>, in which
+case the model computes the Carnot effectivness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
-= &eta;<sub>car</sub> T<sub>con</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
-</p>
-<p>
-where <i>T<sub>eva</sub></i> is the evaporator temperature
-and <i>T<sub>con</sub></i> is the condenser temperature.
-On the <code>Advanced</code> tab, a user can specify the temperatures that
-will be used as the evaporator (or condenser) temperature.
+&eta;<sub>Carnot,0</sub> = 
+  COP<sub>0</sub>
+&frasl;  (T<sub>con,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)).
 </p>
 <p>
 The heat pump COP is computed as the product
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
+  COP = &eta;<sub>Carnot,0</sub> COP<sub>Carnot</sub> &eta;<sub>PL</sub>,
 </p>
 <p>
-where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
-<i>COP<sub>car</sub></i> is the Carnot efficiency and
+where <i>COP<sub>Carnot</sub></i> is the Carnot efficiency and
 <i>&eta;<sub>PL</sub></i> is a polynomial in the heating part load ratio <i>y<sub>PL</sub></i>
 that can be used to take into account a change in <i>COP</i> at part load
 conditions.

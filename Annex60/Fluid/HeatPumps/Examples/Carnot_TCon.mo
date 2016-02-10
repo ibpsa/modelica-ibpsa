@@ -24,7 +24,7 @@ model Carnot_TCon
     allowFlowReversal1=false,
     allowFlowReversal2=false,
     use_eta_Carnot_nominal=true,
-    etaCar_nominal=0.3,
+    etaCarnot_nominal=0.3,
     QCon_flow_nominal=QCon_flow_nominal,
     dp1_nominal=6000,
     dp2_nominal=6000) "Heat pump"

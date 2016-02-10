@@ -25,15 +25,15 @@ partial model Carnot
 
   // Efficiency
   parameter Boolean use_eta_Carnot_nominal = true
-    "Set to true to use Carnot effectiveness etaCar_nominal rather than COP_nominal"
+    "Set to true to use Carnot effectiveness etaCarnot_nominal rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
-  parameter Real etaCar_nominal(
+  parameter Real etaCarnot_nominal(
     unit="1") = COP_nominal / (TUse_nominal/(TCon_nominal-TEva_nominal))
     "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot_nominal = true"
     annotation (Dialog(group="Efficiency", enable=use_eta_Carnot_nominal));
 
   parameter Real COP_nominal(
-    unit="1") = etaCar_nominal * TUse_nominal/(TCon_nominal-TEva_nominal)
+    unit="1") = etaCarnot_nominal * TUse_nominal/(TCon_nominal-TEva_nominal)
     "Coefficient of performance at TEva_nominal and TCon_nominal, used if use_eta_Carnot_nominal = false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
 
@@ -82,7 +82,7 @@ partial model Carnot
                a=a,
                x=yPL) "Efficiency due to part load (etaPL(yPL=1)=1)";
 
-  Real COP(min=0, final unit="1") = etaCar_nominal_internal * COPCar * etaPL
+  Real COP(min=0, final unit="1") = etaCarnot_nominal_internal * COPCar * etaPL
     "Coefficient of performance";
 
   Real COPCar(min=0) = TUse / Annex60.Utilities.Math.Functions.smoothMax(
@@ -94,9 +94,9 @@ protected
   constant Boolean COP_is_for_cooling
     "Set to true if the specified COP is for cooling";
 
-  parameter Real etaCar_nominal_internal(
+  parameter Real etaCarnot_nominal_internal(
     unit="1") = if use_eta_Carnot_nominal then
-      etaCar_nominal
+      etaCarnot_nominal
     else
       COP_nominal / (TUse_nominal/(TCon_nominal-TEva_nominal))
     "Carnot effectiveness (=COP/COP_Carnot) used to compute COP";
@@ -122,7 +122,7 @@ initial equation
 
   assert(abs(Annex60.Utilities.Math.Functions.polynomial(
          a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
-  assert(etaCar_nominal_internal < 1,   "Parameters lead to etaCar_nominal > 1. Check parameters.");
+  assert(etaCarnot_nominal_internal < 1,   "Parameters lead to etaCarnot_nominal > 1. Check parameters.");
 
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
@@ -216,31 +216,33 @@ whose coefficient of performance COP changes
 with temperatures in the same way as the Carnot efficiency changes.
 </p>
 <p>
-The COP at the nominal conditions can be specified by a parameter, or
-it can be computed by the model based on the Carnot effectiveness, in which
-case
+The model allows to either specify the Carnot effectivness
+<i>&eta;<sub>Carnot,0</sub></i>, or
+a <i>COP<sub>0</sub></i>
+at the nominal conditions, together with
+the evaporator temperature <i>T<sub>eva,0</sub></i> and
+the condenser temperature <i>T<sub>con,0</sub></i>, in which
+case the model computes the Carnot effectivness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
-= &eta;<sub>car</sub> T<sub>use</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
+&eta;<sub>Carnot,0</sub> = 
+  COP<sub>0</sub>
+&frasl;  (T<sub>use,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)),
 </p>
 <p>
 where
 <i>T<sub>use</sub></i> is the temperature of the the useful heat,
 e.g., the evaporator temperature for a chiller or the condenser temperature
-for a heat pump,
-<i>T<sub>eva</sub></i> is the evaporator temperature
-and <i>T<sub>con</sub></i> is the condenser temperature.
+for a heat pump.
 </p>
 <p>
-The chiller COP is computed as the product
+The COP is computed as the product
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
+  COP = &eta;<sub>Carnot,0</sub> COP<sub>Carnot</sub> &eta;<sub>PL</sub>,
 </p>
 <p>
-where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness,
-<i>COP<sub>car</sub></i> is the Carnot efficiency and
+where <i>COP<sub>Carnot</sub></i> is the Carnot efficiency and
 <i>&eta;<sub>PL</sub></i> is the part load efficiency, expressed using
 a polynomial.
 This polynomial has the form

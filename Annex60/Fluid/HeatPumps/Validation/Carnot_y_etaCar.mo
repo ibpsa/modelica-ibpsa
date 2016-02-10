@@ -3,7 +3,7 @@ model Carnot_y_etaCar
   "Test model for heat pump based on Carnot efficiency with etaCar as parameter"
   extends Annex60.Fluid.HeatPumps.Examples.Carnot_y(
     heaPum(use_eta_Carnot_nominal=true,
-           etaCar_nominal=0.494805));
+           etaCarnot_nominal=0.494805));
 
   annotation (experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/HeatPumps/Validation/Carnot_y_etaCar.mos"

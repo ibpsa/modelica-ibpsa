@@ -25,7 +25,7 @@ model Carnot_TEva_reverseFlow
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
     use_eta_Carnot_nominal=true,
-    etaCar_nominal=0.3,
+    etaCarnot_nominal=0.3,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     show_T=true,

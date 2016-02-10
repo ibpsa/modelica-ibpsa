@@ -26,7 +26,7 @@ model Carnot_y "Test model for chiller based on Carnot_y efficiency"
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
     use_eta_Carnot_nominal=true,
-    etaCar_nominal=0.3,
+    etaCarnot_nominal=0.3,
     dp1_nominal=6000,
     dp2_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

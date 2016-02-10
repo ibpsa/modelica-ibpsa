@@ -38,7 +38,7 @@ model Carnot_TCon_reverseFlow
     m1_flow_nominal=m1_flow_nominal,
     show_T=true,
     use_eta_Carnot_nominal=true,
-    etaCar_nominal=0.3,
+    etaCarnot_nominal=0.3,
     QCon_flow_nominal=QCon_flow_nominal,
     allowFlowReversal1=true,
     allowFlowReversal2=true,
