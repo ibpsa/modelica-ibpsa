@@ -10,11 +10,11 @@ model WindowDynamics "Comparison of three window dynamics options"
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
   Window window(
     A=1,
-    inc=0,
-    azi=0,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two)
+    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two,
+    inc=IDEAS.Constants.Wall,
+    azi=IDEAS.Constants.South)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
   OuterWall outerWall(
     azi=0,
@@ -33,19 +33,19 @@ model WindowDynamics "Comparison of three window dynamics options"
          annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Window window1(
     A=1,
-    inc=0,
-    azi=0,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None)
+    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None,
+    inc=IDEAS.Constants.Wall,
+    azi=IDEAS.Constants.South)
     annotation (Placement(transformation(extent={{-54,-32},{-44,-12}})));
   Window window2(
     A=1,
-    inc=0,
-    azi=0,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Combined)
+    windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Combined,
+    inc=IDEAS.Constants.Wall,
+    azi=IDEAS.Constants.South)
     annotation (Placement(transformation(extent={{-54,-56},{-44,-36}})));
 equation
   connect(zone1.propsBus[1], outerWall.propsBus_a) annotation (Line(
@@ -73,7 +73,7 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-By Filip Jorissen:<br/>
+February 10, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
