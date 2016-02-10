@@ -31,7 +31,7 @@ model ZoneExample
     insulationThickness=0.1,
     AWall=10,
     azi=0,
-    inc=1.5707963267949)
+    inc=IDEAS.Constants.Wall)
     annotation (Placement(transformation(extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-38})));
