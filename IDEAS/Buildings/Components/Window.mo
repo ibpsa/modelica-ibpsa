@@ -5,6 +5,7 @@ model Window "Multipane window"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
   extends IDEAS.Buildings.Components.Interfaces.PartialSurface(
+    dT_nominal_a=-3,
     intCon_a(final A=
            A*(1 - frac),
            linearise=linearise_a,

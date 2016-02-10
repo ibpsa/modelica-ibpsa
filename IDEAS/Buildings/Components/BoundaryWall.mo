@@ -1,7 +1,8 @@
 within IDEAS.Buildings.Components;
 model BoundaryWall "Opaque wall with boundary conditions"
   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
-     final QTra_design=U_value*AWall*(273.15 + 21 - TRef_a));
+     final QTra_design=U_value*AWall*(273.15 + 21 - TRef_a),
+     dT_nominal_a=-1);
 
   parameter Boolean use_T_in = false
     "Get the boundary temperature from the input connector";
