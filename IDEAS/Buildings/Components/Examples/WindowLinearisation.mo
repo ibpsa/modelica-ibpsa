@@ -30,7 +30,8 @@ model WindowLinearisation
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
     layMul(linIntCon=false),
     inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South) "Window with non-linear convection correlation"
+    azi=IDEAS.Constants.South)
+    "Window with non-linear convection correlations inside the window"
     annotation (Placement(transformation(extent={{-54,-32},{-44,-12}})));
   Window winLin(
     A=1,
@@ -38,7 +39,8 @@ model WindowLinearisation
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
     layMul(linIntCon=true),
     inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South) "Window with linear convection correlation"
+    azi=IDEAS.Constants.South)
+    "Window with linear convection correlations inside the window"
     annotation (Placement(transformation(extent={{-54,-56},{-44,-36}})));
 equation
   connect(zone1.propsBus[1], outerWall.propsBus_a) annotation (Line(
