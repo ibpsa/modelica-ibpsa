@@ -18,6 +18,7 @@ protected
     annotation (Placement(transformation(extent={{40,0},{80,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
+public
   IDEAS.Buildings.Components.OuterWall[4] wall(
     final AWall={21.6,16.2,9.6,16.2},
     final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
