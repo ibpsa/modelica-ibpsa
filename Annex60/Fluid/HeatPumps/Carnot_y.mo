@@ -6,6 +6,8 @@ model Carnot_y
   effInpCon=Annex60.Fluid.Types.EfficiencyInput.port_b,
   final COP_is_for_cooling = false);
 
+initial equation
+  assert(COP_nominal > 1, "The nominal COP of a heat pump must be bigger than one.");
   annotation (
 defaultComponentName="heaPum",
 Documentation(info="<html>

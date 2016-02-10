@@ -27,8 +27,10 @@ model Carnot_y "Test model for heat pump based on Carnot efficiency"
     dp2_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     show_T=true,
-    use_eta_Carnot=false,
-    COP_nominal=COP_nominal) "Heat pump model"
+    use_eta_Carnot_nominal=false,
+    COP_nominal=COP_nominal,
+    TCon_nominal=303.15,
+    TEva_nominal=278.15) "Heat pump model"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Annex60.Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,

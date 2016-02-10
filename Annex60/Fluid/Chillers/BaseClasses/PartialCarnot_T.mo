@@ -109,15 +109,6 @@ protected
       final show_T=false) "Evaporator"
   annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 
-initial equation
-  assert(dTEva_nominal < 0, "Parameter dTEva_nominal must be negative.");
-  assert(dTCon_nominal > 0, "Parameter dTCon_nominal must be positive.");
-
-  assert(abs(Annex60.Utilities.Math.Functions.polynomial(
-         a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
-  assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
-  assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
-
 equation
   // Set temperatures that will be used to compute Carnot efficiency
   if effInpCon == Annex60.Fluid.Types.EfficiencyInput.port_a then

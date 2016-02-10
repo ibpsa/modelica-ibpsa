@@ -16,31 +16,33 @@ partial model Carnot
     annotation (Dialog(tab="Advanced", group="Temperature dependence"),
                 evaluate=True);
 
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal(max=0) = -10
-    "Temperature difference evaporator outlet-inlet"
+  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal(
+    final max=0) = -10 "Temperature difference evaporator outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal(min=0) = 10
-    "Temperature difference condenser outlet-inlet"
+  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal(
+    final min=0) = 10 "Temperature difference condenser outlet-inlet"
     annotation (Dialog(group="Nominal condition"));
 
   // Efficiency
-  parameter Boolean use_eta_Carnot = true
-    "Set to true to use Carnot effectiveness etaCar rather than COP_nominal"
+  parameter Boolean use_eta_Carnot_nominal = true
+    "Set to true to use Carnot effectiveness etaCar_nominal rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
-  parameter Real etaCar(unit="1", fixed=use_eta_Carnot)
-    "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot = true"
-    annotation (Dialog(group="Efficiency", enable=use_eta_Carnot));
+  parameter Real etaCar_nominal(
+    unit="1") = COP_nominal / (TUse_nominal/(TCon_nominal-TEva_nominal))
+    "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot_nominal = true"
+    annotation (Dialog(group="Efficiency", enable=use_eta_Carnot_nominal));
 
-  parameter Real COP_nominal(unit="1", fixed=not use_eta_Carnot)
-    "Coefficient of performance at TEva_nominal and TCon_nominal, used if use_eta_Carnot = false"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
+  parameter Real COP_nominal(
+    unit="1") = etaCar_nominal * TUse_nominal/(TCon_nominal-TEva_nominal)
+    "Coefficient of performance at TEva_nominal and TCon_nominal, used if use_eta_Carnot_nominal = false"
+    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
 
   parameter Modelica.SIunits.Temperature TCon_nominal = 303.15
-    "Condenser temperature used to compute COP_nominal if use_eta_Carnot=false"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
+    "Condenser temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
+    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
   parameter Modelica.SIunits.Temperature TEva_nominal = 278.15
-    "Evaporator temperature used to compute COP_nominal if use_eta_Carnot=false"
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
+    "Evaporator temperature used to compute COP_nominal if use_eta_Carnot_nominal=false"
+    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
 
   parameter Real a[:] = {1}
     "Coefficients for efficiency curve (need p(a=a, yPL=1)=1)"
@@ -80,7 +82,7 @@ partial model Carnot
                a=a,
                x=yPL) "Efficiency due to part load (etaPL(yPL=1)=1)";
 
-  Real COP(min=0, final unit="1") = etaCar * COPCar * etaPL
+  Real COP(min=0, final unit="1") = etaCar_nominal_internal * COPCar * etaPL
     "Coefficient of performance";
 
   Real COPCar(min=0) = TUse / Annex60.Utilities.Math.Functions.smoothMax(
@@ -91,6 +93,14 @@ partial model Carnot
 protected
   constant Boolean COP_is_for_cooling
     "Set to true if the specified COP is for cooling";
+
+  parameter Real etaCar_nominal_internal(
+    unit="1") = if use_eta_Carnot_nominal then
+      etaCar_nominal
+    else
+      COP_nominal / (TUse_nominal/(TCon_nominal-TEva_nominal))
+    "Carnot effectiveness (=COP/COP_Carnot) used to compute COP";
+
   // For Carnot_y, computing etaPL = f(yPL) introduces a nonlinear equation.
   // The parameter below avoids this if a = {1}.
   final parameter Boolean evaluate_etaPL=
@@ -112,10 +122,7 @@ initial equation
 
   assert(abs(Annex60.Utilities.Math.Functions.polynomial(
          a=a, x=1)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
-  assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
-  assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
-
-  COP_nominal = etaCar * TUse_nominal/(TCon_nominal-TEva_nominal);
+  assert(etaCar_nominal_internal < 1,   "Parameters lead to etaCar_nominal > 1. Check parameters.");
 
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},

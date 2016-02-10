@@ -46,7 +46,7 @@ protected
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 initial equation
   assert(QCon_flow_nominal > 0, "Parameter QCon_flow_nominal must be positive.");
-
+  assert(COP_nominal > 1, "The nominal COP of a heat pump must be bigger than one.");
 equation
   connect(TSet, con.TSet) annotation (Line(points={{-120,90},{-80,90},{-80,90},{
           -80,66},{-12,66}}, color={0,0,127}));
