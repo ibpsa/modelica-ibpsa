@@ -24,3 +24,5 @@ success
 *.py[cod]
 simulator.log
 unitTests.log
+# Ignore benchmark results for numerical efficiency tests of functions
+bin/results/
