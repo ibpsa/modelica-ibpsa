@@ -22,9 +22,7 @@ partial model PartialThreeWayResistance
            max=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf))
     "Third port, can be either inlet or outlet"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  parameter Boolean dynamicBalance = true
-    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation (Dialog(tab="Dynamics", group="Equations"));
+
   parameter Modelica.SIunits.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
     annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
@@ -78,87 +76,44 @@ partial model PartialThreeWayResistance
     final X_start=X_start,
     final C_start=C_start,
     final allowFlowReversal=true,
-    final prescribedHeatFlowRate=false) if
-       dynamicBalance "Fluid volume to break algebraic loop"
+    final prescribedHeatFlowRate=false) "Fluid volume to break algebraic loop"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
-protected
-  Modelica.Fluid.Interfaces.FluidPort_a port_internal(
-    redeclare package Medium = Medium) if not dynamicBalance
-    "Internal dummy port for easier connection of conditional connections"
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 equation
-
   if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Leaving then
-    if not dynamicBalance then
-       connect(res1.port_a, port_internal) annotation (Line(
-      points={{-60,0},{-60,60},{0,60}},
-      color={0,127,255}));
-    else
-       connect(res1.port_a, vol.ports[1]) annotation (Line(
+    connect(res1.port_a, vol.ports[1]) annotation (Line(
       points={{-60,0},{-2.66667,0}},
       color={0,127,255}));
-    end if;
     connect(port_1, res1.port_b) annotation (Line(points={{-100,0},{-100,0},{-40,
             0}},                                                                      color={0,127,255}));
   else
-    if not dynamicBalance then
-       connect(res1.port_b, port_internal) annotation (Line(
-      points={{-40,0},{-40,60},{0,60}},
-      color={0,127,255}));
-    else
-       connect(res1.port_b, vol.ports[1]) annotation (Line(
+    connect(res1.port_b, vol.ports[1]) annotation (Line(
       points={{-40,0},{-2.66667,0}},
       color={0,127,255}));
-    end if;
     connect(port_1, res1.port_a) annotation (Line(points={{-100,0},{-100,0},{-60,0}}, color={0,127,255}));
   end if;
 
   if portFlowDirection_2==Modelica.Fluid.Types.PortFlowDirection.Leaving then
-    if not dynamicBalance then
-       connect(res2.port_a, port_internal) annotation (Line(
-      points={{60,0},{60,60},{0,60}},
-      color={0,127,255}));
-    else
-       connect(res2.port_a, vol.ports[2]) annotation (Line(
+    connect(res2.port_a, vol.ports[2]) annotation (Line(
       points={{60,0},{2.22045e-16,0}},
       color={0,127,255}));
-    end if;
     connect(port_2, res2.port_b) annotation (Line(points={{100,0},{100,0},{40,0}},    color={0,127,255}));
   else
-    if not dynamicBalance then
-       connect(res2.port_b, port_internal) annotation (Line(
-      points={{40,0},{40,60},{0,60}},
-      color={0,127,255}));
-    else
-       connect(res2.port_b, vol.ports[2]) annotation (Line(
+    connect(res2.port_b, vol.ports[2]) annotation (Line(
       points={{40,0},{2.22045e-16,0}},
       color={0,127,255}));
-    end if;
     connect(port_2, res2.port_a) annotation (Line(points={{100,0},{100,0},{60,0}},    color={0,127,255}));
   end if;
 
   if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving then
-    if not dynamicBalance then
-       connect(res3.port_a, port_internal) annotation (Line(
-      points={{-4.44089e-16,-60},{20,-60},{20,60},{0,60}},
+    connect(res3.port_a, vol.ports[3]) annotation (Line(
+      points={{-6.66134e-016,-60},{0,-60},{0,0},{2.66667,0}},
       color={0,127,255}));
-    else
-       connect(res3.port_a, vol.ports[3]) annotation (Line(
-      points={{-6.66134e-16,-60},{0,-60},{0,0},{2.66667,0}},
-      color={0,127,255}));
-    end if;
     connect(port_3, res3.port_b) annotation (Line(points={{0,-100},{0,-100},{0,-40}}, color={0,127,255}));
   else
-    if not dynamicBalance then
-       connect(res3.port_b, port_internal) annotation (Line(
-      points={{4.44089e-16,-40},{20,-40},{20,60},{0,60}},
+    connect(res3.port_b, vol.ports[3]) annotation (Line(
+      points={{4.44089e-016,-40},{0,-40},{0,0},{2.66667,0}},
       color={0,127,255}));
-    else
-       connect(res3.port_b, vol.ports[3]) annotation (Line(
-      points={{4.44089e-16,-40},{0,-40},{0,0},{2.66667,0}},
-      color={0,127,255}));
-    end if;
     connect(port_3, res3.port_a) annotation (Line(points={{0,-100},{0,-100},{0,-60}}, color={0,127,255}));
   end if;
    annotation (
