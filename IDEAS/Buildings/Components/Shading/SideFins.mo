@@ -52,6 +52,10 @@ protected
   Real verAzi;
   Real lambda;
 
+initial equation
+
+    assert(dep > 0, "The depth of the sidefins must be larger than zero.");
+
 equation
   lambda = tan(alt) / cos(verAzi);
   verAzi = Modelica.Math.acos(cos(angInc)/cos(alt));
@@ -85,7 +89,7 @@ equation
       smooth=Smooth.None));
 
   connect(angInc, iAngInc) annotation (Line(
-      points={{-60,-50},{-14,-50},{-14,-70},{40,-70}},
+      points={{-60,-50},{-14,-50},{-14,-50},{40,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Documentation(info="<html>
