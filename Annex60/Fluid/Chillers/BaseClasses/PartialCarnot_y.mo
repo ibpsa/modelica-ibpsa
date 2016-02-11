@@ -9,6 +9,8 @@ partial model PartialCarnot_y
  extends Interfaces.FourPortHeatMassExchanger(
    m1_flow_nominal = QCon_flow_nominal/cp1_default/dTCon_nominal,
    m2_flow_nominal = QEva_flow_nominal/cp2_default/dTEva_nominal,
+   T1_start = TEva_nominal,
+   T2_start = TCon_nominal,
    vol1(prescribedHeatFlowRate = true),
    redeclare final Annex60.Fluid.MixingVolumes.MixingVolume vol2(
      prescribedHeatFlowRate = true));
@@ -56,10 +58,10 @@ protected
     port_b2.h_outflow,
     port_b2.Xi_outflow) "Medium properties in port_b2";
 
-  Modelica.SIunits.HeatFlowRate QCon_flow_internal = P - QEva_flow_internal
-    "Condenser heat input";
-  Modelica.SIunits.HeatFlowRate QEva_flow_internal = -COP * P
-    "Evaporator heat input";
+  Modelica.SIunits.HeatFlowRate QCon_flow_internal(start=QCon_flow_nominal)=
+    P - QEva_flow_internal "Condenser heat input";
+  Modelica.SIunits.HeatFlowRate QEva_flow_internal(start=QEva_flow_nominal)=
+    if COP_is_for_cooling then -COP * P else (1-COP)*P "Evaporator heat input";
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
