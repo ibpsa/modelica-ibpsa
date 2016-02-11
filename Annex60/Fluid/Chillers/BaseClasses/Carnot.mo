@@ -71,16 +71,15 @@ partial model Carnot
     annotation (Placement(transformation(extent={{100,-100},{120,-80}}),
         iconTransformation(extent={{100,-100},{120,-80}})));
 
-  Real yPL(final unit="1") = if COP_is_for_cooling
+  Real yPL(final unit="1", min=0) = if COP_is_for_cooling
      then QEva_flow/QEva_flow_nominal
      else QCon_flow/QCon_flow_nominal "Part load ratio";
 
   Real etaPL(final unit = "1")=
     if evaluate_etaPL
       then 1
-      else Annex60.Utilities.Math.Functions.polynomial(
-               a=a,
-               x=yPL) "Efficiency due to part load (etaPL(yPL=1)=1)";
+    else Annex60.Utilities.Math.Functions.polynomial(a=a, x=yPL)
+    "Efficiency due to part load (etaPL(yPL=1)=1)";
 
   Real COP(min=0, final unit="1") = etaCarnot_nominal_internal * COPCar * etaPL
     "Coefficient of performance";
