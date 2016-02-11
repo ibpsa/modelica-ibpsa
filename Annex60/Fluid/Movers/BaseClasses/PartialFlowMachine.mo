@@ -13,9 +13,6 @@ partial model PartialFlowMachine
       p(start=p_start),
       final m_flow(max = if allowFlowReversal then +Modelica.Constants.inf else 0)));
 
-  parameter Boolean dynamicBalance = true
-    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
   parameter Annex60.Fluid.Types.InputType inputType = Annex60.Fluid.Types.InputType.Continuous
     "Control input type for this mover";
   parameter Real constInput = 0 "Constant input set point"
@@ -25,7 +22,7 @@ partial model PartialFlowMachine
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
 
   parameter Modelica.SIunits.Time tau=1
-    "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
+    "Time constant of fluid volume for nominal flow, used if massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial"
     annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
   parameter Real stageInputs[:]
     "Vector of input set points corresponding to stages";
@@ -43,8 +40,8 @@ partial model PartialFlowMachine
   Annex60.Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
     final tau=tau,
-    final energyDynamics=if dynamicBalance then energyDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
-    final massDynamics=if dynamicBalance then massDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
