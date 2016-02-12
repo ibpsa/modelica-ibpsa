@@ -17,11 +17,11 @@ partial model PumpParameters
     "If true, then motor heat is added to fluid stream" annotation(Dialog(
                    group = "Pump parameters"));
   parameter IDEAS.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    motorEfficiency(r_V={1}, eta={0.7})
+    motorEfficiency(V_flow={1}, eta={0.7})
     "Normalized volume flow rate vs. efficiency" annotation(Dialog(
                    group = "Pump parameters"));
   parameter IDEAS.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    hydraulicEfficiency(r_V={1}, eta={0.7})
+    hydraulicEfficiency(V_flow={1}, eta={0.7})
     "Normalized volume flow rate vs. efficiency" annotation(Dialog(
                    group = "Pump parameters"));
 
