@@ -1,62 +1,31 @@
 within IDEAS.Buildings.Components;
 model OuterWall "Opaque building envelope construction"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(
-    QTra_design(fixed=false),
-    E(y=layMul.E),
-    Qgai(y=layMul.port_a.Q_flow + (if sim.openSystemConservationOfEnergy
-           then 0 else sum(port_emb.Q_flow))));
+   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
+     dT_nominal_a=-3,
+     QTra_design(fixed=false));
+
   final parameter Real U_value=1/(1/8 + sum(constructionType.mats.R) + 1/25)
     "Wall U-value";
-  parameter Boolean linearise=true
-    "= true, if convective heat transfer should be linearised"
-    annotation(Dialog(tab="Convection"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal=-3
-    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
-    annotation(Dialog(tab="Convection"));
-  parameter Modelica.SIunits.Temperature T_start=293.15
-    "Start temperature for each of the layers";
   Modelica.SIunits.Power QSolIrr = (gainDir.y + gainDif.y)
     "Total solar irradiance";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
-    "port for gains by embedded active layers"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
 protected
-  IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
-    final A=AWall,
-    final inc=inc,
-    final nLay=constructionType.nLay,
-    final mats=constructionType.mats,
-    final locGain=constructionType.locGain,
-    T_start=ones(constructionType.nLay)*T_start,
-    final nGain=constructionType.nGain)
-    "declaration of array of resistances and capacitances for wall simulation"
-    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorConvection extCon(
     final A=AWall)
     "convective surface heat transimission on the exterior side of the wall"
-    annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(
-    final A=AWall,
-    final inc=inc,
-    final linearise=linearise,
-    final dT_nominal=dT_nominal)
-    "convective surface heat transimission on the interior side of the wall"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{-22,-28},{-42,-8}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorSolarAbsorption solAbs
     "determination of absorbed solar radiation by wall based on incident radiation"
-    annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
+    annotation (Placement(transformation(extent={{-22,-8},{-42,12}})));
   IDEAS.Buildings.Components.BaseClasses.ExteriorHeatRadiation extRad(
     final A=AWall)
     "determination of radiant heat exchange with the environment and sky"
-    annotation (Placement(transformation(extent={{-20,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-22,12},{-42,32}})));
   Modelica.Blocks.Math.Gain gainDir(k=AWall)
-    annotation (Placement(transformation(extent={{-58,-28},{-50,-20}})));
+    annotation (Placement(transformation(extent={{-60,4},{-52,12}})));
   Modelica.Blocks.Math.Gain gainDif(k=AWall)
-    annotation (Placement(transformation(extent={{-58,-32},{-50,-24}})));
-  Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough"
-    annotation (Placement(transformation(extent={{80,0},{60,20}})));
+    annotation (Placement(transformation(extent={{-60,0},{-52,8}})));
   Climate.Meteo.Solar.RadSolData radSolData(
     inc=inc,
     azi=azi,
@@ -64,107 +33,67 @@ protected
     offsetAzi=sim.offsetAzi,
     ceilingInc=sim.ceilingInc,
     lat=sim.lat)
-    annotation (Placement(transformation(extent={{-92,-36},{-72,-16}})));
+    annotation (Placement(transformation(extent={{-94,-4},{-74,16}})));
+  Modelica.Blocks.Routing.RealPassThrough Tdes "Design temperature passthrough";
 initial equation
   QTra_design =U_value*AWall*(273.15 + 21 - Tdes.y);
 
 equation
-  connect(extCon.port_a, layMul.port_a) annotation (Line(
-      points={{-20,-50},{-16,-50},{-16,-30},{-10,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(solAbs.port_a, layMul.port_a) annotation (Line(
-      points={{-20,-30},{-10,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(extRad.port_a, layMul.port_a) annotation (Line(
-      points={{-20,-10},{-16,-10},{-16,-30},{-10,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(layMul.port_b, intCon.port_a) annotation (Line(
-      points={{10,-30},{20,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(layMul.iEpsSw_a, solAbs.epsSw) annotation (Line(
-      points={{-10,-26},{-14,-26},{-14,-24},{-20,-24}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(layMul.iEpsLw_a, extRad.epsLw) annotation (Line(
-      points={{-10,-22},{-14,-22},{-14,-6.6},{-20,-6.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  connect(port_emb, layMul.port_gain) annotation (Line(
-      points={{0,-100},{0,-40}},
+  connect(extCon.port_a, layMul.port_b) annotation (Line(
+      points={{-22,-18},{-18,-18},{-18,0},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(intCon.port_b, propsBus_a.surfCon) annotation (Line(
-      points={{40,-30},{46,-30},{46,39.9},{50.1,39.9}},
+  connect(solAbs.port_a, layMul.port_b) annotation (Line(
+      points={{-22,2},{-12,2},{-12,0},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
-      points={{10,-30},{16,-30},{16,39.9},{50.1,39.9}},
+  connect(extRad.port_a, layMul.port_b) annotation (Line(
+      points={{-22,22},{-18,22},{-18,0},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
-      points={{10,-26},{14,-26},{14,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
-      points={{10,-22},{12,-22},{12,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(layMul.area, propsBus_a.area) annotation (Line(
-      points={{0,-20},{0,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(gainDir.y, solAbs.solDir) annotation (Line(
-      points={{-49.6,-24},{-40,-24}},
+  connect(layMul.iEpsSw_b,solAbs. epsSw) annotation (Line(
+      points={{-10,4},{-16,4},{-16,8},{-22,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gainDif.y, solAbs.solDif) annotation (Line(
-      points={{-49.6,-28},{-40,-28}},
+  connect(layMul.iEpsLw_b,extRad. epsLw) annotation (Line(
+      points={{-10,8},{-16,8},{-16,25.4},{-22,25.4}},
       color={0,0,127},
       smooth=Smooth.None));
-
-  connect(radSolData.solDir, gainDir.u) annotation (Line(
-      points={{-71.4,-24},{-58.8,-24}},
+  connect(gainDir.y,solAbs. solDir) annotation (Line(
+      points={{-51.6,8},{-42,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gainDif.u, radSolData.solDif) annotation (Line(
-      points={{-58.8,-28},{-66,-28},{-66,-26},{-71.4,-26}},
+  connect(gainDif.y,solAbs. solDif) annotation (Line(
+      points={{-51.6,4},{-42,4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radSolData.solDir,gainDir. u) annotation (Line(
+      points={{-73.4,8},{-60.8,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gainDif.u,radSolData. solDif) annotation (Line(
+      points={{-60.8,4},{-68,4},{-68,6},{-73.4,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
-      points={{-72,-18},{-72,39.9},{50.1,39.9}},
+      points={{-74,14},{-74,39.9},{50.1,39.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(radSolData.Tenv, extRad.Tenv) annotation (Line(
-      points={{-71.4,-28},{-68,-28},{-68,6},{-20,6},{-20,-4}},
+  connect(radSolData.Tenv,extRad. Tenv) annotation (Line(
+      points={{-73.4,4},{-70,4},{-70,38},{-22,38},{-22,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(extCon.Te, propsBus_a.weaBus.Te) annotation (Line(
-      points={{-20,-54.8},{50.1,-54.8},{50.1,39.9}},
+      points={{-22,-22.8},{50.1,-22.8},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(extCon.hConExt, propsBus_a.weaBus.hConExt) annotation (Line(
-      points={{-20,-59},{50.1,-59},{50.1,39.9}},
+      points={{-22,-27},{50.1,-27},{50.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Tdes.u, propsBus_a.weaBus.Tdes) annotation (Line(
-      points={{82,10},{82,56},{50.1,56},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(Tdes.u, propsBus_a.weaBus.Tdes);
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
@@ -228,8 +157,8 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
-June 14, 2015, Filip Jorissen:<br/>
-Adjusted implementation for computing conservation of energy.
+February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
+Revised implementation: cleaned up connections and partials.
 </li>
 <li>
 June 14, 2015, Filip Jorissen:<br/>

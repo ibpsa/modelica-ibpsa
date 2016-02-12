@@ -1,9 +1,9 @@
 within IDEAS.Buildings.Components.BaseClasses;
-model AirCavity
+model MonoLayerAir
   "Heat transfer correlations (convection and radiation) for air cavities"
 
   parameter Modelica.SIunits.Area A "Surface area";
-  parameter Modelica.SIunits.Angle inc "Inclination off surface at port a";
+  parameter Modelica.SIunits.Angle inc "Inclination of surface at port a";
   parameter Modelica.SIunits.Length d "Cavity width";
 
   parameter Modelica.SIunits.Emissivity epsLw_a
@@ -25,7 +25,6 @@ model AirCavity
   parameter Modelica.SIunits.ThermalDiffusivity alpha = 22e-6
     "Thermal diffusivity of medium, default for air, T=300K"
     annotation(Dialog(group="Advanced"));
-
   parameter Boolean linearise = true
     "Linearise Grashoff number around expected nominal temperature difference"
     annotation(Evaluate=true);
@@ -34,11 +33,12 @@ model AirCavity
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+
   Modelica.SIunits.ThermalConductance G=h*A + A*5.86*(1/((1/epsLw_a) + (1/epsLw_b) - 1));
-  //when linearising we assume that Nu is the average of Nu for positive and negative temperature differences
+  //when linearising we assume that Nu is the average Nu for positive and negative temperature differences
   Real Nu=
     if ceiling or floor then
-      if linearise or (port_a.T-port_b.T>0 and floor or port_a.T-port_b.T<=0 and ceiling) then
+      if linearise or (port_a.T-port_b.T>0 and ceiling or port_a.T-port_b.T<=0 and floor) then
         1 + (1.44*(1-1708/Ra)+((Ra/5830)^(1/3)-1))*(if linearise then 0.5 else 1)
       else 1
     elseif vertical then
@@ -67,7 +67,7 @@ public
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 equation
   if not (ceiling or floor or vertical) then
-    assert(false, "Could not find suitible correlation for air cavity!");
+    assert(false, "Could not find suitible correlation for air cavity! Please change the inclination to wall, ceiling or floor or remove the air layer.");
   end if;
 
   port_a.Q_flow + port_b.Q_flow + port_emb.Q_flow=0;
@@ -129,9 +129,13 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
+Revised implementation.
+</li>
+<li>
 November 15, 2015, by Filip Jorissen:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end AirCavity;
+end MonoLayerAir;
