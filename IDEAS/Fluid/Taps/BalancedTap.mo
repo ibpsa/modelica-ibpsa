@@ -1,9 +1,9 @@
-within IDEAS.Fluid.Domestic_Hot_Water;
-model DHW_ProfileReader
+within IDEAS.Fluid.Taps;
+model BalancedTap
   "DHW consumption with profile reader.  RealInput mDHW60C is not used."
   import IDEAS;
 
-  extends IDEAS.Fluid.Domestic_Hot_Water.partial_DHW;
+  extends IDEAS.Fluid.Taps.Interfaces.BalancedTap;
 
   parameter Modelica.SIunits.Volume VDayAvg "Average daily water consumption";
   parameter Integer profileType=1 "Type of the DHW tap profile";
@@ -49,10 +49,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-40},{140,
-            100}}),
-            graphics),
-    Icon(graphics),
     Documentation(info="<html>
 <p><b>Description</b> </p>
 <p>Model of a domestic hot water (DHW) system composed mainly of a thermostatic mixing valve and a table for reading the DHW flow rate. </p>
@@ -60,4 +56,4 @@ equation
 <p><h4>Examples</h4></p>
 <p>An example of this model is given in <a href=\"modelica://IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP\">IDEAS.Thermal.Components.Examples.StorageTank_DHW_HP</a>.</p>
 </html>"));
-end DHW_ProfileReader;
+end BalancedTap;

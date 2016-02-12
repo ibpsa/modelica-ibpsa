@@ -80,15 +80,14 @@ model Heating_Embedded_DHW_STS
         rotation=0,
         origin={-12,0})));
   // --- Domestic Hot Water and it hydraulic circuit
-  replaceable IDEAS.Fluid.Domestic_Hot_Water.DHW_ProfileReader dHW(
+  replaceable IDEAS.Fluid.Taps.BalancedTap dHW(
     TDHWSet=TDHWSet,
     profileType=3,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal_DHW,
-    VDayAvg=sim.nOcc*0.045)
-                   constrainedby IDEAS.Fluid.Domestic_Hot_Water.partial_DHW(
-    redeclare package Medium = Medium,
-    TDHWSet=TDHWSet) annotation (Placement(transformation(
+    VDayAvg=sim.nOcc*0.045) constrainedby
+    IDEAS.Fluid.Taps.Interfaces.BalancedTap(redeclare package Medium = Medium,
+      TDHWSet=TDHWSet) annotation (Placement(transformation(
         extent={{-9,5},{9,-5}},
         rotation=-90,
         origin={-47,1})));
