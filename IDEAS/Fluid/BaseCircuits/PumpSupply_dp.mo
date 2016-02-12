@@ -13,7 +13,8 @@ model PumpSupply_dp
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
 
   //Extensions
-  extends Interfaces.PartialPumpCircuit(redeclare Movers.FlowMachine_dp
+  extends Interfaces.PartialPumpCircuit(redeclare
+      IDEAS.Fluid.Movers.FlowControlled_dp
       flowRegulator(
       filteredSpeed=filteredSpeed,
       riseTime=riseTime,
