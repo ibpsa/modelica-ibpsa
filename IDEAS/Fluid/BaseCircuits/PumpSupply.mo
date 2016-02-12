@@ -34,7 +34,7 @@ equation
       smooth=Smooth.None));
   connect(booleanToReal.y, flowRegulator.m_flow_in)
     annotation (Line(points={{-9,80},{-0.2,80},{-0.2,72}},  color={0,0,127}));
-  connect(booleanToReal.u, u1) annotation (Line(points={{-32,80},{-36,80},{-40,80},
+  connect(booleanToReal.u, u2) annotation (Line(points={{-32,80},{-36,80},{-40,80},
           {-40,108},{0,108}}, color={255,0,255}));
   annotation (Documentation(info="<html><p>
             This model is the base circuit implementation of a pressure head controlled pump and makes use of <a href=\"modelica://IDEAS.Fluid.Movers.FlowMachine_dp\">IDEAS.Fluid.Movers.FlowMachine_dp</a>. The flow can be regulated by changing the Kv value of the balancing valve.

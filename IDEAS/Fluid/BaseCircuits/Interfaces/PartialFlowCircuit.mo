@@ -40,7 +40,7 @@ public
         origin={42,104})));
 
 public
-  Modelica.Blocks.Interfaces.BooleanInput u1 if booleanInput
+  Modelica.Blocks.Interfaces.BooleanInput u2 if booleanInput
     "On/off setpoint of the flow regulator"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
