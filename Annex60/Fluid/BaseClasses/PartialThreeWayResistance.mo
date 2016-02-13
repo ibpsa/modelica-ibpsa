@@ -107,12 +107,12 @@ equation
 
   if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving then
     connect(res3.port_a, vol.ports[3]) annotation (Line(
-      points={{-6.66134e-016,-60},{0,-60},{0,0},{2.66667,0}},
+      points={{-6.66134e-16,-60},{0,-60},{0,0},{2.66667,0}},
       color={0,127,255}));
     connect(port_3, res3.port_b) annotation (Line(points={{0,-100},{0,-100},{0,-40}}, color={0,127,255}));
   else
     connect(res3.port_b, vol.ports[3]) annotation (Line(
-      points={{4.44089e-016,-40},{0,-40},{0,0},{2.66667,0}},
+      points={{4.44089e-16,-40},{0,-40},{0,0},{2.66667,0}},
       color={0,127,255}));
     connect(port_3, res3.port_a) annotation (Line(points={{0,-100},{0,-100},{0,-60}}, color={0,127,255}));
   end if;
@@ -123,7 +123,8 @@ Partial model for flow resistances with three ports such as a
 flow mixer/splitter or a three way valve.
 </p>
 <p>
-If <code>dynamicBalance=true</code>, then at the junction of the three flows,
+If <code>energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState</code>,
+then at the junction of the three flows,
 a mixing volume will be present. This will introduce a dynamic energy and momentum
 balance, which often breaks algebraic loops.
 The time constant of the mixing volume is determined by the parameter <code>tau</code>.
