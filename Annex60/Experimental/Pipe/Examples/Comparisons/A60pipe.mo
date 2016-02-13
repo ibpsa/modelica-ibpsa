@@ -31,8 +31,8 @@ model A60pipe "Comparison of KUL A60 pipes with heat loss without reverse flow"
     "Sink at with constant pressure, turns into source at the end of experiment"
                           annotation (Placement(transformation(extent={{140,28},
             {120,48}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloA60(redeclare package Medium =
-        Medium) "Mass flow rate sensor for the A60 temperature delay"
+  Annex60.Fluid.Sensors.MassFlowRate masFloPipeDelayMod(redeclare package
+      Medium = Medium) "Mass flow rate sensor for the A60 temperature delay"
     annotation (Placement(transformation(extent={{88,30},{108,50}})));
 
   Modelica.Blocks.Sources.Step stepT(
@@ -41,50 +41,49 @@ model A60pipe "Comparison of KUL A60 pipes with heat loss without reverse flow"
     startTime=10000)
     "Step temperature increase to test propagation of temperature wave"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60Out(redeclare package
-      Medium = Medium, m_flow_nominal=0.5)
-    "Temperature sensor for the outflow of the A60 temperature delay"
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemPipeDelayModOut(redeclare
+      package Medium = Medium, m_flow_nominal=0.5)
+    "Temperature sensor for the outflow of the A60 temperature delay modified"
     annotation (Placement(transformation(extent={{56,30},{76,50}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60In(redeclare package Medium
-      = Medium, m_flow_nominal=0.5)
-    "Temperature of the inflow to the A60 temperature delay"
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTempPipeDelayModIn(redeclare
+      package Medium = Medium, m_flow_nominal=0.5)
+    "Temperature of the inflow to the A60 temperature delay modified"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, table=[0,
         1; 3000,1; 5000,0; 10000,0; 12000,-1; 17000,-1; 19000,0; 30000,0; 32000,
         1; 50000,1; 52000,0; 80000,0; 82000,-1; 100000,-1; 102000,0; 150000,0;
         152000,1; 160000,1; 162000,0; 163500,0; 165500,1; 200000,1])
-    annotation (Placement(transformation(extent={{-190,60},{-170,80}})));
+    annotation (Placement(transformation(extent={{-200,60},{-180,80}})));
   Modelica.Blocks.Math.Gain gain(k=dp_test)
-    annotation (Placement(transformation(extent={{-150,60},{-130,80}})));
+    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
   Modelica.Blocks.Math.Add add
-    annotation (Placement(transformation(extent={{-118,66},{-98,86}})));
+    annotation (Placement(transformation(extent={{-128,66},{-108,86}})));
   Modelica.Blocks.Sources.Constant PAtm1(
                                         k=101325) "Atmospheric pressure"
-      annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloA60Mod(redeclare package Medium =
-        Medium) "Mass flow rate sensor for the A60 modified temperature delay"
+      annotation (Placement(transformation(extent={{-168,88},{-148,108}})));
+  Annex60.Fluid.Sensors.MassFlowRate masFloPipeDelay(redeclare package Medium
+      = Medium) "Mass flow rate sensor for the A60 temperature delay"
     annotation (Placement(transformation(extent={{88,70},{108,90}})));
-  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay
-                                               A60PipeHeatLossMod(
+  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay PipeDelay(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
     length=length,
     m_flow_nominal=0.5,
     thicknessIns=0.02,
-    lambdaI=0.01) "Annex 60 modified pipe with heat losses"
+    lambdaI=0.01) "Annex 60 Pipe with heat loss"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60ModOut(redeclare package
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemPipeDelayOut(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
-    "Temperature sensor for the outflow of the A60 modified temperature delay"
+    "Temperature sensor for the outflow of the A60 temperature delay"
     annotation (Placement(transformation(extent={{56,70},{76,90}})));
-  Annex60.Fluid.Sensors.TemperatureTwoPort senTemA60ModIn(redeclare package
+  Annex60.Fluid.Sensors.TemperatureTwoPort senTemPipeDelayIn(redeclare package
       Medium = Medium, m_flow_nominal=0.5)
-    "Temperature of the inflow to the A60 modified temperature delay"
+    "Temperature of the inflow to the A60 temperature delay"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Sources.Constant const3(k=5)
     annotation (Placement(transformation(extent={{-28,96},{-8,116}})));
-  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelayMod  A60PipeHeatLossMod_noabs(
+  Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelayMod PipeDelayMod(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
     diameter=diameter,
@@ -92,64 +91,64 @@ model A60pipe "Comparison of KUL A60 pipes with heat loss without reverse flow"
     m_flow_nominal=0.5,
     thicknessIns=0.02,
     lambdaI=0.01) "Annex 60 modified pipe with heat losses"
-    annotation (Placement(transformation(extent={{8,26},{28,46}})));
+    annotation (Placement(transformation(extent={{6,30},{26,50}})));
 equation
   connect(PAtm.y, sin1.p_in)
                             annotation (Line(points={{147,86},{154,86},{154,46},
           {142,46}},
                    color={0,0,127}));
-  connect(sin1.ports[1],masFloA60. port_b) annotation (Line(
-      points={{120,40},{114,40},{114,40},{108,40}},
+  connect(sin1.ports[1], masFloPipeDelayMod.port_b) annotation (Line(
+      points={{120,40},{108,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(stepT.y, sou1.T_in) annotation (Line(
       points={{-99,30},{-90,30},{-90,42}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(masFloA60.port_a,senTemA60Out. port_b) annotation (Line(
+  connect(masFloPipeDelayMod.port_a, senTemPipeDelayModOut.port_b) annotation (
+      Line(
       points={{88,40},{76,40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sou1.ports[1],senTemA60In. port_a) annotation (Line(
-      points={{-68,40},{-64,40},{-64,40},{-60,40}},
+  connect(sou1.ports[1], senTempPipeDelayModIn.port_a) annotation (Line(
+      points={{-68,40},{-60,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(combiTimeTable.y[1], gain.u)
-    annotation (Line(points={{-169,70},{-152,70}}, color={0,0,127}));
+    annotation (Line(points={{-179,70},{-162,70}}, color={0,0,127}));
   connect(gain.y, add.u2)
-    annotation (Line(points={{-129,70},{-120,70}},        color={0,0,127}));
-  connect(PAtm1.y, add.u1) annotation (Line(points={{-137,98},{-124,98},{-124,
-          82},{-120,82}},
+    annotation (Line(points={{-139,70},{-130,70}},        color={0,0,127}));
+  connect(PAtm1.y, add.u1) annotation (Line(points={{-147,98},{-134,98},{-134,
+          82},{-130,82}},
                      color={0,0,127}));
-  connect(add.y, sou1.p_in) annotation (Line(points={{-97,76},{-88,76},{-98,56},
-          {-98,56},{-98,46},{-90,46}}, color={0,0,127}));
-  connect(A60PipeHeatLossMod.port_b,senTemA60ModOut. port_a) annotation (Line(
+  connect(add.y, sou1.p_in) annotation (Line(points={{-107,76},{-98,76},{-98,56},
+          {-98,46},{-90,46}},          color={0,0,127}));
+  connect(PipeDelay.port_b, senTemPipeDelayOut.port_a) annotation (Line(
       points={{40,80},{56,80}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(masFloA60Mod.port_a,senTemA60ModOut. port_b) annotation (Line(
+  connect(masFloPipeDelay.port_a, senTemPipeDelayOut.port_b) annotation (Line(
       points={{88,80},{76,80}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemA60ModIn.port_b,A60PipeHeatLossMod. port_a)
+  connect(senTemPipeDelayIn.port_b, PipeDelay.port_a)
     annotation (Line(points={{-40,80},{20,80}}, color={0,127,255}));
-  connect(const3.y,A60PipeHeatLossMod. T_amb)
-    annotation (Line(points={{-7,106},{30,106},{30,90}},color={0,0,127}));
-  connect(sou1.ports[2], senTemA60ModIn.port_a)
-    annotation (Line(points={{-68,36},{-60,80}},   color={0,127,255}));
-  connect(sin1.ports[2], masFloA60Mod.port_b) annotation (Line(points={{120,36},
-          {120,80},{108,80}},       color={0,127,255}));
-  connect(senTemA60In.port_b, A60PipeHeatLossMod_noabs.port_a) annotation (Line(
-      points={{-40,40},{-16,40},{-16,36},{8,36}},
+  connect(const3.y, PipeDelay.T_amb)
+    annotation (Line(points={{-7,106},{30,106},{30,90}}, color={0,0,127}));
+  connect(sou1.ports[2], senTemPipeDelayIn.port_a)
+    annotation (Line(points={{-68,36},{-60,80}}, color={0,127,255}));
+  connect(sin1.ports[2], masFloPipeDelay.port_b)
+    annotation (Line(points={{120,36},{120,80},{108,80}}, color={0,127,255}));
+  connect(senTempPipeDelayModIn.port_b, PipeDelayMod.port_a) annotation (Line(
+      points={{-40,40},{-16,40},{-16,40},{6,40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(A60PipeHeatLossMod_noabs.port_b, senTemA60Out.port_a) annotation (
-      Line(
-      points={{28,36},{44,36},{44,40},{56,40}},
+  connect(PipeDelayMod.port_b, senTemPipeDelayModOut.port_a) annotation (Line(
+      points={{26,40},{44,40},{44,40},{56,40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(const3.y, A60PipeHeatLossMod_noabs.T_amb) annotation (Line(
-      points={{-7,106},{2,106},{2,54},{18,54},{18,46}},
+  connect(const3.y, PipeDelayMod.T_amb) annotation (Line(
+      points={{-7,106},{2,106},{2,54},{18,54},{16,50}},
       color={0,0,127},
       smooth=Smooth.None));
     annotation (experiment(StopTime=200000, __Dymola_NumberOfIntervals=5000),
@@ -158,13 +157,13 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{
             160,140}}), graphics),
     Documentation(info="<html>
-<p>This example compares the KUL and A60 pipe with heat loss implementations.</p>
-<p>This is only a first glimpse at the general behavior. Next step is to parameterize 
-both models with comparable heat insulation properties. In general, the KUL pipe seems 
-to react better to changes in mass flow rate, but also does not show cooling effects at 
-the period of zero-mass flow.</p>
+<p>This example compares the current implementations of PipeHeatLoss_PipeDelay and PipeHeatLoss_PipeDelayMod.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2016 by Marcus Fuchs:<br/>
+Update doc-strings and documentation
+</li>
 <li>
 October 1, 2015 by Marcus Fuchs:<br/>
 First implementation.
