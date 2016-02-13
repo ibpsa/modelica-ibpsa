@@ -120,10 +120,7 @@ to react better to changes in mass flow rate, but also does not show cooling eff
 the period of zero-mass flow.</p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 1, 2015 by Marcus Fuchs:<br/>
-First implementation.
-</li>
+<li>November 11, 2015 by Bram van der Heijde:<br>First implementation of event and CPU time comparison</li>
 </ul>
 </html>"),
     __Dymola_experimentSetupOutput);
