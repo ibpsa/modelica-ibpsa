@@ -1,7 +1,11 @@
 within Annex60.Experimental.Pipe;
 model DoublePipe_PipeDelay
   "Pipe model for double pipe case with single delay calculation"
-  extends Annex60.Fluid.Interfaces.PartialFourPort;
+  extends Annex60.Fluid.Interfaces.PartialFourPort(
+      redeclare final package Medium1 = Medium,
+      redeclare final package Medium2 = Medium,
+      final allowFlowReversal1 = allowFlowReversal,
+      final allowFlowReversal2 = allowFlowReversal);
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
@@ -18,6 +22,14 @@ model DoublePipe_PipeDelay
         transformation(extent={{-96,-96},{-76,-76}})));
 
   // Mass flow and pressure drop related
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium constrainedby
+    Modelica.Media.Interfaces.PartialMedium annotation (
+      choicesAllMatching=true);
+
+  parameter Boolean allowFlowReversal=true
+    "= true to allow flow reversal in medium, false restricts to design direction (port_a -> port_b)"
+    annotation (Dialog(tab="Assumptions"), Evaluate=true);
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
@@ -50,49 +62,44 @@ model DoublePipe_PipeDelay
       *2*Modelica.Constants.pi) "Resistance for asymmetric problem, in Km/W";
   final parameter Types.ThermalResistanceLength Rs=pipeData.hsInvers/(pipeData.lambdaI
       *2*Modelica.Constants.pi) "Resistance for symmetric problem, in Km/W";
-  final parameter Types.ThermalCapacityPerLength C1=rho_default*Modelica.Constants.pi
-      *(diameter/2)^2*cp_default1;
-  final parameter Types.ThermalCapacityPerLength C2=rho_default*Modelica.Constants.pi
-      *(diameter/2)^2*cp_default2;
+  final parameter Types.ThermalCapacityPerLength C=rho_default*Modelica.Constants.pi
+      *(diameter/2)^2*cp_default;
 
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_default1=
-      Medium1.specificHeatCapacityCp(state=sta_default)
-    "Heat capacity of medium1";
-    parameter Modelica.SIunits.SpecificHeatCapacity cp_default2=
-      Medium2.specificHeatCapacityCp(state=sta_default)
-    "Heat capacity of medium2";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
+      Medium.specificHeatCapacityCp(state=sta_default)
+    "Heat capacity of Medium";
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
 
 protected
-  parameter Medium1.ThermodynamicState sta_default=Medium1.setState_pTX(
-      T=Medium1.T_default,
-      p=Medium1.p_default,
-      X=Medium1.X_default) "Default medium state";
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default) "Default medium state";
 
-  parameter Modelica.SIunits.Density rho_default=Medium1.density_pTX(
-      p=Medium1.p_default,
-      T=Medium1.T_default,
-      X=Medium1.X_default)
+  parameter Modelica.SIunits.Density rho_default=Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default)
     "Default density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
     annotation (Dialog(group="Advanced", enable=use_rho_nominal));
 
   parameter Modelica.SIunits.DynamicViscosity mu_default=
-      Medium1.dynamicViscosity(Medium1.setState_pTX(
-      p=Medium1.p_default,
-      T=Medium1.T_default,
-      X=Medium1.X_default))
+      Medium.dynamicViscosity(Medium.setState_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default))
     "Default dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
   PipeAdiabaticPlugFlow pipeSupplyAdiabaticPlugFlow(
-    redeclare final package Medium = Medium1,
     final m_flow_small=m_flow_small,
-    final allowFlowReversal=allowFlowReversal1,
+    final allowFlowReversal=allowFlowReversal,
     diameter=diameter,
     length=length,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    redeclare final package Medium = Medium)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -104,20 +111,20 @@ public
         rotation=270,
         origin={0,100})));
   BaseClasses.HeatLossDoublePipeDelay heatLossSupplyReverse(
-    redeclare package Medium = Medium1,
+    redeclare final package Medium = Medium,
     diameter=diameter,
     length=length,
-    C=C1,
+    C=C,
     Ra=Ra,
     Rs=Rs,
     m_flow_small=m_flow_small)
     annotation (Placement(transformation(extent={{-40,50},{-60,70}})));
 
   BaseClasses.HeatLossDoublePipeDelay heatLossSupply(
-    redeclare package Medium = Medium1,
+    redeclare final package Medium = Medium,
     diameter=diameter,
     length=length,
-    C=C1,
+    C=C,
     Ra=Ra,
     Rs=Rs,
     m_flow_small=m_flow_small)
@@ -125,9 +132,9 @@ public
 
 protected
   PipeAdiabaticPlugFlow pipeReturnAdiabaticPlugFlow(
-    redeclare final package Medium = Medium2,
+    redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
-    final allowFlowReversal=allowFlowReversal2,
+    final allowFlowReversal=allowFlowReversal,
     diameter=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal)
@@ -138,10 +145,10 @@ protected
         origin={0,-60})));
 public
   BaseClasses.HeatLossDoublePipeDelay heatLossReturn(
-    redeclare package Medium = Medium2,
+    redeclare final package Medium = Medium,
     diameter=diameter,
     length=length,
-    C=C2,
+    C=C,
     Ra=Ra,
     Rs=Rs,
     m_flow_small=m_flow_small) annotation (Placement(transformation(
@@ -150,10 +157,10 @@ public
         origin={-50,-60})));
 
   BaseClasses.HeatLossDoublePipeDelay heatLossReturnReverse(
-    redeclare package Medium = Medium2,
+    redeclare final package Medium = Medium,
     diameter=diameter,
     length=length,
-    C=C2,
+    C=C,
     Ra=Ra,
     Rs=Rs,
     m_flow_small=m_flow_small) annotation (Placement(transformation(
@@ -163,11 +170,12 @@ public
 
   BaseClasses.PDETime_massFlow pDETime_massFlow(len=length, diameter=diameter)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium1)
+  Fluid.Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-26,60})));
+
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
@@ -187,7 +195,7 @@ equation
   connect(heatLossReturnReverse.T_amb, T_amb) annotation (Line(points={{50,-70},
           {50,-78},{64,-78},{64,76},{0,76},{0,100}}, color={0,0,127}));
   connect(port_a1, heatLossSupplyReverse.port_b)
-    annotation (Line(points={{-100,60},{-60,60},{-60,60}}, color={0,127,255}));
+    annotation (Line(points={{-100,60},{-60,60}},          color={0,127,255}));
   connect(heatLossSupply.port_b, port_b1)
     annotation (Line(points={{60,60},{80,60},{100,60}}, color={0,127,255}));
   connect(port_b2, heatLossReturn.port_b) annotation (Line(points={{-100,-60},{
@@ -219,8 +227,8 @@ equation
         points={{44,-70},{44,-78},{26,-78},{26,74},{44,74},{44,70}}, color={0,0,
           127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(
@@ -315,8 +323,8 @@ equation
 <h4>Assumptions</h4>
 <ul>
 <li>This model is assuming equal but opposite flow in the two pipes for the calculation of heat losses. </li>
-<li>The use of different media is possible and implemented (using Medium1 and Medium2), but for the tracking of delay, the density of Medium1 is used for flow velocity calculations.</li>
-<li>The same is true for the basic thermodynamic state: Medium1 is used.</li>
+<li>The use of different media is possible and implemented (using Medium and Medium), but for the tracking of delay, the density of Medium is used for flow velocity calculations.</li>
+<li>The same is true for the basic thermodynamic state: Medium is used.</li>
 </ul>
 </html>"));
 end DoublePipe_PipeDelay;
