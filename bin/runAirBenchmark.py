@@ -29,10 +29,20 @@ def run_experiment(runs=10):
     runs : int
         Number of runs for each model
     """
-    results = {'2 floors - 2 zones': [],
-               '3 floors - 3 zones': [],
-               '4 floors - 4 zones': [],
-               '5 floors - 5 zones': []}
+    results = {}
+    floor_range = list(range(2, 6))
+    floor_range.append(10)
+    floor_range.append(20)
+    for floors in floor_range:
+        for zones in [2, 5, 10]:
+            curr_key = str(floors) + '-' + str(zones)
+            results[curr_key] = []
+    
+#    for floors in [2, 3]:
+#        for zones in [2, 3]:
+#            curr_key = str(floors) + '-' + str(zones)
+#            results[curr_key] = []
+    
     finished = False
 
     while finished is not True:
@@ -42,26 +52,28 @@ def run_experiment(runs=10):
                 choices.append(model)
         if len(choices) > 0:
             model = random.choice(choices)
-            if model == '2 floors - 2 zones':
-                ex_time = simulate(2, 2)
-            elif model == '3 floors - 3 zones':
-                ex_time = simulate(3, 3)
-            elif model == '4 floors - 4 zones':
-                ex_time = simulate(4, 4)
-            elif model == '5 floors - 5 zones':
-                ex_time = simulate(5, 5)
+            number_of_floors = int(model.split('-')[0])
+            number_of_zones = int(model.split('-')[1])
+            ex_time = simulate(number_of_floors, number_of_zones)
             results[model].append(ex_time)
         else:
             finished = True
 
     print(results)
 
+    data = []
+    xticklabels = []
+    for key in results:
+        data.append(results[key])
+        number_of_floors = key.split('-')[0]
+        number_of_zones = key.split('-')[1]
+        xticklabels.append(number_of_floors + ' floors - ' +
+                           number_of_zones + ' zones')
 
-
-    data = [results['2 floors - 2 zones'],
-            results['3 floors - 3 zones'],
-            results['4 floors - 4 zones'],
-            results['5 floors - 5 zones']]
+#    data = [results['2 floors - 2 zones'],
+#            results['3 floors - 3 zones'],
+#            results['4 floors - 4 zones'],
+#            results['5 floors - 5 zones']]
     # multiple box plots on one figure
     fig, ax1 = plt.subplots(figsize=(10, 8))
 
@@ -70,10 +82,7 @@ def run_experiment(runs=10):
                   str(runs) + ' runs each', fontsize=15)
     ax1.set_ylabel('Mean CPU time per simulation in s', fontsize=15)
 
-    xtickNames = plt.setp(ax1, xticklabels=['2 floors - 2 zones',
-                                            '3 floors - 3 zones',
-                                            '4 floors - 4 zones',
-                                            '5 floors - 5 zones'])
+    xtickNames = plt.setp(ax1, xticklabels=xticklabels)
     plt.setp(xtickNames, rotation=45, fontsize=15)
     plt.tight_layout()
     curr_dir = os.path.dirname(__file__)
