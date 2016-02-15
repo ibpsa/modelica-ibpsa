@@ -18,8 +18,7 @@ model PumpSupply "Pump on supply duct"
       flowRegulator(
         filteredSpeed=filteredSpeed,
         riseTime=riseTime,
-        init=init,
-        motorCooledByFluid=motorCooledByFluid),
+        init=init),
         final realInput = false, final booleanInput = true);
 
   Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=m_flow_nominal)
