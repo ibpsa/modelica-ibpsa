@@ -153,6 +153,15 @@ equation
     Icon(coordinateSystem(extent={{-200,-100},{140,100}})),
     experiment(StopTime=200000),
     __Dymola_experimentSetupOutput,
-    __Dymola_Commands(file="Experimental/Pipe/Simulate and plot.mos"
-        "Simulate and plot"));
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Experimental/Pipe/Examples/DoublePipe/IndependentSupplyAndReturnPipeDelay.mos"
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>Example in which the mass flow is not physically looped. The supply and return side are two hydraulically separated circuits, but with equal mass flow rate. </p>
+</html>", revisions="<html>
+<ul>
+<li>February 15, 2016 by Bram van der Heijde:<br>Revision of documentation, added simulate and plot command</li>
+<li></li>
+</ul>
+</html>"));
 end IndependentSupplyAndReturnPipeDelay;
