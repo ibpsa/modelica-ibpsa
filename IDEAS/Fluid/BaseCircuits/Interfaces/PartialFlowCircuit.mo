@@ -11,6 +11,9 @@ model PartialFlowCircuit
   parameter Boolean measurePower=true
     "Set to false to remove the power consumption measurement of the flow regulator"
     annotation(Dialog(group = "Settings"));
+  parameter Boolean booleanInput = false
+    "Set to true to use a boolean input signal";
+
   // Components ----------------------------------------------------------------
 
 protected
@@ -20,7 +23,8 @@ protected
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
 public
-  Modelica.Blocks.Interfaces.RealInput u "Setpoint of the flow regulator"
+  Modelica.Blocks.Interfaces.RealInput u if not booleanInput
+    "Setpoint of the flow regulator"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
@@ -35,6 +39,13 @@ public
         rotation=90,
         origin={42,104})));
 
+public
+  Modelica.Blocks.Interfaces.BooleanInput u2 if booleanInput
+    "On/off setpoint of the flow regulator"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={0,108})));
 equation
   if not includePipes then
     connect(flowRegulator.port_a, port_a1);
@@ -53,7 +64,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+            -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                graphics={
         Line(
