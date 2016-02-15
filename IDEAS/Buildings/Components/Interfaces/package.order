@@ -2,8 +2,8 @@ DoubleShading
 PropsBus
 SolBus
 StateShading
-StateWall
-StateWallNoSol
 StateZone
 WeaBus
 ZoneBus
+PartialSurface
+PartialOpaqueSurface

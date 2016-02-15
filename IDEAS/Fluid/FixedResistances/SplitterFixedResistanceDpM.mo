@@ -4,7 +4,6 @@ model SplitterFixedResistanceDpM
     extends IDEAS.Fluid.BaseClasses.PartialThreeWayResistance(
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
       redeclare IDEAS.Fluid.FixedResistances.FixedResistanceDpM res1(
-         redeclare package Medium=Medium,
             final allowFlowReversal=true,
             from_dp=from_dp,
             final m_flow_nominal=m_flow_nominal[1],
@@ -15,7 +14,6 @@ model SplitterFixedResistanceDpM
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
       redeclare IDEAS.Fluid.FixedResistances.FixedResistanceDpM res2(
-         redeclare package Medium=Medium,
             final allowFlowReversal=true,
             from_dp=from_dp,
             final m_flow_nominal=m_flow_nominal[2],
@@ -26,7 +24,6 @@ model SplitterFixedResistanceDpM
             homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
       redeclare IDEAS.Fluid.FixedResistances.FixedResistanceDpM res3(
-         redeclare package Medium=Medium,
             final allowFlowReversal=true,
             from_dp=from_dp,
             final m_flow_nominal=m_flow_nominal[3],

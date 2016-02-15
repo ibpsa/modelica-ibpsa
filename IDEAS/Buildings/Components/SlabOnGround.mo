@@ -1,11 +1,10 @@
 within IDEAS.Buildings.Components;
 model SlabOnGround "opaque floor on ground slab"
 
-  extends IDEAS.Buildings.Components.Interfaces.StateWallNoSol(
-    QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes),
-    Qgai(y=layMul.port_a.Q_flow
-           + (if sim.openSystemConservationOfEnergy then 0 else sum(port_emb.Q_flow))),
-    E(y=layMul.E));
+   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
+     QTra_design=UEqui*AWall*(273.15 + 21 - sim.Tdes), layMul(
+        placeCapacityAtSurf_b=false),
+        dT_nominal_a=-3);
 
   parameter Modelica.SIunits.Length PWall = 4*sqrt(AWall)
     "Total wall perimeter";
@@ -20,12 +19,6 @@ model SlabOnGround "opaque floor on ground slab"
   parameter Boolean linearise=true
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal=-3
-    "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
-    annotation(Dialog(tab="Convection"));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_emb[constructionType.nGain]
-    "port for gains by embedded active layers"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   Modelica.SIunits.HeatFlowRate Qm = UEqui*AWall*(TiAvg - TeAvg) - Lpi*dTiAvg*cos(2*3.1415/12*(m- 1 + alfa)) + Lpe*dTeAvg*cos(2*3.1415/12*(m - 1 - beta))
     "Two-dimensionl correction for edge flow";
 
@@ -50,102 +43,34 @@ protected
   final parameter Real Lpe=0.37*PWall*ground1.k*log(delta/dt + 1);
   Real m = sim.timCal/3.1536e7*12 "time in months";
 
-  IDEAS.Buildings.Components.BaseClasses.MultiLayerOpaque layMul(
-    final A=AWall,
-    final inc=inc,
-    final nLay=constructionType.nLay,
-    final mats=constructionType.mats,
-    final locGain=constructionType.locGain,
-    final nGain=constructionType.nGain)
-    "Declaration of array of resistances and capacitances for wall simulation"
-    annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-  IDEAS.Buildings.Components.BaseClasses.InteriorConvection intCon(
-    final A=AWall,
-    final inc=inc,
-    final linearise=linearise,
-    final dT_nominal=dT_nominal)
-    "Convective surface heat transimission on the interior side of the wall"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  BaseClasses.MultiLayerGround layGro(
+  BaseClasses.MultiLayer layGro(
     final A=AWall,
     final inc=inc,
     final nLay=3,
     final mats={ground1,ground2,ground3},
-    final locGain=1,
     final T_start={TeAvg, TeAvg, TeAvg})
     "Declaration of array of resistances and capacitances for ground simulation"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow periodicFlow(T_ref=284.15)
                 annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-30,-8})));
+        origin={-30,22})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow adiabaticBoundary(Q_flow=0,
       T_ref=285.15)
-    annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Modelica.Blocks.Sources.RealExpression QmExp(y=-Qm) "Real expression for Qm"
-    annotation (Placement(transformation(extent={{-80,-18},{-60,2}})));
+    annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
 equation
 
-  connect(layMul.port_b, intCon.port_a) annotation (Line(
-      points={{10,-30},{20,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(layGro.port_b, layMul.port_a) annotation (Line(
-      points={{-20,-30},{-10,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
-  connect(intCon.port_b, propsBus_a.surfCon) annotation (Line(
-      points={{40,-30},{46,-30},{46,39.9},{50.1,39.9}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(layMul.port_b, propsBus_a.surfRad) annotation (Line(
-      points={{10,-30},{16,-30},{16,39.9},{50.1,39.9}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(layMul.port_gain, port_emb) annotation (Line(
-      points={{0,-40},{0,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(layMul.port_a, periodicFlow.port) annotation (Line(
-      points={{-10,-30},{-14,-30},{-14,-8},{-20,-8}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(adiabaticBoundary.port, layGro.port_a) annotation (Line(
-      points={{-50,-30},{-40,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(layMul.area, propsBus_a.area) annotation (Line(
-      points={{0,-20},{0,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(layMul.iEpsLw_b, propsBus_a.epsLw) annotation (Line(
-      points={{10,-22},{12,-22},{12,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(layMul.iEpsSw_b, propsBus_a.epsSw) annotation (Line(
-      points={{10,-26},{14,-26},{14,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(QDesign.y, propsBus_a.QTra_design) annotation (Line(
-      points={{11,50},{24,50},{24,39.9},{50.1,39.9}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(QmExp.y, periodicFlow.Q_flow)
-    annotation (Line(points={{-59,-8},{-40,-8}}, color={0,0,127}));
+    annotation (Line(points={{-59,22},{-40,22}}, color={0,0,127}));
+  connect(periodicFlow.port, layMul.port_b) annotation (Line(points={{-20,22},{
+          -14,22},{-14,0},{-10,0}}, color={191,0,0}));
+  connect(layGro.port_a, layMul.port_b)
+    annotation (Line(points={{-20,0},{-15,0},{-10,0}}, color={191,0,0}));
+  connect(layGro.port_b, adiabaticBoundary.port)
+    annotation (Line(points={{-40,0},{-45,0},{-50,0}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={
@@ -180,7 +105,7 @@ equation
           color={0,0,0},
           thickness=0.5,
           smooth=Smooth.None)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-60,-100},{60,
             100}})),
     Documentation(info="<html>
 <p><h4><font color=\"#008000\">General description</font></h4></p>
@@ -196,6 +121,10 @@ equation
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
+Revised implementation: cleaned up connections and partials.
+</li>
 <li>
 June 14, 2015, Filip Jorissen:<br/>
 Adjusted implementation for computing conservation of energy.

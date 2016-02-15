@@ -47,7 +47,6 @@ model borefield8x1
     dynamicBalance=false,
     m_flow_nominal=bfData.m_flow_nominal,
     T_start=T_start,
-    motorCooledByFluid=false,
     addPowerToMedium=false,
     filteredSpeed=false)
     annotation (Placement(transformation(extent={{-16,22},{-36,2}})));

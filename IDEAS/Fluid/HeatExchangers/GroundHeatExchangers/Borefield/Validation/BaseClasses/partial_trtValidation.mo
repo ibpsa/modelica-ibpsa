@@ -2,7 +2,6 @@ within IDEAS.Fluid.HeatExchangers.GroundHeatExchangers.Borefield.Validation.Base
 partial model partial_trtValidation
   extends Examples.borefield8x1(
     pum(
-      motorCooledByFluid=false,
       addPowerToMedium=false),
     hea(
       Q_flow_nominal=bfData.gen.q_ste*bfData.gen.hBor,
