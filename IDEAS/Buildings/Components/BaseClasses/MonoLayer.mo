@@ -114,7 +114,7 @@ equation
     annotation (Line(points={{0,100},{8,100},{10,100},{10,90}},
                                               color={191,0,0}));
   // For dynamic monolayers or fictive monolayers, connect port_gain at port_b of the layer.
-  if not realLayer or realLayer and dynamicLayer then
+  if not realLayer or realLayer and dynamicLayer and not airLayer then
     connect(port_b, port_gain) annotation (Line(points={{100,0},{100,0},{100,100},
           {0,100}}, color={191,0,0}));
   end if;
