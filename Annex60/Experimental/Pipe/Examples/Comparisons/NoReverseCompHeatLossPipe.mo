@@ -207,17 +207,11 @@ __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{
             160,140}}), graphics),
     Documentation(info="<html>
-<p>This example compares the KUL and A60 pipe with heat loss implementations.</p>
-<p>This is only a first glimpse at the general behavior. Next step is to parameterize 
-both models with comparable heat insulation properties. In general, the KUL pipe seems 
-to react better to changes in mass flow rate, but also does not show cooling effects at 
-the period of zero-mass flow.</p>
+<p>This example compares different implementations of the pipe heat loss model for varying periods of zero flow. A longer period of no flow should result in a higher heat loss to the surroundings. No reverse flow is considered in this example.</p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 1, 2015 by Marcus Fuchs:<br/>
-First implementation.
-</li>
+<li>February 16, 2016 by Bram van der Heijde:<br>Updated docstrings.</li>
+<li>November 2015, by Bram van der Heijde:<br>First implementation.</li>
 </ul>
 </html>"),
     __Dymola_experimentSetupOutput);

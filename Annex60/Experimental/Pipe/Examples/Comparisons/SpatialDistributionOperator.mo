@@ -237,10 +237,8 @@ The main purpose of the model is to test different variation of the <code>spatia
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-October 1, 2015 by Marcus Fuchs:<br/>
-First implementation.
-</li>
+<li>January 2016, by Carles Ribas Tugores:<br>Further testing with different <code><span style=\"font-family: Courier New,courier;\">spatialDistribution </span></code>operator implementations.</li>
+<li>October 1, 2015 by Marcus Fuchs:<br>First implementation. </li>
 </ul>
 </html>"),
     __Dymola_experimentSetupOutput);

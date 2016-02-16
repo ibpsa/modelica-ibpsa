@@ -157,7 +157,7 @@ equation
           "Resources/Scripts/Dymola/Experimental/Pipe/Examples/DoublePipe/IndependentSupplyAndReturnPipeDelay.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>Example in which the mass flow is not physically looped. The supply and return side are two hydraulically separated circuits, but with equal mass flow rate. </p>
+<p>Example in which the mass flow through a double pipe is not physically looped. The supply and return side are two hydraulically separated circuits, but with equal mass flow rate. </p>
 </html>", revisions="<html>
 <ul>
 <li>February 15, 2016 by Bram van der Heijde:<br>Revision of documentation, added simulate and plot command</li>
