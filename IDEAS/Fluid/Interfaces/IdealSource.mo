@@ -1,7 +1,7 @@
 within IDEAS.Fluid.Interfaces;
 model IdealSource
   "Base class for pressure and mass flow source with optional power input"
-  extends IDEAS.Fluid.Movers.BaseClasses.IdealSource(m_flow_small=-Modelica.Constants.small);
+  extends IDEAS.Fluid.Movers.BaseClasses.IdealSource(m_flow_small=Modelica.Constants.small);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={

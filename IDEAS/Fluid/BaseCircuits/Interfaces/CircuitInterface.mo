@@ -6,7 +6,7 @@ partial model CircuitInterface "Partial circuit for base circuits"
     annotation (__Dymola_choicesAllMatching=true);
 
   //Extensions
-  extends IDEAS.Fluid.Interfaces.FourPort(
+  extends IDEAS.Fluid.Interfaces.PartialFourPort(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
     final allowFlowReversal1 = allowFlowReversal,
