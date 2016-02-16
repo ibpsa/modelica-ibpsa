@@ -16,7 +16,7 @@ model CavityWalls
     nSurf=2)
          annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   OuterWall
-         outerWall( layMul(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
+         outerWall(
     inc=IDEAS.Constants.Wall,
     azi=IDEAS.Constants.South,
     insulationThickness=0.1,
@@ -26,6 +26,7 @@ model CavityWalls
     redeclare Data.Insulation.Rockwool insulationType,
     AWall=10) "Vertical wall with partially filled cavity"
     annotation (Placement(transformation(extent={{-54,-32},{-44,-12}})));
+                   // layMul(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState),
   Window winLin(
     A=1,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
