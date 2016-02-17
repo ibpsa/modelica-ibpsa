@@ -14,8 +14,8 @@ record TopS40slash10 "Pump data for a staged Wilo-Top-S 40/10 pump"
              dp={98785.5232361,97106.6860151,91320.1257409,79370.6856694,
                  66042.1923274,53051.3974809,40227.5679296,25353.7625039,
                  20566.1680722}),
-    N_nominal=2800,
-    speeds = {0, 2600, 2800});
+    speed_rpm_nominal=2800,
+    speeds_rpm = {0, 2600, 2800});
   annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
@@ -34,6 +34,11 @@ Documentation(info="<html>
   </html>",
   revisions="<html>
 <ul>
+<li>
+February 17, 2016, by Michael Wetter:<br/>
+Updated parameter names for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
 <li>
 January 19, 2016, by Filip Jorissen:<br/>
 First implementation.

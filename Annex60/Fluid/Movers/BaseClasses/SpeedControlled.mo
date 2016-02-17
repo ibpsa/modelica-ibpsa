@@ -25,7 +25,38 @@ protected
  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if
       addPowerToMedium "Heat and work input into medium"
    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
+protected
+  Modelica.Blocks.Math.Gain gaiSpe(
+    u(min=0),
+    y(final unit="1",
+      nominal=1)) "Gain for speed input signal"
+    annotation (Placement(transformation(extent={{6,44},{18,56}})));
 equation
+  if filteredSpeed then
+    connect(gaiSpe.y, filter.u) annotation (Line(
+      points={{18.6,50},{18,50},{18,88},{18.6,88}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(filter.y, y_actual) annotation (Line(
+      points={{34.7,88},{60.35,88},{60.35,50},{110,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(filter.y, y_filtered) annotation (Line(
+      points={{34.7,88},{50,88}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  else
+    connect(gaiSpe.y, y_actual) annotation (Line(
+      points={{18.6,50},{110,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  end if;
+
+  connect(inputSwitch.y, gaiSpe.u) annotation (Line(
+      points={{1,50},{4.8,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
 
  connect(preSou.dp_in, dpMac.y) annotation (Line(
      points={{36,8},{36,30},{21,30}},

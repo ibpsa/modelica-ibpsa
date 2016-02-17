@@ -1,12 +1,19 @@
 within Annex60.Fluid.Movers.Data;
 record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
-  extends SpeedControlled_y;
+  extends SpeedControlled_y(
+    final speed_nominal = 1,
+    final constantSpeed = constantSpeed_rpm/speed_rpm_nominal,
+    final speeds = speeds_rpm/speed_rpm_nominal);
 
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N_nominal = 1500
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm speed_rpm_nominal = 1500
     "Nominal rotational speed for flow characteristic";
 
-  parameter Real[:] speeds(each final unit="1/min") = {0}
-    "Vector of speed set points when using stages";
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm constantSpeed_rpm=
+    speeds_rpm[size(speeds_rpm, 1)]
+    "Speed set point when using inputType = Annex60.Fluid.Types.InputType.Constant";
+
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm[:] speeds_rpm = {1500}
+    "Vector of speed set points when using inputType = Annex60.Fluid.Types.InputType.Stages";
 
   annotation (
   defaultComponentPrefixes = "parameter",
@@ -14,8 +21,15 @@ record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
   Documentation(revisions="<html>
 <ul>
 <li>
+February 17, 2016, by Michael Wetter:<br/>
+Changed parameter <code>N_nominal</code> to
+<code>speed_rpm_nominal</code> as it is the same quantity as <code>speeds_rmp</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
+<li>
 January 19, 2016, by Filip Jorissen:<br/>
-Added parameter <code>speeds</code>.
+Added parameter <code>speeds_rpm</code>.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
 </li>

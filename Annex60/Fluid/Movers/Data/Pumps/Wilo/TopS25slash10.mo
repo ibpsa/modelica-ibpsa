@@ -1,7 +1,7 @@
 within Annex60.Fluid.Movers.Data.Pumps.Wilo;
 record TopS25slash10 "Pump data for a staged Wilo-Top-S 25/10 pump"
   extends SpeedControlled_Nrpm(
-    N_nominal=2650,
+    speed_rpm_nominal=2650,
     use_powerCharacteristic = true,
     power(V_flow={3.51617440225e-06,0.000523909985935,0.000847398030942,
                   0.00115682137834,0.00148382559775,0.00177918424754,
@@ -17,7 +17,7 @@ record TopS25slash10 "Pump data for a staged Wilo-Top-S 25/10 pump"
              dp={110125.414283,106765.16619,100392.787862,92220.6199738,
                  81651.34693,70879.932776,60307.3708281,50930.4520427,
                  41152.0339559,29575.0912725,22388.3296727}),
-    speeds = {0, 1950, 2250, 2650});
+    speeds_rpm = {0, 1950, 2250, 2650});
   annotation (
 defaultComponentPrefixes="parameter",
 defaultComponentName="per",
@@ -36,6 +36,11 @@ Documentation(info="<html>
   </html>
 ",revisions="<html>
 <ul>
+<li>
+February 17, 2016, by Michael Wetter:<br/>
+Updated parameter names for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
 <li>
 January 19, 2016, by Filip Jorissen:<br/>
 First implementation.

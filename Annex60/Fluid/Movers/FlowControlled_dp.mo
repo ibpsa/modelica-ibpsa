@@ -25,6 +25,7 @@ model FlowControlled_dp
     "Nominal pressure raise, used to normalized the filter if filteredSpeed=true"
     annotation(Dialog(group="Nominal condition"));
 
+  // fixme: shouldn't the heads not also come from the performance record?
   parameter Modelica.SIunits.PressureDifference constantHead(min=0,
                                                              displayUnit="Pa")=dp_nominal
     "Constant pump head, used when inputType=Constant"

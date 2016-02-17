@@ -20,7 +20,7 @@ model FlowControlled_m_flow
   parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-
+    // fixme: shouldn't the massFlowRates not also come from the performance record?
   parameter Modelica.SIunits.MassFlowRate constantMassFlowRate=m_flow_nominal
     "Constant pump mass flow rate, used when inputType=Constant"
     annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Constant));
@@ -43,8 +43,7 @@ model FlowControlled_m_flow
         origin={-2,120})));
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(
     final unit="kg/s",
-    nominal=m_flow_nominal)
-    "Actual mass flow rate"
+    nominal=m_flow_nominal) "Actual mass flow rate"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
 
