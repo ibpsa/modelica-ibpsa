@@ -1,7 +1,7 @@
-within Annex60.Fluid.MixingVolumes.Examples;
+within Annex60.Fluid.MixingVolumes.Validation;
 model MixingVolumeMFactor
   "A check for verifying the implementation of the parameter mSenFac"
-  extends Annex60.Fluid.MixingVolumes.Examples.MixingVolumeMassFlow(
+  extends Annex60.Fluid.MixingVolumes.Validation.MixingVolumeMassFlow(
   sou(X={0.02,0.98},
       T=Medium.T_default),
   vol(mSenFac=10),
@@ -65,8 +65,8 @@ difference between using an <code>mSenFac = 10</code> and multiplying volume by 
 </ol>
 <p>
 See
-<a href=\"modelica://Annex60.Fluid.MixingVolumes.Examples.MixingVolumeMassFlow\">
-Annex60.Fluid.MixingVolumes.Examples.MixingVolumeMassFlow</a>
+<a href=\"modelica://Annex60.Fluid.MixingVolumes.Validation.MixingVolumeMassFlow\">
+Annex60.Fluid.MixingVolumes.Validation.MixingVolumeMassFlow</a>
 for the rational of the selected initial conditions for the volumes.
 </p>
 </html>", revisions="<html>
@@ -91,6 +91,6 @@ First implementation.
 </li>
 </ul>
 </html>"), __Dymola_Commands(file=
-          "modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMFactor.mos"
+          "modelica://Annex60/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeMFactor.mos"
         "Simulate and plot"));
 end MixingVolumeMFactor;
