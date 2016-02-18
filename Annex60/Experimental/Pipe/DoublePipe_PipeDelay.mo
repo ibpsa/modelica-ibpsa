@@ -309,7 +309,29 @@ equation
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{40,74},{40,46},{66,60},{40,74}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-40,60},{42,60}},
+          color={255,255,255},
+          thickness=0.5),
+        Polygon(
+          points={{-13,14},{-13,-14},{13,0},{-13,14}},
+          lineColor={28,108,200},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={-53,-60},
+          rotation=180),
+        Line(
+          points={{-41,0},{41,0}},
+          color={255,255,255},
+          thickness=0.5,
+          origin={-5,-60},
+          rotation=180)}),
     Documentation(revisions="<html>
 <ul>
 <li>February 15, 2015 by Bram van der Heijde:<br>Fix issues due to new implementation of PartialFourPort. </li>
