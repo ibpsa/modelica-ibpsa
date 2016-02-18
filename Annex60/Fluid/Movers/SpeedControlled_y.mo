@@ -14,7 +14,6 @@ model SpeedControlled_y
            final use_powerCharacteristic=per.use_powerCharacteristic),
     final stageInputs(each final unit="1") = per.speeds,
     final constInput(final unit="1") =       per.constantSpeed);
-//           final speed_nominal = per.speed_nominal,
 
   replaceable parameter Data.SpeedControlled_y per
     "Record with performance data"

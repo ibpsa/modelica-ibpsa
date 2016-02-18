@@ -14,12 +14,6 @@ model SpeedControlled_Nrpm
            final use_powerCharacteristic=per.use_powerCharacteristic),
     final stageInputs(each final unit="1") = per.speeds,
     final constInput(final unit="1") =       per.constantSpeed);
-    // fixme: Philip, is the above division by per.speed_rpm[size(per.speed_rpm, 1)]
-    //        correct or do we need a per.speed_rpm_nominal?
- //          final speed_nominal = per.speed_nominal,
-    // fixme: in stageInputs and constInput, why don't we simply normalize
-    //        the speed in these models? Then, internally the model would use
-    //        SI units, but some parameters are non-SI as users want to use rpm.
 
   replaceable parameter Data.SpeedControlled_Nrpm per
     "Record with performance data"
