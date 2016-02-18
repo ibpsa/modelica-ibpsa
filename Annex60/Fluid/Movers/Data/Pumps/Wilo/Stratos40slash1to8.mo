@@ -1,7 +1,7 @@
 within Annex60.Fluid.Movers.Data.Pumps.Wilo;
 record Stratos40slash1to8 "Pump data for a Wilo Stratos 40/1-8 pump"
   extends SpeedControlled_Nrpm(
-    speed_rpm_nominal=3830,
+    speeds_rpm={3830},
     use_powerCharacteristic=true,
     power(V_flow={4.03163741226e-06,0.00188290448506,0.00245068662086,
           0.00286231420438,0.00325508173616,0.00357919645424,0.00394696189973},

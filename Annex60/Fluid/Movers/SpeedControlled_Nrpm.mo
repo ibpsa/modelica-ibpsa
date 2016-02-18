@@ -5,7 +5,6 @@ model SpeedControlled_Nrpm
     _per_y(final hydraulicEfficiency=per.hydraulicEfficiency,
            final motorEfficiency=per.motorEfficiency,
            final power=per.power,
-           final speed_nominal = per.speed_nominal,
            final constantSpeed = per.constantSpeed,
            final speeds = per.speeds,
            pressure(
@@ -13,13 +12,11 @@ model SpeedControlled_Nrpm
              final dp =     per.pressure.dp),
            final motorCooledByFluid=per.motorCooledByFluid,
            final use_powerCharacteristic=per.use_powerCharacteristic),
-    final stageInputs(each final unit="1/min") = per.speeds_rpm,
-    final constInput(final unit="1/min") =       per.constantSpeed_rpm,
-    gaiSpe(
-      u(final quantity="AngularVelocity",
-        final unit="1/min",
-        nominal=3000),
-        final k=1/per.speed_rpm_nominal));
+    final stageInputs(each final unit="1") = per.speeds,
+    final constInput(final unit="1") =       per.constantSpeed);
+    // fixme: Philip, is the above division by per.speed_rpm[size(per.speed_rpm, 1)]
+    //        correct or do we need a per.speed_rpm_nominal?
+ //          final speed_nominal = per.speed_nominal,
     // fixme: in stageInputs and constInput, why don't we simply normalize
     //        the speed in these models? Then, internally the model would use
     //        SI units, but some parameters are non-SI as users want to use rpm.
@@ -39,9 +36,15 @@ model SpeedControlled_Nrpm
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,120})));
-
+protected
+  Modelica.Blocks.Math.Gain gaiNrpm(final k=1/per.speed_rpm_nominal) if
+       inputType == Annex60.Fluid.Types.InputType.Continuous
+    "Gain to normalized rpm"
+    annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
 equation
-  connect(Nrpm, inputSwitch.u) annotation (Line(points={{0,120},{0,80},{-26,80},
+  connect(Nrpm, gaiNrpm.u)
+    annotation (Line(points={{0,120},{0,80},{-2.8,80}}, color={0,0,127}));
+  connect(gaiNrpm.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
           {-26,50},{-22,50}}, color={0,0,127}));
   annotation (defaultComponentName="pump",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
@@ -54,7 +57,10 @@ equation
           visible=inputType == Annex60.Fluid.Types.InputType.Constant,
           extent={{-80,136},{78,102}},
           lineColor={0,0,255},
-          textString="%speed")}),
+          textString="%speed"),
+        Text(extent={{52,70},{102,56}},
+          lineColor={0,0,127},
+          textString="N_rpm")}),
     Documentation(info="<html>
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
@@ -125,6 +131,6 @@ Revised implementation to allow zero flow rate.
        Model added to the Fluid library</li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end SpeedControlled_Nrpm;

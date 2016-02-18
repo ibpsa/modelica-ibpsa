@@ -5,7 +5,6 @@ model SpeedControlled_y
     _per_y(final hydraulicEfficiency=per.hydraulicEfficiency,
            final motorEfficiency=per.motorEfficiency,
            final power=per.power,
-           final speed_nominal = per.speed_nominal,
            final constantSpeed = per.constantSpeed,
            final speeds = per.speeds,
            pressure(
@@ -14,10 +13,8 @@ model SpeedControlled_y
            final motorCooledByFluid=per.motorCooledByFluid,
            final use_powerCharacteristic=per.use_powerCharacteristic),
     final stageInputs(each final unit="1") = per.speeds,
-    final constInput(final unit="1") =       per.constantSpeed,
-    gaiSpe(
-      u(final unit="1"),
-        final k=1/per.speed_nominal));
+    final constInput(final unit="1") =       per.constantSpeed);
+//           final speed_nominal = per.speed_nominal,
 
   replaceable parameter Data.SpeedControlled_y per
     "Record with performance data"

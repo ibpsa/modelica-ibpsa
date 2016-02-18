@@ -3,8 +3,8 @@ record SpeedControlled_y
   "Generic data record for pumps and fans that take y as an input signal"
   extends FlowControlled;
 
-  parameter Real speed_nominal(final min=0, final unit="1") = 1
-    "Nominal rotational speed for flow characteristic";
+//  parameter Real speed_nominal(final min=0, final unit="1") = 1
+//    "Nominal rotational speed for flow characteristic";
 
   parameter Real constantSpeed(final min=0, final unit="1")=
     speeds[size(speeds, 1)]
