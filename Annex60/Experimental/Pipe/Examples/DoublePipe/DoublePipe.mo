@@ -36,15 +36,16 @@ model DoublePipe "Simple test of double pipe component"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-50,-10})));
-  Annex60.Experimental.Pipe.DoublePipe doublePipe(
-    redeclare package Medium = Medium,
+  Annex60.Experimental.Pipe.DoublePipe_PipeDelay
+                                       doublePipe(
     diameter=diameter,
     length=length,
     m_flow_nominal=m_flow_nominal,
     H=2,
     redeclare
       Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR150S
-      pipeData)
+      pipeData,
+    redeclare package Medium = Annex60.Media.Water)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Constant const3(k=5) annotation (Placement(
         transformation(
@@ -152,9 +153,19 @@ equation
           {-52,42},{-62,42},{-62,38}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), experiment(StopTime=200000),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
+__Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Experimental/Pipe/Examples/DoublePipe/DoublePipe.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-180},{
             160,140}})),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    Documentation(info="<html>
+<p>This example is intended to test the behaviour of a double pipe. </p>
+<p>Water of a certain temperature is let into the system at the supply inlet. At the end of the supply pipe, an ideal heat exchanger cools the water down to a fixed temperature, after which the fluid is returned to the opposite direction via the return pipe. </p>
+</html>", revisions="<html>
+<ul>
+<li>February 15, 2016 by Bram van der Heijde:<br>Updated docstring and description, simulate and plot commit added, added revision history. </li>
+<li>November 2015, by Bram van der Heijde:<br>First implementation.</li>
+</ul>
+</html>"));
 end DoublePipe;

@@ -1,15 +1,19 @@
 within Annex60.Experimental.Pipe;
 model DoublePipe_PipeDelay
   "Pipe model for double pipe case with single delay calculation"
-  extends Annex60.Fluid.Interfaces.PartialFourPort;
+  extends Annex60.Fluid.Interfaces.PartialFourPort(
+      redeclare final package Medium1 = Medium,
+      redeclare final package Medium2 = Medium,
+      final allowFlowReversal1 = allowFlowReversal,
+      final allowFlowReversal2 = allowFlowReversal);
 
   output Modelica.SIunits.HeatFlowRate heat_losses "Heat losses in this pipe";
 
   // Geometric parameters
   final parameter Modelica.SIunits.Diameter diameter=pipeData.Di
     "Pipe diameter";
-  parameter Modelica.SIunits.Length length "Pipe length";
-  parameter Modelica.SIunits.Length H=2 "Buried depth of pipe";
+  parameter Modelica.SIunits.Length length = 100 "Pipe length";
+  parameter Modelica.SIunits.Length H = 2 "Buried depth of pipe";
 
   replaceable parameter
     BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR20S pipeData
@@ -18,6 +22,14 @@ model DoublePipe_PipeDelay
         transformation(extent={{-96,-96},{-76,-76}})));
 
   // Mass flow and pressure drop related
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium constrainedby
+    Modelica.Media.Interfaces.PartialMedium annotation (
+      choicesAllMatching=true);
+
+  parameter Boolean allowFlowReversal=true
+    "= true to allow flow reversal in medium, false restricts to design direction (port_a -> port_b)"
+    annotation (Dialog(tab="Assumptions"), Evaluate=true);
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
@@ -55,7 +67,7 @@ model DoublePipe_PipeDelay
 
   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=
       Medium.specificHeatCapacityCp(state=sta_default)
-    "Heat capacity of medium";
+    "Heat capacity of Medium";
 
   // fixme: shouldn't dp(nominal) be around 100 Pa/m?
   // fixme: propagate use_dh and set default to false
@@ -82,12 +94,12 @@ protected
     annotation (Dialog(group="Advanced", enable=use_mu_default));
 
   PipeAdiabaticPlugFlow pipeSupplyAdiabaticPlugFlow(
-    redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
     diameter=diameter,
     length=length,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    redeclare final package Medium = Medium)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
@@ -99,7 +111,7 @@ public
         rotation=270,
         origin={0,100})));
   BaseClasses.HeatLossDoublePipeDelay heatLossSupplyReverse(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     diameter=diameter,
     length=length,
     C=C,
@@ -109,7 +121,7 @@ public
     annotation (Placement(transformation(extent={{-40,50},{-60,70}})));
 
   BaseClasses.HeatLossDoublePipeDelay heatLossSupply(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     diameter=diameter,
     length=length,
     C=C,
@@ -133,7 +145,7 @@ protected
         origin={0,-60})));
 public
   BaseClasses.HeatLossDoublePipeDelay heatLossReturn(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     diameter=diameter,
     length=length,
     C=C,
@@ -145,7 +157,7 @@ public
         origin={-50,-60})));
 
   BaseClasses.HeatLossDoublePipeDelay heatLossReturnReverse(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     diameter=diameter,
     length=length,
     C=C,
@@ -158,11 +170,12 @@ public
 
   BaseClasses.PDETime_massFlow pDETime_massFlow(len=length, diameter=diameter)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
+  Fluid.Sensors.MassFlowRate senMasFlo(redeclare final package Medium = Medium)
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-26,60})));
+
 equation
   heat_losses = actualStream(port_b1.h_outflow) - actualStream(port_a1.h_outflow)
      + actualStream(port_a2.h_outflow) - actualStream(port_b2.h_outflow);
@@ -182,7 +195,7 @@ equation
   connect(heatLossReturnReverse.T_amb, T_amb) annotation (Line(points={{50,-70},
           {50,-78},{64,-78},{64,76},{0,76},{0,100}}, color={0,0,127}));
   connect(port_a1, heatLossSupplyReverse.port_b)
-    annotation (Line(points={{-100,60},{-60,60},{-60,60}}, color={0,127,255}));
+    annotation (Line(points={{-100,60},{-60,60}},          color={0,127,255}));
   connect(heatLossSupply.port_b, port_b1)
     annotation (Line(points={{60,60},{80,60},{100,60}}, color={0,127,255}));
   connect(port_b2, heatLossReturn.port_b) annotation (Line(points={{-100,-60},{
@@ -214,8 +227,8 @@ equation
         points={{44,-70},{44,-78},{26,-78},{26,74},{44,74},{44,70}}, color={0,0,
           127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Rectangle(
@@ -299,6 +312,7 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
+<li>February 15, 2015 by Bram van der Heijde:<br>Fix issues due to new implementation of PartialFourPort. </li>
 <li>December 1, 2015 by Bram van der Heijde:<br>First implementation using Annex 60 components, based on the single pipe model lay-out. </li>
 <li>July 2015 by Arnout Aertgeerts:<br>First implementation (outside Annex 60) of double heat loss pipe. Flow reversal not possible.</li>
 </ul>
@@ -306,5 +320,11 @@ equation
 <p>Implementation of twin or double pipe (supply and return in the same ensemble) using delay dependent heat losses for opposite flow of supply and return. </p>
 <p>Because of the way in which the temperature change is calculated, input information from one pipe must be supplied to the opposite pipe, hence the cross-connections. </p>
 <p>The delay time is calculated once for the whole setup, since equal but opposite flow in both pipes is assumed. </p>
+<h4>Assumptions</h4>
+<ul>
+<li>This model is assuming equal but opposite flow in the two pipes for the calculation of heat losses. </li>
+<li>The use of different media is possible and implemented (using Medium and Medium), but for the tracking of delay, the density of Medium is used for flow velocity calculations.</li>
+<li>The same is true for the basic thermodynamic state: Medium is used.</li>
+</ul>
 </html>"));
 end DoublePipe_PipeDelay;

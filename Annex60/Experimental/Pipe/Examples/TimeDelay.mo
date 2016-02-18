@@ -179,17 +179,11 @@ package TimeDelay
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{
               160,140}})),
       Documentation(info="<html>
-<p>This example compares the KUL and A60 pipe with heat loss implementations.</p>
-<p>This is only a first glimpse at the general behavior. Next step is to parameterize 
-both models with comparable heat insulation properties. In general, the KUL pipe seems 
-to react better to changes in mass flow rate, but also does not show cooling effects at 
-the period of zero-mass flow.</p>
+<p>Example to test the behaviour of a <code><span style=\"font-family: Courier New,courier;\">PipeHeatLoss</span></code> with delay tracking at the pipe level. Previous developments included delay tracking in two locations in the model, slightly increasing the memory needed. This implementation tries to limit this by only recording one delay for a single pipe. </p>
 </html>",   revisions="<html>
 <ul>
-<li>
-October 1, 2015 by Marcus Fuchs:<br/>
-First implementation.
-</li>
+<li>February 16, 2016 by Bram van der Heijde:<br>Update docstrings.</li>
+<li>December 2015, by Bram van der Heijde:<br>First implementation.</li>
 </ul>
 </html>"),
       __Dymola_experimentSetupOutput);
