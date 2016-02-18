@@ -20,8 +20,8 @@ def main():
 
 
 
-def run_experiment(runs=10):
-    """Runs an experiment to test numerical efficiency of regStep vs. splice
+def run_experiment(runs=1):
+    """Runs an experiment to test scaling of benchmark
 
     Parameters
     ----------
@@ -70,10 +70,6 @@ def run_experiment(runs=10):
         xticklabels.append(number_of_floors + ' floors - ' +
                            number_of_zones + ' zones')
 
-#    data = [results['2 floors - 2 zones'],
-#            results['3 floors - 3 zones'],
-#            results['4 floors - 4 zones'],
-#            results['5 floors - 5 zones']]
     # multiple box plots on one figure
     fig, ax1 = plt.subplots(figsize=(10, 8))
 
@@ -83,7 +79,7 @@ def run_experiment(runs=10):
     ax1.set_ylabel('Mean CPU time per simulation in s', fontsize=15)
 
     xtickNames = plt.setp(ax1, xticklabels=xticklabels)
-    plt.setp(xtickNames, rotation=45, fontsize=15)
+    plt.setp(xtickNames, rotation=90, fontsize=15)
     plt.tight_layout()
     curr_dir = os.path.dirname(__file__)
     result_dir = os.path.join(curr_dir, 'results')
