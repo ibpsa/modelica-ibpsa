@@ -59,19 +59,19 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={36,38})));
+        origin={36,30})));
 equation
   assert(inputSwitch.u >= -1E-3,
     "Pressure set point for mover cannot be negative. Obtained dp = " + String(inputSwitch.u));
 
   if filteredSpeed then
     connect(filter.y, gain.u) annotation (Line(
-      points={{34.7,88},{36,88},{36,50}},
+      points={{34.7,88},{36,88},{36,42}},
       color={0,0,127},
       smooth=Smooth.None));
   else
     connect(inputSwitch.y, gain.u) annotation (Line(
-      points={{1,50},{36,50}},
+      points={{1,50},{36,50},{36,42}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
@@ -85,15 +85,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preSou.dp_in, gain.y) annotation (Line(
-      points={{46,8},{46,18},{36,18},{36,27}},
+      points={{56,8},{56,14},{36,14},{36,19}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.u, dp_actual) annotation (Line(
-      points={{36,50},{110,50}},
+      points={{36,42},{36,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gain.y, floMac.dp) annotation (Line(points={{36,27},{36,27},{36,18},{20,
-          18},{20,-24},{-34,-24},{-34,-54},{-22,-54}}, color={0,0,127}));
+  connect(gain.y, eff.dp) annotation (Line(points={{36,19},{36,19},{36,14},{20,
+          14},{20,-24},{-34,-24},{-34,-44},{-22,-44}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
 <p>

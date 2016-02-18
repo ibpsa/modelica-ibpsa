@@ -13,9 +13,6 @@ partial model PartialFlowMachine
       p(start=p_start),
       final m_flow(max = if allowFlowReversal then +Modelica.Constants.inf else 0)));
 
-  parameter Boolean dynamicBalance = true
-    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
   parameter Annex60.Fluid.Types.InputType inputType = Annex60.Fluid.Types.InputType.Continuous
     "Control input type for this mover";
   parameter Real constInput = 0 "Constant input set point"
@@ -25,8 +22,11 @@ partial model PartialFlowMachine
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
 
   parameter Modelica.SIunits.Time tau=1
-    "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
+    "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
+    annotation (Dialog(tab="Dynamics",
+                        group="Nominal condition",
+                        enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+                               massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Real stageInputs[:]
     "Vector of input set points corresponding to stages";
 
@@ -61,8 +61,8 @@ partial model PartialFlowMachine
   Annex60.Fluid.Delays.DelayFirstOrder vol(
     redeclare final package Medium = Medium,
     final tau=tau,
-    final energyDynamics=if dynamicBalance then energyDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
-    final massDynamics=if dynamicBalance then massDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
@@ -121,13 +121,6 @@ protected
         rotation=0,
         origin={-10,50})));
 
-  // For computing the density, we assume that the fan operates in the design flow direction.
-  Modelica.SIunits.Density rho_in = Medium.density(
-       Medium.setState_phX(port_a.p,
-                           inStream(port_a.h_outflow),
-                           inStream(port_a.Xi_outflow)))
-    "Density of inflowing fluid";
-
   Annex60.Fluid.Movers.BaseClasses.IdealSource preSou(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
@@ -143,8 +136,13 @@ protected
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
-  Modelica.Blocks.Sources.RealExpression rho_inlet(y=rho_in) "Density"
-    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
+  Modelica.Blocks.Sources.RealExpression rho_inlet(y=
+    Medium.density(
+      Medium.setState_phX(port_a.p,
+                          inStream(port_a.h_outflow),
+                          inStream(port_a.Xi_outflow))))
+    "Density of the inflowing fluid"
+    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
 
   Annex60.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium) "Mass flow rate sensor"
@@ -224,7 +222,7 @@ equation
           extent={{4,14},{34,-16}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          visible=dynamicBalance,
+          visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
           fillColor={0,100,199}),
         Rectangle(
           visible=filteredSpeed,
@@ -250,15 +248,15 @@ equation
           lineColor={0,0,127},
           textString="P")}),
     Documentation(info="<html>
-<p>This is the base model for fans and pumps.
+<p>
+This is the base model for fans and pumps.
 It provides an interface
 between the equations that compute head and power consumption,
 and the implementation of the energy and pressure balance
 of the fluid.
 </p>
 <p>
-Depending on the value of
-the parameter <code>dynamicBalance</code>, the fluid volume
+Optionally, the fluid volume
 is computed using a dynamic balance or a steady-state balance.
 </p>
 <p>
@@ -274,6 +272,16 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 19, 2016, by Michael Wetter:<br/>
+Refactored model to make implementation clearer.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+<br/>
+Removed the parameter <code>dynamicBalance</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/411\">#411</a>.
+</li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter

@@ -120,156 +120,85 @@ equation
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
-        Text(extent={{36,98},{86,84}},
+        Ellipse(
+          extent={{-72,64},{50,-58}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-56,48},{34,-42}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(extent={{48,96},{98,82}},
           lineColor={0,0,127},
           textString="V_flow"),
-        Text(extent={{38,34},{88,20}},
+        Text(extent={{52,32},{102,18}},
           lineColor={0,0,127},
           textString="PEle"),
-        Text(extent={{32,6},{82,-8}},
+        Text(extent={{52,2},{102,-12}},
           lineColor={0,0,127},
           textString="eta"),
-        Text(extent={{32,-32},{82,-46}},
+        Text(extent={{44,-40},{94,-54}},
           lineColor={0,0,127},
           textString="etaHyd"),
-        Text(extent={{34,-72},{84,-86}},
+        Text(extent={{44,-76},{94,-90}},
           lineColor={0,0,127},
           textString="etaMot"),
-        Text(extent={{38,68},{88,54}},
+        Text(extent={{50,62},{100,48}},
           lineColor={0,0,127},
-          textString="WFlo")}),
+          textString="WFlo"),
+        Polygon(
+          points={{-20,8},{-26,22},{-24,40},{-2,50},{0,44},{-18,36},{-18,22},{-12,
+              10},{-20,8}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{-7,-21},{-13,-7},{-11,11},{11,21},{13,15},{-5,7},{-5,-7},{1,-19},
+              {-7,-21}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier,
+          origin={-37,-1},
+          rotation=90),
+        Ellipse(
+          extent={{-20,12},{-2,-6}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-2,-2},{4,-16},{2,-34},{-20,-44},{-22,-38},{-4,-30},{-4,-16},
+              {-10,-4},{-2,-2}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{7,21},{13,7},{11,-11},{-11,-21},{-13,-15},{5,-7},{5,7},{-1,19},
+              {7,21}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier,
+          origin={15,7},
+          rotation=90)}),
     Documentation(info="<html>
 <p>
-This is an interface that implements the functions to compute the head, power draw
-and efficiency of fans and pumps. It is used by the model
-<a href=\"modelica://Annex60.Fluids.Movers.BaseClasses.FlowControlledMachine\">FlowControlledMachine</a>.
-</p>
-<p>
-The nominal hydraulic characteristic (volume flow rate versus total pressure) is given by a set of data points
-using the data record <code>data</code>, which is an instance of
-<a href=\"modelica://Annex60.Fluid.Movers.Data.Generic\">
-Annex60.Fluid.Movers.Data.Generic</a>.
-A cubic hermite spline with linear extrapolation is used to compute the performance at other
-operating points.
-</p>
-<p>The fan or pump energy balance can be specified in two alternative ways: </p>
-
-<ul>
-<li>
-If <code>per.use_powerCharacteristic = false</code>, then the data points for
-normalized volume flow rate versus efficiency is used to determine the efficiency,
-and then the power consumption. The default is a constant efficiency of <i>0.7</i>.
-</li>
-<li>
-If <code>per.use_powerCharacteristic = true</code>, then the data points for
-normalized volume flow rate versus power consumption
-is used to determine the power consumption, and then the efficiency
-is computed based on the actual power consumption and the flow work.
-</li>
-</ul>
-
-<h4>Implementation</h4>
-<p>
-For numerical reasons, the user-provided data points for volume flow rate
-versus pressure rise are modified to add a fan internal flow resistance.
-Because this flow resistance is subtracted during the simulation when
-computing the fan pressure rise, the model reproduces the exact points
-that were provided by the user.
-</p>
-<p>
-Also for numerical reasons, the pressure rise at zero flow rate and
-the flow rate at zero pressure rise is added to the user-provided data,
-unless the user already provides these data points.
-Since Modelica 3.2 does not allow dynamic memory allocation, this
-implementation required the use of three different arrays for the
-situation where no additional point is added, where one additional
-point is added and where two additional points are added.
-The parameter <code>curve</code> causes the correct data record
-to be used during the simulation.
+Blcok that computes the mover efficiency and power consumption.
+It is used by the model
+<a href=\"modelica://Annex60.Fluids.Movers.BaseClasses.FlowControlled\">FlowControlled</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference and reformatted code.
-This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
-</li>
-<li>
-September 2, 2015, by Michael Wetter:<br/>
-Corrected computation of
-<code>etaMot = cha.efficiency(per=per.motorEfficiency, V_flow=V_flow, d=motDer, r_N=r_N, delta=1E-4)</code>
-which previously used <code>V_flow_max</code> instead of <code>V_flow</code>.
-</li>
-<li>
-January 6, 2015, by Michael Wetter:<br/>
-Revised model for OpenModelica.
-</li>
-<li>
-November 22, 2014, by Michael Wetter:<br/>
-Removed in <code>N_actual</code> and <code>N_filtered</code>
-the <code>max</code> attribute to
-avoid a translation warning.
-</li>
-<li>
-April 21, 2014, by Filip Jorisson and Michael Wetter:<br/>
-Changed model to use
-<a href=\"modelica://Annex60.Fluid.Movers.Data.Generic\">
-Annex60.Fluid.Movers.Data.Generic</a>.
-April 19, 2014, by Filip Jorissen:<br/>
-Passed extra parameters to power() and efficiency()
-to be able to properly evaluate the
-scaling law. See
-<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/202\">#202</a>
-for a discussion and validation.
-</li>
-<li>
-September 27, 2013, by Michael Wetter:<br/>
-Reformulated <code>per=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3</code>
-by moving the computation into the idividual logical branches because OpenModelica generates an
-error when assign the statement to <code>data</code>
-as <code>pCur1</code>, <code>pCur2</code> and <code>pCur3</code> have different dimensions.
-</li>
-<li>
-September 17, 2013, by Michael Wetter:<br/>
-Added missing <code>each</code> keyword in declaration of parameters
-that are an array.
-</li>
-<li>
-March 20, 2013, by Michael Wetter:<br/>
-Removed assignment in declaration of <code>pCur?.V_flow</code> as
-these parameters have the attribute <code>fixed=false</code> set.
-</li>
-<li>
-October 11, 2012, by Michael Wetter:<br/>
-Added implementation of <code>WFlo = eta * P</code> with
-guard against division by zero.
-Changed implementation of <code>etaMot=sqrt(eta)</code> to
-<code>etaHyd = 1</code> to avoid infinite derivative as <code>eta</code>
-converges to zero.
-</li>
-<li>
-February 20, 2012, by Michael Wetter:<br/>
-Assigned value to nominal attribute of <code>V_flow</code>.
-</li>
-<li>
-February 14, 2012, by Michael Wetter:<br/>
-Added filter for start-up and shut-down transient.
-</li>
-<li>
-October 4 2011, by Michael Wetter:<br/>
-Revised the implementation of the pressure drop computation as a function
-of speed and volume flow rate.
-The new implementation avoids a singularity near zero volume flow rate and zero speed.
-</li>
-<li>
-March 28 2011, by Michael Wetter:<br/>
-Added <code>homotopy</code> operator.
-</li>
-<li>
-March 23 2010, by Michael Wetter:<br/>
-First implementation.
+February 19, 2016, by Michael Wetter:<br/>
+First implementation during refactoring of mover models to make implementation clearer.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
 </li>
 </ul>
 </html>"),

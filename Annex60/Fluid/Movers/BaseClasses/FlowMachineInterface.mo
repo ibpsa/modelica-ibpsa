@@ -48,36 +48,36 @@ model FlowMachineInterface
   Modelica.Blocks.Interfaces.RealOutput V_flow(
     quantity="VolumeFlowRate",
     final unit="m3/s") "Volume flow rate"
-    annotation (Placement(transformation(extent={{100,90},{120,110}})));
+    annotation (Placement(transformation(extent={{100,68},{120,88}})));
 
   Modelica.Blocks.Interfaces.RealOutput dp(
     quantity="Pressure",
     final unit="Pa") "Pressure increase"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput WFlo(
     quantity="Power",
     final unit="W") "Flow work"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
 
   Modelica.Blocks.Interfaces.RealOutput PEle(
     quantity="Power",
     final unit="W") "Electrical power consumed"
-    annotation (Placement(transformation(extent={{100,20},{120,40}})));
+    annotation (Placement(transformation(extent={{100,0},{120,20}})));
 
   Modelica.Blocks.Interfaces.RealOutput eta(
     final quantity="Efficiency",
     final unit="1",
     min=0,
     max=1) "Overall efficiency"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaHyd(
     final quantity="Efficiency",
     final unit="1",
     min=0,
     max=1) "Hydraulic efficiency"
-    annotation (Placement(transformation(extent={{100,-52},{120,-32}})));
+    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
 
   Modelica.Blocks.Interfaces.RealOutput etaMot(
     final quantity="Efficiency",
@@ -617,39 +617,107 @@ equation
   end if;
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
-        Text(extent={{36,86},{86,72}},
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                    graphics={
+        Text(extent={{56,88},{106,74}},
           lineColor={0,0,127},
           textString="dp"),
-        Text(extent={{38,46},{88,32}},
+        Text(extent={{56,36},{106,22}},
           lineColor={0,0,127},
           textString="PEle"),
-        Text(extent={{32,6},{82,-8}},
+        Text(extent={{50,8},{100,-6}},
           lineColor={0,0,127},
           textString="eta"),
-        Text(extent={{32,-32},{82,-46}},
+        Text(extent={{50,-36},{100,-50}},
           lineColor={0,0,127},
           textString="etaHyd"),
-        Text(extent={{34,-72},{84,-86}},
+        Text(extent={{50,-72},{100,-86}},
           lineColor={0,0,127},
-          textString="etaMot")}),
+          textString="etaMot"),
+        Ellipse(
+          extent={{-78,34},{44,-88}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-62,18},{28,-72}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-26,-18},{-8,-36}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-26,-22},{-32,-8},{-30,10},{-8,20},{-6,14},{-24,6},{-24,-8},{
+              -18,-20},{-26,-22}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{-8,-32},{-2,-46},{-4,-64},{-26,-74},{-28,-68},{-10,-60},{-10,
+              -46},{-16,-34},{-8,-32}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier),
+        Polygon(
+          points={{7,21},{13,7},{11,-11},{-11,-21},{-13,-15},{5,-7},{5,7},{-1,19},
+              {7,21}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier,
+          origin={9,-23},
+          rotation=90),
+        Polygon(
+          points={{-7,-21},{-13,-7},{-11,11},{11,21},{13,15},{-5,7},{-5,-7},{1,-19},
+              {-7,-21}},
+          lineColor={0,0,0},
+          fillColor={100,100,100},
+          fillPattern=FillPattern.Solid,
+          smooth=Smooth.Bezier,
+          origin={-43,-31},
+          rotation=90),
+        Text(extent={{56,66},{106,52}},
+          lineColor={0,0,127},
+          textString="WFlo"),
+        Text(extent={{56,100},{106,86}},
+          lineColor={0,0,127},
+          textString="V_flow"),
+        Line(
+          points={{-74,92},{-74,40}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-74,40},{46,40}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{-70,86},{-40,84},{8,68},{36,42}},
+          color={0,0,0},
+          smooth=Smooth.Bezier)}),
     Documentation(info="<html>
 <p>
 This is an interface that implements the functions to compute the head, power draw
 and efficiency of fans and pumps. It is used by the model
-<a href=\"modelica://Annex60.Fluids.Movers.BaseClasses.FlowControlledMachine\">FlowControlledMachine</a>.
+<a href=\"modelica://Annex60.Fluids.Movers.BaseClasses.SpeedControlled\">
+Annex60.Fluids.Movers.BaseClasses.SpeedControlled</a>.
 </p>
 <p>
-The nominal hydraulic characteristic (volume flow rate versus total pressure) is given by a set of data points
-using the data record <code>data</code>, which is an instance of
-<a href=\"modelica://Annex60.Fluid.Movers.Data.Generic\">
-Annex60.Fluid.Movers.Data.Generic</a>.
-A cubic hermite spline with linear extrapolation is used to compute the performance at other
-operating points.
+The nominal hydraulic characteristic (volume flow rate versus total pressure)
+is given by a set of data points
+using the data record <code>per</code>, which is an instance of
+<a href=\"modelica://Annex60.Fluid.Movers.Data.SpeedControlled_y\">
+Annex60.Fluid.Movers.Data.SpeedControlled_y\</a>.
+A cubic hermite spline with linear extrapolation is used to compute
+the performance at other operating points.
 </p>
-<p>The fan or pump energy balance can be specified in two alternative ways: </p>
-
+<p>
+The fan or pump energy balance can be specified in two alternative ways:
+</p>
 <ul>
 <li>
 If <code>per.use_powerCharacteristic = false</code>, then the data points for
@@ -686,6 +754,12 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 19, 2016, by Michael Wetter:<br/>
+Refactored model to make implementation clearer.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference and reformatted code.

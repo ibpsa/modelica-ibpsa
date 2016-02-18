@@ -91,20 +91,17 @@ equation
         Text(extent={{42,-32},{92,-46}},
           lineColor={0,0,127},
           textString="Q_flow"),
-    Line(
-          origin={-49.5,7.6667},
+    Line( origin={-49.5,7.6667},
           points={{-2.5,-91.6667},{17.5,-71.6667},{-22.5,-51.6667},{17.5,-31.6667},
               {-22.5,-11.667},{17.5,8.3333},{-2.5,28.3333},{-2.5,48.3333}},
           smooth=Smooth.Bezier,
           color={255,0,0}),
-    Line(
-          origin={0.5,7.6667},
+    Line( origin={0.5,7.6667},
           points={{-2.5,-91.6667},{17.5,-71.6667},{-22.5,-51.6667},{17.5,-31.6667},
               {-22.5,-11.667},{17.5,8.3333},{-2.5,28.3333},{-2.5,48.3333}},
           smooth=Smooth.Bezier,
           color={255,0,0}),
-    Line(
-          origin={50.5,7.6667},
+    Line( origin={50.5,7.6667},
           points={{-2.5,-91.6667},{17.5,-71.6667},{-22.5,-51.6667},{17.5,-31.6667},
               {-22.5,-11.667},{17.5,8.3333},{-2.5,28.3333},{-2.5,48.3333}},
           smooth=Smooth.Bezier,
@@ -133,76 +130,18 @@ equation
     Documentation(info="<html>
 <p>Block that implements the functions to compute the
 heat dissipation of fans and pumps. It is used by the model
-<a href=\"modelica://Annex60.Fluid.Movers.BaseClasses.FlowMachineInterface\">
-Annex60.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
-</p>
-<h4>Implementation</h4>
-<p>
-Models that extend this model need to provide an implementation of
-<code>WFlo = eta * P</code>.
-This equation is not implemented in this model to allow other models
-to properly guard against division by zero.
+<a href=\"modelica://Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine\">
+Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 </p>
 </html>",
       revisions="<html>
 <ul>
 <li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
-</li>
-<li>
-September 2, 2015, by Michael Wetter:<br/>
-Removed parameters <code>use_powerCharacteristic</code> and
-<code>motorCooledByFluid</code> as these declarations are used from
-the performance data record <code>_perPow</code>.
+February 19, 2016, by Michael Wetter:<br/>
+First implementation during refactoring of mover models to make implementation clearer.
 This is for
-<a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/457\">
-issue 457</a>.
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
 </li>
-<li>
-January 6, 2015, by Michael Wetter:<br/>
-Revised model for OpenModelica.
-</li>
-<li>
-May 29, 2014, by Michael Wetter:<br/>
-Removed undesirable annotation <code>Evaluate=true</code>.
-</li>
-<li>
-April 21, 2014, by Filip Jorisson and Michael Wetter:<br/>
-Changed model to use
-<a href=\"modelica://Annex60.Fluid.Movers.Data.Generic\">
-Annex60.Fluid.Movers.Data.Generic</a>.
-</li>
-<li>
-September 17, 2013, by Michael Wetter:<br/>
-Added missing <code>each</code> keyword in declaration of parameters
-that are an array.
-</li>
-<li>
-December 14, 2012 by Michael Wetter:<br/>
-Renamed protected parameters for consistency with the naming conventions.
-</li>
-<li><i>October 11, 2012</i> by Michael Wetter:<br/>
-    Removed <code>WFlo = eta * P</code> so that classes that use this partial model
-    can properly implement the equation so it guards against division by zero.
-</li>
-<li><i>March 1, 2010</i>
-    by Michael Wetter:<br/>
-    Revised implementation to allow <code>N=0</code>.
-<li><i>October 1, 2009</i>
-    by Michael Wetter:<br/>
-    Changed model so that it is based on total pressure in Pascals instead of the pump head in meters.
-    This change is needed if the device is used with air as a medium. The original formulation in Modelica.Fluid
-    converts head to pressure using the density medium.d. Therefore, for fans, head would be converted to pressure
-    using the density of air. However, for fans, manufacturers typically publish the head in
-    millimeters water (mmH20). Therefore, to avoid confusion and to make this model applicable for any medium,
-    the model has been changed to use total pressure in Pascals instead of head in meters.
-</li>
-<li><i>31 Oct 2005</i>
-    by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br/>
-       Model added to the Fluid library</li>
 </ul>
 </html>"));
 end PowerInterface;
