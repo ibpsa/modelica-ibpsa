@@ -13,7 +13,9 @@ model SpeedControlled_y
            final motorCooledByFluid=per.motorCooledByFluid,
            final use_powerCharacteristic=per.use_powerCharacteristic),
     final stageInputs(each final unit="1") = per.speeds,
-    final constInput(final unit="1") =       per.constantSpeed);
+    final constInput(final unit="1") =       per.constantSpeed,
+    gaiSpe(u(final unit="1"),
+           final k=1/per.speed_nominal));
 
   replaceable parameter Data.SpeedControlled_y per
     "Record with performance data"
@@ -34,8 +36,10 @@ model SpeedControlled_y
         origin={-2,120})));
 
 equation
-  connect(y, inputSwitch.u) annotation (Line(points={{0,120},{0,120},{0,76},{0,
-          70},{-26,70},{-26,50},{-22,50}}, color={0,0,127}));
+  connect(gaiSpe.u, y)
+    annotation (Line(points={{-2.8,80},{0,80},{0,120}}, color={0,0,127}));
+  connect(gaiSpe.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
+          {-26,50},{-22,50}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),
@@ -110,6 +114,6 @@ Model added to the Fluid library
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end SpeedControlled_y;

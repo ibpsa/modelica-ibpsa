@@ -41,6 +41,11 @@ Updated parameter names for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
 </li>
 <li>
+February 17, 2016, by Michael Wetter:<br/>
+Updated parameter names for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
+</li>
+<li>
 January 19, 2016, by Filip Jorissen:<br/>
 First implementation.
 </li>

@@ -18,6 +18,11 @@ partial model SpeedControlled
      preSou(final control_m_flow=false));
 
 protected
+  Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1")) if
+       inputType == Annex60.Fluid.Types.InputType.Continuous
+    "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
+    annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
+
  Modelica.Blocks.Sources.RealExpression dpMac(y=-dpMachine)
     "Pressure drop of the pump or fan"
    annotation (Placement(transformation(extent={{0,20},{20,40}})));

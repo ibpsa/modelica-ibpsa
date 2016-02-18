@@ -4,15 +4,16 @@ record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
     final constantSpeed = constantSpeed_rpm/speed_rpm_nominal,
     final speeds =        speeds_rpm       /speed_rpm_nominal);
 
+  // fixme: change to 1800
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm speed_rpm_nominal=1500
+    "Nominal rotational speed for flow characteristic";
+
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm constantSpeed_rpm=
-    speeds_rpm[size(speeds_rpm, 1)]
+    speed_rpm_nominal
     "Speed set point when using inputType = Annex60.Fluid.Types.InputType.Constant";
 
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm[:] speeds_rpm = {1500}
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm[:] speeds_rpm = {speed_rpm_nominal}
     "Vector of speed set points when using inputType = Annex60.Fluid.Types.InputType.Stages";
-
-  final parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm speed_rpm_nominal=
-    speeds_rpm[size(speeds_rpm, 1)] "Nominal speed";
 
   annotation (
   defaultComponentPrefixes = "parameter",
@@ -65,10 +66,9 @@ declaration such as
 </p>
 <pre>
   Annex60.Fluid.Movers.SpeedControlled_y fan(
-  redeclare package Medium = Medium,
-    N_nominal = 1800,
-    per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
-                 dp={2*dp_nominal,dp_nominal,0}))) \"Fan\";
+    redeclare package Medium = Medium,
+      per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+                   dp={2*dp_nominal,dp_nominal,0}))) \"Fan\";
 </pre>
 <p>
 This data record can be used with

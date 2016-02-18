@@ -3,11 +3,10 @@ record SpeedControlled_y
   "Generic data record for pumps and fans that take y as an input signal"
   extends FlowControlled;
 
-//  parameter Real speed_nominal(final min=0, final unit="1") = 1
-//    "Nominal rotational speed for flow characteristic";
+  parameter Real speed_nominal(final min=0, final unit="1") = 1
+    "Nominal rotational speed for flow characteristic";
 
-  parameter Real constantSpeed(final min=0, final unit="1")=
-    speeds[size(speeds, 1)]
+  parameter Real constantSpeed(final min=0, final unit="1") = speed_nominal
     "Speed set point when using inputType = Annex60.Fluid.Types.InputType.Constant";
 
   parameter Real[:] speeds(each final min = 0, each final unit="1") = {1}
@@ -42,7 +41,7 @@ declaration such as
 </p>
 <pre>
   Annex60.Fluid.Movers.SpeedControlled_y fan(
-      redeclare package Medium = Medium,
+    redeclare package Medium = Medium,
       per(pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
                    dp={2*dp_nominal,dp_nominal,0}))) \"Fan\";
 </pre>

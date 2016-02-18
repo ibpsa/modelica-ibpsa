@@ -13,7 +13,9 @@ model SpeedControlled_Nrpm
            final motorCooledByFluid=per.motorCooledByFluid,
            final use_powerCharacteristic=per.use_powerCharacteristic),
     final stageInputs(each final unit="1") = per.speeds,
-    final constInput(final unit="1") =       per.constantSpeed);
+    final constInput(final unit="1") =       per.constantSpeed,
+    gaiSpe(u(final unit="1/min"),
+           final k=1/per.speed_rpm_nominal));
 
   replaceable parameter Data.SpeedControlled_Nrpm per
     "Record with performance data"
@@ -30,15 +32,11 @@ model SpeedControlled_Nrpm
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,120})));
-protected
-  Modelica.Blocks.Math.Gain gaiNrpm(final k=1/per.speed_rpm_nominal) if
-       inputType == Annex60.Fluid.Types.InputType.Continuous
-    "Gain to normalized rpm"
-    annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
+
 equation
-  connect(Nrpm, gaiNrpm.u)
+  connect(Nrpm, gaiSpe.u)
     annotation (Line(points={{0,120},{0,80},{-2.8,80}}, color={0,0,127}));
-  connect(gaiNrpm.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
+  connect(gaiSpe.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
           {-26,50},{-22,50}}, color={0,0,127}));
   annotation (defaultComponentName="pump",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
