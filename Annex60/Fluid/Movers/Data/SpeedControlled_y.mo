@@ -7,10 +7,10 @@ record SpeedControlled_y
     "Nominal rotational speed for flow characteristic";
 
   parameter Real constantSpeed(final min=0, final unit="1") = speed_nominal
-    "Speed set point when using inputType = Annex60.Fluid.Types.InputType.Constant";
+    "Normalized speed set point when using inputType = Annex60.Fluid.Types.InputType.Constant";
 
   parameter Real[:] speeds(each final min = 0, each final unit="1") = {1}
-    "Vector of speed set points when using inputType = Annex60.Fluid.Types.InputType.Stages";
+    "Vector of normalized speed set points when using inputType = Annex60.Fluid.Types.InputType.Stages";
 
   parameter Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
     "Volume flow rate vs. total pressure rise"
