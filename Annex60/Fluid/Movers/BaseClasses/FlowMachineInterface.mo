@@ -125,9 +125,6 @@ protected
      elseif haveVMax or haveDPMax then 2
      else 3
     "Flag, used to pick the right representatio of the fan or pump pressure curve";
-//  final parameter Integer nOri = size(per.pressure.V_flow, 1)
-//    "Number of data points for pressure curve"
-//    annotation(Evaluate=true);
 
   final parameter
     Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(

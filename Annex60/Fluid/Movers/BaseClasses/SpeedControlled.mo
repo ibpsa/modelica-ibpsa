@@ -17,6 +17,10 @@ partial model SpeedControlled
   Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
       -dpMac.y "Pressure difference";
 
+  Modelica.SIunits.Efficiency eta =    eff.eta "Global efficiency";
+  Modelica.SIunits.Efficiency etaHyd = eff.etaHyd "Hydraulic efficiency";
+  Modelica.SIunits.Efficiency etaMot = eff.etaMot "Motor efficiency";
+
 protected
   replaceable parameter Data.SpeedControlled_y _per_y
     constrainedby Data.SpeedControlled_y "Record with performance data"
@@ -65,7 +69,7 @@ protected
     final V_flow_max=V_flow_max,
     r_N(start=y_start),
     r_V(start=m_flow_nominal/rho_default)) "Flow machine"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
 
   Modelica.Blocks.Math.Gain dpMac(final k=-1)
     "Pressure drop of the pump or fan"
@@ -86,30 +90,26 @@ equation
   connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{10,50},{10,
           88},{18.6,88}}, color={0,0,127}));
   connect(y_actual, eff.y_actual) annotation (Line(points={{110,50},{72,50},{72,
-          -30},{-32,-30},{-32,-44},{-22,-44}},    color={0,0,127}));
-  connect(heaDis.eta, eff.eta) annotation (Line(points={{38,-40},{8,-40},{8,-52},
-          {1,-52}}, color={0,0,127}));
-  connect(heaDis.etaHyd, eff.etaHyd) annotation (Line(points={{38,-43},{24,-43},
-          {10,-43},{10,-44},{10,-44},{10,-44},{10,-44},{10,-44},{10,-55},{1,-55}},
-                                                   color={0,0,127}));
-  connect(heaDis.etaMot, eff.etaMot) annotation (Line(points={{38,-46},{12,
-          -46},{12,-58},{1,-58}},
-                             color={0,0,127}));
-  connect(heaDis.V_flow, eff.V_flow) annotation (Line(points={{38,-52},{16,-52},
-          {16,-38},{1,-38},{1,-42.2}},
+          -30},{-38,-30},{-38,-44},{-32,-44}},    color={0,0,127}));
+  connect(heaDis.etaHyd, eff.etaHyd) annotation (Line(points={{18,-40},{0,-40},{
+          0,-42},{0,-48},{0,-55},{-9,-55}},        color={0,0,127}));
+  connect(heaDis.V_flow, eff.V_flow) annotation (Line(points={{18,-46},{-4,-46},
+          {-4,-42},{-9,-42},{-9,-42.2}},
                                      color={0,0,127}));
-  connect(eff.PEle, heaDis.PEle) annotation (Line(points={{1,-49},{4,-49},{4,-60},
-          {38,-60}},      color={0,0,127}));
-  connect(eff.WFlo, heaDis.WFlo) annotation (Line(points={{1,-47},{6,-47},{6,-56},
-          {38,-56}},      color={0,0,127}));
-  connect(eff.dp, dpMac.u) annotation (Line(points={{1,-44},{12,-44},{12,-20},{12,
-          -20},{12,30},{18,30}},                  color={0,0,127}));
-  connect(rho_inlet.y, eff.rho) annotation (Line(points={{-49,-50},{-50,-50},{-36,
-          -50},{-36,-50},{-22,-50}},      color={0,0,127}));
-  connect(eff.WFlo, PToMedium_flow.u2) annotation (Line(points={{1,-47},{6,-47},
-          {6,-88},{38,-88}}, color={0,0,127}));
-  connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-22,-56},{
-          -40,-56},{-40,-18},{-60,-18},{-60,-11}}, color={0,0,127}));
+  connect(eff.PEle, heaDis.PEle) annotation (Line(points={{-9,-49},{14,-49},{14,
+          -60},{18,-60}}, color={0,0,127}));
+  connect(eff.WFlo, heaDis.WFlo) annotation (Line(points={{-9,-47},{-6,-47},{-6,
+          -54},{18,-54}}, color={0,0,127}));
+  connect(eff.dp, dpMac.u) annotation (Line(points={{-9,-44},{12,-44},{12,-20},{
+          12,30},{18,30}},                        color={0,0,127}));
+  connect(rho_inlet.y, eff.rho) annotation (Line(points={{-73,-50},{-73,-50},{-36,
+          -50},{-32,-50}},                color={0,0,127}));
+  connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-32,-56},{-60,
+          -56},{-60,-18},{-60,-11}},               color={0,0,127}));
+  connect(eff.PEle, P) annotation (Line(points={{-9,-49},{14,-49},{14,-34},{92,-34},
+          {92,80},{110,80}}, color={0,0,127}));
+  connect(eff.PEle, PToMed.u2) annotation (Line(points={{-9,-49},{14,-49},{14,-76},
+          {48,-76}}, color={0,0,127}));
  annotation (
    Documentation(info="<html>
 <p>
@@ -147,6 +147,6 @@ Redesigned model to fix bug in medium balance.
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})));
 end SpeedControlled;

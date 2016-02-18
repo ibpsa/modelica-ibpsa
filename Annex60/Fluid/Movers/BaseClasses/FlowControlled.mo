@@ -20,6 +20,10 @@ partial model FlowControlled
   Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
       -eff.dp "Pressure difference";
 
+  Modelica.SIunits.Efficiency eta =    eff.eta "Global efficiency";
+  Modelica.SIunits.Efficiency etaHyd = eff.etaHyd "Hydraulic efficiency";
+  Modelica.SIunits.Efficiency etaMot = eff.etaMot "Motor efficiency";
+
 protected
   final parameter Medium.AbsolutePressure p_a_default(displayUnit="Pa") = Medium.p_default
     "Nominal inlet pressure for predefined fan or pump characteristics";
@@ -49,26 +53,25 @@ protected
       final motorEfficiency =     per.motorEfficiency,
       final motorCooledByFluid =  per.motorCooledByFluid))
     "Flow machine interface"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
 equation
-  connect(eff.rho, rho_inlet.y) annotation (Line(points={{-22,-50},{-30,-50},{-30,
-          -50},{-49,-50}},      color={0,0,127}));
+  connect(eff.rho, rho_inlet.y) annotation (Line(points={{-32,-50},{-32,-50},{-73,
+          -50}},                color={0,0,127}));
   connect(senMasFlo.m_flow, eff.m_flow) annotation (Line(points={{-60,-11},{-60,
-          -26},{-40,-26},{-40,-56},{-22,-56},{-22,-56}},         color={0,0,127}));
-  connect(eff.eta, heaDis.eta) annotation (Line(points={{1,-50},{20,-50},{20,
-          -40},{38,-40}}, color={0,0,127}));
-  connect(heaDis.etaHyd, eff.etaHyd) annotation (Line(points={{38,-43},{32,
-          -43},{32,-42},{22,-42},{22,-54.2},{1,-54.2}}, color={0,0,127}));
-  connect(heaDis.etaMot, eff.etaMot) annotation (Line(points={{38,-46},{24,
-          -46},{24,-58},{1,-58}}, color={0,0,127}));
-  connect(heaDis.V_flow, eff.V_flow) annotation (Line(points={{38,-52},{10,
-          -52},{10,-40},{6,-40},{6,-41},{1,-41}}, color={0,0,127}));
-  connect(heaDis.WFlo, eff.WFlo) annotation (Line(points={{38,-56},{8,-56},{
-          8,-44},{1,-44}}, color={0,0,127}));
-  connect(heaDis.PEle, eff.PEle) annotation (Line(points={{38,-60},{24,-60},
-          {6,-60},{6,-47},{1,-47}}, color={0,0,127}));
-  connect(eff.WFlo, PToMedium_flow.u2) annotation (Line(points={{1,-44},{8,-44},
-          {8,-88},{38,-88}}, color={0,0,127}));
+          -30},{-40,-30},{-40,-56},{-32,-56}},                   color={0,0,127}));
+  connect(heaDis.etaHyd, eff.etaHyd) annotation (Line(points={{18,-40},{18,-40},
+          {20,-40},{20,-54},{10,-54},{10,-54.2},{-9,-54.2}},
+                                                        color={0,0,127}));
+  connect(heaDis.V_flow, eff.V_flow) annotation (Line(points={{18,-46},{10,-46},
+          {10,-44},{10,-41},{-9,-41}},            color={0,0,127}));
+  connect(heaDis.WFlo, eff.WFlo) annotation (Line(points={{18,-54},{0,-54},{0,-44},
+          {-9,-44}},       color={0,0,127}));
+  connect(heaDis.PEle, eff.PEle) annotation (Line(points={{18,-60},{18,-60},{12,
+          -60},{12,-47},{-9,-47}},  color={0,0,127}));
+  connect(eff.PEle, P) annotation (Line(points={{-9,-47},{12,-47},{12,-34},{90,-34},
+          {90,80},{110,80}}, color={0,0,127}));
+  connect(eff.PEle, PToMed.u2) annotation (Line(points={{-9,-47},{12,-47},{12,-76},
+          {48,-76}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
     Documentation(info="<html>
 <p>

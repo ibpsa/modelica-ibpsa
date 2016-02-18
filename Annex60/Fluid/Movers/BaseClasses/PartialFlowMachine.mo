@@ -78,11 +78,6 @@ partial model PartialFlowMachine
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
-
-  PowerInterface heaDis(
-    rho_default=rho_default) "Heat dissipation into medium"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-
 protected
   final parameter Modelica.SIunits.Density rho_default=
     Medium.density_pTX(
@@ -127,14 +122,17 @@ protected
     final allowFlowReversal=allowFlowReversal) "Pressure source"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
-  Modelica.Blocks.Math.Add PToMedium_flow(
-    final k1=1,
-    final k2=1) if addPowerToMedium "Heat and work input into medium"
-   annotation (Placement(transformation(extent={{40,-92},{60,-72}})));
+  Annex60.Fluid.Movers.BaseClasses.PowerInterface heaDis(
+    rho_default=rho_default) "Heat dissipation into medium"
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+
+  Modelica.Blocks.Math.Add PToMed(final k1=1, final k2=1) if
+                   addPowerToMedium "Heat and work input into medium"
+    annotation (Placement(transformation(extent={{50,-80},{70,-60}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
-    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+    annotation (Placement(transformation(extent={{-14,-90},{-34,-70}})));
 
   Modelica.Blocks.Sources.RealExpression rho_inlet(y=
     Medium.density(
@@ -142,18 +140,18 @@ protected
                           inStream(port_a.h_outflow),
                           inStream(port_a.Xi_outflow))))
     "Density of the inflowing fluid"
-    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
+    annotation (Placement(transformation(extent={{-94,-60},{-74,-40}})));
 
   Annex60.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-70,10},{-50,-10}})));
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
-      points={{-50,20},{-44,20},{-44,10},{-10,10}},
+      points={{-34,-80},{-42,-80},{-42,10},{-10,10}},
       color={191,0,0}));
 
   connect(vol.heatPort, heatPort) annotation (Line(
-      points={{-10,10},{-10,10},{-44,10},{-44,-80},{-60,-80}},
+      points={{-10,10},{-10,10},{-42,10},{-42,-80},{-60,-80}},
       color={191,0,0}));
   connect(preSou.port_b, port_b) annotation (Line(
       points={{60,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{100,
@@ -177,15 +175,11 @@ equation
       color={255,127,0},
       smooth=Smooth.None));
 
-  connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
-     points={{61,-82},{70,-82},{70,-96},{-80,-96},{-80,20},{-70,20}},
-     color={0,0,127}));
-  connect(PToMedium_flow.u1, heaDis.Q_flow) annotation (Line(points={{38,-76},{30,
-          -76},{30,-64},{70,-64},{70,-54},{61,-54}}, color={0,0,127}));
+  connect(PToMed.y, prePow.Q_flow) annotation (Line(points={{71,-70},{80,-70},{80,
+          -92},{0,-92},{0,-80},{-14,-80}}, color={0,0,127}));
+  connect(PToMed.u1, heaDis.Q_flow) annotation (Line(points={{48,-64},{44,-64},{
+          44,-50},{41,-50}}, color={0,0,127}));
 
-  connect(heaDis.P, P) annotation (Line(points={{61,-46},{90,-46},{90,80},{110,
-          80}},
-        color={0,0,127}));
   connect(port_a, senMasFlo.port_a)
     annotation (Line(points={{-100,0},{-86,0},{-70,0}}, color={0,127,255}));
   connect(senMasFlo.port_b, vol.ports[1])

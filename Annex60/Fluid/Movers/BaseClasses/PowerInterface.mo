@@ -15,49 +15,35 @@ model PowerInterface
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow
     "Factor used for setting heat input into medium to zero at very small flows";
 
-  Modelica.Blocks.Interfaces.RealInput eta(
-    final quantity="Efficiency",
-    final unit="1",
-    min=0,
-    max=1) "Global efficiency"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
   Modelica.Blocks.Interfaces.RealInput etaHyd(
     final quantity="Efficiency",
     final unit="1",
     min=0,
     max=1) "Hydraulic efficiency"
-    annotation (Placement(transformation(extent={{-140,50},{-100,90}})));
-  Modelica.Blocks.Interfaces.RealInput etaMot(
-    final quantity="Efficiency",
-    final unit="1",
-    min=0,
-    max=1) "Motor efficiency"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
 
   Modelica.Blocks.Interfaces.RealInput V_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") "Volume flow rate"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
 
   Modelica.Blocks.Interfaces.RealInput WFlo(
     final quantity="Power",
     final unit="W") "Flow work"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Modelica.Blocks.Interfaces.RealInput PEle(
     final quantity="Power",
     final unit="W") "Electrical power consumed"
     annotation (Placement(transformation(extent={{-140,-120},{-100,-80}})));
 
-  Modelica.Blocks.Interfaces.RealOutput P(
-    quantity="Power",
-    final unit="W") "Electrical power consumed"
-    annotation (Placement(transformation(extent={{100,30},{120,50}})));
-
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     quantity="Power",
     final unit="W") "Heat input from fan or pump to medium"
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Modelica.SIunits.Power WHyd
     "Hydraulic power input (converted to flow work and heat)";
@@ -81,16 +67,9 @@ equation
       Annex60.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
                        x=noEvent(abs(V_flow))-2*delta_V_flow, deltax=delta_V_flow);
 
-  P = PEle;
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
-        Text(extent={{58,48},{108,34}},   textString="P",
-          lineColor={0,0,127}),
-        Text(extent={{42,-32},{92,-46}},
-          lineColor={0,0,127},
-          textString="Q_flow"),
     Line( origin={-49.5,7.6667},
           points={{-2.5,-91.6667},{17.5,-71.6667},{-22.5,-51.6667},{17.5,-31.6667},
               {-22.5,-11.667},{17.5,8.3333},{-2.5,28.3333},{-2.5,48.3333}},
@@ -143,5 +122,7 @@ This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end PowerInterface;

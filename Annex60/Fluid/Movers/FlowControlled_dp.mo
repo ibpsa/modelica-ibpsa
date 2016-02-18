@@ -93,7 +93,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, eff.dp) annotation (Line(points={{36,19},{36,19},{36,14},{20,
-          14},{20,-24},{-34,-24},{-34,-44},{-22,-44}}, color={0,0,127}));
+          14},{20,-10},{-38,-10},{-38,-44},{-32,-44}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
 <p>
