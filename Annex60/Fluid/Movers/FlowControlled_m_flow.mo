@@ -20,7 +20,7 @@ model FlowControlled_m_flow
   parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-    // fixme: shouldn't the massFlowRates not also come from the performance record?
+
   parameter Modelica.SIunits.MassFlowRate constantMassFlowRate=m_flow_nominal
     "Constant pump mass flow rate, used when inputType=Constant"
     annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Constant));
@@ -62,7 +62,6 @@ protected
         filteredSpeed
     "Second order filter to approximate transient of rotor, and to improve numerics"
     annotation (Placement(transformation(extent={{16,81},{30,95}})));
-
 
 equation
   if filteredSpeed then
