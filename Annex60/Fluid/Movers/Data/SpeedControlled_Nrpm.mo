@@ -4,7 +4,6 @@ record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
     final constantSpeed = constantSpeed_rpm/speed_rpm_nominal,
     final speeds =        speeds_rpm       /speed_rpm_nominal);
 
-  // fixme: change to 1800
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm speed_rpm_nominal=1500
     "Nominal rotational speed for flow characteristic";
 
