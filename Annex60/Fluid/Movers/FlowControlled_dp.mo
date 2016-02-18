@@ -25,7 +25,6 @@ model FlowControlled_dp
     "Nominal pressure raise, used to normalized the filter if filteredSpeed=true"
     annotation(Dialog(group="Nominal condition"));
 
-  // fixme: shouldn't the heads not also come from the performance record?
   parameter Modelica.SIunits.PressureDifference constantHead(min=0,
                                                              displayUnit="Pa")=dp_nominal
     "Constant pump head, used when inputType=Constant"
@@ -69,7 +68,6 @@ protected
      final filterType=Modelica.Blocks.Types.FilterType.LowPass) if filteredSpeed
     "Second order filter to approximate transient of rotor, and to improve numerics"
     annotation (Placement(transformation(extent={{16,79},{30,93}})));
-
 
 equation
   assert(inputSwitch.u >= -1E-3,

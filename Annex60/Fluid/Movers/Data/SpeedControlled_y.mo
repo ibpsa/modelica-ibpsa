@@ -8,10 +8,10 @@ record SpeedControlled_y
 
   parameter Real constantSpeed(final min=0, final unit="1")=
     speeds[size(speeds, 1)]
-    "Speed set point when using inputType = Annex60.Fluid.Types.InputType.Constant";
+    "Normalised speed set point when using inputType = Annex60.Fluid.Types.InputType.Constant";
 
   parameter Real[:] speeds(each final min = 0, each final unit="1") = {1}
-    "Vector of speed set points when using inputType = Annex60.Fluid.Types.InputType.Stages";
+    "Vector of normalised speed set points when using inputType = Annex60.Fluid.Types.InputType.Stages";
 
   parameter Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
     "Volume flow rate vs. total pressure rise"
