@@ -12,8 +12,10 @@ model HeatLossDoubleParallel
     "Resistance for asymmetric problem, in Km/W";
   parameter Types.ThermalResistanceLength Rs
     "Resistance for symmetric problem, in Km/W";
-  final parameter Modelica.SIunits.Time tau_charSymm=Rs*C;
-  final parameter Modelica.SIunits.Time tau_charAsymm=Rs*Ra/(2*Ra+Rs)*C;
+  final parameter Modelica.SIunits.Time tau_charSymm=Rs*C
+    "Time constant for symmetric problem";
+  final parameter Modelica.SIunits.Time tau_charAsymm=Rs*Ra/(2*Ra+Rs)*C
+    "Time constant for asymmetric problem";
 
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Tin_a
     "Temperature at port_a for in-flowing fluid";

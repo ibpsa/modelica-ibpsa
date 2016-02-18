@@ -111,7 +111,6 @@ public
         rotation=270,
         origin={0,100})));
 
-
 protected
   PipeAdiabaticPlugFlow pipeReturnAdiabaticPlugFlow(
     redeclare final package Medium = Medium,
@@ -125,7 +124,6 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,-60})));
-
 
 public
   BaseClasses.PDETime_massFlow pDETime_massFlow(len=length, diameter=diameter)
@@ -331,9 +329,8 @@ equation
           rotation=180)}),
     Documentation(revisions="<html>
 <ul>
-<li>February 18, 2016 by Bram van der Heijde:</li>
+<li>February 18, 2016 by Bram van der Heijde:<br>First implementation, based on <code><span style=\"font-family: Courier New,courier;\">DoublePipe_PipeDelay</span></code></li>
 </ul>
-<p>First implementation, based on <code><span style=\"font-family: Courier New,courier;\">DoublePipe_PipeDelay</span></code></p>
 </html>", info="<html>
 <p>Implementation of twin or double pipe (supply and return in the same ensemble) using delay dependent heat losses for parallel flow of supply and return. </p>
 <p>Because of the way in which the temperature change is calculated, input information from one pipe must be supplied to the opposite pipe, hence the cross-connections. </p>
