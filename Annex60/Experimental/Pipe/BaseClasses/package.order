@@ -2,6 +2,7 @@ PDETime_massFlow
 PDETime_massFlowMod
 HeatLossPipeDelay
 HeatLossDoublePipeDelay
+HeatLossDoubleParallel
 DoublePipeConfig
 SpatialDistributionOneDirection
 SpatialDistributionTwoDirections

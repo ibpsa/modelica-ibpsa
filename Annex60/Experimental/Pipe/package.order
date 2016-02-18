@@ -3,6 +3,7 @@ PipeAdiabaticPlugFlow
 PipeHeatLoss_PipeDelay
 PipeHeatLoss_PipeDelayMod
 DoublePipe_PipeDelay
+DoublePipeParallel
 BaseClasses
 Examples
 Data
