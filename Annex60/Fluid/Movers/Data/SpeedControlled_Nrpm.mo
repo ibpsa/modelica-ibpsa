@@ -8,11 +8,11 @@ record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
     speeds_rpm[size(speeds_rpm, 1)]
     "Speed set point when using inputType = Annex60.Fluid.Types.InputType.Constant";
 
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm[:] speeds_rpm = {1500}
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm[:] speeds_rpm = {speed_rpm_nominal}
     "Vector of speed set points when using inputType = Annex60.Fluid.Types.InputType.Stages";
 
-  final parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm speed_rpm_nominal=
-    speeds_rpm[size(speeds_rpm, 1)] "Nominal speed";
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm speed_rpm_nominal=1500
+    "Nominal speed";
 
   annotation (
   defaultComponentPrefixes = "parameter",

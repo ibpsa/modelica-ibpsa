@@ -1,6 +1,7 @@
 within Annex60.Fluid.Movers.Data.Pumps.Wilo;
 record TopS40slash7 "Pump data for a staged Wilo-Top-S 40/7 pump"
   extends SpeedControlled_Nrpm(
+    speed_rpm_nominal=2650,
     use_powerCharacteristic = true,
     power(V_flow={9.97406742472e-07,0.000621384400559,0.00113006183922,
                   0.00162078595651,0.00206961899062,0.00244663873928,
@@ -35,7 +36,7 @@ Documentation(info="<html>
   revisions="<html>
 <ul>
 <li>
-February 17, 2016, by Michael Wetter:<br/>
+February 17, 2016, by Michael Wetter and Filip Jorissen:<br/>
 Updated parameter names for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
 </li>
