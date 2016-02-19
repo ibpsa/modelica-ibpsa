@@ -7,7 +7,7 @@ block Declination "Declination angle"
   Modelica.Blocks.Interfaces.RealOutput decAng(
     final quantity="Angle",
     final unit="rad",
-    displayUnit="deg") "Declination angle"
+    displayUnit="deg") "Solar declination angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
   constant Real k1 = sin(23.45*2*Modelica.Constants.pi/360) "Constant";
@@ -40,6 +40,12 @@ January 6, 2015, by Michael Wetter:<br/>
 Updated documentation and added validation.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/382\">issue 382</a>.
+</li>
+<li>
+January 5, 2015, by Michael Wetter:<br/>
+Updated comment of output signal as this is used in the weather bus connector.
+This is for
+issue <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/376\">376</a>.
 </li>
 <li>
 November 11, 2015, by Michael Wetter:<br/>

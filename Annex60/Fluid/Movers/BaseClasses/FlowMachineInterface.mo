@@ -32,12 +32,11 @@ partial model FlowMachineInterface
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
 
-  // Normalized speed
+ // Normalized speed
   Modelica.Blocks.Interfaces.RealOutput y_actual(min=0,
                                                  final unit="1")
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
-
   // "Shaft rotational speed";
   Real r_N(min=0, start=y_start, unit="1") "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
@@ -62,18 +61,21 @@ protected
   parameter Modelica.SIunits.VolumeFlowRate VDelta_flow(
     fixed=false,
     start=delta*V_flow_nominal) "Small volume flow rate";
-  parameter Modelica.SIunits.Pressure dpDelta(
+  parameter Modelica.SIunits.PressureDifference dpDelta(
     fixed=false,
-    start=100) "Small pressure";
+    start=100,
+    displayUnit="Pa") "Small pressure";
   parameter Real delta = 0.05
     "Small value used to transition to other fan curve";
   parameter Real cBar[2](each fixed=false)
     "Coefficients for linear approximation of pressure vs. flow rate";
 
-  parameter Modelica.SIunits.Pressure dpMax = if haveDPMax then
-    _per_y.pressure.dp[1] else
-    _per_y.pressure.dp[1] - ((_per_y.pressure.dp[2] - _per_y.pressure.dp[1])/(
-      _per_y.pressure.V_flow[2] - _per_y.pressure.V_flow[1]))*_per_y.pressure.V_flow[1]
+  parameter Modelica.SIunits.PressureDifference dpMax(displayUnit="Pa")=
+    if haveDPMax then
+      _per_y.pressure.dp[1]
+    else
+      _per_y.pressure.dp[1] - ((_per_y.pressure.dp[2] - _per_y.pressure.dp[1])/(
+        _per_y.pressure.V_flow[2] - _per_y.pressure.V_flow[1]))*_per_y.pressure.V_flow[1]
     "Maximum head";
 
   parameter Real kRes(min=0, unit="kg/(s.m4)") = dpMax/V_flow_max*delta^2/10
@@ -165,10 +167,6 @@ protected
   parameter Boolean haveVMax = (abs(_per_y.pressure.dp[nOri])   < Modelica.Constants.eps)
     "Flag, true if user specified data that contain V_flow_max";
 
-  Modelica.Blocks.Interfaces.RealOutput y_filtered(min=0, start=y_start) if
-       filteredSpeed "Filtered speed in the range 0..1"
-    annotation (Placement(transformation(extent={{40,78},{60,98}}),
-        iconTransformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Continuous.Filter filter(
      order=2,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
@@ -615,7 +613,7 @@ equation
             100}}), graphics={
         Line(
           points={{0,50},{100,50}}),
-        Text(extent={{64,68},{114,54}},
+        Text(extent={{64,70},{114,56}},
           lineColor={0,0,127},
           textString="y")}),
     Documentation(info="<html>
@@ -670,6 +668,12 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference and reformatted code.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
 <li>
 September 2, 2015, by Michael Wetter:<br/>
 Corrected computation of
@@ -746,5 +750,7 @@ March 23 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end FlowMachineInterface;

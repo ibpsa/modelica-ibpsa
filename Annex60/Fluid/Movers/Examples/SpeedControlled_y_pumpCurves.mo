@@ -6,7 +6,8 @@ model SpeedControlled_y_pumpCurves
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.Pressure dp_nominal = 10000 "Nominal pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000
+    "Nominal pressure";
 
    model pumpModel = Annex60.Fluid.Movers.SpeedControlled_y (
     redeclare package Medium = Medium,
@@ -18,19 +19,19 @@ model SpeedControlled_y_pumpCurves
 
   pumpModel pum(filteredSpeed=false,
     inputType=Annex60.Fluid.Types.InputType.Constant,
-    normalized_speed=1) "Pump"
+    per(constantSpeed=1)) "Pump"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   pumpModel pum1(filteredSpeed=false,
     inputType=Annex60.Fluid.Types.InputType.Constant,
-    normalized_speed=0.5) "Pump"
+    per(constantSpeed=0.5)) "Pump"
     annotation (Placement(transformation(extent={{40,38},{60,58}})));
   pumpModel pum2(filteredSpeed=false,
     inputType=Annex60.Fluid.Types.InputType.Constant,
-    normalized_speed=0.05) "Pump"
+    per(constantSpeed=0.05)) "Pump"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   pumpModel pum3(filteredSpeed=false,
     inputType=Annex60.Fluid.Types.InputType.Constant,
-    normalized_speed=0.01) "Pump"
+    per(constantSpeed=0.01)) "Pump"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Modelica.Blocks.Sources.Ramp y(
@@ -164,8 +165,14 @@ avoid a singularity at the origin.
 </html>", revisions="<html>
 <ul>
 <li>
+January 22, 2016, by Michael Wetter:<br/>
+Corrected type declaration of pressure difference.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
+</li>
+<li>
 June 14, 2015, by Filip Jorissen:<br/>
-Set constant speed for pump using a <code>parameter</code> 
+Set constant speed for pump using a <code>parameter</code>
 instead of a <code>realInput</code>.
 </li>
 <li>March 24 2010, by Michael Wetter:<br/>
