@@ -18,8 +18,8 @@ partial model PartialSurface "Partial model for building envelope component"
   parameter Modelica.SIunits.Temperature TRef_a=291.15
     "Reference temperature of zone on side of propsBus_a, for calculation of design heat loss"
     annotation (Dialog(group="Design heat loss"));
-  parameter Boolean linearise_a=true
-    "= true, if convective heat transfer should be linearised"
+  parameter Boolean linearise_a=false
+    "= true, if convective heat transfer should be linearised."
     annotation (Dialog(tab="Convection"));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal_a=1
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
