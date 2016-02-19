@@ -1,6 +1,5 @@
 within Annex60.Experimental.Pipe.Examples.DoublePipe;
-model IndependentSupplyAndReturnPipeDelay
-  "Example in which supply and return circuit are hydraulically separated and delay time is calculated once at pipe level"
+model CrossFlowForward "In order to test a cross flow double pipe"
   import Annex60;
   extends Modelica.Icons.Example;
 
@@ -32,16 +31,6 @@ model IndependentSupplyAndReturnPipeDelay
     use_p_in=true,
     use_T_in=true,
     nPorts=1) annotation (Placement(transformation(extent={{80,-40},{60,-20}})));
-  Annex60.Experimental.Pipe.DoublePipe_PipeDelay
-                                       doublePipe(
-    redeclare package Medium = Medium,
-    length=100,
-    H=2,
-    redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR150S
-      pipeData,
-    m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Constant const3(k=5) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -57,11 +46,11 @@ model IndependentSupplyAndReturnPipeDelay
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,50})));
-  Modelica.Blocks.Sources.Constant TReturn(k=273.15 + 30)
+  Modelica.Blocks.Sources.Constant TReturn(k=273.15 + 25)
     "Atmospheric pressure" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-170,-50})));
+        origin={-160,-50})));
   Modelica.Blocks.Math.Gain gain(k=dp_test)
     annotation (Placement(transformation(extent={{-156,16},{-136,36}})));
   Modelica.Blocks.Math.Add add
@@ -92,24 +81,27 @@ model IndependentSupplyAndReturnPipeDelay
         rotation=180,
         origin={40,-30})));
   Modelica.Blocks.Sources.CombiTimeTable combiTimeTable(smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments, table=[0,
-        1; 3000,1; 5000,0; 10000,0; 12000,-1; 17000,-1; 19000,0; 30000,0;
-        30010,-0.1; 50000,-0.1; 50010,0; 80000,0; 82000,-1; 100000,-1; 102000,
-        0; 150000,0; 152000,1; 160000,1; 162000,0; 163500,0; 165500,1; 200000,
-        1])
+        1; 3000,1; 5000,0; 10000,0; 12000,1; 17000,1; 19000,0; 30000,0; 30010,
+        0.1; 50000,0.1; 50010,0; 80000,0; 82000,1; 120000,1; 122000,0; 150000,0;
+        152000,1; 160000,1; 162000,0; 163500,0; 165500,1; 200000,1])
     annotation (Placement(transformation(extent={{-188,16},{-168,36}})));
-  Modelica.Blocks.Sources.Constant TSupply1(k=273.15 + 55)
-    "Atmospheric pressure" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+  Annex60.Experimental.Pipe.DoublePipe_PipeDelay
+                                               doublePipeParallel(
+    length=length,
+    redeclare
+      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR100S
+      pipeData,
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  parameter Modelica.SIunits.Length length=100 "Pipe length";
+  Modelica.Blocks.Math.Add add2(k1=+1)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-170,70})));
-  Modelica.Blocks.Sources.Constant TReturn1(k=273.15 + 25)
-    "Atmospheric pressure" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={110,-50})));
+        origin={-110,-90})));
+  Modelica.Blocks.Sources.Step step(height=50, startTime=100000)
+    annotation (Placement(transformation(extent={{-178,-92},{-158,-72}})));
 equation
-  connect(doublePipe.T_amb, const3.y)
-    annotation (Line(points={{0,10},{0,10},{0,79}}, color={0,0,127}));
   connect(PAtm.y, supplySink.p_in) annotation (Line(points={{99,10},{92,10},{92,
           38},{82,38}}, color={0,0,127}));
   connect(PAtm.y, returnSource.p_in) annotation (Line(points={{99,10},{92,10},{
@@ -117,9 +109,6 @@ equation
                           color={0,0,127}));
   connect(TSupply.y, supplySink.T_in) annotation (Line(points={{99,50},{96,50},
           {96,34},{82,34}}, color={0,0,127}));
-  connect(TReturn.y, returnSink.T_in) annotation (Line(points={{-159,-50},{-159,
-          -50},{-90,-50},{-90,-26},{-82,-26}},
-                           color={0,0,127}));
   connect(gain.y,add. u2)
     annotation (Line(points={{-135,26},{-126,26},{-126,32},{-122,32}},
                                                           color={0,0,127}));
@@ -136,42 +125,48 @@ equation
                       color={0,0,127}));
   connect(returnSink.ports[1], senTemReturnOut.port_b) annotation (Line(points=
           {{-60,-30},{-55,-30},{-50,-30}}, color={0,127,255}));
-  connect(senTemReturnOut.port_a, doublePipe.port_b2) annotation (Line(points={
-          {-30,-30},{-20,-30},{-20,-6},{-10,-6}}, color={0,127,255}));
   connect(supplySource.ports[1], senTemSupplyIn.port_a)
     annotation (Line(points={{-60,30},{-50,30},{-50,30}}, color={0,127,255}));
-  connect(senTemSupplyIn.port_b, doublePipe.port_a1) annotation (Line(points={{
-          -30,30},{-20,30},{-20,6},{-10,6}}, color={0,127,255}));
-  connect(doublePipe.port_b1, senTemSupplyOut.port_a) annotation (Line(points={
-          {10,6},{20,6},{20,30},{30,30}}, color={0,127,255}));
   connect(senTemSupplyOut.port_b, supplySink.ports[1])
     annotation (Line(points={{50,30},{55,30},{60,30}}, color={0,127,255}));
-  connect(doublePipe.port_a2, senTemReturnIn.port_b) annotation (Line(points={{
-          10,-6},{20,-6},{20,-30},{30,-30}}, color={0,127,255}));
   connect(senTemReturnIn.port_a, returnSource.ports[1])
     annotation (Line(points={{50,-30},{55,-30},{60,-30}}, color={0,127,255}));
   connect(add1.y, returnSink.p_in)
-    annotation (Line(points={{-99,-22},{-82,-22},{-82,-22}}, color={0,0,127}));
+    annotation (Line(points={{-99,-22},{-82,-22}},           color={0,0,127}));
+  connect(TSupply.y, supplySource.T_in) annotation (Line(points={{99,50},{2,50},
+          {-94,50},{-94,34},{-82,34}}, color={0,0,127}));
   connect(gain.u, combiTimeTable.y[1])
     annotation (Line(points={{-158,26},{-167,26}}, color={0,0,127}));
-  connect(TSupply1.y, supplySource.T_in) annotation (Line(points={{-159,70},{
-          -90,70},{-90,34},{-82,34}}, color={0,0,127}));
-  connect(TReturn1.y, returnSource.T_in) annotation (Line(points={{99,-50},{86,
-          -50},{86,-26},{82,-26}}, color={0,0,127}));
+  connect(senTemSupplyIn.port_b, doublePipeParallel.port_a1) annotation (Line(
+        points={{-30,30},{-20,30},{-20,6},{-10,6}}, color={0,127,255}));
+  connect(senTemSupplyOut.port_a, doublePipeParallel.port_b1) annotation (Line(
+        points={{30,30},{20,30},{20,6},{10,6}}, color={0,127,255}));
+  connect(const3.y, doublePipeParallel.T_amb)
+    annotation (Line(points={{0,79},{0,10},{0,10}}, color={0,0,127}));
+  connect(TReturn.y, add2.u1) annotation (Line(points={{-149,-50},{-138,-50},{
+          -138,-84},{-122,-84}}, color={0,0,127}));
+  connect(step.y, add2.u2) annotation (Line(points={{-157,-82},{-150,-82},{-150,
+          -94},{-122,-94},{-122,-96}}, color={0,0,127}));
+  connect(add2.y, returnSink.T_in) annotation (Line(points={{-99,-90},{-100,-90},
+          {-100,-90},{-100,-90},{-96,-90},{-96,-26},{-82,-26}},
+                                          color={0,0,127}));
+  connect(add2.y, returnSource.T_in) annotation (Line(points={{-99,-90},{2,-90},
+          {98,-90},{98,-26},{82,-26}}, color={0,0,127}));
+  connect(senTemReturnOut.port_a, doublePipeParallel.port_b2) annotation (Line(
+        points={{-30,-30},{-20,-30},{-20,-6},{-10,-6}}, color={0,127,255}));
+  connect(doublePipeParallel.port_a2, senTemReturnIn.port_b) annotation (Line(
+        points={{10,-6},{20,-6},{20,-30},{30,-30}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{140,100}})),
     Icon(coordinateSystem(extent={{-200,-100},{140,100}})),
     experiment(StopTime=200000),
     __Dymola_experimentSetupOutput,
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Experimental/Pipe/Examples/DoublePipe/IndependentSupplyAndReturnPipeDelay.mos"
-        "Simulate and plot"),
+    __Dymola_Commands,
     Documentation(info="<html>
-<p>Example in which the mass flow through a double pipe is not physically looped. The supply and return side are two hydraulically separated circuits, but with equal mass flow rate. </p>
+<p>Example to test the cross flow implementation of a double pipe, without reverse flow.</p>
 </html>", revisions="<html>
 <ul>
-<li>February 15, 2016 by Bram van der Heijde:<br>Revision of documentation, added simulate and plot command</li>
-<li></li>
+<li>February 19, 2016 by Bram van der Heijde:<br>First implementation</li>
 </ul>
 </html>"));
-end IndependentSupplyAndReturnPipeDelay;
+end CrossFlowForward;
