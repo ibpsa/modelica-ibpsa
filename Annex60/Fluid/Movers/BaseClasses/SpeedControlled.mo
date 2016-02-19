@@ -7,10 +7,16 @@ partial model SpeedControlled
             final motorCooledByFluid = _per_y.motorCooledByFluid),
      preSou(final control_m_flow=false));
 
+  // Normalized speed
+  Modelica.Blocks.Interfaces.RealOutput y_actual(min=0,
+                                                 final unit="1")
+    annotation (Placement(transformation(extent={{100,40},{120,60}}),
+        iconTransformation(extent={{100,40},{120,60}})));
+
   Modelica.SIunits.VolumeFlowRate VMachine_flow = floMac.V_flow
     "Volume flow rate";
   Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
-      dpMac.y "Pressure difference";
+      -dpMac.y "Pressure difference";
 
 protected
   replaceable parameter Data.SpeedControlled_y _per_y
@@ -76,33 +82,35 @@ equation
   end if;
 
  connect(preSou.dp_in, dpMac.y) annotation (Line(
-     points={{46,8},{46,30},{41,30}},
+     points={{56,8},{56,30},{41,30}},
      color={0,0,127}));
   connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{10,50},{10,
           88},{18.6,88}}, color={0,0,127}));
-  connect(floMac.m_flow, senMasFlo.m_flow) annotation (Line(points={{-22,-56},{-38,
-          -56},{-38,-20},{-16,-20},{-16,20},{0,20},{0,11}}, color={0,0,127}));
-  connect(y_actual, floMac.y_actual) annotation (Line(points={{110,50},{60,50},{
-          60,-30},{-34,-30},{-34,-44},{-22,-44}}, color={0,0,127}));
+  connect(y_actual, floMac.y_actual) annotation (Line(points={{110,50},{60,50},
+          {60,-30},{-32,-30},{-32,-44},{-22,-44}},color={0,0,127}));
   connect(heaDis.eta, floMac.eta) annotation (Line(points={{38,-40},{8,-40},{8,-50},
           {1,-50}}, color={0,0,127}));
-  connect(heaDis.etaHyd, floMac.etaHyd) annotation (Line(points={{38,-43},{14,-43},
-          {14,-44},{10,-44},{10,-54.2},{1,-54.2}}, color={0,0,127}));
-  connect(heaDis.etaMot, floMac.etaMot) annotation (Line(points={{38,-46},{12,-46},
-          {12,-58},{1,-58}}, color={0,0,127}));
+  connect(heaDis.etaHyd, floMac.etaHyd) annotation (Line(points={{38,-43},{24,
+          -43},{10,-43},{10,-44},{10,-44},{10,-44},{10,-44},{10,-44},{10,-54.2},
+          {1,-54.2}},                              color={0,0,127}));
+  connect(heaDis.etaMot, floMac.etaMot) annotation (Line(points={{38,-46},{12,
+          -46},{12,-58},{1,-58}},
+                             color={0,0,127}));
   connect(heaDis.V_flow, floMac.V_flow) annotation (Line(points={{38,-52},{16,-52},
           {16,-38},{1,-38},{1,-40}}, color={0,0,127}));
   connect(floMac.PEle, heaDis.PEle) annotation (Line(points={{1,-47},{4,-47},{4,
           -60},{38,-60}}, color={0,0,127}));
   connect(floMac.WFlo, heaDis.WFlo) annotation (Line(points={{1,-44},{6,-44},{6,
           -56},{38,-56}}, color={0,0,127}));
-  connect(floMac.dp, dpMac.u) annotation (Line(points={{1,-42},{6,-42},{6,-20},{
-          12,-20},{12,16},{12,16},{12,30},{18,30}},
-                                                  color={0,0,127}));
+  connect(floMac.dp, dpMac.u) annotation (Line(points={{1,-42},{12,-42},{12,-20},
+          {12,-20},{12,30},{18,30}},              color={0,0,127}));
   connect(rho_inlet.y, floMac.rho) annotation (Line(points={{-49,-40},{-50,-40},
           {-36,-40},{-36,-50},{-22,-50}}, color={0,0,127}));
-  connect(floMac.WFlo, PToMedium_flow.u2) annotation (Line(points={{1,-44},{4,-44},
-          {4,-88},{38,-88}}, color={0,0,127}));
+  connect(floMac.WFlo, PToMedium_flow.u2) annotation (Line(points={{1,-44},{6,
+          -44},{6,-88},{38,-88}},
+                             color={0,0,127}));
+  connect(floMac.m_flow, senMasFlo.m_flow) annotation (Line(points={{-22,-56},{
+          -40,-56},{-40,-18},{-60,-18},{-60,-11}}, color={0,0,127}));
  annotation (
    Documentation(info="<html>
 <p>This is the base model for fans and pumps that take as
@@ -133,6 +141,6 @@ Redesigned model to fix bug in medium balance.
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})));
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}})));
 end SpeedControlled;

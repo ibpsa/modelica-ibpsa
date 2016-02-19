@@ -2,7 +2,8 @@ within Annex60.Fluid.Movers.BaseClasses;
 model FlowControlled
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
   extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
-   heaDis(final motorCooledByFluid = per.motorCooledByFluid),
+   heaDis(final motorCooledByFluid = per.motorCooledByFluid,
+          final delta_V_flow = 1E-3*V_flow_max),
    preSou(final control_m_flow=control_m_flow));
 
 //  extends Annex60.Fluid.Movers.BaseClasses.PowerInterface(
@@ -31,22 +32,19 @@ model FlowControlled
   // Quantity to control
   constant Boolean control_m_flow "= false to control head instead of m_flow";
 
-  replaceable parameter Data.FlowControlled per "Record with performance data"
+  replaceable parameter Data.FlowControlled per
+    constrainedby Data.FlowControlled "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,60},{80,80}})));
 
  // Normalized speed
-  Modelica.Blocks.Interfaces.RealOutput y_actual(min=0,
-                                                 final unit="1")
-    annotation (Placement(transformation(extent={{100,40},{120,60}}),
-        iconTransformation(extent={{100,40},{120,60}})));
 //  Real r_V(start=1) = VMachine_flow/V_flow_max
 //    "Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)";
 
   Modelica.SIunits.VolumeFlowRate VMachine_flow = floMac.V_flow
     "Volume flow rate";
   Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
-      floMac.dp "Pressure difference";
+      -floMac.dp "Pressure difference";
 
 protected
   Modelica.Blocks.Continuous.Filter filter(
@@ -72,16 +70,17 @@ protected
      X=Medium.X_default[1:Medium.nXi]) "Default medium state";
 
   EfficiencyInterface floMac(
-    redeclare final parameter Data.FlowControlled per = per)
+    per(
+      final hydraulicEfficiency = per.hydraulicEfficiency,
+      final motorEfficiency =     per.motorEfficiency,
+      final motorCooledByFluid =  per.motorCooledByFluid))
     "Flow machine interface"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 equation
-  connect(floMac.y_actual, y_actual) annotation (Line(points={{-22,-40},{-28,
-          -40},{-32,-40},{-32,-30},{88,-30},{88,50},{110,50}}, color={0,0,127}));
-  connect(floMac.rho, rho_inlet.y) annotation (Line(points={{-22,-46},{-36,-46},
-          {-36,-40},{-49,-40}}, color={0,0,127}));
-  connect(senMasFlo.m_flow, floMac.m_flow) annotation (Line(points={{0,11},{0,
-          16},{-16,16},{-16,-20},{-28,-20},{-28,-60},{-22,-60}}, color={0,0,127}));
+  connect(floMac.rho, rho_inlet.y) annotation (Line(points={{-22,-50},{-30,-50},
+          {-30,-40},{-49,-40}}, color={0,0,127}));
+  connect(senMasFlo.m_flow, floMac.m_flow) annotation (Line(points={{10,-11},{
+          10,-26},{-40,-26},{-40,-56},{-22,-56},{-22,-56}},      color={0,0,127}));
   connect(floMac.eta, heaDis.eta) annotation (Line(points={{1,-50},{20,-50},{20,
           -40},{38,-40}}, color={0,0,127}));
   connect(heaDis.etaHyd, floMac.etaHyd) annotation (Line(points={{38,-43},{32,

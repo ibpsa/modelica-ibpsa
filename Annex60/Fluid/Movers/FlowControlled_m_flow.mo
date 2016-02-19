@@ -84,8 +84,9 @@ equation
           -20},{20,0},{30,0}}, color={0,127,255}));
   connect(senRelPre.port_b, preSou.port_b) annotation (Line(points={{46,-20},{60,
           -20},{60,0},{50,0}}, color={0,127,255}));
-  connect(senRelPre.p_rel, floMac.dp) annotation (Line(points={{40,-25.4},{40,-28},
-          {-30,-28},{-30,-54},{-22,-54}}, color={0,0,127}));
+  connect(senRelPre.p_rel, floMac.dp) annotation (Line(points={{40,-25.4},{40,
+          -28},{-34,-28},{-34,-54},{-22,-54}},
+                                          color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(
    info="<html>

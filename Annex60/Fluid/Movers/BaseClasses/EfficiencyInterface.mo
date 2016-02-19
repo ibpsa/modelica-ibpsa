@@ -9,32 +9,25 @@ model EfficiencyInterface
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 
- // Normalized speed
-  Modelica.Blocks.Interfaces.RealInput y_actual(
-    final unit="1",
-    min=0) "Global efficiency"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
-
   Modelica.Blocks.Interfaces.RealInput m_flow(
     final quantity="MassFlowRate",
     final unit="kg/s") "Mass flow rate"
-    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
-        iconTransformation(extent={{-140,-120},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Modelica.Blocks.Interfaces.RealInput dp(
     final quantity="PressureDifference",
     final unit="Pa")
     "Pressure difference (positive if mover is operating as usual)"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   Modelica.Blocks.Interfaces.RealInput rho(
     final quantity="Density",
     final unit="kg/m3",
     min=0.0) "Medium density"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Blocks.Interfaces.RealOutput V_flow(
     quantity="VolumeFlowRate",
@@ -120,7 +113,7 @@ equation
   eta = etaHyd * etaMot;
 
   // Flow work
-  WFlo = dp*V_flow;
+  WFlo = -dp*V_flow;
 
   PEle = WFlo / Annex60.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
 

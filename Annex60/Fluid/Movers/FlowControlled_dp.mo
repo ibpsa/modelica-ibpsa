@@ -202,6 +202,6 @@ Revised implementation to allow zero flow rate.
         Text(extent={{64,68},{114,54}},
           lineColor={0,0,127},
           textString="dp")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end FlowControlled_dp;

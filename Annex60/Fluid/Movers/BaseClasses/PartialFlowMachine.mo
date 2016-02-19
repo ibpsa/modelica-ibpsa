@@ -43,12 +43,6 @@ partial model PartialFlowMachine
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
 
-  // Normalized speed
-  Modelica.Blocks.Interfaces.RealOutput y_actual(min=0,
-                                                 final unit="1")
-    annotation (Placement(transformation(extent={{100,40},{120,60}}),
-        iconTransformation(extent={{100,40},{120,60}})));
-
   Modelica.Blocks.Interfaces.IntegerInput stage if
        inputType == Annex60.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"
@@ -57,6 +51,11 @@ partial model PartialFlowMachine
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
+
+  Modelica.Blocks.Interfaces.RealOutput P(
+    quantity="Power",
+    final unit="W") "Electrical power consumed"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
   // Models
   Annex60.Fluid.Delays.DelayFirstOrder vol(
@@ -72,8 +71,8 @@ partial model PartialFlowMachine
     final p_start=p_start,
     final prescribedHeatFlowRate=true,
     final allowFlowReversal=allowFlowReversal,
-    final nPorts=2) "Fluid volume for dynamic model"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    nPorts=2) "Fluid volume for dynamic model"
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat dissipation to environment"
@@ -133,7 +132,7 @@ protected
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal) "Pressure source"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Modelica.Blocks.Math.Add PToMedium_flow(
     final k1=1,
@@ -144,25 +143,23 @@ protected
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
+  Modelica.Blocks.Sources.RealExpression rho_inlet(y=rho_in) "Density"
+    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
+
   Annex60.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium) "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.RealExpression rho_inlet(y=rho_in) if
-      addPowerToMedium "Density"
-    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
+    annotation (Placement(transformation(extent={{-70,10},{-50,-10}})));
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
-      points={{-50,20},{-44,20},{-44,10},{-40,10}},
+      points={{-50,20},{-44,20},{-44,10},{-10,10}},
       color={191,0,0}));
 
   connect(vol.heatPort, heatPort) annotation (Line(
-      points={{-40,10},{-40,-80},{-60,-80}},
+      points={{-10,10},{-10,10},{-44,10},{-44,-80},{-60,-80}},
       color={191,0,0}));
-  connect(port_a, vol.ports[1]) annotation (Line(
-      points={{-100,5.55112e-16},{-66,5.55112e-16},{-66,0},{-32,0}},
-      color={0,127,255}));
   connect(preSou.port_b, port_b) annotation (Line(
-      points={{50,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{100,5.55112e-16}},
+      points={{60,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{100,
+          5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(stageValues.y, extractor.u) annotation (Line(
@@ -182,20 +179,28 @@ equation
       color={255,127,0},
       smooth=Smooth.None));
 
-  connect(vol.ports[2], senMasFlo.port_a)
-    annotation (Line(points={{-28,0},{-28,0},{-10,0}}, color={0,127,255}));
-  connect(senMasFlo.port_b, preSou.port_a)
-    annotation (Line(points={{10,0},{20,0},{30,0}}, color={0,127,255}));
-
   connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
      points={{61,-82},{70,-82},{70,-96},{-80,-96},{-80,20},{-70,20}},
      color={0,0,127}));
   connect(PToMedium_flow.u1, heaDis.Q_flow) annotation (Line(points={{38,-76},{30,
           -76},{30,-64},{70,-64},{70,-54},{61,-54}}, color={0,0,127}));
 
+  connect(heaDis.P, P) annotation (Line(points={{61,-46},{90,-46},{90,80},{110,
+          80}},
+        color={0,0,127}));
+  connect(port_a, senMasFlo.port_a)
+    annotation (Line(points={{-100,0},{-86,0},{-70,0}}, color={0,127,255}));
+  connect(senMasFlo.port_b, vol.ports[1])
+    annotation (Line(points={{-50,0},{-2,0}}, color={0,127,255}));
+  connect(vol.ports[2], preSou.port_a)
+    annotation (Line(points={{2,0},{2,0},{40,0}}, color={0,127,255}));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
     graphics={
+        Line(
+          points={{0,80},{100,80}},
+          color={0,0,0},
+          smooth=Smooth.None),
         Line(
           visible=not filteredSpeed,
           points={{0,100},{0,40}}),
@@ -240,7 +245,10 @@ equation
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           textString="M",
-          textStyle={TextStyle.Bold})}),
+          textStyle={TextStyle.Bold}),
+        Text(extent={{64,98},{114,84}},
+          lineColor={0,0,127},
+          textString="P")}),
     Documentation(info="<html>
 <p>This is the base model for fans and pumps.
 It provides an interface
@@ -303,6 +311,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end PartialFlowMachine;

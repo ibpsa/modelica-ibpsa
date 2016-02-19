@@ -2,7 +2,16 @@ within Annex60.Fluid.Movers;
 model SpeedControlled_y
   "Fan or pump with ideally controlled normalized speed y as input signal"
   extends Annex60.Fluid.Movers.BaseClasses.SpeedControlled(
-    final _per_y = per,
+    _per_y(
+      final hydraulicEfficiency =     per.hydraulicEfficiency,
+      final motorEfficiency =         per.motorEfficiency,
+      final motorCooledByFluid =      per.motorCooledByFluid,
+      final speed_nominal =           per.speed_nominal,
+      final constantSpeed =           per.constantSpeed,
+      final speeds =                  per.speeds,
+      final pressure =                per.pressure,
+      final use_powerCharacteristic = per.use_powerCharacteristic,
+      final power =                   per.power),
     final stageInputs(each final unit="1") = per.speeds,
     final constInput(final unit="1") =       per.constantSpeed,
     gaiSpe(u(final unit="1"),

@@ -90,7 +90,46 @@ equation
           lineColor={0,0,127}),
         Text(extent={{42,-32},{92,-46}},
           lineColor={0,0,127},
-          textString="Q_flow")}),
+          textString="Q_flow"),
+    Line(
+          origin={-49.5,7.6667},
+          points={{-2.5,-91.6667},{17.5,-71.6667},{-22.5,-51.6667},{17.5,-31.6667},
+              {-22.5,-11.667},{17.5,8.3333},{-2.5,28.3333},{-2.5,48.3333}},
+          smooth=Smooth.Bezier,
+          color={255,0,0}),
+    Line(
+          origin={0.5,7.6667},
+          points={{-2.5,-91.6667},{17.5,-71.6667},{-22.5,-51.6667},{17.5,-31.6667},
+              {-22.5,-11.667},{17.5,8.3333},{-2.5,28.3333},{-2.5,48.3333}},
+          smooth=Smooth.Bezier,
+          color={255,0,0}),
+    Line(
+          origin={50.5,7.6667},
+          points={{-2.5,-91.6667},{17.5,-71.6667},{-22.5,-51.6667},{17.5,-31.6667},
+              {-22.5,-11.667},{17.5,8.3333},{-2.5,28.3333},{-2.5,48.3333}},
+          smooth=Smooth.Bezier,
+          color={255,0,0}),
+    Polygon(
+    origin={48,64.333},
+    pattern=LinePattern.None,
+    fillPattern=FillPattern.Solid,
+      points={{0.0,21.667},{-10.0,-8.333},{10.0,-8.333}},
+          lineColor={0,0,0},
+          fillColor={255,0,0}),
+    Polygon(
+    origin={-2,64.333},
+    pattern=LinePattern.None,
+    fillPattern=FillPattern.Solid,
+      points={{0.0,21.667},{-10.0,-8.333},{10.0,-8.333}},
+          lineColor={0,0,0},
+          fillColor={255,0,0}),
+    Polygon(
+    origin={-52,64.333},
+    pattern=LinePattern.None,
+    fillPattern=FillPattern.Solid,
+      points={{0.0,21.667},{-10.0,-8.333},{10.0,-8.333}},
+          lineColor={0,0,0},
+          fillColor={255,0,0})}),
     Documentation(info="<html>
 <p>Block that implements the functions to compute the
 heat dissipation of fans and pumps. It is used by the model
