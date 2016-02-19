@@ -30,6 +30,25 @@ partial model PartialFlowMachine
   parameter Real stageInputs[:]
     "Vector of input set points corresponding to stages";
 
+  // Classes used to implement the filtered speed
+  parameter Boolean filteredSpeed=true
+    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+  parameter Modelica.SIunits.Time riseTime=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+  parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+
+  // Normalized speed
+  Modelica.Blocks.Interfaces.RealOutput y_actual(min=0,
+                                                 final unit="1")
+    annotation (Placement(transformation(extent={{100,40},{120,60}}),
+        iconTransformation(extent={{100,40},{120,60}})));
+
   Modelica.Blocks.Interfaces.IntegerInput stage if
        inputType == Annex60.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"

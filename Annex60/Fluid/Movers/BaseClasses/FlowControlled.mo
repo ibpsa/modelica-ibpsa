@@ -40,19 +40,20 @@ model FlowControlled
                                                  final unit="1")
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{100,40},{120,60}})));
-  Real r_V(start=1) = VMachine_flow/V_flow_max
-    "Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)";
+//  Real r_V(start=1) = VMachine_flow/V_flow_max
+//    "Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)";
+
+  Modelica.SIunits.VolumeFlowRate VMachine_flow = floMac.V_flow
+    "Volume flow rate";
+  Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
+      floMac.dp "Pressure difference";
 
 protected
   Modelica.Blocks.Continuous.Filter filter(
      order=2,
      f_cut=5/(2*Modelica.Constants.pi*riseTime),
      final init=init,
-     final y_start=y_start,
      x(each stateSelect=StateSelect.always),
-     u_nominal=1,
-     u(final unit="1"),
-     y(final unit="1"),
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
         filteredSpeed
@@ -74,16 +75,11 @@ protected
     redeclare final parameter Data.FlowControlled per = per)
     "Flow machine interface"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Modelica.Blocks.Sources.RealExpression dp_in(y=port_a.p - port_b.p) if
-      addPowerToMedium "Head"
-    annotation (Placement(transformation(extent={{-70,-64},{-50,-44}})));
 equation
   connect(floMac.y_actual, y_actual) annotation (Line(points={{-22,-40},{-28,
           -40},{-32,-40},{-32,-30},{88,-30},{88,50},{110,50}}, color={0,0,127}));
   connect(floMac.rho, rho_inlet.y) annotation (Line(points={{-22,-46},{-36,-46},
           {-36,-40},{-49,-40}}, color={0,0,127}));
-  connect(dp_in.y, floMac.dp)
-    annotation (Line(points={{-49,-54},{-36,-54},{-22,-54}}, color={0,0,127}));
   connect(senMasFlo.m_flow, floMac.m_flow) annotation (Line(points={{0,11},{0,
           16},{-16,16},{-16,-20},{-28,-20},{-28,-60},{-22,-60}}, color={0,0,127}));
   connect(floMac.eta, heaDis.eta) annotation (Line(points={{1,-50},{20,-50},{20,
@@ -98,6 +94,8 @@ equation
           8,-44},{1,-44}}, color={0,0,127}));
   connect(heaDis.PEle, floMac.PEle) annotation (Line(points={{38,-60},{24,-60},
           {6,-60},{6,-47},{1,-47}}, color={0,0,127}));
+  connect(floMac.WFlo, PToMedium_flow.u2) annotation (Line(points={{1,-44},{8,-44},
+          {8,-88},{38,-88}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
     Documentation(info="<html>
 <p>
@@ -156,6 +154,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end FlowControlled;
