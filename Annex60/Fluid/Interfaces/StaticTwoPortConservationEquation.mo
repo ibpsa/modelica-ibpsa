@@ -63,7 +63,8 @@ protected
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
 
-  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
+  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow of port_a";
+  Real m_flowInv_b(unit="s/kg") "Regularization of 1/m_flow of port_b";
 
   Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
@@ -118,7 +119,6 @@ equation
  // Species flow rate from connector mWat_flow
  mXi_flow = mWat_flow_internal * s;
   // Regularization of m_flow around the origin to avoid a division by zero
-
  // m_flowInv is only used if prescribedHeatFlowRate == true, or
  // if the input connector C_flow is enabled.
  m_flowInv = if (prescribedHeatFlowRate or use_mWat_flow or use_C_flow)
@@ -126,7 +126,11 @@ equation
                     x=port_a.m_flow,
                     delta=deltaReg, deltaInv=deltaInvReg,
                     a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg)
-             else 0;
+			 else 0;
+ m_flowInv_b = Annex60.Utilities.Math.Functions.inverseXRegularized(
+                    x=port_b.m_flow,
+                    delta=deltaReg, deltaInv=deltaInvReg,
+                    a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg);
 
  if allowFlowReversal then
    // Formulate hOut using spliceFunction. This avoids an event iteration.
@@ -156,8 +160,8 @@ equation
     port_a.m_flow + port_b.m_flow = if simplify_mWat_flow then 0 else -mWat_flow_internal;
 
     // Substance balance
-    port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
-    port_a.Xi_outflow = if allowFlowReversal then inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv else Medium.X_default[1:Medium.nXi];
+    port_b.Xi_outflow = -(inStream(port_a.Xi_outflow)*port_a.m_flow + mXi_flow) * m_flowInv_b;
+    port_a.Xi_outflow = if allowFlowReversal then -(inStream(port_b.Xi_outflow)*port_b.m_flow + mXi_flow) * m_flowInv else Medium.X_default[1:Medium.nXi];
 
     // Energy balance.
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
@@ -274,6 +278,13 @@ Annex60.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 3, 2015, by Filip Jorissen:<br/>
+Revised implementation of conservation of vapor mass.
+Added new variable <code>mFlow_inv_b</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Removed <code>constant sensibleOnly</code> as this is no longer used because
