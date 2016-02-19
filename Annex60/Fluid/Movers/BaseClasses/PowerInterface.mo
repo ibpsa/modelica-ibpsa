@@ -1,6 +1,7 @@
 within Annex60.Fluid.Movers.BaseClasses;
-partial model PowerInterface
+model PowerInterface
   "Partial model to compute power draw and heat dissipation of fans and pumps"
+  extends Modelica.Blocks.Interfaces.BlockIcon;
 
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -8,37 +9,64 @@ partial model PowerInterface
   parameter Modelica.SIunits.Density rho_default
     "Fluid density at medium default state";
 
-  Modelica.Blocks.Interfaces.RealOutput P(
-    quantity="Modelica.SIunits.Power",
-    final unit="W") "Electrical power consumed"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
-
-  Modelica.SIunits.Power WHyd
-    "Hydraulic power input (converted to flow work and heat)";
-  Modelica.SIunits.Power WFlo "Flow work";
-  Modelica.SIunits.HeatFlowRate Q_flow "Heat input from fan or pump to medium";
-  input Modelica.SIunits.Efficiency eta(max=1) "Global efficiency";
-  input Modelica.SIunits.Efficiency etaHyd(max=1) "Hydraulic efficiency";
-  input Modelica.SIunits.Efficiency etaMot(max=1) "Motor efficiency";
-
-  input Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")
-    "Pressure increase";
-  input Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
-protected
   parameter Boolean motorCooledByFluid
     "Flag, true if the motor is cooled by the fluid stream";
 
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow
     "Factor used for setting heat input into medium to zero at very small flows";
 
-  input Modelica.SIunits.Power PEle "Electrical power consumed";
+  Modelica.Blocks.Interfaces.RealInput eta(
+    final quantity="Efficiency",
+    final unit="1",
+    min=0,
+    max=1) "Global efficiency"
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
+  Modelica.Blocks.Interfaces.RealInput etaHyd(
+    final quantity="Efficiency",
+    final unit="1",
+    min=0,
+    max=1) "Hydraulic efficiency"
+    annotation (Placement(transformation(extent={{-140,50},{-100,90}})));
+  Modelica.Blocks.Interfaces.RealInput etaMot(
+    final quantity="Efficiency",
+    final unit="1",
+    min=0,
+    max=1) "Motor efficiency"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
+  Modelica.Blocks.Interfaces.RealInput V_flow(
+    final quantity="VolumeFlowRate",
+    final unit="m3/s") "Volume flow rate"
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+
+  Modelica.Blocks.Interfaces.RealInput WFlo(
+    final quantity="Power",
+    final unit="W") "Flow work"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+
+  Modelica.Blocks.Interfaces.RealInput PEle(
+    final quantity="Power",
+    final unit="W") "Electrical power consumed"
+    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}})));
+
+  Modelica.Blocks.Interfaces.RealOutput P(
+    quantity="Power",
+    final unit="W") "Electrical power consumed"
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
+
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    quantity="Power",
+    final unit="W") "Heat input from fan or pump to medium"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+
+  Modelica.SIunits.Power WHyd
+    "Hydraulic power input (converted to flow work and heat)";
+
+protected
   Modelica.SIunits.HeatFlowRate QThe_flow
     "Heat input from fan or pump to medium";
 
 equation
-  // Flow work
-  WFlo = dpMachine*VMachine_flow;
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
   etaHyd * WHyd   = WFlo;
   // Heat input into medium
@@ -47,22 +75,24 @@ equation
   // The next statement sets the heat input into the medium to zero for very small flow rates.
   Q_flow = if homotopyInitialization then
     homotopy(actual=Annex60.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
-                     x=noEvent(abs(VMachine_flow))-2*delta_V_flow, deltax=delta_V_flow),
+                     x=noEvent(abs(V_flow))-2*delta_V_flow, deltax=delta_V_flow),
                      simplified=0)
     else
       Annex60.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
-                       x=noEvent(abs(VMachine_flow))-2*delta_V_flow, deltax=delta_V_flow);
+                       x=noEvent(abs(V_flow))-2*delta_V_flow, deltax=delta_V_flow);
 
   P = PEle;
+
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
-        Text(extent={{64,100},{114,86}},  textString="P",
+        Text(extent={{58,48},{108,34}},   textString="P",
           lineColor={0,0,127}),
-        Line(
-          points={{0,80},{100,80}})}),
+        Text(extent={{42,-32},{92,-46}},
+          lineColor={0,0,127},
+          textString="Q_flow")}),
     Documentation(info="<html>
-<p>This is an interface that implements the functions to compute the power draw and the
+<p>Block that implements the functions to compute the
 heat dissipation of fans and pumps. It is used by the model
 <a href=\"modelica://Annex60.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Annex60.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.

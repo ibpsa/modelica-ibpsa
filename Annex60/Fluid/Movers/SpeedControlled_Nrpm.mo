@@ -2,25 +2,25 @@ within Annex60.Fluid.Movers;
 model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
   extends Annex60.Fluid.Movers.BaseClasses.SpeedControlled(
-    _per_y(final hydraulicEfficiency=per.hydraulicEfficiency,
-           final motorEfficiency=per.motorEfficiency,
-           final power=per.power,
-           final constantSpeed = per.constantSpeed,
-           final speeds = per.speeds,
-           pressure(
-             final V_flow = per.pressure.V_flow,
-             final dp =     per.pressure.dp),
-           final motorCooledByFluid=per.motorCooledByFluid,
-           final use_powerCharacteristic=per.use_powerCharacteristic),
+    final _per_y(
+      hydraulicEfficiency = per.hydraulicEfficiency,
+      motorEfficiency = per.motorEfficiency,
+      motorCooledByFluid = per.motorCooledByFluid,
+      speed_nominal = per.speed_nominal,
+      constantSpeed = per.constantSpeed,
+      use_powerCharacteristic = per.use_powerCharacteristic,
+      speeds = per.speeds,
+      pressure = per.pressure,
+      power = per.power),
     final stageInputs(each final unit="1") = per.speeds,
     final constInput(final unit="1") =       per.constantSpeed,
     gaiSpe(u(final unit="1/min"),
            final k=1/per.speed_rpm_nominal));
 
   replaceable parameter Data.SpeedControlled_Nrpm per
-    "Record with performance data"
+    constrainedby Data.SpeedControlled_Nrpm "Record with performance data"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,-80},{80,-60}})));
+      Placement(transformation(extent={{62,70},{82,90}})));
 
   Modelica.Blocks.Interfaces.RealInput Nrpm(final unit="1/min") if
     inputType == Annex60.Fluid.Types.InputType.Continuous

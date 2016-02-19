@@ -67,7 +67,7 @@ protected
      final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
      final filterType=Modelica.Blocks.Types.FilterType.LowPass) if filteredSpeed
     "Second order filter to approximate transient of rotor, and to improve numerics"
-    annotation (Placement(transformation(extent={{16,79},{30,93}})));
+    annotation (Placement(transformation(extent={{18,61},{32,75}})));
 
 equation
   assert(inputSwitch.u >= -1E-3,
@@ -75,7 +75,7 @@ equation
 
   if filteredSpeed then
     connect(filter.y, gain.u) annotation (Line(
-      points={{30.7,86},{36,86},{36,50}},
+      points={{32.7,68},{36,68},{36,50}},
       color={0,0,127},
       smooth=Smooth.None));
   else
@@ -86,7 +86,7 @@ equation
   end if;
 
   connect(inputSwitch.y, filter.u) annotation (Line(
-      points={{1,50},{10,50},{10,86},{14.6,86}},
+      points={{1,50},{10,50},{10,68},{16.6,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(inputSwitch.u, dp_in) annotation (Line(
@@ -94,7 +94,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preSou.dp_in, gain.y) annotation (Line(
-      points={{36,8},{36,27}},
+      points={{46,8},{46,18},{36,18},{36,27}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.u, dp_actual) annotation (Line(

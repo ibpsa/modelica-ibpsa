@@ -61,13 +61,23 @@ partial model PartialFlowMachine
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
 
+  PowerInterface heaDis(
+    rho_default=rho_default) "Heat dissipation into medium"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+
 protected
-  parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
+  final parameter Modelica.SIunits.Density rho_default=
+    Medium.density_pTX(
+      p=Medium.p_default,
+      T=Medium.T_default,
+      X=Medium.X_default) "Default medium density";
+
+  final parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
     T=T_start,
     p=p_start,
     X=X_start) "Medium state at start values";
 
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
+  final parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
     final k=stageInputs) if
@@ -104,12 +114,23 @@ protected
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal) "Pressure source"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+
+  Modelica.Blocks.Math.Add PToMedium_flow(
+    final k1=1,
+    final k2=1) if addPowerToMedium "Heat and work input into medium"
+   annotation (Placement(transformation(extent={{40,-92},{60,-72}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
+  Annex60.Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare final package Medium = Medium) "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Modelica.Blocks.Sources.RealExpression rho_inlet(y=rho_in) if
+      addPowerToMedium "Density"
+    annotation (Placement(transformation(extent={{-70,-50},{-50,-30}})));
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
       points={{-50,20},{-44,20},{-44,10},{-40,10}},
@@ -119,16 +140,10 @@ equation
       points={{-40,10},{-40,-80},{-60,-80}},
       color={191,0,0}));
   connect(port_a, vol.ports[1]) annotation (Line(
-      points={{-100,5.55112e-16},{-66,5.55112e-16},{-66,-5.55112e-16},{-32,
-          -5.55112e-16}},
-      color={0,127,255}));
-  connect(vol.ports[2], preSou.port_a) annotation (Line(
-      points={{-28,-5.55112e-16},{-5,-5.55112e-16},{-5,6.10623e-16},{20,
-          6.10623e-16}},
+      points={{-100,5.55112e-16},{-66,5.55112e-16},{-66,0},{-32,0}},
       color={0,127,255}));
   connect(preSou.port_b, port_b) annotation (Line(
-      points={{40,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{100,
-          5.55112e-16}},
+      points={{50,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{100,5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(stageValues.y, extractor.u) annotation (Line(
@@ -147,6 +162,17 @@ equation
       points={{-40,62},{-40,90},{0,90},{0,120}},
       color={255,127,0},
       smooth=Smooth.None));
+
+  connect(vol.ports[2], senMasFlo.port_a)
+    annotation (Line(points={{-28,0},{-28,0},{-10,0}}, color={0,127,255}));
+  connect(senMasFlo.port_b, preSou.port_a)
+    annotation (Line(points={{10,0},{20,0},{30,0}}, color={0,127,255}));
+
+  connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
+     points={{61,-82},{70,-82},{70,-96},{-80,-96},{-80,20},{-70,20}},
+     color={0,0,127}));
+  connect(PToMedium_flow.u1, heaDis.Q_flow) annotation (Line(points={{38,-76},{30,
+          -76},{30,-64},{70,-64},{70,-54},{61,-54}}, color={0,0,127}));
 
   annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
@@ -259,5 +285,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+            100}})));
 end PartialFlowMachine;

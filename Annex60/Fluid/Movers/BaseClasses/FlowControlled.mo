@@ -1,30 +1,30 @@
 within Annex60.Fluid.Movers.BaseClasses;
 model FlowControlled
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
-
   extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
+   heaDis(final motorCooledByFluid = per.motorCooledByFluid),
    preSou(final control_m_flow=control_m_flow));
 
-  extends Annex60.Fluid.Movers.BaseClasses.PowerInterface(
-    final motorCooledByFluid=per.motorCooledByFluid,
-    delta_V_flow = 1E-3*V_flow_max,
-    final rho_default = Medium.density(sta_default),
-    etaHyd = cha.efficiency(
-      per=per.hydraulicEfficiency,
-      V_flow=VMachine_flow,
-      d=hydDer,
-      r_N=1,
-      delta=1E-4),
-    etaMot = cha.efficiency(
-      per=per.motorEfficiency,
-      V_flow=VMachine_flow,
-      d=motDer,
-      r_N=1,
-      delta=1E-4),
-    eta = etaHyd * etaMot,
-    dpMachine= -dp,
-    VMachine_flow = port_a.m_flow/rho_in,
-    PEle = WFlo / Annex60.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6));
+//  extends Annex60.Fluid.Movers.BaseClasses.PowerInterface(
+//    final motorCooledByFluid=per.motorCooledByFluid,
+//    delta_V_flow = 1E-3*V_flow_max,
+//    final rho_default = Medium.density(sta_default),
+//    etaHyd = cha.efficiency(
+//      per=per.hydraulicEfficiency,
+//      V_flow=VMachine_flow,
+//      d=hydDer,
+//      r_N=1,
+//      delta=1E-4),
+//    etaMot = cha.efficiency(
+//      per=per.motorEfficiency,
+//      V_flow=VMachine_flow,
+///      d=motDer,
+//      r_N=1,
+//      delta=1E-4),
+//    eta = etaHyd * etaMot,
+//    dpMachine= -dp,
+//    VMachine_flow = port_a.m_flow/rho_in,
+//    PEle = WFlo / Annex60.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6));
 
   import cha = Annex60.Fluid.Movers.BaseClasses.Characteristics;
 
@@ -33,12 +33,32 @@ model FlowControlled
 
   replaceable parameter Data.FlowControlled per "Record with performance data"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,-80},{80,-60}})));
+      Placement(transformation(extent={{60,60},{80,80}})));
 
+ // Normalized speed
+  Modelica.Blocks.Interfaces.RealOutput y_actual(min=0,
+                                                 final unit="1")
+    annotation (Placement(transformation(extent={{100,40},{120,60}}),
+        iconTransformation(extent={{100,40},{120,60}})));
   Real r_V(start=1) = VMachine_flow/V_flow_max
     "Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)";
 
 protected
+  Modelica.Blocks.Continuous.Filter filter(
+     order=2,
+     f_cut=5/(2*Modelica.Constants.pi*riseTime),
+     final init=init,
+     final y_start=y_start,
+     x(each stateSelect=StateSelect.always),
+     u_nominal=1,
+     u(final unit="1"),
+     y(final unit="1"),
+     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
+        filteredSpeed
+    "Second order filter to approximate valve opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{20,81},{34,95}})));
+
   final parameter Medium.AbsolutePressure p_a_default(displayUnit="Pa") = Medium.p_default
     "Nominal inlet pressure for predefined fan or pump characteristics";
 
@@ -50,41 +70,34 @@ protected
      p=Medium.p_default,
      X=Medium.X_default[1:Medium.nXi]) "Default medium state";
 
- // Derivatives for cubic spline
-  final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)](each fixed=false)
-    "Coefficients for polynomial of motor efficiency vs. volume flow rate";
-  final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
-    "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
-
-  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if addPowerToMedium
-    "Heat and work input into medium"
-    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-
-initial equation
-   // Compute derivatives for cubic spline
- motDer = if (size(per.motorEfficiency.V_flow, 1) == 1)
-          then
-            {0}
-          else
-            Annex60.Utilities.Math.Functions.splineDerivatives(
-              x=per.motorEfficiency.V_flow,
-              y=per.motorEfficiency.eta,
-              ensureMonotonicity=Annex60.Utilities.Math.Functions.isMonotonic(
-                x=per.motorEfficiency.eta,
-                strict=false));
-
-  hydDer = if (size(per.hydraulicEfficiency.V_flow, 1) == 1)
-           then
-             {0}
-           else
-             Annex60.Utilities.Math.Functions.splineDerivatives(
-               x=per.hydraulicEfficiency.V_flow,
-               y=per.hydraulicEfficiency.eta);
-
+  EfficiencyInterface floMac(
+    redeclare final parameter Data.FlowControlled per = per)
+    "Flow machine interface"
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+  Modelica.Blocks.Sources.RealExpression dp_in(y=port_a.p - port_b.p) if
+      addPowerToMedium "Head"
+    annotation (Placement(transformation(extent={{-70,-64},{-50,-44}})));
 equation
-  connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
-      points={{-79,20},{-70,20}},
-      color={0,0,127}));
+  connect(floMac.y_actual, y_actual) annotation (Line(points={{-22,-40},{-28,
+          -40},{-32,-40},{-32,-30},{88,-30},{88,50},{110,50}}, color={0,0,127}));
+  connect(floMac.rho, rho_inlet.y) annotation (Line(points={{-22,-46},{-36,-46},
+          {-36,-40},{-49,-40}}, color={0,0,127}));
+  connect(dp_in.y, floMac.dp)
+    annotation (Line(points={{-49,-54},{-36,-54},{-22,-54}}, color={0,0,127}));
+  connect(senMasFlo.m_flow, floMac.m_flow) annotation (Line(points={{0,11},{0,
+          16},{-16,16},{-16,-20},{-28,-20},{-28,-60},{-22,-60}}, color={0,0,127}));
+  connect(floMac.eta, heaDis.eta) annotation (Line(points={{1,-50},{20,-50},{20,
+          -40},{38,-40}}, color={0,0,127}));
+  connect(heaDis.etaHyd, floMac.etaHyd) annotation (Line(points={{38,-43},{32,
+          -43},{32,-42},{22,-42},{22,-54.2},{1,-54.2}}, color={0,0,127}));
+  connect(heaDis.etaMot, floMac.etaMot) annotation (Line(points={{38,-46},{24,
+          -46},{24,-58},{1,-58}}, color={0,0,127}));
+  connect(heaDis.V_flow, floMac.V_flow) annotation (Line(points={{38,-52},{10,
+          -52},{10,-40},{6,-40},{6,-41},{1,-41}}, color={0,0,127}));
+  connect(heaDis.WFlo, floMac.WFlo) annotation (Line(points={{38,-56},{8,-56},{
+          8,-44},{1,-44}}, color={0,0,127}));
+  connect(heaDis.PEle, floMac.PEle) annotation (Line(points={{38,-60},{24,-60},
+          {6,-60},{6,-47},{1,-47}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
     Documentation(info="<html>
 <p>
@@ -142,5 +155,7 @@ March 24, 2010, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})));
 end FlowControlled;
