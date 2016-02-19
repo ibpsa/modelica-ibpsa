@@ -107,6 +107,9 @@ model IndependentSupplyAndReturnPipeDelay
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,-50})));
+  Annex60.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
+        Medium)
+    annotation (Placement(transformation(extent={{-30,46},{-10,66}})));
 equation
   connect(doublePipe.T_amb, const3.y)
     annotation (Line(points={{0,10},{0,10},{0,79}}, color={0,0,127}));
@@ -140,8 +143,6 @@ equation
           {-30,-30},{-20,-30},{-20,-6},{-10,-6}}, color={0,127,255}));
   connect(supplySource.ports[1], senTemSupplyIn.port_a)
     annotation (Line(points={{-60,30},{-50,30},{-50,30}}, color={0,127,255}));
-  connect(senTemSupplyIn.port_b, doublePipe.port_a1) annotation (Line(points={{
-          -30,30},{-20,30},{-20,6},{-10,6}}, color={0,127,255}));
   connect(doublePipe.port_b1, senTemSupplyOut.port_a) annotation (Line(points={
           {10,6},{20,6},{20,30},{30,30}}, color={0,127,255}));
   connect(senTemSupplyOut.port_b, supplySink.ports[1])
@@ -158,6 +159,10 @@ equation
           -90,70},{-90,34},{-82,34}}, color={0,0,127}));
   connect(TReturn1.y, returnSource.T_in) annotation (Line(points={{99,-50},{86,
           -50},{86,-26},{82,-26}}, color={0,0,127}));
+  connect(senTemSupplyIn.port_b, senMasFlo.port_a)
+    annotation (Line(points={{-30,30},{-30,30},{-30,56}}, color={0,127,255}));
+  connect(doublePipe.port_a1, senMasFlo.port_b)
+    annotation (Line(points={{-10,6},{-10,6},{-10,56}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{140,100}})),
     Icon(coordinateSystem(extent={{-200,-100},{140,100}})),
