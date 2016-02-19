@@ -75,10 +75,6 @@ equation
           extent={{-80,80},{80,-68}},
           lineColor={255,255,255},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Polygon(
-          points={{0,60},{38,2},{20,2},{20,-46},{-18,-46},{-18,2},{-36,2},{0,60}},
-          lineColor={0,0,0},
-          fillColor={238,46,47},
           fillPattern=FillPattern.Solid),
         Ellipse(extent={{-82,80},{-40,38}}, lineColor={28,108,200}),
         Ellipse(
@@ -87,6 +83,16 @@ equation
           startAngle=30,
           endAngle=90,
           fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-52,2},{42,2},{42,8},{66,0},{42,-8},{42,-2},{-52,-2},{-52,2}},
+
+          lineColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          fillColor={170,213,255}),       Polygon(
+          points={{0,60},{38,2},{20,2},{20,-46},{-18,-46},{-18,2},{-36,2},{0,60}},
+          lineColor={0,0,0},
+          fillColor={238,46,47},
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p><span style=\"font-family: MS Shell Dlg 2;\">Heat losses are only considered in design direction. For heat loss consideration in both directions use one of these models at both ends of a <code></span><span style=\"font-family: Courier New,courier;\">PipeAdiabaticPlugFlow</code></span><span style=\"font-family: MS Shell Dlg 2;\"> model.</span></p>
