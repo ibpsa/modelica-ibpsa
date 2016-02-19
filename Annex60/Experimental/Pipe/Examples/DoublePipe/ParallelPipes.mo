@@ -159,9 +159,7 @@ equation
     Icon(coordinateSystem(extent={{-200,-100},{140,100}})),
     experiment(StopTime=200000),
     __Dymola_experimentSetupOutput,
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Experimental/Pipe/Examples/DoublePipe/IndependentSupplyAndReturnPipeDelay.mos"
-        "Simulate and plot"),
+    __Dymola_Commands,
     Documentation(info="<html>
 <p>Example to test the parallel flow implementation of a double pipe</p>
 </html>", revisions="<html>
