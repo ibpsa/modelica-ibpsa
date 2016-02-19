@@ -144,8 +144,10 @@ public
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TIndAirSensor if ATot > 0 and VAir > 0
     "Indoor air temperature sensor"
     annotation (Placement(transformation(extent={{74,10},{94,30}})));
-  Modelica.Blocks.Interfaces.RealOutput TIndAir if ATot > 0 and VAir > 0
-    "Indoor air temperature"
+  Modelica.Blocks.Interfaces.RealOutput TIndAir(
+  final quantity="ThermodynamicTemperature",
+  final unit="K",
+  displayUnit="degC") if ATot > 0 and VAir > 0 "Indoor air temperature"
     annotation (Placement(transformation(extent={{220,138},{240,158}}),
         iconTransformation(extent={{220,138},{240,158}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a windowIndoorSurface if indoorPortWin
@@ -252,9 +254,8 @@ equation
           {-130,38},{-130,-12},{-212,-12},{-212,-148},{-196,-148},{-196,-170}},
                                                         color={191,0,0}));
   connect(convExtWall.solid, extWallsIndoorSurface) annotation (Line(points={{-114,
-          -36},{-134,-36},{-152,-36},{-152,-54},{-208,-54},{-208,-144},{-158,
-          -144},{-158,-170}},
-                        color={191,0,0}));
+          -36},{-134,-36},{-152,-36},{-152,-54},{-208,-54},{-208,-144},{-158,-144},
+          {-158,-170}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}},
         grid={2,2}),  graphics={
@@ -302,8 +303,7 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Indoor Air")}),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-240,-180},{240,
-            180}},
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-240,-180},{240,180}},
         grid={2,2}),
          graphics={
         Rectangle(
