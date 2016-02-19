@@ -24,8 +24,8 @@ model MoistureMixingConservationDynamicBalance
     annotation (Placement(transformation(extent={{4,-30},{16,-18}})));
   Modelica.Blocks.Math.Add3 add "Adder for injected water"
     annotation (Placement(transformation(extent={{-14,-18},{-2,-30}})));
-  Modelica.Blocks.Sources.RealExpression masVapVol(y=vol.dynBal.mXi[1] + vol1.dynBal.mXi[
-        1] + vol2.dynBal.mXi[1]) "Vapour mass stored in mixing volumes"
+  Modelica.Blocks.Sources.RealExpression masVapVol(y=vol.mXi[1] + vol1.mXi[1] +
+        vol2.mXi[1]) "Vapour mass stored in mixing volumes"
                                              annotation (Placement(
         transformation(
         extent={{-10,-9},{10,9}},
@@ -34,8 +34,8 @@ model MoistureMixingConservationDynamicBalance
   Modelica.Blocks.Math.Add3 add3Vap(k3=-1)
     "Sum of vapour mass should be conserved"
     annotation (Placement(transformation(extent={{60,-24},{70,-14}})));
-  Modelica.Blocks.Sources.RealExpression masVol(y=vol1.dynBal.m + vol.dynBal.m +
-        vol2.dynBal.m) "Mass stored in mixing volumes" annotation (Placement(
+  Modelica.Blocks.Sources.RealExpression masVol(y=vol1.m + vol.m + vol2.m)
+    "Mass stored in mixing volumes"                    annotation (Placement(
         transformation(
         extent={{-10,-9},{10,9}},
         rotation=0,
@@ -70,8 +70,8 @@ model MoistureMixingConservationDynamicBalance
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0) "Integral of added enthalpy"
     annotation (Placement(transformation(extent={{4,-92},{16,-80}})));
-  Modelica.Blocks.Sources.RealExpression entVol(y=vol1.dynBal.U + vol.dynBal.U +
-        vol2.dynBal.U) "Energy stored in mixing volumes" annotation (Placement(
+  Modelica.Blocks.Sources.RealExpression entVol(y=vol1.U + vol.U + vol2.U)
+    "Energy stored in mixing volumes"                    annotation (Placement(
         transformation(
         extent={{-10,-9},{10,9}},
         rotation=0,
@@ -96,8 +96,8 @@ model MoistureMixingConservationDynamicBalance
         rotation=270,
         origin={65,-1})));
 initial equation
-  m_start = {vol.dynBal.m, vol1.dynBal.m,vol2.dynBal.m};
-  U_start = {vol.dynBal.U, vol1.dynBal.U,vol2.dynBal.U};
+  m_start = {vol.m, vol1.m,vol2.m};
+  U_start = {vol.U, vol1.U,vol2.U};
 
 equation
   connect(add.u1, mWatFlo2.y) annotation (Line(
@@ -196,16 +196,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Documentation(info="<html>
+            -100},{100,100}})),           Documentation(info="<html>
 <p>
-This test checks if water vapour mass is conserved, 
+This model verifies if mass and energy are conserved, 
 using a dynamic balance. 
 Two air streams with different mass flow rate are humidified 
 by a mixing volume with two different vapor mass flow rates. 
 These flows are then mixed. 
-In this example no vapour is extracted. 
-<code>Integral</code> blocks are used to verify if air mass,
-vapour mass and enthalpy are conserved.
+Boundary integrals are used to verify if air mass,
+vapour mass and internal energy are conserved.
 </p>
 </html>", revisions="<html>
 <ul>

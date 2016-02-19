@@ -41,13 +41,19 @@ partial model PartialMixingVolume
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Medium.Temperature T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}))
     "Temperature of the fluid";
+  Modelica.Blocks.Interfaces.RealOutput U(unit="J")
+    "Internal energy of the component";
   Modelica.SIunits.Pressure p = if nPorts > 0 then ports[1].p else p_start
     "Pressure of the fluid";
+  Modelica.Blocks.Interfaces.RealOutput m(unit="kg") "Mass of the component";
   Modelica.SIunits.MassFraction Xi[Medium.nXi] = XiOut_internal
     "Species concentration of the fluid";
+  Modelica.Blocks.Interfaces.RealOutput mXi[Medium.nXi](unit="kg")
+    "Species mass of the component";
   Medium.ExtraProperty C[Medium.nC](nominal=C_nominal) = COut_internal
     "Trace substance mixture content";
-   // Models for the steady-state and dynamic energy balance.
+  Modelica.Blocks.Interfaces.RealOutput mC[Medium.nC]
+    "Trace substance mass of the component";
 
   Modelica.Blocks.Interfaces.RealInput[Medium.nC] C_flow if use_C_flow
     "Trace substance mass flow rate added to the medium"
@@ -148,7 +154,10 @@ equation
   connect(steBal.port_b, ports[2]) annotation (Line(
       points={{30,10},{40,10},{40,-20},{0,-20},{0,-100}},
       color={0,127,255}));
-
+    U=0;
+    mXi=zeros(Medium.nXi);
+    m=0;
+    mC=zeros(Medium.nC);
     connect(hOut_internal,  steBal.hOut);
     connect(XiOut_internal, steBal.XiOut);
     connect(COut_internal,  steBal.COut);
@@ -156,7 +165,10 @@ equation
       connect(dynBal.ports, ports) annotation (Line(
       points={{70,0},{70,-20},{2.22045e-15,-20},{2.22045e-15,-100}},
       color={0,127,255}));
-
+    connect(U,dynBal.UOut);
+    connect(mXi,dynBal.mXiOut);
+    connect(m,dynBal.mOut);
+    connect(mC,dynBal.mCOut);
     connect(hOut_internal,  dynBal.hOut);
     connect(XiOut_internal, dynBal.XiOut);
     connect(COut_internal,  dynBal.COut);
@@ -295,6 +307,13 @@ Annex60.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 19, 2016 by Filip Jorissen:<br/>
+Added outputs U, m, mXi, mC for being able to
+check conservation of quantities. 
+This if or <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">
+issue 247</a>.
+</li>
 <li>
 January 22, 2016 by Michael Wetter:<br/>
 Updated model to use the new parameter <code>use_mWat_flow</code>

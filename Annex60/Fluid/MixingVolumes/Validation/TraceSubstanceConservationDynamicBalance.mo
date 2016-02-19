@@ -10,18 +10,18 @@ model TraceSubstanceConservationDynamicBalance
   Modelica.Blocks.Continuous.Integrator intTraSubIn(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0)
+    y_start=0) "Integrator for trace substance inlet"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-60})));
   Modelica.Blocks.Continuous.Integrator intTraSubOut(
     k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0)
+    y_start=0) "Integrator for trace substance outlet"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-40})));
-  Modelica.Blocks.Sources.RealExpression reaExp(y=vol.dynBal.m*vol.dynBal.C[1])
+  Modelica.Blocks.Sources.RealExpression reaExp(y=vol.m*vol.C[1])
     "Mixing volume total species mass"
     annotation (Placement(transformation(extent={{-8,-58},{30,-78}})));
   Utilities.Diagnostics.AssertEquality assZer(threShold=1E-10)
@@ -56,7 +56,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(intTraSubIn.u, CfloIn.y) annotation (Line(
-      points={{-42,-60},{-46,-60},{-46,-41},{-46,-41}},
+      points={{-42,-60},{-46,-60},{-46,-41}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(CfloOut.y, intTraSubOut.u) annotation (Line(

@@ -43,6 +43,6 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservation.mos"
+          "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservationSteadyState.mos"
         "Simulate and plot"));
 end MoistureMixingConservationSteadyState;
