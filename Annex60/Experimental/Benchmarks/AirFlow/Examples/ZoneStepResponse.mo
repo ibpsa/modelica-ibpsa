@@ -39,52 +39,43 @@ model ZoneStepResponse
 equation
   connect(boundary.ports[1], simpleZone.port_a_vent) annotation (Line(
       points={{-40,8},{-10,8}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(simpleZone.port_b, bou.ports[1]) annotation (Line(
       points={{10,-6},{26,-6},{26,-2},{40,-2}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(simpleZone.port_a, bou.ports[2]) annotation (Line(
       points={{10,6},{26,6},{26,2},{40,2}},
-      color={0,127,255},
-      smooth=Smooth.None));
+      color={0,127,255}));
   connect(weaDat.weaBus, simpleZone.weaBus) annotation (Line(
       points={{-42,-42},{-26,-42},{-26,4},{-11.8,4}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+      thickness=0.5));
   connect(boundary.T_in, weaBus.TDryBul) annotation (Line(
       points={{-62,12},{-70,12},{-70,34},{-84,34}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-42,-42},{-26,-42},{-26,-16},{-84,-16},{-84,34}},
       color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
+      thickness=0.5), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(step.y, weaDat.TDryBul_in) annotation (Line(
       points={{-79.1,-33},{-63,-33}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-    experiment(StopTime=6e+006, __Dymola_NumberOfIntervals=5000),
+      color={0,0,127}));
+  annotation (    experiment(StopTime=6e+006, Interval=200),
     __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/Benchmarks/AirFlow/Examples/ZoneStepResponse.mos"
         "Simulate and plot"),
     Documentation(info="<html>
-<p>This example tests the step response of the SimpleZone model for the airflow benchmark. It uses 
-the weather file <code>STEP_TMY.mos</code>, that implements a <i>5 </i> Kelvin step at <i>t=400 000</i> 
-seconds. In the Buildings library, the room model of BESTEST 600 FF needs around <i>4-5</i> hours in 
-order to reach <i>2/3</i> of the maximum step response to this weather file. This time constant is 
+<p>This example tests the step response of the SimpleZone model for the airflow benchmark. It uses
+the weather file <code>STEP_TMY.mos</code>, that implements a <i>5 </i> Kelvin step at <i>t=400 000</i>
+seconds. In the Buildings library, the room model of BESTEST 600 FF needs around <i>4-5</i> hours in
+order to reach <i>2/3</i> of the maximum step response to this weather file. This time constant is
 approximated with a value of <code>mSenFac = 75</code> for the mixing volume of the zone.</p>
-<p>The mass flow rate of air to the zone is <i>0.05</i> kg/s, which approximates an air exchange 
+<p>The mass flow rate of air to the zone is <i>0.05</i> kg/s, which approximates an air exchange
 rate of <i>3</i> times the air volume per hour. </p>
 </html>", revisions="<html>
 <ul>

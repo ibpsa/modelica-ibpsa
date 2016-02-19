@@ -1,8 +1,8 @@
-last-generated=2015-08-05
+last-generated=2015-11-19
 statistics-initialization=
 {
   "numerical Jacobians": "0", 
-  "nonlinear": "2, 2, 0, 1"
+  "nonlinear": "1, 1, 0, 1"
 }
 statistics-simulation=
 {
