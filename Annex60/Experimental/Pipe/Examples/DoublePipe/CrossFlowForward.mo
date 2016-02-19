@@ -101,6 +101,9 @@ model CrossFlowForward "In order to test a cross flow double pipe"
         origin={-110,-90})));
   Modelica.Blocks.Sources.Step step(height=50, startTime=100000)
     annotation (Placement(transformation(extent={{-178,-92},{-158,-72}})));
+  Annex60.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
+        Medium)
+    annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 equation
   connect(PAtm.y, supplySink.p_in) annotation (Line(points={{99,10},{92,10},{92,
           38},{82,38}}, color={0,0,127}));
@@ -137,8 +140,6 @@ equation
           {-94,50},{-94,34},{-82,34}}, color={0,0,127}));
   connect(gain.u, combiTimeTable.y[1])
     annotation (Line(points={{-158,26},{-167,26}}, color={0,0,127}));
-  connect(senTemSupplyIn.port_b, doublePipeParallel.port_a1) annotation (Line(
-        points={{-30,30},{-20,30},{-20,6},{-10,6}}, color={0,127,255}));
   connect(senTemSupplyOut.port_a, doublePipeParallel.port_b1) annotation (Line(
         points={{30,30},{20,30},{20,6},{10,6}}, color={0,127,255}));
   connect(const3.y, doublePipeParallel.T_amb)
@@ -156,6 +157,10 @@ equation
         points={{-30,-30},{-20,-30},{-20,-6},{-10,-6}}, color={0,127,255}));
   connect(doublePipeParallel.port_a2, senTemReturnIn.port_b) annotation (Line(
         points={{10,-6},{20,-6},{20,-30},{30,-30}}, color={0,127,255}));
+  connect(senTemSupplyIn.port_b, senMasFlo.port_a)
+    annotation (Line(points={{-30,30},{-30,30}}, color={0,127,255}));
+  connect(doublePipeParallel.port_a1, senMasFlo.port_b)
+    annotation (Line(points={{-10,6},{-10,6},{-10,30}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{140,100}})),
     Icon(coordinateSystem(extent={{-200,-100},{140,100}})),
