@@ -34,6 +34,12 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
                                                                                         annotation(Dialog(group="Thermal zone"));
   parameter Modelica.SIunits.Temperature T_start
     "Initial temperature for thermal masses (incl. indoor air)";
+  parameter Boolean indoorPortWin = false
+    "Additional heat port at indoor surface of windows"
+    annotation(Dialog(group="Windows"),choices(checkBox = true));
+  parameter Boolean indoorPortExtWalls = false
+    "Additional heat port at indoor surface of exterior walls"
+    annotation(Dialog(group="Exterior walls"),choices(checkBox = true));
 protected
   parameter Modelica.SIunits.Area ATot=sum(AArray);
   parameter Modelica.SIunits.Area[:] AArray = {AExt, AWin};
@@ -44,7 +50,7 @@ public
   Fluid.MixingVolumes.MixingVolume volAir(m_flow_nominal=0.00001, V=VAir,
     redeclare package Medium = Medium,
     nPorts=nPorts,
-    T_start=T_start) "indoor air volume"
+    T_start=T_start) if VAir > 0 "indoor air volume"
     annotation (Placement(transformation(extent={{38,-10},{18,10}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
     redeclare package Medium = Medium)
@@ -71,7 +77,7 @@ public
         extent={{5,-5},{-5,5}},
         rotation=-90,
         origin={-104,-57})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if ATot > 0 and VAir > 0
     "auxilliary port for internal convective gains" annotation (Placement(
         transformation(extent={{220,28},{240,48}}), iconTransformation(extent={{
             220,28},{240,48}})));
@@ -135,14 +141,25 @@ public
         rotation=-90,
         origin={-146,8})));
 
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TIndAirSensor if ATot > 0 and VAir > 0
+    "Indoor air temperature sensor"
+    annotation (Placement(transformation(extent={{74,10},{94,30}})));
+  Modelica.Blocks.Interfaces.RealOutput TIndAir if ATot > 0 and VAir > 0
+    "Indoor air temperature"
+    annotation (Placement(transformation(extent={{220,138},{240,158}}),
+        iconTransformation(extent={{220,138},{240,158}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a windowIndoorSurface if indoorPortWin
+    "auxilliary port at indoor surface of windows"
+    annotation (Placement(transformation(extent={{-206,-180},{-186,-160}}),
+        iconTransformation(extent={{-206,-180},{-186,-160}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWallsIndoorSurface if indoorPortExtWalls
+    "auxilliary port at indoor surface of exterior walls" annotation (Placement(
+        transformation(extent={{-168,-180},{-148,-160}}), iconTransformation(
+          extent={{-168,-180},{-148,-160}})));
 equation
   connect(volAir.ports, ports) annotation (Line(
       points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-172},{85,-172}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(volAir.heatPort, intGainsConv) annotation (Line(
-      points={{38,0},{64,0},{64,38},{230,38}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(resWin.port_a, window) annotation (Line(
       points={{-180,38},{-230,38}},
@@ -209,14 +226,6 @@ equation
   end if;
   connect(eRadSol.u, solRad) annotation (Line(points={{-197,146},{-212,146},{-212,
           138},{-240,138}}, color={0,0,127}));
-  connect(convHeatSol.port, volAir.heatPort) annotation (Line(
-      points={{-158,124},{-62,124},{-62,94},{64,94},{64,0},{62,0},{38,0}},
-      color={191,0,0},
-      pattern=LinePattern.Dash));
-  connect(convWin.fluid, volAir.heatPort) annotation (Line(points={{-96,38},{64,
-          38},{64,0},{38,0}}, color={191,0,0}));
-  connect(volAir.heatPort, convExtWall.fluid) annotation (Line(points={{38,0},{64,
-          0},{64,-36},{-94,-36}}, color={191,0,0}));
   connect(resExtWallWin.port_b, convExtWall.solid) annotation (Line(points={{-146,
           -2},{-144,-2},{-144,-36},{-114,-36}}, color={191,0,0}));
   connect(resExtWallWin.port_a, convWin.solid)
@@ -225,6 +234,27 @@ equation
           -106,53.7},{-106,48}}, color={0,0,127}));
   connect(alphaExtWallConst.y, convExtWall.Gc) annotation (Line(points={{-104,
           -51.5},{-104,-46},{-104,-46}}, color={0,0,127}));
+  connect(convExtWall.fluid, TIndAirSensor.port) annotation (Line(points={{-94,-36},
+          {66,-36},{66,20},{74,20}}, color={191,0,0}));
+  connect(convHeatSol.port, TIndAirSensor.port) annotation (Line(
+      points={{-158,124},{-62,124},{-62,92},{66,92},{66,20},{74,20}},
+      color={191,0,0},
+      pattern=LinePattern.Dash));
+  connect(intGainsConv, TIndAirSensor.port) annotation (Line(points={{230,38},{66,
+          38},{66,20},{74,20}}, color={191,0,0}));
+  connect(convWin.fluid, TIndAirSensor.port) annotation (Line(points={{-96,38},{
+          66,38},{66,20},{74,20}}, color={191,0,0}));
+  connect(volAir.heatPort, TIndAirSensor.port)
+    annotation (Line(points={{38,0},{58,0},{58,20},{74,20}}, color={191,0,0}));
+  connect(TIndAirSensor.T, TIndAir) annotation (Line(points={{94,20},{108,20},{108,
+          148},{230,148}}, color={0,0,127}));
+  connect(convWin.solid, windowIndoorSurface) annotation (Line(points={{-116,38},
+          {-130,38},{-130,-12},{-212,-12},{-212,-148},{-196,-148},{-196,-170}},
+                                                        color={191,0,0}));
+  connect(convExtWall.solid, extWallsIndoorSurface) annotation (Line(points={{-114,
+          -36},{-134,-36},{-152,-36},{-152,-54},{-208,-54},{-208,-144},{-158,
+          -144},{-158,-170}},
+                        color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}},
         grid={2,2}),  graphics={

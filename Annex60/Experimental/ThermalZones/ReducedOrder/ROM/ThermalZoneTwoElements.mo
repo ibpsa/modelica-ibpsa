@@ -11,7 +11,9 @@ model ThermalZoneTwoElements
     "Vector of resistances of interior walls, from port to center"                         annotation(Dialog(group="Interior walls"));
   parameter Modelica.SIunits.HeatCapacity CInt[nInt]
     "Vector of heat capacities of interior walls, from port to center"                       annotation(Dialog(group="Interior walls"));
-
+  parameter Boolean indoorPortIntWalls = false
+    "Additional heat port at indoor surface of interior walls"
+    annotation(Dialog(group="Interior walls"),choices(checkBox = true));
   BaseClasses.IntMassVarRC intWallRC(
     n=nInt,
     RInt=RInt,
@@ -37,11 +39,11 @@ model ThermalZoneTwoElements
         AWin, AInt)*alphaRad) if  AWin > 0 and AInt > 0
     "resistor between interior walls and windows"
     annotation (Placement(transformation(extent={{74,-118},{94,-98}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intWallsIndoorSurface if indoorPortIntWalls
+    "auxilliary port at indoor surface of interior walls" annotation (Placement(
+        transformation(extent={{-130,-180},{-110,-160}}), iconTransformation(
+          extent={{-130,-180},{-110,-160}})));
 equation
-  connect(convIntWall.fluid, intGainsConv) annotation (Line(
-      points={{128,-38},{128,0},{64,0},{64,38},{230,38}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(resExtWallIntWall.port_a, convExtWall.solid) annotation (Line(
       points={{138,-106},{110,-106},{110,-86},{-144,-86},{-144,-36},{-114,-36}},
       color={191,0,0},
@@ -85,6 +87,10 @@ equation
       smooth=Smooth.None));
   connect(alphaIntWall.y, convIntWall.Gc) annotation (Line(points={{138,-53.5},
           {138,-51.75},{138,-51.75},{138,-48}}, color={0,0,127}));
+  connect(convIntWall.fluid, TIndAirSensor.port) annotation (Line(points={{128,
+          -38},{98,-38},{98,-36},{66,-36},{66,20},{74,20}}, color={191,0,0}));
+  connect(intWallRC.port_a, intWallsIndoorSurface) annotation (Line(points={{182.8,
+          -38},{170,-38},{170,-80},{-120,-80},{-120,-170}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}}), graphics={
         Polygon(

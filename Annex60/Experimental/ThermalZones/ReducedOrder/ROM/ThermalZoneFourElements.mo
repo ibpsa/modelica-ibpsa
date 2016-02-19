@@ -14,6 +14,9 @@ model ThermalZoneFourElements
                                                                                   annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.HeatCapacity CRoof[nExt]
     "Vector of heat capacities of roof, from inside to outside" annotation(Dialog(group="Roof"));
+  parameter Boolean indoorPortRoof = false
+    "Additional heat port at indoor surface of roof"
+    annotation(Dialog(group="Roof"),choices(checkBox = true));
   BaseClasses.ExtMassVarRC roofRC(
     RExt=RRoof,
     RExtRem=RRoofRem,
@@ -67,13 +70,15 @@ model ThermalZoneFourElements
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-108,6})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a roofIndoorSurface if indoorPortRoof
+    "auxilliary port at indoor surface of roof" annotation (Placement(
+        transformation(extent={{-54,-180},{-34,-160}}), iconTransformation(
+          extent={{-54,-180},{-34,-160}})));
 equation
   connect(convRoof.solid, roofRC.port_b)
     annotation (Line(points={{-12,130},{-12,144.8}}, color={191,0,0}));
   connect(roofRC.port_a, roof)
     annotation (Line(points={{-12,163.4},{-12,170}}, color={191,0,0}));
-  connect(convRoof.fluid, volAir.heatPort) annotation (Line(points={{-12,110},{
-          -12,94},{64,94},{64,0},{38,0}}, color={191,0,0}));
 
   connect(resRoofWin.port_a, convWin.solid) annotation (Line(points={{-164,
           100},{-174,100},{-174,82},{-146,82},{-146,38},{-116,38}}, color={191,
@@ -126,6 +131,11 @@ equation
   end if;
   connect(alphaRoofConst.y, convRoof.Gc) annotation (Line(points={{16.5,120},{
           7.25,120},{-2,120}}, color={0,0,127}));
+  connect(convRoof.fluid, TIndAirSensor.port) annotation (Line(points={{-12,110},
+          {-12,110},{-12,96},{66,96},{66,20},{74,20}}, color={191,0,0}));
+  connect(roofRC.port_b, roofIndoorSurface) annotation (Line(points={{-12,144.8},
+          {-12,136},{-112,136},{-112,112},{-216,112},{-216,-140},{-44,-140},{-44,
+          -170}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}}), graphics={
         Rectangle(
@@ -139,8 +149,8 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Roof")}),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-240,-180},{240,
-            180}}), graphics={Rectangle(
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-240,-180},{240,180}}),
+                    graphics={Rectangle(
           extent={{-38,42},{28,-44}},
           pattern=LinePattern.None,
           fillColor={230,230,230},

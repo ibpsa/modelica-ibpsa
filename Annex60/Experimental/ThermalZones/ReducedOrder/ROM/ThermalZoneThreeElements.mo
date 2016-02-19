@@ -14,6 +14,9 @@ model ThermalZoneThreeElements
                                                                                    annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.HeatCapacity CFloor[nExt]
     "Vector of heat capacities of floor plate, from inside to outside"  annotation(Dialog(group="Floor plate"));
+  parameter Boolean indoorPortFloor = false
+    "Additional heat port at indoor surface of floor plate"
+    annotation(Dialog(group="Floor plate"),choices(checkBox = true));
   BaseClasses.ExtMassVarRC floorRC(
     n=nFloor,
     RExt=RFloor,
@@ -62,13 +65,13 @@ model ThermalZoneThreeElements
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-82,-112})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a floorIndoorSurface if indoorPortFloor
+    "auxilliary port at indoor surface of floor plate" annotation (Placement(
+        transformation(extent={{-92,-180},{-72,-160}}), iconTransformation(
+          extent={{-92,-180},{-72,-160}})));
 equation
   connect(floorRC.port_a, convFloor.solid) annotation (Line(
       points={{-12,-143.6},{-12,-126}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convFloor.fluid, volAir.heatPort) annotation (Line(
-      points={{-12,-106},{-12,-36},{64,-36},{64,0},{38,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(floorRC.port_a, resExtWallFloor.port_b) annotation (Line(
@@ -123,6 +126,11 @@ equation
           -101},{-144,-36},{-114,-36}}, color={191,0,0}));
   connect(alphaFloorConst.y, convFloor.Gc) annotation (Line(points={{16.5,-116},
           {-2,-116},{-2,-116}}, color={0,0,127}));
+  connect(convFloor.fluid, TIndAirSensor.port) annotation (Line(points={{-12,
+          -106},{-12,-36},{66,-36},{66,20},{74,20}}, color={191,0,0}));
+  connect(floorRC.port_a, floorIndoorSurface) annotation (Line(points={{-12,
+          -143.6},{-46,-143.6},{-46,-144},{-82,-144},{-82,-170}},
+                                                          color={191,0,0}));
   annotation (Diagram(coordinateSystem(extent={{-240,-180},{240,180}},
           preserveAspectRatio=false), graphics={
         Rectangle(
