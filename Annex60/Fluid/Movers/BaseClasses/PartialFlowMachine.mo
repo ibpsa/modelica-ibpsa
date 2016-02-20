@@ -196,6 +196,10 @@ equation
     extent={{-100,-100},{100,100}}),
     graphics={
         Line(
+          points={{0,50},{100,50}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
           points={{0,80},{100,80}},
           color={0,0,0},
           smooth=Smooth.None),
