@@ -59,8 +59,6 @@ model TestCase10 "VDI 6007 Test Case 10 model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
 
-  Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor indoorTemp
-    annotation (Placement(transformation(extent={{96,-20},{88,-12}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsConv
@@ -142,14 +140,8 @@ model TestCase10 "VDI 6007 Test Case 10 model"
         rotation=90,
         origin={28,-19})));
 equation
-  connect(indoorTemp.port, thermalZoneTwoElements.intGainsConv)
-    annotation (Line(points={{96,-16},{96,19.8},{91,19.8}}, color={191,0,0}));
-  connect(machinesConv.port, indoorTemp.port)
-    annotation (Line(points={{68,-56},{96,-56},{96,-16}}, color={191,0,0}));
   connect(personsRad.port, thermalZoneTwoElements.intGainsRad) annotation (Line(
         points={{68,-92},{68,-92},{98,-92},{98,26},{91,26}}, color={191,0,0}));
-  connect(personsConv.port, indoorTemp.port)
-    annotation (Line(points={{68,-74},{96,-74},{96,-16}}, color={191,0,0}));
   connect(internalGains.y[1], personsRad.Q_flow) annotation (Line(points={{22.8,
           -52},{30,-52},{38,-52},{38,-92},{48,-92}}, color={0,0,127}));
   connect(internalGains.y[2], personsConv.Q_flow) annotation (Line(points={{
@@ -186,6 +178,11 @@ equation
     annotation (Line(points={{20,0},{24,0}}, color={191,0,0}));
   connect(thermalConductorWall.solid, thermalZoneTwoElements.extWall)
     annotation (Line(points={{34,0},{40,0},{40,12.4},{45,12.4}}, color={191,0,0}));
+  connect(personsConv.port, thermalZoneTwoElements.intGainsConv) annotation (
+      Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,
+          0,0}));
+  connect(machinesConv.port, thermalZoneTwoElements.intGainsConv) annotation (
+      Line(points={{68,-56},{96,-56},{96,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>

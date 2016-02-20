@@ -58,8 +58,6 @@ model TestCase9 "VDI 6007 Test Case 9 model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
 
-  Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor indoorTemp
-    annotation (Placement(transformation(extent={{96,-20},{88,-12}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*25.5)
     "Outdoor coefficient of heat transfer for walls" annotation (Placement(
         transformation(
@@ -203,18 +201,12 @@ model TestCase9 "VDI 6007 Test Case 9 model"
   Modelica.Blocks.Math.Gain gain(k=65.99081593)
     annotation (Placement(transformation(extent={{-52,-10},{-46,-4}})));
 equation
-  connect(indoorTemp.port, thermalZoneTwoElements.intGainsConv)
-    annotation (Line(points={{96,-16},{96,19.8},{91,19.8}}, color={191,0,0}));
-  connect(machinesConv.port, indoorTemp.port)
-    annotation (Line(points={{68,-56},{96,-56},{96,-16}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
     annotation (Line(points={{45,12.4},{40,12.4},{40,1},{36,1}}, color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(personsRad.port, thermalZoneTwoElements.intGainsRad) annotation (Line(
         points={{68,-92},{68,-92},{98,-92},{98,26},{91,26}}, color={191,0,0}));
-  connect(personsConv.port, indoorTemp.port)
-    annotation (Line(points={{68,-74},{96,-74},{96,-16}}, color={191,0,0}));
   connect(internalGains.y[1], personsRad.Q_flow) annotation (Line(points={{22.8,
           -52},{30,-52},{38,-52},{38,-92},{48,-92}}, color={0,0,127}));
   connect(internalGains.y[2], personsConv.Q_flow) annotation (Line(points={{
@@ -282,6 +274,11 @@ equation
           {-52.6,-7}}, color={0,0,127}));
   connect(gain.y, eqAirTemp.TBlaSky) annotation (Line(points={{-45.7,-7},{
           -33.85,-7},{-33.85,-7.54},{-24,-7.54}}, color={0,0,127}));
+  connect(personsConv.port, thermalZoneTwoElements.intGainsConv) annotation (
+      Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,
+          0,0}));
+  connect(machinesConv.port, thermalZoneTwoElements.intGainsConv) annotation (
+      Line(points={{68,-56},{96,-56},{96,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>

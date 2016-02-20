@@ -59,8 +59,6 @@ model TestCase7 "VDI 6007 Test Case 7 model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     annotation (Placement(transformation(extent={{48,-98},{68,-78}})));
 
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor indoorTemp
-    annotation (Placement(transformation(extent={{96,-20},{88,-12}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls" annotation (Placement(
         transformation(
@@ -128,8 +126,6 @@ equation
           22.8,-88},{22.8,-88},{48,-88}}, color={0,0,127}));
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad) annotation (
       Line(points={{68,-88},{84,-88},{98,-88},{98,26},{91,26}}, color={191,0,0}));
-  connect(thermalZoneTwoElements.intGainsConv, indoorTemp.port)
-    annotation (Line(points={{91,19.8},{96,19.8},{96,-16}}, color={191,0,0}));
   connect(mFan_flow.y,fan. m_flow_in) annotation (Line(
       points={{-73,-20},{-64.2,-20},{-64.2,-30}},
       color={0,0,127}));
@@ -150,10 +146,10 @@ equation
           {-96,-72},{-24,-72}}, color={0,127,255}));
   connect(hea.Q_flow, heatCool.Q_flow) annotation (Line(points={{-3,-36},{6,-36},
           {6,-28},{46,-28}}, color={0,0,127}));
-  connect(heatCool.port, indoorTemp.port)
-    annotation (Line(points={{66,-28},{96,-28},{96,-16}}, color={191,0,0}));
-  connect(indoorTemp.T, hea1.TSet) annotation (Line(points={{88,-16},{74,-16},{74,
-          -66},{-2,-66}}, color={0,0,127}));
+  connect(thermalZoneTwoElements.TIndAir, hea1.TSet) annotation (Line(points={{
+          91,30.8},{100,30.8},{100,-66},{-2,-66}}, color={0,0,127}));
+  connect(heatCool.port, thermalZoneTwoElements.intGainsConv) annotation (Line(
+        points={{66,-28},{82,-28},{96,-28},{96,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>

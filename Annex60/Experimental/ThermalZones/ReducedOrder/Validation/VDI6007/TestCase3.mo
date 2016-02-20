@@ -58,8 +58,6 @@ model TestCase3 "VDI 6007 Test Case 3 model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
 
-  Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor indoorTemp
-    annotation (Placement(transformation(extent={{96,-20},{88,-12}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls" annotation (Placement(
         transformation(
@@ -69,10 +67,6 @@ model TestCase3 "VDI 6007 Test Case 3 model"
   Modelica.Blocks.Sources.Constant const(k=0)
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
 equation
-  connect(indoorTemp.port, thermalZoneTwoElements.intGainsConv)
-    annotation (Line(points={{96,-16},{96,19.8},{91,19.8}}, color={191,0,0}));
-  connect(machinesConv.port, indoorTemp.port)
-    annotation (Line(points={{68,-74},{96,-74},{96,-16}}, color={191,0,0}));
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
@@ -83,6 +77,9 @@ equation
           30.5,31},{37.25,31},{37.25,30.8},{45,30.8}}, color={0,0,127}));
   connect(internalGains.y[1], machinesConv.Q_flow) annotation (Line(points={{
           22.8,-52},{36,-52},{36,-74},{48,-74}}, color={0,0,127}));
+  connect(machinesConv.port, thermalZoneTwoElements.intGainsConv) annotation (
+      Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,
+          0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>

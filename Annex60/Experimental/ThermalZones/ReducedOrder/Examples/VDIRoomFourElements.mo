@@ -70,8 +70,6 @@ model VDIRoomFourElements "VDI 6007 Test Case 2 model with 4 element model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
 
-  Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor indoorTemp
-    annotation (Placement(transformation(extent={{96,-20},{88,-12}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls" annotation (Placement(
         transformation(
@@ -93,8 +91,6 @@ equation
           22.8,-52},{36,-52},{36,-74},{48,-74}}, color={0,0,127}));
   connect(machinesConv.port, thermalZoneTwoElements.intGainsRad) annotation (
       Line(points={{68,-74},{84,-74},{98,-74},{98,26},{91,26}}, color={191,0,0}));
-  connect(thermalZoneTwoElements.intGainsConv, indoorTemp.port)
-    annotation (Line(points={{91,19.8},{96,19.8},{96,-16}}, color={191,0,0}));
   connect(thermalConductorWall.solid, thermalZoneTwoElements.floor) annotation (
      Line(points={{36,1},{40,1},{40,-20},{66.8,-20},{66.8,-1}}, color={191,0,0}));
   connect(thermalConductorWall.solid, thermalZoneTwoElements.roof) annotation (

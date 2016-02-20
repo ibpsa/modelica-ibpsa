@@ -77,7 +77,7 @@ public
         extent={{5,-5},{-5,5}},
         rotation=-90,
         origin={-104,-57})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if ATot > 0 and VAir > 0
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if ATot > 0 or VAir > 0
     "auxilliary port for internal convective gains" annotation (Placement(
         transformation(extent={{220,28},{240,48}}), iconTransformation(extent={{
             220,28},{240,48}})));
@@ -96,10 +96,10 @@ public
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={-106,66})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow convHeatSol if      ratioWinConRad > 0
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow convHeatSol if      ratioWinConRad > 0 and (ATot > 0 or VAir > 0)
     "solar heat considered as convection"
     annotation (Placement(transformation(extent={{-178,114},{-158,134}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow radHeatSol
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow radHeatSol if ATot > 0
     "solar heat considered as radiation"
     annotation (Placement(transformation(extent={{-178,136},{-158,156}})));
   Modelica.Blocks.Math.Gain eRadSol(k=gWin*(1 - ratioWinConRad)*ATransparent)
@@ -141,13 +141,13 @@ public
         rotation=-90,
         origin={-146,8})));
 
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TIndAirSensor if ATot > 0 and VAir > 0
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TIndAirSensor if ATot > 0 or VAir > 0
     "Indoor air temperature sensor"
     annotation (Placement(transformation(extent={{74,10},{94,30}})));
   Modelica.Blocks.Interfaces.RealOutput TIndAir(
   final quantity="ThermodynamicTemperature",
   final unit="K",
-  displayUnit="degC") if ATot > 0 and VAir > 0 "Indoor air temperature"
+  displayUnit="degC") if ATot > 0 or VAir > 0 "Indoor air temperature"
     annotation (Placement(transformation(extent={{220,138},{240,158}}),
         iconTransformation(extent={{220,138},{240,158}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a windowIndoorSurface if indoorPortWin

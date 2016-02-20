@@ -107,8 +107,6 @@ model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
 
-  Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor indoorTemp
-    annotation (Placement(transformation(extent={{96,-20},{88,-12}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*11.5)
     "Outdoor coefficient of heat transfer for walls" annotation (Placement(
         transformation(
@@ -183,14 +181,8 @@ equation
       points={{-78,62},{-73,62},{-68,62}},
       color={255,204,51},
       thickness=0.5));
-  connect(indoorTemp.port, thermalZoneTwoElements.intGainsConv)
-    annotation (Line(points={{96,-16},{96,19.8},{91,19.8}}, color={191,0,0}));
   connect(personsRad.port, thermalZoneTwoElements.intGainsRad) annotation (Line(
         points={{68,-32},{84,-32},{100,-32},{100,26},{91,26}}, color={191,0,0}));
-  connect(personsConv.port, indoorTemp.port) annotation (Line(points={{68,-52},
-          {84,-52},{96,-52},{96,-16}}, color={191,0,0}));
-  connect(machinesConv.port, indoorTemp.port)
-    annotation (Line(points={{68,-74},{96,-74},{96,-16}}, color={191,0,0}));
   connect(thermalConductorWin.solid, thermalZoneTwoElements.window) annotation (
      Line(points={{38,21},{40,21},{40,20},{45,20},{45,19.8}}, color={191,0,0}));
   connect(prescribedTemperature1.port, thermalConductorWin.fluid)
@@ -210,6 +202,11 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  connect(machinesConv.port, thermalZoneTwoElements.intGainsConv) annotation (
+      Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,
+          0,0}));
+  connect(personsConv.port, thermalZoneTwoElements.intGainsConv) annotation (
+      Line(points={{68,-52},{96,-52},{96,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>
