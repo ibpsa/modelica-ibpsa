@@ -124,6 +124,9 @@ As its speed is reduced, the mass flow rate changes its direction in such a way 
 at the top has reverse flow.
 </html>", revisions="<html>
 <ul>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
+</li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
 Set constant speed for pump using a <code>parameter</code> 

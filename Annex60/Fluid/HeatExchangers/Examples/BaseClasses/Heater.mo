@@ -123,6 +123,9 @@ and it also is required to account for a variation of density of the fluid.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
+</li>
 <li>
 January 6, 2015, by Michael Wetter:<br/>
 Revised implementation.

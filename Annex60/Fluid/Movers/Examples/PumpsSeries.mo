@@ -74,6 +74,9 @@ but the pressure drop of the pump <code>floMac1.dp</code> is positive, which mea
 However, <code>flowMac2.dp</code> is always negative, as this pump has a constant control input of 1.
 </html>", revisions="<html>
 <ul>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
+</li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
 Set constant speed for pump using a <code>parameter</code> 

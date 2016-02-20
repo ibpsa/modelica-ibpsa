@@ -169,6 +169,9 @@ Corrected type declaration of pressure difference.
 This is
 for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/404\">#404</a>.
 </li>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
+</li>
 <li>
 June 14, 2015, by Filip Jorissen:<br/>
 Set constant speed for pump using a <code>parameter</code>

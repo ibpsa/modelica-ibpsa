@@ -103,6 +103,10 @@ set point for a mover model.
 </p>
 </html>", revisions="<html>
 <ul>
+<ul>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

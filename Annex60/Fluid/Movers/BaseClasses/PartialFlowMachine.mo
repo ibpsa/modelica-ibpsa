@@ -23,7 +23,7 @@ partial model PartialFlowMachine
 
   parameter Modelica.SIunits.Time tau=1
     "Time constant of fluid volume for nominal flow, used used if energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
+    annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=(energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Real stageInputs[:]
     "Vector of input set points corresponding to stages";
 
@@ -218,6 +218,9 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
+</li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter

@@ -107,12 +107,12 @@ equation
 
   if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving then
     connect(res3.port_a, vol.ports[3]) annotation (Line(
-      points={{-6.66134e-16,-60},{0,-60},{0,0},{2.66667,0}},
+      points={{-6.66134e-016,-60},{0,-60},{0,0},{2.66667,0}},
       color={0,127,255}));
     connect(port_3, res3.port_b) annotation (Line(points={{0,-100},{0,-100},{0,-40}}, color={0,127,255}));
   else
     connect(res3.port_b, vol.ports[3]) annotation (Line(
-      points={{4.44089e-16,-40},{0,-40},{0,0},{2.66667,0}},
+      points={{4.44089e-016,-40},{0,-40},{0,0},{2.66667,0}},
       color={0,127,255}));
     connect(port_3, res3.port_a) annotation (Line(points={{0,-100},{0,-100},{0,-60}}, color={0,127,255}));
   end if;
@@ -138,6 +138,9 @@ as this is required for OpenModelica.
 This is for
 <a href=\"modelica://https://github.com/lbl-srg/modelica-buildings/issues/475\">
 https://github.com/lbl-srg/modelica-buildings/issues/475</a>.
+</li>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
 </li>
 <li>
 April 13 2015, by Filip Jorissen:<br/>
