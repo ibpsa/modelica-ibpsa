@@ -22,7 +22,7 @@ partial model PartialFlowMachine
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
 
   parameter Modelica.SIunits.Time tau=1
-    "Time constant of fluid volume for nominal flow, used if massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial"
+    "Time constant of fluid volume for nominal flow, used used if energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState"
     annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
   parameter Real stageInputs[:]
     "Vector of input set points corresponding to stages";
