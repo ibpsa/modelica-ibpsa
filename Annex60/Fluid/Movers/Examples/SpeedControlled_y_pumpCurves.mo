@@ -6,12 +6,12 @@ model SpeedControlled_y_pumpCurves
 
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000 "Nominal pressure";
+  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000
+    "Nominal pressure";
 
    model pumpModel = Annex60.Fluid.Movers.SpeedControlled_y (
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     per(pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
                   dp=dp_nominal*{0.9, 0.85, 0.6, 0.2})))
     "Declaration of pump model";
