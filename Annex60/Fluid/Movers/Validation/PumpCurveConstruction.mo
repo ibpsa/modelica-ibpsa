@@ -35,8 +35,7 @@ model PumpCurveConstruction
     per(pressure(
           V_flow={0,0.5*V_flow_nominal,V_flow_nominal},
           dp={dp_nominal,0.5*dp_nominal,0})),
-    inputType=Annex60.Fluid.Types.InputType.Constant,
-    normalized_speed=1)
+    inputType=Annex60.Fluid.Types.InputType.Constant)
     "Pump with 3 data points for the pressure flow relation"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
 
@@ -47,8 +46,7 @@ model PumpCurveConstruction
     per(pressure(
           V_flow={0.5*V_flow_nominal, 0.75*V_flow_nominal, V_flow_nominal},
           dp={0.5*dp_nominal, 0.25*dp_nominal, 0})),
-    inputType=Annex60.Fluid.Types.InputType.Constant,
-    normalized_speed=1)
+    inputType=Annex60.Fluid.Types.InputType.Constant)
     "Pump with 2 data points for the pressure flow relation, with data at dp=0"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
 
@@ -59,8 +57,7 @@ model PumpCurveConstruction
     per(pressure(
            V_flow={0, 0.25*V_flow_nominal, 0.5*V_flow_nominal},
            dp={dp_nominal, 0.75*dp_nominal, 0.5*dp_nominal})),
-    inputType=Annex60.Fluid.Types.InputType.Constant,
-    normalized_speed=1)
+    inputType=Annex60.Fluid.Types.InputType.Constant)
     "Pump with 2 data points for the pressure flow relation, with data at m_flow=0"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
 
@@ -71,8 +68,7 @@ model PumpCurveConstruction
     per(pressure(
           V_flow={0.25*V_flow_nominal,0.5*V_flow_nominal,0.75*V_flow_nominal},
           dp={0.75*dp_nominal,0.5*dp_nominal,0.25*dp_nominal})),
-    inputType=Annex60.Fluid.Types.InputType.Constant,
-    normalized_speed=1)
+    inputType=Annex60.Fluid.Types.InputType.Constant)
     "Pump with 2 data points for the pressure flow relation, with no data at m_flow=0 and dp=0"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
 

@@ -217,8 +217,8 @@ The model can be used as-is, although there will be no heat or mass transfer
 between the two fluid streams.
 To add heat transfer, heat flow can be added to the heat port of the two volumes.
 See for example
-<a href=\"Annex60.Fluid.Chillers.Carnot\">
-Annex60.Fluid.Chillers.Carnot</a>.
+<a href=\"Annex60.Fluid.Chillers.Carnot_y\">
+Annex60.Fluid.Chillers.Carnot_y</a>.
 To add moisture input into (or moisture output from) volume <code>vol2</code>,
 the model can be replaced as shown in
 <a href=\"modelica://Annex60.Fluid.HeatExchangers.BaseClasses.HexElement\">
