@@ -30,8 +30,8 @@ partial model FlowMachine_ZeroFlow
   replaceable Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine floMacSta
     constrainedby Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
       redeclare package Medium = Medium,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      dynamicBalance=false) "Static model of a flow machine"
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Static model of a flow machine"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   replaceable Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine floMacDyn
     constrainedby Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
@@ -112,6 +112,9 @@ Otherwise, the pedantic model check of
 Annex60.Fluid.Movers.Validation.SpeedControlled_Nrpm_Data</a>
 fails because water does not implemented the function
 <code>Xsaturation</code>.
+</li>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
 </li>
 <li>
 March 24 2010, by Michael Wetter:<br/>
