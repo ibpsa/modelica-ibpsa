@@ -75,7 +75,7 @@ However, <code>flowMac2.dp</code> is always negative, as this pump has a constan
 </html>", revisions="<html>
 <ul>
 <li>February 20, 2016, by Ruben Baetens:<br/>
-Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
 </li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>

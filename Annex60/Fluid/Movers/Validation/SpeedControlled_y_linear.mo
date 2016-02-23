@@ -105,7 +105,7 @@ This ensures that the actual speed is equal to the input signal.
 </html>", revisions="<html>
 <ul>
 <li>February 20, 2016, by Ruben Baetens:<br/>
-Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>

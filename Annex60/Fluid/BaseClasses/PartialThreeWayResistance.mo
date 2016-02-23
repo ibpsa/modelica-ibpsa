@@ -140,7 +140,7 @@ This is for
 https://github.com/lbl-srg/modelica-buildings/issues/475</a>.
 </li>
 <li>February 20, 2016, by Ruben Baetens:<br/>
-Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
 </li>
 <li>
 April 13 2015, by Filip Jorissen:<br/>

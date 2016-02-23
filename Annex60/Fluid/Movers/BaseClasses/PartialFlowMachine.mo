@@ -219,7 +219,7 @@ and more robust simulation, in particular if the mass flow is equal to zero.
       revisions="<html>
 <ul>
 <li>February 20, 2016, by Ruben Baetens:<br/>
-Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
 </li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>

@@ -114,7 +114,7 @@ fails because water does not implemented the function
 <code>Xsaturation</code>.
 </li>
 <li>February 20, 2016, by Ruben Baetens:<br/>
-Removal of dynamicBalance as parameter for massDynamics and energyDynamics.
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
 </li>
 <li>
 March 24 2010, by Michael Wetter:<br/>
