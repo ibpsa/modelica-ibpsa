@@ -76,44 +76,90 @@ partial model PartialThreeWayResistance
     final X_start=X_start,
     final C_start=C_start,
     final allowFlowReversal=true,
-    final prescribedHeatFlowRate=false) "Fluid volume to break algebraic loop"
+    final prescribedHeatFlowRate=false) if
+       have_controlVolume "Fluid volume to break algebraic loop"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
+protected
+  parameter Boolean have_controlVolume=
+      energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
+       massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState
+    "Boolean flag used to remove conditional components";
+  Modelica.Fluid.Interfaces.FluidPort_a port_internal(
+    redeclare package Medium = Medium) if not have_controlVolume
+    "Internal dummy port for easier connection of conditional connections"
+    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 equation
   if portFlowDirection_1==Modelica.Fluid.Types.PortFlowDirection.Leaving then
-    connect(res1.port_a, vol.ports[1]) annotation (Line(
+    if not have_controlVolume then
+       connect(res1.port_a, port_internal) annotation (Line(
+      points={{-60,0},{-60,60},{0,60}},
+      color={0,127,255}));
+    else
+       connect(res1.port_a, vol.ports[1]) annotation (Line(
       points={{-60,0},{-2.66667,0}},
       color={0,127,255}));
+    end if;
     connect(port_1, res1.port_b) annotation (Line(points={{-100,0},{-100,0},{-40,
             0}},                                                                      color={0,127,255}));
   else
-    connect(res1.port_b, vol.ports[1]) annotation (Line(
+    if not have_controlVolume then
+       connect(res1.port_b, port_internal) annotation (Line(
+      points={{-40,0},{-40,60},{0,60}},
+      color={0,127,255}));
+    else
+       connect(res1.port_b, vol.ports[1]) annotation (Line(
       points={{-40,0},{-2.66667,0}},
       color={0,127,255}));
+    end if;
     connect(port_1, res1.port_a) annotation (Line(points={{-100,0},{-100,0},{-60,0}}, color={0,127,255}));
   end if;
 
   if portFlowDirection_2==Modelica.Fluid.Types.PortFlowDirection.Leaving then
-    connect(res2.port_a, vol.ports[2]) annotation (Line(
+    if not have_controlVolume then
+       connect(res2.port_a, port_internal) annotation (Line(
+      points={{60,0},{60,60},{0,60}},
+      color={0,127,255}));
+    else
+       connect(res2.port_a, vol.ports[2]) annotation (Line(
       points={{60,0},{2.22045e-16,0}},
       color={0,127,255}));
+    end if;
     connect(port_2, res2.port_b) annotation (Line(points={{100,0},{100,0},{40,0}},    color={0,127,255}));
   else
-    connect(res2.port_b, vol.ports[2]) annotation (Line(
+    if not have_controlVolume then
+       connect(res2.port_b, port_internal) annotation (Line(
+      points={{40,0},{40,60},{0,60}},
+      color={0,127,255}));
+    else
+       connect(res2.port_b, vol.ports[2]) annotation (Line(
       points={{40,0},{2.22045e-16,0}},
       color={0,127,255}));
+    end if;
     connect(port_2, res2.port_a) annotation (Line(points={{100,0},{100,0},{60,0}},    color={0,127,255}));
   end if;
 
   if portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving then
-    connect(res3.port_a, vol.ports[3]) annotation (Line(
-      points={{-6.66134e-016,-60},{0,-60},{0,0},{2.66667,0}},
+    if not have_controlVolume then
+       connect(res3.port_a, port_internal) annotation (Line(
+      points={{-4.44089e-16,-60},{20,-60},{20,60},{0,60}},
       color={0,127,255}));
+    else
+       connect(res3.port_a, vol.ports[3]) annotation (Line(
+      points={{-6.66134e-16,-60},{0,-60},{0,0},{2.66667,0}},
+      color={0,127,255}));
+    end if;
     connect(port_3, res3.port_b) annotation (Line(points={{0,-100},{0,-100},{0,-40}}, color={0,127,255}));
   else
-    connect(res3.port_b, vol.ports[3]) annotation (Line(
-      points={{4.44089e-016,-40},{0,-40},{0,0},{2.66667,0}},
+    if not have_controlVolume then
+       connect(res3.port_b, port_internal) annotation (Line(
+      points={{4.44089e-16,-40},{20,-40},{20,60},{0,60}},
       color={0,127,255}));
+    else
+       connect(res3.port_b, vol.ports[3]) annotation (Line(
+      points={{4.44089e-16,-40},{0,-40},{0,0},{2.66667,0}},
+      color={0,127,255}));
+    end if;
     connect(port_3, res3.port_a) annotation (Line(points={{0,-100},{0,-100},{0,-60}}, color={0,127,255}));
   end if;
    annotation (
@@ -131,6 +177,15 @@ The time constant of the mixing volume is determined by the parameter <code>tau<
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 22, 2016, by Michael Wetter:<br/>
+Conditionally removed control volume <code>vol</code>, and added the conditional connnector
+<code>port_internal</code>.
+This was already done when the parameter <code>dynamicBalance</code> was present, but
+was updated wrong when this parameter was removed.
+Without these conditional components, the regression test for
+<code>Annex60.Fluid.Examples.ResistanceVolumeFlowReversal</code> fails to simulate.
+</li>
 <li>
 December 17, 2015, by Michael Wetter:<br/>
 Added assignment <code>redeclare final package Medium=Medium</code>
