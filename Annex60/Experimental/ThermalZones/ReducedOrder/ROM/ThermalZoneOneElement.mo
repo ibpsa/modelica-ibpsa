@@ -1,26 +1,34 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ROM;
 model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
 
+  parameter Modelica.SIunits.Temperature T_start
+    "Initial temperature for thermal masses (incl. indoor air)";
   parameter Modelica.SIunits.Volume VAir "Air volume of the zone" annotation(Dialog(group="Thermal zone"));
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
+    "Coefficient of heat transfer for linearized radiation exchange between walls"
+                                                                                        annotation(Dialog(group="Thermal zone"));
   package Medium = Annex60.Media.Air;
   parameter Integer nPorts=0 "Number of fluid ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  parameter Modelica.SIunits.ThermalResistance RWin "Resistor for windows"
-                           annotation(Dialog(group="Windows"));
-  parameter Modelica.SIunits.Area AExt "Area of exterior walls"
-                                                               annotation(Dialog(group="Exterior walls"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExt
-    "Coefficient of heat transfer of exterior walls (indoor)" annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.Area AWin "Area of windows"
                       annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.Area ATransparent
     "Surface area of transparent (solar radiation transmittend) elements" annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWin
     "Coefficient of heat transfer of windows (indoor)" annotation(Dialog(group="Windows"));
+  parameter Modelica.SIunits.ThermalResistance RWin "Resistor for windows"
+                           annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.TransmissionCoefficient gWin
     "Total energy transmittance of windows" annotation(Dialog(group="Windows"));
   parameter Real ratioWinConRad
     "Ratio for windows between indoor convective and radiative heat emission" annotation(Dialog(group="Windows"));
+  parameter Boolean indoorPortWin = false
+    "Additional heat port at indoor surface of windows"
+    annotation(Dialog(group="Windows"),choices(checkBox = true));
+  parameter Modelica.SIunits.Area AExt "Area of exterior walls"
+                                                               annotation(Dialog(group="Exterior walls"));
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExt
+    "Coefficient of heat transfer of exterior walls (indoor)" annotation(Dialog(group="Exterior walls"));
   parameter Integer nExt(min = 1) "Number of RC-elements of exterior walls" annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.ThermalResistance RExt[nExt]
     "Vector of resistances of exterior walls, from inside to outside" annotation(Dialog(group="Exterior walls"));
@@ -29,14 +37,6 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
                                                                                     annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.HeatCapacity CExt[nExt]
     "Vector of heat capacities of exterior walls, from inside to outside"                  annotation(Dialog(group="Exterior walls"));
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
-    "Coefficient of heat transfer for linearized radiation exchange between walls"
-                                                                                        annotation(Dialog(group="Thermal zone"));
-  parameter Modelica.SIunits.Temperature T_start
-    "Initial temperature for thermal masses (incl. indoor air)";
-  parameter Boolean indoorPortWin = false
-    "Additional heat port at indoor surface of windows"
-    annotation(Dialog(group="Windows"),choices(checkBox = true));
   parameter Boolean indoorPortExtWalls = false
     "Additional heat port at indoor surface of exterior walls"
     annotation(Dialog(group="Exterior walls"),choices(checkBox = true));

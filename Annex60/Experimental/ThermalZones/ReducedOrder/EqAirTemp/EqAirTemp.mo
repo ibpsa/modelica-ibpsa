@@ -2,7 +2,7 @@ within Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp;
 model EqAirTemp
   "Model for equivalent air temperature as defined in VDI 6007 Part 1 with modifications"
 
-  extends BaseClasses.partialEqAirTemp;
+  extends BaseClasses.PartialEqAirTemp;
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWinOut
     "Windows' convective coefficient of heat transfer (outdoor)";
   parameter Modelica.SIunits.Emissivity aWin

@@ -1,5 +1,5 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp.BaseClasses;
-partial model partialEqAirTemp
+partial model PartialEqAirTemp
   "Partial model for equivalent air temperature as defined in VDI 6007 Part 1"
 
   parameter Modelica.SIunits.Emissivity aExt
@@ -130,4 +130,4 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-1
 <li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality and used assert for warnings.<br>Adapted to Annex 60 requirements.</li>
 </ul>
 </html>"));
-end partialEqAirTemp;
+end PartialEqAirTemp;

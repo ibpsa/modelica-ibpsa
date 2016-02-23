@@ -20,17 +20,17 @@ model ThermalZoneTwoElements
     CInt=CInt,
     T_start=T_start) if
                   AInt > 0 "RC-element for interior walls"
-    annotation (Placement(transformation(extent={{182,-48},{202,-26}})));
+    annotation (Placement(transformation(extent={{182,-46},{202,-24}})));
   Modelica.Thermal.HeatTransfer.Components.Convection         convIntWall if
                                                                             AInt > 0
     "convective heat transfer of interior walls"
-    annotation (Placement(transformation(extent={{148,-28},{128,-48}})));
+    annotation (Placement(transformation(extent={{148,-26},{128,-46}})));
   Modelica.Blocks.Sources.Constant alphaIntWall(k=AInt*alphaInt) if    AInt > 0
     "coefficient of convective heat transfer for interior walls"
     annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=-90,
-        origin={138,-59})));
+        origin={138,-57})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallIntWall(G=min(
         AExt, AInt)*alphaRad) if  AExt > 0 and AInt > 0
     "resistor between exterior walls and interior walls"
@@ -50,11 +50,11 @@ equation
       smooth=Smooth.None));
 
   connect(convIntWall.solid, intWallRC.port_a) annotation (Line(
-      points={{148,-38},{182.8,-38}},
+      points={{148,-36},{182.8,-36}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(intWallRC.port_a, resExtWallIntWall.port_b) annotation (Line(
-      points={{182.8,-38},{168,-38},{168,-106},{158,-106}},
+      points={{182.8,-36},{168,-36},{168,-106},{158,-106}},
       color={191,0,0},
       smooth=Smooth.None));
   if not AExt > 0 and not AWin > 0 and AInt > 0 then
@@ -66,18 +66,18 @@ equation
   elseif AExt > 0 and AWin > 0 and AInt > 0 then
     connect(thermSplitterIntGains.signalOutput[3], intWallRC.port_a)
       annotation (Line(
-        points={{190,88},{190,80},{164,80},{164,-38},{182.8,-38}},
+        points={{190,88},{190,82},{164,82},{164,-36},{182.8,-36}},
         color={191,0,0},
         smooth=Smooth.None));
     connect(thermSplitterSolRad.signalOutput[3], intWallRC.port_a) annotation (
         Line(
-        points={{-136,146},{-60,146},{-60,100},{160,100},{160,-38},{182.8,-38}},
+        points={{-136,146},{-60,146},{-60,102},{160,102},{160,-36},{182.8,-36}},
         color={191,0,0},
         smooth=Smooth.None));
 
   end if;
   connect(resIntWallsWin.port_b, intWallRC.port_a) annotation (Line(
-      points={{94,-108},{118,-108},{118,-86},{168,-86},{168,-38},{182.8,-38}},
+      points={{94,-108},{118,-108},{118,-84},{168,-84},{168,-36},{182.8,-36}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(resIntWallsWin.port_a, convWin.solid) annotation (Line(
@@ -85,23 +85,23 @@ equation
           {-116,38}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(alphaIntWall.y, convIntWall.Gc) annotation (Line(points={{138,-53.5},
-          {138,-51.75},{138,-51.75},{138,-48}}, color={0,0,127}));
-  connect(convIntWall.fluid, TIndAirSensor.port) annotation (Line(points={{128,
-          -38},{98,-38},{98,-36},{66,-36},{66,20},{74,20}}, color={191,0,0}));
+  connect(alphaIntWall.y, convIntWall.Gc) annotation (Line(points={{138,-51.5},
+          {138,-49.75},{138,-46}},              color={0,0,127}));
   connect(intWallRC.port_a, intWallsIndoorSurface) annotation (Line(points={{182.8,
-          -38},{170,-38},{170,-80},{-120,-80},{-120,-170}}, color={191,0,0}));
+          -36},{170,-36},{170,-78},{-120,-78},{-120,-170}}, color={191,0,0}));
+  connect(convIntWall.fluid, TIndAirSensor.port) annotation (Line(points={{128,
+          -36},{66,-36},{66,20},{74,20}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}}), graphics={
         Polygon(
-          points={{116,-16},{230,-16},{230,-78},{140,-78},{138,-78},{116,-78},{
-              116,-16}},
+          points={{116,-14},{230,-14},{230,-76},{140,-76},{138,-76},{116,-76},{
+              116,-14}},
           lineColor={0,0,255},
           smooth=Smooth.None,
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{173,-63},{224,-80}},
+          extent={{173,-61},{224,-78}},
           lineColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
