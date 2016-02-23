@@ -41,8 +41,7 @@ model SpeedControlled_y_linear
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.01*dp_nominal) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
-  Annex60.Fluid.Sources.MassFlowSource_T
-                                      sou2(
+  Annex60.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium,
     nPorts=1,
     m_flow=m_flow_nominal*0.01,

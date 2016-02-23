@@ -31,7 +31,6 @@ model PumpsSeries "Two flow machines in series"
     redeclare package Medium = Medium,
     per(pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0})),
     inputType=Annex60.Fluid.Types.InputType.Constant,
-    normalized_speed=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Model of a flow machine"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
@@ -74,9 +73,6 @@ but the pressure drop of the pump <code>floMac1.dp</code> is positive, which mea
 However, <code>flowMac2.dp</code> is always negative, as this pump has a constant control input of 1.
 </html>", revisions="<html>
 <ul>
-<li>February 20, 2016, by Ruben Baetens:<br/>
-Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
-</li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
 Set constant speed for pump using a <code>parameter</code> 

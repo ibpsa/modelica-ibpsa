@@ -27,15 +27,14 @@ model MoverParameter
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   SpeedControlled_y pump_y(
     redeclare package Medium = Medium,
-    normalized_speeds={0,0.5,1},
-    redeclare Annex60.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per,
+    redeclare Annex60.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
+      speeds_rpm=1800*{0,0.5,1},
+      constantSpeed_rpm=1800),
     filteredSpeed=false,
     inputType=Annex60.Fluid.Types.InputType.Constant,
-    normalized_speed=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump with normalised speed input"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-
   FlowControlled_dp pump_dp(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -47,7 +46,6 @@ model MoverParameter
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump with pressure head input"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
-
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -57,14 +55,13 @@ model MoverParameter
   SpeedControlled_Nrpm pump_Nrpm(
     redeclare package Medium = Medium,
     filteredSpeed=false,
-    speeds={0,1000,2000},
-    redeclare Annex60.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per,
+    redeclare Annex60.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4 per(
+      speeds_rpm={0,1000,2000},
+      constantSpeed_rpm=2000),
     inputType=Annex60.Fluid.Types.InputType.Constant,
-    speed=2000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump with speed input"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-
   parameter Modelica.SIunits.PressureDifference dp_nominal=10000
     "Nominal pressure raise";
 equation
@@ -103,9 +100,10 @@ set point for a mover model.
 </p>
 </html>", revisions="<html>
 <ul>
-<ul>
-<li>February 20, 2016, by Ruben Baetens:<br/>
-Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
+<li>
+February 17, 2016, by Michael Wetter:<br/>
+Updated parameter names for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/396\">#396</a>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>

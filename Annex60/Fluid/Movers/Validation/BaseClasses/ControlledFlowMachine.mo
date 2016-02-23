@@ -1,7 +1,7 @@
 within Annex60.Fluid.Movers.Validation.BaseClasses;
 model ControlledFlowMachine
 
-  package Medium = Annex60.Media.Air;
+  package Medium = Annex60.Media.Air "Medium model";
 
   Modelica.Blocks.Sources.Pulse y(
     startTime=0,
@@ -38,16 +38,16 @@ model ControlledFlowMachine
     redeclare package Medium = Medium,
     dp_nominal=300) "Pressure drop"
     annotation (Placement(transformation(extent={{16,-30},{36,-10}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloRat2(redeclare package Medium =
-        Medium)
+  Annex60.Fluid.Sensors.MassFlowRate masFloRat2(
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   FixedResistances.FixedResistanceDpM dp3(
     m_flow_nominal=6000/3600*1.2,
     redeclare package Medium = Medium,
     dp_nominal=300) "Pressure drop"
     annotation (Placement(transformation(extent={{16,-70},{36,-50}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloRat3(redeclare package Medium =
-        Medium)
+  Annex60.Fluid.Sensors.MassFlowRate masFloRat3(
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Annex60.Fluid.Movers.FlowControlled_dp fan3(
     redeclare package Medium = Medium,
@@ -64,8 +64,8 @@ model ControlledFlowMachine
     redeclare package Medium = Medium,
     dp_nominal=300) "Pressure drop"
     annotation (Placement(transformation(extent={{16,100},{36,120}})));
-  Annex60.Fluid.Sensors.MassFlowRate masFloRat4(redeclare package Medium =
-        Medium)
+  Annex60.Fluid.Sensors.MassFlowRate masFloRat4(
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Annex60.Fluid.Movers.SpeedControlled_Nrpm fan4(
     redeclare package Medium = Medium,
