@@ -41,11 +41,13 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Additional heat port at indoor surface of exterior walls"
     annotation(Dialog(group="Exterior walls"),choices(checkBox = true));
 protected
-  parameter Modelica.SIunits.Area ATot=sum(AArray);
-  parameter Modelica.SIunits.Area[:] AArray = {AExt, AWin};
-  parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray});
-  parameter Real splitFactor[dimension]=Annex60.Experimental.ThermalZones.ReducedOrder.BaseClasses.splitFacVal(dimension,AArray);
-
+  parameter Modelica.SIunits.Area ATot=sum(AArray) "Sum of wall surface areas";
+  parameter Modelica.SIunits.Area[:] AArray = {AExt, AWin}
+    "List of all wall surface areas";
+  parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray})
+    "Number of non-zero wall surface areas";
+  parameter Real splitFactor[dimension]=Annex60.Experimental.ThermalZones.ReducedOrder.BaseClasses.splitFacVal(dimension,AArray)
+    "Share of each wall surface area that is non-zero";
 public
   Fluid.MixingVolumes.MixingVolume volAir(m_flow_nominal=0.00001, V=VAir,
     redeclare package Medium = Medium,
@@ -154,7 +156,7 @@ public
     "auxilliary port at indoor surface of windows"
     annotation (Placement(transformation(extent={{-206,-180},{-186,-160}}),
         iconTransformation(extent={{-206,-180},{-186,-160}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWallsIndoorSurface if indoorPortExtWalls
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWallIndoorSurface if  indoorPortExtWalls
     "auxilliary port at indoor surface of exterior walls" annotation (Placement(
         transformation(extent={{-168,-180},{-148,-160}}), iconTransformation(
           extent={{-168,-180},{-148,-160}})));
@@ -253,7 +255,7 @@ equation
   connect(convWin.solid, windowIndoorSurface) annotation (Line(points={{-116,38},
           {-130,38},{-130,-12},{-212,-12},{-212,-148},{-196,-148},{-196,-170}},
                                                         color={191,0,0}));
-  connect(convExtWall.solid, extWallsIndoorSurface) annotation (Line(points={{-114,
+  connect(convExtWall.solid, extWallIndoorSurface) annotation (Line(points={{-114,
           -36},{-134,-36},{-152,-36},{-152,-54},{-208,-54},{-208,-144},{-158,-144},
           {-158,-170}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,

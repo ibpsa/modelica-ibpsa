@@ -35,11 +35,11 @@ model ThermalZoneTwoElements
         AExt, AInt)*alphaRad) if  AExt > 0 and AInt > 0
     "resistor between exterior walls and interior walls"
     annotation (Placement(transformation(extent={{138,-116},{158,-96}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntWallsWin(G=min(
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntWallWin(G=min(
         AWin, AInt)*alphaRad) if  AWin > 0 and AInt > 0
     "resistor between interior walls and windows"
     annotation (Placement(transformation(extent={{74,-118},{94,-98}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intWallsIndoorSurface if indoorPortIntWalls
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intWallIndoorSurface if  indoorPortIntWalls
     "auxilliary port at indoor surface of interior walls" annotation (Placement(
         transformation(extent={{-130,-180},{-110,-160}}), iconTransformation(
           extent={{-130,-180},{-110,-160}})));
@@ -76,19 +76,20 @@ equation
         smooth=Smooth.None));
 
   end if;
-  connect(resIntWallsWin.port_b, intWallRC.port_a) annotation (Line(
+  connect(resIntWallWin.port_b, intWallRC.port_a) annotation (Line(
       points={{94,-108},{118,-108},{118,-84},{168,-84},{168,-36},{182.8,-36}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(resIntWallsWin.port_a, convWin.solid) annotation (Line(
-      points={{74,-108},{68,-108},{68,-94},{-46,-94},{-46,20},{-146,20},{-146,38},
-          {-116,38}},
+  connect(resIntWallWin.port_a, convWin.solid) annotation (Line(
+      points={{74,-108},{68,-108},{68,-94},{-46,-94},{-46,20},{-146,20},{-146,
+          38},{-116,38}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(alphaIntWall.y, convIntWall.Gc) annotation (Line(points={{138,-51.5},
           {138,-49.75},{138,-46}},              color={0,0,127}));
-  connect(intWallRC.port_a, intWallsIndoorSurface) annotation (Line(points={{182.8,
-          -36},{170,-36},{170,-78},{-120,-78},{-120,-170}}, color={191,0,0}));
+  connect(intWallRC.port_a, intWallIndoorSurface) annotation (Line(points={{
+          182.8,-36},{170,-36},{170,-78},{-120,-78},{-120,-170}}, color={191,0,
+          0}));
   connect(convIntWall.fluid, TIndAirSensor.port) annotation (Line(points={{128,
           -36},{66,-36},{66,20},{74,20}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,

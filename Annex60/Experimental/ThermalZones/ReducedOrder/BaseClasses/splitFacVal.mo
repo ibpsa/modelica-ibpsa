@@ -1,10 +1,10 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.BaseClasses;
 function splitFacVal "Values for splitFactor in ROM"
 
-  input Integer dimension;
-  input Modelica.SIunits.Area[:] AArray;
-  output Real[dimension] splitFacValues;
-  parameter Modelica.SIunits.Area ATot=sum(AArray);
+  input Integer dimension "Dimension of output vector";
+  input Modelica.SIunits.Area[:] AArray "Vector of areas";
+  output Real[dimension] splitFacValues "Shares of areas at total area";
+  parameter Modelica.SIunits.Area ATot=sum(AArray) "Total area";
 protected
   Integer j=1;
 algorithm

@@ -213,7 +213,7 @@ equation
           {-98,36},{-40,36}}, color={0,127,255}));
   connect(thermalZoneTwoElements.TIndAir, coo1.TSet) annotation (Line(points={{
           91,30.8},{100,30.8},{100,42},{-18,42}}, color={0,0,127}));
-  connect(cool.port, thermalZoneTwoElements.intWallsIndoorSurface) annotation (
+  connect(cool.port, thermalZoneTwoElements.intWallIndoorSurface) annotation (
       Line(points={{12,84},{12,84},{16,84},{16,18},{16,18},{4,18},{4,-26},{44,
           -26},{44,-8},{56,-8},{56,-1}}, color={191,0,0}));
   connect(setTemp1.y[1], coo.TSet) annotation (Line(points={{-43.2,88},{-40,88},

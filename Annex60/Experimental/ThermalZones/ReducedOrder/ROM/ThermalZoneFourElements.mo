@@ -89,8 +89,8 @@ equation
           {-54,-102},{-54,132},{-12,132},{-12,130}}, color={191,0,0}));
   connect(resRoofFloor.port_b, resExtWallFloor.port_b) annotation (Line(
         points={{-56,-122},{-56,-132},{-144,-132},{-144,-121}}, color={191,0,0}));
-  connect(resIntRoof.port_b, intWallRC.port_a) annotation (Line(points={{186,
-          0},{186,-10},{168,-10},{168,-38},{182.8,-38}}, color={191,0,0}));
+  connect(resIntRoof.port_b, intWallRC.port_a) annotation (Line(points={{186,0},
+          {186,-10},{168,-10},{168,-36},{182.8,-36}},    color={191,0,0}));
   connect(resIntRoof.port_a, convRoof.solid) annotation (Line(points={{186,20},
           {186,20},{186,132},{-12,132},{-12,130}}, color={191,0,0}));
   connect(resExtWallRoof.port_a, convExtWall.solid) annotation (Line(points={{-118,
