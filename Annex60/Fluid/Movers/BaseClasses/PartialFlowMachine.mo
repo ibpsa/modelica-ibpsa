@@ -12,6 +12,10 @@ partial model PartialFlowMachine
       h_outflow(start=h_outflow_start),
       p(start=p_start),
       final m_flow(max = if allowFlowReversal then +Modelica.Constants.inf else 0)));
+  replaceable parameter Data.SpeedControlled_y per
+    constrainedby Data.SpeedControlled_y "Record with performance data"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,80},{80,100}})));
 
   parameter Annex60.Fluid.Types.InputType inputType = Annex60.Fluid.Types.InputType.Continuous
     "Control input type for this mover";
@@ -51,6 +55,12 @@ partial model PartialFlowMachine
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
+  Modelica.Blocks.Interfaces.RealOutput y_actual(
+    min=0,
+    final unit="1")
+    "Actual normalised pump speed that is used for computations"
+    annotation (Placement(transformation(extent={{100,40},{120,60}}),
+        iconTransformation(extent={{100,40},{120,60}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(
     quantity="Power",
@@ -78,7 +88,22 @@ partial model PartialFlowMachine
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
+
 protected
+  final parameter Integer nOri = size(per.pressure.V_flow, 1)
+    "Number of data points for pressure curve"
+    annotation(Evaluate=true);
+
+  final parameter Boolean haveVMax = (abs(per.pressure.dp[nOri]) < Modelica.Constants.eps)
+    "Flag, true if user specified data that contain V_flow_max";
+
+  final parameter Modelica.SIunits.VolumeFlowRate V_flow_max=
+    if haveVMax then
+      per.pressure.V_flow[nOri]
+     else
+      per.pressure.V_flow[nOri] - (per.pressure.V_flow[nOri] - per.pressure.V_flow[
+      nOri - 1])/((per.pressure.dp[nOri] - per.pressure.dp[nOri - 1]))*per.pressure.dp[nOri]
+    "Maximum volume flow rate, used for smoothing";
   final parameter Modelica.SIunits.Density rho_default=
     Medium.density_pTX(
       p=Medium.p_default,
@@ -146,6 +171,28 @@ protected
   Annex60.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-70,10},{-50,-10}})));
+protected
+  Sensors.RelativePressure senRelPre(
+    redeclare final package Medium = Medium) "Head of fan"
+    annotation (Placement(transformation(extent={{45,-25},{55,-15}})));
+  FlowMachineInterface eff(
+    per(
+      hydraulicEfficiency =     per.hydraulicEfficiency,
+      motorEfficiency =         per.motorEfficiency,
+      motorCooledByFluid =      per.motorCooledByFluid,
+      final speed_nominal =           per.speed_nominal,
+      final constantSpeed =           per.constantSpeed,
+      final speeds =                  per.speeds,
+      final pressure =                per.pressure,
+      final use_powerCharacteristic = per.use_powerCharacteristic,
+      final power =                   per.power),
+    final nOri = nOri,
+    final rho_default=rho_default,
+    final haveVMax=haveVMax,
+    final V_flow_max=V_flow_max,
+    r_N(start=y_start),
+    r_V(start=m_flow_nominal/rho_default)) "Flow machine"
+    annotation (Placement(transformation(extent={{-32,-50},{-12,-30}})));
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
       points={{-34,-80},{-42,-80},{-42,10},{-10,10}},
@@ -186,6 +233,28 @@ equation
     annotation (Line(points={{-50,0},{-2,0}}, color={0,127,255}));
   connect(vol.ports[2], preSou.port_a)
     annotation (Line(points={{2,0},{2,0},{40,0}}, color={0,127,255}));
+  connect(senRelPre.port_a, preSou.port_a) annotation (Line(points={{45,-20},{20,
+          -20},{20,0},{40,0}}, color={0,127,255}));
+  connect(senRelPre.port_b, preSou.port_b) annotation (Line(points={{55,-20},{80,
+          -20},{80,0},{60,0}}, color={0,127,255}));
+  connect(heaDis.etaHyd,eff. etaHyd) annotation (Line(points={{18,-40},{-2,-40},
+          {-2,-46},{-11,-46}},                     color={0,0,127}));
+  connect(heaDis.V_flow,eff. V_flow) annotation (Line(points={{18,-46},{-6,-46},
+          {-6,-32},{-6,-31},{-11,-31}},
+                                     color={0,0,127}));
+  connect(eff.PEle, heaDis.PEle) annotation (Line(points={{-11,-40},{12,-40},{12,
+          -60},{18,-60}}, color={0,0,127}));
+  connect(eff.WFlo, heaDis.WFlo) annotation (Line(points={{-11,-37},{-8,-37},{-8,
+          -54},{18,-54}}, color={0,0,127}));
+  connect(rho_inlet.y,eff. rho) annotation (Line(points={{-73,-50},{-73,-50},{-34,
+          -50},{-34,-42}},                color={0,0,127}));
+  connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-34,-48},{-62,
+          -48},{-62,-11},{-60,-11}},               color={0,0,127}));
+  connect(eff.PEle, P) annotation (Line(points={{-11,-40},{12,-40},{12,-30},{90,
+          -30},{90,80},{110,80}},
+                             color={0,0,127}));
+  connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-37},{-8,-37},{-8,-76},
+          {48,-76}},      color={0,0,127}));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
     graphics={
@@ -317,6 +386,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end PartialFlowMachine;

@@ -1,8 +1,31 @@
 within Annex60.Fluid.Movers.BaseClasses;
 partial model FlowControlled
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
+  parameter Boolean use_record = false
+    "= true to specify pump properties using a record"
+    annotation(Dialog(group="Mover properties"));
+  parameter Real eta = 0.49 "Mover efficiency"
+    annotation(Dialog(group="Mover properties",enable=not use_record));
+
+  parameter Boolean motorCooledByFluid = true
+    "= true if motor heat is dissipated into fluid"
+    annotation(Dialog(group="Mover properties", enable=not use_record));
+
   extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
-   heaDis(final motorCooledByFluid = per.motorCooledByFluid,
+    eff(per(
+      final hydraulicEfficiency =     if use_record
+                                      then per.hydraulicEfficiency
+                                      else Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters(
+                                                        V_flow={V_flow_max},
+                                                        eta={eta}),
+      final motorEfficiency =         if use_record
+                                      then per.motorEfficiency
+                                      else Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters(
+                                                        V_flow={V_flow_max},
+                                                        eta={1}),
+      final motorCooledByFluid =      if use_record then per.motorCooledByFluid else motorCooledByFluid),
+      powComTyp=if use_record then Annex60.Fluid.Types.PowerComputationType.SimilarityLaws else Annex60.Fluid.Types.PowerComputationType.Simplified),
+   heaDis(final motorCooledByFluid = if use_record then per.motorCooledByFluid else motorCooledByFluid,
           final delta_V_flow = 1E-3*V_flow_max),
    preSou(final control_m_flow=control_m_flow));
 
@@ -11,25 +34,13 @@ partial model FlowControlled
   // Quantity to control
   constant Boolean control_m_flow "= false to control head instead of m_flow";
 
-  replaceable parameter Data.FlowControlled per
-    constrainedby Data.FlowControlled "Record with performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,60},{80,80}})));
-
   Modelica.SIunits.VolumeFlowRate VMachine_flow = eff.V_flow "Volume flow rate";
   Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
-      -eff.dp "Pressure difference";
-
-  Modelica.SIunits.Efficiency eta =    eff.eta "Global efficiency";
-  Modelica.SIunits.Efficiency etaHyd = eff.etaHyd "Hydraulic efficiency";
-  Modelica.SIunits.Efficiency etaMot = eff.etaMot "Motor efficiency";
+      -senRelPre.p_rel "Pressure difference";
 
 protected
   final parameter Medium.AbsolutePressure p_a_default(displayUnit="Pa") = Medium.p_default
     "Nominal inlet pressure for predefined fan or pump characteristics";
-
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_max=m_flow_nominal/rho_default
-    "Maximum volume flow rate";
 
   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(
      T=Medium.T_default,
@@ -47,31 +58,16 @@ protected
     "Second order filter to approximate valve opening time, and to improve numerics"
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
 
-  Annex60.Fluid.Movers.BaseClasses.EfficiencyInterface eff(
-    per(
-      final hydraulicEfficiency = per.hydraulicEfficiency,
-      final motorEfficiency =     per.motorEfficiency,
-      final motorCooledByFluid =  per.motorCooledByFluid))
-    "Flow machine interface"
-    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
+public
+  Modelica.Blocks.Math.Gain gaiPreSou(final k=-1) "Gain for pressure source"
+    annotation (Placement(transformation(extent={{12,-30},{0,-18}})));
 equation
-  connect(eff.rho, rho_inlet.y) annotation (Line(points={{-32,-50},{-32,-50},{-73,
-          -50}},                color={0,0,127}));
-  connect(senMasFlo.m_flow, eff.m_flow) annotation (Line(points={{-60,-11},{-60,
-          -30},{-40,-30},{-40,-56},{-32,-56}},                   color={0,0,127}));
-  connect(heaDis.etaHyd, eff.etaHyd) annotation (Line(points={{18,-40},{18,-40},
-          {-4,-40},{-4,-54},{-6,-54},{-6,-54},{-8,-54},{-8,-54.2},{-9,-54.2}},
-                                                        color={0,0,127}));
-  connect(heaDis.V_flow, eff.V_flow) annotation (Line(points={{18,-46},{10,-46},
-          {10,-44},{10,-41},{-9,-41}},            color={0,0,127}));
-  connect(heaDis.WFlo, eff.WFlo) annotation (Line(points={{18,-54},{0,-54},{0,-44},
-          {-9,-44}},       color={0,0,127}));
-  connect(heaDis.PEle, eff.PEle) annotation (Line(points={{18,-60},{18,-60},{12,
-          -60},{12,-47},{-9,-47}},  color={0,0,127}));
-  connect(eff.PEle, P) annotation (Line(points={{-9,-47},{12,-47},{12,-34},{90,-34},
-          {90,80},{110,80}}, color={0,0,127}));
-  connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-9,-44},{0,-44},{0,-76},
-          {48,-76}}, color={0,0,127}));
+  connect(eff.y_out, y_actual) annotation (Line(points={{-15,-30},{84,-30},{84,50},
+          {110,50}},         color={0,0,127}));
+  connect(senRelPre.p_rel, gaiPreSou.u) annotation (Line(points={{50,-24.5},{32,
+          -24.5},{32,-24},{13.2,-24}}, color={0,0,127}));
+  connect(gaiPreSou.y, eff.dp_in) annotation (Line(points={{-0.6,-24},{-34,-24},
+          {-34,-32}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
     Documentation(info="<html>
 <p>

@@ -1,4 +1,4 @@
-simulateModel("Annex60.Fluid.Movers.Validation.Power", stopTime=200, method="dassl", resultFile="Power");
+simulateModel("Annex60.Fluid.Movers.Validation.PowerSimplified", stopTime=200, method="dassl", resultFile="PowerSimplified");
 createPlot(id=1, position={55, 50, 900, 653},
  y={"pump_Nrpm.P", "pump_dp.P", "pump_m_flow.P"},
 range={0.0, 200.0, 40.0, 200.0}, grid=true, filename="Power.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});

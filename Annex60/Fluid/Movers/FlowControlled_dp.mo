@@ -10,7 +10,8 @@ model FlowControlled_dp
      final y_start=dp_start,
      u_nominal=abs(dp_nominal),
      u(final unit="Pa"),
-     y(final unit="Pa")));
+     y(final unit="Pa")),
+    eff(preVar=Annex60.Fluid.Types.PrescribedVariable.PressureDifference));
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -52,8 +53,8 @@ model FlowControlled_dp
         origin={-2,120})));
 
   Modelica.Blocks.Interfaces.RealOutput dp_actual(min=0, final unit="Pa", displayUnit="Pa")
-    annotation (Placement(transformation(extent={{100,40},{120,60}}),
-        iconTransformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{100,10},{120,30}}),
+        iconTransformation(extent={{100,10},{120,30}})));
 
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1)
@@ -88,12 +89,8 @@ equation
       points={{56,8},{56,14},{36,14},{36,19}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gain.u, dp_actual) annotation (Line(
-      points={{36,42},{36,50},{110,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, eff.dp) annotation (Line(points={{36,19},{36,19},{36,14},{20,
-          14},{20,-10},{-38,-10},{-38,-44},{-32,-44}}, color={0,0,127}));
+  connect(gain.u, dp_actual) annotation (Line(points={{36,42},{60,42},{60,20},{
+          110,20}}, color={0,0,127}));
   annotation (defaultComponentName="fan",
   Documentation(info="<html>
 <p>

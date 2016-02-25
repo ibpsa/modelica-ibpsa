@@ -1,5 +1,6 @@
 within Annex60.Fluid.Movers.Data;
 record SpeedControlled_Nrpm "Generic data record for FlowMachine_Nrpm"
+
   extends SpeedControlled_y(
     final constantSpeed = constantSpeed_rpm/speed_rpm_nominal,
     final speeds =        speeds_rpm       /speed_rpm_nominal);

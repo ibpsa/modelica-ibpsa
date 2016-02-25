@@ -1,7 +1,22 @@
 within Annex60.Fluid.Movers.Data;
 record SpeedControlled_y
   "Generic data record for pumps and fans that take y as an input signal"
-  extends FlowControlled;
+  extends Modelica.Icons.Record;
+
+  parameter
+    Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    hydraulicEfficiency(
+      V_flow={0},
+      eta={0.7}) "Hydraulic efficiency (used if use_powerCharacteristic=false)";
+  parameter
+    Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+    motorEfficiency(
+      V_flow={0},
+      eta={0.7})
+    "Electric motor efficiency (used if use_powerCharacteristic=false)";
+
+  parameter Boolean motorCooledByFluid=true
+    "If true, then motor heat is added to fluid stream";
 
   parameter Real speed_nominal(final min=0, final unit="1") = 1
     "Nominal rotational speed for flow characteristic";
@@ -12,8 +27,9 @@ record SpeedControlled_y
   parameter Real[:] speeds(each final min = 0, each final unit="1") = {1}
     "Vector of normalized speed set points when using inputType = Annex60.Fluid.Types.InputType.Stages";
 
-  parameter Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure
-    "Volume flow rate vs. total pressure rise"
+  parameter Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure(
+    V_flow={0.5,1},
+    dp={1,0}) "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true);
 
   parameter Boolean use_powerCharacteristic=false
