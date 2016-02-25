@@ -7,12 +7,12 @@ model ThermalZoneFourElements
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRoof
     "Coefficient of heat transfer of roof (indoor)" annotation(Dialog(group="Roof"));
   parameter Integer nRoof(min = 1) "Number of RC-elements of roof" annotation(Dialog(group="Roof"));
-  parameter Modelica.SIunits.ThermalResistance RRoof[nExt]
+  parameter Modelica.SIunits.ThermalResistance RRoof[nExt](each min=Modelica.Constants.small)
     "Vector of resistances of roof, from inside to outside" annotation(Dialog(group="Roof"));
-  parameter Modelica.SIunits.ThermalResistance RRoofRem
+  parameter Modelica.SIunits.ThermalResistance RRoofRem(min=Modelica.Constants.small)
     "Resistance of remaining resistor RRoofRem between capacitance n and outside"
                                                                                   annotation(Dialog(group="Roof"));
-  parameter Modelica.SIunits.HeatCapacity CRoof[nExt]
+  parameter Modelica.SIunits.HeatCapacity CRoof[nExt](each min=Modelica.Constants.small)
     "Vector of heat capacities of roof, from inside to outside" annotation(Dialog(group="Roof"));
   parameter Boolean indoorPortRoof = false
     "Additional heat port at indoor surface of roof"

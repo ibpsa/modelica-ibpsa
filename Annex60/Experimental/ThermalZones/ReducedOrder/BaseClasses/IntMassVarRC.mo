@@ -1,9 +1,9 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.BaseClasses;
 model IntMassVarRC "Interior wall consisting of variable number of RC elements"
   parameter Integer n(min = 1) "Number of RC-elements";
-  parameter Modelica.SIunits.ThermalResistance RInt[n]
+  parameter Modelica.SIunits.ThermalResistance RInt[n](each min=Modelica.Constants.small)
     "Vector of resistors, from port to capacitor"                                       annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.HeatCapacity CInt[n]
+  parameter Modelica.SIunits.HeatCapacity CInt[n](each min=Modelica.Constants.small)
     "Vector of heat capacitors, from port to center"                                           annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.Temperature T_start
     "Initial temperature of capacitances"                                              annotation(Dialog(group="Thermal mass"));

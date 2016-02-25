@@ -7,12 +7,12 @@ model ThermalZoneThreeElements
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaFloor
     "Coefficient of heat transfer of floor plate (indoor)" annotation(Dialog(group="Floor plate"));
   parameter Integer nFloor(min = 1) "Number of RC-elements of floor plate" annotation(Dialog(group="Floor plate"));
-  parameter Modelica.SIunits.ThermalResistance RFloor[nExt]
+  parameter Modelica.SIunits.ThermalResistance RFloor[nExt](each min=Modelica.Constants.small)
     "Vector of resistances of floor plate, from inside to outside"                 annotation(Dialog(group="Floor plate"));
-  parameter Modelica.SIunits.ThermalResistance RFloorRem
+  parameter Modelica.SIunits.ThermalResistance RFloorRem(min=Modelica.Constants.small)
     "Resistance of remaining resistor RFloorRem between capacitance n and outside"
                                                                                    annotation(Dialog(group="Floor plate"));
-  parameter Modelica.SIunits.HeatCapacity CFloor[nExt]
+  parameter Modelica.SIunits.HeatCapacity CFloor[nExt](each min=Modelica.Constants.small)
     "Vector of heat capacities of floor plate, from inside to outside"  annotation(Dialog(group="Floor plate"));
   parameter Boolean indoorPortFloor = false
     "Additional heat port at indoor surface of floor plate"
@@ -116,8 +116,8 @@ equation
         color={191,0,0},
         smooth=Smooth.None));
   end if;
-  connect(intWallRC.port_a, resIntWallFloor.port_a) annotation (Line(points={
-          {182.8,-38},{176,-38},{168,-38},{168,-86},{184,-86},{184,-104},{194,-104}},
+  connect(intWallRC.port_a, resIntWallFloor.port_a) annotation (Line(points={{182.8,
+          -36},{176,-36},{168,-36},{168,-86},{184,-86},{184,-104},{194,-104}},
         color={191,0,0}));
   connect(resFloorWin.port_b, resExtWallFloor.port_b) annotation (Line(points={{
           -82,-122},{-80,-122},{-80,-132},{-144,-132},{-144,-121}}, color={191,0,

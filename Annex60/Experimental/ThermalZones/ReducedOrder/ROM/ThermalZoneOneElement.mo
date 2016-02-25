@@ -30,12 +30,12 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExt
     "Coefficient of heat transfer of exterior walls (indoor)" annotation(Dialog(group="Exterior walls"));
   parameter Integer nExt(min = 1) "Number of RC-elements of exterior walls" annotation(Dialog(group="Exterior walls"));
-  parameter Modelica.SIunits.ThermalResistance RExt[nExt]
+  parameter Modelica.SIunits.ThermalResistance RExt[nExt](each min=Modelica.Constants.small)
     "Vector of resistances of exterior walls, from inside to outside" annotation(Dialog(group="Exterior walls"));
-  parameter Modelica.SIunits.ThermalResistance RExtRem
+  parameter Modelica.SIunits.ThermalResistance RExtRem(min=Modelica.Constants.small)
     "Resistance of remaining resistor RExtRem between capacitance n and outside"
                                                                                     annotation(Dialog(group="Exterior walls"));
-  parameter Modelica.SIunits.HeatCapacity CExt[nExt]
+  parameter Modelica.SIunits.HeatCapacity CExt[nExt](each min=Modelica.Constants.small)
     "Vector of heat capacities of exterior walls, from inside to outside"                  annotation(Dialog(group="Exterior walls"));
   parameter Boolean indoorPortExtWalls = false
     "Additional heat port at indoor surface of exterior walls"

@@ -1,11 +1,11 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.BaseClasses;
 model ExtMassVarRC "Exterior wall consisting of variable number of RC elements"
   parameter Integer n(min = 1) "Number of RC-elements";
-  parameter Modelica.SIunits.ThermalResistance RExt[n]
+  parameter Modelica.SIunits.ThermalResistance RExt[n](each min=Modelica.Constants.small)
     "Vector of resistors, from port_a to port_b" annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.ThermalResistance RExtRem
+  parameter Modelica.SIunits.ThermalResistance RExtRem(min=Modelica.Constants.small)
     "Resistance of remaining resistor RExtRem between capacitor n and port_b"    annotation(Dialog(group="Thermal mass"));
-  parameter Modelica.SIunits.HeatCapacity CExt[n]
+  parameter Modelica.SIunits.HeatCapacity CExt[n](each min=Modelica.Constants.small)
     "Vector of heat capacities, from port_a to port_b"                                     annotation(Dialog(group="Thermal mass"));
   parameter Modelica.SIunits.Temperature T_start
     "Initial temperature of capacitances"                                              annotation(Dialog(group="Thermal mass"));
