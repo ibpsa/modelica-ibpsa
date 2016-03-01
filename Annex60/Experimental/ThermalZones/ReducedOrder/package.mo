@@ -25,5 +25,7 @@ package ReducedOrder "Reduced order models based on VDI 6007"
       Line(
         points={{22,-52},{70,-52}},
         color={0,0,0},
-        smooth=Smooth.None)}));
+        smooth=Smooth.None)}), Documentation(info="<html>
+<p>This package contains models for reduced building physics of thermal zones and accompanying models for consideration of solar radiation and radiation transmission through windows. </p>
+</html>"));
 end ReducedOrder;

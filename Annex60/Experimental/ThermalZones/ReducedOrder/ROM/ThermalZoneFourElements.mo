@@ -165,5 +165,7 @@ September 11, 2015 by Moritz Lauster:<br/>
 First Implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Graphic with thermal network</span></p>
 </html>"));
 end ThermalZoneFourElements;

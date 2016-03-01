@@ -159,5 +159,8 @@ July 15, 2015 by Moritz Lauster:<br/>
 First Implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Graphic with thermal network</span></p>
+<p>The <i>Three Elements Model </i>adds one further element for the ground slab (Figure 4). Long-term effects dominate the excitation of the ground slab and thus the excitation fundamentally differs from excitation of outer walls. Adding an extra element for the ground slab leads to a finer resolution of the dynamic behaviour but implicates higher calculation times. </p>
 </html>"));
 end ThermalZoneThreeElements;

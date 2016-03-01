@@ -348,16 +348,8 @@ equation
           textString="1")}),
     Documentation(info="<html>
 <h4>Main equations</h4>
-<h4>Assumption and limitations</h4>
-<ul>
-<li>Linearized indoor radiative heat exchange</li>
-</ul>
-<h4>Design decisions</h4>
-<ul>
-<li>Regarding different handling of internal gains and solar radiation: Although internal as well as external gains count as simple heat flows, solar radiation uses a real input, while internal gains utilize two heat ports, one for convective and one for radiative gains. Considering solar radiation typically requires several models upstream to calculate angle-dependent irradiation or window models. We decided to keep that seperately to this thermal zone model. Thus, solar radiation is handled as a basic <code><span style=\"font-family: Courier New,courier;\">RadiantEnergyFluenceRate</span></code>. For internal gains, the user might need to distinguish between convective and radiative heat sources. In addition, it might help to have access to the indoor air temperature and the mean radiation temperature. To this purpose, we introduced two heat ports for internal gains.</li>
-<li>Consideration indoor radiative heat gains: For an exact consideration, each element participating at radiative heat exchange need to have a temperature and an area. For solar radiation and radiative internal gains, it is common to define the heat flow independently of temperature and thus of area as well, assuming that that the temperature of the source is high compared to the wall surface temperatures. By using a ThermSplitter that distributes the heat flow of the source over the walls according to their area, we support this simplified approach.</li>
-<li>For solar radiation through windows, the area <code><span style=\"font-family: Courier New,courier;\">ATransparent </span></code>is used. In most cases, this should be equal to  <code><span style=\"font-family: Courier New,courier;\">AWin,</span></code>but there might be cases (e.g. windows are lumped with exterior walls and solar radiation is present) where the areas differ.</li>
-</ul>
+<p><br>Graphic with thermal network</p>
+<p><br><span style=\"font-family: MS Shell Dlg 2;\">The<i> One Element Model </i>merges all thermal masses into one substitutional capacitance that is connected via resistances to the ambient and indoor air (see Figure 2). This simple model impresses with low computation times but neglects all internal thermal masses that are not directly connected to the ambient. A popular model of this family is described in the international standard ISO 13790 <a name=\"_CTVP001a350c533e5764d53a751d494e7576441\">(</a>International Standard ISO 13790:2008, E). </span></p>
 </html>", revisions="<html>
 <ul>
 <li>
