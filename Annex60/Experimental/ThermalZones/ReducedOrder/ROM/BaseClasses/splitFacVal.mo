@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.BaseClasses;
+within Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses;
 function splitFacVal "Values for splitFactor in ROM"
 
   input Integer dimension "Dimension of output vector";

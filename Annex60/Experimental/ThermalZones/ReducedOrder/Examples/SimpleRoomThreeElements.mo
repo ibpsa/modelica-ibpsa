@@ -143,8 +143,8 @@ equation
           -4.2,-9.6},{4,-9.6},{4,0},{6.8,0}}, color={0,0,127}));
   connect(corGDoublePane.solarRadWinTrans, aggWindow.u)
     annotation (Line(points={{25,64},{42.6,64}}, color={0,0,127}));
-  connect(aggWindow.y, thermalZoneThreeElements.solRad) annotation (Line(points
-        ={{58.7,64},{62,64},{62,44},{40,44},{40,30.8},{45,30.8}}, color={0,0,
+  connect(aggWindow.y, thermalZoneThreeElements.solRad) annotation (Line(points=
+         {{58.7,64},{62,64},{62,44},{40,44},{40,30.8},{45,30.8}}, color={0,0,
           127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-78,62},{-74,62},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
@@ -221,8 +221,8 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(machinesConv.port, thermalZoneThreeElements.intGainsConv) annotation
-    (Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,0,
+  connect(machinesConv.port, thermalZoneThreeElements.intGainsConv) annotation (
+     Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,0,
           0}));
   connect(personsConv.port, thermalZoneThreeElements.intGainsConv) annotation (
       Line(points={{68,-52},{96,-52},{96,19.8},{91,19.8}}, color={191,0,0}));

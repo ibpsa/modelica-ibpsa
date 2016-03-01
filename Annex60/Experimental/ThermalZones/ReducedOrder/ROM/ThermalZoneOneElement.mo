@@ -46,8 +46,9 @@ protected
     "List of all wall surface areas";
   parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray})
     "Number of non-zero wall surface areas";
-  parameter Real splitFactor[dimension]=Annex60.Experimental.ThermalZones.ReducedOrder.BaseClasses.splitFacVal(dimension,AArray)
-    "Share of each wall surface area that is non-zero";
+  parameter Real splitFactor[dimension]=
+      Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal(
+      dimension, AArray) "Share of each wall surface area that is non-zero";
 public
   Fluid.MixingVolumes.MixingVolume volAir(m_flow_nominal=0.00001, V=VAir,
     redeclare package Medium = Medium,
