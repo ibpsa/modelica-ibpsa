@@ -2,6 +2,8 @@ within Annex60.Fluid.Movers;
 model FlowControlled_dp
   "Fan or pump with ideally controlled head dp as input signal"
   extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    final preVar=Annex60.Fluid.Types.PrescribedVariable.PressureDifference,
+    computePowerUsingSimilarityLaws=per.havePressureCurve,
     preSou(dp_start=dp_start),
     final stageInputs(each final unit="Pa") = heads,
     final constInput(final unit="Pa") = constantHead,
@@ -10,24 +12,39 @@ model FlowControlled_dp
       u_nominal=abs(dp_nominal),
       u(final unit="Pa"),
       y(final unit="Pa")),
-    final preVar=Annex60.Fluid.Types.PrescribedVariable.PressureDifference,
-    computePowerUsingSimilarityLaws=not defRec);
+    eff(
+      per(
+        final pressure = if per.havePressureCurve then
+          per.pressure
+        else
+          Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+            V_flow=  {(i-1.0)/nOri*2*m_flow_nominal/rho_default for i in 1:nOri},
+            dp=      {(i-1.0)/nOri*2*dp_nominal for i in nOri:-1:1}),
+      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)));
 
-  parameter Modelica.SIunits.PressureDifference dp_start(min=0, displayUnit="Pa")=0
-    "Initial value of pressure raise"
+  parameter Modelica.SIunits.PressureDifference dp_start(
+    min=0,
+    displayUnit="Pa")=0 "Initial value of pressure raise"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0, displayUnit="Pa")=10000
-    "Nominal pressure raise, used to normalized the filter if filteredSpeed=true"
+  // For air, we set dp_nominal = 600 as default, for water we set 10000
+  parameter Modelica.SIunits.PressureDifference dp_nominal(
+    min=0,
+    displayUnit="Pa")=
+      if rho_default < 500 then 500 else 10000 "Nominal pressure raise, used to normalized the filter if filteredSpeed=true,
+        to set default values of constantHead and heads, and 
+        and for default pressure curve if not specified in record per"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.PressureDifference constantHead(min=0,
-                                                             displayUnit="Pa")=dp_nominal
+  parameter Modelica.SIunits.PressureDifference constantHead(
+    min=0,
+    displayUnit="Pa")=dp_nominal
     "Constant pump head, used when inputType=Constant"
     annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Constant));
 
-  parameter Modelica.SIunits.PressureDifference[:] heads(each min=0,
-                                                         each displayUnit="Pa") = dp_nominal*{0}
+  parameter Modelica.SIunits.PressureDifference[:] heads(
+    each min=0,
+    each displayUnit="Pa") = dp_nominal*{1}
     "Vector of head set points, used when inputType=Stages"
     annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Stages));
 

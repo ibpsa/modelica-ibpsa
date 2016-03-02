@@ -10,6 +10,9 @@ model SpeedControlled_y
       u_nominal=1,
       u(final unit="1"),
       y(final unit="1")),
+    eff(
+      per(final pressure = per.pressure,
+          final use_powerCharacteristic = per.use_powerCharacteristic)),
     final preVar=Annex60.Fluid.Types.PrescribedVariable.Speed,
     final computePowerUsingSimilarityLaws=true,
     gaiSpe(u(final unit="1"),
@@ -33,6 +36,10 @@ protected
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
         origin={10,-20})));
+initial equation
+  assert(per.havePressureCurve,
+   "SpeedControlled_y requires to set the pressure vs. flow rate curve in record 'per'.");
+
 equation
   connect(gaiSpe.u, y)
     annotation (Line(points={{-2.8,80},{0,80},{0,120}}, color={0,0,127}));

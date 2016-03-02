@@ -2,16 +2,31 @@ within Annex60.Fluid.Movers;
 model FlowControlled_m_flow
   "Fan or pump with ideally controlled mass flow rate as input signal"
   extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
-    preSou(m_flow_start=m_flow_start),
     final stageInputs(each final unit="kg/s")=massFlowRates,
     final constInput(final unit="kg/s")=constantMassFlowRate,
+    final preVar=Annex60.Fluid.Types.PrescribedVariable.FlowRate,
+    computePowerUsingSimilarityLaws=per.havePressureCurve,
     filter(
       final y_start=m_flow_start,
       u_nominal=m_flow_nominal,
       u(final unit="kg/s"),
       y(final unit="kg/s")),
-    final preVar=Annex60.Fluid.Types.PrescribedVariable.FlowRate,
-    computePowerUsingSimilarityLaws=not defRec);
+    eff(
+      per(
+        final pressure = if per.havePressureCurve then
+          per.pressure
+        else
+          Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+            V_flow=  {(i-1.0)/nOri*2*m_flow_nominal/rho_default for i in 1:nOri},
+            dp=      {(i-1.0)/nOri*2*dp_nominal for i in nOri:-1:1}),
+      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)),
+    preSou(m_flow_start=m_flow_start));
+
+  // For air, we set dp_nominal = 600 as default, for water we set 10000
+  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0, displayUnit="Pa")=
+    if rho_default < 500 then 500 else 10000
+    "Nominal pressure raise, used for default pressure curve if not specified in record per"
+    annotation(Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"

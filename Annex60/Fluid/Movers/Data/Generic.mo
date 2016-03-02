@@ -13,9 +13,14 @@ record Generic "Generic data record for movers"
       V_flow={0},
       eta={0.7})
     "Electric motor efficiency (used if use_powerCharacteristic=false)";
+
+  // Pressure requires default values to avoid in Dymola the message
+  // Failed to expand the variable pressure.V_flow.
+  // Fixme: To be tested if we can have non-physical "default" values to make a
+  // better diagnostics if the user configures the model to really use these values.
   parameter Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure(
-    V_flow={0.5,1},
-    dp={1,0}) "Volume flow rate vs. total pressure rise"
+    V_flow = {0, 0},
+    dp =     {0, 0}) "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true);
   // Power requires default values to avoid in Dymola the message
   // Failed to expand the variable Power.V_flow
@@ -25,9 +30,21 @@ record Generic "Generic data record for movers"
     "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
    annotation (Dialog(enable=use_powerCharacteristic));
 
+  // Set a parameter in order for
+  // (a) FlowControlled_m_flow and FlowControlled_dp being able to set a reasonable
+  //     default pressure curve if it is not specified here, and
+  // (b) SpeedControlled_y and SpeedControlled_Nrpm being able to issue an assert
+  //     if no pressure curve is specified.
+  final parameter Boolean havePressureCurve=
+    sum(pressure.V_flow) > Modelica.Constants.eps and
+    sum(pressure.dp) > Modelica.Constants.eps
+    "= true, if default record values are being used";
+
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream";
 
+  // fixme: remove the nondimensional speeds, or assign them as final.
+  //        The current double declaration is confusing.
   parameter Real speed_nominal(final min=0, final unit="1") = 1
     "Nominal rotational speed for flow characteristic";
 

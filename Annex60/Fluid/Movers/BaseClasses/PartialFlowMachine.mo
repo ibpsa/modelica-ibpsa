@@ -107,7 +107,7 @@ protected
     "Flag, true if user specified data that contain V_flow_max";
 
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_max=
-    if not defRec then
+    if per.havePressureCurve then
     (if haveVMax then
       per.pressure.V_flow[nOri]
      else
@@ -129,10 +129,6 @@ protected
   final parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
 
-  // fixme: revise, maybe default record data should be {}
-  final parameter Boolean defRec=
-    size(per.pressure.V_flow,1)==2 and per.pressure.V_flow[1]==0.5 and per.pressure.dp[1]==1
-    "= true, if default record values are being used";
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
     final k=stageInputs) if
        inputType == Annex60.Fluid.Types.InputType.Stages "Stage input values"
@@ -185,7 +181,8 @@ protected
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
 
   Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1")) if
-       inputType == Annex60.Fluid.Types.InputType.Continuous and preVar == Annex60.Fluid.Types.PrescribedVariable.Speed
+       inputType == Annex60.Fluid.Types.InputType.Continuous and
+       preVar == Annex60.Fluid.Types.PrescribedVariable.Speed
     "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
     annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
 
@@ -193,19 +190,18 @@ protected
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
-    final control_m_flow= preVar==  Annex60.Fluid.Types.PrescribedVariable.FlowRate)
+    final control_m_flow= (preVar ==  Annex60.Fluid.Types.PrescribedVariable.FlowRate))
     "Pressure source"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Annex60.Fluid.Movers.BaseClasses.PowerInterface heaDis(
-    final rho_default=rho_default,
     final motorCooledByFluid=per.motorCooledByFluid,
     final delta_V_flow=1E-3*V_flow_max) if
-       addPowerToMedium "Heat dissipation into medium"
+      addPowerToMedium "Heat dissipation into medium"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
   Modelica.Blocks.Math.Add PToMed(final k1=1, final k2=1) if
-                   addPowerToMedium "Heat and work input into medium"
+    addPowerToMedium "Heat and work input into medium"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
@@ -236,8 +232,6 @@ protected
       final speed_nominal =           per.speed_nominal,
       final constantSpeed =           per.constantSpeed,
       final speeds =                  per.speeds,
-      final pressure =                per.pressure,
-      final use_powerCharacteristic = if defRec then false else per.use_powerCharacteristic,
       final power =                   per.power),
     final nOri = nOri,
     final rho_default=rho_default,
@@ -253,7 +247,7 @@ initial equation
   // The control signal is dp or m_flow but the user did not provide a pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
   // Therefore, scaling the power using the speed is inaccurate.
-  assert((not defRec) or (preVar == Annex60.Fluid.Types.PrescribedVariable.Speed),
+  assert(per.havePressureCurve or (preVar == Annex60.Fluid.Types.PrescribedVariable.Speed),
 "Warning:
 ========
 You are using a flow or pressure controlled mover with the default pressure curve.
@@ -266,7 +260,7 @@ Add the correct pressure curve in the record per to obtain an accurate computati
   // In addition, the user wants to use (V_flow, P) to compute the power.
   // This can lead to using a power that is less than the flow work. We avoid
   // this by ignoring the setting of per.use_powerCharacteristics.
-  assert(((not defRec) or (preVar == Annex60.Fluid.Types.PrescribedVariable.Speed))
+  assert((per.havePressureCurve or (preVar == Annex60.Fluid.Types.PrescribedVariable.Speed))
          or
          per.use_powerCharacteristic == false,
 "Warning:
