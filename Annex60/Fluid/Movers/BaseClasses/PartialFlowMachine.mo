@@ -126,12 +126,14 @@ protected
     "Flag, true if user specified data that contain V_flow_max";
 
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_max=
-    if haveVMax then
+    if not defRec then
+    (if haveVMax then
       per.pressure.V_flow[nOri]
      else
       per.pressure.V_flow[nOri] - (per.pressure.V_flow[nOri] - per.pressure.V_flow[
-      nOri - 1])/((per.pressure.dp[nOri] - per.pressure.dp[nOri - 1]))*per.pressure.dp[nOri]
-    "Maximum volume flow rate, used for smoothing";
+      nOri - 1])/((per.pressure.dp[nOri] - per.pressure.dp[nOri - 1]))*per.pressure.dp[nOri])
+    else
+      m_flow_nominal/rho_default "Maximum volume flow rate, used for smoothing";
   final parameter Modelica.SIunits.Density rho_default=
     Medium.density_pTX(
       p=Medium.p_default,
@@ -146,7 +148,9 @@ protected
   final parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
 
-  final parameter Boolean default_record = size(per.pressure.V_flow,1)==2 and per.pressure.V_flow[1]==0.5 and per.pressure.dp[1]==1;
+  final parameter Boolean defRec=
+    size(per.pressure.V_flow,1)==2 and per.pressure.V_flow[1]==0.5 and per.pressure.dp[1]==1
+    "= true, if default record values are being used";
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
     final k=stageInputs) if
        inputType == Annex60.Fluid.Types.InputType.Stages "Stage input values"
@@ -218,7 +222,7 @@ protected
       final constantSpeed =           per.constantSpeed,
       final speeds =                  per.speeds,
       final pressure =                per.pressure,
-      final use_powerCharacteristic = if default_record then false else per.use_powerCharacteristic,
+      final use_powerCharacteristic = if defRec then false else per.use_powerCharacteristic,
       final power =                   per.power),
     final nOri = nOri,
     final rho_default=rho_default,
@@ -229,7 +233,7 @@ protected
     final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
 initial equation
-  if default_record and not preVar ==Annex60.Fluid.Types.PrescribedVariable.Speed then
+  if defRec and not preVar ==Annex60.Fluid.Types.PrescribedVariable.Speed then
 Modelica.Utilities.Streams.print("
 Warning:
 ========
