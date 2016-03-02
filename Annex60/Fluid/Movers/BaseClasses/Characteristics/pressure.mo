@@ -22,7 +22,7 @@ function pressure
   input Real kRes(unit="kg/(s.m4)")
     "Linear coefficient for fan-internal pressure drop";
   output Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
-  "Pressure raise";
+    "Pressure raise";
 
 protected
    Integer dimD(min=2)=size(per.V_flow, 1) "Dimension of data vector";
