@@ -7,8 +7,7 @@ function pressure
   input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Modelica.SIunits.VolumeFlowRate VDelta_flow "Small volume flow rate";
-  input Modelica.SIunits.PressureDifference dpDelta(displayUnit="Pa")
-    "Small pressure";
+  input Modelica.SIunits.PressureDifference dpDelta(displayUnit="Pa") "Small pressure";
 
   input Modelica.SIunits.VolumeFlowRate V_flow_max
     "Maximum volume flow rate at r_N=1 and dp=0";
@@ -22,8 +21,7 @@ function pressure
     "Coefficients for linear approximation of pressure vs. flow rate";
   input Real kRes(unit="kg/(s.m4)")
     "Linear coefficient for fan-internal pressure drop";
-  output Modelica.SIunits.PressureDifference dp(displayUnit="Pa")
-    "Pressure raise";
+  output Modelica.SIunits.PressureDifference dp(displayUnit="Pa") "Pressure raise";
 
 protected
    Integer dimD(min=2)=size(per.V_flow, 1) "Dimension of data vector";
