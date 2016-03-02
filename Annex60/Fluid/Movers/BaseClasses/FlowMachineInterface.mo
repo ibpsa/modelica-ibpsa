@@ -12,7 +12,7 @@ model FlowMachineInterface
 
   parameter Annex60.Fluid.Types.PrescribedVariable preVar=
     Annex60.Fluid.Types.PrescribedVariable.Speed "Type of prescribed variable";
-  parameter Boolean exaPowCom = true
+  parameter Boolean computePowerUsingSimilarityLaws
     "= true, compute power exactly, using similarity laws. Otherwise approximate.";
 
   final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
@@ -39,7 +39,7 @@ model FlowMachineInterface
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
-        origin={-40,108})));
+        origin={-40,120})));
 
   Modelica.Blocks.Interfaces.RealOutput y_out(
     final unit="1",
@@ -68,7 +68,7 @@ model FlowMachineInterface
     final unit="Pa") if prePre "Prescribed pressure increase"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=270,
-        origin={40,108})));
+        origin={40,120})));
 
   Modelica.Blocks.Interfaces.RealOutput dp(
     quantity="Pressure",
@@ -512,7 +512,7 @@ equation
   // Similarity laws are then not used, meaning the power computation is less accurate.
   // This however has the advantage that no non-linear algebraic loop is formed and
   // it allows an implementation when the pressure curve is unknown.
-  if not exaPowCom and not preVar==Annex60.Fluid.Types.PrescribedVariable.Speed then
+  if (computePowerUsingSimilarityLaws == false) and preVar <> Annex60.Fluid.Types.PrescribedVariable.Speed then
     r_N=1;
   else
   // For the homotopy method, we approximate dp by an equation

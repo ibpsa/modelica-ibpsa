@@ -7,8 +7,8 @@ model FlowMachineInterface "Simple model to validate FlowMachineInterface"
     haveVMax=true,
     V_flow_max=1,
     nOri=2,
-    preVar=Annex60.Fluid.Types.PrescribedVariable.Speed)
-    "Flow machine interface model"
+    preVar=Annex60.Fluid.Types.PrescribedVariable.Speed,
+    computePowerUsingSimilarityLaws=true) "Flow machine interface model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Constant y(k=1) "Control signal"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
@@ -24,7 +24,7 @@ equation
           -26,4},{-12,4}},
                          color={0,0,127}));
   connect(y.y, eff.y_in)
-    annotation (Line(points={{-39,30},{-4,30},{-4,10.8}}, color={0,0,127}));
+    annotation (Line(points={{-39,30},{-4,30},{-4,12}},   color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

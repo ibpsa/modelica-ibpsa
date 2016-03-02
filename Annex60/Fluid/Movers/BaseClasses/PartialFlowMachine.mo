@@ -3,7 +3,6 @@ partial model PartialFlowMachine
   "Partial model to interface fan or pump models with the medium"
   extends Annex60.Fluid.Interfaces.LumpedVolumeDeclarations(
     final mSenFac=1);
-
   extends Annex60.Fluid.Interfaces.PartialTwoPortInterface(
     show_T=false,
     port_a(
@@ -12,16 +11,29 @@ partial model PartialFlowMachine
       h_outflow(start=h_outflow_start),
       p(start=p_start),
       final m_flow(max = if allowFlowReversal then +Modelica.Constants.inf else 0)));
+
   replaceable parameter Annex60.Fluid.Movers.Data.Generic per
     constrainedby Annex60.Fluid.Movers.Data.Generic
     "Record with performance data"
     annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{60,80},{80,100}})));
+      Placement(transformation(extent={{52,60},{72,80}})));
 
   parameter Annex60.Fluid.Types.InputType inputType = Annex60.Fluid.Types.InputType.Continuous
-    "Control input type for this mover";
+    "Control input type for this mover"
+    annotation(Dialog(
+      group="Control"));
   parameter Real constInput = 0 "Constant input set point"
-    annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Constant));
+    annotation(Dialog(
+      group="Control",
+      enable=inputType == Annex60.Fluid.Types.InputType.Constant));
+  parameter Real stageInputs[:]
+    "Vector of input set points corresponding to stages"
+    annotation(Dialog(
+      group="Control",
+      enable=inputType == Annex60.Fluid.Types.InputType.Stages));
+
+  parameter Boolean computePowerUsingSimilarityLaws
+    "= true, compute power exactly, using similarity laws. Otherwise approximate.";
 
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
@@ -32,8 +44,6 @@ partial model PartialFlowMachine
                         group="Nominal condition",
                         enable=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState or
                                massDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Real stageInputs[:]
-    "Vector of input set points corresponding to stages";
 
   // Classes used to implement the filtered speed
   parameter Boolean filteredSpeed=true
@@ -47,35 +57,9 @@ partial model PartialFlowMachine
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  // Quantity to control
-  parameter Types.PrescribedVariable preVar=Annex60.Fluid.Types.PrescribedVariable.Speed
-    "Type of prescribed variable";
 
-  Modelica.SIunits.VolumeFlowRate VMachine_flow = eff.V_flow "Volume flow rate";
-  Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
-      -preSou.dp "Pressure difference";
-
-  Modelica.SIunits.Efficiency eta =    eff.eta "Global efficiency";
-  Modelica.SIunits.Efficiency etaHyd = eff.etaHyd "Hydraulic efficiency";
-  Modelica.SIunits.Efficiency etaMot = eff.etaMot "Motor efficiency";
-
-  Modelica.Blocks.Continuous.Filter filter(
-     order=2,
-     f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     final init=init,
-     x(each stateSelect=StateSelect.always),
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
-        filteredSpeed
-    "Second order filter to approximate valve opening time, and to improve numerics"
-    annotation (Placement(transformation(extent={{20,81},{34,95}})));
-
-  Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1")) if
-       inputType == Annex60.Fluid.Types.InputType.Continuous and preVar == Annex60.Fluid.Types.PrescribedVariable.Speed
-    "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
-    annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
-
-  Modelica.Blocks.Interfaces.IntegerInput stage if
+  // Connectors and ports
+    Modelica.Blocks.Interfaces.IntegerInput stage if
        inputType == Annex60.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"
     annotation (Placement(
@@ -83,6 +67,7 @@ partial model PartialFlowMachine
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,120})));
+
   Modelica.Blocks.Interfaces.RealOutput y_actual(
     min=0,
     final unit="1")
@@ -95,29 +80,25 @@ partial model PartialFlowMachine
     final unit="W") "Electrical power consumed"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
 
-  // Models
-  Annex60.Fluid.Delays.DelayFirstOrder vol(
-    redeclare final package Medium = Medium,
-    final tau=tau,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start,
-    final m_flow_nominal=m_flow_nominal,
-    final m_flow_small=m_flow_small,
-    final p_start=p_start,
-    final prescribedHeatFlowRate=true,
-    final allowFlowReversal=allowFlowReversal,
-    nPorts=2) "Fluid volume for dynamic model"
-    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
 
+  // Variables
+  Modelica.SIunits.VolumeFlowRate VMachine_flow = eff.V_flow "Volume flow rate";
+  Modelica.SIunits.PressureDifference dpMachine(displayUnit="Pa")=
+      -preSou.dp "Pressure difference";
+
+  Modelica.SIunits.Efficiency eta =    eff.eta "Global efficiency";
+  Modelica.SIunits.Efficiency etaHyd = eff.etaHyd "Hydraulic efficiency";
+  Modelica.SIunits.Efficiency etaMot = eff.etaMot "Motor efficiency";
+
+  // Quantity to control
 protected
+  parameter Types.PrescribedVariable preVar=Annex60.Fluid.Types.PrescribedVariable.Speed
+    "Type of prescribed variable";
+
   final parameter Integer nOri = size(per.pressure.V_flow, 1)
     "Number of data points for pressure curve"
     annotation(Evaluate=true);
@@ -148,6 +129,7 @@ protected
   final parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
     "Start value for outflowing enthalpy";
 
+  // fixme: revise, maybe default record data should be {}
   final parameter Boolean defRec=
     size(per.pressure.V_flow,1)==2 and per.pressure.V_flow[1]==0.5 and per.pressure.dp[1]==1
     "= true, if default record values are being used";
@@ -175,6 +157,38 @@ protected
         rotation=0,
         origin={-10,50})));
 
+  Annex60.Fluid.Delays.DelayFirstOrder vol(
+    redeclare final package Medium = Medium,
+    final tau=tau,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final m_flow_nominal=m_flow_nominal,
+    final m_flow_small=m_flow_small,
+    final p_start=p_start,
+    final prescribedHeatFlowRate=true,
+    final allowFlowReversal=allowFlowReversal,
+    nPorts=2) "Fluid volume for dynamic model"
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+
+  Modelica.Blocks.Continuous.Filter filter(
+     order=2,
+     f_cut=5/(2*Modelica.Constants.pi*riseTime),
+     final init=init,
+     x(each stateSelect=StateSelect.always),
+     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
+        filteredSpeed
+    "Second order filter to approximate valve opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{20,81},{34,95}})));
+
+  Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1")) if
+       inputType == Annex60.Fluid.Types.InputType.Continuous and preVar == Annex60.Fluid.Types.PrescribedVariable.Speed
+    "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
+    annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
+
   Annex60.Fluid.Movers.BaseClasses.IdealSource preSou(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
@@ -184,19 +198,19 @@ protected
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
   Annex60.Fluid.Movers.BaseClasses.PowerInterface heaDis(
-    rho_default=rho_default,
+    final rho_default=rho_default,
     final motorCooledByFluid=per.motorCooledByFluid,
     final delta_V_flow=1E-3*V_flow_max) if
        addPowerToMedium "Heat dissipation into medium"
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
   Modelica.Blocks.Math.Add PToMed(final k1=1, final k2=1) if
                    addPowerToMedium "Heat and work input into medium"
-    annotation (Placement(transformation(extent={{50,-98},{70,-78}})));
+    annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
-    annotation (Placement(transformation(extent={{-14,-110},{-34,-90}})));
+    annotation (Placement(transformation(extent={{-14,-104},{-34,-84}})));
 
   Modelica.Blocks.Sources.RealExpression rho_inlet(y=
     Medium.density(
@@ -204,20 +218,21 @@ protected
                           inStream(port_a.h_outflow),
                           inStream(port_a.Xi_outflow))))
     "Density of the inflowing fluid"
-    annotation (Placement(transformation(extent={{-100,-74},{-80,-54}})));
+    annotation (Placement(transformation(extent={{-90,-74},{-70,-54}})));
 
   Annex60.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-70,10},{-50,-10}})));
-protected
+
   Sensors.RelativePressure senRelPre(
     redeclare final package Medium = Medium) "Head of mover"
     annotation (Placement(transformation(extent={{58,-27},{43,-14}})));
+
   FlowMachineInterface eff(
     per(
-      hydraulicEfficiency =     per.hydraulicEfficiency,
-      motorEfficiency =         per.motorEfficiency,
-      motorCooledByFluid =      per.motorCooledByFluid,
+      final hydraulicEfficiency =     per.hydraulicEfficiency,
+      final motorEfficiency =         per.motorEfficiency,
+      final motorCooledByFluid =      per.motorCooledByFluid,
       final speed_nominal =           per.speed_nominal,
       final constantSpeed =           per.constantSpeed,
       final speeds =                  per.speeds,
@@ -226,42 +241,52 @@ protected
       final power =                   per.power),
     final nOri = nOri,
     final rho_default=rho_default,
+    final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
     final haveVMax=haveVMax,
     final V_flow_max=V_flow_max,
     r_N(start=y_start),
     r_V(start=m_flow_nominal/rho_default),
     final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
+
 initial equation
-  if defRec and not preVar ==Annex60.Fluid.Types.PrescribedVariable.Speed then
-Modelica.Utilities.Streams.print("
-Warning:
+  // The control signal is dp or m_flow but the user did not provide a pump curve.
+  // Hence, the speed is computed using default values, which likely are wrong.
+  // Therefore, scaling the power using the speed is inaccurate.
+  assert((not defRec) or (preVar == Annex60.Fluid.Types.PrescribedVariable.Speed),
+"Warning:
 ========
-You are using a flow or pressure controlled pump with the default pressure curve.
-This leads to approximate calculations for the electrical power consumption.
-Add the correct pressure curve in the record per to obtain more accurate computations.");
-  if per.use_powerCharacteristic then
-    Modelica.Utilities.Streams.print("
-Warning:
+You are using a flow or pressure controlled mover with the default pressure curve.
+This leads to approximate calculations of the electrical power consumption.
+Add the correct pressure curve in the record per to obtain an accurate computations.",
+         level=AssertionLevel.warning);
+
+  // The control signal is dp or m_flow but the user did not provide a pump curve.
+  // Hence, the speed is computed using default values, which likely are wrong.
+  // In addition, the user wants to use (V_flow, P) to compute the power.
+  // This can lead to using a power that is less than the flow work. We avoid
+  // this by ignoring the setting of per.use_powerCharacteristics.
+  assert(((not defRec) or (preVar == Annex60.Fluid.Types.PrescribedVariable.Speed))
+         or
+         per.use_powerCharacteristic == false,
+"Warning:
 ========
-You are using a flow or pressure controlled pump with the 
-default pressure curve and use_powerCharacteristic = true.
-use_powerCharacteristic has been set to false 
-since otherwise this leads to wrong results.
-Since this means the efficiency curve is used, 
-make sure that the efficiency curves in performance record per are correct
-or add the pressure curve of the mover.
-");
-  end if;
-  end if;
+You are using a flow or pressure controlled mover with the default pressure curve and
+you set use_powerCharacteristic = true.
+Since this can cause wrong power consumption, the model will overwrite this
+setting and use instead use_powerCharacteristic = false.
+Since this causes the efficiency curve to be used, 
+make sure that the efficiency curves in the performance record per are correct
+or add the pressure curve of the mover.",
+         level=AssertionLevel.warning);
 
 equation
   connect(prePow.port, vol.heatPort) annotation (Line(
-      points={{-34,-100},{-42,-100},{-42,10},{-10,10}},
+      points={{-34,-94},{-40,-94},{-40,10},{-20,10}},
       color={191,0,0}));
 
   connect(vol.heatPort, heatPort) annotation (Line(
-      points={{-10,10},{-10,10},{-42,10},{-42,-100},{-60,-100}},
+      points={{-20,10},{-20,10},{-40,10},{-40,-100},{-60,-100}},
       color={191,0,0}));
   connect(preSou.port_b, port_b) annotation (Line(
       points={{60,0},{100,0}},
@@ -284,46 +309,47 @@ equation
       color={255,127,0},
       smooth=Smooth.None));
 
-  connect(PToMed.y, prePow.Q_flow) annotation (Line(points={{71,-88},{80,-88},{80,
-          -100},{0,-100},{-14,-100}},      color={0,0,127}));
-  connect(PToMed.u1, heaDis.Q_flow) annotation (Line(points={{48,-82},{44,-82},{
-          44,-80},{41,-80}}, color={0,0,127}));
+  connect(PToMed.y, prePow.Q_flow) annotation (Line(points={{71,-80},{80,-80},{80,
+          -94},{-14,-94}},                 color={0,0,127}));
+  connect(PToMed.u1, heaDis.Q_flow) annotation (Line(points={{48,-74},{44,-74},{
+          44,-72},{44,-70},{41,-70}},
+                             color={0,0,127}));
 
   connect(port_a, senMasFlo.port_a)
     annotation (Line(points={{-100,0},{-86,0},{-70,0}}, color={0,127,255}));
   connect(senMasFlo.port_b, vol.ports[1])
-    annotation (Line(points={{-50,0},{-2,0}}, color={0,127,255}));
+    annotation (Line(points={{-50,0},{-12,0}},color={0,127,255}));
   connect(vol.ports[2], preSou.port_a)
-    annotation (Line(points={{2,0},{2,0},{40,0}}, color={0,127,255}));
+    annotation (Line(points={{-8,0},{-8,0},{40,0}},
+                                                  color={0,127,255}));
   connect(senRelPre.port_b, preSou.port_a) annotation (Line(points={{43,-20.5},{
           20,-20.5},{20,0},{40,0}},
                                color={0,127,255}));
   connect(senRelPre.port_a, preSou.port_b) annotation (Line(points={{58,-20.5},{
           80,-20.5},{80,0},{60,0}},
                                color={0,127,255}));
-  connect(heaDis.etaHyd,eff. etaHyd) annotation (Line(points={{18,-70},{-2,-70},
-          {-2,-65},{-11,-65}},                     color={0,0,127}));
-  connect(heaDis.V_flow,eff. V_flow) annotation (Line(points={{18,-76},{-6,-76},
-          {-6,-54},{-6,-53.2},{-11,-53.2}},
+  connect(heaDis.etaHyd,eff. etaHyd) annotation (Line(points={{18,-60},{10,-60},
+          {10,-65},{-11,-65}},                     color={0,0,127}));
+  connect(heaDis.V_flow,eff. V_flow) annotation (Line(points={{18,-66},{14,-66},
+          {14,-53.2},{-6,-53.2},{-11,-53.2}},
                                      color={0,0,127}));
-  connect(eff.PEle, heaDis.PEle) annotation (Line(points={{-11,-59},{12,-59},{12,
-          -90},{18,-90}}, color={0,0,127}));
+  connect(eff.PEle, heaDis.PEle) annotation (Line(points={{-11,-59},{0,-59},{0,-80},
+          {18,-80}},      color={0,0,127}));
   connect(eff.WFlo, heaDis.WFlo) annotation (Line(points={{-11,-56},{-8,-56},{-8,
-          -84},{18,-84}}, color={0,0,127}));
-  connect(rho_inlet.y,eff. rho) annotation (Line(points={{-79,-64},{-79,-64},{-34,
+          -74},{18,-74}}, color={0,0,127}));
+  connect(rho_inlet.y,eff. rho) annotation (Line(points={{-69,-64},{-69,-64},{-34,
           -64}},                          color={0,0,127}));
   connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-34,-54},{-60,
           -54},{-60,-11}},                         color={0,0,127}));
-  connect(eff.PEle, P) annotation (Line(points={{-11,-59},{12,-59},{12,-50},{90,
-          -50},{90,80},{110,80}},
-                             color={0,0,127}));
-  connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{-8,-56},{-8,-94},
-          {48,-94}},      color={0,0,127}));
+  connect(eff.PEle, P) annotation (Line(points={{-11,-59},{0,-59},{0,-50},{90,-50},
+          {90,80},{110,80}}, color={0,0,127}));
+  connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{-8,-56},{-8,-86},
+          {48,-86}},      color={0,0,127}));
   connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{16,50},{16,88},
           {18.6,88}},     color={0,0,127}));
 
   connect(senRelPre.p_rel, eff.dp_in) annotation (Line(points={{50.5,-26.35},{50.5,
-          -38},{-18,-38},{-18,-47.2}},             color={0,0,127}));
+          -38},{-18,-38},{-18,-46}},               color={0,0,127}));
   connect(eff.y_out, y_actual) annotation (Line(points={{-11,-48},{92,-48},{92,50},
           {110,50}}, color={0,0,127}));
    annotation(Icon(coordinateSystem(preserveAspectRatio=false,
@@ -414,7 +440,7 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 February 19, 2016, by Michael Wetter and Filip Jorissen:<br/>
 Refactored model to make implementation clearer.
 This model now includes code for both speed and flow prescribed models,
-eliminating the need for an additional level of partials.
+eliminating the need for an additional level of partial models.
 This is for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
 </li>

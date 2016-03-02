@@ -11,7 +11,7 @@ model FlowControlled_dp
       u(final unit="Pa"),
       y(final unit="Pa")),
     final preVar=Annex60.Fluid.Types.PrescribedVariable.PressureDifference,
-    eff(exaPowCom=not defRec));
+    computePowerUsingSimilarityLaws=not defRec);
 
   parameter Modelica.SIunits.PressureDifference dp_start(min=0, displayUnit="Pa")=0
     "Initial value of pressure raise"

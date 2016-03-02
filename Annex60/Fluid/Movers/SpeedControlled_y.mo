@@ -11,7 +11,7 @@ model SpeedControlled_y
       u(final unit="1"),
       y(final unit="1")),
     final preVar=Annex60.Fluid.Types.PrescribedVariable.Speed,
-    eff(final exaPowCom=true),
+    final computePowerUsingSimilarityLaws=true,
     gaiSpe(u(final unit="1"),
     final k=1/per.speed_nominal));
 
@@ -46,11 +46,11 @@ equation
 
   if filteredSpeed then
     connect(filter.y, eff.y_in) annotation (Line(points={{34.7,88},{38,88},{38,26},
-            {-26,26},{-26,-46},{-26,-48},{-26,-48},{-26,-47.2}},
+            {-26,26},{-26,-46},{-26,-48},{-26,-46},{-26,-46}},
                                       color={0,0,127}));
   else
     connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{38,50},{38,
-            26},{-26,26},{-26,-47.2}},
+            26},{-26,26},{-26,-46}},
                                    color={0,0,127}));
   end if;
 

@@ -11,7 +11,7 @@ model FlowControlled_m_flow
       u(final unit="kg/s"),
       y(final unit="kg/s")),
     final preVar=Annex60.Fluid.Types.PrescribedVariable.FlowRate,
-    eff(exaPowCom=not defRec));
+    computePowerUsingSimilarityLaws=not defRec);
 
   parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"
