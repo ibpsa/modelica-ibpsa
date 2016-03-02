@@ -206,7 +206,7 @@ The following people have directly contributed to the implementation of the <cod
 Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>
-xxx add contributors for the first version in alphabetical order.
+Filip Jorissen, KU Leuven, Belgium
 </li>
 </ul>
 </html>"));
@@ -418,6 +418,50 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
 </p>
 </html>"));
   end Copyright;
+
+  class ComputingTime "Tips and tricks for reducing computing time"
+    extends Modelica.Icons.Information;
+    annotation (preferredView="info",
+    Documentation(info="<html>
+<p>
+Creating computationally fast models in Modelica can be challenging, 
+especially as the model size grows. Many tips and tricks are explained in Jorissen et al. (2015). 
+The example models used in this paper can be found in the package
+<a href=\"modelica://Annex60.Fluid.Examples.Performance\">Annex60.Fluid.Examples.Performance</a>.
+</p>
+<p>
+Further tips are provided below.
+</p>
+<p><b>
+fixme: there is only one tip. Will there be more added to justify a list?
+Is this the right place to add them, or should they be in a separate documentation/user guide?
+</b>
+</p>
+<ul>
+<li>
+The most air model
+<a href=\"modelica://Annex60.Media.Air\">Annex60.Media.Air</a> is a compressible fluid.
+By default, most mixing volumes implement a dynamic energy and mass balance, as
+this generally leads to smaller nonlinear system of equations when used with the
+compressible media above. However, this comes at the expense of additional state variables.
+In many cases, these have time constants that are small compared to time constants
+of the heat conduction in the building envelope.
+The ordinary differential equation solver therefore needs to be make small time steps
+in order to maintain accuracy and stability.
+These state variables can be removed by setting
+<code>massDynamics=steadyState</code>, in which case air will be simulated as
+an incompressible medium, and hence there are no pressure states and the 
+the small time constants are removed. 
+This may speed up simulations, but may also introduce large algebraic loops, 
+which may deteriorate simulation performance.
+</li>
+</ul>
+<h4>References</h4>
+<p>
+F. Jorissen, M. Wetter, and L. Helsen, \"Simulation Speed Analysis and Improvements of Modelica Models for Building Energy Simulation\", in 11th International Modelica Conference 2015, (Paris), 2015.
+</p>
+</html>"));
+  end ComputingTime;
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
