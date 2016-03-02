@@ -83,7 +83,6 @@ equation
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-50,2},{44,2},{44,8},{68,0},{44,-8},{44,-2},{-50,-2},{-50,2}},
-
           lineColor={0,128,255},
           fillPattern=FillPattern.Solid,
           fillColor={170,213,255}),       Polygon(
