@@ -1,0 +1,7 @@
+simulateModel("Annex60.Fluid.Movers.Validation.PowerExact", stopTime=200, method="dassl", resultFile="PowerExact");
+createPlot(id=1, position={55, 50, 900, 653},
+ y={"pump_Nrpm.P", "pump_dp.P", "pump_m_flow.P"},
+range={0.0, 200.0, 40.0, 200.0}, grid=true, filename="Power.mat", leftTitleType=1, bottomTitleType=1, colors={{0,0,255}, {255,0,0}, {0,128,0}});
+createPlot(id=1, position={55, 50, 900, 323}, y={"pump_Nrpm.y_actual", "pump_dp.y_actual", "pump_m_flow.y_actual"}, range={0.0, 200.0, 40.0, 200.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+

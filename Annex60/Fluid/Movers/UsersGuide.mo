@@ -54,13 +54,27 @@ powerParameters</a></td>
 power</a></td>
 </tr>
 </table>
-<p>*Note: This record is not available for the movers that take as a control signal
-the mass flow rate or the head.
-The reason is that these movers prescribe the mass flow rate and head based
-on the control signal and the system pressure drop curve.
-If the electrical power versus flow rate were specified, then
-the electrical power could be lower than the flow work,
-which would be physically impossible.
+<p>*Note: This record should not be used 
+(i.e. <code>use_powerCharacteristic</code> should be <code>false</code>) 
+for the movers that take as a control signal
+the mass flow rate or the head, 
+unless also values for record <code>Pressure</code> are provided.
+The reason is that for these movers the record <code>Pressure</code>
+is required to be able to compute the mover speed,
+which is required to be able to compute the electrical power
+correctly using similarity laws. 
+If a <code>Pressure</code> record is not provided, 
+the model will internally override <code>use_powerCharacteristic=false</code>.
+In this case the efficiency records will be used.
+Note that in this case an error is still introduced, 
+but it is smaller than when using the power records.
+Compare
+<a href=\"modelica://Annex60.Fluid.Movers.Validation.PowerSimplified\">
+Annex60.Fluid.Movers.Validation.PowerSimplified</a>
+with
+<a href=\"modelica://Annex60.Fluid.Movers.Validation.PowerSimplified\">
+Annex60.Fluid.Movers.Validation.PowerSimplified</a>
+for an illustration of this error. 
 </p>
 <p>
 These performance curves are implemented in
@@ -72,68 +86,7 @@ Annex60.Fluid.Movers.Data</a>.
 The package
 <a href=\"modelica://Annex60.Fluid.Movers.Data\">
 Annex60.Fluid.Movers.Data</a>
-contains different data records. The table below shows
-which data records can be used for what models.
-Note that not all records can be used with all models, as
-the records only declare the minimum set of required data.
-</p>
-<!-- Table for performance data -->
-<table summary=\"Performance data\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr>
-<th></th>
-<th style=\"text-align:left\">
-<a href=\"modelica://Annex60.Fluid.Movers.Data.FlowControlled\">
-Data.FlowControlled</a>
-</th>
-<th style=\"text-align:left\">
-<a href=\"modelica://Annex60.Fluid.Movers.Data.SpeedControlled_y\">
-Data.SpeedControlled_y</a>
-</th>
-<th style=\"text-align:left\">
-<a href=\"modelica://Annex60.Fluid.Movers.Data.SpeedControlled_Nrpm\">
-Data.SpeedControlled_Nrpm</a>
-</th>
-</tr>
-<tr>
-<th style=\"text-align:left\">
-<a href=\"modelica://Annex60.Fluid.Movers.FlowControlled_m_flow\">
-FlowControlled_m_flow</a>
-</th>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-</tr>
-<tr>
-<th>
-<a href=\"modelica://Annex60.Fluid.Movers.FlowControlled_dp\">
-FlowControlled_dp</a>
-</th>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-</tr>
-<tr>
-<th>
-<a href=\"modelica://Annex60.Fluid.Movers.SpeedControlled_y\">
-SpeedControlled_y</a>
-</th>
-<td style=\"background-color:DarkRed\"/>
-<td style=\"background-color:DarkGreen\"/>
-<td style=\"background-color:DarkGreen\"/>
-</tr>
-<tr>
-<th>
-<a href=\"modelica://Annex60.Fluid.Movers.SpeedControlled_Nrpm\">
-SpeedControlled_Nrpm</a>
-</th>
-<td style=\"background-color:DarkRed\"/>
-<td style=\"background-color:DarkRed\"/>
-<td style=\"background-color:DarkGreen\"/>
-</tr>
-</table>
-<p>
-&nbsp;
-<!-- empty paragraph to add spacing below table -->
+contains different data records.
 </p>
 <h5>Models that use performance curves for pressure rise</h5>
 <p>
@@ -306,18 +259,30 @@ Then, the mover will have the following mass flow rates:
 </li>
 </ul>
 <p>
-These two models do not have a performance curve for the flow
+These two models do not need to use a performance curve for the flow
 characteristics.
-The reason for not using a performance curve for the flow characteristics is that</p>
+The reason is that</p>
 <ul>
 <li>
 for given pressure rise (or mass flow rate), the mass flow rate (or pressure rise)
-is defined by the flow resistance of the duct or piping network, and
+is computed from the flow resistance of the duct or piping network, and
 </li>
 <li>
 at zero pressure difference, solving for the flow rate and the revolution leads to a singularity.
 </li>
 </ul>
+<p>
+However, the computation of the electrical power consumption
+requires the mover speed to be known
+and the computation of the mover speed requires the performance 
+curves for the flow and efficiency/power characteristics.
+Therefore these performance curves do need to be provided 
+if the user desires a correct electrical power computation.
+If the curves are not provided, a simplified computation is used, 
+where the efficiency curve is used and assumed to be correct for all speeds.
+This loss of accuracy has the advantage that it allows setting up 
+mover models that do not require flow and efficiency/power characteristics.
+</p>
 <p>
 The models <a href=\"modelica://Annex60.Fluid.Movers.FlowControlled_dp\">
 Annex60.Fluid.Movers.FlowControlled_dp</a> and
