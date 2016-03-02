@@ -1,12 +1,19 @@
 within Annex60.Fluid.Movers;
 model SpeedControlled_y
   "Fan or pump with ideally controlled normalized speed y as input signal"
-  extends Annex60.Fluid.Movers.BaseClasses.SpeedControlled(
+  extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
     final stageInputs(each final unit="1") = per.speeds,
     final constInput(final unit="1") =       per.constantSpeed,
+    filter(
+      final y_start=y_start,
+      u_nominal=1,
+      u(final unit="1"),
+      y(final unit="1")),
+    final preVar=Annex60.Fluid.Types.PrescribedVariable.Speed,
+    eff(final exaPowCom=true),
     gaiSpe(u(final unit="1"),
-           final k=1/per.speed_nominal));
-
+    final k=1/per.speed_nominal));
 
   Modelica.Blocks.Interfaces.RealInput y(
     min=0,
@@ -21,12 +28,33 @@ model SpeedControlled_y
         rotation=-90,
         origin={-2,120})));
 
+protected
+  Modelica.Blocks.Math.Gain gain(final k=-1) "Pressure gain"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=270,
+        origin={10,-20})));
 equation
   connect(gaiSpe.u, y)
     annotation (Line(points={{-2.8,80},{0,80},{0,120}}, color={0,0,127}));
   connect(gaiSpe.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
           {-26,50},{-22,50}}, color={0,0,127}));
-  annotation (defaultComponentName="fan",
+  connect(eff.dp, gain.u)
+    annotation (Line(points={{-11,-50},{10,-50},{10,-32}}, color={0,0,127}));
+  connect(gain.y, preSou.dp_in)
+    annotation (Line(points={{10,-9},{10,14},{56,14},{56,8},{56,8}},
+                                                     color={0,0,127}));
+
+  if filteredSpeed then
+    connect(filter.y, eff.y_in) annotation (Line(points={{34.7,88},{38,88},{38,26},
+            {-26,26},{-26,-46},{-26,-48},{-26,-48},{-26,-47.2}},
+                                      color={0,0,127}));
+  else
+    connect(inputSwitch.y, eff.y_in) annotation (Line(points={{1,50},{38,50},{38,
+            26},{-26,26},{-26,-47.2}},
+                                   color={0,0,127}));
+  end if;
+
+    annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),
             graphics={
@@ -62,6 +90,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 2, 2016, by Filip Jorissen:<br/>
+Refactored model such that it directly extends <code>PartialFlowMachine</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+</li>
 <li>
 February 17, 2016, by Michael Wetter:<br/>
 Updated parameter names for

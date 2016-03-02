@@ -17,16 +17,17 @@ model FlowMachineInterface "Simple model to validate FlowMachineInterface"
   Modelica.Blocks.Sources.Ramp m_flow(height=1.2, duration=1) "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
-  connect(eff.y_actual, y.y) annotation (Line(points={{-12,2},{-24,2},{-24,30},{
-          -39,30}}, color={0,0,127}));
   connect(eff.rho, rho.y)
-    annotation (Line(points={{-12,-2},{-26,-2},{-26,0},{-39,0}},
+    annotation (Line(points={{-12,-6},{-26,-6},{-26,0},{-39,0}},
                                                color={0,0,127}));
-  connect(m_flow.y, eff.m_flow) annotation (Line(points={{-39,-30},{-26,-30},{-26,
-          -8},{-12,-8}}, color={0,0,127}));
+  connect(m_flow.y, eff.m_flow) annotation (Line(points={{-39,-30},{-26,-30},{
+          -26,4},{-12,4}},
+                         color={0,0,127}));
+  connect(y.y, eff.y_in)
+    annotation (Line(points={{-39,30},{-4,30},{-4,10.8}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
     Documentation(info="<html>
 <p>
 Simple validation model for the flow machine interface model.

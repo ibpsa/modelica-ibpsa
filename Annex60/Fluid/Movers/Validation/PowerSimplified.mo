@@ -20,7 +20,9 @@ model PowerSimplified
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Annex60.Fluid.Movers.FlowControlled_dp  pump_dp(
     redeclare package Medium = Medium,
-    redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per,
+    redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per(pressure(
+    V_flow={0.5,1},
+    dp={1,0})),
     filteredSpeed=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -29,7 +31,9 @@ model PowerSimplified
   Annex60.Fluid.Movers.FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per,
+    redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per(pressure(
+    V_flow={0.5,1},
+    dp={1,0})),
     filteredSpeed=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
@@ -140,6 +144,11 @@ the nominal speed <i>N<sub>nominal</sub></i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 2, 2016, by Filip Jorissen:<br/>
+Revised implementation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+</li>
 <li>
 November 5, 2015, by Michael Wetter:<br/>
 Changed parameters since the power is no longer a parameter for the movers
