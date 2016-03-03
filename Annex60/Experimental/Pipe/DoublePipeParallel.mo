@@ -104,7 +104,7 @@ protected
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
 public
-  Modelica.Blocks.Interfaces.RealInput T_amb
+  Modelica.Blocks.Interfaces.RealInput T_amb(unit="K", displayUnit="degC")
     "Ambient temperature for pipe's surroundings" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},

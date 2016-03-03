@@ -32,14 +32,14 @@ protected
     "Heat capacity of medium";
 
 public
-  Modelica.Blocks.Interfaces.RealInput T_amb
+  Modelica.Blocks.Interfaces.RealInput T_amb(unit="K", displayUnit="degC")
     "Ambient temperature of pipe's surroundings" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,100})));
 public
-  Modelica.Blocks.Interfaces.RealInput tau "Time delay at pipe level"
+  Modelica.Blocks.Interfaces.RealInput tau(unit="s") "Time delay at pipe level"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,

@@ -18,7 +18,7 @@ model ParallelPipesHeatExchangers
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   parameter Modelica.SIunits.Time tau=1 "Time constant at nominal flow rate";
-  replaceable package Medium = Annex60.Media.Water;
+  package Medium = Annex60.Media.Water;
   Annex60.Fluid.Sensors.TemperatureTwoPort retIn(
     m_flow_nominal=0.5,
     tau=tau,
@@ -62,7 +62,7 @@ model ParallelPipesHeatExchangers
     p=100000,
     T=343.15)
     annotation (Placement(transformation(extent={{-100,28},{-80,48}})));
-  Modelica.Blocks.Sources.RealExpression realExpression2(y=5)
+  Modelica.Blocks.Sources.RealExpression realExpression2(y=273.15 + 5, unit="K")
     annotation (Placement(transformation(extent={{32,48},{52,68}})));
 equation
   connect(supIn.port_b, doublePipeParallel.port_a1) annotation (Line(points={{-20,
@@ -99,5 +99,7 @@ equation
 </ul>
 </html>", info="<html>
 <p>Test of a parallel flow double pipe installed in a closed circuit. Heat is added and removed by ideal heat exchangers in order to represent different supply and return temperature.</p>
-</html>"));
+</html>"),
+    experiment(StopTime=20000),
+    __Dymola_experimentSetupOutput);
 end ParallelPipesHeatExchangers;
