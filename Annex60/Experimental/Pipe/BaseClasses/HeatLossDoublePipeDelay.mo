@@ -18,7 +18,6 @@ model HeatLossDoublePipeDelay
     "Temperature at port_a for in-flowing fluid";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Tout_b
     "Temperature at port_b for out-flowing fluid";
-
   Real lambda;
 
 protected
@@ -50,8 +49,7 @@ public
         rotation=270,
         origin={60,-100})));
   Modelica.Blocks.Interfaces.RealInput Tau_in(unit="s") "Delay time input"
-                                                 annotation (Placement(
-        transformation(
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-60,100})));
@@ -59,19 +57,30 @@ equation
   dp = 0;
 
   port_a.h_outflow = inStream(port_b.h_outflow);
-  port_b.h_outflow = Tout_b*cp_default;
+
+  port_b.h_outflow = Medium.specificEnthalpy_pTX(
+    port_a.p,
+    Tout_b,
+    inStream(port_a.Xi_outflow)) "Calculate enthalpy of output state";
+
+  Tin_a = Medium.temperature_phX(
+    port_a.p,
+    inStream(port_a.h_outflow),
+    inStream(port_a.Xi_outflow));
 
   // Heat losses
   lambda = Modelica.Math.exp(Tau_in/tau_char);
 
-  Tin_a = inStream(port_a.h_outflow)/cp_default;
-  Tout_b = T_amb + (4*lambda*sqrt(Ra*Rs)*(Tin_a-T_amb) + (lambda^2-1)*(Rs-Ra)*(T_2in-T_amb))/(lambda^2*(Rs+Ra+2*sqrt(Rs*Ra))-(Rs+Ra-2*sqrt(Rs*Ra)));
+  Tout_b = T_amb + (4*lambda*sqrt(Ra*Rs)*(Tin_a - T_amb) + (lambda^2 - 1)*(Rs -
+    Ra)*(T_2in - T_amb))/(lambda^2*(Rs + Ra + 2*sqrt(Rs*Ra)) - (Rs + Ra - 2*
+    sqrt(Rs*Ra)));
 
   T_2out = Tin_a;
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={Rectangle(
+        graphics={
+        Rectangle(
           extent={{-80,80},{80,-68}},
           lineColor={255,255,255},
           fillColor={255,255,255},
@@ -88,7 +97,8 @@ equation
           points={{-52,2},{42,2},{42,8},{66,0},{42,-8},{42,-2},{-52,-2},{-52,2}},
           lineColor={0,128,255},
           fillPattern=FillPattern.Solid,
-          fillColor={170,213,255}),       Polygon(
+          fillColor={170,213,255}),
+        Polygon(
           points={{0,60},{38,2},{20,2},{20,-46},{-18,-46},{-18,2},{-36,2},{0,60}},
           lineColor={0,0,0},
           fillColor={238,46,47},
@@ -104,4 +114,5 @@ equation
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
+
 end HeatLossDoublePipeDelay;

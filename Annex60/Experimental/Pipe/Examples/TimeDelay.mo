@@ -66,7 +66,7 @@ package TimeDelay
     Modelica.Blocks.Sources.Constant PAtm1(
                                           k=101325) "Atmospheric pressure"
         annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
-    Modelica.Blocks.Sources.Constant const3(k=5)
+    Modelica.Blocks.Sources.Constant const3(k=5 + 273.15)
       annotation (Placement(transformation(extent={{-28,96},{-8,116}})));
     Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay
       A60PipeHeatLossMod_noabs(

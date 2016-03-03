@@ -62,8 +62,11 @@ model ParallelPipesHeatExchangers
     p=100000,
     T=343.15)
     annotation (Placement(transformation(extent={{-100,28},{-80,48}})));
-  Modelica.Blocks.Sources.RealExpression realExpression2(y=273.15 + 5, unit="K")
-    annotation (Placement(transformation(extent={{32,48},{52,68}})));
+  Modelica.Blocks.Sources.Constant const(k=273.15 + 5) annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={40,64})));
 equation
   connect(supIn.port_b, doublePipeParallel.port_a1) annotation (Line(points={{-20,
           20},{-16,20},{-16,6},{-10,6}}, color={0,127,255}));
@@ -89,10 +92,11 @@ equation
           {56,-50},{-72,-50},{-72,70},{-60,70}}, color={0,127,255}));
   connect(bou.ports[1], fan.port_a) annotation (Line(points={{-80,38},{-80,38},{
           -78,38},{-72,38},{-72,70},{-60,70}}, color={0,127,255}));
-  connect(realExpression2.y, doublePipeParallel.T_amb) annotation (Line(points={
-          {53,58},{58,58},{58,56},{58,30},{0,30},{0,10}}, color={0,0,127}));
+  connect(const.y, doublePipeParallel.T_amb) annotation (Line(points={{40,53},{
+          40,53},{40,38},{40,34},{0,34},{0,10}}, color={0,0,127}));
   annotation (                                                         Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
       Documentation(revisions="<html>
 <ul>
 <li>March 2, 2016 by Bram van der Heijde:<br>First implementation</li>
