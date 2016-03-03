@@ -227,13 +227,13 @@ protected
   // to zero.
   FlowMachineInterface eff(
     per(
-      final hydraulicEfficiency =     per.hydraulicEfficiency,
-      final motorEfficiency =         per.motorEfficiency,
-      final motorCooledByFluid =      per.motorCooledByFluid,
-      final speed_rpm_nominal =       0,
-      final constantSpeed_rpm =       0,
-      final speeds_rpm =              {0},
-      final power =                   per.power),
+      final hydraulicEfficiency = per.hydraulicEfficiency,
+      final motorEfficiency =     per.motorEfficiency,
+      final motorCooledByFluid =  per.motorCooledByFluid,
+      final speed_nominal =       0,
+      final constantSpeed =       0,
+      final speeds =              {0},
+      final power =               per.power),
     final nOri = nOri,
     final rho_default=rho_default,
     final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
