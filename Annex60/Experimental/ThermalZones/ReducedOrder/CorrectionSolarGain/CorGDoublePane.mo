@@ -64,7 +64,7 @@ equation
     solarRadWinTrans[i] = ((HDirTil[i]*CorG_dir[i])+(HSkyDifTil[i]*CorG_diff)+(HGroDifTil[i]*CorG_gr));
   end for;
 
-annotation (
+annotation (defaultComponentName="CorG",
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

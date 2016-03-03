@@ -131,7 +131,7 @@ equation
   connect(floorRC.port_a, floorIndoorSurface) annotation (Line(points={{-12,
           -143.6},{-46,-143.6},{-46,-144},{-82,-144},{-82,-170}},
                                                           color={191,0,0}));
-  annotation (Diagram(coordinateSystem(extent={{-240,-180},{240,180}},
+  annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(extent={{-240,-180},{240,180}},
           preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-32,-100},{50,-166}},

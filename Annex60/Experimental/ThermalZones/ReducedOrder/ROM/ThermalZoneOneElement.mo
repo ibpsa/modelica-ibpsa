@@ -119,8 +119,8 @@ public
             138},{-220,158}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsRad if     ATot > 0
     "auxilliary port for internal radiative gains" annotation (Placement(
-        transformation(extent={{220,90},{240,110}}), iconTransformation(extent={
-            {220,90},{240,110}})));
+        transformation(extent={{220,80},{240,100}}), iconTransformation(extent={{220,80},
+            {240,100}})));
   BaseClasses.ThermSplitter thermSplitterIntGains(splitFactor=splitFactor,
       dimension=dimension) if                                                                      ATot > 0
     "splits incoming internal gains into seperate gains for each wall element, weighted by their area"
@@ -151,8 +151,8 @@ public
   final quantity="ThermodynamicTemperature",
   final unit="K",
   displayUnit="degC") if ATot > 0 or VAir > 0 "Indoor air temperature"
-    annotation (Placement(transformation(extent={{220,138},{240,158}}),
-        iconTransformation(extent={{220,138},{240,158}})));
+    annotation (Placement(transformation(extent={{220,140},{240,160}}),
+        iconTransformation(extent={{220,140},{240,160}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a windowIndoorSurface if indoorPortWin
     "auxilliary port at indoor surface of windows"
     annotation (Placement(transformation(extent={{-206,-180},{-186,-160}}),
@@ -161,6 +161,20 @@ public
     "auxilliary port at indoor surface of exterior walls" annotation (Placement(
         transformation(extent={{-168,-180},{-148,-160}}), iconTransformation(
           extent={{-168,-180},{-148,-160}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TMeanRadSensor if
+                                                                           ATot > 0
+    "Mean indoor radiation temperatur sensor" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={176,118})));
+  Modelica.Blocks.Interfaces.RealOutput TMeanRad(
+  final quantity="ThermodynamicTemperature",
+  final unit="K",
+  displayUnit="degC") if ATot > 0 "Mean indoor radiation temperature"
+                                        annotation (Placement(transformation(
+          extent={{220,110},{240,130}}), iconTransformation(extent={{220,110},{240,
+            130}})));
 equation
   connect(volAir.ports, ports) annotation (Line(
       points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-172},{85,-172}},
@@ -179,7 +193,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(thermSplitterIntGains.signalInput, intGainsRad) annotation (Line(
-      points={{210,88},{230,88},{230,100}},
+      points={{210,88},{230,88},{230,90}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(radHeatSol.port, thermSplitterSolRad.signalInput) annotation (Line(
@@ -252,14 +266,19 @@ equation
   connect(volAir.heatPort, TIndAirSensor.port)
     annotation (Line(points={{38,0},{58,0},{58,20},{74,20}}, color={191,0,0}));
   connect(TIndAirSensor.T, TIndAir) annotation (Line(points={{94,20},{108,20},{108,
-          148},{230,148}}, color={0,0,127}));
+          150},{230,150}}, color={0,0,127}));
   connect(convWin.solid, windowIndoorSurface) annotation (Line(points={{-116,38},
           {-130,38},{-130,-12},{-212,-12},{-212,-148},{-196,-148},{-196,-170}},
                                                         color={191,0,0}));
   connect(convExtWall.solid, extWallIndoorSurface) annotation (Line(points={{-114,
           -36},{-134,-36},{-152,-36},{-152,-54},{-208,-54},{-208,-144},{-158,-144},
           {-158,-170}}, color={191,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+  connect(TMeanRadSensor.port, thermSplitterIntGains.signalInput) annotation (
+      Line(points={{176,108},{176,108},{176,100},{210,100},{210,88}}, color={191,
+          0,0}));
+  connect(TMeanRadSensor.T, TMeanRad) annotation (Line(points={{176,128},{176,134},
+          {210,134},{210,120},{230,120}}, color={0,0,127}));
+  annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}},
         grid={2,2}),  graphics={
         Rectangle(

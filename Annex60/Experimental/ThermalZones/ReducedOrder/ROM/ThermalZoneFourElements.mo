@@ -136,7 +136,7 @@ equation
   connect(roofRC.port_b, roofIndoorSurface) annotation (Line(points={{-12,144.8},
           {-12,136},{-112,136},{-112,112},{-216,112},{-216,-140},{-44,-140},{-44,
           -170}}, color={191,0,0}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+  annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}}), graphics={
         Rectangle(
           extent={{-36,170},{46,104}},
