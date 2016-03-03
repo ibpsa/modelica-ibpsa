@@ -3,10 +3,9 @@ model PowerExact
   extends PowerSimplified(
     pump_dp(redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per),
     pump_m_flow(redeclare replaceable parameter
-        Data.Pumps.Wilo.Stratos30slash1to8 per));
+        Data.Pumps.Wilo.Stratos30slash1to8                                         per));
   annotation (
     experiment(StopTime=200),
-    __Dymola_experimentSetupOutput,
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),
     __Dymola_Commands(file=
