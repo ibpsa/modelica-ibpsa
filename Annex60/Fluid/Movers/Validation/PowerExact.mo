@@ -19,5 +19,7 @@ First implementation for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
 </li>
 </ul>
+</html>", info="<html>
+fixme: needs documentation.
 </html>"));
 end PowerExact;
