@@ -63,7 +63,7 @@ equation
   port_b.h_outflow = Tout_b*cp_default;
 
   Tin_a = inStream(port_a.h_outflow)/cp_default;
-  Tout_b = T_amb + ( (Tin_a+T_2in)/2 - T_amb)*Modelica.Math.exp(-Tau_in/tau_charSymm) - (Tin_a-T_2in)/2*Modelica.Math.exp(-Tau_in/tau_charAsymm);
+  Tout_b = T_amb + ( (Tin_a+T_2in)/2 - T_amb)*Modelica.Math.exp(-Tau_in/tau_charSymm) + (Tin_a-T_2in)/2*Modelica.Math.exp(-Tau_in/tau_charAsymm);
   T_2out = Tin_a;
 
   annotation (
