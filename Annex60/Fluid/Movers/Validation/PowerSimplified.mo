@@ -21,8 +21,8 @@ model PowerSimplified
   Annex60.Fluid.Movers.FlowControlled_dp  pump_dp(
     redeclare package Medium = Medium,
     redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per(pressure(
-    V_flow={0.5,1},
-    dp={1,0})),
+    V_flow={0, 0},
+    dp={0, 0})),
     filteredSpeed=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -32,8 +32,8 @@ model PowerSimplified
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per(pressure(
-    V_flow={0.5,1},
-    dp={1,0})),
+    V_flow={0, 0},
+    dp={0, 0})),
     filteredSpeed=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
