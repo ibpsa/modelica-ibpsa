@@ -54,12 +54,12 @@ powerParameters</a></td>
 power</a></td>
 </tr>
 </table>
-<p>*Note: This record should not be used 
+<p>*Note: This record should not be used
 (i.e. <code>use_powerCharacteristic</code> should be <code>false</code>) 
 for the movers that take as a control signal
 the mass flow rate or the head, 
-unless also values for record <code>Pressure</code> are provided.
-The reason is that for these movers the record <code>Pressure</code>
+unless also values for the record <code>pressure</code> are provided.
+The reason is that for these movers the record <code>pressure</code>
 is required to be able to compute the mover speed,
 which is required to be able to compute the electrical power
 correctly using similarity laws. 
@@ -98,7 +98,7 @@ Annex60.Fluid.Movers.SpeedControlled_Nrpm</a>
 take as an input either a control signal between <i>0</i> and <i>1</i>, or the
 rotational speed in units of <i>[1/min]</i>. From this input and the current flow rate,
 they compute the pressure rise.
-This pressure rise is computed using user-provided list of operating points that
+This pressure rise is computed using a user-provided list of operating points that
 defines the fan or pump curve at full speed.
 For other speeds, similarity laws are used to scale the performance curves, as
 described in
@@ -280,8 +280,8 @@ Therefore these performance curves do need to be provided
 if the user desires a correct electrical power computation.
 If the curves are not provided, a simplified computation is used, 
 where the efficiency curve is used and assumed to be correct for all speeds.
-This loss of accuracy has the advantage that it allows setting up 
-mover models that do not require flow and efficiency/power characteristics.
+This loss of accuracy has the advantage that it allows to use the 
+mover models without requiring flow and efficiency/power characteristics.
 </p>
 <p>
 The models <a href=\"modelica://Annex60.Fluid.Movers.FlowControlled_dp\">
@@ -294,11 +294,26 @@ Annex60.Fluid.Movers.FlowControlled_m_flow</a>, this parameter
 is used for convenience to set a default value for the parameters
 <code>constantMassFlowRate</code> and
 <code>massFlowRates</code>.
-For both models, the value is also used to compute the
+For both models, the value is also used for the following:
+<ul>
+<li>
+To compute the
 size of the fluid volume that can be used to approximate the
 inertia of the mover if the energy dynamics is selected to be dynamic.
-It is also used for regularization of the equations near zero flow rate.
-However, otherwise it does not affect the mass flow rate of the mover as
+</li>
+<li>
+To compute a default pressure curve if no pressure curve has been specified
+in the record <code>per.pressure</code>.
+The default pressure curve is the line that intersects
+<code>(dp, V_flow) = (dp_nominal, 0)</code> and
+<code>(dp, V_flow) = (m_flow_nominal/rho_default, 0)</code>.
+</li>
+<li>
+To regularize the equations near zero flow rate to ensure a numerically
+robust model.
+</li>
+</ul>
+However, otherwise <code>m_flow_nominal</code> does not affect the mass flow rate of the mover as
 the mass flow rate is determined by the input signal or the above explained parameters.
 </p>
 <h5>Start-up and shut-down transients</h5>
@@ -463,17 +478,10 @@ to the electrical power <i>P<sub>ele</sub></i> that is consumed by the component
 Otherwise, it is equal to the hydraulic work <i>W<sub>hyd</sub></i>.
 The parameter <code>addPowerToMedium</code>, which is by default set to
 <code>true</code>, can be used to simplify the equations.
-If it is set to <code>false</code>, then no enthalpy change occurs between
-inlet and outlet other than the flow work <i>W<sub>flo</sub></i>.
+If <code>addPowerToMedium = false</code>, then no enthalpy change occurs between
+inlet and outlet.
 This can lead to simpler equations, but the temperature rise across the component
-will be underestimated, in particular for fans.
-</p>
-
-<h5>Further description</h5>
-<p>
-For a detailed description of the models with names <code>FlowMachine_*</code>,
-see their base class <a href=\"modelica://Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine\">
-Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine.</a>
+will be zero. In particular for fans, this simplification may not be permissible.
 </p>
 
 <h4>Differences to models in Modelica.Fluid.Machines</h4>
@@ -506,7 +514,7 @@ we changed the models to use total pressure in Pascals instead of head in meters
 </li>
 <li>
 The performance data are interpolated using cubic hermite splines instead of polynomials.
-These functions are implemented at
+These functions are implemented in
 <a href=\"modelica://Annex60.Fluid.Movers.BaseClasses.Characteristics\">
 Annex60.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>

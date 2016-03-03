@@ -3,7 +3,7 @@ model FlowControlled_dp
   "Fan or pump with ideally controlled head dp as input signal"
   extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=Annex60.Fluid.Types.PrescribedVariable.PressureDifference,
-    computePowerUsingSimilarityLaws=per.havePressureCurve,
+    final computePowerUsingSimilarityLaws=per.havePressureCurve,
     preSou(dp_start=dp_start),
     final stageInputs(each final unit="Pa") = heads,
     final constInput(final unit="Pa") = constantHead,

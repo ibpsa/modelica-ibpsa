@@ -2,6 +2,8 @@ within Annex60.Fluid.Movers;
 model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
   extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    final preVar=Annex60.Fluid.Types.PrescribedVariable.Speed,
+    final computePowerUsingSimilarityLaws=true,
     final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
     final stageInputs(each final unit="1") = per.speeds,
     final constInput(final unit="1") =       per.constantSpeed,
@@ -13,10 +15,8 @@ model SpeedControlled_Nrpm
     eff(
       per(final pressure = per.pressure,
           final use_powerCharacteristic = per.use_powerCharacteristic)),
-    final preVar=Annex60.Fluid.Types.PrescribedVariable.Speed,
-    final computePowerUsingSimilarityLaws=true,
     gaiSpe(u(final unit="1/min"),
-    final k=1/per.speed_rpm_nominal));
+           final k=1/per.speed_rpm_nominal));
 
   Modelica.Blocks.Interfaces.RealInput Nrpm(final unit="1/min") if
     inputType == Annex60.Fluid.Types.InputType.Continuous
@@ -37,6 +37,7 @@ protected
 initial equation
   assert(per.havePressureCurve,
    "SpeedControlled_Nrpm model requires to set the pressure vs. flow rate curve in record 'per'.");
+
 equation
   connect(Nrpm, gaiSpe.u)
     annotation (Line(points={{0,120},{0,80},{-2.8,80}}, color={0,0,127}));

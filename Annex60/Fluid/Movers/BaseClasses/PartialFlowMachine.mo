@@ -19,7 +19,7 @@ partial model PartialFlowMachine
       Placement(transformation(extent={{52,60},{72,80}})));
 
   parameter Annex60.Fluid.Types.InputType inputType = Annex60.Fluid.Types.InputType.Continuous
-    "Control input type for this mover"
+    "Control input type"
     annotation(Dialog(
       group="Control"));
   parameter Real constInput = 0 "Constant input set point"
@@ -131,19 +131,18 @@ protected
 
   Modelica.Blocks.Sources.Constant[size(stageInputs, 1)] stageValues(
     final k=stageInputs) if
-       inputType == Annex60.Fluid.Types.InputType.Stages "Stage input values"
+      inputType == Annex60.Fluid.Types.InputType.Stages "Stage input values"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Constant setConst(
     final k=constInput) if
-       inputType == Annex60.Fluid.Types.InputType.Constant
+      inputType == Annex60.Fluid.Types.InputType.Constant
     "Constant input set point"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Routing.Extractor extractor(
     final nin=size(stageInputs, 1),
     index(fixed=true,
           start=0)) if
-       inputType == Annex60.Fluid.Types.InputType.Stages
-    "Stage input extractor"
+      inputType == Annex60.Fluid.Types.InputType.Stages "Stage input extractor"
     annotation (Placement(transformation(extent={{-50,60},{-30,40}})));
   Modelica.Blocks.Routing.RealPassThrough inputSwitch
     "Dummy connection for easy connection of input options"
@@ -224,14 +223,16 @@ protected
     redeclare final package Medium = Medium) "Head of mover"
     annotation (Placement(transformation(extent={{58,-27},{43,-14}})));
 
+  // Because the speed data are not used by FlowMachineInterface, we set them
+  // to zero.
   FlowMachineInterface eff(
     per(
       final hydraulicEfficiency =     per.hydraulicEfficiency,
       final motorEfficiency =         per.motorEfficiency,
       final motorCooledByFluid =      per.motorCooledByFluid,
-      final speed_nominal =           per.speed_nominal,
-      final constantSpeed =           per.constantSpeed,
-      final speeds =                  per.speeds,
+      final speed_rpm_nominal =       0,
+      final constantSpeed_rpm =       0,
+      final speeds_rpm =              {0},
       final power =                   per.power),
     final nOri = nOri,
     final rho_default=rho_default,

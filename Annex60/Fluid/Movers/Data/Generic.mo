@@ -2,33 +2,71 @@ within Annex60.Fluid.Movers.Data;
 record Generic "Generic data record for movers"
   extends Modelica.Icons.Record;
 
+  // Pressure requires default values to avoid in Dymola the message
+  // Failed to expand the variable pressure.V_flow.
+  parameter Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure(
+    V_flow = {0, 0},
+    dp =     {0, 0}) "Volume flow rate vs. total pressure rise"
+    annotation(Evaluate=true,
+               Dialog(group="Pressure curve"));
+
+  parameter Boolean use_powerCharacteristic=false
+    "Use power data instead of motor efficiency"
+    annotation (Dialog(group="Power computation"));
+
   parameter
     Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     hydraulicEfficiency(
       V_flow={0},
-      eta={0.7}) "Hydraulic efficiency (used if use_powerCharacteristic=false)";
+      eta={0.7}) "Hydraulic efficiency (used if use_powerCharacteristic=false)"
+    annotation (Dialog(group="Power computation",
+                       enable=not use_powerCharacteristic));
   parameter
     Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     motorEfficiency(
       V_flow={0},
       eta={0.7})
-    "Electric motor efficiency (used if use_powerCharacteristic=false)";
+    "Electric motor efficiency (used if use_powerCharacteristic=false)"
+    annotation (Dialog(group="Power computation",
+                       enable=not use_powerCharacteristic));
 
-  // Pressure requires default values to avoid in Dymola the message
-  // Failed to expand the variable pressure.V_flow.
-  // Fixme: To be tested if we can have non-physical "default" values to make a
-  // better diagnostics if the user configures the model to really use these values.
-  parameter Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressure(
-    V_flow = {0, 0},
-    dp =     {0, 0}) "Volume flow rate vs. total pressure rise"
-    annotation(Evaluate=true);
   // Power requires default values to avoid in Dymola the message
   // Failed to expand the variable Power.V_flow
   parameter BaseClasses.Characteristics.powerParameters power(
     V_flow={0},
     P={0})
     "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
-   annotation (Dialog(enable=use_powerCharacteristic));
+   annotation (Dialog(group="Power computation",
+                      enable=use_powerCharacteristic));
+
+  parameter Boolean motorCooledByFluid=true
+    "If true, then motor heat is added to fluid stream"
+    annotation(Dialog(group="Motor heat rejection"));
+
+  parameter Real speed_nominal(
+    final min=0,
+    final unit="1") = 1 "Nominal rotational speed for flow characteristic"
+    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm"));
+
+  parameter Real constantSpeed(final min=0, final unit="1") = constantSpeed_rpm/speed_rpm_nominal
+    "Normalized speed set point, used if inputType = Annex60.Fluid.Types.InputType.Constant"
+    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm"));
+
+  parameter Real[:] speeds(each final min = 0, each final unit="1") = speeds_rpm/speed_rpm_nominal
+    "Vector of normalized speed set points, used if inputType = Annex60.Fluid.Types.InputType.Stages"
+    annotation (Dialog(group="Normalized speeds (used in model, default values assigned from speeds in rpm"));
+
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm speed_rpm_nominal=1500
+    "Nominal rotational speed for flow characteristic"
+    annotation (Dialog(group="Speeds in RPM"));
+
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm constantSpeed_rpm=speed_rpm_nominal
+    "Speed set point, used if inputType = Annex60.Fluid.Types.InputType.Constant"
+    annotation (Dialog(group="Speeds in RPM"));
+
+  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm[:] speeds_rpm = {speed_rpm_nominal}
+    "Vector of speed set points, used if inputType = Annex60.Fluid.Types.InputType.Stages"
+    annotation (Dialog(group="Speeds in RPM"));
 
   // Set a parameter in order for
   // (a) FlowControlled_m_flow and FlowControlled_dp being able to set a reasonable
@@ -39,33 +77,6 @@ record Generic "Generic data record for movers"
     sum(pressure.V_flow) > Modelica.Constants.eps and
     sum(pressure.dp) > Modelica.Constants.eps
     "= true, if default record values are being used";
-
-  parameter Boolean motorCooledByFluid=true
-    "If true, then motor heat is added to fluid stream";
-
-  // fixme: remove the nondimensional speeds, or assign them as final.
-  //        The current double declaration is confusing.
-  parameter Real speed_nominal(final min=0, final unit="1") = 1
-    "Nominal rotational speed for flow characteristic";
-
-  parameter Real constantSpeed(final min=0, final unit="1") = constantSpeed_rpm/speed_rpm_nominal
-    "Normalized speed set point when using inputType = Annex60.Fluid.Types.InputType.Constant";
-
-  parameter Real[:] speeds(each final min = 0, each final unit="1") = speeds_rpm       /speed_rpm_nominal
-    "Vector of normalized speed set points when using inputType = Annex60.Fluid.Types.InputType.Stages";
-
-  parameter Boolean use_powerCharacteristic=false
-    "Use power data instead of motor efficiency";
-
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm speed_rpm_nominal=1500
-    "Nominal rotational speed for flow characteristic";
-
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm constantSpeed_rpm=
-    speed_rpm_nominal
-    "Speed set point when using inputType = Annex60.Fluid.Types.InputType.Constant";
-
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm[:] speeds_rpm = {speed_rpm_nominal}
-    "Vector of speed set points when using inputType = Annex60.Fluid.Types.InputType.Stages";
 
   annotation (
   defaultComponentPrefixes = "parameter",
@@ -110,6 +121,7 @@ First implementation.
 <p>
 Record containing parameters for pumps or fans.
 </p>
+<h4>Typical use</h4>
 <p>
 This record may be used to assign for example fan performance data using
 declaration such as
@@ -135,6 +147,21 @@ Annex60.Fluid.Movers.FlowControlled_m_flow</a>.
 An example that uses manufacturer data can be found in
 <a href=\"modelica://Annex60.Fluid.Movers.Validation.Pump_Nrpm_stratos\">
 Annex60.Fluid.Movers.Validation.Pump_Nrpm_stratos</a>.
+</p>
+<h4>Parameters in RPM</h4>
+<p>
+The parameters <code>speed_rpm_nominal</code>, 
+<code>constantSpeed_rpm</code> and
+<code>speeds_rpm</code> are used to assign the non-dimensional speeds
+<pre>
+  parameter Real constantSpeed(final min=0, final unit=\"1\") = constantSpeed_rpm/speed_rpm_nominal;
+  parameter Real[:] speeds(each final min = 0, each final unit=\"1\") = speeds_rpm/speed_rpm_nominal;
+</pre>
+In addition, <code>speed_rpm_nominal</code> is used in
+<a href=\"modelica://Annex60.Fluid.Movers.SpeedControlled_Nrpm\">
+Annex60.Fluid.Movers.SpeedControlled_Nrpm</a>
+to normalize the control input signal.
+Otherwise, these speed parameters in RPM are not used in the models.
 </p>
 </html>"));
 end Generic;

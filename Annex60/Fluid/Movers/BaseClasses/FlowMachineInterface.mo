@@ -35,7 +35,8 @@ model FlowMachineInterface
 
  // Normalized speed
   Modelica.Blocks.Interfaces.RealInput y_in(final unit="1", min=0) if preSpe
-    "Prescribed mover speed"                                                                  annotation (Placement(
+    "Prescribed mover speed"
+    annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
@@ -115,13 +116,16 @@ model FlowMachineInterface
     "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
 
- // Derivatives for cubic spline
 protected
-  final parameter Boolean preSpe = preVar == Annex60.Fluid.Types.PrescribedVariable.Speed
+  final parameter Boolean preSpe=
+    preVar == Annex60.Fluid.Types.PrescribedVariable.Speed
     "True if speed is a prescribed variable of this block";
-  final parameter Boolean prePre = preVar == Annex60.Fluid.Types.PrescribedVariable.PressureDifference or preVar == Annex60.Fluid.Types.PrescribedVariable.FlowRate
+  final parameter Boolean prePre=
+    preVar == Annex60.Fluid.Types.PrescribedVariable.PressureDifference or
+    preVar == Annex60.Fluid.Types.PrescribedVariable.FlowRate
     "True if pressure head is a prescribed variable of this block";
 
+  // Derivatives for cubic spline
   final parameter Real motDer[size(per.motorEfficiency.V_flow, 1)](each fixed=false)
     "Coefficients for polynomial of motor efficiency vs. volume flow rate";
   final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
@@ -636,7 +640,7 @@ equation
     // Earlier versions of the model computed WFlo = eta * P, but this caused
     // a division by zero.
     eta = WFlo / Annex60.Utilities.Math.Functions.smoothMax(x1=PEle, x2=1E-5, deltaX=1E-6);
-    // In this configuration, we only now the total power consumption.
+    // In this configuration, we only know the total power consumption.
     // Because nothing is known about etaMot versus etaHyd, we set etaHyd=1. This will
     // cause etaMot=eta, because eta=etaHyd*etaMot.
     // Earlier versions used etaMot=sqrt(eta), but as eta->0, this function has
