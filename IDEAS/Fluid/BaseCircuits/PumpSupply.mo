@@ -25,7 +25,7 @@ model PumpSupply
     balancingValve(show_T=true),
     booleanInput = true);
 
-  Modelica.Blocks.Math.BooleanToReal booleanToReal
+  Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=m_flow_nominal)
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 equation
   connect(flowRegulator.P, power) annotation (Line(
