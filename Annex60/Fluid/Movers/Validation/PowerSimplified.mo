@@ -11,6 +11,8 @@ model PowerSimplified
   parameter Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
+  parameter Modelica.SIunits.Efficiency eta = 0.358 "Pump efficiency";
+
   Annex60.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
     redeclare package Medium = Medium,
     per=per,
@@ -20,22 +22,24 @@ model PowerSimplified
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Annex60.Fluid.Movers.FlowControlled_dp  pump_dp(
     redeclare package Medium = Medium,
-    redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per(pressure(
-    V_flow={0, 0},
-    dp={0, 0})),
     filteredSpeed=false,
     m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per(
+      pressure(V_flow={0,0}, dp={0,0}),
+      hydraulicEfficiency(V_flow={0}, eta={sqrt(eta)}),
+      motorEfficiency(V_flow={0}, eta={sqrt(eta)})))
     "Pump with pressure rise as control signal"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Annex60.Fluid.Movers.FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per(pressure(
-    V_flow={0, 0},
-    dp={0, 0})),
     filteredSpeed=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per(
+      pressure(V_flow={0,0}, dp={0,0}),
+      hydraulicEfficiency(V_flow={0}, eta={sqrt(eta)}),
+      motorEfficiency(V_flow={0}, eta={sqrt(eta)})))
     "Pump with mass flow rate as control signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
@@ -130,23 +134,24 @@ In these models, the power consumption is computed
 using similarity laws, but using the mass flow rate as opposed
 to the speed, because speed is not known in these two models.
 This is an approximation at operating points in which
-the speed is different from the nominal speed <code>N_nominal</code>
+the speed is different from the nominal speed <i>N<sub>rpm,nominal</sub></i>
 because similarity laws are valid for speed and not for
 mass flow rate.
 </p>
 <p>
 The figure below shows the approximation error for the
 power calculation where the speed <i>N<sub>rpm</sub></i> differs from
-the nominal speed <i>N<sub>nominal</sub></i>.
+the nominal speed <i>N<sub>rpm,nominal</sub></i>.
+** fixme: Update figure **
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/Movers/Validation/Power.png\"/>
+<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/Movers/Validation/PowerSimplified.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
-Revised implementation for
+Revised implementation and updated figure for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
 </li>
 <li>
