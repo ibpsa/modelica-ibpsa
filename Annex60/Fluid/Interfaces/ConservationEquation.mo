@@ -33,7 +33,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
        use_C_flow "Trace substance mass flow rate added to the medium"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
-  // Outputs that are needed in models that extend this model
+  // Outputs that are needed in models that use this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg",
                                              start=hStart)
     "Leaving specific enthalpy of the component"
@@ -52,6 +52,26 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,110})));
+  Modelica.Blocks.Interfaces.RealOutput UOut(unit="J")
+    "Internal energy of the component" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={110,20})));
+  Modelica.Blocks.Interfaces.RealOutput mXiOut[Medium.nXi](each min=0, each unit=
+       "kg") "Species mass of the component"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={110,-20})));
+  Modelica.Blocks.Interfaces.RealOutput mOut(min=0, unit="kg")
+    "Mass of the component" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={110,60})));
+  Modelica.Blocks.Interfaces.RealOutput mCOut[Medium.nC](each min=0, each unit="kg")
+    "Trace substance mass of the component"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={110,-60})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
@@ -135,29 +155,6 @@ protected
   Modelica.Blocks.Interfaces.RealInput C_flow_internal[Medium.nC]
     "Needed to connect to conditional connector";
 
-public
-  Modelica.Blocks.Interfaces.RealOutput UOut(unit="J/kg", start=hStart)
-    "Internal energy of the component" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={110,20})));
-  Modelica.Blocks.Interfaces.RealOutput mXiOut[
-                                              Medium.nXi](each min=0, each unit=
-       "kg") "Species mass of the component"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={110,-20})));
-  Modelica.Blocks.Interfaces.RealOutput mOut(each min=0, each unit="kg")
-    "Mass of the component" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={110,60})));
-  Modelica.Blocks.Interfaces.RealOutput mCOut[
-                                             Medium.nC](each min=0)
-    "Trace substance mass of the component"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={110,-60})));
 initial equation
   // Assert that the substance with name 'water' has been found.
   assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
