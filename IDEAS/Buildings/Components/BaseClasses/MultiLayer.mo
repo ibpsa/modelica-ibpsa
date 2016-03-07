@@ -37,12 +37,12 @@ model MultiLayer "multiple material layers in series"
     each linIntCon=linIntCon,
     epsLw_a=cat(
         1,
-        {0.85},
-        mats[1:nLay - 1].epsLw_b),
+        mats[2:nLay].epsLw_b,
+        {0.85}),
     epsLw_b=cat(
         1,
-        mats[2:nLay].epsLw_a,
-        {0.85}),
+        {0.85},
+        mats[1:nLay-1].epsLw_a),
     each placeCapacityAtSurf_b=placeCapacityAtSurf_b,
     each final energyDynamics=energyDynamics,
     each dT_nom_air=dT_nom_air) "Individual layers"
