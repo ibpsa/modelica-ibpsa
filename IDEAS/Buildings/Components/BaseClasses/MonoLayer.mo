@@ -39,7 +39,8 @@ model MonoLayer "single material layer"
     A=A,
     mat=mat,
     T_start=T_start,
-    placeCapacityAtSurf_b=placeCapacityAtSurf_b) if
+    placeCapacityAtSurf_b=placeCapacityAtSurf_b,
+    energyDynamics=energyDynamics) if
                             dynamicLayer and realLayer and not airLayer
     "Dynamic monolayer for solid"
     annotation (Placement(transformation(extent={{-10,-42},{10,-22}})));
@@ -65,8 +66,10 @@ protected
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   final parameter Boolean realLayer = (mat.d <> 0)
     "True when the layer has a non-zero thickness";
+
   final parameter Boolean airLayer = mat.gas
     "True when a convection + radiation equation should be used to model the layer instead of conduction";
+
 public
   parameter SI.TemperatureDifference dT_nom_air=1
     "Nominal temperature difference for air layers, used for linearising Rayleigh number";
@@ -115,8 +118,9 @@ equation
                                               color={191,0,0}));
   // For dynamic monolayers or fictive monolayers, connect port_gain at port_b of the layer.
   if not realLayer or realLayer and dynamicLayer and not airLayer then
-    connect(port_b, port_gain) annotation (Line(points={{100,0},{100,0},{100,100},
-          {0,100}}, color={191,0,0}));
+    connect(port_a, port_gain) annotation (Line(points={{-100,0},{-100,0},{-100,
+            100},{0,100}},
+                    color={191,0,0}));
   end if;
 
   annotation (
