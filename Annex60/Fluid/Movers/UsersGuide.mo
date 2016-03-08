@@ -295,6 +295,8 @@ is used for convenience to set a default value for the parameters
 <code>constantMassFlowRate</code> and
 <code>massFlowRates</code>.
 For both models, the value is also used for the following:
+</p>
+
 <ul>
 <li>
 To compute the
@@ -313,6 +315,7 @@ To regularize the equations near zero flow rate to ensure a numerically
 robust model.
 </li>
 </ul>
+<p>
 However, otherwise <code>m_flow_nominal</code> does not affect the mass flow rate of the mover as
 the mass flow rate is determined by the input signal or the above explained parameters.
 </p>
@@ -329,7 +332,6 @@ is equal to the fan speed (or the mass flow rate or pressure rise).
 Thus, a step change in the input signal causes a step change in the fan speed (or mass flow rate or pressure rise).
 </li>
 <li>
-<p>
 If <code>filteredSpeed=true</code>, which is the default,
 then the fan speed (or the mass flow rate or the pressure rise)
 is equal to the output of a filter. This filter is implemented
@@ -341,10 +343,8 @@ The filter has a parameter <code>riseTime</code>, which by default is set to
 <i>30</i> seconds.
 The rise time is the time required to reach <i>99.6%</i> of the full speed, or,
 if the fan is switched off, to reach a fan speed of <i>0.4%</i>.
-</p>
 </li>
 </ol>
-
 <p>
 The figure below shows for a fan with <code>filteredSpeed=true</code>
 and <code>riseTime=30</code> seconds the
