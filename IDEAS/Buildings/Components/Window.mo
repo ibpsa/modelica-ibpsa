@@ -32,7 +32,8 @@ model Window "Multipane window"
 
   replaceable IDEAS.Buildings.Components.ThermalBridges.LineLosses briType constrainedby
     IDEAS.Buildings.Components.Interfaces.ThermalBridge
-    "Thermal bridge of window edge";
+    "Thermal bridge of window edge" annotation (__Dymola_choicesAllMatching=true, Dialog(group=
+          "Construction details"));
 
   replaceable IDEAS.Buildings.Data.Frames.None fraType
     constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
@@ -202,7 +203,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
-      points={{-100,-50},{-108,-50},{-108,20},{-28,20},{-28,19.9},{100.1,19.9}},
+      points={{-80,-42},{-108,-42},{-108,20},{-28,20},{-28,19.9},{100.1,19.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
