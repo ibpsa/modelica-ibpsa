@@ -1,6 +1,7 @@
 BalancingValve
 CollectorUnit
 FlowController
+FluidCollector
 HeatExchanger
 MixingCircuit_EqualPercentage
 MixingCircuit_Linear
