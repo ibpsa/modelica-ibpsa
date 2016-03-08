@@ -15,7 +15,7 @@ model PartialPumpCircuit
 
   annotation (Icon(graphics={
         Ellipse(extent={{-20,80},{20,40}},lineColor={0,0,127},
-          fillColor={0,128,255},
+          fillColor={0,127,255},
           fillPattern=FillPattern.Solid),
         Line(
           points={{0,94},{4,80},{0,64}},

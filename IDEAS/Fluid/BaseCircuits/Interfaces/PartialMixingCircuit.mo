@@ -72,8 +72,7 @@ equation
         Polygon(
           points={{-20,70},{-20,50},{0,60},{-20,70}},
           lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={0,128,255},
+          fillColor={0,127,255},
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{20,70},{20,50},{0,60},{20,70}},
@@ -92,15 +91,14 @@ equation
         Polygon(
           points={{-10,10},{-10,-10},{10,0},{-10,10}},
           lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={0,128,255},
+          fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           origin={0,50},
           rotation=90),
         Line(
           points={{0,40},{0,0},{20,-40},{60,-60}},
-          color={0,0,127},
-          pattern=LinePattern.Dash,
-          smooth=Smooth.None)}), Diagram(coordinateSystem(preserveAspectRatio=false,
+          color={0,127,255},
+          pattern=LinePattern.Dash)}),
+                                 Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics));
 end PartialMixingCircuit;

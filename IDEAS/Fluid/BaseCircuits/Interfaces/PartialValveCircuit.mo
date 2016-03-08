@@ -22,8 +22,7 @@ equation
         Polygon(
           points={{-20,70},{-20,50},{0,60},{-20,70}},
           lineColor={0,0,127},
-          smooth=Smooth.None,
-          fillColor={0,128,255},
+          fillColor={0,127,255},
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{20,70},{20,50},{0,60},{20,70}},
