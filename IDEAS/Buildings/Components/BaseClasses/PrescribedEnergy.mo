@@ -1,8 +1,5 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model PrescribedEnergy "Prescribed energy component"
-  parameter Modelica.SIunits.Temperature T_ref=293.15 "Reference temperature";
-  parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=0
-    "Temperature coefficient of heat flow rate";
   Modelica.Blocks.Interfaces.RealInput E(unit="J") annotation (Placement(
         transformation(
         origin={-100,0},

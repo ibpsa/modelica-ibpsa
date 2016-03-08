@@ -190,6 +190,7 @@ equation
 
   der(Qint) = Qgai.Q_flow;
   Etot=  Qint-E.E;
+  E.Etot=Etot;
 
   connect(TEnv.y,XiEnv. T) annotation (Line(
       points={{-49,-76},{-32,-76},{-32,-86}},

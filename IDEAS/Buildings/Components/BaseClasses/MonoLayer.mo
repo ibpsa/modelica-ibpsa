@@ -39,7 +39,8 @@ model MonoLayer "single material layer"
     A=A,
     mat=mat,
     T_start=T_start,
-    placeCapacityAtSurf_b=placeCapacityAtSurf_b) if
+    placeCapacityAtSurf_b=placeCapacityAtSurf_b,
+    energyDynamics=energyDynamics) if
                             dynamicLayer and realLayer and not airLayer
     "Dynamic monolayer for solid"
     annotation (Placement(transformation(extent={{-10,-42},{10,-22}})));
@@ -65,8 +66,10 @@ protected
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   final parameter Boolean realLayer = (mat.d <> 0)
     "True when the layer has a non-zero thickness";
+
   final parameter Boolean airLayer = mat.gas
     "True when a convection + radiation equation should be used to model the layer instead of conduction";
+
 public
   parameter SI.TemperatureDifference dT_nom_air=1
     "Nominal temperature difference for air layers, used for linearising Rayleigh number";
@@ -115,8 +118,9 @@ equation
                                               color={191,0,0}));
   // For dynamic monolayers or fictive monolayers, connect port_gain at port_b of the layer.
   if not realLayer or realLayer and dynamicLayer and not airLayer then
-    connect(port_b, port_gain) annotation (Line(points={{100,0},{100,0},{100,100},
-          {0,100}}, color={191,0,0}));
+    connect(port_a, port_gain) annotation (Line(points={{-100,0},{-100,0},{-100,
+            100},{0,100}},
+                    color={191,0,0}));
   end if;
 
   annotation (
@@ -146,6 +150,11 @@ equation
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-I7KXJhSH.png\"/> is the added energy to the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-B0HPmGTu.png\"/> is the temperature of the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-t7aqbnLB.png\"/> is the thermal capacity of the lumped capacity equal to<img src=\"modelica://IDEAS/Images/equations/equation-JieDs0oi.png\"/> for which rho denotes the density and <img src=\"modelica://IDEAS/Images/equations/equation-ml5CM4zK.png\"/> is the specific heat capacity of the material and <img src=\"modelica://IDEAS/Images/equations/equation-hOGNA6h5.png\"/> the equivalent thickness of the lumped element, where <img src=\"modelica://IDEAS/Images/equations/equation-1pDREAb7.png\"/> the heat flux through the lumped resistance and <img src=\"modelica://IDEAS/Images/equations/equation-XYf3O3hw.png\"/> is the total thermal resistance of the lumped resistance and where <img src=\"modelica://IDEAS/Images/equations/equation-dgS5sGAN.png\"/> are internal thermal source.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 8, 2016, by Filip Jorissen:<br/>
+Fixed bug in connection of internal gains. 
+Now connecting to port_a instead of port_b.
+</li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: now only one MonoLayer component exists.
