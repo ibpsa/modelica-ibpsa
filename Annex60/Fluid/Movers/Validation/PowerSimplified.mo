@@ -11,6 +11,13 @@ model PowerSimplified
   parameter Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
+  parameter Data.Pumps.Wilo.Stratos30slash1to8 perFlowControlled(
+  pressure(V_flow={0,0}, dp={0,0}),
+      use_powerCharacteristic=false,
+    hydraulicEfficiency(V_flow={0}, eta={0.3577}))
+    "Pump performance data with pressure curve removed"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+
   Annex60.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
     redeclare package Medium = Medium,
     per=per,
@@ -20,20 +27,7 @@ model PowerSimplified
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Annex60.Fluid.Movers.FlowControlled_dp  pump_dp(
     redeclare package Medium = Medium,
-    redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per(
-    pressure(V_flow={0,0}, dp={0,0}),
-    use_powerCharacteristic=false,
-    motorEfficiency(V_flow=pump_dp.per.hydraulicEfficiency.V_flow,eta=pump_dp.per.hydraulicEfficiency.eta),
-    hydraulicEfficiency(V_flow=per.pressure.V_flow, eta=sqrt(per.pressure.V_flow.*per.pressure.dp./
-    {Annex60.Fluid.Movers.BaseClasses.Characteristics.power(
-      per=per.power,
-      V_flow=i,
-      r_N=1,
-      delta=0.01,
-      d=Annex60.Utilities.Math.Functions.splineDerivatives(
-      x=per.power.V_flow,
-      y=per.power.P))
-      for i in per.pressure.V_flow}))),
+    per=perFlowControlled,
     filteredSpeed=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -42,20 +36,7 @@ model PowerSimplified
   Annex60.Fluid.Movers.FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per(
-    pressure(V_flow={0,0}, dp={0,0}),
-    use_powerCharacteristic=false,
-    motorEfficiency(V_flow=pump_dp.per.hydraulicEfficiency.V_flow,eta=pump_dp.per.hydraulicEfficiency.eta),
-    hydraulicEfficiency(V_flow=per.pressure.V_flow, eta=sqrt(per.pressure.V_flow.*per.pressure.dp./
-    {Annex60.Fluid.Movers.BaseClasses.Characteristics.power(
-      per=per.power,
-      V_flow=i,
-      r_N=1,
-      delta=0.01,
-      d=Annex60.Utilities.Math.Functions.splineDerivatives(
-      x=per.power.V_flow,
-      y=per.power.P))
-      for i in per.pressure.V_flow}))),
+    per=perFlowControlled,
     filteredSpeed=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
@@ -162,7 +143,7 @@ power calculation where the speed <i>N<sub>rpm</sub></i> differs from
 the nominal speed <i>N<sub>nominal</sub></i>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/Movers/Validation/Power.png\"/>
+<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/Movers/Validation/PowerSimplified.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>

@@ -1,9 +1,8 @@
 within Annex60.Fluid.Movers.Validation;
 model PowerExact
+  "Power calculation comparison among three mover types, using exact power computation for m_flow and dp"
   extends PowerSimplified(
-    pump_dp(redeclare replaceable parameter Data.Pumps.Wilo.Stratos30slash1to8 per),
-    pump_m_flow(redeclare replaceable parameter
-        Data.Pumps.Wilo.Stratos30slash1to8                                         per));
+    final perFlowControlled = per);
   annotation (
     experiment(StopTime=200),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
@@ -11,7 +10,23 @@ model PowerExact
     __Dymola_Commands(file=
           "modelica://Annex60/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerExact.mos"
         "Simulate and plot"),
-    Documentation(revisions="<html>
+        Documentation(
+info="<html>
+<p>
+This example is identical to
+<a href=\"modelica://Annex60.Fluid.Movers.Validation.PowerSimplified\">
+Annex60.Fluid.Movers.Validation.PowerSimplified</a>, except that the
+performance data for the flow controlled pumps
+<code>pump_dp</code> and <code>pump_m_flow</code> contain
+the pressure curves and efficiency curves.
+The plot below shows that this leads to a computation of the power consumption
+that is identical to the one from the speed controlled pump <code>pump_Nrpm</code>.
+</p>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/Movers/Validation/PowerExact.png\"/>
+</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
@@ -19,7 +34,5 @@ First implementation for
 <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
 </li>
 </ul>
-</html>", info="<html>
-fixme: needs documentation.
 </html>"));
 end PowerExact;
