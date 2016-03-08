@@ -10,7 +10,8 @@ model Window "Multipane window"
     intCon_a(final A=
            A*(1 - frac),
            linearise=linearise_a,
-           dT_nominal=dT_nominal_a), QTra_design(fixed=false),
+           dT_nominal=dT_nominal_a),
+    QTra_design(fixed=false),
     Qgai(y=-(propsBus_a.surfCon.Q_flow +
         propsBus_a.surfRad.Q_flow + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow)),
     E(y=0),
@@ -138,7 +139,7 @@ protected
     "Heat capacity of frame state";
 
 initial equation
-  QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
+  QTra_design = (U_value*A + briType.G) *(273.15 + 21 - Tdes.y);
 
 equation
   connect(eCon.port_a, layMul.port_b) annotation (Line(
