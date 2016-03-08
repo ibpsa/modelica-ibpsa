@@ -39,7 +39,8 @@ model MonoLayer "single material layer"
     A=A,
     mat=mat,
     T_start=T_start,
-    placeCapacityAtSurf_b=placeCapacityAtSurf_b) if
+    placeCapacityAtSurf_b=placeCapacityAtSurf_b,
+    energyDynamics=energyDynamics) if
                             dynamicLayer and realLayer and not airLayer
     "Dynamic monolayer for solid"
     annotation (Placement(transformation(extent={{-10,-42},{10,-22}})));
