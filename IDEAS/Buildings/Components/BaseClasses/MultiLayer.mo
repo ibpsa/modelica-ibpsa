@@ -143,6 +143,10 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+March 8, 2016, by Filip Jorissen:<br/>
+Fixed bug in output of iEpsLw and iEpsSw for issue 464.
+</li>
+<li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: now only one MultiLayer component exists.
 </li>

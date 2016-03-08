@@ -151,6 +151,11 @@ equation
 </html>", revisions="<html>
 <ul>
 <li>
+March 8, 2016, by Filip Jorissen:<br/>
+Fixed bug in connection of internal gains. 
+Now connecting to port_a instead of port_b.
+</li>
+<li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: now only one MonoLayer component exists.
 </li>
