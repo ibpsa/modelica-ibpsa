@@ -7,7 +7,7 @@ model InternalWall "interior opaque wall between two zones"
          then 0 else sum(port_emb.Q_flow))),
   final QTra_design=U_value*AWall*(TRef_a - TRef_b));
 
-  parameter Boolean linearise_b=true
+  parameter Boolean linearise_b=false
     "= true, if convective heat transfer should be linearised"
     annotation(Dialog(tab="Convection"));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal_b=1

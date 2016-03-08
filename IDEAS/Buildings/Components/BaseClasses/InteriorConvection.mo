@@ -14,7 +14,7 @@ model InteriorConvection "interior surface convection"
     "Regularization temperature difference"
     annotation(Dialog(tab="Advanced"), Evaluate=true);
 
-  parameter Boolean use_hConState = true
+  parameter Boolean use_hConState = false
     "Introduce state to avoid non-linear systems when linearise = false"
     annotation(Dialog(tab="Advanced"), Evaluate = true);
   parameter Modelica.SIunits.Time tau = 120

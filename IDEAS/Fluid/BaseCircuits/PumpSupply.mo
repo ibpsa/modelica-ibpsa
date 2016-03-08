@@ -1,5 +1,5 @@
 within IDEAS.Fluid.BaseCircuits;
-model PumpSupply "Pump on supply duct"
+model PumpSupply
 
   //Parameters
   parameter Boolean filteredSpeed=true
@@ -16,37 +16,44 @@ model PumpSupply "Pump on supply duct"
   extends Interfaces.PartialPumpCircuit(redeclare
       IDEAS.Fluid.Movers.FlowControlled_m_flow
       flowRegulator(
-        filteredSpeed=filteredSpeed,
-        riseTime=riseTime,
-        init=init),
-        final realInput = false, final booleanInput = true);
+      filteredSpeed=filteredSpeed,
+      riseTime=riseTime,
+      init=init,
+      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+      addPowerToMedium=false,
+      allowFlowReversal=true),                  final useBalancingValve=true,
+    balancingValve(show_T=true),
+    booleanInput = true);
 
-  Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=m_flow_nominal)
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-30,100})));
+  Modelica.Blocks.Math.BooleanToReal booleanToReal
+    annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 equation
   connect(flowRegulator.P, power) annotation (Line(
       points={{11,68},{40,68},{40,108}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(booleanToReal.y, flowRegulator.m_flow_in) annotation (Line(points={{-41,
-          100},{-50,100},{-50,80},{-0.2,80},{-0.2,72}}, color={0,0,127}));
-  connect(u2, booleanToReal.u) annotation (Line(points={{0,108},{0,108},{0,100},
-          {-18,100}}, color={255,0,255}));
-    annotation(Dialog(group="Pump parameters"),
-              Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),           Documentation(
-            info="<html><p>
-            This model is the base circuit implementation of a mass-flow controlled pump and makes use of <a href=\"modelica://IDEAS.Fluid.Movers.FlowMachine_m_flow\">IDEAS.Fluid.Movers.FlowMachine_m_flow</a>.
-</p></html>",
-            revisions="<html>
-<p><ul>
-<li>November 2014 by Filip Jorissen:<br> 
-Initial version</li>
-</ul></p>
-</html>"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics));
+  connect(booleanToReal.y, flowRegulator.m_flow_in)
+    annotation (Line(points={{-9,80},{-0.2,80},{-0.2,72}},  color={0,0,127}));
+  connect(booleanToReal.u, u2) annotation (Line(points={{-32,80},{-36,80},{-40,80},
+          {-40,108},{0,108}}, color={255,0,255}));
+  annotation (Documentation(info="<html><p>
+            This model is the base circuit implementation of a pressure head controlled pump and makes use of <a href=\"modelica://IDEAS.Fluid.Movers.FlowMachine_dp\">IDEAS.Fluid.Movers.FlowMachine_dp</a>. The flow can be regulated by changing the Kv value of the balancing valve.
+            </p><p>Note that an hydronic optimization might be necessary to obtain a meaningfull value for the Kv parameter.</p></html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}})),
+        Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
+        Polygon(
+          points={{-10,10},{-10,-22},{22,-6},{-10,10}},
+          lineColor={0,0,255},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          origin={-2,66},
+          rotation=360),
+        Text(
+          extent={{-10,70},{8,50}},
+          lineColor={0,0,255},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Solid,
+          textString="dP")}));
 end PumpSupply;
