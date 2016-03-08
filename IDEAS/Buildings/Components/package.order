@@ -5,6 +5,7 @@ SlabOnGround
 Window
 Zone
 Shading
+ThermalBridges
 Examples
 Interfaces
 BaseClasses
