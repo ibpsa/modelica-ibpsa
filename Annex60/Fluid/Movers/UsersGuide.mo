@@ -486,9 +486,9 @@ will be zero. In particular for fans, this simplification may not be permissible
 
 <h4>Differences to models in Modelica.Fluid.Machines</h4>
 <p>
-The models with names <code>FlowMachine_*</code> have similar parameters than the
-models in the package <a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a>.
-However, the models in this package differ primarily in the following points:
+The models in this package differ from
+<a href=\"Modelica.Fluid.Machines\">Modelica.Fluid.Machines</a>
+primarily in the following points:
 </p>
 <ul>
 <li>
