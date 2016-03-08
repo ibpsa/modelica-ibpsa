@@ -44,7 +44,7 @@ model MultiLayer "multiple material layers in series"
         mats[2:nLay].epsLw_a,
         {0.85}),
     each placeCapacityAtSurf_b=placeCapacityAtSurf_b,
-    each final energyDynamics=energyDynamics,
+    each energyDynamics=energyDynamics,
     each dT_nom_air=dT_nom_air) "Individual layers"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
 
