@@ -153,10 +153,12 @@ Annex60.Fluid.Movers.Validation.Pump_Nrpm_stratos</a>.
 The parameters <code>speed_rpm_nominal</code>, 
 <code>constantSpeed_rpm</code> and
 <code>speeds_rpm</code> are used to assign the non-dimensional speeds
+</p>
 <pre>
   parameter Real constantSpeed(final min=0, final unit=\"1\") = constantSpeed_rpm/speed_rpm_nominal;
   parameter Real[:] speeds(each final min = 0, each final unit=\"1\") = speeds_rpm/speed_rpm_nominal;
 </pre>
+<p>
 In addition, <code>speed_rpm_nominal</code> is used in
 <a href=\"modelica://Annex60.Fluid.Movers.SpeedControlled_Nrpm\">
 Annex60.Fluid.Movers.SpeedControlled_Nrpm</a>
