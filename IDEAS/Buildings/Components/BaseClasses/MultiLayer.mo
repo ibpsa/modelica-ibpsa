@@ -87,10 +87,10 @@ equation
   connect(monLay.port_gain, port_gain) annotation (Line(points={{0,-10},{0,-10},
           {0,-60},{0,-100}}, color={191,0,0}));
 
-  iEpsLw_a = mats[1].epsLw_a;
-  iEpsSw_a = mats[1].epsSw_a;
-  iEpsLw_b = mats[nLay].epsLw_b;
-  iEpsSw_b = mats[nLay].epsSw_b;
+  iEpsLw_a = mats[nLay].epsLw_a;
+  iEpsSw_a = mats[nLay].epsSw_a;
+  iEpsLw_b = mats[1].epsLw_b;
+  iEpsSw_b = mats[1].epsSw_b;
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
