@@ -38,6 +38,9 @@ partial model PartialFlowMachine
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
 
+  parameter Boolean nominalValuesDefineDefaultPressureCurve = false
+    "Set to true to avoid warning if m_flow_nominal and dp_nominal are used to construct the default pressure curve";
+
   parameter Modelica.SIunits.Time tau=1
     "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
     annotation (Dialog(tab="Dynamics",
@@ -248,12 +251,15 @@ initial equation
   // The control signal is dp or m_flow but the user did not provide a pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
   // Therefore, scaling the power using the speed is inaccurate.
-  assert(per.havePressureCurve or (preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed),
+  assert(nominalValuesDefineDefaultPressureCurve or
+         per.havePressureCurve or
+         (preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed),
 "*** Warning: You are using a flow or pressure controlled mover with the
              default pressure curve.
              This leads to approximate calculations of the electrical power
              consumption. Add the correct pressure curve in the record per
-             to obtain an accurate computations.",
+             to obtain an accurate computation.
+             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 
   // The control signal is dp or m_flow but the user did not provide a pump curve.
@@ -261,8 +267,9 @@ initial equation
   // In addition, the user wants to use (V_flow, P) to compute the power.
   // This can lead to using a power that is less than the flow work. We avoid
   // this by ignoring the setting of per.use_powerCharacteristics.
-  assert((per.havePressureCurve or (preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed))
-         or
+  assert(nominalValuesDefineDefaultPressureCurve or
+         (per.havePressureCurve or
+           (preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed)) or
          per.use_powerCharacteristic == false,
 "*** Warning: You are using a flow or pressure controlled mover with the
              default pressure curve and you set use_powerCharacteristic = true.
@@ -270,7 +277,8 @@ initial equation
              this setting and use instead use_powerCharacteristic = false.
              Since this causes the efficiency curve to be used,
              make sure that the efficiency curves in the performance record per
-             are correct or add the pressure curve of the mover.",
+             are correct or add the pressure curve of the mover.
+             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 
 equation

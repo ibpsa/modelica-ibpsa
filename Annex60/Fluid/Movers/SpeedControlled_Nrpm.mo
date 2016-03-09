@@ -3,6 +3,7 @@ model SpeedControlled_Nrpm
   "Fan or pump with ideally controlled speed Nrpm as input signal"
   extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
     final preVar=Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
+    final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,
     final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
     final stageInputs(each final unit="1") = per.speeds,
