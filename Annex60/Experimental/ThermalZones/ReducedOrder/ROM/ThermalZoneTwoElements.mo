@@ -111,8 +111,8 @@ equation
 <li>April 18, 2015, by Moritz Lauster:<br>First implementation. </li>
 </ul>
 </html>", info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Graphic with thermal network</span></p>
-<p>The<i> Two Elements Model </i>distinguishes between internal thermal masses and outer walls (see Figure 3). While outer walls contribute to heat transfer to the ambient, adiabatic conditions apply to internal masses. This approach allows considering the dynamic behaviour induced by internal heat storage. A common model of this family is based on the German Guideline VDI 6007 <a name=\"_CTVP0015039f7690f504efb8eea85f1531e3813\">(</a>Guideline VDI 6007-1)and is already in use on district scale <a name=\"_CTVP00182912d677d0e4136a88b105c2be21dc6\">(</a>Harb, Sch&uuml;tz, Streblow, &AMP; M&uuml;ller, 2014; Lauster, Br&uuml;ntjen et al., 2014; Lauster, Fuchs, Teichmann, Streblow, &AMP; M&uuml;ller, 2013; Lauster, Teichmann et al., 2014). </p>
+<p><code>ThermalZoneTwoElements</code><i> </i>distinguishes between internal thermal masses and outer walls. While outer walls contribute to heat transfer to the ambient, adiabatic conditions apply to internal masses. Internal wall element needs length of RC-chain <code>nInt</code>, vector of capacities <code>CInt[nInt]</code> and vector of resistances <code>RInt[nInt].</code> This approach allows considering the dynamic behaviour induced by internal heat storage.</p>
+<p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneTwoElements/TwoElements.png\" alt=\"image\"/> </p>
 </html>"),
     Icon(coordinateSystem(extent={{-240,-180},{240,180}}, preserveAspectRatio=false),
         graphics={Rectangle(

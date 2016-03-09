@@ -166,6 +166,7 @@ First Implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Graphic with thermal network</span></p>
+<p><i>ThermalZoneFourElements </i>adds another element for roof. Roofs commonly underly the excitations as exterior walls but have different coefficients of heat transfer due to their orientation. Adding an extra element for the roof might lead to a finer resolution of the dynamic behaviour but implicates higher calculation times. Roof is parameterized via length of RC-chain <code>nRoof</code>, vector of capacities <code>CRoof[nRoof]</code>, vector of resistances <code>RRoof[nRoof]</code> and remaining resistance <code>RRoofRem</code>.</p>
+<p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneFourElements/FourElements.png\" alt=\"image\"/> </p>
 </html>"));
 end ThermalZoneFourElements;

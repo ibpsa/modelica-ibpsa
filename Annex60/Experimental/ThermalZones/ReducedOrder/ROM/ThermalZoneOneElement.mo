@@ -366,9 +366,8 @@ equation
           lineColor={0,0,0},
           textString="1")}),
     Documentation(info="<html>
-<h4>Main equations</h4>
-<p><br>Graphic with thermal network</p>
-<p><br><span style=\"font-family: MS Shell Dlg 2;\">The<i> One Element Model </i>merges all thermal masses into one substitutional capacitance that is connected via resistances to the ambient and indoor air (see Figure 2). This simple model impresses with low computation times but neglects all internal thermal masses that are not directly connected to the ambient. A popular model of this family is described in the international standard ISO 13790 <a name=\"_CTVP001a350c533e5764d53a751d494e7576441\">(</a>International Standard ISO 13790:2008, E). </span></p>
+<p><code>ThermalZoneOneElement</code> <span style=\"font-family: MS Shell Dlg 2;\">merges all thermal masses into one substitutional element, parameterized by length of RC-chain </span><code>nExt,</code><span style=\"font-family: MS Shell Dlg 2;\"> vector of capacities </span><code>CExt[nExt]</code><span style=\"font-family: MS Shell Dlg 2;\"> that is connected via vector of resistances </span><code>RExt[nExt]</code> and <code>RExtRem</code><span style=\"font-family: MS Shell Dlg 2;\"> to the ambient and indoor air. It neglects all internal thermal masses that are not directly connected to the ambient.</span></p>
+<p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneOneElement/OneElement.png\" alt=\"image\"/> </p>
 </html>", revisions="<html>
 <ul>
 <li>

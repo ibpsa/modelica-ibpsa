@@ -160,7 +160,7 @@ First Implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Graphic with thermal network</span></p>
-<p>The <i>Three Elements Model </i>adds one further element for the ground slab (Figure 4). Long-term effects dominate the excitation of the ground slab and thus the excitation fundamentally differs from excitation of outer walls. Adding an extra element for the ground slab leads to a finer resolution of the dynamic behaviour but implicates higher calculation times. </p>
+<p><code>ThermalZoneThree Elements</code><i> </i>adds one further element for the floor plate. Long-term effects dominate the excitation of the floor plate and thus the excitation fundamentally differs from excitation of outer walls. Adding an extra element for the floor plate leads to a finer resolution of the dynamic behaviour but implicates higher calculation times. Floor plate is parameterized via length of RC-chain <code>nFloor</code>, vector of capacities <code>CFloor[nFloor]</code>, vector of resistances <code>RFloor[nFloor]</code> and remaining resistance <code>RFloorRem</code>.</p>
+<p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneThreeElements/ThreeElements.png\" alt=\"image\"/> </p>
 </html>"));
 end ThermalZoneThreeElements;
