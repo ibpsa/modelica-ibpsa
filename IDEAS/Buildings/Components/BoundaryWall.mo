@@ -2,7 +2,8 @@ within IDEAS.Buildings.Components;
 model BoundaryWall "Opaque wall with boundary conditions"
   extends IDEAS.Buildings.Components.Interfaces.PartialOpaqueSurface(
      final QTra_design=U_value*AWall*(273.15 + 21 - TRef_a),
-     dT_nominal_a=-1);
+     dT_nominal_a=-1,
+     layMul(monLay(energyDynamics=cat(1, {(if use_T_in and energyDynamics ==  Modelica.Fluid.Types.Dynamics.FixedInitial then Modelica.Fluid.Types.Dynamics.DynamicFreeInitial else energyDynamics)}, fill(energyDynamics, layMul.nLay-1)))));
 
   parameter Boolean use_T_in = false
     "Get the boundary temperature from the input connector";
@@ -99,6 +100,11 @@ equation
 <p>By means of the <code>BESTEST.mo</code> examples in the <code>Validation.mo</code> package.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 8, 2016, by Filip Jorissen:<br/>
+Fixed energyDynamics when using fixed temperature boundary condition input.
+This is discussed in issue 462.
+</li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: cleaned up connections and partials.
