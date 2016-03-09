@@ -2,7 +2,7 @@ within Annex60.Fluid.Movers;
 model FlowControlled_m_flow
   "Fan or pump with ideally controlled mass flow rate as input signal"
   extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
-    final preVar=Annex60.Fluid.Types.PrescribedVariable.FlowRate,
+    final preVar=Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.FlowRate,
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
     final stageInputs(each final unit="kg/s")=massFlowRates,
     final constInput(final unit="kg/s")=constantMassFlowRate,

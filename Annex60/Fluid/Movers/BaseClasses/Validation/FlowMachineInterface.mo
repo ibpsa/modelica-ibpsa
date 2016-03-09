@@ -7,7 +7,7 @@ model FlowMachineInterface "Simple model to validate FlowMachineInterface"
     haveVMax=true,
     V_flow_max=1,
     nOri=2,
-    preVar=Annex60.Fluid.Types.PrescribedVariable.Speed,
+    preVar=Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
     computePowerUsingSimilarityLaws=true) "Flow machine interface model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Constant y(k=1) "Control signal"

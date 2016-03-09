@@ -96,7 +96,7 @@ partial model PartialFlowMachine
 
   // Quantity to control
 protected
-  parameter Types.PrescribedVariable preVar=Annex60.Fluid.Types.PrescribedVariable.Speed
+  parameter Types.PrescribedVariable preVar=Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed
     "Type of prescribed variable";
 
   final parameter Integer nOri = size(per.pressure.V_flow, 1)
@@ -181,7 +181,7 @@ protected
 
   Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1")) if
        inputType == Annex60.Fluid.Types.InputType.Continuous and
-       preVar == Annex60.Fluid.Types.PrescribedVariable.Speed
+       preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed
     "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
     annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
 
@@ -189,7 +189,7 @@ protected
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
     final allowFlowReversal=allowFlowReversal,
-    final control_m_flow= (preVar ==  Annex60.Fluid.Types.PrescribedVariable.FlowRate))
+    final control_m_flow= (preVar ==  Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.FlowRate))
     "Pressure source"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
@@ -248,7 +248,7 @@ initial equation
   // The control signal is dp or m_flow but the user did not provide a pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
   // Therefore, scaling the power using the speed is inaccurate.
-  assert(per.havePressureCurve or (preVar == Annex60.Fluid.Types.PrescribedVariable.Speed),
+  assert(per.havePressureCurve or (preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed),
 "Warning:
 ========
 You are using a flow or pressure controlled mover with the default pressure curve.
@@ -261,7 +261,7 @@ Add the correct pressure curve in the record per to obtain an accurate computati
   // In addition, the user wants to use (V_flow, P) to compute the power.
   // This can lead to using a power that is less than the flow work. We avoid
   // this by ignoring the setting of per.use_powerCharacteristics.
-  assert((per.havePressureCurve or (preVar == Annex60.Fluid.Types.PrescribedVariable.Speed))
+  assert((per.havePressureCurve or (preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed))
          or
          per.use_powerCharacteristic == false,
 "Warning:

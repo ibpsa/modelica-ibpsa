@@ -2,7 +2,7 @@ within Annex60.Fluid.Movers;
 model SpeedControlled_y
   "Fan or pump with ideally controlled normalized speed y as input signal"
   extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
-    final preVar=Annex60.Fluid.Types.PrescribedVariable.Speed,
+    final preVar=Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
     final computePowerUsingSimilarityLaws=true,
     final m_flow_nominal = max(per.pressure.V_flow)*rho_default,
     final stageInputs(each final unit="1") = per.speeds,

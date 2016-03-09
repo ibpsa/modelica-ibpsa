@@ -10,8 +10,8 @@ model FlowMachineInterface
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  parameter Annex60.Fluid.Types.PrescribedVariable preVar=
-    Annex60.Fluid.Types.PrescribedVariable.Speed "Type of prescribed variable";
+  parameter Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable preVar=
+    Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed "Type of prescribed variable";
   parameter Boolean computePowerUsingSimilarityLaws
     "= true, compute power exactly, using similarity laws. Otherwise approximate.";
 
@@ -118,11 +118,11 @@ model FlowMachineInterface
 
 protected
   final parameter Boolean preSpe=
-    preVar == Annex60.Fluid.Types.PrescribedVariable.Speed
+    preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed
     "True if speed is a prescribed variable of this block";
   final parameter Boolean prePre=
-    preVar == Annex60.Fluid.Types.PrescribedVariable.PressureDifference or
-    preVar == Annex60.Fluid.Types.PrescribedVariable.FlowRate
+    preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.PressureDifference or
+    preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.FlowRate
     "True if pressure head is a prescribed variable of this block";
 
   // Derivatives for cubic spline
@@ -516,7 +516,7 @@ equation
   // Similarity laws are then not used, meaning the power computation is less accurate.
   // This however has the advantage that no non-linear algebraic loop is formed and
   // it allows an implementation when the pressure curve is unknown.
-  if (computePowerUsingSimilarityLaws == false) and preVar <> Annex60.Fluid.Types.PrescribedVariable.Speed then
+  if (computePowerUsingSimilarityLaws == false) and preVar <> Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed then
     r_N=1;
   else
   // For the homotopy method, we approximate dp by an equation
