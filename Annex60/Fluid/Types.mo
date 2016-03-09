@@ -1,6 +1,7 @@
 within Annex60.Fluid;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
+
   type EfficiencyCurves = enumeration(
       Constant "constant",
       Polynomial "Polynomial",
@@ -94,6 +95,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
   type HeatExchangerFlowRegime = enumeration(
       ParallelFlow "Parallel flow",
       CounterFlow "Counter flow",
@@ -150,12 +152,15 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
    type PrescribedVariable = enumeration(
       Speed "Speed is prescribed",
       FlowRate "Flow rate is prescribed",
       PressureDifference "Pressure difference is prescribed")
     "Enumeration to choose what variable is prescribed";
  annotation (preferredView="info", Documentation(info="<html>
+<p>
 This package contains type definitions.
+</p>
 </html>"));
 end Types;
