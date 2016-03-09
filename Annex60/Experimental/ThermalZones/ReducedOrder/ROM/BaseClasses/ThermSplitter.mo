@@ -1,6 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses;
 model ThermSplitter
-  "A simple model which weights a given set of therm inputs to calculate an average temperature or heat flow and the other way around"
+  "A simple model which weights a given set of therm inputs to calculate an average temperature and aggregated heat flow"
 
 parameter Integer dimension=6 "Dimension of the splitter";
 
@@ -53,8 +53,6 @@ equation
           lineColor={0,0,255},
           textString="ThermSplitter")}),
     Documentation(info="<html>
-<p>ThermSplitter is a simple model which weights a given set of therm inputs to calculate an average temperature or heat flow and the other way around</p>
-<h4>Typical use and important parameters</h4>
 <p>This model is used to weight therm ports according to given split factors.</p>
 <p>The model needs the dimension of the splitted therm port and the split factors, which are between 0 and 1.</p>
 </html>", revisions="<html>

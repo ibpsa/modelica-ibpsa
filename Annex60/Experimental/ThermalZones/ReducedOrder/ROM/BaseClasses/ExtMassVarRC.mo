@@ -36,6 +36,7 @@ equation
   connect(thermCapExt[n].port,thermResExtRem.port_a);
   connect(thermResExtRem.port_b,port_b);
   annotation(defaultComponentName="extWallRC",Diagram(coordinateSystem(preserveAspectRatio = false, extent = {{-100, -100}, {100, 120}}), graphics), Documentation(info="<html>
+<p><code>ExtMassVarRC</code> represents heat conduction and heat storage within walls. It links a variable number <code>n</code> of thermal resistances and capacities to a series connection. <code>n</code> thus defines the spatial discretization of thermal effects within the wall. All effects are considered as one-dimensional normal to the wall&apos;s surface. This model is thought for exterior wall elements that contribute to heat transfer to the outdoor. THe RC-chain is defined via a vector of capacities <code>CExt[n]</code> and a vector of resistances <code>RExt[n]</code>. Resistances and capacities are connected alternately, starting with the first resistance <code>RExt[1]</code>, from the walls indoor surface heat <code>port_a</code> to the outdoor. <code>RExtRem</code> is the resistance between the last capacitance <code>CExt[end]</code> and the wall&apos;s outdoor surface heat <code>port_b</code>.</p>
 </html>",  revisions="<html>
 <ul>
 <li>April 17, 2015,&nbsp; by Moritz Lauster:<br>Implemented. </li>
