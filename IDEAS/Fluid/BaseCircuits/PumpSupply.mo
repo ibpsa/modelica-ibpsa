@@ -23,7 +23,8 @@ model PumpSupply
       addPowerToMedium=false,
       allowFlowReversal=true),                  final useBalancingValve=true,
     balancingValve(show_T=true),
-    booleanInput = true);
+    booleanInput = true,
+    realInput = false);
 
   Modelica.Blocks.Math.BooleanToReal booleanToReal
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
