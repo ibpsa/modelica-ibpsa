@@ -74,27 +74,30 @@ model MoistureMixingConservation
         Medium, allowFlowReversal=false) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{34,40},{54,20}})));
   Annex60.Utilities.Diagnostics.AssertEquality assMasFlo(
-                                                   threShold=1E-8, message="Total air mass is not conserved")
+    threShold=1E-8,
+    message="Total air mass is not conserved")
     "Assert for checking conservation of mass"
     annotation (Placement(transformation(extent={{84,-52},{98,-66}})));
   Modelica.Blocks.Sources.Constant mFloSol "Solution mass flow rate"
     annotation (Placement(transformation(extent={{60,-68},{70,-58}})));
-  Sensors.EnthalpyFlowRate                      senSpeEnt(
+  Sensors.EnthalpyFlowRate senSpeEnt(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=1,
     tau=0) "Specific enthalpy flow rate sensor"
     annotation (Placement(transformation(extent={{10,40},{30,20}})));
   Annex60.Utilities.Diagnostics.AssertEquality assSpeEnt(
-                                             threShold=1E-5, message="Enthalpy is not conserved")
+    threShold=1E-5,
+    message="Enthalpy is not conserved")
     "Assert for checking conservation of energy"
     annotation (Placement(transformation(extent={{84,-84},{98,-98}})));
   Modelica.Blocks.Sources.Constant hSol "Solution mass flow rate"
     annotation (Placement(transformation(extent={{60,-100},{70,-90}})));
 
 protected
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
-        Medium) "Fluid port for using fluid stream mixing implementation"
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+  redeclare package Medium = Medium)
+    "Fluid port for using fluid stream mixing implementation"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 equation
   connect(sou1.ports[1], vol.ports[1]) annotation (Line(

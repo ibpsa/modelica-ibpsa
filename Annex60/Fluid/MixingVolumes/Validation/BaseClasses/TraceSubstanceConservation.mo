@@ -3,7 +3,7 @@ model TraceSubstanceConservation
   "This test checks if trace substance mass flow rates are conserved"
   extends Modelica.Icons.Example;
   constant String substanceName="CO2";
-  package Medium = Annex60.Media.Air(extraPropertiesNames=fill(substanceName, 1));
+  package Medium = Annex60.Media.Air(extraPropertiesNames={substanceName});
   Annex60.Fluid.Sources.MassFlowSource_h sou(
     redeclare package Medium = Medium,
     nPorts=1,
