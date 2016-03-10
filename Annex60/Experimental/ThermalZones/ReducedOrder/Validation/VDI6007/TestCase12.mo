@@ -154,7 +154,7 @@ equation
   connect(outdoorTemp.y[1], prescribedTemperature.T)
     annotation (Line(points={{-11.2,0},{6.8,0}}, color={0,0,127}));
   connect(personsRad.port, thermalZoneTwoElements.intGainsRad) annotation (Line(
-        points={{68,-92},{68,-92},{98,-92},{98,26},{91,26}}, color={191,0,0}));
+        points={{68,-92},{68,-92},{98,-92},{98,25},{91,25}}, color={191,0,0}));
   connect(internalGains.y[1], personsRad.Q_flow) annotation (Line(points={{22.8,
           -52},{30,-52},{38,-52},{38,-92},{48,-92}}, color={0,0,127}));
   connect(internalGains.y[2], personsConv.Q_flow) annotation (Line(points={{
@@ -197,17 +197,17 @@ equation
       Line(points={{68,-56},{96,-56},{96,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Test Case 12 of the VDI6007 Part 1: </span><span style=\"font-family: Arial,sans-serif;\"><a name=\"result_box\">C</a></span><span style=\"font-family: MS Shell Dlg 2;\">alculation of indoor air temperature excited by a radiative and convective heat source for room version S. It is based of Test Case 5 and adds ventilation.</span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Boundary Condtions:</span></p>
 <ul>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Dry bulb temperature</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Infrared horizontal radiation</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Global normal radiation</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Diffuse normal radiation</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Internal radiative gains from persons</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Internal convective gains from persons</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Internal convective gains from machines</span></li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">daily profile for outdoor air temperature in hourly steps </span></li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">no solar or short-wave radiation on the exterior wall </span></li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">daily profile for solar radiation through the windows in hourly steps</span></li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">sunblind closes at &GT;100 W/m2</span></li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">no long-wave radiation exchange between exterior wall, windows and ambient environment</span></li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">daily profile for ventilation in hourly time steps</span></li>
 </ul>
-<p><br><span style=\"font-family: MS Shell Dlg 2;\">The guideline is also the source of the building physics, orientations, areas, set temperatures and reference values. As global and diffuse radiation are given in the guideline normal to the facades and are here used as normal to the sun, this example cannot be taken for validation. In addition, the calculation core is not configured to be exactly the VDI 6007 core. In this example, the windows are not merged with the exterior walls. The reference values are taken from test case 8. This case doesn&apos;t consider outdoor longwave radiation exchange but this example does. Furthermore, the test case considers sunblinds (closing at 100 w/m2) what is not included in this example. It&apos;s just to show a typical application.</span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">This test case is thought to test infiltration and ventilation.</span></p>
 </html>"),
     experiment(
       StopTime=5.184e+006,

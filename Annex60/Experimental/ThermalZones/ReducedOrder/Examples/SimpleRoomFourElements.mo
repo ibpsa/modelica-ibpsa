@@ -236,7 +236,7 @@ equation
       thickness=0.5));
 
   connect(personsRad.port, thermalZoneFourElements.intGainsRad) annotation (
-      Line(points={{68,-32},{84,-32},{100,-32},{100,26},{91,26}}, color={191,0,
+      Line(points={{68,-32},{84,-32},{100,-32},{100,25},{91,25}}, color={191,0,
           0}));
   connect(thermalConductorWin.solid, thermalZoneFourElements.window)
     annotation (Line(points={{38,21},{40,21},{40,20},{45,20},{45,19.8}}, color=
@@ -292,17 +292,10 @@ equation
           {56,93},{56,98},{40,98},{40,92}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>
-<ul>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Dry bulb temperature</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Infrared horizontal radiation</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Global normal radiation</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Diffuse normal radiation</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Internal radiative gains from persons</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Internal convective gains from persons</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Internal convective gains from machines</span></li>
-</ul>
-<p><br><span style=\"font-family: MS Shell Dlg 2;\">The guideline is also the source of the building physics, orientations, areas, set temperatures and reference values. As global and diffuse radiation are given in the guideline normal to the facades and are here used as normal to the sun, this example cannot be taken for validation. In addition, the calculation core is not configured to be exactly the VDI 6007 core. In this example, the windows are not merged with the exterior walls. The reference values are taken from test case 8. This case doesn&apos;t consider outdoor longwave radiation exchange but this example does. Furthermore, the test case considers sunblinds (closing at 100 w/m2) what is not included in this example. It&apos;s just to show a typical application.</span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">This example shows the application of <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.ThermalZoneFourElements\">ThermalZoneFourElements</a> in combination with <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp\">EqAirTemp</a> and <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain.CorGDoublePane\">CorGDoublePane</a>. Solar radiation on tilted surface is calculated using models of Annex60. The thermal zone is a simple room defined in Guideline VDI 6007 Part 1 [1]. All models, parameters and inputs except sunblinds, seperate handling of heat transfer through windows, an extra wall element for ground floor (with additional area), an extra wall element for roof (with additional area) and solar radiation are similar to the ones defined for the guideline&apos;s test room. For solar radiation, the example relies on the standard weather file in Annex60.</span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">The idea of the example is to show a typical application of all sub-models and to use the example in unit tests. The results are reasonable, but not related to any real use case or measurement data.</span></p>
+<h4>References</h4>
+<p><span style=\"font-family: MS Shell Dlg 2;\">[1] German Association of Engineers Guideline VDI 6007-1 March 2012. Calculation of transient thermal response of rooms and buildings - modelling of rooms.</span></p>
 </html>"),
     experiment(StopTime=3.1536e+007, Interval=3600),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

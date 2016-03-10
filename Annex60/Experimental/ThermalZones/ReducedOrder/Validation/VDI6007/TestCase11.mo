@@ -175,7 +175,7 @@ equation
   connect(internalGains.y[1], machinesRad.Q_flow) annotation (Line(points={{
           22.8,-88},{22.8,-88},{48,-88}}, color={0,0,127}));
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad) annotation (
-      Line(points={{68,-88},{84,-88},{98,-88},{98,26},{91,26}}, color={191,0,0}));
+      Line(points={{68,-88},{84,-88},{98,-88},{98,25},{91,25}}, color={191,0,0}));
   connect(mFan_flow.y,fan. m_flow_in) annotation (Line(
       points={{-73,-20},{-64.2,-20},{-64.2,-30}},
       color={0,0,127}));
@@ -195,8 +195,8 @@ equation
           {38,-72},{2,-72},{-4,-72}}, color={0,127,255}));
   connect(fan.port_a, hea1.port_b) annotation (Line(points={{-74,-42},{-96,-42},
           {-96,-72},{-24,-72}}, color={0,127,255}));
-  connect(thermalZoneTwoElements.TIndAir, hea1.TSet) annotation (Line(points={{
-          91,30.8},{100,30.8},{100,-66},{-2,-66}}, color={0,0,127}));
+  connect(thermalZoneTwoElements.TIndAir, hea1.TSet) annotation (Line(points={{91,31},
+          {100,31},{100,-66},{-2,-66}},            color={0,0,127}));
   connect(heat.port, thermalZoneTwoElements.intGainsConv) annotation (Line(
         points={{68,-34},{68,-34},{96,-34},{96,19.8},{91,19.8}}, color={191,0,0}));
   connect(mFan_flow1.y, fan1.m_flow_in) annotation (Line(points={{-75,84},{
@@ -211,8 +211,8 @@ equation
           {10,36},{-20,36}}, color={0,127,255}));
   connect(fan1.port_a, coo1.port_b) annotation (Line(points={{-76,62},{-98,62},
           {-98,36},{-40,36}}, color={0,127,255}));
-  connect(thermalZoneTwoElements.TIndAir, coo1.TSet) annotation (Line(points={{
-          91,30.8},{100,30.8},{100,42},{-18,42}}, color={0,0,127}));
+  connect(thermalZoneTwoElements.TIndAir, coo1.TSet) annotation (Line(points={{91,31},
+          {100,31},{100,42},{-18,42}},            color={0,0,127}));
   connect(cool.port, thermalZoneTwoElements.intWallIndoorSurface) annotation (
       Line(points={{12,84},{12,84},{16,84},{16,18},{16,18},{4,18},{4,-26},{44,
           -26},{44,-8},{56,-8},{56,-1}}, color={191,0,0}));
@@ -224,17 +224,15 @@ equation
           14,-28},{44,-28},{44,-34},{48,-34}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p>For this example, the following boundary conditions are taken from Guideline VDI 6007:</p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Test Case 11 of the VDI6007 Part 1: <a name=\"result_box\">C</a>alculation of heat load excited with a given radiative heat source and a setpoint profile for room version S. It is based on Test Case 7, but with a cooling ceiling for cooling purposes instead of a pure convective ideal cooler.</span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">Boundary Condtions:</span></p>
 <ul>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Dry bulb temperature</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Infrared horizontal radiation</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Global normal radiation</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Diffuse normal radiation</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Internal radiative gains from persons</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Internal convective gains from persons</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">Internal convective gains from machines</span></li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">constant outdoor air temperature 22 degC </span></li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">no solar or short-wave radiation on the exterior wall </span></li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">no solar or short-wave radiation through the windows </span></li>
+<li><span style=\"font-family: MS Shell Dlg 2;\">no long-wave radiation exchange between exterior wall, windows and ambient environment </span></li>
 </ul>
-<p><br><span style=\"font-family: MS Shell Dlg 2;\">The guideline is also the source of the building physics, orientations, areas, set temperatures and reference values. As global and diffuse radiation are given in the guideline normal to the facades and are here used as normal to the sun, this example cannot be taken for validation. In addition, the calculation core is not configured to be exactly the VDI 6007 core. In this example, the windows are not merged with the exterior walls. The reference values are taken from test case 8. This case doesn&apos;t consider outdoor longwave radiation exchange but this example does. Furthermore, the test case considers sunblinds (closing at 100 w/m2) what is not included in this example. It&apos;s just to show a typical application.</span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\">This test case is thought to test implementation of cooling ceiling or floor heating.</span></p>
 </html>"),
     experiment(
       StopTime=5.184e+006,
