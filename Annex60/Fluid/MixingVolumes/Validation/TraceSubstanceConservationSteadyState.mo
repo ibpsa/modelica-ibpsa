@@ -3,7 +3,7 @@ model TraceSubstanceConservationSteadyState
   "This test checks if trace substance mass flow rates are conserved when steady state"
   extends
     Annex60.Fluid.MixingVolumes.Validation.BaseClasses.TraceSubstanceConservation(
-      sou(X={0,1}));
+     sou(X={0,1}));
   Annex60.Utilities.Diagnostics.AssertEquality assEquTra2(threShold=1E-10,
       message="Measured trace quantities are not equal")
     "Assert equality of trace substances"
