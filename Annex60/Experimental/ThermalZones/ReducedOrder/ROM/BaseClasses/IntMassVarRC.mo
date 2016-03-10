@@ -28,6 +28,8 @@ equation
   connect(port_a,thermResInt[1].port_a);
   annotation(defaultComponentName="intWallRC",Diagram(coordinateSystem(preserveAspectRatio=false,   extent={{-100,
             -100},{100,120}}),                                                                           graphics), Documentation(info="<html>
+<p><code>IntMassVarRC</code><span style=\"font-family: MS Shell Dlg 2;\"> represents heat storage within walls. It links a variable number </span><code>n</code><span style=\"font-family: MS Shell Dlg 2;\"> of thermal resistances and capacities to a series connection. </span><code>n</code><span style=\"font-family: MS Shell Dlg 2;\"> thus defines the spatial discretization of thermal effects within the wall. All effects are considered as one-dimensional normal to the wall&apos;s surface. This model is thought for interior wall elements that only serve as heat storage elements. The RC-chain is defined via a vector of capacities </span><code>CInt[n]</code><span style=\"font-family: MS Shell Dlg 2;\"> and a vector of resistances </span><code>RInt[n]</code><span style=\"font-family: MS Shell Dlg 2;\">. Resistances and capacities are connected alternately, starting with the first resistance </span><code>RInt[1]</code><span style=\"font-family: MS Shell Dlg 2;\">, from heat </span><code>port_a</code><span style=\"font-family: MS Shell Dlg 2;\"> into the wall.</span></p>
+<p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/BaseClasses/IntMassVarRC/IntMassVarRC.png\" alt=\"image\"/> </p>
 </html>",  revisions="<html>
 <ul>
 <li>April 17, 2015,&nbsp; by Moritz Lauster:<br>Implemented. </li>
