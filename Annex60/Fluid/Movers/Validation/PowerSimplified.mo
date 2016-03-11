@@ -152,7 +152,7 @@ Revised implementation by assigning the data record directly in the
 instances <code>pump_dp</code> and <code>pump_m_flow</code>, because
 using a <code>parameter</code> and assigning this <code>parameter</code> leads
 in OpenModelica to the error message
-</code>expected subtype of record Annex60.Fluid.Movers.Data.Generic</code>.
+<code>expected subtype of record Annex60.Fluid.Movers.Data.Generic</code>.
 </li>
 <li>
 March 2, 2016, by Filip Jorissen:<br/>
