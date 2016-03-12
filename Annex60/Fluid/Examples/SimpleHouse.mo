@@ -106,7 +106,7 @@ model SimpleHouse
     "Hysteresis controller for ventilation"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=0, realFalse=1)
-                                                   "Boolean to real"
+    "Boolean to real"
     annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow window
     "Very simple window model"
@@ -276,7 +276,10 @@ First implementation.
 This model contains a simple model of a house
 with a heating system, ventilation and weather boundary conditions.
 It servers as a demonstration case of how the <code>Annex60</code> library can be used.
-This model was demonstrated at the joint Annex 60 meeting in Leuven on 18 September 2015.
+</p>
+<p>
+This model was demonstrated at the joint Annex 60 and
+IBPSA-NVL meeting in Leuven on 18 September 2015.
 </p>
 </html>"),
     __Dymola_Commands(file=
