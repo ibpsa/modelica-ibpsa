@@ -74,16 +74,9 @@ annotation (defaultComponentName="CorG",
         extent={{-100,-100},{100,100}},
         grid={2,2})),
     Documentation(info="<html>
-<h4><span style=\"color: #000000\">Overview</span></h4>
-<p>This model computes the transmission correction factors for solar radiation through a double pane window depending on the incidence angle, based on the VDI 6007 Part 3.</p>
-<p>The correction factors are calculated for the transmitted total and diffuse (cloudy sky) solar radiation, and the reflected radiation from the ground. </p>
-<h4><span style=\"color: #000000\">Known Limitations</span></h4>
-<p>The model is currently limited to double pane windows only. </p>
-<h4><span style=\"color: #000000\">References</span></h4>
-<p>transmission correction factors (CORg) are calculated based on :</p>
-<ul>
-<li>VDI 6007 Part 3</li>
-</ul>
+<p><code>CorGDoublePane</code> computes short-wave radiation through transparent elements with any orientation and inclination by means of transmission correction factors. Transmission properties of transparent elements are in general dependent on the solar incidence angle. To take this dependency into account, correction factors can multiplied with the solar radiation. These factors should not be mistaken as calculation of solar radiation on tilted surfaces, calculation of g-value or consideration of sunblinds, it is an additional step. The implemented calculations are defined in the German Guideline VDI 6007 Part 3 [1]. The given model is only valid for double pane windows. The guideline describes also calculations for single pane and triple pane windows.</p>
+<h4>References</h4>
+<p><span style=\"font-family: Arial,sans-serif;\">[1] German Association of Engineers Guideline VDI 6007-3 June 2015. Calculation of transient thermal response of rooms and buildings - modelling of solar radiation.</span></p>
 </html>",
     revisions="<html>
 <p><i>February 24, 2014</i> by Reza Tavakoli:</p>

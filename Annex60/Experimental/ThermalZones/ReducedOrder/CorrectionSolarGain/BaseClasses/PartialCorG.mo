@@ -44,7 +44,6 @@ partial model PartialCorG
           lineColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
-<h4><span style=\"color: #000000\">Overview</span></h4>
-<p>Partial model for correction cofficient for transmitted solar radiation through a window.</p>
+<p>Partial model for correction factors for transmitted solar radiation through a transparent element.</p>
 </html>"));
 end PartialCorG;
