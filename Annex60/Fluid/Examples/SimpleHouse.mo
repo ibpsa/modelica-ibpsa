@@ -102,10 +102,11 @@ model SimpleHouse
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,100})));
-  Modelica.Blocks.Logical.Hysteresis hysAir(uLow=273.15 + 24, uHigh=273.15 + 22)
+  Modelica.Blocks.Logical.Hysteresis hysAir(uLow=273.15 + 22, uHigh=273.15 + 24)
     "Hysteresis controller for ventilation"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Modelica.Blocks.Math.BooleanToReal booleanToReal "Boolean to real"
+  Modelica.Blocks.Math.BooleanToReal booleanToReal(realTrue=0, realFalse=1)
+                                                   "Boolean to real"
     annotation (Placement(transformation(extent={{-50,80},{-30,100}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow window
     "Very simple window model"
@@ -252,6 +253,13 @@ equation
     __Dymola_experimentSetupOutput(events=false),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 11, 2016, by Michael Wetter:<br/>
+Corrected wrong limits for <code>hysAir</code> so that
+<code>uLow &lt; uHigh</code>.
+This is
+for <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/429\">#429</a>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
