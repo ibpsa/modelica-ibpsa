@@ -30,8 +30,8 @@ partial model FlowMachine_ZeroFlow
   replaceable Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine floMacSta
     constrainedby Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
       redeclare package Medium = Medium,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      dynamicBalance=false) "Static model of a flow machine"
+      energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Static model of a flow machine"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   replaceable Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine floMacDyn
     constrainedby Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(

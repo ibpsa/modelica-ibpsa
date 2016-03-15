@@ -4,32 +4,37 @@ model SpeedControlled_y_pumpCurves
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
+  // For OpenModelica, changed m_flow_nominal to a constant. Otherwise
+  // the translation fails with "Error: Cyclically dependent parameters found"
+  constant Modelica.SIunits.MassFlowRate m_flow_nominal = 0.5
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal = 10000
+  // For OpenModelica, changed dp_nominal to a constant. Otherwise
+  // the compilation fails.
+  constant Modelica.SIunits.PressureDifference dp_nominal = 10000
     "Nominal pressure";
 
    model pumpModel = Annex60.Fluid.Movers.SpeedControlled_y (
     redeclare package Medium = Medium,
+    filteredSpeed=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
-    per(pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
-                  dp=dp_nominal*{0.9, 0.85, 0.6, 0.2})))
+    per(
+      pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
+               dp=dp_nominal*{0.9, 0.85, 0.6, 0.2})))
     "Declaration of pump model";
 
-  pumpModel pum(filteredSpeed=false,
+  pumpModel pum(
     inputType=Annex60.Fluid.Types.InputType.Constant,
     per(constantSpeed=1)) "Pump"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  pumpModel pum1(filteredSpeed=false,
+  pumpModel pum1(
     inputType=Annex60.Fluid.Types.InputType.Constant,
     per(constantSpeed=0.5)) "Pump"
     annotation (Placement(transformation(extent={{40,38},{60,58}})));
-  pumpModel pum2(filteredSpeed=false,
+  pumpModel pum2(
     inputType=Annex60.Fluid.Types.InputType.Constant,
     per(constantSpeed=0.05)) "Pump"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  pumpModel pum3(filteredSpeed=false,
+  pumpModel pum3(
     inputType=Annex60.Fluid.Types.InputType.Constant,
     per(constantSpeed=0.01)) "Pump"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
@@ -164,6 +169,10 @@ avoid a singularity at the origin.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2016, by Michael Wetter:<br/>
+Reformulated model for OpenModelica.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

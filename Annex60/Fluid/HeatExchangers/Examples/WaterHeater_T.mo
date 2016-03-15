@@ -6,7 +6,8 @@ model WaterHeater_T
     redeclare package Medium = Annex60.Media.Water,
     m_flow_nominal=V*1000/3600,
     Q_flow_nominal=100,
-    vol(V=V/1000));
+    vol(V=V/1000),
+    mov(nominalValuesDefineDefaultPressureCurve=true));
 
   Annex60.Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare package Medium = Medium,

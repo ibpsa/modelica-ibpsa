@@ -5,7 +5,8 @@ model AirHeater_T
   extends Annex60.Fluid.HeatExchangers.Examples.BaseClasses.Heater(
     redeclare package Medium = Annex60.Media.Air,
     m_flow_nominal=V*1.2*6/3600,
-    Q_flow_nominal=30*6*6);
+    Q_flow_nominal=30*6*6,
+    mov(dp_nominal=1200, nominalValuesDefineDefaultPressureCurve=true));
 
   Annex60.Fluid.HeatExchangers.HeaterCooler_T hea(
     redeclare package Medium = Medium,

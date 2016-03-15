@@ -1,25 +1,37 @@
 within Annex60.Fluid.Movers;
 model FlowControlled_m_flow
   "Fan or pump with ideally controlled mass flow rate as input signal"
-  extends Annex60.Fluid.Movers.BaseClasses.FlowControlled(
-    final control_m_flow=true,
-    preSou(m_flow_start=m_flow_start),
+  extends Annex60.Fluid.Movers.BaseClasses.PartialFlowMachine(
+    final preVar=Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.FlowRate,
+    final computePowerUsingSimilarityLaws=per.havePressureCurve,
     final stageInputs(each final unit="kg/s")=massFlowRates,
-    final constInput(final unit="kg/s")=constantMassFlowRate);
+    final constInput(final unit="kg/s")=constantMassFlowRate,
+    filter(
+      final y_start=m_flow_start,
+      u_nominal=m_flow_nominal,
+      u(final unit="kg/s"),
+      y(final unit="kg/s")),
+    eff(
+      per(
+        final pressure = if per.havePressureCurve then
+          per.pressure
+        else
+          Annex60.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+            V_flow=  {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
+            dp=      {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
+      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)),
+    preSou(m_flow_start=m_flow_start));
 
-  // Classes used to implement the filtered speed
-  parameter Boolean filteredSpeed=true
-    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
-  parameter Modelica.SIunits.Time riseTime=30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
-  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
-    "Type of initialization (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+  // For air, we set dp_nominal = 600 as default, for water we set 10000
+  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0, displayUnit="Pa")=
+    if rho_default < 500 then 500 else 10000
+    "Nominal pressure raise, used for default pressure curve if not specified in record per"
+    annotation(Dialog(group="Nominal condition"));
+
   parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
     "Initial value of mass flow rate"
     annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+
   parameter Modelica.SIunits.MassFlowRate constantMassFlowRate=m_flow_nominal
     "Constant pump mass flow rate, used when inputType=Constant"
     annotation(Dialog(enable=inputType == Annex60.Fluid.Types.InputType.Constant));
@@ -43,43 +55,23 @@ model FlowControlled_m_flow
   Modelica.Blocks.Interfaces.RealOutput m_flow_actual(
     final unit="kg/s",
     nominal=m_flow_nominal) "Actual mass flow rate"
-    annotation (Placement(transformation(extent={{100,40},{120,60}}),
-        iconTransformation(extent={{100,40},{120,60}})));
-
-protected
-  Modelica.Blocks.Continuous.Filter filter(
-     order=2,
-     f_cut=5/(2*Modelica.Constants.pi*riseTime),
-     final init=init,
-     final y_start=m_flow_start,
-     u_nominal=m_flow_nominal,
-     x(each stateSelect=StateSelect.always),
-     u(final unit="kg/s"),
-     y(final unit="kg/s"),
-     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
-     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
-        filteredSpeed
-    "Second order filter to approximate transient of rotor, and to improve numerics"
-    annotation (Placement(transformation(extent={{16,81},{30,95}})));
+    annotation (Placement(transformation(extent={{100,10},{120,30}}),
+        iconTransformation(extent={{100,10},{120,30}})));
 
 equation
   if filteredSpeed then
-    connect(inputSwitch.y, filter.u) annotation (Line(
-      points={{1,50},{10,50},{10,88},{14.6,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
     connect(filter.y, m_flow_actual) annotation (Line(
-      points={{30.7,88},{40,88},{40,50},{110,50}},
+      points={{34.7,88},{44,88},{44,20},{110,20}},
       color={0,0,127},
       smooth=Smooth.None));
   else
     connect(inputSwitch.y, preSou.m_flow_in) annotation (Line(
-      points={{1,50},{24,50},{24,8}},
+      points={{1,50},{44,50},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
     connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
-      points={{110,50},{40,50},{40,40},{24,40},{24,8}},
+      points={{110,20},{44,20},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -93,8 +85,10 @@ equation
 <p>
 This model describes a fan or pump with prescribed mass flow rate.
 The efficiency of the device is computed based
-on the efficiency curves that take as an argument
-the actual volume flow rate divided by the maximum possible volume flow rate.
+on the efficiency and pressure curves that are defined
+in record <code>per</code>, which is of type
+<a href=\"modelica://Annex60.Fluid.Movers.SpeedControlled_Nrpm\">
+Annex60.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </p>
 <p>
 See the
@@ -104,6 +98,12 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 2, 2016, by Filip Jorissen:<br/>
+Refactored model such that it directly extends <code>PartialFlowMachine</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+</li>
 <li>
 April 2, 2015, by Filip Jorissen:<br/>
 Added code for supporting stage input and constant input.
@@ -149,6 +149,6 @@ Revised implementation to allow zero flow rate.
           extent={{-80,136},{78,102}},
           lineColor={0,0,255},
           textString="%m_flow_nominal")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end FlowControlled_m_flow;
