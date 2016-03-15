@@ -84,12 +84,6 @@ protected
     "Heat capacity of medium";
 
 public
-  Modelica.Blocks.Interfaces.RealInput T_amb
-    "Ambient temperature for pipe's surroundings" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,100})));
   BaseClasses.HeatLossPipeDelay reverseHeatLoss(
     redeclare package Medium = Medium,
     diameter=diameter,
@@ -117,6 +111,8 @@ public
   BaseClasses.PDETime_massFlowMod tau_used(length=length, diameter=
         diameter)
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
@@ -126,10 +122,6 @@ equation
     annotation (Line(points={{10,0},{40,0}},        color={0,127,255}));
   connect(port_b, heatLoss.port_b)
     annotation (Line(points={{100,0},{60,0}},        color={0,127,255}));
-  connect(T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{0,100},{0,100},
-          {0,54},{0,40},{-70,40},{-70,10}}, color={0,0,127}));
-  connect(heatLoss.T_amb, reverseHeatLoss.T_amb) annotation (Line(points={{50,10},
-          {50,40},{-70,40},{-70,10}}, color={0,0,127}));
   connect(pipeAdiabaticPlugFlow.port_a, senMasFlo.port_b)
     annotation (Line(points={{-10,0},{-18,0},{-24,0}},
                                                color={0,127,255}));
@@ -152,10 +144,13 @@ equation
       points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(reverseHeatLoss.heatPort, heatPort) annotation (Line(points={{-70,10},
+          {-70,40},{0,40},{0,100}}, color={191,0,0}));
+  connect(heatLoss.heatPort, heatPort) annotation (Line(points={{50,10},{50,40},
+          {0,40},{0,100}}, color={191,0,0}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-                    graphics),
+            100,100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Ellipse(extent={{-90,92},{-48,50}}, lineColor={28,108,200},

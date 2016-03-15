@@ -21,6 +21,8 @@ model HeatLossPipeDelay
     "Temperature at port_a for in-flowing fluid";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Tout_b
     "Temperature at port_b for out-flowing fluid";
+  Modelica.SIunits.Temperature T_amb = heatPort.T "Environment temperature";
+  Modelica.SIunits.HeatFlowRate Qloss "Heat losses from pipe to environment";
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -32,18 +34,20 @@ protected
     "Heat capacity of medium";
 
 public
-  Modelica.Blocks.Interfaces.RealInput T_amb(unit="K", displayUnit="degC")
-    "Ambient temperature of pipe's surroundings" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,100})));
-public
   Modelica.Blocks.Interfaces.RealInput tau(unit="s") "Time delay at pipe level"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-60,100})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heatLoss annotation (
+     Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,38})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=Qloss)
+    annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
 equation
   dp = 0;
 
@@ -60,7 +64,12 @@ equation
 
   // Heat losses
   Tout_b = T_amb + (Tin_a - T_amb)*Modelica.Math.exp(-tau/tau_char);
+  Qloss = (port_a.h_outflow - port_b.h_outflow)*port_a.m_flow;
 
+  connect(heatLoss.port, heatPort)
+    annotation (Line(points={{0,48},{0,100}}, color={191,0,0}));
+  connect(realExpression.y, heatLoss.Q_flow)
+    annotation (Line(points={{-13,0},{-6,0},{0,0},{0,28}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(
@@ -95,6 +104,6 @@ equation
 <li>September, 2015 by Marcus Fuchs:<br>First implementation. </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end HeatLossPipeDelay;
