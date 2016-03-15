@@ -1,6 +1,6 @@
 within Annex60.Utilities.Math.Functions;
 function regStep
-  "Approximation of a general step, such that the characteristic is continuous and differentiable"
+  "Approximation of a general step, such that the approximation is continuous and differentiable"
   extends Modelica.Icons.Function;
   input Real x "Abscissa value";
   input Real y1 "Ordinate value for x > 0";
@@ -17,14 +17,14 @@ algorithm
   Documentation(revisions="<html>
 <ul>
 <li><i>February 18, 2016</i>
-    by Marcus Fuchs:<br>
-    Add function with <code>inline = True</code> in annotations to package for better performance,
+    by Marcus Fuchs:<br/>
+    Add function with <code>Inline = true</code> in annotations to package for better performance,
     as suggested in <a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">#300</a> .</li>
 <li><i>April 29, 2008</i>
-    by <a href=\"mailto:Martin.Otter@DLR.de\">Martin Otter</a>:<br>
+    by <a href=\"mailto:Martin.Otter@DLR.de\">Martin Otter</a>:<br/>
     Designed and implemented.</li>
 <li><i>August 12, 2008</i>
-    by <a href=\"mailto:Michael.Sielemann@dlr.de\">Michael Sielemann</a>:<br>
+    by <a href=\"mailto:Michael.Sielemann@dlr.de\">Michael Sielemann</a>:<br/>
     Minor modification to cover the limit case <code>x_small -> 0</code> without division by zero.</li>
 </ul>
 </html>", info="<html>
@@ -45,8 +45,8 @@ by a smooth characteristic, so that the expression is continuous and differentia
 </pre>
 
 <p>
-In the region -x_small &lt; x &lt; x_small a 2nd order polynomial is used
-for a smooth transition from y1 to y2.
+In the region <code>-x_small &lt; x &lt; x_small</code> a 2nd order polynomial is used
+for a smooth transition from <code>y1</code> to <code>y2</code>.
 </p>
 </html>"));
 end regStep;
