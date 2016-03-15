@@ -50,8 +50,6 @@ model SpatialDistributionOperator
   Modelica.Blocks.Sources.Constant PAtm1(
                                         k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
-  Modelica.Blocks.Sources.Constant const3(k=5)
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay PipeDelayMod2(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
@@ -109,8 +107,6 @@ model SpatialDistributionOperator
     "Sink at with constant pressure, turns into source at the end of experiment"
                           annotation (Placement(transformation(extent={{128,146},
             {108,166}})));
-  Modelica.Blocks.Sources.Constant const1(k=5)
-    annotation (Placement(transformation(extent={{-12,178},{8,198}})));
   Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay PipeDelayMod1(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
@@ -133,6 +129,11 @@ model SpatialDistributionOperator
   Annex60.Fluid.Sensors.MassFlowRate masFloA2( redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 temperature delay"
     annotation (Placement(transformation(extent={{66,92},{86,112}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        278.15) annotation (Placement(transformation(extent={{-8,18},{12,38}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature1(T=
+        278.15)
+    annotation (Placement(transformation(extent={{-22,144},{-2,164}})));
 equation
   connect(PAtm.y, sin1.p_in)
                             annotation (Line(points={{147,86},{154,86},{154,46},
@@ -151,10 +152,6 @@ equation
                      color={0,0,127}));
   connect(add.y, sou1.p_in) annotation (Line(points={{-97,76},{-88,76},{-88,56},
           {-98,56},{-98,44},{-88,44}}, color={0,0,127}));
-  connect(const3.y, PipeDelayMod2.T_amb) annotation (Line(
-      points={{21,70},{21,-2},{24,-2}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(PipeDelayMod2.port_a, senTemA60In1.port_b) annotation (Line(
       points={{14,-12},{-36,-12}},
       color={0,127,255},
@@ -191,10 +188,6 @@ equation
       points={{-116,-70},{-116,-130},{-80,-130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const1.y, PipeDelayMod1.T_amb) annotation (Line(
-      points={{9,188},{9,116},{12,116}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(PipeDelayMod1.port_a, senTemA60In2.port_b) annotation (Line(
       points={{2,106},{-48,106}},
       color={0,127,255},
@@ -227,9 +220,12 @@ equation
       points={{147,86},{150,86},{150,90},{152,90},{152,164},{130,164}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(fixedTemperature.port, PipeDelayMod2.heatPort)
+    annotation (Line(points={{12,28},{24,28},{24,-2}}, color={191,0,0}));
+  connect(PipeDelayMod1.heatPort, fixedTemperature1.port) annotation (Line(
+        points={{12,116},{6,116},{6,154},{-2,154}}, color={191,0,0}));
     annotation (experiment(StopTime=200000, __Dymola_NumberOfIntervals=5000),Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -180},{160,140}}),
-                        graphics),
+            -180},{160,140}})),
     Documentation(info="<html>
 <p>The model includes a pipe model which is mainly used to obtain the velocity</p>
 <p>

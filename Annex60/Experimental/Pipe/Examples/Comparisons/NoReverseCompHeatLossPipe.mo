@@ -96,8 +96,6 @@ model NoReverseCompHeatLossPipe
   Modelica.Blocks.Sources.Constant PAtm1(
                                         k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
-  Modelica.Blocks.Sources.Constant const3(k=5)
-    annotation (Placement(transformation(extent={{-26,92},{-6,112}})));
   Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay     A60PipeHeatLossMod2(
     redeclare package Medium = Medium,
     m_flow_small=1e-4*0.5,
@@ -121,6 +119,9 @@ model NoReverseCompHeatLossPipe
                                                   redeclare package Medium =
         Medium) "Mass flow rate sensor for the A60 modified temperature delay"
     annotation (Placement(transformation(extent={{84,120},{104,140}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
+        278.15)
+    annotation (Placement(transformation(extent={{-22,130},{-2,150}})));
 equation
   connect(PAtm.y, sin1.p_in)
                             annotation (Line(points={{147,86},{154,86},{154,46},
@@ -177,10 +178,6 @@ equation
                      color={0,0,127}));
   connect(add.y, sou1.p_in) annotation (Line(points={{-97,76},{-88,76},{-98,56},
           {-98,56},{-98,46},{-90,46}}, color={0,0,127}));
-  connect(const3.y, A60PipeHeatLossMod2.T_amb) annotation (Line(
-      points={{-5,102},{0,102},{0,140},{30,140}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(A60PipeHeatLossMod2.port_a, senTemA60ModIn1.port_b) annotation (Line(
       points={{20,130},{-38,130}},
       color={0,127,255},
@@ -201,11 +198,13 @@ equation
       points={{-58,130},{-68,130},{-68,35.3333}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(A60PipeHeatLossMod2.heatPort, fixedTemperature.port)
+    annotation (Line(points={{30,140},{14,140},{-2,140}}, color={191,0,0}));
     annotation (experiment(StopTime=200000, __Dymola_NumberOfIntervals=5000),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Experimental/PipeAdiabatic/PipeAdiabatic_TStep.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{
-            160,140}}), graphics),
+            160,140}})),
     Documentation(info="<html>
 <p>This example compares different implementations of the pipe heat loss model for varying periods of zero flow. A longer period of no flow should result in a higher heat loss to the surroundings. No reverse flow is considered in this example.</p>
 </html>", revisions="<html>
