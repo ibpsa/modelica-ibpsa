@@ -99,8 +99,18 @@ partial model PartialFlowMachine
 
   // Quantity to control
 protected
-  parameter Types.PrescribedVariable preVar=Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed
-    "Type of prescribed variable";
+  parameter Types.PrescribedVariable preVar "Type of prescribed variable";
+
+  // The parameter speedIsInput is required to conditionally remove the instance gain.
+  // If the conditional removal of this instance where to use the test
+  // preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
+  // then OpenModelica fails to translate the model with the message
+  // .../PartialFlowMachine.mo:185:3-189:70:writable]
+  // Error: Variable Types.PrescribedVariable.Speed not found in scope
+  // Annex60.Fluid.Movers.SpeedControlled_y$floMac1.
+  final parameter Boolean speedIsInput=
+    (preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed)
+    "Parameter that is true if speed is the controlled variables";
 
   final parameter Integer nOri = size(per.pressure.V_flow, 1)
     "Number of data points for pressure curve"
@@ -183,8 +193,8 @@ protected
     annotation (Placement(transformation(extent={{20,81},{34,95}})));
 
   Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1")) if
-       inputType == Annex60.Fluid.Types.InputType.Continuous and
-       preVar == Annex60.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed
+    inputType == Annex60.Fluid.Types.InputType.Continuous and
+    speedIsInput
     "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
     annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
 
@@ -206,7 +216,9 @@ protected
     addPowerToMedium "Heat and work input into medium"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow(
+    final alpha=0) if
+    addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-14,-104},{-34,-84}})));
 
