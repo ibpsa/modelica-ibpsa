@@ -193,8 +193,11 @@ redeclare function extends saturationPressure
     "Saturation curve valid for 223.16 <= T <= 373.16 (and slightly outside with less accuracy)"
 
 algorithm
-  psat := Annex60.Utilities.Math.Functions.spliceFunction(
-                                                  saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
+  psat := Annex60.Utilities.Math.Functions.regStep(
+            y1=saturationPressureLiquid(Tsat),
+            y2=sublimationPressureIce(Tsat),
+            x=Tsat-273.16,
+            x_small=1.0);
   annotation (
     Inline=true,
     smoothOrder=5);
