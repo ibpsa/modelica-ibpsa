@@ -643,6 +643,12 @@ space dimension</i>. CRC Press. 1998.
 </html>", revisions="<html>
 <ul>
 <li>
+March 15, 2016, by Michael Wetter:<br/>
+Replaced <code>spliceFunction</code> with <code>regStep</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+</li>
+<li>
 November 13, 2014, by Michael Wetter:<br/>
 Removed <code>phi</code> and removed non-required computations.
 </li>

@@ -35,6 +35,12 @@ http://www.nist.gov/data/PDFfiles/jpcrd477.pdf</a>.
 revisions="<html>
 <ul>
 <li>
+March 15, 2016, by Michael Wetter:<br/>
+Replaced <code>spliceFunction</code> with <code>regStep</code>.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">issue 300</a>.
+</li>
+<li>
 August 19, 2015 by Michael Wetter:<br/>
 Changed <code>smoothOrder</code> from <i>5</i> to <i>1</i> as
 <a href=\"modelica://Annex60.Utilities.Math.Functions.spliceFunction\">
