@@ -1,9 +1,9 @@
 within IDEAS.Buildings.Data.Glazing;
 record Ins2ArNature = IDEAS.Buildings.Data.Interfaces.Glazing (
     final nLay=3,
-    final mats={Materials.Glass(d=0.006, epsLw_b=0.110),
+    final mats={Materials.Glass(d=0.006, epsLw_a=0.110),
                 Materials.Argon(d=0.016),
-                Materials.Glass(d=0.006, epsLw_a=0.10)},
+                Materials.Glass(d=0.006, epsLw_b=0.10)},
     final SwTrans=[0, 0.260;
                    10, 0.261;
                    20, 0.257;

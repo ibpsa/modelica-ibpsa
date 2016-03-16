@@ -37,14 +37,14 @@ model MultiLayer "multiple material layers in series"
     each linIntCon=linIntCon,
     epsLw_a=cat(
         1,
-        {0.85},
-        mats[1:nLay - 1].epsLw_b),
+        mats[2:nLay].epsLw_b,
+        {0.85}),
     epsLw_b=cat(
         1,
-        mats[2:nLay].epsLw_a,
-        {0.85}),
+        {0.85},
+        mats[1:nLay-1].epsLw_a),
     each placeCapacityAtSurf_b=placeCapacityAtSurf_b,
-    each final energyDynamics=energyDynamics,
+    each energyDynamics=energyDynamics,
     each dT_nom_air=dT_nom_air) "Individual layers"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
 
@@ -87,10 +87,10 @@ equation
   connect(monLay.port_gain, port_gain) annotation (Line(points={{0,-10},{0,-10},
           {0,-60},{0,-100}}, color={191,0,0}));
 
-  iEpsLw_a = mats[1].epsLw_a;
-  iEpsSw_a = mats[1].epsSw_a;
-  iEpsLw_b = mats[nLay].epsLw_b;
-  iEpsSw_b = mats[nLay].epsSw_b;
+  iEpsLw_a = mats[nLay].epsLw_a;
+  iEpsSw_a = mats[nLay].epsSw_a;
+  iEpsLw_b = mats[1].epsLw_b;
+  iEpsSw_b = mats[1].epsSw_b;
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -142,6 +142,10 @@ equation
 <p>where <img src=\"modelica://IDEAS/Images/equations/equation-I7KXJhSH.png\"/> is the added energy to the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-B0HPmGTu.png\"/> is the temperature of the lumped capacity, <img src=\"modelica://IDEAS/Images/equations/equation-t7aqbnLB.png\"/> is the thermal capacity of the lumped capacity equal to<img src=\"modelica://IDEAS/Images/equations/equation-JieDs0oi.png\"/> for which rho denotes the density and <img src=\"modelica://IDEAS/Images/equations/equation-ml5CM4zK.png\"/> is the specific heat capacity of the material and <img src=\"modelica://IDEAS/Images/equations/equation-hOGNA6h5.png\"/> the equivalent thickness of the lumped element, where <img src=\"modelica://IDEAS/Images/equations/equation-1pDREAb7.png\"/> the heat flux through the lumped resistance and <img src=\"modelica://IDEAS/Images/equations/equation-XYf3O3hw.png\"/> is the total thermal resistance of the lumped resistance and where <img src=\"modelica://IDEAS/Images/equations/equation-dgS5sGAN.png\"/> are internal thermal source.</p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 8, 2016, by Filip Jorissen:<br/>
+Fixed bug in output of iEpsLw and iEpsSw for issue 464.
+</li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: now only one MultiLayer component exists.

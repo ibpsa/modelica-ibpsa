@@ -18,12 +18,15 @@ partial model PartialSurface "Partial model for building envelope component"
   parameter Modelica.SIunits.Temperature TRef_a=291.15
     "Reference temperature of zone on side of propsBus_a, for calculation of design heat loss"
     annotation (Dialog(group="Design heat loss"));
-  parameter Boolean linearise_a=true
-    "= true, if convective heat transfer should be linearised"
+  parameter Boolean linearise_a=false
+    "= true, if convective heat transfer should be linearised."
     annotation (Dialog(tab="Convection"));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal_a=1
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
     annotation (Dialog(tab="Convection"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Static (steady state) or transient (dynamic) thermal conduction model"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   IDEAS.Buildings.Components.Interfaces.ZoneBus propsBus_a(
     numAzi=sim.numAzi,
@@ -62,7 +65,8 @@ protected
     "Component for computing conservation of energy";
 
 protected
-  IDEAS.Buildings.Components.BaseClasses.MultiLayer layMul(final inc=inc)
+  IDEAS.Buildings.Components.BaseClasses.MultiLayer layMul(final inc=inc,
+      energyDynamics=energyDynamics)
     "Multilayer component that allows simulating walls, windows and other surfaces"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
@@ -115,6 +119,10 @@ equation
         graphics),
     Documentation(revisions="<html>
 <ul>
+<li>
+March 8, 2016, by Filip Jorissen:<br/>
+Added energyDynamics parameter.
+</li>
 <li>
 February 10, 2016, by Filip Jorissen and Damien Picard:<br/>
 Revised implementation: cleaned up connections and partials.

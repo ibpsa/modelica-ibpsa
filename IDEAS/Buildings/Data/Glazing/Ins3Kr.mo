@@ -1,9 +1,9 @@
 within IDEAS.Buildings.Data.Glazing;
 record Ins3Kr = IDEAS.Buildings.Data.Interfaces.Glazing (
     final nLay=5,
-    final mats={Materials.Glass(d=0.004, epsLw_b=0.04),
+    final mats={Materials.Glass(d=0.004, epsLw_a=0.04),
                 Materials.Krypton(d=0.008),
-                Materials.Glass(d=0.004, epsLw_b=0.04),
+                Materials.Glass(d=0.004, epsLw_a=0.04),
                 Materials.Krypton(d=0.008),
                 Materials.Glass(d=0.004)},
     final SwTrans=[0, 0.268;
