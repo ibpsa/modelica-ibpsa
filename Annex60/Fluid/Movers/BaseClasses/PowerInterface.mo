@@ -57,14 +57,14 @@ equation
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
   // The next statement sets the heat input into the medium to zero for very small flow rates.
   Q_flow = if homotopyInitialization then
-    homotopy(actual=Annex60.Utilities.Math.Functions.spliceFunction(
+    homotopy(actual=Annex60.Utilities.Math.Functions.regStep(
                       y1=QThe_flow,
                       y2=0,
                       x=noEvent(abs(V_flow))-2*delta_V_flow,
                       x_small=delta_V_flow),
             simplified=0)
     else
-      Annex60.Utilities.Math.Functions.spliceFunction(
+      Annex60.Utilities.Math.Functions.regStep(
                       y1=QThe_flow,
                       y2=0,
                       x=noEvent(abs(V_flow))-2*delta_V_flow,
