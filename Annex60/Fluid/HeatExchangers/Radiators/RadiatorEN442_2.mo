@@ -105,35 +105,35 @@ protected
     "Heat input into radiator from radiative heat transfer"
      annotation (Placement(transformation(extent={{-48,-80},{-28,-60}})));
 
-   Modelica.SIunits.TemperatureDifference dTCon[nEle] = heatPortCon.T .- vol.T
+   Modelica.SIunits.TemperatureDifference dTCon[nEle] = {heatPortCon.T - vol[i].T for i in 1:nEle}
     "Temperature difference for convective heat transfer";
-   Modelica.SIunits.TemperatureDifference dTRad[nEle] = heatPortRad.T .- vol.T
+   Modelica.SIunits.TemperatureDifference dTRad[nEle] = {heatPortRad.T - vol[i].T for i in 1:nEle}
     "Temperature difference for radiative heat transfer";
 
-  Modelica.Blocks.Sources.RealExpression QCon[nEle](y=if homotopyInitialization
-         then homotopy(actual=(1 - fraRad) .* UAEle .* dTCon .*
+  Modelica.Blocks.Sources.RealExpression QCon[nEle](y={if homotopyInitialization
+         then homotopy(actual=(1 - fraRad) * UAEle * (heatPortCon.T - vol[i].T) *
         Annex60.Utilities.Math.Functions.regNonZeroPower(
-        x=dTCon,
+        x=(heatPortCon.T - vol[i].T),
         n=n - 1,
-        delta=0.05), simplified=(1 - fraRad) .* UAEle .* abs(dTCon_nominal) .^ (
-        n - 1) .* dTCon) else (1 - fraRad) .* UAEle .* dTCon .*
+        delta=0.05), simplified=(1 - fraRad) * UAEle .* abs(dTCon_nominal[i]) ^ (
+        n - 1) * (heatPortCon.T - vol[i].T)) else (1 - fraRad) * UAEle * (heatPortCon.T - vol[i].T) *
         Annex60.Utilities.Math.Functions.regNonZeroPower(
-        x=dTCon,
+        x=(heatPortCon.T - vol[i].T),
         n=n - 1,
-        delta=0.05)) "Convective heat flow rate"
+        delta=0.05) for i in 1:nEle}) "Convective heat flow rate"
     annotation (Placement(transformation(extent={{-100,-48},{-80,-28}})));
 
-  Modelica.Blocks.Sources.RealExpression QRad[nEle](y=if homotopyInitialization
-         then homotopy(actual=fraRad .* UAEle .* dTRad .*
+  Modelica.Blocks.Sources.RealExpression QRad[nEle](y={if homotopyInitialization
+         then homotopy(actual=fraRad * UAEle * (heatPortRad.T - vol[i].T) *
         Annex60.Utilities.Math.Functions.regNonZeroPower(
-        x=dTRad,
+        x=(heatPortRad.T - vol[i].T),
         n=n - 1,
-        delta=0.05), simplified=fraRad .* UAEle .* abs(dTRad_nominal) .^ (n - 1)
-         .* dTRad) else fraRad .* UAEle .* dTRad .*
+        delta=0.05), simplified=fraRad * UAEle * abs(dTRad_nominal[i]) ^ (n - 1)
+         * (heatPortRad.T - vol[i].T)) else fraRad * UAEle * (heatPortRad.T - vol[i].T) *
         Annex60.Utilities.Math.Functions.regNonZeroPower(
-        x=dTRad,
+        x=(heatPortRad.T - vol[i].T),
         n=n - 1,
-        delta=0.05)) "Radiative heat flow rate"
+        delta=0.05) for i in 1:nEle}) "Radiative heat flow rate"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preSumCon
