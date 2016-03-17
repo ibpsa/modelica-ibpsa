@@ -173,14 +173,16 @@ initial equation
   Q_flow_nominal = sum(QEle_flow_nominal);
 
   for i in 1:nEle loop
+    // Use difference, TWat_nominal[i] - TRad/Air_nominal, to avoid larger system of equations
     QEle_flow_nominal[i] = k * UAEle * (fraRad *
-                   Annex60.Utilities.Math.Functions.powerLinearized(x=k*dTRad_nominal[i],
-                   n=n,
-                   x0=0.1*k*(T_b_nominal-TRad_nominal))
-                   + (1-fraRad) *
-                   Annex60.Utilities.Math.Functions.powerLinearized(x=k*dTCon_nominal[i],
-                   n=n,
-                   x0=0.1*k*(T_b_nominal-TAir_nominal)));
+      Annex60.Utilities.Math.Functions.powerLinearized(
+        x=k*TWat_nominal[i] - TRad_nominal,
+        n=n,
+        x0=0.1*k*(T_b_nominal-TRad_nominal)) + (1-fraRad) *
+      Annex60.Utilities.Math.Functions.powerLinearized(
+        x=k*TWat_nominal[i] - TAir_nominal,
+        n=n,
+        x0=0.1*k*(T_b_nominal-TAir_nominal)));
    end for;
 
 equation
@@ -327,6 +329,12 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 17, 2016, by Michael Wetter:<br/>
+Reformulated model to reduce the dimension of the nonlinear system of equations.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/435\">#435</a>.
+</li>
 <li>
 November 19, 2015, by Michael Wetter:<br/>
 Removed assignment of parameter
