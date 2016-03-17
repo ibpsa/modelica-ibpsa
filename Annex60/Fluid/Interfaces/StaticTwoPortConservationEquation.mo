@@ -55,11 +55,10 @@ model StaticTwoPortConservationEquation
         rotation=90,
         origin={50,110})));
 
-  // Parameters that is used to construct the vector mXi_flow
 protected
-  final parameter Boolean use_m_flowInv_a=
+  final parameter Boolean use_m_flowInv=
     (prescribedHeatFlowRate or use_mWat_flow or use_C_flow)
-    "Flag, true if m_flowInv_a is used in the model"
+    "Flag, true if m_flowInv is used in the model"
     annotation (Evaluate=true);
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="Water",
@@ -67,8 +66,7 @@ protected
                                             then 1 else 0 for i in 1:Medium.nXi}
     "Vector with zero everywhere except where species is";
 
-  Real m_flowInv_a(unit="s/kg") "Regularization of 1/m_flow of port_a";
-  Real m_flowInv_b(unit="s/kg") "Regularization of 1/m_flow of port_b";
+  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow of port_a";
 
   Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
@@ -124,27 +122,16 @@ equation
   mXi_flow = mWat_flow_internal * s;
 
   // Regularization of m_flow around the origin to avoid a division by zero
-  // m_flowInv_a is only used if prescribedHeatFlowRate == true, or
+  // m_flowInv is only used if prescribedHeatFlowRate == true, or
   // if the input connectors mWat_flow or C_flow are enabled.
-  if use_m_flowInv_a then
-    m_flowInv_a = Annex60.Utilities.Math.Functions.inverseXRegularized(
+  if use_m_flowInv then
+    m_flowInv = Annex60.Utilities.Math.Functions.inverseXRegularized(
                        x=port_a.m_flow,
                        delta=deltaReg, deltaInv=deltaInvReg,
                        a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg);
-    if use_mWat_flow and (not simplify_mWat_flow) then
-      // The mass flow rate at the ports may not be equal
-      m_flowInv_b = Annex60.Utilities.Math.Functions.inverseXRegularized(
-                      x=port_b.m_flow,
-                      delta=deltaReg, deltaInv=deltaInvReg,
-                      a=aReg, b=bReg, c=cReg, d=dReg, e=eReg, f=fReg);
-    else
-      // No water is added, hence simply change the sign.
-      m_flowInv_b = -m_flowInv_a;
-    end if;
   else
-    // m_flowInv_a and m_flowInv_b are not used.
-    m_flowInv_a = 0;
-    m_flowInv_b = 0;
+    // m_flowInv is not used.
+    m_flowInv = 0;
   end if;
 
   if allowFlowReversal then
@@ -176,8 +163,8 @@ equation
 
     // Substance balance
     // a) forward flow
-    if use_m_flowInv_a then
-      port_b.Xi_outflow = -(inStream(port_a.Xi_outflow)*port_a.m_flow + mXi_flow) * m_flowInv_b;
+    if use_m_flowInv then
+      port_b.Xi_outflow = (inStream(port_a.Xi_outflow)*port_a.m_flow + mXi_flow) * m_flowInv;
     else // no water is added
       assert(use_mWat_flow == false, "Wrong implementation for forward flow.");
       port_b.Xi_outflow = inStream(port_a.Xi_outflow);
@@ -185,8 +172,8 @@ equation
 
     // b) backward flow
     if allowFlowReversal then
-      if use_m_flowInv_a then
-        port_a.Xi_outflow = -(inStream(port_b.Xi_outflow)*port_b.m_flow + mXi_flow) * m_flowInv_a;
+      if use_m_flowInv then
+        port_a.Xi_outflow = -(inStream(port_b.Xi_outflow)*port_b.m_flow + mXi_flow) * m_flowInv;
       else // no water added
         assert(use_mWat_flow == false, "Wrong implementation for reverse flow.");
         port_a.Xi_outflow = inStream(port_b.Xi_outflow);
@@ -198,40 +185,39 @@ equation
     // Energy balance.
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
     // at both ports. Since mWat_flow_internal << m_flow, the error is small.
-    // fixme: This needs to be revised because if simplify_mWat_flow == false, the port mass
-    // flow rates are different. Hence, if we introduce m_flowInv_b, we should also do this correctly.
     if prescribedHeatFlowRate then
-      port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv_a;
-      port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) - Q_flow * m_flowInv_a else Medium.h_default;
+      port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
+      port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) - Q_flow * m_flowInv else Medium.h_default;
     else
       // Case with prescribedHeatFlowRate == false.
       // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
-      // Hence, we cannot use m_flowInv_a as for m_flow=0, any Q_flow would satisfiy
-      // Q_flow * m_flowInv_a = 0.
+      // Hence, we cannot use m_flowInv as for m_flow=0, any Q_flow would satisfiy
+      // Q_flow * m_flowInv = 0.
       // The same applies for port_b.Xi_outflow and mXi_flow.
-      port_a.m_flow * (inStream(port_a.h_outflow)  - port_b.h_outflow)  = -Q_flow;
+      port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow)     = -Q_flow;
       if allowFlowReversal then
         port_a.m_flow * (inStream(port_b.h_outflow)  - port_a.h_outflow)  = +Q_flow;
       else
-        //When allowFlowReversal = false the downstream enthalpy should not matter
-        //therefore a dummy value is used to avoid algebraic loops
+        // When allowFlowReversal = false, the downstream enthalpy does not matter.
+        // Therefore a dummy value is used to avoid algebraic loops
         port_a.h_outflow = Medium.h_default;
       end if;
     end if;
 
   // Transport of trace substances
-  if use_m_flowInv_a and use_C_flow then
-    // fixme: this is only correct if we simplify m_flowInv_a == m_flowInv_b.
-    port_b.C_outflow =  inStream(port_a.C_outflow) + C_flow_internal * m_flowInv_a;
+  if use_m_flowInv and use_C_flow then
+    port_b.C_outflow =  inStream(port_a.C_outflow) + C_flow_internal * m_flowInv;
   else // no trace substance added.
     assert(not use_C_flow, "Wrong implementation of trace substance balance for forward flow.");
-    // fixme: this is only correct if we assume m_flowInv_a == m_flowInv_b.
     port_b.C_outflow =  inStream(port_a.C_outflow);
   end if;
 
   if allowFlowReversal then
-    // fixme: This is only correct if we simplify m_flowInv_a == m_flowInv_b.
-    port_a.C_outflow = inStream(port_b.C_outflow) - C_flow_internal * m_flowInv_a;
+    if use_C_flow then
+      port_a.C_outflow = inStream(port_b.C_outflow) - C_flow_internal * m_flowInv;
+    else
+      port_a.C_outflow = inStream(port_b.C_outflow);
+    end if;
   else
     port_a.C_outflow = zeros(Medium.nC);
   end if;
@@ -338,7 +324,7 @@ This is for
 January 22, 2016, by Michael Wetter:<br/>
 Removed <code>constant sensibleOnly</code> as this is no longer used because
 the model uses <code>use_mWat_flow</code>.<br/>
-Changed condition that determines whether <code>m_flowInv_a</code> needs to be
+Changed condition that determines whether <code>m_flowInv</code> needs to be
 computed because the change from January 20 introduced an error in
 <a href=\"modelica://Annex60.Fluid.MassExchangers.Examples.ConstantEffectiveness\">
 Annex60.Fluid.MassExchangers.Examples.ConstantEffectiveness</a>.
@@ -457,7 +443,7 @@ and added min and max attributes for <code>XiOut</code>.
 </li>
 <li>
 June 22, 2012 by Michael Wetter:<br/>
-Reformulated implementation with <code>m_flowInv_a</code> to use <code>port_a.m_flow * ...</code>
+Reformulated implementation with <code>m_flowInv</code> to use <code>port_a.m_flow * ...</code>
 if <code>use_safeDivision=false</code>. This avoids a division by zero if
 <code>port_a.m_flow=0</code>.
 </li>
