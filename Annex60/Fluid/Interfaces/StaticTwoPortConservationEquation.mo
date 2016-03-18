@@ -313,9 +313,11 @@ revisions="<html>
 <ul>
 <li>
 March 17, 2016, by Michael Wetter:<br/>
-Refactored model.
+Refactored model and implmented <code>regStep</code> instead of <code>spliceFunction</code>.
 This is for
-<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>.
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/247\">#247</a>
+and for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/300\">#300</a>.
 </li>
 <li>
 September 3, 2015, by Filip Jorissen:<br/>

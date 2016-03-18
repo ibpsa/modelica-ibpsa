@@ -269,10 +269,10 @@ using
 </p>
 <pre>
 if allowFlowReversal then
-  hOut = Annex60.Utilities.Math.Functions.spliceFunction(pos=port_b.h_outflow,
-                                                           neg=port_a.h_outflow,
-                                                           x=port_a.m_flow,
-                                                           deltax=m_flow_small/1E3);
+  hOut = Annex60.Utilities.Math.Functions.regStep(y1=port_b.h_outflow,
+                                                  y2=port_a.h_outflow,
+                                                  x=port_a.m_flow,
+                                                  x_small=m_flow_small/1E3);
 else
   hOut = port_b.h_outflow;
 end if;
