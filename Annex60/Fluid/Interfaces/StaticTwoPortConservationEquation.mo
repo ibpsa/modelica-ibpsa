@@ -137,18 +137,18 @@ equation
   if allowFlowReversal then
     // Formulate hOut using spliceFunction. This avoids an event iteration.
     // The introduced error is small because deltax=m_flow_small/1e3
-    hOut = Annex60.Utilities.Math.Functions.spliceFunction(pos=port_b.h_outflow,
-                                                           neg=port_a.h_outflow,
-                                                           x=port_a.m_flow,
-                                                           deltax=m_flow_small/1E3);
-    XiOut = Annex60.Utilities.Math.Functions.spliceFunction(pos=port_b.Xi_outflow,
-                                                            neg=port_a.Xi_outflow,
-                                                            x=port_a.m_flow,
-                                                            deltax=m_flow_small/1E3);
-    COut = Annex60.Utilities.Math.Functions.spliceFunction(pos=port_b.C_outflow,
-                                                           neg=port_a.C_outflow,
-                                                           x=port_a.m_flow,
-                                                           deltax=m_flow_small/1E3);
+    hOut = Annex60.Utilities.Math.Functions.regStep(y1=port_b.h_outflow,
+                                                    y2=port_a.h_outflow,
+                                                    x=port_a.m_flow,
+                                                    x_small=m_flow_small/1E3);
+    XiOut = Annex60.Utilities.Math.Functions.regStep(y1=port_b.Xi_outflow,
+                                                     y2=port_a.Xi_outflow,
+                                                     x=port_a.m_flow,
+                                                     x_small=m_flow_small/1E3);
+    COut = Annex60.Utilities.Math.Functions.regStep(y1=port_b.C_outflow,
+                                                    y2=port_a.C_outflow,
+                                                    x=port_a.m_flow,
+                                                    x_small=m_flow_small/1E3);
   else
     hOut =  port_b.h_outflow;
     XiOut = port_b.Xi_outflow;
@@ -187,7 +187,11 @@ equation
     // at both ports. Since mWat_flow_internal << m_flow, the error is small.
     if prescribedHeatFlowRate then
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-      port_a.h_outflow = if allowFlowReversal then inStream(port_b.h_outflow) - Q_flow * m_flowInv else Medium.h_default;
+      if allowFlowReversal then
+        port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+      else
+        port_a.h_outflow = Medium.h_default;
+      end if;
     else
       // Case with prescribedHeatFlowRate == false.
       // port_b.h_outflow is known and the equation needs to be solved for Q_flow.
