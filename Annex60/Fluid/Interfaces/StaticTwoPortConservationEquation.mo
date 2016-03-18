@@ -164,7 +164,7 @@ equation
     // Substance balance
     // a) forward flow
     if use_m_flowInv then
-      port_b.Xi_outflow = (inStream(port_a.Xi_outflow)*port_a.m_flow + mXi_flow) * m_flowInv;
+      port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
     else // no water is added
       assert(use_mWat_flow == false, "Wrong implementation for forward flow.");
       port_b.Xi_outflow = inStream(port_a.Xi_outflow);
@@ -173,7 +173,7 @@ equation
     // b) backward flow
     if allowFlowReversal then
       if use_m_flowInv then
-        port_a.Xi_outflow = -(inStream(port_b.Xi_outflow)*port_b.m_flow + mXi_flow) * m_flowInv;
+        port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
       else // no water added
         assert(use_mWat_flow == false, "Wrong implementation for reverse flow.");
         port_a.Xi_outflow = inStream(port_b.Xi_outflow);
