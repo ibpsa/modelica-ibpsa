@@ -1,6 +1,6 @@
 within Annex60.Fluid.MixingVolumes.Validation;
 model MoistureMixingConservationSteadyState
-  "This test checks if mass and energy is conserved when mixing fluid streams"
+  "This test checks if mass and energy is conserved when mixing fluid streams using steady state balances"
   extends
     Annex60.Fluid.MixingVolumes.Validation.BaseClasses.MoistureMixingConservation(
     mWatFloSol(k=0),
