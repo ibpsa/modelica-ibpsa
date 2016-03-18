@@ -9,19 +9,19 @@ model MoistureMixingConservationSteadyState
 
 equation
   connect(assMasFra.u2, senMasFra.X) annotation (Line(
-      points={{138,-4},{110,-4},{110,9}},
+      points={{138,-44},{110,-44},{110,9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(assMasFlo.u2, senMasFlo.m_flow) annotation (Line(
-      points={{138,-84},{70,-84},{70,9}},
+      points={{138,-124},{70,-124},{70,9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(assSpeEnt.u2, senSpeEnt.H_flow) annotation (Line(
-      points={{138,-164},{30,-164},{30,9}},
+      points={{138,-204},{30,-204},{30,9}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-220},{160,100}}), graphics),
+          extent={{-120,-280},{180,120}}), graphics),
     experiment(Tolerance=1e-08),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
@@ -45,6 +45,5 @@ First implementation.
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservationSteadyState.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-220},{160,
-            100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end MoistureMixingConservationSteadyState;

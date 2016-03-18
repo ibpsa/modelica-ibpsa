@@ -13,9 +13,9 @@ model MoistureMixingConservationDynamicBalance
     hSol(k=sum(U_start)),
     mWatFlo3(k=0));
 
-    parameter Real[3] m_start(each fixed=false)
+    parameter Modelica.SIunits.Mass[3] m_start(each fixed=false)
     "Initial mass of the mixing volumes";
-    parameter Real[3] U_start(each fixed=false)
+    parameter Modelica.SIunits.InternalEnergy[3] U_start(each fixed=false)
     "Initial energy of the mixing volumes";
   Modelica.Blocks.Continuous.Integrator intMasFloVapIn(
     k=1,
@@ -190,8 +190,8 @@ equation
     annotation (Line(points={{102,-30},{110,-30},{110,-21}}, color={0,0,127}));
   connect(add3Mass.u1, intMasFloOut.y)
     annotation (Line(points={{58,-122},{50,-122},{50,-21}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -260},{160,100}})),           Documentation(info="<html>
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
+            -280},{180,120}})),           Documentation(info="<html>
 <p>
 This model verifies if mass and energy are conserved, 
 using a dynamic balance. 
@@ -212,6 +212,5 @@ First implementation.
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MoistureMixingConservationDynamicBalance.mos"
         "Simulate and plot"),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-260},{160,
-            100}})));
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
 end MoistureMixingConservationDynamicBalance;
