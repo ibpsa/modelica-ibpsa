@@ -20,10 +20,9 @@ equation
       points={{138,-204},{30,-204},{30,9}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (                   Diagram(coordinateSystem(preserveAspectRatio=false,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-120,-280},{180,120}}), graphics),
     experiment(Tolerance=1e-08),
-    __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>
 This test checks if water vapour mass is conserved. 

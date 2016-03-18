@@ -1,8 +1,7 @@
 within Annex60.Fluid.MixingVolumes.Validation.BaseClasses;
 partial model MixingVolumeReverseFlow
   "Test model for mixing volume with flow reversal"
-  import Annex60;
-  extends Modelica.Icons.Example;
+ extends Modelica.Icons.Example;
  package Medium = Annex60.Media.Air "Medium model";
 
   constant Boolean prescribedHeatFlowRate = false
