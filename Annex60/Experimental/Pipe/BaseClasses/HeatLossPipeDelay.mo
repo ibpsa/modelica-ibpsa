@@ -21,8 +21,10 @@ model HeatLossPipeDelay
     "Temperature at port_a for in-flowing fluid";
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC Tout_b
     "Temperature at port_b for out-flowing fluid";
-  Modelica.SIunits.Temperature T_amb = heatPort.T "Environment temperature";
+  Modelica.SIunits.Temperature T_amb=heatPort.T "Environment temperature";
   Modelica.SIunits.HeatFlowRate Qloss "Heat losses from pipe to environment";
+  Modelica.SIunits.EnthalpyFlowRate portA=inStream(port_a.h_outflow);
+  Modelica.SIunits.EnthalpyFlowRate portB=inStream(port_b.h_outflow);
 
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
@@ -40,6 +42,7 @@ public
         rotation=270,
         origin={-60,100})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Heat port to connect environment"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heatLoss annotation (
      Placement(transformation(
@@ -48,6 +51,7 @@ public
         origin={0,38})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=Qloss)
     annotation (Placement(transformation(extent={{-34,-10},{-14,10}})));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5;
 equation
   dp = 0;
 
@@ -64,15 +68,20 @@ equation
 
   // Heat losses
   Tout_b = T_amb + (Tin_a - T_amb)*Modelica.Math.exp(-tau/tau_char);
-  Qloss = (port_a.h_outflow - port_b.h_outflow)*port_a.m_flow;
+  Qloss = Annex60.Utilities.Math.Functions.spliceFunction(
+    pos= (Tin_a-Tout_b)*cp_default,
+    neg= 0,
+    x= port_a.m_flow,
+    deltax= m_flow_nominal/1000)  *port_a.m_flow;
 
   connect(heatLoss.port, heatPort)
     annotation (Line(points={{0,48},{0,100}}, color={191,0,0}));
   connect(realExpression.y, heatLoss.Q_flow)
     annotation (Line(points={{-13,0},{-6,0},{0,0},{0,28}}, color={0,0,127}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Rectangle(
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={
+        Rectangle(
           extent={{-80,80},{80,-68}},
           lineColor={255,255,255},
           fillColor={255,255,255},
@@ -90,7 +99,7 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Ellipse(extent={{-82,80},{-40,38}}, lineColor={28,108,200}),
-                                          Polygon(
+        Polygon(
           points={{0,60},{38,2},{20,2},{20,-46},{-18,-46},{-18,2},{-36,2},{0,60}},
           lineColor={0,0,0},
           fillColor={238,46,47},

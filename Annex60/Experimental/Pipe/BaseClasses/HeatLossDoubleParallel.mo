@@ -22,6 +22,10 @@ model HeatLossDoubleParallel
   Modelica.SIunits.Temperature Tout_b
     "Temperature at port_b for out-flowing fluid";
 
+  Modelica.SIunits.Temperature T_amb=heatPort.T "Environment temperature";
+  Modelica.SIunits.HeatFlowRate Qloss "Heat losses from pipe to environment";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=0.5;
+
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
@@ -32,7 +36,7 @@ protected
     "Heat capacity of medium";
 
 public
-  Modelica.Blocks.Interfaces.RealInput T_amb(unit="K", displayUnit="degC")
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Ambient temperature of pipe's surroundings" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -55,6 +59,13 @@ public
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={-60,100})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,38})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=Qloss)
+    annotation (Placement(transformation(extent={{-32,-10},{-12,10}})));
 equation
   dp = 0;
 
@@ -73,6 +84,16 @@ equation
     tau_charSymm) + (Tin_a - T_2in)/2*Modelica.Math.exp(-Tau_in/tau_charAsymm);
   T_2out = Tin_a;
 
+  Qloss = Annex60.Utilities.Math.Functions.spliceFunction(
+    pos=(Tin_a - Tout_b)*cp_default,
+    neg=0,
+    x=port_a.m_flow,
+    deltax=m_flow_nominal/1000)*port_a.m_flow;
+
+  connect(heatPort, prescribedHeatFlow.port)
+    annotation (Line(points={{0,100},{0,100},{0,48}}, color={191,0,0}));
+  connect(realExpression.y, prescribedHeatFlow.Q_flow)
+    annotation (Line(points={{-11,0},{0,0},{0,28}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={

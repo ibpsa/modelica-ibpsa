@@ -91,7 +91,8 @@ public
     thicknessIns=thicknessIns,
     C=C,
     R=R,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 
   BaseClasses.HeatLossPipeDelay heatLoss(
@@ -101,15 +102,16 @@ public
     thicknessIns=thicknessIns,
     C=C,
     R=R,
-    m_flow_small=m_flow_small)
+    m_flow_small=m_flow_small,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-44,10},{-24,-10}})));
   BaseClasses.PDETime_massFlow    tau_unused_maxClause(diameter=diameter)
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   BaseClasses.PDETime_massFlow         tau_used(               diameter=
         diameter)
-    annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 equation
@@ -128,19 +130,19 @@ equation
     annotation (Line(points={{-44,0},{-52,0},{-60,0}},
                                                color={0,127,255}));
   connect(senMasFlo.m_flow, tau_unused_maxClause.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-40},{-22,-40}},
+      points={{-34,-11},{-34,-30},{-22,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senMasFlo.m_flow, tau_used.m_flow) annotation (Line(
-      points={{-34,-11},{-34,-54},{0,-54}},
+      points={{-34,-11},{-34,-50},{-2,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tau_used.tau, reverseHeatLoss.tau) annotation (Line(
-      points={{23,-54},{28,-54},{28,32},{-64,32},{-64,10}},
+      points={{21,-50},{28,-50},{28,32},{-64,32},{-64,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tau_used.tau, heatLoss.tau) annotation (Line(
-      points={{23,-54},{28,-54},{28,32},{44,32},{44,10}},
+      points={{21,-50},{28,-50},{28,32},{44,32},{44,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(reverseHeatLoss.heatPort, heatLoss.heatPort) annotation (Line(points=
