@@ -10,6 +10,7 @@ polynomial
 powerLinearized
 quadraticLinear
 regNonZeroPower
+regStep
 searchIndex1D
 smoothExponential
 smoothHeaviside
