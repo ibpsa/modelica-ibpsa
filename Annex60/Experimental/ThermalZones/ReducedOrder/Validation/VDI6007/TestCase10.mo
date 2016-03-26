@@ -1,5 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase10 "VDI 6007 Test Case 10 model"
+  extends Modelica.Icons.Example;
 
   ROM.ThermalZoneTwoElements thermalZoneTwoElements(
     VAir=52.5,
@@ -195,6 +196,10 @@ equation
 <li><span style=\"font-family: MS Shell Dlg 2;\">no long-wave radiation exchange between exterior wall, windows and ambient environment </span></li>
 </ul>
 <p><br><span style=\"font-family: MS Shell Dlg 2;\">This test case is thought to test linking to ajdacent rooms with fixed temperature.</span></p>
+</html>", revisions="<html>
+<ul>
+<li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
+</ul>
 </html>"),
     experiment(
       StopTime=5.184e+006,

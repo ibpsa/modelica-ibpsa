@@ -1,5 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase6 "VDI 6007 Test Case 6 model"
+  extends Modelica.Icons.Example;
 
   ROM.ThermalZoneTwoElements thermalZoneTwoElements(
     VAir=52.5,
@@ -111,6 +112,10 @@ equation
 <li><span style=\"font-family: MS Shell Dlg 2;\">no long-wave radiation exchange between exterior wall, windows and ambient environment </span></li>
 </ul>
 <p>This test case is thought to test heat load calculation without maximum heating power.</p>
+</html>", revisions="<html>
+<ul>
+<li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
+</ul>
 </html>"),
     experiment(
       StopTime=5.184e+006,

@@ -1,5 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Examples;
 model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
+  extends Modelica.Icons.Example;
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     calTSky=Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
@@ -213,6 +214,10 @@ equation
 <p><span style=\"font-family: MS Shell Dlg 2;\">The idea of the example is to show a typical application of all sub-models and to use the example in unit tests. The results are reasonable, but not related to any real use case or measurement data.</span></p>
 <h4>References</h4>
 <p><span style=\"font-family: MS Shell Dlg 2;\">[1] German Association of Engineers Guideline VDI 6007-1 March 2012. Calculation of transient thermal response of rooms and buildings - modelling of rooms.</span></p>
+</html>", revisions="<html>
+<ul>
+<li>February 25, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
+</ul>
 </html>"),
     experiment(StopTime=3.1536e+007, Interval=3600),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
