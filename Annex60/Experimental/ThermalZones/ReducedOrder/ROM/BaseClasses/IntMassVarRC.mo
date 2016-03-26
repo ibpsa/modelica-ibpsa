@@ -14,7 +14,8 @@ model IntMassVarRC "Interior wall consisting of variable number of RC elements"
           T_start)) "vector of capacitors"
     annotation (Placement(transformation(extent={{-10,-12},{10,-32}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a "interior port"
-    annotation (Placement(transformation(extent={{-102,-10},{-82,10}})));
+    annotation (Placement(transformation(extent={{-106,-10},{-86,10}}),
+        iconTransformation(extent={{-106,-10},{-86,10}})));
 equation
   // Connecting inner elements thermResInt[i]--thermCapInt[i] to n groups
   for i in 1:n loop
