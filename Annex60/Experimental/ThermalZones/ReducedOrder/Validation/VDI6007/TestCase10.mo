@@ -165,12 +165,12 @@ equation
           4.5,70},{20,70},{20,30.8},{45,30.8}}, color={0,0,127}));
   connect(outdoorTemp.y[1], eqAirTemp.TDryBul)
     annotation (Line(points={{-73.2,0},{-23,0},{-23,-0.22}}, color={0,0,127}));
-  connect(const.y,eqAirTemp. TBlaSky) annotation (Line(points={{-49.7,7},{
-          -28.85,7},{-28.85,4.46},{-23,4.46}},    color={0,0,127}));
+  connect(const.y,eqAirTemp. TBlaSky) annotation (Line(points={{-49.7,7},{-28.85,
+          7},{-28.85,4.46},{-23,4.46}},           color={0,0,127}));
   connect(eqAirTemp.TEqAir, prescribedTemperature.T) annotation (Line(points={{
           -4.2,-0.04},{0.9,-0.04},{0.9,0},{6.8,0}}, color={0,0,127}));
-  connect(HSol.y, eqAirTemp.HSol[1]) annotation (Line(points={{-77.7,25},{-32,
-          25},{-32,8.96},{-23,8.96}}, color={0,0,127}));
+  connect(HSol.y, eqAirTemp.HSol[1]) annotation (Line(points={{-77.7,25},{-32,25},
+          {-32,8.96},{-23,8.96}},     color={0,0,127}));
   connect(sunblind.y, eqAirTemp.sunblind[1]) annotation (Line(points={{-15,19.7},
           {-15,15.85},{-14,15.85},{-14,13.1}}, color={0,0,127}));
   connect(alphaWall.y,thermalConductorWall. Gc)
@@ -201,8 +201,7 @@ equation
 <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
 </ul>
 </html>"),
-    experiment(
-      StopTime=5.184e+006,
-      Interval=3600,
-      __Dymola_Algorithm="Lsodar"));
+__Dymola_Commands(file=
+          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase10.mos"
+        "Simulate and plot"));
 end TestCase10;

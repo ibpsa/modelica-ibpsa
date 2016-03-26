@@ -214,8 +214,8 @@ equation
           127}));
   connect(outdoorTemp1.y[1], eqAirTemp.TDryBul) annotation (Line(points={{-75.2,
           -12},{-25,-12},{-25,-12.22}}, color={0,0,127}));
-  connect(const.y, eqAirTemp.TBlaSky) annotation (Line(points={{-51.7,-5},{
-          -30.85,-5},{-30.85,-7.54},{-25,-7.54}}, color={0,0,127}));
+  connect(const.y, eqAirTemp.TBlaSky) annotation (Line(points={{-51.7,-5},{-30.85,
+          -5},{-30.85,-7.54},{-25,-7.54}},        color={0,0,127}));
   connect(const1.y, add.u2) annotation (Line(points={{-63.7,25},{-60.4,25},{
           -60.4,20.8}}, color={0,0,127}));
   connect(tableSolRadWall.y, eqAirTemp.HSol) annotation (Line(points={{-77.3,13},
@@ -248,10 +248,10 @@ equation
           -6.2,-12.04},{-2,-12.04},{-2,-4},{2.8,-4}}, color={0,0,127}));
   connect(prescribedTemperature.port, thermalConductorWall.fluid)
     annotation (Line(points={{16,-4},{22,-4},{22,1},{26,1}}, color={191,0,0}));
-  connect(add.y, eqAirTemp.sunblind[1]) annotation (Line(points={{-58,11.6},{
-          -58,6},{-16,6},{-16,2}},   color={0,0,127}));
-  connect(add1.y, eqAirTemp.sunblind[2]) annotation (Line(points={{-24,13.6},{
-          -24,13.6},{-24,8},{-24,8},{-16,8},{-16,0.2}},  color={0,0,127}));
+  connect(add.y, eqAirTemp.sunblind[1]) annotation (Line(points={{-58,11.6},{-58,
+          6},{-16,6},{-16,2}},       color={0,0,127}));
+  connect(add1.y, eqAirTemp.sunblind[2]) annotation (Line(points={{-24,13.6},{-24,
+          13.6},{-24,8},{-24,8},{-16,8},{-16,0.2}},      color={0,0,127}));
   connect(personsConv.port, thermalZoneTwoElements.intGainsConv) annotation (
       Line(points={{68,-74},{82,-74},{94,-74},{94,19.8},{91,19.8}}, color={191,
           0,0}));
@@ -274,8 +274,7 @@ equation
 <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
 </ul>
 </html>"),
-    experiment(
-      StopTime=5.184e+006,
-      Interval=3600,
-      __Dymola_Algorithm="Lsodar"));
+__Dymola_Commands(file=
+          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase8.mos"
+        "Simulate and plot"));
 end TestCase8;

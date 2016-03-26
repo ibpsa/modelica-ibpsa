@@ -280,8 +280,8 @@ equation
           {-96,78.2},{-96,-2},{-38,-2},{-38,-9.8},{-23,-9.8}},       color={0,0,
           127}));
   connect(eqAirTempVDI.TBlaSky, eqAirTemp.TBlaSky) annotation (Line(points={{31,83.4},
-          {-34,83.4},{-34,84},{-98,84},{-98,-8},{-58,-8},{-58,2},{-32,2},{-32,
-          -4.6},{-23,-4.6}},      color={0,0,127}));
+          {-34,83.4},{-34,84},{-98,84},{-98,-8},{-58,-8},{-58,2},{-32,2},{-32,-4.6},
+          {-23,-4.6}},            color={0,0,127}));
   connect(eqAirTempVDI.HSol[1], weaBus.HGloHor) annotation (Line(points={{31,88.4},
           {-100,88.4},{-100,6},{-83,6}},       color={0,0,127}), Text(
       string="%second",
@@ -304,5 +304,8 @@ equation
 </html>"),
     experiment(StopTime=3.1536e+007, Interval=3600),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+            100}})),
+__Dymola_Commands(file=
+          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Examples/SimpleRoomFourElements.mos"
+        "Simulate and plot"));
 end SimpleRoomFourElements;

@@ -239,9 +239,7 @@ equation
 <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
 </ul>
 </html>"),
-    experiment(
-      StopTime=5.184e+006,
-      Interval=3600,
-      __Dymola_Algorithm="Dassl"),
-    __Dymola_experimentSetupOutput);
+__Dymola_Commands(file=
+          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase11.mos"
+        "Simulate and plot"));
 end TestCase11;

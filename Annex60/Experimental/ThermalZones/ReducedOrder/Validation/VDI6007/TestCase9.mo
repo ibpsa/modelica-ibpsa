@@ -261,20 +261,20 @@ equation
           -6.2,-12.04},{-2,-12.04},{-2,-4},{2.8,-4}}, color={0,0,127}));
   connect(prescribedTemperature.port, thermalConductorWall.fluid)
     annotation (Line(points={{16,-4},{22,-4},{22,1},{26,1}}, color={191,0,0}));
-  connect(add.y, eqAirTemp.sunblind[1]) annotation (Line(points={{-58,11.6},{
-          -58,6},{-16,6},{-16,2}},   color={0,0,127}));
-  connect(add1.y, eqAirTemp.sunblind[2]) annotation (Line(points={{-24,13.6},{
-          -24,13.6},{-24,8},{-16,8},{-16,0.2}},  color={0,0,127}));
-  connect(outdoorTemp.y[1], eqAirTemp.TDryBul) annotation (Line(points={{-77.3,
-          -25},{-46,-25},{-46,-12.22},{-25,-12.22}}, color={0,0,127}));
+  connect(add.y, eqAirTemp.sunblind[1]) annotation (Line(points={{-58,11.6},{-58,
+          6},{-16,6},{-16,2}},       color={0,0,127}));
+  connect(add1.y, eqAirTemp.sunblind[2]) annotation (Line(points={{-24,13.6},{-24,
+          13.6},{-24,8},{-16,8},{-16,0.2}},      color={0,0,127}));
+  connect(outdoorTemp.y[1], eqAirTemp.TDryBul) annotation (Line(points={{-77.3,-25},
+          {-46,-25},{-46,-12.22},{-25,-12.22}},      color={0,0,127}));
   connect(HSky.y[1], sqrt.u)
     annotation (Line(points={{-77.3,-5},{-74.6,-5}}, color={0,0,127}));
   connect(sqrt.y, sqrt1.u)
     annotation (Line(points={{-67.7,-5},{-64.6,-5}}, color={0,0,127}));
   connect(sqrt1.y, gain.u) annotation (Line(points={{-57.7,-5},{-56,-5},{-56,-7},
           {-52.6,-7}}, color={0,0,127}));
-  connect(gain.y, eqAirTemp.TBlaSky) annotation (Line(points={{-45.7,-7},{
-          -33.85,-7},{-33.85,-7.54},{-25,-7.54}}, color={0,0,127}));
+  connect(gain.y, eqAirTemp.TBlaSky) annotation (Line(points={{-45.7,-7},{-33.85,
+          -7},{-33.85,-7.54},{-25,-7.54}},        color={0,0,127}));
   connect(personsConv.port, thermalZoneTwoElements.intGainsConv) annotation (
       Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,
           0,0}));
@@ -297,8 +297,7 @@ equation
 <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
 </ul>
 </html>"),
-    experiment(
-      StopTime=5.184e+006,
-      Interval=3600,
-      __Dymola_Algorithm="Lsodar"));
+__Dymola_Commands(file=
+          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase9.mos"
+        "Simulate and plot"));
 end TestCase9;

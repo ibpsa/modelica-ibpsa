@@ -244,5 +244,8 @@ equation
 </html>"),
     experiment(StopTime=3.1536e+007, Interval=3600),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+            100}})),
+__Dymola_Commands(file=
+          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mos"
+        "Simulate and plot"));
 end SimpleRoomThreeElements;
