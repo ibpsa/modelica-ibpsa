@@ -76,9 +76,9 @@ model ThermalZoneFourElements
           extent={{-54,-180},{-34,-160}})));
 equation
   connect(convRoof.solid, roofRC.port_b)
-    annotation (Line(points={{-12,130},{-12,144.8}}, color={191,0,0}));
+    annotation (Line(points={{-12,130},{-12,144.4}}, color={191,0,0}));
   connect(roofRC.port_a, roof)
-    annotation (Line(points={{-12,163.4},{-12,170}}, color={191,0,0}));
+    annotation (Line(points={{-12,163.6},{-12,170}}, color={191,0,0}));
 
   connect(resRoofWin.port_a, convWin.solid) annotation (Line(points={{-164,
           100},{-174,100},{-174,82},{-146,82},{-146,38},{-116,38}}, color={191,
@@ -90,7 +90,7 @@ equation
   connect(resRoofFloor.port_b, resExtWallFloor.port_b) annotation (Line(
         points={{-56,-122},{-56,-132},{-144,-132},{-144,-121}}, color={191,0,0}));
   connect(resIntRoof.port_b, intWallRC.port_a) annotation (Line(points={{186,0},
-          {186,-10},{168,-10},{168,-36},{182.8,-36}},    color={191,0,0}));
+          {186,-10},{168,-10},{168,-36},{182.4,-36}},    color={191,0,0}));
   connect(resIntRoof.port_a, convRoof.solid) annotation (Line(points={{186,20},
           {186,20},{186,132},{-12,132},{-12,130}}, color={191,0,0}));
   connect(resExtWallRoof.port_a, convExtWall.solid) annotation (Line(points={{-118,
@@ -123,19 +123,20 @@ equation
     connect(roofRC.port_a, thermSplitterSolRad.signalOutput[4]);
   elseif AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0 then
     connect(thermSplitterSolRad.signalOutput[5], roofRC.port_b) annotation (Line(
-      points={{-136,146},{-88,146},{-38,146},{-38,142},{-12,142},{-12,144.8}},
+      points={{-136,146},{-88,146},{-38,146},{-38,142},{-12,142},{-12,144.4}},
       color={191,0,0}));
     connect(thermSplitterIntGains.signalOutput[5], roofRC.port_b) annotation (Line(
-      points={{190,88},{190,88},{190,138},{-12,138},{-12,144.8}},
+      points={{190,88},{190,88},{190,138},{-12,138},{-12,144.4}},
       color={191,0,0}));
   end if;
   connect(alphaRoofConst.y, convRoof.Gc) annotation (Line(points={{16.5,120},{
           7.25,120},{-2,120}}, color={0,0,127}));
   connect(convRoof.fluid, TIndAirSensor.port) annotation (Line(points={{-12,110},
           {-12,110},{-12,96},{66,96},{66,20},{74,20}}, color={191,0,0}));
-  connect(roofRC.port_b, roofIndoorSurface) annotation (Line(points={{-12,144.8},
-          {-12,136},{-112,136},{-112,112},{-216,112},{-216,-140},{-44,-140},{-44,
-          -170}}, color={191,0,0}));
+  connect(roofRC.port_b, roofIndoorSurface) annotation (Line(points={{-12,144.4},
+          {-12,136},{-112,136},{-112,112},{-216,112},{-216,-140},{-44,-140},{
+          -44,-170}},
+                  color={191,0,0}));
   annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}}), graphics={
         Rectangle(

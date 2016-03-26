@@ -50,11 +50,11 @@ equation
       smooth=Smooth.None));
 
   connect(convIntWall.solid, intWallRC.port_a) annotation (Line(
-      points={{148,-36},{182.8,-36}},
+      points={{148,-36},{182.4,-36}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(intWallRC.port_a, resExtWallIntWall.port_b) annotation (Line(
-      points={{182.8,-36},{168,-36},{168,-106},{158,-106}},
+      points={{182.4,-36},{168,-36},{168,-106},{158,-106}},
       color={191,0,0},
       smooth=Smooth.None));
   if not AExt > 0 and not AWin > 0 and AInt > 0 then
@@ -66,18 +66,18 @@ equation
   elseif AExt > 0 and AWin > 0 and AInt > 0 then
     connect(thermSplitterIntGains.signalOutput[3], intWallRC.port_a)
       annotation (Line(
-        points={{190,88},{190,82},{164,82},{164,-36},{182.8,-36}},
+        points={{190,88},{190,82},{164,82},{164,-36},{182.4,-36}},
         color={191,0,0},
         smooth=Smooth.None));
     connect(thermSplitterSolRad.signalOutput[3], intWallRC.port_a) annotation (
         Line(
-        points={{-136,146},{-60,146},{-60,102},{160,102},{160,-36},{182.8,-36}},
+        points={{-136,146},{-60,146},{-60,102},{160,102},{160,-36},{182.4,-36}},
         color={191,0,0},
         smooth=Smooth.None));
 
   end if;
   connect(resIntWallWin.port_b, intWallRC.port_a) annotation (Line(
-      points={{94,-108},{118,-108},{118,-84},{168,-84},{168,-36},{182.8,-36}},
+      points={{94,-108},{118,-108},{118,-84},{168,-84},{168,-36},{182.4,-36}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(resIntWallWin.port_a, convWin.solid) annotation (Line(
@@ -87,8 +87,8 @@ equation
       smooth=Smooth.None));
   connect(alphaIntWall.y, convIntWall.Gc) annotation (Line(points={{138,-51.5},
           {138,-49.75},{138,-46}},              color={0,0,127}));
-  connect(intWallRC.port_a, intWallIndoorSurface) annotation (Line(points={{
-          182.8,-36},{170,-36},{170,-78},{-120,-78},{-120,-170}}, color={191,0,
+  connect(intWallRC.port_a, intWallIndoorSurface) annotation (Line(points={{182.4,
+          -36},{170,-36},{170,-78},{-120,-78},{-120,-170}},       color={191,0,
           0}));
   connect(convIntWall.fluid, TIndAirSensor.port) annotation (Line(points={{128,
           -36},{66,-36},{66,20},{74,20}}, color={191,0,0}));

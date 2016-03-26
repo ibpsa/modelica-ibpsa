@@ -17,7 +17,8 @@ partial model PartialEqAirTemp
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
     "Coefficient of heat transfer for linearized radiation";
   parameter Boolean withLongwave=true
-    "If longwave radiation exchange is considered" annotation(choices(checkBox = true));
+    "If longwave radiation exchange is considered"
+    annotation(choices(checkBox = true));
   Modelica.SIunits.Temp_K TEqWall[n] "Equivalent wall temperature";
   Modelica.SIunits.Temp_K TEqWin[n] "Equivalent window temperature";
   Modelica.SIunits.TemperatureDifference TEqLW
@@ -26,14 +27,17 @@ partial model PartialEqAirTemp
     "Equivalent short wave temperature";
   Modelica.Blocks.Interfaces.RealInput HSol[n](
     final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "Solar radiation per unit area" annotation (Placement(
-        transformation(extent={{-120,40},{-80,80}}), iconTransformation(extent={{-110,24},
+    final unit="W/m2") "Solar radiation per unit area"
+    annotation (Placement(
+        transformation(extent={{-120,40},{-80,80}}),
+        iconTransformation(extent={{-110,24},
             {-70,64}})));
   Modelica.Blocks.Interfaces.RealInput TBlaSky(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
     final unit="K") "Black-body sky temperature" annotation (Placement(
-        transformation(extent={{-120,-10},{-80,30}}),iconTransformation(extent={{-110,
+        transformation(extent={{-120,-10},{-80,30}}),
+        iconTransformation(extent={{-110,
             -26},{-70,14}})));
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
@@ -44,10 +48,12 @@ partial model PartialEqAirTemp
   Modelica.Blocks.Interfaces.RealOutput TEqAir(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC") "Equivalent air temperature" annotation (Placement(transformation(extent={{98,-56},
+    displayUnit="degC") "Equivalent air temperature" annotation (Placement(
+     transformation(extent={{98,-56},
             {118,-36}}),      iconTransformation(extent={{78,-76},{118,-36}})));
   Modelica.Blocks.Interfaces.RealInput sunblind[n]
-    "Opening factor of sunblinds for each direction (0 - open to 1 - closed)"   annotation (Placement(
+    "Opening factor of sunblinds for each direction (0 - open to 1 - closed)"
+    annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
@@ -56,7 +62,10 @@ partial model PartialEqAirTemp
         rotation=-90,
         origin={0,90})));
 initial equation
-  assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround) > 0.1), "The sum of the weightfactors (walls,windows and ground) in eqAirTemp is close to 0. If there are no walls, windows and ground at all, this might be irrelevant.", level=AssertionLevel.warning);
+  assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround) > 0.1),
+  "The sum of the weightfactors (walls,windows and ground) in eqAirTemp is close
+   to 0. If there are no walls, windows and ground at all, this might be 
+   irrelevant.", level=AssertionLevel.warning);
 annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),        Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -93,12 +102,14 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-1
         Line(points={{10,-72},{30,-40},{78,-40}}, color={0,0,0}),
         Line(points={{30,14},{30,-40}}, color={0,0,0})}),
     Documentation(info="<html>
-<p><code>PartialEqAirTemp</code> is a partial model for <code>EqAirTemp</code> models.</p>
+    <p><code>PartialEqAirTemp</code> is a partial model for <code>EqAirTemp</code> 
+    models.</p>
 </html>",
         revisions="<html>
 <ul>
 <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br>Implemented.</li>
-<li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality and used assert for warnings.<br>Adapted to Annex 60 requirements.</li>
+<li><i>September 2015,&nbsp;</i> by Moritz Lauster:<br>Got rid of cardinality 
+and used assert for warnings.<br>Adapted to Annex 60 requirements.</li>
 </ul>
 </html>"));
 end PartialEqAirTemp;

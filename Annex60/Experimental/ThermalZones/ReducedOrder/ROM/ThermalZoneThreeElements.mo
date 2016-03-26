@@ -71,19 +71,19 @@ model ThermalZoneThreeElements
           extent={{-92,-180},{-72,-160}})));
 equation
   connect(floorRC.port_a, convFloor.solid) annotation (Line(
-      points={{-12,-143.6},{-12,-126}},
+      points={{-12,-143.4},{-12,-126}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(floorRC.port_a, resExtWallFloor.port_b) annotation (Line(
-      points={{-12,-143.6},{-12,-132},{-144,-132},{-144,-121}},
+      points={{-12,-143.4},{-12,-132},{-144,-132},{-144,-121}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(floorRC.port_a, resIntWallFloor.port_b) annotation (Line(
-      points={{-12,-143.6},{-12,-132},{224,-132},{224,-104},{214,-104}},
+      points={{-12,-143.4},{-12,-132},{224,-132},{224,-104},{214,-104}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(floorRC.port_b, floor) annotation (Line(
-      points={{-12,-162.2},{-12,-170}},
+      points={{-12,-162.6},{-12,-170}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(resFloorWin.port_a, convWin.solid) annotation (Line(
@@ -106,18 +106,18 @@ equation
   elseif AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 then
     connect(thermSplitterIntGains.signalOutput[4], floorRC.port_a) annotation (
         Line(
-        points={{190,88},{190,80},{-38,80},{-38,-136},{-12,-136},{-12,-143.6}},
+        points={{190,88},{190,80},{-38,80},{-38,-136},{-12,-136},{-12,-143.4}},
         color={191,0,0},
         smooth=Smooth.None));
 
     connect(floorRC.port_a, thermSplitterSolRad.signalOutput[4]) annotation (
         Line(
-        points={{-12,-143.6},{-12,-140},{-42,-140},{-42,146},{-136,146}},
+        points={{-12,-143.4},{-12,-140},{-42,-140},{-42,146},{-136,146}},
         color={191,0,0},
         smooth=Smooth.None));
   end if;
-  connect(intWallRC.port_a, resIntWallFloor.port_a) annotation (Line(points={{182.8,
-          -36},{176,-36},{168,-36},{168,-86},{184,-86},{184,-104},{194,-104}},
+  connect(intWallRC.port_a, resIntWallFloor.port_a) annotation (Line(points={{182.4,
+          -36},{182.4,-36},{168,-36},{168,-86},{184,-86},{184,-104},{194,-104}},
         color={191,0,0}));
   connect(resFloorWin.port_b, resExtWallFloor.port_b) annotation (Line(points={{
           -82,-122},{-80,-122},{-80,-132},{-144,-132},{-144,-121}}, color={191,0,
@@ -129,7 +129,7 @@ equation
   connect(convFloor.fluid, TIndAirSensor.port) annotation (Line(points={{-12,
           -106},{-12,-36},{66,-36},{66,20},{74,20}}, color={191,0,0}));
   connect(floorRC.port_a, floorIndoorSurface) annotation (Line(points={{-12,
-          -143.6},{-46,-143.6},{-46,-144},{-82,-144},{-82,-170}},
+          -143.4},{-46,-143.4},{-46,-144},{-82,-144},{-82,-170}},
                                                           color={191,0,0}));
   annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(extent={{-240,-180},{240,180}},
           preserveAspectRatio=false), graphics={

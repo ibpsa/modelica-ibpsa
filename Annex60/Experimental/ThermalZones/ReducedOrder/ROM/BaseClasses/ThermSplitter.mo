@@ -1,6 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses;
-model ThermSplitter
-  "A simple model which weights a given set of therm inputs to calculate an average temperature and aggregated heat flow"
+model ThermSplitter "A simple model which weights a given set of therm inputs 
+    to calculate an average temperature and aggregated heat flow"
 
 parameter Integer dimension=6 "Dimension of the splitter";
 
@@ -22,9 +22,10 @@ equation
   signalInput.T = signalOutput.T * splitFactor
     "Equivalent building temperature rerouted to SignalInput";
 
-  annotation (defaultComponentName="thermSplit",Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})),           Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
+  annotation (defaultComponentName="thermSplit",Diagram(coordinateSystem(
+   preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+  Icon(coordinateSystem(preserveAspectRatio=false,
+  extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-2,4},{26,-30}},
           lineColor={255,0,0},
@@ -54,11 +55,13 @@ equation
           textString="ThermSplitter")}),
     Documentation(info="<html>
 <p>This model is used to weight therm ports according to given split factors.</p>
-<p>The model needs the dimension of the splitted therm port and the split factors, which are between 0 and 1.</p>
+<p>The model needs the dimension of the splitted therm port and the split 
+factors, which are between 0 and 1.</p>
 </html>", revisions="<html>
 <ul>
 <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br/>Implemented.</li>
-<li><i>January 2015,&nbsp;</i> by Peter Remmen:<br/>changed name and vectorized equation, added documentation</li>
+<li><i>January 2015,&nbsp;</i> by Peter Remmen:<br/>changed name and vectorized 
+equation, added documentation</li>
 </ul>
 </html>"));
 end ThermSplitter;
