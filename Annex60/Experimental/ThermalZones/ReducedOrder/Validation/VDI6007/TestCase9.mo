@@ -232,7 +232,7 @@ equation
   connect(const1.y, add.u2) annotation (Line(points={{-63.7,25},{-60.4,25},{
           -60.4,20.8}}, color={0,0,127}));
   connect(tableSolRadWall.y, eqAirTemp.HSol) annotation (Line(points={{-77.3,13},
-          {-68,13},{-68,2},{-46,2},{-46,-3.04},{-24,-3.04}}, color={0,0,127}));
+          {-68,13},{-68,2},{-46,2},{-46,-3.04},{-25,-3.04}}, color={0,0,127}));
   connect(switch1.y, add.u1) annotation (Line(points={{-54,25.6},{-54,24},{-54,
           20.8},{-55.6,20.8}}, color={0,0,127}));
   connect(greaterThreshold1.y, switch1.u2) annotation (Line(points={{-61,53.5},
@@ -262,11 +262,11 @@ equation
   connect(prescribedTemperature.port, thermalConductorWall.fluid)
     annotation (Line(points={{16,-4},{22,-4},{22,1},{26,1}}, color={191,0,0}));
   connect(add.y, eqAirTemp.sunblind[1]) annotation (Line(points={{-58,11.6},{
-          -58,6},{-16,6},{-16,1.1}}, color={0,0,127}));
+          -58,6},{-16,6},{-16,2}},   color={0,0,127}));
   connect(add1.y, eqAirTemp.sunblind[2]) annotation (Line(points={{-24,13.6},{
-          -24,13.6},{-24,8},{-16,8},{-16,-0.7}}, color={0,0,127}));
+          -24,13.6},{-24,8},{-16,8},{-16,0.2}},  color={0,0,127}));
   connect(outdoorTemp.y[1], eqAirTemp.TDryBul) annotation (Line(points={{-77.3,
-          -25},{-46,-25},{-46,-12.22},{-24,-12.22}}, color={0,0,127}));
+          -25},{-46,-25},{-46,-12.22},{-25,-12.22}}, color={0,0,127}));
   connect(HSky.y[1], sqrt.u)
     annotation (Line(points={{-77.3,-5},{-74.6,-5}}, color={0,0,127}));
   connect(sqrt.y, sqrt1.u)
@@ -274,7 +274,7 @@ equation
   connect(sqrt1.y, gain.u) annotation (Line(points={{-57.7,-5},{-56,-5},{-56,-7},
           {-52.6,-7}}, color={0,0,127}));
   connect(gain.y, eqAirTemp.TBlaSky) annotation (Line(points={{-45.7,-7},{
-          -33.85,-7},{-33.85,-7.54},{-24,-7.54}}, color={0,0,127}));
+          -33.85,-7},{-33.85,-7.54},{-25,-7.54}}, color={0,0,127}));
   connect(personsConv.port, thermalZoneTwoElements.intGainsConv) annotation (
       Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,
           0,0}));
@@ -282,16 +282,16 @@ equation
       Line(points={{68,-56},{96,-56},{96,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Test Case 9 of the VDI6007 Part 1: </span><span style=\"font-family: Arial,sans-serif;\"><a name=\"result_box\">C</a></span><span style=\"font-family: MS Shell Dlg 2;\">alculation of indoor air temperature excited by a radiative and convective heat source for room version S with two exterior walls. It is based on Test Case 8.</span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Boundary Condtions:</span></p>
+<p>Test Case 9 of the VDI 6007 Part 1: Calculation of indoor air temperature excited by a radiative and convective heat source for room version S with two exterior walls. It is based on Test Case 8.</p>
+<p>Boundary Condtions:</p>
 <ul>
-<li><span style=\"font-family: MS Shell Dlg 2;\">daily profile for outdoor air temperature in hourly steps </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">daily profile for solar radiation on the exterior wall </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">daily profile for solar radiation through the windows in hourly steps</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">sunblind closes at &GT;100 W/m2</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">long-wave radiation exchange between exterior wall, windows and ambient environment </span></li>
+<li>daily profile for outdoor air temperature in hourly steps</li>
+<li>daily profile for solar radiation on the exterior wall</li>
+<li>daily profile for solar radiation through the windows in hourly steps</li>
+<li>sunblind closes at &GT;100 W/m2</li>
+<li>long-wave radiation exchange between exterior wall, windows and ambient environment</li>
 </ul>
-<p><span style=\"font-family: MS Shell Dlg 2;\">This test case is thought to test reaction of indoor air temperature at mixed internal gains and outdoor impacts including solar radiation and long-wave radiation on exterior walls.</span></p>
+<p>This test case is thought to test reaction of indoor air temperature at mixed internal gains and outdoor impacts including solar radiation and long-wave radiation on exterior walls.</p>
 </html>", revisions="<html>
 <ul>
 <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>

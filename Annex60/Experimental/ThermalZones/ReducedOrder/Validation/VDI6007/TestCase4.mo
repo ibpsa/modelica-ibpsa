@@ -82,15 +82,15 @@ equation
       Line(points={{68,-74},{84,-74},{98,-74},{98,25},{91,25}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Test Case 4 of the VDI6007 Part 1: </span><span style=\"font-family: Arial,sans-serif;\"><a name=\"result_box\">C</a></span><span style=\"font-family: MS Shell Dlg 2;\">alculation of indoor air temperature excited by a radiative heat source for room version L.</span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Boundary Condtions:</span></p>
+<p>Test Case 4 of the VDI 6007 Part 1: Calculation of indoor air temperature excited by a radiative heat source for room version L.</p>
+<p>Boundary Condtions:</p>
 <ul>
-<li><span style=\"font-family: MS Shell Dlg 2;\">constant outdoor air temperature 22 degC </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">no solar or short-wave radiation on the exterior wall </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">no solar or short-wave radiation through the windows </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">no long-wave radiation exchange between exterior wall, windows and ambient environment </span></li>
+<li>constant outdoor air temperature 22 degC</li>
+<li>no solar or short-wave radiation on the exterior wall</li>
+<li>no solar or short-wave radiation through the windows</li>
+<li>no long-wave radiation exchange between exterior wall, windows and ambient environment</li>
 </ul>
-<p><span style=\"font-family: MS Shell Dlg 2;\">This test case is thought to test basic functionalities.</span></p>
+<p>This test case is thought to test basic functionalities.</p>
 </html>", revisions="<html>
 <ul>
 <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>

@@ -103,13 +103,13 @@ equation
           0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Test Case 6 of the VDI6007 Part 1: <a name=\"result_box\">C</a>alculation of heat load excited with a given radiative heat source and a setpoint profile for room version S. Is based on Test Case 2.</span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Boundary Condtions:</span></p>
+<p>Test Case 6 of the VDI 6007 Part 1: Calculation of heat load excited with a given radiative heat source and a setpoint profile for room version S. Is based on Test Case 2.</p>
+<p>Boundary Condtions:</p>
 <ul>
-<li><span style=\"font-family: MS Shell Dlg 2;\">constant outdoor air temperature 22 degC </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">no solar or short-wave radiation on the exterior wall </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">no solar or short-wave radiation through the windows </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">no long-wave radiation exchange between exterior wall, windows and ambient environment </span></li>
+<li>constant outdoor air temperature 22 degC</li>
+<li>no solar or short-wave radiation on the exterior wall</li>
+<li>no solar or short-wave radiation through the windows</li>
+<li>no long-wave radiation exchange between exterior wall, windows and ambient environment</li>
 </ul>
 <p>This test case is thought to test heat load calculation without maximum heating power.</p>
 </html>", revisions="<html>

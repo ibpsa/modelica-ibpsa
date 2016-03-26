@@ -156,16 +156,16 @@ equation
       Line(points={{68,-56},{94,-56},{94,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Test Case 5 of the VDI6007 Part 1: </span><span style=\"font-family: Arial,sans-serif;\"><a name=\"result_box\">C</a></span><span style=\"font-family: MS Shell Dlg 2;\">alculation of indoor air temperature excited by a radiative and convective heat source for room version S.</span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Boundary Condtions:</span></p>
+<p>Test Case 5 of the VDI 6007 Part 1: Calculation of indoor air temperature excited by a radiative and convective heat source for room version S.</p>
+<p>Boundary Condtions:</p>
 <ul>
-<li><span style=\"font-family: MS Shell Dlg 2;\">daily profile for outdoor air temperature in hourly steps </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">no solar or short-wave radiation on the exterior wall </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">daily profile for solar radiation through the windows in hourly steps</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">sunblind closes at &GT;100 W/m2</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">no long-wave radiation exchange between exterior wall, windows and ambient environment </span></li>
+<li>daily profile for outdoor air temperature in hourly steps</li>
+<li>no solar or short-wave radiation on the exterior wall</li>
+<li>daily profile for solar radiation through the windows in hourly steps</li>
+<li>sunblind closes at &GT;100 W/m2</li>
+<li>no long-wave radiation exchange between exterior wall, windows and ambient environment</li>
 </ul>
-<p><span style=\"font-family: MS Shell Dlg 2;\">This test case is thought to test reaction of indoor air temperature at mixed internal gains and outdoor impacts.</span></p>
+<p>This test case is thought to test reaction of indoor air temperature at mixed internal gains and outdoor impacts.</p>
 </html>", revisions="<html>
 <ul>
 <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>

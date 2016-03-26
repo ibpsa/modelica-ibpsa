@@ -164,15 +164,15 @@ equation
   connect(product1.y, thermalZoneTwoElements.solRad) annotation (Line(points={{
           4.5,70},{20,70},{20,30.8},{45,30.8}}, color={0,0,127}));
   connect(outdoorTemp.y[1], eqAirTemp.TDryBul)
-    annotation (Line(points={{-73.2,0},{-22,0},{-22,-0.22}}, color={0,0,127}));
+    annotation (Line(points={{-73.2,0},{-23,0},{-23,-0.22}}, color={0,0,127}));
   connect(const.y,eqAirTemp. TBlaSky) annotation (Line(points={{-49.7,7},{
-          -28.85,7},{-28.85,4.46},{-22,4.46}},    color={0,0,127}));
+          -28.85,7},{-28.85,4.46},{-23,4.46}},    color={0,0,127}));
   connect(eqAirTemp.TEqAir, prescribedTemperature.T) annotation (Line(points={{
           -4.2,-0.04},{0.9,-0.04},{0.9,0},{6.8,0}}, color={0,0,127}));
   connect(HSol.y, eqAirTemp.HSol[1]) annotation (Line(points={{-77.7,25},{-32,
-          25},{-32,8.96},{-22,8.96}}, color={0,0,127}));
+          25},{-32,8.96},{-23,8.96}}, color={0,0,127}));
   connect(sunblind.y, eqAirTemp.sunblind[1]) annotation (Line(points={{-15,19.7},
-          {-15,15.85},{-14,15.85},{-14,12.2}}, color={0,0,127}));
+          {-15,15.85},{-14,15.85},{-14,13.1}}, color={0,0,127}));
   connect(alphaWall.y,thermalConductorWall. Gc)
     annotation (Line(points={{28,-14.6},{29,-14.6},{29,-5}}, color={0,0,127}));
   connect(prescribedTemperature.port, thermalConductorWall.fluid)
@@ -186,16 +186,16 @@ equation
       Line(points={{68,-56},{96,-56},{96,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Test Case 10 of the VDI6007 Part 1: </span><span style=\"font-family: Arial,sans-serif;\"><a name=\"result_box\">C</a></span><span style=\"font-family: MS Shell Dlg 2;\">alculation of indoor air temperature excited by a radiative and convective heat source for room version S. It is based on Test Case 5, but with a non-adiabatic floor plate to an adjacent room with a fixed temperature.</span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Boundary Condtions:</span></p>
+<p>Test Case 10 of the VDI 6007 Part 1: Calculation of indoor air temperature excited by a radiative and convective heat source for room version S. It is based on Test Case 5, but with a non-adiabatic floor plate to an adjacent room with a fixed temperature.</p>
+<p>Boundary Condtions:</p>
 <ul>
-<li><span style=\"font-family: MS Shell Dlg 2;\">daily profile for outdoor air temperature in hourly steps </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">no solar or short-wave radiation on the exterior wall </span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">daily profile for solar radiation through the windows in hourly steps</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">sunblind closes at &GT;100 W/m2</span></li>
-<li><span style=\"font-family: MS Shell Dlg 2;\">no long-wave radiation exchange between exterior wall, windows and ambient environment </span></li>
+<li>daily profile for outdoor air temperature in hourly steps</li>
+<li>no solar or short-wave radiation on the exterior wall</li>
+<li>daily profile for solar radiation through the windows in hourly steps</li>
+<li>sunblind closes at &GT;100 W/m2</li>
+<li>no long-wave radiation exchange between exterior wall, windows and ambient environment</li>
 </ul>
-<p><br><span style=\"font-family: MS Shell Dlg 2;\">This test case is thought to test linking to ajdacent rooms with fixed temperature.</span></p>
+<p><br>This test case is thought to test linking to ajdacent rooms with fixed temperature.</p>
 </html>", revisions="<html>
 <ul>
 <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>

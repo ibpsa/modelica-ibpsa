@@ -201,11 +201,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(extWallRC.port_b, extWall) annotation (Line(
-      points={{-177.2,-36},{-230,-36}},
+      points={{-177.6,-36},{-230,-36}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(extWallRC.port_a, convExtWall.solid) annotation (Line(
-      points={{-158.6,-36},{-114,-36}},
+      points={{-158.4,-36},{-114,-36}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(eConvSol.y, convHeatSol.Q_flow) annotation (Line(
@@ -366,7 +366,7 @@ equation
           lineColor={0,0,0},
           textString="1")}),
     Documentation(info="<html>
-<p><code>ThermalZoneOneElement</code> <span style=\"font-family: MS Shell Dlg 2;\">merges all thermal masses into one substitutional element, parameterized by length of RC-chain </span><code>nExt,</code><span style=\"font-family: MS Shell Dlg 2;\"> vector of capacities </span><code>CExt[nExt]</code><span style=\"font-family: MS Shell Dlg 2;\"> that is connected via vector of resistances </span><code>RExt[nExt]</code> and <code>RExtRem</code><span style=\"font-family: MS Shell Dlg 2;\"> to the ambient and indoor air. It neglects all internal thermal masses that are not directly connected to the ambient.</span></p>
+<p><code>ThermalZoneOneElement</code> merges all thermal masses into one substitutional element, parameterized by length of RC-chain <code>nExt,</code> vector of capacities <code>CExt[nExt]</code> that is connected via vector of resistances <code>RExt[nExt]</code> and <code>RExtRem</code> to the ambient and indoor air. It neglects all internal thermal masses that are not directly connected to the ambient.</p>
 <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneOneElement/OneElement.png\" alt=\"image\"/> </p>
 </html>", revisions="<html>
 <ul>

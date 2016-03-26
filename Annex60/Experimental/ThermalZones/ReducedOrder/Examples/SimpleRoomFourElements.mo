@@ -192,7 +192,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, eqAirTemp.TDryBul) annotation (Line(
-      points={{-83,6},{-83,-2},{-38,-2},{-38,-9.8},{-22,-9.8}},
+      points={{-83,6},{-83,-2},{-38,-2},{-38,-9.8},{-23,-9.8}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -205,7 +205,7 @@ equation
   connect(internalGains.y[3], machinesConv.Q_flow) annotation (Line(points={{22.8,
           -52},{28,-52},{28,-74},{48,-74}}, color={0,0,127}));
   connect(const.y, eqAirTemp.sunblind) annotation (Line(points={{-13.7,17},{-12,
-          17},{-12,8},{-14,8},{-14,4}}, color={0,0,127}));
+          17},{-12,8},{-14,8},{-14,5}}, color={0,0,127}));
   connect(HDifTil.HSkyDifTil, corGDoublePane.HSkyDifTil) annotation (Line(
         points={{-47,36},{-28,36},{-6,36},{-6,58},{0,58},{0,57.8},{4,57.8},{6,
           57.8}},                                              color={0,0,127}));
@@ -218,7 +218,7 @@ equation
   connect(HDifTil.HGroDifTil, corGDoublePane.HGroDifTil) annotation (Line(
         points={{-47,24},{-4,24},{-4,53.6},{6,53.6}}, color={0,0,127}));
   connect(solRad.y, eqAirTemp.HSol) annotation (Line(points={{-27.5,11},{-26,11},
-          {-26,0.4},{-22,0.4}}, color={0,0,127}));
+          {-26,0.4},{-23,0.4}}, color={0,0,127}));
   connect(weaDat.weaBus, HDifTil[1].weaBus) annotation (Line(
       points={{-76,62},{-74,62},{-74,30},{-68,30}},
       color={255,204,51},
@@ -253,7 +253,7 @@ equation
   connect(alphaWin.y, thermalConductorWin.Gc)
     annotation (Line(points={{32,33.6},{32,26},{33,26}}, color={0,0,127}));
   connect(weaBus.TBlaSky, eqAirTemp.TBlaSky) annotation (Line(
-      points={{-83,6},{-58,6},{-58,2},{-32,2},{-32,-4.6},{-22,-4.6}},
+      points={{-83,6},{-58,6},{-58,2},{-32,2},{-32,-4.6},{-23,-4.6}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -276,27 +276,27 @@ equation
         points={{49.8,78.4},{67,78.4},{67,71.2}}, color={0,0,127}));
   connect(thermalConductorRoof.Gc, alphaRoof.y) annotation (Line(points={{72,47},
           {78,47},{78,47},{81.6,47}}, color={0,0,127}));
-  connect(eqAirTempVDI.TDryBul, eqAirTemp.TDryBul) annotation (Line(points={{32,
-          78.2},{-96,78.2},{-96,-2},{-38,-2},{-38,-9.8},{-22,-9.8}}, color={0,0,
+  connect(eqAirTempVDI.TDryBul, eqAirTemp.TDryBul) annotation (Line(points={{31,78.2},
+          {-96,78.2},{-96,-2},{-38,-2},{-38,-9.8},{-23,-9.8}},       color={0,0,
           127}));
-  connect(eqAirTempVDI.TBlaSky, eqAirTemp.TBlaSky) annotation (Line(points={{32,
-          83.4},{-34,83.4},{-34,84},{-98,84},{-98,-8},{-58,-8},{-58,2},{-32,2},
-          {-32,-4.6},{-22,-4.6}}, color={0,0,127}));
-  connect(eqAirTempVDI.HSol[1], weaBus.HGloHor) annotation (Line(points={{32,
-          88.4},{-100,88.4},{-100,6},{-83,6}}, color={0,0,127}), Text(
+  connect(eqAirTempVDI.TBlaSky, eqAirTemp.TBlaSky) annotation (Line(points={{31,83.4},
+          {-34,83.4},{-34,84},{-98,84},{-98,-8},{-58,-8},{-58,2},{-32,2},{-32,
+          -4.6},{-23,-4.6}},      color={0,0,127}));
+  connect(eqAirTempVDI.HSol[1], weaBus.HGloHor) annotation (Line(points={{31,88.4},
+          {-100,88.4},{-100,6},{-83,6}},       color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(HDirTil.inc, corGDoublePane.inc) annotation (Line(points={{-47,58},{
           -28,58},{-10,58},{-10,49.4},{6,49.4}}, color={0,0,127}));
   connect(const1.y, eqAirTempVDI.sunblind[1]) annotation (Line(points={{61.7,93},
-          {56,93},{56,98},{40,98},{40,92}}, color={0,0,127}));
+          {56,93},{56,98},{40,98},{40,93}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">This example shows the application of <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.ThermalZoneFourElements\">ThermalZoneFourElements</a> in combination with <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp\">EqAirTemp</a> and <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain.CorGDoublePane\">CorGDoublePane</a>. Solar radiation on tilted surface is calculated using models of Annex60. The thermal zone is a simple room defined in Guideline VDI 6007 Part 1 [1]. All models, parameters and inputs except sunblinds, seperate handling of heat transfer through windows, an extra wall element for ground floor (with additional area), an extra wall element for roof (with additional area) and solar radiation are similar to the ones defined for the guideline&apos;s test room. For solar radiation, the example relies on the standard weather file in Annex60.</span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">The idea of the example is to show a typical application of all sub-models and to use the example in unit tests. The results are reasonable, but not related to any real use case or measurement data.</span></p>
+<p>This example shows the application of <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.ThermalZoneFourElements\">ThermalZoneFourElements</a> in combination with <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp\">EqAirTemp</a> and <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain.CorGDoublePane\">CorGDoublePane</a>. Solar radiation on tilted surface is calculated using models of Annex60. The thermal zone is a simple room defined in Guideline VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs except sunblinds, seperate handling of heat transfer through windows, an extra wall element for ground floor (with additional area), an extra wall element for roof (with additional area) and solar radiation are similar to the ones defined for the guideline&apos;s test room. For solar radiation, the example relies on the standard weather file in Annex60.</p>
+<p>The idea of the example is to show a typical application of all sub-models and to use the example in unit tests. The results are reasonable, but not related to any real use case or measurement data.</p>
 <h4>References</h4>
-<p><span style=\"font-family: MS Shell Dlg 2;\">[1] German Association of Engineers Guideline VDI 6007-1 March 2012. Calculation of transient thermal response of rooms and buildings - modelling of rooms.</span></p>
+<p>VDI. German Association of Engineers Guideline VDI 6007-1 March 2012. Calculation of transient thermal response of rooms and buildings - modelling of rooms.</p>
 </html>", revisions="<html>
 <ul>
 <li>February 25, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
