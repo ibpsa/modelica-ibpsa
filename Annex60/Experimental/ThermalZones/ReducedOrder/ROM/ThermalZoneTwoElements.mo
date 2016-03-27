@@ -3,14 +3,21 @@ model ThermalZoneTwoElements
   "Thermal Zone with two elements for exterior and interior walls"
   extends ROM.ThermalZoneOneElement(
                                 AArray={AExt,AWin,AInt});
-  parameter Modelica.SIunits.Area AInt "Area of interior walls"    annotation(Dialog(group="Interior walls"));
+  parameter Modelica.SIunits.Area AInt "Area of interior walls"
+  annotation(Dialog(group="Interior walls"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaInt
-    "Coefficient of heat transfer of interior walls (indoor)" annotation(Dialog(group="Interior walls"));
-  parameter Integer nInt(min = 1) "Number of RC-elements of interior walls" annotation(Dialog(group="Interior walls"));
-  parameter Modelica.SIunits.ThermalResistance RInt[nInt](each min=Modelica.Constants.small)
-    "Vector of resistances of interior walls, from port to center"                         annotation(Dialog(group="Interior walls"));
-  parameter Modelica.SIunits.HeatCapacity CInt[nInt](each min=Modelica.Constants.small)
-    "Vector of heat capacities of interior walls, from port to center"                       annotation(Dialog(group="Interior walls"));
+    "Coefficient of heat transfer of interior walls (indoor)"
+    annotation(Dialog(group="Interior walls"));
+  parameter Integer nInt(min = 1) "Number of RC-elements of interior walls"
+  annotation(Dialog(group="Interior walls"));
+  parameter Modelica.SIunits.ThermalResistance RInt[nInt](
+   each min=Modelica.Constants.small)
+    "Vector of resistances of interior walls, from port to center"
+     annotation(Dialog(group="Interior walls"));
+  parameter Modelica.SIunits.HeatCapacity CInt[nInt](
+   each min=Modelica.Constants.small)
+    "Vector of heat capacities of interior walls, from port to center"
+    annotation(Dialog(group="Interior walls"));
   parameter Boolean indoorPortIntWalls = false
     "Additional heat port at indoor surface of interior walls"
     annotation(Dialog(group="Interior walls"),choices(checkBox = true));
@@ -21,28 +28,27 @@ model ThermalZoneTwoElements
     T_start=T_start) if
                   AInt > 0 "RC-element for interior walls"
     annotation (Placement(transformation(extent={{182,-46},{202,-24}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection         convIntWall if
-                                                                            AInt > 0
+  Modelica.Thermal.HeatTransfer.Components.Convection convIntWall if AInt > 0
     "convective heat transfer of interior walls"
     annotation (Placement(transformation(extent={{148,-26},{128,-46}})));
-  Modelica.Blocks.Sources.Constant alphaIntWall(k=AInt*alphaInt) if    AInt > 0
+  Modelica.Blocks.Sources.Constant alphaIntWall(k=AInt*alphaInt) if AInt > 0
     "coefficient of convective heat transfer for interior walls"
     annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=-90,
         origin={138,-57})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallIntWall(G=min(
-        AExt, AInt)*alphaRad) if  AExt > 0 and AInt > 0
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallIntWall(
+   G=min(AExt, AInt)*alphaRad) if  AExt > 0 and AInt > 0
     "resistor between exterior walls and interior walls"
     annotation (Placement(transformation(extent={{138,-116},{158,-96}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resIntWallWin(G=min(
         AWin, AInt)*alphaRad) if  AWin > 0 and AInt > 0
     "resistor between interior walls and windows"
     annotation (Placement(transformation(extent={{74,-118},{94,-98}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intWallIndoorSurface if  indoorPortIntWalls
-    "auxilliary port at indoor surface of interior walls" annotation (Placement(
-        transformation(extent={{-130,-180},{-110,-160}}), iconTransformation(
-          extent={{-130,-180},{-110,-160}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intWallIndoorSurface if
+     indoorPortIntWalls "auxilliary port at indoor surface of interior walls"
+    annotation (Placement(transformation(extent={{-130,-180},{-110,-160}}),
+    iconTransformation(extent={{-130,-180},{-110,-160}})));
 equation
   connect(resExtWallIntWall.port_a, convExtWall.solid) annotation (Line(
       points={{138,-106},{110,-106},{110,-86},{-144,-86},{-144,-36},{-114,-36}},
@@ -60,7 +66,8 @@ equation
   if not AExt > 0 and not AWin > 0 and AInt > 0 then
     connect(thermSplitterIntGains.signalOutput[1], intWallRC.port_a);
     connect(thermSplitterSolRad.signalOutput[1], intWallRC.port_a);
-  elseif AExt > 0 and not AWin > 0 and AInt > 0 or not AExt > 0 and AWin > 0 and AInt > 0 then
+  elseif AExt > 0 and not AWin > 0 and AInt > 0 or not AExt > 0 and AWin > 0
+    and AInt > 0 then
     connect(thermSplitterIntGains.signalOutput[2], intWallRC.port_a);
     connect(thermSplitterSolRad.signalOutput[2], intWallRC.port_a);
   elseif AExt > 0 and AWin > 0 and AInt > 0 then
@@ -92,8 +99,8 @@ equation
           0}));
   connect(convIntWall.fluid, TIndAirSensor.port) annotation (Line(points={{128,
           -36},{66,-36},{66,20},{74,20}}, color={191,0,0}));
-  annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -180},{240,180}}), graphics={
+  annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(
+   preserveAspectRatio=false, extent={{-240,-180},{240,180}}), graphics={
         Polygon(
           points={{116,-14},{230,-14},{230,-76},{140,-76},{138,-76},{116,-76},{
               116,-14}},
@@ -111,10 +118,17 @@ equation
 <li>April 18, 2015, by Moritz Lauster:<br>First implementation. </li>
 </ul>
 </html>", info="<html>
-<p><code>ThermalZoneTwoElements</code><i> </i>distinguishes between internal thermal masses and outer walls. While outer walls contribute to heat transfer to the ambient, adiabatic conditions apply to internal masses. Internal wall element needs length of RC-chain <code>nInt</code>, vector of capacities <code>CInt[nInt]</code> and vector of resistances <code>RInt[nInt].</code> This approach allows considering the dynamic behaviour induced by internal heat storage.</p>
+<p><code>ThermalZoneTwoElements</code><i> </i>distinguishes between internal 
+thermal masses and outer walls. While outer walls contribute to heat transfer to 
+the ambient, adiabatic conditions apply to internal masses. Internal wall element 
+needs length of RC-chain <code>nInt</code>, vector of capacities 
+<code>CInt[nInt]</code> and vector of resistances <code>RInt[nInt].</code> 
+This approach allows considering the dynamic behaviour induced by internal heat 
+storage.</p>
 <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneTwoElements/TwoElements.png\" alt=\"image\"/> </p>
 </html>"),
-    Icon(coordinateSystem(extent={{-240,-180},{240,180}}, preserveAspectRatio=false),
+    Icon(coordinateSystem(extent={{-240,-180},{240,180}},
+    preserveAspectRatio=false),
         graphics={Rectangle(
           extent={{-36,40},{32,-38}},
           fillColor={230,230,230},

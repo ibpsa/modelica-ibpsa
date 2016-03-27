@@ -44,6 +44,10 @@ partial model PartialCorG
           lineColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
-<p>Partial model for correction factors for transmitted solar radiation through a transparent element.</p>
+    <p>Partial model for correction factors for transmitted solar radiation through 
+    a transparent element.</p>
+</html>", revisions="<html>
+<p><i>February 24, 2014</i> by Reza Tavakoli:</p>
+<p>Implemented. </p>
 </html>"));
 end PartialCorG;

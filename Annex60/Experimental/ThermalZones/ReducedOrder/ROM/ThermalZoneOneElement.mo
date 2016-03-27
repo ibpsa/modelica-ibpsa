@@ -3,40 +3,52 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
 
   parameter Modelica.SIunits.Temperature T_start
     "Initial temperature for thermal masses (incl. indoor air)";
-  parameter Modelica.SIunits.Volume VAir "Air volume of the zone" annotation(Dialog(group="Thermal zone"));
+  parameter Modelica.SIunits.Volume VAir "Air volume of the zone"
+  annotation(Dialog(group="Thermal zone"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
     "Coefficient of heat transfer for linearized radiation exchange between walls"
-                                                                                        annotation(Dialog(group="Thermal zone"));
+  annotation(Dialog(group="Thermal zone"));
   package Medium = Annex60.Media.Air;
   parameter Integer nPorts=0 "Number of fluid ports"
-    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
+    annotation(Evaluate=true,
+    Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Modelica.SIunits.Area AWin "Area of windows"
                       annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.Area ATransparent
-    "Surface area of transparent (solar radiation transmittend) elements" annotation(Dialog(group="Windows"));
+    "Surface area of transparent (solar radiation transmittend) elements"
+    annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWin
-    "Coefficient of heat transfer of windows (indoor)" annotation(Dialog(group="Windows"));
+    "Coefficient of heat transfer of windows (indoor)"
+    annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.ThermalResistance RWin "Resistor for windows"
-                           annotation(Dialog(group="Windows"));
+    annotation(Dialog(group="Windows"));
   parameter Modelica.SIunits.TransmissionCoefficient gWin
-    "Total energy transmittance of windows" annotation(Dialog(group="Windows"));
+    "Total energy transmittance of windows"
+    annotation(Dialog(group="Windows"));
   parameter Real ratioWinConRad
-    "Ratio for windows between indoor convective and radiative heat emission" annotation(Dialog(group="Windows"));
+    "Ratio for windows between indoor convective and radiative heat emission"
+    annotation(Dialog(group="Windows"));
   parameter Boolean indoorPortWin = false
     "Additional heat port at indoor surface of windows"
     annotation(Dialog(group="Windows"),choices(checkBox = true));
   parameter Modelica.SIunits.Area AExt "Area of exterior walls"
-                                                               annotation(Dialog(group="Exterior walls"));
+  annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExt
-    "Coefficient of heat transfer of exterior walls (indoor)" annotation(Dialog(group="Exterior walls"));
-  parameter Integer nExt(min = 1) "Number of RC-elements of exterior walls" annotation(Dialog(group="Exterior walls"));
-  parameter Modelica.SIunits.ThermalResistance RExt[nExt](each min=Modelica.Constants.small)
-    "Vector of resistances of exterior walls, from inside to outside" annotation(Dialog(group="Exterior walls"));
-  parameter Modelica.SIunits.ThermalResistance RExtRem(min=Modelica.Constants.small)
+    "Coefficient of heat transfer of exterior walls (indoor)"
+    annotation(Dialog(group="Exterior walls"));
+  parameter Integer nExt(min = 1) "Number of RC-elements of exterior walls"
+  annotation(Dialog(group="Exterior walls"));
+  parameter Modelica.SIunits.ThermalResistance RExt[nExt](
+   each min=Modelica.Constants.small)
+    "Vector of resistances of exterior walls, from inside to outside"
+    annotation(Dialog(group="Exterior walls"));
+  parameter Modelica.SIunits.ThermalResistance RExtRem(
+   min=Modelica.Constants.small)
     "Resistance of remaining resistor RExtRem between capacitance n and outside"
-                                                                                    annotation(Dialog(group="Exterior walls"));
+    annotation(Dialog(group="Exterior walls"));
   parameter Modelica.SIunits.HeatCapacity CExt[nExt](each min=Modelica.Constants.small)
-    "Vector of heat capacities of exterior walls, from inside to outside"                  annotation(Dialog(group="Exterior walls"));
+    "Vector of heat capacities of exterior walls, from inside to outside"
+    annotation(Dialog(group="Exterior walls"));
   parameter Boolean indoorPortExtWalls = false
     "Additional heat port at indoor surface of exterior walls"
     annotation(Dialog(group="Exterior walls"),choices(checkBox = true));
@@ -66,40 +78,41 @@ public
         extent={{-30.5,-8},{30.5,8}},
         rotation=0,
         origin={150,-171.5})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWall if    AExt > 0
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWall if AExt > 0
     "ambient port for exterior walls" annotation (Placement(transformation(
           extent={{-240,-46},{-220,-26}}), iconTransformation(extent={{-240,-46},
             {-220,-26}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection         convExtWall if
-                                                                            AExt > 0
+  Modelica.Thermal.HeatTransfer.Components.Convection convExtWall if AExt > 0
     "convective heat transfer of exterior walls"
     annotation (Placement(transformation(extent={{-114,-26},{-94,-46}})));
-  Modelica.Blocks.Sources.Constant alphaExtWallConst(k=AExt*alphaExt) if  AExt > 0
+  Modelica.Blocks.Sources.Constant alphaExtWallConst(k=AExt*alphaExt) if AExt > 0
     "coefficient of convective heat transfer for exterior walls"
     annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=-90,
         origin={-104,-57})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if ATot > 0 or VAir > 0
-    "auxilliary port for internal convective gains" annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsConv if
+     ATot > 0 or VAir > 0 "auxilliary port for internal convective gains"
+                                                    annotation (Placement(
         transformation(extent={{220,28},{240,48}}), iconTransformation(extent={{
             220,28},{240,48}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalResistor resWin(R=RWin) if        AWin > 0
-    "resistor for windows"
+  Modelica.Thermal.HeatTransfer.Components.ThermalResistor resWin(R=RWin) if
+     AWin > 0 "resistor for windows"
     annotation (Placement(transformation(extent={{-180,28},{-160,48}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a window if     AWin > 0
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a window if AWin > 0
     "ambient port for windows" annotation (Placement(transformation(extent={{-240,
             28},{-220,48}}), iconTransformation(extent={{-240,28},{-220,48}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection         convWin if    AWin > 0
+  Modelica.Thermal.HeatTransfer.Components.Convection convWin if AWin > 0
     "convective heat transfer of windows"
     annotation (Placement(transformation(extent={{-116,28},{-96,48}})));
-  Modelica.Blocks.Sources.Constant alphaWinConst(k=AWin*alphaWin) if     AWin > 0
+  Modelica.Blocks.Sources.Constant alphaWinConst(k=AWin*alphaWin) if AWin > 0
     "coefficient of convective heat transfer for windows"
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={-106,66})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow convHeatSol if      ratioWinConRad > 0 and (ATot > 0 or VAir > 0)
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow convHeatSol if
+     ratioWinConRad > 0 and (ATot > 0 or VAir > 0)
     "solar heat considered as convection"
     annotation (Placement(transformation(extent={{-178,114},{-158,134}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow radHeatSol if ATot > 0
@@ -108,26 +121,26 @@ public
   Modelica.Blocks.Math.Gain eRadSol(k=gWin*(1 - ratioWinConRad)*ATransparent)
     "emission coefficient of solar radiation considered as radiation"
     annotation (Placement(transformation(extent={{-196,141},{-186,151}})));
-  Modelica.Blocks.Math.Gain eConvSol(k=gWin*ratioWinConRad*ATransparent) if   ratioWinConRad > 0
+  Modelica.Blocks.Math.Gain eConvSol(k=gWin*ratioWinConRad*ATransparent) if
+     ratioWinConRad > 0
     "emission coefficient of solar radiation considered as convection"
     annotation (Placement(transformation(extent={{-196,119},{-186,129}})));
   Modelica.Blocks.Interfaces.RealInput solRad(
     final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") "solar radiation transmitted through aggregated window" annotation (Placement(
-        transformation(extent={{-260,118},{-220,158}}),
-                                                     iconTransformation(extent={{-240,
-            138},{-220,158}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsRad if     ATot > 0
+    final unit="W/m2") "solar radiation transmitted through aggregated window"
+    annotation (Placement(transformation(extent={{-260,118},{-220,158}}),
+    iconTransformation(extent={{-240,138},{-220,158}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a intGainsRad if ATot > 0
     "auxilliary port for internal radiative gains" annotation (Placement(
-        transformation(extent={{220,80},{240,100}}), iconTransformation(extent={{220,80},
-            {240,100}})));
+        transformation(extent={{220,80},{240,100}}),
+        iconTransformation(extent={{220,80},{240,100}})));
   BaseClasses.ThermSplitter thermSplitterIntGains(splitFactor=splitFactor,
-      dimension=dimension) if                                                                      ATot > 0
-    "splits incoming internal gains into seperate gains for each wall element, weighted by their area"
+      dimension=dimension) if ATot > 0 "splits incoming internal gains into seperate gains for each wall element, 
+      weighted by their area"
     annotation (Placement(transformation(extent={{210,78},{190,98}})));
   BaseClasses.ThermSplitter thermSplitterSolRad(splitFactor=splitFactor,
-      dimension=dimension) if                                                                    ATot > 0
-    "splits incoming solar radiation into seperate gains for each wall element, weighted by their area"
+      dimension=dimension) if ATot > 0 "splits incoming solar radiation into seperate gains for each wall 
+      element, weighted by their area"
     annotation (Placement(transformation(extent={{-152,138},{-136,154}})));
   BaseClasses.ExtMassVarRC extWallRC(
     n=nExt,
@@ -136,16 +149,15 @@ public
     RExtRem=RExtRem,
     T_start=T_start) if AExt > 0 "RC-element for exterior walls"
     annotation (Placement(transformation(extent={{-158,-46},{-178,-24}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallWin(G=min(
-        AExt, AWin)*alphaRad) if     AExt > 0 and AWin > 0
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallWin(
+   G=min(AExt, AWin)*alphaRad) if AExt > 0 and AWin > 0
     "resistor between exterior walls and windows" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-146,8})));
-
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TIndAirSensor if ATot > 0 or VAir > 0
-    "Indoor air temperature sensor"
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TIndAirSensor if
+     ATot > 0 or VAir > 0 "Indoor air temperature sensor"
     annotation (Placement(transformation(extent={{74,10},{94,30}})));
   Modelica.Blocks.Interfaces.RealOutput TIndAir(
   final quantity="ThermodynamicTemperature",
@@ -153,17 +165,18 @@ public
   displayUnit="degC") if ATot > 0 or VAir > 0 "Indoor air temperature"
     annotation (Placement(transformation(extent={{220,140},{240,160}}),
         iconTransformation(extent={{220,140},{240,160}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a windowIndoorSurface if indoorPortWin
-    "auxilliary port at indoor surface of windows"
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a windowIndoorSurface if
+     indoorPortWin "auxilliary port at indoor surface of windows"
     annotation (Placement(transformation(extent={{-206,-180},{-186,-160}}),
         iconTransformation(extent={{-206,-180},{-186,-160}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWallIndoorSurface if  indoorPortExtWalls
-    "auxilliary port at indoor surface of exterior walls" annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a extWallIndoorSurface if
+      indoorPortExtWalls "auxilliary port at indoor surface of exterior walls"
+                                                          annotation (Placement(
         transformation(extent={{-168,-180},{-148,-160}}), iconTransformation(
           extent={{-168,-180},{-148,-160}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TMeanRadSensor if
-                                                                           ATot > 0
-    "Mean indoor radiation temperatur sensor" annotation (Placement(
+     ATot > 0 "Mean indoor radiation temperatur sensor"
+                                              annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -172,9 +185,8 @@ public
   final quantity="ThermodynamicTemperature",
   final unit="K",
   displayUnit="degC") if ATot > 0 "Mean indoor radiation temperature"
-                                        annotation (Placement(transformation(
-          extent={{220,110},{240,130}}), iconTransformation(extent={{220,110},{240,
-            130}})));
+  annotation (Placement(transformation(extent={{220,110},{240,130}}),
+  iconTransformation(extent={{220,110},{240,130}})));
 equation
   connect(volAir.ports, ports) annotation (Line(
       points={{28,-10},{28,-66},{56,-66},{56,-122},{86,-122},{86,-172},{85,-172}},
@@ -278,8 +290,8 @@ equation
           0,0}));
   connect(TMeanRadSensor.T, TMeanRad) annotation (Line(points={{176,128},{176,134},
           {210,134},{210,120},{230,120}}, color={0,0,127}));
-  annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
-            -180},{240,180}},
+  annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(
+   preserveAspectRatio=false, extent={{-240,-180},{240,180}},
         grid={2,2}),  graphics={
         Rectangle(
           extent={{-206,78},{-92,24}},
@@ -366,7 +378,12 @@ equation
           lineColor={0,0,0},
           textString="1")}),
     Documentation(info="<html>
-<p><code>ThermalZoneOneElement</code> merges all thermal masses into one substitutional element, parameterized by length of RC-chain <code>nExt,</code> vector of capacities <code>CExt[nExt]</code> that is connected via vector of resistances <code>RExt[nExt]</code> and <code>RExtRem</code> to the ambient and indoor air. It neglects all internal thermal masses that are not directly connected to the ambient.</p>
+      <p><code>ThermalZoneOneElement</code> merges all thermal masses into one 
+      substitutional element, parameterized by length of RC-chain 
+      <code>nExt,</code> vector of capacities <code>CExt[nExt]</code> that is 
+      connected via vector of resistances <code>RExt[nExt]</code> and 
+      <code>RExtRem</code> to the ambient and indoor air. It neglects all 
+      internal thermal masses that are not directly connected to the ambient.</p>
 <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneOneElement/OneElement.png\" alt=\"image\"/> </p>
 </html>", revisions="<html>
 <ul>

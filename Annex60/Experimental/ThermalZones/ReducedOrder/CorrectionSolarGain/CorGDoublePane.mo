@@ -74,14 +74,27 @@ annotation (defaultComponentName="CorG",
         extent={{-100,-100},{100,100}},
         grid={2,2})),
     Documentation(info="<html>
-<p><code>CorGDoublePane</code> computes short-wave radiation through transparent elements with any orientation and inclination by means of transmission correction factors. Transmission properties of transparent elements are in general dependent on the solar incidence angle. To take this dependency into account, correction factors can multiplied with the solar radiation. These factors should not be mistaken as calculation of solar radiation on tilted surfaces, calculation of g-value or consideration of sunblinds, it is an additional step. The implemented calculations are defined in the German Guideline VDI 6007 Part 3 (VDI, 2015). The given model is only valid for double pane windows. The guideline describes also calculations for single pane and triple pane windows.</p>
+      <p><code>CorGDoublePane</code> computes short-wave radiation through 
+      transparent
+      elements with any orientation and inclination by means of transmission 
+      correction factors. Transmission properties of transparent elements are 
+      in general dependent on the solar incidence angle. To take this dependency
+      into account, correction factors can multiplied with the solar radiation. 
+      These factors should not be mistaken as calculation of solar radiation on 
+      tilted surfaces, calculation of g-value or consideration of sunblinds, it 
+      is an additional step. The implemented calculations are defined in the 
+      German Guideline VDI 6007 Part 3 (VDI, 2015). The given model is only 
+      valid for double pane windows. The guideline describes also calculations 
+      for single pane and triple pane windows.</p>
 <h4>References</h4>
-<p>VDI. German Association of Engineers Guideline VDI 6007-3 June 2015. Calculation of transient thermal response of rooms and buildings - modelling of solar radiation.</p>
+<p>VDI. German Association of Engineers Guideline VDI 6007-3 June 2015. 
+Calculation of transient thermal response of rooms and buildings - modelling of 
+solar radiation.</p>
 </html>",
     revisions="<html>
 <p><i>February 24, 2014</i> by Reza Tavakoli:</p>
 <p>Implemented. </p>
-<p><i><span style=\"font-family: MS Shell Dlg 2;\">September 12, 2015 </span></i>by Moritz Lauster:</p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Adapted to Annex 60 requirements.</span></p>
+<p><i>September 12, 2015 </i>by Moritz Lauster:</p>
+<p>Adapted to Annex 60 requirements.</p>
 </html>"));
 end CorGDoublePane;

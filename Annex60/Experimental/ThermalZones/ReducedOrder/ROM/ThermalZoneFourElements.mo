@@ -1,19 +1,26 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ROM;
-model ThermalZoneFourElements
-  "Thermal Zone with four elements for exterior walls, interior walls, floor plate and roof"
-  extends ROM.ThermalZoneThreeElements(
-                                   AArray={AExt,AWin,AInt,AFloor,ARoof});
-  parameter Modelica.SIunits.Area ARoof "Area of roof" annotation(Dialog(group="Roof"));
+model ThermalZoneFourElements "Thermal Zone with four elements for exterior walls, interior walls, floor 
+    plate and roof"
+  extends ROM.ThermalZoneThreeElements(AArray={AExt,AWin,AInt,AFloor,ARoof});
+  parameter Modelica.SIunits.Area ARoof "Area of roof"
+  annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRoof
-    "Coefficient of heat transfer of roof (indoor)" annotation(Dialog(group="Roof"));
-  parameter Integer nRoof(min = 1) "Number of RC-elements of roof" annotation(Dialog(group="Roof"));
-  parameter Modelica.SIunits.ThermalResistance RRoof[nExt](each min=Modelica.Constants.small)
-    "Vector of resistances of roof, from inside to outside" annotation(Dialog(group="Roof"));
-  parameter Modelica.SIunits.ThermalResistance RRoofRem(min=Modelica.Constants.small)
+    "Coefficient of heat transfer of roof (indoor)"
+    annotation(Dialog(group="Roof"));
+  parameter Integer nRoof(min = 1) "Number of RC-elements of roof"
+  annotation(Dialog(group="Roof"));
+  parameter Modelica.SIunits.ThermalResistance RRoof[nExt](
+   each min=Modelica.Constants.small)
+    "Vector of resistances of roof, from inside to outside"
+    annotation(Dialog(group="Roof"));
+  parameter Modelica.SIunits.ThermalResistance RRoofRem(
+   min=Modelica.Constants.small)
     "Resistance of remaining resistor RRoofRem between capacitance n and outside"
-                                                                                  annotation(Dialog(group="Roof"));
-  parameter Modelica.SIunits.HeatCapacity CRoof[nExt](each min=Modelica.Constants.small)
-    "Vector of heat capacities of roof, from inside to outside" annotation(Dialog(group="Roof"));
+    annotation(Dialog(group="Roof"));
+  parameter Modelica.SIunits.HeatCapacity CRoof[nExt](
+   each min=Modelica.Constants.small)
+    "Vector of heat capacities of roof, from inside to outside"
+    annotation(Dialog(group="Roof"));
   parameter Boolean indoorPortRoof = false
     "Additional heat port at indoor surface of roof"
     annotation(Dialog(group="Roof"),choices(checkBox = true));
@@ -28,14 +35,14 @@ model ThermalZoneFourElements
         extent={{10,-11},{-10,11}},
         rotation=90,
         origin={-12,155})));
-  Modelica.Thermal.HeatTransfer.Components.Convection         convRoof if      ARoof > 0
+  Modelica.Thermal.HeatTransfer.Components.Convection convRoof if ARoof > 0
     "convective heat transfer of roof"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-12,120})));
-  Modelica.Blocks.Sources.Constant alphaRoofConst(k=ARoof*alphaRoof) if            ARoof > 0
-    "coefficient of convective heat transfer for roof"
+  Modelica.Blocks.Sources.Constant alphaRoofConst(k=ARoof*alphaRoof) if
+     ARoof > 0 "coefficient of convective heat transfer for roof"
     annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=180,
@@ -63,15 +70,16 @@ model ThermalZoneFourElements
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-56,-112})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallRoof(G=min(
-        AExt, ARoof)*alphaRad) if    AExt > 0 and ARoof > 0
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallRoof(
+   G=min(AExt, ARoof)*alphaRad) if    AExt > 0 and ARoof > 0
     "resistor between exterior walls and roof" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-108,6})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a roofIndoorSurface if indoorPortRoof
-    "auxilliary port at indoor surface of roof" annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a roofIndoorSurface if
+     indoorPortRoof "auxilliary port at indoor surface of roof"
+                                                annotation (Placement(
         transformation(extent={{-54,-180},{-34,-160}}), iconTransformation(
           extent={{-54,-180},{-34,-160}})));
 equation
@@ -98,13 +106,18 @@ equation
           0,0}));
   connect(resExtWallRoof.port_b, convRoof.solid) annotation (Line(points={{-98,
           6},{-54,6},{-54,132},{-12,132},{-12,130}}, color={191,0,0}));
-  if not AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0 and ARoof > 0 then
+  if not AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0
+    and ARoof > 0 then
     connect(thermSplitterIntGains.signalOutput[1], roofRC.port_a);
     connect(roofRC.port_a, thermSplitterSolRad.signalOutput[1]);
-  elseif AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0 and ARoof > 0
-     or not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 and ARoof > 0
-     or not AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0
-     or not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0 then
+  elseif AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0
+    and ARoof > 0
+     or not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0
+     and ARoof > 0
+     or not AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0
+     and ARoof > 0
+     or not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0
+     and ARoof > 0 then
     connect(thermSplitterIntGains.signalOutput[2], roofRC.port_a);
     connect(roofRC.port_a, thermSplitterSolRad.signalOutput[2]);
   elseif AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 and ARoof > 0
@@ -112,7 +125,8 @@ equation
      or AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
      or not AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0
      or not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
-     or not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0 then
+     or not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0
+     and ARoof > 0 then
     connect(thermSplitterIntGains.signalOutput[3], roofRC.port_a);
     connect(roofRC.port_a, thermSplitterSolRad.signalOutput[3]);
   elseif not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0
@@ -125,8 +139,8 @@ equation
     connect(thermSplitterSolRad.signalOutput[5], roofRC.port_b) annotation (Line(
       points={{-136,146},{-88,146},{-38,146},{-38,142},{-12,142},{-12,144.4}},
       color={191,0,0}));
-    connect(thermSplitterIntGains.signalOutput[5], roofRC.port_b) annotation (Line(
-      points={{190,88},{190,88},{190,138},{-12,138},{-12,144.4}},
+    connect(thermSplitterIntGains.signalOutput[5], roofRC.port_b)
+    annotation (Line(points={{190,88},{190,88},{190,138},{-12,138},{-12,144.4}},
       color={191,0,0}));
   end if;
   connect(alphaRoofConst.y, convRoof.Gc) annotation (Line(points={{16.5,120},{
@@ -137,7 +151,8 @@ equation
           {-12,136},{-112,136},{-112,112},{-216,112},{-216,-140},{-44,-140},{
           -44,-170}},
                   color={191,0,0}));
-  annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
+  annotation (defaultComponentName="thermZone",
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
             -180},{240,180}}), graphics={
         Rectangle(
           extent={{-36,170},{46,104}},
@@ -150,7 +165,8 @@ equation
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           textString="Roof")}),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-240,-180},{240,180}}),
+    Icon(coordinateSystem(preserveAspectRatio=false,
+    extent={{-240,-180},{240,180}}),
                     graphics={Rectangle(
           extent={{-38,42},{28,-44}},
           pattern=LinePattern.None,
@@ -167,7 +183,13 @@ First Implementation.
 </li>
 </ul>
 </html>", info="<html>
-<p><i>ThermalZoneFourElements </i>adds another element for roof. Roofs commonly underly the excitations as exterior walls but have different coefficients of heat transfer due to their orientation. Adding an extra element for the roof might lead to a finer resolution of the dynamic behaviour but implicates higher calculation times. Roof is parameterized via length of RC-chain <code>nRoof</code>, vector of capacities <code>CRoof[nRoof]</code>, vector of resistances <code>RRoof[nRoof]</code> and remaining resistance <code>RRoofRem</code>.</p>
+<p><i>ThermalZoneFourElements </i>adds another element for roof. Roofs commonly 
+underly the excitations as exterior walls but have different coefficients of 
+heat transfer due to their orientation. Adding an extra element for the roof 
+might lead to a finer resolution of the dynamic behaviour but implicates higher 
+calculation times. Roof is parameterized via length of RC-chain <code>nRoof</code>, 
+vector of capacities <code>CRoof[nRoof]</code>, vector of resistances 
+<code>RRoof[nRoof]</code> and remaining resistance <code>RRoofRem</code>.</p>
 <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneFourElements/FourElements.png\" alt=\"image\"/> </p>
 </html>"));
 end ThermalZoneFourElements;
