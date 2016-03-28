@@ -56,7 +56,7 @@ model SimpleRoomOneElement "Illustrates the use of ThermalZoneOneElement"
     volAir(T_start=295.15),
     T_start=295.15)
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  EquivalentAirTemperature.EqAirTemp eqAirTemp(
+  EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
     n=2,
     wfGround=0,
     wfWall={0.3043478260869566,0.6956521739130435},

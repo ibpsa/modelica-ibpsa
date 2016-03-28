@@ -1,7 +1,7 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature;
 model VDI6007 "Equivalent air temperature as defined in VDI 6007 Part 1"
 
-  extends BaseClasses.PartialEqAirTemp;
+  extends BaseClasses.PartialVDI6007;
 
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround - 1) < 0.1),

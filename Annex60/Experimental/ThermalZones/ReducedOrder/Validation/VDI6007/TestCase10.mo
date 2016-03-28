@@ -110,7 +110,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
         295.05; 82800,294.05; 86400,294.05])
     annotation (Placement(transformation(extent={{-90,-8},{-74,8}})));
-  EquivalentAirTemperature.EqAirTempVDI eqAirTemp(
+  EquivalentAirTemperature.VDI6007 eqAirTemp(
     aExt=0.7,
     alphaExtOut=20,
     alphaRad=5,

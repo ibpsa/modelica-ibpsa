@@ -73,7 +73,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     CRoof={5259932.23},
     T_start=295.15)
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  EquivalentAirTemperature.EqAirTemp eqAirTemp(
+  EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
     wfGround=0,
     withLongwave=true,
     aExt=0.7,
@@ -148,7 +148,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
         extent={{-4,-4},{4,4}},
         rotation=180,
         origin={84,-22})));
-  EquivalentAirTemperature.EqAirTempVDI eqAirTempVDI(
+  EquivalentAirTemperature.VDI6007 eqAirTempVDI(
     aExt=0.7,
     eExt=0.9,
     n=1,
