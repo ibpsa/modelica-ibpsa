@@ -102,8 +102,7 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-1
         Line(points={{10,-72},{30,-40},{78,-40}}, color={0,0,0}),
         Line(points={{30,14},{30,-40}}, color={0,0,0})}),
     Documentation(info="<html>
-    <p><code>PartialEqAirTemp</code> is a partial model for <code>EqAirTemp</code> 
-    models.</p>
+<p><code>PartialVDI6007</code> is a partial model for <code>EqAirTemp</code> models.</p>
 </html>",
         revisions="<html>
 <ul>

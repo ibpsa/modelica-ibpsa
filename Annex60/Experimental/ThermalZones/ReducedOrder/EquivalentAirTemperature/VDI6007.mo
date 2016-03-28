@@ -27,8 +27,7 @@ equation
 and used assert for warnings.<br>Adapted to Annex 60 requirements.</li>
 </ul></p>
 </html>", info="<html>
-<p><code>EqAirTempVDI</code> is a strict implementation of the calculations 
-defined in VDI 6007 Part 1. The sum of all weightfactors should be one.</p>
+<p><code>VDI6007</code> is a strict implementation of the calculations defined in VDI 6007 Part 1. The sum of all weightfactors should be one.</p>
 </html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})));
 end VDI6007;

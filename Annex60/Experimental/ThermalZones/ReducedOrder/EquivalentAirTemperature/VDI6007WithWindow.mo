@@ -45,11 +45,7 @@ equation
 and used assert for warnings.<br>Adapted to Annex 60 requirements.</li>
 </ul></p>
 </html>", info="<html>
-<p><code>EqAirTemp</code> is variant of the calculations defined in VDI 6007 
-Part 1. It adds a second equivalent air temperature for windows in case heat 
-transfer through windows and exterior walls is handled seperately in the Reduced
-Order Model. The sum of all weightfactors for windows should be one as well as 
-the sum for all wall elements.</p>
+<p><code>VDI6007WithWindows</code> is variant of the calculations defined in VDI 6007 Part 1. It adds a second equivalent air temperature for windows in case heat transfer through windows and exterior walls is handled seperately in the Reduced Order Model. The sum of all weightfactors for windows should be one as well as the sum for all wall elements.</p>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
