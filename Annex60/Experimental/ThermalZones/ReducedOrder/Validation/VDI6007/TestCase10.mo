@@ -132,7 +132,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
         extent={{-3,-3},{3,3}},
         rotation=-90,
         origin={-15,23})));
-  Modelica.Thermal.HeatTransfer.Components.Convection       thermalConductorWall
+  Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
     annotation (Placement(transformation(extent={{34,5},{24,-5}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=28*9.75)
     "Outdoor coefficient of heat transfer for walls" annotation (Placement(
@@ -186,16 +186,21 @@ equation
       Line(points={{68,-56},{96,-56},{96,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p>Test Case 10 of the VDI 6007 Part 1: Calculation of indoor air temperature excited by a radiative and convective heat source for room version S. It is based on Test Case 5, but with a non-adiabatic floor plate to an adjacent room with a fixed temperature.</p>
+<p>Test Case 10 of the VDI 6007 Part 1: Calculation of indoor air temperature 
+excited by a radiative and convective heat source for room version S. It is 
+based on Test Case 5, but with a non-adiabatic floor plate to an adjacent room 
+with a fixed temperature.</p>
 <p>Boundary Condtions:</p>
 <ul>
 <li>daily profile for outdoor air temperature in hourly steps</li>
 <li>no solar or short-wave radiation on the exterior wall</li>
 <li>daily profile for solar radiation through the windows in hourly steps</li>
 <li>sunblind closes at &GT;100 W/m2</li>
-<li>no long-wave radiation exchange between exterior wall, windows and ambient environment</li>
+<li>no long-wave radiation exchange between exterior wall, windows and ambient 
+environment</li>
 </ul>
-<p><br>This test case is thought to test linking to ajdacent rooms with fixed temperature.</p>
+<p><br>This test case is thought to test linking to ajdacent rooms with fixed 
+temperature.</p>
 </html>", revisions="<html>
 <ul>
 <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>

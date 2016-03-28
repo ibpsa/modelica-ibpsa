@@ -30,7 +30,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection       thermalConductorWall
+  Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable internalGains(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -198,14 +198,17 @@ equation
       Line(points={{68,-56},{96,-56},{96,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p>Test Case 12 of the VDI 6007 Part 1: Calculation of indoor air temperature excited by a radiative and convective heat source for room version S. It is based of Test Case 5 and adds ventilation.</p>
+<p>Test Case 12 of the VDI 6007 Part 1: Calculation of indoor air temperature 
+excited by a radiative and convective heat source for room version S. It is 
+based of Test Case 5 and adds ventilation.</p>
 <p>Boundary Condtions:</p>
 <ul>
 <li>daily profile for outdoor air temperature in hourly steps</li>
 <li>no solar or short-wave radiation on the exterior wall</li>
 <li>daily profile for solar radiation through the windows in hourly steps</li>
 <li>sunblind closes at &GT;100 W/m2</li>
-<li>no long-wave radiation exchange between exterior wall, windows and ambient environment</li>
+<li>no long-wave radiation exchange between exterior wall, windows and ambient 
+environment</li>
 <li>daily profile for ventilation in hourly time steps</li>
 </ul>
 <p>This test case is thought to test infiltration and ventilation.</p>

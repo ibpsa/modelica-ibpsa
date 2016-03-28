@@ -30,7 +30,7 @@ model TestCase7 "VDI 6007 Test Case 7 model"
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
     prescribedTemperature(T=295.15)
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection       thermalConductorWall
+  Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable internalGains(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -153,15 +153,19 @@ equation
         points={{66,-28},{82,-28},{96,-28},{96,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p>Test Case 7 of the VDI 6007 Part 1: Calculation of heat load excited with a given radiative heat source and a setpoint profile for room version S. Is similar with Test Case 6, but with a maximum heating/cooling power.</p>
+<p>Test Case 7 of the VDI 6007 Part 1: Calculation of heat load excited with a 
+given radiative heat source and a setpoint profile for room version S. Is similar 
+with Test Case 6, but with a maximum heating/cooling power.</p>
 <p>Boundary Condtions:</p>
 <ul>
 <li>constant outdoor air temperature 22 degC</li>
 <li>no solar or short-wave radiation on the exterior wall</li>
 <li>no solar or short-wave radiation through the windows</li>
-<li>no long-wave radiation exchange between exterior wall, windows and ambient environment</li>
+<li>no long-wave radiation exchange between exterior wall, windows and ambient 
+environment</li>
 </ul>
-<p>This test case is thought to test heat load calculation with maximum heating power.</p>
+<p>This test case is thought to test heat load calculation with maximum heating 
+power.</p>
 </html>", revisions="<html>
 <ul>
 <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>

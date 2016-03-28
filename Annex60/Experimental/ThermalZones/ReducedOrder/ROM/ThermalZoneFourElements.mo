@@ -1,6 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ROM;
-model ThermalZoneFourElements "Thermal Zone with four elements for exterior walls, interior walls, floor 
-    plate and roof"
+model ThermalZoneFourElements "Thermal Zone with four elements for exterior walls,
+  interior walls, floor plate and roof"
   extends ROM.ThermalZoneThreeElements(AArray={AExt,AWin,AInt,AFloor,ARoof});
   parameter Modelica.SIunits.Area ARoof "Area of roof"
   annotation(Dialog(group="Roof"));

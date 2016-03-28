@@ -1,6 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ROM;
-model ThermalZoneThreeElements "Thermal Zone with three elements for exterior walls, interior walls and 
-    floor plate"
+model ThermalZoneThreeElements "Thermal Zone with three elements for exterior walls, 
+  interior walls and floor plate"
     extends ROM.ThermalZoneTwoElements(
                                    AArray={AExt,AWin,AInt,AFloor});
   parameter Modelica.SIunits.Area AFloor "Area of floor plate"
