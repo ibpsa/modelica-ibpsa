@@ -1,5 +1,5 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp;
-model EqAirTempVDI "Equivalent air temperature as defined in VDI 6007 Part 1"
+within Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature;
+model VDI6007 "Equivalent air temperature as defined in VDI 6007 Part 1"
 
   extends BaseClasses.PartialEqAirTemp;
 
@@ -31,4 +31,4 @@ and used assert for warnings.<br>Adapted to Annex 60 requirements.</li>
 defined in VDI 6007 Part 1. The sum of all weightfactors should be one.</p>
 </html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})));
-end EqAirTempVDI;
+end VDI6007;

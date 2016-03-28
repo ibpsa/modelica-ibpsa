@@ -1,7 +1,7 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain;
-model CorGDoublePane
+model CorrectionGDoublePane
   "Correction of the solar gain factor according to VDI6007 Part 3"
-  extends BaseClasses.PartialCorG;
+  extends BaseClasses.PartialCorrectionG;
   import Modelica.SIunits.Conversions.to_deg;
 
   // Parameters for calculating the transmission correction factor based on VDI 6007 Part 3
@@ -97,4 +97,4 @@ solar radiation.</p>
 <p><i>September 12, 2015 </i>by Moritz Lauster:</p>
 <p>Adapted to Annex 60 requirements.</p>
 </html>"));
-end CorGDoublePane;
+end CorrectionGDoublePane;

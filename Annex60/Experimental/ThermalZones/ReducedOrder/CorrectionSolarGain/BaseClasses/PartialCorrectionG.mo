@@ -1,5 +1,5 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain.BaseClasses;
-partial model PartialCorG
+partial model PartialCorrectionG
   "Partial model for correction of the solar gain factor"
 
   parameter Integer n(min = 1) "Vector size for input and output";
@@ -50,4 +50,4 @@ partial model PartialCorG
 <p><i>February 24, 2014</i> by Reza Tavakoli:</p>
 <p>Implemented. </p>
 </html>"));
-end PartialCorG;
+end PartialCorrectionG;

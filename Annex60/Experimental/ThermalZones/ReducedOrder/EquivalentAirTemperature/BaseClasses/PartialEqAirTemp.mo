@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp.BaseClasses;
+within Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature.BaseClasses;
 partial model PartialEqAirTemp
   "Partial model for equivalent air temperature as defined in VDI 6007 Part 1"
 

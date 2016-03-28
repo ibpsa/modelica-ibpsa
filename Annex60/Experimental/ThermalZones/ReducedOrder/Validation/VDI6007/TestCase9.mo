@@ -127,8 +127,8 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     annotation (Placement(transformation(extent={{30,63},{44,77}})));
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{-6,84},{4,94}})));
-  EqAirTemp.EqAirTempVDI
-                      eqAirTemp(n=2,
+  EquivalentAirTemperature.EqAirTempVDI eqAirTemp(
+    n=2,
     wfGround=0,
     aExt=0.7,
     alphaExtOut=20,

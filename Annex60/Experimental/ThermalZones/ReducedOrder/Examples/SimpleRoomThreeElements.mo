@@ -33,7 +33,7 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
     each lat=0.87266462599716,
     azi={3.1415926535898,4.7123889803847})
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
-  CorrectionSolarGain.CorGDoublePane corGDoublePane(n=2, UWin=2.1)
+  CorrectionSolarGain.CorrectionGDoublePane corGDoublePane(n=2, UWin=2.1)
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
   Modelica.Blocks.Math.Sum
             aggWindow(nin=2, k={0.5,0.5})
@@ -67,7 +67,8 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
     CFloor={5259932.23},
     T_start=295.15)
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  EqAirTemp.EqAirTemp eqAirTemp(n=2,
+  EquivalentAirTemperature.EqAirTemp eqAirTemp(
+    n=2,
     wfGround=0,
     wfWall={0.3043478260869566,0.6956521739130435},
     wfWin={0.5,0.5},

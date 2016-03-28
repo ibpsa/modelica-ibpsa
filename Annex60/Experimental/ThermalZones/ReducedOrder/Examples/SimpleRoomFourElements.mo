@@ -33,7 +33,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     each lat=0.87266462599716,
     azi={3.1415926535898,4.7123889803847})
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
-  CorrectionSolarGain.CorGDoublePane corGDoublePane(     UWin=2.1, n=2)
+  CorrectionSolarGain.CorrectionGDoublePane corGDoublePane(UWin=2.1, n=2)
     annotation (Placement(transformation(extent={{6,46},{26,66}})));
   Modelica.Blocks.Math.Sum
             aggWindow(nin=2, k={0.5,0.5})
@@ -73,7 +73,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     CRoof={5259932.23},
     T_start=295.15)
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  EqAirTemp.EqAirTemp eqAirTemp(
+  EquivalentAirTemperature.EqAirTemp eqAirTemp(
     wfGround=0,
     withLongwave=true,
     aExt=0.7,
@@ -148,7 +148,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
         extent={{-4,-4},{4,4}},
         rotation=180,
         origin={84,-22})));
-  EqAirTemp.EqAirTempVDI eqAirTempVDI(
+  EquivalentAirTemperature.EqAirTempVDI eqAirTempVDI(
     aExt=0.7,
     eExt=0.9,
     n=1,

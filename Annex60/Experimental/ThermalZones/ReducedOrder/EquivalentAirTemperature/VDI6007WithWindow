@@ -1,5 +1,5 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp;
-model EqAirTemp
+within Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature;
+model VDI6007WithWindow
   "Equivalent air temperature as defined in VDI 6007 Part 1 with modifications"
 
   extends BaseClasses.PartialEqAirTemp;
@@ -54,4 +54,4 @@ the sum for all wall elements.</p>
             {100,100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
-end EqAirTemp;
+end VDI6007WithWindow;
