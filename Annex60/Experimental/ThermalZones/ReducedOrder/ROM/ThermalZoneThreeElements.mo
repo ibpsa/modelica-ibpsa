@@ -25,7 +25,7 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
   parameter Boolean indoorPortFloor = false
     "Additional heat port at indoor surface of floor plate"
     annotation(Dialog(group="Floor plate"),choices(checkBox = true));
-  BaseClasses.ExtMassVarRC floorRC(
+  BaseClasses.ExteriorWall floorRC(
     n=nFloor,
     RExt=RFloor,
     RExtRem=RFloorRem,

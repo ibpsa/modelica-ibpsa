@@ -1,5 +1,5 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses;
-model ExtMassVarRC "Exterior wall consisting of variable number of RC elements"
+model ExteriorWall "Exterior wall consisting of variable number of RC elements"
   parameter Integer n(min = 1) "Number of RC-elements";
   parameter Modelica.SIunits.ThermalResistance RExt[n](
    each min=Modelica.Constants.small)
@@ -118,4 +118,4 @@ equation
  smooth = Smooth.None),
  Line(points = {{14, -44}, {-15, -44}}, color = {0, 0, 0}, thickness = 0.5,
  smooth = Smooth.None)}));
-end ExtMassVarRC;
+end ExteriorWall;

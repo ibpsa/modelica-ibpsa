@@ -24,7 +24,7 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
   parameter Boolean indoorPortRoof = false
     "Additional heat port at indoor surface of roof"
     annotation(Dialog(group="Roof"),choices(checkBox = true));
-  BaseClasses.ExtMassVarRC roofRC(
+  BaseClasses.ExteriorWall roofRC(
     RExt=RRoof,
     RExtRem=RRoofRem,
     CExt=CRoof,

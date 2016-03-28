@@ -1,4 +1,4 @@
 ThermSplitter
-ExtMassVarRC
-IntMassVarRC
+ExteriorWall
+InteriorWall
 splitFacVal

@@ -21,7 +21,7 @@ model ThermalZoneTwoElements
   parameter Boolean indoorPortIntWalls = false
     "Additional heat port at indoor surface of interior walls"
     annotation(Dialog(group="Interior walls"),choices(checkBox = true));
-  BaseClasses.IntMassVarRC intWallRC(
+  BaseClasses.InteriorWall intWallRC(
     n=nInt,
     RInt=RInt,
     CInt=CInt,

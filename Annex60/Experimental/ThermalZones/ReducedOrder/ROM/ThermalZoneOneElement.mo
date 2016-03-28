@@ -142,7 +142,7 @@ public
       dimension=dimension) if ATot > 0 "splits incoming solar radiation into seperate gains for each wall 
       element, weighted by their area"
     annotation (Placement(transformation(extent={{-152,138},{-136,154}})));
-  BaseClasses.ExtMassVarRC extWallRC(
+  BaseClasses.ExteriorWall extWallRC(
     n=nExt,
     RExt=RExt,
     CExt=CExt,
