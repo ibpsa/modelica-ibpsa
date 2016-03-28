@@ -3,7 +3,8 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
   extends Modelica.Icons.Example;
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    calTSky=Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
+    calTSky=Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.
+    HorizontalRadiation,
     computeWetBulbTemperature=false,
     filNam=Modelica.Utilities.Files.loadResource(
         "modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
@@ -20,8 +21,9 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
     HInfHorSou=Annex60.BoundaryConditions.Types.DataSource.File,
     TBlaSkySou=Annex60.BoundaryConditions.Types.DataSource.File)
     annotation (Placement(transformation(extent={{-98,52},{-78,72}})));
-  BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](each outSkyCon=true,
-      each outGroCon=true,
+  BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](
+     each outSkyCon=true,
+    each outGroCon=true,
     each til=1.5707963267949,
     each lat=0.87266462599716,
     azi={3.1415926535898,4.7123889803847})
@@ -86,10 +88,10 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature1
     annotation (Placement(transformation(extent={{8,14},{20,26}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection       thermalConductorWin
+  Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWin
     "Outdoor convective heat transfer of windows"
     annotation (Placement(transformation(extent={{38,16},{28,26}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection       thermalConductorWall
+  Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
     "Outdoor convective heat transfer of walls"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad
@@ -109,8 +111,8 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
   Modelica.Blocks.Sources.Constant const[2](each k=0)
     annotation (Placement(transformation(extent={{-20,14},{-14,20}})));
   BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{-100,-10},{-66,22}}),iconTransformation(extent={{-70,-12},
-            {-50,8}})));
+        transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
+        extent={{-70,-12},{-50,8}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
 
@@ -126,7 +128,8 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
         extent={{4,-4},{-4,4}},
         rotation=90,
         origin={32,38})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperatureFloor
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+  prescribedTemperatureFloor
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
@@ -233,15 +236,32 @@ equation
           -22},{67,-22},{67,-19.2}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p>This example shows the application of <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.ThermalZoneThreeElements\">ThermalZoneThreeElements</a> in combination with <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp\">EqAirTemp</a> and <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain.CorGDoublePane\">CorGDoublePane</a>. Solar radiation on tilted surface is calculated using models of Annex60. The thermal zone is a simple room defined in Guideline VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs except sunblinds, seperate handling of heat transfer through windows, an extra wall element for ground floor (with additional area) and solar radiation are similar to the ones defined for the guideline&apos;s test room. For solar radiation, the example relies on the standard weather file in Annex60.</p>
-<p>The idea of the example is to show a typical application of all sub-models and to use the example in unit tests. The results are reasonable, but not related to any real use case or measurement data.</p>
-<h4>References</h4>
-<p>VDI. German Association of Engineers Guideline VDI 6007-1 March 2012. Calculation of transient thermal response of rooms and buildings - modelling of rooms.</p>
-</html>", revisions="<html>
-<ul>
-<li>February 25, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
-</ul>
-</html>"),
+              <p>This example shows the application of 
+              <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.ThermalZoneThreeElements\">ThermalZoneThreeElements</a> 
+              in combination with #
+              <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp\">EqAirTemp</a> 
+              and <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain.CorGDoublePane\">CorGDoublePane</a>. 
+              Solar radiation on tilted surface is calculated using models of 
+              Annex60. The thermal zone is a simple room defined in Guideline 
+              VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs 
+              except sunblinds, seperate handling of heat transfer through 
+              windows, an extra wall element for ground floor (with additional 
+              area) and solar radiation are similar to the ones defined for the 
+              guideline&apos;s test room. For solar radiation, the example 
+              relies on the standard weather file in Annex60.</p>
+              <p>The idea of the example is to show a typical application of 
+              all sub-models and to use the example in unit tests. The results 
+              are reasonable, but not related to any real use case or 
+              measurement data.</p>
+              <h4>References</h4>
+              <p>VDI. German Association of Engineers Guideline VDI 6007-1 March 
+              2012. Calculation of transient thermal response of rooms and 
+              buildings - modelling of rooms.</p>
+              </html>", revisions="<html>
+              <ul>
+              <li>February 25, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
+              </ul>
+              </html>"),
     experiment(StopTime=3.1536e+007, Interval=3600),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
