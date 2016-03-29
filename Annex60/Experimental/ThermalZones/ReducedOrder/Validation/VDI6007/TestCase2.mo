@@ -2,7 +2,7 @@ within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
 model TestCase2 "VDI 6007 Test Case 2 model"
   extends Modelica.Icons.Example;
 
-  ROM.ThermalZoneTwoElements thermalZoneTwoElements(
+  ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
     VAir=52.5,
     alphaExt=2.7,
     alphaWin=2.7,

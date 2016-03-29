@@ -38,7 +38,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
   Modelica.Blocks.Math.Sum
             aggWindow(nin=2, k={0.5,0.5})
     annotation (Placement(transformation(extent={{34,49},{48,63}})));
-  ROM.ThermalZoneFourElements thermalZoneFourElements(
+  ReducedOrderZones.ThermalZoneFourElements thermalZoneFourElements(
     VAir=52.5,
     AExt=11.5,
     alphaExt=2.7,

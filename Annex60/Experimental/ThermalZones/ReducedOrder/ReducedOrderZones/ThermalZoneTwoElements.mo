@@ -1,8 +1,7 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.ROM;
+within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
 model ThermalZoneTwoElements
   "Thermal Zone with two elements for exterior and interior walls"
-  extends ROM.ThermalZoneOneElement(
-                                AArray={AExt,AWin,AInt});
+  extends ThermalZoneOneElement(AArray={AExt,AWin,AInt});
   parameter Modelica.SIunits.Area AInt "Area of interior walls"
   annotation(Dialog(group="Interior walls"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaInt

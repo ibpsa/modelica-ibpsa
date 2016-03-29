@@ -4,7 +4,7 @@ model TestCase7 "VDI 6007 Test Case 7 model"
   package Medium = Modelica.Media.Air.SimpleAir "Medium model";
   parameter Real m_flow_nominal = 10 "nominal mass flow";
 
-  ROM.ThermalZoneTwoElements thermalZoneTwoElements(
+  ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
     VAir=52.5,
     alphaExt=2.7,
     alphaWin=2.7,

@@ -1,10 +1,10 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.ROM;
+within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
 
 annotation (Documentation(info="<html>
-  <p>The <code>Annex60.ThermalZones.ReducedOrder.ROM</code> package contains 
+  <p>The <code>Annex60.ThermalZones.ReducedOrder.ReducedOrderZones</code> package contains 
   models for reduced building physics of thermal zones, reduced by means of 
   number of wall elements and number of RC-elements per wall (and by means of 
   spatial discretization). Such a reduction leads to a reduced order by means 
@@ -36,8 +36,8 @@ annotation (Documentation(info="<html>
   heating/cooling power.</p>
 <h4>Architecture</h4>
 <p>Each wall element uses either 
-<a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.ExteriorWall\">ExteriorWall</a> 
-or <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.InteriorWall\">InteriorWall</a> 
+<a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.ExteriorWall\">ExteriorWall</a> 
+or <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.InteriorWall\">InteriorWall</a> 
 to describe heat conduction and storage within the wall, depending if the wall 
 contributes to heat transfer to the outdoor environment (exterior walls) or can 
 be considered as simple heat storage elements (interior walls). The number of 
@@ -60,7 +60,7 @@ However, the user is free to choose whether keeping windows seperately
 (<code>AWin</code>) or merging them (<code>AExt=AExterior+AWindows, AWin=0</code>). 
 Transmission of solar radiation through windows is split up into two parts. 
 One part is connected to the indoor radiative heat exchange mesh network using 
-a <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.ThermSplitter\">ThermSplitter</a> 
+a <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.ThermSplitter\">ThermSplitter</a> 
 while the other part is directly linked to the convective network. The split 
 factor <code>ratioWinConRad </code> is a window property and depends on the 
 glazing and used materials. For solar radiation through windows, the area 

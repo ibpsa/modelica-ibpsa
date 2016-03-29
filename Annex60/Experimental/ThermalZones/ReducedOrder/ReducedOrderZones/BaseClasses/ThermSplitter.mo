@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses;
+within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses;
 model ThermSplitter "A simple model which weights a given set of therm inputs 
     to calculate an average temperature and aggregated heat flow"
 

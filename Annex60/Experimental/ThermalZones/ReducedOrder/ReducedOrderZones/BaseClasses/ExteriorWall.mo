@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses;
+within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses;
 model ExteriorWall "Exterior wall consisting of variable number of RC elements"
   parameter Integer n(min = 1) "Number of RC-elements";
   parameter Modelica.SIunits.ThermalResistance RExt[n](

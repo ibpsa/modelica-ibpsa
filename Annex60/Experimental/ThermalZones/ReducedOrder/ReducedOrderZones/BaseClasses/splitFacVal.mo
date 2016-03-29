@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses;
+within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses;
 function splitFacVal "Share of vector entries at sum of vector"
 
   input Integer dimension "Dimension of output vector";

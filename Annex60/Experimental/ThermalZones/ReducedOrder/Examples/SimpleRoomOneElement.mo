@@ -38,7 +38,7 @@ model SimpleRoomOneElement "Illustrates the use of ThermalZoneOneElement"
   Modelica.Blocks.Math.Sum
             aggWindow(nin=2, k={0.5,0.5})
     annotation (Placement(transformation(extent={{44,57},{58,71}})));
-  ROM.ThermalZoneOneElement thermalZoneOneElement(
+  ReducedOrderZones.ThermalZoneOneElement thermalZoneOneElement(
     VAir=52.5,
     AExt=11.5,
     alphaExt=2.7,

@@ -1,4 +1,4 @@
-within Annex60.Experimental.ThermalZones.ReducedOrder.ROM;
+within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
 model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
 
   parameter Modelica.SIunits.Temperature T_start
@@ -59,7 +59,7 @@ protected
   parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray})
     "Number of non-zero wall surface areas";
   parameter Real splitFactor[dimension]=
-      Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal(
+      BaseClasses.splitFacVal(
       dimension, AArray) "Share of each wall surface area that is non-zero";
 public
   Fluid.MixingVolumes.MixingVolume volAir(m_flow_nominal=0.00001, V=VAir,

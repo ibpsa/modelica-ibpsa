@@ -3,7 +3,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Air "Medium model";
 
-  ROM.ThermalZoneTwoElements thermalZoneTwoElements(
+  ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
     VAir=52.5,
     alphaExt=2.7,
     alphaWin=2.7,
