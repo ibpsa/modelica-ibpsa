@@ -36,8 +36,8 @@ annotation (Documentation(info="<html>
   heating/cooling power.</p>
 <h4>Architecture</h4>
 <p>Each wall element uses either 
-<a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.ExtMassVarRC\">ExtMassVarRC</a> 
-or <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.IntMassVarRC\">IntMassVarRC</a> 
+<a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.ExteriorWall\">ExteriorWall</a> 
+or <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.InteriorWall\">InteriorWall</a> 
 to describe heat conduction and storage within the wall, depending if the wall 
 contributes to heat transfer to the outdoor environment (exterior walls) or can 
 be considered as simple heat storage elements (interior walls). The number of 
