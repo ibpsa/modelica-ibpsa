@@ -20,6 +20,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     winDirSou=Annex60.BoundaryConditions.Types.DataSource.File,
     HInfHorSou=Annex60.BoundaryConditions.Types.DataSource.File,
     TBlaSkySou=Annex60.BoundaryConditions.Types.DataSource.File)
+    "Weather data reader"
     annotation (Placement(transformation(extent={{-96,52},{-76,72}})));
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](
    each outSkyCon=true,
@@ -27,16 +28,19 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     each til=1.5707963267949,
     each lat=0.87266462599716,
     azi={3.1415926535898,4.7123889803847})
+    "Calculates diffuse solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[2](
     each til=1.5707963267949,
     each lat=0.87266462599716,
     azi={3.1415926535898,4.7123889803847})
+    "Calculates direct solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,52},{-48,72}})));
   CorrectionSolarGain.CorrectionGDoublePane corGDoublePane(UWin=2.1, n=2)
+    "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,46},{26,66}})));
   Modelica.Blocks.Math.Sum
-            aggWindow(nin=2, k={0.5,0.5})
+            aggWindow(nin=2, k={0.5,0.5}) "Aggregates both windows to one"
     annotation (Placement(transformation(extent={{34,49},{48,63}})));
   ReducedOrderZones.ThermalZoneFourElements thermalZoneFourElements(
     VAir=52.5,
@@ -71,7 +75,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     RRoof={0.00331421908725},
     RRoofRem=0.1265217391,
     CRoof={5259932.23},
-    T_start=295.15)
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
     wfGround=0,
@@ -85,15 +89,18 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     n=2,
     wfWall={0.3043478260869566,0.6956521739130435},
     wfWin={0.5,0.5},
-    TGround=285.15)
+    TGround=285.15) "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
+    "Sums up solar radiation of both directions"
     annotation (Placement(transformation(extent={{-38,6},{-28,16}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
+    "Prescribed temperature for exterior walls outdoor surface temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature1
+    "Prescribed temperature for windows outdoor surface temperature"
     annotation (Placement(transformation(extent={{8,14},{20,26}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWin
     "Outdoor convective heat transfer of windows"
@@ -102,8 +109,10 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     "Outdoor convective heat transfer of walls"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad
+    "Radiative heat flow of persons"
     annotation (Placement(transformation(extent={{48,-42},{68,-22}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsConv
+    "Convective heat flow of persons"
     annotation (Placement(transformation(extent={{48,-62},{68,-42}})));
   Modelica.Blocks.Sources.CombiTimeTable internalGains(
     table=[0,0,0,0; 3600,0,0,0; 7200,0,0,0; 10800,0,0,0; 14400,0,0,0; 18000,0,0,
@@ -114,13 +123,17 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
         86400,0,0,0],
     columns={2,3,4},
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    "Table with profiles for persons (radiative and convective) and machines (convective)"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.Constant const[2](each k=0)
+    "Sets sunblind signal to zero (open)"
     annotation (Placement(transformation(extent={{-20,14},{-14,20}})));
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
+                                            annotation (Placement(
         transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
         extent={{-70,-12},{-50,8}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
+    "Convective heat flow of machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
 
   Modelica.Blocks.Sources.Constant alphaWall(k=25*11.5)
@@ -137,13 +150,13 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
         origin={32,38})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
   prescribedTemperatureFloor
+    "Prescribed temperature for floor plate outdoor surface temperature"
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={67,-12})));
   Modelica.Blocks.Sources.Constant TSoil(k=283.15)
-    "Outdoor coefficient of heat transfer for floor plate"
-                                                     annotation (Placement(
+    "Outdoor surface temperature for floor plate"    annotation (Placement(
         transformation(
         extent={{-4,-4},{4,4}},
         rotation=180,
@@ -155,11 +168,13 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     wfWall={1},
     wfWin={0},
     wfGround=0,
-    TGround=285.15,
     alphaExtOut=20,
-    alphaRad=5) annotation (Placement(transformation(extent={{30,74},{50,94}})));
+    alphaRad=5,
+    TGround=285.15) "Computes equivalent air temperature for roof"
+                annotation (Placement(transformation(extent={{30,74},{50,94}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
   prescribedTemperatureRoof
+    "Prescribed temperature for roof outdoor surface temperature"
     annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,
@@ -171,12 +186,13 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
         rotation=-90,
         origin={67,47})));
   Modelica.Blocks.Sources.Constant alphaRoof(k=25*11.5)
-    "Outdoor coefficient of heat transfer for walls" annotation (Placement(
+    "Outdoor coefficient of heat transfer for roof"  annotation (Placement(
         transformation(
         extent={{4,-4},{-4,4}},
         rotation=0,
         origin={86,47})));
   Modelica.Blocks.Sources.Constant const1(each k=0)
+    "Sets sunblind signal to zero (open)"
     annotation (Placement(transformation(extent={{68,90},{62,96}})));
 equation
   connect(eqAirTemp.TEqAirWindow, prescribedTemperature1.T) annotation (Line(
@@ -279,7 +295,7 @@ equation
   connect(eqAirTempVDI.TEqAir, prescribedTemperatureRoof.T) annotation (Line(
         points={{49.8,78.4},{67,78.4},{67,71.2}}, color={0,0,127}));
   connect(thermalConductorRoof.Gc, alphaRoof.y) annotation (Line(points={{72,47},
-          {78,47},{78,47},{81.6,47}}, color={0,0,127}));
+          {78,47},{81.6,47}},         color={0,0,127}));
   connect(eqAirTempVDI.TDryBul, eqAirTemp.TDryBul) annotation (Line(points={{31,78.2},
           {-96,78.2},{-96,-2},{-38,-2},{-38,-9.8},{-23,-9.8}},       color={0,0,
           127}));
