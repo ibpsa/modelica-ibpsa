@@ -23,12 +23,13 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     CInt={14836354.6282},
     ATransparent=7,
     ratioWinConRad=0.09,
-    T_start=295.15)
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature
+    prescribedTemperature "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
+    "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable internalGains(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -38,7 +39,7 @@ model TestCase5 "VDI 6007 Test Case 5 model"
         200; 50400,80,80,200; 54000,80,80,200; 57600,80,80,200; 61200,80,80,200;
         61200,0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,
         0,0,0; 86400,0,0,0],
-    columns={2,3,4})
+    columns={2,3,4}) "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -57,9 +58,10 @@ model TestCase5 "VDI 6007 Test Case 5 model"
         5130000,46.3; 5133600,46.5; 5137200,46.7; 5140800,46.8; 5144400,46.9;
         5148000,47; 5151600,47; 5155200,47.6; 5158800,47.5; 5162400,45.8;
         5166000,45.6; 5169600,45.4; 5173200,45.4; 5176800,45.3; 5180400,45.2;
-        5184000,45.1])
+        5184000,45.1]) "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
+    "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
 
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -80,11 +82,13 @@ model TestCase5 "VDI 6007 Test Case 5 model"
         304.15; 57600,304.15; 57600,303.95; 61200,303.95; 61200,303.25; 64800,
         303.25; 64800,302.05; 68400,302.05; 68400,300.15; 72000,300.15; 72000,
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
-        295.05; 82800,294.05; 86400,294.05])
+        295.05; 82800,294.05; 86400,294.05]) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-28,-8},{-12,8}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad
+    "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsConv
+    "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -95,26 +99,32 @@ model TestCase5 "VDI 6007 Test Case 5 model"
         46800,359; 46800,287; 50400,287; 50400,186; 54000,186; 54000,98; 57600,
         98; 57600,59; 61200,59; 61200,38; 64800,38; 64800,17; 68400,17; 68400,0;
         72000,0; 82800,0; 86400,0],
-    columns={2})
+    columns={2}) "Solar radiation"
     annotation (Placement(transformation(extent={{-84,66},{-70,80}})));
-  Modelica.Blocks.Sources.Constant g_sunblind(k=0.15) annotation (Placement(
+  Modelica.Blocks.Sources.Constant g_sunblind(k=0.15)
+    "g value for sunblind closed"                     annotation (Placement(
         transformation(
         extent={{-3,-3},{3,3}},
         rotation=-90,
         origin={-19,57})));
-  Modelica.Blocks.Sources.Constant sunblind_open(k=1) annotation (Placement(
+  Modelica.Blocks.Sources.Constant sunblind_open(k=1)
+    "g value for sunblind open"                       annotation (Placement(
         transformation(
         extent={{-3,-3},{3,3}},
         rotation=-90,
         origin={-33,57})));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=100)
+    "Threshold for sunblind"
     annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=-90,
         origin={-59,59})));
   Modelica.Blocks.Math.Product product1
+    "solar radiation times g value for sunblind (open or closed)"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
-  Modelica.Blocks.Logical.Switch switch1 annotation (Placement(transformation(
+  Modelica.Blocks.Logical.Switch switch1
+    "Determines g value for sunblind (open or closed)"
+                                         annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={-26,38})));

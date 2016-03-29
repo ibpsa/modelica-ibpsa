@@ -122,8 +122,8 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
         0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,0,0,0;
         86400,0,0,0],
     columns={2,3,4},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
-    "Table with profiles for persons (radiative and convective) and machines (convective)"
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Table with profiles for persons (radiative and convective) and machines 
+      (convective)"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.Constant const[2](each k=0)
     "Sets sunblind signal to zero (open)"

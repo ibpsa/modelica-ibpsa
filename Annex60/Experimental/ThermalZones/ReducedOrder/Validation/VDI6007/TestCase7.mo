@@ -25,12 +25,13 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     CExt={1600848.94},
     RInt={0.000595693407511},
     CInt={14836354.6282},
-    T_start=295.15)
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
-    prescribedTemperature(T=295.15)
+    prescribedTemperature(T=295.15) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
+    "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable internalGains(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -38,7 +39,7 @@ model TestCase7 "VDI 6007 Test Case 7 model"
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2})
+    columns={2}) "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-96},{22,-80}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -56,8 +57,10 @@ model TestCase7 "VDI 6007 Test Case 7 model"
         -179; 5130000,-207; 5133600,-234; 5137200,-259; 5140800,-284; 5144400,-307;
         5148000,-329; 5151600,-350; 5155200,-371; 5158800,-390; 5162400,-409; 5166000,
         -500; 5169600,-500; 5173200,-500; 5176800,-500; 5180400,-500; 5184000,-500])
+    "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
+    "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-98},{68,-78}})));
 
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -66,7 +69,7 @@ model TestCase7 "VDI 6007 Test Case 7 model"
         extent={{-4,-4},{4,4}},
         rotation=90,
         origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0)
+  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
   Fluid.Movers.FlowControlled_m_flow         fan(
     m_flow_nominal=m_flow_nominal,
@@ -110,9 +113,11 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     Q_flow_maxHeat=500,
     Q_flow_maxCool=-500,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare package Medium = Medium) "Heater"
+    redeclare package Medium = Medium)
+    "Heater to align temperature in circuit and zone"
     annotation (Placement(transformation(extent={{-4,-82},{-24,-62}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heatCool
+    "Ideal heater/cooler with limit"
     annotation (Placement(transformation(extent={{46,-38},{66,-18}})));
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)

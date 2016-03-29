@@ -25,13 +25,14 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     RInt={0.000595693407511},
     CInt={14836354.6282},
     alphaInt=3,
-    T_start=295.15,
-    indoorPortIntWalls=true)
+    indoorPortIntWalls=true,
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
-    prescribedTemperature(T=295.15)
+    prescribedTemperature(T=295.15) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
+    "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable internalGains(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -39,7 +40,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2})
+    columns={2}) "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-96},{22,-80}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -62,8 +63,10 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         5148000,27.2,-500; 5151600,27.3,-500; 5155200,27.4,-500; 5158800,27.5,-500;
         5162400,27.6,-500; 5166000,27,-500; 5169600,26.9,-500; 5173200,26.7,-500;
         5176800,26.6,-500; 5180400,26.5,-500; 5184000,26.4,-500])
+    "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
+    "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-98},{68,-78}})));
 
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -72,7 +75,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         extent={{-4,-4},{4,4}},
         rotation=90,
         origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0)
+  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
   Fluid.Movers.FlowControlled_m_flow         fan(
     m_flow_nominal=m_flow_nominal,
@@ -109,6 +112,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         39600,300.1; 43200,300.1; 46800,300.1; 50400,300.1; 54000,300.1; 57600,
         300.1; 61200,300.1; 64800,300.1; 68400,295.1; 72000,295.1; 75600,295.1;
         79200,295.1; 82800,295.1; 86400,295.1])
+    "Set temperature of ideal heater"
     annotation (Placement(transformation(extent={{-50,-28},{-34,-12}})));
   Fluid.HeatExchangers.HeaterCooler_T         hea1(
     m_flow_nominal=m_flow_nominal,
@@ -116,9 +120,10 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     Q_flow_maxHeat=500,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = Medium,
-    Q_flow_maxCool=-500) "Heater"
+    Q_flow_maxCool=-500) "Heater to align temperature in circuit and zone"
     annotation (Placement(transformation(extent={{-4,-82},{-24,-62}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heat
+    "Ideal heater with limit"
     annotation (Placement(transformation(extent={{48,-44},{68,-24}})));
   Fluid.Movers.FlowControlled_m_flow         fan1(
     m_flow_nominal=m_flow_nominal,
@@ -151,9 +156,10 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     Q_flow_maxHeat=500,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = Medium,
-    Q_flow_maxCool=0) "Cooler"
+    Q_flow_maxCool=0) "Cooler to align temperature in circuit and zone"
     annotation (Placement(transformation(extent={{-20,26},{-40,46}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow cool
+    "Ideal cooler with limit"
     annotation (Placement(transformation(extent={{-8,74},{12,94}})));
   Modelica.Blocks.Sources.CombiTimeTable setTemp1(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -163,6 +169,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         39600,300.1; 43200,300.1; 46800,300.1; 50400,300.1; 54000,300.1; 57600,
         300.1; 61200,300.1; 64800,300.1; 68400,295.1; 72000,295.1; 75600,295.1;
         79200,295.1; 82800,295.1; 86400,295.1])
+    "Set temperature of ceiling cooling"
     annotation (Placement(transformation(extent={{-60,80},{-44,96}})));
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
@@ -215,8 +222,8 @@ equation
   connect(thermalZoneTwoElements.TIndAir, coo1.TSet) annotation (Line(points={{91,31},
           {100,31},{100,42},{-18,42}},            color={0,0,127}));
   connect(cool.port, thermalZoneTwoElements.intWallIndoorSurface) annotation (
-      Line(points={{12,84},{12,84},{16,84},{16,18},{16,18},{4,18},{4,-26},{44,
-          -26},{44,-8},{56,-8},{56,-1}}, color={191,0,0}));
+      Line(points={{12,84},{12,84},{16,84},{16,18},{4,18},{4,-26},{44,-26},{44,
+          -8},{56,-8},{56,-1}},          color={191,0,0}));
   connect(setTemp1.y[1], coo.TSet) annotation (Line(points={{-43.2,88},{-40,88},
           {-40,74},{-44,74},{-44,68},{-40,68}}, color={0,0,127}));
   connect(coo.Q_flow, cool.Q_flow) annotation (Line(points={{-17,68},{-12,68},{

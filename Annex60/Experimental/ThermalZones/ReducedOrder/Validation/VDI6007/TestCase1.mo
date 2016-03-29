@@ -23,12 +23,13 @@ model TestCase1 "VDI 6007 Test Case 1 model"
     CExt={1600848.94},
     RInt={0.000595693407511},
     CInt={14836354.6282},
-    T_start=295.15)
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
-    prescribedTemperature(T=295.15)
+    prescribedTemperature(T=295.15) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
+    "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable internalGains(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -36,8 +37,8 @@ model TestCase1 "VDI 6007 Test Case 1 model"
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2})
-    annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
+    columns={2}) "Table with internal gains"
+    annotation (Placement(transformation(extent={{6,-58},{22,-42}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
     columns={2},
@@ -55,8 +56,10 @@ model TestCase1 "VDI 6007 Test Case 1 model"
         5133600,55.3; 5137200,55.4; 5140800,55.5; 5144400,55.6; 5148000,55.7;
         5151600,55.8; 5155200,55.9; 5158800,56.1; 5162400,56.2; 5166000,50.6;
         5169600,50.4; 5173200,50.3; 5176800,50.2; 5180400,50.1; 5184000,50])
+    "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
+    "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
 
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -65,7 +68,7 @@ model TestCase1 "VDI 6007 Test Case 1 model"
         extent={{-4,-4},{4,4}},
         rotation=90,
         origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0)
+  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
@@ -76,8 +79,8 @@ equation
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(const.y, thermalZoneTwoElements.solRad) annotation (Line(points={{
           30.5,31},{37.25,31},{37.25,30.8},{45,30.8}}, color={0,0,127}));
-  connect(internalGains.y[1], machinesConv.Q_flow) annotation (Line(points={{
-          22.8,-52},{36,-52},{36,-74},{48,-74}}, color={0,0,127}));
+  connect(internalGains.y[1], machinesConv.Q_flow) annotation (Line(points={{22.8,
+          -50},{36,-50},{36,-74},{48,-74}},      color={0,0,127}));
   connect(thermalZoneTwoElements.intGainsConv, machinesConv.port) annotation (
       Line(points={{91,19.8},{96,19.8},{96,-74},{68,-74}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

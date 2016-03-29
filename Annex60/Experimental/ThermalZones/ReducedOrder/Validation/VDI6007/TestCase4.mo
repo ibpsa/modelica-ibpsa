@@ -21,14 +21,15 @@ model TestCase4 "VDI 6007 Test Case 4 model"
     RExt={0.00404935160802},
     RExtRem=0.03959436542,
     CExt={47861.76},
-    T_start=295.15,
     RInt={0.00338564974804},
-    CInt={7445364.89759})
+    CInt={7445364.89759},
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
-    prescribedTemperature(T=295.15)
+    prescribedTemperature(T=295.15) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
+    "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
   Modelica.Blocks.Sources.CombiTimeTable internalGains(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -36,7 +37,7 @@ model TestCase4 "VDI 6007 Test Case 4 model"
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2})
+    columns={2}) "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -55,8 +56,10 @@ model TestCase4 "VDI 6007 Test Case 4 model"
         5133600,51.5; 5137200,51.7; 5140800,51.9; 5144400,52.1; 5148000,52.4;
         5151600,52.6; 5155200,52.8; 5158800,53; 5162400,53.2; 5166000,50.2;
         5169600,49.9; 5173200,49.7; 5176800,49.5; 5180400,49.2; 5184000,49])
+    "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
+    "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
 
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
@@ -65,7 +68,7 @@ model TestCase4 "VDI 6007 Test Case 4 model"
         extent={{-4,-4},{4,4}},
         rotation=90,
         origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0)
+  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
