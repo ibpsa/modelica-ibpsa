@@ -37,7 +37,7 @@ model ParallelPipesTempStep
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,10})));
-  Modelica.Blocks.Sources.Constant TReturn(k=273.15 + 35)
+  Modelica.Blocks.Sources.Constant TReturn(k=273.15 + 40)
     "Atmospheric pressure" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -76,26 +76,25 @@ model ParallelPipesTempStep
     annotation (Placement(transformation(extent={{-188,16},{-168,36}})));
   Annex60.Experimental.Pipe.DoublePipeParallel doublePipeParallel(
     length=length,
-    redeclare
-      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleStandard.IsoPlusDR100S
-      pipeData,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    Ra=10000000000)
+    redeclare
+      Annex60.Experimental.Pipe.BaseClasses.DoublePipeConfig.IsoPlusDoubleReinforced.IsoPlusDR200R
+      pipeData)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   parameter Modelica.SIunits.Length length=100 "Pipe length";
   Modelica.Blocks.Math.Add add2(k1=+1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,-90})));
-  Modelica.Blocks.Sources.Step step(startTime=80000, height=5)
+  Modelica.Blocks.Sources.Step step(startTime=80000, height=25)
     annotation (Placement(transformation(extent={{-178,-90},{-158,-70}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         278.15) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={0,90})));
-  Modelica.Blocks.Sources.Constant TReturn1(k=273.15 + 45)
+  Modelica.Blocks.Sources.Constant TReturn1(k=273.15 + 90)
     "Atmospheric pressure" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -104,7 +103,7 @@ model ParallelPipesTempStep
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,82})));
-  Modelica.Blocks.Sources.Step step1(startTime=80000, height=-5)
+  Modelica.Blocks.Sources.Step step1(startTime=80000, height=-25)
     annotation (Placement(transformation(extent={{42,82},{62,102}})));
 equation
   connect(PAtm.y, supplySink.p_in) annotation (Line(points={{99,10},{92,10},{92,
@@ -142,10 +141,9 @@ equation
           -138,-84},{-122,-84}}, color={0,0,127}));
   connect(step.y, add2.u2) annotation (Line(points={{-157,-80},{-150,-80},{-150,
           -94},{-122,-94},{-122,-96}}, color={0,0,127}));
-  connect(add2.y, returnSink.T_in) annotation (Line(points={{-99,-90},{-92,-90},
-          {-92,-92},{-82,-92},{-82,-26}}, color={0,0,127}));
-  connect(add2.y, returnSource.T_in) annotation (Line(points={{-99,-90},{2,-90},
-          {98,-90},{98,-26},{82,-26}}, color={0,0,127}));
+  connect(add2.y, returnSource.T_in) annotation (Line(points={{-99,-90},{-99,
+          -90},{104,-90},{104,-26},{82,-26}},
+                                       color={0,0,127}));
   connect(fixedTemperature.port, doublePipeParallel.heatPort)
     annotation (Line(points={{0,80},{0,45},{0,10}}, color={191,0,0}));
   connect(returnSink.ports[1], senTemReturnIn.port_a)
@@ -164,6 +162,8 @@ equation
           {130,50},{-94,50},{-94,34},{-82,34}}, color={0,0,127}));
   connect(supplySink.T_in, supplySource.T_in) annotation (Line(points={{82,34},
           {130,34},{130,50},{-94,50},{-94,34},{-82,34}}, color={0,0,127}));
+  connect(returnSink.T_in, returnSource.T_in) annotation (Line(points={{-82,-26},
+          {-94,-26},{-94,-90},{104,-90},{104,-26},{82,-26}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{140,100}})),
     Icon(coordinateSystem(extent={{-200,-100},{140,100}})),
