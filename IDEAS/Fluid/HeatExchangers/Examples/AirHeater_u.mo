@@ -5,7 +5,8 @@ model AirHeater_u
   extends IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.Heater(
     redeclare package Medium = IDEAS.Media.Air,
     m_flow_nominal=V*1.2*6/3600,
-    Q_flow_nominal=30*6*6);
+    Q_flow_nominal=30*6*6,
+    mov(nominalValuesDefineDefaultPressureCurve=true, dp_nominal=1200));
 
   HeaterCooler_u hea(
     redeclare package Medium = Medium,

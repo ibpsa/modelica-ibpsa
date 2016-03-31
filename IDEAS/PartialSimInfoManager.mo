@@ -34,14 +34,11 @@ partial model PartialSimInfoManager
 
   final parameter Modelica.SIunits.Temperature TdesGround = 10 + 273.15
     "design ground temperature";
-
-protected
-  final parameter Boolean DST = true
-    "boolean to take into account daylight saving time";
-  final parameter Integer yr = 2014 "depcited year for DST only";
-
-  final parameter Boolean BesTest = Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
-    "boolean to determine if this simulation is a BESTEST simulation";
+  parameter SI.Angle offsetAzi=0 "Offset for the azimuth angle series"
+    annotation(Dialog(tab="Incidence angles"));
+  parameter SI.Angle ceilingInc = IDEAS.Constants.Ceiling
+    "Ceiling inclination angle"
+    annotation(Dialog(tab="Incidence angles"));
 
 public
   Modelica.SIunits.Irradiance solDirPer
@@ -82,13 +79,33 @@ public
   Real angHou =  (timSol/3600 - 12)*2*Modelica.Constants.pi/24;
   Real angZen = acos(cos(lat)*cos(angDec)*cos(angHou) + sin(lat)*sin(angDec));
 
+public
+  Modelica.Blocks.Sources.RealExpression hour(y=angHou) "Hour angle"
+    annotation (Placement(transformation(extent={{-124,34},{-104,54}})));
+  Modelica.Blocks.Sources.RealExpression dec(y=angDec) "declination angle"
+    annotation (Placement(transformation(extent={{-124,22},{-104,42}})));
+  Modelica.Blocks.Sources.RealExpression solDirPerExp(y=solDirPer)
+    "Perpendicular direct solar radiation"
+    annotation (Placement(transformation(extent={{-124,10},{-104,30}})));
 protected
+  final parameter Boolean DST = true
+    "boolean to take into account daylight saving time";
+  final parameter Integer yr = 2014 "depcited year for DST only";
+
+  final parameter Boolean BesTest = Modelica.Utilities.Strings.isEqual(filNam, "BesTest.txt")
+    "boolean to determine if this simulation is a BESTEST simulation";
+
+  parameter SI.Angle inc[numAzi + 1]=cat(
+      1,
+      fill(ceilingInc,1),
+      fill(IDEAS.Constants.Wall, numAzi)) "surface inclination";
+
   IDEAS.Climate.Time.SimTimes timMan(
     timZonSta=timZonSta,
     lon=lon,
     DST=false,
     ifSolCor=true)
-    annotation (Placement(transformation(extent={{-52,18},{-34,36}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
   filNam=filNamClim,
@@ -97,51 +114,38 @@ protected
   timZon=timZonSta,
   datRea1(tableName="data"),
   datRea(tableName="data")) if useTmy3Reader
-    annotation (Placement(transformation(extent={{-18,36},{0,54}})));
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Utilities.Psychrometrics.X_pTphi XiEnv(use_p_in=false)
-    annotation (Placement(transformation(extent={{-30,-96},{-10,-76}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Sources.RealExpression phiEnv(y=relHum)
-    annotation (Placement(transformation(extent={{-70,-102},{-50,-82}})));
+    annotation (Placement(transformation(extent={{-124,-22},{-104,-2}})));
   Modelica.Blocks.Sources.RealExpression TEnv(y=Te)
-    annotation (Placement(transformation(extent={{-70,-86},{-50,-66}})));
+    annotation (Placement(transformation(extent={{-124,-6},{-104,14}})));
   Climate.Meteo.Solar.BaseClasses.RelativeAirMass
                   relativeAirMass
-    annotation (Placement(transformation(extent={{-78,42},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Climate.Meteo.Solar.BaseClasses.SkyBrightness
                 skyBrightness
-    annotation (Placement(transformation(extent={{-52,42},{-34,60}})));
+    annotation (Placement(transformation(extent={{-52,40},{-32,60}})));
   Climate.Meteo.Solar.BaseClasses.SkyClearness
                skyClearness
-    annotation (Placement(transformation(extent={{-78,70},{-60,88}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Climate.Meteo.Solar.BaseClasses.SkyBrightnessCoefficients
                             skyBrightnessCoefficients
-    annotation (Placement(transformation(extent={{-18,60},{0,78}})));
+    annotation (Placement(transformation(extent={{-26,60},{-6,80}})));
 
   Modelica.Blocks.Sources.RealExpression zenithAngle(y=angZen)
-    annotation (Placement(transformation(extent={{-110,46},{-90,66}})));
+    annotation (Placement(transformation(extent={{-124,46},{-104,66}})));
   Modelica.Blocks.Sources.RealExpression solGloHorIn(y=solGloHor)
-    annotation (Placement(transformation(extent={{-110,78},{-90,98}})));
+    annotation (Placement(transformation(extent={{-124,78},{-104,98}})));
   Modelica.Blocks.Sources.RealExpression solDifHorIn(y=solDifHor)
-    annotation (Placement(transformation(extent={{-110,62},{-90,82}})));
+    annotation (Placement(transformation(extent={{-124,62},{-104,82}})));
 
-public
-  Modelica.Blocks.Sources.RealExpression hour(y=angHou) "Hour angle"
-    annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
-  Modelica.Blocks.Sources.RealExpression dec(y=angDec) "declination angle"
-    annotation (Placement(transformation(extent={{62,86},{34,106}})));
-  Modelica.Blocks.Sources.RealExpression solDirPerExp(y=solDirPer)
-    "Perpendicular direct solar radiation"
-    annotation (Placement(transformation(extent={{60,74},{34,94}})));
-protected
-  parameter SI.Angle inc[numAzi + 1]=cat(
-      1,
-      fill(ceilingInc,1),
-      fill(IDEAS.Constants.Wall, numAzi)) "surface inclination";
 public
   Buildings.Components.Interfaces.WeaBus
                                      weaBus(numSolBus=numAzi + 1)
-    annotation (Placement(transformation(extent={{4,62},{24,82}})));
+    annotation (Placement(transformation(extent={{50,18},{70,38}})));
   Climate.Meteo.Solar.ShadedRadSol[
                              numAzi+1] radSol(
     inc=inc,
@@ -151,36 +155,29 @@ public
         fill(offsetAzi, numAzi) + (0:numAzi-1)*Modelica.Constants.pi*2/numAzi),
     each numAzi=numAzi,
     each lat=lat)
-             annotation (Placement(transformation(extent={{44,54},{64,74}})));
-public
+             annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Sources.RealExpression TskyPow4Expr(y=TskyPow4)
     "Power 4 of sky temperature"
-    annotation (Placement(transformation(extent={{66,10},{40,30}})));
+    annotation (Placement(transformation(extent={{-124,92},{-104,112}})));
   Modelica.Blocks.Sources.RealExpression TePow4Expr(y=TePow4)
     "Power 4 of ambient temperature"
-    annotation (Placement(transformation(extent={{66,-6},{40,14}})));
+    annotation (Placement(transformation(extent={{-124,106},{-104,126}})));
   Modelica.Blocks.Sources.RealExpression hConExpr(y=hCon)
     "Exterior convective heat transfer coefficient"
-    annotation (Placement(transformation(extent={{66,24},{40,44}})));
+    annotation (Placement(transformation(extent={{-20,-34},{0,-14}})));
   Modelica.Blocks.Sources.RealExpression TdesExpr(y=Tdes)
-    annotation (Placement(transformation(extent={{66,-20},{40,0}})));
-  parameter SI.Angle offsetAzi=0 "Offset for the azimuth angle series"
-    annotation(Dialog(tab="Incidence angles"));
-  parameter SI.Angle ceilingInc = IDEAS.Constants.Ceiling
-    "Ceiling inclination angle"
-    annotation(Dialog(tab="Incidence angles"));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=10e6)
-    annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=10e6);
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a Qgai
     "Thermal gains in model"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
   IDEAS.Buildings.Components.BaseClasses.EnergyPort E "Model internal energy"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-public
   Modelica.Blocks.Sources.RealExpression CEnv(y=0)
     "Concentration of trace substance in surroundings"
-    annotation (Placement(transformation(extent={{-70,-58},{-50,-38}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 initial equation
   Etot=0;
 equation
@@ -193,126 +190,140 @@ equation
   E.Etot=Etot;
 
   connect(TEnv.y,XiEnv. T) annotation (Line(
-      points={{-49,-76},{-32,-76},{-32,-86}},
+      points={{-103,4},{-82,4},{-82,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(phiEnv.y,XiEnv. phi) annotation (Line(
-      points={{-49,-92},{-32,-92}},
+      points={{-103,-12},{-82,-12},{-82,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyClearness.skyCle,skyBrightnessCoefficients. skyCle) annotation (
       Line(
-      points={{-59.46,79},{-56,79},{-56,70.8},{-18,70.8}},
+      points={{-59.4,80},{-56,80},{-56,72},{-26,72}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyBrightness.skyBri,skyBrightnessCoefficients. skyBri) annotation (
       Line(
-      points={{-34,56.4},{-22,56.4},{-22,67.2},{-18,67.2}},
+      points={{-32,56},{-30,56},{-30,68},{-26,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(relativeAirMass.relAirMas,skyBrightness. relAirMas) annotation (Line(
-      points={{-60,56.4},{-52,56.4}},
+      points={{-60,56},{-52,56}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zenithAngle.y, relativeAirMass.angZen) annotation (Line(
-      points={{-89,56},{-84,56},{-84,56.4},{-78,56.4}},
+      points={{-103,56},{-80,56}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zenithAngle.y, skyClearness.angZen) annotation (Line(
-      points={{-89,56},{-89,84.4},{-78,84.4}},
+      points={{-103,56},{-84,56},{-84,86},{-80,86}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyBrightnessCoefficients.angZen, skyClearness.angZen) annotation (
       Line(
-      points={{-18,74.4},{-52,74.4},{-52,96},{-84,96},{-84,84},{-86,84},{-85,84.4},
-          {-78,84.4}},
+      points={{-26,76},{-52,76},{-52,96},{-84,96},{-84,86},{-80,86}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyClearness.solGloHor, solGloHorIn.y) annotation (Line(
-      points={{-78,79},{-88,79},{-88,88},{-89,88}},
+      points={{-80,80},{-88,80},{-88,88},{-103,88}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solDifHorIn.y, skyClearness.solDifHor) annotation (Line(
-      points={{-89,72},{-84,72},{-84,73.6},{-78,73.6}},
+      points={{-103,72},{-86,72},{-86,74},{-80,74}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyClearness.solDifHor, skyBrightness.solDifHor) annotation (Line(
-      points={{-78,73.6},{-80,73.6},{-80,66},{-56,66},{-56,51},{-52,51}},
+      points={{-80,74},{-80,66},{-56,66},{-56,50},{-52,50}},
       color={0,0,127},
       smooth=Smooth.None));
 
-    connect(TskyPow4Expr.y, weaBus.TskyPow4) annotation (Line(
-      points={{38.7,20},{14,20},{14,72}},
+  connect(TskyPow4Expr.y, weaBus.TskyPow4) annotation (Line(
+      points={{-103,102},{60,102},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TePow4Expr.y, weaBus.TePow4) annotation (Line(
-      points={{38.7,4},{14,4},{14,72}},
+      points={{-103,116},{60,116},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   for i in 1:numAzi+1 loop
-    connect(radSol[i].weaBus, weaBus) annotation (Line(
-      points={{44,72},{14,72}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
+  connect(radSol[i].F2, skyBrightnessCoefficients.F2) annotation (Line(points={{
+          19.6,40},{2,40},{2,72},{-6,72}}, color={0,0,127}));
+  connect(radSol[i].F1, skyBrightnessCoefficients.F1) annotation (Line(points={{
+          19.6,42},{4,42},{4,76},{-6,76}}, color={0,0,127}));
+  connect(hour.y, radSol[i].angHou) annotation (Line(points={{-103,44},{-90,44},
+          {-90,24},{14,24},{14,48},{19.6,48}}, color={0,0,127}));
+  connect(zenithAngle.y, radSol[i].angZen) annotation (Line(points={{-103,56},{-84,
+          56},{-84,30},{16,30},{16,46},{19.6,46}}, color={0,0,127}));
+  connect(dec.y, radSol[i].angDec) annotation (Line(points={{-103,32},{-92,32},{
+          -92,22},{12,22},{12,50},{19.6,50}}, color={0,0,127}));
+  connect(radSol[i].solDirPer, solDirPerExp.y) annotation (Line(points={{19.6,60},
+          {6,60},{6,20},{-103,20}}, color={0,0,127}));
+  connect(radSol[i].solDifHor, solDifHorIn.y) annotation (Line(points={{19.6,56},
+          {10,56},{10,28},{-86,28},{-86,72},{-103,72}}, color={0,0,127}));
+  connect(solGloHorIn.y, radSol[i].solGloHor) annotation (Line(points={{-103,88},
+          {-88,88},{-88,26},{8,26},{8,58},{19.6,58}}, color={0,0,127}));
+  connect(TskyPow4Expr.y, radSol[i].TskyPow4)
+    annotation (Line(points={{-103,102},{28,102},{28,60.6}}, color={0,0,127}));
+  connect(TePow4Expr.y, radSol[i].TePow4) annotation (Line(points={{-103,116},{-90,
+          116},{34,116},{34,60.6}}, color={0,0,127}));
   end for;
   connect(skyBrightnessCoefficients.F1, weaBus.F1) annotation (Line(
-      points={{0,74.4},{20,74.4},{20,72},{14,72}},
+      points={{-6,76},{4,76},{4,34},{60,34},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(skyBrightnessCoefficients.F2, weaBus.F2) annotation (Line(
-      points={{0,70.8},{26,70.8},{26,72},{14,72}},
+      points={{-6,72},{2,72},{2,32},{60,32},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solGloHorIn.y, weaBus.solGloHor) annotation (Line(
-      points={{-89,88},{-88,88},{-88,98},{14,98},{14,72}},
+      points={{-103,88},{-88,88},{-88,26},{60,26},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solDifHorIn.y, weaBus.solDifHor) annotation (Line(
-      points={{-89,72},{-88,72},{-88,100},{14,100},{14,72}},
+      points={{-103,72},{-86,72},{-86,28},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zenithAngle.y, weaBus.angZen) annotation (Line(
-      points={{-89,56},{-88,56},{-88,104},{14,104},{14,72}},
+      points={{-103,56},{-84,56},{-84,30},{60,30},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hour.y, weaBus.angHou) annotation (Line(
-      points={{-89,100},{-32,100},{-32,72},{14,72}},
+      points={{-103,44},{-90,44},{-90,24},{60,24},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dec.y, weaBus.angDec) annotation (Line(
-      points={{32.6,96},{26,96},{26,94},{14,94},{14,72}},
+      points={{-103,32},{-92,32},{-92,22},{60,22},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solDirPerExp.y, weaBus.solDirPer) annotation (Line(
-      points={{32.7,84},{14,84},{14,72}},
+      points={{-103,20},{60,20},{60,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEnv.y, weaBus.Te) annotation (Line(
-      points={{-49,-76},{-50,-76},{-50,-56},{14.05,-56},{14.05,72.05}},
+      points={{-103,4},{-50,4},{-50,-56},{60.05,-56},{60.05,28.05}},
       color={0,0,127},
       smooth=Smooth.None,
       visible=false));
   connect(hConExpr.y, weaBus.hConExt) annotation (Line(
-      points={{38.7,34},{14.05,34},{14.05,72.05}},
+      points={{1,-24},{60.05,-24},{60.05,28.05}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TdesExpr.y, weaBus.Tdes) annotation (Line(
-      points={{38.7,-10},{14.05,-10},{14.05,72.05}},
+      points={{1,-10},{60.05,-10},{60.05,28.05}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSol.solBus, weaBus.solBus) annotation (Line(
-      points={{64,64},{74,64},{74,50},{14.05,50},{14.05,72.05}},
+      points={{40,50},{60.05,50},{60.05,28.05}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(fixedTemperature.port, Qgai)
     annotation (Line(points={{20,-70},{0,-70},{0,-100}},  color={191,0,0}));
 
-  connect(CEnv.y, weaBus.CEnv) annotation (Line(points={{-49,-48},{-32,-48},{14,
-          -48},{14,72}}, color={0,0,127}));
+  connect(CEnv.y, weaBus.CEnv) annotation (Line(points={{1,-40},{1,-40},{60,-40},
+          {60,28}},      color={0,0,127}));
   connect(XiEnv.X[1], weaBus.X_wEnv)
-    annotation (Line(points={{-9,-86},{14,-86},{14,72}}, color={0,0,127}));
+    annotation (Line(points={{-59,0},{60,0},{60,28}},    color={0,0,127}));
   annotation (
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
@@ -390,10 +401,16 @@ equation
           fontName="Bookman Old Style",
           textString="i")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
+            120}})),
     Documentation(info="<html>
 </html>", revisions="<html>
 <ul>
+<li>
+March 25, 2016 by Filip Jorissen:<br/>
+Reworked radSol implementation to use RealInputs instead of weaBus.
+This simplifies translation and interpretation.
+Also cleaned up connections.
+</li>
 <li>
 January 29, 2015, Filip Jorissen:<br/>
 Made changes for allowing a proper implementation of <code>airLeakage</code>.
