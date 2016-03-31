@@ -19,7 +19,7 @@ partial model PartialSurface "Partial model for building envelope component"
     "Reference temperature of zone on side of propsBus_a, for calculation of design heat loss"
     annotation (Dialog(group="Design heat loss"));
   parameter Boolean linearise_a=false
-    "= true, if convective heat transfer should be linearised."
+    "= true, if convective heat transfer should be linearised"
     annotation (Dialog(tab="Convection"));
   parameter Modelica.SIunits.TemperatureDifference dT_nominal_a=1
     "Nominal temperature difference used for linearisation, negative temperatures indicate the solid is colder"
@@ -36,10 +36,10 @@ partial model PartialSurface "Partial model for building envelope component"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={50,40}), iconTransformation(
+        origin={100,20}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={50,40})));
+        origin={50,20})));
 
   BaseClasses.InteriorConvection intCon_a(
     linearise=linearise_a,
@@ -77,12 +77,12 @@ equation
   connect(E.y,prescribedHeatFlowE. E);
   connect(QDesign.y, propsBus_a.QTra_design);
   connect(propsBus_a.surfCon, intCon_a.port_b) annotation (Line(
-      points={{50.1,39.9},{46,39.9},{46,0},{40,0}},
+      points={{100.1,19.9},{46,19.9},{46,0},{40,0}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(layMul.port_a, propsBus_a.surfRad) annotation (Line(
-      points={{10,0},{14,0},{14,39.9},{50.1,39.9}},
+      points={{10,0},{16,0},{16,19.9},{100.1,19.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.port_a, intCon_a.port_a) annotation (Line(
@@ -90,21 +90,21 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(layMul.iEpsSw_a, propsBus_a.epsSw) annotation (Line(
-      points={{10,4},{18,4},{18,39.9},{50.1,39.9}},
+      points={{10,4},{20,4},{20,19.9},{100.1,19.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.iEpsLw_a, propsBus_a.epsLw) annotation (Line(
-      points={{10,8},{14,8},{14,39.9},{50.1,39.9}},
+      points={{10,8},{18,8},{18,19.9},{100.1,19.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(layMul.area, propsBus_a.area) annotation (Line(
-      points={{0,10},{0,39.9},{50.1,39.9}},
+      points={{0,10},{0,19.9},{100.1,19.9}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -115,8 +115,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-50,-100},{50,100}}),
-        graphics),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-50,-100},{50,100}})),
     Documentation(revisions="<html>
 <ul>
 <li>

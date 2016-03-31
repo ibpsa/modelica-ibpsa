@@ -159,11 +159,9 @@ equation
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={135,135,135}),
                                Line(
           points={{-100,-60},{100,-60}},
-          color={0,127,255},
-          pattern=LinePattern.Dash),
-                                   Line(
+          color={0,127,255}),      Line(
           points={{-100,60},{100,60}},
-          color={0,127,255}),
+          color={255,85,85}),
         Rectangle(
           extent={{-100,-50},{-80,-70}},
           lineColor={0,0,0},

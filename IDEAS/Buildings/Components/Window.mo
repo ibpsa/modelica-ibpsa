@@ -4,12 +4,14 @@ model Window "Multipane window"
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "Glazing type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
+
   extends IDEAS.Buildings.Components.Interfaces.PartialSurface(
     dT_nominal_a=-3,
     intCon_a(final A=
            A*(1 - frac),
            linearise=linearise_a,
-           dT_nominal=dT_nominal_a), QTra_design(fixed=false),
+           dT_nominal=dT_nominal_a),
+    QTra_design(fixed=false),
     Qgai(y=-(propsBus_a.surfCon.Q_flow +
         propsBus_a.surfRad.Q_flow + solWin.iSolDif.Q_flow + solWin.iSolDir.Q_flow)),
     E(y=0),
@@ -22,17 +24,24 @@ model Window "Multipane window"
       linIntCon=true));
 
    parameter Modelica.SIunits.Area A "Total window and windowframe area";
+
    parameter Real frac(
     min=0,
     max=1) = 0.15 "Area fraction of the window frame";
+
+  // Construction parameters ---------------------------------------------------
+
+  replaceable IDEAS.Buildings.Components.ThermalBridges.LineLosses briType constrainedby
+    IDEAS.Buildings.Components.Interfaces.ThermalBridge
+    "Thermal bridge of window edge" annotation (__Dymola_choicesAllMatching=true, Dialog(group=
+          "Construction details"));
+
   replaceable IDEAS.Buildings.Data.Frames.None fraType
     constrainedby IDEAS.Buildings.Data.Interfaces.Frame "Window frame type"
     annotation (__Dymola_choicesAllMatching=true, Dialog(group=
           "Construction details"));
-
   replaceable IDEAS.Buildings.Components.Shading.None shaType constrainedby
-    Interfaces.StateShading(final azi=azi) "First shading type"
-                                                          annotation (Placement(transformation(extent={{-50,-60},
+    Interfaces.StateShading(final azi=azi) "First shading type"  annotation (Placement(transformation(extent={{-50,-60},
             {-40,-40}})),
       __Dymola_choicesAllMatching=true, Dialog(group="Construction details"));
 
@@ -45,6 +54,13 @@ model Window "Multipane window"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-40,-100})));
+
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theBri(final G=briType.G) if
+       briType.present "Themal bridge of the window perimeter"
+    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+
+  // Numerical model parameters ------------------------------------------------
+
   parameter IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType
     windowDynamicsType = IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two
     "Type of dynamics for glazing and frame: using zero, one combined or two states"
@@ -112,6 +128,7 @@ protected
                                                                                 addCapFra
     "Heat capacitor for frame"
     annotation (Placement(transformation(extent={{6,88},{26,108}})));
+
 protected
   final parameter Boolean addCapGla =  not windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None;
   final parameter Boolean addCapFra =  fraType.present and windowDynamicsType == IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two;
@@ -122,11 +139,11 @@ protected
     "Heat capacity of frame state";
 
 initial equation
-  QTra_design =U_value*A*(273.15 + 21 - Tdes.y);
+  QTra_design = (U_value*A + briType.G) *(273.15 + 21 - Tdes.y);
 
 equation
   connect(eCon.port_a, layMul.port_b) annotation (Line(
-      points={{-20,-28},{-12,-28},{-12,0},{-10,0}},
+      points={{-20,-28},{-14,-28},{-14,0},{-10,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(skyRad.port_a, layMul.port_b) annotation (Line(
@@ -134,11 +151,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolDir, propsBus_a.iSolDir) annotation (Line(
-      points={{-2,-60},{-2,-70},{50.1,-70},{50.1,39.9}},
+      points={{-2,-60},{-2,-70},{100.1,-70},{100.1,19.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolDif, propsBus_a.iSolDif) annotation (Line(
-      points={{2,-60},{2,-70},{50.1,-70},{50.1,39.9}},
+      points={{2,-60},{2,-70},{100.1,-70},{100.1,19.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(solWin.iSolAbs, layMul.port_gain) annotation (Line(
@@ -155,7 +172,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(iConFra.port_b, propsBus_a.surfCon) annotation (Line(
-      points={{40,80},{44,80},{44,39.9},{50.1,39.9}},
+      points={{40,80},{46,80},{46,19.9},{100.1,19.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(layFra.port_a, iConFra.port_a) annotation (Line(
@@ -187,7 +204,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
-      points={{-80,-42},{-78,-42},{-78,39.9},{50.1,39.9}},
+      points={{-80,-42},{-108,-42},{-108,20},{-28,20},{-28,19.9},{100.1,19.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -224,15 +241,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(eCon.Te, propsBus_a.weaBus.Te) annotation (Line(
-      points={{-20,-32.8},{50.1,-32.8},{50.1,39.9}},
+      points={{-20,-32.8},{100.1,-32.8},{100.1,19.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eCon.hConExt, propsBus_a.weaBus.hConExt) annotation (Line(
-      points={{-20,-37},{50.1,-37},{50.1,39.9}},
+      points={{-20,-37},{100.1,-37},{100.1,19.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBus_a.weaBus.Tdes) annotation (Line(
-      points={{58,80},{50.1,80},{50.1,39.9}},
+      points={{58,80},{100.1,80},{100.1,19.9}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -250,6 +267,11 @@ equation
     connect(heaCapGla.port, layFra.port_a) annotation (Line(points={{16,-12},{16,
             -12},{16,80},{10,80}},  color={191,0,0}));
   end if;
+  connect(theBri.port_b, layFra.port_a) annotation (Line(points={{10,40},{16,40},
+          {16,80},{10,80}}, color={191,0,0}));
+  connect(theBri.port_a, layMul.port_b) annotation (Line(points={{-10,40},{-14,
+          40},{-14,0},{-10,0}},
+                            color={191,0,0}));
     annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-50,-100},{50,100}}),
         graphics={

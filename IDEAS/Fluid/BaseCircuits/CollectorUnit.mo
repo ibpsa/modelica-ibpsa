@@ -91,34 +91,26 @@ Initial version</li>
         graphics={
         Line(
           points={{-100,-60},{100,-60}},
-          color={0,0,127},
-          smooth=Smooth.None,
-          pattern=LinePattern.Dash),
+          color={0,128,255}),
         Line(
           points={{-100,60},{-60,60},{-60,100}},
-          color={0,0,127},
-          smooth=Smooth.None),
+          color={255,85,85}),
         Line(
           points={{-60,60},{100,60}},
-          color={0,0,127},
-          smooth=Smooth.None),
+          color={255,85,85}),
         Line(
           points={{60,100},{60,-60}},
-          color={0,0,127},
-          smooth=Smooth.None,
-          pattern=LinePattern.Dash),
+          color={0,128,255}),
         Polygon(
           points={{-80,68},{-68,68},{-68,80},{-52,80},{-52,68},{-20,68},{-20,52},
               {-80,52},{-80,68}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
+          lineColor={255,85,85},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{80,-52},{68,-52},{68,-40},{52,-40},{52,-52},{20,-52},{20,-68},
               {80,-68},{80,-52}},
-          lineColor={0,0,127},
-          smooth=Smooth.None,
+          lineColor={0,128,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}));
 end CollectorUnit;
