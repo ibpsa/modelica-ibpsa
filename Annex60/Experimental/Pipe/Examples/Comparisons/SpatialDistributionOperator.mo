@@ -50,7 +50,7 @@ model SpatialDistributionOperator
   Modelica.Blocks.Sources.Constant PAtm1(
                                         k=101325) "Atmospheric pressure"
       annotation (Placement(transformation(extent={{-158,88},{-138,108}})));
-  Modelica.Blocks.Sources.Constant const3(k=5)
+  Modelica.Blocks.Sources.Constant const3(k=273.15 + 5)
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelayMod PipeDelayMod(
     redeclare package Medium = Medium,
@@ -109,7 +109,7 @@ model SpatialDistributionOperator
     "Sink at with constant pressure, turns into source at the end of experiment"
                           annotation (Placement(transformation(extent={{128,146},
             {108,166}})));
-  Modelica.Blocks.Sources.Constant const1(k=5)
+  Modelica.Blocks.Sources.Constant const1(k=273.15 + 5)
     annotation (Placement(transformation(extent={{-12,178},{8,198}})));
   Annex60.Experimental.Pipe.PipeHeatLoss_PipeDelay PipeDelay(
     redeclare package Medium = Medium,
