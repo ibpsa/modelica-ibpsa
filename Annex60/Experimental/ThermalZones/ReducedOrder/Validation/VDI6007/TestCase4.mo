@@ -1,5 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
-model TestCase4 "VDI 6007 Test Case 4 model"
+model TestCase4
+  "VDI 6007 Test Case 4 model"
   extends Modelica.Icons.Example;
 
   ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
@@ -23,10 +24,11 @@ model TestCase4 "VDI 6007 Test Case 4 model"
     CExt={47861.76},
     RInt={0.00338564974804},
     CInt={7445364.89759},
-    T_start=295.15) "Thermal zone"
+    T_start=295.15)
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature
-    prescribedTemperature(T=295.15) "Outdoor air temperature"
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
     "Outdoor convective heat transfer"
@@ -37,7 +39,8 @@ model TestCase4 "VDI 6007 Test Case 4 model"
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2}) "Table with internal gains"
+    columns={2})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -61,14 +64,15 @@ model TestCase4 "VDI 6007 Test Case 4 model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
-
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
-    "Outdoor coefficient of heat transfer for walls" annotation (Placement(
-        transformation(
-        extent={{-4,-4},{4,4}},
-        rotation=90,
-        origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
+    "Outdoor coefficient of heat transfer for walls"
+    annotation (Placement(
+    transformation(
+    extent={{-4,-4},{4,4}},
+    rotation=90,
+    origin={30,-18})));
+  Modelica.Blocks.Sources.Constant const(k=0)
+    "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
@@ -77,31 +81,34 @@ equation
     annotation (Line(points={{45,12.4},{40,12.4},{40,1},{36,1}}, color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
-  connect(const.y, thermalZoneTwoElements.solRad) annotation (Line(points={{
-          30.5,31},{37.25,31},{37.25,30.8},{45,30.8}}, color={0,0,127}));
-  connect(internalGains.y[1], machinesRad.Q_flow) annotation (Line(points={{
-          22.8,-52},{36,-52},{36,-74},{48,-74}}, color={0,0,127}));
-  connect(machinesRad.port, thermalZoneTwoElements.intGainsRad) annotation (
-      Line(points={{68,-74},{84,-74},{98,-74},{98,25},{91,25}}, color={191,0,0}));
+  connect(const.y, thermalZoneTwoElements.solRad)
+    annotation (Line(points={{
+    30.5,31},{37.25,31},{37.25,30.8},{45,30.8}}, color={0,0,127}));
+  connect(internalGains.y[1], machinesRad.Q_flow)
+    annotation (Line(points={{
+    22.8,-52},{36,-52},{36,-74},{48,-74}}, color={0,0,127}));
+  connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
+    annotation (
+    Line(points={{68,-74},{84,-74},{98,-74},{98,25},{91,25}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Documentation(info="<html>
-<p>Test Case 4 of the VDI 6007 Part 1: Calculation of indoor air temperature 
-excited by a radiative heat source for room version L.</p>
-<p>Boundary Condtions:</p>
-<ul>
-<li>constant outdoor air temperature 22 degC</li>
-<li>no solar or short-wave radiation on the exterior wall</li>
-<li>no solar or short-wave radiation through the windows</li>
-<li>no long-wave radiation exchange between exterior wall, windows and ambient 
-environment</li>
-</ul>
-<p>This test case is thought to test basic functionalities.</p>
-</html>", revisions="<html>
-<ul>
-<li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
-</ul>
-</html>"),
-__Dymola_Commands(file=
-          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase4.mos"
-        "Simulate and plot"));
+  -100},{100,100}})), Documentation(info="<html>
+  <p>Test Case 4 of the VDI 6007 Part 1: Calculation of indoor air temperature
+  excited by a radiative heat source for room version L.</p>
+  <p>Boundary Condtions:</p>
+  <ul>
+  <li>constant outdoor air temperature 22 degC</li>
+  <li>no solar or short-wave radiation on the exterior wall</li>
+  <li>no solar or short-wave radiation through the windows</li>
+  <li>no long-wave radiation exchange between exterior wall, windows and ambient
+  environment</li>
+  </ul>
+  <p>This test case is thought to test basic functionalities.</p>
+  </html>", revisions="<html>
+  <ul>
+  <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
+  </ul>
+  </html>"),
+  __Dymola_Commands(file=
+  "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase4.mos"
+  "Simulate and plot"));
 end TestCase4;

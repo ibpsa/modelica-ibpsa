@@ -1,5 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Examples;
-model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
+model SimpleRoomThreeElements
+  "Illustrates the use of ThermalZoneThreeElements"
   extends Modelica.Icons.Example;
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -23,7 +24,7 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
     "Weather data reader"
     annotation (Placement(transformation(extent={{-98,52},{-78,72}})));
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](
-     each outSkyCon=true,
+    each outSkyCon=true,
     each outGroCon=true,
     each til=1.5707963267949,
     each lat=0.87266462599716,
@@ -39,8 +40,8 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
   CorrectionSolarGain.CorrectionGDoublePane corGDoublePane(n=2, UWin=2.1)
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
-  Modelica.Blocks.Math.Sum
-            aggWindow(nin=2, k={0.5,0.5}) "Aggregates both windows to one"
+  Modelica.Blocks.Math.Sum aggWindow(nin=2, k={0.5,0.5})
+    "Aggregates both windows to one"
     annotation (Placement(transformation(extent={{44,57},{58,71}})));
   ReducedOrderZones.ThermalZoneThreeElements thermalZoneThreeElements(
     VAir=52.5,
@@ -69,7 +70,8 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
     RFloor={0.00331421908725},
     RFloorRem=0.1265217391,
     CFloor={5259932.23},
-    T_start=295.15) "Thermal zone"
+    T_start=295.15)
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
     n=2,
@@ -83,17 +85,16 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
     alphaWinOut=20,
     aWin=0.03,
     eExt=0.9,
-    TGround=285.15) "Computes equivalent air temperature"
+    TGround=285.15)
+    "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
     "Sums up solar radiation of both directions"
     annotation (Placement(transformation(extent={{-38,6},{-28,16}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Prescribed temperature for exterior walls outdoor surface temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature1
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature1
     "Prescribed temperature for windows outdoor surface temperature"
     annotation (Placement(transformation(extent={{8,14},{20,26}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWin
@@ -116,171 +117,197 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
         0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,0,0,0;
         86400,0,0,0],
     columns={2,3,4},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Table with profiles for persons (radiative and convective) and machines 
-      (convective)"
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    "Table with profiles for persons (radiative and convective) and machines
+    (convective)"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.Constant const[2](each k=0)
     "Sets sunblind signal to zero (open)"
     annotation (Placement(transformation(extent={{-20,14},{-14,20}})));
-  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-                                            annotation (Placement(
-        transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
-        extent={{-70,-12},{-50,8}})));
+  BoundaryConditions.WeatherData.Bus weaBus
+    "Weather data bus"
+    annotation (Placement(
+    transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
+    extent={{-70,-12},{-50,8}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
     "Convective heat flow of machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
-
   Modelica.Blocks.Sources.Constant alphaWall(k=25*11.5)
-    "Outdoor coefficient of heat transfer for walls" annotation (Placement(
-        transformation(
-        extent={{-4,-4},{4,4}},
-        rotation=90,
-        origin={30,-16})));
+    "Outdoor coefficient of heat transfer for walls"
+    annotation (Placement(
+    transformation(
+    extent={{-4,-4},{4,4}},
+    rotation=90,
+    origin={30,-16})));
   Modelica.Blocks.Sources.Constant alphaWin(k=20*14)
-    "Outdoor coefficient of heat transfer for windows" annotation (Placement(
-        transformation(
-        extent={{4,-4},{-4,4}},
-        rotation=90,
-        origin={32,38})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-  prescribedTemperatureFloor
+    "Outdoor coefficient of heat transfer for windows"
+    annotation (Placement(
+    transformation(
+    extent={{4,-4},{-4,4}},
+    rotation=90,
+    origin={32,38})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperatureFloor
     "Prescribed temperature for floor plate outdoor surface temperature"
     annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=90,
-        origin={67,-12})));
+    extent={{-6,-6},{6,6}},
+    rotation=90,
+    origin={67,-12})));
   Modelica.Blocks.Sources.Constant TSoil(k=283.15)
-    "Outdoor surface temperature for floor plate"          annotation (
-      Placement(transformation(
-        extent={{-4,-4},{4,4}},
-        rotation=180,
-        origin={84,-22})));
+    "Outdoor surface temperature for floor plate"
+    annotation (
+    Placement(transformation(
+    extent={{-4,-4},{4,4}},
+    rotation=180,
+    origin={84,-22})));
 equation
-  connect(eqAirTemp.TEqAirWindow, prescribedTemperature1.T) annotation (Line(
-        points={{-4.2,-1.4},{0,-1.4},{0,20},{6.8,20}}, color={0,0,127}));
-  connect(eqAirTemp.TEqAir, prescribedTemperature.T) annotation (Line(points={{
-          -4.2,-9.6},{4,-9.6},{4,0},{6.8,0}}, color={0,0,127}));
+  connect(eqAirTemp.TEqAirWindow, prescribedTemperature1.T)
+    annotation (Line(
+    points={{-4.2,-1.4},{0,-1.4},{0,20},{6.8,20}}, color={0,0,127}));
+  connect(eqAirTemp.TEqAir, prescribedTemperature.T)
+    annotation (Line(points={{
+    -4.2,-9.6},{4,-9.6},{4,0},{6.8,0}}, color={0,0,127}));
   connect(corGDoublePane.solarRadWinTrans, aggWindow.u)
     annotation (Line(points={{25,64},{42.6,64}}, color={0,0,127}));
-  connect(aggWindow.y, thermalZoneThreeElements.solRad) annotation (Line(points=
-         {{58.7,64},{62,64},{62,44},{40,44},{40,30.8},{45,30.8}}, color={0,0,
-          127}));
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-78,62},{-74,62},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(weaBus.TDryBul, eqAirTemp.TDryBul) annotation (Line(
-      points={{-83,6},{-83,-2},{-38,-2},{-38,-9.8},{-23,-9.8}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(internalGains.y[1], personsRad.Q_flow) annotation (Line(points={{22.8,
-          -52},{28,-52},{28,-32},{48,-32}}, color={0,0,127}));
+  connect(aggWindow.y, thermalZoneThreeElements.solRad)
+    annotation (Line(points=
+    {{58.7,64},{62,64},{62,44},{40,44},{40,30.8},{45,30.8}}, color={0,0,127}));
+  connect(weaDat.weaBus, weaBus)
+    annotation (Line(
+    points={{-78,62},{-74,62},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
+    color={255,204,51},
+    thickness=0.5), Text(
+    string="%second",
+    index=1,
+    extent={{6,3},{6,3}}));
+  connect(weaBus.TDryBul, eqAirTemp.TDryBul)
+    annotation (Line(
+    points={{-83,6},{-83,-2},{-38,-2},{-38,-9.8},{-23,-9.8}},
+    color={255,204,51},
+    thickness=0.5), Text(
+    string="%first",
+    index=-1,
+    extent={{-6,3},{-6,3}}));
+  connect(internalGains.y[1], personsRad.Q_flow)
+    annotation (Line(points={{22.8,
+    -52},{28,-52},{28,-32},{48,-32}}, color={0,0,127}));
   connect(internalGains.y[2], personsConv.Q_flow)
     annotation (Line(points={{22.8,-52},{36,-52},{48,-52}}, color={0,0,127}));
-  connect(internalGains.y[3], machinesConv.Q_flow) annotation (Line(points={{22.8,
-          -52},{28,-52},{28,-74},{48,-74}}, color={0,0,127}));
-  connect(const.y, eqAirTemp.sunblind) annotation (Line(points={{-13.7,17},{-12,
-          17},{-12,8},{-14,8},{-14,5}}, color={0,0,127}));
-  connect(HDifTil.HSkyDifTil, corGDoublePane.HSkyDifTil) annotation (Line(
-        points={{-47,36},{-28,36},{-6,36},{-6,65.8},{6,65.8}}, color={0,0,127}));
-  connect(HDirTil.H, corGDoublePane.HDirTil) annotation (Line(points={{-47,62},{
-          -10,62},{-10,70},{6,70}}, color={0,0,127}));
-  connect(HDirTil.H,solRad. u1) annotation (Line(points={{-47,62},{-42,62},{-42,
-          14},{-39,14}}, color={0,0,127}));
+  connect(internalGains.y[3], machinesConv.Q_flow)
+    annotation (Line(points={{22.8,
+    -52},{28,-52},{28,-74},{48,-74}}, color={0,0,127}));
+  connect(const.y, eqAirTemp.sunblind)
+    annotation (Line(points={{-13.7,17},{-12,
+    17},{-12,8},{-14,8},{-14,5}}, color={0,0,127}));
+  connect(HDifTil.HSkyDifTil, corGDoublePane.HSkyDifTil)
+    annotation (Line(
+    points={{-47,36},{-28,36},{-6,36},{-6,65.8},{6,65.8}}, color={0,0,127}));
+  connect(HDirTil.H, corGDoublePane.HDirTil)
+    annotation (Line(points={{-47,62},{
+    -10,62},{-10,70},{6,70}}, color={0,0,127}));
+  connect(HDirTil.H,solRad. u1)
+    annotation (Line(points={{-47,62},{-42,62},{-42,
+    14},{-39,14}}, color={0,0,127}));
   connect(HDirTil.inc, corGDoublePane.inc)
     annotation (Line(points={{-47,58},{6,58},{6,57.4}}, color={0,0,127}));
-  connect(HDifTil.H,solRad. u2) annotation (Line(points={{-47,30},{-44,30},{-44,
-          8},{-39,8}}, color={0,0,127}));
-  connect(HDifTil.HGroDifTil, corGDoublePane.HGroDifTil) annotation (Line(
-        points={{-47,24},{-4,24},{-4,61.6},{6,61.6}}, color={0,0,127}));
-  connect(solRad.y, eqAirTemp.HSol) annotation (Line(points={{-27.5,11},{-26,11},
-          {-26,0.4},{-23,0.4}}, color={0,0,127}));
-  connect(weaDat.weaBus, HDifTil[1].weaBus) annotation (Line(
-      points={{-78,62},{-74,62},{-74,30},{-68,30}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(weaDat.weaBus, HDifTil[2].weaBus) annotation (Line(
-      points={{-78,62},{-74,62},{-74,30},{-68,30}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(weaDat.weaBus, HDirTil[1].weaBus) annotation (Line(
-      points={{-78,62},{-73,62},{-68,62}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(weaDat.weaBus, HDirTil[2].weaBus) annotation (Line(
-      points={{-78,62},{-73,62},{-68,62}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(personsRad.port, thermalZoneThreeElements.intGainsRad) annotation (
-      Line(points={{68,-32},{84,-32},{100,-32},{100,25},{91,25}}, color={191,0,
-          0}));
+  connect(HDifTil.H,solRad. u2)
+    annotation (Line(points={{-47,30},{-44,30},{-44,
+    8},{-39,8}}, color={0,0,127}));
+  connect(HDifTil.HGroDifTil, corGDoublePane.HGroDifTil)
+    annotation (Line(
+    points={{-47,24},{-4,24},{-4,61.6},{6,61.6}}, color={0,0,127}));
+  connect(solRad.y, eqAirTemp.HSol)
+    annotation (Line(points={{-27.5,11},{-26,11},
+    {-26,0.4},{-23,0.4}}, color={0,0,127}));
+  connect(weaDat.weaBus, HDifTil[1].weaBus)
+    annotation (Line(
+    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    color={255,204,51},
+    thickness=0.5));
+  connect(weaDat.weaBus, HDifTil[2].weaBus)
+    annotation (Line(
+    points={{-78,62},{-74,62},{-74,30},{-68,30}},
+    color={255,204,51},
+    thickness=0.5));
+  connect(weaDat.weaBus, HDirTil[1].weaBus)
+    annotation (Line(
+    points={{-78,62},{-73,62},{-68,62}},
+    color={255,204,51},
+    thickness=0.5));
+  connect(weaDat.weaBus, HDirTil[2].weaBus)
+    annotation (Line(
+    points={{-78,62},{-73,62},{-68,62}},
+    color={255,204,51},
+    thickness=0.5));
+  connect(personsRad.port, thermalZoneThreeElements.intGainsRad)
+    annotation (
+    Line(points={{68,-32},{84,-32},{100,-32},{100,25},{91,25}}, color={191,0,
+    0}));
   connect(thermalConductorWin.solid, thermalZoneThreeElements.window)
     annotation (Line(points={{38,21},{40,21},{40,20},{45,20},{45,19.8}}, color=
-          {191,0,0}));
+    {191,0,0}));
   connect(prescribedTemperature1.port, thermalConductorWin.fluid)
     annotation (Line(points={{20,20},{28,20},{28,21}}, color={191,0,0}));
   connect(thermalZoneThreeElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{45,12.4},{40,12.4},{40,1},{36,1}}, color={191,0,0}));
+    annotation (Line(points={{45,12.4},{40,12.4},{40,1},{36,1}},
+    color={191,0,0}));
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-11.6},{30,-4},{31,-4}}, color={0,0,127}));
   connect(alphaWin.y, thermalConductorWin.Gc)
     annotation (Line(points={{32,33.6},{32,26},{33,26}}, color={0,0,127}));
-  connect(weaBus.TBlaSky, eqAirTemp.TBlaSky) annotation (Line(
-      points={{-83,6},{-58,6},{-58,2},{-32,2},{-32,-4.6},{-23,-4.6}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(machinesConv.port, thermalZoneThreeElements.intGainsConv) annotation (
-     Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,0,
-          0}));
-  connect(personsConv.port, thermalZoneThreeElements.intGainsConv) annotation (
-      Line(points={{68,-52},{96,-52},{96,19.8},{91,19.8}}, color={191,0,0}));
+  connect(weaBus.TBlaSky, eqAirTemp.TBlaSky)
+    annotation (Line(
+    points={{-83,6},{-58,6},{-58,2},{-32,2},{-32,-4.6},{-23,-4.6}},
+    color={255,204,51},
+    thickness=0.5), Text(
+    string="%first",
+    index=-1,
+    extent={{-6,3},{-6,3}}));
+  connect(machinesConv.port, thermalZoneThreeElements.intGainsConv)
+    annotation (
+    Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,0,
+    0}));
+  connect(personsConv.port, thermalZoneThreeElements.intGainsConv)
+    annotation (
+    Line(points={{68,-52},{96,-52},{96,19.8},{91,19.8}}, color={191,0,0}));
   connect(prescribedTemperatureFloor.port, thermalZoneThreeElements.floor)
     annotation (Line(points={{67,-6},{66.8,-6},{66.8,-1}}, color={191,0,0}));
-  connect(TSoil.y, prescribedTemperatureFloor.T) annotation (Line(points={{79.6,
-          -22},{67,-22},{67,-19.2}}, color={0,0,127}));
+  connect(TSoil.y, prescribedTemperatureFloor.T)
+    annotation (Line(points={{79.6,
+    -22},{67,-22},{67,-19.2}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Documentation(info="<html>
-              <p>This example shows the application of 
-              <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.ThermalZoneThreeElements\">ThermalZoneThreeElements</a> 
-              in combination with #
-              <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp\">EqAirTemp</a> 
-              and <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain.CorGDoublePane\">CorGDoublePane</a>. 
-              Solar radiation on tilted surface is calculated using models of 
-              Annex60. The thermal zone is a simple room defined in Guideline 
-              VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs 
-              except sunblinds, seperate handling of heat transfer through 
-              windows, an extra wall element for ground floor (with additional 
-              area) and solar radiation are similar to the ones defined for the 
-              guideline&apos;s test room. For solar radiation, the example 
-              relies on the standard weather file in Annex60.</p>
-              <p>The idea of the example is to show a typical application of 
-              all sub-models and to use the example in unit tests. The results 
-              are reasonable, but not related to any real use case or 
-              measurement data.</p>
-              <h4>References</h4>
-              <p>VDI. German Association of Engineers Guideline VDI 6007-1 March 
-              2012. Calculation of transient thermal response of rooms and 
-              buildings - modelling of rooms.</p>
-              </html>", revisions="<html>
-              <ul>
-              <li>February 25, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
-              </ul>
-              </html>"),
-    experiment(StopTime=3.1536e+007, Interval=3600),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})),
-__Dymola_Commands(file=
-          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mos"
-        "Simulate and plot"));
+  -100},{100,100}})), Documentation(info="<html>
+  <p>This example shows the application of
+  <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.ThermalZoneThreeElements\">ThermalZoneThreeElements</a>
+  in combination with #
+  <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.EqAirTemp.EqAirTemp\">EqAirTemp</a>
+  and <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.CorrectionSolarGain.CorGDoublePane\">CorGDoublePane</a>.
+  Solar radiation on tilted surface is calculated using models of
+  Annex60. The thermal zone is a simple room defined in Guideline
+  VDI 6007 Part 1 (VDI, 2012). All models, parameters and inputs
+  except sunblinds, seperate handling of heat transfer through
+  windows, an extra wall element for ground floor (with additional
+  area) and solar radiation are similar to the ones defined for the
+  guideline&apos;s test room. For solar radiation, the example
+  relies on the standard weather file in Annex60.</p>
+  <p>The idea of the example is to show a typical application of
+  all sub-models and to use the example in unit tests. The results
+  are reasonable, but not related to any real use case or
+  measurement data.</p>
+  <h4>References</h4>
+  <p>VDI. German Association of Engineers Guideline VDI 6007-1 March
+  2012. Calculation of transient thermal response of rooms and
+  buildings - modelling of rooms.</p>
+  </html>", revisions="<html>
+  <ul>
+  <li>February 25, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
+  </ul>
+  </html>"),
+  experiment(StopTime=3.1536e+007, Interval=3600),
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+  100}})),
+  __Dymola_Commands(file=
+  "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Examples/SimpleRoomThreeElements.mos"
+  "Simulate and plot"));
 end SimpleRoomThreeElements;

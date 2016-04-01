@@ -1,5 +1,6 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
-model TestCase12 "VDI 6007 Test Case 12 model"
+model TestCase12
+  "VDI 6007 Test Case 12 model"
   extends Modelica.Icons.Example;
   package Medium = Annex60.Media.Air "Medium model";
 
@@ -25,10 +26,11 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     ATransparent=7,
     ratioWinConRad=0.09,
     nPorts=2,
-    T_start=294.65) "Thermal zone"
+    T_start=294.65)
+    "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
-    prescribedTemperature "Outdoor air temperature"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
     "Outdoor convective heat transfer"
@@ -41,7 +43,8 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         200; 50400,80,80,200; 54000,80,80,200; 57600,80,80,200; 61200,80,80,200;
         61200,0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,
         0,0,0; 86400,0,0,0],
-    columns={2,3,4}) "Table with internal gains"
+    columns={2,3,4})
+    "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -60,18 +63,19 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         5130000,33; 5133600,33.3; 5137200,33.7; 5140800,33.9; 5144400,34.1;
         5148000,34.2; 5151600,34.3; 5155200,34.9; 5158800,34.8; 5162400,33;
         5166000,32.7; 5169600,32.2; 5173200,31.8; 5176800,31.4; 5180400,31.2;
-        5184000,30.9]) "Reference results"
+        5184000,30.9])
+    "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
     "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
-
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
-    "Outdoor coefficient of heat transfer for walls" annotation (Placement(
-        transformation(
-        extent={{-4,-4},{4,4}},
-        rotation=90,
-        origin={30,-18})));
+    "Outdoor coefficient of heat transfer for walls"
+    annotation (Placement(
+    transformation(
+    extent={{-4,-4},{4,4}},
+    rotation=90,
+    origin={30,-18})));
   Modelica.Blocks.Sources.CombiTimeTable outdoorTemp(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     columns={2},
@@ -84,7 +88,8 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         304.15; 57600,304.15; 57600,303.95; 61200,303.95; 61200,303.25; 64800,
         303.25; 64800,302.05; 68400,302.05; 68400,300.15; 72000,300.15; 72000,
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
-        295.05; 82800,294.05; 86400,294.05]) "Outdoor air temperature"
+        295.05; 82800,294.05; 86400,294.05])
+    "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-28,-8},{-12,8}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad
     "Radiative heat flow persons"
@@ -101,35 +106,39 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         46800,359; 46800,287; 50400,287; 50400,186; 54000,186; 54000,98; 57600,
         98; 57600,59; 61200,59; 61200,38; 64800,38; 64800,17; 68400,17; 68400,0;
         72000,0; 82800,0; 86400,0],
-    columns={2}) "Solar radiation"
+    columns={2})
+    "Solar radiation"
     annotation (Placement(transformation(extent={{-84,66},{-70,80}})));
   Modelica.Blocks.Sources.Constant g_sunblind(k=0.15)
-    "g value for sunblind closed"                     annotation (Placement(
-        transformation(
-        extent={{-3,-3},{3,3}},
-        rotation=-90,
-        origin={-19,57})));
+    "g value for sunblind closed"
+    annotation (Placement(
+    transformation(
+    extent={{-3,-3},{3,3}},
+    rotation=-90,
+    origin={-19,57})));
   Modelica.Blocks.Sources.Constant sunblind_open(k=1)
-    "g value for sunblind open"                       annotation (Placement(
-        transformation(
-        extent={{-3,-3},{3,3}},
-        rotation=-90,
-        origin={-33,57})));
+    "g value for sunblind open"
+    annotation (Placement(
+    transformation(
+    extent={{-3,-3},{3,3}},
+    rotation=-90,
+    origin={-33,57})));
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=100)
     "Threshold for sunblind for one direction"
     annotation (Placement(transformation(
-        extent={{-5,-5},{5,5}},
-        rotation=-90,
-        origin={-59,59})));
-  Modelica.Blocks.Math.Product product1 "solar radiation times g value for sunblind (open or closed) for one 
-      direction"
+    extent={{-5,-5},{5,5}},
+    rotation=-90,
+    origin={-59,59})));
+  Modelica.Blocks.Math.Product product1
+    "Solar radiation times g value for sunblind (open or closed) for one
+    direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
     "Determines g value for sunblind (open or closed) for one direction"
-                                         annotation (Placement(transformation(
-        extent={{-6,-6},{6,6}},
-        rotation=-90,
-        origin={-26,38})));
+    annotation (Placement(transformation(
+    extent={{-6,-6},{6,6}},
+    rotation=-90,
+    origin={-26,38})));
   Modelica.Blocks.Sources.CombiTimeTable ventRate(
     tableOnFile=false,
     columns={2},
@@ -140,7 +149,8 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         100; 72000,100; 75600,100; 79200,100; 82800,100; 86400,100])
     "Ventilation rate"
     annotation (Placement(transformation(extent={{-86,-29},{-72,-15}})));
-  Modelica.Blocks.Math.Gain gain(k=0.000330375898) "conversion to kg/s"
+  Modelica.Blocks.Math.Gain gain(k=0.000330375898)
+    "Conversion to kg/s"
     annotation (Placement(transformation(extent={{-62,-29},{-48,-15}})));
   Fluid.Sources.MassFlowSource_T ventilationIn(
     redeclare package Medium = Medium,
@@ -152,9 +162,11 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=1,
-    use_T_in=false) "Fan"
+    use_T_in=false)
+    "Fan"
     annotation (Placement(transformation(extent={{-32,-72},{-12,-52}})));
-  Modelica.Blocks.Math.Gain gain1(k=-1) "Reverses ventilation rate"
+  Modelica.Blocks.Math.Gain gain1(k=-1)
+    "Reverses ventilation rate"
     annotation (Placement(transformation(extent={{-62,-61},{-48,-47}})));
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
@@ -165,70 +177,87 @@ equation
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(outdoorTemp.y[1], prescribedTemperature.T)
     annotation (Line(points={{-11.2,0},{6.8,0}}, color={0,0,127}));
-  connect(personsRad.port, thermalZoneTwoElements.intGainsRad) annotation (Line(
-        points={{68,-92},{68,-92},{98,-92},{98,25},{91,25}}, color={191,0,0}));
-  connect(internalGains.y[1], personsRad.Q_flow) annotation (Line(points={{22.8,
-          -52},{30,-52},{38,-52},{38,-92},{48,-92}}, color={0,0,127}));
-  connect(internalGains.y[2], personsConv.Q_flow) annotation (Line(points={{
-          22.8,-52},{38,-52},{38,-74},{48,-74}}, color={0,0,127}));
-  connect(internalGains.y[3], machinesConv.Q_flow) annotation (Line(points={{
-          22.8,-52},{38,-52},{38,-56},{48,-56}}, color={0,0,127}));
+  connect(personsRad.port, thermalZoneTwoElements.intGainsRad)
+    annotation (Line(
+    points={{68,-92},{68,-92},{98,-92},{98,25},{91,25}}, color={191,0,0}));
+  connect(internalGains.y[1], personsRad.Q_flow)
+    annotation (Line(points={{22.8,
+    -52},{30,-52},{38,-52},{38,-92},{48,-92}}, color={0,0,127}));
+  connect(internalGains.y[2], personsConv.Q_flow)
+    annotation (Line(points={{
+    22.8,-52},{38,-52},{38,-74},{48,-74}}, color={0,0,127}));
+  connect(internalGains.y[3], machinesConv.Q_flow)
+    annotation (Line(points={{
+    22.8,-52},{38,-52},{38,-56},{48,-56}}, color={0,0,127}));
   connect(tableSolRadWindow.y[1],greaterThreshold1. u)
     annotation (Line(points={{-69.3,73},{-59,73},{-59,65}}, color={0,0,127}));
-  connect(sunblind_open.y, switch1.u3) annotation (Line(points={{-33,53.7},{-33,
-          48},{-30.8,48},{-30.8,45.2}}, color={0,0,127}));
-  connect(g_sunblind.y, switch1.u1) annotation (Line(points={{-19,53.7},{-19,48},
-          {-21.2,48},{-21.2,45.2}}, color={0,0,127}));
-  connect(tableSolRadWindow.y[1], product1.u1) annotation (Line(points={{-69.3,
-          73},{-37.65,73},{-7,73}}, color={0,0,127}));
-  connect(greaterThreshold1.y, switch1.u2) annotation (Line(points={{-59,53.5},
-          {-59,46},{-40,46},{-40,64},{-26,64},{-26,45.2}}, color={255,0,255}));
-  connect(switch1.y, product1.u2) annotation (Line(points={{-26,31.4},{-26,28},
-          {-10,28},{-10,67},{-7,67}}, color={0,0,127}));
-  connect(product1.y, thermalZoneTwoElements.solRad) annotation (Line(points={{
-          4.5,70},{20,70},{20,30.8},{45,30.8}}, color={0,0,127}));
-  connect(ventRate.y[1], gain.u) annotation (Line(points={{-71.3,-22},{-68,-22},
-          {-63.4,-22}}, color={0,0,127}));
-  connect(ventilationIn.ports[1], thermalZoneTwoElements.ports[1]) annotation (
-      Line(points={{-10,-30},{-10,-30},{82,-30},{82,-1.15},{81.475,-1.15}},
-        color={0,127,255}));
+  connect(sunblind_open.y, switch1.u3)
+    annotation (Line(points={{-33,53.7},{-33,
+    48},{-30.8,48},{-30.8,45.2}}, color={0,0,127}));
+  connect(g_sunblind.y, switch1.u1)
+    annotation (Line(points={{-19,53.7},{-19,48},
+    {-21.2,48},{-21.2,45.2}}, color={0,0,127}));
+  connect(tableSolRadWindow.y[1], product1.u1)
+    annotation (Line(points={{-69.3,
+    73},{-37.65,73},{-7,73}}, color={0,0,127}));
+  connect(greaterThreshold1.y, switch1.u2)
+    annotation (Line(points={{-59,53.5},
+    {-59,46},{-40,46},{-40,64},{-26,64},{-26,45.2}}, color={255,0,255}));
+  connect(switch1.y, product1.u2)
+    annotation (Line(points={{-26,31.4},{-26,28},
+    {-10,28},{-10,67},{-7,67}}, color={0,0,127}));
+  connect(product1.y, thermalZoneTwoElements.solRad)
+    annotation (Line(points={{
+    4.5,70},{20,70},{20,30.8},{45,30.8}}, color={0,0,127}));
+  connect(ventRate.y[1], gain.u)
+    annotation (Line(points={{-71.3,-22},{-68,-22},
+    {-63.4,-22}}, color={0,0,127}));
+  connect(ventilationIn.ports[1], thermalZoneTwoElements.ports[1])
+    annotation (
+    Line(points={{-10,-30},{-10,-30},{82,-30},{82,-1.15},{81.475,-1.15}},
+    color={0,127,255}));
   connect(gain.y, ventilationIn.m_flow_in)
     annotation (Line(points={{-47.3,-22},{-30,-22}}, color={0,0,127}));
-  connect(outdoorTemp.y[1], ventilationIn.T_in) annotation (Line(points={{-11.2,
-          0},{-4,0},{-4,-12},{-42,-12},{-42,-26},{-32,-26}}, color={0,0,127}));
-  connect(gain.y, gain1.u) annotation (Line(points={{-47.3,-22},{-44,-22},{-44,
-          -38},{-70,-38},{-70,-54},{-63.4,-54}}, color={0,0,127}));
+  connect(outdoorTemp.y[1], ventilationIn.T_in)
+    annotation (Line(points={{-11.2,
+    0},{-4,0},{-4,-12},{-42,-12},{-42,-26},{-32,-26}}, color={0,0,127}));
+  connect(gain.y, gain1.u)
+    annotation (Line(points={{-47.3,-22},{-44,-22},{-44,
+    -38},{-70,-38},{-70,-54},{-63.4,-54}}, color={0,0,127}));
   connect(gain1.y, ventilationOut.m_flow_in)
     annotation (Line(points={{-47.3,-54},{-32,-54}}, color={0,0,127}));
-  connect(ventilationOut.ports[1], thermalZoneTwoElements.ports[2]) annotation (
-     Line(points={{-12,-62},{-6,-62},{0,-62},{0,-36},{84.525,-36},{84.525,-1.15}},
-        color={0,127,255}));
-  connect(personsConv.port, thermalZoneTwoElements.intGainsConv) annotation (
-      Line(points={{68,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,0,0}));
-  connect(machinesConv.port, thermalZoneTwoElements.intGainsConv) annotation (
-      Line(points={{68,-56},{96,-56},{96,19.8},{91,19.8}}, color={191,0,0}));
+  connect(ventilationOut.ports[1], thermalZoneTwoElements.ports[2])
+    annotation (
+    Line(points={{-12,-62},{-6,-62},{0,-62},{0,-36},{84.525,-36},{84.525,-1.15}},
+    color={0,127,255}));
+  connect(personsConv.port, thermalZoneTwoElements.intGainsConv)
+    annotation (
+    Line(points={{68,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,0,0}));
+  connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
+    annotation (
+    Line(points={{68,-56},{96,-56},{96,19.8},{91,19.8}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}})), Documentation(info="<html>
-<p>Test Case 12 of the VDI 6007 Part 1: Calculation of indoor air temperature 
-excited by a radiative and convective heat source for room version S. It is 
-based of Test Case 5 and adds ventilation.</p>
-<p>Boundary Condtions:</p>
-<ul>
-<li>daily profile for outdoor air temperature in hourly steps</li>
-<li>no solar or short-wave radiation on the exterior wall</li>
-<li>daily profile for solar radiation through the windows in hourly steps</li>
-<li>sunblind closes at &GT;100 W/m2</li>
-<li>no long-wave radiation exchange between exterior wall, windows and ambient 
-environment</li>
-<li>daily profile for ventilation in hourly time steps</li>
-</ul>
-<p>This test case is thought to test infiltration and ventilation.</p>
-</html>", revisions="<html>
-<ul>
-<li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
-</ul>
-</html>"),
-__Dymola_Commands(file=
-          "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase12.mos"
-        "Simulate and plot"));
+  -100},{100,100}})), Documentation(info="<html>
+  <p>Test Case 12 of the VDI 6007 Part 1: Calculation of indoor air temperature
+  excited by a radiative and convective heat source for room version S. It is
+  based of Test Case 5 and adds ventilation.</p>
+  <p>Boundary Condtions:</p>
+  <ul>
+  <li>daily profile for outdoor air temperature in hourly steps</li>
+  <li>no solar or short-wave radiation on the exterior wall</li>
+  <li>daily profile for solar radiation through the windows in hourly steps</li>
+  <li>sunblind closes at &GT;100 W/m2</li>
+  <li>no long-wave radiation exchange between exterior wall, windows and ambient
+  environment</li>
+  <li>daily profile for ventilation in hourly time steps</li>
+  </ul>
+  <p>This test case is thought to test infiltration and ventilation.</p>
+  </html>", revisions="<html>
+  <ul>
+  <li>January 11, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
+  </ul>
+  </html>"),
+  __Dymola_Commands(file=
+  "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase12.mos"
+  "Simulate and plot"));
 end TestCase12;
