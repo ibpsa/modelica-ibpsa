@@ -78,7 +78,8 @@ model TestCase11
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
+  Modelica.Blocks.Sources.Constant const(k=0)
+    "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
   Fluid.Movers.FlowControlled_m_flow fan(
     m_flow_nominal=m_flow_nominal,
@@ -250,12 +251,12 @@ equation
   connect(setTemp1.y[1], coo.TSet)
     annotation (Line(points={{-43.2,88},{-40,88},
     {-40,74},{-44,74},{-44,68},{-40,68}}, color={0,0,127}));
-  connect(coo.Q_flow, cool.Q_flow)
-    annotation (Line(points={{-17,68},{-12,68},{
-    ,12,84},{-8,84}}, color={0,0,127}));
   connect(hea.Q_flow, heat.Q_flow)
     annotation (Line(points={{-3,-36},{14,-36},{
     14,-28},{44,-28},{44,-34},{48,-34}}, color={0,0,127}));
+  connect(coo.Q_flow, cool.Q_flow)
+    annotation (Line(points={{-17,68},{-12,68},{
+    -12,84},{-8,84}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 11 of the VDI 6007 Part 1: Calculation of heat load excited with

@@ -1,5 +1,5 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature;
-package UsersGuide #
+package UsersGuide
   "User's Guide"
   extends Modelica.Icons.Information;
 
