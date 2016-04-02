@@ -91,13 +91,13 @@ public
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    V=length*diameter^2/4*Modelica.Constants.pi/6)
+    V=length*diameter^2/4*Modelica.Constants.pi/7)
     annotation (Placement(transformation(extent={{-60,0},{-80,20}})));
   Fluid.MixingVolumes.MixingVolume vol1(
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    V=length*diameter^2/4*Modelica.Constants.pi/6)
+    V=length*diameter^2/4*Modelica.Constants.pi/7)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor pipeCapacity(C=Cpipe/2)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
@@ -139,16 +139,12 @@ equation
           fillPattern=FillPattern.HorizontalCylinder)}),
     Documentation(revisions="<html>
 <ul>
-<li>
-October 10, 2015 by Marcus Fuchs:<br/>
-Copy Icon from KUL implementation and rename model.
-</li>
-<li>
-June 23, 2015 by Marcus Fuchs:<br/>
-First implementation.
-</li>
+<li>April 2, 2016 by Bram van der Heijde:<br>Add volumes and pipe capacity at inlet and outlet of the pipe.</li>
+<li>October 10, 2015 by Marcus Fuchs:<br>Copy Icon from KUL implementation and rename model. </li>
+<li>June 23, 2015 by Marcus Fuchs:<br>First implementation. </li>
 </ul>
 </html>", info="<html>
-<p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. The temperature propagation is handled by the PipeLosslessPlugFlow component. </p>
+<p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. The temperature propagation is handled by the PipeLosslessPlugFlow component.</p>
+<p>This component includes water volumes at the in- and outlet to account for the thermal capacity of the pipe walls. Logically, each volume should contain half of the pipe&apos;s real water volume. However, this leads to an overestimation, probably because only part of the pipe is affected by temperature changes (see Benonysson, 1991). The ratio of the pipe to be included in the thermal capacity is to be investigated further. </p>
 </html>"));
 end PipeAdiabaticPlugFlow;
