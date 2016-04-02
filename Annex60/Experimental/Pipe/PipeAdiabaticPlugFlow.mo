@@ -3,8 +3,13 @@ model PipeAdiabaticPlugFlow
   "Pipe model using spatialDistribution for temperature delay without heat losses"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
+  parameter Modelica.SIunits.Length thickness = 0.002;
+  parameter Modelica.SIunits.Length diameter = 0.05 "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
+  parameter Modelica.SIunits.HeatCapacity Cpipe = length*((diameter+thickness)^2 - diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall
+    "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.SpecificHeatCapacity cpipe = 500 "For steel";
+  parameter Modelica.SIunits.Density rho_wall = 8000 "For steel";
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
@@ -48,7 +53,7 @@ model PipeAdiabaticPlugFlow
     final dp_nominal=dp_nominal,
     dp(nominal=if Medium.nXi == 0 then 100*length else 5*length))
     "Pressure drop calculation for this pipe"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 protected
   parameter Medium.ThermodynamicState sta_default=
@@ -80,22 +85,43 @@ protected
     final L=length,
     final allowFlowReversal=allowFlowReversal)
     "Model for temperature wave propagation with spatialDistribution operator"
-    annotation (Placement(transformation(extent={{26,-10},{46,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+public
+  Fluid.MixingVolumes.MixingVolume vol(
+    nPorts=2,
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    V=length*diameter^2/4*Modelica.Constants.pi/6)
+    annotation (Placement(transformation(extent={{-60,0},{-80,20}})));
+  Fluid.MixingVolumes.MixingVolume vol1(
+    nPorts=2,
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    V=length*diameter^2/4*Modelica.Constants.pi/6)
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor pipeCapacity(C=Cpipe/2)
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor pipeCapacity1(C=Cpipe/2)
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
 equation
-  connect(port_a, res.port_a) annotation (Line(
-      points={{-100,0},{-60,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(res.port_b, temperatureDelay.port_a) annotation (Line(
-      points={{-40,0},{26,0}},
+      points={{-20,0},{20,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_b, temperatureDelay.port_b) annotation (Line(
-      points={{100,0},{46,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+  connect(port_a, vol.ports[1])
+    annotation (Line(points={{-100,0},{-68,0}}, color={0,127,255}));
+  connect(res.port_a, vol.ports[2])
+    annotation (Line(points={{-40,0},{-72,0}}, color={0,127,255}));
+  connect(temperatureDelay.port_b, vol1.ports[1])
+    annotation (Line(points={{40,0},{68,0}}, color={0,127,255}));
+  connect(vol1.ports[2], port_b)
+    annotation (Line(points={{72,0},{72,0},{100,0}}, color={0,127,255}));
+  connect(pipeCapacity1.port, vol1.heatPort) annotation (Line(points={{30,40},{30,
+          40},{30,10},{60,10}}, color={191,0,0}));
+  connect(pipeCapacity.port, vol.heatPort) annotation (Line(points={{-30,40},{-30,
+          40},{-30,12},{-30,10},{-60,10}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+            -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,40},{100,-42}},
