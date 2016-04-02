@@ -14,7 +14,7 @@ model HeatLossDoubleParallel
     "Resistance for symmetric problem, in Km/W";
   final parameter Modelica.SIunits.Time tau_charSymm=Rs*C
     "Time constant for symmetric problem";
-  final parameter Modelica.SIunits.Time tau_charAsymm=Rs*Ra/(2*Ra + Rs)*C
+  final parameter Modelica.SIunits.Time tau_charAsymm=Ra*C
     "Time constant for asymmetric problem";
 
   Modelica.SIunits.Temperature Tin_a
@@ -110,5 +110,4 @@ equation
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
-
 end HeatLossDoubleParallel;
