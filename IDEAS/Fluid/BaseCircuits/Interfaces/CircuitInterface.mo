@@ -159,9 +159,11 @@ equation
         Rectangle(extent={{-100,100},{100,-100}}, lineColor={135,135,135}),
                                Line(
           points={{-100,-60},{100,-60}},
-          color={0,127,255}),      Line(
+          color={0,127,255},
+          thickness=0.5),          Line(
           points={{-100,60},{100,60}},
-          color={255,85,85}),
+          color={255,85,85},
+          thickness=0.5),
         Rectangle(
           extent={{-100,-50},{-80,-70}},
           lineColor={0,0,0},

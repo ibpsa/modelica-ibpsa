@@ -1,9 +1,15 @@
 within IDEAS.Fluid.BaseCircuits;
 model FluidCollector "Collects m fluid flows"
+
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component"
+    annotation (__Dymola_choicesAllMatching=true);
+
   parameter Integer m(min=1)=3 "Number of collected heat flows";
-  IDEAS.Fluid.Interfaces.FlowPort_a port_a[m]
+  IDEAS.Fluid.Interfaces.FlowPort_a port_a[m](redeclare final package Medium =
+        Medium)
     annotation (Placement(transformation(extent={{-10,110},{10,90}})));
-  IDEAS.Fluid.Interfaces.FlowPort_b port_b
+  IDEAS.Fluid.Interfaces.FlowPort_b port_b(redeclare final package Medium = Medium)
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
 equation
