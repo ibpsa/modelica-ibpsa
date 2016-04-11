@@ -221,17 +221,22 @@ See for example
 Annex60.Fluid.Chillers.Carnot_y</a>.
 To add moisture input into (or moisture output from) volume <code>vol2</code>,
 the model can be replaced as shown in
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.BaseClasses.HexElement\">
-Annex60.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
+<a href=\"modelica://Annex60.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Annex60.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>.
 </p>
 <h4>Implementation</h4>
 <p>
 The variable names follow the conventions used in
-<a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
-Modelica.Fluid.HeatExchangers.BasicHX</a>.
+<a href=\"modelica://Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX\">
+Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 11, 2016 by Michael Wetter:<br/>
+Corrected wrong hyperlink in documentation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/450\">issue 450</a>.
+</li>
 <li>
 January 26, 2016, by Michael Wetter:<br/>
 Set <code>quantity</code> attributes.
