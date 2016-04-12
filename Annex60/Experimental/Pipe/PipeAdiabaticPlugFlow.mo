@@ -4,6 +4,8 @@ model PipeAdiabaticPlugFlow
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
   parameter Modelica.SIunits.Length thickness = 0.002;
+  parameter Modelica.SIunits.Length Lcap = 1
+    "Length over which transient effects typically take place";
   parameter Modelica.SIunits.Length diameter = 0.05 "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
   parameter Modelica.SIunits.HeatCapacity Cpipe = length*((diameter+thickness)^2 - diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall
@@ -91,18 +93,14 @@ public
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    V=length*diameter^2/4*Modelica.Constants.pi/7)
+    V=Lcap*diameter^2/4*Modelica.Constants.pi)
     annotation (Placement(transformation(extent={{-60,0},{-80,20}})));
   Fluid.MixingVolumes.MixingVolume vol1(
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    V=length*diameter^2/4*Modelica.Constants.pi/7)
+    V=Lcap*diameter^2/4*Modelica.Constants.pi)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor pipeCapacity(C=Cpipe/2)
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor pipeCapacity1(C=Cpipe/2)
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
 equation
   connect(res.port_b, temperatureDelay.port_a) annotation (Line(
       points={{-20,0},{20,0}},
@@ -116,10 +114,6 @@ equation
     annotation (Line(points={{40,0},{68,0}}, color={0,127,255}));
   connect(vol1.ports[2], port_b)
     annotation (Line(points={{72,0},{72,0},{100,0}}, color={0,127,255}));
-  connect(pipeCapacity1.port, vol1.heatPort) annotation (Line(points={{30,40},{30,
-          40},{30,10},{60,10}}, color={191,0,0}));
-  connect(pipeCapacity.port, vol.heatPort) annotation (Line(points={{-30,40},{-30,
-          40},{-30,12},{-30,10},{-60,10}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
