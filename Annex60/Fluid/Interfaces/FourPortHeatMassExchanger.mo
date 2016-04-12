@@ -220,9 +220,9 @@ See for example
 <a href=\"Annex60.Fluid.Chillers.Carnot_y\">
 Annex60.Fluid.Chillers.Carnot_y</a>.
 To add moisture input into (or moisture output from) volume <code>vol2</code>,
-the model can be replaced as shown in
-<a href=\"modelica://Annex60.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
-Annex60.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>.
+the model can be replaced with
+<a href=\"modelica://Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir\">
+Annex60.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
 </p>
 <h4>Implementation</h4>
 <p>
