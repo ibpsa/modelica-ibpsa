@@ -1,6 +1,5 @@
 within Annex60.Utilities.Math.Examples;
 model SmoothHeaviside "Test model for smoothHeavisidefunction "
-  import Annex60;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp x1(duration=1,
     height=2,
