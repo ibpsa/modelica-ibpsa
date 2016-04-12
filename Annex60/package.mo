@@ -435,7 +435,7 @@ Many models are based on models from the package
 the same ports to ensure compatibility with models from that library.
 However, a design change is that models from the <code>Annex60</code>
 library do not require the use of
-<a href=\"modelica://Modelica.Fluid.Systems\">Modelica.Fluid.Systems</a>
+<a href=\"modelica://Modelica.Fluid.System\">Modelica.Fluid.System</a>
 as applications in buildings often have multiple fluids with largely varying
 flow rates, and therefore a global declaration is impractical.
 </p>
