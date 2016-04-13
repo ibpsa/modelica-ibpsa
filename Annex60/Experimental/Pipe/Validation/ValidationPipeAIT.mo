@@ -41,7 +41,8 @@ extends Modelica.Icons.Example;
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    length=115)
+    length=115,
+    Lcap=Lcap)
     annotation (Placement(transformation(extent={{50,0},{30,20}})));
   PipeHeatLoss_PipeDelayMod pip4(
     redeclare package Medium = Medium,
@@ -50,8 +51,8 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18))
-                       annotation (Placement(transformation(
+    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+    Lcap=Lcap)         annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={10,40})));
@@ -62,7 +63,8 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     lambdaI=0.024,
     thicknessIns=0.045,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18))
+    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+    Lcap=Lcap)
     annotation (Placement(transformation(extent={{0,0},{-20,20}})));
   PipeHeatLoss_PipeDelayMod pip2(
     redeclare package Medium = Medium,
@@ -71,8 +73,8 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18))
-                       annotation (Placement(transformation(
+    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+    Lcap=Lcap)         annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-70,40})));
@@ -83,8 +85,8 @@ extends Modelica.Icons.Example;
     diameter=0.0825,
     thicknessIns=0.045,
     lambdaI=0.024,
-    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18))
-                       annotation (Placement(transformation(
+    R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
+    Lcap=Lcap)         annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-46,-10})));
@@ -110,8 +112,6 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={50,-20})));
-  Modelica.Blocks.Math.UnitConversions.To_degC Tamb
-    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
   PipeHeatLoss_PipeDelayMod pip0(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -119,7 +119,8 @@ extends Modelica.Icons.Example;
     thicknessIns=0.045,
     lambdaI=0.024,
     R=1/0.208 + 1/(2*2.4*Modelica.Constants.pi)*log(1/0.18),
-    length=20)
+    length=20,
+    Lcap=Lcap)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,-10})));
@@ -128,6 +129,8 @@ extends Modelica.Icons.Example;
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,70})));
+  parameter Modelica.SIunits.Length Lcap=1
+    "Length over which transient effects typically take place";
 equation
   connect(pip3.port_a, pip5.port_b) annotation (Line(
       points={{-46,0},{-46,10},{-20,10}},
@@ -185,26 +188,6 @@ equation
       points={{-70,50},{-40,50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(Tamb.y, pip1.T_amb) annotation (Line(
-      points={{61,-90},{100,-90},{100,40},{40,40},{40,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Tamb.y, pip4.T_amb) annotation (Line(
-      points={{61,-90},{100,-90},{100,40},{20,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Tamb.y, pip5.T_amb) annotation (Line(
-      points={{61,-90},{100,-90},{100,26},{-10,26},{-10,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Tamb.y, pip3.T_amb) annotation (Line(
-      points={{61,-90},{68,-90},{68,-74},{-28,-74},{-28,-10},{-36,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Tamb.y, pip2.T_amb) annotation (Line(
-      points={{61,-90},{68,-90},{68,-74},{-28,-74},{-28,40},{-60,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(pip0.port_a, Point1.ports[1]) annotation (Line(
       points={{80,-20},{80,-32}},
       color={0,127,255},
@@ -217,14 +200,6 @@ equation
       points={{60,-20},{80,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(Tamb.y, pip0.T_amb) annotation (Line(
-      points={{61,-90},{100,-90},{100,-10},{90,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Tamb.u, DataReader.y[9]) annotation (Line(
-      points={{38,-90},{21,-90}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(pip0.port_b, ExcludedBranch.ports[1]) annotation (Line(
       points={{80,0},{80,60}},
       color={0,127,255},
@@ -233,8 +208,21 @@ equation
       points={{21,-90},{26,-90},{26,-72},{74,-72},{74,-52}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(DataReader.y[9], pip0.T_amb) annotation (Line(points={{21,-90},{58,
+          -90},{96,-90},{96,-10},{90,-10}}, color={0,0,127}));
+  connect(pip0.T_amb, pip2.T_amb) annotation (Line(points={{90,-10},{90,26},{
+          -48,26},{-48,40},{-60,40}}, color={0,0,127}));
+  connect(pip5.T_amb, pip2.T_amb) annotation (Line(points={{-10,20},{-10,26},{
+          -48,26},{-48,40},{-60,40}}, color={0,0,127}));
+  connect(pip3.T_amb, pip2.T_amb) annotation (Line(points={{-36,-10},{-32,-10},
+          {-32,-8},{-28,-8},{-28,26},{-48,26},{-48,40},{-60,40}}, color={0,0,
+          127}));
+  connect(pip4.T_amb, pip2.T_amb) annotation (Line(points={{20,40},{40,40},{40,
+          26},{-48,26},{-48,40},{-60,40}}, color={0,0,127}));
+  connect(pip1.T_amb, pip2.T_amb) annotation (Line(points={{40,20},{40,26},{-48,
+          26},{-48,40},{-60,40}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
+            -100},{100,100}})),
     experiment(StopTime=603900),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>

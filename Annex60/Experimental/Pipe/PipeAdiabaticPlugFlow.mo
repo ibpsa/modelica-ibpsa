@@ -3,8 +3,15 @@ model PipeAdiabaticPlugFlow
   "Pipe model using spatialDistribution for temperature delay without heat losses"
   extends Annex60.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Modelica.SIunits.Diameter diameter "Pipe diameter";
+  parameter Modelica.SIunits.Length thickness = 0.002;
+  parameter Modelica.SIunits.Length Lcap = 1
+    "Length over which transient effects typically take place";
+  parameter Modelica.SIunits.Length diameter = 0.05 "Pipe diameter";
   parameter Modelica.SIunits.Length length "Pipe length";
+  parameter Modelica.SIunits.HeatCapacity Cpipe = length*((diameter+thickness)^2 - diameter^2)*Modelica.Constants.pi/4*cpipe*rho_wall
+    "Heat capacity of pipe wall";
+  parameter Modelica.SIunits.SpecificHeatCapacity cpipe = 500 "For steel";
+  parameter Modelica.SIunits.Density rho_wall = 8000 "For steel";
 
   /*parameter Modelica.SIunits.ThermalConductivity k = 0.005 
     "Heat conductivity of pipe's surroundings";*/
@@ -48,7 +55,7 @@ model PipeAdiabaticPlugFlow
     final dp_nominal=dp_nominal,
     dp(nominal=if Medium.nXi == 0 then 100*length else 5*length))
     "Pressure drop calculation for this pipe"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 protected
   parameter Medium.ThermodynamicState sta_default=
@@ -80,22 +87,35 @@ protected
     final L=length,
     final allowFlowReversal=allowFlowReversal)
     "Model for temperature wave propagation with spatialDistribution operator"
-    annotation (Placement(transformation(extent={{26,-10},{46,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+public
+  Fluid.MixingVolumes.MixingVolume vol(
+    nPorts=2,
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    V=Lcap*diameter^2/4*Modelica.Constants.pi)
+    annotation (Placement(transformation(extent={{-60,0},{-80,20}})));
+  Fluid.MixingVolumes.MixingVolume vol1(
+    nPorts=2,
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    V=Lcap*diameter^2/4*Modelica.Constants.pi)
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
 equation
-  connect(port_a, res.port_a) annotation (Line(
-      points={{-100,0},{-60,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(res.port_b, temperatureDelay.port_a) annotation (Line(
-      points={{-40,0},{26,0}},
+      points={{-20,0},{20,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_b, temperatureDelay.port_b) annotation (Line(
-      points={{100,0},{46,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+  connect(port_a, vol.ports[1])
+    annotation (Line(points={{-100,0},{-68,0}}, color={0,127,255}));
+  connect(res.port_a, vol.ports[2])
+    annotation (Line(points={{-40,0},{-72,0}}, color={0,127,255}));
+  connect(temperatureDelay.port_b, vol1.ports[1])
+    annotation (Line(points={{40,0},{68,0}}, color={0,127,255}));
+  connect(vol1.ports[2], port_b)
+    annotation (Line(points={{72,0},{72,0},{100,0}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+            -100},{100,100}})),           Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,40},{100,-42}},
@@ -113,16 +133,12 @@ equation
           fillPattern=FillPattern.HorizontalCylinder)}),
     Documentation(revisions="<html>
 <ul>
-<li>
-October 10, 2015 by Marcus Fuchs:<br/>
-Copy Icon from KUL implementation and rename model.
-</li>
-<li>
-June 23, 2015 by Marcus Fuchs:<br/>
-First implementation.
-</li>
+<li>April 2, 2016 by Bram van der Heijde:<br>Add volumes and pipe capacity at inlet and outlet of the pipe.</li>
+<li>October 10, 2015 by Marcus Fuchs:<br>Copy Icon from KUL implementation and rename model. </li>
+<li>June 23, 2015 by Marcus Fuchs:<br>First implementation. </li>
 </ul>
 </html>", info="<html>
-<p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. The temperature propagation is handled by the PipeLosslessPlugFlow component. </p>
+<p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. The temperature propagation is handled by the PipeLosslessPlugFlow component.</p>
+<p>This component includes water volumes at the in- and outlet to account for the thermal capacity of the pipe walls. Logically, each volume should contain half of the pipe&apos;s real water volume. However, this leads to an overestimation, probably because only part of the pipe is affected by temperature changes (see Benonysson, 1991). The ratio of the pipe to be included in the thermal capacity is to be investigated further. </p>
 </html>"));
 end PipeAdiabaticPlugFlow;

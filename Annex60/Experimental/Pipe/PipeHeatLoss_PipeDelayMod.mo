@@ -75,7 +75,8 @@ protected
     final allowFlowReversal=allowFlowReversal,
     diameter=diameter,
     length=length,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    Lcap=Lcap)
     "Model for temperature wave propagation with spatialDistribution operator and hydraulic resistance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -116,6 +117,8 @@ public
   BaseClasses.PDETime_massFlowMod tau_used(length=length, diameter=
         diameter)
     annotation (Placement(transformation(extent={{2,-64},{22,-44}})));
+  parameter Modelica.SIunits.Length Lcap=1
+    "Length over which transient effects typically take place";
 equation
   heat_losses = actualStream(port_b.h_outflow) - actualStream(port_a.h_outflow);
 
