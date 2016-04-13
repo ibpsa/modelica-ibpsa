@@ -98,11 +98,18 @@ equation
 <p>The insulation used is Tubolit 60/13. For this material, a thermal conductivity of about 0.04 W/m<sup>2</sup>K can be found (<a href=\"http://www.armacell.com/WWW/armacell/ACwwwAttach.nsf/ansFiles/PDS_Range_Tubolit_CHf.pdf/$File/PDS_Range_Tubolit_CHf.pdf\">source</a>).</p>
 <p><b><span style=\"color: #008000;\">Test bench schematic</span></b> </p>
 <p><img src=\"modelica://Annex60/Resources/Images/Experimental/ULgTestBench.png\"/> </p>
+
 <p><b><span style=\"color: #008000;\">Calibration</span></b> </p>
-<p>There are some incertainties about the heat loss coefficient between pipe and surrounding air as well as regarding the heat conductivity of the insulation material. With the <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataULg150801\">given data</a>, the length specific thermal resistance <code><span style=\"font-family: Courier New,courier;\">R = 1.21315 </span></code>(mK/W). <code><span style=\"font-family: Courier New,courier;\">R</span></code> calculated as follows: </p>
-<p><code><span style=\"font-family: Courier New,courier;\">R=((1/(2*pipe.lambdaI)*log((0.0603/2+pipe.thicknessIns)/(0.0603/2)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi</span></code> </p>
-<p>However, it is with <code><span style=\"font-family: Courier New,courier;\">R = 0.028 </span></code>(mK/W) that good results for the outlet temperature when the inlet temperature is close to 68 &deg;C are obtained. Furthermore, a value of <code><span style=\"font-family: Courier New,courier;\">R = 0.0155 </span></code>(mK/W) gives better results for the outlet temperature when the inlet temperature is close to 48 &deg;C.</p>
-<p>It seems that a correct value for <code><span style=\"font-family: Courier New,courier;\">R</span></code> should be between 0.0155 (mK/W) and 0.028 (mK/W).</p>
+<p>
+There are some incertainties about the heat loss coefficient between pipe and surrounding air as well as regarding the heat conductivity of the insulation material. With the <a href=\"modelica://Annex60.Experimental.Pipe.Data.PipeDataULg150801\">
+given data</a>, the length specific thermal resistance <code>R = 2.164 </code> (mK/W). <code>R</code> calculated as follows:
+</p>
+<p>
+<code>R=((1/(2*pipe.lambdaI)*log((0.0603+2*pipe.thicknessIns)/(0.0603)))+1/(5*(0.0603+2*pipe.thicknessIns)))/Modelica.Constants.pi</code>  
+</p>
+<p>
+<code>U = 1/R = 0.462 W/mK </code> 
+</p>
 </html>", revisions="<html>
 <ul>
 <li>April 2, 2016 by Bram van der Heijde:<br>Change thermal conductivity and put boundary condition in K.</li>
