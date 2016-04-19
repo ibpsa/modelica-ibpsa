@@ -1,8 +1,7 @@
 within IDEAS.Occupants.Standards;
 model None "No occupants, constant set point temperature."
-  import Buildings;
   extends IDEAS.Interfaces.BaseClasses.Occupant(final nLoads=0, nZones=1);
-  parameter Modelica.SIunits.Temperature TSet_val[nZones] = {273.15 + 17}
+  parameter Modelica.SIunits.Temperature TSet_val[nZones] = fill(273.15 + 17, nZones)
     "Set point temperature";
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[nZones](
      each Q_flow=0)
