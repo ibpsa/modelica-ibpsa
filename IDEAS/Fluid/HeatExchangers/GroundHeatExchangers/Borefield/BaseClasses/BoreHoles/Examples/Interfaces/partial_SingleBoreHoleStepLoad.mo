@@ -43,10 +43,11 @@ partial model partial_SingleBoreHoleStepLoad
   Movers.FlowControlled_m_flow          pum(
     redeclare package Medium = Medium,
     m_flow_nominal=gen.m_flow_nominal_bh,
-    dynamicBalance=false,
     T_start=gen.T_start,
     addPowerToMedium=false,
-    filteredSpeed=false)
+    filteredSpeed=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-14,10},{-34,-10}})));
   Sensors.TemperatureTwoPort             TSen_bor_in(
     redeclare package Medium = Medium,
