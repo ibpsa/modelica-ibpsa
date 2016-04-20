@@ -1,0 +1,9 @@
+last-generated=2016-04-19
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+dummy=[3., 3.]
+time=[0., 1.]
