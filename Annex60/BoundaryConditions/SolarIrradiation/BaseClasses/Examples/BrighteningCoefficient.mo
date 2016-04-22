@@ -1,5 +1,5 @@
 within Annex60.BoundaryConditions.SolarIrradiation.BaseClasses.Examples;
-model BrighteningCoeffcient "Test model for brightening coeffcients"
+model BrighteningCoefficient "Test model for brightening coeffcients"
   extends Modelica.Icons.Example;
   Annex60.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=
         0.6457718232379)
@@ -88,4 +88,4 @@ First implementation.
 </html>"),
 experiment(StopTime=8640000),
 __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClasses/Examples/BrighteningCoefficient.mos" "run"));
-end BrighteningCoeffcient;
+end BrighteningCoefficient;
