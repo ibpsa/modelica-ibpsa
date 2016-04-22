@@ -102,9 +102,6 @@ equation
   connect(conRoom.port_b, volumeStairs.heatPort) annotation (Line(
       points={{10,0},{20,0}},
       color={191,0,0}));
-  connect(port_a_bot, port_a_bot) annotation (Line(
-      points={{0,-100},{0,-100}},
-      color={0,127,255}));
   connect(port_a_bot, col2.port_b) annotation (Line(
       points={{0,-100},{0,-70}},
       color={0,127,255}));

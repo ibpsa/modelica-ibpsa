@@ -25,7 +25,7 @@ protected
     if not singleSubstance "Block to compute water vapor concentration";
 
   Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX](
-    final unit="kg/kg",
+    each final unit="kg/kg",
     final quantity=Medium.substanceNames)
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput T_in_internal(final unit="K",

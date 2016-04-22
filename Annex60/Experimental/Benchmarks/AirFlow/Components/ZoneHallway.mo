@@ -149,9 +149,6 @@ equation
   connect(oriOutTop.port_b, port_a_toOutside) annotation (Line(
       points={{88,60},{100,60}},
       color={0,127,255}));
-  connect(port_a1,port_a1)  annotation (Line(
-      points={{-60,-100},{-60,-100}},
-      color={0,127,255}));
   connect(ori.port_b,port_a1)  annotation (Line(
       points={{-40,-90},{-40,-94},{-60,-100}},
       color={0,127,255}));
