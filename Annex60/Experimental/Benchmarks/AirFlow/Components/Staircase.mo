@@ -164,6 +164,12 @@ Annex60.Airflow.Multizone.Validation.ThreeRoomsContam</a> </p>
    revisions="<html>
 <ul>
 <li>
+April, 25, 2016 by Marcus Fuchs:<br/>
+Removed wrong connection statement. This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/454\"> #454</a>,
+to prevent a warning in OpenModelica.
+</li>
+<li>
 September, 2, 2015 by Marcus Fuchs:<br/>
 Add start values to the ports and temperature in the <code>ThermalConductor</code> and the
 <code>PrescripedTemperature</code> model. This is for
