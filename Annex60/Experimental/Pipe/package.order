@@ -10,3 +10,5 @@ Data
 Types
 Validation
 Archive
+PipeHeatLoss_PipeDelayMod_Vector
+PipeAdiabaticPlugFlowForVector
