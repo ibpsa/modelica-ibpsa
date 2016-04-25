@@ -11,7 +11,7 @@ equation
   pSat = Annex60.Utilities.Psychrometrics.Functions.saturationPressure(T);
   annotation (
 experiment(StopTime=1.0),
-__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/saturationPressure.mos"
+__Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/SaturationPressure.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example computes the saturation pressure of water.
