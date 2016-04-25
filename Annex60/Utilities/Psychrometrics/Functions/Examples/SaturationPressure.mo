@@ -19,6 +19,12 @@ This example computes the saturation pressure of water.
 </html>", revisions="<html>
 <ul>
 <li>
+April 22, 2016, by Michael Wetter:<br/>
+Corrected script name to use capital letter.
+This is for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/510\">Buildings, issue 510</a>.
+</li>
+<li>
 November 20, 2013, by Michael Wetter:<br/>
 First implementation.
 </li>
