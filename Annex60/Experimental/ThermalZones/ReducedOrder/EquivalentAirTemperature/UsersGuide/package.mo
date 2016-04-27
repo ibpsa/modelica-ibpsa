@@ -1,48 +1,60 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature;
-package UsersGuide
-  "User's Guide"
+package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
 
 annotation (Documentation(info="<html>
-  <p>Annex60.ThermalZones.ReducedOrder.EqAirTemp package contains models for
-  calculating an equivalent air temperature. There are two common ways to
-  consider solar radiation hitting exterior surfaces. One way is to consider
-  the resulting heat load at the wall&apos;s capacitance. The other way is to
-  add correction terms to the outdoor air temperature. The <code>EqAirTemp</code>
-  models follow the second approach, that is for example described in the German
-  Guideline VDI 6007 Part 1 (VDI, 2012). The influence of indoor temperatures
-  via heat transfer through exterior walls is neglected. The exterior wall&apos;s
-  outdoor surface is assumed to have the outdoor air temperature for calculation
-  of radiative heat exchange with the ambient.</p>
+<p>This package package contains models for
+calculating an equivalent air temperature. There are two common ways to
+consider solar radiation hitting exterior surfaces. One way is to consider
+the resulting heat load at the wall&apos;s capacitance. The other way is to
+add correction terms to the outdoor air temperature. The models in the package
+<a href=\"modelica://Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature\">
+Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature</a>
+follow the second approach. This approach is, for example, described in the German
+Guideline VDI 6007 Part 1 (VDI, 2012). The influence of indoor temperatures
+via heat transfer through exterior walls is neglected. The exterior wall&apos;s
+outdoor surface is assumed to have the outdoor air temperature for calculation
+of radiative heat exchange with the ambient.</p>
 <p>The fundamental equation is: </p>
-<p align=\"center\"><i>&thetasym;<sub>EqAirExt</sub> = &thetasym;
+<p align=\"center\" style=\"font-style:italic;\">
+&thetasym;<sub>EqAirExt</sub> = &thetasym;
 <sub>AirAmb</sub>+&Delta;&thetasym;<sub>EqLW</sub>+&Delta;&thetasym;
-<sub>EqSW</sub> </i></p>
-<p>The correction term for long-wave radiation is based on black body sky
-temperature and dry bulb temperature:</p>
-<p align=\"center\"><i>&Delta;&thetasym;<sub>EqLW</sub> =
+<sub>EqSW</sub>
+</p>
+<p>
+The correction term for long-wave radiation is based on the black body sky
+temperature and dry bulb temperature,</p>
+<p align=\"center\" style=\"font-style:italic;\">
+&Delta;&thetasym;<sub>EqLW</sub> =
 (&thetasym;<sub>BlaSky</sub>-&thetasym;<sub>DryBul</sub>)
 &epsilon;<sub>Ext </sub>&alpha;<sub>Rad</sub>/
-(&alpha;<sub>Rad</sub>+&alpha;<sub>Ext</sub>)</i></p>
-<p>If a sunblind is present, the current status (closed - 1/open - 0) is
+(&alpha;<sub>Rad</sub>+&alpha;<sub>Ext</sub>).
+</p>
+<p>If a sunblind is present, the current status (closed = 1 and open = 0) is
 considered by multiplying the long-wave correction terms for windows with the
-status variable minus one. The sunblind status is defined per orientation.</p>
+status variable minus one. The sunblind status is defined per orientation.
+</p>
 <p>The correction term for short-wave radiation does not count for windows and
-is calculated with the help of the solar radiation for the specific orientations:</p>
-<p align=\"center\"><i>&Delta;&thetasym;<sub>EqSW</sub> = H<sub>Sol
-</sub>a<sub>Ext</sub>/(&alpha;<sub>Rad</sub>+&alpha;<sub>Ext</sub>)</i></p>
-<p><br>With the equations above, one equivalent air temperature per orientation
+is calculated with the help of the solar radiation for the specific orientations as</p>
+<p align=\"center\"  style=\"font-style:italic;\">
+&Delta;&thetasym;<sub>EqSW</sub> = H<sub>Sol
+</sub>a<sub>Ext</sub>/(&alpha;<sub>Rad</sub>+&alpha;<sub>Ext</sub>).
+</p>
+<p>
+With the equations above, one equivalent air temperature per orientation
 and wall or window is calculated. These equivalent air temperatures are then
-aggregated weighting each entry with a weightfactor. In this part, constant
+aggregated weighting each entry with a weighting factor. In this part, constant
 temperatures of ground coupled elements or adjacent rooms can be considered.
-The sum of weightfactor per calculated equivalent air temperature should be one.
+The sum of weighting factors per calculated equivalent air temperature must be one.
 If you consider two equivalent air temperatures, one for walls and one for
 windows, the sum of weightfactors should be one per category. In the given case,
-the weightfactors are calculated with the U-value and area of the concerned wall
-elements:</p>
-<p align=\"center\"><i>WeighFac<sub>i</sub> =
-U<sub>i </sub>A<sub>i</sub>/&Sigma;U<sub>i </sub>A<sub>i</i></sub></p>
+the weighting factors are calculated with the <i>U</i>-value and area of the concerned wall
+elements as</p>
+<p align=\"center\"  style=\"font-style:italic;\">
+WeighFac<sub>i</sub> =
+U<sub>i </sub>A<sub>i</sub>/&Sigma;U<sub>i </sub>A<sub>i</sub>
+</p>
 <p>More information about this topic can be found in Lauster <i>et al</i> .
 (2014).</p>
 <h4>References</h4>
