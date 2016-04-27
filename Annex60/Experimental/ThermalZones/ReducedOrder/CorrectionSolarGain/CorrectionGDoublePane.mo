@@ -20,8 +20,8 @@ protected
     "Constant 5 to calculate reference transmission";
   parameter Real A6=4.74*10^(-12)
     "Constant 6 to calculate reference transmission";
-  parameter Modelica.SIunits.TransmissionCoefficient g_dir0=0.7537 "Reference vertical parallel transmission coefficient for direct radiation
-    for double pane window";
+  parameter Modelica.SIunits.TransmissionCoefficient g_dir0=0.7537
+    "Reference vertical parallel transmission coefficient for direct radiation for double pane window";
   parameter Modelica.SIunits.TransmissionCoefficient Ta_diff = 0.84 "Energetic degree of transmission for diffuse radiation for uniformly
     overcast sky";
   parameter Modelica.SIunits.TransmissionCoefficient Tai_diff=0.903
@@ -137,12 +137,12 @@ equation
   revisions="<html>
   <ul>
   <li>
-  February 24, 2014, by Reza Tavakoli:<br/>
-  First implementation.
-  </li>
-  <li>
   September 12, 2015 by Moritz Lauster:<br/>
   Adapted to Annex 60 requirements.
+  </li>  
+  <li>
+  February 24, 2014, by Reza Tavakoli:<br/>
+  First implementation.
   </li>
   </ul>
   </html>"));
