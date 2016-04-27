@@ -13,7 +13,7 @@ model VDI6007WithWindow
     "Eqiuvalent short wave temperature for windows";
   Modelica.Blocks.Interfaces.RealOutput TEqAirWindow(final unit="K")
     "Equivalent air temperature for windows (no short-wave radiation)"
-    annotation (Placement(transformation(extent={{80,58},{100,78}}),
+    annotation (Placement(transformation(extent={{100,50},{120,70}}),
     iconTransformation(extent={{78,6},{118,46}})));
 initial equation
   assert(noEvent(abs(sum(wfWall) + wfGround - 1) < 0.1),

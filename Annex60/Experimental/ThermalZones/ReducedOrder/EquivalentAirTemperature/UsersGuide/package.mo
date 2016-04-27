@@ -18,16 +18,16 @@ outdoor surface is assumed to have the outdoor air temperature for calculation
 of radiative heat exchange with the ambient.</p>
 <p>The fundamental equation is: </p>
 <p align=\"center\" style=\"font-style:italic;\">
-&thetasym;<sub>EqAirExt</sub> = &thetasym;
-<sub>AirAmb</sub>+&Delta;&thetasym;<sub>EqLW</sub>+&Delta;&thetasym;
+T<sub>EqAirExt</sub> = T
+<sub>AirAmb</sub>+&Delta;T<sub>EqLW</sub>+&Delta;T
 <sub>EqSW</sub>
 </p>
 <p>
 The correction term for long-wave radiation is based on the black body sky
 temperature and dry bulb temperature,</p>
 <p align=\"center\" style=\"font-style:italic;\">
-&Delta;&thetasym;<sub>EqLW</sub> =
-(&thetasym;<sub>BlaSky</sub>-&thetasym;<sub>DryBul</sub>)
+&Delta;T<sub>EqLW</sub> =
+(T<sub>BlaSky</sub>-T<sub>DryBul</sub>)
 &epsilon;<sub>Ext </sub>&alpha;<sub>Rad</sub>/
 (&alpha;<sub>Rad</sub>+&alpha;<sub>Ext</sub>).
 </p>
@@ -38,7 +38,7 @@ status variable minus one. The sunblind status is defined per orientation.
 <p>The correction term for short-wave radiation does not count for windows and
 is calculated with the help of the solar radiation for the specific orientations as</p>
 <p align=\"center\"  style=\"font-style:italic;\">
-&Delta;&thetasym;<sub>EqSW</sub> = H<sub>Sol
+&Delta;T<sub>EqSW</sub> = H<sub>Sol
 </sub>a<sub>Ext</sub>/(&alpha;<sub>Rad</sub>+&alpha;<sub>Ext</sub>).
 </p>
 <p>

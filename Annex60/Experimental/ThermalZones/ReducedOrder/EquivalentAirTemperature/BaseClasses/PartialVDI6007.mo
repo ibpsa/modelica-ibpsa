@@ -30,39 +30,32 @@ partial model PartialVDI6007
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") "Solar radiation per unit area"
     annotation (Placement(
-    transformation(extent={{-120,40},{-80,80}}),
-    iconTransformation(extent={{-110,24},{-70,64}})));
+    transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput TBlaSky(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
     final unit="K") "Black-body sky temperature"
     annotation (Placement(
-    transformation(extent={{-120,-10},{-80,30}}),
-    iconTransformation(extent={{-110,-26},{-70,14}})));
+    transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Dry bulb temperature"
     annotation (Placement(
-    transformation(extent={{-120,-44},{-80,-4}}),
-    iconTransformation(extent={{-110,-78},{-70,-38}})));
+    transformation(extent={{-140,-80},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealOutput TEqAir(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Equivalent air temperature"
     annotation (Placement(
-    transformation(extent={{98,-56},{118,-36}}),
-    iconTransformation(extent={{78,-76},{118,-36}})));
+    transformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput sunblind[n]
     "Opening factor of sunblinds for each direction (0 - open to 1 - closed)"
     annotation (Placement(
     transformation(
     extent={{-20,-20},{20,20}},
     rotation=-90,
-    origin={-10,100}), iconTransformation(
-    extent={{-20,-20},{20,20}},
-    rotation=-90,
-    origin={0,90})));
+    origin={0,120})));
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround) > 0.1),
   "The sum of the weighting factors (walls,windows and ground) in eqAirTemp is close
