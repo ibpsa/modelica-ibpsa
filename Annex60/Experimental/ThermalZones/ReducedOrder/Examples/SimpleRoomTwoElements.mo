@@ -1,14 +1,12 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Examples;
-model SimpleRoomTwoElements
-  "Illustrates the use of ThermalZoneTwoElements"
+model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
   extends Modelica.Icons.Example;
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     calTSky=Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.
     HorizontalRadiation,
     computeWetBulbTemperature=false,
-    filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
+    filNam="modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
     HSou=Annex60.BoundaryConditions.Types.RadiationDataSource.File,
     pAtmSou=Annex60.BoundaryConditions.Types.DataSource.File,
     ceiHeiSou=Annex60.BoundaryConditions.Types.DataSource.File,
@@ -64,8 +62,7 @@ model SimpleRoomTwoElements
     RWin=0.01642857143,
     RExtRem=0.1265217391,
     volAir(T_start=295.15),
-    T_start=295.15)
-    "Thermal zone"
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
     n=2,
@@ -79,8 +76,7 @@ model SimpleRoomTwoElements
     alphaWinOut=20,
     aWin=0.03,
     eExt=0.9,
-    TGround=285.15)
-    "Computes equivalent air temperature"
+    TGround=285.15) "Computes equivalent air temperature"
     annotation (Placement(transformation(extent={{-24,-14},{-4,6}})));
   Modelica.Blocks.Math.Add solRad[2]
     "Sums up solar radiation of both directions"
@@ -111,15 +107,13 @@ model SimpleRoomTwoElements
         0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,0,0,0;
         86400,0,0,0],
     columns={2,3,4},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
-    "Table with profiles for persons (radiative and convective) and machines
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Table with profiles for persons (radiative and convective) and machines
     (convective)"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.Constant const[2](each k=0)
     "Sets sunblind signal to zero (open)"
     annotation (Placement(transformation(extent={{-20,14},{-14,20}})));
-  BoundaryConditions.WeatherData.Bus weaBus
-    "Weather data bus"
+  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
     annotation (Placement(
     transformation(extent={{-100,-10},{-66,22}}),iconTransformation(
     extent={{-70,-12},{-50,8}})));
@@ -276,6 +270,11 @@ equation
   rooms and buildings - modelling of rooms.</p>
   </html>", revisions="<html>
   <ul>
+  <li>
+  April 27, 2016, by Michael Wetter:<br/>
+  Removed call to <code>Modelica.Utilities.Files.loadResource</code>
+  as this did not work for the regression tests.
+  </li>
   <li>February 25, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
   </ul>
   </html>"),
@@ -284,5 +283,5 @@ equation
   100}})),
   __Dymola_Commands(file=
   "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Examples/SimpleRoomTwoElements.mos"
-  "Simulate and plot"));
+        "Simulate and plot"));
 end SimpleRoomTwoElements;
