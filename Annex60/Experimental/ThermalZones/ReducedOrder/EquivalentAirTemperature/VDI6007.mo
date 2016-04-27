@@ -1,6 +1,5 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.EquivalentAirTemperature;
-model VDI6007
-  "Equivalent air temperature as defined in VDI 6007 Part 1"
+model VDI6007 "Equivalent air temperature as defined in VDI 6007 Part 1"
   extends BaseClasses.PartialVDI6007;
 
 initial equation
@@ -8,14 +7,14 @@ initial equation
   "The sum of the weighting factors (walls,windows and ground)  is
   <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
 equation
-  TEqLW=(TBlaSky-TDryBul)*(eExt*alphaRad/(alphaRad+alphaExtOut*0.93));
-  TEqSW=HSol*aExt/(alphaRad+alphaExtOut);
+  delTEqLW=(TBlaSky-TDryBul)*(eExt*alphaRad/(alphaRad+alphaExtOut*0.93));
+  delTEqSW=HSol*aExt/(alphaRad+alphaExtOut);
   if withLongwave then
-    TEqWin=TDryBul.+TEqLW*abs(sunblind.-1);
-    TEqWall=TDryBul.+TEqLW.+TEqSW;
+    TEqWin=TDryBul.+delTEqLW*abs(sunblind.-1);
+    TEqWall=TDryBul.+delTEqLW.+delTEqSW;
   else
     TEqWin=TDryBul*ones(n);
-    TEqWall=TDryBul.+TEqSW;
+    TEqWall=TDryBul.+delTEqSW;
   end if;
   TEqAir = TEqWall*wfWall + TEqWin*wfWin + TGround*wfGround;
   annotation (defaultComponentName="eqAirTemp",Documentation(revisions="<html>

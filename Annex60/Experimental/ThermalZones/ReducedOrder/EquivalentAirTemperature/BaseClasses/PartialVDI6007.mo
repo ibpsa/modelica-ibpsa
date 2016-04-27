@@ -6,30 +6,25 @@ partial model PartialVDI6007
     "Coefficient of absorption of exterior walls (outdoor)";
   parameter Modelica.SIunits.Emissivity eExt
     "Coefficient of emission of exterior walls (outdoor)";
-  parameter Integer n
-    "Number of orientations (without ground)";
-  parameter Real wfWall[n]
-    "Weight factors of the walls";
-  parameter Real wfWin[n]
-    "Weight factors of the windows";
-  parameter Real wfGround
+  parameter Integer n "Number of orientations (without ground)";
+  parameter Real wfWall[n](each final unit="1") "Weight factors of the walls";
+  parameter Real wfWin[n](each final unit="1") "Weight factors of the windows";
+  parameter Real wfGround(unit="1")
     "Weight factor of the ground (0 if not considered)";
-  parameter Modelica.SIunits.Temp_K TGround
+  parameter Modelica.SIunits.Temperature TGround
     "Temperature of the ground in contact with floor plate";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExtOut
-    "Exterior walls' convective coefficient of heat transfer (outdoor)";
+    "Exterior walls convective coefficient of heat transfer (outdoor)";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRad
     "Coefficient of heat transfer for linearized radiation";
   parameter Boolean withLongwave=true
-    "If longwave radiation exchange is considered"
+    "Set to true to include longwave radiation exchange"
     annotation(choices(checkBox = true));
-  Modelica.SIunits.Temp_K TEqWall[n]
-    "Equivalent wall temperature";
-  Modelica.SIunits.Temp_K TEqWin[n]
-    "Equivalent window temperature";
-  Modelica.SIunits.TemperatureDifference TEqLW
+  Modelica.SIunits.Temperature TEqWall[n] "Equivalent wall temperature";
+  Modelica.SIunits.Temperature TEqWin[n] "Equivalent window temperature";
+  Modelica.SIunits.TemperatureDifference delTEqLW
     "Equivalent long wave temperature";
-  Modelica.SIunits.TemperatureDifference TEqSW[n]
+  Modelica.SIunits.TemperatureDifference delTEqSW[n]
     "Equivalent short wave temperature";
   Modelica.Blocks.Interfaces.RealInput HSol[n](
     final quantity="RadiantEnergyFluenceRate",
@@ -40,24 +35,21 @@ partial model PartialVDI6007
   Modelica.Blocks.Interfaces.RealInput TBlaSky(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
-    final unit="K")
-    "Black-body sky temperature"
+    final unit="K") "Black-body sky temperature"
     annotation (Placement(
     transformation(extent={{-120,-10},{-80,30}}),
     iconTransformation(extent={{-110,-26},{-70,14}})));
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Dry bulb temperature"
+    displayUnit="degC") "Dry bulb temperature"
     annotation (Placement(
     transformation(extent={{-120,-44},{-80,-4}}),
     iconTransformation(extent={{-110,-78},{-70,-38}})));
   Modelica.Blocks.Interfaces.RealOutput TEqAir(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Equivalent air temperature"
+    displayUnit="degC") "Equivalent air temperature"
     annotation (Placement(
     transformation(extent={{98,-56},{118,-36}}),
     iconTransformation(extent={{78,-76},{118,-36}})));
