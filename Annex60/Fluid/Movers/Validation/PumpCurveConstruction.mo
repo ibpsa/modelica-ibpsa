@@ -31,7 +31,6 @@ model PumpCurveConstruction
   Annex60.Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     filteredSpeed=false,
     per(pressure(
           V_flow={0,0.5*V_flow_nominal,V_flow_nominal},
@@ -43,7 +42,6 @@ model PumpCurveConstruction
   Annex60.Fluid.Movers.SpeedControlled_y pum_dp(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     filteredSpeed=false,
     per(pressure(
           V_flow={0.5*V_flow_nominal, 0.75*V_flow_nominal, V_flow_nominal},
@@ -55,7 +53,6 @@ model PumpCurveConstruction
     Annex60.Fluid.Movers.SpeedControlled_y pum_m_flow(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     filteredSpeed=false,
     per(pressure(
            V_flow={0, 0.25*V_flow_nominal, 0.5*V_flow_nominal},
@@ -67,7 +64,6 @@ model PumpCurveConstruction
   Annex60.Fluid.Movers.SpeedControlled_y pum_no(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
     filteredSpeed=false,
     per(pressure(
           V_flow={0.25*V_flow_nominal,0.5*V_flow_nominal,0.75*V_flow_nominal},
@@ -178,6 +174,9 @@ of the pumps have different values. This then tests the correct extrapolation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>February 20, 2016, by Ruben Baetens:<br/>
+Removal of <code>dynamicBalance</code> as parameter for <code>massDynamics</code> and <code>energyDynamics</code>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

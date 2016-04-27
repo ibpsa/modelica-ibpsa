@@ -25,7 +25,7 @@ Currently, the _Annex60_ library is used as the core of these libraries:
 ## License
 
 The Modelica _Annex60_ library is available under the terms of the license at
-[Annex60/legal.html](https://github.com/iea-annex60/modelica-annex60/blob/master/Annex60/legal.html).
+[Annex60/legal.html](https://htmlpreview.github.io/?https://github.com/iea-annex60/modelica-annex60/blob/master/Annex60/legal.html).
 
 ## Development and contribution
 You may report any issues by using the [Issues](https://github.com/iea-annex60/modelica-annex60/issues) button.

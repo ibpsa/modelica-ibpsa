@@ -1,5 +1,6 @@
 within Annex60.Fluid.Movers.Validation;
-model Power "Power calculation comparison among three mover types"
+model PowerSimplified
+  "Power calculation comparison among three mover types, using simplified power computation for m_flow and dp"
   extends Modelica.Icons.Example;
 
   package Medium = Annex60.Media.Water "Medium model";
@@ -8,27 +9,7 @@ model Power "Power calculation comparison among three mover types"
     "Nominal mass flow rate";
 
   parameter Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
-
-  parameter Data.FlowControlled perMod(
-    hydraulicEfficiency=efficiency,
-    motorEfficiency=efficiency)
-    "Pump performance data with data from the instance efficiency"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
-
-  // Compute the actual efficiencies
-  parameter
-    Annex60.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    efficiency(V_flow=per.pressure.V_flow, eta=sqrt(per.pressure.V_flow.*per.pressure.dp./
-    {Annex60.Fluid.Movers.BaseClasses.Characteristics.power(
-      per=per.power,
-      V_flow=i,
-      r_N=1,
-      delta=0.01,
-      d=Annex60.Utilities.Math.Functions.splineDerivatives(
-      x=per.power.V_flow,
-      y=per.power.P))
-      for i in per.pressure.V_flow})) "Hydraulic and motor efficiency";
+    annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
   Annex60.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
     redeclare package Medium = Medium,
@@ -39,7 +20,10 @@ model Power "Power calculation comparison among three mover types"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Annex60.Fluid.Movers.FlowControlled_dp  pump_dp(
     redeclare package Medium = Medium,
-    per=perMod,
+    redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
+      pressure(V_flow={0,0}, dp={0,0}),
+      use_powerCharacteristic=false,
+    hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     filteredSpeed=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
@@ -48,7 +32,10 @@ model Power "Power calculation comparison among three mover types"
   Annex60.Fluid.Movers.FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    per=perMod,
+    redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
+      pressure(V_flow={0,0}, dp={0,0}),
+      use_powerCharacteristic=false,
+    hydraulicEfficiency(V_flow={0}, eta={0.3577})),
     filteredSpeed=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
@@ -123,7 +110,8 @@ equation
       points={{2.2,40},{-50.2,40},{-50.2,32}},
       color={0,0,127}));
   annotation (    experiment(StopTime=200),
-    __Dymola_Commands(file="modelica://Annex60/Resources/Scripts/Dymola/Fluid/Movers/Validation/Power.mos"
+    __Dymola_Commands(file=
+          "modelica://Annex60/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -154,10 +142,23 @@ power calculation where the speed <i>N<sub>rpm</sub></i> differs from
 the nominal speed <i>N<sub>nominal</sub></i>.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/Movers/Validation/Power.png\"/>
+<img alt=\"image\" src=\"modelica://Annex60/Resources/Images/Fluid/Movers/Validation/PowerSimplified.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 11, 2016, by Michael Wetter:<br/>
+Revised implementation by assigning the data record directly in the
+instances <code>pump_dp</code> and <code>pump_m_flow</code>, because
+using a <code>parameter</code> and assigning this <code>parameter</code> leads
+in OpenModelica to the error message
+<code>expected subtype of record Annex60.Fluid.Movers.Data.Generic</code>.
+</li>
+<li>
+March 2, 2016, by Filip Jorissen:<br/>
+Revised implementation for
+<a href=\"https://github.com/iea-annex60/modelica-annex60/issues/417\">#417</a>.
+</li>
 <li>
 November 5, 2015, by Michael Wetter:<br/>
 Changed parameters since the power is no longer a parameter for the movers
@@ -171,4 +172,4 @@ Revised implementation.
 </li>
 </ul>
 </html>"));
-end Power;
+end PowerSimplified;
