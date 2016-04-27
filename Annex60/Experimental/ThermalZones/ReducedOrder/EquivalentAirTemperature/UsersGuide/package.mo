@@ -48,7 +48,7 @@ aggregated weighting each entry with a weighting factor. In this part, constant
 temperatures of ground coupled elements or adjacent rooms can be considered.
 The sum of weighting factors per calculated equivalent air temperature must be one.
 If you consider two equivalent air temperatures, one for walls and one for
-windows, the sum of weightfactors should be one per category. In the given case,
+windows, the sum of weighting factors should be one per category. In the given case,
 the weighting factors are calculated with the <i>U</i>-value and area of the concerned wall
 elements as</p>
 <p align=\"center\"  style=\"font-style:italic;\">

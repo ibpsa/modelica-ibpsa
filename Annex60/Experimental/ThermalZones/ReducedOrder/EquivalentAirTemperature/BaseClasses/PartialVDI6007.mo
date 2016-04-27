@@ -73,7 +73,7 @@ partial model PartialVDI6007
     origin={0,90})));
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround) > 0.1),
-  "The sum of the weightfactors (walls,windows and ground) in eqAirTemp is close
+  "The sum of the weighting factors (walls,windows and ground) in eqAirTemp is close
    to 0. If there are no walls, windows and ground at all, this might be
    irrelevant.", level=AssertionLevel.warning);
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,

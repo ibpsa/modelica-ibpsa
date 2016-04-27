@@ -5,7 +5,7 @@ model VDI6007
 
 initial equation
   assert(noEvent(abs(sum(wfWall) + sum(wfWin) + wfGround - 1) < 0.1),
-  "The sum of the weightfactors (walls,windows and ground) in eqairtemp is
+  "The sum of the weighting factors (walls,windows and ground)  is
   <0.9 or >1.1. Normally, the sum should be 1.", level=AssertionLevel.warning);
 equation
   TEqLW=(TBlaSky-TDryBul)*(eExt*alphaRad/(alphaRad+alphaExtOut*0.93));
@@ -26,7 +26,7 @@ equation
   </ul></p>
   </html>", info="<html>
   <p><code>VDI6007</code> is a strict implementation of the calculations defined
-  in VDI 6007 Part 1. The sum of all weightfactors should be one.</p>
+  in VDI 6007 Part 1. The sum of all weighting factors should be one.</p>
   </html>"),
   Diagram(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{100,100}})));
