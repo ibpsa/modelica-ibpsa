@@ -64,8 +64,8 @@ protected
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-54,-10})));
-  Modelica.Blocks.Math.Sum summation(nin=2, k={0.5,0.5})
-    annotation (Placement(transformation(extent={{0,-66},{12,-54}})));
+  Modelica.Blocks.Math.Sum add(nin=2, k={0.5,0.5}) "Operative temperature"
+    annotation (Placement(transformation(extent={{2,-50},{14,-38}})));
   Fluid.MixingVolumes.MixingVolume         vol(
     V=V,
     m_flow_nominal=m_flow_nominal,
@@ -105,8 +105,8 @@ equation
       points={{-50.2,-54},{-50,-54},{-50,-72},{80,-72},{80,-60},{100,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(radDistr.TRad, summation.u[1]) annotation (Line(
-      points={{-44,-44},{-22,-44},{-22,-60.6},{-1.2,-60.6}},
+  connect(radDistr.TRad, add.u[1]) annotation (Line(
+      points={{-44,-44},{-22,-44},{-22,-44.6},{0.8,-44.6}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -191,8 +191,8 @@ end for;
       points={{0,-20},{10,-20},{10,-30},{100,-30}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(senTem.T, summation.u[2]) annotation (Line(
-      points={{-16,-20},{-18,-20},{-18,-59.4},{-1.2,-59.4}},
+  connect(senTem.T, add.u[2]) annotation (Line(
+      points={{-16,-20},{-18,-20},{-18,-43.4},{0.8,-43.4}},
       color={0,0,127},
       smooth=Smooth.None));
       if allowFlowReversal then
@@ -231,8 +231,8 @@ end for;
       points={{-32,-20},{-32,-26},{-54,-26},{-54,-34}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(summation.y, TSensor) annotation (Line(points={{12.6,-60},{30,-60},{30,
-          0},{106,0}}, color={0,0,127}));
+  connect(add.y, TSensor) annotation (Line(points={{14.6,-44},{30,-44},{30,0},{
+          106,0}}, color={0,0,127}));
   connect(radDistr.radSurfTot, propsBus.surfRad) annotation (Line(points={{-54,
           -34},{-70,-34},{-82,-34},{-82,39.9},{-100.1,39.9}}, color={191,0,0}));
   annotation (
