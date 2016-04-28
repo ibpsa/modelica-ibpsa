@@ -3,6 +3,7 @@ function splitFacVal "Share of vector entries at sum of vector"
 
   input Integer dimension "Dimension of output vector";
   input Modelica.SIunits.Area[:] AArray "Vector of areas";
+  input Modelica.SIunits.Area ASep "Area that should not be considered";
   output Real[dimension] splitFacValues "Shares of areas at total area";
   parameter Modelica.SIunits.Area ATot=sum(AArray) "Total area";
 protected
@@ -10,7 +11,7 @@ protected
 algorithm
     for A in AArray loop
       if A > 0 then
-        splitFacValues[j] :=A/ATot;
+        splitFacValues[j] :=(A-ASep)/(ATot-ASep);
         j :=j + 1;
       end if;
     end for;

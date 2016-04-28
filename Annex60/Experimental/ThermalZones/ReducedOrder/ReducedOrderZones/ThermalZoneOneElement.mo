@@ -9,6 +9,9 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Coefficient of heat transfer for linearized radiation exchange between walls"
     annotation(Dialog(group="Thermal zone"));
 
+  parameter Integer nOrientations "Number of orientations"
+    annotation(Dialog(group="Thermal zone"));
+
   parameter Integer nPorts=0 "Number of fluid ports"
     annotation(Evaluate=true,
     Dialog(connectorSizing=true, tab="General",group="Ports"));
@@ -274,12 +277,12 @@ equation
     smooth=Smooth.None));
   connect(extWallRC.port_b, extWall)
     annotation (Line(
-    points={{-177.6,-40},{-242,-40}},
+    points={{-178,-40},{-242,-40}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(extWallRC.port_a, convExtWall.solid)
     annotation (Line(
-    points={{-158.4,-40},{-114,-40}},
+    points={{-158,-40},{-114,-40}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(eConvSol.y, convHeatSol.Q_flow)
