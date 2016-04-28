@@ -3,7 +3,7 @@ partial model StateZone "Partial model for thermal building zones"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
-  parameter Integer nSurf(min=1)
+  parameter Integer nSurf(min=2)
     "Number of surfaces adjacent to and heat exchangeing with the zone";
   outer IDEAS.SimInfoManager sim
     "Simulation information manager for climate data"
@@ -50,12 +50,15 @@ protected
     "Dummy heat port for avoiding error by dymola translator";
   IDEAS.Buildings.Components.BaseClasses.EnergyPort dummy2 if   sim.computeConservationOfEnergy
     "Dummy emergy port for avoiding error by dymola translator";
+initial equation
+  assert(nSurf>1, "A minimum of 2 surfaces should be connected to each zone!");
+
 equation
   connect(sim.Qgai, dummy1);
   connect(sim.E, dummy2);
 for i in 1:nSurf loop
   connect(sim.weaBus, propsBus[i].weaBus) annotation (Line(
-       points={{-88.6,97.2},{-88.6,100},{-100.1,100},{-100.1,39.9}},
+       points={{-84,92.8},{-84,100},{-100.1,100},{-100.1,39.9}},
        color={255,204,51},
        thickness=0.5,
        smooth=Smooth.None));
