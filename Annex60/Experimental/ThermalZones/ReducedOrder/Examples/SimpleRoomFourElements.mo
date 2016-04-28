@@ -3,22 +3,9 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
   extends Modelica.Icons.Example;
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    calTSky=Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.
-    HorizontalRadiation,
+    calTSky=Annex60.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation,
     computeWetBulbTemperature=false,
-    filNam="modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
-    HSou=Annex60.BoundaryConditions.Types.RadiationDataSource.File,
-    pAtmSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    ceiHeiSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    totSkyCovSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    opaSkyCovSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    TDryBulSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    TDewPoiSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    relHumSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    winSpeSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    winDirSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    HInfHorSou=Annex60.BoundaryConditions.Types.DataSource.File,
-    TBlaSkySou=Annex60.BoundaryConditions.Types.DataSource.File)
+    filNam="modelica://Annex60/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     "Weather data reader"
     annotation (Placement(transformation(extent={{-96,52},{-76,72}})));
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil[2](
@@ -42,6 +29,7 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     "Aggregates both windows to one"
     annotation (Placement(transformation(extent={{34,49},{48,63}})));
   ReducedOrderZones.ThermalZoneFourElements thermalZoneFourElements(
+    redeclare package Medium = Annex60.Media.Air,
     VAir=52.5,
     AExt=11.5,
     alphaExt=2.7,
@@ -61,7 +49,6 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     CInt={12391363.86},
     RWin=0.01642857143,
     RExtRem=0.1265217391,
-    volAir(T_start=295.15),
     AFloor=11.5,
     alphaFloor=2.7,
     nFloor=1,
@@ -178,19 +165,19 @@ equation
     annotation (Line(points={{-4.2,-1.4},{0,-1.4},{0,20},{6.8,20}},
     color={0,0,127}));
   connect(eqAirTemp.TEqAir, prescribedTemperature.T)
-    annotation (Line(points={{-4.2,-9.6},{4,-9.6},{4,0},{6.8,0}},
+    annotation (Line(points={{-3,-4},{4,-4},{4,0},{6.8,0}},
     color={0,0,127}));
   connect(corGDoublePane.solarRadWinTrans, aggWindow.u)
-    annotation (Line(points={{25,56},{32.6,56}}, color={0,0,127}));
+    annotation (Line(points={{27,56},{32.6,56}}, color={0,0,127}));
   connect(aggWindow.y, thermalZoneFourElements.solRad)
-    annotation (Line(points={{48.7,56},{54,56},{54,44},{40,44},{40,30.8},
-    {45,30.8}}, color={0,0,127}));
+    annotation (Line(points={{48.7,56},{54,56},{54,44},{40,44},{40,31},{43,31}},
+                color={0,0,127}));
   connect(weaDat.weaBus, weaBus)
     annotation (Line(points={{-76,62},{-74,62},{-74,18},{-84,18},{-84,12},
     {-83,12},{-83,6}},color={255,204,51},
    thickness=0.5), Text(string="%second",index=1,extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, eqAirTemp.TDryBul)
-    annotation (Line(points={{-83,6},{-83,-2},{-38,-2},{-38,-9.8},{-23,-9.8}},
+    annotation (Line(points={{-83,6},{-83,-2},{-38,-2},{-38,-10},{-26,-10}},
     color={255,204,51},
     thickness=0.5), Text(string="%first",index=-1,extent={{-6,3},{-6,3}}));
   connect(internalGains.y[1], personsRad.Q_flow)
@@ -202,13 +189,14 @@ equation
     annotation (Line(points={{22.8,-52},{28,-52},{28,-74},{48,-74}},
     color={0,0,127}));
   connect(const.y, eqAirTemp.sunblind)
-    annotation (Line(points={{-13.7,17},{-12,17},{-12,8},{-14,8},{-14,5}},
+    annotation (Line(points={{-13.7,17},{-12,17},{-12,8},{-14,8},{-14,8}},
     color={0,0,127}));
   connect(HDifTil.HSkyDifTil, corGDoublePane.HSkyDifTil)
-    annotation (Line(points={{-47,36},{-28,36},{-6,36},{-6,58},{0,58},{0,57.8},
-    {4,57.8},{6,57.8}},color={0,0,127}));
+    annotation (Line(points={{-47,36},{-28,36},{-6,36},{-6,58},{0,58},{0,57.8},{
+          4,57.8},{4,58}},
+                       color={0,0,127}));
   connect(HDirTil.H, corGDoublePane.HDirTil)
-    annotation (Line(points={{-47,62},{-10,62},{6,62}},color={0,0,127}));
+    annotation (Line(points={{-47,62},{4,62},{4,62}},  color={0,0,127}));
   connect(HDirTil.H,solRad. u1)
     annotation (Line(points={{-47,62},{-42,62},{-42,14},{-39,14}},
     color={0,0,127}));
@@ -216,10 +204,10 @@ equation
     annotation (Line(points={{-47,30},{-44,30},{-44,8},{-39,8}},
     color={0,0,127}));
   connect(HDifTil.HGroDifTil, corGDoublePane.HGroDifTil)
-    annotation (Line(points={{-47,24},{-4,24},{-4,53.6},{6,53.6}},
+    annotation (Line(points={{-47,24},{-4,24},{-4,54},{4,54}},
     color={0,0,127}));
   connect(solRad.y, eqAirTemp.HSol)
-    annotation (Line(points={{-27.5,11},{-26,11},{-26,0.4},{-23,0.4}},
+    annotation (Line(points={{-27.5,11},{-26,11},{-26,2},{-26,2}},
     color={0,0,127}));
   connect(weaDat.weaBus, HDifTil[1].weaBus)
     annotation (Line(points={{-76,62},{-74,62},{-74,30},{-68,30}},
@@ -239,15 +227,17 @@ equation
     thickness=0.5));
   connect(personsRad.port, thermalZoneFourElements.intGainsRad)
     annotation (
-    Line(points={{68,-32},{84,-32},{100,-32},{100,25},{91,25}}, color={191,0,
+    Line(points={{68,-32},{84,-32},{100,-32},{100,24},{92.2,24}},
+                                                                color={191,0,
     0}));
   connect(thermalConductorWin.solid, thermalZoneFourElements.window)
-    annotation (Line(points={{38,21},{40,21},{40,20},{45,20},{45,19.8}}, color=
+    annotation (Line(points={{38,21},{40,21},{40,20},{43.8,20},{43.8,20}},
+                                                                         color=
     {191,0,0}));
   connect(prescribedTemperature1.port, thermalConductorWin.fluid)
     annotation (Line(points={{20,20},{28,20},{28,21}}, color={191,0,0}));
   connect(thermalZoneFourElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{45,12.4},{40,12.4},{40,1},{36,1}},
+    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},
     color={191,0,0}));
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -257,7 +247,7 @@ equation
     annotation (Line(points={{32,33.6},{32,26},{33,26}}, color={0,0,127}));
   connect(weaBus.TBlaSky, eqAirTemp.TBlaSky)
     annotation (Line(
-    points={{-83,6},{-58,6},{-58,2},{-32,2},{-32,-4.6},{-23,-4.6}},
+    points={{-83,6},{-58,6},{-58,2},{-32,2},{-32,-4},{-26,-4}},
     color={255,204,51},
     thickness=0.5), Text(
     string="%first",
@@ -265,13 +255,13 @@ equation
     extent={{-6,3},{-6,3}}));
   connect(machinesConv.port, thermalZoneFourElements.intGainsConv)
     annotation (
-    Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,
+    Line(points={{68,-74},{82,-74},{96,-74},{96,20},{92,20}},     color={191,
     0,0}));
   connect(personsConv.port, thermalZoneFourElements.intGainsConv)
     annotation (
-    Line(points={{68,-52},{96,-52},{96,19.8},{91,19.8}}, color={191,0,0}));
+    Line(points={{68,-52},{96,-52},{96,20},{92,20}},     color={191,0,0}));
   connect(prescribedTemperatureFloor.port, thermalZoneFourElements.floor)
-    annotation (Line(points={{67,-6},{66.8,-6},{66.8,-1}}, color={191,0,0}));
+    annotation (Line(points={{67,-6},{68,-6},{68,-2}},     color={191,0,0}));
   connect(TSoil.y, prescribedTemperatureFloor.T)
   annotation (Line(points={{79.6,-22},{67,-22},{67,-19.2}}, color={0,0,127}));
   connect(prescribedTemperatureRoof.port, thermalConductorRoof.fluid)
@@ -280,28 +270,28 @@ equation
     annotation (Line(points={{67,42},{66.8,42},{66.8,33}}, color={191,0,0}));
   connect(eqAirTempVDI.TEqAir, prescribedTemperatureRoof.T)
     annotation (Line(
-    points={{49.8,78.4},{67,78.4},{67,71.2}}, color={0,0,127}));
+    points={{51,84},{67,84},{67,71.2}},       color={0,0,127}));
   connect(thermalConductorRoof.Gc, alphaRoof.y)
     annotation (Line(points={{72,47},{78,47},{81.6,47}},color={0,0,127}));
   connect(eqAirTempVDI.TDryBul, eqAirTemp.TDryBul)
-    annotation (Line(points={{31,78.2},
-    {-96,78.2},{-96,-2},{-38,-2},{-38,-9.8},{-23,-9.8}},color={0,0,127}));
+    annotation (Line(points={{28,78},{-96,78},{-96,-2},{-38,-2},{-38,-10},{-26,-10}},
+                                                        color={0,0,127}));
   connect(eqAirTempVDI.TBlaSky, eqAirTemp.TBlaSky)
-    annotation (Line(points={{31,83.4},
-    {-34,83.4},{-34,84},{-98,84},{-98,-8},{-58,-8},{-58,2},{-32,2},{-32,-4.6},
-    {-23,-4.6}},color={0,0,127}));
+    annotation (Line(points={{28,84},{-34,84},{-34,84},{-98,84},{-98,-8},{-58,-8},
+          {-58,2},{-32,2},{-32,-4},{-26,-4}},
+                color={0,0,127}));
   connect(eqAirTempVDI.HSol[1], weaBus.HGloHor)
-    annotation (Line(points={{31,88.4},
-    {-100,88.4},{-100,6},{-83,6}},color={0,0,127}),Text(
+    annotation (Line(points={{28,90},{-100,90},{-100,6},{-83,6}},
+                                  color={0,0,127}),Text(
     string="%second",
     index=1,
     extent={{6,3},{6,3}}));
   connect(HDirTil.inc, corGDoublePane.inc)
-    annotation (Line(points={{-47,58},{-28,58},{-10,58},{-10,49.4},{6,49.4}},
+    annotation (Line(points={{-47,58},{-28,58},{-10,58},{-10,50},{4,50}},
     color={0,0,127}));
   connect(const1.y, eqAirTempVDI.sunblind[1])
-    annotation (Line(points={{61.7,93},
-    {56,93},{56,98},{40,98},{40,93}}, color={0,0,127}));
+    annotation (Line(points={{61.7,93},{56,93},{56,98},{40,98},{40,96}},
+                                      color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>This example shows the application of

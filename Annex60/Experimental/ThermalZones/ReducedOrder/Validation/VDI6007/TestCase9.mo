@@ -1,9 +1,9 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
-model TestCase9
-  "VDI 6007 Test Case 9 model"
+model TestCase9 "VDI 6007 Test Case 9 model"
   extends Modelica.Icons.Example;
 
   ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
+    redeclare final package Medium = Modelica.Media.Air.SimpleAir,
     alphaExt=2.7,
     alphaWin=2.7,
     gWin=1,
@@ -12,7 +12,6 @@ model TestCase9
     nInt=1,
     AWin=0,
     RWin=0.00000001,
-    volAir(X_start={0,0}),
     ratioWinConRad=0.09,
     RExt={0.0017362530106},
     CExt={5259932.23},
@@ -24,8 +23,7 @@ model TestCase9
     RExtRem=0.01913729904,
     ATransparent=14,
     VAir=52.5,
-    T_start=295.15)
-    "Thermal zone"
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
     "Outdoor convective heat transfer"
@@ -38,8 +36,7 @@ model TestCase9
         200; 50400,80,80,200; 54000,80,80,200; 57600,80,80,200; 61200,80,80,200;
         61200,0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,
         0,0,0; 86400,0,0,0],
-    columns={2,3,4})
-    "Table with internal gains"
+    columns={2,3,4}) "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -58,8 +55,7 @@ model TestCase9
         5130000,42.3; 5133600,42.6; 5137200,42.9; 5140800,43.2; 5144400,42.9;
         5148000,43.2; 5151600,43.4; 5155200,44.1; 5158800,44.1; 5162400,42.3;
         5166000,42; 5169600,41.6; 5173200,41.5; 5176800,41.3; 5180400,41.2;
-        5184000,41])
-    "Reference results"
+        5184000,41]) "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
     "Convective heat flow machines"
@@ -83,8 +79,7 @@ model TestCase9
         304.15; 57600,304.15; 57600,303.95; 61200,303.95; 61200,303.25; 64800,
         303.25; 64800,302.05; 68400,302.05; 68400,300.15; 72000,300.15; 72000,
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
-        295.05; 82800,294.05; 86400,294.05])
-    "Outdoor air temperature"
+        295.05; 82800,294.05; 86400,294.05]) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-92,-32},{-78,-18}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad
     "Radiative heat flow persons"
@@ -103,8 +98,7 @@ model TestCase9
         475; 54000,98,528; 57600,98,528; 57600,59,492; 61200,59,492; 61200,38,
         359; 64800,38,359; 64800,17,147; 68400,17,147; 68400,0,0; 72000,0,0;
         82800,0,0; 86400,0,0],
-    columns={2,3})
-    "Solar radiation"
+    columns={2,3}) "Solar radiation"
     annotation (Placement(transformation(extent={{-92,66},{-78,80}})));
   Modelica.Blocks.Sources.Constant g_sunblind(k=0.15)
     "g value for sunblind closed"
@@ -126,8 +120,7 @@ model TestCase9
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-61,59})));
-  Modelica.Blocks.Math.Product product1
-    "solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product1 "solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -145,8 +138,7 @@ model TestCase9
   Modelica.Blocks.Math.Sum aggWindow(nin=2, k={0.5,0.5})
     "Aggregates both windows to one"
     annotation (Placement(transformation(extent={{30,63},{44,77}})));
-  Modelica.Blocks.Math.Product product
-    "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,84},{4,94}})));
   EquivalentAirTemperature.VDI6007 eqAirTemp(
@@ -159,8 +151,7 @@ model TestCase9
     wfWall={0.05796831135677373,0.13249899738691134},
     wfWin={0.4047663456281575,0.4047663456281575},
     withLongwave=true,
-    TGround=285.15)
-    "Equivalent air temperature"
+    TGround=285.15) "Equivalent air temperature"
     annotation (Placement(transformation(extent={{-26,-16},{-6,2}})));
   Modelica.Blocks.Math.Add add(k1=-1)
     "Computes 1 - g_sunblind for one direction"
@@ -168,8 +159,7 @@ model TestCase9
     extent={{-4,-4},{4,4}},
     rotation=-90,
     origin={-58,16})));
-  Modelica.Blocks.Sources.Constant const1(k=1)
-    "Constant for 1 - g_sunblind"
+  Modelica.Blocks.Sources.Constant const1(k=1) "Constant for 1 - g_sunblind"
     annotation (Placement(transformation(extent={{-70,22},{-64,28}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWall(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -210,8 +200,7 @@ model TestCase9
     extent={{-4,-4},{4,4}},
     rotation=-90,
     origin={-24,18})));
-  Modelica.Blocks.Sources.Constant const2(k=1)
-    "Constant for 1 - g_sunblind"
+  Modelica.Blocks.Sources.Constant const2(k=1) "Constant for 1 - g_sunblind"
     annotation (Placement(transformation(extent={{-36,24},{-30,30}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"
@@ -227,11 +216,9 @@ model TestCase9
         54000,457.5; 54000,452.5; 57600,452.5; 57600,445; 61200,445; 61200,
         438.5; 64800,438.5; 64800,437; 68400,437; 68400,420; 72000,420; 72000,
         412.5; 75600,412.5; 75600,405; 79200,405; 79200,397.5; 82800,397.5;
-        82800,390; 86400,390])
-    "Long-wave radiation from sky"
+        82800,390; 86400,390]) "Long-wave radiation from sky"
     annotation (Placement(transformation(extent={{-92,-12},{-78,2}})));
-  Modelica.Blocks.Math.Sqrt sqrt
-    "Root of H_sky for black body sky temperature"
+  Modelica.Blocks.Math.Sqrt sqrt "Root of H_sky for black body sky temperature"
     annotation (Placement(transformation(extent={{-74,-8},{-68,-2}})));
   Modelica.Blocks.Math.Sqrt sqrt1
     "Root of H_sky for black body sky temperature"
@@ -241,12 +228,13 @@ model TestCase9
     annotation (Placement(transformation(extent={{-52,-10},{-46,-4}})));
 equation
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{45,12.4},{40,12.4},{40,1},{36,1}}, color={191,0,0}));
+    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(personsRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
-    points={{68,-92},{68,-92},{98,-92},{98,25},{91,25}}, color={191,0,0}));
+    points={{68,-92},{68,-92},{98,-92},{98,24},{92.2,24}},
+                                                         color={191,0,0}));
   connect(internalGains.y[1], personsRad.Q_flow)
     annotation (Line(points={{22.8,
     -52},{30,-52},{38,-52},{38,-92},{48,-92}}, color={0,0,127}));
@@ -273,15 +261,15 @@ equation
     annotation (Line(points={{-77.3,
     73},{-16,73},{-16,92},{-7,92}}, color={0,0,127}));
   connect(aggWindow.y, thermalZoneTwoElements.solRad)
-    annotation (Line(points={
-    {44.7,70},{48,70},{48,40},{32,40},{32,30.8},{45,30.8}}, color={0,0,
+    annotation (Line(points={{44.7,70},{48,70},{48,40},{32,40},{32,31},{43,31}},
+                                                            color={0,0,
     127}));
   connect(const1.y, add.u2)
     annotation (Line(points={{-63.7,25},{-60.4,25},{
     -60.4,20.8}}, color={0,0,127}));
   connect(tableSolRadWall.y, eqAirTemp.HSol)
-    annotation (Line(points={{-77.3,13},
-    {-68,13},{-68,2},{-46,2},{-46,-3.04},{-25,-3.04}}, color={0,0,127}));
+    annotation (Line(points={{-77.3,13},{-68,13},{-68,2},{-46,2},{-46,-1.6},{-28,
+          -1.6}},                                      color={0,0,127}));
   connect(switch1.y, add.u1)
     annotation (Line(points={{-54,25.6},{-54,24},{-54,
     20.8},{-55.6,20.8}}, color={0,0,127}));
@@ -318,19 +306,19 @@ equation
     annotation (Line(points={{4.5,89},{16.25,
     89},{16.25,70.7},{28.6,70.7}}, color={0,0,127}));
   connect(eqAirTemp.TEqAir, prescribedTemperature.T)
-    annotation (Line(points={{
-    -6.2,-12.04},{-2,-12.04},{-2,-4},{2.8,-4}}, color={0,0,127}));
+    annotation (Line(points={{-5,-7},{-2,-7},{-2,-4},{2.8,-4}},
+                                                color={0,0,127}));
   connect(prescribedTemperature.port, thermalConductorWall.fluid)
     annotation (Line(points={{16,-4},{22,-4},{22,1},{26,1}}, color={191,0,0}));
   connect(add.y, eqAirTemp.sunblind[1])
-    annotation (Line(points={{-58,11.6},{-58,
-    6},{-16,6},{-16,2}},color={0,0,127}));
+    annotation (Line(points={{-58,11.6},{-58,6},{-16,6},{-16,4.7}},
+                        color={0,0,127}));
   connect(add1.y, eqAirTemp.sunblind[2])
-    annotation (Line(points={{-24,13.6},{-24,
-    13.6},{-24,8},{-16,8},{-16,0.2}},color={0,0,127}));
+    annotation (Line(points={{-24,13.6},{-24,13.6},{-24,8},{-16,8},{-16,2.9}},
+                                     color={0,0,127}));
   connect(outdoorTemp.y[1], eqAirTemp.TDryBul)
-    annotation (Line(points={{-77.3,-25},
-    {-46,-25},{-46,-12.22},{-25,-12.22}},color={0,0,127}));
+    annotation (Line(points={{-77.3,-25},{-46,-25},{-46,-12.4},{-28,-12.4}},
+                                         color={0,0,127}));
   connect(HSky.y[1], sqrt.u)
     annotation (Line(points={{-77.3,-5},{-74.6,-5}}, color={0,0,127}));
   connect(sqrt.y, sqrt1.u)
@@ -339,15 +327,15 @@ equation
     annotation (Line(points={{-57.7,-5},{-56,-5},{-56,-7},
     {-52.6,-7}}, color={0,0,127}));
   connect(gain.y, eqAirTemp.TBlaSky)
-    annotation (Line(points={{-45.7,-7},{-33.85,
-    -7},{-33.85,-7.54},{-25,-7.54}},color={0,0,127}));
+    annotation (Line(points={{-45.7,-7},{-33.85,-7},{-33.85,-7},{-28,-7}},
+                                    color={0,0,127}));
   connect(personsConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
-    Line(points={{68,-74},{82,-74},{96,-74},{96,19.8},{91,19.8}}, color={191,
+    Line(points={{68,-74},{82,-74},{96,-74},{96,20},{92,20}},     color={191,
     0,0}));
   connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
-    Line(points={{68,-56},{96,-56},{96,19.8},{91,19.8}}, color={191,0,0}));
+    Line(points={{68,-56},{96,-56},{96,20},{92,20}},     color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 9 of the VDI 6007 Part 1: Calculation of indoor air temperature
@@ -372,5 +360,5 @@ equation
   </html>"),
   __Dymola_Commands(file=
   "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase9.mos"
-  "Simulate and plot"));
+        "Simulate and plot"));
 end TestCase9;

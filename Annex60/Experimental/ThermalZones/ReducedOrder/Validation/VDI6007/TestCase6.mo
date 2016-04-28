@@ -1,9 +1,9 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
-model TestCase6
-  "VDI 6007 Test Case 6 model"
+model TestCase6 "VDI 6007 Test Case 6 model"
   extends Modelica.Icons.Example;
 
   ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
+    redeclare package Medium = Modelica.Media.Air.SimpleAir,
     VAir=52.5,
     alphaExt=2.7,
     alphaWin=2.7,
@@ -17,15 +17,13 @@ model TestCase6
     AInt=75.5,
     alphaInt=2.24,
     RWin=0.00000001,
-    volAir(X_start={0,0}),
     alphaRad=5,
     RExt={0.00436791293674},
     RExtRem=0.03895919557,
     CExt={1600848.94},
     RInt={0.000595693407511},
     CInt={14836354.6282},
-    T_start=295.15)
-    "Thermal zone"
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
@@ -39,8 +37,7 @@ model TestCase6
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2})
-    "Table with internal gains"
+    columns={2}) "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-82},{22,-66}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -58,8 +55,7 @@ model TestCase6
         5122800,-163; 5126400,-120; 5130000,-78; 5133600,-39; 5137200,-2;
         5140800,33; 5144400,67; 5148000,99; 5151600,130; 5155200,159; 5158800,
         187; 5162400,214; 5166000,1004; 5169600,960; 5173200,919; 5176800,880;
-        5180400,843; 5184000,808])
-    "Reference results"
+        5180400,843; 5184000,808]) "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
@@ -71,8 +67,7 @@ model TestCase6
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0)
-    "Solar radiation"
+  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
     "Sensor for ideal heater/cooler"
@@ -94,24 +89,25 @@ equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{45,12.4},{40,12.4},{40,1},{36,1}}, color={191,0,0}));
+    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(const.y, thermalZoneTwoElements.solRad)
-    annotation (Line(points={{
-    30.5,31},{37.25,31},{37.25,30.8},{45,30.8}}, color={0,0,127}));
+    annotation (Line(points={{30.5,31},{37.25,31},{37.25,31},{43,31}},
+                                                 color={0,0,127}));
   connect(internalGains.y[1], machinesRad.Q_flow)
     annotation (Line(points={{22.8,-74},{36,-74},{48,-74}}, color={0,0,127}));
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (
-    Line(points={{68,-74},{84,-74},{98,-74},{98,25},{91,25}}, color={191,0,0}));
+    Line(points={{68,-74},{84,-74},{98,-74},{98,24},{92.2,24}},
+                                                              color={191,0,0}));
   connect(prescribedTemperature1.port, heatFlowSensor.port_b)
     annotation (Line(points={{68,-34},{73,-34},{78,-34}}, color={191,0,0}));
   connect(setTemp.y[1], prescribedTemperature1.T)
     annotation (Line(points={{
     36.8,-42},{48,-42},{48,-34},{54.8,-34}}, color={0,0,127}));
   connect(heatFlowSensor.port_a, thermalZoneTwoElements.intGainsConv)
-    annotation (Line(points={{90,-34},{94,-34},{94,19.8},{91,19.8}}, color={191,
+    annotation (Line(points={{90,-34},{94,-34},{94,20},{92,20}},     color={191,
     0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
@@ -135,5 +131,5 @@ equation
   </html>"),
   __Dymola_Commands(file=
   "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase6.mos"
-  "Simulate and plot"));
+        "Simulate and plot"));
 end TestCase6;

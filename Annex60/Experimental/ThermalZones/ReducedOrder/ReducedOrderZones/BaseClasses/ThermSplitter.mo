@@ -1,10 +1,8 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses;
-model ThermSplitter
-  "A simple model which weights a given set of therm inputs
+model ThermSplitter "A simple model which weights a given set of thermal inputs
   to calculate an average temperature and aggregated heat flow"
 
-  parameter Integer dimension=6
-    "Dimension of the splitter";
+  parameter Integer dimension=6 "Dimension of the splitter";
   parameter Real splitFactor[dimension]= fill(1/dimension, dimension)
     "Split factor for outputs (between 0 and 1)";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a signalInput
@@ -22,7 +20,7 @@ equation
   signalInput.T = signalOutput.T * splitFactor
     "Equivalent building temperature rerouted to SignalInput";
 
-  annotation (defaultComponentName="thermSplit",Diagram(coordinateSystem(
+  annotation (defaultComponentName="theSpl",Diagram(coordinateSystem(
   preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{100,100}}), graphics={
@@ -54,7 +52,7 @@ equation
     lineColor={0,0,255},
     textString="ThermSplitter")}),
   Documentation(info="<html>
-  <p>This model is used to weight therm ports according to given split factors.</p>
+  <p>This model is used to weight thermal ports according to given split factors.</p>
   <p>The model needs the dimension of the splitted therm port and the split
   factors, which are between 0 and 1.</p>
   </html>", revisions="<html>

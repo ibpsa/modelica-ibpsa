@@ -1,17 +1,14 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
-model ThermalZoneThreeElements
-  "Thermal Zone with three elements for exterior walls,
+model ThermalZoneThreeElements "Thermal Zone with three elements for exterior walls,
   interior walls and floor plate"
     extends ThermalZoneTwoElements(AArray={AExt,AWin,AInt,AFloor});
 
-  parameter Modelica.SIunits.Area AFloor
-    "Area of floor plate"
+  parameter Modelica.SIunits.Area AFloor "Area of floor plate"
     annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaFloor
     "Coefficient of heat transfer of floor plate (indoor)"
     annotation(Dialog(group="Floor plate"));
-  parameter Integer nFloor(min = 1)
-    "Number of RC-elements of floor plate"
+  parameter Integer nFloor(min = 1) "Number of RC-elements of floor plate"
     annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.ThermalResistance RFloor[nExt](
     each min=Modelica.Constants.small)
@@ -19,8 +16,7 @@ model ThermalZoneThreeElements
     annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.ThermalResistance RFloorRem(
     min=Modelica.Constants.small)
-    "Resistance of remaining resistor RFloorRem between capacitance n and
-    outside"
+    "Resistance of remaining resistor RFloorRem between capacitance n and outside"
     annotation(Dialog(group="Floor plate"));
   parameter Modelica.SIunits.HeatCapacity CFloor[nExt](
     each min=Modelica.Constants.small)
@@ -34,25 +30,23 @@ model ThermalZoneThreeElements
     RExt=RFloor,
     RExtRem=RFloorRem,
     CExt=CFloor,
-    T_start=T_start) if AFloor > 0
-    "RC-element for floor plate"
+    T_start=T_start) if AFloor > 0 "RC-element for floor plate"
     annotation (Placement(transformation(
-    extent={{10,-11},{-10,11}},
+    extent={{9,-12},{-9,12}},
     rotation=90,
-    origin={-12,-152})));
+    origin={-12,-145})));
   Modelica.Thermal.HeatTransfer.Components.Convection convFloor if AFloor > 0
     "Convective heat transfer of floor"
     annotation (Placement(transformation(
-    extent={{-10,10},{10,-10}},
+    extent={{-8,8},{8,-8}},
     rotation=90,
     origin={-12,-116})));
   Modelica.Blocks.Sources.Constant alphaFloorConst(k=AFloor*alphaFloor) if
-    AFloor > 0
-    "Coefficient of convective heat transfer for floor"
+    AFloor > 0 "Coefficient of convective heat transfer for floor"
     annotation (Placement(transformation(
     extent={{-5,-5},{5,5}},
     rotation=180,
-    origin={22,-116})));
+    origin={12,-116})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallFloor(
    G=min(AExt, AFloor)*alphaRad) if  AExt > 0 and AFloor > 0
     "Resistor between exterior walls and floor"
@@ -68,50 +62,48 @@ model ThermalZoneThreeElements
     transformation(
     extent={{-10,-10},{10,10}},
     rotation=0,
-    origin={204,-104})));
+    origin={204,-106})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a floor if  AFloor > 0
     "Ambient port for floor plate"
-    annotation (Placement(transformation(extent=
-    {{-22,-180},{-2,-160}}), iconTransformation(extent={{-22,-180},{-2,
-    -160}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resFloorWin(G=min(
-    AWin, AFloor)*alphaRad) if  AWin > 0 and AFloor > 0
+    annotation (Placement(transformation(extent={{-10,-190},{10,-170}}),
+                             iconTransformation(extent={{-10,-190},{10,-170}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor resFloorWin(
+   G=min(AWin, AFloor)*alphaRad) if  AWin > 0 and AFloor > 0
     "Resistor between floor plate and windows"
     annotation (Placement(
     transformation(
     extent={{-10,-10},{10,10}},
     rotation=-90,
-    origin={-82,-112})));
+    origin={-80,-110})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a floorIndoorSurface if
-    indoorPortFloor
-    "Auxilliary port at indoor surface of floor plate"
+    indoorPortFloor "Auxilliary port at indoor surface of floor plate"
     annotation (Placement(
-    transformation(extent={{-92,-180},{-72,-160}}), iconTransformation(
-    extent={{-92,-180},{-72,-160}})));
+    transformation(extent={{-90,-190},{-70,-170}}), iconTransformation(
+    extent={{-90,-190},{-70,-170}})));
 equation
   connect(floorRC.port_a, convFloor.solid)
     annotation (Line(
-    points={{-12,-143.4},{-12,-126}},
+    points={{-12,-137.451},{-12,-124}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(floorRC.port_a, resExtWallFloor.port_b)
     annotation (Line(
-    points={{-12,-143.4},{-12,-132},{-144,-132},{-144,-121}},
+    points={{-12,-137.451},{-12,-132},{-144,-132},{-144,-121}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(floorRC.port_a, resIntWallFloor.port_b)
     annotation (Line(
-    points={{-12,-143.4},{-12,-132},{224,-132},{224,-104},{214,-104}},
+    points={{-12,-137.451},{-12,-132},{224,-132},{224,-106},{214,-106}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(floorRC.port_b, floor)
     annotation (Line(
-    points={{-12,-162.6},{-12,-170}},
+    points={{-12,-154.731},{-12,-180},{0,-180}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(resFloorWin.port_a, convWin.solid)
     annotation (Line(
-    points={{-82,-102},{-82,20},{-146,20},{-146,38},{-116,38}},
+    points={{-80,-100},{-80,20},{-146,20},{-146,40},{-116,40}},
     color={191,0,0},
     smooth=Smooth.None));
   if not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then
@@ -131,36 +123,36 @@ equation
     connect(thermSplitterIntGains.signalOutput[4], floorRC.port_a)
       annotation (
       Line(
-      points={{190,88},{190,80},{-38,80},{-38,-136},{-12,-136},{-12,-143.4}},
+      points={{190,86},{190,80},{-38,80},{-38,-132},{-12,-132},{-12,-137.451}},
       color={191,0,0},
       smooth=Smooth.None));
     connect(floorRC.port_a, thermSplitterSolRad.signalOutput[4])
       annotation (
       Line(
-      points={{-12,-143.4},{-12,-140},{-42,-140},{-42,146},{-136,146}},
+      points={{-12,-137.451},{-12,-132},{-42,-132},{-42,146},{-136,146}},
       color={191,0,0},
       smooth=Smooth.None));
   end if;
   connect(intWallRC.port_a, resIntWallFloor.port_a)
-    annotation (Line(points=
-    {{182.4, -36},{182.4,-36},{168,-36},{168,-86},{184,-86},{184,-104},
-    {194,-104}},color={191,0,0}));
+    annotation (Line(points={{182.4,-40},{182.4,-40},{168,-40},{168,-90},{168,
+          -106},{194,-106}},
+                color={191,0,0}));
   connect(resFloorWin.port_b, resExtWallFloor.port_b)
-    annotation (Line(points={{
-    -82,-122},{-80,-122},{-80,-132},{-144,-132},{-144,-121}}, color={191,0,
+    annotation (Line(points={{-80,-120},{-80,-120},{-80,-132},{-144,-132},{-144,
+          -121}},                                             color={191,0,
     0}));
   connect(resExtWallFloor.port_a, convExtWall.solid)
     annotation (Line(
-    points={{-144,-101},{-144,-36},{-114,-36}}, color={191,0,0}));
+    points={{-144,-101},{-144,-40},{-114,-40}}, color={191,0,0}));
   connect(alphaFloorConst.y, convFloor.Gc)
-    annotation (Line(points={{16.5,-116},
-    {-2,-116},{-2,-116}}, color={0,0,127}));
+    annotation (Line(points={{6.5,-116},{6,-116},{-4,-116}},
+                          color={0,0,127}));
   connect(convFloor.fluid, TIndAirSensor.port)
-    annotation (Line(points={{-12,
-    -106},{-12,-36},{66,-36},{66,20},{74,20}}, color={191,0,0}));
+    annotation (Line(points={{-12,-108},{-12,-40},{66,-40},{66,0},{80,0}},
+                                               color={191,0,0}));
   connect(floorRC.port_a, floorIndoorSurface)
-    annotation (Line(points={{-12,
-    -143.4},{-46,-143.4},{-46,-144},{-82,-144},{-82,-170}},color={191,0,0}));
+    annotation (Line(points={{-12,-137.451},{-12,-137.451},{-12,-132},{-80,-132},
+          {-80,-180}},                                     color={191,0,0}));
   annotation (defaultComponentName="thermZone",
   Diagram(coordinateSystem(
     extent={{-240,-180},{240,180}},
@@ -177,11 +169,11 @@ equation
     fillPattern=FillPattern.Solid,
     textString="Floor Plate")}), Icon(coordinateSystem(extent={{-240,
       -180},{240,180}}, preserveAspectRatio=false), graphics={Rectangle(
-    extent={{-32,40},{34,-40}},
+    extent={{-34,52},{34,-40}},
     pattern=LinePattern.None,
     fillColor={230,230,230},
     fillPattern=FillPattern.Solid), Text(
-    extent={{-64,60},{60,-64}},
+    extent={{-62,74},{62,-50}},
     lineColor={0,0,0},
     textString="3")}),
     Documentation(revisions="<html>
@@ -192,14 +184,21 @@ equation
   </li>
   </ul>
   </html>", info="<html>
-  <p><code>ThermalZoneThree Elements</code><i> </i>adds one further element for
+  <p>This model adds one further element for
   the floor plate. Long-term effects dominate the excitation of the floor plate
   and thus the excitation fundamentally differs from excitation of outer walls.
   Adding an extra element for the floor plate leads to a finer resolution of the
-  dynamic behaviour but implicates higher calculation times. Floor plate is
-  parameterized via length of RC-chain <code>nFloor</code>, vector of capacities
-  <code>CFloor[nFloor]</code>, vector of resistances <code>RFloor[nFloor]</code>
-  and remaining resistance <code>RFloorRem</code>.</p>
-  <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneThreeElements/ThreeElements.png\" alt=\"image\"/> </p>
+  dynamic behaviour but increases calculation times. The floor plate is
+  parameterized via the length of the RC-chain <code>nFloor</code>,
+  the vector of the capacities
+  <code>CFloor[nFloor]</code>, the vector of the resistances <code>RFloor[nFloor]</code>
+  and the remaining resistance <code>RFloorRem</code>.
+  </p>
+  <p>
+  The image below shows the RC-network of this model.
+  </p>  
+  <p align=\"center\">
+  <img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneThreeElements/ThreeElements.png\" alt=\"image\"/>
+  </p>
   </html>"));
 end ThermalZoneThreeElements;

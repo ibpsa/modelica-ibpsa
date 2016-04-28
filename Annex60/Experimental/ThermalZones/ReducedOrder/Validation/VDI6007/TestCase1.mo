@@ -1,9 +1,9 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007;
-model TestCase1
-  "VDI 6007 Test Case 1 model"
+model TestCase1 "VDI 6007 Test Case 1 model"
   extends Modelica.Icons.Example;
 
   ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
+    redeclare package Medium = Modelica.Media.Air.SimpleAir,
     VAir=52.5,
     alphaExt=2.7,
     alphaWin=2.7,
@@ -18,15 +18,14 @@ model TestCase1
     AInt=75.5,
     alphaInt=2.24,
     RWin=0.00000001,
-    volAir(X_start={0,0}),
     RExt={0.00436791293674},
     RExtRem=0.03895919557,
     CExt={1600848.94},
     RInt={0.000595693407511},
     CInt={14836354.6282},
-    T_start=295.15)
-    "Thermal zone"
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
+
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{8,-6},{20,6}})));
@@ -39,8 +38,7 @@ model TestCase1
         25200,1000; 28800,1000; 32400,1000; 36000,1000; 39600,1000; 43200,1000;
         46800,1000; 50400,1000; 54000,1000; 57600,1000; 61200,1000; 64800,1000;
         64800,0; 68400,0; 72000,0; 75600,0; 79200,0; 82800,0; 86400,0],
-    columns={2})
-    "Table with internal gains"
+    columns={2}) "Table with internal gains"
     annotation (Placement(transformation(extent={{6,-58},{22,-42}})));
   Modelica.Blocks.Sources.CombiTimeTable reference(
     tableOnFile=false,
@@ -71,25 +69,24 @@ model TestCase1
     extent={{-4,-4},{4,4}},
     rotation=90,
     origin={30,-18})));
-  Modelica.Blocks.Sources.Constant const(k=0)
-    "Solar radiation"
+  Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{45,12.4},{40,12.4},{40,1},{36,1}}, color={191,0,0}));
+    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(const.y, thermalZoneTwoElements.solRad)
-    annotation (Line(points={{
-    30.5,31},{37.25,31},{37.25,30.8},{45,30.8}}, color={0,0,127}));
+    annotation (Line(points={{30.5,31},{37.25,31},{43,31}},
+                                                 color={0,0,127}));
   connect(internalGains.y[1], machinesConv.Q_flow)
     annotation (Line(points={{22.8,
     -50},{36,-50},{36,-74},{48,-74}},color={0,0,127}));
   connect(thermalZoneTwoElements.intGainsConv, machinesConv.port)
     annotation (
-    Line(points={{91,19.8},{96,19.8},{96,-74},{68,-74}}, color={191,0,0}));
+    Line(points={{92,20},{96,20},{96,-74},{68,-74}},     color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 1 of the VDI 6007 Part 1: Calculation of indoor air temperature
@@ -110,5 +107,5 @@ equation
   </html>"),
   __Dymola_Commands(file=
   "modelica://Annex60/Resources/Scripts/Dymola/Experimental/ThermalZones/ReducedOrder/Validation/VDI6007/TestCase1.mos"
-  "Simulate and plot"));
+        "Simulate and plot"));
 end TestCase1;

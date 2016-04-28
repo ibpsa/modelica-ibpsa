@@ -1,6 +1,5 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses;
-model ExteriorWall
-  "Exterior wall consisting of variable number of RC elements"
+model ExteriorWall "Exterior wall consisting of variable number of RC elements"
   parameter Integer n(min = 1) "Number of RC-elements";
   parameter Modelica.SIunits.ThermalResistance RExt[n](
     each min=Modelica.Constants.small)
@@ -18,42 +17,45 @@ model ExteriorWall
     "Initial temperature of capacitances"
     annotation(Dialog(group="Thermal mass"));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResExt[n](
-    R=RExt)
-    "vector of thermal resistors connecting port_a and capacitors"
+    R=RExt) "vector of thermal resistors connecting port_a and capacitors"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalResistor thermResExtRem(
-    R=RExtRem)
-    "single thermal resistor connecting least capacitor to port_b"
+    R=RExtRem) "single thermal resistor connecting least capacitor to port_b"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
-    "interior port"
-    annotation (Placement(transformation(extent={{-106,-10},{-86,10}}),
-    iconTransformation(extent={{-106,-10},{-86,10}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b
-    "exterior port"
-    annotation (Placement(transformation(extent={{86,-10},{106,10}}),
-    iconTransformation(extent={{86,-10},{106,10}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a "interior port"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
+    iconTransformation(extent={{-110,-10},{-90,10}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b "exterior port"
+    annotation (Placement(transformation(extent={{90,-10},{110,10}}),
+    iconTransformation(extent={{90,-10},{110,10}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor thermCapExt[n](
-    C=CExt, each T(start=T_start))
-    "vector of thermal capacitors"
+    C=CExt, each T(start=T_start)) "vector of thermal capacitors"
     annotation (Placement(transformation(extent={{-10,-12},{10,-32}})));
 equation
   // Connecting inner elements thermResExt[i]--thermCapExt[i] to n groups
   for i in 1:n loop
-    connect(thermResExt[i].port_b,thermCapExt[i].port);
+    connect(thermResExt[i].port_b,thermCapExt[i].port)
+    annotation (Line(points={{-40,0},{0,0},{0,-12}}, color={191,0,0}));
   end for;
   // Connecting groups between each other thermCapExt[i] -- thermResExt[i+1]
   for i in 1:n-1 loop
-    connect(thermCapExt[i].port,thermResExt[i+1].port_a);
+    connect(thermCapExt[i].port,thermResExt[i+1].port_a)
+     annotation (Line(points={{0,-12},
+          {-36,-12},{-72,-12},{-72,0},{-60,0}}, color={191,0,0}));
   end for;
   // Connecting first RC element to port_a ,
   // last RC-element to RExtRem and RExtRem to port_b
-  connect(port_a,thermResExt[1].port_a);
-  connect(thermCapExt[n].port,thermResExtRem.port_a);
-  connect(thermResExtRem.port_b,port_b);
+  connect(port_a,thermResExt[1].port_a)
+    annotation (Line(points={{-100,0},{-100,0},{-60,0}},
+                                                       color={191,0,0}));
+  connect(thermCapExt[n].port,thermResExtRem.port_a)
+  annotation (Line(points={{0,-12},{0,-12},{0,0},{40,0}}, color={191,0,0}));
+
+  connect(thermResExtRem.port_b, port_b)
+    annotation (Line(points={{60,0},{100,0}}, color={191,0,0}));
   annotation(defaultComponentName="extWallRC",
   Diagram(coordinateSystem(preserveAspectRatio = false, extent=
-  {{-100, -100}, {100, 120}}), graphics), Documentation(info="<html>
+  {{-100, -100}, {100, 120}})),           Documentation(info="<html>
   <p><code>ExteriorWall</code> represents heat conduction and heat storage
   within walls. It links a variable number <code>n</code> of thermal resistances
   and capacities to a series connection. <code>n</code> thus defines the spatial
@@ -69,7 +71,11 @@ equation
   <p align=\"center\"><img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/BaseClasses/ExtMassVarRC/ExtMassVarRC.png\" alt=\"image\"/> </p>
   </html>",  revisions="<html>
   <ul>
-  <li>April 17, 2015,&nbsp; by Moritz Lauster:<br>Implemented. </li>
+  <li>
+  April 27, 2016, by Michael Wetter:<br/>
+  Added graphical connections.
+  </li>
+  <li>April 17, 2015, by Moritz Lauster:<br>Implemented. </li>
   </ul>
   </html>"),  Icon(coordinateSystem(preserveAspectRatio=false,  extent=
   {{-100,-100},{100,120}}), graphics={  Rectangle(extent = {{-86, 60}, {-34, 26}},
