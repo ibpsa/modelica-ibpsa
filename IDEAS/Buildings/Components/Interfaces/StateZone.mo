@@ -121,6 +121,10 @@ end for;
     Documentation(revisions="<html>
 <ul>
 <li>
+April 28, 2016, Filip Jorissen:<br/>
+Added assert for checking nSurf larger than 1.
+</li>
+<li>
 June 14, 2015, Filip Jorissen:<br/>
 Adjusted implementation for computing conservation of energy.
 </li>
