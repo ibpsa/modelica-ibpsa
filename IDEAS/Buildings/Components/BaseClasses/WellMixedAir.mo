@@ -32,6 +32,12 @@ protected
     V=Vtot,
     n50toAch=n50toAch)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+public
+  Modelica.Blocks.Interfaces.RealOutput Tair "Zone air temperature"
+    annotation (Placement(transformation(extent={{98,-70},{118,-50}})));
+protected
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
 equation
   connect(vol.ports[1], port_a) annotation (Line(points={{-3,10},{-3,10},{40,10},
           {40,100}},  color={0,127,255}));
@@ -50,6 +56,10 @@ equation
     connect(ports_air[i], vol.heatPort) annotation (Line(points={{100,0},{40,0},{40,
           -20},{-10,-20},{-10,0}}, color={191,0,0}));
   end for;
+  connect(senTem.port, vol.heatPort) annotation (Line(points={{60,-60},{68,-60},
+          {-10,-60},{-10,0}}, color={191,0,0}));
+  connect(senTem.T, Tair)
+    annotation (Line(points={{80,-60},{80,-60},{108,-60}}, color={0,0,127}));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(revisions="<html>
 <ul>

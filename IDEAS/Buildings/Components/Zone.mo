@@ -40,7 +40,7 @@ model Zone "thermal building zone"
   final parameter Modelica.SIunits.Power Q_design(fixed=false)
     "Total design heat losses for the zone";
 
-  Modelica.SIunits.Temperature TAir=senTem.T;
+  Modelica.SIunits.Temperature TAir=airModel.Tair;
   Modelica.SIunits.Temperature TStar=radDistr.TRad;
   Modelica.SIunits.Energy E = airModel.E;
 
@@ -60,10 +60,6 @@ protected
         origin={-50,-10})));
   Modelica.Blocks.Math.Sum add(nin=2, k={0.5,0.5}) "Operative temperature"
     annotation (Placement(transformation(extent={{66,-6},{78,6}})));
-
-protected
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
-    annotation (Placement(transformation(extent={{22,22},{38,38}})));
 
 public
   BaseClasses.ZoneLwDistributionViewFactor zoneLwDistributionViewFactor(
@@ -166,14 +162,6 @@ for i in 1:nSurf loop
       color={191,0,0},
       smooth=Smooth.None));
 end for;
-  connect(senTem.port, gainCon) annotation (Line(
-      points={{22,30},{0,30},{0,-30},{100,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(senTem.T, add.u[2]) annotation (Line(
-      points={{38,30},{60,30},{60,0.6},{64.8,0.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
       if allowFlowReversal then
       else
       end if;
@@ -182,8 +170,7 @@ end for;
       color={191,0,0},
       smooth=Smooth.None));
   connect(zoneLwDistributionViewFactor.inc, propsBus.inc) annotation (Line(
-      points={{-34,-1.77636e-15},{-34,-1.77636e-15},{-34,4},{-80,4},{-80,39.9},
-          {-100.1,39.9}},
+      points={{-34,-1.77636e-15},{-34,4},{-80,4},{-80,39.9},{-100.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zoneLwDistributionViewFactor.azi, propsBus.azi) annotation (Line(
@@ -212,10 +199,12 @@ end for;
                                                         color={0,0,127}));
   connect(airModel.port_b, flowPort_Out) annotation (Line(points={{-34,40},{-34,
           100},{-20,100}}, color={0,127,255}));
-  connect(senTem.port, airModel.ports_air[1])
-    annotation (Line(points={{22,30},{22,30},{-20,30}}, color={191,0,0}));
   connect(airModel.port_a, flowPort_In) annotation (Line(points={{-26,40},{-26,40},
           {-26,74},{-26,88},{20,88},{20,100}}, color={0,127,255}));
+  connect(airModel.ports_air[1], gainCon) annotation (Line(points={{-20,30},{2,30},
+          {2,-30},{100,-30}}, color={191,0,0}));
+  connect(airModel.Tair, add.u[2]) annotation (Line(points={{-19.2,24},{26,24},{
+          26,0.6},{64.8,0.6}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
