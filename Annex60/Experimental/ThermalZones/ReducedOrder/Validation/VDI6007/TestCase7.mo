@@ -6,7 +6,6 @@ model TestCase7 "VDI 6007 Test Case 7 model"
 
   ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
     redeclare package Medium = Modelica.Media.Air.SimpleAir,
-    VAir=52.5,
     alphaExt=2.7,
     alphaWin=2.7,
     gWin=1,
@@ -25,7 +24,9 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     CExt={1600848.94},
     RInt={0.000595693407511},
     CInt={14836354.6282},
-    T_start=295.15) "Thermal zone"
+    T_start=295.15,
+    VAir=0,
+    nOrientations=1) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
@@ -45,19 +46,20 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     tableOnFile=false,
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
-    table=[3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,0; 25200,500; 28800,
-        500; 32400,500; 36000,500; 39600,500; 43200,481; 46800,426; 50400,374; 54000,
-        324; 57600,276; 61200,230; 64800,186; 68400,-500; 72000,-500; 75600,-500;
-        79200,-500; 82800,-500; 86400,-500; 781200,-500; 784800,-500; 788400,-500;
-        792000,-500; 795600,-500; 799200,-500; 802800,-142; 806400,-172; 810000,
-        -201; 813600,-228; 817200,-254; 820800,-278; 824400,-302; 828000,-324; 831600,
-        -345; 835200,-366; 838800,-385; 842400,-404; 846000,-500; 849600,-500; 853200,
-        -500; 856800,-500; 860400,-500; 864000,-500; 5101200,-500; 5104800,-500;
-        5108400,-500; 5112000,-500; 5115600,-500; 5119200,-500; 5122800,-149; 5126400,
-        -179; 5130000,-207; 5133600,-234; 5137200,-259; 5140800,-284; 5144400,-307;
-        5148000,-329; 5151600,-350; 5155200,-371; 5158800,-390; 5162400,-409; 5166000,
-        -500; 5169600,-500; 5173200,-500; 5176800,-500; 5180400,-500; 5184000,-500])
-    "Reference results"
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    table=[3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,500; 25200,500;
+        28800,500; 32400,500; 36000,500; 39600,481; 43200,426; 46800,374; 50400,
+        324; 54000,276; 57600,230; 61200,186; 64800,-500; 68400,-500; 72000,-500;
+        75600,-500; 79200,-500; 82800,-500; 86400,-500; 781200,-500; 784800,-500;
+        788400,-500; 792000,-500; 795600,-500; 799200,-142; 802800,-172; 806400,
+        -201; 810000,-228; 813600,-254; 817200,-278; 820800,-302; 824400,-324;
+        828000,-345; 831600,-366; 835200,-385; 838800,-404; 842400,-500; 846000,
+        -500; 849600,-500; 853200,-500; 856800,-500; 860400,-500; 864000,-500;
+        5101200,-500; 5104800,-500; 5108400,-500; 5112000,-500; 5115600,-500;
+        5119200,-149; 5122800,-179; 5126400,-207; 5130000,-234; 5133600,-259;
+        5137200,-284; 5140800,-307; 5144400,-329; 5148000,-350; 5151600,-371;
+        5155200,-390; 5158800,-409; 5162400,-500; 5166000,-500; 5169600,-500;
+        5173200,-500; 5176800,-500; 5180400,-500]) "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
     "Radiative heat flow machines"
@@ -125,7 +127,7 @@ equation
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(const.y, thermalZoneTwoElements.solRad)
-    annotation (Line(points={{30.5,31},{37.25,31},{37.25,31},{43,31}},
+    annotation (Line(points={{30.5,31},{37.25,31},{43,31}},
                                                  color={0,0,127}));
   connect(internalGains.y[1], machinesRad.Q_flow)
     annotation (Line(points={{

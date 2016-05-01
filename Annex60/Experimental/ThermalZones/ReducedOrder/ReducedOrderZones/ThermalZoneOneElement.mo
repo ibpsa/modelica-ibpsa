@@ -9,7 +9,7 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Coefficient of heat transfer for linearized radiation exchange between walls"
     annotation(Dialog(group="Thermal zone"));
 
-  parameter Integer nOrientations "Number of orientations"
+  parameter Integer nOrientations(min=1) "Number of orientations"
     annotation(Dialog(group="Thermal zone"));
 
   parameter Integer nPorts=0 "Number of fluid ports"
@@ -241,7 +241,7 @@ protected
   parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray})
     "Number of non-zero wall surface areas";
   parameter Real splitFactor[dimension]=
-    BaseClasses.splitFacVal(dimension, AArray)
+    BaseClasses.splitFacVal(dimension, AArray, 0)
     "Share of each wall surface area that is non-zero";
 
 equation
