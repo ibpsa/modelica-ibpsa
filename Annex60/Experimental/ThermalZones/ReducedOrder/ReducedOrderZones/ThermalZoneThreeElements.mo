@@ -1,7 +1,7 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
 model ThermalZoneThreeElements "Thermal Zone with three elements for exterior walls,
   interior walls and floor plate"
-    extends ThermalZoneTwoElements(AArray={AExt,AWin,AInt,AFloor});
+    extends ThermalZoneTwoElements(AArray={ATotExt,ATotWin,AInt,AFloor});
 
   parameter Modelica.SIunits.Area AFloor "Area of floor plate"
     annotation(Dialog(group="Floor plate"));
@@ -48,7 +48,7 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
     rotation=180,
     origin={12,-116})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallFloor(
-   G=min(AExt, AFloor)*alphaRad) if  AExt > 0 and AFloor > 0
+   G=min(ATotExt, AFloor)*alphaRad) if  ATotExt > 0 and AFloor > 0
     "Resistor between exterior walls and floor"
     annotation (Placement(
     transformation(
@@ -68,7 +68,7 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
     annotation (Placement(transformation(extent={{-10,-190},{10,-170}}),
                              iconTransformation(extent={{-10,-190},{10,-170}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resFloorWin(
-   G=min(AWin, AFloor)*alphaRad) if  AWin > 0 and AFloor > 0
+   G=min(ATotWin, AFloor)*alphaRad) if  ATotWin > 0 and AFloor > 0
     "Resistor between floor plate and windows"
     annotation (Placement(
     transformation(
@@ -83,22 +83,22 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
 equation
   connect(floorRC.port_a, convFloor.solid)
     annotation (Line(
-    points={{-12,-137.451},{-12,-124}},
+    points={{-12,-137.091},{-12,-124}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(floorRC.port_a, resExtWallFloor.port_b)
     annotation (Line(
-    points={{-12,-137.451},{-12,-132},{-144,-132},{-144,-121}},
+    points={{-12,-137.091},{-12,-132},{-144,-132},{-144,-121}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(floorRC.port_a, resIntWallFloor.port_b)
     annotation (Line(
-    points={{-12,-137.451},{-12,-132},{224,-132},{224,-106},{214,-106}},
+    points={{-12,-137.091},{-12,-132},{224,-132},{224,-106},{214,-106}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(floorRC.port_b, floor)
     annotation (Line(
-    points={{-12,-154.731},{-12,-180},{0,-180}},
+    points={{-12,-155.091},{-12,-180},{0,-180}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(resFloorWin.port_a, convWin.solid)
@@ -106,36 +106,36 @@ equation
     points={{-80,-100},{-80,20},{-146,20},{-146,40},{-116,40}},
     color={191,0,0},
     smooth=Smooth.None));
-  if not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 then
+  if not ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and AFloor > 0 then
     connect(thermSplitterIntGains.signalOutput[1], floorRC.port_a);
     connect(floorRC.port_a, thermSplitterSolRad.signalOutput[1]);
-  elseif AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0
-    or not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0
-    or not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 then
+  elseif ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and AFloor > 0
+    or not ATotExt > 0 and ATotWin > 0 and not AInt > 0 and AFloor > 0
+    or not ATotExt > 0 and not ATotWin > 0 and AInt > 0 and AFloor > 0 then
     connect(thermSplitterIntGains.signalOutput[2], floorRC.port_a);
     connect(floorRC.port_a, thermSplitterSolRad.signalOutput[2]);
-  elseif not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0
-    or AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0
-    or AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 then
+  elseif not ATotExt > 0 and ATotWin > 0 and AInt > 0 and AFloor > 0
+    or ATotExt > 0 and not ATotWin > 0 and AInt > 0 and AFloor > 0
+    or ATotExt > 0 and ATotWin > 0 and not AInt > 0 and AFloor > 0 then
     connect(thermSplitterIntGains.signalOutput[3], floorRC.port_a);
     connect(floorRC.port_a, thermSplitterSolRad.signalOutput[3]);
-  elseif AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 then
+  elseif ATotExt > 0 and ATotWin > 0 and AInt > 0 and AFloor > 0 then
     connect(thermSplitterIntGains.signalOutput[4], floorRC.port_a)
       annotation (
       Line(
-      points={{190,86},{190,80},{-38,80},{-38,-132},{-12,-132},{-12,-137.451}},
+      points={{190,86},{190,80},{-38,80},{-38,-132},{-12,-132},{-12,-137.091}},
       color={191,0,0},
       smooth=Smooth.None));
     connect(floorRC.port_a, thermSplitterSolRad.signalOutput[4])
       annotation (
       Line(
-      points={{-12,-137.451},{-12,-132},{-42,-132},{-42,146},{-136,146}},
+      points={{-12,-137.091},{-12,-132},{-42,-132},{-42,146},{-136,146}},
       color={191,0,0},
       smooth=Smooth.None));
   end if;
   connect(intWallRC.port_a, resIntWallFloor.port_a)
-    annotation (Line(points={{182.4,-40},{182.4,-40},{168,-40},{168,-90},{168,
-          -106},{194,-106}},
+    annotation (Line(points={{182,-40},{182,-40},{168,-40},{168,-90},{168,-106},
+          {194,-106}},
                 color={191,0,0}));
   connect(resFloorWin.port_b, resExtWallFloor.port_b)
     annotation (Line(points={{-80,-120},{-80,-120},{-80,-132},{-144,-132},{-144,
@@ -151,7 +151,7 @@ equation
     annotation (Line(points={{-12,-108},{-12,-40},{66,-40},{66,0},{80,0}},
                                                color={191,0,0}));
   connect(floorRC.port_a, floorIndoorSurface)
-    annotation (Line(points={{-12,-137.451},{-12,-137.451},{-12,-132},{-80,-132},
+    annotation (Line(points={{-12,-137.091},{-12,-137.091},{-12,-132},{-80,-132},
           {-80,-180}},                                     color={191,0,0}));
   annotation (defaultComponentName="thermZone",
   Diagram(coordinateSystem(

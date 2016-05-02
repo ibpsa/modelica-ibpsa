@@ -1,6 +1,5 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
-package BaseClasses
-  "Package with base classes for ROM"
+package BaseClasses "Package with base classes for ROM"
   extends Modelica.Icons.BasesPackage;
 
 

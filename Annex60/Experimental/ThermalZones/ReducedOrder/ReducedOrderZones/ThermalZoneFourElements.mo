@@ -1,7 +1,7 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
 model ThermalZoneFourElements "Thermal Zone with four elements for exterior walls,
   interior walls, floor plate and roof"
-  extends ThermalZoneThreeElements(AArray={AExt,AWin,AInt,AFloor,ARoof});
+  extends ThermalZoneThreeElements(AArray={ATotExt,ATotWin,AInt,AFloor,ARoof});
 
   parameter Modelica.SIunits.Area ARoof "Area of roof"
     annotation(Dialog(group="Roof"));
@@ -71,8 +71,8 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
       rotation=-90,
       origin={186,10})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resRoofWin(
-    G=min(ARoof, AWin)*alphaRad) if
-       ARoof > 0 and AWin > 0 "Resistor between roof and windows"
+    G=min(ARoof, ATotWin)*alphaRad) if
+       ARoof > 0 and ATotWin > 0 "Resistor between roof and windows"
       annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
       rotation=0,
@@ -86,7 +86,7 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
       rotation=-90,
       origin={-56,-112})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallRoof(
-      G=min(AExt, ARoof)*alphaRad) if    AExt > 0 and ARoof > 0
+      G=min(ATotExt, ARoof)*alphaRad) if    ATotExt > 0 and ARoof > 0
     "Resistor between exterior walls and roof"
       annotation (Placement(
       transformation(
@@ -96,9 +96,9 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
 
 equation
   connect(convRoof.solid, roofRC.port_b)
-    annotation (Line(points={{-12,130},{-12,144.4}}, color={191,0,0}));
+    annotation (Line(points={{-12,130},{-12,144}},   color={191,0,0}));
   connect(roofRC.port_a, roof)
-    annotation (Line(points={{-12,163.6},{-12,170}}, color={191,0,0}));
+    annotation (Line(points={{-12,164},{-12,170}},   color={191,0,0}));
   connect(resRoofWin.port_a, convWin.solid)
     annotation (Line(points={{-164,100},{-174,100},{-174,82},{-146,82},{-146,40},
           {-116,40}},                                         color={191,
@@ -113,7 +113,7 @@ equation
     annotation (Line(
     points={{-56,-122},{-56,-132},{-144,-132},{-144,-121}}, color={191,0,0}));
   connect(resIntRoof.port_b, intWallRC.port_a)
-    annotation (Line(points={{186,0},{186,-10},{168,-10},{168,-40},{182.4,-40}},
+    annotation (Line(points={{186,0},{186,-10},{168,-10},{168,-40},{182,-40}},
                                                color={191,0,0}));
   connect(resIntRoof.port_a, convRoof.solid)
     annotation (Line(points={{186,20},
@@ -125,42 +125,42 @@ equation
   connect(resExtWallRoof.port_b, convRoof.solid)
     annotation (Line(points={{-98,
     6},{-54,6},{-54,132},{-12,132},{-12,130}}, color={191,0,0}));
-  if not AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0
+  if not ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and not AFloor > 0
     and ARoof > 0 then
     connect(thermSplitterIntGains.signalOutput[1], roofRC.port_a);
     connect(roofRC.port_a, thermSplitterSolRad.signalOutput[1]);
-  elseif AExt > 0 and not AWin > 0 and not AInt > 0 and not AFloor > 0
+  elseif ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and not AFloor > 0
     and ARoof > 0
-     or not AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0
+     or not ATotExt > 0 and ATotWin > 0 and not AInt > 0 and not AFloor > 0
      and ARoof > 0
-     or not AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0
+     or not ATotExt > 0 and not ATotWin > 0 and AInt > 0 and not AFloor > 0
      and ARoof > 0
-     or not AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0
+     or not ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and AFloor > 0
      and ARoof > 0 then
     connect(thermSplitterIntGains.signalOutput[2], roofRC.port_a);
     connect(roofRC.port_a, thermSplitterSolRad.signalOutput[2]);
-  elseif AExt > 0 and AWin > 0 and not AInt > 0 and not AFloor > 0 and ARoof > 0
-     or AExt > 0 and not AWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0
-     or AExt > 0 and not AWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
-     or not AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0
-     or not AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
-     or not AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0
+  elseif ATotExt > 0 and ATotWin > 0 and not AInt > 0 and not AFloor > 0 and ARoof > 0
+     or ATotExt > 0 and not ATotWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0
+     or ATotExt > 0 and not ATotWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
+     or not ATotExt > 0 and ATotWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0
+     or not ATotExt > 0 and ATotWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
+     or not ATotExt > 0 and not ATotWin > 0 and AInt > 0 and AFloor > 0
      and ARoof > 0 then
     connect(thermSplitterIntGains.signalOutput[3], roofRC.port_a);
     connect(roofRC.port_a, thermSplitterSolRad.signalOutput[3]);
-  elseif not AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0
-     or AExt > 0 and not AWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0
-     or AExt > 0 and AWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
-     or AExt > 0 and AWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0 then
+  elseif not ATotExt > 0 and ATotWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0
+     or ATotExt > 0 and not ATotWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0
+     or ATotExt > 0 and ATotWin > 0 and not AInt > 0 and AFloor > 0 and ARoof > 0
+     or ATotExt > 0 and ATotWin > 0 and AInt > 0 and not AFloor > 0 and ARoof > 0 then
     connect(thermSplitterIntGains.signalOutput[4], roofRC.port_a);
     connect(roofRC.port_a, thermSplitterSolRad.signalOutput[4]);
-  elseif AExt > 0 and AWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0 then
+  elseif ATotExt > 0 and ATotWin > 0 and AInt > 0 and AFloor > 0 and ARoof > 0 then
     connect(thermSplitterSolRad.signalOutput[5], roofRC.port_b)
     annotation (Line(
-    points={{-136,146},{-88,146},{-38,146},{-38,142},{-12,142},{-12,144.4}},
+    points={{-136,146},{-88,146},{-38,146},{-38,142},{-12,142},{-12,144}},
     color={191,0,0}));
     connect(thermSplitterIntGains.signalOutput[5], roofRC.port_b)
-    annotation (Line(points={{190,86},{190,86},{190,138},{-12,138},{-12,144.4}},
+    annotation (Line(points={{190,86},{190,86},{190,138},{-12,138},{-12,144}},
     color={191,0,0}));
   end if;
   connect(alphaRoofConst.y, convRoof.Gc)
@@ -170,8 +170,8 @@ equation
     annotation (Line(points={{-12,110},{-12,110},{-12,96},{66,96},{66,0},{80,0}},
                                                  color={191,0,0}));
   connect(roofRC.port_b, roofIndoorSurface)
-    annotation (Line(points={{-12,144.4},{-12,136},{-112,136},{-112,112},{-216,
-          112},{-216,-140},{-40,-140},{-40,-180}},
+    annotation (Line(points={{-12,144},{-12,136},{-112,136},{-112,112},{-216,112},
+          {-216,-140},{-40,-140},{-40,-180}},
     color={191,0,0}));
   annotation (defaultComponentName="thermZone",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,
