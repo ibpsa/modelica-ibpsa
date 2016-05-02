@@ -22,9 +22,9 @@ model TestCase2 "VDI 6007 Test Case 2 model"
     VAir=0,
     nOrientations=1,
     T_start=295.15,
-    AWin={0},
-    ATransparent={0},
-    AExt={10.5}) "Thermal zone"
+    AWin=0,
+    ATransparent=0,
+    AExt=10.5) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
@@ -86,8 +86,8 @@ equation
     annotation (
     Line(points={{68,-74},{84,-74},{98,-74},{98,24},{92.2,24}},
                                                               color={191,0,0}));
-  connect(const.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points={{
-          30.5,31},{36.25,31},{36.25,31},{43,31}}, color={0,0,127}));
+  connect(const.y, thermalZoneTwoElements.solRad)
+    annotation (Line(points={{30.5,31},{36.25,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 2 of the VDI 6007 Part 1: Calculation of indoor air temperature

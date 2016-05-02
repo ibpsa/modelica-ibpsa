@@ -5,7 +5,6 @@ model TestCase11 "VDI 6007 Test Case 11 model"
   parameter Real m_flow_nominal = 10 "Nominal mass flow";
 
   ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
-    redeclare final package Medium = Medium,
     alphaExt=2.7,
     alphaWin=2.7,
     gWin=1,
@@ -25,9 +24,10 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     CInt={14836354.6282},
     alphaInt=3,
     indoorPortIntWalls=true,
-    T_start=295.15,
     VAir=0,
-    nOrientations=1) "Thermal zone"
+    nOrientations=1,
+    redeclare final package Medium = Modelica.Media.Air.SimpleAir,
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
