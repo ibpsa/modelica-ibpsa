@@ -55,6 +55,12 @@ annotation (Documentation(
 This model validates the use of the mixing volume with adiabatic cooling.
 Water in liquid form at room temperature is added to the volume,
 which decreases its temperature.
+The instance <code>volSim</code> uses a simplified implementation of the
+mass balance that ignores the mass of the water added to the volume,
+whereas the instance <code>volExa</code> uses the exact formulation.
+The output of the instance <code>relErr</code>
+shows that the relative error on the temperature difference between these
+two options is less than <i>0.1%</i>.
 </p>
 </html>", revisions="<html>
 <ul>
