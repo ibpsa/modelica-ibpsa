@@ -45,7 +45,7 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,-764; 25200,-696;
+    table=[0,0; 3600,0; 7200,0; 10800,0; 14400,0; 18000,0; 21600,-764; 25200,-696;
         28800,-632; 32400,-570; 36000,-511; 39600,-455; 43200,-402; 46800,-351;
         50400,-302; 54000,-255; 57600,-210; 61200,-167; 64800,638; 68400,610;
         72000,583; 75600,557; 79200,533; 82800,511; 86400,774; 781200,742;

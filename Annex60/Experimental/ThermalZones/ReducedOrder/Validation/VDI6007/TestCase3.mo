@@ -10,9 +10,6 @@ model TestCase3 "VDI 6007 Test Case 3 model"
     nExt=1,
     alphaRad=5,
     nInt=1,
-    AWin=0,
-    AExt=10.5,
-    ATransparent=0,
     ratioWinConRad=0,
     AInt=75.5,
     alphaInt=2.24,
@@ -23,8 +20,11 @@ model TestCase3 "VDI 6007 Test Case 3 model"
     RInt={0.00338564974804},
     CInt={7445364.89759},
     VAir=0,
-    T_start=295.15,
-    nOrientations=1) "Thermal zone"
+    nOrientations=1,
+    AWin={0},
+    ATransparent={0},
+    AExt={10.5},
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
@@ -45,10 +45,10 @@ model TestCase3 "VDI 6007 Test Case 3 model"
     columns={2},
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint,
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    table=[3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,30.2; 25200,
-        30.8; 28800,31.2; 32400,31.6; 36000,32; 39600,32.4; 43200,32.8; 46800,
-        33.2; 50400,33.6; 54000,34; 57600,34.3; 61200,34.7; 64800,26.9; 68400,
-        26.7; 72000,26.7; 75600,26.6; 79200,26.6; 82800,26.6; 86400,43.7;
+    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,30.2;
+        25200,30.8; 28800,31.2; 32400,31.6; 36000,32; 39600,32.4; 43200,32.8;
+        46800,33.2; 50400,33.6; 54000,34; 57600,34.3; 61200,34.7; 64800,26.9;
+        68400,26.7; 72000,26.7; 75600,26.6; 79200,26.6; 82800,26.6; 86400,43.7;
         781200,43.5; 784800,43.4; 788400,43.2; 792000,43; 795600,42.9; 799200,
         50.9; 802800,51.3; 806400,51.6; 810000,51.8; 813600,52.1; 817200,52.3;
         820800,52.5; 824400,52.8; 828000,53; 831600,53.3; 835200,53.5; 838800,
@@ -79,9 +79,6 @@ equation
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
-  connect(const.y, thermalZoneTwoElements.solRad)
-    annotation (Line(points={{30.5,31},{37.25,31},{43,31}},
-                                                 color={0,0,127}));
   connect(internalGains.y[1], machinesConv.Q_flow)
     annotation (Line(points={{
     22.8,-52},{36,-52},{36,-74},{48,-74}}, color={0,0,127}));
@@ -89,6 +86,8 @@ equation
     annotation (
     Line(points={{68,-74},{82,-74},{96,-74},{96,20},{92,20}},     color={191,
     0,0}));
+  connect(const.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points={{
+          30.5,31},{36.25,31},{36.25,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 3 of the VDI 6007 Part 1: Calculation of indoor air temperature
