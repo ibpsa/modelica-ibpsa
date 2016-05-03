@@ -23,30 +23,31 @@ model structure "Example detailed building structure model"
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
     AWall={10,21,10},
-    azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
+    azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     insulationThickness={0.16,0.16,0.16},
-    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})
+    inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall})
     annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
         rotation=90,
         origin={-17.5,-75.5})));
   Components.Window[3] gF_win(
     A={5.5,1,5.5},
-    azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
+    azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,
-    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
+    inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall},
     redeclare IDEAS.Buildings.Components.Shading.None shaType) annotation (
       Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
         rotation=90,
         origin={10.5,-75.5})));
+
   Components.SlabOnGround gF_floor(
     redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
     insulationThickness=0.14,
     AWall=72,
     PWall=26,
-    inc=IDEAS.Constants.Floor,
-    azi=IDEAS.Constants.South,
+    inc=IDEAS.Types.Tilt.Floor,
+    azi=IDEAS.Types.Azimuth.S,
     redeclare IDEAS.Buildings.Data.Constructions.FloorOnGround constructionType)
                                annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -57,18 +58,18 @@ model structure "Example detailed building structure model"
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
     AWall={10,21,10},
-    azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
+    azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     insulationThickness={0.16,0.16,0.16},
-    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})
+    inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall})
     annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
         rotation=90,
         origin={-17.5,-15.5})));
   Components.Window[3] fF_win(
     A={5.5,1,5.5},
-    azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
+    azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,
-    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
+    inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall},
     redeclare IDEAS.Buildings.Components.Shading.None shaType) annotation (
       Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
@@ -78,8 +79,8 @@ model structure "Example detailed building structure model"
     redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
     insulationThickness=0.04,
     AWall=74,
-    inc=IDEAS.Constants.Floor,
-    azi=IDEAS.Constants.South,
+    inc=IDEAS.Types.Tilt.Floor,
+    azi=IDEAS.Types.Azimuth.S,
     redeclare IDEAS.Buildings.Data.Constructions.TABS constructionType)
                                annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -90,18 +91,18 @@ model structure "Example detailed building structure model"
     redeclare IDEAS.Buildings.Data.Constructions.CavityWall constructionType,
     redeclare IDEAS.Buildings.Data.Insulation.Rockwool insulationType,
     AWall={10,21,10},
-    azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
+    azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     insulationThickness={0.16,0.16,0.16},
-    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall})
+    inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall})
     annotation (Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
         rotation=90,
         origin={-17.5,44.5})));
   Components.Window[3] sF_win(
     A={5.5,1,5.5},
-    azi={IDEAS.Constants.East,IDEAS.Constants.South,IDEAS.Constants.West},
+    azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,IDEAS.Types.Azimuth.W},
     redeclare IDEAS.Buildings.Data.Glazing.Ins2Kr glazing,
-    inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall},
+    inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall},
     redeclare IDEAS.Buildings.Components.Shading.None shaType) annotation (
       Placement(transformation(
         extent={{-5.5,-10.5},{5.5,10.5}},
@@ -111,8 +112,8 @@ model structure "Example detailed building structure model"
     redeclare IDEAS.Buildings.Data.Insulation.Pur insulationType,
     insulationThickness=0.04,
     AWall=74,
-    inc=IDEAS.Constants.Floor,
-    azi=IDEAS.Constants.South,
+    inc=IDEAS.Types.Tilt.Floor,
+    azi=IDEAS.Types.Azimuth.S,
     redeclare IDEAS.Buildings.Data.Constructions.TABS constructionType)
                                annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -123,8 +124,8 @@ model structure "Example detailed building structure model"
     redeclare IDEAS.Buildings.Data.Insulation.Xps insulationType,
     insulationThickness=0.32,
     AWall=74,
-    inc=IDEAS.Constants.Ceiling,
-    azi=IDEAS.Constants.South) annotation (Placement(transformation(
+    inc=IDEAS.Types.Tilt.Ceiling,
+    azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-77,44})));
@@ -136,22 +137,22 @@ equation
   //Connection of the fF floor
   //Connection of the sF floor
   connect(sF_roof.propsBus_a, sF.propsBus[8]) annotation (Line(
-      points={{-81,49},{-81,72.25},{40,72.25}},
+      points={{-79,49},{-79,72.25},{40,72.25}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(sF_floor.propsBus_a, sF.propsBus[7]) annotation (Line(
-      points={{-51,49},{-51,72.75},{40,72.75}},
+      points={{-49,49},{-49,72.75},{40,72.75}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(sF_ext.propsBus_a, sF.propsBus[1:3]) annotation (Line(
-      points={{-21.7,50},{-21.7,74.75},{40,74.75}},
+      points={{-19.6,50},{-19.6,74.75},{40,74.75}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(sF_win.propsBus_a, sF.propsBus[4:6]) annotation (Line(
-      points={{6.3,50},{6.3,73.25},{40,73.25}},
+      points={{8.4,50},{8.4,73.25},{40,73.25}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -161,17 +162,17 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(fF_floor.propsBus_a, fF.propsBus[7]) annotation (Line(
-      points={{-51,-11},{-51,12.75},{40,12.75}},
+      points={{-49,-11},{-49,12.75},{40,12.75}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(fF_ext.propsBus_a, fF.propsBus[1:3]) annotation (Line(
-      points={{-21.7,-10},{-22,-10},{-22,14.75},{40,14.75}},
+      points={{-19.6,-10},{-22,-10},{-22,14.75},{40,14.75}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(fF_win.propsBus_a, fF.propsBus[4:6]) annotation (Line(
-      points={{6.3,-10},{6,-10},{6,13.25},{40,13.25}},
+      points={{8.4,-10},{6,-10},{6,13.25},{40,13.25}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -181,17 +182,17 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(gF_floor.propsBus_a, gF.propsBus[7]) annotation (Line(
-      points={{-51,-71},{-51,-47.25},{40,-47.25}},
+      points={{-49,-71},{-49,-47.25},{40,-47.25}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(gF_ext.propsBus_a, gF.propsBus[1:3]) annotation (Line(
-      points={{-21.7,-70},{-22,-70},{-22,-45.25},{40,-45.25}},
+      points={{-19.6,-70},{-22,-70},{-22,-45.25},{40,-45.25}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(gF_win.propsBus_a, gF.propsBus[4:6]) annotation (Line(
-      points={{6.3,-70},{6,-70},{6,-46.75},{40,-46.75}},
+      points={{8.4,-70},{6,-70},{6,-46.75},{40,-46.75}},
       color={0,0,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
