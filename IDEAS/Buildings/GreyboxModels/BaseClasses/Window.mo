@@ -14,7 +14,7 @@ model Window "multipane window"
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "glazing type";
 
 protected
-  IDEAS.Climate.Meteo.Solar.RadSol radSol(
+  IDEAS.BoundaryConditions.Climate.Meteo.Solar.RadSol radSol(
     inc=inc,
     azi=azi,
     A=A)
