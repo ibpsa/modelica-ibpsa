@@ -1,4 +1,4 @@
-within IDEAS.Fluid.Valves;
+within IDEAS.Fluid.Actuators.Valves.Simplified;
 model ThreeWayValve "Ideal mixing point"
 
   replaceable package Medium =

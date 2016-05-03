@@ -1,4 +1,4 @@
-within IDEAS.Fluid.Valves;
+within IDEAS.Fluid.Actuators.Valves.Simplified;
 model ThreeWayValveMotor
   "Ideal three way valve with a krane controlled with a Real input with value between 0 and 1"
   extends BaseClasses.Partial3WayValve;

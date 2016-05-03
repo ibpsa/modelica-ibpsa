@@ -1,4 +1,4 @@
-within IDEAS.Fluid.Valves;
+within IDEAS.Fluid.Actuators.Valves.Simplified;
 model ThreeWayValveSwitch "Switches between two circuits"
   extends BaseClasses.Partial3WayValve;
   parameter Modelica.SIunits.MassFlowRate mFlowMin = 0.01

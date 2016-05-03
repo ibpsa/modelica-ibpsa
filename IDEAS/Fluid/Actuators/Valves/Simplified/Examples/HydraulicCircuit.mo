@@ -1,4 +1,4 @@
-within IDEAS.Fluid.Valves.Examples;
+within IDEAS.Fluid.Actuators.Valves.Simplified.Examples;
 model HydraulicCircuit
   import IDEAS;
   extends Modelica.Icons.Example;
@@ -25,10 +25,10 @@ public
     offset=0.5,
     phase=4.7123889803847)
         annotation (Placement(transformation(extent={{-36,28},{-16,48}})));
-  IDEAS.Fluid.Valves.ThreeWayValveMotor threeWayValveMotor(m_flow_nominal=1,
-      redeclare package Medium = Medium,
-    m=0.1)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
+  IDEAS.Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor threeWayValveMotor(
+    m_flow_nominal=1,
+    redeclare package Medium = Medium,
+    m=0.1) annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
   Modelica.Fluid.Sensors.TemperatureTwoPort temperature(redeclare package
       Medium = Medium, m_flow_nominal=1)
@@ -50,11 +50,11 @@ public
     startTime=0,
     freqHz=0.1)
     annotation (Placement(transformation(extent={{-152,24},{-132,44}})));
-  IDEAS.Fluid.Valves.ThreeWayValveMotor threeWayValveMotor1(
-                                                           m_flow_nominal=1,
-      redeclare package Medium = Medium,
-    m=0.1)
-    annotation (Placement(transformation(extent={{46,-10},{26,10}})));
+  IDEAS.Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor
+    threeWayValveMotor1(
+    m_flow_nominal=1,
+    redeclare package Medium = Medium,
+    m=0.1) annotation (Placement(transformation(extent={{46,-10},{26,10}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort boiler(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -110,11 +110,11 @@ public
     offset=0.5,
     phase=4.7123889803847)
         annotation (Placement(transformation(extent={{-48,-154},{-28,-134}})));
-  IDEAS.Fluid.Valves.ThreeWayValveMotor threeWayValveMotor2(
-                                                           m_flow_nominal=1,
-      redeclare package Medium = Medium,
-    m=0.1)
-    annotation (Placement(transformation(extent={{8,-190},{-12,-170}})));
+  IDEAS.Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor
+    threeWayValveMotor2(
+    m_flow_nominal=1,
+    redeclare package Medium = Medium,
+    m=0.1) annotation (Placement(transformation(extent={{8,-190},{-12,-170}})));
   Modelica.Fluid.Sensors.TemperatureTwoPort temperature1(
                                                         redeclare package
       Medium = Medium, m_flow_nominal=1)
@@ -136,11 +136,11 @@ public
     startTime=0,
     freqHz=0.1)
     annotation (Placement(transformation(extent={{-138,-156},{-118,-136}})));
-  IDEAS.Fluid.Valves.ThreeWayValveMotor threeWayValveMotor3(
-                                                           m_flow_nominal=1,
-      redeclare package Medium = Medium,
-    m=0.1)
-    annotation (Placement(transformation(extent={{44,-190},{24,-170}})));
+  IDEAS.Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor
+    threeWayValveMotor3(
+    m_flow_nominal=1,
+    redeclare package Medium = Medium,
+    m=0.1) annotation (Placement(transformation(extent={{44,-190},{24,-170}})));
 equation
   connect(flow_pump.y, pumpFlow1.m_flowSet)
                                          annotation (Line(

@@ -1,4 +1,4 @@
-within IDEAS.Fluid.Valves;
+within IDEAS.Fluid.Actuators.Valves.Simplified;
 model Manifold "Radiant manifold"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     annotation (__Dymola_choicesAllMatching=true);

@@ -1,4 +1,4 @@
-within IDEAS.Fluid.Valves.Examples;
+within IDEAS.Fluid.Actuators.Valves.Simplified.Examples;
 model ThreeWayValveSwitch "Test the new component ThreeWayValveSwitch"
   import IDEAS;
   extends Modelica.Icons.Example;
@@ -19,9 +19,10 @@ model ThreeWayValveSwitch "Test the new component ThreeWayValveSwitch"
     annotation (Placement(transformation(extent={{-52,32},{-32,52}})));
   Modelica.Blocks.Math.RealToBoolean realToBoolean(threshold=0.5)
     annotation (Placement(transformation(extent={{-12,34},{2,48}})));
-  IDEAS.Fluid.Valves.ThreeWayValveSwitch threeWayValveSwitch(redeclare package
-      Medium =                                                                          Medium,
-      m_flow_nominal=1,
+  IDEAS.Fluid.Actuators.Valves.Simplified.ThreeWayValveSwitch
+    threeWayValveSwitch(
+    redeclare package Medium = Medium,
+    m_flow_nominal=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{6,0},{26,20}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(nPorts=3,          redeclare package

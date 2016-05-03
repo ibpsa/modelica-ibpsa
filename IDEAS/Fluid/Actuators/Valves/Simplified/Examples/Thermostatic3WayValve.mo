@@ -1,7 +1,7 @@
-within IDEAS.Fluid.Valves.Examples;
+within IDEAS.Fluid.Actuators.Valves.Simplified.Examples;
 model Thermostatic3WayValve "Example of a thermostatic three way valve"
   extends Modelica.Icons.Example;
-  IDEAS.Fluid.Valves.Thermostatic3WayValve thermostatic3WayValve(
+  IDEAS.Fluid.Actuators.Valves.Simplified.Thermostatic3WayValve thermostatic3WayValve(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dynamicValve=false,
