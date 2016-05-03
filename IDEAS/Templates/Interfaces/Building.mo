@@ -1,4 +1,4 @@
-within IDEAS.Interfaces;
+within IDEAS.Templates.Interfaces;
 model Building
 
   outer IDEAS.SimInfoManager sim
@@ -14,36 +14,36 @@ model Building
   final parameter Modelica.SIunits.Power[building.nZones] Q_design = building.Q_design+ventilationSystem.Q_design
     "Total design heat load for heating system based on heat losses";
 
-  replaceable IDEAS.Interfaces.BaseClasses.Structure building
-    constrainedby IDEAS.Interfaces.BaseClasses.Structure(final T_start=T_start)
-    "Building structure" annotation (Placement(transformation(extent={{-66,-10},
-            {-36,10}})), choicesAllMatching=true);
+  replaceable IDEAS.Templates.Interfaces.BaseClasses.Structure building
+    constrainedby IDEAS.Templates.Interfaces.BaseClasses.Structure(final
+      T_start=T_start) "Building structure" annotation (Placement(
+        transformation(extent={{-66,-10},{-36,10}})), choicesAllMatching=true);
 
-  replaceable IDEAS.Interfaces.BaseClasses.HeatingSystem heatingSystem
-    constrainedby IDEAS.Interfaces.BaseClasses.HeatingSystem(
-    redeclare package Medium=Medium,
+  replaceable IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem heatingSystem
+    constrainedby IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
+    redeclare package Medium = Medium,
     final isDH=isDH,
-    final nZones = building.nZones,
-    final nEmbPorts = building.nEmb,
-    final InInterface = InInterface,
-    final Q_design = Q_design) "Thermal building heating system"
-                                       annotation (Placement(
-        transformation(extent={{-20,-10},{20,10}})), choicesAllMatching=true);
-  replaceable IDEAS.Interfaces.BaseClasses.Occupant occupant
-    constrainedby IDEAS.Interfaces.BaseClasses.Occupant(nZones=building.nZones)
-    "Building occupant" annotation (Placement(transformation(extent={{-20,-50},{
-            20,-30}})),  choicesAllMatching=true);
-  replaceable IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid constrainedby
-    IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder
+    final nZones=building.nZones,
+    final nEmbPorts=building.nEmb,
+    final InInterface=InInterface,
+    final Q_design=Q_design) "Thermal building heating system" annotation (
+      Placement(transformation(extent={{-20,-10},{20,10}})), choicesAllMatching
+      =true);
+  replaceable IDEAS.Templates.Interfaces.BaseClasses.Occupant occupant
+    constrainedby IDEAS.Templates.Interfaces.BaseClasses.Occupant(nZones=
+        building.nZones) "Building occupant" annotation (Placement(
+        transformation(extent={{-20,-50},{20,-30}})), choicesAllMatching=true);
+  replaceable IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid
+    constrainedby IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder
     "Inhome low-voltage electricity grid system" annotation (Placement(
-        transformation(extent={{32,-10},{52,10}})), __Dymola_choicesAllMatching=true);
+        transformation(extent={{32,-10},{52,10}})), __Dymola_choicesAllMatching
+      =true);
 
-  replaceable IDEAS.Interfaces.BaseClasses.VentilationSystem ventilationSystem
-    constrainedby IDEAS.Interfaces.BaseClasses.VentilationSystem(
-      final nZones = building.nZones,
-      final VZones = building.VZones) "Ventilation system"
-    annotation (Placement(transformation(extent={{-20,20},{20,40}})),
-      choicesAllMatching=true);
+  replaceable IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem ventilationSystem
+    constrainedby IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(
+      final nZones=building.nZones, final VZones=building.VZones)
+    "Ventilation system" annotation (Placement(transformation(extent={{-20,20},
+            {20,40}})), choicesAllMatching=true);
   Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin
     plugFeeder(v(re(start=230), im(start=0))) if not standAlone
     "Electricity connection to the district feeder"

@@ -1,4 +1,4 @@
-within IDEAS.Interfaces.BaseClasses;
+within IDEAS.Templates.Interfaces.BaseClasses;
 partial model InhomeFeeder
 
   extends Modelica.Icons.ObsoleteModel;

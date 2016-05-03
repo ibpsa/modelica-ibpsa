@@ -1,4 +1,4 @@
-within IDEAS.Interfaces;
+within IDEAS.Templates.Interfaces;
 partial model Feeder
 
   parameter Integer nLoads(min=1) "number of electric loads";

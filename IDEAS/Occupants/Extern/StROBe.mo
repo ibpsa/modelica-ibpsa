@@ -1,7 +1,8 @@
 within IDEAS.Occupants.Extern;
 model StROBe "StROBe occupant, for multi zone building models"
 
-  extends IDEAS.Interfaces.BaseClasses.Occupant(final nLoads=1);
+  extends IDEAS.Templates.Interfaces.BaseClasses.Occupant(
+                                                final nLoads=1);
   outer StrobeInfoManager strobe(final StROBe_P=true, StROBe = true)
     annotation (Placement(transformation(extent={{-186,80},{-166,100}})));
 

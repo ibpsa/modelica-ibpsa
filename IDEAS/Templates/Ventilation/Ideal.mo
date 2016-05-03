@@ -1,7 +1,8 @@
 within IDEAS.Templates.Ventilation;
 model Ideal
   "Ventilation with constant air flow at constant temperature and no power calculations"
-  extends IDEAS.Interfaces.BaseClasses.VentilationSystem(nLoads=1);
+  extends IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(
+                                                         nLoads=1);
   parameter Modelica.SIunits.MassFlowRate m_flow[nZones] = zeros(nZones)
     "Ventilation mass flow rate per zones";
   parameter Modelica.SIunits.Temperature TSet[nZones] = 22*.ones(nZones) .+ 273.15

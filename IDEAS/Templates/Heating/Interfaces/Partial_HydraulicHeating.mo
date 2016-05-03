@@ -1,7 +1,7 @@
 within IDEAS.Templates.Heating.Interfaces;
 partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
   replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+  extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
     isHea = true,
     isCoo = false,
     nConvPorts = nZones,

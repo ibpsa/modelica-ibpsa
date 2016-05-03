@@ -1,11 +1,9 @@
-within IDEAS.Interfaces.BaseClasses;
+within IDEAS.Templates.Interfaces.BaseClasses;
 partial model HeatingSystem "Partial heating/cooling system"
 
-  extends IDEAS.Interfaces.BaseClasses.PartialSystem;
+  extends IDEAS.Templates.Interfaces.BaseClasses.PartialSystem;
 
   replaceable package Medium=IDEAS.Media.Water;
-
-
 
   // *********** Building characteristics and  interface ***********
   // --- General

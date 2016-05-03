@@ -1,6 +1,7 @@
 within IDEAS.Templates.Ventilation;
 model None "No ventilation"
-  extends IDEAS.Interfaces.BaseClasses.VentilationSystem(nLoads=0);
+  extends IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(
+                                                         nLoads=0);
 
   Fluid.Sources.FixedBoundary sink[nZones](
                          each final nPorts=1, redeclare each package Medium = Medium)

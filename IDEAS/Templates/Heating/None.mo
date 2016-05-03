@@ -1,6 +1,6 @@
 within IDEAS.Templates.Heating;
 model None "No heating or cooling system"
-  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+  extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
     isHea = false,
     isCoo = false,
     nConvPorts = nZones,

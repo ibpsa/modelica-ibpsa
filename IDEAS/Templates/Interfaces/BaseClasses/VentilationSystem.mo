@@ -1,9 +1,7 @@
-within IDEAS.Interfaces.BaseClasses;
+within IDEAS.Templates.Interfaces.BaseClasses;
 partial model VentilationSystem
 
-  extends IDEAS.Interfaces.BaseClasses.PartialSystem;
-
-
+  extends IDEAS.Templates.Interfaces.BaseClasses.PartialSystem;
 
   replaceable package Medium = IDEAS.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium

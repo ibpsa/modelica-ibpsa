@@ -1,7 +1,7 @@
 within IDEAS.Templates.Heating.Examples;
 model DummyBuilding "Dummy building for testing heating systems"
   import IDEAS;
-  extends IDEAS.Interfaces.BaseClasses.Structure;
+  extends IDEAS.Templates.Interfaces.BaseClasses.Structure;
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature[nZones] TAmb
     annotation (Placement(transformation(extent={{-116,44},{-96,64}})));

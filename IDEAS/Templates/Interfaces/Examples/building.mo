@@ -1,6 +1,6 @@
-within IDEAS.Interfaces.Examples;
+within IDEAS.Templates.Interfaces.Examples;
 model building
-  extends IDEAS.Interfaces.Building(
+  extends IDEAS.Templates.Interfaces.Building(
     redeclare Buildings.Examples.BaseClasses.structure building,
     redeclare Templates.Ventilation.None ventilationSystem,
     redeclare Occupants.Standards.None occupant,

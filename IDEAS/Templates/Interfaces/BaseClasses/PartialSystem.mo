@@ -1,4 +1,4 @@
-within IDEAS.Interfaces.BaseClasses;
+within IDEAS.Templates.Interfaces.BaseClasses;
 partial model PartialSystem "General partial for electricity-based systems"
 
   outer IDEAS.SimInfoManager sim

@@ -2,7 +2,8 @@ within IDEAS.Templates.Ventilation;
 model ConstantAirFlowRecup
   "Ventilation System with constant airflow rate and recuperation efficiency"
 
-  extends IDEAS.Interfaces.BaseClasses.VentilationSystem(nLoads=1);
+  extends IDEAS.Templates.Interfaces.BaseClasses.VentilationSystem(
+                                                         nLoads=1);
 
   parameter Real[nZones] n(unit="m3/h")
     "Air change rate (Air changes per hour ACH)";

@@ -1,7 +1,7 @@
 within IDEAS.Templates.Heating;
 model IdealRadiatorHeating "Ideal heating, no DHW, with radiators"
   extends IDEAS.Templates.Heating.Interfaces.Partial_IdealHeating;
-  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+  extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
     final isHea = true,
     final isCoo = false,
       nConvPorts = nZones,

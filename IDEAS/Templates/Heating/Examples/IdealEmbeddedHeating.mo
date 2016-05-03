@@ -20,7 +20,7 @@ model IdealEmbeddedHeating
         origin={90,-64})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
     annotation (Placement(transformation(extent={{80,-102},{100,-82}})));
-  IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder dummyInHomeGrid
+  IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder dummyInHomeGrid
     annotation (Placement(transformation(extent={{64,-20},{84,0}})));
   IDEAS.Templates.Heating.Examples.DummyBuilding building(nZones=nZones, nEmb=
         nZones)

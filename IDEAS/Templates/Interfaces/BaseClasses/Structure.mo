@@ -1,4 +1,4 @@
-within IDEAS.Interfaces.BaseClasses;
+within IDEAS.Templates.Interfaces.BaseClasses;
 partial model Structure "Partial model for building structure models"
 
   outer IDEAS.SimInfoManager sim

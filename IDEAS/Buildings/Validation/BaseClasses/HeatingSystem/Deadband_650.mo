@@ -1,6 +1,6 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model Deadband_650 "BESTEST deadband heating system"
-  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+  extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
     final nLoads=1, final nTemSen = nZones);
 
   parameter Modelica.SIunits.Volume[nZones] VZones;
