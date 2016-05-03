@@ -100,7 +100,7 @@ protected
       fill(ceilingInc,1),
       fill(IDEAS.Types.Tilt.Wall, numAzi)) "surface inclination";
 
-  IDEAS.Climate.Time.SimTimes timMan(
+  IDEAS.BoundaryConditions.Climate.Time.SimTimes timMan(
     timZonSta=timZonSta,
     lon=lon,
     DST=false,
@@ -121,18 +121,17 @@ protected
     annotation (Placement(transformation(extent={{-124,-22},{-104,-2}})));
   Modelica.Blocks.Sources.RealExpression TEnv(y=Te)
     annotation (Placement(transformation(extent={{-124,-6},{-104,14}})));
-  Climate.Meteo.Solar.BaseClasses.RelativeAirMass
-                  relativeAirMass
+  BoundaryConditions.Climate.Meteo.Solar.BaseClasses.RelativeAirMass
+    relativeAirMass
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Climate.Meteo.Solar.BaseClasses.SkyBrightness
-                skyBrightness
+  BoundaryConditions.Climate.Meteo.Solar.BaseClasses.SkyBrightness
+    skyBrightness
     annotation (Placement(transformation(extent={{-52,40},{-32,60}})));
-  Climate.Meteo.Solar.BaseClasses.SkyClearness
-               skyClearness
+  BoundaryConditions.Climate.Meteo.Solar.BaseClasses.SkyClearness skyClearness
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Climate.Meteo.Solar.BaseClasses.SkyBrightnessCoefficients
-                            skyBrightnessCoefficients
+  BoundaryConditions.Climate.Meteo.Solar.BaseClasses.SkyBrightnessCoefficients
+    skyBrightnessCoefficients
     annotation (Placement(transformation(extent={{-26,60},{-6,80}})));
 
   Modelica.Blocks.Sources.RealExpression zenithAngle(y=angZen)
@@ -146,16 +145,16 @@ public
   Buildings.Components.Interfaces.WeaBus
                                      weaBus(numSolBus=numAzi + 1)
     annotation (Placement(transformation(extent={{50,18},{70,38}})));
-  Climate.Meteo.Solar.ShadedRadSol[
-                             numAzi+1] radSol(
+  BoundaryConditions.Climate.Meteo.Solar.ShadedRadSol[numAzi + 1] radSol(
     inc=inc,
     azi=cat(
         1,
-        fill(ceilingInc,1),
-        fill(offsetAzi, numAzi) + (0:numAzi-1)*Modelica.Constants.pi*2/numAzi),
+        fill(ceilingInc, 1),
+        fill(offsetAzi, numAzi) + (0:numAzi - 1)*Modelica.Constants.pi*2/numAzi),
+
     each numAzi=numAzi,
     each lat=lat)
-             annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Sources.RealExpression TskyPow4Expr(y=TskyPow4)
     "Power 4 of sky temperature"
     annotation (Placement(transformation(extent={{-124,92},{-104,112}})));
