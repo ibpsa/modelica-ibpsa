@@ -8,6 +8,7 @@ Modelica.SIunits.Power PCoo = max(heatingSystem.heatPortCon[1].Q_flow,0);
     redeclare BaseClasses.Structure.Bui900 building,
     redeclare BaseClasses.HeatingSystem.None heatingSystem,
     redeclare BaseClasses.VentilationSystem.NightVentilation ventilationSystem,
-    redeclare IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid);
+    redeclare IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder
+      inHomeGrid);
 
 end Case650FF;

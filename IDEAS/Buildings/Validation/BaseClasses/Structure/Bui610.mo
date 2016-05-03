@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses.Structure;
 model Bui610 "BESTEST Building model case 610"
 
-  extends IDEAS.Interfaces.BaseClasses.Structure(
+  extends IDEAS.Templates.Interfaces.BaseClasses.Structure(
     final nZones=1, final nEmb=0,
     ATrans=1,
     VZones={gF.V});
