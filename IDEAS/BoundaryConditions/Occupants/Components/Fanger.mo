@@ -1,7 +1,7 @@
 within IDEAS.BoundaryConditions.Occupants.Components;
 block Fanger "Fanger model"
 
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   parameter Boolean Linear=true;

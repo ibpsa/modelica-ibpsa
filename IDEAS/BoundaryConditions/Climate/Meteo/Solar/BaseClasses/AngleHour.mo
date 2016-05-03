@@ -3,7 +3,7 @@ block AngleHour
 
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
 
   Modelica.Blocks.Interfaces.RealOutput angHou(

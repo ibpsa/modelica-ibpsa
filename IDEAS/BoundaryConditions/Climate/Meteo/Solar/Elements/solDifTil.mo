@@ -8,7 +8,7 @@ parameter Modelica.SIunits.Angle inc(displayUnit="degree") "inclination";
 
 Modelica.Blocks.Interfaces.RealOutput solDifTil
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
-outer IDEAS.SimInfoManager         sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{60,72},{80,92}})));
 
   Modelica.Blocks.Interfaces.RealInput angZen

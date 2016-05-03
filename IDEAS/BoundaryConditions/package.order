@@ -1,4 +1,5 @@
 UsersGuide
+SimInfoManager
 SkyTemperature
 SolarGeometry
 SolarIrradiation
@@ -6,3 +7,4 @@ WeatherData
 Types
 Climate
 Occupants
+Interfaces

@@ -1,7 +1,7 @@
 within IDEAS.BoundaryConditions.Climate.Meteo.Solar.Elements;
 block SkyBrightness
   extends Modelica.Blocks.Interfaces.BlockIcon;
-  outer IDEAS.SimInfoManager         sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
   Modelica.Blocks.Interfaces.RealInput relAirMas "relative air mass"
     annotation (Placement(transformation(extent={{-120,40},{-80,80}})));

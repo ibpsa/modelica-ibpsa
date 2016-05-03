@@ -1,8 +1,7 @@
 within IDEAS.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckWindSpeed "Test model for wind speed check"
   extends Modelica.Icons.Example;
-  IDEAS.Utilities.Time.ModelTime modTim
-    "Block that outputs simulation time"
+  IDEAS.Utilities.Time.ModelTime modTim "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.CheckWindSpeed cheWinSpe
     "Block that constrains the wind speed"

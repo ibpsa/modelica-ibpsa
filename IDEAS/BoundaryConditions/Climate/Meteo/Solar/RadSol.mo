@@ -38,8 +38,8 @@ protected
   BaseClasses.solDirTil solDirTil(
     final inc=inc)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  IDEAS.BoundaryConditions.Climate.Meteo.Solar.BaseClasses.Perez perez(final inc
-      =inc, final rho=rho)
+  IDEAS.BoundaryConditions.Climate.Meteo.Solar.BaseClasses.Perez perez(final inc=
+       inc, final rho=rho)
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Sources.Constant dummyValAzi(k=0) if not remDefVals
     "angAzi dummy value when not needed"

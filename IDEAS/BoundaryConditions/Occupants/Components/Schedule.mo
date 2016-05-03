@@ -1,7 +1,7 @@
 within IDEAS.BoundaryConditions.Occupants.Components;
 model Schedule "Single schedule with look-ahead"
 
-  outer IDEAS.SimInfoManager sim;
+  outer IDEAS.BoundaryConditions.SimInfoManager sim;
 
   parameter Real occupancy[:]=3600*{7,19}
     "Occupancy table, each entry switching occupancy on or off";
