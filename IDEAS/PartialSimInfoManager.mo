@@ -36,7 +36,7 @@ partial model PartialSimInfoManager
     "design ground temperature";
   parameter SI.Angle offsetAzi=0 "Offset for the azimuth angle series"
     annotation(Dialog(tab="Incidence angles"));
-  parameter SI.Angle ceilingInc = IDEAS.Constants.Ceiling
+  parameter SI.Angle ceilingInc = IDEAS.Types.Tilt.Ceiling
     "Ceiling inclination angle"
     annotation(Dialog(tab="Incidence angles"));
 
@@ -98,7 +98,7 @@ protected
   parameter SI.Angle inc[numAzi + 1]=cat(
       1,
       fill(ceilingInc,1),
-      fill(IDEAS.Constants.Wall, numAzi)) "surface inclination";
+      fill(IDEAS.Types.Tilt.Wall, numAzi)) "surface inclination";
 
   IDEAS.Climate.Time.SimTimes timMan(
     timZonSta=timZonSta,
