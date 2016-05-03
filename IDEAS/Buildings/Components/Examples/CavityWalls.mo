@@ -17,8 +17,8 @@ model CavityWalls
     nSurf=2)
          annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   IDEAS.Buildings.Components.OuterWall outerWall(
-    inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South,
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S,
     insulationThickness=0.1,
     redeclare parameter
       IDEAS.Buildings.Data.Constructions.CavityWallPartialFill
@@ -30,19 +30,19 @@ model CavityWalls
   IDEAS.Buildings.Components.Window winLin(
     A=1,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South,
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S,
     redeclare Data.Glazing.Ins2Ar glazing,
     windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two)
     "Window with linear convection correlations inside the window"
     annotation (Placement(transformation(extent={{-54,-56},{-44,-36}})));
 equation
   connect(outerWall.propsBus_a, zone1.propsBus[2]) annotation (Line(
-      points={{-44,-18},{-28,-18},{-28,-16},{20,-16},{20,-57}},
+      points={{-44,-20},{-28,-20},{-28,-16},{20,-16},{20,-57}},
       color={255,204,51},
       thickness=0.5));
   connect(winLin.propsBus_a, zone1.propsBus[1]) annotation (Line(
-      points={{-44,-42},{-32,-42},{20,-42},{20,-55}},
+      points={{-44,-44},{-32,-44},{20,-44},{20,-55}},
       color={255,204,51},
       thickness=0.5));
   connect(zone1.flowPort_In, bou.ports[1])

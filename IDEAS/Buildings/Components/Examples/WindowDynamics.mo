@@ -13,8 +13,8 @@ model WindowDynamics "Comparison of three window dynamics options"
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
     windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two,
-    inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South)
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
   OuterWall outerWall(
     azi=0,
@@ -23,7 +23,7 @@ model WindowDynamics "Comparison of three window dynamics options"
     redeclare parameter IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
     AWall=10,
     insulationThickness=0,
-    inc=IDEAS.Constants.Floor)
+    inc=IDEAS.Types.Tilt.Floor)
     annotation (Placement(transformation(extent={{-54,0},{-44,20}})));
   Zone zone1(
     redeclare package Medium = Medium,
@@ -36,32 +36,32 @@ model WindowDynamics "Comparison of three window dynamics options"
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
     windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None,
-    inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South)
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S)
     annotation (Placement(transformation(extent={{-54,-32},{-44,-12}})));
   Window window2(
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
     windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Combined,
-    inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South)
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S)
     annotation (Placement(transformation(extent={{-54,-56},{-44,-36}})));
 equation
   connect(zone1.propsBus[1], outerWall.propsBus_a) annotation (Line(
-      points={{20,-54.5},{20,-54.5},{20,-6},{20,14},{-44,14}},
+      points={{20,-54.5},{20,-54.5},{20,-6},{20,12},{-44,12}},
       color={255,204,51},
       thickness=0.5));
   connect(window1.propsBus_a, zone1.propsBus[2]) annotation (Line(
-      points={{-44,-18},{-28,-18},{-28,-16},{20,-16},{20,-55.5}},
+      points={{-44,-20},{-28,-20},{-28,-16},{20,-16},{20,-55.5}},
       color={255,204,51},
       thickness=0.5));
   connect(window2.propsBus_a, zone1.propsBus[3]) annotation (Line(
-      points={{-44,-42},{-32,-42},{20,-42},{20,-56.5}},
+      points={{-44,-44},{-32,-44},{20,-44},{20,-56.5}},
       color={255,204,51},
       thickness=0.5));
   connect(window.propsBus_a, zone1.propsBus[4]) annotation (Line(
-      points={{-44,-68},{-12,-68},{-12,-57.5},{20,-57.5}},
+      points={{-44,-70},{-12,-70},{-12,-57.5},{20,-57.5}},
       color={255,204,51},
       thickness=0.5));
   connect(zone1.flowPort_In, bou.ports[1])

@@ -16,7 +16,7 @@ model WindowLinearisation
     redeclare parameter IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
     AWall=10,
     insulationThickness=0,
-    inc=IDEAS.Constants.Floor)
+    inc=IDEAS.Types.Tilt.Floor)
     annotation (Placement(transformation(extent={{-54,0},{-44,20}})));
   Zone zone1(
     redeclare package Medium = Medium,
@@ -29,8 +29,8 @@ model WindowLinearisation
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
     layMul(linIntCon=false),
-    inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South)
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S)
     "Window with non-linear convection correlations inside the window"
     annotation (Placement(transformation(extent={{-54,-32},{-44,-12}})));
   Window winLin(
@@ -38,21 +38,21 @@ model WindowLinearisation
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
     layMul(linIntCon=true),
-    inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South)
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S)
     "Window with linear convection correlations inside the window"
     annotation (Placement(transformation(extent={{-54,-56},{-44,-36}})));
 equation
   connect(zone1.propsBus[1], outerWall.propsBus_a) annotation (Line(
-      points={{20,-54.6667},{20,-54.6667},{20,-6},{20,14},{-44,14}},
+      points={{20,-54.6667},{20,-54.6667},{20,-6},{20,12},{-44,12}},
       color={255,204,51},
       thickness=0.5));
   connect(winNonLin.propsBus_a, zone1.propsBus[2]) annotation (Line(
-      points={{-44,-18},{-28,-18},{-28,-16},{20,-16},{20,-56}},
+      points={{-44,-20},{-28,-20},{-28,-16},{20,-16},{20,-56}},
       color={255,204,51},
       thickness=0.5));
   connect(winLin.propsBus_a, zone1.propsBus[3]) annotation (Line(
-      points={{-44,-42},{-32,-42},{20,-42},{20,-57.3333}},
+      points={{-44,-44},{-32,-44},{20,-44},{20,-57.3333}},
       color={255,204,51},
       thickness=0.5));
   connect(zone1.flowPort_In, bou.ports[1])
