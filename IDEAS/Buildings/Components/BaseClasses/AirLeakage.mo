@@ -1,10 +1,13 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model AirLeakage "air leakage due to limied air tightness"
 
-extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(final allowFlowReversal=false);
+extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
+    final allowFlowReversal=false,
+    final m_flow_nominal=V/3600*n50/n50toAch);
 
   parameter Modelica.SIunits.Volume V "zone air volume";
   parameter Real n50(min=0)=0.4 "n50-value of airtightness";
+  parameter Real n50toAch = 20 "Conversion factor from n50 to Air Change Rate";
 
   outer IDEAS.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));

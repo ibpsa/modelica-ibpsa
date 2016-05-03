@@ -12,9 +12,10 @@ block HeatingCurveFilter
   parameter Modelica.SIunits.Temperature TSup_nominal "Supply temperature"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TSupMin=273.15 + 30 if minSup
-    "Minimum supply temperature if enabled";
+    "Minimum supply temperature if enabled"
+    annotation(Dialog(enable=minSup));
   parameter Boolean minSup=true
-    "true to limit the supply temperature on the lower side";
+    "= true, to set a lower bound on the supply temperature";
   parameter Modelica.SIunits.Temperature TRet_nominal "Return temperature"
     annotation (Dialog(group="Nominal conditions"));
   parameter Modelica.SIunits.Temperature TRoo_nominal=293.15 "Room temperature"
@@ -25,10 +26,9 @@ block HeatingCurveFilter
   parameter Boolean use_TRoo_in=false
     "Get the room temperature set point from the input connector" annotation (
     Evaluate=true,
-    HideResult=true,
-    choices(__Dymola_checkBox=true));
+    choices(checkBox=true));
   parameter Modelica.SIunits.Temperature TRoo=293.15
-    "Fixed value of room air temperature set point"
+    "Fixed value of room air temperature set point if use_TRoo_in=false"
     annotation (Evaluate=true, Dialog(enable=not use_TRoo_in));
   parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal=8
     "Offset for heating curve";
@@ -59,8 +59,15 @@ block HeatingCurveFilter
     displayUnit="degC",
     min=0) "Setpoint for return temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-
+  replaceable Modelica.Blocks.Interfaces.SISO filter annotation (choices(choice(
+          redeclare Modelica.Blocks.Continuous.FirstOrder filter(T=timeFilter)),
+        choice(redeclare IDEAS.BaseClasses.Math.MovingAverage filter(period=
+              timeFilter))), Placement(transformation(extent={{-42,50},{-22,70}})));
 protected
+  parameter Modelica.SIunits.Temperature TOutOffSet_nominal=TOut_nominal +
+      dTOutHeaBal
+    "Effective outside temperature for heat transfer at nominal conditions (takes into account room heat gains)";
+
   Modelica.Blocks.Interfaces.RealInput TRoo_in_internal(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -69,15 +76,7 @@ protected
   Real qRel "Relative heat load = Q_flow/Q_flow_nominal";
   Modelica.SIunits.Temperature TOutOffSet
     "Effective outside temperature for heat transfer (takes into account room heat gains)";
-  parameter Modelica.SIunits.Temperature TOutOffSet_nominal=TOut_nominal +
-      dTOutHeaBal
-    "Effective outside temperature for heat transfer at nominal conditions (takes into account room heat gains)";
-
-public
-  replaceable Modelica.Blocks.Interfaces.SISO filter annotation (choices(choice(
-          redeclare Modelica.Blocks.Continuous.FirstOrder filter(T=timeFilter)),
-        choice(redeclare IDEAS.BaseClasses.Math.MovingAverage filter(period=
-              timeFilter))), Placement(transformation(extent={{-42,50},{-22,70}})));
+  Real TSup_internal "Internal variable for more readable code";
 equation
   connect(TRoo_in, TRoo_in_internal);
   if not use_TRoo_in then
@@ -85,16 +84,11 @@ equation
   end if;
   TOutOffSet = filter.y + dTOutHeaBal;
   // Relative heating load, compared to nominal conditions
-  qRel = IDEAS.Utilities.Math.Functions.smoothMax(x1=0, x2=(TRoo_in_internal - TOutOffSet)/(TRoo_nominal -
-    TOutOffSet_nominal),deltaX=0.1);
-  if minSup then
-    TSup = IDEAS.Utilities.Math.Functions.smoothMax(x1=TSupMin, x2=TRoo_in_internal + ((TSup_nominal + TRet_nominal)/2 -
-      TRoo_nominal)*qRel^(1/m) + (TSup_nominal - TRet_nominal)/2*qRel,deltaX=0.1);
-  else
-    TSup = TRoo_in_internal + ((TSup_nominal + TRet_nominal)/2 -
-      TRoo_nominal)*qRel^(1/m) + (TSup_nominal - TRet_nominal)/2*qRel;
-  end if;
+  qRel = max(0, (TRoo_in_internal - TOutOffSet)*IDEAS.Utilities.Math.Functions.inverseXRegularized(TRoo_nominal -TOutOffSet_nominal, 0.01));
 
+  TSup_internal = TRoo_in_internal +
+                  ((TSup_nominal + TRet_nominal)/2 - TRoo_nominal)*qRel^(1/m) + (TSup_nominal - TRet_nominal)/2*qRel;
+  TSup = if minSup then max(TSupMin, TSup_internal) else TSup_internal;
   TRet = TSup - qRel*(TSup_nominal - TRet_nominal);
   connect(TOut, filter.u) annotation (Line(
       points={{-120,60},{-44,60}},
@@ -122,6 +116,8 @@ equation
 <p>No specific example foreseen for the heating curve, see the <a href=\"modelica://IDEAS.Thermal.HeatingSystems.Examples\">heating system examples</a>. </p>
 </html>", revisions="<html>
 <p><ul>
+<li>2016 April, Filip Jorissen: Redesigned HeatingCurves and fixed bug 
+(see <a href=\"https://github.com/open-ideas/IDEAS/issues/477\">#477</a>) </li>
 <li>2014 May, Damien Picard: fixed bug reported in Buildings Library (see <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">#74</a>) </li>
 <li>2013 June, Roel De Coninck: documentation</li>
 <li>2011, Roel De Coninck: minimum guaranteed supply temperature and filter or moving average of ambient temperature.</li>
