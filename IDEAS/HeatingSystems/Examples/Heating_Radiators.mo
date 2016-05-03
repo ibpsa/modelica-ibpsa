@@ -19,7 +19,7 @@ model Heating_Radiators
   inner SimInfoManager       sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
-  VentilationSystems.None       none(nZones=nZones, VZones=building.VZones)
+  Templates.Ventilation.None none(nZones=nZones, VZones=building.VZones)
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Occupants.Standards.ISO13790 occ(
     nZones=building.nZones,

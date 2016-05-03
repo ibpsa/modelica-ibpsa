@@ -1,4 +1,4 @@
-within IDEAS.VentilationSystems;
+within IDEAS.Templates.Ventilation;
 model None "No ventilation"
   extends IDEAS.Interfaces.BaseClasses.VentilationSystem(nLoads=0);
 

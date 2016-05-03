@@ -38,7 +38,7 @@ model Heating_Embedded
   Modelica.Blocks.Sources.RealExpression[nZones] realExpression(y=11*
         building.AZones)
     annotation (Placement(transformation(extent={{-20,30},{-40,50}})));
-  IDEAS.VentilationSystems.None none(nZones=nZones, VZones=building.VZones)
+  IDEAS.Templates.Ventilation.None none(nZones=nZones, VZones=building.VZones)
     annotation (Placement(transformation(extent={{-42,64},{-22,84}})));
   IDEAS.Occupants.Standards.ISO13790 occ(
     nZones=building.nZones,

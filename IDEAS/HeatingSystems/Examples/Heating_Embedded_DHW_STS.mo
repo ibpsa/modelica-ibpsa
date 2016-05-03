@@ -41,7 +41,7 @@ model Heating_Embedded_DHW_STS
         building.AZones)
     annotation (Placement(transformation(extent={{-20,28},{-40,48}})));
 
-  IDEAS.VentilationSystems.None none(nZones=nZones, VZones=building.VZones)
+  IDEAS.Templates.Ventilation.None none(nZones=nZones, VZones=building.VZones)
     annotation (Placement(transformation(extent={{-32,74},{-12,94}})));
   IDEAS.Occupants.Standards.ISO13790 occ(
     nZones=building.nZones,

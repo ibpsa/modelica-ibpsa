@@ -9,8 +9,8 @@ model BuildingFreeFloat "Dummy building without heating"
     annotation (Placement(transformation(extent={{-74,-10},{-44,10}})));
   inner SimInfoManager sim
     annotation (Placement(transformation(extent={{-90,74},{-70,94}})));
-  VentilationSystems.None       none(nZones=nZones, VZones=ones(nZones) .* 36)
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+  IDEAS.Templates.Ventilation.None none(nZones=nZones, VZones=ones(nZones) .*
+        36) annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder causalInhomeFeeder
     annotation (Placement(transformation(extent={{54,0},{74,20}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource

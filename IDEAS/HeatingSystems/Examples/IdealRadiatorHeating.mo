@@ -14,9 +14,8 @@ model IdealRadiatorHeating "Example and test for ideal heating with radiators"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   IDEAS.HeatingSystems.Examples.DummyBuilding building(nZones=nZones, nEmb=0)
     annotation (Placement(transformation(extent={{-86,-10},{-52,12}})));
-  IDEAS.VentilationSystems.None none(nZones=nZones, VZones=building.VZones)
+  IDEAS.Templates.Ventilation.None none(nZones=nZones, VZones=building.VZones)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-
 
   IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder causalInhomeFeeder
     annotation (Placement(transformation(extent={{44,-10},{64,10}})));

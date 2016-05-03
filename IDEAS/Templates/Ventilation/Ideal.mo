@@ -1,4 +1,4 @@
-within IDEAS.VentilationSystems;
+within IDEAS.Templates.Ventilation;
 model Ideal
   "Ventilation with constant air flow at constant temperature and no power calculations"
   extends IDEAS.Interfaces.BaseClasses.VentilationSystem(nLoads=1);
