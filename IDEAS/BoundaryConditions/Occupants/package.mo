@@ -1,4 +1,4 @@
-within IDEAS;
+within IDEAS.BoundaryConditions;
 package Occupants "Building occupant models"
 
 
