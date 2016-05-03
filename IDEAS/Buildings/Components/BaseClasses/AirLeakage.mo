@@ -17,7 +17,7 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
     control_m_flow=true,
     allowFlowReversal=false)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Sources.RealExpression reaExpMflo(y=V/3600*n50/n50toAch)
+  Modelica.Blocks.Sources.RealExpression reaExpMflo(y=V*rho_default/3600*n50/20)
     annotation (Placement(transformation(extent={{-86,20},{-40,40}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if  sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
@@ -51,8 +51,16 @@ public
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={14,68})));
-equation
+protected
+  final parameter Medium.ThermodynamicState state_default = Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
+  // Density at medium default values, used to compute the size of control volumes
+  final parameter Modelica.SIunits.Density rho_default=Medium.density(
+    state=state_default) "Density, used to compute fluid mass";
 
+equation
   connect(reaExpMflo.y, idealSourceOut.m_flow_in) annotation (Line(
       points={{-37.7,30},{-36,30},{-36,8}},
       color={0,0,127},
@@ -102,7 +110,11 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-January 29, 2015, Filip Jorissen:<br/>
+April 20, 2016, Filip Jorissen:<br/>
+Added missing density factor.
+</li>
+<li>
+January 29, 2016, Filip Jorissen:<br/>
 Implementation now also uses the outdoor humidity and up to one trace substance concentration.
 </li>
 <li>
