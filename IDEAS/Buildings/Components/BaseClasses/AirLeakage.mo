@@ -7,7 +7,7 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
 
   parameter Modelica.SIunits.Volume V "zone air volume";
   parameter Real n50(min=0)=0.4 "n50-value of airtightness";
-  parameter Real n50toAch = 20 "Conversion fractor from n50 to Air Change Rate";
+  parameter Real n50toAch = 20 "Conversion factor from n50 to Air Change Rate";
 
   outer IDEAS.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
