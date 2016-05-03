@@ -3,7 +3,7 @@ model Occupant "Tester for occupant models"
 
   extends Modelica.Icons.Example;
 
-  Interfaces.DummyInHomeGrid dummyInHomeGrid
+  Templates.Interfaces.DummyInHomeGrid dummyInHomeGrid
     annotation (Placement(transformation(extent={{14,-4},{34,16}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource
     voltageSource(

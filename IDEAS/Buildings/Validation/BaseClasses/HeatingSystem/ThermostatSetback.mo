@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses.HeatingSystem;
 model ThermostatSetback "BESTEST thermostat setback heating system"
 
-  extends IDEAS.Interfaces.BaseClasses.HeatingSystem(
+  extends IDEAS.Templates.Interfaces.BaseClasses.HeatingSystem(
     final nLoads=1, final nTemSen = nZones);
 
   parameter Modelica.SIunits.Volume[nZones] VZones;

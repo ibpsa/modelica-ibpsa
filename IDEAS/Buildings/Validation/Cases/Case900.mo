@@ -9,5 +9,6 @@ Modelica.SIunits.Power PCoo = max(heatingSystem.heatPortCon[1].Q_flow,0);
     redeclare final BaseClasses.HeatingSystem.Deadband heatingSystem(VZones=
           building.VZones),
     redeclare final BaseClasses.VentilationSystem.None ventilationSystem,
-    redeclare final IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder inHomeGrid);
+    redeclare final IDEAS.Templates.Interfaces.BaseClasses.CausalInhomeFeeder
+      inHomeGrid);
 end Case900;

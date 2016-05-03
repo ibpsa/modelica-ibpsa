@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Examples.BaseClasses;
 model structure "Example detailed building structure model"
 
-  extends IDEAS.Interfaces.BaseClasses.Structure(
+  extends IDEAS.Templates.Interfaces.BaseClasses.Structure(
     nZones=3,
     nEmb = 3,
     ATrans=211,

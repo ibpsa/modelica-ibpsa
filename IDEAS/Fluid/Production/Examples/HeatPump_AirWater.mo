@@ -4,11 +4,12 @@ model HeatPump_AirWater
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
-  Fluid.Movers.Pump pump(
-    m=1,
-    useInput=false,
+
+    IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
+    tau=30,
+    m_flow_nominal=m_flow_nominal,
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{-14,-24},{-34,-4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe(
     m=5,
@@ -48,7 +49,7 @@ model HeatPump_AirWater
 equation
 
   connect(heater.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-67.7,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
+      points={{-65,14},{-70,14},{-70,-12},{-76,-12},{-76,-13},{-80,-13}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TReturn.port, pipe.heatPort) annotation (Line(
@@ -75,7 +76,7 @@ equation
       points={{-28,18},{-42,18},{-42,18},{-56,18}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(Tset.y, heater.TSet) annotation (Line(points={{-43,54},{-68.6,54},{-68.6,
+  connect(Tset.y, heater.TSet) annotation (Line(points={{-43,54},{-70.4,54},{-70.4,
           36}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

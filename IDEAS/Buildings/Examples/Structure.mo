@@ -3,7 +3,7 @@ model Structure "Example detailed building structure model"
   extends Modelica.Icons.Example;
   BaseClasses.structure structure(redeclare package Medium = IDEAS.Media.Air)
     annotation (Placement(transformation(extent={{-36,-20},{-6,0}})));
-  VentilationSystems.None none(
+  Templates.Ventilation.None none(
     nLoads=0,
     nZones=structure.nZones,
     VZones=structure.VZones,
