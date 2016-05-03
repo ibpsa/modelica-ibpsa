@@ -42,7 +42,7 @@ model HydraulicCircuit
     startTime=3600,
     amplitude=1)
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
-  IDEAS.Fluid.FixedResistances.Pipe pipe3(
+  IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe3(
     m=5,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
@@ -61,7 +61,6 @@ model HydraulicCircuit
         Medium,
     p=200000) "Absolute pressure"
     annotation (Placement(transformation(extent={{88,28},{68,48}})));
-
 
 equation
   connect(pump1.port_b, pipe1.port_a) annotation (Line(
@@ -105,11 +104,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(pulse.y, pump1.m_flowSet) annotation (Line(
-      points={{-39,60},{-26,60},{-26,48}},
+      points={{-39,60},{-26,60},{-26,48.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pulse1.y, volumeFlow1.m_flowSet) annotation (Line(
-      points={{-39,16},{-26,16},{-26,4}},
+      points={{-39,16},{-26,16},{-26,4.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bou.ports[1], pipe1.port_b) annotation (Line(
