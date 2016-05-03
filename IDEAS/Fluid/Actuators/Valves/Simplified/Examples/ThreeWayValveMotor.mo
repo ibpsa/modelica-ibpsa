@@ -6,12 +6,12 @@ model ThreeWayValveMotor
     annotation (__Dymola_choicesAllMatching=true);
 
 protected
-  IDEAS.Fluid.Movers.Pump pumpFlow1(
-    useInput=true,
-    dpFix=0,
-    m_flow_nominal=1,
+    IDEAS.Fluid.Movers.FlowControlled_m_flow pumpFlow1(
     redeclare package Medium = Medium,
-    m=1)     annotation (Placement(transformation(
+    m_flow_nominal=1,
+    tau=30,
+    filteredSpeed=false,
+    dp_nominal = 0)     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-72,0})));
@@ -46,11 +46,6 @@ public
       Medium = Medium, m_flow_nominal=1)
     annotation (Placement(transformation(extent={{-24,-10},{-44,10}})));
 equation
-  connect(flow_pump.y, pumpFlow1.m_flowSet)
-                                         annotation (Line(
-      points={{-77,70},{-72,70},{-72,10.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(sink.ports[1], pumpFlow1.port_b) annotation (Line(
       points={{-78,-60},{-88,-60},{-88,0},{-82,0}},
       color={0,127,255},
@@ -75,8 +70,10 @@ equation
       points={{-24,0},{-10,0}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(flow_pump.y, pumpFlow1.m_flow_in) annotation (Line(points={{-77,70},{
+          -71.8,70},{-71.8,12}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
+            -100},{100,100}})),
     experiment(StopTime=100),
     __Dymola_experimentSetupOutput);
 end ThreeWayValveMotor;

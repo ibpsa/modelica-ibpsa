@@ -4,13 +4,16 @@ model Radiator_NominalPower
 
   extends Modelica.Icons.Example;
 
-  Fluid.Movers.Pump volumeFlow1(
-    m=4,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
+    m_flow_nominal=
+       radiator.m_flow_nominal,
+    tau=30,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    filteredSpeed=false,
     T_start=293.15,
-    m_flow_nominal=radiator.m_flow_nominal,
-    useInput=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort boiler(
     m=5,

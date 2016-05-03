@@ -3,11 +3,14 @@ model ThreeWayValveSwitch "Test the new component ThreeWayValveSwitch"
   import IDEAS;
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-  Fluid.Movers.Pump pumpEmission(
+
+    IDEAS.Fluid.Movers.FlowControlled_m_flow pumpEmission(
     redeclare package Medium = Medium,
-    m=0.1,
     m_flow_nominal=1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    tau=30,
+    filteredSpeed=false,
+    dp_nominal = 0,
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{58,0},{78,20}})));
   Fluid.FixedResistances.Pipe_HeatPort pipe_HeatPort(m=5, redeclare package
       Medium =                                                                       Medium,

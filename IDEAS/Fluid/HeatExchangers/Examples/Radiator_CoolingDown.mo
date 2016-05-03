@@ -20,19 +20,26 @@ model Radiator_CoolingDown "Test the cooling down of radiators"
     annotation (Placement(transformation(extent={{-64,-10},{-44,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=294.15)
     annotation (Placement(transformation(extent={{-14,20},{-34,40}})));
-  Fluid.Movers.Pump pump(
-    m_flow_nominal=0.05,
-    m=1,
-    useInput=true,
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    m_flow_nominal=
+       0.05,
+    tau=30,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    filteredSpeed=false,
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{-20,56},{0,76}})));
-  Fluid.Movers.Pump pump1(
-    m=1,
-    m_flow_nominal=0.05,
-    useInput=true,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump1(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    m_flow_nominal=
+       0.05,
+    tau=30,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    filteredSpeed=false,
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{-18,-10},{2,10}})));
   IDEAS.Fluid.HeatExchangers.Radiators.Radiator radiator_new2(
     QNom=1000,
@@ -43,12 +50,15 @@ model Radiator_CoolingDown "Test the cooling down of radiators"
     TOutNom=308.15,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Fluid.Movers.Pump pump2(
-    m=1,
-    m_flow_nominal=0.05,
-    useInput=true,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump2(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    m_flow_nominal=
+       0.05,
+    tau=30,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    filteredSpeed=false,
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{-14,-50},{6,-30}})));
   IDEAS.Fluid.Sources.Boundary_pT
                       bou(redeclare package Medium = Medium, nPorts=3,

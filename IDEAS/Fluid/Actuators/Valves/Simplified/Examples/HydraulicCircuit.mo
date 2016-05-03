@@ -6,13 +6,11 @@ model HydraulicCircuit
     annotation (__Dymola_choicesAllMatching=true);
 
 protected
-  IDEAS.Fluid.Movers.Pump pumpFlow1(
-    useInput=true,
-    dpFix=0,
-    m_flow_nominal=1,
+    IDEAS.Fluid.Movers.FlowControlled_m_flow pumpFlow1(
     redeclare package Medium = Medium,
-    m=1,
-    dynamicBalance=true)
+    tau=30,
+    m_flow_nominal=1,
+    dp_nominal = 0)
              annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -89,13 +87,11 @@ public
   Modelica.Blocks.Sources.Constant flow_pump2(k=273.15 + 20)
         annotation (Placement(transformation(extent={{170,-112},{150,-92}})));
 protected
-  IDEAS.Fluid.Movers.Pump pumpFlow2(
-    useInput=true,
-    dpFix=0,
-    m_flow_nominal=1,
+    IDEAS.Fluid.Movers.FlowControlled_m_flow pumpFlow2(
     redeclare package Medium = Medium,
-    m=1,
-    dynamicBalance=true)
+    tau=30,
+    m_flow_nominal=1,
+    dp_nominal = 0)
              annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
@@ -142,11 +138,6 @@ public
     redeclare package Medium = Medium,
     m=0.1) annotation (Placement(transformation(extent={{44,-190},{24,-170}})));
 equation
-  connect(flow_pump.y, pumpFlow1.m_flowSet)
-                                         annotation (Line(
-      points={{-77,34},{-72,34},{-72,10.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(ctrl.y, threeWayValveMotor.ctrl) annotation (Line(
       points={{-15,38},{1,38},{1,9.6}},
       color={0,0,127},
@@ -212,10 +203,6 @@ equation
       points={{46,-102},{110,-102}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(flow_pump3.y, pumpFlow2.m_flowSet) annotation (Line(
-      points={{-81,-146},{-74,-146},{-74,-169.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(ctrl1.y, threeWayValveMotor2.ctrl) annotation (Line(
       points={{-27,-144},{-1,-144},{-1,-170.4}},
       color={0,0,127},
@@ -276,8 +263,12 @@ equation
       points={{132,-102},{149,-102}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(flow_pump3.y, pumpFlow2.m_flow_in) annotation (Line(points={{-81,-146},
+          {-73.8,-146},{-73.8,-168}}, color={0,0,127}));
+  connect(flow_pump.y, pumpFlow1.m_flow_in) annotation (Line(points={{-77,34},{
+          -71.8,34},{-71.8,12}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,
-            -220},{180,60}}),  graphics), Icon(coordinateSystem(extent={{-160,
+            -220},{180,60}})),            Icon(coordinateSystem(extent={{-160,
             -220},{180,60}})),
     experiment(StopTime=100),
     __Dymola_experimentSetupOutput);

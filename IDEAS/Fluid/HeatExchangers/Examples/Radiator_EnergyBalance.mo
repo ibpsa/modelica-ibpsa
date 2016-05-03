@@ -9,13 +9,15 @@ model Radiator_EnergyBalance "Test for energy balance of the radiator model"
   Real QBoiler;
   Real QRadiator;
 
-  Fluid.Movers.Pump volumeFlow1(
-    m=4,
-    useInput=true,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow volumeFlow1(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    T_start=293.15,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    m_flow_nominal=
+       m_flow_nominal,
+    tau=30,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    filteredSpeed=false,
+    T_start = 293.15)
     annotation (Placement(transformation(extent={{-36,-16},{-16,4}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort boiler(
     m=5,
@@ -80,10 +82,6 @@ equation
       points={{-41,-40},{-12,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(step1.y, volumeFlow1.m_flowSet) annotation (Line(
-      points={{-35,40},{-26,40},{-26,4.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(prescribedTemperature.port, radiator.heatPortCon) annotation (Line(
       points={{52,34},{65,34},{65,12}},
       color={191,0,0},
@@ -104,9 +102,11 @@ equation
       points={{-16,-6},{12,-6}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(step1.y, volumeFlow1.m_flow_in)
+    annotation (Line(points={{-35,40},{-26.2,40},{-26.2,6}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
+            100}})),
     experiment(StopTime=100000),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>

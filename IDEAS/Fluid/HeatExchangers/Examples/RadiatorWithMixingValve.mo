@@ -4,11 +4,15 @@ model RadiatorWithMixingValve
 
   extends Modelica.Icons.Example;
 
-  Fluid.Movers.Pump volumeFlow1(
-    m=4,
-    T_start=313.15,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow volumeFlow1(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    tau=30,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    filteredSpeed=false,
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    T_start=313.15)
     annotation (Placement(transformation(extent={{76,-86},{56,-66}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort boiler(
     m=5,

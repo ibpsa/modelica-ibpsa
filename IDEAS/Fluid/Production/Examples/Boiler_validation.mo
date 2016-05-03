@@ -6,13 +6,14 @@ model Boiler_validation "Validation model for the boiler"
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
-  Fluid.Movers.Pump pump(
-    m=1,
-    m_flow_nominal=1300/3600,
-    useInput=true,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
+    m_flow_nominal=1300/3600,
+    tau=30,
+    filteredSpeed=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{8,-56},{-12,-36}})));
+
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort pipe(
     m=5,
     redeclare package Medium = Medium,
@@ -79,7 +80,7 @@ equation
   //   SPFNoLosses = if noEvent(PElNoLossesInt > 0) then QUsefulNoLossesInt/PElNoLossesInt else 0;
 
   connect(heater.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-63,-16},{-62,-16},{-62,-41},{-70,-41}},
+      points={{-60,-16},{-62,-16},{-62,-41},{-70,-41}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TReturn.port, pipe.heatPort) annotation (Line(
@@ -103,12 +104,8 @@ equation
       points={{-29,82},{-16,82}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(gain.y, pump.m_flowSet) annotation (Line(
-      points={{7,82},{18,82},{18,-35.6},{-2,-35.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(realExpression.y, heater.TSet) annotation (Line(
-      points={{-71,6},{-64,6}},
+      points={{-71,6},{-66,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heater.port_b, senTemBoiler_out.port_a) annotation (Line(
@@ -127,9 +124,11 @@ equation
       points={{-44,-46},{-50,-46},{-50,-12}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(gain.y, pump.m_flow_in) annotation (Line(points={{7,82},{20,82},{20,
+          -34},{-1.8,-34}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),     graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}})),
     experiment(StopTime=40000),
     __Dymola_experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

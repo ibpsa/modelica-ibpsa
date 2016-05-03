@@ -21,7 +21,7 @@ model StorageTank_DHW_HP
     m_flow_nominal_HX=1)
     annotation (Placement(transformation(extent={{-30,-64},{42,10}})));
 
-  Fluid.Domestic_Hot_Water.DHW_RealInput dHW(TDHWSet=273.15 + 45,
+  IDEAS.Fluid.Taps.BalancedTap_m_flow dHW(TDHWSet=273.15 + 45,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{62,8},{82,20}})));
   IDEAS.Fluid.Production.HP_AirWater_TSet hP_AWMod(
@@ -29,11 +29,12 @@ model StorageTank_DHW_HP
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-88,-2},{-68,18}})));
-  Fluid.Movers.Pump pump(
-    m=1,
-    useInput=true,
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    tau=30,
+    filteredSpeed=false)
     annotation (Placement(transformation(extent={{-38,-62},{-58,-42}})));
   inner IDEAS.SimInfoManager sim
     annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
@@ -85,10 +86,6 @@ equation
       points={{42,-18.4615},{92,-18.4615},{92,96},{-82,96},{-82,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HPControl.onOff, pump.m_flowSet) annotation (Line(
-      points={{-84,52},{-84,40},{-48,40},{-48,-41.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(bou.ports[1], pump.port_a) annotation (Line(
       points={{66,-84},{-38,-84},{-38,-52}},
       color={0,127,255},
@@ -101,16 +98,12 @@ equation
       points={{35,56},{24,56},{24,72},{11,72}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(product.y, dHW.mDHW60C) annotation (Line(
-      points={{46.5,53},{72,53},{72,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(storageTank.port_b, dHW.port_cold) annotation (Line(
-      points={{42,-58.3077},{64,-58.3077},{64,-58},{82,-58},{82,11.4286}},
+      points={{42,-58.3077},{64,-58.3077},{64,-58},{82,-58},{82,14}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(storageTank.port_a, dHW.port_hot) annotation (Line(
-      points={{42,4.30769},{42,11.4286},{62,11.4286}},
+      points={{42,4.30769},{42,14},{62,14}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pump.port_a, storageTank.portHXLower) annotation (Line(
@@ -122,7 +115,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(HPControl.THeaCur, hP_AWMod.TSet) annotation (Line(
-      points={{-78,50},{-78,33.2222},{-82,33.2222},{-82,20}},
+      points={{-78,50},{-78,33.2222},{-84,33.2222},{-84,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(realExpression.y, HPControl.TRoo_in1) annotation (Line(
@@ -145,9 +138,13 @@ equation
       points={{-58,-28},{-58,-52}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(HPControl.onOff, pump.m_flow_in) annotation (Line(points={{-84,52},{-84,
+          36},{-47.8,36},{-47.8,-40}}, color={0,0,127}));
+  connect(product.y, dHW.mDHW60C)
+    annotation (Line(points={{46.5,53},{74,53},{74,20}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+            100,100}})),
     experiment(StopTime=86400),
     __Dymola_experimentSetupOutput,
     Documentation(revisions="<html>
