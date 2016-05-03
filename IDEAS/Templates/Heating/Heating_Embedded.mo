@@ -67,7 +67,7 @@ equation
 </ol></p>
 <p><h4>Model use</h4></p>
 <p><ol>
-<li>Connect the heating system to the corresponding heatPorts of a <a href=\"modelica://IDEAS.Interfaces.BaseClasses.Structure\">structure</a>. </li>
+<li>Connect the heating system to the corresponding heatPorts of a <a href=\"modelica://IDEAS.Templates.Interfaces.BaseClasses.Structure\">structure</a>. </li>
 <li>Connect <i>TSet</i> and <i>TSensor</i> </li>
 <li>Connect <i>plugLoad </i>to an inhome grid. A<a href=\"modelica://IDEAS.Interfaces.BaseClasses.CausalInhomeFeeder\"> dummy inhome grid like this</a> has to be used if no inhome grid is to be modelled. </li>
 <li>Set all parameters that are required. </li>
