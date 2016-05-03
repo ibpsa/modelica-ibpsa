@@ -4,7 +4,7 @@ model building
     redeclare Buildings.Examples.BaseClasses.structure building,
     redeclare Templates.Ventilation.None ventilationSystem,
     redeclare Occupants.Standards.None occupant,
-    redeclare HeatingSystems.None                                 heatingSystem,
+    redeclare Templates.Heating.None heatingSystem,
     redeclare BaseClasses.CausalInhomeFeeder inHomeGrid);
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
