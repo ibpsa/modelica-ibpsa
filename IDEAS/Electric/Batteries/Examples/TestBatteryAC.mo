@@ -37,7 +37,7 @@ Modelica.SIunits.Power Pnet;
     redeclare IDEAS.Electric.Data.TransformerImp.Transfo_100kVA transformer,
     traTCal=false)
     annotation (Placement(transformation(extent={{-76,-38},{-56,-18}})));
-  inner SimInfoManager       sim
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 Pnet = ramp1.y + ramp2.y + ramp3.y;

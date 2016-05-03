@@ -10,7 +10,7 @@ model TestGridGeneral3P
     redeclare IDEAS.Electric.Data.TransformerImp.Transfo_250kVA transformer,
     traTCal=true)
     annotation (Placement(transformation(extent={{-36,0},{-16,20}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
 equation
 

@@ -2,7 +2,7 @@ within IDEAS.Buildings.Components.Examples;
 model CavityWalls
   "Check of air cavity models in glazing and partially filled cavity walls"
   package Medium = IDEAS.Media.Air;
-  inner SimInfoManager sim
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
 
   extends Modelica.Icons.Example;

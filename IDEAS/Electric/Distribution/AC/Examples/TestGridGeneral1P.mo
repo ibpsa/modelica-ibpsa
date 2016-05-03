@@ -1,9 +1,9 @@
 within IDEAS.Electric.Distribution.AC.Examples;
 model TestGridGeneral1P
 
-  inner SimInfoManager       sim
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  inner IDEAS.SimInfoManager sim1
+  inner IDEAS.BoundaryConditions.SimInfoManager sim1
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
   IDEAS.Electric.Distribution.AC.Examples.Components.SinePower sinePower
     annotation (Placement(transformation(extent={{58,-10},{78,10}})));

@@ -7,7 +7,7 @@ model WindowLinearisation
       nPorts=1)
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  inner SimInfoManager sim
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
   OuterWall outerWall(
     azi=0,

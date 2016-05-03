@@ -10,7 +10,7 @@ model ShadingControl "shading control based on irradiation"
   Modelica.Blocks.Interfaces.RealOutput y "control signal"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
 
-  outer SimInfoManager       sim
+  outer BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 equation

@@ -9,7 +9,7 @@ model Structure "Example detailed building structure model"
     VZones=structure.VZones,
     redeclare package Medium = IDEAS.Media.Air)
     annotation (Placement(transformation(extent={{18,0},{38,20}})));
-  inner SimInfoManager       sim
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo[3]
     annotation (Placement(transformation(extent={{-8,-50},{12,-30}})));

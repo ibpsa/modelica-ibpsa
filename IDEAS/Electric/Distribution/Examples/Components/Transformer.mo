@@ -18,8 +18,9 @@ model Transformer
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Constant const
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Files.min60
-      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
+  inner IDEAS.BoundaryConditions.SimInfoManager sim(redeclare
+      IDEAS.Climate.Meteo.Files.min60 detail, redeclare
+      IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(transformer_MvLv.pin_lv_p, wattsLaw.vi) annotation (Line(

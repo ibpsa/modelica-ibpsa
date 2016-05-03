@@ -10,7 +10,7 @@ model absorption
     "Loss coefficient describing convection and radiation losses";
   final parameter Modelica.SIunits.Irradiance solAbsRef=solRef*exp(-K*d);
 
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   extends Modelica.Blocks.Interfaces.BlockIcon;

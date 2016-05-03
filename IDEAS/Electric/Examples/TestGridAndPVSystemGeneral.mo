@@ -11,8 +11,9 @@ model TestGridAndPVSystemGeneral
   Photovoltaics.PVSystemGeneral pVSystemGeneral(numPha=3, redeclare
       IDEAS.Electric.Data.PvPanels.SanyoHIP230HDE1 pvPanel)
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Files.min10
-      detail, redeclare IDEAS.Climate.Meteo.Locations.Uccle city)
+  inner IDEAS.BoundaryConditions.SimInfoManager sim(redeclare
+      IDEAS.Climate.Meteo.Files.min10 detail, redeclare
+      IDEAS.Climate.Meteo.Locations.Uccle city)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   BaseClasses.AC.Con3PlusNTo3 con3PlusNTo3_1 annotation (Placement(
         transformation(

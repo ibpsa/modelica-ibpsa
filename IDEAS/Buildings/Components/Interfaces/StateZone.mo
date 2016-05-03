@@ -5,7 +5,7 @@ partial model StateZone "Partial model for thermal building zones"
       annotation (choicesAllMatching = true);
   parameter Integer nSurf(min=2)
     "Number of surfaces adjacent to and heat exchangeing with the zone";
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b gainRad

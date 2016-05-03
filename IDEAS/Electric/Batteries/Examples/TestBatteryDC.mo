@@ -25,7 +25,7 @@ Modelica.SIunits.Power Pnet;
     startTime=4800,
     height=00)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  inner SimInfoManager       sim
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   DC.BatterySystemGeneral batterySystemGeneral(
     redeclare IDEAS.Electric.Data.Batteries.LiIon technology,
