@@ -68,13 +68,14 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{148,-88},{128,-96}})));
   // --- emission components of hydraulic circuit
-  replaceable IDEAS.Fluid.HeatExchangers.Radiators.Radiator[
+
+  replaceable IDEAS.Fluid.HeatExchangers.Radiators.RadiatorEN442_2[
                                                 nZones] emission(
-      each TInNom=TSupNom,
-      each TOutNom=TSupNom - dTSupRetNom,
-      TZoneNom=TRoomNom,
-      QNom=QNom,
-      each powerFactor=3.37,
+      each T_a_nominal=TSupNom,
+      each T_b_nominal=TSupNom - dTSupRetNom,
+      TAir_nominal=TRoomNom,
+      Q_flow_nominal=QNom,
+      each n=3.37,
     redeclare each replaceable package Medium = Medium) constrainedby
     Fluid.HeatExchangers.Interfaces.EmissionTwoPort
     annotation (Placement(transformation(extent={{120,24},{150,44}})));
