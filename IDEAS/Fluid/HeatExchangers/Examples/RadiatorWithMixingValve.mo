@@ -34,7 +34,7 @@ model RadiatorWithMixingValve
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedHeatFlow(T=333.15)
     annotation (Placement(transformation(extent={{-50,-52},{-30,-32}})));
 
-  Fluid.Valves.Thermostatic3WayValve thermostaticValve(
+  Fluid.Actuators.Valves.Simplified.Thermostatic3WayValve thermostaticValve(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{10,-16},{30,4}})));
