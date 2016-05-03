@@ -46,24 +46,24 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     each filteredMassFlowRate=true,
     each riseTime=60)
               annotation (Placement(transformation(extent={{88,64},{112,40}})));
-  Fluid.Valves.Thermostatic3WayValve    idealCtrlMixer(m_flow_nominal=sum(
-        m_flow_nominal), redeclare replaceable package Medium = Medium,
+  Fluid.Actuators.Valves.Simplified.Thermostatic3WayValve idealCtrlMixer(
+    m_flow_nominal=sum(m_flow_nominal),
+    redeclare replaceable package Medium = Medium,
     dynamicValve=true,
-    tau=600)
-    annotation (Placement(transformation(extent={{34,46},{56,70}})));
-  IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeReturn(
+    tau=600) annotation (Placement(transformation(extent={{34,46},{56,70}})));
+  IDEAS.Fluid.FixedResistances.InsulatedPipe pipeReturn(
     redeclare replaceable package Medium = Medium,
     m=1,
     UA=10,
     m_flow_nominal=sum(m_flow_nominal))
            annotation (Placement(transformation(extent={{2,-88},{-18,-96}})));
-  IDEAS.Fluid.FixedResistances.Pipe_Insulated pipeSupply(
+  IDEAS.Fluid.FixedResistances.InsulatedPipe pipeSupply(
     redeclare replaceable package Medium = Medium,
     m=1,
     UA=10,
     m_flow_nominal=sum(m_flow_nominal))
            annotation (Placement(transformation(extent={{-16,54},{4,62}})));
-  IDEAS.Fluid.FixedResistances.Pipe_Insulated[nZones] pipeReturnEmission(
+  IDEAS.Fluid.FixedResistances.InsulatedPipe[nZones] pipeReturnEmission(
     redeclare each replaceable package Medium = Medium,
     each m=1,
     each UA=10,
@@ -160,7 +160,8 @@ equation
   for i in 1:nZones loop
     connect(pipeReturnEmission[i].heatPort, fixedTemperature.port) annotation (
         Line(
-        points={{138,-88},{138,-68},{-102,-68},{-102,-12},{-127,-12},{-127,-14}},
+        points={{138,-93.6},{138,-68},{-102,-68},{-102,-12},{-127,-12},{-127,
+            -14}},
         color={191,0,0},
         smooth=Smooth.None));
     connect(senTemEm_in.port_b, pumpRad[i].port_a) annotation (Line(
@@ -170,15 +171,15 @@ equation
   end for;
   // general connections for any configuration
   connect(fixedTemperature.port, heater.heatPort) annotation (Line(
-      points={{-127,-14},{-127,12}},
+      points={{-127,-14},{-127,-2},{-127,12},{-124,12}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pipeReturn.heatPort, heater.heatPort) annotation (Line(
-      points={{-8,-88},{-8,-68},{-102,-68},{-102,-12},{-127,-12},{-127,12}},
+      points={{-8,-93.6},{-8,-68},{-102,-68},{-102,-12},{-124,-12},{-124,12}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pipeSupply.heatPort, fixedTemperature.port) annotation (Line(
-      points={{-6,54},{-6,42},{-102,42},{-102,6},{-127,6},{-127,-14}},
+      points={{-6,59.6},{-6,42},{-102,42},{-102,6},{-127,6},{-127,-14}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pipeReturn.port_b, heater.port_a) annotation (Line(
@@ -226,7 +227,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(ctrl_Heating.THeaterSet, heater.TSet) annotation (Line(
-      points={{-141,65},{-128,65},{-128,34}},
+      points={{-141,65},{-130,65},{-130,34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senTemEm_out.port_b, spl.port_1) annotation (Line(

@@ -1,4 +1,4 @@
-within IDEAS.Fluid.Valves;
+within IDEAS.Fluid.Actuators.Valves.Simplified;
 model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
   extends BaseClasses.Partial3WayValve(
       idealSource(m_flow(start=m_flow_nominal*0.5)),

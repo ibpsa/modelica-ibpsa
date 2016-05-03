@@ -1,4 +1,4 @@
-within IDEAS.Fluid.Valves.BaseClasses;
+within IDEAS.Fluid.Actuators.Valves.Simplified.BaseClasses;
 model Partial3WayValve "Partial for 3-way valves"
   extends IDEAS.Fluid.Interfaces.LumpedVolumeDeclarations;
   parameter Modelica.SIunits.Mass m = 1 "Fluid content of the mixing valve";

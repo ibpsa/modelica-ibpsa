@@ -16,7 +16,7 @@ model StorageWithThermostaticMixing
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-20,-62},{-70,10}})));
 
-  Fluid.Valves.Thermostatic3WayValve temperatureMixing(
+  Fluid.Actuators.Valves.Simplified.Thermostatic3WayValve temperatureMixing(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
               annotation (Placement(transformation(extent={{2,16},{22,36}})));

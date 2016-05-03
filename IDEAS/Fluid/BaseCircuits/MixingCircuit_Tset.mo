@@ -9,7 +9,8 @@ model MixingCircuit_Tset
   //Parameters
   parameter SI.Mass mMix "Internal mass of the 3 way valve";
 
-  IDEAS.Fluid.Valves.Thermostatic3WayValve thermostatic3WayValve(
+  IDEAS.Fluid.Actuators.Valves.Simplified.Thermostatic3WayValve
+    thermostatic3WayValve(
     m_flow_nominal=m_flow_nominal,
     m=mMix,
     redeclare package Medium = Medium)

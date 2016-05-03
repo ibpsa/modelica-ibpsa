@@ -1,7 +1,7 @@
-within IDEAS.Fluid.Valves.Examples;
+within IDEAS.Fluid.Actuators.Valves.Simplified.Examples;
 model Thermostatic3WayValve "Example of a thermostatic three way valve"
   extends Modelica.Icons.Example;
-  IDEAS.Fluid.Valves.Thermostatic3WayValve thermostatic3WayValve(
+  IDEAS.Fluid.Actuators.Valves.Simplified.Thermostatic3WayValve thermostatic3WayValve(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dynamicValve=false,
@@ -100,6 +100,6 @@ Changed implementation for more flexible 3wayvalve
     experiment(StopTime=15),
     __Dymola_experimentSetupOutput,
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Valves/Examples/Thermostatic3WayValve.mos"
+          "Resources/Scripts/Dymola/Fluid/Actuators/Simplified/Valves/Examples/Thermostatic3WayValve.mos"
         "Simulate and plot"));
 end Thermostatic3WayValve;

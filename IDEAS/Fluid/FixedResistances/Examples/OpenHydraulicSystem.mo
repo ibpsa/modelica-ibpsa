@@ -5,7 +5,7 @@ model OpenHydraulicSystem "Illustrate the use of the ambient model"
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
-  Fluid.FixedResistances.Pipe_Insulated heatedPipe(
+  Fluid.FixedResistances.InsulatedPipe heatedPipe(
     m=5,
     UA=10,
     redeclare package Medium = Medium,
@@ -34,7 +34,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(fixedTemperature.port, heatedPipe.heatPort) annotation (Line(
-      points={{-32,-36},{-10,-36},{-10,0}},
+      points={{-32,-36},{-10,-36},{-10,14}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pump.port_b, bou.ports[2]) annotation (Line(

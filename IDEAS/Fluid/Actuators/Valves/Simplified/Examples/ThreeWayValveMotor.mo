@@ -1,4 +1,4 @@
-within IDEAS.Fluid.Valves.Examples;
+within IDEAS.Fluid.Actuators.Valves.Simplified.Examples;
 model ThreeWayValveMotor
   import IDEAS;
   extends Modelica.Icons.Example;
@@ -32,10 +32,10 @@ public
     nPorts=1,
     p=100000,
     T=333.15) annotation (Placement(transformation(extent={{78,-10},{58,10}})));
-  IDEAS.Fluid.Valves.ThreeWayValveMotor threeWayValveMotor(m_flow_nominal=1,
-      redeclare package Medium = Medium,
-    m=0.1)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
+  IDEAS.Fluid.Actuators.Valves.Simplified.ThreeWayValveMotor threeWayValveMotor(
+    m_flow_nominal=1,
+    redeclare package Medium = Medium,
+    m=0.1) annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
   Sources.Boundary_pT cold(
     redeclare package Medium = Medium,
     nPorts=1,
