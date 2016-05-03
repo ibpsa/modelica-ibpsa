@@ -50,13 +50,13 @@ model MonoLayerAir
     else 1 "Correlations from Hollands et al. and Wright et al.";
 
 protected
-  final parameter Boolean ceiling=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Constants.Ceiling)
+  final parameter Boolean ceiling=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Types.Tilt.Ceiling)
     "true if ceiling"
     annotation(Evaluate=true);
-  final parameter Boolean floor=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Constants.Floor)
+  final parameter Boolean floor=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Types.Tilt.Floor)
     "true if floor"
     annotation(Evaluate=true);
-  final parameter Boolean vertical=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Constants.Wall)
+  final parameter Boolean vertical=IDEAS.Utilities.Math.Functions.isAngle(inc,IDEAS.Types.Tilt.Wall)
     annotation(Evaluate=true);
 
   Real Ra = max(1,Modelica.Constants.g_n*beta*(if linearise then abs(dT_nominal) else abs(port_a.T-port_b.T))*d^3/nu/alpha);

@@ -4,10 +4,10 @@ model ZoneLwDistributionViewFactor
 
   parameter Integer nSurf(min=1) "number of surfaces in contact with the zone";
 
-  parameter Modelica.SIunits.Angle incCeiling = IDEAS.Constants.Ceiling;
-  parameter Modelica.SIunits.Angle incFloor = IDEAS.Constants.Floor;
-  parameter Modelica.SIunits.Angle incWall = IDEAS.Constants.Wall;
-  parameter Modelica.SIunits.Angle aziSouth = IDEAS.Constants.South;
+  parameter Modelica.SIunits.Angle incCeiling = IDEAS.Types.Tilt.Ceiling;
+  parameter Modelica.SIunits.Angle incFloor = IDEAS.Types.Tilt.Floor;
+  parameter Modelica.SIunits.Angle incWall = IDEAS.Types.Tilt.Wall;
+  parameter Modelica.SIunits.Angle aziSouth = IDEAS.Types.Azimuth.S;
   final parameter Integer numAzi = 4;
 
   parameter Modelica.SIunits.Length hZone "Distance between floor and ceiling";
