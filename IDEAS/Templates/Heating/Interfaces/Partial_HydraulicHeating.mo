@@ -38,13 +38,11 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     m_flow_nominal=sum(m_flow_nominal)) "Heater (boiler, heat pump, ...)"
     annotation (Placement(transformation(extent={{-134,12},{-114,32}})));
   // --- distribution components of hydraulic circuit
-  IDEAS.Fluid.Movers.Pump[nZones] pumpRad(
-    each useInput=true,
-    each m=1,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow[nZones] pumpRad(
     m_flow_nominal=m_flow_nominal,
     redeclare each replaceable package Medium = Medium,
-    each filteredMassFlowRate=true,
-    each riseTime=60)
+    tau=30,
+    filteredSpeed=false)
               annotation (Placement(transformation(extent={{88,64},{112,40}})));
   Fluid.Actuators.Valves.Simplified.Thermostatic3WayValve idealCtrlMixer(
     m_flow_nominal=sum(m_flow_nominal),
@@ -260,8 +258,8 @@ equation
       smooth=Smooth.None));
   connect(heatingControl.y, booleanToReal.u) annotation (Line(points={{-119,-70},
           {-112.5,-70},{-106,-70}}, color={255,0,255}));
-  connect(booleanToReal.y, pumpRad.m_flowSet) annotation (Line(points={{-83,-70},
-          {-2,-70},{100,-70},{100,39.52}}, color={0,0,127}));
+  connect(booleanToReal.y, pumpRad.m_flow_in) annotation (Line(points={{-83,-70},
+          {6,-70},{99.76,-70},{99.76,37.6}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -100},{200,100}}), graphics={Rectangle(
           extent={{-98,30},{88,-64}},
