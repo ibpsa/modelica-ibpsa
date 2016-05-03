@@ -33,15 +33,16 @@ model Zone "thermal building zone"
   parameter Modelica.SIunits.Area A = V/hZone "Total conditioned floor area" annotation(Dialog(group="Design heat load"));
   parameter Modelica.SIunits.Length hZone = 2.8
     "Zone height: distance between floor and ceiling";
-
+  parameter Real n50toAch=20 "Conversion fractor from n50 to Air Change Rate"
+    annotation(Dialog(tab="Advanced"));
   Modelica.SIunits.Power QTra_design=sum(propsBus.QTra_design)
     "Total design transmission heat losses for the zone";
   final parameter Modelica.SIunits.Power Q_design(fixed=false)
     "Total design heat losses for the zone";
 
-  Modelica.SIunits.Temperature TAir=senTem.T;
+  Modelica.SIunits.Temperature TAir=airModel.Tair;
   Modelica.SIunits.Temperature TStar=radDistr.TRad;
-  Modelica.SIunits.Energy E = vol.dynBal.U;
+  Modelica.SIunits.Energy E = airModel.E;
 
 protected
   IDEAS.Buildings.Components.BaseClasses.ZoneLwGainDistribution radDistr(final
@@ -49,45 +50,16 @@ protected
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=-90,
-        origin={-54,-44})));
-  IDEAS.Buildings.Components.BaseClasses.AirLeakage airLeakage(
-    redeclare package Medium = Medium,
-    m_flow_nominal=V/3600*n50/20,
-    V=V,
-    n50=n50,
-    show_T=false)
-    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+        origin={-50,-50})));
   IDEAS.Buildings.Components.BaseClasses.ZoneLwDistribution radDistrLw(final
       nSurf=nSurf, final linearise=linearise) if not calculateViewFactor
     "internal longwave radiative heat exchange" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-54,-10})));
+        origin={-50,-10})));
   Modelica.Blocks.Math.Sum add(nin=2, k={0.5,0.5}) "Operative temperature"
-    annotation (Placement(transformation(extent={{2,-50},{14,-38}})));
-  Fluid.MixingVolumes.MixingVolume         vol(
-    V=V,
-    m_flow_nominal=m_flow_nominal,
-    nPorts=if allowFlowReversal then 4 else 2,
-    redeclare package Medium = Medium,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    p_start=p_start,
-    T_start=T_start,
-    X_start=X_start,
-    C_start=C_start,
-    C_nominal=C_nominal,
-    allowFlowReversal=allowFlowReversal,
-    mSenFac=corrCV)                            annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={-10,30})));
-
-protected
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
-    annotation (Placement(transformation(extent={{0,-28},{-16,-12}})));
+    annotation (Placement(transformation(extent={{66,-6},{78,6}})));
 
 public
   BaseClasses.ZoneLwDistributionViewFactor zoneLwDistributionViewFactor(
@@ -96,22 +68,41 @@ public
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={-32,-10})));
+        origin={-30,-10})));
+  replaceable BaseClasses.WellMixedAir airModel(
+    redeclare package Medium = Medium,
+    nSurf=nSurf,
+    Vtot=V,
+    m_flow_nominal=m_flow_nominal,
+    allowFlowReversal=allowFlowReversal,
+    n50=n50,
+    n50toAch=n50toAch,
+    mSenFac=corrCV)    constrainedby BaseClasses.PartialAirModel(
+    redeclare package Medium = Medium,
+    nSurf=nSurf,
+    Vtot=V,
+    m_flow_nominal=m_flow_nominal,
+    allowFlowReversal=allowFlowReversal,
+    n50=n50,
+    n50toAch=n50toAch,
+    mSenFac=corrCV) "Zone air model"
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})), Dialog(tab="Advanced", group="Air model"));
+
 initial equation
   Q_design=QInf_design+QRH_design+QTra_design; //Total design load for zone (additional ventilation losses are calculated in the ventilation system)
 equation
 
   connect(radDistr.radGain, gainRad) annotation (Line(
-      points={{-50.2,-54},{-50,-54},{-50,-72},{80,-72},{80,-60},{100,-60}},
+      points={{-46.2,-60},{100,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(radDistr.TRad, add.u[1]) annotation (Line(
-      points={{-44,-44},{-22,-44},{-22,-44.6},{0.8,-44.6}},
+      points={{-40,-50},{60,-50},{60,-0.6},{64.8,-0.6}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(propsBus.area, radDistr.area) annotation (Line(
-      points={{-100.1,39.9},{-82,39.9},{-82,-40},{-64,-40}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-46},{-60,-46}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
@@ -119,122 +110,101 @@ equation
       extent={{-6,3},{-6,3}}));
 
   connect(propsBus.area, radDistrLw.A) annotation (Line(
-      points={{-100.1,39.9},{-82,39.9},{-82,-14},{-64,-14}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-14},{-60,-14}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, radDistrLw.epsLw) annotation (Line(
-      points={{-100.1,39.9},{-82,39.9},{-82,-10},{-64,-10}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-10},{-60,-10}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, zoneLwDistributionViewFactor.epsLw) annotation (Line(
-      points={{-100.1,39.9},{-82,39.9},{-82,-10},{-42,-10}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-10},{-40,-10}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.area, zoneLwDistributionViewFactor.A) annotation (Line(
-      points={{-100.1,39.9},{-82,39.9},{-82,-14},{-42,-14}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-14},{-40,-14}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsLw, radDistr.epsLw) annotation (Line(
-      points={{-100.1,39.9},{-82,39.9},{-82,-44},{-64,-44}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-50},{-60,-50}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(propsBus.epsSw, radDistr.epsSw) annotation (Line(
-      points={{-100.1,39.9},{-82,39.9},{-82,-48},{-64,-48}},
+      points={{-100.1,39.9},{-80,39.9},{-80,-54},{-60,-54}},
       color={127,0,0},
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(vol.heatPort, gainCon) annotation (Line(
-      points={{0,30},{10,30},{10,-30},{100,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
 
 for i in 1:nSurf loop
   connect(radDistr.iSolDir, propsBus[i].iSolDir) annotation (Line(
-      points={{-58,-54},{-58,-80},{-100.1,-80},{-100.1,39.9}},
+      points={{-54,-60},{-100.1,-60},{-100.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(radDistr.iSolDif, propsBus[i].iSolDif) annotation (Line(
-      points={{-54,-54},{-54,-76},{-100.1,-76},{-100.1,39.9}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(propsBus[i].surfCon, vol.heatPort) annotation (Line(
-      points={{-100.1,39.9},{-46,39.9},{-46,12},{10,12},{10,30},{4.44089e-16,30}},
+      points={{-50,-60},{-50,-64},{-100.1,-64},{-100.1,39.9}},
       color={191,0,0},
       smooth=Smooth.None));
 end for;
-  connect(flowPort_In, vol.ports[1]) annotation (Line(
-      points={{20,100},{20,40},{-10,40}},
-      color={0,128,255},
-      smooth=Smooth.None));
-  connect(flowPort_Out, vol.ports[2]) annotation (Line(
-      points={{-20,100},{-20,40},{-10,40}},
-      color={0,128,255},
-      smooth=Smooth.None));
-  connect(senTem.port, gainCon) annotation (Line(
-      points={{0,-20},{10,-20},{10,-30},{100,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(senTem.T, add.u[2]) annotation (Line(
-      points={{-16,-20},{-18,-20},{-18,-43.4},{0.8,-43.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
       if allowFlowReversal then
-  connect(airLeakage.port_a, vol.ports[4]) annotation (Line(
-      points={{40,40},{-10,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(airLeakage.port_b, vol.ports[3]) annotation (Line(
-      points={{60,40},{70,40},{70,14},{-32,14},{-32,40},{-10,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
       else
-  connect(airLeakage.port_a, vol.ports[2]) annotation (Line(
-      points={{40,40},{-10,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(airLeakage.port_b, vol.ports[1]) annotation (Line(
-      points={{60,40},{70,40},{70,14},{-32,14},{-32,40},{-10,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
       end if;
   connect(radDistr.radSurfTot, radDistrLw.port_a) annotation (Line(
-      points={{-54,-34},{-54,-20}},
+      points={{-50,-40},{-50,-20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(zoneLwDistributionViewFactor.inc, propsBus.inc) annotation (Line(
-      points={{-36,0},{-38,0},{-38,39.9},{-100.1,39.9}},
+      points={{-34,-1.77636e-15},{-34,4},{-80,4},{-80,39.9},{-100.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zoneLwDistributionViewFactor.azi, propsBus.azi) annotation (Line(
-      points={{-28,-1.77636e-15},{-28,39.9},{-100.1,39.9}},
+      points={{-26,-1.77636e-15},{-26,6},{-80,6},{-80,39.9},{-100.1,39.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zoneLwDistributionViewFactor.port_a, radDistr.radSurfTot) annotation (
      Line(
-      points={{-32,-20},{-32,-26},{-54,-26},{-54,-34}},
+      points={{-30,-20},{-30,-30},{-50,-30},{-50,-40}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(add.y, TSensor) annotation (Line(points={{14.6,-44},{30,-44},{30,0},{
-          106,0}}, color={0,0,127}));
-  connect(radDistr.radSurfTot, propsBus.surfRad) annotation (Line(points={{-54,
-          -34},{-70,-34},{-82,-34},{-82,39.9},{-100.1,39.9}}, color={191,0,0}));
+  connect(add.y, TSensor) annotation (Line(points={{78.6,0},{78.6,0},{106,0}},
+                   color={0,0,127}));
+  connect(radDistr.radSurfTot, propsBus.surfRad) annotation (Line(points={{-50,-40},
+          {-50,-30},{-80,-30},{-80,39.9},{-100.1,39.9}},      color={191,0,0}));
+  connect(airModel.ports_surf, propsBus.surfCon) annotation (Line(points={{-40,30},
+          {-80,30},{-80,40},{-98,40},{-100.1,40},{-100.1,39.9}},  color={191,0,0}));
+  connect(airModel.inc, propsBus.inc) annotation (Line(points={{-40.8,38},{-80,
+          38},{-80,40},{-82,40},{-100.1,40},{-100.1,39.9}},
+                                                        color={0,0,127}));
+  connect(airModel.azi, propsBus.azi) annotation (Line(points={{-40.8,34},{-80,
+          34},{-80,40},{-98,40},{-100.1,40},{-100.1,39.9}},
+                                                         color={0,0,127}));
+  connect(airModel.A, propsBus.area) annotation (Line(points={{-40.6,24},{-80,
+          24},{-80,40},{-96,40},{-100.1,40},{-100.1,39.9}},
+                                                        color={0,0,127}));
+  connect(airModel.port_b, flowPort_Out) annotation (Line(points={{-34,40},{-34,
+          100},{-20,100}}, color={0,127,255}));
+  connect(airModel.port_a, flowPort_In) annotation (Line(points={{-26,40},{-26,40},
+          {-26,74},{-26,88},{20,88},{20,100}}, color={0,127,255}));
+  connect(airModel.ports_air[1], gainCon) annotation (Line(points={{-20,30},{2,30},
+          {2,-30},{100,-30}}, color={191,0,0}));
+  connect(airModel.Tair, add.u[2]) annotation (Line(points={{-19.2,24},{26,24},{
+          26,0.6},{64.8,0.6}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics),
@@ -259,11 +229,15 @@ It can be enabled using parameter <code>calculateViewFactor</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+April 30, 2016, by Filip Jorissen:<br/>
+Added replaceable air model implementation.
+</li>
+<li>
 March, 2015, by Filip Jorissen:<br/>
 Added view factor implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end Zone;

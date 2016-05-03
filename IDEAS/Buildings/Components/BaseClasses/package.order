@@ -21,3 +21,5 @@ MonoLayerStatic
 MonoLayerDynamic
 MonoLayer
 MultiLayer
+PartialAirModel
+WellMixedAir

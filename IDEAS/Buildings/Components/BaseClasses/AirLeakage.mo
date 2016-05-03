@@ -1,10 +1,13 @@
 within IDEAS.Buildings.Components.BaseClasses;
 model AirLeakage "air leakage due to limied air tightness"
 
-extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(final allowFlowReversal=false);
+extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(
+    final allowFlowReversal=false,
+    final m_flow_nominal=V/3600*n50/n50toAch);
 
   parameter Modelica.SIunits.Volume V "zone air volume";
   parameter Real n50(min=0)=0.4 "n50-value of airtightness";
+  parameter Real n50toAch = 20 "Conversion factor from n50 to Air Change Rate";
 
   outer IDEAS.SimInfoManager sim "Simulation information manager"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
@@ -14,7 +17,7 @@ extends IDEAS.Fluid.Interfaces.PartialTwoPortInterface(final allowFlowReversal=f
     control_m_flow=true,
     allowFlowReversal=false)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Sources.RealExpression reaExpMflo(y=V/3600*n50/20)
+  Modelica.Blocks.Sources.RealExpression reaExpMflo(y=V/3600*n50/n50toAch)
     annotation (Placement(transformation(extent={{-86,20},{-40,40}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow if  sim.computeConservationOfEnergy
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
@@ -73,7 +76,7 @@ equation
   connect(idealSourceIn.port_b, port_b)
     annotation (Line(points={{60,0},{80,0},{100,0}}, color={0,127,255}));
   connect(sim.weaBus, weaBus) annotation (Line(
-      points={{-88.6,97.2},{-40,97.2},{-40,86}},
+      points={{-84,92.8},{-40,92.8},{-40,86}},
       color={255,204,51},
       thickness=0.5));
   connect(bou.T_in, weaBus.Te) annotation (Line(points={{6,42},{6,86.05},{-39.95,
