@@ -9,13 +9,16 @@ model OpenHydraulicSystem "Illustrate the use of the ambient model"
     m=5,
     UA=10,
     redeclare package Medium = Medium,
-    m_flow_nominal=1)
+    m_flow_nominal=1,
+    T_start=556.3)
            annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
-    redeclare package Medium = Medium_water,
+    redeclare package Medium = Medium,
     tau=30,
     m_flow_nominal=0.1,
-    inputType=IDEAS.Fluid.Types.InputType.Constant)
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=298.15)
     annotation (Placement(transformation(extent={{-52,-46},{-32,-26}})));

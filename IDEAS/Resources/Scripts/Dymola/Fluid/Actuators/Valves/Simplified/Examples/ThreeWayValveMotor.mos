@@ -3,7 +3,7 @@
 
 // experiment StopTime=3600
 
-simulateModel("IDEAS.Fluid.Valves.Examples.ThreeWayValveMotor", stopTime=100, method="dassl", resultFile="ThreeWayValveMotor");
+simulateModel("IDEAS.Fluid.Actuators.Valves.Simplified.Examples.ThreeWayValveMotor", stopTime=100, method="dassl", resultFile="ThreeWayValveMotor");
 
 plot(y={"hot.T", "cold.T", "temperature.T"},colors={{0,0,255}, {255,0,0}, {0,128,0}});
 

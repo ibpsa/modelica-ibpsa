@@ -33,7 +33,7 @@ model Boiler_validation "Validation model for the boiler"
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
     annotation (Placement(transformation(extent={{-84,-48},{-70,-34}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-92,74},{-72,94}})));
   Modelica.Blocks.Sources.TimeTable pulse(offset=0, table=[0, 0; 5000, 100;
         10000, 400; 15000, 700; 20000, 1000; 25000, 1300; 50000, 1300])

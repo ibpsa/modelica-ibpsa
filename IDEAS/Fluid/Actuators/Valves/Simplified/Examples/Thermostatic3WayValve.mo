@@ -9,10 +9,13 @@ model Thermostatic3WayValve "Example of a thermostatic three way valve"
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
 
   parameter SI.MassFlowRate m_flow_nominal=2 "Nominal mass flow rate";
-  Movers.Pump pump(redeclare package Medium = Medium, m_flow_nominal=
-        m_flow_nominal,
-    useInput=true,
-    m=0.001)
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
+    redeclare package Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    tau=1,
+    filteredSpeed=false,
+    dp_nominal = 0)
     annotation (Placement(transformation(extent={{38,8},{58,28}})));
   Sources.Boundary_pT sou1(
     redeclare package Medium = Medium,
@@ -63,10 +66,6 @@ equation
       points={{-71,-16},{-58,-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mFlowPump.y, pump.m_flowSet) annotation (Line(
-      points={{59,46},{48,46},{48,28.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(sou2.ports[1], thermostatic3WayValve.port_a2) annotation (Line(
       points={{-36,-18},{18,-18},{18,8}},
       color={0,127,255},
@@ -83,9 +82,10 @@ equation
       points={{-71,22},{-58,22}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(mFlowPump.y, pump.m_flow_in)
+    annotation (Line(points={{59,46},{47.8,46},{47.8,30}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                         graphics), Documentation(revisions="<html>
+            -100},{100,100}})),     Documentation(revisions="<html>
 <ul>
 <li>
 March 2014 by Filip Jorissen:<br/>
