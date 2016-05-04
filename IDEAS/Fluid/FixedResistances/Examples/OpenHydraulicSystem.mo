@@ -10,7 +10,7 @@ model OpenHydraulicSystem "Illustrate the use of the ambient model"
     UA=10,
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    T_start=556.3)
+    T_start=283.15)
            annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
@@ -58,5 +58,8 @@ Annex60 compatibility
 </ul>
 </html>"),
     experiment(StopTime=3600),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    __Dymola_Commands(file=
+          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/OpenHydraulicSystem.mos"
+        "Simulate and plot"));
 end OpenHydraulicSystem;
