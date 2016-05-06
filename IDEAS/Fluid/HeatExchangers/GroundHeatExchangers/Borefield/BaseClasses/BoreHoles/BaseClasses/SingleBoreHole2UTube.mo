@@ -44,8 +44,7 @@ model SingleBoreHole2UTube "Single 2U-tube borehole heat exchanger"
          else gen.m_flow_small,
     each final dynFil=dynFil,
     each final mSenFac=mSenFac,
-    each final use_TWall=use_TWall,
-    m_flow_nominal=m_flow_nominal) "Discretized borehole segments"
+    each final use_TWall=use_TWall) "Discretized borehole segments"
     annotation (Placement(transformation(extent={{-10,-30},{10,10}})));
 
 equation
