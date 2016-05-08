@@ -4,7 +4,6 @@ model TestCase12 "VDI 6007 Test Case 12 model"
   package Medium = Modelica.Media.Air.SimpleAir "Medium model";
 
   ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
-    redeclare final package Medium = Medium,
     alphaExt=2.7,
     alphaWin=2.7,
     gWin=1,
@@ -24,9 +23,10 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     ATransparent=7,
     ratioWinConRad=0.09,
     nPorts=2,
-    T_start=294.65,
-    VAir=0,
-    nOrientations=1) "Thermal zone"
+    nOrientations=1,
+    VAir=0.1,
+    redeclare final package Medium = Modelica.Media.Air.SimpleAir,
+    T_start=294.65) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"
