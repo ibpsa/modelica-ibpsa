@@ -1,23 +1,24 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses;
 model ThermSplitter "A simple model which weights a given set of thermal inputs
-  to calculate an average temperature and aggregated heat flow"
+  to calculate an average temperature and aggregated heat flow per output"
 
-  parameter Integer dimension=6 "Dimension of the splitter";
-  parameter Real splitFactor[dimension]= fill(1/dimension, dimension)
-    "Split factor for outputs (between 0 and 1)";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a signalInput
+  parameter Integer nOut "Number of splitter outputs";
+  parameter Integer nIn "Number of splitter inputs";
+  parameter Real splitFactor[nOut, nIn]= fill(1/nOut, nOut, nIn)
+    "Matrix of split factor for outputs (between 0 and 1 for each row)";
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a signalInput[nIn]
     "Single thermal input"
     annotation (Placement(transformation(extent={{-120,-20},{-80,20}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a signalOutput[dimension]
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a signalOutput[nOut]
     "Set of thermal outputs"
     annotation (Placement(transformation(extent={{80,-20},{120,20}}),
         iconTransformation(extent={{80,-20},{120,20}})));
 
 equation
-  signalOutput.Q_flow = - splitFactor * signalInput.Q_flow
+  signalOutput.Q_flow = - signalInput.Q_flow * splitFactor
     "Connecting the output vector according to desired dimension";
 
-  signalInput.T = signalOutput.T * splitFactor
+  signalInput.T = signalOutput.T * transpose(splitFactor)
     "Equivalent building temperature rerouted to SignalInput";
 
   annotation (defaultComponentName="theSpl",Diagram(coordinateSystem(
@@ -52,9 +53,10 @@ equation
     lineColor={0,0,255},
     textString="ThermSplitter")}),
   Documentation(info="<html>
-  <p>This model is used to weight thermal ports according to given split factors.</p>
-  <p>The model needs the dimension of the splitted therm port and the split
-  factors, which are between 0 and 1.</p>
+  <p>This model is used to weight thermal ports (inputs) according to given split factors per output port.</p>
+  <p>The model needs the dimensions of the splitted therm ports (for input and output ports resp.) and the split
+  factors, which are between 0 and 1. Each row of the split factor matrix gives the split factors for one output 
+  the port. The number of columns need to aligned with the number of input ports.</p>
   </html>", revisions="<html>
   <ul>
   <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br/>Implemented.</li>

@@ -69,29 +69,23 @@ equation
     smooth=Smooth.None));
   if not ATotExt > 0 and not ATotWin > 0 and AInt > 0 then
     connect(thermSplitterIntGains.signalOutput[1], intWallRC.port_a);
-    for n in 1:nOrientations loop
-      connect(thermSplitterSolRad[n].signalOutput[1], intWallRC.port_a);
-    end for;
+    connect(thermSplitterSolRad.signalOutput[1], intWallRC.port_a);
   elseif ATotExt > 0 and not ATotWin > 0 and AInt > 0 or not ATotExt > 0 and ATotWin > 0
     and AInt > 0 then
     connect(thermSplitterIntGains.signalOutput[2], intWallRC.port_a);
-    for n in 1:nOrientations loop
-      connect(thermSplitterSolRad[n].signalOutput[2], intWallRC.port_a);
-    end for;
+    connect(thermSplitterSolRad.signalOutput[2], intWallRC.port_a);
   elseif ATotExt > 0 and ATotWin > 0 and AInt > 0 then
     connect(thermSplitterIntGains.signalOutput[3], intWallRC.port_a)
       annotation (Line(
       points={{190,86},{190,86},{190,86},{160,86},{160,-40},{182,-40}},
       color={191,0,0},
       smooth=Smooth.None));
-    for n in 1:nOrientations loop
-      connect(thermSplitterSolRad[n].signalOutput[3], intWallRC.port_a)
+    connect(thermSplitterSolRad.signalOutput[3], intWallRC.port_a)
         annotation (
         Line(
         points={{-136,146},{-58,146},{-58,96},{160,96},{160,-40},{182,-40}},
         color={191,0,0},
         smooth=Smooth.None));
-    end for;
   end if;
   connect(resIntWallWin.port_b, intWallRC.port_a)
     annotation (Line(

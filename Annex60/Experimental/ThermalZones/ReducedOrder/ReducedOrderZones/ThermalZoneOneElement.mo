@@ -90,8 +90,8 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
             -232,-30}})));
 
   Modelica.Blocks.Interfaces.RealInput solRad[nOrientations](final quantity="RadiantEnergyFluenceRate",
-      final unit="W/m2")
-    "Solar radiation transmitted through aggregated window" annotation (
+      final unit="W/m2") "Solar radiation transmitted through windows"
+                                                  annotation (
       Placement(transformation(extent={{-280,120},{-240,160}}),
         iconTransformation(extent={{-260,140},{-240,160}})));
 
@@ -200,12 +200,12 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     annotation (Placement(transformation(extent={{-196,119},{-186,129}})));
 
   BaseClasses.ThermSplitter thermSplitterIntGains(splitFactor=splitFactor,
-    dimension=dimension) if ATot > 0 "Splits incoming internal gains into seperate gains for each wall element,
+    nOut=dimension, nIn=1) if ATot > 0 "Splits incoming internal gains into seperate gains for each wall element,
     weighted by their area"
     annotation (Placement(transformation(extent={{210,76},{190,96}})));
 
-  BaseClasses.ThermSplitter thermSplitterSolRad[nOrientations](splitFactor=
-        {splitFactorSolRad[:,x] for x in 1:nOrientations}, each dimension=dimension) if
+  BaseClasses.ThermSplitter thermSplitterSolRad(splitFactor=
+        splitFactorSolRad, nOut=dimension, nIn=nOrientations) if
                             ATot > 0 "Splits incoming solar radiation into seperate gains for each wall
     element, weighted by their area"
     annotation (Placement(transformation(extent={{-152,138},{-136,154}})));
@@ -253,12 +253,12 @@ protected
     "List of all wall surface areas";
   parameter Integer dimension = sum({if A>0 then 1 else 0 for A in AArray})
     "Number of non-zero wall surface areas";
-  parameter Real splitFactor[dimension]=
-    BaseClasses.splitFacVal(dimension, AArray, 0)
+  parameter Real splitFactor[dimension, 1]=
+    BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1))
     "Share of each wall surface area that is non-zero";
-  parameter Real splitFactorSolRad[dimension,nOrientations]=
-    BaseClasses.splitFacValSolRad(dimension, nOrientations, AArray, AExt+AWin)
-    "Share of each wall surface area that is non-zero";
+  parameter Real splitFactorSolRad[dimension, nOrientations]=
+    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, ATransparent) "Share of each wall surface area that is non-zero and not in the orientation
+    of the current solar radiation";
 equation
   connect(volAir.ports, ports)
     annotation (Line(
@@ -280,7 +280,7 @@ equation
     points={{-185.5,146},{-178,146}},
     color={0,0,127},
     smooth=Smooth.None));
-  connect(thermSplitterIntGains.signalInput, intGainsRad)
+  connect(thermSplitterIntGains.signalInput[1], intGainsRad)
     annotation (Line(
     points={{210,86},{220,86},{220,80},{242,80}},
     color={191,0,0},
@@ -327,14 +327,10 @@ equation
       Line(points={{190,86},{190,86},{-120,86},{-120,64},{-120,40},{-116,40}},
       color={191,0,0}));
   elseif not ATotExt > 0 and ATotWin > 0 then
-    for n in 1:nOrientations loop
-      connect(thermSplitterSolRad[n].signalOutput[1], convWin.solid);
-    end for;
+    connect(thermSplitterSolRad.signalOutput[1], convWin.solid);
     connect(thermSplitterIntGains.signalOutput[1], convWin.solid);
   elseif ATotExt > 0 and not ATotWin > 0 then
-    for n in 1:nOrientations loop
-      connect(thermSplitterSolRad[n].signalOutput[1], convExtWall.solid);
-    end for;
+    connect(thermSplitterSolRad.signalOutput[1], convExtWall.solid);
     connect(thermSplitterIntGains.signalOutput[1], convExtWall.solid);
   end if;
   connect(eRadSol.u, solRad)
@@ -378,7 +374,7 @@ equation
     annotation (Line(points={{-114,-40},{-134,-40},{-152,-40},{-152,-58},{-208,
           -58},{-208,-140},{-160,-140},{-160,-180}},
                   color={191,0,0}));
-  connect(TMeanRadSensor.port, thermSplitterIntGains.signalInput)
+  connect(TMeanRadSensor.port, thermSplitterIntGains.signalInput[1])
     annotation (
     Line(points={{210,100},{210,100},{210,100},{210,86}},           color={191,
     0,0}));
