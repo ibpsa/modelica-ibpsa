@@ -21,10 +21,10 @@ model TestCase3 "VDI 6007 Test Case 3 model"
     RInt={0.003237138},
     CInt={7297100},
     RExtRem=0.039330865,
-    T_start=295.15,
     AWin={0},
     ATransparent={0},
-    AExt={10.5}) "Thermal zone"
+    AExt={10.5},
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
@@ -82,10 +82,10 @@ equation
   connect(internalGains.y[1], machinesConv.Q_flow)
     annotation (Line(points={{
     22.8,-52},{36,-52},{36,-74},{48,-74}}, color={0,0,127}));
-  connect(const.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points={{
-          30.5,31},{36.25,31},{36.25,31},{43,31}}, color={0,0,127}));
   connect(machinesConv.port, thermalZoneTwoElements.intGainsConv) annotation (
       Line(points={{68,-74},{82,-74},{98,-74},{98,20},{92,20}}, color={191,0,0}));
+  connect(const.y, thermalZoneTwoElements.solRad[1])
+    annotation (Line(points={{30.5,31},{36.25,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 3 of the VDI 6007 Part 1: Calculation of indoor air temperature

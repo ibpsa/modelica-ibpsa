@@ -10,8 +10,6 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     nExt=1,
     alphaRad=5,
     nInt=1,
-    AWin=0,
-    AExt=10.5,
     AInt=75.5,
     alphaInt=2.24,
     RWin=0.00000001,
@@ -20,11 +18,13 @@ model TestCase5 "VDI 6007 Test Case 5 model"
     CExt={1600848.94},
     RInt={0.000595693407511},
     CInt={14836354.6282},
-    ATransparent=7,
     ratioWinConRad=0.09,
-    T_start=295.15,
     VAir=0,
-    nOrientations=1) "Thermal zone"
+    nOrientations=1,
+    T_start=295.15,
+    AWin={0},
+    ATransparent={7},
+    AExt={10.5}) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"
@@ -171,9 +171,6 @@ equation
   connect(switch1.y, product1.u2)
     annotation (Line(points={{-26,31.4},{-26,28},
     {-10,28},{-10,67},{-7,67}}, color={0,0,127}));
-  connect(product1.y, thermalZoneTwoElements.solRad)
-    annotation (Line(points={{4.5,70},{20,70},{20,31},{43,31}},
-                                          color={0,0,127}));
   connect(personsConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
     Line(points={{68,-74},{82,-74},{94,-74},{94,20},{92,20}},     color={191,
@@ -181,6 +178,8 @@ equation
   connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
     Line(points={{68,-56},{94,-56},{94,20},{92,20}},     color={191,0,0}));
+  connect(product1.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points
+        ={{4.5,70},{20,70},{20,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 5 of the VDI 6007 Part 1: Calculation of indoor air temperature

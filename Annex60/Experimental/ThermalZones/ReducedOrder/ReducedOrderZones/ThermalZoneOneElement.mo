@@ -241,7 +241,7 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
   Modelica.Blocks.Math.Sum sumSolRad(nin=nOrientations) if
     ratioWinConRad > 0 "Sums up solar radiation from different directions"
     annotation (Placement(transformation(extent={{-214,118},{-202,130}})));
-protected
+
   parameter Modelica.SIunits.Area ATot=sum(AArray) "Sum of wall surface areas";
   parameter Modelica.SIunits.Area ATotExt=sum(AExt)
     "Sum of exterior wall surface areas";
@@ -257,7 +257,7 @@ protected
     BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1))
     "Share of each wall surface area that is non-zero";
   parameter Real splitFactorSolRad[dimension, nOrientations]=
-    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, ATransparent) "Share of each wall surface area that is non-zero and not in the orientation
+    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin) "Share of each wall surface area that is non-zero and not in the orientation
     of the current solar radiation";
 equation
   connect(volAir.ports, ports)

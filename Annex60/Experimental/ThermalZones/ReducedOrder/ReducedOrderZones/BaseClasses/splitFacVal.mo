@@ -20,22 +20,24 @@ algorithm
         if l == 1 then
           for AWall in AExt loop
             splitFacValues[j,k] :=(A-AWall)/(ATot-AWall-AWin[k]);
-          k := k + 1;
+            k := k + 1;
           end for;
         elseif l == 2 then
           for AWall in AExt loop
             splitFacValues[j,k] :=(A-AWin[k])/(ATot-AWall-AWin[k]);
-          k := k + 1;
+            //splitFacValues[j,k] := 0.5;
+            k := k + 1;
           end for;
         else
           for AWall in AExt loop
             splitFacValues[j,k] :=A/(ATot-AWall-AWin[k]);
-          k := k + 1;
+            //splitFacValues[j,k] := 0.5;
+            k := k + 1;
           end for;
         end if;
         j :=j + 1;
       end if;
-        l :=l + 1;
+      l :=l + 1;
     end for;
 
   annotation (Documentation(info="<html>

@@ -21,10 +21,10 @@ model TestCase8 "VDI 6007 Test Case 8 model"
     RExtRem=0.01913729904,
     VAir=0,
     T_start=295.15,
-    nOrientations=1,
-    AWin=0,
-    ATransparent=14,
-    AExt=25.5) "Thermal zone"
+    nOrientations=2,
+    AWin={0,0},
+    ATransparent={7,7},
+    AExt={10.5,15}) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
     "Outdoor convective heat transfer"
@@ -207,9 +207,6 @@ model TestCase8 "VDI 6007 Test Case 8 model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{4,-10},{16,2}})));
-  Modelica.Blocks.Math.Sum aggWindow(nin=2, k={0.5,0.5})
-    "Aggregates both windows to one"
-    annotation (Placement(transformation(extent={{28,57},{42,71}})));
 equation
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
@@ -303,13 +300,10 @@ equation
   connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
     Line(points={{68,-56},{94,-56},{94,20},{92,20}},     color={191,0,0}));
-  connect(product1.y, aggWindow.u[1]) annotation (Line(points={{4.5,70},{16,70},
-          {16,63.3},{26.6,63.3}}, color={0,0,127}));
-  connect(product.y, aggWindow.u[2]) annotation (Line(points={{4.5,89},{16,89},
-          {16,64.7},{26.6,64.7}}, color={0,0,127}));
-  connect(aggWindow.y, thermalZoneTwoElements.solRad) annotation (Line(points={
-          {42.7,64},{48,64},{48,62},{48,42},{32,42},{32,31},{43,31}}, color={0,
-          0,127}));
+  connect(product1.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points
+        ={{4.5,70},{16,70},{26,70},{26,30.5},{43,30.5}}, color={0,0,127}));
+  connect(product.y, thermalZoneTwoElements.solRad[2]) annotation (Line(points=
+          {{4.5,89},{26,89},{26,31.5},{43,31.5}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 8 of the VDI 6007 Part 1: Calculation of indoor air temperature

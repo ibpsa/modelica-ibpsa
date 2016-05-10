@@ -15,10 +15,10 @@ model ThermSplitter "A simple model which weights a given set of thermal inputs
         iconTransformation(extent={{80,-20},{120,20}})));
 
 equation
-  signalOutput.Q_flow = - signalInput.Q_flow * splitFactor
+  signalOutput.Q_flow = - signalInput.Q_flow * transpose(splitFactor)
     "Connecting the output vector according to desired dimension";
 
-  signalInput.T = signalOutput.T * transpose(splitFactor)
+  signalInput.T = signalOutput.T * splitFactor
     "Equivalent building temperature rerouted to SignalInput";
 
   annotation (defaultComponentName="theSpl",Diagram(coordinateSystem(

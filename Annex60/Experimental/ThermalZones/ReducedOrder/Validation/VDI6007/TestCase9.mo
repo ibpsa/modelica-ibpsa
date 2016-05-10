@@ -10,7 +10,6 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     nExt=1,
     alphaRad=5,
     nInt=1,
-    AWin=0,
     RWin=0.00000001,
     ratioWinConRad=0.09,
     RExt={0.0017362530106},
@@ -19,12 +18,13 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     alphaInt=2.12,
     RInt={0.000668895639141},
     CInt={12391363.8631},
-    AExt=25.5,
     RExtRem=0.01913729904,
-    ATransparent=14,
-    T_start=295.15,
     VAir=0,
-    nOrientations=1) "Thermal zone"
+    T_start=295.15,
+    nOrientations=2,
+    AWin={0,0},
+    ATransparent={7,7},
+    AExt={10.5,15}) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
     "Outdoor convective heat transfer"
@@ -137,9 +137,6 @@ model TestCase9 "VDI 6007 Test Case 9 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-25,59})));
-  Modelica.Blocks.Math.Sum aggWindow(nin=2, k={0.5,0.5})
-    "Aggregates both windows to one"
-    annotation (Placement(transformation(extent={{30,63},{44,77}})));
   Modelica.Blocks.Math.Product product "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,84},{4,94}})));
@@ -262,10 +259,6 @@ equation
   connect(tableSolRadWindow.y[2], product.u1)
     annotation (Line(points={{-77.3,
     73},{-16,73},{-16,92},{-7,92}}, color={0,0,127}));
-  connect(aggWindow.y, thermalZoneTwoElements.solRad)
-    annotation (Line(points={{44.7,70},{48,70},{48,40},{32,40},{32,31},{43,31}},
-                                                            color={0,0,
-    127}));
   connect(const1.y, add.u2)
     annotation (Line(points={{-63.7,25},{-60.4,25},{
     -60.4,20.8}}, color={0,0,127}));
@@ -301,12 +294,6 @@ equation
     annotation (Line(points={{-54,25.6},{-54,22},
     {-38,22},{-38,10},{2,10},{2,62},{-10,62},{-10,67},{-7,67}}, color={0,
     0,127}));
-  connect(product1.y, aggWindow.u[1])
-    annotation (Line(points={{4.5,70},{28.6,
-    70},{28.6,69.3}}, color={0,0,127}));
-  connect(product.y, aggWindow.u[2])
-    annotation (Line(points={{4.5,89},{16.25,
-    89},{16.25,70.7},{28.6,70.7}}, color={0,0,127}));
   connect(eqAirTemp.TEqAir, prescribedTemperature.T)
     annotation (Line(points={{-5,-7},{-2,-7},{-2,-4},{2.8,-4}},
                                                 color={0,0,127}));
@@ -338,6 +325,10 @@ equation
   connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
     Line(points={{68,-56},{96,-56},{96,20},{92,20}},     color={191,0,0}));
+  connect(product1.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points
+        ={{4.5,70},{18,70},{32,70},{32,30.5},{43,30.5}}, color={0,0,127}));
+  connect(product.y, thermalZoneTwoElements.solRad[2]) annotation (Line(points=
+          {{4.5,89},{32,89},{32,31.5},{43,31.5}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 9 of the VDI 6007 Part 1: Calculation of indoor air temperature

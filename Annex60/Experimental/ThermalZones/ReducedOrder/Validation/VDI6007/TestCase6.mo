@@ -9,9 +9,6 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     gWin=1,
     nExt=1,
     nInt=1,
-    AWin=0,
-    AExt=10.5,
-    ATransparent=0,
     ratioWinConRad=0,
     AInt=75.5,
     alphaInt=2.24,
@@ -22,9 +19,12 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     CExt={1600848.94},
     RInt={0.000595693407511},
     CInt={14836354.6282},
-    T_start=295.15,
     VAir=0,
-    nOrientations=1) "Thermal zone"
+    nOrientations=1,
+    T_start=295.15,
+    AWin={0},
+    ATransparent={0},
+    AExt={10.5}) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
@@ -94,9 +94,6 @@ equation
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
-  connect(const.y, thermalZoneTwoElements.solRad)
-    annotation (Line(points={{30.5,31},{37.25,31},{43,31}},
-                                                 color={0,0,127}));
   connect(internalGains.y[1], machinesRad.Q_flow)
     annotation (Line(points={{22.8,-74},{36,-74},{48,-74}}, color={0,0,127}));
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
@@ -111,6 +108,8 @@ equation
   connect(heatFlowSensor.port_a, thermalZoneTwoElements.intGainsConv)
     annotation (Line(points={{90,-34},{94,-34},{94,20},{92,20}},     color={191,
     0,0}));
+  connect(const.y, thermalZoneTwoElements.solRad[1])
+    annotation (Line(points={{30.5,31},{37.25,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 6 of the VDI 6007 Part 1: Calculation of heat load excited with a
