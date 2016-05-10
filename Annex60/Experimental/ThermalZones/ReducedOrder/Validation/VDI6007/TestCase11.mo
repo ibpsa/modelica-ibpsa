@@ -110,7 +110,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         295.1; 21600,295.1; 25200,300.1; 28800,300.1; 32400,300.1; 36000,300.1;
         39600,300.1; 43200,300.1; 46800,300.1; 50400,300.1; 54000,300.1; 57600,
         300.1; 61200,300.1; 64800,300.1; 68400,295.1; 72000,295.1; 75600,295.1;
-        79200,295.1; 82800,295.1; 86400,295.1])
+        79200,295.1; 82800,295.1; 86400,295.1],
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Set temperature of ideal heater"
     annotation (Placement(transformation(extent={{-50,-28},{-34,-12}})));
   Fluid.HeatExchangers.HeaterCooler_T hea1(
@@ -166,7 +167,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         295.1; 21600,295.1; 25200,300.1; 28800,300.1; 32400,300.1; 36000,300.1;
         39600,300.1; 43200,300.1; 46800,300.1; 50400,300.1; 54000,300.1; 57600,
         300.1; 61200,300.1; 64800,300.1; 68400,295.1; 72000,295.1; 75600,295.1;
-        79200,295.1; 82800,295.1; 86400,295.1])
+        79200,295.1; 82800,295.1; 86400,295.1],
+    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Set temperature of ceiling cooling"
     annotation (Placement(transformation(extent={{-60,80},{-44,96}})));
 equation
