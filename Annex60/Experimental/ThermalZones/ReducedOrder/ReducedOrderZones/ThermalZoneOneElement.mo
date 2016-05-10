@@ -242,7 +242,7 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
   Modelica.Blocks.Math.Sum sumSolRad(nin=nOrientations) if
     ratioWinConRad > 0 "Sums up solar radiation from different directions"
     annotation (Placement(transformation(extent={{-186,118},{-174,130}})));
-
+protected
   parameter Modelica.SIunits.Area ATot=sum(AArray) "Sum of wall surface areas";
   parameter Modelica.SIunits.Area ATotExt=sum(AExt)
     "Sum of exterior wall surface areas";
