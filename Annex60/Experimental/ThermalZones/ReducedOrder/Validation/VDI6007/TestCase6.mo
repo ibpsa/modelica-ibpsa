@@ -25,12 +25,12 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     ATransparent={0},
     AExt={10.5},
     extWallRC(thermCapExt(each der_T(fixed=true))),
-    T_start=295.15,
-    intWallRC(thermCapInt(each der_T(fixed=true)))) "Thermal zone"
+    intWallRC(thermCapInt(each der_T(fixed=true))),
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{8,-6},{20,6}})));
+    annotation (Placement(transformation(extent={{5,-5},{17,7}})));
   Modelica.Thermal.HeatTransfer.Components.Convection thermalConductorWall
     "Outdoor convective heat transfer"
     annotation (Placement(transformation(extent={{36,6},{26,-4}})));
@@ -83,16 +83,16 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     columns={2},
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    table=[0,295.1; 3600,295.1; 7200,295.1; 10800,295.1; 14400,295.1; 18000,
-        295.1; 21600,295.1; 21601,300.1; 28800,300.1; 32400,300.1; 36000,300.1;
-        39600,300.1; 43200,300.1; 46800,300.1; 50400,300.1; 54000,300.1; 57600,
-        300.1; 61200,300.1; 64800,300.1; 64801,295.1; 72000,295.1; 75600,295.1;
-        79200,295.1; 82800,295.1; 86400,295.1])
+    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
+        21600.1,27; 28800,27; 32400,27; 36000,27; 39600,27; 43200,27; 46800,27;
+        50400,27; 54000,27; 57600,27; 61200,27; 64800,27; 64800.1,22; 72000,22;
+        75600,22; 79200,22; 82800,22; 86400,22])
     "Set temperature for ideal heater/cooler"
-    annotation (Placement(transformation(extent={{20,-50},{36,-34}})));
+    annotation (Placement(transformation(extent={{4,-42},{20,-26}})));
+  Modelica.Blocks.Math.UnitConversions.From_degC from_degC
+    "convert set temperature from degC to Kelvin"
+    annotation (Placement(transformation(extent={{34,-40},{46,-28}})));
 equation
-  connect(thermalConductorWall.fluid, prescribedTemperature.port)
-    annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
     annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
@@ -105,14 +105,17 @@ equation
                                                               color={191,0,0}));
   connect(prescribedTemperature1.port, heatFlowSensor.port_b)
     annotation (Line(points={{68,-34},{73,-34},{78,-34}}, color={191,0,0}));
-  connect(setTemp.y[1], prescribedTemperature1.T)
-    annotation (Line(points={{
-    36.8,-42},{48,-42},{48,-34},{54.8,-34}}, color={0,0,127}));
   connect(heatFlowSensor.port_a, thermalZoneTwoElements.intGainsConv)
     annotation (Line(points={{90,-34},{94,-34},{94,20},{92,20}},     color={191,
     0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{37.25,31},{43,31}}, color={0,0,127}));
+  connect(prescribedTemperature.port, thermalConductorWall.fluid) annotation (
+      Line(points={{17,1},{21.5,1},{21.5,1},{26,1}}, color={191,0,0}));
+  connect(from_degC.y, prescribedTemperature1.T)
+    annotation (Line(points={{46.6,-34},{54.8,-34}}, color={0,0,127}));
+  connect(setTemp.y[1], from_degC.u)
+    annotation (Line(points={{20.8,-34},{32.8,-34}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 6 of the VDI 6007 Part 1: Calculation of heat load excited with a
