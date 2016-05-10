@@ -21,10 +21,10 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     alphaInt=2.3982758620689655,
     VAir=0,
     nOrientations=1,
-    T_start=290.75,
     AWin={0},
     ATransparent={7},
-    AExt={28})
+    AExt={28},
+    T_start=290.75)
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"
@@ -59,14 +59,14 @@ model TestCase10 "VDI 6007 Test Case 10 model"
         5166000,26; 5169600,25.9; 5173200,25.8; 5176800,25.7; 5180400,25.6])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
-    "Convective heat flow machines"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv(T_ref=
+        290.75) "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad
-    "Radiative heat flow persons"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad(T_ref=
+        290.75) "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsConv
-    "Convective heat flow persons"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsConv(T_ref=
+        290.75) "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -213,8 +213,8 @@ equation
   connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
     Line(points={{68,-56},{96,-56},{96,20},{92,20}},     color={191,0,0}));
-  connect(product1.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points
-        ={{4.5,70},{14,70},{28,70},{28,31},{43,31}}, color={0,0,127}));
+  connect(product1.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points=
+         {{4.5,70},{14,70},{28,70},{28,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 10 of the VDI 6007 Part 1: Calculation of indoor air temperature

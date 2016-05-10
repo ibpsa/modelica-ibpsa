@@ -26,7 +26,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     AWin={0},
     ATransparent={7},
     AExt={10.5},
-    T_start=294.65) "Thermal zone"
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"
@@ -65,7 +65,7 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv(T_ref=
-        294.65) "Convective heat flow machines"
+        295.15) "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls"
@@ -89,10 +89,10 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         295.05; 82800,294.05; 86400,294.05]) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-28,-8},{-12,8}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad(T_ref=
-        294.65) "Radiative heat flow persons"
+        295.15) "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsConv(T_ref=
-        294.65) "Convective heat flow persons"
+        295.15) "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
