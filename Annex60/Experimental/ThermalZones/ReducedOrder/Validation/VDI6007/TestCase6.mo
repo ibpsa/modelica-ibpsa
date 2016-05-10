@@ -14,11 +14,6 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     alphaInt=2.24,
     RWin=0.00000001,
     alphaRad=5,
-    RExt={0.00436791293674},
-    RExtRem=0.03895919557,
-    CExt={1600848.94},
-    RInt={0.000595693407511},
-    CInt={14836354.6282},
     VAir=0,
     nOrientations=1,
     AWin={0},
@@ -26,7 +21,12 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     AExt={10.5},
     extWallRC(thermCapExt(each der_T(fixed=true))),
     intWallRC(thermCapInt(each der_T(fixed=true))),
-    T_start=295.15) "Thermal zone"
+    RExt={0.004367913},
+    CExt={1600800},
+    RInt={0.000595515},
+    CInt={14836200},
+    T_start=295.15,
+    RExtRem=0.038959197) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"

@@ -23,10 +23,10 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     nOrientations=1,
     VAir=0.1,
     redeclare final package Medium = Modelica.Media.Air.SimpleAir,
-    T_start=294.65,
     AWin={0},
     ATransparent={7},
-    AExt={10.5}) "Thermal zone"
+    AExt={10.5},
+    T_start=294.65) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"
@@ -64,8 +64,8 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         5166000,32.2; 5169600,31.8; 5173200,31.4; 5176800,31.2; 5180400,30.9])
     "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv
-    "Convective heat flow machines"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesConv(T_ref=
+        294.65) "Convective heat flow machines"
     annotation (Placement(transformation(extent={{48,-66},{68,-46}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls"
@@ -88,11 +88,11 @@ model TestCase12 "VDI 6007 Test Case 12 model"
         297.85; 75600,297.85; 75600,296.05; 79200,296.05; 79200,295.05; 82800,
         295.05; 82800,294.05; 86400,294.05]) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-28,-8},{-12,8}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad
-    "Radiative heat flow persons"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsRad(T_ref=
+        294.65) "Radiative heat flow persons"
     annotation (Placement(transformation(extent={{48,-102},{68,-82}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsConv
-    "Convective heat flow persons"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow personsConv(T_ref=
+        294.65) "Convective heat flow persons"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.CombiTimeTable tableSolRadWindow(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
@@ -147,10 +147,10 @@ model TestCase12 "VDI 6007 Test Case 12 model"
   Modelica.Blocks.Math.Gain gain(k=0.000330375898) "Conversion to kg/s"
     annotation (Placement(transformation(extent={{-62,-29},{-48,-15}})));
   Fluid.Sources.MassFlowSource_T ventilationIn(
-    redeclare package Medium = Medium,
     use_m_flow_in=true,
     use_T_in=true,
-    nPorts=1) "Fan"
+    nPorts=1,
+    redeclare package Medium = Medium) "Fan"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
   Fluid.Sources.MassFlowSource_T ventilationOut(
     redeclare package Medium = Medium,
@@ -226,8 +226,8 @@ equation
   connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
     Line(points={{68,-56},{96,-56},{96,20},{92,20}},     color={191,0,0}));
-  connect(product1.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points
-        ={{4.5,70},{12,70},{22,70},{22,31},{43,31}}, color={0,0,127}));
+  connect(product1.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points=
+         {{4.5,70},{12,70},{22,70},{22,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 12 of the VDI 6007 Part 1: Calculation of indoor air temperature
