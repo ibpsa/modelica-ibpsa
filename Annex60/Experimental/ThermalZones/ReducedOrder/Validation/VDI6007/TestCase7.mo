@@ -102,11 +102,11 @@ model TestCase7 "VDI 6007 Test Case 7 model"
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     columns={2},
     table=[0,295.1; 3600,295.1; 7200,295.1; 10800,295.1; 14400,295.1; 18000,
-        295.1; 21600,295.1; 25200,300.1; 28800,300.1; 32400,300.1; 36000,300.1;
+        295.1; 21600,295.1; 21601,300.1; 28800,300.1; 32400,300.1; 36000,300.1;
         39600,300.1; 43200,300.1; 46800,300.1; 50400,300.1; 54000,300.1; 57600,
-        300.1; 61200,300.1; 64800,300.1; 68400,295.1; 72000,295.1; 75600,295.1;
+        300.1; 61200,300.1; 64800,300.1; 64801,295.1; 72000,295.1; 75600,295.1;
         79200,295.1; 82800,295.1; 86400,295.1],
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
     annotation (Placement(transformation(extent={{-58,-8},{-42,8}})));
   Fluid.HeatExchangers.HeaterCooler_T hea1(
     m_flow_nominal=m_flow_nominal,

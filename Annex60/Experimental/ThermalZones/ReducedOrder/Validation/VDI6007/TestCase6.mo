@@ -21,10 +21,12 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     CInt={14836354.6282},
     VAir=0,
     nOrientations=1,
-    T_start=295.15,
     AWin={0},
     ATransparent={0},
-    AExt={10.5}) "Thermal zone"
+    AExt={10.5},
+    extWallRC(thermCapExt(each der_T(fixed=true))),
+    T_start=295.15,
+    intWallRC(thermCapInt(each der_T(fixed=true)))) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
@@ -59,8 +61,8 @@ model TestCase6 "VDI 6007 Test Case 6 model"
         5162400,1004; 5166000,960; 5169600,919; 5173200,880; 5176800,843;
         5180400,808]) "Reference results"
     annotation (Placement(transformation(extent={{76,72},{96,92}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad
-    "Radiative heat flow machines"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow machinesRad(T_ref=
+        295.15) "Radiative heat flow machines"
     annotation (Placement(transformation(extent={{48,-84},{68,-64}})));
   Modelica.Blocks.Sources.Constant alphaWall(k=25*10.5)
     "Outdoor coefficient of heat transfer for walls"
@@ -80,12 +82,12 @@ model TestCase6 "VDI 6007 Test Case 6 model"
   Modelica.Blocks.Sources.CombiTimeTable setTemp(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     columns={2},
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     table=[0,295.1; 3600,295.1; 7200,295.1; 10800,295.1; 14400,295.1; 18000,
-        295.1; 21600,295.1; 25200,300.1; 28800,300.1; 32400,300.1; 36000,300.1;
+        295.1; 21600,295.1; 21601,300.1; 28800,300.1; 32400,300.1; 36000,300.1;
         39600,300.1; 43200,300.1; 46800,300.1; 50400,300.1; 54000,300.1; 57600,
-        300.1; 61200,300.1; 64800,300.1; 68400,295.1; 72000,295.1; 75600,295.1;
-        79200,295.1; 82800,295.1; 86400,295.1],
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
+        300.1; 61200,300.1; 64800,300.1; 64801,295.1; 72000,295.1; 75600,295.1;
+        79200,295.1; 82800,295.1; 86400,295.1])
     "Set temperature for ideal heater/cooler"
     annotation (Placement(transformation(extent={{20,-50},{36,-34}})));
 equation
