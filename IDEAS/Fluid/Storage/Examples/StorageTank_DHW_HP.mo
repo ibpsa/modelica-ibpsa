@@ -36,7 +36,7 @@ model StorageTank_DHW_HP
     tau=30,
     filteredSpeed=false)
     annotation (Placement(transformation(extent={{-38,-62},{-58,-42}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
   IDEAS.Controls.ControlHeating.Ctrl_Heating_TES HPControl(
     dTSafetyTop=3,

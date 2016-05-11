@@ -36,7 +36,7 @@ model IdealEmbeddedHeating
   IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.RadSlaCha_ValidationEmpa[nZones]
                                        radSlaCha_ValidationEmpa
     annotation (Placement(transformation(extent={{-94,-98},{-74,-78}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Blocks.Sources.RealExpression[nZones] realExpression(y=11*
         building.AZones)

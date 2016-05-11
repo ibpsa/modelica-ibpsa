@@ -327,7 +327,7 @@ equation
     defaultComponentName="sim",
     defaultComponentPrefixes="inner",
     missingInnerMessage=
-        "Your model is using an outer \"sim\" component. An inner \"sim\" component is not defined. For simulation drag IDEAS.SimInfoManager into your model.",
+        "Your model is using an outer \"sim\" component. An inner \"sim\" component is not defined. For simulation drag IDEAS.BoundaryConditions.SimInfoManager into your model.",
     Icon(graphics={
         Line(points={{-80,-30},{88,-30}}, color={0,0,0}),
         Line(points={{-76,-68},{-46,-30}}, color={0,0,0}),

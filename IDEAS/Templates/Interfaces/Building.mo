@@ -1,7 +1,7 @@
 within IDEAS.Templates.Interfaces;
 model Building
 
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   replaceable package Medium=IDEAS.Media.Water;

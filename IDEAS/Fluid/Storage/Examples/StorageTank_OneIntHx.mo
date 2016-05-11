@@ -35,7 +35,7 @@ model StorageTank_OneIntHx
     filteredSpeed=false,
     inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{-38,-62},{-58,-42}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,

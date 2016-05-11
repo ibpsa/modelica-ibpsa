@@ -1,7 +1,7 @@
 within IDEAS.Templates.Interfaces.BaseClasses;
 partial model Structure "Partial model for building structure models"
 
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{130,-100},{150,-80}})));
 

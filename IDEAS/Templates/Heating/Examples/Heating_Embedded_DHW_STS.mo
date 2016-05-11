@@ -33,7 +33,7 @@ model Heating_Embedded_DHW_STS
   IDEAS.Fluid.HeatExchangers.Examples.BaseClasses.NakedTabs[nZones] nakedTabs(radSlaCha=
        radSlaCha_ValidationEmpa, A_floor=building.AZones)
     annotation (Placement(transformation(extent={{-6,-12},{-26,8}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Blocks.Sources.RealExpression[nZones] realExpression(y=11*
         building.AZones)

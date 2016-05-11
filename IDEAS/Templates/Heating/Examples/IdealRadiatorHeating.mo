@@ -10,7 +10,7 @@ model IdealRadiatorHeating "Example and test for ideal heating with radiators"
     nLoads=0,
     VZones=building.VZones)
     annotation (Placement(transformation(extent={{-20,-10},{18,12}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   IDEAS.Templates.Heating.Examples.DummyBuilding building(nZones=nZones, nEmb=0)
     annotation (Placement(transformation(extent={{-86,-10},{-52,12}})));

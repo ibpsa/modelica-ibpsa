@@ -1,7 +1,7 @@
 within IDEAS.Templates.Interfaces.BaseClasses;
 partial model PartialSystem "General partial for electricity-based systems"
 
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
 
