@@ -6,8 +6,6 @@ model Thermostatic3WayValve "Thermostatic 3-way valve with hot and cold side"
   parameter Boolean dynamicValve = false
     "Set to true to simulate a valve opening delay: typically slower but more robust"
     annotation(Dialog(tab="Dynamics", group="Filter"));
-  parameter Real tau = 30 "Valve opening time constant"
-    annotation(Dialog(enable=dynamicValve,tab="Dynamics", group="Filter"));
   parameter Real y_min(min=0, max=1) = 0.001 "Minimum valve opening/leakage"
     annotation(Dialog(tab="Advanced"));
   parameter Real y_max(min=0, max=1) = 0.999 "Maximum valve opening/leakage"
