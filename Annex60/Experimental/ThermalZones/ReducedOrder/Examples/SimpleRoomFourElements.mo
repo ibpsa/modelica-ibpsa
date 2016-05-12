@@ -25,16 +25,10 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
   CorrectionSolarGain.CorrectionGDoublePane corGDoublePane(UWin=2.1, n=2)
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,46},{26,66}})));
-  Modelica.Blocks.Math.Sum aggWindow(nin=2, k={0.5,0.5})
-    "Aggregates both windows to one"
-    annotation (Placement(transformation(extent={{34,49},{48,63}})));
   ReducedOrderZones.ThermalZoneFourElements thermalZoneFourElements(
     redeclare package Medium = Annex60.Media.Air,
     VAir=52.5,
-    AExt=11.5,
     alphaExt=2.7,
-    AWin=14,
-    ATransparent=14,
     alphaWin=2.7,
     gWin=1,
     ratioWinConRad=0.09,
@@ -61,7 +55,11 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
     RRoof={0.00331421908725},
     RRoofRem=0.1265217391,
     CRoof={5259932.23},
-    T_start=295.15) "Thermal zone"
+    T_start=295.15,
+    nOrientations=2,
+    AWin={7,7},
+    ATransparent={7,7},
+    AExt={3.5,8}) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
     wfGround=0,
@@ -167,11 +165,6 @@ equation
   connect(eqAirTemp.TEqAir, prescribedTemperature.T)
     annotation (Line(points={{-3,-4},{4,-4},{4,0},{6.8,0}},
     color={0,0,127}));
-  connect(corGDoublePane.solarRadWinTrans, aggWindow.u)
-    annotation (Line(points={{27,56},{32.6,56}}, color={0,0,127}));
-  connect(aggWindow.y, thermalZoneFourElements.solRad)
-    annotation (Line(points={{48.7,56},{54,56},{54,44},{40,44},{40,31},{43,31}},
-                color={0,0,127}));
   connect(weaDat.weaBus, weaBus)
     annotation (Line(points={{-76,62},{-74,62},{-74,18},{-84,18},{-84,12},
     {-83,12},{-83,6}},color={255,204,51},
@@ -231,8 +224,7 @@ equation
                                                                 color={191,0,
     0}));
   connect(thermalConductorWin.solid, thermalZoneFourElements.window)
-    annotation (Line(points={{38,21},{40,21},{40,20},{43.8,20},{43.8,20}},
-                                                                         color=
+    annotation (Line(points={{38,21},{40,21},{40,20},{43.8,20}},         color=
     {191,0,0}));
   connect(prescribedTemperature1.port, thermalConductorWin.fluid)
     annotation (Line(points={{20,20},{28,20},{28,21}}, color={191,0,0}));
@@ -292,6 +284,8 @@ equation
   connect(const1.y, eqAirTempVDI.sunblind[1])
     annotation (Line(points={{61.7,93},{56,93},{56,98},{40,98},{40,96}},
                                       color={0,0,127}));
+  connect(corGDoublePane.solarRadWinTrans, thermalZoneFourElements.solRad)
+    annotation (Line(points={{27,56},{40,56},{40,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>This example shows the application of

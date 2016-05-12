@@ -10,21 +10,21 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     nInt=1,
     RWin=0.00000001,
     ratioWinConRad=0.09,
-    RExt={0.00171957698257},
-    CExt={4338751.41},
     AInt=58,
-    RInt={0.000779929073416},
-    CInt={12334084.6919},
     alphaWin=2.7,
-    RExtRem=0.01163854893,
-    alphaExt=1.8666666666666667,
-    alphaInt=2.3982758620689655,
     VAir=0,
     nOrientations=1,
     AWin={0},
     ATransparent={7},
     AExt={28},
-    T_start=290.75)
+    T_start=290.75,
+    alphaExt=1.866666666,
+    RExt={0.001719576},
+    RExtRem=0.011638548,
+    CExt={4338700},
+    alphaInt=2.398275862,
+    RInt={0.000779929},
+    CInt={12334000})
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     "Outdoor air temperature"

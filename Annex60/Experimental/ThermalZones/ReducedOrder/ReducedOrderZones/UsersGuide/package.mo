@@ -1,6 +1,5 @@
 within Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones;
-package UsersGuide
-  "User's Guide"
+package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
 
@@ -10,7 +9,7 @@ This package contains
 models for reduced building physics of thermal zones, where we mean by
 reduced order fewer numbers of wall elements and fewer numbers of RC-elements
 per wall (by means of spatial discretization).
-Such a reduction leads to a fewer state variables.
+Such a reduction leads to fewer state variables.
 Reduced order models are commonly used when simulating
 multiple buildings, such as for district simulation, or for model predictive control,
 where simulation speed requirements, aggregation of multiple buildings
@@ -60,7 +59,8 @@ be considered as simple heat storage elements (interior walls). The number of
 RC-elements per wall is hereby up to the user. All exterior walls and windows
 provide a heat port to the outside. All wall elements (exterior walls, windows
 and interior walls) are connected via
-<a href=\"Modelica.Thermal.HeatTransfer.Components.Convection\">convective heat exchange</a>
+<a href=\"Modelica.Thermal.HeatTransfer.Components.Convection\">
+Modelica.Thermal.HeatTransfer.Components.Convection</a>
 to the convective network and the indoor air.
 </p>
 <p>
@@ -68,7 +68,7 @@ Heat transfer through windows and solar radiation transmission are handled
 seperately. One major difference in the implementations in this
 package compared to the guideline is an additional element for heat transfer
 through windows, which are lumped with exterior walls in the guideline VDI 6007
-Part 1 (VDI, 2012). The heat transfer element for the windows allows to model the window
+Part 1 (VDI, 2012). The heat transfer element for the windows allows to model the windows
 without any thermal capacity, as windows have negligible thermal mass. Hence, it is
 not necessary to discretize the window element and heat conduction is simply
 handled by a thermal resistance. Merging windows and exterior walls lead to a
@@ -83,11 +83,11 @@ a
 Annex60.Experimental.ThermalZones.ReducedOrder.ReducedOrderZones.BaseClasses.ThermSplitter</a>,
 while the other part is directly linked to the convective network. The split
 factor <code>ratioWinConRad </code> is a window property and depends on the
-glazing and used materials. For solar radiation through windows, the area
+glazing and used materials. For solar radiation through windows, the vector of areas
 <code>ATransparent</code> is used. In most cases, this should be equal to
 <code>AWin</code>, but there might be cases (e.g. windows are lumped with
 exterior walls and solar radiation is present) where e.g. <code>AWin</code> is
-equal to zero and <code>ATransparent</code> is equal to the actual window area.</p>
+equal to zero and <code>ATransparent</code> is equal to the actual window areas.</p>
 <p>Regarding indoor radiative heat exchange, a couple of design decisions
 simplify modelling as well as the system&apos;s numerics:</p>
 <ul>
@@ -151,7 +151,13 @@ By using a
 <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.ThermSplitter\">
 Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.ThermSplitter</a>
 that distributes the heat flow of the source over the walls according to their
-area, we support this simplified approach.
+area, we support this simplified approach. For solar radiation through windows,
+the area of exterior walls and windows with the same orientation as the incoming
+radiation is not taken into account for the distribution as such surfaces cannot
+be hit by the particular radiation. This calculation is performed for each 
+orientation seperately using
+<a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal\">
+Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal</a>.
 </p>
 </li>
 </ul>

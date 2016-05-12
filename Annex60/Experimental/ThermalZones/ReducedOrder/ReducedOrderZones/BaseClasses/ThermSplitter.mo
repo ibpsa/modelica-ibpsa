@@ -56,12 +56,22 @@ equation
   <p>This model is used to weight thermal ports (inputs) according to given split factors per output port.</p>
   <p>The model needs the dimensions of the splitted therm ports (for input and output ports resp.) and the split
   factors, which are between 0 and 1. Each row of the split factor matrix gives the split factors for one output 
-  the port. The number of columns need to aligned with the number of input ports.</p>
+  port. The number of columns need to align with the number of input ports.</p>
   </html>", revisions="<html>
   <ul>
-  <li><i>October 2014,&nbsp;</i> by Peter Remmen:<br/>Implemented.</li>
-  <li><i>January 2015,&nbsp;</i> by Peter Remmen:<br/>changed name and vectorized
-  equation, added documentation</li>
+  <li>
+  May, 2016, by Moritz Lauster:<br/>
+  Extended to handle multiple input ports.
+  </li>
+  <li>
+  January, 2015, by Peter Remmen:<br/>
+  Changed name and vectorized
+  equation, added documentation
+  </li>
+  <li>
+  October, 2014, by Peter Remmen:<br/>
+  Implemented.
+  </li>
   </ul>
   </html>"));
 end ThermSplitter;

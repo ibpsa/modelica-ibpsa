@@ -24,10 +24,12 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     VAir=0,
     nOrientations=1,
     redeclare final package Medium = Modelica.Media.Air.SimpleAir,
-    T_start=295.15,
     AWin={0},
     ATransparent={0},
-    AExt={10.5}) "Thermal zone"
+    AExt={10.5},
+    extWallRC(thermCapExt(each der_T(fixed=true))),
+    T_start=295.15,
+    intWallRC(thermCapInt(each der_T(fixed=true)))) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
@@ -83,7 +85,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare package Medium = Medium) "Fan"
+    redeclare package Medium = Medium,
+    T_start=295.15) "Fan"
     annotation (Placement(transformation(extent={{-74,-52},{-54,-32}})));
   Modelica.Blocks.Sources.Constant mFan_flow(k=m_flow_nominal)
     "Mass flow rate of the fan"
@@ -97,30 +100,22 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     Q_flow_maxHeat=500,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = Medium,
-    Q_flow_maxCool=0) "Heater"
+    Q_flow_maxCool=0,
+    T_start=295.15) "Heater"
     annotation (Placement(transformation(extent={{-24,-52},{-4,-32}})));
   Fluid.Sources.FixedBoundary bou(nPorts=1,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    T=295.15)
     "Fixed pressure boundary condition, required to set a reference pressure"
     annotation (Placement(transformation(extent={{-58,-98},{-78,-78}})));
-  Modelica.Blocks.Sources.CombiTimeTable setTemp(
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    columns={2},
-    table=[0,295.1; 3600,295.1; 7200,295.1; 10800,295.1; 14400,295.1; 18000,
-        295.1; 21600,295.1; 21601,300.1; 28800,300.1; 32400,300.1; 36000,300.1;
-        39600,300.1; 43200,300.1; 46800,300.1; 50400,300.1; 54000,300.1; 57600,
-        300.1; 61200,300.1; 64800,300.1; 64801,295.1; 72000,295.1; 75600,295.1;
-        79200,295.1; 82800,295.1; 86400,295.1],
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "Set temperature of ideal heater"
-    annotation (Placement(transformation(extent={{-50,-28},{-34,-12}})));
   Fluid.HeatExchangers.HeaterCooler_T hea1(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1000,
     Q_flow_maxHeat=500,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = Medium,
-    Q_flow_maxCool=-500) "Heater to align temperature in circuit and zone"
+    Q_flow_maxCool=-500,
+    T_start=295.15) "Heater to align temperature in circuit and zone"
     annotation (Placement(transformation(extent={{-4,-82},{-24,-62}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heat
     "Ideal heater with limit"
@@ -129,7 +124,8 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     m_flow_nominal=m_flow_nominal,
     addPowerToMedium=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare package Medium = Medium) "Fan"
+    redeclare package Medium = Medium,
+    T_start=295.15) "Fan"
     annotation (Placement(transformation(extent={{-76,52},{-56,72}})));
   Modelica.Blocks.Sources.Constant mFan_flow1(k=m_flow_nominal)
     "Mass flow rate of the fan"
@@ -143,10 +139,12 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     Q_flow_maxCool=-500,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = Medium,
-    Q_flow_maxHeat=0) "Cooler"
+    Q_flow_maxHeat=0,
+    T_start=295.15) "Cooler"
     annotation (Placement(transformation(extent={{-38,52},{-18,72}})));
   Fluid.Sources.FixedBoundary bouCoo(nPorts=1,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    T=295.15)
     "Fixed pressure boundary condition, required to set a reference pressure"
     annotation (Placement(transformation(extent={{-60,6},{-80,26}})));
   Fluid.HeatExchangers.HeaterCooler_T coo1(
@@ -155,22 +153,38 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     Q_flow_maxHeat=500,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = Medium,
-    Q_flow_maxCool=0) "Cooler to align temperature in circuit and zone"
+    Q_flow_maxCool=0,
+    T_start=295.15) "Cooler to align temperature in circuit and zone"
     annotation (Placement(transformation(extent={{-20,26},{-40,46}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow cool
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow cool(T_ref=295.15)
     "Ideal cooler with limit"
     annotation (Placement(transformation(extent={{-8,74},{12,94}})));
+  Modelica.Blocks.Sources.CombiTimeTable setTemp(
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
+    columns={2},
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
+        21600.1,27; 28800,27; 32400,27; 36000,27; 39600,27; 43200,27; 46800,27;
+        50400,27; 54000,27; 57600,27; 61200,27; 64800,27; 64800.1,22; 72000,22;
+        75600,22; 79200,22; 82800,22; 86400,22])
+    "Set temperature for ideal heater/cooler"
+    annotation (Placement(transformation(extent={{-56,-12},{-40,4}})));
+  Modelica.Blocks.Math.UnitConversions.From_degC from_degC
+    "convert set temperature from degC to Kelvin"
+    annotation (Placement(transformation(extent={{-26,-10},{-14,2}})));
   Modelica.Blocks.Sources.CombiTimeTable setTemp1(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     columns={2},
-    table=[0,295.1; 3600,295.1; 7200,295.1; 10800,295.1; 14400,295.1; 18000,
-        295.1; 21600,295.1; 21601,300.1; 28800,300.1; 32400,300.1; 36000,300.1;
-        39600,300.1; 43200,300.1; 46800,300.1; 50400,300.1; 54000,300.1; 57600,
-        300.1; 61200,300.1; 64800,300.1; 64801,295.1; 72000,295.1; 75600,295.1;
-        79200,295.1; 82800,295.1; 86400,295.1],
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
-    "Set temperature of ceiling cooling"
-    annotation (Placement(transformation(extent={{-60,80},{-44,96}})));
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
+        21600.1,27; 28800,27; 32400,27; 36000,27; 39600,27; 43200,27; 46800,27;
+        50400,27; 54000,27; 57600,27; 61200,27; 64800,27; 64800.1,22; 72000,22;
+        75600,22; 79200,22; 82800,22; 86400,22])
+    "Set temperature for ideal heater/cooler"
+    annotation (Placement(transformation(extent={{-62,78},{-46,94}})));
+  Modelica.Blocks.Math.UnitConversions.From_degC from_degC1
+    "convert set temperature from degC to Kelvin"
+    annotation (Placement(transformation(extent={{-38,80},{-26,92}})));
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -200,9 +214,6 @@ equation
   connect(fan.port_a, bou.ports[1])
     annotation (Line(points={{-74,-42},{-96,-42},
     {-96,-88},{-78,-88}}, color={0,127,255}));
-  connect(setTemp.y[1], hea.TSet)
-    annotation (Line(points={{-33.2,-20},{-32,-20},
-    {-32,-36},{-26,-36}},color={0,0,127}));
   connect(THeaOut.port_b, hea1.port_a)
     annotation (Line(points={{36,-42},{38,-42},
     {38,-72},{2,-72},{-4,-72}}, color={0,127,255}));
@@ -216,8 +227,8 @@ equation
     annotation (Line(
     points={{68,-34},{68,-34},{96,-34},{96,20},{92,20}},     color={191,0,0}));
   connect(mFan_flow1.y, fan1.m_flow_in)
-    annotation (Line(points={{-75,84},{
-    -66.2,84},{-66.2,74}}, color={0,0,127}));
+    annotation (Line(points={{-75,84},{-66.2,84},{-66.2,74}},
+                           color={0,0,127}));
   connect(fan1.port_b, coo.port_a)
     annotation (Line(points={{-56,62},{-38,62}}, color={0,127,255}));
   connect(coo.port_b, TCooOut.port_a)
@@ -239,9 +250,6 @@ equation
     Line(points={{12,84},{12,84},{16,84},{16,18},{4,18},{4,-26},{44,-26},{44,-8},
           {56,-8},{56,-2}},
                          color={191,0,0}));
-  connect(setTemp1.y[1], coo.TSet)
-    annotation (Line(points={{-43.2,88},{-40,88},
-    {-40,74},{-44,74},{-44,68},{-40,68}}, color={0,0,127}));
   connect(hea.Q_flow, heat.Q_flow)
     annotation (Line(points={{-3,-36},{14,-36},{
     14,-28},{44,-28},{44,-34},{48,-34}}, color={0,0,127}));
@@ -249,7 +257,15 @@ equation
     annotation (Line(points={{-17,68},{-12,68},{
     -12,84},{-8,84}}, color={0,0,127}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
-    annotation (Line(points={{30.5,31},{36.25,31},{43,31}}, color={0,0,127}));
+    annotation (Line(points={{30.5,31},{43,31}},            color={0,0,127}));
+  connect(setTemp.y[1], from_degC.u)
+    annotation (Line(points={{-39.2,-4},{-27.2,-4}}, color={0,0,127}));
+  connect(from_degC.y, hea.TSet) annotation (Line(points={{-13.4,-4},{-6,-4},{
+          -6,-30},{-32,-30},{-32,-36},{-26,-36}}, color={0,0,127}));
+  connect(setTemp1.y[1], from_degC1.u)
+    annotation (Line(points={{-45.2,86},{-39.2,86}}, color={0,0,127}));
+  connect(from_degC1.y, coo.TSet) annotation (Line(points={{-25.4,86},{-20,86},
+          {-20,74},{-44,74},{-44,68},{-40,68}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 11 of the VDI 6007 Part 1: Calculation of heat load excited with

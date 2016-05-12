@@ -25,16 +25,10 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
   CorrectionSolarGain.CorrectionGDoublePane corGDoublePane(n=2, UWin=2.1)
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
-  Modelica.Blocks.Math.Sum aggWindow(nin=2, k={0.5,0.5})
-    "Aggregates both windows to one"
-    annotation (Placement(transformation(extent={{44,57},{58,71}})));
   ReducedOrderZones.ThermalZoneThreeElements thermalZoneThreeElements(
     redeclare package Medium = Annex60.Media.Air,
     VAir=52.5,
-    AExt=11.5,
     alphaExt=2.7,
-    AWin=14,
-    ATransparent=14,
     alphaWin=2.7,
     gWin=1,
     ratioWinConRad=0.09,
@@ -55,7 +49,11 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
     RFloor={0.00331421908725},
     RFloorRem=0.1265217391,
     CFloor={5259932.23},
-    T_start=295.15) "Thermal zone"
+    AWin={7,7},
+    ATransparent={7,7},
+    AExt={3.5,8},
+    T_start=295.15,
+    nOrientations=2) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
     n=2,
@@ -147,11 +145,6 @@ equation
   connect(eqAirTemp.TEqAir, prescribedTemperature.T)
     annotation (Line(points={{-3,-4},{4,-4},{4,0},{6.8,0}},
                                         color={0,0,127}));
-  connect(corGDoublePane.solarRadWinTrans, aggWindow.u)
-    annotation (Line(points={{27,64},{42.6,64}}, color={0,0,127}));
-  connect(aggWindow.y, thermalZoneThreeElements.solRad)
-    annotation (Line(points={{58.7,64},{62,64},{62,44},{40,44},{40,31},{43,31}},
-                                                             color={0,0,127}));
   connect(weaDat.weaBus, weaBus)
     annotation (Line(
     points={{-78,62},{-74,62},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
@@ -258,6 +251,8 @@ equation
   connect(TSoil.y, prescribedTemperatureFloor.T)
     annotation (Line(points={{79.6,
     -22},{67,-22},{67,-19.2}}, color={0,0,127}));
+  connect(corGDoublePane.solarRadWinTrans, thermalZoneThreeElements.solRad)
+    annotation (Line(points={{27,64},{40,64},{40,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>This example shows the application of

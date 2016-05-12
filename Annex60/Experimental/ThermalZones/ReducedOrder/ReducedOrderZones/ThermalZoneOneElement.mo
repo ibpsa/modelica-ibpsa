@@ -16,11 +16,12 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     annotation(Evaluate=true,
     Dialog(connectorSizing=true, tab="General",group="Ports"));
 
-  parameter Modelica.SIunits.Area AWin[nOrientations] "Area of windows"
+  parameter Modelica.SIunits.Area AWin[nOrientations]
+    "Vector of areas of windows by orientations"
     annotation(Dialog(group="Windows"));
 
-  parameter Modelica.SIunits.Area ATransparent[nOrientations]
-    "Surface area of transparent (solar radiation transmittend) elements"
+  parameter Modelica.SIunits.Area ATransparent[nOrientations] "Vector of areas of transparent (solar radiation transmittend) elements by 
+    orientations"
     annotation(Dialog(group="Windows"));
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWin
@@ -42,7 +43,8 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Additional heat port at indoor surface of windows"
     annotation(Dialog(group="Windows"),choices(checkBox = true));
 
-  parameter Modelica.SIunits.Area AExt[nOrientations] "Area of exterior walls"
+  parameter Modelica.SIunits.Area AExt[nOrientations]
+    "Vector of areas of exterior walls by orientations"
     annotation(Dialog(group="Exterior walls"));
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExt
@@ -171,7 +173,8 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Convective heat transfer of windows"
     annotation (Placement(transformation(extent={{-116,30},{-96,50}})));
 
-  Modelica.Blocks.Sources.Constant alphaWinConst(k=AWin*alphaWin) if ATotWin > 0
+  Modelica.Blocks.Sources.Constant alphaWinConst(k=ATotWin*alphaWin) if
+                                                                     ATotWin > 0
     "Coefficient of convective heat transfer for windows"
     annotation (Placement(transformation(
     extent={{-6,-6},{6,6}},
