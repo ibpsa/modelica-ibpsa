@@ -75,6 +75,11 @@ model StorageTank_DHW_HP
         origin={-58,-22})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant
     annotation (Placement(transformation(extent={{170,14},{190,34}})));
+  Modelica.Blocks.Math.Gain gain(k=m_flow_nominal) annotation (Placement(
+        transformation(
+        extent={{-4,-4},{4,4}},
+        rotation=270,
+        origin={-48,-8})));
 equation
 
   connect(storageTank.T[10], HPControl.TTankBot) annotation (Line(
@@ -138,10 +143,12 @@ equation
       points={{-58,-28},{-58,-52}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(HPControl.onOff, pump.m_flow_in) annotation (Line(points={{-84,52},{-84,
-          36},{-47.8,36},{-47.8,-40}}, color={0,0,127}));
   connect(product.y, dHW.mDHW60C)
     annotation (Line(points={{46.5,53},{74,53},{74,20}}, color={0,0,127}));
+  connect(HPControl.onOff, gain.u) annotation (Line(points={{-84,52},{-84,36},{
+          -47.8,36},{-48,-3.2}}, color={0,0,127}));
+  connect(gain.y, pump.m_flow_in) annotation (Line(points={{-48,-12.4},{-48,
+          -26.2},{-47.8,-26.2},{-47.8,-40}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

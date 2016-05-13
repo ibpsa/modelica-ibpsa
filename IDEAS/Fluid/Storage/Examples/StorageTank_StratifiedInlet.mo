@@ -35,7 +35,7 @@ model StorageTank_StratifiedInlet
     annotation (Placement(transformation(extent={{-58,-2},{-78,-22}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=1000)
     annotation (Placement(transformation(extent={{-96,-54},{-76,-34}})));
-  Modelica.Blocks.Sources.Pulse pulse(period=400)
+  Modelica.Blocks.Sources.Pulse pulse(period=400, amplitude=m_flow_nominal)
     annotation (Placement(transformation(extent={{-56,-68},{-36,-48}})));
   Modelica.Fluid.Sources.Boundary_pT boundary(
     redeclare package Medium = Medium,

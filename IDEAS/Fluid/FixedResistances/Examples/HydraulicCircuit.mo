@@ -24,7 +24,7 @@ model HydraulicCircuit
   Modelica.Blocks.Sources.Sine pulse(
     startTime=200,
     freqHz=1/3600,
-    amplitude=1)
+    amplitude=0.5)
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
   IDEAS.Fluid.Movers.FlowControlled_m_flow volumeFlow1(

@@ -44,7 +44,7 @@ model Thermostatic3WayValve "Example of a thermostatic three way valve"
   Modelica.Blocks.Sources.Constant
                                TSou2(k=303.15)
     annotation (Placement(transformation(extent={{-92,-26},{-72,-6}})));
-  Modelica.Blocks.Sources.Constant mFlowPump(k=1)
+  Modelica.Blocks.Sources.Constant mFlowPump(k=m_flow_nominal)
     annotation (Placement(transformation(extent={{80,36},{60,56}})));
   Modelica.Blocks.Sources.Constant TSet(k=293.15)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));

@@ -152,7 +152,8 @@ partial model Partial_HydraulicHeating "Hydraulic multi-zone heating "
     V=sum(m_flow_nominal)*30/1000,
     nPorts=1+nZones)
     annotation (Placement(transformation(extent={{104,-92},{124,-72}})));
-  Modelica.Blocks.Math.BooleanToReal booleanToReal[nZones]
+  Modelica.Blocks.Math.BooleanToReal booleanToReal[nZones](realTrue=
+        m_flow_nominal)
     annotation (Placement(transformation(extent={{-104,-80},{-84,-60}})));
 equation
     // connections that are function of the number of circuits

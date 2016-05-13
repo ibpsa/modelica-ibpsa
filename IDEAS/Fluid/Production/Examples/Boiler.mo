@@ -62,9 +62,9 @@ model Boiler
     annotation (Placement(transformation(extent={{-38,-22},{-54,-6}})));
   Modelica.Blocks.Sources.Pulse sine1(
     startTime=2000,
-    amplitude=-1,
     period=500,
-    offset=1)
+    amplitude=-m_flow_nominal,
+    offset=m_flow_nominal)
     annotation (Placement(transformation(extent={{20,-80},{0,-60}})));
 equation
   //   der(PElLossesInt) = HP.PEl;

@@ -51,7 +51,7 @@ model IdealHeater "Very basic hydraulic circuit with an IdealHeater"
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
 
-  Modelica.Blocks.Math.Gain gain(k=1/1300)
+  Modelica.Blocks.Math.Gain gain(k=1/1300*m_flow_nominal)
     annotation (Placement(transformation(extent={{-18,72},{2,92}})));
   Modelica.Blocks.Sources.Constant const(k=273.15 + 82)
     annotation (Placement(transformation(extent={{-100,48},{-88,60}})));

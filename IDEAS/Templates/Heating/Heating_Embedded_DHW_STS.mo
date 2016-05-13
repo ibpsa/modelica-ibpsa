@@ -130,6 +130,11 @@ model Heating_Embedded_DHW_STS
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow prescribedHeatFlow[
     nConvPorts](Q_flow=0)
     annotation (Placement(transformation(extent={{-142,8},{-162,28}})));
+  Modelica.Blocks.Math.Gain gain(k=m_flow_nominal_stoHX) annotation (Placement(
+        transformation(
+        extent={{-8,-8},{8,8}},
+        rotation=270,
+        origin={-80,-8})));
 equation
   QHeaSys = -sum(emission.heatPortEmb.Q_flow) + QDHW;
   P[1] = heater.PEl + pumpSto.P + sum(pumpRad.PEl);
@@ -218,8 +223,10 @@ equation
       points={{-162,18},{-180,18},{-180,20},{-200,20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(ctrl_Heating.onOff, pumpSto.m_flow_in) annotation (Line(points={{-142,
-          62},{-80,62},{-80,-38},{-36.86,-38},{-36.86,-42.8}}, color={0,0,127}));
+  connect(ctrl_Heating.onOff, gain.u)
+    annotation (Line(points={{-142,62},{-80,62},{-80,1.6}}, color={0,0,127}));
+  connect(gain.y, pumpSto.m_flow_in) annotation (Line(points={{-80,-16.8},{-80,
+          -38},{-36.86,-38},{-36.86,-42.8}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-100},{200,
             100}})),

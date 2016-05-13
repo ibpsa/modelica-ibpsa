@@ -26,9 +26,9 @@ model Boiler_validation "Validation model for the boiler"
     mWater=10,
     cDry=10000,
     redeclare package Medium = Medium,
-    m_flow_nominal=1300/3600,
     QNom=20000,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=1300/3600)
     annotation (Placement(transformation(extent={{-70,-16},{-50,4}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=
         293.15)
@@ -59,7 +59,7 @@ model Boiler_validation "Validation model for the boiler"
     p=200000)
     annotation (Placement(transformation(extent={{-12,-32},{-32,-12}})));
 
-  Modelica.Blocks.Math.Gain gain(k=1/1300)
+  Modelica.Blocks.Math.Gain gain(k=1/3600)
     annotation (Placement(transformation(extent={{-14,72},{6,92}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=273.15 + 60)
     annotation (Placement(transformation(extent={{-92,-4},{-72,16}})));

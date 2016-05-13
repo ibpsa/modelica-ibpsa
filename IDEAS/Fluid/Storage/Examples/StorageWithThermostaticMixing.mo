@@ -23,8 +23,8 @@ model StorageWithThermostaticMixing
   Modelica.Blocks.Sources.Pulse pulse(
     startTime=7*3600,
     width=50,
-    amplitude=0.5,
-    period=5000)
+    period=5000,
+    amplitude=0.5*m_flow_nominal)
     annotation (Placement(transformation(extent={{16,66},{36,86}})));
 
   IDEAS.Fluid.Movers.FlowControlled_m_flow pump1(

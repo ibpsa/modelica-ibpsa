@@ -13,12 +13,13 @@ model EmbeddedPipeDp "Testing pressure drop of embeddedpipe"
     m_flow(start=12*24/3600),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    T_start = 303.15)
+    T_start=303.15)
     annotation (Placement(transformation(extent={{-36,-14},{-16,6}})));
   Modelica.Blocks.Sources.Pulse pulse(
     period=7200,
     offset=0,
-    startTime=0)
+    startTime=0,
+    amplitude=0.1)
     annotation (Placement(transformation(extent={{-88,30},{-68,50}})));
   RadiantSlab.EmbeddedPipe embeddedPipe(
     redeclare package Medium = Medium,
