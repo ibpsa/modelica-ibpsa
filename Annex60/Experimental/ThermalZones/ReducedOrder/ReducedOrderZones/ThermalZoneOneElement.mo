@@ -20,12 +20,13 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     "Vector of areas of windows by orientations"
     annotation(Dialog(group="Windows"));
 
-  parameter Modelica.SIunits.Area ATransparent[nOrientations] "Vector of areas of transparent (solar radiation transmittend) elements by
+  parameter Modelica.SIunits.Area ATransparent[nOrientations]
+    "Vector of areas of transparent (solar radiation transmittend) elements by
     orientations"
     annotation(Dialog(group="Windows"));
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaWin
-    "Coefficient of heat transfer of windows (indoor)"
+    "Convective coefficient of heat transfer of windows (indoor)"
     annotation(Dialog(group="Windows"));
 
   parameter Modelica.SIunits.ThermalResistance RWin "Resistor for windows"
@@ -48,7 +49,7 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     annotation(Dialog(group="Exterior walls"));
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaExt
-    "Coefficient of heat transfer of exterior walls (indoor)"
+    "Convective coefficient of heat transfer of exterior walls (indoor)"
     annotation(Dialog(group="Exterior walls"));
 
   parameter Integer nExt(min = 1) "Number of RC-elements of exterior walls"
@@ -204,13 +205,14 @@ model ThermalZoneOneElement "Thermal Zone with one element for exterior walls"
     annotation (Placement(transformation(extent={{-206,119},{-196,129}})));
 
   BaseClasses.ThermSplitter thermSplitterIntGains(splitFactor=splitFactor,
-    nOut=dimension, nIn=1) if ATot > 0 "Splits incoming internal gains into 
+    nOut=dimension, nIn=1) if ATot > 0 "Splits incoming internal gains into
     seperate gains for each wall element,
     weighted by their area"
     annotation (Placement(transformation(extent={{210,76},{190,96}})));
 
   BaseClasses.ThermSplitter thermSplitterSolRad(splitFactor=
-    splitFactorSolRad, nOut=dimension, nIn=nOrientations) if ATot > 0 "Splits incoming solar radiation into seperate gains for each wall
+    splitFactorSolRad, nOut=dimension, nIn=nOrientations) if ATot > 0
+    "Splits incoming solar radiation into seperate gains for each wall
     element, weighted by their area"
     annotation (Placement(transformation(extent={{-138,138},{-122,154}})));
 
@@ -259,7 +261,8 @@ protected
     BaseClasses.splitFacVal(dimension, 1, AArray, fill(0, 1), fill(0, 1))
     "Share of each wall surface area that is non-zero";
   parameter Real splitFactorSolRad[dimension, nOrientations]=
-    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin) "Share of each wall surface area that is non-zero, for each orientation
+    BaseClasses.splitFacVal(dimension, nOrientations, AArray, AExt, AWin)
+    "Share of each wall surface area that is non-zero, for each orientation
     seperately";
 equation
   connect(volAir.ports, ports)

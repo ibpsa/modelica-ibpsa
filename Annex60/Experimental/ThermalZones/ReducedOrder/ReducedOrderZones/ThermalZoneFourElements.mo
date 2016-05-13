@@ -6,7 +6,7 @@ model ThermalZoneFourElements "Thermal Zone with four elements for exterior wall
   parameter Modelica.SIunits.Area ARoof "Area of roof"
     annotation(Dialog(group="Roof"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer alphaRoof
-    "Coefficient of heat transfer of roof (indoor)"
+    "Convective coefficient of heat transfer of roof (indoor)"
     annotation(Dialog(group="Roof"));
   parameter Integer nRoof(min = 1) "Number of RC-elements of roof"
     annotation(Dialog(group="Roof"));
