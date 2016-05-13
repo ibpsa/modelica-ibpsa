@@ -94,7 +94,7 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     annotation (Placement(transformation(extent={{34,-40},{46,-28}})));
 equation
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
+    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(internalGains.y[1], machinesRad.Q_flow)
@@ -102,11 +102,11 @@ equation
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (
     Line(points={{68,-74},{84,-74},{98,-74},{98,24},{92.2,24}},
-                                                              color={191,0,0}));
+    color={191,0,0}));
   connect(prescribedTemperature1.port, heatFlowSensor.port_b)
     annotation (Line(points={{68,-34},{73,-34},{78,-34}}, color={191,0,0}));
   connect(heatFlowSensor.port_a, thermalZoneTwoElements.intGainsConv)
-    annotation (Line(points={{90,-34},{94,-34},{94,20},{92,20}},     color={191,
+    annotation (Line(points={{90,-34},{94,-34},{94,20},{92,20}}, color={191,
     0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{37.25,31},{43,31}}, color={0,0,127}));

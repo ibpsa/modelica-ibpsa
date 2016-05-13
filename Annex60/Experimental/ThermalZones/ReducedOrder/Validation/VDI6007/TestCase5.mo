@@ -136,7 +136,7 @@ equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
+    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(outdoorTemp.y[1], prescribedTemperature.T)
@@ -144,7 +144,7 @@ equation
   connect(personsRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
     points={{68,-92},{68,-92},{98,-92},{98,24},{92.2,24}},
-                                                         color={191,0,0}));
+    color={191,0,0}));
   connect(internalGains.y[1], personsRad.Q_flow)
     annotation (Line(points={{22.8,
     -52},{30,-52},{38,-52},{38,-92},{48,-92}}, color={0,0,127}));
@@ -173,7 +173,7 @@ equation
     {-10,28},{-10,67},{-7,67}}, color={0,0,127}));
   connect(personsConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
-    Line(points={{68,-74},{82,-74},{94,-74},{94,20},{92,20}},     color={191,
+    Line(points={{68,-74},{82,-74},{94,-74},{94,20},{92,20}}, color={191,
     0,0}));
   connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (

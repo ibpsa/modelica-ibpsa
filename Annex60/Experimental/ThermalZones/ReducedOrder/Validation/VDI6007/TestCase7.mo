@@ -132,7 +132,7 @@ equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
+    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(internalGains.y[1], machinesRad.Q_flow)
@@ -141,7 +141,7 @@ equation
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (
     Line(points={{68,-88},{84,-88},{98,-88},{98,24},{92.2,24}},
-                                                              color={191,0,0}));
+    color={191,0,0}));
   connect(mFan_flow.y,fan. m_flow_in)
     annotation (Line(
     points={{-73,-20},{-64.2,-20},{-64.2,-30}},
@@ -168,10 +168,10 @@ equation
     {6,-28},{46,-28}}, color={0,0,127}));
   connect(thermalZoneTwoElements.TIndAir, hea1.TSet)
     annotation (Line(points={{93,32},{100,32},{100,-66},{-2,-66}},
-                                 color={0,0,127}));
+    color={0,0,127}));
   connect(heatCool.port, thermalZoneTwoElements.intGainsConv)
     annotation (Line(
-    points={{66,-28},{82,-28},{96,-28},{96,20},{92,20}},     color={191,0,0}));
+    points={{66,-28},{82,-28},{96,-28},{96,20},{92,20}}, color={191,0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{36.25,31},{43,31}}, color={0,0,127}));
   connect(setTemp.y[1], from_degC.u)

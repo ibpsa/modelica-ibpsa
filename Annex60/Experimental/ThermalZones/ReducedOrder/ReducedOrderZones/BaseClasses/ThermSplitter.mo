@@ -53,9 +53,11 @@ equation
     lineColor={0,0,255},
     textString="ThermSplitter")}),
   Documentation(info="<html>
-  <p>This model is used to weight thermal ports (inputs) according to given split factors per output port.</p>
-  <p>The model needs the dimensions of the splitted therm ports (for input and output ports resp.) and the split
-  factors, which are between 0 and 1. Each row of the split factor matrix gives the split factors for one output 
+  <p>This model is used to weight thermal ports (inputs) according to given split
+  factors per output port.</p>
+  <p>The model needs the dimensions of the splitted therm ports (for input and
+  output ports resp.) and the split factors, which are between 0 and 1. Each row
+  of the split factor matrix gives the split factors for one output
   port. The number of columns need to align with the number of input ports.</p>
   </html>", revisions="<html>
   <ul>

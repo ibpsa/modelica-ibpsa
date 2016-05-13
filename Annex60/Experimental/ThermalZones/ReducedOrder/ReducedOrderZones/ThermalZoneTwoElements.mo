@@ -81,11 +81,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
     connect(thermSplitterSolRad.signalOutput[3], intWallRC.port_a)
-        annotation (
-        Line(
-        points={{-136,146},{-58,146},{-58,96},{160,96},{160,-40},{182,-40}},
-        color={191,0,0},
-        smooth=Smooth.None));
+      annotation (
+      Line(
+      points={{-136,146},{-58,146},{-58,96},{160,96},{160,-40},{182,-40}},
+      color={191,0,0},
+      smooth=Smooth.None));
   end if;
   connect(resIntWallWin.port_b, intWallRC.port_a)
     annotation (Line(
@@ -95,7 +95,7 @@ equation
   connect(resIntWallWin.port_a, convWin.solid)
     annotation (Line(
     points={{74,-108},{68,-108},{68,-94},{-46,-94},{-46,20},{-146,20},{-146,40},
-          {-116,40}},
+    {-116,40}},
     color={191,0,0},
     smooth=Smooth.None));
   connect(alphaIntWall.y, convIntWall.Gc)
@@ -106,12 +106,12 @@ equation
     color={191,0,0}));
   connect(convIntWall.fluid, TIndAirSensor.port)
     annotation (Line(points={{128,-40},{66,-40},{66,0},{80,0}},
-                                    color={191,0,0}));
+    color={191,0,0}));
   annotation (defaultComponentName="thermZone",Diagram(coordinateSystem(
   preserveAspectRatio=false, extent={{-240,-180},{240,180}}), graphics={
   Polygon(
     points={{116,-18},{230,-18},{230,-80},{140,-80},{138,-80},{116,-80},{116,
-              -18}},
+    -18}},
     lineColor={0,0,255},
     smooth=Smooth.None,
     fillColor={215,215,215},

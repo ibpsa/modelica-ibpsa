@@ -98,7 +98,8 @@ model TestCase10 "VDI 6007 Test Case 10 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-59,59})));
-  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product1
+    "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -158,8 +159,7 @@ model TestCase10 "VDI 6007 Test Case 10 model"
 equation
   connect(personsRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (Line(
-    points={{68,-92},{68,-92},{98,-92},{98,24},{92.2,24}},
-                                                         color={191,0,0}));
+    points={{68,-92},{68,-92},{98,-92},{98,24},{92.2,24}}, color={191,0,0}));
   connect(internalGains.y[1], personsRad.Q_flow)
     annotation (Line(points={{22.8,
     -52},{30,-52},{38,-52},{38,-92},{48,-92}}, color={0,0,127}));
@@ -190,31 +190,32 @@ equation
     annotation (Line(points={{-73.2,0},{-26,0},{-26,-0.4}},  color={0,0,127}));
   connect(const.y,eqAirTemp. TBlaSky)
     annotation (Line(points={{-49.7,7},{-28.85,7},{-28.85,5},{-26,5}},
-                                 color={0,0,127}));
+    color={0,0,127}));
   connect(eqAirTemp.TEqAir, prescribedTemperature.T)
     annotation (Line(points={{-3,5},{0.9,5},{0.9,0},{6.8,0}},
-                                              color={0,0,127}));
+    color={0,0,127}));
   connect(HSol.y, eqAirTemp.HSol[1])
     annotation (Line(points={{-77.7,25},{-32,25},{-32,10.4},{-26,10.4}},
-                           color={0,0,127}));
+    color={0,0,127}));
   connect(sunblind.y, eqAirTemp.sunblind[1])
     annotation (Line(points={{-15,19.7},{-15,15.85},{-14,15.85},{-14,15.8}},
-                                         color={0,0,127}));
+    color={0,0,127}));
   connect(alphaWall.y,thermalConductorWall. Gc)
     annotation (Line(points={{28,-14.6},{29,-14.6},{29,-5}}, color={0,0,127}));
   connect(prescribedTemperature.port, thermalConductorWall.fluid)
     annotation (Line(points={{20,0},{24,0}}, color={191,0,0}));
   connect(thermalConductorWall.solid, thermalZoneTwoElements.extWall)
-    annotation (Line(points={{34,0},{40,0},{40,12},{43.8,12}},   color={191,0,0}));
+    annotation (Line(points={{34,0},{40,0},{40,12},{43.8,12}}, color={191,0,0}));
   connect(personsConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
-    Line(points={{68,-74},{82,-74},{96,-74},{96,20},{92,20}},     color={191,
+    Line(points={{68,-74},{82,-74},{96,-74},{96,20},{92,20}}, color={191,
     0,0}));
   connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
-    Line(points={{68,-56},{96,-56},{96,20},{92,20}},     color={191,0,0}));
-  connect(product1.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points=
-         {{4.5,70},{14,70},{28,70},{28,31},{43,31}}, color={0,0,127}));
+    Line(points={{68,-56},{96,-56},{96,20},{92,20}}, color={191,0,0}));
+  connect(product1.y, thermalZoneTwoElements.solRad[1])
+    annotation (Line(points=
+    {{4.5,70},{14,70},{28,70},{28,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 10 of the VDI 6007 Part 1: Calculation of indoor air temperature

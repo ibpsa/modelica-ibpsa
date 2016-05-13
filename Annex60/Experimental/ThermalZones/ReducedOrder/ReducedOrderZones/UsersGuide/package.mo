@@ -68,12 +68,13 @@ Heat transfer through windows and solar radiation transmission are handled
 seperately. One major difference in the implementations in this
 package compared to the guideline is an additional element for heat transfer
 through windows, which are lumped with exterior walls in the guideline VDI 6007
-Part 1 (VDI, 2012). The heat transfer element for the windows allows to model the windows
-without any thermal capacity, as windows have negligible thermal mass. Hence, it is
-not necessary to discretize the window element and heat conduction is simply
-handled by a thermal resistance. Merging windows and exterior walls lead to a
-virtual capacitance for the windows and result in a shifted reaction of the room
-temperature to environmental impacts (Lauster, Bruentjen <i>et al.</i>, 2014).
+Part 1 (VDI, 2012). The heat transfer element for the windows allows to model
+the windows without any thermal capacity, as windows have negligible thermal
+mass. Hence, it is not necessary to discretize the window element and heat
+conduction is simply handled by a thermal resistance. Merging windows and
+exterior walls lead to a virtual capacitance for the windows and result in a
+shifted reaction of the room temperature to environmental impacts
+(Lauster, Bruentjen <i>et al.</i>, 2014).
 However, the user is free to choose whether keeping windows seperately
 (<code>AWin</code>) or merging them (<code>AExt=AExterior+AWindows, AWin=0</code>).
 The transmission of solar radiation through windows is split up into two parts.
@@ -105,7 +106,7 @@ the models use a linearized approach
 Q = &alpha; <sub>rad</sub> (T<sub>1</sub> - T<sub>2</sub>),
 </p>
 <p>
-where 
+where
 the radiative heat transfer coefficient
 <i>&alpha;<sub>rad</sub></i> is often set to
 </p>
@@ -154,7 +155,7 @@ that distributes the heat flow of the source over the walls according to their
 area, we support this simplified approach. For solar radiation through windows,
 the area of exterior walls and windows with the same orientation as the incoming
 radiation is not taken into account for the distribution as such surfaces cannot
-be hit by the particular radiation. This calculation is performed for each 
+be hit by the particular radiation. This calculation is performed for each
 orientation seperately using
 <a href=\"Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal\">
 Annex60.Experimental.ThermalZones.ReducedOrder.ROM.BaseClasses.splitFacVal</a>.
@@ -185,7 +186,8 @@ It represents the part of the wall that cannot be activated and thus does not
 take part at heat storage.
 </p>
 <p>
-The connector <code>IndoorPort...</code> adds an additional heat port to the indoor surface
+The connector <code>IndoorPort...</code> adds an additional heat port to the
+indoor surface
 of the wall element if set to <code>true</code>. It can be used to add heat
 loads directly to a specific surface or to connect components that distribute
 radiation and have a specific surface temperature, e.g. a floor heating.

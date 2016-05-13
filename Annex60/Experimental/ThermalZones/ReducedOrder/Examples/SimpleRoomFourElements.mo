@@ -104,7 +104,8 @@ model SimpleRoomFourElements "Illustrates the use of ThermalZoneFourElements"
         0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,0,0,0;
         86400,0,0,0],
     columns={2,3,4},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Table with profiles for persons (radiative and convective) and machines
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    "Table with profiles for persons (radiative and convective) and machines
     (convective)"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.Constant const[2](each k=0)
@@ -168,7 +169,7 @@ equation
   connect(weaDat.weaBus, weaBus)
     annotation (Line(points={{-76,62},{-74,62},{-74,18},{-84,18},{-84,12},
     {-83,12},{-83,6}},color={255,204,51},
-   thickness=0.5), Text(string="%second",index=1,extent={{6,3},{6,3}}));
+    thickness=0.5), Text(string="%second",index=1,extent={{6,3},{6,3}}));
   connect(weaBus.TDryBul, eqAirTemp.TDryBul)
     annotation (Line(points={{-83,6},{-83,-2},{-38,-2},{-38,-10},{-26,-10}},
     color={255,204,51},
@@ -186,8 +187,8 @@ equation
     color={0,0,127}));
   connect(HDifTil.HSkyDifTil, corGDoublePane.HSkyDifTil)
     annotation (Line(points={{-47,36},{-28,36},{-6,36},{-6,58},{0,58},{0,57.8},{
-          4,57.8},{4,58}},
-                       color={0,0,127}));
+    4,57.8},{4,58}},
+    color={0,0,127}));
   connect(HDirTil.H, corGDoublePane.HDirTil)
     annotation (Line(points={{-47,62},{4,62},{4,62}},  color={0,0,127}));
   connect(HDirTil.H,solRad. u1)
@@ -221,10 +222,9 @@ equation
   connect(personsRad.port, thermalZoneFourElements.intGainsRad)
     annotation (
     Line(points={{68,-32},{84,-32},{100,-32},{100,24},{92.2,24}},
-                                                                color={191,0,
-    0}));
+    color={191,0,0}));
   connect(thermalConductorWin.solid, thermalZoneFourElements.window)
-    annotation (Line(points={{38,21},{40,21},{40,20},{43.8,20}},         color=
+    annotation (Line(points={{38,21},{40,21},{40,20},{43.8,20}}, color=
     {191,0,0}));
   connect(prescribedTemperature1.port, thermalConductorWin.fluid)
     annotation (Line(points={{20,20},{28,20},{28,21}}, color={191,0,0}));
@@ -247,13 +247,13 @@ equation
     extent={{-6,3},{-6,3}}));
   connect(machinesConv.port, thermalZoneFourElements.intGainsConv)
     annotation (
-    Line(points={{68,-74},{82,-74},{96,-74},{96,20},{92,20}},     color={191,
+    Line(points={{68,-74},{82,-74},{96,-74},{96,20},{92,20}}, color={191,
     0,0}));
   connect(personsConv.port, thermalZoneFourElements.intGainsConv)
     annotation (
-    Line(points={{68,-52},{96,-52},{96,20},{92,20}},     color={191,0,0}));
+    Line(points={{68,-52},{96,-52},{96,20},{92,20}}, color={191,0,0}));
   connect(prescribedTemperatureFloor.port, thermalZoneFourElements.floor)
-    annotation (Line(points={{67,-6},{68,-6},{68,-2}},     color={191,0,0}));
+    annotation (Line(points={{67,-6},{68,-6},{68,-2}}, color={191,0,0}));
   connect(TSoil.y, prescribedTemperatureFloor.T)
   annotation (Line(points={{79.6,-22},{67,-22},{67,-19.2}}, color={0,0,127}));
   connect(prescribedTemperatureRoof.port, thermalConductorRoof.fluid)
@@ -262,19 +262,19 @@ equation
     annotation (Line(points={{67,42},{66.8,42},{66.8,33}}, color={191,0,0}));
   connect(eqAirTempVDI.TEqAir, prescribedTemperatureRoof.T)
     annotation (Line(
-    points={{51,84},{67,84},{67,71.2}},       color={0,0,127}));
+    points={{51,84},{67,84},{67,71.2}}, color={0,0,127}));
   connect(thermalConductorRoof.Gc, alphaRoof.y)
     annotation (Line(points={{72,47},{78,47},{81.6,47}},color={0,0,127}));
   connect(eqAirTempVDI.TDryBul, eqAirTemp.TDryBul)
     annotation (Line(points={{28,78},{-96,78},{-96,-2},{-38,-2},{-38,-10},{-26,-10}},
-                                                        color={0,0,127}));
+    color={0,0,127}));
   connect(eqAirTempVDI.TBlaSky, eqAirTemp.TBlaSky)
     annotation (Line(points={{28,84},{-34,84},{-34,84},{-98,84},{-98,-8},{-58,-8},
-          {-58,2},{-32,2},{-32,-4},{-26,-4}},
-                color={0,0,127}));
+    {-58,2},{-32,2},{-32,-4},{-26,-4}},
+    color={0,0,127}));
   connect(eqAirTempVDI.HSol[1], weaBus.HGloHor)
     annotation (Line(points={{28,90},{-100,90},{-100,6},{-83,6}},
-                                  color={0,0,127}),Text(
+    color={0,0,127}),Text(
     string="%second",
     index=1,
     extent={{6,3},{6,3}}));
@@ -316,7 +316,7 @@ equation
   April 27, 2016, by Michael Wetter:<br/>
   Removed call to <code>Modelica.Utilities.Files.loadResource</code>
   as this did not work for the regression tests.
-  </li>  
+  </li>
   <li>February 25, 2016,&nbsp; by Moritz Lauster:<br>Implemented. </li>
   </ul>
   </html>"),

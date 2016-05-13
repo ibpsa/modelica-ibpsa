@@ -85,9 +85,10 @@ equation
     -50},{36,-50},{36,-74},{48,-74}},color={0,0,127}));
   connect(thermalZoneTwoElements.intGainsConv, machinesConv.port)
     annotation (
-    Line(points={{92,20},{96,20},{96,-74},{68,-74}},     color={191,0,0}));
-  connect(const.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points={{
-          30.5,31},{36.25,31},{36.25,31},{43,31}}, color={0,0,127}));
+    Line(points={{92,20},{96,20},{96,-74},{68,-74}}, color={191,0,0}));
+  connect(const.y, thermalZoneTwoElements.solRad[1])
+    annotation (Line(points={{
+    30.5,31},{36.25,31},{36.25,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 1 of the VDI 6007 Part 1: Calculation of indoor air temperature

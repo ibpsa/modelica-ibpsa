@@ -189,7 +189,7 @@ equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)
-    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}},   color={191,0,0}));
+    annotation (Line(points={{43.8,12},{40,12},{40,1},{36,1}}, color={191,0,0}));
   connect(alphaWall.y, thermalConductorWall.Gc)
     annotation (Line(points={{30,-13.6},{31,-13.6},{31,-4}}, color={0,0,127}));
   connect(internalGains.y[1], machinesRad.Q_flow)
@@ -198,7 +198,7 @@ equation
   connect(machinesRad.port, thermalZoneTwoElements.intGainsRad)
     annotation (
     Line(points={{68,-88},{84,-88},{98,-88},{98,24},{92.2,24}},
-                                                              color={191,0,0}));
+    color={191,0,0}));
   connect(mFan_flow.y,fan. m_flow_in)
     annotation (Line(
     points={{-73,-20},{-64.2,-20},{-64.2,-30}},
@@ -222,13 +222,13 @@ equation
     {-96,-72},{-24,-72}}, color={0,127,255}));
   connect(thermalZoneTwoElements.TIndAir, hea1.TSet)
     annotation (Line(points={{93,32},{100,32},{100,-66},{-2,-66}},
-                                 color={0,0,127}));
+    color={0,0,127}));
   connect(heat.port, thermalZoneTwoElements.intGainsConv)
     annotation (Line(
-    points={{68,-34},{68,-34},{96,-34},{96,20},{92,20}},     color={191,0,0}));
+    points={{68,-34},{68,-34},{96,-34},{96,20},{92,20}}, color={191,0,0}));
   connect(mFan_flow1.y, fan1.m_flow_in)
     annotation (Line(points={{-75,84},{-66.2,84},{-66.2,74}},
-                           color={0,0,127}));
+    color={0,0,127}));
   connect(fan1.port_b, coo.port_a)
     annotation (Line(points={{-56,62},{-38,62}}, color={0,127,255}));
   connect(coo.port_b, TCooOut.port_a)
@@ -244,12 +244,11 @@ equation
     {-98,36},{-40,36}}, color={0,127,255}));
   connect(thermalZoneTwoElements.TIndAir, coo1.TSet)
     annotation (Line(points={{93,32},{100,32},{100,42},{-18,42}},
-                                color={0,0,127}));
+    color={0,0,127}));
   connect(cool.port, thermalZoneTwoElements.intWallIndoorSurface)
     annotation (
     Line(points={{12,84},{12,84},{16,84},{16,18},{4,18},{4,-26},{44,-26},{44,-8},
-          {56,-8},{56,-2}},
-                         color={191,0,0}));
+    {56,-8},{56,-2}}, color={191,0,0}));
   connect(hea.Q_flow, heat.Q_flow)
     annotation (Line(points={{-3,-36},{14,-36},{
     14,-28},{44,-28},{44,-34},{48,-34}}, color={0,0,127}));
@@ -257,15 +256,15 @@ equation
     annotation (Line(points={{-17,68},{-12,68},{
     -12,84},{-8,84}}, color={0,0,127}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
-    annotation (Line(points={{30.5,31},{43,31}},            color={0,0,127}));
+    annotation (Line(points={{30.5,31},{43,31}}, color={0,0,127}));
   connect(setTemp.y[1], from_degC.u)
     annotation (Line(points={{-39.2,-4},{-27.2,-4}}, color={0,0,127}));
   connect(from_degC.y, hea.TSet) annotation (Line(points={{-13.4,-4},{-6,-4},{
-          -6,-30},{-32,-30},{-32,-36},{-26,-36}}, color={0,0,127}));
+    -6,-30},{-32,-30},{-32,-36},{-26,-36}}, color={0,0,127}));
   connect(setTemp1.y[1], from_degC1.u)
     annotation (Line(points={{-45.2,86},{-39.2,86}}, color={0,0,127}));
   connect(from_degC1.y, coo.TSet) annotation (Line(points={{-25.4,86},{-20,86},
-          {-20,74},{-44,74},{-44,68},{-40,68}}, color={0,0,127}));
+    {-20,74},{-44,74},{-44,68},{-40,68}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 11 of the VDI 6007 Part 1: Calculation of heat load excited with

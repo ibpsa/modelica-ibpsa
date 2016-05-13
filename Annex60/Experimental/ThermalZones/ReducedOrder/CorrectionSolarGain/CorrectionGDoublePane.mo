@@ -21,8 +21,10 @@ protected
   parameter Real A6=4.74*10^(-12)
     "Constant 6 to calculate reference transmission";
   parameter Modelica.SIunits.TransmissionCoefficient g_dir0=0.7537
-    "Reference vertical parallel transmission coefficient for direct radiation for double pane window";
-  parameter Modelica.SIunits.TransmissionCoefficient Ta_diff = 0.84 "Energetic degree of transmission for diffuse radiation for uniformly
+    "Reference vertical parallel transmission coefficient for direct radiation
+    for double pane window";
+  parameter Modelica.SIunits.TransmissionCoefficient Ta_diff = 0.84
+    "Energetic degree of transmission for diffuse radiation for uniformly
     overcast sky";
   parameter Modelica.SIunits.TransmissionCoefficient Tai_diff=0.903
     "Pure degree of transmission for diffuse radiation";
@@ -31,8 +33,9 @@ protected
   parameter Modelica.SIunits.ReflectionCoefficient rho_T1_diff=1-(Ta_diff)
     "Part of degree of transmission for single pane window related to Ta1_diff";
   parameter Modelica.SIunits.ReflectionCoefficient rho_11_diff=rho_T1_diff/
-    (2-(rho_T1_diff)) "Part of degree of transmission for single pane window related to
-    rho_T1_diff";
+    (2-(rho_T1_diff))
+    "Part of degree of transmission for single pane window
+    related to rho_T1_diff";
   parameter Modelica.SIunits.ReflectionCoefficient rho_1_diff= rho_11_diff+
     (((1-rho_11_diff)*Tai_diff)^2*rho_11_diff)/(1-(rho_11_diff*Tai_diff)^2)
     "Degree of reflection for single pane window";
@@ -139,7 +142,7 @@ equation
   <li>
   September 12, 2015 by Moritz Lauster:<br/>
   Adapted to Annex 60 requirements.
-  </li>  
+  </li>
   <li>
   February 24, 2014, by Reza Tavakoli:<br/>
   First implementation.

@@ -66,7 +66,7 @@ model ThermalZoneThreeElements "Thermal Zone with three elements for exterior wa
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a floor if  AFloor > 0
     "Ambient port for floor plate"
     annotation (Placement(transformation(extent={{-10,-190},{10,-170}}),
-                             iconTransformation(extent={{-10,-190},{10,-170}})));
+    iconTransformation(extent={{-10,-190},{10,-170}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resFloorWin(
    G=min(ATotWin, AFloor)*alphaRad) if  ATotWin > 0 and AFloor > 0
     "Resistor between floor plate and windows"
@@ -135,24 +135,22 @@ equation
   end if;
   connect(intWallRC.port_a, resIntWallFloor.port_a)
     annotation (Line(points={{182,-40},{182,-40},{168,-40},{168,-90},{168,-106},
-          {194,-106}},
-                color={191,0,0}));
+    {194,-106}}, color={191,0,0}));
   connect(resFloorWin.port_b, resExtWallFloor.port_b)
     annotation (Line(points={{-80,-120},{-80,-120},{-80,-132},{-144,-132},{-144,
-          -121}},                                             color={191,0,
-    0}));
+    -121}}, color={191,0,0}));
   connect(resExtWallFloor.port_a, convExtWall.solid)
     annotation (Line(
     points={{-144,-101},{-144,-40},{-114,-40}}, color={191,0,0}));
   connect(alphaFloorConst.y, convFloor.Gc)
     annotation (Line(points={{6.5,-116},{6,-116},{-4,-116}},
-                          color={0,0,127}));
+    color={0,0,127}));
   connect(convFloor.fluid, TIndAirSensor.port)
     annotation (Line(points={{-12,-108},{-12,-40},{66,-40},{66,0},{80,0}},
-                                               color={191,0,0}));
+    color={191,0,0}));
   connect(floorRC.port_a, floorIndoorSurface)
     annotation (Line(points={{-12,-137.091},{-12,-137.091},{-12,-132},{-80,-132},
-          {-80,-180}},                                     color={191,0,0}));
+    {-80,-180}}, color={191,0,0}));
   annotation (defaultComponentName="thermZone",
   Diagram(coordinateSystem(
     extent={{-240,-180},{240,180}},
@@ -196,7 +194,7 @@ equation
   </p>
   <p>
   The image below shows the RC-network of this model.
-  </p>  
+  </p>
   <p align=\"center\">
   <img src=\"modelica://Annex60/Resources/Images/Experimental/ThermalZones/ReducedOrder/ROM/ThermalZoneThreeElements/ThreeElements.png\" alt=\"image\"/>
   </p>

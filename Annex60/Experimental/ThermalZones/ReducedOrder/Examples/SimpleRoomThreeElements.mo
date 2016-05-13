@@ -98,7 +98,8 @@ model SimpleRoomThreeElements "Illustrates the use of ThermalZoneThreeElements"
         0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,0,0,0;
         86400,0,0,0],
     columns={2,3,4},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Table with profiles for persons (radiative and convective) and machines
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
+    "Table with profiles for persons (radiative and convective) and machines
     (convective)"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.Constant const[2](each k=0)
@@ -144,7 +145,7 @@ equation
     points={{-4.2,-1.4},{0,-1.4},{0,20},{6.8,20}}, color={0,0,127}));
   connect(eqAirTemp.TEqAir, prescribedTemperature.T)
     annotation (Line(points={{-3,-4},{4,-4},{4,0},{6.8,0}},
-                                        color={0,0,127}));
+    color={0,0,127}));
   connect(weaDat.weaBus, weaBus)
     annotation (Line(
     points={{-78,62},{-74,62},{-74,18},{-84,18},{-84,12},{-83,12},{-83,6}},
@@ -171,27 +172,27 @@ equation
     -52},{28,-52},{28,-74},{48,-74}}, color={0,0,127}));
   connect(const.y, eqAirTemp.sunblind)
     annotation (Line(points={{-13.7,17},{-12,17},{-12,8},{-14,8},{-14,8}},
-                                  color={0,0,127}));
+    color={0,0,127}));
   connect(HDifTil.HSkyDifTil, corGDoublePane.HSkyDifTil)
     annotation (Line(
-    points={{-47,36},{-28,36},{-6,36},{-6,66},{4,66}},     color={0,0,127}));
+    points={{-47,36},{-28,36},{-6,36},{-6,66},{4,66}}, color={0,0,127}));
   connect(HDirTil.H, corGDoublePane.HDirTil)
     annotation (Line(points={{-47,62},{-10,62},{-10,70},{4,70}},
-                              color={0,0,127}));
+    color={0,0,127}));
   connect(HDirTil.H,solRad. u1)
     annotation (Line(points={{-47,62},{-42,62},{-42,
     14},{-39,14}}, color={0,0,127}));
   connect(HDirTil.inc, corGDoublePane.inc)
-    annotation (Line(points={{-47,58},{4,58},{4,58}},   color={0,0,127}));
+    annotation (Line(points={{-47,58},{4,58},{4,58}}, color={0,0,127}));
   connect(HDifTil.H,solRad. u2)
     annotation (Line(points={{-47,30},{-44,30},{-44,
     8},{-39,8}}, color={0,0,127}));
   connect(HDifTil.HGroDifTil, corGDoublePane.HGroDifTil)
     annotation (Line(
-    points={{-47,24},{-4,24},{-4,62},{4,62}},     color={0,0,127}));
+    points={{-47,24},{-4,24},{-4,62},{4,62}}, color={0,0,127}));
   connect(solRad.y, eqAirTemp.HSol)
     annotation (Line(points={{-27.5,11},{-26,11},{-26,2},{-26,2}},
-                          color={0,0,127}));
+    color={0,0,127}));
   connect(weaDat.weaBus, HDifTil[1].weaBus)
     annotation (Line(
     points={{-78,62},{-74,62},{-74,30},{-68,30}},
@@ -215,10 +216,9 @@ equation
   connect(personsRad.port, thermalZoneThreeElements.intGainsRad)
     annotation (
     Line(points={{68,-32},{84,-32},{100,-32},{100,24},{92.2,24}},
-                                                                color={191,0,
-    0}));
+    color={191,0,0}));
   connect(thermalConductorWin.solid, thermalZoneThreeElements.window)
-    annotation (Line(points={{38,21},{40,21},{40,20},{43.8,20}},         color=
+    annotation (Line(points={{38,21},{40,21},{40,20},{43.8,20}}, color=
     {191,0,0}));
   connect(prescribedTemperature1.port, thermalConductorWin.fluid)
     annotation (Line(points={{20,20},{28,20},{28,21}}, color={191,0,0}));
@@ -241,13 +241,13 @@ equation
     extent={{-6,3},{-6,3}}));
   connect(machinesConv.port, thermalZoneThreeElements.intGainsConv)
     annotation (
-    Line(points={{68,-74},{82,-74},{96,-74},{96,20},{92,20}},     color={191,0,
+    Line(points={{68,-74},{82,-74},{96,-74},{96,20},{92,20}}, color={191,0,
     0}));
   connect(personsConv.port, thermalZoneThreeElements.intGainsConv)
     annotation (
-    Line(points={{68,-52},{96,-52},{96,20},{92,20}},     color={191,0,0}));
+    Line(points={{68,-52},{96,-52},{96,20},{92,20}}, color={191,0,0}));
   connect(prescribedTemperatureFloor.port, thermalZoneThreeElements.floor)
-    annotation (Line(points={{67,-6},{68,-6},{68,-2}},     color={191,0,0}));
+    annotation (Line(points={{67,-6},{68,-6},{68,-2}}, color={191,0,0}));
   connect(TSoil.y, prescribedTemperatureFloor.T)
     annotation (Line(points={{79.6,
     -22},{67,-22},{67,-19.2}}, color={0,0,127}));

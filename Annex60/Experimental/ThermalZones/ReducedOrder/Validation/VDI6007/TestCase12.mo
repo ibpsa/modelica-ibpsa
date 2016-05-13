@@ -125,7 +125,8 @@ model TestCase12 "VDI 6007 Test Case 12 model"
     extent={{-5,-5},{5,5}},
     rotation=-90,
     origin={-59,59})));
-  Modelica.Blocks.Math.Product product1 "Solar radiation times g value for sunblind (open or closed) for one
+  Modelica.Blocks.Math.Product product1
+    "Solar radiation times g value for sunblind (open or closed) for one
     direction"
     annotation (Placement(transformation(extent={{-6,65},{4,75}})));
   Modelica.Blocks.Logical.Switch switch1
@@ -222,12 +223,13 @@ equation
     color={0,127,255}));
   connect(personsConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
-    Line(points={{68,-74},{96,-74},{96,20},{92,20}},     color={191,0,0}));
+    Line(points={{68,-74},{96,-74},{96,20},{92,20}}, color={191,0,0}));
   connect(machinesConv.port, thermalZoneTwoElements.intGainsConv)
     annotation (
-    Line(points={{68,-56},{96,-56},{96,20},{92,20}},     color={191,0,0}));
-  connect(product1.y, thermalZoneTwoElements.solRad[1]) annotation (Line(points=
-         {{4.5,70},{12,70},{22,70},{22,31},{43,31}}, color={0,0,127}));
+    Line(points={{68,-56},{96,-56},{96,20},{92,20}}, color={191,0,0}));
+  connect(product1.y, thermalZoneTwoElements.solRad[1])
+    annotation (Line(points=
+    {{4.5,70},{12,70},{22,70},{22,31},{43,31}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 12 of the VDI 6007 Part 1: Calculation of indoor air temperature
