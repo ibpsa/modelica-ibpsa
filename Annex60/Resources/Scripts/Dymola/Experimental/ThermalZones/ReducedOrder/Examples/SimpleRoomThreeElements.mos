@@ -1,4 +1,4 @@
-simulateModel("Annex60.Experimental.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements", stopTime=3.1536e+007, numberOfIntervals=0, outputInterval=3600, method="dassl", resultFile="SimpleRoomThreeElements");
+simulateModel("Annex60.Experimental.ThermalZones.ReducedOrder.Examples.SimpleRoomThreeElements", stopTime=3.1536e+007, numberOfIntervals=0, outputInterval=3600, method="Radau", resultFile="SimpleRoomThreeElements");
 createPlot(id = 1,
  position = {55, 50, 697, 502},
  x = "time",

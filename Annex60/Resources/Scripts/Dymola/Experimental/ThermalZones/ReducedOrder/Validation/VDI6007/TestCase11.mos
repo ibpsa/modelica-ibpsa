@@ -1,4 +1,4 @@
-simulateModel("Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11", stopTime=5.184e+006, numberOfIntervals=0, outputInterval=3600, method="dassl", resultFile="TestCase11");
+simulateModel("Annex60.Experimental.ThermalZones.ReducedOrder.Validation.VDI6007.TestCase11", stopTime=5.184e+006, numberOfIntervals=0, outputInterval=60, method="dassl", resultFile="TestCase11");
 createPlot(id = 1,
  position = {55, 50, 1297, 602},
  x = "time",
@@ -10,7 +10,3 @@ createPlot(id = 1,
  color = true,
  leftTitleType = 1,
  bottomTitleType = 1);
-plotExpression(apply(abs(TestCase11[end].heat.Q_flow+TestCase11[end].cool.Q_flow-TestCase11[end].reference.y[2])), false, "diff", 1);
-plotSignalOperator("diff", SignalOperator.Max, 0, 86400, 0, 1);
-plotSignalOperator("diff", SignalOperator.Max, 777600, 864000, 0, 1);
-plotSignalOperator("diff", SignalOperator.Max, 5097600, 5184000, 0, 1);
