@@ -14,7 +14,7 @@ model VDI6007WithWindow
   Modelica.Blocks.Interfaces.RealOutput TEqAirWindow(final unit="K")
     "Equivalent air temperature for windows (no short-wave radiation)"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
-    iconTransformation(extent={{78,6},{118,46}})));
+    iconTransformation(extent={{100,28},{120,48}})));
 initial equation
   assert(noEvent(abs(sum(wfWall) + wfGround - 1) < 0.1),
   "The sum of the weightfactors (walls and ground)  is <0.9 or >1.1.
@@ -51,7 +51,7 @@ equation
   one as well as the sum for all wall elements.</p>
   </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false,
-  extent={{-100,-100},{100,100}}), graphics),
+  extent={{-100,-100},{100,100}})),
   Diagram(coordinateSystem(preserveAspectRatio=false,
   extent={{-100,-100},{100,100}})));
 end VDI6007WithWindow;

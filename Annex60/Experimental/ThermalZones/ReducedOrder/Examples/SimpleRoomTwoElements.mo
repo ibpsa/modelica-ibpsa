@@ -17,7 +17,7 @@ model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
     "Calculates diffuse solar radiation on titled surface for both directions"
     annotation (Placement(transformation(extent={{-68,20},{-48,40}})));
   BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[2](
-    each til=1.5707963267949,
+    each til(displayUnit="deg") = 1.5707963267949,
     each lat=0.87266462599716,
     azi={3.1415926535898,4.7123889803847})
     "Calculates direct solar radiation on titled surface for both directions"
@@ -26,7 +26,6 @@ model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
     "Correction factor for solar transmission"
     annotation (Placement(transformation(extent={{6,54},{26,74}})));
   ReducedOrderZones.ThermalZoneTwoElements thermalZoneTwoElements(
-    redeclare package Medium = Annex60.Media.Air,
     VAir=52.5,
     alphaExt=2.7,
     alphaWin=2.7,
@@ -43,11 +42,12 @@ model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
     CInt={12391363.86},
     RWin=0.01642857143,
     RExtRem=0.1265217391,
-    T_start=295.15,
     nOrientations=2,
     AWin={7,7},
     ATransparent={7,7},
-    AExt={3.5,8}) "Thermal zone"
+    AExt={3.5,8},
+    redeclare package Medium = Modelica.Media.Air.SimpleAir,
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   EquivalentAirTemperature.VDI6007WithWindow eqAirTemp(
     n=2,
@@ -92,8 +92,7 @@ model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
         0,0,0; 64800,0,0,0; 72000,0,0,0; 75600,0,0,0; 79200,0,0,0; 82800,0,0,0;
         86400,0,0,0],
     columns={2,3,4},
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
-    "Table with profiles for persons (radiative and convective) and machines
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Table with profiles for persons (radiative and convective) and machines
     (convective)"
     annotation (Placement(transformation(extent={{6,-60},{22,-44}})));
   Modelica.Blocks.Sources.Constant const[2](each k=0)
@@ -123,7 +122,7 @@ model SimpleRoomTwoElements "Illustrates the use of ThermalZoneTwoElements"
 equation
   connect(eqAirTemp.TEqAirWindow, prescribedTemperature1.T)
     annotation (Line(
-    points={{-4.2,-1.4},{0,-1.4},{0,20},{6.8,20}}, color={0,0,127}));
+    points={{-3,-0.2},{0,-0.2},{0,20},{6.8,20}},   color={0,0,127}));
   connect(eqAirTemp.TEqAir, prescribedTemperature.T)
     annotation (Line(points={{-3,-4},{4,-4},{4,0},{6.8,0}},
     color={0,0,127}));
@@ -164,7 +163,7 @@ equation
     annotation (Line(points={{-47,62},{-42,62},{-42,
     14},{-39,14}}, color={0,0,127}));
   connect(HDirTil.inc, corGDoublePane.inc)
-    annotation (Line(points={{-47,58},{4,58},{4,58}}, color={0,0,127}));
+    annotation (Line(points={{-47,58},{4,58}},        color={0,0,127}));
   connect(HDifTil.H,solRad. u2)
     annotation (Line(points={{-47,30},{-44,30},{-44,
     8},{-39,8}}, color={0,0,127}));
