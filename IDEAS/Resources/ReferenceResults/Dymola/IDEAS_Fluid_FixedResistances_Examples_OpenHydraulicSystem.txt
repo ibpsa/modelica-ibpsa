@@ -1,0 +1,11 @@
+last-generated=2016-05-13
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "number of continuous time states": "3", 
+  "linear": " "
+}
+bou.medium.T=[283.149993896484375, 283.149993896484375]
+heatedPipe.heatPort.T=[298.149993896484375, 298.149993896484375]
+time=[0., 3600.]
