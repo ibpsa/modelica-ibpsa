@@ -98,8 +98,6 @@ equation
   connect(res.port_a, vol.ports[3]) annotation (Line(points={{60,-20},{52.6667,
           -20},{52.6667,-10}},
                           color={0,127,255}));
-  connect(THeaOut.port_a, mov.port_b) annotation (Line(points={{20,-40},{-50,
-          -40},{-50,-40}}, color={0,127,255}));
   annotation ( Documentation(info="<html>
 <p>
 This partial model is used to construct the models
