@@ -90,7 +90,7 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     "Set temperature for ideal heater/cooler"
     annotation (Placement(transformation(extent={{4,-42},{20,-26}})));
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
-    "convert set temperature from degC to Kelvin"
+    "Convert set temperature from degC to Kelvin"
     annotation (Placement(transformation(extent={{34,-40},{46,-28}})));
 equation
   connect(thermalZoneTwoElements.extWall, thermalConductorWall.solid)

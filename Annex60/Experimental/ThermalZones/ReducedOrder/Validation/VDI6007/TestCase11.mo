@@ -63,7 +63,7 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         853200,26.6,-500; 856800,26.5,-500; 860400,26.4,-500; 864000,26.2,-500;
         5101200,26.1,-500; 5104800,26,-500; 5108400,25.8,-500; 5112000,25.7,-500;
         5115600,25.6,-500; 5119200,27,126; 5122800,27,76; 5126400,27,28;
-        5130000,27,-121; 5133600,27,-391; 5137200,27,-500; 5140800,27.1,-500;
+        5130000,27,-122; 5133600,27,-391; 5137200,27,-500; 5140800,27.1,-500;
         5144400,27.2,-500; 5148000,27.3,-500; 5151600,27.4,-500; 5155200,27.5,-500;
         5158800,27.6,-500; 5162400,27,-500; 5166000,26.9,-500; 5169600,26.7,-500;
         5173200,26.6,-500; 5176800,26.5,-500; 5180400,26.4,-500])
@@ -81,84 +81,12 @@ model TestCase11 "VDI 6007 Test Case 11 model"
     origin={30,-18})));
   Modelica.Blocks.Sources.Constant const(k=0) "Solar radiation"
     annotation (Placement(transformation(extent={{20,26},{30,36}})));
-  Fluid.Movers.FlowControlled_m_flow fan(
-    m_flow_nominal=m_flow_nominal,
-    addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare package Medium = Medium,
-    T_start=295.15) "Fan"
-    annotation (Placement(transformation(extent={{-74,-52},{-54,-32}})));
-  Modelica.Blocks.Sources.Constant mFan_flow(k=m_flow_nominal)
-    "Mass flow rate of the fan"
-    annotation (Placement(transformation(extent={{-94,-30},{-74,-10}})));
-  Fluid.Sensors.TemperatureTwoPort THeaOut(m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium) "Outlet temperature of the heater"
-    annotation (Placement(transformation(extent={{16,-52},{36,-32}})));
-  Fluid.HeatExchangers.HeaterCooler_T hea(
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=1000,
-    Q_flow_maxHeat=500,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare package Medium = Medium,
-    Q_flow_maxCool=0,
-    T_start=295.15) "Heater"
-    annotation (Placement(transformation(extent={{-24,-52},{-4,-32}})));
-  Fluid.Sources.FixedBoundary bou(nPorts=1,
-    redeclare package Medium = Medium,
-    T=295.15)
-    "Fixed pressure boundary condition, required to set a reference pressure"
-    annotation (Placement(transformation(extent={{-58,-98},{-78,-78}})));
-  Fluid.HeatExchangers.HeaterCooler_T hea1(
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=1000,
-    Q_flow_maxHeat=500,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare package Medium = Medium,
-    Q_flow_maxCool=-500,
-    T_start=295.15) "Heater to align temperature in circuit and zone"
-    annotation (Placement(transformation(extent={{-4,-82},{-24,-62}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heat
     "Ideal heater with limit"
-    annotation (Placement(transformation(extent={{48,-44},{68,-24}})));
-  Fluid.Movers.FlowControlled_m_flow fan1(
-    m_flow_nominal=m_flow_nominal,
-    addPowerToMedium=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare package Medium = Medium,
-    T_start=295.15) "Fan"
-    annotation (Placement(transformation(extent={{-76,52},{-56,72}})));
-  Modelica.Blocks.Sources.Constant mFan_flow1(k=m_flow_nominal)
-    "Mass flow rate of the fan"
-    annotation (Placement(transformation(extent={{-96,74},{-76,94}})));
-  Fluid.Sensors.TemperatureTwoPort TCooOut(m_flow_nominal=m_flow_nominal,
-    redeclare package Medium = Medium) "Outlet temperature of the cooler"
-    annotation (Placement(transformation(extent={{-12,52},{8,72}})));
-  Fluid.HeatExchangers.HeaterCooler_T coo(
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=1000,
-    Q_flow_maxCool=-500,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare package Medium = Medium,
-    Q_flow_maxHeat=0,
-    T_start=295.15) "Cooler"
-    annotation (Placement(transformation(extent={{-38,52},{-18,72}})));
-  Fluid.Sources.FixedBoundary bouCoo(nPorts=1,
-    redeclare package Medium = Medium,
-    T=295.15)
-    "Fixed pressure boundary condition, required to set a reference pressure"
-    annotation (Placement(transformation(extent={{-60,6},{-80,26}})));
-  Fluid.HeatExchangers.HeaterCooler_T coo1(
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=1000,
-    Q_flow_maxHeat=500,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    redeclare package Medium = Medium,
-    Q_flow_maxCool=0,
-    T_start=295.15) "Cooler to align temperature in circuit and zone"
-    annotation (Placement(transformation(extent={{-20,26},{-40,46}})));
+    annotation (Placement(transformation(extent={{66,-44},{86,-24}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow cool(T_ref=295.15)
     "Ideal cooler with limit"
-    annotation (Placement(transformation(extent={{-8,74},{12,94}})));
+    annotation (Placement(transformation(extent={{2,76},{22,96}})));
   Modelica.Blocks.Sources.CombiTimeTable setTemp(
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     columns={2},
@@ -168,23 +96,34 @@ model TestCase11 "VDI 6007 Test Case 11 model"
         50400,27; 54000,27; 57600,27; 61200,27; 64800,27; 64800.1,22; 72000,22;
         75600,22; 79200,22; 82800,22; 86400,22])
     "Set temperature for ideal heater/cooler"
-    annotation (Placement(transformation(extent={{-56,-12},{-40,4}})));
+    annotation (Placement(transformation(extent={{-96,16},{-80,32}})));
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
-    "convert set temperature from degC to Kelvin"
-    annotation (Placement(transformation(extent={{-26,-10},{-14,2}})));
-  Modelica.Blocks.Sources.CombiTimeTable setTemp1(
-    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
-    columns={2},
-    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
-    table=[0,22; 3600,22; 7200,22; 10800,22; 14400,22; 18000,22; 21600,22;
-        21600.1,27; 28800,27; 32400,27; 36000,27; 39600,27; 43200,27; 46800,27;
-        50400,27; 54000,27; 57600,27; 61200,27; 64800,27; 64800.1,22; 72000,22;
-        75600,22; 79200,22; 82800,22; 86400,22])
-    "Set temperature for ideal heater/cooler"
-    annotation (Placement(transformation(extent={{-62,78},{-46,94}})));
-  Modelica.Blocks.Math.UnitConversions.From_degC from_degC1
-    "convert set temperature from degC to Kelvin"
-    annotation (Placement(transformation(extent={{-38,80},{-26,92}})));
+    "Convert set temperature from degC to Kelvin"
+    annotation (Placement(transformation(extent={{-74,18},{-62,30}})));
+  Modelica.Blocks.Math.Gain gainHea(k=500) "Gain for heating"
+    annotation (Placement(transformation(extent={{-16,-40},{-4,-28}})));
+  Controls.Continuous.LimPID conHeaCoo(
+    yMin=-1,
+    k=0.1,
+    Td=5,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    yMax=1,
+    Ti=4) "Heating and cooling controller"
+    annotation (Placement(transformation(extent={{-48,16},{-32,32}})));
+  Modelica.Blocks.Math.Gain gainCoo(k=500) "Gain for cooling"
+    annotation (Placement(transformation(extent={{-16,80},{-4,92}})));
+  Modelica.Blocks.Logical.Switch switchCoo "Switch to limit cooling power"
+    annotation (Placement(transformation(extent={{-46,81},{-36,91}})));
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold1(threshold=0)
+    "Threshold for sunblind for one direction"
+    annotation (Placement(transformation(
+    extent={{-5,-5},{5,5}},
+    rotation=0,
+    origin={-67,51})));
+  Modelica.Blocks.Sources.Constant DefPow(k=0) "Default power"
+    annotation (Placement(transformation(extent={{-90,-4},{-82,4}})));
+  Modelica.Blocks.Logical.Switch switchHea "Switch to limit heating power"
+    annotation (Placement(transformation(extent={{-44,-39},{-34,-29}})));
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
     annotation (Line(points={{26,1},{24,1},{24,0},{20,0}}, color={191,0,0}));
@@ -199,72 +138,45 @@ equation
     annotation (
     Line(points={{68,-88},{84,-88},{98,-88},{98,24},{92.2,24}},
     color={191,0,0}));
-  connect(mFan_flow.y,fan. m_flow_in)
-    annotation (Line(
-    points={{-73,-20},{-64.2,-20},{-64.2,-30}},
-    color={0,0,127}));
-  connect(fan.port_b,hea. port_a)
-    annotation (Line(
-    points={{-54,-42},{-24,-42}},
-    color={0,127,255}));
-  connect(hea.port_b,THeaOut. port_a)
-    annotation (Line(
-    points={{-4,-42},{16,-42}},
-    color={0,127,255}));
-  connect(fan.port_a, bou.ports[1])
-    annotation (Line(points={{-74,-42},{-96,-42},
-    {-96,-88},{-78,-88}}, color={0,127,255}));
-  connect(THeaOut.port_b, hea1.port_a)
-    annotation (Line(points={{36,-42},{38,-42},
-    {38,-72},{2,-72},{-4,-72}}, color={0,127,255}));
-  connect(fan.port_a, hea1.port_b)
-    annotation (Line(points={{-74,-42},{-96,-42},
-    {-96,-72},{-24,-72}}, color={0,127,255}));
-  connect(thermalZoneTwoElements.TIndAir, hea1.TSet)
-    annotation (Line(points={{93,32},{100,32},{100,-66},{-2,-66}},
-    color={0,0,127}));
   connect(heat.port, thermalZoneTwoElements.intGainsConv)
     annotation (Line(
-    points={{68,-34},{68,-34},{96,-34},{96,20},{92,20}}, color={191,0,0}));
-  connect(mFan_flow1.y, fan1.m_flow_in)
-    annotation (Line(points={{-75,84},{-66.2,84},{-66.2,74}},
-    color={0,0,127}));
-  connect(fan1.port_b, coo.port_a)
-    annotation (Line(points={{-56,62},{-38,62}}, color={0,127,255}));
-  connect(coo.port_b, TCooOut.port_a)
-    annotation (Line(points={{-18,62},{-12,62}}, color={0,127,255}));
-  connect(fan1.port_a, bouCoo.ports[1])
-    annotation (Line(points={{-76,62},{-98,
-    62},{-98,16},{-80,16}}, color={0,127,255}));
-  connect(TCooOut.port_b, coo1.port_a)
-    annotation (Line(points={{8,62},{10,62},
-    {10,36},{-20,36}}, color={0,127,255}));
-  connect(fan1.port_a, coo1.port_b)
-    annotation (Line(points={{-76,62},{-98,62},
-    {-98,36},{-40,36}}, color={0,127,255}));
-  connect(thermalZoneTwoElements.TIndAir, coo1.TSet)
-    annotation (Line(points={{93,32},{100,32},{100,42},{-18,42}},
-    color={0,0,127}));
+    points={{86,-34},{86,-34},{96,-34},{96,20},{92,20}}, color={191,0,0}));
   connect(cool.port, thermalZoneTwoElements.intWallIndoorSurface)
     annotation (
-    Line(points={{12,84},{12,84},{16,84},{16,18},{4,18},{4,-26},{44,-26},{44,-8},
-    {56,-8},{56,-2}}, color={191,0,0}));
-  connect(hea.Q_flow, heat.Q_flow)
-    annotation (Line(points={{-3,-36},{14,-36},{
-    14,-28},{44,-28},{44,-34},{48,-34}}, color={0,0,127}));
-  connect(coo.Q_flow, cool.Q_flow)
-    annotation (Line(points={{-17,68},{-12,68},{
-    -12,84},{-8,84}}, color={0,0,127}));
+    Line(points={{22,86},{26,86},{26,84},{26,84},{26,72},{4,72},{4,-24},{44,-24},
+          {44,-6},{56,-6},{56,-2}},
+                      color={191,0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{43,31}}, color={0,0,127}));
-  connect(setTemp.y[1], from_degC.u)
-    annotation (Line(points={{-39.2,-4},{-27.2,-4}}, color={0,0,127}));
-  connect(from_degC.y, hea.TSet) annotation (Line(points={{-13.4,-4},{-6,-4},{
-    -6,-30},{-32,-30},{-32,-36},{-26,-36}}, color={0,0,127}));
-  connect(setTemp1.y[1], from_degC1.u)
-    annotation (Line(points={{-45.2,86},{-39.2,86}}, color={0,0,127}));
-  connect(from_degC1.y, coo.TSet) annotation (Line(points={{-25.4,86},{-20,86},
-    {-20,74},{-44,74},{-44,68},{-40,68}}, color={0,0,127}));
+  connect(setTemp.y[1],from_degC. u) annotation (Line(points={{-79.2,24},{-75.2,
+          24}},                    color={0,0,127}));
+  connect(gainHea.y, heat.Q_flow)
+    annotation (Line(points={{-3.4,-34},{66,-34}},          color={0,0,127}));
+  connect(gainCoo.y, cool.Q_flow)
+    annotation (Line(points={{-3.4,86},{2,86}}, color={0,0,127}));
+  connect(switchHea.y, gainHea.u) annotation (Line(points={{-33.5,-34},{-33.5,
+          -34},{-17.2,-34}}, color={0,0,127}));
+  connect(DefPow.y, switchHea.u3) annotation (Line(points={{-81.6,0},{-81.6,0},
+          {-56,0},{-56,-38},{-45,-38}}, color={0,0,127}));
+  connect(from_degC.y, conHeaCoo.u_s)
+    annotation (Line(points={{-61.4,24},{-49.6,24}}, color={0,0,127}));
+  connect(switchCoo.y, gainCoo.u) annotation (Line(points={{-35.5,86},{-26.75,
+          86},{-17.2,86}}, color={0,0,127}));
+  connect(conHeaCoo.y, greaterThreshold1.u) annotation (Line(points={{-31.2,24},
+          {-28,24},{-28,40},{-76,40},{-76,51},{-73,51}}, color={0,0,127}));
+  connect(greaterThreshold1.y, switchCoo.u2) annotation (Line(points={{-61.5,51},
+          {-54,51},{-54,86},{-47,86}}, color={255,0,255}));
+  connect(DefPow.y, switchCoo.u1) annotation (Line(points={{-81.6,0},{-76,0},{
+          -76,14},{-98,14},{-98,90},{-47,90}}, color={0,0,127}));
+  connect(greaterThreshold1.y, switchHea.u2) annotation (Line(points={{-61.5,51},
+          {-54,51},{-54,-34},{-45,-34}}, color={255,0,255}));
+  connect(conHeaCoo.y, switchCoo.u3) annotation (Line(points={{-31.2,24},{-24,
+          24},{-24,74},{-52,74},{-52,82},{-47,82}}, color={0,0,127}));
+  connect(conHeaCoo.y, switchHea.u1) annotation (Line(points={{-31.2,24},{-24,
+          24},{-24,-24},{-50,-24},{-50,-30},{-45,-30}}, color={0,0,127}));
+  connect(thermalZoneTwoElements.TIndAir, conHeaCoo.u_m) annotation (Line(
+        points={{93,32},{96,32},{96,44},{-20,44},{-20,8},{-40,8},{-40,14.4}},
+        color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 11 of the VDI 6007 Part 1: Calculation of heat load excited with

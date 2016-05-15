@@ -91,13 +91,15 @@ model TestCase7 "VDI 6007 Test Case 7 model"
   Modelica.Blocks.Math.UnitConversions.From_degC from_degC
     "convert set temperature from degC to Kelvin"
     annotation (Placement(transformation(extent={{-38,-42},{-26,-30}})));
-  Controls.Continuous.LimPID conHea(
+  Controls.Continuous.LimPID conHeaCoo(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMax=1,
     yMin=-1,
     k=0.1,
-    Ti=5)   annotation (Placement(transformation(extent={{-18,-44},{-2,-28}})));
-  Modelica.Blocks.Math.Gain gainHea(k=500)
+    Ti=5) "Heating and cooling controller"
+    annotation (Placement(transformation(extent={{-18,-44},{-2,-28}})));
+  Modelica.Blocks.Math.Gain gainHeaCoo(k=500)
+    "Gain for heating and cooling controller"
     annotation (Placement(transformation(extent={{8,-42},{20,-30}})));
 equation
   connect(thermalConductorWall.fluid, prescribedTemperature.port)
@@ -117,16 +119,17 @@ equation
         points={{84,-36},{84,-36},{96,-36},{96,20},{92,20}}, color={191,0,0}));
   connect(const.y, thermalZoneTwoElements.solRad[1])
     annotation (Line(points={{30.5,31},{36.25,31},{43,31}}, color={0,0,127}));
-  connect(from_degC.y, conHea.u_s)
+  connect(from_degC.y, conHeaCoo.u_s)
     annotation (Line(points={{-25.4,-36},{-19.6,-36}}, color={0,0,127}));
-  connect(thermalZoneTwoElements.TIndAir, conHea.u_m) annotation (Line(points={{93,32},
-          {100,32},{100,-54},{-10,-54},{-10,-45.6}},         color={0,0,127}));
-  connect(conHea.y, gainHea.u)
+  connect(thermalZoneTwoElements.TIndAir, conHeaCoo.u_m) annotation (Line(
+        points={{93,32},{100,32},{100,-54},{-10,-54},{-10,-45.6}}, color={0,0,
+          127}));
+  connect(conHeaCoo.y, gainHeaCoo.u)
     annotation (Line(points={{-1.2,-36},{6.8,-36}}, color={0,0,127}));
-  connect(gainHea.y, heaCoo.Q_flow) annotation (Line(points={{20.6,-36},{40,-36},
-          {60,-36},{64,-36}},          color={0,0,127}));
+  connect(gainHeaCoo.y, heaCoo.Q_flow) annotation (Line(points={{20.6,-36},{40,
+          -36},{60,-36},{64,-36}}, color={0,0,127}));
   connect(setTemp.y[1], from_degC.u) annotation (Line(points={{-51.2,-36},{
-          -39.2,-36},{-39.2,-36}}, color={0,0,127}));
+          -39.2,-36}},             color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
   -100},{100,100}})), Documentation(info="<html>
   <p>Test Case 7 of the VDI 6007 Part 1: Calculation of heat load excited with a
