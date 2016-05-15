@@ -39,11 +39,12 @@ model borefield8x8WithVariableLoad
     m_flow_nominal=bfData.m_flow_nominal,
     T_start=bfData.gen.T_start)
     annotation (Placement(transformation(extent={{38,-50},{58,-30}})));
-  IDEAS.Fluid.Movers.FlowMachine_m_flow pum(
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium,
-    dynamicBalance=false,
     T_start=bfData.gen.T_start,
-    m_flow_nominal=bfData.m_flow_nominal)
+    m_flow_nominal=bfData.m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-16,40},{-36,20}})));
   Modelica.Blocks.Sources.Constant mFlo(k=bfData.m_flow_nominal)
     annotation (Placement(transformation(extent={{-60,-18},{-48,-6}})));

@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses.Structure;
 model Bui195 "BESTEST Building model case 195"
 
-  extends IDEAS.Interfaces.BaseClasses.Structure(
+  extends IDEAS.Templates.Interfaces.BaseClasses.Structure(
     final nZones=1, final nEmb=0,
     ATrans=1,
     VZones={gF.V});
@@ -20,11 +20,11 @@ protected
   IDEAS.Buildings.Components.OuterWall[4] wall(
     redeclare final parameter Data.Constructions.LightWall_195 constructionType,
     redeclare final parameter Data.Insulation.fiberglass insulationType,
-    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
-        IDEAS.Constants.West},
+    final azi={IDEAS.Types.Azimuth.N,IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,
+        IDEAS.Types.Azimuth.W},
     final insulationThickness={0.066,0.066,0.066,0.066},
-    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,
-        IDEAS.Constants.Wall},
+    final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,
+        IDEAS.Types.Tilt.Wall},
     final AWall={21.6,16.2,21.6,16.2})
                                annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -36,8 +36,8 @@ protected
     redeclare final parameter Data.Insulation.insulation insulationType,
     final insulationThickness=1.003,
     final AWall=48,
-    final inc=IDEAS.Constants.Floor,
-    final azi=IDEAS.Constants.South) annotation (Placement(transformation(
+    final inc=IDEAS.Types.Tilt.Floor,
+    final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-19,-14})));
@@ -46,8 +46,8 @@ protected
     redeclare final parameter Data.Insulation.fiberglass insulationType,
     final insulationThickness=0.1118,
     final AWall=48,
-    final inc=IDEAS.Constants.Ceiling,
-    final azi=IDEAS.Constants.South) annotation (Placement(transformation(
+    final inc=IDEAS.Types.Tilt.Ceiling,
+    final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-79,-14})));
@@ -67,17 +67,17 @@ equation
       smooth=Smooth.None));
 
   connect(roof.propsBus_a, gF.propsBus[1]) annotation (Line(
-      points={{-83,-9},{-83,31.3333},{40,31.3333}},
+      points={{-81,-9},{-81,31.3333},{40,31.3333}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(wall.propsBus_a, gF.propsBus[2:5]) annotation (Line(
-      points={{-53,-9},{-53,26},{40,26}},
+      points={{-51,-9},{-51,26},{40,26}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(floor.propsBus_a, gF.propsBus[6]) annotation (Line(
-      points={{-23,-9},{-23,24.6667},{40,24.6667}},
+      points={{-21,-9},{-21,24.6667},{40,24.6667}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

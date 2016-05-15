@@ -10,7 +10,7 @@ parameter Modelica.SIunits.Volume[nZones] VZones
 final parameter Modelica.SIunits.Length C = sum(VZones)/ATrans
     "Building compactness";
 
-  outer IDEAS.Climate.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data" annotation (Placement(transformation(extent={{130,-100},{150,-80}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nZones] heatPortCon
     "Internal zone nodes for convective heat gains" annotation (Placement(transformation(extent={{140,10},{160,30}}),

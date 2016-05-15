@@ -6,15 +6,15 @@ model WindowThermalBridge "Comparison of three window dynamics options"
       nPorts=1)
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  inner SimInfoManager sim
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
   Window window(
     A=1,
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
     windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Two,
-    inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South)
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
   OuterWall outerWall(
     azi=0,
@@ -23,7 +23,7 @@ model WindowThermalBridge "Comparison of three window dynamics options"
     redeclare parameter IDEAS.Buildings.Data.Insulation.Glasswool insulationType,
     AWall=10,
     insulationThickness=0,
-    inc=IDEAS.Constants.Floor)
+    inc=IDEAS.Types.Tilt.Floor)
     annotation (Placement(transformation(extent={{-54,0},{-44,20}})));
   Zone zone1(
     redeclare package Medium = Medium,
@@ -36,8 +36,8 @@ model WindowThermalBridge "Comparison of three window dynamics options"
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
     windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.None,
-    inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South,
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S,
     redeclare ThermalBridges.LineLosses briType)
     annotation (Placement(transformation(extent={{-54,-32},{-44,-12}})));
   Window window2(
@@ -45,8 +45,8 @@ model WindowThermalBridge "Comparison of three window dynamics options"
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
     windowDynamicsType=IDEAS.Buildings.Components.BaseClasses.WindowDynamicsType.Combined,
-    inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South,
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S,
     redeclare Interfaces.ThermalBridge briType(G=5))
     annotation (Placement(transformation(extent={{-54,-56},{-44,-36}})));
 equation

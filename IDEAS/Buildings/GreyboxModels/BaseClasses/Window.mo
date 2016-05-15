@@ -14,7 +14,7 @@ model Window "multipane window"
     constrainedby IDEAS.Buildings.Data.Interfaces.Glazing "glazing type";
 
 protected
-  IDEAS.Climate.Meteo.Solar.RadSol radSol(
+  IDEAS.BoundaryConditions.Climate.Meteo.Solar.RadSol radSol(
     inc=inc,
     azi=azi,
     A=A)
@@ -29,7 +29,7 @@ protected
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a solGain
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
 

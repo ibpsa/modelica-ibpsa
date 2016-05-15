@@ -5,8 +5,7 @@ model ConvertRelativeHumidity
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity conRelHum
     "Block that converts relative humidity"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  IDEAS.Utilities.Time.ModelTime modTim
-    "Block that outputs simulation time"
+  IDEAS.Utilities.Time.ModelTime modTim "Block that outputs simulation time"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   IDEAS.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
     "Block that converts time"

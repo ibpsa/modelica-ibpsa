@@ -26,7 +26,7 @@ protected
     annotation (Placement(transformation(extent={{-60,4},{-52,12}})));
   Modelica.Blocks.Math.Gain gainDif(k=AWall)
     annotation (Placement(transformation(extent={{-60,0},{-52,8}})));
-  Climate.Meteo.Solar.RadSolData radSolData(
+  BoundaryConditions.Climate.Meteo.Solar.RadSolData radSolData(
     inc=inc,
     azi=azi,
     numAzi=sim.numAzi,
@@ -77,7 +77,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(radSolData.weaBus, propsBus_a.weaBus) annotation (Line(
-      points={{-74,14},{-74,39.9},{50.1,39.9}},
+      points={{-74,14},{-74,19.9},{100.1,19.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -86,11 +86,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(extCon.Te, propsBus_a.weaBus.Te) annotation (Line(
-      points={{-22,-22.8},{50.1,-22.8},{50.1,39.9}},
+      points={{-22,-22.8},{100.1,-22.8},{100.1,19.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(extCon.hConExt, propsBus_a.weaBus.hConExt) annotation (Line(
-      points={{-22,-27},{50.1,-27},{50.1,39.9}},
+      points={{-22,-27},{100.1,-27},{100.1,19.9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Tdes.u, propsBus_a.weaBus.Tdes);

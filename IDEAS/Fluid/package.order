@@ -1,6 +1,5 @@
 UsersGuide
 Actuators
-BaseCircuits
 Chillers
 Delays
 Taps
@@ -14,7 +13,6 @@ Production
 Sensors
 Sources
 Storage
-Valves
 Types
 Examples
 Interfaces

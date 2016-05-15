@@ -30,7 +30,7 @@ model HP_GroundWater_TSet2
     final hIn=inStream(port_a.h_outflow),
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,-16},{-40,4}})));
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-82,66},{-62,86}})));
 
 public

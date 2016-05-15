@@ -7,15 +7,15 @@ model HeatPump_WaterWater
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
   constant SI.MassFlowRate m_flow_nominal=0.3 "Nominal mass flow rate";
-  Fluid.Movers.Pump pump(
-    m=1,
-    useInput=false,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
+    tau=30,
     m_flow_nominal=2550/3600,
-    dpFix=50000,
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    dp_nominal = 50000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{40,42},{20,62}})));
-  inner IDEAS.SimInfoManager sim
+  inner IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Modelica.Blocks.Sources.Sine sine(
     offset=273.15 + 50,
@@ -28,11 +28,13 @@ model HeatPump_WaterWater
     p=200000,
     nPorts=8)
     annotation (Placement(transformation(extent={{70,72},{50,52}})));
-  Fluid.Movers.Pump pump1(
-    m=1,
-    useInput=false,
+
+   IDEAS.Fluid.Movers.FlowControlled_m_flow pump1(
     redeclare package Medium = Medium,
+    tau=30,
     m_flow_nominal=4200/3600,
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    dp_nominal = 50000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-60,78},{-40,98}})));
   Sources.Boundary_pT bou1(         redeclare package Medium = Medium,
@@ -61,20 +63,20 @@ model HeatPump_WaterWater
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-10,70})));
-  Fluid.Movers.Pump pump2(
-    m=1,
-    useInput=false,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump2(
     redeclare package Medium = Medium,
+    tau=30,
     m_flow_nominal=scaling*2550/3600,
-    dpFix=50000,
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    dp_nominal = 50000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{40,-78},{20,-58}})));
-  Fluid.Movers.Pump pump3(
-    m=1,
-    useInput=false,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump3(
     redeclare package Medium = Medium,
+    tau=30,
     m_flow_nominal=scaling*4200/3600,
-    dpFix=50000,
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    dp_nominal = 50000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-58,-52},{-38,-32}})));
   replaceable HP_WaterWater_OnOff HP_scaling(
@@ -106,19 +108,21 @@ model HeatPump_WaterWater
   Sensors.TemperatureTwoPort TWater_out_scaling(redeclare package Medium =
         Medium, m_flow_nominal=scaling*2550/3600)
     annotation (Placement(transformation(extent={{20,-58},{40,-38}})));
-  Fluid.Movers.Pump pump4(
-    m=1,
-    useInput=false,
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump4(
     redeclare package Medium = Medium,
+    tau=30,
     m_flow_nominal=2550/3600,
-    dpFix=50000,
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    dp_nominal = 50000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{38,-22},{18,-2}})));
-  Fluid.Movers.Pump pump5(
-    m=1,
-    useInput=false,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump5(
     redeclare package Medium = Medium,
+    tau=30,
     m_flow_nominal=4200/3600,
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    dp_nominal = 50000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-62,14},{-42,34}})));
   replaceable HP_WaterWater_OnOff HP_onOff_mod(
@@ -152,20 +156,20 @@ model HeatPump_WaterWater
     period=200,
     offset=0.5)
     annotation (Placement(transformation(extent={{-6,-26},{-18,-14}})));
-  Fluid.Movers.Pump pump6(
-    m=1,
-    useInput=false,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump6(
     redeclare package Medium = Medium,
+    tau=30,
     m_flow_nominal=scaling*2550/3600,
-    dpFix=50000,
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    dp_nominal = 50000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{44,-134},{24,-114}})));
-  Fluid.Movers.Pump pump7(
-    m=1,
-    useInput=false,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump7(
     redeclare package Medium = Medium,
+    tau=30,
     m_flow_nominal=scaling*4200/3600,
-    dpFix=50000,
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    dp_nominal = 50000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-54,-108},{-34,-88}})));
   replaceable HP_WaterWater_OnOff HP_modSec(

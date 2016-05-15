@@ -24,7 +24,7 @@ model PVSystemGeneral "PV system with separate shut-down controller"
     numPha] annotation (Placement(transformation(extent={{92,30},{112,50}},
           rotation=0)));
 
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   IDEAS.Electric.Photovoltaics.Components.PvArray pvArray(
     amount=amount,

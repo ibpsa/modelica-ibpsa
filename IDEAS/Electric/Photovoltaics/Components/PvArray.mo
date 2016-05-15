@@ -22,7 +22,7 @@ class PvArray
   IDEAS.Electric.Photovoltaics.Components.Elements.incidenceAngles incidenceAngles(azi=azi,
       inc=inc)
     annotation (Placement(transformation(extent={{-38,20},{-18,40}})));
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   IDEAS.Electric.Photovoltaics.Components.Elements.absorption absorption
     annotation (Placement(transformation(extent={{22,20},{42,40}})));

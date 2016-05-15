@@ -18,8 +18,9 @@ model UsePVGeneral
   Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.PowerSensor
     powerSensorPVFile
     annotation (Placement(transformation(extent={{-20,-14},{0,6}})));
-  inner IDEAS.SimInfoManager sim(redeclare IDEAS.Climate.Meteo.Locations.Uccle
-      city, redeclare IDEAS.Climate.Meteo.Files.min15 detail)
+  inner IDEAS.BoundaryConditions.SimInfoManager sim(redeclare
+      IDEAS.Climate.Meteo.Locations.Uccle city, redeclare
+      IDEAS.Climate.Meteo.Files.min15 detail)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   inner IDEAS.Electric.Photovoltaics.Components.ForInputFiles.PVProfileReader PV1(fileName=
         "../Inputs/PV_Inc20_Azi0.txt")

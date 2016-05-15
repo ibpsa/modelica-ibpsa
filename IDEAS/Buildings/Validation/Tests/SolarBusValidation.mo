@@ -9,12 +9,12 @@ model SolarBusValidation
       wall(radSolData(each solDataInBus=false)),
       win(radSolData(each solDataInBus=false))))
     annotation (Placement(transformation(extent={{-56,-16},{-44,-4}})));
-  inner SimInfoManager       sim(
+  inner BoundaryConditions.SimInfoManager sim(
     filNam="BESTEST.TMY",
     lat=0.69464104229374,
     lon=-1.8308503853421,
     timZonSta=-28800)
-              annotation (Placement(transformation(extent={{-76,82},{-66,92}})));
+    annotation (Placement(transformation(extent={{-76,82},{-66,92}})));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Documentation(info="<html>

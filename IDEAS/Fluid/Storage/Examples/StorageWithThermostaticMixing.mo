@@ -16,22 +16,22 @@ model StorageWithThermostaticMixing
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-20,-62},{-70,10}})));
 
-  Fluid.Valves.Thermostatic3WayValve temperatureMixing(
+  Fluid.Actuators.Valves.Simplified.Thermostatic3WayValve temperatureMixing(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal)
               annotation (Placement(transformation(extent={{2,16},{22,36}})));
   Modelica.Blocks.Sources.Pulse pulse(
     startTime=7*3600,
     width=50,
-    amplitude=0.5,
-    period=5000)
+    period=5000,
+    amplitude=0.5*m_flow_nominal)
     annotation (Placement(transformation(extent={{16,66},{36,86}})));
-  Fluid.Movers.Pump pump1(
-    m=0,
-    useInput=true,
-    m_flow_nominal=m_flow_nominal,
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump1(
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal=m_flow_nominal,
+    tau=30,
+    filteredSpeed=false,
     T_start=283.15)
     annotation (Placement(transformation(extent={{38,16},{58,36}})));
   IDEAS.Fluid.Sources.Boundary_pT bou(
@@ -58,10 +58,6 @@ equation
       points={{22,26},{38,26}},
       color={255,0,0},
       smooth=Smooth.None));
-  connect(pulse.y, pump1.m_flowSet) annotation (Line(
-      points={{37,76},{48,76},{48,36.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(bou.ports[1], pump1.port_b) annotation (Line(
       points={{72,26},{58,26}},
       color={0,127,255},
@@ -78,10 +74,11 @@ equation
       points={{-33,78},{12,78},{12,36}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(pulse.y, pump1.m_flow_in)
+    annotation (Line(points={{37,76},{47.8,76},{47.8,38}}, color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics),
+            100,100}})),
     Documentation(info="<html>
 <p>The mixing control changes as the storage tank gets colder, until the desired outlet temperature can no longer be reached. </p>
 <p><u>Remark</u></p>

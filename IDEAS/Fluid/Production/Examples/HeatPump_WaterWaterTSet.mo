@@ -28,21 +28,23 @@ model HeatPump_WaterWaterTSet
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-2,0})));
-  Movers.Pump       pump1(
-    m=1,
-    useInput=false,
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump1(
     redeclare package Medium = Medium,
-    m_flow_nominal=4200/3600)
+    tau=30,
+    m_flow_nominal=4200/3600,
+    inputType=IDEAS.Fluid.Types.InputType.Constant)
     annotation (Placement(transformation(extent={{-52,8},{-32,28}})));
   Sensors.TemperatureTwoPort TBrine_out(redeclare package Medium = Medium,
       m_flow_nominal=4200/3600)
     annotation (Placement(transformation(extent={{-32,-28},{-52,-8}})));
-  Movers.Pump       pump(
-    m=1,
-    useInput=false,
+
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
     redeclare package Medium = Medium,
+    tau=30,
     m_flow_nominal=2550/3600,
-    dpFix=50000)
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    dp_nominal=50000)
     annotation (Placement(transformation(extent={{48,-28},{28,-8}})));
   Sensors.TemperatureTwoPort TWater_out(redeclare package Medium = Medium,
       m_flow_nominal=2550/3600)

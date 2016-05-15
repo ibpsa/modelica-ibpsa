@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Components.Interfaces;
 partial model PartialSurface "Partial model for building envelope component"
 
-  outer IDEAS.SimInfoManager sim
+  outer IDEAS.BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{30,-100},{50,-80}})));
 

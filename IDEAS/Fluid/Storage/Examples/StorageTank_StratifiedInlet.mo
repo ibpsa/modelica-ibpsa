@@ -21,11 +21,11 @@ model StorageTank_StratifiedInlet
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-58,14},{-38,34}})));
 
-  Fluid.Movers.Pump pump(
-    m=1,
+            IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
+    redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    useInput=true,
-    redeclare package Medium = Medium)
+    tau=30,
+    filteredSpeed=false)
     annotation (Placement(transformation(extent={{-14,-2},{-34,-22}})));
   IDEAS.Fluid.FixedResistances.Pipe_HeatPort heatedPipe(
     m=2,
@@ -35,7 +35,7 @@ model StorageTank_StratifiedInlet
     annotation (Placement(transformation(extent={{-58,-2},{-78,-22}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=1000)
     annotation (Placement(transformation(extent={{-96,-54},{-76,-34}})));
-  Modelica.Blocks.Sources.Pulse pulse(period=400)
+  Modelica.Blocks.Sources.Pulse pulse(period=400, amplitude=m_flow_nominal)
     annotation (Placement(transformation(extent={{-56,-68},{-36,-48}})));
   Modelica.Fluid.Sources.Boundary_pT boundary(
     redeclare package Medium = Medium,
@@ -43,14 +43,10 @@ model StorageTank_StratifiedInlet
     p=200000) annotation (Placement(transformation(extent={{42,-42},{22,-22}})));
 
 equation
-    der(H_tot) = (sum(der(storageTank.nodes.vol.T)*storageTank.nodes.m)+ der(pump.vol.T)*pump.m+ der(heatedPipe.vol.T)*heatedPipe.m)*Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default));
+    der(H_tot) = (sum(der(storageTank.nodes.vol.T)*storageTank.nodes.m)+ der(pump.vol.T)*pump.vol.V_nominal*pump.rho_default+ der(heatedPipe.vol.T)*heatedPipe.m)*Medium.specificHeatCapacityCp(Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default));
   connect(fixedHeatFlow.port, heatedPipe.heatPort) annotation (Line(
       points={{-76,-44},{-68,-44},{-68,-22}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(pulse.y, pump.m_flowSet) annotation (Line(
-      points={{-35,-58},{-24,-58},{-24,-22.4}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(stratifiedInlet.port_b, storageTank.ports) annotation (Line(
       points={{-38.2,24},{-16,24},{-16,24.7692},{8,24.7692}},
@@ -72,9 +68,11 @@ equation
       points={{-78,-12},{-90,-12},{-90,24},{-58,24}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(pulse.y, pump.m_flow_in) annotation (Line(points={{-35,-58},{-30,-58},
+          {-23.8,-58},{-23.8,-24}}, color={0,0,127}));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-            graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     experiment(StopTime=10000),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>

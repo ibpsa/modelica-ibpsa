@@ -5,16 +5,20 @@ model OpenHydraulicSystem "Illustrate the use of the ambient model"
   extends Modelica.Icons.Example;
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater
     annotation (__Dymola_choicesAllMatching=true);
-  Fluid.FixedResistances.Pipe_Insulated heatedPipe(
+  Fluid.FixedResistances.InsulatedPipe heatedPipe(
     m=5,
     UA=10,
     redeclare package Medium = Medium,
-    m_flow_nominal=1)
+    m_flow_nominal=1,
+    T_start=283.15)
            annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Fluid.Movers.Pump pump(
-    m=4,
+  IDEAS.Fluid.Movers.FlowControlled_m_flow pump(
+    redeclare package Medium = Medium,
+    tau=30,
     m_flow_nominal=0.1,
-    redeclare package Medium = Medium)
+    inputType=IDEAS.Fluid.Types.InputType.Constant,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=298.15)
     annotation (Placement(transformation(extent={{-52,-46},{-32,-26}})));
@@ -34,7 +38,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(fixedTemperature.port, heatedPipe.heatPort) annotation (Line(
-      points={{-32,-36},{-10,-36},{-10,0}},
+      points={{-32,-36},{-10,-36},{-10,14}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pump.port_b, bou.ports[2]) annotation (Line(
@@ -54,5 +58,8 @@ Annex60 compatibility
 </ul>
 </html>"),
     experiment(StopTime=3600),
-    __Dymola_experimentSetupOutput);
+    __Dymola_experimentSetupOutput,
+    __Dymola_Commands(file=
+          "modelica://IDEAS/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/OpenHydraulicSystem.mos"
+        "Simulate and plot"));
 end OpenHydraulicSystem;

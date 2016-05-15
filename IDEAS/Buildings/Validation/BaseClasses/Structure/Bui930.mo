@@ -1,7 +1,7 @@
 within IDEAS.Buildings.Validation.BaseClasses.Structure;
 model Bui930 "BESTEST Building model case 930"
 
-  extends IDEAS.Interfaces.BaseClasses.Structure(
+  extends IDEAS.Templates.Interfaces.BaseClasses.Structure(
     final nZones=1, final nEmb=0,
     ATrans=1,
     VZones={gF.V});
@@ -13,10 +13,10 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
     annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   IDEAS.Buildings.Components.OuterWall[4] wall(
-    final azi={IDEAS.Constants.North,IDEAS.Constants.East,IDEAS.Constants.South,
-        IDEAS.Constants.West},
-    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall,IDEAS.Constants.Wall,
-        IDEAS.Constants.Wall},
+    final azi={IDEAS.Types.Azimuth.N,IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.S,
+        IDEAS.Types.Azimuth.W},
+    final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall,
+        IDEAS.Types.Tilt.Wall},
     redeclare final parameter Data.Constructions.HeavyWall constructionType,
     redeclare final parameter Data.Insulation.foaminsulation insulationType,
     final insulationThickness={0.0615,0.0615,0.0615,0.0615},
@@ -28,8 +28,8 @@ protected
   IDEAS.Buildings.Components.BoundaryWall floor(
     redeclare final parameter Data.Insulation.insulation insulationType,
     final AWall=48,
-    final inc=IDEAS.Constants.Floor,
-    final azi=IDEAS.Constants.South,
+    final inc=IDEAS.Types.Tilt.Floor,
+    final azi=IDEAS.Types.Azimuth.S,
     redeclare final parameter Data.Constructions.HeavyFloor constructionType,
     final insulationThickness=1.007) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
@@ -38,8 +38,8 @@ protected
   IDEAS.Buildings.Components.Window[2] win(
     final A={6,6},
     redeclare final parameter Data.Glazing.GlaBesTest glazing,
-    final inc={IDEAS.Constants.Wall,IDEAS.Constants.Wall},
-    final azi={IDEAS.Constants.East,IDEAS.Constants.West},
+    final inc={IDEAS.Types.Tilt.Wall,IDEAS.Types.Tilt.Wall},
+    final azi={IDEAS.Types.Azimuth.E,IDEAS.Types.Azimuth.W},
     redeclare replaceable IDEAS.Buildings.Components.Shading.Box shaType(
       each hWin=2.0,
       each wWin=3.0,
@@ -61,8 +61,8 @@ protected
     redeclare final parameter Data.Insulation.fiberglass insulationType,
     final insulationThickness=0.1118,
     final AWall=48,
-    final inc=IDEAS.Constants.Ceiling,
-    final azi=IDEAS.Constants.South) annotation (Placement(transformation(
+    final inc=IDEAS.Types.Tilt.Ceiling,
+    final azi=IDEAS.Types.Azimuth.S) annotation (Placement(transformation(
         extent={{-5,-10},{5,10}},
         rotation=90,
         origin={-79,-14})));
@@ -86,22 +86,22 @@ equation
       smooth=Smooth.None));
 
     connect(roof.propsBus_a, gF.propsBus[1]) annotation (Line(
-      points={{-83,-9},{-83,31.5},{40,31.5}},
+      points={{-81,-9},{-81,31.5},{40,31.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(wall.propsBus_a, gF.propsBus[2:5]) annotation (Line(
-      points={{-53,-9},{-53,27.5},{40,27.5}},
+      points={{-51,-9},{-51,27.5},{40,27.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(floor.propsBus_a, gF.propsBus[6]) annotation (Line(
-      points={{-23,-9},{-23,26.5},{40,26.5}},
+      points={{-21,-9},{-21,26.5},{40,26.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(win.propsBus_a, gF.propsBus[7:8]) annotation (Line(
-      points={{7,-9},{7,24.5},{40,24.5}},
+      points={{9,-9},{9,24.5},{40,24.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));

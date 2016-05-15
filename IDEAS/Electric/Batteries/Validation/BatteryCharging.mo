@@ -18,7 +18,7 @@ protected
     DOD_max=0.8)
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 public
-  inner SimInfoManager       sim
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 

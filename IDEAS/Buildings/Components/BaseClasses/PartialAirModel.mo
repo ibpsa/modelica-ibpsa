@@ -26,7 +26,7 @@ model PartialAirModel "Partial for an air model"
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
-  outer SimInfoManager       sim
+  outer BoundaryConditions.SimInfoManager sim
     "Simulation information manager for climate data"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] ports_air

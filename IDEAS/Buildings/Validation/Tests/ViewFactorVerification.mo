@@ -4,12 +4,12 @@ model ViewFactorVerification
 
   extends Modelica.Icons.Example;
 
-  inner IDEAS.SimInfoManager sim(
+  inner IDEAS.BoundaryConditions.SimInfoManager sim(
     filNam="BESTEST.TMY",
     lat=0.69464104229374,
     lon=-1.8308503853421,
     timZonSta=-28800)
-              annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
+    annotation (Placement(transformation(extent={{-92,68},{-82,78}})));
 
   replaceable Cases.Case900 CaseVf(building(gF(calculateViewFactor=true)))
     constrainedby Interfaces.BesTestCase

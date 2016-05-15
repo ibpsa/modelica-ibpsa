@@ -21,7 +21,7 @@ model ZoneExample
   Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 
-  inner SimInfoManager sim
+  inner BoundaryConditions.SimInfoManager sim
     annotation (Placement(transformation(extent={{-96,76},{-76,96}})));
   InternalWall
              commonWall1(
@@ -31,7 +31,7 @@ model ZoneExample
     insulationThickness=0.1,
     AWall=10,
     azi=0,
-    inc=IDEAS.Constants.Wall)
+    inc=IDEAS.Types.Tilt.Wall)
     annotation (Placement(transformation(extent={{-5,-10},{5,10}},
         rotation=90,
         origin={11,-38})));
@@ -40,8 +40,8 @@ model ZoneExample
     redeclare parameter IDEAS.Buildings.Data.Glazing.Ins2 glazing,
     redeclare IDEAS.Buildings.Components.Shading.Screen shaType,
     redeclare IDEAS.Buildings.Data.Frames.Pvc fraType,
-    inc=IDEAS.Constants.Wall,
-    azi=IDEAS.Constants.South)
+    inc=IDEAS.Types.Tilt.Wall,
+    azi=IDEAS.Types.Azimuth.S)
     annotation (Placement(transformation(extent={{-54,-82},{-44,-62}})));
   SlabOnGround slabOnGround(
     redeclare parameter IDEAS.Buildings.Validation.Data.Constructions.LightWall
@@ -71,7 +71,7 @@ model ZoneExample
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 equation
   connect(commonWall.propsBus_a, zone.propsBus[1]) annotation (Line(
-      points={{-44,12},{-12,12},{-12,-4.5},{20,-4.5}},
+      points={{-44,10},{-12,10},{-12,-4.5},{20,-4.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -80,22 +80,22 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(commonWall1.propsBus_a, zone.propsBus[2]) annotation (Line(
-      points={{7,-33},{6,-33},{6,-5.5},{20,-5.5}},
+      points={{9,-33},{6,-33},{6,-5.5},{20,-5.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(window.propsBus_a, zone1.propsBus[2]) annotation (Line(
-      points={{-44,-68},{6,-68},{6,-57},{20,-57}},
+      points={{-44,-70},{6,-70},{6,-57},{20,-57}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(outerWall.propsBus_a, zone.propsBus[4]) annotation (Line(
-      points={{-44,-44},{-12,-44},{-12,-7.5},{20,-7.5}},
+      points={{-44,-46},{-12,-46},{-12,-7.5},{20,-7.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(slabOnGround.propsBus_a, zone.propsBus[3]) annotation (Line(
-      points={{-44,34},{-12,34},{-12,-6.5},{20,-6.5}},
+      points={{-44,32},{-12,32},{-12,-6.5},{20,-6.5}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
