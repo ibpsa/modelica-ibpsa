@@ -25,8 +25,8 @@ model TestCase6 "VDI 6007 Test Case 6 model"
     CExt={1600800},
     RInt={0.000595515},
     CInt={14836200},
-    T_start=295.15,
-    RExtRem=0.038959197) "Thermal zone"
+    RExtRem=0.038959197,
+    T_start=295.15) "Thermal zone"
     annotation (Placement(transformation(extent={{44,-2},{92,34}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature prescribedTemperature(T=295.15)
     "Outdoor air temperature"
