@@ -2,6 +2,7 @@ within Annex60.Experimental.Pipe.Examples;
 package UseCases "A collection of use cases to systematically test the pipe model - see info section"
 extends Modelica.Icons.ExamplesPackage;
 
+
 annotation (Documentation(info="<html>
 <h1 id=\"use-cases-for-pipe-model\">Use cases for pipe model</h1>
 <p>This documentation defines use cases for the development of a new pipe model with
@@ -55,23 +56,23 @@ model. The pressure difference between <code>source</code> and <code>sink</code>
 is the supply temperature at <code>source</code>.</p>
 <p>The main focus of this use case is that the model checks <code>True</code> in pedantic mode
 and simulates without warnings or errors.</p>
-<h3 id=\"ucpipea02\">UCPipeA02</h3>
+<h3 id=\"ucpipea02-flow-\">UCPipeA02 &quot;Flow&quot;</h3>
 <p>This use case aims at demonstrating the functionality of the pipe with varying
 flow velocities. The pressure difference between <code>source</code> and <code>sink</code> is varied
 as a sine function to reach flow velocities between 0 and 5 m/s.The supply
 temperature at <code>source</code> is kept constant.</p>
 <p>The pipe model should vary mass flows according to the pressure states at both
 its ends, with larger pressure differences leading to higher mass flow rates.</p>
-<h3 id=\"ucpipea03\">UCPipeA03</h3>
+<h3 id=\"ucpipea03-temperature-\">UCPipeA03 &quot;Temperature&quot;</h3>
 <p>This use case aims at demonstrating the functionality of the pipe with varying
 temperatures. The pressure difference between <code>source</code> and <code>sink</code> is kept
-constant.The supply temperature is varied as a ramp function between 0 and 130
+constant. The supply temperature is varied as a ramp function between 0 and 130
 degC, as the current <em>Annex60</em> media implementation does not allow temperatures
 higher than 129 degC.</p>
 <p>The pipe model should simulate successfully over the whole temperature range. In
 the case with heat losses taken into account, higher temperatures should lead to
 higher heat losses.</p>
-<h3 id=\"ucpipea04\">UCPipeA04</h3>
+<h3 id=\"ucpipea04-zero-flow-\">UCPipeA04 &quot;Zero Flow&quot;</h3>
 <p>This use case aims at showing the model behavior with longer intervals of zero
 mass flow. Therefore, the pressure difference between <code>source</code> and <code>sink</code> varies
 pseudo-randomly between intervals of different values for different lengths,
@@ -79,6 +80,10 @@ some of them with a pressure difference of 0 resulting in zero mass flow. The
 supply temperature at <code>source</code> is kept constant.</p>
 <p>In the case with heat losses taken into account, there should be realistic heat
 losses also during intervals of zero mass flow.</p>
+<h3 id=\"ucpipea05-temperature-step-\">UCPipeA05 &quot;Temperature Step&quot;</h3>
+<p>This use case aims at showing the model behavior for a simple temperature wave propagation. The pressure difference between <code>source</code> and <code>sink</code> is kept
+constant, while the supply temperature gets increased by a step of 10 K, so that a temperature wave can propagate through the pipe.</p>
+<p>Temperature waves should be propagated correctly through the pipe.</p>
 <h2 id=\"type-b-flow-reversal\">Type B: Flow reversal</h2>
 <h3 id=\"ucpipeb01\">UCPipeB01</h3>
 <p>This use case aims at demonstrating the correct behavior of the pipe model for
