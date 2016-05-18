@@ -33,12 +33,14 @@ losses (identified as <em>AD</em> for &quot;adiabatic&quot;) and including heat 
 errors.</p>
 <h2 id=\"range-of-applications\">Range of applications</h2>
 <p>With the pipe model designed for applications in district heating and cooling
-network modeling, it is intended for a temperature range between 1 and 200 °C.
-It is assumed, that the pressure level is always sufficient to ensure that the
-medium is always liquid, i.e. no phase changes are accounted for in the model.
-The main applications regarding flow velocities range from 0 to 5 m/s. The pipe
-model should be usable in large networks with at least 1000 individual pipe
-elements, which may include loops in the network topology.</p>
+network modeling, it is intended for a temperature range between 0 and 200 degC.
+Yet, as the current <em>Annex60</em> media implementation for water does not allow
+temperatures above 130 degC, this is used as the upper limit for the use case
+models. It is assumed, that the pressure level is always sufficient to ensure
+that the medium is always liquid, i.e. no phase changes are accounted for in the
+model. The main applications regarding flow velocities range from 0 to 5 m/s.
+The pipe model should be usable in large networks with at least 1000 individual
+pipe elements, which may include loops in the network topology.</p>
 <h2 id=\"type-a-no-flow-reversal\">Type A: No flow reversal</h2>
 <p><em>Type A</em> cases aim at verifying the temperature wave propagation behavior in the
 simplest case for single pipes without flow reversal.</p>
@@ -63,8 +65,9 @@ its ends, with larger pressure differences leading to higher mass flow rates.</p
 <h3 id=\"ucpipea03\">UCPipeA03</h3>
 <p>This use case aims at demonstrating the functionality of the pipe with varying
 temperatures. The pressure difference between <code>source</code> and <code>sink</code> is kept
-constant.The supply temperature is varied as a ramp function between 1 and 200
-°C.</p>
+constant.The supply temperature is varied as a ramp function between 0 and 130
+degC, as the current <em>Annex60</em> media implementation does not allow temperatures
+higher than 129 degC.</p>
 <p>The pipe model should simulate successfully over the whole temperature range. In
 the case with heat losses taken into account, higher temperatures should lead to
 higher heat losses.</p>
