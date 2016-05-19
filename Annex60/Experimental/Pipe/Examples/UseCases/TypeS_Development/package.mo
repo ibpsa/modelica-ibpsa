@@ -2,6 +2,7 @@ within Annex60.Experimental.Pipe.Examples.UseCases;
 package TypeS_Development "Special use cases for development"
 extends Modelica.Icons.ExamplesPackage;
 
+
 annotation (Documentation(info="<html>
 <h2 id=\"type-s-special-use-cases-for-development\">Type S: Special use cases for development</h2>
 <p>These use cases demonstrate detailed behavior within the context of model

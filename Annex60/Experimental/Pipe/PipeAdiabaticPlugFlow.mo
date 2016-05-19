@@ -133,6 +133,7 @@ equation
           fillPattern=FillPattern.HorizontalCylinder)}),
     Documentation(revisions="<html>
 <ul>
+<li>May 19, 2016 by Marcus Fuchs:<br>Add current issue and link to example in documentation.</li>
 <li>April 2, 2016 by Bram van der Heijde:<br>Add volumes and pipe capacity at inlet and outlet of the pipe.</li>
 <li>October 10, 2015 by Marcus Fuchs:<br>Copy Icon from KUL implementation and rename model. </li>
 <li>June 23, 2015 by Marcus Fuchs:<br>First implementation. </li>
@@ -140,5 +141,7 @@ equation
 </html>", info="<html>
 <p>First implementation of an adiabatic pipe using the fixed resistance from Annex60 and the spatialDistribution operator for the temperature wave propagation through the length of the pipe. The temperature propagation is handled by the PipeLosslessPlugFlow component.</p>
 <p>This component includes water volumes at the in- and outlet to account for the thermal capacity of the pipe walls. Logically, each volume should contain half of the pipe&apos;s real water volume. However, this leads to an overestimation, probably because only part of the pipe is affected by temperature changes (see Benonysson, 1991). The ratio of the pipe to be included in the thermal capacity is to be investigated further. </p>
+<p><b><a name=\"current-issues\">C</a>urrent issues</b></p>
+<p>Model causes errors in pedantic mode as shown in <a href=\"modelica://Annex60.Experimental.Pipe.Examples.UseCases.TypeS_Development.UCPipeS01AD_Friction\">Annex60.Experimental.Pipe.Examples.UseCases.TypeS_Development.UCPipeS01AD_Friction</a> </p>
 </html>"));
 end PipeAdiabaticPlugFlow;
