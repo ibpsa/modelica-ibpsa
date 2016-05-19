@@ -26,7 +26,7 @@ development require additional special use cases, these can be grouped as <em>Ty
 S</em>.</p>
 <p>All of these types can be further distinguished for cases without modeling heat
 losses (identified as <em>AD</em> for &quot;adiabatic&quot;) and including heat loss modeling
-(identified as <em>HL</em> for &quot;heat losses&quot;). For example models using the pipe model from the <em>Modelica Standard Library</em>, the suffix <em>MSL</em> can be appended instead.</p>
+(identified as <em>HL</em> for &quot;heat losses&quot;). For example models using the pipe model from the <em>Modelica Standard Library</em>, the suffix <em>_MSL</em> can be appended additionally.</p>
 <p>All use cases of a certain type are numbered with two digits.</p>
 <p>Thus, a unique identifier for a use case follows the format <em>UCPipe</em> + <em>type</em> +
 <em>two-digit-number</em> + <em>heat-loss-id</em> , which results in e.g. <em>UCPipeA01HL</em></p>

@@ -5,6 +5,8 @@ model UCPipeS01AD_Friction
   extends Modelica.Icons.Example;
 
   package Medium = Annex60.Media.Water;
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 0.9
+    "Nominal mass flow rate";
 
   parameter Modelica.SIunits.Pressure dp_test = 200
     "Differential pressure for the test used in ramps";
@@ -34,19 +36,19 @@ model UCPipeS01AD_Friction
   Modelica.Blocks.Math.Add add "Combine input signal of two ramps"
     annotation (Placement(transformation(extent={{-118,50},{-98,70}})));
   Fluid.Sensors.TemperatureTwoPort TempSinkSin(redeclare package Medium =
-        Medium, m_flow_nominal=0.5)
+        Medium, m_flow_nominal=m_flow_nominal)
     "Temperature at the pipe's sink side for single pipe"
     annotation (Placement(transformation(extent={{56,20},{76,40}})));
   Fluid.Sensors.TemperatureTwoPort TempSourceSin(redeclare package Medium =
-        Medium, m_flow_nominal=0.5)
+        Medium, m_flow_nominal=m_flow_nominal)
     "Temperature at the pipe's source side for single pipe"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   PipeAdiabaticPlugFlow            pipeMSL100(
     redeclare package Medium = Medium,
     length=100,
     diameter=0.1,
-    m_flow_nominal=0.9,
-    m_flow_small=1e-4) "Dynamic pipe from MSL for reference test"
+    m_flow_small=1e-4,
+    m_flow_nominal=m_flow_nominal) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Ramp reverseDP(
     duration=1800,
@@ -64,26 +66,26 @@ model UCPipeS01AD_Friction
     "Mass flow rate sensor for the two pipes in series"
     annotation (Placement(transformation(extent={{88,-40},{108,-20}})));
   Fluid.Sensors.TemperatureTwoPort TempSinkSer(redeclare package Medium =
-        Medium, m_flow_nominal=0.5)
+        Medium, m_flow_nominal=m_flow_nominal)
     "Temperature at the pipe's sink side for pipes in series"
     annotation (Placement(transformation(extent={{56,-40},{76,-20}})));
   Fluid.Sensors.TemperatureTwoPort TempSourceSer(redeclare package Medium =
-        Medium, m_flow_nominal=0.5)
+        Medium, m_flow_nominal=m_flow_nominal)
     "Temperature at the pipe's source side for pipes in series"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   PipeAdiabaticPlugFlow            pipeMSL50_1(
     redeclare package Medium = Medium,
     diameter=0.1,
     length=50,
-    m_flow_nominal=0.9,
-    m_flow_small=1e-4) "Dynamic pipe from MSL for reference test"
+    m_flow_small=1e-4,
+    m_flow_nominal=m_flow_nominal) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   PipeAdiabaticPlugFlow            pipeMSL50_2(
     redeclare package Medium = Medium,
     diameter=0.1,
     length=50,
-    m_flow_nominal=0.9,
-    m_flow_small=1e-4) "Dynamic pipe from MSL for reference test"
+    m_flow_small=1e-4,
+    m_flow_nominal=m_flow_nominal) "Dynamic pipe from MSL for reference test"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 equation
   connect(PAtm.y,sink. p_in)
